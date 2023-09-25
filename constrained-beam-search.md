@@ -1,29 +1,15 @@
 ---
 title: Guiding Text Generation with Constrained Beam Search in 🤗 Transformers
 thumbnail: /blog/assets/53_constrained_beam_search/thumbnail.png
+authors:
+- user: cwkeam
+  guest: true
 ---
 
-<h1>
-	Guiding Text Generation with Constrained Beam Search in 🤗 Transformers
-</h1>
+# Guiding Text Generation with Constrained Beam Search in 🤗 Transformers
 
-<div class="blog-metadata">
-    <small>Published March 11, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/constrained-beam-search.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/cwkeam">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8522953?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>cwkeam</code>
-            <span class="fullname">Chan Woo Kim</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/53_constrained_beam_search.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
@@ -312,7 +298,7 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
     Wie alt sind Sie?
 
 
-You can define one yourself and input it into the `constraints` keyword argument to design your unique constraints. You just have to create a sub-class of the `Constraint` abstract interface class and follow its requirements. You can find more information in the definition of `Constraint` found [here](https://github.com/huggingface/transformers/blob/master/src/transformers/generation_beam_constraints.py).
+You can define one yourself and input it into the `constraints` keyword argument to design your unique constraints. You just have to create a sub-class of the `Constraint` abstract interface class and follow its requirements. You can find more information in the definition of `Constraint` found [here](https://github.com/huggingface/transformers/blob/main/src/transformers/generation/beam_constraints.py).
 
 Some unique ideas (not yet implemented; maybe you can give it a try!) include constraints like `OrderedConstraints`, `TemplateConstraints` that may be added further down the line. Currently, the generation is fulfilled by including the sequences, wherever in the output. For example, a previous example had one sequence with scared -> screaming and the other with screamed -> scared. `OrderedConstraints` could allow the user to specify the order in which these constraints are fulfilled. 
 
@@ -360,5 +346,3 @@ Like the ones above, many new research papers are exploring ways of using extern
 Thanks to everybody that gave guidance for this feature contribution: Patrick von Platen for being involved from the [initial issue](https://github.com/huggingface/transformers/issues/14081) to the [final PR](https://github.com/huggingface/transformers/pull/15761), and Narsil Patry, for providing detailed feedback on the code.
 
 *Thumbnail of this post uses an icon with the attribution: <a href="https://www.flaticon.com/free-icons/shorthand" title="shorthand icons">Shorthand icons created by Freepik - Flaticon</a>*
-
-

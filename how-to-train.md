@@ -1,16 +1,14 @@
 ---
 title: How to train a new language model from scratch using Transformers and Tokenizers
 thumbnail: /blog/assets/01_how-to-train/how-to-train_blogpost.png
+authors:
+- user: julien-c
 ---
 
 <h1>How to train a new language model from scratch using Transformers and Tokenizers</h1>
 
-<div class="blog-metadata">
-    <small>Published Feb 14, 2020. Last update May 15.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/how-to-train.md">
-        Update on GitHub
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/01_how_to_train.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
@@ -116,7 +114,7 @@ t a
 
 What is great is that our tokenizer is optimized for Esperanto. Compared to a generic tokenizer trained for English, more native words are represented by a single, unsplit token. Diacritics, i.e. accented characters used in Esperanto – `ĉ`, `ĝ`, `ĥ`, `ĵ`, `ŝ`, and `ŭ` – are encoded natively. We also represent sequences in a more efficient manner. Here on this corpus, the average length of encoded sequences is ~30% smaller as when using the pretrained GPT-2 tokenizer.
 
-Here’s  how you can use it in `tokenizers`, including handling the RoBERTa special tokens – of course, you’ll also be able to use it directly from `transformers`.
+Here’s how you can use it in `tokenizers`, including handling the RoBERTa special tokens – of course, you’ll also be able to use it directly from `transformers`.
 
 ```python
 from tokenizers.implementations import ByteLevelBPETokenizer
@@ -144,7 +142,7 @@ print(
 
 **Update:** The associated Colab notebook uses our new [`Trainer`](https://github.com/huggingface/transformers/blob/master/src/transformers/trainer.py) directly, instead of through a script. Feel free to pick the approach you like best.
 
-We will now train our language model using the [`run_language_modeling.py`](https://github.com/huggingface/transformers/blob/master/examples/language-modeling/run_language_modeling.py) script from `transformers` (newly renamed from `run_lm_finetuning.py` as it now supports training from scratch more seamlessly). Just remember to leave `--model_name_or_path` to `None` to train from scratch vs. from an existing model or checkpoint.
+We will now train our language model using the [`run_language_modeling.py`](https://github.com/huggingface/transformers/blob/main/examples/legacy/run_language_modeling.py) script from `transformers` (newly renamed from `run_lm_finetuning.py` as it now supports training from scratch more seamlessly). Just remember to leave `--model_name_or_path` to `None` to train from scratch vs. from an existing model or checkpoint.
 
 > We’ll train a RoBERTa-like model, which is a BERT-like with a couple of changes (check the [documentation](https://huggingface.co/transformers/model_doc/roberta.html) for more details).
 
@@ -292,7 +290,7 @@ With more complex prompts, you can probe whether your language model captured mo
 
 We now can fine-tune our new Esperanto language model on a downstream task of **Part-of-speech tagging.**
 
-As mentioned before, Esperanto is a highly regular language where word endings typically condition the grammatical part of speech. Using a dataset of annotated  Esperanto POS tags formatted in the CoNLL-2003 format (see example below), we can use the [`run_ner.py`](https://github.com/huggingface/transformers/blob/master/examples/token-classification/run_ner.py) script from `transformers`.
+As mentioned before, Esperanto is a highly regular language where word endings typically condition the grammatical part of speech. Using a dataset of annotated  Esperanto POS tags formatted in the CoNLL-2003 format (see example below), we can use the [`run_ner.py`](https://github.com/huggingface/transformers/blob/main/examples/pytorch/token-classification/run_ner.py) script from `transformers`.
 
 > POS tagging is a token classification task just as NER so we can just use the exact same script.
 

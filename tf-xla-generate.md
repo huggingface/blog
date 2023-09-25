@@ -1,28 +1,14 @@
 ---
 title: 'Faster Text Generation with TensorFlow and XLA'
 thumbnail: /blog/assets/91_tf_xla_generate/thumbnail.png
+authors:
+- user: joaogante
 ---
 
-<h1>
-    Faster Text Generation with TensorFlow and XLA
-</h1>
+# Faster Text Generation with TensorFlow and XLA
 
-<div class="blog-metadata">
-    <small>Published July 27, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/tf_xla_generate.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/joaogante">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1641203017724-noauth.png?w=200&h=200&f=face">
-        <div class="bfc">
-            <code>joaogante</code>
-            <span class="fullname">João Gante</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <em>TL;DR</em>: Text Generation on 🤗 `transformers` using TensorFlow can now be compiled with XLA. It is up to 100x
 faster than before, and [even faster than PyTorch](https://huggingface.co/spaces/joaogante/tf_xla_generate_benchmarks)
@@ -373,7 +359,7 @@ comparing Hugging Face's text generation on multiple GPU models for the two main
 
 <div class="hidden xl:block">
 <div style="display: flex; flex-direction: column; align-items: center;">
-<iframe src="https://hf.space/embed/joaogante/tf_xla_generate_benchmarks/+" frameBorder="0" width="1200px" height="760px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<iframe src="https://joaogante-tf-xla-generate-benchmarks.hf.space" frameBorder="0" width="1200px" height="760px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
 </div>
 </div>
 

@@ -1,32 +1,14 @@
 ---
 title: "Director of Machine Learning Insights [Part 3: Finance Edition]"
 thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
+authors:
+- user: britneymuller
 ---
 
-<html>
-<head>
-<style>
-.grandmahugs {
-  margin: 25px;
-}
-</style>
 <h1>Director of Machine Learning Insights [Part 3: Finance Edition]</h1>
 
-<div class="blog-metadata">
-    <small>Published June 14, 2022.</small>
-</div>
-
-<div class="author-card">
-    <a href="/britneymuller">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1645809068511-5ef0ce775e979253a010ef4c.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>britneymuller</code>
-            <span class="fullname">Britney Muller</span>
-        </div>
-    </a>
-</div>
-</head>
-<body>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 _If you're interested in building ML solutions faster visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_3) today!_
 
@@ -44,7 +26,7 @@ You’ll hear from a juniors Greek National Tennis Champion, a published author 
 
 _Disclaimer: All views are from individuals and not from any past or current employers._
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Ioannis-Bakagiannis.jpeg"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Ioannis-Bakagiannis.jpeg"></a>  
 
 ### [Ioannis Bakagiannis](https://www.linkedin.com/in/bakagiannisioannis//) - Director of Machine Learning, Marketing Science at [RBC](https://www.rbcroyalbank.com/personal.html)
 
@@ -91,7 +73,7 @@ Currently, we are good at solving individual problems: computer vision, the next
 
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Debanjan-Mahata.jpeg"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Debanjan-Mahata.jpeg"></a>  
 
 ### [Debanjan Mahata](https://www.linkedin.com/in/debanjanmahata/) - Director of AI & ML at [Moody's Analytics](https://www.moodysanalytics.com/) / Ex Research Scientist @ Bloomberg AI 
 
@@ -132,7 +114,7 @@ One of the key useful traits of ML is that it can learn from and find hidden pat
 I am really blown away by how modern ML models have been learning rich representations of text, audio, images, videos, code and so on using self-supervised learning on large amounts of data. The future is certainly multi-modal and there has been consistent progress in understanding multi-modal content through the lens of ML. I think this is going to play a crucial role in the near future and I am excited by it and looking forward to being a part of these advances. 
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Soumitri-Kolavennu.jpeg"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Soumitri-Kolavennu.jpeg"></a>  
 
 ### [Soumitri Kolavennu](https://www.linkedin.com/in/soumitri-kolavennu-2b47376/) - Artificial Intelligence Leader - Enterprise Analytics & AI at [U.S. Bank](https://www.usbank.com/index.html)
 
@@ -176,6 +158,3 @@ Big thanks to Soumitri Kolavennu, Debanjan Mahata, and Ioannis Bakagiannis for t
  
 If you're' interested in accelerating your ML roadmap with Hugging Face Experts please visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_3) to learn more. 
 
-
-</body>
-</html>

@@ -1,26 +1,15 @@
 ---
 title: "Hugging Face and Graphcore partner for IPU-optimized Transformers"
 thumbnail: /blog/assets/26_graphcore-ipu/thumbnail.png
+authors:
+- user: sallydoherty
+  guest: true
 ---
 
 # Hugging Face and Graphcore partner for IPU-optimized Transformers
 
-<div class="blog-metadata">
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/graphcore-ipu.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/sallydoherty">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1631552435426-613f70b0e5e451f0798c4fcd.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sallydoherty</code>
-            <span class="fullname">Sally Doherty</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 > ##### Speaking at the 2021 AI Hardware Summit, Hugging Face announced the launch of their new Hardware Partner Program, including device-optimized models and software integrations. Here, Graphcore - creators of the Intelligence Processing Unit (IPU) and a founding member of the program – explain how their partnership with Hugging Face will allow developers to easily accelerate their use of state-of-the-art Transformer models.
 

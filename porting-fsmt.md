@@ -1,27 +1,15 @@
 ---
 title: "Porting fairseq wmt19 translation system to transformers"
 thumbnail: /blog/assets/07_porting_fsmt/thumbnail.png
+authors:
+- user: stas
+  guest: true
 ---
 
 <h1>Porting fairseq wmt19 translation system to transformers</h1>
 
-<div class="blog-metadata">
-    <small>Published November 3, 2020.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/porting-fsmt.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/stas">
-        <img class="avatar avatar-user" src="/blog/assets/07_porting_fsmt/stas-bekman-300x300.jpg">
-        <div class="bfc">
-            <code>stas</code>
-            <span class="fullname">Stas Bekman</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ##### A guest blog post by Stas Bekman
 

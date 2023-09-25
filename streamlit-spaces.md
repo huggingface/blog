@@ -2,28 +2,14 @@
 title: "Hosting your Models and Datasets on Hugging Face Spaces using Streamlit"
 thumbnail: /blog/assets/29_streamlit-spaces/thumbnail.png
 
+authors:
+- user: merve
 ---
 
-<h1>
-    Hosting your Models and Datasets on Hugging Face Spaces using Streamlit
-</h1>
+# Hosting your Models and Datasets on Hugging Face Spaces using Streamlit
 
-<div class="blog-metadata">
-    <small>Published October 5, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/streamlit-spaces.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/merve">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1631694399207-6141a88b3a0ec78603c9e784.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>merve</code>
-            <span class="fullname">Merve Noyan</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 
 

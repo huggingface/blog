@@ -1,26 +1,14 @@
 ---
 title: "Getting Started with Sentiment Analysis using Python"
 thumbnail: /blog/assets/50_sentiment_python/thumbnail.png
+authors:
+- user: federicopascual
 ---
 
 <h1>Getting Started with Sentiment Analysis using Python</h1>
 
-<div class="blog-metadata">
-    <small>Published Feb 2, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sentiment-analysis-python.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/federicopascual">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1624043388143-noauth.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>federicopascual</code>
-            <span class="fullname">Federico Pascual</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
@@ -110,9 +98,9 @@ Let's dive in!
 
 ### a. Fine-tuning model with Python
 
-In this tutorial, you'll use the IMBD dataset to fine-tune a DistilBERT model for sentiment analysis. 
+In this tutorial, you'll use the IMDB dataset to fine-tune a DistilBERT model for sentiment analysis. 
 
-The [IMDB dataset](https://huggingface.co/datasets/imdb) contains 25,000 movie reviews labeled by sentiment for training a model and 25,000 movie reviews for testing it. [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) is a smaller, faster and cheaper version of [BERT](https://huggingface.co/docs/transformers/model_doc/bert). It has 40% smaller than BERT and runs 60% faster while preserving over 95% of BERT’s performance. You'll use the IMBD dataset to fine-tune a DistilBERT model that is able to classify whether a movie review is positive or negative. Once you train the model, you will use it to analyze new data! ⚡️
+The [IMDB dataset](https://huggingface.co/datasets/imdb) contains 25,000 movie reviews labeled by sentiment for training a model and 25,000 movie reviews for testing it. [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) is a smaller, faster and cheaper version of [BERT](https://huggingface.co/docs/transformers/model_doc/bert). It has 40% smaller than BERT and runs 60% faster while preserving over 95% of BERT’s performance. You'll use the IMDB dataset to fine-tune a DistilBERT model that is able to classify whether a movie review is positive or negative. Once you train the model, you will use it to analyze new data! ⚡️
 
 We have [created this notebook](https://colab.research.google.com/drive/1t-NJadXsPTDT6EWIR0PRzpn5o8oMHzp3?usp=sharing) so you can use it through this tutorial in Google Colab.
 

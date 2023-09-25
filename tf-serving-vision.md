@@ -1,29 +1,15 @@
 ---
 title: Deploying TensorFlow Vision Models in Hugging Face with TF Serving
 thumbnail: /blog/assets/90_tf_serving_vision/thumbnail.png
+authors:
+- user: sayakpaul
+  guest: true
 ---
 
-<h1>
-  Deploying TensorFlow Vision Models in Hugging Face with TF Serving
-</h1>
+# Deploying TensorFlow Vision Models in Hugging Face with TF Serving
 
-<div class="blog-metadata">
-    <small>Published July 25, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/tf-serving-vision.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="https://hf.co/sayakpaul">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>sayakpaul</code>
-            <span class="fullname">Sayak Paul</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/111_tf_serving_vision.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
@@ -116,23 +102,22 @@ steps include:
 
 - Resizing the image so that it has a spatial resolution of (224, 224).
 
-You can confirm these by investigating the feature extractor associated
+You can confirm these by investigating the image processor associated
 with the model:
 
 ```py
-from transformers import AutoFeatureExtractor
+from transformers import AutoImageProcessor
 
-feature_extractor = AutoFeatureExtractor.from_pretrained(ckpt)
-print(feature_extractor)
+processor = AutoImageProcessor.from_pretrained(ckpt)
+print(processor)
 ```
 
 This should print:
 
 ```bash
-ViTFeatureExtractor {
+ViTImageProcessor {
   "do_normalize": true,
   "do_resize": true,
-  "feature_extractor_type": "ViTFeatureExtractor",
   "image_mean": [
     0.5,
     0.5,
@@ -166,7 +151,7 @@ components:
 
 ```py
 def normalize_img(
-    img, mean=feature_extractor.image_mean, std=feature_extractor.image_std
+    img, mean=processor.image_mean, std=processor.image_std
 ):
     # Scale to the value range of [0, 1] first and then normalize.
     img = img / 255
@@ -181,11 +166,11 @@ Transformers. The below code snippet shows all the preprocessing steps:
 
 ```py
 CONCRETE_INPUT = "pixel_values" # Which is what we investigated via the SavedModel CLI.
-SIZE = feature_extractor.size
+SIZE = processor.size["height"]
 
 
 def normalize_img(
-    img, mean=feature_extractor.image_mean, std=feature_extractor.image_std
+    img, mean=processor.image_mean, std=processor.image_std
 ):
     # Scale to the value range of [0, 1] first and then normalize.
     img = img / 255

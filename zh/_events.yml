@@ -1,0 +1,68 @@
+# "date" attribute should be end date of an event in `Mon DD, YYYY` format (e.g. Feb 3, 2014)
+# "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
+#                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
+
+- name: Hugging Face AI 头像变装秀
+  link: https://hf.link/tx
+  date: July 5, 2023
+  date_formatted: July 5 to July 31, 2023
+  description: 参与我们在官方小红书账号上发起的 AI 头像换装秀活动。
+
+- name: Hugging Face JAX/Diffusers 社区冲刺活动北京见面会
+  link: https://services.google.cn/fb/forms/huggingfaceevent/?channel=hfblog
+  date: Apr 20, 2023
+  date_formatted: Apr 18 to Apr 20, 2023
+  description: 参与我们在谷歌北京办公室举办的参赛者线下见面会。
+
+- name: 造个 🤖️ 去瀛海威广场聚会啦！
+  link: https://mp.weixin.qq.com/s/M5vjicNG1uBdCQzQtQU9yw
+  date: Mar 19, 2023
+  date_formatted: Mar 17 to Mar 19, 2023
+  description: 百姓 AI 和 Hugging Face 联合推出的机器人黑客松活动。
+
+- name: 飞桨黑客马拉松第四期：AIGC 趣味创意赛
+  link: https://aistudio.baidu.com/aistudio/competition/detail/860/0/introduction
+  date: May 20, 2023
+  date_formatted: Feb 28 to May 20, 2023
+  description: 与飞浆联合推出的，使用扩散模型并结合 LoRA、DreamBooth 等技术进行模型微调的黑客松活动。
+
+- name: Hugging Face DreamBooth 微调黑客松
+  link: https://www.heywhale.com/home/competition/63bbfb98de6c0e9cdb0d9dd5
+  date: Feb 10, 2023
+  date_formatted: Jan 9 to Feb 10, 2023
+  description: 与和鲸社区共同推出，助力中国社区成员参与全球的 DreamBooth 微调黑客松活动。
+
+- name: Hugging Face 社区投稿
+  link: https://bit.ly/hf-tougao
+  date: Feb 9, 2023
+  description: 我们正在努力丰富中文社区的内容生态，希望邀请社区的成员们共同添砖加瓦，共同推进让 AI 惠及大众。
+
+- name: 抱抱脸本地化小组志愿者招募
+  link: https://bit.ly/baobaolian-new
+  date: Feb 9, 2023
+  description: 参与翻译 Hugging Face 最新课程、视频、博客文章等内容。
+
+- name: 直播 (回放)：“生产环境中的小样本学习” 研讨会
+  link: https://mp.weixin.qq.com/s/uJW63vyDq3igP8Rw_3EEwA
+  date: Dec 14, 2022
+  description: 由 Hugging Face 和 Intel AI 的研究员共同出席，带领大家训练和部署一个小样本的语言模型。
+
+- name: 直播 (回放)：ChatGPT 背后的“功臣” —— RLHF 介绍
+  link: https://mp.weixin.qq.com/s/iaKOp1F-nJlgSbRF2h0r_g
+  date: Dec 13, 2022
+  description: RLHF，从人类反馈中强化学习，它是 ChatGPT 背后的“功臣”。
+
+- name: 直播 (回放)：Whisper 微调冲刺直播
+  link: https://mp.weixin.qq.com/s/7YQiUacdH7SwLGAWnSwDzw
+  date: Dec 6, 2022
+  description: 邀请 OpenAI 和 MetaAI 团队成员介绍 Whisper 模型和 VoxPopuli 数据集的最新研究。
+
+- name: 直播 (回放)：扩散模型分享
+  link: https://space.bilibili.com/1740664937/channel/seriesdetail?sid=2839427&ctype=0
+  date: Dec 1, 2022
+  description: 为了支持扩散模型课程的发布，我们邀请了重磅嘉宾做了一次围绕扩散模型的分享。
+
+- name: Hugging Face ❤️ arXiv 社区冲刺活动
+  link: https://mp.weixin.qq.com/s/twygNE7QpZEGjr-baRskPQ
+  date: Nov 25, 2022
+  description: 将一些 arXiv 论文中提及的开源模型制作成 Hugging Face Space 应用来进行展示，提升易用性。

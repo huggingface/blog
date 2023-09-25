@@ -1,6 +1,3 @@
-- value: analysis
-  label: analysis
-
 - value: community
   label: community
 
@@ -30,3 +27,18 @@
 
 - value: ethics
   label: ethics
+
+- value: diffusion
+  label: Diffusion
+
+- value: game-dev
+  label: Game Development
+
+- value: time-series
+  label: Time Series
+
+- value: rlhf
+  label: RLHF
+
+- value: case-studies
+  label: Case Studies

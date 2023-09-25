@@ -1,28 +1,14 @@
 ---
 title: "Train a Sentence Embedding Model with 1B Training Pairs"
+authors:
+- user: asi
+  guest: true
 ---
 
-<h1>
-    Train a Sentence Embedding Model with 1 Billion Training Pairs
-</h1>
+# Train a Sentence Embedding Model with 1 Billion Training Pairs
 
-<div class="blog-metadata">
-    <small>Published September 1, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/1b-sentence-embeddings.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/asi">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1635232952881-6087d7c0df398c3b285ce94c.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>asi</code>
-            <span class="fullname">Antoine Simoulin</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 **Sentence embedding** is a method that maps sentences to vectors of real numbers. Ideally, these vectors would capture the semantic of a sentence and be highly generic. Such representations could then be used for many downstream applications such as clustering, text mining, or question answering.
 

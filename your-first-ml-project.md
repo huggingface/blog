@@ -1,29 +1,14 @@
 ---
 title: 'Liftoff! How to get started with your first ML project 🚀'
 thumbnail: /blog/assets/84_first_ml_project/thumbnail.png
+authors:
+- user: nimaboscarino
 ---
 
-<h1>
-    Liftoff! How to get started with your first ML project 🚀
-</h1>
+# Liftoff! How to get started with your first ML project 🚀
 
-<div class="blog-metadata">
-    <small>Published June 29, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/your-first-ml-project.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/nimaboscarino"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1647889744246-61e6a54836fa261c76dc3760.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>nimaboscarino</code>
-            <span class="fullname">Nima Boscarino</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">Opinion piece</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 People who are new to the Machine Learning world often run into two recurring stumbling blocks. The first is choosing the right library to learn, which can be daunting when there are so many to pick from. Even once you’ve settled on a library and gone through some tutorials, the next issue is coming up with your first big project and scoping it properly to maximize your learning. If you’ve run into those problems, and if you're looking for a new ML library to add to your toolkit, you're in the right place!
 
@@ -73,7 +58,7 @@ For my first Sentence Transformers project, I remembered that I had a little dat
 
 <div class="hidden xl:block">
 <div style="display: flex; flex-direction: column; align-items: center;">
-<iframe src="https://hf.space/embed/NimaBoscarino/playlist-generator/+" frameBorder="0" width="1400" height="690" title="Gradio app" class="p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<iframe src="https://nimaboscarino-playlist-generator.hf.space" frameBorder="0" width="1400" height="690" title="Gradio app" class="p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
 </div>
 </div>
 

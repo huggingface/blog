@@ -1,28 +1,14 @@
 ---
 title: "Introducing new audio and vision documentation in 🤗 Datasets"
 thumbnail: /blog/assets/87_datasets-docs-update/thumbnail.gif
+authors:
+- user: stevhliu
 ---
 
-<h1>
-    Introducing new audio and vision documentation in 🤗 Datasets
-</h1>
+# Introducing new audio and vision documentation in 🤗 Datasets
 
-<div class="blog-metadata">
-    <small>Published July 11, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/datasets-docs-update.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/stevhliu"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1599079986463-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>stevhliu</code>
-            <span class="fullname">Steven Liu</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 Open and reproducible datasets are essential for advancing good machine learning. At the same time, datasets have grown tremendously in size as rocket fuel for large language models. In 2020, Hugging Face launched 🤗 Datasets, a library dedicated to:
 
@@ -35,8 +21,7 @@ But text datasets are just the beginning. Data is represented in richer formats 
 
 <div class="hidden xl:block">
 <div style="display: flex; flex-direction: column; align-items: center;">
-<iframe src="https://hf.space/embed/Salesforce/BLIP/+
-" frameBorder="0" width="1400" height="690" title="Gradio app" class="p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<iframe src="https://salesforce-blip.hf.space" frameBorder="0" width="1400" height="690" title="Gradio app" class="p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
 </div>
 </div>
 

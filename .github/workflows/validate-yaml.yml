@@ -1,0 +1,28 @@
+name: YAML schema validator
+on: 
+  push:
+    branches:
+      - main
+    paths: 
+      - "**/_*.yml"
+      - "schemas/_*.schema.yml"
+      - ".github/workflows/validate-yaml.yml"
+  pull_request:
+    paths: 
+      - "**/_*.yml"
+      - "schemas/_*.schema.yml"
+      - ".github/workflows/validate-yaml.yml"
+
+defaults:
+  run:
+    working-directory: scripts
+
+jobs:
+  yaml-schema-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+      - run: deno run --allow-net --allow-read ./validate-yaml.ts

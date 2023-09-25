@@ -1,33 +1,15 @@
 ---
 title: "Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel"
 thumbnail: /blog/assets/62_pytorch_fsdp/fsdp-thumbnail.png
+authors:
+- user: smangrul
+- user: sgugger
 ---
 
 <h1>Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel</h1>
 
-<div class="blog-metadata">
-    <small>Published May 2, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/pytorch-fsdp.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/smangrul">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1638132956881-5fca176d1d7a08cb34d79d5d.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>smangrul</code>
-            <span class="fullname">Sourab Mangrulkar</span>
-        </div>
-    </a>
-    <a href="/sgugger">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1593126474392-5ef50182b71947201082a4e5.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sgugger</code>
-            <span class="fullname">Sylvain Gugger</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 In this post we will look at how we can leverage **[Accelerate](https://github.com/huggingface/accelerate)** Library for training large models which enables users to leverage the latest features of **[PyTorch FullyShardedDataParallel (FSDP)](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/)**.
 
@@ -110,7 +92,7 @@ Sample FSDP Run:
 
 Table 1: Benchmarking FSDP on GPT-2 Large (762M) model
 
-With respect to DDP, from Table 1 we can observe that FSDP **enables larger batch sizes**, upto **2X-3X** without and with CPU offload setting, respectively. In terms of train time, DDP with mixed precision is the fastest followed by FSDP using ZERO Stage 2 and Stage 3, respectively. As the task of causal language modelling always has fixed context sequence length (--block_size), the train time speedup with FSDP wasn’t that great. For applications with dynamic batching, FSDP which enables larger batch sizes will likely have considerable speed up in terms of train time. FSDP mixed precision support currently has few [issues](https://github.com/pytorch/pytorch/issues/75676) with transformer. Once this is supported, the training time speed up will further improve considerably.
+With respect to DDP, from Table 1 we can observe that FSDP **enables larger batch sizes**, up to **2X-3X** without and with CPU offload setting, respectively. In terms of train time, DDP with mixed precision is the fastest followed by FSDP using ZERO Stage 2 and Stage 3, respectively. As the task of causal language modelling always has fixed context sequence length (--block_size), the train time speedup with FSDP wasn’t that great. For applications with dynamic batching, FSDP which enables larger batch sizes will likely have considerable speed up in terms of train time. FSDP mixed precision support currently has few [issues](https://github.com/pytorch/pytorch/issues/75676) with transformer. Once this is supported, the training time speed up will further improve considerably.
 
 
 ### CPU Offloading to enable training humongous models that won’t fit the GPU memory

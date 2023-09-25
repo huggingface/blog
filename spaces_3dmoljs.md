@@ -1,27 +1,15 @@
 ---
 title: "Visualize proteins on Hugging Face Spaces"
 thumbnail: /blog/assets/98_spaces_3dmoljs/thumbnail.png
+authors:
+- user: simonduerr
+  guest: true
 ---
 
 <h1>Visualize proteins on Hugging Face Spaces</h1>
 
-<div class="blog-metadata">
-    <small>Published August 24, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/spaces_3dmoljs.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/simonduerr">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/16979577?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>duerrsimon</code>
-            <span class="fullname">Simon Dürr</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 In this post we will look at how we can visualize proteins on Hugging Face Spaces.
 
@@ -52,7 +40,7 @@ We will build a simple demo app that can accept either a 4-digit PDB code or a P
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.1.7/gradio.js"></script>
 
-<gradio-app space="simonduerr/3dmol.js"></gradio-app>
+<gradio-app theme_mode="light" space="simonduerr/3dmol.js"></gradio-app>
 
 ```python
 import gradio as gr
@@ -127,6 +115,7 @@ The `head` of our returned document needs to load 3Dmol.js (which in turn also l
         background-image:None;
     }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://3Dmol.csb.pitt.edu/build/3Dmol-min.js"></script>
 </head>
 ```
@@ -160,7 +149,7 @@ You can check the [source code](https://huggingface.co/spaces/simonduerr/3dmol.j
 
 For a production example, you can check the [ProteinMPNN](https://hf.space/simonduerr/ProteinMPNN) space where a user can upload a backbone, the inverse folding model ProteinMPNN predicts new optimal sequences and then one can run AlphaFold2 on all predicted sequences to verify whether they adopt the initial input backbone. Successful redesigns that qualitiatively adopt the same structure as predicted by AlphaFold2 with high pLDDT score should be tested in the lab. 
 
-<gradio-app space="simonduerr/ProteinMPNN"></gradio-app>
+<gradio-app theme_mode="light" space="simonduerr/ProteinMPNN"></gradio-app>
 
 # Issues
 

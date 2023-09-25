@@ -1,36 +1,14 @@
 ---
 title: "Deep Dive: Vision Transformers On Hugging Face Optimum Graphcore"
 thumbnail: /blog/assets/97_vision_transformers/thumbnail.png
+authors:
+- user: juliensimon
 ---
 
 <h1>Deep Dive: Vision Transformers On Hugging Face Optimum Graphcore</h1>
 
-<div class="blog-metadata">
-    <small>Published August, 18 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/vision-transformers.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="https://twitter.com/julsimon">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
-        <div class="bfc">
-            <code>juliensimon</code>
-            <span class=fullname">Julien Simon</span>
-        </div>
-    </a>
-</div>
-<div class="author-card">
-    <a href="https://huggingface.co/internetoftim">
-        <img class="avatar avatar-user" src="https://huggingface.co/avatars/94a72281274ff9f1259384af15d73861.svg" title="Tim Santos">
-        <div class="bfc">
-            <code>Tim Santos (Graphcore)</code>
-            <span class=fullname">Tim Santos</span>
-        </div>
-    </a>
-</div>
-<link rel="canonical" href="https://www.graphcore.ai/posts/deep-dive-vision-transformers-on-hugging-face-optimum-graphcore" />
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 This blog post will show how easy it is to fine-tune pre-trained Transformer models for your dataset using the Hugging Face Optimum library on Graphcore Intelligence Processing Units (IPUs). As an example, we will show a step-by-step guide and provide a notebook that takes a large, widely-used chest X-ray dataset and trains a vision transformer (ViT) model.
 
@@ -125,7 +103,7 @@ This blog post will show how easy it is to fine-tune pre-trained Transformer mod
 <div style="font-size: 14px; line-height: 1.3;">
 <script src="https://gist.github.com/nickmaxfield/1df44cf80f72e1132441e539e3c3df84.js"></script>
 </div>
-<p>To fine-tune a pre-trained model, the new dataset must have the same properties as the original dataset used for pre-training. In Hugging Face, the original dataset information is provided in a config file loaded using the <code>AutoFeatureExtractor</code>. For this model, the X-ray images are resized to the correct resolution (224x224), converted from grayscale to RGB, and normalized across the RGB channels with a mean (0.5, 0.5, 0.5) and a standard deviation (0.5, 0.5, 0.5).</p>
+<p>To fine-tune a pre-trained model, the new dataset must have the same properties as the original dataset used for pre-training. In Hugging Face, the original dataset information is provided in a config file loaded using the <code>AutoImageProcessor</code>. For this model, the X-ray images are resized to the correct resolution (224x224), converted from grayscale to RGB, and normalized across the RGB channels with a mean (0.5, 0.5, 0.5) and a standard deviation (0.5, 0.5, 0.5).</p>
 <div style="font-size: 14px; line-height: 1.3;">
 <script src="https://gist.github.com/nickmaxfield/15c3fa337c2fd7e0b3cad23c421c3d28.js"></script>
 </div>

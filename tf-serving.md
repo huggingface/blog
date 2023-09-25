@@ -1,26 +1,14 @@
 ---
 title: Faster TensorFlow models in Hugging Face Transformers
 thumbnail: /blog/assets/10_tf-serving/thumbnail.png
+authors:
+- user: jplu
 ---
 
 <h1>Faster TensorFlow models in Hugging Face Transformers</h1>
 
-<div class="blog-metadata">
-    <small>Published January 26, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/tf-serving.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/jplu">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584609257509-5df8987fda6d0311fd3d540d.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>jplu</code>
-            <span class="fullname">Julien Plu</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/10_tf_serving.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
@@ -175,7 +163,7 @@ Let’s see step by step how to deploy and use a BERT model for sentiment classi
 
 ### Step 1
 
-Create a SavedModel. To create a SavedModel, the Transformers library lets you load a PyTorch model called `nateraw/bert-base-uncased-imdb` trained on the IMBD dataset and convert it to a TensorFlow Keras model for you:
+Create a SavedModel. To create a SavedModel, the Transformers library lets you load a PyTorch model called `nateraw/bert-base-uncased-imdb` trained on the IMDB dataset and convert it to a TensorFlow Keras model for you:
 
 ```python
 from transformers import TFBertForSequenceClassification

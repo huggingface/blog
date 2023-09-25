@@ -5,12 +5,7 @@ thumbnail: /blog/assets/09_accelerated_inference/thumbnail.png
 
 <h1>How we sped up transformer inference 100x for 🤗 API customers</h1>
 
-<div class="blog-metadata">
-    <small>Published Jan 18, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/accelerated-inference.md">
-        Update on GitHub
-    </a>
-</div>
+<!-- {blog_metadata} -->
 
 🤗 Transformers has become the default library for data scientists all around the world to explore state of the art NLP models and build new NLP features. With over 5,000 pre-trained and fine-tuned models available, in over 250 languages, it is a rich playground, easily accessible whichever framework you are working in.
 

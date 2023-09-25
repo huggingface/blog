@@ -1,45 +1,29 @@
 ---
 title: "Case Study: Millisecond Latency using Hugging Face Infinity and modern CPUs"
 thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
+authors:
+- user: philschmid
+- user: jeffboudier
+- user: mfuntowicz
 ---
-
 <h1>Case Study: Millisecond Latency using Hugging Face Infinity and modern CPUs</h1>
 
-<div class="blog-metadata">
-    <small>Published Jan 13, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/infinity-cpu-performance.md">
-        Update on GitHub
-    </a>
-</div>
-
-
-
-<div class="author-card">
-    <a href="/philschmid">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1624629516652-5ff5d596f244529b3ec0fb89.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>philschmid</code>
-            <span class="fullname">Philipp Schmid</span>
-        </div>
-    </a>
-    <a href="/jeffboudier">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1605114051380-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>jeffboudier</code>
-            <span class="fullname">Jeff Boudier</span>
-        </div>
-    </a>
-    <a href="/mfuntowicz">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1583858935715-5e67c47c100906368940747e.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>mfuntowicz</code>
-            <span class="fullname">Morgan Funtowicz</span>
-        </div>
-    </a>
-</div>
-
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+
+<br>
+<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
+  December 2022 Update: Infinity is no longer offered by Hugging Face as a commercial inference solution. To deploy and accelerate your models, we recommend the following new solutions:
+
+  * [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) to easily deploy models on dedicated infrastructure managed by Hugging Face.
+
+  * Our open-source optimization libraries, [🤗 Optimum Intel](https://huggingface.co/blog/openvino) and [🤗 Optimum ONNX Runtime](https://huggingface.co/docs/optimum/main/en/onnxruntime/overview), to get the highest efficiency out of training and running models for inference.
+
+  * Hugging Face [Expert Acceleration Program](https://huggingface.co/support), a commercial service for Hugging Face experts to work directly with your team to accelerate your Machine Learning roadmap and models.
+</div>
+
 
 ## Introduction 
 
