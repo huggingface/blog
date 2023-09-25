@@ -1850,7 +1850,7 @@
 
 
 - local: classification-use-cases
-  title: "Leveraging Hugging Face for complex text classification use cases"
+  title: "How Hugging Face Accelerated Development of Witty Works Writing Assistant"
   author: VioletteLepercq
   thumbnail: /blog/assets/78_ml_director_insights/witty-works.png
   date: March 1, 2023
@@ -2755,6 +2755,14 @@
     - diffusers
     - diffusion
 
+- local: fetch-case-study
+  title: "Fetch Cuts ML Processing Latency by 50% Using Amazon SageMaker & Hugging Face"
+  author: Violette
+  thumbnail: /blog/assets/78_ml_director_insights/fetch.png
+  date: September 1, 2023
+  tags:
+    - case-studies
+
 - local: falcon-180b
   title: "Spread Your Wings: Falcon 180B is here"
   author: philschmid
@@ -2852,3 +2860,25 @@
     - guide
     - cv
     - game-dev
+    
+- local: rocketmoney-case-study
+  title: "Rocket Money x Hugging Face: Scaling Volatile ML Models in Production"
+  author: nicokuzak
+  guest: true
+  thumbnail: /blog/assets/78_ml_director_insights/rocketmoney.png
+  date: September 19, 2023
+  tags:
+    - case-studies
+
+- local: inference-pro
+  title: "Inference for PROs"
+  author: osanseviero
+  thumbnail: /blog/assets/inference_pro/thumbnail.png
+  date: September 22, 2023
+  tags:
+    - community
+    - guide
+    - inference
+    - api
+    - llm
+    - stable-diffusion
