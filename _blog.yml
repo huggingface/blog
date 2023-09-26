@@ -2870,15 +2870,25 @@
   tags:
     - case-studies
 
+- local: inference-pro
+  title: "Inference for PROs"
+  author: osanseviero
+  thumbnail: /blog/assets/inference_pro/thumbnail.png
+  date: September 22, 2023
+  tags:
+    - community
+    - guide
+    - inference
+    - api
+    - llm
+    - stable-diffusion
+
 - local: Llama2-for-non-engineers
   title: "Non-engineers guide: Train a LLaMA 2 chatbot"
   author: 2legit2overfit
   thumbnail: /blog/assets/78_ml_director_insights/tuto.png
-  date: September 25, 2023
+  date: September 26, 2023
   tags:
     - guide
     - community
     - nlp
-
-
-
