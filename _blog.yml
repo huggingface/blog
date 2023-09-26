@@ -2882,3 +2882,14 @@
     - api
     - llm
     - stable-diffusion
+
+- local: llama-sagemaker-benchmark
+  title: "Llama 2 on Amazon SageMaker a Benchmark"
+  author: philschmid
+  thumbnail: /blog/assets/llama_sagemaker_benchmark/thumbnail.jpg
+  date: September 26, 2023
+  tags:
+    - guide
+    - inference
+    - llm
+    - aws
