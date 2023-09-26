@@ -112,7 +112,7 @@ The Best Latency configuration minimizes the time it takes to generate one token
 
 In this benchmark, we tested 60 configurations of Llama 2 on Amazon SageMaker. For cost-effective deployments, we found 13B Llama 2 with GPTQ on g5.2xlarge delivers 71 tokens/sec at an hourly cost of $1.55. For max throughput, 13B Llama 2 reached 296 tokens/sec on ml.g5.12xlarge at $2.21 per 1M tokens. And for minimum latency, 7B Llama 2 achieved 16ms per token on ml.g5.12xlarge. 
 
-We hope these benchmarks will help companies deploy Llama 2 optimally based on their needs. The data provides real-world insights into balancing cost, throughput, and latency when leveraging these powerful models.
+We hope the benchmark will help companies deploy Llama 2 optimally based on their needs. If you are want to get started deploying Llama 2 on Amazon SageMaker, check out [Introducing the Hugging Face LLM Inference Container for Amazon SageMaker](https://huggingface.co/blog/sagemaker-huggingface-llm) and [Deploy Llama 2 7B/13B/70B on Amazon SageMaker](https://www.philschmid.de/sagemaker-llama-llm) blog posts.
 
 
 ---
