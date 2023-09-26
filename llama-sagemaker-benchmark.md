@@ -94,9 +94,9 @@ The Best Throughput configuration maximizes the number of tokens that are genera
 
 | Model       | Quantization | Instance        | concurrent requests | Latency (ms/token) median | Throughput (tokens/second) | On-demand cost ($/h) in us-west-2 | Time to generate 1 M tokens (minutes) | cost to generate 1M tokens ($) |
 | ----------- | ------------ | --------------- | ------------------- | ------------------------- | -------------------------- | --------------------------------- | ------------------------------------- | ------------------------------ |
-| Llama 2 7B  | None         | ml.g5.12xlarge  | 20                  | 43.99524                  | 449.9423027                | $7.09                             | 37.04                                 | $4.38                          |
-| Llama 2 13B | None         | ml.g5.12xlarge  | 20                  | 67.4027465                | 295.6378071                | $7.09                             | 18.72                                 | $2.21                          |
-| Llama 2 70B | None         | ml.p4d.24xlarge | 20                  | 59.798591                 | 321.5369158                | $37.69                            | 16.61                                 | $10.43                         |
+| Llama 2 7B  | None         | ml.g5.12xlarge  | 20                  | 43.99524                  | 449.9423027                | $7.09                             | 33.59                                 | $3.97                          |
+| Llama 2 13B | None         | ml.p4d.12xlarge  | 20                 | 67.4027465                | 668.0204881                | $37.69                             | 24.95                                 | $15.67                          |
+| Llama 2 70B | None         | ml.p4d.24xlarge | 20                  | 59.798591                 | 321.5369158                | $37.69                            | 51.83                                 | $32.56                         |
 
 ### Best Latency Deployment
 
