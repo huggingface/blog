@@ -1,6 +1,6 @@
 ---
 title: "Ethics and Society Newsletter #5: Hugging Face Goes To Washington and Other Summer 2023 Musings"
-thumbnail: /blog/assets/164_ethics_soc_5/ethics_5_thumbnail.png
+thumbnail: /blog/assets/164_ethics-soc-5/thumbnail.png
 authors:
 - user: meg
 
