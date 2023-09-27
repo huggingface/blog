@@ -2883,6 +2883,17 @@
     - llm
     - stable-diffusion
 
+- local: llama-sagemaker-benchmark
+  title: "Llama 2 on Amazon SageMaker a Benchmark"
+  author: philschmid
+  thumbnail: /blog/assets/llama_sagemaker_benchmark/thumbnail.jpg
+  date: September 26, 2023
+  tags:
+    - guide
+    - inference
+    - llm
+    - aws
+
 - local: Llama2-for-non-engineers
   title: "Non-engineers guide: Train a LLaMA 2 chatbot"
   author: 2legit2overfit
