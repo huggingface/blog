@@ -2894,6 +2894,16 @@
     - llm
     - aws
 
+- local: Llama2-for-non-engineers
+  title: "Non-engineers guide: Train a LLaMA 2 chatbot"
+  author: 2legit2overfit
+  thumbnail: /blog/assets/78_ml_director_insights/tuto.png
+  date: September 28, 2023
+  tags:
+    - guide
+    - community
+    - nlp
+    
 - local: ethics-soc-5
   title: "Ethics and Society Newsletter #5: Hugging Face Goes To Washington and Other Summer 2023 Musings"
   author: meg
