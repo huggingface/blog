@@ -937,3 +937,15 @@
     - community
     - research
     - LLM
+
+- local: t2i-sdxl-adapters
+  title: "在 SDXL 上用 T2I-Adapter 实现高效可控的文生图"
+  author: Adapter
+  guest: true
+  thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
+  date: September 8, 2023
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion
