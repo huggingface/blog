@@ -189,13 +189,3 @@ _模型见 [`TencentARC/t2i-adapter-openpose-sdxl-1.0`](https://hf.co/TencentARC
 ---
 
 _致谢: 非常感谢 [William Berman](https://twitter.com/williamLberman) 帮助我们训练模型并分享他的见解。_
-
----
-
->>>> 英文原文: <url>https://hf.co/blog/t2i-sdxl-adapters</url>
->>>>
->>>> 原文作者: Chong Mou，Suraj Patil，Sayak Paul，Xintao Wang，hysts
->>>>
->>>> 译者: Matrix Yao (姚伟峰)，英特尔深度学习工程师，工作方向为 transformer-family 模型在各模态数据上的应用及大规模模型的训练推理。
->>>>
->>>> 审校/排版: zhongdongy (阿东)
