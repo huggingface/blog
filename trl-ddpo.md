@@ -6,6 +6,7 @@ authors:
   guest: true
 - user: sayakpaul
 - user: kashif
+- user: leandro
 ---
 
 # Finetune Stable Diffusion Models with DDPO via TRL
@@ -21,7 +22,7 @@ In the world of Large Language Models (LLMs), Reinforcement learning (RL) has pr
 
 In [Training Diffusion Models with Reinforcement Learning, Black](https://arxiv.org/abs/2305.13301) et al. show how to augment diffusion models to leverage RL to fine-tune them with respect to an objective function via a method named Denoising Diffusion Policy Optimization (DDPO).
 
-In this blog post, we discuss how DDPO came to be, a brief description of how it works and how DDPO can be incorporated into an RLHF workflow to achieve model outputs more aligned with the human aesthetics. We then quickly switch gears to talk about how you can apply DDPO to your own models with the newly integrated `DDPOTrainer` from the `trl` library and discuss our findings from running DDPO on Stable Diffusion. 
+In this blog post, we discuss how DDPO came to be, a brief description of how it works, and how DDPO can be incorporated into an RLHF workflow to achieve model outputs more aligned with the human aesthetics. We then quickly switch gears to talk about how you can apply DDPO to your  models with the newly integrated `DDPOTrainer` from the `trl` library and discuss our findings from running DDPO on Stable Diffusion. 
 
 ## The Advantages of DDPO
 
@@ -30,16 +31,16 @@ DDPO is not the only working answer to the question of how to attempt to fine-tu
 Before diving in, there are two key points to remember when it comes to understanding the advantages of one RL solution over the other
 
 1. Computational efficiency is key. The more complicated your data distribution gets, the higher your computational costs get.
-2. Approximations are nice, but because approximates are not the real thing, associated errors stack up.
+2. Approximations are nice, but because approximations are not the real thing, associated errors stack up.
 
 Before DDPO, Reward-weighted regression (RWR) was an established way of using Reinforcement Learning to fine-tune diffusion models. RWR reuses the denoising loss function of the diffusion model along with training data sampled from the model itself and per-sample loss weighting that depends on the reward associated with the final samples. This algorithm ignores the intermediate denoising steps/samples. While this works, two things should be noted:
 
 1. Optimizing by weighing the associated loss, which is a maximum likelihood objective, is an approximate optimization
-2. The associated loss is not an exact maximum likelihood objective but an approximation. It is derived from a reweighed variational bound
+2. The associated loss is not an exact maximum likelihood objective but an approximation that is derived from a reweighed variational bound
 
 The two orders of approximation have a significant impact on both performance and the ability to handle complex objectives.
 
-DDPO uses this method as a starting point. Rather than viewing the denoising step as a single step by only focusing on the final sample, DDPO frames the whole denoising process as a multistep Markov Decision Process (MDP) where the reward is received at the very end. This formulation in addition to using a fixed sampler paves the way for the agent policy to become an isotropic Gaussian as opposed to an arbitrarily complicated distribution. So instead of using the approximate likelihood of the final sample (which is the path RWR takes), here the exact likelihood of each denoising step which is extremely easy to compute (`\\(\ell(\mu, \sigma^2; x) = -\frac{n}{2} \log(2\pi) - \frac{n}{2} \log(\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2\\)`), is used.
+DDPO uses this method as a starting point. Rather than viewing the denoising step as a single step by only focusing on the final sample, DDPO frames the whole denoising process as a multistep Markov Decision Process (MDP) where the reward is received at the very end. This formulation in addition to using a fixed sampler paves the way for the agent policy to become an isotropic Gaussian as opposed to an arbitrarily complicated distribution. So instead of using the approximate likelihood of the final sample (which is the path RWR takes), here the exact likelihood of each denoising step which is extremely easy to compute ( \\( \ell(\mu, \sigma^2; x) = -\frac{n}{2} \log(2\pi) - \frac{n}{2} \log(\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2 \\) ).
 
 If you’re interested in learning more details about DDPO, we encourage you to check out the [original paper](https://arxiv.org/abs/2305.13301) and the [accompanying blog post](https://bair.berkeley.edu/blog/2023/07/14/ddpo/). 
 
@@ -139,7 +140,7 @@ The provided script is merely a starting point. Feel free to adjust the hyperpar
 
 The following are pre-finetuned (left) and post-finetuned (right) outputs for the prompts `bear`, `heaven` and `dune`  (each row is for the outputs of a single prompt):
 
-| | |
+| pre-finetuned |  post-finetuned  |
 |:-------------------------:|:-------------------------:|
 | ![nonfinetuned_bear.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/nonfinetuned_bear.png) | ![finetuned_bear.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/finetuned_bear.png) |
 | ![nonfinetuned_heaven.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/nonfinetuned_heaven.png) | ![finetuned_heaven.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/finetuned_heaven.png) |
