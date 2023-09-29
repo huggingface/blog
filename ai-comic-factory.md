@@ -30,7 +30,7 @@ The AI Comic Factory is a bit different from other Spaces running on Hugging Fac
 - a Language Model API (Currently [Llama-2](https://huggingface.co/docs/transformers/model_doc/llama2))
 - a Stable Diffusion API (currently [SDXL 1.0](https://huggingface.co/docs/diffusers/api/pipelines/stable_diffusion/stable_diffusion_xl))
 
-# Duplicating the Space
+## Duplicating the Space
 
 To duplicate the AI Comic Factory, go to the Space and click on "Duplicate":
 
