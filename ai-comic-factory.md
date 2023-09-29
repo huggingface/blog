@@ -44,7 +44,7 @@ To operate the AI Comic Factory under your account, you need to configure your H
 
 ![duplicate-space-2.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/165_ai_comic_factory/duplicate-space-2.jpg)
 
-# Selecting the LLM and SD engines
+## Selecting the LLM and SD engines
 
 The AI Comic Factory supports various backend engines, which can be configured using two environment variables:
  - `LLM_ENGINE` to configure the language model (possible values are `INFERENCE_API`, `INFERENCE_ENDPOINT`, `OPENAI`)
