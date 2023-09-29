@@ -47,7 +47,7 @@ To operate the AI Comic Factory under your account, you need to configure your H
 # Selecting the LLM and SD engines
 
 The AI Comic Factory supports various backend engines, which can be configured using two environment variables:
- - `LLM_ENGINE` to configure the language model (possible values are `INFERENCE_API`, `INFERENCE_ENDOINT`, `OPENAI`)
+ - `LLM_ENGINE` to configure the language model (possible values are `INFERENCE_API`, `INFERENCE_ENDPOINT`, `OPENAI`)
  - `RENDERING_ENGINE` to configure the image generation engine (possible values are `INFERENCE_API`, `INFERENCE_ENDPOINT`, `REPLICATE`, `VIDEOCHAIN`).
 
 In the scope of this tutorial, we will only focus on making the AI Comic Factory work on the Inference API, so those need to be set to `INFERENCE_API`:
