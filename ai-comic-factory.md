@@ -56,7 +56,7 @@ In the scope of this tutorial, we will only focus on making the AI Comic Factory
 
 You can find more information about alternative engines and vendors in the project's (README)[https://huggingface.co/spaces/jbilcke-hf/ai-comic-factory/blob/main/README.md] and the [.env](https://huggingface.co/spaces/jbilcke-hf/ai-comic-factory/blob/main/README.md) config file.
 
-# Configuring the models
+## Configuring the models
 
 The AI Comic Factory comes with the following models pre-configured:
 - `LLM_HF_INFERENCE_API_MODEL`: default value is `meta-llama/Llama-2-70b-chat-hf`
