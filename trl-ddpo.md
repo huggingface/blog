@@ -49,7 +49,7 @@ Given the MDP framework used to model the sequential nature of the denoising pro
 
 Here’s a diagram to summarize the flow
 
-![dppo rl schematic](https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/ddpo/dppo_rl.png)
+![dppo rl schematic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/dppo_rl.png)
 
 ## DDPO and RLHF: a mix to enforce aestheticness
 
@@ -139,17 +139,17 @@ The provided script is merely a starting point. Feel free to adjust the hyperpar
 
 The following are pre-finetuned (left) and post-finetuned (right) outputs for the prompts `bear`, `heaven` and `dune`  (each row is for the outputs of a single prompt):
 
-![nonfinetuned_bear.png](https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/ddpo/nonfinetuned_bear.png)
+![nonfinetuned_bear.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/nonfinetuned_bear.png)
 
-![finetuned_bear.png](https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/ddpo/finetuned_bear.png)
+![finetuned_bear.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/finetuned_bear.png)
 
-![nonfinetuned_heaven.png](https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/ddpo/nonfinetuned_heaven.png)
+![nonfinetuned_heaven.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/nonfinetuned_heaven.png)
 
-![finetuned_heaven.png](https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/ddpo/finetuned_heaven.png)
+![finetuned_heaven.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/finetuned_heaven.png)
 
-![nonfinetuned_dune.png](https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/ddpo/nonfinetuned_dune.png)
+![nonfinetuned_dune.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/nonfinetuned_dune.png)
 
-![finetuned_dune.png](https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/ddpo/finetuned_dune.png)
+![finetuned_dune.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/finetuned_dune.png)
 
 ## Limitations
 
