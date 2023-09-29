@@ -10,8 +10,6 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-# Introduction
-
 We recently announced [Inference for PROs](https://huggingface.co/blog/inference-pro), our new offering that makes larger models accessible to a broader audience. This opportunity opens up new possibilities for running end-user applications using Hugging Face as a platform.
 
 An example of such an application is the [AI Comic Factory](https://huggingface.co/spaces/jbilcke-hf/ai-comic-factory) - a Space that has proved incredibly popular. Thousands of users have tried it to create their own AI comic panels, fostering its own community of regular users. They share their creations, with some even opening pull requests.
