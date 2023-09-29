@@ -6,7 +6,7 @@ authors:
   guest: true
 - user: sayakpaul
 - user: kashif
-- user: leandro
+- user: lvwerra
 ---
 
 # Finetune Stable Diffusion Models with DDPO via TRL
