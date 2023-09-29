@@ -1,11 +1,14 @@
 ---
-title: "TRL: Denoising Diffusion Policy Optimization" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+title: "Finetune Stable Diffusion Models with DDPO via TRL" 
+thumbnail: /blog/assets/165-trl-ddpo/thumbnail.png
 authors:
 - user: metric-space
+  guest: true
+- user: sayakpaul
+- user: kashif
 ---
 
-# Finetune Stable Diffusion Models with DDPO
+# Finetune Stable Diffusion Models with DDPO via TRL
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
