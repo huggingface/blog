@@ -48,7 +48,7 @@ If you’re interested in learning more details about DDPO, we encourage you to 
 
 Given the MDP framework used to model the sequential nature of the denoising process and the rest of the considerations that follow, the tool of choice to tackle the optimization problem is a policy gradient method. Specifically Proximal Policy Optimization (PPO). The whole DDPO algorithm is pretty much the same as Proximal Policy Optimization (PPO) but as a side, the portion that stands out as highly customized is the trajectory collection portion of PPO
 
-Here’s a diagram to summarize the flow
+Here’s a diagram to summarize the flow:
 
 ![dppo rl schematic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/dppo_rl.png)
 
@@ -116,16 +116,16 @@ The following table contains key hyperparameters that are directly correlated wi
 
 | Parameter | Description | Recommended value for single GPU training (as of now) |
 | --- | --- | --- |
-| num_epochs | The number of epochs to train for | 200 |
-| train_batch_size | The batch size to use for training | 3 |
-| sample_batch_size | The batch size to use for sampling | 6 |
-| gradient_accumulation_steps | The number of accelerator based gradient accumulation steps to use | 1 |
-| sample_num_steps | The number of steps to sample for | 50 |
-| sample_num_batches_per_epoch | The number of batches to sample per epoch | 4 |
-| per_prompt_stat_tracking | Whether to track stats per prompt. If false, advantages will be calculated using the mean and std of the entire batch as opposed to tracking per prompt | True |
-| per_prompt_stat_tracking_buffer_size | The size of the buffer to use for tracking stats per prompt | 32 |
-| mixed_precision | Mixed precision training | True |
-| train_learning_rate | Learning rate | 3e-4 |
+| `num_epochs` | The number of epochs to train for | 200 |
+| `train_batch_size` | The batch size to use for training | 3 |
+| `sample_batch_size` | The batch size to use for sampling | 6 |
+| `gradient_accumulation_steps` | The number of accelerator based gradient accumulation steps to use | 1 |
+| `sample_num_steps` | The number of steps to sample for | 50 |
+| `sample_num_batches_per_epoch` | The number of batches to sample per epoch | 4 |
+| `per_prompt_stat_tracking` | Whether to track stats per prompt. If false, advantages will be calculated using the mean and std of the entire batch as opposed to tracking per prompt | `True` |
+| `per_prompt_stat_tracking_buffer_size` | The size of the buffer to use for tracking stats per prompt | 32 |
+| `mixed_precision` | Mixed precision training | `True` |
+| `train_learning_rate` | Learning rate | 3e-4 |
 
 The provided script is merely a starting point. Feel free to adjust the hyperparameters or even overhaul the script to accommodate different objective functions. For instance, one could integrate a function that gauges JPEG compressibility or [one that evaluates visual-text alignment using a multi-modal model](https://github.com/kvablack/ddpo-pytorch/blob/main/ddpo_pytorch/rewards.py#L45), among other possibilities.
 
@@ -162,3 +162,7 @@ The computational efficiency of DDPO and its ability to optimize without relying
 Our experimental findings underline the strength of DDPO in generalizing across a broad range of prompts, although attempts at explicit generalization through varying prompts had mixed results. The difficulty of finding the right hyperparameters for non-LoRA setups also emerged as an important learning.
 
 DDPO is a promising technique to align diffusion models with any reward function and we hope that with the release in TRL we can make it more accessible to the community!
+
+## Acknowledgements
+
+Thanks to Chunte Lee for the thumbnail of this blog post.
