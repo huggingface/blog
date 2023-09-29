@@ -38,7 +38,7 @@ To duplicate the AI Comic Factory, go to the Space and click on "Duplicate":
 
 You'll observe that the Space owner, name, and visibility are already filled in for you, so you can leave those values as is.
 
-This Space runs inside a Docker container that doesn't require many resources, so you can use the smallest instance. The official AI Comic Factory Space utilizes a bigger CPU instance, as it caters to a large user base.
+Your copy of the Space will run inside a Docker container that doesn't require many resources, so you can use the smallest instance. The official AI Comic Factory Space utilizes a bigger CPU instance, as it caters to a large user base.
 
 To operate the AI Comic Factory under your account, you need to configure your Hugging Face token:
 
