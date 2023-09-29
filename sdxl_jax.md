@@ -15,10 +15,15 @@ Running large image-generation models, such as Stable Diffusion XL in production
 Stable Diffusion XL counts roughly 3.5 billion parameters and therefore requires a significant amount of memory (up to 7 GB in float16 or bfloa16 precision) which makes it difficult to 
 deploy in practice.
 
-Google's recently release [TPUv5e chip](https://cloud.google.com/blog/products/compute/announcing-cloud-tpu-v5e-and-a3-gpus-in-ga) offers almost the same computing power in terms of TFLOPl compared to 
-its predecessor while being significantly cheaper.
+Google's [Cloud TPU v5e](https://cloud.google.com/blog/products/compute/announcing-cloud-tpu-v5e-and-a3-gpus-in-ga), which was recently announced, offers almost the same computing power in terms of TFLOP compared to 
+its predecessor, while being significantly cheaper.
 
-🧨 Diffusers JAX integration offers a convenient way to run SDXL on TPU via the XLA, the Accelerated Linear Algebra compiler.
+🧨 Diffusers JAX integration offers a convenient way to run SDXL on TPU via XLA. You can try it out in [this demo Space](https://huggingface.co/spaces/google/sdxl) or in the playground embedded below:
+
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.37.0/gradio.js"> </script>
+<gradio-app theme_mode="light" space="google/sdxl"></gradio-app>
+
+Under the hood, this demo runs on several TPU v5e-4 instances, and takes advantage of parallelization to create 4 large 1024×1024 images in about 4 seconds, including all communications overhead!
 
 In this blog post,
 - 1. We state a couple of reasons why JAX + TPU + Diffusers is a powerful framework to run SDXL
