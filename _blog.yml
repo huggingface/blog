@@ -2915,3 +2915,11 @@
     - diffusers
     - rl
     - rlhf
+   
+- local: ethics-soc-5
+  title: "Ethics and Society Newsletter #5: Hugging Face Goes To Washington and Other Summer 2023 Musings"
+  author: meg
+  thumbnail: /blog/assets/164_ethics_soc-5/thumbnail.png
+  date: September 29, 2023
+  tags:
+    - ethics
