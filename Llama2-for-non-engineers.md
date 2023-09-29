@@ -47,7 +47,7 @@ You can read more about ChatUI [here](https://github.com/huggingface/chat-ui).
 1.1 Go to [huggingface.co/spaces](https://huggingface.co/docs/hub/spaces) and select “Create new Space”.
 
 <p align="center">
-    <img src="/blog/assets/78_ml_director_insights/tuto1.png"><br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/tuto1.png"><br>
 </p>
 
 1.2 Give your Space a name and select a preferred usage license if you plan to make your model or Space public.
@@ -56,7 +56,7 @@ You can read more about ChatUI [here](https://github.com/huggingface/chat-ui).
 
 
 <p align="center">
-    <img src="/blog/assets/78_ml_director_insights/tuto2.png"><br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/tuto2.png"><br>
 </p>
 
 1.4 Select your “Space hardware” for running the app. (Note: For the AutoTrain app the free CPU basic option will suffice, the model training later on will be done using separate compute which we can choose later)
@@ -69,7 +69,7 @@ You can read more about ChatUI [here](https://github.com/huggingface/chat-ui).
 
 
 <p align="center">
-    <img src="/blog/assets/78_ml_director_insights/tuto3.png"><br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/tuto3.png"><br>
 </p>
 
 ### Step 2: Launch a Model Training in AutoTrain
@@ -83,7 +83,7 @@ You can read more about ChatUI [here](https://github.com/huggingface/chat-ui).
 2.4 Of course to fine-tune a model you’ll need to upload “Training Data”. When you do, make sure the dataset is correctly formatted and in CSV file format. An example of the required format can be found [here](https://huggingface.co/docs/autotrain/main/en/llm_finetuning). If your dataset contains multiple columns, be sure to select the “Text Column” from your file that contains the training data. In this example we’ll be using the Alpaca instruction tuning dataset, more information about this dataset is available [here](https://huggingface.co/datasets/tatsu-lab/alpaca).
 
 <p align="center">
-    <img src="/blog/assets/78_ml_director_insights/tuto4.png"><br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/tuto4.png"><br>
 </p>
 
 2.5 Optional: You can upload “Validation Data” to test your newly trained model against, but this isn’t required.
@@ -94,7 +94,7 @@ You can read more about ChatUI [here](https://github.com/huggingface/chat-ui).
 
 
 <p align="center">
-    <img src="/blog/assets/78_ml_director_insights/tuto5.png"><br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/tuto5.png"><br>
 </p>
 
 2.8 Now everything is set up, select “Add Job” to add the model to your training queue then select “Start Training” (Note: If you want to train multiple models versions with different hyper-parameters you can add multiple jobs to run simultaneously)
@@ -105,7 +105,7 @@ You can read more about ChatUI [here](https://github.com/huggingface/chat-ui).
 
 
 <p align="center">
-    <img src="/blog/assets/78_ml_director_insights/tuto6.png"><br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/tuto6.png"><br>
 </p>
 
 ### Step 3: Create a new ChatUI Space using your model
@@ -116,7 +116,7 @@ You can read more about ChatUI [here](https://github.com/huggingface/chat-ui).
 
 
 <p align="center">
-    <img src="/blog/assets/78_ml_director_insights/tuto7.png"><br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/tuto7.png"><br>
 </p>
 
 3.3 If you have your own Mongo DB you can provide those details in order to store chat logs under “MONGODB_URL”. Otherwise leave the field blank and a local DB will be created automatically.
@@ -127,13 +127,13 @@ You can read more about ChatUI [here](https://github.com/huggingface/chat-ui).
 
 
 <p align="center">
-    <img src="/blog/assets/78_ml_director_insights/tuto8.png"><br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/tuto8.png"><br>
 </p>
 
 3.5 Now you are ready to hit “Create” and launch your very own open-source ChatGPT. Congratulations! If you’ve done it right it should look like this.
 
 <p align="center">
-    <img src="/blog/assets/78_ml_director_insights/tuto9.png"><br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/tuto9.png"><br>
 </p>
 
 
