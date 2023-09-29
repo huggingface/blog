@@ -18,7 +18,7 @@ An example of such an application is the [AI Comic Factory](https://huggingface.
 
 In this tutorial, we'll show you how to fork and configure the AI Comic Factory to avoid long wait times and deploy it to your own private space using the Inference API. It does not require strong technical skills, but some knowledge of APIs, environment variables and a general understanding of LLMs & Stable Diffusion are recommended.
 
-# Getting started
+## Getting started
 
 
 First, ensure that you sign up for a PRO Hugging Face account, as this will grant you access to the Llama-2 and SDXL models.
