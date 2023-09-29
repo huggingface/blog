@@ -2903,3 +2903,15 @@
     - guide
     - community
     - nlp
+
+- local: trl-ddpo
+  title: "Finetune Stable Diffusion Models with DDPO via TRL"
+  author: metric-space
+  guest: true
+  thumbnail: /blog/assets/166_trl_ddpo/thumbnail.png
+  date: September 29, 2023
+  tags:
+    - guide
+    - diffusers
+    - rl
+    - rlhf
