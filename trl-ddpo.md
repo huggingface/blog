@@ -1,6 +1,6 @@
 ---
 title: "Finetune Stable Diffusion Models with DDPO via TRL" 
-thumbnail: /blog/assets/165-trl-ddpo/thumbnail.png
+thumbnail: /blog/assets/166-trl-ddpo/thumbnail.png
 authors:
 - user: metric-space
   guest: true
