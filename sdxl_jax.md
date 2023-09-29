@@ -25,7 +25,7 @@ In this blog post,
 - 2. Explain how you can write a simple image generation pipeline with Diffusers and JAX
 - 3. Show benchmarks comparing different TPU settings
 
-# Why JAX + TPUv5e for SDXL ?
+## Why JAX + TPUv5e for SDXL ?
 
 The advantage of JAX + TPUv5e boils down essentially to two factors:
 
@@ -74,7 +74,7 @@ params = jax.tree_util.tree_map(lambda x: x.astype(jnp.bfloat16), params)
 params["scheduler"] = scheduler_state
 ```
 
-We are now ready to setup our prompt and the rest of the pipeline inputs.
+We are now ready to set up our prompt and the rest of the pipeline inputs.
 
 ```Python
 default_prompt = "high-quality photo of a baby dolphin ​​playing in a pool and wearing a party hat"
@@ -102,12 +102,10 @@ NUM_DEVICES = jax.device_count()
 # so we only need to replicate them once.
 p_params = replicate(params)
 
-# Initial random seed of 'key'
-rng = jax.random.PRNGKey(seed)
-
-def replicate_all(prompt_ids, neg_prompt_ids, rng):
+def replicate_all(prompt_ids, neg_prompt_ids, seed):
     p_prompt_ids = replicate(prompt_ids)
     p_neg_prompt_ids = replicate(neg_prompt_ids)
+    rng = jax.random.PRNGKey(seed)
     rng = jax.random.split(rng, NUM_DEVICES)
     return p_prompt_ids, p_neg_prompt_ids, rng
 ```
@@ -118,7 +116,7 @@ We are now ready to put everything together in a generate function:
 def generate(
     prompt,
     negative_prompt,
-    rng=rng,
+    seed=default_seed,
     guidance_scale=default_guidance_scale,
     num_inference_steps=default_num_steps,
 ):
@@ -136,7 +134,7 @@ def generate(
 
     # convert the images to PIL
     images = images.reshape((images.shape[0] * images.shape[1], ) + images.shape[-3:])
-    return pipeline.numpy_to_pil(np.array(images)), rng
+    return pipeline.numpy_to_pil(np.array(images))
 ```
 
 `jit=True` indicates that we want the pipeline call to be compiled. This will happen the first time we call `generate`, and it will be very slow – JAX needs to trace the operations, optimize them and convert to low-level primitives. We'll run a first generation to complete this process and warm things up:
@@ -144,18 +142,18 @@ def generate(
 ```Python
 start = time.time()
 print(f"Compiling ...")
-generate(default_prompt, default_neg_prompt, rng)
+generate(default_prompt, default_neg_prompt)
 print(f"Compiled in {time.time() - start}")
 ```
 
-TODO: put the output here
+TODO: put the output time here
 
 Once the code has been compiled, inference will be super fast. Let's try again!
 
 ```Python
 start = time.time()
-prompt = "photo of a rhino dressed suit and tie sitting at a table in a bar with a bar stools, award winning photography, Elke vogelsang"
-neg_prompt = "cartoon, illustration, animation. face. male, female"
+prompt = "llama in ancient Greece, oil on canvas"
+neg_prompt = "cartoon, illustration, animation"
 images = generate(prompt, neg_prompt)
 print(f"Inference in {time.time() - start}")
 ```
@@ -164,8 +162,7 @@ TODO: put the output
 
 ## Benchmark
 
-TODO: ....
-
+The following measures were obtained running SDXL 1.0 base for 25 steps, with the default Euler Discrete scheduler. We used Python 3.10 and jax version 0.4.16. These are the same specs used in our [demo Space](#).
 
 ## ... (more???)
 
