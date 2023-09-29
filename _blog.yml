@@ -2904,6 +2904,26 @@
     - community
     - nlp
 
+- local: trl-ddpo
+  title: "Finetune Stable Diffusion Models with DDPO via TRL"
+  author: metric-space
+  guest: true
+  thumbnail: /blog/assets/166_trl_ddpo/thumbnail.png
+  date: September 29, 2023
+  tags:
+    - guide
+    - diffusers
+    - rl
+    - rlhf
+   
+- local: ethics-soc-5
+  title: "Ethics and Society Newsletter #5: Hugging Face Goes To Washington and Other Summer 2023 Musings"
+  author: meg
+  thumbnail: /blog/assets/164_ethics_soc-5/thumbnail.png
+  date: September 29, 2023
+  tags:
+    - ethics
+
 - local: ai-comic-factory
   title: "Deploying the AI Comic Factory using the Inference API"
   author: jbilcke-hf
