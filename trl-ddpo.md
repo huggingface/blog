@@ -139,17 +139,12 @@ The provided script is merely a starting point. Feel free to adjust the hyperpar
 
 The following are pre-finetuned (left) and post-finetuned (right) outputs for the prompts `bear`, `heaven` and `dune`  (each row is for the outputs of a single prompt):
 
-![nonfinetuned_bear.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/nonfinetuned_bear.png)
-
-![finetuned_bear.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/finetuned_bear.png)
-
-![nonfinetuned_heaven.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/nonfinetuned_heaven.png)
-
-![finetuned_heaven.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/finetuned_heaven.png)
-
-![nonfinetuned_dune.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/nonfinetuned_dune.png)
-
-![finetuned_dune.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/finetuned_dune.png)
+| | |
+|:-------------------------:|:-------------------------:|
+| ![nonfinetuned_bear.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/nonfinetuned_bear.png) | ![finetuned_bear.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/finetuned_bear.png) |
+| ![nonfinetuned_heaven.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/nonfinetuned_heaven.png) |
+![finetuned_heaven.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/finetuned_heaven.png) |
+| ![nonfinetuned_dune.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/nonfinetuned_dune.png) |  ![finetuned_dune.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ddpo/finetuned_dune.png) |
 
 ## Limitations
 
