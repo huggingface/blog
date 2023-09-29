@@ -2908,7 +2908,7 @@
   title: "Finetune Stable Diffusion Models with DDPO via TRL"
   author: metric-space
   guest: true
-  thumbnail: /blog/assets/165-trl-ddpo/thumbnail.png
+  thumbnail: /blog/assets/166_trl_ddpo/thumbnail.png
   date: September 29, 2023
   tags:
     - guide

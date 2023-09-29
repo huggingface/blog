@@ -1,6 +1,6 @@
 ---
 title: "Finetune Stable Diffusion Models with DDPO via TRL" 
-thumbnail: /blog/assets/166-trl-ddpo/thumbnail.png
+thumbnail: /blog/assets/166_trl_ddpo/thumbnail.png
 authors:
 - user: metric-space
   guest: true
@@ -86,7 +86,7 @@ To get started, when it comes to the hardware side of things and this implementa
 Use pip to install the `trl` library
 
 ```bash
-  pip install trl[diffusers]
+pip install trl[diffusers]
 ```
 
 This should get the main library installed. The following dependencies are for tracking and image logging. After getting `wandb` installed, be sure to login to save the results to a personal account
