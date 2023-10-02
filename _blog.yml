@@ -2936,7 +2936,7 @@
     - llm
     - stable-diffusion
 
-- local: sdxl_jax.md
+- local: sdxl_jax
   title: "Stable Diffusion XL 🤝 JAX + TPUv5e"
   author: pcuenq
   thumbnail: /blog/assets/sdxl-jax/thumbnail.png
