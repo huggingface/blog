@@ -52,7 +52,7 @@ We'll focus on making the AI Comic Factory work on the Inference API, so they bo
 
 ![duplicate-space-3.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/165_ai_comic_factory/duplicate-space-3.jpg)
 
-You can find more information about alternative engines and vendors in the project's (README)[https://huggingface.co/spaces/jbilcke-hf/ai-comic-factory/blob/main/README.md] and the [.env](https://huggingface.co/spaces/jbilcke-hf/ai-comic-factory/blob/main/README.md) config file.
+You can find more information about alternative engines and vendors in the project's [README](https://huggingface.co/spaces/jbilcke-hf/ai-comic-factory/blob/main/README.md) and the [.env](https://huggingface.co/spaces/jbilcke-hf/ai-comic-factory/blob/main/README.md) config file.
 
 ## Configuring the models
 
