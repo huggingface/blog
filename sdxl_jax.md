@@ -169,10 +169,12 @@ The following measures were obtained running SDXL 1.0 base for 20 steps, with th
 
 The Cloud TPU tests were run using Python 3.10 and jax version 0.4.16. These are the same specs used in our [demo Space](https://huggingface.co/spaces/google/sdxl).
 
-|                 | batch size 1 | batch size 2 |
-|-----------------|:------------:|:------------:|
-| TPU v5e-4 (JAX) | 2.33         | 4.99         |
-| A100 (PyTorch)  | 2.16         | 4.17         |
+|                 | Chips | Batch Size |  Time | Total Images |
+|-----------------|-------|------------|:-----:|--------------|
+| TPU v5e-4 (JAX) | 4     | 1          | 2.33s | 4            |
+|                 |       | 2          | 4.99s | 8            |
+| A100 (PyTorch)  | 1     | 1          | 2.16s | 1            |
+|                 |       | 2          | 4.17  | 2            |
 
 Also note that the PyTorch implementation uses the most optimized settings currently available in diffusers: flash attention and `torch.compile()` on PyTorch 2.0.1 with CUDA 11.8.
 
