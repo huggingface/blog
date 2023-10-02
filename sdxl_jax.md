@@ -174,8 +174,7 @@ The Cloud TPU tests were run using Python 3.10 and jax version 0.4.16. These are
 | TPU v5e-4 (JAX) | 2.33         | 4.99         |
 | A100 (PyTorch)  | 2.16         | 4.17         |
 
-Also note that the PyTorch implementation uses the most optimized settings currently available in diffusers: flash attention and `torch.compile()` on PyTorch 2.01 with CUDA 11.8.
-
+Also note that the PyTorch implementation uses the most optimized settings currently available in diffusers: flash attention and `torch.compile()` on PyTorch 2.0.1 with CUDA 11.8.
 
 ## How does the demo work?
 
