@@ -21,7 +21,7 @@ In this tutorial, we'll show you how to fork and configure the AI Comic Factory 
 
 First, ensure that you sign up for a [PRO Hugging Face account](https://huggingface.co/subscribe/pro), as this will grant you access to the Llama-2 and SDXL models.
 
-## How the AI Comic Factory is made
+## How the AI Comic Factory works
 
 The AI Comic Factory is a bit different from other Spaces running on Hugging Face: it is a NextJS application, deployed using Docker, and is based on a client-server approach, requiring two APIs to work:
 
