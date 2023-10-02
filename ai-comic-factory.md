@@ -30,7 +30,7 @@ The AI Comic Factory is a bit different from other Spaces running on Hugging Fac
 
 ## Duplicating the Space
 
-To duplicate the AI Comic Factory, go to the Space and click on "Duplicate":
+To duplicate the AI Comic Factory, go to the Space and [click on "Duplicate"](https://huggingface.co/spaces/jbilcke-hf/ai-comic-factory?duplicate=true):
 
 ![duplicate-space-1.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/165_ai_comic_factory/duplicate-space-1.jpg)
 
