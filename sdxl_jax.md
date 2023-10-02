@@ -20,7 +20,7 @@ Google Cloud TPUs are designed for parallel operation, which makes them very int
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="google/sdxl"></gradio-app>
 
-Under the hood, this demo runs on several TPU v5e-4 instances –each instance has 4 cores–, and takes advantage of parallelization to create 4 large 1024×1024 images in about 4 seconds, including all communications overhead!
+Under the hood, this demo runs on several TPU v5e-4 instances –each instance has 4 chips-, and takes advantage of parallelization to create 4 large 1024×1024 images in about 4 seconds, including all communications overhead!
 
 In this blog post,
 1. [We state a couple of reasons why JAX + TPU + Diffusers is a powerful framework to run SDXL](#why-jax--tpuv5e-for-sdxl)
@@ -44,9 +44,9 @@ Image generation, however, is better suited for compilation. If we always genera
 #### High-performance throughput for high batch sizes
 
 Workloads can be scaled across multiple devices using JAX's [pmap](https://jax.readthedocs.io/en/latest/_autosummary/jax.pmap.html), which expresses single-program multiple-data (SPMD) programs. Applying pmap to a function will compile a function with XLA, then execute it in parallel on various XLA devices. 
-For text-to-image generation workloads this means that increasing the number of images rendered simultaneously is straightforward to implement and doesn't compromise performance. For example, running SDXL on a TPU with 8 cores will generate 8 images in the same time it takes for 1 core to create a single image.
+For text-to-image generation workloads this means that increasing the number of images rendered simultaneously is straightforward to implement and doesn't compromise performance. For example, running SDXL on a TPU with 8 chips will generate 8 images in the same time it takes for 1 chip to create a single image.
 
-TPUv5e chips come in multiple flavors, including 1, 4 and 8-core setups. This allows you to tailor the number of chips for your use case.
+TPUv5e instances come in multiple flavors, including 1, 4 and 8-chip setups. This allows you to tailor the number of chips for your use case.
 
 ## How to write an image generation pipeline in JAX
 
@@ -97,7 +97,7 @@ def tokenize_prompt(prompt, neg_prompt):
     return prompt_ids, neg_prompt_ids
 ```
 
-To take advantage of parallelization, we'll replicate the inputs across devices. A Cloud TPU v5e-4 has 4 cores, so by replicating the inputs we get each core to generate a different image, in parallel. We need to be careful to supply a different random seed to each core so the 4 images are different:
+To take advantage of parallelization, we'll replicate the inputs across devices. A Cloud TPU v5e-4 has 4 chips, so by replicating the inputs we get each chip to generate a different image, in parallel. We need to be careful to supply a different random seed to each chip so the 4 images are different:
 
 ```Python
 NUM_DEVICES = jax.device_count()
@@ -179,6 +179,6 @@ Also note that the PyTorch implementation uses the most optimized settings curre
 
 ## How does the demo work?
 
-The [demo we showed before](https://huggingface.co/spaces/google/sdxl) was built using a script that essentially follows the code we posted in this blog post. It runs on a few Cloud TPU v5e devices with 4 cores each, and there's a simple load-balancing server that routes user requests to backend servers randomly. When you enter a prompt in the demo, your request will be assigned to one of the backend servers, and you'll receive the 4 images it generates.
+The [demo we showed before](https://huggingface.co/spaces/google/sdxl) was built using a script that essentially follows the code we posted in this blog post. It runs on a few Cloud TPU v5e devices with 4 chips each, and there's a simple load-balancing server that routes user requests to backend servers randomly. When you enter a prompt in the demo, your request will be assigned to one of the backend servers, and you'll receive the 4 images it generates.
 
 This is a simple solution based on a number of pre-allocated TPU instances. In a future post we'll cover how to create dynamic solutions that adapt to load using GKE.
