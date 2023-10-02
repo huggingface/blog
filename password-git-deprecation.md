@@ -30,7 +30,7 @@ You will need to generate an access token for your account; you can follow https
 After generating your access token, you can update your Git repository using the following commands:
 
 ```bash
-$: git remote set-url origin https://<user_name>:<token>@huggingface.co/<user_name>/<repo_name>
+$: git remote set-url origin https://<user_name>:<token>@huggingface.co/spaces/<user_name>/<repo_name>
 $: git pull origin
 ```
 or if you clone a new repo, you can just input a token in place of your password when your Git credential manager asks you for your authentication credentials.
