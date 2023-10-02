@@ -17,21 +17,21 @@ Google Cloud TPUs are designed for parallel operation, which makes them very int
 
 🧨 Diffusers JAX integration offers a convenient way to run SDXL on TPU via XLA, and we built a demo to showcase it. You can try it out in [this Space](https://huggingface.co/spaces/google/sdxl) or in the playground embedded below:
 
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.37.0/gradio.js"> </script>
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="google/sdxl"></gradio-app>
 
 Under the hood, this demo runs on several TPU v5e-4 instances –each instance has 4 cores–, and takes advantage of parallelization to create 4 large 1024×1024 images in about 4 seconds, including all communications overhead!
 
 In this blog post,
-- 1. [We state a couple of reasons why JAX + TPU + Diffusers is a powerful framework to run SDXL](#why-jax--tpuv5e-for-sdxl)
-- 2. [Explain how you can write a simple image generation pipeline with Diffusers and JAX](#how-to-write-an-image-generation-pipeline-in-jax)
-- 3. [Show benchmarks comparing different TPU settings](#benchmark)
+1. [We state a couple of reasons why JAX + TPU + Diffusers is a powerful framework to run SDXL](#why-jax--tpuv5e-for-sdxl)
+2. [Explain how you can write a simple image generation pipeline with Diffusers and JAX](#how-to-write-an-image-generation-pipeline-in-jax)
+3. [Show benchmarks comparing different TPU settings](#benchmark)
 
 ## Why JAX + TPUv5e for SDXL ?
 
 The advantage of JAX + TPUv5e boils down essentially to two factors:
 
-- JIT compilation
+#### JIT compilation
 
 A notable feature of JAX is its just-in-time (jit) compilation. The JIT compiler traces code during the first run, and generates highly optimized TPU binaries that are re-used in subsequent calls.
 The catch of this process is that it requires all input, intermediate and output shapes to be **static**, meaning that they must be known in advance. Every time we change the shapes
@@ -41,7 +41,7 @@ In some domains it's challenging to adopt static shapes. In text generation task
 
 Image generation, however, is better suited for compilation. If we always generate the same number of images and they have the same size, then the output shapes are constant and known in advance. The text inputs _are also constant_: by design, Stable Diffusion and SDXL use fixed-shape embedding vectors (with padding) to represent the prompts typed by the user. Therefore, we can write JAX code that relies on fixed shapes and that can be greatly optimized!
 
-- High-performance throughput for high batch sizes
+#### High-performance throughput for high batch sizes
 
 Workloads can be scaled across multiple devices using JAX's [pmap](https://jax.readthedocs.io/en/latest/_autosummary/jax.pmap.html), which expresses single-program multiple-data (SPMD) programs. Applying pmap to a function will compile a function with XLA, then execute it in parallel on various XLA devices. 
 For text-to-image generation workloads this means that increasing the number of images rendered simultaneously is straightforward to implement and doesn't compromise performance. For example, running SDXL on a TPU with 8 cores will generate 8 images in the same time it takes for 1 core to create a single image.
