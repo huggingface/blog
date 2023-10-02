@@ -1,6 +1,6 @@
 ---
 title: 🧨 Stable Diffusion  in JAX / Flax !
-thumbnail: /blog/assets/108_stable_diffusion_jax/thumbnail.png
+thumbnail: /blog/assets/sdxl-jax/thumbnail.png
 authors:
 - user: pcuenq
 - user: patrickvonplaten
