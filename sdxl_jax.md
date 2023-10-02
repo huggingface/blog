@@ -150,9 +150,8 @@ generate(default_prompt, default_neg_prompt)
 print(f"Compiled in {time.time() - start}")
 ```
 
-TODO: put the output time here
-
-Once the code has been compiled, inference will be super fast. Let's try again!
+This took about three minutes the first time we ran it.
+But once the code has been compiled, inference will be super fast. Let's try again!
 
 ```Python
 start = time.time()
@@ -162,7 +161,7 @@ images = generate(prompt, neg_prompt)
 print(f"Inference in {time.time() - start}")
 ```
 
-TODO: put the output
+It now took about 2s to generate the 4 images!
 
 ## Benchmark
 
