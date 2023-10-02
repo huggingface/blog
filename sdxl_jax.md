@@ -168,9 +168,10 @@ TODO: put the output
 
 The following measures were obtained running SDXL 1.0 base for 20 steps, with the default Euler Discrete scheduler. We used Python 3.10 and jax version 0.4.16. These are the same specs used in our [demo Space](https://huggingface.co/spaces/google/sdxl).
 
-|           | 4 images (1 per core) | 8 images (2 per core) |
-|-----------|:---------------------:|:---------------------:|
-| TPU v5e-4 | 2.33                  | 4.99                  |
+|           | 4 images (batch size 1) | 8 images (batch size 2) |
+|-----------|:-----------------------:|:-----------------------:|
+| TPU v5e-4 | 2.33                    | 4.99                    |
+
 
 ## How does the demo work?
 
