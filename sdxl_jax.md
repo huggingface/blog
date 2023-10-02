@@ -20,7 +20,7 @@ Google Cloud TPUs are designed for parallel operation, which makes them very int
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="google/sdxl"></gradio-app>
 
-Under the hood, this demo runs on several TPU v5e-4 instances –each instance has 4 chips-, and takes advantage of parallelization to create 4 large 1024×1024 images in about 4 seconds, including all communications overhead!
+Under the hood, this demo runs on several TPU v5e-4 instances –each instance has 4 chips-, and takes advantage of parallelization to serve 4 large 1024×1024 images in about 4 seconds. This time includes format conversions, communications time and frontend processing; the actual generation time is about 2.3s as we'll see below!
 
 In this blog post,
 1. [We state a couple of reasons why JAX + TPU + Diffusers is a powerful framework to run SDXL](#why-jax--tpuv5e-for-sdxl)
