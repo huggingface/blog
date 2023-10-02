@@ -42,7 +42,7 @@ Follow our guide to generate an SSH key and add it to your account: https://hugg
 Then you'll be able to update your Git repository using:
 
 ```bash
-$: git remote set-url origin git@hf.co:<user_name>/<repo_name>
+$: git remote set-url origin git@hf.co:spaces/<user_name>/<repo_name>
 ```
 
 ## Timeline
