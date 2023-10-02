@@ -166,7 +166,14 @@ TODO: put the output
 
 ## Benchmark
 
-The following measures were obtained running SDXL 1.0 base for 25 steps, with the default Euler Discrete scheduler. We used Python 3.10 and jax version 0.4.16. These are the same specs used in our [demo Space](#).
+The following measures were obtained running SDXL 1.0 base for 20 steps, with the default Euler Discrete scheduler. We used Python 3.10 and jax version 0.4.16. These are the same specs used in our [demo Space](https://huggingface.co/spaces/google/sdxl).
 
-## ... (more???)
+|           | 4 images (1 per core) | 8 images (2 per core) |
+|-----------|:---------------------:|:---------------------:|
+| TPU v5e-4 | 2.33                  | 4.99                  |
 
+## How does the demo work?
+
+The [demo we showed before](https://huggingface.co/spaces/google/sdxl) was built using a script that essentially follows the code we posted in this blog post. It runs on a few Cloud TPU v5e devices with 4 cores each, and there's a simple load-balancing server that routes user requests to backend servers randomly. When you enter a prompt in the demo, your request will be assigned to one of the backend servers, and you'll receive the 4 images it generates.
+
+This is a simple solution based on a number of pre-allocated TPU instances. In a future post we'll cover how to create dynamic solutions that adapt to load using GKE.
