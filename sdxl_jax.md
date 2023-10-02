@@ -166,11 +166,16 @@ TODO: put the output
 
 ## Benchmark
 
-The following measures were obtained running SDXL 1.0 base for 20 steps, with the default Euler Discrete scheduler. We used Python 3.10 and jax version 0.4.16. These are the same specs used in our [demo Space](https://huggingface.co/spaces/google/sdxl).
+The following measures were obtained running SDXL 1.0 base for 20 steps, with the default Euler Discrete scheduler. We compare Cloud TPU v5e with A100 for the same batch sizes. Do note that, due to parallelism, a TPU v5e-4 like the ones we use in our demo will generate **4 images** when using a batch size of 1 (or 8 images with a batch size of 2). Similarly, a TPU v5e-8 will generate 8 images when using a batch size of 1.
 
-|           | 4 images (batch size 1) | 8 images (batch size 2) |
-|-----------|:-----------------------:|:-----------------------:|
-| TPU v5e-4 | 2.33                    | 4.99                    |
+The Cloud TPU tests were run using Python 3.10 and jax version 0.4.16. These are the same specs used in our [demo Space](https://huggingface.co/spaces/google/sdxl).
+
+|                 | batch size 1 | batch size 2 |
+|-----------------|:------------:|:------------:|
+| TPU v5e-4 (JAX) | 2.33         | 4.99         |
+| A100 (PyTorch)  | 2.16         | 4.17         |
+
+Also note that the PyTorch implementation uses the most optimized settings currently available in diffusers: flash attention and `torch.compile()` on PyTorch 2.01 with CUDA 11.8.
 
 
 ## How does the demo work?
