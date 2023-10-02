@@ -62,7 +62,7 @@ The AI Comic Factory comes with the following models pre-configured:
 
 Your PRO Hugging Face account already gives you access to those models, so you don't have anything to do or change.
 
-# Going further
+## Going further
 
 Support for the Inference API in the AI Comic Factory is in its early stages, and some features, such as using the refiner step for SDXL or implementing upscaling, haven't been ported over yet.
 
