@@ -2924,6 +2924,18 @@
   tags:
     - ethics
 
+- local: ai-comic-factory
+  title: "Deploying the AI Comic Factory using the Inference API"
+  author: jbilcke-hf
+  thumbnail: /blog/assets/165_ai_comic_factory/thumbnail.jpg
+  date: October 2, 2023
+  tags:
+    - guide
+    - inference
+    - api
+    - llm
+    - stable-diffusion
+
 - local: sdxl_jax.md
   title: "Stable Diffusion XL 🤝 JAX + TPUv5e"
   author: pcuenq
