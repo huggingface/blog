@@ -19,7 +19,7 @@ Chat models have been trained with very different formats for converting convers
 
 ## Introduction
 
-If you're familiar with the Transformers library, you've probably written code like this:
+If you're familiar with the 🤗 Transformers library, you've probably written code like this:
 
 ```python
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
