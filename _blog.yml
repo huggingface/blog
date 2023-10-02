@@ -2923,3 +2923,16 @@
   date: September 29, 2023
   tags:
     - ethics
+
+- local: sdxl_jax.md
+  title: "Stable Diffusion XL 🤝 JAX + TPUv5e"
+  author: pcuenq
+  thumbnail: /blog/assets/108_stable_diffusion_jax/thumbnail.png
+  date: October 3, 2023
+  tags:
+    - sdxl
+    - jax
+    - stable diffusion
+    - guide
+    - tpu
+    - google
