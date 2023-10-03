@@ -11,8 +11,6 @@ translators:
 
 # 一文带你入门图机器学习
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 本文主要涉及图机器学习的基础知识。
 

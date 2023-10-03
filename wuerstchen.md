@@ -13,8 +13,6 @@ authors:
 
 # Introducing Würstchen: Fast Diffusion for Image Generation
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ![Collage of images created with Würstchen](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/wuertschen/collage_compressed.jpg)
 
@@ -40,7 +38,8 @@ You can also find a detailed explanation video here:
 
 ## How to use Würstchen?
 You can either try it using the Demo here:
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.42.0/gradio.js"> </script>
+
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.44.2/gradio.js"> </script>
 <gradio-app theme_mode="light" space="warp-ai/Wuerstchen"></gradio-app>
 
 Otherwise, the model is available through the Diffusers Library, so you can use the interface you are already familiar with. For example, this is how to run inference using the `AutoPipeline`:
@@ -124,8 +123,15 @@ images = pipeline(caption, height=1024, width=1536, prior_timesteps=DEFAULT_STAG
 And the good news is that this compilation is a one-time execution. Post that, you're set to experience faster inferences consistently for the same image resolutions. The initial time investment in compilation is quickly offset by the subsequent speed benefits. For a deeper dive into `torch.compile` and its nuances, check out the [official documentation](https://pytorch.org/tutorials/intermediate/torch_compile_tutorial.html).
 
 
+## How was the model trained?
+The ability to train this model was only possible through compute resources provided by [Stability AI](https://stability.ai/).
+We wanna say a special thank you to Stability for giving us the possibility to pursue this kind of research, with the chance
+to make it accessible to so many more people! 
+
+
 ## Resources
 * Further information about this model can be found in the official diffusers [documentation](https://huggingface.co/docs/diffusers/main/en/api/pipelines/wuerstchen).
 * All the checkpoints can be found on the [hub](https://huggingface.co/warp-ai)
 * You can try out the [demo here](https://huggingface.co/spaces/warp-ai/Wuerstchen).
 * Join our [Discord](https://discord.com/invite/BTUAzb8vFY) if you want to discuss future projects or even contribute with your own ideas!
+* Training code and more can be found in the official [GitHub repository](https://github.com/dome272/wuerstchen/)

@@ -1850,7 +1850,7 @@
 
 
 - local: classification-use-cases
-  title: "Leveraging Hugging Face for complex text classification use cases"
+  title: "How Hugging Face Accelerated Development of Witty Works Writing Assistant"
   author: VioletteLepercq
   thumbnail: /blog/assets/78_ml_director_insights/witty-works.png
   date: March 1, 2023
@@ -2755,6 +2755,14 @@
     - diffusers
     - diffusion
 
+- local: fetch-case-study
+  title: "Fetch Cuts ML Processing Latency by 50% Using Amazon SageMaker & Hugging Face"
+  author: Violette
+  thumbnail: /blog/assets/78_ml_director_insights/fetch.png
+  date: September 1, 2023
+  tags:
+    - case-studies
+
 - local: falcon-180b
   title: "Spread Your Wings: Falcon 180B is here"
   author: philschmid
@@ -2777,7 +2785,7 @@
     - collaboration
     - diffusers
     - diffusion
-    
+
 - local: safecoder-vs-closed-source-code-assistants
   title: "SafeCoder vs. Closed-source Code Assistants"
   author: julsimon
@@ -2819,11 +2827,120 @@
     - diffusers
     - text-to-image
 
+- local: optimize-llm
+  title: "Optimizing your LLM in production"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/163_optimize_llm/optimize_llm.png
+  date: Sep 15, 2023
+  tags:
+    - nlp
+    - research
+    - LLM
+
+- local: object-detection-leaderboard
+  title: "Object Detection Leaderboard"
+  author: rafaelpadilla
+  guest: true
+  thumbnail: /blog/assets/object-detection-leaderboard/thumbnail.png
+  date: September 18, 2023
+  tags:
+    - community
+    - guide
+    - cv
+    - leaderboard
+    - evaluation
+
+- local: gaussian-splatting
+  title: "Introduction to 3D Gaussian Splatting"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail-gaussian-splatting.png
+  date: September 18, 2023
+  tags:
+    - community
+    - guide
+    - cv
+    - game-dev
+    
+- local: rocketmoney-case-study
+  title: "Rocket Money x Hugging Face: Scaling Volatile ML Models in Production"
+  author: nicokuzak
+  guest: true
+  thumbnail: /blog/assets/78_ml_director_insights/rocketmoney.png
+  date: September 19, 2023
+  tags:
+    - case-studies
+
+- local: inference-pro
+  title: "Inference for PROs"
+  author: osanseviero
+  thumbnail: /blog/assets/inference_pro/thumbnail.png
+  date: September 22, 2023
+  tags:
+    - community
+    - guide
+    - inference
+    - api
+    - llm
+    - stable-diffusion
+
+- local: llama-sagemaker-benchmark
+  title: "Llama 2 on Amazon SageMaker a Benchmark"
+  author: philschmid
+  thumbnail: /blog/assets/llama_sagemaker_benchmark/thumbnail.jpg
+  date: September 26, 2023
+  tags:
+    - guide
+    - inference
+    - llm
+    - aws
+
+- local: Llama2-for-non-engineers
+  title: "Non-engineers guide: Train a LLaMA 2 chatbot"
+  author: 2legit2overfit
+  thumbnail: /blog/assets/78_ml_director_insights/tuto.png
+  date: September 28, 2023
+  tags:
+    - guide
+    - community
+    - nlp
+
+- local: trl-ddpo
+  title: "Finetune Stable Diffusion Models with DDPO via TRL"
+  author: metric-space
+  guest: true
+  thumbnail: /blog/assets/166_trl_ddpo/thumbnail.png
+  date: September 29, 2023
+  tags:
+    - guide
+    - diffusers
+    - rl
+    - rlhf
+   
+- local: ethics-soc-5
+  title: "Ethics and Society Newsletter #5: Hugging Face Goes To Washington and Other Summer 2023 Musings"
+  author: meg
+  thumbnail: /blog/assets/164_ethics-soc-5/thumbnail.png
+  date: September 29, 2023
+  tags:
+    - ethics
+
+- local: ai-comic-factory
+  title: "Deploying the AI Comic Factory using the Inference API"
+  author: jbilcke-hf
+  thumbnail: /blog/assets/165_ai_comic_factory/thumbnail.jpg
+  date: October 2, 2023
+  tags:
+    - guide
+    - inference
+    - api
+    - llm
+    - stable-diffusion
+
 - local: chat-templates
   title: "Chat Templates: An End to the Silent Performance Killer"
   author: rocketknight1
   thumbnail: /blog/assets/chat-templates/thumbnail.png
-  date: September 14, 2023
+  date: October 3, 2023
   tags:
     - LLM
     - nlp

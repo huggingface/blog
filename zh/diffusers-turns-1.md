@@ -13,8 +13,6 @@ translators:
 
 # 🤗 Diffusers 一岁啦 !
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 十分高兴 🤗 Diffusers 迎来它的一岁生日！这是令人激动的一年，感谢社区和开源贡献者，我们对我们的工作感到十分骄傲和自豪。去年，文本到图像的模型，如 DALL-E 2, Imagen, 和 Stable Diffusion 以其从文本生成逼真的图像的能力，吸引了全世界的关注，也带动了对生成式 AI 的大量兴趣和开发工作。但是这些强大的工作不易获取。
 

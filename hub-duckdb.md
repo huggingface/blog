@@ -9,8 +9,6 @@ authors:
 
 # DuckDB: run SQL queries on 50,000+ datasets on the Hugging Face Hub
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 The Hugging Face Hub is dedicated to providing open access to datasets for everyone and giving users the tools to explore and understand them. You can find many of the datasets used to train popular large language models (LLMs) like [Falcon](https://huggingface.co/datasets/tiiuae/falcon-refinedweb), [Dolly](https://huggingface.co/datasets/databricks/databricks-dolly-15k), [MPT](https://huggingface.co/datasets/mosaicml/dolly_hhrlhf), and [StarCoder](https://huggingface.co/datasets/bigcode/the-stack). There are tools for addressing fairness and bias in datasets like [Disaggregators](https://huggingface.co/spaces/society-ethics/disaggregators), and tools for previewing examples inside a dataset like the Dataset Viewer.
 

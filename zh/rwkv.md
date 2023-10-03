@@ -14,8 +14,6 @@ translators:
 
 # RWKV – transformer 与 RNN 的强强联合
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 在 NLP (Natural Language Processing, 自然语言处理) 领域，ChatGPT 和其他的聊天机器人应用引起了极大的关注。每个社区为构建自己的应用，也都在持续地寻求强大、可靠的开源模型。自 Vaswani 等人于 2017 年首次提出 [Attention Is All You Need](https://arxiv.org/abs/1706.03762) 之后，基于 transformer 的强大的模型一直在不断地涌现，它们在 NLP 相关任务上的表现远远超过基于 RNN (Recurrent Neural Networks, 递归神经网络) 的 SoTA 模型，甚至多数认为 RNN 已死。而本文将介绍一个集 RNN 和 transformer 两者的优势于一身的全新网络架构 –RWKV！现已在 HuggingFace [transformers](https://github.com/huggingface/transformers) 库中支持。
 

@@ -11,8 +11,6 @@ translators:
 
 # BigCode 背后的大规模数据去重
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 目标受众
 

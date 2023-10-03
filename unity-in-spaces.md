@@ -5,9 +5,8 @@ authors:
 - user: dylanebert
 ---
 
-<h1>How to host a Unity game in a Space</h1>
+# How to host a Unity game in a Space
 
-<!-- {blog_metadata} -->
 <!-- {authors} --> 
 
 

@@ -5,10 +5,8 @@ authors:
 - user: britneymuller
 ---
 
-<h1>Machine Learning Experts - Margaret Mitchell</h1>
+# Machine Learning Experts - Margaret Mitchell
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Hey friends! Welcome to Machine Learning Experts. I'm your host, Britney Muller and today’s guest is none other than [Margaret Mitchell](https://twitter.com/mmitchell_ai) (Meg for short). Meg founded & co-led Google’s Ethical AI Group, is a pioneer in the field of Machine Learning, has published over 50 papers, and is a leading researcher in Ethical AI.
 

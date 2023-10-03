@@ -9,8 +9,6 @@ authors:
 
 > ##### Cross-posted from the&nbsp;[Gradio blog](https://gradio.app/blog/using-huggingface-models).
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 The **[Hugging Face Model Hub](https://huggingface.co/models)** has more than 10,000 machine learning models submitted by users. You’ll find all kinds of natural language processing models that, for example, translate between Finnish and English or recognize Chinese speech. More recently, the Hub has expanded to even include models for image classification and audio processing. 

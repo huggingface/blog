@@ -7,8 +7,6 @@ authors:
 
 # SafeCoder vs. Closed-source Code Assistants
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 For decades, software developers have designed methodologies, processes, and tools that help them improve code quality and increase productivity. For instance, agile, test-driven development, code reviews, and CI/CD are now staples in the software industry. 

@@ -829,6 +829,19 @@
     - research
     - diffusers
 
+- local: encrypted-llm
+  title: "使用 FHE 实现加密大语言模型"
+  author: RomanBredehoft
+  guest: true
+  thumbnail: /blog/assets/encrypted-llm/thumbnail.png
+  date: August 02, 2023
+  tags:
+    - guide
+    - privacy
+    - research
+    - FHE
+    - llm
+
 - local: dpo-trl
   title: "使用 DPO 微调 Llama 2"
   author: kashif
@@ -924,3 +937,15 @@
     - community
     - research
     - LLM
+
+- local: t2i-sdxl-adapters
+  title: "在 SDXL 上用 T2I-Adapter 实现高效可控的文生图"
+  author: Adapter
+  guest: true
+  thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
+  date: September 8, 2023
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion

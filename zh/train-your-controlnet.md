@@ -12,8 +12,6 @@ translators:
 
 # 使用 diffusers 训练你自己的 ControlNet 🧨
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 简介
 [ControlNet](https://huggingface.co/blog/controlnet) 这个神经网络模型使得用户可以通过施加额外条件，细粒度地控制扩散模型的生成过程。这一技术最初由 [Adding Conditional Control to Text-to-Image Diffusion Models](https://huggingface.co/papers/2302.05543) 这篇论文提出，并很快地风靡了扩散模型的开源社区。作者开源了 8 个不同的模型，使得用户可以用 8 种条件去控制 Stable Diffusion 模型（包括版本 1 到 5 ）。这 8 种条件包括姿态估计、深度图、边缘图、素描图 [等等](https://huggingface.co/lllyasviel)。

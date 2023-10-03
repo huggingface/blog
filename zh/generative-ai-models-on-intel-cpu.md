@@ -11,8 +11,6 @@ translators:
 
 # 越小越好: Q8-Chat，在英特尔至强 CPU 上体验高效的生成式 AI
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 大语言模型 (LLM) 正在席卷整个机器学习世界。得益于其 [transformer](https://arxiv.org/abs/1706.03762) 架构，LLM 拥有从大量非结构化数据 (如文本、图像、视频或音频) 中学习的不可思议的能力。它们在 [多种任务类型](https://huggingface.co/tasks) 上表现非常出色，无论是文本分类之类的抽取任务 (extractive task) 还是文本摘要和文生图像之类的生成任务 (generative task)。
 

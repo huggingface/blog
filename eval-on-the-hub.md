@@ -15,8 +15,6 @@ authors:
 
 # Announcing Evaluation on the Hub
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <em>TL;DR</em>: Today we introduce [Evaluation on the Hub](https://huggingface.co/spaces/autoevaluate/model-evaluator), a new tool powered by [AutoTrain](https://huggingface.co/autotrain) that lets you evaluate any model on any dataset on the Hub without writing a single line of code!
 

@@ -17,8 +17,6 @@ translators:
 
 # Optimum + ONNX Runtime: 更容易、更快地训练你的 Hugging Face 模型
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 介绍
 

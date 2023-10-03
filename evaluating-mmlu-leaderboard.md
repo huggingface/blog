@@ -10,8 +10,6 @@ authors:
 
 # What's going on with the Open LLM Leaderboard?
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Recently an interesting discussion arose on Twitter following the release of [**Falcon 🦅**](https://huggingface.co/tiiuae/falcon-40b) and its addition to the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard), a public leaderboard comparing open access large language models.
 

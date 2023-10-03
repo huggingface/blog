@@ -9,8 +9,6 @@ authors:
 
 # Welcome fastText to the Hugging Face Hub
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 [fastText](https://fasttext.cc/) is a library for efficient learning of text representation and classification. [Open-sourced](https://fasttext.cc/blog/2016/08/18/blog-post.html) by Meta AI in 2016, fastText integrates key ideas that have been influential in natural language processing and machine learning over the past few decades: representing sentences using bag of words and bag of n-grams, using subword information, and utilizing a hidden representation to share information across classes. 
 

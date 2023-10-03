@@ -9,10 +9,8 @@ authors:
   guest: true
 ---
 
-<h1>Hugging Face 中文博客正式发布！</h1>
+# Hugging Face 中文博客正式发布！
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Hugging Face 的中国社区成立已经有五个月之久，我们非常高兴地看到 Hugging Face 相关的中文内容在各个平台广受好评。同时我们也注意到，Hugging Face Hub 和开源生态上有众多国内开发者们的创新和贡献。
 

@@ -11,8 +11,6 @@ translators:
 
 # 使用 🤗 Transformers 为多语种语音识别任务微调 Whisper 模型
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/fine_tune_whisper.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="在 Colab 中打开"/>
