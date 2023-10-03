@@ -35,7 +35,7 @@ Generative AI models, such as Stable Diffusion XL (SDXL), enable the creation of
 Under the hood, this demo runs on several TPU v5e-4 instances (each instance has 4 TPU chips), and takes advantage of parallelization to serve 4 large 1024×1024 images in about 4 seconds. This time includes format conversions, communications time and frontend processing; the actual generation time is about 2.3s as we'll see below!
 
 In this blog post,
-1. [We describe why JAX + TPU + Diffusers is a powerful framework to run SDXL](#why-jax--tpuv5e-for-sdxl)
+1. [We describe why JAX + TPU + Diffusers is a powerful framework to run SDXL](#why-jax--tpu-v5e-for-sdxl)
 2. [Explain how you can write a simple image generation pipeline with Diffusers and JAX](#how-to-write-an-image-generation-pipeline-in-jax)
 3. [Show benchmarks comparing different TPU settings](#benchmark)
 
