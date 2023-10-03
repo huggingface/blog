@@ -7,10 +7,6 @@ authors:
 
 # Chat Templates
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
-
-
 > *A spectre is haunting chat models - the spectre of incorrect formatting!*
 
 ## tl;dr
