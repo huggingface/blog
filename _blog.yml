@@ -2945,3 +2945,16 @@
     - LLM
     - nlp
     - community
+
+- local: sdxl_jax
+  title: "Accelerating Stable Diffusion XL Inference with JAX on Cloud TPU v5e"
+  author: pcuenq
+  thumbnail: /blog/assets/sdxl-jax/thumbnail.jpg
+  date: October 3, 2023
+  tags:
+    - sdxl
+    - jax
+    - stable diffusion
+    - guide
+    - tpu
+    - google
