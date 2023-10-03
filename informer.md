@@ -595,7 +595,7 @@ def create_instance_splitter(
     train_sampler: Optional[InstanceSampler] = None,
     validation_sampler: Optional[InstanceSampler] = None,
 ) -> Transformation:
-    assert mode in ["train", "validation", "test"]
+    assert mode in ["train", "validation"]
 
     instance_sampler = {
         "train": train_sampler
@@ -604,7 +604,6 @@ def create_instance_splitter(
         ),
         "validation": validation_sampler
         or ValidationSplitSampler(min_future=config.prediction_length),
-        "test": TestSplitSampler(),
     }[mode]
 
     return InstanceSplitter(
@@ -709,9 +708,9 @@ def create_test_dataloader(
     transformation = create_transformation(freq, config)
     transformed_data = transformation.apply(data, is_train=False)
 
-    # we create a Test Instance splitter which will sample the very last
+    # we create a Validation Instance splitter which will sample the very last
     # context window seen during training only for the encoder.
-    instance_sampler = create_instance_splitter(config, "test")
+    instance_sampler = create_instance_splitter(config, "validation")
 
     # we apply the transformations in test mode
     testing_instances = instance_sampler.apply(transformed_data, is_train=False)
