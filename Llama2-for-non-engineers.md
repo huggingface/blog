@@ -63,7 +63,7 @@ You can read more about ChatUI [here](https://github.com/huggingface/chat-ui).
 
 1.6 Select whether you want to make the “Private” or “Public”, for the AutoTrain Space itself it’s recommended to keep this Private, but you can always publicly share your model or Chat App later on.
 
-1.7 Hit “Create Space” et voilla! The new Space will take a couple of minutes to build after which you can open the Space and start using AutoTrain.
+1.7 Hit “Create Space” et voilà! The new Space will take a couple of minutes to build after which you can open the Space and start using AutoTrain.
 
 
 <p align="center">
