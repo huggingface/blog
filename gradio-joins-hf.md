@@ -5,7 +5,7 @@ authors:
 - user: abidlabs
 ---
 
-<h1>Gradio is joining Hugging Face!</h1>
+# Gradio is joining Hugging Face!
 
 
 <p>&nbsp;</p>

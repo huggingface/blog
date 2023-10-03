@@ -8,7 +8,7 @@ authors:
   guest: true
 ---
 
-<h1>Rocket Money x Hugging Face: Scaling Volatile ML Models in Production</h1>
+# Rocket Money x Hugging Face: Scaling Volatile ML Models in Production
 
 
 #### "We discovered that they were not just service providers, but partners who were invested in our goals and outcomes” _- Nicolas Kuzak, Senior ML Engineer at Rocket Money._

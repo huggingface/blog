@@ -5,7 +5,7 @@ authors:
 - user: ThomasSimonini
 ---
 
-<h1>Announcing the Open Source AI Game Jam 🎮 </h1>
+# Announcing the Open Source AI Game Jam 🎮 
 <h2> Unleash Your Creativity with AI Tools and make a game in a weekend!</h2>
 
 <!-- {authors} --> 

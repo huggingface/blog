@@ -5,7 +5,7 @@ authors:
 - user: patrickvonplaten
 ---
 
-<h1>How to generate text: using different decoding methods for language generation with Transformers</h1>
+# How to generate text: using different decoding methods for language generation with Transformers
 
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/02_how_to_generate.ipynb">

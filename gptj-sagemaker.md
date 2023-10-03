@@ -5,7 +5,7 @@ authors:
 - user: philschmid
 ---
 
-<h1>Deploy GPT-J 6B for inference using  Hugging Face Transformers and Amazon SageMaker</h1>
+# Deploy GPT-J 6B for inference using  Hugging Face Transformers and Amazon SageMaker
 
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>

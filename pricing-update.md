@@ -6,7 +6,7 @@ authors:
 - user: pierric
 ---
 
-<h1>Introducing our new pricing</h1>
+# Introducing our new pricing
 
 
 As you might have noticed, our [pricing page](https://huggingface.co/pricing) has changed a lot recently.

@@ -9,7 +9,7 @@ translators:
   proofreader: true
 ---
 
-<h1>文生视频: 任务、挑战及现状</h1>
+# 文生视频: 任务、挑战及现状
 
 
 <p align="center">

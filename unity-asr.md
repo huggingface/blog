@@ -5,7 +5,7 @@ authors:
 - user: dylanebert
 ---
 
-<h1>AI Speech Recognition in Unity</h1>
+# AI Speech Recognition in Unity
 
 
 [![Open Source AI Game Jam](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/gamejambanner.png)](https://itch.io/jam/open-source-ai-game-jam)

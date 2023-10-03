@@ -5,7 +5,7 @@ authors:
 - user: abidlabs
 ---
 
-<h1>Gradio 3.0 is Out!</h1>
+# Gradio 3.0 is Out!
 
 
 ### Machine Learning Demos 

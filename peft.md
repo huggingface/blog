@@ -6,7 +6,7 @@ authors:
 - user: sayakpaul
 ---
 
-<h1>🤗 PEFT: Parameter-Efficient Fine-Tuning of Billion-Scale Models on Low-Resource Hardware</h1>
+# 🤗 PEFT: Parameter-Efficient Fine-Tuning of Billion-Scale Models on Low-Resource Hardware
 
 
 ## Motivation

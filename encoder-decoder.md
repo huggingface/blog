@@ -5,7 +5,7 @@ authors:
 - user: patrickvonplaten
 ---
 
-<h1> Transformers-based Encoder-Decoder Models</h1>
+#  Transformers-based Encoder-Decoder Models
 
 
 <a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Encoder_Decoder_Model.ipynb">

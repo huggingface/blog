@@ -5,7 +5,7 @@ authors:
 - user: ThomasSimonini
 ---
 
-<h1>Advantage Actor Critic (A2C)</h1>
+# Advantage Actor Critic (A2C)
 <h2>Unit 7, of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
 

@@ -5,7 +5,7 @@ authors:
 - user: VioletteLepercq
 ---
 
-<h1>Snorkel AI x Hugging Face: unlock foundation models for enterprises</h1>
+# Snorkel AI x Hugging Face: unlock foundation models for enterprises
 
 
 

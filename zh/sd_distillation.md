@@ -14,7 +14,7 @@ translators:
   proofreader: true
 ---
 
-<h1> 开源 SD-Small 和 SD-Tiny 知识蒸馏代码与权重 </h1>
+#  开源 SD-Small 和 SD-Tiny 知识蒸馏代码与权重 
 
 
 <p align="center">

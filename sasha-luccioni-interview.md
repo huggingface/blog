@@ -5,7 +5,7 @@ authors:
 - user: britneymuller
 ---
 
-<h1>Machine Learning Experts - Sasha Luccioni</h1>
+# Machine Learning Experts - Sasha Luccioni
 
 
 ## 🤗 Welcome to Machine Learning Experts - Sasha Luccioni

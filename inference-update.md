@@ -5,7 +5,7 @@ authors:
 - user: juliensimon
 ---
 
-<h1>An Overview of Inference Solutions on Hugging Face</h1>
+# An Overview of Inference Solutions on Hugging Face
 
 
 

@@ -5,7 +5,7 @@ authors:
 - user: dylanebert
 ---
 
-<h1>How to Install and Use the Hugging Face Unity API</h1>
+# How to Install and Use the Hugging Face Unity API
 
 <!-- {authors} --> 
 

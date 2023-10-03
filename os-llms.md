@@ -5,7 +5,7 @@ authors:
 - user: merve
 ---
 
-<h1>Open-Source Text Generation & LLM Ecosystem at Hugging Face</h1>
+# Open-Source Text Generation & LLM Ecosystem at Hugging Face
 
 
 [Updated on July 24, 2023: Added Llama 2.]

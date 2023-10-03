@@ -5,7 +5,7 @@ authors:
 - user: dylanebert
 ---
 
-<h1>Introduction to 3D Gaussian Splatting</h1>
+# Introduction to 3D Gaussian Splatting
 
 
 

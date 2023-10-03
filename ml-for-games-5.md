@@ -5,7 +5,7 @@ authors:
 - user: dylanebert
 ---
 
-<h1>Generating Stories: AI for Game Development #5</h1>
+# Generating Stories: AI for Game Development #5
 
  
 

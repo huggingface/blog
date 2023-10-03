@@ -5,7 +5,7 @@ authors:
 - user: federicopascual
 ---
 
-<h1>Getting Started with Sentiment Analysis on Twitter</h1>
+# Getting Started with Sentiment Analysis on Twitter
 
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>

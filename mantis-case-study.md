@@ -6,7 +6,7 @@ authors:
   guest: true
 ---
 
-<h1>Why we’re switching to Hugging Face Inference Endpoints, and maybe you should too</h1>
+# Why we’re switching to Hugging Face Inference Endpoints, and maybe you should too
 
 
 

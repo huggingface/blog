@@ -5,7 +5,7 @@ authors:
 - user: adirik
 ---
 
-<h1>Text-to-Video: The Task, Challenges and the Current State</h1>
+# Text-to-Video: The Task, Challenges and the Current State
 
 
 <p align="center">

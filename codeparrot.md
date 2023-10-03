@@ -5,7 +5,7 @@ authors:
 - user: leandro
 ---
 
-<h1>Training CodeParrot 🦜 from Scratch</h1>
+# Training CodeParrot 🦜 from Scratch
 
 
 

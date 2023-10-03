@@ -14,7 +14,7 @@ translators:
   proofreader: true
 ---
 
-<h1>SetFit: 高效的无提示少样本学习 </h1>
+# SetFit: 高效的无提示少样本学习 
 
 
 <p align="center">

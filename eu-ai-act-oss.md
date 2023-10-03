@@ -5,7 +5,7 @@ authors:
 - user: yjernite
 ---
 
-<h1> AI Policy @🤗: Open ML Considerations in the EU AI Act</h1>
+#  AI Policy @🤗: Open ML Considerations in the EU AI Act
 
 
 Like everyone else in Machine Learning, we’ve been following the EU AI Act closely at Hugging Face.

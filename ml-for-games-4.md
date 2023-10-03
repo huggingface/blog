@@ -5,7 +5,7 @@ authors:
 - user: dylanebert
 ---
 
-<h1>2D Asset Generation: AI for Game Development #4</h1>
+# 2D Asset Generation: AI for Game Development #4
 
 
 
