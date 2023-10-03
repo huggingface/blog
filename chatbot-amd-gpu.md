@@ -6,9 +6,7 @@ authors:
   guest: true
 ---
 
-<h1>
-Run a Chatgpt-like Chatbot on a Single GPU with ROCm</h1>
-
+# Run a Chatgpt-like Chatbot on a Single GPU with ROCm
 
 ## Introduction
 
