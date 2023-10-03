@@ -9,8 +9,6 @@ authors:
 
 # Hugging Face Platform on the AWS Marketplace: Pay with your AWS Account
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 The [Hugging Face Platform](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2) has landed on the AWS Marketplace. Starting today, you can subscribe to the Hugging Face Platform through AWS Marketplace to pay for your Hugging Face usage directly with your AWS account. This new integrated billing method makes it easy to manage payment for usage of all our managed services by all members of your organization, including Inference Endpoints, Spaces Hardware Upgrades, and AutoTrain to easily train, test and deploy the most popular machine learning models like Llama 2, StarCoder, or BERT.
 

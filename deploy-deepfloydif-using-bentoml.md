@@ -10,8 +10,6 @@ authors:
 
 # Deploying Hugging Face Models with BentoML: DeepFloyd IF in Action
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Hugging Face provides a Hub platform that allows you to upload, share, and deploy your models with ease. It saves developers the time and computational resources required to train models from scratch. However, deploying models in a real-world production environment or in a cloud-native way can still present challenges.
 

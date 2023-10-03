@@ -7,10 +7,8 @@ translators:
 - user: Johnson817
 ---
 
-<h1>Hugging Face 提供的推理（Inference）解决方案</h1>
+# Hugging Face 提供的推理（Inference）解决方案
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 每天，开发人员和组织都在使用 [Hugging Face 平台上托管的模型](https://huggingface.co/models)，将想法变成用作概念验证（proof-of-concept）的 demo，再将 demo 变成生产级的应用。Transformer 模型已成为广泛的机器学习（ML）应用的流行模型结构，包括自然语言处理、计算机视觉、语音等；扩散模型（Diffusers）也已成为 text-to-image、image-to-image 类生成模型的流行模型结构；其他模型结构在其他任务中也很受欢迎，而我们在 Hugging Face Hub 上提供了这些模型结构的所有信息。

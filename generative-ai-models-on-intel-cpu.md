@@ -9,8 +9,6 @@ authors:
 
 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Large language models (LLMs) are taking the machine learning world by storm. Thanks to their [Transformer](https://arxiv.org/abs/1706.03762) architecture, LLMs have an uncanny ability to learn from vast amounts of unstructured data, like text, images, video, or audio. They perform very well on many [task types](https://huggingface.co/tasks), either extractive like text classification or generative like text summarization and text-to-image generation. 
 

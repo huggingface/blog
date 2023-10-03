@@ -7,8 +7,6 @@ authors:
 
 # Deploying the AI Comic Factory using the Inference API
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 We recently announced [Inference for PROs](https://huggingface.co/blog/inference-pro), our new offering that makes larger models accessible to a broader audience. This opportunity opens up new possibilities for running end-user applications using Hugging Face as a platform.
 

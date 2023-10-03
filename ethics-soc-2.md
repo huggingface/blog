@@ -7,8 +7,6 @@ authors:
 
 # Machine Learning in development: Let's talk about bias!
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 _Bias in ML is ubiquitous, and Bias in ML is complex; so complex in fact that no single technical intervention is likely to meaningfully address the problems it engenders. ML models, as sociotechnical systems, amplify social trends that may exacerbate inequities and harmful biases in ways that depend on their deployment context and are constantly evolving._
 

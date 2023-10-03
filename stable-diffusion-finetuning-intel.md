@@ -8,8 +8,6 @@ authors:
 # Fine-tuning Stable Diffusion Models on Intel CPUs
 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Diffusion models helped popularize generative AI thanks to their uncanny ability to generate photorealistic images from text prompts. These models have now found their way into enterprise use cases like synthetic data generation or content creation. The Hugging Face hub includes over 5,000 pre-trained text-to-image [models](https://huggingface.co/models?pipeline_tag=text-to-image&sort=trending). Combining them with the [Diffusers library](https://huggingface.co/docs/diffusers/index), it's never been easier to start experimenting and building image generation workflows.
 

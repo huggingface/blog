@@ -9,8 +9,6 @@ authors:
 
 # Ultra fast ControlNet with 🧨 Diffusers
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/controlnet.ipynb">

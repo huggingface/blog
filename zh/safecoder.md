@@ -10,8 +10,6 @@ translators:
 
 # 推介 SafeCoder
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 今天，我们向大家隆重介绍 SafeCoder —— 一款专为企业打造的代码助手解决方案。
 

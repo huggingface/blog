@@ -2936,6 +2936,16 @@
     - llm
     - stable-diffusion
 
+- local: chat-templates
+  title: "Chat Templates: An End to the Silent Performance Killer"
+  author: rocketknight1
+  thumbnail: /blog/assets/chat-templates/thumbnail.png
+  date: October 3, 2023
+  tags:
+    - LLM
+    - nlp
+    - community
+
 - local: sdxl_jax
   title: "Accelerating Stable Diffusion XL Inference with JAX on Cloud TPU v5e"
   author: pcuenq

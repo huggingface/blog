@@ -5,10 +5,8 @@ authors:
 - user: GMFTBY
 ---
 
-<h1>Generating Human-level Text with Contrastive Search in Transformers 🤗</h1>
+# Generating Human-level Text with Contrastive Search in Transformers 🤗
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ****
 

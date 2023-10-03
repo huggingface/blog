@@ -9,8 +9,6 @@ authors:
 
 # Fine-tune Llama 2 with DPO
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Introduction
 

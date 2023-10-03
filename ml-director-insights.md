@@ -5,10 +5,8 @@ authors:
 - user: britneymuller
 ---
 
-<h1>Director of Machine Learning Insights [Part 1]</h1>
+# Director of Machine Learning Insights [Part 1]
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Few seats at the Machine Learning table span both technical skills, problem solving and business acumen like Directors of Machine Learning
 

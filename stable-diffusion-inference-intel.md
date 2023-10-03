@@ -9,8 +9,6 @@ authors:
 # Accelerating Stable Diffusion Inference on Intel CPUs
 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Recently, we introduced the latest generation of [Intel Xeon](https://www.intel.com/content/www/us/en/products/details/processors/xeon/scalable.html) CPUs (code name Sapphire Rapids), its new hardware features for deep learning acceleration, and how to use them to accelerate [distributed fine-tuning](https://huggingface.co/blog/intel-sapphire-rapids) and [inference](https://huggingface.co/blog/intel-sapphire-rapids-inference) for natural language processing Transformers.
 

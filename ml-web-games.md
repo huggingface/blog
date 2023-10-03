@@ -8,8 +8,6 @@ authors:
 
 # Making ML-powered web games with Transformers.js
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 In this blog post, I'll show you how I made [**Doodle Dash**](https://huggingface.co/spaces/Xenova/doodle-dash), a real-time ML-powered web game that runs completely in your browser (thanks to [Transformers.js](https://github.com/xenova/transformers.js)). The goal of this tutorial is to show you how easy it is to make your own ML-powered web game... just in time for the upcoming Open Source AI Game Jam (7-9 July 2023). [Join](https://itch.io/jam/open-source-ai-game-jam) the game jam if you haven't already!

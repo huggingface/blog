@@ -10,8 +10,6 @@ authors:
 
 # Hugging Face Hub: Important Git Authentication Changes
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Because we are committed to improving the security of our services, we are making changes to the way you authenticate when interacting with the Hugging Face Hub through Git.
 Starting from **October 1st, 2023**, we will no longer accept passwords as a way to authenticate your command-line Git operations. Instead, we recommend using more secure authentication methods, such as replacing the password with a personal access token or using an SSH key.

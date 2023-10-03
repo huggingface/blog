@@ -9,8 +9,6 @@ authors:
 
 # Hugging Face Machine Learning Demos on arXiv
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 We’re very excited to announce that Hugging Face has collaborated with arXiv to make papers more accessible, discoverable, and fun! Starting today, [Hugging Face Spaces](https://huggingface.co/spaces) is integrated with arXivLabs through a Demo tab that includes links to demos created by the community or the authors themselves. By going to the Demos tab of your favorite paper, you can find links to open-source demos and try them out immediately 🔥
 

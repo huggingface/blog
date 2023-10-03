@@ -9,8 +9,6 @@ authors:
 
 # Red-Teaming Large Language Models
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 *Warning: This article is about red-teaming and as such contains examples of model generation that may be offensive or upsetting.*
 

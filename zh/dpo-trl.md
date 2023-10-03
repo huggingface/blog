@@ -13,8 +13,6 @@ translators:
 
 # 使用 DPO 微调 Llama 2
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 简介
 

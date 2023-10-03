@@ -11,8 +11,6 @@ authors:
 
 # Finetune Stable Diffusion Models with DDPO via TRL
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Introduction
 

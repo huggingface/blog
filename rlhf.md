@@ -12,8 +12,6 @@ authors:
 
 # Illustrating Reinforcement Learning from Human Feedback (RLHF)
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 _This article has been translated to Chinese [简体中文](https://huggingface.co/blog/zh/rlhf) and Vietnamese [đọc tiếng việt](https://trituenhantao.io/kien-thuc/minh-hoa-rlhf-vu-khi-dang-sau-gpt/)_. 
 
