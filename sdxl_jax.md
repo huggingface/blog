@@ -39,7 +39,7 @@ In this blog post,
 
 ## Why JAX + TPU v5e for SDXL?
 
-Serving SDXL with JAX on Cloud TPU v5e with high performance and cost-efficiency is possible thanks to the application of combined hardware and software optimizations. Below we highlight two key factors: JAX just-in-time (jit) compilation and XLA compiler-driven parallelism with JAX pmap.
+Serving SDXL with JAX on Cloud TPU v5e with high performance and cost-efficiency is possible thanks to the combination of purpose-built TPU hardware and a software stack optimized for performance. Below we highlight two key factors: JAX just-in-time (jit) compilation and XLA compiler-driven parallelism with JAX pmap.
 
 #### JIT compilation
 
@@ -184,7 +184,9 @@ The Cloud TPU tests were run using Python 3.10 and jax version 0.4.16. These are
 | TPU v4-8 (JAX)  | 4          | 2.16s    | 9.05   |
 |                 | 8          | 4.17     | 8.98   |
 
-TPU v5e achieves 2.3 greater perf/$ on SDXL compared to TPU v4, demonstrating the cost-efficiency of the latest TPU generation.
+TPU v5e achieves up to 2.4x greater perf/$ on SDXL compared to TPU v4, demonstrating the cost-efficiency of the latest TPU generation.
+
+To measure inference performance, we use the industry-standard metric of throughput. First, we measure latency per image when the model has been compiled and loaded. Then, we calculate throughput by dividing batch size over latency per chip. As a result, throughput measures how the model is performing in production environments regardless of how many chips are used. We then divide throughput by the list price to get performance per dollar.
 
 ## How does the demo work?
 
