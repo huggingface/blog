@@ -1,6 +1,6 @@
 ---
 title: 🧨 Accelerating Stable Diffusion XL Inference with JAX on Cloud TPU v5e
-thumbnail: /blog/assets/sdxl-jax/thumbnail.png
+thumbnail: /blog/assets/sdxl-jax/thumbnail.jpg
 authors:
 - user: pcuenq
 - user: jffacevedo
