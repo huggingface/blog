@@ -20,8 +20,6 @@ authors:
 
 # Accelerating Stable Diffusion XL Inference with JAX on Cloud TPU v5e
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Generative AI models, such as Stable Diffusion XL (SDXL), enable the creation of high-quality, realistic content with wide-ranging applications. However, harnessing the power of such models presents significant challenges and computational costs. SDXL is a large image generation model, whose UNet component is about three times as large as the one in the previous version of the model. Deploying a model like this in production is challenging due to the increased memory requirements, as well as increased inference times. Today, we are thrilled to announce that Hugging Face Diffusers now supports serving SDXL using JAX on Cloud TPUs, enabling high-performance, cost-efficient inference.
 
