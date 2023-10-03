@@ -8,8 +8,6 @@ authors:
 
 # A Dive into Vision-Language Models
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Human learning is inherently multi-modal as jointly leveraging multiple senses helps us understand and analyze new information better. Unsurprisingly, recent advances in multi-modal learning take inspiration from the effectiveness of this process to create models that can process and link information using various modalities such as image, video, text, audio, body gestures, facial expressions, and physiological signals. 
 

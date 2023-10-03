@@ -7,8 +7,6 @@ authors:
 
 # Building an AI WebTV
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 The AI WebTV is an experimental demo to showcase the latest advancements in automatic video and music synthesis.
 

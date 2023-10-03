@@ -5,10 +5,8 @@ authors:
 - user: federicopascual
 ---
 
-<h1>Introducing the Private Hub: A New Way to Build With Machine Learning</h1>
+# Introducing the Private Hub: A New Way to Build With Machine Learning
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

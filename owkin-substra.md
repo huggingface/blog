@@ -11,8 +11,6 @@ authors:
 
 # Creating Privacy Preserving AI with Substra
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 With the recent rise of generative techniques, machine learning is at an incredibly exciting point in its history. The models powering this rise require even more data to produce impactful results, and thus it’s becoming increasingly important to explore new methods of ethically gathering data while ensuring that data privacy and security remain a top priority. 
 

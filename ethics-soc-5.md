@@ -10,8 +10,6 @@ authors:
 
 # Ethics and Society Newsletter #5: Hugging Face Goes To Washington and Other Summer 2023 Musings
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 One of the most important things to know about “ethics” in AI is that it has to do with **values**. Ethics doesn’t tell you what’s right or wrong, it provides a vocabulary of values – transparency, safety, justice – and frameworks to prioritize among them. This summer, we were able to take our understanding of values in AI to legislators in the E.U., U.K., and U.S., to help shape the future of AI regulation. This is where ethics shines: helping carve out a path forward when laws are not yet in place.
 

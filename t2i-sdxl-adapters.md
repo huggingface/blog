@@ -13,8 +13,6 @@ authors:
 
 # Efficient Controllable Generation for SDXL with T2I-Adapters
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/t2i-adapters-sdxl/hf_tencent.png" height=180/>

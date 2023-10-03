@@ -14,8 +14,6 @@ translators:
 
 # Llama 2 来袭 - 在 Hugging Face 上玩转它
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 引言
 

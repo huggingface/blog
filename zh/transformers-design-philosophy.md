@@ -9,13 +9,9 @@ translators:
   proofreader: true
 ---
 
-<h1>
-	<del> 不要 </del> 重复自己*
-	<h5><i> 如何为现代机器学习设计开源库 </i></h5>
-</h1>
+# ~~不要~~ 重复自己*
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
+##### *如何为现代机器学习设计开源库*
 
 ## 🤗 Transformers 设计理念
 

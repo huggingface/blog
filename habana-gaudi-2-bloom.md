@@ -7,8 +7,6 @@ authors:
 
 # Fast Inference on Large Language Models: BLOOMZ on Habana Gaudi2 Accelerator
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 This article will show you how to easily deploy large language models with hundreds of billions of parameters like BLOOM on [Habana® Gaudi®2](https://habana.ai/training/gaudi2/) using 🤗 [Optimum Habana](https://huggingface.co/docs/optimum/habana/index), which is the bridge between Gaudi2 and the 🤗 Transformers library. As demonstrated in the benchmark presented in this post, this will enable you to **run inference faster than with any GPU currently available on the market**.
 

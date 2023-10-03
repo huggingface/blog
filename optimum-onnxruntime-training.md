@@ -15,8 +15,6 @@ authors:
 
 # Optimum + ONNX Runtime: Easier, Faster training for your Hugging Face models
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Introduction
 

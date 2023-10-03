@@ -10,8 +10,6 @@ authors:
 
 # Panel on Hugging Face
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 We are thrilled to announce the collaboration between Panel and Hugging Face! 🎉 We have integrated a Panel template in Hugging Face Spaces to help you get started building Panel apps and deploy them on Hugging Face effortlessly. 
 

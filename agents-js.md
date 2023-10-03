@@ -7,8 +7,6 @@ authors:
 
 # Introducing Agents.js: Give tools to your LLMs using JavaScript
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 We have recently been working on Agents.js at [huggingface.js](https://github.com/huggingface/huggingface.js/blob/main/packages/agents/README.md). It's a new library for giving tool access to LLMs from JavaScript in either the browser or the server. It ships with a few multi-modal tools out of the box and can easily be extended with your own tools and language models.
 

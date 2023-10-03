@@ -7,8 +7,6 @@ authors:
 
 # Accelerated Inference with Optimum and Transformers Pipelines
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 > Inference has landed in Optimum with support for Hugging Face Transformers pipelines, including text-generation using ONNX Runtime.
 

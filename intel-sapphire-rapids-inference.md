@@ -7,8 +7,6 @@ authors:
 
 # Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 2
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 In a [recent post](https://huggingface.co/blog/intel-sapphire-rapids), we introduced you to the fourth generation of Intel Xeon CPUs, code-named [Sapphire Rapids](https://en.wikipedia.org/wiki/Sapphire_Rapids), and its new Advanced Matrix Extensions ([AMX](https://en.wikipedia.org/wiki/Advanced_Matrix_Extensions)) instruction set. Combining a cluster of Sapphire Rapids servers running on Amazon EC2 and Intel libraries like the [Intel Extension for PyTorch](https://github.com/intel/intel-extension-for-pytorch), we showed you how to efficiently run distributed training at scale, achieving an 8-fold speedup compared to the previous Xeon generation (Ice Lake) with near-linear scaling.
 

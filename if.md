@@ -19,8 +19,6 @@ authors:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 **TL;DR**: We show how to run one of the most powerful open-source text
 to image models **IF** on a free-tier Google Colab with 🧨 diffusers.

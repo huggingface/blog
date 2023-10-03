@@ -11,8 +11,6 @@ translators:
 
 # 开发 Diffusers 库的道德行为指南
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 我们正在努力让我们每次发布的库更加负责！
 

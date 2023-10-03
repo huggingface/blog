@@ -11,8 +11,6 @@ authors:
 
 # Falcon 180B 登陆 Hugging Face Hub 🔥
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 引言
 

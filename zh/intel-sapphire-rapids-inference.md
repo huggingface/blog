@@ -11,8 +11,6 @@ translators:
 
 # CPU 推理 | 使用英特尔 Sapphire Rapids 加速 PyTorch Transformers
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 在 [最近的一篇文章](https://huggingface.co/blog/zh/intel-sapphire-rapids) 中，我们介绍了代号为 [Sapphire Rapids](https://en.wikipedia.org/wiki/Sapphire_Rapids) 的第四代英特尔至强 CPU 及其新的先进矩阵扩展 ([AMX](https://en.wikipedia.org/wiki/Advanced_Matrix_Extensions)) 指令集。通过使用 Amazon EC2 上的 Sapphire Rapids 服务器集群并结合相应的英特尔优化库，如 [英特尔 PyTorch 扩展](https://github.com/intel/intel-extension-for-pytorch) (IPEX)，我们展示了如何使用 CPU 进行高效的分布式大规模训练，与上一代至强 (Ice Lake) 相比，Sapphire Rapids 实现了 8 倍的加速，取得了近线性的扩展比。
 

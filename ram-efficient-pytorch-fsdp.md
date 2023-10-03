@@ -9,8 +9,6 @@ authors:
 ---
 # Fine-tuning Llama 2 70B using PyTorch FSDP
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Introduction
 

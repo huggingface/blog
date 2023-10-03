@@ -11,8 +11,6 @@ authors:
 
 # Overview of natively supported quantization schemes in 🤗 Transformers
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 We aim to give a clear overview of the pros and cons of each quantization scheme supported in transformers to help you decide which one you should go for.

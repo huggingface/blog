@@ -7,8 +7,6 @@ authors:
 
 # Releasing Swift Transformers: Run On-Device LLMs in Apple Devices
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 I have a lot of respect for iOS/Mac developers. I started writing apps for iPhones in 2007, when not even APIs or documentation existed. The new devices adopted some unfamiliar decisions in the constraint space, with a combination of power, screen real estate, UI idioms, network access, persistence, and latency that was different to what we were used to before. Yet, this community soon managed to create top-notch applications that felt at home with the new paradigm.
 

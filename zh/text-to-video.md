@@ -9,10 +9,8 @@ translators:
   proofreader: true
 ---
 
-<h1>文生视频: 任务、挑战及现状</h1>
+# 文生视频: 任务、挑战及现状
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/140_text-to-video/text-to-video-samples.gif" alt="video-samples"><br>
