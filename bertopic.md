@@ -7,7 +7,7 @@ authors:
 - user: davanstrien
 ---
 
-#  Introducing BERTopic Integration with the Hugging Face Hub 
+# Introducing BERTopic Integration with the Hugging Face Hub 
 
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg 'open in colab')](https://colab.research.google.com/#fileId=https://huggingface.co/spaces/davanstrien/blog_notebooks/blob/main/BERTopic_hub_starter.ipynb)

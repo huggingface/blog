@@ -6,7 +6,7 @@ authors:
 - user: merve
 ---
 
-#  Deploy MusicGen in no time with Inference Endpoints 
+# Deploy MusicGen in no time with Inference Endpoints 
 
 
 [MusicGen](https://huggingface.co/docs/transformers/main/en/model_doc/musicgen) is a powerful music generation model that takes in text prompt and an optional melody to output music. This blog post will guide you through generating music with MusicGen using [Inference Endpoints](https://huggingface.co/inference-endpoints). 

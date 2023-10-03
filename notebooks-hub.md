@@ -7,7 +7,7 @@ authors:
 - user: merve
 ---
 
-#  Jupyter X Hugging Face 
+# Jupyter X Hugging Face 
 
 
 **We’re excited to announce improved support for Jupyter notebooks hosted on the Hugging Face Hub!**

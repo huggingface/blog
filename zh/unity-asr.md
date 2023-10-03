@@ -9,7 +9,7 @@ translators:
   proofreader: true
 ---
 
-#  如何在 Unity 游戏中集成 AI 语音识别？
+# 如何在 Unity 游戏中集成 AI 语音识别？
 
 
 ![Open Source AI Game Jam](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/gamejambanner.png)

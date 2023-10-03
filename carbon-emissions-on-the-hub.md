@@ -7,7 +7,7 @@ authors:
 - user: nateraw
 ---
 
-#  CO2 Emissions and the 🤗 Hub: Leading the Charge  
+# CO2 Emissions and the 🤗 Hub: Leading the Charge  
 
 
 ## What are CO2 Emissions and why are they important?

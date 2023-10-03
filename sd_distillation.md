@@ -10,7 +10,7 @@ authors:
   guest: true
 ---
 
-#  Open-sourcing Knowledge Distillation Code and Weights of SD-Small and SD-Tiny 
+# Open-sourcing Knowledge Distillation Code and Weights of SD-Small and SD-Tiny 
 
 
 <p align="center">
