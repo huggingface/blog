@@ -42,7 +42,7 @@ You can read more about ChatUI [here](https://github.com/huggingface/chat-ui).
 
 ### Step 1: Create a new AutoTrain Space
 
-1.1 Go to [huggingface.co/spaces](https://huggingface.co/docs/hub/spaces) and select “Create new Space”.
+1.1 Go to [huggingface.co/spaces](https://huggingface.co/spaces) and select “Create new Space”.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/tuto1.png"><br>
