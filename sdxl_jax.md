@@ -177,13 +177,14 @@ The following measures were obtained running SDXL 1.0 base for 20 steps, with th
 
 The Cloud TPU tests were run using Python 3.10 and jax version 0.4.16. These are the same specs used in our [demo Space](https://huggingface.co/spaces/google/sdxl).
 
-|                 | Chips | Batch Size |  Time | Total Images |
-|-----------------|-------|------------|:-----:|--------------|
-| TPU v5e-4 (JAX) | 4     | 1          | 2.33s | 4            |
-|                 |       | 2          | 4.99s | 8            |
-| TPU v4-8 (JAX)  | 8     | 1          | 2.33s | 8            |
+|                 | Batch Size | Latency  | Perf/$ |
+|-----------------|------------|:--------:|--------|
+| TPU v5e-4 (JAX) | 4          | 2.33s    | 21.46  |
+|                 | 8          | 4.99s    | 20.04  |
+| TPU v4-8 (JAX)  | 4          | 2.16s    | 9.05   |
+|                 | 8          | 4.17     | 8.98   |
 
-TPU v5e achieves [TBD] greater perf/$ on SDXL compared to TPU v4, demonstrating the cost-efficiency of the latest TPU generation.
+TPU v5e achieves 2.3 greater perf/$ on SDXL compared to TPU v4, demonstrating the cost-efficiency of the latest TPU generation.
 
 ## How does the demo work?
 
