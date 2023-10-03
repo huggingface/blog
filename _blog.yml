@@ -2937,7 +2937,7 @@
     - stable-diffusion
 
 - local: sdxl_jax
-  title: "Stable Diffusion XL 🤝 JAX + TPUv5e"
+  title: "Accelerating Stable Diffusion XL Inference with JAX on Cloud TPU v5e"
   author: pcuenq
   thumbnail: /blog/assets/sdxl-jax/thumbnail.png
   date: October 3, 2023

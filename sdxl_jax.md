@@ -1,52 +1,50 @@
 ---
-title: 🧨 Stable Diffusion  in JAX / Flax !
+title: 🧨 Accelerating Stable Diffusion XL Inference with JAX on Cloud TPU v5e
 thumbnail: /blog/assets/sdxl-jax/thumbnail.png
 authors:
 - user: pcuenq
 - user: patrickvonplaten
 ---
 
-# Stable Diffusion XL 🤝 JAX + TPUv5e
+# Accelerating Stable Diffusion XL Inference with JAX on Cloud TPU v5e
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Stable Diffusion XL is a large image generation model, whose UNet component is about three times as large as the one in the previous version of the model. Deploying a model like this in production is challenging due to the increased memory requirements, as well as increased inference times.
+Generative AI models, such as Stable Diffusion XL (SDXL), enable the creation of high-quality, realistic content with wide-ranging applications. However, harnessing the power of such models presents significant challenges and computational costs. SDXL is a large image generation model, whose UNet component is about three times as large as the one in the previous version of the model. Deploying a model like this in production is challenging due to the increased memory requirements, as well as increased inference times. Today, we are thrilled to announce that Hugging Face Diffusers now supports serving SDXL using JAX on Cloud TPUs, enabling high-performance, cost-efficient inference.
 
-Google Cloud TPUs are designed for parallel operation, which makes them very interesting for user-facing workloads. [Cloud TPU v5e](https://cloud.google.com/blog/products/compute/announcing-cloud-tpu-v5e-and-a3-gpus-in-ga) was recently announced: it offers almost the same computing power (in terms of TFLOPs) as its predecessor, while being significantly cheaper.
+[Google Cloud TPUs](https://cloud.google.com/tpu) are custom-designed AI accelerators, which are optimized for training and inference of large AI models, including state-of-the-art LLMs and generative AI models such as SDXL. The new [Cloud TPU v5e](https://cloud.google.com/blog/products/compute/announcing-cloud-tpu-v5e-and-a3-gpus-in-ga) is purpose-built to bring the cost-efficiency and performance required for large-scale AI [training](https://cloud.google.com/blog/products/compute/using-cloud-tpu-multislice-to-scale-ai-workloads) and [inference](https://cloud.google.com/blog/products/compute/how-cloud-tpu-v5e-accelerates-large-scale-ai-inference). At less than half the cost of TPU v4, TPU v5e makes it possible for more organizations to train and deploy AI models.
 
-🧨 Diffusers JAX integration offers a convenient way to run SDXL on TPU via XLA, and we built a demo to showcase it. You can try it out in [this Space](https://huggingface.co/spaces/google/sdxl) or in the playground embedded below:
+🧨 Diffusers JAX integration offers a convenient way to run SDXL on TPU via [XLA](https://github.com/openxla/xla), and we built a demo to showcase it. You can try it out in [this Space](https://huggingface.co/spaces/google/sdxl) or in the playground embedded below:
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="google/sdxl"></gradio-app>
 
-Under the hood, this demo runs on several TPU v5e-4 instances –each instance has 4 chips-, and takes advantage of parallelization to serve 4 large 1024×1024 images in about 4 seconds. This time includes format conversions, communications time and frontend processing; the actual generation time is about 2.3s as we'll see below!
+Under the hood, this demo runs on several TPU v5e-4 instances (each instance has 4 TPU chips), and takes advantage of parallelization to serve 4 large 1024×1024 images in about 4 seconds. This time includes format conversions, communications time and frontend processing; the actual generation time is about 2.3s as we'll see below!
 
 In this blog post,
-1. [We state a couple of reasons why JAX + TPU + Diffusers is a powerful framework to run SDXL](#why-jax--tpuv5e-for-sdxl)
+1. [We describe why JAX + TPU + Diffusers is a powerful framework to run SDXL](#why-jax--tpuv5e-for-sdxl)
 2. [Explain how you can write a simple image generation pipeline with Diffusers and JAX](#how-to-write-an-image-generation-pipeline-in-jax)
 3. [Show benchmarks comparing different TPU settings](#benchmark)
 
-## Why JAX + TPUv5e for SDXL ?
+## Why JAX + TPU v5e for SDXL?
 
-The advantage of JAX + TPUv5e boils down essentially to two factors:
+Serving SDXL with JAX on Cloud TPU v5e with high performance and cost-efficiency is possible thanks to the application of combined hardware and software optimizations. Below we highlight two key factors: JAX just-in-time (jit) compilation and XLA compiler-driven parallelism with JAX pmap.
 
 #### JIT compilation
 
-A notable feature of JAX is its just-in-time (jit) compilation. The JIT compiler traces code during the first run, and generates highly optimized TPU binaries that are re-used in subsequent calls.
+A notable feature of JAX is its [just-in-time (jit) compilation](https://jax.readthedocs.io/en/latest/jax-101/02-jitting.html). The JIT compiler traces code during the first run, and generates highly optimized TPU binaries that are re-used in subsequent calls.
 The catch of this process is that it requires all input, intermediate and output shapes to be **static**, meaning that they must be known in advance. Every time we change the shapes
 a new and costly compilation process will be triggered again. JIT compilation is ideal for services that can be designed around static shapes: compilation runs once and then we take advantage of super-fast inference times.
 
-In some domains it's challenging to adopt static shapes. In text generation tasks, for example, the output sequence length varies and depends on the text input, so it's hard to know before hand.
-
-Image generation, however, is better suited for compilation. If we always generate the same number of images and they have the same size, then the output shapes are constant and known in advance. The text inputs _are also constant_: by design, Stable Diffusion and SDXL use fixed-shape embedding vectors (with padding) to represent the prompts typed by the user. Therefore, we can write JAX code that relies on fixed shapes and that can be greatly optimized!
+Image generation is well-suited for JIT compilation. If we always generate the same number of images and they have the same size, then the output shapes are constant and known in advance. The text inputs are also constant: by design, Stable Diffusion and SDXL use fixed-shape embedding vectors (with padding) to represent the prompts typed by the user. Therefore, we can write JAX code that relies on fixed shapes and that can be greatly optimized!
 
 #### High-performance throughput for high batch sizes
 
 Workloads can be scaled across multiple devices using JAX's [pmap](https://jax.readthedocs.io/en/latest/_autosummary/jax.pmap.html), which expresses single-program multiple-data (SPMD) programs. Applying pmap to a function will compile a function with XLA, then execute it in parallel on various XLA devices. 
 For text-to-image generation workloads this means that increasing the number of images rendered simultaneously is straightforward to implement and doesn't compromise performance. For example, running SDXL on a TPU with 8 chips will generate 8 images in the same time it takes for 1 chip to create a single image.
 
-TPUv5e instances come in multiple flavors, including 1, 4 and 8-chip setups. This allows you to tailor the number of chips for your use case.
+TPU v5e instances come in multiple shapes, including 1, 4 and 8-chip shapes, all the way up to 256 chips (a full TPU v5e pod), with ultra-fast ICI links between chips. This allows you to choose the TPU shape that best suits  your use case and easily take advantage of the parallelism that JAX and TPUs provide.
 
 ## How to write an image generation pipeline in JAX
 
@@ -62,7 +60,7 @@ from diffusers import FlaxStableDiffusionXLPipeline
 import time
 ```
 
-We'll now load the the base SDXL model and the rest of components required for inference. The diffusers pipeline takes care of downloading and caching everything for us. Adhering to JAX's functional approach, the model's parameters are returned seperatetely and will have to be passed to the pipeline during inference:
+We'll now load the base SDXL model and the rest of components required for inference. The diffusers pipeline takes care of downloading and caching everything for us. Adhering to JAX's functional approach, the model's parameters are returned separately and will have to be passed to the pipeline during inference:
 
 ```Python
 pipeline, params = FlaxStableDiffusionXLPipeline.from_pretrained(
@@ -70,7 +68,7 @@ pipeline, params = FlaxStableDiffusionXLPipeline.from_pretrained(
 )
 ```
 
-Model parameters are downloaded in 32-bit by default. To save memory and run computation faster we'll convert them to `bfloat16`, an efficient 16-bit representation. However, there's a caveat: for best results we have to keep the _scheduler state_ in `float32`, otherwise precision errors accumulate and result in low-quality or even black images.
+Model parameters are downloaded in 32-bit precision by default. To save memory and run computation faster we'll convert them to `bfloat16`, an efficient 16-bit representation. However, there's a caveat: for best results we have to keep the _scheduler state_ in `float32`, otherwise precision errors accumulate and result in low-quality or even black images.
 
 ```Python
 scheduler_state = params.pop("scheduler")
@@ -165,7 +163,7 @@ It now took about 2s to generate the 4 images!
 
 ## Benchmark
 
-The following measures were obtained running SDXL 1.0 base for 20 steps, with the default Euler Discrete scheduler. We compare Cloud TPU v5e with A100 for the same batch sizes. Do note that, due to parallelism, a TPU v5e-4 like the ones we use in our demo will generate **4 images** when using a batch size of 1 (or 8 images with a batch size of 2). Similarly, a TPU v5e-8 will generate 8 images when using a batch size of 1.
+The following measures were obtained running SDXL 1.0 base for 20 steps, with the default Euler Discrete scheduler. We compare Cloud TPU v5e with TPUv4 for the same batch sizes. Do note that, due to parallelism, a TPU v5e-4 like the ones we use in our demo will generate **4 images** when using a batch size of 1 (or 8 images with a batch size of 2). Similarly, a TPU v5e-8 will generate 8 images when using a batch size of 1.
 
 The Cloud TPU tests were run using Python 3.10 and jax version 0.4.16. These are the same specs used in our [demo Space](https://huggingface.co/spaces/google/sdxl).
 
@@ -173,13 +171,14 @@ The Cloud TPU tests were run using Python 3.10 and jax version 0.4.16. These are
 |-----------------|-------|------------|:-----:|--------------|
 | TPU v5e-4 (JAX) | 4     | 1          | 2.33s | 4            |
 |                 |       | 2          | 4.99s | 8            |
-| A100 (PyTorch)  | 1     | 1          | 2.16s | 1            |
-|                 |       | 2          | 4.17  | 2            |
+| TPU v4-8 (JAX)  | 8     | 1          | 2.33s | 8            |
 
-Also note that the PyTorch implementation uses the most optimized settings currently available in diffusers: flash attention and `torch.compile()` on PyTorch 2.0.1 with CUDA 11.8.
+TPU v5e achieves [TBD] greater perf/$ on SDXL compared to TPU v4, demonstrating the cost-efficiency of the latest TPU generation.
 
 ## How does the demo work?
 
 The [demo we showed before](https://huggingface.co/spaces/google/sdxl) was built using a script that essentially follows the code we posted in this blog post. It runs on a few Cloud TPU v5e devices with 4 chips each, and there's a simple load-balancing server that routes user requests to backend servers randomly. When you enter a prompt in the demo, your request will be assigned to one of the backend servers, and you'll receive the 4 images it generates.
 
 This is a simple solution based on a number of pre-allocated TPU instances. In a future post we'll cover how to create dynamic solutions that adapt to load using GKE.
+
+All the code for the demo is open-source and available in Hugging Face Diffusers today. We are excited to see what you build with Diffusers + JAX + Cloud TPUs!
