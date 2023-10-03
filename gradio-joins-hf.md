@@ -7,8 +7,6 @@ authors:
 
 <h1>Gradio is joining Hugging Face!</h1>
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <p>&nbsp;</p>
 

@@ -21,5 +21,3 @@ Concretely, we make the following recommendations for accountability mechanisms:
 
 We believe that prioritizing transparency in both the ML artifacts themselves and the outcomes of their assessment will be integral to meeting these goals. You can find our more detailed response addressing these points <a href="/blog/assets/151_policy_ntia_rfc/HF_NTIA_RFC.pdf">here.</a>
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->

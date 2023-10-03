@@ -25,5 +25,4 @@ Hugging Face 的使命是 [“民主化优秀的机器学习”](https://hugging
 
 我们相信，优先考虑机器学习组件本身和评估结果的透明度对于实现这些目标至关重要。你可以在 <a href="/blog/assets/151_policy_ntia_rfc/HF_NTIA_RFC.pdf"> 这里 </a> 找到我们更详细的回应。
 
-<!-- {blog_metadata} -->
 <!-- {authors} -->

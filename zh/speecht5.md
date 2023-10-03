@@ -9,8 +9,6 @@ translators:
 
 # 使用 SpeechT5 进行语音合成、识别和更多功能
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 我们很高兴地宣布，SpeechT5 现在可用于 🤗 Transformers (一个开源库，提供最前沿的机器学习模型实现的开源库)。
 

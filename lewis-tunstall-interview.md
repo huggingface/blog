@@ -7,8 +7,6 @@ authors:
 
 <h1>Machine Learning Experts - Lewis Tunstall</h1>
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 ## 🤗 Welcome to Machine Learning Experts - Lewis Tunstall

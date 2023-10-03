@@ -11,8 +11,6 @@ authors:
 
 # Kakao Brain’s Open Source ViT, ALIGN, and the New COYO Text-Image Dataset
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Kakao Brain and Hugging Face are excited to release a new open-source image-text dataset [COYO](https://github.com/kakaobrain/coyo-dataset) of 700 million pairs and two new visual language models trained on it, [ViT](https://github.com/kakaobrain/coyo-vit) and [ALIGN](https://github.com/kakaobrain/coyo-align). This is the first time ever the ALIGN model is made public for free and open-source use and the first release of ViT and ALIGN models that come with the train dataset.  
 

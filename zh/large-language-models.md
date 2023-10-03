@@ -11,8 +11,6 @@ translators:
 
 # 大语言模型：新的摩尔定律？
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 不久前，微软和 Nvidia [推出了](https://www.microsoft.com/en-us/research/blog/using-deepspeed-and-megatron-to-train-megatron-turing-nlg-530b-the-worlds-largest-and-most-powerful-generative-language-model/) Megatron-Turing NLG 530B，一种基于 Transformer 的模型，被誉为是 “*世界上最大且最强的生成语言模型*”。
 

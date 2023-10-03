@@ -11,8 +11,6 @@ authors:
 
 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ![image](assets/80_intel/01.png)
 

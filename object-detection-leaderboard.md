@@ -7,8 +7,6 @@ authors:
 ---
 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 # Object Detection Leaderboard: Decoding Metrics and Their Potential Pitfalls

@@ -11,8 +11,6 @@ translators:
 
 # 基于 Habana Gaudi 的 Transformers 入门
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 几周前，我们很高兴地 [宣布](https://huggingface.co/blog/zh/habana) [Habana Labs](https://habana.ai) 和 [Hugging Face](https://huggingface.co/) 将开展加速 transformer 模型的训练方面的合作。
 

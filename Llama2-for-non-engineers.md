@@ -6,8 +6,6 @@ authors:
 - user: abhishek
 ---
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 # Non-engineers guide: Train a LLaMA 2 chatbot
 

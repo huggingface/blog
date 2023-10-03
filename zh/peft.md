@@ -8,8 +8,6 @@ authors:
 
 ## 🤗 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 动机
 

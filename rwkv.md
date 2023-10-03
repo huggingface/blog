@@ -12,8 +12,6 @@ authors:
 
 # Introducing RWKV - An RNN with the advantages of a transformer
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ChatGPT and chatbot-powered applications have captured significant attention in the Natural Language Processing (NLP) domain. The community is constantly seeking strong, reliable and open-source models for their applications and use cases. 
 The rise of these powerful models stems from the democratization and widespread adoption of transformer-based models, first introduced by Vaswani et al. in 2017. These models significantly outperformed previous SoTA NLP models based on Recurrent Neural Networks (RNNs), which were considered dead after that paper.

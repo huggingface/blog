@@ -14,8 +14,6 @@ authors:
 
 # Code Llama: Llama 2 learns to code
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Introduction
 

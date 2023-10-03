@@ -11,8 +11,6 @@ translators:
 
 <h1>Hugging Face 的文本生成和大语言模型的开源生态 </h1>
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 [更新于 2023 年 7 月 23 日: 添加 Llama 2。]
 

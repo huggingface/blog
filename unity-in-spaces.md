@@ -7,7 +7,6 @@ authors:
 
 <h1>How to host a Unity game in a Space</h1>
 
-<!-- {blog_metadata} -->
 <!-- {authors} --> 
 
 

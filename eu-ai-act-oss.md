@@ -7,8 +7,6 @@ authors:
 
 <h1> AI Policy @🤗: Open ML Considerations in the EU AI Act</h1>
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Like everyone else in Machine Learning, we’ve been following the EU AI Act closely at Hugging Face.
 It’s a ground-breaking piece of legislation that is poised to shape how democratic inputs interact with AI technology development around the world.

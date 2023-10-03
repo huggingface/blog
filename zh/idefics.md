@@ -24,8 +24,6 @@ translators:
 
 # IDEFICS 简介: 最先进视觉语言模型的开源复现
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 我们很高兴发布 IDEFICS ( **I**mage-aware **D**ecoder **E**nhanced à la **F**lamingo with **I**ninterleaved **C**ross-attention **S** ) 这一开放视觉语言模型。 IDEFICS 基于 [Flamingo](https://huggingface.co/papers/2204.14198)，Flamingo 作为最先进的视觉语言模型，最初由 DeepMind 开发，但目前尚未公开发布。与 GPT-4 类似，该模型接受任意图像和文本输入序列并生成输出文本。IDEFICS 仅基于公开可用的数据和模型 (LLaMA v1 和 OpenCLIP) 构建，它有两个变体: 基础模型和指令模型。每个变体又各有 90 亿参数和 800 亿参数两个版本。
 

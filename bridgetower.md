@@ -9,8 +9,6 @@ authors:
 
 # Accelerating Vision-Language Models: BridgeTower on Habana Gaudi2
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 *Update (29/08/2023): A benchmark on H100 was added to this blog post. Also, all performance numbers have been updated with newer versions of software.*
 

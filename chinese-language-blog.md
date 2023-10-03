@@ -11,8 +11,6 @@ authors:
 
 <h1>Introducing HuggingFace blog for Chinese speakers: Fostering Collaboration with the Chinese AI community</h1>
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Welcome to our blog for Chinese speakers!
 

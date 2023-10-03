@@ -7,8 +7,6 @@ authors:
 
 # Llama 2 on Amazon SageMaker a Benchmark
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ![Latency](assets/llama_sagemaker_benchmark/latency.png "Latency")
 

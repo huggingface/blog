@@ -9,8 +9,6 @@ translators:
 
 # 大语言模型快速推理：在 Habana Gaudi2 上推理 BLOOMZ
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 本文将展示如何在 [Habana® Gaudi®2](https://habana.ai/training/gaudi2/) 上使用 🤗 [Optimum Habana](https://huggingface.co/docs/optimum/habana/index)。Optimum Habana 是 Gaudi2 和 🤗 Transformers 库之间的桥梁。本文设计并实现了一个大模型推理基准测试，证明了通过使用 Optimum Habana 你将能够在 Gaudi2 上获得 **比目前市面上任何可用的 GPU 都快的推理速度**。
 

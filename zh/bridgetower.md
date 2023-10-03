@@ -13,8 +13,6 @@ translators:
 
 # 使用 Habana Gaudi2 加速视觉语言模型 BridgeTower
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 在对最先进的视觉语言模型 BridgeTower 进行微调时，使用 [Optimum Habana v1.6](https://github.com/huggingface/optimum-habana/tree/main)， Habana Gaudi2 可以达到 **近 3 倍于 A100 的速度**。硬件加速的数据加载以及 `fast DDP` 这两个新特性对性能提高贡献最大。
 

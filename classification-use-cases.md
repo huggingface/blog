@@ -14,8 +14,6 @@ authors:
 
 ## The Success Story of Witty Works with the Hugging Face Expert Acceleration Program.
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 _If you're interested in building ML solutions faster, visit the [Expert Acceleration Program](https://huggingface.co/support?utm_source=blog-post&utm_medium=blog-post&utm_campaign=blog-post-classification-use-case) landing page and contact us [here](https://huggingface.co/support?utm_source=blog-post&utm_medium=blog-post&utm_campaign=blog-post-classification-use-case#form)!_
 

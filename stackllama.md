@@ -13,8 +13,6 @@ authors:
 
 # StackLLaMA: A hands-on guide to train LLaMA with RLHF
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Models such as [ChatGPT]([https://openai.com/blog/chatgpt](https://openai.com/blog/chatgpt)), [GPT-4]([https://openai.com/research/gpt-4](https://openai.com/research/gpt-4)), and [Claude]([https://www.anthropic.com/index/introducing-claude](https://www.anthropic.com/index/introducing-claude)) are powerful language models that have been fine-tuned using a method called Reinforcement Learning from Human Feedback (RLHF) to be better aligned with how we expect them to behave and would like to use them.
 

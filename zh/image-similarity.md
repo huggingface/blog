@@ -13,8 +13,6 @@ translators:
   基于 Hugging Face Datasets 和 Transformers 的图像相似性搜索
 </h1>
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/image_similarity.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

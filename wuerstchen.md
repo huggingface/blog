@@ -13,8 +13,6 @@ authors:
 
 # Introducing Würstchen: Fast Diffusion for Image Generation
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ![Collage of images created with Würstchen](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/wuertschen/collage_compressed.jpg)
 

@@ -9,7 +9,6 @@ authors:
 <h1>Proximal Policy Optimization (PPO)</h1>
 <h2>Unit 8, of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
-<!-- {authors} -->
 
 
 

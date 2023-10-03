@@ -10,8 +10,6 @@ authors:
 
 <h1> Hugging Face Selected for the French Data Protection Agency Enhanced Support Program</h1> 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 *This blog post was originally published on [LinkedIn on 05/15/2023](https://www.linkedin.com/pulse/accompagnement-renforc%25C3%25A9-de-la-cnil-et-protection-des-donn%25C3%25A9es/)*
 

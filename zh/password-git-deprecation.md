@@ -11,8 +11,6 @@ translators:
 
 # Hugging Face Hub: Git 操作认证的重要变更
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 在 Hugging Face，我们一直致力于提升服务安全性，因此，我们将对通过 Git 与 Hugging Face Hub 交互时的认证方式进行更改。从 **2023 年 10 月 1 日** 开始，我们将不再接受密码作为命令行 Git 操作的认证方式。我们推荐使用更安全的认证方法，例如用个人访问令牌替换密码或使用 SSH 密钥。
 

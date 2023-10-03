@@ -7,8 +7,6 @@ authors:
 
 <h1>Machine Learning Experts - Sasha Luccioni</h1>
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 🤗 Welcome to Machine Learning Experts - Sasha Luccioni
 

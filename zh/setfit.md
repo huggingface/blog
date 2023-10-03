@@ -16,8 +16,6 @@ translators:
 
 <h1>SetFit: 高效的无提示少样本学习 </h1>
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <p align="center">
     <img src="../assets/103_setfit/setfit_curves.png" width=500>

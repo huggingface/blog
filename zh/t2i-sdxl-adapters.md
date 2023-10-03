@@ -17,8 +17,6 @@ translators:
 
 # 在 SDXL 上用 T2I-Adapter 实现高效可控的文生图
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/t2i-adapters-sdxl/hf_tencent.png" height=180/>

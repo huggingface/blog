@@ -7,8 +7,6 @@ authors:
 
 # Train a Sentence Embedding Model with 1 Billion Training Pairs
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 **Sentence embedding** is a method that maps sentences to vectors of real numbers. Ideally, these vectors would capture the semantic of a sentence and be highly generic. Such representations could then be used for many downstream applications such as clustering, text mining, or question answering.
 

@@ -11,8 +11,6 @@ translators:
 
 <h1> 如何在 Unity 游戏中集成 AI 语音识别？</h1>
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ![Open Source AI Game Jam](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/gamejambanner.png)
 [](https://itch.io/jam/open-source-ai-game-jam)
