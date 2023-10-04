@@ -60,7 +60,7 @@ TPU v5e instances come in multiple shapes, including 1, 4 and 8-chip shapes, all
 
 We'll go step by step over the code you need to write to run inference super-fast using JAX! First, let's import the dependencies.
 
-```Python
+```python
 # Show best practices for SDXL JAX
 import jax
 import jax.numpy as jnp
@@ -72,7 +72,7 @@ import time
 
 We'll now load the base SDXL model and the rest of the components required for inference. The diffusers pipeline takes care of downloading and caching everything for us. Adhering to JAX's functional approach, the model's parameters are returned separately and will have to be passed to the pipeline during inference:
 
-```Python
+```python
 pipeline, params = FlaxStableDiffusionXLPipeline.from_pretrained(
     "stabilityai/stable-diffusion-xl-base-1.0", split_head_dim=True
 )
@@ -80,7 +80,7 @@ pipeline, params = FlaxStableDiffusionXLPipeline.from_pretrained(
 
 Model parameters are downloaded in 32-bit precision by default. To save memory and run computation faster we'll convert them to `bfloat16`, an efficient 16-bit representation. However, there's a caveat: for best results, we have to keep the _scheduler state_ in `float32`, otherwise precision errors accumulate and result in low-quality or even black images.
 
-```Python
+```python
 scheduler_state = params.pop("scheduler")
 params = jax.tree_util.tree_map(lambda x: x.astype(jnp.bfloat16), params)
 params["scheduler"] = scheduler_state
@@ -88,7 +88,7 @@ params["scheduler"] = scheduler_state
 
 We are now ready to set up our prompt and the rest of the pipeline inputs.
 
-```Python
+```python
 default_prompt = "high-quality photo of a baby dolphin ​​playing in a pool and wearing a party hat"
 default_neg_prompt = "illustration, low-quality"
 default_seed = 33
@@ -98,7 +98,7 @@ default_num_steps = 25
 
 The prompts have to be supplied as tensors to the pipeline, and they always have to have the same dimensions across invocations. This allows the inference call to be compiled. The pipeline `prepare_inputs` method performs all the necessary steps for us, so we'll create a helper function to prepare both our prompt and negative prompt as tensors. We'll use it later from our `generate` function:
 
-```Python
+```python
 def tokenize_prompt(prompt, neg_prompt):
     prompt_ids = pipeline.prepare_inputs(prompt)
     neg_prompt_ids = pipeline.prepare_inputs(neg_prompt)
@@ -107,7 +107,7 @@ def tokenize_prompt(prompt, neg_prompt):
 
 To take advantage of parallelization, we'll replicate the inputs across devices. A Cloud TPU v5e-4 has 4 chips, so by replicating the inputs we get each chip to generate a different image, in parallel. We need to be careful to supply a different random seed to each chip so the 4 images are different:
 
-```Python
+```python
 NUM_DEVICES = jax.device_count()
 
 # Model parameters don't change during inference,
@@ -124,7 +124,7 @@ def replicate_all(prompt_ids, neg_prompt_ids, seed):
 
 We are now ready to put everything together in a generate function:
 
-```Python
+```python
 def generate(
     prompt,
     negative_prompt,
@@ -151,7 +151,7 @@ def generate(
 
 `jit=True` indicates that we want the pipeline call to be compiled. This will happen the first time we call `generate`, and it will be very slow – JAX needs to trace the operations, optimize them, and convert them to low-level primitives. We'll run a first generation to complete this process and warm things up:
 
-```Python
+```python
 start = time.time()
 print(f"Compiling ...")
 generate(default_prompt, default_neg_prompt)
@@ -161,7 +161,7 @@ print(f"Compiled in {time.time() - start}")
 This took about three minutes the first time we ran it.
 But once the code has been compiled, inference will be super fast. Let's try again!
 
-```Python
+```python
 start = time.time()
 prompt = "llama in ancient Greece, oil on canvas"
 neg_prompt = "cartoon, illustration, animation"
