@@ -20,17 +20,17 @@ In total, over 90 Hugging Face model architectures are supported by ONNX Runtime
 
 | Model Architecture | Approximated No. of Models |
 |:------------------:|:--------------------------:|
-|        BERT        |           28100            |
-|        GPT2        |           13900            |
-|     DistilBERT     |           11400            |
-|      RoBERTa       |           10600            |
-|         T5         |           10300            |
-|      Wav2Vec2      |            6500            |
-|  Stable-Diffusion  |            5700            |
-|    XLM-RoBERTa     |            5000            |
-|      Whisper       |            4300            |
-|        BART        |            3500            |
-|       Marian       |            2800            |
+|        BERT        |           28180            |
+|        GPT2        |           14060            |
+|     DistilBERT     |           11540            |
+|      RoBERTa       |           10800            |
+|         T5         |           10450            |
+|      Wav2Vec2      |            6560            |
+|  Stable-Diffusion  |            5880            |
+|    XLM-RoBERTa     |            5100            |
+|      Whisper       |            4400            |
+|        BART        |            3590            |
+|       Marian       |            2840            |
 
 ## Learn More
 To learn more about accelerating Hugging Face models with ONNX Runtime, check out our recent post on the [Microsoft Open Source Blog](insert link here).
