@@ -3,6 +3,11 @@
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 # pro tip: put strings e.g. name or description in "quotes" or do not include special characters incl. ':' '[' 
 
+- name: "Hugging Face Open Source community event 🥐 Paris"
+  link: https://partiful.com/e/oWOMGoPxB5D37qw5F8yN
+  date: October 5, 2023
+  description: "Hugging Face Community event in Paris is here! Join the space with an amazing intersection between researchers, machine learning engineers, artists, and enthusiasts."
+  
 - name: "The Race to Open-Source ChatGPT"
   link: https://us06web.zoom.us/webinar/register/WN_Veu65U_zQryiN0E8DNkzUA?t=1693401002754
   date: September 1, 2023
