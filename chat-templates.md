@@ -62,7 +62,7 @@ Right now, if you're lucky, the format you need is correctly documented somewher
 
 This is the problem that **chat templates** aim to solve. Chat templates are [Jinja template strings](https://jinja.palletsprojects.com/en/3.1.x/) that are saved and loaded with your tokenizer, and that contain all the information needed to turn a list of chat messages into a correctly formatted input for your model. Here are three chat template strings, corresponding to the three message formats above:
 
-```
+```jinja
 {% for message in messages %}
     {% if message['role'] == 'user' %}
         {{ "User : " }}
@@ -71,7 +71,7 @@ This is the problem that **chat templates** aim to solve. Chat templates are [Ji
     {{ message['content'] + '\n' }}
 {% endfor %}
 ```
-```
+```jinja
 {% for message in messages %}
     {% if message['role'] == 'user' %}
         {{ "[USER] " + message['content'] + " [/USER]" }}
@@ -80,7 +80,7 @@ This is the problem that **chat templates** aim to solve. Chat templates are [Ji
     {{ message['content'] + '\n' }}
 {% endfor %}
 ```
-```
+```jinja
 "{% for message in messages %}"  
     "{{'<|im_start|>' + message['role'] + '\n' + message['content'] + '<|im_end|>' + '\n'}}"  
 "{% endfor %}"
@@ -98,7 +98,7 @@ This is an excellent idea! Unfortunately, it's too late, because multiple import
 
 However, we can still mitigate this problem a bit. We think the closest thing to a 'standard' for formatting is the [ChatML format](https://github.com/openai/openai-python/blob/main/chatml.md) created by OpenAI. If you're training a new model for chat, and this format is suitable for you, we recommend using it and adding special `<|im_start|>` and `<|im_end|>` tokens to your tokenizer. It has the advantage of being very flexible with roles, as the role is just inserted as a string rather than having specific role tokens. If you'd like to use this one, it's the third of the templates above, and you can set it with this simple one-liner:
 
-```
+```py
 tokenizer.chat_template = "{% for message in messages %}{{'<|im_start|>' + message['role'] + '\n' + message['content'] + '<|im_end|>' + '\n'}}{% endfor %}"
 ```
 
