@@ -7,6 +7,8 @@ authors:
 - user: mfuntowicz
 ---
 
+# Accelerating over 130,000 Hugging Face models with ONNX Runtime
+
 ## What is ONNX Runtime?
 ONNX Runtime is a cross-platform machine learning tool that can be used to accelerate a wide variety of models, particularly those with ONNX support.
 
@@ -19,18 +21,18 @@ ONNX Runtime works closely with Hugging Face to ensure that the most popular mod
 In total, over 90 Hugging Face model architectures are supported by ONNX Runtime, including the 11 most popular architectures (where popularity is determined by the corresponding number of models uploaded to the Hugging Face Hub):
 
 | Model Architecture | Approximate No. of Models |
-|:------------------:|:--------------------------:|
-|        BERT        |           28180            |
-|        GPT2        |           14060            |
-|     DistilBERT     |           11540            |
-|      RoBERTa       |           10800            |
-|         T5         |           10450            |
-|      Wav2Vec2      |            6560            |
-|  Stable-Diffusion  |            5880            |
-|    XLM-RoBERTa     |            5100            |
-|      Whisper       |            4400            |
-|        BART        |            3590            |
-|       Marian       |            2840            |
+|:------------------:|:-------------------------:|
+|        BERT        |           28180           |
+|        GPT2        |           14060           |
+|     DistilBERT     |           11540           |
+|      RoBERTa       |           10800           |
+|         T5         |           10450           |
+|      Wav2Vec2      |           6560            |
+|  Stable-Diffusion  |           5880            |
+|    XLM-RoBERTa     |           5100            |
+|      Whisper       |           4400            |
+|        BART        |           3590            |
+|       Marian       |           2840            |
 
 ## Learn More
 To learn more about accelerating Hugging Face models with ONNX Runtime, check out our recent post on the [Microsoft Open Source Blog](https://cloudblogs.microsoft.com/opensource/2023/10/04/accelerating-over-130000-hugging-face-models-with-onnx-runtime/).
