@@ -1,6 +1,6 @@
 ---
 title: "Accelerating over 130,000 Hugging Face models with ONNX Runtime"
-thumbnail: /blog/assets/163_getting_most_out_of_llms/optimize_llm.png
+thumbnail: /blog/assets/ort_accelerating_hf_models/thumbnail.png
 authors:
 - user: sschoenmeyer
   guest: true
