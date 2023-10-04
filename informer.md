@@ -581,7 +581,10 @@ def create_transformation(freq: str, config: PretrainedConfig) -> Transformation
 
 For training/validation/testing we next create an `InstanceSplitter` which is used to sample windows from the dataset (as, remember, we can't pass the entire history of values to the model due to time- and memory constraints).
 
-The instance splitter samples random `context_length` sized and subsequent `prediction_length` sized windows from the data, and appends a `past_` or `future_` key to any temporal keys for the respective windows. This makes sure that the `values` will be split into `past_values` and subsequent `future_values` keys, which will serve as the encoder and decoder inputs respectively. The same happens for any keys in the `time_series_fields` argument:
+The instance splitter samples random `context_length` sized and subsequent `prediction_length` sized windows from the data, and appends a `past_` or `future_` key to any temporal keys in `time_series_fields` for the respective windows. The instance splitter can be configured into three different models:
+1. `mode="train"`: Here we sample the context and prediction length windows randomly from the dataset given to it (the training dataset)
+2. `model="validation"`: Here we sample the very last context length window and prediction window from the dataset given to it (for the back-testing or validation likelihood calculations)
+3. `mode="test"`: Here we sample the very last context length window only (for the prediction use case)
 
 
 ```python
@@ -595,7 +598,7 @@ def create_instance_splitter(
     train_sampler: Optional[InstanceSampler] = None,
     validation_sampler: Optional[InstanceSampler] = None,
 ) -> Transformation:
-    assert mode in ["train", "validation"]
+    assert mode in ["train", "validation", "test"]
 
     instance_sampler = {
         "train": train_sampler
@@ -604,6 +607,7 @@ def create_instance_splitter(
         ),
         "validation": validation_sampler
         or ValidationSplitSampler(min_future=config.prediction_length),
+        "test": TestSplitSampler(),
     }[mode]
 
     return InstanceSplitter(
