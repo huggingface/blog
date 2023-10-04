@@ -33,4 +33,4 @@ In total, over 90 Hugging Face model architectures are supported by ONNX Runtime
 |       Marian       |            2840            |
 
 ## Learn More
-To learn more about accelerating Hugging Face models with ONNX Runtime, check out our recent post on the [Microsoft Open Source Blog](insert link here).
+To learn more about accelerating Hugging Face models with ONNX Runtime, check out our recent post on the [Microsoft Open Source Blog](https://cloudblogs.microsoft.com/opensource/2023/10/04/accelerating-over-130000-hugging-face-models-with-onnx-runtime/).
