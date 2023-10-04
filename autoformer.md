@@ -567,7 +567,7 @@ def create_test_dataloader(
     transformation = create_transformation(freq, config)
     transformed_data = transformation.apply(data, is_train=False)
 
-    # we create a Validtion Instance splitter which will sample the very last
+    # we create a Validation Instance splitter which will sample the very last
     # context window seen during training only for the encoder.
     instance_sampler = create_instance_splitter(config, "validation")
 
