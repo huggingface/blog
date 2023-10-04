@@ -18,7 +18,7 @@ For example, using ONNX Runtime to accelerate the whisper-tiny model can improve
 ONNX Runtime works closely with Hugging Face to ensure that the most popular models on the site are supported.
 In total, over 90 Hugging Face model architectures are supported by ONNX Runtime, including the 11 most popular architectures (where popularity is determined by the corresponding number of models uploaded to the Hugging Face Hub):
 
-| Model Architecture | Approximated No. of Models |
+| Model Architecture | Approximate No. of Models |
 |:------------------:|:--------------------------:|
 |        BERT        |           28180            |
 |        GPT2        |           14060            |
