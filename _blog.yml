@@ -2958,3 +2958,13 @@
     - guide
     - tpu
     - google
+
+- local: ort-accelerating-hf-models
+  title: "Accelerating over 130,000 Hugging Face models with ONNX Runtime"
+  author: sschoenmeyer
+  thumbnail: /blog/assets/ort_accelerating_hf_models/thumbnail.png
+  date: October 4, 2023
+  tags:
+    - onnxruntime
+    - onnx
+    - inference
