@@ -2,9 +2,9 @@
 title: "Accelerating over 110,000 Hugging Face models with ONNX Runtime"
 thumbnail: /blog/assets/163_getting_most_out_of_llms/optimize_llm.png
 authors:
-- user: Sophie Schoenmeyer
+- user: sschoenmeyer
   guest: true
-- user: Morgan Funtowicz
+- user: mfuntowicz
 ---
 
 ## What is ONNX Runtime?
