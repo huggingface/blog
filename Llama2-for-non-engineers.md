@@ -42,7 +42,7 @@ You can read more about ChatUI [here](https://github.com/huggingface/chat-ui).
 
 ### Step 1: Create a new AutoTrain Space
 
-1.1 Go to [huggingface.co/spaces](https://huggingface.co/docs/hub/spaces) and select “Create new Space”.
+1.1 Go to [huggingface.co/spaces](https://huggingface.co/spaces) and select “Create new Space”.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/tuto1.png"><br>
@@ -63,7 +63,7 @@ You can read more about ChatUI [here](https://github.com/huggingface/chat-ui).
 
 1.6 Select whether you want to make the “Private” or “Public”, for the AutoTrain Space itself it’s recommended to keep this Private, but you can always publicly share your model or Chat App later on.
 
-1.7 Hit “Create Space” et voilla! The new Space will take a couple of minutes to build after which you can open the Space and start using AutoTrain.
+1.7 Hit “Create Space” et voilà! The new Space will take a couple of minutes to build after which you can open the Space and start using AutoTrain.
 
 
 <p align="center">
@@ -78,7 +78,7 @@ You can read more about ChatUI [here](https://github.com/huggingface/chat-ui).
 
 2.3 In “Backend” select the CPU or GPU you want to use for your training. For a 7b model an “A10G Large” will be big enough. If you choose to train a larger model you’ll need to make sure the model can fully fit in the memory of your selected GPU.  (Note: If you want to train a larger model and need access to an A100 GPU please email api-enterprise@huggingface.co)
 
-2.4 Of course to fine-tune a model you’ll need to upload “Training Data”. When you do, make sure the dataset is correctly formatted and in CSV file format. An example of the required format can be found [here](https://huggingface.co/docs/autotrain/main/en/llm_finetuning). If your dataset contains multiple columns, be sure to select the “Text Column” from your file that contains the training data. In this example we’ll be using the Alpaca instruction tuning dataset, more information about this dataset is available [here](https://huggingface.co/datasets/tatsu-lab/alpaca).
+2.4 Of course to fine-tune a model you’ll need to upload “Training Data”. When you do, make sure the dataset is correctly formatted and in CSV file format. An example of the required format can be found [here](https://huggingface.co/docs/autotrain/main/en/llm_finetuning). If your dataset contains multiple columns, be sure to select the “Text Column” from your file that contains the training data. In this example we’ll be using the Alpaca instruction tuning dataset, more information about this dataset is available [here](https://huggingface.co/datasets/tatsu-lab/alpaca). You can also download it directly as CSV from [here](https://huggingface.co/datasets/tofighi/LLM/resolve/main/alpaca.csv).
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/tuto4.png"><br>
