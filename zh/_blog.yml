@@ -25,6 +25,14 @@
     - analysis
     - nlp
 
+- local: the-age-of-ml-as-code
+  title: "机器学习即代码的时代已经到来"
+  author: juliensimon
+  thumbnail: /blog/assets/31_age_of_ml_as_code/01_entreprise_ml.png
+  date: October 20, 2021
+  tags:
+    - analysis
+
 - local: large-language-models
   title: "大语言模型: 新的摩尔定律？"
   author: juliensimon
