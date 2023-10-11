@@ -2969,3 +2969,12 @@
     - onnxruntime
     - onnx
     - inference
+
+- local: mangoes.ai-case-study
+  title: "Transforming Behavioral Health Equity with Audio ML and LLMs: Mangoes.ai and Hugging Face Fast-Track Prompt Engineering, Supervised Fine-Tuning and RLHF"
+  author: on1onmangoes
+  guest: true
+  thumbnail: /blog/assets/78_ml_director_insights/mangoes.png
+  date: October 13, 2023
+  tags:
+    - case-studies
