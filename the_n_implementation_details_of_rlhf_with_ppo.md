@@ -2,8 +2,9 @@
 title: "The N Implementation Details of RLHF with PPO"
 thumbnail: /blog/assets/83_accelerate_deepspeed/deepspeed-thumbnail.png
 authors:
-- user: smangrul
-- user: sgugger
+- user: vwxyzjn
+- user: liutianlin0121
+- user: lvwerra
 ---
 
 # The N Implementation Details of RLHF with PPO
