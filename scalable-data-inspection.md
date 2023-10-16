@@ -52,7 +52,7 @@ Data inspection is a very important task in almost all ML development stages, bu
 
 The *datasets* library has several features that makes it an ideal tool for working with ML datasets: It stores tabular data (e.g. metadata, labels) along with unstructured data (e.g. images, audio) in a common Arrows table. *Datasets* also describes important data semantics through features (e.g. images, audio) and additional task-specific metadata.
 
-Spotlight directly works on top of the *datasets* library*.* This means that there is no need to copy or pre-process the dataset for data visualization and inspection. Spotlight loads the tabular data into memory to allow for efficient, client-side data analytics. Memory-intensive unstructured data samples (e.g. audio, images, video) are loaded lazily on demand. In most cases, data types and label mappings are inferred directly from the dataset. Here, we visualize the CIFAR-100 dataset with one line of code:
+Spotlight directly works on top of the *datasets* library. This means that there is no need to copy or pre-process the dataset for data visualization and inspection. Spotlight loads the tabular data into memory to allow for efficient, client-side data analytics. Memory-intensive unstructured data samples (e.g. audio, images, video) are loaded lazily on demand. In most cases, data types and label mappings are inferred directly from the dataset. Here, we visualize the CIFAR-100 dataset with one line of code:
 
 ```python
 ds = datasets.load_dataset('cifar100', split='test')
@@ -119,9 +119,9 @@ spotlight.show(ds_enriched, dtype={'embedding': spotlight.Embedding}, layout=lay
 
 ## Customizing data inspection workflows
 
-Visualization layouts can be interactively changed, saved and loaded in the GUI (Fig. 2): You can select different widget types and configurations. The *Inspector* widget allows to represent multimodal data samples including text, image, audio, video and time series data.
+Visualization layouts can be interactively changed, saved and loaded in the GUI: You can select different widget types and configurations. The *Inspector* widget allows to represent multimodal data samples including text, image, audio, video and time series data.
 
-You can also define layouts through the [Python API](https://renumics.com/api/spotlight/). This option is especially useful for building custom data inspection workflows including EDA, model debugging and model monitoring tasks.
+You can also define layouts through the [Python API](https://renumics.com/api/spotlight/). This option is especially useful for building custom data inspection and curation workflows including EDA, model debugging and model monitoring tasks.
 
 In combination with the data issues widget, the Python API offers a great way to integrate the results of existing scripts (e.g. data quality checks or model monitoring) into a scalable data inspection workflow.
 
@@ -129,7 +129,7 @@ In combination with the data issues widget, the Python API offers a great way to
 
 You can use Spotlight directly on your local NLP, audio, CV or multimodal dataset. If you would like to showcase your dataset or model results on the Huggingface hub, you can use Huggingface spaces to launch a Spotlight visualization for it.
 
-We have already prepared [example spaces](https://huggingface.co/renumics) for many popular NLP, audio and CV datasets on the hub. You can simply duplicate one of these spaces and specify your dataset in the HF_DATASET variable (Fig. 3).
+We have already prepared [example spaces](https://huggingface.co/renumics) for many popular NLP, audio and CV datasets on the hub. You can simply duplicate one of these spaces and specify your dataset in the HF_DATASET variable.
 
 You can optionally choose a dataset that contains model results and other configuration options such as splits, subsets or dataset revisions.
 
@@ -142,7 +142,7 @@ You can optionally choose a dataset that contains model results and other config
 
 With Spotlight you can create **interactive visualizations** and leverage data enrichments to **identify critical clusters** in your Huggingface datasets. In this blog, we have seen both an audio ML and a computer vision example.
 
-You can also use Spotlight directly on your NLP, audio, CV or multimodal dataset:
+You can use Spotlight directly to explore and curate your NLP, audio, CV or multimodal dataset:
 
 - Install Spotlight: *pip install renumics-spotlight*
 - Check out the [documentation](https://renumics.com/docs) or open an issue on [Github](https://github.com/Renumics/spotlight)
