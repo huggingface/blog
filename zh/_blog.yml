@@ -968,3 +968,14 @@
     - collaboration
     - diffusers
     - diffusion
+
+- local: chat-templates
+  title: "聊天模板：无声性能杀手的终结"
+  author: rocketknight1
+  thumbnail: /blog/assets/chat-templates/thumbnail.png
+  date: October 3, 2023
+  tags:
+    - LLM
+    - nlp
+    - community
+
