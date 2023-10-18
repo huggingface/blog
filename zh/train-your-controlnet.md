@@ -60,7 +60,7 @@ translators:
 - 使用 `FaceSynthetics` 中的真实图片 (`image`)
 - 使用一个现有的模型把人脸图片转换为 68 个关键点的形式。这里我们使用 [SPIGA](https://github.com/andresprados/SPIGA) 这个模型
 - 使用自己的代码把人脸关键点转换为人脸分割图，以此作为“条件图片” (`conditioning_image`)
-- 把这些数据保存为 [Hugging Face Dataset](https://huggingface.co/docs/datasets/indexx)
+- 把这些数据保存为 [Hugging Face Dataset](https://huggingface.co/docs/datasets/index)
 
 [这里](https://huggingface.co/datasets/pcuenq/face_synthetics_spiga) 是将真实图片转换到分割图的代码，以及将数据保存为 Hugging Face Dataset 的代码。
 
