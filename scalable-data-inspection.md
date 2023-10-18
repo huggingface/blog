@@ -72,7 +72,14 @@ Exploring raw unstructured datasets often yield little insights. Leveraging mode
 
 We recommend storing your prediction results directly in a Huggingface dataset. This not only allows you to take advantage of the batch processing capabilities of the datasets library, but also keeps label mappings.
 
-Here is an example code snippet to compute embeddings and predictions with *transformers* on the CIFAR-100 image classification problem:
+We can use the *transformers* library to compute embeddings and predictions on the CIFAR-100 image classification problem. We install the libraries via pip:
+
+```bash
+pip install renumics-spotlight datasets transfomers[torch]
+```
+
+Now we can compute the enrichment:
+
 
 ```python
 import torch
@@ -94,7 +101,7 @@ def infer(batch):
     preds = probs.argmax(axis=-1)
     return {"prediction": preds, "embedding": embeddings}
 
-features = datasets.Features({**ds_temp.features, "prediction": ds_temp.features["fine_label"], "embedding": datasets.Sequence(feature=datasets.Value("float32"), length=768)})
+features = datasets.Features({**ds.features, "prediction": ds.features["fine_label"], "embedding": datasets.Sequence(feature=datasets.Value("float32"), length=768)})
 ds_enriched = ds.map(infer, input_columns="img", batched=True, batch_size=2, features=features)
 ```
 
