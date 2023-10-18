@@ -969,6 +969,16 @@
     - diffusers
     - diffusion
 
+- local: optimize-llm
+  title: "面向生产的 LLM 优化"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/163_optimize_llm/optimize_llm.png
+  date: Sep 15, 2023
+  tags:
+    - nlp
+    - research
+    - LLM
+
 - local: chat-templates
   title: "聊天模板：无声性能杀手的终结"
   author: rocketknight1
