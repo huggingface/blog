@@ -12,7 +12,7 @@ In the ever-evolving landscape of programming and software development, the ques
 
 However, while these pre-trained models can perform impressively across a range of tasks, there's an exciting possibility lying just beyond the horizon: the ability to tailor a code generation model to your specific needs. Think of personalized coding assistants which could be leveraged at an enterprise scale. 
 
-In this blog post, HugCoder 🤗, a code LLM, fine-tuned on the code contents from the public repositories of [huggingface GitHub organization](https://github.com/huggingface). We will discuss our data collection workflow, our training experiments, and some interesting results. We will leave you with a couple of further extensions of this project for experimentation. 
+In this blog post we show how we created HugCoder 🤗, a code LLM fine-tuned on the code contents from the public repositories of the [huggingface GitHub organization](https://github.com/huggingface). We will discuss our data collection workflow, our training experiments, and some interesting results. We will leave you with a couple of further extensions of this project for experimentation. 
 
 Let’s begin 🚀
 
@@ -22,9 +22,9 @@ Let’s begin 🚀
 
 https://github.com/pacman100/blog/assets/13534540/f792b506-c31a-4f73-a321-3333902c3c52
 
-# Our data collection workflow
+## Data Collection Workflow
 
-Our expected dataset is conceptually simple. In the interest of convenience, we structured it like so:
+Our desired dataset is conceptually simple, we structured it like so:
 
 | | | |
 |---|---|---|
@@ -34,39 +34,39 @@ Our expected dataset is conceptually simple. In the interest of convenience, we 
 
 Parsing code contents from GitHub is straightforward with the [Python GitHub API](https://github.com/PyGithub/PyGithub). However, depending on the number of repositories and the number of code files within a repository, one might easily run into API rate-limiting issues. 
 
-To prevent such problems, we decided first locally to clone all the public repositories. To do so in a parallel manner, we utilised the `multiprocessing` module from Python. We then operated on the locally cloned repositories, which eliminated the possibility of running into rate-limiting problems. Refer to [this script](https://github.com/sayakpaul/hf-codegen/blob/main/data/parallel_clone_repos.py) for the full implementation. 
+To prevent such problems, we decided to clone all the public repositories locally and extract the contents from them instead of through the API. We used the `multiprocessing` module from Python to download all repos in parallel, as shown in [this download script](https://github.com/sayakpaul/hf-codegen/blob/main/data/parallel_clone_repos.py). 
 
-A repository can often contain non-code files such as presentations and other assets. We’re not interested in parsing these files. This is why we created a [list of extensions](https://github.com/sayakpaul/hf-codegen/blob/main/data/prepare_dataset.py#L17C1-L49C68) to filter these files. For parsing the non-notebook (notebook as in Jupyter Notebooks) code files, we simply used “utf-8” encoding. For handling contents from a notebook, we only considered the code cells. 
+A repository can often contain non-code files such as images, presentations and other assets. We’re not interested in parsing them. We created a [list of extensions](https://github.com/sayakpaul/hf-codegen/blob/f659eba76f07e622873211e5b975168b634e6c22/data/prepare_dataset.py#L17C1-L49C68) to filter them out. To parse code files other than Jupyter Notebooks, we simply used the "utf-8" encoding. For notebooks, we only considered the code cells.
 
 We also excluded all file paths that were not directly related to code. These include: `.git`, `__pycache__`, and `xcodeproj`. 
 
 To keep the serialization of this content relatively memory-friendly, we used chunking and the feather format. Refer to [this script](https://github.com/sayakpaul/hf-codegen/blob/main/data/prepare_dataset.py) for the full implementation. 
 
-Our dataset prepared this way is available [here](https://huggingface.co/datasets/sayakpaul/hf-codegen-v2) and it looks like so:
+[The final dataset is available in the Hub](https://huggingface.co/datasets/sayakpaul/hf-codegen-v2), and it looks like this:
 
 ![hf-stack-full](assets/170_personal_copilot/hf-stack-full.png)
 
-For this blog, we consider the top 10 Hugging Face public repositories based on stargazers. They are the following: 
+For this blog, we considered the top 10 Hugging Face public repositories, based on stargazers. They are the following: 
 
 > ['transformers', 'pytorch-image-models', 'datasets', 'diffusers', 'peft', 'tokenizers', 'accelerate', 'text-generation-inference', 'chat-ui', 'deep-rl-class']
 
-The code for this dataset generation is [here](https://github.com/pacman100/DHS-LLM-Workshop/tree/main/personal_copilot/dataset_generation), and the dataset can be found [here](https://huggingface.co/datasets/smangrul/hf-stack-v1). Here is a snapshot of the dataset: 
+[This is the code we used to generate this dataset](https://github.com/pacman100/DHS-LLM-Workshop/tree/main/personal_copilot/dataset_generation), and [this is the dataset in the Hub](https://huggingface.co/datasets/smangrul/hf-stack-v1). Here is a snapshot of what it looks like: 
 ![hf-stack-v1](assets/170_personal_copilot/hf-stack-v1.png)
 
-In the interest of less complexity, we didn’t consider deduplication of the dataset. But for production-ready applications, deduplication should be considered an inseparable step of the data collection pipeline. We welcome you to check out [this blog post](https://huggingface.co/blog/dedup) if you’re interested to learn more about this topic in the context of code LLMs. 
+To reduce the project complexity, we didn’t consider deduplication of the dataset. If you are interested in applying deduplication techniques for a production application, [this blog post](https://huggingface.co/blog/dedup) is an excellent resource about the topic in the context of code LLMs.
 
-# Finetuning your own Personal Co-Pilot 
+## Finetuning your own Personal Co-Pilot 
 
-In this section, we will show you how to fine-tune `bigcode/starcoder` (15.5B params), `bigcode/starcoderbase-1b` (1B params), `Deci/DeciCoder-1b` (1B params) on a single A100 40GB Colab Notebook using 🤗 PEFT. Then, we will show you how to fully finetune the `bigcode/starcoder` (15.5B params) on a machine with 8 A100 80GB GPUs using 🤗 Accelerate's FSDP integration.
+In this section, we show how to fine-tune `bigcode/starcoder` (15.5B params), `bigcode/starcoderbase-1b` (1B params), `Deci/DeciCoder-1b` (1B params) on a single A100 40GB Colab Notebook using 🤗 PEFT. Then, we'll show how to fully finetune the `bigcode/starcoder` (15.5B params) on a machine with 8 A100 80GB GPUs using 🤗 Accelerate's FSDP integration.
 
 Why PEFT? Full Fine-tuning is expensive. Let’s put some numbers to put things in perspective:
 
-Minimum GPU memory required for Full Fine-tuning:
+Minimum GPU memory required for full fine-tuning:
 
 1. Weight: 2 bytes (Mixed-Precision training)
 2. Weight gradient: 2 bytes
 3. Optimizer state when using Adam: 4 bytes for original FP32 weight + 8 bytes for first and second moment estimates
-4. Cost per parameter adding all the above: 16 bytes per parameter 
+4. Cost per parameter adding all of the above: 16 bytes per parameter 
 5. **15.5B model -> 248GB of GPU memory without even considering huge memory requirements for storing intermediate activations -> minimum 4X A100 80GB GPUs required**
 
 Minimum GPU memory required for QLoRA method:
@@ -307,7 +307,7 @@ We can observe that the generations from both the variants are as per expectatio
 
 🤗 VS Code Extension [HF Code Autocomplete](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) coupled with hosting the model via [🤗 Inference EndPoints](https://ui.endpoints.huggingface.co/). 
 
-### Setting an inference Inference Endpoint
+### Setting an Inference Endpoint
 Below are the screenshots of the Inference Endpoint setting.
 ![ie_1](assets/170_personal_copilot/inference_endpoint_1.png)
 ![ie_2](assets/170_personal_copilot/inference_endpoint_2.png)
@@ -336,17 +336,15 @@ Resources:
 
 # Dance of LoRAs
 
-If you have dabbled with Stable Diffusion models and LoRAs for making your own Dreambooth models, you might be familiar with the concepts of combining different LoRAs with different weights, using a loRA model with a different base model than the one on which it was trained. In text/code domain, this remains unexplored territory. We carry about experiments in this regard and have observed very promising findings. You Ready? let's go, let's go, let's go!!! 🚀
+If you have dabbled with Stable Diffusion models and LoRAs for making your own Dreambooth models, you might be familiar with the concepts of combining different LoRAs with different weights, using a LoRA model with a different base model than the one on which it was trained. In text/code domain, this remains unexplored territory. We carry out experiments in this regard and have observed very promising findings. Are you ready? Let's go, let's go, let's go!!! 🚀
 
 ## Mix-and-Match LoRAs
 
-PEFT currently supports 3 ways of coimbining LoRA models, `linear`, `svd` and `cat`. For more details, refer: [tuners#peft.LoraModel.add_weighted_adapter](https://huggingface.co/docs/peft/main/en/package_reference/tuners#peft.LoraModel.add_weighted_adapter).
+PEFT currently supports 3 ways of combining LoRA models, `linear`, `svd` and `cat`. For more details, refer: [tuners#peft.LoraModel.add_weighted_adapter](https://huggingface.co/docs/peft/main/en/package_reference/tuners#peft.LoraModel.add_weighted_adapter).
 
 Inference code:
-```python
-import os
-os.environ["CUDA_VISIBLE_DEVICES"]="3"
 
+```python
 from dataclasses import dataclass, field
 from typing import Optional
 import contextlib
@@ -421,7 +419,7 @@ def get_model_pred(query, disable=False):
 ```
 
 For `code-completion`, the inference function is below:
-```
+```python
 def get_code_completion(prefix, suffix, disable=False):
     context = contextlib.nullcontext
     if disable:
@@ -610,7 +608,7 @@ We will be using this super cool open source library [mlc-llm](https://github.co
 
 1. Colab notebook for Full fine-tuning and PEFT LoRA finetuning of `starcoderbase-1b`: [link](https://colab.research.google.com/drive/1tTdvc2buL3Iy1PKwrG_bBIDP06DC9r5m?usp=sharing)
 
-The training loss, evaluation loss as well as leraning rate schedules are plotted below:
+The training loss, evaluation loss as well as learning rate schedules are plotted below:
 
 ![loss_plots](assets/170_personal_copilot/loss_plots.png)
 
@@ -659,7 +657,7 @@ time python3 -m mlc_llm.build --hf-path smangrul/starcoder1B-v2-personal-copilot
 ```
  python -m mlc_chat.rest --model dist/starcoder1B-v2-personal-copilot-merged-q4f16_1/params --lib-path dist/starcoder1B-v2-personal-copilot-merged-q4f16_1/starcoder1B-v2-personal-copilot-merged-q4f16_1-metal.so
 ```
-6. Change the end-point of HF Code Completion extension in VS Code to point to the local server:
+6. Change the endpoint of HF Code Completion extension in VS Code to point to the local server:
 
 ![local_endpoint](assets/170_personal_copilot/local_endpoint.png)
 
@@ -671,6 +669,6 @@ Voila! ⭐️
 
 The demo at the start is this 1B model that is running locally on my Mac laptop.
 
-# Conclusion
+## Conclusion
 
-In this blog plost, we saw how to finetune `starcoder` on our personal codebase, i.e., how to create personal co-pilot. To this end, we developed 🤗 HugCoder. First, we dwelled deep into the data collection workflow. Then, we looked at comparison betgween QLoRA and Full fine-tuning. This was followed by super interesting section of combining LoRAs, transfering them which is still unexplored in text/code domain. Details about using 🤗 inference endpoint for hosting the fine-tuned model were given showing how easy it is to deploy the models. We also saw how to run these models locally to use for code completion in VS Code.
+In this blog plost, we saw how to finetune `starcoder` to create a personal co-pilot that knows about our code. We called it 🤗 HugCoder, as we trained it on Hugging Face code :) After looking at the data collection workflow, we compared training using QLoRA vs full fine-tuning. We also experimented by combining different LoRAs, which is still an unexplored technique in the text/code domain. For deployment, we examined remote inference using 🤗 inference endpoints, and also tried on-device completion of a smaller model with VS Code and MLC.
