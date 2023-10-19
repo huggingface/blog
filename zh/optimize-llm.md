@@ -58,7 +58,7 @@ _**注意**_ : _本文同时也是 [Transformers](https://huggingface.co/docs/tr
 - [**Llama-2-70b**](https://huggingface.co/meta-llama/Llama-2-70b-hf) 需要 2 \* 70 GB = **140 GB** 显存
 - [**Falcon-40b**](https://huggingface.co/tiiuae/falcon-40b) 需要 2 \* 40 GB = **80 GB** 显存
 - [**MPT-30b**](https://huggingface.co/mosaicml/mpt-30b) 需要 2 \* 30 GB = **60 GB** 显存
-- []**bigcode/starcoder**(https://huggingface.co/bigcode/starcoder) 需要 2 \* 15.5 = **31 GB** 显存
+- [**bigcode/starcoder**](https://huggingface.co/bigcode/starcoder) 需要 2 \* 15.5 = **31 GB** 显存
 
 迄今为止，市面上显存最大的 GPU 芯片是 80GB 显存的 A100。前面列出的大多数模型需要超过 80GB 才能加载，因此必然需要 [张量并行](https://huggingface.co/docs/transformers/perf_train_gpu_many#tensor-parallelism) 和/或 [流水线并行](https://huggingface.co/docs/transformers/perf_train_gpu_many#naive-model-parallelism-vertical-and-pipeline-parallelism)。
 
