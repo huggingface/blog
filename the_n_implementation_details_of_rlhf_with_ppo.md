@@ -523,3 +523,16 @@ In this work, we took a deep dive into OAI’s original RLHF codebase and compil
 # Acknowledgement
 
 This work is supported by Hugging Face’s Big Science cluster 🤗. We also thank the helpful discussion with @lewtun and @natolambert.
+
+
+# Bibtex
+
+```bibtex
+@article{Huang2023implementation,
+  author = {Huang, Costa and Liu, Tianlin and von Werra, Leandro},
+  title = {The N Implementation Details of RLHF with PPO},
+  journal = {Hugging Face Blog},
+  year = {2023},
+  note = {https://huggingface.co/blog/the_n_implementation_details_of_rlhf_with_ppo},
+}
+```
