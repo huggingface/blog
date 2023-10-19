@@ -1,10 +1,10 @@
 ---
 title: "The N Implementation Details of RLHF with PPO"
-thumbnail: /blog/assets/83_accelerate_deepspeed/deepspeed-thumbnail.png
+thumbnail: /blog/assets/167_the_n_implementation_details_of_rlhf_with_ppo/thumbnail.png
 authors:
 - user: vwxyzjn
 - user: liutianlin0121
-  guest: true  
+  guest: true
 - user: lvwerra
 ---
 
