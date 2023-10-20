@@ -20,6 +20,12 @@ Let’s begin 🚀
 
 [Insert ToC]
 
+<p align="center">
+  <video controls title="Using HugCoder in Visual Studio Code to help create a LoRA fine-tune">
+  <source src="https://github.com/pacman100/blog/assets/13534540/f792b506-c31a-4f73-a321-3333902c3c52" type="video/mp4">
+  <em>Video: Using HugCoder in Visual Studio Code to help create a LoRA fine-tune.</em>
+</p>
+
 https://github.com/pacman100/blog/assets/13534540/f792b506-c31a-4f73-a321-3333902c3c52
 
 ## Data Collection Workflow
