@@ -10,8 +10,6 @@ authors:
 
 # Towards Encrypted Large Language Models with FHE
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Large Language Models (LLM) have recently been proven as reliable tools for improving productivity in many areas such as programming, content creation, text analysis, web search, and distance learning.
 

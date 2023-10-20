@@ -9,8 +9,6 @@ authors:
 
 # Audit shows that safetensors is safe and ready to become the default
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 [Hugging Face](https://huggingface.co/), in close collaboration with [EleutherAI](https://www.eleuther.ai/) and [Stability AI](https://stability.ai/), has ordered
 an external security audit of the `safetensors` library, the results of which allow

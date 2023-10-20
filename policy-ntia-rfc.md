@@ -7,7 +7,7 @@ authors:
 - user: irenesolaiman
 ---
 
-<h1> AI Policy @🤗: Response to the U.S. National Telecommunications and Information Administration’s (NTIA) Request for Comment on AI Accountability</h1> 
+# AI Policy @🤗: Response to the U.S. National Telecommunications and Information Administration’s (NTIA) Request for Comment on AI Accountability 
 
 On June 12th, Hugging Face submitted a response to the US Department of Commerce NTIA request for information on AI Accountability policy. In our response, we stressed the role of documentation and transparency norms in driving AI accountability processes, as well as the necessity of relying on the full range of expertise, perspectives, and skills of the technology’s many stakeholders to address the daunting prospects of a technology whose unprecedented growth poses more questions than any single entity can answer.
 
@@ -21,5 +21,3 @@ Concretely, we make the following recommendations for accountability mechanisms:
 
 We believe that prioritizing transparency in both the ML artifacts themselves and the outcomes of their assessment will be integral to meeting these goals. You can find our more detailed response addressing these points <a href="/blog/assets/151_policy_ntia_rfc/HF_NTIA_RFC.pdf">here.</a>
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->

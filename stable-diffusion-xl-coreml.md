@@ -9,8 +9,6 @@ authors:
 
 # Stable Diffusion XL on Mac with Advanced Core ML Quantization
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 [Stable Diffusion XL](https://stability.ai/stablediffusion) was released yesterday and it’s awesome. It can generate large (1024x1024) high quality images; adherence to prompts has been improved with some new tricks; it can effortlessly produce very dark or very bright images thanks to the latest research on noise schedulers; and it’s open source!
 

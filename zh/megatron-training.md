@@ -9,10 +9,8 @@ translators:
   proofreader: true
 ---
 
-<h1>如何使用 Megatron-LM 训练语言模型</h1>
+# 如何使用 Megatron-LM 训练语言模型
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 在 PyTorch 中训练大语言模型不仅仅是写一个训练循环这么简单。我们通常需要将模型分布在多个设备上，并使用许多优化技术以实现稳定高效的训练。Hugging Face 🤗 [Accelerate](https://huggingface.co/docs/accelerate/index) 的创建是为了支持跨 GPU 和 TPU 的分布式训练，并使其能够非常容易的集成到训练代码中。🤗 [Transformers](https://huggingface.co/docs/transformers/index) 还支持使用 [Trainer](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.Trainer) API 来训练，其在 PyTorch 中提供功能完整的训练接口，甚至不需要自己编写训练的代码。
 

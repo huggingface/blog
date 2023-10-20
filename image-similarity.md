@@ -7,8 +7,6 @@ authors:
 
 # Image Similarity with Hugging Face Datasets and Transformers
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/image_similarity.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
@@ -45,11 +43,11 @@ To compute the embeddings from the images, we'll use a vision model that has som
 For loading the model, we leverage the [`AutoModel` class](https://huggingface.co/docs/transformers/model_doc/auto#transformers.AutoModel). It provides an interface for us to load any compatible model checkpoint from the Hugging Face Hub. Alongside the model, we also load the processor associated with the model for data preprocessing. 
 
 ```py
-from transformers import AutoFeatureExtractor, AutoModel
+from transformers import AutoImageProcessor, AutoModel
 
 
 model_ckpt = "nateraw/vit-base-beans"
-extractor = AutoFeatureExtractor.from_pretrained(model_ckpt)
+processor = AutoImageProcessor.from_pretrained(model_ckpt)
 model = AutoModel.from_pretrained(model_ckpt)
 ```
 

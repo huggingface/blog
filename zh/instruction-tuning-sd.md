@@ -11,8 +11,6 @@ translators:
 
 # 使用 InstructPix2Pix 对 Stable Diffusion 进行指令微调
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 本文主要探讨如何使用指令微调的方法教会 [Stable Diffusion](https://huggingface.co/blog/zh/stable_diffusion) 按照指令 PS 图像。这样，我们 Stable Diffusion 就能听得懂人话，并根据要求对输入图像进行相应操作，如: _将输入的自然图像卡通化_。
 

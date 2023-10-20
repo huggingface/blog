@@ -7,8 +7,6 @@ authors:
 
 # Welcome Stable-baselines3 to the Hugging Face Hub 🤗
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 At Hugging Face, we are contributing to the ecosystem for Deep Reinforcement Learning researchers and enthusiasts. That’s why we’re happy to announce that we integrated [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3) to the Hugging Face Hub.
 

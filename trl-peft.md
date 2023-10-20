@@ -12,8 +12,6 @@ authors:
 
 # Fine-tuning 20B LLMs with RLHF on a 24GB consumer GPU 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 We are excited to officially release the integration of `trl` with `peft` to make Large Language Model (LLM) fine-tuning with Reinforcement Learning more accessible to anyone! In this post, we explain why this is a competitive alternative to existing fine-tuning approaches. 

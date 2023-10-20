@@ -11,8 +11,6 @@ translators:
 
 # 辅助生成: 低延迟文本生成的新方向
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 大型语言模型如今风靡一时，许多公司投入大量资源来扩展它们规模并解锁新功能。然而，作为注意力持续时间不断缩短的人类，我们并不喜欢大模型缓慢的响应时间。由于延迟对于良好的用户体验至关重要，人们通常使用较小的模型来完成任务，尽管它们的质量较低 (例如 [代码补全任务](https://ai.googleblog.com/2022/07/ml-enhanced-code-completion-improves.html))。
 
@@ -131,8 +129,9 @@ print(generated[:-1].tolist() == forward_confirmation[1:].tolist()) # True
 1. 使用贪心解码与辅助模型生成一定数量的`候选 token`。当第一次调用辅助生成时，生成的`候选 token` 的数量被初始化为 `5`。
 2. 使用我们的模型，对`候选 token `进行前向计算，获得每个 token 对应的概率。
 3. 使用 token 选择方法 (使用`.argmax()` 进行贪心搜索或使用 `.multinomial()` 用于采样方法) 来从概率中选取 `next_tokens`。
-4. 比较步骤 3 中选择的 `next_tokens` 和  `候选 token` 中相同的 token 数量。请注意，我们需要从左到右进行比较， 在第一次不匹配后，后续所有 `候选 token`都无效。5. 使用步骤 4 得到的匹配数量将`候选 token` 分割。也就是，将输入 tokens 加上刚刚验证得到的正确的 tokens。
-5. 调整下一次迭代中生成的`候选 token` 的数量 —— 使用启发式方法，如果步骤 3 中所有 token 都匹配，则`候选 token` 的长度增加 `2`，否则减少 `1`。
+4. 比较步骤 3 中选择的 `next_tokens` 和  `候选 token` 中相同的 token 数量。请注意，我们需要从左到右进行比较， 在第一次不匹配后，后续所有 `候选 token`都无效。
+5. 使用步骤 4 得到的匹配数量将`候选 token` 分割。也就是，将输入 tokens 加上刚刚验证得到的正确的 tokens。
+6. 调整下一次迭代中生成的`候选 token` 的数量 —— 使用启发式方法，如果步骤 3 中所有 token 都匹配，则`候选 token` 的长度增加 `2`，否则减少 `1`。
 
 <!-- [GIF 4 -- ASSISTED GENERATION] -->
 <figure class="image table text-center m-0 w-full">

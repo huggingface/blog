@@ -15,8 +15,6 @@ authors:
 
 # Creating a Coding Assistant with StarCoder
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 If you’re a software developer, chances are that you’ve used GitHub Copilot or ChatGPT to solve programming tasks such as translating code from one language to another or generating a full implementation from a natural language query like *“Write a Python program to find the Nth Fibonacci number”*. Although impressive in their capabilities, these proprietary systems typically come with several drawbacks, including a lack of transparency on the public data used to train them and the inability to adapt them to your domain or codebase.
 

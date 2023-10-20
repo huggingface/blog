@@ -16,6 +16,23 @@
     - research
     - nlp
 
+- local: accelerated-inference
+  title: 如何成功将 🤗 API 客户的 transformer 模型推理速度加快 100 倍
+  author: Narsil
+  thumbnail: /blog/assets/09_accelerated_inference/thumbnail.png
+  date: January 18, 2021
+  tags:
+    - analysis
+    - nlp
+
+- local: the-age-of-ml-as-code
+  title: "机器学习即代码的时代已经到来"
+  author: juliensimon
+  thumbnail: /blog/assets/31_age_of_ml_as_code/01_entreprise_ml.png
+  date: October 20, 2021
+  tags:
+    - analysis
+
 - local: large-language-models
   title: "大语言模型: 新的摩尔定律？"
   author: juliensimon
@@ -809,6 +826,30 @@
     - diffusion
     - game-dev
 
+- local: sd_distillation
+  title: "开源 SD-Small 和 SD-Tiny 知识蒸馏代码与权重"
+  author: harishsegmind
+  guest: true
+  thumbnail: /blog/assets/distill_sd/thumbnail.png
+  date: August 1, 2023
+  tags:
+    - stable-diffusion
+    - research
+    - diffusers
+
+- local: encrypted-llm
+  title: "使用 FHE 实现加密大语言模型"
+  author: RomanBredehoft
+  guest: true
+  thumbnail: /blog/assets/encrypted-llm/thumbnail.png
+  date: August 02, 2023
+  tags:
+    - guide
+    - privacy
+    - research
+    - FHE
+    - llm
+
 - local: dpo-trl
   title: "使用 DPO 微调 Llama 2"
   author: kashif
@@ -829,4 +870,122 @@
     - optimization
     - benchmark
     - bark
+
+- local: deploy-deepfloydif-using-bentoml
+  title: "使用 BentoML 部署 🤗 Hugging Face 上的模型：DeepFloyd IF 实战"
+  author: Sherlockk
+  guest: true
+  thumbnail: /blog/assets/deploy-deepfloydif-using-bentoml/thumbnail.png
+  date: August 9, 2023
+  tags:
+    - deployment
+    - open-source-collab
+    - bentoml
+    - guide
+    - diffusers
+
+- local: idefics
+  title: "IDEFICS 简介：最先进视觉语言模型的开源复现"
+  author: VictorSanh
+  thumbnail: /blog/assets/idefics/thumbnail.png
+  date: August 22, 2023
+  tags:
+    - research
+    - nlp
+    - cv
+
+- local: safecoder
+  title: "推介 SafeCoder"
+  author: jeffboudier
+  thumbnail: /blog/assets/159_safecoder/thumbnail.jpg
+  date: August 22, 2023
+  tags:
+    - announcement
+    - partnerships
+    - vmware
+    - bigcode
+
+- local: gptq-integration
+  title: "使用 AutoGPTQ 和 transformers 让大语言模型更轻量化"
+  author: marcsun13
+  thumbnail: /blog/assets/159_autogptq_transformers/thumbnail.jpg
+  date: August 23, 2023
+  tags:
+    - llm
+    - optimization
+    - quantization
+
+- local: password-git-deprecation
+  title: "Hub 上的 Git 操作不再支持使用密码验证"
+  author: Sylvestre
+  thumbnail: /blog/assets/password-git-deprecation/thumbnail.png
+  date: August 25, 2023
+  tags:
+    - announcement
+    - security
+
+- local: codellama
+  title: "Code Llama：Llama 2 学会写代码了！"
+  author: philschmid
+  thumbnail: /blog/assets/160_codellama/thumbnail.jpg
+  date: August 25, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: audioldm2
+  title: "AudioLDM 2，加速⚡️！"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/161_audioldm2/thumbnail.png
+  date: Aug 30, 2023
+  tags:
+    - guide
+    - audio
+    - diffusers
+    - diffusion
+
+- local: falcon-180b
+  title: "Falcon 180B 现已登陆 Hugging Face Hub"
+  author: philschmid
+  thumbnail: /blog/assets/162_falcon_180b/thumbnail.jpg
+  date: September 6, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: t2i-sdxl-adapters
+  title: "在 SDXL 上用 T2I-Adapter 实现高效可控的文生图"
+  author: Adapter
+  guest: true
+  thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
+  date: September 8, 2023
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion
+
+- local: optimize-llm
+  title: "面向生产的 LLM 优化"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/163_optimize_llm/optimize_llm.png
+  date: Sep 15, 2023
+  tags:
+    - nlp
+    - research
+    - LLM
+
+- local: chat-templates
+  title: "聊天模板：无声性能杀手的终结"
+  author: rocketknight1
+  thumbnail: /blog/assets/chat-templates/thumbnail.png
+  date: October 3, 2023
+  tags:
+    - LLM
+    - nlp
+    - community
 

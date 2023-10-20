@@ -5,10 +5,8 @@ authors:
 - user: nielsr
 ---
 
-<h1>Perceiver IO: a scalable, fully-attentional model that works on any modality</h1>
+# Perceiver IO: a scalable, fully-attentional model that works on any modality
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ### TLDR
 
@@ -155,19 +153,19 @@ class PerceiverForImageClassificationLearned(nn.Module):
         )
 ```
 
-One can see that `PerceiverImagePreprocessor` is initialized with `prep_type = "conv1x1"` and that one adds arguments for the trainable position encodings. So how does this preprocessor work in detail? Suppose that one provides a batch of images to the model. Let's say one applies center cropping to a resolution of 224 and normalization of the color channels first, such that the `inputs` are of shape (batch_size, num_channels, height, width) = (batch_size, 3, 224, 224). One can use `PerceiverFeatureExtractor` for this, as follows:
+One can see that `PerceiverImagePreprocessor` is initialized with `prep_type = "conv1x1"` and that one adds arguments for the trainable position encodings. So how does this preprocessor work in detail? Suppose that one provides a batch of images to the model. Let's say one applies center cropping to a resolution of 224 and normalization of the color channels first, such that the `inputs` are of shape (batch_size, num_channels, height, width) = (batch_size, 3, 224, 224). One can use `PerceiverImageProcessor` for this, as follows:
 
 ``` python
-from transformers import PerceiverFeatureExtractor
+from transformers import PerceiverImageProcessor
 import requests
 from PIL import Image
 
-feature_extractor = PerceiverFeatureExtractor.from_pretrained("deepmind/vision-perceiver")
+processor = PerceiverImageProcessor.from_pretrained("deepmind/vision-perceiver")
 
 url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
 image = Image.open(requests.get(url, stream=True).raw)
 
-inputs = feature_extractor(image, return_tensors="pt").pixel_values
+inputs = processor(image, return_tensors="pt").pixel_values
 ```
 
 `PerceiverImagePreprocessor` (with the settings defined above) will first apply a convolutional layer with kernel size (1, 1) to turn the `inputs` into a tensor of shape (batch_size, 256, 224, 224) - hence increasing the channel dimension. It will then place the channel dimension last - so now one has a tensor of shape (batch_size, 224, 224, 256). Next, it flattens the spatial (height + width) dimensions such that one has a tensor of shape (batch_size, 50176, 256). Next, it concatenates it with trainable 1D position embeddings. As the dimensionality of the position embeddings is defined to be 256 (see the `num_channels` argument above), one is left with a tensor of shape (batch_size, 50176, 512). This tensor will be used for the cross-attention operation with the latents.

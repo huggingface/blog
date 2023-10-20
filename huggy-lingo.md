@@ -8,8 +8,6 @@ authors:
 ## Huggy Lingo: Using Machine Learning to Improve Language Metadata on the Hugging Face Hub
 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 **tl;dr**: We're using machine learning to detect the language of Hub datasets with no language metadata, and [librarian-bots](https://huggingface.co/librarian-bots) to make pull requests to add this metadata. 
 

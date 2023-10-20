@@ -9,10 +9,8 @@ translators:
   proofreader: true
 ---
 
-<h1>如何生成文本: 通过 Transformers 用不同的解码方法生成文本</h1>
+# 如何生成文本: 通过 Transformers 用不同的解码方法生成文本
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/02_how_to_generate.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

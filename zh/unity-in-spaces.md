@@ -11,8 +11,6 @@ translators:
 
 # 如何在 🤗 Space 上托管 Unity 游戏
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 你知道吗？Hugging Face Space 可以托管自己开发的 Unity 游戏！惊不惊喜，意不意外？来了解一下吧！
 

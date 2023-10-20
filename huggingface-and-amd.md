@@ -8,8 +8,6 @@ authors:
 
 # Hugging Face and AMD partner on accelerating state-of-the-art models for CPU and GPU platforms
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <kbd>
   <img src="assets/148_huggingface_amd/01.png">

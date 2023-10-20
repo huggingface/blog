@@ -12,8 +12,6 @@ translators:
 
 # 使用 diffusers 训练你自己的 ControlNet 🧨
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 简介
 [ControlNet](https://huggingface.co/blog/controlnet) 这个神经网络模型使得用户可以通过施加额外条件，细粒度地控制扩散模型的生成过程。这一技术最初由 [Adding Conditional Control to Text-to-Image Diffusion Models](https://huggingface.co/papers/2302.05543) 这篇论文提出，并很快地风靡了扩散模型的开源社区。作者开源了 8 个不同的模型，使得用户可以用 8 种条件去控制 Stable Diffusion 模型（包括版本 1 到 5 ）。这 8 种条件包括姿态估计、深度图、边缘图、素描图 [等等](https://huggingface.co/lllyasviel)。
@@ -62,7 +60,7 @@ translators:
 - 使用 `FaceSynthetics` 中的真实图片 (`image`)
 - 使用一个现有的模型把人脸图片转换为 68 个关键点的形式。这里我们使用 [SPIGA](https://github.com/andresprados/SPIGA) 这个模型
 - 使用自己的代码把人脸关键点转换为人脸分割图，以此作为“条件图片” (`conditioning_image`)
-- 把这些数据保存为 [Hugging Face Dataset](https://huggingface.co/docs/datasets/indexx)
+- 把这些数据保存为 [Hugging Face Dataset](https://huggingface.co/docs/datasets/index)
 
 [这里](https://huggingface.co/datasets/pcuenq/face_synthetics_spiga) 是将真实图片转换到分割图的代码，以及将数据保存为 Hugging Face Dataset 的代码。
 
