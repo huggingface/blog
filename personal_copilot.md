@@ -1,12 +1,14 @@
 ---
-title: "HugCoder 🤗: Train Your Own Coding Assistant 🚀" 
+title: "Personal Copilot: Train Your Own Coding Assistant with 🤗" 
 thumbnail: /blog/assets/159_safecoder/thumbnail.jpg
 authors:
 - user: smangrul
 - user: sayakpaul
 ---
 
-# Introduction
+# Personal Copilot: Train Your Own Coding Assistant with 🤗
+
+## Introduction
 
 In the ever-evolving landscape of programming and software development, the quest for efficiency and productivity has led to remarkable innovations. One such innovation is the emergence of code generation models such as [Codex](https://openai.com/blog/openai-codex). These models have demonstrated remarkable capabilities in generating human-like code snippets, thereby showing immense potential as coding assistants.
 
@@ -20,13 +22,14 @@ Let’s begin 🚀
 
 [Insert ToC]
 
-<p align="center">
+<!-- <p align="center">
   <video controls title="Using HugCoder in Visual Studio Code to help create a LoRA fine-tune">
   <source src="https://github.com/pacman100/blog/assets/13534540/f792b506-c31a-4f73-a321-3333902c3c52" type="video/mp4">
   <em>Video: Using HugCoder in Visual Studio Code to help create a LoRA fine-tune.</em>
 </p>
 
-https://github.com/pacman100/blog/assets/13534540/f792b506-c31a-4f73-a321-3333902c3c52
+https://github.com/pacman100/blog/assets/13534540/f792b506-c31a-4f73-a321-3333902c3c52 -->
+![Using HugCoder in Visual Studio Code to help create a LoRA fine-tune](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/personal-copilot-demo.gif)
 
 ## Data Collection Workflow
 
@@ -50,14 +53,14 @@ To keep the serialization of this content relatively memory-friendly, we used ch
 
 [The final dataset is available in the Hub](https://huggingface.co/datasets/sayakpaul/hf-codegen-v2), and it looks like this:
 
-![hf-stack-full](assets/170_personal_copilot/hf-stack-full.png)
+![hf-stack-full](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/hf-stack-full.png)
 
 For this blog, we considered the top 10 Hugging Face public repositories, based on stargazers. They are the following: 
 
 > ['transformers', 'pytorch-image-models', 'datasets', 'diffusers', 'peft', 'tokenizers', 'accelerate', 'text-generation-inference', 'chat-ui', 'deep-rl-class']
 
 [This is the code we used to generate this dataset](https://github.com/pacman100/DHS-LLM-Workshop/tree/main/personal_copilot/dataset_generation), and [this is the dataset in the Hub](https://huggingface.co/datasets/smangrul/hf-stack-v1). Here is a snapshot of what it looks like: 
-![hf-stack-v1](assets/170_personal_copilot/hf-stack-v1.png)
+![hf-stack-v1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/hf-stack-v1.png)
 
 To reduce the project complexity, we didn’t consider deduplication of the dataset. If you are interested in applying deduplication techniques for a production application, [this blog post](https://huggingface.co/blog/dedup) is an excellent resource about the topic in the context of code LLMs.
 
@@ -94,7 +97,7 @@ Using
 5. Batch size b = 4
 8. LoRA rank r = 32
 7. Refer paper Reducing [Activation Recomputation in Large Transformer Models](https://arxiv.org/pdf/2205.05198.pdf) for approximate derivation of memory occupied by activations. Below is the screenshot of the relevant snippet showing activation memory per layer
-![activation memory per layer](assets/170_personal_copilot/activation_memory_computation.png)
+![activation memory per layer](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/activation_memory_computation.png)
 
 The above formula considers half-precision. As starcoder uses MQA, it will result in the following equation:
 ```
@@ -205,7 +208,7 @@ The total training time was **9 Hours**. Taking the cost of $12.00 / hr based on
 
 Below plot shows the eval loss, train loss and learning rate scheduler for QLoRA vs Full Finetuning.
 
-![plots](assets/170_personal_copilot/full_finetuning_vs_qlora.png)
+![plots](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/full_finetuning_vs_qlora.png)
 
 As we don't have a benchmark, we will look at some qualitative samples.
 
@@ -304,8 +307,8 @@ model.set_adapter("best_personal_copilot")
 ```
 
 Below screenshots of a table show the predictions by Fully fine-tuned model in comparison with the PEFT QloRA model:
-![qualitative_comparison_1](assets/170_personal_copilot/qualitative_comparison_1.png)
-![qualitative_comparison_2](assets/170_personal_copilot/qualitative_comparison_2.png)
+![qualitative_comparison_1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/qualitative_comparison_1.png)
+![qualitative_comparison_2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/qualitative_comparison_2.png)
 
 We can observe that the generations from both the variants are as per expectations. Awesome! 🚀
 
@@ -315,17 +318,17 @@ We can observe that the generations from both the variants are as per expectatio
 
 ### Setting an Inference Endpoint
 Below are the screenshots of the Inference Endpoint setting.
-![ie_1](assets/170_personal_copilot/inference_endpoint_1.png)
-![ie_2](assets/170_personal_copilot/inference_endpoint_2.png)
+![ie_1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/inference_endpoint_1.png)
+![ie_2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/inference_endpoint_2.png)
 
 ### Setting up the VS Code Extension
 Follow the installation steps mentioned [here](https://github.com/huggingface/huggingface-vscode#installing). Replace the endpoint via the settings to the HF Inference endpoint in the field highlighted below.
 
-![vs_code_endpoint](assets/170_personal_copilot/vs_code_endpoint.png)
+![vs_code_endpoint](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/vs_code_endpoint.png)
 
 Usage will look like below:
 
-![code_completion](assets/170_personal_copilot/vs_code_completion_usage.png)
+![code_completion](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/vs_code_completion_usage.png)
 
 # Finetuning your own Code Chat Assistant
 
@@ -449,21 +452,21 @@ def get_code_completion(prefix, suffix, disable=False):
 
 Let's disable adapters and see the outputs on a `generic` and `hf code` questions, specifically.
 
-![disabled_chat_generic](assets/170_personal_copilot/disabled_chat.png)
+![disabled_chat_generic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/disabled_chat.png)
 
 We can observe that it fails for both cases as the base model `starcoder` is only meant for code completion and is unsuitable for `chatting/question-answering`.
 
 Now, let's enable the `assistant` adapter.
 
-![assistant_chat_generic](assets/170_personal_copilot/assistant_chat_generic.png)
-![assistant_chat_hf](assets/170_personal_copilot/assistant_chat_hf.png)
+![assistant_chat_generic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/assistant_chat_generic.png)
+![assistant_chat_hf](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/assistant_chat_hf.png)
 
 We can observe that generic question regarding scrapy is being answered properly. However, it is failing for the HF code related question which wasn't part of its pretraining data.
 
 Finally, let's enable the `copilot` adapter.
 
-![copilot_chat_generic](assets/170_personal_copilot/copilot_chat_generic.png)
-![copilot_chat_hf](assets/170_personal_copilot/copilot_chat_hf.png)
+![copilot_chat_generic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/copilot_chat_generic.png)
+![copilot_chat_hf](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/copilot_chat_hf.png)
 
 We can observe that it performs similar to disabled case because this LoRA was also specifically fine-tuned for code-completion.
 
@@ -471,22 +474,22 @@ We can observe that it performs similar to disabled case because this LoRA was a
 
 Let's disable adapters and see the outputs on a `generic` and `hf code` code blocks, specifically.
 
-![disabled_code_generic](assets/170_personal_copilot/disabled_code_generic.png)
-![disabled_code_hf](assets/170_personal_copilot/disabled_code_hf.png)
+![disabled_code_generic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/disabled_code_generic.png)
+![disabled_code_hf](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/disabled_code_hf.png)
 
 Observe that the code completion for the generic two-sum is as expected. However, the HF code completion fails with wrong params to `LoraConfig` as the base model hasn't seen it in its pretraining data.
 
 Time for us to check the `assistant` adapter for code-completion task.
 
-![assistant_code_generic](assets/170_personal_copilot/assistant_code_generic.png)
-![assistant_code_hf](assets/170_personal_copilot/assistant_code_hf.png)
+![assistant_code_generic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/assistant_code_generic.png)
+![assistant_code_hf](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/assistant_code_hf.png)
 
 We can observe that the `assistant` performs similar to disabled case as it was trained on natural language conversations which didn't have any HF code repos. 
 
 Finally, let's enable the `copilot` adapter.
 
-![copilot_code_generic](assets/170_personal_copilot/copilot_code_generic.png)
-![copilot_code_hf](assets/170_personal_copilot/copilot_code_hf.png)
+![copilot_code_generic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/copilot_code_generic.png)
+![copilot_code_hf](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/copilot_code_hf.png)
 
 We can observe that the `copilot` adapter gets it right in both case. Therefore, it performs as expected for code-completions when working with HF specific codebase as well as generic codebases.
 
@@ -494,19 +497,19 @@ We can observe that the `copilot` adapter gets it right in both case. Therefore,
 
 PEFT allows you do it by via `add_weighted_adapter`. Let's create a new adapter `code_buddy` with equal weights to `assistant` and `copilot` adapters.
 
-![combining_loras](assets/170_personal_copilot/combining_loras.png)
+![combining_loras](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/combining_loras.png)
 
 Now, let's see how `code_buddy` performs on the `chatting/question_answering` tasks.
 
-![mix_chat_generic](assets/170_personal_copilot/mix_chat_generic.png)
-![mix_chat_hf](assets/170_personal_copilot/mix_chat_hf.png)
+![mix_chat_generic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/mix_chat_generic.png)
+![mix_chat_hf](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/mix_chat_hf.png)
 
 We can observe that `code_buddy` is performing much better than `assistant` and `copilot` adapters. It is able to answer the generic question of computing quantiles as well as write a code snippet to show how to use a specific HF repo API. However, it is also hallucinating the wrong links to guide which remains a caveat for thes LLMs.
 
 Below is the performance of `code_buddy` on code completions task.
 
-![mix_code_generic](assets/170_personal_copilot/mix_code_generic.png)
-![mix_code_hf](assets/170_personal_copilot/mix_code_hf.png)
+![mix_code_generic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/mix_code_generic.png)
+![mix_code_hf](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/mix_code_hf.png)
 
 We can observe that `code_buddy` is performing on par with `copilot` which was specifically finetuned for this task.
 
@@ -584,8 +587,8 @@ def get_model_pred(query, disable=False):
 
 **Performance on the Code Completion task**
 
-![octocoder_code_generic](assets/170_personal_copilot/octocoder_code_generic.png)
-![octocoder_code_hf](assets/170_personal_copilot/octocoder_code_hf.png)
+![octocoder_code_generic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/octocoder_code_generic.png)
+![octocoder_code_hf](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/octocoder_code_hf.png)
 
 We can observe that `octocoder` is performing great. It is able to complete generic as well as HF specific code snippets.
 
@@ -595,12 +598,12 @@ As Octocoder is trained to answer questions and carry out conversations about co
 
 First, let's see the output with adapter disabled to make sure it isn't part of the training data of Octocoder:
 
-![octocoder_disabled_chat_hf](assets/170_personal_copilot/octocoder_disabled_chat_hf.png)
+![octocoder_disabled_chat_hf](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/octocoder_disabled_chat_hf.png)
 
 We can see that it fails to correctly use the API of LoraConfig or to create a PEFT model. Now, let's see it performance with the adapter enabled.
 
-![octocoder_chat_hf](assets/170_personal_copilot/octocoder_chat_hf.png)
-![octocoder_chat_generic](assets/170_personal_copilot/octocoder_chat_generic.png)
+![octocoder_chat_hf](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/octocoder_chat_hf.png)
+![octocoder_chat_generic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/octocoder_chat_generic.png)
 
 Yay! It correctly answers in detail how to create LoraConfig and related peft model along with correctly using the model name, dataset name as well as param values of LoraConfig. Also note that it does a great job at answering the generic query of using 
 scrapy for crawling.
@@ -616,7 +619,7 @@ We will be using this super cool open source library [mlc-llm](https://github.co
 
 The training loss, evaluation loss as well as learning rate schedules are plotted below:
 
-![loss_plots](assets/170_personal_copilot/loss_plots.png)
+![loss_plots](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/loss_plots.png)
 
 Now, we will look at detailed steps for locally hosting the merged model [smangrul/starcoder1B-v2-personal-copilot-merged](https://huggingface.co/smangrul/starcoder1B-v2-personal-copilot-merged). 
 
@@ -665,11 +668,11 @@ time python3 -m mlc_llm.build --hf-path smangrul/starcoder1B-v2-personal-copilot
 ```
 6. Change the endpoint of HF Code Completion extension in VS Code to point to the local server:
 
-![local_endpoint](assets/170_personal_copilot/local_endpoint.png)
+![local_endpoint](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/local_endpoint.png)
 
 7. Open a new file in vs code and paste the below code and have the cursor in between the doc quotes so that the model tries to infill the doc string:
 
-![local_inference](assets/170_personal_copilot/local_inference.png)
+![local_inference](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/170_personal_copilot/local_inference.png)
 
 Voila! ⭐️
 
