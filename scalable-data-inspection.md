@@ -72,7 +72,7 @@ Exploring raw unstructured datasets often yield little insights. Leveraging mode
 
 We recommend storing your prediction results directly in a Hugging Face dataset. This not only allows you to take advantage of the batch processing capabilities of the datasets library, but also keeps label mappings.
 
-We can use the *transformers* library to compute embeddings and predictions on the CIFAR-100 image classification problem. We install the libraries via pip:
+We can use the [*transformers* library](https://huggingface.co/docs/transformers) to compute embeddings and predictions on the CIFAR-100 image classification problem. We install the libraries via pip:
 
 ```bash
 pip install renumics-spotlight datasets transfomers[torch]
