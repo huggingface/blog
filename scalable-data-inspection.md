@@ -132,7 +132,7 @@ You can also define layouts through the [Python API](https://renumics.com/api/sp
 
 In combination with the data issues widget, the Python API offers a great way to integrate the results of existing scripts (e.g. data quality checks or model monitoring) into a scalable data inspection workflow.
 
-## Using Spotlight on the Huggingface hub
+## Using Spotlight on the Hugging Face hub
 
 You can use Spotlight directly on your local NLP, audio, CV or multimodal dataset. If you would like to showcase your dataset or model results on the Huggingface hub, you can use Huggingface spaces to launch a Spotlight visualization for it.
 
