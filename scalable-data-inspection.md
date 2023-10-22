@@ -17,7 +17,7 @@ authors:
 
 The Hugging Face [*datasets* library](https://huggingface.co/docs/datasets/index) not only provides access to more than 60k publicly available datasets, but also offers very convenient data preparation pipelines for custom datasets.
 
-[Renumics Spotlight](https://github.com/Renumics/spotlight) allows you to create **interactive visualizations** to **identify critical clusters** in your data. Because Spotlight understands the data semantics within Huggingface datasets, you can **[get started with just one line of code](https://renumics.com/docs)**:
+[Renumics Spotlight](https://github.com/Renumics/spotlight) allows you to create **interactive visualizations** to **identify critical clusters** in your data. Because Spotlight understands the data semantics within Hugging Face datasets, you can **[get started with just one line of code](https://renumics.com/docs)**:
 
 ```python
 import datasets
