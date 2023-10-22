@@ -147,7 +147,7 @@ You can optionally choose a dataset that contains model results and other config
 
 ## What’s next?
 
-With Spotlight you can create **interactive visualizations** and leverage data enrichments to **identify critical clusters** in your Huggingface datasets. In this blog, we have seen both an audio ML and a computer vision example.
+With Spotlight you can create **interactive visualizations** and leverage data enrichments to **identify critical clusters** in your Hugging Face datasets. In this blog, we have seen both an audio ML and a computer vision example.
 
 You can use Spotlight directly to explore and curate your NLP, audio, CV or multimodal dataset:
 
