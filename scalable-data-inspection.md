@@ -70,7 +70,7 @@ spotlight.show(ds, dtype={'img': spotlight.Image, 'fine_label': spotlight.dtypes
 
 Exploring raw unstructured datasets often yield little insights. Leveraging model results such as predictions or embeddings can help to uncover critical data samples and clusters. Spotlight has several visualization options (e.g. similarity map, confusion matrix) that specifically make use of model results.
 
-We recommend storing your prediction results directly in a Huggingface dataset. This not only allows you to take advantage of the batch processing capabilities of the datasets library, but also keeps label mappings.
+We recommend storing your prediction results directly in a Hugging Face dataset. This not only allows you to take advantage of the batch processing capabilities of the datasets library, but also keeps label mappings.
 
 We can use the *transformers* library to compute embeddings and predictions on the CIFAR-100 image classification problem. We install the libraries via pip:
 
