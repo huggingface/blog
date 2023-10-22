@@ -134,7 +134,7 @@ In combination with the data issues widget, the Python API offers a great way to
 
 ## Using Spotlight on the Hugging Face hub
 
-You can use Spotlight directly on your local NLP, audio, CV or multimodal dataset. If you would like to showcase your dataset or model results on the Huggingface hub, you can use Huggingface spaces to launch a Spotlight visualization for it.
+You can use Spotlight directly on your local NLP, audio, CV or multimodal dataset. If you would like to showcase your dataset or model results on the Hugging Face hub, you can use Hugging Face spaces to launch a Spotlight visualization for it.
 
 We have already prepared [example spaces](https://huggingface.co/renumics) for many popular NLP, audio and CV datasets on the hub. You can simply duplicate one of these spaces and specify your dataset in the HF_DATASET variable.
 
