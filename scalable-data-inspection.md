@@ -75,7 +75,7 @@ We recommend storing your prediction results directly in a Hugging Face dataset.
 We can use the [*transformers* library](https://huggingface.co/docs/transformers) to compute embeddings and predictions on the CIFAR-100 image classification problem. We install the libraries via pip:
 
 ```bash
-pip install renumics-spotlight datasets transfomers[torch]
+pip install renumics-spotlight datasets transformers[torch]
 ```
 
 Now we can compute the enrichment:
