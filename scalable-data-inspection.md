@@ -15,7 +15,7 @@ authors:
 
 # Interactively explore your Huggingface dataset with one line of code
 
-The Hugging Face [*datasets* library](https://huggingface.co/docs/datasets/index) not only provides access to more than 60k publicly available datasets, but also offers very convenient data preparation pipelines for custom datasets.
+The Hugging Face [*datasets* library](https://huggingface.co/docs/datasets/index) not only provides access to more than 70k publicly available datasets, but also offers very convenient data preparation pipelines for custom datasets.
 
 [Renumics Spotlight](https://github.com/Renumics/spotlight) allows you to create **interactive visualizations** to **identify critical clusters** in your data. Because Spotlight understands the data semantics within Hugging Face datasets, you can **[get started with just one line of code](https://renumics.com/docs)**:
 
@@ -28,9 +28,7 @@ ds = datasets.load_dataset('speech_commands', 'v0.01', split='validation')
 spotlight.show(ds)
 ```
 
-<figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/scalable-data-inspection/speech_commands_vis.gif" alt="Exploring the speech commands dataset with Spotlight.">
-</figure> 
+<p align="center"><a href="https://github.com/Renumics/spotlight"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/scalable-data-inspection/speech_commands_vis.gif" width="100%"/></a></p>
 
 Spotlight allows to **leverage model results** such as predictions and embeddings to gain a deeper understanding in data segments and model failure modes:
 
@@ -141,7 +139,7 @@ We have already prepared [example spaces](https://huggingface.co/renumics) for m
 You can optionally choose a dataset that contains model results and other configuration options such as splits, subsets or dataset revisions.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/scalable-data-inspection/space_duplication_annotated.png" alt="Creating a new dataset visualization with Spotlight by duplicating a Hugging Face space.">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/scalable-data-inspection/space_duplication.png" alt="Creating a new dataset visualization with Spotlight by duplicating a Hugging Face space.">
 </figure> 
 
 
