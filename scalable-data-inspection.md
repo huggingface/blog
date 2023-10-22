@@ -48,7 +48,7 @@ Data inspection is a very important task in almost all ML development stages, bu
 
 [Spotlight](https://renumics.com/docs) helps you to **make data inspection more scalable** along two dimensions: Setting up and maintaining custom data inspection workflows and finding relevant data samples and clusters to inspect. In the following sections we show some examples based on Hugging Face datasets.
 
-## Spotlight 🤝 Huggingface datasets
+## Spotlight 🤝 Hugging Face datasets
 
 The *datasets* library has several features that makes it an ideal tool for working with ML datasets: It stores tabular data (e.g. metadata, labels) along with unstructured data (e.g. images, audio) in a common Arrows table. *Datasets* also describes important data semantics through features (e.g. images, audio) and additional task-specific metadata.
 
