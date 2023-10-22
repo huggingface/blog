@@ -141,7 +141,7 @@ We have already prepared [example spaces](https://huggingface.co/renumics) for m
 You can optionally choose a dataset that contains model results and other configuration options such as splits, subsets or dataset revisions.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/scalable-data-inspection/space_duplication_annotated.png" alt="Creating a new dataset visualization with Spotlight by duplicating a Huggingface space.">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/scalable-data-inspection/space_duplication_annotated.png" alt="Creating a new dataset visualization with Spotlight by duplicating a Hugging Face space.">
 </figure> 
 
 
