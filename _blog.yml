@@ -2970,6 +2970,16 @@
     - onnx
     - inference
 
+- local: gradio-lite
+  title: "Gradio-Lite: Serverless Gradio Running Entirely in Your Browser"
+  author: abidlabs
+  thumbnail: /blog/assets/167_gradio_lite/thumbnail.png
+  date: October 19, 2023
+  tags:
+    - gradio
+    - open-source
+    - serverless
+
 - local: the_n_implementation_details_of_rlhf_with_ppo
   title: "The N Implementation Details of RLHF with PPO"
   author: sschoenmeyer

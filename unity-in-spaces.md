@@ -105,7 +105,7 @@ Navigate to your repository. Use the following commands to track large build fil
 
 ```
 git lfs install
-git track Build/* 
+git lfs track Build/* 
 ```
 
 ## Step 11: Push your Changes
