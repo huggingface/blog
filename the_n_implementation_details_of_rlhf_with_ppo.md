@@ -10,8 +10,6 @@ authors:
 
 # The N Implementation Details of RLHF with PPO
 
-**Correspondence goes to** [costa@huggingface.co](mailto:costa@huggingface.co)
-
 RLHF / ChatGPT has been a popular research topic these days. In our quest to research more on RLHF, this blog post attempts to do a reproduction of OpenAI’s 2019 original RLHF codebase at [*openai/lm-human-preferences*](https://github.com/openai/lm-human-preferences). Despite its “tensorflow-1.x-ness,” OpenAI’s original codebase is very well-evaluated and benchmarked, making it a good place to study RLHF implementation engineering details.
 
 We aim to:
