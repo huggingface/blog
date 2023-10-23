@@ -979,6 +979,18 @@
     - research
     - LLM
 
+- local: trl-ddpo
+  title: "使用 DDPO 在 TRL 中微调 Stable Diffusion 模型"
+  author: metric-space
+  guest: true
+  thumbnail: /blog/assets/166_trl_ddpo/thumbnail.png
+  date: September 29, 2023
+  tags:
+    - guide
+    - diffusers
+    - rl
+    - rlhf
+
 - local: chat-templates
   title: "聊天模板：无声性能杀手的终结"
   author: rocketknight1
