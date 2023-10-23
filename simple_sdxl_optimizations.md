@@ -12,7 +12,7 @@ authors:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-Stable Diffusion XL (SDXL) is the latest latent diffusion model by Stability AI for generating high-quality super realistic images. It overcomes challenges of previous Stable Diffusion models like getting hands and text right as well as spatially correct compositions. In addition, SDXL is also more context aware and requires fewer words in its prompt to generate better looking images. 
+[Stable Diffusion XL (SDXL)](https://huggingface.co/papers/2307.01952) is the latest latent diffusion model by Stability AI for generating high-quality super realistic images. It overcomes challenges of previous Stable Diffusion models like getting hands and text right as well as spatially correct compositions. In addition, SDXL is also more context aware and requires fewer words in its prompt to generate better looking images. 
 
 However, all of these improvements come at the expense of a significantly larger model. How much larger? The base SDXL model has 3.5B parameters, which is approximately 3x larger than the previous Stable Diffusion model.
 
@@ -56,7 +56,7 @@ Compared to a completely unoptimized SDXL pipeline, using fp16 takes 21.7GB of m
 
 Attention can be a huge bottleneck because attention calculations increases _quadratically_ as input sequences get longer. This can quickly take up a ton of memory and leave you with an out-of-memory error message. 😬
 
-Memory-efficient attention algorithms seek to reduce the memory burden of calculating attention, whether it is by exploiting sparsity or tiling. These attention algorithms were mostly available as third-party libraries that needed to be separately installed. But in PyTorch 2.0, this is no longer the case with the introduction of scaled dot product attention (SDPA) which offers fused implementations of [FlashAttention](https://huggingface.co/papers/2205.14135), [memory-efficient attention](https://huggingface.co/papers/2112.05682) (xFormers), and a PyTorch implementation in C++. SDPA is probably the easiest way to speedup inference because if you’re using PyTorch ≥ 2.0 with 🤗 Diffusers, it is automatically enabled so you don’t need to add any additional code to benefit from it.
+Memory-efficient attention algorithms seek to reduce the memory burden of calculating attention, whether it is by exploiting sparsity or tiling. These attention algorithms were mostly available as third-party libraries that needed to be separately installed. But in PyTorch 2.0, this is no longer the case with the introduction of scaled dot product attention (SDPA) which offers fused implementations of [Flash Attention](https://huggingface.co/papers/2205.14135), [memory-efficient attention](https://huggingface.co/papers/2112.05682) (xFormers), and a PyTorch implementation in C++. SDPA is probably the easiest way to speedup inference because if you’re using PyTorch ≥ 2.0 with 🤗 Diffusers, it is automatically enabled so you don’t need to add any additional code to benefit from it.
 
 ```python
 from diffusers import StableDiffusionXLPipeline
