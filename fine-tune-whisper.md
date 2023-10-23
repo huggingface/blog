@@ -357,7 +357,7 @@ from transformers import WhisperTokenizer
 tokenizer = WhisperTokenizer.from_pretrained("openai/whisper-small", language="Hindi", task="transcribe")
 ```
 
-> Tip: the blog post can be adapted for *speech translation* by setting the task to `"translate"` and the language to the target text language in the above line. This will prepend the relevant task and language tokens for speech translation when the dataset is pre-processed.
+> **Tip:** the blog post can be adapted for *speech translation* by setting the task to `"translate"` and the language to the target text language in the above line. This will prepend the relevant task and language tokens for speech translation when the dataset is pre-processed.
 
 We can verify that the tokenizer correctly encodes Hindi characters by 
 encoding and decoding the first sample of the Common Voice dataset. When 
