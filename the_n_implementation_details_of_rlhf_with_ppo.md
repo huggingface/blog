@@ -17,7 +17,7 @@ RLHF / ChatGPT has been a popular research topic these days. In our quest to res
 We aim to:
 
 1. reproduce OAI’s results in stylistic tasks and match the learning curves of [*openai/lm-human-preferences*](https://github.com/openai/lm-human-preferences). 
-2. present a checklist of implementation details, similar to the spirit of [The 37 Implementation Details of Proximal Policy Optimization*](https://iclr-blog-track.github.io/2022/03/25/ppo-implementation-details/); [Debugging RL, Without the Agonizing Pain*](https://andyljones.com/posts/rl-debugging.html).
+2. present a checklist of implementation details, similar to the spirit of [*The 37 Implementation Details of Proximal Policy Optimization*](https://iclr-blog-track.github.io/2022/03/25/ppo-implementation-details/); [*Debugging RL, Without the Agonizing Pain*](https://andyljones.com/posts/rl-debugging.html).
 3. provide a simple-to-read and minimal reference implementation of RLHF;
 
 This work is just for educational / learning purposes. For more advanced users requiring more features, such as running larger models with PEFT, [*huggingface/trl*](https://github.com/huggingface/trl) would be a great choice.  The rest of the section is organized as follows. 
