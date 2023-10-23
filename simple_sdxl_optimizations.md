@@ -31,6 +31,10 @@ This isn’t very practical and can slow you down because you’re often generat
 
 At 🤗 Diffusers, we have a bunch of optimization tricks and techniques to help you run memory-intensive models like SDXL and this blog will show you how! The two things we’ll focus on optimizing are *inference speed* and *memory*.
 
+<aside>
+🧠 The techniques discussed in this post are applicable to all the [pipelines](https://huggingface.co/docs/diffusers/main/en/using-diffusers/pipeline_overview).
+</aside>
+
 ## Inference speed
 
 Diffusion is a random process so you aren’t guaranteed to generate an image you’d like. Often times, you’ll need to run inference multiple times before getting an image you like. That’s why optimizing for speed is key for iterating quickly. This section focuses on using lower precision weights and incorporating memory-efficient attention and `torch.compile` from PyTorch 2.0 to boost speed and reduce inference time.

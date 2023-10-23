@@ -2979,3 +2979,13 @@
     - gradio
     - open-source
     - serverless
+
+- local: simple_sdxl_optimizations.md
+  title: "Exploring simple optimizations for SDXL"
+  author: sayakpaul
+  thumbnail: /blog/assets/simple_sdxl_optimizations/thumbnail.png
+  date: October 24, 2023
+  tags:
+    - diffusers
+    - guide
+    - sdxl
