@@ -1,6 +1,6 @@
 ---
 title: Exploring simple optimizations for SDXL
-thumbnail: /blog/assets/108_stable_diffusion_jax/thumbnail.png
+thumbnail: /blog/assets/simple_sdxl_optimizations/thumbnail.png
 authors:
 - user: sayakpaul
 - user: stevhliu
