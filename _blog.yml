@@ -2980,6 +2980,16 @@
     - open-source
     - serverless
 
+- local: simple_sdxl_optimizations
+  title: "Exploring simple optimizations for SDXL"
+  author: sayakpaul
+  thumbnail: /blog/assets/simple_sdxl_optimizations/thumbnail.png
+  date: October 24, 2023
+  tags:
+    - diffusers
+    - guide
+    - sdxl
+    
 - local: the_n_implementation_details_of_rlhf_with_ppo
   title: "The N Implementation Details of RLHF with PPO"
   author: vwxyzjn
