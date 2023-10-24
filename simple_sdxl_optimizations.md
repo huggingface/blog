@@ -31,9 +31,9 @@ This isn’t very practical and can slow you down because you’re often generat
 
 In 🤗 Diffusers, we have a bunch of optimization tricks and techniques to help you run memory-intensive models like SDXL and we'll show you how! The two things we’ll focus on are *inference speed* and *memory*.
 
-<aside>
-🧠 The techniques discussed in this post are applicable to all the [pipelines](https://huggingface.co/docs/diffusers/main/en/using-diffusers/pipeline_overview).
-</aside>
+<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
+🧠 The techniques discussed in this post are applicable to all the <a href=https://huggingface.co/docs/diffusers/main/en/using-diffusers/pipeline_overview>pipelines</a>.
+</div>
 
 ## Inference speed
 
@@ -90,9 +90,9 @@ pipeline.unet = torch.compile(pipeline.unet, mode="reduce-overhead", fullgraph=T
 
 Compared to the previous baseline (fp16 + SDPA), wrapping the UNet with `torch.compile` improves inference time to 10.2 seconds. 
 
-<aside>
+<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
 ⚠️ The first time you compile a model is slower, but once the model is compiled, all subsequent calls to it are much faster!
-</aside>
+</div>
 
 ## Memory reduction
 
@@ -213,17 +213,17 @@ pipe = pipe.to("cuda")
 
 With this setup, we reduce the memory requirement to 15.6GB while reducing the inference latency at the same time. 
 
-<aside>
+<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
 ⚠️ The Tiny Autoencoder can omit some of the more fine-grained details from images, which is why the Tiny AutoEncoder is more appropriate for image previews.
-</aside>
+</div>
 
 ## Conclusion
 
 To conclude and summarize the savings from our optimizations:
 
-<aside>
+<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
 ⚠️ While profiling GPUs to measure the trade-off between inference latency and memory requirements, it is important to be aware of the hardware being used. The above findings may not translate equally from hardware to hardware. For example, `torch.compile` only seems to benefit modern GPUs, at least for SDXL.
-</aside>
+</div>
 
 | **Technique** | **Memory (GB)** | **Inference latency (ms)** |
 | --- | --- | --- |
