@@ -25,6 +25,15 @@
     - analysis
     - nlp
 
+- local: long-range-transformers
+  title: "长程 transformer 模型"
+  author: VictorSanh
+  thumbnail: /blog/assets/14_long_range_transformers/EfficientTransformerTaxonomy.png
+  date: March 09, 2021
+  tags:
+    - research
+    - nlp
+
 - local: the-age-of-ml-as-code
   title: "机器学习即代码的时代已经到来"
   author: juliensimon
