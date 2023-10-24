@@ -38,9 +38,9 @@ A repository can often contain non-code files such as images, presentations and 
 
 We also excluded all file paths that were not directly related to code. These include: `.git`, `__pycache__`, and `xcodeproj`. 
 
-To keep the serialization of this content relatively memory-friendly, we used chunking and the feather format. Refer to [this script](https://github.com/sayakpaul/hf-codegen/blob/main/data/prepare_dataset.py) for the full implementation. 
+To keep the serialization of this content relatively memory-friendly, we used chunking and the [feather format](https://arrow.apache.org/docs/python/feather.html#:~:text=Feather%20is%20a%20portable%20file,Python%20(pandas)%20and%20R.). Refer to [this script](https://github.com/sayakpaul/hf-codegen/blob/main/data/prepare_dataset.py) for the full implementation. 
 
-[The final dataset is available in the Hub](https://huggingface.co/datasets/sayakpaul/hf-codegen-v2), and it looks like this:
+The final dataset is [available on the Hub](https://huggingface.co/datasets/sayakpaul/hf-codegen-v2), and it looks like this:
 
 ![hf-stack-full](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/personal_copilot/hf-stack-full.png)
 
@@ -55,7 +55,7 @@ To reduce the project complexity, we didn’t consider deduplication of the data
 
 ## Finetuning your own Personal Co-Pilot 
 
-In this section, we show how to fine-tune `bigcode/starcoder` (15.5B params), `bigcode/starcoderbase-1b` (1B params), `Deci/DeciCoder-1b` (1B params) on a single A100 40GB Colab Notebook using 🤗 PEFT (Parameter-Efficient Fine-Tuning). Then, we'll show how to fully finetune the `bigcode/starcoder` (15.5B params) on a machine with 8 A100 80GB GPUs using 🤗 Accelerate's FSDP integration. The training objective is fill in the middle (FIM) wherein parts of a training sequence are moved to the end, and the reordered sequence is predicted autoregressively.
+In this section, we show how to fine-tune the following models: [`bigcode/starcoder`](https://hf.co/bigcode/starcoder) (15.5B params), [`bigcode/starcoderbase-1b`](https://hf.co/bigcode/starcoderbase-1b) (1B params), [`Deci/DeciCoder-1b`](https://hf.co/Deci/DeciCoder-1b) (1B params). We'll use a single A100 40GB Colab Notebook using 🤗 PEFT (Parameter-Efficient Fine-Tuning) for all the experiments. Additionally, we'll show how to fully finetune the `bigcode/starcoder` (15.5B params) on a machine with 8 A100 80GB GPUs using 🤗 Accelerate's FSDP integration. The training objective is [fill in the middle (FIM)](https://arxiv.org/abs/2207.14255), wherein parts of a training sequence are moved to the end, and the reordered sequence is predicted auto-regressively.
 
 Why PEFT? Full fine-tuning is expensive. Let’s have some numbers to put things in perspective:
 
@@ -157,7 +157,7 @@ As we don't have a benchmark, we will look at some qualitative samples. Inferenc
 We will look at 2 code infilling examples wherein the task of the model is to fill the part denoted by placeholder `<FILL_ME>`. We will consider infliing completions from Github Copilot, QLoRA fine-tuned model and full fine-tuned model. 
 
 ![qualitative_comparison_1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/personal_copilot/qlora_vs_finetune_1.png)
-Qualitative Example 1
+*Qualitative Example 1*
 
 In the above example, the completion from Github Copilot is along the correct lines but doesn't help. On the other hand, completions from QLoRA and full fine-tuned models are correctly infilling the entire function call with the necessary parameters. However, they are also adding a lot more noise post it. This however can be controlled with post processing steps to limit completions to closing brackets or new lines. Note that both QLoRA and full fine-tuned models are giving generations of similar quality.
 
@@ -190,7 +190,7 @@ Usage will look like below:
 
 So far, the models we trained were specifically trained as personal co-pilot for code completion tasks. They aren't trained to carry out conversations or for question answering. `Octocoder` and `StarChat` are great examples of such models. This section briefly describes how to achieve that.
 
-Resources: 
+**Resources**
 
 1. Codebase: [link](https://github.com/pacman100/DHS-LLM-Workshop/tree/main/code_assistant/training). It uses the recently added Flash Attention V2 support in Transformers. 
 2. Colab notebook : [link](https://colab.research.google.com/drive/1XFyePK-3IoyX81RM94JO73CcIZtAU4i4?usp=sharing). Make sure to choose A100 GPU with High RAM setting.
