@@ -2979,3 +2979,44 @@
     - gradio
     - open-source
     - serverless
+
+- local: simple_sdxl_optimizations
+  title: "Exploring simple optimizations for SDXL"
+  author: sayakpaul
+  thumbnail: /blog/assets/simple_sdxl_optimizations/thumbnail.png
+  date: October 24, 2023
+  tags:
+    - diffusers
+    - guide
+    - sdxl
+    
+- local: the_n_implementation_details_of_rlhf_with_ppo
+  title: "The N Implementation Details of RLHF with PPO"
+  author: vwxyzjn
+  thumbnail: /blog/assets/167_the_n_implementation_details_of_rlhf_with_ppo/thumbnail.png
+  date: October 24, 2023
+  tags:
+    - research
+    - rl
+    - rlhf
+
+- local: inference-endpoints-embeddings
+  title: "Deploy Embedding Models with Hugging Face Inference Endpoints"
+  author: philschmid
+  thumbnail: /blog/assets/168_inference_endpoints_embeddings/thumbnail.jpg
+  date: October 24, 2023
+  tags:
+    - guide
+    - llm
+    - apps
+    - inference
+
+- local: scalable-data-inspection
+  title: "Interactively explore your Huggingface dataset with one line of code"
+  author: sps44
+  thumbnail: /blog/assets/scalable-data-inspection/thumbnail.png
+  date: October 25, 2023
+  tags:
+    - open-source-collab
+    - visualization
+    - data inspection
