@@ -8,8 +8,6 @@ authors:
 
 # Personal Copilot: Train Your Own Coding Assistant
 
-## Introduction
-
 In the ever-evolving landscape of programming and software development, the quest for efficiency and productivity has led to remarkable innovations. One such innovation is the emergence of code generation models such as [Codex](https://openai.com/blog/openai-codex), [StarCoder](https://arxiv.org/abs/2305.06161) and [Code Llama](https://arxiv.org/abs/2308.12950). These models have demonstrated remarkable capabilities in generating human-like code snippets, thereby showing immense potential as coding assistants.
 
 However, while these pre-trained models can perform impressively across a range of tasks, there's an exciting possibility lying just beyond the horizon: the ability to tailor a code generation model to your specific needs. Think of personalized coding assistants which could be leveraged at an enterprise scale. 
@@ -86,7 +84,7 @@ Please refer to the [model-memory-usage](https://huggingface.co/spaces/hf-accele
 
 ## Full Finetuning
 
-We will look at how to do full fine-tuning of starcoder-15B on 8 A100 80GB GPUs using PyTorch Fully Sharded Data Parallel (FSDP) technique. For more information on FSDP, please refer [Fine-tuning Llama 2 70B using PyTorch FSDP](https://huggingface.co/blog/ram-efficient-pytorch-fsdp) and [Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel](https://huggingface.co/blog/pytorch-fsdp).
+We will look at how to do full fine-tuning of `bigcode/starcoder` (15B params) on 8 A100 80GB GPUs using PyTorch Fully Sharded Data Parallel (FSDP) technique. For more information on FSDP, please refer [Fine-tuning Llama 2 70B using PyTorch FSDP](https://huggingface.co/blog/ram-efficient-pytorch-fsdp) and [Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel](https://huggingface.co/blog/pytorch-fsdp).
 
 **Resources**
 1. Codebase: [link](https://github.com/pacman100/DHS-LLM-Workshop/tree/main/personal_copilot/training). It uses the recently added Flash Attention V2 support in Transformers. 
@@ -127,7 +125,7 @@ The total training time was **9 Hours**. Taking the cost of $12.00 / hr based on
 
 ## PEFT 
 
-We will look at how to use QLoRA for fine-tuning starcoder-15B on a single A100 40GB GPU using 🤗 PEFT. For more information on QLoRA and PEFT methods, please refer [Making LLMs even more accessible with bitsandbytes, 4-bit quantization and QLoRA](https://huggingface.co/blog/4bit-transformers-bitsandbytes) and [🤗 PEFT: Parameter-Efficient Fine-Tuning of Billion-Scale Models on Low-Resource Hardware](https://huggingface.co/blog/peft).
+We will look at how to use QLoRA for fine-tuning `bigcode/starcoder` (15B params) on a single A100 40GB GPU using 🤗 PEFT. For more information on QLoRA and PEFT methods, please refer [Making LLMs even more accessible with bitsandbytes, 4-bit quantization and QLoRA](https://huggingface.co/blog/4bit-transformers-bitsandbytes) and [🤗 PEFT: Parameter-Efficient Fine-Tuning of Billion-Scale Models on Low-Resource Hardware](https://huggingface.co/blog/peft).
 
 **Resources**
 1. Codebase: [link](https://github.com/pacman100/DHS-LLM-Workshop/tree/main/personal_copilot/training). It uses the recently added Flash Attention V2 support in Transformers. 
@@ -144,12 +142,12 @@ Below plot shows the eval loss, train loss and learning rate scheduler for QLoRA
 
 ![plots](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/personal_copilot/full_finetuning_vs_qlora.png)
 
-To make sure that our PEFT model doesn't lead to catastrophic forgetting, we run the Python Human Eval on it. Below are the results. We can observe that the performance on humaneval-python is comparable for both the base `StarCoder-15B` and the PEFT model `smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab`.
+To make sure that our PEFT model doesn't lead to catastrophic forgetting, we run the Python Human Eval on it. Below are the results where `Pass@1` measures the pass rate of the model considering only a single generated code candidate from the model. We can observe that the performance on `humaneval-python` is comparable for both the base `bigcode/starcoder` (15B params) and the PEFT model `smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab`.
 
 | | |
 |---|---|
 | Model | Pass@1 |
-|StarCoder-15B | 33.57|
+|bigcode/starcoder | 33.57|
 |smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab| 33.37 |
 
 As we don't have a benchmark, we will look at some qualitative samples. Inference Code with various examples for full fine-tuned model and peft model are available at [Full_Finetuned_StarCoder_Inference.ipynb](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/personal_copilot/inference/Full_Finetuned_StarCoder_Inference.ipynb) and [PEFT_StarCoder_Inference.ipynb](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/personal_copilot/inference/PEFT_StarCoder_Inference.ipynb), respectively. In our manual analysis, we noticed that the QLoRA led to slight overfitting and as such we down weigh it by creating new weighted adapter with weight 0.8 via `add_weighted_adapter` utility of PEFT.
@@ -170,7 +168,7 @@ Therefore, we can observe that the generations from both the variants are as per
 
 ## How do I use it in VS Code?
 
-🤗 VS Code Extension [llm-vscode](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) coupled with hosting the model via [🤗 Inference EndPoints](https://ui.endpoints.huggingface.co/). 
+🤗 VS Code Extension [llm-vscode](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) coupled with hosting the model via [🤗 Inference EndPoints](https://ui.endpoints.huggingface.co/). Please refer the docs on [inference endpoints](https://huggingface.co/docs/inference-endpoints/index) for more details.
 
 ### Setting an Inference Endpoint
 Below are the screenshots of the Inference Endpoint setting.
