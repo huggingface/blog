@@ -2982,7 +2982,7 @@
 
 - local: the_n_implementation_details_of_rlhf_with_ppo
   title: "The N Implementation Details of RLHF with PPO"
-  author: sschoenmeyer
+  author: vwxyzjn
   thumbnail: /blog/assets/167_the_n_implementation_details_of_rlhf_with_ppo/thumbnail.png
   date: October 24, 2023
   tags:
