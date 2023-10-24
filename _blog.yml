@@ -2980,7 +2980,7 @@
     - open-source
     - serverless
 
-- local: simple_sdxl_optimizations.md
+- local: simple_sdxl_optimizations
   title: "Exploring simple optimizations for SDXL"
   author: sayakpaul
   thumbnail: /blog/assets/simple_sdxl_optimizations/thumbnail.png

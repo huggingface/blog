@@ -1,5 +1,5 @@
 ---
-title: Exploring simple optimizations for SDXL
+title: "Exploring simple optimizations for SDXL"
 thumbnail: /blog/assets/simple_sdxl_optimizations/thumbnail.png
 authors:
 - user: sayakpaul
