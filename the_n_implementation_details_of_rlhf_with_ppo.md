@@ -3,7 +3,7 @@ title: "The N Implementation Details of RLHF with PPO"
 thumbnail: /blog/assets/167_the_n_implementation_details_of_rlhf_with_ppo/thumbnail.png
 authors:
 - user: vwxyzjn
-- user: liutianlin0121
+- user: tianlinliu0121
   guest: true
 - user: lvwerra
 ---
