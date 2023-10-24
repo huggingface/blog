@@ -229,11 +229,11 @@ To conclude and summarize the savings from our optimizations:
 | --- | --- | --- |
 | unoptimized pipeline | 28.09 | 72200.5 |
 | fp16 | 21.72 | 14800.9 |
-| fp16 + SDPA (default) | 21.72 | 11413.0 |
+| **fp16 + SDPA (default)** | **21.72** | **11413.0** |
 | default + `torch.compile` | 21.73 | 10296.7 |
 | default + model CPU offload | 20.21 | 16082.2 |
 | default + sequential CPU offload | 19.91 | 67034.0 |
-| default + VAE slicing | 15.40 | 11232.2 |
+| **default + VAE slicing** | **15.40** | **11232.2** |
 | default + VAE slicing + sequential CPU offload | 11.47 | 66869.2 |
 | default + precomputed text embeddings | 21.85 | 11909.0 |
 | default + Tiny Autoencoder | 15.48 | 10449.7 |
