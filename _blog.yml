@@ -3000,3 +3000,13 @@
     - llm
     - apps
     - inference
+
+- local: scalable-data-inspection
+  title: "Interactively explore your Huggingface dataset with one line of code"
+  author: sps44
+  thumbnail: /blog/assets/scalable-data-inspection/thumbnail.png
+  date: October 25, 2023
+  tags:
+    - open-source-collab
+    - visualization
+    - data inspection
