@@ -1,6 +1,6 @@
 ---
 title: "Personal Copilot: Train Your Own Coding Assistant" 
-thumbnail: /blog/assets/159_safecoder/thumbnail.jpg
+thumbnail: /blog/assets/170_personal_copilot/thumbnail.jpg
 authors:
 - user: smangrul
 - user: sayakpaul

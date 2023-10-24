@@ -3024,7 +3024,7 @@
 - local: personal-copilot
   title: "Personal Copilot: Train Your Own Coding Assistant"
   author: smangrul
-  thumbnail: /blog/assets/scalable-data-inspection/thumbnail.png
+  thumbnail: /blog/assets/170_personal_copilot/thumbnail.png
   date: October 25, 2023
   tags:
     - bigcode
