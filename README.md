@@ -1,6 +1,8 @@
 # The Hugging Face Blog Repository 🤗
 This is the official repository of the [Hugging Face Blog](https://hf.co/blog). 
 
+**If you are an external contributor**: If your blog is not a collaboration blog with Hugging Face, please consider creating a [community blog](https://huggingface.co/blog-explorers) instead.
+
 ## How to write an article? 📝
 1️⃣ Create a branch `YourName/Title`
 
