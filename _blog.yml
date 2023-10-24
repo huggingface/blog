@@ -2989,3 +2989,14 @@
     - research
     - rl
     - rlhf
+
+- local: inference-endpoints-embeddings
+  title: "Deploy Embedding Models with Hugging Face Inference Endpoints"
+  author: philschmid
+  thumbnail: /blog/assets/168_inference_endpoints_embeddings/thumbnail.jpg
+  date: October 24, 2023
+  tags:
+    - guide
+    - llm
+    - apps
+    - inference
