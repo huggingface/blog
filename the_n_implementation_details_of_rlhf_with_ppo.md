@@ -527,7 +527,7 @@ This work is supported by Hugging Face’s Big Science cluster 🤗. We also tha
 
 ```bibtex
 @article{Huang2023implementation,
-  author = {Huang, Costa and Liu, Tianlin and von Werra, Leandro},
+  author = {Huang, Shengyi and Liu, Tianlin and von Werra, Leandro},
   title = {The N Implementation Details of RLHF with PPO},
   journal = {Hugging Face Blog},
   year = {2023},
