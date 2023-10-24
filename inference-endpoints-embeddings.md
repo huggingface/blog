@@ -47,7 +47,8 @@ You can get started with Inference Endpoints at: https://ui.endpoints.huggingfa
 
 Those feature enabled industry-leading performance on throughput and cost. In a benchmark for [BAAI/bge-base-en-v1.5](https://huggingface.co/BAAI/bge-base-en-v1.5) on an Nvidia A10G Inference Endpoint with a sequence length of 512 tokens and a batch size of 32, we achieved a throughput of 450+ req/sec resulting into a cost of 0.00156$ / 1M tokens or 0.00000156$ / 1k tokens. That is 64x cheaper than OpenAI Embeddings ($0.0001 / 1K tokens). 
 
-![Performance](assets/168_inference_endpoints_embeddings/Performance.png)
+
+![Performance](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/168_inference_endpoints_embeddings/performance.png)
 
 ## 3. Deploy Embedding Model as Inference Endpoint
 
@@ -55,13 +56,13 @@ To get started, you need to be logged in with a User or Organization account wit
 
 Then, click on “New endpoint”. Select the repository, the cloud, and the region, adjust the instance and security settings, and deploy in our case `BAAI/bge-base-en-v1.5`.
 
-![Create Model](assets/168_inference_endpoints_embeddings/create-model.png)
+![create-model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/168_inference_endpoints_embeddings/create-model.png)
 
 Inference Endpoints suggest an instance type based on the model size, which should be big enough to run the model. Here `Intel Ice Lake 2 vCPU`. To get the performance for the benchmark we ran you, change the instance to `1x Nvidia A10G`.
 
 *Note: If the instance type cannot be selected, you need to [contact us](mailto:api-enterprise@huggingface.co?subject=Quota%20increase%20HF%20Endpoints&body=Hello,%0D%0A%0D%0AI%20would%20like%20to%20request%20access/quota%20increase%20for%20%7BINSTANCE%20TYPE%7D%20for%20the%20following%20account%20%7BHF%20ACCOUNT%7D.) and request an instance quota.*
 
-![Select Instance](assets/168_inference_endpoints_embeddings/select-instance.png)
+![Select Instance](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/168_inference_endpoints_embeddings/select-instance.png)
 
 You can then deploy your model with a click on “Create Endpoint”. After 1-3 minutes, the Endpoint should be online and available to serve requests.
 
@@ -69,7 +70,7 @@ You can then deploy your model with a click on “Create Endpoint”. After 1-3 
 
 The Endpoint overview provides access to the Inference Widget, which can be used to manually send requests. This allows you to quickly test your Endpoint with different inputs and share it with team members. 
 
-![Test Model](assets/168_inference_endpoints_embeddings/test-model.png)
+![Test Model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/168_inference_endpoints_embeddings/test-model.png)
 
 *Note: TEI is currently is not automatically truncating the input. You can enable this by setting `truncate: true` in your request.* 
 
