@@ -94,7 +94,7 @@ Compared to the previous baseline (fp16 + SDPA), wrapping the UNet with `torch.c
 ⚠️ The first time you compile a model is slower, but once the model is compiled, all subsequent calls to it are much faster!
 </div>
 
-## Memory reduction
+## Model memory footprint
 
 Models today are growing larger and larger, making it a challenge to fit them into memory. This section focuses on how you can reduce the memory footprint of these enormous models so you can run them on consumer GPUs. These techniques include CPU offloading, decoding latents into images over several steps rather than all at once, and using a distilled version of the autoencoder.
 
