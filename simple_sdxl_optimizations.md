@@ -142,7 +142,7 @@ pipe = pipe.to("cuda")
 pipe.enable_vae_slicing()
 ```
 
-With sliced computations, we reduce the memory to 15.4GB. If we add sequential CPU offloading, it is further reduced to 11.45GB which lets you generate 4 1024x1024 images per prompt. However, with sequential offloading, the inference latency also increases. 
+With sliced computations, we reduce the memory to 15.4GB. If we add sequential CPU offloading, it is further reduced to 11.45GB which lets you generate 4 images (1024x1024) per prompt. However, with sequential offloading, the inference latency also increases. 
 
 ## Caching computations
 
