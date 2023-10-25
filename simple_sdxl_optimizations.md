@@ -67,8 +67,9 @@ Memory-efficient attention algorithms seek to reduce the memory burden of calcul
 from diffusers import StableDiffusionXLPipeline
 
 pipeline = StableDiffusionXLPipeline.from_pretrained(
-    "stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16
-).to("cuda") 
+    "stabilityai/stable-diffusion-xl-base-1.0",
+    torch_dtype=torch.float16,
+).to("cuda")
 ```
 
 Compared to a completely unoptimized SDXL pipeline, using fp16 and SDPA takes the same amount of memory and the inference time improves to 11.4 seconds. Let’s use this as the new baseline we’ll compare the other optimizations to.
@@ -83,7 +84,8 @@ With the `mode` parameter, you can optimize for memory overhead or inference spe
 from diffusers import StableDiffusionXLPipeline
 
 pipeline = StableDiffusionXLPipeline.from_pretrained(
-    "stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16
+    "stabilityai/stable-diffusion-xl-base-1.0",
+    torch_dtype=torch.float16,
 ).to("cuda")
 pipeline.unet = torch.compile(pipeline.unet, mode="reduce-overhead", fullgraph=True)
 ```
@@ -106,8 +108,9 @@ Model offloading saves memory by loading the UNet into the GPU memory while the 
 from diffusers import StableDiffusionXLPipeline
 
 pipeline = StableDiffusionXLPipeline.from_pretrained(
-    "stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16
-)
+    "stabilityai/stable-diffusion-xl-base-1.0",
+    torch_dtype=torch.float16,
+).to("cuda")
 pipeline.enable_model_cpu_offload()
 ```
 
@@ -121,8 +124,9 @@ Another type of offloading which can save you more memory at the expense of slow
 from diffusers import StableDiffusionXLPipeline
 
 pipeline = StableDiffusionXLPipeline.from_pretrained(
-    "stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16
-)
+    "stabilityai/stable-diffusion-xl-base-1.0",
+    torch_dtype=torch.float16,
+).to("cuda")
 pipeline.enable_sequential_cpu_offload()
 ```
 
@@ -135,10 +139,10 @@ In SDXL, a variational encoder (VAE) decodes the refined latents (predicted by t
 This is where “slicing” is useful. The input tensor to be decoded is split into slices and the computation to decode it is completed over several steps. This saves memory and allows larger batch sizes.
 
 ```python
-pipe = StableDiffusionXLPipeline.from_pretrained(
-    "stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16
-)
-pipe = pipe.to("cuda")
+pipeline = StableDiffusionXLPipeline.from_pretrained(
+    "stabilityai/stable-diffusion-xl-base-1.0",
+    torch_dtype=torch.float16,
+).to("cuda")
 pipe.enable_vae_slicing()
 ```
 
@@ -181,8 +185,7 @@ pipe = StableDiffusionXLPipeline.from_pretrained(
     tokenizer=None,
     tokenizer_2=None,
     torch_dtype=torch.float16,
-)
-pipe = pipe.to("cuda")
+).to("cuda")
 
 call_args = dict(
 		prompt_embeds=prompt_embeds,
@@ -204,9 +207,10 @@ As previously mentioned, a VAE decodes latents into images. Naturally, this step
 ```python
 from diffusers import AutoencoderTiny
 
-pipe = StableDiffusionXLPipeline.from_pretrained(
-    "stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16
-)
+pipeline = StableDiffusionXLPipeline.from_pretrained(
+    "stabilityai/stable-diffusion-xl-base-1.0",
+    torch_dtype=torch.float16,
+).to("cuda")
 pipe.vae = AutoencoderTiny.from_pretrained("madebyollin/taesdxl", torch_dtype=torch.float16)
 pipe = pipe.to("cuda")
 ```
