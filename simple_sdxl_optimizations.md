@@ -139,7 +139,7 @@ In SDXL, a variational encoder (VAE) decodes the refined latents (predicted by t
 This is where “slicing” is useful. The input tensor to be decoded is split into slices and the computation to decode it is completed over several steps. This saves memory and allows larger batch sizes.
 
 ```python
-pipeline = StableDiffusionXLPipeline.from_pretrained(
+pipe = StableDiffusionXLPipeline.from_pretrained(
     "stabilityai/stable-diffusion-xl-base-1.0",
     torch_dtype=torch.float16,
 ).to("cuda")
@@ -207,12 +207,11 @@ As previously mentioned, a VAE decodes latents into images. Naturally, this step
 ```python
 from diffusers import AutoencoderTiny
 
-pipeline = StableDiffusionXLPipeline.from_pretrained(
+pipe = StableDiffusionXLPipeline.from_pretrained(
     "stabilityai/stable-diffusion-xl-base-1.0",
     torch_dtype=torch.float16,
 ).to("cuda")
 pipe.vae = AutoencoderTiny.from_pretrained("madebyollin/taesdxl", torch_dtype=torch.float16)
-pipe = pipe.to("cuda")
 ```
 
 With this setup, we reduce the memory requirement to 15.6GB while reducing the inference latency at the same time. 
