@@ -239,3 +239,7 @@ To conclude and summarize the savings from our optimizations:
 | default + Tiny Autoencoder | 15.48 | 10449.7 |
 
 We hope these optimizations make it a breeze to run your favorite pipelines. Try these techniques out and share your images with us! 🤗
+
+---
+
+**Acknowledgements**: Thank you to [Pedro Cuenca](https://twitter.com/pcuenq?lang=en) for his helpful reviews on the draft.
