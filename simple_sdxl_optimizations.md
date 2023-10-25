@@ -23,8 +23,8 @@ So if you run SDXL out-of-the-box as is with full precision and use the default 
 ```python
 from diffusers import StableDiffusionXLPipeline
 
-pipeline = StableDiffusionXLPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0").to("cuda")
-pipeline.unet.set_default_attn_processor()
+pipe = StableDiffusionXLPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0").to("cuda")
+pipe.unet.set_default_attn_processor()
 ```
 
 This isn’t very practical and can slow you down because you’re often generating more than 4 images. And if you don’t have a more powerful GPU, you’ll run into that frustrating out-of-memory error message. So how can we optimize SDXL to increase inference speed and reduce its memory-usage? 
@@ -48,11 +48,11 @@ With 🤗 Diffusers, you can use fp16 for inference by specifying the `torch.dt
 ```python
 from diffusers import StableDiffusionXLPipeline
 
-pipeline = StableDiffusionXLPipeline.from_pretrained(
+pipe = StableDiffusionXLPipeline.from_pretrained(
     "stabilityai/stable-diffusion-xl-base-1.0",
     torch_dtype=torch.float16,
 ).to("cuda")
-pipeline.unet.set_default_attn_processor()
+pipe.unet.set_default_attn_processor()
 ```
 
 Compared to a completely unoptimized SDXL pipeline, using fp16 takes 21.7GB of memory and only 14.8 seconds. You’re almost speeding up inference by a full minute!
@@ -66,7 +66,7 @@ Memory-efficient attention algorithms seek to reduce the memory burden of calcul
 ```python
 from diffusers import StableDiffusionXLPipeline
 
-pipeline = StableDiffusionXLPipeline.from_pretrained(
+pipe = StableDiffusionXLPipeline.from_pretrained(
     "stabilityai/stable-diffusion-xl-base-1.0",
     torch_dtype=torch.float16,
 ).to("cuda")
@@ -83,11 +83,11 @@ With the `mode` parameter, you can optimize for memory overhead or inference spe
 ```python
 from diffusers import StableDiffusionXLPipeline
 
-pipeline = StableDiffusionXLPipeline.from_pretrained(
+pipe = StableDiffusionXLPipeline.from_pretrained(
     "stabilityai/stable-diffusion-xl-base-1.0",
     torch_dtype=torch.float16,
 ).to("cuda")
-pipeline.unet = torch.compile(pipeline.unet, mode="reduce-overhead", fullgraph=True)
+pipe.unet = torch.compile(pipe.unet, mode="reduce-overhead", fullgraph=True)
 ```
 
 Compared to the previous baseline (fp16 + SDPA), wrapping the UNet with `torch.compile` improves inference time to 10.2 seconds. 
@@ -107,11 +107,11 @@ Model offloading saves memory by loading the UNet into the GPU memory while the 
 ```python
 from diffusers import StableDiffusionXLPipeline
 
-pipeline = StableDiffusionXLPipeline.from_pretrained(
+pipe = StableDiffusionXLPipeline.from_pretrained(
     "stabilityai/stable-diffusion-xl-base-1.0",
     torch_dtype=torch.float16,
 ).to("cuda")
-pipeline.enable_model_cpu_offload()
+pipe.enable_model_cpu_offload()
 ```
 
 Compared to the baseline, it now takes 20.2GB of memory which saves you 1.5GB of memory.
@@ -123,11 +123,11 @@ Another type of offloading which can save you more memory at the expense of slow
 ```python
 from diffusers import StableDiffusionXLPipeline
 
-pipeline = StableDiffusionXLPipeline.from_pretrained(
+pipe = StableDiffusionXLPipeline.from_pretrained(
     "stabilityai/stable-diffusion-xl-base-1.0",
     torch_dtype=torch.float16,
 ).to("cuda")
-pipeline.enable_sequential_cpu_offload()
+pipe.enable_sequential_cpu_offload()
 ```
 
 Compared to the baseline, this takes 19.9GB of memory but the inference time increases to 67 seconds.
@@ -210,8 +210,9 @@ from diffusers import AutoencoderTiny
 pipe = StableDiffusionXLPipeline.from_pretrained(
     "stabilityai/stable-diffusion-xl-base-1.0",
     torch_dtype=torch.float16,
-).to("cuda")
+)
 pipe.vae = AutoencoderTiny.from_pretrained("madebyollin/taesdxl", torch_dtype=torch.float16)
+pipe.to("cuda")
 ```
 
 With this setup, we reduce the memory requirement to 15.6GB while reducing the inference latency at the same time. 
