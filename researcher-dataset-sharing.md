@@ -97,7 +97,7 @@ The Hub can host large datasets; the Hub currently hosts datasets which are mult
 
 ## API and client library interaction with the Hub
 
-Interacting with the Hugging Face Hub via an API or a Python library is possible. This includes creating new repositories, uploading data programmatically and creating and modifying metadata for datasets. This can be powerful for research workflows where new data or annotations continue to be created. The client library also makes uploading large datasets much more accessible. 
+Interacting with the Hugging Face Hub via an [API](https://huggingface.co/docs/hub/api) or the [huggingface_hub](https://huggingface.co/docs/huggingface_hub/index) Python library is possible. This includes creating new repositories, uploading data programmatically and creating and modifying metadata for datasets. This can be powerful for research workflows where new data or annotations continue to be created. The client library also makes uploading large datasets much more accessible. 
 
 ## Community 
 
