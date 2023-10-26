@@ -56,11 +56,19 @@ The datasets-viewer allows people to explore and interact with datasets hosted o
 
 ### Community tools 
 
-Alongside the datasets viewer there are a growing number of community created tools for exploring datasets on the Hub. This includes [Spotlight](https://huggingface.co/blog/scalable-data-inspection), a tool that allows you you to interactively explore datasets on the Hub with one line of code. 
- 
+Alongside the datasets viewer there are a growing number of community created tools for exploring datasets on the Hub.
+
+#### Spotlight
+
+[Spotlight](https://github.com/Renumics/spotlight) is a tool that allows you you to interactively explore datasets on the Hub with one line of code.   
+
 <p align="center"><a href="https://github.com/Renumics/spotlight"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/scalable-data-inspection/speech_commands_vis_s.gif" width="100%"/></a></p> 
 
-[Lilac](https://lilacml.com/) is a tool that aims to help you "curate better data for LLMs" and allows you to explore natural language datasets more easily. 
+You can learn more about how you can use this tool in this [blog post](https://huggingface.co/blog/scalable-data-inspection).
+
+#### Lilac
+
+[Lilac](https://lilacml.com/) is a tool that aims to help you "curate better data for LLMs" and allows you to explore natural language datasets more easily. The tool allows you to semantically search your dataset (search by meaning), cluster data and gain high-level insights into your dataset.
 
 <div style="text-align: center;">
     <iframe
@@ -72,6 +80,7 @@ Alongside the datasets viewer there are a growing number of community created to
     <em>A Spaces demo of the lilac tool.</em> 
 </div>
 
+You can explore the Lilac tool further in a [demo](https://lilacai-lilac.hf.space/).
 
 ### Support for large datasets
 
