@@ -82,6 +82,8 @@ You can learn more about how you can use this tool in this [blog post](https://h
 
 You can explore the Lilac tool further in a [demo](https://lilacai-lilac.hf.space/).
 
+This growing number of tools for exploring datasets on the Hub makes it easier for people to explore and understand your datasets and can help promote your datasets to a wider audience.
+
 ### Support for large datasets
 
 The Hub can host large datasets; the Hub currently hosts datasets which are multiple TBs.The datasets library, which users can use to download and process datasets from the Hub, supports streaming for large datasets, making it possible to work with large datasets without downloading the entire dataset upfront. This can be invaluable for allowing researchers with less computational resources to work with your datasets. 
@@ -121,6 +123,18 @@ Some other features of the Hub may be of particular interest to researchers want
 - DOIs: it’s possible to register a persistent identifier for your dataset. 
 
 ### How can I share my dataset on the Hugging Face Hub? 
-TODO Links to existing docs
+
+Here are some resources to help you get started with sharing your datasets on the Hugging Face Hub:
+
+- General guidance on [creating](https://huggingface.co/docs/datasets/create_dataset) and [sharing datasets on the Hub](https://huggingface.co/docs/datasets/upload_dataset)
+- Guides for particular modalities:
+  - Creating an [audio dataset](https://huggingface.co/docs/datasets/audio_dataset)
+  - Creating an [image dataset](https://huggingface.co/docs/datasets/image_dataset)
+- Guidance on [structuring your repository](https://huggingface.co/docs/datasets/repository_structure) so a dataset can be automatically loaded from the Hub.
+- Guidance on [creating a dataset loading script](https://huggingface.co/docs/datasets/dataset_script) for your dataset.
+
+The following pages will be useful if you want to share large datasets:
+- [Repository limitations and recommendations](https://huggingface.co/docs/hub/repositories-recommendations) provides general guidance on some of the considerations you'll want to make when sharing large datasets.
+- The [Tips and tricks for large uploads](https://huggingface.co/docs/huggingface_hub/guides/upload#tips-and-tricks-for-large-uploads) page provides some guidance on how to upload large datasets to the Hub.
 
 If you want any further help uploading a dataset to the Hub or want to upload a particularly large dataset, please contact datasets@huggingface.co. 
