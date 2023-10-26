@@ -116,11 +116,11 @@ The Hub also has features which allow communities to collaborate more easily. Th
 
 Some other features of the Hub may be of particular interest to researchers wanting to share their machine learning datasets on the Hub:
 
-- Organizations allow you to collaborate with other people and share models, datasets and demos under a single organisation. This can be an excellent way of highlighting the work of a particular research project or institute. 
-- Dataset loading scripts give you control over how your dataset is downloaded and processed. This makes it possible to share multiple dataset configurations and allows end users to start working with your data quickly. 
-- Gated repositories allow you to add some access restrictions to accessing your dataset. 
+- [Organizations](https://huggingface.co/organizations) allow you to collaborate with other people and share models, datasets and demos under a single organization. This can be an excellent way of highlighting the work of a particular research project or institute. 
+- [Dataset loading scripts](https://huggingface.co/docs/datasets/dataset_script) give you control over how your dataset is downloaded and processed. This makes it possible to share multiple dataset configurations and allows end users to start working with your data quickly. 
+- [Gated repositories](https://huggingface.co/docs/hub/datasets-gated) allow you to add some access restrictions to accessing your dataset. 
 - Download metrics are available for datasets on the Hub; this can be useful for communicating the impact of your researchers to funders and hiring committees. 
-- DOIs: it’s possible to register a persistent identifier for your dataset. 
+- [Digital Object Identifiers (DOI)](https://huggingface.co/docs/hub/doi): it’s possible to register a persistent identifier for your dataset. 
 
 ### How can I share my dataset on the Hugging Face Hub? 
 
