@@ -1,11 +1,11 @@
 ---
-title: "Empowering Open Source Machine Learning through Dataset Sharing on the Hugging Face Hub"
+title: "Creating open machine learning datasets? Share them on the Hugging Face Hub!"
 thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
 authors:
 - user: davanstrien
 ---
 
-## Introduction: who is this blog post for?
+## Who is this blog post for?
 
 Are you a researcher doing data-intensive research or using machine learning as a research tool? As part of this research, you have likely created datasets for training and evaluating machine learning models, and like many researchers, you may be sharing these datasets via Google Drive, OneDrive, or your own personal server. In this post, we’ll outline why you might want to consider sharing these datasets on the Hugging Face Hub instead. 
 
@@ -43,6 +43,14 @@ The Hugging Face Hub has become the central Hub for people to collaborate on ope
 ### Tools for exploring and working with datasets
 
 There are a growing number of tools being created which make it easier to understand datasets hosted on the Hugging Face Hub. 
+
+### Tools for loading datasets hosted on the Hugging Face Hub 
+
+- Datasets Library
+- Pandas
+- Polars- DuckDB 
+  
+
 
 #### Datasets Viewer 
 

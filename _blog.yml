@@ -3016,7 +3016,7 @@
     - data inspection
 
 - local: researcher-dataset-sharing
-  title: "Empowering Open Source Machine Learning through Dataset Sharing on the Hugging Face Hub"
+  title: "Creating open machine learning datasets? Share them on the Hugging Face Hub!"
   author: davanstrien
   thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
   date: October 26, 2023
