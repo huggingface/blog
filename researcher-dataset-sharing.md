@@ -42,6 +42,8 @@ The Hugging Face Hub has become the central Hub for people to collaborate on ope
 
 ### Tools for exploring and working with datasets
 
+There are a growing number of tools being created which make it easier to understand datasets hosted on the Hugging Face Hub. 
+
 #### Datasets Viewer 
 
 The datasets-viewer allows people to explore and interact with datasets hosted on the Hub. This makes it much easier for people to view and explore your data without first having to download it. The datasets viewer also allows you to search and filter datasets, which can be valuable to potential dataset users, understanding the nature of a dataset more quickly. 
