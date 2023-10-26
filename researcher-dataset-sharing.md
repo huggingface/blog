@@ -5,6 +5,7 @@ authors:
 - user: davanstrien
 ---
 
+## Introduction: who is this blog post for?
 
 Are you a researcher doing data-intensive research or using machine learning as a research tool? As part of this research, you have likely created datasets for training and evaluating machine learning models, and like many researchers, you may be sharing these datasets via Google Drive, OneDrive, or your own personal server. In this post, we’ll outline why you might want to consider sharing these datasets on the Hugging Face Hub instead. 
 
@@ -14,7 +15,7 @@ This post outlines:
 - What the Hugging Face Hub offers for researchers who want to share their datasets.
 - Resources for getting started with sharing your datasets on the Hugging Face Hub.
 
-## Introduction: why share your data?
+## Why share your data?
 
 Machine learning is increasingly utilized across various disciplines, enhancing research efficiency in tackling diverse problems. Data remains crucial for training and evaluating models, especially when developing new machine-learning methods for specific tasks or domains. Large Language Models may not perform well on specialized tasks like bio-medical entity extraction, and computer vision models might struggle with classifying domain specific images.
 
