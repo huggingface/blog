@@ -3020,3 +3020,15 @@
     - open-source-collab
     - visualization
     - data inspection
+
+- local: personal-copilot
+  title: "Personal Copilot: Train Your Own Coding Assistant"
+  author: smangrul
+  thumbnail: /blog/assets/170_personal_copilot/thumbnail.png
+  date: October 27, 2023
+  tags:
+    - bigcode
+    - llm
+    - nlp
+    - inference
+    - guide
