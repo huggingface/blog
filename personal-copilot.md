@@ -91,7 +91,7 @@ We will look at how to do full fine-tuning of `bigcode/starcoder` (15B params) o
 2. FSDP Config: [fsdp_config.yaml](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/personal_copilot/training/configs/fsdp_config.yaml)
 3. Model: [bigcode/stacoder](https://huggingface.co/bigcode/starcoder)
 4. Dataset: [smangrul/hf-stack-v1](https://huggingface.co/datasets/smangrul/hf-stack-v1)
-5. Trained Model: [smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab](https://huggingface.co/smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab)
+5. Fine-tuned Model: [smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab](https://huggingface.co/smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab)
 
 The command to launch training is given at [run_fsdp.sh](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/personal_copilot/training/run_fsdp.sh).
 ```
@@ -132,7 +132,7 @@ We will look at how to use QLoRA for fine-tuning `bigcode/starcoder` (15B params
 2. Colab notebook: [link](https://colab.research.google.com/drive/1Tz9KKgacppA4S6H4eo_sw43qEaC9lFLs?usp=sharing). Make sure to choose A100 GPU with High RAM setting.
 3. Model: [bigcode/stacoder](https://huggingface.co/bigcode/starcoder)
 4. Dataset: [smangrul/hf-stack-v1](https://huggingface.co/datasets/smangrul/hf-stack-v1)
-5. Trained Model: [smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab](https://huggingface.co/smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab)
+5. QLoRA Fine-tuned Model: [smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab](https://huggingface.co/smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab)
 
 The command to launch training is given at [run_peft.sh](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/personal_copilot/training/run_peft.sh). The total training time was **12.5 Hours**. Taking the cost of **$1.10 / hr** based on [lambdalabs](https://lambdalabs.com/service/gpu-cloud/pricing), the total cost would be **$13.75**. That's pretty good 🚀! In terms of cost, it's **7.8X** lower than the cost for full fine-tuning.  
 
@@ -150,7 +150,7 @@ To make sure that our QLoRA model doesn't lead to catastrophic forgetting, we ru
 |bigcode/starcoder | 33.57|
 |smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab| 33.37 |
 
-Let's now look at some qualitative samples. Inference Code with various examples for full fine-tuned model and peft model are available at [Full_Finetuned_StarCoder_Inference.ipynb](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/personal_copilot/inference/Full_Finetuned_StarCoder_Inference.ipynb) and [PEFT_StarCoder_Inference.ipynb](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/personal_copilot/inference/PEFT_StarCoder_Inference.ipynb), respectively. In our manual analysis, we noticed that the QLoRA led to slight overfitting and as such we down weigh it by creating new weighted adapter with weight 0.8 via `add_weighted_adapter` utility of PEFT.
+Let's now look at some qualitative samples. In our manual analysis, we noticed that the QLoRA led to slight overfitting and as such we down weigh it by creating new weighted adapter with weight 0.8 via `add_weighted_adapter` utility of PEFT.
 
 We will look at 2 code infilling examples wherein the task of the model is to fill the part denoted by the `<FILL_ME>` placeholder. We will consider infilling completions from GitHub Copilot, the QLoRA fine-tuned model and the full fine-tuned model. 
 
@@ -162,7 +162,7 @@ In the example above, the completion from GitHub Copilot is along the correct li
 ![qualitative_comparison_2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/personal_copilot/qlora_vs_finetune_2.png)
 Qualitative Example 2
 
-In the second example above, **GitHub Copilot didn't give any completion**. This can be due to the fact that 🤗 PEFT is a recent library and not yet part of Copilot's training data, which **is exactly the type of problem we are trying to address**. On the other hand, completions from QLoRA and full fine-tuned models are correctly infilling the entire function call with the necessary parameters. Again, note that both the QLoRA and the full fine-tuned models are giving generations of similar quality.
+In the second example above, **GitHub Copilot didn't give any completion**. This can be due to the fact that 🤗 PEFT is a recent library and not yet part of Copilot's training data, which **is exactly the type of problem we are trying to address**. On the other hand, completions from QLoRA and full fine-tuned models are correctly infilling the entire function call with the necessary parameters. Again, note that both the QLoRA and the full fine-tuned models are giving generations of similar quality. Inference Code with various examples for full fine-tuned model and peft model are available at [Full_Finetuned_StarCoder_Inference.ipynb](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/personal_copilot/inference/Full_Finetuned_StarCoder_Inference.ipynb) and [PEFT_StarCoder_Inference.ipynb](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/personal_copilot/inference/PEFT_StarCoder_Inference.ipynb), respectively.
 
 Therefore, we can observe that the generations from both the variants are as per expectations. Awesome! 🚀
 
@@ -214,7 +214,7 @@ If we disable adapters, we observe that the task fails for both datasets, as the
 
 Now, let's enable the `assistant` adapter.
 
-![assistant_chat_generic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/personal_copilot/qa_generic.png)
+![assistant_chat_generic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/personal_copilot/generic_qa_short.png)
 Question Answering based on generic code
 
 ![assistant_chat_hf](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/personal_copilot/qa_hf.png)
@@ -284,7 +284,7 @@ The training loss, evaluation loss as well as learning rate schedules are plotte
 
 ![loss_plots](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/personal_copilot/loss_plots.png)
 
-Now, we will look at detailed steps for locally hosting the merged model [smangrul/starcoder1B-v2-personal-copilot-merged](https://huggingface.co/smangrul/starcoder1B-v2-personal-copilot-merged). 
+Now, we will look at detailed steps for locally hosting the merged model [smangrul/starcoder1B-v2-personal-copilot-merged](https://huggingface.co/smangrul/starcoder1B-v2-personal-copilot-merged) and using it with 🤗 [llm-vscode](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) VS Code Extension. 
 
 1. Clone the repo
 ```
@@ -351,3 +351,8 @@ The demo at the start of this post is this 1B model running locally on my Mac la
 In this blog plost, we saw how to finetune `starcoder` to create a personal co-pilot that knows about our code. We called it 🤗 HugCoder, as we trained it on Hugging Face code :) After looking at the data collection workflow, we compared training using QLoRA vs full fine-tuning. We also experimented by combining different LoRAs, which is still an unexplored technique in the text/code domain. For deployment, we examined remote inference using 🤗 Inference Endpoints, and also showed on-device execution of a smaller model with VS Code and MLC.
 
 Please, let us know if you use these methods for your own codebase!
+
+
+## Acknowledgements
+
+We would like to thank [Pedro Cuenca](https://github.com/pcuenca), [Leandro von Werra](https://github.com/lvwerra), [Benjamin Bossan](https://github.com/BenjaminBossan), [Sylvain Gugger](https://github.com/sgugger) and [Loubna Ben Allal](https://github.com/loubnabnl) for their help with the writing of this blogpost.
