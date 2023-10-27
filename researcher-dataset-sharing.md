@@ -67,7 +67,7 @@ Alongside the datasets viewer there are a growing number of community created to
 
 #### Spotlight
 
-[`Spotlight`](https://github.com/Renumics/spotlight) is a tool that allows you you to interactively explore datasets on the Hub with one line of code.   
+[`Spotlight`](https://github.com/Renumics/spotlight) is a tool that allows you to interactively explore datasets on the Hub with one line of code.   
 
 <p align="center"><a href="https://github.com/Renumics/spotlight"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/scalable-data-inspection/speech_commands_vis_s.gif" width="100%"/></a></p> 
 
