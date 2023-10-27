@@ -124,7 +124,6 @@ The Hub also has features which allow communities to collaborate more easily. Th
 Some other features of the Hub may be of particular interest to researchers wanting to share their machine learning datasets on the Hub:
 
 - [Organizations](https://huggingface.co/organizations) allow you to collaborate with other people and share models, datasets and demos under a single organization. This can be an excellent way of highlighting the work of a particular research project or institute. 
-- [Dataset loading scripts](https://huggingface.co/docs/datasets/dataset_script) give you control over how your dataset is downloaded and processed. This makes it possible to share multiple dataset configurations and allows end users to start working with your data quickly. 
 - [Gated repositories](https://huggingface.co/docs/hub/datasets-gated) allow you to add some access restrictions to accessing your dataset. 
 - Download metrics are available for datasets on the Hub; this can be useful for communicating the impact of your researchers to funders and hiring committees. 
 - [Digital Object Identifiers (DOI)](https://huggingface.co/docs/hub/doi): it’s possible to register a persistent identifier for your dataset. 
@@ -138,7 +137,6 @@ Here are some resources to help you get started with sharing your datasets on th
   - Creating an [audio dataset](https://huggingface.co/docs/datasets/audio_dataset)
   - Creating an [image dataset](https://huggingface.co/docs/datasets/image_dataset)
 - Guidance on [structuring your repository](https://huggingface.co/docs/datasets/repository_structure) so a dataset can be automatically loaded from the Hub.
-- Guidance on [creating a dataset loading script](https://huggingface.co/docs/datasets/dataset_script) for your dataset.
 
 The following pages will be useful if you want to share large datasets:
 - [Repository limitations and recommendations](https://huggingface.co/docs/hub/repositories-recommendations) provides general guidance on some of the considerations you'll want to make when sharing large datasets.
