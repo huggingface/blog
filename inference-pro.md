@@ -34,10 +34,11 @@ Hugging Face PRO users now have access to exclusive API endpoints for a curated 
 
 ## Supported Models
 
-In addition to thousands of public models available in the Hub, PRO users get free access to the following state-of-the-art models:
+In addition to thousands of public models available in the Hub, PRO users get free access and higher rate limits to the following state-of-the-art models:
 
 | Model               | Size                                                                                                                                                                                       | Context Length | Use                                   |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- | ------------------------------------- |
+| Zephyr 7B β         | [7B](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta) | 4k tokens      | Highest-ranked chat model at the 7B weight |
 | Llama 2 Chat        | [7B](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), [13B](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf), and [70B](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) | 4k tokens      | One of the best conversational models |
 | Code Llama Base     | [7B](https://huggingface.co/codellama/CodeLlama-7b-hf) and [13B](https://huggingface.co/codellama/CodeLlama-13b-hf)                                                                        | 4k tokens      | Autocomplete and infill code          |
 | Code Llama Instruct | [34B](https://huggingface.co/codellama/CodeLlama-34b-Instruct-hf)                                                                                                                          | 16k tokens     | Conversational code assistant         |
