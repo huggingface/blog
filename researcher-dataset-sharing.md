@@ -46,9 +46,10 @@ There are a growing number of tools being created which make it easier to unders
 
 ### Tools for loading datasets hosted on the Hugging Face Hub 
 
-- Datasets Library
-- Pandas
-- Polars- DuckDB 
+Datasets shared on the Hugging Face Hub can be loaded via a variety of tools. The [`datasets`](https://huggingface.co/docs/datasets/) library is a Python library which can directly load datasets from the huggingface hub via a `load_dataset` command. The `datasets` library is optimized for working with large datasets (including datasets which won't fit into memory) and supporting machine learning workflows. 
+
+Alongside this many of the datasets on the Hub can also be loaded directly into [`Pandas`](https://pandas.pydata.org/), [`Polars`](https://www.pola.rs/), and [`DuckDB`](https://duckdb.org/). This [page](https://huggingface.co/docs/datasets-server/parquet_process) provides a more detailed overview of the different ways you can load datasets from the Hub.
+
 
 #### Datasets Viewer 
 
@@ -66,7 +67,7 @@ Alongside the datasets viewer there are a growing number of community created to
 
 #### Spotlight
 
-[Spotlight](https://github.com/Renumics/spotlight) is a tool that allows you you to interactively explore datasets on the Hub with one line of code.   
+[`Spotlight`](https://github.com/Renumics/spotlight) is a tool that allows you you to interactively explore datasets on the Hub with one line of code.   
 
 <p align="center"><a href="https://github.com/Renumics/spotlight"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/scalable-data-inspection/speech_commands_vis_s.gif" width="100%"/></a></p> 
 
@@ -74,7 +75,7 @@ You can learn more about how you can use this tool in this [blog post](https://h
 
 #### Lilac
 
-[Lilac](https://lilacml.com/) is a tool that aims to help you "curate better data for LLMs" and allows you to explore natural language datasets more easily. The tool allows you to semantically search your dataset (search by meaning), cluster data and gain high-level insights into your dataset.
+[`Lilac`](https://lilacml.com/) is a tool that aims to help you "curate better data for LLMs" and allows you to explore natural language datasets more easily. The tool allows you to semantically search your dataset (search by meaning), cluster data and gain high-level insights into your dataset.
 
 <div style="text-align: center;">
     <iframe
@@ -86,7 +87,7 @@ You can learn more about how you can use this tool in this [blog post](https://h
     <em>A Spaces demo of the lilac tool.</em> 
 </div>
 
-You can explore the Lilac tool further in a [demo](https://lilacai-lilac.hf.space/).
+You can explore the `Lilac` tool further in a [demo](https://lilacai-lilac.hf.space/).
 
 This growing number of tools for exploring datasets on the Hub makes it easier for people to explore and understand your datasets and can help promote your datasets to a wider audience.
 
@@ -103,7 +104,7 @@ The Hub can host large datasets; the Hub currently hosts datasets which are mult
 
 ## API and client library interaction with the Hub
 
-Interacting with the Hugging Face Hub via an [API](https://huggingface.co/docs/hub/api) or the [huggingface_hub](https://huggingface.co/docs/huggingface_hub/index) Python library is possible. This includes creating new repositories, uploading data programmatically and creating and modifying metadata for datasets. This can be powerful for research workflows where new data or annotations continue to be created. The client library also makes uploading large datasets much more accessible. 
+Interacting with the Hugging Face Hub via an [API](https://huggingface.co/docs/hub/api) or the [`huggingface_hub`](https://huggingface.co/docs/huggingface_hub/index) Python library is possible. This includes creating new repositories, uploading data programmatically and creating and modifying metadata for datasets. This can be powerful for research workflows where new data or annotations continue to be created. The client library also makes uploading large datasets much more accessible. 
 
 ## Community 
 
