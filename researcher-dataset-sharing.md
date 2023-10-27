@@ -93,7 +93,7 @@ This growing number of tools for exploring datasets on the Hub makes it easier f
 
 ### Support for large datasets
 
-The Hub can host large datasets; the Hub currently hosts datasets which are multiple TBs.The datasets library, which users can use to download and process datasets from the Hub, supports streaming for large datasets, making it possible to work with large datasets without downloading the entire dataset upfront. This can be invaluable for allowing researchers with less computational resources to work with your datasets. 
+The Hub can host large datasets; it currently hosts datasets with multiple TBs of data.The datasets library, which users can use to download and process datasets from the Hub, supports streaming, making it possible to work with large datasets without downloading the entire dataset upfront. This can be invaluable for allowing researchers with less computational resources to work with your datasets, or to select small portions of a huge dataset for testing, development or prototyping.
 
 
 <p align="center"> 
