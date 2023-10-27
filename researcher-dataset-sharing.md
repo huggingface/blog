@@ -28,7 +28,7 @@ The Hugging Face Hub can help achieve this maximum impact.
 The [Hugging Face Hub](https://huggingface.co/) has become the central hub for sharing open machine learning models, datasets and demos, hosting over 360,000 models and 70,000 datasets. The Hub enables people – including researchers – to access state-of-the-art machine learning models and datasets in a few lines of code. 
 
 <p align="center"> 
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/researcher-dataset-sharing/hub-datasets.png" alt="Screenshot of datasets ib the Hugging Face Hub"><br> 
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/researcher-dataset-sharing/hub-datasets.png" alt="Screenshot of datasets in the Hugging Face Hub"><br> 
 <em>Datasets on the Hugging Face Hub.</em> 
  </p> 
 
