@@ -7,9 +7,9 @@ authors:
 
 # Make your llama generation time fly with AWS Inferentia2
 
-In a [previous post on the Hugging Face blog](https://huggingface.co/blog/accelerate-transformers-with-inferentia2), we introduced [AWS Inferentia 2](https://aws.amazon.com/ec2/instance-types/inf2/), the second-generation AWS Inferentia accelerator, and explained how you could use [optimum-neuron](https://huggingface.co/docs/optimum-neuron/index) to quickly deploy Hugging Face models for standard text and vision tasks on AWS Inferencia 2 instances.
+In a [previous post on the Hugging Face blog](https://huggingface.co/blog/accelerate-transformers-with-inferentia2), we introduced [AWS Inferentia2](https://aws.amazon.com/ec2/instance-types/inf2/), the second-generation AWS Inferentia accelerator, and explained how you could use [optimum-neuron](https://huggingface.co/docs/optimum-neuron/index) to quickly deploy Hugging Face models for standard text and vision tasks on AWS Inferencia 2 instances.
 
-In a further step of integration with the [AWS Neuron SDK](https://github.com/aws-neuron/aws-neuron-sdk), it is now possible to use 🤗 [optimum-neuron](https://huggingface.co/docs/optimum-neuron/index) to deploy LLM models for text generation on AWS Inferentia 2.
+In a further step of integration with the [AWS Neuron SDK](https://github.com/aws-neuron/aws-neuron-sdk), it is now possible to use 🤗 [optimum-neuron](https://huggingface.co/docs/optimum-neuron/index) to deploy LLM models for text generation on AWS Inferentia2.
 
 And what better model could we choose for that demonstration than [Llama 2](https://huggingface.co/meta-llama/Llama-2-13b-hf), one of the most popular models on the [Hugging Face hub](https://huggingface.co/models).
 
@@ -28,7 +28,7 @@ Fortunately, 🤗 `optimum-neuron` offers a [very simple API](https://huggingfac
 ```
 >>> from optimum.neuron import NeuronModelForCausalLM
 
->>> compiler_args = {"num_cores": 1, "auto_cast_type": 'fp16'}
+>>> compiler_args = {"num_cores": 24, "auto_cast_type": 'fp16'}
 >>> input_shapes = {"batch_size": 1, "sequence_length": 2048}
 >>> model = NeuronModelForCausalLM.from_pretrained(
         "meta-llama/Llama-2-13b-hf",
@@ -59,13 +59,15 @@ Even better, you can push it to the [Hugging Face hub](https://huggingface.co/mo
         use_auth_token=True)
 ```
 
-## Generate text using a neuron model on AWS Inferentia 2
+## Generate text using a neuron model on AWS Inferentia2
 
 Once your model has been exported, you can generate text using the transformers library, as it has been described in [detail in this previous post](https://huggingface.co/blog/how-to-generate).
 
 ```
+>>> from optimum.neuron import NeuronModelForCausalLM
 >>> from transformers import AutoTokenizer
 
+>>> model = NeuronModelForCausalLM.from_pretrained('dacorvo/Llama-2-7b-hf-neuron-latency')
 >>> tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-13b-hf")
 >>> tokenizer.pad_token_id = tokenizer.eos_token_id
 >>> tokenizer.padding_side = "left"
@@ -110,7 +112,7 @@ at peace. I love to travel and see new places. I have a'}]
 
 ## Benchmarks
 
-But how much efficient is text-generation on Inferentia 2?  Let's figure out!
+But how much efficient is text-generation on Inferentia2?  Let's figure out!
 
 We have uploaded on the hub pre-compiled versions of the LLama 2 7B and 13B models with different configurations:
 
@@ -198,7 +200,7 @@ The "budget" model has a much lower throughput, but still ok for a streaming use
 ## Conclusion
 
 We have illustrated how easy it is to deploy `llama2` models from the [Hugging Face hub](https://huggingface.co/models) on
-[AWS Inferentia 2](https://aws.amazon.com/ec2/instance-types/inf2/) using 🤗 [optimum-neuron](https://huggingface.co/docs/optimum-neuron/index).
+[AWS Inferentia2](https://aws.amazon.com/ec2/instance-types/inf2/) using 🤗 [optimum-neuron](https://huggingface.co/docs/optimum-neuron/index).
 
 The deployed models demonstrate very good performance in terms of encoding time, latency and throughput.
 
