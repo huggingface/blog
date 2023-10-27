@@ -108,7 +108,7 @@ Interacting with the Hugging Face Hub via an [API](https://huggingface.co/docs/h
 
 ## Community 
 
-The Hugging Face Hub is already home to a large community of researchers, developers, artists, and others interested in using and contributing to an ecosystem of open-source machine learning. Making your datasets accessible to this community increases its visibility, opens it up to new types of users and places your datasets within the context of a larger ecosystem of models, datasets and libraries.
+The Hugging Face Hub is already home to a large community of researchers, developers, artists, and others interested in using and contributing to an ecosystem of open-source machine learning. Making your datasets accessible to this community increases their visibility, opens them up to new types of users and places your datasets within the context of a larger ecosystem of models, datasets and libraries.
 
 The Hub also has features which allow communities to collaborate more easily. This includes a discussion page for each dataset, model and Space hosted on the Hub. This means users of your datasets can quickly ask questions and discuss ideas for working with a dataset. 
 
