@@ -1793,7 +1793,7 @@
     - fine-tuning
     - community
     - dreambooth
-    
+
 - local: mantis-case-study
   title: "Why we’re switching to Hugging Face Inference Endpoints, and maybe you should too"
   author: mattupson
@@ -1992,7 +1992,7 @@
     - rl
     - rlhf
     - nlp
-    
+
 - local: snorkel-case-study
   title: "Snorkel AI x Hugging Face: unlock foundation models for enterprises"
   author: Violette
@@ -2735,7 +2735,7 @@
     - security
 
 - local: codellama
-  title: "Code Llama: Llama 2 learns to code" 
+  title: "Code Llama: Llama 2 learns to code"
   author: philschmid
   thumbnail: /blog/assets/160_codellama/thumbnail.jpg
   date: August 25, 2023
@@ -2861,7 +2861,7 @@
     - guide
     - cv
     - game-dev
-    
+
 - local: rocketmoney-case-study
   title: "Rocket Money x Hugging Face: Scaling Volatile ML Models in Production"
   author: nicokuzak
@@ -2916,7 +2916,7 @@
     - diffusers
     - rl
     - rlhf
-   
+
 - local: ethics-soc-5
   title: "Ethics and Society Newsletter #5: Hugging Face Goes To Washington and Other Summer 2023 Musings"
   author: meg
@@ -2990,7 +2990,7 @@
     - diffusers
     - guide
     - sdxl
-    
+
 - local: the_n_implementation_details_of_rlhf_with_ppo
   title: "The N Implementation Details of RLHF with PPO"
   author: vwxyzjn
@@ -3077,3 +3077,14 @@
     - nlp
     - datasets
     - guide
+
+- local: inferentia-llama2
+  title: "Make your llama generation time fly with AWS Inferentia2"
+  author: dacorvo
+  thumbnail: /blog/assets/inferentia-llama2/thumbnail.png
+  date: November 7, 2023
+  tags:
+    - guide
+    - text-generation
+    - llama2
+    - aws
