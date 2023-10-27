@@ -9,17 +9,17 @@ authors:
 
 In a [previous post on the Hugging Face blog](https://huggingface.co/blog/accelerate-transformers-with-inferentia2), we introduced [AWS Inferentia 2](https://aws.amazon.com/ec2/instance-types/inf2/), the second-generation AWS Inferentia accelerator, and explained how you could use [optimum-neuron](https://huggingface.co/docs/optimum-neuron/index) to quickly deploy Hugging Face models for standard text and vision tasks on AWS Inferencia 2 instances.
 
-In a further step of of integration with the [AWS Neuron SDK](https://github.com/aws-neuron/aws-neuron-sdk), it is now possible to use 🤗 [optimum-neuron](https://huggingface.co/docs/optimum-neuron/index) to deploy LLM models for text generation on AWS Inferentia 2.
+In a further step of integration with the [AWS Neuron SDK](https://github.com/aws-neuron/aws-neuron-sdk), it is now possible to use 🤗 [optimum-neuron](https://huggingface.co/docs/optimum-neuron/index) to deploy LLM models for text generation on AWS Inferentia 2.
 
-And what better model could we choose for that demonstration than [llama2](https://huggingface.co/meta-llama/Llama-2-13b-hf), one of the most popular model on the [Hugging Face hub](https://huggingface.co/models).
+And what better model could we choose for that demonstration than [Llama 2](https://huggingface.co/meta-llama/Llama-2-13b-hf), one of the most popular models on the [Hugging Face hub](https://huggingface.co/models).
 
 ## Setup 🤗 `optimum-neuron` on your Inferentia2 instance
 
 Our recommendation is to use the [Hugging Face Neuron Deep Learning AMI](https://aws.amazon.com/marketplace/pp/prodview-gr3e6yiscria2) (DLAMI). The DLAMI comes with all required libraries pre-packaged for you, including the Optimum Neuron, Neuron Drivers, Transformers, Datasets, and Accelerate.
 
-These components can also be installed manually on a fresh Inferentia instance following the `optimum-neuron` [installation instructions](https://huggingface.co/docs/optimum-neuron/installation).
+These components can also be installed manually on a fresh Inferentia2 instance following the `optimum-neuron` [installation instructions](https://huggingface.co/docs/optimum-neuron/installation).
 
-## Export the Llama2 model to Neuron
+## Export the Llama 2 model to Neuron
 
 As explained in the [optimum-neuron documentation](https://huggingface.co/docs/optimum-neuron/guides/export_model#why-compile-to-neuron-model), models need to be compiled and exported to a serialized format before running them on Neuron devices.
 
@@ -61,7 +61,7 @@ Even better, you can push it to the [Hugging Face hub](https://huggingface.co/mo
 
 ## Generate text using a neuron model on AWS Inferentia 2
 
-Once your model has been exported, you can generate text using the transformers library, as it has been described in [details in this previous post](https://huggingface.co/blog/how-to-generate).
+Once your model has been exported, you can generate text using the transformers library, as it has been described in [detail in this previous post](https://huggingface.co/blog/how-to-generate).
 
 ```
 >>> from transformers import AutoTokenizer
@@ -83,14 +83,14 @@ that aims to model high-level abstractions of the data in the form of a hierarch
 layers of increasingly complex processing nodes.']
 ```
 
-Note however that a few restrictions apply.
+Note, however, that a few restrictions apply.
 
 Only the following generation strategies are supported:
 
 - greedy search,
 - multinomial sampling with top-k, top-p with temperature.
 
-Most logits pre-processing/filters (such as repetition penalty) are however supported.
+Most logits pre-processing/filters (such as repetition penalty) are also supported.
 
 ## All-in-one with `optimum-neuron` pipelines
 
@@ -110,9 +110,9 @@ at peace. I love to travel and see new places. I have a'}]
 
 ## Benchmarks
 
-But how much efficient is text-generation on Inferentia 2 ?  Let's figure out !
+But how much efficient is text-generation on Inferentia 2?  Let's figure out!
 
-We have uploaded on the hub pre-compiled versions of the LLama2 7B and 13B models with different configurations:
+We have uploaded on the hub pre-compiled versions of the LLama 2 7B and 13B models with different configurations:
 
 | Model type              | num cores | batch_size | Hugging Face Hub model                 |
 |-------------------------|-----------|------------|----------------------------------------|
@@ -132,12 +132,12 @@ All other models are compiled to use the full extent of cores available on the h
 
 We created two "latency" oriented configurations for the `llama2 7B` and `llama2 13B` models that can serve only one request at a time, but at full speed.
 
-We also created two "throughput" oriented configuration to serve up to four requests in parallel.
+We also created two "throughput" oriented configurations to serve up to four requests in parallel.
 
 To evaluate the models, we generate tokens up to a total sequence length of 1024, starting from
 256 input tokens (i.e. we generate 256, 512 and 768 tokens).
 
-*Note: the "budget" model numbers are reported but not included in the graphs for a better readability.*
+*Note: the "budget" model numbers are reported but not included in the graphs for better readability.*
 
 ### Encoding time
 
