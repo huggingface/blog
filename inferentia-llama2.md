@@ -156,7 +156,7 @@ while 768 is more typical of a Retrieval Augmented Generation (RAG) use-case.
 |   512           |   0,7                |   1,6                   |   1,1                 |   3,0                    |   0,4               |
 |   768           |   1,1                |   3,3                   |   1,7                 |   5,2                    |   0,5               |
 
-![Llama2 inferentia2 encoding-time](assets/inferentia-llama2/encoding-time.png "Encoding time")
+![Llama2 inferentia2 encoding-time](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/169_inferentia-llama2/encoding-time.png "Encoding time")
 
 We can see that all deployed models exhibit excellent response times, even for long contexts.
 
@@ -173,7 +173,7 @@ It therefore includes the encoding and generation time.
 |   512         |   4,4                |   5,3                   |   6,9                 |   7,8                    |   31,7              |
 |   768         |   6,2                |   7,7                   |   10,2                |   11,1                   |   47,3              |
 
-![Llama2 inferentia2 end-to-end latency](assets/inferentia-llama2/latency.png "Latency")
+![Llama2 inferentia2 end-to-end latency](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/169_inferentia-llama2/latency.png "Latency")
 
 All models deployed on the high-end instance exhibit a good latency, even those actually configured to optimize throughput.
 
@@ -191,7 +191,7 @@ In other words, we divide the end-to-end latency by `batch_size * sequence_lengt
 |   512         |   177                |   579                   |   111                 |   394                    |   24                |
 |   768         |   164                |   529                   |   101                 |   370                    |   22                |
 
-![Llama2 inferentia2 throughput](assets/inferentia-llama2/throughput.png "Throughput")
+![Llama2 inferentia2 throughput](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/169_inferentia-llama2/throughput.png "Throughput")
 
 Again, the models deployed on the high-end instance have a very good throughput, even those optimized for latency.
 
@@ -206,3 +206,8 @@ The deployed models demonstrate very good performance in terms of encoding time,
 
 Interestingly, the deployed models latency is not too sensitive to the batch size, which opens the way for their deployment on inference endpoints
 serving multiple requests in parallel.
+
+There is still plenty of room for improvement though:
+- in the current implementation, the only way to augment the throughput is to increase the batch size, but it is currently limited by the device memory.
+Alternative options such as pipelining are currently integrated,
+- the static sequence length limits the model ability to encode long contexts. It would be interesting to see if attention sinks might be a valid option to address this.
