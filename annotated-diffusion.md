@@ -240,7 +240,7 @@ class WeightStandardizedConv2d(nn.Conv2d):
         weight = self.weight
         mean = reduce(weight, "o ... -> o 1 1 1", "mean")
         var = reduce(weight, "o ... -> o 1 1 1", partial(torch.var, unbiased=False))
-        normalized_weight = (weight - mean) * (var + eps).rsqrt()
+        normalized_weight = (weight - mean) / (var + eps).rsqrt()
 
         return F.conv2d(
             x,
