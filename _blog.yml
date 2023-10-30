@@ -3032,3 +3032,14 @@
     - nlp
     - inference
     - guide
+
+- local: researcher-dataset-sharing
+  title: "Creating open machine learning datasets? Share them on the Hugging Face Hub!"
+  author: davanstrien
+  thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
+  date: October 30, 2023
+  tags:
+    - community
+    - research
+    - datasets
+    - guide
