@@ -7,6 +7,8 @@ authors:
 
 ## Detecting and Evaluating Sycophancy Bias: An Analysis of LLM and AI Solutions
 
+![Sycophantic Behavior of a Language Model](https://cdn-images-1.medium.com/max/2304/1*HI9vEvChBEX5nY41bqGztA.gif)
+
 ## Introduction
 
 <a target="_blank" href="https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Sycophancy_test.ipynb">
