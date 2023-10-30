@@ -9,6 +9,7 @@ authors:
 
 ### How to leverage LangTest to evaluate language models for negation and toxicity on input texts
 
+![Negation and Toxicity](https://cdn-images-1.medium.com/max/2940/1*xxTtf7g7F67KJrmLpjgHhA.png)
 
 ## Introduction
 
