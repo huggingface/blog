@@ -1010,3 +1010,17 @@
     - nlp
     - community
 
+- local: llms_sensitivity_testing
+  title: "Unmasking Language Model Sensitivity in Negation and Toxicity Evaluations"
+  author: Prikshit7766
+  thumbnail: /blog/assets/171_llms_sensitivity_testing/llms_sensitivity_testing.png
+  date: October 30, 2023
+  tags:
+    - llm
+    - openai
+    - nlp
+    - inference
+    - guide
+    - open-source
+    - community
+    - Langtest
