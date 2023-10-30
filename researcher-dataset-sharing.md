@@ -5,6 +5,8 @@ authors:
 - user: davanstrien
 ---
 
+# Creating open machine learning datasets? Share them on the Hugging Face Hub!
+
 ## Who is this blog post for?
 
 Are you a researcher doing data-intensive research or using machine learning as a research tool? As part of this research, you have likely created datasets for training and evaluating machine learning models, and like many researchers, you may be sharing these datasets via Google Drive, OneDrive, or your own personal server. In this post, we’ll outline why you might want to consider sharing these datasets on the Hugging Face Hub instead. 
