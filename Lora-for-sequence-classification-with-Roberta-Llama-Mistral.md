@@ -1,10 +1,12 @@
 ---
-title: "Comparing the Performance of LLMs: A Deep Dive into Roberta, Llama, and Mistral for Disaster Tweets Analysis with Lora" 
+title: "Comparing the Performance of LLMs: A Deep Dive into Roberta, Llama 2, and Mistral for Disaster Tweets Analysis with Lora" 
 thumbnail: /blog/assets/Lora-for-sequence-classification-with-Roberta-Llama-Mistral/Thumbnail.png
 authors:
 - user: mehdiiraqui 
+  guest: true
 ---
-# Table of contents
+
+# Comparing the Performance of LLMs: A Deep Dive into Roberta, Llama 2, and Mistral for Disaster Tweets Analysis with Lora
 <!-- TOC -->
 
 - [Table of contents](#table-of-contents)
@@ -45,7 +47,7 @@ authors:
 - [Resources](#resources)
 
 <!-- /TOC -->
-# Introduction 
+## Introduction 
 
 In the fast-moving world of Natural Language Processing (NLP), we often find ourselves comparing different language models to see which one works best for specific tasks. This blog post is all about comparing three models: RoBERTa, Mistral-7b, and Llama-2-7b. We used them to tackle a common problem - classifying tweets about disasters. It is important to note that Mistral and Llama are large models with 7 billion parameters. In contrast, RoBERTa-large (355M parameters) is a relatively smaller model used as a baseline for the comparison study.
 
@@ -61,7 +63,7 @@ The main objective of this blogpost is to implement LoRA fine-tuning for sequenc
 - GPU memory: 48GB x2
 
 
-# Learnings 
+## Goals
 
 - Implement fine-tuning of pre-trained LLMs using LoRA PEFT methods.
 - Learn how to use the HuggingFace APIs ([transformers](https://huggingface.co/docs/transformers/index), [peft](https://huggingface.co/docs/peft/index), and [datasets](https://huggingface.co/docs/datasets/index)).
@@ -69,7 +71,7 @@ The main objective of this blogpost is to implement LoRA fine-tuning for sequenc
 
 
 
-# Pre-requisites 
+## Dependencies
 ```
 datasets==2.14.5
 evaluate==0.4.0 
@@ -81,8 +83,9 @@ wandb==0.15.12
 ```
 
 
-# Pre-trained Models
-## [RoBERTa](https://arxiv.org/abs/1907.11692)
+## Pre-trained Models
+
+### [RoBERTa](https://arxiv.org/abs/1907.11692)
 
 RoBERTa (Robustly Optimized BERT Approach) is an advanced variant of the BERT model proposed by Meta AI research team. It's a transformer-based language model using self-attention mechanisms for contextual word representations and trained with masked language model.
 
@@ -96,17 +99,17 @@ The main differences of RoBERTa over BERT are:
 
 Llama models, which stands for Large Language Model Meta AI, belong to the family of large language models (LLMs) introduced by Meta AI. The Llama models vary in size, with parameter counts ranging from 7 billion to 65 billion.
 
-Llama model is an auto-regressive language model, based on the transformer decoder architecture. To generate text, Llama processes a sequence of words as input and iteratively predicts the next token using a sliding window.
+Llama is an auto-regressive language model, based on the transformer decoder architecture. To generate text, Llama processes a sequence of words as input and iteratively predicts the next token using a sliding window.
 LLaMA's architecture is slightly different from models like GPT-3. For instance, Llama employs the SwiGLU activation function rather than ReLU and opts for rotary positional embeddings in place of absolute learnable positional embeddings. 
  
 The recent released Llama 2 introduced architectural refinements to better leverage very long sequences by extending the context length (up to 4096 tokens) and using grouped-query attention (GQA) decoding. 
 
-## [Mistral 7B](https://arxiv.org/abs/2310.06825)
+### [Mistral 7B](https://arxiv.org/abs/2310.06825)
 
-Mistral models, specifically Mistral 7B v0.1 is the first Large Language Models (LLMs) introduced by Mistral AI. The model contains 7.3 billion parameters. 
-The main innovative techniques used in of Mistral 7B's architecture are: 
-- Sliding Window Attention: Replace the full attention (square compute cost) with a sliding window based attention where each token can attend to at most 4,096 tokens from the previous layer (linear compute cost). This mechanism enables Mistral 7B to handle longer sequences, where higher layers can access to historical information beyond the window size of 4,096 tokens. 
-- Grouped-query Attention: used in Llama 2 as well, the technique optimizes the inference process (reduce processing time) by caching the key and value vectors for previous decoded tokens in the sequence.  
+Mistral 7B v0.1, with 7.3 billion parameters, is the first LLM introduced by Mistral AI.
+The main novel techniques used in of Mistral 7B's architecture are: 
+- Sliding Window Attention: Replace the full attention (square compute cost) with a sliding window based attention where each token can attend to at most 4,096 tokens from the previous layer (linear compute cost). This mechanism enables Mistral 7B to handle longer sequences, where higher layers can access historical information beyond the window size of 4,096 tokens. 
+- Grouped-query Attention: used in Llama 2 as well, the technique optimizes the inference process (reduce processing time) by caching the key and value vectors for previously decoded tokens in the sequence.  
 
 # PEFT
 
@@ -139,8 +142,8 @@ llama_checkpoint = "meta-llama/Llama-2-7b-hf"
 import pandas as pd
 import os
 DATA_PATH = "~/peft_tweets/data"
-train_df=pd.read_csv(os.path.join(DATA_PATH, 'train.csv'))
-test_df=pd.read_csv(os.path.join(DATA_PATH, 'test.csv'))
+train_df = pd.read_csv(os.path.join(DATA_PATH, 'train.csv'))
+test_df = pd.read_csv(os.path.join(DATA_PATH, 'test.csv'))
 # dummy target column for merge test and train into one huggingface data
 test_df['target'] = 0 
 train_df.info()
@@ -232,7 +235,7 @@ data['test'] = Dataset.from_pandas(test_df)
 data.save_to_disk("processed_hf")
 ```
 
-Here an overview of the dataset:
+Here's an overview of the dataset:
 
 ```
 DatasetDict({
@@ -267,7 +270,7 @@ data['train'][0]
  'target': 0}
 ```
 
-The data comprises a keyword, a location and the text of the tweet. For sake of simplicity, we select the `text` feature only as the input to the LLM. 
+The data comprises a keyword, a location and the text of the tweet. For the sake of simplicity, we select the `text` feature as the only input to the LLM. 
 
 At this stage, we prepared the train, validation, and test sets in the HuggingFace format expected by the pre-trained LLMs. The next step is to define the tokenized dataset for training using the appropriate tokenizer to transform the `text` feature into two Tensors of sequence of token ids and attention masks. As each model has its specific tokenizer, we will need to define three different datasets. 
 
