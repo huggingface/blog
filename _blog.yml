@@ -3032,3 +3032,17 @@
     - nlp
     - inference
     - guide
+
+- local: sycophancy-llms
+  title: "Detecting and Evaluating Sycophancy Bias: An Analysis of LLM and AI Solutions"
+  author: Rakshit122
+  thumbnail: /blog/assets/sycophancy_in_llms/thumbnail.gif
+  date: October 30, 2023
+  tags:
+    - llm
+    - openai
+    - nlp
+    - inference
+    - guide
+    - open-source
+    - community
