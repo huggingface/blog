@@ -3043,3 +3043,15 @@
     - research
     - datasets
     - guide
+
+
+- local: researcher-dataset-sharing
+  title: "Introducing Prodigy-HF: a direct integration with Hugging Face"
+  author: koaning
+  thumbnail: /blog/assets/171_prodigy_hf/thumbnail.png
+  date: October 31, 2023
+  tags:
+    - community
+    - nlp
+    - datasets
+    - guide
