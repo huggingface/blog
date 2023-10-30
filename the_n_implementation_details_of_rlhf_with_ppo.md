@@ -22,7 +22,7 @@ This work is just for educational / learning purposes. For advanced users requir
 
 - In [Matching Learning Curves](#matching-learning-curves), we show our main contribution: creating a codebase that can reproduce OAI’s results in the stylistic tasks and matching learning curves very closely with [*openai/lm-human-preferences*](https://github.com/openai/lm-human-preferences).
 - We then take a technical deep dive into the implementation details that are relevant to reproducing OAI’s work. In [General Implementation Details](#general-implementation-details), we talk about basic details, such as how rewards/values are generated and how responses are generated. In [Reward Model Implementation Details](#reward-model-implementation-details), we talk about details such as reward normalization. In [Policy Training Implementation Details](#policy-training-implementation-details), we discuss details such as rejection sampling and reward “whitening”.
-    - In [**PyTorch Adam optimizer numerical issues w.r.t RLHF**](https://www.notion.so/PyTorch-Adam-optimizer-numerical-issues-w-r-t-RLHF-c48b1335349941c6992a04a2c8069f2b?pvs=21), we highlight a very interesting implementation difference in Adam between TensorFlow and PyTorch, which causes an aggressive update in the model training.
+    - In [**PyTorch Adam optimizer numerical issues w.r.t RLHF**](#pytorch-adam-optimizer-numerical-issues-wrt-rlhf), we highlight a very interesting implementation difference in Adam between TensorFlow and PyTorch, which causes an aggressive update in the model training.
 - Next, we examine the effect of training different base models (e.g., gpt2-xl, falcon-1b,) given that the reward labels are produced with `gpt2-large`.
 - Finally, we conclude our work with limitations and discussions.
 
@@ -207,7 +207,7 @@ We now take a technical deep dive into the implementation details that are relev
         output = pretrained_model.generate(
             input_ids=input_ids,
             attention_mask=attention_mask,
-            # position_ids=attention_mask.cumsum(1) - attention_mask.long(), # generation collapsed if this was turned on. TODO: why does generation collapse with this?
+            # position_ids=attention_mask.cumsum(1) - attention_mask.long(), # generation collapsed if this was turned on.
             generation_config=generation_config,
             return_dict_in_generate=True,
         )
@@ -252,7 +252,7 @@ In this section, we will delve into details, such as layer initialization, data 
 
 1. **Scale the logits by sampling temperature.** 
     1. When calculating the log probability of responses, the model first outputs the logits of the tokens in the responses, followed by dividing the logits with the sampling temperature ([lm_human_preferences/policy.py#L121](https://github.com/openai/lm-human-preferences/blob/cbfd210bb8b08f6bc5c26878c10984b90f516c66/lm_human_preferences/policy.py#L121)). I.e., `logits /= self.temperature`
-    2. In an informal test, we found that without this scaling, the KL would rise faster than expected, and performance would deteriorate. TODO: do an ablation study?
+    2. In an informal test, we found that without this scaling, the KL would rise faster than expected, and performance would deteriorate.
 2. **Value head layer initialization**
     1. The weight of the value head is initialized according to \\(\mathcal{N}\left(0,0\right)\\) ([lm_human_preferences/language/model.py#L368,](https://github.com/openai/lm-human-preferences/blob/cbfd210bb8b08f6bc5c26878c10984b90f516c66/lm_human_preferences/language/model.py#L368) [lm_human_preferences/language/model.py#L251-L252](https://github.com/openai/lm-human-preferences/blob/cbfd210bb8b08f6bc5c26878c10984b90f516c66/lm_human_preferences/language/model.py#L251-L252)). This is 
     2. The bias of the reward head is set to 0 ([lm_human_preferences/language/model.py#L254](https://github.com/openai/lm-human-preferences/blob/cbfd210bb8b08f6bc5c26878c10984b90f516c66/lm_human_preferences/language/model.py#L254)).
