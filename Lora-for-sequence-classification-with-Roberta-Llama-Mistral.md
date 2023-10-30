@@ -9,53 +9,55 @@ authors:
 # Comparing the Performance of LLMs: A Deep Dive into Roberta, Llama 2, and Mistral for Disaster Tweets Analysis with Lora
 <!-- TOC -->
 
-- [Table of contents](#table-of-contents)
-- [Introduction](#introduction)
-- [Hardware used](#hardware-used)
-- [Learnings](#learnings)
-- [Pre-requisites](#pre-requisites)
-- [Pre-trained Models](#pre-trained-models)
-    - [RoBERTa](#roberta)
-    - [Llama 2](#llama-2)
-    - [Mistral 7B](#mistral-7b)
-- [PEFT](#peft)
+- [Comparing the Performance of LLMs: A Deep Dive into Roberta, Llama 2, and Mistral for Disaster Tweets Analysis with Lora](#comparing-the-performance-of-llms-a-deep-dive-into-roberta-llama-2-and-mistral-for-disaster-tweets-analysis-with-lora)
+    - [Introduction](#introduction)
+    - [Hardware Used](#hardware-used)
+    - [Goals](#goals)
+    - [Dependencies](#dependencies)
+    - [Pre-trained Models](#pre-trained-models)
+        - [RoBERTa](#roberta)
+        - [LLaMA 2](#llama-2)
+        - [Mistral 7B](#mistral-7b)
     - [LoRA](#lora)
-- [Setup](#setup)
-- [Data preparation](#data-preparation)
-    - [A. Data loading](#a-data-loading)
-    - [B. Data Processing](#b-data-processing)
-- [Models](#models)
-    - [RoBERTa](#roberta)
-        - [A. Load checkpoints for the classfication model](#a-load-checkpoints-for-the-classfication-model)
-        - [B.  LoRa setup for RoBERTa classifier](#b--lora-setup-for-roberta-classifier)
-    - [Mistral](#mistral)
-        - [A. Load checkpoints for the classfication model](#a-load-checkpoints-for-the-classfication-model)
-        - [B.  LoRa setup for Mistral 7B classifier](#b--lora-setup-for-mistral-7b-classifier)
-    - [Llama 2](#llama-2)
-        - [A. Load checkpoints for the classfication mode](#a-load-checkpoints-for-the-classfication-mode)
-        - [B. LoRa setup for Llama 2 classifier](#b-lora-setup-for-llama-2-classifier)
-- [Setup the trainer](#setup-the-trainer)
-    - [Evaluation Metrics](#evaluation-metrics)
-    - [Custom Trainer for Weighted Loss](#custom-trainer-for-weighted-loss)
-    - [Trainer Setup](#trainer-setup)
-        - [A. RoBERTa](#a-roberta)
-        - [B. Mistral 7B](#b-mistral-7b)
-        - [C. Llama 2](#c-llama-2)
-- [Hyper parameters tunning](#hyper-parameters-tunning)
-- [Results](#results)
-- [Conclusion](#conclusion)
-- [Resources](#resources)
+    - [Setup](#setup)
+    - [Data preparation](#data-preparation)
+        - [Data loading](#data-loading)
+        - [Data Processing](#data-processing)
+    - [Models](#models)
+        - [RoBERTa](#roberta)
+            - [Load RoBERTA Checkpoints for the Classification Task](#load-roberta-checkpoints-for-the-classification-task)
+            - [LoRa setup for RoBERTa classifier](#lora-setup-for-roberta-classifier)
+        - [Mistral](#mistral)
+            - [Load checkpoints for the classfication model](#load-checkpoints-for-the-classfication-model)
+            - [LoRa setup for Mistral 7B classifier](#lora-setup-for-mistral-7b-classifier)
+        - [Llama 2](#llama-2)
+            - [Load checkpoints for the classfication mode](#load-checkpoints-for-the-classfication-mode)
+            - [LoRa setup for Llama 2 classifier](#lora-setup-for-llama-2-classifier)
+    - [Setup the trainer](#setup-the-trainer)
+        - [Evaluation Metrics](#evaluation-metrics)
+        - [Custom Trainer for Weighted Loss](#custom-trainer-for-weighted-loss)
+        - [Trainer Setup](#trainer-setup)
+            - [RoBERTa](#roberta)
+            - [Mistral-7B](#mistral-7b)
+            - [Llama 2](#llama-2)
+    - [Hyperparameter Tuning](#hyperparameter-tuning)
+    - [Results](#results)
+    - [Conclusion](#conclusion)
+    - [Resources](#resources)
 
 <!-- /TOC -->
+
+
+
 ## Introduction 
 
-In the fast-moving world of Natural Language Processing (NLP), we often find ourselves comparing different language models to see which one works best for specific tasks. This blog post is all about comparing three models: RoBERTa, Mistral-7b, and Llama-2-7b. We used them to tackle a common problem - classifying tweets about disasters. It is important to note that Mistral and Llama are large models with 7 billion parameters. In contrast, RoBERTa-large (355M parameters) is a relatively smaller model used as a baseline for the comparison study.
+In the fast-moving world of Natural Language Processing (NLP), we often find ourselves comparing different language models to see which one works best for specific tasks. This blog post is all about comparing three models: RoBERTa, Mistral-7b, and Llama-2-7b. We used them to tackle a common problem - classifying tweets about disasters. It is important to note that Mistral and Llama 2 are large models with 7 billion parameters. In contrast, RoBERTa-large (355M parameters) is a relatively smaller model used as a baseline for the comparison study.
 
 In this blog, we used PEFT (Parameter-Efficient Fine-Tuning) technique: LoRA (Low-Rank Adaptation of Large Language Models) for fine-tuning the pre-trained model on the sequence classification task. LoRa is designed to significantly reduce the number of trainable parameters while maintaining strong downstream task performance. 
 
 The main objective of this blogpost is to implement LoRA fine-tuning for sequence classification task using three pre-trained models from Hugging Face: [meta-llama/Llama-2-7b-hf](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1), and [roberta-large](https://huggingface.co/roberta-large)
 
-# Hardware Used 
+## Hardware Used 
 
 - Number of nodes: 1 
 - Number of GPUs per node: 2
@@ -67,40 +69,39 @@ The main objective of this blogpost is to implement LoRA fine-tuning for sequenc
 
 - Implement fine-tuning of pre-trained LLMs using LoRA PEFT methods.
 - Learn how to use the HuggingFace APIs ([transformers](https://huggingface.co/docs/transformers/index), [peft](https://huggingface.co/docs/peft/index), and [datasets](https://huggingface.co/docs/datasets/index)).
-- Setup the hyperparameter tuning and experiment logging using [Weights & Biases](https://wandb.ai)).
+- Setup the hyperparameter tuning and experiment logging using [Weights & Biases](https://wandb.ai).
 
 
 
 ## Dependencies
+
+```python
+datasets
+evaluate
+peft
+scikit-learn
+torch
+transformers
+wandb 
 ```
-datasets==2.14.5
-evaluate==0.4.0 
-peft==0.5.0
-scikit-learn==1.3.1
-torch==2.1.0
-transformers @ git+https://github.com/huggingface/transformers.git@21dc5859421cf0d7d82d374b10f533611745a8c5
-wandb==0.15.12  
-```
+Note: For reproducing the reported results, please check the pinned versions in the [wandb reports](#resources).
 
 
 ## Pre-trained Models
 
 ### [RoBERTa](https://arxiv.org/abs/1907.11692)
 
-RoBERTa (Robustly Optimized BERT Approach) is an advanced variant of the BERT model proposed by Meta AI research team. It's a transformer-based language model using self-attention mechanisms for contextual word representations and trained with masked language model.
+RoBERTa (Robustly Optimized BERT Approach) is an advanced variant of the BERT model proposed by Meta AI research team. BERT is a transformer-based language model using self-attention mechanisms for contextual word representations and trained with masked language model. Note that BERT is an encoder only model used for natural language understanding tasks (such as sequence classification and token classification).
 
-The main differences of RoBERTa over BERT are:  
-- No Next Sentence Prediction (NSP): RoBERTa removes NSP pre-training task, which predicts if document segments come from the same document. Authors show that removing this step has a little impact on downstream tasks and in some cases it even improves the performances.
-- Larger Batches, Longer Sequences: While BERT's pre-training consists of 1 million steps with a batch size of 256 sequences, RoBERTa is trained with 125 steps involving 2,000 sequences, followed by 31,000 steps using batch sizes of 8,000 sequences.
-- Dynamic Masking: Unlike BERT's static masks, RoBERTa applies dynamic masks by generating new masked sequences at each training pass (epoch). This approach improves the performance across tasks as it can be seen as a data augmentation helping the model to learn from diverse contexts.
+RoBERTa is a popular model to fine-tune and appropriate as a baseline for our experiments. For more information, you can check the Hugging Face model [card](https://huggingface.co/docs/transformers/model_doc/roberta).
 
 
-## [LLaMA 2](https://arxiv.org/abs/2307.09288)
+### [LLaMA 2](https://arxiv.org/abs/2307.09288)
 
-Llama models, which stands for Large Language Model Meta AI, belong to the family of large language models (LLMs) introduced by Meta AI. The Llama models vary in size, with parameter counts ranging from 7 billion to 65 billion.
+Llama 2 models, which stands for Large Language Model Meta AI, belong to the family of large language models (LLMs) introduced by Meta AI. The Llama 2 models vary in size, with parameter counts ranging from 7 billion to 65 billion.
 
-Llama is an auto-regressive language model, based on the transformer decoder architecture. To generate text, Llama processes a sequence of words as input and iteratively predicts the next token using a sliding window.
-LLaMA's architecture is slightly different from models like GPT-3. For instance, Llama employs the SwiGLU activation function rather than ReLU and opts for rotary positional embeddings in place of absolute learnable positional embeddings. 
+Llama 2 is an auto-regressive language model, based on the transformer decoder architecture. To generate text, Llama 2 processes a sequence of words as input and iteratively predicts the next token using a sliding window.
+Llama 2 architecture is slightly different from models like GPT-3. For instance, Llama 2 employs the SwiGLU activation function rather than ReLU and opts for rotary positional embeddings in place of absolute learnable positional embeddings. 
  
 The recent released Llama 2 introduced architectural refinements to better leverage very long sequences by extending the context length (up to 4096 tokens) and using grouped-query attention (GQA) decoding. 
 
@@ -111,21 +112,15 @@ The main novel techniques used in of Mistral 7B's architecture are:
 - Sliding Window Attention: Replace the full attention (square compute cost) with a sliding window based attention where each token can attend to at most 4,096 tokens from the previous layer (linear compute cost). This mechanism enables Mistral 7B to handle longer sequences, where higher layers can access historical information beyond the window size of 4,096 tokens. 
 - Grouped-query Attention: used in Llama 2 as well, the technique optimizes the inference process (reduce processing time) by caching the key and value vectors for previously decoded tokens in the sequence.  
 
-# PEFT
+## [LoRA](https://arxiv.org/abs/2106.09685)
 
 PEFT, Parameter Efficient Fine-Tuning, is a collection of techniques (p-tuning, prefix-tuning, IA3, Adapters, and LoRa) designed to fine-tune large models using a much smalled set of training parameters while preserving the performance levels typically achieved through full fine-tuning. 
 
-
-
-## [LoRA](https://arxiv.org/abs/2106.09685)
-
-LoRA, Low-Rank Adaptation, shares similarities with Adapter layers. However, its primary objective is to achieve a more substantial reduction in the count of adjustable parameters. LoRA's operation involves the alteration of the training and updating of the modifiable parameters within the neural network. 
+LoRA, Low-Rank Adaptation, is a PEFT method that shares similarities with Adapter layers. However, its primary objective is to reduce the model's trainable parameters. LoRA's operation involves the alteration of the training and updating of the modifiable parameters within the neural network. 
 
 ![image](lora.png)
 
-
-
-# Setup
+## Setup
 
 RoBERTa has a limitatiom of maximum sequence length of 512, so we set the `MAX_LEN=512` for all models to ensure a fair comparison.
 
@@ -136,8 +131,8 @@ mistral_checkpoint = "mistralai/Mistral-7B-v0.1"
 llama_checkpoint = "meta-llama/Llama-2-7b-hf"
 ```
 
-# Data preparation
-## A. Data loading
+## Data preparation
+### Data loading
 ```python
 import pandas as pd
 import os
@@ -223,15 +218,16 @@ Now, let's convert the dataframe into HuggingFace dataset format, split it into 
 
 ```python
 from datasets import Dataset
-#Convert the training dataframe to HuggingFace dataset
+
+# Convert the training dataframe to HuggingFace dataset
 dataset = Dataset.from_pandas(train_df)
-#Split the dataset into training and validation datasets
+# Split the dataset into training and validation datasets
 data = dataset.train_test_split(train_size=0.8, seed=42)
-#Rename the default "test" split to "validation"
+# Rename the default "test" split to "validation"
 data['val'] = data.pop("test")
-#Convert the test dataframe to HuggingFace dataset and add it into the first dataset
+# Convert the test dataframe to HuggingFace dataset and add it into the first dataset
 data['test'] = Dataset.from_pandas(test_df)
-#Save
+# Save
 data.save_to_disk("processed_hf")
 ```
 
@@ -254,7 +250,7 @@ DatasetDict({
 })
 ```
 
-## B. Data Processing
+### Data Processing
 
 Let's take a look into one row example of training data: 
 
@@ -386,11 +382,11 @@ llama_data_collator = DataCollatorWithPadding(tokenizer=llama_tokenizer)
 
 Now that we have prepared the tokenized datasets, the next section will showcase how to load the pre-trained LLMs checkpoints and how to set the LoRa weights. 
 
-# Models
+## Models
 
-## RoBERTa
+### RoBERTa
 
-### A. Load RoBERTA Checkpoints for the Classification Task
+#### Load RoBERTA Checkpoints for the Classification Task
 
 We load the pre-trained RoBERTa model with a sequence classification head using the Hugging Face `AutoModelForSequenceClassification` class:
 
@@ -401,7 +397,7 @@ roberta_model = AutoModelForSequenceClassification.from_pretrained(roberta_check
 ```
 
 
-### B.  LoRa setup for RoBERTa classifier
+####  LoRa setup for RoBERTa classifier
 
 We import LoRa configuration and set some parameters for RoBERTa classifier:
 - TaskType: Sequence classification
@@ -429,9 +425,9 @@ trainable params: 2,299,908 || all params: 356,610,052 || trainable%: 0.64493639
 ```
 
 
-## Mistral
+### Mistral
 
-### A. Load checkpoints for the classfication model
+#### Load checkpoints for the classfication model
 
 Let's load the pre-trained Mistral-7B model with a sequence classification head:
 
@@ -450,7 +446,7 @@ For Mistral 7B, we have to add the padding token id as it is not defined by defa
 mistral_model.config.pad_token_id = mistral_model.config.eos_token_id
 ```
 
-### B.  LoRa setup for Mistral 7B classifier
+####  LoRa setup for Mistral 7B classifier
 
 For Mistral 7B model, we need to specify the `target_modules` (the query and value vectors from the attention modules):
 
@@ -474,9 +470,9 @@ The number of trainable parameters reprents only 0.024% of the Mistral model par
 trainable params: 1,720,320 || all params: 7,112,380,416 || trainable%: 0.02418768259540745
 ```
 
-## Llama 2
+### Llama 2
 
-### A. Load checkpoints for the classfication mode
+#### Load checkpoints for the classfication mode
 
 Let's load pre-trained Llama 2 model with a sequence classification header. 
 
@@ -498,7 +494,7 @@ For Llama 2, we have to add the padding token id as it is not defined by default
 llama_model.config.pad_token_id = llama_model.config.eos_token_id
 ```
 
-### B. LoRa setup for Llama 2 classifier
+#### LoRa setup for Llama 2 classifier
 
 We define LoRa for Llama 2 with the same parameters as for Mistral:
 
@@ -525,9 +521,9 @@ trainable params: 8,404,992 || all params: 6,615,748,608 || trainable%: 0.127045
 At this point, we defined the tokenized dataset for training as well as the LLMs setup with LoRa layers. The following section will introduce how to launch training using the HuggingFace `Trainer` class. 
 
 
-# Setup the trainer
+## Setup the trainer
 
-## Evaluation Metrics
+### Evaluation Metrics
 
 First, we define the performance metrics we will use to compare the three models: F1 score, recall, precision and accuracy:
 
@@ -552,12 +548,13 @@ def compute_metrics(eval_pred):
     return {"precision": precision, "recall": recall, "f1-score": f1, 'accuracy': accuracy}
 ```
 
-## Custom Trainer for Weighted Loss 
+### Custom Trainer for Weighted Loss 
 As mentioned at the beginning of this post, we have an imbalanced distribution between positive and negative classes. We need to train our models with a weight cross-entropy loss to account for that. The `Trainer` class doesn't support providing a custom loss as it expects to get the loss directly from the model's outputs. 
 
 So, we need to define our custom `WeightedCELossTrainer` that overrides the `compute_loss` method to calculate the weighted cross-entropy loss based on the model's predictions and the input labels: 
 
 ```python
+from transformers import Trainer
 class WeightedCELossTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False):
         labels = inputs.pop("labels")
@@ -571,11 +568,11 @@ class WeightedCELossTrainer(Trainer):
 ```
 
 
-## Trainer Setup
+### Trainer Setup
 
 Let's set the training arguments and the trainer for the three models.
 
-### A. RoBERTa 
+#### RoBERTa 
 First important step is to move the models to the GPU device for training.
 
 ```python
@@ -590,7 +587,7 @@ device(type='cuda', index=0)
 Then, we set the training arguments:
 
 ```python
-from transformers import TrainingArguments, Trainer
+from transformers import TrainingArguments
 
 lr = 1e-4
 batch_size = 8
@@ -628,9 +625,9 @@ roberta_trainer = WeightedCELossTrainer(
 )
 ```
 
-### Mistral-7B
+#### Mistral-7B
 
-Similar to RoBERTa, we initialize the `WeightedBCELossTrainer` as follows: 
+Similar to RoBERTa, we initialize the `WeightedCELossTrainer` as follows: 
 
 ```python
 from transformers import TrainingArguments, Trainer
@@ -660,7 +657,7 @@ training_args = TrainingArguments(
 )
 
 
-mistral_trainer = WeightedBCELossTrainer(
+mistral_trainer = WeightedCELossTrainer(
     model=mistral_model,
     args=training_args,
     train_dataset=mistral_tokenized_datasets['train'],
@@ -672,7 +669,7 @@ mistral_trainer = WeightedBCELossTrainer(
 
 **Note** that we needed to enable half-precision training by setting `fp16` to `True`. The main reason is that Mistral-7B is large, and its weights cannot fit into one GPU memory (48GB) with full float32 precision. 
 
-### C. Llama 2
+#### Llama 2
 
 Similar to Mistral 7B, we define the trainer as follows: 
 
@@ -704,12 +701,12 @@ training_args = TrainingArguments(
 
 
 
-mistral_trainer = WeightedBCELossTrainer(
-    model=mistral_model,
+llama_trainer = WeightedCELossTrainer(
+    model=llama_model,
     args=training_args,
-    train_dataset=mistral_tokenized_datasets['train'],
-    eval_dataset=mistral_tokenized_datasets["val"],
-    data_collator=mistral_data_collator,
+    train_dataset=llama_tokenized_datasets['train'],
+    eval_dataset=llama_tokenized_datasets["val"],
+    data_collator=llama_data_collator,
     compute_metrics=compute_metrics
 )
 ```
@@ -743,7 +740,7 @@ training_args = TrainingArguments(
 Then, we define the Llama 2 trainer:
 
 ```python
-llama_trainer = WeightedBCELossTrainer(
+llama_trainer = WeightedCELossTrainer(
     model=llama_model,
     args=training_args,
     train_dataset=llama_tokenized_datasets['train'],
@@ -755,7 +752,7 @@ llama_trainer = WeightedBCELossTrainer(
 
 
 
-# Hyperparameter Tuning
+## Hyperparameter Tuning
 
 We have used Wandb Sweep API to run hyperparameter tunning with Bayesian search strategy (30 runs). The hyperparameters tuned are the following.
 
@@ -770,7 +767,7 @@ We have used Wandb Sweep API to run hyperparameter tunning with Bayesian search 
 
 
 
-# Results
+## Results
 
 | Models  | F1 score | Training time  | Memory consumption           | Number of trainable parameters |
 |---------|----------|----------------|------------------------------|--------------------------------|
@@ -779,7 +776,7 @@ We have used Wandb Sweep API to run hyperparameter tunning with Bayesian search 
 | Llama 2  | 0.7638   | 2052 seconds   | GPU1: 35 Gb <br>GPU2: 33.9 Gb | 0.12%                          |
 
 
-# Conclusion
+## Conclusion
 
 In this blog post, we compared the performance of three large language models (LLMs) - RoBERTa, Mistral 7b, and Llama 2 - for disaster tweet classification using LoRa. From the performance results, we can see that RoBERTa is outperforming Mistral 7B and Llama 2 by a large margin. This raises the question about whether we really need a complex and large LLM for tasks like short-sequence binary classification? 
 
@@ -789,7 +786,7 @@ Also, for relatively *simple* prediction tasks with short sequences base models 
 
 Finally, we showcase that LoRa method can be applied to both encoder (RoBERTa) and decoder (Llama 2 and Mistral 7B) models. 
 
-# Resources 
+## Resources 
 
 1. You can find the code script in the following [Github project](https://github.com/mehdiir/Roberta-Llama-Mistral/).
 
