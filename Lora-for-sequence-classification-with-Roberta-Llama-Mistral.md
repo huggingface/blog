@@ -133,19 +133,51 @@ llama_checkpoint = "meta-llama/Llama-2-7b-hf"
 
 ## Data preparation
 ### Data loading
+
+We will load the dataset from Hugging Face:
 ```python
-import pandas as pd
-import os
-DATA_PATH = "~/peft_tweets/data"
-train_df = pd.read_csv(os.path.join(DATA_PATH, 'train.csv'))
-test_df = pd.read_csv(os.path.join(DATA_PATH, 'test.csv'))
-# dummy target column for merge test and train into one huggingface data
-test_df['target'] = 0 
-train_df.info()
-test_df.info()
+from datasets import load_dataset
+dataset = load_dataset("mehdiiraqui/twitter_disaster")
+```
+ Now, let's split the dataset into training and validation datasets. Then add the test set:
+
+```python
+from datasets import Dataset
+# Split the dataset into training and validation datasets
+data = dataset['train'].train_test_split(train_size=0.8, seed=42)
+# Rename the default "test" split to "validation"
+data['val'] = data.pop("test")
+# Convert the test dataframe to HuggingFace dataset and add it into the first dataset
+data['test'] = dataset['test']
 ```
 
-Here a quick overview of the data distribution:
+Here's an overview of the dataset:
+
+```
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'keyword', 'location', 'text', 'target'],
+        num_rows: 6090
+    })
+    val: Dataset({
+        features: ['id', 'keyword', 'location', 'text', 'target'],
+        num_rows: 1523
+    })
+    test: Dataset({
+        features: ['id', 'keyword', 'location', 'text', 'target'],
+        num_rows: 3263
+    })
+})
+```
+
+Let's check the data distribution:
+
+```python
+import pandas as pd
+
+data['train'].to_pandas().info()
+data['test'].to_pandas().info()
+```
 
 - Train dataset
 
@@ -190,8 +222,8 @@ Name: count, dtype: int64
 
 As the classes are not balanced, we will compute the positive and negative weights and use them for loss calculation later:
 ```python
-pos_weights = len(train_df) / (2 * train_df.target.value_counts()[1])
-neg_weights = len(train_df) / (2 * train_df.target.value_counts()[0])
+pos_weights = len(data['train'].to_pandas()) / (2 * data['train'].to_pandas().target.value_counts()[1])
+neg_weights = len(data['train'].to_pandas()) / (2 * data['train'].to_pandas().target.value_counts()[0])
 ```
 
 The final weights are: 
@@ -199,55 +231,17 @@ The final weights are:
 POS_WEIGHT, NEG_WEIGHT = (1.1637114032405993, 0.8766697374481806)
 ```
 
-
-
 Then, we compute the maximum length of the column text:
 ```python
 # Number of Characters
-max_char=train_df['text'].str.len().max()
+max_char=data['train'].to_pandas()['text'].str.len().max()
 # Number of Words
-max_words = train_df['text'].str.split().str.len().max()
+max_words = data['train'].to_pandas()['text'].str.split().str.len().max()
 ```
 
 ```
-The maximum number of character is 157.
+The maximum number of character is 152.
 The maximum number of word is 31.
-```
-
-Now, let's convert the dataframe into HuggingFace dataset format, split it into training and validation datasets, add the test dataset and save the three files:
-
-```python
-from datasets import Dataset
-
-# Convert the training dataframe to HuggingFace dataset
-dataset = Dataset.from_pandas(train_df)
-# Split the dataset into training and validation datasets
-data = dataset.train_test_split(train_size=0.8, seed=42)
-# Rename the default "test" split to "validation"
-data['val'] = data.pop("test")
-# Convert the test dataframe to HuggingFace dataset and add it into the first dataset
-data['test'] = Dataset.from_pandas(test_df)
-# Save
-data.save_to_disk("processed_hf")
-```
-
-Here's an overview of the dataset:
-
-```
-DatasetDict({
-    train: Dataset({
-        features: ['id', 'keyword', 'location', 'text', 'target'],
-        num_rows: 6090
-    })
-    val: Dataset({
-        features: ['id', 'keyword', 'location', 'text', 'target'],
-        num_rows: 1523
-    })
-    test: Dataset({
-        features: ['id', 'keyword', 'location', 'text', 'target'],
-        num_rows: 3263
-    })
-})
 ```
 
 ### Data Processing
