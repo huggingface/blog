@@ -3,17 +3,19 @@ title: "Introducing Prodigy-HF: a direct integration with Hugging Face"
 thumbnail: /blog/assets/171_prodigy_hf/thumbnail.png
 authors:
 - user: koaning
+  guest: true
 ---
 
 # Introducing Prodigy-HF 
 
-[Prodigy](https://prodi.gy/) is an annotation tool made by [Explosion](https://explosion.ai/), who are well known as the creators of [spaCy](https://spacy.io/). It's a fully scriptable product with a large community around it. The product has many features, like tight integration with spaCy as well as active learning capabilities. But the main feature of the product is that it is programatically customisable with Python. 
+[Prodigy](https://prodi.gy/) is an annotation tool made by [Explosion](https://explosion.ai/), a company well known as the creators of [spaCy](https://spacy.io/). It's a fully scriptable product with a large community around it. The product has many features, including tight integration with spaCy and active learning capabilities. But the main feature of the product is that it is programmatically customizable with Python. 
 
-To encourage this customisability, Explosion has started releasing [plugins](https://prodi.gy/docs/plugins). These plugins integrate with third party tools in an open way that encourages users to work on bespoke annotation workflows. However, one customisation specifically deserves to be celebrated explicitly. Last week, Explosion introduced [Prodigy-HF](https://github.com/explosion/prodigy-hf), which offers code recipes that directly interate with the Hugging Face stack. It's been a much requested feature on the [Prodigy support forum](https://support.prodi.gy/), so we're super excited to have it out there. 
+To encourage this customisability, Explosion has started releasing [plugins](https://prodi.gy/docs/plugins). These plugins integrate with third-party tools in an open way that encourages users to work on bespoke annotation workflows. However, one customization specifically deserves to be celebrated explicitly. Last week, Explosion introduced [Prodigy-HF](https://github.com/explosion/prodigy-hf), which offers code recipes that directly integrate with the Hugging Face stack. It's been a much-requested feature on the [Prodigy support forum](https://support.prodi.gy/), so we're super excited to have it out there. 
 
 ## Features
 
-The first main feature is that this plugin allows you to train Hugging Face models on your annotated data. That means that if you've been annotating data in our interface for named entity recognition, you'll be able to directly finetune BERT models against it. 
+The first main feature is that this plugin allows you to train Hugging Face models on your annotated data. That means if you've been annotating data in our interface for named entity recognition, you can directly fine-tune BERT models against it. 
+
 
 <figure>
     <div style="background-color: #eee; padding-top: 8px; padding-bottom: 8px;">
@@ -28,23 +30,23 @@ After installing the plugin you can call the `hf.train.ner` recipe from the comm
 python -m prodigy hf.train.ner fashion-train,eval:fashion-eval path/to/model-out --model "distilbert-base-uncased"
 ```
 
-This will finetune the `distillbert-base-uncased` model for the dataset that you've stored in Prodigy and save it to disk. Similarily, this plugin also supports models for text classification via a very similar interface. 
+This will fine-tune the `distilbert-base-uncased` model for the dataset you've stored in Prodigy and save it to disk. Similarly, this plugin also supports models for text classification via a very similar interface. 
 
 ```
 python -m prodigy hf.train.textcat fashion-train,eval:fashion-eval path/to/model-out --model "distilbert-base-uncased"
 ```
 
-This offers a lot of flexibility because the tool directly integrations with the `AutoTokenizer` and `AutoModel*` tools from Hugging Face. Any transformer model on the hub can be finedtuned on your own dataset with just a single command. 
+This offers a lot of flexibility because the tool directly integrates with the `AutoTokenizer` and `AutoModel` classes of Hugging Face transformers. Any transformer model on the hub can be fine-tuned on your own dataset with just a single command. 
 
 ### Upload 
 
-The second feature, which is equally exciting, is that you can now also publish your annotated datasets unto the Hugging Face Hub. This is great if you're interested in contributing datasets that other people may benefit from. 
+The second feature, which is equally exciting, is that you can now also publish your annotated datasets on the Hugging Face Hub. This is great if you're interested in sharing datasets that others would like to use. 
 
 ```
 python -m prodigy hf.upload <dataset_name> <username>/<repo_name>
 ```
 
-We're particularily fond of this upload feature, because it encourages collaboration. People can annotate their own datasets independantly of eachother, but still benefit when they share the data to the wider community. 
+We're particularly fond of this upload feature because it encourages collaboration. People can annotate their own datasets independently of each other, but still benefit when they share the data with the wider community. 
 
 ## More to come
 
