@@ -91,7 +91,7 @@ Note: For reproducing the reported results, please check the pinned versions in 
 
 ### [RoBERTa](https://arxiv.org/abs/1907.11692)
 
-RoBERTa (Robustly Optimized BERT Approach) is an advanced variant of the BERT model proposed by Meta AI research team. BERT is a transformer-based language model using self-attention mechanisms for contextual word representations and trained with masked language model. Note that BERT is an encoder only model used for natural language understanding tasks (such as sequence classification and token classification).
+RoBERTa (Robustly Optimized BERT Approach) is an advanced variant of the BERT model proposed by Meta AI research team. BERT is a transformer-based language model using self-attention mechanisms for contextual word representations and trained with a masked language model objective. Note that BERT is an encoder only model used for natural language understanding tasks (such as sequence classification and token classification).
 
 RoBERTa is a popular model to fine-tune and appropriate as a baseline for our experiments. For more information, you can check the Hugging Face model [card](https://huggingface.co/docs/transformers/model_doc/roberta).
 
@@ -103,18 +103,18 @@ Llama 2 models, which stands for Large Language Model Meta AI, belong to the fam
 Llama 2 is an auto-regressive language model, based on the transformer decoder architecture. To generate text, Llama 2 processes a sequence of words as input and iteratively predicts the next token using a sliding window.
 Llama 2 architecture is slightly different from models like GPT-3. For instance, Llama 2 employs the SwiGLU activation function rather than ReLU and opts for rotary positional embeddings in place of absolute learnable positional embeddings. 
  
-The recent released Llama 2 introduced architectural refinements to better leverage very long sequences by extending the context length (up to 4096 tokens) and using grouped-query attention (GQA) decoding. 
+The recently released Llama 2 introduced architectural refinements to better leverage very long sequences by extending the context length to up to 4096 tokens, and using grouped-query attention (GQA) decoding. 
 
 ### [Mistral 7B](https://arxiv.org/abs/2310.06825)
 
 Mistral 7B v0.1, with 7.3 billion parameters, is the first LLM introduced by Mistral AI.
-The main novel techniques used in of Mistral 7B's architecture are: 
+The main novel techniques used in Mistral 7B's architecture are: 
 - Sliding Window Attention: Replace the full attention (square compute cost) with a sliding window based attention where each token can attend to at most 4,096 tokens from the previous layer (linear compute cost). This mechanism enables Mistral 7B to handle longer sequences, where higher layers can access historical information beyond the window size of 4,096 tokens. 
 - Grouped-query Attention: used in Llama 2 as well, the technique optimizes the inference process (reduce processing time) by caching the key and value vectors for previously decoded tokens in the sequence.  
 
 ## [LoRA](https://arxiv.org/abs/2106.09685)
 
-PEFT, Parameter Efficient Fine-Tuning, is a collection of techniques (p-tuning, prefix-tuning, IA3, Adapters, and LoRa) designed to fine-tune large models using a much smalled set of training parameters while preserving the performance levels typically achieved through full fine-tuning. 
+PEFT, Parameter Efficient Fine-Tuning, is a collection of techniques (p-tuning, prefix-tuning, IA3, Adapters, and LoRa) designed to fine-tune large models using a much smaller set of training parameters while preserving the performance levels typically achieved through full fine-tuning. 
 
 LoRA, Low-Rank Adaptation, is a PEFT method that shares similarities with Adapter layers. However, its primary objective is to reduce the model's trainable parameters. LoRA's operation involves the alteration of the training and updating of the modifiable parameters within the neural network. 
 
@@ -234,19 +234,19 @@ POS_WEIGHT, NEG_WEIGHT = (1.1637114032405993, 0.8766697374481806)
 Then, we compute the maximum length of the column text:
 ```python
 # Number of Characters
-max_char=data['train'].to_pandas()['text'].str.len().max()
+max_char = data['train'].to_pandas()['text'].str.len().max()
 # Number of Words
 max_words = data['train'].to_pandas()['text'].str.split().str.len().max()
 ```
 
 ```
-The maximum number of character is 152.
-The maximum number of word is 31.
+The maximum number of characters is 152.
+The maximum number of words is 31.
 ```
 
 ### Data Processing
 
-Let's take a look into one row example of training data: 
+Let's take a look to one row example of training data: 
 
 ```python
 data['train'][0]
@@ -295,9 +295,9 @@ col_to_delete = ['id', 'keyword','location', 'text']
 roberta_tokenized_datasets = data.map(roberta_preprocessing_function, batched=False)
 #Remove the undesired columns
 roberta_tokenized_datasets = roberta_tokenized_datasets.remove_columns(col_to_delete)
-#Rename the target to label as for HugginFace standards
+# Rename the target to label as for HugginFace standards
 roberta_tokenized_datasets = roberta_tokenized_datasets.rename_column("target", "label")
-#Set to torch format
+# Set to torch format
 roberta_tokenized_datasets.set_format("torch")
 ```
 
@@ -318,7 +318,7 @@ roberta_tokenized_datasets['train'][0]
 ```
 
 
-- For generating the training batches, we also need to pad the rows of a given batch to the same maximum length, the maximum length found in this batch. For that, we will use the `DataCollatorWithPadding` class:
+- For generating the training batches, we also need to pad the rows of a given batch to the maximum length found in the batch. For that, we will use the `DataCollatorWithPadding` class:
 
 ```python
 # Data collator for padding a batch of examples to the maximum length seen in the batch
@@ -327,7 +327,7 @@ roberta_data_collator = DataCollatorWithPadding(tokenizer=roberta_tokenizer)
 ```
 
 
-You can follow the same steps for preparing the data for Mistral 7B and Lllama 2 models: 
+You can follow the same steps for preparing the data for Mistral 7B and Llama 2 models: 
 
 **Note** that Llama 2 and Mistral 7B don't have a default `pad_token_id`. So, we use the `eos_token_id` for padding as well.
 
@@ -337,7 +337,7 @@ You can follow the same steps for preparing the data for Mistral 7B and Lllama 2
 # Load Mistral 7B Tokenizer
 # Add prefix space to tokenize words into subwords
 from transformers import AutoTokenizer, DataCollatorWithPadding
-mistral_tokenizer = AutoTokenizer.from_pretrained(mistral_checkpoint,  add_prefix_space=True)
+mistral_tokenizer = AutoTokenizer.from_pretrained(mistral_checkpoint, add_prefix_space=True)
 mistral_tokenizer.pad_token_id = mistral_tokenizer.eos_token_id
 mistral_tokenizer.pad_token = mistral_tokenizer.eos_token
 
@@ -358,7 +358,7 @@ mistral_data_collator = DataCollatorWithPadding(tokenizer=mistral_tokenizer)
 # Load Llama 2 Tokenizer
 # Add prefix space to tokenize words into subwords
 from transformers import AutoTokenizer, DataCollatorWithPadding
-llama_tokenizer = AutoTokenizer.from_pretrained(llama_checkpoint,  add_prefix_space=True)
+llama_tokenizer = AutoTokenizer.from_pretrained(llama_checkpoint, add_prefix_space=True)
 llama_tokenizer.pad_token_id = llama_tokenizer.eos_token_id
 llama_tokenizer.pad_token = llama_tokenizer.eos_token
 
@@ -386,12 +386,11 @@ We load the pre-trained RoBERTa model with a sequence classification head using 
 
 ```python
 from transformers import AutoModelForSequenceClassification 
-# Load a pre-trained model with a sequence classification header 
 roberta_model = AutoModelForSequenceClassification.from_pretrained(roberta_checkpoint, num_labels=2)
 ```
 
 
-####  LoRa setup for RoBERTa classifier
+####  LoRA setup for RoBERTa classifier
 
 We import LoRa configuration and set some parameters for RoBERTa classifier:
 - TaskType: Sequence classification
@@ -400,9 +399,7 @@ We import LoRa configuration and set some parameters for RoBERTa classifier:
 - lora_dropout: Dropout probability of the LoRA layers
 - bias: Whether to add bias term to LoRa layers
 
-In the code below, we use the values recommended by the [Lora paper](https://arxiv.org/abs/2106.09685).
-
-Note that in this blog, we will perform a hyperparameter tuning with wandb.
+The code below uses the values recommended by the [Lora paper](https://arxiv.org/abs/2106.09685). [Later in this post](#hyperparameter-tuning) we will perform hyperparameter tuning of these parameters using `wandb`.
 
 ```python
 from peft import get_peft_model, LoraConfig, TaskType
@@ -413,7 +410,7 @@ roberta_model = get_peft_model(roberta_model, roberta_peft_config)
 roberta_model.print_trainable_parameters()
 ```
 
-We can see below that the number of trainable parameters reprents only 0.64% of the RoBERTa model parameters:
+We can see that the number of trainable parameters represents only 0.64% of the RoBERTa model parameters:
 ```
 trainable params: 2,299,908 || all params: 356,610,052 || trainable%: 0.6449363911929212
 ```
@@ -426,7 +423,7 @@ trainable params: 2,299,908 || all params: 356,610,052 || trainable%: 0.64493639
 Let's load the pre-trained Mistral-7B model with a sequence classification head:
 
 ```python
-from transformers import AutoModelForSequenceClassification # Load a pre-trained model with a sequence classification header 
+from transformers import AutoModelForSequenceClassification
 import torch
 mistral_model =  AutoModelForSequenceClassification.from_pretrained(
   pretrained_model_name_or_path=mistral_checkpoint,
@@ -471,7 +468,7 @@ trainable params: 1,720,320 || all params: 7,112,380,416 || trainable%: 0.024187
 Let's load pre-trained Llama 2 model with a sequence classification header. 
 
 ```python
-from transformers import AutoModelForSequenceClassification # Load a pre-trained model with a sequence classification header 
+from transformers import AutoModelForSequenceClassification
 import torch
 llama_model =  AutoModelForSequenceClassification.from_pretrained(
   pretrained_model_name_or_path=llama_checkpoint,
@@ -522,9 +519,9 @@ At this point, we defined the tokenized dataset for training as well as the LLMs
 First, we define the performance metrics we will use to compare the three models: F1 score, recall, precision and accuracy:
 
 ```python
-#Define evaluation metrics
 import evaluate
 import numpy as np
+
 def compute_metrics(eval_pred):
     # All metrics are already predefined in the HF `evaluate` package
     precision_metric = evaluate.load("precision")
@@ -543,12 +540,13 @@ def compute_metrics(eval_pred):
 ```
 
 ### Custom Trainer for Weighted Loss 
-As mentioned at the beginning of this post, we have an imbalanced distribution between positive and negative classes. We need to train our models with a weight cross-entropy loss to account for that. The `Trainer` class doesn't support providing a custom loss as it expects to get the loss directly from the model's outputs. 
+As mentioned at the beginning of this post, we have an imbalanced distribution between positive and negative classes. We need to train our models with a weighted cross-entropy loss to account for that. The `Trainer` class doesn't support providing a custom loss as it expects to get the loss directly from the model's outputs. 
 
 So, we need to define our custom `WeightedCELossTrainer` that overrides the `compute_loss` method to calculate the weighted cross-entropy loss based on the model's predictions and the input labels: 
 
 ```python
 from transformers import Trainer
+
 class WeightedCELossTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False):
         labels = inputs.pop("labels")
@@ -670,7 +668,7 @@ Similar to Mistral 7B, we define the trainer as follows:
 ```python
 from transformers import TrainingArguments, Trainer
 
-mistral_model = mistral_model.cuda()
+llama_model = llama_model.cuda()
 
 lr = 1e-4
 batch_size = 8
