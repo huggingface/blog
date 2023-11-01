@@ -1851,7 +1851,7 @@
 
 - local: classification-use-cases
   title: "How Hugging Face Accelerated Development of Witty Works Writing Assistant"
-  author: VioletteLepercq
+  author: Violette
   thumbnail: /blog/assets/78_ml_director_insights/witty-works.png
   date: March 1, 2023
   tags:
@@ -1994,7 +1994,7 @@
     
 - local: snorkel-case-study
   title: "Snorkel AI x Hugging Face: unlock foundation models for enterprises"
-  author: VioletteLepercq
+  author: Violette
   thumbnail: /blog/assets/78_ml_director_insights/snorkel.png
   date: April 6, 2023
   tags:
