@@ -3,7 +3,7 @@
 As part of our [Enterprise Hub](https://huggingface.co/enterprise) plan, we recently relased support for **Storage Regions**.
 
 Regions let you decide where your org's models and datasets will be stored. This has two main benefits, which we'll briefly go over in this blog post:
-- **Regulatory and legal compliance**, and more generally, better digital sovereingty
+- **Regulatory and legal compliance**, and more generally, better digital sovereignty
 - **Performance** (improved download and upload speeds and latency)
 
 Currently we support the following regions:
