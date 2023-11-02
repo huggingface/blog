@@ -14,6 +14,6 @@ title: "Open-Source Text Generation & LLM Ecosystem at Hugging Face"
 thumbnail: /blog/assets/os_llms/thumbnail.png
 authors:
 - user: merve
-- guest: true
+  guest: true
 ---
 ```
