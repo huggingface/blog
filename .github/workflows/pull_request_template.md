@@ -5,7 +5,7 @@
 - If this is not the case, don't fret! You can release your blog post as a Community Blog Post! It will be published on a special section in the main page of the Hugging Face blog, and it will show up on your profile too!
   To get started with writing a community blog post, simply join [this organization](https://huggingface.co/blog-explorers) and follow the instructions on organization card.
 
-## Some guidelines
+## Important guidelines
 - You can store your thumbnail in `/assets` and rest of the images on [our documentation-images repository](https://huggingface.co/datasets/huggingface/documentation-images) to keep this repository lightweight.
 - Every blog post has a metadata, please add this according to your blog, it looks like below:
 ```
