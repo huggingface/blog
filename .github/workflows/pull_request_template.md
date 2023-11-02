@@ -1,7 +1,7 @@
 # Blogs issue template
 ## Before submitting a blog post
 
-- Please make sure that you have communicated with Hugging Face staff and agreed that your blog post will be released on Hugging Face blog. 
+- Please make sure that you have communicated with Hugging Face staff and agreed that your blog post will be released on the Hugging Face blog. 
 - If this is not the case, don't fret! You can release your blog post as a Community Blog Post, that will be released on blog main page and it will show up on your profile too!
   To get started with writing a community blog post, simply join [this organization](https://huggingface.co/blog-explorers) and follow the instructions on organization card.
 
