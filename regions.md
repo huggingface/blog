@@ -11,7 +11,6 @@ Currently we support the following regions:
 - EU 🇪🇺
 - coming soon: Asia-Pacific 🌏
 
-For companies in the EU, that means you can use the Hub to build ML in a GDPR compliant way: with datasets, models and inference endpoints all stored within EU data centers.
 
 But first, let's see how to setup this feature in your organization's settings 🔥
 
@@ -38,8 +37,11 @@ Any repo (model or dataset) stored in a non-default location will display its Re
 
 ## Regulatory and legal compliance
 
-In many regulated industries, you have a requirement to store your data in a specific area.
-If you are an Enterprise Hub customer and have questions about this, please get in touch!
+In many regulated industries, you may have a requirement to store your data in a specific area.
+
+For companies in the EU, that means you can use the Hub to build ML in a GDPR compliant way: with datasets, models and inference endpoints all stored within EU data centers.
+
+If you are an Enterprise Hub customer and have further questions about this, please get in touch!
 
 ## Performance
 
