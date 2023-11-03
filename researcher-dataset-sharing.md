@@ -60,7 +60,7 @@ The datasets viewer allows people to explore and interact with datasets hosted o
 
 <p align="center"> 
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/researcher-dataset-sharing/datasets-viewer.png" alt="Screenshot of a dataset viewer on the Hub showing a named entity recognition dataset"><br> 
-<em>The dataset viewer for the the multiconer_v2 Named Entity Recognition dataset.</em> 
+<em>The dataset viewer for the multiconer_v2 Named Entity Recognition dataset.</em> 
  </p> 
 
 ### Community tools 
