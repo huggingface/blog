@@ -1081,7 +1081,8 @@
   date: August 3, 2022
   tags:
     - announcement
-    - private hub
+    - enterprise
+    - hub
 
 - local: deep-rl-ppo
   title: "Proximal Policy Optimization (PPO)"
@@ -3043,3 +3044,13 @@
     - research
     - datasets
     - guide
+
+- local: regions
+  title: "Introducing Storage Regions on the HF Hub"
+  author: julien-c
+  thumbnail: /blog/assets/172_regions/thumbnail.png
+  date: November 3, 2023
+  tags:
+    - announcement
+    - enterprise
+    - hub

@@ -1,4 +1,15 @@
-# Introducing Storage Regions on the HF Hub
+---
+title: "Introducing Storage Regions on the HF Hub"
+thumbnail: /blog/assets/172_regions/thumbnail.png
+authors:
+- user: coyotte508
+- user: XciD
+- user: michellehbn
+- user: violette
+- user: julien-c
+---
+
+# Introducing Storage Regions on the Hub
 
 As part of our [Enterprise Hub](https://huggingface.co/enterprise) plan, we recently released support for **Storage Regions**.
 
