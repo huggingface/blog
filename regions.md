@@ -3,6 +3,7 @@ title: "Introducing Storage Regions on the HF Hub"
 thumbnail: /blog/assets/172_regions/thumbnail.png
 authors:
 - user: coyotte508
+- user: rtrm
 - user: XciD
 - user: michellehbn
 - user: violette
