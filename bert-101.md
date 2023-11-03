@@ -4,7 +4,9 @@ thumbnail: /blog/assets/52_bert_101/thumbnail.jpg
 authors:
 - user: britneymuller
 ---
+
 <html itemscope itemtype="https://schema.org/FAQPage">
+
 # BERT 101 🤗 State Of The Art NLP Model Explained
 
 
