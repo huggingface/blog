@@ -1,6 +1,6 @@
 # Introducing Storage Regions on the HF Hub
 
-As part of our [Enterprise Hub](https://huggingface.co/enterprise) plan, we recently relased support for **Storage Regions**.
+As part of our [Enterprise Hub](https://huggingface.co/enterprise) plan, we recently released support for **Storage Regions**.
 
 Regions let you decide where your org's models and datasets will be stored. This has two main benefits, which we'll briefly go over in this blog post:
 - **Regulatory and legal compliance**, and more generally, better digital sovereignty
@@ -11,12 +11,13 @@ Currently we support the following regions:
 - EU 🇪🇺
 - coming soon: Asia-Pacific 🌏
 
+For companies in the EU, that means you can use the Hub to build ML in a GDPR compliant way: with datasets, models and inference endpoints all stored within EU data centers.
+
 But first, let's see how to setup this feature in your organization's settings 🔥
 
 ## Org settings
 
 If your organization is not an Enterprise Hub org yet, you will see the following screen:
-
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/storage-regions/no-feature.png)
 
@@ -48,4 +49,4 @@ This makes a big difference considering model weights and dataset files are usua
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/storage-regions/upload-speed.png)
 
-As an example, if you are located in Europe, you can expect to see ~4-5x faster upload and download speeds vs. repositories stored in the US.
+As an example, if you are located in Europe and store your repositories in the EU region, you can expect to see ~4-5x faster upload and download speeds vs. if they were stored in the US.
