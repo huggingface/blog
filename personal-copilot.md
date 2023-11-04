@@ -12,7 +12,7 @@ In the ever-evolving landscape of programming and software development, the ques
 
 However, while these pre-trained models can perform impressively across a range of tasks, there's an exciting possibility lying just beyond the horizon: the ability to tailor a code generation model to your specific needs. Think of personalized coding assistants which could be leveraged at an enterprise scale. 
 
-In this blog post we show how we created HugCoder 🤗, a code LLM fine-tuned on the code contents from the public repositories of the [`huggingface` GitHub organization](https://github.com/huggingface). We will discuss our data collection workflow, our training experiments, and some interesting results. This will enable you to create your own personal copilot based on your proprietory codebase. We will leave you with a couple of further extensions of this project for experimentation. 
+In this blog post we show how we created HugCoder 🤗, a code LLM fine-tuned on the code contents from the public repositories of the [`huggingface` GitHub organization](https://github.com/huggingface). We will discuss our data collection workflow, our training experiments, and some interesting results. This will enable you to create your own personal copilot based on your proprietary codebase. We will leave you with a couple of further extensions of this project for experimentation. 
 
 Let’s begin 🚀
 
@@ -73,12 +73,12 @@ Since the hardware requirements are huge, we'll be using parameter-efficient fin
 2. Adapter weight: 2 bytes * 0.11B trainable params        = 0.22GB
 3. Weight gradient: 2 bytes * 0.11B trainable params       = 0.12GB
 4. Optimizer state when using Adam:  4 bytes * 0.11B trainable params * 3 = 1.32GB
-5. **Adding all of the above -> 9.51 GB ~10GB -> 1 A100 40GB GPU required** 🤯. The reason for A100 40GB GPU being that the intermediate activations for long sequence lengths of 2048 and batch size of 4 for training lead to higher memory requirements. As we will see below, GPU memory required is 26GB which can be accommodated on A100 40GB GPU. Also, A100 GPUs have better compatibilty with Flash Attention 2.
+5. **Adding all of the above -> 9.51 GB ~10GB -> 1 A100 40GB GPU required** 🤯. The reason for A100 40GB GPU is that the intermediate activations for long sequence lengths of 2048 and batch size of 4 for training lead to higher memory requirements. As we will see below, GPU memory required is 26GB which can be accommodated on A100 40GB GPU. Also, A100 GPUs have better compatibilty with Flash Attention 2.
 
 In the above calculations, we didn't consider memory required for intermediate activation checkpointing which is considerably huge. We leverage Flash Attention V2 and Gradient Checkpointing to overcome this issue. 
 
 1. For QLoRA along with flash attention V2 and gradient checkpointing, the total memory occupied by the model on a single A100 40GB GPU is **26 GB** with a **batch size of 4**.
-2. For full fine-tuning using FSDP along wth Flash Attention V2 and Gradient Checkpointing, the memory occupied per GPU ranges between **70 GB to 77.6 GB** with a **per_gpu_batch_size of 1**.
+2. For full fine-tuning using FSDP along with Flash Attention V2 and Gradient Checkpointing, the memory occupied per GPU ranges between **70 GB to 77.6 GB** with a **per_gpu_batch_size of 1**.
 
 Please refer to the [model-memory-usage](https://huggingface.co/spaces/hf-accelerate/model-memory-usage) to easily calculate how much vRAM is needed to train and perform big model inference on a model hosted on the 🤗 Hugging Face Hub.
 
@@ -234,7 +234,7 @@ We can observe that the `copilot` adapter gets it right in both cases. Therefore
 
 **Now, as a user, I want to combine the ability of `assistant` as well as `copilot`. This will enable me to use it for code completion while coding in an IDE, and also have it as a chatbot to answer my questions regarding APIs, classes, methods, documentation. It should be able to provide answers to questions like `How do I use x`, `Please write a code snippet for Y` on my codebase.**
 
-PEFT allows you do it by via `add_weighted_adapter`. Let's create a new adapter `code_buddy` with equal weights to `assistant` and `copilot` adapters.
+PEFT allows you to do it via `add_weighted_adapter`. Let's create a new adapter `code_buddy` with equal weights to `assistant` and `copilot` adapters.
 
 ![combining_loras](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/personal_copilot/combine_adapters.png)
 Combining Multiple Adapters
