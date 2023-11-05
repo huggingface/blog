@@ -294,7 +294,7 @@ roberta_preprocessing_function(data['train'][0])
 ```python
 col_to_delete = ['id', 'keyword','location', 'text']
 # Apply the preprocessing function and remove the undesired columns
-roberta_tokenized_datasets = data.map(roberta_preprocessing_function, remove_columns=col_to_delete)
+roberta_tokenized_datasets = data.map(roberta_preprocessing_function, batched=True, remove_columns=col_to_delete)
 # Rename the target to label as for HugginFace standards
 roberta_tokenized_datasets = roberta_tokenized_datasets.rename_column("target", "label")
 # Set to torch format
@@ -343,7 +343,7 @@ mistral_tokenizer.pad_token = mistral_tokenizer.eos_token
 def mistral_preprocessing_function(examples):
     return mistral_tokenizer(examples['text'], truncation=True, max_length=MAX_LEN)
 
-mistral_tokenized_datasets = data.map(mistral_preprocessing_function,remove_columns=col_to_delete)
+mistral_tokenized_datasets = data.map(mistral_preprocessing_function, batched=True, remove_columns=col_to_delete)
 mistral_tokenized_datasets = mistral_tokenized_datasets.rename_column("target", "label")
 mistral_tokenized_datasets.set_format("torch")
 
@@ -362,7 +362,7 @@ llama_tokenizer.pad_token = llama_tokenizer.eos_token
 def llama_preprocessing_function(examples):
     return llama_tokenizer(examples['text'], truncation=True, max_length=MAX_LEN)
 
-llama_tokenized_datasets = data.map(llama_preprocessing_function, remove_columns=col_to_delete)
+llama_tokenized_datasets = data.map(llama_preprocessing_function, batched=True, remove_columns=col_to_delete)
 llama_tokenized_datasets = llama_tokenized_datasets.rename_column("target", "label")
 llama_tokenized_datasets.set_format("torch")
 
