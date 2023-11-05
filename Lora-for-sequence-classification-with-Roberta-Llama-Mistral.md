@@ -60,9 +60,9 @@ The main objective of this blogpost is to implement LoRA fine-tuning for sequenc
 ## Hardware Used 
 
 - Number of nodes: 1 
-- Number of GPUs per node: 2
+- Number of GPUs per node: 1
 - GPU type: A6000 
-- GPU memory: 48GB x2
+- GPU memory: 48GB
 
 
 ## Goals
@@ -116,9 +116,10 @@ The main novel techniques used in Mistral 7B's architecture are:
 
 PEFT, Parameter Efficient Fine-Tuning, is a collection of techniques (p-tuning, prefix-tuning, IA3, Adapters, and LoRa) designed to fine-tune large models using a much smaller set of training parameters while preserving the performance levels typically achieved through full fine-tuning. 
 
-LoRA, Low-Rank Adaptation, is a PEFT method that shares similarities with Adapter layers. However, its primary objective is to reduce the model's trainable parameters. LoRA's operation involves the alteration of the training and updating of the modifiable parameters within the neural network. 
+LoRA, Low-Rank Adaptation, is a PEFT method that shares similarities with Adapter layers. Its primary objective is to reduce the model's trainable parameters. LoRA's operation involves 
+learning a low rank update matrix while keeping the pre-trained weights frozen.
 
-![image](lora.png)
+![image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/Lora-for-sequence-classification-with-Roberta-Llama-Mistral/lora.png)
 
 ## Setup
 
@@ -272,6 +273,7 @@ We start by defining the RoBERTa dataloader:
 from transformers import AutoTokenizer
 roberta_tokenizer = AutoTokenizer.from_pretrained(roberta_checkpoint, add_prefix_space=True)
 ```
+**Note:** The RoBERTa tokenizer has been trained to treat spaces as part of the token. As a result, the first word of the sentence is encoded differently if it is not preceded by a white space. To ensure the first word includes a space, we set `add_prefix_space=True`. Also, to maintain consistent pre-processing for all three models, we set the parameter to 'True' for Llama 2 and Mistral 7b.
 
 - Define the preprocessing function for converting one row of the dataframe:
 ```python
@@ -291,10 +293,8 @@ roberta_preprocessing_function(data['train'][0])
 
 ```python
 col_to_delete = ['id', 'keyword','location', 'text']
-# Apply the preprocessing function
-roberta_tokenized_datasets = data.map(roberta_preprocessing_function, batched=False)
-#Remove the undesired columns
-roberta_tokenized_datasets = roberta_tokenized_datasets.remove_columns(col_to_delete)
+# Apply the preprocessing function and remove the undesired columns
+roberta_tokenized_datasets = data.map(roberta_preprocessing_function, remove_columns=col_to_delete)
 # Rename the target to label as for HugginFace standards
 roberta_tokenized_datasets = roberta_tokenized_datasets.rename_column("target", "label")
 # Set to torch format
@@ -335,7 +335,6 @@ You can follow the same steps for preparing the data for Mistral 7B and Llama 2 
 
 ```python
 # Load Mistral 7B Tokenizer
-# Add prefix space to tokenize words into subwords
 from transformers import AutoTokenizer, DataCollatorWithPadding
 mistral_tokenizer = AutoTokenizer.from_pretrained(mistral_checkpoint, add_prefix_space=True)
 mistral_tokenizer.pad_token_id = mistral_tokenizer.eos_token_id
@@ -344,8 +343,7 @@ mistral_tokenizer.pad_token = mistral_tokenizer.eos_token
 def mistral_preprocessing_function(examples):
     return mistral_tokenizer(examples['text'], truncation=True, max_length=MAX_LEN)
 
-mistral_tokenized_datasets = data.map(mistral_preprocessing_function, batched=False)
-mistral_tokenized_datasets = mistral_tokenized_datasets.remove_columns(col_to_delete)
+mistral_tokenized_datasets = data.map(mistral_preprocessing_function,remove_columns=col_to_delete)
 mistral_tokenized_datasets = mistral_tokenized_datasets.rename_column("target", "label")
 mistral_tokenized_datasets.set_format("torch")
 
@@ -356,7 +354,6 @@ mistral_data_collator = DataCollatorWithPadding(tokenizer=mistral_tokenizer)
 - Llama 2:
 ```python
 # Load Llama 2 Tokenizer
-# Add prefix space to tokenize words into subwords
 from transformers import AutoTokenizer, DataCollatorWithPadding
 llama_tokenizer = AutoTokenizer.from_pretrained(llama_checkpoint, add_prefix_space=True)
 llama_tokenizer.pad_token_id = llama_tokenizer.eos_token_id
@@ -365,8 +362,7 @@ llama_tokenizer.pad_token = llama_tokenizer.eos_token
 def llama_preprocessing_function(examples):
     return llama_tokenizer(examples['text'], truncation=True, max_length=MAX_LEN)
 
-llama_tokenized_datasets = data.map(llama_preprocessing_function, batched=False)
-llama_tokenized_datasets = llama_tokenized_datasets.remove_columns(col_to_delete)
+llama_tokenized_datasets = data.map(llama_preprocessing_function, remove_columns=col_to_delete)
 llama_tokenized_datasets = llama_tokenized_datasets.rename_column("target", "label")
 llama_tokenized_datasets.set_format("torch")
 
@@ -380,7 +376,7 @@ Now that we have prepared the tokenized datasets, the next section will showcase
 
 ### RoBERTa
 
-#### Load RoBERTA Checkpoints for the Classification Task
+#### Load RoBERTa Checkpoints for the Classification Task
 
 We load the pre-trained RoBERTa model with a sequence classification head using the Hugging Face `AutoModelForSequenceClassification` class:
 
@@ -553,7 +549,7 @@ class WeightedCELossTrainer(Trainer):
         # Get model's predictions
         outputs = model(**inputs)
         logits = outputs.get("logits")
-        # compute custom loss
+        # Compute custom loss
         loss_fct = torch.nn.CrossEntropyLoss(weight=torch.tensor([neg_weights, pos_weights], device=model.device, dtype=logits.dtype))
         loss = loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
         return (loss, outputs) if return_outputs else loss
@@ -705,44 +701,6 @@ llama_trainer = WeightedCELossTrainer(
 
 
 
-```python
-lr = 2e-4
-batch_size = 8
-num_epochs = 5
-
-training_args = TrainingArguments(
-    output_dir="llama-lora-token-classification",
-    learning_rate=lr,
-    lr_scheduler_type= "constant",
-    warmup_ratio= 0.1,
-    max_grad_norm= 0.3,
-    per_device_train_batch_size=batch_size,
-    per_device_eval_batch_size=batch_size,
-    num_train_epochs=num_epochs,
-    weight_decay=0.001,
-    evaluation_strategy="epoch",
-    save_strategy="epoch",
-    load_best_model_at_end=True,
-    report_to="wandb",
-    fp16=True,
-    gradient_checkpointing=True,
-)
-
-```
-Then, we define the Llama 2 trainer:
-
-```python
-llama_trainer = WeightedCELossTrainer(
-    model=llama_model,
-    args=training_args,
-    train_dataset=llama_tokenized_datasets['train'],
-    eval_dataset=llama_tokenized_datasets["val"],
-    data_collator=llama_data_collator,
-    compute_metrics=compute_metrics
-)
-```
-
-
 
 ## Hyperparameter Tuning
 
@@ -786,5 +744,3 @@ Finally, we showcase that LoRa method can be applied to both encoder (RoBERTa) a
     - [RoBERTa](https://api.wandb.ai/links/mehdi-iraqui/505c22j1)
     - [Mistral 7B](https://api.wandb.ai/links/mehdi-iraqui/24vveyxp)
     - [Llama 2](https://api.wandb.ai/links/mehdi-iraqui/qq8beod0)
-
-
