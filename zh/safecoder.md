@@ -89,10 +89,3 @@ SafeCoder 推理支持各种硬件，为客户提供广泛的选择：英伟达 
 今天，我们在 VMware Explore 大会上宣布与 VMware 合作推出 SafeCoder，并向 VMware 企业客户提供 SafeCoder。与 VMware 合作有助于确保 SafeCoder 在客户的 VMware Cloud 基础设施上成功部署 - 无论客户更青睐云、本地还是混合基础设施。除了 SafeCoder 本身外，VMware 还发布了一个[参考架构](https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/docs/vmware-baseline-reference-architecture-for-generative-ai.pdf)，其中包含了一些示例代码，可以帮助用户用最短时间在 VMware 基础设施上部署和运营 SafeCoder 从而创造价值。VMware 的私有 AI 参考架构使组织能够轻松快速地利用流行的开源项目（例如 Ray 和 kubeflow）围绕其私有数据集部署 AI 服务。同时，通过与 Hugging Face 合作，组织还能保持利用最新技术及以及最佳开源模型的灵活性。这一切都无需在总拥有成本或性能上进行权衡。
 
 “我们与 Hugging Face 围绕 SafeCoder 进行的合作与 VMware 的目标完美契合，即让客户能够选择解决方案，同时维护其隐私及其对业务数据的控制。事实上，我们已经在内部运行 SafeCoder 几个月了，并且已经看到了出色的结果。最重要的是，我们与 Hugging Face 的合作才刚刚开始，我很高兴能够将我们的解决方案带给全球数十万客户。” VMware AI 研究院副总裁 Chris Wolf 说道。 点击[此处](https://octo.vmware.com/vmware-private-ai-foundation/)可详细了解私有 AI 和 VMware 在这一新兴领域的差异化功能。
----
-
-如果你对在贵公司部署 SafeCoder 感兴趣，请于[此处](mailto:api-enterprise@huggingface.co?subject=SafeCoder)联系我们 - 我们的团队将联系你并与你讨论需求！
-
-> 英文原文: <url> https://huggingface.co/blog/safecoder </url>
-> 原文作者：Jeff Boudier，Philipp Schmid
-> 译者: Matrix Yao (姚伟峰)，英特尔深度学习工程师，工作方向为 transformer-family 模型在各模态数据上的应用及大规模模型的训练推理。

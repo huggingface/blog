@@ -275,9 +275,3 @@ Detected couch with confidence 0.535 at location [0.52, 1.19, 640.35, 475.1]
 像往常一样，我们欢迎你的补丁、PR、模型 checkpoints、数据集和其他贡献！🤗
 
 *Acknowlegements: Thanks to Omar Sanseviero, Nate Raw, Niels Rogge, Alara Dirik, Amy Roberts, Maria Khalusova, and Lysandre Debut for their rigorous and timely reviews on the blog draft. Thanks to Chunte Lee for creating the blog thumbnail.*
-
-
-
-> *原文：[The State of Computer Vision at Hugging Face ](https://huggingface.co/blog/cv_state)*
->
-> *译者：AIboy1993（李旭东）*
