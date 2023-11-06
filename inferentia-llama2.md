@@ -37,7 +37,7 @@ Fortunately, 🤗 `optimum-neuron` offers a [very simple API](https://huggingfac
         **input_shapes)
 ```
 
-This deserves a little explaination:
+This deserves a little explanation:
 - using `compiler_args`, we specify on how many cores we want the model to be deployed (each neuron device has two cores), and with which precision (here `float16`),
 - using `input_shape`, we set the static input and output dimensions of the model. All model compilers require static shapes, and neuron makes no exception. Note that the
 `sequence_length` not only constrains the length of the input context, but also the length of the KV cache, and thus, the output length.
@@ -55,7 +55,7 @@ Even better, you can push it to the [Hugging Face hub](https://huggingface.co/mo
 ```
 >>> model.push_to_hub(
         "a_local_path_for_compiled_neuron_model",
-        repository_id="my-neuron-repo",
+        repository_id="Llama-2-7b-hf-neuron-latency",
         use_auth_token=True)
 ```
 
@@ -143,8 +143,7 @@ To evaluate the models, we generate tokens up to a total sequence length of 1024
 
 ### Encoding time
 
-The encoding time is the time in seconds required to process the input tokens and generate the first output token,
-
+The encoding time is the time in seconds required to process the input tokens and generate the first output token.
 It is a very important metric, as it corresponds to the latency directly perceived by the user when streaming generated tokens.
 
 We test the encoding time for increasing context sizes, 256 input tokens corresponding roughly to a typical Q/A usage,
