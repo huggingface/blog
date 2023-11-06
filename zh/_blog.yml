@@ -1010,3 +1010,12 @@
     - nlp
     - community
 
+- local: regions
+  title: "HF Hub 现已加入存储区域功能"
+  author: julien-c
+  thumbnail: /blog/assets/172_regions/thumbnail.png
+  date: November 3, 2023
+  tags:
+    - announcement
+    - enterprise
+    - hub
