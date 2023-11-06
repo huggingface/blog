@@ -9,7 +9,7 @@ authors:
 # Comparing the Performance of LLMs: A Deep Dive into Roberta, Llama 2, and Mistral for Disaster Tweets Analysis with Lora
 <!-- TOC -->
 
-- [Comparing the Performance of LLMs: A Deep Dive into Roberta, Llama 2, and Mistral for Disaster Tweets Analysis with Lora](#comparing-the-performance-of-llms-a-deep-dive-into-roberta-llama-2-and-mistral-for-disaster-tweets-analysis-with-lora)
+- [Comparing the Performance of LLMs: A Deep Dive into Roberta, Llama 2, and Mistral for Disaster Tweets Analysis with LoRA](#comparing-the-performance-of-llms-a-deep-dive-into-roberta-llama-2-and-mistral-for-disaster-tweets-analysis-with-lora)
     - [Introduction](#introduction)
     - [Hardware Used](#hardware-used)
     - [Goals](#goals)
@@ -26,20 +26,20 @@ authors:
     - [Models](#models)
         - [RoBERTa](#roberta)
             - [Load RoBERTA Checkpoints for the Classification Task](#load-roberta-checkpoints-for-the-classification-task)
-            - [LoRa setup for RoBERTa classifier](#lora-setup-for-roberta-classifier)
+            - [LoRA setup for RoBERTa classifier](#lora-setup-for-roberta-classifier)
         - [Mistral](#mistral)
             - [Load checkpoints for the classfication model](#load-checkpoints-for-the-classfication-model)
-            - [LoRa setup for Mistral 7B classifier](#lora-setup-for-mistral-7b-classifier)
-        - [Llama 2](#llama-2)
-            - [Load checkpoints for the classfication mode](#load-checkpoints-for-the-classfication-mode)
-            - [LoRa setup for Llama 2 classifier](#lora-setup-for-llama-2-classifier)
+            - [LoRA setup for Mistral 7B classifier](#lora-setup-for-mistral-7b-classifier)
+        - [LLaMa 2](#llama-2)
+            - [Load checkpoints for the classification mode](#load-checkpoints-for-the-classfication-mode)
+            - [LoRA setup for LLaMa 2 classifier](#lora-setup-for-llama-2-classifier)
     - [Setup the trainer](#setup-the-trainer)
         - [Evaluation Metrics](#evaluation-metrics)
         - [Custom Trainer for Weighted Loss](#custom-trainer-for-weighted-loss)
         - [Trainer Setup](#trainer-setup)
             - [RoBERTa](#roberta)
             - [Mistral-7B](#mistral-7b)
-            - [Llama 2](#llama-2)
+            - [LLaMa 2](#llama-2)
     - [Hyperparameter Tuning](#hyperparameter-tuning)
     - [Results](#results)
     - [Conclusion](#conclusion)
@@ -55,7 +55,7 @@ In the fast-moving world of Natural Language Processing (NLP), we often find our
 
 In this blog, we used PEFT (Parameter-Efficient Fine-Tuning) technique: LoRA (Low-Rank Adaptation of Large Language Models) for fine-tuning the pre-trained model on the sequence classification task. LoRa is designed to significantly reduce the number of trainable parameters while maintaining strong downstream task performance. 
 
-The main objective of this blogpost is to implement LoRA fine-tuning for sequence classification task using three pre-trained models from Hugging Face: [meta-llama/Llama-2-7b-hf](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1), and [roberta-large](https://huggingface.co/roberta-large)
+The main objective of this blog post is to implement LoRA fine-tuning for sequence classification tasks using three pre-trained models from Hugging Face: [meta-llama/Llama-2-7b-hf](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1), and [roberta-large](https://huggingface.co/roberta-large)
 
 ## Hardware Used 
 
@@ -75,7 +75,7 @@ The main objective of this blogpost is to implement LoRA fine-tuning for sequenc
 
 ## Dependencies
 
-```python
+```bash
 datasets
 evaluate
 peft
@@ -154,7 +154,7 @@ data['test'] = dataset['test']
 
 Here's an overview of the dataset:
 
-```
+```bash
 DatasetDict({
     train: Dataset({
         features: ['id', 'keyword', 'location', 'text', 'target'],
@@ -281,7 +281,7 @@ def roberta_preprocessing_function(examples):
     return roberta_tokenizer(examples['text'], truncation=True, max_length=MAX_LEN)
 ```
 
-By applying the preprocessing function to the first example of our training dataset, we can see that we have inputs ids and an attention mask:
+By applying the preprocessing function to the first example of our training dataset, we have the tokenized inputs (`input_ids`) and the attention mask:
 ```python
 roberta_preprocessing_function(data['train'][0])
 ```
@@ -407,7 +407,7 @@ roberta_model.print_trainable_parameters()
 ```
 
 We can see that the number of trainable parameters represents only 0.64% of the RoBERTa model parameters:
-```
+```bash
 trainable params: 2,299,908 || all params: 356,610,052 || trainable%: 0.6449363911929212
 ```
 
