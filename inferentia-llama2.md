@@ -126,7 +126,7 @@ We have uploaded on the hub pre-compiled versions of the LLama 2 7B and 13B mode
 
 *Note: all models are compiled with a maximum sequence length of 2048.*
 
-The `llama2 7B` "budget" model is meant to be deployed on the entry-level `inf2.8xlarge` instance that has only one neuron device, and enough `cpu` memory to load the model.
+The `llama2 7B` "budget" model is meant to be deployed on the entry-level `inf2.xlarge` instance that has only one neuron device, and enough `cpu` memory to load the model.
 
 All other models are compiled to use the full extent of cores available on the high-end `inf2.48xlarge` instance.
 
