@@ -16,7 +16,7 @@ authors:
     - [Dependencies](#dependencies)
     - [Pre-trained Models](#pre-trained-models)
         - [RoBERTa](#roberta)
-        - [LLaMA 2](#llama-2)
+        - [Llama 2](#llama-2)
         - [Mistral 7B](#mistral-7b)
     - [LoRA](#lora)
     - [Setup](#setup)
@@ -30,16 +30,16 @@ authors:
         - [Mistral](#mistral)
             - [Load checkpoints for the classfication model](#load-checkpoints-for-the-classfication-model)
             - [LoRA setup for Mistral 7B classifier](#lora-setup-for-mistral-7b-classifier)
-        - [LLaMa 2](#llama-2)
+        - [Llama 2](#llama-2)
             - [Load checkpoints for the classification mode](#load-checkpoints-for-the-classfication-mode)
-            - [LoRA setup for LLaMa 2 classifier](#lora-setup-for-llama-2-classifier)
+            - [LoRA setup for Llama 2 classifier](#lora-setup-for-llama-2-classifier)
     - [Setup the trainer](#setup-the-trainer)
         - [Evaluation Metrics](#evaluation-metrics)
         - [Custom Trainer for Weighted Loss](#custom-trainer-for-weighted-loss)
         - [Trainer Setup](#trainer-setup)
             - [RoBERTa](#roberta)
             - [Mistral-7B](#mistral-7b)
-            - [LLaMa 2](#llama-2)
+            - [Llama 2](#llama-2)
     - [Hyperparameter Tuning](#hyperparameter-tuning)
     - [Results](#results)
     - [Conclusion](#conclusion)
@@ -96,7 +96,7 @@ RoBERTa (Robustly Optimized BERT Approach) is an advanced variant of the BERT mo
 RoBERTa is a popular model to fine-tune and appropriate as a baseline for our experiments. For more information, you can check the Hugging Face model [card](https://huggingface.co/docs/transformers/model_doc/roberta).
 
 
-### [LLaMA 2](https://arxiv.org/abs/2307.09288)
+### [Llama 2](https://arxiv.org/abs/2307.09288)
 
 Llama 2 models, which stands for Large Language Model Meta AI, belong to the family of large language models (LLMs) introduced by Meta AI. The Llama 2 models vary in size, with parameter counts ranging from 7 billion to 65 billion.
 
