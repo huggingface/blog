@@ -657,6 +657,17 @@
     - research
     - guide 
 
+- local: 4bit-transformers-bitsandbytes
+  title: "用 bitsandbytes、4 比特量化和 QLoRA 打造亲民的 LLM"
+  author: ybelkada
+  thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
+  date: May 24, 2023
+  tags:
+    - transformers
+    - quantization
+    - bitsandbytes
+    - 4bit
+    
 - local: train-optimize-sd-intel
   title: "基于 NNCF 和 🤗 Optimum 面向 Intel CPU 对 Stable Diffusion 优化"
   author: AlexKoff88
