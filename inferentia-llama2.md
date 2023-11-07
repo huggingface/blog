@@ -17,7 +17,11 @@ And what better model could we choose for that demonstration than [Llama 2](http
 
 Our recommendation is to use the [Hugging Face Neuron Deep Learning AMI](https://aws.amazon.com/marketplace/pp/prodview-gr3e6yiscria2) (DLAMI). The DLAMI comes with all required libraries pre-packaged for you, including the Optimum Neuron, Neuron Drivers, Transformers, Datasets, and Accelerate.
 
-These components can also be installed manually on a fresh Inferentia2 instance following the `optimum-neuron` [installation instructions](https://huggingface.co/docs/optimum-neuron/installation).
+Alternatively, you can use the [Hugging Face Neuron SDK DLC](https://github.com/aws/deep-learning-containers/releases?q=hf&expanded=true) to deploy on Amazon SageMaker.
+
+*Note: stay tuned for an upcoming post dedicated to SageMaker deployment.*
+
+Finally, these components can also be installed manually on a fresh Inferentia2 instance following the `optimum-neuron` [installation instructions](https://huggingface.co/docs/optimum-neuron/installation).
 
 ## Export the Llama 2 model to Neuron
 
