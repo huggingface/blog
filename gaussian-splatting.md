@@ -102,7 +102,7 @@ There are many unknowns as to what else can be done with Gaussian Splatting. Can
 
 Finally, there is growing research interest in [Embodied AI](https://ieeexplore.ieee.org/iel7/7433297/9741092/09687596.pdf). This is an area of AI research where state-of-the-art performance is still orders of magnitude below human performance, with much of the challenge being in representing 3D space. Given that 3D Gaussian Splatting yields a very dense representation of 3D space, what might the implications be for Embodied AI research?
 
-These questions call attention the the method. It remains to be seen what the actual impact will be.
+These questions call attention to the method. It remains to be seen what the actual impact will be.
 
 ## The future of graphics
 
