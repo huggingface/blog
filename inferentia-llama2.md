@@ -59,7 +59,7 @@ Even better, you can push it to the [Hugging Face hub](https://huggingface.co/mo
         use_auth_token=True)
 ```
 
-## Generate text using a neuron model on AWS Inferentia2
+## Generate Text using Llama 2 on AWS Inferentia2
 
 Once your model has been exported, you can generate text using the transformers library, as it has been described in [detail in this previous post](https://huggingface.co/blog/how-to-generate).
 
