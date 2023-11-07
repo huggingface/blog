@@ -128,7 +128,7 @@ We have uploaded on the hub pre-compiled versions of the LLama 2 7B and 13B mode
 
 The `llama2 7B` "budget" model is meant to be deployed on `inf2.xlarge` instance that has only one neuron device, and enough `cpu` memory to load the model.
 
-All other models are compiled to use the full extent of cores available on the high-end `inf2.48xlarge` instance.
+All other models are compiled to use the full extent of cores available on the `inf2.48xlarge` instance.
 
 *Note: please refer to the [inferentia2 product page](https://aws.amazon.com/ec2/instance-types/inf2/) for details on the available instances.*
 
