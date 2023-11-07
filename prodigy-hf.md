@@ -19,7 +19,7 @@ The first main feature is that this plugin allows you to train and re-use Huggin
 
 <figure>
     <div style="background-color: #eee; padding-top: 8px; padding-bottom: 8px;">
-        <img src="assets/171_prodigy_hf/interface.png" width="100%">
+        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/prodigy-hf/interface.png" width="100%">
     </div>
     <figcaption style="text-color: gray; margin-left: auto; margin-right: auto; text-align:center; padding-top: 8px;"><small>What the Prodigy NER interface looks like.</small></figcaption>
 </figure>
