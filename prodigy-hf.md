@@ -4,6 +4,7 @@ thumbnail: /blog/assets/171_prodigy_hf/thumbnail.png
 authors:
 - user: koaning
   guest: true
+  guest: true
 ---
 
 # Introducing Prodigy-HF 
