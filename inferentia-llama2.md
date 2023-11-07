@@ -13,7 +13,7 @@ In a further step of integration with the [AWS Neuron SDK](https://github.com/aw
 
 And what better model could we choose for that demonstration than [Llama 2](https://huggingface.co/meta-llama/Llama-2-13b-hf), one of the most popular models on the [Hugging Face hub](https://huggingface.co/models).
 
-## Setup 🤗 `optimum-neuron` on your Inferentia2 instance
+## Setup 🤗 optimum-neuron on your Inferentia2 instance
 
 Our recommendation is to use the [Hugging Face Neuron Deep Learning AMI](https://aws.amazon.com/marketplace/pp/prodview-gr3e6yiscria2) (DLAMI). The DLAMI comes with all required libraries pre-packaged for you, including the Optimum Neuron, Neuron Drivers, Transformers, Datasets, and Accelerate.
 
@@ -96,7 +96,7 @@ The following generation strategies are supported:
 
 Most logits pre-processing/filters (such as repetition penalty) are supported.
 
-## All-in-one with `optimum-neuron` pipelines
+## All-in-one with optimum-neuron pipelines
 
 For those who like to keep it simple, there is an even simpler way to use an LLM model on AWS inferentia 2 using [optimum-neuron pipelines](https://huggingface.co/docs/optimum-neuron/guides/pipelines).
 
