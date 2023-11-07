@@ -35,7 +35,7 @@ Fortunately, 🤗 `optimum-neuron` offers a [very simple API](https://huggingfac
 >>> compiler_args = {"num_cores": 24, "auto_cast_type": 'fp16'}
 >>> input_shapes = {"batch_size": 1, "sequence_length": 2048}
 >>> model = NeuronModelForCausalLM.from_pretrained(
-        "meta-llama/Llama-2-13b-hf",
+        "meta-llama/Llama-2-7b-hf",
         export=True,
         **compiler_args,
         **input_shapes)
@@ -59,8 +59,7 @@ Even better, you can push it to the [Hugging Face hub](https://huggingface.co/mo
 ```
 >>> model.push_to_hub(
         "a_local_path_for_compiled_neuron_model",
-        repository_id="Llama-2-7b-hf-neuron-latency",
-        use_auth_token=True)
+        repository_id="aws-neuron/Llama-2-7b-hf-neuron-latency")
 ```
 
 ## Generate Text using Llama 2 on AWS Inferentia2
@@ -72,11 +71,9 @@ Once your model has been exported, you can generate text using the transformers 
 >>> from transformers import AutoTokenizer
 
 >>> model = NeuronModelForCausalLM.from_pretrained('aws-neuron/Llama-2-7b-hf-neuron-latency')
->>> tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-13b-hf")
->>> tokenizer.pad_token_id = tokenizer.eos_token_id
->>> tokenizer.padding_side = "left"
+>>> tokenizer = AutoTokenizer.from_pretrained("aws-neuron/Llama-2-7b-hf-neuron-latency")
 
->>> inputs = tokenizer("What is deep-learning ?", return_tensors="pt", padding=True)
+>>> inputs = tokenizer("What is deep-learning ?", return_tensors="pt")
 >>> outputs = model.generate(**inputs,
                              max_new_tokens=128,
                              do_sample=True,
@@ -84,24 +81,24 @@ Once your model has been exported, you can generate text using the transformers 
                              top_k=50,
                              top_p=0.9)
 >>> tokenizer.batch_decode(outputs, skip_special_tokens=True)
-['<s> What is deep-learning ?\nThe term “deep-learning” refers to a type of machine-learning
+['What is deep-learning ?\nThe term “deep-learning” refers to a type of machine-learning
 that aims to model high-level abstractions of the data in the form of a hierarchy of multiple
 layers of increasingly complex processing nodes.']
 ```
 
-Note, however, that a few restrictions apply.
+*Note: when passing multiple input prompts to a model, the resulting token sequences must be padded to the left with an end-of-stream token.
+The tokenizers saved with the exported models are configured accordingly.*
 
-Only the following generation strategies are supported:
+The following generation strategies are supported:
 
 - greedy search,
-- multinomial sampling with top-k, top-p with temperature.
+- multinomial sampling with top-k and top-p (with temperature).
 
-Most logits pre-processing/filters (such as repetition penalty) are also supported.
+Most logits pre-processing/filters (such as repetition penalty) are supported.
 
 ## All-in-one with `optimum-neuron` pipelines
 
 For those who like to keep it simple, there is an even simpler way to use an LLM model on AWS inferentia 2 using [optimum-neuron pipelines](https://huggingface.co/docs/optimum-neuron/guides/pipelines).
-
 
 Using them is as simple as:
 
