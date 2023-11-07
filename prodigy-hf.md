@@ -4,7 +4,6 @@ thumbnail: /blog/assets/171_prodigy_hf/thumbnail.png
 authors:
 - user: koaning
   guest: true
-  guest: true
 ---
 
 # Introducing Prodigy-HF 
@@ -15,7 +14,7 @@ To foster this customisability, Explosion has started releasing [plugins](https:
 
 ## Features
 
-The first main feature is that this plugin allows you to train Hugging Face models on your annotated data. That means if you've been annotating data in our interface for named entity recognition, you can directly fine-tune BERT models against it. 
+The first main feature is that this plugin allows you to train and re-use Hugging Face models on your annotated data. That means if you've been annotating data in our interface for named entity recognition, you can directly fine-tune BERT models against it. 
 
 
 <figure>
@@ -37,7 +36,13 @@ This will fine-tune the `distilbert-base-uncased` model for the dataset you've s
 python -m prodigy hf.train.textcat fashion-train,eval:fashion-eval path/to/model-out --model "distilbert-base-uncased"
 ```
 
-This offers a lot of flexibility because the tool directly integrates with the `AutoTokenizer` and `AutoModel` classes of Hugging Face transformers. Any transformer model on the hub can be fine-tuned on your own dataset with just a single command. 
+This offers a lot of flexibility because the tool directly integrates with the `AutoTokenizer` and `AutoModel` classes of Hugging Face transformers. Any transformer model on the hub can be fine-tuned on your own dataset with just a single command. These models will be serialised on disk, which means that you can upload them to the Hugging Face Hub, or re-use them to help you annotate data. This can save a lot of time, especially for NER tasks. To re-use a trained NER model you can use the `hf.correct.ner` recipe. 
+
+```
+python -m prodigy hf.correct.ner fashion-train path/to/model-out examples.jsonl
+```
+
+This will give you a similar interface as before, but now the model predictions will be shown in the interface as well.
 
 ### Upload 
 
