@@ -144,13 +144,15 @@ To evaluate the models, we generate tokens up to a total sequence length of 1024
 
 ### Encoding time
 
-The encoding time is the time in seconds required to process the input tokens and generate the first output token.
+The encoding time is the time required to process the input tokens and generate the first output token.
 It is a very important metric, as it corresponds to the latency directly perceived by the user when streaming generated tokens.
 
 We test the encoding time for increasing context sizes, 256 input tokens corresponding roughly to a typical Q/A usage,
 while 768 is more typical of a Retrieval Augmented Generation (RAG) use-case.
 
 The "budget" model is deployed on an `inf2.xlarge` instance while other models are deployed on an `inf2.48xlarge` instance.
+
+Encoding time is expressed in **seconds**.
 
 |   input tokens  |   Llama2 7B latency  |   Llama2 7B throughput  |   Llama2 13B latency  |   Llama2 13B throughput  |   Llama2 7B budget  |
 |-----------------|----------------------|-------------------------|-----------------------|--------------------------|---------------------|
@@ -164,11 +166,13 @@ We can see that all deployed models exhibit excellent response times, even for l
 
 ### End-to-end Latency
 
-The end-to-end latency corresponds to the total time in seconds to reach a sequence length of 1024 tokens.
+The end-to-end latency corresponds to the total time to reach a sequence length of 1024 tokens.
 
 It therefore includes the encoding and generation time.
 
 The "budget" model is deployed on an `inf2.xlarge` instance while other models are deployed on an `inf2.48xlarge` instance.
+
+Latency is expressed in **seconds**.
 
 |   new tokens  |   Llama2 7B latency  |   Llama2 7B throughput  |   Llama2 13B latency  |   Llama2 13B throughput  |   Llama2 7B budget  |
 |---------------|----------------------|-------------------------|-----------------------|--------------------------|---------------------|
@@ -189,6 +193,8 @@ latency by the sum of both input and output tokens.
 In other words, we divide the end-to-end latency by `batch_size * sequence_length` to obtain the number of generated tokens per second.
 
 The "budget" model is deployed on an `inf2.xlarge` instance while other models are deployed on an `inf2.48xlarge` instance.
+
+Throughput is expressed in **tokens/second**.
 
 |   new tokens  |   Llama2 7B latency  |   Llama2 7B throughput  |   Llama2 13B latency  |   Llama2 13B throughput  |   Llama2 7B budget  |
 |---------------|----------------------|-------------------------|-----------------------|--------------------------|---------------------|
