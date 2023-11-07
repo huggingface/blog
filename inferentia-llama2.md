@@ -119,11 +119,11 @@ We have uploaded on the hub pre-compiled versions of the LLama 2 7B and 13B mode
 
 | Model type              | num cores | batch_size | Hugging Face Hub model                    |
 |-------------------------|-----------|------------|-------------------------------------------|
-| Llama2 7B - budget      | 2         | 1          |aws-neuron/Llama-2-7b-hf-neuron-budget     |
-| Llama2 7B - latency     | 24        | 1          |aws-neuron/Llama-2-7b-hf-neuron-latency    |
-| Llama2 7B - throughput  | 24        | 4          |aws-neuron/Llama-2-7b-hf-neuron-throughput |
-| Llama2 13B - latency    | 24        | 1          |aws-neuron/Llama-2-13b-hf-neuron-latency   |
-| Llama2 13B - throughput | 24        | 4          |aws-neuron/Llama-2-13b-hf-neuron-throughput|
+| Llama2 7B - budget      | 2         | 1          |[aws-neuron/Llama-2-7b-hf-neuron-budget](https://huggingface.co/aws-neuron/Llama-2-7b-hf-neuron-budget)          |
+| Llama2 7B - latency     | 24        | 1          |[aws-neuron/Llama-2-7b-hf-neuron-latency](https://huggingface.co/aws-neuron/Llama-2-7b-hf-neuron-latency)        |
+| Llama2 7B - throughput  | 24        | 4          |[aws-neuron/Llama-2-7b-hf-neuron-throughput](https://huggingface.co/aws-neuron/Llama-2-7b-hf-neuron-throughput)  |
+| Llama2 13B - latency    | 24        | 1          |[aws-neuron/Llama-2-13b-hf-neuron-latency](https://huggingface.co/aws-neuron/Llama-2-13b-hf-neuron-latency)      |
+| Llama2 13B - throughput | 24        | 4          |[aws-neuron/Llama-2-13b-hf-neuron-throughput](https://huggingface.co/aws-neuron/Llama-2-13b-hf-neuron-throughput)|
 
 *Note: all models are compiled with a maximum sequence length of 2048.*
 
