@@ -1081,7 +1081,8 @@
   date: August 3, 2022
   tags:
     - announcement
-    - private hub
+    - enterprise
+    - hub
 
 - local: deep-rl-ppo
   title: "Proximal Policy Optimization (PPO)"
@@ -1851,7 +1852,7 @@
 
 - local: classification-use-cases
   title: "How Hugging Face Accelerated Development of Witty Works Writing Assistant"
-  author: VioletteLepercq
+  author: Violette
   thumbnail: /blog/assets/78_ml_director_insights/witty-works.png
   date: March 1, 2023
   tags:
@@ -1994,7 +1995,7 @@
     
 - local: snorkel-case-study
   title: "Snorkel AI x Hugging Face: unlock foundation models for enterprises"
-  author: VioletteLepercq
+  author: Violette
   thumbnail: /blog/assets/78_ml_director_insights/snorkel.png
   date: April 6, 2023
   tags:
@@ -3044,12 +3045,33 @@
     - datasets
     - guide
 
+- local: regions
+  title: "Introducing Storage Regions on the HF Hub"
+  author: julien-c
+  thumbnail: /blog/assets/172_regions/thumbnail.png
+  date: November 3, 2023
+  tags:
+    - announcement
+    - enterprise
+    - hub
+
+- local: Lora-for-sequence-classification-with-Roberta-Llama-Mistral
+  title: "Comparing the Performance of LLMs: A Deep Dive into Roberta, Llama 2, and Mistral for Disaster Tweets Analysis with Lora"
+  author: mehdiiraqui
+  thumbnail: /blog/assets/Lora-for-sequence-classification-with-Roberta-Llama-Mistral/Thumbnail.png
+  date: November 7, 2023
+  tags:
+    - nlp
+    - case-studies
+    - guide
+    - llm
+    - peft
 
 - local: prodigy-hf
   title: "Introducing Prodigy-HF: a direct integration with Hugging Face"
   author: koaning
   thumbnail: /blog/assets/171_prodigy_hf/thumbnail.png
-  date: October 31, 2023
+  date: November 7, 2023
   tags:
     - community
     - nlp

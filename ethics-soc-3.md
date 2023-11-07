@@ -7,7 +7,8 @@ authors:
 - user: NimaBoscarino
 - user: yjernite
 - user: allendorf
-
+- user: meg
+- user: sasha
 ---
 
 # Ethics and Society Newsletter #3: Ethical Openness at Hugging Face

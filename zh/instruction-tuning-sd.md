@@ -231,13 +231,3 @@ _感谢 [Alara Dirik](https://www.linkedin.com/in/alaradirik/) 和 [Zhengzhong T
   note = {https://huggingface.co/blog/instruction-tuning-sd},
 }
 ```
-
----
-
->>>> 英文原文: <url>https://huggingface.co/blog/instruction-tuning-sd</url>
->>>>
->>>> 原文作者: Sayak Paul
->>>>
->>>> 译者: Matrix Yao (姚伟峰)，英特尔深度学习工程师，工作方向为 transformer-family 模型在各模态数据上的应用及大规模模型的训练推理。
->>>>
->>>> 审校/排版: zhongdongy (阿东)
