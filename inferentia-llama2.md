@@ -67,7 +67,7 @@ Once your model has been exported, you can generate text using the transformers 
 >>> from optimum.neuron import NeuronModelForCausalLM
 >>> from transformers import AutoTokenizer
 
->>> model = NeuronModelForCausalLM.from_pretrained('dacorvo/Llama-2-7b-hf-neuron-latency')
+>>> model = NeuronModelForCausalLM.from_pretrained('aws-neuron/Llama-2-7b-hf-neuron-latency')
 >>> tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-13b-hf")
 >>> tokenizer.pad_token_id = tokenizer.eos_token_id
 >>> tokenizer.padding_side = "left"
@@ -104,7 +104,7 @@ Using them is as simple as:
 ```
 >>> from optimum.neuron import pipeline
 
->>> p = pipeline('text-generation', 'dacorvo/Llama-2-7b-hf-neuron-budget')
+>>> p = pipeline('text-generation', 'aws-neuron/Llama-2-7b-hf-neuron-budget')
 >>> p("My favorite place on earth is", max_new_tokens=64, do_sample=True, top_k=50)
 [{'generated_text': 'My favorite place on earth is the ocean. It is where I feel most
 at peace. I love to travel and see new places. I have a'}]
@@ -116,13 +116,13 @@ But how much efficient is text-generation on Inferentia2?  Let's figure out!
 
 We have uploaded on the hub pre-compiled versions of the LLama 2 7B and 13B models with different configurations:
 
-| Model type              | num cores | batch_size | Hugging Face Hub model                 |
-|-------------------------|-----------|------------|----------------------------------------|
-| Llama2 7B - budget      | 2         | 1          |dacorvo/Llama-2-7b-hf-neuron-budget     |
-| Llama2 7B - latency     | 24        | 1          |dacorvo/Llama-2-7b-hf-neuron-latency    |
-| Llama2 7B - throughput  | 24        | 4          |dacorvo/Llama-2-7b-hf-neuron-throughput |
-| Llama2 13B - latency    | 24        | 1          |dacorvo/Llama-2-13b-hf-neuron-latency   |
-| Llama2 13B - throughput | 24        | 4          |dacorvo/Llama-2-13b-hf-neuron-throughput|
+| Model type              | num cores | batch_size | Hugging Face Hub model                    |
+|-------------------------|-----------|------------|-------------------------------------------|
+| Llama2 7B - budget      | 2         | 1          |aws-neuron/Llama-2-7b-hf-neuron-budget     |
+| Llama2 7B - latency     | 24        | 1          |aws-neuron/Llama-2-7b-hf-neuron-latency    |
+| Llama2 7B - throughput  | 24        | 4          |aws-neuron/Llama-2-7b-hf-neuron-throughput |
+| Llama2 13B - latency    | 24        | 1          |aws-neuron/Llama-2-13b-hf-neuron-latency   |
+| Llama2 13B - throughput | 24        | 4          |aws-neuron/Llama-2-13b-hf-neuron-throughput|
 
 *Note: all models are compiled with a maximum sequence length of 2048.*
 
