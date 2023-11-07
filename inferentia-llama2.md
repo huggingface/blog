@@ -150,6 +150,8 @@ It is a very important metric, as it corresponds to the latency directly perceiv
 We test the encoding time for increasing context sizes, 256 input tokens corresponding roughly to a typical Q/A usage,
 while 768 is more typical of a Retrieval Augmented Generation (RAG) use-case.
 
+The "budget" model is deployed on an `inf2.xlarge` instance while other models are deployed on an `inf2.48xlarge` instance.
+
 |   input tokens  |   Llama2 7B latency  |   Llama2 7B throughput  |   Llama2 13B latency  |   Llama2 13B throughput  |   Llama2 7B budget  |
 |-----------------|----------------------|-------------------------|-----------------------|--------------------------|---------------------|
 |   256           |   0,5                |   0,9                   |   0,6                 |   1,8                    |   0,3               |
@@ -166,6 +168,7 @@ The end-to-end latency corresponds to the total time in seconds to reach a seque
 
 It therefore includes the encoding and generation time.
 
+The "budget" model is deployed on an `inf2.xlarge` instance while other models are deployed on an `inf2.48xlarge` instance.
 
 |   new tokens  |   Llama2 7B latency  |   Llama2 7B throughput  |   Llama2 13B latency  |   Llama2 13B throughput  |   Llama2 7B budget  |
 |---------------|----------------------|-------------------------|-----------------------|--------------------------|---------------------|
@@ -184,6 +187,8 @@ The "budget" deployed model latency is significantly higher, but still ok.
 We adopt the same convention as other benchmarks to evaluate the throughput, by dividing the end-to-end
 latency by the sum of both input and output tokens.
 In other words, we divide the end-to-end latency by `batch_size * sequence_length` to obtain the number of generated tokens per second.
+
+The "budget" model is deployed on an `inf2.xlarge` instance while other models are deployed on an `inf2.48xlarge` instance.
 
 |   new tokens  |   Llama2 7B latency  |   Llama2 7B throughput  |   Llama2 13B latency  |   Llama2 13B throughput  |   Llama2 7B budget  |
 |---------------|----------------------|-------------------------|-----------------------|--------------------------|---------------------|
