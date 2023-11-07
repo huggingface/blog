@@ -117,13 +117,13 @@ But how much efficient is text-generation on Inferentia2?  Let's figure out!
 
 We have uploaded on the hub pre-compiled versions of the LLama 2 7B and 13B models with different configurations:
 
-| Model type              | num cores | batch_size | Hugging Face Hub model                    |
-|-------------------------|-----------|------------|-------------------------------------------|
-| Llama2 7B - budget      | 2         | 1          |[aws-neuron/Llama-2-7b-hf-neuron-budget](https://huggingface.co/aws-neuron/Llama-2-7b-hf-neuron-budget)          |
-| Llama2 7B - latency     | 24        | 1          |[aws-neuron/Llama-2-7b-hf-neuron-latency](https://huggingface.co/aws-neuron/Llama-2-7b-hf-neuron-latency)        |
-| Llama2 7B - throughput  | 24        | 4          |[aws-neuron/Llama-2-7b-hf-neuron-throughput](https://huggingface.co/aws-neuron/Llama-2-7b-hf-neuron-throughput)  |
-| Llama2 13B - latency    | 24        | 1          |[aws-neuron/Llama-2-13b-hf-neuron-latency](https://huggingface.co/aws-neuron/Llama-2-13b-hf-neuron-latency)      |
-| Llama2 13B - throughput | 24        | 4          |[aws-neuron/Llama-2-13b-hf-neuron-throughput](https://huggingface.co/aws-neuron/Llama-2-13b-hf-neuron-throughput)|
+| Model type                 | num cores | batch_size | Hugging Face Hub model                    |
+|----------------------------|-----------|------------|-------------------------------------------|
+| Llama2 7B - B (budget)     | 2         | 1          |[aws-neuron/Llama-2-7b-hf-neuron-budget](https://huggingface.co/aws-neuron/Llama-2-7b-hf-neuron-budget)          |
+| Llama2 7B - L (latency)    | 24        | 1          |[aws-neuron/Llama-2-7b-hf-neuron-latency](https://huggingface.co/aws-neuron/Llama-2-7b-hf-neuron-latency)        |
+| Llama2 7B - T (throughput) | 24        | 4          |[aws-neuron/Llama-2-7b-hf-neuron-throughput](https://huggingface.co/aws-neuron/Llama-2-7b-hf-neuron-throughput)  |
+| Llama2 13B - L (latency)   | 24        | 1          |[aws-neuron/Llama-2-13b-hf-neuron-latency](https://huggingface.co/aws-neuron/Llama-2-13b-hf-neuron-latency)      |
+| Llama2 13B - T (throughput)| 24        | 4          |[aws-neuron/Llama-2-13b-hf-neuron-throughput](https://huggingface.co/aws-neuron/Llama-2-13b-hf-neuron-throughput)|
 
 *Note: all models are compiled with a maximum sequence length of 2048.*
 
@@ -150,15 +150,15 @@ It is a very important metric, as it corresponds to the latency directly perceiv
 We test the encoding time for increasing context sizes, 256 input tokens corresponding roughly to a typical Q/A usage,
 while 768 is more typical of a Retrieval Augmented Generation (RAG) use-case.
 
-The "budget" model is deployed on an `inf2.xlarge` instance while other models are deployed on an `inf2.48xlarge` instance.
+The "budget" model (`Llama2 7B-B`) is deployed on an `inf2.xlarge` instance while other models are deployed on an `inf2.48xlarge` instance.
 
 Encoding time is expressed in **seconds**.
 
-|   input tokens  |   Llama2 7B latency  |   Llama2 7B throughput  |   Llama2 13B latency  |   Llama2 13B throughput  |   Llama2 7B budget  |
-|-----------------|----------------------|-------------------------|-----------------------|--------------------------|---------------------|
-|   256           |   0,5                |   0,9                   |   0,6                 |   1,8                    |   0,3               |
-|   512           |   0,7                |   1,6                   |   1,1                 |   3,0                    |   0,4               |
-|   768           |   1,1                |   3,3                   |   1,7                 |   5,2                    |   0,5               |
+|   input tokens  |   Llama2 7B-L  |   Llama2 7B-T  |   Llama2 13B-L  |   Llama2 13B-T  |   Llama2 7B-B  |
+|-----------------|----------------|----------------|-----------------|-----------------|----------------|
+|   256           |   0.5          |   0.9          |   0.6           |   1.8           |   0.3          |
+|   512           |   0.7          |   1.6          |   1.1           |   3.0           |   0.4          |
+|   768           |   1.1          |   3.3          |   1.7           |   5.2           |   0.5          |
 
 ![Llama2 inferentia2 encoding-time](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/169_inferentia-llama2/encoding-time.png "Encoding time")
 
@@ -170,15 +170,15 @@ The end-to-end latency corresponds to the total time to reach a sequence length 
 
 It therefore includes the encoding and generation time.
 
-The "budget" model is deployed on an `inf2.xlarge` instance while other models are deployed on an `inf2.48xlarge` instance.
+The "budget" model (`Llama2 7B-B`) is deployed on an `inf2.xlarge` instance while other models are deployed on an `inf2.48xlarge` instance.
 
 Latency is expressed in **seconds**.
 
-|   new tokens  |   Llama2 7B latency  |   Llama2 7B throughput  |   Llama2 13B latency  |   Llama2 13B throughput  |   Llama2 7B budget  |
-|---------------|----------------------|-------------------------|-----------------------|--------------------------|---------------------|
-|   256         |   2,3                |   2,7                   |   3,5                 |   4,1                    |   15,9              |
-|   512         |   4,4                |   5,3                   |   6,9                 |   7,8                    |   31,7              |
-|   768         |   6,2                |   7,7                   |   10,2                |   11,1                   |   47,3              |
+|   new tokens  |   Llama2 7B-L  |   Llama2 7B-T  |   Llama2 13B-L  |   Llama2 13B-T  |   Llama2 7B-B  |
+|---------------|----------------|----------------|-----------------|-----------------|----------------|
+|   256         |   2.3          |   2.7          |   3.5           |   4.1           |   15.9         |
+|   512         |   4.4          |   5.3          |   6.9           |   7.8           |   31.7         |
+|   768         |   6.2          |   7.7          |   10.2          |   11.1          |   47.3         |
 
 ![Llama2 inferentia2 end-to-end latency](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/169_inferentia-llama2/latency.png "Latency")
 
@@ -192,15 +192,15 @@ We adopt the same convention as other benchmarks to evaluate the throughput, by 
 latency by the sum of both input and output tokens.
 In other words, we divide the end-to-end latency by `batch_size * sequence_length` to obtain the number of generated tokens per second.
 
-The "budget" model is deployed on an `inf2.xlarge` instance while other models are deployed on an `inf2.48xlarge` instance.
+The "budget" model (`Llama2 7B-B`) is deployed on an `inf2.xlarge` instance while other models are deployed on an `inf2.48xlarge` instance.
 
 Throughput is expressed in **tokens/second**.
 
-|   new tokens  |   Llama2 7B latency  |   Llama2 7B throughput  |   Llama2 13B latency  |   Llama2 13B throughput  |   Llama2 7B budget  |
-|---------------|----------------------|-------------------------|-----------------------|--------------------------|---------------------|
-|   256         |   227                |   750                   |   145                 |   504                    |   32                |
-|   512         |   177                |   579                   |   111                 |   394                    |   24                |
-|   768         |   164                |   529                   |   101                 |   370                    |   22                |
+|   new tokens  |   Llama2 7B-L  |   Llama2 7B-T  |   Llama2 13B-L  |   Llama2 13B-T  |   Llama2 7B-B  |
+|---------------|----------------|----------------|-----------------|-----------------|----------------|
+|   256         |   227          |   750          |   145           |   504           |   32           |
+|   512         |   177          |   579          |   111           |   394           |   24           |
+|   768         |   164          |   529          |   101           |   370           |   22           |
 
 ![Llama2 inferentia2 throughput](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/169_inferentia-llama2/throughput.png "Throughput")
 
