@@ -1,19 +1,20 @@
 ---
-title: "Ultra-Fast SDXL with LoRAs borrowed from Latent Consistency Models"
+title: "SDXL in 4 steps with Latent Consistency LoRAs"
 thumbnail: /blog/assets/lcm_sdxl/thumbnail.jpg
 authors:
 - user: pcuenq
 - user: valhalla
 - user: sayakpaul
+- user: multimodalart
 - user: SimianLuo
   guest: true
 - user: dg845
   guest: true
 ---
 
-# Ultra-Fast SDXL with LoRAs borrowed from Latent Consistency Models
+# SDXL in 4 steps with Latent Consistency LoRAs
 
-Latent Consistency Models (LCM) are a way to decrease the number of steps required to generate a Stable Diffusion (or SDXL) image by _distilling_ the original model into another version that requires fewer steps (4 to 8 instead of the original 25 to 50). Distillation is a type of fine-tuning that attempts to replicate the outputs from a source model using a new one. The distilled model may be designed to be smaller (that’s the case, for instance, of DistilBERT or the recently-released DistilWhisper) or, in this case, require fewer steps to run. It’s usually a lengthy and costly process that requires huge amounts of data, patience, and a few GPUs.
+Latent Consistency Models (LCM) are a way to decrease the number of steps required to generate an image with Stable Diffusion (or SDXL) by _distilling_ the original model into another version that requires fewer steps (4 to 8 instead of the original 25 to 50). Distillation is a type of training procedure that attempts to replicate the outputs from a source model using a new one. The distilled model may be designed to be smaller (that’s the case, for instance, of DistilBERT or the recently-released DistilWhisper or SSD-1B) or, in this case, require fewer steps to run. It’s usually a lengthy and costly process that requires huge amounts of data, patience, and a few GPUs.
 
 Well, that was the status quo before today!
 
@@ -36,7 +37,7 @@ We are delighted to announce a new method that can essentially make Stable Diffu
 
 ## Method Overview
 
-So, what’s the trick? The central idea is to use a LoRA trained on a LCM model and apply it to a non-LCM model, together with the denoising schedule of LCM models. If you are itching to see how this looks in practice, just jump to the [next section](#fast-inference-with-sdxl-lcm-loras) to play with the inference code. If you want to train your own LoRAs, this is the process you’d use:
+So, what’s the trick? The central idea is to use a LoRA trained on an LCM model and apply it to a non-LCM model, together with the noise scheduler of LCM models. If you are itching to see how this looks in practice, just jump to the [next section](#fast-inference-with-sdxl-lcm-loras) to play with the inference code. If you want to train your own LoRAs, this is the process you’d use:
 
 1. Select an available LCM model from the Hub. For example, for SDXL we recommend you start with ….
 2. Train a LoRA with your desired characteristics (style, dataset) on the LCM model. LoRA is a type of performance-efficient fine-tuning, or PEFT, that is much cheaper to accomplish than full model fine-tuning. For additional details on LoRA training, please check ….
@@ -46,12 +47,12 @@ So, what’s the trick? The central idea is to use a LoRA trained on a LCM model
 
 Fast inference of Stable Diffusion and SDXL enables new use-cases and workflows. To name a few:
 
-- Accessibility: generative tools can be used effectively by more people, even if they don’t have access to the latest hardware.
-- Faster iteration: get more images and multiple variants in a fraction of the time! This is great for artists and researchers; whether for personal or commercial use.
-- Production workloads may be possible on more accelerators, including CPUs.
+- **Accessibility**: generative tools can be used effectively by more people, even if they don’t have access to the latest hardware.
+- **Faster iteration**: get more images and multiple variants in a fraction of the time! This is great for artists and researchers; whether for personal or commercial use.
+- Production workloads may be possible on different accelerators, including CPUs.
 - Cheaper image generation services.
 
-To frame the speed difference we are talking about, generating a single 1024x1024 image on my M1 Mac with SDXL base takes about a minute. Using the LCM LoRA I get great results in just ~6s (4 steps). This is an order of magnitude faster, and not having to wait for results is a game-changer. Using a 4090 I get almost instant response (less than 1s).
+To gauge the speed difference we are talking about, generating a single 1024x1024 image on an M1 Mac with SDXL (base) takes about a minute. Using the LCM LoRA, we get great results in just ~6s (4 steps). This is an order of magnitude faster, and not having to wait for results is a game-changer. Using a 4090, we get almost instant response (less than 1s). This unlocks the use of SDXL in applications where real-time events are a requirement. 
 
 ## Fast Inference with SDXL LCM LoRAs
 
@@ -173,7 +174,7 @@ These tests were run with a batch size of 1 in all cases. For cards with a lot o
 
 ## Bonus: Use LCM LoRAs with regular SDXL LoRAs
 
-Using the diffusers + PEFT integration, you can combine LCM LoRAs with regular SDXL LoRAs, giving them the superpower to run LCM inference in only 4 steps.
+Using the [diffusers + PEFT integration](https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference), you can combine LCM LoRAs with regular SDXL LoRAs, giving them the superpower to run LCM inference in only 4 steps.
 
 Here we are going to combine `CiroN2022/toy_face` LoRA with the LCM LoRA:
 

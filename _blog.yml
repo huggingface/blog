@@ -3090,7 +3090,7 @@
     - aws
 
 - local: lcm_sdxl
-  title: "Accelerating Stable Diffusion XL Inference with JAX on Cloud TPU v5e"
+  title: "SDXL in 4 steps with Latent Consistency LoRAs"
   author: pcuenq
   thumbnail: /blog/assets/lcm_sdxl/thumbnail.jpg
   date: November 9, 2023
