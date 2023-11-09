@@ -1,6 +1,6 @@
 ---
 title: "SDXL in 4 steps with Latent Consistency LoRAs"
-thumbnail: /blog/assets/lcm_sdxl/thumbnail.jpg
+thumbnail: /blog/assets/lcm_sdxl/thumbnail.png
 authors:
 - user: pcuenq
 - user: valhalla
