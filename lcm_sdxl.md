@@ -257,10 +257,17 @@ images
 </p>
 
 
-## How to train LCM LoRAs
+## How to Train LCM Models and LoRAs
 
-## Resources
+As part of the `diffusers` release today, we are providing training and fine-tuning scripts developed in collaboration with the LCM team authors. They allow users to:
+
+- Perform full-model distillation of Stable Diffusion or SDXL models on large datasets such as Laion.
+- Train LCM LoRAs, which is a much easier process. As we've shown in this post, it also makes it possible to run fast inference with Stable Diffusion, without having to go through distillation training.
+
+For more details, please check the instructions for [SDXL](https://github.com/huggingface/diffusers/examples/consistency_distillation/README_sdxl.md) or [Stable Diffusion](https://github.com/huggingface/diffusers/examples/consistency_distillation/README.md) in the repo.
+
+We hope these scripts inspire the community to try their own fine-tunes. Please, do let us know if you use them for your projects!
 
 ## Credits
 
-The amazing work on Latent Consistency Models was performed by the [LCM Team](https://latent-consistency-models.github.io), please make sure to check out their code, report and paper. This project is a testament to the enabling power of open source AI, the cornerstone that allows researchers, practitioners and tinkerers to explore new ideas and collaborate. 
+The amazing work on Latent Consistency Models was performed by the [LCM Team](https://latent-consistency-models.github.io), please make sure to check out their code, report and paper. This project is a testament to the enabling power of open source AI, the cornerstone that allows researchers, practitioners and tinkerers to explore new ideas and collaborate. We'd also like to thank [`@madebyollin`](https://huggingface.co/madebyollin) for their continued contributions to the community, including the `float16` autoencoder we use in our training scripts.
