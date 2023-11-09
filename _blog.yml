@@ -3089,7 +3089,7 @@
     - llama2
     - aws
 
-- local: lcm_sdxl
+- local: lcm_lora
   title: "SDXL in 4 steps with Latent Consistency LoRAs"
   author: pcuenq
   thumbnail: /blog/assets/lcm_sdxl/thumbnail.png
