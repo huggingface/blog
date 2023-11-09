@@ -275,7 +275,7 @@ images
     <em>Standard and LCM LoRAs combined for fast (4 step) inference.</em>
 </p>
 
-Need ideas to explore some LoRAs? Check out our experimental [LoRA the Explorer (LCM version)](https://huggingface.co/spaces/latent-consistency/lcm-LoraTheExplorer) Space to test amazing creations by the community and get inspired!
+Need ideas to explore some LoRAs? Check out our experimental [LoRA the Explorer (LCM version)](https://huggingface.co/spaces/latent-consistency/lcm-LoraTheExplorer) Space to test LoRAs creations by the community and get inspired, also feel free to report the ones that don't combine well.
 
 
 ## How to Train LCM Models and LoRAs
