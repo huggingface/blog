@@ -18,7 +18,7 @@ Latent Consistency Models (LCM) are a way to decrease the number of steps requir
 
 Well, that was the status quo before today!
 
-We are delighted to announce a new method that can essentially make Stable Diffusion and SDXL faster, as if they had been distilled using the LCM process!
+We are delighted to announce a new method that can essentially make Stable Diffusion and SDXL faster, as if they had been distilled using the LCM process! How does it sound to run _any_ SDXL model in about 1 second instead of 7 on a 3090, or 10x faster on Mac? Read on for details!
 
 ## Contents
 
@@ -29,19 +29,19 @@ We are delighted to announce a new method that can essentially make Stable Diffu
   - [Guidance Scale and Negative Prompts](#guidance-scale-and-negative-prompts)
   - [Quality vs base SDXL](#quality-vs-base-sdxl)
   - [LCM LoRAs with other Models](#lcm-loras-with-other-models)
+  - [Full Diffusers Integration](#full-diffusers-integration)
 - [Benchmarks](#benchmarks)
 - [LCM LoRAs and Models Released Today](#lcm-loras-and-models-released-today)
-- [Bonus: Use LCM LoRAs with regular SDXL LoRAs](#bonus-use-lcm-loras-with-regular-sdxl-loras)
+- [Bonus: Combine LCM LoRAs with regular SDXL LoRAs](#bonus-combine-lcm-loras-with-regular-sdxl-loras)
 - [How to train LCM LoRAs](#how-to-train-lcm-loras)
-- [Resources](#resources)
 - [Credits](#credits)
 
 ## Method Overview
 
 So, what’s the trick? The central idea is to use a LoRA trained on an LCM model and apply it to a non-LCM model, together with the noise scheduler of LCM models. If you are itching to see how this looks in practice, just jump to the [next section](#fast-inference-with-sdxl-lcm-loras) to play with the inference code. If you want to train your own LoRAs, this is the process you’d use:
 
-1. Select an available LCM model from the Hub. For example, for SDXL we recommend you start with ….
-2. Train a LoRA with your desired characteristics (style, dataset) on the LCM model. LoRA is a type of performance-efficient fine-tuning, or PEFT, that is much cheaper to accomplish than full model fine-tuning. For additional details on LoRA training, please check ….
+1. Select an available teacher model from the Hub. For example, you can use [SDXL (base)](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0), or any fine-tuned or dreamboothed version you like.
+2. [Train a LCM LoRA](#how-to-train-lcm-models-and-loras) on the model. LoRA is a type of performance-efficient fine-tuning, or PEFT, that is much cheaper to accomplish than full model fine-tuning. For additional details on PEFT, please check [this blog post](https://huggingface.co/blog/peft) or [the diffusers LoRA documentation](https://huggingface.co/docs/diffusers/training/lora).
 3. Use the LoRA with the standard SDXL diffusion model and the LCM scheduler and bingo, you get high-quality inference in just a few steps.
 
 ## Why does this matter?
@@ -193,6 +193,16 @@ images
     <em>LCM LoRA technique with a Dreambooth Stable Diffusion v1.5 model, allowing 4-step inference.</em>
 </p>
 
+### Full Diffusers Integration
+
+The integration of LCM in `diffusers` makes it possible to take advantage of many features and workflows that are part of the diffusers toolbox. For example:
+
+- Out of the box `mps` support for Macs with Apple Silicon.
+- Memory and performance optimizations like flash attention or `torch.compile()`.
+- Additional memory saving strategies for low-RAM environments, including model offload.
+- Workflows like ControlNet or image-to-image.
+- Training and fine-tuning scripts.
+
 
 ## Benchmarks
 
@@ -219,7 +229,7 @@ These tests were run with a batch size of 1 in all cases. For cards with a lot o
 - [`latent-consistency/lcm-sdxl`](https://huggingface.co/latent-consistency/lcm-sdxl). Full fine-tuned consistency model derived from [SDXL 1.0 base](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0).
 - [`latent-consistency/lcm-ssd-1b`](https://huggingface.co/latent-consistency/lcm-ssd-1b). Full fine-tuned consistency model derived from [`segmind/SSD-1B`](https://huggingface.co/segmind/SSD-1B).
 
-## Bonus: Use LCM LoRAs with regular SDXL LoRAs
+## Bonus: Combine LCM LoRAs with regular SDXL LoRAs
 
 Using the [diffusers + PEFT integration](https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference), you can combine LCM LoRAs with regular SDXL LoRAs, giving them the superpower to run LCM inference in only 4 steps.
 
