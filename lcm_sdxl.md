@@ -87,7 +87,10 @@ Note how the code:
 
 This would result in the following full-resolution image:
 
-TODO: image
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/lcm-lora/lcm-1.jpg?download=true" alt="SDXL in 4 steps with LCM LoRA"><br>
+    <em>Image generated with SDXL in 4 steps using an LCM LoRA.</em>
+</p>
 
 ### Quality Comparison
 
@@ -108,7 +111,10 @@ for steps in range(8):
 
 These are the 8 images displayed in a grid:
 
-TODO: grid
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/lcm-lora/lcm-grid.jpg?download=true" alt="LCM LoRA generations with 1 to 8 steps"><br>
+    <em>LCM LoRA generations with 1 to 8 steps.</em>
+</p>
 
 As expected, using just **1** step produces an approximate shape without discernible features and lacking texture. However, results quickly improve, and they are usually very satisfactory in just 4 to 6 steps. Personally, I find the 8-step image in the previous test to be a bit too saturated and “cartoony” for my taste, so I’d probably choose between the ones with 5 and 6 steps in this example. Generation is so fast that you can create a bunch of different variants using just 4 steps, and then select the ones you like and iterate using a couple more steps and refined prompts as necessary.
 
@@ -143,7 +149,10 @@ for steps in (1, 4, 8, 15, 20, 25, 30, 50):
     images.append(image)
 ```
 
-TODO: grid
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/lcm-lora/lcm-sdxl-grid.jpg?download=true" alt="SDXL results for various inference steps"><br>
+    <em>SDXL pipeline results (same prompt and random seed), using 1, 4, 8, 15, 20, 25, 30, and 50 steps.</em>
+</p>
 
 As you can see, images in this example are pretty much useless until ~20 steps (second row), and quality still increases niteceably with more steps. The details in the final image are amazing, but it took 50 steps to get there.
 
@@ -204,7 +213,11 @@ images = pipe(
 images
 ```
 
-TODO: image
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/lcm-lora/lcm-toy.png?download=true" alt="Combining LoRAs for fast inference"><br>
+    <em>Standard and LCM LoRAs combined for fast (4 step) inference.</em>
+</p>
+
 
 How about any SD1.5 base model? It also works!
 
