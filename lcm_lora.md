@@ -59,7 +59,7 @@ Fast inference of Stable Diffusion and SDXL enables new use-cases and workflows.
 - Production workloads may be possible on different accelerators, including CPUs.
 - Cheaper image generation services.
 
-To gauge the speed difference we are talking about, generating a single 1024x1024 image on an M1 Mac with SDXL (base) takes about a minute. Using the LCM LoRA, we get great results in just ~6s (4 steps). This is an order of magnitude faster, and not having to wait for results is a game-changer. Using a 4090, we get almost instant response (less than 1s). This unlocks the use of SDXL in applications where real-time events are a requirement. 
+To gauge the speed difference we are talking about, generating a single 1024x1024 image on an M1 Mac with SDXL (base) takes about a minute. Using the LCM LoRA, we get great results in just ~6s (4 steps). This is an order of magnitude faster, and not having to wait for results is a game-changer. Using a 4090, we get almost instant response (less than 1s). This unlocks the use of SDXL in applications where real-time events are a requirement.
 
 ## Fast Inference with SDXL LCM LoRAs
 
@@ -297,6 +297,10 @@ We hope these scripts inspire the community to try their own fine-tunes. Please,
     - [For Stable Diffusion v1.5](https://huggingface.co/latent-consistency/lcm-lora-sdv1-5).
     - [For Segming's SSD-1B](https://huggingface.co/latent-consistency/lcm-lora-ssd-1b).
     - [Technical Report](https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/LCM-LoRA-Technical-Report.pdf).
+- Demos
+    - [SDXL in 4 steps with Latent Consistency LoRAs](https://huggingface.co/spaces/latent-consistency/lcm-lora-for-sdxl)
+    - [Near real-time video stream](https://huggingface.co/spaces/latent-consistency/Real-Time-LCM-ControlNet-Lora-SD1.5)
+
 - [LoRA the Explorer (experimental LCM version)](https://huggingface.co/spaces/latent-consistency/lcm-LoraTheExplorer)
 - PEFT: [intro](https://huggingface.co/blog/peft), [repo](https://github.com/huggingface/peft)
 - Training scripts
