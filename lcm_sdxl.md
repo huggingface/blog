@@ -14,7 +14,7 @@ authors:
 
 # SDXL in 4 steps with Latent Consistency LoRAs
 
-Latent Consistency Models (LCM) are a way to decrease the number of steps required to generate an image with Stable Diffusion (or SDXL) by _distilling_ the original model into another version that requires fewer steps (4 to 8 instead of the original 25 to 50). Distillation is a type of training procedure that attempts to replicate the outputs from a source model using a new one. The distilled model may be designed to be smaller (that’s the case, for instance, of DistilBERT or the recently-released DistilWhisper or SSD-1B) or, in this case, require fewer steps to run. It’s usually a lengthy and costly process that requires huge amounts of data, patience, and a few GPUs.
+Latent Consistency Models (LCM) are a way to decrease the number of steps required to generate an image with Stable Diffusion (or SDXL) by _distilling_ the original model into another version that requires fewer steps (4 to 8 instead of the original 25 to 50). Distillation is a type of training procedure that attempts to replicate the outputs from a source model using a new one. The distilled model may be designed to be smaller (that’s the case of DistilBERT or the recently-released DistilWhisper) or, in this case, require fewer steps to run. It’s usually a lengthy and costly process that requires huge amounts of data, patience, and a few GPUs.
 
 Well, that was the status quo before today!
 
@@ -42,7 +42,7 @@ So, what’s the trick? The central idea is to use a LoRA trained on an LCM mode
 
 1. Select an available teacher model from the Hub. For example, you can use [SDXL (base)](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0), or any fine-tuned or dreamboothed version you like.
 2. [Train a LCM LoRA](#how-to-train-lcm-models-and-loras) on the model. LoRA is a type of performance-efficient fine-tuning, or PEFT, that is much cheaper to accomplish than full model fine-tuning. For additional details on PEFT, please check [this blog post](https://huggingface.co/blog/peft) or [the diffusers LoRA documentation](https://huggingface.co/docs/diffusers/training/lora).
-3. Use the LoRA with the standard SDXL diffusion model and the LCM scheduler and bingo, you get high-quality inference in just a few steps.
+3. Use the LoRA with the standard SDXL diffusion model and the LCM scheduler; bingo! You get high-quality inference in just a few steps.
 
 ## Why does this matter?
 
