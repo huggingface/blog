@@ -28,6 +28,7 @@ We are delighted to announce a new method that can essentially make Stable Diffu
   - [Quality Comparison](#quality-comparison)
   - [Guidance Scale and Negative Prompts](#guidance-scale-and-negative-prompts)
   - [Quality vs base SDXL](#quality-vs-base-sdxl)
+  - [LCM LoRAs with other Models](#lcm-loras-with-other-models)
 - [Benchmarks](#benchmarks)
 - [LCM LoRAs and Models Released Today](#lcm-loras-and-models-released-today)
 - [Bonus: Use LCM LoRAs with regular SDXL LoRAs](#bonus-use-lcm-loras-with-regular-sdxl-loras)
@@ -156,6 +157,43 @@ for steps in (1, 4, 8, 15, 20, 25, 30, 50):
 
 As you can see, images in this example are pretty much useless until ~20 steps (second row), and quality still increases niteceably with more steps. The details in the final image are amazing, but it took 50 steps to get there.
 
+### LCM LoRAs with other models
+
+This technique also works for any other fine-tuned SDXL or Stable Diffusion model. To demonstrate, let's see how to run inference on [`collage-diffusion`](https://huggingface.co/wavymulder/collage-diffusion), a model fine-tuned from [Stable Diffusion v1.5](https://huggingface.co/runwayml/stable-diffusion-v1-5) using Dreambooth.
+
+The code is similar to the one we saw in the previous examples. We load the fine-tuned model, and then the LCM LoRA suitable for Stable Diffusion v1.5.
+
+```py
+from diffusers import DiffusionPipeline, LCMScheduler
+import torch
+
+model_id = "wavymulder/collage-diffusion"
+lcm_lora_id = "latent-consistency/lcm-lora-sdv1-5"
+
+pipe = DiffusionPipeline.from_pretrained(model_id, variant="fp16")
+pipe.scheduler = LCMScheduler.from_config(pipe.scheduler.config)
+pipe.load_lora_weights(lcm_lora_id)
+pipe.to(device="cuda", dtype=torch.float16)
+
+prompt = "collage style kid sits looking at the night sky, full of stars"
+
+generator = torch.Generator(device=pipe.device).manual_seed(1337)
+images = pipe(
+    prompt=prompt,
+    generator=generator,
+    negative_prompt=negative_prompt,
+    num_inference_steps=4,
+    guidance_scale=1,
+).images[0]
+images
+```
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/lcm-lora/collage.png?download=true" alt="LCM LoRA technique with a Dreambooth Stable Diffusion v1.5 model, allowing 4-step inference."><br>
+    <em>LCM LoRA technique with a Dreambooth Stable Diffusion v1.5 model, allowing 4-step inference.</em>
+</p>
+
+
 ## Benchmarks
 
 This section is not meant to be exhaustive, but illustrative of the generation speed we achieve on various computers. Let us stress again how liberating it is to explore image generation so easily.
@@ -218,68 +256,6 @@ images
     <em>Standard and LCM LoRAs combined for fast (4 step) inference.</em>
 </p>
 
-
-How about any SD1.5 base model? It also works!
-
-Let's use the [`collage-diffusion`](https://huggingface.co/wavymulder/collage-diffusion) model to test. Note that this is a fine-tuned model, not a LoRA:
-
-```py
-from diffusers import DiffusionPipeline, LCMScheduler
-import torch
-
-model_id = "wavymulder/collage-diffusion"
-lcm_lora_id = "latent-consistency/lcm-lora-sdv1-5"
-
-pipe = DiffusionPipeline.from_pretrained(model_id, variant="fp16")
-pipe.scheduler = LCMScheduler.from_config(pipe.scheduler.config)
-pipe.load_lora_weights(lcm_lora_id)
-pipe.to(device="cuda", dtype=torch.float16)
-
-prompt = "collage style kid sits looking at the night sky, full of stars"
-negative_prompt = "blurry, low quality, render, 3D, oversaturated"
-
-generator = torch.Generator(device=pipe.device).manual_seed(1337)
-images = pipe(
-    prompt=prompt,
-    generator=generator,
-    negative_prompt=negative_prompt,
-    num_inference_steps=4,
-    guidance_scale=0.2,
-).images[0]
-images
-```
-
-TODO: image
-
-https://huggingface.co/plasmo/woolitize
-
-```py
-from diffusers import DiffusionPipeline, LCMScheduler
-import torch
-
-model_id = "plasmo/woolitize"
-lcm_lora_id = "lcm-sd/lcm-sd1.5-lora"
-
-pipe = DiffusionPipeline.from_pretrained(model_id, variant="fp16")
-pipe.scheduler = LCMScheduler.from_config(pipe.scheduler.config)
-pipe.load_lora_weights(lcm_lora_id, weight_name="lcm_sd_lora.safetensors", adapter_name="lcm")
-pipe.to(device="cuda", dtype=torch.float16)
-
-prompt = "woolitize portrait of Bill Gates"
-negative_prompt = "blurry, low quality, render, 3D, oversaturated"
-
-generator = torch.Generator(device=pipe.device).manual_seed(12312)
-images = pipe(
-    prompt=prompt,
-    generator=generator,
-    negative_prompt=negative_prompt,
-    num_inference_steps=4,
-    guidance_scale=0.3,
-).images[0]
-images
-```
-
-TODO: image
 
 ## How to train LCM LoRAs
 
