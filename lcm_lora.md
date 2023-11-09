@@ -224,7 +224,9 @@ This section is not meant to be exhaustive, but illustrative of the generation s
 | A100 (80 GB)                           | 1.2s                    | 3.8s                     |
 | Intel i9-10980XE CPU (1/36 cores used) | 29s                     | 219s                     |
 
-These tests were run with a batch size of 1 in all cases. For cards with a lot of capacity, such as A100, performance increases significantly when generating multiple images at once, which is usually the case for production workloads.
+These tests were run with a batch size of 1 in all cases, using [this script](https://huggingface.co/datasets/pcuenq/gists/blob/main/sayak_lcm_benchmark.py) by [Sayak Paul](https://huggingface.co/sayakpaul).
+
+For cards with a lot of capacity, such as A100, performance increases significantly when generating multiple images at once, which is usually the case for production workloads.
 
 ## LCM LoRAs and Models Released Today
 
