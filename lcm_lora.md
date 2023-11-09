@@ -4,12 +4,14 @@ thumbnail: /blog/assets/lcm_sdxl/thumbnail.png
 authors:
 - user: pcuenq
 - user: valhalla
-- user: sayakpaul
-- user: multimodalart
 - user: SimianLuo
   guest: true
 - user: dg845
   guest: true
+- user: tyq1024
+  guest: true
+- user: sayakpaul
+- user: multimodalart
 ---
 
 # SDXL in 4 steps with Latent Consistency LoRAs
