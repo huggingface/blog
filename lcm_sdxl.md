@@ -34,6 +34,7 @@ We are delighted to announce a new method that can essentially make Stable Diffu
 - [LCM LoRAs and Models Released Today](#lcm-loras-and-models-released-today)
 - [Bonus: Combine LCM LoRAs with regular SDXL LoRAs](#bonus-combine-lcm-loras-with-regular-sdxl-loras)
 - [How to train LCM LoRAs](#how-to-train-lcm-loras)
+- [Resources](#resources)
 - [Credits](#credits)
 
 ## Method Overview
@@ -279,6 +280,19 @@ As part of the `diffusers` release today, we are providing training and fine-tun
 For more details, please check the instructions for [SDXL](https://github.com/huggingface/diffusers/examples/consistency_distillation/README_sdxl.md) or [Stable Diffusion](https://github.com/huggingface/diffusers/examples/consistency_distillation/README.md) in the repo.
 
 We hope these scripts inspire the community to try their own fine-tunes. Please, do let us know if you use them for your projects!
+
+## Resources
+
+- [Latent Consistency Models project page](https://latent-consistency-models.github.io)
+- LCM LoRAs
+    - [For SDXL](https://huggingface.co/latent-consistency/lcm-lora-sdxl).
+    - [For Stable Diffusion v1.5](https://huggingface.co/latent-consistency/lcm-lora-sdv1-5).
+    - [For Segming's SSD-1B](https://huggingface.co/latent-consistency/lcm-lora-ssd-1b).
+- [LoRA the Explorer (experimental LCM version)](https://huggingface.co/spaces/latent-consistency/lcm-LoraTheExplorer)
+- PEFT: [intro](https://huggingface.co/blog/peft), [repo](https://github.com/huggingface/peft)
+- Training scripts
+    - [For Stable Diffusion 1.5](https://github.com/huggingface/diffusers/blob/main/examples/consistency_distillation/README.md)
+    - [For SDXL](https://github.com/huggingface/diffusers/blob/main/examples/consistency_distillation/README_sdxl.md)
 
 ## Credits
 
