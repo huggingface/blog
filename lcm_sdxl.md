@@ -21,6 +21,19 @@ We are delighted to announce a new method that can essentially make Stable Diffu
 
 ## Contents
 
+- [Method Overview](#method-overview)
+- [Why does this matter](#why-does-this-matter)
+- [Fast Inference with SDXL LCM LoRAs](#fast-inference-with-sdxl-lcm-loras)
+  - [Quality Comparison](#quality-comparison)
+  - [Guidance Scale and Negative Prompts](#guidance-scale-and-negative-prompts)
+  - [Quality vs base SDXL](#quality-vs-base-sdxl)
+- [Benchmarks](#benchmarks)
+- [LCM LoRAs and Models Released Today](#lcm-loras-and-models-released-today)
+- [Bonus: Use LCM LoRAs with regular SDXL LoRAs](#bonus-use-lcm-loras-with-regular-sdxl-loras)
+- [How to train LCM LoRAs](#how-to-train-lcm-loras)
+- [Resources](#resources)
+- [Credits](#credits)
+
 ## Method Overview
 
 So, what’s the trick? The central idea is to use a LoRA trained on a LCM model and apply it to a non-LCM model, together with the denoising schedule of LCM models. If you are itching to see how this looks in practice, just jump to the [next section](#fast-inference-with-sdxl-lcm-loras) to play with the inference code. If you want to train your own LoRAs, this is the process you’d use:
@@ -143,11 +156,11 @@ This section is not meant to be exhaustive, but illustrative of the generation s
 | 2080 Ti                                | 4.7s                    | 10.2s                    |
 | 3090                                   | 1.4s                    | 7s                       |
 | 4090                                   | 0.7s                    | 3.4s                     |
-| 4090 (batch size 4)                    |                         |                          |
 | T4 (Google Colab Free Tier)            | 8.4s                    | 26.5s                    |
 | A100 (80 GB)                           | 1.2s                    | 3.8s                     |
-| A100 (80 GB, batch size 4)             |                         |                          |
 | Intel i9-10980XE CPU (1/36 cores used) | 29s                     | 219s                     |
+
+These tests were run with a batch size of 1 in all cases. For cards with a lot of capacity, such as A100, performance increases significantly when generating multiple images at once, which is usually the case for production workloads.
 
 ## LCM LoRAs and Models Released Today
 
