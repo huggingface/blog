@@ -168,7 +168,7 @@ We now take a technical deep dive into the implementation details that are relev
         """
         ```
         
-    4. **Note on HF’s transformers — `position_ids` during `generate`:** during generate we should not pass in `position_ids` because the `position_ids` are already adjusted in `transformers` somehow. When I also pass in `position_ids` in the generation, the performance catastrophically deteriorates. 
+    4. **Note on HF’s transformers — `position_ids` during `generate`:** during generate we should not pass in `position_ids` because the `position_ids` are already adjusted in `transformers` (see [huggingface/transformers#/7552](https://github.com/huggingface/transformers/pull/7552).
     
     Usually, we almost never pass `position_ids` in transformers. All the masking and shifting logic are already implemented e.g. in the `generate` function (need permanent code link).
 4. **Response generation samples a fixed-length response without padding.**
