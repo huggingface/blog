@@ -39,7 +39,8 @@ We are delighted to announce a new method that can essentially make Stable Diffu
 
 ## Method Overview
 
-So, what’s the trick? The central idea is to use a LoRA trained on an LCM model and apply it to a non-LCM model, together with the noise scheduler of LCM models. If you are itching to see how this looks in practice, just jump to the [next section](#fast-inference-with-sdxl-lcm-loras) to play with the inference code. If you want to train your own LoRAs, this is the process you’d use:
+So, what’s the trick? 
+For latent consistency distillation, each model needs to be distilled separately. The core idea with LCM-LoRA is to add LoRA layers to the trainable model and only train those layers. The resulting LoRAs can then be applied to any fine-tuned version of the model without having to distil them separately. If you are itching to see how this looks in practice, just jump to the [next section](#fast-inference-with-sdxl-lcm-loras) to play with the inference code. If you want to train your own LoRAs, this is the process you’d use:
 
 1. Select an available teacher model from the Hub. For example, you can use [SDXL (base)](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0), or any fine-tuned or dreamboothed version you like.
 2. [Train a LCM LoRA](#how-to-train-lcm-models-and-loras) on the model. LoRA is a type of performance-efficient fine-tuning, or PEFT, that is much cheaper to accomplish than full model fine-tuning. For additional details on PEFT, please check [this blog post](https://huggingface.co/blog/peft) or [the diffusers LoRA documentation](https://huggingface.co/docs/diffusers/training/lora).
