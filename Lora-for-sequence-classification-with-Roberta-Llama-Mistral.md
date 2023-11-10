@@ -604,11 +604,11 @@ Finally, we define the RoBERTa trainer by providing the model, the training argu
 
 ```python
 roberta_trainer = WeightedCELossTrainer(
-    model=mistral_model,
+    model=roberta_model,
     args=training_args,
-    train_dataset=mistral_tokenized_datasets['train'],
-    eval_dataset=mistral_tokenized_datasets["val"],
-    data_collator=mistral_data_collator,
+    train_dataset=roberta_tokenized_datasets['train'],
+    eval_dataset=roberta_tokenized_datasets["val"],
+    data_collator=roberta_data_collator,
     compute_metrics=compute_metrics
 )
 ```
