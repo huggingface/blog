@@ -285,7 +285,7 @@ As part of the `diffusers` release today, we are providing training and fine-tun
 - Perform full-model distillation of Stable Diffusion or SDXL models on large datasets such as Laion.
 - Train LCM LoRAs, which is a much easier process. As we've shown in this post, it also makes it possible to run fast inference with Stable Diffusion, without having to go through distillation training.
 
-For more details, please check the instructions for [SDXL](https://github.com/huggingface/diffusers/examples/consistency_distillation/README_sdxl.md) or [Stable Diffusion](https://github.com/huggingface/diffusers/examples/consistency_distillation/README.md) in the repo.
+For more details, please check the instructions for [SDXL](https://github.com/huggingface/diffusers/blob/main/examples/consistency_distillation/README_sdxl.md) or [Stable Diffusion](https://github.com/huggingface/diffusers/blob/main/examples/consistency_distillation/README.md) in the repo.
 
 We hope these scripts inspire the community to try their own fine-tunes. Please, do let us know if you use them for your projects!
 
@@ -295,7 +295,7 @@ We hope these scripts inspire the community to try their own fine-tunes. Please,
 - [LCM LoRAs](https://huggingface.co/collections/latent-consistency/latent-consistency-models-loras-654cdd24e111e16f0865fba6)
     - [For SDXL](https://huggingface.co/latent-consistency/lcm-lora-sdxl).
     - [For Stable Diffusion v1.5](https://huggingface.co/latent-consistency/lcm-lora-sdv1-5).
-    - [For Segming's SSD-1B](https://huggingface.co/latent-consistency/lcm-lora-ssd-1b).
+    - [For Segmind's SSD-1B](https://huggingface.co/latent-consistency/lcm-lora-ssd-1b).
     - [Technical Report](https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/LCM-LoRA-Technical-Report.pdf).
 - Demos
     - [SDXL in 4 steps with Latent Consistency LoRAs](https://huggingface.co/spaces/latent-consistency/lcm-lora-for-sdxl)
@@ -310,4 +310,3 @@ We hope these scripts inspire the community to try their own fine-tunes. Please,
 ## Credits
 
 The amazing work on Latent Consistency Models was performed by the [LCM Team](https://latent-consistency-models.github.io), please make sure to check out their code, report and paper. This project is a collaboration between the [diffusers team](https://github.com/huggingface/diffusers), the LCM team, and community contributor [Daniel Gu](https://huggingface.co/dg845). We believe it's a testament to the enabling power of open source AI, the cornerstone that allows researchers, practitioners and tinkerers to explore new ideas and collaborate. We'd also like to thank [`@madebyollin`](https://huggingface.co/madebyollin) for their continued contributions to the community, including the `float16` autoencoder we use in our training scripts.
-
