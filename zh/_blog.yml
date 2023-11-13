@@ -989,6 +989,19 @@
     - diffusers
     - diffusion
 
+- local: overview-quantization-transformers
+  title: "🤗 Transformers 中原生支持的量化方案概述"
+  author: ybelkada
+  thumbnail: /blog/assets/163_overview_quantization_transformers/thumbnail.jpg
+  date: September 12, 2023
+  tags:
+    - llm
+    - optimization
+    - quantization
+    - comparison
+    - bitsandbytes
+    - gptq
+
 - local: optimize-llm
   title: "面向生产的 LLM 优化"
   author: patrickvonplaten
