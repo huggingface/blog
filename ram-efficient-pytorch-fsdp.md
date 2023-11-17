@@ -169,13 +169,7 @@ accelerate launch \
     --use_flash_attn True
 ```
 
-Fine-tuning completed in ~13.5 hours and below is the training loss plot. Let's calculate the Model Flops Utilization (MFU) for the training run.
-
-1. A100 GPUs perform ~ 3.12e14 FLOPS per seconds (in float32 or bfloat16
-2. Number of tokens trained on in the above experiments = sequence length \* batch size \* number of training steps = (2048 \* 16 \* 500) = 16,384,000 = 1.64e7
-3. Approx compute for above experiments = 6 \* P (num_params) \* D (num_tokens) = 6 \* 7e10 \* 1.64e7 = 6.89e18 FLOPS
-4. Training FLOPS per second = Approx compute / training time = 6.89e17 / (13.5 \* 3600)  = 6.89e18 / 4.86e4 = 1.42e14 FLOPS per second
-5. MFU = Training FLOPS per second / Peak A100 performance = 1.42e14 /  3.12e14 = 0.4551 = **45.51% of peak performance**
+Fine-tuning completed in ~13.5 hours and below is the training loss plot.
 
 ![train_loss](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/160_ram_efficient_fsdp/train_loss.png)
 
