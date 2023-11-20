@@ -1066,3 +1066,15 @@
     - announcement
     - enterprise
     - hub
+
+- local: lcm_lora
+  title: "使用隐一致性 LoRA 4 步完成 SDXL 推理"
+  author: pcuenq
+  thumbnail: /blog/assets/lcm_sdxl/lcm_thumbnail.png
+  date: November 9, 2023
+  tags:
+    - sdxl
+    - lcm
+    - stable diffusion
+    - guide
+    - hub
