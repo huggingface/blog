@@ -160,7 +160,90 @@ We notice that increasing the number of in-context training samples for Llama2 d
 
 ## Training your own model
 
-WIP
+SetFitABSA is part of the SetFit framework. To train an ABSA model, start by installing `setfit` with the `absa` option enabled:
+
+```shell
+python -m pip install "setfit[absa]"
+```
+
+We continue by preparing the training set. The format of the training set is a `Dataset` with the columns `text`, `span`, `label`, `ordinal`:
+
+* text: The full sentence or text containing the aspects. 
+* span: An aspect from the full sentence. Can be multiple words. For example: "food".
+* label: The (polarity) label corresponding to the aspect span. For example: "positive". The labels names can be chosen arbitrarily when tagging the collected training data.
+* ordinal: If the aspect span occurs multiple times in the text, then this ordinal represents the index of those occurrences. Often this is just 0, as usually aspect appears only once in the input text.
+
+For example, the training text "Restaurant with wonderful food but worst service I ever seen" contains two aspects, so will add two lines to the training set table:
+
+| Text                                                         | Span    | Label | Ordinal |
+|:-------------------------------------------------------------|:--------|:------|:--------|
+| Restaurant with wonderful food but worst service I ever seen | food    | pos   | 0       |
+| Restaurant with wonderful food but worst service I ever seen | service | neg   | 0       |
+| ...                                                          | ...     | ...   | ...     |
+
+Once we have the training dataset ready we can create an ABSA trainer and execute the training:
+
+```python
+from setfit import AbsaTrainer, AbsaModel
+
+# Create training dataset as above
+training_dataset = ...
+
+
+# Create a model with a chosen sentence transformer from the hub
+model = AbsaModel.from_pretrained(
+	"sentence-transformers/paraphrase-mpnet-base-v2")
+
+
+# Create a trainer:
+trainer = AbsaTrainer(model, train_dataset=training_dataset)
+# Execute training:
+train.train()
+```
+
+That’s it! We have trained a domain-specific ABSA model. We can save our trained model to disk or upload it to the Hugging Face hub. Bare in mind that the model contains two sub models, so each is given its own path:
+
+```python
+model.save_pretrained(
+			"models/setfit-absa-model-aspect", 
+			"models/setfit-absa-model-polarity"
+)
+# or
+model.push_to_hub(
+			"tomaarsen/setfit-absa-model-aspect",
+			"tomaarsen/setfit-absa-model-polarity"
+)
+```
+
+Now we can use our trained model for inference. We start by loading the model:
+
+```python
+from setfit import AbsaModel
+
+model = AbsaModel.from_pretrained(
+			"tomaarsen/setfit-absa-model-aspect",
+			"tomaarsen/setfit-absa-model-polarity"
+)
+```
+
+Then, we use the predict API to execute the inference. The input is a list of strings, each representing a textual review:
+
+```python
+preds = model.predict([
+	"Best pizza outside of Italy and really tasty.",
+    "The food variations are great and the prices are absolutely fair.",
+    "Unfortunately, you have to expect some waiting time and get a note with a waiting number if it should be very full."
+])
+
+print(preds)
+# [
+#     [{'span': 'pizza', 'polarity': 'positive'}],
+#     [{'span': 'food variations', 'polarity': 'positive'}, {'span': 'prices', 	'polarity': 'positive'}],
+#     [{'span': 'waiting number', 'polarity': 'negative'}]
+# ]
+```
+
+For more details on training options, saving and loading models, and inference see the SetFit [docs](https://huggingface.co/docs/setfit/how_to/absa).
 
 ## References
 
