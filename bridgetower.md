@@ -150,6 +150,7 @@ python ../gaudi_spawn.py --use_mpi --world_size 8 run_bridgetower.py \
 --output_dir /tmp/bridgetower-test \
 --model_name_or_path BridgeTower/bridgetower-large-itm-mlm-itc \
 --dataset_name jmhessel/newyorker_caption_contest --dataset_config_name matching \
+--dataset_revision 3c6c4f6c0ff7e902833d3afa5f8f3875c2b036e6 \
 --image_column image --caption_column image_description \
 --remove_unused_columns=False \
 --do_train --do_eval --do_predict \
