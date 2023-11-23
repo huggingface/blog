@@ -34,6 +34,17 @@
     - research
     - nlp
 
+- local: big-bird
+  title: "深入理解 BigBird 的块稀疏注意力"
+  thumbnail: /blog/assets/18_big_bird/block-sparse-attn.gif
+  author: vasudevgupta
+  guest: true
+  date: March 31, 2021
+  tags:
+    - community
+    - research
+    - nlp
+
 - local: the-age-of-ml-as-code
   title: "机器学习即代码的时代已经到来"
   author: juliensimon
