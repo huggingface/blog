@@ -111,9 +111,12 @@ Input test sentence: "their dinner specials are fantastic."
 **Model Output**
 
 ```
-['their', 'dinner', 'specials', 'are', 'fantastic', '.'],
-[‘O’, B-ASP, I-ASP, ‘O’, ‘O’, ‘O’],
-[‘O’, ‘positive’, ‘positive’, ‘O’, ‘O’, ‘O’]
+[
+    [
+        {"span": "dinner", "polarity": "positive"},
+        {"span": "specials", "polarity": "positive"},
+    ]
+]
 ```
 
 ## Benchmarking
