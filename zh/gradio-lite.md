@@ -11,8 +11,6 @@ translators:
 
 # Gradio-Lite: 完全在浏览器里运行的无服务器 Gradio
 
-[toc]
-
 Gradio 是一个经常用于创建交互式机器学习应用的 Python 库。在以前按照传统方法，如果想对外分享 Gradio 应用，就需要依赖服务器设备和相关资源，而这对于自己部署的开发人员来说并不友好。
 
 欢迎 Gradio-lite ( `@gradio/lite` ): 一个通过 [Pyodide](https://pyodide.org/en/stable/) 在浏览器中直接运行 Gradio 的库。在本文中，我们会详细介绍 `@gradio/lite` 是什么，然后浏览示例代码，并与您讨论使用 Gradio-lite 运行 Gradio 应用所带来的优势。
