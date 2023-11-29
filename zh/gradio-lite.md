@@ -202,9 +202,3 @@ demo.launch()
 我们还在 Gradio 网站上创建了一个 playground，你可以在那里交互式编辑代码然后即时看到结果！
 
 Playground 地址: <https://www.gradio.app/playground>
-
----
-
->>>> 英文原文: <url>https://hf.co/blog/gradio-lite</url>
->>>>
->>>> 原文作者: Abubakar Abid, Yuichiro Tachibana, Ali Abdalla
