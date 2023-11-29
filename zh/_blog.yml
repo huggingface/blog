@@ -1045,6 +1045,15 @@
     - nlp
     - community
 
+- local: gradio-lite
+  title: "Gradio-Lite: 完全在浏览器里运行的无服务器 Gradio"
+  author: abidlabs
+  thumbnail: /blog/assets/167_gradio_lite/thumbnail.png
+  date: October 19, 2023
+  tags:
+    - gradio
+    - open-source
+    - serverless
 
 - local: the_n_implementation_details_of_rlhf_with_ppo
   title: "使用 PPO 算法进行 RLHF 的 N 步实现细节"
