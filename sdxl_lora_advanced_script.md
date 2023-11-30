@@ -12,15 +12,16 @@ We combined the Pivotal Tuning technique used on Replicate's SDXL Cog trainer wi
 Kohya trainer (plus a bunch of other optimizations) to achieve very good results on training a Dreambooth LoRA for SDXL.
 [Check out the training script on diffusers]()🧨. [Try it out on Colab]().
 
-If you want to skip the technical talk, you can use all the techniques in this blog and [train on Hugging Face Spaces
-with a simple UI]() and curated parameters (that you can meddle with).
+If you want to skip the technical talk, you can use all the techniques in this blog
+and [train on Hugging Face Spaces with a simple UI]() and curated parameters (that you can meddle with).
 
 <h3>Overview
 </h3>
 
 LoRA dreambooth fine-tuned stable diffusion xl models achieved incredible results at capturing new concepts using only a
 handful of images, while simultaneously maintaining the aesthetic and image quality of sd-xl and requiring relatively
-little compute and resources. Check out some of the awesome SD-XL LoRAs [here](https://huggingface.co/spaces/multimodalart/LoraTheExplorer).  
+little compute and resources. Check out some of the awesome SD-XL
+LoRAs [here](https://huggingface.co/spaces/multimodalart/LoraTheExplorer).  
 In this blog, we'll review some of the popular practices and techniques to make your LoRA finetune go brrr, and how you
 can use them now with diffusers!
 
@@ -148,14 +149,13 @@ learning rate, weight decay, etc.). This can result in time-consuming experiment
 even if you land on an ideal learning rate, it may still lead to convergence issues if the learning rate is constant
 during training. Some parameters may benefit from more frequent updates to expedite convergence, while others may
 require smaller adjustments to avoid overshooting the optimal value. To tackle this challenge, algorithms with adaptable
-learning rates such as **Adafactor** and [**Prodigy**](https://github.com/konstmish/prodigy) have been introduced. These methods optimize the algorithm's traversal of
-the optimization landscape by dynamically adjusting the learning rate for each parameter based on their past gradients.
+learning rates such as **Adafactor** and [**Prodigy**](https://github.com/konstmish/prodigy) have been introduced. These
+methods optimize the algorithm's traversal of the optimization landscape by dynamically adjusting the learning rate for
+each parameter based on their past gradients.
 
 We chose to focus a bit more on Prodigy as we think it can be especially beneficial for Dreambooth LoRA training!
 
-
 **Training**
-
 
 ```
 --optimizer="prodigy"
@@ -163,13 +163,11 @@ We chose to focus a bit more on Prodigy as we think it can be especially benefic
 
 When using prodigy it's generally good practice to set-
 
-
 ```
 --learning_rate=1.0
 ```
 
 Additional settings that are considered beneficial for diffusion models and specifically LoRA training are:
-
 
 ```
 --prodigy_safeguard_warmup=True
@@ -180,7 +178,71 @@ Additional settings that are considered beneficial for diffusion models and spec
 --adam_weight_decay=0.01
 ```
 
+There are additional hyper-parameters you can adjust when training with prodigy
+(like- `--prodigy_beta3`, `prodigy_decouple`, `prodigy_safeguard_warmup`), we will not delve into those in this post,
+but you can learn more about them [here](https://github.com/konstmish/prodigy).
 
-There are additional hyper-parameters you can adjust when training with prodigy 
-(like- `--prodigy_beta3`, `prodigy_decouple`, `prodigy_safeguard_warmup`), 
-we will not delve into those in this post, but you can learn more about them [here](https://github.com/konstmish/prodigy).   
+<h2>More Popular Practices</h2>
+
+Besides pivotal tuning and adaptive optimizers, here are some additional techniques that can impact the quality of your
+trained LoRA, all of them have been incorporated into the new diffusers training script.
+
+* <h3>separate learning rate for text-encoder and unet</h3>
+
+  When optimizing the text encoder, it's been perceived by the community that setting different learning rates for it (
+  versus the learning rate of the Unet) can lead to better quality results - specifically a **lower** learning rate for
+  the text encoder as it tends to overfit _faster_.
+    * The importance of different unet and text encoder learning rates is evident when performing pivotal tuning as
+      well- in this case, setting a higher learning rate for the text encoder is perceived to be better.
+    * Notice, however, that when using Prodigy (or adaptive optimizers in general) - we start with an identical initial
+      learning rate for all trained parameters, and let the optimizer work it's magic ✨
+
+**Training**
+
+```
+--train_text_encoder
+--learning_rate=1e-4 #unet
+--text_encoder_lr=5e-5 
+```
+
+```
+--train_text_encoder - Enables full text encoder training (i.e. Text Encoders weights are optimized vs. textual inversion (--train_text_encoder_ti) where we optimize embeddings but don't modify the weights)
+If you wish the text encoder lr to always match --learning_rate, set --text_encoder_lr=None
+
+```
+
+* <h3>Custom Captioning</h3>
+
+  While it is possible to achieve good results by training on a set of images all captioned with the same instance
+  prompt, e.g. "photo of a <token> person" or "in the style of <token>" etc. Using the same caption may lead to
+  suboptimal results, depending on the complexity of the learned concept, how "familiar" the model is with the concept,
+  and how well the training set captures it.
+* [meme]()
+
+**Training** 
+To use custom captioning, first ensure that you have the datasets library installed, otherwise you can
+  install it by -
+
+```
+!pip install datasets
+```
+
+To load the custom captions we need our training set directory to follow the structure of a datasets ImageFolder, containing both the images and the corresponding caption for each image.
+
+* _Option 1_: 
+    You choose a dataset from the hub that already contains images and prompts - for example XXX. Now all you have to do is
+
+
+```
+
+--dataset_name= 
+--caption_column=
+
+```
+
+
+
+* _Option 2_:
+You wish to use your own images and add captions to them. In that case, you can use [this colab notebook]() to automatically
+caption the images with BLIP, or you can manually create the captions in a metadata file. Then you follow up the same
+way, by specifying `--dataset_name` with your folder path, and `--caption_column` with the column name for the captions  
