@@ -217,21 +217,21 @@ If you wish the text encoder lr to always match --learning_rate, set --text_enco
   prompt, e.g. "photo of a <token> person" or "in the style of <token>" etc. Using the same caption may lead to
   suboptimal results, depending on the complexity of the learned concept, how "familiar" the model is with the concept,
   and how well the training set captures it.
-* [meme]()
+    * [meme]()
 
-**Training** 
-To use custom captioning, first ensure that you have the datasets library installed, otherwise you can
-  install it by -
+**Training**
+To use custom captioning, first ensure that you have the datasets library installed, otherwise you can install it by -
 
 ```
 !pip install datasets
 ```
 
-To load the custom captions we need our training set directory to follow the structure of a datasets ImageFolder, containing both the images and the corresponding caption for each image.
+To load the custom captions we need our training set directory to follow the structure of a datasets ImageFolder,
+containing both the images and the corresponding caption for each image.
 
-* _Option 1_: 
-    You choose a dataset from the hub that already contains images and prompts - for example XXX. Now all you have to do is
-
+* _Option 1_:
+  You choose a dataset from the hub that already contains images and prompts - for example XXX. Now all you have to do
+  is
 
 ```
 
@@ -240,9 +240,39 @@ To load the custom captions we need our training set directory to follow the str
 
 ```
 
-
-
 * _Option 2_:
-You wish to use your own images and add captions to them. In that case, you can use [this colab notebook]() to automatically
-caption the images with BLIP, or you can manually create the captions in a metadata file. Then you follow up the same
-way, by specifying `--dataset_name` with your folder path, and `--caption_column` with the column name for the captions  
+  You wish to use your own images and add captions to them. In that case, you can use [this colab notebook]() to
+  automatically caption the images with BLIP, or you can manually create the captions in a metadata file. Then you
+  follow up the same way, by specifying `--dataset_name` with your folder path, and `--caption_column` with the column
+  name for the captions
+
+* <h3>Min SNR Gamma</h3>
+  Training diffusion models often suffer from slow convergence, partly due to conflicting optimization directions
+  between timesteps. [Hang et al.](https://arxiv.org/abs/2303.09556) found a way to mitigate this issue by introducing
+  the simple Min-SNR-gamma approach. This method adapts loss weights of timesteps based on clamped signal-to-noise
+  ratios, which effectively balances the conflicts among timesteps.
+    * For small datasets, the effects of Min-SNR weighting strategy might not appear to be pronounced, but for larger
+      datasets, the effects will likely be more pronounced.
+    * `snr vis`
+      _find [this project on Weights and Biases](https://wandb.ai/sayakpaul/text2image-finetune-minsnr) that compares the loss surfaces of the following setups: snr_gamma set to
+      5.0, 1.0 and None._
+
+**Training**
+
+To use min snr gamma, set a value for: 
+```
+--snr_gamma=5.0
+```
+By default `--snr_gamma=None`, I.e. not used. When enabling `--snr_gamma`, the recommended value is 5.0. 
+
+
+* <h3>Repeats</h3>
+This argument refers to the number of times an image from your dataset is repeated in the training set. This differs from epochs in that first the images are repeated, and only then shuffled. 
+
+**Training**
+
+To enable repeats simply set an integer value > 1 as your repeats count-
+```
+--repeats
+```
+By default, --repeats=1, i.e. training set is not repeated
