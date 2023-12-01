@@ -12,7 +12,7 @@ authors:
 ---
 
 # Open LLM Leaderboard: DROP deep dive
-Recently, [three new benchmarks](https://twitter.com/clefourrier/status/1722555555338956840) were added to the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard): Winogrande, GSM8k and DROP. A cursory look at the scores for DROP revealed something strange was going on, with the overwhelming majority of models scoring less than 10 out of 100 on their f1-score! We did a deep dive to understand what was going on, come with us to see what we found out!
+Recently, [three new benchmarks](https://twitter.com/clefourrier/status/1722555555338956840) were added to the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard): Winogrande, GSM8k and DROP, using the original implementations reproduced in the [EleutherAI Harness](https://github.com/EleutherAI/lm-evaluation-harness/). A cursory look at the scores for DROP revealed something strange was going on, with the overwhelming majority of models scoring less than 10 out of 100 on their f1-score! We did a deep dive to understand what was going on, come with us to see what we found out!
 
 ## Initial observations
 DROP (Discrete Reasoning Over Paragraphs) is an evaluation where models must extract relevant information from English-text paragraphs before executing discrete reasoning steps on them (for example, sorting or counting items to arrive at the correct answer, see the table below for examples). The metrics used are custom f1 and exact match scores.
@@ -94,6 +94,6 @@ To get correct results, we would possibly need to re-run more than 50% of the ex
 After talking it over with the fantastic EleutherAI team (both on [GitHub](https://github.com/EleutherAI/lm-evaluation-harness/issues/978) and internally), who guided us through the code and helped our investigations, it became very clear that the LM Eval Harness implementation follows the official DROP code strictly: a new version of this benchmark’s evaluation needs to be developed! 
 **We have therefore taken the decision to remove DROP from the Open LLM Leaderboard until a new version arises.**
 
-We hope that interested members of the community will join forces with academics working on DROP evaluation to fix both its scoring and its normalization. We'd love it becomes usable again, as the dataset itself is really quite interesting and cool. We encourage you to provide feedback on how we should evaluate DROP [on this issue](https://github.com/EleutherAI/lm-evaluation-harness/issues/1050).
+We hope that interested members of the community will join forces with academics working on DROP evaluation to fix both its scoring and its normalization, as it is a delicate and complex task. We'd love it becomes usable again, as the dataset itself is really quite interesting and cool. We encourage you to provide feedback on how we should evaluate DROP [on this issue](https://github.com/EleutherAI/lm-evaluation-harness/issues/1050).
 
 Thanks to the many community members who pointed out issues on DROP scores, and many thanks to the EleutherAI Harness and Zeno teams for their great help on this issue.
