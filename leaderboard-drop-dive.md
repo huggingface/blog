@@ -1,15 +1,17 @@
 ---
-title: "DROP deep dive"
+title: "Open LLM Leaderboard: DROP deep dive"
 thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
 authors:
 - user: clefourrier
 - user: cabreraalex
+  guest: true
 - user: stellaathena
+  guest: true
 - user: SaylorTwift
 - user: thomwolf
 ---
 
-# DROP deep dive
+# Open LLM Leaderboard: DROP deep dive
 Recently, [three new benchmarks](https://twitter.com/clefourrier/status/1722555555338956840) were added to the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard): Winogrande, GSM8k and DROP. A cursory look at the scores for DROP revealed something strange was going on, with the overwhelming majority of models scoring less than 10 out of 100 on their f1-score! We did a deep dive to understand what was going on, come with us to see what we found out!
 
 ## Initial observations
@@ -35,12 +37,12 @@ We added it to the Open LLM Leaderboard three weeks ago, and observed that the f
 
 
 ## Normalization interrogations
-During preliminary observations, the leaderboard team observed that the normalization was not working as expected: in some cases, it ignored the correct numerical answers when they were directly followed by a whitespace which is not a space (such as a line return). 
+During preliminary observations, the leaderboard team observed that the normalization step was not working as expected: in some cases, it ignored the correct numerical answers when they were directly followed by a whitespace character other than a space (a line return, for example).
 Let's look at an example, with the generation being `10\n\nPassage: The 2011 census recorded a population of 1,001,360`, and the gold answer being `10`.
 
 Normalization happens in several steps, both for generation and gold:
-1) **Tokenization on separators** `|`, `-`, or `.` 
-    The beginning tokens of the generation `10\n\nPassage:` contain no such separator, and are therefore considered one token after this step
+1) **Split on separators** `|`, `-`, or `.` 
+    The beginning sequence of the generation `10\n\nPassage:` contain no such separator, and is therefore considered a single entity after this step.
 2) **Punctuation removal**
     The first token then becomes `10\n\nPassage` (`:` is removed)
 3) **Homogenization of numbers** 
@@ -50,18 +52,18 @@ Normalization happens in several steps, both for generation and gold:
 
 However, the overall score is not computed on the string, but on the bag of words (BOW) extracted from the string, here `{'recorded', 'population', 'passage', 'census', '2011.0', '1001360.0', '10'}`, which is compared with the BOW of the gold, also normalized in the above manner, `{10.0}`. As you can see, they don’t intersect, even though the model predicted the correct output!
 
-In summary, if a number is followed with any kind of whitespace other than a simple space, it will not pass through the number normalization, hence never match the gold if it is also a number! This first issue was likely to mess up the scores quite a bit, but was also clearly not the only factor at hand for DROP scores so low, so we decided to investigate a bit more.
+In summary, if a number is followed by any kind of whitespace other than a simple space, it will not pass through the number normalization, hence never match the gold if it is also a number! This first issue was likely to mess up the scores quite a bit, but clearly it was not the only factor causing DROP scores to be so low. We decided to investigate a bit more.
 
 ## Diving into the results
-Our friends at Zeno [took a deeper dive](https://hub.zenoml.com/report/1255/DROP%20Benchmark%20Exploration) in the detailed results, looking at 5 models which were representative of the problems encountered in DROP scores: falcon-180B and mistral-7B were underperforming compared to what we were expecting, Yi-34B and tigerbot-70B had a very good performance on DROP correlated with their average scores, and facebook/xglm-7.5B fell in the middle. 
+Our friends at Zeno [took a deeper dive](https://hub.zenoml.com/report/1255/DROP%20Benchmark%20Exploration) over the detailed results, looking at 5 models which were representative of the problems encountered in DROP scores: falcon-180B and mistral-7B were underperforming compared to what we were expecting, Yi-34B and tigerbot-70B had a very good performance on DROP correlated with their average scores, and facebook/xglm-7.5B fell in the middle. 
 
 You can give analyzing the results a try [here](https://hub.zenoml.com/project/2f5dec90-df5e-4e3e-a4d1-37faf814c5ae/OpenLLM%20Leaderboard%20DROP%20Comparison/explore?params=eyJtb2RlbCI6ImZhY2Vib29rX194Z2xtLTcuNUIiLCJtZXRyaWMiOnsiaWQiOjk1NjUsIm5hbWUiOiJmMSIsInR5cGUiOiJtZWFuIiwiY29sdW1ucyI6WyJmMSJdfSwiY29tcGFyaXNvbk1vZGVsIjoiVGlnZXJSZXNlYXJjaF9fdGlnZXJib3QtNzBiLWNoYXQiLCJjb21wYXJpc29uQ29sdW1uIjp7ImlkIjoiYzJmNTY1Y2EtYjJjZC00MDkwLWIwYzctYTNiNTNkZmViM2RiIiwibmFtZSI6ImVtIiwiY29sdW1uVHlwZSI6IkZFQVRVUkUiLCJkYXRhVHlwZSI6IkNPTlRJTlVPVVMiLCJtb2RlbCI6ImZhY2Vib29rX194Z2xtLTcuNUIifSwiY29tcGFyZVNvcnQiOltudWxsLHRydWVdLCJtZXRyaWNSYW5nZSI6W251bGwsbnVsbF0sInNlbGVjdGlvbnMiOnsic2xpY2VzIjpbXSwibWV0YWRhdGEiOnt9LCJ0YWdzIjpbXX19) too if you want to!
 
-They found out two additional interesting points:
+They found two additional interesting points:
 1) Not a single model got a correct result on floating point answers
 2) High quality models which generate long answers actually have a lower f1-score
 
-After this investigation, we believed that both these points are actually caused by the same root factor: using `.` as stopword token (to end the generations):
+After this investigation, we believed that both points are actually caused by the same root factor: using `.` as a stopword token (to end the generations):
 1) Floating point answers are systematically interrupted before their generation is complete
 2) Higher quality models, which try to match the few-shot prompt format, will generate `Answer\n\nPlausible prompt for the next question.`, and only stop during the plausible prompt continuation after the actual answer on the first `.`, therefore generating too many words and getting a bad f1 score.
 
@@ -69,7 +71,7 @@ We thought both these problems would likely be fixed by using `\n` instead of `.
 
 ## Changing the end of generation token
 So we gave it a try! We investigated using `\n` as the end of generation token on the available results. We split the generated answer on the first `\n` it contained, if one was present, and recomputed the scores. 
-*Note that this is only an approximation of the correct result, as it won't fix answers that were cut too early on `.` (for example floating point answers) - but it also won’t advantage any model, as all of them were affected by this problem. 
+*Note that this is only an approximation of the correct result, as it won't fix answers that were cut too early on `.` (for example floating point answers) - but it also won’t give unfair advantage to any model, as all of them were affected by this problem. 
 However it’s the best we could do without rerunning models (as we wanted to keep the community posted as soon as possible).*
 
 The results we got were the following - splitting on `\n` correlates really well with other scores and therefore with overall performance. 
@@ -92,6 +94,6 @@ To get correct results, we would possibly need to re-run more than 50% of the ex
 After talking it over with the fantastic EleutherAI team (both on [GitHub](https://github.com/EleutherAI/lm-evaluation-harness/issues/978) and internally), who guided us through the code and helped our investigations, it became very clear that the LM Eval Harness implementation follows the official DROP code strictly: a new version of this benchmark’s evaluation needs to be developed! 
 **We have therefore taken the decision to remove DROP from the Open LLM Leaderboard until a new version arises.**
 
-We hope that interested members of the community will join forces with academics working on evaluation to fix both its scoring and its normalization, to make it once again usable, as the dataset itself is really quite interesting and cool. We encourage you to provide feedback on how we should evaluate DROP [on this issue](https://github.com/EleutherAI/lm-evaluation-harness/issues/1050).
+We hope that interested members of the community will join forces with academics working on DROP evaluation to fix both its scoring and its normalization. We'd love it becomes usable again, as the dataset itself is really quite interesting and cool. We encourage you to provide feedback on how we should evaluate DROP [on this issue](https://github.com/EleutherAI/lm-evaluation-harness/issues/1050).
 
 Thanks to the many community members who pointed out issues on DROP scores, and many thanks to the EleutherAI Harness and Zeno teams for their great help on this issue.

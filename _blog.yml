@@ -3100,10 +3100,10 @@
     - guide
 
 - local: leaderboard-drop-dive
-  title: "OpenLLMLeaderboard: DROP deep dive"
+  title: "Open LLM Leaderboard: DROP deep dive"
   author: clefourrier
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
-  date: November 31, 2023
+  date: December 1, 2023
   tags:
     - community
     - research
