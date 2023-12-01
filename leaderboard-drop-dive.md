@@ -85,7 +85,7 @@ The results we got were the following - splitting on `\n` correlates really well
 ## So what's next?
 A quick calculation shows that re-running the full evaluation of all models would be quite costly (the full update took 8 years of GPU time, and a lot of it was taken by DROP), we estimated how much it would cost to only re-run failing examples.
 
-In 10% of the cases, the gold answer is a floating number (for example `12.25`) and model predictions start with the correct beginning (for our example, `12`) but are cut off on a `.` - these generations are likely to have actually been correct if they the generation was to continue. We would definitely need to re-run them! 
+In 10% of the cases, the gold answer is a floating number (for example `12.25`) and model predictions start with the correct beginning (for our example, `12`) but are cut off on a `.` - these predictions likely would have actually been correct if the generation was to continue. We would definitely need to re-run them!
 Our estimation does not count generated sentences that finish with a number which was possibly interrupted (40% of the other generations), nor any prediction messed up by its normalization.
 
 To get correct results, we would thus need to re-run more than 50% of the examples, a huge amount of GPU time! We need to be certain that the implementation we'll run is correct this time.
