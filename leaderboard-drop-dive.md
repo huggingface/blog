@@ -40,7 +40,7 @@ During our first deeper dive in these surprising behavior, we observed that the 
 Let's look at an example, with the generation being `10\n\nPassage: The 2011 census recorded a population of 1,001,360`, and the gold answer being `10`.
 
 Normalization happens in several steps, both for generation and gold:
-1) **Split on separators** `|`, `-`, or `.` 
+1) **Split on separators** `|`, `-`, or ` ` 
     The beginning sequence of the generation `10\n\nPassage:` contain no such separator, and is therefore considered a single entity after this step.
 2) **Punctuation removal**
     The first token then becomes `10\n\nPassage` (`:` is removed)
