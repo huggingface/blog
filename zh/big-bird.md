@@ -122,7 +122,7 @@ _例如_ ，假设模型需要将 `going` 与 `now` 关联起来，那么如果�
 
 ${}^1$ 在这些图中，我们假设注意力矩阵是对称的 **即** $\mathbf{A} _{ij} = \mathbf{A}_ {ji}$ 因为在图中如果某个词元 **A** 关注 **B**，那么 **B** 也会关注 **A**。从下一节所示的注意力矩阵图中可以看出，这个假设对于 BigBird 中的大多数词元都成立。
 
-| 注意力类型  | 全局次元   | 滑动词元 | 随机词元          |
+| 注意力类型  | 全局词元   | 滑动词元 | 随机词元          |
 |-----------------|-------------------|------------------|------------------------------------|
 | 原始完全注意力 | `n`               | 0                | 0                                  |
 | 块稀疏注意力  | 2 x `block_size`  | 3 x `block_size` | `num_random_blocks` x `block_size` |
@@ -400,5 +400,4 @@ with torch.no_grad():
 **BigBird 版的 Pegasus** 模型很快就会面世，你可将它们用于 **长文档摘要** 💥。
 
 ## 尾注
-
 你可在 [此处](https://github.com/google-research/bigbird/blob/master/bigbird/core/attention.py) 找到 **块稀疏注意力矩阵** 的原始实现。🤗 版的实现在 [这儿](https://github.com/huggingface/transformers/tree/master/src/transformers/models/big_bird)。

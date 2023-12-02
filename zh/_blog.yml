@@ -62,6 +62,14 @@
     - analysis
     - nlp
 
+- local: pytorch-fsdp
+  title: "使用 PyTorch 完全分片数据并行技术加速大模型训练"
+  author: smangrul
+  thumbnail: /blog/assets/62_pytorch_fsdp/fsdp-thumbnail.png
+  date: May 2, 2022
+  tags:
+    - guide
+
 - local: constrained-beam-search
   title: "在 🤗 Transformers 中使用约束波束搜索引导文本生成"
   author: cwkeam
