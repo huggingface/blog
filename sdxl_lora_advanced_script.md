@@ -126,8 +126,8 @@ images = pipe(
 #your output image
 images[0]
 ```
+![astronaut_web_y2k](.\assets\dreambooth_lora_sdxl\web_y2k_astronaut.png)
 
-`<astronaut image>`
 
 **Comfy UI / AUTOMATIC1111 Inference:**
 The new script fully supports textual inversion loading with Comfy UI and AUTOMATIC1111 formats!
