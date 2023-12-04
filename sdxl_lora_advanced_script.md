@@ -138,7 +138,7 @@ The new script fully supports textual inversion loading with Comfy UI and AUTOMA
 
 <h2>Adaptive Optimizers</h2>
 
-`loss animation`
+![optimization_gif](.\assets\dreambooth_lora_sdxl\optimization_gif.gif)
 
 When training/fine-tuning a diffusion model (or any machine learning model for that matter), we use optimizers to guide
 us towards the optimal path that leads to convergence of our training objective - a minimum point of our chosen loss
@@ -218,7 +218,7 @@ If you wish the text encoder lr to always match --learning_rate, set --text_enco
   prompt, e.g. "photo of a <token> person" or "in the style of <token>" etc. Using the same caption may lead to
   suboptimal results, depending on the complexity of the learned concept, how "familiar" the model is with the concept,
   and how well the training set captures it.
-    * [meme]()
+  ![meme](.\assets\dreambooth_lora_sdxl\custom_captions_meme.png)
 
 **Training**
 To use custom captioning, first ensure that you have the datasets library installed, otherwise you can install it by -
@@ -271,7 +271,7 @@ By default `--snr_gamma=None`, I.e. not used. When enabling `--snr_gamma`, the r
 * <h3>Repeats</h3>
   This argument refers to the number of times an image from your dataset is repeated in the training set. This differs
   from epochs in that first the images are repeated, and only then shuffled.
-
+![meme](.\assets\dreambooth_lora_sdxl\snr_gamma_effect.png)
 **Training**
 
 To enable repeats simply set an integer value > 1 as your repeats count-
@@ -288,11 +288,15 @@ By default, --repeats=1, i.e. training set is not repeated
 
     * Generally, when fine-tuning on an object/subject, we want to make sure the training set contains images that
       portray the object/subject in as many distinct ways we would want to prompt for it as possible.
-    * For example, if my concept is this red backpack (available
+    * For example, if my concept is this red backpack: (available
       in [google/dreambooth](https://huggingface.co/datasets/google/dreambooth) dataset)
-    * `2 backpack figs`
+    ![backpack_01](.\assets\dreambooth_lora_sdxl\dreambooth_backpack_01.jpg)
+    * I would likely want to prompt it worn by people as well, so having examples like this: 
+    ![backpack_02](.\assets\dreambooth_lora_sdxl\dreambooth_backpack_02.jpg)
+    in the training set - that fits that scenario - will likely make it easier for the model to generalize to that 
+      setting/composition during inference.
 
-  Specifically when training on _faces_, you might want to keep in mind the following things regarding your dataset:
+  _Specifically_ when training on _faces_, you might want to keep in mind the following things regarding your dataset:
 
     1. If possible, always choose **high resolution, high quality** images. Blurry or low resolution images can harm the
        tuning process.
