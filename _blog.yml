@@ -3098,3 +3098,15 @@
     - lcm
     - stable diffusion
     - guide
+
+- local: leaderboard-drop-dive
+  title: "Open LLM Leaderboard: DROP deep dive"
+  author: clefourrier
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: December 1, 2023
+  tags:
+    - community
+    - research
+    - nlp
+    - evaluation
+    - leaderboard
