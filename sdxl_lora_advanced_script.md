@@ -97,14 +97,14 @@ pipe = DiffusionPipeline.from_pretrained(
         variant="fp16",
 ).to("cuda")
 # normal LoRA loading
-pipe.load_lora_weights("LinoyTsaban/linoy_v9", weight_name="pytorch_lora_weights.safetensors")
+pipe.load_lora_weights("LinoyTsaban/web_y2k_lora", weight_name="pytorch_lora_weights.safetensors")
 ```
 
 2. Load these into the text encoders
 
 ```
 # download embeddings
-embedding_path = hf_hub_download(repo_id="LinoyTsaban/web_y2k_v3", filename="embeddings.safetensors", repo_type="model")
+embedding_path = hf_hub_download(repo_id="LinoyTsaban/web_y2k_lora", filename="embeddings.safetensors", repo_type="model")
 
 # load embeddings to the text encoders
 state_dict = load_file(embedding_path)
