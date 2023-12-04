@@ -105,14 +105,14 @@ pipe.load_lora_weights("LinoyTsaban/linoy_v9", weight_name="pytorch_lora_weights
 ```
 # download embeddings
 embedding_path = hf_hub_download(repo_id="LinoyTsaban/web_y2k_v3", filename="embeddings.safetensors", repo_type="model")
+
 # load embeddings to the text encoders
 state_dict = load_file(embedding_path)
 
-pipe.load_textual_inversion(state_dict["text_encoders_0"][0], token=["<s0>"], text_encoder=pipe.text_encoder, tokenizer=pipe.tokenizer)
-pipe.load_textual_inversion(state_dict["text_encoders_0"][1], token=["<s1>"], text_encoder=pipe.text_encoder, tokenizer=pipe.tokenizer)
-
-pipe.load_textual_inversion(state_dict["text_encoders_1"][0], token=["<s0>"], text_encoder=pipe.text_encoder_2, tokenizer=pipe.tokenizer_2)
-pipe.load_textual_inversion(state_dict["text_encoders_1"][1], token=["<s1>"], text_encoder=pipe.text_encoder_2, tokenizer=pipe.tokenizer_2)
+# load embeddings of text_encoder 1 (CLIP ViT-L/14)
+pipe.load_textual_inversion(state_dict["clip_l"], token=["<s0>", "<s1>"], text_encoder=pipe.text_encoder, tokenizer=pipe.tokenizer)
+# load embeddings of text_encoder 2 (CLIP ViT-G/14)
+pipe.load_textual_inversion(state_dict["clip_g"], token=["<s0>", "<s1>"], text_encoder=pipe.text_encoder_2, tokenizer=pipe.tokenizer_2)
 ```
 
 3. Prompt your LoRA!
