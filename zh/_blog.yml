@@ -1021,6 +1021,16 @@
     - bitsandbytes
     - gptq
 
+- local: ram-efficient-pytorch-fsdp
+  title: "使用 PyTorch FSDP 微调 Llama 2 70B"
+  author: smangrul
+  thumbnail: /blog/assets/160_fsdp_llama/thumbnail.jpg
+  date: September 13, 2023
+  tags:
+    - llm
+    - guide
+    - nlp
+
 - local: optimize-llm
   title: "面向生产的 LLM 优化"
   author: patrickvonplaten
