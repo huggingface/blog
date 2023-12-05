@@ -3110,3 +3110,14 @@
     - nlp
     - evaluation
     - leaderboard
+
+- local: lora-adapters-dynamic-loading
+  title: "Dynamic LoRA loading for better performance and optimized resource usage"
+  author: raphael-gl
+  thumbnail: /blog/assets/171_load_lora_adapters/thumbnail.png
+  date: December 5, 2023
+  tags:
+    - diffusers
+    - lora
+    - models
+    - inference
