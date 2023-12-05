@@ -104,19 +104,15 @@ Note that as opposed to the aspect extraction model, we don’t include non-aspe
 
 At inference time, the test sentence passes through the aspect candidate extraction, resulting in test instances using the template `aspect_candidate:test_sentence`. Next, non-aspects are filtered by the aspect/non-aspect classifier. Finally, the extracted aspects are fed to the sentiment polarity classifier that predicts the sentiment polarity per aspect.
 
+**Model Input:**
 ```
-Input test sentence: "their dinner specials are fantastic."
+"their dinner specials are fantastic."
 ```
 
-**Model Output**
+**Model Output:**
 
 ```
-[
-    [
-        {"span": "dinner", "polarity": "positive"},
-        {"span": "specials", "polarity": "positive"},
-    ]
-]
+[{'span': 'dinner specials', 'polarity': 'positive'}]
 ```
 
 ## Benchmarking
