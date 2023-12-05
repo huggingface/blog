@@ -11,9 +11,7 @@ authors:
 # Optimum-NVIDIA
 ## Unlock blazingly fast LLM inference in just 1 line of code
 
-Large Language Models (LLMs) have revolutionized natural language processing and are increasingly deployed to solve complex problems at scale. 
-Achieving optimal performance with these models is notoriously challenging due to their unique and intense computational demands. 
-Optimized performance of LLMs is incredibly valuable for end users looking for a snappy and responsive experience as well as for scaled deployments where improved throughput translates to dollars saved.
+Large Language Models (LLMs) have revolutionized natural language processing and are increasingly deployed to solve complex problems at scale. Achieving optimal performance with these models is notoriously challenging due to their unique and intense computational demands. Optimized performance of LLMs is incredibly valuable for end users looking for a snappy and responsive experience as well as for scaled deployments where improved throughput translates to dollars saved.
 
 That's where Optimum-NVIDIA  comes in. 
 Optimum-NVIDIA is one of the first to allow the user to benefits from the new capabilities added on Ada Lovelace (4090, L40) and Hopper (H100) GPUs, 
