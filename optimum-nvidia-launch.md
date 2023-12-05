@@ -36,12 +36,12 @@ The flag shown in this example uses a predefined calibration strategy by default
 
 ```diff
 - from transformers import LlamaForCausalLM
-+ from optimum.nvidia import LlamaForCausalLM
++ from optimum.nvidia import AutoModelForCausalLM
 from transformers import AutoTokenizer
 
 tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-13b-chat-hf", padding_side="left")
 
-model = LlamaForCausalLM.from_pretrained(
+model = AutoModelForCausalLM.from_pretrained(
   "meta-llama/Llama-2-13b-chat-hf",
 + use_fp8=True,  
 )
