@@ -690,7 +690,7 @@ def create_train_dataloader(
 
 
 ```python
-def create_test_dataloader(
+def create_backtest_dataloader(
     config: PretrainedConfig,
     freq,
     data,
@@ -725,6 +725,42 @@ def create_test_dataloader(
         output_type=torch.tensor,
         field_names=PREDICTION_INPUT_NAMES,
     )
+
+def create_test_dataloader(
+    config: PretrainedConfig,
+    freq,
+    data,
+    batch_size: int,
+    **kwargs,
+):
+    PREDICTION_INPUT_NAMES = [
+        "past_time_features",
+        "past_values",
+        "past_observed_mask",
+        "future_time_features",
+    ]
+    if config.num_static_categorical_features > 0:
+        PREDICTION_INPUT_NAMES.append("static_categorical_features")
+
+    if config.num_static_real_features > 0:
+        PREDICTION_INPUT_NAMES.append("static_real_features")
+
+    transformation = create_transformation(freq, config)
+    transformed_data = transformation.apply(data, is_train=False)
+
+    # We create a test Instance splitter to sample the very last
+    # context window from the dataset provided.
+    instance_sampler = create_instance_splitter(config, "test")
+
+    # We apply the transformations in test mode
+    testing_instances = instance_sampler.apply(transformed_data, is_train=False)
+    
+    return as_stacked_batches(
+        testing_instances,
+        batch_size=batch_size,
+        output_type=torch.tensor,
+        field_names=PREDICTION_INPUT_NAMES,
+    )
 ```
 
 
@@ -738,7 +774,7 @@ train_dataloader = create_train_dataloader(
     num_workers=2,
 )
 
-test_dataloader = create_test_dataloader(
+test_dataloader = create_backtest_dataloader(
     config=config,
     freq=freq,
     data=multi_variate_test_dataset,
