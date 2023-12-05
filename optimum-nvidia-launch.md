@@ -16,7 +16,9 @@ Achieving optimal performance with these models is notoriously challenging due t
 Optimized performance of LLMs is incredibly valuable for end users looking for a snappy and responsive experience as well as for scaled deployments where improved throughput translates to dollars saved.
 
 That's where Optimum-NVIDIA  comes in. 
-Optimum-NVIDIA dramatically accelerates LLM inference through an extremely simple API. 
+Optimum-NVIDIA is one of the first to allow the user to benefits from the new capabilities added on Ada Lovelace (4090, L40) and Hopper (H100) GPUs, 
+more precisely `float8` accelerated matrix-multiplications, to dramatically accelerates LLM inference.
+
 By changing just a single line of code, you can unlock up to **$X$ faster** inference on the NVIDIA platform
 
 
@@ -67,10 +69,23 @@ When evaluating the performance of an LLM, we consider 2 metrics: First Token La
 First Token Latency (also known as Time to First Token or prefill latency) measures how long you wait from the time you enter your prompt to begin receiving your output, so this metric can tell you how responsive the model will feel. 
 Optimum-NVIDIA delivers up to XX faster First Token Latency compared to the framework:
 
+<br>
+<figure class="image">
+  <img alt="" src="assets/optimum_nvidia/first_token_latency.svg" />
+  <figcaption>Figure 1. Time it takes to generate the first token (ms)</figcaption>
+</figure>
+<br>
 
 Throughput, on the other hand, measures how fast the model can generate tokens, and is particularly relevant when you want to batch generations together. 
 While there are a few ways to calculate throughput, we adopt a standard method to divide the end-to-end latency by the total sequence length, including both input and output tokens summed over all batches. 
 Optimum-NVIDIA delivers up to XX better throughput compared to the framework:
+
+<br>
+<figure class="image">
+  <img alt="" src="assets/optimum_nvidia/throughput.svg" />
+  <figcaption>Figure 2. Throughput (token / second)</figcaption>
+</figure>
+<br>
 
 Initial evaluations of the recently announced NVIDIA H200 Tensor Core GPU show up to 2x faster inference for LLaMA models compared to an H100.
 As H200s become more readily available, we will share performance data for Optimum-NVIDIA on an H200.
