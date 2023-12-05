@@ -581,7 +581,7 @@ def create_backtest_dataloader(
     )
 ```
 
-We have a test dataloader helper for completion, even though we will not use it here:
+We have a test dataloader helper for completion, even though we will not use it here. This is useful in a production setting where we want to start forecasting from the end of a given time series. Thus, the test dataloader will sample the very last context window from the dataset provided and pass it to the model.
 
 ```python
 def create_test_dataloader(
