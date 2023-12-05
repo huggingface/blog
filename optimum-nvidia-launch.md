@@ -19,7 +19,7 @@ That's where Optimum-NVIDIA  comes in.
 Optimum-NVIDIA is one of the first to allow the user to benefits from the new capabilities added on Ada Lovelace (4090, L40) and Hopper (H100) GPUs, 
 more precisely `float8` accelerated matrix-multiplications, to dramatically accelerates LLM inference.
 
-By changing just a single line of code, you can unlock up to **$X$ faster** inference on the NVIDIA platform
+By changing just a single line of code, you can unlock up to **28x faster** inference on the NVIDIA platform
 
 
 ### How to run
@@ -67,7 +67,7 @@ For more details, check out our [documentation](https://huggingface.co/docs/opti
 
 When evaluating the performance of an LLM, we consider 2 metrics: First Token Latency and Throughput. 
 First Token Latency (also known as Time to First Token or prefill latency) measures how long you wait from the time you enter your prompt to begin receiving your output, so this metric can tell you how responsive the model will feel. 
-Optimum-NVIDIA delivers up to XX faster First Token Latency compared to the framework:
+Optimum-NVIDIA delivers more than 3x faster First Token Latency compared to stock transformers:
 
 <br>
 <figure class="image">
@@ -78,7 +78,7 @@ Optimum-NVIDIA delivers up to XX faster First Token Latency compared to the fram
 
 Throughput, on the other hand, measures how fast the model can generate tokens, and is particularly relevant when you want to batch generations together. 
 While there are a few ways to calculate throughput, we adopt a standard method to divide the end-to-end latency by the total sequence length, including both input and output tokens summed over all batches. 
-Optimum-NVIDIA delivers up to XX better throughput compared to the framework:
+Optimum-NVIDIA delivers up to 28x better throughput compared to stock transformers:
 
 <br>
 <figure class="image">
@@ -98,4 +98,9 @@ including fine-tuned versions, should work with Optimum-NVIDIA out-of-the-box to
 
 
 We are actively expanding support to include other text generation model architectures and other tasks like feature extraction to enable exciting applications like Retrieval Augmented Generation, all from within Hugging Face.
-We continue to push the boundaries of performance and plan to incorporate cutting-edge optimization techniques like In-Flight Batching to improve throughput when streaming prompts and INT4 quantization to run even bigger models on a single GPU. 
+We continue to push the boundaries of performance and plan to incorporate cutting-edge optimization techniques like In-Flight Batching to improve throughput when streaming prompts and INT4 quantization to run even bigger models on a single GPU.
+
+Give it a try by pulling out the Docker image we are releasing along with the [Optimum-NVIDIA repository](https://github.com/huggingface/optimum-nvidia) and please share your feedback with us 🤗. 
+```bash
+docker run -it --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 huggingface/optimum-nvidia:0.1.0b1
+```
