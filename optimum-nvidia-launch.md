@@ -60,7 +60,7 @@ tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
 ```
 
 The FP8 flag (shown above) uses a predefined calibration strategy by default, though you can provide your own calibration dataset and customized tokenization to tailor the quantization to your use case.
-For more details, check out our [documentation](https://huggingface.co/docs/optimum/main/en/nvidia/index).
+For more details, check out our [documentation](https://github.com/huggingface/optimum-nvidia).
 
 
 ### Performance Evaluation
