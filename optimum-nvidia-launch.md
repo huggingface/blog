@@ -51,14 +51,14 @@ model_inputs = tokenizer(
     return_tensors="pt"
 ).to("cuda")
 
-generated_ids = model.generate(
+generated_ids, generated_length = model.generate(
     **model_inputs, 
     top_k=40, 
     top_p=0.7, 
     repetition_penalty=10,
 )
 
-tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
+tokenizer.batch_decode(generated_ids[0], skip_special_tokens=True)
 ```
 
 For more details, check out our [documentation](https://github.com/huggingface/optimum-nvidia)
