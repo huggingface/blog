@@ -1,5 +1,5 @@
 ---
-title: Dynamic LoRA loading for better performance and optimized resource usage
+title: 3x faster inference of LoRAs
 thumbnail: /blog/assets/171_load_lora_adapters/thumbnail.png
 authors:
 - user: raphael-gl
@@ -7,7 +7,7 @@ authors:
 
 # Dynamic LoRA loading for better performance and optimized resource usage
 
-We've been able to drastically speed up inference in the Hub for LoRAs based on Diffusion models. This has allowed us to save compute resources and provide a better user experience.
+We've been able to drastically speed up inference in the Hub for public LoRAs based on public Diffusion models. This has allowed us to save compute resources and provide a better user experience.
 
 To perform inference on a given model, there are two steps:
 1. Warm up phase - that consists in downloading the model and setting up the service (25s).
@@ -41,7 +41,7 @@ For a more exhaustive presentation on what LoRA is, please refer to the followin
 
 ## Benefits
 
-We have approximately **130** distinct LoRAs on the Hub. The vast majority (**~92%**) of them are LoRAs based on the [Stable Diffusion XL Base 1.0](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) model.
+We have approximately **2500** distinct LoRAs on the Hub. The vast majority (**~92%**) of them are LoRAs based on the [Stable Diffusion XL Base 1.0](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) model.
 
 Before this mutualization, this would have meant deploying a dedicated service for all of them (eg. for all the yellow merged matrices in the diagram above); releasing + reserving at least one new GPU. The time to spawn the service and have it ready to serve requests for a specific model is approximately **25s**, then on top of this you have the inference time (**~10s** for a 1024x1024 SDXL inference diffusion with 25 inference steps on an A10G). If an adapter is only occasionally requested, its service gets stopped to free resources preempted by others.
 
@@ -251,4 +251,6 @@ Recently a really interesting [paper](https://arxiv.org/abs/2311.03285) came out
 
 ## Conclusion: **Time**!
 
-Using dynamic LoRA loading, we were able to save compute resources and improve the user experience in the Hub Inference API. Despite the extra time added by the process of unloading the previously loaded adapter and loading the one we're interested in, the fact that the serving process is most often already up and running makes the inference time response on the whole much shorter. Please do let us know if you apply the same method to your deployment!
+Using dynamic LoRA loading, we were able to save compute resources and improve the user experience in the Hub Inference API. Despite the extra time added by the process of unloading the previously loaded adapter and loading the one we're interested in, the fact that the serving process is most often already up and running makes the inference time response on the whole much shorter.
+
+Note that for a LoRA to benefit from this inference optimization on the Hub, it must both be public, non-gated and based on a non-gated public model. Please do let us know if you apply the same method to your deployment!
