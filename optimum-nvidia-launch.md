@@ -100,7 +100,4 @@ including fine-tuned versions, should work with Optimum-NVIDIA out-of-the-box to
 We are actively expanding support to include other text generation model architectures and other tasks like feature extraction to enable exciting applications like Retrieval Augmented Generation, all from within Hugging Face.
 We continue to push the boundaries of performance and plan to incorporate cutting-edge optimization techniques like In-Flight Batching to improve throughput when streaming prompts and INT4 quantization to run even bigger models on a single GPU.
 
-Give it a try by pulling out the Docker image we are releasing along with the [Optimum-NVIDIA repository](https://github.com/huggingface/optimum-nvidia) and please share your feedback with us 🤗. 
-```bash
-docker run -it --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 huggingface/optimum-nvidia:0.1.0b1
-```
+Give it a try! Starting today we are releasing a first beta version of the [Optimum-NVIDIA repository](https://github.com/huggingface/optimum-nvidia) with instructions how to get started and please share your feedback with us 🤗.
