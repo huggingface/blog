@@ -1,5 +1,6 @@
 ---
 title: "Optimum-NVIDIA Unlocking blazingly fast LLM inference in just 1 line of code" 
+thumbnail: /blog/assets/optimum_nvidia/hf_nvidia_banner.png
 authors:
 - user: laikh-nvidia
   guest: true
