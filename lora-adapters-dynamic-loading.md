@@ -5,7 +5,7 @@ authors:
 - user: raphael-gl
 ---
 
-# Dynamic LoRA loading for better performance and optimized resource usage
+# 3x faster inference of LoRAs
 
 We've been able to drastically speed up inference in the Hub for public LoRAs based on public Diffusion models. This has allowed us to save compute resources and provide a better user experience.
 

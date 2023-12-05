@@ -3114,7 +3114,7 @@
 - local: lora-adapters-dynamic-loading
   title: "3x faster inference of LoRAs"
   author: raphael-gl
-  thumbnail: /blog/assets/171_load_lora_adapters/thumbnail.png
+  thumbnail: /blog/assets/171_load_lora_adapters/thumbnail2.png
   date: December 5, 2023
   tags:
     - diffusers
