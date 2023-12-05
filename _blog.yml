@@ -3121,3 +3121,15 @@
     - lora
     - models
     - inference
+
+- local: optimum-nvidia
+  title: "Optimum-NVIDIA - Unlock blazingly fast LLM inference in just 1 line of code"
+  author: laikh-nvidia
+  thumbnail: /blog/assets/171_load_lora_adapters/thumbnail2.png
+  date: December 5, 2023
+  tags:
+    - llm
+    - nvidia
+    - llama
+    - inference
+    - optimum
