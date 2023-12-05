@@ -99,4 +99,4 @@ We are actively expanding support to include other text generation model archite
 
 We continue to push the boundaries of performance and plan to incorporate cutting-edge optimization techniques like In-Flight Batching to improve throughput when streaming prompts and INT4 quantization to run even bigger models on a single GPU.
 
-Give it a try! Starting today we are releasing a first beta version of the [Optimum-NVIDIA repository](https://github.com/huggingface/optimum-nvidia) with instructions how to get started and please share your feedback with us 🤗.
+Starting today we are releasing a first beta version of the [Optimum-NVIDIA repository](https://github.com/huggingface/optimum-nvidia) with instructions on how to get started. Please give it a try and share your feedback with us 🤗!
