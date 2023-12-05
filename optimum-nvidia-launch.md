@@ -1,3 +1,12 @@
+---
+title: "Optimum-NVIDIA Unlocking blazingly fast LLM inference in just 1 line of code" 
+authors:
+- user: laikh-nvidia
+  guest: true
+- user: mfuntowicz
+---
+
+
 # Optimum-NVIDIA
 ## Unlock blazingly fast LLM inference in just 1 line of code
 
