@@ -7,7 +7,7 @@ authors:
 
 # Goodbye cold boot - how we made LoRA Inference 300% faster
 
-tl;dr: We swap the LoRA adapters per user request, while keeping the base model warm allowing fast LoRA inference across multiple users. You can experience this by browsing our [LoRA catalogue](https://huggingface.co/models?library=diffusers&other=lora) and playing with the inference widget.
+tl;dr: We swap the Stable Diffusion LoRA adapters per user request, while keeping the base model warm allowing fast LoRA inference across multiple users. You can experience this by browsing our [LoRA catalogue](https://huggingface.co/models?library=diffusers&other=lora) and playing with the inference widget.
 
 ![Inference Widget Example](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/171_load_lora_adapters/inference_widget.png)
 
