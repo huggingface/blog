@@ -1,19 +1,25 @@
 ---
-title: 3x faster inference of LoRAs
+title: Goodbye cold boot - how we made LoRA Inference 300% faster
 thumbnail: /blog/assets/171_load_lora_adapters/thumbnail.png
 authors:
 - user: raphael-gl
 ---
 
-# 3x faster inference of LoRAs
+# Goodbye cold boot - how we made LoRA Inference 300% faster
 
-We've been able to drastically speed up inference in the Hub for public LoRAs based on public Diffusion models. This has allowed us to save compute resources and provide a better user experience.
+tl;dr: We swap the LoRA adapters per user request, while keeping the base model warm allowing fast LoRA inference across multiple users. You can experience this by browsing our [LoRA catalogue](https://huggingface.co/models?library=diffusers&other=lora) and playing with the inference widget.
+
+![Inference Widget Example](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/171_load_lora_adapters/inference_widget.png)
+
+In this blog we will go in detail how we achieved that. 
+
+We've been able to drastically speed up inference in the Hub for public LoRAs based on public Diffusion models. This has allowed us to save compute resources and provide a faster and better user experience. 
 
 To perform inference on a given model, there are two steps:
 1. Warm up phase - that consists in downloading the model and setting up the service (25s).
 2. Then the inference job itself (10s).
 
-With these improvements, we were able to reduce the warm up time from 25s to 3s. We are able to serve inference for hundreds of distinct LoRAs, with less than 5 A10G GPUs, while the response time to user requests decreased from 35s to 13s.
+With the improvements , we were able to reduce the warm up time from 25s to 3s. We are able to serve inference for hundreds of distinct LoRAs, with less than 5 A10G GPUs, while the response time to user requests decreased from 35s to 13s.
 
 Let's talk more about how we can leverage some recent features developed in the [Diffusers](https://github.com/huggingface/diffusers/) library to serve many distinct LoRAs in a dynamic fashion with one single service.
 
