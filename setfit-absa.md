@@ -102,7 +102,7 @@ Note that as opposed to the aspect extraction model, we don’t include non-aspe
 
 ## Running inference
 
-At inference time, the test sentence passes through the aspect candidate extraction, resulting in test instances using the template `aspect_candidate:test_sentence`. Next, non-aspects are filtered by the aspect/non-aspect classifier. Finally, the extracted aspects are fed to the sentiment polarity classifier that predicts the sentiment polarity per aspect.
+At inference time, the test sentence passes through the spaCy aspect candidate extraction phase, resulting in test instances using the template `aspect_candidate:test_sentence`. Next, non-aspects are filtered by the aspect/non-aspect classifier. Finally, the extracted aspects are fed to the sentiment polarity classifier that predicts the sentiment polarity per aspect.
 
 In practice, this means the model can receive normal text as input, and output aspects and their sentiments:
 
@@ -157,7 +157,7 @@ Note that the baseline works using a different number of training sentences and 
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/setfit-absa/SetFitABSA_vs_Llama2.png" width=700>
 </p>
 
-We notice that increasing the number of in-context training samples for Llama2 did not result in improved performance. This phenomenon has been shown for ChatGPT in [this blog post](https://www.analyticsvidhya.com/blog/2023/09/power-of-llms-zero-shot-and-few-shot-prompting/), however it should be further investigated.
+We notice that increasing the number of in-context training samples for Llama2 did not result in improved performance. This phenomenon [has been shown for ChatGPT before](https://www.analyticsvidhya.com/blog/2023/09/power-of-llms-zero-shot-and-few-shot-prompting/), and we think it should be further investigated.
 
 ## Training your own model
 
@@ -226,7 +226,7 @@ model = AbsaModel.from_pretrained(
 )
 ```
 
-Then, we use the predict API to execute the inference. The input is a list of strings, each representing a textual review:
+Then, we use the predict API to run inference. The input is a list of strings, each representing a textual review:
 
 ```python
 preds = model.predict([
