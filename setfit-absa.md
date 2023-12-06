@@ -82,7 +82,7 @@ Applying the example above to the template, will generate 3 training instances â
 | world:Waiters aren't friendly but the cream pasta is out of this world.       | 0     |
 | ...                                                                           | ...   |
 
-After generating the training instances, we are ready to use the power of SetFit to train a few-shot domain-specific binary classifier to extract aspects from an input text review.
+After generating the training instances, we are ready to use the power of SetFit to train a few-shot domain-specific binary classifier to extract aspects from an input text review. This will be our first fine-tuned SetFit model.
 
 **3. Sentiment polarity classification**
 
