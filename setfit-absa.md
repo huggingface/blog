@@ -166,6 +166,10 @@ SetFitABSA is part of the SetFit framework. To train an ABSA model, start by ins
 ```shell
 python -m pip install -U "setfit[absa]"
 ```
+Additionally, we must install the `en_core_web_lg` spaCy model:
+```shell
+python -m spacy download en_core_web_lg
+```
 
 We continue by preparing the training set. The format of the training set is a `Dataset` with the columns `text`, `span`, `label`, `ordinal`:
 
@@ -182,7 +186,7 @@ For example, the training text "Restaurant with wonderful food but worst service
 | Restaurant with wonderful food but worst service I ever seen | service | neg   | 0       |
 | ...                                                          | ...     | ...   | ...     |
 
-Once we have the training dataset ready we can create an ABSA trainer and execute the training:
+Once we have the training dataset ready we can create an ABSA trainer and execute the training. SetFit models are fairly efficient to train, but as SetFitABSA involves two models trained sequentially, it is recommended to use a GPU for training to keep the training time low. For example, the following training script trains a full SetFitABSA model in about 10 minutes with the free Google Colab T4 GPU.
 
 ```python
 from datasets import load_dataset
