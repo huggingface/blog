@@ -182,11 +182,11 @@ We continue by preparing the training set. The format of the training set is a `
 
 For example, the training text "Restaurant with wonderful food but worst service I ever seen" contains two aspects, so will add two lines to the training set table:
 
-| Text                                                         | Span    | Label | Ordinal |
-|:-------------------------------------------------------------|:--------|:------|:--------|
-| Restaurant with wonderful food but worst service I ever seen | food    | pos   | 0       |
-| Restaurant with wonderful food but worst service I ever seen | service | neg   | 0       |
-| ...                                                          | ...     | ...   | ...     |
+| Text                                                         | Span    | Label    | Ordinal |
+|:-------------------------------------------------------------|:--------|:---------|:--------|
+| Restaurant with wonderful food but worst service I ever seen | food    | positive | 0       |
+| Restaurant with wonderful food but worst service I ever seen | service | negative | 0       |
+| ...                                                          | ...     | ...      | ...     |
 
 Once we have the training dataset ready we can create an ABSA trainer and execute the training. SetFit models are fairly efficient to train, but as SetFitABSA involves two models trained sequentially, it is recommended to use a GPU for training to keep the training time low. For example, the following training script trains a full SetFitABSA model in about 10 minutes with the free Google Colab T4 GPU.
 
