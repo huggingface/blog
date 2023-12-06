@@ -3134,3 +3134,13 @@
     - llama
     - inference
     - optimum
+
+- local: setfit-absa
+  title: "SetFitABSA: Few-Shot Aspect Based Sentiment Analysis using SetFit"
+  author: ronenlap
+  guest: true
+  thumbnail: /blog/assets/setfit-absa/intel_hf_logo.png
+  date: December 6, 2023
+  tags:
+    - research
+    - nlp
