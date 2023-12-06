@@ -11,7 +11,7 @@ tl;dr: We swap the LoRA adapters per user request, while keeping the base model 
 
 ![Inference Widget Example](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/171_load_lora_adapters/inference_widget.png)
 
-In this blog we will go in detail how we achieved that. 
+In this blog we will go in detail over how we achieved that. 
 
 We've been able to drastically speed up inference in the Hub for public LoRAs based on public Diffusion models. This has allowed us to save compute resources and provide a faster and better user experience. 
 
