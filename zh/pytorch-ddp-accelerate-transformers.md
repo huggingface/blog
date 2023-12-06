@@ -255,7 +255,7 @@ def train_ddp_accelerate():
     test_loader = torch.utils.data.DataLoader(test_dset, shuffle=False, batch_size=64)
 
     # Build model
-    model = BasicModel()
+    model = BasicNet()
 
     # Build optimizer
     optimizer = optim.AdamW(model.parameters(), lr=1e-3)
@@ -311,7 +311,7 @@ notebook_launcher(train_ddp, args=(), num_processes=2)
 或者：
 
 ```python
-notebook_launcher(train_accelerate_ddp, args=(), num_processes=2)
+notebook_launcher(train_ddp_accelerate, args=(), num_processes=2)
 ```
 
 ## 使用 🤗 Trainer

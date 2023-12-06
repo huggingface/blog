@@ -34,6 +34,17 @@
     - research
     - nlp
 
+- local: big-bird
+  title: "深入理解 BigBird 的块稀疏注意力"
+  thumbnail: /blog/assets/18_big_bird/block-sparse-attn.gif
+  author: vasudevgupta
+  guest: true
+  date: March 31, 2021
+  tags:
+    - community
+    - research
+    - nlp
+
 - local: the-age-of-ml-as-code
   title: "机器学习即代码的时代已经到来"
   author: juliensimon
@@ -50,6 +61,14 @@
   tags:
     - analysis
     - nlp
+
+- local: pytorch-fsdp
+  title: "使用 PyTorch 完全分片数据并行技术加速大模型训练"
+  author: smangrul
+  thumbnail: /blog/assets/62_pytorch_fsdp/fsdp-thumbnail.png
+  date: May 2, 2022
+  tags:
+    - guide
 
 - local: constrained-beam-search
   title: "在 🤗 Transformers 中使用约束波束搜索引导文本生成"
@@ -1002,6 +1021,16 @@
     - bitsandbytes
     - gptq
 
+- local: ram-efficient-pytorch-fsdp
+  title: "使用 PyTorch FSDP 微调 Llama 2 70B"
+  author: smangrul
+  thumbnail: /blog/assets/160_fsdp_llama/thumbnail.jpg
+  date: September 13, 2023
+  tags:
+    - llm
+    - guide
+    - nlp
+
 - local: optimize-llm
   title: "面向生产的 LLM 优化"
   author: patrickvonplaten
@@ -1034,6 +1063,15 @@
     - nlp
     - community
 
+- local: gradio-lite
+  title: "Gradio-Lite: 完全在浏览器里运行的无服务器 Gradio"
+  author: abidlabs
+  thumbnail: /blog/assets/167_gradio_lite/thumbnail.png
+  date: October 19, 2023
+  tags:
+    - gradio
+    - open-source
+    - serverless
 
 - local: the_n_implementation_details_of_rlhf_with_ppo
   title: "使用 PPO 算法进行 RLHF 的 N 步实现细节"
