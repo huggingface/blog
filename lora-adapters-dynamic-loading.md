@@ -1,6 +1,6 @@
 ---
 title: Goodbye cold boot - how we made LoRA Inference 300% faster
-thumbnail: /blog/assets/171_load_lora_adapters/thumbnail.png
+thumbnail: /blog/assets/171_load_lora_adapters/thumbnail3.png
 authors:
 - user: raphael-gl
 ---
