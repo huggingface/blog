@@ -131,7 +131,7 @@ SetFitABSA is evaluated both on the intermediate task of aspect term extraction 
 |      T5-base       |     220M      |
 |     GPT2-base      |     124M      |
 |    GPT2-medium     |     355M      |
-| **SetFit (MPNet)** |     110M      |
+| **SetFit (MPNet)** |     220M      |
 
 ### Performance comparison
 
