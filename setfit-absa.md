@@ -151,7 +151,7 @@ We see a clear advantage of SetFitABSA when the number of training instances is 
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/setfit-absa/SetFitABSA_vs_T5.png" width=700>
 </p>
 
-Note that the baseline works using a different number of training sentences and different data splits. For fair comparison, we conducted separate comparisons with our model against each of them, ensuring consistency by using the splits employed by each respective work for accurate assessments.
+Note that for fair comparison, we conducted comparisons with SetFitABSA against exactly the dataset splits used by the various baselines (GPT2, T5, etc.).
 
 **SetFitABSA vs Llama2**
 
