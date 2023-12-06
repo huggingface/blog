@@ -3112,15 +3112,16 @@
     - leaderboard
 
 - local: lora-adapters-dynamic-loading
-  title: "3x faster inference of LoRAs"
+  title: "Goodbye cold boot - how we made LoRA inference 300% faster"
   author: raphael-gl
-  thumbnail: /blog/assets/171_load_lora_adapters/thumbnail2.png
+  thumbnail: /blog/assets/171_load_lora_adapters/thumbnail3.png
   date: December 5, 2023
   tags:
     - diffusers
     - lora
     - models
     - inference
+    - stable-diffusion
 
 - local: optimum-nvidia
   title: "Optimum-NVIDIA - Unlock blazingly fast LLM inference in just 1 line of code"
