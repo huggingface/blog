@@ -82,11 +82,11 @@ Applying the example above to the template, will generate 3 training instances â
 | world:Waiters aren't friendly but the cream pasta is out of this world.       | 0     |
 | ...                                                                           | ...   |
 
-After generating the training instances, we are ready to use the power of SetFit to train a few-shot domain-specific binary classifier to extract aspects from an input text review.
+After generating the training instances, we are ready to use the power of SetFit to train a few-shot domain-specific binary classifier to extract aspects from an input text review. This will be our first fine-tuned SetFit model.
 
 **3. Sentiment polarity classification**
 
-Once the system extracts the aspects from the text, it needs to associate a sentiment polarity (e.g., positive, negative or neutral) to each aspect. For this purpose, we use a 2nd SetFit model and train it in a similar fashion to the aspect extraction model training as illustrated in the following example:
+Once the system extracts the aspects from the text, it needs to associate a sentiment polarity (e.g., positive, negative or neutral) to each aspect. For this purpose, we use a 2nd SetFit model and train it in a similar fashion to the aspect extraction model as illustrated in the following example:
 
 * **Training sentence:** "Waiters aren't friendly but the cream pasta is out of this world."
 * **Tokenized:** [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]
@@ -102,7 +102,7 @@ Note that as opposed to the aspect extraction model, we don't include non-aspect
 
 ## Running inference
 
-At inference time, the test sentence passes through the aspect candidate extraction, resulting in test instances using the template `aspect_candidate:test_sentence`. Next, non-aspects are filtered by the aspect/non-aspect classifier. Finally, the extracted aspects are fed to the sentiment polarity classifier that predicts the sentiment polarity per aspect.
+At inference time, the test sentence passes through the spaCy aspect candidate extraction phase, resulting in test instances using the template `aspect_candidate:test_sentence`. Next, non-aspects are filtered by the aspect/non-aspect classifier. Finally, the extracted aspects are fed to the sentiment polarity classifier that predicts the sentiment polarity per aspect.
 
 In practice, this means the model can receive normal text as input, and output aspects and their sentiments:
 
@@ -157,7 +157,7 @@ Note that the baseline works using a different number of training sentences and 
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/setfit-absa/SetFitABSA_vs_Llama2.png" width=700>
 </p>
 
-We notice that increasing the number of in-context training samples for Llama2 did not result in improved performance. This phenomenon has been shown for ChatGPT in [this blog post](https://www.analyticsvidhya.com/blog/2023/09/power-of-llms-zero-shot-and-few-shot-prompting/), however it should be further investigated.
+We notice that increasing the number of in-context training samples for Llama2 did not result in improved performance. This phenomenon [has been shown for ChatGPT before](https://www.analyticsvidhya.com/blog/2023/09/power-of-llms-zero-shot-and-few-shot-prompting/), and we think it should be further investigated.
 
 ## Training your own model
 
@@ -230,7 +230,7 @@ model = AbsaModel.from_pretrained(
 )
 ```
 
-Then, we use the predict API to execute the inference. The input is a list of strings, each representing a textual review:
+Then, we use the predict API to run inference. The input is a list of strings, each representing a textual review:
 
 ```python
 preds = model.predict([
