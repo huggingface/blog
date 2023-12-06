@@ -61,11 +61,11 @@ In this work we assume that aspects, which are usually features of products and 
 
 Now that we have aspect candidates, we need to train a model to be able to distinguish between nouns that are aspects and nouns that are non-aspects. For this purpose, we need training samples with aspect/no-aspect labels. This is done simply by labeling candidates that are labeled as aspects in the training set as TRUE aspects, while the rest are non-aspects and therefore labeled as FALSE as illustrated in the following example:
 
-<p><strong>Training sentence:</strong> "Waiters aren't friendly but the cream pasta is out of this world."</p>
-<p><strong>Tokenized:</strong> [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]</p>
-<p><strong>Extracted aspect candidates:</strong> [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]</p>
-<p><strong>Gold labels from training set, in BIO format:</strong> [B-ASP, O, O, O, O, O, B-ASP, I-ASP, O, O, O, O, O, .]</p>
-<p><strong>Generated aspect/non-aspect Labels:</strong> [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]</p>
+* **Training sentence:** "Waiters aren't friendly but the cream pasta is out of this world."
+* **Tokenized:** [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]
+* **Extracted aspect candidates:** [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]
+* **Gold labels from training set, in [BIO format](https://en.wikipedia.org/wiki/Inside–outside–beginning_(tagging)):** [B-ASP, O, O, O, O, O, B-ASP, I-ASP, O, O, O, O, O, .]
+* **Generated aspect/non-aspect Labels:** [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]
 
 Now that we have all the aspect candidates labeled, how do we use it to train the candidate aspect classification model? In other words, how do we use SetFit, a sentence classification framework, to classify individual tokens? Well, this is the trick: each aspect candidate is concatenated with the entire training sentence to create a training instance using the following template:
 
@@ -88,9 +88,9 @@ After generating the training instances, we are ready to use the power of SetFit
 
 Once the system extracts the aspects from the text, it needs to associate a sentiment polarity (e.g., positive, negative or neutral) to each aspect. For this purpose, we use a 2nd SetFit model and train it in a similar fashion to the aspect extraction model training as illustrated in the following example:
 
-<p><strong>Training sentence:</strong> "Waiters aren't friendly but the cream pasta is out of this world."</p>
-<p><strong>Tokenized:</strong> [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]</p>
-<p><strong>Gold labels from training set:</strong> [NEG, O, O, O, O, O, POS, POS, O, O, O, O, O, .]</p>
+* **Training sentence:** "Waiters aren't friendly but the cream pasta is out of this world."
+* **Tokenized:** [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]
+* **Gold labels from training set:** [NEG, O, O, O, O, O, POS, POS, O, O, O, O, O, .]
 
 | Text                                                                          | Label |
 |:------------------------------------------------------------------------------|:------|
