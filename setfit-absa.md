@@ -94,11 +94,11 @@ Once the system extracts the aspects from the text, it needs to associate a sent
 
 | Text                                                                          | Label |
 |:------------------------------------------------------------------------------|:------|
-| Waiters:Waiters aren’t friendly but the cream pasta is out of this world.     | NEG   |
+| Waiters:Waiters aren't friendly but the cream pasta is out of this world.     | NEG   |
 | cream pasta:Waiters aren't friendly but the cream pasta is out of this world. | POS   |
 | ...                                                                           | ...   |
 
-Note that as opposed to the aspect extraction model, we don’t include non-aspects in this training set because the goal is to classify the sentiment polarity towards real aspects.
+Note that as opposed to the aspect extraction model, we don't include non-aspects in this training set because the goal is to classify the sentiment polarity towards real aspects.
 
 ## Running inference
 
@@ -205,7 +205,7 @@ trainer = AbsaTrainer(model, train_dataset=train_dataset)
 trainer.train()
 ```
 
-That’s it! We have trained a domain-specific ABSA model. We can save our trained model to disk or upload it to the Hugging Face hub. Bear in mind that the model contains two submodels, so each is given its own path:
+That's it! We have trained a domain-specific ABSA model. We can save our trained model to disk or upload it to the Hugging Face hub. Bear in mind that the model contains two submodels, so each is given its own path:
 
 ```python
 model.save_pretrained(
