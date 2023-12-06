@@ -59,7 +59,7 @@ In this work we assume that aspects, which are usually features of products and 
 
 **2. Aspect/Non-aspect classification**
 
-Now that we have aspect candidates, we need to train a model to be able to distinguish between nouns that are aspects and nouns that are non-aspects. For this purpose, we need training samples with aspect/no-aspect labels. This is done by considering aspects in the training set as `True` aspects, while other non-overlapping extracted candidate aspects rest are non-aspects and therefore labeled as `False`:
+Now that we have aspect candidates, we need to train a model to be able to distinguish between nouns that are aspects and nouns that are non-aspects. For this purpose, we need training samples with aspect/no-aspect labels. This is done by considering aspects in the training set as `True` aspects, while other non-overlapping candidate aspects are considered non-aspects and therefore labeled as `False`:
 
 * **Training sentence:** "Waiters aren't friendly but the cream pasta is out of this world."
 * **Tokenized:** [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]
@@ -73,7 +73,7 @@ Now that we have all the aspect candidates labeled, how do we use it to train th
 aspect_candidate:training_sentence
 ```
 
-Applying the example above to the template, will generate 3 training instances – two with `True` labels representing aspect training instances and one with `False` label representing non-aspect training instance:
+Applying the template to the example above will generate 3 training instances – two with `True` labels representing aspect training instances, and one with `False` label representing non-aspect training instance:
 
 | Text                                                                          | Label |
 |:------------------------------------------------------------------------------|:------|
@@ -175,8 +175,8 @@ We continue by preparing the training set. The format of the training set is a `
 
 * **text**: The full sentence or text containing the aspects. 
 * **span**: An aspect from the full sentence. Can be multiple words. For example: "food".
-* **label**: The (polarity) label corresponding to the aspect span. For example: "positive". The labels names can be chosen arbitrarily when tagging the collected training data.
-* **ordinal**: If the aspect span occurs multiple times in the text, then this ordinal represents the index of those occurrences. Often this is just 0, as usually aspect appears only once in the input text.
+* **label**: The (polarity) label corresponding to the aspect span. For example: "positive". The label names can be chosen arbitrarily when tagging the collected training data.
+* **ordinal**: If the aspect span occurs multiple times in the text, then this ordinal represents the index of those occurrences. Often this is just 0, as each aspect usually appears only once in the input text.
 
 For example, the training text "Restaurant with wonderful food but worst service I ever seen" contains two aspects, so will add two lines to the training set table:
 
