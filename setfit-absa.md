@@ -131,7 +131,9 @@ SetFitABSA is evaluated both on the intermediate task of aspect term extraction 
 |      T5-base       |     220M      |
 |     GPT2-base      |     124M      |
 |    GPT2-medium     |     355M      |
-| **SetFit (MPNet)** |     220M      |
+| **SetFit (MPNet)** |    2x 110M    |
+
+Note that for the SB1 task, SetFitABSA is 110M parameters, for SB2 it is 110M parameters, and for SB1+SB2 SetFitABSA consists of 220M parameters.
 
 ### Performance comparison
 
