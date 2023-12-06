@@ -1,19 +1,25 @@
 ---
-title: 3x faster inference of LoRAs
+title: Goodbye cold boot - how we made LoRA Inference 300% faster
 thumbnail: /blog/assets/171_load_lora_adapters/thumbnail.png
 authors:
 - user: raphael-gl
 ---
 
-# 3x faster inference of LoRAs
+# Goodbye cold boot - how we made LoRA Inference 300% faster
 
-We've been able to drastically speed up inference in the Hub for public LoRAs based on public Diffusion models. This has allowed us to save compute resources and provide a better user experience.
+tl;dr: We swap the Stable Diffusion LoRA adapters per user request, while keeping the base model warm allowing fast LoRA inference across multiple users. You can experience this by browsing our [LoRA catalogue](https://huggingface.co/models?library=diffusers&other=lora) and playing with the inference widget.
+
+![Inference Widget Example](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/171_load_lora_adapters/inference_widget.png)
+
+In this blog we will go in detail over how we achieved that. 
+
+We've been able to drastically speed up inference in the Hub for public LoRAs based on public Diffusion models. This has allowed us to save compute resources and provide a faster and better user experience. 
 
 To perform inference on a given model, there are two steps:
 1. Warm up phase - that consists in downloading the model and setting up the service (25s).
 2. Then the inference job itself (10s).
 
-With these improvements, we were able to reduce the warm up time from 25s to 3s. We are able to serve inference for hundreds of distinct LoRAs, with less than 5 A10G GPUs, while the response time to user requests decreased from 35s to 13s.
+With the improvements, we were able to reduce the warm up time from 25s to 3s. We are now able to serve inference for hundreds of distinct LoRAs, with less than 5 A10G GPUs, while the response time to user requests decreased from 35s to 13s.
 
 Let's talk more about how we can leverage some recent features developed in the [Diffusers](https://github.com/huggingface/diffusers/) library to serve many distinct LoRAs in a dynamic fashion with one single service.
 
@@ -41,7 +47,7 @@ For a more exhaustive presentation on what LoRA is, please refer to the followin
 
 ## Benefits
 
-We have approximately **2500** distinct LoRAs on the Hub. The vast majority (**~92%**) of them are LoRAs based on the [Stable Diffusion XL Base 1.0](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) model.
+We have approximately **2500** distinct public LoRAs on the Hub. The vast majority (**~92%**) of them are LoRAs based on the [Stable Diffusion XL Base 1.0](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) model.
 
 Before this mutualization, this would have meant deploying a dedicated service for all of them (eg. for all the yellow merged matrices in the diagram above); releasing + reserving at least one new GPU. The time to spawn the service and have it ready to serve requests for a specific model is approximately **25s**, then on top of this you have the inference time (**~10s** for a 1024x1024 SDXL inference diffusion with 25 inference steps on an A10G). If an adapter is only occasionally requested, its service gets stopped to free resources preempted by others.
 
@@ -69,9 +75,9 @@ Because LoRAs are not the only models with such an attribute (any duplicated mod
 
 ### Loading/Offloading LoRA for Diffusers 🧨
 
-<div class="alert" style="background-color:lightgreen">
+<div class="alert">
 <p>
-Note that there is a more seemless way to perform the same as what is presented in this section using the <a href="https://github.com/huggingface/peft">peft</a> library. Please refer to <a href="]https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference">the documentation</a> for more details. The principle remains the same as below (going from/to the blue box to/from the yellow one in the <a href="#diagram">diagram</a> above)
+Note that there is a more seemless way to perform the same as what is presented in this section using the <a href="https://github.com/huggingface/peft">peft</a> library. Please refer to <a href="https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference">the documentation</a> for more details. The principle remains the same as below (going from/to the blue box to/from the yellow one in the <a href="#diagram">diagram</a> above)
 </p>
 </div>
 </br>
