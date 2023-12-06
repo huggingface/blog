@@ -164,15 +164,15 @@ We notice that increasing the number of in-context training samples for Llama2 d
 SetFitABSA is part of the SetFit framework. To train an ABSA model, start by installing `setfit` with the `absa` option enabled:
 
 ```shell
-python -m pip install "setfit[absa]"
+python -m pip install -U "setfit[absa]"
 ```
 
 We continue by preparing the training set. The format of the training set is a `Dataset` with the columns `text`, `span`, `label`, `ordinal`:
 
-* text: The full sentence or text containing the aspects. 
-* span: An aspect from the full sentence. Can be multiple words. For example: "food".
-* label: The (polarity) label corresponding to the aspect span. For example: "positive". The labels names can be chosen arbitrarily when tagging the collected training data.
-* ordinal: If the aspect span occurs multiple times in the text, then this ordinal represents the index of those occurrences. Often this is just 0, as usually aspect appears only once in the input text.
+* **text**: The full sentence or text containing the aspects. 
+* **span**: An aspect from the full sentence. Can be multiple words. For example: "food".
+* **label**: The (polarity) label corresponding to the aspect span. For example: "positive". The labels names can be chosen arbitrarily when tagging the collected training data.
+* **ordinal**: If the aspect span occurs multiple times in the text, then this ordinal represents the index of those occurrences. Often this is just 0, as usually aspect appears only once in the input text.
 
 For example, the training text "Restaurant with wonderful food but worst service I ever seen" contains two aspects, so will add two lines to the training set table:
 
@@ -185,34 +185,33 @@ For example, the training text "Restaurant with wonderful food but worst service
 Once we have the training dataset ready we can create an ABSA trainer and execute the training:
 
 ```python
+from datasets import load_dataset
 from setfit import AbsaTrainer, AbsaModel
 
-# Create training dataset as above
-training_dataset = ...
+# Create a training dataset as above
+# For convenience we will use an already prepared dataset here
+train_dataset = load_dataset("tomaarsen/setfit-absa-semeval-restaurants", split="train[:128]")
 
-
-# Create a model with a chosen sentence transformer from the hub
-model = AbsaModel.from_pretrained(
-	"sentence-transformers/paraphrase-mpnet-base-v2")
-
+# Create a model with a chosen sentence transformer from the Hub
+model = AbsaModel.from_pretrained("sentence-transformers/paraphrase-mpnet-base-v2")
 
 # Create a trainer:
-trainer = AbsaTrainer(model, train_dataset=training_dataset)
+trainer = AbsaTrainer(model, train_dataset=train_dataset)
 # Execute training:
-train.train()
+trainer.train()
 ```
 
-That’s it! We have trained a domain-specific ABSA model. We can save our trained model to disk or upload it to the Hugging Face hub. Bare in mind that the model contains two sub models, so each is given its own path:
+That’s it! We have trained a domain-specific ABSA model. We can save our trained model to disk or upload it to the Hugging Face hub. Bear in mind that the model contains two submodels, so each is given its own path:
 
 ```python
 model.save_pretrained(
-			"models/setfit-absa-model-aspect", 
-			"models/setfit-absa-model-polarity"
+    "models/setfit-absa-model-aspect", 
+    "models/setfit-absa-model-polarity"
 )
 # or
 model.push_to_hub(
-			"tomaarsen/setfit-absa-model-aspect",
-			"tomaarsen/setfit-absa-model-polarity"
+    "tomaarsen/setfit-absa-paraphrase-mpnet-base-v2-restaurants-aspect",
+    "tomaarsen/setfit-absa-paraphrase-mpnet-base-v2-restaurants-polarity"
 )
 ```
 
@@ -222,8 +221,8 @@ Now we can use our trained model for inference. We start by loading the model:
 from setfit import AbsaModel
 
 model = AbsaModel.from_pretrained(
-			"tomaarsen/setfit-absa-model-aspect",
-			"tomaarsen/setfit-absa-model-polarity"
+    "tomaarsen/setfit-absa-paraphrase-mpnet-base-v2-restaurants-aspect",
+    "tomaarsen/setfit-absa-paraphrase-mpnet-base-v2-restaurants-polarity"
 )
 ```
 
@@ -231,7 +230,7 @@ Then, we use the predict API to execute the inference. The input is a list of st
 
 ```python
 preds = model.predict([
-	"Best pizza outside of Italy and really tasty.",
+    "Best pizza outside of Italy and really tasty.",
     "The food variations are great and the prices are absolutely fair.",
     "Unfortunately, you have to expect some waiting time and get a note with a waiting number if it should be very full."
 ])
@@ -239,8 +238,8 @@ preds = model.predict([
 print(preds)
 # [
 #     [{'span': 'pizza', 'polarity': 'positive'}],
-#     [{'span': 'food variations', 'polarity': 'positive'}, {'span': 'prices', 	'polarity': 'positive'}],
-#     [{'span': 'waiting number', 'polarity': 'negative'}]
+#     [{'span': 'food variations', 'polarity': 'positive'}, {'span': 'prices', 'polarity': 'positive'}],
+#     [{'span': 'waiting time', 'polarity': 'neutral'}, {'span': 'waiting number', 'polarity': 'neutral'}]
 # ]
 ```
 
