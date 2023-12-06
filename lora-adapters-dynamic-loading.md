@@ -19,7 +19,7 @@ To perform inference on a given model, there are two steps:
 1. Warm up phase - that consists in downloading the model and setting up the service (25s).
 2. Then the inference job itself (10s).
 
-With the improvements , we were able to reduce the warm up time from 25s to 3s. We are able to serve inference for hundreds of distinct LoRAs, with less than 5 A10G GPUs, while the response time to user requests decreased from 35s to 13s.
+With the improvements, we were able to reduce the warm up time from 25s to 3s. We are now able to serve inference for hundreds of distinct LoRAs, with less than 5 A10G GPUs, while the response time to user requests decreased from 35s to 13s.
 
 Let's talk more about how we can leverage some recent features developed in the [Diffusers](https://github.com/huggingface/diffusers/) library to serve many distinct LoRAs in a dynamic fashion with one single service.
 
