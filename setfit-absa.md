@@ -86,7 +86,7 @@ After generating the training instances, we are ready to use the power of SetFit
 
 **3. Sentiment polarity classification**
 
-Once the system extracts the aspects from the text, it needs to associate a sentiment polarity (e.g., positive, negative or neutral) to each aspect. For this purpose, we use a 2nd SetFit model and train it in a similar fashion to the aspect extraction model training as illustrated in the following example:
+Once the system extracts the aspects from the text, it needs to associate a sentiment polarity (e.g., positive, negative or neutral) to each aspect. For this purpose, we use a 2nd SetFit model and train it in a similar fashion to the aspect extraction model as illustrated in the following example:
 
 * **Training sentence:** "Waiters aren't friendly but the cream pasta is out of this world."
 * **Tokenized:** [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]
