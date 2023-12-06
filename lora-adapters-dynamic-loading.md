@@ -69,7 +69,7 @@ Because LoRAs are not the only models with such an attribute (any duplicated mod
 
 ### Loading/Offloading LoRA for Diffusers 🧨
 
-<div class="alert" style="background-color:#a5e612;color:#000000">
+<div class="alert">
 <p>
 Note that there is a more seemless way to perform the same as what is presented in this section using the <a href="https://github.com/huggingface/peft" style="color:#2986cc">peft</a> library. Please refer to <a href="]https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference" style="color:#2986cc">the documentation</a> for more details. The principle remains the same as below (going from/to the blue box to/from the yellow one in the <a href="#diagram" style="color:#2986cc">diagram</a> above)
 </p>
