@@ -20,7 +20,7 @@ authors:
 
 
 <p align="center">
-    <img src="assets/setfit-absa/method.png" width=500>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/setfit-absa/method.png" width=500>
 </p>
 <p align="center">
     <em>SetFitABSA is an efficient technique to detect the sentiment towards specific aspects within the text.</em>
@@ -43,7 +43,7 @@ In this blog post, we'll explain how SetFitABSA works and how to train your very
 ## How does it work?
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/method.png" width=700>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/setfit-absa/method.png" width=700>
 </p>
 <p align="center">
     <em>SetFitABSA's three-stage training process</em>
@@ -138,13 +138,13 @@ We see a clear advantage of SetFitABSA when the number of training instances is 
 **SetFitABSA vs GPT2**
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/SetFitABSA_vs_GPT2.png" width=700>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/setfit-absa/SetFitABSA_vs_GPT2.png" width=700>
 </p>
 
 **SetFitABSA vs T5**
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/SetFitABSA_vs_T5.png" width=700>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/setfit-absa/SetFitABSA_vs_T5.png" width=700>
 </p>
 
 Note that the baseline works use different numbers of training sentences and different data splits. For fair comparison, we conducted separate comparisons with our model against each of them, ensuring consistency by using the splits employed by each respective work for accurate assessments.
@@ -152,7 +152,7 @@ Note that the baseline works use different numbers of training sentences and dif
 **SetFitABSA vs Llama2**
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/SetFitABSA_vs_Llama2.png" width=700>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/setfit-absa/SetFitABSA_vs_Llama2.png" width=700>
 </p>
 
 We notice that increasing the number of in-context training samples for Llama2 did not result in improved performance. This phenomenon has been shown for ChatGPT in [this blog post](https://www.analyticsvidhya.com/blog/2023/09/power-of-llms-zero-shot-and-few-shot-prompting/), however it should be further investigated.
