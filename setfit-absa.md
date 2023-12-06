@@ -73,7 +73,7 @@ Now that we have all the aspect candidates labeled, how do we use it to train th
 aspect_candidate:training_sentence
 ```
 
-Applying the example above to the template, will generate 3 training instances – two with TRUE labels representing aspect training instances and one with FALSE label representing non-aspect training instance:
+Applying the example above to the template, will generate 3 training instances – two with `True` labels representing aspect training instances and one with `False` label representing non-aspect training instance:
 
 | Text                                                                          | Label |
 |:------------------------------------------------------------------------------|:------|
@@ -103,6 +103,8 @@ Note that as opposed to the aspect extraction model, we don’t include non-aspe
 ## Running inference
 
 At inference time, the test sentence passes through the aspect candidate extraction, resulting in test instances using the template `aspect_candidate:test_sentence`. Next, non-aspects are filtered by the aspect/non-aspect classifier. Finally, the extracted aspects are fed to the sentiment polarity classifier that predicts the sentiment polarity per aspect.
+
+In practice, this means the model can receive normal text as input, and output aspects and their sentiments:
 
 **Model Input:**
 ```
@@ -147,7 +149,7 @@ We see a clear advantage of SetFitABSA when the number of training instances is 
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/setfit-absa/SetFitABSA_vs_T5.png" width=700>
 </p>
 
-Note that the baseline works use different numbers of training sentences and different data splits. For fair comparison, we conducted separate comparisons with our model against each of them, ensuring consistency by using the splits employed by each respective work for accurate assessments.
+Note that the baseline works using a different number of training sentences and different data splits. For fair comparison, we conducted separate comparisons with our model against each of them, ensuring consistency by using the splits employed by each respective work for accurate assessments.
 
 **SetFitABSA vs Llama2**
 
