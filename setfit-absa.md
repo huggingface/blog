@@ -57,15 +57,15 @@ SetFitABSA is comprised of three steps. The first step extracts aspect candidate
 
 In this work we assume that aspects, which are usually features of products and services, are mostly nouns or noun compounds (strings of consecutive nouns). We use [spaCy](https://spacy.io/) to tokenize and extract nouns/noun compounds from the sentences in the (few-shot) training set. Since not all extracted nouns/noun compounds are aspects, we refer to them as aspect candidates.
 
-**2. Aspect/Non aspect classification**
+**2. Aspect/Non-aspect classification**
 
-Now that we have aspect candidates, we need to train a model to be able to distinguish between nouns that are aspects and nouns that are non-aspects. For this purpose, we need training samples with aspect/no-aspect labels. This is done simply by labeling candidates that are labeled as aspects in the training set as TRUE aspects, while the rest are non-aspects and therefore labeled as FALSE as illustrated in the following example:
+Now that we have aspect candidates, we need to train a model to be able to distinguish between nouns that are aspects and nouns that are non-aspects. For this purpose, we need training samples with aspect/no-aspect labels. This is done by considering aspects in the training set as `True` aspects, while other non-overlapping extracted candidate aspects rest are non-aspects and therefore labeled as `False`:
 
 * **Training sentence:** "Waiters aren't friendly but the cream pasta is out of this world."
 * **Tokenized:** [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]
-* **Extracted aspect candidates:** [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]
+* **Extracted aspect candidates:** [<strong style="color:orange">Waiters</strong>, are, n't, friendly, but, the, <strong style="color:orange">cream</strong>, <strong style="color:orange">pasta</strong>, is, out, of, this, <strong style="color:orange">world</strong>, .]
 * **Gold labels from training set, in [BIO format](https://en.wikipedia.org/wiki/Inside–outside–beginning_(tagging)):** [B-ASP, O, O, O, O, O, B-ASP, I-ASP, O, O, O, O, O, .]
-* **Generated aspect/non-aspect Labels:** [Waiters, are, n't, friendly, but, the, cream, pasta, is, out, of, this, world, .]
+* **Generated aspect/non-aspect Labels:** [<strong style="color:green">Waiters</strong>, are, n't, friendly, but, the, <strong style="color:green">cream</strong>, <strong style="color:green">pasta</strong>, is, out, of, this, <strong style="color:red">world</strong>, .]
 
 Now that we have all the aspect candidates labeled, how do we use it to train the candidate aspect classification model? In other words, how do we use SetFit, a sentence classification framework, to classify individual tokens? Well, this is the trick: each aspect candidate is concatenated with the entire training sentence to create a training instance using the following template:
 
