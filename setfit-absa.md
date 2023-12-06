@@ -1,6 +1,6 @@
 ---
 title: "SetFitABSA: Few-Shot Aspect Based Sentiment Analysis using SetFit"
-thumbnail: /blog/assets/setfit-absa/intel_hf_logo.png
+thumbnail: /blog/assets/setfit-absa/intel_hf_logo_2.png
 authors:
 - user: ronenlap
   guest: true
