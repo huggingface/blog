@@ -41,7 +41,7 @@ For a more exhaustive presentation on what LoRA is, please refer to the followin
 
 ## Benefits
 
-We have approximately **2500** distinct LoRAs on the Hub. The vast majority (**~92%**) of them are LoRAs based on the [Stable Diffusion XL Base 1.0](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) model.
+We have approximately **2500** distinct public LoRAs on the Hub. The vast majority (**~92%**) of them are LoRAs based on the [Stable Diffusion XL Base 1.0](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) model.
 
 Before this mutualization, this would have meant deploying a dedicated service for all of them (eg. for all the yellow merged matrices in the diagram above); releasing + reserving at least one new GPU. The time to spawn the service and have it ready to serve requests for a specific model is approximately **25s**, then on top of this you have the inference time (**~10s** for a 1024x1024 SDXL inference diffusion with 25 inference steps on an A10G). If an adapter is only occasionally requested, its service gets stopped to free resources preempted by others.
 
@@ -69,9 +69,9 @@ Because LoRAs are not the only models with such an attribute (any duplicated mod
 
 ### Loading/Offloading LoRA for Diffusers 🧨
 
-<div class="alert" style="background-color:lightgreen">
+<div class="alert" style="background-color:#a5e612;color:#000000">
 <p>
-Note that there is a more seemless way to perform the same as what is presented in this section using the <a href="https://github.com/huggingface/peft">peft</a> library. Please refer to <a href="]https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference">the documentation</a> for more details. The principle remains the same as below (going from/to the blue box to/from the yellow one in the <a href="#diagram">diagram</a> above)
+Note that there is a more seemless way to perform the same as what is presented in this section using the <a href="https://github.com/huggingface/peft" style="color:#2986cc">peft</a> library. Please refer to <a href="]https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference" style="color:#2986cc">the documentation</a> for more details. The principle remains the same as below (going from/to the blue box to/from the yellow one in the <a href="#diagram" style="color:#2986cc">diagram</a> above)
 </p>
 </div>
 </br>
