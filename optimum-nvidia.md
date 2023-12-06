@@ -36,7 +36,7 @@ The flag shown in this example uses a predefined calibration strategy by default
 The pipeline interface is great for getting up and running quickly, but power users who want fine-grained control over setting sampling parameters can use the Model API. 
 
 ```diff
-- from transformers import LlamaForCausalLM
+- from transformers import AutoModelForCausalLM
 + from optimum.nvidia import AutoModelForCausalLM
 from transformers import AutoTokenizer
 
