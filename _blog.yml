@@ -3135,6 +3135,16 @@
     - inference
     - optimum
 
+- local: setfit-absa
+  title: "SetFitABSA: Few-Shot Aspect Based Sentiment Analysis using SetFit"
+  author: ronenlap
+  guest: true
+  thumbnail: /blog/assets/setfit-absa/intel_hf_logo_2.png
+  date: December 6, 2023
+  tags:
+    - research
+    - nlp
+
 - local: tgi-kubernetes-cluster_dev
   title: "Kubernetes infrastructure for HF models and chat with Cluster.dev"
   author: voatsap
