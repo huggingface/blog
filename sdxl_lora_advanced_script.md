@@ -361,7 +361,37 @@ Configurations:
 * Full Text Encoder Tuning VS Pivotal Tuning - we noticed pivotal tuning achieves results competitive or better 
   than full text encoder training and yet without optimizing the weights of the text_encoder.
 * Min SNR Gamma
+  * We compare between a [version1](https://wandb.ai/linoy/dreambooth-lora-sd-xl/runs/mvox7cqg?workspace=user-linoy) 
+    trained without `snr_gamma`, and a [version2](https://wandb.ai/linoy/dreambooth-lora-sd-xl/runs/cws7nfzg?workspace=user-linoy) trained with `snr_gamma = 5.0`
+Specifically we used the following arguments in both versions (and added `snr_gamma` to version 2)
+``` 
+--pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0" \
+--pretrained_vae_model_name_or_path="madebyollin/sdxl-vae-fp16-fix" \
+--dataset_name="./huggy_clean" \
+--instance_prompt="a TOK emoji"\
+--validation_prompt="a TOK emoji dressed as Yoda"\
+--caption_column="prompt" \
+--mixed_precision="bf16" \
+--resolution=1024 \
+--train_batch_size=4 \
+--repeats=1\
+--report_to="wandb"\
+--gradient_accumulation_steps=1 \
+--gradient_checkpointing \
+--learning_rate=1e-4 \
+--text_encoder_lr=3e-4 \
+--optimizer="adamw"\
+--train_text_encoder_ti\
+--lr_scheduler="constant" \
+--lr_warmup_steps=0 \
+--rank=32 \
+--max_train_steps=1000 \
+--checkpointing_steps=2000 \
+--seed="0" \
+```
 ![huggy_snr_example](.\assets\dreambooth_lora_sdxl\snr_comparison_huggy.png)
+
+
 * Different LRs
 
 
