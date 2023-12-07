@@ -392,9 +392,39 @@ Specifically we used the following arguments in both versions (and added `snr_ga
 ![huggy_snr_example](.\assets\dreambooth_lora_sdxl\snr_comparison_huggy.png)
 
 
-* Different LRs
-
-
+* AdamW vs Prodigy Optimizer
+  * We compare between [version1](https://wandb.ai/linoy/dreambooth-lora-sd-xl/runs/uk8d6k6j?workspace=user-linoy) 
+    trained with `optimizer=prodigy`, and [version2](https://wandb.ai/linoy/dreambooth-lora-sd-xl/runs/cws7nfzg?workspace=user-linoy) trained with `optimizer=adamW`
+  * When training with `optimizer=prodigy` we set the initial learning rate to be 1. For adamW we used the default 
+    learning rates used for pivotal tuning in cog-sdxl (`1e-4`, `3e-4` for `learning_rate` and `text_encoder_lr` respectively) 
+    as we were able to reproduce good 
+    results with these settings. 
+![huggy_optimizer_example](.\assets\dreambooth_lora_sdxl\adamw_prodigy_comparsion_huggy.png)
+  * all other training parameters and settings were the same. Specifically: 
+``` 
+    --pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0" \
+  --pretrained_vae_model_name_or_path="madebyollin/sdxl-vae-fp16-fix" \
+  --dataset_name="./huggy_clean" \
+  --instance_prompt="a TOK emoji"\
+  --validation_prompt="a TOK emoji dressed as Yoda"\
+  --output_dir="huggy_v11" \
+  --caption_column="prompt" \
+  --mixed_precision="bf16" \
+  --resolution=1024 \
+  --train_batch_size=4 \
+  --repeats=1\
+  --report_to="wandb"\
+  --gradient_accumulation_steps=1 \
+  --gradient_checkpointing \
+  --train_text_encoder_ti\
+  --lr_scheduler="constant" \
+  --snr_gamma=5.0 \
+  --lr_warmup_steps=0 \
+  --rank=32 \
+  --max_train_steps=1000 \
+  --checkpointing_steps=2000 \
+  --seed="0" \
+``` 
 
 
 <h4> Y2K Webpage LoRA </h4> 
