@@ -3144,7 +3144,6 @@
   tags:
     - research
     - nlp
-<<<<<<< HEAD
 
 - local: tgi-kubernetes-cluster_dev
   title: "Kubernetes infrastructure for HF models and chat with Cluster.dev"
@@ -3158,5 +3157,3 @@
     - tgi
     - chat-ui
     - infrastructure
-=======
->>>>>>> origin/main
