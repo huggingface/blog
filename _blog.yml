@@ -3134,3 +3134,16 @@
     - llama
     - inference
     - optimum
+
+- local: tgi-kubernetes-cluster_dev
+  title: "Kubernetes infrastructure for HF models and chat with Cluster.dev"
+  author: voatsap
+  thumbnail: /blog/assets/tgi-kubernetes-cluster_dev/thumbnail_lego.png
+  date: December 7, 2023
+  tags:
+    - llm
+    - inference
+    - kubernetes
+    - tgi
+    - chat-ui
+    - infrastructure
