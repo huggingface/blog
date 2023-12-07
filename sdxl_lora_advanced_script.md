@@ -470,10 +470,12 @@ text_encoder_training = regular finetuning, pivotal tuning
 
 <h3> What’s next? </h3> 
 
-More features coming soon!
+🚀 More features coming soon!
 We are working on adding even more control and flexibility to our advanced training script. Let us know what features
-you find most helpful (?)
+you find most helpful!
 
-Multi concept LoRAs ZipLorAs are here! A recent work of XXX et al. XXXXXX. The open source implementation is already
-here (thanks to *credit to awesome dude*)
-and it uses the new and improved script.
+🤹 Multi concept LoRAs
+A recent [work](https://ziplora.github.io/) of Shah et al. introduced ZipLoRAs - a method to 
+merge independently trained style and subject LoRAs in order to achieve generation of any user-provided subject in 
+any user-provided style. [mkshing](https://twitter.com/mk1stats) implemented an open source replication available 
+[here](https://github.com/mkshing/ziplora-pytorch) and it uses the new and improved [script](https://github.com/mkshing/ziplora-pytorch/blob/main/train_dreambooth_lora_sdxl.py).
