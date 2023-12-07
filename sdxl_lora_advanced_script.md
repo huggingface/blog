@@ -360,7 +360,8 @@ Configurations:
 ```
 * Full Text Encoder Tuning VS Pivotal Tuning - we noticed pivotal tuning achieves results competitive or better 
   than full text encoder training and yet without optimizing the weights of the text_encoder.
-* Min SNR Gamma 
+* Min SNR Gamma
+![huggy_snr_example](.\assets\dreambooth_lora_sdxl\snr_comparison_huggy.png)
 * Different LRs
 
 
