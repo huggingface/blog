@@ -3110,3 +3110,37 @@
     - nlp
     - evaluation
     - leaderboard
+
+- local: lora-adapters-dynamic-loading
+  title: "Goodbye cold boot - how we made LoRA inference 300% faster"
+  author: raphael-gl
+  thumbnail: /blog/assets/171_load_lora_adapters/thumbnail3.png
+  date: December 5, 2023
+  tags:
+    - diffusers
+    - lora
+    - models
+    - inference
+    - stable-diffusion
+
+- local: optimum-nvidia
+  title: "Optimum-NVIDIA - Unlock blazingly fast LLM inference in just 1 line of code"
+  author: laikh-nvidia
+  thumbnail: /blog/assets/optimum_nvidia/hf_nvidia_banner.png
+  date: December 5, 2023
+  tags:
+    - llm
+    - nvidia
+    - llama
+    - inference
+    - optimum
+
+- local: setfit-absa
+  title: "SetFitABSA: Few-Shot Aspect Based Sentiment Analysis using SetFit"
+  author: ronenlap
+  guest: true
+  thumbnail: /blog/assets/setfit-absa/intel_hf_logo_2.png
+  date: December 6, 2023
+  tags:
+    - research
+    - nlp
