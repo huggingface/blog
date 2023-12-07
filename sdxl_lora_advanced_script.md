@@ -30,8 +30,6 @@ adjustments to the crucial cross-attention layers where images and prompts inter
 full fine tuned models while being much faster and requiring less compute. To learn more on how LoRAs work please see
 our blog post - Using LoRA for Efficient Stable Diffusion Fine-Tuning.
 
-*insert credits to the guides used/contributors*
-
 Contents:
 
 1. Techniques/tricks
@@ -42,6 +40,12 @@ Contents:
 
 2. Experiments Settings and Results
 3. Inference
+
+**Acknowledgements** ❤️: 
+The guide outlined in this blog- training scripts, experiments and explorations were inspired and built upon the 
+contributions of [Simo Ryu](https://twitter.com/cloneofsimo?lang=en): [cog-sdxl](https://github.com/replicate/cog-sdxl), 
+[Kohya](https://twitter.com/kohya_tech/): [sd-scripts](https://github.com/kohya-ss/sd-scripts), [The Last Ben](https://twitter.com/__TheBen): [fast-stable-diffusion](https://github.com/TheLastBen/fast-stable-diffusion).
+
 
 <h2>Pivotal Tuning</h2>
 
@@ -394,7 +398,8 @@ Specifically we used the following arguments in both versions (and added `snr_ga
 
 * AdamW vs Prodigy Optimizer
   * We compare between [version1](https://wandb.ai/linoy/dreambooth-lora-sd-xl/runs/uk8d6k6j?workspace=user-linoy) 
-    trained with `optimizer=prodigy`, and [version2](https://wandb.ai/linoy/dreambooth-lora-sd-xl/runs/cws7nfzg?workspace=user-linoy) trained with `optimizer=adamW`
+    trained with `optimizer=prodigy`, and [version2](https://wandb.ai/linoy/dreambooth-lora-sd-xl/runs/cws7nfzg?
+    workspace=user-linoy) trained with `optimizer=adamW`. Both version were trained with pivotal tuning. 
   * When training with `optimizer=prodigy` we set the initial learning rate to be 1. For adamW we used the default 
     learning rates used for pivotal tuning in cog-sdxl (`1e-4`, `3e-4` for `learning_rate` and `text_encoder_lr` respectively) 
     as we were able to reproduce good 
