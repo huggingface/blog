@@ -83,7 +83,7 @@ In the plots above, we can see how performant the MI250 is, especially for produ
 Running [training benchmarks](https://github.com/huggingface/optimum-benchmark/tree/main/examples/training-llamas) as seen below, one MI250 card fits larger batches of training samples and reaches higher training throughput.
 
 <br>
-<figure class="image table text-center m-0 w-full">
+<figure class="image table text-center m-0 w-9/12">
   <img alt="" src="assets/optimum_amd/training_bench.png" />
   <figcaption>Training benchmark using Transformers library at maximum batch size (power of two) that can fit on a given card</figcaption>
 </figure>
