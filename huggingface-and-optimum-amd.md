@@ -13,7 +13,7 @@ authors:
 
 # AMD + 🤗: Large Language Models Out-of-the-Box Acceleration with AMD GPU
 
-Earlier this year, [AMD and Hugging Face announced a partnership](https://huggingface.co/blog/huggingface-and-amd) to accelerate AI models during the AMD's  AI Day event. We have been hard at work to bring this vision  to reality, and make it easy for the Hugging Face community to run the latest AI models on AMD hardware with the best possible performance.
+Earlier this year, [AMD and Hugging Face announced a partnership](https://huggingface.co/blog/huggingface-and-amd) to accelerate AI models during the AMD's  AI Day event. We have been hard at work to bring this vision to reality, and make it easy for the Hugging Face community to run the latest AI models on AMD hardware with the best possible performance.
 
 AMD is powering some of the most powerful supercomputers in the World, including the fastest European one, [LUMI](https://www.lumi-supercomputer.eu/lumi-retains-its-position-as-europes-fastest-supercomputer/), which operates over 10,000 MI250X AMD GPUs. At this event, AMD revealed their latest generation of server GPUs, the AMD [Instinct™  MI300](https://www.amd.com/fr/graphics/instinct-server-accelerators) series accelerators, which will soon become generally available.
 
@@ -38,9 +38,9 @@ res = model.generate(**inp, max_new_tokens=30)
 print(tokenizer.batch_decode(res))
 ```
 
-One of the major aspects we have been working on is the ability to run Hugging Face transformers models without any code change. We now support all transformers models and tasks on AMD Instinct GPUs. And our collaboration is not stopping here, as we explore out-of-the-box support for diffusers models, and other libraries as well as other AMD GPUs.
+One of the major aspects we have been working on is the ability to run Hugging Face Transformers models without any code change. We now support all Transformers models and tasks on AMD Instinct GPUs. And our collaboration is not stopping here, as we explore out-of-the-box support for diffusers models, and other libraries as well as other AMD GPUs.
 
-Achieving this milestone has been a significant effort and collaboration between our teams and  companies. To maintain support and performances for the Hugging Face community, we have built integrated testing of Hugging Face open source libraries on AMD Instinct GPUs in our datacenters - and were able to minimize the carbon impact of these new workloads working with Verne Global to deploy the AMD Instinct servers in [Iceland](https://verneglobal.com/about-us/locations/iceland/).
+Achieving this milestone has been a significant effort and collaboration between our teams and companies. To maintain support and performances for the Hugging Face community, we have built integrated testing of Hugging Face open source libraries on AMD Instinct GPUs in our datacenters - and were able to minimize the carbon impact of these new workloads working with Verne Global to deploy the AMD Instinct servers in [Iceland](https://verneglobal.com/about-us/locations/iceland/).
 
 On top of native support, another major aspect of our collaboration is to provide integration for the latest innovations and features available on AMD GPUs. Through the collaboration of Hugging Face team, AMD engineers and open source community members, we are happy to announce [support for](https://huggingface.co/docs/optimum/amd/index):
 
@@ -48,7 +48,7 @@ On top of native support, another major aspect of our collaboration is to provid
 * Paged Attention from [vLLM](https://github.com/vllm-project/vllm/pull/1313), and various fused kernels available in [Text Generation Inference](https://huggingface.co/docs/text-generation-inference/quicktour) for ROCm.
 * [DeepSpeed](https://github.com/microsoft/DeepSpeed) for ROCm-powered GPUs using Transformers is also now officially validated and supported.
 * GPTQ, a common weight compression technique used to reduce the model memory requirements, is supported on ROCm GPUs through a direct integration with [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) and [Transformers](https://huggingface.co/blog/gptq-integration).
-* [Optimum-Benchmark](https://github.com/huggingface/optimum-benchmark), a utility to easily benchmark the performance of transformers on AMD GPUs, in normal and distributed settings, with supported optimizations and quantization schemes.
+* [Optimum-Benchmark](https://github.com/huggingface/optimum-benchmark), a utility to easily benchmark the performance of Transformers on AMD GPUs, in normal and distributed settings, with supported optimizations and quantization schemes.
 * Support of ONNX models execution on ROCm-powered GPUs using ONNX Runtime through the [ROCMExecutionProvider](https://onnxruntime.ai/docs/execution-providers/ROCm-ExecutionProvider.html) using [Optimum library](https://huggingface.co/docs/optimum/onnxruntime/usage_guides/amdgpu).
 
 We are very excited to make these state of the art acceleration tools available and easy to use to Hugging Face users, and offer maintained support and performance with direct  integration in our new continuous integration and development pipeline for AMD Instinct GPUs.
@@ -66,7 +66,7 @@ This means that with just one MI250 GPU card, we have two PyTorch devices that c
 
 In the rest of the blog post, we report performance results for the two steps involved during the text generation through large language models:
 * **Prefill latency**: The time it takes for the model to compute the representation for the user's provided input or prompt (also referred to as "Time To First Token").
-* **Decoding per token latency**: The time it takes to generate each new token in an autoregressive manner after  the prefill step.
+* **Decoding per token latency**: The time it takes to generate each new token in an autoregressive manner after the prefill step.
 * **Decoding throughput**: The number of tokens generated per second during the decoding phase.
 
 Using [`optimum-benchmark`](https://github.com/huggingface/optimum-benchmark) and running [inference benchmarks](https://github.com/huggingface/optimum-benchmark/tree/main/examples/running-llamas) on an MI250 and an A100 GPU with and without optimizations, we get the following results:
@@ -101,7 +101,7 @@ Performance-wise, we spent a lot of time benchmarking Text Generation Inference 
 
 In this context, and with the long-term relationship we are building between AMD and Hugging Face, we have been integrating and testing with the AMD GeMM Tuner tool which allows us to tune the GeMM (matrix multiplication) kernels we are using in TGI to find the best setup towards increased performances. GeMM Tuner tool is expected to be released [as part of PyTorch](https://github.com/pytorch/pytorch/pull/114894) in a coming release for everyone to benefit from it.
 
-Today, we are happy to show the very first performance numbers demonstrating the latest AMD technologies, putting Text Generation Inference on AMD GPUs at the forefront of efficient inferencing solutions with Llama model family.
+With all of the above being said, we are thrilled to show the very first performance numbers demonstrating the latest AMD technologies, putting Text Generation Inference on AMD GPUs at the forefront of efficient inferencing solutions with Llama model family.
 
 <br>
 <figure class="image">
