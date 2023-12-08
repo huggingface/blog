@@ -121,6 +121,7 @@ pipe.load_textual_inversion(state_dict["clip_g"], token=["<s0>", "<s1>"], text_e
 3. Load your LoRA and prompt it!
 
 ```
+pipe.load_lora_weights("LinoyTsaban/web_y2k_lora", weight_name="pytorch_lora_weights.safetensors")
 prompt="a <s0><s1> webpage about an astronaut riding a horse"
 images = pipe(
     prompt,
