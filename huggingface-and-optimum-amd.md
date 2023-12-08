@@ -101,7 +101,7 @@ Performance-wise, we spent a lot of time benchmarking Text Generation Inference 
 
 In this context, and with the long-term relationship we are building between AMD and Hugging Face, we have been integrating and testing with the AMD GeMM Tuner tool which allows us to tune the GeMM (matrix multiplication) kernels we are using in TGI to find the best setup towards increased performances. GeMM Tuner tool is expected to be released [as part of PyTorch](https://github.com/pytorch/pytorch/pull/114894) in a coming release for everyone to benefit from it.
 
-Today, we are happy to show the very first performance numbers demonstrating the latest AMD technologies, putting Text Generation Inference on AMD GPUs at the forefront of efficient inferencing solutions with Llama model family.
+With all of the above being said, we are thrilled to show the very first performance numbers demonstrating the latest AMD technologies, putting Text Generation Inference on AMD GPUs at the forefront of efficient inferencing solutions with Llama model family.
 
 <br>
 <figure class="image">
