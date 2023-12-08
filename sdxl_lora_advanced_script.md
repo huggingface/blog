@@ -101,7 +101,6 @@ pipe = DiffusionPipeline.from_pretrained(
         variant="fp16",
 ).to("cuda")
 # normal LoRA loading
-pipe.load_lora_weights("LinoyTsaban/web_y2k_lora", weight_name="pytorch_lora_weights.safetensors")
 ```
 
 2. Load these into the text encoders
