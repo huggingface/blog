@@ -38,7 +38,7 @@ res = model.generate(**inp, max_new_tokens=30)
 print(tokenizer.batch_decode(res))
 ```
 
-One of the major aspects we have been working on is the ability to run Hugging Face transformers models without any code change. We now support all transformers models and tasks on AMD Instinct GPUs. And our collaboration is not stopping here, as we explore out-of-the-box support for diffusers models, and other libraries as well as other AMD GPUs.
+One of the major aspects we have been working on is the ability to run Hugging Face Transformers models without any code change. We now support all Transformers models and tasks on AMD Instinct GPUs. And our collaboration is not stopping here, as we explore out-of-the-box support for diffusers models, and other libraries as well as other AMD GPUs.
 
 Achieving this milestone has been a significant effort and collaboration between our teams and companies. To maintain support and performances for the Hugging Face community, we have built integrated testing of Hugging Face open source libraries on AMD Instinct GPUs in our datacenters - and were able to minimize the carbon impact of these new workloads working with Verne Global to deploy the AMD Instinct servers in [Iceland](https://verneglobal.com/about-us/locations/iceland/).
 
