@@ -48,7 +48,7 @@ On top of native support, another major aspect of our collaboration is to provid
 * Paged Attention from [vLLM](https://github.com/vllm-project/vllm/pull/1313), and various fused kernels available in [Text Generation Inference](https://huggingface.co/docs/text-generation-inference/quicktour) for ROCm.
 * [DeepSpeed](https://github.com/microsoft/DeepSpeed) for ROCm-powered GPUs using Transformers is also now officially validated and supported.
 * GPTQ, a common weight compression technique used to reduce the model memory requirements, is supported on ROCm GPUs through a direct integration with [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) and [Transformers](https://huggingface.co/blog/gptq-integration).
-* [Optimum-Benchmark](https://github.com/huggingface/optimum-benchmark), a utility to easily benchmark the performance of transformers on AMD GPUs, in normal and distributed settings, with supported optimizations and quantization schemes.
+* [Optimum-Benchmark](https://github.com/huggingface/optimum-benchmark), a utility to easily benchmark the performance of Transformers on AMD GPUs, in normal and distributed settings, with supported optimizations and quantization schemes.
 * Support of ONNX models execution on ROCm-powered GPUs using ONNX Runtime through the [ROCMExecutionProvider](https://onnxruntime.ai/docs/execution-providers/ROCm-ExecutionProvider.html) using [Optimum library](https://huggingface.co/docs/optimum/onnxruntime/usage_guides/amdgpu).
 
 We are very excited to make these state of the art acceleration tools available and easy to use to Hugging Face users, and offer maintained support and performance with direct  integration in our new continuous integration and development pipeline for AMD Instinct GPUs.
