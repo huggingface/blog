@@ -74,7 +74,7 @@ Using [`optimum-benchmark`](https://github.com/huggingface/optimum-benchmark) an
 <br>
 <figure class="image table text-center m-0 w-full">
   <img alt="" src="assets/optimum_amd/transformers_bench.png" />
-  <figcaption>Inference benchmarks using Transformers library. FA2 stands for "Flash Attention 2", TP for "Tensor Parallelism", DDP for "Distributed Data Parallel".</figcaption>
+  <figcaption>Inference benchmarks using Transformers and PEFT libraries. FA2 stands for "Flash Attention 2", TP for "Tensor Parallelism", DDP for "Distributed Data Parallel".</figcaption>
 </figure>
 <br>
 
