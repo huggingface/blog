@@ -119,7 +119,7 @@ pipe.load_textual_inversion(state_dict["clip_l"], token=["<s0>", "<s1>"], text_e
 pipe.load_textual_inversion(state_dict["clip_g"], token=["<s0>", "<s1>"], text_encoder=pipe.text_encoder_2, tokenizer=pipe.tokenizer_2)
 ```
 
-3. Prompt your LoRA!
+3. Load your LoRA and prompt it!
 
 ```
 prompt="a <s0><s1> webpage about an astronaut riding a horse"
