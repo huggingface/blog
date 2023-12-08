@@ -3144,3 +3144,17 @@
   tags:
     - research
     - nlp
+
+- local: huggingface-and-optimum-amd
+  title: "AMD + 🤗: Large Language Models Out-of-the-Box Acceleration with AMD GPU"
+  author: huggingface-team
+  thumbnail: /blog/assets/optimum_amd/amd_hf_logo_fixed.png
+  date: December 5, 2023
+  tags:
+    - llm
+    - amd
+    - llama
+    - inference
+    - optimum
+    - rocm
+    - text-generation
