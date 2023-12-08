@@ -51,12 +51,12 @@ On top of native support, another major aspect of our collaboration is to provid
 * [Optimum-Benchmark](https://github.com/huggingface/optimum-benchmark), a utility to easily benchmark the performance of Transformers on AMD GPUs, in normal and distributed settings, with supported optimizations and quantization schemes.
 * Support of ONNX models execution on ROCm-powered GPUs using ONNX Runtime through the [ROCMExecutionProvider](https://onnxruntime.ai/docs/execution-providers/ROCm-ExecutionProvider.html) using [Optimum library](https://huggingface.co/docs/optimum/onnxruntime/usage_guides/amdgpu).
 
-We are very excited to make these state of the art acceleration tools available and easy to use to Hugging Face users, and offer maintained support and performance with direct  integration in our new continuous integration and development pipeline for AMD Instinct GPUs.
+We are very excited to make these state of the art acceleration tools available and easy to use to Hugging Face users, and offer maintained support and performance with direct integration in our new continuous integration and development pipeline for AMD Instinct GPUs.
 
 One AMD Instinct MI250 GPU with 128 GB of High Bandwidth Memory has two distinct ROCm devices (GPU 0 and 1), each of them having 64 GB of High Bandwidth Memory.
 
 <br>
-<figure class="image">
+<figure class="image table text-center m-0 w-full">
   <img alt="" src="assets/optimum_amd/rocmsmi.png" />
   <figcaption>MI250 two devices as displayed by `rocm-smi`</figcaption>
 </figure>
@@ -72,9 +72,9 @@ In the rest of the blog post, we report performance results for the two steps in
 Using [`optimum-benchmark`](https://github.com/huggingface/optimum-benchmark) and running [inference benchmarks](https://github.com/huggingface/optimum-benchmark/tree/main/examples/running-llamas) on an MI250 and an A100 GPU with and without optimizations, we get the following results:
 
 <br>
-<figure class="image">
+<figure class="image table text-center m-0 w-full">
   <img alt="" src="assets/optimum_amd/transformers_bench.png" />
-  <figcaption>Inference benchmarks using Transformers library. FA2 stands for “Flash Attention 2”, TP for “Tensor Parallelism”, “DDP” for Distributed Data Parallel.</figcaption>
+  <figcaption>Inference benchmarks using Transformers library. FA2 stands for "Flash Attention 2", TP for "Tensor Parallelism", DDP for "Distributed Data Parallel".</figcaption>
 </figure>
 <br>
 
@@ -83,7 +83,7 @@ In the plots above, we can see how performant the MI250 is, especially for produ
 Running [training benchmarks](https://github.com/huggingface/optimum-benchmark/tree/main/examples/training-llamas) as seen below, one MI250 card fits larger batches of training samples and reaches higher training throughput.
 
 <br>
-<figure class="image">
+<figure class="image table text-center m-0 w-full">
   <img alt="" src="assets/optimum_amd/training_bench.png" />
   <figcaption>Training benchmark using Transformers library at maximum batch size (power of two) that can fit on a given card</figcaption>
 </figure>
@@ -104,14 +104,14 @@ In this context, and with the long-term relationship we are building between AMD
 With all of the above being said, we are thrilled to show the very first performance numbers demonstrating the latest AMD technologies, putting Text Generation Inference on AMD GPUs at the forefront of efficient inferencing solutions with Llama model family.
 
 <br>
-<figure class="image">
+<figure class="image table text-center m-0 w-full">
   <img alt="" src="assets/optimum_amd/tgi_34b.png" />
-  <figcaption>TGI latency results for Llama 34B, comparing one AMD Instinct MI250 against A100-SXM4-80GB</figcaption>
+  <figcaption>TGI latency results for Llama 34B, comparing one AMD Instinct MI250 against A100-SXM4-80GB. As explained above one MI250 corresponds to two PyTorch devices.</figcaption>
 </figure>
 <br>
 
 <br>
-<figure class="image">
+<figure class="image table text-center m-0 w-full">
   <img alt="" src="assets/optimum_amd/tgi_70b.png" />
   <figcaption>TGI latency results for Llama 70B, comparing two AMD Instinct MI250 against two A100-SXM4-80GB (using tensor parallelism)</figcaption>
 </figure>
@@ -119,7 +119,7 @@ With all of the above being said, we are thrilled to show the very first perform
 
 Missing bars for A100 correspond to out of memory errors, as Llama 70B weights 138 GB in float16, and enough free memory is necessary for intermediate activations, KV cache buffer (>5GB for 2048 sequence length, batch size 8), CUDA context, etc. The Instinct MI250 GPU has 128 GB global memory while an A100 has 80GB which explains the ability to run larger workloads (longer sequences, larger batches) on MI250.
 
-Text Generation Inference is already [usable](https://huggingface.co/docs/text-generation-inference/quicktour) in production on AMD Instinct GPUs through the docker image `ghcr.io/huggingface/text-generation-inference:1.2-rocm`. Make sure to refer to the [documentation](https://huggingface.co/docs/text-generation-inference/supported_models#supported-hardware) concerning the support and its limitations.
+Text Generation Inference is [ready to be deployed](https://huggingface.co/docs/text-generation-inference/quicktour) in production on AMD Instinct GPUs through the docker image `ghcr.io/huggingface/text-generation-inference:1.2-rocm`. Make sure to refer to the [documentation](https://huggingface.co/docs/text-generation-inference/supported_models#supported-hardware) concerning the support and its limitations.
 
 ## What's next?
 
