@@ -66,7 +66,7 @@ This means that with just one MI250 GPU card, we have two PyTorch devices that c
 
 In the rest of the blog post, we report performance results for the two steps involved during the text generation through large language models:
 * **Prefill latency**: The time it takes for the model to compute the representation for the user's provided input or prompt (also referred to as "Time To First Token").
-* **Decoding per token latency**: The time it takes to generate each new token in an autoregressive manner after  the prefill step.
+* **Decoding per token latency**: The time it takes to generate each new token in an autoregressive manner after the prefill step.
 * **Decoding throughput**: The number of tokens generated per second during the decoding phase.
 
 Using [`optimum-benchmark`](https://github.com/huggingface/optimum-benchmark) and running [inference benchmarks](https://github.com/huggingface/optimum-benchmark/tree/main/examples/running-llamas) on an MI250 and an A100 GPU with and without optimizations, we get the following results:
