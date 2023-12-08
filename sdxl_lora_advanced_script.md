@@ -49,7 +49,7 @@ contributions of [Simo Ryu](https://twitter.com/cloneofsimo?lang=en): [cog-sdxl]
 
 <h2>Pivotal Tuning</h2>
 
-Pivotal Tuning is a method that combines training Textual Inversion with regular training. For Dreambooth, it is
+[Pivotal Tuning](https://arxiv.org/abs/2106.05744) is a method that combines training Textual Inversion with regular training. For Dreambooth, it is
 customary that you provide a rare token to be your trigger word, say "an sks dog", however, those tokens usually have
 other semantic meaning associated with them and can affect your results. The sks example, popular in the community, is
 actually associated with a weapons brand.
