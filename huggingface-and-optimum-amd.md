@@ -13,7 +13,7 @@ authors:
 
 # AMD + 🤗: Large Language Models Out-of-the-Box Acceleration with AMD GPU
 
-Earlier this year, [AMD and Hugging Face announced a partnership](https://huggingface.co/blog/huggingface-and-amd) to accelerate AI models during the AMD's  AI Day event. We have been hard at work to bring this vision  to reality, and make it easy for the Hugging Face community to run the latest AI models on AMD hardware with the best possible performance.
+Earlier this year, [AMD and Hugging Face announced a partnership](https://huggingface.co/blog/huggingface-and-amd) to accelerate AI models during the AMD's  AI Day event. We have been hard at work to bring this vision to reality, and make it easy for the Hugging Face community to run the latest AI models on AMD hardware with the best possible performance.
 
 AMD is powering some of the most powerful supercomputers in the World, including the fastest European one, [LUMI](https://www.lumi-supercomputer.eu/lumi-retains-its-position-as-europes-fastest-supercomputer/), which operates over 10,000 MI250X AMD GPUs. At this event, AMD revealed their latest generation of server GPUs, the AMD [Instinct™  MI300](https://www.amd.com/fr/graphics/instinct-server-accelerators) series accelerators, which will soon become generally available.
 
