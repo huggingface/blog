@@ -1,6 +1,6 @@
 ---
 title: "AMD + 🤗: Large Language Models Out-of-the-Box Acceleration with AMD GPU"
-thumbnail: /blog/assets/optimum_amd/amd_hf_logo.png
+thumbnail: /blog/assets/optimum_amd/amd_hf_logo_fixed.png
 authors:
 - user: fxmarty
 - user: IlyasMoutawwakil
