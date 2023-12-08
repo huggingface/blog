@@ -3147,7 +3147,7 @@
 
 - local: huggingface-and-optimum-amd
   title: "AMD + 🤗: Large Language Models Out-of-the-Box Acceleration with AMD GPU"
-  author: mfuntowicz
+  author: huggingface-team
   thumbnail: /blog/assets/optimum_amd/amd_hf_logo.png
   date: December 5, 2023
   tags:
