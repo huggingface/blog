@@ -87,7 +87,7 @@ Between 2010-2015, two different research areas contributed to later MoE advance
 These work led to exploring a mixture of experts in the context of NLP. Concretely, [Shazeer et al.](https://arxiv.org/abs/1701.06538) (2017, with “et al.” including Geoffrey Hinton and Jeff Dean, [Google’s Chuck Norris](https://www.informatika.bg/jeffdean)) scaled this idea to a 137B LSTM (the de-facto NLP architecture back then, created by Schmidhuber) by introducing sparsity, allowing to keep very fast inference even at high scale. This work focused on translation but faced many challenges, such as high communication costs and training instabilities.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/00_switch_transformer.png" alt="Switch Layer">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/00_switch_transformer.png" alt="MoE layer in LSTM">
   <figcaption>MoE layer from the Outrageously Large Neural Network paper</figcaption>
 </figure>
 
@@ -117,10 +117,10 @@ Shazeer’s work also explored other gating mechanisms, such as Noisy Top-K Gati
 
 1. We add some noise
     
-    $$
-    H(x)_i = (x \cdot W_{\text{g}})_i + \text{StandardNormal()} \cdot \text{Softplus}((x \cdot W_{\text{noise}})_i)
-    
-    $$
+$$
+H(x)_i = (x \cdot W_{\text{g}})_i + \text{StandardNormal()} \cdot \text{Softplus}((x \cdot W_{\text{noise}})_i)
+
+$$
     
 2. We only pick the top k
 
@@ -135,7 +135,6 @@ $$
 
 $$
 G(x) = \text{Softmax}(\text{KeepTopK}(H(x), k))
-
 $$
 
 This sparsity introduces some interesting properties. By using a low enough k (e.g. one or two), we can train and run inference much faster than if many experts were activated. Why not just select the top expert? The initial conjecture was that routing to more than one expert was needed to have the gate learn how to route to different experts, so at least two experts had to be picked. The [Switch Transformers](#switch-transformers) section revisits this decision.
@@ -198,7 +197,7 @@ Switch Transformer authors also revisit the load balancing loss mentioned in the
 The authors also experiment with selective precision, such as training the experts with `bfloat16` while using full precision for the rest of the computations. Lower precision reduces communication costs between processors, computation costs, and memory for storing tensors. The initial experiments resulted that `bfloat16` yielded more unstable for training. This was, in particular, due to the router computation. As the router has an exponentiation function, having higher precision is important. So, to mitigate the instabilities, full precision was used for the routing as well.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/04_switch_table.png?download=true" alt="Switch Transformer Layer">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/04_switch_table.png" alt="Table shows that selective precision does not degrade quality.">
   <figcaption>Using selective precision does not degrade quality and enables faster models</figcaption>
 </figure>
 
@@ -217,8 +216,8 @@ Router z-loss, introduced in [ST-MoE](https://arxiv.org/abs/2202.08906), signifi
 The ST-MoE authors observed that encoder experts specialize in a group of tokens or shallow concepts. For example, we might end with a punctuation expert, a proper noun expert, etc. On the other hand, the decoder experts have less specialization. The authors also trained in a multilingual setup. Although one could imagine each expert specializing in a language, the opposite happens. Due to the token routing and load balancing, there is no expert specialized in a language.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/04_switch_table.png?download=true" alt="Switch Transformer Layer">
-  <figcaption>Using selective precision does not degrade quality and enables faster models</figcaption>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/05_experts_learning.png" alt="Experts specialize in some token groups">
+  <figcaption>Table from the ST-MoE paper showing which token groups were sent to which expert.</figcaption>
 </figure>
 
 ## How does scaling the number of experts impact pretraining?
@@ -233,17 +232,27 @@ One decision question is whether to use the auxiliary loss for fine-tuning. The 
 
 Switch Transformers observed that at a fixed pretrain perplexity, the sparse model does worse than the dense counterpart, especially on reasoning-heavy tasks (e.g., SuperGLUE). On the other hand, for knowledge-heavy tasks such as TriviaQA, the sparse model performs disproportionally well. The authors also observed that a fewer number of experts helped at fine-tuning. Another observation that confirmed the generalization issue is that the model did worse in smaller tasks but did well in larger tasks.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e749ee15-500e-4660-b028-a1069816cfa3/86823230-6e93-4446-9d82-b5c24d4e3b3e/Untitled.png)
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/06_superglue_curves.png" alt="Fine-tuning learning curves">
+  <figcaption>In the small task (left), we can see clear overfitting as the sparse model does much worse in the validation set. In the larger task (right), the MoE performs well. This image is from the ST-MoE paper</figcaption>
+</figure>
+
 
 One could experiment with freezing all non-expert weights. That led to a huge performance drop, which was expected as the MoE layers correspond to most of the network. We could try the opposite: freezing only the parameters in MoE layers, which turned out to work almost as well as updating all parameters. This can help speed up and reduce memory for fine-tuning.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e749ee15-500e-4660-b028-a1069816cfa3/7b26a2db-93fd-4dfd-a158-baa6910b0a72/Untitled.png)
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/07_superglue_bars.png" alt="Only updating the non MoE layers works well in fine-tuning">
+  <figcaption>By only freezing the MoE layers, we can speed up the training while preserving the quality.</figcaption>
+</figure>
 
 One last part to consider when fine-tuning sparse MoEs is that they have different fine-tuning hyperparameter setups - e.g., sparse models tend to benefit more from smaller batch sizes and higher learning rates.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e749ee15-500e-4660-b028-a1069816cfa3/f10024fe-3f4a-470d-99e2-461f306baf11/Untitled.png)
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/08_superglue_dense_vs_sparse.png" alt="Table comparing batch size and learning rate between dense and sparse models.">
+  <figcaption>Sparse models fine-tuned quality improves with lower learning rates and large batch sizes.</figcaption>
+</figure>
 
-At this point, you might be a bit sad that people have struggled to fine-tune MoEs. Excitingly, a recent paper, MoEs Meets Instruction Tuning (July 2023), performs experiments doing:
+At this point, you might be a bit sad that people have struggled to fine-tune MoEs. Excitingly, a recent paper, [MoEs Meets Instruction Tuning](https://arxiv.org/pdf/2305.14705.pdf) (July 2023), performs experiments doing:
 
 - Single task fine-tuning
 - Multi-task instruction-tuning
