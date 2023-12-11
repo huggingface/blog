@@ -57,7 +57,7 @@ So how good are the Mixtral models? Here’s an overview of the base model and i
 
 | Model | License | Commercial use? | Pretraining size [tokens] | Leaderboard  score ⬇️  |
 | --- | --- | --- | --- | --- |
-| https://huggingface.co/mistralai/Mixtral-8x7B-v0.1 | Apache 2.0 | ✅ | unknown |  |
+| https://huggingface.co/mistralai/Mixtral-8x7B-v0.1 | Apache 2.0 | ✅ | unknown | 68.42 |
 | https://huggingface.co/meta-llama/Llama-2-70b-hf | Llama 2 license | ✅ | 2,000B | 67.87 |
 | https://huggingface.co/tiiuae/falcon-40b | Apache 2.0 | ✅ | 1,000B | 61.5 |
 | https://huggingface.co/mistralai/Mistral-7B-v0.1 | Apache 2.0 | ✅ | unknown | 60.97 |
