@@ -19,7 +19,7 @@ Let’s dive in!
 
 - [What is a Mixture of Experts?](#what-is-a-mixture-of-experts-moe)
 - [A Brief History of MoEs](#a-brief-history-of-moesk)
-- [What is Sparcity?](#what-is-sparcity)
+- [What is Sparsity?](#what-is-sparsity)
 - [Load Balancing tokens for MoEs](#load-balancing-tokens-for-moes)
 - [MoEs and Transformers](#moes-and-transformers)
 - [Switch Transformers](#switch-transformers)
@@ -93,7 +93,7 @@ These works led to exploring a mixture of experts in the context of NLP. Concret
 
 MoEs have allowed training multi-trillion parameter models, such as the open-sourced 1.6T parameters Switch Transformers, among others. MoEs have also been explored in Computer Vision, but this blog post will focus on the NLP domain.
 
-## What is Sparcity?
+## What is Sparsity?
 
 Sparsity uses the idea of conditional computation. While in dense models all the parameters are used for all the inputs, sparsity allows us to only run some parts of the whole system.
 
