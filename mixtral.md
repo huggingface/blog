@@ -93,7 +93,7 @@ This format has to be exactly reproduced for effective use. We’ll show later h
 
 ### What we don't know
 
-Like the previous Mistral 7B release, there are several open questions about this new series of models. In particular, for pertaining, we have no information about the size of the dataset, its composition, or how it was preprocessed.
+Like the previous Mistral 7B release, there are several open questions about this new series of models. In particular, we have no information about the size of the dataset used for pretraining, its composition, or how it was preprocessed.
 
 Similarly, for the Mixtral instruct model, no details have been shared about the fine-tuning datasets or the hyperparameters associated with SFT and DPO.
 
@@ -106,7 +106,7 @@ You can chat with the Mixtral Instruct model on Hugging Face Chat! Check it out 
 We provide two main ways to run inference with Mixtral models:
 
 - Via the `pipeline()` function of 🤗 Transformers.
-- With Text Generation Inference, which supports advanced features like continuous batching, tensor paralleism and more for blazing fast results.
+- With Text Generation Inference, which supports advanced features like continuous batching, tensor parallelism, and more, for blazing fast results.
 
 For each method, it is possible to run the model in half-precision (float16) or with quantized weights. Since the Mixtral model is roughly equivalent in size to a 45B parameter dense model, we can estimate the minimum amount of VRAM needed as follows:
 
@@ -188,7 +188,7 @@ Training LLMs can be technically and computationally challenging. In this sectio
 
 An example command to fine-tune Mixtral on OpenAssistant’s [chat dataset](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) can be found below. To conserve memory, we make use of 4-bit quantization and [QLoRA](https://arxiv.org/abs/2305.14314) to target all the linear layers in the attention blocks. Note that unlike dense transformers, one should not target the MLP layers as they are sparse and don’t interact well with PEFT.
 
-First install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
+First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
 
 ```bash
 pip install -U transformers
