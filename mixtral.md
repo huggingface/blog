@@ -154,7 +154,7 @@ outputs = pipeline(prompt, max_new_tokens=256, do_sample=True, temperature=0.7, 
 print(outputs[0]["generated_text"])
 ```
 
-> <s>[INST] Explain what a Mixture of Experts is in less than 100 words. [/INST] A
+> \<s>[INST] Explain what a Mixture of Experts is in less than 100 words. [/INST] A
 Mixture of Experts is an ensemble learning method that combines multiple models,
 or "experts," to make more accurate predictions. Each expert specializes in a
 different subset of the data, and a gating network determines the appropriate
