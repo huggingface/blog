@@ -287,19 +287,21 @@ Let’s do a brief review of parallelism:
 
 With expert parallelism, experts are placed on different workers, and each worker takes a different batch of training samples. For non-MoE layers, expert parallelism behaves the same as data parallelism. For MoE layers, tokens in the sequence are sent to workers where the desired experts reside.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e749ee15-500e-4660-b028-a1069816cfa3/3ea3dae4-f82c-4e70-9b4b-f8ba01b9ceb8/Untitled.png)
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/10_parallelism.png" alt="Image illustrating model, expert, and data prallelism">
+  <figcaption>Illustration from the Switch Transformers paper showing how data and models are split over cores with different parallelism techniques.</figcaption>
+</figure>
 
 ### Capacity Factor and communication costs
 
- Increasing the capacity factor (CF) increases the quality but increases communication costs and memory of activations. If all-to-all communications are slow, using a smaller capacity factor is better. A good starting point is using top-2 routing with 1.25 capacity factor and having one expert per core. During evaluation, the capacity factor can be changed to reduce compute
+Increasing the capacity factor (CF) increases the quality but increases communication costs and memory of activations. If all-to-all communications are slow, using a smaller capacity factor is better. A good starting point is using top-2 routing with 1.25 capacity factor and having one expert per core. During evaluation, the capacity factor can be changed to reduce compute.
 
 ### Serving techniques
 
-A big downside of MoEs is the large number of parameters. For local use cases, one might want to use a smaller model. The Switch Transformers authors did early distillation experiments. By distilling a MoE back to its dense counterpart, they could keep 30-40% of the sparsity gains. Distillation hence provides the benefits of faster pertaining and using a smaller model.
-
-Recent approaches modify the routing to route full sentences or tasks to an expert, permitting extracting sub-networks on serving.
-
-Aggregation of Experts (MoE): two experts are selected, all weights except experts and gating layer are average, gating layers are concaenated.
+A big downside of MoEs is the large number of parameters. For local use cases, one might want to use a smaller model. Let's quickly discuss four different thigns that can help with serving:
+* The Switch Transformers authors did early distillation experiments. By distilling a MoE back to its dense counterpart, they could keep 30-40% of the sparsity gains. Distillation hence provides the benefits of faster pertaining and using a smaller model.
+* Recent approaches modify the routing to route full sentences or tasks to an expert, permitting extracting sub-networks on serving.
+* Aggregation of Experts (MoE): this technique merges the weights of the experts, hence reducing the number of parameters on inference time.
 
 ### More on efficient training
 
@@ -317,11 +319,24 @@ There are nowadays several open source projects to train MoEs:
 - Fairseq: https://github.com/facebookresearch/fairseq/tree/main/examples/moe_lm
 - OpenMoE: https://github.com/XueFuzhao/OpenMoE
 
+In the realm of released open access MoEs, you can check:
+
+- [Switch Transformers (Google)](https://huggingface.co/collections/google/switch-transformers-release-6548c35c6507968374b56d1f): Collection of T5-based MoEs going from 8 to 2048 experts. The largest model has 1.6 trillion parameters.
+- [NLLB MoE (Meta)](https://huggingface.co/facebook/nllb-moe-54b): A MoE variant of the NLLB translation model.
+- [OpenMoE](https://huggingface.co/fuzhao): A community effort that has released Llama-based MoEs.
+- [Mixtral 8x7B (Mistral)](https://huggingface.co/mistralai): A high-quality MoE that outperforms Llama 2 70B and has much faster inference. A instruct-tuned model is also released. Read more about it in [the announcement blog post](https://mistral.ai/news/mixtral-of-experts/).
+
 ## Exciting directions of work
 
 Further experiments on **distilling** a sparse MoE back to a dense model with less parameters but similar number of parameters.
 
 Another area will be quantization of MoEs. [QMoE](https://arxiv.org/abs/2310.16795) (Oct. 2023) is a good step in this direction by quantizing the MoEs to less than 1 bit per parameter, hence compressing the 1.6T Switch Transformer which uses 3.2TB accelerator to just 160GB. 
+
+So, TL;DR, some interesting areas to explore:
+
+* Distilling Mixtral into a dense model
+* Explore model merging techniques of the experts and their impact in inference time
+* Perform extreme quantization techniques of Mixtral 
 
 ## Some resources
 
@@ -329,16 +344,18 @@ Another area will be quantization of MoEs. [QMoE](https://arxiv.org/abs/2310.167
 - [Learning Factored Representations in a Deep Mixture of Experts (2013)](https://arxiv.org/abs/1312.4314)
 - [Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer (2017)](https://arxiv.org/abs/1701.06538)
 - [GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding (Jun 2020)](https://arxiv.org/abs/2006.16668)
-- [GLaM: Efficient Scaling of Language Models with Mixture-of-Experts](https://arxiv.org/abs/2112.06905)
+- [GLaM: Efficient Scaling of Language Models with Mixture-of-Experts (Dec 2021)](https://arxiv.org/abs/2112.06905)
 - [Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity (Jan 2022)](https://arxiv.org/abs/2101.03961)
 - [ST-MoE: Designing Stable and Transferable Sparse Expert Models (Feb 2022)](https://arxiv.org/abs/2202.08906)
+- [FasterMoE: modeling and optimizing training of large-scale dynamic pre-trained models(April 2022)](https://dl.acm.org/doi/10.1145/3503221.3508418)
+- [MegaBlocks: Efficient Sparse Training with Mixture-of-Experts (Nov 2022)](https://arxiv.org/abs/2211.15841)
 - [Mixture-of-Experts Meets Instruction Tuning:A Winning Combination for Large Language Models (May 2023)](https://arxiv.org/abs/2305.14705)
 
 
 ## Citation
 
 ```bibtex
-@misc {beeching2023stackllama,
+@misc {sanseviero2023moe,
     author       = { Omar Sanseviero and
                      Lewis Tunstall and
                      Philipp Schmid and
@@ -348,7 +365,10 @@ Another area will be quantization of MoEs. [QMoE](https://arxiv.org/abs/2310.167
     title        = { Mixture of Experts Explained },
     year         = 2023,
     url          = { https://huggingface.co/blog/moe },
-    doi          = { TODO },
     publisher    = { Hugging Face Blog }
 }
+```
+
+```
+Sanseviero, et al., "Mixture of Experts Explained", Hugging Face Blog, 2023.
 ```
