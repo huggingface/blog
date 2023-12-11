@@ -303,10 +303,10 @@ Increasing the capacity factor (CF) increases the quality but increases communic
 
 > We are currently working on adding support for MoEs and Mixtral for TGI and Inference Endpoints. 
 
-A big downside of MoEs is the large number of parameters. For local use cases, one might want to use a smaller model. Let's quickly discuss four different thigns that can help with serving:
-* The Switch Transformers authors did early distillation experiments. By distilling a MoE back to its dense counterpart, they could keep 30-40% of the sparsity gains. Distillation hence provides the benefits of faster pertaining and using a smaller model.
-* Recent approaches modify the routing to route full sentences or tasks to an expert, permitting extracting sub-networks on serving.
-* Aggregation of Experts (MoE): this technique merges the weights of the experts, hence reducing the number of parameters on inference time.
+A big downside of MoEs is the large number of parameters. For local use cases, one might want to use a smaller model. Let's quickly discuss a few techniques that can help with serving:
+* The Switch Transformers authors did early distillation experiments. By distilling a MoE back to its dense counterpart, they could keep 30-40% of the sparsity gains. Distillation, hence, provides the benefits of faster pretaining and using a smaller model in production.
+* Recent approaches modify the routing to route full sentences or tasks to an expert, permitting extracting sub-networks for serving.
+* Aggregation of Experts (MoE): this technique merges the weights of the experts, hence reducing the number of parameters at inference time.
 
 ### More on efficient training
 
