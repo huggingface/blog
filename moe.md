@@ -99,7 +99,7 @@ Sparisty uses the idea of conditional computation. While in dense models all the
 
 Let’s dive deeper into Shazeer's exploration of MoE for translation. The idea of conditional computation (parts of the network are active on a per-example basis) allows one to scale the size of the model without increasing the computation, and hence, this led to thousands of experts being used in each MoE layer.
 
-This setup introduces some challenges. For example, although large batch sizes are usually better for performance, in MoEs, the batch sizes are reduced for the active experts. For example, if we send 10 tokens, **five tokens might end in one expert, and the other five tokens might end in five different experts, leading to uneven batch sizes and underutilization**. The [Making MoEs go brrr](TODO) section below will discuss other challenges and solutions.
+This setup introduces some challenges. For example, although large batch sizes are usually better for performance, in MoEs, the batch sizes are reduced for the active experts. For example, if we send 10 tokens, **five tokens might end in one expert, and the other five tokens might end in five different experts, leading to uneven batch sizes and underutilization**. The [Making MoEs go brrr](#making-moes-go-brrr) section below will discuss other challenges and solutions.
 
 How can we solve this? A learned gating network (G) decides which experts (E) to send a part of the input:
 
@@ -138,7 +138,7 @@ G(x) = \text{Softmax}(\text{KeepTopK}(H(x), k))
 
 $$
 
-This sparsity introduces some interesting properties. By using a low enough k (e.g. one or two), we can train and run inference much faster than if many experts were activated. Why not just select the top expert? The initial conjecture was that routing to more than one expert was needed to have the gate learn how to route to different experts, so at least two experts had to be picked. The [Switch Transformers](TODO) section revisits this decision.
+This sparsity introduces some interesting properties. By using a low enough k (e.g. one or two), we can train and run inference much faster than if many experts were activated. Why not just select the top expert? The initial conjecture was that routing to more than one expert was needed to have the gate learn how to route to different experts, so at least two experts had to be picked. The [Switch Transformers](#switch-transformers) section revisits this decision.
 
 Why do we add noise? That’s for load balancing!
 
@@ -150,7 +150,7 @@ As discussed before, if all our tokens are sent to just a few popular experts, t
 
 Transformers are a very clear case that scaling up the number of parameters improves the performance, so it’s not surprising that Google explored this with [GShard](https://arxiv.org/abs/2006.16668), which explores scaling up transformers beyond 600 billion parameters.
 
-GShard replaces every other FFN layer with an MoE layer using top-2 gating in both the encoder and the decoder. The next image shows how this looks like for the encoder part. This setup is quite beneficial for large-scale computing: when we scale to multiple devices, the MoE layer is shared across devices while all the other layers are replicated. This is further discussed in the [“Making MoEs go brrr”](TODO) section.
+GShard replaces every other FFN layer with an MoE layer using top-2 gating in both the encoder and the decoder. The next image shows how this looks like for the encoder part. This setup is quite beneficial for large-scale computing: when we scale to multiple devices, the MoE layer is shared across devices while all the other layers are replicated. This is further discussed in the [“Making MoEs go brrr”](#making-moes-go-brrr) section.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/02_moe_block.png" alt="MoE Transformer Encoder">
