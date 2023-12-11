@@ -234,7 +234,7 @@ Switch Transformers observed that at a fixed pretrain perplexity, the sparse mod
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/06_superglue_curves.png" alt="Fine-tuning learning curves">
-  <figcaption>In the small task (left), we can see clear overfitting as the sparse model does much worse in the validation set. In the larger task (right), the MoE performs well. This image is from the ST-MoE paper</figcaption>
+  <figcaption>In the small task (left), we can see clear overfitting as the sparse model does much worse in the validation set. In the larger task (right), the MoE performs well. This image is from the ST-MoE paper.</figcaption>
 </figure>
 
 
@@ -242,14 +242,14 @@ One could experiment with freezing all non-expert weights. That led to a huge pe
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/07_superglue_bars.png" alt="Only updating the non MoE layers works well in fine-tuning">
-  <figcaption>By only freezing the MoE layers, we can speed up the training while preserving the quality.</figcaption>
+  <figcaption>By only freezing the MoE layers, we can speed up the training while preserving the quality. This image is from the ST-MoE paper.</figcaption>
 </figure>
 
 One last part to consider when fine-tuning sparse MoEs is that they have different fine-tuning hyperparameter setups - e.g., sparse models tend to benefit more from smaller batch sizes and higher learning rates.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/08_superglue_dense_vs_sparse.png" alt="Table comparing batch size and learning rate between dense and sparse models.">
-  <figcaption>Sparse models fine-tuned quality improves with lower learning rates and large batch sizes.</figcaption>
+  <figcaption>Sparse models fine-tuned quality improves with lower learning rates and large batch sizes. This image is from the ST-MoE paper.</figcaption>
 </figure>
 
 At this point, you might be a bit sad that people have struggled to fine-tune MoEs. Excitingly, a recent paper, [MoEs Meets Instruction Tuning](https://arxiv.org/pdf/2305.14705.pdf) (July 2023), performs experiments doing:
@@ -260,7 +260,11 @@ At this point, you might be a bit sad that people have struggled to fine-tune Mo
 
 When the authors fine-tuned the MoE and the T5 equivalent, the T5 equivalent was better. When the authors fine-tuned the Flan T5 (T5 instruct equivalent) MoE, the MoE performed significantly better. Not only this, the improvement of the Flan-MoE over the MoE was larger than Flan T5 over T5, indicating that MoEs might benefit much more than dense models. MoEs benefit more from a higher number of tasks.  Unlike the previous discussion suggesting to turn off the auxiliary loss function, the loss actually prevents overfitting.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e749ee15-500e-4660-b028-a1069816cfa3/8465e491-cac2-4c40-afac-3dc9e9e60bc1/Untitled.png)
+
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/09_fine_tune_evals.png" alt="MoEs benefit even more from instruct tuning than dense models">
+  <figcaption>Sparse models benefit more from instruct-tuning compared to dense models. This image is from the MoEs Meets Instruction Tuning paper</figcaption>
+</figure>
 
 ## When to use sparse MoEs vs dense models?
 
