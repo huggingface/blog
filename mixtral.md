@@ -226,4 +226,4 @@ This takes about 9 hours to train on a single A100, but can be easily parallelis
 
 ## Conclusion
 
-We're very excited about Mixtral being released! In the coming days, be ready to learn more about ways to run your own fine-tuning, execute the smallest models on-device, and many other exciting updates we're preparing for you!
+We're very excited about Mixtral being released! In the coming days, be ready to learn more about ways to fine-tune and deploy Mixtral. 
