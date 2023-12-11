@@ -17,25 +17,25 @@ Let’s dive in!
 
 ## Table of Contents
 
-- [What is a Mixture of Experts?](TODO: add link)
-- [A Brief History of MoEs](TODO: add link)
-- [What is Sparcity?](TODO: add l)
-- [Load Balancing tokens for MoEs](TODO)
-- [MoEs and Transformers](TODO)
-- [Switch Transformers](TODO)
-- [Stabilizing training stability with router Z-loss](QTODO)
-- [What does an expert learn?](TODO)
-- [How does scaling the number of experts impact pretraining?]
-- [Fine-tuning MoEs]()
-- [When to use sparse MoEs vs dense models?]
-- [Making MoEs go brrr]
-  - [Expert Parallelism]
-  - [Capacity Factor and Communication costs]
-  - [Serving Techniques]
-  - [Efficient Trainign]
-- [Open Source MoEs]
-- [F]
-
+- [What is a Mixture of Experts?](#what-is-a-mixture-of-experts-moe)
+- [A Brief History of MoEs](#a-brief-history-of-moesk)
+- [What is Sparcity?](#what-is-sparcity)
+- [Load Balancing tokens for MoEs](#load-balancing-tokens-for-moes)
+- [MoEs and Transformers](#moes-and-transformers)
+- [Switch Transformers](#switch-transformers)
+- [Stabilizing training stability with router Z-loss](#stabilizing-training-stability-with-router-z-loss)
+- [What does an expert learn?](#what-does-an-expert-learn)
+- [How does scaling the number of experts impact pretraining?](#how-does-scaling-the-number-of-experts-impact-pretraining)
+- [Fine-tuning MoEs](#fine-tuning-moes)
+- [When to use sparse MoEs vs dense models?](#when-to-use-sparse-moes-vs-dense-models)
+- [Making MoEs go brrr](#making-moes-go-brrr)
+  - [Expert Parallelism](#parallelism)
+  - [Capacity Factor and Communication costs](#capacity-factor-and-communication-costs)
+  - [Serving Techniques](#serving-techniques)
+  - [Efficient Trainign](#more-on-efficient-training)
+- [Open Source MoEs](#open-source-moes)
+- [Exciting directions of work](#exciting-directions-of-work)
+- [Some resources](#some-resources)
 
 
 ## TL;DR
@@ -62,7 +62,7 @@ So, what exactly is a MoE? In the context of transformer models, a MoE consists 
 
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/00_switch_transformer.png?download=true" alt="Switch Layer">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/00_switch_transformer.png" alt="Switch Layer">
   <figcaption>MoE layer from the [Switch Transformers paper](https://arxiv.org/abs/2101.03961)</figcaption>
 </figure>
 
@@ -86,10 +86,8 @@ Between 2010-2015, two different research areas contributed to later MoE advance
 
 These work led to exploring a mixture of experts in the context of NLP. Concretely, [Shazeer et al.](https://arxiv.org/abs/1701.06538) (2017, with “et al.” including Geoffrey Hinton and Jeff Dean, [Google’s Chuck Norris](https://www.informatika.bg/jeffdean)) scaled this idea to a 137B LSTM (the de-facto NLP architecture back then, created by Schmidhuber) by introducing sparsity, allowing to keep very fast inference even at high scale. This work focused on translation but faced many challenges, such as high communication costs and training instabilities.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e749ee15-500e-4660-b028-a1069816cfa3/459b8135-ee5e-4244-a10b-916424f9cb29/Untitled.png)
-
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/00_switch_transformer.png?download=true" alt="Switch Layer">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/00_switch_transformer.png" alt="Switch Layer">
   <figcaption>MoE layer from the Outrageously Large Neural Network paper</figcaption>
 </figure>
 
@@ -154,10 +152,8 @@ Transformers are a very clear case that scaling up the number of parameters impr
 
 GShard replaces every other FFN layer with an MoE layer using top-2 gating in both the encoder and the decoder. The next image shows how this looks like for the encoder part. This setup is quite beneficial for large-scale computing: when we scale to multiple devices, the MoE layer is shared across devices while all the other layers are replicated. This is further discussed in the [“Making MoEs go brrr”](TODO) section.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e749ee15-500e-4660-b028-a1069816cfa3/b54ac3cd-3d37-45f1-8e99-d08a0444e275/Untitled.png)
-
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/02_moe_block.png?download=true" alt="MoE Transformer Encoder">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/02_moe_block.png" alt="MoE Transformer Encoder">
   <figcaption>MoE Transformer Encoder from the GShard Paper</figcaption>
 </figure>
 
@@ -175,7 +171,7 @@ The GShard paper has contributions by expressing parallel computation patterns t
 Although MoEs have been promising, they struggle with training and fine-tuning instabilities. [Switch Transformers](https://arxiv.org/abs/2101.03961) is a very exciting work that deep dives into these topics. The authors even released a [1.6 trillion parameters MoE on Hugging Face](https://huggingface.co/google/switch-c-2048) with 2048 experts, which you can run with transformers. Switch Transformers achieved a 4x pre-train speed-up over T5-XXL.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/03_switch_layer.png?download=true" alt="Switch Transformer Layer">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/03_switch_layer.png" alt="Switch Transformer Layer">
   <figcaption>Switch Transformer Layer of the Switch Transformer paper</figcaption>
 </figure>
 
@@ -206,7 +202,7 @@ The authors also experiment with selective precision, such as training the exper
   <figcaption>Using selective precision does not degrade quality and enables faster models</figcaption>
 </figure>
 
-This [notebook](https://colab.research.google.com/drive/1aGGVHZmtKmcNBbAwa9hbu58DDpIuB5O4?usp=sharing) showcases fine-tuning Switch Transformers for summarization, but we suggest first reviewing the fine-tuning section.
+This [notebook](https://colab.research.google.com/drive/1aGGVHZmtKmcNBbAwa9hbu58DDpIuB5O4?usp=sharing) showcases fine-tuning Switch Transformers for summarization, but we suggest first reviewing the [fine-tuning section](#fine-tuning-moes).
 
 Switch Transformers uses an encoder-decoder setup in which they did a MoE counterpart of T5. The [GLaM](https://arxiv.org/abs/2112.06905) paper explores pushing up the scale of these models by training a model matching GPT-3 quality using 1/3 of the energy (yes, thanks to the lower amount of computing needed to train a MoE, they can reduce the carbon footprint by up to an order of magnitude). The authors focused on decoder-only models and few-shot and one-shot evaluation rather than fine-tuning. The authors used Top-2 routing and much larger capacity factors. The authors explored the capacity factor as a metric one can change during training and evaluation depending on how much computing one wants to use. 
 
