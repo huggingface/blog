@@ -24,7 +24,7 @@ Let’s dive in!
 - [Load Balancing tokens for MoEs](#load-balancing-tokens-for-moes)
 - [MoEs and Transformers](#moes-and-transformers)
 - [Switch Transformers](#switch-transformers)
-- [Stabilizing training stability with router Z-loss](#stabilizing-training-stability-with-router-z-loss)
+- [Stabilizing training with router Z-loss](#stabilizing-training-with-router-z-loss)
 - [What does an expert learn?](#what-does-an-expert-learn)
 - [How does scaling the number of experts impact pretraining?](#how-does-scaling-the-number-of-experts-impact-pretraining)
 - [Fine-tuning MoEs](#fine-tuning-moes)
@@ -206,7 +206,7 @@ This [notebook](https://colab.research.google.com/drive/1aGGVHZmtKmcNBbAwa9hbu58
 
 Switch Transformers uses an encoder-decoder setup in which they did a MoE counterpart of T5. The [GLaM](https://arxiv.org/abs/2112.06905) paper explores pushing up the scale of these models by training a model matching GPT-3 quality using 1/3 of the energy (yes, thanks to the lower amount of computing needed to train a MoE, they can reduce the carbon footprint by up to an order of magnitude). The authors focused on decoder-only models and few-shot and one-shot evaluation rather than fine-tuning. They used Top-2 routing and much larger capacity factors. In addition, they explored the capacity factor as a metric one can change during training and evaluation depending on how much computing one wants to use. 
 
-## Stabilizing training stability with router Z-loss
+## Stabilizing training with router Z-loss
 
 The balancing loss previously discussed can lead to instability issues. We can use many methods to stabilize sparse models at the expense of quality. For example, introducing dropout improves stability but leads to loss of model quality. On the other hand, adding more multiplicative components improves quality but decreases stability.
 
