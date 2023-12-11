@@ -7,6 +7,7 @@ authors:
 - user: philschmid
 - user: smangrul
 - user: ybelkada
+- user: pcuenq
 ---
 
 # Mixture of Experts Explained
@@ -360,7 +361,8 @@ So, TL;DR, some interesting areas to explore:
                      Lewis Tunstall and
                      Philipp Schmid and
                      Sourab Mangrulkar and
-                     Younes Belkada
+                     Younes Belkada and
+                     Pedro Cuenca
                    },
     title        = { Mixture of Experts Explained },
     year         = 2023,
