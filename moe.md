@@ -314,7 +314,10 @@ FasterMoE (March 2022) analyzes the performance of MoEs in highly efficient dist
 
 Megablocks (Nov 2022) explores efficient sparse pretraining by providing new GPU kernels that can handle the dynamism present in MoEs. Their proposal never drops tokens and maps efficiently to modern hardware, leading to significant speedups. What’s the trick? Traditional MoEs use batched matrix multiplication, which assumes all experts have the same shape and the same number of tokens. In contrast, Megablocks expresses MoE layers as block-sparse operations that can accommodate imbalanced assignment. 
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e749ee15-500e-4660-b028-a1069816cfa3/ae1903a6-7863-473f-8bfd-660a9e97868c/Untitled.png)
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/11_expert_matmuls.png" alt="Matrix multiplication optimized for block-sparse operations for differently sized experts and number of tokens (from [MegaBlocks](https://arxiv.org/abs/2211.15841)).">
+  <figcaption>Block-sparse matrix multiplication .</figcaption>
+</figure>
 
 ## Open Source MoEs
 
