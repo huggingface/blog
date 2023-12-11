@@ -227,6 +227,8 @@ More experts lead to improved sample efficiency and faster speedup, but these ar
 
 ## Fine-tuning MoEs
 
+> We are currently working on adding support to fine-tune MoEs and Mixtral. 
+
 The overfitting dynamics are very different between dense and sparse models. Sparse models are more prone to overfitting, so we can explore higher regularization (e.g. dropout) within the experts themselves (e.g. we can have one dropout rate for the dense layers and another, higher, dropout for the sparse layers). 
 
 One decision question is whether to use the auxiliary loss for fine-tuning. The ST-MoE authors experimented with turning off the auxiliary loss, and the quality was not significantly impacted, even when up to 11% of the tokens were dropped. Token dropping might be a form of regularization that helps prevent overfitting. 
