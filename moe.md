@@ -11,7 +11,7 @@ authors:
 
 # Mixture of Experts Explained
 
-With the release of [Mixtral 8x7B](https://mistral.ai/news/mixtral-of-experts/), a class of transformer has become the hottest topic in the open AI community: Mixture of Experts or MoEs for short. In this blog post, we take a look at the building blocks of MoEs, how they’re trained, and the tradeoffs to consider when serving them for inference. 
+With the release of [Mixtral 8x7B](https://mistral.ai/news/mixtral-of-experts/), a class of transformer has become the hottest topic in the open AI community: Mixture of Experts, or MoEs for short. In this blog post, we take a look at the building blocks of MoEs, how they’re trained, and the tradeoffs to consider when serving them for inference. 
 
 Let’s dive in!
 
@@ -70,8 +70,8 @@ So, to recap, in MoEs we replace every FFN layer of the transformer model with a
 
 Although MoEs provide benefits like efficient pretraining and faster inference compared to dense models, they also come with challenges:
 
-- **Training:** MoEs enable significantly more compute-efficient pretraining, but they’ve historically struggled with fine-tuning. MoEs can struggle to generalize during fine-tuning, leading to overfitting.
-- **Inference:** Although a MoE might have many parameters, only some of them are used during inference. This leads to much faster inference compared to a dense model with the same number of parameters, but all parameters need to be constantly loaded, so the VRAM requirements are high. For example, given a MoE like Mixtral 8x7B, we’ll need to have enough VRAM to hold a dense 47B parameter model. Why 47B parameters and not 8 x 7B = 56B? That’s because MoE models, only the FNN layers are treated as individual experts, and the rest of the model parameters are shared. At the same time, assuming just two experts are being used, the inference speed (FLOPs) is like using a 12B model since it’s like computing 2x7B matrix multiplications, but some layers are shared (more on this soon).
+- **Training:** MoEs enable significantly more compute-efficient pretraining, but they’ve historically struggled to generalize during fine-tuning, leading to overfitting.
+- **Inference:** Although a MoE might have many parameters, only some of them are used during inference. This leads to much faster inference compared to a dense model with the same number of parameters. However, all parameters need to be loaded in RAM, so memory requirements are high. For example, given a MoE like Mixtral 8x7B, we’ll need to have enough VRAM to hold a dense 47B parameter model. Why 47B parameters and not 8 x 7B = 56B? That’s because in MoE models, only the FFN layers are treated as individual experts, and the rest of the model parameters are shared. At the same time, assuming just two experts are being used per token, the inference speed (FLOPs) is like using a 12B model (as opposed to a 14B model), because it computes 2x7B matrix multiplications, but with some layers shared (more on this soon).
 
 Now that we have a rough idea of what a MoE is, let’s take a look at the research developments that led to their invention.
 
@@ -81,10 +81,10 @@ The roots of MoEs come from the 1991 paper [Adaptive Mixture of Local Experts](h
 
 Between 2010-2015, two different research areas contributed to later MoE advancement:
 
-- **Experts as components**: In the traditional MoE setup, the whole system comprises a gating network and multiple experts. MoEs as the whole model has been explored at SVMs, Gaussian Processes, etc. The work by [Eigen, Ranzato, and Ilya](https://arxiv.org/abs/1312.4314) explored MoEs as components of deeper networks. This allows having MoEs as layers in a multilayer network. This allows the model to be both large and efficient simultaneously.
-- **Conditional Computation**: Traditional networks process all input data through every layer. In this period, Bengio researched approaches to dynamically activate or deactivate components based on the input token.
+- **Experts as components**: In the traditional MoE setup, the whole system comprises a gating network and multiple experts. MoEs as the whole model have been explored in SVMs, Gaussian Processes, and other methods. The work by [Eigen, Ranzato, and Ilya](https://arxiv.org/abs/1312.4314) explored MoEs as components of deeper networks. This allows having MoEs as layers in a multilayer network, making it possible for the model to be both large and efficient simultaneously.
+- **Conditional Computation**: Traditional networks process all input data through every layer. In this period, Yoshua Bengio researched approaches to dynamically activate or deactivate components based on the input token.
 
-These work led to exploring a mixture of experts in the context of NLP. Concretely, [Shazeer et al.](https://arxiv.org/abs/1701.06538) (2017, with “et al.” including Geoffrey Hinton and Jeff Dean, [Google’s Chuck Norris](https://www.informatika.bg/jeffdean)) scaled this idea to a 137B LSTM (the de-facto NLP architecture back then, created by Schmidhuber) by introducing sparsity, allowing to keep very fast inference even at high scale. This work focused on translation but faced many challenges, such as high communication costs and training instabilities.
+These works led to exploring a mixture of experts in the context of NLP. Concretely, [Shazeer et al.](https://arxiv.org/abs/1701.06538) (2017, with “et al.” including Geoffrey Hinton and Jeff Dean, [Google’s Chuck Norris](https://www.informatika.bg/jeffdean)) scaled this idea to a 137B LSTM (the de-facto NLP architecture back then, created by Schmidhuber) by introducing sparsity, allowing to keep very fast inference even at high scale. This work focused on translation but faced many challenges, such as high communication costs and training instabilities.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/00_switch_transformer.png" alt="MoE layer in LSTM">
@@ -95,11 +95,11 @@ MoEs have allowed training multi-trillion parameter models, such as the open-sou
 
 ## What is Sparcity?
 
-Sparisty uses the idea of conditional computation. While in dense models all the parameters are used for all the inputs, sparsity allows us to only run some parts of the whole system.
+Sparsity uses the idea of conditional computation. While in dense models all the parameters are used for all the inputs, sparsity allows us to only run some parts of the whole system.
 
-Let’s dive deeper into Shazeer's exploration of MoE for translation. The idea of conditional computation (parts of the network are active on a per-example basis) allows one to scale the size of the model without increasing the computation, and hence, this led to thousands of experts being used in each MoE layer.
+Let’s dive deeper into Shazeer's exploration of MoEs for translation. The idea of conditional computation (parts of the network are active on a per-example basis) allows one to scale the size of the model without increasing the computation, and hence, this led to thousands of experts being used in each MoE layer.
 
-This setup introduces some challenges. For example, although large batch sizes are usually better for performance, in MoEs, the batch sizes are reduced for the active experts. For example, if we send 10 tokens, **five tokens might end in one expert, and the other five tokens might end in five different experts, leading to uneven batch sizes and underutilization**. The [Making MoEs go brrr](#making-moes-go-brrr) section below will discuss other challenges and solutions.
+This setup introduces some challenges. For example, although large batch sizes are usually better for performance, batch sizes in MOEs are effectively reduced as data flows through the active experts. For example, if our batched input consists of 10 tokens, **five tokens might end in one expert, and the other five tokens might end in five different experts, leading to uneven batch sizes and underutilization**. The [Making MoEs go brrr](#making-moes-go-brrr) section below will discuss other challenges and solutions.
 
 How can we solve this? A learned gating network (G) decides which experts (E) to send a part of the input:
 
@@ -107,13 +107,13 @@ $$
 y = \sum_{i=1}^{n} G(x)_i E_i(x)
 $$
 
-In the setup, all experts are run for all inputs - it’s a weighted multiplication. But, what happens if G is 0? If that’s the case, there’s no need to compute the respective expert operations and hence we save compute. What’s a typical gating function? In the most traditional setup, we just use a simple network with a softmax function. The network will learn to which expert to send the input.
+In this setup, all experts are run for all inputs - it’s a weighted multiplication. But, what happens if G is 0? If that’s the case, there’s no need to compute the respective expert operations and hence we save compute. What’s a typical gating function? In the most traditional setup, we just use a simple network with a softmax function. The network will learn which expert to send the input.
 
 $$
 G_\sigma(x) = \text{Softmax}(x \cdot W_g)
 $$
 
-Shazeer’s work also explored other gating mechanisms, such as Noisy Top-K Gating. This gating approach introduced some (tunable) noise and then keep the top k values. That is:
+Shazeer’s work also explored other gating mechanisms, such as Noisy Top-K Gating. This gating approach introduces some (tunable) noise and then keeps the top k values. That is:
 
 1. We add some noise
     
