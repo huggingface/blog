@@ -26,6 +26,7 @@ Among the features and integrations being released today, we have:
 ## Table of Contents
 
 - [What is Mixtral 8x7b](#what-is-mixtral-8x7b)
+  - [About the name](#about-the-name)
   - [Prompt format](#prompt-format)
   - [What we don't know](#what-we-dont-know)
 - [Demo](#demo)
@@ -74,7 +75,11 @@ For instruct and chat models, evaluating on benchmarks like MT-Bench or AlpacaEv
 | https://huggingface.co/HuggingFaceH4/zephyr-7b-beta | MIT | 8k | 7.34 |
 | https://huggingface.co/meta-llama/Llama-2-70b-chat-hf | Llama 2 license | 4k | 6.86 |
 
-Impressively, Mixtral Instruct outperforms all other open-access models on MT-Bench and is the first one to achieve comparable performance with GPT-3.5! 
+Impressively, Mixtral Instruct outperforms all other open-access models on MT-Bench and is the first one to achieve comparable performance with GPT-3.5!
+
+### About the name
+
+The Mixtral MoE is called **Mixtral-8x7B**, but it doesn't have 56B parameters. Shortly after the release we found that some people were misled into thinking that the model behaves similarly to an ensemble of 8 models with 7B parameters each, but that's not how MoE models work. Only some layers of the model (the feed-forward blocks) are replicated; the rest of the parameters are the same as in a 7B model. The total number of parameters is not 56B, but about 45B. A better name [could have been `Mixtral-45-8e`](https://twitter.com/osanseviero/status/1734248798749159874) to better convey the architecture. For more details about how MoE works, please refer to [our "Mixture of Experts Explained" post](https://huggingface.co/blog/moe).
 
 ### Prompt format
 
