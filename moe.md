@@ -19,7 +19,7 @@ Let’s dive in!
 ## Table of Contents
 
 - [What is a Mixture of Experts?](#what-is-a-mixture-of-experts-moe)
-- [A Brief History of MoEs](#a-brief-history-of-moesk)
+- [A Brief History of MoEs](#a-brief-history-of-moes)
 - [What is Sparsity?](#what-is-sparsity)
 - [Load Balancing tokens for MoEs](#load-balancing-tokens-for-moes)
 - [MoEs and Transformers](#moes-and-transformers)
@@ -231,7 +231,7 @@ The overfitting dynamics are very different between dense and sparse models. Spa
 
 One decision question is whether to use the auxiliary loss for fine-tuning. The ST-MoE authors experimented with turning off the auxiliary loss, and the quality was not significantly impacted, even when up to 11% of the tokens were dropped. Token dropping might be a form of regularization that helps prevent overfitting. 
 
-Switch Transformers observed that at a fixed pretrain perplexity, the sparse model does worse than the dense counterpart, especially on reasoning-heavy tasks (e.g., SuperGLUE). On the other hand, for knowledge-heavy tasks such as TriviaQA, the sparse model performs disproportionally well. The authors also observed that a fewer number of experts helped at fine-tuning. Another observation that confirmed the generalization issue is that the model did worse in smaller tasks but did well in larger tasks.
+Switch Transformers observed that at a fixed pretrain perplexity, the sparse model does worse than the dense counterpart in downstream tasks, especially on reasoning-heavy tasks such as SuperGLUE. On the other hand, for knowledge-heavy tasks such as TriviaQA, the sparse model performs disproportionately well. The authors also observed that a fewer number of experts helped at fine-tuning. Another observation that confirmed the generalization issue is that the model did worse in smaller tasks but did well in larger tasks.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/06_superglue_curves.png" alt="Fine-tuning learning curves">
@@ -249,7 +249,7 @@ One could experiment with freezing all non-expert weights. That led to a huge pe
 One last part to consider when fine-tuning sparse MoEs is that they have different fine-tuning hyperparameter setups - e.g., sparse models tend to benefit more from smaller batch sizes and higher learning rates.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/08_superglue_dense_vs_sparse.png" alt="Table comparing batch size and learning rate between dense and sparse models.">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/08_superglue_dense_vs_sparse.png" alt="Table comparing fine-tuning batch size and learning rate between dense and sparse models.">
   <figcaption>Sparse models fine-tuned quality improves with lower learning rates and large batch sizes. This image is from the ST-MoE paper.</figcaption>
 </figure>
 
@@ -259,7 +259,7 @@ At this point, you might be a bit sad that people have struggled to fine-tune Mo
 - Multi-task instruction-tuning
 - Multi-task instruction-tuning followed by single-task fine-tuning
 
-When the authors fine-tuned the MoE and the T5 equivalent, the T5 equivalent was better. When the authors fine-tuned the Flan T5 (T5 instruct equivalent) MoE, the MoE performed significantly better. Not only this, the improvement of the Flan-MoE over the MoE was larger than Flan T5 over T5, indicating that MoEs might benefit much more than dense models. MoEs benefit more from a higher number of tasks.  Unlike the previous discussion suggesting to turn off the auxiliary loss function, the loss actually prevents overfitting.
+When the authors fine-tuned the MoE and the T5 equivalent, the T5 equivalent was better. When the authors fine-tuned the Flan T5 (T5 instruct equivalent) MoE, the MoE performed significantly better. Not only this, the improvement of the Flan-MoE over the MoE was larger than Flan T5 over T5, indicating that MoEs might benefit much more from instruction tuning than dense models. MoEs benefit more from a higher number of tasks.  Unlike the previous discussion suggesting to turn off the auxiliary loss function, the loss actually prevents overfitting.
 
 
 <figure class="image text-center">
@@ -306,9 +306,9 @@ A big downside of MoEs is the large number of parameters. For local use cases, o
 
 ### More on efficient training
 
-FasterMoE (March 2022) analyzes the performance of MoEs in highly efficient distributed system and analyzes the theoretical limit of different parallelism strategies, as well as techniques to skew expert popularity, fine-grained schedules of communication that reduce latency, and an adjusted topology-aware gate that picks experts based on the lowest latency, leading to a 17x speedup.
+FasterMoE (March 2022) analyzes the performance of MoEs in highly efficient distributed systems and analyzes the theoretical limit of different parallelism strategies, as well as techniques to skew expert popularity, fine-grained schedules of communication that reduce latency, and an adjusted topology-aware gate that picks experts based on the lowest latency, leading to a 17x speedup.
 
-Megablocks (Nov 2022) explores efficient sparse pretraining by providing new GPU kernels that can handle the dynamism present in MoEs. Their proposal never drops tokens and maps efficiently to modern hardware, leading to significant speedups. What’s the trick? Traditional MoEs use batched matrix multiplication, which assume all experts have the same shape and same number of tokens. They express MoE layers as block-sparse operations that can accommodate imbalanced assignment. 
+Megablocks (Nov 2022) explores efficient sparse pretraining by providing new GPU kernels that can handle the dynamism present in MoEs. Their proposal never drops tokens and maps efficiently to modern hardware, leading to significant speedups. What’s the trick? Traditional MoEs use batched matrix multiplication, which assumes all experts have the same shape and the same number of tokens. In contrast, Megablocks expresses MoE layers as block-sparse operations that can accommodate imbalanced assignment. 
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e749ee15-500e-4660-b028-a1069816cfa3/ae1903a6-7863-473f-8bfd-660a9e97868c/Untitled.png)
 
@@ -316,7 +316,7 @@ Megablocks (Nov 2022) explores efficient sparse pretraining by providing new GPU
 
 There are nowadays several open source projects to train MoEs:
 
-- Megablock: https://github.com/stanford-futuredata/megablocks
+- Megablocks: https://github.com/stanford-futuredata/megablocks
 - Fairseq: https://github.com/facebookresearch/fairseq/tree/main/examples/moe_lm
 - OpenMoE: https://github.com/XueFuzhao/OpenMoE
 
