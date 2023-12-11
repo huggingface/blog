@@ -33,7 +33,7 @@ Let’s dive in!
   - [Expert Parallelism](#parallelism)
   - [Capacity Factor and Communication costs](#capacity-factor-and-communication-costs)
   - [Serving Techniques](#serving-techniques)
-  - [Efficient Trainign](#more-on-efficient-training)
+  - [Efficient Training](#more-on-efficient-training)
 - [Open Source MoEs](#open-source-moes)
 - [Exciting directions of work](#exciting-directions-of-work)
 - [Some resources](#some-resources)
