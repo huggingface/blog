@@ -1,6 +1,6 @@
 ---
 title: "Welcome Mixtral - a SOTA Mixture of Experts on Hugging Face"
-thumbnail: /blog/assets/mixtral/thumbnail.png
+thumbnail: /blog/assets/mixtral/thumbnail.jpg
 authors:
 - user: lewtun
 - user: philschmid
@@ -22,6 +22,20 @@ Among the features and integrations being released today, we have:
 - Integration with Inference Endpoints
 - Integration with [Text Generation Inference](https://github.com/huggingface/text-generation-inference) for fast and efficient production-ready inference
 - An example of fine-tuning Mixtral on a single GPU with 🤗 TRL.
+
+## Table of Contents
+
+- [What is Mixtral 8x7b](#what-is-mixtral-8x7b)
+  - [Prompt format](#prompt-format)
+  - [What we don't know](#what-we-dont-know)
+- [Demo](#demo)
+- [Inference](#inference)
+  - [Using 🤗 Transformers](#using-🤗-transformers)
+  - [Using Text Generation Inference](#using-text-generation-inference)
+- [Fine-tuning with 🤗 TRL](#fine-tuning-with-🤗-trl)
+- [Disclaimers and ongoing work](#disclaimers-and-ongoing-work)
+- [Additional Resources](#additional-resources)
+- [Conclusion](#conclusion)
 
 ## What is Mixtral 8x7b?
 
@@ -202,7 +216,7 @@ This takes about 9 hours to train on a single A100, but can be easily parallelis
 - **Quantization**: Quantization of MoEs is an active area of research. Although TheBloke has done initial experiments to achieve 4-bit and 8-bit quantization, the model quality degrades significantly. It will be exciting to see the development in the coming days and weeks in this area. Additionally, recent work such as [QMoE](https://arxiv.org/abs/2310.16795), which achieves sub-1-bit quantization for MoEs, could be applied here.
 - **High VRAM usage**: MoEs run inference very quickly but still need a large amount of VRAM (and hence an expensive GPU). This makes it challenging to use it in local setups. MoEs are great for setups with many devices and large VRAM. Mixtral requires 90GB of VRAM in half-precision 🤯
 
-## **Additional Resources**
+## Additional Resources
 
 - [Mixture of Experts Explained](https://huggingface.co/blog/moe)
 - [Mixtral of experts](https://mistral.ai/news/mixtral-of-experts/)
@@ -210,6 +224,6 @@ This takes about 9 hours to train on a single A100, but can be easily parallelis
 - [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
 - [Chat demo on Hugging Chat](https://huggingface.co/chat/?model=mistralai/Mixtral-8x7B-Instruct-v0.1)
 
-## **Conclusion**
+## Conclusion
 
 We're very excited about Mixtral being released! In the coming days, be ready to learn more about ways to run your own fine-tuning, execute the smallest models on-device, and many other exciting updates we're preparing for you!

@@ -3173,7 +3173,7 @@
 - local: mixtral
   title: "Welcome Mixtral - a SOTA Mixture of Experts on Hugging Face"
   author: lewtun
-  thumbnail: /blog/assets/mixtral/thumbnail.png
+  thumbnail: /blog/assets/mixtral/thumbnail.jpg
   date: December 11, 2023
   tags:
     - mixtral
