@@ -3159,11 +3159,57 @@
     - rocm
     - text-generation
 
+- local: moe
+  title: "Mixture of Experts Explained"
+  author: osanseviero
+  thumbnail: /blog/assets/moe/thumbnail.png
+  date: December 11, 2023
+  tags:
+    - moe
+    - nlp
+    - llm
+    - guide
+
+- local: mixtral
+  title: "Welcome Mixtral - a SOTA Mixture of Experts on Hugging Face"
+  author: lewtun
+  thumbnail: /blog/assets/mixtral/thumbnail.jpg
+  date: December 11, 2023
+  tags:
+    - mixtral
+    - moe
+    - nlp
+    - llm
+    - transformers
+
+- local: moe
+  title: "Mixture of Experts Explained"
+  author: osanseviero
+  thumbnail: /blog/assets/moe/thumbnail.png
+  date: December 11, 2023
+  tags:
+    - moe
+    - nlp
+    - llm
+    - guide
+
+- local: mixtral
+  title: "Welcome Mixtral - a SOTA Mixture of Experts on Hugging Face"
+  author: lewtun
+  thumbnail: /blog/assets/mixtral/thumbnail.jpg
+  date: December 11, 2023
+  tags:
+    - mixtral
+    - moe
+    - nlp
+    - llm
+    - transformers
+
 - local: tgi-kubernetes-cluster_dev
   title: "Kubernetes infrastructure for HF models and chat with Cluster.dev"
   author: voatsap
   thumbnail: /blog/assets/tgi-kubernetes-cluster_dev/thumbnail_lego.png
-  date: December 7, 2023
+  date: December 12, 2023
   tags:
     - llm
     - inference
