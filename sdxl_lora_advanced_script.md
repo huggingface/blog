@@ -42,9 +42,9 @@ Contents:
 3. Inference
 
 **Acknowledgements** ❤️: 
-The guide outlined in this blog- training scripts, experiments and explorations - were inspired and built upon the 
-contributions of [Simo Ryu](https://twitter.com/cloneofsimo?lang=en): [cog-sdxl](https://github.com/replicate/cog-sdxl), 
-[Kohya](https://twitter.com/kohya_tech/): [sd-scripts](https://github.com/kohya-ss/sd-scripts), [The Last Ben](https://twitter.com/__TheBen): [fast-stable-diffusion](https://github.com/TheLastBen/fast-stable-diffusion).
+The techniques showcased in this guide – training scripts, experiments and explorations – were inspired and built upon the 
+contributions by [Simo Ryu](https://twitter.com/cloneofsimo), [cog-sdxl](https://github.com/replicate/cog-sdxl), 
+[Kohya](https://twitter.com/kohya_tech/): [sd-scripts](https://github.com/kohya-ss/sd-scripts), [The Last Ben](https://twitter.com/__TheBen): [fast-stable-diffusion](https://github.com/TheLastBen/fast-stable-diffusion). Our most sincere gratitude to them and the rest of the community! 🙌 
 
 
 <h2>Pivotal Tuning</h2>
