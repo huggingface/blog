@@ -22,7 +22,7 @@ Stable Diffusion XL (SDXL) models fine-tuned with LoRA dreambooth achieve incred
 handful of images, while simultaneously maintaining the aesthetic and image quality of SDXL and requiring relatively
 little compute and resources. Check out some of the awesome SDXL
 LoRAs [here](https://huggingface.co/spaces/multimodalart/LoraTheExplorer).  
-In this blog, we'll review some of the popular practices and techniques to make your LoRA finetune go brrr, and how you
+In this blog, we'll review some of the popular practices and techniques to make your LoRA finetunes go brrr, and show how you
 can use them now with diffusers!
 
 Recap: LoRA (Low-Rank Adaptation) is a training technique for fine-tuning Stable Diffusion models by making slight
