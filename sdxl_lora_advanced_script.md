@@ -28,7 +28,7 @@ can use them now with diffusers!
 Recap: LoRA (Low-Rank Adaptation) is a fine-tuning technique for Stable Diffusion models that makes slight
 adjustments to the crucial cross-attention layers where images and prompts intersect. It achieves quality on par with
 full fine-tuned models while being much faster and requiring less compute. To learn more on how LoRAs work please see
-our blog post - Using LoRA for Efficient Stable Diffusion Fine-Tuning.
+our previous post - [Using LoRA for Efficient Stable Diffusion Fine-Tuning](https://huggingface.co/blog/lora).
 
 Contents:
 
