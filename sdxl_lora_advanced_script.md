@@ -54,8 +54,8 @@ customary that you provide a rare token to be your trigger word, say "an sks dog
 other semantic meaning associated with them and can affect your results. The sks example, popular in the community, is
 actually associated with a weapons brand.
 
-To tackle that issue with pivotal tuning, instead of re-using an existing token, we insert new tokens into the text
-encoders of the model - and we optimize these token embeddings to represent the new concept: that is Textual Inversion -
+To tackle this issue, we insert new tokens into the text encoders of the model, instead of reusing existing ones.
+We then optimize the newly-inserted token embeddings to represent the new concept: that is Textual Inversion –
 we learn to represent the concept through new "words" in the embedding space. Once we obtain the new token and its
 embeddings to represent it, we can train our Dreambooth LoRA with those token embeddings to get the best of both worlds.
 
