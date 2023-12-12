@@ -203,18 +203,18 @@ Then you can run the script:
 accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num_processes=1 \
 	examples/scripts/sft.py \
 	--model_name mistralai/Mixtral-8x7B-v0.1 \
-	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
+	--dataset_name trl-lib/ultrachat_200k_chatml \
 	--batch_size 2 \
 	--gradient_accumulation_steps 1 \
 	--learning_rate 2e-4 \
-	--save_steps 20_000 \
+	--save_steps 200_000 \
 	--use_peft \
 	--peft_lora_r 16 --peft_lora_alpha 32 \
 	--target_modules q_proj k_proj v_proj o_proj \
 	--load_in_4bit
 ```
 
-This takes about 9 hours to train on a single A100, but can be easily parallelised by tweaking `--num_processes` to the number of GPUs you have available.
+This takes about 48 hours to train on a single A100, but can be easily parallelised by tweaking `--num_processes` to the number of GPUs you have available.
 
 ## Disclaimers and ongoing work
 
