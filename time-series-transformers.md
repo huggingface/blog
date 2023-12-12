@@ -602,7 +602,7 @@ def create_test_dataloader(
         PREDICTION_INPUT_NAMES.append("static_real_features")
 
     transformation = create_transformation(freq, config)
-    transformed_data = transformation.apply(data)
+    transformed_data = transformation.apply(data, is_train=False)
 
     # We create a test Instance splitter to sample the very last
     # context window from the dataset provided.
