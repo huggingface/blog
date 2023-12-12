@@ -444,16 +444,20 @@ Specifically we used the following arguments in both versions (and added `snr_ga
 Let's explore another example, this time training on a dataset composed of 27 screenshots of webpages from the 1990s 
 and early 2000s that we (nostalgically) scraped from the internet.
 
+This example showcases a slightly different behaviour than the previous. 
+While in both cases we used approximately the same amount of images ~30, 
+we noticed 
 
 
 Configurations:
 ```
 –rank = 4,16,32
 -optimizer = prodigy, adamW
--repeats = 1,2,3,4
--learning_rate = 1.0 , 1e-4
--text_encoder_lr = 1.0, 3e-4, 5e-5
+-repeats = 1,2,3
+-learning_rate = 1.0 (Prodigy), 1e-4 (AdamW)
+-text_encoder_lr = 1.0 (Prodigy), 3e-4, 5e-5 (AdamW)
 -snr_gamma = None, 5.0 
+-train_batch_size = 1, 2, 3, 4
 -max_train_steps = 500, 1000, 1500
 -text_encoder_training = regular finetuning, pivotal tuning
 ```
