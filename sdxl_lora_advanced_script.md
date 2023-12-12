@@ -18,9 +18,9 @@ and [train on Hugging Face Spaces with a simple UI]() and curated parameters (th
 <h3>Overview
 </h3>
 
-LoRA dreambooth fine-tuned stable diffusion xl models achieved incredible results at capturing new concepts using only a
-handful of images, while simultaneously maintaining the aesthetic and image quality of sd-xl and requiring relatively
-little compute and resources. Check out some of the awesome SD-XL
+Stable Diffusion XL (SDXL) models fine-tuned with LoRA dreambooth achieve incredible results at capturing new concepts using only a
+handful of images, while simultaneously maintaining the aesthetic and image quality of SDXL and requiring relatively
+little compute and resources. Check out some of the awesome SDXL
 LoRAs [here](https://huggingface.co/spaces/multimodalart/LoraTheExplorer).  
 In this blog, we'll review some of the popular practices and techniques to make your LoRA finetune go brrr, and how you
 can use them now with diffusers!
