@@ -1505,6 +1505,7 @@
   thumbnail: /blog/assets/118_time-series-transformers/thumbnail.png
   date: December 1, 2022
   tags:
+    - guide
     - research
     - time-series
 
@@ -3181,3 +3182,13 @@
     - nlp
     - llm
     - transformers
+
+- local: patchts
+  title: "PatchTST and PatchTSMixer Time Series Models"
+  author: kashif
+  thumbnail: /blog/assets/patchts/thumbnail.png
+  date: December 12, 2023
+  tags:
+    - guide
+    - research
+    - time-series
