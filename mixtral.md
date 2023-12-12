@@ -55,25 +55,25 @@ For more details on MoEs, see our accompanying blog post: [hf.co/blog/moe](https
 
 So how good are the Mixtral models? Here’s an overview of the base model and its performance compared to other open models on the [LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) (higher scores are better):
 
-| Model | License | Commercial use? | Pretraining size [tokens] | Leaderboard  score ⬇️  |
-| --- | --- | --- | --- | --- |
-| https://huggingface.co/mistralai/Mixtral-8x7B-v0.1 | Apache 2.0 | ✅ | unknown | 68.42 |
-| https://huggingface.co/meta-llama/Llama-2-70b-hf | Llama 2 license | ✅ | 2,000B | 67.87 |
-| https://huggingface.co/tiiuae/falcon-40b | Apache 2.0 | ✅ | 1,000B | 61.5 |
-| https://huggingface.co/mistralai/Mistral-7B-v0.1 | Apache 2.0 | ✅ | unknown | 60.97 |
-| https://huggingface.co/meta-llama/Llama-2-7b-hf | Llama 2 license | ✅ | 2,000B | 54.32 |
+| Model                                                                             | License         | Commercial use? | Pretraining size [tokens] | Leaderboard  score ⬇️ |
+| --------------------------------------------------------------------------------- | --------------- | --------------- | ------------------------- | -------------------- |
+| [mistralai/Mixtral-8x7B-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-v0.1) | Apache 2.0      | ✅               | unknown                   | 68.42                |
+| [meta-llama/Llama-2-70b-hf](https://huggingface.co/meta-llama/Llama-2-70b-hf)     | Llama 2 license | ✅               | 2,000B                    | 67.87                |
+| [tiiuae/falcon-40b](https://huggingface.co/tiiuae/falcon-40b)                     | Apache 2.0      | ✅               | 1,000B                    | 61.5                 |
+| [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1)     | Apache 2.0      | ✅               | unknown                   | 60.97                |
+| [meta-llama/Llama-2-7b-hf](https://huggingface.co/meta-llama/Llama-2-7b-hf)       | Llama 2 license | ✅               | 2,000B                    | 54.32                |
 
 For instruct and chat models, evaluating on benchmarks like MT-Bench or AlpacaEval is better. Below, we show how [Mixtral Instruct](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1) performs up against the top closed and open access models (higher scores are better):
 
-| Model | Availability | Context window (tokens) | MT-Bench score ⬇️  |
-| --- | --- | --- | --- |
-| https://openai.com/blog/new-models-and-developer-products-announced-at-devday | Proprietary | 128k | 9.32 |
-| https://platform.openai.com/docs/models/gpt-3-5 | Proprietary | 16k | 8.32 |
-| https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1 | Apache 2.0 | 32k | 8.30 |
-| https://www.anthropic.com/index/claude-2-1 | Proprietary | 200k | 8.18 |
-| https://huggingface.co/openchat/openchat_3.5 | Apache 2.0 | 8k | 7.81 |
-| https://huggingface.co/HuggingFaceH4/zephyr-7b-beta | MIT | 8k | 7.34 |
-| https://huggingface.co/meta-llama/Llama-2-70b-chat-hf | Llama 2 license | 4k | 6.86 |
+| Model                                                                                               | Availability    | Context window (tokens) | MT-Bench score ⬇️ |
+| --------------------------------------------------------------------------------------------------- | --------------- | ----------------------- | ---------------- |
+| [GPT-4 Turbo](https://openai.com/blog/new-models-and-developer-products-announced-at-devday)        | Proprietary     | 128k                    | 9.32             |
+| [GPT-3.5-turbo-0613](https://platform.openai.com/docs/models/gpt-3-5)                               | Proprietary     | 16k                     | 8.32             |
+| [mistralai/Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1) | Apache 2.0      | 32k                     | 8.30             |
+| [Claude 2.1](https://www.anthropic.com/index/claude-2-1)                                            | Proprietary     | 200k                    | 8.18             |
+| [openchat/openchat_3.5](https://huggingface.co/openchat/openchat_3.5)                               | Apache 2.0      | 8k                      | 7.81             |
+| [HuggingFaceH4/zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)                 | MIT             | 8k                      | 7.34             |
+| [meta-llama/Llama-2-70b-chat-hf](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf)             | Llama 2 license | 4k                      | 6.86             |
 
 Impressively, Mixtral Instruct outperforms all other open-access models on MT-Bench and is the first one to achieve comparable performance with GPT-3.5!
 
@@ -111,10 +111,10 @@ We provide two main ways to run inference with Mixtral models:
 For each method, it is possible to run the model in half-precision (float16) or with quantized weights. Since the Mixtral model is roughly equivalent in size to a 45B parameter dense model, we can estimate the minimum amount of VRAM needed as follows:
 
 | Precision | Required VRAM |
-| --- | --- |
-| float16 | >90 GB |
-| 8-bit | >45 GB |
-| 4-bit | >23 GB |
+| --------- | ------------- |
+| float16   | >90 GB        |
+| 8-bit     | >45 GB        |
+| 4-bit     | >23 GB        |
 
 ### Using 🤗 Transformers
 
