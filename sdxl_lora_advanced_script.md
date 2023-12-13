@@ -91,7 +91,7 @@ for the new tokens. In order to do inference with those we add 2 steps to how we
 
 ```
 import torch
-from huggingface_hub import hf_hub_download, upload_file
+from huggingface_hub import hf_hub_download
 from diffusers import DiffusionPipeline
 from diffusers.models import AutoencoderKL
 from safetensors.torch import load_file
