@@ -11,7 +11,7 @@ authors:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-Open AI's [Whisper](https://huggingface.co/collections/openai/whisper-release-6501bba2cf999715fd953013) is a general 
+Open AI's [Whisper](https://openai.com/research/whisper) is a general 
 purpose speech transcription model that achieves state-of-the-art results across a range of different benchmarks and 
 audio conditions. The latest [large-v3](https://huggingface.co/openai/whisper-large-v3) model tops the 
 [OpenASR Leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard), ranking as the best open-source 
@@ -131,7 +131,11 @@ torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 model_id = "openai/whisper-large-v2"
 
 model = AutoModelForSpeechSeq2Seq.from_pretrained(
-    model_id, torch_dtype=torch_dtype, low_cpu_mem_usage=True, use_safetensors=True
+    model_id,
+    torch_dtype=torch_dtype,
+    low_cpu_mem_usage=True,
+    use_safetensors=True,
+    attn_implementation="sdpa",
 )
 model.to(device)
 
