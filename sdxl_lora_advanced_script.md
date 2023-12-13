@@ -78,7 +78,7 @@ In our new training script, you can do textual inversion training by providing t
   represent the new tokens being trained. Here we chose TOK. So, for example, "a photo of a TOK" as an instance prompt
   would then insert the newly trained tokens in place of `TOK`
 * `num_new_tokens_per_abstraction` sets up how many new tokens to insert and train for each text encoder
-  of the model. The default is set to 2, but you can increase that for complex concepts.`
+  of the model. The default is set to 2, but you can increase that for complex concepts.
 * `Adam_weight_decay_text_encoder` This is used to set a different weight decay value for the text encoder parameters (
   different from the value used for the unet parameters).`
 
