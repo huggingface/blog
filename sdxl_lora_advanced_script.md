@@ -104,7 +104,7 @@ pipe = DiffusionPipeline.from_pretrained(
 
 2. Load the embeddings into the text encoders
 
-```
+```py
 # download embeddings
 embedding_path = hf_hub_download(repo_id="LinoyTsaban/web_y2k_lora", filename="embeddings.safetensors", repo_type="model")
 
