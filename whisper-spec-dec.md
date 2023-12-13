@@ -20,10 +20,13 @@ speech transcription model for English. The model also demonstrates strong multi
 
 While the transcription accuracy is exceptional, the inference time is very slow. A 1 hour audio clip takes upwards of 
 6 minutes to transcribe on a 16GB T4 GPU, even after leveraging inference optimisations like [flash attention](https://huggingface.co/docs/transformers/perf_infer_gpu_one#flashattention-2), 
-half-precision and chunking. In this Google Colab, we demonstrate how Speculative Decoding can be employed to reduce the 
+half-precision and chunking.
+
+In this blog post, we demonstrate how Speculative Decoding can be employed to reduce the 
 inference time of Whisper by a **factor of 2**, while mathematically ensuring exactly the **same outputs** are achieved 
 from the model. As a result, this method provides a perfect drop-in replacement for existing Whisper pipelines, since it 
-provides free 2x speed-up while maintaining the same accuracy.
+provides free 2x speed-up while maintaining the same accuracy. For a more streamlined version of the blog post 
+with fewer explanations but all the code, see the accompanying [Google Colab](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/speculative_decoding.ipynb).
 
 ## Speculative Decoding
 
