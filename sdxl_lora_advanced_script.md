@@ -99,7 +99,7 @@ pipe = DiffusionPipeline.from_pretrained(
         torch_dtype=torch.float16,
         variant="fp16",
 ).to("cuda")
-# normal LoRA loading
+# normal loading
 ```
 
 2. Load these into the text encoders
