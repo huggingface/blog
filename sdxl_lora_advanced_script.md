@@ -89,7 +89,7 @@ for the new tokens. In order to do inference with those we add 2 steps to how we
 
 1. Download our trained embeddings from the hub
 
-```
+```py
 import torch
 from huggingface_hub import hf_hub_download
 from diffusers import DiffusionPipeline
