@@ -227,7 +227,7 @@ If you wish the text encoder lr to always match --learning_rate, set --text_enco
 * <h3>Custom Captioning</h3>
 
   While it is possible to achieve good results by training on a set of images all captioned with the same instance
-  prompt, e.g. "photo of a <token> person" or "in the style of <token>" etc. Using the same caption may lead to
+  prompt, e.g. "photo of a <token> person" or "in the style of <token>" etc, using the same caption may lead to
   suboptimal results, depending on the complexity of the learned concept, how "familiar" the model is with the concept,
   and how well the training set captures it.
   ![meme](.\assets\dreambooth_lora_sdxl\custom_captions_meme.png)
