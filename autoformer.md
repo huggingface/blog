@@ -534,7 +534,7 @@ def create_train_dataloader(
     # context length + lags + prediction length (from the 366 possible transformed time series)
     # randomly from within the target time series and return an iterator.
     stream = Cyclic(transformed_data).stream()
-    training_instances = instance_splitter.apply(stream, is_train=True)
+    training_instances = instance_splitter.apply(stream)
 
     return as_stacked_batches(
         training_instances,
@@ -565,14 +565,14 @@ def create_backtest_dataloader(
         PREDICTION_INPUT_NAMES.append("static_real_features")
 
     transformation = create_transformation(freq, config)
-    transformed_data = transformation.apply(data, is_train=False)
+    transformed_data = transformation.apply(data)
 
     # we create a Validation Instance splitter which will sample the very last
     # context window seen during training only for the encoder.
     instance_sampler = create_instance_splitter(config, "validation")
 
-    # we apply the transformations in test mode
-    testing_instances = instance_sampler.apply(transformed_data, is_train=False)
+    # we apply the transformations in train mode
+    testing_instances = instance_sampler.apply(transformed_data, is_train=True)
 
     return as_stacked_batches(
         testing_instances,

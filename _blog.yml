@@ -3158,3 +3158,26 @@
     - optimum
     - rocm
     - text-generation
+
+- local: moe
+  title: "Mixture of Experts Explained"
+  author: osanseviero
+  thumbnail: /blog/assets/moe/thumbnail.png
+  date: December 11, 2023
+  tags:
+    - moe
+    - nlp
+    - llm
+    - guide
+
+- local: mixtral
+  title: "Welcome Mixtral - a SOTA Mixture of Experts on Hugging Face"
+  author: lewtun
+  thumbnail: /blog/assets/mixtral/thumbnail.jpg
+  date: December 11, 2023
+  tags:
+    - mixtral
+    - moe
+    - nlp
+    - llm
+    - transformers
