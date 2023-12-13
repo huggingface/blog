@@ -102,7 +102,7 @@ pipe = DiffusionPipeline.from_pretrained(
 # normal loading
 ```
 
-2. Load these into the text encoders
+2. Load the embeddings into the text encoders
 
 ```
 # download embeddings
