@@ -240,13 +240,13 @@ To load the custom captions we need our training set directory to follow the str
 containing both the images and the corresponding caption for each image.
 
 * _Option 1_:
-  You choose a dataset from the hub that already contains images and prompts - for example XXX. Now all you have to do
-  is
+  You choose a dataset from the hub that already contains images and prompts - for example [LinoyTsaban/3d_icon](https://huggingface.co/datasets/LinoyTsaban/3d_icon). Now all you have to do
+  is specify the name of the dataset and the name of the caption column (in this case it's "prompt") in your training arguments: 
 
 ```
 
---dataset_name= 
---caption_column=
+--dataset_name=LinoyTsaban/3d_icon
+--caption_column=prompt
 
 ```
 
