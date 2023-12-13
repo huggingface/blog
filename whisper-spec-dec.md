@@ -38,7 +38,7 @@ In the diagram below, the assistant model generates a sequence of 5 candidate to
     <video
         style="max-width: 70%; margin: auto;"
         controls playsinline
-        src="https://huggingface.co/datasets/sanchit-gandhi/notebook-figures/resolve/main/speculative-decoding/granular/split_1.mp4"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-spec-dec/split_1.mp4"
     ></video>
 </figure>
 
@@ -51,7 +51,7 @@ token for each step in the token sequence \\( \boldsymbol{y}_{1:N} \\).
     <video
         style="max-width: 70%; margin: auto;"
         controls playsinline
-        src="https://huggingface.co/datasets/sanchit-gandhi/notebook-figures/resolve/main/speculative-decoding/granular/split_2.mp4"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-spec-dec/split_2.mp4"
     ></video>
 </figure>
 
@@ -70,7 +70,7 @@ now forms the new input to the assistant model:
     <video
         style="max-width: 70%; margin: auto;"
         controls playsinline
-        src="https://huggingface.co/datasets/sanchit-gandhi/notebook-figures/resolve/main/speculative-decoding/granular/split_3.mp4"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-spec-dec/split_3.mp4"
     ></video>
 </figure>
 
@@ -81,7 +81,7 @@ in a single forward pass by the main model.
     <video
         style="max-width: 70%; margin: auto;"
         controls playsinline
-        src="https://huggingface.co/datasets/sanchit-gandhi/notebook-figures/resolve/main/speculative-decoding/granular/split_4.mp4"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-spec-dec/split_4.mp4"
     ></video>
 </figure>
 
@@ -185,11 +185,11 @@ print(all_time)
 
 **Output:**
 ```
-100%|██████████| 73/73 [01:39<00:00,  1.36s/it]
-74.74848413467407
+100%|██████████| 73/73 [01:37<00:00,  1.33s/it]
+72.99542546272278
 ```
 
-Alright! We see that transcribing the 73 samples took 75 seconds. Let's check the WER of the predictions:
+Alright! We see that transcribing the 73 samples took 73 seconds. Let's check the WER of the predictions:
 
 ```python
 from evaluate import load
@@ -198,7 +198,7 @@ wer = load("wer")
 print(wer.compute(predictions=predictions, references=references))
 ```
 
-Our final baseline number is 75 seconds for a WER of 3.5%.
+Our final baseline number is 73 seconds for a WER of 3.5%.
 
 ### Speculative Decoding
 
@@ -270,11 +270,11 @@ print(all_time)
 
 **Outputs:**
 ```
-100%|██████████| 73/73 [00:39<00:00,  1.87it/s]
-33.08496379852295
+100%|██████████| 73/73 [00:38<00:00,  1.88it/s]
+32.69683289527893
 ```
 
-With speculative decoding, the inference time was just 33 seconds, 2.3x faster than before! Let's verify we have the same 
+With speculative decoding, the inference time was just 33 seconds, 2.2x faster than before! Let's verify we have the same 
 WER:
 
 ```python
@@ -325,8 +325,9 @@ It combines the stages of inference covered in this notebook into a single code 
 
 Distil-Whisper is the perfect assistant model for English speech transcription, since it performs to within 1% WER of the 
 original Whisper model, while being 6x faster over short and long-form audio samples. However, the official Distil-Whisper 
-checkpoints are English only, meaning they cannot be used for multilingual speech transcription. To use speculative decoding 
-for multilingual speech transcription, one could either use on of the [official multilingual Whisper checkpoints](https://huggingface.co/openai/whisper-large-v2#model-details), 
+checkpoints are English only, meaning they cannot be used for multilingual speech transcription. 
+
+To use speculative decoding for multilingual speech transcription, one could either use on of the [official multilingual Whisper checkpoints](https://huggingface.co/openai/whisper-large-v2#model-details), 
 or a fine-tuned variant of Whisper. As of the time of writing, there are over 5,000 [fine-tuned Whisper checkpoints](https://huggingface.co/models?other=whisper) 
 on the Hugging Face Hub in over 100 languages. These provide an excellent starting point for selecting assistant Whisper 
 checkpoints that perform very well on a single language. In this example, we'll use the smallest official multilingual 
@@ -350,7 +351,7 @@ assistant_model = AutoModelForSpeechSeq2Seq.from_pretrained(
 assistant_model.to(device);
 ```
 
-For our benchmarking dataset, we'll load 73 samples from the Dutch (nl) split of the [VoxPopuli](https://huggingface.co/datasets/facebook/voxpopuli) dataset:
+For our benchmarking dataset, we'll load 73 samples from the Dutch ("nl") split of the [VoxPopuli](https://huggingface.co/datasets/facebook/voxpopuli) dataset:
 
 ```python
 dataset = load_dataset("sanchit-gandhi/voxpopuli_dummy", "nl", split="validation")
@@ -383,12 +384,12 @@ print("WER:", wer_result)
 ```
 **Outputs:**
 ```
-100%|██████████| 73/73 [01:43<00:00,  1.42s/it]
-Time: 96.98837161064148
+100%|██████████| 73/73 [02:05<00:00,  1.72s/it]
+Time: 116.50992178916931
 WER: 0.127190136275146
 ```
 
-Right! We have our baseline time of 97 seconds and a WER of 12.8%. Let's re-run the generation process using speculative decoding:
+Right! We have our baseline time of 117 seconds and a WER of 12.8%. Let's re-run the generation process using speculative decoding:
 
 ```python
 all_time = 0
@@ -412,12 +413,12 @@ print("WER:", wer_result)
 ```
 **Outputs:**
 ```
-100%|██████████| 73/73 [01:09<00:00,  1.05it/s]
-Time: 63.14073038101196
+100%|██████████| 73/73 [01:08<00:00,  1.06it/s]
+Time: 62.10229682922363
 WER: 0.127190136275146
 ```
 
-Again, we achieve 12.8% WER, but this time in just 63 seconds of inference time, representing a speed-up of 1.5x.
+Again, we achieve 12.8% WER, but this time in just 62 seconds of inference time, representing a speed-up of 1.9x.
 Given the low overhead of loading the assistant model and the mathematical property that exactly the same outputs are 
 achieved, speculative decoding offers the perfect drop-in replacement to existing Whisper pipelines.
 
@@ -431,8 +432,8 @@ Our objective is to select an assistant model that is both fast **and** maintain
 main model. If you have a particular language in which you want to transcribe, an effective strategy is to train two 
 Whisper models of different sizes, and use one as the assistant to the other:
 
-* First, fine-tune Whisper [large-v2](https://huggingface.co/openai/whisper-large-v2) to act as your main model
-* Second, distil Whisper [large-v2](https://huggingface.co/openai/whisper-large-v2) on the same dataset to act as a fast assistant model
+* First, fine-tune Whisper [large-v3](https://huggingface.co/openai/whisper-large-v3) to act as your main model
+* Second, distil Whisper [large-v3](https://huggingface.co/openai/whisper-large-v3) on the same dataset to act as a fast assistant model
 
 Fine-tuning and distillation can improve the WER performance of both the main and assistant model on your chosen language, 
 while maximising the alignment in the token distributions. A complete guide to Whisper fine-tuning can be found 
