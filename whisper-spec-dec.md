@@ -1,6 +1,6 @@
 ---
 title: "Speculative Decoding for 2x Faster Whisper Inference" 
-thumbnail: TODO
+thumbnail: /blog/assets/whisper-spec-dec/thumbnail.png
 authors:
 - user: sanchit-gandhi
 ---
