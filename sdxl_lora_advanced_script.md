@@ -71,7 +71,7 @@ In our new training script, you can do textual inversion training by providing t
 --adam_weight_decay_text_encoder
 ```
 
-* `train_text_encoder_ti` activates the training the embeddings of new concepts
+* `train_text_encoder_ti` activates training the embeddings of new concepts
 * `train_text_encoder_ti_frac` and tells us when to stop optimizing such new concepts. Pivoting halfway is the default
   value in the cog sdxl example and we have seen good results with it. We encourage experimentation here.
 * `token_abstraction` lets you choose a word to use in your instance prompt, validation prompt or custom captions to
