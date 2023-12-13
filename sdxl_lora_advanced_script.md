@@ -135,7 +135,7 @@ images[0]
 **Comfy UI / AUTOMATIC1111 Inference:**
 The new script fully supports textual inversion loading with Comfy UI and AUTOMATIC1111 formats!
 <h3>AUTOMATIC1111 / SD.Next</h3>
-For AUTOMATIC1111/SD.Next we will load a LoRA and a textual embedding at the same time. For that you can download your `embeddings.safetensors` file from a trained model, rename it (to for example `y2k_emb.safetensors` and include it in your `embeddings` directory. You can also download `diffusers_lora_weights.safetensors` rename it (to for example `y2k.safetensors`) and include it in your `models/lora` directory. 
+For AUTOMATIC1111/SD.Next we will load a LoRA and a textual embedding at the same time. For that you can download your `embeddings.safetensors` file from a trained model, rename it (to for example `y2k_emb.safetensors` and include it in your `embeddings` directory. You can also download `diffusers_lora_weights.safetensors`, rename it (to for example `y2k.safetensors`) and include it in your `models/lora` directory. 
 
 You can then inference by prompting `a y2k_emb webpage about the movie Mean Girls <lora:y2k:0.9>`. You can use the `y2k_emb` token normally, including increasing its weight by doing `(y2k_emb:1.2)`. 
 
