@@ -9,7 +9,7 @@
 
 We combined the Pivotal Tuning technique used on Replicate's SDXL Cog trainer with the Prodigy optimizer used in the
 Kohya trainer (plus a bunch of other optimizations) to achieve very good results on training a Dreambooth LoRA for SDXL.
-[Check out the training script on diffusers]()🧨. [Try it out on Colab]().
+[Check out the training script on diffusers]()🧨. [Try it out on Colab](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/SDXL_Dreambooth_LoRA_advanced_example.ipynb).
 
 If you want to skip the technical talk, you can use all the techniques in this blog
 and [train on Hugging Face Spaces with a simple UI]() and curated parameters (that you can meddle with).
@@ -251,7 +251,7 @@ containing both the images and the corresponding caption for each image.
 ```
 
 * _Option 2_:
-  You wish to use your own images and add captions to them. In that case, you can use [this colab notebook]() to
+  You wish to use your own images and add captions to them. In that case, you can use [this colab notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/SDXL_Dreambooth_LoRA_advanced_example.ipynb) to
   automatically caption the images with BLIP, or you can manually create the captions in a metadata file. Then you
   follow up the same way, by specifying `--dataset_name` with your folder path, and `--caption_column` with the column
   name for the captions
