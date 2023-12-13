@@ -260,7 +260,7 @@ containing both the images and the corresponding caption for each image.
   name for the captions
 
 * <h3>Min SNR Gamma</h3>
-  Training diffusion models often suffer from slow convergence, partly due to conflicting optimization directions
+  Training diffusion models often suffers from slow convergence, partly due to conflicting optimization directions
   between timesteps. [Hang et al.](https://arxiv.org/abs/2303.09556) found a way to mitigate this issue by introducing
   the simple Min-SNR-gamma approach. This method adapts loss weights of timesteps based on clamped signal-to-noise
   ratios, which effectively balances the conflicts among timesteps.
