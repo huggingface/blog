@@ -450,7 +450,7 @@ while maximising the alignment in the token distributions. A complete guide to W
 
 It is worth noting that the largest speed gains with speculative decoding come with a batch size of 1. For batched 
 speculative decoding, all candidate tokens **across the batch** must match the validation tokens in order for the tokens 
-to be accepted. If a token in the batch at a given position does not agree, all candidate tokens that precede the position 
+to be accepted. If a token in the batch at a given position does not agree, all candidate tokens that proceed the position 
 are discarded. Consequently, speculative decoding favours lower batch sizes. In practice, we find that speculative decoding 
 provides a speed-up until a batch size of 4. Above batch size 4, speculative decoding returns slower inference than the 
 main model alone. For full results, refer to Section D.3 of the [Distil-Whisper paper](https://arxiv.org/pdf/2311.00430.pdf).
