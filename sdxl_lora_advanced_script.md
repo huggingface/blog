@@ -194,7 +194,7 @@ There are additional hyper-parameters you can adjust when training with prodigy
 (like- `--prodigy_beta3`, `prodigy_decouple`, `prodigy_safeguard_warmup`), we will not delve into those in this post,
 but you can learn more about them [here](https://github.com/konstmish/prodigy).
 
-<h2>More Popular Practices</h2>
+<h2>Additional Good Practices</h2>
 
 Besides pivotal tuning and adaptive optimizers, here are some additional techniques that can impact the quality of your
 trained LoRA, all of them have been incorporated into the new diffusers training script.
