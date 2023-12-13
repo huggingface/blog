@@ -126,7 +126,7 @@ images = pipe(
     prompt,
     cross_attention_kwargs={"scale": 0.8},
 ).images
-#your output image
+# your output image
 images[0]
 ```
 ![astronaut_web_y2k](.\assets\dreambooth_lora_sdxl\web_y2k_astronaut.png)
