@@ -206,7 +206,7 @@ trained LoRA, all of them have been incorporated into the new diffusers training
   the text encoder as it tends to overfit _faster_.
     * The importance of different unet and text encoder learning rates is evident when performing pivotal tuning as
       well- in this case, setting a higher learning rate for the text encoder is perceived to be better.
-    * Notice, however, that when using Prodigy (or adaptive optimizers in general) - we start with an identical initial
+    * Notice, however, that when using Prodigy (or adaptive optimizers in general) we start with an identical initial
       learning rate for all trained parameters, and let the optimizer work it's magic ✨
 
 **Training**
