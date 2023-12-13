@@ -5,7 +5,7 @@
 ## A community derived guide to some of the SOTA practices for SD-XL Dreambooth LoRA fine tuning
 
 
-### l;dr
+### TL;DR
 
 We combined the Pivotal Tuning technique used on Replicate's SDXL Cog trainer with the Prodigy optimizer used in the
 Kohya trainer (plus a bunch of other optimizations) to achieve very good results on training a Dreambooth LoRA for SDXL.
@@ -45,7 +45,7 @@ contributions by [Simo Ryu](https://twitter.com/cloneofsimo), [cog-sdxl](https:/
 [Kohya](https://twitter.com/kohya_tech/): [sd-scripts](https://github.com/kohya-ss/sd-scripts), [The Last Ben](https://twitter.com/__TheBen): [fast-stable-diffusion](https://github.com/TheLastBen/fast-stable-diffusion). Our most sincere gratitude to them and the rest of the community! 🙌 
 
 
-## Pivotal Tuning
+### Pivotal Tuning
 
 [Pivotal Tuning](https://arxiv.org/abs/2106.05744) is a method that combines Textual Inversion with regular diffusion fine-tuning. For Dreambooth, it is
 customary that you provide a rare token to be your trigger word, say "an sks dog", however, those tokens usually have
@@ -137,7 +137,7 @@ For AUTOMATIC1111/SD.Next we will load a LoRA and a textual embedding at the sam
 
 You can then inference by prompting `a y2k_emb webpage about the movie Mean Girls <lora:y2k:0.9>`. You can use the `y2k_emb` token normally, including increasing its weight by doing `(y2k_emb:1.2)`. 
 
-<h3>ComfyUI</h3>
+### ComfyUI
 For ComfyUI you will include your the trained `embeddings.safetensors` in the `models/embeddings` folder, rename it (to for example `y2k_emb.safetensors`) and use it in your prompts like `embedding:y2k_emb`. [Official guide for loading embeddings](https://comfyanonymous.github.io/ComfyUI_examples/textual_inversion_embeddings/). 
 
 For the LoRA, you will include your trained `diffusers_lora_weights.safetensors` rename it (to for example `y2k.safetensors`) and include it in your `models/lora` directory. Then you will load the LoRALoader node and hook that up with your model and CLIP. [Official guide for loading LoRAs](https://comfyanonymous.github.io/ComfyUI_examples/lora/)
@@ -145,7 +145,7 @@ For the LoRA, you will include your trained `diffusers_lora_weights.safetensors`
 
 ```
 
-## Adaptive Optimizers
+### Adaptive Optimizers
 
 ![optimization_gif](.\assets\dreambooth_lora_sdxl\optimization_gif.gif)
 
@@ -437,7 +437,7 @@ Specifically we used the following arguments in both versions (and added `snr_ga
 ``` 
 
 
-#### Y2K Webpage LoRA ####
+**Y2K Webpage LoRA** 
 Let's explore another example, this time training on a dataset composed of 27 screenshots of webpages from the 1990s 
 and early 2000s that we (nostalgically) scraped from the internet.
 
@@ -460,7 +460,7 @@ Configurations:
 ```
 `*assets- Web Y2K*`
 
-Face LoRA
+**Face LoRA**
 * Linoy face Datasets 
   * v1 - 7 close up photos taken at the same time 
   * v1.5 - 16 close up photos taken at different occasions (changing backgrounds, lighting and outfits)
