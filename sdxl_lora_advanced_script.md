@@ -73,7 +73,7 @@ In our new training script, you can do textual inversion training by providing t
 
 * `train_text_encoder_ti` activates the training the embeddings of new concepts
 * `train_text_encoder_ti_frac` and tells us when to stop optimizing such new concepts. Pivoting halfway is the default
-  value in the cog sdxl example and we have seen good results with it. We encourage experimentation here.`
+  value in the cog sdxl example and we have seen good results with it. We encourage experimentation here.
 * `token_abstraction` lets you choose a word to use in your instance prompt, validation prompt or custom captions to
   represent the new tokens being trained. Here we chose TOK. So, for example, "a photo of a TOK" as an instance prompt
   would then insert the newly trained tokens in place of TOK`
