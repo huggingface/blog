@@ -141,9 +141,6 @@ You can then inference by prompting `a y2k_emb webpage about the movie Mean Girl
 For ComfyUI you will include your the trained `embeddings.safetensors` in the `models/embeddings` folder, rename it (to for example `y2k_emb.safetensors`) and use it in your prompts like `embedding:y2k_emb`. [Official guide for loading embeddings](https://comfyanonymous.github.io/ComfyUI_examples/textual_inversion_embeddings/). 
 
 For the LoRA, you will include your trained `diffusers_lora_weights.safetensors` rename it (to for example `y2k.safetensors`) and include it in your `models/lora` directory. Then you will load the LoRALoader node and hook that up with your model and CLIP. [Official guide for loading LoRAs](https://comfyanonymous.github.io/ComfyUI_examples/lora/)
-```
-
-```
 
 ## Adaptive Optimizers
 
