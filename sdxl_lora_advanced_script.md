@@ -2,11 +2,10 @@
 </h1>
 
 
-<h2>A community derived guide to some of the SOTA practices for SD-XL Dreambooth LoRA fine tuning
-</h2>
+## A community derived guide to some of the SOTA practices for SD-XL Dreambooth LoRA fine tuning
 
-<h3>tl;dr
-</h3>
+
+### l;dr
 
 We combined the Pivotal Tuning technique used on Replicate's SDXL Cog trainer with the Prodigy optimizer used in the
 Kohya trainer (plus a bunch of other optimizations) to achieve very good results on training a Dreambooth LoRA for SDXL.
@@ -15,8 +14,7 @@ Kohya trainer (plus a bunch of other optimizations) to achieve very good results
 If you want to skip the technical talk, you can use all the techniques in this blog
 and [train on Hugging Face Spaces with a simple UI]() and curated parameters (that you can meddle with).
 
-<h3>Overview
-</h3>
+### Overview
 
 Stable Diffusion XL (SDXL) models fine-tuned with LoRA dreambooth achieve incredible results at capturing new concepts using only a
 handful of images, while simultaneously maintaining the aesthetic and image quality of SDXL and requiring relatively
@@ -47,7 +45,7 @@ contributions by [Simo Ryu](https://twitter.com/cloneofsimo), [cog-sdxl](https:/
 [Kohya](https://twitter.com/kohya_tech/): [sd-scripts](https://github.com/kohya-ss/sd-scripts), [The Last Ben](https://twitter.com/__TheBen): [fast-stable-diffusion](https://github.com/TheLastBen/fast-stable-diffusion). Our most sincere gratitude to them and the rest of the community! 🙌 
 
 
-<h2>Pivotal Tuning</h2>
+## Pivotal Tuning
 
 [Pivotal Tuning](https://arxiv.org/abs/2106.05744) is a method that combines Textual Inversion with regular diffusion fine-tuning. For Dreambooth, it is
 customary that you provide a rare token to be your trigger word, say "an sks dog", however, those tokens usually have
@@ -147,7 +145,7 @@ For the LoRA, you will include your trained `diffusers_lora_weights.safetensors`
 
 ```
 
-<h2>Adaptive Optimizers</h2>
+## Adaptive Optimizers
 
 ![optimization_gif](.\assets\dreambooth_lora_sdxl\optimization_gif.gif)
 
@@ -194,12 +192,12 @@ There are additional hyper-parameters you can adjust when training with prodigy
 (like- `--prodigy_beta3`, `prodigy_decouple`, `prodigy_safeguard_warmup`), we will not delve into those in this post,
 but you can learn more about them [here](https://github.com/konstmish/prodigy).
 
-<h2>Additional Good Practices</h2>
+## Additional Good Practices
 
 Besides pivotal tuning and adaptive optimizers, here are some additional techniques that can impact the quality of your
 trained LoRA, all of them have been incorporated into the new diffusers training script.
 
-* <h3>separate learning rate for text-encoder and unet</h3>
+* ### separate learning rate for text-encoder and unet
 
   When optimizing the text encoder, it's been perceived by the community that setting different learning rates for it (
   versus the learning rate of the Unet) can lead to better quality results - specifically a **lower** learning rate for
@@ -223,7 +221,7 @@ If you wish the text encoder lr to always match --learning_rate, set --text_enco
 
 ```
 
-* <h3>Custom Captioning</h3>
+* ### Custom Captioning
 
   While it is possible to achieve good results by training on a set of images all captioned with the same instance
   prompt, e.g. "photo of a <token> person" or "in the style of <token>" etc, using the same caption may lead to
@@ -258,7 +256,7 @@ containing both the images and the corresponding caption for each image.
   follow up the same way, by specifying `--dataset_name` with your folder path, and `--caption_column` with the column
   name for the captions
 
-* <h3>Min SNR Gamma</h3>
+* ### Min SNR Gamma
   Training diffusion models often suffers from slow convergence, partly due to conflicting optimization directions
   between timesteps. [Hang et al.](https://arxiv.org/abs/2303.09556) found a way to mitigate this issue by introducing
   the simple Min-SNR-gamma approach. This method adapts loss weights of timesteps based on clamped signal-to-noise
@@ -279,7 +277,7 @@ To use min snr gamma, set a value for:
 
 By default `--snr_gamma=None`, I.e. not used. When enabling `--snr_gamma`, the recommended value is 5.0.
 
-* <h3>Repeats</h3>
+* ### Repeats
   This argument refers to the number of times an image from your dataset is repeated in the training set. This differs
   from epochs in that first the images are repeated, and only then shuffled.
 ![meme](.\assets\dreambooth_lora_sdxl\snr_gamma_effect.png)
@@ -293,7 +291,7 @@ To enable repeats simply set an integer value > 1 as your repeats count-
 
 By default, --repeats=1, i.e. training set is not repeated
 
-* <h3>Training Set Creation</h3>
+* ### Training Set Creation
     * As the popular saying goes - “Garbage in - garbage out” Training a good Dreambooth LoRA can be done easily using
       only a handful of images, but the quality of these images is very impactful on the fine tuned model.
 
@@ -344,14 +342,14 @@ By default, --repeats=1, i.e. training set is not repeated
 `—-num_class_images` - Minimal class images for prior preservation loss. If there are not enough images already present
 in --class_data_dir, additional images will be sampled with -class_prompt
 
-<h3> Experiments Settings and Results </h3> 
+### Experiments Settings and Results 
 To explore the described methods, we experimented with different combinations of these techniques on 
 different objectives (style tuning, faces and objects). 
 
 In order to narrow down the infinite amount of hyperparameters values, we used some of the more popular and common 
 configurations as starting points and tweaked our way from there. 
 
-<h4> Huggy Dreambooth LoRA </h4> 
+#### Huggy Dreambooth LoRA
 First, we were interested in fine-tuning a huggy LoRA which means 
 both teaching an artistic style, and a specific character at the same time. 
 For this example, we curated a high quality Huggy mascot dataset (using Chunte-Lee’s amazing artwork) containing 31 
@@ -439,7 +437,7 @@ Specifically we used the following arguments in both versions (and added `snr_ga
 ``` 
 
 
-<h4> Y2K Webpage LoRA </h4> 
+#### Y2K Webpage LoRA ####
 Let's explore another example, this time training on a dataset composed of 27 screenshots of webpages from the 1990s 
 and early 2000s that we (nostalgically) scraped from the internet.
 
@@ -479,7 +477,7 @@ max_train_steps = 1000, 1500
 text_encoder_training = regular finetuning, pivotal tuning
 ```
 
-<h3> What’s next? </h3> 
+### What’s next?
 
 🚀 More features coming soon!
 We are working on adding even more control and flexibility to our advanced training script. Let us know what features
