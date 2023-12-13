@@ -85,7 +85,7 @@ In our new training script, you can do textual inversion training by providing t
 **Inference**
 
 When doing pivotal tuning, besides the `*.safetensors` weights of your LoRA, you also get the `*.safetensors` embeddings
-for the new tokens. In order to do inference with those we add 2 steps to how we would load normally where we:
+for the new tokens. In order to do inference with those we add 2 steps to how we would normally load a LoRA:
 
 1. Download our trained embeddings from the hub
 
