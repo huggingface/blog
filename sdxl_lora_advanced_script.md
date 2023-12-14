@@ -194,7 +194,7 @@ but you can learn more about them [here](https://github.com/konstmish/prodigy).
 Besides pivotal tuning and adaptive optimizers, here are some additional techniques that can impact the quality of your
 trained LoRA, all of them have been incorporated into the new diffusers training script.
 
-* ### separate learning rate for text-encoder and unet
+### separate learning rate for text-encoder and unet
 
   When optimizing the text encoder, it's been perceived by the community that setting different learning rates for it (
   versus the learning rate of the Unet) can lead to better quality results - specifically a **lower** learning rate for
@@ -218,7 +218,7 @@ If you wish the text encoder lr to always match --learning_rate, set --text_enco
 
 ```
 
-* ### Custom Captioning
+### Custom Captioning
 
   While it is possible to achieve good results by training on a set of images all captioned with the same instance
   prompt, e.g. "photo of a <token> person" or "in the style of <token>" etc, using the same caption may lead to
@@ -253,7 +253,7 @@ containing both the images and the corresponding caption for each image.
   follow up the same way, by specifying `--dataset_name` with your folder path, and `--caption_column` with the column
   name for the captions
 
-* ### Min SNR Gamma weighting
+### Min SNR Gamma weighting
   Training diffusion models often suffers from slow convergence, partly due to conflicting optimization directions
   between timesteps. [Hang et al.](https://arxiv.org/abs/2303.09556) found a way to mitigate this issue by introducing
   the simple Min-SNR-gamma approach. This method adapts loss weights of timesteps based on clamped signal-to-noise
@@ -288,49 +288,50 @@ To enable repeats simply set an integer value > 1 as your repeats count-
 
 By default, --repeats=1, i.e. training set is not repeated
 
-* ### Training Set Creation
-    * As the popular saying goes - “Garbage in - garbage out” Training a good Dreambooth LoRA can be done easily using
-      only a handful of images, but the quality of these images is very impactful on the fine tuned model.
+### Training Set Creation
+* As the popular saying goes - “Garbage in - garbage out” Training a good Dreambooth LoRA can be done easily using
+  only a handful of images, but the quality of these images is very impactful on the fine tuned model.
 
-    * Generally, when fine-tuning on an object/subject, we want to make sure the training set contains images that
-      portray the object/subject in as many distinct ways we would want to prompt for it as possible.
-    * For example, if my concept is this red backpack: (available
-      in [google/dreambooth](https://huggingface.co/datasets/google/dreambooth) dataset)
-    ![backpack_01](.\assets\dreambooth_lora_sdxl\dreambooth_backpack_01.jpg)
-    * I would likely want to prompt it worn by people as well, so having examples like this: 
-    ![backpack_02](.\assets\dreambooth_lora_sdxl\dreambooth_backpack_02.jpg)
-    in the training set - that fits that scenario - will likely make it easier for the model to generalize to that 
-      setting/composition during inference.
+* Generally, when fine-tuning on an object/subject, we want to make sure the training set contains images that
+  portray the object/subject in as many distinct ways we would want to prompt for it as possible.
+* For example, if my concept is this red backpack: (available
+  in [google/dreambooth](https://huggingface.co/datasets/google/dreambooth) dataset)
+![backpack_01](.\assets\dreambooth_lora_sdxl\dreambooth_backpack_01.jpg)
+* I would likely want to prompt it worn by people as well, so having examples like this: 
+![backpack_02](.\assets\dreambooth_lora_sdxl\dreambooth_backpack_02.jpg)
+in the training set - that fits that scenario - will likely make it easier for the model to generalize to that 
+  setting/composition during inference.
 
-  _Specifically_ when training on _faces_, you might want to keep in mind the following things regarding your dataset:
 
-    1. If possible, always choose **high resolution, high quality** images. Blurry or low resolution images can harm the
-       tuning process.
+_Specifically_ when training on _faces_, you might want to keep in mind the following things regarding your dataset:
 
-    2. When training on faces, it is recommended that no other faces appear in the training set as we don't want to
-       create an ambiguous notion of what is the face we're training on.
-    3. **Close-up photos** are important to achieve realism, however good full-body shots should also be included to
-       improve the ability to generalize to different poses/compositions.
-    4. We recommend **avoiding photos where the subject is far away**, as most pixels in such images are not related to
-       the concept we wish to optimize on, there's not much for the model to learn from these.
-    5. Avoid repeating backgrounds/clothing/poses - aim for **variety** in terms of lighting, poses, backgrounds, and
-       facial expressions. The greater the diversity, the more flexible and generalizable the LoRA would be.
-    6. **Prior preservation loss** -  
-       Prior preservation loss is a method that uses a 
-       model’s own generated samples to help 
-       it learn how to generate more diverse images. 
-       Because these sample images belong to the same class as 
-       the images you provided, they help the model retain what it has learned about 
-       the class and how it can use what it already knows about the class to make new 
-       compositions.
-       **_real images for regularization VS model generated ones_** \
-       When choosing class images, you can decide between synthetic ones (i.e. generated by the diffusion model) and
-       real ones. In favor of using real images, we can argue they improve the fine-tuned model's realism. On the other
-       hand, some will argue that using model generated images better serves the purpose of preserving the models <em>
-       knowledge </em>of the class and general aesthetics.</code></strong>
-    7. **Celebrity lookalike** - this is more a comment on the captioning/instance prompt used to train. Some fine
-       tuners experienced improvements in their results when prompting with a token identifier + a public person that
-       the base model knows about that resembles the person they trained on.
+1. If possible, always choose **high resolution, high quality** images. Blurry or low resolution images can harm the
+   tuning process.
+
+2. When training on faces, it is recommended that no other faces appear in the training set as we don't want to
+   create an ambiguous notion of what is the face we're training on.
+3. **Close-up photos** are important to achieve realism, however good full-body shots should also be included to
+   improve the ability to generalize to different poses/compositions.
+4. We recommend **avoiding photos where the subject is far away**, as most pixels in such images are not related to
+   the concept we wish to optimize on, there's not much for the model to learn from these.
+5. Avoid repeating backgrounds/clothing/poses - aim for **variety** in terms of lighting, poses, backgrounds, and
+   facial expressions. The greater the diversity, the more flexible and generalizable the LoRA would be.
+6. **Prior preservation loss** -  
+   Prior preservation loss is a method that uses a 
+   model’s own generated samples to help 
+   it learn how to generate more diverse images. 
+   Because these sample images belong to the same class as 
+   the images you provided, they help the model retain what it has learned about 
+   the class and how it can use what it already knows about the class to make new 
+   compositions.
+   **_real images for regularization VS model generated ones_** \
+   When choosing class images, you can decide between synthetic ones (i.e. generated by the diffusion model) and
+   real ones. In favor of using real images, we can argue they improve the fine-tuned model's realism. On the other
+   hand, some will argue that using model generated images better serves the purpose of preserving the models <em>
+   knowledge </em>of the class and general aesthetics.</code></strong>
+7. **Celebrity lookalike** - this is more a comment on the captioning/instance prompt used to train. Some fine
+   tuners experienced improvements in their results when prompting with a token identifier + a public person that
+   the base model knows about that resembles the person they trained on.
 
 **Training** with prior preservation loss
 
