@@ -1116,3 +1116,14 @@
     - stable diffusion
     - guide
     - hub
+
+- local: moe
+  title: "混合专家模型（MoE）详解"
+  author: osanseviero
+  thumbnail: /blog/assets/moe/thumbnail.png
+  date: December 11, 2023
+  tags:
+    - moe
+    - nlp
+    - llm
+    - guide
