@@ -34,6 +34,9 @@ Among the features and integrations being released today, we have:
   - [Using 🤗 Transformers](#using-🤗-transformers)
   - [Using Text Generation Inference](#using-text-generation-inference)
 - [Fine-tuning with 🤗 TRL](#fine-tuning-with-🤗-trl)
+- [Quantizing Mixtral](#quantizing-mixtral)
+  - [Load Mixtral with 4-bit quantization](#load-mixtral-with-4-bit-quantization)
+  - [Load Mixtral with GPTQ](#load-mixtral-with-gptq)
 - [Disclaimers and ongoing work](#disclaimers-and-ongoing-work)
 - [Additional Resources](#additional-resources)
 - [Conclusion](#conclusion)
@@ -216,15 +219,15 @@ accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num
 
 This takes about 48 hours to train on a single A100, but can be easily parallelised by tweaking `--num_processes` to the number of GPUs you have available.
 
-## Quantizing Mixtral-7B
+## Quantizing Mixtral
 
 As seen above, the challenge for this model is to make it run on consumer-type hardware for anyone to use it, as the model requires ~90GB just to be loaded in half-precision (`torch.float16`).
 
 With the 🤗 transformers library, we support out-of-the-box inference with state-of-the-art quantization methods such as QLoRA and GPTQ. You can read more about the quantization methods we support in the [appropriate documentation section](https://huggingface.co/docs/transformers/quantization). 
 
-### Load Mixtral with QLoRA
+### Load Mixtral with 4-bit quantization
 
-As demonstrated in the inference section, you can load Mixtral with 4-bit quantization by installing `bitsandbytes` library `pip install -U bitsandbytes` and passing the flag `load_in_4bit=True` to the `from_pretrained` method. For better performance, we advise users to load the model with `bnb_4bit_compute_dtype=torch.float16`. Note you need a GPU device with at least 24GB VRAM to properly run the snippet below.
+As demonstrated in the inference section, you can load Mixtral with 4-bit quantization by installing the `bitsandbytes` library (`pip install -U bitsandbytes`) and passing the flag `load_in_4bit=True` to the `from_pretrained` method. For better performance, we advise users to load the model with `bnb_4bit_compute_dtype=torch.float16`. Note you need a GPU device with at least 30GB VRAM to properly run the snippet below.
 
 ```python
 import torch
@@ -246,13 +249,13 @@ output = model.generate(**inputs, max_new_tokens=50)
 print(tokenizer.decode(output[0], skip_special_tokens=True))
 ```
 
-Read more about QLoRA in the bitsandbytes 4-bit quantization section of the documentation [here](https://huggingface.co/docs/transformers/quantization#4-bit)
+This 4-bit quantization technique was introduced in the [QLoRA paper](https://huggingface.co/papers/2305.14314), you can read more about it in the corresponding section of [the documentation](https://huggingface.co/docs/transformers/quantization#4-bit) or in [this post](https://huggingface.co/blog/4bit-transformers-bitsandbytes).
 
 ### Load Mixtral with GPTQ
 
-GPTQ algorithm is a post-training quantization technique where each row of the weight matrix is quantized independently to find a version of the weights that minimizes the error. These weights are quantized to int4, but they’re restored to fp16 on the fly during inference. In contrary to QLoRA, GPTQ needs the model to be calibrated with a dataset in order to be quantized. Already ready-to-use GPTQ models are shared on 🤗 Hub by [TheBloke](https://huggingface.co/TheBloke) for anyone to use these models without the need of calibrating them. 
+The GPTQ algorithm is a post-training quantization technique where each row of the weight matrix is quantized independently to find a version of the weights that minimizes the error. These weights are quantized to int4, but they’re restored to fp16 on the fly during inference. In contrast with 4-bit QLoRA, GPTQ needs the model to be calibrated with a dataset in order to be quantized. Ready-to-use GPTQ models are shared on the 🤗 Hub by [TheBloke](https://huggingface.co/TheBloke), so anyone can use them without having to calibrate them first.
 
-For Mixtral, we had to tweak the calibration approach by making sure we **do not** quantize the expert gating layers for better performance. The final perplexity (lower is better) of the quantized model is `4.40` vs `4.25` for the half-precision model. The quantized model can be found [here](https://huggingface.co/TheBloke/Mixtral-8x7B-v0.1-GPTQ) and to run it with 🤗 transformers you first need to update `auto-gptq` and `optimum` libraries:
+For Mixtral, we had to tweak the calibration approach by making sure we **do not** quantize the expert gating layers for better performance. The final perplexity (lower is better) of the quantized model is `4.40` vs `4.25` for the half-precision model. The quantized model can be found [here](https://huggingface.co/TheBloke/Mixtral-8x7B-v0.1-GPTQ), and to run it with 🤗 transformers you first need to update the `auto-gptq` and `optimum` libraries:
 
 ```bash
 pip install -U optimum auto-gptq
@@ -264,7 +267,7 @@ You also need to install transformers from source:
 pip install -U git+https://github.com/huggingface/transformers.git
 ```
 
-Once installed, simply load the GPTQ model with `from_pretrained` method:
+Once installed, simply load the GPTQ model with the `from_pretrained` method:
 
 ```python
 import torch
@@ -275,19 +278,19 @@ tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto")
 
-prompt = "[/INST] Explain what a Mixture of Experts is in less than 100 words. [/INST]"
+prompt = "[INST] Explain what a Mixture of Experts is in less than 100 words. [/INST]"
 inputs = tokenizer(prompt, return_tensors="pt").to(0)
 
 output = model.generate(**inputs, max_new_tokens=50)
 print(tokenizer.decode(output[0], skip_special_tokens=True))
 ```
 
-Note both for QLoRA and GPTQ you need to allocate at least 24GB GPU VRAM to fit the model and make sure inference runs properly.
+Note that for both QLoRA and GPTQ you need at least 30 GB of GPU VRAM to fit the model. You can make it work with 24 GB if you use `device_map="auto"`, like in the example above, so some layers are offloaded to CPU.
 
 
 ## Disclaimers and ongoing work
 
-- **Quantization**: Quantization of MoEs is an active area of research. Although TheBloke has done initial experiments to achieve 4-bit and 8-bit quantization, the model quality degrades significantly. It will be exciting to see the development in the coming days and weeks in this area. Additionally, recent work such as [QMoE](https://arxiv.org/abs/2310.16795), which achieves sub-1-bit quantization for MoEs, could be applied here.
+- **Quantization**: Quantization of MoEs is an active area of research. Some initial experiments we've done with TheBloke are shown above, but we expect more progress as this architecture is known better! It will be exciting to see the development in the coming days and weeks in this area. Additionally, recent work such as [QMoE](https://arxiv.org/abs/2310.16795), which achieves sub-1-bit quantization for MoEs, could be applied here.
 - **High VRAM usage**: MoEs run inference very quickly but still need a large amount of VRAM (and hence an expensive GPU). This makes it challenging to use it in local setups. MoEs are great for setups with many devices and large VRAM. Mixtral requires 90GB of VRAM in half-precision 🤯
 
 ## Additional Resources
