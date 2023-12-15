@@ -282,7 +282,7 @@ output = model.generate(**inputs, max_new_tokens=50)
 print(tokenizer.decode(output[0], skip_special_tokens=True))
 ```
 
-Note both for QLoRA and GPTQ you need to allocate at least 30GB GPU VRAM to fit the model and make sure inference runs properly.
+Note both for QLoRA and GPTQ you need to allocate at least 24GB GPU VRAM to fit the model and make sure inference runs properly.
 
 
 ## Disclaimers and ongoing work
