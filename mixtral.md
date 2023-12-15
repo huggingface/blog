@@ -220,11 +220,11 @@ This takes about 48 hours to train on a single A100, but can be easily paralleli
 
 As seen above, the challenge for this model is to make it run on consumer-type hardware for anyone to use it, as the model requires ~90GB just to be loaded in half-precision (`torch.float16`).
 
-With 🤗 transformers library we support out of the box inference with state-of-the-art quantization methods such as QLoRA, and GPTQ. You can read more about the quantization methods we support in the [appropriate documentation section](https://huggingface.co/docs/transformers/quantization). 
+With the 🤗 transformers library, we support out-of-the-box inference with state-of-the-art quantization methods such as QLoRA and GPTQ. You can read more about the quantization methods we support in the [appropriate documentation section](https://huggingface.co/docs/transformers/quantization). 
 
 ### Load Mixtral with QLoRA
 
-As demonstrated in the inference section, you can load Mixtral with QLoRA by installing `bitsandbytes` library `pip install -U bitsandbytes` and passing the flag `load_in_4bit=True` to from_pretrained method. For better performance, we advise users to load the model with `bnb_4bit_compute_dtype=torch.float16`. Note you need a GPU device with at least 24GB VRAM in order to properly run the snippet below.
+As demonstrated in the inference section, you can load Mixtral with 4-bit quantization by installing `bitsandbytes` library `pip install -U bitsandbytes` and passing the flag `load_in_4bit=True` to the `from_pretrained` method. For better performance, we advise users to load the model with `bnb_4bit_compute_dtype=torch.float16`. Note you need a GPU device with at least 24GB VRAM to properly run the snippet below.
 
 ```python
 import torch
