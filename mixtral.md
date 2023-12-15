@@ -216,6 +216,75 @@ accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num
 
 This takes about 48 hours to train on a single A100, but can be easily parallelised by tweaking `--num_processes` to the number of GPUs you have available.
 
+## Quantizing Mixtral-7B
+
+As seen above, the challenge for this model is to make it run on consumer-type hardware for anyone to use it, as the model requires ~90GB just to be loaded in half-precision (`torch.float16`).
+
+With 🤗 transformers library we support out of the box inference with state-of-the-art quantization methods such as QLoRA, and GPTQ. You can read more about the quantization methods we support in the [appropriate documentation section](https://huggingface.co/docs/transformers/quantization). 
+
+### Load Mixtral with QLoRA
+
+As demonstrated in the inference section, you can load Mixtral with QLoRA by installing `bitsandbytes` library `pip install -U bitsandbytes` and passing the flag `load_in_4bit=True` to from_pretrained method. For better performance, we advise users to load the model with `bnb_4bit_compute_dtype=torch.float16`. Note you need a GPU device with at least 24GB VRAM in order to properly run the snippet below.
+
+```python
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+
+model_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+
+quantization_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_compute_dtype=torch.float16
+)
+model = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=quantization_config)
+
+prompt = "USER: Explain what a Mixture of Experts is in less than 100 words. ASSISTANT:"
+inputs = tokenizer(prompt, return_tensors="pt").to(0)
+
+output = model.generate(**inputs, max_new_tokens=50)
+print(tokenizer.decode(output[0], skip_special_tokens=True))
+```
+
+Read more about QLoRA in the bitsandbytes 4-bit quantization section of the documentation [here](https://huggingface.co/docs/transformers/quantization#4-bit)
+
+### Load Mixtral with GPTQ
+
+GPTQ algorithm is a post-training quantization technique where each row of the weight matrix is quantized independently to find a version of the weights that minimizes the error. These weights are quantized to int4, but they’re restored to fp16 on the fly during inference. In contrary to QLoRA, GPTQ needs the model to be calibrated with a dataset in order to be quantized. Already ready-to-use GPTQ models are shared on 🤗 Hub by [TheBloke](https://huggingface.co/TheBloke) for anyone to use these models without the need of calibrating them. 
+
+For Mixtral, we had to tweak the calibration approach by making sure we **do not** quantize the expert gating layers for better performance. The final perplexity (lower is better) of the quantized model is `4.40` vs `4.25` for the half-precision model. The quantized model can be found [here](https://huggingface.co/TheBloke/Mixtral-8x7B-v0.1-GPTQ) and to run it with 🤗 transformers you first need to update `auto-gptq` and `optimum` libraries:
+
+```bash
+pip install -U optimum auto-gptq
+```
+
+You also need to install transformers from source:
+
+```bash
+pip install -U git+https://github.com/huggingface/transformers.git
+```
+
+Once installed, simply load the GPTQ model with `from_pretrained` method:
+
+```python
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+
+model_id = "TheBloke/Mixtral-8x7B-v0.1-GPTQ"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+
+model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto")
+
+prompt = "USER: Explain what a Mixture of Experts is in less than 100 words. ASSISTANT:"
+inputs = tokenizer(prompt, return_tensors="pt").to(0)
+
+output = model.generate(**inputs, max_new_tokens=50)
+print(tokenizer.decode(output[0], skip_special_tokens=True))
+```
+
+Note both for QLoRA and GPTQ you need to allocate at least 30GB GPU VRAM to fit the model and make sure inference runs properly.
+
+
 ## Disclaimers and ongoing work
 
 - **Quantization**: Quantization of MoEs is an active area of research. Although TheBloke has done initial experiments to achieve 4-bit and 8-bit quantization, the model quality degrades significantly. It will be exciting to see the development in the coming days and weeks in this area. Additionally, recent work such as [QMoE](https://arxiv.org/abs/2310.16795), which achieves sub-1-bit quantization for MoEs, could be applied here.
