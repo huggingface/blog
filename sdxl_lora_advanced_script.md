@@ -47,8 +47,8 @@ Contents:
 3. Inference
 
 **Acknowledgements** ❤️: 
-The techniques showcased in this guide – training scripts, experiments and explorations – were inspired and built upon the 
-contributions by [Simo Ryu](https://twitter.com/cloneofsimo), [cog-sdxl](https://github.com/replicate/cog-sdxl), 
+The techniques showcased in this guide – algorithms, training scripts, experiments and explorations – were inspired and built upon the 
+contributions by [Nataniel Ruiz](https://twitter.com/natanielruizg): [Dreambooth](https://dreambooth.github.io), [Simo Ryu](https://twitter.com/cloneofsimo): [cog-sdxl](https://github.com/replicate/cog-sdxl), 
 [Kohya](https://twitter.com/kohya_tech/): [sd-scripts](https://github.com/kohya-ss/sd-scripts), [The Last Ben](https://twitter.com/__TheBen): [fast-stable-diffusion](https://github.com/TheLastBen/fast-stable-diffusion). Our most sincere gratitude to them and the rest of the community! 🙌 
 
 
@@ -76,14 +76,20 @@ In our new training script, you can do textual inversion training by providing t
 --adam_weight_decay_text_encoder
 ```
 
-* `train_text_encoder_ti` activates training the embeddings of new concepts
-* `train_text_encoder_ti_frac` and tells us when to stop optimizing such new concepts. Pivoting halfway is the default
-  value in the cog sdxl example and we have seen good results with it. We encourage experimentation here.
-* `token_abstraction` lets you choose a word to use in your instance prompt, validation prompt or custom captions to
-  represent the new tokens being trained. Here we chose TOK. So, for example, "a photo of a TOK" as an instance prompt
-  would then insert the newly trained tokens in place of `TOK`
-* `num_new_tokens_per_abstraction` sets up how many new tokens to insert and train for each text encoder
-  of the model. The default is set to 2, but you can increase that for complex concepts.
+* `train_text_encoder_ti` enables training the embeddings of new concepts
+* `train_text_encoder_ti_frac` specifies when to stop the textual inversion (i.e. stop optimization of the textual embeddings and continue optimizing the unet only). 
+Pivoting halfway (i.e. performing textual inversion for the first half of the training epochs) 
+is the default value in the cog sdxl example and our experiments validate this as well. We encourage experimentation here.
+* `token_abstraction` this refers to the concept identifier, 
+the word used in the image captions to describe the concept we wish to train on.
+Your choice of token abstraction should be used in your instance prompt, 
+validation prompt or custom captions. Here we chose TOK, so, 
+for example, "a photo of a TOK" can be the instance prompt. 
+As `--token_abstraction` is a place-holder, before training we insert the new 
+tokens in place of `TOK` and optimize them (meaning "a photo of `TOK`" becomes "a photo of `<s0><s1>`" during training, where `<s0><s1>` are the new tokens). 
+Hence, it's also crucial that `token_abstraction` corresponds to the identifier used in the instance prompt, validation prompt and custom prompts(if used).
+  * `num_new_tokens_per_abstraction` the number of new tokens to initialize for each `token_abstraction`- i.e. how many new tokens to insert and train for each text encoder
+    of the model. The default is set to 2, we encourage you to experiment with this and share your results!
 * `adam_weight_decay_text_encoder` This is used to set a different weight decay value for the text encoder parameters (
   different from the value used for the unet parameters).`
 
