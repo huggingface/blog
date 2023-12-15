@@ -102,19 +102,19 @@ Let’s dive deeper into Shazeer's exploration of MoEs for translation. The idea
 
 This setup introduces some challenges. For example, although large batch sizes are usually better for performance, batch sizes in MOEs are effectively reduced as data flows through the active experts. For example, if our batched input consists of 10 tokens, **five tokens might end in one expert, and the other five tokens might end in five different experts, leading to uneven batch sizes and underutilization**. The [Making MoEs go brrr](#making-moes-go-brrr) section below will discuss other challenges and solutions.
 
-How can we solve this? A learned gating network (G) decides which experts (E) to send a part of the input:
+How can we solve this? A learned gating network ($G$) decides which experts ($E$) to send a part of the input:
 
 $$
 y = \sum_{i=1}^{n} G(x)_i E_i(x)
 $$
 
-In this setup, all experts are run for all inputs - it’s a weighted multiplication. But, what happens if G is 0? If that’s the case, there’s no need to compute the respective expert operations and hence we save compute. What’s a typical gating function? In the most traditional setup, we just use a simple network with a softmax function. The network will learn which expert to send the input.
+In this setup, all experts are run for all inputs - it’s a weighted multiplication. But, what happens if $G$ is 0? If that’s the case, there’s no need to compute the respective expert operations and hence we save compute. What’s a typical gating function? In the most traditional setup, we just use a simple network with a softmax function. The network will learn which expert to send the input.
 
 $$
 G_\sigma(x) = \text{Softmax}(x \cdot W_g)
 $$
 
-Shazeer’s work also explored other gating mechanisms, such as Noisy Top-K Gating. This gating approach introduces some (tunable) noise and then keeps the top k values. That is:
+Shazeer’s work also explored other gating mechanisms, such as Noisy Top-$k$ Gating. This gating approach introduces some (tunable) noise and then keeps the top $k$ values. That is:
 
 1. We add some noise
     
@@ -132,7 +132,7 @@ v_i & \text{if } v_i \text{ is in the top } k \text{ elements of } v, \\
 \end{cases}
 $$
 
-1. We apply the softmax.
+3. We apply the softmax.
 
 $$
 G(x) = \text{Softmax}(\text{KeepTopK}(H(x), k))
