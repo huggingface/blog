@@ -239,7 +239,7 @@ quantization_config = BitsAndBytesConfig(
 )
 model = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=quantization_config)
 
-prompt = "USER: Explain what a Mixture of Experts is in less than 100 words. ASSISTANT:"
+prompt = "[INST] Explain what a Mixture of Experts is in less than 100 words. [/INST]"
 inputs = tokenizer(prompt, return_tensors="pt").to(0)
 
 output = model.generate(**inputs, max_new_tokens=50)
@@ -275,7 +275,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto")
 
-prompt = "USER: Explain what a Mixture of Experts is in less than 100 words. ASSISTANT:"
+prompt = "[/INST] Explain what a Mixture of Experts is in less than 100 words. [/INST]"
 inputs = tokenizer(prompt, return_tensors="pt").to(0)
 
 output = model.generate(**inputs, max_new_tokens=50)
