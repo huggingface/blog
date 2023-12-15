@@ -1,5 +1,12 @@
-<h1>LoRA training scripts of the world, unite!
-</h1>
+---
+title: "LoRA training scripts of the world, unite!"
+thumbnail: /blog/assets/dreambooth_lora_sdxl/thumbnail.png
+authors:
+- user: LinoyTsaban
+- user: multimodalart
+---
+
+# LoRA training scripts of the world, unite!
 
 
 **A community derived guide to some of the SOTA practices for SD-XL Dreambooth LoRA fine tuning**
