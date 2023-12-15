@@ -249,7 +249,7 @@ output = model.generate(**inputs, max_new_tokens=50)
 print(tokenizer.decode(output[0], skip_special_tokens=True))
 ```
 
-Read more about QLoRA in the bitsandbytes 4-bit quantization section of [the documentation](https://huggingface.co/docs/transformers/quantization#4-bit).
+This 4-bit quantization technique was introduced in the [QLoRA paper](https://huggingface.co/papers/2305.14314), you can read more about it in the corresponding section of [the documentation](https://huggingface.co/docs/transformers/quantization#4-bit) or in [this post](https://huggingface.co/blog/4bit-transformers-bitsandbytes).
 
 ### Load Mixtral with GPTQ
 
