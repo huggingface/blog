@@ -3181,3 +3181,15 @@
     - nlp
     - llm
     - transformers
+
+
+- local: 2023-in-llms
+  title: "2023, year of open LLMs"
+  thumbnail: /blog/assets/cv_state/thumbnail.png
+  author: clefourrier
+  date: December 18, 2023
+  tags:
+    - research
+    - nlp
+    - llm
+    - guide

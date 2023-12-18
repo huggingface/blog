@@ -1,6 +1,6 @@
 ---
 title: "2023, year of open LLMs"
-thumbnail: 
+thumbnail: /blog/assets/cv_state/thumbnail.png
 authors:
 - user: clefourrier
 ---
