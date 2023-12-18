@@ -486,9 +486,20 @@ Configurations:
   * v1.5 - 16 close up photos taken at different occasions (changing backgrounds, lighting and outfits)
   * v2 - 13 close up photos and fully body shots taken at different occasions (changing backgrounds, lighting and outfits)
 
-When experimenting with face images, we aim for the LoRA to generate images as realistic and similar to the original person as possible,
-while in the same time being able to generalize well to backgrounds and compositions that were not seen in the training set.
-When comparing between different hyperparam configurations on the v1 set and v1.5 we noticed 
+When training on face images, we aim for the LoRA to generate images as realistic and similar to the original person as possible,
+while also being able to generalize well to backgrounds and compositions that were not seen in the training set.
+When comparing between different hyperparam configurations on the v1, v1.5 and v2 datasets 
+we observed the quality of the images (resolution, lighting, focus on the subject) is especially important for this usecase:
+* For example, even though v1.5 contains v1 images in addition to other close up photos of varying lighting, backgrounds, clothing and angle.
+The additional images a re generally of lesser quality, and although they add versatility to the training set
+  * using body images
+
+* Prior preservation loss 
+
+* Rank
+
+
+
 ```
 rank = 4,16,32, 64
 optimizer = prodigy, adamW
