@@ -122,6 +122,7 @@ embedding_path = hf_hub_download(repo_id="LinoyTsaban/web_y2k_lora", filename="e
 # load embeddings to the text encoders
 state_dict = load_file(embedding_path)
 
+# notice we load the tokens <s0><s1>, as "TOK" as only a place-holder and training was performed using the new initialized tokens - <s0><s1>
 # load embeddings of text_encoder 1 (CLIP ViT-L/14)
 pipe.load_textual_inversion(state_dict["clip_l"], token=["<s0>", "<s1>"], text_encoder=pipe.text_encoder, tokenizer=pipe.tokenizer)
 # load embeddings of text_encoder 2 (CLIP ViT-G/14)
