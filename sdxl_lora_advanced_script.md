@@ -461,8 +461,9 @@ Let's explore another example, this time training on a dataset composed of 27 sc
 and early 2000s that we (nostalgically) scraped from the internet.
 
 This example showcases a slightly different behaviour than the previous. 
-While in both cases we used approximately the same amount of images ~30, 
-we noticed 
+While in both cases we used approximately the same amount of images (i.e. ~30), 
+we noticed that for this style LoRA, the same settings that induced good results for the Huggy LoRA, are overfitting for the webpage style.
+
 
 
 Configurations:
@@ -484,9 +485,12 @@ Configurations:
   * v1 - 7 close up photos taken at the same time 
   * v1.5 - 16 close up photos taken at different occasions (changing backgrounds, lighting and outfits)
   * v2 - 13 close up photos and fully body shots taken at different occasions (changing backgrounds, lighting and outfits)
-  
+
+When experimenting with face images, we aim for the LoRA to generate images as realistic and similar to the original person as possible,
+while in the same time being able to generalize well to backgrounds and compositions that were not seen in the training set.
+When comparing between different hyperparam configurations on the v1 set and v1.5 we noticed 
 ```
-rank = 4,16,32
+rank = 4,16,32, 64
 optimizer = prodigy, adamW
 repeats = 1,2,3,4
 learning_rate = 1.0 , 1e-4
