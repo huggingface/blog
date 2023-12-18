@@ -495,10 +495,13 @@ we observed the quality of the images (resolution, lighting, focus on the subjec
   The additional images a re generally of lesser quality, and although they add versatility to the training set
   * using body images
 
-* Prior preservation loss 
+* Prior preservation loss
+  * contrary to common practices, we found the use of generated class images to reduce significantly both resemblance to the subject and realism. 
+  * in the training space we offer a dataset of real images taken from [unsplash]().
+  * However, our impression is that for a small (3-7) good quality face images, results tend to be better without prior preservation loss at all. 
 
 * Rank
-  * we compare LoRAs in ranks 4, 16, 32 and 64. We observed that in the settings tested in these explorations, a rank of 64 tends to result in very smooth skin texture - reducing from its realism. 
+  * we compare LoRAs in ranks 4, 16, 32 and 64. We observed that in the settings tested in our explorations, a rank of 64 tends to result in very smooth skin texture - reducing from its realism. 
 
 
 
