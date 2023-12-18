@@ -490,13 +490,15 @@ When training on face images, we aim for the LoRA to generate images as realisti
 while also being able to generalize well to backgrounds and compositions that were not seen in the training set.
 When comparing between different hyperparam configurations on the v1, v1.5 and v2 datasets 
 we observed the quality of the images (resolution, lighting, focus on the subject) is especially important for this usecase:
-* For example, even though v1.5 contains v1 images in addition to other close up photos of varying lighting, backgrounds, clothing and angle.
-The additional images a re generally of lesser quality, and although they add versatility to the training set
+* Datasets - v1 vs v1.5 vs v2
+  * Even though v1.5 contains v1 images in addition to other close up photos of varying lighting, backgrounds, clothing and angle.
+  The additional images a re generally of lesser quality, and although they add versatility to the training set
   * using body images
 
 * Prior preservation loss 
 
 * Rank
+  * we compare LoRAs in ranks 4, 16, 32 and 64. We observed that in the settings tested in these explorations, a rank of 64 tends to result in very smooth skin texture - reducing from its realism. 
 
 
 
