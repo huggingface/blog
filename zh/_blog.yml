@@ -1105,6 +1105,17 @@
     - enterprise
     - hub
 
+- local: Lora-for-sequence-classification-with-Roberta-Llama-Mistral
+  title: "在灾难推文分析场景上比较用 LoRA 微调 Roberta、Llama 2 和 Mistral 的过程及表现"
+  author: mehdiiraqui
+  thumbnail: /blog/assets/Lora-for-sequence-classification-with-Roberta-Llama-Mistral/Thumbnail.png
+  date: November 7, 2023
+  tags:
+    - nlp
+    - guide
+    - llm
+    - peft
+
 - local: lcm_lora
   title: "使用 LCM LoRA 4 步完成 SDXL 推理"
   author: pcuenq
