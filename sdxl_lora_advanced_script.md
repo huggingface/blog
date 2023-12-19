@@ -261,7 +261,7 @@ containing both the images and the corresponding caption for each image.
   You wish to use your own images and add captions to them. In that case, you can use [this colab notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/SDXL_Dreambooth_LoRA_advanced_example.ipynb) to
   automatically caption the images with BLIP, or you can manually create the captions in a metadata file. Then you
   follow up the same way, by specifying `--dataset_name` with your folder path, and `--caption_column` with the column
-  name for the captions
+  name for the captions.
 
 ### Min SNR Gamma weighting
   Training diffusion models often suffers from slow convergence, partly due to conflicting optimization directions
