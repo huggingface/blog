@@ -3198,7 +3198,7 @@
   title: "Speculative Decoding for 2x Faster Whisper Inference"
   author: sanchit-gandhi
   thumbnail: /blog/assets/whisper-speculative-decoding/thumbnail.png
-  date: Dec 13, 2023
+  date: Dec 19, 2023
   tags:
     - guide
     - audio
