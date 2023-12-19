@@ -497,7 +497,8 @@ we observed the quality of the images (resolution, lighting, focus on the subjec
 
 * Prior preservation loss
   * contrary to common practices, we found the use of generated class images to reduce significantly both resemblance to the subject and realism. 
-  * in the training space we offer a dataset of real images taken from [unsplash]().
+  * we created a [dataset]() of real portrait images, using free licensed images downloaded from [unsplash](https://unsplash.com).
+  You can now use it automatically in the new [training space]() as well!
   * However, our impression is that for a small (3-7) good quality face images, results tend to be better without prior preservation loss at all. 
 
 * Rank
