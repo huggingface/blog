@@ -207,7 +207,7 @@ but you can learn more about them [here](https://github.com/konstmish/prodigy).
 Besides pivotal tuning and adaptive optimizers, here are some additional techniques that can impact the quality of your
 trained LoRA, all of them have been incorporated into the new diffusers training script.
 
-### separate learning rate for text-encoder and unet
+### Independent learning rates for text encoder and UNet
 
   When optimizing the text encoder, it's been perceived by the community that setting different learning rates for it (
   versus the learning rate of the Unet) can lead to better quality results - specifically a **lower** learning rate for
