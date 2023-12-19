@@ -3194,10 +3194,10 @@
     - llm
     - guide
 
-- local: whisper-spec-dec
+- local: whisper-speculative-decoding
   title: "Speculative Decoding for 2x Faster Whisper Inference"
   author: sanchit-gandhi
-  thumbnail: /blog/assets/whisper-spec-dec/thumbnail.png
+  thumbnail: /blog/assets/whisper-speculative-decoding/thumbnail.png
   date: Dec 13, 2023
   tags:
     - guide

@@ -1,6 +1,6 @@
 ---
 title: "Speculative Decoding for 2x Faster Whisper Inference" 
-thumbnail: /blog/assets/whisper-spec-dec/thumbnail.png
+thumbnail: /blog/assets/whisper-speculative-decoding/thumbnail.png
 authors:
 - user: sanchit-gandhi
 ---
@@ -40,7 +40,7 @@ In the diagram below, the assistant model generates a sequence of 5 candidate to
     <video
         style="max-width: 70%; margin: auto;"
         controls playsinline
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-spec-dec/split_1.mp4"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-speculative-decoding/split_1.mp4"
     ></video>
 </figure>
 
@@ -53,7 +53,7 @@ token for each step in the token sequence \\( \boldsymbol{y}_{1:N} \\).
     <video
         style="max-width: 70%; margin: auto;"
         controls playsinline
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-spec-dec/split_2.mp4"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-speculative-decoding/split_2.mp4"
     ></video>
 </figure>
 
@@ -72,7 +72,7 @@ now forms the new input to the assistant model:
     <video
         style="max-width: 70%; margin: auto;"
         controls playsinline
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-spec-dec/split_3.mp4"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-speculative-decoding/split_3.mp4"
     ></video>
 </figure>
 
@@ -83,7 +83,7 @@ in a single forward pass by the main model.
     <video
         style="max-width: 70%; margin: auto;"
         controls playsinline
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-spec-dec/split_4.mp4"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-speculative-decoding/split_4.mp4"
     ></video>
 </figure>
 
