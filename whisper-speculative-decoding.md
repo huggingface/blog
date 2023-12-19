@@ -470,3 +470,9 @@ In this blog post, we covered the inference strategy of speculative decoding, as
 transcription. We demonstrated how 2x speed-ups can be achieved, while mathematically ensuring the same outputs as using 
 the original model alone. We encourage you to try speculative decoding as a drop-in replacement for existing Whisper 
 pipelines, given the low overhead of using the additional assistant model and the guarantee of the same transcription results.
+
+## Acknowledgements 
+
+Blog post by [Sanchit Gandhi](https://huggingface.co/sanchit-gandhi). Many thanks to [Patrick von Platen](https://huggingface.co/patrickvonplaten)
+and [Pedro Cuenca](https://huggingface.co/pcuenq) for their constructive comments, and to [Joao Gante](https://huggingface.co/joaogante)
+for the assisted generation implementation in 🤗 Transformers.
