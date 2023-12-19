@@ -40,7 +40,7 @@ Contents:
 1. Techniques/tricks
     1. Pivotal tuning
     2. Adaptive optimizers
-    3. Recommended practices - Text encoder learning rate, custom captions, dataset repeats, min snr gamma, training set
+    3. Recommended best practices - Text encoder learning rate, custom captions, dataset repeats, min snr gamma, training set
        creation \
 
 2. Experiments Settings and Results
