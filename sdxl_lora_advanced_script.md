@@ -210,7 +210,7 @@ trained LoRA, all of them have been incorporated into the new diffusers training
 ### Independent learning rates for text encoder and UNet
 
   When optimizing the text encoder, it's been perceived by the community that setting different learning rates for it (
-  versus the learning rate of the Unet) can lead to better quality results - specifically a **lower** learning rate for
+  versus the learning rate of the UNet) can lead to better quality results - specifically a **lower** learning rate for
   the text encoder as it tends to overfit _faster_.
     * The importance of different unet and text encoder learning rates is evident when performing pivotal tuning as
       well- in this case, setting a higher learning rate for the text encoder is perceived to be better.
