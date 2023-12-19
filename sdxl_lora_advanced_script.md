@@ -54,7 +54,7 @@ contributions by [Nataniel Ruiz](https://twitter.com/natanielruizg): [Dreambooth
 ## Pivotal Tuning
 
 [Pivotal Tuning](https://arxiv.org/abs/2106.05744) is a method that combines Textual Inversion with regular diffusion fine-tuning. For Dreambooth, it is
-customary that you provide a rare token to be your trigger word, say "an sks dog", however, those tokens usually have
+customary that you provide a rare token to be your trigger word, say "an sks dog". However, those tokens usually have
 other semantic meaning associated with them and can affect your results. The sks example, popular in the community, is
 actually associated with a weapons brand.
 
