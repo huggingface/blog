@@ -225,11 +225,8 @@ trained LoRA, all of them have been incorporated into the new diffusers training
 --text_encoder_lr=5e-5 
 ```
 
-```
---train_text_encoder - Enables full text encoder training (i.e. Text Encoders weights are optimized vs. textual inversion (--train_text_encoder_ti) where we optimize embeddings but don't modify the weights)
-If you wish the text encoder lr to always match --learning_rate, set --text_encoder_lr=None
-
-```
+`--train_text_encoder` enables full text encoder training (i.e. the weights of the text encoders are fully optimized, as opposed to just optimizing the inserted embeddings we saw in textual inversion (`--train_text_encoder_ti`)).
+If you wish the text encoder lr to always match `--learning_rate`, set `--text_encoder_lr=None`.
 
 ### Custom Captioning
 
