@@ -15,7 +15,7 @@ authors:
 **TL;DR**
 
 We combined the Pivotal Tuning technique used on Replicate's SDXL Cog trainer with the Prodigy optimizer used in the
-Kohya trainer (plus a bunch of other optimizations) to achieve very good results on training a Dreambooth LoRA for SDXL.
+Kohya trainer (plus a bunch of other optimizations) to achieve very good results on training Dreambooth LoRAs for SDXL.
 [Check out the training script on diffusers](https://github.com/huggingface/diffusers/blob/main/examples/advanced_diffusion_training/train_dreambooth_lora_sdxl_advanced.py)🧨. [Try it out on Colab](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/SDXL_Dreambooth_LoRA_advanced_example.ipynb).
 
 If you want to skip the technical talk, you can use all the techniques in this blog
