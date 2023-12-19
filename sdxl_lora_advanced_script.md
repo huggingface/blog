@@ -243,7 +243,7 @@ To use custom captioning, first ensure that you have the datasets library instal
 !pip install datasets
 ```
 
-To load the custom captions we need our training set directory to follow the structure of a datasets ImageFolder,
+To load the custom captions we need our training set directory to follow the structure of a datasets `ImageFolder`,
 containing both the images and the corresponding caption for each image.
 
 * _Option 1_:
