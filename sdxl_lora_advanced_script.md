@@ -41,8 +41,7 @@ Contents:
     1. Pivotal tuning
     2. Adaptive optimizers
     3. Recommended best practices - Text encoder learning rate, custom captions, dataset repeats, min snr gamma, training set
-       creation \
-
+       creation
 2. Experiments Settings and Results
 3. Inference
 
