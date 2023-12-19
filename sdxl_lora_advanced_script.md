@@ -76,7 +76,7 @@ In our new training script, you can do textual inversion training by providing t
 ```
 
 * `train_text_encoder_ti` enables training the embeddings of new concepts
-* `train_text_encoder_ti_frac` specifies when to stop the textual inversion (i.e. stop optimization of the textual embeddings and continue optimizing the unet only). 
+* `train_text_encoder_ti_frac` specifies when to stop the textual inversion (i.e. stop optimization of the textual embeddings and continue optimizing the UNet only). 
 Pivoting halfway (i.e. performing textual inversion for the first half of the training epochs) 
 is the default value in the cog sdxl example and our experiments validate this as well. We encourage experimentation here.
 * `token_abstraction` this refers to the concept identifier, 
