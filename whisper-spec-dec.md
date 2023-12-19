@@ -93,13 +93,20 @@ performed by the main model ensures that **exactly the same outputs** are achiev
 This makes speculative decoding a perfect drop-in for existing Whisper pipelines, since one can be certain that the 
 same quality will be attained.
 
-To get the biggest speed-up in latency, we want the assistant model to be significantly faster than the main model, while predicting a
-token distribution that is very close to the main model for most (mainly the "easier") tokens. In practice, these two attributes form a trade-off: the faster the model is, the 
-less accurate it is. The only constraint for selecting an assistant model is that it must share the same vocabulary as 
-the main model. That is to say, if we want to use speculative decoding with Whisper [large-v2](https://huggingface.co/openai/whisper-large-v2) 
-(multilingual), we need to select a multilingual variant of Whisper. Whereas if we want to use speculative decoding with 
-Whisper [medium.en](https://huggingface.co/openai/whisper-medium.en) (English-only), we need an English-only variant of 
-Whisper. At the current time, Whisper [large-v3](https://huggingface.co/openai/whisper-large-v3) is an exception, since 
+To get the biggest improvement in latency, the assistant model should be significantly faster than the main model, 
+while predicting the same token distribution as often as possible. In practice, these two attributes form a trade-off:
+the faster a model is, the less accurate it is. However, since 70-80% of all predicted tokens tend to be "easier" tokens,
+this trade-off is heavily biased towards selecting a faster model, rather than a more accurate one. Thus, the assistant 
+model should be at least 3x faster than the main model (the more the better), while predicting all the "easy" tokens 
+in the examples correctly. The remaining 20-30% of more "difficult" tokens can then be verified by the larger, main model.
+
+The only constraint for selecting an assistant model is that it must share the same vocabulary as the main model. That is
+to say, the assistant model must use one-to-one the same tokenizer as the main model.
+Therefore, if we want to use speculative decoding with a multilingual variant of Whisper, e.g. [large-v2](https://huggingface.co/openai/whisper-large-v2) 
+(multilingual), we need to select a multilingual variant of Whisper as the assistant model, e.g. [tiny](https://huggingface.co/openai/tiny). 
+Whereas, if we want to use speculative decoding with and English-only version of Whisper, e.g. [medium.en](https://huggingface.co/openai/whisper-medium.en), 
+we need an English-only of version as the assistant model, e.g. [tiny.en](https://huggingface.co/openai/tiny.en). 
+At the current time, Whisper [large-v3](https://huggingface.co/openai/whisper-large-v3) is an exception, since 
 it is the only Whisper checkpoint with an expanded vocabulary size, and thus is not compatible with previous Whisper 
 checkpoints.
 
@@ -433,9 +440,10 @@ In this final section, we cover two strategies for ensuring the fastest possible
 
 #### Assistant Model
 
-Our objective is to select an assistant model that is both fast **and** maintains the same token distribution as the 
-main model. If you have a particular language in which you want to transcribe, an effective strategy is to train two 
-Whisper models of different sizes, and use one as the assistant to the other:
+Our objective is to select an assistant model that is at least 3x faster than the main model **and** transcribes at least
+70-80% of the predicted tokens correctly, typically the "easier" tokens in the examples. If you have a particular 
+language in which you want to transcribe, an effective strategy is to train two Whisper models of different sizes, and 
+use one as the assistant to the other:
 
 * First, fine-tune Whisper [large-v3](https://huggingface.co/openai/whisper-large-v3) to act as your main model
 * Second, distil Whisper [large-v3](https://huggingface.co/openai/whisper-large-v3) on the same dataset to act as a fast assistant model
