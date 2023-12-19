@@ -210,6 +210,9 @@ from evaluate import load
 wer = load("wer")
 print(wer.compute(predictions=predictions, references=references))
 ```
+**Output:**
+0.03507271171941831
+```
 
 Our final baseline number is 73 seconds for a WER of 3.5%.
 
