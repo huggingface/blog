@@ -263,7 +263,7 @@ containing both the images and the corresponding caption for each image.
   follow up the same way, by specifying `--dataset_name` with your folder path, and `--caption_column` with the column
   name for the captions.
 
-### Min SNR Gamma weighting
+### Min-SNR Gamma weighting
   Training diffusion models often suffers from slow convergence, partly due to conflicting optimization directions
   between timesteps. [Hang et al.](https://arxiv.org/abs/2303.09556) found a way to mitigate this issue by introducing
   the simple Min-SNR-gamma approach. This method adapts loss weights of timesteps based on clamped signal-to-noise
