@@ -143,7 +143,7 @@ images[0]
 
   <figure class="image table text-center m-0 w-full">
     <image
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 50%; margin: auto;"
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/web_y2k_astronaut.png"
     ></image>
   </figure>
@@ -164,7 +164,7 @@ For the LoRA, you will include your trained `diffusers_lora_weights.safetensors`
 ## Adaptive Optimizers
 <figure class="image table text-center m-0 w-full">
     <image
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 40%; margin: auto;"
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/optimization_gif.gif"
     ></image>
 </figure>
@@ -246,7 +246,7 @@ If you wish the text encoder lr to always match `--learning_rate`, set `--text_e
   and how well the training set captures it.
   <figure class="image table text-center m-0 w-full">
     <image
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 40%; margin: auto;"
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/custom_captions_meme.png"
     ></image>
   </figure>
