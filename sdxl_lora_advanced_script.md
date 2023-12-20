@@ -411,12 +411,12 @@ images paired with custom captions.
 
 Configurations:
 ```
---train_batch_size = 1, 4
+--train_batch_size = 1, 2,3, 4
 -repeats = 1,2
 -learning_rate = 1.0 (Prodigy), 1e-4 (AdamW)
 -text_encoder_lr = 1.0 (Prodigy), 3e-4, 5e-5 (AdamW)
 -snr_gamma = None, 5.0 
--max_train_steps = 1000, 1500
+-max_train_steps = 1000, 1500, 1800
 -text_encoder_training = regular finetuning, pivotal tuning (textual inversion)
 
 ```
@@ -504,13 +504,14 @@ Specifically we used the following arguments in both versions (and added `snr_ga
 
 **Y2K Webpage LoRA** 
 Let's explore another example, this time training on a dataset composed of 27 screenshots of webpages from the 1990s 
-and early 2000s that we (nostalgically) scraped from the internet.
+and early 2000s that we (nostalgically 🥲) scraped from the internet:
 
-This example showcases a slightly different behaviour than the previous. 
-While in both cases we used approximately the same amount of images (i.e. ~30), 
-we noticed that for this style LoRA, the same settings that induced good results for the Huggy LoRA, are overfitting for the webpage style.
-
-
+  <figure class="image table text-center m-0 w-full">
+    <image
+        style="max-width: 70%; margin: auto;"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/web_y2k_dataset_preview.png"
+    ></image>
+  </figure>
 
 Configurations:
 ```
@@ -524,7 +525,11 @@ Configurations:
 -max_train_steps = 500, 1000, 1500
 -text_encoder_training = regular finetuning, pivotal tuning
 ```
-`*assets- Web Y2K*`
+This example showcases a slightly different behaviour than the previous. 
+While in both cases we used approximately the same amount of images (i.e. ~30), 
+we noticed that for this style LoRA, the same settings that induced good results for the Huggy LoRA, are overfitting for the webpage style.
+
+
 
 **Face LoRA**
 * Linoy face Datasets 
@@ -544,7 +549,7 @@ we observed the quality of the images (resolution, lighting, focus on the subjec
 * Prior preservation loss
   * contrary to common practices, we found the use of generated class images to reduce significantly both resemblance to the subject and realism. 
   * we created a [dataset]() of real portrait images, using free licensed images downloaded from [unsplash](https://unsplash.com).
-  You can now use it automatically in the new [training space]() as well!
+  You can now use it automatically in the new [training space](https://huggingface.co/spaces/multimodalart/lora-ease) as well!
   * However, our impression is that for a small (3-7) good quality face images, results tend to be better without prior preservation loss at all. 
 
 * Rank
