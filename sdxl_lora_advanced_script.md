@@ -330,14 +330,14 @@ By default, --repeats=1, i.e. training set is not repeated
 
   <figure class="image table text-center m-0 w-full">
     <image
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 30%; margin: auto;"
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/dreambooth_backpack_01.jpg"
     ></image>
   </figure>
 * I would likely want to prompt it worn by people as well, so having examples like this: 
   <figure class="image table text-center m-0 w-full">
     <image
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 30%; margin: auto;"
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/dreambooth_backpack_02.jpg"
     ></image>
   </figure>
@@ -404,7 +404,7 @@ images paired with custom captions.
 
   <figure class="image table text-center m-0 w-full">
     <image
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 60%; margin: auto;"
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/huggy_dataset_example.png"
     ></image>
   </figure>
@@ -454,7 +454,7 @@ Specifically we used the following arguments in both versions (and added `snr_ga
 
   <figure class="image table text-center m-0 w-full">
     <image
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 60%; margin: auto;"
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/snr_comparison_huggy.png"
     ></image>
   </figure>
@@ -471,7 +471,7 @@ Specifically we used the following arguments in both versions (and added `snr_ga
     results with these settings. 
   <figure class="image table text-center m-0 w-full">
     <image
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 50%; margin: auto;"
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/adamw_prodigy_comparsion_huggy.png"
     ></image>
   </figure>
