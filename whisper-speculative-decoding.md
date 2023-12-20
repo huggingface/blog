@@ -38,7 +38,7 @@ In the diagram below, the assistant model generates a sequence of 5 candidate to
 
 <figure class="image table text-center m-0 w-full">
     <video
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 90%; margin: auto;"
         controls playsinline
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-speculative-decoding/split_1.mp4"
     ></video>
@@ -51,7 +51,7 @@ token for each step in the token sequence \\( \boldsymbol{y}_{1:N} \\).
 
 <figure class="image table text-center m-0 w-full">
     <video
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 90%; margin: auto;"
         controls playsinline
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-speculative-decoding/split_2.mp4"
     ></video>
@@ -70,7 +70,7 @@ now forms the new input to the assistant model:
 
 <figure class="image table text-center m-0 w-full">
     <video
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 90%; margin: auto;"
         controls playsinline
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-speculative-decoding/split_3.mp4"
     ></video>
@@ -81,7 +81,7 @@ in a single forward pass by the main model.
 
 <figure class="image table text-center m-0 w-full">
     <video
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 90%; margin: auto;"
         controls playsinline
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/whisper-speculative-decoding/split_4.mp4"
     ></video>
