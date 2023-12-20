@@ -140,8 +140,13 @@ images = pipe(
 # your output image
 images[0]
 ```
-![astronaut_web_y2k](.\assets\dreambooth_lora_sdxl\web_y2k_astronaut.png)
 
+  <figure class="image table text-center m-0 w-full">
+    <image
+        style="max-width: 70%; margin: auto;"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/web_y2k_astronaut.png"
+    ></image>
+  </figure>
 
 ## Comfy UI / AUTOMATIC1111 Inference
 The new script fully supports textual inversion loading with Comfy UI and AUTOMATIC1111 formats!
@@ -157,8 +162,12 @@ For ComfyUI you will include your the trained `embeddings.safetensors` in the `m
 For the LoRA, you will include your trained `diffusers_lora_weights.safetensors` rename it (to for example `y2k.safetensors`) and include it in your `models/lora` directory. Then you will load the LoRALoader node and hook that up with your model and CLIP. [Official guide for loading LoRAs](https://comfyanonymous.github.io/ComfyUI_examples/lora/)
 
 ## Adaptive Optimizers
-
-![optimization_gif](.\assets\dreambooth_lora_sdxl\optimization_gif.gif)
+<figure class="image table text-center m-0 w-full">
+    <image
+        style="max-width: 70%; margin: auto;"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/optimization_gif.gif"
+    ></image>
+</figure>
 
 When training/fine-tuning a diffusion model (or any machine learning model for that matter), we use optimizers to guide
 us towards the optimal path that leads to convergence of our training objective - a minimum point of our chosen loss
@@ -235,7 +244,12 @@ If you wish the text encoder lr to always match `--learning_rate`, set `--text_e
   prompt, e.g. "photo of a <token> person" or "in the style of <token>" etc, using the same caption may lead to
   suboptimal results, depending on the complexity of the learned concept, how "familiar" the model is with the concept,
   and how well the training set captures it.
-  ![meme](.\assets\dreambooth_lora_sdxl\custom_captions_meme.png)
+  <figure class="image table text-center m-0 w-full">
+    <image
+        style="max-width: 70%; margin: auto;"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/custom_captions_meme.png"
+    ></image>
+  </figure>
 
 **Training**
 To use custom captioning, first ensure that you have the datasets library installed, otherwise you can install it by -
@@ -274,6 +288,12 @@ containing both the images and the corresponding caption for each image.
     * `snr vis`
       _find [this project on Weights and Biases](https://wandb.ai/sayakpaul/text2image-finetune-minsnr) that compares
       the loss surfaces of the following setups: snr_gamma set to 5.0, 1.0 and None._
+  <figure class="image table text-center m-0 w-full">
+    <image
+        style="max-width: 70%; margin: auto;"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/snr_gamma_effect.png"
+    ></image>
+  </figure>
 
 **Training**
 
@@ -288,7 +308,7 @@ By default `--snr_gamma=None`, I.e. not used. When enabling `--snr_gamma`, the r
 * ### Repeats
   This argument refers to the number of times an image from your dataset is repeated in the training set. This differs
   from epochs in that first the images are repeated, and only then shuffled.
-![meme](.\assets\dreambooth_lora_sdxl\snr_gamma_effect.png)
+
 **Training**
 
 To enable repeats simply set an integer value > 1 as your repeats count-
@@ -307,9 +327,20 @@ By default, --repeats=1, i.e. training set is not repeated
   portray the object/subject in as many distinct ways we would want to prompt for it as possible.
 * For example, if my concept is this red backpack: (available
   in [google/dreambooth](https://huggingface.co/datasets/google/dreambooth) dataset)
-![backpack_01](.\assets\dreambooth_lora_sdxl\dreambooth_backpack_01.jpg)
+
+  <figure class="image table text-center m-0 w-full">
+    <image
+        style="max-width: 70%; margin: auto;"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/dreambooth_backpack_01.jpg"
+    ></image>
+  </figure>
 * I would likely want to prompt it worn by people as well, so having examples like this: 
-![backpack_02](.\assets\dreambooth_lora_sdxl\dreambooth_backpack_02.jpg)
+  <figure class="image table text-center m-0 w-full">
+    <image
+        style="max-width: 70%; margin: auto;"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/dreambooth_backpack_02.jpg"
+    ></image>
+  </figure>
 in the training set - that fits that scenario - will likely make it easier for the model to generalize to that 
   setting/composition during inference.
 
@@ -371,7 +402,13 @@ both teaching an artistic style, and a specific character at the same time.
 For this example, we curated a high quality Huggy mascot dataset (using Chunte-Lee’s amazing artwork) containing 31 
 images paired with custom captions.
 
-![huggy_data_example](.\assets\dreambooth_lora_sdxl\huggy_dataset_example.png)
+  <figure class="image table text-center m-0 w-full">
+    <image
+        style="max-width: 70%; margin: auto;"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/huggy_dataset_example.png"
+    ></image>
+  </figure>
+
 Configurations:
 ```
 --train_batch_size = 1, 4
@@ -414,7 +451,14 @@ Specifically we used the following arguments in both versions (and added `snr_ga
 --checkpointing_steps=2000 \
 --seed="0" \
 ```
-![huggy_snr_example](.\assets\dreambooth_lora_sdxl\snr_comparison_huggy.png)
+
+  <figure class="image table text-center m-0 w-full">
+    <image
+        style="max-width: 70%; margin: auto;"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/snr_comparison_huggy.png"
+    ></image>
+  </figure>
+
 
 
 * AdamW vs Prodigy Optimizer
@@ -425,7 +469,12 @@ Specifically we used the following arguments in both versions (and added `snr_ga
     learning rates used for pivotal tuning in cog-sdxl (`1e-4`, `3e-4` for `learning_rate` and `text_encoder_lr` respectively) 
     as we were able to reproduce good 
     results with these settings. 
-![huggy_optimizer_example](.\assets\dreambooth_lora_sdxl\adamw_prodigy_comparsion_huggy.png)
+  <figure class="image table text-center m-0 w-full">
+    <image
+        style="max-width: 70%; margin: auto;"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/adamw_prodigy_comparsion_huggy.png"
+    ></image>
+  </figure>
   * all other training parameters and settings were the same. Specifically: 
 ``` 
     --pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0" \
