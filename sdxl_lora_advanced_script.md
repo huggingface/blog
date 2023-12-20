@@ -548,7 +548,7 @@ we observed the quality of the images (resolution, lighting, focus on the subjec
 
 * Prior preservation loss
   * contrary to common practices, we found the use of generated class images to reduce significantly both resemblance to the subject and realism. 
-  * we created a [dataset]() of real portrait images, using free licensed images downloaded from [unsplash](https://unsplash.com).
+  * we created a [dataset](https://huggingface.co/datasets/multimodalart/faces-prior-preservation) of real portrait images, using free licensed images downloaded from [unsplash](https://unsplash.com).
   You can now use it automatically in the new [training space](https://huggingface.co/spaces/multimodalart/lora-ease) as well!
   * However, our impression is that for a small (3-7) good quality face images, results tend to be better without prior preservation loss at all. 
 
