@@ -276,7 +276,7 @@ containing both the images and the corresponding caption for each image.
 
 **Training**
 
-To use min snr gamma, set a value for:
+To use Min-SNR gamma, set a value for:
 
 ```
 --snr_gamma=5.0
