@@ -385,9 +385,9 @@ _Specifically_ when training on _faces_, you might want to keep in mind the foll
 ```
 
 `--with_prior_preservation` - enables training with prior preservation \
-`--class_data_dir` - path to folder containing class images\
+`--class_data_dir` - path to folder containing class images \
 `—-num_class_images` - Minimal class images for prior preservation loss. If there are not enough images already present
-in --class_data_dir, additional images will be sampled with -class_prompt
+in `--class_data_dir`, additional images will be sampled with `--class_prompt`.
 
 ### Experiments Settings and Results 
 To explore the described methods, we experimented with different combinations of these techniques on 
