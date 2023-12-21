@@ -114,7 +114,7 @@ $$
 G_\sigma(x) = \text{Softmax}(x \cdot W_g)
 $$
 
-Shazeer’s work also explored other gating mechanisms, such as Noisy Top-K Gating. This gating approach introduces some (tunable) noise and then keeps the top k values. That is:
+Shazeer’s work also explored other gating mechanisms, such as Noisy Top-k Gating. This gating approach introduces some (tunable) noise and then keeps the top k values. That is:
 
 1. We add some noise
     
@@ -132,7 +132,7 @@ v_i & \text{if } v_i \text{ is in the top } k \text{ elements of } v, \\
 \end{cases}
 $$
 
-1. We apply the softmax.
+3. We apply the softmax.
 
 $$
 G(x) = \text{Softmax}(\text{KeepTopK}(H(x), k))
@@ -231,7 +231,7 @@ More experts lead to improved sample efficiency and faster speedup, but these ar
 
 The overfitting dynamics are very different between dense and sparse models. Sparse models are more prone to overfitting, so we can explore higher regularization (e.g. dropout) within the experts themselves (e.g. we can have one dropout rate for the dense layers and another, higher, dropout for the sparse layers). 
 
-One decision question is whether to use the auxiliary loss for fine-tuning. The ST-MoE authors experimented with turning off the auxiliary loss, and the quality was not significantly impacted, even when up to 11% of the tokens were dropped. Token dropping might be a form of regularization that helps prevent overfitting. 
+One question is whether to use the auxiliary loss for fine-tuning. The ST-MoE authors experimented with turning off the auxiliary loss, and the quality was not significantly impacted, even when up to 11% of the tokens were dropped. Token dropping might be a form of regularization that helps prevent overfitting. 
 
 Switch Transformers observed that at a fixed pretrain perplexity, the sparse model does worse than the dense counterpart in downstream tasks, especially on reasoning-heavy tasks such as SuperGLUE. On the other hand, for knowledge-heavy tasks such as TriviaQA, the sparse model performs disproportionately well. The authors also observed that a fewer number of experts helped at fine-tuning. Another observation that confirmed the generalization issue is that the model did worse in smaller tasks but did well in larger tasks.
 
@@ -241,7 +241,7 @@ Switch Transformers observed that at a fixed pretrain perplexity, the sparse mod
 </figure>
 
 
-One could experiment with freezing all non-expert weights. That led to a huge performance drop, which was expected as the MoE layers correspond to most of the network. We could try the opposite: freezing only the parameters in MoE layers, which turned out to work almost as well as updating all parameters. This can help speed up and reduce memory for fine-tuning.
+One could experiment with freezing all non-expert weights. That is, we'll only update the MoE layers. This leads to a huge performance drop. We could try the opposite: freezing only the parameters in MoE layers, which worked almost as well as updating all parameters. This can help speed up and reduce memory for fine-tuning. This can be somewhat counter-intuitive as 80% of the parameters are in the MoE layers (in the ST-MoE project). Their hypothesis for that architecture is that, as expert layers only occur every 1/4 layers, and each token sees at most two experts per layer, updating the MoE parameters affects much fewer layers than updating other parameters.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/07_superglue_bars.png" alt="Only updating the non MoE layers works well in fine-tuning">
@@ -252,7 +252,7 @@ One last part to consider when fine-tuning sparse MoEs is that they have differe
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/08_superglue_dense_vs_sparse.png" alt="Table comparing fine-tuning batch size and learning rate between dense and sparse models.">
-  <figcaption>Sparse models fine-tuned quality improves with lower learning rates and large batch sizes. This image is from the ST-MoE paper.</figcaption>
+  <figcaption>Sparse models fine-tuned quality improves with higher learning rates and smaller batch sizes. This image is from the ST-MoE paper.</figcaption>
 </figure>
 
 At this point, you might be a bit sad that people have struggled to fine-tune MoEs. Excitingly, a recent paper, [MoEs Meets Instruction Tuning](https://arxiv.org/pdf/2305.14705.pdf) (July 2023), performs experiments doing:

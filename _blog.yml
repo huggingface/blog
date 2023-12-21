@@ -3198,3 +3198,25 @@
     - nlp
     - llm
     - transformers
+
+
+- local: 2023-in-llms
+  title: "2023, year of open LLMs"
+  thumbnail: /blog/assets/cv_state/thumbnail.png
+  author: clefourrier
+  date: December 18, 2023
+  tags:
+    - research
+    - nlp
+    - llm
+    - guide
+
+- local: whisper-speculative-decoding
+  title: "Speculative Decoding for 2x Faster Whisper Inference"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/whisper-speculative-decoding/thumbnail.png
+  date: Dec 20, 2023
+  tags:
+    - guide
+    - audio
+    - transformers
