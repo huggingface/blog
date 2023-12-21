@@ -537,6 +537,18 @@ we noticed that for this style LoRA, the same settings that induced good results
   * v1.5 - 16 close up photos taken at different occasions (changing backgrounds, lighting and outfits)
   * v2 - 13 close up photos and fully body shots taken at different occasions (changing backgrounds, lighting and outfits)
 
+Configurations:
+```
+rank = 4,16,32, 64
+optimizer = prodigy, adamW
+repeats = 1,2,3,4
+learning_rate = 1.0 , 1e-4
+text_encoder_lr = 1.0, 3e-4
+snr_gamma = None, 5.0 
+max_train_steps = 50 * num_images, 100 * num_images, 150 * num_images
+text_encoder_training = regular finetuning, pivotal tuning
+```
+
 When training on face images, we aim for the LoRA to generate images as realistic and similar to the original person as possible,
 while also being able to generalize well to backgrounds and compositions that were not seen in the training set.
 When comparing between different hyperparam configurations on the v1, v1.5 and v2 datasets 
@@ -556,17 +568,6 @@ we observed the quality of the images (resolution, lighting, focus on the subjec
   * we compare LoRAs in ranks 4, 16, 32 and 64. We observed that in the settings tested in our explorations, a rank of 64 tends to result in very smooth skin texture - reducing from its realism. 
 
 
-
-```
-rank = 4,16,32, 64
-optimizer = prodigy, adamW
-repeats = 1,2,3,4
-learning_rate = 1.0 , 1e-4
-text_encoder_lr = 1.0, 3e-4
-snr_gamma = None, 5.0 
-max_train_steps = 1000, 1500
-text_encoder_training = regular finetuning, pivotal tuning
-```
 
 ### What’s next?
 
