@@ -527,23 +527,35 @@ Configurations:
 ```
 This example showcases a slightly different behaviour than the previous. 
 While in both cases we used approximately the same amount of images (i.e. ~30), 
-we noticed that for this style LoRA, the same settings that induced good results for the Huggy LoRA, are overfitting for the webpage style.
+we noticed that for this style LoRA, the same settings that induced good results for the Huggy LoRA, are overfitting for the webpage style. There  
 
   <figure class="image table text-center m-0 w-full">
     <image
         style="max-width: 70%; margin: auto;"
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/web_y2k_comparisons.png"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/web_y2k_comparisons.png
+"
     ></image>
   </figure>
 
-For v1, we chose as starting point the settings that worked best for us when training the Huggy LoRA - it was evidently overfit so we tried to resolve that in the next versions by tweaking `--repeats`, `--train_batch_size` and `--max_train_steps`. More specifically, these are the settings we changed between each version (all the rest we kept the same):
+For v1, we chose as starting point the settings that worked best for us when training the Huggy LoRA - it was evidently overfit, so we tried to resolve that in the next versions by tweaking `--max_train_steps`, `--repeats`, `--train_batch_size` and `--snr_gamma`. 
+More specifically, these are the settings we changed between each version (all the rest we kept the same):
+
+| param               | v1        | v2                                        | v3        | v4        | v5        | v6        | v7        | v8        |
+|---------------------|-----------|-------------------------------------------|-----------|-----------|-----------|-----------|-----------|-----------|
+| `max_train_steps`   | 1500      | 1500                                      | 1500      | 1000      | 1000      | 1000      | 1000      | 1000      |
+| `repeats`           | 1         | 1                                         | 2         | 2         | 1         | 1         | 2         | 1         |
+| `train_batch_size`  | 4         | 4                                         | 4         | 4         | 2         | 1         | 1         | 1         |
+| `instance_data_dir` | `web_y2k` | 14 images randomly samples from `web_y2k` | `web_y2k` | `web_y2k` | `web_y2k` | `web_y2k` | `web_y2k` | `web_y2k` |
+| `snr_gamma`         | 5.0       | 5.0                                       | 5.0       | 5.0       | -         | -         | 5.0       | 5.0       |
+
 
 We found v4, v5 and v6 to strike the best balance:
 
   <figure class="image table text-center m-0 w-full">
     <image
         style="max-width: 70%; margin: auto;"
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/web_y2k_comparisons_close_up.png"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/web_y2k_comparisons_close_up.png
+"
     ></image>
   </figure>
 
@@ -571,18 +583,17 @@ while also being able to generalize well to backgrounds and compositions that we
 When comparing between different hyperparam configurations on the v1, v1.5 and v2 datasets 
 we observed the quality of the images (resolution, lighting, focus on the subject) is especially important for this usecase:
 * Datasets - v1 vs v1.5 vs v2
-  * Even though v1.5 contains v1 images in addition to other close up photos of varying lighting, backgrounds, clothing and angle.
-  The additional images a re generally of lesser quality, and although they add versatility to the training set
-  * using body images
+  * Even though v1.5 contains v1 images in addition to other close up photos of varying lighting, backgrounds, clothing and angles,
+  the additional images seemed to degrade the quality of the LoRA instead of improve it. 
+  * 
 
 * Prior preservation loss
-  * contrary to common practices, we found the use of generated class images to reduce significantly both resemblance to the subject and realism. 
+  * contrary to common practices, we found the use of generated class images to reduce both resemblance to the subject and realism. 
   * we created a [dataset](https://huggingface.co/datasets/multimodalart/faces-prior-preservation) of real portrait images, using free licensed images downloaded from [unsplash](https://unsplash.com).
   You can now use it automatically in the new [training space](https://huggingface.co/spaces/multimodalart/lora-ease) as well!
-  * However, our impression is that for a small (3-7) good quality face images, results tend to be better without prior preservation loss at all. 
 
 * Rank
-  * we compare LoRAs in ranks 4, 16, 32 and 64. We observed that in the settings tested in our explorations, a rank of 64 tends to result in very smooth skin texture - reducing from its realism. 
+  * we compare LoRAs in ranks 4, 16, 32 and 64. We observed that in the settings tested in our explorations, images produced using the 64 rank LoRA tend to have a more air-brushed appearance, and less realistic looking skin texture. 
 
 
 
