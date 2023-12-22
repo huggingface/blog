@@ -509,7 +509,7 @@ and early 2000s that we (nostalgically 🥲) scraped from the internet:
   <figure class="image table text-center m-0 w-full">
     <image
         style="max-width: 70%; margin: auto;"
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/web_y2k_dataset_preview.png"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/web_y2k_dataset_preview.png"
     ></image>
   </figure>
 
@@ -529,6 +529,23 @@ This example showcases a slightly different behaviour than the previous.
 While in both cases we used approximately the same amount of images (i.e. ~30), 
 we noticed that for this style LoRA, the same settings that induced good results for the Huggy LoRA, are overfitting for the webpage style.
 
+  <figure class="image table text-center m-0 w-full">
+    <image
+        style="max-width: 70%; margin: auto;"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/web_y2k_comparisons.png"
+    ></image>
+  </figure>
+
+For v1, we chose as starting point the settings that worked best for us when training the Huggy LoRA - it was evidently overfit so we tried to resolve that in the next versions by tweaking `--repeats`, `--train_batch_size` and `--max_train_steps`. More specifically, these are the settings we changed between each version (all the rest we kept the same):
+
+We found v4, v5 and v6 to strike the best balance:
+
+  <figure class="image table text-center m-0 w-full">
+    <image
+        style="max-width: 70%; margin: auto;"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/web_y2k_comparisons_close_up.png"
+    ></image>
+  </figure>
 
 
 **Face LoRA**
