@@ -7,6 +7,15 @@
     - guide
     - nlp
 
+- local: reformer
+  title: "Reformer 模型 - 突破语言建模的极限"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/03_reformer/thumbnail.png
+  date: July 3, 2020
+  tags:
+    - research
+    - nlp
+
 - local: encoder-decoder
   title: "基于 Transformers 的编码器-解码器模型"
   author: patrickvonplaten
@@ -1040,6 +1049,17 @@
     - nlp
     - research
     - LLM
+
+- local: gaussian-splatting
+  title: "3D 高斯点染简介"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail-gaussian-splatting.png
+  date: September 18, 2023
+  tags:
+    - community
+    - guide
+    - cv
+    - game-dev
 
 - local: trl-ddpo
   title: "使用 DDPO 在 TRL 中微调 Stable Diffusion 模型"
