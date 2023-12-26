@@ -1158,3 +1158,12 @@
     - nlp
     - llm
     - guide
+- local: whisper-speculative-decoding
+  title: "使用推测解码使 Whisper 实现2倍的推理加速"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/whisper-speculative-decoding/thumbnail.png
+  date: Dec 20, 2023
+  tags:
+    - guide
+    - audio
+    - transformers

@@ -211,6 +211,7 @@ wer = load("wer")
 print(wer.compute(predictions=predictions, references=references))
 ```
 **Output:**
+```
 0.03507271171941831
 ```
 
@@ -242,7 +243,7 @@ assistant_model = AutoModelForCausalLM.from_pretrained(
     attn_implementation="sdpa",
 )
 
-assistant_model.to(device);
+assistant_model.to(device)
 ```
 
 ------------------------------------------------------------------------
