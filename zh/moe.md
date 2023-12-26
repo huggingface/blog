@@ -151,7 +151,7 @@ $$
 
 Transformer 类模型明确表明，增加参数数量可以提高性能，因此谷歌使用 [GShard](https://arxiv.org/abs/2006.16668) 尝试将 Transformer 模型的参数量扩展到超过 6000 亿并不令人惊讶。
 
-GShard 将在编码器和解码器中的每个前馈网络 (FFN) 层中的替换为使用 Top-2 门控的混合专家模型 (MoE) 层。下图展示了编码器部分的结构。这种架构对于大规模计算非常有效: 当扩展到多个设备时，MoE 层在不同设备间共享，而其他所有层则在每个设备上复制。我们将在 [“让 MoE 起飞”](#让moe起飞) 部分对这一点进行更详细的讨论。
+GShard 将在编码器和解码器中的每个前馈网络 (FFN) 层中的替换为使用 Top-2 门控的混合专家模型 (MoE) 层。下图展示了编码器部分的结构。这种架构对于大规模计算非常有效: 当扩展到多个设备时，MoE 层在不同设备间共享，而其他所有层则在每个设备上复制。我们将在 [“让 MoE 起飞”](# 让 moe 起飞) 部分对这一点进行更详细的讨论。
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/02_moe_block.png" alt="MoE Transformer Encoder">
