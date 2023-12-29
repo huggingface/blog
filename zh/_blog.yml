@@ -1158,3 +1158,13 @@
     - nlp
     - llm
     - guide
+
+- local: 2023-in-llms
+  title: "2023, 开源大模型之年"
+  thumbnail: /blog/assets/cv_state/thumbnail.png
+  author: clefourrier
+  date: December 18, 2023
+  tags:
+    - research
+    - nlp
+    - llm
