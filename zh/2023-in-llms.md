@@ -8,6 +8,7 @@ translators:
 ---
 
 # 2023, 开源大模型之年
+
 在 2023 年，大型语言模型（Large Language Models，简称 LLMs）受到了公众的广泛关注，许多人对这些模型的本质及其功能有了基本的了解。是否开源的议题同样引起了广泛的讨论。在 Hugging Face，我们对开源模型抱有极大热情。开源模型的优势在于，它们不仅促进了研究的可复制性，还鼓励社区参与到人工智能模型的开发中来，这样做有助于我们更容易地审视模型中可能存在的偏差和局限性。此外，通过重复利用已有的检查点，我们还能够减少整个领域的碳足迹（这只是 [众多优点](https://huggingface.co/papers/2302.04844) 中的一部分）。
 
 让我们一起回顾开源 LLMs 在过去一年的发展历程吧！
@@ -36,14 +37,11 @@ translators:
 直至 2022 年初，机器学习界普遍认为，模型的规模越大（即拥有的参数越多），其性能也越出色。特别是，模型一旦超过某个特定的规模阈值，其能力似乎会实现质的飞跃，这两种现象分别被称为 `突现能力` 和 `规模定律`。2022 年推出的多个预训练开源模型家族大多遵循这种范例。
 
 1. [BLOOM](https://huggingface.co/papers/2211.05100) (BigScience Large Open-science Open-access Multilingual Language Model)  
-BLOOM 是由 BigScience 研究团队推出的 [一系列模型](https://huggingface.co/bigscience/bloom)。BigScience 是一个由 Hugging Face 协调，联合法国的 GENCI 和 IDRIS 组织共同参与的国际合作项目，涵盖了来自 60 个国家、250 个研究机构的 1000 名科研人员。这些模型采用了仅包含解码器的 transformer 架构，并进行了细微调整，比如引入了嵌入后归一化 [^1] 和 ALiBi 位置嵌入 [^2] 技术。在这一系列模型中，最大的一个拥有 1760 亿个参数，它接受了 46 种人类语言和 13 种编程语言的 3500 亿个多语言数据词元的训练。大量的训练数据已经向公众开放，包括数据的来源、策划和处理过程的详细信息。它是目前为止发布的最大的开源多语言模型。
-
+BLOOM 是由 BigScience 研究团队推出的 [一系列模型](https://huggingface.co/bigscience/bloom)。BigScience 是一个由 Hugging Face 协调，联合法国的 GENCI 和 IDRIS 组织共同参与的国际合作项目，涵盖了来自 60 个国家、250 个研究机构的 1000 名科研人员。这些模型采用了仅包含解码器的 transformer 架构，并进行了细微调整，比如引入了嵌入后归一化[^1] 和 ALiBi 位置嵌入[^2] 技术。在这一系列模型中，最大的一个拥有 1760 亿个参数，它接受了 46 种人类语言和 13 种编程语言的 3500 亿个多语言数据词元的训练。大量的训练数据已经向公众开放，包括数据的来源、策划和处理过程的详细信息。它是目前为止发布的最大的开源多语言模型。
 2. [OPT](https://huggingface.co/papers/2205.01068) (Open Pre-trained Transformer)  
 Meta 发布的 [OPT 模型](https://huggingface.co/facebook/opt-66b) 系列采用了仅包含解码器的 Transformer 架构。这些模型借鉴了 GPT-3 论文中的技术，如特定的权重初始化和预归一化策略，并对注意力机制进行了改进，比如引入了交替的密集型与局部带状注意力层。系列中最大的模型拥有 1750 亿个参数，其训练数据涵盖了来自公共领域的 1800 亿个数据词元，包括书籍、Reddit 社交平台数据、新闻、维基百科以及其他多种互联网来源。这一系列模型在性能上与 GPT-3 不相上下，并且通过编码优化减少了计算资源的消耗。
-
 3. [GLM-130B](https://huggingface.co/papers/2210.02414) (General Language Model)  
 清华大学联合智谱 AI 共同发布了 [GLM-130B 模型](https://huggingface.co/THUDM/glm-roberta-large)。该模型基于完整的 Transformer 架构，并引入了一些创新（如采用 DeepNorm 进行层后归一化、使用旋转式位置嵌入）。GLM-130B 拥有 1300 亿参数，是在包含英文和中文的互联网数据集上训练的，这些数据集包括 The Pile、WuDao 语料库以及其他中文语料库，共计 4000 亿个词元。在性能上，GLM-130B 与 GPT-3 模型不相上下。
-
 4. 较小或更专业的开源大语言模型  
 近期，一些较小型的开源模型也相继发布，这些模型主要服务于科研领域：Meta 推出了 [Galactica](https://huggingface.co/papers/2211.09085) 系列的大型语言模型（LLM），其中规模最大的模型拥有高达 [120B](https://huggingface.co/facebook/galactica-120b) 参数，这些模型是在科学文献中的 1060 亿个词元基础上进行预训练的。EleutherAI 则发布了 [GPT-NeoX-20B](https://huggingface.co/EleutherAI/gpt-neox-20b) 模型，这是一个完全开源的仅解码器式 Transformer 模型（包括模型架构、权重和数据），在 5000 亿词元上经过训练，并采用了 RoPE 以及对注意力机制和初始化过程的若干改进，为科学研究提供了一个完整的工具集。
 
@@ -112,7 +110,7 @@ X-Gen 在 Meta 推出的更为引人注目的新的 [LLaMA-2](https://huggingfac
 
 正如我们看到的，今年整个领域的发展既依赖于通过使用高质量的预训练大型语言模型（LLMs）创建新数据集，也依赖于社区发布的各种开源模型，这使得该领域进步飞速！如果你现在在模型名称中看到这些名字中的任何一个，你就能够大概了解它的来源了🤗。
 
-* 还有一些更专业的数据集，例如用于数学问题微调的 [MetaMath](https://meta-math.github.io/) 和 [MathInstruct](https://huggingface.co/datasets/TIGER-Lab/MathInstruct)，以及涉及数学和代码指令的 [Evol-Instruct](https://huggingface.co/datasets/WizardLM/WizardLM_evol_instruct_70k)，还有 [CodeAlpaca](https://huggingface.co/datasets/sahil2801/CodeAlpaca-20k) 与 [CodeCapybara](https://github.com/FSoft-AI4Code/CodeCapybara) 等代码指令相关的数据集也已发布。虽然这些数据集同样被用于提升模型在特定任务上的表现，但我们在此不会详细介绍它们。您还可以访问 [令人心动的指令数据集](https://github.com/jianzhnie/awesome-instruction-datasets) 来查看其他相关数据集的集合。*
+* 还有一些更专业的数据集，例如用于数学问题微调的 [MetaMath](https://meta-math.github.io/) 和 [MathInstruct](https://huggingface.co/datasets/TIGER-Lab/MathInstruct)，以及涉及数学和代码指令的 [Evol-Instruct](https://huggingface.co/datasets/WizardLM/WizardLM_evol_instruct_70k)，还有 [CodeAlpaca](https://huggingface.co/datasets/sahil2801/CodeAlpaca-20k) 与 [CodeCapybara](https://github.com/FSoft-AI4Code/CodeCapybara) 等代码指令相关的数据集也已发布。虽然这些数据集同样被用于提升模型在特定任务上的表现，但我们在此不会详细介绍它们。你还可以访问 [令人心动的指令数据集](https://github.com/jianzhnie/awesome-instruction-datasets) 来查看其他相关数据集的集合。*
 
 ## 开启定制模型的大门
 ### 模型融合：极致的定制化
@@ -125,10 +123,10 @@ X-Gen 在 Meta 推出的更为引人注目的新的 [LLaMA-2](https://huggingfac
 这些技术使任何人都能轻松地生成模型的组合，而且由于大多数现代模型都是基于同一架构的变体，这一过程变得尤为简便。这也是 [Open LLM leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) 上一些模型名称如 `llama2-zephyr-orca-ultra` 的原因。这个特定的例子很可能是将 `llama2` 和 `zephyr` 模型合并后，再在 orca 和 ultra 数据集上进行微调的结果。通常，更多的细节可以在 Hugging Face 中心的相应模型卡片上找到。
 
 ### 参数高效微调：触手可及的个性化体验
-有时候，您可能需要进行更为细致的个性化调整，但受限于硬件显存大小，无法加载完整模型进行微调。其实，您知道吗？微调时并不必须要用到模型的全部。
+有时候，你可能需要进行更为细致的个性化调整，但受限于硬件显存大小，无法加载完整模型进行微调。其实，你知道吗？微调时并不必须要用到模型的全部。
 
-您或许想尝试一种叫做 **参数高效微调**（Parameter-Efficient Fine-Tuning，PEFT）的方法。
-这项技术首先会冻结您所关注的预训练模型中的参数，然后在其基础上附加一些新的参数层，也就是我们所说的 “适配器”。接下来，您只需对这些专为您的任务设计的轻量级适配器权重进行微调，这些权重远小于原始模型的规模。这样，您仅需分享您的小型适配器权重（以及底层模型）即可！您可以在 [这里](https://github.com/huggingface/peft) 探索一系列引人入胜的 PEFT 技术。
+你或许想尝试一种叫做 **参数高效微调**（Parameter-Efficient Fine-Tuning，PEFT）的方法。
+这项技术首先会冻结你所关注的预训练模型中的参数，然后在其基础上附加一些新的参数层，也就是我们所说的 “适配器”。接下来，你只需对这些专为你的任务设计的轻量级适配器权重进行微调，这些权重远小于原始模型的规模。这样，你仅需分享你的小型适配器权重（以及底层模型）即可！你可以在 [这里](https://github.com/huggingface/peft) 探索一系列引人入胜的 PEFT 技术。
 
 ### 量化：模型普及于各处
 我们已经看到，性能出色的模型现在形态各异…… 但即便如此，并不意味着它们对所有人都是触手可及的！一个拥有 300 亿参数的模型仅仅加载到内存中（还未开始使用）就可能需要超过 66GB 的 RAM，而并非社区中的每个人都有能力配备这样的硬件。
@@ -166,12 +164,8 @@ X-Gen 在 Meta 推出的更为引人注目的新的 [LLaMA-2](https://huggingfac
 - 新的架构也随之出现 —— 它们是否最终会取代 Transformer 架构，仍是一个值得关注的问题。
 
 各位朋友，就是这样了！   
-希望您喜欢我们今年的回顾，从中学到了一些知识，并且和我一样，对于人工智能进步现在如此依赖开源和社区努力感到无比热情！🤗
 
+希望你喜欢我们今年的回顾，从中学到了一些知识，并且和我一样，对于人工智能进步现在如此依赖开源和社区努力感到无比热情！🤗
 
-[^1]: 嵌入后归一化是使模型训练更加稳定的一个技巧。  
+[^1]: 嵌入后归一化是使模型训练更加稳定的一个技巧。
 [^2]: ALiBi 位置编码通过在模型中对序列内距离较远的词元进行交互时施加惩罚，优化了序列处理能力（相比之下，传统的位置编码仅仅记录了序列中各词元的顺序及其相对位置信息）。  
-
-> 英文原文: <url> https://huggingface.co/blog/2023-in-llms </url>  
-> 原文作者：Clémentine Fourrier  
-> 译者: Xinyu Yang (杨新宇)，字节跳动算法工程师，工作方向为通过 SFT、RL 提升大模型 Math、Reasoning 能力。
