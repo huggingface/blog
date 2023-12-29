@@ -14,9 +14,9 @@ Before diving into this blogpost, we suggest you to first have a look at our QLo
 
 ## Unsloth - 2x faster, -40% memory usage, 0% accuracy degradation
 
-The Unsloth library is a lightweight library for faster LLM fine-tuning which is fully compatible with the Hugging Face ecosystem (Hub, transformers, PEFT, TRL). The library is actively developed by the Unsloth team (Daniel and Michael) and the open source community. The library supports most of NVIDIA GPUs from V100s all the way to H100s, and can be used with the entire trainer suite from the TRL library (SFTTrainer, DPOTrainer, PPOTrainer). At this time of writing, Unsloth supports Llama (Codellama, Yi etc) and Mistral architectures.
+The Unsloth library is a lightweight library for faster LLM fine-tuning which is fully compatible with the Hugging Face ecosystem (Hub, transformers, PEFT, TRL). The library is actively developed by the Unsloth team (Daniel and Michael) and the open source community. The library supports most NVIDIA GPUs from V100s all the way to H100s and can be used with the entire trainer suite from the TRL library (SFTTrainer, DPOTrainer, PPOTrainer). At this time of writing, Unsloth supports Llama (CodeLlama, Yi, etc) and Mistral architectures.
 
-Unsloth works by over-writing some parts of the modeling code of models with optimized operations. By manually deriving backpropagation steps, and rewriting all Pytorch modules into Triton kernels, Unsloth is able to both reduce memory usage, and make finetuning faster. Also, there are no approximations during finetuning, so the accuracy degradation is 0%.
+Unsloth works by overwriting some parts of the modeling code of models with optimized operations. By manually deriving backpropagation steps and rewriting all Pytorch modules into Triton kernels, Unsloth can both reduce memory usage and make finetuning faster. Also, there are no approximations during finetuning, so the accuracy degradation is 0%.
 
 ## Benchmarking
 
@@ -27,7 +27,7 @@ Unsloth works by over-writing some parts of the modeling code of models with opt
 | Mistral 7b     | Slim Orca | A100 | 1571            | 842 (1.87x)  | 19.4GB          | 12.4GB       |
 | Code Llama 34b | Slim Orca | A100 | 1982            | 1042 (1.9x)  | 33.22GB         | 27.4GB       |
 
-Unsloth was benchmarked on over 59 runs using 4 datasets, and on Tesla T4 and A100 instances via Google Colab. QLoRA was applied to all linear layers (attention and MLP) with a rank of 16, and gradient checkpointing was on. By testing against the latest Transformers branch, which now has SDPA natively integrated, Unsloth is around 2x faster. All 59 notebooks are provided for full reproducibility, and more details are in Unsloth’s benchmarking details [here](https://unsloth.ai/blog/mistral-benchmark)
+Unsloth was benchmarked on over 59 runs using 4 datasets and on Tesla T4 and A100 instances via Google Colab. QLoRA was applied to all linear layers (attention and MLP) with a rank of 16, and gradient checkpointing was on. By testing against the latest Transformers branch, which now has SDPA natively integrated, Unsloth is around 2x faster. All 59 notebooks are provided for full reproducibility, and more details are in Unsloth’s benchmarking details [here](https://unsloth.ai/blog/mistral-benchmark)
 
 ## How do I use Unsloth?
 
@@ -61,11 +61,11 @@ model = FastLanguageModel.get_peft_model(
 )
 ```
 
-Once adapters are attached, you can use the model directly within any class from the HF ecosystem, such as the SFTTrainer from TRL!
+Once adapters are attached, you can use the model directly within any class from the HF ecosystem, such as the `SFTTrainer` from TRL!
 
 ## Unsloth + TRL integration
 
-To use Unsloth with the 🤗 TRL library, simply pass the Unsloth model into SFTTrainer or DPOTrainer! The trained model is fully compatible with the 🤗 ecosystem so you can push the final model on the Hub and use 🤗 Transformers for inference out of the box!
+To use Unsloth with the TRL library, simply pass the Unsloth model into `SFTTrainer` or `DPOTrainer`! The trained model is fully compatible with the Hugging Face ecosystem, so you can push the final model on the Hub and use transformers for inference out of the box!
 
 ## Reproducible notebooks
 
@@ -76,5 +76,5 @@ Llama 7b Free Tesla T4 colab example: https://colab.research.google.com/drive/1l
 Mistral 7b Free Tesla T4 colab example: 
 https://colab.research.google.com/drive/1Dyauq4kTZoLewQ1cApceUQVNcnnNTzg_?usp=sharing
 
-Codellama 34b A100 colab example:
+CodeLlama 34b A100 colab example:
 https://colab.research.google.com/drive/1y7A0AxE3y8gdj4AVkl2aZX47Xu3P1wJT?usp=sharing
