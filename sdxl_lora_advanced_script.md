@@ -159,9 +159,9 @@ For AUTOMATIC1111/SD.Next we will load a LoRA and a textual embedding at the sam
 You can then inference by prompting `a y2k_emb webpage about the movie Mean Girls <lora:y2k:0.9>`. You can use the `y2k_emb` token normally, including increasing its weight by doing `(y2k_emb:1.2)`. 
 
 **ComfyUI** \
-For ComfyUI you will include your the trained `embeddings.safetensors` in the `models/embeddings` folder, rename it (to for example `y2k_emb.safetensors`) and use it in your prompts like `embedding:y2k_emb`. [Official guide for loading embeddings](https://comfyanonymous.github.io/ComfyUI_examples/textual_inversion_embeddings/). 
-
-For the LoRA, you will include your trained `diffusers_lora_weights.safetensors` rename it (to for example `y2k.safetensors`) and include it in your `models/lora` directory. Then you will load the LoRALoader node and hook that up with your model and CLIP. [Official guide for loading LoRAs](https://comfyanonymous.github.io/ComfyUI_examples/lora/)
+In ComfyUI we will load a LoRA and a textual embedding at the same time. 
+- *LoRA*: Besides the diffusers format, the script will also train a ComfyUI compatible LoRA. It is generated as `{your_lora_name}.safetensors`. You can then include it in your `models/Lora` directory. Then you will load the LoRALoader node and hook that up with your model and CLIP. [Official guide for loading LoRAs](https://comfyanonymous.github.io/ComfyUI_examples/lora/)
+- *Embedding*: the embedding is the same for diffusers and WebUI. You can download your `{lora_name}_emb.safetensors` file from a trained model, and include it in your `models/embeddings` directory and use it in your prompts like `embedding:y2k_emb`. [Official guide for loading embeddings](https://comfyanonymous.github.io/ComfyUI_examples/textual_inversion_embeddings/). 
 
 ## Adaptive Optimizers
 <figure class="image table text-center m-0 w-full">
