@@ -152,7 +152,7 @@ images[0]
 The new script fully supports textual inversion loading with Comfy UI and AUTOMATIC1111 formats!
 
 **AUTOMATIC1111 / SD.Next** \
-For AUTOMATIC1111/SD.Next we will load a LoRA and a textual embedding at the same time. 
+In AUTOMATIC1111/SD.Next we will load a LoRA and a textual embedding at the same time. 
 - *LoRA*: Besides the diffusers format, the script will also train a WebUI compatible LoRA. It is generated as `{your_lora_name}.safetensors`. You can then include it in your `models/Lora` directory. 
 - *Embedding*: the embedding is the same for diffusers and WebUI. You can download your `{lora_name}_emb.safetensors` file from a trained model, and include it in your `embeddings` directory. 
 
