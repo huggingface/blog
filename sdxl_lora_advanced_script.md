@@ -98,6 +98,7 @@ When doing pivotal tuning, besides the `*.safetensors` weights of your LoRA, the
 for the new tokens. In order to do inference with those we add 2 steps to how we would normally load a LoRA:
 
 1. Download our trained embeddings from the hub
+   (your embeddings filename is set by default to be `{model_name}_emb.safetensors`)
 
 ```py
 import torch
@@ -111,7 +112,7 @@ pipe = DiffusionPipeline.from_pretrained(
 ).to("cuda")
 
 # download embeddings
-embedding_path = hf_hub_download(repo_id="LinoyTsaban/web_y2k_lora", filename="embeddings.safetensors", repo_type="model")
+embedding_path = hf_hub_download(repo_id="LinoyTsaban/web_y2k_lora", filename="web_y2k_emb.safetensors", repo_type="model")
 
 ```
 
