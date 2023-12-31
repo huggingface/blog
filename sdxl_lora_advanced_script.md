@@ -94,7 +94,7 @@ Hence, it's also crucial that `token_abstraction` corresponds to the identifier 
 
 **Inference**
 
-When doing pivotal tuning, besides the `*.safetensors` weights of your LoRA, you also get the `*.safetensors` embeddings
+When doing pivotal tuning, besides the `*.safetensors` weights of your LoRA, there is also the `*.safetensors` embeddings
 for the new tokens. In order to do inference with those we add 2 steps to how we would normally load a LoRA:
 
 1. Download our trained embeddings from the hub
@@ -109,14 +109,15 @@ pipe = DiffusionPipeline.from_pretrained(
         torch_dtype=torch.float16,
         variant="fp16",
 ).to("cuda")
-# normal loading
+
+# download embeddings
+embedding_path = hf_hub_download(repo_id="LinoyTsaban/web_y2k_lora", filename="embeddings.safetensors", repo_type="model")
+
 ```
 
 2. Load the embeddings into the text encoders
 
 ```py
-# download embeddings
-embedding_path = hf_hub_download(repo_id="LinoyTsaban/web_y2k_lora", filename="embeddings.safetensors", repo_type="model")
 
 # load embeddings to the text encoders
 state_dict = load_file(embedding_path)
@@ -131,6 +132,7 @@ pipe.load_textual_inversion(state_dict["clip_g"], token=["<s0>", "<s1>"], text_e
 3. Load your LoRA and prompt it!
 
 ```py
+# normal LoRA loading
 pipe.load_lora_weights("LinoyTsaban/web_y2k_lora", weight_name="pytorch_lora_weights.safetensors")
 prompt="a <s0><s1> webpage about an astronaut riding a horse"
 images = pipe(
