@@ -10,7 +10,7 @@ authors:
 
 # Welcome aMUSEd: Efficient Text-to-Image Generation
 
-![amused_grid](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/amused_grid.png)
+![amused_grid](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/main_image_grid.jpeg)
 
 We’re excited to present an efficient non-diffusion text-to-image model named **aMUSEd**. It’s called so because it’s derived from the foundational work MUSE done by Google. aMUSEd’s generation quality is not the best and we’re releasing a research preview with a permissive license. 
 
@@ -34,7 +34,7 @@ aMUSEd is based on ***Masked Image Modeling***. It makes for a compelling use ca
 
 The figure below presents a pictorial overview of how aMUSEd works. 
 
-![Untitled](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/Untitled%201.png)
+![amused_architecture](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/amused_architecture.png)
 
 During ***training***:
 
@@ -103,7 +103,7 @@ grid
 
 Crucially, because of its small size (only ~600M parameters), aMUSEd is very fast. The figure below provides a comparative study of the inference latencies of different models, including aMUSEd:
 
-![Tuples, besides the model names, have the following format: (timesteps, resolution). Benchmark conducted on A100. More details are in the technical report. ](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/Untitled%202.png)
+![Tuples, besides the model names, have the following format: (timesteps, resolution). Benchmark conducted on A100. More details are in the technical report. ](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/amused_speed_comparison.png)
 
 Tuples, besides the model names, have the following format: (timesteps, resolution). Benchmark conducted on A100. More details are in the technical report. 
 
@@ -150,7 +150,7 @@ We encourage you to check out the technical report to learn about all the tasks 
 
 We provide a simple [training script](https://github.com/huggingface/diffusers/blob/main/examples/amused/train_amused.py) for fine-tuning aMUSEd on custom datasets. With the 8-bit Adam optimizer and float16 precision, it’s possible to fine-tune aMUSEd with just under 11GBs of GPU VRAM. With LoRA, the memory requirements get further reduced to just 7GBs. 
 
-![“a pixel art character with square red glasses”](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/Untitled%203.png)
+![“a pixel art character with square red glasses”](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/finetuned_amused_result.png)
 
 “a pixel art character with square red glasses”
 
