@@ -3203,3 +3203,14 @@
     - guide
     - audio
     - transformers
+
+- local: amused
+  title: "Welcome aMUSEd: Efficient Text-to-Image Generation"
+  author: valhalla
+  thumbnail: /blog/assets/amused/thumbnail.png
+  date: Jan 02, 2024
+  tags:
+    - guide
+    - vision
+    - research
+    - diffusers
