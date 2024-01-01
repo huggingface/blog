@@ -10,7 +10,7 @@ authors:
 
 # Welcome aMUSEd: Efficient Text-to-Image Generation
 
-![amused_grid](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/main_image_grid.jpeg)
+![amused_grid](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/main_image_grid.jpeg)
 
 We’re excited to present an efficient non-diffusion text-to-image model named **aMUSEd**. It’s called so because it’s derived from the foundational work MUSE done by Google. aMUSEd’s generation quality is not the best and we’re releasing a research preview with a permissive license. 
 
@@ -34,7 +34,7 @@ aMUSEd is based on ***Masked Image Modeling***. It makes for a compelling use ca
 
 The figure below presents a pictorial overview of how aMUSEd works. 
 
-![amused_architecture](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/amused_architecture.png)
+![amused_architecture](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/amused_architecture.png)
 
 During ***training***:
 
@@ -83,7 +83,7 @@ image = pipe(prompt, generator=torch.manual_seed(8)).images[0]
 image
 ```
 
-![text2image_512.png](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/text2image_512.png)
+![text2image_512.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/text2image_512.png)
 
 We can study how `num_inference_steps` affects the quality of the images under a fixed seed:
 
@@ -99,11 +99,11 @@ grid = make_image_grid(images, rows=1, cols=3)
 grid
 ```
 
-![image_grid_t2i_amused.png](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/image_grid_t2i_amused.png)
+![image_grid_t2i_amused.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/image_grid_t2i_amused.png)
 
 Crucially, because of its small size (only ~600M parameters), aMUSEd is very fast. The figure below provides a comparative study of the inference latencies of different models, including aMUSEd:
 
-![Tuples, besides the model names, have the following format: (timesteps, resolution). Benchmark conducted on A100. More details are in the technical report. ](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/amused_speed_comparison.png)
+![Tuples, besides the model names, have the following format: (timesteps, resolution). Benchmark conducted on A100. More details are in the technical report. ](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/amused_speed_comparison.png)
 
 Tuples, besides the model names, have the following format: (timesteps, resolution). Benchmark conducted on A100. More details are in the technical report. 
 
@@ -140,7 +140,7 @@ mask = (
 image = pipe(prompt, input_image, mask, generator=torch.manual_seed(3)).images[0]
 ```
 
-![inpainting_grid_amused.png](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/inpainting_grid_amused.png)
+![inpainting_grid_amused.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/inpainting_grid_amused.png)
 
 aMUSEd is the first non-diffusion system within `diffusers`. We are excited to see how the community leverages it. 
 
@@ -150,7 +150,7 @@ We encourage you to check out the technical report to learn about all the tasks 
 
 We provide a simple [training script](https://github.com/huggingface/diffusers/blob/main/examples/amused/train_amused.py) for fine-tuning aMUSEd on custom datasets. With the 8-bit Adam optimizer and float16 precision, it’s possible to fine-tune aMUSEd with just under 11GBs of GPU VRAM. With LoRA, the memory requirements get further reduced to just 7GBs. 
 
-![“a pixel art character with square red glasses”](Welcome%20aMUSEd%20Efficient%20Text-to-Image%20Generation%20df67d02dba2f4d209a6b19e84413937b/finetuned_amused_result.png)
+![“a pixel art character with square red glasses”](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/finetuned_amused_result.png)
 
 “a pixel art character with square red glasses”
 
