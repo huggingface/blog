@@ -103,7 +103,10 @@ grid
 
 Crucially, because of its small size (only ~600M parameters), aMUSEd is very fast. The figure below provides a comparative study of the inference latencies of different models, including aMUSEd:
 
-![Tuples, besides the model names, have the following format: (timesteps, resolution). Benchmark conducted on A100. More details are in the technical report. ](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/amused_speed_comparison.png)
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/amused_speed_comparison.png" alt="Speed Comparison">
+  <figcaption>Tuples, besides the model names, have the following format: (timesteps, resolution). Benchmark conducted on A100. More details are in the technical report.</figcaption>
+</figure>
 
 Tuples, besides the model names, have the following format: (timesteps, resolution). Benchmark conducted on A100. More details are in the technical report. 
 
@@ -150,9 +153,10 @@ We encourage you to check out the technical report to learn about all the tasks 
 
 We provide a simple [training script](https://github.com/huggingface/diffusers/blob/main/examples/amused/train_amused.py) for fine-tuning aMUSEd on custom datasets. With the 8-bit Adam optimizer and float16 precision, it’s possible to fine-tune aMUSEd with just under 11GBs of GPU VRAM. With LoRA, the memory requirements get further reduced to just 7GBs. 
 
-![“a pixel art character with square red glasses”](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/finetuned_amused_result.png)
-
-“a pixel art character with square red glasses”
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/finetuned_amused_result.png" alt="Fine-tuned result.">
+  <figcaption>a pixel art character with square red glasses</figcaption>
+</figure>
 
 aMUSEd comes with an OpenRAIL license, and hence, it’s commercially friendly to adapt. Refer to [this directory](https://github.com/huggingface/diffusers/tree/main/examples/amused) for more details on fine-tuning. 
 
