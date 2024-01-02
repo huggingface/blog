@@ -38,12 +38,13 @@ our previous post - [Using LoRA for Efficient Stable Diffusion Fine-Tuning](http
 Contents:
 
 1. Techniques/tricks
-    1. Pivotal tuning
-    2. Adaptive optimizers
-    3. Recommended best practices - Text encoder learning rate, custom captions, dataset repeats, min snr gamma, training set
-       creation
-2. Experiments Settings and Results
+    1. [Pivotal tuning](https://huggingface.co/blog/sdxl_lora_advanced_script#pivotal-tuning)
+    2. [Adaptive optimizers](https://huggingface.co/blog/sdxl_lora_advanced_script#adaptive-optimizersg)
+    3. [Recommended practices](https://huggingface.co/blog/sdxl_lora_advanced_script#additional-good-practices) - Text encoder learning rate, custom captions, dataset repeats, min snr gamma, training set creation
+2. [Experiments Settings and Results](https://huggingface.co/blog/sdxl_lora_advanced_script#experiments-settings-and-results)
 3. Inference
+   1. [Diffusers inference](https://huggingface.co/blog/sdxl_lora_advanced_script#pivotal-tuning)
+   2. [Automatic1111/ComfyUI inference](https://huggingface.co/blog/sdxl_lora_advanced_script#comfy-ui--automatic1111-inference)
 
 **Acknowledgements** ❤️: 
 The techniques showcased in this guide – algorithms, training scripts, experiments and explorations – were inspired and built upon the 
@@ -92,7 +93,7 @@ Hence, it's also crucial that `token_abstraction` corresponds to the identifier 
 * `adam_weight_decay_text_encoder` This is used to set a different weight decay value for the text encoder parameters (
   different from the value used for the unet parameters).`
 
-**Inference**
+## Inference
 
 When doing pivotal tuning, besides the `*.safetensors` weights of your LoRA, there is also the `*.safetensors` embeddings
 for the new tokens. In order to do inference with those we add 2 steps to how we would normally load a LoRA:
