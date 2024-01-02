@@ -2,6 +2,7 @@
 title: "Welcome aMUSEd: Efficient Text-to-Image Generation"
 thumbnail: /blog/assets/amused/thumbnail.png
 authors:
+- user: Isamu136
 - user: valhalla
 - user: williamberman
 - user: sayakpaul
@@ -14,9 +15,9 @@ authors:
 
 We’re excited to present an efficient non-diffusion text-to-image model named **aMUSEd**. It’s called so because it’s a open reproduction of [Google's MUSE](https://muse-model.github.io/). aMUSEd’s generation quality is not the best and we’re releasing a research preview with a permissive license. 
 
-In contrast to the commonly used latent diffusion approach (Rombach et al. (2022)), aMUSEd employs a Masked Image Model (MIM) methodology. This not only requires fewer inference steps, as noted by Chang et al. (2023), but also enhances the model's interpretability.
+In contrast to the commonly used latent diffusion approach [(Rombach et al. (2022))](https://arxiv.org/abs/2112.10752), aMUSEd employs a Masked Image Model (MIM) methodology. This not only requires fewer inference steps, as noted by [Chang et al. (2023)](https://arxiv.org/abs/2301.00704), but also enhances the model's interpretability.
 
-Just as MUSE, aMUSEd demonstrates an exceptional ability for style transfer using a single image, a feature explored in depth by Sohn et al. (2023). This aspect could potentially open new avenues in personalized and style-specific image generation.
+Just as MUSE, aMUSEd demonstrates an exceptional ability for style transfer using a single image, a feature explored in depth by [Sohn et al. (2023)](https://arxiv.org/abs/2306.00983). This aspect could potentially open new avenues in personalized and style-specific image generation.
 
 In this blog post, we will give you some internals of aMUSEd, show how you can use it for different tasks, including text-to-image, and show how to fine-tune it. Along the way, we will provide all the important resources related to aMUSEd, including its training code. Let’s get started 🚀
 
@@ -101,7 +102,7 @@ grid
 
 ![image_grid_t2i_amused.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/image_grid_t2i_amused.png)
 
-Crucially, because of its small size (only ~600M parameters), aMUSEd is very fast. The figure below provides a comparative study of the inference latencies of different models, including aMUSEd:
+Crucially, because of its small size (only ~800M parameters, including the text encoder and VQ-GAN), aMUSEd is very fast. The figure below provides a comparative study of the inference latencies of different models, including aMUSEd:
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/amused_speed_comparison.png" alt="Speed Comparison">
