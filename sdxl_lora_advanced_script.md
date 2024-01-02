@@ -43,7 +43,7 @@ Contents:
     3. [Recommended practices](https://huggingface.co/blog/sdxl_lora_advanced_script#additional-good-practices) - Text encoder learning rate, custom captions, dataset repeats, min snr gamma, training set creation
 2. [Experiments Settings and Results](https://huggingface.co/blog/sdxl_lora_advanced_script#experiments-settings-and-results)
 3. Inference
-   1. [Diffusers inference](https://huggingface.co/blog/sdxl_lora_advanced_script#pivotal-tuning)
+   1. [Diffusers inference](https://huggingface.co/blog/sdxl_lora_advanced_script#inference)
    2. [Automatic1111/ComfyUI inference](https://huggingface.co/blog/sdxl_lora_advanced_script#comfy-ui--automatic1111-inference)
 
 **Acknowledgements** ❤️: 
