@@ -52,7 +52,7 @@ During ***inference***:
 
 As mentioned at the beginning, aMUSEd borrows a lot of similarities from MUSE. However, there are some notable differences:
 
-- aMUSEd doesn’t follow a cascaded approach for predicting the masked patches, unlike MUSE.
+- aMUSEd doesn’t follow a two-stage approach for predicting the final masked patches.
 - Instead of using T5 for text conditioning, CLIP L/14 is used for computing the text embeddings.
 - Following Stable Diffusion XL (SDXL), additional conditioning, such as image size and cropping, is passed to the U-ViT. This is referred to as “micro-conditioning”.
 
@@ -144,7 +144,7 @@ image = pipe(prompt, input_image, mask, generator=torch.manual_seed(3)).images[0
 
 ![inpainting_grid_amused.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/inpainting_grid_amused.png)
 
-aMUSEd is the first non-diffusion system within `diffusers`. We are excited to see how the community leverages it. 
+aMUSEd is the first non-diffusion system within `diffusers`. Its iterative scheduling approach for predicting the masked patches made it a good candidate for `diffusers`. We are excited to see how the community leverages it. 
 
 We encourage you to check out the technical report to learn about all the tasks we explored with aMUSEd. 
 
