@@ -93,80 +93,6 @@ Hence, it's also crucial that `token_abstraction` corresponds to the identifier 
 * `adam_weight_decay_text_encoder` This is used to set a different weight decay value for the text encoder parameters (
   different from the value used for the unet parameters).`
 
-## Inference
-
-When doing pivotal tuning, besides the `*.safetensors` weights of your LoRA, there is also the `*.safetensors` embeddings
-for the new tokens. In order to do inference with those we add 2 steps to how we would normally load a LoRA:
-
-1. Download our trained embeddings from the hub
-   (your embeddings filename is set by default to be `{model_name}_emb.safetensors`)
-
-```py
-import torch
-from huggingface_hub import hf_hub_download
-from diffusers import DiffusionPipeline
-from safetensors.torch import load_file
-pipe = DiffusionPipeline.from_pretrained(
-        "stabilityai/stable-diffusion-xl-base-1.0",
-        torch_dtype=torch.float16,
-        variant="fp16",
-).to("cuda")
-
-# download embeddings
-embedding_path = hf_hub_download(repo_id="LinoyTsaban/web_y2k_lora", filename="web_y2k_emb.safetensors", repo_type="model")
-
-```
-
-2. Load the embeddings into the text encoders
-
-```py
-
-# load embeddings to the text encoders
-state_dict = load_file(embedding_path)
-
-# notice we load the tokens <s0><s1>, as "TOK" as only a place-holder and training was performed using the new initialized tokens - <s0><s1>
-# load embeddings of text_encoder 1 (CLIP ViT-L/14)
-pipe.load_textual_inversion(state_dict["clip_l"], token=["<s0>", "<s1>"], text_encoder=pipe.text_encoder, tokenizer=pipe.tokenizer)
-# load embeddings of text_encoder 2 (CLIP ViT-G/14)
-pipe.load_textual_inversion(state_dict["clip_g"], token=["<s0>", "<s1>"], text_encoder=pipe.text_encoder_2, tokenizer=pipe.tokenizer_2)
-```
-
-3. Load your LoRA and prompt it!
-
-```py
-# normal LoRA loading
-pipe.load_lora_weights("LinoyTsaban/web_y2k_lora", weight_name="pytorch_lora_weights.safetensors")
-prompt="a <s0><s1> webpage about an astronaut riding a horse"
-images = pipe(
-    prompt,
-    cross_attention_kwargs={"scale": 0.8},
-).images
-# your output image
-images[0]
-```
-
-  <figure class="image table text-center m-0 w-full">
-    <image
-        style="max-width: 50%; margin: auto;"
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/web_y2k_astronaut.png"
-    ></image>
-  </figure>
-
-## Comfy UI / AUTOMATIC1111 Inference
-The new script fully supports textual inversion loading with Comfy UI and AUTOMATIC1111 formats!
-
-**AUTOMATIC1111 / SD.Next** \
-In AUTOMATIC1111/SD.Next we will load a LoRA and a textual embedding at the same time. 
-- *LoRA*: Besides the diffusers format, the script will also train a WebUI compatible LoRA. It is generated as `{your_lora_name}.safetensors`. You can then include it in your `models/Lora` directory. 
-- *Embedding*: the embedding is the same for diffusers and WebUI. You can download your `{lora_name}_emb.safetensors` file from a trained model, and include it in your `embeddings` directory. 
-
-You can then run inference by prompting `a y2k_emb webpage about the movie Mean Girls <lora:y2k:0.9>`. You can use the `y2k_emb` token normally, including increasing its weight by doing `(y2k_emb:1.2)`. 
-
-**ComfyUI** \
-In ComfyUI we will load a LoRA and a textual embedding at the same time. 
-- *LoRA*: Besides the diffusers format, the script will also train a ComfyUI compatible LoRA. It is generated as `{your_lora_name}.safetensors`. You can then include it in your `models/Lora` directory. Then you will load the LoRALoader node and hook that up with your model and CLIP. [Official guide for loading LoRAs](https://comfyanonymous.github.io/ComfyUI_examples/lora/)
-- *Embedding*: the embedding is the same for diffusers and WebUI. You can download your `{lora_name}_emb.safetensors` file from a trained model, and include it in your `models/embeddings` directory and use it in your prompts like `embedding:y2k_emb`. [Official guide for loading embeddings](https://comfyanonymous.github.io/ComfyUI_examples/textual_inversion_embeddings/). 
-
 ## Adaptive Optimizers
 <figure class="image table text-center m-0 w-full">
     <image
@@ -618,6 +544,80 @@ train_text_encoder_ti
 with_prior_preservation_loss
 num_class_images = 150 
 ```
+
+## Inference
+
+When doing pivotal tuning, besides the `*.safetensors` weights of your LoRA, there is also the `*.safetensors` embeddings
+for the new tokens. In order to do inference with those we add 2 steps to how we would normally load a LoRA:
+
+1. Download our trained embeddings from the hub
+   (your embeddings filename is set by default to be `{model_name}_emb.safetensors`)
+
+```py
+import torch
+from huggingface_hub import hf_hub_download
+from diffusers import DiffusionPipeline
+from safetensors.torch import load_file
+pipe = DiffusionPipeline.from_pretrained(
+        "stabilityai/stable-diffusion-xl-base-1.0",
+        torch_dtype=torch.float16,
+        variant="fp16",
+).to("cuda")
+
+# download embeddings
+embedding_path = hf_hub_download(repo_id="LinoyTsaban/web_y2k_lora", filename="web_y2k_emb.safetensors", repo_type="model")
+
+```
+
+2. Load the embeddings into the text encoders
+
+```py
+
+# load embeddings to the text encoders
+state_dict = load_file(embedding_path)
+
+# notice we load the tokens <s0><s1>, as "TOK" as only a place-holder and training was performed using the new initialized tokens - <s0><s1>
+# load embeddings of text_encoder 1 (CLIP ViT-L/14)
+pipe.load_textual_inversion(state_dict["clip_l"], token=["<s0>", "<s1>"], text_encoder=pipe.text_encoder, tokenizer=pipe.tokenizer)
+# load embeddings of text_encoder 2 (CLIP ViT-G/14)
+pipe.load_textual_inversion(state_dict["clip_g"], token=["<s0>", "<s1>"], text_encoder=pipe.text_encoder_2, tokenizer=pipe.tokenizer_2)
+```
+
+3. Load your LoRA and prompt it!
+
+```py
+# normal LoRA loading
+pipe.load_lora_weights("LinoyTsaban/web_y2k_lora", weight_name="pytorch_lora_weights.safetensors")
+prompt="a <s0><s1> webpage about an astronaut riding a horse"
+images = pipe(
+    prompt,
+    cross_attention_kwargs={"scale": 0.8},
+).images
+# your output image
+images[0]
+```
+
+  <figure class="image table text-center m-0 w-full">
+    <image
+        style="max-width: 50%; margin: auto;"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/web_y2k_astronaut.png"
+    ></image>
+  </figure>
+
+## Comfy UI / AUTOMATIC1111 Inference
+The new script fully supports textual inversion loading with Comfy UI and AUTOMATIC1111 formats!
+
+**AUTOMATIC1111 / SD.Next** \
+In AUTOMATIC1111/SD.Next we will load a LoRA and a textual embedding at the same time. 
+- *LoRA*: Besides the diffusers format, the script will also train a WebUI compatible LoRA. It is generated as `{your_lora_name}.safetensors`. You can then include it in your `models/Lora` directory. 
+- *Embedding*: the embedding is the same for diffusers and WebUI. You can download your `{lora_name}_emb.safetensors` file from a trained model, and include it in your `embeddings` directory. 
+
+You can then run inference by prompting `a y2k_emb webpage about the movie Mean Girls <lora:y2k:0.9>`. You can use the `y2k_emb` token normally, including increasing its weight by doing `(y2k_emb:1.2)`. 
+
+**ComfyUI** \
+In ComfyUI we will load a LoRA and a textual embedding at the same time. 
+- *LoRA*: Besides the diffusers format, the script will also train a ComfyUI compatible LoRA. It is generated as `{your_lora_name}.safetensors`. You can then include it in your `models/Lora` directory. Then you will load the LoRALoader node and hook that up with your model and CLIP. [Official guide for loading LoRAs](https://comfyanonymous.github.io/ComfyUI_examples/lora/)
+- *Embedding*: the embedding is the same for diffusers and WebUI. You can download your `{lora_name}_emb.safetensors` file from a trained model, and include it in your `models/embeddings` directory and use it in your prompts like `embedding:y2k_emb`. [Official guide for loading embeddings](https://comfyanonymous.github.io/ComfyUI_examples/textual_inversion_embeddings/). 
 
 ### What’s next?
 
