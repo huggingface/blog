@@ -39,8 +39,8 @@ Contents:
 
 1. Techniques/tricks
     1. [Pivotal tuning](#pivotal-tuning)
-    2. [Adaptive optimizers](#adaptive-optimizersg)
-    3. [Recommended practices](t#additional-good-practices) - Text encoder learning rate, custom captions, dataset repeats, min snr gamma, training set creation
+    2. [Adaptive optimizers](#adaptive-optimizers)
+    3. [Recommended practices](#additional-good-practices) - Text encoder learning rate, custom captions, dataset repeats, min snr gamma, training set creation
 2. [Experiments Settings and Results](#experiments-settings-and-results)
 3. Inference
    1. [Diffusers inference](#inference)
