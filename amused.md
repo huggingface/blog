@@ -150,7 +150,7 @@ We encourage you to check out the technical report to learn about all the tasks 
 
 ## Fine-tuning aMUSEd
 
-We provide a simple [training script](https://github.com/huggingface/diffusers/blob/main/examples/amused/train_amused.py) for fine-tuning aMUSEd on custom datasets. With the 8-bit Adam optimizer and float16 precision, it’s possible to fine-tune aMUSEd with just under 11GBs of GPU VRAM. With LoRA, the memory requirements get further reduced to just 7GBs. 
+We provide a simple [training script](https://github.com/huggingface/diffusers/blob/main/examples/amused/train_amused.py) for fine-tuning aMUSEd on custom datasets. With the 8-bit Adam optimizer and float16 precision, it's possible to fine-tune aMUSEd with just under 11GBs of GPU VRAM. With LoRA, the memory requirements get further reduced to just 7GBs. 
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/finetuned_amused_result.png" alt="Fine-tuned result.">
@@ -161,7 +161,7 @@ aMUSEd comes with an OpenRAIL license, and hence, it’s commercially friendly t
 
 ## Limitations
 
-aMUSEd is not a state-of-the-art image generation system when the image quality is solely considered. We released aMUSEd to encourage the community to explore non-diffusion frameworks such as MIM for image generation. We believe MIM’s potential is underexplored, given its benefits:
+aMUSEd is not a state-of-the-art image generation regarding image quality. We released aMUSEd to encourage the community to explore non-diffusion frameworks such as MIM for image generation. We believe MIM’s potential is underexplored, given its benefits:
 
 - Inference efficiency
 - Smaller size, enabling on-device applications
