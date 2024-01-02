@@ -38,13 +38,13 @@ our previous post - [Using LoRA for Efficient Stable Diffusion Fine-Tuning](http
 Contents:
 
 1. Techniques/tricks
-    1. [Pivotal tuning](https://huggingface.co/blog/sdxl_lora_advanced_script#pivotal-tuning)
-    2. [Adaptive optimizers](https://huggingface.co/blog/sdxl_lora_advanced_script#adaptive-optimizersg)
-    3. [Recommended practices](https://huggingface.co/blog/sdxl_lora_advanced_script#additional-good-practices) - Text encoder learning rate, custom captions, dataset repeats, min snr gamma, training set creation
-2. [Experiments Settings and Results](https://huggingface.co/blog/sdxl_lora_advanced_script#experiments-settings-and-results)
+    1. [Pivotal tuning](#pivotal-tuning)
+    2. [Adaptive optimizers](#adaptive-optimizersg)
+    3. [Recommended practices](t#additional-good-practices) - Text encoder learning rate, custom captions, dataset repeats, min snr gamma, training set creation
+2. [Experiments Settings and Results](#experiments-settings-and-results)
 3. Inference
-   1. [Diffusers inference](https://huggingface.co/blog/sdxl_lora_advanced_script#inference)
-   2. [Automatic1111/ComfyUI inference](https://huggingface.co/blog/sdxl_lora_advanced_script#comfy-ui--automatic1111-inference)
+   1. [Diffusers inference](#inference)
+   2. [Automatic1111/ComfyUI inference](#comfy-ui--automatic1111-inference)
 
 **Acknowledgements** ❤️: 
 The techniques showcased in this guide – algorithms, training scripts, experiments and explorations – were inspired and built upon the 
@@ -440,7 +440,7 @@ and early 2000s that we (nostalgically 🥲) scraped from the internet:
 
   <figure class="image table text-center m-0 w-full">
     <image
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 85%; margin: auto;"
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/web_y2k_dataset_preview.png"
     ></image>
   </figure>
@@ -526,7 +526,7 @@ text_encoder_training = regular finetuning, pivotal tuning
 * As you can see below, our preliminary results show that good results are achieved with a 120x multiplier (if the dataset is diverse enough to not overfit, it's preferable to not use the same shooting)
  <figure class="image table text-center m-0 w-full">
     <image
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 85%; margin: auto;"
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/image_multiplier_comparison_linoy_loras.png
 "
     ></image>
