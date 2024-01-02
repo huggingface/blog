@@ -193,4 +193,4 @@ We hope that the community will find the resources useful and feel motivated to 
 
 ## Acknowledgements
 
-TODO
+Suraj led training. William led data and supported training. Patrick von Platen supported both training and data and provided general guidance. Robin Rombach did the VQGAN training and provided general guidance. Also immense thanks to community-contributor Isamu Isozaki for helpful discussions and code-contributions.
