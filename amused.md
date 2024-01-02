@@ -166,7 +166,9 @@ aMUSEd is not a state-of-the-art image generation regarding image quality. We re
 - Inference efficiency
 - Smaller size, enabling on-device applications
 - Task transfer without requiring expensive fine-tuning
-- Advantages of well-established components from the language modeling world
+- Advantages of well-established components from the language modeling world 
+
+_(Note that the original work on MUSE is close-sourced)_
 
 For a detailed description of the quantitative evaluation of aMUSEd, refer to the technical report. 
 
