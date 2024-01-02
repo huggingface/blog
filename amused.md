@@ -39,12 +39,12 @@ The figure below presents a pictorial overview of how aMUSEd works.
 During ***training***:
 
 - input images are tokenized using a VQGAN to obtain image tokens
-- the image tokens are then masked according to a masking schedule.
+- the image tokens are then masked according to a cosine masking schedule.
 - the masked tokens (conditioned on the prompt embeddings computed using a CLIP L/14 model) are passed to a U-ViT model that predicts the masked patches
 
 During ***inference***:
 
-- input prompt is embedded using the CLIP-L/14 text encoder.
+- input prompt is embedded using the [CLIP-L/14 text encoder](https://huggingface.co/openai/clip-vit-large-patch14).
 - iterate till `N` steps are reached:
     - start with randomly masked tokens and pass them to the U-ViT model along with the prompt embeddings
     - predict the masked tokens and only keep a certain percentage of the most confident predictions based on the `N` and mask schedule. Mask the remaining ones and pass them off to the U-ViT model
