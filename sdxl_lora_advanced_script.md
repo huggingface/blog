@@ -576,7 +576,8 @@ optimizer = prodigy, adamW
 repeats = 1,2,3,4
 learning_rate = 1.0 , 1e-4
 text_encoder_lr = 1.0, 3e-4
-snr_gamma = None, 5.0 
+snr_gamma = None, 5.0
+num_class_images = 100, 150
 max_train_steps = 75 * num_images, 100 * num_images, 120 * num_images
 text_encoder_training = regular finetuning, pivotal tuning
 ```
@@ -615,8 +616,9 @@ repeats = 1
 learning_rate = 1.0
 text_encoder_lr = 1.0 
 max_train_steps = 75 * num_images, 100 * num_images, 120 * num_images
-text_encoder_training = pivotal tuning
-prior preservation loss enabled 
+train_text_encoder_ti
+with_prior_preservation_loss
+num_class_images = 150 
 ```
 
 ### What’s next?
