@@ -460,7 +460,7 @@ Specifically we used the following arguments in both versions (and added `snr_ga
   <figure class="image table text-center m-0 w-full">
     <image
         style="max-width: 60%; margin: auto;"
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/snr_comparison_huggy.png"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/snr_comparison_huggy_s0s1.png"
     ></image>
   </figure>
 
