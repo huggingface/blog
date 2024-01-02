@@ -3207,6 +3207,7 @@
 - local: amused
   title: "Welcome aMUSEd: Efficient Text-to-Image Generation"
   author: Isamu136
+  guest: true
   thumbnail: /blog/assets/amused/thumbnail.png
   date: Jan 02, 2024
   tags:
