@@ -3,6 +3,7 @@ title: "Welcome aMUSEd: Efficient Text-to-Image Generation"
 thumbnail: /blog/assets/amused/thumbnail.png
 authors:
 - user: Isamu136
+  guest: true
 - user: valhalla
 - user: williamberman
 - user: sayakpaul
@@ -194,3 +195,5 @@ We hope that the community will find the resources useful and feel motivated to 
 ## Acknowledgements
 
 Suraj led training. William led data and supported training. Patrick von Platen supported both training and data and provided general guidance. Robin Rombach did the VQGAN training and provided general guidance. Also immense thanks to community-contributor Isamu Isozaki for helpful discussions and code-contributions.
+
+Thanks to Patrick von Platen and Pedro Cuenca for their reviews on the blog post draft.
