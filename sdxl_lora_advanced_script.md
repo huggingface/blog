@@ -566,9 +566,10 @@ We found v4, v5 and v6 to strike the best balance:
 
 
 **Face LoRA**
-* Linoy face Datasets 
-  * v1 - 6 close-up photos taken at the same time
-  * v2 - 13 close up photos and fully body shots taken at different occasions (changing backgrounds, lighting and outfits)
+When training on face images, we aim for the LoRA to generate images as realistic and similar to the original person as possible,
+while also being able to generalize well to backgrounds and compositions that were not seen in the training set.
+For this use-case, we used different datasets of Linoy's face composed of 6-10 images, including a set of close-up photos taken all at the same time and a dataset of shots taken at different occasions (changing backgrounds, lighting and outfits) as well as full body shots.
+We learned that less images with a better curation works better than more images if the images are of mid-to-low quality when it comes to lighting/resolution/focus on subject - less is more: pick your best pictures and use that to train the model!
 Configurations:
 ```
 rank = 4,16,32, 64
@@ -582,9 +583,6 @@ max_train_steps = 75 * num_images, 100 * num_images, 120 * num_images
 text_encoder_training = regular finetuning, pivotal tuning
 ```
 
-When training on face images, we aim for the LoRA to generate images as realistic and similar to the original person as possible,
-while also being able to generalize well to backgrounds and compositions that were not seen in the training set.
-
 * Prior preservation loss
   * contrary to common practices, we found the use of generated class images to reduce both resemblance to the subject and realism. 
   * we created a [dataset](https://huggingface.co/datasets/multimodalart/faces-prior-preservation) of real portrait images, using free licensed images downloaded from [unsplash](https://unsplash.com).
@@ -592,15 +590,14 @@ while also being able to generalize well to backgrounds and compositions that we
   * When using the real image dataset, we did notice less language drift (i.e. the model doesn't associate the term woman/man with trained faces only and can generate different people as well) while at the same time maintaining realism and overall quality when prompted for the trained faces. 
 
 * Rank
-  * we compare LoRAs in ranks 4, 16, 32 and 64. We observed that in the settings tested in our explorations, images produced using the 64 rank LoRA tend to have a more air-brushed appearance, and less realistic looking skin texture. Hence for the experiments detailed below as well as the [LoRA ease space](https://huggingface.co/spaces/multimodalart/lora-ease), we use a default rank of 32. 
+  * we compare LoRAs in ranks 4, 16, 32 and 64. We observed that in the settings tested in our explorations, images produced using the 64 rank LoRA tend to have a more air-brushed appearance, and less realistic looking skin texture. 
+  * Hence for the experiments detailed below as well as the [LoRA ease space](https://huggingface.co/spaces/multimodalart/lora-ease), we use a default rank of 32. 
 
-* Datasets - v1 vs v2
-  * When comparing between different hyperparameter configurations on the v1 and v2 datasets we observed the quality of the images (resolution, lighting, focus on the subject) is especially important for this usecase.
-  * Despite the fact v2 contains more images, at changing backgrounds and compositions, we observed the quality of the trained LoRA on average degraded. As the quality of the body images (resolution, focus, etc) is suboptimal, we think they're responsible for the model's degradation. Another possiblty (not mutually exclusive) is that more images are needed to properly teach both facial features and body type. We encourage you to experiment with different datasets and share your results with us!
-
-In our experiments we found it to be a bit trickier when it comes to faces, to strike a good balance between number of training steps and dataset size. 
-We experimented with 3 different image-to-number of steps ratios - 1:75, 1:100 and 1:120. Training on the v1 dataset (6 close up photos, taken at the same time - repeating background, outfit and lighting), the overall best results - on average across seeds - were generated using the LoRA trained with a x120 multiplier.
-  <figure class="image table text-center m-0 w-full">
+* Training Steps
+* Even though few high quality images (in our example, 6) work well, we still need to determine an ideal number of steps to train the model. 
+* We experimented with few different multipliers on the number of images: 6 x75 = 450 steps / 6 x100 = 600 steps / 6 x120 = 720 steps. 
+* As you can see below, our preliminary results show that good results are achieved with a 120x multiplier (if the dataset is diverse enough to not overfit, it's preferable to not use the same shooting)
+ <figure class="image table text-center m-0 w-full">
     <image
         style="max-width: 70%; margin: auto;"
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/image_multiplier_comparison_linoy_loras.png
