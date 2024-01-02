@@ -79,8 +79,8 @@ pipe = AmusedPipeline.from_pretrained(
 )
 pipe = pipe.to("cuda")
 
-prompt = "cowboy"
-image = pipe(prompt, generator=torch.manual_seed(8)).images[0]
+prompt = "a horse in the wild"
+image = pipe(prompt, generator=torch.manual_seed(2024)).images[0]
 image
 ```
 
@@ -93,7 +93,7 @@ from diffusers.utils import make_image_grid
 
 images = []
 for step in [5, 10, 15]:
-    image = pipe(prompt, num_inference_steps=step, generator=torch.manual_seed(8)).images[0]
+    image = pipe(prompt, num_inference_steps=step, generator=torch.manual_seed(0)).images[0]
     images.append(image)
 
 grid = make_image_grid(images, rows=1, cols=3)
