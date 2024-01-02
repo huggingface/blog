@@ -567,8 +567,8 @@ We found v4, v5 and v6 to strike the best balance:
 
 **Face LoRA**
 * Linoy face Datasets 
-  * v1 - 7 close up photos taken at the same time 
-  * v1.5 - 16 close up photos taken at different occasions (changing backgrounds, lighting and outfits)
+  * v1 - 6 close up photos taken at the same time 
+  * v1.5 - 10 close up photos taken at the same time
   * v2 - 13 close up photos and fully body shots taken at different occasions (changing backgrounds, lighting and outfits)
 
 Configurations:
@@ -579,7 +579,7 @@ repeats = 1,2,3,4
 learning_rate = 1.0 , 1e-4
 text_encoder_lr = 1.0, 3e-4
 snr_gamma = None, 5.0 
-max_train_steps = 50 * num_images, 100 * num_images, 150 * num_images
+max_train_steps = 75 * num_images, 100 * num_images, 120 * num_images
 text_encoder_training = regular finetuning, pivotal tuning
 ```
 
@@ -588,14 +588,14 @@ while also being able to generalize well to backgrounds and compositions that we
 When comparing between different hyperparam configurations on the v1, v1.5 and v2 datasets 
 we observed the quality of the images (resolution, lighting, focus on the subject) is especially important for this usecase:
 * Datasets - v1 vs v1.5 vs v2
-  * Even though v1.5 contains v1 images in addition to other close up photos of varying lighting, backgrounds, clothing and angles,
-  the additional images seemed to degrade the quality of the LoRA instead of improve it. 
-  * 
+  * Despite the fact v2 contains more images, at changing backgrounds and compositions, we observed the quality of the trained LoRA on average degraded. As the quality of the body images (resolution, focus, etc) is suboptimal, we think they're responsible for the model's degradation. Another possiblty (not mutually exclusive) is that more images are needed to properly teach both facial features and body type. We encourage you to experiment with different datasets and share your results with us!
+
 
 * Prior preservation loss
   * contrary to common practices, we found the use of generated class images to reduce both resemblance to the subject and realism. 
   * we created a [dataset](https://huggingface.co/datasets/multimodalart/faces-prior-preservation) of real portrait images, using free licensed images downloaded from [unsplash](https://unsplash.com).
-  You can now use it automatically in the new [training space](https://huggingface.co/spaces/multimodalart/lora-ease) as well!
+  You can now use it automatically in the new [training space](https://huggingface.co/spaces/multimodalart/lora-ease) as well! 
+  * When using the real image dataset, we did notice less language drift (i.e. the model doesn't associate the term woman/man with trained faces only and can generate different people as well) while at the same time maintaining realism and overall quality when prompted for the trained faces. 
 
 * Rank
   * we compare LoRAs in ranks 4, 16, 32 and 64. We observed that in the settings tested in our explorations, images produced using the 64 rank LoRA tend to have a more air-brushed appearance, and less realistic looking skin texture. 
