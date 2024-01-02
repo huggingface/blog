@@ -14,7 +14,7 @@ authors:
 
 We’re excited to present an efficient non-diffusion text-to-image model named **aMUSEd**. It’s called so because it’s derived from the foundational work MUSE done by Google. aMUSEd’s generation quality is not the best and we’re releasing a research preview with a permissive license. 
 
-What distinguishes aMUSEd is its remarkable efficiency, operating with only 10% of the parameters of its predecessor, MUSE, yet maintaining a focus on rapid and high-quality image generation. In contrast to the commonly used latent diffusion approach (Rombach et al. (2022)), aMUSEd employs a Masked Image Model (MIM) methodology. This not only requires fewer inference steps, as noted by Chang et al. (2023), but also enhances the model's interpretability, a crucial aspect in AI applications.
+In contrast to the commonly used latent diffusion approach (Rombach et al. (2022)), aMUSEd employs a Masked Image Model (MIM) methodology. This not only requires fewer inference steps, as noted by Chang et al. (2023), but also enhances the model's interpretability.
 
 Moreover, the adaptability of aMUSEd is noteworthy. The model demonstrates an exceptional ability to learn additional styles from a single image, a feature explored in depth by Sohn et al. (2023). This aspect of aMUSEd could potentially open new avenues in personalized and style-specific image generation.
 
