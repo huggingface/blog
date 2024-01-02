@@ -12,11 +12,11 @@ authors:
 
 ![amused_grid](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/amused/main_image_grid.jpeg)
 
-We’re excited to present an efficient non-diffusion text-to-image model named **aMUSEd**. It’s called so because it’s derived from the foundational work MUSE done by Google. aMUSEd’s generation quality is not the best and we’re releasing a research preview with a permissive license. 
+We’re excited to present an efficient non-diffusion text-to-image model named **aMUSEd**. It’s called so because it’s a open reproduction of [Google's MUSE](https://muse-model.github.io/). aMUSEd’s generation quality is not the best and we’re releasing a research preview with a permissive license. 
 
 In contrast to the commonly used latent diffusion approach (Rombach et al. (2022)), aMUSEd employs a Masked Image Model (MIM) methodology. This not only requires fewer inference steps, as noted by Chang et al. (2023), but also enhances the model's interpretability.
 
-Moreover, the adaptability of aMUSEd is noteworthy. The model demonstrates an exceptional ability to learn additional styles from a single image, a feature explored in depth by Sohn et al. (2023). This aspect of aMUSEd could potentially open new avenues in personalized and style-specific image generation.
+Just as MUSE, aMUSEd demonstrates an exceptional ability for style transfer using a single image, a feature explored in depth by Sohn et al. (2023). This aspect could potentially open new avenues in personalized and style-specific image generation.
 
 In this blog post, we will give you some internals of aMUSEd, show how you can use it for different tasks, including text-to-image, and show how to fine-tune it. Along the way, we will provide all the important resources related to aMUSEd, including its training code. Let’s get started 🚀
 
