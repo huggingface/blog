@@ -45,9 +45,9 @@ During ***training***:
 During ***inference***:
 
 - input prompt is embedded using the CLIP-L/14 text encoder.
-- iterate till N steps are reached:
+- iterate till `N` steps are reached:
     - start with randomly masked tokens and pass them to the U-ViT model along with the prompt embeddings
-    - predict the masked tokens and only keep a certain percentage of them based on the number of steps and mask schedule. Mask the remaining ones and pass them off to the U-ViT model
+    - predict the masked tokens and only keep a certain percentage of the most confident predictions based on the `N` and mask schedule. Mask the remaining ones and pass them off to the U-ViT model
 - pass the final output to the VQGAN decoder to obtain the final image
 
 As mentioned at the beginning, aMUSEd borrows a lot of similarities from MUSE, a text-to-image model from Google. However, there are some notable differences:
