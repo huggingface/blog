@@ -40,7 +40,7 @@ During ***training***:
 
 - input images are tokenized using a VQGAN to obtain image tokens
 - the image tokens are then masked according to a cosine masking schedule.
-- the masked tokens (conditioned on the prompt embeddings computed using a CLIP L/14 model) are passed to a U-ViT model that predicts the masked patches
+- the masked tokens (conditioned on the prompt embeddings computed using a [CLIP-L/14 text encoder](https://huggingface.co/openai/clip-vit-large-patch14) are passed to a [U-ViT](https://arxiv.org/abs/2301.11093) model that predicts the masked patches
 
 During ***inference***:
 
@@ -50,11 +50,11 @@ During ***inference***:
     - predict the masked tokens and only keep a certain percentage of the most confident predictions based on the `N` and mask schedule. Mask the remaining ones and pass them off to the U-ViT model
 - pass the final output to the VQGAN decoder to obtain the final image
 
-As mentioned at the beginning, aMUSEd borrows a lot of similarities from MUSE, a text-to-image model from Google. However, there are some notable differences:
+As mentioned at the beginning, aMUSEd borrows a lot of similarities from MUSE. However, there are some notable differences:
 
 - aMUSEd doesn’t follow a cascaded approach for predicting the masked patches, unlike MUSE.
 - Instead of using T5 for text conditioning, CLIP L/14 is used for computing the text embeddings.
-- Following Stable Diffusion XL (SDXL), we provided additional conditioning to the U-ViT, referred to as “micro-conditioning”.
+- Following Stable Diffusion XL (SDXL), additional conditioning, such as image size and cropping, is passed to the U-ViT. This is referred to as “micro-conditioning”.
 
 To learn more about aMUSEd, we recommend reading the technical report here (TODO: link to the report). 
 
