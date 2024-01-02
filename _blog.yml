@@ -463,6 +463,7 @@
     - audio
     - cv
 
+
 - local: gradio-joins-hf
   title: "Gradio joins Hugging Face!"
   author: abidlabs
@@ -3203,3 +3204,20 @@
     - guide
     - audio
     - transformers
+
+- local: sdxl_lora_advanced_script
+  title: "LoRA training scripts of the world, unite!"
+  author: LinoyTsaban
+  thumbnail: /blog/assets/dreambooth_lora_sdxl/thumbnail.png
+  date: January 2, 2024
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion
+    - lora
+    - dreambooth
+    - stable-diffusion
+    - fine-tuning
+    - community
+    - sdxl
