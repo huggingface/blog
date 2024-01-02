@@ -75,7 +75,7 @@ from diffusers import AmusedPipeline
 pipe = AmusedPipeline.from_pretrained(
     "amused/amused-512", variant="fp16", torch_dtype=torch.float16
 )
-pipe.vqvae.to(torch.float32)  # vqvae is producing nans in fp16
+pipe.vqvae.to(torch.float32)  # vqvae is kept in fp32 for stability
 pipe = pipe.to("cuda")
 
 prompt = "cowboy"
