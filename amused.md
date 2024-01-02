@@ -108,7 +108,6 @@ Crucially, because of its small size (only ~600M parameters), aMUSEd is very fas
   <figcaption>Tuples, besides the model names, have the following format: (timesteps, resolution). Benchmark conducted on A100. More details are in the technical report.</figcaption>
 </figure>
 
-Tuples, besides the model names, have the following format: (timesteps, resolution). Benchmark conducted on A100. More details are in the technical report. 
 
 As a direct byproduct of its pre-training objective, aMUSEd can do image inpainting zero-shot, unlike other models such as SDXL. 
 
