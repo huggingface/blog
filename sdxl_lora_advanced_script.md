@@ -310,7 +310,7 @@ To use Min-SNR gamma, set a value for:
 
 By default `--snr_gamma=None`, I.e. not used. When enabling `--snr_gamma`, the recommended value is 5.0.
 
-* ### Repeats
+**Repeats**
   This argument refers to the number of times an image from your dataset is repeated in the training set. This differs
   from epochs in that first the images are repeated, and only then shuffled.
 
