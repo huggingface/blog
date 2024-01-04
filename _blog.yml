@@ -463,6 +463,7 @@
     - audio
     - cv
 
+
 - local: gradio-joins-hf
   title: "Gradio joins Hugging Face!"
   author: abidlabs
@@ -3204,12 +3205,29 @@
     - audio
     - transformers
 
+- local: sdxl_lora_advanced_script
+  title: "LoRA training scripts of the world, unite!"
+  author: LinoyTsaban
+  thumbnail: /blog/assets/dreambooth_lora_sdxl/thumbnail.png
+  date: January 2, 2024
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion
+    - lora
+    - dreambooth
+    - stable-diffusion
+    - fine-tuning
+    - community
+    - sdxl
+
 - local: amused
   title: "Welcome aMUSEd: Efficient Text-to-Image Generation"
   author: Isamu136
   guest: true
   thumbnail: /blog/assets/amused/thumbnail.png
-  date: Jan 04, 2024
+  date: January 4, 2024
   tags:
     - guide
     - vision

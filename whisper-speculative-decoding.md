@@ -211,6 +211,7 @@ wer = load("wer")
 print(wer.compute(predictions=predictions, references=references))
 ```
 **Output:**
+```
 0.03507271171941831
 ```
 
