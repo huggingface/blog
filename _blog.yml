@@ -3449,3 +3449,16 @@
     - llm
     - nlp
     - tgi
+
+- local: textgen-pipe-gaudi
+  title: "Text-Generation Pipeline on Habana Gaudi2 Accelerator"
+  author: siddjags
+  thumbnail: /blog/assets/textgen-pipe-gaudi/thumbnail.png
+  date: Jan 4, 2024
+  tags:
+    - habana
+    - partnerships
+    - hardware
+    - nlp
+    - llm
+    - inference
