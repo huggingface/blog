@@ -1,6 +1,6 @@
 ---
 title: "Text-Generation Pipeline on Habana Gaudi2 Accelerator" 
-thumbnail: /blog/assets/textgen-pipe-gaudi/thumbnail.gif
+thumbnail: /blog/assets/textgen-pipe-gaudi/thumbnail.png
 authors:
 - user: siddjags
 ---
