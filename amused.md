@@ -30,6 +30,12 @@ In this blog post, we will give you some internals of aMUSEd, show how you can u
 * [Limitations](#limitations)
 * [Resources](#resources)
 
+We have built a demo for readers to play with aMUSEd. You can try it out in [this Space](https://huggingface.co/spaces/amused/MUSE) or in the playground embedded below:
+
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
+<gradio-app theme_mode="light" space="amused/MUSE"></gradio-app>
+
+
 ## How does it work?
 
 aMUSEd is based on ***Masked Image Modeling***. It makes for a compelling use case for the community to explore components that are known to work in language modeling in the context of image generation. 
