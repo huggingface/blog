@@ -58,7 +58,7 @@ As mentioned at the beginning, aMUSEd borrows a lot of similarities from MUSE. H
 - Instead of using T5 for text conditioning, CLIP L/14 is used for computing the text embeddings.
 - Following Stable Diffusion XL (SDXL), additional conditioning, such as image size and cropping, is passed to the U-ViT. This is referred to as “micro-conditioning”.
 
-To learn more about aMUSEd, we recommend reading the technical report here (TODO: link to the report). 
+To learn more about aMUSEd, we recommend reading the technical report [here](https://huggingface.co/papers/2401.01808). 
 
 ## Using aMUSEd in 🧨 diffusers
 
@@ -178,8 +178,8 @@ We hope that the community will find the resources useful and feel motivated to 
 
 **Papers**:
 
-- *[Muse:* Text-To-Image Generation via Masked Generative Transformers](https://muse-model.github.io/)
-- aMUSEd: An Open MUSE Reproduction (TODO)
+- [*Muse:* Text-To-Image Generation via Masked Generative Transformers](https://muse-model.github.io/)
+- [aMUSEd: An Open MUSE Reproduction](https://huggingface.co/papers/2401.01808)
 - [Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer](https://arxiv.org/abs/1910.10683) (T5)
 - [Learning Transferable Visual Models From Natural Language Supervision](https://arxiv.org/abs/2103.00020) (CLIP)
 - [SDXL: Improving Latent Diffusion Models for High-Resolution Image Synthesis](https://arxiv.org/abs/2307.01952)
@@ -191,6 +191,7 @@ We hope that the community will find the resources useful and feel motivated to 
 - [aMUSEd training code](https://github.com/huggingface/amused)
 - [aMUSEd documentation](https://huggingface.co/docs/diffusers/main/en/api/pipelines/amused)
 - [aMUSEd fine-tuning code](https://github.com/huggingface/diffusers/tree/main/examples/amused)
+- [aMUSEd models](https://huggingface.co/amused)
 
 ## Acknowledgements
 
