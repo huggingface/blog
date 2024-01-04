@@ -30,10 +30,10 @@ In this blog post, we will give you some internals of aMUSEd, show how you can u
 * [Limitations](#limitations)
 * [Resources](#resources)
 
-We have built a demo for readers to play with aMUSEd. You can try it out in [this Space](https://huggingface.co/spaces/amused/MUSE) or in the playground embedded below:
+We have built a demo for readers to play with aMUSEd. You can try it out in [this Space](https://huggingface.co/spaces/amused/amused) or in the playground embedded below:
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
-<gradio-app theme_mode="light" space="amused/MUSE"></gradio-app>
+<gradio-app theme_mode="light" space="amused/amused"></gradio-app>
 
 
 ## How does it work?
