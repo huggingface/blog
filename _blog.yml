@@ -463,6 +463,7 @@
     - audio
     - cv
 
+
 - local: gradio-joins-hf
   title: "Gradio joins Hugging Face!"
   author: abidlabs
@@ -3204,11 +3205,40 @@
     - audio
     - transformers
 
+- local: sdxl_lora_advanced_script
+  title: "LoRA training scripts of the world, unite!"
+  author: LinoyTsaban
+  thumbnail: /blog/assets/dreambooth_lora_sdxl/thumbnail.png
+  date: January 2, 2024
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion
+    - lora
+    - dreambooth
+    - stable-diffusion
+    - fine-tuning
+    - community
+    - sdxl
+
+- local: amused
+  title: "Welcome aMUSEd: Efficient Text-to-Image Generation"
+  author: Isamu136
+  guest: true
+  thumbnail: /blog/assets/amused/thumbnail.png
+  date: January 4, 2024
+  tags:
+    - guide
+    - vision
+    - research
+    - diffusers
+
 - local: unsloth-trl
   title: "Faster fine-tuning using TRL & Unsloth"
   author: danielhanchen
   thumbnail: /blog/assets/hf_unsloth/thumbnail.png
-  date: Jan 4, 2023
+  date: Jan 9, 2023
   tags:
     - sft
     - optimization
