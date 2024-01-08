@@ -107,7 +107,7 @@ There is only one commandline flag argument that is required of the user to get 
 The following bash command gets things running:
 
 ```python
-python stable_diffusion_tuning.py --hf_user_access_token <token>
+python ddpo.py --hf_user_access_token <token>
 ```
 
 The following table contains key hyperparameters that are directly correlated with positive results:
