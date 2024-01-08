@@ -3238,6 +3238,7 @@
   title: "Faster fine-tuning using TRL & Unsloth"
   author: danielhanchen
   thumbnail: /blog/assets/hf_unsloth/thumbnail.png
+  guest: true
   date: Jan 9, 2023
   tags:
     - sft
