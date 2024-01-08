@@ -3183,10 +3183,20 @@
     - llm
     - transformers
 
-- local: patchts
-  title: "PatchTST and PatchTSMixer Time Series Models"
+- local: patchtst
+  title: "Patch Time Series Transformer for Transfer Learning across datasets"
   author: kashif
-  thumbnail: /blog/assets/patchts/thumbnail.png
+  thumbnail: /blog/assets/patchtst/thumbnail.png
+  date: December 12, 2023
+  tags:
+    - guide
+    - research
+    - time-series
+
+- local: patchtsmixer
+  title: "PatchTSMixer in HuggingFace"
+  author: kashif
+  thumbnail: /blog/assets/patchtsmixer/thumbnail.png
   date: December 12, 2023
   tags:
     - guide
