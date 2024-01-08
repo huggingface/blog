@@ -1,5 +1,5 @@
 ---
-title: "Faster fine-tuning using TRL & Unsloth"
+title: "Make LLM Fine-tuning 2x faster with Unsloth and 🤗 TRL"
 thumbnail: /blog/assets/hf_unsloth/thumbnail.png
 authors:
 - user: danielhanchen
@@ -71,10 +71,8 @@ To use Unsloth with the TRL library, simply pass the Unsloth model into `SFTTrai
 
 We are sharing below fully reproducible notebooks for anyone that wants to try out Unsloth with SFTTrainer on a free-tier Google Colab instance.
 
-Llama 7b Free Tesla T4 colab example: https://colab.research.google.com/drive/1lBzz5KeZJKXjvivbYvmGarix9Ao6Wxe5?usp=sharing
+Llama 7b Free Tesla T4 colab example [here](https://huggingface.co/datasets/unsloth/notebooks/blob/main/Alpaca_%2B_Llama_7b_full_example.ipynb)
 
-Mistral 7b Free Tesla T4 colab example: 
-https://colab.research.google.com/drive/1Dyauq4kTZoLewQ1cApceUQVNcnnNTzg_?usp=sharing
+Mistral 7b Free Tesla T4 colab example [here](https://huggingface.co/datasets/unsloth/notebooks/blob/main/Alpaca_%2B_Mistral_7b_full_example.ipynb)
 
-CodeLlama 34b A100 colab example:
-https://colab.research.google.com/drive/1y7A0AxE3y8gdj4AVkl2aZX47Xu3P1wJT?usp=sharing
+CodeLlama 34b A100 colab example [here](https://huggingface.co/datasets/unsloth/notebooks/blob/main/Alpaca_%2B_Codellama_34b_full_example.ipynb)
