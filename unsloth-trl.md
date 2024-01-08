@@ -67,6 +67,63 @@ Once adapters are attached, you can use the model directly within any class from
 
 To use Unsloth with the TRL library, simply pass the Unsloth model into `SFTTrainer` or `DPOTrainer`! The trained model is fully compatible with the Hugging Face ecosystem, so you can push the final model to the Hub and use transformers for inference out of the box!
 
+```python
+import torch
+
+from trl import SFTTrainer
+from transformers import TrainingArguments
+from datasets import load_dataset
+
+from unsloth import FastLanguageModel
+
+max_seq_length = 2048 # Supports RoPE Scaling interally, so choose any!
+# Get LAION dataset
+dataset = load_dataset("imdb", split="train")
+
+# Load Llama model
+model, tokenizer = FastLanguageModel.from_pretrained(
+    model_name = "unsloth/mistral-7b-bnb-4bit", # Supports Llama, Mistral - replace this!
+    max_seq_length = max_seq_length,
+    dtype = None,
+    load_in_4bit = True,
+)
+
+# Do model patching and add fast LoRA weights
+model = FastLanguageModel.get_peft_model(
+    model,
+    r = 16,
+    target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
+                      "gate_proj", "up_proj", "down_proj",],
+    lora_alpha = 16,
+    lora_dropout = 0, # Supports any, but = 0 is optimized
+    bias = "none",    # Supports any, but = "none" is optimized
+    use_gradient_checkpointing = True,
+    random_state = 3407,
+    max_seq_length = max_seq_length,
+)
+
+trainer = SFTTrainer(
+    model = model,
+    train_dataset = dataset,
+    dataset_text_field = "text",
+    max_seq_length = max_seq_length,
+    tokenizer = tokenizer,
+    args = TrainingArguments(
+      per_device_train_batch_size = 2,
+      gradient_accumulation_steps = 4,
+      warmup_steps = 10,
+      max_steps = 60,
+      fp16 = not torch.cuda.is_bf16_supported(),
+      bf16 = torch.cuda.is_bf16_supported(),
+      logging_steps = 1,
+      output_dir = "outputs",
+      optim = "adamw_8bit",
+      seed = 3407,
+  ),
+)
+trainer.train()
+```
+
 ## Reproducible notebooks
 
 We are sharing below fully reproducible notebooks for anyone that wants to try out Unsloth with SFTTrainer on a free-tier Google Colab instance.
