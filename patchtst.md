@@ -301,7 +301,7 @@ if PRETRAIN_AGAIN:
 
  ## Transfer Learing on ETTh1 data. All evaluations are on the `test` part of the ETTh1 data.
  Step 1: Directly evaluate the electricity-pretrained model. This is the zero-shot performance.
- Step 2: Evalute after doing linear probing.
+ Step 2: Evaluate after doing linear probing.
  Step 3: Evaluate after doing full finetuning.
 
 
@@ -496,6 +496,3 @@ os.makedirs(save_dir, exist_ok=True)
 finetune_forecast_trainer.save_model(save_dir)
 ```
 
-```python
-
-```
