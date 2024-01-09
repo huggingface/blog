@@ -13,10 +13,14 @@ authors:
 # PatchTSMixer in HuggingFace - Getting Started
 
 <!-- #region -->
-
+<!-- 
 <div style="text-align: center;">
     <img src="assets/patchtsmixer/first_image.png" width="615" height="220"/>
-</div>
+</div> -->
+<p align="center">
+    <img src="assets/patchtsmixer/first_image.png" width="615" height="220"/>
+</p>
+
 
 
 
