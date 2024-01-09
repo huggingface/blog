@@ -13,16 +13,10 @@ authors:
 # PatchTSMixer in HuggingFace - Getting Started
 
 <!-- #region -->
-<!-- 
-<div style="text-align: center;">
-    <img src="assets/patchtsmixer/first_image.png" width="615" height="220"/>
-</div> -->
+
 <p align="center">
     <img src="assets/patchtsmixer/first_image.png" width="615" height="220"/>
 </p>
-
-
-
 
 
 `PatchTSMixer` is a lightweight time-series modeling approach based on the MLP-Mixer architecture. It is proposed in [TSMixer: Lightweight MLP-Mixer Model for Multivariate Time Series Forecasting](https://arxiv.org/pdf/2306.09364.pdf) by IBM Research authors `Vijay Ekambaram`, `Arindam Jati`, `Nam Nguyen`, `Phanwadee Sinthong` and `Jayant Kalagnanam`.
@@ -43,33 +37,34 @@ In this blog, we will demonstrate examples of getting started with PatchTSMixer.
 #### Skip this section if you are familiar with `PatchTSMixer`!
 `PatchTSMixer` patches a given input multivariate time series into a sequence of patches or windows. Subsequently, it passes the series to an embedding layer, which generates a multi-dimensional tensor.
 
-<div style="text-align: center;">
-<img src="assets/patchtsmixer/overview/1.gif" width="640" height="360"/>
-</div>
+
+<p align="center">
+    <img src="assets/patchtsmixer/overview/1.gif" width="640" height="360"/>
+</p>
 
 The multi-dimensional tensor is subsequently passed to the `PatchTSMixer` backbone, which is composed of a sequence of [MLP Mixer](https://arxiv.org/abs/2105.01601) layers. Each MLP Mixer layer learns inter-patch, intra-patch, and inter-channel correlations through a series of permutation and MLP operations.
 
-<div style="text-align: center;">
-<img src="assets/patchtsmixer/overview/2.gif" width="640" height="360"/>
-</div>
+<p align="center">
+    <img src="assets/patchtsmixer/overview/2.gif" width="640" height="360"/>
+</p>
 
 `PatchTSMixer` also employs residual connections and gated attentions to prioritize of important features.
 
-<div style="text-align: center;">
-<img src="assets/patchtsmixer/overview/3.gif" width="640" height="360"/>
-</div>
+<p align="center">
+    <img src="assets/patchtsmixer/overview/3.gif" width="640" height="360"/>
+</p>
 
 Hence, a sequence of MLP Mixer layers creates the following `PatchTSMixer` backbone. 
 
-<div style="text-align: center;">
-<img src="assets/patchtsmixer/overview/4.gif" width="640" height="360"/>
-</div>
+<p align="center">
+    <img src="assets/patchtsmixer/overview/4.gif" width="640" height="360"/>
+</p>
 
 `PatchTSMixer` has a modular design to seamlessly support masked time series pre-training as well as direct time series forecasting.
 
-<div style="text-align: center;">
-<img src="assets/patchtsmixer/overview/5.gif" width="640" height="360"/>
-</div>
+<p align="center">
+    <img src="assets/patchtsmixer/overview/5.gif" width="640" height="360"/>
+</p>
 
 ## Installation
 1. Clone IBM Time Series Foundation Model Repository [`tsfm`](https://github.com/ibm/tsfm).
