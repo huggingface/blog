@@ -12,6 +12,12 @@ authors:
 
 # PatchTSMixer in HuggingFace - Getting Started
 
+<script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+
+<a target="_blank" href="https://colab.research.google.com/github/IBM/tsfm/blob/mixer_blog/notebooks/hfdemo/patch_tsmixer_blog.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
 <!-- #region -->
 
 <p align="center">
