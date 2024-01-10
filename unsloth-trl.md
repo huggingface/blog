@@ -33,7 +33,7 @@ Unsloth works by overwriting some parts of the modeling code with optimized oper
 | Llama-2 7b      | OASST     | 1x               | 1.19x                  | **1.95x**       | -43.3%            |
 | Mistral 7b      | Alpaca    | 1x               | 1.07x                  | **1.56x**       | -13.7%            |
 | Tiny Llama 1.1b | Alpaca    | 1x               | 2.06x                  | **3.87x**       | -73.8%            |
-| DPO with Zephyr | Ultra Chat| 1x               |                        | ****            | -                 |
+| DPO with Zephyr | Ultra Chat| 1x               | 1.09x                  | **1.55x**       | -18.6%            |
 
 Unsloth was benchmarked across 59 runs using 4 datasets on Tesla T4 and A100 Google Colab instances. QLoRA was applied to all linear layers (attention and MLP) with a rank of 16, and gradient checkpointing was on. By testing against the latest Transformers branch, which now has SDPA natively integrated, Unsloth is up to 2.7x faster on the latest hardware, and uses up to 74% less memory. All 59 notebooks are provided for full reproducibility, and more details are in Unsloth’s benchmarking details [here](https://unsloth.ai/blog/mistral-benchmark)
 
