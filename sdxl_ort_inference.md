@@ -17,6 +17,8 @@ SD Turbo is a distilled version of Stable Diffusion 2.1 with fewer parameters, a
 We’ve [previously shown](https://medium.com/microsoftazure/accelerating-stable-diffusion-inference-with-onnx-runtime-203bd7728540) how to accelerate Stable Diffusion inference with ONNX Runtime.
 In this post, we will introduce optimizations in the ONNX Runtime CUDA and TensorRT execution providers that speed up inference of SD Turbo and SDXL Turbo on NVIDIA GPUs by as much as 3x over Torch Compile.
 
+Not only does ONNX Runtime provide performance benefits when used with SD Turbo and SDXL Turbo, but it also makes the models accessible in languages other than Python, like C#. A tutorial for how to run SD Turbo and SDXL Turbo is coming soon. In the meantime, check out our previous tutorial on [inferencing Stable Diffusion with C# and ONNX Runtime](https://onnxruntime.ai/docs/tutorials/csharp/stable-diffusion-csharp.html).
+
 ## Diffusion demo
 You may try SD Turbo and SDXL Turbo inference with ONNX Runtime using the CUDA or TensorRT execution provider. 
 To reproduce latency numbers in the benchmark results below, run the demo with docker using the [instructions found here](https://github.com/microsoft/onnxruntime/blob/main/onnxruntime/python/tools/transformers/models/stable_diffusion/README.md#run-demo-with-docker).
@@ -69,15 +71,15 @@ The results are measured using these specifications:
 - onnx==1.14.1
 - onnx-graphsurgeon==0.3.27
 - polygraphy==0.49.0
-To reproduce these results, we also recommend using the instructions included above in the ‘Diffusers demo’ section of ‘Usage examples.’
+To reproduce these results, we also recommend using the instructions included above in the ‘Diffusers demo’ section.
 The baseline is a diffusers pipeline that applied channel-last memory format and `torch.compile` with reduce-overhead mode on UNet and ControlNet. 
 Since the original VAE of SDXL Turbo cannot run in float16 precision, we used [sdxl-vae-fp16-fix](https://huggingface.co/madebyollin/sdxl-vae-fp16-fix) in testing SDXL Turbo. 
 There are slight discrepancies between its output and that of the original VAE, but the decoded images are close enough for most purposes.
-The following charts illustrate the end-to-end (e2e) latency in milliseconds (ms) vs. different (batch size, number of steps) combinations for various frameworks. It is worth noting that lower latency indicates better performance, 
-and the label above each bar indicates the speedup vs. Torch Compile – e.g., in the first chart, ORT_TRT (static) is 2.8X faster than Torch Compile for (batch, steps) combination (1, 1).
+The following charts illustrate the throughput in images per second vs. different (batch size, number of steps) combinations for various frameworks. It is worth noting that the label above each bar indicates the speedup vs. Torch Compile – e.g., in the first chart, ORT_TRT (static) is 2.8X faster than Torch Compile for (batch, steps) combination (1, 1).
+We elected to use 1 and 4 steps because both SD Turbo and SDXL Turbo can generate viable images in as little as 1 step but typically produce images of the best quality in 3-5 steps.
 
 ## SDXL Turbo
-The graph below illustrates the end-to-end (e2e) latency in milliseconds (ms) for the SDXL Turbo model.
+The graph below illustrates the throughput in images per second for the SDXL Turbo model.
 Results were gathered on an A100-SXM4-80GB GPU for different (batch size, number of steps) combinations.
 
 ![Performance results for SDXL Turbo on NVIDIA A100 Tensor Cores GPU](assets/sdxl_ort_inference/sdxl_turbo_perf_chart.svg)
@@ -98,7 +100,7 @@ The final two graphs illustrate end-to-end latency for the SD Turbo model on two
 These results demonstrate that ONNX Runtime significantly outperforms Torch Compile with both CUDA and TensorRT execution providers in static and dynamic shape for all (batch, steps) combinations shown.
 This conclusion applies to both model sizes (SD Turbo and SDXL Turbo), as well as both GPUs tested. 
 
-Notably, ONNX Runtime with TensorRT (static shape) is up to 3x faster than Torch Compile for (batch, steps) combination (1, 1), and end-to-end latency increases with an increase in batch size and with an increase in number of steps.
+Notably, ONNX Runtime with TensorRT (static shape) is up to 3x faster than Torch Compile for (batch, steps) combination (1, 1).
 Additionally, ONNX Runtime with the TensorRT execution provider performs slightly better for static shape given that the ORT_TRT latency is lower than the corresponding ORT_CUDA latency for all (batch, steps) combinations.
 Static shape is typically favored when the user knows the batch and image size at graph definition time (e.g., the user is only planning to generate images with batch size 1 and image size 512x512). 
 
