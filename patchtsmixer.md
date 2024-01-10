@@ -15,7 +15,7 @@ authors:
 <!-- #region -->
 
 <p align="center">
-    <img src="assets/patchtsmixer/first_image.png" width="615" height="220"/>
+    <img src="assets/patchtsmixer/first_image.gif" width="640" height="320"/>
 </p>
 
 
@@ -57,7 +57,7 @@ The multi-dimensional tensor is subsequently passed to the `PatchTSMixer` backbo
 Hence, a sequence of MLP Mixer layers creates the following `PatchTSMixer` backbone. 
 
 <p align="center">
-    <img src="assets/patchtsmixer/overview/4.gif" width="640" height="360"/>
+    <img src="assets/patchtsmixer/overview/4.png" width="671" height="222"/>
 </p>
 
 `PatchTSMixer` has a modular design to seamlessly support masked time series pre-training as well as direct time series forecasting.
@@ -67,28 +67,32 @@ Hence, a sequence of MLP Mixer layers creates the following `PatchTSMixer` backb
 </p>
 
 ## Installation
+This demo needs Huggingface [`transformers`](https://github.com/huggingface/transformers) for main modeling tasks, and IBM `tsfm` for auxiliary data pre-processing.
+We can install both by cloning the `tsfm` repository and following the below steps.
+
 1. Clone IBM Time Series Foundation Model Repository [`tsfm`](https://github.com/ibm/tsfm).
 ```
 git clone git@github.com:IBM/tsfm.git
 cd tsfm
 ```
-2. Add `tsfm` directory to your `PYTHONPATH`
+2. Install `tsfm`. This will also install Huggingface `transformers`.
 ```
-export PYTHONPATH=<path to `tsfm` directory>:$PYTHONPATH
+pip install .
 ```
-3. Test it with the following command in a `python` terminal.
+3. Test it with the following commands in a `python` terminal.
 ```
+from transformers import PatchTSMixerConfig
 from tsfm_public.toolkit.dataset import ForecastDFDataset
 ```
 
 ## Part 1: Forecasting on Electricity dataset
+Here we train a `PatchTSMixer` model directly on the Electricity data, and evaluate its performance.
+
 
 ```python
-# Standard
 import os
 import random
 
-# Third Party
 from transformers import (
     EarlyStoppingCallback,
     PatchTSMixerConfig,
@@ -100,7 +104,6 @@ import numpy as np
 import pandas as pd
 import torch
 
-# First Party
 from tsfm_public.toolkit.dataset import ForecastDFDataset
 from tsfm_public.toolkit.time_series_preprocessor import TimeSeriesPreprocessor
 from tsfm_public.toolkit.util import select_by_index
