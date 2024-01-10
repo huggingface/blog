@@ -62,8 +62,8 @@ model = FastLanguageModel.get_peft_model(
     r = 16,
     target_modules = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
     lora_alpha = 16,
-    lora_dropout = 0, # Currently only supports dropout = 0
-    bias = "none",      # Currently only supports bias = "none"
+    lora_dropout = 0, # Supports any, but = 0 is optimized
+    bias = "none",    # Supports any, but = "none" is optimized
     use_gradient_checkpointing = True,
 )
 ```
