@@ -84,13 +84,12 @@ Results were gathered on an A100-SXM4-80GB GPU for different (batch size, number
 
 ![Performance results for SDXL Turbo on NVIDIA A100 Tensor Cores GPU](assets/sdxl_ort_inference/sdxl_turbo_perf_chart.svg)
 
-The next graph also illustrates end-to-end latency for the SDXL Turbo models, this time when ControlNet
-is used on the same GPU.
+The next graph also illustrates throughput in images per second for the SDXL Turbo models, this time when ControlNet is used on the same GPU.
 
 ![Performance results for SDXL Turbo on NVIDIA A100 Tensor Cores GPU with ControlNet](assets/sdxl_ort_inference/sdxl_turbo_controlnet_perf_chart.svg)
 
 ## SD Turbo
-The final two graphs illustrate end-to-end latency for the SD Turbo model on two different types of GPUs: A100-SXM4-80GB and RTX-4090
+The final two graphs illustrate throughput in images per second for the SD Turbo model on two different types of GPUs: A100-SXM4-80GB and RTX-4090.
 
 ![Performance results for SD Turbo on NVIDIA A100 Tensor Cores GPU with ControlNet](assets/sdxl_ort_inference/sd_turbo_a100_perf_chart.svg)
 ![Performance results for SD Turbo on RTX 4090](assets/sdxl_ort_inference/sd_turbo_rtx_perf_chart.svg)
