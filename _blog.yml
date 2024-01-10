@@ -3233,3 +3233,15 @@
     - vision
     - research
     - diffusers
+
+- local: unsloth-trl
+  title: "Faster fine-tuning using TRL & Unsloth"
+  author: danielhanchen
+  guest: true
+  thumbnail: /blog/assets/hf_unsloth/thumbnail.png
+  date: Jan 10, 2023
+  tags:
+    - sft
+    - optimization
+    - llm
+    - qlora
