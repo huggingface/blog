@@ -46,7 +46,6 @@ You will need to provide your intended maximum sequence length to `from_pretrain
 ```python
 from unsloth import FastLanguageModel
 
-# Load Llama model
 model, tokenizer = FastLanguageModel.from_pretrained(
     model_name = "unsloth/mistral-7b-bnb-4bit", # Supports Llama, Mistral - replace this!
     max_seq_length = 2048, # Supports RoPE Scaling internally, so choose any!
