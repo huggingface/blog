@@ -243,7 +243,7 @@ assistant_model = AutoModelForCausalLM.from_pretrained(
     attn_implementation="sdpa",
 )
 
-assistant_model.to(device);
+assistant_model.to(device)
 ```
 
 ------------------------------------------------------------------------
