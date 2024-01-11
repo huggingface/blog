@@ -9,15 +9,17 @@ authors:
 - user: mfuntowicz
 ---
 
-# Accelerating SD Turbo and SDXL Turbo Inference with ONNX Runtime
+# Accelerating SD Turbo and SDXL Turbo Inference with ONNX Runtime and Olive
 
 ## Introduction
-[SD Turbo](https://huggingface.co/stabilityai/sd-turbo) and [SDXL Turbo](https://huggingface.co/stabilityai/sdxl-turbo) are two fast generative text-to-image models capable of running inference in just one network evaluation. 
-SD Turbo is a distilled version of Stable Diffusion 2.1 with fewer parameters, and SDXL Turbo is a distilled version of SDXL 1.0 with more parameters. 
-We’ve [previously shown](https://medium.com/microsoftazure/accelerating-stable-diffusion-inference-with-onnx-runtime-203bd7728540) how to accelerate Stable Diffusion inference with ONNX Runtime.
-In this post, we will introduce optimizations in the ONNX Runtime CUDA and TensorRT execution providers that speed up inference of SD Turbo and SDXL Turbo on NVIDIA GPUs by as much as 3x over Torch Compile.
+[SD Turbo](https://huggingface.co/stabilityai/sd-turbo) and [SDXL Turbo](https://huggingface.co/stabilityai/sdxl-turbo) are two fast generative text-to-image models capable of generating viable images in as little as one step, a significant improvement over the 30+ steps often required with previous Stable Diffusion models. SD Turbo is a distilled version of [Stable Diffusion 2.1](https://huggingface.co/stabilityai/stable-diffusion-2-1), and SDXL Turbo is a distilled version of [SDXL 1.0](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0). We’ve [previously shown](https://medium.com/microsoftazure/accelerating-stable-diffusion-inference-with-onnx-runtime-203bd7728540) how to accelerate Stable Diffusion inference with ONNX Runtime. Not only does ONNX Runtime provide performance benefits when used with SD Turbo and SDXL Turbo, but it also makes the models accessible in languages other than Python, like C# and Java.
 
-Not only does ONNX Runtime provide performance benefits when used with SD Turbo and SDXL Turbo, but it also makes the models accessible in languages other than Python, like C#. A tutorial for how to run SD Turbo and SDXL Turbo is coming soon. In the meantime, check out our previous tutorial on [inferencing Stable Diffusion with C# and ONNX Runtime](https://onnxruntime.ai/docs/tutorials/csharp/stable-diffusion-csharp.html).
+### Performance gains
+In this post, we will introduce optimizations in the ONNX Runtime CUDA and TensorRT execution providers that speed up inference of SD Turbo and SDXL Turbo on NVIDIA GPUs significantly.
+ONNX Runtime outperformed PyTorch for all (batch size, number of steps) combinations tested, with throughput gains as high as 229% for the SDXL Turbo model and 120% for the SD Turbo model. ONNX Runtime CUDA has particularly good performance for dynamic shape but demonstrates a marked improvement over PyTorch for static shape as well.
+
+![](assets/sdxl_ort_inference/sdxl_turbo_ort_vs_torch.svg)
+
 
 ## Diffusion demo
 You may try SD Turbo and SDXL Turbo inference with ONNX Runtime using the CUDA or TensorRT execution provider. 
