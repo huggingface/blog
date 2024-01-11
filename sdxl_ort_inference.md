@@ -117,7 +117,12 @@ In the future, we also plan to continue improving upon our SD Turbo and SDXL Tur
 Additionally, we would like to integrate the optimization into one popular Stable Diffusion UI.
 
 
-## Resources
-Check out the optimized SD Turbo and SDXL Turbo ONNX models discussed in this post on Hugging Face:
-- [SD Turbo](https://huggingface.co/tlwu/sd-turbo-onnxruntime)
-- [SDXL Turbo](https://huggingface.co/tlwu/sdxl-turbo-onnxruntime)
+# Resources
+Check out some of the resources discussed in this post:
+- [SD Turbo](https://huggingface.co/tlwu/sd-turbo-onnxruntime): Olive-optimized SD Turbo for ONNX Runtime CUDA model hosted on Hugging Face.
+- [SDXL Turbo](https://huggingface.co/tlwu/sdxl-turbo-onnxruntime): Olive-optimized SDXL Turbo for ONNX Runtime CUDA model hosted on Hugging Face.
+- [Stable Diffusion GPU Optimization](https://github.com/microsoft/onnxruntime/blob/main/onnxruntime/python/tools/transformers/models/stable_diffusion/README.md): Instructions for optimizing Stable Diffusion with NVIDIA GPUs in ONNX Runtime GitHub repository.
+- [ONNX Runtime Extension for Automatic1111’s SD WebUI](https://github.com/tianleiwu/Stable-Diffusion-WebUI-OnnxRuntime): Extension enabling optimized execution of Stable Diffusion UNet model on NVIDIA GPUs.
+- [OnnxStack](https://github.com/saddam213/OnnxStack): Community-contributed .NET library enabling Stable Diffusion inference with C# and ONNX Runtime.
+- [SD4J (Stable Diffusion in Java)](https://github.com/oracle-samples/sd4j): Oracle sample for Stable Diffusion with Java and ONNX Runtime.
+- [Inference Stable Diffusion with C# and ONNX Runtime](https://onnxruntime.ai/docs/tutorials/csharp/stable-diffusion-csharp.html): Previously published C# tutorial.
