@@ -3,9 +3,13 @@ title: "PatchTSMixer in HuggingFace"
 thumbnail: /blog/assets/patchtsmixer/thumbnail.jpeg
 authors:
 - user: ajati
+  guest: true
 - user: vijaye12
+  guest: true
 - user: namctin
+  guest: true
 - user: wgifford
+  guest: true
 - user: kashif
 ---
 
@@ -25,7 +29,7 @@ authors:
 </p>
 
 
-`PatchTSMixer` is a lightweight time-series modeling approach based on the MLP-Mixer architecture. It is proposed in [TSMixer: Lightweight MLP-Mixer Model for Multivariate Time Series Forecasting](https://arxiv.org/pdf/2306.09364.pdf) by IBM Research authors `Vijay Ekambaram`, `Arindam Jati`, `Nam Nguyen`, `Phanwadee Sinthong` and `Jayant Kalagnanam`.
+`PatchTSMixer` is a lightweight time-series modeling approach based on the MLP-Mixer architecture. It is proposed in [TSMixer: Lightweight MLP-Mixer Model for Multivariate Time Series Forecasting](https://arxiv.org/pdf/2306.09364.pdf) by IBM Research authors Vijay Ekambaram, Arindam Jati, Nam Nguyen, Phanwadee Sinthong and Jayant Kalagnanam.
 
 For effective mindshare and to promote opensourcing - IBM Research join hands with the HuggingFace team to opensource this model in HF.
 
@@ -35,11 +39,11 @@ In the [HuggingFace implementation](https://huggingface.co/docs/transformers/mai
 
 In this blog, we will demonstrate examples of getting started with PatchTSMixer. We will first demonstrate the forecasting capability of `PatchTSMixer` on the Electricity data. We will then demonstrate the transfer learning capability of PatchTSMixer by using the model trained on the Electricity to do zero-shot forecasting on the ETTH2 dataset.
 
-`Blog authors`: Arindam Jati, Vijay Ekambaram, Nam Ngugen, Wesley Gifford and Kashif Rasul
 
 <!-- #endregion -->
 
 ## PatchTSMixer Quick Overview 
+
 #### Skip this section if you are familiar with `PatchTSMixer`!
 `PatchTSMixer` patches a given input multivariate time series into a sequence of patches or windows. Subsequently, it passes the series to an embedding layer, which generates a multi-dimensional tensor.
 
