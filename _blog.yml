@@ -3245,3 +3245,14 @@
     - optimization
     - llm
     - qlora
+
+- local: patchtsmixer
+  title: "PatchTSMixer in HuggingFace"
+  author: ajati
+  guest: true
+  thumbnail: /blog/assets/patchtsmixer/thumbnail.png
+  date: January 12, 2024
+  tags:
+    - guide
+    - research
+    - time-series
