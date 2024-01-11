@@ -48,39 +48,39 @@ Additionally, Oracle has released a [Stable Diffusion sample with Java](https://
 
 
 ## Benchmark results
-We benchmarked the SD Turbo and SDXL Turbo models with Standard_ND96amsr_A100_v4 VM using A100-SXM4-80GB and a [Lenovo Desktop](https://www.lenovo.com/us/en/p/desktops/legion-desktops/legion-t-series-towers/legion-tower-7i-gen-8-(34l-intel)/90v7003bus) 
-with RTX-4090 GPU (WSL Ubuntu 20.04) to generate images of resolution 512x512 using the Euler Ancestral Discrete Scheduler and float16 models. 
-The results are measured using these specifications:
+We benchmarked the SD Turbo and SDXL Turbo models with Standard_ND96amsr_A100_v4 VM using A100-SXM4-80GB and a [Lenovo Desktop](https://www.lenovo.com/us/en/p/desktops/legion-desktops/legion-t-series-towers/legion-tower-7i-gen-8-(34l-intel)/90v7003bus) with RTX-4090 GPU (WSL Ubuntu 20.04) to generate images of resolution 512x512 using the LCM Scheduler and fp16 models. The results are measured using these specifications:
 - onnxruntime-gpu==1.17.0 (built from source)
 - torch==2.1.0a0+32f93b1
 - tensorrt==8.6.1
-- transformers==4.35.2
+- transformers==4.36.0
 - diffusers==0.24.0
 - onnx==1.14.1
 - onnx-graphsurgeon==0.3.27
 - polygraphy==0.49.0
-To reproduce these results, we also recommend using the instructions included above in the ‘Diffusers demo’ section.
-The baseline is a diffusers pipeline that applied channel-last memory format and `torch.compile` with reduce-overhead mode on UNet and ControlNet. 
-Since the original VAE of SDXL Turbo cannot run in float16 precision, we used [sdxl-vae-fp16-fix](https://huggingface.co/madebyollin/sdxl-vae-fp16-fix) in testing SDXL Turbo. 
-There are slight discrepancies between its output and that of the original VAE, but the decoded images are close enough for most purposes.
-The following charts illustrate the throughput in images per second vs. different (batch size, number of steps) combinations for various frameworks. It is worth noting that the label above each bar indicates the speedup vs. Torch Compile – e.g., in the first chart, ORT_TRT (static) is 2.8X faster than Torch Compile for (batch, steps) combination (1, 1).
+
+To reproduce these results, we recommend using the instructions linked in the ‘Usage example’ section.
+Since the original VAE of SDXL Turbo cannot run in fp16 precision, we used [sdxl-vae-fp16-fix](https://huggingface.co/madebyollin/sdxl-vae-fp16-fix) in testing SDXL Turbo. There are slight discrepancies between its output and that of the original VAE, but the decoded images are close enough for most purposes.
+The PyTorch pipeline for static shape has applied channel-last memory format and torch.compile with reduce-overhead mode.
+The following charts illustrate the throughput in images per second vs. different (batch size, number of steps) combinations for various frameworks. It is worth noting that the label above each bar indicates the speedup percentage vs. Torch Compile – e.g., in the first chart, ORT_TRT (Static) is 31% faster than Torch (Compile) for (batch, steps) combination (4, 1).
 We elected to use 1 and 4 steps because both SD Turbo and SDXL Turbo can generate viable images in as little as 1 step but typically produce images of the best quality in 3-5 steps.
 
-## SDXL Turbo
-The graph below illustrates the throughput in images per second for the SDXL Turbo model.
-Results were gathered on an A100-SXM4-80GB GPU for different (batch size, number of steps) combinations.
+### SDXL Turbo
+The graphs below illustrate the throughput in images per second for the SDXL Turbo model with both static and dynamic shape. Results were gathered on an A100-SXM4-80GB GPU for different (batch size, number of steps) combinations. For dynamic shape, the TensorRT engine supports batch size 1 to 8 and image size 512x512 to 768x768, but it is optimized for batch size 1 and image size 512x512.
+![Throughput for SDXL Turbo on A100 Tensor Cores GPU (static shapes)](assets/sdxl_ort_inference/sdxl_turbo_perf_chart_static.svg)
+![Throughput for SDXL Turbo on A100 Tensor Cores GPU (dynamic shapes)](assets/sdxl_ort_inference/sdxl_turbo_perf_chart_dynamic.svg)
 
-![Performance results for SDXL Turbo on NVIDIA A100 Tensor Cores GPU](assets/sdxl_ort_inference/sdxl_turbo_perf_chart.svg)
+### SD Turbo
+The next two graphs illustrate throughput in images per second for the SD Turbo model with both static and dynamic shape on an A100-SXM4-80GB GPU.
+![Throughput for SD Turbo on A100 Tensor Cores GPU (static shapes)](assets/sdxl_ort_inference/sd_turbo_a100_perf_chart_static.svg)
+![Throughput for SD Turbo on A100 Tensor Cores GPU (dynamic shapes)](assets/sdxl_ort_inference/sd_turbo_a100_perf_chart_dynamic.svg)
+The final set of graphs illustrates throughput in images per second for the SD Turbo model with both static and dynamic shape on an RTX-4090 GPU. In this dynamic shape test, the TensorRT engine is built for batch size 1 to 8 (optimized for batch size 1) and fixed image size 512x512 due to memory limitation.
+![Throughput for SD Turbo on RTX 4090 (static shapes)](assets/sdxl_ort_inference/sd_turbo_rtx_perf_chart_static.svg)
+![Throughput for SD Turbo on RTX 4090 (dynamic shapes)](assets/sdxl_ort_inference/sd_turbo_rtx_perf_chart_dynamic.svg)
 
-The next graph also illustrates throughput in images per second for the SDXL Turbo models, this time when ControlNet is used on the same GPU.
-
-![Performance results for SDXL Turbo on NVIDIA A100 Tensor Cores GPU with ControlNet](assets/sdxl_ort_inference/sdxl_turbo_controlnet_perf_chart.svg)
-
-## SD Turbo
-The final two graphs illustrate throughput in images per second for the SD Turbo model on two different types of GPUs: A100-SXM4-80GB and RTX-4090.
-
-![Performance results for SD Turbo on NVIDIA A100 Tensor Cores GPU with ControlNet](assets/sdxl_ort_inference/sd_turbo_a100_perf_chart.svg)
-![Performance results for SD Turbo on RTX 4090](assets/sdxl_ort_inference/sd_turbo_rtx_perf_chart.svg)
+### How fast are SD Turbo and SDXL Turbo with ONNX Runtime?
+These results demonstrate that ONNX Runtime significantly outperforms PyTorch with both CUDA and TensorRT execution providers in static and dynamic shape for all (batch, steps) combinations shown. This conclusion applies to both model sizes (SD Turbo and SDXL Turbo), as well as both GPUs tested. Notably, ONNX Runtime with CUDA (dynamic shape) was shown to be 229% faster than Torch Eager for (batch, steps) combination (1, 4).
+Additionally, ONNX Runtime with the TensorRT execution provider performs slightly better for static shape given that the ORT_TRT throughput is higher than the corresponding ORT_CUDA throughput for most (batch, steps) combinations. Static shape is typically favored when the user knows the batch and image size at graph definition time (e.g., the user is only planning to generate images with batch size 1 and image size 512x512). In these situations, the static shape has faster performance. However, if the user decides to switch to a different batch and/or image size, TensorRT must create a new engine (meaning double the engine files in the disk) and switch engines (meaning additional time spent loading the new engine).
+On the other hand, ONNX Runtime with the CUDA execution provider is often a better choice for dynamic shape for SD Turbo and SDXL Turbo models when using an A100-SXM4-80GB GPU, but ONNX Runtime with the TensorRT execution provider performs slightly better on dynamic shape for most (batch, steps) combinations when using an RTX-4090 GPU. The benefit of using dynamic shape is that users can run inference more quickly when the batch and image sizes are not known until graph execution time (e.g., running batch size 1 and image size 512x512 for one image and batch size 4 and image size 512x768 for another). When dynamic shape is used in these cases, users only need to build and save one engine, rather than switching engines during inference.
 
 
 ## Analysis
