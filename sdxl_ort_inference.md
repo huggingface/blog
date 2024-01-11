@@ -112,9 +112,9 @@ Instructions for SDXL Turbo with ControlNet, along with the A100-SXM4-80GB GPU b
 
 
 ## Next steps
-Stay tuned for our upcoming blog post about optimizing SD Turbo and SDXL Turbo with Olive, an easy-to- use tool that further streamlines this process.
-In the future, we also plan to continue improving upon our SD Turbo and SDXL Turbo work by updating the demo pipeline to support new features such as inpainting and T2I-Adapter. 
-Additionally, we would like to integrate the optimization into one popular Stable Diffusion UI.
+In the future, we plan to continue improving upon our Stable Diffusion work by updating the demo to support new features, such as [IP Adapter](https://github.com/tencent-ailab/IP-Adapter) and Stable Video Diffusion. [ControlNet](https://huggingface.co/docs/diffusers/api/pipelines/controlnet) support will also be available shortly.
+We are also working on optimizing SD Turbo and SDXL Turbo performance with our [existing Stable Diffusion web UI extension](https://github.com/tianleiwu/Stable-Diffusion-WebUI-OnnxRuntime) and plan to help add support for both models to a Windows UI developed by a member of the ONNX Runtime community.
+Additionally, a tutorial for how to run SD Turbo and SDXL Turbo with C# and ONNX Runtime is coming soon. In the meantime, check out our [previous tutorial on Stable Diffusion](https://onnxruntime.ai/docs/tutorials/csharp/stable-diffusion-csharp.html).
 
 
 # Resources
