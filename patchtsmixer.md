@@ -18,14 +18,14 @@ authors:
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-<a target="_blank" href="https://colab.research.google.com/github/IBM/tsfm/blob/main/notebooks/hfdemo/patch_tsmixer_blog.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/patch_tsmixer.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
 <!-- #region -->
 
 <p align="center">
-    <img src="assets/patchtsmixer/first_image.gif" width="640" height="320"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/first_image.gif" width="640" height="320"/>
 </p>
 
 
@@ -49,35 +49,35 @@ In this blog, we will demonstrate examples of getting started with PatchTSMixer.
 
 
 <p align="center">
-    <img src="assets/patchtsmixer/overview/1.gif" width="640" height="360"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/1.gif" width="640" height="360"/>
 </p>
 
 The multi-dimensional tensor is subsequently passed to the `PatchTSMixer` backbone, which is composed of a sequence of [MLP Mixer](https://arxiv.org/abs/2105.01601) layers. Each MLP Mixer layer learns inter-patch, intra-patch, and inter-channel correlations through a series of permutation and MLP operations.
 
 <p align="center">
-    <img src="assets/patchtsmixer/overview/2.gif" width="640" height="360"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/2.gif" width="640" height="360"/>
 </p>
 
 `PatchTSMixer` also employs residual connections and gated attentions to prioritize of important features.
 
 <p align="center">
-    <img src="assets/patchtsmixer/overview/3.gif" width="640" height="360"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/3.gif" width="640" height="360"/>
 </p>
 
 Hence, a sequence of MLP Mixer layers creates the following `PatchTSMixer` backbone. 
 
 <p align="center">
-    <img src="assets/patchtsmixer/overview/4.png" width="671" height="222"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/4.png" width="671" height="222"/>
 </p>
 
 `PatchTSMixer` has a modular design to seamlessly support masked time series pre-training as well as direct time series forecasting.
 
 <p align="center">
-    <img src="assets/patchtsmixer/overview/5.gif" width="640" height="360"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/5.gif" width="640" height="360"/>
 </p>
 
 ## Installation
-This demo needs Huggingface [`transformers`](https://github.com/huggingface/transformers) for main modeling tasks, and IBM `tsfm` for auxiliary data pre-processing.
+This demo needs Hugging Face [`transformers`](https://github.com/huggingface/transformers) for main modeling tasks, and IBM `tsfm` for auxiliary data pre-processing.
 We can install both by cloning the `tsfm` repository and following the below steps.
 
 1. Clone IBM Time Series Foundation Model Repository [`tsfm`](https://github.com/ibm/tsfm).
