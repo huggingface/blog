@@ -99,16 +99,13 @@ The benefit of using dynamic shape is that users can run inference more quickly 
 When dynamic shape is used in these cases, users only need to build and save one engine, rather than switching engines during inference.
 
 ## GPU optimizations
-Besides the techniques introduced in our [previous Stable Diffusion blog](https://medium.com/microsoftazure/accelerating-stable-diffusion-inference-with-onnx-runtime-203bd7728540), the following optimizations
-were applied by ONNX Runtime to yield the SD Turbo and SDXL Turbo results outlined in this post:
+Besides the techniques introduced in our [previous Stable Diffusion blog](https://medium.com/microsoftazure/accelerating-stable-diffusion-inference-with-onnx-runtime-203bd7728540), the following optimizations were applied by ONNX Runtime to yield the SD Turbo and SDXL Turbo results outlined in this post:
 - Enable CUDA graph for static shape inputs.
 - Add Flash Attention V2.
-- Remove extra outputs in text encoder (keep the hidden state output specified by clip_skip
-parameter).
+- Remove extra outputs in text encoder (keep the hidden state output specified by clip_skip parameter).
 - Add SkipGroupNorm fusion to fuse group normalization with Add nodes that precede it.
-- 
-Additionally, we have added support for new features, including [LoRA](https://huggingface.co/docs/peft/conceptual_guides/lora) weights for latent consistency models (LCMs) and [ControlNet](https://huggingface.co/docs/diffusers/api/pipelines/controlnet). 
-Instructions for SDXL Turbo with ControlNet, along with the A100-SXM4-80GB GPU benchmarking results are provided in previous sections.
+
+Additionally, we have added support for new features, including [LoRA](https://huggingface.co/docs/peft/conceptual_guides/lora) weights for latent consistency models (LCMs).
 
 
 ## Next steps
