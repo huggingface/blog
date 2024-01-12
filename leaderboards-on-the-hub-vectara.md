@@ -9,7 +9,7 @@ authors:
 - user: clefourrier
 ---
 
-# Introduction
+# A guide to setting up your own Hugging Face leaderboard: an end-to-end example with Vectara's hallucination leaderboard
 Hugging Face’s [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) (originally created by Ed Beeching and Lewis Tunstall, and maintained by Nathan Habib and Clémentine Fourrier) is well known for tracking the performance of open source LLMs, comparing their performance in a variety of tasks, such as [TruthfulQA](https://github.com/sylinrl/TruthfulQA) or [HellaSwag](https://rowanzellers.com/hellaswag/).
 
 This has been of tremendous value to the open-source community, as it provides a way for practitioners to keep track of the best open-source models.
