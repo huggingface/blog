@@ -463,6 +463,7 @@
     - audio
     - cv
 
+
 - local: gradio-joins-hf
   title: "Gradio joins Hugging Face!"
   author: abidlabs
@@ -3183,11 +3184,73 @@
     - llm
     - transformers
 
+- local: 2023-in-llms
+  title: "2023, year of open LLMs"
+  thumbnail: /blog/assets/cv_state/thumbnail.png
+  author: clefourrier
+  date: December 18, 2023
+  tags:
+    - research
+    - nlp
+    - llm
+    - guide
+
+- local: whisper-speculative-decoding
+  title: "Speculative Decoding for 2x Faster Whisper Inference"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/whisper-speculative-decoding/thumbnail.png
+  date: Dec 20, 2023
+  tags:
+    - guide
+    - audio
+    - transformers
+
+- local: sdxl_lora_advanced_script
+  title: "LoRA training scripts of the world, unite!"
+  author: LinoyTsaban
+  thumbnail: /blog/assets/dreambooth_lora_sdxl/thumbnail.png
+  date: January 2, 2024
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion
+    - lora
+    - dreambooth
+    - stable-diffusion
+    - fine-tuning
+    - community
+    - sdxl
+
+- local: amused
+  title: "Welcome aMUSEd: Efficient Text-to-Image Generation"
+  author: Isamu136
+  guest: true
+  thumbnail: /blog/assets/amused/thumbnail.png
+  date: January 4, 2024
+  tags:
+    - guide
+    - vision
+    - research
+    - diffusers
+
+- local: unsloth-trl
+  title: "Faster fine-tuning using TRL & Unsloth"
+  author: danielhanchen
+  guest: true
+  thumbnail: /blog/assets/hf_unsloth/thumbnail.png
+  date: Jan 10, 2023
+  tags:
+    - sft
+    - optimization
+    - llm
+    - qlora
+
 - local: patchtst
   title: "Patch Time Series Transformer for Transfer Learning across datasets"
   author: kashif
   thumbnail: /blog/assets/patchtst/thumbnail.png
-  date: December 12, 2023
+  date: January 12, 2023
   tags:
     - guide
     - research
