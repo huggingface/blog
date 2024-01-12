@@ -2431,7 +2431,7 @@
     - research
     - nlp
     - evaluation
-    - openllmleaderboard
+    - open-llm-leaderboard
     - leaderboard
 
 
@@ -3111,7 +3111,7 @@
     - research
     - nlp
     - evaluation
-    - openllmleaderboard
+    - open-llm-leaderboard
     - leaderboard
 
 - local: lora-adapters-dynamic-loading
