@@ -39,12 +39,13 @@ To set up the Vectara HHEM leaderboard, we had to follow a few steps, adjusting 
 For a simple leaderboard, where evaluations results are pushed by your backend to the results dataset, that’s all you need!
 
 As our evaluation is more complex, we then customized the source code to fit the needs of the HHEM leaderboard - here are the details:
-1. `leaderboard/src/backend/model_operations.py`: This file contains two primary classes - SummaryGenerator and EvaluationModel.
-	a. The SummaryGenerator generates summaries based on your evaluation dataset and calculates metrics like Answer Rate and Average Summary Length.
-	b. The EvaluationModel loads our proprietary Hughes Hallucination Evaluation Model (HHEM) to assess these summaries, yielding metrics such as Factual Consistency Rate and Hallucination Rate.
+1. `leaderboard/src/backend/model_operations.py`: This file contains two primary classes - `SummaryGenerator` and `EvaluationModel`.
+    a. The `SummaryGenerator` generates summaries based on your evaluation dataset and calculates metrics like Answer Rate and Average Summary Length.
+    b. The `EvaluationModel` loads our proprietary Hughes Hallucination Evaluation Model (HHEM) to assess these summaries, yielding metrics such as Factual Consistency Rate and Hallucination Rate.
 2. `leaderboard/src/backend/evaluate_model.py`: defines the `Evaluator` class which utilizes both SummaryGenerator and EvaluationModel to compute and return results in JSON format. 
-3. `leaderboard/src/backend/run_eval_suite.py`: contains a function run_evaluation that leverages Evaluator to obtain and upload evaluation results to Vectara (in the “results” dataset mentioned above).
+3. `leaderboard/src/backend/run_eval_suite.py`: contains a function run_evaluation that leverages `Evaluator` to obtain and upload evaluation results to Vectara (in the “results” dataset mentioned above).
 4. `leaderboard/main_backend.py`: Manages pending evaluation requests and executes auto evaluations using aforementioned classes and functions. It also includes an option for users to replicate our evaluation results.
+
 The final source code is available in our [HHEM leaderboard repository](https://huggingface.co/spaces/vectara/leaderboard).
 With all these changes, we now have the evaluation pipeline ready to go, and easily deployable as a Huggingface space.
 
