@@ -3259,3 +3259,17 @@
       - guide
       - collaboration
       - community
+
+- local: sdxl_ort_inference
+  title: "Accelerating SD Turbo and SDXL Turbo Inference with ONNX Runtime and Olive"
+  author: sschoenmeyer
+  guest: true
+  thumbnail: /blog/assets/optimum_onnxruntime-training/thumbnail.png
+  date: Jan 15, 2023
+  tags:
+    - stable-diffusion
+    - diffusion
+    - onnxruntime
+    - optimum
+    - collaboration
+    - community
