@@ -2431,6 +2431,7 @@
     - research
     - nlp
     - evaluation
+    - open-llm-leaderboard
     - leaderboard
 
 
@@ -3110,6 +3111,7 @@
     - research
     - nlp
     - evaluation
+    - open-llm-leaderboard
     - leaderboard
 
 - local: lora-adapters-dynamic-loading
@@ -3245,3 +3247,15 @@
     - optimization
     - llm
     - qlora
+
+- local: leaderboards-on-the-hub-vectara
+  title: "A guide to setting up your own Hugging Face leaderboard: an end-to-end example with Vectara's hallucination leaderboard"
+  author: ofermend
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  date: Jan 12, 2023
+  tags:
+      - leaderboard
+      - guide
+      - collaboration
+      - community
