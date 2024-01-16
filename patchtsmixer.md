@@ -45,7 +45,7 @@ In this blog, we will demonstrate examples of getting started with PatchTSMixer.
 ## PatchTSMixer Quick Overview 
 
 #### Skip this section if you are familiar with `PatchTSMixer`!
-`PatchTSMixer` patches a given input multivariate time series into a sequence of patches or windows. Subsequently, it passes the series to an embedding layer, which generates a multi-dimensional tensor.
+`PatchTSMixer` splits a given input multivariate time series into a sequence of patches or windows. Subsequently, it passes the series to an embedding layer, which generates a multi-dimensional tensor.
 
 
 <p align="center">
