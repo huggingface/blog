@@ -615,6 +615,8 @@ test_dataset = ForecastDFDataset(
 
 ## Zero-shot forecasting on `ETTh2`
 
+As we are going to test forecasting performance out-of-the-box, we load the model which we pretrained above.
+
 
 ```python
 from transformers import PatchTSMixerForPrediction
