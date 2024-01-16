@@ -617,15 +617,11 @@ test_dataset = ForecastDFDataset(
 
 
 ```python
-print("Loading pretrained model")
+from transformers import PatchTSMixerForPrediction
+
 finetune_forecast_model = PatchTSMixerForPrediction.from_pretrained(
     "patchtsmixer/electricity/model/pretrain/"
 )
-print("Done")
-```
-
-    Loading pretrained model
-    Done
 
 
 
