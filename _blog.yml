@@ -3241,7 +3241,7 @@
   author: danielhanchen
   guest: true
   thumbnail: /blog/assets/hf_unsloth/thumbnail.png
-  date: Jan 10, 2023
+  date: Jan 10, 2024
   tags:
     - sft
     - optimization
@@ -3253,7 +3253,7 @@
   author: ofermend
   guest: true
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
-  date: Jan 12, 2023
+  date: Jan 12, 2024
   tags:
       - leaderboard
       - guide
@@ -3265,7 +3265,7 @@
   author: sschoenmeyer
   guest: true
   thumbnail: /blog/assets/optimum_onnxruntime-training/thumbnail.png
-  date: Jan 15, 2023
+  date: Jan 15, 2024
   tags:
     - stable-diffusion
     - diffusion
