@@ -411,7 +411,7 @@ if PRETRAIN_AGAIN:
     {'eval_loss': 0.12884521484375, 'eval_runtime': 5.7532, 'eval_samples_per_second': 897.763, 'eval_steps_per_second': 3.65, 'epoch': 35.0}
 
 
-We get MSE score of 0.128 which is the SOTA result on the Electricity data.
+We get an MSE score of 0.128 which is the SOTA result on the Electricity data.
 
  ## Save model
 
