@@ -1,6 +1,6 @@
 ---
 title: "Accelerating SD Turbo and SDXL Turbo Inference with ONNX Runtime and Olive"
-thumbnail: /blog/assets/48_hubsearch/thumbnail.png
+thumbnail: /blog/assets/optimum_onnxruntime-training/thumbnail.png
 authors:
 - user: sschoenmeyer
   guest: true
