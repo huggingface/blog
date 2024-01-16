@@ -25,7 +25,7 @@ authors:
 <!-- #region -->
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/first_image.gif" width="640" height="320"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtstmixer/first_image.gif" width="640" height="320"/>
 </p>
 
 
@@ -49,47 +49,51 @@ In this blog, we will demonstrate examples of getting started with PatchTSMixer.
 
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/1.gif" width="640" height="360"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtstmixer/1.gif" width="640" height="360"/>
 </p>
 
 The multi-dimensional tensor is subsequently passed to the `PatchTSMixer` backbone, which is composed of a sequence of [MLP Mixer](https://arxiv.org/abs/2105.01601) layers. Each MLP Mixer layer learns inter-patch, intra-patch, and inter-channel correlations through a series of permutation and MLP operations.
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/2.gif" width="640" height="360"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtstmixer/2.gif" width="640" height="360"/>
 </p>
 
 `PatchTSMixer` also employs residual connections and gated attentions to prioritize important features.
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/3.gif" width="640" height="360"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtstmixer/3.gif" width="640" height="360"/>
 </p>
 
 Hence, a sequence of MLP Mixer layers creates the following `PatchTSMixer` backbone. 
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/4.png" width="671" height="222"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtstmixer/4.png" width="671" height="222"/>
 </p>
 
 `PatchTSMixer` has a modular design to seamlessly support masked time series pretraining as well as direct time series forecasting.
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/5.gif" width="640" height="360"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtstmixer/5.gif" width="640" height="360"/>
 </p>
 
 ## Installation
 This demo requires Hugging Face [`Transformers`](https://github.com/huggingface/transformers) for the model, and the IBM `tsfm` package for auxiliary data pre-processing.
-We can install both by cloning the `tsfm` repository and following the below steps.
+Both can be installed by following the steps below.
 
 1. Clone IBM Time Series Foundation Model Repository [`tsfm`](https://github.com/ibm/tsfm).
 ```
 git clone git@github.com:IBM/tsfm.git
 cd tsfm
 ```
-2. Install `tsfm`. This will also install Huggingface `transformers`.
+2. Install `tsfm`.
 ```
 pip install .
 ```
-3. Test it with the following commands in a `python` terminal.
+3. Install Hugging Face [`Transformers`](https://github.com/huggingface/transformers#installation)
+```
+pip install transformers
+```
+4. Test it with the following commands in a `python` terminal.
 ```
 from transformers import PatchTSMixerConfig
 from tsfm_public.toolkit.dataset import ForecastDFDataset
