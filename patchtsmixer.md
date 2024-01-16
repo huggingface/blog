@@ -123,10 +123,9 @@ from tsfm_public.toolkit.util import select_by_index
 
 
 ```python
-SEED = 42
-torch.manual_seed(SEED)
-random.seed(SEED)
-np.random.seed(SEED)
+from transformers import set_seed
+
+set_seed(42)
 ```
 
 ### Load and prepare datasets
