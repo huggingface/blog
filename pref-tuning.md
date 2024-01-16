@@ -6,6 +6,7 @@ authors:
 - users: kashif
 - users: lewtun
 - users: lvwerra
+- users: osanseviero
 ---
 
 # Preference Tuning LLMs with Direct Preference Optimization Methods
