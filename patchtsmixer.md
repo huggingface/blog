@@ -58,7 +58,7 @@ The multi-dimensional tensor is subsequently passed to the `PatchTSMixer` backbo
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/2.gif" width="640" height="360"/>
 </p>
 
-`PatchTSMixer` also employs residual connections and gated attentions to prioritize of important features.
+`PatchTSMixer` also employs residual connections and gated attentions to prioritize important features.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/3.gif" width="640" height="360"/>
