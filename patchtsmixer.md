@@ -146,8 +146,7 @@ so that they are contained within a single time series (i.e., a single ID).
 - `test_start_index`, `test_end_index`: the start and end indices in the loaded data which delineate the test data.
 - `num_workers`: Number of CPU workers in the PyTorch dataloader.
 - `batch_size`: Batch size.
-The data is first loaded into a Pandas dataframe and split into training, validation, and test parts. Then the pandas dataframes are converted
-to the appropriate torch dataset needed for training.
+The data is first loaded into a Pandas dataframe and split into training, validation, and test parts. Then the Pandas dataframes are converted to the appropriate PyTorch dataset required for training.
 
 
 ```python
