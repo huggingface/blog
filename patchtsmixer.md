@@ -135,7 +135,6 @@ set_seed(42)
 ### Load and prepare datasets
 
 In the next cell, please adjust the following parameters to suit your application:
-- `PRETRAIN_AGAIN`: Set this to `True` if you want to perform pretraining again. Note that this might take some time depending on the GPU availability. Otherwise, the already pretrained model will be used.
 - `dataset_path`: path to local .csv file, or web address to a csv file for the data of interest. Data is loaded with pandas, so anything supported by
 `pd.read_csv` is supported: (https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html).
 - `timestamp_column`: column name containing timestamp information, use `None` if there is no such column.
@@ -154,7 +153,6 @@ The data is first loaded into a Pandas dataframe and split into training, valida
 
 
 ```python
-PRETRAIN_AGAIN = True
 # Download ECL data from https://github.com/zhouhaoyi/Informer2020
 dataset_path = "~/Downloads/ECL.csv"
 timestamp_column = "date"
@@ -168,94 +166,92 @@ batch_size = 64  # Adjust according to GPU memory
 
 
 ```python
-if PRETRAIN_AGAIN:
-    data = pd.read_csv(
-        dataset_path,
-        parse_dates=[timestamp_column],
-    )
-    forecast_columns = list(data.columns[1:])
+data = pd.read_csv(
+    dataset_path,
+    parse_dates=[timestamp_column],
+)
+forecast_columns = list(data.columns[1:])
 
-    # get split
-    num_train = int(len(data) * 0.7)
-    num_test = int(len(data) * 0.2)
-    num_valid = len(data) - num_train - num_test
-    border1s = [
-        0,
-        num_train - context_length,
-        len(data) - num_test - context_length,
-    ]
-    border2s = [num_train, num_train + num_valid, len(data)]
+# get split
+num_train = int(len(data) * 0.7)
+num_test = int(len(data) * 0.2)
+num_valid = len(data) - num_train - num_test
+border1s = [
+    0,
+    num_train - context_length,
+    len(data) - num_test - context_length,
+]
+border2s = [num_train, num_train + num_valid, len(data)]
 
-    train_start_index = border1s[0]  # None indicates beginning of dataset
-    train_end_index = border2s[0]
+train_start_index = border1s[0]  # None indicates beginning of dataset
+train_end_index = border2s[0]
 
-    # we shift the start of the evaluation period back by context length so that
-    # the first evaluation timestamp is immediately following the training data
-    valid_start_index = border1s[1]
-    valid_end_index = border2s[1]
+# we shift the start of the evaluation period back by context length so that
+# the first evaluation timestamp is immediately following the training data
+valid_start_index = border1s[1]
+valid_end_index = border2s[1]
 
-    test_start_index = border1s[2]
-    test_end_index = border2s[2]
+test_start_index = border1s[2]
+test_end_index = border2s[2]
 
-    train_data = select_by_index(
-        data,
-        id_columns=id_columns,
-        start_index=train_start_index,
-        end_index=train_end_index,
-    )
-    valid_data = select_by_index(
-        data,
-        id_columns=id_columns,
-        start_index=valid_start_index,
-        end_index=valid_end_index,
-    )
-    test_data = select_by_index(
-        data,
-        id_columns=id_columns,
-        start_index=test_start_index,
-        end_index=test_end_index,
-    )
+train_data = select_by_index(
+    data,
+    id_columns=id_columns,
+    start_index=train_start_index,
+    end_index=train_end_index,
+)
+valid_data = select_by_index(
+    data,
+    id_columns=id_columns,
+    start_index=valid_start_index,
+    end_index=valid_end_index,
+)
+test_data = select_by_index(
+    data,
+    id_columns=id_columns,
+    start_index=test_start_index,
+    end_index=test_end_index,
+)
 
-    tsp = TimeSeriesPreprocessor(
-        timestamp_column=timestamp_column,
-        id_columns=id_columns,
-        input_columns=forecast_columns,
-        output_columns=forecast_columns,
-        scaling=True,
-    )
-    tsp.train(train_data)
+tsp = TimeSeriesPreprocessor(
+    timestamp_column=timestamp_column,
+    id_columns=id_columns,
+    input_columns=forecast_columns,
+    output_columns=forecast_columns,
+    scaling=True,
+)
+tsp.train(train_data)
 ```
 
 
 ```python
-if PRETRAIN_AGAIN:
-    train_dataset = ForecastDFDataset(
-        tsp.preprocess(train_data),
-        id_columns=id_columns,
-        timestamp_column="date",
-        input_columns=forecast_columns,
-        output_columns=forecast_columns,
-        context_length=context_length,
-        prediction_length=forecast_horizon,
-    )
-    valid_dataset = ForecastDFDataset(
-        tsp.preprocess(valid_data),
-        id_columns=id_columns,
-        timestamp_column="date",
-        input_columns=forecast_columns,
-        output_columns=forecast_columns,
-        context_length=context_length,
-        prediction_length=forecast_horizon,
-    )
-    test_dataset = ForecastDFDataset(
-        tsp.preprocess(test_data),
-        id_columns=id_columns,
-        timestamp_column="date",
-        input_columns=forecast_columns,
-        output_columns=forecast_columns,
-        context_length=context_length,
-        prediction_length=forecast_horizon,
-    )
+train_dataset = ForecastDFDataset(
+    tsp.preprocess(train_data),
+    id_columns=id_columns,
+    timestamp_column="date",
+    input_columns=forecast_columns,
+    output_columns=forecast_columns,
+    context_length=context_length,
+    prediction_length=forecast_horizon,
+)
+valid_dataset = ForecastDFDataset(
+    tsp.preprocess(valid_data),
+    id_columns=id_columns,
+    timestamp_column="date",
+    input_columns=forecast_columns,
+    output_columns=forecast_columns,
+    context_length=context_length,
+    prediction_length=forecast_horizon,
+)
+test_dataset = ForecastDFDataset(
+    tsp.preprocess(test_data),
+    id_columns=id_columns,
+    timestamp_column="date",
+    input_columns=forecast_columns,
+    output_columns=forecast_columns,
+    context_length=context_length,
+    prediction_length=forecast_horizon,
+)
 ```
 
  ## Configure the PatchTSMixer model
@@ -281,22 +277,21 @@ We recommend that you only adjust the values in the next cell.
 
 ```python
 patch_length = 8
-if PRETRAIN_AGAIN:
-    config = PatchTSMixerConfig(
-        context_length=context_length,
-        prediction_length=forecast_horizon,
-        patch_length=patch_length,
-        num_input_channels=len(forecast_columns),
-        patch_stride=patch_length,
-        d_model=16,
-        num_layers=8,
-        expansion_factor=2,
-        dropout=0.2,
-        head_dropout=0.2,
-        mode="common_channel",
-        scaling="std",
-    )
-    model = PatchTSMixerForPrediction(config)
+config = PatchTSMixerConfig(
+    context_length=context_length,
+    prediction_length=forecast_horizon,
+    patch_length=patch_length,
+    num_input_channels=len(forecast_columns),
+    patch_stride=patch_length,
+    d_model=16,
+    num_layers=8,
+    expansion_factor=2,
+    dropout=0.2,
+    head_dropout=0.2,
+    mode="common_channel",
+    scaling="std",
+)
+model = PatchTSMixerForPrediction(config)
 ```
 
  ## Train model
@@ -305,46 +300,45 @@ if PRETRAIN_AGAIN:
 
 
 ```python
-if PRETRAIN_AGAIN:
-    training_args = TrainingArguments(
-        output_dir="./checkpoint/patchtsmixer/electricity/pretrain/output/",
-        overwrite_output_dir=True,
-        learning_rate=0.001,
-        num_train_epochs=100,  # For a quick test of this notebook, set it to 1
-        do_eval=True,
-        evaluation_strategy="epoch",
-        per_device_train_batch_size=batch_size,
-        per_device_eval_batch_size=batch_size,
-        dataloader_num_workers=num_workers,
-        report_to="tensorboard",
-        save_strategy="epoch",
-        logging_strategy="epoch",
-        save_total_limit=3,
-        logging_dir="./checkpoint/patchtsmixer/electricity/pretrain/logs/",  # Make sure to specify a logging directory
-        load_best_model_at_end=True,  # Load the best model when training ends
-        metric_for_best_model="eval_loss",  # Metric to monitor for early stopping
-        greater_is_better=False,  # For loss
-        label_names=["future_values"],
-        # max_steps=20,
-    )
+training_args = TrainingArguments(
+    output_dir="./checkpoint/patchtsmixer/electricity/pretrain/output/",
+    overwrite_output_dir=True,
+    learning_rate=0.001,
+    num_train_epochs=100,  # For a quick test of this notebook, set it to 1
+    do_eval=True,
+    evaluation_strategy="epoch",
+    per_device_train_batch_size=batch_size,
+    per_device_eval_batch_size=batch_size,
+    dataloader_num_workers=num_workers,
+    report_to="tensorboard",
+    save_strategy="epoch",
+    logging_strategy="epoch",
+    save_total_limit=3,
+    logging_dir="./checkpoint/patchtsmixer/electricity/pretrain/logs/",  # Make sure to specify a logging directory
+    load_best_model_at_end=True,  # Load the best model when training ends
+    metric_for_best_model="eval_loss",  # Metric to monitor for early stopping
+    greater_is_better=False,  # For loss
+    label_names=["future_values"],
+    # max_steps=20,
+)
 
-    # Create the early stopping callback
-    early_stopping_callback = EarlyStoppingCallback(
-        early_stopping_patience=10,  # Number of epochs with no improvement after which to stop
-        early_stopping_threshold=0.0001,  # Minimum improvement required to consider as improvement
-    )
+# Create the early stopping callback
+early_stopping_callback = EarlyStoppingCallback(
+    early_stopping_patience=10,  # Number of epochs with no improvement after which to stop
+    early_stopping_threshold=0.0001,  # Minimum improvement required to consider as improvement
+)
 
-    # define trainer
-    trainer = Trainer(
-        model=model,
-        args=training_args,
-        train_dataset=train_dataset,
-        eval_dataset=valid_dataset,
-        callbacks=[early_stopping_callback],
-    )
+# define trainer
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=train_dataset,
+    eval_dataset=valid_dataset,
+    callbacks=[early_stopping_callback],
+)
 
-    # pretrain
-    trainer.train()
+# pretrain
+trainer.train()
 ```
 
 <div>
@@ -396,10 +390,9 @@ if PRETRAIN_AGAIN:
 
 
 ```python
-if PRETRAIN_AGAIN:
-    results = trainer.evaluate(test_dataset)
-    print("Test result:")
-    print(results)
+results = trainer.evaluate(test_dataset)
+print("Test result:")
+print(results)
 ```
 
 
@@ -421,10 +414,9 @@ We get an MSE score of 0.128 which is the SOTA result on the Electricity data.
 
 
 ```python
-if PRETRAIN_AGAIN:
-    save_dir = "patchtsmixer/electricity/model/pretrain/"
-    os.makedirs(save_dir, exist_ok=True)
-    trainer.save_model(save_dir)
+save_dir = "patchtsmixer/electricity/model/pretrain/"
+os.makedirs(save_dir, exist_ok=True)
+trainer.save_model(save_dir)
 ```
 
 # Part 2: Transfer Learning from Electricity to ETTH2
