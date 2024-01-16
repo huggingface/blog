@@ -429,12 +429,10 @@ In this section, we will demonstrate the transfer learning capability of the `Pa
 We use the model pre-trained on the Electricity dataset to do zero-shot forecasting on the ETTH2 dataset.
 
 
-In Transfer Learning,  we pretrain the model for a forecasting task on a `source` dataset (already done on `Electricity` data). Then, we will use the
- pretrained model for zero-shot forecasting on a `target` dataset. The zero-shot forecasting
- performance will denote the `test` performance of the model in the `target` domain, without any
- training on the target domain. Subsequently, we will do linear probing and (then) finetuning of
- the pretrained model on the `train` part of the target data, and will validate the forecasting
- performance on the `test` part of the target data. In this example, the source dataset is the Electricity dataset and the target dataset is ETTH2
+By Transfer Learning, we mean that we first pretrain the model for a forecasting task on a `source` dataset (which we did above on the `Electricity` dataset). Then, we will use the
+ pretrained model for zero-shot forecasting on a `target` dataset. By zero-shot, we mean that we test the performance in the `target` domain without any additional training. We hope that the model gained enough knowledge from pretraining which can be transferred to a different dataset. 
+ 
+ Subsequently, we will do linear probing and (then) finetuning of the pretrained model on the `train` split of the target data, and will validate the forecasting performance on the `test` split of the target data. In this example, the source dataset is the Electricity dataset and the target dataset is ETTH2.
 
 ## Transfer Learing on `ETTh2` data. All evaluations are on the `test` part of the `ETTh2` data.
 Step 1: Directly evaluate the electricity-pretrained model. This is the zero-shot performance.  
