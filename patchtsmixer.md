@@ -690,7 +690,9 @@ print(result)
     {'eval_loss': 0.3038313388824463, 'eval_runtime': 1.8364, 'eval_samples_per_second': 1516.562, 'eval_steps_per_second': 5.99}
 
 
-### By a direct zeroshot, we get MSE of 0.3 which is near to the SOTA result. Lets see, how we can do a simple linear probing to match the SOTA results.
+As can be seen, we get a mean-squared error (MSE) of 0.3 zero-shot which is near to the state-of-the-art result.
+
+Next, let's see how we can do by performing linear probing, which involves training a linear classifier on top of a frozen pre-trained model. Linear probing is often done to test the performance of features of a pretrained model.
 
 ## Linear probing on `ETTh2`
 We can do a quick linear probing on the `train` part of the target data to see any possible `test` performance improvement. 
