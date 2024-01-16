@@ -692,7 +692,7 @@ print(result)
 
 ### By a direct zeroshot, we get MSE of 0.3 which is near to the SOTA result. Lets see, how we can do a simple linear probing to match the SOTA results.
 
-## Target data `ETTh2` linear probing
+## Linear probing on `ETTh2`
 We can do a quick linear probing on the `train` part of the target data to see any possible `test` performance improvement. 
 
 
