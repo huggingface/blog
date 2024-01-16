@@ -213,20 +213,20 @@ test_data = select_by_index(
     end_index=test_end_index,
 )
 
-tsp = TimeSeriesPreprocessor(
+time_series_processor = TimeSeriesPreprocessor(
     timestamp_column=timestamp_column,
     id_columns=id_columns,
     input_columns=forecast_columns,
     output_columns=forecast_columns,
     scaling=True,
 )
-tsp.train(train_data)
+time_series_processor.train(train_data)
 ```
 
 
 ```python
 train_dataset = ForecastDFDataset(
-    tsp.preprocess(train_data),
+    time_series_processor.preprocess(train_data),
     id_columns=id_columns,
     timestamp_column="date",
     input_columns=forecast_columns,
@@ -235,7 +235,7 @@ train_dataset = ForecastDFDataset(
     prediction_length=forecast_horizon,
 )
 valid_dataset = ForecastDFDataset(
-    tsp.preprocess(valid_data),
+    time_series_processor.preprocess(valid_data),
     id_columns=id_columns,
     timestamp_column="date",
     input_columns=forecast_columns,
@@ -244,7 +244,7 @@ valid_dataset = ForecastDFDataset(
     prediction_length=forecast_horizon,
 )
 test_dataset = ForecastDFDataset(
-    tsp.preprocess(test_data),
+    time_series_processor.preprocess(test_data),
     id_columns=id_columns,
     timestamp_column="date",
     input_columns=forecast_columns,
@@ -491,14 +491,14 @@ test_data = select_by_index(
     end_index=test_end_index,
 )
 
-tsp = TimeSeriesPreprocessor(
+time_series_processor = TimeSeriesPreprocessor(
     timestamp_column=timestamp_column,
     id_columns=id_columns,
     input_columns=forecast_columns,
     output_columns=forecast_columns,
     scaling=True,
 )
-tsp.train(train_data)
+time_series_processor.train(train_data)
 ```
 
 
@@ -583,7 +583,7 @@ tsp.train(train_data)
 
 ```python
 train_dataset = ForecastDFDataset(
-    tsp.preprocess(train_data),
+    time_series_processor.preprocess(train_data),
     id_columns=id_columns,
     input_columns=forecast_columns,
     output_columns=forecast_columns,
@@ -591,7 +591,7 @@ train_dataset = ForecastDFDataset(
     prediction_length=forecast_horizon,
 )
 valid_dataset = ForecastDFDataset(
-    tsp.preprocess(valid_data),
+    time_series_processor.preprocess(valid_data),
     id_columns=id_columns,
     input_columns=forecast_columns,
     output_columns=forecast_columns,
@@ -599,7 +599,7 @@ valid_dataset = ForecastDFDataset(
     prediction_length=forecast_horizon,
 )
 test_dataset = ForecastDFDataset(
-    tsp.preprocess(test_data),
+    time_series_processor.preprocess(test_data),
     id_columns=id_columns,
     input_columns=forecast_columns,
     output_columns=forecast_columns,
@@ -761,7 +761,7 @@ finetune_forecast_trainer.save_model(save_dir)
 
 save_dir = f"patchtsmixer/electricity/model/transfer/{dataset}/preprocessor/"
 os.makedirs(save_dir, exist_ok=True)
-tsp.save_pretrained(save_dir)
+time_series_processor.save_pretrained(save_dir)
 ```
 
 
