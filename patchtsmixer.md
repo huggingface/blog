@@ -776,7 +776,7 @@ tsp.save_pretrained(save_dir)
 
 
 
-Lets now see, if we get any more improvements by doing a full finetune.
+Finally, let's see if we get any more improvements by doing a full finetune of the model on the target dataset.
 
 ## Full finetuning on `ETTh2`
 
