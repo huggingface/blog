@@ -778,7 +778,7 @@ tsp.save_pretrained(save_dir)
 
 Lets now see, if we get any more improvements by doing a full finetune.
 
-## Target data `ETTh2` full finetune
+## Full finetuning on `ETTh2`
 
 We can do a full model finetune (instead of probing the last linear layer as shown above) on the `train` part of the target data to see a possible `test` performance improvement. The code looks similar to the linear probing task above, except that we are not freezing any parameters.
 
