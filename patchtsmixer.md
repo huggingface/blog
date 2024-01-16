@@ -77,7 +77,7 @@ Hence, a sequence of MLP Mixer layers creates the following `PatchTSMixer` backb
 </p>
 
 ## Installation
-This demo needs Hugging Face [`transformers`](https://github.com/huggingface/transformers) for main modeling tasks, and IBM `tsfm` for auxiliary data pre-processing.
+This demo requires Hugging Face [`Transformers`](https://github.com/huggingface/transformers) for the model, and the IBM `tsfm` package for auxiliary data pre-processing.
 We can install both by cloning the `tsfm` repository and following the below steps.
 
 1. Clone IBM Time Series Foundation Model Repository [`tsfm`](https://github.com/ibm/tsfm).
