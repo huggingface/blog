@@ -439,7 +439,9 @@ Step 1: Directly evaluate the electricity-pretrained model. This is the zero-sho
 Step 2: Evalute after doing linear probing.  
 Step 3: Evaluate after doing full finetuning.  
 
-### Load ETTh2 data
+### Load ETTh2 dataset
+
+Below, we load the ETTh2 dataset as a Pandas dataframe. Next, we create 3 splits for training, validation and testing. We then leverage the `TimeSeriesPreprocessor` class to prepare each split for the model.
 
 
 ```python
