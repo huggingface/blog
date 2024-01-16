@@ -319,7 +319,6 @@ training_args = TrainingArguments(
     metric_for_best_model="eval_loss",  # Metric to monitor for early stopping
     greater_is_better=False,  # For loss
     label_names=["future_values"],
-    # max_steps=20,
 )
 
 # Create the early stopping callback
