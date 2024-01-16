@@ -270,7 +270,7 @@ if PRETRAIN_AGAIN:
   - `mode`: PatchTSMixer operating mode. "common_channel"/"mix_channel". Common-channel works in channel-independent mode. For pretraining, use "common_channel".
   - `scaling`: Per-widow standard scaling. Recommended value: "std".
 
-For full details on the parameters - refer [here](https://huggingface.co/docs/transformers/main/en/model_doc/patchtsmixer)
+For full details on the parameters, we refer to the [documentation](https://huggingface.co/docs/transformers/main/en/model_doc/patchtsmixer#transformers.PatchTSMixerConfig).
 
 We recommend that you only adjust the values in the next cell.
 
