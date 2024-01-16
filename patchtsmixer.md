@@ -140,7 +140,7 @@ In the next cell, please adjust the following parameters to suit your applicatio
 - `context_length`: The amount of historical data used as input to the model. Windows of the input time series data with length equal to
 `context_length` will be extracted from the input dataframe. In the case of a multi-time series dataset, the context windows will be created
 so that they are contained within a single time series (i.e., a single ID).
-- `forecast_horizon`: Number of timestamps to forecast in future.
+- `forecast_horizon`: Number of timestamps to forecast in the future.
 - `train_start_index`, `train_end_index`: the start and end indices in the loaded data which delineate the training data.
 - `valid_start_index`, `valid_end_index`: the start and end indices in the loaded data which delineate the validation data.
 - `test_start_index`, `test_end_index`: the start and end indices in the loaded data which delineate the test data.
