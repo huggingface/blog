@@ -755,7 +755,7 @@ print(result)
     {'eval_loss': 0.27119266986846924, 'eval_runtime': 1.7621, 'eval_samples_per_second': 1580.478, 'eval_steps_per_second': 6.242, 'epoch': 13.0}
 
 
-### By doing a simple linear probing, MSE decreased from 0.3 to 0.271 achiving the SOTA results.
+As can be seen, by training a simple linear layer on top of the frozen backbone, the MSE decreased from 0.3 to 0.271 achieving state-of-the-art results.
 
 
 
