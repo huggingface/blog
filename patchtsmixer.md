@@ -426,7 +426,7 @@ if PRETRAIN_AGAIN:
 # Part 2: Transfer Learning from Electricity to ETTH2
 
 In this section, we will demonstrate the transfer learning capability of the `PatchTSMixer` model.
-We use the model pretrained on Electricity dataset to do zeroshot testing on ETTH2 dataset.
+We use the model pre-trained on the Electricity dataset to do zero-shot forecasting on the ETTH2 dataset.
 
 
 In Transfer Learning,  we pretrain the model for a forecasting task on a `source` dataset (already done on `Electricity` data). Then, we will use the
