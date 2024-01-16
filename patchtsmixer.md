@@ -96,7 +96,7 @@ from tsfm_public.toolkit.dataset import ForecastDFDataset
 ```
 
 ## Part 1: Forecasting on Electricity dataset
-Here we train a `PatchTSMixer` model directly on the Electricity data, and evaluate its performance.
+Here we train a `PatchTSMixer` model directly on the Electricity dataset, and evaluate its performance.
 
 
 ```python
