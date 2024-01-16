@@ -70,7 +70,7 @@ Hence, a sequence of MLP Mixer layers creates the following `PatchTSMixer` backb
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/4.png" width="671" height="222"/>
 </p>
 
-`PatchTSMixer` has a modular design to seamlessly support masked time series pre-training as well as direct time series forecasting.
+`PatchTSMixer` has a modular design to seamlessly support masked time series pretraining as well as direct time series forecasting.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtsmixer/5.gif" width="640" height="360"/>
