@@ -256,7 +256,7 @@ if PRETRAIN_AGAIN:
 
  ## Configure the PatchTSMixer model
 
- The settings below control the different components in the PatchTSMixer model.
+Next, we instantiate a randomly initialized PatchTSMixer model with a configuration. The settings below control the different hyperparameters related to the architecture.
   - `num_input_channels`: the number of input channels (or dimensions) in the time series data. This is
     automatically set to the number for forecast columns.
   - `context_length`: As described above, the amount of historical data used as input to the model.
