@@ -160,3 +160,20 @@ model = model.merge_and_unload()
 
 ## Results
 
+
+| ![Zephyr comparison](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pref_tuning/Zephyr-comp.png) |
+|:--:|
+| Caption |
+
+| ![OpenHermes comparison](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pref_tuning/openhermes-comp.png) |
+|:--:|
+| Caption |
+
+| ![Zephyr scan](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pref_tuning/zephyr_scan.png) |
+|:--:|
+| Caption |
+
+| ![OpenHermes scan](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pref_tuning/openhermes_scan.png) |
+|:--:|
+| Caption |
+
