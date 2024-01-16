@@ -848,7 +848,7 @@ print(result)
     {'eval_loss': 0.2734043300151825, 'eval_runtime': 1.5853, 'eval_samples_per_second': 1756.725, 'eval_steps_per_second': 6.939, 'epoch': 9.0}
 
 
-There is not much improvement with ETTH2 dataset with full finetuning. Lets save the model anyway.
+In this case, there is not much improvement by doing full finetuning. Let's save the model anyway.
 
 
 ```python
