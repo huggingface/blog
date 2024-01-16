@@ -1168,6 +1168,28 @@
     - guide
     - hub
 
+- local: leaderboard-drop-dive
+  title: "开放 LLM 排行榜：深入研究 DROP"
+  author: clefourrier
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: December 1, 2023
+  tags:
+    - community
+    - research
+    - nlp
+    - evaluation
+    - leaderboard
+
+- local: setfit-absa
+  title: "SetFitABSA：基于 SetFit 的少样本、方面级情感分析"
+  author: ronenlap
+  guest: true
+  thumbnail: /blog/assets/setfit-absa/intel_hf_logo_2.png
+  date: December 6, 2023
+  tags:
+    - research
+    - nlp
+
 - local: moe
   title: "混合专家模型（MoE）详解"
   author: osanseviero

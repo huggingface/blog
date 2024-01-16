@@ -2431,6 +2431,7 @@
     - research
     - nlp
     - evaluation
+    - open-llm-leaderboard
     - leaderboard
 
 
@@ -3110,6 +3111,7 @@
     - research
     - nlp
     - evaluation
+    - open-llm-leaderboard
     - leaderboard
 
 - local: lora-adapters-dynamic-loading
@@ -3239,7 +3241,7 @@
   author: danielhanchen
   guest: true
   thumbnail: /blog/assets/hf_unsloth/thumbnail.png
-  date: Jan 10, 2023
+  date: Jan 10, 2024
   tags:
     - sft
     - optimization
@@ -3256,3 +3258,30 @@
     - guide
     - research
     - time-series
+
+- local: leaderboards-on-the-hub-vectara
+  title: "A guide to setting up your own Hugging Face leaderboard: an end-to-end example with Vectara's hallucination leaderboard"
+  author: ofermend
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  date: Jan 12, 2024
+  tags:
+      - leaderboard
+      - guide
+      - collaboration
+      - community
+
+- local: sdxl_ort_inference
+  title: "Accelerating SD Turbo and SDXL Turbo Inference with ONNX Runtime and Olive"
+  author: sschoenmeyer
+  guest: true
+  thumbnail: /blog/assets/optimum_onnxruntime-training/thumbnail.png
+  date: Jan 15, 2024
+  tags:
+    - stable-diffusion
+    - diffusion
+    - onnxruntime
+    - optimum
+    - collaboration
+    - community
+
