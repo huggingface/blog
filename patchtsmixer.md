@@ -297,7 +297,7 @@ if PRETRAIN_AGAIN:
 
  ## Train model
 
- Trains the PatchTSMixer model based on the direct forecasting strategy.
+ Next, we can leverage the Hugging Face [Trainer](https://huggingface.co/docs/transformers/main_classes/trainer) class to train the model based on the direct forecasting strategy. We first define the [TrainingArguments](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments) which lists various hyperparameters regarding training such as the number of epochs, learning rate and so on.
 
 
 ```python
