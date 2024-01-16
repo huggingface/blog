@@ -386,7 +386,7 @@ trainer.train()
 
  ## Evaluate model on the test set.
 
-
+**Note that the training and evaluation loss for PatchTSMixer is the Mean Squared Error (MSE) loss. Hence, we do not separately compute the MSE metric in any of the following evaluation experiments.**
 
 ```python
 results = trainer.evaluate(test_dataset)
