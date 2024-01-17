@@ -82,18 +82,13 @@ Both can be installed by following the steps below.
 
 1. Install IBM Time Series Foundation Model Repository [`tsfm`](https://github.com/ibm/tsfm).
 ```
-git clone git@github.com:IBM/tsfm.git
-cd tsfm
-```
-2. Install `tsfm`.
-```
 pip install git+https://github.com:IBM/tsfm.git
 ```
-3. Install Hugging Face [`Transformers`](https://github.com/huggingface/transformers#installation)
+1. Install Hugging Face [`Transformers`](https://github.com/huggingface/transformers#installation)
 ```
 pip install transformers
 ```
-4. Test it with the following commands in a `python` terminal.
+1. Test it with the following commands in a `python` terminal.
 ```
 from transformers import PatchTSMixerConfig
 from tsfm_public.toolkit.dataset import ForecastDFDataset
@@ -344,12 +339,6 @@ trainer.train()
     |   1   |    0.247100   |     0.141067     |
     |   2   |    0.168600   |     0.127757     |
     |   3   |    0.156500   |     0.122327     |
-    |   4   |    0.150300   |     0.118918     |
-    |   5   |    0.146000   |     0.116496     |
-    |   6   |    0.143100   |     0.114968     |
-    |   7   |    0.140800   |     0.113678     |
-    |   8   |    0.139200   |     0.113057     |
-    |   9   |    0.137900   |     0.112405     |
     ...
 ```
 
@@ -638,16 +627,7 @@ print(result)
     |   1   |    0.447000   |     0.216436     |
     |   2   |    0.438600   |     0.215667     |
     |   3   |    0.429400   |     0.215104     |
-    |   4   |    0.422500   |     0.213820     |
-    |   5   |    0.418500   |     0.213585     |
-    |   6   |    0.415000   |     0.213016     |
-    |   7   |    0.412000   |     0.213067     |
-    |   8   |    0.412400   |     0.211993     |
-    |   9   |    0.405900   |     0.212460     |
-    |  10   |    0.405300   |     0.211772     |
-    |  11   |    0.406200   |     0.212154     |
-    |  12   |    0.400600   |     0.212082     |
-    |  13   |    0.405300   |     0.211458     |
+    ...
 
     Evaluating
 
@@ -705,12 +685,7 @@ print(result)
     |   1   |    0.432900   |     0.215200    |
     |   2   |    0.416700   |     0.210919    |
     |   3   |    0.401400   |     0.209932    |
-    |   4   |    0.392900   |     0.208808    |
-    |   5   |    0.388100   |     0.209692    |
-    |   6   |    0.375900   |     0.209546    |
-    |   7   |    0.370000   |     0.210207    |
-    |   8   |    0.367000   |     0.211601    |
-    |   9   |    0.359400   |     0.211405    |
+    ...
 
     Evaluating
 
