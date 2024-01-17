@@ -26,7 +26,13 @@ In this post, we perform an empirical evaluation of three promising LLM alignmen
 |:--:|
 |Image from the DPO paper ([https://arxiv.org/abs/2305.18290](https://arxiv.org/pdf/2305.18290.pdf))|
 
-[Direct Preference Optimization (DPO)](https://huggingface.co/papers/2305.18290) has emerged as a promising alternative for aligning Large Language Models (LLMs) to human or AI preferences. Unlike [traditional alignment methods](https://www.notion.so/Aligning-LLMs-with-Direct-Preference-Optimization-Methods-517ba7f77356497ab0a5a91394898a3c?pvs=21), which are based on reinforcement learning, DPO recasts the alignment formulation as a simple loss function that can be optimised directly on a dataset of preferences \\( \{(x, y_w, y_l)\} \\), where \\(x\\) is a prompt and \\(y_w,y_l\\) are the preferred and dispreferred responses. This makes DPO simple to use in practice and has been applied with success to train models like [Zephyr](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta) and [Intel’s NeuralChat](https://huggingface.co/Intel/neural-chat-7b-v3-3).
+[Direct Preference Optimization (DPO)](https://huggingface.co/papers/2305.18290) has emerged as a promising alternative for aligning Large Language Models (LLMs) to human or AI preferences. Unlike [traditional alignment methods](https://huggingface.co/blog/rlhf), which are based on reinforcement learning, DPO recasts the alignment formulation as a simple loss function that can be optimised directly on a dataset of preferences \\( \{(x, y_w, y_l)\} \\), where \\(x\\) is a prompt and \\(y_w,y_l\\) are the preferred and dispreferred responses. 
+
+|![Sample preference dataset](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pref_tuning/data.png)|
+|:--:|
+|Sample of a preference tuning dataset.|
+
+This makes DPO simple to use in practice and has been applied with success to train models like [Zephyr](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta) and [Intel’s NeuralChat](https://huggingface.co/Intel/neural-chat-7b-v3-3).
 
 The success of DPO has prompted researchers to develop new loss functions that generalise the method in two main directions:
 * **Robustness**: One shortcoming of DPO is that it tends to quickly overfit on the preference dataset. To avoid this, researchers at Google DeepMind introduced [Identity Preference Optimisation (IPO)](https://huggingface.co/papers/2310.12036), which adds a regularisation term to the DPO loss and enables one to train models to convergence without requiring tricks like early stopping.
@@ -114,6 +120,16 @@ Chat templates were automatically inferred from the base Chat model, with OpenHe
 "{% for message in messages %}\n{% if message['role'] == 'user' %}\n{{ '<|user|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'system' %}\n{{ '<|system|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'assistant' %}\n{{ '<|assistant|>\n'  + message['content'] + eos_token }}\n{% endif %}\n{% if loop.last and add_generation_prompt %}\n{{ '<|assistant|>' }}\n{% endif %}\n{% endfor %}"
 ```
 
+Which formats conversations as follows:
+```bash
+# <|system|>
+# You are a friendly chatbot who always responds in the style of a pirate.</s>
+# <|user|>
+# How many helicopters can a human eat in one sitting?</s>
+# <|assistant|>
+# Ah, me hearty matey! But yer question be a puzzler! A human cannot eat a helicopter in one sitting, as helicopters are not edible. They be made of metal, plastic, and other materials, not food!
+```
+
 ## Hyperparameter Sweep
 
 We will, as mentioned, train the `DPO`, `IPO` and `KTO` methods via the `loss_type` argument to the `DPOTrainer` with the `beta` going from `0.1`, `0.2`, …, `0.9`. All experiments train for for one epoch. All other hyperparameters are kept the same during each run, including the random seed. 
@@ -178,7 +194,6 @@ OpenHermes-7b-2.5 is clearly a stronger base model, with a mere 0.3 improvement 
 | ![OpenHermes scan](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pref_tuning/openhermes_scan.png) |
 |:--:|
 | Break down of the best OpenHermes models for each algorithm across MT Bench categories. |
-
 
 
 ## Summary & Insights
