@@ -84,11 +84,11 @@ Both can be installed by following the steps below.
 ```
 pip install git+https://github.com:IBM/tsfm.git
 ```
-1. Install Hugging Face [`Transformers`](https://github.com/huggingface/transformers#installation)
+2. Install Hugging Face [`Transformers`](https://github.com/huggingface/transformers#installation)
 ```
 pip install transformers
 ```
-1. Test it with the following commands in a `python` terminal.
+3. Test it with the following commands in a `python` terminal.
 ```
 from transformers import PatchTSMixerConfig
 from tsfm_public.toolkit.dataset import ForecastDFDataset
