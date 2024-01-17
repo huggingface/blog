@@ -200,7 +200,7 @@ OpenHermes-7b-2.5 is clearly a stronger base model, with a mere 0.3 improvement 
 
 In this post, we have highlighted the importance of choosing the right set of hyperparameter when performing preference alignment. We have empirically demonstrated DPO outperforms KTO in the paired preference setting, IPO appears to have lackluster performance despite stronger theoretical guarantees. 
 
-All code and configuration files to replicate these results are now available in the [alignment-handbook](https://github.com/huggingface/alignment-handbook). The best performing models and datasets can be found in this collection.
+All code and configuration files to replicate these results are now available in the [alignment-handbook](https://github.com/huggingface/alignment-handbook). The best performing models and datasets can be found in this [collection](https://huggingface.co/collections/alignment-handbook/dpo-vs-kto-vs-ipo-65a69c5f03548d61dbe29ef8).
 
 ## What’s next?
 
