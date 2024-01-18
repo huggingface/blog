@@ -13,12 +13,14 @@ authors:
 
 **TL;DR**
 
-We evaluate three promising methods to align language models without reinforcement learning (or preference tuning) on a number of models and hyperparameter settings. In particular we train:
-*  [Direct Preference Optimization](https://huggingface.co/papers/2305.18290) (DPO)
+We evaluate three promising methods to align language models without reinforcement learning (or preference tuning) on a number of models and hyperparameter settings. In particular we train using different hyperparameters and evaluate on:
+* [Direct Preference Optimization](https://huggingface.co/papers/2305.18290) (DPO)
 * [Identity Preference Optimisation](https://huggingface.co/papers/2310.12036) (IPO)
 * [Kahneman-Taversky Optimisation](https://github.com/ContextualAI/HALOs) (KTO)
 
-In this post, we perform an empirical evaluation of three promising LLM alignment algorithms, Direct Preference Optimization (DPO), Identity Preference Optimisation (IPO) and Kahneman-Taversky Optimisation (KTO). We conducted our experiments on two high quality 7b LLMs that have undergone a supervised fine-tuning step, but no preference alignment. We find that while one algorithm clearly  outshines the others, there are key hyper-parameters that must be tuned to achieved the best results.
+## Introduction
+
+In this post, we perform an empirical evaluation of three promising LLM alignment algorithms: Direct Preference Optimization (DPO), Identity Preference Optimisation (IPO) and Kahneman-Taversky Optimisation (KTO). We conducted our experiments on two high quality 7b LLMs that have undergone a supervised fine-tuning step, but no preference alignment. We find that while one algorithm clearly outshines the others, there are key hyper-parameters that must be tuned to achieve the best results.
 
 ## Alignment without Reinforcement Learning 
 
