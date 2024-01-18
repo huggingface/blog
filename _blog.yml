@@ -3277,7 +3277,7 @@
 - local: pref-tuning
   title: "Preference Tuning LLMs with Direct Preference Optimization Methods"
   author: kashif
-  thumbnail: /blog/assets/pref-tuning/thumbnail.png
+  thumbnail: /blog/assets/pref-tuning/thumbnail.jpg
   date: Jan 18, 2024
   tags:
     - rl
