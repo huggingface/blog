@@ -52,8 +52,7 @@ Let’s get started!
 
 Here are the important links associated with our analysis:
 
-- Code and config files to perform the hyperparameter scan:
-(TODO with PR is merged)
+- Code and config files to perform the hyperparameter scan: [https://github.com/huggingface/alignment-handbook/tree/main/recipes/pref_align_scan](https://github.com/huggingface/alignment-handbook/tree/main/recipes/pref_align_scan)
 - 📚 The collection of dataset and models we used: [https://huggingface.co/collections/alignment-handbook/dpo-vs-kto-vs-ipo-65a69c5f03548d61dbe29ef8](https://huggingface.co/collections/alignment-handbook/dpo-vs-kto-vs-ipo-65a69c5f03548d61dbe29ef8)
 
 ## Experimental Setup
