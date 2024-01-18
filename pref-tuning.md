@@ -2,8 +2,8 @@
 title: 'Preference Tuning LLMs with Direct Preference Optimization Methods'
 thumbnail: /blog/assets/pref-tuning/thumbnail.png
 authors:
-- users: edbeeching
 - users: kashif
+- users: edbeeching
 - users: lewtun
 - users: lvwerra
 - users: osanseviero
