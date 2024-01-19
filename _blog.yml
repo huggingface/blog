@@ -3248,17 +3248,6 @@
     - llm
     - qlora
 
-- local: patchtsmixer
-  title: "PatchTSMixer in HuggingFace"
-  author: ajati
-  guest: true
-  thumbnail: /blog/assets/patchtsmixer/thumbnail.jpeg
-  date: January 12, 2024
-  tags:
-    - guide
-    - research
-    - time-series
-
 - local: leaderboards-on-the-hub-vectara
   title: "A guide to setting up your own Hugging Face leaderboard: an end-to-end example with Vectara's hallucination leaderboard"
   author: ofermend
@@ -3295,3 +3284,14 @@
     - rlhf
     - nlp
     - research
+
+- local: patchtsmixer
+  title: "PatchTSMixer in HuggingFace"
+  author: ajati
+  guest: true
+  thumbnail: /blog/assets/patchtsmixer/thumbnail.jpeg
+  date: January 19, 2024
+  tags:
+    - guide
+    - research
+    - time-series
