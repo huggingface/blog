@@ -1,5 +1,5 @@
 ---
-title: "Patch Time Series Transformer for Transfer Learning across datasets"
+title: "Patch Time Series Transformer in HuggingFace"
 thumbnail: /blog/assets/patchtst/thumbnail.png
 authors:
 - user: ajati

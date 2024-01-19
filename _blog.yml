@@ -3295,3 +3295,14 @@
     - guide
     - research
     - time-series
+
+local: patchtsmixer
+  title: "Patch Time Series Transformer in HuggingFace"
+  author: namctin
+  guest: true
+  thumbnail: /blog/assets/patchtst/thumbnail.jpeg
+  date: January 19, 2024
+  tags:
+    - guide
+    - research
+    - time-series
