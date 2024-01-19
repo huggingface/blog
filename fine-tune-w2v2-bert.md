@@ -1,6 +1,6 @@
 ---
 title: "Fine-Tune W2V2-Bert for low-resource ASR with 🤗 Transformers"
-thumbnail: /blog/assets/fine-tune-w2v2-bert
+thumbnail: /blog/assets/fine-tune-w2v2-bert/w2v_thumbnail.png
 authors:
 - user: ylacombe
 ---
