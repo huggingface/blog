@@ -178,25 +178,3 @@ Table 3: 8bit-SQ vs 4bit-WOQ comparison for varying prompt lengths. Batch size =
 Table 4: 8bit-SQ vs 4bit-WOQ comparison for varying number of generated tokens. Batch size = 1, prompt length = 512
 
 ---
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
