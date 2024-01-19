@@ -1,6 +1,6 @@
 ---
 title: "Fine-Tune W2V2-Bert for low-resource ASR with 🤗 Transformers"
-thumbnail: /blog/assets/15_fine_tune_wav2vec2/wav2vec2.png
+thumbnail: /blog/assets/fine-tune-w2v2-bert
 authors:
 - user: ylacombe
 ---
@@ -26,6 +26,9 @@ This new 580M-parameters version was pre-trained on **4.5M** hours of unlabeled 
 
 For comparison, **XLS-R** used almost **half a million** hours of audio data in **128 languages** and **MMS** checkpoints were pre-trained on more than **half a million hours of audio** in over **1,400 languages**.
 
+The aim of this notebook is to give you all the elements you need to train a CTC model on ASR tasks, using open-source tools and models. It first presents the complete pre-processing pipeline, then performs a little fine-tuning of the W2V2-BERT. The final section gathers training tips from Hugging Face experts to scale-up CTC training.
+
+
 ## Notebook Setup
 
 In this blop post, we will give an in-detail explanation of how W2V2-BERT - more specifically the pre-trained checkpoint [**facebook/w2v-bert-2.0**](https://huggingface.co/facebook/w2v-bert-2.0) - can be fine-tuned for ASR.  
@@ -35,7 +38,6 @@ For demonstration purposes, we fine-tune the model on the low resource Mongolian
 W2V-BERT is fine-tuned using Connectionist Temporal Classification (CTC), which is an algorithm that is used to train neural networks for sequence-to-sequence problems, such as ASR and handwriting recognition.
 
 We highly recommend reading the well-written blog post [*Sequence Modeling with CTC (2017)*](https://distill.pub/2017/ctc/) by Awni Hannun.
-
 
 Before we start, let's install `datasets` and `transformers`. Also, we need `accelerate` for training, `torchaudio` to load audio files and `jiwer` to evaluate our fine-tuned model using the [word error rate (WER)](https://huggingface.co/metrics/wer) metric.
 
@@ -146,7 +148,19 @@ Let's look at the processed text labels again.
 ```python
 show_random_elements(common_voice_train.remove_columns(["path","audio"]))
 ```
-# TODO: add results
+
+```bash
+Хойч үе юуны төлөө тэмцэлдэхийг би мэдэхгүй.	
+Тэр өвдгөн дээрээ толгойгоо тавиад сулхан гиншинэ.	
+Эхнэргүй ганц бие хүн гэсэн санагдана.	
+Дамиран хотод төрж өссөн хээнцэр залуусын нэг билээ.	
+Мөн судлаачид шинжлэх ухааны үндэстэй тайлбар хайдаг.	
+Судалгааны ажил нь бүтэлгүй болсонд л гутарч маргааш илүү ажиллах тухай бодсон бололтой.	
+Ийм зөрчлөөс гэтлэх гарц "Оноосон нэрийн сан"-г үүсгэснээр шийдвэрлэгдэнэ.	
+Үүлтэй тэнгэрийн доогуур үзүүртэй моддын дээгүүр дүүлэн нисэх сэн.	
+Та нар ямар юмаа ингэж булаацалдаа вэ?	
+Тэд амьд хэлтрээ болов уу яагаа бол гэхээс одоо ч дотор арзганан бачуурдаг юм.	
+```
 
 In CTC, it is common to classify speech chunks into letters, so we will do the same here.
 Let's extract all distinct letters of the training and test data and build our vocabulary from this set of letters.
@@ -171,6 +185,58 @@ vocab_list = list(set(vocab_train["vocab"][0]) | set(vocab_test["vocab"][0]))
 
 vocab_dict = {v: k for k, v in enumerate(sorted(vocab_list))}
 vocab_dict
+```
+
+```bash
+{' ': 0,
+ 'a': 1,
+ 'b': 2,
+ 'c': 3,
+ 'd': 4,
+ 'e': 5,
+ 'g': 6,
+ 'h': 7,
+ 'i': 8,
+ 'l': 9,
+ 'n': 10,
+ 'o': 11,
+ 'r': 12,
+ 't': 13,
+ 'x': 14,
+ 'а': 15,
+ 'б': 16,
+ 'в': 17,
+ 'г': 18,
+ 'д': 19,
+ 'е': 20,
+ 'ж': 21,
+ 'з': 22,
+ 'и': 23,
+ 'й': 24,
+ 'к': 25,
+ 'л': 26,
+ 'м': 27,
+ 'н': 28,
+ 'о': 29,
+ 'п': 30,
+ 'р': 31,
+ 'с': 32,
+ 'т': 33,
+ 'у': 34,
+ 'ф': 35,
+ 'х': 36,
+ 'ц': 37,
+ 'ч': 38,
+ 'ш': 39,
+ 'ъ': 40,
+ 'ы': 41,
+ 'ь': 42,
+ 'э': 43,
+ 'ю': 44,
+ 'я': 45,
+ 'ё': 46,
+ 'ү': 47,
+ 'ө': 48}
 ```
 
 Cleaning up a dataset is a back-and-forth process that needs to be done with care.
@@ -198,6 +264,44 @@ vocab_dict = {v: k for k, v in enumerate(sorted(vocab_list))}
 vocab_dict
 ```
 
+```bash
+{' ': 0,
+ 'а': 1,
+ 'б': 2,
+ 'в': 3,
+ 'г': 4,
+ 'д': 5,
+ 'е': 6,
+ 'ж': 7,
+ 'з': 8,
+ 'и': 9,
+ 'й': 10,
+ 'к': 11,
+ 'л': 12,
+ 'м': 13,
+ 'н': 14,
+ 'о': 15,
+ 'п': 16,
+ 'р': 17,
+ 'с': 18,
+ 'т': 19,
+ 'у': 20,
+ 'ф': 21,
+ 'х': 22,
+ 'ц': 23,
+ 'ч': 24,
+ 'ш': 25,
+ 'ъ': 26,
+ 'ы': 27,
+ 'ь': 28,
+ 'э': 29,
+ 'ю': 30,
+ 'я': 31,
+ 'ё': 32,
+ 'ү': 33,
+ 'ө': 34}
+```
+
 Cool, we see that all letters of the alphabet occur in the dataset (which is not really surprising) and we also extracted the special character `" "`. Note that we did not exclude this special character because:
 
 The model has to learn to predict when a word is finished or else the model prediction would always be a sequence of chars which would make it impossible to separate words from each other.
@@ -220,6 +324,10 @@ The "blank token" is a core component of the CTC algorithm. For more information
 vocab_dict["[UNK]"] = len(vocab_dict)
 vocab_dict["[PAD]"] = len(vocab_dict)
 len(vocab_dict)
+```
+
+```bash
+37
 ```
 
 Cool, now our vocabulary is complete and consists of 37 tokens, which means that the linear layer that we will add on top of the pretrained W2V-BERT checkpoint will have an output dimension of 37.
@@ -297,12 +405,23 @@ So far, we have not looked at the actual values of the speech signal but just th
 common_voice_train[0]["path"]
 ```
 
+```bash
+/root/.cache/huggingface/datasets/downloads/extracted/276aa682ce2b6a24934bc401b1f30e004c3fb178dd41d6295b273329f592844a/mn_train_0/common_voice_mn_18578097.mp3
+```
+
 W2V-BERT expects the input in the format of a 1-dimensional array of 16 kHz. This means that the audio file has to be loaded and resampled.
 
 Thankfully, `datasets` does this automatically by calling the other column `audio`. Let try it out.
 
 ```python
 common_voice_train[0]["audio"]
+```
+
+```bash
+{'path': '/root/.cache/huggingface/datasets/downloads/extracted/276aa682ce2b6a24934bc401b1f30e004c3fb178dd41d6295b273329f592844a/mn_train_0/common_voice_mn_18578097.mp3',
+ 'array': array([ 0.00000000e+00, -1.64773251e-14,  1.81765166e-13, ...,
+        -3.23167333e-05,  2.20304846e-05,  3.26883201e-05]),
+ 'sampling_rate': 48000}
 ```
 
 Great, we can see that the audio file has automatically been loaded. This is thanks to the new [`"Audio"` feature](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=audio#datasets.Audio) introduced in `datasets == 4.13.3`, which loads and resamples audio files on-the-fly upon calling.
@@ -314,15 +433,20 @@ common_voice_train = common_voice_train.cast_column("audio", Audio(sampling_rate
 common_voice_test = common_voice_test.cast_column("audio", Audio(sampling_rate=16_000))
 ```
 
-Let's take a look at `"audio"` again
+Let's take a look at `"audio"` again:
 
 ```python
 common_voice_train[0]["audio"]
 ```
 
-This seemed to have worked! Let's listen to a couple of audio files to better understand the dataset and verify that the audio was correctly loaded.
+```bash
+{'path': '/root/.cache/huggingface/datasets/downloads/extracted/276aa682ce2b6a24934bc401b1f30e004c3fb178dd41d6295b273329f592844a/mn_train_0/common_voice_mn_18578097.mp3',
+ 'array': array([ 9.09494702e-12, -2.27373675e-13,  5.45696821e-12, ...,
+        -5.22854862e-06, -1.21556368e-05, -9.76262163e-06]),
+ 'sampling_rate': 16000}
+ ```
 
-**Note**: *You can click the following cell a couple of times to listen to different speech samples.*
+This seemed to have worked! Let's listen to a couple of audio files to better understand the dataset and verify that the audio was correctly loaded.
 
 ```python
 import IPython.display as ipd
@@ -335,13 +459,17 @@ print(common_voice_train[rand_int]["sentence"])
 ipd.Audio(data=common_voice_train[rand_int]["audio"]["array"], autoplay=True, rate=16000)
 ```
 
+<audio controls> 
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fine-tune-w2v2-bert/mongolian_sample.wav" type="audio/wav"> 
+Your browser does not support the audio element. 
+</audio> 
+
 It seems like the data is now correctly loaded and resampled.
 
 It can be heard, that the speakers change along with their speaking rate, accent, and background environment, etc. Overall, the recordings sound acceptably clear though, which is to be expected from a crowd-sourced read speech corpus.
 
 Let's do a final check that the data is correctly prepared, by printing the shape of the speech input, its transcription, and the corresponding sampling rate.
 
-**Note**: *You can click the following cell a couple of times to verify multiple samples.*
 
 ```python
 rand_int = random.randint(0, len(common_voice_train)-1)
@@ -569,6 +697,21 @@ Training will take multiple hours depending on the GPU allocated to this noteboo
 trainer.train()
 ```
 
+| Step | Training Loss | Validation Loss | Wer      |
+|:-------------:|:----:|:---------------:|:------:|
+| 100  | 3.751600      | 2.404063        | 1.008919 |
+| 200  | 1.018500      | 0.764176        | 0.615347 |
+| 300  | 0.536600      | 0.651845        | 0.532848 |
+| 400  | 0.415300      | 0.611600        | 0.481075 |
+| 500  | 0.353000      | 0.635747        | 0.480585 |
+| 600  | 0.287600      | 0.621341        | 0.443387 |
+| 700  | 0.238900      | 0.510328        | 0.424298 |
+| 800  | 0.173500      | 0.507904        | 0.375299 |
+| 900  | 0.141900      | 0.526440        | 0.363824 |
+| 1000 | 0.103100      | 0.545374        | 0.346585 |
+| 1100 | 0.074300      | 0.528603        | 0.333696 |
+| 1200 | 0.054000      | 0.503239        | 0.325103 |
+
 The training loss and validation WER go down nicely.
 
 You can now upload the result of the training to the 🤗 Hub, just execute this instruction:
@@ -616,16 +759,49 @@ print(processor.decode(pred_ids))
 print(processor.decode(input_dict["labels"]).lower())
 ```
 
+```bash
+эрчүүдийн ганцаардлыг эмэхтэйчүүд ойлгох нь ховор юм
+эрчүдийн ганцардлыг эмэгтэйчүд ойлгох нь ховор юм
+```
+
+
 Alright! The transcription can definitely be recognized from our prediction, but it is not perfect yet. Training the model a bit longer, spending more time on the data preprocessing, and especially using a language model for decoding would certainly improve the model's overall performance.
 
 For a demonstration model on a low-resource language, the results are quite acceptable however 🤗.
 
-### Final remarks
+## Scaling-up the training
 
-We've shown in this blogpost how Meta's `w2v-bert-2.0` fine-tuning gives state-of-the-art performance on low-resource languages.
+We've shown in this blogpost how Meta's `w2v-bert-2.0` fine-tuning can give near state-of-the-art performance on low-resource languages.
 
+To take things a step further, I've put together a set of tips and pointers given by my colleagues at Hugging Face on how to scale up training for this model.
 
 Note that Common Voice newest version ([CV16](https://huggingface.co/datasets/mozilla-foundation/common_voice_16_0)) provides many more hours of data and for may languages and thus provides fertile ground for much more efficient models in many low-resource languages.
+
+
+### Datasets-related tips
+
+CTC ASR is typically done with lower-case, un-punctuated transcriptions. This simplifies the CTC task since the model is considered as "acoustic only", meaning that it makes prediction largely based on the phonetics sounds of the audio, rather than any language modelling context of the spoken sentence.
+
+Very low-frequency characters can significantly affect loss during learning by causing loss spikes via erroneous targets. By default, the CTC tokenizer created in this blog post would add them to the vocabulary even if their frequency is negligible compared to more frequent characters. We can treat these characters as "errors" in the dataset annotation, so that they can be removed from the vocabulary, and simply classified as `"[UNK]"` during training.
+
+It is therefore absolutely necessary to recheck the tokenizer vocabulary and remove all low-frequency characters, in much the same way as we removed Latin characters when creating the tokenizer.
+
+Note that the Common Voice dataset is particularly prone to such "wrong" characters, for example characters from other languages (阪).
+
+### Training-related tips
+
+**Average duration seen by each CTC token:** According to the advice of my colleagues, the ideal ratio of duration seen per CTC token is 10 to 35 ms. In other words, to be able to learn and predict correctly, the duration of the acoustic information a CTC token needs to see should be neither too low nor too high. In fact, it should more or less correspond to a fraction of the time it takes us humans to pronounce a phoneme. 
+
+This is something that came to light when I started refining this new W2V2-Bert model (you can find the logs of one of my experiments [here](https://wandb.ai/ylacombe/huggingface/runs/4y8pd2gq)). I quickly noticed that the loss curve of my model was initially going nicely downwards, as expected, but at some point it started to explode.
+
+After discussing this with my colleagues, I realized that I had been using a [basic checkpoint with no architecture changes](https://huggingface.co/facebook/w2v-bert-2.0), and that each CTC token was seeing a piece of the signal for 30 to 60 ms. Adding an adapter layer was enough to reduce the signal chunk sampling to the desired duration.
+
+
+**Under-training:** After showing this blog post [training run](https://huggingface.co/hf-audio/w2v-bert-2.0-mongolian-colab-CV16.0#training-results) and another [training attempt](https://wandb.ai/ylacombe/huggingface/runs/nasaux7f?workspace=user-ylacombe) on English Common Voice (about 2.5k validated hours) to my colleagues, they pointed out that the model was severely under-trained, something that could have been spotted by looking at the loss curve, which looks like it was stopped in the middle of a steep descent. This pointed out other issues as well, notably the loss curve not being smooth enough, a sign of wrong hyper-parameters settings. 
+
+Here are a few ways to solve under-training in our case:
+- the warm-up rate might be too high, causing the learning rate to drop too quickly. A way to solve this would be keep the warmup ratio to 5 to 15% and scale up the number of epochs. The warm-up steps are essential to gradually bring the new language-model head weights into alignment with the pre-trained model.
+- Loss curve lack of smoothness can be played around thanks to [AdamW](https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html)'s [\\( \beta_2 \\)](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments.adam_beta2) which can typically set from 0.95 to 0.98 by default.
 
 
 
@@ -633,6 +809,6 @@ Note that Common Voice newest version ([CV16](https://huggingface.co/datasets/mo
 *Related posts and additional links are listed here:*
 - [**Official paper**](https://huggingface.co/papers/2305.13516)
 - [**Original cobebase**](https://ai.meta.com/research/publications/seamless-multilingual-expressive-and-streaming-speech-translation/)
-- [**Transformers Docs**](https://huggingface.co/docs/transformers/index)
+- [**Transformers Docs**](https://huggingface.co/docs/transformers/main/en/model_doc/wav2vec2-bert)
 - [**Related XLS-R blog post**](https://huggingface.co/blog/fine-tune-xlsr-wav2vec2)
 - [**Related MMS blog post**](https://huggingface.co/blog/mms_adapters)
