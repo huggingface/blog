@@ -16,11 +16,11 @@ authors:
 We evaluate three promising methods to align language models without reinforcement learning (or preference tuning) on a number of models and hyperparameter settings. In particular we train using different hyperparameters and evaluate on:
 * [Direct Preference Optimization](https://huggingface.co/papers/2305.18290) (DPO)
 * [Identity Preference Optimisation](https://huggingface.co/papers/2310.12036) (IPO)
-* [Kahneman-Taversky Optimisation](https://github.com/ContextualAI/HALOs) (KTO)
+* [Kahneman-Tversky Optimisation](https://github.com/ContextualAI/HALOs) (KTO)
 
 ## Introduction
 
-In this post, we perform an empirical evaluation of three promising LLM alignment algorithms: Direct Preference Optimization (DPO), Identity Preference Optimisation (IPO) and Kahneman-Taversky Optimisation (KTO). We conducted our experiments on two high quality 7b LLMs that have undergone a supervised fine-tuning step, but no preference alignment. We find that while one algorithm clearly outshines the others, there are key hyper-parameters that must be tuned to achieve the best results.
+In this post, we perform an empirical evaluation of three promising LLM alignment algorithms: Direct Preference Optimization (DPO), Identity Preference Optimisation (IPO) and Kahneman-Tversky Optimisation (KTO). We conducted our experiments on two high quality 7b LLMs that have undergone a supervised fine-tuning step, but no preference alignment. We find that while one algorithm clearly outshines the others, there are key hyper-parameters that must be tuned to achieve the best results.
 
 ## Alignment without Reinforcement Learning 
 
@@ -38,9 +38,9 @@ This makes DPO simple to use in practice and has been applied with success to tr
 
 The success of DPO has prompted researchers to develop new loss functions that generalise the method in two main directions:
 * **Robustness**: One shortcoming of DPO is that it tends to quickly overfit on the preference dataset. To avoid this, researchers at Google DeepMind introduced [Identity Preference Optimisation (IPO)](https://huggingface.co/papers/2310.12036), which adds a regularisation term to the DPO loss and enables one to train models to convergence without requiring tricks like early stopping.
-* **Dispensing with paired preference data altogether**: Like most alignment methods, DPO requires a dataset of paired preferences \(( \{(x, y_w, y_l)\}\\), where annotators label which response is better according to a set of criteria like helpfulness or harmfulness. In practice, creating these datasets is a time consuming and costly endeavour. ContextualAI recently proposed an interesting alternative called [Kahneman-Taversky Optimisation (KTO)](https://github.com/ContextualAI/HALOs/blob/main/assets/report.pdf), which defines the loss function entirely in terms of individual examples that have been labelled as "good" or "bad" (for example, the 👍 or 👎 icons one sees in chat UIs). These labels are much easier to acquire in practice and KTO is a promising way to continually update chat models running in production environments.
+* **Dispensing with paired preference data altogether**: Like most alignment methods, DPO requires a dataset of paired preferences \\( \{(x, y_w, y_l)\} \\), where annotators label which response is better according to a set of criteria like helpfulness or harmfulness. In practice, creating these datasets is a time consuming and costly endeavour. ContextualAI recently proposed an interesting alternative called [Kahneman-Tversky Optimisation (KTO)](https://github.com/ContextualAI/HALOs/blob/main/assets/report.pdf), which defines the loss function entirely in terms of individual examples that have been labelled as "good" or "bad" (for example, the 👍 or 👎 icons one sees in chat UIs). These labels are much easier to acquire in practice and KTO is a promising way to continually update chat models running in production environments.
 
-At the same time, these various methods come with hyperparameters, the most important one being \((\beta \)), which controls how much to weight the preference of the reference model. With these alternatives now available in the practitioner’s arsenal through libraries like 🤗 [TRL](https://github.com/huggingface/trl), a natural question then becomes which of these methods and hyperparameters produce the best chat model?
+At the same time, these various methods come with hyperparameters, the most important one being \\( \beta \\), which controls how much to weight the preference of the reference model. With these alternatives now available in the practitioner’s arsenal through libraries like 🤗 [TRL](https://github.com/huggingface/trl), a natural question then becomes which of these methods and hyperparameters produce the best chat model?
 
 This post aims to answer this question by performing an empirical analysis of the three methods. We will sweep over key hyperparameters such as \\(\beta\\) and training steps, then evaluate the resulting models’ performance via [MT-Bench](https://huggingface.co/spaces/lmsys/mt-bench), which is a common benchmark to measure chat model capabilities.
 
