@@ -8,7 +8,7 @@ authors:
   guest: true
 - user: namctin
   guest: true
-- user: wgifford
+- user: wmgifford
   guest: true
 - user: kashif
 - user: nielsr
