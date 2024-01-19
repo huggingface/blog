@@ -161,7 +161,7 @@ for steps in (1, 4, 8, 15, 20, 25, 30, 50):
     <em>SDXL pipeline results (same prompt and random seed), using 1, 4, 8, 15, 20, 25, 30, and 50 steps.</em>
 </p>
 
-As you can see, images in this example are pretty much useless until ~20 steps (second row), and quality still increases niteceably with more steps. The details in the final image are amazing, but it took 50 steps to get there.
+As you can see, images in this example are pretty much useless until ~20 steps (second row), and quality still increases noticeably with more steps. The details in the final image are amazing, but it took 50 steps to get there.
 
 ### LCM LoRAs with other models
 

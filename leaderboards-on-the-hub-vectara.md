@@ -31,7 +31,7 @@ Our initial release of HHEM was a [Huggingface model](https://huggingface.co/vec
 
 <br>
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
-On a meaningful side note to us here at Vectara, the HHEM was named after our peer Simon Hughes, who passed away in Nov. of 2023 without notice of natural causes; we decided to name it in his honor due to his [lasting legacy](https://diginomica.com/final-thoughts-memory-simon-mark-hughes-hallucination-research-pioneer) in this space.
+On a meaningful side note to us here at Vectara, the HHEM was named after our peer Simon Hughes, who passed away in Nov. of 2023 without notice of natural causes; we decided to name it in his honor due to his <a href="https://diginomica.com/final-thoughts-memory-simon-mark-hughes-hallucination-research-pioneer" target="_blank">lasting legacy</a> in this space.
 </div>
 
 ## Setting up HHEM with the LLM leaderboard template
