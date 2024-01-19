@@ -77,7 +77,7 @@ Hence, a sequence of MLP Mixer layers creates the following `PatchTSMixer` backb
 </p>
 
 ## Installation
-This demo requires Hugging Face [`Transformers`](https://github.com/huggingface/transformers) for the model, and the IBM `tsfm` package for auxiliary data pre-processing.
+This demo requires Hugging Face [`Transformers`](https://github.com/huggingface/transformers) for the model and the IBM `tsfm` package for auxiliary data pre-processing.
 Both can be installed by following the steps below.
 
 1. Install IBM Time Series Foundation Model Repository [`tsfm`](https://github.com/ibm/tsfm).
@@ -291,7 +291,7 @@ model = PatchTSMixerForPrediction(config)
 
  ## Train model
 
- Next, we can leverage the Hugging Face [Trainer](https://huggingface.co/docs/transformers/main_classes/trainer) class to train the model based on the direct forecasting strategy. We first define the [TrainingArguments](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments) which lists various hyperparameters regarding training such as the number of epochs, learning rate and so on.
+ Next, we can leverage the Hugging Face [Trainer](https://huggingface.co/docs/transformers/main_classes/trainer) class to train the model based on the direct forecasting strategy. We first define the [TrainingArguments](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments) which lists various hyperparameters regarding training such as the number of epochs, learning rate, and so on.
 
 
 ```python
@@ -342,7 +342,7 @@ trainer.train()
     ...
 ```
 
- ## Evaluate model on the test set.
+ ## Evaluate the model on the test set
 
 **Note that the training and evaluation loss for PatchTSMixer is the Mean Squared Error (MSE) loss. Hence, we do not separately compute the MSE metric in any of the following evaluation experiments.**
 
@@ -376,7 +376,9 @@ By Transfer Learning, we mean that we first pretrain the model for a forecasting
  
  Subsequently, we will do linear probing and (then) finetuning of the pretrained model on the `train` split of the target data, and will validate the forecasting performance on the `test` split of the target data. In this example, the source dataset is the Electricity dataset and the target dataset is `ETTH2`.
 
-## Transfer Learing on `ETTh2` data. All evaluations are on the `test` part of the `ETTh2` data.
+## Transfer Learning on `ETTh2` data 
+
+All evaluations are on the `test` part of the `ETTh2` data:
 Step 1: Directly evaluate the electricity-pretrained model. This is the zero-shot performance.  
 Step 2: Evalute after doing linear probing.  
 Step 3: Evaluate after doing full finetuning.  
@@ -389,7 +391,6 @@ Below, we load the `ETTh2` dataset as a Pandas dataframe. Next, we create 3 spli
 ```python
 dataset = "ETTh2"
 
-print(f"Loading target dataset: {dataset}")
 dataset_path = f"https://raw.githubusercontent.com/zhouhaoyi/ETDataset/main/ETT-small/{dataset}.csv"
 timestamp_column = "date"
 id_columns = []
@@ -439,77 +440,10 @@ time_series_processor = TimeSeriesPreprocessor(
 time_series_processor.train(train_data)
 
 >>> TimeSeriesPreprocessor {
-      "context_length": 64,
-      "feature_extractor_type": "TimeSeriesPreprocessor",
-      "id_columns": [],
-      "input_columns": [
-        "HUFL",
-        "HULL",
-        "MUFL",
-        "MULL",
-        "LUFL",
-        "LULL",
-        "OT"
-      ],
-      "output_columns": [
-        "HUFL",
-        "HULL",
-        "MUFL",
-        "MULL",
-        "LUFL",
-        "LULL",
-        "OT"
-      ],
-      "prediction_length": null,
-      "processor_class": "TimeSeriesPreprocessor",
-      "scaler_dict": {
-        "0": {
-          "copy": true,
-          "feature_names_in_": [
-            "HUFL",
-            "HULL",
-            "MUFL",
-            "MULL",
-            "LUFL",
-            "LULL",
-            "OT"
-          ],
-          "mean_": [
-            41.53683496078959,
-            12.273452896210882,
-            46.60977329964991,
-            10.526153112865156,
-            1.1869920139097505,
-            -2.373217913729173,
-            26.872023494265697
-          ],
-          "n_features_in_": 7,
-          "n_samples_seen_": 8640,
-          "scale_": [
-            10.448841072588488,
-            4.587112566531959,
-            16.858190332598408,
-            3.018605566682919,
-            4.641011217319063,
-            8.460910779279644,
-            11.584718923414682
-          ],
-          "var_": [
-            109.17827976021215,
-            21.04160169803542,
-            284.19858129011436,
-            9.111979567209104,
-            21.538985119281367,
-            71.58701121493046,
-            134.20571253452223
-          ],
-          "with_mean": true,
-          "with_std": true
-        }
-      },
-      "scaling": true,
-      "time_series_task": "forecasting",
-      "timestamp_column": "date"
+        "context_length": 64,
+        "feature_extractor_type": "TimeSeriesPreprocessor",
+        "id_columns": [],
+    ...
     }
 ```
 
