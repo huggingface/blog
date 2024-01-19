@@ -773,7 +773,7 @@ For a demonstration model on a low-resource language, the results are quite acce
 
 We've shown in this blogpost how Meta's `w2v-bert-2.0` fine-tuning can give near state-of-the-art performance on low-resource languages.
 
-To take things a step further, I've put together a set of tips and pointers given by my colleagues at Hugging Face on how to scale up training for this model.
+To take things a step further, I've put together a set of tips and pointers given by my colleagues at Hugging Face on how to scale up training for this model. Many thanks to [Patrick](https://huggingface.co/patrickvonplaten), [Sanchit](https://huggingface.co/sanchit-gandhi) and [Pablo](https://huggingface.co/Molbap) for their valuable expertise and help 🤗
 
 Note that Common Voice newest version ([CV16](https://huggingface.co/datasets/mozilla-foundation/common_voice_16_0)) provides many more hours of data and for may languages and thus provides fertile ground for much more efficient models in many low-resource languages.
 
