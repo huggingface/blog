@@ -8,7 +8,7 @@ authors:
   guest: true
 - user: namctin
   guest: true
-- user: wgifford
+- user: wmgifford
   guest: true
 - user: kashif
 - user: nielsr
@@ -366,25 +366,25 @@ os.makedirs(save_dir, exist_ok=True)
 trainer.save_model(save_dir)
 ```
 
-# Part 2: Transfer Learning from Electricity to `ETTH2`
+## Part 2: Transfer Learning from Electricity to ETTh2
 
 In this section, we will demonstrate the transfer learning capability of the `PatchTSMixer` model.
-We use the model pre-trained on the Electricity dataset to do zero-shot forecasting on the `ETTH2` dataset.
+We use the model pre-trained on the Electricity dataset to do zero-shot forecasting on the `ETTh2` dataset.
 
 
 By Transfer Learning, we mean that we first pretrain the model for a forecasting task on a `source` dataset (which we did above on the `Electricity` dataset). Then, we will use the
  pretrained model for zero-shot forecasting on a `target` dataset. By zero-shot, we mean that we test the performance in the `target` domain without any additional training. We hope that the model gained enough knowledge from pretraining which can be transferred to a different dataset. 
  
- Subsequently, we will do linear probing and (then) finetuning of the pretrained model on the `train` split of the target data, and will validate the forecasting performance on the `test` split of the target data. In this example, the source dataset is the Electricity dataset and the target dataset is `ETTH2`.
+ Subsequently, we will do linear probing and (then) finetuning of the pretrained model on the `train` split of the target data, and will validate the forecasting performance on the `test` split of the target data. In this example, the source dataset is the Electricity dataset and the target dataset is `ETTh2`.
 
-## Transfer Learning on `ETTh2` data 
+### Transfer Learning on ETTh2 data 
 
 All evaluations are on the `test` part of the `ETTh2` data:
 Step 1: Directly evaluate the electricity-pretrained model. This is the zero-shot performance.  
 Step 2: Evalute after doing linear probing.  
 Step 3: Evaluate after doing full finetuning.  
 
-### Load `ETTh2` dataset
+#### Load ETTh2 dataset
 
 Below, we load the `ETTh2` dataset as a Pandas dataframe. Next, we create 3 splits for training, validation and testing. We then leverage the `TimeSeriesPreprocessor` class to prepare each split for the model.
 
@@ -477,7 +477,7 @@ test_dataset = ForecastDFDataset(
 )
 ```
 
-## Zero-shot forecasting on `ETTh2`
+### Zero-shot forecasting on ETTh2
 
 As we are going to test forecasting performance out-of-the-box, we load the model which we pretrained above.
 
@@ -538,7 +538,7 @@ As can be seen, we get a mean-squared error (MSE) of 0.3 zero-shot which is near
 
 Next, let's see how we can do by performing linear probing, which involves training a linear classifier on top of a frozen pre-trained model. Linear probing is often done to test the performance of features of a pretrained model.
 
-## Linear probing on `ETTh2`
+### Linear probing on ETTh2
 We can do a quick linear probing on the `train` part of the target data to see any possible `test` performance improvement. 
 
 
@@ -589,7 +589,7 @@ time_series_processor.save_pretrained(save_dir)
 
 Finally, let's see if we get any more improvements by doing a full finetune of the model on the target dataset.
 
-## Full finetuning on `ETTh2`
+### Full finetuning on ETTh2
 
 We can do a full model finetune (instead of probing the last linear layer as shown above) on the `train` part of the target data to see a possible `test` performance improvement. The code looks similar to the linear probing task above, except that we are not freezing any parameters.
 
