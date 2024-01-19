@@ -2,13 +2,10 @@
 title: "Open-source LLMs as LangChain Agents" 
 thumbnail: /blog/assets/131_aws-partnership/aws-partnership-thumbnail.png
 authors:
-- user: ciremya
+- user: m-ric
 - user: Jofthomas
 - user: andrewrreed
 ---
-
-[Removed elements](https://www.notion.so/Removed-elements-ba5622526ec242419b138829287de099?pvs=21)
-
 # Introduction
 
 Large Language Models (LLMs) trained to perform [causal language modeling](https://huggingface.co/docs/transformers/tasks/language_modeling) can tackle a wide range of tasks, but they often struggle with basic tasks like logic, calculation, and search. The worst scenario is when they perform poorly in a domain, such as math, yet still attempt to handle all the calculations themselves.
