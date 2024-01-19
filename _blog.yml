@@ -3284,3 +3284,14 @@
     - rlhf
     - nlp
     - research
+
+- local: patchtsmixer
+  title: "PatchTSMixer in HuggingFace"
+  author: ajati
+  guest: true
+  thumbnail: /blog/assets/patchtsmixer/thumbnail.jpeg
+  date: January 19, 2024
+  tags:
+    - guide
+    - research
+    - time-series
