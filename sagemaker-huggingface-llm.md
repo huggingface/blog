@@ -7,8 +7,6 @@ authors:
 
 # Introducing the Hugging Face LLM Inference Container for Amazon SageMaker
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 This is an example on how to deploy the open-source LLMs, like [BLOOM](https://huggingface.co/bigscience/bloom) to Amazon SageMaker for inference using the new Hugging Face LLM Inference Container.
 We will deploy the 12B [Pythia Open Assistant Model](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-7k-steps), an open-source Chat LLM trained with the Open Assistant dataset.
@@ -59,7 +57,7 @@ Let's get started!
 We are going to use the `sagemaker` python SDK to deploy BLOOM to Amazon SageMaker. We need to make sure to have an AWS account configured and the `sagemaker` python SDK installed.
 
 ```python
-!pip install "sagemaker==2.163.0" --upgrade --quiet
+!pip install "sagemaker==2.175.0" --upgrade --quiet
 ```
 
 If you are going to use Sagemaker in a local environment, you need access to an IAM Role with the required permissions for Sagemaker. You can find [here](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html) more about it.
@@ -98,7 +96,7 @@ from sagemaker.huggingface import get_huggingface_llm_image_uri
 # retrieve the llm image uri
 llm_image = get_huggingface_llm_image_uri(
   "huggingface",
-  version="0.8.2"
+  version="1.0.3"
 )
 
 # print ecr image uri

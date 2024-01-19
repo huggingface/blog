@@ -7,8 +7,6 @@ authors:
 
 # Boosting Wav2Vec2 with n-grams in 🤗 Transformers
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Boosting_Wav2Vec2_with_n_grams_in_Transformers.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

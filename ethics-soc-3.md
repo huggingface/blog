@@ -7,13 +7,12 @@ authors:
 - user: NimaBoscarino
 - user: yjernite
 - user: allendorf
-
+- user: meg
+- user: sasha
 ---
 
 # Ethics and Society Newsletter #3: Ethical Openness at Hugging Face
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Mission: Open and Good ML
 In our mission to democratize good machine learning (ML), we examine how supporting ML community work also empowers examining and preventing possible harms. Open development and science decentralizes power so that many people can collectively work on AI that reflects their needs and values. While [openness enables broader perspectives to contribute to research and AI overall, it faces the tension of less risk control](https://arxiv.org/abs/2302.04844).

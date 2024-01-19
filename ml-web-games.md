@@ -8,8 +8,6 @@ authors:
 
 # Making ML-powered web games with Transformers.js
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 In this blog post, I'll show you how I made [**Doodle Dash**](https://huggingface.co/spaces/Xenova/doodle-dash), a real-time ML-powered web game that runs completely in your browser (thanks to [Transformers.js](https://github.com/xenova/transformers.js)). The goal of this tutorial is to show you how easy it is to make your own ML-powered web game... just in time for the upcoming Open Source AI Game Jam (7-9 July 2023). [Join](https://itch.io/jam/open-source-ai-game-jam) the game jam if you haven't already!
@@ -137,7 +135,7 @@ import { pipeline, RawImage } from "@xenova/transformers";
 
 const classifier = await pipeline("image-classification", 'Xenova/quickdraw-mobilevit-small', { quantized: false });
 
-const image = await RawImage.read('https://hf.co/datasets/huggingface/documentation-images/resolve/main/blog/ml-web-games/skateboard.png');
+const image = await RawImage.read('https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ml-web-games/skateboard.png');
 
 const output = await classifier(image.grayscale());
 console.log(output);

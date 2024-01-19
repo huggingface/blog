@@ -8,8 +8,6 @@ authors:
 
 # StarCoder: A State-of-the-Art LLM for Code
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Introducing StarCoder
 

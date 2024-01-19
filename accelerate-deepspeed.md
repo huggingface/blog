@@ -6,10 +6,8 @@ authors:
 - user: sgugger
 ---
 
-<h1>Accelerate Large Model Training using DeepSpeed</h1>
+# Accelerate Large Model Training using DeepSpeed
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 In this post we will look at how we can leverage the **[Accelerate](https://github.com/huggingface/accelerate)** library for training large models which enables users to leverage the ZeRO features of **[DeeSpeed](https://www.deepspeed.ai)**.
 
@@ -330,7 +328,7 @@ accelerate launch run_clm_no_trainer.py \
 | Method | Batch Size Max | Train time per epoch (seconds) | Notes |
 | --- | --- | --- | --- |
 | DDP (Distributed Data Parallel) | - | - | OOM Error
-| DeepSpeed ZeRO Stage 2 | **16** | 6608.35 | |
+| DeepSpeed ZeRO Stage 3 | **16** | 6608.35 | |
 
 
 Table 3: Benchmarking DeepSpeed ZeRO Stage-3 CPU Offload on GPT-XL (1.5B) model

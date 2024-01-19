@@ -7,8 +7,6 @@ authors:
 
 # Large-scale Near-deduplication Behind BigCode
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Intended Audience
 

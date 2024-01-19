@@ -7,8 +7,6 @@ authors:
 
 # Student Ambassador Program’s call for applications is open!
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 As an open-source company democratizing machine learning, Hugging Face believes it is essential to **[teach](https://huggingface.co/blog/education)** open-source ML to people from all backgrounds worldwide. **We aim to teach machine learning to 5 million people by 2023**.
 

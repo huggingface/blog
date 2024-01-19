@@ -5,10 +5,8 @@ authors:
 - user: britneymuller
 ---
 
-<h1>Machine Learning Experts - Lewis Tunstall</h1>
+# Machine Learning Experts - Lewis Tunstall
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 ## 🤗 Welcome to Machine Learning Experts - Lewis Tunstall

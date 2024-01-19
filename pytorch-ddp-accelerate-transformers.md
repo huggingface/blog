@@ -7,8 +7,6 @@ authors:
 
 # From PyTorch DDP to Accelerate to Trainer, mastery of distributed training with ease
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## General Overview
 
@@ -173,7 +171,7 @@ The optimizer needs to be declared based on the model *on the specific device* (
 Lastly, to run the script PyTorch has a convenient `torchrun` command line module that can help. Just pass in the number of nodes it should use as well as the script to run and you are set:
 
 ```bash
-torchrun --nproc_per_nodes=2 --nnodes=1 example_script.py
+torchrun --nproc_per_node=2 --nnodes=1 example_script.py
 ```
 
 The above will run the training script on two GPUs that live on a single machine and this is the barebones for performing only distributed training with PyTorch.
@@ -253,7 +251,7 @@ def train_ddp_accelerate():
     test_loader = torch.utils.data.DataLoader(test_dset, shuffle=False, batch_size=64)
 
     # Build model
-    model = BasicModel()
+    model = BasicNet()
 
     # Build optimizer
     optimizer = optim.AdamW(model.parameters(), lr=1e-3)
@@ -309,7 +307,7 @@ notebook_launcher(train_ddp, args=(), num_processes=2)
 Or:
 
 ```python
-notebook_launcher(train_accelerate_ddp, args=(), num_processes=2)
+notebook_launcher(train_ddp_accelerate, args=(), num_processes=2)
 ```
 
 ## Using 🤗 Trainer

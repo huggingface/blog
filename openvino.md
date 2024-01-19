@@ -6,10 +6,8 @@ authors:
 - user: juliensimon
 ---
 
-<h1>Accelerate your models with 🤗 Optimum Intel and OpenVINO</h1>
+# Accelerate your models with 🤗 Optimum Intel and OpenVINO
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ![image](assets/113_openvino/thumbnail.png)
 
@@ -37,14 +35,14 @@ pip install pip --upgrade
 pip install optimum[openvino,nncf] torchvision evaluate
 ```
 
-Next, moving to a Python environment, we import the appropriate modules and download the original model as well as its feature extractor.
+Next, moving to a Python environment, we import the appropriate modules and download the original model as well as its processor.
 ​
 ```python
-from transformers import AutoFeatureExtractor, AutoModelForImageClassification
+from transformers import AutoImageProcessor, AutoModelForImageClassification
 ​
 model_id = "juliensimon/autotrain-food101-1471154050"
 model = AutoModelForImageClassification.from_pretrained(model_id)
-feature_extractor = AutoFeatureExtractor.from_pretrained(model_id)
+processor = AutoImageProcessor.from_pretrained(model_id)
 ```
 ​
 Post-training static quantization requires a calibration step where data is fed through the network in order to compute the quantized activation parameters. Here, we take 300 samples from the original dataset to build the calibration dataset.
@@ -60,7 +58,7 @@ calibration_dataset = quantizer.get_calibration_dataset(
 )
 ```
 
-As usual with image datasets, we need to apply the same image transformations that were used at training time. We use the preprocessing defined in the feature extractor. We also define a data collation function to feed the model batches of properly formatted tensors.
+As usual with image datasets, we need to apply the same image transformations that were used at training time. We use the preprocessing defined in the processor. We also define a data collation function to feed the model batches of properly formatted tensors.
 ​
 
 ```python
@@ -73,11 +71,12 @@ from torchvision.transforms import (
     ToTensor,
 )
 ​
-normalize = Normalize(mean=feature_extractor.image_mean, std=feature_extractor.image_std)
+normalize = Normalize(mean=processor.image_mean, std=processor.image_std)
+size = processor.size["height"]
 _val_transforms = Compose(
     [
-        Resize(feature_extractor.size),
-        CenterCrop(feature_extractor.size),
+        Resize(size),
+        CenterCrop(size),
         ToTensor(),
         normalize,
     ]
@@ -117,7 +116,7 @@ quantizer.quantize(
     remove_unused_columns=False,
     save_directory=save_dir,
 )
-feature_extractor.save_pretrained(save_dir)
+processor.save_pretrained(save_dir)
 ```
 
 A minute or two later, the model has been quantized. We can then easily load it with our [`OVModelForXxx`](https://huggingface.co/docs/optimum/intel/inference) classes, the equivalent of the Transformers [`AutoModelForXxx`](https://huggingface.co/docs/transformers/main/en/autoclass_tutorial#automodel) classes found in the `transformers` library. Likewise, we can create [pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines) and run inference with [OpenVINO Runtime](https://docs.openvino.ai/latest/openvino_docs_OV_UG_OV_Runtime_User_Guide.html).
@@ -127,7 +126,7 @@ from transformers import pipeline
 from optimum.intel.openvino import OVModelForImageClassification
 ​
 ov_model = OVModelForImageClassification.from_pretrained(save_dir)
-ov_pipe = pipeline("image-classification", model=ov_model, feature_extractor=feature_extractor)
+ov_pipe = pipeline("image-classification", model=ov_model, image_processor=processor)
 outputs = ov_pipe("http://farm2.staticflickr.com/1375/1394861946_171ea43524_z.jpg")
 print(outputs)
 ```
@@ -149,7 +148,7 @@ ov_eval_results = task_evaluator.compute(
     label_mapping=ov_pipe.model.config.label2id,
 )
 
-trfs_pipe = pipeline("image-classification", model=model, feature_extractor=feature_extractor)
+trfs_pipe = pipeline("image-classification", model=model, image_processor=processor)
 trfs_eval_results = task_evaluator.compute(
     model_or_pipeline=trfs_pipe,
     data=eval_dataset,

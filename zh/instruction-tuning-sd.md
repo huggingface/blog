@@ -11,8 +11,6 @@ translators:
 
 # 使用 InstructPix2Pix 对 Stable Diffusion 进行指令微调
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 本文主要探讨如何使用指令微调的方法教会 [Stable Diffusion](https://huggingface.co/blog/zh/stable_diffusion) 按照指令 PS 图像。这样，我们 Stable Diffusion 就能听得懂人话，并根据要求对输入图像进行相应操作，如: _将输入的自然图像卡通化_。
 
@@ -233,13 +231,3 @@ _感谢 [Alara Dirik](https://www.linkedin.com/in/alaradirik/) 和 [Zhengzhong T
   note = {https://huggingface.co/blog/instruction-tuning-sd},
 }
 ```
-
----
-
->>>> 英文原文: <url>https://huggingface.co/blog/instruction-tuning-sd</url>
->>>>
->>>> 原文作者: Sayak Paul
->>>>
->>>> 译者: Matrix Yao (姚伟峰)，英特尔深度学习工程师，工作方向为 transformer-family 模型在各模态数据上的应用及大规模模型的训练推理。
->>>>
->>>> 审校/排版: zhongdongy (阿东)

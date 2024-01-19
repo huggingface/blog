@@ -7,8 +7,6 @@ authors:
 
 # Fine-Tune Whisper For Multilingual ASR with 🤗 Transformers
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/fine_tune_whisper.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
@@ -136,19 +134,16 @@ strong performance in this language.
 ### Prepare Environment
 
 We'll employ several popular Python packages to fine-tune the Whisper model.
-We'll use `datasets` to download and prepare our training data and 
-`transformers` to load and train our Whisper model. We'll also require
-the `soundfile` package to pre-process audio files, `evaluate` and `jiwer` to
-assess the performance of our model. Finally, we'll
-use `gradio` to build a flashy demo of our fine-tuned model.
+We'll use `datasets` to download and prepare our training data, alongside 
+`transformers` and `accelerate` to load and train our Whisper model. 
+We'll also require the `soundfile` package to pre-process audio files, 
+`evaluate` and `jiwer` to assess the performance of our model, and 
+`tensorboard` to log our metrics. Finally, we'll use `gradio` to build a 
+flashy demo of our fine-tuned model.
 
 ```bash
-!pip install datasets>=2.6.1
-!pip install git+https://github.com/huggingface/transformers
-!pip install librosa
-!pip install evaluate>=0.30
-!pip install jiwer
-!pip install gradio
+!pip install --upgrade pip
+!pip install --upgrade datasets transformers accelerate soundfile librosa evaluate jiwer tensorboard gradio
 ```
 
 We strongly advise you to upload model checkpoints directly the [Hugging Face Hub](https://huggingface.co/) 
@@ -361,6 +356,8 @@ from transformers import WhisperTokenizer
 
 tokenizer = WhisperTokenizer.from_pretrained("openai/whisper-small", language="Hindi", task="transcribe")
 ```
+
+> **Tip:** the blog post can be adapted for *speech translation* by setting the task to `"translate"` and the language to the target text language in the above line. This will prepend the relevant task and language tokens for speech translation when the dataset is pre-processed.
 
 We can verify that the tokenizer correctly encodes Hindi characters by 
 encoding and decoding the first sample of the Common Voice dataset. When 

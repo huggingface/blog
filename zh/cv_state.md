@@ -7,8 +7,6 @@ authors:
 
 # Hugging Face 中计算机视觉的现状
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 在Hugging Face上，我们为与社区一起推动人工智能领域的民主化而感到自豪。作为这个使命的一部分，我们从去年开始专注于计算机视觉。开始只是 [🤗 Transformers中Vision Transformers (ViT) 的一个 PR](https://github.com/huggingface/transformers/pull/10950)，现在已经发展壮大：8个核心视觉任务，超过3000个模型，在Hugging Face Hub上有超过1000个数据集。
 
@@ -277,9 +275,3 @@ Detected couch with confidence 0.535 at location [0.52, 1.19, 640.35, 475.1]
 像往常一样，我们欢迎你的补丁、PR、模型 checkpoints、数据集和其他贡献！🤗
 
 *Acknowlegements: Thanks to Omar Sanseviero, Nate Raw, Niels Rogge, Alara Dirik, Amy Roberts, Maria Khalusova, and Lysandre Debut for their rigorous and timely reviews on the blog draft. Thanks to Chunte Lee for creating the blog thumbnail.*
-
-
-
-> *原文：[The State of Computer Vision at Hugging Face ](https://huggingface.co/blog/cv_state)*
->
-> *译者：AIboy1993（李旭东）*

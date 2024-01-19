@@ -5,10 +5,8 @@ authors:
 - user: merve
 ---
 
-<h1>Open-Source Text Generation & LLM Ecosystem at Hugging Face</h1>
+# Open-Source Text Generation & LLM Ecosystem at Hugging Face
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 [Updated on July 24, 2023: Added Llama 2.]
 
@@ -35,7 +33,7 @@ Causal language models are adapted using a process called reinforcement learning
 For example, GPT-3 is a causal language _base_ model, while the models in the backend of ChatGPT (which is the UI for GPT-series models) are fine-tuned through RLHF on prompts that can consist of conversations or instructions. It’s an important distinction to make between these models. 
 
 On the Hugging Face Hub, you can find both causal language models and causal language models fine-tuned on instructions (which we’ll give links to later in this blog post). Llama is one of the first open-source LLMs to have outperformed/matched closed-source ones. A research group led by Together has created a reproduction of Llama's dataset, called Red Pajama, and trained LLMs and instruction fine-tuned models on it. You can read more about it [here](https://www.together.xyz/blog/redpajama) and find [the model checkpoints on Hugging Face Hub](https://huggingface.co/models?sort=trending&search=togethercomputer%2Fredpajama). By the time this blog post is written, three of the largest causal language models with open-source licenses are [MPT-30B by MosaicML](https://huggingface.co/mosaicml/mpt-30b), [XGen by Salesforce](https://huggingface.co/Salesforce/xgen-7b-8k-base) and [Falcon by TII UAE](https://huggingface.co/tiiuae/falcon-40b), available completely open on Hugging Face Hub.
-Recently, Meta released [Llama 2](https://ai.meta.com/Llama/), an open-access model with a license that allows commercial use. As of now, Llama 2 outperforms all of the other open-source large language models on different benchmarks. [Llama 2 checkpoints on Hugging Face Hub](https://huggingface.co/meta-Llama) are compatible with transformers, and the largest checkpoint is available for everyone to try at [HuggingChat](https://huggingface.co/chat/). You can read more about how to fine-tune, deploy and prompt with Llama 2 in [this blog post](https://huggingface.co/blog/Llama2).
+Recently, Meta released [Llama 2](https://ai.meta.com/Llama/), an open-access model with a license that allows commercial use. As of now, Llama 2 outperforms all of the other open-source large language models on different benchmarks. [Llama 2 checkpoints on Hugging Face Hub](https://huggingface.co/meta-Llama) are compatible with transformers, and the largest checkpoint is available for everyone to try at [HuggingChat](https://huggingface.co/chat/). You can read more about how to fine-tune, deploy and prompt with Llama 2 in [this blog post](https://huggingface.co/blog/llama2).
 
 The second type of text generation model is commonly referred to as the text-to-text generation model. These models are trained on text pairs, which can be questions and answers or instructions and responses. The most popular ones are T5 and BART (which, as of now, aren’t state-of-the-art). Google has recently released the FLAN-T5 series of models. FLAN is a recent technique developed for instruction fine-tuning, and FLAN-T5 is essentially T5 fine-tuned using FLAN. As of now, the FLAN-T5 series of models are state-of-the-art and open-source, available on the [Hugging Face Hub](https://huggingface.co/models?search=google/flan). Note that these are different from instruction-tuned causal language models, although the input-output format might seem similar. Below you can see an illustration of how these models work.
 
@@ -130,4 +128,4 @@ You can check out further resources for more information on text generation.
 - [Text Generation task page](https://huggingface.co/tasks/text-generation) to find out more about the task itself.
 - PEFT announcement [blog post](https://huggingface.co/blog/peft).
 - Read about how Inference Endpoints use TGI [here](https://huggingface.co/blog/inference-endpoints-llm).
-- Read about how to fine-tune Llama 2 transformers and PEFT, and prompt [here](https://huggingface.co/blog/Llama2).
+- Read about how to fine-tune Llama 2 transformers and PEFT, and prompt [here](https://huggingface.co/blog/llama2).

@@ -7,12 +7,10 @@ authors:
 
 
 
-<h1>Intel and Hugging Face Partner to Democratize Machine Learning Hardware Acceleration</h1>
+# Intel and Hugging Face Partner to Democratize Machine Learning Hardware Acceleration
 
 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ![image](assets/80_intel/01.png)
 

@@ -10,8 +10,6 @@ authors:
 
 # Multivariate Probabilistic Time Series Forecasting with Informer
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
@@ -583,7 +581,10 @@ def create_transformation(freq: str, config: PretrainedConfig) -> Transformation
 
 For training/validation/testing we next create an `InstanceSplitter` which is used to sample windows from the dataset (as, remember, we can't pass the entire history of values to the model due to time- and memory constraints).
 
-The instance splitter samples random `context_length` sized and subsequent `prediction_length` sized windows from the data, and appends a `past_` or `future_` key to any temporal keys for the respective windows. This makes sure that the `values` will be split into `past_values` and subsequent `future_values` keys, which will serve as the encoder and decoder inputs respectively. The same happens for any keys in the `time_series_fields` argument:
+The instance splitter samples random `context_length` sized and subsequent `prediction_length` sized windows from the data, and appends a `past_` or `future_` key to any temporal keys in `time_series_fields` for the respective windows. The instance splitter can be configured into three different modes:
+1. `mode="train"`: Here we sample the context and prediction length windows randomly from the dataset given to it (the training dataset)
+2. `mode="validation"`: Here we sample the very last context length window and prediction window from the dataset given to it (for the back-testing or validation likelihood calculations)
+3. `mode="test"`: Here we sample the very last context length window only (for the prediction use case)
 
 
 ```python
@@ -673,9 +674,7 @@ def create_train_dataloader(
     # context length + lags + prediction length (from all the possible transformed time series, 1 in our case)
     # randomly from within the target time series and return an iterator.
     stream = Cyclic(transformed_data).stream()
-    training_instances = instance_splitter.apply(
-        stream, is_train=True
-    )
+    training_instances = instance_splitter.apply(stream)
     
     return as_stacked_batches(
         training_instances,
@@ -689,6 +688,42 @@ def create_train_dataloader(
 
 
 ```python
+def create_backtest_dataloader(
+    config: PretrainedConfig,
+    freq,
+    data,
+    batch_size: int,
+    **kwargs,
+):
+    PREDICTION_INPUT_NAMES = [
+        "past_time_features",
+        "past_values",
+        "past_observed_mask",
+        "future_time_features",
+    ]
+    if config.num_static_categorical_features > 0:
+        PREDICTION_INPUT_NAMES.append("static_categorical_features")
+
+    if config.num_static_real_features > 0:
+        PREDICTION_INPUT_NAMES.append("static_real_features")
+
+    transformation = create_transformation(freq, config)
+    transformed_data = transformation.apply(data)
+
+    # we create a Validation Instance splitter which will sample the very last
+    # context window seen during training only for the encoder.
+    instance_sampler = create_instance_splitter(config, "validation")
+
+    # we apply the transformations in train mode
+    testing_instances = instance_sampler.apply(transformed_data, is_train=True)
+    
+    return as_stacked_batches(
+        testing_instances,
+        batch_size=batch_size,
+        output_type=torch.tensor,
+        field_names=PREDICTION_INPUT_NAMES,
+    )
+
 def create_test_dataloader(
     config: PretrainedConfig,
     freq,
@@ -711,11 +746,11 @@ def create_test_dataloader(
     transformation = create_transformation(freq, config)
     transformed_data = transformation.apply(data, is_train=False)
 
-    # we create a Test Instance splitter which will sample the very last
-    # context window seen during training only for the encoder.
+    # We create a test Instance splitter to sample the very last
+    # context window from the dataset provided.
     instance_sampler = create_instance_splitter(config, "test")
 
-    # we apply the transformations in test mode
+    # We apply the transformations in test mode
     testing_instances = instance_sampler.apply(transformed_data, is_train=False)
     
     return as_stacked_batches(
@@ -737,7 +772,7 @@ train_dataloader = create_train_dataloader(
     num_workers=2,
 )
 
-test_dataloader = create_test_dataloader(
+test_dataloader = create_backtest_dataloader(
     config=config,
     freq=freq,
     data=multi_variate_test_dataset,

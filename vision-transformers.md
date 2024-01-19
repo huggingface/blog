@@ -5,10 +5,8 @@ authors:
 - user: juliensimon
 ---
 
-<h1>Deep Dive: Vision Transformers On Hugging Face Optimum Graphcore</h1>
+# Deep Dive: Vision Transformers On Hugging Face Optimum Graphcore
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 This blog post will show how easy it is to fine-tune pre-trained Transformer models for your dataset using the Hugging Face Optimum library on Graphcore Intelligence Processing Units (IPUs). As an example, we will show a step-by-step guide and provide a notebook that takes a large, widely-used chest X-ray dataset and trains a vision transformer (ViT) model.
 
@@ -103,7 +101,7 @@ This blog post will show how easy it is to fine-tune pre-trained Transformer mod
 <div style="font-size: 14px; line-height: 1.3;">
 <script src="https://gist.github.com/nickmaxfield/1df44cf80f72e1132441e539e3c3df84.js"></script>
 </div>
-<p>To fine-tune a pre-trained model, the new dataset must have the same properties as the original dataset used for pre-training. In Hugging Face, the original dataset information is provided in a config file loaded using the <code>AutoFeatureExtractor</code>. For this model, the X-ray images are resized to the correct resolution (224x224), converted from grayscale to RGB, and normalized across the RGB channels with a mean (0.5, 0.5, 0.5) and a standard deviation (0.5, 0.5, 0.5).</p>
+<p>To fine-tune a pre-trained model, the new dataset must have the same properties as the original dataset used for pre-training. In Hugging Face, the original dataset information is provided in a config file loaded using the <code>AutoImageProcessor</code>. For this model, the X-ray images are resized to the correct resolution (224x224), converted from grayscale to RGB, and normalized across the RGB channels with a mean (0.5, 0.5, 0.5) and a standard deviation (0.5, 0.5, 0.5).</p>
 <div style="font-size: 14px; line-height: 1.3;">
 <script src="https://gist.github.com/nickmaxfield/15c3fa337c2fd7e0b3cad23c421c3d28.js"></script>
 </div>

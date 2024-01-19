@@ -5,10 +5,8 @@ authors:
 - user: abidlabs
 ---
 
-<h1>Gradio is joining Hugging Face!</h1>
+# Gradio is joining Hugging Face!
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <p>&nbsp;</p>
 

@@ -15,8 +15,12 @@ authors:
 
 # Announcing Evaluation on the Hub
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
+<br>
+<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
+  November 2023 Update:
+
+  This project has been archived. If you want to evaluate LLMs on the Hub, check out [this collection of leaderboards](https://huggingface.co/collections/clefourrier/llm-leaderboards-and-benchmarks-✨-64f99d2e11e92ca5568a7cce).
+</div>
 
 <em>TL;DR</em>: Today we introduce [Evaluation on the Hub](https://huggingface.co/spaces/autoevaluate/model-evaluator), a new tool powered by [AutoTrain](https://huggingface.co/autotrain) that lets you evaluate any model on any dataset on the Hub without writing a single line of code!
 

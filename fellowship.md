@@ -8,8 +8,6 @@ authors:
 
 # Announcing the Hugging Face Fellowship Program
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 The Fellowship is a network of exceptional people from different backgrounds who contribute to the Machine Learning open-source ecosystem 🚀. The goal of the program is to empower key contributors to enable them to scale their impact while inspiring others to contribute as well.

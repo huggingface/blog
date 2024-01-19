@@ -5,9 +5,8 @@ authors:
 - user: dylanebert
 ---
 
-<h1>How to host a Unity game in a Space</h1>
+# How to host a Unity game in a Space
 
-<!-- {blog_metadata} -->
 <!-- {authors} --> 
 
 
@@ -106,7 +105,7 @@ Navigate to your repository. Use the following commands to track large build fil
 
 ```
 git lfs install
-git track Build/* 
+git lfs track Build/* 
 ```
 
 ## Step 11: Push your Changes

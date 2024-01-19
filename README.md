@@ -1,6 +1,8 @@
 # The Hugging Face Blog Repository 🤗
 This is the official repository of the [Hugging Face Blog](https://hf.co/blog). 
 
+**If you are an external contributor**: If your blog post is not a collaboration post with Hugging Face, please consider creating a [community blog](https://huggingface.co/blog-explorers) instead. Community blog posts appear on our blogs main page just like the blogs in this repository.
+
 ## How to write an article? 📝
 1️⃣ Create a branch `YourName/Title`
 
@@ -29,18 +31,14 @@ authors:
 
 # Train your first Decision Transformer
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
-
 Your content here [...]
 ```
 
-The blog_metadata and authors HTML comments are meant to mark where in the file will be inserted the following UI elements:
+When published, the Hub will insert the following UI elements right after the blogpost's main header (i.e. the line that starts with a single `#`, aka. the `<h1>`):
+
 - "Published on [date]"
 - "Update on GitHub" button
 - avatars of the authors that were listed in authors.
-
-⚠️ Please keep the blog_metadata and authors comments exactly equal to those strings otherwise they won't be replaced.
 
 5️⃣ Then, you can add your content. It's markdown system so if you wrote your text on notion just control shift v to copy/paste as markdown.
 

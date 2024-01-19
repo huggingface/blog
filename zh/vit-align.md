@@ -13,8 +13,6 @@ translators:
 
 # Kakao Brain 的开源 ViT、ALIGN 和 COYO 文字
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 最近 Kakao Brain 在 Hugging Face 发布了一个全新的开源图像文本数据集 [COYO](https://github.com/kakaobrain/coyo-dataset)，包含 7 亿对图像和文本，并训练了两个新的视觉语言模型 [ViT](https://github.com/kakaobrain/coyo-vit) 和 [ALIGN](https://github.com/kakaobrain/coyo-align)。
 

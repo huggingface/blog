@@ -10,8 +10,6 @@ authors:
 
 # Training Stable Diffusion with Dreambooth using 🧨 Diffusers
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 [Dreambooth](https://dreambooth.github.io/) is a technique to teach new concepts to [Stable Diffusion](https://huggingface.co/blog/stable_diffusion) using a specialized form of fine-tuning. Some people have been using it with a few of their photos to place themselves in fantastic situations, while others are using it to incorporate new styles. [🧨 Diffusers](https://github.com/huggingface/diffusers) provides a Dreambooth [training script](https://github.com/huggingface/diffusers/tree/main/examples/dreambooth). It doesn't take long to train, but it's hard to select the right set of hyperparameters and it's easy to overfit.
 
