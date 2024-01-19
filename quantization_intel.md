@@ -29,10 +29,8 @@ The 4th generation Intel Xeon processors feature AI infused acceleration known a
 As the starting point we use out-of-the-box optimizations in PyTorch and IPEX to perform inference using a BF16 model. Figure 1 shows the latency of the baseline model and Tables 1 and 2 show its
 latency as well as its accuracy.
 
-
-![](assets/xxxxxxxxxxxxxxxxxxxxxxxxxxx/image.svg)
 <p align="center"> 
- <img src="assets/xxxxxxxxxxxxxxxxxxxxxxxxxxx/image.svg" alt="latency"><br> 
+ <img src="assets/173_intel_quantization_starcoder/latency_baseline_model.png" alt="baseline latency"><br>
 <em>Figure 1. Latency of the baseline model.</em> 
 </p> 
 
@@ -52,10 +50,8 @@ In this work we focus on two types of quantization:
 [SmoothQuant](https://huggingface.co/blog/generative-ai-models-on-intel-cpu) is a post training quantization algorithm that is used to quantize LLMs for INT8 with minimal accuracy loss. Static quantization methods were shown to be underperforming on LLMs due to large magnitude outliers found in specific channels of the activations. Since activations are quantized token-wise, static quantization results in either truncated outliers or underflowed low-magnitude activations. SmoothQuant algorithm solves this problem by introducing a pre-quantization phase where additional smoothing scaling factors are applied to both activations and weights which smooths the outliers in the activations and ensures better utilization of the quantization levels.
 
 
-
-![](assets/xxxxxxxxxxxxxxxxxxxxxxxxxxx/image.svg)
 <p align="center"> 
- <img src="assets/xxxxxxxxxxxxxxxxxxxxxxxxxxx/image.svg" alt="latency"><br> 
+ <img src="assets/173_intel_quantization_starcoder/int8_diagram.png" alt="INT8 quantization"><br>
 <em>Figure 2. Computation diagram for INT8 static quantization.</em> 
 </p> 
 
@@ -63,9 +59,8 @@ In this work we focus on two types of quantization:
 Using IPEX, we apply SmoothQuant to the StarCoder model. We used the test split of the [MBPP](https://huggingface.co/datasets/nuprl/MultiPL-E) dataset as our calibration dataset and introduced Q8-StarCoder. Our evaluation shows that Q8-StarCoder holds no accuracy loss over the baseline (if fact, there is even a slight improvement). In terms of performance, Q8-StarCoder achieves ~2.19x speedup in TTFT and ~2.20x speedup in TPOT. Figure 3 shows the latency (TPOT) of Q8-StarCoder compared to the BF16 baseline model.
 
 
-![](assets/xxxxxxxxxxxxxxxxxxxxxxxxxxx/image.svg)
 <p align="center"> 
- <img src="assets/xxxxxxxxxxxxxxxxxxxxxxxxxxx/image.svg" alt="latency"><br> 
+ <img src="assets/173_intel_quantization_starcoder/latency_int8_model.png" alt="INT8 latency"><br>
 <em>Figure 3. Latency speedup of quantized model.</em> 
 </p> 
 
@@ -77,7 +72,7 @@ Although INT8 decreases the model size by 2x compared to BF16 (8 bits per weight
 
 
 <p align="center"> 
- <img src="assets/xxxxxxxxxxxxxxxxxxxxxxxxxxx/image.svg" alt="IN4 quantization"><br> 
+ <img src="assets/173_intel_quantization_starcoder/int4_diagram.png" alt="INT4 quantization"><br>
 <em>Figure 4. Computation diagram for model quantized to INT4.</em> 
 </p> 
 
@@ -87,7 +82,7 @@ A vanilla tensor-wise asymmetric Round To Nearest (RTN) quantization poses chall
 
 
 <p align="center"> 
- <img src="assets/xxxxxxxxxxxxxxxxxxxxxxxxxxx/image.svg" alt="IN4 quantization"><br> 
+ <img src="assets/173_intel_quantization_starcoder/latency_int4_model.png" alt="INT4 latency"><br>
 <em>Figure 5. Latency speedup of quantized model.</em> 
 </p> 
 
@@ -108,7 +103,7 @@ We found that generating the first token which includes processing the entire in
 
 
 <p align="center"> 
- <img src="assets/xxxxxxxxxxxxxxxxxxxxxxxxxxx/image.svg" alt="IN4 quantization"><br> 
+ <img src="assets/173_intel_quantization_starcoder/latency_int8_ag_model.png" alt="IN8 AG"><br>
 <em>Figure 6. Latency speedup of optimized model.</em> 
 </p> 
 
