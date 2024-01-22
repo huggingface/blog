@@ -16,11 +16,11 @@ authors:
 
 # **Fine-tuning W2V2-BERT for Multi-Lingual ASR with 🤗 Transformers**
 
-***New (01/2024)***: *This blog post is strongly inspired by "[Fine-tuning XLS-R on Multi-Lingual ASR](https://huggingface.co/blog/fine-tune-xlsr-wav2vec2)"* and ["Fine-tuning MMS Adapter Models for Multi-Lingual ASR"](https://huggingface.co/blog/mms_adapters).
+***New (01/2024)***: *This blog post is strongly inspired by "[Fine-tuning XLS-R on Multi-Lingual ASR](https://huggingface.co/blog/fine-tune-xlsr-wav2vec2)" and ["Fine-tuning MMS Adapter Models for Multi-Lingual ASR"](https://huggingface.co/blog/mms_adapters)*.
 
-**Wav2Vec2** is a pretrained model for Automatic Speech Recognition (ASR) and was released in [September 2020](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) by *Alexei Baevski, Michael Auli, and Alex Conneau*.  Soon after the superior performance of Wav2Vec2 was demonstrated on one of the most popular English datasets for ASR, called [LibriSpeech](https://huggingface.co/datasets/librispeech_asr).
+**Wav2Vec2** is a pre-trained model for Automatic Speech Recognition (ASR) released in [September 2020](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) by *Alexei Baevski, Michael Auli, and Alex Conneau*.  With as little as 10 minutes of labeled audio data, Wav2Vec2 can be fine-tuned to achieve 5% word-error rate performance on the [LibriSpeech](https://huggingface.co/datasets/librispeech_asr) dataset, demonstrating for the first time low-resource transfer learning for ASR.
 
-Following a series of improvements ([XLSR](https://arxiv.org/abs/2006.13979), [XLS-R](https://ai.facebook.com/blog/-xlm-r-state-of-the-art-cross-lingual-understanding-through-self-supervision/) and [**MMS**](https://ai.facebook.com/blog/multilingual-model-speech-recognition/)), MetaAI's released their own version of [W2v-BERT](https://arxiv.org/abs/2108.06209), as a building block of their [Seamless Communication](https://ai.meta.com/research/seamless-communication/), a family of AI translation models.
+Following a series of multilingual improvements ([XLSR](https://huggingface.co/docs/transformers/model_doc/xlsr_wav2vec2), [XLS-R](https://huggingface.co/docs/transformers/model_doc/xls_r) and [MMS](https://huggingface.co/docs/transformers/model_doc/mms)), MetaAI have released [W2v-BERT](https://huggingface.co/docs/transformers/main/en/model_doc/wav2vec2-bert), as a building block of their [Seamless Communication](https://ai.meta.com/research/seamless-communication/), a family of AI translation models.
 
 This new 580M-parameters version was pre-trained on **4.5M** hours of unlabeled audio data covering **more than 143 languages**. It requires finetuning to be used for downstream tasks such as Automatic Speech Recognition (ASR), or Audio Classification.
 
@@ -50,9 +50,14 @@ Before we start, let's install `datasets` and `transformers`. Also, we need `acc
 !pip install accelerate -U
 ```
 
-We strongly suggest to upload your training checkpoints directly to the [🤗 Hub](https://huggingface.co/) while training. The [🤗 Hub](https://huggingface.co/) has integrated version control so you can be sure that no model checkpoint is getting lost during training.
+We strongly suggest to upload your training checkpoints directly to the [🤗 Hub](https://huggingface.co/) while training. The [🤗 Hub](https://huggingface.co/) provides:
 
-To do so you have to store your authentication token from the Hugging Face website (sign up [here](https://huggingface.co/join) if you haven't already!)
+- Integrated version control: you can be sure that no model checkpoint is lost during training.
+- Tensorboard logs: track important metrics over the course of training.
+- Model cards: document what a model does and its intended use cases.
+- Community: an easy way to share and collaborate with the community!
+
+To do so, you have to store your authentication token from the Hugging Face website (sign up [here](https://huggingface.co/join) if you haven't already!). This is done by entering your Hub authentication token when prompted below. Find your Hub authentication token [here](https://huggingface.co/settings/tokens):
 
 
 ```python
@@ -241,8 +246,8 @@ vocab_dict
 
 Cleaning up a dataset is a back-and-forth process that needs to be done with care.
 
-Looking at the separate letters in the training and test datasets, and after discussing them with a native speaker of the target language (thanks [Mishig](https://github.com/mishig25)  for taking a look), we can see Latin characters that we are going to remove for two reasons:
-1. the CTC algorithm benefits from reduced vocabulary size
+Looking at the separate letters in the training and test datasets, we see a mix of Latin and Mongolian Cyrillic characters. After discussing with a native speaker of the target language (thanks [Mishig](https://github.com/mishig25) for taking a look), we'll remove the Latin characters for two reasons:
+1. the CTC algorithm benefits from reduced vocabulary size, so it is recommended to remove redundant characters
 2. in this example, we are concentrating entirely on the Mongolian alphabet.
 
 
@@ -302,11 +307,10 @@ vocab_dict
  'ө': 34}
 ```
 
-Cool, we see that all letters of the alphabet occur in the dataset (which is not really surprising) and we also extracted the special character `" "`. Note that we did not exclude this special character because:
+Cool, we see that all letters of the Mongolian alphabet occur in the dataset (which is not really surprising) and we also extracted the special character `" "`. Note that we did not exclude this special character because:
+the model has to learn to predict when a word is finished or else the model prediction would always be a sequence of chars which would make it impossible to separate words from each other.
 
-The model has to learn to predict when a word is finished or else the model prediction would always be a sequence of chars which would make it impossible to separate words from each other.
-
-One should always keep in mind that pre-processing is a very important step before training your model. E.g., we don't want our model to differentiate between `a` and `A` just because we forgot to normalize the data. The difference between `a` and `A` does not depend on the "sound" of the letter at all, but more on grammatical rules - *e.g.* use a capitalized letter at the beginning of the sentence. So it is sensible to remove the difference between capitalized and non-capitalized letters so that the model has an easier time learning to transcribe speech.
+One should always keep in mind that pre-processing is a very important step before training your model. E.g., we don't want our model to differentiate between `a` and `A` just because we forgot to normalize the data. The difference between `a` and `A` does not depend on the "sound" of the letter at all, but more on grammatical rules - *e.g.* use a capitalized letter at the beginning of the sentence. So it is sensible to remove the difference between capitalized and non-capitalized letters so that the model has an easier time learning to transcribe speech. You can read more about the effects of pre-processing on the ASR task in the [Audio Transformers Course](https://huggingface.co/learn/audio-course/chapter5/evaluation#normalisation).
 
 To make it clearer that `" "` has its own token class, we give it a more visible character `|`. In addition, we also add an "unknown" token so that the model can later deal with characters not encountered in Common Voice's training set.
 
@@ -315,10 +319,7 @@ vocab_dict["|"] = vocab_dict[" "]
 del vocab_dict[" "]
 ```
 
-Finally, we also add a padding token that corresponds to CTC's "*blank token*".
-
-
-The "blank token" is a core component of the CTC algorithm. For more information, please take a look at the "Alignment" section [here](https://distill.pub/2017/ctc/).
+Finally, we also add a padding token that corresponds to CTC's "*blank token*". The "blank token" is a core component of the CTC algorithm. For more information, please take a look at the "Alignment" section of this [blog post](https://distill.pub/2017/ctc/).
 
 ```python
 vocab_dict["[UNK]"] = len(vocab_dict)
@@ -357,7 +358,7 @@ repo_name = "w2v-bert-2.0-mongolian-colab-CV16.0"
 
 and upload the tokenizer to the [🤗 Hub](https://huggingface.co/).
 
-```
+```python
 tokenizer.push_to_hub(repo_name)
 ```
 
@@ -510,7 +511,7 @@ Awesome, now we are ready to start training!
 
 ## Training
 
-The data is processed so that we are ready to start setting up the training pipeline. We will make use of 🤗's [Trainer](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer) for which we essentially need to do the following:
+The data is processed so that we are ready to start setting up the training pipeline. We will make use of 🤗 Transformer's [Trainer](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer) class, for which we essentially need to do the following:
 
 - Define a data collator. In contrast to most NLP models, W2V-BERT has a much larger input length than output length. Given the large input sizes, it is much more efficient to pad the training batches dynamically meaning that all training samples should only be padded to the longest sample in their batch and not the overall longest sample. Therefore, fine-tuning W2V-BERT requires a special padding data collator, which we will define below.
 
@@ -537,21 +538,6 @@ from typing import Any, Dict, List, Optional, Union
 
 @dataclass
 class DataCollatorCTCWithPadding:
-    """
-    Data collator that will dynamically pad the inputs received.
-    Args:
-        processor (:class:`~transformers.Wav2Vec2BertProcessor`)
-            The processor used for proccessing the data.
-        padding (:obj:`bool`, :obj:`str` or :class:`~transformers.tokenization_utils_base.PaddingStrategy`, `optional`, defaults to :obj:`True`):
-            Select a strategy to pad the returned sequences (according to the model's padding side and padding index)
-            among:
-            * :obj:`True` or :obj:`'longest'`: Pad to the longest sequence in the batch (or no padding if only a single
-              sequence if provided).
-            * :obj:`'max_length'`: Pad to a maximum length specified with the argument :obj:`max_length` or to the
-              maximum acceptable input length for the model if that argument is not provided.
-            * :obj:`False` or :obj:`'do_not_pad'` (default): No padding (i.e., can output a batch with sequences of
-              different lengths).
-    """
 
     processor: Wav2Vec2BertProcessor
     padding: Union[bool, str] = True
@@ -745,9 +731,11 @@ processor = Wav2Vec2BertProcessor.from_pretrained(repo_name)
 Let's process the audio, run a forward pass and predict the ids.
 
 ```python
-input_dict = common_voice_test[0]
+sample = common_voice_test[0]
+input_features = torch.tensor(sample["input_features"]).to("cuda").unsqueeze(0)
 
-logits = model(torch.tensor(input_dict["input_features"]).to("cuda").unsqueeze(0)).logits
+with torch.no_grad():
+    logits = model(input_features).logits
 
 pred_ids = torch.argmax(logits, dim=-1)[0]
 ```
@@ -765,7 +753,7 @@ print(processor.decode(input_dict["labels"]).lower())
 ```
 
 
-Alright! The transcription can definitely be recognized from our prediction, but it is not perfect yet. Training the model a bit longer, spending more time on the data preprocessing, and especially using a language model for decoding would certainly improve the model's overall performance.
+Alright! The transcription can definitely be recognized from our prediction, but it is not perfect yet. Training the model a bit longer, spending more time on the data preprocessing, and especially using a [language model](https://huggingface.co/blog/wav2vec2-with-ngram) for decoding would certainly improve the model's overall performance.
 
 For a demonstration model on a low-resource language, the results are quite acceptable however 🤗.
 
@@ -790,11 +778,9 @@ Note that the Common Voice dataset is particularly prone to such "wrong" charact
 
 ### Training-related tips
 
-**Average duration seen by each CTC token:** According to the advice of my colleagues, the ideal ratio of duration seen per CTC token is 10 to 35 ms. In other words, to be able to learn and predict correctly, the duration of the acoustic information a CTC token needs to see should be neither too low nor too high. In fact, it should more or less correspond to a fraction of the time it takes us humans to pronounce a phoneme. 
+**Average duration seen by each CTC token:** through experimentation, we found the ideal ratio of duration seen per CTC token is 10 to 35 ms. In other words, to be able to learn and predict correctly, the duration of the acoustic information a CTC token needs to see should be neither too low nor too high. In fact, it should more or less correspond to a fraction of the time it takes us humans to pronounce a phoneme. 
 
-This is something that came to light when I started refining this new W2V2-Bert model (you can find the logs of one of my experiments [here](https://wandb.ai/ylacombe/huggingface/runs/4y8pd2gq)). I quickly noticed that the loss curve of my model was initially going nicely downwards, as expected, but at some point it started to explode.
-
-After discussing this with my colleagues, I realized that I had been using a [basic checkpoint with no architecture changes](https://huggingface.co/facebook/w2v-bert-2.0), and that each CTC token was seeing a piece of the signal for 30 to 60 ms. Adding an adapter layer was enough to reduce the signal chunk sampling to the desired duration.
+This is something that came to light when I started refining this new W2V2-Bert model (you can find the logs of one of my experiments [here](https://wandb.ai/ylacombe/huggingface/runs/4y8pd2gq)). I quickly noticed that the loss curve of my model was initially going nicely downwards, as expected, but at some point it started to explode. I realized that I had been using a [basic checkpoint with no architecture changes](https://huggingface.co/facebook/w2v-bert-2.0), and that each CTC token was seeing a piece of the signal for 30 to 60 ms. Adding an convolutional [adapter layer](https://huggingface.co/docs/transformers/model_doc/wav2vec2-bert#transformers.Wav2Vec2BertConfig.add_adapter) to sub-sample the encoder hidden-states along the time dimension was enough to reduce the signal chunk sampling to the desired duration.
 
 
 **Under-training:** After showing this blog post [training run](https://huggingface.co/hf-audio/w2v-bert-2.0-mongolian-colab-CV16.0#training-results) and another [training attempt](https://wandb.ai/ylacombe/huggingface/runs/nasaux7f?workspace=user-ylacombe) on English Common Voice (about 2.5k validated hours) to my colleagues, they pointed out that the model was severely under-trained, something that could have been spotted by looking at the loss curve, which looks like it was stopped in the middle of a steep descent. This pointed out other issues as well, notably the loss curve not being smooth enough, a sign of wrong hyper-parameters settings. 
