@@ -5,7 +5,7 @@ authors:
 - user: ylacombe
 ---
 
-# Fine-Tune W2V2-Bert for low-resource ASR with 🤗 Transformerspre-trained
+# Fine-Tune W2V2-Bert for low-resource ASR with 🤗 Transformers
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -346,7 +346,7 @@ In a final step, we use the json file to load the vocabulary into an instance of
 ```python
 from transformers import Wav2Vec2CTCTokenizer
 
-tokenizer = Wav2Vec2CTCTokenizer.from_pre-trained("./", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
+tokenizer = Wav2Vec2CTCTokenizer.from_pretrained("./", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
 ```
 
 If one wants to re-use the just created tokenizer with the fine-tuned model of this notebook, it is strongly advised to upload the `tokenizer` to the [🤗 Hub](https://huggingface.co/). Let's call the repo to which we will upload the files
@@ -606,7 +606,7 @@ Since, we're only training a small subset of weights, the model is not prone to 
 ```python
 from transformers import Wav2Vec2BertForCTC
 
-model = Wav2Vec2BertForCTC.from_pre-trained(
+model = Wav2Vec2BertForCTC.from_pretrained(
     "ylacombe/w2v-bert-2.0",
     attention_dropout=0.0,
     hidden_dropout=0.0,
@@ -711,8 +711,8 @@ You can now share this model with all your friends, family, favorite pets: they 
 ```python
 from transformers import AutoModelForCTC, Wav2Vec2BertProcessor
 
-model = AutoModelForCTC.from_pre-trained("ylacombe/w2v-bert-2.0-mongolian-colab-CV16.0")
-processor = Wav2Vec2BertProcessor.from_pre-trained("ylacombe/w2v-bert-2.0-mongolian-colab-CV16.0")
+model = AutoModelForCTC.from_pretrained("ylacombe/w2v-bert-2.0-mongolian-colab-CV16.0")
+processor = Wav2Vec2BertProcessor.from_pretrained("ylacombe/w2v-bert-2.0-mongolian-colab-CV16.0")
 ```
 
 For more examples of how W2V-BERT can be fine-tuned, please take a look at the [official speech recognition examples](https://github.com/huggingface/transformers/tree/master/examples/pytorch/speech-recognition#examples).
@@ -724,8 +724,8 @@ As a final check, let's load the model and verify that it indeed has learned to 
 Let's first load the pre-trained checkpoint.
 
 ```python
-model = Wav2Vec2BertForCTC.from_pre-trained(repo_name).to("cuda")
-processor = Wav2Vec2BertProcessor.from_pre-trained(repo_name)
+model = Wav2Vec2BertForCTC.from_pretrained(repo_name).to("cuda")
+processor = Wav2Vec2BertProcessor.from_pretrained(repo_name)
 ```
 
 Let's process the audio, run a forward pass and predict the ids.
