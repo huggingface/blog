@@ -24,7 +24,7 @@ Following a series of multilingual improvements ([XLSR](https://huggingface.co/d
 
 This new 580M-parameters version was pre-trained on **4.5M** hours of unlabeled audio data covering **more than 143 languages**. It requires fine-tuning to be used for downstream tasks such as Automatic Speech Recognition (ASR), or Audio Classification.
 
-For comparison, **XLS-R** used almost **half a million** hours of audio data in **128 languages** and **MMS** checkpoints were pre-trained on more than **half a million hours of audio** in over **1,400 languages**.
+For comparison, **XLS-R** used almost **half a million** hours of audio data in **128 languages** and **MMS** checkpoints were pre-trained on more than **half a million hours of audio** in over **1,400 languages**. Consequently, Wav2Vec2-BERT is particularly well-suited to all speech-related tasks, whatever the language.
 
 The aim of this notebook is to give you all the elements you need to train a CTC model on ASR tasks, using open-source tools and models. It first presents the complete pre-processing pipeline, then performs a little fine-tuning of the W2V2-BERT. The final section gathers training tips from Hugging Face experts to scale-up CTC training.
 
@@ -597,7 +597,7 @@ def compute_metrics(pred):
     return {"wer": wer}
 ```
 
-Now, we can load the pre-trained checkpoint of [Wav2Vec2-XLS-R-300M](https://huggingface.co/facebook/wav2vec2-xls-r-300m). The tokenizer's `pad_token_id` must be to define the model's `pad_token_id` or in the case of `Wav2Vec2BertForCTC` also CTC's *blank token* \\( {}^2 \\). To save GPU memory, we enable PyTorch's [gradient checkpointing](https://pytorch.org/docs/stable/checkpoint.html) and also set the loss reduction to "*mean*".
+Now, we can load the main pre-trained |checkpoint](https://huggingface.co/facebook/w2v-bert-2.0). The tokenizer's `pad_token_id` must be to define the model's `pad_token_id` or in the case of `Wav2Vec2BertForCTC` also CTC's *blank token* \\( {}^2 \\). To save GPU memory, we enable PyTorch's [gradient checkpointing](https://pytorch.org/docs/stable/checkpoint.html) and also set the loss reduction to "*mean*".
 
 Since, we're only training a small subset of weights, the model is not prone to overfitting. Therefore, we make sure to disable all dropout layers.
 
@@ -627,7 +627,7 @@ To give more explanation on some of the parameters:
 
 For more explanations on other parameters, one can take a look at the [docs](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer#trainingarguments).
 
-During training, a checkpoint will be uploaded asynchronously to the hub every 800 training steps. It allows you to also play around with the demo widget even while your model is still training.
+During training, a checkpoint will be uploaded asynchronously to the hub every 600 training steps. It allows you to also play around with the demo widget even while your model is still training.
 
 **Note**: If one does not want to upload the model checkpoints to the hub, simply set `push_to_hub=False`.
 
@@ -643,9 +643,9 @@ training_args = TrainingArguments(
   num_train_epochs=10,
   gradient_checkpointing=True,
   fp16=True,
-  save_steps=200,
-  eval_steps=100,
-  logging_steps=100,
+  save_steps=600,
+  eval_steps=300,
+  logging_steps=300,
   learning_rate=5e-5,
   warmup_steps=500,
   save_total_limit=2,
@@ -761,7 +761,9 @@ For a demonstration model on a low-resource language, the results are quite acce
 
 We've shown in this blogpost how Meta's `w2v-bert-2.0` fine-tuning can give near state-of-the-art performance on low-resource languages.
 
-To take things a step further, I've put together a set of tips and pointers given by my colleagues at Hugging Face on how to scale up training for this model. Many thanks to [Patrick](https://huggingface.co/patrickvonplaten), [Sanchit](https://huggingface.co/sanchit-gandhi) and [Pablo](https://huggingface.co/Molbap) for their valuable expertise and help 🤗
+To take things a step further, I've put together a set of tips and pointers given by my colleagues at Hugging Face on how to scale up training for this model. These tips came to light when I showed them this blog post [training run](https://huggingface.co/hf-audio/w2v-bert-2.0-mongolian-colab-CV16.0#training-results), as well as other training attempts ([here](https://wandb.ai/ylacombe/huggingface/runs/nasaux7f?workspace=user-ylacombe) and [here](https://wandb.ai/ylacombe/huggingface/runs/4y8pd2gq)).
+
+Many thanks to [Patrick](https://huggingface.co/patrickvonplaten), [Sanchit](https://huggingface.co/sanchit-gandhi) and [Pablo](https://huggingface.co/Molbap) for their valuable expertise and help 🤗
 
 Note that Common Voice newest version ([CV16](https://huggingface.co/datasets/mozilla-foundation/common_voice_16_0)) provides many more hours of data and for may languages and thus provides fertile ground for much more efficient models in many low-resource languages.
 
@@ -780,10 +782,9 @@ Note that the Common Voice dataset is particularly prone to such "wrong" charact
 
 **Average duration seen by each CTC token:** through experimentation, we found the ideal ratio of duration seen per CTC token is 10 to 35 ms. In other words, to be able to learn and predict correctly, the duration of the acoustic information a CTC token needs to see should be neither too low nor too high. In fact, it should more or less correspond to a fraction of the time it takes us humans to pronounce a phoneme. 
 
-This is something that came to light when I started refining this new W2V2-Bert model (you can find the logs of one of my experiments [here](https://wandb.ai/ylacombe/huggingface/runs/4y8pd2gq)). I quickly noticed that the loss curve of my model was initially going nicely downwards, as expected, but at some point it started to explode. I realized that I had been using a [basic checkpoint with no architecture changes](https://huggingface.co/facebook/w2v-bert-2.0), and that each CTC token was seeing a piece of the signal for 30 to 60 ms. Adding an convolutional [adapter layer](https://huggingface.co/docs/transformers/model_doc/wav2vec2-bert#transformers.Wav2Vec2BertConfig.add_adapter) to sub-sample the encoder hidden-states along the time dimension was enough to reduce the signal chunk sampling to the desired duration.
+[One](https://wandb.ai/ylacombe/huggingface/runs/4y8pd2gq) of my training runs had a loss curve initially going nicely downwards, as expected, but at some point it started to explode. I realized that I had been using a [basic checkpoint with no architecture changes](https://huggingface.co/facebook/w2v-bert-2.0), and that each CTC token was seeing a piece of the signal for 30 to 60 ms. Adding an convolutional [adapter layer](https://huggingface.co/docs/transformers/model_doc/wav2vec2-bert#transformers.Wav2Vec2BertConfig.add_adapter) to sub-sample the encoder hidden-states along the time dimension was enough to reduce the signal chunk sampling to the desired duration and to prevent this type of loss curve.
 
-
-**Under-training:** After showing this blog post [training run](https://huggingface.co/hf-audio/w2v-bert-2.0-mongolian-colab-CV16.0#training-results) and another [training attempt](https://wandb.ai/ylacombe/huggingface/runs/nasaux7f?workspace=user-ylacombe) on English Common Voice (about 2.5k validated hours) to my colleagues, they pointed out that the model was severely under-trained, something that could have been spotted by looking at the loss curve, which looks like it was stopped in the middle of a steep descent. This pointed out other issues as well, notably the loss curve not being smooth enough, a sign of wrong hyper-parameters settings. 
+**Under-training:** My colleagues quickly noticed when looking at my training runs that the models was severely under-trained, something that could have been spotted by looking at the loss curve, which looks like it was stopped in the middle of a steep descent. This pointed out other issues as well, notably the loss curve not being smooth enough, a sign of wrong hyper-parameters settings. 
 
 Here are a few ways to solve under-training in our case:
 - the warm-up rate might be too high, causing the learning rate to drop too quickly. A way to solve this would be keep the warmup ratio to 5 to 15% and scale up the number of epochs. The warm-up steps are essential to gradually bring the new language-model head weights into alignment with the pre-trained model.
