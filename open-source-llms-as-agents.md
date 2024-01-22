@@ -127,7 +127,7 @@ Evaluation was performed with GPT4-as-a-judge using [the prompt format reference
 
 ### Results
 
-OpenAI models were evaluated in their own function calling template with which they were fine-tuned. For the other, open-source models, as per the standard LangChain ReAct prompt, we prompt them to output their function calls in this common format:
+OpenAI models were evaluated in their own function calling template with which they were fine-tuned. For the open-source models, as per the standard LangChain ReAct prompt, we prompt them to output their function calls in this common format:
 
 ```python
 {{
