@@ -6,7 +6,7 @@ authors:
 - user: Jofthomas
 - user: andrewrreed
 ---
-# Introduction
+## Introduction
 
 Large Language Models (LLMs) trained to perform [causal language modeling](https://huggingface.co/docs/transformers/tasks/language_modeling) can tackle a wide range of tasks, but they often struggle with basic tasks like logic, calculation, and search. The worst scenario is when they perform poorly in a domain, such as math, yet still attempt to handle all the calculations themselves.
 
@@ -14,7 +14,7 @@ One approach to overcome this weakness is to embed the LLM into a system where i
 
 The definition of LLM Agents is quite broad: all systems that use LLMs as their engine, and have the possibility to perform actions on their environment based on observations. They can use several iterations of the Perception ⇒ Reflexion ⇒ Action cycle to achieve their task, and are often augmented with planning or knowledge management systems to enhance their performance. You can find a good review of the Agents landscape in [Xi et al., 2023](https://huggingface.co/papers/2309.07864).
 
-Today, we are focusing on `ReAct agents`. ReAct is the concatenation of two words, “**Reasoning**” and “**Acting**”. In the prompt, we describe the model which tools it can use, and ask it to think “step by step” (also called `Chain-of-thought` behaviour) to plan and execute its next actions in order to reach the final answer. 
+Today, we are focusing on `ReAct agents`. [ReAct](https://huggingface.co/papers/2210.03629) is an approch on building agents based on the concatenation of two words, “**Reasoning**” and “**Acting**”. In the prompt, we describe the model which tools it can use, and ask it to think “step by step” (also called [Chain-of-Thought](https://huggingface.co/papers/2201.11903) behaviour) to plan and execute its next actions in order to reach the final answer. 
 
 ![Sans-titre-2024-01-10-2238.png](%5BDRAFT%5D%20Open-source%20LLMs%20as%20LangChain%20Agents%20632cb4cb4e764465a490eec01a7a6d95/Sans-titre-2024-01-10-2238.png)
 
@@ -33,25 +33,25 @@ Then you parse the LLM’s output:
 - if it contains the string `‘Final Answer:’`, the loop ends and you print the answer
 - else, the LLM should have output a tool call: you can parse this output to get the tool name and arguments, then call said tool with said arguments. Then the output of this tool call is appended to the prompt, and you call the LLM again with this extended information, until it has enough information to finally provide a final answer to the question.
 
-Generally, the difficult parts of running an Agent system for the LLM engine is to:
+Generally, the difficult parts of running an Agent system for the LLM engine are:
 
-1. Choose the right tool calls to really progress towards its goal
+1. Choose useful tool calls: e.g. when asked `"What is the smallest prime number greater than 30,000?"`, the agent can call the `Search` tool with `"What is he height of K2"` but it won't help.
 2. Call tools with a rigorous argument formatting: for instance when trying to calculate the speed of a car that went 3 km in 10 minutes, you have to call tool `Calculator` to divide `distance` by `time` : even if your Calculator tool accepts calls in the JSON format: `{”tool”: “Calculator”, “args”: “3km/10min”}` , there are many pitfalls:
     - Misspelling the tool name: `“calculator”` or `“Compute”` wouldn’t work
     - Giving the name of the arguments instead of their values: `“args”: “distance/time”`
     - Non-standardized formatting: `“args": "3km in 10minutes”`
-    - …
+    - and others
 3. Efficiently ingesting and using the information gathered in the past observations, be it the initial context or the observations returned after using tool uses.
 
-With that in mind, let us get a low level understanding of how agents are able to use tools! We are going to implement a barebones tool call example with the Transformers library. 
+With that in mind, let us get a low level understanding of how agents are able to use tools!
 
-**[@Joffrey THOMAS ‘s notebook]**
+Take a look at [this notebook](https://colab.research.google.com/drive/1j_vsc28FwZEDocDxVxWJ6Fvxd18FK8Gl?usp=sharing): we implement a barebones tool call example with the Transformers library. 
 
 So, how would it look like in a complete Agent setup?
 
-### Running agents with [🦜🔗LangChain](https://www.langchain.com/)
+## Running agents with [🦜🔗LangChain](https://www.langchain.com/)
 
-We’ve just integrated a `ChatHuggingFace` wrapper which will let you create agents based on open-source models in LangChain.
+We’ve just integrated a `ChatHuggingFace` wrapper which that lets you create agents based on open-source models in LangChain.
 
 The code to create the ChatModel and give it tools is really simple, you can check it all in the [Langchain doc](https://python.langchain.com/docs/integrations/chat/huggingface). 
 
@@ -111,15 +111,15 @@ agent_executor.invoke(
 )
 ```
 
-# Agents Showdown: how do different LLMs perform as general purpose reasoning agents?
+## Agents Showdown: how do different LLMs perform as general purpose reasoning agents?
 
-To understand how open-source LLM’s perform as general purpose reasoning agents, we evaluated four strong models (`Llama2-70b-chat`, `Mixtral-8x7B-Instruct-v0.1`, `OpenHermes-2.5-Mistral-7B`, `Zephyr-7b-beta`) in a [ReACT workflow](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react) where they were tasked with answer questions that require basic tool usage. We also evaluated GPT3.5 and GPT4 on the same examples using the [OpenAI specific function calling agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent) for comparison.
+To understand how open-source LLM’s perform as general purpose reasoning agents, we have evaluated four strong models ([Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf), [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [OpenHermes-2.5-Mistral-7B](https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B), [Zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)) in a [ReACT workflow](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react) where they were tasked with answering questions that require basic tool usage. We have also evaluated GPT3.5 and GPT4 on the same examples using the [OpenAI specific function calling agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent) for comparison.
 
 ### Evaluation Dataset
 
 We selected questions that can be answered using basic tools: a simple calculator and access to internet search.
 
-- For Internet search capability: we selected questions from [HotpotQA](https://huggingface.co/datasets/hotpot_qa): this is originally a retrieval dataset, but it can be used for general question answering, with access to the internet. Some questions originally need to combine information from various sources: in our setting, this means performing several steps of internet search to combine the results.
+- For Internet search capability: we have selected questions from [HotpotQA](https://huggingface.co/datasets/hotpot_qa): this is originally a retrieval dataset, but it can be used for general question answering, with access to the internet. Some questions originally need to combine information from various sources: in our setting, this means performing several steps of internet search to combine the results.
 - For testing calculator usage, we add questions from [GSM8K](https://huggingface.co/datasets/gsm8k): this dataset tests grade-school math ability, and is entirely solvable by correctly leveraging the 4 operators (add, subtract, multiply, divide).
 - We also picked questions from [GAIA](https://huggingface.co/papers/2311.12983), a very difficult benchmark for General AI Assistants. The questions in the original dataset can require many other different tools, such as a code interpreter or pdf reader: we hand-picked questions that do not require anything except search and calculator.
 
