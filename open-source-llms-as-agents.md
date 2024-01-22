@@ -8,11 +8,11 @@ authors:
 ---
 ## Introduction
 
-Large Language Models (LLMs) trained to perform [causal language modeling](https://huggingface.co/docs/transformers/tasks/language_modeling) can tackle a wide range of tasks, but they often struggle with basic tasks like logic, calculation, and search. The worst scenario is when they perform poorly in a domain, such as math, yet still attempt to handle all the calculations themselves.
+Large Language Models (LLMs) trained for [causal language modeling](https://huggingface.co/docs/transformers/tasks/language_modeling) can tackle a wide range of tasks, but they often struggle with basic tasks like logic, calculation, and search. The worst scenario is when they perform poorly in a domain, such as math, yet still attempt to handle all the calculations themselves.
 
 One approach to overcome this weakness is to embed the LLM into a system where it has the ability to call tools: such a system is called an LLM Agent.  
 
-The definition of LLM Agents is quite broad: all systems that use LLMs as their engine, and have the possibility to perform actions on their environment based on observations. They can use several iterations of the Perception ⇒ Reflexion ⇒ Action cycle to achieve their task, and are often augmented with planning or knowledge management systems to enhance their performance. You can find a good review of the Agents landscape in [Xi et al., 2023](https://huggingface.co/papers/2309.07864).
+The definition of LLM Agents is quite broad: LLM agents are all systems that use LLMs as their engine and can perform actions on their environment based on observations. They can use several iterations of the Perception ⇒ Reflexion ⇒ Action cycle to achieve their task and are often augmented with planning or knowledge management systems to enhance their performance. You can find a good review of the Agents landscape in [Xi et al., 2023](https://huggingface.co/papers/2309.07864).
 
 Today, we are focusing on `ReAct agents`. [ReAct](https://huggingface.co/papers/2210.03629) is an approch to building agents based on the concatenation of two words, "**Reasoning**" and "**Acting**." In the prompt, we describe the model, which tools it can use, and ask it to think “step by step” (also called [Chain-of-Thought](https://huggingface.co/papers/2201.11903) behavior) to plan and execute its next actions to reach the final answer. 
 
@@ -120,14 +120,14 @@ To understand how open-source LLM’s perform as general purpose reasoning agent
 We selected questions that can be answered using basic tools: a simple calculator and access to internet search.
 
 - For Internet search capability: we have selected questions from [HotpotQA](https://huggingface.co/datasets/hotpot_qa): this is originally a retrieval dataset, but it can be used for general question answering, with access to the internet. Some questions originally need to combine information from various sources: in our setting, this means performing several steps of internet search to combine the results.
-- For testing calculator usage, we add questions from [GSM8K](https://huggingface.co/datasets/gsm8k): this dataset tests grade-school math ability, and is entirely solvable by correctly leveraging the 4 operators (add, subtract, multiply, divide).
+- For testing calculator usage, we added questions from [GSM8K](https://huggingface.co/datasets/gsm8k): this dataset tests grade-school math ability, and is entirely solvable by correctly leveraging the 4 operators (add, subtract, multiply, divide).
 - We also picked questions from [GAIA](https://huggingface.co/papers/2311.12983), a very difficult benchmark for General AI Assistants. The questions in the original dataset can require many other different tools, such as a code interpreter or pdf reader: we hand-picked questions that do not require anything except search and calculator.
 
 Evaluation was performed with GPT4-as-a-judge using [the prompt format referenced here](https://github.com/A-Roucher/benchmark_agents/blob/master/prompts.py).
 
 ### Results
 
-OpenAI models were evaluated in their own function calling template with which they were fine-tuned. For the other, open-source models, as per the standard LangChain ReAct prompt, we prompt them to output their function calls in this common format:
+OpenAI models were evaluated in their own function calling template with which they were fine-tuned. For the open-source models, as per the standard LangChain ReAct prompt, we prompt them to output their function calls in this common format:
 
 ```python
 {{
@@ -173,14 +173,14 @@ I have obtained the population of Tacheng, which is approximately 1.11 million (
 
 Here is a benchmark of the models on our evaluation dataset:
 
-### Disclaimer: this image is not final, Llama2 and OpenHermes are still to be added.
+**Disclaimer: this image is not final, llama2 and OpenHermes are still to be added.**
 <img src="https://huggingface.co/datasets/m-ric/images/resolve/main/benchmark.png" height="700">
 
 As you can see, some open-source models perform poorly: while this was expected for the small Zephyr-7b, Llama2-70b performs surprisingly poorly.
 
-But Mixtral-8x7B holds its own really well compared to other models: it has a performance nearly equivalent to GPT3.5. It is the best of the OS models we tested to power Agent workflows! 🏆
+But Mixtral-8x7B holds its own really well compared to other models: it performs nearly equivalent to GPT3.5. It is the best of the OS models we tested to power Agent workflows! 🏆
 
-And this is out-of-the-box performance: contrary to GPT3.5, Mixtral was not finetuned for agent workflows (to our knowledge), which hinders its performance to some extent. For instance on GAIA, 10% of calls fail when Mixtral tries to call a tool with incorrectly formatted arguments. With proper finetuning for the function calling and task planning skills, Mixtral’s score would likely be even higher. We strongly recommend open-source builders to start finetuning Mixtral for agents, with the goal of surpassing the next challenger: GPT4! 🚀
+This is out-of-the-box performance: contrary to GPT3.5, Mixtral was not finetuned for agent workflows (to our knowledge), which somewhat hinders its performance. For instance, on GAIA, 10% of calls fail when Mixtral tries to call a tool with incorrectly formatted arguments. With proper finetuning for the function calling and task planning skills, Mixtral’s score would likely be even higher. We strongly recommend open-source builders to start finetuning Mixtral for agents, to surpass the next challenger: GPT4! 🚀
 
 **Closing remarks:**
 
