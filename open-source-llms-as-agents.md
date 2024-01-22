@@ -173,14 +173,16 @@ I have obtained the population of Tacheng, which is approximately 1.11 million (
 
 Here is a benchmark of the models on our evaluation dataset:
 
-![Untitled](%5BDRAFT%5D%20Open-source%20LLMs%20as%20LangChain%20Agents%20632cb4cb4e764465a490eec01a7a6d95/Untitled.png)
+### Disclaimer: this image is not final, llama2 and OpenHermes are still to be added.
+<img src="https://huggingface.co/datasets/m-ric/images/resolve/main/benchmark.png" height="700">
 
 As you can see, some open-source models perform poorly: while this was expected for the small Zephyr-7b, Llama2-70b performs surprisingly poorly.
 
 But Mixtral-8x7B holds its own really well compared to other models: it has a performance nearly equivalent to GPT3.5. It is the best of the OS models we tested to power Agent workflows! 🏆
 
-And this is out-of-the-box performance: with proper finetuning for the function calling and task planning skills, which would get rid of some parsing errors hindering performance, its score could be pushed even higher. For instance on GSM8K, 10% of calls fail due to Mixtral trying to call a tool with poorly formatted arguments: if these were corrected by finetuning, assuming the same success ratio as for other questions (~70%), the agent would get +7% score increase on GSM8K.
+And this is out-of-the-box performance: contrary to GPT3.5, Mixtral was not finetuned for agent workflows (to our knowledge), which hinders its performance to some extent. For instance on GAIA, 10% of calls fail when Mixtral tries to call a tool with incorrectly formatted arguments. With proper finetuning for the function calling and task planning skills, Mixtral’s score would likely be even higher. We strongly recommend open-source builders to start finetuning Mixtral for agents, with the goal of surpassing the next challenger: GPT4! 🚀
 
-This performance is really promising: thus we strongly recommend open-source builders to start finetuning Mixtral for agents! 🚀
+**Closing remarks:**
 
-The GAIA benchmark, although it is tried here on a small subsample of questions and a few tools, seems like a very good indicator of overall model performance, since it generally involves several reasoning steps and rigorous logic.
+- The GAIA benchmark, although it is tried here on a small subsample of questions and a few tools, seems like a very good indicator of overall model performance, since it often involves several reasoning steps and rigorous logic.
+- The agent workflows allow LLMs to increase performance: for instance, on GSM8K, [GPT4’s technical report](https://arxiv.org/pdf/2303.08774.pdf) reports 92% for 5-shot CoT prompting: giving it a calculator allows us to reach 95% in zero-shot . For Mixtral-8x7B, the [LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) reports 57.6% with 5-shot, we get 73% in zero-shot. (keep in mind that we tested only a subset of 20 questions)
