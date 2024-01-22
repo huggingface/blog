@@ -5,7 +5,7 @@ authors:
 - user: ylacombe
 ---
 
-# Fine-Tune W2V2-Bert for low-resource ASR with 🤗 Transformers
+# **Fine-Tune W2V2-Bert for low-resource ASR with 🤗 Transformers**
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -13,8 +13,6 @@ authors:
 <a target="_blank" href="https://colab.research.google.com/github/ylacombe/scripts_and_notebooks/blob/main/Fine_Tune_W2V2_BERT_on_CV16_Mongolian.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
-
-# **Fine-tuning W2V2-BERT for Multi-Lingual ASR with 🤗 Transformers**
 
 ***New (01/2024)***: *This blog post is strongly inspired by "[Fine-tuning XLS-R on Multi-Lingual ASR](https://huggingface.co/blog/fine-tune-xlsr-wav2vec2)" and ["Fine-tuning MMS Adapter Models for Multi-Lingual ASR"](https://huggingface.co/blog/mms_adapters)*.
 
@@ -28,9 +26,6 @@ For comparison, **XLS-R** used almost **half a million** hours of audio data in 
 
 The aim of this notebook is to give you all the elements you need to train a CTC model on ASR tasks, using open-source tools and models. It first presents the complete pre-processing pipeline, then performs a little fine-tuning of the W2V2-BERT. The final section gathers training tips from Hugging Face experts to scale-up CTC training.
 
-
-## Notebook Setup
-
 In this blop post, we will give an in-detail explanation of how W2V2-BERT - more specifically the pre-trained checkpoint [**facebook/w2v-bert-2.0**](https://huggingface.co/facebook/w2v-bert-2.0) - can be fine-tuned for ASR.  
 
 For demonstration purposes, we fine-tune the model on the low resource Mongolian ASR dataset of [Common Voice 16.0](https://huggingface.co/datasets/mozilla-foundation/common_voice_16_0) that contains *ca.* 14h of validated training data.
@@ -38,6 +33,8 @@ For demonstration purposes, we fine-tune the model on the low resource Mongolian
 W2V-BERT is fine-tuned using Connectionist Temporal Classification (CTC), which is an algorithm that is used to train neural networks for sequence-to-sequence problems, such as ASR and handwriting recognition.
 
 We highly recommend reading the well-written blog post [*Sequence Modeling with CTC (2017)*](https://distill.pub/2017/ctc/) by Awni Hannun.
+
+## Notebook Setup
 
 Before we start, let's install `datasets` and `transformers`. Also, we need `accelerate` for training, `torchaudio` to load audio files and `jiwer` to evaluate our fine-tuned model using the [word error rate (WER)](https://huggingface.co/metrics/wer) metric.
 
