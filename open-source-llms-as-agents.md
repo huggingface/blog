@@ -14,7 +14,7 @@ One approach to overcome this weakness is to embed the LLM into a system where i
 
 The definition of LLM Agents is quite broad: all systems that use LLMs as their engine, and have the possibility to perform actions on their environment based on observations. They can use several iterations of the Perception ⇒ Reflexion ⇒ Action cycle to achieve their task, and are often augmented with planning or knowledge management systems to enhance their performance. You can find a good review of the Agents landscape in [Xi et al., 2023](https://huggingface.co/papers/2309.07864).
 
-Today, we are focusing on `ReAct agents`. [ReAct](https://huggingface.co/papers/2210.03629) is an approch on building agents based on the concatenation of two words, “**Reasoning**” and “**Acting**”. In the prompt, we describe the model which tools it can use, and ask it to think “step by step” (also called [Chain-of-Thought](https://huggingface.co/papers/2201.11903) behaviour) to plan and execute its next actions in order to reach the final answer. 
+Today, we are focusing on `ReAct agents`. [ReAct](https://huggingface.co/papers/2210.03629) is an approch to building agents based on the concatenation of two words, "**Reasoning**" and "**Acting**." In the prompt, we describe the model, which tools it can use, and ask it to think “step by step” (also called [Chain-of-Thought](https://huggingface.co/papers/2201.11903) behavior) to plan and execute its next actions to reach the final answer. 
 
 ![Sans-titre-2024-01-10-2238.png](%5BDRAFT%5D%20Open-source%20LLMs%20as%20LangChain%20Agents%20632cb4cb4e764465a490eec01a7a6d95/Sans-titre-2024-01-10-2238.png)
 
@@ -51,7 +51,7 @@ So, how would it look like in a complete Agent setup?
 
 ## Running agents with [🦜🔗LangChain](https://www.langchain.com/)
 
-We’ve just integrated a `ChatHuggingFace` wrapper which that lets you create agents based on open-source models in LangChain.
+We’ve just integrated a `ChatHuggingFace` wrapper that lets you create agents based on open-source models in LangChain.
 
 The code to create the ChatModel and give it tools is really simple, you can check it all in the [Langchain doc](https://python.langchain.com/docs/integrations/chat/huggingface). 
 
@@ -113,7 +113,7 @@ agent_executor.invoke(
 
 ## Agents Showdown: how do different LLMs perform as general purpose reasoning agents?
 
-To understand how open-source LLM’s perform as general purpose reasoning agents, we have evaluated four strong models ([Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf), [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [OpenHermes-2.5-Mistral-7B](https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B), [Zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)) in a [ReACT workflow](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react) where they were tasked with answering questions that require basic tool usage. We have also evaluated GPT3.5 and GPT4 on the same examples using the [OpenAI specific function calling agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent) for comparison.
+To understand how open-source LLM’s perform as general purpose reasoning agents, we have evaluated four strong models ([Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf), [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [OpenHermes-2.5-Mistral-7B](https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B), [Zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)) in a [ReAct workflow](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react) where they were tasked with answering questions that require basic tool usage. We have also evaluated GPT3.5 and GPT4 on the same examples using the [OpenAI specific function calling agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent) for comparison.
 
 ### Evaluation Dataset
 
@@ -173,7 +173,7 @@ I have obtained the population of Tacheng, which is approximately 1.11 million (
 
 Here is a benchmark of the models on our evaluation dataset:
 
-### Disclaimer: this image is not final, llama2 and OpenHermes are still to be added.
+### Disclaimer: this image is not final, Llama2 and OpenHermes are still to be added.
 <img src="https://huggingface.co/datasets/m-ric/images/resolve/main/benchmark.png" height="700">
 
 As you can see, some open-source models perform poorly: while this was expected for the small Zephyr-7b, Llama2-70b performs surprisingly poorly.
