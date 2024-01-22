@@ -158,8 +158,9 @@ Here’s an example of Mixtral-8x7B answering the question:
 > 
 
 ```python
-***Thought:** To answer this question, I need to find the current populations of both Guiyang and Tacheng. I will use the search tool to find this information.
+**Thought:** To answer this question, I need to find the current populations of both Guiyang and Tacheng. I will use the search tool to find this information.
 **Action:**
+
 ```json
 {
   "action": "search",
@@ -168,7 +169,7 @@ Here’s an example of Mixtral-8x7B answering the question:
 ```
 4.697 million (2016)*
 
-***Thought:*** *I have obtained the population of Guiyang, which is 4.697 million (as of 2016). Now, I will use the search tool again to find the population of Tacheng.
+**Thought:** I have obtained the population of Guiyang, which is 4.697 million (as of 2016). Now, I will use the search tool again to find the population of Tacheng.
 **Action:**
 ```json
 {
@@ -176,13 +177,13 @@ Here’s an example of Mixtral-8x7B answering the question:
   "action_input": "current population of Tacheng"
 }
 ```
-Population: Xinjiang: Tacheng data was reported at 1,110.000 Person th in 2021. This records a decrease from the previous number of 1,138.638 Person th for 2020.
-Population: Xinjiang: Tacheng data is updated yearly, averaging 1,023.000 Person th from Dec 2005 to 2021, with 17 observations.
+Population: Xinjiang: Tacheng data was reported at 1,110.000 Person in 2021. This records a decrease from the previous number of 1,138.638 Person for 2020.
+Population: Xinjiang: Tacheng data is updated yearly, averaging 1,023.000 Person from Dec 2005 to 2021, with 17 observations.
 
 I have obtained the population of Tacheng, which is approximately 1.11 million (as of 2021). Comparing the two populations, Guiyang has a larger population than Tacheng.
 
 **Thought:** I now know the final answer
-**Final Answer:** Guiyang has a larger population, which is approximately 4.697 million (as of 2016), compared to Tacheng's population of approximately 1.11 million (as of 2021).*
+**Final Answer:** Guiyang has a larger population, which is approximately 4.697 million (as of 2016), compared to Tacheng's population of approximately 1.11 million (as of 2021).
 ```
 
 Here is a benchmark of the models on our evaluation dataset:
