@@ -120,7 +120,7 @@ To understand how open-source LLM’s perform as general purpose reasoning agent
 We selected questions that can be answered using basic tools: a simple calculator and access to internet search.
 
 - For Internet search capability: we have selected questions from [HotpotQA](https://huggingface.co/datasets/hotpot_qa): this is originally a retrieval dataset, but it can be used for general question answering, with access to the internet. Some questions originally need to combine information from various sources: in our setting, this means performing several steps of internet search to combine the results.
-- For testing calculator usage, we add questions from [GSM8K](https://huggingface.co/datasets/gsm8k): this dataset tests grade-school math ability, and is entirely solvable by correctly leveraging the 4 operators (add, subtract, multiply, divide).
+- For testing calculator usage, we added questions from [GSM8K](https://huggingface.co/datasets/gsm8k): this dataset tests grade-school math ability, and is entirely solvable by correctly leveraging the 4 operators (add, subtract, multiply, divide).
 - We also picked questions from [GAIA](https://huggingface.co/papers/2311.12983), a very difficult benchmark for General AI Assistants. The questions in the original dataset can require many other different tools, such as a code interpreter or pdf reader: we hand-picked questions that do not require anything except search and calculator.
 
 Evaluation was performed with GPT4-as-a-judge using [the prompt format referenced here](https://github.com/A-Roucher/benchmark_agents/blob/master/prompts.py).
