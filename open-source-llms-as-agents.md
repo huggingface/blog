@@ -6,11 +6,24 @@ authors:
 - user: Jofthomas
 - user: andrewrreed
 ---
+# Open-source LLMs as LangChain Agents
+
 ## Introduction
 
 Large Language Models (LLMs) trained for [causal language modeling](https://huggingface.co/docs/transformers/tasks/language_modeling) can tackle a wide range of tasks, but they often struggle with basic tasks like logic, calculation, and search. The worst scenario is when they perform poorly in a domain, such as math, yet still attempt to handle all the calculations themselves.
 
 One approach to overcome this weakness is to embed the LLM into a system where it has the ability to call tools: such a system is called an LLM Agent.  
+
+## Table of Contents
+
+- [What are agents?](#what-are-agents)
+- [Running agents with LangChain](#running-agents-with-langchain)
+- [Agents Showdown: how do different LLMs perform as general purpose reasoning agents?](#Agents-Showdown:-how-do-different-LLMs-perform-as-general-purpose-reasoning-agents?)
+    - [Evaluation dataset](#evaluation-dataset)
+    - [Results](#results)
+
+
+## What are agents?
 
 The definition of LLM Agents is quite broad: LLM agents are all systems that use LLMs as their engine and can perform actions on their environment based on observations. They can use several iterations of the Perception ⇒ Reflexion ⇒ Action cycle to achieve their task and are often augmented with planning or knowledge management systems to enhance their performance. You can find a good review of the Agents landscape in [Xi et al., 2023](https://huggingface.co/papers/2309.07864).
 
@@ -49,9 +62,9 @@ Take a look at [this notebook](https://colab.research.google.com/drive/1j_vsc28F
 
 So, how would it look like in a complete Agent setup?
 
-## Running agents with [🦜🔗LangChain](https://www.langchain.com/)
+## Running agents with LangChain
 
-We’ve just integrated a `ChatHuggingFace` wrapper that lets you create agents based on open-source models in LangChain.
+We’ve just integrated a `ChatHuggingFace` wrapper that lets you create agents based on open-source models in [🦜🔗LangChain](https://www.langchain.com/).
 
 The code to create the ChatModel and give it tools is really simple, you can check it all in the [Langchain doc](https://python.langchain.com/docs/integrations/chat/huggingface). 
 
@@ -113,9 +126,10 @@ agent_executor.invoke(
 
 ## Agents Showdown: how do different LLMs perform as general purpose reasoning agents?
 
+
 To understand how open-source LLM’s perform as general purpose reasoning agents, we have evaluated four strong models ([Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf), [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [OpenHermes-2.5-Mistral-7B](https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B), [Zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)) in a [ReAct workflow](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react) where they were tasked with answering questions that require basic tool usage. We have also evaluated GPT3.5 and GPT4 on the same examples using the [OpenAI specific function calling agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent) for comparison.
 
-### Evaluation Dataset
+### Evaluation dataset
 
 We selected questions that can be answered using basic tools: a simple calculator and access to internet search.
 
