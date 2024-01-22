@@ -173,7 +173,7 @@ I have obtained the population of Tacheng, which is approximately 1.11 million (
 
 Here is a benchmark of the models on our evaluation dataset:
 
-### Disclaimer: this image is not final, llama2 and OpenHermes are still to be added.
+**Disclaimer: this image is not final, llama2 and OpenHermes are still to be added.**
 <img src="https://huggingface.co/datasets/m-ric/images/resolve/main/benchmark.png" height="700">
 
 As you can see, some open-source models perform poorly: while this was expected for the small Zephyr-7b, Llama2-70b performs surprisingly poorly.
