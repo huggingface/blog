@@ -178,7 +178,7 @@ Here is a benchmark of the models on our evaluation dataset:
 
 As you can see, some open-source models perform poorly: while this was expected for the small Zephyr-7b, Llama2-70b performs surprisingly poorly.
 
-But Mixtral-8x7B holds its own really well compared to other models: it has a performance nearly equivalent to GPT3.5. It is the best of the OS models we tested to power Agent workflows! 🏆
+But Mixtral-8x7B holds its own really well compared to other models: it performs nearly equivalent to GPT3.5. It is the best of the OS models we tested to power Agent workflows! 🏆
 
 This is out-of-the-box performance: contrary to GPT3.5, Mixtral was not finetuned for agent workflows (to our knowledge), which somewhat hinders its performance. For instance, on GAIA, 10% of calls fail when Mixtral tries to call a tool with incorrectly formatted arguments. With proper finetuning for the function calling and task planning skills, Mixtral’s score would likely be even higher. We strongly recommend open-source builders to start finetuning Mixtral for agents, to surpass the next challenger: GPT4! 🚀
 
