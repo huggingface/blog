@@ -5,7 +5,7 @@ authors:
 - user: ylacombe
 ---
 
-# Fine-Tune W2V2-Bert for low-resource ASR with 🤗 Transformers
+# Fine-Tune W2V2-Bert for low-resource ASR with 🤗 Transformerspre-trained
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -22,7 +22,7 @@ authors:
 
 Following a series of multilingual improvements ([XLSR](https://huggingface.co/docs/transformers/model_doc/xlsr_wav2vec2), [XLS-R](https://huggingface.co/docs/transformers/model_doc/xls_r) and [MMS](https://huggingface.co/docs/transformers/model_doc/mms)), MetaAI have released [W2v-BERT](https://huggingface.co/docs/transformers/main/en/model_doc/wav2vec2-bert), as a building block of their [Seamless Communication](https://ai.meta.com/research/seamless-communication/), a family of AI translation models.
 
-This new 580M-parameters version was pre-trained on **4.5M** hours of unlabeled audio data covering **more than 143 languages**. It requires finetuning to be used for downstream tasks such as Automatic Speech Recognition (ASR), or Audio Classification.
+This new 580M-parameters version was pre-trained on **4.5M** hours of unlabeled audio data covering **more than 143 languages**. It requires fine-tuning to be used for downstream tasks such as Automatic Speech Recognition (ASR), or Audio Classification.
 
 For comparison, **XLS-R** used almost **half a million** hours of audio data in **128 languages** and **MMS** checkpoints were pre-trained on more than **half a million hours of audio** in over **1,400 languages**.
 
@@ -331,7 +331,7 @@ len(vocab_dict)
 37
 ```
 
-Cool, now our vocabulary is complete and consists of 37 tokens, which means that the linear layer that we will add on top of the pretrained W2V-BERT checkpoint will have an output dimension of 37.
+Cool, now our vocabulary is complete and consists of 37 tokens, which means that the linear layer that we will add on top of the pre-trained W2V-BERT checkpoint will have an output dimension of 37.
 
 Let's now save the vocabulary as a json file.
 
@@ -346,7 +346,7 @@ In a final step, we use the json file to load the vocabulary into an instance of
 ```python
 from transformers import Wav2Vec2CTCTokenizer
 
-tokenizer = Wav2Vec2CTCTokenizer.from_pretrained("./", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
+tokenizer = Wav2Vec2CTCTokenizer.from_pre-trained("./", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
 ```
 
 If one wants to re-use the just created tokenizer with the fine-tuned model of this notebook, it is strongly advised to upload the `tokenizer` to the [🤗 Hub](https://huggingface.co/). Let's call the repo to which we will upload the files
@@ -368,10 +368,10 @@ Great, you can see the just created repository under `https://huggingface.co/<yo
 
 Speech is a continuous signal and to be treated by computers, it first has to be discretized, which is usually called **sampling**. The sampling rate hereby plays an important role in that it defines how many data points of the speech signal are measured per second. Therefore, sampling with a higher sampling rate results in a better approximation of the *real* speech signal but also necessitates more values per second.
 
-A pretrained checkpoint expects its input data to have been sampled more or less from the same distribution as the data it was trained on. The same speech signals sampled at two different rates have a very different distribution, *e.g.*, doubling the sampling rate results in data points being twice as long. Thus,
-before fine-tuning a pretrained checkpoint of an ASR model, it is crucial to verify that the sampling rate of the data that was used to pretrain the model matches the sampling rate of the dataset used to fine-tune the model.
+A pre-trained checkpoint expects its input data to have been sampled more or less from the same distribution as the data it was trained on. The same speech signals sampled at two different rates have a very different distribution, *e.g.*, doubling the sampling rate results in data points being twice as long. Thus,
+before fine-tuning a pre-trained checkpoint of an ASR model, it is crucial to verify that the sampling rate of the data that was used to pre-train the model matches the sampling rate of the dataset used to fine-tune the model.
 
-W2V-BERT was pretrained on audio data, at a sampling rate of 16kHz. Common Voice, in its original form, has a sampling rate of 48kHz, thus we will have to downsample the fine-tuning data to 16kHz in the following.
+W2V-BERT was pre-trained on audio data, at a sampling rate of 16kHz. Common Voice, in its original form, has a sampling rate of 48kHz, thus we will have to downsample the fine-tuning data to 16kHz in the following.
 
 A `SeamlessM4TFeatureExtractor` object requires the following parameters to be instantiated:
 
@@ -517,7 +517,7 @@ The data is processed so that we are ready to start setting up the training pipe
 
 - Evaluation metric. During training, the model should be evaluated on the word error rate. We should define a `compute_metrics` function accordingly
 
-- Load a pretrained checkpoint. We need to load a pretrained checkpoint and configure it correctly for training.
+- Load a pre-trained checkpoint. We need to load a pre-trained checkpoint and configure it correctly for training.
 
 - Define the training configuration.
 
@@ -597,7 +597,7 @@ def compute_metrics(pred):
     return {"wer": wer}
 ```
 
-Now, we can load the pretrained checkpoint of [Wav2Vec2-XLS-R-300M](https://huggingface.co/facebook/wav2vec2-xls-r-300m). The tokenizer's `pad_token_id` must be to define the model's `pad_token_id` or in the case of `Wav2Vec2BertForCTC` also CTC's *blank token* \\( {}^2 \\). To save GPU memory, we enable PyTorch's [gradient checkpointing](https://pytorch.org/docs/stable/checkpoint.html) and also set the loss reduction to "*mean*".
+Now, we can load the pre-trained checkpoint of [Wav2Vec2-XLS-R-300M](https://huggingface.co/facebook/wav2vec2-xls-r-300m). The tokenizer's `pad_token_id` must be to define the model's `pad_token_id` or in the case of `Wav2Vec2BertForCTC` also CTC's *blank token* \\( {}^2 \\). To save GPU memory, we enable PyTorch's [gradient checkpointing](https://pytorch.org/docs/stable/checkpoint.html) and also set the loss reduction to "*mean*".
 
 Since, we're only training a small subset of weights, the model is not prone to overfitting. Therefore, we make sure to disable all dropout layers.
 
@@ -606,7 +606,7 @@ Since, we're only training a small subset of weights, the model is not prone to 
 ```python
 from transformers import Wav2Vec2BertForCTC
 
-model = Wav2Vec2BertForCTC.from_pretrained(
+model = Wav2Vec2BertForCTC.from_pre-trained(
     "ylacombe/w2v-bert-2.0",
     attention_dropout=0.0,
     hidden_dropout=0.0,
@@ -711,8 +711,8 @@ You can now share this model with all your friends, family, favorite pets: they 
 ```python
 from transformers import AutoModelForCTC, Wav2Vec2BertProcessor
 
-model = AutoModelForCTC.from_pretrained("ylacombe/w2v-bert-2.0-mongolian-colab-CV16.0")
-processor = Wav2Vec2BertProcessor.from_pretrained("ylacombe/w2v-bert-2.0-mongolian-colab-CV16.0")
+model = AutoModelForCTC.from_pre-trained("ylacombe/w2v-bert-2.0-mongolian-colab-CV16.0")
+processor = Wav2Vec2BertProcessor.from_pre-trained("ylacombe/w2v-bert-2.0-mongolian-colab-CV16.0")
 ```
 
 For more examples of how W2V-BERT can be fine-tuned, please take a look at the [official speech recognition examples](https://github.com/huggingface/transformers/tree/master/examples/pytorch/speech-recognition#examples).
@@ -721,11 +721,11 @@ For more examples of how W2V-BERT can be fine-tuned, please take a look at the [
 
 As a final check, let's load the model and verify that it indeed has learned to transcribe Mongolian speech.
 
-Let's first load the pretrained checkpoint.
+Let's first load the pre-trained checkpoint.
 
 ```python
-model = Wav2Vec2BertForCTC.from_pretrained(repo_name).to("cuda")
-processor = Wav2Vec2BertProcessor.from_pretrained(repo_name)
+model = Wav2Vec2BertForCTC.from_pre-trained(repo_name).to("cuda")
+processor = Wav2Vec2BertProcessor.from_pre-trained(repo_name)
 ```
 
 Let's process the audio, run a forward pass and predict the ids.
@@ -753,7 +753,7 @@ print(processor.decode(input_dict["labels"]).lower())
 ```
 
 
-Alright! The transcription can definitely be recognized from our prediction, but it is not perfect yet. Training the model a bit longer, spending more time on the data preprocessing, and especially using a [language model](https://huggingface.co/blog/wav2vec2-with-ngram) for decoding would certainly improve the model's overall performance.
+Alright! The transcription can definitely be recognized from our prediction, but it is not perfect yet. Training the model a bit longer, spending more time on the data pre-processing, and especially using a [language model](https://huggingface.co/blog/wav2vec2-with-ngram) for decoding would certainly improve the model's overall performance.
 
 For a demonstration model on a low-resource language, the results are quite acceptable however 🤗.
 
