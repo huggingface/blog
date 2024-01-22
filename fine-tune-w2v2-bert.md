@@ -70,7 +70,7 @@ notebook_login()
 
 ASR models transcribe speech to text, which means that we both need a feature extractor that processes the speech signal to the model's input format, *e.g.* a feature vector, and a tokenizer that processes the model's output format to text.
 
-In 🤗 Transformers, the W2V-BERT model is thus accompanied by both a tokenizer, called [Wav2Vec2CTCTokenizer](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#wav2vec2ctctokenizer), and a feature extractor, called [SeamlessM4TFeatureExtractor](https://huggingface.co/docs/transformers/v4.36.1/en/model_doc/seamless_m4t#transformers.SeamlessM4TFeatureExtractor).
+In 🤗 Transformers, the W2V-BERT model is thus accompanied by both a tokenizer, called [Wav2Vec2CTCTokenizer](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#wav2vec2ctctokenizer), and a feature extractor, called [SeamlessM4TFeatureExtractor](https://huggingface.co/docs/transformers/v4.36.1/en/model_doc/seamless_m4t#transformers.SeamlessM4TFeatureExtractor) that the model shares with the [first](https://huggingface.co/docs/transformers/main/en/model_doc/seamless_m4t) and [second](https://huggingface.co/docs/transformers/main/en/model_doc/seamless_m4_v2t) versions of Seamless-M4T, as they all process audio in the same way.
 
 Let's start by creating the tokenizer to decode the predicted output classes to the output transcription.
 
@@ -366,23 +366,14 @@ Great, you can see the just created repository under `https://huggingface.co/<yo
 
 ### Create `SeamlessM4TFeatureExtractor`
 
-Speech is a continuous signal and to be treated by computers, it first has to be discretized, which is usually called **sampling**. The sampling rate hereby plays an important role in that it defines how many data points of the speech signal are measured per second. Therefore, sampling with a higher sampling rate results in a better approximation of the *real* speech signal but also necessitates more values per second.
+The role of the `SeamlessM4TFeatureExtractor` is to prepare the raw audio input in a format that the model can "understand". It therefore maps the sequence of one-dimensional amplitude values (aka the raw audio input) to a two-dimensional matrix of log-mel spectrogram values. The latter encodes the signal frequency information as a function of time. See [this section](https://huggingface.co/learn/audio-course/chapter1/audio_data#the-frequency-spectrum) from the Audio Transformers course to learn more about spectrograms and why they are important.
 
-A pre-trained checkpoint expects its input data to have been sampled more or less from the same distribution as the data it was trained on. The same speech signals sampled at two different rates have a very different distribution, *e.g.*, doubling the sampling rate results in data points being twice as long. Thus,
-before fine-tuning a pre-trained checkpoint of an ASR model, it is crucial to verify that the sampling rate of the data that was used to pre-train the model matches the sampling rate of the dataset used to fine-tune the model.
-
-W2V-BERT was pre-trained on audio data, at a sampling rate of 16kHz. Common Voice, in its original form, has a sampling rate of 48kHz, thus we will have to downsample the fine-tuning data to 16kHz in the following.
-
-A `SeamlessM4TFeatureExtractor` object requires the following parameters to be instantiated:
-
-- `num_mel_bins`: W2V-BERT needs a different speech representation than the traditional 1D raw speech signal, aka the mel-spectrogram. See this [article](https://www.izotope.com/en/learn/understanding-spectrograms.html) and this [article](https://towardsdatascience.com/learning-from-audio-the-mel-scale-mel-spectrograms-and-mel-frequency-cepstral-coefficients-f5752b6324a8) for more explanations.
-- `sampling_rate`: The sampling rate at which the model is trained on.
-- `padding_value`: For batched inference, shorter inputs need to be padded with a specific value
+Unlike the tokenizer, the feature extractor doesn't need to be "learned" from the data, so we can load it directly from the [initial model checkpoint](https://huggingface.co/facebook/w2v-bert-2.0).
 
 ```python
 from transformers import SeamlessM4TFeatureExtractor
 
-feature_extractor = SeamlessM4TFeatureExtractor(feature_size=80, num_mel_bins=80, sampling_rate=16000, padding_value=0.0)
+feature_extractor = SeamlessM4TFeatureExtractor.from_pretrained("facebook/w2v-bert-2.0")
 ```
 
 Great, W2V-BERT's feature extraction pipeline is thereby fully defined!
@@ -427,7 +418,12 @@ common_voice_train[0]["audio"]
 
 Great, we can see that the audio file has automatically been loaded. This is thanks to the new [`"Audio"` feature](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=audio#datasets.Audio) introduced in `datasets == 4.13.3`, which loads and resamples audio files on-the-fly upon calling.
 
-In the example above we can see that the audio data is loaded with a sampling rate of 48kHz whereas 16kHz are expected by the model. We can set the audio feature to the correct sampling rate by making use of [`cast_column`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=cast_column#datasets.DatasetDict.cast_column):
+In the example above we can see that the audio data is loaded with a sampling rate of 48kHz whereas W2V-BERT was pre-trained at a sampling rate of 16kHz. The sampling rate plays an important role in that it defines how many data points of the speech signal are measured per second. Therefore, sampling with a higher sampling rate results in a better approximation of the *real* speech signal but also necessitates more values per second.
+
+A pre-trained checkpoint expects its input data to have been sampled more or less from the same distribution as the data it was trained on. The same speech signals sampled at two different rates have a very different distribution, *e.g.*, doubling the sampling rate results in data points being twice as long. Thus,
+before fine-tuning a pre-trained checkpoint of an ASR model, it is crucial to verify that the sampling rate of the data that was used to pre-train the model matches the sampling rate of the dataset used to fine-tune the model.
+
+Luckily, we can set the audio feature to the correct sampling rate by making use of [`cast_column`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=cast_column#datasets.DatasetDict.cast_column):
 
 ```python
 common_voice_train = common_voice_train.cast_column("audio", Audio(sampling_rate=16_000))
@@ -607,7 +603,7 @@ Since, we're only training a small subset of weights, the model is not prone to 
 from transformers import Wav2Vec2BertForCTC
 
 model = Wav2Vec2BertForCTC.from_pretrained(
-    "ylacombe/w2v-bert-2.0",
+    "facebook/w2v-bert-2.0",
     attention_dropout=0.0,
     hidden_dropout=0.0,
     feat_proj_dropout=0.0,
