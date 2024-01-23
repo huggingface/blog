@@ -1,6 +1,6 @@
 ---
 title: "Open-source LLMs as LangChain Agents" 
-thumbnail: /blog/assets/131_aws-partnership/aws-partnership-thumbnail.png
+thumbnail: /blog/assets/open-source-llms-as-agents/thumbnail_open_source_agents.png
 authors:
 - user: m-ric
 - user: Jofthomas
@@ -135,7 +135,7 @@ We want to measure how open-source LLMs perform as general purpose reasoning age
 - For testing calculator usage, we added questions from [GSM8K](https://huggingface.co/datasets/gsm8k): this dataset tests grade-school math ability, and is entirely solvable by correctly leveraging the 4 operators (add, subtract, multiply, divide).
 - We also picked questions from [GAIA](https://huggingface.co/papers/2311.12983), a very difficult benchmark for General AI Assistants. The questions in the original dataset can require many other different tools, such as a code interpreter or pdf reader: we hand-picked questions that do not require anything except search and calculator.
 
-Evaluation was performed with GPT4-as-a-judge using a prompt based on the [Prometheus prompt format](https://huggingface.co/kaist-ai/prometheus-13b-v1.0), giving results on the Likert Scale: see the exact prompt [here](https://github.com/A-Roucher/benchmark_agents/blob/master/scripts/prompts.py).
+Evaluation was performed with GPT-4-as-a-judge using a prompt based on the [Prometheus prompt format](https://huggingface.co/kaist-ai/prometheus-13b-v1.0), giving results on a 5-point Likert Scale: see the exact prompt [here](https://github.com/A-Roucher/benchmark_agents/blob/master/scripts/prompts.py).
 
 ### Models
 
@@ -156,7 +156,7 @@ This means we prompt them to output their function calls in this format:
 }
 ```
 
-For comparison, we have also evaluated GPT3.5 and GPT4 on the same examples using LangChain's [OpenAI-specific agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent).
+For comparison, we have also evaluated GPT-3.5 and GPT-4 on the same examples using LangChain's [OpenAI-specific agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent).
 Since this uses their own function-calling template, on which they were fine-tuned, this means the OpenAI models should be at their top performance.
 
 ### Results
@@ -170,7 +170,7 @@ Here’s an example of Mixtral-8x7B answering the question:
 > “**Which city has a larger population, Guiyang or Tacheng?”**
 > 
 
-```bash
+```markdown
     **Thought:** To answer this question, I need to find the current populations of both Guiyang and Tacheng. I will use the search tool to find this information.
     **Action:**
 
@@ -207,11 +207,11 @@ Here is a benchmark of the models on our evaluation dataset:
 
 As you can see, some open-source models perform poorly: while this was expected for the small Zephyr-7b, Llama2-70b performs surprisingly poorly.
 
-But Mixtral-8x7B holds its own really well compared to other models: it performs nearly equivalent to GPT3.5. It is the best of the OS models we tested to power Agent workflows! 🏆
+But Mixtral-8x7B holds its own really well compared to other models: it performs nearly equivalent to GPT-3.5. It is the best of the OS models we tested to power Agent workflows! 🏆
 
-This is out-of-the-box performance: __contrary to GPT3.5, Mixtral was not finetuned for agent workflows__ (to our knowledge), which somewhat hinders its performance. For instance, on GAIA, 10% of questions fail because Mixtral tries to call a tool with incorrectly formatted arguments. **With proper finetuning for the function calling and task planning skills, Mixtral’s score would likely be even higher.** We strongly recommend open-source builders to start finetuning Mixtral for agents, to surpass the next challenger: GPT4! 🚀
+This is out-of-the-box performance: __contrary to GPT-3.5, Mixtral was not finetuned for agent workflows__ (to our knowledge), which somewhat hinders its performance. For instance, on GAIA, 10% of questions fail because Mixtral tries to call a tool with incorrectly formatted arguments. **With proper finetuning for the function calling and task planning skills, Mixtral’s score would likely be even higher.** We strongly recommend open-source builders to start finetuning Mixtral for agents, to surpass the next challenger: GPT-4! 🚀
 
 **Closing remarks:**
 
 - The GAIA benchmark, although it is tried here on a small subsample of questions and a few tools, seems like a very good indicator of overall model performance, since it often involves several reasoning steps and rigorous logic.
-- The agent workflows allow LLMs to increase performance: for instance, on GSM8K, [GPT4’s technical report](https://arxiv.org/pdf/2303.08774.pdf) reports 92% for 5-shot CoT prompting: giving it a calculator allows us to reach 95% in zero-shot . For Mixtral-8x7B, the [LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) reports 57.6% with 5-shot, we get 73% in zero-shot. _(Keep in mind that we tested only a subset of 20 questions)_
+- The agent workflows allow LLMs to increase performance: for instance, on GSM8K, [GPT-4’s technical report](https://arxiv.org/pdf/2303.08774.pdf) reports 92% for 5-shot CoT prompting: giving it a calculator allows us to reach 95% in zero-shot . For Mixtral-8x7B, the [LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) reports 57.6% with 5-shot, we get 73% in zero-shot. _(Keep in mind that we tested only a subset of 20 questions)_
