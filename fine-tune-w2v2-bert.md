@@ -54,7 +54,7 @@ Before we start, let's install `datasets` and `transformers`. Also, we need `acc
 ```bash
 %%capture
 !pip install datasets
-!pip install git+https://github.com/ylacombe/transformers.git@add-w2v2-shaw # TODO
+!pip install transformers
 !pip install torchaudio
 !pip install jiwer
 !pip install accelerate -U
