@@ -36,13 +36,16 @@ For demonstration purposes, we fine-tune the model on the low resource Mongolian
 
 However, when it comes to "resource-poor" languages such as Mongolian, Whisper performs poorly, as seen in section D.2.2 of the [Whisper paper](https://cdn.openai.com/papers/whisper.pdf) - Mongolian or Malayalam achieved over 100% WER at every Whisper checkpoint. The checkpoint available also have a limited vocabulary and therefore cannot be fine-tuned on a language whose alphabet does not overlap with this vocabulary.
 
-In addition, Whisper is a sequence-to-sequence model that performs ASR autoregressively, making it inherently "slow".
+In addition, Whisper is a sequence-to-sequence model that performs ASR autoregressively, making it inherently "slow". Whisper's slowness is exacerbated for languages whose characteristics are infrequent in the training dataset. In this case, Whisper has to generate on average more tokens per word, and therefore takes longer.
 
 Faced with limited resources - both in terms of training data availability and inference constraints - more "frugal" models are needed. In this case, Wav2Vec2-BERT is just the thing.
 
 **Wav2Vec2-BERT** predicts ASR in a single pass, making it much faster than Whisper. As this notebook will show, it requires **little data** to achieve **competitive performance**, is **easily adaptable** to any alphabet, and is **more resource-efficient**.
 
-In fact, it achieves **similar WER performance** on Mongolian ASR compared with [Whisper-large-v3](https://huggingface.co/openai/whisper-large-v3) after similar fine-tuning, while being over **8x faster** and **2.5x more resource-efficient**.
+In fact, it achieves **similar WER performance** on Mongolian ASR compared with [Whisper-large-v3](https://huggingface.co/openai/whisper-large-v3) after similar fine-tuning, while being over **10x to 30x faster** and **2.5x more resource-efficient**.
+
+**Note**: The benchmark was carried out with a 16GB V100 on Google Colab, using batch sizes ranging from 1 to 8 on the Mongolian CV16 test set.
+
 
 ## Notebook Setup
 
