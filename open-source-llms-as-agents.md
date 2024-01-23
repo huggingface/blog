@@ -127,12 +127,9 @@ agent_executor.invoke(
 
 ## Agents Showdown: how do different LLMs perform as general purpose reasoning agents?
 
+### Evaluation
 
-To understand how open-source LLMs perform as general purpose reasoning agents, we have evaluated strong models on questions requiring using a few basic tools.
-
-### Evaluation dataset
-
-We selected questions that can be answered using basic tools: a simple calculator and access to internet search.
+We want to measure how open-source LLMs perform as general purpose reasoning agents. Thus we select questions requiring using logic and the use of basic tools: a calculator and access to internet search.
 
 - For Internet search capability: we have selected questions from [HotpotQA](https://huggingface.co/datasets/hotpot_qa): this is originally a retrieval dataset, but it can be used for general question answering, with access to the internet. Some questions originally need to combine information from various sources: in our setting, this means performing several steps of internet search to combine the results.
 - For testing calculator usage, we added questions from [GSM8K](https://huggingface.co/datasets/gsm8k): this dataset tests grade-school math ability, and is entirely solvable by correctly leveraging the 4 operators (add, subtract, multiply, divide).
@@ -142,14 +139,15 @@ Evaluation was performed with GPT4-as-a-judge using a prompt based on the [Prome
 
 ### Models
 
-On the open-source side, we evaluate:
+We evaluate a few strong open-source models:
 - [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf)
 - [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1)
 - [OpenHermes-2.5-Mistral-7B](https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B)
 - [Zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)
+- [SOLAR-10.7B-Instruct-v1.0](https://huggingface.co/upstage/SOLAR-10.7B-Instruct-v1.0)
 
-These open-source models are evaluated in LangChain's [ReAct implementation](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react)
-For the open-source models, as per the standard LangChain ReAct prompt, we prompt them to output their function calls in this common format:
+These models are evaluated in LangChain's [ReAct implementation](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react)
+This means we prompt them to output their function calls in this format:
 
 ```json
 {
@@ -158,14 +156,14 @@ For the open-source models, as per the standard LangChain ReAct prompt, we promp
 }
 ```
 
-For comparison, we have also evaluated GPT3.5 and GPT4 on the same examples using LangChain's [OpenAI specific function calling agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent).
-Since this uses their own function calling template, on which they were fine-tuned, this means the OpenAI models should be at their top performance.
+For comparison, we have also evaluated GPT3.5 and GPT4 on the same examples using LangChain's [OpenAI-specific agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent).
+Since this uses their own function-calling template, on which they were fine-tuned, this means the OpenAI models should be at their top performance.
 
 ### Results
 
-Since the open-source models were not specifically fine-tuned for calling functions in the given output format, they are at a slight disadvantage to the OpenAI agents.
+Since the open-source models were not specifically fine-tuned for calling functions in the given output format, they are at a slight disadvantage compared to the OpenAI agents.
 
-Despite this, some models perform really well!
+Despite this, some models perform really well! 💪
 
 Here’s an example of Mixtral-8x7B answering the question:
 
@@ -192,8 +190,8 @@ Here’s an example of Mixtral-8x7B answering the question:
         "action_input": "current population of Tacheng"
         }
     ```
-    Population: Xinjiang: Tacheng data was reported at 1,110.000 Person in 2021. This records a decrease from the previous number of 1,138.638 Person for 2020.
-    Population: Xinjiang: Tacheng data is updated yearly, averaging 1,023.000 Person from Dec 2005 to 2021, with 17 observations.
+    Population: Xinjiang: Tacheng data was reported at 1,110.000 Persons in 2021. This records a decrease from the previous number of 1,138.638 Persons for 2020.
+    Population: Xinjiang: Tacheng data is updated yearly, averaging 1,023.000 Persons from Dec 2005 to 2021, with 17 observations.
 
     I have obtained the population of Tacheng, which is approximately 1.11 million (as of 2021). Comparing the two populations, Guiyang has a larger population than Tacheng.
 
@@ -216,4 +214,4 @@ This is out-of-the-box performance: __contrary to GPT3.5, Mixtral was not finetu
 **Closing remarks:**
 
 - The GAIA benchmark, although it is tried here on a small subsample of questions and a few tools, seems like a very good indicator of overall model performance, since it often involves several reasoning steps and rigorous logic.
-- The agent workflows allow LLMs to increase performance: for instance, on GSM8K, [GPT4’s technical report](https://arxiv.org/pdf/2303.08774.pdf) reports 92% for 5-shot CoT prompting: giving it a calculator allows us to reach 95% in zero-shot . For Mixtral-8x7B, the [LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) reports 57.6% with 5-shot, we get 73% in zero-shot. (keep in mind that we tested only a subset of 20 questions)
+- The agent workflows allow LLMs to increase performance: for instance, on GSM8K, [GPT4’s technical report](https://arxiv.org/pdf/2303.08774.pdf) reports 92% for 5-shot CoT prompting: giving it a calculator allows us to reach 95% in zero-shot . For Mixtral-8x7B, the [LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) reports 57.6% with 5-shot, we get 73% in zero-shot. _(Keep in mind that we tested only a subset of 20 questions)_
