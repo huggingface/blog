@@ -697,18 +697,11 @@ trainer.train()
 
 | Step | Training Loss | Validation Loss | Wer      |
 |:-------------:|:----:|:---------------:|:------:|
-| 100  | 3.751600      | 2.404063        | 1.008919 |
-| 200  | 1.018500      | 0.764176        | 0.615347 |
-| 300  | 0.536600      | 0.651845        | 0.532848 |
-| 400  | 0.415300      | 0.611600        | 0.481075 |
-| 500  | 0.353000      | 0.635747        | 0.480585 |
-| 600  | 0.287600      | 0.621341        | 0.443387 |
-| 700  | 0.238900      | 0.510328        | 0.424298 |
-| 800  | 0.173500      | 0.507904        | 0.375299 |
-| 900  | 0.141900      | 0.526440        | 0.363824 |
-| 1000 | 0.103100      | 0.545374        | 0.346585 |
-| 1100 | 0.074300      | 0.528603        | 0.333696 |
-| 1200 | 0.054000      | 0.503239        | 0.325103 |
+| 300  | 1.712700      | 0.647740        | 0.517892 |
+| 600  | 0.349300      | 0.615849        | 0.442027 |
+| 900  | 0.180500      | 0.525088        | 0.367305 |
+| 1200 | 0.075400      | 0.528768        | 0.324016 |
+
 
 The training loss and validation WER go down nicely. In comparison, the same training with [whisper-large-v3](https://huggingface.co/openai/whisper-large-v3), the commonly recognized state-of-the-art ASR model from OpenAI, has a final WER of 33.3%. You can find the resulting Whisper checkpoint [here](https://huggingface.co/sanchit-gandhi/whisper-large-v3-ft-cv16-mn). This shows that Wav2Vec2-Bert can achieve performance close to or **equivalent to that of the state of the art in low-resource languages**.
 
