@@ -29,9 +29,8 @@ The definition of LLM Agents is quite broad: LLM agents are all systems that use
 
 Today, we are focusing on **ReAct agents**. [ReAct](https://huggingface.co/papers/2210.03629) is an approch to building agents based on the concatenation of two words, "**Reasoning**" and "**Acting**." In the prompt, we describe the model, which tools it can use, and ask it to think “step by step” (also called [Chain-of-Thought](https://huggingface.co/papers/2201.11903) behavior) to plan and execute its next actions to reach the final answer. 
 
-![Sans-titre-2024-01-10-2238.png](%5BDRAFT%5D%20Open-source%20LLMs%20as%20LangChain%20Agents%20632cb4cb4e764465a490eec01a7a6d95/Sans-titre-2024-01-10-2238.png)
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/model_doc/oneformer_architecture.png" alt="drawing" width=500>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-source-llms-as-agents/ReAct.png" alt="drawing" width=90%>
 </p>
 
 This graph seems very high level, but under the hood it’s quite simple: the LLM is called in a loop with a prompt containing in essence:
@@ -192,9 +191,8 @@ I have obtained the population of Tacheng, which is approximately 1.11 million (
 Here is a benchmark of the models on our evaluation dataset:
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/model_doc/oneformer_architecture.png" alt="benchmark of agents performance" height="700">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-source-llms-as-agents/benchmark_agents.png" alt="benchmark of agents performance" width="80%">
 </p>
-
 As you can see, some open-source models perform poorly: while this was expected for the small Zephyr-7b, Llama2-70b performs surprisingly poorly.
 
 But Mixtral-8x7B holds its own really well compared to other models: it performs nearly equivalent to GPT3.5. It is the best of the OS models we tested to power Agent workflows! 🏆
