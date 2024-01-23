@@ -33,7 +33,7 @@ Today, we are focusing on **ReAct agents**. [ReAct](https://huggingface.co/paper
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-source-llms-as-agents/ReAct.png" alt="drawing" width=90%>
 </p>
 
-This graph seems very high level, but under the hood it’s quite simple: the LLM is called in a loop with a prompt containing in essence:
+This graph seems very high-level, but under the hood, it’s quite simple. The LLM is called in a loop with a prompt containing, in essence:
 
 ```
 Here is a question: {question}. 
@@ -45,7 +45,7 @@ You should first reflect with ‘Thought: {your_thoughts}’, then you either:
 
 Then you parse the LLM’s output:
 
-- if it contains the string `‘Final Answer:’`, the loop ends and you print the answer
+- if it contains the string `‘Final Answer:’`, the loop ends and you print the answer,
 - else, the LLM should have output a tool call: you can parse this output to get the tool name and arguments, then call said tool with said arguments. Then the output of this tool call is appended to the prompt, and you call the LLM again with this extended information, until it has enough information to finally provide a final answer to the question.
 
 Generally, the difficult parts of running an Agent system for the LLM engine are:
@@ -81,7 +81,7 @@ llm = HuggingFaceHub(
 chat_model = ChatHuggingFace(llm=llm)
 ```
 
-You can make the chat_model into an Agent by giving it a ReAct style prompt and tools:
+You can make the `chat_model` into an Agent by giving it a ReAct style prompt and tools:
 
 ```python
 from langchain import hub
