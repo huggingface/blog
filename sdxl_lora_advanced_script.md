@@ -2,7 +2,7 @@
 title: "LoRA training scripts of the world, unite!"
 thumbnail: /blog/assets/dreambooth_lora_sdxl/thumbnail.png
 authors:
-- user: LinoyTsaban
+- user: linoyts
 - user: multimodalart
 ---
 
