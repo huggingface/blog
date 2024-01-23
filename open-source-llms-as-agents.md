@@ -12,7 +12,7 @@ authors:
 
 Large Language Models (LLMs) trained for [causal language modeling](https://huggingface.co/docs/transformers/tasks/language_modeling) can tackle a wide range of tasks, but they often struggle with basic tasks like logic, calculation, and search. The worst scenario is when they perform poorly in a domain, such as math, yet still attempt to handle all the calculations themselves.
 
-One approach to overcome this weakness is to embed the LLM into a system where it can call tools: such a system is called an LLM Agent.  
+To overcome this weakness, amongst other approaches, one can integrate the LLM into a system where it can call tools: such a system is called an LLM Agent.  
 
 ## Table of Contents
 
@@ -27,7 +27,7 @@ One approach to overcome this weakness is to embed the LLM into a system where i
 
 The definition of LLM Agents is quite broad: LLM agents are all systems that use LLMs as their engine and can perform actions on their environment based on observations. They can use several iterations of the Perception ⇒ Reflexion ⇒ Action cycle to achieve their task and are often augmented with planning or knowledge management systems to enhance their performance. You can find a good review of the Agents landscape in [Xi et al., 2023](https://huggingface.co/papers/2309.07864).
 
-Today, we are focusing on `ReAct agents`. [ReAct](https://huggingface.co/papers/2210.03629) is an approch to building agents based on the concatenation of two words, "**Reasoning**" and "**Acting**." In the prompt, we describe the model, which tools it can use, and ask it to think “step by step” (also called [Chain-of-Thought](https://huggingface.co/papers/2201.11903) behavior) to plan and execute its next actions to reach the final answer. 
+Today, we are focusing on **ReAct agents**. [ReAct](https://huggingface.co/papers/2210.03629) is an approch to building agents based on the concatenation of two words, "**Reasoning**" and "**Acting**." In the prompt, we describe the model, which tools it can use, and ask it to think “step by step” (also called [Chain-of-Thought](https://huggingface.co/papers/2201.11903) behavior) to plan and execute its next actions to reach the final answer. 
 
 ![Sans-titre-2024-01-10-2238.png](%5BDRAFT%5D%20Open-source%20LLMs%20as%20LangChain%20Agents%20632cb4cb4e764465a490eec01a7a6d95/Sans-titre-2024-01-10-2238.png)
 <p align="center">
@@ -140,11 +140,11 @@ We selected questions that can be answered using basic tools: a simple calculato
 - For testing calculator usage, we added questions from [GSM8K](https://huggingface.co/datasets/gsm8k): this dataset tests grade-school math ability, and is entirely solvable by correctly leveraging the 4 operators (add, subtract, multiply, divide).
 - We also picked questions from [GAIA](https://huggingface.co/papers/2311.12983), a very difficult benchmark for General AI Assistants. The questions in the original dataset can require many other different tools, such as a code interpreter or pdf reader: we hand-picked questions that do not require anything except search and calculator.
 
-Evaluation was performed with GPT4-as-a-judge using [the prompt format referenced here](https://github.com/A-Roucher/benchmark_agents/blob/master/prompts.py).
+Evaluation was performed with GPT4-as-a-judge using a prompt based on the [Prometheus prompt format](https://huggingface.co/kaist-ai/prometheus-13b-v1.0), giving results on the Likert Scale: see the exact prompt [here](https://github.com/A-Roucher/benchmark_agents/blob/master/scripts/prompts.py).
 
 ### Results
 
-OpenAI models were evaluated in their own function calling template with which they were fine-tuned. For the open-source models, as per the standard LangChain ReAct prompt, we prompt them to output their function calls in this common format:
+OpenAI models were evaluated in their own function calling template. For the open-source models, as per the standard LangChain ReAct prompt, we prompt them to output their function calls in this common format:
 
 ```json
 {
