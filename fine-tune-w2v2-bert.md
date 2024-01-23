@@ -483,6 +483,12 @@ print("Input array shape:", common_voice_train[rand_int]["audio"]["array"].shape
 print("Sampling rate:", common_voice_train[rand_int]["audio"]["sampling_rate"])
 ```
 
+```bash
+Target text: энэ бол тэдний амжилтын бодит нууц
+Input array shape: (74496,)
+Sampling rate: 16000
+```
+
 Good! Everything looks fine - the data is a 1-dimensional array, the sampling rate always corresponds to 16kHz, and the target text is normalized.
 
 Finally, we can leverage `Wav2Vec2BertProcessor` to process the data to the format expected by `Wav2Vec2BertForCTC` for training. To do so let's make use of Dataset's [`map(...)`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=map#datasets.DatasetDict.map) function.
