@@ -589,9 +589,9 @@ wer_metric = load_metric("wer")
 ```
 
 The model will return a sequence of logit vectors:
-$\mathbf{y}_1, \ldots, \mathbf{y}_m$ with $\mathbf{y}_1 = f_{\theta}(x_1, \ldots, x_n)[0]$ and $n >> m$.
+\\( \mathbf{y}_1, \ldots, \mathbf{y}_m  \\) with \\( \mathbf{y}_1 = f_{\theta}(x_1, \ldots, x_n)[0] \\) and \\( n >> m \\).
 
-A logit vector $\mathbf{y}_1$ contains the log-odds for each word in the vocabulary we defined earlier, thus $\text{len}(\mathbf{y}_i) =$ `config.vocab_size`. We are interested in the most likely prediction of the model and thus take the `argmax(...)` of the logits. Also, we transform the encoded labels back to the original string by replacing `-100` with the `pad_token_id` and decoding the ids while making sure that consecutive tokens are **not** grouped to the same token in CTC style \\( {}^1 \\).
+A logit vector \\( \mathbf{y}_1 \\) contains the log-odds for each word in the vocabulary we defined earlier, thus \\( \text{len}(\mathbf{y}_i) = \\) `config.vocab_size`. We are interested in the most likely prediction of the model and thus take the `argmax(...)` of the logits. Also, we transform the encoded labels back to the original string by replacing `-100` with the `pad_token_id` and decoding the ids while making sure that consecutive tokens are **not** grouped to the same token in CTC style \\( {}^1 \\).
 
 ```python
 def compute_metrics(pred):
@@ -793,7 +793,7 @@ Note that the Common Voice dataset is particularly prone to such "wrong" charact
 
 Here are a few ways to solve under-training in our case:
 - the warm-up rate might be too high, causing the learning rate to drop too quickly. A way to solve this would be keep the warmup ratio to 5 to 15% and scale up the number of epochs. The warm-up steps are essential to gradually bring the new language-model head weights into alignment with the pre-trained model.
-- Loss curve lack of smoothness can be played around thanks to [AdamW](https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html)'s [\\( \beta_2 \\)](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments.adam_beta2) which can typically set from 0.95 to 0.98 by default.
+- Loss curve lack of smoothness can be played around thanks to [AdamW](https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html)'s \\( \beta_2 \\) which can typically set from 0.95 to 0.98 by default.
 
 
 
