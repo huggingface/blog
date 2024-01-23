@@ -38,7 +38,7 @@ Today, we are focusing on **ReAct agents**. [ReAct](https://huggingface.co/paper
 
 ### Toy example of a ReAct agent's inner working
 
-The graph above seems very high level, but under the hood it’s quite simple.
+The graph above seems very high-level, but under the hood it’s quite simple.
 
 Take a look at [this notebook](https://colab.research.google.com/drive/1j_vsc28FwZEDocDxVxWJ6Fvxd18FK8Gl?usp=sharing): we implement a barebones tool call example with the Transformers library. 
 
@@ -54,7 +54,7 @@ You should first reflect with ‘Thought: {your_thoughts}’, then you either:
 
 Then you parse the LLM’s output:
 
-- if it contains the string `‘Final Answer:’`, the loop ends and you print the answer
+- if it contains the string `‘Final Answer:’`, the loop ends and you print the answer,
 - else, the LLM should have output a tool call: you can parse this output to get the tool name and arguments, then call said tool with said arguments. Then the output of this tool call is appended to the prompt, and you call the LLM again with this extended information, until it has enough information to finally provide a final answer to the question.
 
 For instance, the LLM's output can look like this, when answering the question: `How many seconds are in 1:23:45?`
@@ -108,7 +108,7 @@ We call the LLM with this new prompt. Given that it has access to the tool call'
  Final Answer: There are 5025 seconds in 1:23:45.
 ``````
 
-And the task is successfully solved.
+And the task is solved!
 
 ### Challenges
 
@@ -142,7 +142,7 @@ llm = HuggingFaceHub(
 chat_model = ChatHuggingFace(llm=llm)
 ```
 
-You can make the chat_model into an Agent by giving it a ReAct style prompt and tools:
+You can make the `chat_model` into an Agent by giving it a ReAct style prompt and tools:
 
 ```python
 from langchain import hub
@@ -181,9 +181,24 @@ agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 
 agent_executor.invoke(
     {
-        "input": "Who is the current holder of the speedskating world record? What is her current age raised to the 0.43 power?"
+        "input": "Who is the current holder of the speed skating world record on 500 meters? What is her current age raised to the 0.43 power?"
     }
 )
+```
+
+And the agent will process the input:
+
+```python
+    **Thought:** To answer this question, I need to find age of the current speedskating world record holder.  I will use the search tool to find this information.
+    **Action:**
+
+    ```json
+        {
+        "action": "search",
+        "action_input": "speed skating world record hlder 500m age"
+        }
+    ```
+    Observation: ...
 ```
 
 ## Agents Showdown: how do different LLMs perform as general purpose reasoning agents?
