@@ -17,6 +17,8 @@ To overcome this weakness, amongst other approaches, one can integrate the LLM i
 ## Table of Contents
 
 - [What are agents?](#what-are-agents)
+    - [Toy example of a ReAct agent's inner working](#toy-example-of-a-react-agents-inner-working)
+    - [Challenges](#challenges)
 - [Running agents with LangChain](#running-agents-with-langchain)
 - [Agents Showdown: how do different LLMs perform as general purpose reasoning agents?](#agents-showdown-how-do-different-llms-perform-as-general-purpose-reasoning-agents)
     - [Evaluation dataset](#evaluation-dataset)
@@ -33,10 +35,17 @@ Today, we are focusing on **ReAct agents**. [ReAct](https://huggingface.co/paper
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-source-llms-as-agents/ReAct.png" alt="drawing" width=90%>
 </p>
 
-This graph seems very high level, but under the hood it’s quite simple: the LLM is called in a loop with a prompt containing in essence:
+
+### Toy example of a ReAct agent's inner working
+
+The graph above seems very high level, but under the hood it’s quite simple.
+
+Take a look at [this notebook](https://colab.research.google.com/drive/1j_vsc28FwZEDocDxVxWJ6Fvxd18FK8Gl?usp=sharing): we implement a barebones tool call example with the Transformers library. 
+
+The LLM is called in a loop with a prompt containing in essence:
 
 ```
-Here is a question: {question}. 
+Here is a question: "{question}" 
 You have access to these tools: {tools_descriptions}. 
 You should first reflect with ‘Thought: {your_thoughts}’, then you either:
 - call a tool with the proper JSON formatting,
@@ -48,6 +57,61 @@ Then you parse the LLM’s output:
 - if it contains the string `‘Final Answer:’`, the loop ends and you print the answer
 - else, the LLM should have output a tool call: you can parse this output to get the tool name and arguments, then call said tool with said arguments. Then the output of this tool call is appended to the prompt, and you call the LLM again with this extended information, until it has enough information to finally provide a final answer to the question.
 
+For instance, the LLM's output can look like this, when answering the question: `How many seconds are in 1:23:45?`
+```
+    Thought: I need to convert the time string into seconds.
+
+    Action:
+    ```json
+    {
+      "action": "convert_time",
+      "action_input": {
+        "time": "1:23:45"
+      }
+    }
+    ```
+```
+
+Since this output does not contain the string `‘Final Answer:’`, it is calling a tool: so we parse this output and get the tool call parameters: call tool `convert_time` with arguments `{"time": "1:23:45"}`.
+Running this tool call returns `{'seconds': '5025'}`.
+
+So we append this whole blob to the prompt.
+
+The new prompt is now (a slightly more elaborate version of):
+```
+    Here is a question: "How many seconds are in 1:23:45?"
+    You have access to these tools:
+        - convert_time: converts a time given in hours:minutes:seconds into seconds.
+
+    You should first reflect with ‘Thought: {your_thoughts}’, then you either:
+    - call a tool with the proper JSON formatting,
+    - or your print your final answer starting with the prefix ‘Final Answer:’
+
+    Thought: I need to convert the time string into seconds.
+
+    Action:
+    ```json
+    {
+      "action": "convert_time",
+      "action_input": {
+        "time": "1:23:45"
+      }
+    }
+    ```
+    Observation: {'seconds': '5025'}
+```
+
+We call the LLM with this new prompt. Given that it has access to the tool call's result in `Observation`, it is now most likely to output:
+
+```markdown
+ Thought: I now have the information needed to answer the question.
+ Final Answer: There are 5025 seconds in 1:23:45.
+``````
+
+And the task is successfully solved.
+
+### Challenges
+
 Generally, the difficult parts of running an Agent system for the LLM engine are:
 
 1. From supplied tools, choose the one that will help advance to a desired goal: e.g. when asked `"What is the smallest prime number greater than 30,000?"`, the agent could call the `Search` tool with `"What is he height of K2"` but it won't help.
@@ -57,11 +121,8 @@ Generally, the difficult parts of running an Agent system for the LLM engine are
     - Non-standardized formatting: `“args": "3km in 10minutes”`
 3. Efficiently ingesting and using the information gathered in the past observations, be it the initial context or the observations returned after using tool uses.
 
-With that in mind, let us get a low level understanding of how agents are able to use tools!
 
-Take a look at [this notebook](https://colab.research.google.com/drive/1j_vsc28FwZEDocDxVxWJ6Fvxd18FK8Gl?usp=sharing): we implement a barebones tool call example with the Transformers library. 
-
-So, how would it look like in a complete Agent setup?
+So, how would a complete Agent setup look like?
 
 ## Running agents with LangChain
 
@@ -209,7 +270,9 @@ As you can see, some open-source models perform poorly: while this was expected 
 
 But Mixtral-8x7B holds its own really well compared to other models: it performs nearly equivalent to GPT-3.5. It is the best of the OS models we tested to power Agent workflows! 🏆
 
-This is out-of-the-box performance: __contrary to GPT-3.5, Mixtral was not finetuned for agent workflows__ (to our knowledge), which somewhat hinders its performance. For instance, on GAIA, 10% of questions fail because Mixtral tries to call a tool with incorrectly formatted arguments. **With proper finetuning for the function calling and task planning skills, Mixtral’s score would likely be even higher.** We strongly recommend open-source builders to start finetuning Mixtral for agents, to surpass the next challenger: GPT-4! 🚀
+This is out-of-the-box performance: __contrary to GPT-3.5, Mixtral was not finetuned for agent workflows__ (to our knowledge), which somewhat hinders its performance. For instance, on GAIA, 10% of questions fail because Mixtral tries to call a tool with incorrectly formatted arguments.
+
+**With proper finetuning for the function calling and task planning skills, Mixtral’s score would likely be even higher.** We strongly recommend open-source builders to start finetuning Mixtral for agents, to surpass the next challenger: GPT-4! 🚀
 
 **Closing remarks:**
 
