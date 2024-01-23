@@ -30,6 +30,9 @@ The definition of LLM Agents is quite broad: LLM agents are all systems that use
 Today, we are focusing on `ReAct agents`. [ReAct](https://huggingface.co/papers/2210.03629) is an approch to building agents based on the concatenation of two words, "**Reasoning**" and "**Acting**." In the prompt, we describe the model, which tools it can use, and ask it to think “step by step” (also called [Chain-of-Thought](https://huggingface.co/papers/2201.11903) behavior) to plan and execute its next actions to reach the final answer. 
 
 ![Sans-titre-2024-01-10-2238.png](%5BDRAFT%5D%20Open-source%20LLMs%20as%20LangChain%20Agents%20632cb4cb4e764465a490eec01a7a6d95/Sans-titre-2024-01-10-2238.png)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/model_doc/oneformer_architecture.png" alt="drawing" width=500>
+</p>
 
 This graph seems very high level, but under the hood it’s quite simple: the LLM is called in a loop with a prompt containing in essence:
 
@@ -48,7 +51,7 @@ Then you parse the LLM’s output:
 
 Generally, the difficult parts of running an Agent system for the LLM engine are:
 
-1. Choose useful tool calls: e.g. when asked `"What is the smallest prime number greater than 30,000?"`, the agent can call the `Search` tool with `"What is he height of K2"` but it won't help.
+1. From supplied tools, choose the one that will help advance to a desired goal: e.g. when asked `"What is the smallest prime number greater than 30,000?"`, the agent could call the `Search` tool with `"What is he height of K2"` but it won't help.
 2. Call tools with a rigorous argument formatting: for instance when trying to calculate the speed of a car that went 3 km in 10 minutes, you have to call tool `Calculator` to divide `distance` by `time` : even if your Calculator tool accepts calls in the JSON format: `{”tool”: “Calculator”, “args”: “3km/10min”}` , there are many pitfalls:
     - Misspelling the tool name: `“calculator”` or `“Compute”` wouldn’t work
     - Giving the name of the arguments instead of their values: `“args”: “distance/time”`
@@ -127,7 +130,7 @@ agent_executor.invoke(
 ## Agents Showdown: how do different LLMs perform as general purpose reasoning agents?
 
 
-To understand how open-source LLM’s perform as general purpose reasoning agents, we have evaluated four strong models ([Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf), [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [OpenHermes-2.5-Mistral-7B](https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B), [Zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)) in a [ReAct workflow](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react) where they were tasked with answering questions that require basic tool usage. We have also evaluated GPT3.5 and GPT4 on the same examples using the [OpenAI specific function calling agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent) for comparison.
+To understand how open-source LLMs perform as general purpose reasoning agents, we have evaluated four strong models ([Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf), [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [OpenHermes-2.5-Mistral-7B](https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B), [Zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)) in a [ReAct workflow](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react) where they were tasked with answering questions that require basic tool usage. We have also evaluated GPT3.5 and GPT4 on the same examples using the [OpenAI specific function calling agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent) for comparison.
 
 ### Evaluation dataset
 
@@ -161,22 +164,22 @@ Here’s an example of Mixtral-8x7B answering the question:
 **Thought:** To answer this question, I need to find the current populations of both Guiyang and Tacheng. I will use the search tool to find this information.
 **Action:**
 
-```json
+`json
 {
   "action": "search",
   "action_input": "current population of Guiyang"
 }
-```
-4.697 million (2016)*
+`
+4.697 million (2016)
 
 **Thought:** I have obtained the population of Guiyang, which is 4.697 million (as of 2016). Now, I will use the search tool again to find the population of Tacheng.
 **Action:**
-```json
+`json
 {
   "action": "search",
   "action_input": "current population of Tacheng"
 }
-```
+`
 Population: Xinjiang: Tacheng data was reported at 1,110.000 Person in 2021. This records a decrease from the previous number of 1,138.638 Person for 2020.
 Population: Xinjiang: Tacheng data is updated yearly, averaging 1,023.000 Person from Dec 2005 to 2021, with 17 observations.
 
@@ -188,8 +191,9 @@ I have obtained the population of Tacheng, which is approximately 1.11 million (
 
 Here is a benchmark of the models on our evaluation dataset:
 
-**Disclaimer: this image is not final, llama2 and OpenHermes are still to be added.**
-<img src="https://huggingface.co/datasets/m-ric/images/resolve/main/benchmark.png" height="700">
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/model_doc/oneformer_architecture.png" alt="benchmark of agents performance" height="700">
+</p>
 
 As you can see, some open-source models perform poorly: while this was expected for the small Zephyr-7b, Llama2-70b performs surprisingly poorly.
 
