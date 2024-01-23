@@ -146,11 +146,11 @@ Evaluation was performed with GPT4-as-a-judge using [the prompt format reference
 
 OpenAI models were evaluated in their own function calling template with which they were fine-tuned. For the open-source models, as per the standard LangChain ReAct prompt, we prompt them to output their function calls in this common format:
 
-```python
-{{
+```json
+{
   "action": $TOOL_NAME,
   "action_input": $INPUT
-}}
+}
 ```
 
 Since these open-source models were not specifically tuned for calling functions in this output format, they are at a slight disadvantage to the OpenAI agents. Despite this, some models perform really well!
@@ -160,26 +160,26 @@ Here’s an example of Mixtral-8x7B answering the question:
 > “**Which city has a larger population, Guiyang or Tacheng?”**
 > 
 
-```python
+```bash
 **Thought:** To answer this question, I need to find the current populations of both Guiyang and Tacheng. I will use the search tool to find this information.
 **Action:**
 
-`json
+~~~json
 {
   "action": "search",
   "action_input": "current population of Guiyang"
 }
-`
+~~~
 4.697 million (2016)
 
 **Thought:** I have obtained the population of Guiyang, which is 4.697 million (as of 2016). Now, I will use the search tool again to find the population of Tacheng.
 **Action:**
-`json
+~~~json
 {
   "action": "search",
   "action_input": "current population of Tacheng"
 }
-`
+~~~
 Population: Xinjiang: Tacheng data was reported at 1,110.000 Person in 2021. This records a decrease from the previous number of 1,138.638 Person for 2020.
 Population: Xinjiang: Tacheng data is updated yearly, averaging 1,023.000 Person from Dec 2005 to 2021, with 17 observations.
 
