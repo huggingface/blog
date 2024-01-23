@@ -18,7 +18,7 @@ One approach to overcome this weakness is to embed the LLM into a system where i
 
 - [What are agents?](#what-are-agents)
 - [Running agents with LangChain](#running-agents-with-langchain)
-- [Agents Showdown: how do different LLMs perform as general purpose reasoning agents?](#Agents-Showdown:-how-do-different-LLMs-perform-as-general-purpose-reasoning-agents?)
+- [Agents Showdown: how do different LLMs perform as general purpose reasoning agents?](#agents-showdown-how-do-different-llms-perform-as-general-purpose-reasoning-agents)
     - [Evaluation dataset](#evaluation-dataset)
     - [Results](#results)
 
