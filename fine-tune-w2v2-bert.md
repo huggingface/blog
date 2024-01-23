@@ -16,23 +16,33 @@ authors:
 
 ***New (01/2024)***: *This blog post is strongly inspired by "[Fine-tuning XLS-R on Multi-Lingual ASR](https://huggingface.co/blog/fine-tune-xlsr-wav2vec2)" and ["Fine-tuning MMS Adapter Models for Multi-Lingual ASR"](https://huggingface.co/blog/mms_adapters)*.
 
-**Wav2Vec2** is a pre-trained model for Automatic Speech Recognition (ASR) released in [September 2020](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) by *Alexei Baevski, Michael Auli, and Alex Conneau*.  With as little as 10 minutes of labeled audio data, Wav2Vec2 can be fine-tuned to achieve 5% word-error rate performance on the [LibriSpeech](https://huggingface.co/datasets/librispeech_asr) dataset, demonstrating for the first time low-resource transfer learning for ASR.
+## Introduction
 
-Following a series of multilingual improvements ([XLSR](https://huggingface.co/docs/transformers/model_doc/xlsr_wav2vec2), [XLS-R](https://huggingface.co/docs/transformers/model_doc/xls_r) and [MMS](https://huggingface.co/docs/transformers/model_doc/mms)), MetaAI have released [W2v-BERT](https://huggingface.co/docs/transformers/main/en/model_doc/wav2vec2-bert), as a building block of their [Seamless Communication](https://ai.meta.com/research/seamless-communication/), a family of AI translation models.
+Last month, MetaAI released [Wav2Vec2-BERT](https://huggingface.co/docs/transformers/main/en/model_doc/wav2vec2-bert), as a building block of their [Seamless Communication](https://ai.meta.com/research/seamless-communication/), a family of AI translation models.
 
-This new 580M-parameters version was pre-trained on **4.5M** hours of unlabeled audio data covering **more than 143 languages**. It requires fine-tuning to be used for downstream tasks such as Automatic Speech Recognition (ASR), or Audio Classification.
+[Wav2Vec2-BERT](https://huggingface.co/docs/transformers/main/en/model_doc/wav2vec2-bert) is the result of a series of improvements based on an original model: **Wav2Vec2**, a pre-trained model for Automatic Speech Recognition (ASR) released in [September 2020](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) by *Alexei Baevski, Michael Auli, and Alex Conneau*.  With as little as 10 minutes of labeled audio data, Wav2Vec2 could be fine-tuned to achieve 5% word-error rate performance on the [LibriSpeech](https://huggingface.co/datasets/librispeech_asr) dataset, demonstrating for the first time low-resource transfer learning for ASR.
 
-For comparison, **XLS-R** used almost **half a million** hours of audio data in **128 languages** and **MMS** checkpoints were pre-trained on more than **half a million hours of audio** in over **1,400 languages**. Consequently, Wav2Vec2-BERT is particularly well-suited to all speech-related tasks, whatever the language.
+Following a series of multilingual improvements ([XLSR](https://huggingface.co/docs/transformers/model_doc/xlsr_wav2vec2), [XLS-R](https://huggingface.co/docs/transformers/model_doc/xls_r) and [MMS](https://huggingface.co/docs/transformers/model_doc/mms)), Wav2Vec2-BERT is a 580M-parameters versatile audio model that has been pre-trained on **4.5M** hours of unlabeled audio data covering **more than 143 languages**. For comparison, **XLS-R** used almost **half a million** hours of audio data in **128 languages** and **MMS** checkpoints were pre-trained on more than **half a million hours of audio** in over **1,400 languages**. Boosting to millions of hours enables Wav2Vec2-BERT to achieve even more competitive results in speech-related tasks, whatever the language.
 
-The aim of this notebook is to give you all the elements you need to train a CTC model on ASR tasks, using open-source tools and models. It first presents the complete pre-processing pipeline, then performs a little fine-tuning of the W2V2-BERT. The final section gathers training tips from Hugging Face experts to scale-up CTC training.
+To use it for ASR, Wav2Vec2-BERT can be fine-tuned using Connectionist Temporal Classification (CTC), which is an algorithm that is used to train neural networks for sequence-to-sequence problems, such as ASR and handwriting recognition. We highly recommend reading the well-written blog post [*Sequence Modeling with CTC (2017)*](https://distill.pub/2017/ctc/) by Awni Hannun, to learn more about the CTC algorithm.
 
-In this blop post, we will give an in-detail explanation of how W2V2-BERT - more specifically the pre-trained checkpoint [**facebook/w2v-bert-2.0**](https://huggingface.co/facebook/w2v-bert-2.0) - can be fine-tuned for ASR.  
+The aim of this notebook is to give you all the elements you need to train Wav2Vec2-BERT model - more specifically the pre-trained checkpoint [**facebook/w2v-bert-2.0**](https://huggingface.co/facebook/w2v-bert-2.0) - on ASR tasks, using open-source tools and models. It first presents the complete pre-processing pipeline, then performs a little fine-tuning of the W2V2-BERT. The final section gathers training tips from Hugging Face experts to scale-up CTC training.
 
 For demonstration purposes, we fine-tune the model on the low resource Mongolian ASR dataset of [Common Voice 16.0](https://huggingface.co/datasets/mozilla-foundation/common_voice_16_0) that contains *ca.* 14h of validated training data.
 
-W2V-BERT is fine-tuned using Connectionist Temporal Classification (CTC), which is an algorithm that is used to train neural networks for sequence-to-sequence problems, such as ASR and handwriting recognition.
+## Motivation
 
-We highly recommend reading the well-written blog post [*Sequence Modeling with CTC (2017)*](https://distill.pub/2017/ctc/) by Awni Hannun.
+[Whisper](https://huggingface.co/blog/fine-tune-whisper#introduction) is a suite of ASR models, commonly accepted as the best performing models for the ASR task. It provides state-of-the-art performance for English ASR, while being well suited to multilingual fine-tuning from limited resources.
+
+However, when it comes to "resource-poor" languages such as Mongolian, Whisper performs poorly, as seen in section D.2.2 of the [Whisper paper](https://cdn.openai.com/papers/whisper.pdf) - Mongolian or Malayalam achieved over 100% WER at every Whisper checkpoint. The checkpoint available also have a limited vocabulary and therefore cannot be fine-tuned on a language whose alphabet does not overlap with this vocabulary.
+
+In addition, Whisper is a sequence-to-sequence model that performs ASR autoregressively, making it inherently "slow".
+
+Faced with limited resources - both in terms of training data availability and inference constraints - more "frugal" models are needed. In this case, Wav2Vec2-BERT is just the thing.
+
+**Wav2Vec2-BERT** predicts ASR in a single pass, making it much faster than Whisper. As this notebook will show, it requires **little data** to achieve **competitive performance**, is **easily adaptable** to any alphabet, and is **more resource-efficient**.
+
+In fact, it achieves **similar WER performance** on Mongolian ASR compared with [Whisper-large-v3](https://huggingface.co/openai/whisper-large-v3) after similar fine-tuning, while being over **8x faster** and **2.5x more resource-efficient**.
 
 ## Notebook Setup
 
@@ -67,7 +77,7 @@ notebook_login()
 
 ASR models transcribe speech to text, which means that we both need a feature extractor that processes the speech signal to the model's input format, *e.g.* a feature vector, and a tokenizer that processes the model's output format to text.
 
-In 🤗 Transformers, the W2V-BERT model is thus accompanied by both a tokenizer, called [Wav2Vec2CTCTokenizer](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#wav2vec2ctctokenizer), and a feature extractor, called [SeamlessM4TFeatureExtractor](https://huggingface.co/docs/transformers/v4.36.1/en/model_doc/seamless_m4t#transformers.SeamlessM4TFeatureExtractor) that the model shares with the [first](https://huggingface.co/docs/transformers/main/en/model_doc/seamless_m4t) and [second](https://huggingface.co/docs/transformers/main/en/model_doc/seamless_m4_v2t) versions of Seamless-M4T, as they all process audio in the same way.
+In 🤗 Transformers, the Wav2Vec2-BERT model is thus accompanied by both a tokenizer, called [Wav2Vec2CTCTokenizer](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#wav2vec2ctctokenizer), and a feature extractor, called [SeamlessM4TFeatureExtractor](https://huggingface.co/docs/transformers/v4.36.1/en/model_doc/seamless_m4t#transformers.SeamlessM4TFeatureExtractor) that the model shares with the [first](https://huggingface.co/docs/transformers/main/en/model_doc/seamless_m4t) and [second](https://huggingface.co/docs/transformers/main/en/model_doc/seamless_m4_v2t) versions of Seamless-M4T, as they all process audio in the same way.
 
 Let's start by creating the tokenizer to decode the predicted output classes to the output transcription.
 
@@ -328,7 +338,7 @@ len(vocab_dict)
 37
 ```
 
-Cool, now our vocabulary is complete and consists of 37 tokens, which means that the linear layer that we will add on top of the pre-trained W2V-BERT checkpoint will have an output dimension of 37.
+Cool, now our vocabulary is complete and consists of 37 tokens, which means that the linear layer that we will add on top of the pre-trained Wav2Vec2-BERT checkpoint will have an output dimension of 37.
 
 Let's now save the vocabulary as a json file.
 
@@ -373,7 +383,7 @@ from transformers import SeamlessM4TFeatureExtractor
 feature_extractor = SeamlessM4TFeatureExtractor.from_pretrained("facebook/w2v-bert-2.0")
 ```
 
-Great, W2V-BERT's feature extraction pipeline is thereby fully defined!
+Great, Wav2Vec2-BERT's feature extraction pipeline is thereby fully defined!
 
 For improved user-friendliness, the feature extractor and tokenizer are *wrapped* into a single `Wav2Vec2BertProcessor` class so that one only needs a `model` and `processor` object.
 
@@ -398,7 +408,7 @@ common_voice_train[0]["path"]
 /root/.cache/huggingface/datasets/downloads/extracted/276aa682ce2b6a24934bc401b1f30e004c3fb178dd41d6295b273329f592844a/mn_train_0/common_voice_mn_18578097.mp3
 ```
 
-W2V-BERT expects the input in the format of a 1-dimensional array of 16 kHz. This means that the audio file has to be loaded and resampled.
+Wav2Vec2-BERT expects the input in the format of a 1-dimensional array of 16 kHz. This means that the audio file has to be loaded and resampled.
 
 Thankfully, `datasets` does this automatically by calling the other column `audio`. Let try it out.
 
@@ -415,7 +425,7 @@ common_voice_train[0]["audio"]
 
 Great, we can see that the audio file has automatically been loaded. This is thanks to the new [`"Audio"` feature](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=audio#datasets.Audio) introduced in `datasets == 4.13.3`, which loads and resamples audio files on-the-fly upon calling.
 
-In the example above we can see that the audio data is loaded with a sampling rate of 48kHz whereas W2V-BERT was pre-trained at a sampling rate of 16kHz. The sampling rate plays an important role in that it defines how many data points of the speech signal are measured per second. Therefore, sampling with a higher sampling rate results in a better approximation of the *real* speech signal but also necessitates more values per second.
+In the example above we can see that the audio data is loaded with a sampling rate of 48kHz whereas Wav2Vec2-BERT was pre-trained at a sampling rate of 16kHz. The sampling rate plays an important role in that it defines how many data points of the speech signal are measured per second. Therefore, sampling with a higher sampling rate results in a better approximation of the *real* speech signal but also necessitates more values per second.
 
 A pre-trained checkpoint expects its input data to have been sampled more or less from the same distribution as the data it was trained on. The same speech signals sampled at two different rates have a very different distribution, *e.g.*, doubling the sampling rate results in data points being twice as long. Thus,
 before fine-tuning a pre-trained checkpoint of an ASR model, it is crucial to verify that the sampling rate of the data that was used to pre-train the model matches the sampling rate of the dataset used to fine-tune the model.
@@ -506,7 +516,7 @@ Awesome, now we are ready to start training!
 
 The data is processed so that we are ready to start setting up the training pipeline. We will make use of 🤗 Transformer's [Trainer](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer) class, for which we essentially need to do the following:
 
-- Define a data collator. In contrast to most NLP models, W2V-BERT has a much larger input length than output length. Given the large input sizes, it is much more efficient to pad the training batches dynamically meaning that all training samples should only be padded to the longest sample in their batch and not the overall longest sample. Therefore, fine-tuning W2V-BERT requires a special padding data collator, which we will define below.
+- Define a data collator. In contrast to most NLP models, Wav2Vec2-BERT has a much larger input length than output length. Given the large input sizes, it is much more efficient to pad the training batches dynamically meaning that all training samples should only be padded to the longest sample in their batch and not the overall longest sample. Therefore, fine-tuning Wav2Vec2-BERT requires a special padding data collator, which we will define below.
 
 - Evaluation metric. During training, the model should be evaluated on the word error rate. We should define a `compute_metrics` function accordingly
 
@@ -594,7 +604,7 @@ Now, we can load the main pre-trained |checkpoint](https://huggingface.co/facebo
 
 Since, we're only training a small subset of weights, the model is not prone to overfitting. Therefore, we make sure to disable all dropout layers.
 
-**Note**: When using this notebook to train W2V-BERT on another language of Common Voice those hyper-parameter settings might not work very well. Feel free to adapt those depending on your use case.
+**Note**: When using this notebook to train Wav2Vec2-BERT on another language of Common Voice those hyper-parameter settings might not work very well. Feel free to adapt those depending on your use case.
 
 ```python
 from transformers import Wav2Vec2BertForCTC
@@ -670,7 +680,7 @@ trainer = Trainer(
 
 ### Training
 
-Training will take multiple hours depending on the GPU allocated to this notebook. While the trained model yields somewhat satisfying results on *Common Voice*'s test data of Mongolian, it is by no means an optimally fine-tuned model. The purpose of this notebook is just to demonstrate how to fine-tune W2V-BERT on an ASR dataset.
+Training will take multiple hours depending on the GPU allocated to this notebook. While the trained model yields somewhat satisfying results on *Common Voice*'s test data of Mongolian, it is by no means an optimally fine-tuned model. The purpose of this notebook is just to demonstrate how to fine-tune Wav2Vec2-BERT on an ASR dataset.
 
 ```python
 trainer.train()
@@ -691,7 +701,7 @@ trainer.train()
 | 1100 | 0.074300      | 0.528603        | 0.333696 |
 | 1200 | 0.054000      | 0.503239        | 0.325103 |
 
-The training loss and validation WER go down nicely.
+The training loss and validation WER go down nicely. In comparison, the same training with [whisper-large-v3](https://huggingface.co/openai/whisper-large-v3), the commonly recognized state-of-the-art ASR model from OpenAI, has a final WER of 33.3%. You can find the resulting Whisper checkpoint [here](https://huggingface.co/sanchit-gandhi/whisper-large-v3-ft-cv16-mn). This shows that Wav2Vec2-Bert can achieve performance close to or **equivalent to that of the state of the art in low-resource languages**.
 
 You can now upload the result of the training to the 🤗 Hub, just execute this instruction:
 
@@ -708,7 +718,7 @@ model = AutoModelForCTC.from_pretrained("ylacombe/w2v-bert-2.0-mongolian-colab-C
 processor = Wav2Vec2BertProcessor.from_pretrained("ylacombe/w2v-bert-2.0-mongolian-colab-CV16.0")
 ```
 
-For more examples of how W2V-BERT can be fine-tuned, please take a look at the [official speech recognition examples](https://github.com/huggingface/transformers/tree/master/examples/pytorch/speech-recognition#examples).
+For more examples of how Wav2Vec2-BERT can be fine-tuned, please take a look at the [official speech recognition examples](https://github.com/huggingface/transformers/tree/master/examples/pytorch/speech-recognition#examples).
 
 ### Evaluation
 
