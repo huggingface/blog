@@ -51,11 +51,10 @@ Then you parse the LLM’s output:
 Generally, the difficult parts of running an Agent system for the LLM engine are:
 
 1. From supplied tools, choose the one that will help advance to a desired goal: e.g. when asked `"What is the smallest prime number greater than 30,000?"`, the agent could call the `Search` tool with `"What is he height of K2"` but it won't help.
-2. Call tools with a rigorous argument formatting: for instance when trying to calculate the speed of a car that went 3 km in 10 minutes, you have to call tool `Calculator` to divide `distance` by `time` : even if your Calculator tool accepts calls in the JSON format: `{”tool”: “Calculator”, “args”: “3km/10min”}` , there are many pitfalls:
+2. Call tools with a rigorous argument formatting: for instance when trying to calculate the speed of a car that went 3 km in 10 minutes, you have to call tool `Calculator` to divide `distance` by `time` : even if your Calculator tool accepts calls in the JSON format: `{”tool”: “Calculator”, “args”: “3km/10min”}` , there are many pitfalls, for instance:
     - Misspelling the tool name: `“calculator”` or `“Compute”` wouldn’t work
     - Giving the name of the arguments instead of their values: `“args”: “distance/time”`
     - Non-standardized formatting: `“args": "3km in 10minutes”`
-    - and others
 3. Efficiently ingesting and using the information gathered in the past observations, be it the initial context or the observations returned after using tool uses.
 
 With that in mind, let us get a low level understanding of how agents are able to use tools!
@@ -129,7 +128,7 @@ agent_executor.invoke(
 ## Agents Showdown: how do different LLMs perform as general purpose reasoning agents?
 
 
-To understand how open-source LLMs perform as general purpose reasoning agents, we have evaluated four strong models ([Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf), [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [OpenHermes-2.5-Mistral-7B](https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B), [Zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)) in a [ReAct workflow](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react) where they were tasked with answering questions that require basic tool usage. We have also evaluated GPT3.5 and GPT4 on the same examples using the [OpenAI specific function calling agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent) for comparison.
+To understand how open-source LLMs perform as general purpose reasoning agents, we have evaluated four strong models ([Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf), [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [OpenHermes-2.5-Mistral-7B](https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B), [Zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)) in LangChain's [ReAct implementation](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react) where they were tasked with answering questions that require basic tool usage. We have also evaluated GPT3.5 and GPT4 on the same examples using LangChain's [OpenAI specific function calling agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent) for comparison.
 
 ### Evaluation dataset
 
@@ -160,44 +159,45 @@ Here’s an example of Mixtral-8x7B answering the question:
 > 
 
 ```bash
-**Thought:** To answer this question, I need to find the current populations of both Guiyang and Tacheng. I will use the search tool to find this information.
-**Action:**
+    **Thought:** To answer this question, I need to find the current populations of both Guiyang and Tacheng. I will use the search tool to find this information.
+    **Action:**
 
-~~~json
-{
-  "action": "search",
-  "action_input": "current population of Guiyang"
-}
-~~~
-4.697 million (2016)
+    ```json
+        {
+        "action": "search",
+        "action_input": "current population of Guiyang"
+        }
+    ```
+    4.697 million (2016)
 
-**Thought:** I have obtained the population of Guiyang, which is 4.697 million (as of 2016). Now, I will use the search tool again to find the population of Tacheng.
-**Action:**
-~~~json
-{
-  "action": "search",
-  "action_input": "current population of Tacheng"
-}
-~~~
-Population: Xinjiang: Tacheng data was reported at 1,110.000 Person in 2021. This records a decrease from the previous number of 1,138.638 Person for 2020.
-Population: Xinjiang: Tacheng data is updated yearly, averaging 1,023.000 Person from Dec 2005 to 2021, with 17 observations.
+    **Thought:** I have obtained the population of Guiyang, which is 4.697 million (as of 2016). Now, I will use the search tool again to find the population of Tacheng.
+    **Action:**
+    ```json
+        {
+        "action": "search",
+        "action_input": "current population of Tacheng"
+        }
+    ```
+    Population: Xinjiang: Tacheng data was reported at 1,110.000 Person in 2021. This records a decrease from the previous number of 1,138.638 Person for 2020.
+    Population: Xinjiang: Tacheng data is updated yearly, averaging 1,023.000 Person from Dec 2005 to 2021, with 17 observations.
 
-I have obtained the population of Tacheng, which is approximately 1.11 million (as of 2021). Comparing the two populations, Guiyang has a larger population than Tacheng.
+    I have obtained the population of Tacheng, which is approximately 1.11 million (as of 2021). Comparing the two populations, Guiyang has a larger population than Tacheng.
 
-**Thought:** I now know the final answer
-**Final Answer:** Guiyang has a larger population, which is approximately 4.697 million (as of 2016), compared to Tacheng's population of approximately 1.11 million (as of 2021).
+    **Thought:** I now know the final answer
+    **Final Answer:** Guiyang has a larger population, which is approximately 4.697 million (as of 2016), compared to Tacheng's population of approximately 1.11 million (as of 2021).
 ```
 
 Here is a benchmark of the models on our evaluation dataset:
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-source-llms-as-agents/benchmark_agents.png" alt="benchmark of agents performance" width="80%">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-source-llms-as-agents/benchmark_agents.png" alt="benchmark of agents performance" width="90%">
 </p>
+
 As you can see, some open-source models perform poorly: while this was expected for the small Zephyr-7b, Llama2-70b performs surprisingly poorly.
 
 But Mixtral-8x7B holds its own really well compared to other models: it performs nearly equivalent to GPT3.5. It is the best of the OS models we tested to power Agent workflows! 🏆
 
-This is out-of-the-box performance: contrary to GPT3.5, Mixtral was not finetuned for agent workflows (to our knowledge), which somewhat hinders its performance. For instance, on GAIA, 10% of calls fail when Mixtral tries to call a tool with incorrectly formatted arguments. With proper finetuning for the function calling and task planning skills, Mixtral’s score would likely be even higher. We strongly recommend open-source builders to start finetuning Mixtral for agents, to surpass the next challenger: GPT4! 🚀
+This is out-of-the-box performance: __contrary to GPT3.5, Mixtral was not finetuned for agent workflows__ (to our knowledge), which somewhat hinders its performance. For instance, on GAIA, 10% of questions fail because Mixtral tries to call a tool with incorrectly formatted arguments. **With proper finetuning for the function calling and task planning skills, Mixtral’s score would likely be even higher.** We strongly recommend open-source builders to start finetuning Mixtral for agents, to surpass the next challenger: GPT4! 🚀
 
 **Closing remarks:**
 
