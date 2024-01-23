@@ -128,7 +128,7 @@ agent_executor.invoke(
 ## Agents Showdown: how do different LLMs perform as general purpose reasoning agents?
 
 
-To understand how open-source LLMs perform as general purpose reasoning agents, we have evaluated four strong models ([Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf), [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [OpenHermes-2.5-Mistral-7B](https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B), [Zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)) in LangChain's [ReAct implementation](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react) where they were tasked with answering questions that require basic tool usage. We have also evaluated GPT3.5 and GPT4 on the same examples using LangChain's [OpenAI specific function calling agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent) for comparison.
+To understand how open-source LLMs perform as general purpose reasoning agents, we have evaluated strong models on questions requiring using a few basic tools.
 
 ### Evaluation dataset
 
@@ -140,9 +140,16 @@ We selected questions that can be answered using basic tools: a simple calculato
 
 Evaluation was performed with GPT4-as-a-judge using a prompt based on the [Prometheus prompt format](https://huggingface.co/kaist-ai/prometheus-13b-v1.0), giving results on the Likert Scale: see the exact prompt [here](https://github.com/A-Roucher/benchmark_agents/blob/master/scripts/prompts.py).
 
-### Results
+### Models
 
-OpenAI models were evaluated in their own function calling template. For the open-source models, as per the standard LangChain ReAct prompt, we prompt them to output their function calls in this common format:
+On the open-source side, we evaluate:
+- [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf)
+- [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1)
+- [OpenHermes-2.5-Mistral-7B](https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B)
+- [Zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)
+
+These open-source models are evaluated in LangChain's [ReAct implementation](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react)
+For the open-source models, as per the standard LangChain ReAct prompt, we prompt them to output their function calls in this common format:
 
 ```json
 {
@@ -151,7 +158,14 @@ OpenAI models were evaluated in their own function calling template. For the ope
 }
 ```
 
-Since these open-source models were not specifically tuned for calling functions in this output format, they are at a slight disadvantage to the OpenAI agents. Despite this, some models perform really well!
+For comparison, we have also evaluated GPT3.5 and GPT4 on the same examples using LangChain's [OpenAI specific function calling agent](https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent).
+Since this uses their own function calling template, on which they were fine-tuned, this means the OpenAI models should be at their top performance.
+
+### Results
+
+Since the open-source models were not specifically fine-tuned for calling functions in the given output format, they are at a slight disadvantage to the OpenAI agents.
+
+Despite this, some models perform really well!
 
 Here’s an example of Mixtral-8x7B answering the question:
 
