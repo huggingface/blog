@@ -52,7 +52,7 @@ If this step fails, follow the error messages to debug your model before submitt
 Note: make sure your model is public! Note: if your model needs use_remote_code=True, we do not support this option yet but we are working on adding it, stay posted!
 
 Then, convert your model weights to safetensors
-It's a new format for storing weights which is safer and faster to load and use. It will also allow us to add the number of parameters of your model to the Extended Viewer!
+It's a new format for storing weights which is safer and faster to load and use. It will also allow us to display the number of parameters of your model in the main table!
 
 Finally, use the ["Submit here!" panel in our leaderboard](https://huggingface.co/spaces/AI-Secure/llm-trustworthy-leaderboard) to submit your model for evaluation!
 
