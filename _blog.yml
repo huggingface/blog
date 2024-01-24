@@ -3295,3 +3295,15 @@
     - guide
     - research
     - time-series
+
+- local: leaderboards-on-the-hub-hallucinations
+  title: "The Hallucinations Leaderboard, an open effort to measure hallucinations in Large Language Models"
+  author: pminervini
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  date: January 24, 2024
+  tags:
+    - leaderboard
+    - guide
+    - collaboration
+    - community
