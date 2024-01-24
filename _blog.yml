@@ -3296,12 +3296,23 @@
     - research
     - time-series
 
-local: patchtsmixer
+- local: fine-tune-w2v2-bert
+  title: "Fine-Tune W2V2-Bert for low-resource ASR with 🤗 Transformers"
+  author: ylacombe
+  thumbnail: /blog/assets/fine-tune-w2v2-bert/w2v_thumbnail.png
+  date: January 19, 2024
+  tags:
+    - guide
+    - audio
+    - asr
+    - low-resource
+
+local: patchtst
   title: "Patch Time Series Transformer in HuggingFace"
   author: namctin
   guest: true
   thumbnail: /blog/assets/patchtst/thumbnail.jpeg
-  date: January 19, 2024
+  date: January 25, 2024
   tags:
     - guide
     - research
