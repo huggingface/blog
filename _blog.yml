@@ -3307,7 +3307,7 @@
     - asr
     - low-resource
 
-local: patchtst
+- local: patchtst
   title: "Patch Time Series Transformer in HuggingFace"
   author: namctin
   guest: true
