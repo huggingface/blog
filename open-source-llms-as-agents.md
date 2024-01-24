@@ -65,17 +65,15 @@ Then you parse the LLM’s output:
 
 For instance, the LLM's output can look like this, when answering the question: `How many seconds are in 1:23:45?`
 ```
-    Thought: I need to convert the time string into seconds.
+Thought: I need to convert the time string into seconds.
 
-    Action:
-    ```json
-    {
-      "action": "convert_time",
-      "action_input": {
-        "time": "1:23:45"
-      }
+Action:
+{
+    "action": "convert_time",
+    "action_input": {
+    "time": "1:23:45"
     }
-    ```
+}
 ```
 
 Since this output does not contain the string `‘Final Answer:’`, it is calling a tool: so we parse this output and get the tool call parameters: call tool `convert_time` with arguments `{"time": "1:23:45"}`.
@@ -85,33 +83,31 @@ So we append this whole blob to the prompt.
 
 The new prompt is now (a slightly more elaborate version of):
 ```
-    Here is a question: "How many seconds are in 1:23:45?"
-    You have access to these tools:
-        - convert_time: converts a time given in hours:minutes:seconds into seconds.
+Here is a question: "How many seconds are in 1:23:45?"
+You have access to these tools:
+    - convert_time: converts a time given in hours:minutes:seconds into seconds.
 
-    You should first reflect with ‘Thought: {your_thoughts}’, then you either:
-    - call a tool with the proper JSON formatting,
-    - or your print your final answer starting with the prefix ‘Final Answer:’
+You should first reflect with ‘Thought: {your_thoughts}’, then you either:
+- call a tool with the proper JSON formatting,
+- or your print your final answer starting with the prefix ‘Final Answer:’
 
-    Thought: I need to convert the time string into seconds.
+Thought: I need to convert the time string into seconds.
 
-    Action:
-    ```json
-    {
-      "action": "convert_time",
-      "action_input": {
-        "time": "1:23:45"
-      }
+Action:
+{
+    "action": "convert_time",
+    "action_input": {
+    "time": "1:23:45"
     }
-    ```
-    Observation: {'seconds': '5025'}
+}
+Observation: {'seconds': '5025'}
 ```
 
 ➡️ We call the LLM again, with this new prompt. Given that it has access to the tool call's result in `Observation`, the LLM is now most likely to output:
 
-```markdown
- Thought: I now have the information needed to answer the question.
- Final Answer: There are 5025 seconds in 1:23:45.
+```
+Thought: I now have the information needed to answer the question.
+Final Answer: There are 5025 seconds in 1:23:45.
 ``````
 
 And the task is solved!
@@ -194,17 +190,14 @@ agent_executor.invoke(
 
 And the agent will process the input:
 
-```python
-    **Thought:** To answer this question, I need to find age of the current speedskating world record holder.  I will use the search tool to find this information.
-    **Action:**
-
-    ```json
-        {
-        "action": "search",
-        "action_input": "speed skating world record holder 500m age"
-        }
-    ```
-    Observation: ...
+```markdown
+Thought: To answer this question, I need to find age of the current speedskating world record holder.  I will use the search tool to find this information.
+Action:
+{
+    "action": "search",
+    "action_input": "speed skating world record holder 500m age"
+}
+Observation: ...
 ```
 
 ## Agents Showdown: how do open-source LLMs perform as general purpose reasoning agents?
@@ -254,32 +247,27 @@ Here’s an example of Mixtral-8x7B answering the question: `“Which city has a
 
 
 ```markdown
-    **Thought:** To answer this question, I need to find the current populations of both Guiyang and Tacheng. I will use the search tool to find this information.
-    **Action:**
+Thought: To answer this question, I need to find the current populations of both Guiyang and Tacheng. I will use the search tool to find this information.
+Action:
+{
+    "action": "search",
+    "action_input": "current population of Guiyang"
+}
+4.697 million (2016)
 
-    ```json
-        {
-        "action": "search",
-        "action_input": "current population of Guiyang"
-        }
-    ```
-    4.697 million (2016)
+Thought: I have obtained the population of Guiyang, which is 4.697 million (as of 2016). Now, I will use the search tool again to find the population of Tacheng.
+Action:
+{
+    "action": "search",
+    "action_input": "current population of Tacheng"
+}
+Population: Xinjiang: Tacheng data was reported at 1,110.000 Persons in 2021. This records a decrease from the previous number of 1,138.638 Persons for 2020.
+Population: Xinjiang: Tacheng data is updated yearly, averaging 1,023.000 Persons from Dec 2005 to 2021, with 17 observations.
 
-    **Thought:** I have obtained the population of Guiyang, which is 4.697 million (as of 2016). Now, I will use the search tool again to find the population of Tacheng.
-    **Action:**
-    ```json
-        {
-        "action": "search",
-        "action_input": "current population of Tacheng"
-        }
-    ```
-    Population: Xinjiang: Tacheng data was reported at 1,110.000 Persons in 2021. This records a decrease from the previous number of 1,138.638 Persons for 2020.
-    Population: Xinjiang: Tacheng data is updated yearly, averaging 1,023.000 Persons from Dec 2005 to 2021, with 17 observations.
+I have obtained the population of Tacheng, which is approximately 1.11 million (as of 2021). Comparing the two populations, Guiyang has a larger population than Tacheng.
 
-    I have obtained the population of Tacheng, which is approximately 1.11 million (as of 2021). Comparing the two populations, Guiyang has a larger population than Tacheng.
-
-    **Thought:** I now know the final answer
-    **Final Answer:** Guiyang has a larger population, which is approximately 4.697 million (as of 2016), compared to Tacheng's population of approximately 1.11 million (as of 2021).
+Thought: I now know the final answer
+Final Answer: Guiyang has a larger population, which is approximately 4.697 million (as of 2016), compared to Tacheng's population of approximately 1.11 million (as of 2021).
 ```
 
 Here is a benchmark of the models on our evaluation dataset (the average scores originally on a scale of 1-5 have been converted to a scale of 0-100% for readability):
@@ -288,7 +276,7 @@ Here is a benchmark of the models on our evaluation dataset (the average scores 
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-source-llms-as-agents/benchmark_agents.png" alt="benchmark of agents performance" width="90%">
 </p>
 
-As you can see, some open-source models perform poorly to power agent workflows: while this was expected for the small Zephyr-7b, Llama2-70b performs surprisingly poorly.
+As you can see, some open-source models do not perform well in powering agent workflows: while this was expected for the small Zephyr-7b, Llama2-70b performs surprisingly poorly.
 
 👉 But **Mixtral-8x7B performs really well: it even beats GPT-3.5!** 🏆
 
