@@ -4,11 +4,16 @@ title: "The Hallucinations Leaderboard, and open effort to measure hallucination
 thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
 authors:
 - user: pminervini
+  guest: true
 - user: pingnieuk
+  guest: true
 - user: clefourrier
 - user: rohitsaxena
+  guest: true
 - user: aryopg
+  guest: true
 - user: zodiache
+  guest: true
 ---
 
 
