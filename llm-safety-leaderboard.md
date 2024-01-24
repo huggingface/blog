@@ -3,10 +3,15 @@ title: "An Introduction to Hugging Face LLM Safety Leaderboard"
 thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
 authors:
 - user: danielz01
+  guest: true
 - user: alphapav
+  guest: true
 - user: Cometkmt
+  guest: true
 - user: chejian
+  guest: true
 - user: BoLi-aisecure
+  guest: true
 ---
 Huggingface’s [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) (originally created by Ed Beeching and Lewis Tunstall and maintained by Nathan Habib and Clémentine Fourrier) is well known for tracking the functional performance of open source LLMs, offering in-depth comparisons of these models’ performances across a variety of tasks, such as [TruthfulQA](https://github.com/sylinrl/TruthfulQA) and [HellaSwag](https://rowanzellers.com/hellaswag/). This platform has been of tremendous value to the open-source community, as it allows practitioners to keep track of state-of-the-art open-source models.
 
