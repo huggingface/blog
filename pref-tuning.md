@@ -11,6 +11,10 @@ authors:
 
 # Preference Tuning LLMs with Direct Preference Optimization Methods
 
+**Addendum**
+
+After consulting with the authors of the IPO paper, we have discovered that the implementation of IPO in TRL was incorrect. We have since fixed this and re-run the experiments. The results are now consistent with the paper, with IPO outperforming DPO in the paired preference setting. We have updated the post to reflect these new results.
+
 **TL;DR**
 
 We evaluate three promising methods to align language models without reinforcement learning (or preference tuning) on a number of models and hyperparameter settings. In particular we train using different hyperparameters and evaluate on:
