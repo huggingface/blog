@@ -1,6 +1,6 @@
 ---
 title: "An Introduction to Hugging Face LLM Safety Leaderboard"
-thumbnail: /blog/assets/llm-safety-leaderboard/llm-safety-leaderboard.png
+thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
 authors:
 - user: danielz01
 - user: alphapav
