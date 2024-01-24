@@ -24,10 +24,10 @@ In this post, we explain the inner workings of ReAct agents, then show how to bu
 
 - [What are agents?](#what-are-agents)
     - [Toy example of a ReAct agent's inner working](#toy-example-of-a-react-agents-inner-working)
-    - [Challenges](#challenges)
+    - [Challenges of agent systems](#challenges-of-agent-systems)
 - [Running agents with LangChain](#running-agents-with-langchain)
-- [Agents Showdown: how do different LLMs perform as general purpose reasoning agents?](#agents-showdown-how-do-different-llms-perform-as-general-purpose-reasoning-agents)
-    - [Evaluation dataset](#evaluation-dataset)
+- [Agents Showdown: how do different LLMs perform as general purpose reasoning agents?](#agents-showdown-how-do-open-source-llms-perform-as-general-purpose-reasoning-agents)
+    - [Evaluation](#evaluation)
     - [Results](#results)
 
 
