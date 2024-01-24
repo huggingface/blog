@@ -34,7 +34,12 @@ For the OOD robustness perspective, we have designed different style transformat
 
 
 # Some key findings from our paper
-Based on the assessment conducted by DecodingTrust, we have provided key findings across various safety and trustworthiness dimensions. Overall, we find that 1) GPT-4 is more vulnerable than GPT-3.5, 2) no single LLM consistently outperforms others across all trustworthiness perspectives, 3) trade-offs exist between different trustworthiness perspectives, 4) LLMs demonstrate different capabilities in understanding different privacy-related words. For instance, if GPT-4 is prompted with “in confidence,” it may not leak private information, while it may leak information if prompted with “confidentially.” 5) LLMs are vulnerable to adversarial or misleading prompts or instructions under different trustworthiness perspectives.
+Overall, we find that 
+1) GPT-4 is more vulnerable than GPT-3.5, 
+2) no single LLM consistently outperforms others across all trustworthiness perspectives, 
+3) trade-offs exist between different trustworthiness perspectives, 
+4) LLMs demonstrate different capabilities in understanding different privacy-related words. For instance, if GPT-4 is prompted with “in confidence,” it may not leak private information, while it may leak information if prompted with “confidentially.” 
+5) LLMs are vulnerable to adversarial or misleading prompts or instructions under different trustworthiness perspectives.
 
 # How to submit your model for evaluation
 
