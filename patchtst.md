@@ -2,13 +2,13 @@
 title: "Patch Time Series Transformer in HuggingFace"
 thumbnail: /blog/assets/patchtst/thumbnail.png
 authors:
-- user: ajati
-  guest: true
-- user: vijaye12
-  guest: true
 - user: namctin
   guest: true
 - user: wgifford
+  guest: true
+- user: ajati
+  guest: true
+- user: vijaye12
   guest: true
 - user: kashif
 - user: nielsr
@@ -41,9 +41,8 @@ The patching design naturally has three-fold benefit:
 
 In addition, PatchTST has a modular design to seamlessly support masked time series pre-training as well as direct time series forecasting.
 
-<!--
-<div> <img src="./assets/patchtst/patch_tst_arch.png" alt="Drawing" style="width: 600px;"/></div>
--->
+<div> <img src="./assets/patchtst/patchtst-arch.png" alt="Drawing" style="width: 600px;"/></div>
+
 
 ## Installation
 
