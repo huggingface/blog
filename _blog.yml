@@ -3307,6 +3307,23 @@
     - asr
     - low-resource
 
+- local: open-source-llms-as-agents
+  title: "Open-source LLMs as LangChain Agents"
+  author: m-ric
+  thumbnail: /blog/assets/open-source-llms-as-agents/thumbnail_open_source_agents.png
+  date: January 24, 2024
+  tags:
+    - mixtral
+    - zephyr
+    - solar
+    - llama2
+    - nlp
+    - llm
+    - agents
+    - langchain
+    - benchmark
+
+
 - local: llm-safety-leaderboard
   title: "An Introduction to Hugging Face LLM Safety Leaderboard"
   author: danielz01
