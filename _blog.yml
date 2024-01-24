@@ -3311,7 +3311,7 @@
   title: "An Introduction to Hugging Face LLM Safety Leaderboard"
   author: danielz01
   guest: true
-    thumbnail:  /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
   date: January 23, 2024
   tags:
     - leaderboard
