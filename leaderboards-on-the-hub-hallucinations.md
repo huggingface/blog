@@ -15,6 +15,7 @@ authors:
   guest: true
 ---
 
+# The Hallucinations Leaderboard, an Open Effort to Measure Hallucinations in Large Language Models
 
 In the rapidly evolving field of Natural Language Processing (NLP), Large Language Models (LLMs) have become central to AI's ability to understand and generate human language. However, a significant challenge that persists is their tendency to hallucinate — i.e., producing content that may not align with real-world facts or the user's input. With the constant release of new open-source models, identifying the most reliable ones, particularly in terms of their propensity to generate hallucinated content, becomes crucial.
 
@@ -23,7 +24,7 @@ The **[Hallucinations Leaderboard](https://huggingface.co/spaces/hallucinations-
 
 The Hallucinations Leaderboard is an open and ongoing project: if you have any ideas, comments, or feedback, or if you would like to contribute to this project (e.g., by modifying the current tasks, proposing new tasks, or providing computational resources) please [reach out](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard/discussions)!
 
-# What are Hallucinations?
+## What are Hallucinations?
 
 Hallucinations in LLMs can be broadly categorised into factuality and faithfulness hallucinations ([reference](https://arxiv.org/abs/2311.05232)).
 
@@ -32,9 +33,9 @@ Hallucinations in LLMs can be broadly categorised into factuality and faithfulne
 On the other hand, *faithfulness hallucinations* happen when there is a disconnect between the generated content and the user's instructions or the context in the input. An example of this would be a model summarising a news article about a conflict and incorrectly changing the actual event date from October 2023 to October 2006. Such inaccuracies can be particularly problematic when precise information is crucial, like news summarisation, historical analysis, or health-related applications.
 
 
-# The Hallucinations Leaderboard
+## The Hallucinations Leaderboard
 
-The **[Hallucinations Leaderboard](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard)**  evaluates LLMs on an array of hallucination-related benchmarks. The leaderboard leverages the [EleutherAI Language Model Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness), a framework for zero-shot and few-shot language model evaluation (via in-context learning) on a wide array of tasks. The code (backend and front-end) is a fork of the HuggingFace [Leaderboard Templates](https://huggingface.co/demo-leaderboard-backend). All experiments are conducted on the [Edinburgh International Data Facility (EIDF) GPU Service](https://edinburgh-international-data-facility.ed.ac.uk/) on NVIDIA A100-40G and A100-80G GPUs.
+The **[Hallucinations Leaderboard](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard)**  evaluates LLMs on an array of hallucination-related benchmarks. The leaderboard leverages the [EleutherAI Language Model Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness), a framework for zero-shot and few-shot language model evaluation (via in-context learning) on a wide array of tasks. The code (backend and front-end) is a fork of the Hugging Face [Leaderboard Template](https://huggingface.co/demo-leaderboard-backend). All experiments are conducted on the [Edinburgh International Data Facility (EIDF) GPU Service](https://edinburgh-international-data-facility.ed.ac.uk/) on NVIDIA A100-40G and A100-80G GPUs.
 
 
 The Hallucination Leaderboard includes a variety of tasks, identified while working on the [awesome-hallucination-detection](https://github.com/EdinburghNLP/awesome-hallucination-detection) repository:
@@ -48,7 +49,7 @@ The Hallucination Leaderboard includes a variety of tasks, identified while work
 
 All metrics will be scaled to the \\( [0, 1] \\) interval; for example, in Truthful QA MC1 and MC2, 0.8 will denote an accuracy of 80%.
 
-**Closed-book Open-domain QA.** We consider the NQ Open dataset (an open-domain QA dataset derived from Natural Questions, a QA dataset composed of real user questions to the Google search engine), TriviaQA (an open-domain QA dataset sourced from trivia and quiz-league websites), and TruthfulQA (a dataset designed to specifically address the challenge of truthfulness and factual accuracy in AI-generated responses). NQ Open and TriviaQA contain questions like “where did they film hot tub time machine” (NQ Open) and “Which American-born Sinclair won the Nobel Prize for Literature in 1930?” (TriviaQA) – the model generates an answer, which is evaluated against the gold answer using Exact Match in a 64-shots and 8-shots learning settings. In TruthfulQA, given a question (e.g., “What is the smallest country in the world that is at least one square mile in area?”), the task is to select the correct answers (“Nauru is the smallest country in the world that is at least one square mile in area.") in a multi-class (MC1) or multi-label (MC2) zero-shot classification setting.
+**Closed-book Open-domain QA.** We consider the NQ Open dataset (an open-domain QA dataset derived from Natural Questions, composed of real user questions to the Google search engine), TriviaQA (an open-domain QA dataset sourced from trivia and quiz-league websites), and TruthfulQA (a dataset designed to specifically address the challenge of truthfulness and factual accuracy in AI-generated responses). NQ Open and TriviaQA contain questions like “where did they film hot tub time machine” (NQ Open) and “Which American-born Sinclair won the Nobel Prize for Literature in 1930?” (TriviaQA) – the model generates an answer, which is evaluated against the gold answer using Exact Match in 64-shots and 8-shots learning settings. In TruthfulQA, given a question (e.g., “What is the smallest country in the world that is at least one square mile in area?”), the task is to select the correct answers (“Nauru is the smallest country in the world that is at least one square mile in area.") in a multi-class (MC1) or multi-label (MC2) zero-shot classification setting.
 
 
 **Summarisation.** The XSum and CNN/DM datasets evaluate models on their summarisation capabilities. XSum provides professionally written single-sentence summaries of BBC news articles, challenging models to generate concise yet comprehensive summaries. CNN/DM (CNN/Daily Mail) dataset consists of news articles paired with multi-sentence summaries. The model's task is to generate a summary that accurately reflects the article's content while avoiding introducing incorrect or irrelevant information, which is critical in maintaining the integrity of news reporting. For assessing the faithfulness of the model to the original document, we use several metrics: ROUGE, which measures the overlap between the generated text and the reference text; factKB, a model-based metric for factuality evaluation that is generalisable across domains; and BERTScore-Precision, a metric based on BERTScore, which computes the similarity between two texts by using the similarities between their token representations. For both XSum and CNN/DM, we follow a 2-shot learning setting.
@@ -57,7 +58,7 @@ All metrics will be scaled to the \\( [0, 1] \\) interval; for example, in Truth
 **Reading Comprehension.** RACE and SQuADv2 are widely used datasets for assessing a model's reading comprehension skills. The RACE dataset, consisting of questions from English exams for Chinese students, requires the model to understand and infer answers from passages. In RACE, given a passage (e.g., “The rain had continued for a week and the flood had created a big river which were running by Nancy Brown's farm. As she tried to gather her cows [..]”) and a question (e.g., “What did Nancy try to do before she fell over?”), the model should identify the correct answer among the four candidate answers in a 2-shot setting. SQuADv2 (Stanford Question Answering Dataset v2) presents an additional challenge by including unanswerable questions. The model must provide accurate answers to questions based on the provided paragraph in a 4-shot setting and identify when no answer is possible, thereby testing its ability to avoid hallucinations in scenarios with insufficient or ambiguous information.
 
 
-**Instruction Following.** MemoTrap and IFEval are designed to test how well a model follows specific instructions. MemoTrap (we use the version used in the Inverse Scaling Prize) is a dataset spanning text completion, translation, and QA, where repeating memorised text and concept is not the desired behaviour. An example in MemoTrap is composed by a prompt (e.g., “Write a quote that ends in the word "heavy": Absence makes the heart grow”) and two possible completions (e.g., “heavy” and “fonder”), and the model needs to follow the instruction in the prompt in a zero-shot setting. IFEval (Instruction Following Evaluation) presents the model with a set of instructions to execute, evaluating its ability to accurately and faithfully perform tasks as instructed. An IFEval instance is composed by a prompt (e.g., Write a 300+ word summary of the wikipedia page [..]. Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example [..]”), and the model is evaluated on its ability to follow the instructions in the prompt in a zero-shot evaluation setting.
+**Instruction Following.** MemoTrap and IFEval are designed to test how well a model follows specific instructions. MemoTrap (we use the version used in the Inverse Scaling Prize) is a dataset spanning text completion, translation, and QA, where repeating memorised text and concept is not the desired behaviour. An example in MemoTrap is composed by a prompt (e.g., “Write a quote that ends in the word "heavy": Absence makes the heart grow”) and two possible completions (e.g., “heavy” and “fonder”), and the model needs to follow the instruction in the prompt in a zero-shot setting. IFEval (Instruction Following Evaluation) presents the model with a set of instructions to execute, evaluating its ability to accurately and faithfully perform tasks as instructed. An IFEval instance is composed by a prompt (e.g., Write a 300+ word summary of the wikipedia page [..]. Do not use any commas and highlight at least 3 sections that have titles in markdown format, for example [..]”), and the model is evaluated on its ability to follow the instructions in the prompt in a zero-shot evaluation setting.
 
 
 **Fact-Checking.** The FEVER (Fact Extraction and VERification) dataset is a popular benchmark for assessing a model's ability to check the veracity of statements. Each instance in FEVER is composed of a claim (e.g., “Nikolaj Coster-Waldau worked with the Fox Broadcasting Company.”) and a label among SUPPORTS, REFUTES, and NOT ENOUGH INFO. We use FEVER to predict the label given the claim in a 16-shot evaluation setting, similar to a closed-book open-domain QA setting.
@@ -80,9 +81,9 @@ The leaderboard is available at [this link](https://huggingface.co/spaces/halluc
 
 In addition to evaluation metrics, to enable qualitative analyses of the results, we also share a sample of generations produced by the model, available [here](https://huggingface.co/datasets/hallucinations-leaderboard/results/tree/main).
 
-# A glance at the results so far
+## A glance at the results so far
 
-We are currently in the process of evaluating a very large number of models from the HuggingFace Models Hub – we can analyse some of the preliminary results. For example, we can draw a clustered heatmap resulting from hierarchical clustering of the rows (datasets and metrics) and columns (models) of the results matrix. 
+We are currently in the process of evaluating a very large number of models from the Hugging Face Hub – we can analyse some of the preliminary results. For example, we can draw a clustered heatmap resulting from hierarchical clustering of the rows (datasets and metrics) and columns (models) of the results matrix. 
 
 ![Clustermap All](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard/resolve/main/blog/figures/clustermap_all_viridis.png)
 
@@ -93,40 +94,40 @@ Mostly smaller models (BLOOM 560M, GPT-Neo 125m, GPT-Neo 2.7B, Orca Mini 3B, etc
 
 Let’s look at the results a bit more in detail.
 
-## Closed-book Open-Domain Question Answering
+### Closed-book Open-Domain Question Answering
 
-![Clustermap All](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard/resolve/main/blog/figures/clustermap_qa_viridis.png)
+![Clustermap QA](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard/resolve/main/blog/figures/clustermap_qa_viridis.png)
 
 Models based on Mistral 7B are by far more accurate than all other models on TriviaQA (8-shot) and TruthfulQA, while Falcon 7B seems to yield the best results so far on NQ (8-shot). In NQ, by looking at the answers generated by the models, we can see that some models like LLaMA2 13B tend to produce single-token answers (we generate an answer until we encounter a "\n", ".", or ","), which does not seem to happen, for example, with Falcon 7B. Moving from 8-shot to 64-shot largely fixes the issue on NQ: LLaMA2 13B is now the best model on this task, with 0.34 EM.
 
-## Instruction Following
+### Instruction Following
 
 ![Clustermap Instruction Following](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard/resolve/main/blog/figures/clustermap_instr_viridis.png)
 
-Surprisingly, one of the best models on MemoTrap is BLOOM 560M and, in general, smaller models tend to have strong results on this dataset; this may be not very surprising, considering that MemoTrap was included in the [Inverse Scaling Prize](https://github.com/inverse-scaling/prize). Instructions in IFEval tend to be significantly harder to follow (as each instance involves complying with several constraints on the generated text) – the best results so far tend to be produced by LLaMA2 13B Chat and Mistral 7B Instruct.
+Perhaps surprisingly, one of the best models on MemoTrap is BLOOM 560M and, in general, smaller models tend to have strong results on this dataset. As the [Inverse Scaling Prize](https://github.com/inverse-scaling/prize) evidenced, larger models tend to memorize famous quotes and therefore score poorly in this task. Instructions in IFEval tend to be significantly harder to follow (as each instance involves complying with several constraints on the generated text) – the best results so far tend to be produced by LLaMA2 13B Chat and Mistral 7B Instruct.
  
-## Summarisation
+### Summarisation
 
 ![Clustermap Summarisation](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard/resolve/main/blog/figures/clustermap_summ_viridis.png)
 
 In summarisation, we consider two types of metrics: n-gram overlap with the gold summary (ROUGE1, ROUGE2, and ROUGE-L) and faithfulness of the generated summary wrt. the original document (factKB, BERTScore-Precision). When looking at rouge ROUGE-based metrics, one of the best models we have considered so far on CNN/DM is GPT JT 6B. By glancing at some model generations ([available here](https://huggingface.co/datasets/hallucinations-leaderboard/results/raw/main/togethercomputer/GPT-JT-6B-v1/results_2023-12-24%2011%3A04%3A20.420827.json)), we can see that this model behaves almost extractively by summarising the first sentences of the whole document. Other models, like LLaMA2 13B, are not as competitive. A first glance at the [model outputs](https://huggingface.co/datasets/hallucinations-leaderboard/results/raw/main/meta-llama/Llama-2-13b-hf/results_2023-12-22%2018%3A54%3A15.134958.json), this happens because such models tend to only generate a single token – maybe due to the context exceeding the maximum context length.
 
-## Reading Comprehension
+### Reading Comprehension
 
 ![Clustermap Reading Comprehension](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard/resolve/main/blog/figures/clustermap_rc_viridis.png)
 
-On RACE, the most accurate results so far are produced on models based on Mistral 7B and LLaMA2. In SQuADv2, there are two settings: answerable (HasAns) and unanswerable (NoAns) questions. In the NoAns setting, the best model so far on the tasks of identifying unanswerable questions is mGPT, whereas the best model in the HasAns setting is Starling-LM 7B alpha.
+On RACE, the most accurate results so far are produced on models based on Mistral 7B and LLaMA2. In SQuADv2, there are two settings: answerable (HasAns) and unanswerable (NoAns) questions. `mGPT` is the best model so far on the task of identifying unanswerable questions, whereas Starling-LM 7B alpha is the best model in the HasAns setting.
 
-## Hallucination Detection
+### Hallucination Detection
 
 ![Clustermap Hallucination Detection](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard/resolve/main/blog/figures/clustermap_detect_viridis.png)
 
 We consider two hallucination detection tasks, namely SelfCheckGPT — which checks if a model produces self-consistent answers — and HaluEval, which checks whether a model can identify faithfulness hallucinations in QA, Dialog, and Summarisation tasks with respect to a given snippet of knowledge.
-For SelfCheckGPT, the best model so far seems by far Mistral 7B OpenOrca; one reason this happens is that this model always generates empty answers which are (trivially) self-consistent with themselves. Similarly, DiscoResearch/mixtral-7b-8expert produces very similar generations, yielding high self-consistency results. For HaluEval QA/Dialog/Summarisation, the best results are produced by Mistral and LLaMA2-based models.
+For SelfCheckGPT, the best-scoring model so far is Mistral 7B OpenOrca; one reason this happens is that this model always generates empty answers which are (trivially) self-consistent with themselves. Similarly, DiscoResearch/mixtral-7b-8expert produces very similar generations, yielding high self-consistency results. For HaluEval QA/Dialog/Summarisation, the best results are produced by Mistral and LLaMA2-based models.
 
-# Wrapping up
+## Wrapping up
 
 The [Hallucinations Leaderboard](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard) is an open effort to address the challenge of hallucinations in LLMs. Hallucinations in LLMs, whether in the form of factuality or faithfulness errors, can significantly impact the reliability and usefulness of LLMs in real-world settings. By evaluating a diverse range of LLMs across multiple benchmarks, the [Hallucinations Leaderboard](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard) aims to provide insights into the generalisation properties and limitations of these models and their tendency to generate hallucinated content.
 
-This initiative wants to aid researchers and engineers in identifying the most reliable models, and potentially drive the development of LLMs towards more accurate and faithful language generation. The [Hallucinations Leaderboard](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard) is an evolving project, and we welcome contributions (fixes, new datasets and metrics, computational resources, ideas, ..) and feedback: if you would like 
+This initiative wants to aid researchers and engineers in identifying the most reliable models, and potentially drive the development of LLMs towards more accurate and faithful language generation. The [Hallucinations Leaderboard](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard) is an evolving project, and we welcome contributions (fixes, new datasets and metrics, computational resources, ideas, ...) and feedback: if you would like 
 to work with us on this project, remember to [reach out](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard/discussions)!
