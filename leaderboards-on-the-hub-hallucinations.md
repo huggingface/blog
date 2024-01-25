@@ -47,6 +47,7 @@ The Hallucination Leaderboard includes a variety of tasks, identified while work
 - **Hallucination Detection** -- FaithDial, True-False, HaluEval (QA, Summarisation, and Dialogue)
 - **Self-Consistency** -- SelfCheckGPT
 
+All metrics will be scaled to the \\( [0, 1] \\) interval; for example, in Truthful QA MC1 and MC2, 0.8 will denote an accuracy of 80%.
 
 **Closed-book Open-domain QA.** We consider the NQ Open dataset (an open-domain QA dataset derived from Natural Questions, a QA dataset composed of real user questions to the Google search engine), TriviaQA (an open-domain QA dataset sourced from trivia and quiz-league websites), and TruthfulQA (a dataset designed to specifically address the challenge of truthfulness and factual accuracy in AI-generated responses). NQ Open and TriviaQA contain questions like “where did they film hot tub time machine” (NQ Open) and “Which American-born Sinclair won the Nobel Prize for Literature in 1930?” (TriviaQA) – the model generates an answer, which is evaluated against the gold answer using Exact Match in a 64-shots and 8-shots learning settings. In TruthfulQA, given a question (e.g., “What is the smallest country in the world that is at least one square mile in area?”), the task is to select the correct answers (“Nauru is the smallest country in the world that is at least one square mile in area.") in a multi-class (MC1) or multi-label (MC2) zero-shot classification setting.
 
