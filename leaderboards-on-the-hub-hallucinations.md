@@ -1,6 +1,5 @@
 ---
-# title: "Diving into hallucination benchmarks with a leaderboard from the University of Edinburgh"
-title: "The Hallucinations Leaderboard, an open effort to measure hallucinations in Large Language Models"
+title: "The Hallucinations Leaderboard, an Open Effort to Measure Hallucinations in Large Language Models"
 thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
 authors:
 - user: pminervini
