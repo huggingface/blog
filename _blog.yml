@@ -3306,3 +3306,13 @@
     - audio
     - asr
     - low-resource
+    
+- local: gcp-partnership
+  title: "Hugging Face and Google partner for open AI collaboration"
+  author: jeffboudier
+  thumbnail: /blog/assets/173_gcp-partnership/thumbnail.jpg
+  date: January 25, 2024
+  tags:
+    - partnerships
+    - gcp
+    - hardware
