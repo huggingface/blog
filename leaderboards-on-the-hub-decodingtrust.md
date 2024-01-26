@@ -14,6 +14,7 @@ authors:
   guest: true
 ---
 
+# An Introduction to Hugging Face LLM Safety Leaderboard
 Given the widespread adoption of LLMs, it is critical to understand their safety and risks in different scenarios before extensive deployments in the real world. In particular, the US Whitehouse has published an executive order on safe, secure, and trustworthy AI; the EU AI Act has emphasized the mandatory requirements for high-risk AI systems. Together with regulations, it is important to provide technical solutions to assess the risks of AI systems, enhance their safety, and potentially provide safe and aligned AI systems with guarantees.
 
 Thus, in 2023, at [Secure Learning Lab](https://boli.cs.illinois.edu/), we introduced [DecodingTrust](https://decodingtrust.github.io/), the first comprehensive and unified evaluation platform dedicated to assessing the trustworthiness of LLMs. (*This work won the [Outstanding Paper Award](https://blog.neurips.cc/2023/12/11/announcing-the-neurips-2023-paper-awards/) at NeurIPS 2023.*) 
