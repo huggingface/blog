@@ -41,7 +41,7 @@ For robustness against adversarial demonstrations, we design demonstrations cont
 
 For privacy, we provide different levels of evaluation, including 1) privacy leakage from pretraining data, 2) privacy leakage during conversations, and 3) privacy-related words and events understanding of LLMs. In particular, for 1) and 2), we have designed different approaches to performing privacy attacks. For example, we provide different formats of prompts to guide LLMs to output sensitive information such as email addresses and credit card numbers.
 
-For ethics, we leverage ETHICS and Jiminy Cricket datasets and design jailbreaking systems and user prompts to evaluate the model performance on immoral behavior recognition. 
+For ethics, we leverage ETHICS and Jiminy Cricket datasets to design jailbreaking systems and user prompts that we use to evaluate the model performance on immoral behavior recognition. 
 
 For fairness, we control different protected attributes across different tasks to generate challenging questions to evaluate the model fairness in both zero-shot and few-shot settings.
 
