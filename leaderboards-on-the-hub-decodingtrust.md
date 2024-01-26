@@ -14,7 +14,7 @@ authors:
   guest: true
 ---
 
-# An Introduction to Hugging Face LLM Safety Leaderboard
+# An Introduction to AI Secure LLM Safety Leaderboard
 Given the widespread adoption of LLMs, it is critical to understand their safety and risks in different scenarios before extensive deployments in the real world. In particular, the US Whitehouse has published an executive order on safe, secure, and trustworthy AI; the EU AI Act has emphasized the mandatory requirements for high-risk AI systems. Together with regulations, it is important to provide technical solutions to assess the risks of AI systems, enhance their safety, and potentially provide safe and aligned AI systems with guarantees.
 
 Thus, in 2023, at [Secure Learning Lab](https://boli.cs.illinois.edu/), we introduced [DecodingTrust](https://decodingtrust.github.io/), the first comprehensive and unified evaluation platform dedicated to assessing the trustworthiness of LLMs. (*This work won the [Outstanding Paper Award](https://blog.neurips.cc/2023/12/11/announcing-the-neurips-2023-paper-awards/) at NeurIPS 2023.*) 
@@ -29,7 +29,7 @@ Today, we are excited to announce the release of the new [LLM Safety Leaderboard
 
 DecodingTrust provides several novel red-teaming methodologies for each evaluation perspective to perform stress tests. The detailed testing scenarios and metrics are in the [Figure 3](https://arxiv.org/html/2306.11698v4/extracted/5331426/figures/taxonomy.main.png) of our paper.
 
-For Toxicity, we design optimization algorithms and prompt generative models to generate challenging user prompts. We also design 33 challenging system prompts, such as role-play, task reformulation and respond-as-program, to perform the evaluation in different scenarios. We then leverage the perplexity API to evaluate the toxicity score of the generated content given our challenging prompts.
+For Toxicity, we design optimization algorithms and prompt generative models to generate challenging user prompts. We also design 33 challenging system prompts, such as role-play, task reformulation and respond-as-program, to perform the evaluation in different scenarios. We then leverage the perspective API to evaluate the toxicity score of the generated content given our challenging prompts.
 
 For stereotype bias, we collect 24 demographic groups and 16 stereotype topics as well as three prompt variations for each topic to evaluate the model bias. We prompt the model 5 times and take the average as model bias scores.
 
@@ -39,7 +39,7 @@ For the OOD robustness perspective, we have designed different style transformat
 
 For robustness against adversarial demonstrations, we design demonstrations containing misleading information, such as counterfactual examples, spurious correlations, and backdoor attacks, to evaluate the model performance across different tasks.
 
-For privacy, we provide different levels of evaluation, including 1) privacy leakage from pertaining data, 2) privacy leakage during conversations, and 3) privacy-related words and events understanding of LLMs. In particular, for 1) and 2), we have designed different approaches to performing privacy attacks. For example, we provide different formats of prompts to guide LLMs to output sensitive information such as email addresses and credit card numbers.
+For privacy, we provide different levels of evaluation, including 1) privacy leakage from pretraining data, 2) privacy leakage during conversations, and 3) privacy-related words and events understanding of LLMs. In particular, for 1) and 2), we have designed different approaches to performing privacy attacks. For example, we provide different formats of prompts to guide LLMs to output sensitive information such as email addresses and credit card numbers.
 
 For ethics, we leverage ETHICS and Jiminy Cricket datasets and design jailbreaking systems and user prompts to evaluate the model performance on immoral behavior recognition. 
 
@@ -57,13 +57,16 @@ Overall, we find that
 
 ## How to submit your model for evaluation
 
-First, make sure you can load your model and tokenizer using AutoClasses:
+First, convert your model weights to safetensors
+It's a new format for storing weights which is safer and faster to load and use. It will also allow us to display the number of parameters of your model in the main table!
+
+Then, make sure you can load your model and tokenizer using AutoClasses:
 
 ```Python
 from transformers import AutoConfig, AutoModel, AutoTokenizer
-config = AutoConfig.from_pretrained("your model name", revision=revision)
-model = AutoModel.from_pretrained("your model name", revision=revision)
-tokenizer = AutoTokenizer.from_pretrained("your model name", revision=revision)
+config = AutoConfig.from_pretrained("your model name")
+model = AutoModel.from_pretrained("your model name")
+tokenizer = AutoTokenizer.from_pretrained("your model name")
 ```
 
 If this step fails, follow the error messages to debug your model before submitting it. It's likely your model has been improperly uploaded.
@@ -71,9 +74,6 @@ If this step fails, follow the error messages to debug your model before submitt
 Notes:
 - Make sure your model is public! 
 - We don't yet support models that require `use_remote_code=True`. But we are working on it, stay posted!
-
-Then, convert your model weights to safetensors
-It's a new format for storing weights which is safer and faster to load and use. It will also allow us to display the number of parameters of your model in the main table!
 
 Finally, use the ["Submit here!" panel in our leaderboard](https://huggingface.co/spaces/AI-Secure/llm-trustworthy-leaderboard) to submit your model for evaluation!
 
