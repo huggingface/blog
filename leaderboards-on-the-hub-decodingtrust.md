@@ -27,7 +27,7 @@ Today, we are excited to announce the release of the new [LLM Safety Leaderboard
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="AI-Secure/llm-trustworthy-leaderboard"></gradio-app>
 
-Concretely, DecodingTrust provides several novel red-teaming methodologies for each evaluation perspective to perform stress tests. The detailed testing scenarios and metrics are in the [Figure 3](https://arxiv.org/html/2306.11698v4/extracted/5331426/figures/taxonomy.main.png) of our paper.
+DecodingTrust provides several novel red-teaming methodologies for each evaluation perspective to perform stress tests. The detailed testing scenarios and metrics are in the [Figure 3](https://arxiv.org/html/2306.11698v4/extracted/5331426/figures/taxonomy.main.png) of our paper.
 
 For Toxicity, we design optimization algorithms and prompt generative models to generate challenging user prompts. We also design 33 challenging system prompts, such as role-play, task reformulation and respond-as-program, to perform the evaluation in different scenarios. We then leverage the perplexity API to evaluate the toxicity score of the generated content given our challenging prompts.
 
