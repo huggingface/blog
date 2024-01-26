@@ -3334,7 +3334,7 @@
     - hardware
 
 
-- local: llm-safety-leaderboard
+- local: leaderboards-on-the-hub-decodingtrust
   title: "An Introduction to AI Secure LLM Safety Leaderboard"
   author: danielz01
   guest: true
