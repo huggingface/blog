@@ -3284,3 +3284,17 @@
     - rlhf
     - nlp
     - research
+
+- local: intel-starcoder-quantization
+  title: "Accelerate StarCoder with 🤗 Optimum Intel on Xeon: Q8/Q4 and Speculative Decoding"
+  author: ofirzaf
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_hf_logo.png
+  date: Jan 26, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community
