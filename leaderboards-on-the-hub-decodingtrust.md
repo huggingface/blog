@@ -68,7 +68,9 @@ tokenizer = AutoTokenizer.from_pretrained("your model name", revision=revision)
 
 If this step fails, follow the error messages to debug your model before submitting it. It's likely your model has been improperly uploaded.
 
-Note: make sure your model is public! Note: if your model needs use_remote_code=True, we do not support this option yet but we are working on adding it, stay posted!
+Notes:
+- Make sure your model is public! 
+- We don't yet support models that require `use_remote_code=True`. But we are working on it, stay posted!
 
 Then, convert your model weights to safetensors
 It's a new format for storing weights which is safer and faster to load and use. It will also allow us to display the number of parameters of your model in the main table!
