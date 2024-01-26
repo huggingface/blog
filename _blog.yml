@@ -3335,11 +3335,11 @@
 
 
 - local: llm-safety-leaderboard
-  title: "An Introduction to Hugging Face LLM Safety Leaderboard"
+  title: "An Introduction to AI Secure LLM Safety Leaderboard"
   author: danielz01
   guest: true
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
-  date: January 23, 2024
+  date: January 26, 2024
   tags:
     - leaderboard
     - guide
