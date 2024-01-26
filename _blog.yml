@@ -3285,6 +3285,54 @@
     - nlp
     - research
 
+- local: patchtsmixer
+  title: "PatchTSMixer in HuggingFace"
+  author: ajati
+  guest: true
+  thumbnail: /blog/assets/patchtsmixer/thumbnail.jpeg
+  date: January 19, 2024
+  tags:
+    - guide
+    - research
+    - time-series
+
+- local: fine-tune-w2v2-bert
+  title: "Fine-Tune W2V2-Bert for low-resource ASR with 🤗 Transformers"
+  author: ylacombe
+  thumbnail: /blog/assets/fine-tune-w2v2-bert/w2v_thumbnail.png
+  date: January 19, 2024
+  tags:
+    - guide
+    - audio
+    - asr
+    - low-resource
+
+- local: open-source-llms-as-agents
+  title: "Open-source LLMs as LangChain Agents"
+  author: m-ric
+  thumbnail: /blog/assets/open-source-llms-as-agents/thumbnail_open_source_agents.png
+  date: January 24, 2024
+  tags:
+    - mixtral
+    - zephyr
+    - solar
+    - llama2
+    - nlp
+    - llm
+    - agents
+    - langchain
+    - benchmark
+
+- local: gcp-partnership
+  title: "Hugging Face and Google partner for open AI collaboration"
+  author: jeffboudier
+  thumbnail: /blog/assets/173_gcp-partnership/thumbnail.jpg
+  date: January 25, 2024
+  tags:
+    - partnerships
+    - gcp
+    - hardware
+
 - local: intel-starcoder-quantization
   title: "Accelerate StarCoder with 🤗 Optimum Intel on Xeon: Q8/Q4 and Speculative Decoding"
   author: ofirzaf
