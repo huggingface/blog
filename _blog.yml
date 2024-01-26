@@ -3332,3 +3332,14 @@
     - partnerships
     - gcp
     - hardware
+
+- local: leaderboards-on-the-hub-patronus
+  title: "Introducing the PatronusAI leaderboard: a leaderboard for real world use-cases"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  author: sunitha98
+  guest: true
+  date: February 1, 2024
+  tags:
+      - leaderboard
+      - guide
+      - collaboration
