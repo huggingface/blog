@@ -37,7 +37,7 @@ Try out our [demo](https://huggingface.co/spaces/Intel/intel-starcoder-playgroun
 
 
 <kbd>
-  <img alt="Generating DOI" src="assets/173_intel_quantization_starcoder/starcoder-demo.mov">
+  <img alt="Generating DOI" src="assets/174_intel_quantization_starcoder/starcoder-demo.mov">
 </kbd>
 
 
@@ -49,7 +49,7 @@ As the starting point we use out-of-the-box optimizations in PyTorch and IPEX to
 latency as well as its accuracy.
 
 <p align="center">
- <img src="assets/173_intel_quantization_starcoder/latency_baseline_model.png" alt="baseline latency"><br>
+ <img src="assets/174_intel_quantization_starcoder/latency_baseline_model.png" alt="baseline latency"><br>
 <em>Figure 1. Latency of the baseline model.</em>
 </p>
 
@@ -70,7 +70,7 @@ In this work we focus on two types of quantization:
 
 
 <p align="center">
- <img src="assets/173_intel_quantization_starcoder/int8_diagram.png" alt="INT8 quantization"><br>
+ <img src="assets/174_intel_quantization_starcoder/int8_diagram.png" alt="INT8 quantization"><br>
 <em>Figure 2. Computation diagram for INT8 static quantization.</em>
 </p>
 
@@ -79,7 +79,7 @@ Using IPEX, we apply SmoothQuant to the StarCoder model. We used the test split 
 
 
 <p align="center">
- <img src="assets/173_intel_quantization_starcoder/latency_int8_model.png" alt="INT8 latency"><br>
+ <img src="assets/174_intel_quantization_starcoder/latency_int8_model.png" alt="INT8 latency"><br>
 <em>Figure 3. Latency speedup of 8-bit quantized model.</em>
 </p>
 
@@ -90,14 +90,14 @@ Using IPEX, we apply SmoothQuant to the StarCoder model. We used the test split 
 Although INT8 decreases the model size by 2x compared to BF16 (8 bits per weight compared to 16 bits), the memory bandwidth is still the largest bottleneck. To further decrease the model’s loading time from the memory, we quantized the model’s weights to 4 bits using WOQ. Note that 4bit WOQ requires dequantization to 16bit before the computation (Figure 4) which means that there is a compute overhead.
 
 <p align="center">
- <img src="assets/173_intel_quantization_starcoder/int4_diagram.png" alt="INT4 quantization"><br>
+ <img src="assets/174_intel_quantization_starcoder/int4_diagram.png" alt="INT4 quantization"><br>
 <em>Figure 4. Computation diagram for model quantized to INT4.</em>
 </p>
 
 Tensor-wise asymmetric Round To Nearest (RTN) quantization, a basic WOQ technique, poses challenges and often results in accuracy reduction, however it was shown in the [literature](https://arxiv.org/pdf/2206.01861.pdf) (Zhewei Yao, 2022) that groupwise quantization of the model’s weights helps in retaining accuracy. To avoid accuracy degradation, we perform 4-bit quantization in groups (e.g. 128) of consequent values along the input channel, with scaling factors calculated per group. We found that groupwise 4bit RTN is sufficient to retain StarCoder’s accuracy on the HumanEval dataset. The 4bit model achieves **3.35x** speedup in TPOT compared to the BF16 baseline (figure 5), however it suffers from expected slowdown of 0.84x in TTFT (Table 1) due to the overhead of dequantizing the 4bit to 16bit before computation.
 
 <p align="center">
- <img src="assets/173_intel_quantization_starcoder/latency_int4_model.png" alt="INT4 latency"><br>
+ <img src="assets/174_intel_quantization_starcoder/latency_int4_model.png" alt="INT4 latency"><br>
 <em>Figure 5. Latency speedup of 4-bit quantized model.</em>
 </p>
 
@@ -124,7 +124,7 @@ These quantization choices are backed up by the following observations:
 
 
 <p align="center">
- <img src="assets/173_intel_quantization_starcoder/latency_int8_ag_model.png" alt="IN8 AG"><br>
+ <img src="assets/174_intel_quantization_starcoder/latency_int8_ag_model.png" alt="IN8 AG"><br>
 <em>Figure 6. Latency speedup of optimized model.</em>
 </p>
 
