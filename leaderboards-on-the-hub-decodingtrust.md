@@ -22,6 +22,7 @@ DecodingTrust provides a multifaceted evaluation framework covering eight trustw
 
 Today, we are excited to announce the release of the new [LLM Safety Leaderboard](https://huggingface.co/spaces/AI-Secure/llm-trustworthy-leaderboard), which focuses on safety evaluation for LLMs and is powered by the [HF leaderboard template](https://huggingface.co/demo-leaderboard-backend).
 
+## Red-teaming Evaluation
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="AI-Secure/llm-trustworthy-leaderboard"></gradio-app>
 
