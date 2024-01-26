@@ -1,5 +1,5 @@
 ---
-title: "Fast Code Generation with Q4-StarCoder and Speculative Decoding on Intel Xeon"
+title: "Accelerate StarCoder with 🤗 Optimum Intel on Xeon: Q8/Q4 and Speculative Decoding"
 thumbnail: /blog/assets/optimum_intel/thumbnail.png
 authors:
 - user: ofirzaf
@@ -9,7 +9,7 @@ authors:
 - user: guybd
   guest: true
 - user: echarlaix
-- user: moshew    
+- user: moshew
   guest: true
 ---
 
@@ -29,10 +29,10 @@ The 4th generation Intel Xeon processors feature AI infused acceleration known a
 As the starting point we use out-of-the-box optimizations in PyTorch and IPEX to perform inference using a BF16 model. Figure 1 shows the latency of the baseline model and Tables 1 and 2 show its
 latency as well as its accuracy.
 
-<p align="center"> 
+<p align="center">
  <img src="assets/173_intel_quantization_starcoder/latency_baseline_model.png" alt="baseline latency"><br>
-<em>Figure 1. Latency of the baseline model.</em> 
-</p> 
+<em>Figure 1. Latency of the baseline model.</em>
+</p>
 
 
 ### LLM Quantization
@@ -50,42 +50,42 @@ In this work we focus on two types of quantization:
 [SmoothQuant](https://huggingface.co/blog/generative-ai-models-on-intel-cpu) is a post training quantization algorithm that is used to quantize LLMs for INT8 with minimal accuracy loss. Static quantization methods were shown to be underperforming on LLMs due to large magnitude outliers found in specific channels of the activations. Since activations are quantized token-wise, static quantization results in either truncated outliers or underflowed low-magnitude activations. SmoothQuant algorithm solves this problem by introducing a pre-quantization phase where additional smoothing scaling factors are applied to both activations and weights which smooths the outliers in the activations and ensures better utilization of the quantization levels.
 
 
-<p align="center"> 
+<p align="center">
  <img src="assets/173_intel_quantization_starcoder/int8_diagram.png" alt="INT8 quantization"><br>
-<em>Figure 2. Computation diagram for INT8 static quantization.</em> 
-</p> 
+<em>Figure 2. Computation diagram for INT8 static quantization.</em>
+</p>
 
 
 Using IPEX, we apply SmoothQuant to the StarCoder model. We used the test split of the [MBPP](https://huggingface.co/datasets/nuprl/MultiPL-E) dataset as our calibration dataset and introduced Q8-StarCoder. Our evaluation shows that Q8-StarCoder holds no accuracy loss over the baseline (if fact, there is even a slight improvement). In terms of performance, Q8-StarCoder achieves **~2.19x** speedup in TTFT and **~2.20x** speedup in TPOT. Figure 3 shows the latency (TPOT) of Q8-StarCoder compared to the BF16 baseline model.
 
 
-<p align="center"> 
+<p align="center">
  <img src="assets/173_intel_quantization_starcoder/latency_int8_model.png" alt="INT8 latency"><br>
-<em>Figure 3. Latency speedup of quantized model.</em> 
-</p> 
+<em>Figure 3. Latency speedup of 8-bit quantized model.</em>
+</p>
 
 
 
 ## Step 3: 4bit Quantization (INT4)
 
-Although INT8 decreases the model size by 2x compared to BF16 (8 bits per weight compared with 16 bits), the memory bandwidth is still the biggest bottleneck. To further decrease the model’s loading time from the memory, we quantized the model’s weights to 4 bits using WOQ. Note that WOQ requires dequantization to 16bit before the computation (Figure 4). 
+Although INT8 decreases the model size by 2x compared to BF16 (8 bits per weight compared to 16 bits), the memory bandwidth is still the largest bottleneck. To further decrease the model’s loading time from the memory, we quantized the model’s weights to 4 bits using WOQ. Note that 4bit WOQ requires dequantization to 16bit before the computation (Figure 4) which means that there is a compute overhead.
 
-
-<p align="center"> 
+<p align="center">
  <img src="assets/173_intel_quantization_starcoder/int4_diagram.png" alt="INT4 quantization"><br>
-<em>Figure 4. Computation diagram for model quantized to INT4.</em> 
-</p> 
+<em>Figure 4. Computation diagram for model quantized to INT4.</em>
+</p>
 
+Tensor-wise asymmetric Round To Nearest (RTN) quantization, a basic WOQ technique, poses challenges and often results in accuracy reduction, however it was shown in the [literature](https://arxiv.org/pdf/2206.01861.pdf) (Zhewei Yao, 2022) that groupwise quantization of the model’s weights helps in retaining accuracy. To avoid accuracy degradation, we perform 4-bit quantization in groups (e.g. 128) of consequent values along the input channel, with scaling factors calculated per group. We found that groupwise 4bit RTN is sufficient to retain StarCoder’s accuracy on the HumanEval dataset. The 4bit model achieves **3.35x** speedup in TPOT compared to the BF16 baseline (figure 5), however it suffers from expected slowdown of 0.84x in TTFT (Table 1) due to the overhead of dequantizing the 4bit to 16bit before computation.
 
-A vanilla tensor-wise asymmetric Round To Nearest (RTN) quantization poses challenges and often results in accuracy reduction, however it was shown in the [literature](https://arxiv.org/pdf/2206.01861.pdf) (Zhewei Yao, 2022) that groupwise quantization of the model’s weights helps in retaining accuracy. To avoid accuracy degradation, we perform 4-bit quantization in groups (e.g. 128) of consequent values along the input channel, with scaling factors calculated per group. We found that groupwise 4bit RTN is sufficient to retain StarCoder’s accuracy on the HumanEval dataset. The 4-bit model achieves **3.35x** speedup in TPOT compared to the BF16 baseline (figure 5), however it suffers from expected slowdown in TTFT due to the overhead of dequantizing the 4bit to 16bit before computation. 
-
-
-
-<p align="center"> 
+<p align="center">
  <img src="assets/173_intel_quantization_starcoder/latency_int4_model.png" alt="INT4 latency"><br>
-<em>Figure 5. Latency speedup of quantized model.</em> 
-</p> 
+<em>Figure 5. Latency speedup of 4-bit quantized model.</em>
+</p>
 
+
+## Different Bottlenecks between Generating the First Token and Subsequent Tokens
+
+The initial step of generating the first token, which involves parallel processing of the entire input prompt, demands significant computational resources when the prompt length is high. Computation, therefore, becomes the bottleneck in this stage. Hence, switching from BF16 to INT8 precision for this process improves the performance compared to the baseline (and to 4bit WOQ which involves compute overhead in the form of dequantization). However, starting from the second step, when the system generates the rest of the tokens one by one in an autoregressive manner, the model is loaded from the memory again and again for each new generated token. As a result, the bottleneck  becomes memory bandwidth, rather than the number of calculations (FLOPS) performed and therefore INT4 outperforms INT8 and BF16.
 
 
 ## Step 4: Assisted Generation (AG)
@@ -102,10 +102,10 @@ We found that generating the first token which includes processing the entire in
 2. The target model processes a sequence of K tokens generated from the draft model. Forwarding through the target model K tokens at once instead of forwarding through the target model K times a single input significantly reduces memory bandwidth bottleneck. Therefore, we observed (see Figure 6) that running inference with 8bit quantization is faster than with 4bit WOQ where we have to decompress every single weight to BF16.
 
 
-<p align="center"> 
+<p align="center">
  <img src="assets/173_intel_quantization_starcoder/latency_int8_ag_model.png" alt="IN8 AG"><br>
-<em>Figure 6. Latency speedup of optimized model.</em> 
-</p> 
+<em>Figure 6. Latency speedup of optimized model.</em>
+</p>
 
 
 ---
