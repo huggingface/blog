@@ -47,7 +47,7 @@ For fairness, we control different protected attributes across different tasks t
 
 
 
-# Some key findings from our paper
+## Some key findings from our paper
 Overall, we find that 
 1) GPT-4 is more vulnerable than GPT-3.5, 
 2) no single LLM consistently outperforms others across all trustworthiness perspectives, 
