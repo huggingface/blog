@@ -130,13 +130,13 @@ These quantization choices are backed up by the following observations:
 
 
 ---
-| StarCoder | Quantization | Precision | HumanEval(pass@1) | TTFT (ms) | TPOT (ms) | TPOT Speedup |
+| StarCoder | Quantization | Precision | HumanEval (pass@1)| TTFT (ms) | TPOT (ms) | TPOT Speedup |
 | --------- | ------------ | --------- | ----------------- | --------- | --------- | ------------ |
 
 | Baseline  |     None     |    A16W16 |        33.54      |   357.9   |   181.0   |    1.00x     |
 |   INT8    |  SmoothQuant |    A8W8   |        33.96      |   163.4   |    82.4   |    2.20x     |
 |   INT4    |  RTN (g128)  |    A16W4  |        32.80      |   425.1   |    54.0   |    3.35x     |
-|INT8 + AG**|  SmoothQuant |    A8W8   |        33.96      |   183.6   |    24.8   |    7.30x     |
+|INT8 + AG  |  SmoothQuant |    A8W8   |        33.96      |   183.6   |    24.8   |    7.30x     |
 
 
 Table 1: Accuracy and latency measurements of the StarCoder model on Intel 4th Gen Xeon
