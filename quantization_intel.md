@@ -4,13 +4,25 @@ thumbnail: /blog/assets/optimum_intel/thumbnail.png
 authors:
 - user: ofirzaf
   guest: true
-- user: orenpereg
-  guest: true
-- user: guybd
-  guest: true
 - user: echarlaix
-- user: moshew
+- user: imargulis
   guest: true
+- user: danielkorat
+guest: true
+- user: jmamou
+guest: true
+- user: guybd
+guest: true
+- user: orenpereg
+guest: true
+- user: moshew
+guest: true
+- user: hshen14
+guest: true
+- user: aayasin
+guest: true
+- user: Zhao Fan
+guest: true
 ---
 
 # Fast Code Generation with Q4-StarCoder and Speculative Decoding on Intel Xeon
@@ -94,12 +106,14 @@ Another method to mitigate the high inference latency and alleviate the memory b
 
 AG uses a small, fast draft model to greedily generate K candidate tokens. These output tokens are generated much faster, but some of them may not resemble the output tokens of the original target model. Hence, in the next step, the target model checks the validity of all K candidate tokens in parallel in a single forward pass. This process speeds up the decoding since the latency of parallel decoding of K tokens is smaller than generating K tokens autoregressively.
 
-For accelerating StarCoder, we use [bigcode/tiny_starcoder_py](https://huggingface.co/bigcode/tiny_starcoder_py) as the draft model. This model shares similar architecture with StarCoder but includes only 164M parameters - **~95x** smaller than StarCoder, and thus much faster. To achieve an even greater speedup, we applied quantization to the draft model as well. We consider both SmoothQuant and WOQ quantization for the draft model. Theoretically, the draft model has the same bottlenecks as the target model, however, when evaluating both quantization options for the draft we find that SmoothQuant performs better for the draft model yielding **~1.94x** speedup in TTFT and **~7.30x** speedup in TPOT (Figure 6).
 
-We found that generating the first token which includes processing the entire input prompt is an operation of high arithmetic intensity, thus compute resources are the bottleneck and performing the compute in INT8 precision yields better performance in comparison to performing the compute in BF16 precision in the baseline and in WOQ case. After generating the first token, when we enter the auto-regressive process without assisted generation, each individual weight, loaded from DRAM to the chip memory, is used only for a single multiplication operation per new input token. Consequently, the significant factor to evaluate here is not FLOPS, but rather the memory bandwidth. When applying quantization together with assisted generation we observed the following:
+For accelerating StarCoder, we use [bigcode/tiny_starcoder_py](https://huggingface.co/bigcode/tiny_starcoder_py) downloaded from the Hugging Face hub as the draft model. This model shares a similar architecture with StarCoder but includes only 164M parameters - **~95x** smaller than StarCoder, and thus much faster. To achieve an even greater speedup, in addition to quantizing the target model, we apply quantization to the draft model as well. We consider both 8bit SmoothQuant and 4bit WOQ quantization for the draft and target models. When evaluating both quantization options for the draft and target models, we found that 8bit SmoothQuant for both models yielded the best results: **~7.30x** speedup in TPOT (Figure 6).
 
-1. When we use the 8bit quantized StarCoder with 164M parameters as draft model, the model mostly fits in the CPU cache. The memory bandwidth bottleneck is alleviated, as token generation occurs without repeatedly reading the target model from off-chip memory for each token. In this case, there is no memory bottleneck, and we see better speedup with StarCoder-164M quantized to 8bit in comparison to StarCoder-164M quantized to 4bit WOQ.
-2. The target model processes a sequence of K tokens generated from the draft model. Forwarding through the target model K tokens at once instead of forwarding through the target model K times a single input significantly reduces memory bandwidth bottleneck. Therefore, we observed (see Figure 6) that running inference with 8bit quantization is faster than with 4bit WOQ where we have to decompress every single weight to BF16.
+These quantization choices are backed up by the following observations:
+
+1. Draft model quantization: when using 8bit quantized StarCoder with 164M parameters as draft model, the model mostly fits in the CPU cache. As a result, the memory bandwidth bottleneck is alleviated, as token generation occurs without repeatedly reading the target model from off-chip memory for each token. In this case, there is no memory bottleneck, and we see better speedup with StarCoder-164M quantized to 8bit in comparison to StarCoder-164M quantized to 4bit WOQ. We note that 4bit WOQ holds an advantage where memory bandwidth is the bottleneck because of its smaller memory footprint, however 4bit comes with a compute overhead due to the requirement to perform 4bit to 16bit dequantization before the computation.
+2. Target model quantization: in assisted generation, the target model processes a sequence of K tokens that were generated by the draft model. Forwarding K tokens at once (in parallel) through the target model instead of applying the “standard” sequential autoregressive processing, shifts the balance from memory bandwidth to compute bottleneck. Therefore, we observed that using an 8bit quantized target model yields higher speedups than using a 4bit model because of the additional compute overhead that stems from dequantization of every single value from 4bit to 16bit.
+
 
 
 <p align="center">
