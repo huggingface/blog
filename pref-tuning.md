@@ -13,7 +13,7 @@ authors:
 
 **Addendum**
 
-After consulting with the authors of the IPO paper, we have discovered that the implementation of IPO in TRL was incorrect. We have since fixed this and re-run the experiments. The results are now consistent with the paper, with IPO on par with DPO and performing better that KTO in the paired preference setting. We have updated the post to reflect these new results.
+After consulting with the authors of the IPO paper, we have discovered that the implementation of IPO in TRL was incorrect. We have since fixed this and re-run the experiments. The results are now consistent with the paper, with IPO on par with DPO and performing better than KTO in the paired preference setting. We have updated the post to reflect these new results.
 
 **TL;DR**
 
