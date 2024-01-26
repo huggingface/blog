@@ -42,7 +42,7 @@ The **[Hallucinations Leaderboard](https://huggingface.co/spaces/hallucinations-
 
 
 The Hallucination Leaderboard includes a variety of tasks, identified while working on the [awesome-hallucination-detection](https://github.com/EdinburghNLP/awesome-hallucination-detection) repository:
-- **Closed-book Open-domain QA** -- NQ Open (8-shot and 64-shot), TriviaQA (8-shot and 64-shot), TruthfulQA (MC1, MC2, and Generative)
+- **Closed-book Open-domain QA** -- [NQ Open](https://huggingface.co/datasets/nq_open) (8-shot and 64-shot), [TriviaQA](https://huggingface.co/datasets/trivia_qa) (8-shot and 64-shot), TruthfulQA (MC1, MC2, and Generative)
 - **Summarisation** -- XSum, CNN/DM
 - **Reading Comprehension** -- RACE, SQuADv2
 - **Instruction Following** -- MemoTrap, IFEval
