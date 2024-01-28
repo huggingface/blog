@@ -45,10 +45,10 @@ The Hallucination Leaderboard includes a variety of tasks, identified while work
 - **Closed-book Open-domain QA** -- [NQ Open](https://huggingface.co/datasets/nq_open) (8-shot and 64-shot), [TriviaQA](https://huggingface.co/datasets/trivia_qa) (8-shot and 64-shot), [TruthfulQA](https://huggingface.co/datasets/truthful_qa) (MC1, MC2, and Generative)
 - **Summarisation** -- [XSum](https://huggingface.co/datasets/EdinburghNLP/xsum), [CNN/DM](https://huggingface.co/datasets/cnn_dailymail)
 - **Reading Comprehension** -- [RACE](https://huggingface.co/datasets/EleutherAI/race), [SQuADv2](https://huggingface.co/datasets/squad_v2)
-- **Instruction Following** -- MemoTrap, IFEval
-- **Fact-Checking** -- FEVER
-- **Hallucination Detection** -- FaithDial, True-False, HaluEval (QA, Summarisation, and Dialogue)
-- **Self-Consistency** -- SelfCheckGPT
+- **Instruction Following** -- [MemoTrap](https://huggingface.co/datasets/pminervini/inverse-scaling/viewer/memo-trap), [IFEval](https://huggingface.co/datasets/wis-k/instruction-following-eval)
+- **Fact-Checking** -- [FEVER](https://huggingface.co/datasets/pminervini/hl-fever/viewer/v1.0)
+- **Hallucination Detection** -- [FaithDial](https://huggingface.co/datasets/McGill-NLP/FaithDial), [True-False](https://huggingface.co/datasets/pminervini/true-false), [HaluEval](https://huggingface.co/datasets/pminervini/HaluEval) ([QA](https://huggingface.co/datasets/pminervini/HaluEval/viewer/qa_samples), [Summarisation](https://huggingface.co/datasets/pminervini/HaluEval/viewer/summarization_samples), and [Dialogue](https://huggingface.co/datasets/pminervini/HaluEval/viewer/dialogue_samples))
+- **Self-Consistency** -- [SelfCheckGPT](https://huggingface.co/datasets/potsawee/wiki_bio_gpt3_hallucination)
 
 All metrics are normalized to a \\( [0, 1] \\) scale. For example, in the Truthful QA MC1 and MC2 tasks, a score of 0.8 represents 80% accuracy.
 
