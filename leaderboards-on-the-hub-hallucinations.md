@@ -126,7 +126,7 @@ On RACE, the most accurate results so far are produced on models based on Mistra
 ![Clustermap Hallucination Detection](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard/resolve/main/blog/figures/clustermap_detect_viridis.png)
 
 We consider two hallucination detection tasks, namely SelfCheckGPT — which checks if a model produces self-consistent answers — and HaluEval, which checks whether a model can identify faithfulness hallucinations in QA, Dialog, and Summarisation tasks with respect to a given snippet of knowledge.
-For SelfCheckGPT, the best-scoring model so far is Mistral 7B OpenOrca; one reason this happens is that this model always generates empty answers which are (trivially) self-consistent with themselves. Similarly, DiscoResearch/mixtral-7b-8expert produces very similar generations, yielding high self-consistency results. For HaluEval QA/Dialog/Summarisation, the best results are produced by Mistral and LLaMA2-based models.
+For SelfCheckGPT, the best-scoring model so far is Mistral 7B OpenOrca; one reason this happens is that this model always generates empty answers which are (trivially) self-consistent with themselves. Similarly, `DiscoResearch/mixtral-7b-8expert` produces very similar generations, yielding high self-consistency results. For HaluEval QA/Dialog/Summarisation, the best results are produced by Mistral and LLaMA2-based models.
 
 ## Wrapping up
 
