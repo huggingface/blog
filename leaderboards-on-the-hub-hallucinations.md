@@ -42,7 +42,7 @@ The **[Hallucinations Leaderboard](https://huggingface.co/spaces/hallucinations-
 
 
 The Hallucination Leaderboard includes a variety of tasks, identified while working on the [awesome-hallucination-detection](https://github.com/EdinburghNLP/awesome-hallucination-detection) repository:
-- **Closed-book Open-domain QA** -- [NQ Open](https://huggingface.co/datasets/nq_open) (8-shot and 64-shot), [TriviaQA](https://huggingface.co/datasets/trivia_qa) (8-shot and 64-shot), [TruthfulQA](https://huggingface.co/datasets/truthful_qa) (MC1, MC2, and Generative)
+- **Closed-book Open-domain QA** -- [NQ Open](https://huggingface.co/datasets/nq_open) (8-shot and 64-shot), [TriviaQA](https://huggingface.co/datasets/trivia_qa) (8-shot and 64-shot), [TruthfulQA](https://huggingface.co/datasets/truthful_qa) ([MC1](https://huggingface.co/datasets/truthful_qa/viewer/multiple_choice), [MC2](https://huggingface.co/datasets/truthful_qa/viewer/multiple_choice), and [Generative](https://huggingface.co/datasets/truthful_qa/viewer/generation))
 - **Summarisation** -- [XSum](https://huggingface.co/datasets/EdinburghNLP/xsum), [CNN/DM](https://huggingface.co/datasets/cnn_dailymail)
 - **Reading Comprehension** -- [RACE](https://huggingface.co/datasets/EleutherAI/race), [SQuADv2](https://huggingface.co/datasets/squad_v2)
 - **Instruction Following** -- [MemoTrap](https://huggingface.co/datasets/pminervini/inverse-scaling/viewer/memo-trap), [IFEval](https://huggingface.co/datasets/wis-k/instruction-following-eval)
