@@ -3333,14 +3333,27 @@
     - gcp
     - hardware
 
-- local: leaderboards-on-the-hub-hallucinations
-  title: "The Hallucinations Leaderboard, an open effort to measure hallucinations in Large Language Models"
-  author: pminervini
+- local: leaderboards-on-the-hub-decodingtrust
+  title: "An Introduction to AI Secure LLM Safety Leaderboard"
+  author: danielz01
   guest: true
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
-  date: January 25, 2024
+  date: January 26, 2024
   tags:
     - leaderboard
     - guide
     - collaboration
-    - community
+    - research
+
+
+- local: leaderboards-on-the-hub-hallucinations
+  title: "The Hallucinations Leaderboard, an Open Effort to Measure Hallucinations in Large Language Models"
+  author: pminervini
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  date: January 29, 2024
+  tags:
+    - leaderboard
+    - guide
+    - collaboration
+    - research
