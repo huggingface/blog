@@ -3362,7 +3362,7 @@
   title: "Accelerate StarCoder with 🤗 Optimum Intel on Xeon: Q8/Q4 and Speculative Decoding"
   author: ofirzaf
   guest: true
-  thumbnail: /blog/assets/optimum_intel/intel_hf_logo.png
+  thumbnail: /blog/assets/174_intel_quantization_starcoder/thumbnail.png
   date: Jan 30, 2024
   tags:
     - nlp
