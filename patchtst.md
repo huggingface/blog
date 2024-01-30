@@ -51,7 +51,7 @@ We can install both by cloning the `tsfm` repository and following the below ste
 
 1. Clone the public IBM Time Series Foundation Model Repository [`tsfm`](https://github.com/ibm/tsfm).
     ```bash
-    pip install git+https://github.com:IBM/tsfm.git
+    pip install git+https://github.com/IBM/tsfm.git
     ```
 2. Install Hugging Face [`Transformers`](https://github.com/huggingface/transformers#installation)
     ```bash
