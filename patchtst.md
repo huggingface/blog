@@ -20,7 +20,7 @@ In this blog, we provide examples on how to get started with PatchTST. We first 
 
 The `PatchTST` model was proposed in A Time Series is Worth [64 Words: Long-term Forecasting with Transformers](https://arxiv.org/abs/2211.14730) by Yuqi Nie, Nam H. Nguyen, Phanwadee Sinthong, Jayant Kalagnanam.
 
-We will demonstrate the trasfer learning capability of the `PatchTST` model.
+We will demonstrate the transfer learning capability of the `PatchTST` model.
 We will pretrain the model for a forecasting task on a `source` dataset. Then, we will use the
 pretrained model for a zero-shot forecasting on a `target` dataset. The zero-shot forecasting
  performance will denote the `test` performance of the model in the `target` domain, without any
@@ -32,7 +32,9 @@ pretrained model for a zero-shot forecasting on a `target` dataset. The zero-sho
 
 At a high level the model vectorizes time series into patches of a given size and encodes the resulting sequence of vectors via a Transformer that then outputs the prediction length forecast via an appropriate head.
 
-The model is based on two key components: (i) segmentation of time series into subseries-level patches which are served as input tokens to Transformer; (ii) channel-independence where each channel contains a single univariate time series that shares the same embedding and Transformer weights across all the series. 
+The model is based on two key components: 
+  1. segmentation of time series into subseries-level patches which are served as input tokens to Transformer; 
+  2.  channel-independence where each channel contains a single univariate time series that shares the same embedding and Transformer weights across all the series. 
 
 The patching design naturally has three-fold benefit: 
  - local semantic information is retained in the embedding; 
@@ -794,7 +796,7 @@ os.makedirs(save_dir, exist_ok=True)
 trainer.save_model(save_dir)
 ```
 
-# Part 2: Transfer Learning from Electicity to ETTh1
+# Part 2: Transfer Learning from Electricity to ETTh1
 
 
 In this section, we will demonstrate the transfer learning capability of the `PatchTST` model.
@@ -809,7 +811,7 @@ All evaluations are on the `test` part of the `ETTh1` data.
 
 Step 1: Directly evaluate the electricity-pretrained model. This is the zero-shot performance. 
 
-Step 2: Evalute after doing linear probing. 
+Step 2: Evaluate after doing linear probing. 
 
 Step 3: Evaluate after doing full finetuning. 
 
