@@ -18,7 +18,7 @@ authors:
 
 In this blog, we provide examples on how to get started with PatchTST. We first demonstrate the forecasting capability of `PatchTST` on the Electricity data. We will then demonstrate the transfer learning capability of `PatchTST` by using the previously trained model to do zero-shot forecasting on the electrical transformer (ETTh1) dataset.
 
-The `PatchTST` model was proposed in A Time Series is Worth [64 Words: Long-term Forecasting with Transformers](https://arxiv.org/abs/2211.14730) by Yuqi Nie, Nam H. Nguyen, Phanwadee Sinthong, Jayant Kalagnanam.
+The `PatchTST` model was proposed in A Time Series is Worth [64 Words: Long-term Forecasting with Transformers](https://huggingface.co/papers/2211.14730) by Yuqi Nie, Nam H. Nguyen, Phanwadee Sinthong, Jayant Kalagnanam.
 
 We will demonstrate the transfer learning capability of the `PatchTST` model.
 We will pretrain the model for a forecasting task on a `source` dataset. Then, we will use the
@@ -771,19 +771,10 @@ Note that the training and evaluation loss for PatchTST is the Mean Squared Erro
 results = trainer.evaluate(test_dataset)
 print("Test result:")
 print(results)
-```
-<!--
-<div>
 
-  <progress value='21' max='21' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  [21/21 00:04]
-</div>
--->
-
-
-    Test result:
+>>> Test result:
     {'eval_loss': 0.1316315233707428, 'eval_runtime': 5.8077, 'eval_samples_per_second': 889.332, 'eval_steps_per_second': 3.616, 'epoch': 83.0}
-
+```
 
 The MSE of `0.132` is very close to the value reported for the Electricity dataset in the original PatchTST paper.
 
@@ -841,9 +832,9 @@ valid_end_index = 12 * 30 * 24 + 4 * 30 * 24
 
 test_start_index = 12 * 30 * 24 + 4 * 30 * 24 - context_length
 test_end_index = 12 * 30 * 24 + 8 * 30 * 24
-```
 
-    Loading target dataset: ETTh1
+>>> Loading target dataset: ETTh1
+```
 
 
 
@@ -964,11 +955,12 @@ print("\n\nDoing zero-shot forecasting on target data")
 result = finetune_forecast_trainer.evaluate(test_dataset)
 print("Target data zero-shot forecasting result:")
 print(result)
-```
-    Doing zero-shot forecasting on target data
+
+>>> Doing zero-shot forecasting on target data
 
     Target data zero-shot forecasting result:
     {'eval_loss': 0.3728715181350708, 'eval_runtime': 0.95, 'eval_samples_per_second': 2931.527, 'eval_steps_per_second': 11.579}
+```
 
 
 As can be seen, with a zero-shot forecasting approach we obtain an MSE of 0.370 which is near to the state-of-the-art result in the original PatchTST paper.
@@ -991,8 +983,9 @@ print("Evaluating")
 result = finetune_forecast_trainer.evaluate(test_dataset)
 print("Target data head/linear probing result:")
 print(result)
+
+>>> Linear probing on the target data
 ```
-    Linear probing on the target data
 <!--
     <div>
 
@@ -1105,11 +1098,12 @@ print(result)
   </tbody>
 </table><p>
 
-
-    Evaluating
+```
+>>> Evaluating
 
     Target data head/linear probing result:
     {'eval_loss': 0.35652095079421997, 'eval_runtime': 1.1537, 'eval_samples_per_second': 2413.986, 'eval_steps_per_second': 9.535, 'epoch': 18.0}
+```
 
 
 As can be seen, by only training a simple linear layer on top of the frozen backbone, the MSE decreased from 0.370 to 0.357, beating the originally reported results!
@@ -1154,8 +1148,10 @@ print("Evaluating")
 result = finetune_forecast_trainer.evaluate(test_dataset)
 print("Target data full finetune result:")
 print(result)
+
+>>> Finetuning on the target data
 ```
-    Finetuning on the target data
+
 <!--
     <div>
 
@@ -1241,12 +1237,12 @@ print(result)
 -->
   </tbody>
 </table><p>
-
-    Evaluating
+```
+>>> Evaluating
 
     Target data full finetune result:
     {'eval_loss': 0.354232519865036, 'eval_runtime': 1.0715, 'eval_samples_per_second': 2599.18, 'eval_steps_per_second': 10.266, 'epoch': 12.0}
-
+```
 
 In this case, there is only a small improvement on the ETTh1 dataset with full fine-tuning. For other datasets there may be more substantial improvements. Lets save the model anyway.
 
