@@ -3284,3 +3284,19 @@
     - rlhf
     - nlp
     - research
+
+
+- local: intel-fast-embedding
+  title: "Fast Embeddings with 🤗 Optimum Intel and fastRAG"
+  author: peterizsak
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/thumbnail.png
+  date: Jan 30, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community
+

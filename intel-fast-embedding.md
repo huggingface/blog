@@ -127,7 +127,6 @@ inputs = tokenizer(sentences, return_tensors="pt")
 with torch.no_grad():
     outputs = model(**inputs)
     embedded = outputs[0][:, 0]
-
 ```
 
 We provide additional and important details on how to configure the CPU-backend setup in the evaluation section below (correct machine setup).
@@ -183,5 +182,156 @@ Experimental setup notes:
 - IPEX/Optimum setups were run with ipexrun, on 1 socket, and cores ranging from 22-56.
 - Hardware (CPU):  4th gen Intel Xeon 8480+ with 2 sockets, 56 cores per socket.
 - TCMalloc was installed and defined as an environment variable.
+
+### How did we run the evaluation?
+
+1. Encoding out-of-the-box PyTorch and Hugging Face:
+
+
+```
+import torch
+from transformers import AutoModel
+
+model = AutoModel.from_pretrained(model_id)
+
+@torch.inference_mode()
+def encode_text():
+    outputs = model(inputs)
+
+with torch.cpu.amp.autocast(dtype=torch.bfloat16):
+    encode_text()
+
+```
+
+
+
+2. Running with IPEX and AMP:
+
+
+```
+import torch
+import intel_extension_for_pytorch as ipex
+from transformers import AutoModel
+
+model = AutoModel.from_pretrained(model_id)
+model = ipex.optimize(model, dtype=torch.bfloat16)
+
+@torch.inference_mode()
+def encode_text():
+    outputs = model(inputs)
+
+with torch.cpu.amp.autocast(dtype=torch.bfloat16):
+    encode_text()
+```
+
+
+3. Running with IPEX and AMP in torchscript mode:
+
+
+
+```
+import torch
+import intel_extension_for_pytorch as ipex
+from transformers import AutoModel
+
+model = AutoModel.from_pretrained(model_id)
+model = ipex.optimize(model, dtype=torch.bfloat16)
+
+vocab_size = model.config.vocab_size
+batch_size = 1
+seq_length = 512
+d = torch.randint(vocab_size, size=[batch_size, seq_length])
+model = torch.jit.trace(model, (d,), check_trace=False, strict=False)
+
+@torch.inference_mode()
+def encode_text():
+    outputs = model(inputs)
+
+with torch.cpu.amp.autocast(dtype=torch.bfloat16):
+    encode_text()
+```
+
+
+
+
+4. Running with Optimum Intel:
+
+
+```
+import torch
+import intel_extension_for_pytorch as ipex
+from optimum.intel import IPEXModel
+
+model = IPEXModel.from_pretrained(model_id)
+
+@torch.inference_mode()
+def encode_text():
+    outputs = model(inputs)
+
+encode_text()
+```
+
+
+
+
+### Latency performance
+
+In this evaluation, we aim to measure how fast the models respond. This is an example use case for encoding queries in RAG pipelines.
+
+The batch size is set to 1 and we measure document different lengths.
+
+We can see that the quantized model has the best latency overall, under 10 ms for the small and base models and <20 ms for the large model. Compared to the vanilla model, the quantized model shows x6 - x12 speedup in latency.
+
+
+
+<p align="center">
+ <img src="assets/174_intel_fast_embeddings/latency_small.png" alt="latency small"><br>
+<em>Figure 1. Latency for BGE small.</em>
+</p>
+
+
+
+<p align="center">
+ <img src="assets/174_intel_fast_embeddings/latency_base.png" alt="latency base"><br>
+<em>Figure 2. Latency for BGE base.</em>
+</p>
+
+
+
+
+<p align="center">
+ <img src="assets/174_intel_fast_embeddings/latency_large.png" alt="latency large"><br>
+<em>Figure 3. Latency for BGE large.</em>
+</p>
+
+
+### Throughput Performance
+
+In our throughput evaluation, we aim to search for the peak performance of the model in terms of encoded documents per second. This experiment highlights the capability of the hardware and model when encoding large quantities of text (when creating an index).
+
+We set the encoded text lengths to 256 tokens as it serves as a good estimate of an average passage in RAG pipelines. We run the evaluation with batch sizes of 4, 8, 16, 32, 64, 128, 256.
+
+Results show that the quantized models running with the optimized backend have the best throughput over all other options and reach peak throughput at batch size 128. Overall, for all model sizes, the quantized model has x4-x5 higher throughput than the vanilla model at the peak performance batch size.
+
+
+<p align="center">
+ <img src="assets/174_intel_fast_embeddings/throughput_small.png" alt="throughput small"><br>
+<em>Figure 4. Throughput for BGE small.</em>
+</p>
+
+
+
+<p align="center">
+ <img src="assets/174_intel_fast_embeddings/throughput_base.png" alt="throughput base"><br>
+<em>Figure 5. Throughput for BGE base.</em>
+</p>
+
+
+
+
+<p align="center">
+ <img src="assets/174_intel_fast_embeddings/throughput_large.png" alt="throughput large"><br>
+<em>Figure 6. Throughput for BGE large.</em>
+</p>
 
 
