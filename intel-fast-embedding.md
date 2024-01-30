@@ -2,9 +2,18 @@
 title: "Fast Embeddings with 🤗 Optimum Intel and fastRAG"
 thumbnail: /blog/assets/optimum_intel/thumbnail.png
 authors:
-- user: users # TODO : add authors
+- user: peterizsak
   guest: true
+- user: mber
+  guest: true
+- user: danf
+  guest: true
+- user: echarlaix
+- user: mfuntowicz
+- user: moshew
+guest: true
 ---
+
 
 # Fast Embeddings with 🤗 Optimum Intel and fastRAG
 
@@ -68,12 +77,28 @@ The following snippet shows a sample code for quantization:
 
 
 ```
+def quantize(model_name, output_path, calibration_set):
+    model = AutoModel.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
 
+    def preprocess_function(examples):
+        return tokenizer(examples["text"], padding="max_length", max_length=512, truncation=True)
+
+    vectorized_ds = calibration_set.map(preprocess_function, num_proc=10)
+    vectorized_ds = vectorized_ds.remove_columns(["text"])
+
+    quantizer = INCQuantizer.from_pretrained(model)
+    quantization_config = PostTrainingQuantConfig(approach="static", backend="ipex", domain="nlp")
+    quantizer.quantize(
+        quantization_config=quantization_config,
+        calibration_dataset=vectorized_ds,
+        save_directory=output_path,
+        batch_size=1,
+    )
+    tokenizer.save_pretrained(output_path)
 ```
 
-
 In our calibration process we use a subset of the [qasper](https://huggingface.co/datasets/allenai/qasper) dataset.
-
 
 
 ## Usage
