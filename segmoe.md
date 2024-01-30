@@ -23,10 +23,10 @@ Among the features and integrations being released today:
 
 - [What is SegMoE](#what-is-segmoe)
   - [About the name](#about-the-name)
-- [Demo](#demo)
+- [Samples](#Samples)
 - [Inference](#inference)
   - [Using 🤗 Diffusers](#using-🤗-diffusers)
-- [Fine-tuning](#fine-tuning)
+- [Comparison](#comparison)
 - [Disclaimers and ongoing work](#disclaimers-and-ongoing-work)
 - [Additional Resources](#additional-resources)
 - [Conclusion](#conclusion)
