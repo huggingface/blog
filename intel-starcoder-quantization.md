@@ -35,6 +35,7 @@ The StarCoder Model is a cutting-edge LLM specifically designed for assisting th
 
 Try out our [demo](https://huggingface.co/spaces/Intel/intel-starcoder-playground) on Hugging Face Spaces that is being run on a 4th Generation Intel Xeon Scalable processor.
 
+Code and optimizations are available in [Optimum Intel](https://github.com/huggingface/optimum-intel) v1.14.0.
 
 <kbd>
   <img alt="Generating DOI" src="assets/174_intel_quantization_starcoder/starcoder-demo.mov">
