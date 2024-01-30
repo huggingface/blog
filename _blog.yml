@@ -3252,7 +3252,7 @@
   title: "A guide to setting up your own Hugging Face leaderboard: an end-to-end example with Vectara's hallucination leaderboard"
   author: ofermend
   guest: true
-  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_vectara.png
   date: Jan 12, 2024
   tags:
       - leaderboard
