@@ -210,6 +210,7 @@ test_data = select_by_index(
 )
 
 time_series_processor = TimeSeriesPreprocessor(
+    context_length=context_length,
     timestamp_column=timestamp_column,
     id_columns=id_columns,
     input_columns=forecast_columns,
@@ -432,6 +433,7 @@ test_data = select_by_index(
 )
 
 time_series_processor = TimeSeriesPreprocessor(
+    context_length=context_length
     timestamp_column=timestamp_column,
     id_columns=id_columns,
     input_columns=forecast_columns,
@@ -441,7 +443,7 @@ time_series_processor = TimeSeriesPreprocessor(
 time_series_processor.train(train_data)
 
 >>> TimeSeriesPreprocessor {
-        "context_length": 64,
+        "context_length": 512,
         "feature_extractor_type": "TimeSeriesPreprocessor",
         "id_columns": [],
     ...
