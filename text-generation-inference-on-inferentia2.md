@@ -94,7 +94,7 @@ This means compiling fine-tuned checkpoints for Mistral 7B with the same configu
 
 **Note:** Currently, TGI can only load compiled checkpoints and models. We are working on an on-the-fly compilation based on the cache. This means that you'll be able to pass any model ID from the Hugging face Hub, e.g., `HuggingFaceH4/zephyr-7b-beta` as long as there is a cached configuration. This post will be updated when this feature is released.
 
-For the blog we compiled `HuggingFaceH4/zephyr-7b-beta` using the following command and parameters on a `inf2.8xlarge` instance and pushed it to the hub at :
+For this post we compiled `HuggingFaceH4/zephyr-7b-beta` using the following command and parameters on a `inf2.8xlarge` instance, and pushed it to the Hub at [aws-neuron/zephyr-7b-seqlen-2048-bs-4-cores-2](https://huggingface.co/aws-neuron/zephyr-7b-seqlen-2048-bs-4-cores-2)
 
 ```bash
 # compile model with optimum for batch size 4 and sequence length 2048
