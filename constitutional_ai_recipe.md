@@ -5,8 +5,8 @@ authors:
 - user: vwxyzjn
 - user: lewtun
 - user: edbeeching
-- user: osanseviero
 - user: lvwerra
+- user: osanseviero
 - user: yjernite
 - user: thomwolf
 ---
@@ -396,11 +396,11 @@ We thank the feedback and discussion with Moritz Laurer.
 # Bibtex
 
 ```bibtex
-@article{Huang2024implementation,
-  author = {Huang, Shengyi and Liu, Tianlin and von Werra, Leandro},
-  title = {The N Implementation Details of RLHF with PPO},
+@article{Huang2024cairecipe,
+  author = {Huang, Shengyi and Tunstall, Lewis and Beeching, Edward and von Werra, Leandro and Sanseviero, Omar and Jernite, Yacine and Wolf, Thomas},
+  title = {Constitutional AI Recipe},
   journal = {Hugging Face Blog},
-  year = {2023},
-  note = {https://huggingface.co/blog/the_n_implementation_details_of_rlhf_with_ppo},
+  year = {2024},
+  note = {https://huggingface.co/blog/constitutional_ai_recipe},
 }
 ```
