@@ -112,11 +112,11 @@ If you are trying to compile an LLM with a configuration that is not yet cached,
 
 Before deploying the model to Amazon SageMaker, we must define the TGI Neuronx endpoint configuration. Due to the current boundaries of Inferentia2, we need to make sure that the following parameters are set to the same value:
 
-- `MAX_CONCURRENT_REQUESTS`: Equals to the batch size, which was used to compile the model.
-- `MAX_INPUT_LENGTH`: Equals or lower than the sequence length, which was used to compile the model.
-- `MAX_TOTAL_TOKENS`: Equals to the sequence length, which was used to compile the model.
-- `MAX_BATCH_PREFILL_TOKENS`: half of the max tokens [batch_size * sequence_length] / 2
-- `MAX_BATCH_TOTAL_TOKENS`: Equals to the max tokens [batch_size * sequence_length]
+- `MAX_CONCURRENT_REQUESTS`: Equal to the batch size that was used to compile the model.
+- `MAX_INPUT_LENGTH`: Less than or equal to the sequence length that was used to compile the model.
+- `MAX_TOTAL_TOKENS`: Equal to the sequence length that was used to compile the model.
+- `MAX_BATCH_PREFILL_TOKENS`: half of the maximum number of tokens `[batch_size * sequence_length] / 2`
+- `MAX_BATCH_TOTAL_TOKENS`: Equal to the maximum number of tokens `[batch_size * sequence_length]`
 
 In addition, we need to set the `HF_MODEL_ID` pointing to the Hugging Face model ID.
 
