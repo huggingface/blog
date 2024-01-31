@@ -16,17 +16,14 @@ authors:
 
 # Patch Time Series Transformer in HuggingFace - Getting Started
 
-In this blog, we provide examples on how to get started with PatchTST. We first demonstrate the forecasting capability of `PatchTST` on the Electricity data. We will then demonstrate the transfer learning capability of `PatchTST` by using the previously trained model to do zero-shot forecasting on the electrical transformer (ETTh1) dataset.
-
-The `PatchTST` model was proposed in A Time Series is Worth [64 Words: Long-term Forecasting with Transformers](https://huggingface.co/papers/2211.14730) by Yuqi Nie, Nam H. Nguyen, Phanwadee Sinthong, Jayant Kalagnanam.
-
-We will demonstrate the transfer learning capability of the `PatchTST` model.
-We will pretrain the model for a forecasting task on a `source` dataset. Then, we will use the
-pretrained model for a zero-shot forecasting on a `target` dataset. The zero-shot forecasting
+In this blog, we provide examples on how to get started with PatchTST. We first demonstrate the forecasting capability of `PatchTST` on the Electricity data. We will then demonstrate the transfer learning capability of `PatchTST` by using the previously trained model to do zero-shot forecasting on the electrical transformer (ETTh1) dataset. The zero-shot forecasting
  performance will denote the `test` performance of the model in the `target` domain, without any
  training on the target domain. Subsequently, we will do linear probing and (then) finetuning of
  the pretrained model on the `train` part of the target data, and will validate the forecasting
  performance on the `test` part of the target data.
+
+The `PatchTST` model was proposed in A Time Series is Worth [64 Words: Long-term Forecasting with Transformers](https://huggingface.co/papers/2211.14730) by Yuqi Nie, Nam H. Nguyen, Phanwadee Sinthong, Jayant Kalagnanam and presented at ICLR 2023.
+
 
 ## Quick overview of PatchTST
 
