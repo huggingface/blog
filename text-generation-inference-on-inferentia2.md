@@ -1,5 +1,5 @@
 ---
-title: "Hugging Face Text Generation Inference available for AWS inferentia2" 
+title: "Hugging Face Text Generation Inference available for AWS Inferentia2" 
 thumbnail: /blog/assets/175_text_generation_inference_on_inferentia2/thumbnail.jpg
 authors:
 - user: philschmid
