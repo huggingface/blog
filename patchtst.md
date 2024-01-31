@@ -30,16 +30,16 @@ pretrained model for a zero-shot forecasting on a `target` dataset. The zero-sho
 
 ## Quick overview of PatchTST
 
-At a high level the model vectorizes time series into patches of a given size and encodes the resulting sequence of vectors via a Transformer that then outputs the prediction length forecast via an appropriate head.
+At a high level the model vectorizes individual time series in a batch into patches of a given size and encodes the resulting sequence of vectors via a Transformer that then outputs the prediction length forecast via an appropriate head.
 
 The model is based on two key components: 
   1. segmentation of time series into subseries-level patches which are served as input tokens to Transformer; 
-  2.  channel-independence where each channel contains a single univariate time series that shares the same embedding and Transformer weights across all the series. 
+  2.  channel-independence where each channel contains a single univariate time series that shares the same embedding and Transformer weights across all the series, i.e. a [global](https://doi.org/10.1016/j.ijforecast.2021.03.004) univariate model. 
 
 The patching design naturally has three-fold benefit: 
  - local semantic information is retained in the embedding; 
- - computation and memory usage of the attention maps are quadratically reduced given the same look-back window; and 
- - the model can attend longer history via a trade-off between the patch length (input vector size) and the context length (number of sequences). 
+ - computation and memory usage of the attention maps are quadratically reduced given the same look-back window via strides between patches; and 
+ - the model can attend longer history via a trade-off between the patch length (input vector size) and the context length (number of sequences).
  
  Our channel-independent patch time series transformer (PatchTST) can improve the long-term forecasting accuracy significantly when compared with that of other state of the art transformer-based models.
 
