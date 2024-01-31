@@ -84,7 +84,6 @@ print(f"llm image uri: {llm_image}")
 ### 4. Deploy Zephyr 7B to Amazon SageMaker
 
 Text Generation Inference (TGI) on Inferentia2 supports popular open LLMs, including Llama, Mistral, and more. You can check the full list of supported models (text-generation) [here](https://huggingface.co/docs/optimum-neuron/package_reference/export#supported-architectures).
-In this example, we will deploy [Hugging Face Zephyr](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta) to Amazon SageMaker. Zephyr is a 7B parameter LLM fine-tuned version of [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) that was trained on a mix of publicly available, synthetic datasets using [Direct Preference Optimization (DPO)](https://arxiv.org/abs/2305.18290). You can find more details in the [technical report](https://arxiv.org/abs/2310.16944).
 
 **Compiling LLMs for Inferenetia2**  
 
