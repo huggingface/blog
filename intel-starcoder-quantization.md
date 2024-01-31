@@ -8,19 +8,19 @@ authors:
 - user: imargulis
   guest: true
 - user: danielkorat
-guest: true
+  guest: true
 - user: jmamou
-guest: true
+  guest: true
 - user: guybd
-guest: true
+  guest: true
 - user: orenpereg
-guest: true
+  guest: true
 - user: moshew
-guest: true
+  guest: true
 - user: hshen14
-guest: true
+  guest: true
 - user: aayasin
-guest: true
+  guest: true
 ---
 
 # Fast Code Generation with Q4-StarCoder and Speculative Decoding on Intel Xeon
