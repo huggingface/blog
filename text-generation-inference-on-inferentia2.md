@@ -85,7 +85,7 @@ print(f"llm image uri: {llm_image}")
 
 Text Generation Inference (TGI) on Inferentia2 supports popular open LLMs, including Llama, Mistral, and more. You can check the full list of supported models (text-generation) [here](https://huggingface.co/docs/optimum-neuron/package_reference/export#supported-architectures).
 
-**Compiling LLMs for Inferenetia2**  
+**Compiling LLMs for Inferentia2**  
 
 At the time of writing, [AWS Inferentia2 does not support dynamic shapes for inference](https://awsdocs-neuron.readthedocs-hosted.com/en/v2.6.0/general/arch/neuron-features/dynamic-shapes.html#neuron-dynamic-shapes), which means that we need to specify our sequence length and batch size in advanced.
 To make it easier for customers to utilize the full power of Inferentia2, we created a [neuron model cache](https://huggingface.co/docs/optimum-neuron/guides/cache_system), which contains pre-compiled configurations for the most popular LLMs. A cached configuration is defined through a model architecture (Mistral), model size (7B), neuron version (2.16), number of inferentia cores (2), batch size (2), and sequence length (2048).
