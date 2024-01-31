@@ -16,7 +16,13 @@ authors:
 
 # Patch Time Series Transformer in HuggingFace - Getting Started
 
-In this blog, we provide examples on how to get started with PatchTST. We first demonstrate the forecasting capability of `PatchTST` on the Electricity data. We will then demonstrate the transfer learning capability of `PatchTST` by using the previously trained model to do zero-shot forecasting on the electrical transformer (ETTh1) dataset. The zero-shot forecasting
+<script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/patch_tst.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
+In this blog, we provide examples of how to get started with PatchTST. We first demonstrate the forecasting capability of `PatchTST` on the Electricity data. We will then demonstrate the transfer learning capability of `PatchTST` by using the previously trained model to do zero-shot forecasting on the electrical transformer (ETTh1) dataset. The zero-shot forecasting
  performance will denote the `test` performance of the model in the `target` domain, without any
  training on the target domain. Subsequently, we will do linear probing and (then) finetuning of
  the pretrained model on the `train` part of the target data, and will validate the forecasting
@@ -27,10 +33,10 @@ The `PatchTST` model was proposed in A Time Series is Worth [64 Words: Long-term
 
 ## Quick overview of PatchTST
 
-At a high level the model vectorizes individual time series in a batch into patches of a given size and encodes the resulting sequence of vectors via a Transformer that then outputs the prediction length forecast via an appropriate head.
+At a high level, the model vectorizes individual time series in a batch into patches of a given size and encodes the resulting sequence of vectors via a Transformer that then outputs the prediction length forecast via an appropriate head.
 
 The model is based on two key components: 
-  1. segmentation of time series into subseries-level patches which are served as input tokens to Transformer; 
+  1. segmentation of time series into subseries-level patches which serve as input tokens to the Transformer; 
   2.  channel-independence where each channel contains a single univariate time series that shares the same embedding and Transformer weights across all the series, i.e. a [global](https://doi.org/10.1016/j.ijforecast.2021.03.004) univariate model. 
 
 The patching design naturally has three-fold benefit: 
@@ -38,7 +44,6 @@ The patching design naturally has three-fold benefit:
  - computation and memory usage of the attention maps are quadratically reduced given the same look-back window via strides between patches; and 
  - the model can attend longer history via a trade-off between the patch length (input vector size) and the context length (number of sequences).
  
- Our channel-independent patch time series transformer (PatchTST) can improve the long-term forecasting accuracy significantly when compared with that of other state of the art transformer-based models.
 
 In addition, PatchTST has a modular design to seamlessly support masked time series pre-training as well as direct time series forecasting.
 
@@ -46,7 +51,7 @@ In addition, PatchTST has a modular design to seamlessly support masked time ser
 
 | ![PatchTST model schematics](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtst/patchtst-arch.png) |
 |:--:|
-|(a) PatchTST model overview where a batch of \\(M\\) time series each of length \\(L\\) are processed independently (by reshaping them into the batch dimension) via a Transformer backbone and then reshaping the resulting batch back into \\(M \\) series of prediction length \\(T\\). Each *univariate* series can be processed in a supervised fashion (b) where the patched set of vectors are used to output the full prediction length or in a self-supervised fashion (c) where masked patches are predicted. |
+|(a) PatchTST model overview where a batch of \\(M\\) time series each of length \\(L\\) are processed independently (by reshaping them into the batch dimension) via a Transformer backbone and then reshaping the resulting batch back into \\(M \\) series of prediction length \\(T\\). Each *univariate* series can be processed in a supervised fashion (b) where the patched set of vectors is used to output the full prediction length or in a self-supervised fashion (c) where masked patches are predicted. |
 
 
 ## Installation
@@ -118,11 +123,12 @@ set_seed(2023)
  - `patch_length`: The patch length for the `PatchTST` model. It is recommended to choose a value that evenly divides `context_length`.
  - `num_workers`: Number of CPU workers in the PyTorch dataloader.
  - `batch_size`: Batch size.
+
 The data is first loaded into a Pandas dataframe and split into training, validation, and test parts. Then the Pandas dataframes are converted to the appropriate PyTorch dataset required for training.
 
 
 ```python
-# The ECL data is available from https://github.com/zhouhaoyi/Informer2020
+# The ECL data is available from https://github.com/zhouhaoyi/Informer2020?tab=readme-ov-file#data
 dataset_path = "~/data/ECL.csv"
 timestamp_column = "date"
 id_columns = []
@@ -226,13 +232,13 @@ test_dataset = ForecastDFDataset(
 
 ### Configure the PatchTST model
 
-Next, we instantiate a randomly initialized PatchTST model with a configuration. The settings below control the different hyperparameters related to the architecture.
+Next, we instantiate a randomly initialized `PatchTST` model with a configuration. The settings below control the different hyperparameters related to the architecture.
   - `num_input_channels`: the number of input channels (or dimensions) in the time series data. This is
     automatically set to the number for forecast columns.
   - `context_length`: As described above, the amount of historical data used as input to the model.
   - `patch_length`: The length of the patches extracted from the context window (of length `context_length`).
   - `patch_stride`: The stride used when extracting patches from the context window.
-  - `random_mask_ratio`: The fraction of input patches that are completely masked for the purpose of pretraining the model.
+  - `random_mask_ratio`: The fraction of input patches that are completely masked for pretraining the model.
   - `d_model`: Dimension of the transformer layers.
   - `num_attention_heads`: The number of attention heads for each attention layer in the Transformer encoder.
   - `num_hidden_layers`: The number of encoder layers.
@@ -240,17 +246,18 @@ Next, we instantiate a randomly initialized PatchTST model with a configuration.
   - `dropout`: Dropout probability for all fully connected layers in the encoder.
   - `head_dropout`: Dropout probability used in the head of the model.
   - `pooling_type`: Pooling of the embedding. `"mean"`, `"max"` and `None` are supported.
-  - `channel_attention`: Activate channel attention block in the Transformer to allow channels to attend each other.
-  - `scaling`: Whether to scale the input targets via "mean" scaler, "std" scaler or no scaler if `None`. If `True`, the
+  - `channel_attention`: Activate the channel attention block in the Transformer to allow channels to attend to each other.
+  - `scaling`: Whether to scale the input targets via "mean" scaler, "std" scaler, or no scaler if `None`. If `True`, the
     scaler is set to `"mean"`.
   - `loss`: The loss function for the model corresponding to the `distribution_output` head. For parametric
-    distributions it is the negative log likelihood (`"nll"`) and for point estimates it is the mean squared
+    distributions it is the negative log-likelihood (`"nll"`) and for point estimates it is the mean squared
     error `"mse"`.
   - `pre_norm`: Normalization is applied before self-attention if pre_norm is set to `True`. Otherwise, normalization is
     applied after residual block.
   - `norm_type`: Normalization at each Transformer layer. Can be `"BatchNorm"` or `"LayerNorm"`.
 
 For full details on the parameters, we refer to the [documentation](https://huggingface.co/docs/transformers/main/en/model_doc/patchtst#transformers.PatchTSTConfig).
+
 
 
 ```python
@@ -279,7 +286,7 @@ model = PatchTSTForPrediction(config)
 
 ### Train model
 
- Next, we can leverage the Hugging Face [Trainer](https://huggingface.co/docs/transformers/main_classes/trainer) class to train the model based on the direct forecasting strategy. We first define the [TrainingArguments](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments) which lists various hyperparameters for training such as the number of epochs, learning rate and so on.
+Next, we can leverage the Hugging Face [Trainer](https://huggingface.co/docs/transformers/main_classes/trainer) class to train the model based on the direct forecasting strategy. We first define the [TrainingArguments](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments) which lists various hyperparameters for training such as the number of epochs, learning rate and so on.
 
 
 ```python
@@ -764,7 +771,7 @@ trainer.train()
 -->
 
 
-### Evaluate model on the test set of the source domain
+### Evaluate the model on the test set of the source domain
 
 Next, we can leverage `trainer.evaluate()` to calculate test metrics. While this is not the target metric to judge in this task, it provides a reasonable check that the pretrained model has trained properly.
 Note that the training and evaluation loss for PatchTST is the Mean Squared Error (MSE) loss. Hence, we do not separately compute the MSE metric in any of the following evaluation experiments.
@@ -779,7 +786,7 @@ print(results)
     {'eval_loss': 0.1316315233707428, 'eval_runtime': 5.8077, 'eval_samples_per_second': 889.332, 'eval_steps_per_second': 3.616, 'epoch': 83.0}
 ```
 
-The MSE of `0.132` is very close to the value reported for the Electricity dataset in the original PatchTST paper.
+The MSE of `0.131` is very close to the value reported for the Electricity dataset in the original PatchTST paper.
 
 ### Save model
 
@@ -798,7 +805,7 @@ We use the model pre-trained on the Electricity dataset to do zero-shot forecast
 
 
 By Transfer Learning, we mean that we first pretrain the model for a forecasting task on a `source` dataset (which we did above on the `Electricity` dataset). Then, we will use the pretrained model for zero-shot forecasting on a `target` dataset. By zero-shot, we mean that we test the performance in the `target` domain without any additional training. We hope that the model gained enough knowledge from pretraining which can be transferred to a different dataset. 
-Subsequently, we will do linear probing and (then) finetuning of the pretrained model on the `train` split of the target data, and will validate the forecasting performance on the `test` split of the target data. In this example, the source dataset is the `Electricity` dataset and the target dataset is ETTh1.
+Subsequently, we will do linear probing and (then) finetuning of the pretrained model on the `train` split of the target data and will validate the forecasting performance on the `test` split of the target data. In this example, the source dataset is the `Electricity` dataset and the target dataset is ETTh1.
 
 ### Transfer learning on ETTh1 data. 
 All evaluations are on the `test` part of the `ETTh1` data.
@@ -811,7 +818,7 @@ Step 3: Evaluate after doing full finetuning.
 
 ### Load ETTh dataset
 
-Below, we load the `ETTh1` dataset as a Pandas dataframe. Next, we create 3 splits for training, validation and testing. We then leverage the `TimeSeriesPreprocessor` class to prepare each split for the model.
+Below, we load the `ETTh1` dataset as a Pandas dataframe. Next, we create 3 splits for training, validation, and testing. We then leverage the `TimeSeriesPreprocessor` class to prepare each split for the model.
 
 
 ```python
@@ -1122,7 +1129,6 @@ os.makedirs(save_dir, exist_ok=True)
 time_series_preprocessor = time_series_preprocessor.save_pretrained(save_dir)
 ```
 
-
 Finally, let's see if we can get additional improvements by doing a full fine-tune of the model.
 
 ### Full fine-tune on ETTh1
@@ -1248,7 +1254,7 @@ print(result)
     {'eval_loss': 0.354232519865036, 'eval_runtime': 1.0715, 'eval_samples_per_second': 2599.18, 'eval_steps_per_second': 10.266, 'epoch': 12.0}
 ```
 
-In this case, there is only a small improvement on the ETTh1 dataset with full fine-tuning. For other datasets there may be more substantial improvements. Lets save the model anyway.
+In this case, there is only a small improvement on the ETTh1 dataset with full fine-tuning. For other datasets there may be more substantial improvements. Let's save the model anyway.
 
 
 ```python
