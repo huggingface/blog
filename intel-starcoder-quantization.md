@@ -1,6 +1,6 @@
 ---
 title: "Accelerate StarCoder with 🤗 Optimum Intel on Xeon: Q8/Q4 and Speculative Decoding"
-thumbnail: /blog/assets/optimum_intel/thumbnail.png
+thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
 - user: ofirzaf
   guest: true
