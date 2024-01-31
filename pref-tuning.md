@@ -13,7 +13,7 @@ authors:
 
 **Addendum**
 
-After consulting with the authors of the IPO paper, we have discovered that the implementation of IPO in TRL was incorrect. We have since fixed this and re-run the experiments. The results are now consistent with the paper, with IPO on par with DPO and performing better than KTO in the paired preference setting. We have updated the post to reflect these new results.
+After consulting with the authors of the [IPO paper](https://arxiv.org/abs/2310.12036), we discovered that the implementation of IPO in TRL was incorrect; in particular, the loss over the log-likelihoods of the completions needs to be _averaged_ instead of _summed_. We have added a fix in [this PR](https://github.com/huggingface/trl/pull/1265) and re-run the experiments. The results are now consistent with the paper, with IPO on par with DPO and performing better than KTO in the paired preference setting. We have updated the post to reflect these new results.
 
 **TL;DR**
 
