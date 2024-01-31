@@ -3252,7 +3252,7 @@
   title: "A guide to setting up your own Hugging Face leaderboard: an end-to-end example with Vectara's hallucination leaderboard"
   author: ofermend
   guest: true
-  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_vectara.png
   date: Jan 12, 2024
   tags:
       - leaderboard
@@ -3357,6 +3357,20 @@
     - guide
     - collaboration
     - research
+
+- local: intel-starcoder-quantization
+  title: "Accelerate StarCoder with 🤗 Optimum Intel on Xeon: Q8/Q4 and Speculative Decoding"
+  author: ofirzaf
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/thumbnail.png
+  date: Jan 30, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community
 
 - local: leaderboards-on-the-hub-patronus
   title: "Introducing the Enterprise Scenarios Leaderboard: a Leaderboard for Real World Use Cases"
