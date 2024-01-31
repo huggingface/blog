@@ -39,11 +39,17 @@ The model is based on two key components:
 The patching design naturally has three-fold benefit: 
  - local semantic information is retained in the embedding; 
  - computation and memory usage of the attention maps are quadratically reduced given the same look-back window; and 
- - the model can attend longer history. Our channel-independent patch time series transformer (PatchTST) can improve the long-term forecasting accuracy significantly when compared with that of other state of the art transformer-based models.
+ - the model can attend longer history via a trade-off between the patch length (input vector size) and the context length (number of sequences). 
+ 
+ Our channel-independent patch time series transformer (PatchTST) can improve the long-term forecasting accuracy significantly when compared with that of other state of the art transformer-based models.
 
 In addition, PatchTST has a modular design to seamlessly support masked time series pre-training as well as direct time series forecasting.
 
-<div> <img src="./assets/patchtst/patchtst-arch.png" alt="Drawing" style="width: 600px;"/></div>
+<!-- <div> <img src="./assets/patchtst/patchtst-arch.png" alt="Drawing" style="width: 600px;"/></div> -->
+
+| ![PatchTST model schematics](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/patchtst/patchtst-arch.png) |
+|:--:|
+|(a) PatchTST model overview where a batch of \\(M\\) time series each of length \\(L\\) are processed independently (by reshaping them into the batch dimension) via a Transformer backbone and then reshaping the resulting batch back into \\(M \\) series of prediction length \\(T\\). Each *univariate* series can be processed in a supervised fashion (b) where the patched set of vectors are used to output the full prediction length or in a self-supervised fashion (c) where masked patches are predicted. |
 
 
 ## Installation
