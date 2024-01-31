@@ -21,6 +21,8 @@ authors:
   guest: true
 - user: aayasin
   guest: true
+- user: Zhao Fan
+  guest: true
 ---
 
 # Fast Code Generation with Q4-StarCoder and Speculative Decoding on Intel Xeon
@@ -33,6 +35,9 @@ The StarCoder Model is a cutting-edge LLM specifically designed for assisting th
 
 Try out our [demo](https://huggingface.co/spaces/Intel/intel-starcoder-playground) on Hugging Face Spaces that is being run on a 4th Generation Intel Xeon Scalable processor.
 
+<kbd>
+  <img alt="Generating DOI" src="assets/174_intel_quantization_starcoder/starcoder-demo.mov">
+</kbd>
 
 ## Step 1: Baseline and Evaluation
 
@@ -122,16 +127,11 @@ These quantization choices are backed up by the following observations:
 </p>
 
 
----
 | StarCoder | Quantization | Precision | HumanEval (pass@1)| TTFT (ms) | TPOT (ms) | TPOT Speedup |
 | --------- | ------------ | --------- | ----------------- | --------- | --------- | ------------ |
-
 | Baseline  |     None     |    A16W16 |        33.54      |   357.9   |   181.0   |    1.00x     |
 |   INT8    |  SmoothQuant |    A8W8   |        33.96      |   163.4   |    82.4   |    2.20x     |
 |   INT4    |  RTN (g128)  |    A16W4  |        32.80      |   425.1   |    54.0   |    3.35x     |
 |INT8 + AG  |  SmoothQuant |    A8W8   |        33.96      |   183.6   |    24.8   |    7.30x     |
 
-
 Table 1: Accuracy and latency measurements of the StarCoder model on Intel 4th Gen Xeon
-
----
