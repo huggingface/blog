@@ -31,7 +31,7 @@ Let’s get started.
 
 ### 1. Setup development environment
 
-We are going to use the `sagemaker` python SDK to deploy Mixtral to Amazon SageMaker. We need to make sure to have an AWS account configured and the `sagemaker` python SDK installed.
+We are going to use the `sagemaker` python SDK to deploy Zephyr to Amazon SageMaker. We need to make sure to have an AWS account configured and the `sagemaker` python SDK installed.
 
 ```python
 !pip install transformers "sagemaker>=2.206.0" --upgrade --quiet
