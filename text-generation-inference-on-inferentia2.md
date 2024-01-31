@@ -171,7 +171,7 @@ The `HuggingFaceH4/zephyr-7b-beta` is a conversational chat model, meaning we ca
 <|system|>\nYou are a friendly.</s>\n<|user|>\nInstruction</s>\n<|assistant|>\n
 ```
 
-To avoid drafting the prompt, we can use the `apply_chat_template` method from the tokenizer, which expects a `messages` dictionary with the known OpenAI format and converts it into the correct format for the model. Let's see if Zephyr knows some facts about AWS.
+Manually preparing the prompt is error prone, so we can use the `apply_chat_template` method from the tokenizer to help with it. It expects a `messages` dictionary in the well-known OpenAI format, and converts it into the correct format for the model. Let's see if Zephyr knows some facts about AWS.
 
 ```python
 from transformers import AutoTokenizer
