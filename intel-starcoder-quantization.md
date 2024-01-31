@@ -21,11 +21,11 @@ authors:
   guest: true
 - user: aayasin
   guest: true
-- user: Zhao Fan
+- user: FanZhao
   guest: true
 ---
 
-# Fast Code Generation with Q4-StarCoder and Speculative Decoding on Intel Xeon
+# Accelerate StarCoder with 🤗 Optimum Intel on Xeon: Q8/Q4 and Speculative Decoding
 
 ## Introduction
 
