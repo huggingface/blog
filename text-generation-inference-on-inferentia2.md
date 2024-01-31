@@ -6,7 +6,7 @@ authors:
 - user: dacorvo
 ---
 
-# Hugging Face Text Generation Inference available for AWS inferentia2
+# Hugging Face Text Generation Inference available for AWS Inferentia2
 
 We are excited to announce the general availability for Hugging Face Text Generation Inference (TGI) on AWS Inferenita2 and Amazon SageMaker.  
 
