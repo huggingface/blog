@@ -71,7 +71,7 @@ We can install both by cloning the `tsfm` repository and following the below ste
     from tsfm_public.toolkit.dataset import ForecastDFDataset
     ```
 
-# Part 1: Forecasting on the Electricity dataset
+## Part 1: Forecasting on the Electricity dataset
 
 Here we train a PatchTST model directly on the Electricity dataset (available from https://github.com/zhouhaoyi/Informer2020), and evaluate its performance.
 
@@ -97,7 +97,7 @@ from tsfm_public.toolkit.time_series_preprocessor import TimeSeriesPreprocessor
 from tsfm_public.toolkit.util import select_by_index
 ```
 
-## Set seed
+### Set seed
 
 ```python
 from transformers import set_seed
@@ -105,7 +105,7 @@ from transformers import set_seed
 set_seed(2023)
 ```
 
-## Load and prepare datasets
+### Load and prepare datasets
 
  In the next cell, please adjust the following parameters to suit your application:
  - `dataset_path`: path to local .csv file, or web address to a csv file for the data of interest. Data is loaded with pandas, so anything supported by
@@ -227,7 +227,7 @@ test_dataset = ForecastDFDataset(
 )
 ```
 
-## Configure the PatchTST model
+### Configure the PatchTST model
 
 Next, we instantiate a randomly initialized PatchTST model with a configuration. The settings below control the different hyperparameters related to the architecture.
   - `num_input_channels`: the number of input channels (or dimensions) in the time series data. This is
@@ -280,7 +280,7 @@ config = PatchTSTConfig(
 model = PatchTSTForPrediction(config)
 ```
 
-## Train model
+### Train model
 
  Next, we can leverage the Hugging Face [Trainer](https://huggingface.co/docs/transformers/main_classes/trainer) class to train the model based on the direct forecasting strategy. We first define the [TrainingArguments](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments) which lists various hyperparameters for training such as the number of epochs, learning rate and so on.
 
@@ -767,7 +767,7 @@ trainer.train()
 -->
 
 
-## Evaluate model on the test set of the source domain
+### Evaluate model on the test set of the source domain
 
 Next, we can leverage `trainer.evaluate()` to calculate test metrics. While this is not the target metric to judge in this task, it provides a reasonable check that the pretrained model has trained properly.
 Note that the training and evaluation loss for PatchTST is the Mean Squared Error (MSE) loss. Hence, we do not separately compute the MSE metric in any of the following evaluation experiments.
@@ -784,7 +784,7 @@ print(results)
 
 The MSE of `0.132` is very close to the value reported for the Electricity dataset in the original PatchTST paper.
 
-## Save model
+### Save model
 
 
 ```python
@@ -793,7 +793,7 @@ os.makedirs(save_dir, exist_ok=True)
 trainer.save_model(save_dir)
 ```
 
-# Part 2: Transfer Learning from Electricity to ETTh1
+## Part 2: Transfer Learning from Electricity to ETTh1
 
 
 In this section, we will demonstrate the transfer learning capability of the `PatchTST` model.
@@ -803,7 +803,7 @@ We use the model pre-trained on the Electricity dataset to do zero-shot forecast
 By Transfer Learning, we mean that we first pretrain the model for a forecasting task on a `source` dataset (which we did above on the `Electricity` dataset). Then, we will use the pretrained model for zero-shot forecasting on a `target` dataset. By zero-shot, we mean that we test the performance in the `target` domain without any additional training. We hope that the model gained enough knowledge from pretraining which can be transferred to a different dataset. 
 Subsequently, we will do linear probing and (then) finetuning of the pretrained model on the `train` split of the target data, and will validate the forecasting performance on the `test` split of the target data. In this example, the source dataset is the `Electricity` dataset and the target dataset is ETTh1.
 
-## Transfer learning on ETTh1 data. 
+### Transfer learning on ETTh1 data. 
 All evaluations are on the `test` part of the `ETTh1` data.
 
 Step 1: Directly evaluate the electricity-pretrained model. This is the zero-shot performance. 
@@ -812,7 +812,7 @@ Step 2: Evaluate after doing linear probing.
 
 Step 3: Evaluate after doing full finetuning. 
 
-## Load ETTh dataset
+### Load ETTh dataset
 
 Below, we load the `ETTh1` dataset as a Pandas dataframe. Next, we create 3 splits for training, validation and testing. We then leverage the `TimeSeriesPreprocessor` class to prepare each split for the model.
 
@@ -907,7 +907,7 @@ test_dataset = ForecastDFDataset(
 )
 ```
 
-## Zero-shot forecasting on ETTH
+### Zero-shot forecasting on ETTH
 
 As we are going to test forecasting performance out-of-the-box, we load the model which we pretrained above.
 
@@ -973,7 +973,7 @@ As can be seen, with a zero-shot forecasting approach we obtain an MSE of 0.370 
 
 Next, let's see how we can do by performing linear probing, which involves training a linear layer on top of a frozen pre-trained model. Linear probing is often done to test the performance of features of a pretrained model.
 
-## Linear probing on ETTh1 
+### Linear probing on ETTh1 
 
 We can do a quick linear probing on the `train` part of the target data to see any possible `test` performance improvement.
 
@@ -1128,7 +1128,7 @@ time_series_preprocessor = time_series_preprocessor.save_pretrained(save_dir)
 
 Finally, let's see if we can get additional improvements by doing a full fine-tune of the model.
 
-## Full fine-tune on ETTh1
+### Full fine-tune on ETTh1
 
 We can do a full model fine-tune (instead of probing the last linear layer as shown above) on the `train` part of the target data to see a possible `test` performance improvement. The code looks similar to the linear probing task above, except that we are not freezing any parameters.
 
@@ -1259,6 +1259,6 @@ os.makedirs(save_dir, exist_ok=True)
 finetune_forecast_trainer.save_model(save_dir)
 ```
 
-# Summary
+## Summary
 
 In this blog, we presented a step-by-step guide on training PatchTST for tasks related to forecasting and transfer learning, demonstrating various approaches for fine-tuning. We intend to facilitate easy integration of the PatchTST HF model for your forecasting use cases, and we hope that this content serves as a useful resource to expedite the adoption of PatchTST. Thank you for tuning in to our blog, and we hope you find this information beneficial for your projects.
