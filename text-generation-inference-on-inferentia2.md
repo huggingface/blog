@@ -92,7 +92,7 @@ To make it easier for customers to utilize the full power of Inferentia2, we cre
 
 This means compiling fine-tuned checkpoints for Mistral 7B with the same configuration will take only a few minutes. Examples of this are [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) and [HuggingFaceH4/zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta).
 
-***Note:** Currently, TGI can only load compiled checkpoints and models. We are working on an on-the-fly compilation based on the cache. This means that you can pass any model ID from the Hugging face Hub, e.g., `HuggingFaceH4/zephyr-7b-beta` if there is a cached configuration. This should be added in the next release. We update the blog here once released.*
+**Note:** Currently, TGI can only load compiled checkpoints and models. We are working on an on-the-fly compilation based on the cache. This means that you'll be able to pass any model ID from the Hugging face Hub, e.g., `HuggingFaceH4/zephyr-7b-beta` as long as there is a cached configuration. This post will be updated when this feature is released.
 
 For the blog we compiled `HuggingFaceH4/zephyr-7b-beta` using the following command and parameters on a `inf2.8xlarge` instance and pushed it to the hub at :
 
