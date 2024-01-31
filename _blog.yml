@@ -3371,3 +3371,14 @@
     - optimum
     - collaboration
     - community
+
+- local: text-generation-inference-on-inferentia2
+  title: "AHugging Face Text Generation Inference available for AWS inferentia2"
+  author: philschmid
+  thumbnail: /blog/assets/175_text_generation_inference_on_inferentia2/thumbnail.jpg
+  date: Feb 1, 2024
+  tags:
+    - guide
+    - partnerships
+    - aws
+    - llm
