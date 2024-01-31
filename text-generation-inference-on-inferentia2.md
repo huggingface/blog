@@ -182,7 +182,7 @@ tokenizer = AutoTokenizer.from_pretrained("aws-neuron/zephyr-7b-seqlen-2048-bs-4
 # Prompt to generate
 messages = [
     {"role": "system", "content": "You are the AWS expert"},
-    {"role": "user", "content": "Can you tell me an interesting fact abou AWS?"},
+    {"role": "user", "content": "Can you tell me an interesting fact about AWS?"},
 ]
 prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 
