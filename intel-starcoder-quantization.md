@@ -38,7 +38,7 @@ Try out our [demo](https://huggingface.co/spaces/Intel/intel-starcoder-playgroun
 <figure class="image table text-center m-0 w-full">
     <video
         alt="Generating DOI"
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 80%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
       <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/174_intel_quantization_starcoder/starcoder-demo.mov" type="video/mp4">
