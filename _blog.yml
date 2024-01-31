@@ -3359,8 +3359,8 @@
     - research
 
 - local: leaderboards-on-the-hub-patronus
-  title: "Introducing the PatronusAI leaderboard: a Leaderboard for Real World Use-cases"
-  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  title: "Introducing the Enterprise Scenarios Leaderboard: a Leaderboard for Real World Use Cases"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_patronus.png
   author: sunitha98
   guest: true
   date: January 31, 2024
