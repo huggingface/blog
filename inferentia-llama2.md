@@ -4,7 +4,7 @@ thumbnail: /blog/assets/inferentia-llama2/thumbnail.png
 authors:
 - user: dacorvo
 ---
-**Update (02/2024): Performances have been improved: check out our updated [benchmarks](https://huggingface.co/docs/optimum-neuron/benchmarks/inferentia-llama2).**
+**Update (02/2024): Performance has improved even more! Check our [updated benchmarks](https://huggingface.co/docs/optimum-neuron/benchmarks/inferentia-llama2).**
 
 # Make your llama generation time fly with AWS Inferentia2
 
