@@ -11,7 +11,6 @@ authors:
 - user: vijaye12
   guest: true
 - user: kashif
-- user: nielsr
 ---
 
 # Patch Time Series Transformer in HuggingFace - Getting Started
