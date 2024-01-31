@@ -1,6 +1,6 @@
 ---
 title: "Accelerate StarCoder with 🤗 Optimum Intel on Xeon: Q8/Q4 and Speculative Decoding"
-thumbnail: /blog/assets/optimum_intel/thumbnail.png
+thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
 - user: ofirzaf
   guest: true
@@ -38,7 +38,7 @@ Try out our [demo](https://huggingface.co/spaces/Intel/intel-starcoder-playgroun
 <figure class="image table text-center m-0 w-full">
     <video
         alt="Generating DOI"
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 80%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
       <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/174_intel_quantization_starcoder/starcoder-demo.mov" type="video/mp4">
@@ -119,7 +119,7 @@ Another method to mitigate the high inference latency and alleviate the memory b
 AG uses a small, fast draft model to greedily generate K candidate tokens. These output tokens are generated much faster, but some of them may not resemble the output tokens of the original target model. Hence, in the next step, the target model checks the validity of all K candidate tokens in parallel in a single forward pass. This process speeds up the decoding since the latency of parallel decoding of K tokens is smaller than generating K tokens autoregressively.
 
 
-For accelerating StarCoder, we use [bigcode/tiny_starcoder_py](https://huggingface.co/bigcode/tiny_starcoder_py) downloaded from the Hugging Face hub as the draft model. This model shares a similar architecture with StarCoder but includes only 164M parameters - **~95x** smaller than StarCoder, and thus much faster. To achieve an even greater speedup, in addition to quantizing the target model, we apply quantization to the draft model as well. We consider both 8bit SmoothQuant and 4bit WOQ quantization for the draft and target models. When evaluating both quantization options for the draft and target models, we found that 8bit SmoothQuant for both models yielded the best results: **~7.30x** speedup in TPOT (Figure 6).
+For accelerating StarCoder, we use [bigcode/tiny_starcoder_py](https://huggingface.co/bigcode/tiny_starcoder_py) as the draft model. This model shares a similar architecture with StarCoder but includes only 164M parameters - **~95x** smaller than StarCoder, and thus much faster. To achieve an even greater speedup, in addition to quantizing the target model, we apply quantization to the draft model as well. We consider both 8bit SmoothQuant and 4bit WOQ quantization for the draft and target models. When evaluating both quantization options for the draft and target models, we found that 8bit SmoothQuant for both models yielded the best results: **~7.30x** speedup in TPOT (Figure 6).
 
 These quantization choices are backed up by the following observations:
 
@@ -134,11 +134,11 @@ These quantization choices are backed up by the following observations:
 </p>
 
 
-| StarCoder | Quantization | Precision | HumanEval (pass@1)| TTFT (ms) | TPOT (ms) | TPOT Speedup |
-| --------- | ------------ | --------- | ----------------- | --------- | --------- | ------------ |
-| Baseline  |     None     |    A16W16 |        33.54      |   357.9   |   181.0   |    1.00x     |
-|   INT8    |  SmoothQuant |    A8W8   |        33.96      |   163.4   |    82.4   |    2.20x     |
-|   INT4    |  RTN (g128)  |    A16W4  |        32.80      |   425.1   |    54.0   |    3.35x     |
-|INT8 + AG  |  SmoothQuant |    A8W8   |        33.96      |   183.6   |    24.8   |    7.30x     |
+| StarCoder | Quantization | Precision | HumanEval (pass@1)| TTFT (ms) | TTFT Speedup | TPOT (ms) | TPOT Speedup |
+| --------- | ------------ | --------- | ----------------- | --------- | ------------ | --------- | ------------ |
+| Baseline  |     None     |    A16W16 |        33.54      |   357.9   |    1.00x     |   181.0   |    1.00x     |
+|   INT8    |  SmoothQuant |    A8W8   |        33.96      |   163.4   |    2.19x     |    82.4   |    2.20x     |
+|   INT4    |  RTN (g128)  |    A16W4  |        32.80      |   425.1   |    0.84x     |    54.0   |    3.35x     |
+|INT8 + AG  |  SmoothQuant |    A8W8   |        33.96      |   183.6   |    1.95x     |    24.8   |    7.30x     |
 
 Table 1: Accuracy and latency measurements of the StarCoder model on Intel 4th Gen Xeon
