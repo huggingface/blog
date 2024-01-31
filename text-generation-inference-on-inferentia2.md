@@ -161,7 +161,7 @@ SageMaker will create our endpoint and deploy the model to it. This can takes a 
 
 ### 5. Run inference and chat with the model
 
-After our endpoint is deployed, we can run inference on it. We will use the `predict` method from the `predictor` to run inference on our endpoint. We can inference with different parameters to impact the generation. Parameters can be defined in the `parameters` attribute of the payload. You can find supported parameters in the [here](https://www.philschmid.de/sagemaker-llama-llm#5-run-inference-and-chat-with-the-model) or in the open API specification of the TGI in the [swagger documentation](https://huggingface.github.io/text-generation-inference/)
+After our endpoint is deployed, we can run inference on it, using the `predict` method from `predictor`. We can provide different parameters to impact the generation, adding them to the `parameters` attribute of the payload. You can find the supported parameters [here](https://www.philschmid.de/sagemaker-llama-llm#5-run-inference-and-chat-with-the-model), or in the open API specification of TGI in the [swagger documentation](https://huggingface.github.io/text-generation-inference/)
 
 The `HuggingFaceH4/zephyr-7b-beta` is a conversational chat model, meaning we can chat with it using the following prompt:
 
