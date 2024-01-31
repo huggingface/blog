@@ -109,7 +109,7 @@ If you are trying to compile an LLM with a configuration that is not yet cached,
 
 **Deploying TGI Neuronx Endpoint**  
 
-Before deploying the model to Amazon SageMaker, we must define the TGI Neuronx endpoint configuration. Due to the current boundaries of Inferentia2, we need to make sure that the following parameters are set to the same value:
+Before deploying the model to Amazon SageMaker, we must define the TGI Neuronx endpoint configuration. We need to make sure to set the following parameters according to the fixed-shape compilation parameters we used:
 
 - `MAX_CONCURRENT_REQUESTS`: Equal to the batch size that was used to compile the model.
 - `MAX_INPUT_LENGTH`: Less than or equal to the sequence length that was used to compile the model.
