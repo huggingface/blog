@@ -9,8 +9,6 @@ authors:
 
 # Happy 1st anniversary 🤗 Diffusers!
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 🤗 Diffusers is happy to celebrate its first anniversary! It has been an exciting year, and we're proud and grateful for how far we've come thanks to our community and open-source contributors. Last year, text-to-image models like DALL-E 2, Imagen, and Stable Diffusion captured the world's attention with their ability to generate stunningly photorealistic images from text, sparking a massive surge of interest and development in generative AI. But access to these powerful models was limited.
 

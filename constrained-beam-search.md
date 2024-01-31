@@ -8,8 +8,6 @@ authors:
 
 # Guiding Text Generation with Constrained Beam Search in 🤗 Transformers
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/53_constrained_beam_search.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

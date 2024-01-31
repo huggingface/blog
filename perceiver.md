@@ -5,10 +5,8 @@ authors:
 - user: nielsr
 ---
 
-<h1>Perceiver IO: a scalable, fully-attentional model that works on any modality</h1>
+# Perceiver IO: a scalable, fully-attentional model that works on any modality
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ### TLDR
 

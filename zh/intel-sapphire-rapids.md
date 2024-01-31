@@ -11,8 +11,6 @@ translators:
 
 # 使用英特尔 Sapphire Rapids 加速 PyTorch Transformers 模型（第一部分）
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 大约一年以前，我们 [展示](https://huggingface.co/blog/accelerating-pytorch) 了如何在第三代 [英特尔至强可扩展](https://www.intel.com/content/www/us/en/products/details/processors/xeon/scalable.html) CPU（即 Ice Lake）集群上分布式训练 Hugging Face transformers 模型。最近，英特尔发布了代号为 Sapphire Rapids 的第四代至强可扩展 CPU，该 CPU 包含了令人兴奋的深度学习加速新指令。
 

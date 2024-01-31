@@ -11,8 +11,6 @@ translators:
 
 # 使用 🤗 Transformers 优化文本转语音模型 Bark
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/ylacombe/notebooks/blob/main/Benchmark_Bark_HuggingFace.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg"/>

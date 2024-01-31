@@ -7,8 +7,6 @@ authors:
 
 # Practical 3D Asset Generation: A Step-by-Step Guide
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Introduction
 

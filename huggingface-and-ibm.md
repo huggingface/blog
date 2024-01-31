@@ -8,8 +8,6 @@ authors:
 
 # Hugging Face and IBM partner on watsonx.ai, the next-generation enterprise studio for AI builders
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <kbd>
   <img src="assets/144_ibm/01.png">

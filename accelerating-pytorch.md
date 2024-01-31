@@ -8,8 +8,6 @@ authors:
 # Accelerating PyTorch distributed fine-tuning with Intel technologies
 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 For all their amazing performance, state of the art deep learning models often take a long time to train. In order to speed up training jobs, engineering teams rely on distributed training, a divide-and-conquer technique where clustered servers each keep a copy of the model, train it on a subset of the training set, and exchange results to converge to a final model.
 

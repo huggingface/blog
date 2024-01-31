@@ -8,8 +8,6 @@ authors:
 
 # Training a language model with 🤗 Transformers using TensorFlow and TPUs
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Introduction
 

@@ -17,8 +17,6 @@ authors:
 ---
 # Can foundation models label data like humans?
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Since the advent of ChatGPT, we have seen unprecedented growth in the development of Large Language Models (LLMs), and particularly chatty models that are fine-tuned to follow instructions given in the form of prompts.
 However, how these models compare is unclear due to the lack of benchmarks designed to test their performance rigorously. 

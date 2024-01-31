@@ -29,18 +29,14 @@ authors:
 
 # Train your first Decision Transformer
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
-
 Your content here [...]
 ```
 
-The blog_metadata and authors HTML comments are meant to mark where in the file will be inserted the following UI elements:
+When published, the Hub will insert the following UI elements right after the blogpost's main header (i.e. the line that starts with a single `#`, aka. the `<h1>`):
+
 - "Published on [date]"
 - "Update on GitHub" button
 - avatars of the authors that were listed in authors.
-
-⚠️ Please keep the blog_metadata and authors comments exactly equal to those strings otherwise they won't be replaced.
 
 5️⃣ Then, you can add your content. It's markdown system so if you wrote your text on notion just control shift v to copy/paste as markdown.
 

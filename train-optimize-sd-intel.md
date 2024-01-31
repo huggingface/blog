@@ -14,8 +14,6 @@ authors:
 
 # Optimizing Stable Diffusion for Intel CPUs with NNCF and 🤗 Optimum
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 [**Latent Diffusion models**](https://arxiv.org/abs/2112.10752) are game changers when it comes to solving text-to-image generation problems. [**Stable Diffusion**](https://stability.ai/blog/stable-diffusion-public-release) is one of the most famous examples that got wide adoption in the community and industry. The idea behind the Stable Diffusion model is simple and compelling: you generate an image from a noise vector in multiple small steps refining the noise to a latent image representation. This approach works very well, but it can take a long time to generate an image if you do not have access to powerful GPUs. 
 

@@ -7,8 +7,6 @@ authors:
 
 # Instruction-tuning Stable Diffusion with InstructPix2Pix
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 This post explores instruction-tuning to teach [Stable Diffusion](https://huggingface.co/blog/stable_diffusion) to follow instructions to translate or process input images. With this method, we can prompt Stable Diffusion using an input image and an “instruction”, such as - *Apply a cartoon filter to the natural image*.
 

@@ -8,8 +8,6 @@ authors:
 # Large Language Models: A New Moore's Law?
 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 A few days ago, Microsoft and NVIDIA [introduced](https://www.microsoft.com/en-us/research/blog/using-deepspeed-and-megatron-to-train-megatron-turing-nlg-530b-the-worlds-largest-and-most-powerful-generative-language-model/) Megatron-Turing NLG 530B, a Transformer-based model hailed as "*the world’s largest and most powerful generative language model*."
  

@@ -5,9 +5,8 @@ authors:
 - user: dylanebert
 ---
 
-<h1>AI for Game Development: Creating a Farming Game in 5 Days. Part 1</h1>
+# AI for Game Development: Creating a Farming Game in 5 Days. Part 1
 
-<!-- {authors} -->
  
 
 

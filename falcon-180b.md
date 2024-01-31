@@ -11,8 +11,6 @@ authors:
 
 # Spread Your Wings: Falcon 180B is here
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Introduction
 

@@ -13,8 +13,6 @@ translators:
 
 # 大规模 Transformer 模型 8 比特矩阵乘简介 - 基于 Hugging Face Transformers、Accelerate 以及 bitsandbytes
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ![thumbnail](/blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png)
 

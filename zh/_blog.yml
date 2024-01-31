@@ -25,6 +25,23 @@
     - analysis
     - nlp
 
+- local: long-range-transformers
+  title: "长程 transformer 模型"
+  author: VictorSanh
+  thumbnail: /blog/assets/14_long_range_transformers/EfficientTransformerTaxonomy.png
+  date: March 09, 2021
+  tags:
+    - research
+    - nlp
+
+- local: the-age-of-ml-as-code
+  title: "机器学习即代码的时代已经到来"
+  author: juliensimon
+  thumbnail: /blog/assets/31_age_of_ml_as_code/01_entreprise_ml.png
+  date: October 20, 2021
+  tags:
+    - analysis
+
 - local: large-language-models
   title: "大语言模型: 新的摩尔定律？"
   author: juliensimon
@@ -927,6 +944,17 @@
     - research
     - LLM
 
+- local: audioldm2
+  title: "AudioLDM 2，加速⚡️！"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/161_audioldm2/thumbnail.png
+  date: Aug 30, 2023
+  tags:
+    - guide
+    - audio
+    - diffusers
+    - diffusion
+
 - local: falcon-180b
   title: "Falcon 180B 现已登陆 Hugging Face Hub"
   author: philschmid
@@ -937,3 +965,48 @@
     - community
     - research
     - LLM
+
+- local: t2i-sdxl-adapters
+  title: "在 SDXL 上用 T2I-Adapter 实现高效可控的文生图"
+  author: Adapter
+  guest: true
+  thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
+  date: September 8, 2023
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion
+
+- local: optimize-llm
+  title: "面向生产的 LLM 优化"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/163_optimize_llm/optimize_llm.png
+  date: Sep 15, 2023
+  tags:
+    - nlp
+    - research
+    - LLM
+
+- local: trl-ddpo
+  title: "使用 DDPO 在 TRL 中微调 Stable Diffusion 模型"
+  author: metric-space
+  guest: true
+  thumbnail: /blog/assets/166_trl_ddpo/thumbnail.png
+  date: September 29, 2023
+  tags:
+    - guide
+    - diffusers
+    - rl
+    - rlhf
+
+- local: chat-templates
+  title: "聊天模板：无声性能杀手的终结"
+  author: rocketknight1
+  thumbnail: /blog/assets/chat-templates/thumbnail.png
+  date: October 3, 2023
+  tags:
+    - LLM
+    - nlp
+    - community
+

@@ -14,8 +14,6 @@ authors:
 
 # The Falcon has landed in the Hugging Face ecosystem
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Introduction
 

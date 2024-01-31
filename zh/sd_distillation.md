@@ -14,10 +14,8 @@ translators:
   proofreader: true
 ---
 
-<h1> 开源 SD-Small 和 SD-Tiny 知识蒸馏代码与权重 </h1>
+# 开源 SD-Small 和 SD-Tiny 知识蒸馏代码与权重 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/distill_sd/Picture1.png" width=500>

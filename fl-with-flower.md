@@ -8,8 +8,6 @@ authors:
 
 # Federated Learning using Hugging Face and Flower
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/fl-with-flower.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

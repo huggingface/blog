@@ -8,8 +8,6 @@ authors:
 
 # Deploy Livebook notebooks as apps to Hugging Face Spaces
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 The [Elixir](https://elixir-lang.org/) community has been making great strides towards Machine Learning and Hugging Face is playing an important role on making it possible. To showcase what you can already achieve with Elixir and Machine Learning today, we use [Livebook](https://livebook.dev/) to build a Whisper-based chat app and then deploy it to Hugging Face Spaces. All under 15 minutes, check it out:
 

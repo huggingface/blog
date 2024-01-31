@@ -8,8 +8,6 @@ authors:
 
 # Retrieval Augmented Generation with Huggingface Transformers and Ray
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ##### A guest blog post by <a href="/amogkam">Amog Kamsetty</a> from the Anyscale team
 

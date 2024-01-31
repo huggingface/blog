@@ -8,8 +8,6 @@ authors:
 
 # Using Machine Learning to Aid Survivors and Race through Time
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 On February 6, 2023, earthquakes measuring 7.7 and 7.6 hit South Eastern Turkey, affecting 10 cities and resulting in more than 42,000 deaths and 120,000 injured as of February 21.
 

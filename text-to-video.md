@@ -5,10 +5,8 @@ authors:
 - user: adirik
 ---
 
-<h1>Text-to-Video: The Task, Challenges and the Current State</h1>
+# Text-to-Video: The Task, Challenges and the Current State
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/140_text-to-video/text-to-video-samples.gif" alt="video-samples"><br>

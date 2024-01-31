@@ -13,8 +13,6 @@ authors:
 
 # Making LLMs even more accessible with bitsandbytes, 4-bit quantization and QLoRA
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 LLMs are known to be large, and running or training them in consumer hardware is a huge challenge for users and accessibility. 
 Our [LLM.int8 blogpost](https://huggingface.co/blog/hf-bitsandbytes-integration) showed how the techniques in the [LLM.int8 paper](https://arxiv.org/abs/2208.07339) were integrated in transformers using the `bitsandbytes` library.

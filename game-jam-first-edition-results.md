@@ -12,8 +12,6 @@ authors:
 
 # Results of the Open Source AI Game Jam
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 From July 7th to July 11th, **we hosted our [first Open Source AI Game Jam](https://itch.io/jam/open-source-ai-game-jam)**, an exciting event that challenged game developers to create innovative games within a tight 48-hour window using AI.
 

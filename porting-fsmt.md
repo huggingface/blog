@@ -6,10 +6,8 @@ authors:
   guest: true
 ---
 
-<h1>Porting fairseq wmt19 translation system to transformers</h1>
+# Porting fairseq wmt19 translation system to transformers
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ##### A guest blog post by Stas Bekman
 

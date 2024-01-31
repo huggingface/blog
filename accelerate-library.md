@@ -7,8 +7,6 @@ authors:
 
 # Introducing 🤗 Accelerate
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 🤗 Accelerate
 

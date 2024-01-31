@@ -7,8 +7,6 @@ authors:
 
 # The State of Computer Vision at Hugging Face 🤗
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 At Hugging Face, we pride ourselves on democratizing the field of artificial intelligence together with the community. As a part of that mission, we began focusing our efforts on computer vision over the last year. What started as a [PR for having Vision Transformers (ViT) in 🤗 Transformers](https://github.com/huggingface/transformers/pull/10950) has now grown into something much bigger – 8 core vision tasks, over 3000 models, and over 100 datasets on the Hugging Face Hub.
 

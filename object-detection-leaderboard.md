@@ -3,24 +3,21 @@ title: "Object Detection Leaderboard"
 thumbnail: /blog/assets/object-detection-leaderboard/thumbnail.png
 authors:
 - user: rafaelpadilla
-  guest: true
 - user: amyeroberts
 ---
 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 # Object Detection Leaderboard: Decoding Metrics and Their Potential Pitfalls
 
 Welcome to our latest dive into the world of leaderboards and models evaluation. In a [previous post](https://huggingface.co/blog/evaluating-mmlu-leaderboard), we navigated the waters of evaluating Large Language Models. Today, we set sail to a different, yet equally challenging domain – Object Detection. 
 
-Recently, we released our [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard), ranking object detection models available in the Hub according to some metrics. In this blog, we will demonstrate how the models were evaluated and demystify the popular metrics used in Object Detection, from Intersection over Union (IoU) to Average Precision (AP) and Average Recall (AR). More importantly, we will spotlight the inherent divergences and pitfalls that can occur during evaluation, ensuring that you're equipped with the knowledge not just to understand but to assess model performance critically.
+Recently, we released our [Object Detection Leaderboard](https://huggingface.co/spaces/hf-vision/object_detection_leaderboard), ranking object detection models available in the Hub according to some metrics. In this blog, we will demonstrate how the models were evaluated and demystify the popular metrics used in Object Detection, from Intersection over Union (IoU) to Average Precision (AP) and Average Recall (AR). More importantly, we will spotlight the inherent divergences and pitfalls that can occur during evaluation, ensuring that you're equipped with the knowledge not just to understand but to assess model performance critically.
 
-Every developer and researcher aims for a model that can accurately detect and delineate objects. Our [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) is the right place to find an open-source model that best fits their application needs. But what does "accurate" truly mean in this context? Which metrics should one trust? How are they computed? And, perhaps more crucially, why some models may present divergent results in different reports? All these questions will be answered in this blog.
+Every developer and researcher aims for a model that can accurately detect and delineate objects. Our [Object Detection Leaderboard](https://huggingface.co/spaces/hf-vision/object_detection_leaderboard) is the right place to find an open-source model that best fits their application needs. But what does "accurate" truly mean in this context? Which metrics should one trust? How are they computed? And, perhaps more crucially, why some models may present divergent results in different reports? All these questions will be answered in this blog.
 
-So, let's embark on this exploration together and unlock the secrets of the Object Detection Leaderboard! If you prefer to skip the introduction and learn how object detection metrics are computed, go to the [Metrics section](#metrics). If you wish to find how to pick the best models based on the [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard), you may check the [Object Detection Leaderboard](#object-detection-leaderboard) section. 
+So, let's embark on this exploration together and unlock the secrets of the Object Detection Leaderboard! If you prefer to skip the introduction and learn how object detection metrics are computed, go to the [Metrics section](#metrics). If you wish to find how to pick the best models based on the [Object Detection Leaderboard](https://huggingface.co/spaces/hf-vision/object_detection_leaderboard), you may check the [Object Detection Leaderboard](#object-detection-leaderboard) section. 
 
 
 ## Table of Contents
@@ -255,7 +252,7 @@ For Average Recall (AR), 10 IoU thresholds (0.5, 0.55, 0.6,...,0.95) are used to
   
 ## Object Detection Leaderboard
 
-We recently released the [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) to compare the accuracy and efficiency of open-source models from our Hub. 
+We recently released the [Object Detection Leaderboard](https://huggingface.co/spaces/hf-vision/object_detection_leaderboard) to compare the accuracy and efficiency of open-source models from our Hub. 
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
@@ -405,7 +402,7 @@ Below is a table that illustrates recommended metrics for specific use cases and
 | Recall for medium-sized objects              | Sports analysis for players           | AR-M               |
 | Recall for large objects                     | Wildlife tracking in wide landscapes  | AR-L               |
 
-The results shown in our 🤗 [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) are computed using an independent tool [PyCOCOtools](https://github.com/cocodataset/cocoapi/tree/master/PythonAPI) widely used by the community for model benchmarking. We're aiming to collect datasets of different domains (e.g. medical images, sports, autonomous vehicles, etc). You can use the [discussion page](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard/discussions) to make requests for datasets, models and features. Eager to see your model or dataset feature on our leaderboard? Don't hold back! Introduce your model and dataset, fine-tune, and let's get it ranked! 🥇
+The results shown in our 🤗 [Object Detection Leaderboard](https://huggingface.co/spaces/hf-vision/object_detection_leaderboard) are computed using an independent tool [PyCOCOtools](https://github.com/cocodataset/cocoapi/tree/master/PythonAPI) widely used by the community for model benchmarking. We're aiming to collect datasets of different domains (e.g. medical images, sports, autonomous vehicles, etc). You can use the [discussion page](https://huggingface.co/spaces/hf-vision/object_detection_leaderboard/discussions) to make requests for datasets, models and features. Eager to see your model or dataset feature on our leaderboard? Don't hold back! Introduce your model and dataset, fine-tune, and let's get it ranked! 🥇
 
 
 ## Additional Resources

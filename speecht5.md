@@ -7,8 +7,6 @@ authors:
 
 # Speech Synthesis, Recognition, and More With SpeechT5
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 We’re happy to announce that SpeechT5 is now available in 🤗 Transformers, an open-source library that offers easy-to-use implementations of state-of-the-art machine learning models.
 

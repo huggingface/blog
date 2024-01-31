@@ -8,8 +8,6 @@ authors:
 
 # Train your first Decision Transformer
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 In a [previous post](https://huggingface.co/blog/decision-transformers), we announced the launch of Decision Transformers in the transformers library. This new technique of **using a Transformer as a Decision-making model** is getting increasingly popular.
 

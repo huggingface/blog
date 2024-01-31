@@ -2882,3 +2882,153 @@
     - api
     - llm
     - stable-diffusion
+
+- local: llama-sagemaker-benchmark
+  title: "Llama 2 on Amazon SageMaker a Benchmark"
+  author: philschmid
+  thumbnail: /blog/assets/llama_sagemaker_benchmark/thumbnail.jpg
+  date: September 26, 2023
+  tags:
+    - guide
+    - inference
+    - llm
+    - aws
+
+- local: Llama2-for-non-engineers
+  title: "Non-engineers guide: Train a LLaMA 2 chatbot"
+  author: 2legit2overfit
+  thumbnail: /blog/assets/78_ml_director_insights/tuto.png
+  date: September 28, 2023
+  tags:
+    - guide
+    - community
+    - nlp
+
+- local: trl-ddpo
+  title: "Finetune Stable Diffusion Models with DDPO via TRL"
+  author: metric-space
+  guest: true
+  thumbnail: /blog/assets/166_trl_ddpo/thumbnail.png
+  date: September 29, 2023
+  tags:
+    - guide
+    - diffusers
+    - rl
+    - rlhf
+   
+- local: ethics-soc-5
+  title: "Ethics and Society Newsletter #5: Hugging Face Goes To Washington and Other Summer 2023 Musings"
+  author: meg
+  thumbnail: /blog/assets/164_ethics-soc-5/thumbnail.png
+  date: September 29, 2023
+  tags:
+    - ethics
+
+- local: ai-comic-factory
+  title: "Deploying the AI Comic Factory using the Inference API"
+  author: jbilcke-hf
+  thumbnail: /blog/assets/165_ai_comic_factory/thumbnail.jpg
+  date: October 2, 2023
+  tags:
+    - guide
+    - inference
+    - api
+    - llm
+    - stable-diffusion
+
+- local: chat-templates
+  title: "Chat Templates: An End to the Silent Performance Killer"
+  author: rocketknight1
+  thumbnail: /blog/assets/chat-templates/thumbnail.png
+  date: October 3, 2023
+  tags:
+    - LLM
+    - nlp
+    - community
+
+- local: sdxl_jax
+  title: "Accelerating Stable Diffusion XL Inference with JAX on Cloud TPU v5e"
+  author: pcuenq
+  thumbnail: /blog/assets/sdxl-jax/thumbnail.jpg
+  date: October 3, 2023
+  tags:
+    - sdxl
+    - jax
+    - stable diffusion
+    - guide
+    - tpu
+    - google
+
+- local: ort-accelerating-hf-models
+  title: "Accelerating over 130,000 Hugging Face models with ONNX Runtime"
+  author: sschoenmeyer
+  thumbnail: /blog/assets/ort_accelerating_hf_models/thumbnail.png
+  date: October 4, 2023
+  tags:
+    - open-source-collab
+    - onnxruntime
+    - onnx
+    - inference
+
+- local: gradio-lite
+  title: "Gradio-Lite: Serverless Gradio Running Entirely in Your Browser"
+  author: abidlabs
+  thumbnail: /blog/assets/167_gradio_lite/thumbnail.png
+  date: October 19, 2023
+  tags:
+    - gradio
+    - open-source
+    - serverless
+
+- local: simple_sdxl_optimizations
+  title: "Exploring simple optimizations for SDXL"
+  author: sayakpaul
+  thumbnail: /blog/assets/simple_sdxl_optimizations/thumbnail.png
+  date: October 24, 2023
+  tags:
+    - diffusers
+    - guide
+    - sdxl
+    
+- local: the_n_implementation_details_of_rlhf_with_ppo
+  title: "The N Implementation Details of RLHF with PPO"
+  author: vwxyzjn
+  thumbnail: /blog/assets/167_the_n_implementation_details_of_rlhf_with_ppo/thumbnail.png
+  date: October 24, 2023
+  tags:
+    - research
+    - rl
+    - rlhf
+
+- local: inference-endpoints-embeddings
+  title: "Deploy Embedding Models with Hugging Face Inference Endpoints"
+  author: philschmid
+  thumbnail: /blog/assets/168_inference_endpoints_embeddings/thumbnail.jpg
+  date: October 24, 2023
+  tags:
+    - guide
+    - llm
+    - apps
+    - inference
+
+- local: scalable-data-inspection
+  title: "Interactively explore your Huggingface dataset with one line of code"
+  author: sps44
+  thumbnail: /blog/assets/scalable-data-inspection/thumbnail.png
+  date: October 25, 2023
+  tags:
+    - open-source-collab
+    - visualization
+    - data inspection
+
+- local: personal-copilot
+  title: "Personal Copilot: Train Your Own Coding Assistant"
+  author: smangrul
+  thumbnail: /blog/assets/170_personal_copilot/thumbnail.png
+  date: October 27, 2023
+  tags:
+    - bigcode
+    - llm
+    - nlp
+    - inference
+    - guide

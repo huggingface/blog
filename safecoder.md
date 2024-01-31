@@ -8,8 +8,6 @@ authors:
 
 # Introducing SafeCoder
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Today we are excited to announce SafeCoder - a code assistant solution built for the enterprise.
 

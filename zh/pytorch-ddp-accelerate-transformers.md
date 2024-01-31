@@ -11,8 +11,6 @@ translators:
 
 # 从 PyTorch DDP 到 Accelerate 到 Trainer，轻松掌握分布式训练
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 概述
 

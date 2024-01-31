@@ -12,8 +12,6 @@ authors:
 # What Makes a Dialog Agent Useful?
 ## The techniques behind ChatGPT: RLHF, IFT, CoT, Red teaming, and more
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 _This article has been translated to Chinese  [简体中文](https://mp.weixin.qq.com/s/Xd5VtRP-ziH-PYFOci65Hg)_. 
 

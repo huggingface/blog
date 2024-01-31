@@ -12,8 +12,6 @@ translators:
 
 # StarCoder: 最先进的代码大模型
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 关于 BigCode
 

@@ -10,8 +10,6 @@ authors:
 
 # Deploying 🤗 ViT on Kubernetes with TF Serving
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 # Introduction
 

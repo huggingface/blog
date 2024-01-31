@@ -5,13 +5,9 @@ authors:
 - user: patrickvonplaten
 ---
 
-<h1>
-	<del>Don't</del> Repeat Yourself \\( {}^{\textbf{*}} \\)
-	<h5><i> Designing open-source libraries for modern machine learning </i></h5>
-</h1>
+# ~~Don't~~ Repeat Yourself*
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
+##### *Designing open-source libraries for modern machine learning*
 
 ## 🤗 Transformers Design Philosophy
 

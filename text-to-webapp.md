@@ -7,8 +7,6 @@ authors:
 
 # Making a web app generator with open ML models
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 As more code generation models become publicly available, it is now possible to do text-to-web and even text-to-app in ways that we couldn't imagine before.
 

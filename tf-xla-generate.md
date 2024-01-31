@@ -7,8 +7,6 @@ authors:
 
 # Faster Text Generation with TensorFlow and XLA
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <em>TL;DR</em>: Text Generation on 🤗 `transformers` using TensorFlow can now be compiled with XLA. It is up to 100x
 faster than before, and [even faster than PyTorch](https://huggingface.co/spaces/joaogante/tf_xla_generate_benchmarks)

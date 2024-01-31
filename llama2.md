@@ -10,8 +10,6 @@ authors:
 
 # Llama 2 is here - get it on Hugging Face
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Introduction
 

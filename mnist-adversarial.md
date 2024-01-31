@@ -7,8 +7,6 @@ authors:
 
 # How to train your model dynamically using adversarial data
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ##### What you will learn here
 - 💡the basic idea of dynamic adversarial data collection and why it is important.

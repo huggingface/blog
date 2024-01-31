@@ -8,10 +8,8 @@ authors:
   guest: true
 ---
 
-<h1>Databricks ❤️ Hugging Face: up to 40% faster training and tuning of Large Language Models</h1>
+# Databricks ❤️ Hugging Face: up to 40% faster training and tuning of Large Language Models
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Generative AI has been taking the world by storm. As the data and AI company, we have been on this journey with the release of the open source large language model [Dolly](https://huggingface.co/databricks/dolly-v2-12b), as well as the internally crowdsourced dataset licensed for research and commercial use that we used to fine-tune it, the [databricks-dolly-15k](https://huggingface.co/datasets/databricks/databricks-dolly-15k). Both the model and dataset are available on Hugging Face. We’ve learned a lot throughout this process, and today we’re excited to announce our first of many official commits to the Hugging Face codebase that allows users to easily create a Hugging Face Dataset from an Apache Spark™ dataframe. 
 

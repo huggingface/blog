@@ -7,8 +7,6 @@ authors:
 
 # Assisted Generation: a new direction toward low-latency text generation
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Large language models are all the rage these days, with many companies investing significant resources to scale them up and unlock new capabilities. However, as humans with ever-decreasing attention spans, we also dislike their slow response times. Latency is critical for a good user experience, and smaller models are often used despite their lower quality (e.g. in [code completion](https://ai.googleblog.com/2022/07/ml-enhanced-code-completion-improves.html)).
 

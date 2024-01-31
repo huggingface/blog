@@ -11,8 +11,6 @@ translators:
 
 # 用 Hugging Face 推理端点部署 LLM
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 开源的 LLM，如 [Falcon](https://huggingface.co/tiiuae/falcon-40b)、[(Open-)LLaMA](https://huggingface.co/openlm-research/open_llama_13b)、[X-Gen](https://huggingface.co/Salesforce/xgen-7b-8k-base)、[StarCoder](https://huggingface.co/bigcode/starcoder) 或 [RedPajama](https://huggingface.co/togethercomputer/RedPajama-INCITE-7B-Base)，近几个月来取得了长足的进展，能够在某些用例中与闭源模型如 ChatGPT 或 GPT4 竞争。然而，有效且优化地部署这些模型仍然是一个挑战。
 

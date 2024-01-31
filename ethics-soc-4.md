@@ -14,8 +14,6 @@ authors:
 
 # Ethics and Society Newsletter #4: Bias in Text-to-Image Models
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 **TL;DR: We need better ways of evaluating bias in text-to-image models**

@@ -8,8 +8,6 @@ authors:
 
 # Habana Labs and Hugging Face Partner to Accelerate Transformer Model Training
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 *Santa Clara and San Francisco, CA, April 12th, 2022*
 

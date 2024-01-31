@@ -5,10 +5,8 @@ authors:
 - user: dylanebert
 ---
 
-<h1>3D Asset Generation: AI for Game Development #3</h1>
+# 3D Asset Generation: AI for Game Development #3
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
  
 
 **Welcome to AI for Game Development!** In this series, we'll be using AI tools to create a fully functional farming game in just 5 days. By the end of this series, you will have learned how you can incorporate a variety of AI tools into your game development workflow. I will show you how you can use AI tools for:

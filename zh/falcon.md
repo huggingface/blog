@@ -16,8 +16,6 @@ translators:
 
 # Falcon 登陆 Hugging Face 生态
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 引言
 

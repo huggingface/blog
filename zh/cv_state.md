@@ -7,8 +7,6 @@ authors:
 
 # Hugging Face 中计算机视觉的现状
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 在Hugging Face上，我们为与社区一起推动人工智能领域的民主化而感到自豪。作为这个使命的一部分，我们从去年开始专注于计算机视觉。开始只是 [🤗 Transformers中Vision Transformers (ViT) 的一个 PR](https://github.com/huggingface/transformers/pull/10950)，现在已经发展壮大：8个核心视觉任务，超过3000个模型，在Hugging Face Hub上有超过1000个数据集。
 

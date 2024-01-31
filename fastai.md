@@ -7,8 +7,6 @@ authors:
 
 # Welcome fastai to the Hugging Face Hub
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Making neural nets uncool again... and sharing them
 

@@ -7,8 +7,6 @@ authors:
 
 # Deploy LLMs with Hugging Face Inference Endpoints
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Open-source LLMs like [Falcon](https://huggingface.co/tiiuae/falcon-40b), [(Open-)LLaMA](https://huggingface.co/openlm-research/open_llama_13b), [X-Gen](https://huggingface.co/Salesforce/xgen-7b-8k-base), [StarCoder](https://huggingface.co/bigcode/starcoder) or [RedPajama](https://huggingface.co/togethercomputer/RedPajama-INCITE-7B-Base), have come a long way in recent months and can compete with closed-source models like ChatGPT or GPT4 for certain use cases. However, deploying these models in an efficient and optimized way still presents a challenge.
 

@@ -21,8 +21,6 @@ translators:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 **本文简介**: 本文展示了如何在免费版 Google Colab 上使用 🧨 diffusers 运行最强大的开源文本生成图片模型之一 **IF**。
 

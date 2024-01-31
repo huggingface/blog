@@ -5,10 +5,8 @@ authors:
 - user: VioletteLepercq
 ---
 
-<h1>Fetch Cuts ML Processing Latency by 50% Using Amazon SageMaker & Hugging Face</h1>
+# Fetch Cuts ML Processing Latency by 50% Using Amazon SageMaker & Hugging Face
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 _This article is a cross-post from an originally published post on September 2023 [on AWS's website](https://aws.amazon.com/fr/solutions/case-studies/fetch-case-study/)._
 

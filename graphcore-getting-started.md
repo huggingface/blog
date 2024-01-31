@@ -10,7 +10,6 @@ authors:
 # Getting Started with Hugging Face Transformers for IPUs with Optimum
 
 
-<!-- {authors} -->
 
 Transformer models have proven to be extremely efficient on a wide range of machine learning tasks, such as natural language processing, audio processing, and computer vision. However, the prediction speed of these large models can make them impractical for latency-sensitive use cases like conversational applications or search. Furthermore, optimizing their performance in the real world requires considerable time, effort and skills that are beyond the reach of many companies and organizations. 
 

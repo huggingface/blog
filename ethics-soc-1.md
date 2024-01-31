@@ -7,8 +7,6 @@ authors:
 
 # Ethics and Society Newsletter #1
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 Hello, world!

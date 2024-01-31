@@ -16,8 +16,6 @@ translators:
 
 # “StackLLaMA”: 用 RLHF 训练 LLaMA 的手把手教程
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 如 [ChatGPT](https://openai.com/blog/chatgpt)，[GPT-4](https://openai.com/research/gpt-4)，[Claude](https://www.anthropic.com/index/introducing-claude)语言模型 之强大，因为它们采用了 **基于人类反馈的强化学习** (Reinforcement Learning from Human Feedback, RLHF) 来使之更符合我们的使用场景。
 

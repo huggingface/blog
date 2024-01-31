@@ -18,8 +18,6 @@ translators:
 
 # Code Llama: Llama 2 学会写代码了！
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## 引言
 

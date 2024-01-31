@@ -7,8 +7,6 @@ authors:
 
 # Optimizing a Text-To-Speech model using 🤗 Transformers
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/ylacombe/notebooks/blob/main/Benchmark_Bark_HuggingFace.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg"/>

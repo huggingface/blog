@@ -10,8 +10,6 @@ authors:
 
 # Hugging Face Hub: Important Git Authentication Changes
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Because we are committed to improving the security of our services, we are making changes to the way you authenticate when interacting with the Hugging Face Hub through Git.
 Starting from **October 1st, 2023**, we will no longer accept passwords as a way to authenticate your command-line Git operations. Instead, we recommend using more secure authentication methods, such as replacing the password with a personal access token or using an SSH key.
@@ -30,10 +28,15 @@ You will need to generate an access token for your account; you can follow https
 After generating your access token, you can update your Git repository using the following commands:
 
 ```bash
-$: git remote set-url origin https://<user_name>:<token>@huggingface.co/<user_name>/<repo_name>
+$: git remote set-url origin https://<user_name>:<token>@huggingface.co/<repo_path>
 $: git pull origin
 ```
-or if you clone a new repo, you can just input a token in place of your password when your Git credential manager asks you for your authentication credentials.
+where `<repo_path>` is in the form of:
+- `<user_name>/<repo_name>` for models
+- `datasets/<user_name>/<repo_name>` for datasets
+- `spaces/<user_name>/<repo_name>` for Spaces
+
+If you clone a new repo, you can just input a token in place of your password when your Git credential manager asks you for your authentication credentials.
 
 ### Switching to SSH keys
 
@@ -42,7 +45,7 @@ Follow our guide to generate an SSH key and add it to your account: https://hugg
 Then you'll be able to update your Git repository using:
 
 ```bash
-$: git remote set-url origin git@hf.co:<user_name>/<repo_name>
+$: git remote set-url origin git@hf.co:<repo_path> # see above for the format of the repo path
 ```
 
 ## Timeline

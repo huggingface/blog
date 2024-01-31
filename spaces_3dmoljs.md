@@ -6,10 +6,8 @@ authors:
   guest: true
 ---
 
-<h1>Visualize proteins on Hugging Face Spaces</h1>
+# Visualize proteins on Hugging Face Spaces
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 In this post we will look at how we can visualize proteins on Hugging Face Spaces.
 

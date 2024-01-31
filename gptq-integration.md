@@ -15,8 +15,6 @@ authors:
 
 # Making LLMs lighter with AutoGPTQ and transformers
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Large language models have demonstrated remarkable capabilities in understanding and generating human-like text, revolutionizing applications across various domains. However, the demands they place on consumer hardware for training and deployment have become increasingly challenging to meet. 
 

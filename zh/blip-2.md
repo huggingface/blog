@@ -12,8 +12,6 @@ translators:
 
 # 使用 BLIP-2 零样本“图生文”
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 本文将介绍来自 Salesforce 研究院的 [BLIP-2](https://huggingface.co/docs/transformers/main/en/model_doc/blip-2) 模型，它支持一整套最先进的视觉语言模型，且已集成入 [🤗 Transformers](https://huggingface.co/transformers)。我们将向你展示如何将其用于图像字幕生成、有提示图像字幕生成、视觉问答及基于聊天的提示这些应用场景。
 

@@ -12,8 +12,6 @@ translators:
 
 # 使用 BentoML 部署 🤗 Hugging Face 上的模型：DeepFloyd IF 实战
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Hugging Face 的 Model Hub 可以让我们轻松地上传、分享和部署模型，为开发者们节省了从头开始训练模型所需的时间和计算资源。然而，在真实世界的生产环境中或以云原生的方式部署模型则仍然可能带来挑战。
 

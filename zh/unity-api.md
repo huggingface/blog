@@ -9,10 +9,8 @@ translators:
   proofreader: true
 ---
 
-<h1> 如何安装和使用 Hugging Face Unity API</h1>
+# 如何安装和使用 Hugging Face Unity API
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 [Hugging Face Unity API](https://github.com/huggingface/unity-api) 提供了一个简单易用的接口，允许开发者在自己的 Unity 项目中方便地访问和使用 Hugging Face AI 模型，已集成到 [Hugging Face Inference API](https://huggingface.co/inference-api) 中。本文将详细介绍 API 的安装步骤和使用方法。
 

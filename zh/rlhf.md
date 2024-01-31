@@ -16,8 +16,6 @@ translators:
 
 # ChatGPT 背后的“功臣”——RLHF 技术详解
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 OpenAI 推出的 ChatGPT 对话模型掀起了新的 AI 热潮，它面对多种多样的问题对答如流，似乎已经打破了机器和人的边界。这一工作的背后是大型语言模型 (Large Language Model，LLM) 生成领域的新训练范式：RLHF (Reinforcement Learning from Human Feedback) ，即以强化学习方式依据人类反馈优化语言模型。
 

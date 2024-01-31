@@ -5,9 +5,8 @@ authors:
 - user: dylanebert
 ---
 
-<h1>How to Install and Use the Hugging Face Unity API</h1>
+# How to Install and Use the Hugging Face Unity API
 
-<!-- {blog_metadata} -->
 <!-- {authors} --> 
 
 The [Hugging Face Unity API](https://github.com/huggingface/unity-api) is an easy-to-use integration of the [Hugging Face Inference API](https://huggingface.co/inference-api), allowing developers to access and use Hugging Face AI models in their Unity projects. In this blog post, we'll walk through the steps to install and use the Hugging Face Unity API.

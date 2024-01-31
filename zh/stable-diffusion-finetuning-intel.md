@@ -11,8 +11,6 @@ translators:
 
 # 在英特尔 CPU 上微调 Stable Diffusion 模型
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 扩散模型能够根据文本提示生成逼真的图像，这种能力促进了生成式人工智能的普及。人们已经开始把这些模型用在包括数据合成及内容创建在内的多个应用领域。 Hugging Face Hub 包含超过 5 千个预训练的文生图 [模型](https://huggingface.co/models?pipeline_tag=text-to-image&sort=trending)。这些模型与 [Diffusers 库](https://huggingface.co/docs/diffusers/index) 结合使用，使得构建图像生成工作流或者对不同的图像生成工作流进行实验变得无比简单。
 

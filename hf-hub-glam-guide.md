@@ -8,8 +8,6 @@ authors:
 ## The Hugging Face Hub for Galleries, Libraries, Archives and Museums 
 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ### What is the Hugging Face Hub?
 

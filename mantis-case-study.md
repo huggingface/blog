@@ -6,11 +6,9 @@ authors:
   guest: true
 ---
 
-<h1>Why we’re switching to Hugging Face Inference Endpoints, and maybe you should too</h1>
+# Why we’re switching to Hugging Face Inference Endpoints, and maybe you should too
 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Hugging Face recently launched [Inference Endpoints](https://huggingface.co/inference-endpoints); which as they put it: solves transformers in production. Inference Endpoints is a managed service that allows you to:
 

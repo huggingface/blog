@@ -8,8 +8,6 @@ authors:
 
 # Zero-shot image-to-text generation with BLIP-2
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 This guide introduces [BLIP-2](https://huggingface.co/docs/transformers/main/en/model_doc/blip-2) from Salesforce Research 
 that enables a suite of state-of-the-art visual-language models that are now available in [🤗 Transformers](https://huggingface.co/transformers). 

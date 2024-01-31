@@ -7,10 +7,8 @@ authors:
   guest: true
 ---
 
-<h1>Leveraging Hugging Face for complex generative AI use casess</h1>
+# Leveraging Hugging Face for complex generative AI use casess
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 In this conversation, Jeff Boudier asks Waseem Alshikh, Co-founder and CTO of Writer, about their journey from a Hugging Face user, to a customer and now an open source model contributor.
 

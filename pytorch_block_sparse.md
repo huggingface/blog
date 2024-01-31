@@ -5,10 +5,8 @@ authors:
 - user: madlag
 ---
 
-<h1>Block Sparse Matrices for Smaller and Faster Language Models</h1>
+# Block Sparse Matrices for Smaller and Faster Language Models
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Saving space and time, one zero at a time
 

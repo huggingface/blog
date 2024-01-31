@@ -9,8 +9,6 @@ translators:
 ---
 
 # AI 大战 AI，一个深度强化学习多智能体竞赛系统 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <div align="center"> 
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/thumbnail.png" alt="Thumbnail"> 

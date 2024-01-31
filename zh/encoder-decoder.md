@@ -7,10 +7,8 @@ translators:
 - user: MatrixYao
 ---
 
-<h1> 基于 Transformers 的编码器-解码器模型 </h1>
+# 基于 Transformers 的编码器-解码器模型 
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Encoder_Decoder_Model.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt=" 在 Colab 中打开 "/>

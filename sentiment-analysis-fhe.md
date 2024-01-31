@@ -8,8 +8,6 @@ authors:
 
 # Sentiment Analysis on Encrypted Data with Homomorphic Encryption
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 It is well-known that a sentiment analysis model determines whether a text is positive, negative, or neutral. However, this process typically requires access to unencrypted text, which can pose privacy concerns.
 

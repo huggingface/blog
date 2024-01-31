@@ -8,8 +8,6 @@ authors:
 
 # Deploying TensorFlow Vision Models in Hugging Face with TF Serving
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/111_tf_serving_vision.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

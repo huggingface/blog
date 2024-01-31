@@ -5,22 +5,11 @@ authors:
 - user: dylanebert
 ---
 
-<h1>Introduction to 3D Gaussian Splatting</h1>
+# Introduction to 3D Gaussian Splatting
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 3D Gaussian Splatting is a rasterization technique described in [3D Gaussian Splatting for Real-Time Radiance Field Rendering](https://huggingface.co/papers/2308.04079) that allows real-time rendering of photorealistic scenes learned from small samples of images. This article will break down how it works and what it means for the future of graphics.
-
-Check out the remote Gaussian Viewer space [here](https://huggingface.co/spaces/dylanebert/gaussian-viewer) or embedded below for an example of a Gaussian Splatting scene.
-
-<iframe
-	src="https://dylanebert-gaussian-viewer.hf.space"
-	frameborder="0"
-	width="960"
-	height="720"
-></iframe>
 
 ## What is 3D Gaussian Splatting?
 

@@ -9,8 +9,6 @@ authors:
 
 # Inference for PROs
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ![Inference for PROs image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-for-pros/Inference-for-pros.png)
 

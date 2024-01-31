@@ -5,10 +5,8 @@ authors:
 - user: britneymuller
 ---
 
-<h1>Director of Machine Learning Insights [Part 2: SaaS Edition]</h1>
+# Director of Machine Learning Insights [Part 2: SaaS Edition]
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 _If you or your team are interested in building ML solutions faster visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_2) today!_
 

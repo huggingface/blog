@@ -14,8 +14,6 @@ translators:
 
 # Open LLM 排行榜近况
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 Open LLM 排行榜是 Hugging Face 设立的一个用于评测开放大语言模型的公开榜单。最近，随着 [**Falcon 🦅**](https://huggingface.co/tiiuae/falcon-40b) 的发布并在 [Open LLM 排行榜](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) 上疯狂屠榜，围绕这个榜单在推特上掀起了一轮热烈的讨论。
 

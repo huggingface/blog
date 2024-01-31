@@ -8,8 +8,6 @@ authors:
 
 # Train your ControlNet with diffusers 🧨
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Introduction
 [ControlNet](https://huggingface.co/blog/controlnet) is a neural network structure that allows fine-grained control of diffusion models by adding extra conditions. The technique debuted with the paper [Adding Conditional Control to Text-to-Image Diffusion Models](https://huggingface.co/papers/2302.05543), and quickly took over the open-source diffusion community author's release of 8 different conditions to control Stable Diffusion v1-5, including pose estimations, depth maps, canny edges, sketches, [and more](https://huggingface.co/lllyasviel).

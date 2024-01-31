@@ -5,10 +5,8 @@ authors:
 - user: stas
 ---
 
-<h1>The Technology Behind BLOOM Training</h1>
+# The Technology Behind BLOOM Training
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 
 

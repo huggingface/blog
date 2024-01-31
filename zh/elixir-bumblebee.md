@@ -12,8 +12,6 @@ translators:
 
 # 从 GPT2 到 Stable Diffusion：Elixir 社区迎来了 Hugging Face
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 上周，[Elixir 社区](https://elixir-lang.org/) 向大家宣布，Elixir 语言社区新增从 GPT2 到 Stable Diffusion 的一系列神经网络模型。这些模型得以实现归功于 [刚刚发布的 Bumblebee 库](https://news.livebook.dev/announcing-bumblebee-gpt2-stable-diffusion-and-more-in-elixir-3Op73O)。Bumblebee 库是使用纯 Elixir 语言实现的 Hugging Face Transformers 库。
 

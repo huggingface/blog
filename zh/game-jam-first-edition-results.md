@@ -13,8 +13,6 @@ translators:
 
 # 首届开源 AI 游戏挑战赛事结果
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 北京时间 7 月 8 日到 7 月 10 日， **我们举办了 [首届开源 AI 游戏开发挑战赛](https://itch.io/jam/open-source-ai-game-jam)**。这是一场激动人心的赛事活动，游戏开发者在紧迫的 48 小时内使用 AI 创造、创新有创意的游戏。
 

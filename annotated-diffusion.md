@@ -8,8 +8,6 @@ authors:
 
 # The Annotated Diffusion Model
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
@@ -242,7 +240,7 @@ class WeightStandardizedConv2d(nn.Conv2d):
         weight = self.weight
         mean = reduce(weight, "o ... -> o 1 1 1", "mean")
         var = reduce(weight, "o ... -> o 1 1 1", partial(torch.var, unbiased=False))
-        normalized_weight = (weight - mean) * (var + eps).rsqrt()
+        normalized_weight = (weight - mean) / (var + eps).rsqrt()
 
         return F.conv2d(
             x,

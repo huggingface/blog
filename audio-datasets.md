@@ -7,8 +7,6 @@ authors:
 
 # A Complete Guide to Audio Datasets
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <!--- Note to reviewer: comments and TODOs are included in this format. --->
 

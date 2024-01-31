@@ -5,9 +5,7 @@ authors:
 - user: Narsil
 ---
 
-<h1>Optimization story: Bloom inference</h1>
-<!-- {blog_metadata} -->
-<!-- {authors} -->
+# Optimization story: Bloom inference
 
 This article gives you the behind-the-scenes of how we made an efficient inference server that powers bloom.
 inference server that powers [https://huggingface.co/bigscience/bloom]().

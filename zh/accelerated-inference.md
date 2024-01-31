@@ -7,9 +7,8 @@ translators:
   proofreader: true
 ---
 
-<h1> 如何成功将 🤗 API 客户的 transformer 模型推理速度加快 100 倍 </h1>
+# 如何成功将 🤗 API 客户的 transformer 模型推理速度加快 100 倍 
 
-<!-- {blog_metadata} -->
 
 🤗 Transformers 已成为世界各地数据科学家用以探索最先进 NLP 模型、构建新 NLP 模块的默认库。它拥有超过 5000 个预训练和微调的模型，支持 250 多种语言，任君取用。无论你使用哪种框架，都能用得上它。
 

@@ -7,8 +7,6 @@ authors:
 
 # Making automatic speech recognition work on large files with Wav2Vec2 in 🤗 Transformers
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ```
 Tl;dr: This post explains how to use the specificities of the Connectionist

@@ -6,10 +6,8 @@ authors:
   guest: true
 ---
 
-<h1>Nyströmformer: Approximating self-attention in linear time and memory via the Nyström method</h1>
+# Nyströmformer: Approximating self-attention in linear time and memory via the Nyström method
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

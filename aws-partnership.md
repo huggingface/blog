@@ -9,8 +9,6 @@ authors:
 
 # Hugging Face and AWS partner to make AI more accessible
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 It’s time to make AI open and accessible to all. That’s the goal of this expanded long-term strategic partnership between Hugging Face and Amazon Web Services (AWS). Together, the two leaders aim to accelerate the availability of next-generation machine learning models by making them more accessible to the machine learning community and helping developers achieve the highest performance at the lowest cost.
 

@@ -20,8 +20,6 @@ authors:
 
 ## Ethical charter - Multimodal project
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 ## Purpose of the ethical charter
 

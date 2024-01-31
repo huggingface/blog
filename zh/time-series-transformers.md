@@ -8,10 +8,8 @@ translators:
 - user: zhongdongy
 ---
 
-<h1>使用 🤗 Transformers 进行概率时间序列预测</h1>
+# 使用 🤗 Transformers 进行概率时间序列预测
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
