@@ -158,7 +158,7 @@ llm = llm_model.deploy(
 )
 ```
 
-SageMaker will create our endpoint and deploy the model to it. This can takes a 10-15 minutes.
+SageMaker will create our endpoint and deploy the model to it. This can take 10-15 minutes.
 
 ### 5. Run inference and chat with the model
 
