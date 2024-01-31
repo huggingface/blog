@@ -21,8 +21,6 @@ guest: true
 guest: true
 - user: aayasin
 guest: true
-- user: Zhao Fan
-guest: true
 ---
 
 # Fast Code Generation with Q4-StarCoder and Speculative Decoding on Intel Xeon
@@ -34,10 +32,6 @@ Recently, code generation models have become very popular, especially with the r
 The StarCoder Model is a cutting-edge LLM specifically designed for assisting the user with various coding tasks such as code completion, bug fixing, code summarization, and even generating code snippets from natural language descriptions. The StarCoder model is a member of the StarCoder family which includes the StarCoderBase variant as well. These Large Language Models for Code (Code LLMs) are trained on permissively licensed data from GitHub, including over 80 programming languages, Git commits, GitHub issues, and Jupyter notebooks. In this work we show more than 7x inference acceleration of StarCoder-15B model on Intel 4th generation Xeon by integrating 8bit and 4bit quantization with [assisted generation](https://huggingface.co/blog/assisted-generation).
 
 Try out our [demo](https://huggingface.co/spaces/Intel/intel-starcoder-playground) on Hugging Face Spaces that is being run on a 4th Generation Intel Xeon Scalable processor.
-
-<kbd>
-  <img alt="Generating DOI" src="assets/174_intel_quantization_starcoder/starcoder-demo.mov">
-</kbd>
 
 
 ## Step 1: Baseline and Evaluation
