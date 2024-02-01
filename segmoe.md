@@ -45,7 +45,7 @@ For more details on MoEs, see the Hugging Face 🤗 post: [hf.co/blog/moe](https
 
 ### About the name
 
-The SegMoE MoEs is called **SegMoE-AxB**, where A refers to the number of expert models MoE-d together, while the second number refers to the number of experts involved in the generation of each image. Only some layers of the model (the feed-forward blocks, attentions, or all) are replicated depending on the configuration settings; the rest of the parameters are the same as in a Stable Diffusion model. For more details about how MoE works, please refer to [the "Mixture of Experts Explained" post](https://huggingface.co/blog/moe).
+The SegMoE MoEs are called **SegMoE-AxB**, where `A` refers to the number of expert models MoE-d together, while the second number refers to the number of experts involved in the generation of each image. Only some layers of the model (the feed-forward blocks, attentions, or all) are replicated depending on the configuration settings; the rest of the parameters are the same as in a Stable Diffusion model. For more details about how MoEs work, please refer to [the "Mixture of Experts Explained" post](https://huggingface.co/blog/moe).
 
 ## Inference
 We release 3 merges on Hugging Face:
