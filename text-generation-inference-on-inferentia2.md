@@ -14,7 +14,7 @@ We are excited to announce the general availability of Hugging Face Text Generat
 
 The integration of TGI into Amazon SageMaker, in combination with AWS Inferentia2, presents a powerful solution and viable alternative to GPUs for building production LLM applications. The seamless integration ensures easy deployment and maintenance of models, making LLMs more accessible and scalable for a wide range of production use cases.
 
-With the new TGI for AWS Inferentia2 on Amazon SageMaker, AWS customers can benefit from the same technologies that power highly-concurrent, low-latency LLM experiences like [HuggingChat](https://hf.co/chat), [OpenAssistant](https://open-assistant.io/), and Inference API for LLMs on the Hugging Face Hub.
+With the new TGI for AWS Inferentia2 on Amazon SageMaker, AWS customers can benefit from the same technologies that power highly-concurrent, low-latency LLM experiences like [HuggingChat](https://hf.co/chat), [OpenAssistant](https://open-assistant.io/), and Serverless Endpoints for LLMs on the Hugging Face Hub.
 
 ## Deploy Zephyr 7B on AWS Inferentia2 using Amazon SageMaker
 
