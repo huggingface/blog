@@ -3357,7 +3357,7 @@
     - guide
     - collaboration
     - research
-  
+
 - local: intel-starcoder-quantization
   title: "Accelerate StarCoder with 🤗 Optimum Intel on Xeon: Q8/Q4 and Speculative Decoding"
   author: ofirzaf
@@ -3382,7 +3382,7 @@
       - leaderboard
       - guide
       - collaboration
-
+      
 - local: patchtst
   title: "Patch Time Series Transformer in HuggingFace"
   author: namctin
