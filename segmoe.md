@@ -200,6 +200,7 @@ Detailed usage can be found [here](https://huggingface.co/docs/huggingface_hub/g
 ## Conclusion
 
 We built SegMoE to provide the community a new tool that can potentially create SOTA Diffusion Models with ease, just by combining pretrained models while keeping inference times low. We're excited to see what you can build with it!
+
 ## Additional Resources
 
 - [Mixture of Experts Explained](https://huggingface.co/blog/moe)
