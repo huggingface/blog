@@ -23,10 +23,11 @@ Among the features and integrations being released today:
 
 - [What is SegMoE](#what-is-segmoe)
   - [About the name](#about-the-name)
-- [Samples](#Samples)
 - [Inference](#inference)
+  - [Samples](#Samples)
   - [Using 🤗 Diffusers](#using-🤗-diffusers)
 - [Comparison](#comparison)
+- [Creating your Own SegMoE](#creating-your-own-segmoe)
 - [Disclaimers and ongoing work](#disclaimers-and-ongoing-work)
 - [Additional Resources](#additional-resources)
 - [Conclusion](#conclusion)
@@ -55,6 +56,20 @@ We release 3 merges on Hugging Face:
 2. [SegMoE 4x2](https://huggingface.co/segmind/SegMoE-4x2-v0) has four expert models.
 3. [SegMoE SD 4x2](https://huggingface.co/segmind/SegMoE-SD-4x2-v0) has four Stable Diffusion 1.5 expert models.
 
+### Samples
+
+Images generated using [SegMoE 4x2](https://huggingface.co/segmind/SegMoE-4x2-v0)
+
+![image](https://cdn-uploads.huggingface.co/production/uploads/62f8ca074588fe31f4361dae/HgF6DLC-_3igZT6kFIq4J.png)
+
+Images generated using [SegMoE 2x1](https://huggingface.co/segmind/SegMoE-2x1-v0):
+
+![image](https://cdn-uploads.huggingface.co/production/uploads/62f8ca074588fe31f4361dae/ofIz_6VehCHRlpsfrxwFm.png)
+
+Images generated using [SegMoE SD 4x2](https://huggingface.co/segmind/SegMoE-SD-4x2-v0)
+
+![image](https://cdn-uploads.huggingface.co/production/uploads/62f8ca074588fe31f4361dae/z6T2lYPlbXifoh_D5EkLZ.png)
+
 ### Using 🤗 Diffusers
 
 Please, run the following command to install the segmoe package. Make sure you have the latest version of diffusers and transformers installed.
@@ -80,13 +95,6 @@ img = pipeline(
 img.save("image.png")
 ```
 
-## Samples
-
-![image](https://cdn-uploads.huggingface.co/production/uploads/62f8ca074588fe31f4361dae/HgF6DLC-_3igZT6kFIq4J.png)
-
-![image](https://cdn-uploads.huggingface.co/production/uploads/62f8ca074588fe31f4361dae/ofIz_6VehCHRlpsfrxwFm.png)
-
-![image](https://cdn-uploads.huggingface.co/production/uploads/62f8ca074588fe31f4361dae/z6T2lYPlbXifoh_D5EkLZ.png)
 
 ## Comparison 
 
