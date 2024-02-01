@@ -3367,5 +3367,5 @@
   tags:
     - text-to-image
     - stable-diffusion
-    - mixture-of-experts
+    - moe
     - segmoe
