@@ -29,7 +29,7 @@ Here are the various artifacts:
     - DPO model based on Anthropic’s constitution: [https://huggingface.co/HuggingFaceH4/mistral-7b-anthropic](https://huggingface.co/HuggingFaceH4/mistral-7b-anthropic)
     - SFT model based on the Grok constitution: [https://huggingface.co/HuggingFaceH4/mistral-7b-grok](https://huggingface.co/HuggingFaceH4/mistral-7b-grok)
 - 🔥 Demo of the Constitutional AI models:  [https://huggingface.co/spaces/HuggingFaceH4/constitutional-ai-demo](https://huggingface.co/spaces/HuggingFaceH4/constitutional-ai-demo)
-- 💾 Source code for the recipe [https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai]https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai
+- 💾 Source code for the recipe [https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai](https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai)
 
 Let’s start by taking a look at how CAI works!
 
