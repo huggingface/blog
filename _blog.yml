@@ -3383,6 +3383,17 @@
       - guide
       - collaboration
 
+- local: patchtst
+  title: "Patch Time Series Transformer in Hugging Face"
+  author: namctin
+  guest: true
+  thumbnail: /blog/assets/patchtst/thumbnail.png
+  date: February 1, 2024
+  tags:
+    - guide
+    - research
+    - time-series
+
 - local: text-generation-inference-on-inferentia2
   title: "Hugging Face Text Generation Inference available for AWS Inferentia2"
   author: philschmid
@@ -3393,4 +3404,3 @@
     - partnerships
     - aws
     - llm
-
