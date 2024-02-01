@@ -40,7 +40,7 @@ For more details on MoEs, see the Hugging Face 🤗 post: [hf.co/blog/moe](https
 
 **SegMoE release TL;DR;**
 
-- Release of SegMoE 4x2, SegMoE 2x1 and SegMoE SD4x2 versions
+- Release of SegMoE-4x2, SegMoE-2x1 and SegMoE-SD4x2 versions
 - Release of custom MoE-making code
 
 ### About the name
