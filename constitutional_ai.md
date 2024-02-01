@@ -1,6 +1,6 @@
 ---
-title: "Constituional AI Recipe"
-thumbnail: /blog/assets/167_the_n_implementation_details_of_rlhf_with_ppo/thumbnail.png
+title: "Constituional AI"
+thumbnail: /blog/assets/175_constitutional_ai/thumbnail.png
 authors:
 - user: vwxyzjn
 - user: lewtun
@@ -10,7 +10,7 @@ authors:
 - user: yjernite
 - user: thomwolf
 ---
-# Constitutional AI Recipe
+# Constitutional AI
 
 
 Since the launch of ChatGPT in 2022, we have seen tremendous progress in progress in LLMs, ranging from the release of powerful pretrained models like [Llama 2](https://arxiv.org/abs/2307.09288) and [Mixtral](https://mistral.ai/news/mixtral-of-experts/), to the development of new alignment techniques like [Direct Preference Optimization](https://arxiv.org/abs/2305.18290). However, deploying LLMs in consumer applications poses several challenges, including the need to add guardrails that prevent the model from generating undesirable responses. For example, if you are building an AI tutor for children, then you don’t want it to generate toxic answers or teach them to write scam emails! 
