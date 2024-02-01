@@ -75,7 +75,7 @@ Images generated using [SegMoE SD 4x2](https://huggingface.co/segmind/SegMoE-SD-
 Please, run the following command to install the segmoe package. Make sure you have the latest version of diffusers and transformers installed.
 ```pip install segmoe```
 
-The following loads up the third model from the list above, and runs generation on it.
+The following loads up the Second model from the list above, and runs generation on it.
 
 ```python
 from segmoe import SegMoEPipeline
@@ -95,6 +95,29 @@ img = pipeline(
 img.save("image.png")
 ```
 
+![image](https://github.com/Warlord-K/blog/assets/95569637/93e7c4a2-9012-44c3-b778-e5363ad5556c)
+
+### Using a Local Model
+
+Alternatively, A Local Model can also be loaded up, here `segmoe_v0` is the path to the directory containing the local SegMoE model. Checkout [Creating your Own SegMoE](#creating-your-own-segmoe) to learn how to create your own SegMoE model.
+
+```python
+from segmoe import SegMoEPipeline
+
+pipeline = SegMoEPipeline("segmoe_v0", device="cuda")
+
+prompt = "cosmic canvas, orange city background, painting of a chubby cat"
+negative_prompt = "nsfw, bad quality, worse quality"
+img = pipeline(
+    prompt=prompt,
+    negative_prompt=negative_prompt,
+    height=1024,
+    width=1024,
+    num_inference_steps=25,
+    guidance_scale=7.5,
+).images[0]
+img.save("image.png")
+```
 
 ## Comparison 
 
@@ -202,6 +225,25 @@ The Model can be pushed to the hub via the huggingface-cli
 huggingface-cli upload segmind/segmoe_v0 ./segmoe_v0
 ```
 
+Alternatively, The Model can be pushed via the Python API,
+
+```python
+from huggingface_hub import create_repo, upload_folder
+ 
+model_id = "segmind/SegMoE-v0"
+
+repo_id = create_repo(
+                repo_id = model_id, exist_ok=True
+            ).repo_id
+
+upload_folder(
+    repo_id=repo_id,
+    folder_path="segmoe_v0",
+    commit_message="Inital Commit",
+    ignore_patterns=["step_*", "epoch_*"],
+)
+```
+
 Detailed usage can be found [here](https://huggingface.co/docs/huggingface_hub/guides/upload)
 
 ## Disclaimers and ongoing work
@@ -217,5 +259,5 @@ We built SegMoE to provide the community a new tool that can potentially create 
 ## Additional Resources
 
 - [Mixture of Experts Explained](https://huggingface.co/blog/moe)
-
+- [Mixture of Experts Models on Hugging Face](https://huggingface.co/models?other=moe)
 
