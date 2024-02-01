@@ -3375,7 +3375,7 @@
 - local: constitutional_ai
   title: "Constitutional AI with Open LLMs"
   author: vwxyzjn
-  thumbnail: /blog/assets/167_constitutional_ai/thumbnail.png
+  thumbnail: /blog/assets/175_constitutional_ai/thumbnail.png
   date: Feburary 1, 2024
   tags:
     - research
