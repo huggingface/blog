@@ -3393,3 +3393,14 @@
     - guide
     - research
     - time-series
+
+- local: text-generation-inference-on-inferentia2
+  title: "Hugging Face Text Generation Inference available for AWS Inferentia2"
+  author: philschmid
+  thumbnail: /blog/assets/175_text_generation_inference_on_inferentia2/thumbnail.jpg
+  date: Feb 1, 2024
+  tags:
+    - guide
+    - partnerships
+    - aws
+    - llm
