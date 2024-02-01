@@ -148,7 +148,17 @@ Here is a demo of it running. There are a couple of things we’d like to highli
 - 🤵**Manage inference endpoint lifetime**: it automatically spins up X instances via `sbatch` and keeps checking if they are created or connected while giving a friendly spinner 🤗. Once the instances are reachable, `llm-swarm` connects to them and performs the generation job. Once the jobs are finished, `llm-swarm` auto-terminates the inference endpoints, so there is no idling inference endpoints wasting up GPU research (and money!)
 - 🔥**Load balancing**: when multiple endpoints are being spawned, we use a simple nginx docker to do load balancing between the inference endpoints based on the [least connection](https://nginx.org/en/docs/http/load_balancing.html#nginx_load_balancing_with_least_connected), so things are highly scalable.
 
-[llm_swarm.mov](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/cai_recipe/llm_swarm.mov)
+
+<figure class="image table text-center m-0 w-full">
+    <video 
+        alt="MPT-7B Demo"
+        style="max-width: 70%; margin: auto;"
+        autoplay loop autobuffer muted playsinline
+    >
+      <source src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/cai_recipe/llm_swarm.mov" type="video/mp4">
+  </video>
+</figure>
+
 
 With `llm-swarm` we can generate LLM completions very efficiently by scaling up the number of concurrent processes across and arbitrary number of GPUs. Armed with this tool, let’s now define a constitution with which to critique our model’s responses.
 
