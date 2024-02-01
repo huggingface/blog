@@ -1,8 +1,12 @@
 ---
 title: "NPHardEval Leaderboard: Unveiling the Reasoning Abilities of Large Language Models through Complexity Classes and Dynamic Updates"
-thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_nphardeval.png
 authors:
-- user: 
+- user: lizhouf
+  guest: true
+- user: wenyueH
+  guest: true
+- user: hyfrankl
   guest: true
 - user: clefourrier
 ---
