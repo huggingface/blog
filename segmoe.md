@@ -175,7 +175,7 @@ This will create a folder called segmoe_v0 with the following structure:
     └── diffusion_pytorch_model.safetensors
 ```
 
-Alternatively, you can also use the following command to create a mixture of experts model:
+Alternatively, you can also use the Python API to create a mixture of experts model:
 
 ```python
 from segmoe import SegMoEPipeline
