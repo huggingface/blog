@@ -195,7 +195,7 @@ Detailed usage can be found [here](https://huggingface.co/docs/huggingface_hub/g
 
 - **Slower Speed**: MoEs may perform computation step across several expert models (if the number of experts per token is set to higher than 1). This makes the model slower than a single SD 1.5 or SDXL model.
 
-- **High VRAM usage**: MoEs run inference very quickly but still need a large amount of VRAM (and hence an expensive GPU). This makes it challenging to use it in local setups. MoEs are great for setups with many devices and large VRAM. SegMoE-4x2 requires 24GB of VRAM in half-precision.
+- **High VRAM usage**: MoEs run inference very quickly but still need a large amount of VRAM (and hence an expensive GPU). This makes it challenging to use them in local setups, but they are great for deployments with multiple GPUs. As a reference point, SegMoE-4x2 requires 24GB of VRAM in half-precision.
 
 ## Conclusion
 
