@@ -7,7 +7,7 @@ authors:
 - user: edbeeching
 - user: lvwerra
 - user: osanseviero
-- user: yjernite
+- user: kashif
 - user: thomwolf
 ---
 # Constitutional AI
@@ -397,7 +397,7 @@ We thank the feedback and discussion with Moritz Laurer.
 
 ```bibtex
 @article{Huang2024cairecipe,
-  author = {Huang, Shengyi and Tunstall, Lewis and Beeching, Edward and von Werra, Leandro and Sanseviero, Omar and Jernite, Yacine and Wolf, Thomas},
+  author = {Huang, Shengyi and Tunstall, Lewis and Beeching, Edward and von Werra, Leandro and Sanseviero, Omar and Rasul, Kashif and Wolf, Thomas},
   title = {Constitutional AI Recipe},
   journal = {Hugging Face Blog},
   year = {2024},
