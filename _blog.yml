@@ -3383,6 +3383,28 @@
       - guide
       - collaboration
 
+- local: patchtst
+  title: "Patch Time Series Transformer in Hugging Face"
+  author: namctin
+  guest: true
+  thumbnail: /blog/assets/patchtst/thumbnail.png
+  date: February 1, 2024
+  tags:
+    - guide
+    - research
+    - time-series
+
+- local: text-generation-inference-on-inferentia2
+  title: "Hugging Face Text Generation Inference available for AWS Inferentia2"
+  author: philschmid
+  thumbnail: /blog/assets/175_text_generation_inference_on_inferentia2/thumbnail.jpg
+  date: Feb 1, 2024
+  tags:
+    - guide
+    - partnerships
+    - aws
+    - llm
+
 - local: leaderboards-on-the-hub-nphardeval
   title: "NPHardEval Leaderboard: Unveiling the Reasoning Abilities of Large Language Models through Complexity Classes and Dynamic Updates"
   author: lizhouf
