@@ -3357,6 +3357,42 @@
     - guide
     - collaboration
     - research
+  
+- local: intel-starcoder-quantization
+  title: "Accelerate StarCoder with 🤗 Optimum Intel on Xeon: Q8/Q4 and Speculative Decoding"
+  author: ofirzaf
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: Jan 30, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community
+
+- local: leaderboards-on-the-hub-patronus
+  title: "Introducing the Enterprise Scenarios Leaderboard: a Leaderboard for Real World Use Cases"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_patronus.png
+  author: sunitha98
+  guest: true
+  date: January 31, 2024
+  tags:
+      - leaderboard
+      - guide
+      - collaboration
+
+- local: patchtst
+  title: "Patch Time Series Transformer in HuggingFace"
+  author: namctin
+  guest: true
+  thumbnail: /blog/assets/patchtst/thumbnail.png
+  date: February 1, 2024
+  tags:
+    - guide
+    - research
+    - time-series
 
 - local: segmoe
   title: "SegMoE: Segmind Mixture of Diffusion Experts"
