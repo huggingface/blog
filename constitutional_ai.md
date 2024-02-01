@@ -17,7 +17,7 @@ Since the launch of ChatGPT in 2022, we have seen tremendous progress in progres
 
 To align these LLMs according to a set of values, researchers at Anthropic have proposed a technique called **[Constitutional AI](https://www.anthropic.com/index/constitutional-ai-harmlessness-from-ai-feedback) (CAI)**, which asks the models to critique their outputs and self-improve according to a set of user-defined principles. This is exciting because the practitioners only need to define the principles instead of having to collect expensive human feedback to improve the model.
 
-In this work, we present an end-to-end recipe for doing Constitutional AI with open models. We are also releasing a new tool called `huggingface/llm-swarm` to leverage GPU Slurm clusters for scalable synthetic data generation. 
+In this work, we present an end-to-end recipe for doing Constitutional AI with open models. We are also releasing a new tool called `llm-swarm` to leverage GPU Slurm clusters for scalable synthetic data generation. 
 
 Here are the various artifacts:
 
@@ -26,8 +26,8 @@ Here are the various artifacts:
     - [https://huggingface.co/datasets/HuggingFaceH4/cai-conversation-harmless](https://huggingface.co/datasets/HuggingFaceH4/cai-conversation-harmless) (based on Anthropic’s constitution)
     - [https://huggingface.co/datasets/HuggingFaceH4/grok-conversation-harmless](https://huggingface.co/datasets/HuggingFaceH4/grok-conversation-harmless) (based on a constitution to mimic [xAI’s Grok)](https://grok.x.ai)
 - 💡 Constitutional AI models:
-    - DPO model based on Anthropic’s constitution: [https://huggingface.co/HuggingFaceH4/mistral-7b-cai-alpha](https://huggingface.co/HuggingFaceH4/mistral-7b-cai-alpha)
-    - SFT model based on the Grok constitution: [https://huggingface.co/HuggingFaceH4/mistral-7b-grok-alpha](https://huggingface.co/HuggingFaceH4/mistral-7b-grok-alpha)
+    - DPO model based on Anthropic’s constitution: [https://huggingface.co/HuggingFaceH4/mistral-7b-anthropic](https://huggingface.co/HuggingFaceH4/mistral-7b-anthropic)
+    - SFT model based on the Grok constitution: [https://huggingface.co/HuggingFaceH4/mistral-7b-grok](https://huggingface.co/HuggingFaceH4/mistral-7b-grok)
 - 🔥 Demo of the Constitutional AI models:  [https://huggingface.co/spaces/HuggingFaceH4/constitutional-ai-demo](https://huggingface.co/spaces/HuggingFaceH4/constitutional-ai-demo)
 - 💾 Source code for the recipe [https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai]https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai
 
@@ -39,7 +39,7 @@ Constitutional AI is this clever idea that we can ask helpful models to align th
 
 ![CAI_illustration.png](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/cai_recipe/CAI_illustration.png)
 
-To make it more concrete, here are is conversations:
+To make it more concrete, here is an example of a conversation that shows how the self-critique works:
 
 ![Untitled](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/cai_recipe/Untitled.png)
 
@@ -90,7 +90,7 @@ Now that we have a model to work with, let’s look at how we can generate some 
 
 ## Gathering prompts to generate AI preference data
 
-To generate a CAI dataset, we used Anthropic’s HH preference dataset ([https://huggingface.co/datasets/Anthropic/hh-rlhf](https://huggingface.co/datasets/Anthropic/hh-rlhf)), which contains many red-teaming prompts, that are designed to elicit undesirable responses according to values defined by Anthropic’s researchers. As noted earlier, one neat feature of CAI is that you can define your own set of constitutional principles and later in this blog post we explore tweaking the Anthropic one to produce a chat model that mimics xAI’s Grok assistant. 
+To generate a CAI dataset, we used Anthropic’s HH preference dataset ([https://huggingface.co/datasets/Anthropic/hh-rlhf](https://huggingface.co/datasets/Anthropic/hh-rlhf)), which contains many red-teaming prompts that are designed to elicit undesirable responses according to values defined by Anthropic’s researchers. As noted earlier, one neat feature of CAI is that you can define your own set of constitutional principles and later in this blog post we explore tweaking the Anthropic one to produce a chat model that mimics xAI’s Grok assistant. 
 
 Here is an example from the dataset:
 
@@ -98,9 +98,9 @@ Here is an example from the dataset:
 
 We can extract prompts like `What are some cuss words in english?` and do the CAI process as described above. To accomplish this however, we need a way to generate tens to hundreds of thousands of synthetic responses 😱!
 
-# Enter huggingface/llm-swarm: scalable text generation on a Slurm cluster
+# Enter `llm-swarm`: scalable text generation on a Slurm cluster
 
-To enable the creation of synthetic data from LLMs at scale, we have created a tool called `huggingface/llm-swarm` that is designed for distributed generation on Slurm clusters and is powered by TGI and vLLM. Here’s a code snippet which shows how this works:
+To enable the creation of synthetic data from LLMs at scale, we have created a tool called `llm-swarm` that is designed for distributed generation on Slurm clusters and is powered by TGI and vLLM. Here’s a code snippet which shows how this works:
 
 ```python
 import asyncio
@@ -145,12 +145,12 @@ with LLMSwarm(
 
 Here is a demo of it running. There are a couple of things we’d like to highlight:
 
-- 🤵**Manage inference endpoint lifetime**: it automatically spins up X instances via `sbatch` and keeps checking if they are created or connected while giving a friendly spinner 🤗. Once the instances are reachable, `llm_swarm` connects to them and performs the generation job. Once the jobs are finished, `llm_swarm` auto-terminates the inference endpoints, so there is no idling inference endpoints wasting up GPU research (and money!)
+- 🤵**Manage inference endpoint lifetime**: it automatically spins up X instances via `sbatch` and keeps checking if they are created or connected while giving a friendly spinner 🤗. Once the instances are reachable, `llm-swarm` connects to them and performs the generation job. Once the jobs are finished, `llm-swarm` auto-terminates the inference endpoints, so there is no idling inference endpoints wasting up GPU research (and money!)
 - 🔥**Load balancing**: when multiple endpoints are being spawned, we use a simple nginx docker to do load balancing between the inference endpoints based on the [least connection](https://nginx.org/en/docs/http/load_balancing.html#nginx_load_balancing_with_least_connected), so things are highly scalable.
 
 [llm_swarm.mov](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/cai_recipe/llm_swarm.mov)
 
-With `llm_swarm` we can generate LLM completions very efficiently by scaling up the number of concurrent processes across and arbitrary number of GPUs. Armed with this tool, let’s now define a constitution with which to critique our model’s responses.
+With `llm-swarm` we can generate LLM completions very efficiently by scaling up the number of concurrent processes across and arbitrary number of GPUs. Armed with this tool, let’s now define a constitution with which to critique our model’s responses.
 
 # Generating a CAI dataset
 
@@ -224,7 +224,7 @@ We can now perform the first stage of the CAI training: the SFT step. We start w
 - [https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k](https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k)
 - [https://huggingface.co/datasets/HuggingFaceH4/cai-conversation-harmless](https://huggingface.co/datasets/HuggingFaceH4/cai-conversation-harmless)
 
-We picked Ultrachat as it tends to produce quite helpful chat models, but in practice you can use whatever multi-turn corpus you wish. We experimented with different percentage mixes of the CAI dataset along with 100% of the Utrachat dataset. Our goal is to train a helpful model that follows the safety constitution. For evaluation, we use [MT Bench](https://arxiv.org/abs/2306.05685) to evaluate the helpfulness, and we use 10 red teaming prompts not in the training dataset to evaluate safety with different prompting methods.
+We picked Ultrachat as it tends to produce quite helpful chat models, but in practice you can use whatever SFT dataset you wish. The main requirement is to include enough helpful examples so that the revisions from CAI don't nerf the model. We experimented with different percentage mixes of the CAI dataset along with 100% of the Utrachat dataset. Our goal is to train a helpful model that follows the safety constitution. For evaluation, we use [MT Bench](https://arxiv.org/abs/2306.05685) to evaluate the helpfulness, and we use 10 red teaming prompts not in the training dataset to evaluate safety with different prompting methods.
 
 ### Evaluating Helpfulness
 
@@ -303,7 +303,7 @@ The behavior also seems to extend beyond just the DAN prompt we tested. For exam
 
 To show the flexibility of CAI, we also experimented with adding a bit more personality to the model, inspired by the response styles of [xAI's Grok](https://twitter.com/grok), which gives more snarky / sarcastic answers to undesirable requests.
 
-We focus mainly on these two prompts focusing on removing biased and illegal content:
+To do so, we tweaked two prompts from the Anthropic constitution to insert some humour into the revisions:
 
 ```json
 {
@@ -386,21 +386,23 @@ Interestingly, the DPO models learned both the Grok-style and regular style resp
 
 In conclusion, this blog presents recipes for performing constitutional AI, helping the practitioners align open source models to a set of constitutional principles. This work includes a nice tool called `huggingface/llm-swarm` for managing scalable inference endpoints in a slurm cluster. We also performed a series of experiments training CAI models, finding that we can train CAI-models 1) can be more resilient to prompt injections such as the DAN attack and 2) do not compromise significantly on helpfulness. 
 
+We look forward to seeing what types of constitutions the community develops!
+
 - 💾 Source code for the recipe [https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai](https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai)
 
 
 # Acknowledgement
 
-We thank the feedback and discussion with Moritz Laurer.
+We thank Moritz Laurer and Yacine Jernite for useful feedback and discussions.
 
 # Bibtex
 
 ```bibtex
-@article{Huang2024cairecipe,
+@article{Huang2024cai,
   author = {Huang, Shengyi and Tunstall, Lewis and Beeching, Edward and von Werra, Leandro and Sanseviero, Omar and Rasul, Kashif and Wolf, Thomas},
   title = {Constitutional AI Recipe},
   journal = {Hugging Face Blog},
   year = {2024},
-  note = {https://huggingface.co/blog/constitutional_ai_recipe},
+  note = {https://huggingface.co/blog/constitutional_ai},
 }
 ```
