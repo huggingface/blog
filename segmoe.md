@@ -34,7 +34,7 @@ Among the features and integrations being released today:
 ## What is SegMoE?
 
 SegMoE models follow the same architecture as Stable Diffusion. Like [Mixtral 8x7b](https://huggingface.co/blog/mixtral), a SegMoE model comes with multiple models in one. The way this works is by replacing some Feed-Forward layers with a sparse MoE layer. A MoE layer contains a router network to select which experts process which tokens most efficiently.
-You can use the segmoe package to create your own MoE models! The process takes just a few minutes. For further information, please visit [the Github Repository](https://github.com/segmind/segmoe)
+You can use the `segmoe` package to create your own MoE models! The process takes just a few minutes. For further information, please visit [the Github Repository](https://github.com/segmind/segmoe)
 
 For more details on MoEs, see the Hugging Face 🤗 post: [hf.co/blog/moe](https://huggingface.co/blog/moe)
 
