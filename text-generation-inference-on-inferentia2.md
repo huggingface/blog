@@ -87,7 +87,7 @@ Text Generation Inference (TGI) on Inferentia2 supports popular open LLMs, inclu
 
 **Compiling LLMs for Inferentia2**  
 
-At the time of writing, [AWS Inferentia2 does not support dynamic shapes for inference](https://awsdocs-neuron.readthedocs-hosted.com/en/v2.6.0/general/arch/neuron-features/dynamic-shapes.html#neuron-dynamic-shapes), which means that we need to specify our sequence length and batch size in advanced.
+At the time of writing, [AWS Inferentia2 does not support dynamic shapes for inference](https://awsdocs-neuron.readthedocs-hosted.com/en/v2.6.0/general/arch/neuron-features/dynamic-shapes.html#neuron-dynamic-shapes), which means that we need to specify our sequence length and batch size ahead of time.
 To make it easier for customers to utilize the full power of Inferentia2, we created a [neuron model cache](https://huggingface.co/docs/optimum-neuron/guides/cache_system), which contains pre-compiled configurations for the most popular LLMs. A cached configuration is defined through a model architecture (Mistral), model size (7B), neuron version (2.16), number of inferentia cores (2), batch size (2), and sequence length (2048).
 
 This means compiling fine-tuned checkpoints for Mistral 7B with the same configuration will take only a few minutes. Examples of this are [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) and [HuggingFaceH4/zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta).
