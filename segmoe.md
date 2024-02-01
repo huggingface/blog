@@ -56,6 +56,7 @@ We release 3 merges on Hugging Face:
 3. [SegMoE SD 4x2](https://huggingface.co/segmind/SegMoE-SD-4x2-v0) has four Stable Diffusion 1.5 expert models.
 
 ### Using 🤗 Diffusers
+
 Please run the following command to install the segmoe package. Make sure you have the latest version of diffusers and transformers installed.
 ```pip install segmoe```
 The following loads up and inferences the third model in the above list.
