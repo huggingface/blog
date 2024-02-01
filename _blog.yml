@@ -3371,7 +3371,6 @@
     - optimum
     - collaboration
     - community
-
 - local: leaderboards-on-the-hub-patronus
   title: "Introducing the Enterprise Scenarios Leaderboard: a Leaderboard for Real World Use Cases"
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_patronus.png
@@ -3404,6 +3403,17 @@
     - partnerships
     - aws
     - llm
+
+- local: constitutional_ai
+  title: "Constitutional AI with Open LLMs"
+  author: vwxyzjn
+  thumbnail: /blog/assets/175_constitutional_ai/thumbnail.png
+  date: Feburary 1, 2024
+  tags:
+    - research
+    - rl
+    - rlhf
+    - constitutional-ai
 
 - local: leaderboards-on-the-hub-nphardeval
   title: "NPHardEval Leaderboard: Unveiling the Reasoning Abilities of Large Language Models through Complexity Classes and Dynamic Updates"
