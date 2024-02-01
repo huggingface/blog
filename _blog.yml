@@ -3383,3 +3383,13 @@
       - guide
       - collaboration
 
+- local: patchtst
+  title: "Patch Time Series Transformer in HuggingFace"
+  author: namctin
+  guest: true
+  thumbnail: /blog/assets/patchtst/thumbnail.png
+  date: February 1, 2024
+  tags:
+    - guide
+    - research
+    - time-series
