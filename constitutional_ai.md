@@ -393,7 +393,7 @@ We look forward to seeing what types of constitutions the community develops!
 
 # Acknowledgement
 
-We thank Moritz Laurer and Yacine Jernite for useful feedback and discussions.
+We thank Philipp Schmid, Moritz Laurer and Yacine Jernite for useful feedback and discussions.
 
 # Bibtex
 
