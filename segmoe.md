@@ -26,6 +26,7 @@ Among the features and integrations being released today:
 - [Inference](#inference)
   - [Samples](#Samples)
   - [Using 🤗 Diffusers](#using-🤗-diffusers)
+  - [Using a Local Model](#using-a-local-model)
 - [Comparison](#comparison)
 - [Creating your Own SegMoE](#creating-your-own-segmoe)
 - [Disclaimers and ongoing work](#disclaimers-and-ongoing-work)
