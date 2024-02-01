@@ -65,7 +65,7 @@ The following loads up the third model from the list above, and runs generation 
 ```python
 from segmoe import SegMoEPipeline
 
-pipeline = SegMoEPipeline("segmind/SegMoE-4x2-v0", device = "cuda")
+pipeline = SegMoEPipeline("segmind/SegMoE-4x2-v0", device="cuda")
 
 prompt = "cosmic canvas, orange city background, painting of a chubby cat"
 negative_prompt = "nsfw, bad quality, worse quality"
