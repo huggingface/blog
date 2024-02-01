@@ -29,7 +29,7 @@ Here are the various artifacts:
     - DPO model based on Anthropic’s constitution: [https://huggingface.co/HuggingFaceH4/mistral-7b-cai-alpha](https://huggingface.co/HuggingFaceH4/mistral-7b-cai-alpha)
     - SFT model based on the Grok constitution: [https://huggingface.co/HuggingFaceH4/mistral-7b-grok-alpha](https://huggingface.co/HuggingFaceH4/mistral-7b-grok-alpha)
 - 🔥 Demo of the Constitutional AI models:  [https://huggingface.co/spaces/HuggingFaceH4/constitutional-ai-demo](https://huggingface.co/spaces/HuggingFaceH4/constitutional-ai-demo)
-- 💾 Source code for the recipe [https://github.com/huggingface/alignment-handbook/pull/108](https://github.com/huggingface/alignment-handbook/pull/108) (TODO: this needs to be merged)
+- 💾 Source code for the recipe [https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai]https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai
 
 Let’s start by taking a look at how CAI works!
 
@@ -386,7 +386,7 @@ Interestingly, the DPO models learned both the Grok-style and regular style resp
 
 In conclusion, this blog presents recipes for performing constitutional AI, helping the practitioners align open source models to a set of constitution principles. This work includes a nice tool called `huggingface/llm-swarm` for managing scalable inference endpoints in a slurm cluster. We also performed a series of experiments training CAI models, finding that we can train CAI-models 1) can be more resilient to prompt injections such as the DAN attack and 2) do not compromise significantly on helpfulness. 
 
-- 💾 Source code for the recipe [https://github.com/huggingface/alignment-handbook/pull/108](https://github.com/huggingface/alignment-handbook/pull/108) (TODO: this needs to be merged)
+- 💾 Source code for the recipe [https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai](https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai)
 
 
 # Acknowledgement
