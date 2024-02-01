@@ -4,9 +4,9 @@ thumbnail: /blog/assets/segmoe/thumbnail.png
 authors:
 - user: Warlord-K
   guest: true
-- user: Gothos
+- user: Icar
   guest: true
-- user: harishsegmind
+- user: harishp
   guest: true
 ---
 
