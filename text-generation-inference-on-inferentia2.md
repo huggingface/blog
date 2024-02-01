@@ -37,7 +37,7 @@ We are going to use the `sagemaker` python SDK to deploy Zephyr to Amazon SageMa
 !pip install transformers "sagemaker>=2.206.0" --upgrade --quiet
 ```
 
-If you are going to use Sagemaker in a local environment. You need access to an IAM Role with the required permissions for Sagemaker. You can find [here](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html) more about it.
+If you are going to use Sagemaker in a local environment. You need access to an IAM Role with the required permissions for Sagemaker. You can find out more about it [here](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html).
 
 ```python
 import sagemaker
