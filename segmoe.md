@@ -59,7 +59,9 @@ We release 3 merges on Hugging Face:
 
 Please run the following command to install the segmoe package. Make sure you have the latest version of diffusers and transformers installed.
 ```pip install segmoe```
-The following loads up and inferences the third model in the above list.
+
+The following loads up the third model from the list above, and runs generation on it.
+
 ```python
 from segmoe import SegMoEPipeline
 
