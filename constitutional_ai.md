@@ -1,5 +1,5 @@
 ---
-title: "Constituional AI"
+title: "Constitutional AI with Open LLMs"
 thumbnail: /blog/assets/175_constitutional_ai/thumbnail.png
 authors:
 - user: vwxyzjn
