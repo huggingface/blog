@@ -10,7 +10,7 @@ authors:
 
 We are excited to announce the general availability of Hugging Face Text Generation Inference (TGI) on AWS Inferentia2 and Amazon SageMaker.  
 
-**[Text Generation Inference (TGI)](https://github.com/huggingface/text-generation-inference)**, is a purpose-built solution for deploying and serving Large Language Models (LLMs) for production workloads at scale. TGI enables high-performance text generation using Tensor Parallelism and continuous batching for the most popular open LLMs, including Llama, Mistral, and more. Text Generation Inference is used in production by companies such as IBM, Grammarly, Uber, Deutsche Telekom, and many more.  
+**[Text Generation Inference (TGI)](https://github.com/huggingface/text-generation-inference)**, is a purpose-built solution for deploying and serving Large Language Models (LLMs) for production workloads at scale. TGI enables high-performance text generation using Tensor Parallelism and continuous batching for the most popular open LLMs, including Llama, Mistral, and more. Text Generation Inference is used in production by companies such as Grammarly, Uber, Deutsche Telekom, and many more.  
 
 The integration of TGI into Amazon SageMaker, in combination with AWS Inferentia2, presents a powerful solution and viable alternative to GPUs for building production LLM applications. The seamless integration ensures easy deployment and maintenance of models, making LLMs more accessible and scalable for a wide range of production use cases.
 
