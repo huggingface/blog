@@ -137,7 +137,7 @@ experts:
 Any number of models can be combined. For detailed information on how to create a config file, please refer to the [github repository](https://github.com/segmind/segmoe)
 
 **Note**
-Both Huggingface Models and CivitAI Models are supported. For CivitAI models, paste the download link of the model, For Example: "https://civitai.com/api/download/models/239306"
+Both Huggingface Models and CivitAI Models are supported. For CivitAI models, paste the download link of the model, for example: "https://civitai.com/api/download/models/239306"
 
 
 Then run the following command:
