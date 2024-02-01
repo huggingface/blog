@@ -3384,7 +3384,7 @@
       - collaboration
 
 - local: patchtst
-  title: "Patch Time Series Transformer in HuggingFace"
+  title: "Patch Time Series Transformer in Hugging Face"
   author: namctin
   guest: true
   thumbnail: /blog/assets/patchtst/thumbnail.png

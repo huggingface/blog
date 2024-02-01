@@ -1,10 +1,10 @@
 ---
-title: "Patch Time Series Transformer in HuggingFace"
+title: "Patch Time Series Transformer in Hugging Face"
 thumbnail: /blog/assets/patchtst/thumbnail.png
 authors:
 - user: namctin
   guest: true
-- user: wgifford
+- user: wmgifford
   guest: true
 - user: ajati
   guest: true
@@ -13,7 +13,7 @@ authors:
 - user: kashif
 ---
 
-# Patch Time Series Transformer in HuggingFace - Getting Started
+# Patch Time Series Transformer in Hugging Face - Getting Started
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
