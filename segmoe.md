@@ -112,7 +112,7 @@ Prompt understanding seems to improve, as shown in the images below. Each image 
 
 ## Creating your Own SegMoE
 
-Create a yaml config file, config.yaml, with the following structure:
+Simply prepare a `config.yaml` file, with the following structure:
 
 ```yaml
 base_model: Base Model Path, Model Card or CivitAI Download Link
