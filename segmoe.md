@@ -90,7 +90,7 @@ img.save("image.png")
 
 ## Comparison 
 
-The Prompt Understanding seems to improve as shown in the images below. From Left to Right [SegMoE-2x1-v0](https://huggingface.co/segmind/SegMoE-2x1-v0), [SegMoE-4x2-v0](https://huggingface.co/segmind/SegMoE-4x2-v0), Base Model ([RealVisXL_V3.0](https://huggingface.co/SG161222/RealVisXL_V3.0))
+Prompt understanding seems to improve, as shown in the images below. Each image shows the following models left to right: [SegMoE-2x1-v0](https://huggingface.co/segmind/SegMoE-2x1-v0), [SegMoE-4x2-v0](https://huggingface.co/segmind/SegMoE-4x2-v0), Base Model ([RealVisXL_V3.0](https://huggingface.co/SG161222/RealVisXL_V3.0))
 
 ![image](https://github.com/segmind/segmoe/assets/95569637/bcdc1b11-bbf5-4947-b6bb-9f745ff0c040)
 
