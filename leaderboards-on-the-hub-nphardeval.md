@@ -13,9 +13,12 @@ authors:
 
 # NPHardEval Leaderboard: Unveiling the Reasoning Abilities of Large Language Models through Complexity Classes and Dynamic Updates
 
-We're happy to introduce the [NPHardEval leaderboard](https://huggingface.co/spaces/hyfrankl/NPHardEval-leaderboard), using [NPHardEval](https://arxiv.org/abs/2312.14890), a cutting-edge benchmark developed by researchers from the University of Michigan and Rutgers University. 
+We're happy to introduce the [NPHardEval leaderboard](https://huggingface.co/spaces/NPHardEval/NPHardEval-leaderboard), using [NPHardEval](https://arxiv.org/abs/2312.14890), a cutting-edge benchmark developed by researchers from the University of Michigan and Rutgers University. 
 
 NPHardEval introduces a dynamic, complexity-based framework for assessing Large Language Models' (LLMs) reasoning abilities. It poses 900 algorithmic questions spanning the NP-Hard complexity class and lower, designed to rigorously test LLMs, and is updated on a monthly basis to prevent overfitting!
+
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
+<gradio-app theme_mode="light" space="NPHardEval/NPHardEval-leaderboard"></gradio-app>
 
 ## A Unique Approach to LLM Evaluation
 
@@ -119,7 +122,7 @@ For example, to use the GPT 4 Turbo model (GPT-4-1106-preview) and the edit dist
 We currrently support fewshot examples from the same question (self), and may support examples from other questions (other) in the future.
 
 ## Join the Conversation
-[The NPHardEval benchmark](https://huggingface.co/spaces/hyfrankl/NPHardEval-leaderboard), along with its [dataset](https://github.com/casmlab/NPHardEval/releases) and [code](https://github.com/casmlab/NPHardEval), is available on Github and HuggingFace for community access and contributions.
+[The NPHardEval leaderboard](https://huggingface.co/spaces/NPHardEval/NPHardEval-leaderboard)'s [dataset](https://github.com/casmlab/NPHardEval/releases) and [code](https://github.com/casmlab/NPHardEval) are available on Github and HuggingFace for community access and contributions.
 
-We'll love to see community contributions and interest on the NPHardEval [GitHub Repository](https://github.com/casmlab/NPHardEval) and [HuggingFace Benchmark](https://huggingface.co/spaces/hyfrankl/NPHardEval-leaderboard).
+We'll love to see community contributions and interest on the NPHardEval [GitHub Repository](https://github.com/casmlab/NPHardEval) and [HuggingFace Leaderboard](https://huggingface.co/spaces/hyfrankl/NPHardEval-leaderboard).
 
