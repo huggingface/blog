@@ -119,7 +119,7 @@ For example, to use the GPT 4 Turbo model (GPT-4-1106-preview) and the edit dist
   python run_p_EDP_few.py gpt-4-1106-preview self
 ```
 
-We currrently support fewshot examples from the same question (self), and may support examples from other questions (other) in the future.
+We currently support fewshot examples from the same question (self), and may support examples from other questions (other) in the future.
 
 ## Join the Conversation
 [The NPHardEval leaderboard](https://huggingface.co/spaces/NPHardEval/NPHardEval-leaderboard)'s [dataset](https://github.com/casmlab/NPHardEval/releases) and [code](https://github.com/casmlab/NPHardEval) are available on Github and HuggingFace for community access and contributions.
