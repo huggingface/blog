@@ -3371,3 +3371,14 @@
     - optimum
     - collaboration
     - community
+
+- local: constitutional_ai
+  title: "Constitutional AI with Open LLMs"
+  author: vwxyzjn
+  thumbnail: /blog/assets/167_constitutional_ai/thumbnail.png
+  date: Feburary 1, 2024
+  tags:
+    - research
+    - rl
+    - rlhf
+    - constitutional-ai
