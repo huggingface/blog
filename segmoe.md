@@ -110,7 +110,7 @@ Prompt understanding seems to improve, as shown in the images below. Each image 
 
 <div align="center">Taj Mahal with its reflection. detailed charcoal sketch.</div>
 
-## Creating your Own Model
+## Creating your Own SegMoE
 
 Create a yaml config file, config.yaml, with the following structure:
 
