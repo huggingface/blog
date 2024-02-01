@@ -12,7 +12,7 @@ authors:
 
 # SegMoE: Segmind Mixture of Diffusion Experts
 
-SegMoE is an exciting framework for creating Mixture-of-Experts Diffusion models from scratch! SegMoE is comprehensively integrated with the Hugging Face ecosystem 🔥!
+SegMoE is an exciting framework for creating Mixture-of-Experts Diffusion models from scratch! SegMoE is comprehensively integrated within the Hugging Face ecosystem and comes supported with `diffusers` 🔥!
 
 Among the features and integrations being released today:
 
