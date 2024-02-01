@@ -145,7 +145,8 @@ Then run the following command:
 ```bash
 segmoe config.yaml segmoe_v0
 ```
-This will create a folder called segmoe_v0 with the following structure:
+
+This will create a folder called `segmoe_v0` with the following structure:
 
 ```bash
 ├── model_index.json
