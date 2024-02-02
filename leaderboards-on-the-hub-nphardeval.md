@@ -24,13 +24,11 @@ NPHardEval introduces a dynamic, complexity-based framework for assessing Large 
 
 [NPHardEval](https://arxiv.org/abs/2312.14890) stands apart by employing computational complexity classes, offering a quantifiable and robust measure of LLM reasoning skills. The benchmark's tasks mirror real-world decision-making challenges, enhancing its relevance and applicability. Regular monthly updates of the benchmark data points mitigate the risk of model overfitting, ensuring a reliable evaluation. 
 
-The major contributions of NPHardEval are: 
-- LLM Benchmarking Strategies:
-    - Dynamic Benchmark: The method allows for the automatic generation of questions so that we can update the benchmark on a monthly basis. This monthly-refreshed benchmark helps prevent model overfitting as we can always generate novel questions with varying difficulty levels for evaluation. 
-    - Automatic Checking Mechanisms: The questions in the benchmark are based on algorithmically computable problems. Human intervention is not required to determine the correctness of the responses from LLMs.
-- LLM Reasoning:
-    - Defining Reasoning via Complexity Classes: The questions in the benchmark are grounded in the computational complexity hierarchy, a well-established concept extensively studied in theoretical computer science. This foundation enables us to leverage existing research to rigorously and quantitatively measure an LLM's logical reasoning extent.
-    - Core Reasoning Tasks focusing on Logic: The benchmark excludes numerical computation from the questions, which is notoriously difficult for LLMs. Focusing on logical questions allows for a more accurate evaluation of an LLM's pure logical reasoning ability, as numerical questions can obscure this assessment.
+The major contributions of NPHardEval are new using new benchmarking strategies (proposing an automatic and dynamic benchmark), and introducing a new way to evaluate LLM reasoning.
+
+Regarding benchmarking strategies, NPHardEval uses an **automated mechanism**, both to generate and check questions in the benchmark. Since they are based on algorithmically computable problems, human intervention is not required to determine the correctness of the responses from LLMs. This also allows NPHardEval to be a **dynamic benchmark**: since questions can be automatically generated, the benchmark can be updated on a monthly basis. This monthly-refreshed benchmark helps prevent model overfitting as we can always generate novel questions with varying difficulty levels for evaluation. 
+
+The questions themselves use a new system to evaluate LLM Reasoning. The questions in the benchmark are grounded in the computational complexity hierarchy, a well-established concept extensively studied in theoretical computer science. This foundation enables us to leverage existing research to rigorously and quantitatively measure an LLM's logical reasoning extent, by **defining reasoning via complexity classes**. The benchmark also deliberatley excludes numerical computation from the questions, since it is a notoriously difficult task for LLMs. **Focusing on logical questions** allows for a more accurate evaluation of an LLM's pure logical reasoning ability, as numerical questions can obscure this assessment.
 
 ## Data Synthesis
 
@@ -64,7 +62,7 @@ The Failure Rate is calculated by considering the proportion of failed attempts 
 
 The formal definition of Failure Rate is:
 
-\\( FR = \frac{\sum_\limits{i=1}^{10} F_i}{100} \\)
+\\( FR = \frac{\sum\limits_{i=1}^{10} F_i}{100} \\)
 
 Here, \\( F_i \\) denotes the number of failed attempts at difficulty level \\( i \\).
 
