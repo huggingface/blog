@@ -100,7 +100,7 @@ img.save("image.png")
 
 ### Using a Local Model
 
-Alternatively, A Local Model can also be loaded up, here `segmoe_v0` is the path to the directory containing the local SegMoE model. Checkout [Creating your Own SegMoE](#creating-your-own-segmoe) to learn how to create your own SegMoE model.
+Alternatively, a local model can also be loaded up, here `segmoe_v0` is the path to the directory containing the local SegMoE model. Checkout [Creating your Own SegMoE](#creating-your-own-segmoe) to learn how to build your own!
 
 ```python
 from segmoe import SegMoEPipeline
