@@ -40,12 +40,6 @@ NPHardEval uses 100 questions for each of 9 different algorithms, with 10 diffic
     <img src="https://github.com/casmlab/NPHardEval/raw/main/figure/questions_blog.png" alt="Tasks in NPHardEval" style="width:80%">
 </div>
 
-There are 2 types of data structure: graph data (e.g., GCP) and linear data (e.g., SAS). The synthesis process in both cases is governed by a progression of complexity across a spectrum of predefined levels. Examples are provided below:
-
-<div align="center">
-    <img src="https://github.com/casmlab/NPHardEval/raw/main/figure/questions_examples.png" alt="Weighted Accuracy and Failure Rate" style="width:80%">
-</div>
-
 More background and insights are available in [these slides](https://docs.google.com/presentation/d/1VYBrCw5BqxuCCwlHeVn_UlhFj6zw04uETJzufw6spA8/edit?usp=sharing).
 
 ## Evaluation Metrics
