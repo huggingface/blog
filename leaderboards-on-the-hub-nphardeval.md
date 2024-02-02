@@ -24,20 +24,20 @@ NPHardEval introduces a dynamic, complexity-based framework for assessing Large 
 
 [NPHardEval](https://arxiv.org/abs/2312.14890) stands apart by employing computational complexity classes, offering a quantifiable and robust measure of LLM reasoning skills. The benchmark's tasks mirror real-world decision-making challenges, enhancing its relevance and applicability. Regular monthly updates of the benchmark data points mitigate the risk of model overfitting, ensuring a reliable evaluation. 
 
-In particular, our major contributions are two-fold:
+The major contributions of NPHardEval are: 
 - LLM Benchmarking Strategies:
-    - Dynamic Benchmark: The method allows for the automatic generation of questions so that we can update the benchmark on a monthly basis. This monthly-refreshed benchmark helps prevent model's overfitting as we can always generate novel questions with varying difficulty levels for evaluation. 
-    - Automatic Checking Mechanisms: The questions in the benchmark are based on algorithmically computable problems. Human intervention is not required to determine the correctness of the LLM's responses.
+    - Dynamic Benchmark: The method allows for the automatic generation of questions so that we can update the benchmark on a monthly basis. This monthly-refreshed benchmark helps prevent model overfitting as we can always generate novel questions with varying difficulty levels for evaluation. 
+    - Automatic Checking Mechanisms: The questions in the benchmark are based on algorithmically computable problems. Human intervention is not required to determine the correctness of the responses from LLMs.
 - LLM Reasoning:
-    - Defining Reasoning via Complexity Classes: The questions in the benchmark utilized are grounded in the established computational complexity hierarchy, a concept extensively studied in theoretical computer science. This foundation enables us to leverage existing research to rigorously and quantitatively measure an LLM's logical reasoning extent.
-    - Core Reasoning Tasks focusing on Logics: The benchmark excludes numerical computation from the questions, which is notably difficult for LLM. This focus allows for a more accurate evaluation of an LLM's pure logical reasoning ability, as numerical computation can obscure this assessment.
+    - Defining Reasoning via Complexity Classes: The questions in the benchmark are grounded in the computational complexity hierarchy, a well-established concept extensively studied in theoretical computer science. This foundation enables us to leverage existing research to rigorously and quantitatively measure an LLM's logical reasoning extent.
+    - Core Reasoning Tasks focusing on Logic: The benchmark excludes numerical computation from the questions, which is notoriously difficult for LLMs. Focusing on logical questions allows for a more accurate evaluation of an LLM's pure logical reasoning ability, as numerical questions can obscure this assessment.
 
 ## Data Synthesis
 
-NPHardEval uses 100 questions for each of the 9 algorithms, with 10 difficulty levels, resulting in 900 questions across complexity and difficulty. The 9 algorithms, including 3 P, 3 NP-complete, and 3 NP-hard questions, are characterized according to the computing theory. The 900 questions are all synthesized and updated monthly. These questions are:
+NPHardEval uses 100 questions for each of 9 different algorithms, with 10 difficulty levels, resulting in 900 questions across complexity and difficulty. The 9 algorithms, including 3 P, 3 NP-complete, and 3 NP-hard questions, are characterized according to the computing theory. The 900 questions are all synthesized and updated monthly.
 
 <div align="center">
-    <img src="https://github.com/casmlab/NPHardEval/raw/main/figure/questions_blog.png" alt="Weighted Accuracy and Failure Rate" style="width:80%">
+    <img src="https://github.com/casmlab/NPHardEval/raw/main/figure/questions_blog.png" alt="Tasks in NPHardEval" style="width:80%">
 </div>
 
 There are 2 types of data structure: graph data (e.g., GCP) and linear data (e.g., SAS). The synthesis process in both cases is governed by a progression of complexity across a spectrum of predefined levels. Examples are provided below:
@@ -46,23 +46,21 @@ There are 2 types of data structure: graph data (e.g., GCP) and linear data (e.g
     <img src="https://github.com/casmlab/NPHardEval/raw/main/figure/questions_examples.png" alt="Weighted Accuracy and Failure Rate" style="width:80%">
 </div>
 
-More background and insights are available in [Slides](https://docs.google.com/presentation/d/1VYBrCw5BqxuCCwlHeVn_UlhFj6zw04uETJzufw6spA8/edit?usp=sharing).
+More background and insights are available in [these slides](https://docs.google.com/presentation/d/1VYBrCw5BqxuCCwlHeVn_UlhFj6zw04uETJzufw6spA8/edit?usp=sharing).
 
 ## Evaluation Metrics
 
-To evaluate the reasoning ability of LLMs, we utilize two metrics, the Weighted Accuracy and the Failure Rate.
+We use two metrics to evaluate the reasoning ability of LLMs: Weighted Accuracy and Failure Rate.
 
 ### Weighted Accuracy (WA)
 
-When evaluating problem-solving accuracy, we use a metric called **Weighted Accuracy (WA)**. This method is applied for each problem, either through comparison with a correct answer or via step-by-step result checking for problems without a singular answer. To reflect comparative accuracy more effectively, we assign weights to different difficulty levels. Each level's weight corresponds to its relative importance or challenge, with higher difficulty levels receiving more weight in a linear progression (for instance, level 1 has weight 1, level 2 has weight 2, and so on).
+**Weighted Accuracy (WA)** is used to evaluate problem-solving accuracy. This method is applied to each problem, either through comparison with a correct answer or via step-by-step result checking for problems without a singular answer. To reflect comparative accuracy more effectively, we assign weights to different difficulty levels. Each level's weight corresponds to its relative importance or challenge, with higher difficulty levels receiving more weight in a linear progression (for instance, level 1 has weight 1, level 2 has weight 2, and so on).
 
 The formula for Weighted Accuracy is as follows:
 
-$$
-WA = \frac{\sum\limits_{i=1}^{10} (w_i \times A_i)}{\sum\limits_{i=1}^{10} w_i}
-$$
+\\( WA = \frac{\sum\limits_{i=1}^{10} (w_i \times A_i)}{\sum\limits_{i=1}^{10} w_i} \\)
 
-In this equation, $w_i$ represents the weight assigned to difficulty level $i$ (ranging from 1 to 10), and $A_i$ is the accuracy at that level.
+In this equation, \\(w_i\\) represents the weight assigned to difficulty level \\(i\\) (ranging from 1 to 10), and \\(A_i\\) is the accuracy at that level.
 
 ### Failure Rate (FR)
 
@@ -72,11 +70,9 @@ The Failure Rate is calculated by considering the proportion of failed attempts 
 
 The formal definition of Failure Rate is:
 
-$$
-FR = \frac{\sum_\limits{i=1}^{10} F_i}{100}
-$$
+\\( FR = \frac{\sum_\limits{i=1}^{10} F_i}{100} \\)
 
-Here, $F_i$ denotes the number of failed attempts at difficulty level $i$.
+Here, \\( F_i \\) denotes the number of failed attempts at difficulty level \\( i \\).
 
 ## Experimentation and Insights
 
@@ -122,7 +118,8 @@ For example, to use the GPT 4 Turbo model (GPT-4-1106-preview) and the edit dist
 We currently support fewshot examples from the same question (self), and may support examples from other questions (other) in the future.
 
 ## Join the Conversation
-[The NPHardEval leaderboard](https://huggingface.co/spaces/NPHardEval/NPHardEval-leaderboard)'s [dataset](https://github.com/casmlab/NPHardEval/releases) and [code](https://github.com/casmlab/NPHardEval) are available on Github and HuggingFace for community access and contributions.
 
-We'll love to see community contributions and interest on the NPHardEval [GitHub Repository](https://github.com/casmlab/NPHardEval) and [HuggingFace Leaderboard](https://huggingface.co/spaces/hyfrankl/NPHardEval-leaderboard).
+[The NPHardEval leaderboard](https://huggingface.co/spaces/NPHardEval/NPHardEval-leaderboard), [dataset](https://huggingface.co/datasets/NPHardEval/NPHardEval-results) and [code](https://github.com/casmlab/NPHardEval) are available on Github and Hugging Face for community access and contributions.
+
+We'll love to see community contributions and interest on the NPHardEval [GitHub Repository](https://github.com/casmlab/NPHardEval) and [Hugging Face Leaderboard](https://huggingface.co/spaces/NPHardEval/NPHardEval-leaderboard).
 
