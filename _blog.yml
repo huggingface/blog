@@ -3415,12 +3415,24 @@
     - rlhf
     - constitutional-ai
 
+- local: leaderboards-on-the-hub-nphardeval
+  title: "NPHardEval Leaderboard: Unveiling the Reasoning Abilities of Large Language Models through Complexity Classes and Dynamic Updates"
+  author: lizhouf
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_nphardeval.png
+  date: Feb 2, 2024
+  tags:
+    - leaderboard
+    - guide
+    - collaboration
+    - research
+
 - local: segmoe
   title: "SegMoE: Segmind Mixture of Diffusion Experts"
   author: Warlord-K
   guest: true
   thumbnail: /blog/assets/segmoe/thumbnail.png
-  date: February 1, 2024
+  date: February 2, 2024
   tags:
     - text-to-image
     - stable-diffusion
