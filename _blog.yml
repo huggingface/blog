@@ -3414,15 +3414,4 @@
     - rl
     - rlhf
     - constitutional-ai
-
-- local: segmoe
-  title: "SegMoE: Segmind Mixture of Diffusion Experts"
-  author: Warlord-K
-  guest: true
-  thumbnail: /blog/assets/segmoe/thumbnail.png
-  date: February 2, 2024
-  tags:
-    - text-to-image
-    - stable-diffusion
-    - moe
-    - segmoe
+    
