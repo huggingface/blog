@@ -62,7 +62,7 @@ The Failure Rate is calculated by considering the proportion of failed attempts 
 
 The formal definition of Failure Rate is:
 
-\\( FR = \frac{\sum_\limits{i=1}^{10} F_i}{100} \\)
+\\( FR = \frac{\sum\limits{i=1}^{10} F_i}{100} \\)
 
 Here, \\( F_i \\) denotes the number of failed attempts at difficulty level \\( i \\).
 
