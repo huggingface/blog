@@ -70,3 +70,14 @@ For instance:
 
 
 ``` \\( Q(S_t, A_t) \\) ``` ➡️ $Q(S_t, A_t)$
+
+## How to Caption Figures
+
+A couple of alternatives:
+
+- Use a Markdown table [like here](https://github.com/huggingface/blog/blob/fd611f6200391b865641c4e7a38e1ea47ec4bc6c/pref-tuning.md?plain=1#L31).
+- Use HTML, [like here](https://github.com/huggingface/blog/blob/fd611f6200391b865641c4e7a38e1ea47ec4bc6c/moe.md?plain=1#L65).
+
+## How to Use Highlight Boxes
+
+See an example [in this PR](https://github.com/huggingface/blog/pull/1180). This is to be used sparingly :)
