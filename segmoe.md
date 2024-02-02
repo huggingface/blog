@@ -226,7 +226,7 @@ The Model can be pushed to the hub via the huggingface-cli
 huggingface-cli upload segmind/segmoe_v0 ./segmoe_v0
 ```
 
-Alternatively, The Model can be pushed via the Python API,
+The model can also be pushed to the Hub directly from Python:
 
 ```python
 from huggingface_hub import create_repo, upload_folder
