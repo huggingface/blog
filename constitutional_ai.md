@@ -10,10 +10,10 @@ authors:
 - user: kashif
 - user: thomwolf
 ---
-# Constitutional AI
+# Constitutional AI with Open LLMs
 
 
-Since the launch of ChatGPT in 2022, we have seen tremendous progress in progress in LLMs, ranging from the release of powerful pretrained models like [Llama 2](https://arxiv.org/abs/2307.09288) and [Mixtral](https://mistral.ai/news/mixtral-of-experts/), to the development of new alignment techniques like [Direct Preference Optimization](https://arxiv.org/abs/2305.18290). However, deploying LLMs in consumer applications poses several challenges, including the need to add guardrails that prevent the model from generating undesirable responses. For example, if you are building an AI tutor for children, then you don’t want it to generate toxic answers or teach them to write scam emails! 
+Since the launch of ChatGPT in 2022, we have seen tremendous progress in LLMs, ranging from the release of powerful pretrained models like [Llama 2](https://arxiv.org/abs/2307.09288) and [Mixtral](https://mistral.ai/news/mixtral-of-experts/), to the development of new alignment techniques like [Direct Preference Optimization](https://arxiv.org/abs/2305.18290). However, deploying LLMs in consumer applications poses several challenges, including the need to add guardrails that prevent the model from generating undesirable responses. For example, if you are building an AI tutor for children, then you don’t want it to generate toxic answers or teach them to write scam emails! 
 
 To align these LLMs according to a set of values, researchers at Anthropic have proposed a technique called **[Constitutional AI](https://www.anthropic.com/index/constitutional-ai-harmlessness-from-ai-feedback) (CAI)**, which asks the models to critique their outputs and self-improve according to a set of user-defined principles. This is exciting because the practitioners only need to define the principles instead of having to collect expensive human feedback to improve the model.
 
