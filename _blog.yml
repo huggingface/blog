@@ -3426,3 +3426,15 @@
     - guide
     - collaboration
     - research
+
+- local: segmoe
+  title: "SegMoE: Segmind Mixture of Diffusion Experts"
+  author: Warlord-K
+  guest: true
+  thumbnail: /blog/assets/segmoe/thumbnail.png
+  date: February 3, 2024
+  tags:
+    - text-to-image
+    - stable-diffusion
+    - moe
+    - segmoe
