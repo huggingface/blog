@@ -1232,3 +1232,21 @@
     - guide
     - audio
     - transformers
+
+
+- local: sdxl_lora_advanced_script
+  title: "全世界 LoRA 训练脚本，联合起来!"
+  author: LinoyTsaban
+  thumbnail: /blog/assets/dreambooth_lora_sdxl/thumbnail.png
+  date: January 2, 2024
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion
+    - lora
+    - dreambooth
+    - stable-diffusion
+    - fine-tuning
+    - community
+    - sdxl
