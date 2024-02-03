@@ -3437,4 +3437,15 @@
     - text-to-image
     - stable-diffusion
     - moe
+    - segmoe
 
+- local: tgi-messages-api
+  title: "From OpenAI to Open LLMs with Messages API"
+  author: andrewrreed
+  thumbnail: /blog/assets/tgi-messages-api/thumbnail.png
+  date: Feb 5, 2024
+  tags:
+    - guide
+    - llm
+    - nlp
+    - tgi
