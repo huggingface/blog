@@ -76,7 +76,7 @@ Images generated using [SegMoE SD 4x2](https://huggingface.co/segmind/SegMoE-SD-
 Please, run the following command to install the `segmoe` package. Make sure you have the latest version of `diffusers` and `transformers` installed.
 ```pip install segmoe```
 
-The following loads up the Second model from the list above, and runs generation on it.
+The following loads up the second model ("SegMoE 4x2") from the list above, and runs generation on it.
 
 ```python
 from segmoe import SegMoEPipeline
