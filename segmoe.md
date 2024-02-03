@@ -233,9 +233,7 @@ from huggingface_hub import create_repo, upload_folder
  
 model_id = "segmind/SegMoE-v0"
 
-repo_id = create_repo(
-                repo_id = model_id, exist_ok=True
-            ).repo_id
+repo_id = create_repo(repo_id=model_id, exist_ok=True).repo_id
 
 upload_folder(
     repo_id=repo_id,
