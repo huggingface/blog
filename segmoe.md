@@ -51,7 +51,7 @@ The SegMoE MoEs are called **SegMoE-AxB**, where `A` refers to the number of exp
 
 ## Inference
 
-We release 3 merges on Hugging Face:
+We release 3 merges on the Hub:
 
 1. [SegMoE 2x1](https://huggingface.co/segmind/SegMoE-2x1-v0) has two expert models.
 2. [SegMoE 4x2](https://huggingface.co/segmind/SegMoE-4x2-v0) has four expert models.
