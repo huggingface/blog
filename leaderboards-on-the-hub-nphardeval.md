@@ -50,7 +50,9 @@ We use two metrics to evaluate the reasoning ability of LLMs: Weighted Accuracy 
 
 The formula for Weighted Accuracy is as follows:
 
+<div align="center">
 \\( WA = \frac{\sum\limits_{i=1}^{10} (w_i \times A_i)}{\sum\limits_{i=1}^{10} w_i} \\)
+</div>
 
 In this equation, \\(w_i\\) represents the weight assigned to difficulty level \\(i\\) (ranging from 1 to 10), and \\(A_i\\) is the accuracy at that level.
 
@@ -62,7 +64,9 @@ The Failure Rate is calculated by considering the proportion of failed attempts 
 
 The formal definition of Failure Rate is:
 
+<div align="center">
 \\( FR = \frac{\sum\limits_{i=1}^{10} F_i}{100} \\)
+</div>
 
 Here, \\( F_i \\) denotes the number of failed attempts at difficulty level \\( i \\).
 
