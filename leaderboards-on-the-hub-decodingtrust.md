@@ -1,6 +1,6 @@
 ---
 title: "An Introduction to AI Secure LLM Safety Leaderboard"
-thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_decodingtrust.png
 authors:
 - user: danielz01
   guest: true
