@@ -20,7 +20,7 @@ Starting with version 1.4.0, TGI offers an API compatible with the OpenAI Chat C
 The new Messages API is now available in Inference Endpoints (dedicated and serverless). To get you started quickly, we’ve included detailed examples of how to:
 
 - Create an Inference Endpoint
-- Use OpenAI’s SDK
+- Query it with OpenAI’s SDK
 - Integrate with LangChain and LlamaIndex
 
 ***Limitations:** The Messages API does not currently support function calling and will only work for LLMs with a `chat_template` defined in their [tokenizer](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1/blob/main/tokenizer_config.json).*
@@ -49,7 +49,6 @@ endpoint = create_inference_endpoint(
     type="protected",
     instance_type="p4de",
     instance_size="2xlarge",
-    namespace="HF-test-lab",
     custom_image={
         "health_route": "/health",
         "env": {
@@ -75,10 +74,7 @@ It will take a few minutes for our deployment to spin up. We can utilize the `.w
 
 Great, we now have a working deployment! 
 
-<aside>
-💡 By default, your endpoint will scale-to-zero after 15 minutes of idle time without any requests to optimize cost during periods of inactivity. Check out [the Hub Python Library documentation](https://huggingface.co/docs/huggingface_hub/guides/inference_endpoints) to see all the functionality available for managing your endpoint lifecycle.
-
-</aside>
+>💡 By default, your endpoint will scale-to-zero after 15 minutes of idle time without any requests to optimize cost during periods of inactivity. Check out [the Hub Python Library documentation](https://huggingface.co/docs/huggingface_hub/guides/inference_endpoints) to see all the functionality available for managing your endpoint lifecycle.
 
 ## Using Inference Endpoints via OpenAI client libraries
 
@@ -109,11 +105,11 @@ client = OpenAI(
 chat_completion = client.chat.completions.create(
     model="tgi",
     messages=[
-				{"role": "system", "content": "You are a helpful assistant."},
+		{"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Why is open-source software important?"},
     ],
     stream=True,
-		max_tokens=500
+	max_tokens=500
 )
 
 # iterate and print stream
@@ -123,10 +119,8 @@ for message in chat_completion:
 
 Behind the scenes, TGI’s Messages API automatically converts the list of messages into the model’s required instruction format using it’s [chat template](https://huggingface.co/docs/transformers/chat_templating). 
 
-<aside>
-💡 Certain OpenAI features, like function calling, are not compatible with TGI. Currently, the Messages API supports the following chat completion parameters: `stream`, `max_new_tokens`, `frequency_penalty`, `logprobs`, `seed`, `temperature`, and `top_p`.
 
-</aside>
+>💡 Certain OpenAI features, like function calling, are not compatible with TGI. Currently, the Messages API supports the following chat completion parameters: `stream`, `max_new_tokens`, `frequency_penalty`, `logprobs`, `seed`, `temperature`, and `top_p`.
 
 ### With the Javascript client
 
@@ -224,9 +218,9 @@ rag_chain_with_source.invoke("According to this article which open-source model 
 
 ## How to use with LlamaIndex
 
-Similarly, you can also use a TGI endpoint in [LLamaIndex](https://www.llamaindex.ai/).
+Similarly, you can also use a TGI endpoint in [LlamaIndex](https://www.llamaindex.ai/).
 
-We’ll use the `OpenAILike` class, and instantiate it by configuring some additional arguments (i.e. `is_local`, `is_function_calling_model`, `is_chat_model`, `context_window`). The context window argument should match the value previously set for `MAX_TOTAL_TOKENS` of your endpoint. 
+We’ll use the `OpenAILike` class, and instantiate it by configuring some additional arguments (i.e. `is_local`, `is_function_calling_model`, `is_chat_model`, `context_window`). Note that the context window argument should match the value previously set for `MAX_TOTAL_TOKENS` of your endpoint. 
 
 ```python
 from llama_index.llms import OpenAILike
@@ -246,7 +240,7 @@ llm = OpenAILike(
 llm.complete("Why is open-source software important?")
 ```
 
-We can now use it in a similar RAG pipeline. Keep in mind that the previous choice of `MAX_INPUT_LENGTH` in your Inference endpoint will now directly influence the number of retrieved chunk (`similarity_top_k`) you can chose.
+We can now use it in a similar RAG pipeline. Keep in mind that the previous choice of `MAX_INPUT_LENGTH` in your Inference Endpoint will now directly influence the number of retrieved chunk (`similarity_top_k`) the model can process.
 
 ```python
 from llama_index import (
