@@ -9,7 +9,6 @@ authors:
 
 # From OpenAI to Open LLMs with Messages API on Hugging Face
 
-## Introduction
 
 We are excited to introduce the Messages API to provide OpenAI compatibility with Text Generation Inference (TGI) and Inference Endpoints.
 
