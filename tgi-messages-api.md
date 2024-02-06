@@ -89,7 +89,7 @@ Lets see how.
 
 ### With the Python client
 
-The example below shows how to make this transition using the [OpenAI Python Library](https://github.com/openai/openai-python). Simply replace the `<ENDPOINT_URL>` with your endpoint URL (be sure to include the `v1/` the suffix) and populate the `<HF_API_TOKEN>` field with a valid Hugging Face user token.
+The example below shows how to make this transition using the [OpenAI Python Library](https://github.com/openai/openai-python). Simply replace the `<ENDPOINT_URL>` with your endpoint URL (be sure to include the `v1/` the suffix) and populate the `<HF_API_TOKEN>` field with a valid Hugging Face user token. The `<ENDPOINT_URL>` can be gathered from Inference Endpoints UI, or from the endpoint object we created above with `endpoint.url`.
 
 We can then use the client as usual, passing a list of messages to stream responses from our Inference Endpoint.
 
