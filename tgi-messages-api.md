@@ -217,9 +217,7 @@ rag_chain_with_source.invoke("According to this article which open-source model 
 
 ## How to use with LlamaIndex
 
-Similarly, you can also use a TGI endpoint in [LlamaIndex](https://www.llamaindex.ai/).
-
-We’ll use the `OpenAILike` class, and instantiate it by configuring some additional arguments (i.e. `is_local`, `is_function_calling_model`, `is_chat_model`, `context_window`). Note that the context window argument should match the value previously set for `MAX_TOTAL_TOKENS` of your endpoint. 
+Similarly, you can also use a TGI endpoint in [LlamaIndex](https://www.llamaindex.ai/). We’ll use the `OpenAILike` class, and instantiate it by configuring some additional arguments (i.e. `is_local`, `is_function_calling_model`, `is_chat_model`, `context_window`). Note that the context window argument should match the value previously set for `MAX_TOTAL_TOKENS` of your endpoint. 
 
 ```python
 from llama_index.llms import OpenAILike
