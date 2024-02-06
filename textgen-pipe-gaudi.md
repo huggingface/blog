@@ -24,10 +24,10 @@ pip install --upgrade-strategy eager optimum[habana]
 git clone https://github.com/huggingface/optimum-habana.git
 ```
 
-In case you are planning to run distributed inference, install DeepSpeed depending on SynapseAI version. In this case, I am using SynapseAI 1.13.0.
+In case you are planning to run distributed inference, install DeepSpeed depending on SynapseAI version. In this case, I am using SynapseAI 1.14.0.
 
 ```bash
-pip install git+https://github.com/HabanaAI/DeepSpeed.git@1.13.0
+pip install git+https://github.com/HabanaAI/DeepSpeed.git@1.14.0
 ```
 
 Now you are all set to perform text-generation with the pipeline!
@@ -102,6 +102,76 @@ Note: You will have to run the above script with `python <name_of_script>.py --m
 
 This shows us that the pipeline class operates on a string input and performs data pre-processing as well as post-processing for us.
 
+## LangChain Compatibility
+
+The text-generation pipeline can be fed as input to LangChain classes via the `use_with_langchain` constructor argument. You can install LangChain as follows.
+```bash
+pip install langchain==0.0.191
+```
+
+Here is a sample script that shows how the pipeline class can be used with LangChain.
+```python
+import argparse
+import logging
+
+from langchain.llms import HuggingFacePipeline
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
+
+from pipeline import GaudiTextGenerationPipeline
+from run_generation import setup_parser
+
+# Define a logger
+logging.basicConfig(
+    format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
+    datefmt="%m/%d/%Y %H:%M:%S",
+    level=logging.INFO,
+)
+logger = logging.getLogger(__name__)
+
+# Set up an argument parser
+parser = argparse.ArgumentParser()
+args = setup_parser(parser)
+
+# Define some pipeline arguments. Note that --model_name_or_path is a required argument for this script
+args.num_return_sequences = 1
+args.model_name_or_path = "meta-llama/Llama-2-13b-chat-hf"
+args.max_input_tokens = 2048
+args.max_new_tokens = 1000
+args.use_hpu_graphs = True
+args.use_kv_cache = True
+args.do_sample = True
+args.temperature = 0.2
+args.top_p = 0.95
+
+# Initialize the pipeline
+pipe = GaudiTextGenerationPipeline(args, logger, use_with_langchain=True)
+
+# Create LangChain object
+llm = HuggingFacePipeline(pipeline=pipe)
+
+template = """Use the following pieces of context to answer the question at the end. If you don't know the answer,\
+just say that you don't know, don't try to make up an answer.
+
+Context: Large Language Models (LLMs) are the latest models used in NLP.
+Their superior performance over smaller models has made them incredibly
+useful for developers building NLP enabled applications. These models
+can be accessed via Hugging Face's `transformers` library, via OpenAI
+using the `openai` library, and via Cohere using the `cohere` library.
+
+Question: {question}
+Answer: """
+
+prompt = PromptTemplate(input_variables=["question"], template=template)
+llm_chain = LLMChain(prompt=prompt, llm=llm)
+
+# Test LangChain object
+response = llm_chain(prompt.format(question="Which libraries and model providers offer LLMs?"))
+print(f"Response: {response['text']}")
+```
+
+Note: The pipeline class has been validated for LangChain version 0.0.191 and may not work with other versions of the package. 
+
 ## Conclusion
 
-In this blog, we presented a custom text-generation pipeline that accepts single as well as multiple prompts as input. This pipeline offers great flexibility in terms of model size as well as parameters affecting text-generation quality.
+In this blog, we presented a custom text-generation pipeline that accepts single as well as multiple prompts as input. This pipeline offers great flexibility in terms of model size as well as parameters affecting text-generation quality. Furthermore, it can also be used with LangChain classes.
