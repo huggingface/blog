@@ -151,9 +151,13 @@ async function main() {
 main();
 ```
 
-## How to use with LangChain
+## Integrate with LangChain and LlamaIndex
 
-Now, let’s see how to use this newly created endpoint with your preferred RAG framework. To use it in [LangChain](https://python.langchain.com/docs/get_started/introduction), simply create an instance of `ChatOpenAI` and pass your `<ENDPOINT_URL>` and `<HF_API_TOKEN>` as follows:
+Now, let’s see how to use this newly created endpoint with your preferred RAG framework. 
+
+### How to use with LangChain
+
+To use it in [LangChain](https://python.langchain.com/docs/get_started/introduction), simply create an instance of `ChatOpenAI` and pass your `<ENDPOINT_URL>` and `<HF_API_TOKEN>` as follows:
 
 ```python
 from langchain_community.chat_models.openai import ChatOpenAI
@@ -215,7 +219,7 @@ rag_chain_with_source.invoke("According to this article which open-source model 
 }
 ```
 
-## How to use with LlamaIndex
+### How to use with LlamaIndex
 
 Similarly, you can also use a TGI endpoint in [LlamaIndex](https://www.llamaindex.ai/). We’ll use the `OpenAILike` class, and instantiate it by configuring some additional arguments (i.e. `is_local`, `is_function_calling_model`, `is_chat_model`, `context_window`). Note that the context window argument should match the value previously set for `MAX_TOTAL_TOKENS` of your endpoint. 
 
