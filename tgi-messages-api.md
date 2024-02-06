@@ -18,9 +18,9 @@ Starting with version 1.4.0, TGI offers an API compatible with the OpenAI Chat C
 
 The new Messages API is also available in Inference Endpoints now, on both dedicated and serverless flavors. To get you started quickly, we’ve included detailed examples of how to:
 
-- Create an Inference Endpoint
-- Query it with OpenAI’s SDK
-- Integrate with LangChain and LlamaIndex
+- [Create an Inference Endpoint](#create-an-inference-endpoint)
+- [Using Inference Endpoints with OpenAI client libraries](#using-inference-endpoints-with-openai-client-libraries)
+- [Integrate with LangChain and LlamaIndex](#integrate-with-langchain-and-llamaindex)
 
 **Limitations:** The Messages API does not currently support function calling and will only work for LLMs with a `chat_template` defined in their tokenizer configuration, like in the case of [Mixtral 8x7B Instruct](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1/blob/125c431e2ff41a156b9f9076f744d2f35dd6e67a/tokenizer_config.json#L42).
 
