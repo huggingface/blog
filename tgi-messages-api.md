@@ -14,7 +14,7 @@ We are excited to introduce the Messages API to provide OpenAI compatibility wit
 
 Starting with version 1.4.0, TGI offers an API compatible with the OpenAI Chat Completion API. The new Messages API allows customers and users to transition seamlessly from OpenAI models to open LLMs. The API can be directly used with OpenAI's client libraries or third-party tools, like LangChain or LlamaIndex.
 
-> *"The new Messages API with OpenAI compatibility makes it easy for Ryght's real-time GenAI orchestration platform to switch LLM use cases from OpenAI to open models. Our migration from GPT4 to Mixtral/Llama2 on Inference Endpoints is effortless, and now we have a simplified workflow with more control over our AI solutions." - [Johnny Crupi, Ryght CTO](https://www.linkedin.com/in/johncrupi/)*
+> *"The new Messages API with OpenAI compatibility makes it easy for Ryght's real-time GenAI orchestration platform to switch LLM use cases from OpenAI to open models. Our migration from GPT4 to Mixtral/Llama2 on Inference Endpoints is effortless, and now we have a simplified workflow with more control over our AI solutions." - [Johnny Crupi, CTO](https://www.linkedin.com/in/johncrupi/) at [Ryght](https://www.ryght.ai/)*
 
 The new Messages API is also available in Inference Endpoints now, on both dedicated and serverless flavors. To get you started quickly, we’ve included detailed examples of how to:
 
