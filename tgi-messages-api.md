@@ -16,23 +16,23 @@ Starting with version 1.4.0, TGI offers an API compatible with the OpenAI Chat C
 
 > *"The new Messages API with OpenAI compatibility makes it easy for Ryght's real-time GenAI orchestration platform to switch LLM use cases from OpenAI to open models. Our migration from GPT4 to Mixtral/Llama2 on Inference Endpoints is effortless, and now we have a simplified workflow with more control over our AI solutions." - [Johnny Crupi, Ryght CTO](https://www.linkedin.com/in/johncrupi/)*
 
-The new Messages API is now available in Inference Endpoints (dedicated and serverless). To get you started quickly, we’ve included detailed examples of how to:
+The new Messages API is also available in Inference Endpoints now, on both dedicated and serverless flavors. To get you started quickly, we’ve included detailed examples of how to:
 
 - Create an Inference Endpoint
 - Query it with OpenAI’s SDK
 - Integrate with LangChain and LlamaIndex
 
-***Limitations:** The Messages API does not currently support function calling and will only work for LLMs with a `chat_template` defined in their [tokenizer](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1/blob/main/tokenizer_config.json).*
+**Limitations:** The Messages API does not currently support function calling and will only work for LLMs with a `chat_template` defined in their tokenizer configuration, like in the case of [Mixtral 8x7B Instruct](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1/blob/125c431e2ff41a156b9f9076f744d2f35dd6e67a/tokenizer_config.json#L42).
 
-## **Create an Inference Endpoint using `huggingface_hub`**
+## Create an Inference Endpoint
 
-[Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) offers a secure, production solution to easily deploy any Transformers model from the Hub on dedicated infrastructure managed by Hugging Face.
+[Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) offers a secure, production solution to easily deploy any machine learning model from the Hub on dedicated infrastructure managed by Hugging Face.
 
-Here, we'll use it to host the powerful [Nous-Hermes-2-Mixtral-8x7B-DPO](https://huggingface.co/NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO) as an endpoint running on [Text Generation Inference](https://huggingface.co/docs/text-generation-inference/index), our high performance inference solution for serving LLMs in production. 
+In this example, we will deploy [Nous-Hermes-2-Mixtral-8x7B-DPO](https://huggingface.co/NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO), a fine-tuned Mixtral model to Inference Endpoints using [Text Generation Inference](https://huggingface.co/docs/text-generation-inference/index).
 
 We can deploy the model in just [a few clicks from the UI](https://ui.endpoints.huggingface.co/new?vendor=aws&repository=NousResearch%2FNous-Hermes-2-Mixtral-8x7B-DPO&tgi_max_total_tokens=32000&tgi=true&tgi_max_input_length=1024&task=text-generation&instance_size=2xlarge&tgi_max_batch_prefill_tokens=2048&tgi_max_batch_total_tokens=1024000&no_suggested_compute=true&accelerator=gpu&region=us-east-1), or take advantage of the `huggingface_hub` Python library to programmatically create and manage Inference Endpoints. We demonstrate the use of the Hub library below.
 
-First, we need to specify the endpoint name and model repository, along with the task of text-generation. A protected Inference Endpoint means a valid HF token is required to access the deployed API. We also need to configure the hardware requirements like vendor, region, accelerator, instance type, and size. You can check out the list of available resource options [here](https://api.endpoints.huggingface.cloud/#get-/v2/provider) and view recommended configurations for select models in our catalog [here](https://ui.endpoints.huggingface.co/catalog). 
+In our API call shown below, we need to specify the endpoint name and model repository, along with the task of `text-generation`. In this example we use a `protected` type so access to the deployed endpoint will require a valid Hugging Face token. We also need to configure the hardware requirements like vendor, region, accelerator, instance type, and size. You can check out the list of available resource options [using this API call](https://api.endpoints.huggingface.cloud/#get-/v2/provider), and view recommended configurations for select models in our catalog [here](https://ui.endpoints.huggingface.co/catalog). 
 
 ```python
 from huggingface_hub import create_inference_endpoint
@@ -67,17 +67,17 @@ print(endpoint.status)
 
 ```
 
-It will take a few minutes for our deployment to spin up. We can utilize the `.wait()` utility to block the running thread until the endpoint reaches a final "running" state. Once running, we can confirm its status and take it for a spin via the UI Playground:
+It will take a few minutes for our deployment to spin up. We can use the `.wait()` utility to block the running thread until the endpoint reaches a final "running" state. Once running, we can confirm its status and take it for a spin via the UI Playground:
 
 ![IE UI Overview](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/messages-api/endpoint-overview.png)
 
-Great, we now have a working deployment! 
+Great, we now have a working endpoint! 
 
 >💡 By default, your endpoint will scale-to-zero after 15 minutes of idle time without any requests to optimize cost during periods of inactivity. Check out [the Hub Python Library documentation](https://huggingface.co/docs/huggingface_hub/guides/inference_endpoints) to see all the functionality available for managing your endpoint lifecycle.
 
-## Using Inference Endpoints via OpenAI client libraries
+## Using Inference Endpoints with OpenAI client libraries
 
-The added support for messages in TGI makes Inference Endpoints directly compatible with the OpenAI Chat Completion API. This means that any existing scripts that use OpenAI models via the OpenAI client libraries can be directly swapped out to use any open LLM running on a TGI endpoint!
+Messages support in TGI makes Inference Endpoints directly compatible with the OpenAI Chat Completion API. This means that any existing scripts that use OpenAI models via the OpenAI client libraries can be directly swapped out to use any open LLM running on a TGI endpoint!
 
 With this seamless transition, you can immediately take advantage of the numerous benefits offered by open models:
 
@@ -116,16 +116,16 @@ for message in chat_completion:
     print(message.choices[0].delta.content, end="")
 ```
 
-Behind the scenes, TGI’s Messages API automatically converts the list of messages into the model’s required instruction format using it’s [chat template](https://huggingface.co/docs/transformers/chat_templating). 
+Behind the scenes, TGI’s Messages API automatically converts the list of messages into the model’s required instruction format using its [chat template](https://huggingface.co/docs/transformers/chat_templating). 
 
 
 >💡 Certain OpenAI features, like function calling, are not compatible with TGI. Currently, the Messages API supports the following chat completion parameters: `stream`, `max_new_tokens`, `frequency_penalty`, `logprobs`, `seed`, `temperature`, and `top_p`.
 
-### With the Javascript client
+### With the JavaScript client
 
 Here’s the same streaming example above, but using the [OpenAI Javascript/Typescript Library](https://github.com/openai/openai-node).
 
-```jsx
+```js
 import OpenAI from "openai";
 
 const openai = new OpenAI({
@@ -153,7 +153,7 @@ main();
 
 ## How to use with LangChain
 
-Now, let’s see how to use this newly created endpoint with your preferred RAG framework. To use it in [LangChain](https://python.langchain.com/docs/get_started/introduction), simply create an instance of `ChatOpenAI` and pass your `<ENDPOINT_URL>`  and  `<HF_API_TOKEN>`  as follows:
+Now, let’s see how to use this newly created endpoint with your preferred RAG framework. To use it in [LangChain](https://python.langchain.com/docs/get_started/introduction), simply create an instance of `ChatOpenAI` and pass your `<ENDPOINT_URL>` and `<HF_API_TOKEN>` as follows:
 
 ```python
 from langchain_community.chat_models.openai import ChatOpenAI
@@ -166,8 +166,8 @@ llm = ChatOpenAI(
 llm.invoke("Why is open-source software important?")
 ```
 
-We’re able to directly leverage the same`ChatOpenAI` class that we would have used with the OpenAI models. This allows all previous code to function with our endpoint by changing just one line of code. 
-Let’s now use this declared LLM in a simple RAG pipeline to answer a question over the contents of a HF blog post.
+We’re able to directly leverage the same `ChatOpenAI` class that we would have used with the OpenAI models. This allows all previous code to work with our endpoint by changing just one line of code. 
+Let’s now use the LLM declared this way in a simple RAG pipeline to answer a question over the contents of a HF blog post.
 
 ```python
 from langchain_core.runnables import RunnableParallel
@@ -279,9 +279,9 @@ response = query_engine.query(
 According to the article, Mixtral-8x7B is the best performing open-source model for an agent behavior [5]. It even beats GPT-3.5 in this task. However, it's worth noting that Mixtral's performance could be further improved with proper fine-tuning for function calling and task planning skills [5].
 ```
 
-## Clean up
+## Cleaning up
 
-To clean up our work, we can either pause or delete the model endpoint. This step can alternately be completed via the UI. 
+After you are done with your endpoint, you can either pause or delete it. This step can be completed via the UI, or programmatically like follows. 
 
 ```python
 # pause our running endpoint
