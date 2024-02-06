@@ -71,7 +71,7 @@ print(endpoint.status)
 
 It will take a few minutes for our deployment to spin up. We can utilize the `.wait()` utility to block the running thread until the endpoint reaches a final "running" state. Once running, we can confirm its status and take it for a spin via the UI Playground:
 
-> PLACEHOLDER FOR IMAGE
+![IE UI Overview](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/messages-api/endpoint-overview.png)
 
 Great, we now have a working deployment! 
 
