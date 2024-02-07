@@ -57,7 +57,7 @@ For generating text with large models such as Llama-2-70b, here is a sample comm
 python ../../gaudi_spawn.py --use_deepspeed --world_size 8 run_pipeline.py --model_name_or_path meta-llama/Llama-2-70b-hf --max_new_tokens 100 --bf16 --use_hpu_graphs --use_kv_cache --do_sample --temperature 0.5 --top_p 0.95 --prompt "Hello world" "How are you?" "Here is my prompt" "Once upon a time"
 ```
 
-Last but not the least, you can use the pipeline class in your own scripts as shown in the example below. Run the following python snippet from `optimum-habana/examples/text-generation/text-generation-pipeline`.
+Last but not the least, you can use the pipeline class in your own scripts as shown in the example below. Run the following sample script from `optimum-habana/examples/text-generation/text-generation-pipeline`.
 ```python
 import argparse
 import logging
@@ -165,9 +165,16 @@ Answer: """
 prompt = PromptTemplate(input_variables=["question"], template=template)
 llm_chain = LLMChain(prompt=prompt, llm=llm)
 
-# Test LangChain object
-response = llm_chain(prompt.format(question="Which libraries and model providers offer LLMs?"))
-print(f"Response: {response['text']}")
+# Use LangChain object
+question = "Which libraries and model providers offer LLMs?"
+response = llm_chain(prompt.format(question=question))
+print(f"Question 1: {question}")
+print(f"Response 1: {response['text']}")
+
+question = "What is the provided context about?"
+response = llm_chain(prompt.format(question=question))
+print(f"\nQuestion 2: {question}")
+print(f"Response 2: {response['text']}")
 ```
 
 Note: The pipeline class has been validated for LangChain version 0.0.191 and may not work with other versions of the package. 
