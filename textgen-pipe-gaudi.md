@@ -13,7 +13,6 @@ With the Generative AI (GenAI) revolution in full swing, text-generation with op
 Since the Llama 2 models are part of a gated repo, you need to request access if you haven't done it already. First, you have to visit the [Meta website](https://ai.meta.com/resources/models-and-libraries/llama-downloads) and accept the terms and conditions. After you are granted access by Meta (it can take a day or two), you have to request access [in Hugging Face](https://huggingface.co/meta-llama/Llama-2-7b-hf), using the same email address you provided in the Meta form.
 
 After you are granted access, please login to your Hugging Face account by running the following command (you will need an access token, which you can get from [your user profile page](https://huggingface.co/settings/tokens)):
-Since the Llama-2 models are part of a gated repo, you need to request access [here](https://huggingface.co/meta-llama/Llama-2-7b-hf). Make sure that the email address you provide is the same as your Hugging Face account. After you are granted access, login to your Hugging Face account by running the following command (you will require an access token).
 
 ```bash
 huggingface-cli login
