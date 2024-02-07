@@ -98,7 +98,7 @@ for prompt in prompts:
     print(f"Generated Text: {repr(output)}")
 ```
 
-Note: You will have to run the above script with `python <name_of_script>.py --model_name_or_path gpt2` as `--model_name_or_path` is a required argument. However, the model name can be programatically changed as shown in the python snippet.
+> You will have to run the above script with `python <name_of_script>.py --model_name_or_path a_model_name` as `--model_name_or_path` is a required argument. However, the model name can be programatically changed as shown in the python snippet.
 
 This shows us that the pipeline class operates on a string input and performs data pre-processing as well as post-processing for us.
 
@@ -177,8 +177,8 @@ print(f"\nQuestion 2: {question}")
 print(f"Response 2: {response['text']}")
 ```
 
-Note: The pipeline class has been validated for LangChain version 0.0.191 and may not work with other versions of the package. 
+> The pipeline class has been validated for LangChain version 0.0.191 and may not work with other versions of the package. 
 
 ## Conclusion
 
-In this blog, we presented a custom text-generation pipeline that accepts single as well as multiple prompts as input. This pipeline offers great flexibility in terms of model size as well as parameters affecting text-generation quality. Furthermore, it can also be used with LangChain classes.
+In this blog, we presented a custom text-generation pipeline that accepts single as well as multiple prompts as input. This pipeline offers great flexibility in terms of model size as well as parameters affecting text-generation quality. Furthermore, it is also very easy to use and to plug into your scripts and is compatible with LangChain.
