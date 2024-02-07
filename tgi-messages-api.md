@@ -73,7 +73,7 @@ It will take a few minutes for our deployment to spin up. We can use the `.wait(
 
 Great, we now have a working endpoint! 
 
->💡 By default, your endpoint will scale-to-zero after 15 minutes of idle time without any requests to optimize cost during periods of inactivity. Check out [the Hub Python Library documentation](https://huggingface.co/docs/huggingface_hub/guides/inference_endpoints) to see all the functionality available for managing your endpoint lifecycle.
+>💡 When deploying with `huggingface_hub`, your endpoint will scale-to-zero after 15 minutes of idle time by default to optimize cost during periods of inactivity. Check out [the Hub Python Library documentation](https://huggingface.co/docs/huggingface_hub/guides/inference_endpoints) to see all the functionality available for managing your endpoint lifecycle.
 
 ## Using Inference Endpoints with OpenAI client libraries
 
