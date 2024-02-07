@@ -34,6 +34,8 @@ We can deploy the model in just [a few clicks from the UI](https://ui.endpoints.
 
 In our API call shown below, we need to specify the endpoint name and model repository, along with the task of `text-generation`. In this example we use a `protected` type so access to the deployed endpoint will require a valid Hugging Face token. We also need to configure the hardware requirements like vendor, region, accelerator, instance type, and size. You can check out the list of available resource options [using this API call](https://api.endpoints.huggingface.cloud/#get-/v2/provider), and view recommended configurations for select models in our catalog [here](https://ui.endpoints.huggingface.co/catalog). 
 
+_Note: You might need to request a quota upgrade via email to [api-enterprise@huggingface.co](mailto:api-enterprise@huggingface.co)_ 
+
 ```python
 from huggingface_hub import create_inference_endpoint
 
