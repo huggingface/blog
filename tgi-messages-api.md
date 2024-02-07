@@ -16,7 +16,7 @@ Starting with version 1.4.0, TGI offers an API compatible with the OpenAI Chat C
 
 > *"The new Messages API with OpenAI compatibility makes it easy for Ryght's real-time GenAI orchestration platform to switch LLM use cases from OpenAI to open models. Our migration from GPT4 to Mixtral/Llama2 on Inference Endpoints is effortless, and now we have a simplified workflow with more control over our AI solutions." - [Johnny Crupi, CTO](https://www.linkedin.com/in/johncrupi/) at [Ryght](http://www.ryght.ai/?utm_campaign=hf&utm_source=hf_blog)*
 
-The new Messages API is also available in Inference Endpoints now, on both dedicated and serverless flavors. To get you started quickly, we’ve included detailed examples of how to:
+The new Messages API is also now available in Inference Endpoints, on both dedicated and serverless flavors. To get you started quickly, we’ve included detailed examples of how to:
 
 - [Create an Inference Endpoint](#create-an-inference-endpoint)
 - [Using Inference Endpoints with OpenAI client libraries](#using-inference-endpoints-with-openai-client-libraries)
@@ -28,13 +28,13 @@ The new Messages API is also available in Inference Endpoints now, on both dedic
 
 [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) offers a secure, production solution to easily deploy any machine learning model from the Hub on dedicated infrastructure managed by Hugging Face.
 
-In this example, we will deploy [Nous-Hermes-2-Mixtral-8x7B-DPO](https://huggingface.co/NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO), a fine-tuned Mixtral model to Inference Endpoints using [Text Generation Inference](https://huggingface.co/docs/text-generation-inference/index).
+In this example, we will deploy [Nous-Hermes-2-Mixtral-8x7B-DPO](https://huggingface.co/NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO), a fine-tuned Mixtral model, to Inference Endpoints using [Text Generation Inference](https://huggingface.co/docs/text-generation-inference/index).
 
-We can deploy the model in just [a few clicks from the UI](https://ui.endpoints.huggingface.co/new?vendor=aws&repository=NousResearch%2FNous-Hermes-2-Mixtral-8x7B-DPO&tgi_max_total_tokens=32000&tgi=true&tgi_max_input_length=1024&task=text-generation&instance_size=2xlarge&tgi_max_batch_prefill_tokens=2048&tgi_max_batch_total_tokens=1024000&no_suggested_compute=true&accelerator=gpu&region=us-east-1), or take advantage of the `huggingface_hub` Python library to programmatically create and manage Inference Endpoints. We demonstrate the use of the Hub library below.
+We can deploy the model in just [a few clicks from the UI](https://ui.endpoints.huggingface.co/new?vendor=aws&repository=NousResearch%2FNous-Hermes-2-Mixtral-8x7B-DPO&tgi_max_total_tokens=32000&tgi=true&tgi_max_input_length=1024&task=text-generation&instance_size=2xlarge&tgi_max_batch_prefill_tokens=2048&tgi_max_batch_total_tokens=1024000&no_suggested_compute=true&accelerator=gpu&region=us-east-1), or take advantage of the `huggingface_hub` Python library to programmatically create and manage Inference Endpoints. We demonstrate the use of the Hub library here.
 
 In our API call shown below, we need to specify the endpoint name and model repository, along with the task of `text-generation`. In this example we use a `protected` type so access to the deployed endpoint will require a valid Hugging Face token. We also need to configure the hardware requirements like vendor, region, accelerator, instance type, and size. You can check out the list of available resource options [using this API call](https://api.endpoints.huggingface.cloud/#get-/v2/provider), and view recommended configurations for select models in our catalog [here](https://ui.endpoints.huggingface.co/catalog). 
 
-_Note: You might need to request a quota upgrade via email to [api-enterprise@huggingface.co](mailto:api-enterprise@huggingface.co)_ 
+_Note: You may need to request a quota upgrade by sending an email to [api-enterprise@huggingface.co](mailto:api-enterprise@huggingface.co)_ 
 
 ```python
 from huggingface_hub import create_inference_endpoint
@@ -243,7 +243,7 @@ llm = OpenAILike(
 llm.complete("Why is open-source software important?")
 ```
 
-We can now use it in a similar RAG pipeline. Keep in mind that the previous choice of `MAX_INPUT_LENGTH` in your Inference Endpoint will now directly influence the number of retrieved chunk (`similarity_top_k`) the model can process.
+We can now use it in a similar RAG pipeline. Keep in mind that the previous choice of `MAX_INPUT_LENGTH` in your Inference Endpoint will directly influence the number of retrieved chunk (`similarity_top_k`) the model can process.
 
 ```python
 from llama_index import (
