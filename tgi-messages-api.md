@@ -298,3 +298,5 @@ endpoint.delete()
 ## Conclusion
 
 The new Messages API in Text Generation Inference provides a smooth transition path from OpenAI models to open LLMs. We can’t wait to see what use cases you will power with open LLMs running on TGI!
+
+_See [this notebook](https://github.com/andrewrreed/hf-notebooks/blob/main/tgi-messages-api-demo.ipynb) for a runnable version of the code outlined in the post._
