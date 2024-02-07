@@ -3,14 +3,16 @@ title: "Text-Generation Pipeline on Habana Gaudi2 Accelerator"
 thumbnail: /blog/assets/textgen-pipe-gaudi/thumbnail.png
 authors:
 - user: siddjags
+  guest: true
 ---
 
 # Text-Generation Pipeline on Habana Gaudi2 Accelerator
-
-With the Generative AI (GenAI) revolution in full swing, text-generation with open-source transformer models like Llama-2 has become the talk of the town. AI enthusiasts as well as developers are looking to leverage the generative abilities of such models for their own use cases and applications. This article will demonstrate how easy it is to generate text with the Llama-2 family of models (7b, 13b and 70b) using Optimum Habana and a custom pipeline class. You will then be able to generate text with only a few lines of code.
+With the Generative AI (GenAI) revolution in full swing, text-generation with open-source transformer models like Llama 2 has become the talk of the town. AI enthusiasts as well as developers are looking to leverage the generative abilities of such models for their own use cases and applications. This article shows how easy it is to generate text with the Llama 2 family of models (7b, 13b and 70b) using Optimum Habana and a custom pipeline class – you'll be able to run the models with just a few lines of code!
 
 ## Prerequisites
+Since the Llama 2 models are part of a gated repo, you need to request access if you haven't done it already. First, you have to visit the [Meta website](https://ai.meta.com/resources/models-and-libraries/llama-downloads) and accept the terms and conditions. After you are granted access by Meta (it can take a day or two), you have to request access [in Hugging Face](https://huggingface.co/meta-llama/Llama-2-7b-hf), using the same email address you provided in the Meta form.
 
+After you are granted access, please login to your Hugging Face account by running the following command (you will need an access token, which you can get from [your user profile page](https://huggingface.co/settings/tokens)):
 Since the Llama-2 models are part of a gated repo, you need to request access [here](https://huggingface.co/meta-llama/Llama-2-7b-hf). Make sure that the email address you provide is the same as your Hugging Face account. After you are granted access, login to your Hugging Face account by running the following command (you will require an access token).
 
 ```bash
@@ -21,10 +23,9 @@ You also need to install the latest version of Optimum Habana and clone the repo
 
 ```bash
 pip install --upgrade-strategy eager optimum[habana]
-git clone https://github.com/huggingface/optimum-habana.git
 ```
 
-In case you are planning to run distributed inference, install DeepSpeed depending on SynapseAI version. In this case, I am using SynapseAI 1.14.0.
+In case you are planning to run distributed inference, install DeepSpeed depending on your SynapseAI version. In this case, I am using SynapseAI 1.14.0.
 
 ```bash
 pip install git+https://github.com/HabanaAI/DeepSpeed.git@1.14.0
@@ -33,7 +34,7 @@ pip install git+https://github.com/HabanaAI/DeepSpeed.git@1.14.0
 Now you are all set to perform text-generation with the pipeline!
 
 ## Using the Pipeline
-Run the following command to access the pipeline scripts and follow the instructions provided in the README to update your `PYTHONPATH`.
+First, go to the following directory in your `optimum-habana` checkout where the pipeline scripts are located, and follow the instructions in the `README` to update your `PYTHONPATH`.
 
 ```bash
 cd optimum-habana/examples/text-generation/text-generation-pipeline
@@ -57,7 +58,9 @@ For generating text with large models such as Llama-2-70b, here is a sample comm
 python ../../gaudi_spawn.py --use_deepspeed --world_size 8 run_pipeline.py --model_name_or_path meta-llama/Llama-2-70b-hf --max_new_tokens 100 --bf16 --use_hpu_graphs --use_kv_cache --do_sample --temperature 0.5 --top_p 0.95 --prompt "Hello world" "How are you?" "Here is my prompt" "Once upon a time"
 ```
 
-Last but not the least, you can use the pipeline class in your own scripts as shown in the example below. Run the following sample script from `optimum-habana/examples/text-generation/text-generation-pipeline`.
+## Usage in Python Scripts
+
+You can use the pipeline class in your own scripts as shown in the example below. Run the following sample script from `optimum-habana/examples/text-generation/text-generation-pipeline`.
 ```python
 import argparse
 import logging
@@ -176,9 +179,8 @@ response = llm_chain(prompt.format(question=question))
 print(f"\nQuestion 2: {question}")
 print(f"Response 2: {response['text']}")
 ```
-
-> The pipeline class has been validated for LangChain version 0.0.191 and may not work with other versions of the package. 
+> The pipeline class has been validated for LangChain version 0.0.191 and may not work with other versions of the package.
 
 ## Conclusion
 
-In this blog, we presented a custom text-generation pipeline that accepts single as well as multiple prompts as input. This pipeline offers great flexibility in terms of model size as well as parameters affecting text-generation quality. Furthermore, it is also very easy to use and to plug into your scripts and is compatible with LangChain.
+We presented a custom text-generation pipeline on Habana Gaudi2 that accepts single or multiple prompts as input. This pipeline offers great flexibility in terms of model size as well as parameters affecting text-generation quality. Furthermore, it is also very easy to use and to plug into your scripts, and is compatible with LangChain.
