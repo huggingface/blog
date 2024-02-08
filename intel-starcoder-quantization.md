@@ -143,16 +143,13 @@ These quantization choices are backed up by the following observations:
 
 Table 1: Accuracy and latency measurements of the StarCoder model on Intel 4th Gen Xeon
 
-
 To load the resulting models and run inference, you can just replace your `AutoModelForXxx` class with the corresponding `IPEXModelForXxx` class from [`optimum-intel`](https://github.com/huggingface/optimum-intel).
-
 
 Before you begin, make sure you have all the necessary libraries installed :
 
 ```
 pip install --upgrade-strategy eager optimum[ipex]
 ```
-
 
 ```diff
 - from transformers import AutoModelForCausalLM
