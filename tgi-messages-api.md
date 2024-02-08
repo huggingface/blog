@@ -121,7 +121,7 @@ for message in chat_completion:
 Behind the scenes, TGI’s Messages API automatically converts the list of messages into the model’s required instruction format using its [chat template](https://huggingface.co/docs/transformers/chat_templating). 
 
 
-> ##### 💡 Certain OpenAI features, like function calling, are not compatible with TGI. Currently, the Messages API supports the following chat completion parameters: `stream`, `max_new_tokens`, `frequency_penalty`, `logprobs`, `seed`, `temperature`, and `top_p`.
+> ##### 💡 Certain OpenAI features, like function calling, are not compatible with TGI. Currently, the Messages API supports the following chat completion parameters: `stream`, `max_tokens`, `frequency_penalty`, `logprobs`, `seed`, `temperature`, and `top_p`.
 
 ### With the JavaScript client
 
