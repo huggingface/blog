@@ -7,7 +7,6 @@ authors:
 - user: Jofthomas
 - user: drbh
 ---
-
 # From OpenAI to Open LLMs with Messages API on Hugging Face
 
 
