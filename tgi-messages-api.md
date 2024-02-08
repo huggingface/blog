@@ -1,6 +1,6 @@
 ---
 title: "From OpenAI to Open LLMs with Messages API on Hugging Face" 
-thumbnail: /blog/assets/tgi-messages-api/thumbnail.png
+thumbnail: /blog/assets/tgi-messages-api/thumbnail.jpg
 authors:
 - user: andrewrreed
 - user: philschmid
