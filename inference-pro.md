@@ -25,6 +25,7 @@ Hugging Face PRO users now have access to exclusive API endpoints for a curated 
   - [Chat with Code Llama 70B](#chat-with-code-llama-70b)
   - [Code infilling with Code Llama](#code-infilling-with-code-llama)
   - [Stable Diffusion XL](#stable-diffusion-xl)
+- [Messages API](#messages-api)
 - [Generation Parameters](#generation-parameters)
   - [Controlling Text Generation](#controlling-text-generation)
   - [Controlling Image Generation](#controlling-image-generation)
@@ -292,6 +293,37 @@ image = sdxl.text_to_image(
 ![SDXL example generation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-for-pros/sdxl-example.png)
 
 For more details on how to control generation, please take a look at [this section](#controlling-image-generation).
+
+## Messages API
+
+All text generation models now support the Messages API, so they are compatible with OpenAI client libraries, including LangChain and LlamaIndex. The following snippet shows how to use the official `openai` client library with Code Llama:
+
+```py
+from openai import OpenAI
+
+# Initialize the client, pointing it to one of the available models
+client = OpenAI(
+    base_url="https://api-inference.huggingface.co/models/codellama/CodeLlama-70b-Instruct-hf",
+    api_key="<YOUR_TOKEN>",  # replace with your token
+)
+chat_completion = client.chat.completions.create(
+    model="tgi",
+    messages=[
+        {"role": "system", "content": "You are a helpful an honest programming assistant."},
+        {"role": "user", "content": "Is Rust better than Python?"},
+    ],
+    stream=True,
+    max_tokens=500
+)
+
+# iterate and print stream
+for message in chat_completion:
+    print(message.choices[0].delta.content, end="")
+```
+
+TODO: this doesn't work for me yet. Do we need to redeploy?
+
+For more details about the use of the Messages API, please [check this post](https://huggingface.co/blog/tgi-messages-api).
 
 ## Generation Parameters
 
