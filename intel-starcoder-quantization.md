@@ -144,9 +144,8 @@ These quantization choices are backed up by the following observations:
 Table 1: Accuracy and latency measurements of the StarCoder model on Intel 4th Gen Xeon
 
 
-You can find both quantized models on the Hugging Face Hub under the Intel organization at respectively [Intel/q8_starcoder](https://huggingface.co/Intel/q8_starcoder) and [Intel/q4_starcoder](https://huggingface.co/Intel/q4_starcoder).
+To load the resulting models and run inference, you can just replace your `AutoModelForXxx` class with the corresponding `IPEXModelForXxx` class from [`optimum-intel`](https://github.com/huggingface/optimum-intel).
 
-To load these models and run inference, you can just replace your `AutoModelForXxx` class with the corresponding `IPEXModelForXxx` class from [`optimum-intel`](https://github.com/huggingface/optimum-intel).
 
 Before you begin, make sure you have all the necessary libraries installed :
 
@@ -160,7 +159,6 @@ pip install --upgrade-strategy eager optimum[ipex]
 + from optimum.intel import IPEXModelForCausalLM
   from transformers import AutoTokenizer, pipeline
 
-  model_id = "Intel/q8_starcoder"
 - model = AutoModelForCausalLM.from_pretrained(model_id)
 + model = IPEXModelForCausalLM.from_pretrained(model_id)
   tokenizer = AutoTokenizer.from_pretrained(model_id)
