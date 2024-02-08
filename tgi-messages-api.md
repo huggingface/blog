@@ -15,7 +15,7 @@ We are excited to introduce the Messages API to provide OpenAI compatibility wit
 
 Starting with version 1.4.0, TGI offers an API compatible with the OpenAI Chat Completion API. The new Messages API allows customers and users to transition seamlessly from OpenAI models to open LLMs. The API can be directly used with OpenAI's client libraries or third-party tools, like LangChain or LlamaIndex.
 
-> *"The new Messages API with OpenAI compatibility makes it easy for Ryght's real-time GenAI orchestration platform to switch LLM use cases from OpenAI to open models. Our migration from GPT4 to Mixtral/Llama2 on Inference Endpoints is effortless, and now we have a simplified workflow with more control over our AI solutions." - [Johnny Crupi, CTO](https://www.linkedin.com/in/johncrupi/) at [Ryght](http://www.ryght.ai/?utm_campaign=hf&utm_source=hf_blog)*
+> ##### *"The new Messages API with OpenAI compatibility makes it easy for Ryght's real-time GenAI orchestration platform to switch LLM use cases from OpenAI to open models. Our migration from GPT4 to Mixtral/Llama2 on Inference Endpoints is effortless, and now we have a simplified workflow with more control over our AI solutions." - [Johnny Crupi, CTO](https://www.linkedin.com/in/johncrupi/) at [Ryght](http://www.ryght.ai/?utm_campaign=hf&utm_source=hf_blog)*
 
 The new Messages API is also now available in Inference Endpoints, on both dedicated and serverless flavors. To get you started quickly, we’ve included detailed examples of how to:
 
@@ -75,7 +75,7 @@ It will take a few minutes for our deployment to spin up. We can use the `.wait(
 
 Great, we now have a working endpoint! 
 
->💡 When deploying with `huggingface_hub`, your endpoint will scale-to-zero after 15 minutes of idle time by default to optimize cost during periods of inactivity. Check out [the Hub Python Library documentation](https://huggingface.co/docs/huggingface_hub/guides/inference_endpoints) to see all the functionality available for managing your endpoint lifecycle.
+> ##### 💡 When deploying with `huggingface_hub`, your endpoint will scale-to-zero after 15 minutes of idle time by default to optimize cost during periods of inactivity. Check out [the Hub Python Library documentation](https://huggingface.co/docs/huggingface_hub/guides/inference_endpoints) to see all the functionality available for managing your endpoint lifecycle.
 
 ## Using Inference Endpoints with OpenAI client libraries
 
@@ -121,7 +121,7 @@ for message in chat_completion:
 Behind the scenes, TGI’s Messages API automatically converts the list of messages into the model’s required instruction format using its [chat template](https://huggingface.co/docs/transformers/chat_templating). 
 
 
->💡 Certain OpenAI features, like function calling, are not compatible with TGI. Currently, the Messages API supports the following chat completion parameters: `stream`, `max_new_tokens`, `frequency_penalty`, `logprobs`, `seed`, `temperature`, and `top_p`.
+> ##### 💡 Certain OpenAI features, like function calling, are not compatible with TGI. Currently, the Messages API supports the following chat completion parameters: `stream`, `max_new_tokens`, `frequency_penalty`, `logprobs`, `seed`, `temperature`, and `top_p`.
 
 ### With the JavaScript client
 
