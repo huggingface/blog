@@ -4,7 +4,7 @@ thumbnail: /blog/assets/tgi-messages-api/thumbnail.png
 authors:
 - user: andrewrreed
 - user: philschmid
-- user: Jofthomas
+- user: jofthomas
 - user: drbh
 ---
 # From OpenAI to Open LLMs with Messages API on Hugging Face
