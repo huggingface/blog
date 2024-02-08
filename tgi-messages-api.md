@@ -60,7 +60,7 @@ endpoint = create_inference_endpoint(
             "MAX_BATCH_TOTAL_TOKENS": "1024000",
             "MODEL_ID": "/repository",
         },
-        "url": "ghcr.io/huggingface/text-generation-inference:sha-1734540",
+        "url": "ghcr.io/huggingface/text-generation-inference:sha-1734540", # use this build or newer
     },
 )
 
