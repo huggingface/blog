@@ -256,8 +256,8 @@ user_2 = "user_prompt_2"
 answer_2 = "answer_2"
 user_3 = "user_prompt_3"
 
-prompt  = f"<<SYS>>\\n{system}\\n<</SYS>>\\n\\n{user_1}"
-prompt += f"<s>[INST] {prompt.strip()} [/INST] {answer_1.strip()} </s>"
+prompt  = f"<<SYS>>\n{system}\n<</SYS>>\n\n{user_1}"
+prompt  = f"<s>[INST] {prompt.strip()} [/INST] {answer_1.strip()} </s>"
 prompt += f"<s>[INST] {user_2.strip()} [/INST] {answer_2.strip()} </s>"
 prompt += f"<s>[INST] {user_3.strip()} [/INST]"
 
