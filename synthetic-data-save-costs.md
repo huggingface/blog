@@ -288,7 +288,9 @@ metrics_cot_multiple = compute_metrics(label_experts, label_pred_cot_multiple)
 
 With CoT and SC, performance increased to 94.0% accuracy and 0.94 F1 macro. By giving the model time to think about its label decision and giving it multiple attempts, we can further improve performance. Note that CoT and SC cost additional compute. We are essentially buying annotation accuracy with compute. 
 
-![fig_mixtral](fig_mixtral.png)
+<p align="center">
+    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/fig_mixtral.png?raw=true" alt="fig_mixtral" width=95%>
+</p>
 
 With these LLM API calls we have now created a synthetic training dataset. We have labeled each text, by making the LLM try three different reasoning paths before taking the label decision. The result are labels with high agreement with human experts and a good quality dataset we can use for training a more efficient and specialized model. 
 
@@ -309,7 +311,9 @@ The main advantage of this data created with the open-source Mixtral model is th
 
 How does the quality of synthetic data compare between Mistral’s open-source `Mixtral-8x7B-Instruct-v0.1` and OpenAI’s GPT3.5 and GPT4? We ran the identical pipeline and prompts explained above with `gpt-3.5-turbo-0613` and `gpt-4-0125-preview` and report the results in the table below. We see that Mixtral performs better than GPT3.5 and on-par with GPT4 for this task, depending on the type of prompt. (We don’t display the results for the newer gpt-3.5-turbo-0125 here, because for some reason the performance with this model was worse than with the older default gpt-3.5-turbo-0613)
 
-![fig_mixtral_gpt](fig_mixtral_gpt.png)
+<p align="center">
+    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/fig_mixtral_gpt.png?raw=true" alt="fig_mixtral_gpt" width=95%>
+</p>
 
 Note that this does not mean that Mixtral is always better than GPT3.5 and on-par with GPT4. GPT4 performs better on several benchmarks. The main message is that open-source models are now capable of creating high-quality synthetic data. 
 
@@ -353,7 +357,9 @@ How do these different approaches compare? The table below displays the trade-of
 
 Let’s start with task performance. How does the small fine-tuned ~0.13B parameter RoBERTa-base model compare to the much larger LLMs? The bar chart below shows that the custom model fine-tuned on 1811 texts performs on-par with the LLMs and it would be trivial to create more training data. A small model could never compete with a much larger LLM out-of-the-box, but fine-tuning it on some high-quality data brings it to the same level of performance. The fine-tuned model can only do the one specific task we have trained it to do, but it does it very well. 
 
-![fig_mixtral_gpt_roberta](fig_mixtral_gpt_roberta.png)
+<p align="center">
+    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/fig_mixtral_gpt_roberta.png?raw=true" alt="fig_mixtral_gpt_roberta" width=95%>
+</p>
 
 Second, compute costs and inference speed. The main compute costs in practice will be inference, i.e. running the model after it has been trained. Let’s assume that in your production use-case, you need to process 1 million sentences in a given time period. Our fine-tuned RoBERTa-base model runs efficiently on a small T4 GPU with 16GB RAM, which costs $0.6 per hour on a HF Inference Endpoint. It has a latency of 0.13 seconds and a throughput of 61 sentences per second with batch_size=8. This leads to a total cost of $2.7 for processing 1 million sentences. 
 
