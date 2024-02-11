@@ -3449,3 +3449,17 @@
     - llm
     - nlp
     - tgi
+
+- local: synthetic-data-save-costs
+  title: "Synthetic data: saving money and carbon with open source"
+  author: MoritzLaurer
+  thumbnail: /blog/assets/176_synthetic-data-save-costs/synthetic_data_thumbnail.svg
+  date: Feb 14, 2024
+  tags:
+    - guide
+    - llm
+    - nlp
+    - synthetic-data
+    - mixtral
+    - inference-endpoints
+    - autotrain
