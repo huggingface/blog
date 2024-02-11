@@ -1,12 +1,12 @@
 ---
-title: "Text-Generation Pipeline on Habana Gaudi2 Accelerator" 
+title: "Text-Generation Pipeline on Intel® Gaudi® 2 AI Accelerator" 
 thumbnail: /blog/assets/textgen-pipe-gaudi/thumbnail.png
 authors:
 - user: siddjags
   guest: true
 ---
 
-# Text-Generation Pipeline on Habana Gaudi2 Accelerator
+# Text-Generation Pipeline on Intel® Gaudi® 2 AI Accelerator
 With the Generative AI (GenAI) revolution in full swing, text-generation with open-source transformer models like Llama 2 has become the talk of the town. AI enthusiasts as well as developers are looking to leverage the generative abilities of such models for their own use cases and applications. This article shows how easy it is to generate text with the Llama 2 family of models (7b, 13b and 70b) using Optimum Habana and a custom pipeline class – you'll be able to run the models with just a few lines of code!
 
 ## Prerequisites
@@ -183,4 +183,11 @@ print(f"Response 2: {response['text']}")
 
 ## Conclusion
 
-We presented a custom text-generation pipeline on Habana Gaudi2 that accepts single or multiple prompts as input. This pipeline offers great flexibility in terms of model size as well as parameters affecting text-generation quality. Furthermore, it is also very easy to use and to plug into your scripts, and is compatible with LangChain.
+We presented a custom text-generation pipeline on Intel® Gaudi® 2 AI accelerator that accepts single or multiple prompts as input. This pipeline offers great flexibility in terms of model size as well as parameters affecting text-generation quality. Furthermore, it is also very easy to use and to plug into your scripts, and is compatible with LangChain.
+
+> Use of the pretrained model is subject to compliance with third party licenses, including the “Llama 2 Community License Agreement” (LLAMAV2). For guidance on the intended use of the LLAMA2 model, what will be considered misuse and out-of-scope uses, who are the intended users and additional terms please review and read the instructions in this link [https://ai.meta.com/llama/license/](https://ai.meta.com/llama/license/). Users bear sole liability and responsibility to follow and comply with any third party licenses, and Habana Labs disclaims and will bear no liability with respect to users’ use or compliance with third party licenses.
+To be able to run gated models like this Llama-2-70b-hf, you need the following:
+> * Have a HuggingFace account
+> * Agree to the terms of use of the model in its model card on the HF Hub
+> * set a read token
+> * Login to your account using the HF CLI: run huggingface-cli login before launching your script

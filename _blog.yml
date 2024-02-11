@@ -3451,7 +3451,7 @@
     - tgi
 
 - local: textgen-pipe-gaudi
-  title: "Text-Generation Pipeline on Habana Gaudi2 Accelerator"
+  title: "Text-Generation Pipeline on Intel® Gaudi® 2 AI Accelerator"
   author: siddjags
   guest: true
   thumbnail: /blog/assets/textgen-pipe-gaudi/thumbnail.png
