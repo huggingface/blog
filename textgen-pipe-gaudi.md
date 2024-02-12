@@ -23,8 +23,8 @@ huggingface-cli login
 You also need to install the latest version of Optimum Habana and clone the repo to access the pipeline script. Here are the commands to do so:
 
 ```bash
-pip install --upgrade-strategy eager optimum[habana]
-git clone https://github.com/huggingface/optimum-habana.git
+pip install optimum-habana==1.10.0
+git clone -b v1.10-release https://github.com/huggingface/optimum-habana.git
 ```
 
 In case you are planning to run distributed inference, install DeepSpeed depending on your SynapseAI version. In this case, I am using SynapseAI 1.14.0.
