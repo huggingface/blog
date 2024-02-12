@@ -23,5 +23,5 @@ Additionally, for those applying for the PC AI contest category to develop on AM
 
 ## Sign Up Today
 We invite you to be innovative, and to contribute to shaping what AI can achieve and we at Hugging Face look forward to the new solutions this contest will bring to light. 
-To participate, register to the following link
+To participate, please register over [here](https://www.hackster.io/contests/amd2023#challengeNav)
 
