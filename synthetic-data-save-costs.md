@@ -6,15 +6,7 @@ authors:
 ---
 
 
-# Synthetic data: saving money and carbon with open source
-
-Other title ideas: 
-
-Synthetic data: the commercial and environmental value of teaching efficient students with LLMs
-
-Synthetic data: empowering commercially-friendly open-source
-
-Jeff’s suggestion: Synthetic data: save money and carbon with open source
+# Synthetic data: save money and carbon with open source
 
 ## tl;dr
 
@@ -31,6 +23,11 @@ In a case-study on identifying investor sentiment in news, we shows how you can 
 | Expertise requirement | High | Low | Low-medium |
 | Control | High | Low | High |
 | CO2 emissions | Low | Ridiculously high | Low |
+
+<p align="center">
+    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=95%>
+</p>
+
 
 ## 1. The problem: There is no data for your use-case
 
@@ -337,7 +334,9 @@ To make this process even easier, we use the Hugging Face [AutoTrain](https://hu
 
 On the Hugging Face website, we first click on “Spaces” at the top and then “Create new Space”. We then select “Docker” > “AutoTrain” and choose a small A10G GPU, which costs $1.05 per hour. The space for AutoTrain will then initialize. We can then upload or synthetic training data and expert test data via the interface and adjust the different fields as shown in the screenshot below. Once everything is filled in, we can click on “Start Training” and you can follow the training process in the Space’s logs. Training a small RoBERTa-base model (~0.13 B parameters) on just 1811 data points is very fast and should not take more than a few minutes. Once training is done, the model is automatically uploaded to your HF profile. The Space stops once training is finished and the whole process should not take longer than 15 minutes and cost less than $1. 
 
-![autotrain](autotrain.png)
+<p align="center">
+    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/autotrain.png?raw=true" alt="autotrain" width=95%>
+</p>
 
 If you want, you can also use AutoTrain entirely locally on your own hardware, see our [documentation](https://huggingface.co/docs/autotrain/index). Advanced users can of course always write their own training scripts, but with these default hyperparameters the results with AutoTrain should be sufficient for many classification tasks. 
 
@@ -354,6 +353,10 @@ How do these different approaches compare? The table below displays the trade-of
 | Expertise requirement | High | Low | Low-medium |
 | Control | High | Low | High |
 | CO2 emissions | Low | Ridiculously high | Low |
+
+<p align="center">
+    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=95%>
+</p>
 
 Let’s start with task performance. How does the small fine-tuned ~0.13B parameter RoBERTa-base model compare to the much larger LLMs? The bar chart below shows that the custom model fine-tuned on 1811 texts performs on-par with the LLMs and it would be trivial to create more training data. A small model could never compete with a much larger LLM out-of-the-box, but fine-tuning it on some high-quality data brings it to the same level of performance. The fine-tuned model can only do the one specific task we have trained it to do, but it does it very well. 
 
