@@ -6,7 +6,7 @@ authors:
 ---
 
 
-# Synthetic data: save money and carbon with open source
+# Synthetic data: save money, time and carbon with open source
 
 ## tl;dr
 
@@ -15,7 +15,7 @@ Should you fine-tune your own model or use an LLM API? Creating your own model p
 In a case-study on identifying investor sentiment in news, we shows how you can use an open-source LLM to create synthetic data to train your own customized model in a few steps. Our resulting custom RoBERTa model can analyze a large news corpus for around $2.7 compared to $3061 with GPT4; emits around 0.12 kg CO2 compared to 865 kg CO2 with GPT4; with a latency of 0.13 seconds compared to often multiple seconds with GPT4; while performing on-par with GPT4 at identifying investor sentiment (both 94% accuracy and 0.94 F1 macro).
 
 <p align="center">
-    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=95%>
+    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=85%>
 </p>
 
 
@@ -335,7 +335,7 @@ If you want, you can also use AutoTrain entirely locally on your own hardware, s
 How do these different approaches compare? The table below displays the trade-offs across different factors and we discuss different metrics based on our example dataset underneath. 
 
 <p align="center">
-    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=95%>
+    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=85%>
 </p>
 
 Let’s start with task performance. How does the small fine-tuned ~0.13B parameter RoBERTa-base model compare to the much larger LLMs? The bar chart below shows that the custom model fine-tuned on 1811 texts performs on-par with the LLMs and it would be trivial to create more training data. A small model could never compete with a much larger LLM out-of-the-box, but fine-tuning it on some high-quality data brings it to the same level of performance. The fine-tuned model can only do the one specific task we have trained it to do, but it does it very well. 
@@ -360,7 +360,7 @@ Lastly, environmental impact. One query with GPT4 is estimated to consume [rough
 
 We have shown the enormous benefits of using an LLM to create synthetic data to train a smaller, more efficient model. While this example only treats investor sentiment classification the same pipeline could be applied to many other tasks, from other classification tasks (e.g. customer intent detection or harmful content detection), to token-classification (e.g. named entity recognition or PII detection) to generative tasks (e.g. summarization or question answering). 
 
-In 2024, it has never been easier for companies to create their own efficient models, control their own data and infrastructure, and save compute costs and CO2 emissions without having to compromise on accuracy.
+In 2024, it has never been easier for companies to create their own efficient models, control their own data and infrastructure, reduce CO2 emissions, and save compute costs and time without having to compromise on accuracy.
 
 Now try it out yourself! You can find the full reproduction code for all numbers in this blog post, as well as more efficient asynchronous functions with batching for API calls in the [reproduction repository](https://github.com/MoritzLaurer/synthetic-data-blog/tree/main). We invite you to copy and adapt our code to your use-cases!
 
