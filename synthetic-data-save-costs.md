@@ -14,16 +14,6 @@ Should you fine-tune your own model or use an LLM API? Creating your own model p
 
 In a case-study on identifying investor sentiment in news, we shows how you can use an open-source LLM to create synthetic data to train your own customized model in a few steps. Our resulting custom RoBERTa model can analyze a large news corpus for around $2.7 compared to $3061 with GPT4; emits around 0.12 kg CO2 compared to 865 kg CO2 with GPT4; with a latency of 0.13 seconds compared to often multiple seconds with GPT4; while performing on-par with GPT4 at identifying investor sentiment (both 94% accuracy and 0.94 F1 macro).
 
-|  | Manual creation of data and custom model | LLM API | LLM synthetic data and custom model |
-| --- | --- | --- | --- |
-| Task performance | High | High | High |
-| Compute costs | Low | medium-high | Low |
-| Inference speed | High | medium-high | High |
-| Personnel time requirement | High | Low | Low-medium |
-| Expertise requirement | High | Low | Low-medium |
-| Control | High | Low | High |
-| CO2 emissions | Low | Ridiculously high | Low |
-
 <p align="center">
     <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=95%>
 </p>
@@ -343,16 +333,6 @@ If you want, you can also use AutoTrain entirely locally on your own hardware, s
 ### 3.4 Performance and cost comparison
 
 How do these different approaches compare? The table below displays the trade-offs across different factors and we discuss different metrics based on our example dataset underneath. 
-
-|  | Manual creation of data and custom model | LLM API | LLM synthetic data and custom model |
-| --- | --- | --- | --- |
-| Task performance | High | High | High |
-| Compute costs | Low | medium-high | Low |
-| Inference speed | High | medium-high | High |
-| Personnel time requirement | High | Low | Low-medium |
-| Expertise requirement | High | Low | Low-medium |
-| Control | High | Low | High |
-| CO2 emissions | Low | Ridiculously high | Low |
 
 <p align="center">
     <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=95%>
