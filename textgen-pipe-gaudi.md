@@ -37,7 +37,9 @@ Now you are all set to perform text-generation with the pipeline!
 First, go to the following directory in your `optimum-habana` checkout where the pipeline scripts are located, and follow the instructions in the `README` to update your `PYTHONPATH`.
 
 ```bash
-cd optimum-habana/examples/text-generation/text-generation-pipeline
+cd optimum-habana/examples/text-generation
+pip install -r requirements.txt
+cd text-generation-pipeline
 ```
 
 If you wish to generate a sequence of text from a prompt of your choice, here is a sample command.
