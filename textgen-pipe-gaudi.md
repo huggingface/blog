@@ -9,6 +9,8 @@ authors:
 # Text-Generation Pipeline on Intel® Gaudi® 2 AI Accelerator
 With the Generative AI (GenAI) revolution in full swing, text-generation with open-source transformer models like Llama 2 has become the talk of the town. AI enthusiasts as well as developers are looking to leverage the generative abilities of such models for their own use cases and applications. This article shows how easy it is to generate text with the Llama 2 family of models (7b, 13b and 70b) using Optimum Habana and a custom pipeline class – you'll be able to run the models with just a few lines of code!
 
+This custom pipeline class has been designed to offer great flexibility and ease of use. Moreover, it provides a high level of abstraction and performs end-to-end text-generation which involves pre-processing and post-processing. There are multiple ways to use the pipeline - you can run the `run_pipeline.py` script from the Optimum Habana repository, add the pipeline class to your own python scripts, or initialize LangChain classes with it.
+
 ## Prerequisites
 Since the Llama 2 models are part of a gated repo, you need to request access if you haven't done it already. First, you have to visit the [Meta website](https://ai.meta.com/resources/models-and-libraries/llama-downloads) and accept the terms and conditions. After you are granted access by Meta (it can take a day or two), you have to request access [in Hugging Face](https://huggingface.co/meta-llama/Llama-2-7b-hf), using the same email address you provided in the Meta form.
 
