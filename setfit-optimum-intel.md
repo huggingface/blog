@@ -43,7 +43,7 @@ Specifically, we'll apply post-training static quantization (PTQ). PTQ can reduc
 
 ### Prepare a Calibration Dataset
 
-The calibration dataset should be able to represent the data distribution of unseen data. In general, preparing 100 samples is enough for calibration. We'll use the `rotten_tomatoes` dataset in our case, since it’s composed of movie reviews, like our target dataset, `sst2`.
+The calibration dataset should be able to represent the distribution of unseen data. In general, preparing 100 samples is enough for calibration. We'll use the `rotten_tomatoes` dataset in our case, since it’s composed of movie reviews, similar to our target dataset, `sst2`.
 
 First, we’ll load 100 random samples from this dataset. Then, to prepare the dataset for quantization, we'll need to tokenize each example. We won’t need the “text” and “label” columns, so let’s remove them.
 
@@ -154,7 +154,7 @@ Here, the optimization has garnered even greater speedups. When comparing the hi
 
 ## Summary
 
-In this blog post, we have learned how to use quantization capabilities present in 🤗 Optimum Intel to optimize SetFit models. After running a quick and easy post-training quantization procedure, we've observed that accuracy level was preserved, while inference throughput increased by nearly 7x. This optimization method can be readily applied to any existing SetFit deployment running on Intel Xeon.
+In this blog post, we have showed how to use quantization capabilities present in 🤗 Optimum Intel to optimize SetFit models. After running a quick and easy post-training quantization procedure, we've observed that accuracy level was preserved, while inference throughput increased by nearly 7x. This optimization method can be readily applied to any existing SetFit deployment running on Intel Xeon.
 
 
 ## References
