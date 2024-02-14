@@ -106,6 +106,7 @@ Now let's run the benchmark on on our optimized model. We’ll first need to def
 
 ```python
 import optimum.intel
+
 class OptimumSetFitModel:
    def __init__(self, setfit_model, model_body):
        model_body.tokenizer = setfit_model.model_body.tokenizer
@@ -139,9 +140,9 @@ perf_metrics.update(pb.run_benchmark())
 |----------------------|---------------------|---------------------------|
 | Model Size           | 127.32 MB           | 44.65 MB                  |
 | Accuracy on test set | 88.4%               | 88.1%                     |
-| Latency (bs=1) | 26.90 ms +/- 5.72 ms | 5.29 ms +/- 0.76 ms |
+| Latency (bs=1) | 19.50 ms +/- 0.80 ms | 5.06 ms +/- 0.43 ms |
 
-When inspecting the performance at batch size 1, there’s a **5.1x reduction in latency** with our optimized model. Note that this is achieved with virtually no drop in accuracy! 
+When inspecting the performance at batch size 1, there’s a **3.85x reduction in latency** with our optimized model. Note that this is achieved with virtually no drop in accuracy! 
 It's also worth mentioning that the model size has shrunk by 2.85x. 
 
 <p align="center">
@@ -149,7 +150,7 @@ It's also worth mentioning that the model size has shrunk by 2.85x.
 </p>
 
 We move on to our main focus, which is the reported throughputs with different batch sizes.
-Here, the optimization has garnered even greater speedups. When comparing the highest achievable throughput (at any batch size), the optimized model is **6.91x faster than before!**
+Here, the optimization has garnered even greater speedups. When comparing the highest achievable throughput (at any batch size), the optimized model is **7.01x faster than before!**
 
 ## Summary
 
