@@ -99,7 +99,7 @@ setfit_model = SetFitModel.from_pretrained(model_path)
 pb = PerformanceBenchmark(
     setfit_model,
     test_dataset,
-    "bge-small (PyTorch)"
+    "bge-small (transformers)"
 )
 perf_metrics = pb.run_benchmark()
 ```
@@ -139,7 +139,7 @@ perf_metrics.update(pb.run_benchmark())
 </p>
 
 
-|                      | bge-small (PyTorch) | bge-small (optimum intel) |
+|                      | bge-small (transformers) | bge-small (optimum intel) |
 |----------------------|---------------------|---------------------------|
 | Model Size           | 127.32 MB           | 44.65 MB                  |
 | Accuracy on test set | 88.4%               | 88.1%                     |
