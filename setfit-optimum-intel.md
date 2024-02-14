@@ -139,7 +139,7 @@ perf_metrics.update(pb.run_benchmark())
 |----------------------|---------------------|---------------------------|
 | Model Size           | 127.32 MB           | 44.65 MB                  |
 | Accuracy on test set | 88.4%               | 88.1%                     |
-
+| Latency (bs=1) | 26.90 ms +/- 5.72 ms | 5.29 ms +/- 0.76 ms |
 
 When inspecting the performance at batch size 1, there’s a **5.1x reduction in latency** with our optimized model. Note that this is achieved with virtually no drop in accuracy! 
 It's also worth mentioning that the model size has shrunk by 2.85x. 
