@@ -9,8 +9,8 @@ authors:
 
 AMD and Hugging Face are actively engaged in helping developers seamlessly deploy cutting-edge AI models on AMD hardware. 
 This year, AMD takes their commitment one step further by providing developers free, hands-on access to state-of-the-art AMD hardware through their recently announced [Pervasive AI Developer Contest](https://www.hackster.io/contests/amd2023#challengeNav). 
-This global competition is an incubator of AI innovation, beckoning developers worldwide to create unique AI applications. 
-Developers can choose from three exciting categories: Generative AI, Robotics AI, and PC AI and compete for cash prizes up to $10,000 USD. 
+This global competition is an incubator of AI innovation, beckoning developers worldwide to create unique AI applications.
+Developers can choose from three exciting categories: Generative AI, Robotics AI, and PC AI, each of these category entitled to a cash prices up to $10,000 USD for winners and a total of $160.000 USD being giving away.
 700 AMD platforms are up for grabs to eligible participants. 
 Don’t miss your chance to receive an AMD Radeon ™ PRO W7900, AMD Kria ™ KR260 Robotics Starter Kit, Ryzen ™ AI powered PC or cloud access to an AMD Instinct ™ MI210 accelerator card.
 
