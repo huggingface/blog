@@ -1,6 +1,6 @@
 ---
 title: "Synthetic data: saving money and carbon with open source" 
-thumbnail: blog/assets/176_synthetic-data-save-costs/synthetic_data_thumbnail.svg
+thumbnail: blog/assets/176_synthetic-data-save-costs/thumbnail.png
 authors:
 - user: MoritzLaurer
 ---
@@ -311,7 +311,7 @@ metrics_cot_multiple = compute_metrics(label_experts, label_pred_cot_multiple)
 CoT and SC increased performance to 94.0% accuracy and 0.94 F1 macro. We have improved performance by giving the model time to think about its label decision and giving it multiple attempts. Note that CoT and SC cost additional compute. We are essentially buying annotation accuracy with compute. 
 
 <p align="center">
-    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/fig_mixtral.png?raw=true" alt="fig_mixtral" width=95%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/176_synthetic-data-save-costs/fig_mixtral.png" alt="fig_mixtral" width=95%>
 </p>
 
 We have now created a synthetic training dataset thanks to these simple LLM API calls. We have labeled each text by making the LLM try three different reasoning paths before taking the label decision. The result are labels with high agreement with human experts and a good quality dataset we can use for training a more efficient and specialized model. 
@@ -334,7 +334,7 @@ The main advantage of this data created with the open-source Mixtral model is th
 How does the quality of synthetic data compare between Mistral’s open-source `Mixtral-8x7B-Instruct-v0.1` and OpenAI’s GPT3.5 and GPT4? We ran the identical pipeline and prompts explained above with `gpt-3.5-turbo-0613` and `gpt-4-0125-preview` and report the results in the table below. We see that Mixtral performs better than GPT3.5 and is on par with GPT4 for this task, depending on the prompt type. (We don’t display the results for the newer gpt-3.5-turbo-0125 here because, for some reason, the performance with this model was worse than with the older default gpt-3.5-turbo-0613).
 
 <p align="center">
-    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/fig_mixtral_gpt.png?raw=true" alt="fig_mixtral_gpt" width=95%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/176_synthetic-data-save-costs/fig_mixtral_gpt.png" alt="fig_mixtral_gpt" width=95%>
 </p>
 
 Note that this does not mean Mixtral is always better than GPT3.5 and on par with GPT4. GPT4 performs better on several benchmarks. The main message is that open-source models can now create high-quality synthetic data.
@@ -360,7 +360,7 @@ We use the Hugging Face [AutoTrain](https://huggingface.co/autotrain) solution t
 On the Hugging Face website, we first click on "Spaces" at the top and then "Create new Space". We then select "Docker" > "AutoTrain" and choose a small A10G GPU, which costs $1.05 per hour. The Space for AutoTrain will then initialize. We can then upload our synthetic training data and expert test data via the interface and adjust the different fields, as shown in the screenshot below. Once everything is filled in, we can click on "Start Training" and you can follow the training process in the Space's logs. Training a small RoBERTa-base model (~0.13 B parameters) on just 1811 data points is very fast and should not take more than a few minutes. Once training is done, the model is automatically uploaded to your HF profile. The Space stops once training is finished, and the whole process should take at most 15 minutes and cost less than $1.
 
 <p align="center">
-    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/autotrain.png?raw=true" alt="autotrain" width=95%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/176_synthetic-data-save-costs/autotrain.png" alt="autotrain" width=95%>
 </p>
 
 If you want, you can also use AutoTrain entirely locally on your own hardware, see our [documentation](https://huggingface.co/docs/autotrain/index). Advanced users can, of course, always write their own training scripts, but with these default hyperparameters, the results with AutoTrain should be sufficient for many classification tasks. 
@@ -376,7 +376,7 @@ How do these different approaches compare? The table below displays the trade-of
 Let's start with task performance. How does the small fine-tuned ~0.13B parameter RoBERTa-base model compare to the much larger LLMs? The bar chart below shows that the custom model fine-tuned on 1811 texts performs on par with the LLMs, and it would be trivial to create more training data. A small model could never compete with a much larger LLM out-of-the-box, but fine-tuning it on some high-quality data brings it to the same level of performance. The fine-tuned model can only do the one specific task we have trained it to do, but it does it very well.
 
 <p align="center">
-    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/fig_mixtral_gpt_roberta.png?raw=true" alt="fig_mixtral_gpt_roberta" width=95%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/176_synthetic-data-save-costs/fig_mixtral_gpt_roberta.png" alt="fig_mixtral_gpt_roberta" width=95%>
 </p>
 
 Second, compute costs and inference speed. The main compute costs in practice will be inference, i.e. running the model after it has been trained. Let's assume that in your production use case, you need to process 1 million sentences in a given time period. Our fine-tuned RoBERTa-base model runs efficiently on a small T4 GPU with 16GB RAM, which costs $0.6 per hour on an [Inference Endpoint](https://ui.endpoints.huggingface.co/). It has a latency of 0.13 seconds and a throughput of 61 sentences per second with batch_size=8. This leads to a total cost of $2.7 for processing 1 million sentences. 
