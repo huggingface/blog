@@ -30,7 +30,7 @@ Setfit has been widely adopted by the AI developer community, with ~100k downloa
 
 ## Faster!
 
-In this blog post, we'll explain how you can accelerate inference with SetFit even further on Intel CPUs, by optimizing your SetFit model with 🤗 [Optimum Intel](https://github.com/huggingface/optimum). We’ll show how you can achieve huge throughput gains by performing a simple quantization step on your model, no training required. 
+In this blog post, we'll explain how you can accelerate inference with SetFit even further on Intel CPUs, by optimizing your SetFit model with 🤗 [Optimum Intel](https://github.com/huggingface/optimum). We’ll show how you can achieve huge throughput gains by performing a simple post-training quantization step on your model.
 This can enable production-grade deployment of SetFit solutions using Intel Xeon CPUs. Our blog is accompanied by a [notebook](https://github.com/huggingface/setfit/blob/main/notebooks/setfit-optimum-intel.ipynb) for a step-by-step walkthrough.
 
 ## Step 1: Quantize the SetFit Model using 🤗 Optimum Intel
@@ -104,7 +104,7 @@ pb = PerformanceBenchmark(
 perf_metrics = pb.run_benchmark()
 ```
 
-First, we’ll need to define a wrapper around our SetFit model which plugs in our quantized model at inference (instead of the original model body). Then, we can run the benchmark using this wrapper.
+Now let's run the benchmark on on our optimized model. We’ll first need to define a wrapper around our SetFit model which plugs in our quantized model body at inference (instead of the original model body). Then, we can run the benchmark using this wrapper.
 
 ```python
 import optimum.intel
@@ -134,6 +134,9 @@ perf_metrics.update(pb.run_benchmark())
 <p align="center">
     <img src="assets/176_setfit_optimum_intel/latency.png" width=500>
 </p>
+<p align="center">
+    <em>Accuracy vs latency at batch size=1</em>
+</p>
 
 
 |                      | bge-small (PyTorch) | bge-small (optimum intel) |
@@ -149,7 +152,7 @@ Also worth noting, the model size has shrunk by 2.85x.
     <img src="assets/176_setfit_optimum_intel/throughput.png" width=500>
 </p>
 
-We move on to our main focus, which is the reported throughput at different batch sizes.
+We move on to our main focus, which is the reported throughputs with different batch sizes.
 Here, the optimization has garnered even greater speedups. When comparing the highest achievable throughput (at any batch size), the optimized model is **6.91x faster than before!**
 
 ## References
