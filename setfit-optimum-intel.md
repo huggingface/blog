@@ -155,6 +155,11 @@ It's also worth mentioning that the model size has shrunk by 2.85x.
 We move on to our main focus, which is the reported throughputs with different batch sizes.
 Here, the optimization has garnered even greater speedups. When comparing the highest achievable throughput (at any batch size), the optimized model is **6.91x faster than before!**
 
+## Summary
+
+In this blog post, we have learned how to use quantization capabilities present in 🤗 Optimum Intel to optimize SetFit models. After running a quick and easy post-training quantization procedure, we've observed that accuracy level was preserved, while inference throughput increased by nearly 7x. This optimization method can be readily applied to any existing SetFit deployment running on Intel Xeon.
+
+
 ## References
 
 * Lewis Tunstall, Nils Reimers, Unso Eun Seo Jo, Luke Bates, Daniel Korat, Moshe Wasserblat, Oren Pereg, 2022. "Efficient Few-Shot Learning Without Prompts". https://arxiv.org/abs/2209.11055
