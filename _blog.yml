@@ -3449,3 +3449,12 @@
     - llm
     - nlp
     - tgi
+
+- local: amd_pervasive_developer_ai_contest
+  title: "AMD Pervasive AI Developer Contest!"
+  author: guruprasadmp
+  thumbnail: /blog/assets/amd_pervasive_developer_ai_contest/amd_developer_general_abstract.jpg
+  date: Feb 14, 2024
+  tags:
+    - partner
+    - amd
