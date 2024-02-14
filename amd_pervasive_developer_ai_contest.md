@@ -1,6 +1,6 @@
 ---
 title: "AMD Pervasive AI Developer Contest!"
-thumbnail: 
+thumbnail: assets/amd_pervasive_developer_ai_contest/amd_developer_general_abstract.jpg
 authors:
 - user: guruprasadmp
 ---
