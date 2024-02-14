@@ -9,6 +9,7 @@ authors:
   guest: true
 - user: moshew
   guest: true
+- user: echarlaix
 ---
 
 # Blazing Fast SetFit Inference on Intel Xeon
