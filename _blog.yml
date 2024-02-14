@@ -3458,3 +3458,17 @@
   tags:
     - partner
     - amd
+
+- local: setfit-optimum-intel
+  title: "Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon"
+  author: dkorat
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: Feb 14, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community
