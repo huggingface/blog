@@ -3451,7 +3451,7 @@
     - tgi
 
 - local: setfit-optimum-intel
-  title: "Blazing Fast SetFit Inference on Intel Xeon"
+  title: "Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon"
   author: dkorat
   guest: true
   thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png

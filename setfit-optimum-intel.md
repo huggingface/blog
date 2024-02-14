@@ -1,5 +1,5 @@
 ---
-title: "Blazing Fast SetFit Inference on Intel Xeon"
+title: "Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon"
 thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
 - user: dkorat
@@ -12,7 +12,7 @@ authors:
 - user: echarlaix
 ---
 
-# Blazing Fast SetFit Inference on Intel Xeon
+# Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon
 
 SetFit is a promising solution for a common modeling problem: how to deal with data that has few to no labels. Developed with Hugging Face’s research partners at [Intel Labs](https://www.intel.com/content/www/us/en/research/overview.html) and the [UKP Lab](https://www.informatik.tu-darmstadt.de/ukp/ukp_home/index.en.jsp), SetFit is an efficient framework for few-shot fine-tuning of [Sentence Transformers](https://sbert.net/) models. 
 
