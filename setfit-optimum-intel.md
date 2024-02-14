@@ -16,7 +16,7 @@ authors:
 
 SetFit is a promising solution for a common modeling problem: how to deal with data that has few to no labels. Developed with Hugging Face’s research partners at [Intel Labs](https://www.intel.com/content/www/us/en/research/overview.html) and the [UKP Lab](https://www.informatik.tu-darmstadt.de/ukp/ukp_home/index.en.jsp), SetFit is an efficient framework for few-shot fine-tuning of [Sentence Transformers](https://sbert.net/) models. 
 
-SetFit achieves high accuracy with little labeled data - for example, with only 8 labeled examples per class on the Customer Reviews (CR) sentiment dataset, SetFit is competitive with fine-tuning RoBERTa Large on the full training set of 3k examples 🤯!
+SetFit achieves high accuracy with little labeled data - for example, SetFit [outperforms](https://arxiv.org/pdf/2311.06102.pdf) GPT-3.5 in 3-shot prompting and with 5 shot it also outperforms 3-shot GPT-4 on the Banking 77 financial intent dataset.
 
 Compared to LLM based methods, SetFit has two unique advantages:
 
