@@ -30,7 +30,7 @@ Setfit has been widely adopted by the AI developer community, with ~100k downloa
 ## Faster!
 
 In this blog post, we'll explain how you can accelerate inference with SetFit even further on Intel CPUs, by optimizing your SetFit model with 🤗 [Optimum Intel](https://github.com/huggingface/optimum). We’ll show how you can achieve huge throughput gains by performing a simple quantization step on your model, no training required. 
-This can enable production-grade deployment of SetFit solutions using Intel Xeon CPUs. Our blog is accompanied by a [notebook](https://github.com/danielkorat/setfit/blob/faster-optimum-intel-nb/notebooks/setfit-optimum-intel.ipynb) for a step-by-step walkthrough.
+This can enable production-grade deployment of SetFit solutions using Intel Xeon CPUs. Our blog is accompanied by a [notebook](https://github.com/huggingface/setfit/blob/main/notebooks/setfit-optimum-intel.ipynb) for a step-by-step walkthrough.
 
 ## Step 1: Quantize the SetFit Model using 🤗 Optimum Intel
 
@@ -82,7 +82,7 @@ That’s it! We now have a local copy of our quantized SetFit model. Let’s tes
 
 ## Step 2: Benchmark Inference
 
-In our [notebook](https://github.com/danielkorat/setfit/blob/faster-optimum-intel-nb/notebooks/setfit-optimum-intel.ipynb), we’ve set up a `PerformanceBenchmark` class to compute model latency and throughput, as well as an accuracy measure. Let’s use it to benchmark the original model (with PyTorch backend) and our newly optimized model.
+In our [notebook](https://github.com/huggingface/setfit/blob/main/notebooks/setfit-optimum-intel.ipynb), we’ve set up a `PerformanceBenchmark` class to compute model latency and throughput, as well as an accuracy measure. Let’s use it to benchmark the original model (with PyTorch backend) and our newly optimized model.
 
 Load our test dataset, `sst2`, and run the benchmark on the original model:
 
