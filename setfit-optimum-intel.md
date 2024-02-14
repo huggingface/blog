@@ -146,7 +146,7 @@ perf_metrics.update(pb.run_benchmark())
 
 
 When inspecting the performance at batch size 1, there’s a **3.68x reduction in latency** with our optimized model. Note that this is achieved with virtually no drop in accuracy! 
-Also worth noting, the model size has shrunk by 2.85x. 
+It's also worth mentioning that the model size has shrunk by 2.85x. 
 
 <p align="center">
     <img src="assets/176_setfit_optimum_intel/throughput.png" width=500>
