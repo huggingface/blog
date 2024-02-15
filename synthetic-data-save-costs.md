@@ -12,7 +12,7 @@ authors:
 
 Should you fine-tune your own model or use an LLM API? Creating your own model puts you in full control but requires expertise in data collection, training, and deployment. LLM APIs are much easier to use but force you to send your data to a third party and create costly dependencies on LLM providers. This blog post shows how you can combine the convenience of LLMs with the control and efficiency of customized models.
 
-In a case study on identifying investor sentiment in the news, we show how to use an open-source LLM to create synthetic data to train your customized model in a few steps. Our resulting custom RoBERTa model can analyze a large news corpus for around $2.7 compared to $3061 with GPT4; emits around 0.12 kg CO2 compared to very roughly 735 to 1100 kg CO2 with GPT4; with a latency of 0.13 seconds compared to often multiple seconds with GPT4; while performing on par with GPT4 at identifying investor sentiment (both 94% accuracy and 0.94 F1 macro).
+In a case study on identifying investor sentiment in the news, we show how to use an open-source LLM to create synthetic data to train your customized model in a few steps. Our resulting custom RoBERTa model can analyze a large news corpus for around $2.7 compared to $3061 with GPT4; emits around 0.12 kg CO2 compared to very roughly 735 to 1100 kg CO2 with GPT4; with a latency of 0.13 seconds compared to often multiple seconds with GPT4; while performing on par with GPT4 at identifying investor sentiment (both 94% accuracy and 0.94 F1 macro). We provide [reuseable notebooks](https://github.com/MoritzLaurer/synthetic-data-blog/tree/main), which you can apply to your own use cases. 
 
 
 <p align="center">
@@ -34,7 +34,7 @@ In a case study on identifying investor sentiment in the news, we show how to us
 
 ## 1. The problem: There is no data for your use-case
 
-Imagine your boss asking you to build a sentiment analysis system for your company. You will find 100,000+ datasets on the Hugging Face Hub, 480~ of which have the word “sentiment” in the title, covering sentiment on Twitter, in poems, or in Hebrew. This is great, but if, for example, you work in a financial institution and you need to track sentiment towards the specific brands in your portfolio, none of these datasets are useful for your task. With the millions of tasks companies could tackle with machine learning, it’s unlikely that someone already collected and published data on the exact use case your company is trying to solve. 
+Imagine your boss asking you to build a sentiment analysis system for your company. You will find 100,000+ datasets on the Hugging Face Hub, 450~ of which have the word “sentiment” in the title, covering sentiment on Twitter, in poems, or in Hebrew. This is great, but if, for example, you work in a financial institution and you need to track sentiment towards the specific brands in your portfolio, none of these datasets are useful for your task. With the millions of tasks companies could tackle with machine learning, it’s unlikely that someone already collected and published data on the exact use case your company is trying to solve. 
 
 Given this lack of task-specific datasets and models, many people turn to general-purpose LLMs. These models are so large and general that they can tackle most tasks out of the box with impressive accuracy. Their easy-to-use APIs eliminate the need for expertise in fine-tuning and deployment. Their main disadvantages are size and control: with hundreds of billions or trillions of parameters, these models are inefficient and only run on compute clusters controlled by a few companies.
 
@@ -149,8 +149,8 @@ generation_params = dict(
     top_p=0.90,
     temperature=0.8,
     max_new_tokens=128,
-	return_full_text=False,
-	use_cache=False
+    return_full_text=False,
+    use_cache=False
 )
 
 def generate_text(prompt=None, generation_params=None):
@@ -187,13 +187,13 @@ We can now send our texts to the LLM for annotation. The code below sends each t
 ```python
 output_simple = []
 for text in dataset["sentence"]:
-	# add text into the prompt template
+    # add text into the prompt template
     prompt_formatted = prompt_financial_sentiment.format(text=text)
     # send text to API
     output = generate_text(
         prompt=prompt_formatted, generation_params=generation_params
     )
-	# clean output
+    # clean output
     output_cl = clean_output(output, random_choice=True)
     output_simple.append(output_cl)
 ```
@@ -204,7 +204,7 @@ Based on this output, we can now calculate metrics to see how accurately the mod
 from sklearn.metrics import classification_report
 
 def compute_metrics(label_experts, label_pred):
-	# classification report gives us both aggregate and per-class metrics 
+    # classification report gives us both aggregate and per-class metrics 
     metrics_report = classification_report(
         label_experts, label_pred, digits=2, output_dict=True, zero_division='warn'
     )
@@ -396,7 +396,7 @@ With GPT models, we can calculate inference costs by counting tokens. Processing
 
 Training compute costs tend to be less relevant, as LLMs can often be used out-of-the-box without fine-tuning, and the fine-tuning costs of smaller models are relatively small (fine-tuning RoBERTa-base costs less than $1). Only in very few cases do you need to invest in pre-training a model from scratch. Training costs can become relevant when fine-tuning a larger generative LLM to specialize it in a specific generative task.
 
-Third, required investments in time and expertise. This is the main strong point of LLM APIs. It is significantly easier to send instructions to an API than to collect data, fine-tune a custom model, and deploy it. This is exactly where using an LLM API to create synthetic data becomes important. Creating good training data becomes significantly easier. Fine-tuning and deployment can then be handled by services like AutoTrain and dedicated Inference Endpoints.
+Third, required investments in time and expertise. This is the main strong point of LLM APIs. It is significantly easier to send instructions to an API than to manually collect data, fine-tune a custom model, and deploy it. This is exactly where using an LLM API to create synthetic data becomes important. Creating good training data becomes significantly easier. Fine-tuning and deployment can then be handled by services like AutoTrain and dedicated Inference Endpoints.
 
 Fourth, control. This is probably the main disadvantage of LLM APIs. By design, LLM APIs make you dependent on the LLM API provider. You need to send your sensitive data to someone else’s servers and you cannot control the reliability and speed of your system. Training your own model lets you choose how and where to deploy it. 
 
@@ -404,7 +404,7 @@ Lastly, environmental impact. It's very difficult to estimate the energy consump
 
 ## Conclusion
 
-We have shown the enormous benefits of using an LLM to create synthetic data to train a smaller, more efficient model. While this example only treats investor sentiment classification, the same pipeline could be applied to many other tasks, from other classification tasks (e.g. customer intent detection or harmful content detection), to token classification (e.g. named entity recognition or PII detection) to generative tasks (e.g. summarization or question answering). 
+We have shown the enormous benefits of using an LLM to create synthetic data to train a smaller, more efficient model. While this example only treats investor sentiment classification, the same pipeline could be applied to many other tasks, from other classification tasks (e.g. customer intent detection or harmful content detection), to token classification (e.g. named entity recognition or PII detection), or generative tasks (e.g. summarization or question answering). 
 
 In 2024, it has never been easier for companies to create their own efficient models, control their own data and infrastructure, reduce CO2 emissions, and save compute costs and time without having to compromise on accuracy.
 
