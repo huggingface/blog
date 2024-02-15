@@ -28,7 +28,7 @@ In a case study on identifying investor sentiment in the news, we show how to us
   - [3.2 Compare the open-source model to proprietary models](#32-compare-the-open-source-model-to-proprietary-models)
   - [3.3 Understand and validate your (synthetic) data](#33-understand-and-validate-your-synthetic-data)
   - [3.3 Tune your efficient \& specialized model with AutoTrain](#33-tune-your-efficient--specialized-model-with-autotrain)
-  - [3.4 Performance and cost comparison](#34-performance-and-cost-comparison)
+  - [3.4 Pros and cons of different approaches](#34-pros-and-cons-of-different-approaches)
 - [Conclusion](#conclusion)
 
 
@@ -373,19 +373,22 @@ On the Hugging Face website, we first click on "Spaces" at the top and then "Cre
 
 If you want, you can also use AutoTrain entirely locally on your own hardware, see our [documentation](https://huggingface.co/docs/autotrain/index). Advanced users can, of course, always write their own training scripts, but with these default hyperparameters, the results with AutoTrain should be sufficient for many classification tasks. 
 
-### 3.4 Performance and cost comparison
+How well does our resulting fine-tuned ~0.13B parameter RoBERTa-base model perform compared to much larger LLMs? The bar chart below shows that the custom model fine-tuned on 1811 texts achieves 94% accuracy - the same as its teacher Mixtral and GPT4! A small model could never compete with a much larger LLM out-of-the-box, but fine-tuning it on some high-quality data brings it to the same level of performance for the task it is specialized in. 
 
-How well does our custom model perform? And what are the overall pros and cons of the three approaches we discussed in the beginning: (1) manually creating your own model, (2) only using an LLM API, or (3) using an LLM API to create synthetic data for a custom model? The table below displays the trade-offs across different factors and we discuss different metrics based on our example dataset underneath. 
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/176_synthetic-data-save-costs/fig_mixtral_gpt_roberta.png" alt="fig_mixtral_gpt_roberta" width=95%>
+</p>
+
+
+### 3.4 Pros and cons of different approaches
+
+What are the overall pros and cons of the three approaches we discussed in the beginning: (1) manually creating your own data and model, (2) only using an LLM API, or (3) using an LLM API to create synthetic data for a specialized model? The table below displays the trade-offs across different factors and we discuss different metrics based on our example dataset underneath. 
 
 <p align="center">
     <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=85%>
 </p>
 
-Let's start with task performance. How does the small fine-tuned ~0.13B parameter RoBERTa-base model compare to the much larger LLMs? The bar chart below shows that the custom model fine-tuned on 1811 texts achieves 94% accuracy - the same as its teacher Mixtral and GPT4! A small model could never compete with a much larger LLM out-of-the-box, but fine-tuning it on some high-quality data brings it to the same level of performance. The fine-tuned model can only do the one specific task we have trained it to do, but it does it very well. It would be trivial to create more training data to adapt the model to new domains or more complex tasks.
-
-<p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/176_synthetic-data-save-costs/fig_mixtral_gpt_roberta.png" alt="fig_mixtral_gpt_roberta" width=95%>
-</p>
+Let's start with task performance. As demonstrated above, the specialized model performs on par with much larger LLMs. The fine-tuned model can only do the one specific task we have trained it to do, but it does this specific task very well. It would be trivial to create more training data to adapt the model to new domains or more complex tasks. Thanks to synthetic data from LLMs, low performance due to lack of specialized data is not a problem anymore.
 
 Second, compute costs and inference speed. The main compute costs in practice will be inference, i.e. running the model after it has been trained. Let's assume that in your production use case, you need to process 1 million sentences in a given time period. Our fine-tuned RoBERTa-base model runs efficiently on a small T4 GPU with 16GB RAM, which costs $0.6 per hour on an [Inference Endpoint](https://ui.endpoints.huggingface.co/). It has a latency of 0.13 seconds and a throughput of 61 sentences per second with `batch_size=8`. This leads to a total cost of $2.7 for processing 1 million sentences. 
 
