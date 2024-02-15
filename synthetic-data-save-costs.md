@@ -12,11 +12,11 @@ authors:
 
 Should you fine-tune your own model or use an LLM API? Creating your own model puts you in full control but requires expertise in data collection, training, and deployment. LLM APIs are much easier to use but force you to send your data to a third party and create costly dependencies on LLM providers. This blog post shows how you can combine the convenience of LLMs with the control and efficiency of customized models.
 
-In a case study on identifying investor sentiment in the news, we show how to use an open-source LLM to create synthetic data to train your customized model in a few steps. Our resulting custom RoBERTa model can analyze a large news corpus for around $2.7 compared to $3061 with GPT4; emits around 0.12 kg CO2 compared to very roughly 735 to 1100 kg CO2 with GPT4; with a latency of 0.13 seconds compared to often multiple seconds with GPT4; while performing on par with GPT4 at identifying investor sentiment (both 94% accuracy and 0.94 F1 macro). We provide [reuseable notebooks](https://github.com/MoritzLaurer/synthetic-data-blog/tree/main), which you can apply to your own use cases. 
+In a case study on identifying investor sentiment in the news, we show how to use an open-source LLM to create synthetic data to train your customized model in a few steps. Our resulting custom RoBERTa model can analyze a large news corpus for around $2.7 compared to $3061 with GPT4; emits around 0.12 kg CO2 compared to very roughly 735 to 1100 kg CO2 with GPT4; with a latency of 0.13 seconds compared to often multiple seconds with GPT4; while performing on par with GPT4 at identifying investor sentiment (both 94% accuracy and 0.94 F1 macro). We provide [reusable notebooks](https://github.com/MoritzLaurer/synthetic-data-blog/tree/main), which you can apply to your own use cases. 
 
 
 <p align="center">
-    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=85%>
+    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=95%>
 </p>
 
 
@@ -385,7 +385,7 @@ How well does our resulting fine-tuned ~0.13B parameter RoBERTa-base model perfo
 What are the overall pros and cons of the three approaches we discussed in the beginning: (1) manually creating your own data and model, (2) only using an LLM API, or (3) using an LLM API to create synthetic data for a specialized model? The table below displays the trade-offs across different factors and we discuss different metrics based on our example dataset underneath. 
 
 <p align="center">
-    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=85%>
+    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=95%>
 </p>
 
 Let's start with task performance. As demonstrated above, the specialized model performs on par with much larger LLMs. The fine-tuned model can only do the one specific task we have trained it to do, but it does this specific task very well. It would be trivial to create more training data to adapt the model to new domains or more complex tasks. Thanks to synthetic data from LLMs, low performance due to lack of specialized data is not a problem anymore.
