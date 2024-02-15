@@ -1,5 +1,5 @@
 ---
-title: "Synthetic data: saving money and carbon with open source" 
+title: "Synthetic data: save money, time and carbon with open source" 
 thumbnail: blog/assets/176_synthetic-data-save-costs/thumbnail.png
 authors:
 - user: MoritzLaurer
@@ -50,7 +50,7 @@ Imagine you are a developer in a large investment firm tasked with monitoring ec
 
 1. You could fine-tune your own model. This requires writing annotation instructions, creating an annotation interface, recruiting (crowd) workers, introducing quality assurance measures to handle low-quality data, fine-tuning a model on this data, and deploying it.
 
-2. Or you could send your data with instructions to an LLM API. You skip fine-tuning and deployment entirely, and you reduce the data creation process to writing instructions (a prompt) and sending them to an “LLM annotator” behind an API.
+2. Or you could send your data with instructions to an LLM API. You skip fine-tuning and deployment entirely, and you reduce the data analysis process to writing instructions (prompts), which you send to an “LLM annotator” behind an API. In this case, the LLM API is your final inference solution and you use the LLM's outputs directly for your analysis. 
 
 Although Option 2 is more expensive at inference time and requires you to send sensitive data to a third party, it is significantly easier to set up than Option 1 and, therefore, used by many developers. 
 
@@ -123,7 +123,9 @@ TEXT: {text}
 Label: """
 ```
 
-This annotation instruction can now be passed to an LLM API. For this example, we use `Mixtral-8x7B-Instruct-v0.1` via the free HF [serverless Inference Endpoints API](https://huggingface.co/docs/api-inference/index). The API is ideal for testing popular models. We login with the `huggingface_hub` library to easily and safely handle our API token. Alternatively, you can also define your token as an environment variable (see the [documentation](https://huggingface.co/docs/huggingface_hub/quick-start#authentication)).
+This annotation instruction can now be passed to an LLM API. For this example, we use `Mixtral-8x7B-Instruct-v0.1` via the free Hugging Face [serverless Inference API](https://huggingface.co/docs/api-inference/index). The API is ideal for testing popular models. Note that you might encounter rate limits if you send too much data to the free API, as it is shared among many users. For larger workloads, we recommend creating a [dedicated Inference Endpoint](https://huggingface.co/docs/inference-endpoints/index). A dedicated Inference Endpoint is essentially your own personal paid API, which you can flexibly turn on and off. 
+
+We login with the `huggingface_hub` library to easily and safely handle our API token. Alternatively, you can also define your token as an environment variable (see the [documentation](https://huggingface.co/docs/huggingface_hub/quick-start#authentication)).
 
 ```python
 # you need a huggingface account and create a token here: https://huggingface.co/settings/tokens
@@ -139,7 +141,7 @@ import os
 import requests
 
 # Choose your LLM annotator
-# find available LLMs available via the free API via:  client.list_deployed_models("text-generation-inference")
+# to find available LLMs see: https://huggingface.co/docs/huggingface_hub/main/en/package_reference/inference_client#huggingface_hub.InferenceClient.list_deployed_models
 API_URL = "https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1"
 
 # docs on different parameters: https://huggingface.co/docs/api-inference/detailed_parameters#text-generation-task
@@ -147,8 +149,8 @@ generation_params = dict(
     top_p=0.90,
     temperature=0.8,
     max_new_tokens=128,
-		return_full_text=False,
-		use_cache=False
+	return_full_text=False,
+	use_cache=False
 )
 
 def generate_text(prompt=None, generation_params=None):
@@ -157,10 +159,10 @@ def generate_text(prompt=None, generation_params=None):
         "parameters": {**generation_params}
     }
     response = requests.post(
-				API_URL, 
-				headers={"Authorization": f"Bearer {huggingface_hub.get_token()}"}, 
-				json=payload
-		)
+        API_URL, 
+        headers={"Authorization": f"Bearer {huggingface_hub.get_token()}"}, 
+        json=payload
+    )
     return response.json()[0]["generated_text"]
 ```
 
@@ -196,7 +198,7 @@ for text in dataset["sentence"]:
     output_simple.append(output_cl)
 ```
 
-Based on this output, we can now calculate metrics to see how accurately the model did the task without being trained on the task.
+Based on this output, we can now calculate metrics to see how accurately the model did the task without being trained on it.
 
 ```python
 from sklearn.metrics import classification_report
@@ -353,7 +355,7 @@ In practice, whatever annotator you use (human annotators or LLMs), you can only
 
 Fortunately, data validation has become significantly easier over the past years with open-source tools: [Argilla](https://argilla.io/) provides a free interface for validating and cleaning unstructured LLM outputs; [LabelStudio](https://labelstud.io/) enables you to annotate data in many modalities; and [CleanLab](https://cleanlab.ai/) provides an interface for annotating and automatically cleaning structured data; for quick and simple validation, it can also be fine to just annotate in a simple Excel file. 
 
-It's essential to spend some time annotating texts to get a feel for the data and its ambiguities. You will quickly learn that the model made some mistakes, but there will also be several examples where the correct label is unclear and some texts where you agree more with the decision of the LLM than with the experts who created the dataset. These mistakes and ambiguities are a normal part of dataset creation. In fact, there are actually only very few real-world tasks where the human expert baseline is 100% agreement. It's an old insight recently "rediscovered" by the machine learning literature that human data is a faulty gold standard ([Krippendorf 2004](https://books.google.de/books/about/Content_Analysis.html?id=q657o3M3C8cC&redir_esc=y) , [Hosking et al. 2024](https://arxiv.org/pdf/2309.16349.pdf)).
+It's essential to spend some time annotating texts to get a feel for the data and its ambiguities. You will quickly learn that the model made some mistakes, but there will also be several examples where the correct label is unclear and some texts where you agree more with the decision of the LLM than with the experts who created the dataset. These mistakes and ambiguities are a normal part of dataset creation. In fact, there are actually only very few real-world tasks where the human expert baseline is 100% agreement. It's an old insight recently "rediscovered" by the machine learning literature that human data is a faulty gold standard ([Krippendorf 2004](https://books.google.de/books/about/Content_Analysis.html?id=q657o3M3C8cC&redir_esc=y), [Hosking et al. 2024](https://arxiv.org/pdf/2309.16349.pdf)).
 
 After less than an hour in the annotation interface, we gained a better understanding of our data and corrected some mistakes. For reproducibility and to demonstrate the quality of purely synthetic data, however, we continue using the uncleaned LLM annotations in the next step.
 
@@ -373,19 +375,19 @@ If you want, you can also use AutoTrain entirely locally on your own hardware, s
 
 ### 3.4 Performance and cost comparison
 
-How do these different approaches compare? The table below displays the trade-offs across different factors and we discuss different metrics based on our example dataset underneath. 
+How well does our custom model perform? And what are the overall pros and cons of the three approaches we discussed in the beginning: (1) manually creating your own model, (2) only using an LLM API, or (3) using an LLM API to create synthetic data for a custom model? The table below displays the trade-offs across different factors and we discuss different metrics based on our example dataset underneath. 
 
 <p align="center">
     <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=85%>
 </p>
 
-Let's start with task performance. How does the small fine-tuned ~0.13B parameter RoBERTa-base model compare to the much larger LLMs? The bar chart below shows that the custom model fine-tuned on 1811 texts performs on par with the LLMs, and it would be trivial to create more training data. A small model could never compete with a much larger LLM out-of-the-box, but fine-tuning it on some high-quality data brings it to the same level of performance. The fine-tuned model can only do the one specific task we have trained it to do, but it does it very well.
+Let's start with task performance. How does the small fine-tuned ~0.13B parameter RoBERTa-base model compare to the much larger LLMs? The bar chart below shows that the custom model fine-tuned on 1811 texts achieves 94% accuracy - the same as its teacher Mixtral and GPT4! A small model could never compete with a much larger LLM out-of-the-box, but fine-tuning it on some high-quality data brings it to the same level of performance. The fine-tuned model can only do the one specific task we have trained it to do, but it does it very well. It would be trivial to create more training data to adapt the model to new domains or more complex tasks.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/176_synthetic-data-save-costs/fig_mixtral_gpt_roberta.png" alt="fig_mixtral_gpt_roberta" width=95%>
 </p>
 
-Second, compute costs and inference speed. The main compute costs in practice will be inference, i.e. running the model after it has been trained. Let's assume that in your production use case, you need to process 1 million sentences in a given time period. Our fine-tuned RoBERTa-base model runs efficiently on a small T4 GPU with 16GB RAM, which costs $0.6 per hour on an [Inference Endpoint](https://ui.endpoints.huggingface.co/). It has a latency of 0.13 seconds and a throughput of 61 sentences per second with batch_size=8. This leads to a total cost of $2.7 for processing 1 million sentences. 
+Second, compute costs and inference speed. The main compute costs in practice will be inference, i.e. running the model after it has been trained. Let's assume that in your production use case, you need to process 1 million sentences in a given time period. Our fine-tuned RoBERTa-base model runs efficiently on a small T4 GPU with 16GB RAM, which costs $0.6 per hour on an [Inference Endpoint](https://ui.endpoints.huggingface.co/). It has a latency of 0.13 seconds and a throughput of 61 sentences per second with `batch_size=8`. This leads to a total cost of $2.7 for processing 1 million sentences. 
 
 With GPT models, we can calculate inference costs by counting tokens. Processing the tokens in 1 million sentences would cost ~$153 with GPT3.5 and ~$3061 with GPT4. The latency and throughput for these models are more complicated to calculate as they vary throughout the day depending on the current server load. Anyone working with GPT4 knows, however, that latency can often be multiple seconds and is rate limited. Note that speed is an issue for any LLM (API), including open-source LLMs. Many generative LLMs are simply too large to be fast.
 
