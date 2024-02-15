@@ -64,6 +64,7 @@ We start by installing a few required libraries.
 
 ```python
 !pip install datasets  # for loading the example dataset
+!pip install huggingface_hub  # for secure token handling
 !pip install requests  # for making API requests
 !pip install scikit-learn  # for evaluation metrics
 !pip install pandas  # for post-processing some data
@@ -122,7 +123,16 @@ TEXT: {text}
 Label: """
 ```
 
-This annotation instruction can now be passed to an LLM API. For this example, we use `Mixtral-8x7B-Instruct-v0.1` via the free HF [serverless Inference Endpoints API](https://huggingface.co/docs/api-inference/index). The API is ideal for testing popular models. We define a simple `generate_text` function for sending our prompt and data to the API. 
+This annotation instruction can now be passed to an LLM API. For this example, we use `Mixtral-8x7B-Instruct-v0.1` via the free HF [serverless Inference Endpoints API](https://huggingface.co/docs/api-inference/index). The API is ideal for testing popular models. We login with the `huggingface_hub` library to easily and safely handle our API token. Alternatively, you can also define your token as an environment variable (see the [documentation](https://huggingface.co/docs/huggingface_hub/quick-start#authentication)).
+
+```python
+# you need a huggingface account and create a token here: https://huggingface.co/settings/tokens
+# we can then safely call on the token with huggingface_hub.get_token()
+import huggingface_hub
+huggingface_hub.login()
+```
+
+We then define a simple `generate_text` function for sending our prompt and data to the API. 
 
 ```python
 import os
@@ -131,11 +141,6 @@ import requests
 # Choose your LLM annotator
 # find available LLMs available via the free API via:  client.list_deployed_models("text-generation-inference")
 API_URL = "https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1"
-
-# Create a HF account to get your free token for the LLM API 
-# at https://huggingface.co/settings/tokens
-# Note that explicitly writing your token in scripts is not good practice. 
-HF_TOKEN = os.environ["HF_TOKEN"]  
 
 # docs on different parameters: https://huggingface.co/docs/api-inference/detailed_parameters#text-generation-task
 generation_params = dict(
@@ -153,7 +158,7 @@ def generate_text(prompt=None, generation_params=None):
     }
     response = requests.post(
 				API_URL, 
-				headers={"Authorization": f"Bearer {HF_TOKEN}"}, 
+				headers={"Authorization": f"Bearer {huggingface_hub.get_token()}"}, 
 				json=payload
 		)
     return response.json()[0]["generated_text"]
