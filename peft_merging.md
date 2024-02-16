@@ -71,7 +71,7 @@ Let’s continue with the example from the previous sub-sections. Here, first th
 
 $delta_{merged} = weight_1 * scaling_1 * B_1A_1 + weight_2 * scaling_2 * B_2A_2$
 
-After getting the above-merged delta weight, SVD (singular value decomposition) is applied to get the approximates $A_{merged\_approx}$ and $B_{merged\_approx}$:
+After getting the above-merged delta weight, SVD (singular value decomposition) is applied to get the approximates $A_{merged-approx}$ and $B_{merged-approx}$:
 
 <div align="center">
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/svd_full_eqn.jpg" width=300/>
