@@ -48,7 +48,7 @@ Here, we can observe that:
 $B_{merged}A_{merged} = weight_1 * scaling_1 * B_1A_1 + weight_2 * scaling_2 * B_2A_2$
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
-🧠 This is the exact weighted merging of LoRA adapters. It is also available via <a href=https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference>PEFT integration of Diffusers</a> when you call <code>set_adapters()<code>  wherein instead of creating a new merged adapter, the active adapters are combined sequentially, as shown on the right-hand side of the above equation. When using this method, it allows for participating LoRA adapters to have different ranks.
+🧠 This is the exact weighted merging of LoRA adapters. It is also available via <a href=https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference>PEFT integration of Diffusers</a> when you call <code>set_adapters()</code>  wherein instead of creating a new merged adapter, the active adapters are combined sequentially, as shown on the right-hand side of the above equation. When using this method, it allows for participating LoRA adapters to have different ranks.
 </div>
 
 ### Linear/Task Arithmetic (`linear`)
@@ -86,7 +86,7 @@ $Vh = Vh[:new\_rank, :]$
 $A_{merged\_approx}, B_{merged\_approx} = Vh, U$
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
-🧠 Similar to <code>cat<code> method, this method also allows for LoRA adapters with different rank. In addition one can choose the rank for the resultant merged LoRA adapter which defaults to the maximum rank among the participating LoRA adapters. A limitation of this approach is that it require a lot of GPU memory for performing the SVD operation.
+🧠 Similar to <code>cat</code> method, this method also allows for LoRA adapters with different rank. In addition one can choose the rank for the resultant merged LoRA adapter which defaults to the maximum rank among the participating LoRA adapters. A limitation of this approach is that it require a lot of GPU memory for performing the SVD operation.
 </div>
 
 ### TIES (`ties` , `ties_svd` )
