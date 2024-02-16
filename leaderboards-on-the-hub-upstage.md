@@ -38,12 +38,12 @@ The Open Ko-LLM Leaderboard adopts the following five types of evaluation method
 - **Ko-CommonGEN V2**: A newly made benchmark for the Open Ko-LLM Leaderboard assesses whether LLMs can generate outputs that align with Korean common sense given certain conditions, testing the model’s capacity to produce contextually and culturally relevant outputs in the Korean language.
 
 ## A leaderboard in action: the barometer of Ko-LLM
-The Open Ko-LLM Leaderboard has exceeded expectations, with over 1,000 models submitted. In comparison, the Original English Open LLM Leaderboard now hosts over 4,000 models. The Ko-LLM leaderboard has achieved a quarter of that number in just five months of its launch. We're grateful for this widespread participation, which shows the vibrant interest in Korean LLM development.
+The Open Ko-LLM Leaderboard has exceeded expectations, with over 1,000 models submitted. In comparison, the Original English Open LLM Leaderboard now hosts over 4,000 models. The Ko-LLM leaderboard has achieved a quarter of that number in just five months after its launch. We're grateful for this widespread participation, which shows the vibrant interest in Korean LLM development.
 
 Of particular note is the diverse competition, encompassing individual researchers, corporations, and academic institutions such as KT, Lotte Information & Communication, Yanolja, MegaStudy Maum AI, 42Maru, the Electronics and Telecommunications Research Institute (ETRI), KAIST, and Korea University. 
 One standout submission is KT's Mi:dm 7B model, which not only topped the rankings among models with 7B parameters or fewer but also became accessible for public use, marking a significant milestone.
 
-We also observed that more generally two types of models demonstrate strong performance on the leaderboard:
+We also observed that, more generally, two types of models demonstrate strong performance on the leaderboard:
 - models which underwent cross-lingual transfer or fine-tuning in Korean (like Upstage’s SOLAR)
 - models fine-tuned from LLaMa2, Yi, and Mistral, emphasizing the importance of leveraging solid foundational models for finetuning.
 
@@ -55,7 +55,7 @@ We recognize several limitations in current leaderboard models when considered i
 - Failure to Reflect the Real World: In B2B and B2C services, data is constantly accumulated from users or industries, and edge cases or outliers continuously arise. True competitive advantage lies in responding well to these challenges, yet current leaderboard systems lack the means to measure this capability. Real-world data is perpetually generated, changing, and evolving.
 - Questionable Meaningfulness of Competition: Many models are specifically tuned to perform well on the test sets, potentially leading to another form of overfitting within the test set. Thus, the current leaderboard system operates in a leaderboard-centric manner rather than being real-world-centric.
 
-We therefore plan to further develop the leaderboard so that it addresses these issues, and becomes a trusted resource widely recognized by many. By incorporating a variety of benchmarks that have a strong correlation with real-world use cases, we aim to make the leaderboard not only more relevant but also genuinely helpful to businesses. We aspire to bridge the gap between academic research and practical application, and will continuously updates and enhance the leaderboard, through feedback from both the research community and industry practitioners to ensure that the benchmarks remain rigorous, comprehensive, and up-to-date. Through these efforts, we hope to contribute to the advancement of the field by providing a platform that accurately measures and drives the progress of large language models in solving practical and impactful problems.
+We therefore plan to further develop the leaderboard so that it addresses these issues, and becomes a trusted resource widely recognized by many. By incorporating a variety of benchmarks that have a strong correlation with real-world use cases, we aim to make the leaderboard not only more relevant but also genuinely helpful to businesses. We aspire to bridge the gap between academic research and practical application, and will continuously update and enhance the leaderboard, through feedback from both the research community and industry practitioners to ensure that the benchmarks remain rigorous, comprehensive, and up-to-date. Through these efforts, we hope to contribute to the advancement of the field by providing a platform that accurately measures and drives the progress of large language models in solving practical and impactful problems.
 
 If you develop datasets and would like to collaborate with us on this, we’ll be delighted to talk with you!
 
