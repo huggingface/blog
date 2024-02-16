@@ -114,7 +114,7 @@ Let’s take another example, as shown below, using `magnitude_prune` method and
 
 Finally, let’s take the example of `dare_linear`  and check the resulting generations.
 
-![ad_sql](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/ad_sql.png.png)
+![ad_sql](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/ad_sql.png)
 
 We have a dedicated developer guide for these merging methods in PEFT which you can find [here](https://huggingface.co/docs/peft/developer_guides/model_merging). 
 
