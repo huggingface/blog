@@ -61,7 +61,7 @@ $A_{merged} = sqrt(weight_1 * scaling_1) * A_1+ sqrt (weight_2 * scaling_2) * A_
 
 $B_{merged} = sqrt(weight_1 * scaling_1) * B_1+ sqrt (weight_2 * scaling_2) * B_2$
 
-For more details, please refer to the [paper](https://arxiv.org/abs/2212.04089).
+For more details, please refer to the [Editing Models with Task Arithmetic](https://arxiv.org/abs/2212.04089).
 
 ### SVD (`svd`)
 
@@ -88,7 +88,7 @@ This builds upon the `linear` and `svd` methods by changing the way merged adapt
 1. `total`  which considers the magnitude as well as sign when calculating the majority sign 
 2. `frequency` which considers only the sign of the value when calculating the majority sign.
 
-For more details, refer to the [paper](https://arxiv.org/abs/2306.01708).
+For more details, refer to the [TIES-Merging: Resolving Interference When Merging Models](https://arxiv.org/abs/2306.01708).
 
 ### DARE (`dare_linear` , `dare_ties` , `dare_linear_svd` , `dare_ties_svd` )
 
