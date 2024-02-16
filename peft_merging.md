@@ -104,7 +104,7 @@ This also builds upon the `linear` and `svd` methods wherein the task weights ar
 
 ## How do I merge my LoRA adapters?
 
-In PEFT, when using LoRA, you can use the class method [`add_weighted_adapter()`](https://huggingface.co/docs/peft/main/en/package_reference/lora#peft.LoraModel.add_weighted_adapter) to try the different combining methods. For example, below you can see how we can combine three LoRA adapters using `ties` method and the resulting generations:
+In PEFT, when using LoRA, you can use the class method [`add_weighted_adapter()`](https://huggingface.co/docs/peft/main/en/package_reference/lora#peft.LoraModel.add_weighted_adapter) to try the different combining methods. For example, below you can see how we can combine three LoRA adapters using `ties` method and the resulting generations from the new merged adapter. **We can observe that merged adapter is able to retain the capabilities of individual adapters**:
 
 ![instruct_ad_sql](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/instruct_ad_sql.png)
 
