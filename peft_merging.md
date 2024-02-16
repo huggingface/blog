@@ -73,17 +73,9 @@ $delta_{merged} = weight_1 * scaling_1 * B_1A_1 + weight_2 * scaling_2 * B_2A_2$
 
 After getting the above-merged delta weight, SVD (singular value decomposition) is applied to get the approximates $A_{merged\_approx}$ and $B_{merged\_approx}$:
 
-$U, S, Vh = SVD(delta_{merged})$
-
-$U = U[:, :new\_rank]$
-
-$S = S[:new\_rank]$
-
-$U = U * diag(S)$
-
-$Vh = Vh[:new\_rank, :]$
-
-$A_{merged\_approx}, B_{merged\_approx} = Vh, U$
+<div align="center">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/svd_full_eqn.jpg" width=300/>
+</div><br>
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
 🧠 Similar to <code>cat</code> method, this method also allows for LoRA adapters with different rank. In addition one can choose the rank for the resultant merged LoRA adapter which defaults to the maximum rank among the participating LoRA adapters. A limitation of this approach is that it require a lot of GPU memory for performing the SVD operation.
