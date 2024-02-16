@@ -114,6 +114,10 @@ Let’s take another example, as shown below, using `magnitude_prune` method and
 
 ![mental_health_hinglish](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/mental_health_hinglish.png)
 
+Now, what if we want to use the merged adapters capability to answer a mental health related query in Hinglish? This would require capabilities from both the adapters to be used. Below we can see the results on the query “Sad feelings ko kaise dur kare?” (Translation: How to get rid of sad feelings?). When, all adapters are disabled and the base model is used, the response starts with it being an AI followed by general suggestions. When hinglish adapter is enabled, the response is in Hinglish and short following the finetuning data but doesn’t do a good job at giving concrete suggestions to help overcome sadness. When mental_health adapter is enabled, the response is akin to what a human would say but sadly it isn’t in Hinglish. When merge adapter is enabled, we can see that the response is in Hinglish and short while giving concrete suggestions which can be found in the response of mental_health adapter such as exercising, spending time with friends, reading, meditation and focusing on positive thinking.  Therefore, we can observe that merging adapters can lead to combining their individual capabilities to support new use cases.
+
+![instruct_ad_sql](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/merged_capabilities.png)
+
 Finally, let’s take the example of `dare_linear`  and check the resulting generations.
 
 ![ad_sql](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/ad_sql.png)
