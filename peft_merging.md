@@ -317,24 +317,24 @@ We’re grateful to Le Yu and Prateek Yadav, authors of DARE and TIES, for their
 ## Citations
 
 ```
-@misc{ilharco2023editing,
-      title={Editing Models with Task Arithmetic}, 
-      author={Gabriel Ilharco and Marco Tulio Ribeiro and Mitchell Wortsman and Suchin Gururangan and Ludwig Schmidt and Hannaneh Hajishirzi and Ali Farhadi},
-      year={2023},
-      eprint={2212.04089},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+@inproceedings{
+    ilharco2023editing,
+    title={Editing models with task arithmetic},
+    author={Gabriel Ilharco and Marco Tulio Ribeiro and Mitchell Wortsman and Ludwig Schmidt and Hannaneh Hajishirzi and Ali Farhadi},
+    booktitle={The Eleventh International Conference on Learning Representations },
+    year={2023},
+    url={https://openreview.net/forum?id=6t0Kwf8-jrj}
 }
 ```
 
 ```
-@misc{yadav2023tiesmerging,
-    title={TIES-Merging: Resolving Interference When Merging Models}, 
+@inproceedings{
+    yadav2023tiesmerging,
+    title={{TIES}-Merging: Resolving Interference When Merging Models},
     author={Prateek Yadav and Derek Tam and Leshem Choshen and Colin Raffel and Mohit Bansal},
+    booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
     year={2023},
-    eprint={2306.01708},
-    archivePrefix={arXiv},
-    primaryClass={cs.LG}
+    url={https://openreview.net/forum?id=xtaX3WyCj1}
 }
 ```
 
