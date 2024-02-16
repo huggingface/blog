@@ -350,7 +350,8 @@ We’re grateful to Le Yu and Prateek Yadav, authors of DARE and TIES, for their
 ```
 
 ```
-@misc{big_vision,
+@misc{
+    mergekit,
     author = {Charles O. Goddard and contributors},
     title = {mergekit},
     year = {2023},
