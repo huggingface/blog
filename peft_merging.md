@@ -33,7 +33,7 @@ With these aspects in mind, we [shipped](https://github.com/huggingface/peft/pul
 
 In this method, the LoRA matrices are concatenated. For example, if we have 2 LoRA adapters $(A_1, B_1)$ and $(A_2, B_2)$ along with weights $weight_1$ and $weight_2$ for weighted merging of these two adapters, then the merging happens as follows:
 
-$A_{merged} = concat(weight_1*scaling_1*A_1, weight_2*scaling_2*A_2, dim=0)$
+$A_{merged} = concat(weight_1\*scaling_1\*A_1, weight_2\*scaling_2\*A_2, dim=0)$
 
 $B_{merged} = concat(B_1, B_2, dim=1)$
 
@@ -57,9 +57,9 @@ In this method, the LoRA matrices are involved in weighted sum. This is what the
 
 Let’s go through an example. Consider 2 LoRA adapters $(A_1, B_1)$ & $(A_2, B_2)$ along with weights $weight_1$ and $weight_2$ for weighted merging of these two adapters, then the merging happens as follows:
 
-$A_{merged} = sqrt(weight_1 * scaling_1)*A_1+ sqrt (weight_2*scaling_2)*A_2$
+$A_{merged} = sqrt(weight_1 * scaling_1) * A_1+ sqrt (weight_2 * scaling_2) * A_2$
 
-$B_{merged} = sqrt(weight_1 * scaling_1)*B_1+ sqrt (weight_2*scaling_2)*B_2$
+$B_{merged} = sqrt(weight_1 * scaling_1) * B_1+ sqrt (weight_2 * scaling_2) * B_2$
 
 For more details, please refer to the [paper](https://arxiv.org/abs/2212.04089).
 
@@ -71,9 +71,19 @@ Let’s continue with the example from the previous sub-sections. Here, first th
 
 $delta_{merged} = weight_1 * scaling_1 * B_1A_1 + weight_2 * scaling_2 * B_2A_2$
 
-After getting the above merged delta weight, SVD (singular value decomposition) is applied to get the approximate $A_{merged\_approx}$ and $B_{merged\_approx}$
+After getting the above-merged delta weight, SVD (singular value decomposition) is applied to get the approximates $A_{merged\_approx}$ and $B_{merged\_approx}$:
 
-$U, S, Vh = SVD(delta_{merged}) \\ U = U[:, :new\_rank] | \\ S = S[:new\_rank] \\ U = U * diag(S) \\ Vh = Vh[:new\_rank, :] \\ A_{merged\_approx}, B_{merged\_approx} = Vh, U$
+$U, S, Vh = SVD(delta_{merged})$
+
+$U = U[:, :new\_rank]$
+
+$S = S[:new\_rank]$
+
+$U = U * diag(S)$
+
+$Vh = Vh[:new\_rank, :]$
+
+$A_{merged\_approx}, B_{merged\_approx} = Vh, U$
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
 🧠 Similar to `cat` method, this method also allows for LoRA adapters with different rank. In addition one can choose the rank for the resultant merged LoRA adapter which defaults to the maximum rank among the participating LoRA adapters. A limitation of this approach is that it require a lot of GPU memory for performing the SVD operation.
