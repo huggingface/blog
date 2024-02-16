@@ -3472,3 +3472,14 @@
   tags:
     - partner
     - amd
+
+- local: leaderboards-on-the-hub-upstage
+  title: "Introducing the Open Ko-LLM Leaderboard: Leading the Korean LLM Evaluation Ecosystem"
+  author: Chanjun
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_upstage.png
+  date: Feb 2, 2024
+  tags:
+    - leaderboard
+    - guide
+    - collaboration
