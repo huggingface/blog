@@ -1,6 +1,6 @@
 ---
 title: "Synthetic data: save money, time and carbon with open source" 
-thumbnail: blog/assets/176_synthetic-data-save-costs/thumbnail.png
+thumbnail: /blog/assets/176_synthetic-data-save-costs/thumbnail.png
 authors:
 - user: MoritzLaurer
 ---
