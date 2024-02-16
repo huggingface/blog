@@ -303,7 +303,7 @@ model.add_weighted_adapter(
 
 ## Acknowledgements
 
-We’re grateful to Le Yu and Prateek Yadav, authors of DARE and TIES, for their generous feedback and guidance on the [PR](https://github.com/huggingface/peft/pull/1364). To honor their efforts, we have added them as the co-authors of the PR. 
+We’re grateful to Le Yu and Prateek Yadav, authors of DARE and TIES, for their generous feedback and guidance on the [PR](https://github.com/huggingface/peft/pull/1364). To honor their efforts, we have added them as the co-authors of the PR. Thanks to Prateek for reviewing the blog post draft as well.
 
 ## Useful links
 
