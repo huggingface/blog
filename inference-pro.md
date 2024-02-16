@@ -295,7 +295,7 @@ For more details on how to control generation, please take a look at [this secti
 
 ## Messages API
 
-All text generation models now support the Messages API, so they are compatible with OpenAI client libraries, including LangChain and LlamaIndex. The following snippet shows how to use the official `openai` client library with Code Llama:
+All text generation models now support the Messages API, so they are compatible with OpenAI client libraries, including LangChain and LlamaIndex. The following snippet shows how to use the official `openai` client library with Code Llama 70B Instruct:
 
 ```py
 from openai import OpenAI
@@ -303,7 +303,7 @@ import huggingface_hub
 
 # Initialize the client, pointing it to one of the available models
 client = OpenAI(
-    base_url="https://api-inference.huggingface.co/v1/",
+    base_url="https://api-inference.huggingface.co/models/codellama/CodeLlama-70b-Instruct-hf/v1/",
     api_key=huggingface_hub.get_token(),
 )
 chat_completion = client.chat.completions.create(
