@@ -3450,6 +3450,15 @@
     - nlp
     - tgi
 
+- local: amd_pervasive_developer_ai_contest
+  title: "AMD Pervasive AI Developer Contest!"
+  author: guruprasadmp
+  thumbnail: /blog/assets/amd_pervasive_developer_ai_contest/amd_developer_general_abstract.jpg
+  date: Feb 14, 2024
+  tags:
+    - partner
+    - amd
+
 - local: synthetic-data-save-costs
   title: "Synthetic data: save money, time and carbon with open source"
   author: MoritzLaurer
@@ -3463,12 +3472,3 @@
     - mixtral
     - inference-endpoints
     - autotrain
-
-- local: amd_pervasive_developer_ai_contest
-  title: "AMD Pervasive AI Developer Contest!"
-  author: guruprasadmp
-  thumbnail: /blog/assets/amd_pervasive_developer_ai_contest/amd_developer_general_abstract.jpg
-  date: Feb 14, 2024
-  tags:
-    - partner
-    - amd
