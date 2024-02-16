@@ -130,15 +130,15 @@ We have a dedicated developer guide for these merging methods in PEFT which you 
 
 ## Extending to text-to-image generation
 
-In this section, we show you how to take advantage of these merging methods for text-to-image generation using 🤗 Diffusers. Note that Diffusers [already relies on PEFT](https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference) for all things LoRA, including training and inference. However, currently, it’s not possible to benefit from the new merging methods when calling `[set_adapters()](https://huggingface.co/docs/diffusers/main/en/api/loaders/unet#diffusers.loaders.UNet2DConditionLoadersMixin.set_adapters)` on a Diffusers pipeline.  This is why we are [openly discussing](https://github.com/huggingface/diffusers/issues/6892) with the community how to best support it natively from within Diffusers.
+In this section, we show you how to take advantage of these merging methods for text-to-image generation using 🤗 Diffusers. Note that Diffusers [already relies on PEFT](https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference) for all things LoRA, including training and inference. However, currently, it’s not possible to benefit from the new merging methods when calling [`set_adapters()`](https://huggingface.co/docs/diffusers/main/en/api/loaders/unet#diffusers.loaders.UNet2DConditionLoadersMixin.set_adapters) on a Diffusers pipeline.  This is why we are [openly discussing](https://github.com/huggingface/diffusers/issues/6892) with the community how to best support it natively from within Diffusers.
 
-But thanks to PEFT, there’s always a way to circumvent around this. We will use the `[add_weighted_adapter()](https://huggingface.co/docs/peft/main/en/package_reference/lora#peft.LoraModel.add_weighted_adapter)` functionality for this. Precisely, these are the steps that we will take to combine the [“toy-face” LoRA](https://huggingface.co/CiroN2022/toy-face) and the [“Pixel-Art” loRA](https://huggingface.co/nerijs/pixel-art-xl), and experiment with different merging techniques:
+But thanks to PEFT, there’s always a way to circumvent around this. We will use the [`add_weighted_adapter()`](https://huggingface.co/docs/peft/main/en/package_reference/lora#peft.LoraModel.add_weighted_adapter) functionality for this. Precisely, these are the steps that we will take to combine the [“toy-face” LoRA](https://huggingface.co/CiroN2022/toy-face) and the [“Pixel-Art” loRA](https://huggingface.co/nerijs/pixel-art-xl), and experiment with different merging techniques:
 
 - Obtain `PeftModel`s from these LoRA checkpoints.
 - Merge the `PeftModel`s using the `add_weighted_adapter()` method with a merging method of our choice.
 - Assign the merged model to the respective component of the underlying `DiffusionPipeline`.
 
-Let’s see this in action. All the code shown in the parts below come from t[his Colab Notebook](https://colab.research.google.com/github/huggingface/peft/blob/main/examples/multi_adapter_examples/multi_adapter_weighted_inference_diffusers.ipynb). 
+Let’s see this in action. All the code shown in the parts below come from [this Colab Notebook](https://colab.research.google.com/github/huggingface/peft/blob/main/examples/multi_adapter_examples/multi_adapter_weighted_inference_diffusers.ipynb). 
 
 Since both the LoRA checkpoints use [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) UNet as the their base model, we will first load the UNet:
 
@@ -258,7 +258,7 @@ image
 
 ![toy_face_hacker](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/toy_face_hacker.png)
 
-Let’s try `ties_svd`  method. You can find the example notebook here:  [https://github.com/pacman100/peft-dreambooth-ui/blob/main/lora_merging.ipynb](https://github.com/pacman100/peft-dreambooth-ui/blob/main/lora_merging.ipynb).
+Let’s try `ties_svd` method. You can find the example notebook here:  [https://github.com/pacman100/peft-dreambooth-ui/blob/main/lora_merging.ipynb](https://github.com/pacman100/peft-dreambooth-ui/blob/main/lora_merging.ipynb).
 
 ```python
 pipe.unet.add_weighted_adapter(
