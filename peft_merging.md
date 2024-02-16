@@ -104,17 +104,17 @@ This also builds upon the `linear` and `svd` methods wherein the task weights ar
 
 In PEFT, when using LoRA, you can use the class method [`add_weighted_adapter`](https://huggingface.co/docs/peft/main/en/package_reference/lora#peft.LoraModel.add_weighted_adapter) to try the different combining methods. For example, below you can see how we can combine three LoRA adapters using `ties` method and the resulting generations:
 
-![instruct_ad_sql](%F0%9F%A4%97%20PEFT%20welcomes%20new%20merging%20methods%20b59330a203cd4a3d8c168833e356e16b/instruct_ad_sql.png)
+![instruct_ad_sql](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/instruct_ad_sql.png)
 
 You can find the above example in the PEFT repo’s [examples](https://github.com/huggingface/peft/blob/main/examples/multi_adapter_examples/Lora_Merging.ipynb). 
 
 Let’s take another example, as shown below, using `magnitude_prune` method and the resulting generations. 
 
-![mental_health_hinglish](%F0%9F%A4%97%20PEFT%20welcomes%20new%20merging%20methods%20b59330a203cd4a3d8c168833e356e16b/mental_health_hinglish.png)
+![mental_health_hinglish](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/mental_health_hinglish.png)
 
 Finally, let’s take the example of `dare_linear`  and check the resulting generations.
 
-![ad_sql](%F0%9F%A4%97%20PEFT%20welcomes%20new%20merging%20methods%20b59330a203cd4a3d8c168833e356e16b/ad_sql.png.png)
+![ad_sql](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/ad_sql.png.png)
 
 We have a dedicated developer guide for these merging methods in PEFT which you can find [here](https://huggingface.co/docs/peft/developer_guides/model_merging). 
 
@@ -246,7 +246,7 @@ image = pipe(prompt, num_inference_steps=30, generator=torch.manual_seed(0)).ima
 image
 ```
 
-![toy_face_hacker](%F0%9F%A4%97%20PEFT%20welcomes%20new%20merging%20methods%20b59330a203cd4a3d8c168833e356e16b/toy_face_hacker.png)
+![toy_face_hacker](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/toy_face_hacker.png)
 
 Let’s try `ties_svd`  method. You can find the example notebook here:  [https://github.com/pacman100/peft-dreambooth-ui/blob/main/lora_merging.ipynb](https://github.com/pacman100/peft-dreambooth-ui/blob/main/lora_merging.ipynb).
 
@@ -260,7 +260,7 @@ pipe.unet.add_weighted_adapter(
 )
 ```
 
-![cat_teapot](%F0%9F%A4%97%20PEFT%20welcomes%20new%20merging%20methods%20b59330a203cd4a3d8c168833e356e16b/cat_teapot.png)
+![cat_teapot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/cat_teapot.png)
 
 Now, let’s try combining two style LoRAs using `dare_linear`:
 
@@ -274,7 +274,7 @@ model.add_weighted_adapter(
 )
 ```
 
-![toy_face_pixel_art.png](%F0%9F%A4%97%20PEFT%20welcomes%20new%20merging%20methods%20b59330a203cd4a3d8c168833e356e16b/toy_face_pixel_art.png)
+![toy_face_pixel_art.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/toy_face_pixel_art.png)
 
 Now, let’s try `ties`  method with `majority_sign_method="frequency"` :
 
@@ -289,7 +289,7 @@ model.add_weighted_adapter(
 )
 ```
 
-![indian_goddess](%F0%9F%A4%97%20PEFT%20welcomes%20new%20merging%20methods%20b59330a203cd4a3d8c168833e356e16b/indian_goddess.png)
+![indian_goddess](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/indian_goddess.png)
 
 ## Observations
 
