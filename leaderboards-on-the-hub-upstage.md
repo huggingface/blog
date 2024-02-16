@@ -10,7 +10,7 @@ authors:
 ---
 
 # Introducing the Open Ko-LLM Leaderboard: Leading the Korean LLM Evaluation Ecosystem
-In the fast-evolving landscape of Large Language Models (LLMs), building an “ecosystem” has never been more important. This trend is evident in several major developments like Hugging Face's democratizing NLP and Naver's building a Generative AI ecosystem. 
+In the fast-evolving landscape of Large Language Models (LLMs), building an “ecosystem” has never been more important. This trend is evident in several major developments like Hugging Face's democratizing NLP and Upstage building a Generative AI ecosystem.
 
 Inspired by these industry milestones, in September of 2023, at Upstage we initiated the Open Ko-LLM Leaderboard. Our goal was to quickly develop and introduce an evaluation ecosystem for Korean LLM data, aligning with the global movement towards open and collaborative AI development.
 
@@ -38,7 +38,7 @@ The Open Ko-LLM Leaderboard adopts the following five types of evaluation method
 - **Ko-CommonGEN V2**: A newly made benchmark for the Open Ko-LLM Leaderboard assesses whether LLMs can generate outputs that align with Korean common sense given certain conditions, testing the model’s capacity to produce contextually and culturally relevant outputs in the Korean language.
 
 ## A leaderboard in action: the barometer of Ko-LLM
-The Open Ko-LLM Leaderboard has exceeded expectations, with over 1,000 models submitted. In comparison, the English Open LLM Leaderboard now hosts over 4,000 models. Within just five months of its launch, we've achieved a quarter of that number, a highly encouraging feat. We're incredibly grateful for this widespread participation, which shows the vibrant interest in Korean LLM development.
+The Open Ko-LLM Leaderboard has exceeded expectations, with over 1,000 models submitted. In comparison, the Original English Open LLM Leaderboard now hosts over 4,000 models. The Ko-LLM leaderboard has achieved a quarter of that number in just five months of its launch. We're grateful for this widespread participation, which shows the vibrant interest in Korean LLM development.
 
 Of particular note is the diverse competition, encompassing individual researchers, corporations, and academic institutions such as KT, Lotte Information & Communication, Yanolja, MegaStudy Maum AI, 42Maru, the Electronics and Telecommunications Research Institute (ETRI), KAIST, and Korea University. 
 One standout submission is KT's Mi:dm 7B model, which not only topped the rankings among models with 7B parameters or fewer but also became accessible for public use, marking a significant milestone.
@@ -59,12 +59,10 @@ Charting the course ahead, we therefore aim to expand the range of tasks. Althou
 
 Next, we intend to extend the range of evaluation subjects. Beyond Korean, incorporating other languages and considering the growing importance of code, we are planning to include evaluations for code language models on a separate leaderboard.
 
-Last but not least, rather than introducing entirely new plans, we believe in the importance of continuity and will continue to internally deliberate on sustainable approaches.
-
-In conclusion, similar to Chatbot Arena, we believe that evaluations in a real online environment, as opposed to benchmark-based evaluations, are highly meaningful. Even within benchmark-based evaluations, there is a need for benchmarks to be updated monthly or for the benchmarks to more specifically assess domain-specific aspects.
+In conclusion, we believe that evaluations in a real online environment, as opposed to benchmark-based evaluations, are highly meaningful. Even within benchmark-based evaluations, there is a need for benchmarks to be updated monthly or for the benchmarks to more specifically assess domain-specific aspects.
 
 ## Many thanks to our partners
 The journey of Open Ko-LLM Leaderboard began with a collaboration agreement to develop a Korean-style leaderboard, in partnership with Upstage and the National Information Society Agency (NIA), a key national institution in Korea. This partnership marked the starting signal, and within just a month, we were able to launch the leaderboard. 
 To validate common-sense reasoning, we collaborated with Professor Heuiseok Lim's research team at Korea University to incorporate KoCommonGen V2 as an additional task for the leaderboard.
-Building a robust infrastructure was crucial for success. To that end, we are grateful to Korea Telecom (KT) for their generous support of GPU resources and to Hugging Face for their recent CPU upgrade support. It's encouraging that Open Ko-LLM Leaderboard has established a direct line of communication with Hugging Face, a global leader in natural language processing, and we're in continuous discussion to push new initiatives forward.
+Building a robust infrastructure was crucial for success. To that end, we are grateful to Korea Telecom (KT) for their generous support of GPU resources and to Hugging Face for their continued support. It's encouraging that Open Ko-LLM Leaderboard has established a direct line of communication with Hugging Face, a global leader in natural language processing, and we're in continuous discussion to push new initiatives forward.
 Moreover, the Open Ko-LLM Leaderboard boasts a prestigious consortium of credible partners: the National Information Society Agency (NIA), Upstage, KT, and Korea University. The participation of these institutions, especially the inclusion of a national agency, lends significant authority and trustworthiness to the endeavor, underscoring its potential as a cornerstone in the academic and practical exploration of language models.
