@@ -16,7 +16,7 @@ In a case study on identifying investor sentiment in the news, we show how to us
 
 
 <p align="center">
-    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=95%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/176_synthetic-data-save-costs/table_pros_cons.png" alt="table_pros_cons" width=95%>
 </p>
 
 
@@ -385,7 +385,7 @@ How well does our resulting fine-tuned ~0.13B parameter RoBERTa-base model perfo
 What are the overall pros and cons of the three approaches we discussed in the beginning: (1) manually creating your own data and model, (2) only using an LLM API, or (3) using an LLM API to create synthetic data for a specialized model? The table below displays the trade-offs across different factors and we discuss different metrics based on our example dataset underneath. 
 
 <p align="center">
-    <img src="https://github.com/huggingface/blog/blob/moritzlaurer/synthetic-data-save-costs/assets/176_synthetic-data-save-costs/table_pros_cons.png?raw=true" alt="table_pros_cons" width=95%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/176_synthetic-data-save-costs/table_pros_cons.png" alt="table_pros_cons" width=95%>
 </p>
 
 Let's start with task performance. As demonstrated above, the specialized model performs on par with much larger LLMs. The fine-tuned model can only do the one specific task we have trained it to do, but it does this specific task very well. It would be trivial to create more training data to adapt the model to new domains or more complex tasks. Thanks to synthetic data from LLMs, low performance due to lack of specialized data is not a problem anymore.
