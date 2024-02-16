@@ -53,7 +53,7 @@ $B_{merged}A_{merged} = weight_1 * scaling_1 * B_1A_1 + weight_2 * scaling_2 * B
 
 ### Linear/Task Arithmetic (`linear`)
 
-In this method, the LoRA matrices are involved in weighted sum. This is what the Task arithmetic paper implements on task weights. In task arithmetic, one first computes the task weights which is difference betweeen finetuned weights and base model weights, then do a weighted sum of these task weights. Here, the delta weights considered are the individual matrices $A$ and $B$ instead of their product $BA$. This method can be applied only when all the participating LoRA adapters have same rank.
+In this method, the LoRA matrices are involved in weighted sum. This is what the Task arithmetic paper implements on task weights. In task arithmetic, one first computes the task weights which is difference between finetuned weights and base model weights, then does a weighted sum of these task weights. Here, the delta weights considered are the individual matrices $A$ and $B$ instead of their product $BA$. This method can be applied only when all the participating LoRA adapters have same rank.
 
 Let’s go through an example. Consider 2 LoRA adapters $(A_1, B_1)$ & $(A_2, B_2)$ along with weights $weight_1$ and $weight_2$ for weighted merging of these two adapters, then the merging happens as follows:
 
@@ -78,15 +78,15 @@ After getting the above-merged delta weight, SVD (singular value decomposition) 
 </div><br>
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
-🧠 Similar to <code>cat</code> method, this method also allows for LoRA adapters with different rank. In addition one can choose the rank for the resultant merged LoRA adapter which defaults to the maximum rank among the participating LoRA adapters. A limitation of this approach is that it require a lot of GPU memory for performing the SVD operation.
+🧠 Similar to <code>cat</code> method, this method also allows for LoRA adapters with different ranks. In addition, one can choose the rank for the resultant merged LoRA adapter which defaults to the maximum rank among the participating LoRA adapters. A limitation of this approach is that it requires a lot of GPU memory for performing the SVD operation.
 </div>
 
 ### TIES (`ties` , `ties_svd` )
 
-This builds upon the `linear` and `svd` methods by changing the way merged adapters are computed from task weights and result in the `ties` and `ties_svd` methods, respectively. In TIES (TRIM, ELECT SIGN & MERGE), one first computes the task weights which in our case would be the LoRA adapters $A$, $B$ for non svd variant and their product $BA$ for svd variant. After this, you prune the smallest values of the task weights and retain the top-k values based on the specified fraction `density` . Then, you calculate the majority sign mask from the participating pruned task weights, multiple task tensors with the user provided weightage followed by disjoint merge based on the majority sign mask. For majority sing mask computation, you have two options:
+This builds upon the `linear` and `svd` methods by changing the way merged adapters are computed from task weights and result in the `ties` and `ties_svd` methods, respectively. In TIES (TRIM, ELECT SIGN & MERGE), one first computes the task weights which in our case would be the LoRA adapters $A$, $B$ for non svd variant and their product $BA$ for svd variant. After this, you prune the smallest values of the task weights and retain the top-k values based on the specified fraction `density` . Then, you calculate the majority sign mask from the participating pruned task weights, multiply task tensors with the user provided weightage followed by disjoint merge based on the majority sign mask. For majority sign mask computation, you have two options:
 
-1. `total`  which considers the magnitude as well as sign when calculating the majority sign 
-2. `frequency` which considers only the sign of the value when calculating the majority sign.
+1. `total` considers the magnitude as well as sign to get the majority sign, i.e., sum up all the corresponding weights;
+2. `frequency` only considers the weight sign to obtain the majority sign, i.e., sum up the sign of all the corresponding weights.
 
 For more details, refer to the paper: [TIES-Merging: Resolving Interference When Merging Models](https://arxiv.org/abs/2306.01708).
 
