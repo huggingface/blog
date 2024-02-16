@@ -138,7 +138,7 @@ But thanks to PEFT, there’s always a way to circumvent around this. We will us
 - Merge the `PeftModel`s using the `add_weighted_adapter()` method with a merging method of our choice.
 - Assign the merged model to the respective component of the underlying `DiffusionPipeline`.
 
-Let’s see this in action. All the code shown in the parts below come from t[his Colab Notebook](https://colab.research.google.com/drive/1EG1tb5qiioOvLF9UdDowNuEDa69RoXuG?usp=sharing) (TODO: button up the Colab Notebook and push to the `notebooks` repo; @Sayak Paul). 
+Let’s see this in action. All the code shown in the parts below come from t[his Colab Notebook](https://colab.research.google.com/github/huggingface/peft/blob/main/examples/multi_adapter_examples/multi_adapter_weighted_inference_diffusers.ipynb). 
 
 Since both the LoRA checkpoints use [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) UNet as the their base model, we will first load the UNet:
 
