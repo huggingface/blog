@@ -311,3 +311,49 @@ We’re grateful to Le Yu and Prateek Yadav, authors of DARE and TIES, for their
 4. [mergekit](https://github.com/cg123/mergekit): Tools for merging pretrained large language models.
 5. [PEFT integration in Diffusers](https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference)
 6. [Model merging guide for PEFT users](https://huggingface.co/docs/peft/developer_guides/model_merging)
+
+## Citations
+
+```
+@misc{ilharco2023editing,
+      title={Editing Models with Task Arithmetic}, 
+      author={Gabriel Ilharco and Marco Tulio Ribeiro and Mitchell Wortsman and Suchin Gururangan and Ludwig Schmidt and Hannaneh Hajishirzi and Ali Farhadi},
+      year={2023},
+      eprint={2212.04089},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+```
+
+```
+@misc{yadav2023tiesmerging,
+    title={TIES-Merging: Resolving Interference When Merging Models}, 
+    author={Prateek Yadav and Derek Tam and Leshem Choshen and Colin Raffel and Mohit Bansal},
+    year={2023},
+    eprint={2306.01708},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}
+```
+
+```
+@misc{yu2024language,
+    title={Language Models are Super Mario: Absorbing Abilities from Homologous Models as a Free Lunch}, 
+    author={Le Yu and Bowen Yu and Haiyang Yu and Fei Huang and Yongbin Li},
+    year={2024},
+    eprint={2311.03099},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL}
+}
+```
+
+```
+@misc{big_vision,
+    author = {Charles O. Goddard and contributors},
+    title = {mergekit},
+    year = {2023},
+    publisher = {GitHub},
+    journal = {GitHub repository},
+    howpublished = {\url{https://github.com/arcee-ai/mergekit}}
+}
+```
