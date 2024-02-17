@@ -92,11 +92,11 @@ For more details, refer to the paper: [TIES-Merging: Resolving Interference When
 
 ### DARE (`dare_linear` , `dare_ties` , `dare_linear_svd` , `dare_ties_svd` )
 
-This also builds upon the `linear` and `svd` methods wherein the task weights are LoRA adapters $A$, $B$ for non svd variant and their product $BA$ for svd variant. In `DARE` method proposed in [Language Models are Super Mario: Absorbing Abilities from Homologous Models as a Free Lunch](https://arxiv.org/abs/2311.03099), you first prune randomly the values of the task weight based on the specified fraction `density`. After this, you rescale the pruned task weights. Then, you carry out weighted sum of task tensors based on user specified weightage for participating LoRA adapters.
+This also builds upon the `linear` and `svd` methods wherein the task weights are LoRA adapters $A$, $B$ for non svd variant and their product $BA$ for svd variant. `DARE` method proposed in [Language Models are Super Mario: Absorbing Abilities from Homologous Models as a Free Lunch](https://arxiv.org/abs/2311.03099) first randomly prunes the values of the task weight based on the specified fraction `1-density`, and then rescales the pruned task weights by `1/density`. `DARE` is a general plug-in and can be applied to any existing model merging methods. We have implemented `DARE` with Linear/Task Arithmetic (`*_linear*`) and TIES (`*_ties*`).
 
-This corresponds to the `*_linear*` variants of the DARE method following the original paper. 
+For `*_linear*` variants of `DARE`, we first use `DARE` to randomly prune task weights and then perform weighted sum of task tensors based on user specified weightage for participating LoRA adapters.
 
-In `*_ties*`  variant, instead of a simple weighted sum post random pruning, it follows the last 2 steps of ties, i.e., calculating majority sing mask and then using that to compute disjoint merge of the task weights.
+For `*_ties*`  variants of `DARE`, we first use `DARE` to get the pruned task weights, then adopt the last 2 steps of `ties`, i.e., calculating majority sign mask and using the mask to perform disjoint merge of the task weights.
 
 ### Magnitude Prune (`magnitude_prune` , `magnitude_prune_svd` )
 
@@ -343,10 +343,10 @@ We’re grateful to Le Yu and Prateek Yadav, authors of DARE and TIES, for their
 ```
 
 ```
-@misc{yu2024language,
+@misc{yu2023language,
     title={Language Models are Super Mario: Absorbing Abilities from Homologous Models as a Free Lunch}, 
     author={Le Yu and Bowen Yu and Haiyang Yu and Fei Huang and Yongbin Li},
-    year={2024},
+    year={2023},
     eprint={2311.03099},
     archivePrefix={arXiv},
     primaryClass={cs.CL}
