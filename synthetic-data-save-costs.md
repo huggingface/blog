@@ -123,7 +123,7 @@ TEXT: {text}
 Label: """
 ```
 
-Before we can pass this prompt to the API, we need to add some formatting to the prompt. Most LLMs today are fine-tuned with a specific chat template, which enables LLMs to distinguish a user message, the system prompt, or its own response in a chat history through special tokens. If you do not apply the same chat template which the LLM has seen during fine-tuning, it will still return outputs, but performance can degrade silently. You can use the `tokenizer` to add the special tokens for the model automatically (read more [here](https://huggingface.co/blog/chat-templates)). For our example, we use the `Mixtral-8x7B-Instruct-v0.1` model. 
+Before we can pass this prompt to the API, we need to add some formatting to the prompt. Most LLMs today are fine-tuned with a specific chat template. This template consists of special tokens, which enable LLMs to distinguish between the user's instructions, the system prompt, and its own responses in a chat history. Although we are not using the model as a chat bot here, omitting the chat template can still lead to silently performance degradation. You can use the `tokenizer` to add the special tokens of the model's chat template automatically (read more [here](https://huggingface.co/blog/chat-templates)). For our example, we use the `Mixtral-8x7B-Instruct-v0.1` model. 
 
 ```python
 from transformers import AutoTokenizer
@@ -137,7 +137,7 @@ prompt_financial_sentiment = tokenizer.apply_chat_template(chat_financial_sentim
 # The prompt now includes special tokens: '<s>[INST] You are a highly qualified expert ...  [/INST]'
 ```
 
-The formatted annotation instruction can now be passed to the LLM API. We use the free Hugging Face [serverless Inference API](https://huggingface.co/docs/api-inference/index). The API is ideal for testing popular models. Note that you might encounter rate limits if you send too much data to the free API, as it is shared among many users. For larger workloads, we recommend creating a [dedicated Inference Endpoint](https://huggingface.co/docs/inference-endpoints/index). A dedicated Inference Endpoint is essentially your own personal paid API, which you can flexibly turn on and off. 
+The formatted annotation instruction (prompt) can now be passed to the LLM API. We use the free Hugging Face [serverless Inference API](https://huggingface.co/docs/api-inference/index). The API is ideal for testing popular models. Note that you might encounter rate limits if you send too much data to the free API, as it is shared among many users. For larger workloads, we recommend creating a [dedicated Inference Endpoint](https://huggingface.co/docs/inference-endpoints/index). A dedicated Inference Endpoint is essentially your own personal paid API, which you can flexibly turn on and off. 
 
 We login with the `huggingface_hub` library to easily and safely handle our API token. Alternatively, you can also define your token as an environment variable (see the [documentation](https://huggingface.co/docs/huggingface_hub/quick-start#authentication)).
 
