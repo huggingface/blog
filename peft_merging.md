@@ -31,21 +31,21 @@ With these aspects in mind, we [shipped](https://github.com/huggingface/peft/pul
 
 ### Concatenation (`cat`)
 
-In this method, the LoRA matrices are concatenated. For example, if we have 2 LoRA adapters $(A_1, B_1)$ and $(A_2, B_2)$ along with weights $weight_1$ and $weight_2$ for weighted merging of these two adapters, then the merging happens as follows:
+In this method, the LoRA matrices are concatenated. For example, if we have 2 LoRA adapters \\( (A_1, B_1) \\) and \\( (A_2, B_2) \\) along with weights \\( weight_1 \\) and \\( weight_2 \\) for weighted merging of these two adapters, then the merging happens as follows:
 
-$A_{merged} = concat(weight_1\*scaling_1\*A_1, weight_2\*scaling_2\*A_2, dim=0)$
+$$A_{merged} = concat(weight_1*scaling_1*A_1, weight_2*scaling_2*A_2, dim=0)$$
 
-$B_{merged} = concat(B_1, B_2, dim=1)$
+$$B_{merged} = concat(B_1, B_2, dim=1)$$
 
-where $shape(A_{merged}) = (rank_1+rank_2,\ d)$ and $shape(B_{merged}) = (d,\ rank_1+rank_2)$. 
+where \\( shape(A_{merged}) = (rank_1+rank_2,\ d) )\\ and \\( shape(B_{merged}) = (d,\ rank_1+rank_2) \\). 
 
 Now, the output of this new merged LoRA layer would be as if the original 2 LoRAs were active with weights $weight_1$ and $weight_2$ for applied to the first and second adapters, respectively.
 
-$h = W_0x + B_{merged}A_{merged}x$
+$$h = W_0x + B_{merged}A_{merged}x$$
 
 Here, we can observe that:
 
-$B_{merged}A_{merged} = weight_1 * scaling_1 * B_1A_1 + weight_2 * scaling_2 * B_2A_2$
+$$B_{merged}A_{merged} = weight_1 * scaling_1 * B_1A_1 + weight_2 * scaling_2 * B_2A_2$$
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
 🧠 This is the exact weighted merging of LoRA adapters. It is also available via <a href=https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference>PEFT integration of Diffusers</a> when you call <code>set_adapters()</code>  wherein instead of creating a new merged adapter, the active adapters are combined sequentially, as shown on the right-hand side of the above equation. When using this method, it allows for participating LoRA adapters to have different ranks.
@@ -55,23 +55,23 @@ $B_{merged}A_{merged} = weight_1 * scaling_1 * B_1A_1 + weight_2 * scaling_2 * B
 
 In this method, the LoRA matrices are involved in weighted sum. This is what the Task arithmetic paper implements on task weights. In task arithmetic, one first computes the task weights which is difference between finetuned weights and base model weights, then does a weighted sum of these task weights. Here, the delta weights considered are the individual matrices $A$ and $B$ instead of their product $BA$. This method can be applied only when all the participating LoRA adapters have same rank.
 
-Let’s go through an example. Consider 2 LoRA adapters $(A_1, B_1)$ & $(A_2, B_2)$ along with weights $weight_1$ and $weight_2$ for weighted merging of these two adapters, then the merging happens as follows:
+Let’s go through an example. Consider 2 LoRA adapters \\( (A_1, B_1) \\) & \\( (A_2, B_2) \\) along with weights \\( weight_1 \\) and \\( weight_2 \\) for weighted merging of these two adapters, then the merging happens as follows:
 
-$A_{merged} = sqrt(weight_1 * scaling_1) * A_1+ sqrt (weight_2 * scaling_2) * A_2$
+$$A_{merged} = sqrt(weight_1 * scaling_1) * A_1+ sqrt (weight_2 * scaling_2) * A_2$$
 
-$B_{merged} = sqrt(weight_1 * scaling_1) * B_1+ sqrt (weight_2 * scaling_2) * B_2$
+$$B_{merged} = sqrt(weight_1 * scaling_1) * B_1+ sqrt (weight_2 * scaling_2) * B_2$$
 
 For more details, please refer to the paper: [Editing Models with Task Arithmetic](https://arxiv.org/abs/2212.04089).
 
 ### SVD (`svd`)
 
-Instead of considering individual matrices $A$ and $B$ as task weights, their product $BA$ which is the delta weight is considered the task weight. 
+Instead of considering individual matrices \\( A \\) and \\( B \\) as task weights, their product \\( BA \\) which is the delta weight is considered the task weight. 
 
 Let’s continue with the example from the previous sub-sections. Here, first the delta weight of merged combination is computed as follows:
 
-$delta_{merged} = weight_1 * scaling_1 * B_1A_1 + weight_2 * scaling_2 * B_2A_2$
+$$delta_{merged} = weight_1 * scaling_1 * B_1A_1 + weight_2 * scaling_2 * B_2A_2$$
 
-After getting the above-merged delta weight, SVD (singular value decomposition) is applied to get the approximates $A_{merged-approx}$ and $B_{merged-approx}$:
+After getting the above-merged delta weight, SVD (singular value decomposition) is applied to get the approximates \\( A_{merged\_approx} \\) and \\( B_{merged\_approx} \\):
 
 <div align="center">
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/svd_full_eqn.jpg" width=300/>
@@ -83,7 +83,7 @@ After getting the above-merged delta weight, SVD (singular value decomposition) 
 
 ### TIES (`ties` , `ties_svd` )
 
-This builds upon the `linear` and `svd` methods by changing the way merged adapters are computed from task weights and result in the `ties` and `ties_svd` methods, respectively. In TIES (TRIM, ELECT SIGN & MERGE), one first computes the task weights which in our case would be the LoRA adapters $A$, $B$ for non svd variant and their product $BA$ for svd variant. After this, you prune the smallest values of the task weights and retain the top-k values based on the specified fraction `density` . Then, you calculate the majority sign mask from the participating pruned task weights, multiply task tensors with the user provided weightage followed by disjoint merge based on the majority sign mask. For majority sign mask computation, you have two options:
+This builds upon the `linear` and `svd` methods by changing the way merged adapters are computed from task weights and result in the `ties` and `ties_svd` methods, respectively. In TIES (TRIM, ELECT SIGN & MERGE), one first computes the task weights which in our case would be the LoRA adapters \\( A \\), \\( B \\) for non svd variant and their product \\( BA \\) for svd variant. After this, you prune the smallest values of the task weights and retain the top-k values based on the specified fraction `density` . Then, you calculate the majority sign mask from the participating pruned task weights, multiply task tensors with the user provided weightage followed by disjoint merge based on the majority sign mask. For majority sign mask computation, you have two options:
 
 1. `total` considers the magnitude as well as sign to get the majority sign, i.e., sum up all the corresponding weights;
 2. `frequency` only considers the weight sign to obtain the majority sign, i.e., sum up the sign of all the corresponding weights.
@@ -92,7 +92,7 @@ For more details, refer to the paper: [TIES-Merging: Resolving Interference When
 
 ### DARE (`dare_linear` , `dare_ties` , `dare_linear_svd` , `dare_ties_svd` )
 
-This also builds upon the `linear` and `svd` methods wherein the task weights are LoRA adapters $A$, $B$ for non svd variant and their product $BA$ for svd variant. `DARE` method proposed in [Language Models are Super Mario: Absorbing Abilities from Homologous Models as a Free Lunch](https://arxiv.org/abs/2311.03099) first randomly prunes the values of the task weight based on the specified fraction `1-density`, and then rescales the pruned task weights by `1/density`. `DARE` is a general plug-in and can be applied to any existing model merging methods. We have implemented `DARE` with Linear/Task Arithmetic (`*_linear*`) and TIES (`*_ties*`).
+This also builds upon the `linear` and `svd` methods wherein the task weights are LoRA adapters \\( A \\), \\( B \\) for non svd variant and their product \\( BA \\) for svd variant. `DARE` method proposed in [Language Models are Super Mario: Absorbing Abilities from Homologous Models as a Free Lunch](https://arxiv.org/abs/2311.03099) first randomly prunes the values of the task weight based on the specified fraction `1-density`, and then rescales the pruned task weights by `1/density`. `DARE` is a general plug-in and can be applied to any existing model merging methods. We have implemented `DARE` with Linear/Task Arithmetic (`*_linear*`) and TIES (`*_ties*`).
 
 For `*_linear*` variants of `DARE`, we first use `DARE` to randomly prune task weights and then perform weighted sum of task tensors based on user specified weightage for participating LoRA adapters.
 
@@ -100,7 +100,7 @@ For `*_ties*`  variants of `DARE`, we first use `DARE` to get the pruned task we
 
 ### Magnitude Prune (`magnitude_prune` , `magnitude_prune_svd` )
 
-This also builds upon the `linear` and `svd` methods wherein the task weights are LoRA adapters $A$, $B$ for non svd variant and their product $BA$ for svd variant. In this method, you first prune the smallest values of the task weights and retain the top-k values based on the specified fraction `density`.  Then, you carry out the weighted sum of task tensors based on user-specified weightage for participating LoRA adapters.
+This also builds upon the `linear` and `svd` methods wherein the task weights are LoRA adapters \\( A \\), \\( B \\) for non svd variant and their product \\( BA \\) for svd variant. In this method, you first prune the smallest values of the task weights and retain the top-k values based on the specified fraction `density`.  Then, you carry out the weighted sum of task tensors based on user-specified weightage for participating LoRA adapters.
 
 ## How do I merge my LoRA adapters?
 
