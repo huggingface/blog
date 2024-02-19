@@ -3453,6 +3453,7 @@
 - local: amd_pervasive_developer_ai_contest
   title: "AMD Pervasive AI Developer Contest!"
   author: guruprasadmp
+  guest: true
   thumbnail: /blog/assets/amd_pervasive_developer_ai_contest/amd_developer_general_abstract.jpg
   date: Feb 14, 2024
   tags:
@@ -3472,6 +3473,18 @@
     - mixtral
     - inference-endpoints
     - autotrain
+
+- local: peft_merging
+  title: "🤗 PEFT welcomes new merging methods"
+  author: smangrul
+  thumbnail: /blog/assets/peft_merging/thumbnail.png
+  date: Feb 19, 2024
+  tags:
+    - guide
+    - llm
+    - nlp
+    - cv 
+    - lora
 
 - local: leaderboards-on-the-hub-upstage
   title: "Introducing the Open Ko-LLM Leaderboard: Leading the Korean LLM Evaluation Ecosystem"

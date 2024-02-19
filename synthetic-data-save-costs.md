@@ -1,6 +1,6 @@
 ---
 title: "Synthetic data: save money, time and carbon with open source" 
-thumbnail: blog/assets/176_synthetic-data-save-costs/thumbnail.png
+thumbnail: /blog/assets/176_synthetic-data-save-costs/thumbnail.png
 authors:
 - user: MoritzLaurer
 ---
@@ -123,7 +123,21 @@ TEXT: {text}
 Label: """
 ```
 
-This annotation instruction can now be passed to an LLM API. For this example, we use `Mixtral-8x7B-Instruct-v0.1` via the free Hugging Face [serverless Inference API](https://huggingface.co/docs/api-inference/index). The API is ideal for testing popular models. Note that you might encounter rate limits if you send too much data to the free API, as it is shared among many users. For larger workloads, we recommend creating a [dedicated Inference Endpoint](https://huggingface.co/docs/inference-endpoints/index). A dedicated Inference Endpoint is essentially your own personal paid API, which you can flexibly turn on and off. 
+Before we can pass this prompt to the API, we need to add some formatting to the prompt. Most LLMs today are fine-tuned with a specific chat template. This template consists of special tokens, which enable LLMs to distinguish between the user's instructions, the system prompt, and its own responses in a chat history. Although we are not using the model as a chat bot here, omitting the chat template can still lead to silently performance degradation. You can use the `tokenizer` to add the special tokens of the model's chat template automatically (read more [here](https://huggingface.co/blog/chat-templates)). For our example, we use the `Mixtral-8x7B-Instruct-v0.1` model. 
+
+```python
+from transformers import AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained("mistralai/Mixtral-8x7B-Instruct-v0.1")
+
+chat_financial_sentiment = [{"role": "user", "content": prompt_financial_sentiment}]
+
+prompt_financial_sentiment = tokenizer.apply_chat_template(chat_financial_sentiment, tokenize=False)
+
+# The prompt now includes special tokens: '<s>[INST] You are a highly qualified expert ...  [/INST]'
+```
+
+The formatted annotation instruction (prompt) can now be passed to the LLM API. We use the free Hugging Face [serverless Inference API](https://huggingface.co/docs/api-inference/index). The API is ideal for testing popular models. Note that you might encounter rate limits if you send too much data to the free API, as it is shared among many users. For larger workloads, we recommend creating a [dedicated Inference Endpoint](https://huggingface.co/docs/inference-endpoints/index). A dedicated Inference Endpoint is essentially your own personal paid API, which you can flexibly turn on and off. 
 
 We login with the `huggingface_hub` library to easily and safely handle our API token. Alternatively, you can also define your token as an environment variable (see the [documentation](https://huggingface.co/docs/huggingface_hub/quick-start#authentication)).
 
@@ -245,6 +259,11 @@ JSON response: {{"reason": "A decrease in profit is negative for investors", "la
 Your TEXT to analyse:
 TEXT: {text}
 JSON response: """
+
+# we apply the chat template like above
+chat_financial_sentiment_cot = [{"role": "user", "content": prompt_financial_sentiment_cot}]
+prompt_financial_sentiment_cot = tokenizer.apply_chat_template(chat_financial_sentiment_cot, tokenize=False)
+# The prompt now includes special tokens: '<s>[INST] You are a highly qualified expert ...  [/INST]'
 ```
 
 This is a JSON prompt where we ask the LLM to return a structured JSON string with its “reason” as one key and the “label” as another key. The main advantage of JSON is that we can parse it to a Python dictionary and then extract the “label”. We can also extract the “reason” if we want to understand the reasoning why the LLM chose this label.
