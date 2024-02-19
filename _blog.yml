@@ -3473,3 +3473,15 @@
     - mixtral
     - inference-endpoints
     - autotrain
+
+- local: peft_merging
+  title: "🤗 PEFT welcomes new merging methods"
+  author: smangrul
+  thumbnail: /blog/assets/peft_merging/thumbnail.png
+  date: Feb 19, 2024
+  tags:
+    - guide
+    - llm
+    - nlp
+    - cv 
+    - lora
