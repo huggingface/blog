@@ -182,10 +182,7 @@ original_state_dict = {f"base_model.model.{k}": v for k, v in pipe.unet.state_di
 toy_peft_model.load_state_dict(original_state_dict, strict=True)
 ```
 
-<aside>
 💡 You can optionally push the `toy_peft_model` to the Hub using: `toy_peft_model.push_to_hub("toy_peft_model", token=TOKEN)`.
-
-</aside>
 
 Next, we do the same for the “nerijs/pixel-art-xl” LoRA:
 
@@ -254,7 +251,7 @@ image
 
 ![toy_face_hacker](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft_merging/toy_face_hacker.png)
 
-Let’s try `ties_svd` method. You can find the example notebook here:  [https://github.com/pacman100/peft-dreambooth-ui/blob/main/lora_merging.ipynb](https://github.com/pacman100/peft-dreambooth-ui/blob/main/lora_merging.ipynb).
+Let’s try `ties_svd` method. You can find the example notebook [here](https://github.com/pacman100/peft-dreambooth-ui/blob/main/lora_merging.ipynb).
 
 ```python
 pipe.unet.add_weighted_adapter(
