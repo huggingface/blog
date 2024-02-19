@@ -617,7 +617,7 @@ As we can see every time we increase the text input tokens by the just sampled t
 
 With very few exceptions, LLMs are trained using the [causal language modeling objective](https://huggingface.co/docs/transformers/tasks/language_modeling#causal-language-modeling) and therefore mask the upper triangle matrix of the attention score - this is why in the two diagrams above the attention scores are left blank (*a.k.a* have 0 probability). For a quick recap on causal language modeling you can refer to the [*Illustrated Self Attention blog*](https://jalammar.github.io/illustrated-gpt2/#part-2-illustrated-self-attention).
 
-As a consequence, tokens *never* depend on previous tokens, more specifically the \\( \mathbf{q}_i \\) vector is never put in relation with any key, values vectors \\( \mathbf{k}_j, \mathbf{v}_j \\) if \\( j > i \\) . Instead \\( \mathbf{q}_i \\) only attends to previous key-value vectors \\( \mathbf{k}_{m < i}, \mathbf{v}_{m < i} \text{ , for } m \in \{0, \ldots i - 1\} \\). In order to reduce unnecessary computation, one can therefore cache each layer's key-value vectors for all previous timesteps.
+As a consequence, tokens *never* depend on future tokens, more specifically the \\( \mathbf{q}_i \\) vector is never put in relation with any key, values vectors \\( \mathbf{k}_j, \mathbf{v}_j \\) if \\( j > i \\) . Instead \\( \mathbf{q}_i \\) only attends to previous key-value vectors \\( \mathbf{k}_{m < i}, \mathbf{v}_{m < i} \text{ , for } m \in \{0, \ldots i - 1\} \\). In order to reduce unnecessary computation, one can therefore cache each layer's key-value vectors for all previous timesteps.
 
 In the following, we will tell the LLM to make use of the key-value cache by retrieving and forwarding it for each forward pass.
 In Transformers, we can retrieve the key-value cache by passing the `use_cache` flag to the `forward` call and can then pass it with the current token.
@@ -633,7 +633,12 @@ for _ in range(5):
   next_token_id = torch.argmax(next_logits, dim=-1)
 
   print("shape of input_ids", next_token_id.shape)
-  print("length of key-value cache", len(past_key_values[0][0]))  # past_key_values are of shape [num_layers, 0 for k, 1 for v, batch_size, length, hidden_dim]
+  # past_key_values are a tuple (one for each Transformer layer) of tuples (one for the keys, one for the values)
+  # cached keys and values each are of shape (batch_size, num_heads, sequence_length, embed_size_per_head)
+  # hence let's print how many cached keys and values we have for the first Transformer layer
+  print("number of cached keys of the first Transformer layer", len(past_key_values[0][0][0,0,:,:]))
+  print("number of cached values of the first Transformer layer", len(past_key_values[0][1][0,0,:,:]))
+  
   generated_tokens.append(next_token_id.item())
 
 generated_text = tokenizer.batch_decode(generated_tokens)
@@ -643,15 +648,20 @@ generated_text
 **Output**:
 ```
 shape of input_ids torch.Size([1, 1])
-length of key-value cache 20
+number of cached keys of the first Transformer layer: 20
+number of cached values of the first Transformer layer: 20
 shape of input_ids torch.Size([1, 1])
-length of key-value cache 21
+number of cached keys of the first Transformer layer: 21
+number of cached values of the first Transformer layer: 21
 shape of input_ids torch.Size([1, 1])
-length of key-value cache 22
+number of cached keys of the first Transformer layer: 22
+number of cached values of the first Transformer layer: 22
 shape of input_ids torch.Size([1, 1])
-length of key-value cache 23
+number of cached keys of the first Transformer layer: 23
+number of cached values of the first Transformer layer: 23
 shape of input_ids torch.Size([1, 1])
-length of key-value cache 24
+number of cached keys of the first Transformer layer: 24
+number of cached values of the first Transformer layer: 24
 [' Here', ' is', ' a', ' Python', ' function']
 ```
 
