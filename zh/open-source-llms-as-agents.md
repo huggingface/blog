@@ -1,5 +1,5 @@
 ---
-title: "开源大语言模型作为LangChain智能体" 
+title: "开源大语言模型作为 LangChain 智能体" 
 thumbnail: /blog/assets/open-source-llms-as-agents/thumbnail_open_source_agents.png
 authors:
 - user: m-ric
