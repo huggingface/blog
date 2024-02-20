@@ -3496,3 +3496,15 @@
     - leaderboard
     - guide
     - collaboration
+
+- local: leaderboards-on-the-hub-haizelab
+  title: "Introducing the Red-Teaming Resistance Leaderboard"
+  author: steve-sli
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_haizelab.png
+  date: Feb 22, 2024
+  tags:
+    - leaderboard
+    - guide
+    - collaboration
+  
