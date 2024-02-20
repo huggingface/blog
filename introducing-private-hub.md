@@ -18,7 +18,7 @@ authors:
   
   The Enterprise Hub is a hosted solution that combines the best of Cloud Managed services (SaaS) and Enterprise security. It lets customers deploy specific services like <b>Inference Endpoints</b> on a wide scope of compute options, from on-cloud to on-prem. It offers advanced user administration and access controls through SSO. 
 
-‹code style="color: red">We no longer offer Private Hub on-prem deployments as this experiment is now discountinued.</code> 
+<code style="color: red">We no longer offer Private Hub on-prem deployments as this experiment is now discontinued.</code> 
   
   Get in touch with our [Enterprise team](/support) to find the best solution for your company.
 </div>
