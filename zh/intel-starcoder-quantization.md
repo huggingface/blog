@@ -135,3 +135,23 @@ AG 先用小而快的草稿模型基于贪心算法生成 K 个候选词元。�
 |INT8 + AG  |  SmoothQuant |    A8W8   |        33.96      |   183.6   |    1.95x     |    24.8   |    7.30x     |
 
 表 1: 在英特尔第四代至强处理器上测得的 StarCoder 模型的准确率及延迟
+
+如果您想要加载优化后的模型，并执行推理，可以用 [optimum-intel](https://github.com/huggingface/optimum-intel) 提供的 `IPEXModelForXxx` 类来替换对应的 `AutoModelForXxx` 类。
+
+在开始之前，还需要确保已经安装了所需的库:
+
+```bash
+pip install --upgrade-strategy eager optimum[ipex]
+```
+
+```diff
+- from transformers import AutoModelForCausalLM
++ from optimum.intel import IPEXModelForCausalLM
+  from transformers import AutoTokenizer, pipeline
+
+- model = AutoModelForCausalLM.from_pretrained(model_id)
++ model = IPEXModelForCausalLM.from_pretrained(model_id)
+  tokenizer = AutoTokenizer.from_pretrained(model_id)
+  pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
+  results = pipe("He's a dreadful magician and")
+```
