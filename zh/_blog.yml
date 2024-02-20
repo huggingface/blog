@@ -1250,3 +1250,17 @@
     - fine-tuning
     - community
     - sdxl
+
+- local: intel-starcoder-quantization
+  title: "使用 🤗 Optimum Intel 在英特尔至强上加速 StarCoder：Q8/Q4 及投机解码"
+  author: ofirzaf
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: Jan 30, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community
