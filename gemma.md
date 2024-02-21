@@ -245,7 +245,7 @@ for message in chat_completion:
 
 Training LLMs can be technically and computationally challenging. In this section, we’ll look at the tools available in the Hugging Face ecosystem to efficiently train Gemma on consumer-size GPUs
 
-An example command to fine-tune Gemma on OpenAssistant’s [chat dataset](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) can be found below. We use 4-bit quantization and [QLoRA](https://arxiv.org/abs/2305.14314) to conserve memory to target all the attention blocks' linear layers. Note that, unlike dense transformers, one should not target the MLP layers as they are sparse and don’t interact well with PEFT.
+An example command to fine-tune Gemma on OpenAssistant’s [chat dataset](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) can be found below. We use 4-bit quantization and [QLoRA](https://arxiv.org/abs/2305.14314) to conserve memory to target all the attention blocks' linear layers.
 
 First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
 
