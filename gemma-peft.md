@@ -29,8 +29,9 @@ The default (full weight) training for language models, even for modest sizes te
 # PyTorch on GPU and TPU
 Gemma models in HuggingFace transformers are well optimized for both PyTorch and PyTorch/XLA. This enables both TPU and GPU users to access and experiment with Gemma models as needed. Together with the Gemma release, we also improved the [FSDP](https://engineering.fb.com/2021/07/15/open-source/fsdp/) experience for PyTorch/XLA in Hugging Face. This [FSDP via SPMD](https://github.com/pytorch/xla/issues/6379) integration also allows other Hugging Face models to take advantage of TPU acceleration via PyTorch/XLA. In this post we will focus on PEFT, more specifically, Low-Rank Adaptation (LoRA), for Gemma models. For a more comprehensive set of LoRA techniques we encourage readers to review the [Scaling Down to Scale Up, from Lialin et al](https://arxiv.org/pdf/2303.15647.pdf) and [this](https://pytorch.org/blog/finetune-llms/) excellent blog post by Belkada et al. 
 
-# Low-Rank Adaptation for Large Language Models
-Low-Rank Adaptation (LoRA) is one of the parameter-efficient fine-tuning techniques for large language models (LLMs). It incorporates a fraction of total model parameters to be fine-tuned by freezing the original model and only training an adapter layer which is decomposed into low rank matrices. PEFT library provides an easy abstraction which allows users to select particular layers from the model where adapter weights are applied.
+## Low-Rank Adaptation for Large Language Models
+
+Low-Rank Adaptation (LoRA) is one of the parameter-efficient fine-tuning techniques for large language models (LLMs). It incorporates a fraction of total model parameters to be fine-tuned by freezing the original model and only training an adapter layer which is decomposed into low-rank matrices. PEFT library provides an easy abstraction that allows users to select particular layers from the model where adapter weights are applied.
 
 ```python
 from peft import LoraConfig
