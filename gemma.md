@@ -1,6 +1,6 @@
 ---
 title: "Welcome Gemma - Google’s new open LLM" 
-thumbnail: /blog/assets/llama2/thumbnail.jpg
+thumbnail: /blog/assets/gemma/thumbnail.jpg
 authors:
 - user: philschmid
 - user: osanseviero
@@ -23,17 +23,19 @@ We’ve collaborated with Google to ensure the best integration into the Hugging
 
 ## Table of contents
 
-- [What is Gemma?](#what-is-gemma)
-  - [Prompt format](#prompt-format)
-  - [Exploring the Unknowns](#exploring-the-unknowns)
-- [Demo](#demo)
-  - [Using 🤗 Transformers](#using-transformers)
-  - [JAX Weights](#jax-weights)
-- [Integration with Google Cloud](#integration-with-google-cloud)
-- [Integration with Inference Endpoints](#integration-with-inference-endpoints)
-- [Fine-tuning with 🤗 TRL](#fine-tuning-with-trl)
-- [Additional Resources](#additional-resources)
-- [Acknowledgments](#acknowledgments)
+- [Welcome Gemma - Google’s new open LLM](#welcome-gemma---googles-new-open-llm)
+  - [Table of contents](#table-of-contents)
+  - [What is Gemma?](#what-is-gemma)
+    - [Prompt format](#prompt-format)
+    - [Exploring the Unknowns](#exploring-the-unknowns)
+  - [Demo](#demo)
+    - [Using 🤗 Transformers](#using-transformers)
+    - [JAX Weights](#jax-weights)
+  - [Integration with Google Cloud](#integration-with-google-cloud)
+  - [Integration with Inference Endpoints](#integration-with-inference-endpoints)
+  - [Fine-tuning with 🤗 TRL](#fine-tuning-with-trl)
+  - [Additional Resources](#additional-resources)
+  - [Acknowledgments](#acknowledgments)
 
 
 ## What is Gemma?
@@ -91,7 +93,7 @@ Similarly, for the Gemma instruct models, no details have been shared about the 
 
 ## Demo
 
-You can chat with the Gemma Instruct model on Hugging Chat! Check out the link here: https://huggingface.co/chat/?model=Google/Gemma-7b-instruct.
+You can chat with the Gemma Instruct model on Hugging Chat! Check out the link here: https://huggingface.co/chat?model=google/gemma-7b-it
 
 ### Using 🤗 Transformers
 
@@ -215,9 +217,9 @@ These integrations mark the first offerings we are launching together as a [resu
 
 ## Integration with Inference Endpoints
 
-You can deploy Gemma on Hugging Face's [Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=mistralai%2FMixtral-8x7B-Instruct-v0.1&vendor=aws&region=us-east-1&accelerator=gpu&instance_size=2xlarge&task=text-generation&no_suggested_compute=true&tgi=true&tgi_max_batch_total_tokens=1024000&tgi_max_total_tokens=32000), which uses Text Generation Inference as the backend. [Text Generation Inference](https://github.com/huggingface/text-generation-inference) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, token streaming, tensor parallelism for fast inference on multiple GPUs, and production-ready logging and tracing.
+You can deploy Gemma on Hugging Face's [Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=google%2Fgemma-7b-it), which uses Text Generation Inference as the backend. [Text Generation Inference](https://github.com/huggingface/text-generation-inference) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, token streaming, tensor parallelism for fast inference on multiple GPUs, and production-ready logging and tracing.
 
-To deploy a Gemma model, go to the [model page](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1) and click on the [Deploy -> Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=meta-llama/Llama-2-7b-hf) widget. You can learn more about [Deploying LLMs with Hugging Face Inference Endpoints](https://huggingface.co/blog/inference-endpoints-llm) in a previous blog post. Inference Endpoints supports [Messages API](https://huggingface.co/blog/tgi-messages-api) through Text Generation Inference, which allows you to switch from another closed model to an open one by simply changing the URL.
+To deploy a Gemma model, go to the [model page](https://huggingface.co/google/gemma-7b-it) and click on the [Deploy -> Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=google/gemma-7b-it) widget. You can learn more about [Deploying LLMs with Hugging Face Inference Endpoints](https://huggingface.co/blog/inference-endpoints-llm) in a previous blog post. Inference Endpoints supports [Messages API](https://huggingface.co/blog/tgi-messages-api) through Text Generation Inference, which allows you to switch from another closed model to an open one by simply changing the URL.
 
 ```bash
 from openai import OpenAI
@@ -277,9 +279,9 @@ This takes about 9 hours to train on a single A10G, but can be easily paralleliz
 
 ## Additional Resources
 
-- [Models on the Hub](https://huggingface.co/models?other=mixtral)
+- [Models on the Hub](https://huggingface.co/models?other=gemma)
 - Open LLM [Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
-- [Chat demo on Hugging Chat](https://huggingface.co/chat/?model=mistralai/Mixtral-8x7B-Instruct-v0.1)
+- [Chat demo on Hugging Chat](https://huggingface.co/chat?model=google/gemma-7b-it)
 - Google Blog
 - Google Notebook
 - Vertex AI model garden link
