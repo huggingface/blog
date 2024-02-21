@@ -62,7 +62,7 @@ We start by downloading the model and tokenizer into the respective objects. Her
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, GemmaTokenizer
 
-model_id = "gg-hf/gemma-2b"
+model_id = "google/gemma-2b"
 bnb_config = BitsAndBytesConfig(
     load_in_4bit=True,
     bnb_4bit_quant_type="nf4",
