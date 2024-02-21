@@ -209,7 +209,7 @@ You can also access Gemma directly through the Vertex AI Model Garden.
 
 To Tune the Gemma model from Hugging Face, go to the [model page](https://huggingface.co/google/gemma-7b-it) and click on [Train -> Google Cloud.](https://huggingface.co/google/gemma-7b-it) This will bring you to the Google Cloud Console, where you can access notebooks to tune Gemma on Vertex AI or GKE. 
 
-![train on GCP](/blog/assets/gemma/gcp-train.png)
+![train on GCP](/blog/assets/gemma/gcp-train-gemma.png)
 
 These integrations mark the first offerings we are launching together as a [result of our collaborative partnership with Google.](https://huggingface.co/blog/gcp-partnership) Stay tuned for more! 
 
