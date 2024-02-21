@@ -23,19 +23,17 @@ We’ve collaborated with Google to ensure the best integration into the Hugging
 
 ## Table of contents
 
-- [Welcome Gemma - Google’s new open LLM](#welcome-gemma---googles-new-open-llm)
-  - [Table of contents](#table-of-contents)
-  - [What is Gemma?](#what-is-gemma)
-    - [Prompt format](#prompt-format)
-    - [Exploring the Unknowns](#exploring-the-unknowns)
-  - [Demo](#demo)
-    - [Using 🤗 Transformers](#using-transformers)
-    - [JAX Weights](#jax-weights)
-  - [Integration with Google Cloud](#integration-with-google-cloud)
-  - [Integration with Inference Endpoints](#integration-with-inference-endpoints)
-  - [Fine-tuning with 🤗 TRL](#fine-tuning-with-trl)
-  - [Additional Resources](#additional-resources)
-  - [Acknowledgments](#acknowledgments)
+- [What is Gemma?](#what-is-gemma)
+  - [Prompt format](#prompt-format)
+  - [Exploring the Unknowns](#exploring-the-unknowns)
+- [Demo](#demo)
+  - [Using 🤗 Transformers](#using-transformers)
+  - [JAX Weights](#jax-weights)
+- [Integration with Google Cloud](#integration-with-google-cloud)
+- [Integration with Inference Endpoints](#integration-with-inference-endpoints)
+- [Fine-tuning with 🤗 TRL](#fine-tuning-with-trl)
+- [Additional Resources](#additional-resources)
+- [Acknowledgments](#acknowledgments)
 
 
 ## What is Gemma?
