@@ -2,7 +2,7 @@
 title: Fine-Tuning Gemma Models in Hugging Face
 authors:
 - user: sivaibhav
-- user: jiewen
+- user: alanwaketan
 - user: younes
 - user: arthur
 ---
