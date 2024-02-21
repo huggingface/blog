@@ -27,11 +27,11 @@ We’ve collaborated with Google to ensure the best integration into the Hugging
   - [Prompt format](#prompt-format)
   - [Exploring the Unknowns](#exploring-the-unknowns)
 - [Demo](#demo)
-  - [Using 🤗 Transformers](#using-transformers)
+  - [Using 🤗 Transformers](#using-🤗-transformers)
   - [JAX Weights](#jax-weights)
 - [Integration with Google Cloud](#integration-with-google-cloud)
 - [Integration with Inference Endpoints](#integration-with-inference-endpoints)
-- [Fine-tuning with 🤗 TRL](#fine-tuning-with-trl)
+- [Fine-tuning with 🤗 TRL](#fine-tuning-with-🤗-trl)
 - [Additional Resources](#additional-resources)
 - [Acknowledgments](#acknowledgments)
 
