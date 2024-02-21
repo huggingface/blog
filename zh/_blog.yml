@@ -1280,3 +1280,15 @@
     - optimum
     - collaboration
     - community
+
+- local: gemma
+  title: "欢迎 Gemma: Google 最新推出开放大语言模型"
+  author: philschmid
+  thumbnail: /blog/assets/gemma/thumbnail.jpg
+  date: Feb 21, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
