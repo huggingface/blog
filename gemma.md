@@ -23,19 +23,17 @@ We’ve collaborated with Google to ensure the best integration into the Hugging
 
 ## Table of contents
 
-- [Welcome Gemma - Google’s new open LLM](#welcome-gemma---googles-new-open-llm)
-  - [Table of contents](#table-of-contents)
-  - [What is Gemma?](#what-is-gemma)
-    - [Prompt format](#prompt-format)
-    - [Exploring the Unknowns](#exploring-the-unknowns)
-  - [Demo](#demo)
-    - [Using 🤗 Transformers](#using-transformers)
-    - [JAX Weights](#jax-weights)
-  - [Integration with Google Cloud](#integration-with-google-cloud)
-  - [Integration with Inference Endpoints](#integration-with-inference-endpoints)
-  - [Fine-tuning with 🤗 TRL](#fine-tuning-with-trl)
-  - [Additional Resources](#additional-resources)
-  - [Acknowledgments](#acknowledgments)
+- [What is Gemma?](#what-is-gemma)
+  - [Prompt format](#prompt-format)
+  - [Exploring the Unknowns](#exploring-the-unknowns)
+- [Demo](#demo)
+  - [Using 🤗 Transformers](#using-transformers)
+  - [JAX Weights](#jax-weights)
+- [Integration with Google Cloud](#integration-with-google-cloud)
+- [Integration with Inference Endpoints](#integration-with-inference-endpoints)
+- [Fine-tuning with 🤗 TRL](#fine-tuning-with-trl)
+- [Additional Resources](#additional-resources)
+- [Acknowledgments](#acknowledgments)
 
 
 ## What is Gemma?
@@ -46,11 +44,10 @@ Gemma is a family of 4 new LLM models by Google based on Gemini. It comes in two
 - [gemma-7b-it](https://huggingface.co/google/gemma-7b-it): Instruction fine-tuned version of the base 7B model.
 - [gemma-2b](https://huggingface.co/google/gemma-2b): Base 2B model.
 - [gemma-2b-it](https://huggingface.co/google/gemma-2b-it): Instruction fine-tuned version of the base 2B model.
-- 
+
 <div class="flex items-center justify-center">
 <img src="/blog/assets/gemma/Gemma-logo-small.png" alt="Gemma logo">
 </div>
-
 
 So, how good are the Gemma models? Here’s an overview of the base models and their performance compared to other open models on the [LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) (higher scores are better):
 
@@ -64,13 +61,14 @@ So, how good are the Gemma models? Here’s an overview of the base models and t
 | [Llama 2 7B](https://huggingface.co/meta-llama/Llama-2-7b-hf)                    | Llama 2 license | ✅               | 2T                        | 54.32                |
 | [Gemma 2B](https://huggingface.co/google/gemma-2b)                               |                 | ✅               | 2T                        | 46.51                |
 
+
 Gemma 7B is a really strong model, with performance comparable to the best models in the 7B weight, including Mistral 7B. Gemma 2B is an interesting model for its size, but it doesn’t score as high in the leaderboard as the best capable models with a similar size, such as Phi 2. We are looking forward to receiving feedback from the community about real-world usage! 
 
-Recall that the LLM Leaderboard is especially useful for measuring the quality of pretrained models and not so much the chat ones. For the Chat ones, we encourage running other benchmarks such as MT Bench, EQ Bench, and the lmsys Arena!
+Recall that the LLM Leaderboard is especially useful for measuring the quality of pretrained models and not so much of the chat ones. We encourage running other benchmarks such as MT Bench, EQ Bench, and the lmsys Arena for the Chat ones!
 
 ### Prompt format
 
-The base models have no prompt format. Like other base models, they can be used to continue an input sequence with a plausible continuation or for zero-shot/few-shot inference. They are also a great foundation for fine-tuning on your own use case. The Instruct versions have a very simple conversation structure:
+The base models have no prompt format. Like other base models, they can be used to continue an input sequence with a plausible continuation or for zero-shot/few-shot inference. They are also a great foundation for fine-tuning on your own use cases. The Instruct versions have a very simple conversation structure:
 
 ```xml
 <start_of_turn>user
@@ -89,11 +87,11 @@ This format has to be exactly reproduced for effective use. We’ll later show h
 
 The Technical report includes information about the training and evaluation processes of the base models, but there are no extensive details on the dataset’s composition and preprocessing. We know they were trained with data from various sources, mostly web documents, code, and mathematical texts. The data was filtered to remove CSAM content and PII as well as licensing checks.
 
-Similarly, for the Gemma instruct model, no details have been shared about the fine-tuning datasets or the hyperparameters associated with SFT and RLHF.
+Similarly, for the Gemma instruct models, no details have been shared about the fine-tuning datasets or the hyperparameters associated with SFT and [RLHF](https://huggingface.co/blog/rlhf).
 
 ## Demo
 
-You can chat with the Gemma Instruct model on Hugging Face Chat! Check out the link here: https://huggingface.co/chat/?model=Google/Gemma-7b-instruct.
+You can chat with the Gemma Instruct model on Hugging Chat! Check out the link here: https://huggingface.co/chat/?model=Google/Gemma-7b-instruct.
 
 ### Using 🤗 Transformers
 
@@ -130,8 +128,7 @@ pipeline = pipeline(
 )
 
 messages = [
-    {"role": "system", "content": "You are Hook, a pirate. Please, provide all your answers in pirate-speak."},
-    {"role": "user", "content": "Who are you?"},
+		{"role": "user", "content": "Who are you? Please, answer in pirate-speak."},
 ]
 prompt = pipeline.tokenizer.apply_chat_template(messages, tokenize=False, chat_template=chat_template, add_generation_prompt=True)prompt = pipeline.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 outputs = pipeline(
@@ -146,7 +143,7 @@ outputs = pipeline(
 print(outputs[0]["generated_text"][len(prompt):])
 ```
 
-> `Avast, me heartie, I be Hook, a pirate of the highest order. Prepare for a tale of sweltering battles and treacherous waters!`
+> `Avast me, me hearty. I am a pirate of the high seas, ready to pillage and plunder. Prepare for a tale of adventure and booty!`
 > 
 
 A couple of details about the snippet:
@@ -154,7 +151,7 @@ A couple of details about the snippet:
 - We used `bfloat16` because that’s the reference precision and how all evaluations were run. Running in `float16` may be faster on your hardware.
 - The model won’t respond unless the tokenized input starts with a `<bos>` token. That’s why we used `add_special_tokens=True` in the pipeline call.
 
-You can also automatically quantize the model loading it in 8-bit or even 4-bit mode. 4-bit loading takes about 9 GB of memory to run, making it compatible with a lot of consumer cards and all the GPUs in Google Colab. This is how you’d load the generation pipeline in 4-bit:
+You can also automatically quantize the model, loading it in 8-bit or even 4-bit mode. 4-bit loading takes about 9 GB of memory to run, making it compatible with a lot of consumer cards and all the GPUs in Google Colab. This is how you’d load the generation pipeline in 4-bit:
 
 ```jsx
 pipeline = pipeline(
@@ -167,6 +164,8 @@ pipeline = pipeline(
 )
 ```
 
+For more details on using the models with transformers, please check [the model cards](https://huggingface.co/gg-hf/gemma-7b).
+
 ### JAX Weights
 
 All the Gemma model variants are available for use with PyTorch, as explained above, or JAX / Flax. To load Flax weights, you need to use the `flax` revision from the repo, as shown below:
@@ -175,24 +174,33 @@ All the Gemma model variants are available for use with PyTorch, as explained ab
 import jax.numpy as jnp
 from transformers import AutoTokenizer, FlaxGemmaForCausalLM
 
-tokenizer = AutoTokenizer.from_pretrained("google/gemma-2b-it")
-model = FlaxGemmaForCausalLM.from_pretrained(
-		"google/gemma-2b-it",
+model_id = "google/gemma-2b"
+
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+tokenizer.padding_side = "left"
+
+model, params = FlaxGemmaForCausalLM.from_pretrained(
+		model_id,
 		dtype=jnp.bfloat16,
 		revision="flax",
+		_do_init=False,
 )
+
+inputs = tokenizer("Valencia and Málaga are", return_tensors="np", padding=True)
+output = model.generate(inputs, params=params, max_new_tokens=20, do_sample=False)
+output_text = tokenizer.batch_decode(output.sequences, skip_special_tokens=True)
 ```
 
-TODO: more complete inference snippet if we can
+> `['Valencia and Málaga are two of the most popular tourist destinations in Spain. Both cities boast a rich history, vibrant culture,']`
+> 
 
-Optimum-NVIDIA if ready
+If you are running on TPU or on multiple GPU devices, you can use `jit` and `pmap` to compile and run inference in parallel.
 
 ## Integration with Google Cloud
 
-You can deploy and train Gemma on Google Cloud through Vertex AI or Google Kubernetes Engine (GKE), using Text Generation Inference and Transformers. 
+You can deploy and train Gemma on Google Cloud through Vertex AI or Google Kubernetes Engine (GKE), using [Text Generation Inference](https://huggingface.co/docs/text-generation-inference/index) and Transformers. 
 
 To deploy the Gemma model from Hugging Face, go to the [model page](https://huggingface.co/google/gemma-7b-it) and click on [Deploy -> Google Cloud.](https://huggingface.co/google/gemma-7b-it) This will bring you to the Google Cloud Console, where you can 1-click deploy Gemma on Vertex AI or GKE. Text Generation Inference powers Gemma on Google Cloud and is the first integration as part of our [partnership with Google Cloud.](https://huggingface.co/blog/gcp-partnership)
-
 
 ![deploy on GCP](/blog/assets/gemma/gcp-deploy.png)
 
@@ -222,7 +230,6 @@ client = OpenAI(
 chat_completion = client.chat.completions.create(
     model="tgi",
     messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Why is open-source software important?"},
     ],
     stream=True,
@@ -236,9 +243,9 @@ for message in chat_completion:
 
 ## Fine-tuning with 🤗 TRL
 
-Training LLMs can be technically and computationally challenging. In this section, we look at the tools available in the Hugging Face ecosystem to efficiently train Gemma on consumer Size GPUs
+Training LLMs can be technically and computationally challenging. In this section, we’ll look at the tools available in the Hugging Face ecosystem to efficiently train Gemma on consumer-size GPUs
 
-An example command to fine-tune Gemma on OpenAssistant’s [chat dataset](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) can be found below. To conserve memory, we make use of 4-bit quantization and [QLoRA](https://arxiv.org/abs/2305.14314) to target all the linear layers in the attention blocks. Note that unlike dense transformers, one should not target the MLP layers as they are sparse and don’t interact well with PEFT.
+An example command to fine-tune Gemma on OpenAssistant’s [chat dataset](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) can be found below. We use 4-bit quantization and [QLoRA](https://arxiv.org/abs/2305.14314) to conserve memory to target all the attention blocks' linear layers. Note that, unlike dense transformers, one should not target the MLP layers as they are sparse and don’t interact well with PEFT.
 
 First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
 
@@ -279,6 +286,6 @@ This takes about 9 hours to train on a single A10G, but can be easily paralleliz
 
 ## Acknowledgments
 
-Releasing such a model with support and evaluations in the ecosystem would not be possible without the contributions of many community members, including [Clémentine](https://huggingface.co/clefourrier) and [Eleuther Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) for LLM evaluations; [Olivier](https://huggingface.co/olivierdehaene) and [David](https://huggingface.co/drbh) for Text Generation Inference Support; [Simon](https://huggingface.co/sbrandeis) for developing the new access control features on Hugging Face;  [Arthur](https://huggingface.co/ArthurZ), [Younes](https://huggingface.co/ybelkada), and [Sanchit](https://huggingface.co/sanchit-gandhi) for integrating Gemma into transformers; [Morgan](https://huggingface.co/mfuntowicz) for integrating Gemma into optimum-nvidia; [Nathan](https://huggingface.co/nsarrazin) and [Victor](https://huggingface.co/victor) for making Gemma available in Hugging Chat. 
+Releasing such models with support and evaluations in the ecosystem would not be possible without the contributions of many community members, including [Clémentine](https://huggingface.co/clefourrier) and [Eleuther Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) for LLM evaluations; [Olivier](https://huggingface.co/olivierdehaene) and [David](https://huggingface.co/drbh) for Text Generation Inference Support; [Simon](https://huggingface.co/sbrandeis) for developing the new access control features on Hugging Face;  [Arthur](https://huggingface.co/ArthurZ), [Younes](https://huggingface.co/ybelkada), and [Sanchit](https://huggingface.co/sanchit-gandhi) for integrating Gemma into transformers; [Morgan](https://huggingface.co/mfuntowicz) for integrating Gemma into optimum-nvidia (coming); [Nathan](https://huggingface.co/nsarrazin), [Victor](https://huggingface.co/victor), and [Mishig](https://huggingface.co/mishig) for making Gemma available in Hugging Chat. 
 
 And Thank you to the Google Team for releasing Gemma and making it available to the open-source AI community!
