@@ -24,7 +24,8 @@ The Gemma family of models also happens to be well suited for prototyping and ex
 The default (full weight) training for language models, even for modest sizes tends to be memory and compute intensive. On one hand, it can be prohibitive for users relying on openly available compute platforms such as a Colab or Kaggle notebook for learning and experimentation. And on the other hand even for enterprise users, the cost of adapting these models for different domains is an important metric to optimize. PEFT or parameter efficient fine tuning is a popular technique to accomplish this at low cost. 
 
 # PyTorch on GPU and TPU
-Gemma models in HuggingFace transformers are well optimized for both PyTorch and PyTorch/XLA. This enables both TPU and GPU users to access and experiment with Gemma models as needed. Together with the Gemma release, we also improved the FSDP experience for PyTorch/XLA in Hugging Face. This FSDP via SPMD integration also allows other Hugging Face models to take advantage of TPU acceleration via PyTorch/XLA. In this post we will focus on PEFT, more specifically, Low-Rank Adaptation (LoRA), for Gemma models. For a more comprehensive set of LoRA techniques we encourage readers to review the Scaling Down to Scale Up, from Lialin et al and this excellent blog post by Belkada et al. 
+Gemma models in HuggingFace transformers are well optimized for both PyTorch and PyTorch/XLA. This enables both TPU and GPU users to access and experiment with Gemma models as needed. Together with the Gemma release, we also improved the [FSDP](https://engineering.fb.com/2021/07/15/open-source/fsdp/) experience for PyTorch/XLA in Hugging Face. This [FSDP via SPMD](https://github.com/pytorch/xla/issues/6379) integration also allows other Hugging Face models to take advantage of TPU acceleration via PyTorch/XLA. In this post we will focus on PEFT, more specifically, Low-Rank Adaptation (LoRA), for Gemma models. For a more comprehensive set of LoRA techniques we encourage readers to review the [Scaling Down to Scale Up, from Lialin et al](https://arxiv.org/pdf/2303.15647.pdf) and [this](https://pytorch.org/blog/finetune-llms/) excellent blog post by Belkada et al. 
+
 # Low-Rank Adaptation for Large Language Models
 Low-Rank Adaptation (LoRA) is one of the parameter-efficient fine-tuning techniques for large language models (LLMs). It incorporates a fraction of total model parameters to be fine-tuned by freezing the original model and only training an adapter layer which is decomposed into low rank matrices. PEFT library provides an easy abstraction which allows users to select particular layers from the model where adapter weights are applied.
 
@@ -40,13 +41,14 @@ lora_config = LoraConfig(
 
 In this snippet we refer to all `nn.Linear` layers as the target layers to be adapted.
 
-In the following example, we will leverage QLoRA, from Dettmers et al. in order to quantize the base model in 4-bit precision for a more memory efficient fine-tuning protocol. A model can be loaded with QLoRA by first installing a `bitsandbytes` library on your environment, then passing a `BitsAndBytesConfig` object to `from_pretrained` when loading the model.
+In the following example, we will leverage [QLoRA, from Dettmers et al.](https://arxiv.org/abs/2305.14314) in order to quantize the base model in 4-bit precision for a more memory efficient fine-tuning protocol. A model can be loaded with QLoRA by first installing a `bitsandbytes` library on your environment, then passing a `BitsAndBytesConfig` object to `from_pretrained` when loading the model.
+
 # Before we begin
-In order to access Gemma model artifacts, the users are required to accept the consent form here (link).
+In order to access Gemma model artifacts, the users are required to accept the consent form here ([link](https://www.kaggle.com/models/google/gemma/license/consent)).
 Now let’s get started with an implementation.
 
 # Learning to quote
-Assuming that you have submitted the consent form, you can access the model artifact from the Hugging Face models.
+Assuming that you have submitted the consent form, you can access the model artifact from the [Hugging Face models](https://huggingface.co/collections/google/gemma-release-65d5efbccdbb8c4202ec078b).
 
 We start by downloading the model and tokenizer into the respective objects. Here we are also including BitsAndBytesConfig for weight only quantization.
 
@@ -188,6 +190,6 @@ trainer.train()
 ```
 
 # Next Steps
-We walked through this simple example adapted from the source notebook to illustrate the LoRA finetuning method applied to Gemma models. The full colab for GPU can be found here, and the full script for TPU can be found here. We are excited about the endless possibilities for research and learning thanks to this recent addition to our open source ecosystem. We encourage users to also visit Gemma documentation, and our launch blog for more examples to train, finetune and deploy Gemma models. 
+We walked through this simple example adapted from the source notebook to illustrate the LoRA finetuning method applied to Gemma models. The full colab for GPU can be found [here](https://huggingface.co/google/gemma-7b/tree/main/examples), and the full script for TPU can be found [here](https://huggingface.co/google/gemma-7b/tree/main/examples). We are excited about the endless possibilities for research and learning thanks to this recent addition to our open source ecosystem. We encourage users to also visit Gemma documentation, and our launch blog for more examples to train, finetune and deploy Gemma models. 
 
 
