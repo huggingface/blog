@@ -10,6 +10,10 @@ authors:
 # Introduction
 We recently announced that Gemma, the open weights language model from Google Deepmind, is available for the broader open source community via Hugging Face. It’s available in 2 billion and 7 billion parameters sizes with pretrained and instruction tuned flavors. It’s available on Hugging Face, supported in TGI, and easily accessible for deployment and fine-tuning in the Vertex Model Garden and Google Kubernetes Engine.
 
+<div class="flex items-center justify-center">
+<img src="/blog/assets/gemma-peft/Gemma-peft.png" alt="Gemma Deploy">
+</div>
+
 
 
 The Gemma family of models also happens to be well suited for prototyping and experimentation using the free GPU resource via Colab. In this post we will briefly review how you can do Parameter Efficient FineTuning (PEFT) for Gemma models, using Hugging Face Transformer and PEFT library on GPUs and Cloud TPUs for anyone who wants to fine-tune Gemma models on their own dataset
