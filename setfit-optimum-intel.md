@@ -30,16 +30,21 @@ Setfit has been widely adopted by the AI developer community, with ~100k downloa
 
 ## Faster!
 
-In this blog post, we'll explain how you can accelerate inference with SetFit even further on Intel CPUs, by optimizing your SetFit model with 🤗 [Optimum Intel](https://github.com/huggingface/optimum). We’ll show how you can achieve huge throughput gains by performing a simple post-training quantization step on your model.
+In this blog post, we'll explain how you can accelerate inference with SetFit even further on Intel CPUs, by optimizing your SetFit model with 🤗 [Optimum Intel](https://github.com/huggingface/optimum-intel). We’ll show how you can achieve huge throughput gains by performing a simple post-training quantization step on your model.
 This can enable production-grade deployment of SetFit solutions using Intel Xeon CPUs. Our blog is accompanied by a [notebook](https://github.com/huggingface/setfit/blob/main/notebooks/setfit-optimum-intel.ipynb) for a step-by-step walkthrough.
 
 ## Step 1: Quantize the SetFit Model using 🤗 Optimum Intel
 
 In order to optimize our SetFit model, we will apply quantization to the model body, using [Intel Neural Compressor](https://www.intel.com/content/www/us/en/developer/tools/oneapi/neural-compressor.html) (INC), part of Optimum Intel.
 
-**Quantization** is a very popular deep learning model optimization technique for improving inference speeds. It minimizes the number of bits required to represent the weights and/or activations in a neural network. This is done by converting a set of real-valued numbers into their lower-bit data representations, such as INT8. Moreover, quantization can enable faster computations in lower precision.
+**Quantization** is a very popular deep learning model optimization technique for improving inference speeds. It minimizes the number of bits required to represent the weights and/or activations in a neural network. This is done by converting a set of high-precision  numbers into a lower-bit data representations, such as INT8. Moreover, quantization can enable faster computations in lower precision.
 
 Specifically, we'll apply post-training static quantization (PTQ). PTQ can reduce the memory footprint and latency for inference, while still preserving the accuracy of the model, with only a small unlabeled calibration set and without any training.
+Before you begin, make sure you have all the necessary libraries installed and that your version of Optimum Intel is at least `1.14.0` since the functionality was introduced in that version:
+
+```bash
+pip install --upgrade-strategy eager optimum[ipex]
+```
 
 ### Prepare a Calibration Dataset
 
@@ -105,7 +110,7 @@ perf_metrics = pb.run_benchmark()
 Now let's run the benchmark on on our optimized model. We’ll first need to define a wrapper around our SetFit model which plugs in our quantized model body at inference (instead of the original model body). Then, we can run the benchmark using this wrapper.
 
 ```python
-import optimum.intel
+from optimum.intel import IPEXModel
 
 class OptimumSetFitModel:
    def __init__(self, setfit_model, model_body):
@@ -114,7 +119,7 @@ class OptimumSetFitModel:
        self.model_head = setfit_model.model_head
 
 
-optimum_model = optimum.intel.IPEXModel.from_pretrained(optimum_model_path)
+optimum_model = IPEXModel.from_pretrained(optimum_model_path)
 optimum_setfit_model = OptimumSetFitModel(setfit_model, model_body=optimum_model)
 
 pb = PerformanceBenchmark(
@@ -143,7 +148,7 @@ perf_metrics.update(pb.run_benchmark())
 | Latency (bs=1) | 19.50 ms +/- 0.80 ms | 5.06 ms +/- 0.43 ms |
 
 When inspecting the performance at batch size 1, there’s a **3.85x reduction in latency** with our optimized model. Note that this is achieved with virtually no drop in accuracy! 
-It's also worth mentioning that the model size has shrunk by 2.85x. 
+It's also worth mentioning that the model size has shrunk by **2.85x**. 
 
 <p align="center">
     <img src="assets/176_setfit_optimum_intel/throughput.png" width=500>
