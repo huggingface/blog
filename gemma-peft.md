@@ -47,8 +47,9 @@ In this snippet we refer to all `nn.Linear` layers as the target layers to be ad
 
 In the following example, we will leverage [QLoRA, from Dettmers et al.](https://arxiv.org/abs/2305.14314) in order to quantize the base model in 4-bit precision for a more memory efficient fine-tuning protocol. A model can be loaded with QLoRA by first installing a `bitsandbytes` library on your environment, then passing a `BitsAndBytesConfig` object to `from_pretrained` when loading the model.
 
-# Before we begin
-In order to access Gemma model artifacts, the users are required to accept the consent form here ([link](https://www.kaggle.com/models/google/gemma/license/consent)).
+## Before we begin
+
+In order to access Gemma model artifacts, the users are required to accept the consent form here ([link](https://huggingface.co/google/gemma-7b-it)).
 Now let’s get started with an implementation.
 
 # Learning to quote
