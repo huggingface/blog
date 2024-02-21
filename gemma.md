@@ -54,12 +54,12 @@ So, how good are the Gemma models? Here’s an overview of the base models and t
 | Model                                                                            | License         | Commercial use? | Pretraining size [tokens] | Leaderboard  score ⬇️ |
 | -------------------------------------------------------------------------------- | --------------- | --------------- | ------------------------- | -------------------- |
 | [LLama 2 70B Chat (reference)](https://huggingface.co/meta-llama/Llama-2-70b-hf) | Llama 2 license | ✅               | 2T                        | 67.87                |
-| [Gemma-7B](https://huggingface.co/google/gemma-7b)                               |                 | ✅               | 6T                        | 63.75                |
+| [Gemma-7B](https://huggingface.co/google/gemma-7b)                               | Gemma license       | ✅               | 6T                        | 63.75                |
 | [DeciLM-7B](https://huggingface.co/Deci/DeciLM-7B)                               | Apache 2.0      | ✅               | unknown                   | 61.55                |
 | [PHI-2 (2.7B)](https://huggingface.co/microsoft/phi-2)                           | MIT             | ✅               | 1.4T                      | 61.33                |
 | [Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1)              | Apache 2.0      | ✅               | unknown                   | 60.97                |
 | [Llama 2 7B](https://huggingface.co/meta-llama/Llama-2-7b-hf)                    | Llama 2 license | ✅               | 2T                        | 54.32                |
-| [Gemma 2B](https://huggingface.co/google/gemma-2b)                               |                 | ✅               | 2T                        | 46.51                |
+| [Gemma 2B](https://huggingface.co/google/gemma-2b)                               | Gemma license       | ✅               | 2T                        | 46.51                |
 
 
 Gemma 7B is a really strong model, with performance comparable to the best models in the 7B weight, including Mistral 7B. Gemma 2B is an interesting model for its size, but it doesn’t score as high in the leaderboard as the best capable models with a similar size, such as Phi 2. We are looking forward to receiving feedback from the community about real-world usage! 
