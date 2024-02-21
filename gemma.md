@@ -124,13 +124,13 @@ pipeline = pipeline(
     "text-generation",
     model=model,
     model_kwargs={"torch_dtype": torch.bfloat16},
-		device="cuda",
+    device="cuda",
 )
 
 messages = [
 		{"role": "user", "content": "Who are you? Please, answer in pirate-speak."},
 ]
-prompt = pipeline.tokenizer.apply_chat_template(messages, tokenize=False, chat_template=chat_template, add_generation_prompt=True)prompt = pipeline.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+prompt = pipeline.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 outputs = pipeline(
     prompt,
     max_new_tokens=256,
