@@ -8,7 +8,7 @@ authors:
 ---
 
 # Introduction
-We recently announced that Gemma, the open weights language model from Google Deepmind, is available for the broader open source community via Hugging Face. It’s available in 2 billion and 7 billion parameters sizes with pretrained and instruction tuned flavors. It’s available on Hugging Face, supported in TGI, and easily accessible for deployment and fine-tuning in the Vertex Model Garden and Google Kubernetes Engine.
+We recently announced that [Gemma](https://huggingface.co/blog/gemma), the open weights language model from Google Deepmind, is available for the broader open source community via Hugging Face. It’s available in 2 billion and 7 billion parameters sizes with pretrained and instruction tuned flavors. It’s available on Hugging Face, supported in TGI, and easily accessible for deployment and fine-tuning in the Vertex Model Garden and Google Kubernetes Engine.
 
 <div class="flex items-center justify-center">
 <img src="/blog/assets/gemma-peft/Gemma-peft.png" alt="Gemma Deploy">
@@ -79,9 +79,8 @@ outputs = model.generate(**inputs, max_new_tokens=20)
 print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 ```
 
-```
 The model does a reasonable completion with some extra tokens:
-
+```
 Quote: Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world.
 
 -Albert Einstein
@@ -96,8 +95,8 @@ Quote: Imagination is more important than knowledge. Knowledge is limited. Imagi
 
 Author: Albert Einstein
 
-To begin with, let's select an English quotes dataset.
 ```
+To begin with, let's select an English quotes dataset.
 ```python
 from datasets import load_dataset
 
