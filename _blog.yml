@@ -3512,7 +3512,7 @@
 - local: matryoshka
   title: "🪆 Introduction to Matryoshka Embedding Models"
   author: tomaarsen
-  thumbnail: /blog/assets/matryoshka/thumbnail.jpg
+  thumbnail: /blog/assets/matryoshka/thumbnail.png
   date: Feb 23, 2024
   tags:
     - nlp
