@@ -30,7 +30,7 @@ These Matryoshka embedding models are trained such that these small truncated em
 
 ## Why would you use 🪆 Matryoshka Embedding models?
 Such variable-size embedding models can be quite valuable to practitioners, for example:
-1. **Shortlisting and reranking**: Rather than performing your downstream task (e.g. nearest neighbor search) on the full embeddings, you can shrink the embeddings to a smaller size and very efficiently "shortlist" your embeddings. Afterwards, you can process the remaining embeddings using their full dimensionality.
+1. **Shortlisting and reranking**: Rather than performing your downstream task (e.g., nearest neighbor search) on the full embeddings, you can shrink the embeddings to a smaller size and very efficiently "shortlist" your embeddings. Afterwards, you can process the remaining embeddings using their full dimensionality.
 2. **Trade-offs**: Matryoshka models will allow you to scale your embedding solutions to your desired storage cost, processing speed and performance. 
 
 ## How are 🪆 Matryoshka Embedding models trained?
