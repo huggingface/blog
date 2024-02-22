@@ -1250,3 +1250,45 @@
     - fine-tuning
     - community
     - sdxl
+
+- local: open-source-llms-as-agents
+  title: "开源大语言模型作为 LangChain 智能体"
+  author: m-ric
+  thumbnail: /blog/assets/open-source-llms-as-agents/thumbnail_open_source_agents.png
+  date: January 24, 2024
+  tags:
+    - mixtral
+    - zephyr
+    - solar
+    - llama2
+    - nlp
+    - llm
+    - agents
+    - langchain
+    - benchmark
+
+- local: intel-starcoder-quantization
+  title: "使用 🤗 Optimum Intel 在英特尔至强上加速 StarCoder：Q8/Q4 及投机解码"
+  author: ofirzaf
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: Jan 30, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community
+
+- local: gemma
+  title: "欢迎 Gemma: Google 最新推出开放大语言模型"
+  author: philschmid
+  thumbnail: /blog/assets/gemma/thumbnail.jpg
+  date: Feb 21, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp

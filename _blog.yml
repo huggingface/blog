@@ -3497,6 +3497,18 @@
     - guide
     - collaboration
 
+- local: gemma
+  title: "Welcome Gemma - Google's new open LLM"
+  author: philschmid
+  thumbnail: /blog/assets/gemma/thumbnail.jpg
+  date: Feb 21, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
+    
 - local: leaderboards-on-the-hub-haizelab
   title: "Introducing the Red-Teaming Resistance Leaderboard"
   author: steve-sli
@@ -3507,4 +3519,3 @@
     - leaderboard
     - guide
     - collaboration
-  
