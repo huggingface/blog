@@ -1,0 +1,43 @@
+---
+title: "An Introduction to AI Secure LLM Safety Leaderboard"
+thumbnail: /blog/assets/arenas-on-the-hub/thumbnail_tts.png 
+authors:
+- user: mrfakename
+  guest: true
+- user: ...
+---
+
+# TTS Arena: Voting on the Best Speech Synthesis Models
+
+Measuring the quality of text-to-speech (TTS) models is very hard to do automatically. Although testing the naturalness and inflection of a voice is a trivial task for humans, it’s much more difficult for AI. This is why today, we’re thrilled to announce the TTS Arena.  Inspired by LMSYS’s chatbot arena for LLMs, we developed a tool that allows individuals to compare TTS models side-by-side. Just submit text, listen to two models speak it, and vote on which model is the best. The goal is to create a leaderboard based on the community’s highest-rated models.
+
+## Motivation
+The field of speech synthesis has long lacked an accurate method to measure the quality of different models. Objective metrics like WER (word error rate) are unreliable measures of model quality, and subjective measures such as MOS (mean opinion score) are typically small-scale experiments conducted with few listeners. As a result, these measurements are generally not useful for comparing two models of roughly similar quality. To address these drawbacks, we are inviting the community to rank models in an easy-to-use interface, and opening it up to the public in order to make both the opportunity to rank models, as well as the results, more easily accessible to everyone.
+
+## The Arena
+Human ranking for AI systems is not a novel approach. Recently, LMSys applied this method in their [Chatbot Arena](https://arena.lmsys.org/) with positive results, resulting in over 300,000 rankings. Because of its success, we adopted a similar framework for our leaderboard, inviting humans to rank synthesized audio.
+
+The voting system is an important aspect of the leaderboard. Due to the risks of human bias and abuse, model anonymity is key. This is why model names are only revealed after a user votes.
+
+## The Models
+We selected several SOTA (State of the Art) models for our leaderboard. While we’re mostly using open source models, we included several proprietary models to allow developers to compare the state of open source development with proprietary models.
+
+We plan to add more models in the future; however, the models available at launch are:
+- ElevenLabs (proprietary)
+- MetaVoice
+- OpenVoice
+- OpenAI (proprietary)
+- Pheme
+- WhisperSpeech
+- XTTS
+
+Although there are countless other both open and closed source models available, we chose these because they are generally accepted as the highest quality models to the general public.
+
+## The Leaderboard
+We will display the results from Arena voting in a publicly accessible leaderboard. Although it will initially be empty, models will gradually appear as they accumulate enough votes. As raters submit new votes, the leaderboard will automatically update with the latest results.
+
+Similar to the Chatbot Arena, the models on the leaderboard are ranked using the [Elo rating](https://en.wikipedia.org/wiki/Elo_rating_system) system, a system commonly used by game players.
+
+## Conclusion
+We hope the TTS Arena proves to be a helpful resource for all developers. We would love to hear your feedback. Please also do not hesitate to let us know if you have any questions or suggestions by sending a X/Twitter DM [here](https://twitter.com/realmrfakename) or by opening a discussion in [the Space](https://huggingface.co/spaces/ttseval/TTS-Arena).
+
