@@ -11,8 +11,6 @@ authors:
 
 # Fine-Tuning Gemma Models in Hugging Face
 
-## Introduction
-
 We recently announced that [Gemma](https://huggingface.co/blog/gemma), the open weights language model from Google Deepmind, is available for the broader open-source community via Hugging Face. It’s available in 2 billion and 7 billion parameter sizes with pretrained and instruction-tuned flavors. It’s available on Hugging Face, supported in TGI, and easily accessible for deployment and fine-tuning in the Vertex Model Garden and Google Kubernetes Engine.
 
 <div class="flex items-center justify-center">
@@ -49,7 +47,7 @@ lora_config = LoraConfig(
 
 In this snippet we refer to all `nn.Linear` layers as the target layers to be adapted.
 
-In the following example, we will leverage [QLoRA, from Dettmers et al.](https://arxiv.org/abs/2305.14314) in order to quantize the base model in 4-bit precision for a more memory efficient fine-tuning protocol. A model can be loaded with QLoRA by first installing a `bitsandbytes` library on your environment, then passing a `BitsAndBytesConfig` object to `from_pretrained` when loading the model.
+In the following example, we will leverage [QLoRA](https://huggingface.co/blog/4bit-transformers-bitsandbytes), from [Dettmers et al.](https://arxiv.org/abs/2305.14314) in order to quantize the base model in 4-bit precision for a more memory efficient fine-tuning protocol. A model can be loaded with QLoRA by first installing a `bitsandbytes` library on your environment, then passing a `BitsAndBytesConfig` object to `from_pretrained` when loading the model.
 
 ## Before we begin
 
