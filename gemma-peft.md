@@ -19,7 +19,7 @@ We recently announced that [Gemma](https://huggingface.co/blog/gemma), the open 
 
 
 
-The Gemma family of models also happens to be well suited for prototyping and experimentation using the free GPU resource via Colab. In this post we will briefly review how you can do Parameter Efficient FineTuning (PEFT) for Gemma models, using Hugging Face Transformer and PEFT library on GPUs and Cloud TPUs for anyone who wants to fine-tune Gemma models on their own dataset
+The Gemma family of models also happens to be well suited for prototyping and experimentation using the free GPU resource via Colab. In this post we will briefly review how you can do Parameter Efficient FineTuning (PEFT) for Gemma models, using the Hugging Face Transformers and PEFT libraries on GPUs and Cloud TPUs for anyone who wants to fine-tune Gemma models on their own dataset.
 
 
 
