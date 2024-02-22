@@ -65,6 +65,7 @@ model.fit(
     ...,
 )
 ```
+Training with `MatryoshkaLoss` does not incur a notable overhead in training time.
 
 References:
 * [`MatryoshkaLoss`](https://sbert.net/docs/package_reference/losses.html#matryoshkaloss)
