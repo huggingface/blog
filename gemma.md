@@ -263,14 +263,15 @@ accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num
 	examples/scripts/sft.py \
 	--model_name google/gemma-7b \
 	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
-	--batch_size 2 \
+	--per_device_train_batch_size 2 \
 	--gradient_accumulation_steps 1 \
 	--learning_rate 2e-4 \
 	--save_steps 20_000 \
 	--use_peft \
-	--peft_lora_r 16 --peft_lora_alpha 32 \
-	--target_modules q_proj k_proj v_proj o_proj \
-	--load_in_4bit
+	--lora_r 16 --lora_alpha 32 \
+	--lora_target_modules q_proj k_proj v_proj o_proj \
+	--load_in_4bit \
+	--output_dir gemma-finetuned-openassistant
 ```
 
 This takes about 9 hours to train on a single A10G, but can be easily parallelized by tweaking `--num_processes` to the number of GPUs you have available.
