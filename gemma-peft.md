@@ -161,7 +161,8 @@ Author: Albert Einstein
 ```
 
 
-# Accelerate with FSDP via SPMD on TPU
+## Accelerate with FSDP via SPMD on TPU
+
 As mentioned earlier, Hugging Face `transformers` now support PyTorch/XLA’s latest FSDP implementation. This can greatly accelerate the fine-tuning speed. To enable that, one just needs to add an FSDP config to the `transformers.Trainer`:
 
 ```python
