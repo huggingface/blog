@@ -278,7 +278,7 @@ def process_output_cot(output):
         output_dic = ast.literal_eval(output) 
         return output_dic
     except Exception as e:
-        # if json/dict parse fails, do simple search for occurance of first label term
+        # if json/dict parse fails, do simple search for occurrence of first label term
         print(f"Parsing failed for output: {output}, Error: {e}")
         output_cl = clean_output(output, random_choice=False)
         output_dic = {"reason": "FAIL", "label": output_cl}
@@ -356,9 +356,9 @@ Note that in the [full reproduction script](https://github.com/MoritzLaurer/synt
 
 ### 3.2 Compare the open-source model to proprietary models
 
-The main advantage of this data created with the open-source Mixtral model is that the data is fully commercially usable without legal uncertainty. For example, data created with the OpenAI API is subject to the [OpenAI Business Terms](https://openai.com/policies/business-terms), which explicitly prohibit using model outputs for training models that compete with their products and services. The legal value and meaning of these Terms are unclear, but they introduce legal uncertainty for the commercial use of models trained on synthetic data from OpenAI models. Any smaller, efficient model trained on synthetic data could be considered as competing, as it reduces dependency on the API service. 
+The main advantage of this data created with the open-source Mixtral model is that the data is fully commercially usable without legal uncertainty. For example, data created with the OpenAI API is subject to the [OpenAI Business Terms](https://openai.com/policies/business-terms), which explicitly prohibits using model outputs for training models that compete with their products and services. The legal value and meaning of these Terms are unclear, but they introduce legal uncertainty for the commercial use of models trained on synthetic data from OpenAI models. Any smaller, efficient model trained on synthetic data could be considered as competing, as it reduces dependency on the API service. 
 
-How does the quality of synthetic data compare between Mistral’s open-source `Mixtral-8x7B-Instruct-v0.1` and OpenAI’s GPT3.5 and GPT4? We ran the identical pipeline and prompts explained above with `gpt-3.5-turbo-0613` and `gpt-4-0125-preview` and report the results in the table below. We see that Mixtral performs better than GPT3.5 and is on par with GPT4 for this task, depending on the prompt type. (We don’t display the results for the newer gpt-3.5-turbo-0125 here because, for some reason, the performance with this model was worse than with the older default gpt-3.5-turbo-0613).
+How does the quality of synthetic data compare between Mistral’s open-source `Mixtral-8x7B-Instruct-v0.1` and OpenAI’s GPT3.5 and GPT4? We ran the identical pipeline and prompts explained above with `gpt-3.5-turbo-0613` and `gpt-4-0125-preview` and reported the results in the table below. We see that Mixtral performs better than GPT3.5 and is on par with GPT4 for this task, depending on the prompt type. (We don’t display the results for the newer gpt-3.5-turbo-0125 here because, for some reason, the performance with this model was worse than with the older default gpt-3.5-turbo-0613).
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/176_synthetic-data-save-costs/fig_mixtral_gpt.png" alt="fig_mixtral_gpt" width=95%>
@@ -411,7 +411,7 @@ Let's start with task performance. As demonstrated above, the specialized model 
 
 Second, compute costs and inference speed. The main compute costs in practice will be inference, i.e. running the model after it has been trained. Let's assume that in your production use case, you need to process 1 million sentences in a given time period. Our fine-tuned RoBERTa-base model runs efficiently on a small T4 GPU with 16GB RAM, which costs $0.6 per hour on an [Inference Endpoint](https://ui.endpoints.huggingface.co/). It has a latency of 0.13 seconds and a throughput of 61 sentences per second with `batch_size=8`. This leads to a total cost of $2.7 for processing 1 million sentences. 
 
-With GPT models, we can calculate inference costs by counting tokens. Processing the tokens in 1 million sentences would cost ~$153 with GPT3.5 and ~$3061 with GPT4. The latency and throughput for these models are more complicated to calculate as they vary throughout the day depending on the current server load. Anyone working with GPT4 knows, however, that latency can often be multiple seconds and is rate limited. Note that speed is an issue for any LLM (API), including open-source LLMs. Many generative LLMs are simply too large to be fast.
+With GPT models, we can calculate inference costs by counting tokens. Processing the tokens in 1 million sentences would cost ~$153 with GPT3.5 and ~$3061 with GPT4. The latency and throughput for these models are more complicated to calculate as they vary throughout the day depending on the current server load. Anyone working with GPT4 knows, however, that latency can often be multiple seconds and is rate-limited. Note that speed is an issue for any LLM (API), including open-source LLMs. Many generative LLMs are simply too large to be fast.
 
 Training compute costs tend to be less relevant, as LLMs can often be used out-of-the-box without fine-tuning, and the fine-tuning costs of smaller models are relatively small (fine-tuning RoBERTa-base costs less than $1). Only in very few cases do you need to invest in pre-training a model from scratch. Training costs can become relevant when fine-tuning a larger generative LLM to specialize it in a specific generative task.
 
