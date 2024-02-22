@@ -64,7 +64,7 @@ We start by downloading the model and tokenizer into the respective objects. Her
 
 ```python
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, GemmaTokenizer
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
 model_id = "google/gemma-2b"
 bnb_config = BitsAndBytesConfig(
