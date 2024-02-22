@@ -9,6 +9,8 @@ authors:
 - user: ArthurZ
 ---
 
+# Fine-Tuning Gemma Models in Hugging Face
+
 ## Introduction
 
 We recently announced that [Gemma](https://huggingface.co/blog/gemma), the open weights language model from Google Deepmind, is available for the broader open-source community via Hugging Face. It’s available in 2 billion and 7 billion parameter sizes with pretrained and instruction-tuned flavors. It’s available on Hugging Face, supported in TGI, and easily accessible for deployment and fine-tuning in the Vertex Model Garden and Google Kubernetes Engine.
