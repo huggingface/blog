@@ -58,7 +58,7 @@ Now let’s get started with an implementation.
 
 ## Learning to quote
 
-Assuming that you have submitted the consent form, you can access the model artifact from the [Hugging Face models](https://huggingface.co/collections/google/gemma-release-65d5efbccdbb8c4202ec078b).
+Assuming that you have submitted the consent form, you can access the model artifacts from the [Hugging Face Hub](https://huggingface.co/collections/google/gemma-release-65d5efbccdbb8c4202ec078b).
 
 We start by downloading the model and tokenizer into the respective objects. Here we are also including `BitsAndBytesConfig` for weight only quantization.
 
