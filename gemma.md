@@ -250,8 +250,7 @@ An example command to fine-tune Gemma on OpenAssistant’s [chat dataset](https:
 First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
 
 ```jsx
-pip install -U transformers
-pip install git+https://github.com/huggingface/trl
+pip install -U transformers trl peft bitsandbytes
 git clone https://github.com/huggingface/trl
 cd trl
 ```
