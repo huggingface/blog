@@ -1,15 +1,21 @@
 ---
-title: "An Introduction to AI Secure LLM Safety Leaderboard"
+title: "TTS Arena: Benchmarking TTS Models in the Wild"
 thumbnail: /blog/assets/arenas-on-the-hub/thumbnail_tts.png 
 authors:
 - user: mrfakename
   guest: true
-- user: ...
+- user: reach-vb
+- user: clefourrier
+- user: Wauplin
+- user: ylacombe
+- user: main-horse
+  guest: true
+- user: sanchit-gandhi
 ---
 
-# TTS Arena: Voting on the Best Speech Synthesis Models
+# TTS Arena: Benchmarking TTS Models in the Wild
 
-Measuring the quality of text-to-speech (TTS) models is very hard to do automatically. Although testing the naturalness and inflection of a voice is a trivial task for humans, it’s much more difficult for AI. This is why today, we’re thrilled to announce the TTS Arena.  Inspired by LMSYS’s chatbot arena for LLMs, we developed a tool that allows individuals to compare TTS models side-by-side. Just submit text, listen to two models speak it, and vote on which model is the best. The goal is to create a leaderboard based on the community’s highest-rated models.
+Automated measurement of the quality of text-to-speech (TTS) models is quite difficult. Although testing the naturalness and inflection of a voice is a trivial task for humans, it’s much more difficult for AI. This is why today, we’re thrilled to announce the TTS Arena.  Inspired by LMSYS’s chatbot arena for LLMs, we developed a tool that allows individuals to compare TTS models side-by-side. Just submit text, listen to two models speak it, and vote on which model is the best. The goal is to create a leaderboard based on the community’s highest-rated models.
 
 ## Motivation
 The field of speech synthesis has long lacked an accurate method to measure the quality of different models. Objective metrics like WER (word error rate) are unreliable measures of model quality, and subjective measures such as MOS (mean opinion score) are typically small-scale experiments conducted with few listeners. As a result, these measurements are generally not useful for comparing two models of roughly similar quality. To address these drawbacks, we are inviting the community to rank models in an easy-to-use interface, and opening it up to the public in order to make both the opportunity to rank models, as well as the results, more easily accessible to everyone.
@@ -37,6 +43,19 @@ Although there are countless other both open and closed source models available,
 We will display the results from Arena voting in a publicly accessible leaderboard. Although it will initially be empty, models will gradually appear as they accumulate enough votes. As raters submit new votes, the leaderboard will automatically update with the latest results.
 
 Similar to the Chatbot Arena, the models on the leaderboard are ranked using the [Elo rating](https://en.wikipedia.org/wiki/Elo_rating_system) system, a system commonly used by game players.
+
+## Credits
+
+Thank you to the following individuals who helped make this project possible:
+
+* VB ([Twitter](https://twitter.com/reach_vb) / [Hugging Face](https://huggingface.co/reach-vb))
+* Clémentine Fourrier ([Twitter](https://twitter.com/clefourrier) / [Hugging Face](https://huggingface.co/clefourrier))
+* Lucain Pouget ([Twitter](https://twitter.com/Wauplin) / [Hugging Face](https://huggingface.co/Wauplin))
+* Yoach Lacombe ([Twitter](https://twitter.com/yoachlacombe) / [Hugging Face](https://huggingface.co/ylacombe))
+* Main Horse ([Twitter](https://twitter.com/main_horse) / [Hugging Face](https://huggingface.co/main-horse))
+* Sanchit Gandhi ([Twitter](https://twitter.com/sanchitgandhi99) / [Hugging Face](https://huggingface.co/sanchit-gandhi))
+* Apolinário Passos ([Twitter](https://twitter.com/multimodalart) / [Hugging Face](https://huggingface.co/multimodalart))
+* Pedro Cuenca ([Twitter](https://twitter.com/pcuenq) / [Hugging Face](https://huggingface.co/pcuenq))
 
 ## Conclusion
 We hope the TTS Arena proves to be a helpful resource for all developers. We would love to hear your feedback. Please also do not hesitate to let us know if you have any questions or suggestions by sending a X/Twitter DM [here](https://twitter.com/realmrfakename) or by opening a discussion in [the Space](https://huggingface.co/spaces/ttseval/TTS-Arena).
