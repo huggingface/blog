@@ -105,16 +105,18 @@ embeddings = model.encode(
         "He drove to the stadium.",
     ]
 )
-embeddings[..., :matryoshka_dim]  # Shrink the embedding dimensions
+embeddings = embeddings[..., :matryoshka_dim]  # Shrink the embedding dimensions
+print(embeddings.shape)
+# => (3, 64)
 
 # Similarity of the first sentence to the other two:
 similarities = cos_sim(embeddings[0], embeddings[1:])
 print(similarities)
-# => tensor([[0.8428, 0.0873]])
+# => tensor([[0.8910, 0.1337]])
 ```
 * Link to the model: [tomaarsen/mpnet-base-nli-matryoshka](https://huggingface.co/tomaarsen/mpnet-base-nli-matryoshka)
 
-Feel free to experiment with  using different values for `matryoshka_dim` and observing how that affects the similarities.
+Feel free to experiment with using different values for `matryoshka_dim` and observing how that affects the similarities. You can do so either by running this code locally, on the cloud such as with [Google Colab](https://colab.research.google.com/drive/1YlU_T4GaHWVd-PFJFPsTxB6fNNydx0Gx?usp=sharing), or by checking out the [demo](#demo).
 
 References:
 * [`SentenceTransformer`](https://sbert.net/docs/package_reference/SentenceTransformer.html)
