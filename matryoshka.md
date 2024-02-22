@@ -15,7 +15,7 @@ Embeddings are one of the most versatile tools in natural language processing, e
 
 You can compute the similarity of the complex object by computing the similarity of the embeddings!
 
-![embedding model](assets/matryoshka/embedding_similarity.png)
+![embedding similarity](assets/matryoshka/embedding_similarity.png)
 
 This has an enormous amount of use cases, and serves as the backbone for recommendation systems, retrieval, one-shot or few-shot learning, outlier detection, similarity search, paraphrase detection, clustering, classification, and much more!
 
@@ -24,7 +24,7 @@ As research progressed, new state-of-the-art (text) embedding models started pro
 
 As a result, [Kusupati et al.](https://arxiv.org/abs/2205.13147) were inspired to create embedding models whose embeddings could reasonably be shrunk without suffering too much on performance.
 
-![embedding model](assets/matryoshka/matryoshka_model.png)
+![matryoshka model](assets/matryoshka/matryoshka_model.png)
 
 These Matryoshka embedding models are trained such that these small truncated embeddings are still useful. In short, Matryoshka embedding models can produce useful embeddings of various dimensions.
 
