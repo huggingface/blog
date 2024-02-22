@@ -53,7 +53,7 @@ In the following example, we will leverage [QLoRA, from Dettmers et al.](https:/
 
 ## Before we begin
 
-In order to access Gemma model artifacts, the users are required to accept the consent form here ([link](https://huggingface.co/google/gemma-7b-it)).
+In order to access Gemma model artifacts, users are required to accept [the consent form](https://huggingface.co/google/gemma-7b-it).
 Now let’s get started with an implementation.
 
 ## Learning to quote
