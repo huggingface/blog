@@ -158,8 +158,12 @@ similarities = cos_sim(embeddings[0], embeddings[1:])
 
 In this demo, you can dynamically shrink the output dimensions of the [`nomic-ai/nomic-embed-text-v1.5`](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) Matryoshka embedding model and observe how it affects the retrieval performance. All of the embeddings are computed in the browser using [🤗 Transformers.js](https://github.com/xenova/transformers.js).
 
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.32.0/gradio.js"></script>
-<gradio-app theme_mode="light" space="Xenova/adaptive-retrieval-web"></gradio-app>
+<iframe
+	src="https://xenova-adaptive-retrieval-web.static.hf.space"
+	frameborder="0"
+	width="850"
+	height="450"
+></iframe>
 
 ## References
 * Kusupati, A., Bhatt, G., Rege, A., Wallingford, M., Sinha, A., Ramanujan, V., ... & Farhadi, A. (2022). Matryoshka representation learning. Advances in Neural Information Processing Systems, 35, 30233-30249. https://arxiv.org/abs/2205.13147
