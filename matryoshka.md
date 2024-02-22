@@ -83,6 +83,8 @@ See the following complete scripts as examples of how to apply the `MatryoshkaLo
 ### Theoretically
 In practice, getting embeddings from a Matryoshka embedding model works the same way as with a normal embedding model. The only difference is that after receiving the embeddings, we can optionally truncate them to a smaller dimensionality. Do note that if the embeddings were normalized, then after truncating they will no longer be, so you may want to re-normalize.
 
+After truncating, you can either directly apply them for your use cases, or store them such that they can be used later. After all, smaller embeddings in your vector database should result in considerably smaller latencies!
+
 Keep in mind that although processing smaller embeddings for downstream tasks (retrieval, clustering, etc.) will be faster, getting the smaller embeddings from the model is just as fast as getting the larger ones.
 
 ### In Sentence Transformers
