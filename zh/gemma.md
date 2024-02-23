@@ -108,7 +108,7 @@ LaMDA who?<end_of_turn>
 确保你使用的是最新版本的 `transformers`：
 
 ```jsx
-pip install -U "transformers==4.38.0" --upgrade
+pip install -U "transformers==4.38.1" --upgrade
 ```
 
 以下代码片段展示了如何结合 transformers 使用 `gemma-7b-it`。运行此代码需大约 18 GB 的 RAM，适用于包括 3090 或 4090 在内的消费级 GPU。
@@ -128,13 +128,12 @@ pipeline = pipeline(
 )
 
 messages = [
-        {"role": "user", "content": "Who are you? Please, answer in pirate-speak."},
+    {"role": "user", "content": "Who are you? Please, answer in pirate-speak."},
 ]
 prompt = pipeline.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 outputs = pipeline(
     prompt,
     max_new_tokens=256,
-    add_special_tokens=True,
     do_sample=True,
     temperature=0.7,
     top_k=50,
@@ -146,9 +145,7 @@ print(outputs[0]["generated_text"][len(prompt):])
 > Avast me, me hearty. I am a pirate of the high seas, ready to pillage and plunder. Prepare for a tale of adventure and booty!
 > 
 
-简单介绍一下这段代码:
-
-- 代码段展示了如何利用 `bfloat16` 数据类型进行模型推理，该数据类型是所有评估中使用的参考精度。如果你的硬件支持，使用 `float16` 可能会更快。
+- 我们使用了 `bfloat16` 数据类型进行模型推理，该数据类型是所有评估中使用的参考精度。如果你的硬件支持，使用 `float16` 可能会更快。
 - 你还可以将模型自动量化，以 8 位或 4 位模式加载。以 4 位模式加载模型大约需要 9 GB 的内存，使其适用于多种消费级显卡，包括 Google Colab 上的所有 GPU。以下是以 4 位加载生成 pipeline 的方法：
 
 ```jsx
@@ -247,8 +244,7 @@ for message in chat_completion:
 首先，安装 🤗 TRL 的最新版本并克隆仓库以获取 [训练脚本](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py)：
 
 ```jsx
-pip install -U transformers
-pip install git+https://github.com/huggingface/trl
+pip install -U transformers trl peft bitsandbytes
 git clone https://github.com/huggingface/trl
 cd trl
 ```
@@ -260,14 +256,15 @@ accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num
     examples/scripts/sft.py \
     --model_name google/gemma-7b \
     --dataset_name OpenAssistant/oasst_top1_2023-08-25 \
-    --batch_size 2 \
+    --per_device_train_batch_size 2 \
     --gradient_accumulation_steps 1 \
     --learning_rate 2e-4 \
     --save_steps 20_000 \
     --use_peft \
-    --peft_lora_r 16 --peft_lora_alpha 32 \
-    --target_modules q_proj k_proj v_proj o_proj \
-    --load_in_4bit
+    --lora_r 16 --lora_alpha 32 \
+    --lora_target_modules q_proj k_proj v_proj o_proj \
+    --load_in_4bit \
+    --output_dir gemma-finetuned-openassistant
 ```
 
 在单个 A10G GPU 上，这个训练过程大约需要 9 小时。通过调整 `--num_processes` 参数为你可用的 GPU 数量，可以实现并行化训练，从而缩短训练时间。
