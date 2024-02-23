@@ -11,19 +11,16 @@ authors:
 - user: clefourrier
 ---
 
-**Content warning**: since this blog post is about a red-teaming leaderboard (testing elicitation of harmful behavior in LLMs), some users might find the content of the related datasets or examples unsettling.
-
 # Introducing the Red-Teaming Resistance Leaderboard
+
+**Content warning**: since this blog post is about a red-teaming leaderboard (testing elicitation of harmful behavior in LLMs), some users might find the content of the related datasets or examples unsettling.
 
 LLM research is moving fast. Indeed, some might say too fast.
 
 While researchers in the field continue to rapidly expand and improve LLM performance, there is growing concern over whether these models are capable of realizing increasingly more undesired and unsafe behaviors. In recent months, there has been no shortage of [legislation](https://www.usnews.com/news/business/articles/2024-01-29/ai-companies-will-need-to-start-reporting-their-safety-tests-to-the-us-government) and [direct calls](https://openai.com/safety/preparedness) from industry labs calling for additional scrutiny on models – not as a means to hinder this technology’s progress but as a means to ensure it is responsibly deployed for the world to use.
 
 
-To this end, Haize Labs is thrilled to announce the Red Teaming Resistance Benchmark, built with generous support from the Hugging Face team. In this benchmark, we thoroughly probe the robustness of frontier models under extreme red teaming efforts. That is, we systematically challenge and test these models with craftily constructed prompts to uncover their failure modes and vulnerabilities – revealing where precisely these models are susceptible to generating problematic outputs. 
-
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
-<gradio-app theme_mode="light" space="HaizeLabs/red-teaming-resistance-benchmark"></gradio-app>
+To this end, Haize Labs is thrilled to announce the [Red Teaming Resistance Benchmark][https://huggingface.co/spaces/HaizeLabs/red-teaming-resistance-benchmark), built with generous support from the Hugging Face team. In this benchmark, we thoroughly probe the robustness of frontier models under extreme red teaming efforts. That is, we systematically challenge and test these models with craftily constructed prompts to uncover their failure modes and vulnerabilities – revealing where precisely these models are susceptible to generating problematic outputs. 
 
 ## Measuring Robustness to Realistic, Human-Like Attacks
 
@@ -91,30 +88,30 @@ Thus, beyond measuring robustness by dataset, we measure robustness by behavior.
 
 ### Harm and Violence
 
-Hate/Harassment/Discrimination: promoting intolerance or hostility against individuals or groups.
-Children-Specific Harm: content or actions that directly endanger or harm children.
-Physical-Specific Harm: material that encourages or causes physical injury to oneself or others.
+- **Hate/Harassment/Discrimination**: promoting intolerance or hostility against individuals or groups.
+- **Children-Specific Harm**: content or actions that directly endanger or harm children.
+- **Physical-Specific Harm**: material that encourages or causes physical injury to oneself or others.
 
 ### Criminal Conduct
 
-Malware: distributing harmful software designed to damage or infiltrate computer systems.
-Fraud/Deception: engaging in deceitful practices for personal gain.
-Privacy Violation: infringing on individuals' right to privacy through unauthorized data collection or sharing.
-Economic Deception: misleading practices or claims that financially exploit others.
-Unauthorized practice of medical advice: providing medical guidance without proper qualifications or authorization.
-Unauthorized Practice of Law: offering legal advice or services without a license to practice law.
-Misc. Illegal Activity
+- **Malware**: distributing harmful software designed to damage or infiltrate computer systems.
+- **Fraud/Deception**: engaging in deceitful practices for personal gain.
+- **Privacy Violation**: infringing on individuals' right to privacy through unauthorized data collection or sharing.
+- **Economic Deception**: misleading practices or claims that financially exploit others.
+- **Unauthorized practice of medical advice**: providing medical guidance without proper qualifications or authorization.
+- **Unauthorized Practice of Law**: offering legal advice or services without a license to practice law.
+- **Misc. Illegal Activity**
 
 ### Unsolicited Counsel
 
-Tailored Financial Advice: providing specific financial recommendations without solicitation or proper credentials.
-Political Campaigning: unsolicited promotion of political agendas or candidates.
-High Risk Government Decision Making: advising on or influencing critical governmental decisions without authority or solicitation.
+- **Tailored Financial Advice**: providing specific financial recommendations without solicitation or proper credentials.
+- **Political Campaigning**: unsolicited promotion of political agendas or candidates.
+- **High Risk Government Decision Making**: advising on or influencing critical governmental decisions without authority or solicitation.
 
 ### NSFW
 
-Adult Content: explicit language or profanity, and depictions or discussions of drug use, alcohol abuse, and smoking.
-Sexual Content: material that depicts or describes sexual activities, sexual acts, or explicit sexual behavior.
+- **Adult Content**: explicit language or profanity, and depictions or discussions of drug use, alcohol abuse, and smoking.
+- **Sexual Content**: material that depicts or describes sexual activities, sexual acts, or explicit sexual behavior.
 
 We reorganize the existing red-teaming datasets according to these categories and consider safety response rates against prompts in these categories as our primary robustness metric.
 
