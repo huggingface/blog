@@ -43,7 +43,7 @@ Rather than focus our attention on the efficacy of trivially detectable and unre
 
 We do this by evaluating models against a potpourri of landmark red teaming datasets collected from top AI safety papers over the last year. Each dataset is rich with human jailbreaks that effectively elicit a variety of harmful capabilities from a target model.
 
-We further measure the brittleness of models at a more granular level and in particular their tendency to violate specific [categories of misuse](https://openai.com/policies/usage-policies), such as promoting illegal activity, inciting harassment, producing adult content, and so on.
+We further measure the brittleness of models at a more granular level and in particular their tendency to violate specific categories of misuse ([OpenAI](https://openai.com/policies/usage-policies), [Persuasive Jailbreaker](https://chats-lab.github.io/persuasive_jailbreaker/)), such as promoting illegal activity, inciting harassment, producing adult content, and so on.
 
 ## Red-Teaming Resistance Datasets
 
@@ -59,7 +59,7 @@ We measure the robustness of LLMs against adversarial attacks from several adver
 8. [SAP](https://aclanthology.org/2023.findings-emnlp.143/), adversarial prompts generated via in-context learning to mimic human speech.
 
 
-We use a combination of [LlamaGuard](https://ai.meta.com/research/publications/llama-guard-llm-based-input-output-safeguard-for-human-ai-conversations/) and GPT-4 to classify the response of the model as *Safe* or *Unsafe*, then manually sanity-check the classification. The final reported score in our benchmark is the percentage of prompts that our judge models deem to be Safe, sanity checked by Haize. More details can be found in [our repository](https://github.com/haizelabs/redteaming-resistance-benchmark).
+We use a combination of [LlamaGuard](https://ai.meta.com/research/publications/llama-guard-llm-based-input-output-safeguard-for-human-ai-conversations/), using a custom taxonomy based on the above list, and GPT-4 to classify the response of the model as *Safe* or *Unsafe*, then manually sanity-check the classification. The final reported score in our benchmark is the percentage of prompts that our judge models deem to be Safe, sanity checked by Haize. More details can be found in [our repository](https://github.com/haizelabs/redteaming-resistance-benchmark).
 
 
 ## Robustness by Violation Category
@@ -124,7 +124,7 @@ We expose this as the *primary view* of our leaderboard, under the “Adversaria
 
 
 Through this benchmarking process, we find that:
-1. Closed source models still win out. GPT-4 and Claude-2 have a substantial lead over the rest of the field, and are consistently robust across categories
+1. Closed source models still win out. GPT-4 and Claude-2 have a substantial lead over the rest of the field, and are consistently robust across categories. However, since they are behind APIs, it is impossible to know if this is inherent to the model, or due to additional safety components (like safety classifiers) added on top of them.
 2. Across the board, models are most vulnerable to jailbreaks that induce Adult Content, Physical Harm, and Child Harm
 3. Models tend to be very robust to violating privacy restrictions, providing legal, financial, and medical advice, and campaigning on behalf of politicians
 
