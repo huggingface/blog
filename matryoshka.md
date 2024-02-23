@@ -8,6 +8,22 @@ authors:
 
 # 🪆 Introduction to Matryoshka Embedding Models
 
+## Table of Contents
+
+* [Understanding Embeddings](#understanding-embeddings)
+* [🪆 Matryoshka Embeddings](#-matryoshka-embeddings)
+* [🪆 Matryoshka Dolls](#-matryoshka-dolls)
+* [Why would you use 🪆 Matryoshka Embedding models?](#why-would-you-use-matryoshka-embedding-models)
+* [How are 🪆 Matryoshka Embedding models trained?](#how-are-matryoshka-embedding-models-trained)
+    + [Theoretically](#theoretically)
+    + [In Sentence Transformers](#in-sentence-transformers)
+* [How do I use 🪆 Matryoshka Embedding models?](#how-do-i-use-matryoshka-embedding-models)
+    + [Theoretically](#theoretically-1)
+    + [In Sentence Transformers](#in-sentence-transformers-1)
+* [Results](#results)
+* [Demo](#demo)
+* [References](#references)
+
 ## Understanding Embeddings
 Embeddings are one of the most versatile tools in natural language processing, enabling practitioners to solve a large variety of tasks. In essence, an embedding is a numerical representation of a more complex object, like text, images, audio, etc. 
 
