@@ -16,13 +16,13 @@ Additionally, we will provide practical guidance on how to use Matryoshka Embedd
 ## Table of Contents
 
 * [Understanding Embeddings](#understanding-embeddings)
-* [🪆 Matryoshka Embeddings](#-matryoshka-embeddings)
-* [🪆 Matryoshka Dolls](#-matryoshka-dolls)
+* [🪆 Matryoshka Embeddings](#%F0%9F%AA%86-matryoshka-embeddings)
+* [🪆 Matryoshka Dolls](#%F0%9F%AA%86-matryoshka-dolls)
 * [Why would you use 🪆 Matryoshka Embedding models?](#why-would-you-use-matryoshka-embedding-models)
-* [How are 🪆 Matryoshka Embedding models trained?](#how-are-matryoshka-embedding-models-trained)
+* [How are 🪆 Matryoshka Embedding models trained?](#how-are-%F0%9F%AA%86-matryoshka-embedding-models-trained)
     + [Theoretically](#theoretically)
     + [In Sentence Transformers](#in-sentence-transformers)
-* [How do I use 🪆 Matryoshka Embedding models?](#how-do-i-use-matryoshka-embedding-models)
+* [How do I use 🪆 Matryoshka Embedding models?](#how-do-i-use-%F0%9F%AA%86-matryoshka-embedding-models)
     + [Theoretically](#theoretically-1)
     + [In Sentence Transformers](#in-sentence-transformers-1)
 * [Results](#results)
