@@ -18,7 +18,7 @@ Additionally, we will provide practical guidance on how to use Matryoshka Embedd
 * [Understanding Embeddings](#understanding-embeddings)
 * [🪆 Matryoshka Embeddings](#%F0%9F%AA%86-matryoshka-embeddings)
 * [🪆 Matryoshka Dolls](#%F0%9F%AA%86-matryoshka-dolls)
-* [Why would you use 🪆 Matryoshka Embedding models?](#why-would-you-use-matryoshka-embedding-models)
+* [Why would you use 🪆 Matryoshka Embedding models?](#why-would-you-use-%F0%9F%AA%86-matryoshka-embedding-models)
 * [How are 🪆 Matryoshka Embedding models trained?](#how-are-%F0%9F%AA%86-matryoshka-embedding-models-trained)
     + [Theoretically](#theoretically)
     + [In Sentence Transformers](#in-sentence-transformers)
