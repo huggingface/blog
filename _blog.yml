@@ -3512,7 +3512,7 @@
 - local: gemma_peft
   title: "Welcome Gemma - Google's new open LLM"
   author: svaibhav
-  thumbnail: /blog/assets/gemma-peft/Gemma-peft.png
+  thumbnail: /blog/assets/gemma-peft/thumbnail.png
   date: Feb 22, 2024
   tags:
     - nlp
