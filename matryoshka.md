@@ -4,6 +4,7 @@ thumbnail: /blog/assets/matryoshka/thumbnail.png
 authors:
 - user: tomaarsen
 - user: xenova
+- user: osanseviero
 ---
 
 # 🪆 Introduction to Matryoshka Embedding Models
