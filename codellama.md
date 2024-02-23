@@ -156,7 +156,7 @@ Code Llama is specialized in code understanding, but it's a language model in it
 
 This is a specialized task particular to code models. The model is trained to generate the code (including comments) that best matches an existing prefix and suffix. This is the strategy typically used by code assistants: they are asked to fill the current cursor position, considering the contents that appear before and after it.
 
-This task is available in the **base** and **instruction** variants of the 7B and 13B models. It is _not_ available for any of the  models or the Python versions.
+This task is available in the **base** and **instruction** variants of the 7B and 13B models. It is _not_ available for any of the 34B or 70B models or the Python versions.
 
 To use this feature successfully, you need to pay close attention to the format used to train the model for this task, as it uses special separators to identify the different parts of the prompt. Fortunately, transformers' `CodeLlamaTokenizer` makes this very easy, as demonstrated below:
 
