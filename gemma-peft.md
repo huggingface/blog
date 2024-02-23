@@ -48,7 +48,7 @@ lora_config = LoraConfig(
 
 In this snippet we refer to all `nn.Linear` layers as the target layers to be adapted.
 
-In the following example, we will leverage [QLoRA](https://huggingface.co/blog/4bit-transformers-bitsandbytes), from [Dettmers et al.](https://arxiv.org/abs/2305.14314) in order to quantize the base model in 4-bit precision for a more memory efficient fine-tuning protocol. A model can be loaded with QLoRA by first installing a `bitsandbytes` library on your environment, then passing a `BitsAndBytesConfig` object to `from_pretrained` when loading the model.
+In the following example, we will leverage [QLoRA](https://huggingface.co/blog/4bit-transformers-bitsandbytes), from [Dettmers et al.](https://arxiv.org/abs/2305.14314), in order to quantize the base model in 4-bit precision for a more memory efficient fine-tuning protocol. The model can be loaded with QLoRA by first installing the `bitsandbytes` library on your environment, then passing a `BitsAndBytesConfig` object to `from_pretrained` when loading the model.
 
 ## Before we begin
 
