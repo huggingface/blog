@@ -28,6 +28,11 @@ Consequently, [Kusupati et al.](https://arxiv.org/abs/2205.13147) (2022) were in
 
 These Matryoshka embedding models are trained such that these small truncated embeddings are still useful. In short, Matryoshka embedding models can produce useful embeddings of various dimensions.
 
+## 🪆 Matryoshka Dolls
+
+For those unfamiliar, "Matryoshka dolls", also known as "Russian nesting dolls", are a set of wooden dolls of decreasing size that are placed inside one another. In a similar way, Matryoshka embedding models aim to store more important information in earlier dimensions, and less important information in later dimensions. This characteristic of Matryoshka embedding models allows us to truncate the original (large) embedding produced by the model, while still retaining enough of the information to perform downstream tasks.
+
+![matryoshka models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/matryoshka/matryoshka-small.gif)
 ## Why would you use 🪆 Matryoshka Embedding models?
 Such variable-size embedding models can be quite valuable to practitioners, for example:
 1. **Shortlisting and reranking**: Rather than performing your downstream task (e.g., nearest neighbor search) on the full embeddings, you can shrink the embeddings to a smaller size and very efficiently "shortlist" your embeddings. Afterwards, you can process the remaining embeddings using their full dimensionality.
