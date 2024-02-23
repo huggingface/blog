@@ -26,7 +26,7 @@ The Gemma family of models also happens to be well suited for prototyping and ex
 
 ## Why PEFT?
 
-The default (full weight) training for language models, even for modest sizes, tends to be memory and compute-intensive. On one hand, it can be prohibitive for users relying on openly available compute platforms such as a Colab or Kaggle notebook for learning and experimentation. And on the other hand even for enterprise users, the cost of adapting these models for different domains is an important metric to optimize. PEFT, or parameter-efficient fine tuning is a popular technique to accomplish this at low cost. 
+The default (full weight) training for language models, even for modest sizes, tends to be memory and compute-intensive. On one hand, it can be prohibitive for users relying on openly available compute platforms for learning and experimentation, such as Colab or Kaggle. On the other hand, and even for enterprise users, the cost of adapting these models for different domains is an important metric to optimize. PEFT, or parameter-efficient fine tuning, is a popular technique to accomplish this at low cost.
 
 ## PyTorch on GPU and TPU
 
