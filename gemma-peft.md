@@ -105,7 +105,9 @@ Quote: Imagination is more important than knowledge. Knowledge is limited. Imagi
 Author: Albert Einstein
 
 ```
+
 To begin with, let's select an English quotes dataset.
+
 ```python
 from datasets import load_dataset
 
