@@ -34,7 +34,7 @@ Gemma models in Hugging Face `transformers` are optimized for both PyTorch and P
 
 ## Low-Rank Adaptation for Large Language Models
 
-Low-Rank Adaptation (LoRA) is one of the parameter-efficient fine-tuning techniques for large language models (LLMs). It incorporates a fraction of total model parameters to be fine-tuned by freezing the original model and only training an adapter layer which is decomposed into low-rank matrices. PEFT library provides an easy abstraction that allows users to select particular layers from the model where adapter weights are applied.
+Low-Rank Adaptation (LoRA) is one of the parameter-efficient fine-tuning techniques for large language models (LLMs). It addresses just a fraction of the total number of model parameters to be fine-tuned, by freezing the original model and only training adapter layers that are decomposed into low-rank matrices. The [PEFT library](https://github.com/huggingface/peft) provides an easy abstraction that allows users to select the model layers  where adapter weights should be applied.
 
 ```python
 from peft import LoraConfig
