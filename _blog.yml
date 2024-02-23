@@ -3508,3 +3508,16 @@
     - research
     - LLM
     - gcp
+
+- local: gemma_peft
+  title: "Welcome Gemma - Google's new open LLM"
+  author: svaibhav
+  thumbnail: /blog/assets/gemma-peft/Gemma-peft.png
+  date: Feb 22, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
+    - peft

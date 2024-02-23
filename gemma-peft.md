@@ -1,5 +1,6 @@
 ---
 title: Fine-Tuning Gemma Models in Hugging Face
+thumbnail: /blog/assets/gemma-peft/Gemma-peft.png
 authors:
 - user: svaibhav
   guest: true
