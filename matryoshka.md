@@ -220,8 +220,9 @@ In this demo, you can dynamically shrink the output dimensions of the [`nomic-ai
 <iframe
 	src="https://xenova-adaptive-retrieval-web.static.hf.space"
 	frameborder="0"
-	width="850"
-	height="450"
+	width="140%"
+	height="800"
+    margin-left="-20%"
 ></iframe>
 
 ## References
