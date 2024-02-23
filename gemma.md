@@ -128,13 +128,12 @@ pipeline = pipeline(
 )
 
 messages = [
-		{"role": "user", "content": "Who are you? Please, answer in pirate-speak."},
+	{"role": "user", "content": "Who are you? Please, answer in pirate-speak."},
 ]
 prompt = pipeline.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 outputs = pipeline(
     prompt,
     max_new_tokens=256,
-    add_special_tokens=True,
     do_sample=True,
     temperature=0.7,
     top_k=50,
@@ -146,10 +145,7 @@ print(outputs[0]["generated_text"][len(prompt):])
 > `Avast me, me hearty. I am a pirate of the high seas, ready to pillage and plunder. Prepare for a tale of adventure and booty!`
 > 
 
-A couple of details about the snippet:
-
-- We used `bfloat16` because that’s the reference precision and how all evaluations were run. Running in `float16` may be faster on your hardware.
-- The model won’t respond unless the tokenized input starts with a `<bos>` token. That’s why we used `add_special_tokens=True` in the pipeline call.
+We used `bfloat16` because that’s the reference precision and how all evaluations were run. Running in `float16` may be faster on your hardware.
 
 You can also automatically quantize the model, loading it in 8-bit or even 4-bit mode. 4-bit loading takes about 9 GB of memory to run, making it compatible with a lot of consumer cards and all the GPUs in Google Colab. This is how you’d load the generation pipeline in 4-bit:
 
