@@ -156,7 +156,7 @@ print(similarities)
 
 * Link to the model: [tomaarsen/mpnet-base-nli-matryoshka](https://huggingface.co/tomaarsen/mpnet-base-nli-matryoshka)
 
-Feel free to experiment with using different values for `matryoshka_dim` and observing how that affects the similarities. You can do so either by running this code locally, on the cloud such as with [Google Colab](https://colab.research.google.com/drive/1YlU_T4GaHWVd-PFJFPsTxB6fNNydx0Gx?usp=sharing), or by checking out the [demo](#demo).
+Feel free to experiment with using different values for `matryoshka_dim` and observing how that affects the similarities. You can do so either by running this code locally, on the cloud such as with [Google Colab](https://colab.research.google.com/#fileId=https%3A//huggingface.co/tomaarsen/mpnet-base-nli-matryoshka/blob/main/inference.ipynb), or by checking out the [demo](#demo).
 
 References:
 
