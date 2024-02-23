@@ -222,7 +222,7 @@ In this demo, you can dynamically shrink the output dimensions of the [`nomic-ai
 	frameborder="0"
 	width="140%"
 	height="800"
-    margin-left="-20%"
+    style="margin-left: -20%"
 ></iframe>
 
 ## References
