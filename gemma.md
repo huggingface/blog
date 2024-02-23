@@ -194,7 +194,7 @@ output_text = tokenizer.batch_decode(output.sequences, skip_special_tokens=True)
 > `['Valencia and Málaga are two of the most popular tourist destinations in Spain. Both cities boast a rich history, vibrant culture,']`
 > 
 
-Please, [check out this notebook](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/jax_gemma.ipynb) for a complete hands-on walkthrough on how to parallelize JAX inference on Colab TPUs!
+Please, [check out this notebook](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/jax_gemma.ipynb) for a comprehensive hands-on walkthrough on how to parallelize JAX inference on Colab TPUs!
 
 ## Integration with Google Cloud
 
