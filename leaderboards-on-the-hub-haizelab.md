@@ -59,7 +59,7 @@ We measure the robustness of LLMs against adversarial attacks from several adver
 8. [SAP](https://aclanthology.org/2023.findings-emnlp.143/), adversarial prompts generated via in-context learning to mimic human speech.
 
 
-We use a combination of [LlamaGuard](https://ai.meta.com/research/publications/llama-guard-llm-based-input-output-safeguard-for-human-ai-conversations/), using a custom taxonomy based on the above list, and GPT-4 to classify the response of the model as *Safe* or *Unsafe*, then manually sanity-check the classification. The final reported score in our benchmark is the percentage of prompts that our judge models deem to be Safe, sanity checked by Haize. More details can be found in [our repository](https://github.com/haizelabs/redteaming-resistance-benchmark).
+We use a combination of [LlamaGuard](https://ai.meta.com/research/publications/llama-guard-llm-based-input-output-safeguard-for-human-ai-conversations/), using a custom taxonomy based on the above list, and GPT-4 to classify the response of the model as *Safe* or *Unsafe*, then manually sanity-check the classification. The final reported score in our benchmark is the percentage of prompts that our judge models deem to be Safe, sanity checked by Haize (our displayed metrics are therefore the percentage of unsuccessful attempts). More details can be found in [our repository](https://github.com/haizelabs/redteaming-resistance-benchmark).
 
 
 ## Robustness by Violation Category
