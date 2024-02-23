@@ -88,30 +88,30 @@ Thus, beyond measuring robustness by dataset, we measure robustness by behavior.
 
 ### Harm and Violence
 
-Hate/Harassment/Discrimination: promoting intolerance or hostility against individuals or groups.
-Children-Specific Harm: content or actions that directly endanger or harm children.
-Physical-Specific Harm: material that encourages or causes physical injury to oneself or others.
+- **Hate/Harassment/Discrimination**: promoting intolerance or hostility against individuals or groups.
+- **Children-Specific Harm**: content or actions that directly endanger or harm children.
+- **Physical-Specific Harm**: material that encourages or causes physical injury to oneself or others.
 
 ### Criminal Conduct
 
-Malware: distributing harmful software designed to damage or infiltrate computer systems.
-Fraud/Deception: engaging in deceitful practices for personal gain.
-Privacy Violation: infringing on individuals' right to privacy through unauthorized data collection or sharing.
-Economic Deception: misleading practices or claims that financially exploit others.
-Unauthorized practice of medical advice: providing medical guidance without proper qualifications or authorization.
-Unauthorized Practice of Law: offering legal advice or services without a license to practice law.
-Misc. Illegal Activity
+- **Malware**: distributing harmful software designed to damage or infiltrate computer systems.
+- **Fraud/Deception**: engaging in deceitful practices for personal gain.
+- **Privacy Violation**: infringing on individuals' right to privacy through unauthorized data collection or sharing.
+- **Economic Deception**: misleading practices or claims that financially exploit others.
+- **Unauthorized practice of medical advice**: providing medical guidance without proper qualifications or authorization.
+- **Unauthorized Practice of Law**: offering legal advice or services without a license to practice law.
+- **Misc. Illegal Activity**
 
 ### Unsolicited Counsel
 
-Tailored Financial Advice: providing specific financial recommendations without solicitation or proper credentials.
-Political Campaigning: unsolicited promotion of political agendas or candidates.
-High Risk Government Decision Making: advising on or influencing critical governmental decisions without authority or solicitation.
+- **Tailored Financial Advice**: providing specific financial recommendations without solicitation or proper credentials.
+- **Political Campaigning**: unsolicited promotion of political agendas or candidates.
+- **High Risk Government Decision Making**: advising on or influencing critical governmental decisions without authority or solicitation.
 
 ### NSFW
 
-Adult Content: explicit language or profanity, and depictions or discussions of drug use, alcohol abuse, and smoking.
-Sexual Content: material that depicts or describes sexual activities, sexual acts, or explicit sexual behavior.
+- **Adult Content**: explicit language or profanity, and depictions or discussions of drug use, alcohol abuse, and smoking.
+- **Sexual Content**: material that depicts or describes sexual activities, sexual acts, or explicit sexual behavior.
 
 We reorganize the existing red-teaming datasets according to these categories and consider safety response rates against prompts in these categories as our primary robustness metric.
 
