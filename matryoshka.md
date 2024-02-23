@@ -34,7 +34,7 @@ Embeddings are one of the most versatile tools in natural language processing, e
 
 ![embedding model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/matryoshka/embedding_model.png)
 
-The embedding model will always produce embeddings of the same fixed size. You can then compute the similarity of the complex object by computing the similarity of these embeddings!
+The embedding model will always produce embeddings of the same fixed size. You can then compute the similarity of complex objects by computing the similarity of the respective embeddings!
 
 ![embedding similarity](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/matryoshka/embedding_similarity.png)
 
@@ -44,15 +44,15 @@ This has an enormous amount of use cases, and serves as the backbone for recomme
 
 As research progressed, new state-of-the-art (text) embedding models started producing embeddings with increasingly higher output dimensions, i.e., every input text is represented using more values. Although this improves performance, it comes at the cost of efficiency of downstream tasks such as search or classification.
 
-Consequently, [Kusupati et al.](https://arxiv.org/abs/2205.13147) (2022) were inspired to create embedding models whose embeddings could reasonably be shrunk without suffering too much on performance.
+Consequently, [Kusupati et al.](https://huggingface.co/papers/2205.13147) (2022) were inspired to create embedding models whose embeddings could reasonably be shrunk without suffering too much on performance.
 
 ![matryoshka model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/matryoshka/matryoshka_model.png)
 
-These Matryoshka embedding models are trained such that these small truncated embeddings are still useful. In short, Matryoshka embedding models can produce useful embeddings of various dimensions.
+These Matryoshka embedding models are trained such that these small truncated embeddings would still be useful. In short, Matryoshka embedding models can produce useful embeddings of various dimensions.
 
 ## 🪆 Matryoshka Dolls
 
-For those unfamiliar, "Matryoshka dolls", also known as "Russian nesting dolls", are a set of wooden dolls of decreasing size that are placed inside one another. In a similar way, Matryoshka embedding models aim to store more important information in earlier dimensions, and less important information in later dimensions. This characteristic of Matryoshka embedding models allows us to truncate the original (large) embedding produced by the model, while still retaining enough of the information to perform downstream tasks.
+For those unfamiliar, "Matryoshka dolls", also known as "Russian nesting dolls", are a set of wooden dolls of decreasing size that are placed inside one another. In a similar way, Matryoshka embedding models aim to store more important information in earlier dimensions, and less important information in later dimensions. This characteristic of Matryoshka embedding models allows us to truncate the original (large) embedding produced by the model, while still retaining enough of the information to perform well on downstream tasks.
 
 ![matryoshka models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/matryoshka/matryoshka-small.gif)
 
@@ -61,7 +61,7 @@ For those unfamiliar, "Matryoshka dolls", also known as "Russian nesting dolls",
 Such variable-size embedding models can be quite valuable to practitioners, for example:
 
 1. **Shortlisting and reranking**: Rather than performing your downstream task (e.g., nearest neighbor search) on the full embeddings, you can shrink the embeddings to a smaller size and very efficiently "shortlist" your embeddings. Afterwards, you can process the remaining embeddings using their full dimensionality.
-2. **Trade-offs**: Matryoshka models will allow you to scale your embedding solutions to your desired storage cost, processing speed and performance. 
+2. **Trade-offs**: Matryoshka models will allow you to scale your embedding solutions to your desired storage cost, processing speed, and performance. 
 
 ## How are 🪆 Matryoshka Embedding models trained?
 
@@ -69,7 +69,7 @@ Such variable-size embedding models can be quite valuable to practitioners, for 
 
 The Matryoshka Representation Learning (MRL) approach can be adopted for almost all embedding model training frameworks. Normally, a training step for an embedding model involves producing embeddings for your training batch (of texts, for example) and then using some loss function to create a loss value that represents the quality of the produced embeddings. The optimizer will adjust the model weights throughout training to reduce the loss value.
 
-For Matryoshka Embedding models, a training step also involves producing embeddings for your training batch, but then you use some loss function to determine not just the quality of your full-size embeddings but the quality of your embeddings at various different dimensionalities. For example, output dimensionalities are 768, 512, 256, 128, and 64. The loss values for each dimensionality are added together, resulting in a final loss value. The optimizer will then try and adjust the model weights to lower this loss value.
+For Matryoshka Embedding models, a training step also involves producing embeddings for your training batch, but then you use some loss function to determine not just the quality of your full-size embeddings, but also the quality of your embeddings at various different dimensionalities. For example, output dimensionalities are 768, 512, 256, 128, and 64. The loss values for each dimensionality are added together, resulting in a final loss value. The optimizer will then try and adjust the model weights to lower this loss value.
 
 In practice, this incentivizes the model to frontload the most important information at the start of an embedding, such that it will be retained if the embedding is truncated. 
 
@@ -111,15 +111,15 @@ References:
 
 See the following complete scripts as examples of how to apply the `MatryoshkaLoss` in practice:
 
-* **[matryoshka_nli.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli.py)**: This example uses the MultipleNegativesRankingLoss with MatryoshkaLoss to train a strong embedding model using Natural Language Inference (NLI) data. It is an adaptation of the [NLI](../nli/README) documentation.
-* **[matryoshka_nli_reduced_dim.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli_reduced_dim.py)**: This example uses the MultipleNegativesRankingLoss with MatryoshkaLoss to train a strong embedding model with a small maximum output dimension of 256. It trains using Natural Language Inference (NLI) data, and is an adaptation of the [NLI](../nli/README) documentation.
-* **[matryoshka_sts.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_sts.py)**: This example uses the CoSENTLoss with MatryoshkaLoss to train an embedding model on the training set of the STSBenchmark dataset. It is an adaptation of the [STS](../sts/README) documentation.
+* **[matryoshka_nli.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli.py)**: This example uses the `MultipleNegativesRankingLoss` with `MatryoshkaLoss` to train a strong embedding model using Natural Language Inference (NLI) data. It is an adaptation of the [NLI](../nli/README) documentation.
+* **[matryoshka_nli_reduced_dim.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli_reduced_dim.py)**: This example uses the `MultipleNegativesRankingLoss` with `MatryoshkaLoss` to train a strong embedding model with a small maximum output dimension of 256. It trains using Natural Language Inference (NLI) data, and is an adaptation of the [NLI](../nli/README) documentation.
+* **[matryoshka_sts.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_sts.py)**: This example uses the `CoSENTLoss` with `MatryoshkaLoss` to train an embedding model on the training set of the `STSBenchmark` dataset. It is an adaptation of the [STS](../sts/README) documentation.
 
 ## How do I use 🪆 Matryoshka Embedding models?
 
 ### Theoretically
 
-In practice, getting embeddings from a Matryoshka embedding model works the same way as with a normal embedding model. The only difference is that after receiving the embeddings, we can optionally truncate them to a smaller dimensionality. Do note that if the embeddings were normalized, then after truncating they will no longer be, so you may want to re-normalize.
+In practice, getting embeddings from a Matryoshka embedding model works the same way as with a normal embedding model. The only difference is that, after receiving the embeddings, we can optionally truncate them to a smaller dimensionality. Do note that if the embeddings were normalized, then after truncating they will no longer be, so you may want to re-normalize.
 
 After truncating, you can either directly apply them for your use cases, or store them such that they can be used later. After all, smaller embeddings in your vector database should result in considerable speedups!
 
@@ -157,7 +157,7 @@ print(similarities)
 
 * Link to the model: [tomaarsen/mpnet-base-nli-matryoshka](https://huggingface.co/tomaarsen/mpnet-base-nli-matryoshka)
 
-Feel free to experiment with using different values for `matryoshka_dim` and observing how that affects the similarities. You can do so either by running this code locally, on the cloud such as with [Google Colab](https://colab.research.google.com/#fileId=https%3A//huggingface.co/tomaarsen/mpnet-base-nli-matryoshka/blob/main/inference.ipynb), or by checking out the [demo](#demo).
+Feel free to experiment with using different values for `matryoshka_dim` and observe how that affects the similarities. You can do so either by running this code locally, on the cloud such as with [Google Colab](https://colab.research.google.com/#fileId=https%3A//huggingface.co/tomaarsen/mpnet-base-nli-matryoshka/blob/main/inference.ipynb), or by checking out the [demo](#demo).
 
 References:
 
@@ -212,7 +212,7 @@ In the top figure, you can see that the Matryoshka model reaches a higher Spearm
 
 Furthermore, the performance of the Matryoshka model falls off much less quickly than the standard model. This is shown clearly in the second figure, which shows the performance at the embedding dimension relative to the maximum performance. **Even at 8.3% of the embedding size, the Matryoshka model preserves 98.37% of the performance**, much higher than the 96.46% by the standard model.
 
-These findings are indicative that truncating embeddings by a Matryoshka model could 1) significantly speed up downstream tasks such as retrieval and 2) significantly save on storage space, all without a notable hit in performance.
+These findings are indicative that truncating embeddings by a Matryoshka model could: 1) significantly speed up downstream tasks such as retrieval and 2) significantly save on storage space, all without a notable hit in performance.
 
 ## Demo
 
