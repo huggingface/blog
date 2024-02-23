@@ -11,11 +11,11 @@ authors:
 ## Understanding Embeddings
 Embeddings are one of the most versatile tools in natural language processing, enabling practitioners to solve a large variety of tasks. In essence, an embedding is a numerical representation of a more complex object, like text, images, audio, etc. 
 
-![embedding model](assets/matryoshka/embedding_model.png)
+![embedding model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/matryoshka/embedding_model.png)
 
-You can compute the similarity of the complex object by computing the similarity of the embeddings!
+The embedding model will always produce embeddings of the same fixed size. You can then compute the similarity of the complex object by computing the similarity of these embeddings!
 
-![embedding similarity](assets/matryoshka/embedding_similarity.png)
+![embedding similarity](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/matryoshka/embedding_similarity.png)
 
 This has an enormous amount of use cases, and serves as the backbone for recommendation systems, retrieval, one-shot or few-shot learning, outlier detection, similarity search, paraphrase detection, clustering, classification, and much more!
 
@@ -24,7 +24,7 @@ As research progressed, new state-of-the-art (text) embedding models started pro
 
 Consequently, [Kusupati et al.](https://arxiv.org/abs/2205.13147) (2022) were inspired to create embedding models whose embeddings could reasonably be shrunk without suffering too much on performance.
 
-![matryoshka model](assets/matryoshka/matryoshka_model.png)
+![matryoshka model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/matryoshka/matryoshka_model.png)
 
 These Matryoshka embedding models are trained such that these small truncated embeddings are still useful. In short, Matryoshka embedding models can produce useful embeddings of various dimensions.
 
@@ -162,7 +162,7 @@ Now that Matryoshka models have been introduced, let's look at the actual perfor
 
 Both of these models were trained on the AllNLI dataset, which is a concatenation of the [SNLI](https://huggingface.co/datasets/snli) and [MultiNLI](https://huggingface.co/datasets/multi_nli) datasets. I have evaluated these models on the [STSBenchmark](https://huggingface.co/datasets/mteb/stsbenchmark-sts) test set using multiple different embedding dimensions. The results are plotted in the following figure:
 
-![results](assets/matryoshka/results.png)
+![results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/matryoshka/results.png)
 
 In the top figure, you can see that the Matryoshka model reaches a higher Spearman similarity than the standard model at all dimensionalities, indicative that the Matryoshka model is superior in this task.
 
