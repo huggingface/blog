@@ -35,7 +35,7 @@ Such variable-size embedding models can be quite valuable to practitioners, for 
 
 ## How are 🪆 Matryoshka Embedding models trained?
 ### Theoretically
-The Matryoshka Representation Learning (MRL) approach can be adopted for almost all embedding model training frameworks. Normally, a training step for an embedding model involves producing embeddings for your training batch (of texts, for example), and then using some loss function to create a loss value that represents the quality of the produced embeddings. Throughout training, the optimizer will then adjust the model weights to reduce the loss value.
+The Matryoshka Representation Learning (MRL) approach can be adopted for almost all embedding model training frameworks. Normally, a training step for an embedding model involves producing embeddings for your training batch (of texts, for example) and then using some loss function to create a loss value that represents the quality of the produced embeddings. The optimizer will adjust the model weights throughout training to reduce the loss value.
 
 For Matryoshka Embedding models, a training step also involves producing embeddings for your training batch, but then you use some loss function to determine not just the quality of your full-size embeddings, but the quality of your embeddings at various different dimensionalities. For example, at output dimensionalities of 768, 512, 256, 128 and 64. The loss values for each dimensionality are added together, resulting in a final loss value. The optimizer will then try and adjust the model weights to lower this loss value.
 
