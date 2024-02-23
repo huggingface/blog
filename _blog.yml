@@ -3509,7 +3509,7 @@
     - LLM
     - gcp
 
-- local: gemma_peft
+- local: gemma-peft
   title: "Welcome Gemma - Google's new open LLM"
   author: svaibhav
   thumbnail: /blog/assets/gemma-peft/thumbnail.png
