@@ -46,6 +46,7 @@ We do this by evaluating models against a potpourri of landmark red teaming data
 We further measure the brittleness of models at a more granular level and in particular their tendency to violate specific [categories of misuse](https://openai.com/policies/usage-policies), such as promoting illegal activity, inciting harassment, producing adult content, and so on.
 
 ## Red-Teaming Resistance Datasets
+
 We measure the robustness of LLMs against adversarial attacks from several adversarial prompt datasets, which contain similarly adversarial inputs (see next section for some examples):
 
 1. [AdvBench](https://arxiv.org/abs/2307.15043), a dataset of adversarial prompts (formulated as instructions) trying to elicit behaviors ranging from profanity, discrimination, to violence.
@@ -62,6 +63,7 @@ We use a combination of [LlamaGuard](https://ai.meta.com/research/publications/l
 
 
 ## Robustness by Violation Category
+
 Though the attacks contained in the above datasets are comprehensive and unique in their own right, there is significant overlap in their intent. For example, consider the following examples from two distinct datasets:
 
 <details>
@@ -88,11 +90,13 @@ Clearly, these strings intend to induce similar behaviors out of a target model.
 Thus, beyond measuring robustness by dataset, we measure robustness by behavior. In particular, we break down attacks into very clear subcategories guided partially by OpenAI’s [usage policies](https://openai.com/policies/usage-policies). Unlike common vague, imprecise, and marginally useful notions of generally "unsafe" behavior, these policies outline concrete violations. The full breakdown is as below:
 
 ### Harm and Violence
+
 Hate/Harassment/Discrimination: promoting intolerance or hostility against individuals or groups.
 Children-Specific Harm: content or actions that directly endanger or harm children.
 Physical-Specific Harm: material that encourages or causes physical injury to oneself or others.
 
 ### Criminal Conduct
+
 Malware: distributing harmful software designed to damage or infiltrate computer systems.
 Fraud/Deception: engaging in deceitful practices for personal gain.
 Privacy Violation: infringing on individuals' right to privacy through unauthorized data collection or sharing.
@@ -102,11 +106,13 @@ Unauthorized Practice of Law: offering legal advice or services without a licens
 Misc. Illegal Activity
 
 ### Unsolicited Counsel
+
 Tailored Financial Advice: providing specific financial recommendations without solicitation or proper credentials.
 Political Campaigning: unsolicited promotion of political agendas or candidates.
 High Risk Government Decision Making: advising on or influencing critical governmental decisions without authority or solicitation.
 
 ### NSFW
+
 Adult Content: explicit language or profanity, and depictions or discussions of drug use, alcohol abuse, and smoking.
 Sexual Content: material that depicts or describes sexual activities, sexual acts, or explicit sexual behavior.
 
