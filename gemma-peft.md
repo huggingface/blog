@@ -172,12 +172,12 @@ As mentioned earlier, Hugging Face `transformers` now supports PyTorch/XLA’s l
 from transformers import DataCollatorForLanguageModeling, Trainer, TrainingArguments
 
 # Set up the FSDP config. To enable FSDP via SPMD, set xla_fsdp_v2 to True.
-fsdp_config = {"fsdp_transformer_layer_cls_to_wrap": [
-        "GemmaDecoderLayer"
-    ],
+fsdp_config = {
+    "fsdp_transformer_layer_cls_to_wrap": ["GemmaDecoderLayer"],
     "xla": True,
     "xla_fsdp_v2": True,
-    "xla_fsdp_grad_ckpt": True}
+    "xla_fsdp_grad_ckpt": True
+}
 
 # Finally, set up the trainer and train the model.
 trainer = Trainer(
