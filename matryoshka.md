@@ -8,6 +8,10 @@ authors:
 
 # 🪆 Introduction to Matryoshka Embedding Models
 
+In this blogpost, we will introduce you to the concept of Matryoshka Embeddings and explain why they are useful. We will discuss how these models are theoretically trained and how you can train them using Sentence Transformers.
+
+Additionally, we will provide practical guidance on how to use Matryoshka Embedding models and share a comparison between a Matryoshka embedding model and a regular embedding model. Finally, we invite you to check out our interactive demo that showcases the power of these models.
+
 ## Table of Contents
 
 * [Understanding Embeddings](#understanding-embeddings)
