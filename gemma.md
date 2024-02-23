@@ -108,7 +108,7 @@ In addition, Gemma models are compatible with `torch.compile()` with CUDA graphs
 To use Gemma models with transformers, make sure to use the latest `transformers` release:
 
 ```jsx
-pip install -U "transformers==4.38.0" --upgrade
+pip install -U "transformers==4.38.1" --upgrade
 ```
 
 The following snippet shows how to use `gemma-7b-it` with transformers. It requires about 18 GB of RAM, which includes consumer GPUs such as 3090 or 4090.
