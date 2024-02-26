@@ -39,7 +39,7 @@ There are pros and cons of providing different levels of access to both watermar
 
 While watermarking is an important tool across modalities (audio, images, text, etc.), each modality brings with it unique challenges and considerations. So, too, does the intent of the watermark: whether to prevent the usage of *training data*  for training models, to protect content from being manipulated, to mark the *output* of models, or to *detect* AI-generated data.  In the current section, we explore different modalities of data, the challenges they present for watermarking, and the open-source tools that exist on the Hugging Face Hub to carry out different types of watermarking.
 
-## Watermarking Images
+### Watermarking Images
 
 Probably the best known type of watermarking (both for content written by humans or produced by AI) is carried out on images. There have been different approaches proposed to tag training data to impact the outputs of models trained on it: the best-known approach for this kind of ‘image cloaking’ approach is [“Nightshade”](https://arxiv.org/abs/2310.13828), which carries out tiny changes to images that are imperceptible to the human eye but that impact the quality of models trained on poisoned data. There are similar image cloaking tools available on the Hub - for instance, [Fawkes](https://huggingface.co/spaces/derek-thomas/fawkes), developed by the same lab that developed Nightshade, specifically targets images of people with the goal of thwarting facial recognition systems. Similarly, there’s also [Photoguard](https://huggingface.co/spaces/hadisalman/photoguard), which aims to guard images against manipulation using generative AI tools, e.g., for the creation of deepfakes based on them.
 
