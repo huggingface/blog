@@ -64,11 +64,11 @@ People joining this cohort will:
 
 Our goal is to support the community in building better datasets together. We are open to many ideas and want to support the community as far as possible in building better datasets together.
 
-## What tasks are we looking to support?
+## What types of projects are we looking for?
 
-We are open to many ideas and want to support the community as far as possible. Tasks could include building chat datasets for a particular language, validating the translation of an existing dataset, creating new preference data, or building a dataset for a specific domain. 
+We are open to supporting many types of projects. We are particularly interested in projects that leverage existing community initiatives but we're open to any ideas that can help the community build better datasets together. Our only limitation is that we're primarily focused on text-based datasets. If you have a very cool idea for multimodal datasets we'd love to hear from you but we may not be able to support you in this first cohort.
 
-Tasks can either be fully open or open to members of a particular organisation. 
+Tasks can either be fully open or open to members of a particular Hugging Face Hub organization. 
 
 If you want to be part of the first cohort, please get in touch here.
 <!--TODO add contact method>
