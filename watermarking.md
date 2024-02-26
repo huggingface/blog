@@ -69,7 +69,7 @@ Detection works by determining what “color” each token is, and then calculat
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig3.png" alt="Text watermark">
-  <figcaption> Figure 3: The [Watermark for LLMs Space](https://huggingface.co/spaces/tomg-group-umd/lm-watermarking) showing red and green tokens on synthetic text that represent the probability that these are AI-generated. </figcaption>
+  <figcaption> Figure 3: The <a href="https://huggingface.co/spaces/tomg-group-umd/lm-watermarking">Watermark for LLMs Space</a> showing red and green tokens on synthetic text that represent the probability that these are AI-generated. </figcaption>
 </figure>
 
 
