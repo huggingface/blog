@@ -3734,6 +3734,7 @@
   tags:
     - security
 
+<<<<<<< HEAD
 - local: codegemma
   title: "CodeGemma - an official Google release for code LLMs"
   author: pcuenq
@@ -3745,6 +3746,7 @@
     - research
     - LLM
     - gcp
+<<<<<<< HEAD
 
 - local: google-cloud-model-garden
   title: "Making thousands of open LLMs bloom in the Vertex AI Model Garden"
@@ -3767,7 +3769,12 @@
     - multimodal
     - guide
     - trl
+<<<<<<< HEAD
     
+=======
+<<<<<<< HEAD
+
+>>>>>>> dd723da (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
 - local: idefics2
   title: "Introducing Idefics2: A Powerful 8B Vision-Language Model for the community"
   author: Leyo
@@ -3779,6 +3786,7 @@
     - cv
     - vlm
     - multimodal
+<<<<<<< HEAD
     
 - local: ryght-case-study
   title: "Ryght’s Journey to Empower Healthcare and Life Sciences with Expert Support from Hugging Face"
@@ -3787,3 +3795,21 @@
   date: April 16, 2024
   tags:
     - case-studies
+=======
+=======
+=======
+=======
+- local: concrete-ml-inference-on-endpoints-fhe
+  title: "Running Privacy-Preserving Inferences on Hugging Face EndPoints"
+  author: binoua
+  thumbnail: /blog/assets/concrete-ml-inference-on-endpoints-fhe/thumbnail.png
+  date: April 11, 2024
+  tags:
+    - guide
+    - privacy
+    - research
+    - FHE
+>>>>>>> 0fe12cc (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
+>>>>>>> 149835e (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
+>>>>>>> 5fdbe36 (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
+>>>>>>> dd723da (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
