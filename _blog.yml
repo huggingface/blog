@@ -3483,7 +3483,7 @@
     - guide
     - llm
     - nlp
-    - cv 
+    - cv
     - lora
 
 - local: leaderboards-on-the-hub-upstage
@@ -3543,3 +3543,26 @@
     - LLM
     - gcp
     - peft
+
+- local: watermarking
+  title: "AI Watermarking 101: Tools and Techniques"
+  author: sasha
+  thumbnail: /blog/assets/watermarking/thumbnail.png
+  date: Feb 26, 2024
+  tags:
+    - ethics
+    - research
+    - nlp
+    - guide
+
+- local: community-datasets
+  title: "Data is better together"
+  author: davanstrien
+  guest: true
+  thumbnail: /blog/assets/community-datasets/thumbnail.png
+  date: Feb 29, 2024
+  tags:
+    - community
+    - data
+    - collaboration
+    - announcement
