@@ -42,7 +42,7 @@ Although there are many other open and closed source models available, we chose 
 ## The Leaderboard
 We will display the results from Arena voting in a publicly accessible leaderboard. Although it will initially be empty, models will gradually appear as they accumulate enough votes. As raters submit new votes, the leaderboard will automatically update with the latest results.
 
-Similar to the Chatbot Arena, the models on the leaderboard are ranked using the [Elo rating](https://en.wikipedia.org/wiki/Elo_rating_system) system, a system commonly used by game players.
+Similar to the Chatbot Arena, the models on the leaderboard are ranked using an algorithm similar to the [Elo rating](https://en.wikipedia.org/wiki/Elo_rating_system) system, a system commonly used by game players.
 
 
 
