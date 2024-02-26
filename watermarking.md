@@ -29,7 +29,7 @@ Watermarking is a method designed to mark content in order to convey additional 
 
 There are two primary methods for watermarking AI-generated content: the first occurs during content creation, which requires access to the model itself but can also be [more robust given that it is automatically embedded as part of the generation process](https://huggingface.co/blog/imatag-vch/stable-signature-bzh). The second method, which is implemented after the content is produced, can also be applied even to content from closed-source and proprietary models, with the caveat that it may not be applicable to all types of content (e.g., text).
 
-### Data Poisoning and Signing Approaches
+### Data Poisoning and Signing Techniques
 
 In addition to watermarking, several related techniques have a role to play in limiting non-consensual image manipulation. Some imperceptibly alter images you share online so that AI algorithms don’t process them well. Even though people can see the images normally, AI algorithms can’t access comparable content, and as a result, can't create new images. Some tools that imperceptibly alter images include Glaze and Photoguard. Other tools work to “poison” images so that they break the assumptions inherent in AI algorithm training, making it impossible for AI systems to learn what people look like based on the images shared online – this makes it harder for these systems to generate fake images of people. These tools include [Nightshade](https://nightshade.cs.uchicago.edu/whatis.html) and [Fawkes](http://sandlab.cs.uchicago.edu/fawkes/).
 
