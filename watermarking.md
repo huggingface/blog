@@ -72,7 +72,7 @@ Given the high-stakes nature of audio output, watermarking audio content is an a
 
 [AudioSeal](https://github.com/facebookresearch/audioseal) is a method for speech localized watermarking, with state-of-the-art detector speed without compromising the watermarking robustness. It jointly trains a generator that embeds a watermark in the audio, and a detector that detects the watermarked fragments in longer audios, even in the presence of editing. Audioseal achieves state-of-the-art detection performance of both natural and synthetic speech at the sample level (1/16k second resolution), it generates limited alteration of signal quality and is robust to many types of audio editing.
 
-![AudioSeal](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig4.png "Figure 4 - Pipeline of AudioSeal watermarking and detection.")
+![AudioSeal](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig4.png "Figure 4 - Pipeline of AudioSeal watermarking and detection. Source: https://github.com/facebookresearch/audioseal")
 
 AudioSeal was also used to release [SeamlessExpressive](https://huggingface.co/spaces/facebook/seamless-expressive) and [SeamlessStreaming](https://huggingface.co/spaces/facebook/seamless-streaming) demos with mechanisms for safety.
 
