@@ -23,7 +23,7 @@ In this blog post, we will describe approaches to carry out watermarking of AI-g
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig1.png" alt="Dall-E 2 watermark">
-  <figcaption> Figure 1: OpenAI’s Dall-E 2 included a visible watermark composed of 5 blocks of different colors in the bottom right corner. Source: [instagram](instagram.com/dailydall.e) </figcaption>
+  <figcaption> Figure 1: OpenAI’s Dall-E 2 included a visible watermark composed of 5 blocks of different colors in the bottom right corner. Source: instagram.com/dailydall.e </figcaption>
 </figure>
 
 Watermarking is a method designed to mark content in order to convey additional information, such as authenticity. Watermarks in AI-generated content can range from fully visible (Figure 1) to invisible (Figure 2). In AI specifically, watermarking involves adding patterns to digital content (such as images), and conveying information regarding the provenance of the content; these patterns can then be recognized either by humans or algorithmically.
