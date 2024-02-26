@@ -1,6 +1,6 @@
 ---
 title: "AI Watermarking 101: Tools and Techniques"
-thumbnail: /blog/assets/watermarking/thumbnail.gif
+thumbnail: /blog/assets/watermarking/thumbnail.png
 authors:
 - user: @sasha
 - user: @yjernite
