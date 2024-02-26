@@ -21,11 +21,18 @@ In this blog post, we will describe approaches to carry out watermarking of AI-g
 
 ## What is watermarking and how does it work?
 
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig1.png" alt="Dall-E 2 watermark">
+  <figcaption> Figure 1: OpenAI’s Dall-E 2 included a visible watermark composed of 5 blocks of different colors in the bottom right corner. Source: [instagram](instagram.com/dailydall.e) </figcaption>
+</figure>
+
 Watermarking is a method designed to mark content in order to convey additional information, such as authenticity. Watermarks in AI-generated content can range from fully visible (Figure 1) to invisible (Figure 2). In AI specifically, watermarking involves adding patterns to digital content (such as images), and conveying information regarding the provenance of the content; these patterns can then be recognized either by humans or algorithmically.
 
-![Watermarked Image 1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig1.png "Figure 1: OpenAI’s Dall-E 2 included a visible watermark composed of 5 blocks of different colors in the bottom right corner. Source: instagram.com/dailydall.e")
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig2.png" alt="Invisible watermark">
+  <figcaption> Figure 2: Companies such as Imatag and Truepic have developed ways to embed imperceptible watermarks in AI-generated images. </figcaption>
+</figure>
 
-![Watermarked Image 2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig2.png "Figure 2: Companies such as Imatag and Truepic have developed ways to embed imperceptible watermarks in AI-generated images.")
 
 There are two primary methods for watermarking AI-generated content: the first occurs during content creation, which requires access to the model itself but can also be [more robust given that it is automatically embedded as part of the generation process](https://huggingface.co/blog/imatag-vch/stable-signature-bzh). The second method, which is implemented after the content is produced, can also be applied even to content from closed-source and proprietary models, with the caveat that it may not be applicable to all types of content (e.g., text).
 
@@ -60,7 +67,11 @@ During the generation process, an  LLM outputs [a list of logits for the next to
 
 Detection works by determining what “color” each token is, and then calculating the probability that the input text comes from the model in question. It’s worth noting that shorter texts have a much lower confidence, since there are less tokens to examine.
 
-![Text Watermarking](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig3.png "Figure 3: Watermark for LLMs Space showing red and green tokens on synthetic text")
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig3.png" alt="Text watermark">
+  <figcaption> Figure 3: The [Watermark for LLMs Space](https://huggingface.co/spaces/tomg-group-umd/lm-watermarking) showing red and green tokens on synthetic text that represent the probability that these are AI-generated. </figcaption>
+</figure>
+
 
 There are a couple of ways you can easily implement watermarking for LLMs on the Hugging Face Hub. [The Watermark for LLMs Space](https://huggingface.co/spaces/tomg-group-umd/lm-watermarking) (see Fig. 3) demonstrates this, using an [LLM watermarking approach](https://huggingface.co/papers/2301.10226) on models such as OPT and Flan-T5. For production level workloads, you can use our [Text Generation Inference toolkit](https://huggingface.co/docs/text-generation-inference/index), which implements the same watermarking algorithm and sets the [corresponding parameters](https://huggingface.co/docs/text-generation-inference/main/en/basic_tutorials/launcher#watermarkgamma) and can be used with any of the latest models!
 
@@ -76,7 +87,10 @@ Given the high-stakes nature of audio output, watermarking audio content is an a
 
 [AudioSeal](https://github.com/facebookresearch/audioseal) is a method for speech localized watermarking, with state-of-the-art detector speed without compromising the watermarking robustness. It jointly trains a generator that embeds a watermark in the audio, and a detector that detects the watermarked fragments in longer audios, even in the presence of editing. Audioseal achieves state-of-the-art detection performance of both natural and synthetic speech at the sample level (1/16k second resolution), it generates limited alteration of signal quality and is robust to many types of audio editing.
 
-![AudioSeal](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig4.png "Figure 4 - Pipeline of AudioSeal watermarking and detection. Source: https://github.com/facebookresearch/audioseal")
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig4.png" alt="AudioSeal watermarking approach.">
+  <figcaption> Figure 4 - Pipeline of AudioSeal watermarking and detection. Source: [GitHub (AudioSeal)](https://github.com/facebookresearch/audioseal) </figcaption>
+</figure>
 
 AudioSeal was also used to release [SeamlessExpressive](https://huggingface.co/spaces/facebook/seamless-expressive) and [SeamlessStreaming](https://huggingface.co/spaces/facebook/seamless-streaming) demos with mechanisms for safety.
 
