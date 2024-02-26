@@ -89,7 +89,7 @@ Given the high-stakes nature of audio output, watermarking audio content is an a
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig4.png" alt="AudioSeal watermarking approach.">
-  <figcaption> Figure 4 - Pipeline of AudioSeal watermarking and detection. Source: [GitHub (AudioSeal)](https://github.com/facebookresearch/audioseal) </figcaption>
+  <figcaption> Figure 4 - Pipeline of AudioSeal watermarking and detection. Source: <a href="https://github.com/facebookresearch/audioseal">GitHub (AudioSeal)</a> </figcaption>
 </figure>
 
 AudioSeal was also used to release [SeamlessExpressive](https://huggingface.co/spaces/facebook/seamless-expressive) and [SeamlessStreaming](https://huggingface.co/spaces/facebook/seamless-streaming) demos with mechanisms for safety.
