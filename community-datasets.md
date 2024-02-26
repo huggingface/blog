@@ -50,19 +50,19 @@ One of the challenges to many previous efforts to build AI datasets collectively
 </figure>
 
 
-
-Now that we have stress-tested this new workflow when creating the 10k_prompt_rankings dataset, we want to support the community in launching new collective dataset efforts. 
+Now that we have stress-tested this new workflow when creating the `10k_prompt_rankings` dataset, we want to support the community in launching new collective dataset efforts. 
 
 ## Join our first cohort of communities who want to build better datasets together!
 
-We’re very excited about the possibilities unlocked by this new simple flow for hosting annotation tasks. To support the community in building better datasets Hugging Face and Argilla invite interested people and communities to join our initial cohort of dataset builders. 
-
+We’re very excited about the possibilities unlocked by this new simple flow for hosting annotation tasks. To support the community in building better datasets Hugging Face and Argilla invite interested people and communities to join our initial cohort of community dataset builders. 
 
 People joining this cohort will:
 
 - Be supported in creating an Argilla Space with Hugging Face authentication. Hugging Face will grant free persistent storage and improved CPU spaces for participants. 
 - Have their comms and promotion advertising the initiative amplified by Argilla and Hugging Face.
 = Be invited to join a cohort community channel 
+
+Our goal is to support the community in building better datasets together. We are open to many ideas and want to support the community as far as possible in building better datasets together.
 
 ## What tasks are we looking to support?
 
