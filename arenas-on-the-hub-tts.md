@@ -23,12 +23,12 @@ The field of speech synthesis has long lacked an accurate method to measure the 
 ## The Arena
 Human ranking for AI systems is not a novel approach. Recently, LMSys applied this method in their [Chatbot Arena](https://arena.lmsys.org/) with positive results, resulting in over 300,000 rankings. Because of its success, we adopted a similar framework for our leaderboard, inviting humans to rank synthesized audio.
 
-The voting system is an important aspect of the leaderboard. Due to the risks of human bias and abuse, model anonymity is key. This is why model names are only revealed after a user votes.
+The voting system is an important aspect of the leaderboard. Due to the risks of human bias and abuse, model anonymity is key. This is why we reveal model names only after a user submits their vote.
 
 ## The Models
-We selected several SOTA (State of the Art) models for our leaderboard. While we’re mostly using open source models, we included several proprietary models to allow developers to compare the state of open source development with proprietary models.
+We selected several SOTA (State of the Art) models for our leaderboard. While most are open source models, we also included several proprietary models to allow developers to compare the state of open source development with proprietary models.
 
-We plan to add more models in the future; however, the models available at launch are:
+The models available at launch are:
 - ElevenLabs (proprietary)
 - MetaVoice
 - OpenVoice
@@ -37,14 +37,13 @@ We plan to add more models in the future; however, the models available at launc
 - WhisperSpeech
 - XTTS
 
-Although there are many other open and closed source models available, we chose these because they are generally accepted as the highest quality publicly available models.
+Although there are many other open and closed source models available, we chose these because they are generally accepted as the highest-quality publicly available models.
 
 ## The Leaderboard
 We will display the results from Arena voting in a publicly accessible leaderboard. Although it will initially be empty, models will gradually appear as they accumulate enough votes. As raters submit new votes, the leaderboard will automatically update with the latest results.
 
 Similar to the Chatbot Arena, the models on the leaderboard are ranked using the [Elo rating](https://en.wikipedia.org/wiki/Elo_rating_system) system, a system commonly used by game players.
 
-## Credits
 
 
 ## Conclusion
@@ -52,4 +51,4 @@ We hope the TTS Arena proves to be a helpful resource for all developers. We wou
 
 ## Credits
 
-Special thanks to all the people who helped make this possible, including [Clémentine Fourrier](https://twitter.com/clefourrier), [Lucian Pouget](https://twitter.com/wauplin), [Yoach Lacombe](https://twitter.com/yoachlacombe), [Main Horse](https://twitter.com/main_horse), and the Hugging Face team. In particular, I’d like to thank VB for his time and technical assistance. I’d also like to thank [Sanchit Gandhi](https://twitter.com/sanchitgandhi99) and [Apolinário Passos](https://twitter.com/multimodalart) for their feedback and support during the development process.
+Special thanks to all the people who helped make this possible, including [Clémentine Fourrier](https://twitter.com/clefourrier), [Lucian Pouget](https://twitter.com/wauplin), [Yoach Lacombe](https://twitter.com/yoachlacombe), [Main Horse](https://twitter.com/main_horse), and the Hugging Face team. In particular, I’d like to thank [VB](https://twitter.com/reach_vb) for his time and technical assistance. I’d also like to thank [Sanchit Gandhi](https://twitter.com/sanchitgandhi99) and [Apolinário Passos](https://twitter.com/multimodalart) for their feedback and support during the development process.
