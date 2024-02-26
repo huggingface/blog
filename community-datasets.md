@@ -1,6 +1,5 @@
 ---
-title: "
-Data is better together: Enabling communities to collectively build better datasets together using Argilla and Hugging Face Spaces"
+title: "Data is better together: Enabling communities to collectively build better datasets together using Argilla and Hugging Face Spaces"
 thumbnail: /blog/assets/community-datasets/thumbnail.png
 authors:
 - user: davanstrien
