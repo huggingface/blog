@@ -24,7 +24,15 @@ In this post, we’ll discuss why we think it’s essential for the community to
 
 Data continues to be essential for better models: We see continued evidence from [published research](https://huggingface.co/papers/2402.05123) , open-source [experiments](https://argilla.io/blog/notus7b/), and from the open-source community that better data can lead to better models. 
 
-<!---TODO insert image--->
+<p align="center"> 
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/17480bfba418032faec37da19e9c678ac9eeed43/blog/community-datasets/why-model-better.png" alt="Screenshot of datasets in the Hugging Face Hub"><br> 
+<em>The question.</em> 
+ </p> 
+
+<p align="center"> 
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/17480bfba418032faec37da19e9c678ac9eeed43/blog/community-datasets/data-is-the-answer.png" alt="Screenshot of datasets in the Hugging Face Hub"><br> 
+<em>A frequent answer.</em> 
+ </p> 
 
 
 Data is vital for machine learning, but many languages, domains and tasks still lack high-quality datasets for training, evaluating and benchmarking — the community already shares 100s of models, datasets and demos via the Hugging Face Hub every day.  As a result of collaboration, the open-access AI community has created amazing things. Enabling the community to build datasets collectively will unlock amazing opportunities for building the next generation of datasets to build the next generation of models. 
