@@ -64,7 +64,7 @@ Similar to universal watermarking of AI-generated images, it is yet to be proven
 
 As we discussed above, detection methods for generated text require a large amount of text to be reliable. Even then, detectors can have high false positive rates, incorrectly labeling text written by people as synthetic. Indeed, [OpenAI removed their in-house detection tool](https://www.pcmag.com/news/openai-quietly-shuts-down-ai-text-detection-tool-over-inaccuracies) in 2023 given low accuracy rate, which came with [unintended consequences](https://www.rollingstone.com/culture/culture-features/texas-am-chatgpt-ai-professor-flunks-students-false-claims-1234736601/) when it was used by teachers to gauge whether the assignments submitted by their students were generated using ChatGPT or not.
 
-## Watermarking Audio
+### Watermarking Audio
 
 The data extracted from a person's voice (voiceprint), is often used as a biometric security authentication mechanism to identify an individual.  While generally paired with other security factors such as PIN or password, a compromise to this biometric data still presents a risk and can be used to gain access to, e.g., bank accounts, given that many banks use voice recognition technologies to verify clients over the phone.  As voice becomes easier to replicate with AI, we must also improve the techniques to validate the authenticity of voice audio.   Watermarking audio content is similar to watermarking images in the sense that there is a multidimensional output space that can be used to inject metadata regarding provenance. In the case of audio, the watermarking is usually carried out on frequencies that are imperceptible to human ears (below ~20 or above ~20,000 Hz), which can then be detected using AI-driven approaches.
 
