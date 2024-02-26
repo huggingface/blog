@@ -37,7 +37,7 @@ There are pros and cons of providing different levels of access to both watermar
 
 ## Watermarking Different Types of Data
 
-While watermarking is an important tool across modalities (audio, images, text, etc.), each modality brings with it unique challenges and considerations. So too does the intent of the watermark: whether to prevent the usage of *training data*  for training models, to protect content from being manipulated, to mark the *output* of models, or to *detect* AI-generated data.  In the current section, we explore different modalities of data, the challenges they present for watermarking, and the open-source tools that exist on the Hugging Face Hub to carry out different types of watermarking.
+While watermarking is an important tool across modalities (audio, images, text, etc.), each modality brings with it unique challenges and considerations. So, too, does the intent of the watermark: whether to prevent the usage of *training data*  for training models, to protect content from being manipulated, to mark the *output* of models, or to *detect* AI-generated data.  In the current section, we explore different modalities of data, the challenges they present for watermarking, and the open-source tools that exist on the Hugging Face Hub to carry out different types of watermarking.
 
 ## Watermarking Images
 
