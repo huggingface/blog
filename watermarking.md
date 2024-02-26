@@ -19,7 +19,7 @@ In recent months, we've seen multiple news stories involving ‘deepfakes’, or
 
 In this blog post, we will describe approaches to carry out watermarking of AI-generated content, discuss their pros and cons, and present some of the tools available on the Hugging Face Hub for adding/detecting watermarks.
 
-# What is watermarking and how does it work?
+## What is watermarking and how does it work?
 
 Watermarking is a method designed to mark content in order to convey additional information, such as authenticity. Watermarks in AI-generated content can range from fully visible (Figure 1) to invisible (Figure 2). In AI specifically, watermarking involves adding patterns to digital content (such as images), and conveying information regarding the provenance of the content; these patterns can then be recognized either by humans or algorithmically.
 
