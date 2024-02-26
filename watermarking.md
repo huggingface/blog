@@ -48,7 +48,7 @@ In terms of watermarking output images, there are two complementary approaches a
 
 TruePic also embeds C2PA content credentials into the images, which enables the storage of metadata regarding image provenance and generation in the image itself.  Both the IMATAG and TruePic Spaces also allow for the detection of images watermarked by their systems. Both of these detection tools work with their respective approaches (i.e., they are approach-specific). There is an existing general [deepfake detection Space](https://huggingface.co/spaces/Wvolf/CNN_Deepfake_Image_Detection) on the Hub, but in our experience, we found that these solutions have variable performance depending on the quality of the image and the model used.  
 
-## Watermarking Text
+### Watermarking Text
 
 While watermarking AI-generated images can seem more intuitive – given the strongly visual nature of this content – text is a whole different story… How do you add watermarks to written words and numbers (tokens)? Well, the current approaches for watermarking rely on promoting sub-vocabularies based on the previous text. Let's dive into what this would look like for LLM-generated text.
 
