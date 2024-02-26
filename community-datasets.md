@@ -10,10 +10,10 @@ authors:
 
 # Data is better together: Enabling communities to collectively build better datasets together using Argilla and Hugging Face Spaces 
 
-Two weeks ago, Argilla and Hugging Face launched Data is Better Together, an experiment to collectively build a preference dataset of prompt rankings. In two weeks:
+Recently Argilla and Hugging Face [launched](https://huggingface.co/posts/dvilasuero/680660181190026) `Data is Better Together`, an experiment to collectively build a preference dataset of prompt rankings. In a few weeks we've had:
 
-- Over 314 people contributed rankings 
-- Over 10,000 prompts were rated. 
+- Over 346 people contributed rankings 
+- Over 11,000 prompt ratings
 
 This resulted in the release of `10k-prompts-rated`, a dataset consisting of 10,000 prompts with preference rankings for the quality of the prompt. We want to enable many more projects like this!
 
