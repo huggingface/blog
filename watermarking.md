@@ -76,7 +76,7 @@ Given the high-stakes nature of audio output, watermarking audio content is an a
 
 AudioSeal was also used to release [SeamlessExpressive](https://huggingface.co/spaces/facebook/seamless-expressive) and [SeamlessStreaming](https://huggingface.co/spaces/facebook/seamless-streaming) demos with mechanisms for safety.
 
-# Conclusion
+## Conclusion
 
 Disinformation, being accused of producing synthetic content when it's real, and instances of inappropriate representations of people without their consent can be difficult and time-consuming; much of the damage is done before corrections and clarifications can be made.  As such, as part of our mission to democratize good machine learning, we at Hugging Face believe that having mechanisms to identify AI-Generated content quickly and systematically are important.  AI watermarking is not foolproof, but can be a powerful tool in the fight against malicious and misleading uses of AI.     
 
