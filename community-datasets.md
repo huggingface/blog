@@ -20,7 +20,8 @@ This resulted in the release of `10k-prompts-rated`, a dataset consisting of 10,
 
 In this post, we’ll discuss why we think it’s essential for the community to collaborate on building datasets and share an invitation to join the first cohort of communities [Argilla](https://argilla.io/) and Hugging Face will support to develop better datasets together! 
 
-## Why build datasets collectively?
+
+## Data remains essential for better models
 
 Data continues to be essential for better models: We see continued evidence from [published research](https://huggingface.co/papers/2402.05123) , open-source [experiments](https://argilla.io/blog/notus7b/), and from the open-source community that better data can lead to better models. 
 
@@ -34,6 +35,7 @@ Data continues to be essential for better models: We see continued evidence from
 <em>A frequent answer.</em> 
  </p> 
 
+## Why build datasets collectively?
 
 Data is vital for machine learning, but many languages, domains and tasks still lack high-quality datasets for training, evaluating and benchmarking — the community already shares 100s of models, datasets and demos via the Hugging Face Hub every day.  As a result of collaboration, the open-access AI community has created amazing things. Enabling the community to build datasets collectively will unlock amazing opportunities for building the next generation of datasets to build the next generation of models. 
 
