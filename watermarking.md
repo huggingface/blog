@@ -2,15 +2,15 @@
 title: "AI Watermarking 101: Tools and Techniques"
 thumbnail: /blog/assets/watermarking/thumbnail.png
 authors:
-- user: @sasha
-- user: @yjernite
-- user: @derek-thomas
-- user: @EmilyWitko
-- user: @Ezi
-- user: @JJoe206
-- user: @reach-vb
-- user: @BrigitteTousi
-- user: @meg
+- user: sasha
+- user: yjernite
+- user: derek-thomas
+- user: EmilyWitko
+- user: Ezi
+- user: JJoe206
+- user: reach-vb
+- user: BrigitteTousi
+- user: meg
 ---
 
 In recent months, we've seen multiple news stories involving ‘deepfakes’, or AI-generated content: from [images of Taylor Swift](https://www.npr.org/2024/01/26/1227091070/deepfakes-taylor-swift-images-regulation) to [videos of Tom Hanks](https://www.theguardian.com/film/2023/oct/02/tom-hanks-dental-ad-ai-version-fake) and [recordings of President Joe Biden](https://www.bbc.com/news/world-us-canada-68064247). Whether they are selling products, manipulating images of people without their consent, supporting phishing for private information or creating misinformation materials intended to mislead voters, deepfakes are increasingly being shared on social media platforms that enable them to be quickly propagated and have a wider reach, therefore, having the potential to cause long-lasting damage.  
