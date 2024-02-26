@@ -3543,3 +3543,15 @@
     - LLM
     - gcp
     - peft
+
+
+- local: leaderboards-on-the-hub-contextual
+  title: "Introducing ConTextual: How well can your Multimodal model jointly reason over text and image in text-rich scenes?"
+  author: rohan598
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_contextual.png
+  date: Feb 29, 2024
+  tags:
+    - leaderboard
+    - collaboration
+    - research
