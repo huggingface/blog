@@ -12,7 +12,7 @@ authors:
 - user: BrigitteTousi
 - user: meg
 translators:
-- user: adinayakefu
+- user: AdinaY
 ---
 
 # 人工智能水印技术入门：工具与技巧
