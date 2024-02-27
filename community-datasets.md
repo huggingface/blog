@@ -11,7 +11,7 @@ authors:
 
 Argilla and Hugging Face [launched](https://huggingface.co/posts/dvilasuero/680660181190026) `Data is Better Together`, an experiment to collectively build a preference dataset of prompt rankings. In a few days, we've had:
 
-- Over 346 people contributed rankings 
+- 350 community contributors labeling data 
 - Over 11,000 prompt ratings
 
 See the [progress dashboard](https://huggingface.co/spaces/DIBT/prompt-collective-dashboard) for the latest stats!
