@@ -23,7 +23,7 @@ In this post, we’ll discuss why we think it’s essential for the community to
 
 ## Data remains essential for better models
 
-Data continues to be essential for better models: We see continued evidence from [published research](https://huggingface.co/papers/2402.05123) , open-source [experiments](https://argilla.io/blog/notus7b/), and from the open-source community that better data can lead to better models. 
+Data continues to be essential for better models: We see continued evidence from [published research](https://huggingface.co/papers/2402.05123), open-source [experiments](https://argilla.io/blog/notus7b/), and from the open-source community that better data can lead to better models. 
 
 <p align="center"> 
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/17480bfba418032faec37da19e9c678ac9eeed43/blog/community-datasets/why-model-better.png" alt="Screenshot of datasets in the Hugging Face Hub"><br> 
