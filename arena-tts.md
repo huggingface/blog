@@ -17,6 +17,9 @@ authors:
 
 Automated measurement of the quality of text-to-speech (TTS) models is very difficult. Assessing the naturalness and inflection of a voice is a trivial task for humans, but it is much more difficult for AI. This is why today, we’re thrilled to announce the TTS Arena. Inspired by [LMSys](https://lmsys.org/)'s [Chatbot Arena](https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard) for LLMs, we developed a tool that allows anyone to easily compare TTS models side-by-side. Just submit some text, listen to two different models speak it out, and vote on which model you think is the best. The results will be organized into a leaderboard that displays the community’s highest-rated models.
 
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
+<gradio-app theme_mode="light" space="TTS-AGI/TTS-Arena"></gradio-app>
+
 ## Motivation
 
 The field of speech synthesis has long lacked an accurate method to measure the quality of different models. Objective metrics like WER (word error rate) are unreliable measures of model quality, and subjective measures such as MOS (mean opinion score) are typically small-scale experiments conducted with few listeners. As a result, these measurements are generally not useful for comparing two models of roughly similar quality. To address these drawbacks, we are inviting the community to rank models in an easy-to-use interface. By opening this tool and disseminating results to the public, we aim to democratize how models are ranked and to make model comparison and selection accessible to everyone.
