@@ -70,7 +70,7 @@ People joining this cohort will:
 
 - Be supported in creating an Argilla Space with Hugging Face authentication. Hugging Face will grant free persistent storage and improved CPU spaces for participants. 
 - Have their comms and promotion advertising the initiative amplified by Argilla and Hugging Face.
-= Be invited to join a cohort community channel 
+- Be invited to join a cohort community channel 
 
 Our goal is to support the community in building better datasets together. We are open to many ideas and want to support the community as far as possible in building better datasets together.
 
