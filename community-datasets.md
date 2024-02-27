@@ -68,7 +68,7 @@ Now that we have stress-tested this new workflow when creating the [`10k_prompts
 
 ## Join our first cohort of communities who want to build better datasets together!
 
-We’re very excited about the possibilities unlocked by this new simple flow for hosting annotation tasks. To support the community in building better datasets Hugging Face and Argilla invite interested people and communities to join our initial cohort of community dataset builders. 
+We’re very excited about the possibilities unlocked by this new, simple flow for hosting annotation tasks. To support the community in building better datasets, Hugging Face and Argilla invite interested people and communities to join our initial cohort of community dataset builders. 
 
 People joining this cohort will:
 
