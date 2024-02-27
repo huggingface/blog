@@ -16,7 +16,7 @@ Argilla and Hugging Face [launched](https://huggingface.co/posts/dvilasuero/6806
 
 See the [progress dashboard](https://huggingface.co/spaces/DIBT/prompt-collective-dashboard) for the latest stats!
 
-This resulted in the release of `10k-prompts-rated`, a dataset consisting of 10,000 prompts with preference rankings for the quality of the prompt. We want to enable many more projects like this!
+This resulted in the release of [`10k_prompts_ranked`](https://huggingface.co/datasets/DIBT/10k_prompts_ranked), a dataset consisting of 10,000 prompts with preference rankings for the quality of the prompt. We want to enable many more projects like this!
 
 In this post, we’ll discuss why we think it’s essential for the community to collaborate on building datasets and share an invitation to join the first cohort of communities [Argilla](https://argilla.io/) and Hugging Face will support to develop better datasets together! 
 
@@ -60,7 +60,7 @@ One of the challenges to many previous efforts to build AI datasets collectively
 </figure>
 
 
-Now that we have stress-tested this new workflow when creating the `10k_prompt_rankings` dataset, we want to support the community in launching new collective dataset efforts. 
+Now that we have stress-tested this new workflow when creating the [`10k_prompts_ranked`](https://huggingface.co/datasets/DIBT/10k_prompts_ranked), dataset, we want to support the community in launching new collective dataset efforts. 
 
 ## Join our first cohort of communities who want to build better datasets together!
 
