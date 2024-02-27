@@ -108,7 +108,7 @@ In addition, Gemma models are compatible with `torch.compile()` with CUDA graphs
 To use Gemma models with transformers, make sure to use the latest `transformers` release:
 
 ```jsx
-pip install -U "transformers==4.38.0" --upgrade
+pip install -U "transformers==4.38.1" --upgrade
 ```
 
 The following snippet shows how to use `gemma-7b-it` with transformers. It requires about 18 GB of RAM, which includes consumer GPUs such as 3090 or 4090.
@@ -128,13 +128,12 @@ pipeline = pipeline(
 )
 
 messages = [
-		{"role": "user", "content": "Who are you? Please, answer in pirate-speak."},
+	{"role": "user", "content": "Who are you? Please, answer in pirate-speak."},
 ]
 prompt = pipeline.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 outputs = pipeline(
     prompt,
     max_new_tokens=256,
-    add_special_tokens=True,
     do_sample=True,
     temperature=0.7,
     top_k=50,
@@ -146,10 +145,7 @@ print(outputs[0]["generated_text"][len(prompt):])
 > `Avast me, me hearty. I am a pirate of the high seas, ready to pillage and plunder. Prepare for a tale of adventure and booty!`
 > 
 
-A couple of details about the snippet:
-
-- We used `bfloat16` because that’s the reference precision and how all evaluations were run. Running in `float16` may be faster on your hardware.
-- The model won’t respond unless the tokenized input starts with a `<bos>` token. That’s why we used `add_special_tokens=True` in the pipeline call.
+We used `bfloat16` because that’s the reference precision and how all evaluations were run. Running in `float16` may be faster on your hardware.
 
 You can also automatically quantize the model, loading it in 8-bit or even 4-bit mode. 4-bit loading takes about 9 GB of memory to run, making it compatible with a lot of consumer cards and all the GPUs in Google Colab. This is how you’d load the generation pipeline in 4-bit:
 
@@ -194,7 +190,7 @@ output_text = tokenizer.batch_decode(output.sequences, skip_special_tokens=True)
 > `['Valencia and Málaga are two of the most popular tourist destinations in Spain. Both cities boast a rich history, vibrant culture,']`
 > 
 
-If you are running on TPU or on multiple GPU devices, you can use `jit` and `pmap` to compile and run inference in parallel.
+Please, [check out this notebook](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/jax_gemma.ipynb) for a comprehensive hands-on walkthrough on how to parallelize JAX inference on Colab TPUs!
 
 ## Integration with Google Cloud
 
@@ -250,8 +246,7 @@ An example command to fine-tune Gemma on OpenAssistant’s [chat dataset](https:
 First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
 
 ```jsx
-pip install -U transformers
-pip install git+https://github.com/huggingface/trl
+pip install -U transformers trl peft bitsandbytes
 git clone https://github.com/huggingface/trl
 cd trl
 ```

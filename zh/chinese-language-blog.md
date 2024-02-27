@@ -4,7 +4,7 @@ thumbnail: /blog/assets/chinese-language-blog/thumbnail.png
 forceLinkToOtherLanguage: on
 authors:
 - user: xianbao
-- user: adinayakefu
+- user: AdinaY
 - user: chenglu
   guest: true
 ---

@@ -3483,7 +3483,7 @@
     - guide
     - llm
     - nlp
-    - cv 
+    - cv
     - lora
 
 - local: leaderboards-on-the-hub-upstage
@@ -3508,6 +3508,52 @@
     - research
     - LLM
     - gcp
+
+- local: matryoshka
+  title: "🪆 Introduction to Matryoshka Embedding Models"
+  author: tomaarsen
+  thumbnail: /blog/assets/matryoshka/thumbnail.png
+  date: Feb 23, 2024
+  tags:
+    - nlp
+    - community
+    - guide
+
+- local: leaderboards-on-the-hub-haizelab
+  title: "Introducing the Red-Teaming Resistance Leaderboard"
+  author: steve-sli
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_haizelab.png
+  date: Feb 23, 2024
+  tags:
+    - leaderboard
+    - guide
+    - collaboration
+
+- local: gemma-peft
+  title: "Fine-Tuning Gemma Models in Hugging Face"
+  author: svaibhav
+  guest: true
+  thumbnail: /blog/assets/gemma-peft/thumbnail.png
+  date: Feb 23, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
+    - peft
+
+- local: watermarking
+  title: "AI Watermarking 101: Tools and Techniques"
+  author: sasha
+  thumbnail: /blog/assets/watermarking/thumbnail.png
+  date: Feb 26, 2024
+  tags:
+    - ethics
+    - research
+    - nlp
+    - guide
 
 - local: arena-tts
   title: "TTS Arena: Benchmarking Text-to-Speech Models in the Wild"

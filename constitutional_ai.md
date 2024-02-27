@@ -220,7 +220,7 @@ We then generated the dataset with `llm_swarm` here: [https://huggingface.co/dat
 
 As suggested in the Anthropic paper, we can actually build two datasets out of it: an SFT dataset and a preference dataset. 
 
-- In the SFT dataset, we can have the model to be fined tuned on the `init_prompt` and the `revision_response`
+- In the SFT dataset, we fine-tune the model on the `init_prompt` and the `revision_response`
 - In the preference dataset, we can have `chosen_pair` to be `init_prompt + revision_response` and the `rejected_pair` to be `init_prompt + init_response`.
 
 The `harmless-base` subset of the `Anthropic/hh-rlhf` has about 42.6k training examples. We split 50/50 for creating the SFT and preference dataset, each having 21.3k rows.

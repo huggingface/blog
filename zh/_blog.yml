@@ -1292,3 +1292,28 @@
     - research
     - LLM
     - gcp
+
+- local: gemma-peft
+  title: "使用 Hugging Face 微调 Gemma 模型"
+  author: svaibhav
+  guest: true
+  thumbnail: /blog/assets/gemma-peft/thumbnail.png
+  date: Feb 23, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
+    - peft
+
+- local: watermarking
+  title: "人工智能水印技术入门：工具与技巧"
+  author: sasha
+  thumbnail: /blog/assets/watermarking/thumbnail.png
+  date: Feb 26, 2024
+  tags:
+    - ethics
+    - research
+    - nlp
+    - guide
