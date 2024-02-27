@@ -3508,3 +3508,14 @@
     - research
     - LLM
     - gcp
+
+- local: arena-tts
+  title: "TTS Arena: Benchmarking Text-to-Speech Models in the Wild"
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail_tts.png 
+  authors: mrfakename
+  guest: true
+  date: Feb 27, 2024
+  tags:
+    - leaderboard
+    - arena
+    - collaboration
