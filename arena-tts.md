@@ -1,6 +1,6 @@
 ---
 title: "TTS Arena: Benchmarking Text-to-Speech Models in the Wild"
-thumbnail: /blog/assets/arenas-on-the-hub/thumbnail_tts.png 
+thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png 
 authors:
 - user: mrfakename
   guest: true
