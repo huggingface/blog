@@ -35,7 +35,6 @@ The models available at launch are:
 - ElevenLabs (proprietary)
 - MetaVoice
 - OpenVoice
-- OpenAI (proprietary)
 - Pheme
 - WhisperSpeech
 - XTTS
