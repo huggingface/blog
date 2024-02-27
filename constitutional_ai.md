@@ -33,7 +33,7 @@ Here are the various artifacts:
 
 Let’s start by taking a look at how CAI works!
 
-# Constitutional AI: learn to self-align
+## Constitutional AI: learn to self-align
 
 Constitutional AI is this clever idea that we can ask helpful models to align themselves. Below is an illustration of the CAI training process:
 
@@ -72,7 +72,7 @@ Given the basic idea, we can now dive into creating a CAI dataset. We need:
 2. a collection of prompts for step 1 of CAI that will elicit undesired responses from the model.
 3. a way to generate CAI dialogues in a scalable way.
 
-# Mistral 7B Instruct: an amazingly helpful model
+## Mistral 7B Instruct: an amazingly helpful model
 
 The starting point for Constitutional AI is a chat model that can follow instructions. We found `mistralai/Mistral-7B-Instruct-v0.1` to be an excellent choice as it is a relatively small model but can outperform much larger models like Llama-70B in various benchmarks ([https://mistral.ai/news/announcing-mistral-7b/](https://mistral.ai/news/announcing-mistral-7b/)). The model follows instructions well and is very helpful. That said, it does not seem to have many guardrails. Here are some example outputs:
 
@@ -88,7 +88,7 @@ The last example shows some potential for misuse — imagine personalised scam s
 
 Now that we have a model to work with, let’s look at how we can generate some AI preferences.
 
-## Gathering prompts to generate AI preference data
+### Gathering prompts to generate AI preference data
 
 To generate a CAI dataset, we used Anthropic’s HH preference dataset ([https://huggingface.co/datasets/Anthropic/hh-rlhf](https://huggingface.co/datasets/Anthropic/hh-rlhf)), which contains many red-teaming prompts that are designed to elicit undesirable responses according to values defined by Anthropic’s researchers. As noted earlier, one neat feature of CAI is that you can define your own set of constitutional principles and later in this blog post we explore tweaking the Anthropic one to produce a chat model that mimics xAI’s Grok assistant. 
 
@@ -98,7 +98,7 @@ Here is an example from the dataset:
 
 We can extract prompts like `What are some cuss words in english?` and do the CAI process as described above. To accomplish this however, we need a way to generate tens to hundreds of thousands of synthetic responses 😱!
 
-# Enter llm-swarm: scalable text generation on a Slurm cluster
+## Enter llm-swarm: scalable text generation on a Slurm cluster
 
 To enable the creation of synthetic data from LLMs at scale, we have created a tool called `llm-swarm` that is designed for distributed generation on Slurm clusters and is powered by TGI and vLLM. Here’s a code snippet which shows how this works:
 
@@ -162,7 +162,7 @@ Here is a demo of it running. There are a couple of things we’d like to highli
 
 With `llm-swarm` we can generate LLM completions very efficiently by scaling up the number of concurrent processes across and arbitrary number of GPUs. Armed with this tool, let’s now define a constitution with which to critique our model’s responses.
 
-# Generating a CAI dataset
+## Generating a CAI dataset
 
 To define the constitution, we directly used [Anthropic’s example constitution](https://github.com/anthropics/ConstitutionalHarmlessnessPaper/blob/main/prompts/CritiqueRevisionInstructions.json). In principle, the constitution is all we need to supply to the model, but in practice, the revisions could include undesirable prefixes like “sure, here is a revised response” or “based on the messages above,” so we also need to provide few shot demonstrations to mitigate this issue. 
 
@@ -227,7 +227,7 @@ The `harmless-base` subset of the `Anthropic/hh-rlhf` has about 42.6k training e
 
 ![Untitled](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/cai_recipe/Untitled%208.png)
 
-## Training a Constitutional AI chat model
+### Training a Constitutional AI chat model
 
 We can now perform the first stage of the CAI training: the SFT step. We start with the `mistralai/Mistral-7B-v0.1` base model and fine-tune on the the Ultrachat dataset and our CAI dataset
 
@@ -236,7 +236,7 @@ We can now perform the first stage of the CAI training: the SFT step. We start w
 
 We picked Ultrachat as it tends to produce quite helpful chat models, but in practice you can use whatever SFT dataset you wish. The main requirement is to include enough helpful examples so that the revisions from CAI don't nerf the model. We experimented with different percentage mixes of the CAI dataset along with 100% of the Utrachat dataset. Our goal is to train a helpful model that follows the safety constitution. For evaluation, we use [MT Bench](https://arxiv.org/abs/2306.05685) to evaluate the helpfulness, and we use 10 red teaming prompts not in the training dataset to evaluate safety with different prompting methods.
 
-### Evaluating Helpfulness
+#### Evaluating Helpfulness
 
 The MT Bench results are as follows:
 
@@ -248,7 +248,7 @@ Note however that the increase in MT Bench score is probably because the `mistra
 
 With the DPO models, we see more variance in the MT Bench scores but found no evidence of a significant reduction of helpfulness. 
 
-### Vibes based evaluation
+#### Vibes based evaluation
 
 We perform a more qualitative analysis on the following 10 prompts in the `test_sft` split in the [https://huggingface.co/datasets/HuggingFaceH4/cai-conversation-harmless](https://huggingface.co/datasets/HuggingFaceH4/cai-conversation-harmless). 
 
@@ -307,7 +307,7 @@ The behavior also seems to extend beyond just the DAN prompt we tested. For exam
 
 ![Untitled](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/cai_recipe/Untitled%2012.png)
 
-# Oh, honey, let's not go down that road — a different safety style
+## Oh, honey, let's not go down that road — a different safety style
 
 To show the flexibility of CAI, we also experimented with adding a bit more personality to the model, inspired by the response styles of [xAI's Grok](https://twitter.com/grok), which gives more snarky / sarcastic answers to undesirable requests.
 
@@ -368,13 +368,13 @@ Similar to our CAI recipe, we generated [https://huggingface.co/datasets/Hugging
 
 We perform similar experiments as the sections above.
 
-### Evaluating Helpfulness
+#### Evaluating Helpfulness
 
 The MT Bench results are as follows:
 
 ![mt_bench_average_score_by_model2.png](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/cai_recipe/mt_bench_average_score_by_model2.png)
 
-### Evaluating Safety
+#### Evaluating Safety
 
 We report the number of times the AI successfully avoided outputting undesirable contents.
 
@@ -390,7 +390,7 @@ Interestingly, the DPO models learned both the Grok-style and regular style resp
 
 ![Untitled](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/cai_recipe/Untitled%2014.png)
 
-# Conclusion
+## Conclusion
 
 In conclusion, this blog presents recipes for performing constitutional AI, helping the practitioners align open source models to a set of constitutional principles. This work includes a nice tool called `huggingface/llm-swarm` for managing scalable inference endpoints in a slurm cluster. We also performed a series of experiments training CAI models, finding that we can train CAI-models 1) can be more resilient to prompt injections such as the DAN attack and 2) do not compromise significantly on helpfulness. 
 
@@ -399,11 +399,11 @@ We look forward to seeing what types of constitutions the community develops!
 - 💾 Source code for the recipe [https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai](https://github.com/huggingface/alignment-handbook/tree/main/recipes/constitutional-ai)
 
 
-# Acknowledgement
+## Acknowledgement
 
 We thank Philipp Schmid, Moritz Laurer and Yacine Jernite for useful feedback and discussions.
 
-# Bibtex
+## Bibtex
 
 ```bibtex
 @article{Huang2024cai,

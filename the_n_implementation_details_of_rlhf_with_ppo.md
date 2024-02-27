@@ -32,13 +32,13 @@ This work is just for educational / learning purposes. For advanced users requir
 - 🤗 Demo of RLHF model comparison: [*https://huggingface.co/spaces/lm-human-preference-details/rlhf-demo*](https://huggingface.co/spaces/lm-human-preference-details/rlhf-demo)
 - 🐝 All w&b training logs [*https://wandb.ai/openrlbenchmark/lm_human_preference_details*](https://wandb.ai/openrlbenchmark/lm_human_preference_details)
 
-# Matching Learning Curves
+## Matching Learning Curves
 
 Our main contribution is to reproduce OAI’s results in stylistic tasks, such as sentiment and descriptiveness. As shown in the figure below, our codebase (orange curves) can produce nearly identical learning curves as OAI’s codebase (blue curves).
 
 ![Untitled](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/rlhf_implementation_details/Untitled.png)
 
-## A note on running openai/lm-human-preferences
+### A note on running openai/lm-human-preferences
 
 To make a direct comparison, we ran the original RLHF code at [*openai/lm-human-preferences*](https://github.com/openai/lm-human-preferences), which will offer valuable metrics to help validate and diagnose our reproduction. We were able to set the original TensorFlow 1.x code up, but it requires a hyper-specific setup:
 
@@ -49,7 +49,7 @@ To make a direct comparison, we ran the original RLHF code at [*openai/lm-human-
 - It can’t run on 8x V100 (16GB) because it will OOM
 - It can only run on 8x V100 (32GB), which is only offered by AWS as the `p3dn.24xlarge` instance.
 
-# General Implementation Details
+## General Implementation Details
 
 We now take a technical deep dive into the implementation details that are relevant to reproducing OAI’s work. In this section, we talk about basic details, such as how rewards/values are generated and how responses are generated. Here are these details in no particular order:
 
@@ -226,7 +226,7 @@ We now take a technical deep dive into the implementation details that are relev
     1. When spawning 8 GPU processes to do data parallelism, OAI sets a different random seed per process ([lm_human_preferences/utils/core.py#L108-L111](https://github.com/openai/lm-human-preferences/blob/cbfd210bb8b08f6bc5c26878c10984b90f516c66/lm_human_preferences/utils/core.py#L108-L111)). Implementation-wise, this is done via `local_seed = args.seed + process_rank * 100003`. The seed is going to make the model produce different responses and get different scores, for example.
         1. Note: I believe the dataset shuffling has a bug — the dataset is shuffled using the same seed for some reason ([lm_human_preferences/lm_tasks.py#L94-L97](https://github.com/openai/lm-human-preferences/blob/cbfd210bb8b08f6bc5c26878c10984b90f516c66/lm_human_preferences/lm_tasks.py#L94-L97)).
 
-# Reward Model Implementation Details
+## Reward Model Implementation Details
 
 In this section, we discuss reward-model-specific implementation details. We talk about details such as reward normalization and layer initialization. Here are these details in no particular order:
 
@@ -246,7 +246,7 @@ $$\begin{aligned}g*\mathcal{N}(\mu_{\mathcal{D}}, \sigma_{\mathcal{D}}) + b &= \
         
 
 
-# Policy Training Implementation Details
+## Policy Training Implementation Details
 
 In this section, we will delve into details, such as layer initialization, data post-processing, and dropout settings. We will also explore techniques, such as of rejection sampling and reward "whitening", and adaptive KL. Here are these details in no particular order:
 
@@ -442,7 +442,7 @@ In this section, we will delve into details, such as layer initialization, data 
         
     - For the `sentiment` and `descriptiveness` tasks examined in this work, we have `init_kl_coef=0.15, hparams.target=6, hparams.horizon=10000`.
 
-## **PyTorch Adam optimizer numerical issues w.r.t RLHF**
+### **PyTorch Adam optimizer numerical issues w.r.t RLHF**
 
 - This implementation detail is so interesting that it deserves a full section.
 - PyTorch Adam optimizer ([torch.optim.Adam.html](https://pytorch.org/docs/stable/generated/torch.optim.Adam.html)) has a different implementation compared to TensorFlow’s Adam optimizer (TF1 Adam at [tensorflow/v1.15.2/adam.py](https://github.com/tensorflow/tensorflow/blob/v1.15.2/tensorflow/python/training/adam.py), TF2 Adam at [keras/adam.py#L26-L220](https://github.com/keras-team/keras/blob/v2.13.1/keras/optimizers/adam.py#L26-L220)). In particular, **PyTorch follows Algorithm 1** of the Kingma and Ba’s Adam paper ([arxiv/1412.6980](https://arxiv.org/pdf/1412.6980.pdf)), but **TensorFlow uses the formulation just before Section 2.1** of the paper and its `epsilon` referred to here is `epsilon hat` in the paper. In a pseudocode comparison, we have the following
@@ -502,7 +502,7 @@ $$\begin{aligned}\text{tensorflow adam:}\quad \theta_t & =\theta_{t-1}-\alpha_t 
 
 ![adam_gpt2_xl.png](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/rlhf_implementation_details/adam_gpt2_xl.png)
 
-# Limitations
+## Limitations
 
 Noticed this work does not try to reproduce the summarization work in CNN DM or TL;DR. This was because we found the training to be time-consuming and brittle. 
 
@@ -514,16 +514,16 @@ Additionally, training was brittle. While the reward goes up, we find it difficu
 
 ![tldr2.png](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/rlhf_implementation_details/tldr2.png)
 
-# Conclusion
+## Conclusion
 
 In this work, we took a deep dive into OAI’s original RLHF codebase and compiled a list of its implementation details. We also created a minimal base which reproduces the same learning curves as OAI’s original RLHF codebase, when the dataset and hyperparameters are controlled. Furthermore, we identify surprising implementation details such as the adam optimizer’s setting which causes aggressive updates in early RLHF training. 
 
-# Acknowledgement
+## Acknowledgement
 
 This work is supported by Hugging Face’s Big Science cluster 🤗. We also thank the helpful discussion with @lewtun and @natolambert.
 
 
-# Bibtex
+## Bibtex
 
 ```bibtex
 @article{Huang2023implementation,
