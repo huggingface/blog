@@ -3554,3 +3554,14 @@
     - research
     - nlp
     - guide
+
+- local: arena-tts
+  title: "TTS Arena: Benchmarking Text-to-Speech Models in the Wild"
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png 
+  author: mrfakename
+  guest: true
+  date: Feb 27, 2024
+  tags:
+    - leaderboard
+    - arena
+    - collaboration
