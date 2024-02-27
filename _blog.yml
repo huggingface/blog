@@ -3558,7 +3558,7 @@
 - local: arena-tts
   title: "TTS Arena: Benchmarking Text-to-Speech Models in the Wild"
   thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png 
-  authors: mrfakename
+  author: mrfakename
   guest: true
   date: Feb 27, 2024
   tags:
