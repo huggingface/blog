@@ -76,7 +76,7 @@ Our goal is to support the community in building better datasets together. We ar
 
 ## What types of projects are we looking for?
 
-We are open to supporting many types of projects. We are particularly interested in projects that leverage existing community initiatives but we're open to any ideas that can help the community build better datasets together. Our only limitation is that we're primarily focused on text-based datasets. If you have a very cool idea for multimodal datasets we'd love to hear from you but we may not be able to support you in this first cohort.
+We are open to supporting many types of projects, especially those of existing open-source communities. Our only current limitation is that we're primarily focused on text-based datasets. If you have a very cool idea for multimodal datasets, we'd love to hear from you, but we may not be able to support you in this first cohort.
 
 Tasks can either be fully open or open to members of a particular Hugging Face Hub organization. 
 
