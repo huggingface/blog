@@ -42,11 +42,12 @@ Data is vital for machine learning, but many languages, domains, and tasks still
 
 Empowering the community to build and improve datasets collectively will allow people to:
 
-- create chat datasets for a particular language
-- Develop benchmark datasets for a specific domain 
-- Create preference datasets from a diverse range of participants 
-- Build datasets for a particular task 
-- Build completely new types of datasets collectively as a community 
+- Contribute to the development of Open Source ML with no ML or programming skills required.
+- Create chat datasets for a particular language.
+- Develop benchmark datasets for a specific domain. 
+- Create preference datasets from a diverse range of participants.
+- Build datasets for a particular task.
+- Build completely new types of datasets collectively as a community.
 
 Importantly we believe that building datasets collectively will allow the community to build better datasets abd allow people who don't know how to code to contribute to the development of AI.
 
