@@ -15,7 +15,7 @@ authors:
 
 # TTS Arena: Benchmarking Text-to-Speech Models in the Wild
 
-Automated measurement of the quality of text-to-speech (TTS) models is quite difficult. Although testing the naturalness and inflection of a voice is a trivial task for humans, it is much more difficult for AI. This is why today, we’re thrilled to announce the TTS Arena. Inspired by LMSys's Chatbot Arena for LLMs, we developed a tool that allows individuals to easily compare TTS models side-by-side. Just submit text, listen to two models speak it, and vote on which model is the best. The results are organized into a leaderboard that displays the community’s highest-rated models.
+Automated measurement of the quality of text-to-speech (TTS) models is very difficult. Assessing the naturalness and inflection of a voice is a trivial task for humans, but it is much more difficult for AI. This is why today, we’re thrilled to announce the TTS Arena. Inspired by LMSys's Chatbot Arena for LLMs, we developed a tool that allows anyone to easily compare TTS models side-by-side. Just submit some text, listen to two different models speak it out, and vote on which model you think is the best. The results will be organized into a leaderboard that displays the community’s highest-rated models.
 
 ## Motivation
 
