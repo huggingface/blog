@@ -35,13 +35,13 @@ translators:
   <figcaption> 图 2: 例如 Imatag 和 Truepic 等公司已开发出将不可察觉的水印嵌入 AI 生成图像的技术。 </figcaption>
 </figure>
 
-AI 生成内容的水印主要有两种方法：第一种是在内容创作过程中加入，这需要访问模型本身，但因为它是生成过程的一部分，所以[更为稳固](https://huggingface.co/blog/imatag-vch/stable-signature-bzh)。第二种方法是在内容生成后应用，可以用于闭源和专有模型生成的内容，但可能不适用于所有类型的内容（如文本）。
+AI 生成内容的水印主要有两种方法：第一种是在内容创作过程中加入，这需要访问模型本身，但因为它是生成过程的一部分，所以 [更为稳固](https://huggingface.co/blog/imatag-vch/stable-signature-bzh)。第二种方法是在内容生成后应用，可以用于闭源和专有模型生成的内容，但可能不适用于所有类型的内容（如文本）。
 
 ### 数据投毒与签名技术
 
 除了水印，还有几种相关技术可以限制未经同意的图像操纵。有些技术通过微妙地改变在线分享的图像来防止 AI 算法正确处理这些图像。尽管人类可以正常查看这些图像，但 AI 算法则无法访问类似内容，从而无法创建新图像。这类技术包括 Glaze 和 Photoguard。还有一些工具通过“投毒”图像来破坏 AI 算法训练中的固有假设，使得 AI 系统无法根据在线分享的图像学习人们的外貌——这让这些系统更难以生成假人物图像。这类工具包括 [Nightshade](https://nightshade.cs.uchicago.edu/whatis.html) 和 [Fawkes](http://sandlab.cs.uchicago.edu/fawkes/)。
 
-通过使用“签名”技术，也可以维护内容的真实性和可靠性，这些技术将内容与其来源的元数据链接起来，如 [Truepic](https://truepic.com/) 的工作，它嵌入了[遵循 C2PA 标准的元数据](https://huggingface.co/spaces/Truepic/ai-content-credentials)。图像签名有助于了解图像的来源。虽然元数据可以被编辑，但像 Truepic 这样的系统通过 1) 提供认证以确保可以验证元数据的有效性；以及 2) 与水印技术整合，使得删除信息更加困难，来克服这一限制。
+通过使用“签名”技术，也可以维护内容的真实性和可靠性，这些技术将内容与其来源的元数据链接起来，如 [Truepic](https://truepic.com/) 的工作，它嵌入了 [遵循 C2PA 标准的元数据](https://huggingface.co/spaces/Truepic/ai-content-credentials)。图像签名有助于了解图像的来源。虽然元数据可以被编辑，但像 Truepic 这样的系统通过 1) 提供认证以确保可以验证元数据的有效性；以及 2) 与水印技术整合，使得删除信息更加困难，来克服这一限制。
 
 ### 开放与封闭的水印
 
@@ -57,7 +57,7 @@ AI 生成内容的水印主要有两种方法：第一种是在内容创作过�
 
 关于水印输出图像，Hub 上提供了两种互补的方法：[IMATAG](https://huggingface.co/spaces/imatag/stable-signature-bzh)（见图 2），它通过利用修改过的流行模型（如 [Stable Diffusion XL Turbo](https://huggingface.co/stabilityai/sdxl-turbo)）在内容生成过程中实施水印；以及 [Truepic](https://huggingface.co/spaces/Truepic/watermarked-content-credentials)，它在图像生成后添加不可见的内容凭证。
 
-TruePic 还将 C2PA 内容凭证嵌入图像中，允许在图像本身中存储有关图像来源和生成的元数据。IMATAG 和 TruePic Spaces 还允许检测由它们系统水印的图像。这两种检测工具都是方法特定的。Hub 上已有一个现有的通用[深度伪造检测 Space](https://huggingface.co/spaces/Wvolf/CNN_Deepfake_Image_Detection)，但根据我们的经验，这些解决方案的性能取决于图像的质量和使用的模型。
+TruePic 还将 C2PA 内容凭证嵌入图像中，允许在图像本身中存储有关图像来源和生成的元数据。IMATAG 和 TruePic Spaces 还允许检测由它们系统水印的图像。这两种检测工具都是方法特定的。Hub 上已有一个现有的通用 [深度伪造检测的 Space 应用 ](https://huggingface.co/spaces/Wvolf/CNN_Deepfake_Image_Detection)，但根据我们的经验，这些解决方案的性能取决于图像的质量和使用的模型。
 
 ### 文本水印
 
@@ -72,13 +72,11 @@ TruePic 还将 C2PA 内容凭证嵌入图像中，允许在图像本身中存储
   <figcaption> 图 3: <a href="https://huggingface.co/spaces/tomg-group-umd/lm-watermarking">LLM 水印 Space</a> 显示了合成文本上的红色和绿色令牌，代表这些是 AI 生成的概率。 </figcaption>
 </figure>
 
-你可以在 Hugging Face Hub 上轻松实现 LLM 的水印。[LLM 水印 Space](https://huggingface.co/spaces/tomg-group-umd/lm-watermarking)（见图 3）演示了这一点，使用了 [LLM 水印方法](https://huggingface.co/papers/2301.10226) 对模型如 OPT 和 Flan-T5 进行了应用。对于生产级工作负载，你可以使用我们的[文本生成推理工具包](https://huggingface.co/docs/text-generation-inference/index)，它实现了相同的水印算法，并设置了[相应的参数](https://huggingface.co/docs/text-generation-inference/main/en/basic_tutorials/launcher#watermarkgamma)，可以与最新模型一起使用！
+你可以在 Hugging Face Hub 上轻松实现 LLM 的水印。[LLM 水印 Space](https://huggingface.co/spaces/tomg-group-umd/lm-watermarking)（见图 3）演示了这一点，使用了 [LLM 水印方法](https://huggingface.co/papers/2301.10226) 对模型如 OPT 和 Flan-T5 进行了应用。对于生产级工作负载，你可以使用我们的 [文本生成推理工具包](https://huggingface.co/docs/text-generation-inference/index)，它实现了相同的水印算法，并设置了 [相应的参数](https://huggingface.co/docs/text-generation-inference/main/en/basic_tutorials/launcher#watermarkgamma)，可以与最新模型一起使用！
 
 与 AI 生成图像的通用水印类似，是否可以普遍水印文本尚未得到证明。诸如 [GLTR](http://gltr.io/) 之类的方法旨在对任何可访问的语言模型（鉴于它们依赖于将生成文本的 logits 与不同模型的 logits 进行比较）都具有鲁棒性。在没有访问该模型（无论是因为它是闭源的还是因为你不知道哪个模型被用来生成文本）的情况下，检测给定文本是否使用语言模型生成目前是不可能的。
 
-正如我们上面讨论的，检测生成文本的方法需要大量文本才能可靠。即使如此，检测器也可能有高误报率，错误地将人们写的文本标记为合成。实际上，[OpenAI 在 2023 年因低准确率而悄悄关闭了他们的内部检测工具](https://www.pcmag.com/news/openai-quietly-shuts-down-ai-text-detection-tool-over-inaccuracies)，这在教师用它来判断学生提交的作业是否使用 ChatGPT 生成时带来了[意想不到的后果](https://www.rollingstone.com/culture/culture-features/texas-am-chatgpt-ai-professor-flunks-students
-
--false-claims-1234736601/)。
+正如我们上面讨论的，检测生成文本的方法需要大量文本才能可靠。即使如此，检测器也可能有高误报率，错误地将人们写的文本标记为合成。实际上，[OpenAI 在 2023 年因低准确率而悄悄关闭了他们的内部检测工具](https://www.pcmag.com/news/openai-quietly-shuts-down-ai-text-detection-tool-over-inaccuracies)，这在教师用它来判断学生提交的作业是否使用 ChatGPT 生成时带来了 [意想不到的后果](https://www.rollingstone.com/culture/culture-features/texas-am-chatgpt-ai-professor-flunks-students-false-claims-1234736601/)。
 
 ### 音频水印
 
@@ -95,7 +93,7 @@ AudioSeal 也被用于发布 [SeamlessExpressive](https://huggingface.co/spaces/
 
 ## 结论
 
-面对虚假信息、被错误地指控生产合成内容，以及未经本人同意就使用其形象，都是既困难又耗时的问题；在可以进行更正和澄清之前，大部分损害已经造成。因此，作为我们使好的机器学习普惠化的使命的一部分，我们在 Hugging Face 相信，拥有快速和系统地识别 AI 生成内容的机制是至关重要的。AI 水印虽不是万能的，但在对抗恶意和误导性 AI 使用方面，它是一个强有力的工具。
+面对虚假信息、被错误地指控生产合成内容，以及未经本人同意就使用其形象，都是既困难又耗时的问题；在可以进行更正和澄清之前，大部分损害已经造成。因此，作为我们使好的机器学习普惠化的使命的一部分，我们相信，拥有快速和系统地识别 AI 生成内容的机制是至关重要的。AI 水印虽不是万能的，但在对抗恶意和误导性 AI 使用方面，它是一个强有力的工具。
 
 # 相关新闻报道
 
@@ -106,4 +104,3 @@ AudioSeal 也被用于发布 [SeamlessExpressive](https://huggingface.co/spaces/
 - [Invisible AI watermarks won’t stop bad actors. But they are a ‘really big deal’ for good ones | VentureBeat](https://venturebeat.com/ai/invisible-ai-watermarks-wont-stop-bad-actors-but-they-are-a-really-big-deal-for-good-ones/) (@meg)
 - [A watermark for chatbots can expose text written by an AI | MIT Technology Review](https://www.technologyreview.com/2023/01/27/1067338/a-watermark-for-chatbots-can-spot-text-written-by-an-ai/) (@irenesolaiman)
 - [Hugging Face empowers users with deepfake detection tools | Mashable](https://mashable.com/article/hugging-face-empowers-users-ai-deepfake-detetection-tools) (@meg)
-
