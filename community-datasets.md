@@ -37,7 +37,7 @@ Data continues to be essential for better models: We see continued evidence from
 
 ## Why build datasets collectively?
 
-Data is vital for machine learning, but many languages, domains and tasks still lack high-quality datasets for training, evaluating and benchmarking — the community already shares 100s of models, datasets and demos via the Hugging Face Hub every day.  As a result of collaboration, the open-access AI community has created amazing things. Enabling the community to build datasets collectively will unlock amazing opportunities for building the next generation of datasets to build the next generation of models. 
+Data is vital for machine learning, but many languages, domains, and tasks still lack high-quality datasets for training, evaluating, and benchmarking — the community already shares thousands of models, datasets, and demos daily via the Hugging Face Hub. As a result of collaboration, the open-access AI community has created amazing things. Enabling the community to build datasets collectively will unlock unique opportunities for building the next generation of datasets to build the next generation of models. 
 
 Empowering the community to build and improve datasets collectively will allow people to:
 
