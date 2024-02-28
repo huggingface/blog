@@ -20,7 +20,7 @@ We recently announced that [Gemma](https://huggingface.co/blog/gemma), the open 
 
 
 
-The Gemma family of models also happens to be well suited for prototyping and experimentation using the free GPU resource via Colab. In this post we will briefly review how you can do Parameter Efficient FineTuning (PEFT) for Gemma models, using the Hugging Face Transformers and PEFT libraries on GPUs and Cloud TPUs for anyone who wants to fine-tune Gemma models on their own dataset.
+The Gemma family of models also happens to be well suited for prototyping and experimentation using the free GPU resource available via Colab. In this post we will briefly review how you can do [Parameter Efficient FineTuning (PEFT)](https://huggingface.co/blog/peft) for Gemma models, using the Hugging Face Transformers and PEFT libraries on GPUs and Cloud TPUs for anyone who wants to fine-tune Gemma models on their own dataset.
 
 
 
@@ -30,11 +30,11 @@ The default (full weight) training for language models, even for modest sizes, t
 
 ## PyTorch on GPU and TPU
 
-Gemma models in Hugging Face `transformers` are optimized for both PyTorch and PyTorch/XLA. This enables both TPU and GPU users to access and experiment with Gemma models as needed. Together with the Gemma release, we also improved the [FSDP](https://engineering.fb.com/2021/07/15/open-source/fsdp/) experience for PyTorch/XLA in Hugging Face. This [FSDP via SPMD](https://github.com/pytorch/xla/issues/6379) integration also allows other Hugging Face models to take advantage of TPU acceleration via PyTorch/XLA. In this post, we will focus on PEFT, and more specifically on Low-Rank Adaptation (LoRA), for Gemma models. For a more comprehensive set of LoRA techniques, we encourage readers to review the [Scaling Down to Scale Up, from Lialin et al.](https://arxiv.org/pdf/2303.15647.pdf) and [this excellent post](https://pytorch.org/blog/finetune-llms/) post by Belkada et al. 
+Gemma models in Hugging Face `transformers` are optimized for both PyTorch and PyTorch/XLA. This enables both TPU and GPU users to access and experiment with Gemma models as needed. Together with the Gemma release, we have also improved the [FSDP](https://engineering.fb.com/2021/07/15/open-source/fsdp/) experience for PyTorch/XLA in Hugging Face. This [FSDP via SPMD](https://github.com/pytorch/xla/issues/6379) integration also allows other Hugging Face models to take advantage of TPU acceleration via PyTorch/XLA. In this post, we will focus on PEFT, and more specifically on Low-Rank Adaptation (LoRA), for Gemma models. For a more comprehensive set of LoRA techniques, we encourage readers to review the [Scaling Down to Scale Up, from Lialin et al.](https://arxiv.org/pdf/2303.15647.pdf) and [this excellent post](https://pytorch.org/blog/finetune-llms/) post by Belkada et al. 
 
 ## Low-Rank Adaptation for Large Language Models
 
-Low-Rank Adaptation (LoRA) is one of the parameter-efficient fine-tuning techniques for large language models (LLMs). It addresses just a fraction of the total number of model parameters to be fine-tuned, by freezing the original model and only training adapter layers that are decomposed into low-rank matrices. The [PEFT library](https://github.com/huggingface/peft) provides an easy abstraction that allows users to select the model layers  where adapter weights should be applied.
+Low-Rank Adaptation (LoRA) is one of the parameter-efficient fine-tuning techniques for large language models (LLMs). It addresses just a fraction of the total number of model parameters to be fine-tuned, by freezing the original model and only training adapter layers that are decomposed into low-rank matrices. The [PEFT library](https://github.com/huggingface/peft) provides an easy abstraction that allows users to select the model layers where adapter weights should be applied.
 
 ```python
 from peft import LoraConfig
@@ -46,20 +46,20 @@ lora_config = LoraConfig(
 )
 ```
 
-In this snippet we refer to all `nn.Linear` layers as the target layers to be adapted.
+In this snippet, we refer to all `nn.Linear` layers as the target layers to be adapted.
 
-In the following example, we will leverage [QLoRA](https://huggingface.co/blog/4bit-transformers-bitsandbytes), from [Dettmers et al.](https://arxiv.org/abs/2305.14314), in order to quantize the base model in 4-bit precision for a more memory efficient fine-tuning protocol. The model can be loaded with QLoRA by first installing the `bitsandbytes` library on your environment, then passing a `BitsAndBytesConfig` object to `from_pretrained` when loading the model.
+In the following example, we will leverage [QLoRA](https://huggingface.co/blog/4bit-transformers-bitsandbytes), from [Dettmers et al.](https://arxiv.org/abs/2305.14314), in order to quantize the base model in 4-bit precision for a more memory efficient fine-tuning protocol. The model can be loaded with QLoRA by first installing the `bitsandbytes` library on your environment, and then passing a `BitsAndBytesConfig` object to `from_pretrained` when loading the model.
 
 ## Before we begin
 
 In order to access Gemma model artifacts, users are required to accept [the consent form](https://huggingface.co/google/gemma-7b-it).
-Now let’s get started with an implementation.
+Now let’s get started with the implementation.
 
 ## Learning to quote
 
 Assuming that you have submitted the consent form, you can access the model artifacts from the [Hugging Face Hub](https://huggingface.co/collections/google/gemma-release-65d5efbccdbb8c4202ec078b).
 
-We start by downloading the model and tokenizer. We also include a `BitsAndBytesConfig` for weight only quantization.
+We start by downloading the model and the tokenizer. We also include a `BitsAndBytesConfig` for weight only quantization.
 
 ```python
 import torch
@@ -106,7 +106,7 @@ Author: Albert Einstein
 
 ```
 
-To begin with, let's select an English quotes dataset.
+To begin with, let's select an English quotes dataset [Abirate/english_quotes](https://huggingface.co/datasets/Abirate/english_quotes).
 
 ```python
 from datasets import load_dataset
@@ -145,7 +145,7 @@ trainer = SFTTrainer(
 trainer.train()
 ```
 
-Finally we are ready to test the model once more with the same prompt we used earlier:
+Finally, we are ready to test the model once more with the same prompt we have used earlier:
 
 ```python
 text = "Quote: Imagination is"
@@ -168,7 +168,7 @@ Author: Albert Einstein
 
 ## Accelerate with FSDP via SPMD on TPU
 
-As mentioned earlier, Hugging Face `transformers` now supports PyTorch/XLA’s latest FSDP implementation. This can greatly accelerate the fine-tuning speed. To enable that, one just needs to add an FSDP config to the `transformers.Trainer`:
+As mentioned earlier, Hugging Face `transformers` now supports PyTorch/XLA’s latest FSDP implementation. This can greatly accelerate the fine-tuning speed. To enable that, one just needs to add a FSDP config to the `transformers.Trainer`:
 
 ```python
 from transformers import DataCollatorForLanguageModeling, Trainer, TrainingArguments

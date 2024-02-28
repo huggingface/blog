@@ -3483,7 +3483,7 @@
     - guide
     - llm
     - nlp
-    - cv 
+    - cv
     - lora
 
 - local: leaderboards-on-the-hub-upstage
@@ -3544,6 +3544,27 @@
     - gcp
     - peft
 
+- local: watermarking
+  title: "AI Watermarking 101: Tools and Techniques"
+  author: sasha
+  thumbnail: /blog/assets/watermarking/thumbnail.png
+  date: Feb 26, 2024
+  tags:
+    - ethics
+    - research
+    - nlp
+    - guide
+
+- local: arena-tts
+  title: "TTS Arena: Benchmarking Text-to-Speech Models in the Wild"
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png 
+  author: mrfakename
+  guest: true
+  date: Feb 27, 2024
+  tags:
+    - leaderboard
+    - arena
+    - collaboration
 
 - local: leaderboards-on-the-hub-contextual
   title: "Introducing ConTextual: How well can your Multimodal model jointly reason over text and image in text-rich scenes?"
