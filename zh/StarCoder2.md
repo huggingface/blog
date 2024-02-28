@@ -1,5 +1,5 @@
 ---
-title: "StarCoder2 及 The Stack v2 数据集" 
+title: "StarCoder2 及 The Stack v2 数据集正式发布" 
 thumbnail: /blog/assets/177_starcoder2/sc2-banner.png
 authors:
 - user: lvwerra
@@ -10,15 +10,15 @@ translator:
 - user: AdinaY
 ---
 
-# StarCoder2 及 The Stack v2 数据集
+# StarCoder2 及 The Stack v2 数据集正式发布
 
-BigCode 正式推出 StarCoder2——一系列新一代的开放源代码大语言模型(LLMs)。这些模型全部基于一个全新、大规模且高品质的代码数据集 [The Stack v2](https://huggingface.co/datasets/bigcode/the-stack-v2/) 进行训练。我们不仅公开了所有的模型和数据集，还包括了数据处理和训练代码的详细信息，详情请参阅 [相关论文](https://drive.google.com/file/d/17iGn3c-sYNiLyRSY-A85QOzgzGnGiVI3/view?usp=sharing)。
+BigCode 正式推出 StarCoder2 —— 一系列新一代的开放源代码大语言模型(LLMs)。这些模型全部基于一个全新、大规模且高品质的代码数据集 [The Stack v2](https://huggingface.co/datasets/bigcode/the-stack-v2/) 进行训练。我们不仅公开了所有的模型和数据集，还包括了数据处理和训练代码的详细信息，详情请参阅 [相关论文](https://drive.google.com/file/d/17iGn3c-sYNiLyRSY-A85QOzgzGnGiVI3/view?usp=sharing)。
 
 ## StarCoder2 是什么?
 
 StarCoder2 是一套面向代码的开放式大语言模型系列，提供3种规模的模型，分别包括30亿（3B）、70亿（7B）和150亿（15B）参数。特别地，StarCoder2-15B 模型经过了超过4万亿 token 和600多种编程语言的训练，基于 The Stack v2 数据集。所有模型均采用分组查询注意力机制（Grouped Query Attention），具备16,384个 token 的上下文窗口和4,096个令牌的滑动窗口注意力，并通过“填充中间”（Fill-in-the-Middle）技术进行训练。
 
-StarCoder2 包含三种规模的模型：ServiceNow 训练的30亿参数模型、Hugging Face 训练的70亿参数模型以及NVIDIA 利用 NVIDIA NeMo 在 NVIDIA 加速基础架构上训练的150亿参数模型：
+StarCoder2 包含三种规模的模型：ServiceNow 训练的30亿参数模型、Hugging Face 训练的70亿参数模型以及 NVIDIA 利用 NVIDIA NeMo 在 NVIDIA 加速基础架构上训练的150亿参数模型：
 
 - [StarCoder2-3B](https://huggingface.co/bigcode/starcoder2-3b) 基于 The Stack v2 的17种编程语言训练，处理了超过3万亿 token。
 - [StarCoder2-7B](https://huggingface.co/bigcode/starcoder2-7b) 基于 The Stack v2 的17种编程语言训练，处理了超过3.5万亿 token。
