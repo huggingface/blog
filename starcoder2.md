@@ -70,5 +70,5 @@ BigCode is an open scientific collaboration led jointly by Hugging Face and Serv
 
 ### Others
 - [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode): Code with StarCoder!
-
+- [Big Code Models Leaderboard](https://huggingface.co/spaces/bigcode/bigcode-models-leaderboard)
 You can find all the resources and links at [huggingface.co/bigcode](https://huggingface.co/bigcode)!
