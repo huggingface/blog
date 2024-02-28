@@ -1329,3 +1329,13 @@
     - nlp
     - guide
 
+- local: starcoder2
+  title: "StarCoder2 及 The Stack v2 数据集正式发布"
+  author: lvwerra
+  thumbnail: /blog/assets/177_starcoder2/sc2-banner.png
+  date: Feb 28, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM 
