@@ -118,7 +118,7 @@ We are also working on optimizing SD Turbo and SDXL Turbo performance with our [
 Additionally, a tutorial for how to run SD Turbo and SDXL Turbo with C# and ONNX Runtime is coming soon. In the meantime, check out our [previous tutorial on Stable Diffusion](https://onnxruntime.ai/docs/tutorials/csharp/stable-diffusion-csharp.html).
 
 
-# Resources
+## Resources
 Check out some of the resources discussed in this post:
 - [SD Turbo](https://huggingface.co/tlwu/sd-turbo-onnxruntime): Olive-optimized SD Turbo for ONNX Runtime CUDA model hosted on Hugging Face.
 - [SDXL Turbo](https://huggingface.co/tlwu/sdxl-turbo-onnxruntime): Olive-optimized SDXL Turbo for ONNX Runtime CUDA model hosted on Hugging Face.

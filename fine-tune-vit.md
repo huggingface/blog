@@ -292,7 +292,7 @@ This time, the resulting `pixel_values` tensor will have shape `(2, 3, 224, 224)
 
 
 
-# Training and Evaluation
+## Training and Evaluation
 
 The data is processed and you are ready to start setting up the training pipeline. This blog post uses 🤗's Trainer, but that'll require us to do a few things first:
 

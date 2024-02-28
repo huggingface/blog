@@ -1018,7 +1018,7 @@ plt.show()
 <img src="
 assets/78_annotated-diffusion/diffusion-sweater.gif" width="300" />
 
-# Follow-up reads
+## Follow-up reads
 
 Note that the DDPM paper showed that diffusion models are a promising direction for (un)conditional image generation. This has since then (immensely) been improved, most notably for text-conditional image generation. Below, we list some important (but far from exhaustive) follow-up works:
 

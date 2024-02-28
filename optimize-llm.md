@@ -32,7 +32,7 @@ In this blog post, we will go over the most effective techniques at the time of 
 
 Throughout this notebook, we will offer an analysis of auto-regressive generation from a tensor's perspective. We delve into the pros and cons of adopting lower precision, provide a comprehensive exploration of the latest attention algorithms, and discuss improved LLM architectures. While doing so, we run practical examples showcasing each of the feature improvements.
 
-## 1. Harnessing the Power of Lower Precision
+### 1. Harnessing the Power of Lower Precision
 
 Memory requirements of LLMs can be best understood by seeing the LLM as a set of weight matrices and vectors and the text inputs as a sequence of vectors. In the following, the definition *weights* will be used to signify all model weight matrices and vectors.
 
@@ -289,7 +289,7 @@ If GPU memory is not a constraint for your use case, there is often no need to l
 For more in-detail usage information, we strongly recommend taking a look at the [Transformers Quantization Docs](https://huggingface.co/docs/transformers/main_classes/quantization#general-usage).
 Next, let's look into how we can improve computational and memory efficiency by using better algorithms and an improved model architecture.
 
-# 2. Flash Attention: A Leap Forward
+## 2. Flash Attention: A Leap Forward
 
 Today's top-performing LLMs share more or less the same fundamental architecture that consists of feed-forward layers, activation layers, layer normalization layers, and most crucially, self-attention layers.
 

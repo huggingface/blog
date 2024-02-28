@@ -98,7 +98,7 @@ AudioSeal was also used to release [SeamlessExpressive](https://huggingface.co/s
 
 Disinformation, being accused of producing synthetic content when it's real, and instances of inappropriate representations of people without their consent can be difficult and time-consuming; much of the damage is done before corrections and clarifications can be made.  As such, as part of our mission to democratize good machine learning, we at Hugging Face believe that having mechanisms to identify AI-Generated content quickly and systematically are important.  AI watermarking is not foolproof, but can be a powerful tool in the fight against malicious and misleading uses of AI.     
 
-# Relevant press stories
+## Relevant press stories
 
 - [It Doesn't End With Taylor Swift: How to Protect Against AI Deepfakes and Sexual Harassment | PopSugar](https://www.popsugar.com/tech/ai-deepfakes-taylor-swift-sexual-harassment-49334216) (@meg)
 - [Three ways we can fight deepfake porn | MIT Technology Review ](https://www.technologyreview.com/2024/01/29/1087325/three-ways-we-can-fight-deepfake-porn-taylors-version/) (@sasha)

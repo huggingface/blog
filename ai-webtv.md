@@ -16,7 +16,7 @@ If you are using a mobile device, you can view the stream from the [Twitch mirro
 
 ![thumbnail.gif](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/156_ai_webtv/thumbnail.gif)
 
-# Concept
+## Concept
 
 The motivation for the AI WebTV is to demo videos generated with open-source [text-to-video models](https://huggingface.co/tasks/text-to-video) such as Zeroscope and MusicGen, in an entertaining and accessible way.
 
@@ -27,7 +27,7 @@ You can find those open-source models on the Hugging Face hub:
 
 The individual video sequences are purposely made to be short, meaning the WebTV should be seen as a tech demo/showreel rather than an actual show (with an art direction or programming).
 
-# Architecture
+## Architecture
 
 The AI WebTV works by taking a sequence of [video shot](https://en.wikipedia.org/wiki/Shot_(filmmaking)) prompts and passing them to a [text-to-video model](https://huggingface.co/tasks/text-to-video) to generate a sequence of [takes](https://en.wikipedia.org/wiki/Take). 
 
@@ -37,11 +37,11 @@ Here's a diagram of the current architecture of the AI WebTV:
 
 ![diagram.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/156_ai_webtv/diagram.jpg)
 
-# Implementing the pipeline
+## Implementing the pipeline
 
 The WebTV is implemented in NodeJS and TypeScript, and uses various services hosted on Hugging Face.
 
-## The text-to-video model
+### The text-to-video model
 
 The central video model is Zeroscope V2, a model based on [ModelScope](https://huggingface.co/damo-vilab/modelscope-damo-text-to-video-synthesis).
 
@@ -52,7 +52,7 @@ Zeroscope is comprised of two parts that can be chained together:
 
 👉  You will need to use the same prompt for both the generation and upscaling.
 
-## Calling the video chain
+### Calling the video chain
 
 To make a quick prototype, the WebTV runs Zeroscope from two duplicated Hugging Face Spaces running [Gradio](https://github.com/gradio-app/gradio/), which are called using the [@gradio/client](https://www.npmjs.com/package/@gradio/client) NPM package. You can find the original spaces here:
 
@@ -63,7 +63,7 @@ Other spaces deployed by the community can also be found if you [search for Zero
 
 👉  Public Spaces may become overcrowded and paused at any time. If you intend to deploy your own system, please duplicate those Spaces and run them under your own account.
 
-## Using a model hosted on a Space
+### Using a model hosted on a Space
 
 Spaces using Gradio have the ability to [expose a REST API](https://www.gradio.app/guides/sharing-your-app#api-page), which can then be called from Node using the [@gradio/client](https://www.npmjs.com/package/@gradio/client) module.
 
@@ -92,7 +92,7 @@ export const generateVideo = async (prompt: string) => {
 ```
 
 
-## Post-processing
+### Post-processing
 
 Once an individual take (a video clip) is upscaled, it is then passed to FILM (Frame Interpolation for Large Motion), a frame interpolation algorithm:
 
@@ -106,7 +106,7 @@ During post-processing, we also add music generated with MusicGen:
 - Hugging Face Space you can duplicate: [MusicGen](https://huggingface.co/spaces/facebook/MusicGen)
 
 
-## Broadcasting the stream
+### Broadcasting the stream
 
 Note: there are multiple tools you can use to create a video stream. The AI WebTV currently uses [FFmpeg](https://ffmpeg.org/documentation.html) to read a playlist made of mp4 videos files and m4a audio files.
 
@@ -158,13 +158,13 @@ The AI WebTV itself uses [node-media-server](https://github.com/illuspas/Node-Me
 
 💡 You can also directly stream to [one of the Twitch RTMP entrypoints](https://help.twitch.tv/s/twitch-ingest-recommendation?language=en_US). Check out the Twitch documentation for more details.
 
-# Observations and examples
+## Observations and examples
 
 Here are some examples of the generated content.
 
 The first thing we notice is that applying the second pass of Zeroscope XL significantly improves the quality of the image. The impact of frame interpolation is also clearly visible.
 
-## Characters and scene composition
+### Characters and scene composition
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
@@ -196,7 +196,7 @@ The first thing we notice is that applying the second pass of Zeroscope XL signi
   <figcaption>Prompt: <i>Intimate <strong>close-up of a red fox, gazing into the camera with sharp eyes</strong>, ambient lighting creating a high contrast silhouette, IMAX camera, <strong>high detail</strong>, <strong>cinematic effect</strong>, golden hour, film grain.</i></figcaption>
 </figure>
 
-## Simulation of dynamic scenes
+### Simulation of dynamic scenes
 
 Something truly fascinating about text-to-video models is their ability to emulate real-life phenomena they have been trained on.
 
@@ -236,7 +236,7 @@ A video model predicts the next frames of a scene, which might include objects i
 
 💡 It will be interesting to see these capabilities explored more in the future, for instance by training video models on larger video datasets covering more phenomena.
 
-## Styling and effects
+### Styling and effects
 
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
@@ -275,7 +275,7 @@ A video model predicts the next frames of a scene, which might include objects i
 
 
 
-## Failure cases
+### Failure cases
 
 **Wrong direction:** the model sometimes has trouble with movement and direction. For instance, here the clip seems to be played in reverse. Also the modifier keyword ***green*** was not taken into account.
 
@@ -320,29 +320,29 @@ In the following example, we notice the word "llama" inserts a llama but also tw
 </figcaption>
 </figure>
 
-# Recommendations
+## Recommendations
 
 Here are some early recommendations that can be made from the previous observations:
 
-## Using video-specific prompt keywords
+### Using video-specific prompt keywords
 
 You may already know that if you don’t prompt a specific aspect of the image with Stable Diffusion, things like the color of clothes or the time of the day might become random, or be assigned a generic value such as a neutral mid-day light.
 
 The same is true for video models: you will want to be specific about things. Examples include camera and character movement, their orientation, speed and direction. You can leave it unspecified for creative purposes (idea generation), but this might not always give you the results you want (e.g., entities animated in reverse).
 
-## Maintaining consistency between scenes
+### Maintaining consistency between scenes
 
 If you plan to create sequences of multiple videos, you will want to make sure you add as many details as possible in each prompt, otherwise you may lose important details from one sequence to another, such as the color.
 
 💡 This will also improve the quality of the image since the prompt is used for the upscaling part with Zeroscope XL.
 
-## Leverage frame interpolation
+### Leverage frame interpolation
 
 Frame interpolation is a powerful tool which can repair small rendering errors and turn many defects into features, especially in scenes with a lot of animation, or where a cartoon effect is acceptable. The [FILM algorithm](https://film-net.github.io/) will smoothen out elements of a frame with previous and following events in the video clip.
 
 This works great to displace the background when the camera is panning or rotating, and will also give you creative freedom, such as control over the number of frames after the generation, to make slow-motion effects.
 
-# Future work
+## Future work
 
 We hope you enjoyed watching the AI WebTV stream and that it will inspire you to build more in this space.
 

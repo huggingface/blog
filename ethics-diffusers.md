@@ -15,7 +15,7 @@ Given diffusion models' real case applications in the world and potential negati
 
 We see ethics as a process that leverages guiding values, concrete actions, and continuous adaptation. For this reason, we are committed to adjusting our guidelines over time, following the evolution of the Diffusers project and the valuable feedback from the community that keeps it alive.
 
-# Ethical guidelines
+## Ethical guidelines
 
 * **Transparency**: we are committed to being transparent in managing PRs, explaining our choices to users, and making technical decisions.
 * **Consistency**: we are committed to guaranteeing our users the same level of attention in project management, keeping it technically stable and consistent.
@@ -24,7 +24,7 @@ We see ethics as a process that leverages guiding values, concrete actions, and 
 * **Reproducibility**: we aim to be transparent about the reproducibility of upstream code, models, and datasets when made available through the Diffusers library.
 * **Responsibility**: as a community and through teamwork, we hold a collective responsibility to our users by anticipating and mitigating this technology’s potential risks and dangers.
 
-# Safety features and mechanisms
+## Safety features and mechanisms
 
 In addition, we provide a non-exhaustive - and hopefully continuously expanding! - list of safety features and mechanisms implemented by the Hugging Face team and the broader community.
 
