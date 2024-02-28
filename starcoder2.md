@@ -14,7 +14,7 @@ authors:
 <img src="https://huggingface.co/datasets/bigcode/admin/resolve/main/sc2-banner.png" alt="StarCoder2">
 </div>
 
-BigCode is releasing StarCoder2 the next generation of transparently trained open code LLMs. All StarCoder2 variants were trained on [The Stack v2](https://huggingface.co/datasets/bigcode/the-stack-v2/), a new larg and high quality code dataset. We release all models, datasets, and the processing as well as training code. Check out the [paper](https://drive.google.com/file/d/17iGn3c-sYNiLyRSY-A85QOzgzGnGiVI3/view?usp=sharing) for details.
+BigCode is releasing StarCoder2 the next generation of transparently trained open code LLMs. All StarCoder2 variants were trained on [The Stack v2](https://huggingface.co/datasets/bigcode/the-stack-v2/), a new large and high quality code dataset. We release all models, datasets, and the processing as well as the training code. Check out the [paper](https://drive.google.com/file/d/17iGn3c-sYNiLyRSY-A85QOzgzGnGiVI3/view?usp=sharing) for details.
 
 ## What is StarCoder2?
 
@@ -26,7 +26,7 @@ StarCoder2 offers three model sizes: a 3 billion-parameter model trained by Serv
 - [StarCoder2-7B](https://huggingface.co/bigcode/starcoder2-7b) was trained on 17 programming languages from The Stack v2 on 3.5+ trillion tokens.
 - [StarCoder2-15B](https://huggingface.co/bigcode/starcoder2-15b) was trained on 600+ programming languages from The Stack v2 on 4+ trillion tokens.
 
-StarCoder2-15B is the best in it's size class and matching 33B+ models in many instances and StarCoder2-3B matches the performance of StarCoder1-15B:
+StarCoder2-15B is the best in its size class and matches 33B+ models on many evaluations. StarCoder2-3B matches the performance of StarCoder1-15B:
 
 <div class="flex items-center justify-center">
 <img src="https://huggingface.co/datasets/bigcode/admin/resolve/main/sc2-evals.png" alt="StarCoder2 Evaluation">
@@ -38,7 +38,7 @@ StarCoder2-15B is the best in it's size class and matching 33B+ models in many i
 <img src="https://huggingface.co/datasets/bigcode/admin/resolve/main/stackv2-banner.png" alt="The Stack v2">
 </div>
 
-The Stack v2 is the largest open code dataset suitable for LLM pretraining. The Stack v2 is larger, follows an improved language and license detection procedure, and better filtering heuristics. In addition, the training dataset is grouped by repositories, allowing to train models with repository context. 
+The Stack v2 is the largest open code dataset suitable for LLM pretraining. The Stack v2 is larger than The Stack v1, follows an improved language and license detection procedure, and better filtering heuristics. In addition, the training dataset is grouped by repositories, allowing to train models with repository context. 
 
 ||[The Stack v1](https://huggingface.co/datasets/bigcode/the-stack/)|[The Stack v2](https://huggingface.co/datasets/bigcode/the-stack-v2/)|
 |-|-|-|
