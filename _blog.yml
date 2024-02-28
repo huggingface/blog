@@ -3565,3 +3565,14 @@
     - leaderboard
     - arena
     - collaboration
+
+- local: starcoder2
+  title: "StarCoder2 and The Stack v2"
+  author: lvwerra
+  thumbnail: /blog/assets/177_starcoder2/sc2-banner.png
+  date: Feb 28, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM 
