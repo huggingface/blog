@@ -184,7 +184,7 @@ Usage will look like below:
 
 ![code_completion](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/personal_copilot/vs_code_completion_usage.png)
 
-# Finetuning your own Code Chat Assistant
+## Finetuning your own Code Chat Assistant
 
 So far, the models we trained were specifically trained as personal co-pilot for code completion tasks. They aren't trained to carry out conversations or for question answering. `Octocoder` and `StarChat` are great examples of such models. This section briefly describes how to achieve that.
 
@@ -196,11 +196,11 @@ So far, the models we trained were specifically trained as personal co-pilot for
 4. Dataset: [smangrul/code-chat-assistant-v1](https://huggingface.co/datasets/smangrul/code-chat-assistant-v1). Mix of `LIMA+GUANACO` with proper formatting in a ready-to-train format.
 5. Trained Model: [smangrul/peft-lora-starcoderplus-chat-asst-A100-40GB-colab](https://huggingface.co/smangrul/peft-lora-starcoderplus-chat-asst-A100-40GB-colab) 
 
-# Dance of LoRAs
+## Dance of LoRAs
 
 If you have dabbled with Stable Diffusion models and LoRAs for making your own Dreambooth models, you might be familiar with the concepts of combining different LoRAs with different weights, using a LoRA model with a different base model than the one on which it was trained. In text/code domain, this remains unexplored territory. We carry out experiments in this regard and have observed very promising findings. Are you ready? Let's go! 🚀
 
-## Mix-and-Match LoRAs
+### Mix-and-Match LoRAs
 
 PEFT currently supports 3 ways of combining LoRA models, `linear`, `svd` and `cat`. For more details, refer to [tuners#peft.LoraModel.add_weighted_adapter](https://huggingface.co/docs/peft/main/en/package_reference/tuners#peft.LoraModel.add_weighted_adapter).
 
@@ -208,7 +208,7 @@ Our notebook [Dance_of_LoRAs.ipynb](https://github.com/pacman100/DHS-LLM-Worksho
 
 Here, we will consider 2 abilities (`chatting/QA` and `code-completion`) on 2 data distributions (`top 10 public hf codebase` and `generic codebase`). That gives us 4 axes on which we'll carry out some qualitative evaluation analyses.
 
-#### First, let us consider the `chatting/QA` task. 
+##### First, let us consider the `chatting/QA` task. 
 
 If we disable adapters, we observe that the task fails for both datasets, as the base model (`starcoder`) is only meant for code completion and not suitable for `chatting/question-answering`. Enabling `copilot` adapter performs similar to the disabled case because this LoRA was also specifically fine-tuned for code-completion.
 
@@ -222,7 +222,7 @@ Question Answering based on HF code
 
 We can observe that generic question regarding `scrapy` is being answered properly. However, it is failing for the HF code related question which wasn't part of its pretraining data.
 
-##### Let us now consider the `code-completion` task.
+###### Let us now consider the `code-completion` task.
 
 On disabling adapters, we observe that the code completion for the generic two-sum works as expected. However, the HF code completion fails with wrong params to `LoraConfig`, because the base model hasn't seen it in its pretraining data. Enabling `assistant` performs similar to the disabled case as it was trained on natural language conversations which didn't have any Hugging Face code repos.
 
@@ -252,7 +252,7 @@ Below is the performance of `code_buddy` on code completion tasks.
 We can observe that `code_buddy` is performing on par with `copilot`, which was specifically finetuned for this task.
 
 
-## Transfer LoRAs to different base models
+### Transfer LoRAs to different base models
 
 We can also transfer the LoRA models to different base models.
 We will take the hot-off-the-press `Octocoder` model and apply on it the LoRA we trained above with `starcoder` base model. Please go through the following notebook [PEFT_Personal_Code_CoPilot_Adapter_Transfer_Octocoder.ipynb](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/personal_copilot/inference/PEFT_Personal_Code_CoPilot_Adapter_Transfer_Octocoder.ipynb) for the entire code.
@@ -271,7 +271,7 @@ As Octocoder is trained to answer questions and carry out conversations about co
 
 Yay! It correctly answers in detail how to create `LoraConfig` and related peft model along with correctly using the model name, dataset name as well as param values of LoraConfig. On disabling the adapter, it fails to correctly use the API of `LoraConfig` or to create a PEFT model, suggesting that it isn't part of the training data of Octocoder.
  
-# How do I run it locally?
+## How do I run it locally?
 
 I know, after all this, you want to finetune starcoder on your codebase and use it locally on your consumer hardware such as Mac laptops with M1 GPUs, windows with RTX 4090/3090 GPUs ... 
 Don't worry, we have got you covered.
@@ -346,13 +346,13 @@ Voila! ⭐️
 
 The demo at the start of this post is this 1B model running locally on my Mac laptop.
 
-## Conclusion
+### Conclusion
 
 In this blog plost, we saw how to finetune `starcoder` to create a personal co-pilot that knows about our code. We called it 🤗 HugCoder, as we trained it on Hugging Face code :) After looking at the data collection workflow, we compared training using QLoRA vs full fine-tuning. We also experimented by combining different LoRAs, which is still an unexplored technique in the text/code domain. For deployment, we examined remote inference using 🤗 Inference Endpoints, and also showed on-device execution of a smaller model with VS Code and MLC.
 
 Please, let us know if you use these methods for your own codebase!
 
 
-## Acknowledgements
+### Acknowledgements
 
 We would like to thank [Pedro Cuenca](https://github.com/pcuenca), [Leandro von Werra](https://github.com/lvwerra), [Benjamin Bossan](https://github.com/BenjaminBossan), [Sylvain Gugger](https://github.com/sgugger) and [Loubna Ben Allal](https://github.com/loubnabnl) for their help with the writing of this blogpost.

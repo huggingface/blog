@@ -140,7 +140,7 @@ For fine-tuning Mask2Former/OneFormer on a custom dataset for either instance, s
 
 The demo notebooks make use of `MaskFormerForInstanceSegmentation` to load the model whereas you'll have to switch to using either `Mask2FormerForUniversalSegmentation` or `OneFormerForUniversalSegmentation`. In case of image processing for Mask2Former, you'll also have to switch to using `Mask2FormerImageProcessor`. You can also load the image processor using the `AutoImageProcessor` class which automatically takes care of loading the correct processor corresponding to your model. OneFormer on the other hand requires a `OneFormerProcessor`, which prepares the images, along with a text input, for the model.
 
-# Conclusion
+## Conclusion
 
 That's it! You now know about the difference between instance, semantic and panoptic segmentation, as well as how to use "universal architectures" such as Mask2Former and OneFormer using the [🤗 transformers](https://huggingface.co/transformers) library.
 

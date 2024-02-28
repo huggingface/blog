@@ -27,7 +27,7 @@ RLHF's most recent success was its use in [ChatGPT](https://openai.com/blog/chat
 
 It does surprisingly well, but doesn't quite cover everything. We'll fill in those gaps!
 
-# RLHF: Let’s take it step by step
+## RLHF: Let’s take it step by step
 
 Reinforcement learning from Human Feedback (also referenced as RL from human preferences) is a challenging concept because it involves a multiple-model training process and different stages of deployment. In this blog post, we’ll break down the training process into three core steps:
 
@@ -37,7 +37,7 @@ Reinforcement learning from Human Feedback (also referenced as RL from human pre
 
 To start, we'll look at how language models are pretrained.
 
-### Pretraining language models
+#### Pretraining language models
 
 As a starting point RLHF use a language model that has already been pretrained with the classical pretraining objectives (see this [blog post](https://huggingface.co/blog/how-to-train) for more details). OpenAI used a smaller version of GPT-3 for its first popular RLHF model, [InstructGPT](https://openai.com/blog/instruction-following/). In their shared papers, Anthropic used transformer models from 10 million to 52 billion parameters trained for this task. DeepMind has documented using up to their 280 billion parameter model [Gopher](https://arxiv.org/abs/2112.11446). It is likely that all these companies use much larger models in their RLHF-powered products.
 
@@ -51,7 +51,7 @@ Next, with a language model, one needs to generate data to train a **reward mode
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rlhf/pretraining.png" width="500" />
 </p>
 
-### Reward model training
+#### Reward model training
     
 Generating a reward model (RM, also referred to as a preference model) calibrated with human preferences is where the relatively new research in RLHF begins. The underlying goal is to get a model or system that takes in a sequence of text, and returns a scalar reward which should numerically represent the human preference. The system can be an end-to-end LM, or a modular system outputting a reward (e.g. a model ranks outputs, and the ranking is converted to reward). The output being a **scalar** **reward** is crucial for existing RL algorithms being integrated seamlessly later in the RLHF process.
 
@@ -71,7 +71,7 @@ At this point in the RLHF system, we have an initial language model that can be 
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rlhf/reward-model.png" width="600" />
 </p>
 
-### Fine-tuning with RL
+#### Fine-tuning with RL
 
 Training a language model with reinforcement learning was, for a long time, something that people would have thought as impossible both for engineering and algorithmic reasons. 
 What multiple organizations seem to have gotten to work is fine-tuning some or all of the parameters of a **copy of the initial LM** with a policy-gradient RL algorithm, Proximal Policy Optimization (PPO). 
@@ -94,7 +94,7 @@ _Technical detail note: The above diagram makes it look like both models generat
 
 Optionally, RLHF can continue from this point by iteratively updating the reward model and the policy together. As the RL policy updates, users can continue ranking these outputs versus the model's earlier versions. Most papers have yet to discuss implementing this operation, as the deployment mode needed to collect this type of data only works for dialogue agents with access to an engaged user base. Anthropic discusses this option as *Iterated Online RLHF* (see the original [paper](https://arxiv.org/abs/2204.05862)), where iterations of the policy are included in the ELO ranking system across models. This introduces complex dynamics of the policy and reward model evolving, which represents a complex and open research question.
 
-# Open-source tools for RLHF
+## Open-source tools for RLHF
 
 The first [code](https://github.com/openai/lm-human-preferences) released to perform RLHF on LMs was from OpenAI in TensorFlow in 2019.
 
@@ -109,7 +109,7 @@ Both TRLX and RL4LMs are under heavy further development, so expect more feature
 
 There is a large [dataset](https://huggingface.co/datasets/Anthropic/hh-rlhf) created by Anthropic available on the Hub.
 
-# What’s next for RLHF?
+## What’s next for RLHF?
 
 While these techniques are extremely promising and impactful and have caught the attention of the biggest research labs in AI, there are still clear limitations. The models, while better, can still output harmful or factually inaccurate text without any uncertainty. This imperfection represents a long-term challenge and motivation for RLHF – operating in an inherently human problem domain means there will never be a clear final line to cross for the model to be labeled as *complete*.
 
@@ -121,7 +121,7 @@ With these limitations, huge swaths of unexplored design options could still ena
 
 We hosted a lecture on Tuesday 13 December 2022 that expanded on this post; you can watch it [here](https://www.youtube.com/watch?v=2MBJOuVq380&feature=youtu.be)!
 
-### Further reading
+#### Further reading
 
 Here is a list of the most prevalent papers on RLHF to date. The field was recently popularized with the emergence of DeepRL (around 2017) and has grown into a broader study of the applications of LLMs from many large technology companies.
 Here are some papers on RLHF that pre-date the LM focus:
