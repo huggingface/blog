@@ -58,7 +58,7 @@ BigCode 是由 Hugging Face 和 ServiceNow 联合领导的一个开放科研合�
 ### 数据及治理
 - [StarCoder2 许可协议](https://huggingface.co/spaces/bigcode/bigcode-model-license-agreement)：模型基于 BigCode OpenRAIL-M v1 许可协议授权。
 - [StarCoder2 代码搜索](https://huggingface.co/spaces/bigcode/search-v2)：对预训练数据集中的代码进行全文搜索。
-- [StarCoder2 成员资格测试](https://stack.dataportraits.org)：快速验证代码是否包含在预训练数据集中。
+- [StarCoder2 成员资格测试](https://stack-v2.dataportraits.org)：快速验证代码是否包含在预训练数据集中。
 
 ### 其他资源
 - [VSCode 扩展](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode)：使用 StarCoder 进行编码的插件！
