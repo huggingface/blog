@@ -66,7 +66,7 @@ BigCode is an open scientific collaboration led jointly by Hugging Face and Serv
 ### Data & Governance
 - [StarCoder2 License Agreement](https://huggingface.co/spaces/bigcode/bigcode-model-license-agreement): The model is licensed under the BigCode OpenRAIL-M v1 license agreement.
 - [StarCoder2 Search](https://huggingface.co/spaces/bigcode/search-v2): Full-text search for code in the pretraining dataset.
-- [StarCoder2 Membership Test](https://stack.dataportraits.org): Blazing fast test if code was present in pretraining dataset.
+- [StarCoder2 Membership Test](https://stack-v2.dataportraits.org): Blazing fast test if code was present in pretraining dataset.
 
 ### Others
 - [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode): Code with StarCoder!
