@@ -983,7 +983,7 @@ ability of a model to learn from more and more data*. Model capacity is
 broadly measured by the number of trainable parameters - the more
 parameters, the higher the model capacity.
 
-# **Warm-starting encoder-decoder models with 🤗Transformers (Practice)**
+## **Warm-starting encoder-decoder models with 🤗Transformers (Practice)**
 
 We have explained the theory of warm-starting encoder-decoder models,
 analyzed empirical results on multiple datasets, and have derived

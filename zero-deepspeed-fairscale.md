@@ -9,7 +9,7 @@ authors:
 # Fit More and Train Faster With ZeRO via DeepSpeed and FairScale
 
 
-##### A guest blog post by Hugging Face fellow Stas Bekman
+**A guest blog post by Hugging Face fellow Stas Bekman**
 
 
 
@@ -22,7 +22,7 @@ If you use the Hugging Face Trainer, as of `transformers` v4.2.0 you have the ex
 
 This blog post will describe how you can benefit from ZeRO regardless of whether you own just a single GPU or a whole stack of them.
 
-# Huge Speedups with Multi-GPU Setups
+## Huge Speedups with Multi-GPU Setups
 
 Let's do a small finetuning with translation task experiment, using a `t5-large` model and the `finetune_trainer.py` script which you can find under [`examples/seq2seq`](https://github.com/huggingface/transformers/tree/master/examples/seq2seq) in the `transformers` GitHub repo.
 
@@ -74,7 +74,7 @@ Following the 80:20 rule, I have only spent a few hours on these benchmarks and 
 
 If you would like to experiment with this benchmark yourself or want to know more details about the hardware and software used to run it, please, refer to [this post](https://github.com/huggingface/transformers/issues/8771#issuecomment-759248400).
 
-# Fitting A Huge Model Onto One GPU
+## Fitting A Huge Model Onto One GPU
 
 While Fairscale gives us a boost only with multiple GPUs, DeepSpeed has a gift even for those of us with a single GPU.
 
@@ -127,7 +127,7 @@ I used only a tiny sample since I was primarily interested in being able to trai
 
 If you would like to experiment with this benchmark yourself or want to know more details about the hardware and software used to run it, please, refer to [this post](https://github.com/huggingface/transformers/issues/8771#issuecomment-759176685).
 
-# The Magic Behind ZeRO
+## The Magic Behind ZeRO
 
 Since `transformers` only integrated these fabulous solutions and wasn't part of their invention I will share the resources where you can discover all the details for yourself. But here are a few quick insights that may help understand how ZeRO manages these amazing feats.
 
@@ -158,7 +158,7 @@ DeepSpeed attacks this problem by managing GPU memory by itself and ensuring tha
 
 As ZeRO stands for Zero Redundancy Optimizer, it's easy to see that it lives up to its name.
 
-# The Future
+## The Future
 
 Besides the anticipated upcoming support for model params sharding in DeepSpeed, it already released new features that we haven't explored yet. These include DeepSpeed Sparse Attention and 1-bit Adam, which are supposed to decrease memory usage and dramatically reduce inter-GPU communication overhead, which should lead to an even faster training and support even bigger models.
 
@@ -166,7 +166,7 @@ I trust we are going to see new gifts from the FairScale team as well. I think t
 
 Even more exciting, [ZeRO is being integrated into pytorch](https://github.com/pytorch/pytorch/pull/46750).
 
-# Deployment
+## Deployment
 
 If you found the results shared in this blog post enticing, please proceed [here](https://huggingface.co/transformers/master/main_classes/trainer.html#trainer-integrations) for details on how to use DeepSpeed and FairScale with the `transformers` Trainer.
 
@@ -174,13 +174,13 @@ You can, of course, modify your own trainer to integrate DeepSpeed and FairScale
 
 The good news is that ZeRO requires no model modification. The only required modifications are in the training code.
 
-# Issues
+## Issues
 
 If you encounter any issues with the integration part of either of these projects please open an Issue in [transformers](https://github.com/huggingface/transformers/issues).
 
 But if you have problems with DeepSpeed and FairScale installation, configuration and deployment - you need to ask the experts in their domains, therefore, please, use [DeepSpeed Issue](https://github.com/microsoft/DeepSpeed/issues) or [FairScale Issue](https://github.com/facebookresearch/fairscale/issues) instead.
 
-# Resources
+## Resources
 
 While you don't really need to understand how any of these projects work and you can just deploy them via the `transformers` Trainer, should you want to figure out the whys and hows please refer to the following resources.
 
@@ -197,7 +197,7 @@ While you don't really need to understand how any of these projects work and you
   - [Turing-NLG: A 17-billion-parameter language model by Microsoft](https://www.microsoft.com/en-us/research/blog/turing-nlg-a-17-billion-parameter-language-model-by-microsoft/)
 * DeepSpeed [examples on GitHub](https://github.com/microsoft/DeepSpeedExamples)
 
-# Gratitude
+## Gratitude
 
 We were quite astonished at the amazing level of support we received from the FairScale and DeepSpeed developer teams while working on integrating those projects into `transformers`.
 

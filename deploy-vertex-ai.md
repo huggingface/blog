@@ -29,7 +29,7 @@ advised to check them out if you haven’t already.
 You can find a completely worked-out example in the Colab Notebook
 linked at the beginning of the post.
 
-# What is Vertex AI?
+## What is Vertex AI?
 
 According to [<u>Google Cloud</u>](https://www.youtube.com/watch?v=766OilR6xWc):
 
@@ -67,7 +67,7 @@ and the following services enabled:
 
 - Cloud Storage
 
-# Revisiting the Serving Model
+## Revisiting the Serving Model
 
 You’ll use the same [<u>ViT B/16 model implemented in TensorFlow</u>](https://huggingface.co/docs/transformers/main/en/model_doc/vit#transformers.TFViTForImageClassification) as you did in the last two posts. You serialized the model with
 corresponding pre-processing and post-processing operations embedded to
@@ -107,7 +107,7 @@ artifacts in a [<u>Google Cloud Storage (GCS) bucket</u>](https://cloud.google.c
 The accompanying Colab Notebook shows how to create a GCS bucket and
 save the model artifacts into it.
 
-# Deployment workflow with Vertex AI 
+## Deployment workflow with Vertex AI 
 
 The figure below gives a pictorial workflow of deploying an already
 trained TensorFlow model on Vertex AI.
@@ -116,7 +116,7 @@ trained TensorFlow model on Vertex AI.
 
 Let’s now discuss what the Vertex AI Model Registry and Endpoint are.
 
-## Vertex AI Model Registry
+### Vertex AI Model Registry
 
 Vertex AI Model Registry is a fully managed machine learning model
 registry. There are a couple of things to note about what fully managed
@@ -133,7 +133,7 @@ Model Registry allows us to achieve these without much difficulty.
 The currently supported model types include `SavedModel` from
 TensorFlow, scikit-learn, and XGBoost.
 
-## Vertex AI Endpoint
+### Vertex AI Endpoint
 
 From the user’s perspective, Vertex AI Endpoint simply provides an
 endpoint to receive requests and send responses back. However, it has a
@@ -152,7 +152,7 @@ configure. Here are some of the configurations that you can choose:
 
 - Prediction requests sampling rate
 
-# Performing the Deployment
+## Performing the Deployment
 
 The [`google-cloud-aiplatform`](https://pypi.org/project/google-cloud-aiplatform/)
 Python SDK provides easy APIs to manage the lifecycle of a deployment on
@@ -301,7 +301,7 @@ It takes about 15 - 30 minutes for Vertex AI to scope the deployment.
 Once it’s done, you should be able to see it on the
 [<u>console</u>](https://console.cloud.google.com/vertex-ai/endpoints).
 
-# Performing Predictions
+## Performing Predictions
 
 If your deployment was successful, you can test the deployed
 Endpoint by making a prediction request.
@@ -400,7 +400,7 @@ Now that you’ve learned how to use Vertex AI to deploy a TensorFlow
 model, let’s now discuss some beneficial features provided by Vertex AI.
 These help you get deeper insights into your deployment.
 
-# Monitoring with Vertex AI
+## Monitoring with Vertex AI
 
 Vertex AI also lets you monitor your model without any configuration.
 From the Endpoint console, you can get details about the performance of
@@ -421,7 +421,7 @@ request monitoring of model explanations. Refer
 [<u>here</u>](https://cloud.google.com/vertex-ai/docs/explainable-ai/overview)
 to learn more.
 
-# Local Load Testing
+## Local Load Testing
 
 We conducted a local load test to better understand the limits of the
 Endpoint with [<u>Locust</u>](https://locust.io/). The table below
@@ -440,7 +440,7 @@ to learn more.
 [<u>This directory</u>](https://github.com/sayakpaul/deploy-hf-tf-vision-models/tree/main/hf_vision_model_vertex_ai/locust)
 has all the information needed to know how we conducted the load test.
 
-# Pricing
+## Pricing
 
 You can use the [<u>GCP cost estimator</u>](https://cloud.google.com/products/calculator) to estimate the cost of usage, 
 and the exact hourly pricing table can be found [<u>here</u>](https://cloud.google.com/vertex-ai/pricing#custom-trained_models).
@@ -475,14 +475,14 @@ information [<u>here</u>](https://cloud.google.com/vertex-ai/pricing#custom-trai
 | NVIDIA_TESLA_T4      | $ 0.4024                |
 </div>
 
-# Call for Action
+## Call for Action
 
 The collection of TensorFlow vision models in 🤗 Transformers is growing. It now supports
 state-of-the-art semantic segmentation with 
 [SegFormer](https://huggingface.co/docs/transformers/model_doc/segformer#transformers.TFSegformerForSemanticSegmentation).
 We encourage you to extend the deployment workflow you learned in this post to semantic segmentation models like SegFormer.
 
-# Conclusion
+## Conclusion
 
 In this post, you learned how to deploy a Vision Transformer model with
 the Vertex AI platform using the easy APIs it provides. You also learned
@@ -499,7 +499,7 @@ that local deployment with Docker and Kubernetes. We hope this series on the
 online deployment of TensorFlow vision models was beneficial for you to take your
 ML toolbox to the next level. We can’t wait to see what you build with these tools.
 
-# Acknowledgements
+## Acknowledgements
 
 Thanks to the ML Developer Relations Program team at Google, which
 provided us with GCP credits for conducting the experiments.

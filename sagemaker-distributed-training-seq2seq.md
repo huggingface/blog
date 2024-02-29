@@ -35,7 +35,7 @@ If you're not familiar with Amazon SageMaker: *"Amazon SageMaker is a fully mana
 
 ---
 
-# Tutorial
+## Tutorial
 
 We will use the new [Hugging Face DLCs](https://github.com/aws/deep-learning-containers/tree/master/huggingface) and [Amazon SageMaker extension](https://sagemaker.readthedocs.io/en/stable/frameworks/huggingface/sagemaker.huggingface.html#huggingface-estimator) to train a distributed Seq2Seq-transformer model on the `summarization` task using the `transformers` and `datasets` libraries, and then upload the model to [huggingface.co](http://huggingface.co) and test it.
 
@@ -57,7 +57,7 @@ In this tutorial, we will use an Amazon SageMaker Notebook Instance for running 
 - Upload the fine-tuned model to [huggingface.co](http://huggingface.co)
 - Test inference
 
-### Model and Dataset
+#### Model and Dataset
 
 We are going to fine-tune [facebook/bart-large-cnn](https://huggingface.co/facebook/bart-large-cnn) on the [samsum](https://huggingface.co/datasets/samsum) dataset. *"BART is sequence-to-sequence model trained with denoising as pretraining objective."* [[REF](https://github.com/pytorch/fairseq/blob/master/examples/bart/README.md)]
 
@@ -71,7 +71,7 @@ The `samsum` dataset contains about 16k messenger-like conversations with summar
 
 ---
 
-## Set up a development environment and install sagemaker
+### Set up a development environment and install sagemaker
 
 After our SageMaker Notebook Instance is running we can select either Jupyer Notebook or JupyterLab and create a new Notebook with the `conda_pytorch_p36 kernel`.
 
@@ -106,7 +106,7 @@ print(f"S3 bucket used for storing artifacts: {sess.default_bucket()}")
 
 ---
 
-# Choose 🤗 Transformers `examples/` script
+## Choose 🤗 Transformers `examples/` script
 
 The [🤗 Transformers repository](https://github.com/huggingface/transformers/tree/master/examples) contains several `examples/`scripts for fine-tuning models on tasks from `language-modeling` to `token-classification`. In our case, we are using the `run_summarization.py` from the `seq2seq/` examples. 
 
@@ -124,7 +124,7 @@ git_config = {'repo': 'https://github.com/philschmid/transformers.git','branch':
 
 ---
 
-## Configure distributed training and hyperparameters
+### Configure distributed training and hyperparameters
 
 Next, we will define our `hyperparameters` and configure our distributed training strategy. As hyperparameter, we can define any [Seq2SeqTrainingArguments](https://huggingface.co/transformers/main_classes/trainer.html#seq2seqtrainingarguments) and the ones defined in [run_summarization.py](https://github.com/huggingface/transformers/tree/main/examples/legacy/seq2seq#sequence-to-sequence-training-and-evaluation). 
 
@@ -153,7 +153,7 @@ Since, we are using [SageMaker Data Parallelism](https://aws.amazon.com/blogs/aw
 
 ---
 
-## Create a `HuggingFace` estimator and start training
+### Create a `HuggingFace` estimator and start training
 
 The last step before training is creating a `HuggingFace` estimator. The Estimator handles the end-to-end Amazon SageMaker training. We define which fine-tuning script should be used as `entry_point`, which `instance_type` should be used, and which `hyperparameters` are passed in.
 
@@ -203,7 +203,7 @@ Converted to real money, our training on 16 NVIDIA Tesla V100-GPU for a State-of
 
 ---
 
-## Upload the fine-tuned model to [huggingface.co](http://huggingface.co)
+### Upload the fine-tuned model to [huggingface.co](http://huggingface.co)
 
 Since our model achieved a pretty good score we are going to upload it to [huggingface.co](http://huggingface.co), create a `model_card` and test it with the Hosted Inference widget. To upload a model you need to [create an account here](https://huggingface.co/join).
 
@@ -388,7 +388,7 @@ model_repo.push_to_hub()
 
 ---
 
-## Test inference
+### Test inference
 
 After we uploaded our model we can access it at `https://huggingface.co/{hf_username}/{repository_name}` 
 

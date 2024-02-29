@@ -1250,3 +1250,92 @@
     - fine-tuning
     - community
     - sdxl
+
+- local: open-source-llms-as-agents
+  title: "开源大语言模型作为 LangChain 智能体"
+  author: m-ric
+  thumbnail: /blog/assets/open-source-llms-as-agents/thumbnail_open_source_agents.png
+  date: January 24, 2024
+  tags:
+    - mixtral
+    - zephyr
+    - solar
+    - llama2
+    - nlp
+    - llm
+    - agents
+    - langchain
+    - benchmark
+
+- local: intel-starcoder-quantization
+  title: "使用 🤗 Optimum Intel 在英特尔至强上加速 StarCoder：Q8/Q4 及投机解码"
+  author: ofirzaf
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: Jan 30, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community
+
+- local: leaderboards-on-the-hub-patronus
+  title: "企业场景排行榜简介：现实世界用例排行榜"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_patronus.png
+  author: sunitha98
+  guest: true
+  date: January 31, 2024
+  tags:
+      - leaderboard
+      - guide
+      - collaboration
+
+- local: gemma
+  title: "欢迎 Gemma: Google 最新推出开放大语言模型"
+  author: philschmid
+  thumbnail: /blog/assets/gemma/thumbnail.jpg
+  date: Feb 21, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
+
+- local: gemma-peft
+  title: "使用 Hugging Face 微调 Gemma 模型"
+  author: svaibhav
+  guest: true
+  thumbnail: /blog/assets/gemma-peft/thumbnail.png
+  date: Feb 23, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
+    - peft
+
+- local: watermarking
+  title: "人工智能水印技术入门：工具与技巧"
+  author: sasha
+  thumbnail: /blog/assets/watermarking/thumbnail.png
+  date: Feb 26, 2024
+  tags:
+    - ethics
+    - research
+    - nlp
+    - guide
+
+- local: starcoder2
+  title: "StarCoder2 及 The Stack v2 数据集正式发布"
+  author: lvwerra
+  thumbnail: /blog/assets/177_starcoder2/sc2-banner.png
+  date: Feb 28, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM 
