@@ -2,7 +2,7 @@
 # Example:
 # starcoder3: starcoder2
 # redirects hf.co/blog/starcoder3 -> hf.co/blog/starcoder2
-leaderboards-on-the-hub-patronus.md : leaderboard-patronus.md
-leaderboard-drop-dive.md : ollm-leaderboard-drop.md
-evaluating-mmlu-leaderboard.md : ollm-leaderboard-mmlu.md
-llm-leaderboard.md : ollm-leaderboard-rlhf.md
+leaderboards-on-the-hub-patronus : leaderboard-patronus
+leaderboard-drop-dive : ollm-leaderboard-drop
+evaluating-mmlu-leaderboard : ollm-leaderboard-mmlu
+llm-leaderboard : ollm-leaderboard-rlhf
