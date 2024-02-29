@@ -3557,7 +3557,7 @@
 
 - local: arena-tts
   title: "TTS Arena: Benchmarking Text-to-Speech Models in the Wild"
-  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png 
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png
   author: mrfakename
   guest: true
   date: Feb 27, 2024
@@ -3575,4 +3575,15 @@
     - nlp
     - community
     - research
-    - LLM 
+    - LLM
+
+- local: concrete-ml-inference-on-endpoints-fhe
+  title: "Running Privacy-Preserving Inferences on Hugging Face EndPoints"
+  author: binoua
+  thumbnail: /blog/assets/concrete-ml-inference-on-endpoints-fhe/thumbnail.png
+  date: March 1, 2024
+  tags:
+    - guide
+    - privacy
+    - research
+    - FHE
