@@ -12,7 +12,3 @@ leaderboards-on-the-hub-hallucinations: leaderboard-hallucinations
 llm-leaderboard: ollm-leaderboard-rlhf
 evaluating-mmlu-leaderboard: ollm-leaderboard-mmlu
 leaderboard-drop-dive: ollm-leaderboard-drop
-zh/leaderboards-on-the-hub-patronus.md : zh/leaderboard-patronus.md
-zh/leaderboard-drop-dive.md : zh/ollm-leaderboard-drop.md
-zh/evaluating-mmlu-leaderboard.md : zh/ollm-leaderboard-mmlu.md
-zh/llm-leaderboard.md : zh/ollm-leaderboard-rlhf.md
