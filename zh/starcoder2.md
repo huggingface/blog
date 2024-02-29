@@ -6,7 +6,7 @@ authors:
 - user: loubnabnl
 - user: anton-l
 - user: nouamanetazi
-translator:
+translators:
 - user: AdinaY
 ---
 
