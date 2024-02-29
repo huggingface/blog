@@ -23,7 +23,7 @@ huggingface-cli login
 You also need to install the latest version of Optimum Habana and clone the repo to access the pipeline script. Here are the commands to do so:
 
 ```bash
-pip install optimum-habana==1.10.0
+pip install optimum-habana==1.10.4
 git clone -b v1.10-release https://github.com/huggingface/optimum-habana.git
 ```
 
