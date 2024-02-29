@@ -2328,7 +2328,7 @@
     - community
     - guide
 
-- local: ollm-leaderboard-rlhf
+- local: open-llm-leaderboard-rlhf
   title: "Can foundation models label data like humans?"
   author: nazneen
   thumbnail: /blog/assets/llm-leaderboard/leaderboard-thumbnail.png
@@ -2421,7 +2421,7 @@
     - visualization
     - apps
 
-- local: ollm-leaderboard-mmlu
+- local: open-llm-leaderboard-mmlu
   title: "What's going on with the Open LLM Leaderboard?"
   author: clefourrier
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
@@ -3101,7 +3101,7 @@
     - stable diffusion
     - guide
 
-- local: ollm-leaderboard-drop
+- local: open-llm-leaderboard-drop
   title: "Open LLM Leaderboard: DROP deep dive"
   author: clefourrier
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png

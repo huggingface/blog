@@ -729,7 +729,7 @@
     - community
     - research
 
-- local: ollm-leaderboard-rlhf
+- local: open-llm-leaderboard-rlhf
   title: "基础大模型能像人类一样标注数据吗？"
   author: nazneen
   thumbnail: /blog/assets/llm-leaderboard/leaderboard-thumbnail.png
@@ -767,7 +767,7 @@
 #     - community
 #     - ethics
 
-- local: ollm-leaderboard-mmlu
+- local: open-llm-leaderboard-mmlu
   title: "Open LLM 排行榜近况"
   author: clefourrier
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
@@ -1168,7 +1168,7 @@
     - guide
     - hub
 
-- local: ollm-leaderboard-drop
+- local: open-llm-leaderboard-drop
   title: "开放 LLM 排行榜：深入研究 DROP"
   author: clefourrier
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png

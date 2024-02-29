@@ -9,6 +9,6 @@ leaderboards-on-the-hub-patronus: leaderboard-patronus
 leaderboards-on-the-hub-nphardeval: leaderboard-nphardeval
 leaderboards-on-the-hub-decodingtrust: leaderboard-decodingtrust
 leaderboards-on-the-hub-hallucinations: leaderboard-hallucinations
-llm-leaderboard: ollm-leaderboard-rlhf
-evaluating-mmlu-leaderboard: ollm-leaderboard-mmlu
-leaderboard-drop-dive: ollm-leaderboard-drop
+llm-leaderboard: open-llm-leaderboard-rlhf
+evaluating-mmlu-leaderboard: open-llm-leaderboard-mmlu
+leaderboard-drop-dive: open-llm-leaderboard-drop

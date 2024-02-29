@@ -3,6 +3,6 @@
 # starcoder3: starcoder2
 # redirects hf.co/blog/starcoder3 -> hf.co/blog/starcoder2
 leaderboards-on-the-hub-patronus : leaderboard-patronus
-leaderboard-drop-dive : ollm-leaderboard-drop
-evaluating-mmlu-leaderboard : ollm-leaderboard-mmlu
-llm-leaderboard : ollm-leaderboard-rlhf
+leaderboard-drop-dive : open-llm-leaderboard-drop
+evaluating-mmlu-leaderboard : open-llm-leaderboard-mmlu
+llm-leaderboard : open-llm-leaderboard-rlhf
