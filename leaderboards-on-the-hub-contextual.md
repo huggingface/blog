@@ -16,9 +16,11 @@ authors:
 # Introducing ConTextual: How well can your Multimodal model jointly reason over text and image in text-rich scenes?
 
 Models are becoming quite good at understanding text on its own, but what about text in images, which gives important contextual information? For example, navigating a map, or understanding a meme? The ability to reason about the interactions between the text and visual context in images can power many real-world applications, such as AI assistants, or tools to assist the visually impaired. 
+
 We refer to these tasks as "context-sensitive text-rich visual reasoning tasks".
 
 At the moment, most evaluations of instruction-tuned large multimodal models (LMMs) focus on testing how well models can respond to human instructions posed as questions or imperative sentences (“Count this”, “List that”, etc) over images... but not how well they understand context-sensitive text-rich scenes! 
+
 That’s why we created ConTextual, a Context-sensitive Text-rich visuaL reasoning dataset for evaluating LMMs. We also released a leaderboard, so that the community can see for themselves which models are the best at this task.
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
@@ -41,10 +43,10 @@ Each sample consists of:
 - A human-written reference response 
 
 The dataset is released in two forms: 
-- (a) test dataset with instructions and images, 
-- (b) a validation set of 100 instances from the complete dataset with instructions, reference responses, and images. 
+- (a) a validation set of 100 instances from the complete dataset with instructions, images, and reference answers to the instructions. 
+- (b) a test dataset with instructions and images only.
 
-We provide the results on the complete dataset here (and in the paper). The development set would allow the practitioners to iterate on their approaches easily. The evaluation sandbox is present in our github.  
+The leaderboard contains model results both on the validation and test datasets (the information is also present in the paper). The development set allows the practitioners to test and iterate on their approaches easily. The evaluation sandbox is present in our github.  
 
 ## Experiments
 
@@ -53,7 +55,7 @@ For our initial experiments, our benchmark assessed the performance of 13 models
 - **Closed-Source LMMs**: GPT4V(ision) and Gemini-Vision-Pro; 
 - **Open-Source LMMs**: LLaVA-v1.5-13B, ShareGPT4V-7B, Instruct-Blip-Vicuna-7B, mPlugOwl-v2-7B and so on.
 
-Our dataset includes a reference response for each instruction, allowing us to test various automatic evaluation methods. For evaluation, we use an LLM-as-a-judge approach, and prompt GPT-4 with the instruction, reference response, and predicted response. The model has to return whether the predicted response is acceptable or not.
+Our dataset includes a reference response for each instruction, allowing us to test various automatic evaluation methods. For evaluation, we use an LLM-as-a-judge approach, and prompt GPT-4 with the instruction, reference response, and predicted response. The model has to return whether the predicted response is acceptable or not. (GPT4 was chosen as it correlated the most with human judgement in our experiments.)
 
 Let's look at some examples!
 
@@ -94,7 +96,7 @@ To submit your validation results to the leaderboard, you can run our auto-evalu
 We expect submissions to be json format as shown below:
 
 ```json
-{"model_name": {"img_url": "1 or 0 as integer"}}
+{"model_name": {"img_url": "The boolean score of your model on the image, 1 for success and 0 for failure"}}
 ```
 
 - Replace model name with your model name (string)
