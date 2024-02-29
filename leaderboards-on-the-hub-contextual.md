@@ -15,8 +15,6 @@ authors:
 
 # Introducing ConTextual: How well can your Multimodal model jointly reason over text and image in text-rich scenes?
 
-## Introduction
-
 Models are becoming quite good at understanding text on its own, but what about text in images, which gives important contextual information? For example, navigating a map, or understanding a meme? The ability to reason about the interactions between the text and visual context in images can power many real-world applications, such as AI assistants, or tools to assist the visually impaired. 
 We refer to these tasks as "context-sensitive text-rich visual reasoning tasks".
 
@@ -26,7 +24,7 @@ That’s why we created ConTextual, a Context-sensitive Text-rich visuaL reasoni
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="ucla-contextual/contextual_leaderboard"></gradio-app>
 
-For an in depth dive, you can also check our resources: [paper](https://arxiv.org/abs/2401.13311), [code](https://github.com/rohan598/ConTextual), [dataset](https://huggingface.co/datasets/ucla-contextual/contextual_all), [validation dataset](https://huggingface.co/spaces/ucla-contextual/contextual_val), and [leaderboard](https://huggingface.co/spaces/ucla-contextual/contextual_leaderboard). 
+For an in-depth dive, you can also check these additional resources: [paper](https://arxiv.org/abs/2401.13311), [code](https://github.com/rohan598/ConTextual), [dataset](https://huggingface.co/datasets/ucla-contextual/contextual_all), [validation dataset](https://huggingface.co/datasets/ucla-contextual/contextual_val), and [leaderboard](https://huggingface.co/spaces/ucla-contextual/contextual_leaderboard). 
 
 
 ## What is ConTextual
@@ -50,7 +48,7 @@ We provide the results on the complete dataset here (and in the paper). The deve
 
 ## Experiments
 
-For our initial experiments, our benchmark assessed the performance of 13 foundation models (GPT-4V, Gemini-Pro-Vision, LLaVA-1.5). We divided them into three categories: 
+For our initial experiments, our benchmark assessed the performance of 13 models. We divided them into three categories: 
 - **Augmented LLM approach**: GPT4 + visual information in the form of OCR of the image and/or dense image captions; 
 - **Closed-Source LMMs**: GPT4V(ision) and Gemini-Vision-Pro; 
 - **Open-Source LMMs**: LLaVA-v1.5-13B, ShareGPT4V-7B, Instruct-Blip-Vicuna-7B, mPlugOwl-v2-7B and so on.
@@ -70,10 +68,10 @@ You’ll find more examples like this in the Appendix section of our [paper](htt
 ## Key Takeaways!
 
 While working on this, we found that:
-- The modern LMMs (proprietary and open models) struggle to perform on ConTextual dataset while humans are good at it, hinting at the possibility of model improvement to enhance reasoning over text-rich images, a domain with significant real-world applications.
-- Proprietary LMMs perform poorly in infographics reasoning after time reading, indicating a gap in their capabilities compared to humans. Notably, GPT-4V, the best performing model, surpasses humans in abstract reasoning, potentially due to exposure to memes and quotes data, but struggles in time-related tasks where humans excel.
+- Modern LMMs (proprietary and open models) struggle to perform on ConTextual dataset while humans are good at it, hinting at the possibility of model improvement to enhance reasoning over text-rich images, a domain with significant real-world applications.
+- Proprietary LMMs perform poorly in infographics reasoning that involves time reading, indicating a gap in their capabilities compared to humans. Notably, GPT-4V, the best performing model, surpasses humans in abstract reasoning, potentially due to exposure to memes and quotes data, but struggles in time-related tasks where humans excel.
 - Open models such as LLaVA-1.5-13B and ShareGPT-4V-7B achieve acceptable ratings only in abstract and natural scenes contexts, suggesting a limitation in their training data diversity.
-- The augmented LLM approach achieves a very low rating of 17.2% which indicates that the dataset instances cannot be solved without precise visual perception.
+- The augmented LLM approach achieves a very low rating of 17.2%, which indicates that the dataset instances cannot be solved without precise visual perception.
 
 Our analysis suggests that the practitioners develop enhanced image encoders and create highly accurate image descriptions, to improve the model's perception and mitigate the occurrence of hallucinations. This, in turn, will lead to more effective context-sensitive text-rich visual reasoning.
 
@@ -87,11 +85,11 @@ We hope that this benchmark will help in developing nuanced vision-language alig
 
 ## How to Submit?
 
-We are taking submissions for both the test set and validation set. Following is the procedure to make submissions for each.
+We are accepting submissions for both the test and validation sets. Please, follow the corresponding procedure below.
 
 ### Validation Set Submission
 
-To submit your validation results to the leaderboard, you can run our auto-evaluation code (Evaluation Pipeline with GPT4), following the instructions [here](https://github.com/rohan598/ConTextual?tab=readme-ov-file#-evaluation-pipeline-gpt-4).
+To submit your validation results to the leaderboard, you can run our auto-evaluation code (Evaluation Pipeline with GPT4), following [these instructions](https://github.com/rohan598/ConTextual?tab=readme-ov-file#-evaluation-pipeline-gpt-4).
 
 We expect submissions to be json format as shown below:
 
