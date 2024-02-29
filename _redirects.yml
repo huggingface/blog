@@ -2,3 +2,13 @@
 # Example:
 # starcoder3: starcoder2
 # redirects hf.co/blog/starcoder3 -> hf.co/blog/starcoder2
+leaderboards-on-the-hub-vectara: leaderboard-vectara
+leaderboards-on-the-hub-upstage: leaderboard-upstage
+leaderboards-on-the-hub-haizelab: leaderboard-haizelab
+leaderboards-on-the-hub-patronus: leaderboard-patronus
+leaderboards-on-the-hub-nphardeval: leaderboard-nphardeval
+leaderboards-on-the-hub-decodingtrust: leaderboard-decodingtrust
+leaderboards-on-the-hub-hallucinations: leaderboard-hallucinations
+llm-leaderboard: open-llm-leaderboard-rlhf
+evaluating-mmlu-leaderboard: open-llm-leaderboard-mmlu
+leaderboard-drop-dive: open-llm-leaderboard-drop
