@@ -3577,7 +3577,7 @@
     - research
     - LLM 
 
-- local: leaderboards-on-the-hub-contextual
+- local: leaderboard-contextual
   title: "Introducing ConTextual: How well can your Multimodal model jointly reason over text and image in text-rich scenes?"
   author: rohan598
   guest: true
