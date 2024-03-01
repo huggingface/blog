@@ -2,25 +2,24 @@
 title: "Announcing Evaluation on the Hub"
 thumbnail: /blog/assets/82_eval_on_the_hub/thumbnail.png
 authors:
-  - user: lewtun
-  - user: abhishek
-  - user: Tristan
-  - user: sasha
-  - user: lvwerra
-  - user: nazneen
-  - user: ola13
-  - user: osanseviero
-  - user: douwekiela
+- user: lewtun
+- user: abhishek
+- user: Tristan
+- user: sasha
+- user: lvwerra
+- user: nazneen
+- user: ola13
+- user: osanseviero
+- user: douwekiela
 ---
 
 # Announcing Evaluation on the Hub
 
 <br>
-<div class="p-8 rounded-xl bg-green-500/15">
+<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
   November 2023 Update:
 
-This project has been archived. If you want to evaluate LLMs on the Hub, check out [this collection of leaderboards](https://huggingface.co/collections/clefourrier/llm-leaderboards-and-benchmarks-✨-64f99d2e11e92ca5568a7cce).
-
+  This project has been archived. If you want to evaluate LLMs on the Hub, check out [this collection of leaderboards](https://huggingface.co/collections/clefourrier/llm-leaderboards-and-benchmarks-✨-64f99d2e11e92ca5568a7cce).
 </div>
 
 <em>TL;DR</em>: Today we introduce [Evaluation on the Hub](https://huggingface.co/spaces/autoevaluate/model-evaluator), a new tool powered by [AutoTrain](https://huggingface.co/autotrain) that lets you evaluate any model on any dataset on the Hub without writing a single line of code!
@@ -58,7 +57,6 @@ Or suppose you have a brand new question answering model, trained on SQuAD? Ther
 ## Ecosystem
 
 ![The Hugging Face Ecosystem and Evaluation on the Hub](/blog/assets/82_eval_on_the_hub/ecosystem.png)
-
 <figcaption><center><i>Evaluation on the Hub fits neatly into the Hugging Face ecosystem.</i></center></figcaption>
 
 Evaluation on the Hub is meant to make your life easier. But of course, there’s a lot happening in the background. What we really like about Evaluation on the Hub: it fits so neatly into the existing Hugging Face ecosystem, we almost had to do it. Users start on dataset pages, from where they can launch evaluations or see leaderboards. The model evaluation submission interface and the leaderboards are regular Hugging Face Spaces. The evaluation backend is powered by AutoTrain, which opens up a PR on the Hub for the given model’s model card.
@@ -68,13 +66,12 @@ Evaluation on the Hub is meant to make your life easier. But of course, there’
 So what does it look like in practice? Let’s run through an example. Suppose you are in the business of telling apart dogs, muffins and fried chicken (a.k.a. dogfooding!).
 
 ![Dog Food Examples](/blog/assets/82_eval_on_the_hub/dogfood-example.png)
-
 <figcaption><center><i>Example images of dogs and food (muffins and fried chicken). <a href="https://github.com/qw2243c/Image-Recognition-Dogs-Fried-Chicken-or-Blueberry-Muffins-/">Source</a> / <a href="https://twitter.com/teenybiscuit/status/667777205397680129?s=20&t=wPgYJMp-JPwRsNAOMvEbxg">Original source</a>.</i></center></figcaption>
 
 As the above image shows, to solve this problem, you’ll need:
 
-- A dataset of dog, muffin, and fried chicken images
-- Image classifiers that have been trained on these images
+* A dataset of dog, muffin, and fried chicken images
+* Image classifiers that have been trained on these images
 
 Fortunately, your data science team has uploaded [a dataset](https://huggingface.co/datasets/lewtun/dog_food) to the Hugging Face Hub and trained [a few different models on it](https://huggingface.co/models?datasets=lewtun/dog_food). So now you just need to pick the best one - let’s use Evaluation on the Hub to see how well they perform on the test set!
 
@@ -88,9 +85,9 @@ Now, many datasets on the Hub contain metadata that specifies how an evaluation 
 
 Clicking on the <em>Advanced configuration</em> button will show you the various settings to choose from:
 
-- The task, dataset, and split configuration
-- The mapping of the dataset columns to a standard format
-- The choice of metrics
+* The task, dataset, and split configuration
+* The mapping of the dataset columns to a standard format
+* The choice of metrics
 
 As shown in the image below, configuring the task, dataset, and split to evaluate on is straightforward:
 
@@ -136,9 +133,9 @@ Looks like the Swin Transformer came out on top!
 
 If you’d like to evaluate your own choice of models, give Evaluation on the Hub a spin by checking out these popular datasets:
 
-- [Emotion](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=emotion) for text classification
-- [MasakhaNER](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=masakhaner) for named entity recognition
-- [SAMSum](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=samsum) for text summarization
+* [Emotion](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=emotion) for text classification
+* [MasakhaNER](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=masakhaner) for named entity recognition
+* [SAMSum](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=samsum) for text summarization
 
 ## The Bigger Picture
 
