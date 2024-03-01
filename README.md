@@ -76,7 +76,7 @@ For instance:
 A couple of alternatives:
 
 - Use a Markdown table [like here](https://github.com/huggingface/blog/blob/fd611f6200391b865641c4e7a38e1ea47ec4bc6c/pref-tuning.md?plain=1#L31).
-- Use HTML, [like here](https://github.com/huggingface/blog/blob/fd611f6200391b865641c4e7a38e1ea47ec4bc6c/moe.md?plain=1#L65).
+- Use HTML, [like here](https://github.com/huggingface/blog/blob/0e6ebe5ca43d6408c20eddab1f5f3205d680f3aa/watermarking.md?plain=1#L70-L73).
 
 ## How to Use Highlight Boxes
 
