@@ -3576,3 +3576,17 @@
     - community
     - research
     - LLM 
+
+- local: textgen-pipe-gaudi
+  title: "Text-Generation Pipeline on Intel® Gaudi® 2 AI Accelerator"
+  author: siddjags
+  guest: true
+  thumbnail: /blog/assets/textgen-pipe-gaudi/thumbnail.png
+  date: Feb 29, 2024
+  tags:
+    - habana
+    - partnerships
+    - hardware
+    - nlp
+    - llm
+    - inference
