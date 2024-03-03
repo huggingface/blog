@@ -1293,7 +1293,7 @@
       - collaboration
 
 - local: synthetic-data-save-costs
-  title: "合成数据：利用开源技术，节约资金、时间和减少碳排放"
+  title: "合成数据：利用开源技术节约资金、时间和减少碳排放"
   author: MoritzLaurer
   thumbnail: /blog/assets/176_synthetic-data-save-costs/thumbnail.png
   date: Feb 16, 2024
