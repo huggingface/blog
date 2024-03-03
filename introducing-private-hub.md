@@ -2,30 +2,32 @@
 title: "Introducing the Private Hub: A New Way to Build With Machine Learning"
 thumbnail: /blog/assets/92_introducing_private_hub/thumbnail.png
 authors:
-- user: federicopascual
+  - user: federicopascual
 ---
 
 # Introducing the Private Hub: A New Way to Build With Machine Learning
 
-
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
 <br>
-<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
+<div class="p-8 rounded-xl bg-green-500/15">
   June 2023 Update:
   
   The Private Hub is now called <b>Enterprise Hub</b>.
   
   The Enterprise Hub is a hosted solution that combines the best of Cloud Managed services (SaaS) and Enterprise security. It lets customers deploy specific services like <b>Inference Endpoints</b> on a wide scope of compute options, from on-cloud to on-prem. It offers advanced user administration and access controls through SSO.
-  
-  Get in touch with our [Enterprise team](/support) to find the best solution for your company.
+
+<strong class="!text-red-500"> We no longer offer Private Hub on-prem deployments as this experiment is now discontinued. </strong>
+
+Get in touch with our [Enterprise team](/support) to find the best solution for your company.
+
 </div>
 
 Machine learning is changing how companies are building technology. From powering a new generation of disruptive products to enabling smarter features in well-known applications we all use and love, ML is at the core of the development process.
 
-But with every technology shift comes new challenges. 
+But with every technology shift comes new challenges.
 
-Around [90% of machine learning models never make it into production](https://venturebeat.com/2019/07/19/why-do-87-of-data-science-projects-never-make-it-into-production/). Unfamiliar tools and non-standard workflows slow down ML development. Efforts get duplicated as models and datasets aren't shared internally, and similar artifacts are built from scratch across teams all the time. Data scientists find it hard to show their technical work to business stakeholders, who struggle to share precise and timely feedback. And machine learning teams waste time on Docker/Kubernetes and optimizing models for production. 
+Around [90% of machine learning models never make it into production](https://venturebeat.com/2019/07/19/why-do-87-of-data-science-projects-never-make-it-into-production/). Unfamiliar tools and non-standard workflows slow down ML development. Efforts get duplicated as models and datasets aren't shared internally, and similar artifacts are built from scratch across teams all the time. Data scientists find it hard to show their technical work to business stakeholders, who struggle to share precise and timely feedback. And machine learning teams waste time on Docker/Kubernetes and optimizing models for production.
 
 With this in mind, we launched the [Private Hub](https://huggingface.co/platform) (PH), a new way to build with machine learning. From research to production, it provides a unified set of tools to accelerate each step of the machine learning lifecycle in a secure and compliant way. PH brings various ML tools together in one place, making collaborating in machine learning simpler, more fun and productive.
 
@@ -65,7 +67,7 @@ The Hugging Face Hub is also a central place for feedback and development in mac
   <figcaption>Pull requests and discussions on a model</figcaption>
 </figure>
 
-The Hub allows users to create [Organizations](https://huggingface.co/docs/hub/organizations), that is, team accounts to manage models, datasets, and spaces collaboratively. An organization’s repositories will be featured on the organization’s page and admins can set roles to control access to these repositories. Every member of the organization can contribute to models, datasets and spaces given the right permissions. Here at Hugging Face, we believe having the right tools to collaborate drastically accelerates machine learning development! 🔥 
+The Hub allows users to create [Organizations](https://huggingface.co/docs/hub/organizations), that is, team accounts to manage models, datasets, and spaces collaboratively. An organization’s repositories will be featured on the organization’s page and admins can set roles to control access to these repositories. Every member of the organization can contribute to models, datasets and spaces given the right permissions. Here at Hugging Face, we believe having the right tools to collaborate drastically accelerates machine learning development! 🔥
 
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="Organization in the Hub for BigScience" src="assets/92_introducing_private_hub/organizations.png"></medium-zoom>
@@ -121,7 +123,7 @@ Similar to models, datasets uploaded to the 🤗 Hub have [Dataset Cards](https:
 
 ### Spaces
 
-A few months ago, we introduced a new feature on the 🤗 Hub called [Spaces](https://huggingface.co/spaces/launch). It's a simple way to build and host machine learning apps. Spaces allow you to easily showcase your ML models to business stakeholders and get the feedback you need to move your ML project forward. 
+A few months ago, we introduced a new feature on the 🤗 Hub called [Spaces](https://huggingface.co/spaces/launch). It's a simple way to build and host machine learning apps. Spaces allow you to easily showcase your ML models to business stakeholders and get the feedback you need to move your ML project forward.
 
 If you've been generating funny images with [DALL-E mini](https://huggingface.co/spaces/dalle-mini/dalle-mini), then you have used Spaces. This space showcase the [DALL-E mini model](https://huggingface.co/dalle-mini/dalle-mini), a machine learning model to generate images based on text prompts:
 
@@ -157,13 +159,13 @@ We provide flexible options for deploying your Private Hub in your private, comp
 
 - **On-prem Private Hub**: on-premise deployment of the Hugging Face Hub on your own infrastructure. For customers with strict compliance rules and/or workloads where they don't want or are not allowed to run on a public cloud.
 
-Now that we have covered the basics of what the Private Hub is, let's go over how companies are using it to accelerate their ML development. 
+Now that we have covered the basics of what the Private Hub is, let's go over how companies are using it to accelerate their ML development.
 
 ## 3. How Are Companies Using the Private Hub to Accelerate Their ML Roadmap?
 
 [🤗 Transformers](https://github.com/huggingface/transformers) is one of the [fastest growing open source projects of all time](https://star-history.com/#tensorflow/tensorflow&nodejs/node&kubernetes/kubernetes&pytorch/pytorch&huggingface/transformers&Timeline). We now offer [25+ open source libraries](https://github.com/huggingface) and over 10,000 companies are now using Hugging Face to build technology with machine learning.
 
-Being at the heart of the open source AI community, we had thousands of conversations with machine learning and data science teams, giving us a unique perspective on the most common problems and challenges companies are facing when building machine learning. 
+Being at the heart of the open source AI community, we had thousands of conversations with machine learning and data science teams, giving us a unique perspective on the most common problems and challenges companies are facing when building machine learning.
 
 Through these conversations, we discovered that the current workflow for building machine learning is broken. Duplicated efforts, poor feedback loops, high friction to collaborate across teams, non-standard processes and tools, and difficulty optimizing models for production are common and slow down ML development.
 
@@ -174,7 +176,7 @@ We built the Private Hub to change this. Like Git and GitHub forever changed how
   <figcaption>Before and after using The Private Hub</figcaption>
 </figure>
 
-In this section, we'll go through a demo example of how customers are leveraging the PH to accelerate their ML lifecycle. We will go over the step-by-step process of building an ML app to automatically analyze financial analyst 🏦 reports. 
+In this section, we'll go through a demo example of how customers are leveraging the PH to accelerate their ML lifecycle. We will go over the step-by-step process of building an ML app to automatically analyze financial analyst 🏦 reports.
 
 First, we will search for a pre-trained model relevant to our use case and fine-tune it on a custom dataset for sentiment analysis. Next, we will build an ML web app to show how this model works to business stakeholders. Finally, we will use the Inference API to run inferences with an infrastructure that can handle production-level loads. All artifacts for this ML demo app can be found in this [organization on the Hub](https://huggingface.co/FinanceInc).
 
@@ -182,11 +184,11 @@ First, we will search for a pre-trained model relevant to our use case and fine-
 
 #### Leveraging a pre-trained model from the Hub
 
-Instead of training models from scratch, transfer learning now allows you to build more accurate models 10x faster ⚡️by fine-tuning pre-trained models available on the Hub for your particular use case. 
+Instead of training models from scratch, transfer learning now allows you to build more accurate models 10x faster ⚡️by fine-tuning pre-trained models available on the Hub for your particular use case.
 
 For our demo example, one of the requirements for building this ML app for financial analysts is doing sentiment analysis. Business stakeholders want to automatically get a sense of a company's performance as soon as financial docs and analyst reports are available.
 
-So as a first step towards creating this ML app, we dive into the [🤗 Hub](https://huggingface.co/models) and explore what pre-trained models are available that we can fine-tune for sentiment analysis. The search bar and tags will let us filter and discover relevant models very quickly. Soon enough, we come across [FinBERT](https://huggingface.co/yiyanghkust/finbert-pretrain), a BERT model pre-trained on corporate reports, earnings call transcripts and financial analyst reports: 
+So as a first step towards creating this ML app, we dive into the [🤗 Hub](https://huggingface.co/models) and explore what pre-trained models are available that we can fine-tune for sentiment analysis. The search bar and tags will let us filter and discover relevant models very quickly. Soon enough, we come across [FinBERT](https://huggingface.co/yiyanghkust/finbert-pretrain), a BERT model pre-trained on corporate reports, earnings call transcripts and financial analyst reports:
 
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="Finbert model" src="assets/92_introducing_private_hub/finbert-pretrain.png"></medium-zoom>
@@ -197,7 +199,7 @@ We [clone the model](https://huggingface.co/FinanceInc/finbert-pretrain) in our 
 
 #### Fine-tuning a pre-trained model with a custom dataset
 
-Now that we have a great pre-trained model for financial data, the next step is to fine-tune it using our own data for doing sentiment analysis!  
+Now that we have a great pre-trained model for financial data, the next step is to fine-tune it using our own data for doing sentiment analysis!
 
 So, we first upload a [custom dataset for sentiment analysis](https://huggingface.co/datasets/FinanceInc/auditor_sentiment) that we built internally with the team to our Private Hub. This dataset has several thousand sentences from financial news in English and proprietary financial data manually categorized by our team according to their sentiment. This data contains sensitive information, so our compliance team only allows us to upload this data on our own servers. Luckily, this is not an issue as we run the Private Hub on our own AWS instance.
 
@@ -240,7 +242,7 @@ In less than 20 minutes, we were able to build an [interactive demo app](https:/
   <figcaption>Space for our financial demo app</figcaption>
 </figure>
 
-If you take a look at the [app.py file](https://huggingface.co/spaces/FinanceInc/Financial_Analyst_AI/blob/main/app.py), you'll see it's quite simple: 
+If you take a look at the [app.py file](https://huggingface.co/spaces/FinanceInc/Financial_Analyst_AI/blob/main/app.py), you'll see it's quite simple:
 
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="Code for our ML demo app" src="assets/92_introducing_private_hub/spaces-code.png"></medium-zoom>
@@ -253,9 +255,9 @@ If you take a look at the [app.py file](https://huggingface.co/spaces/FinanceInc
 
 By now, our business stakeholders have provided great feedback that allowed us to improve these models. Compliance teams assessed potential risks through the information provided via the model cards and green-lighted our project for production. Now, we are ready to put these models to work and start analyzing financial reports at scale! 🎉
 
-Instead of wasting time on Docker/Kubernetes, setting up a server for running these models or optimizing models for production, all we need to do is to leverage the [Inference API](https://huggingface.co/inference-api). We don't need to worry about deployment or scalability issues, we can easily integrate our custom models via simple API calls. 
+Instead of wasting time on Docker/Kubernetes, setting up a server for running these models or optimizing models for production, all we need to do is to leverage the [Inference API](https://huggingface.co/inference-api). We don't need to worry about deployment or scalability issues, we can easily integrate our custom models via simple API calls.
 
-Models uploaded to the Hub and/or created with AutoTrain are instantly deployed to production, ready to make inferences at scale and in real-time. And all it takes to run inferences is 12 lines of code! 
+Models uploaded to the Hub and/or created with AutoTrain are instantly deployed to production, ready to make inferences at scale and in real-time. And all it takes to run inferences is 12 lines of code!
 
 To get the code snippet to run inferences with our [sentiment analysis model](https://huggingface.co/FinanceInc/auditor_sentiment_finetuned), we click on "Deploy" and "Accelerated Inference":
 
@@ -275,13 +277,13 @@ headers = {"Authorization": "Bearer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}
 def query(payload):
 	response = requests.post(API_URL, headers=headers, json=payload)
 	return response.json()
-	
+
 output = query({
 	"inputs": "Operating profit jumped to EUR 47 million from EUR 6.6 million",
 })
 ```
 
-With just 12 lines of code, we are up and running in running inferences with an infrastructure that can handle production-level loads at scale and in real-time 🚀. Pretty cool, right? 
+With just 12 lines of code, we are up and running in running inferences with an infrastructure that can handle production-level loads at scale and in real-time 🚀. Pretty cool, right?
 
 ## Last Words
 
