@@ -1292,6 +1292,20 @@
       - guide
       - collaboration
 
+- local: synthetic-data-save-costs
+  title: "合成数据：利用开源技术节约资金、时间和减少碳排放"
+  author: MoritzLaurer
+  thumbnail: /blog/assets/176_synthetic-data-save-costs/thumbnail.png
+  date: Feb 16, 2024
+  tags:
+    - guide
+    - llm
+    - nlp
+    - synthetic-data
+    - mixtral
+    - inference-endpoints
+    - autotrain
+
 - local: gemma
   title: "欢迎 Gemma: Google 最新推出开放大语言模型"
   author: philschmid
@@ -1303,6 +1317,16 @@
     - research
     - LLM
     - gcp
+
+- local: matryoshka
+  title: "🪆 俄罗斯套娃嵌入模型"
+  author: tomaarsen
+  thumbnail: /blog/assets/matryoshka/thumbnail.png
+  date: Feb 23, 2024
+  tags:
+    - nlp
+    - community
+    - guide
 
 - local: gemma-peft
   title: "使用 Hugging Face 微调 Gemma 模型"
