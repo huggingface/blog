@@ -133,13 +133,10 @@ We have just integrated a `ChatHuggingFace` wrapper that lets you create agents 
 The code to create the ChatModel and give it tools is really simple, you can check it all in the [Langchain doc](https://python.langchain.com/docs/integrations/chat/huggingface). 
 
 ```python
-from langchain_community.llms import HuggingFaceHub
+from langchain_community.llms import HuggingFaceEndpoint
 from langchain_community.chat_models.huggingface import ChatHuggingFace
 
-llm = HuggingFaceHub(
-    repo_id="HuggingFaceH4/zephyr-7b-beta",
-    task="text-generation",
-)
+llm = HuggingFaceEndpoint(repo_id="HuggingFaceH4/zephyr-7b-beta")
 
 chat_model = ChatHuggingFace(llm=llm)
 ```

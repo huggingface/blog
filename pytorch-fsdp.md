@@ -11,7 +11,7 @@ authors:
 
 In this post we will look at how we can leverage **[Accelerate](https://github.com/huggingface/accelerate)** Library for training large models which enables users to leverage the latest features of **[PyTorch FullyShardedDataParallel (FSDP)](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/)**.
 
-# Motivation 🤗
+## Motivation 🤗
 
 **With the ever increasing scale, size and parameters of the Machine Learning (ML) models, ML practitioners are finding it difficult to train or even load such large models on their hardware.** On one hand, it has been found that large models learn quickly (data and compute efficient) and are significantly more performant when compared to smaller models [1]; on the other hand, it  becomes prohibitive to train such models on most of the available hardware.  
 
@@ -27,7 +27,7 @@ Distributed training is the key to enable training such large ML models. There h
 
 In this post we will look at Data Parallelism using ZeRO and more specifically the latest PyTorch feature **[FullyShardedDataParallel (FSDP)](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/)**.  **[DeepSpeed](https://github.com/microsoft/deepspeed)** and **[FairScale](https://github.com/facebookresearch/fairscale/)** have implemented the core ideas of the ZERO paper. These have already been integrated in `transformers` Trainer and accompanied by great blog [Fit More and Train Faster With ZeRO via DeepSpeed and FairScale](https://huggingface.co/blog/zero-deepspeed-fairscale) [10]. PyTorch recently upstreamed the Fairscale FSDP into PyTorch Distributed with additional optimizations.
 
-# Accelerate 🚀:  Leverage PyTorch FSDP without any code changes
+## Accelerate 🚀:  Leverage PyTorch FSDP without any code changes
 
 We will look at the task of Causal Language Modelling using GPT-2 Large (762M) and XL (1.5B) model variants.
 
@@ -54,7 +54,7 @@ num_processes: 2
 use_cpu: false
 ```
 
-## Multi-GPU FSDP
+### Multi-GPU FSDP
 
 Here, we experiment on the Single-Node Multi-GPU setting. We compare the performance of Distributed Data Parallel (DDP) and FSDP in various configurations. First, GPT-2 Large(762M) model is used wherein DDP works with certain batch sizes without throwing Out Of Memory (OOM) errors. Next, GPT-2 XL (1.5B) model is used wherein DDP fails with OOM error even on batch size of 1. We observe that FSDP enables larger batch sizes for GPT-2 Large model and it enables training the GPT-2 XL model with decent batch size unlike DDP.
 
@@ -93,7 +93,7 @@ Table 1: Benchmarking FSDP on GPT-2 Large (762M) model
 With respect to DDP, from Table 1 we can observe that FSDP **enables larger batch sizes**, up to **2X-3X** without and with CPU offload setting, respectively. In terms of train time, DDP with mixed precision is the fastest followed by FSDP using ZERO Stage 2 and Stage 3, respectively. As the task of causal language modelling always has fixed context sequence length (--block_size), the train time speedup with FSDP wasn’t that great. For applications with dynamic batching, FSDP which enables larger batch sizes will likely have considerable speed up in terms of train time. FSDP mixed precision support currently has few [issues](https://github.com/pytorch/pytorch/issues/75676) with transformer. Once this is supported, the training time speed up will further improve considerably.
 
 
-### CPU Offloading to enable training humongous models that won’t fit the GPU memory
+#### CPU Offloading to enable training humongous models that won’t fit the GPU memory
 
 Command for training GPT-2 XL Model (1.5B parameters):
 ```bash
@@ -123,7 +123,7 @@ Table 2: Benchmarking FSDP on GPT-2 XL (1.5B) model
 
 From Table 2, we can observe that DDP (w and w/o fp16) isn’t even able to run with batch size of 1 and results in CUDA OOM error. FSDP with Zero-Stage 3 is able to be run on 2 GPUs with batch size of 5 (effective batch size =10 (5 X 2)). FSDP with CPU offload can further increase the max batch size to 14 per GPU when using 2 GPUs. **FSDP with CPU offload enables training GPT-2 1.5B model on a single GPU with a batch size of 10**. This enables ML practitioners with minimal compute resources to train such large models, thereby democratizing large model training.
 
-## Capabilities and limitations of the FSDP Integration
+### Capabilities and limitations of the FSDP Integration
 
 Let’s dive into the current support that Accelerate provides for FSDP integration and the known limitations.
 
@@ -156,7 +156,7 @@ We leverage the tracking functionality support in Accelerate to log the train an
 
 We can observe that the DDP takes twice as much memory as FSDP with auto wrap.  FSDP without auto wrap takes more memory than FSDP with auto wrap but considerably less than that of DDP. FSDP with auto wrap with min_num_params=2k takes marginally less memory when compared to setting with min_num_params=1M. This highlights the importance of the FSDP Auto Wrap Policy and users should play around with the `min_num_params` to find the setting which considerably saves memory and isn’t resulting in lot of communication overhead. PyTorch team is working on auto tuning tool for this config as mentioned in [8].
 
-### **Few caveats to be aware of**
+#### **Few caveats to be aware of**
 
 - PyTorch FSDP auto wraps sub-modules, flattens the parameters and shards the parameters in place. Due to this, any optimizer created before model wrapping gets broken and occupies more memory. Hence, it is highly recommended and efficient to prepare model before creating optimizer. `Accelerate` will automatically wrap the model and create an optimizer for you in case of single model with a warning message.
     
@@ -200,7 +200,7 @@ This is because parameter groups created before wrapping will have no meaning po
 
 - Mixed precision is currently not supported with FSDP as we wait for PyTorch to fix support for it.
 
-# How it works 📝
+## How it works 📝
 
 ![FSDP Workflow](./assets/62_pytorch_fsdp/FSDP_workflow.png)
 
@@ -212,14 +212,14 @@ FSDP precisely addresses this by sharding the optimizer states, gradients and mo
 
 Please refer [7, 8, 9] for all the in-depth details on the workings of the PyTorch FSDP and the extensive experimentation carried out using this feature.
 
-# Issues
+## Issues
 
 If you encounter any issues with the integration part of PyTorch FSDP, please open an Issue in [accelerate](https://github.com/huggingface/accelerate/issues).
 
 But if you have problems with PyTorch FSDP configuration, and deployment - you need to ask the experts in their domains, therefore, please, open a [PyTorch Issue](https://github.com/pytorch/pytorch/issues) instead.
 
 
-# References
+## References
 
 [1] [Train Large, Then Compress: Rethinking Model Size for Efficient Training and Inference of Transformers](http://nlp.cs.berkeley.edu/pubs/Li-Wallace-Shen-Lin-Keutzer-Klein-Gonzalez_2020_Transformers_paper.pdf)
 

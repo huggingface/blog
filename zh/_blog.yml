@@ -729,7 +729,7 @@
     - community
     - research
 
-- local: llm-leaderboard
+- local: open-llm-leaderboard-rlhf
   title: "基础大模型能像人类一样标注数据吗？"
   author: nazneen
   thumbnail: /blog/assets/llm-leaderboard/leaderboard-thumbnail.png
@@ -767,7 +767,7 @@
 #     - community
 #     - ethics
 
-- local: evaluating-mmlu-leaderboard
+- local: open-llm-leaderboard-mmlu
   title: "Open LLM 排行榜近况"
   author: clefourrier
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
@@ -1168,7 +1168,7 @@
     - guide
     - hub
 
-- local: leaderboard-drop-dive
+- local: open-llm-leaderboard-drop
   title: "开放 LLM 排行榜：深入研究 DROP"
   author: clefourrier
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
@@ -1281,6 +1281,31 @@
     - collaboration
     - community
 
+- local: leaderboard-patronus
+  title: "企业场景排行榜简介：现实世界用例排行榜"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_patronus.png
+  author: sunitha98
+  guest: true
+  date: January 31, 2024
+  tags:
+      - leaderboard
+      - guide
+      - collaboration
+
+- local: synthetic-data-save-costs
+  title: "合成数据：利用开源技术节约资金、时间和减少碳排放"
+  author: MoritzLaurer
+  thumbnail: /blog/assets/176_synthetic-data-save-costs/thumbnail.png
+  date: Feb 16, 2024
+  tags:
+    - guide
+    - llm
+    - nlp
+    - synthetic-data
+    - mixtral
+    - inference-endpoints
+    - autotrain
+
 - local: gemma
   title: "欢迎 Gemma: Google 最新推出开放大语言模型"
   author: philschmid
@@ -1292,6 +1317,16 @@
     - research
     - LLM
     - gcp
+
+- local: matryoshka
+  title: "🪆 俄罗斯套娃嵌入模型"
+  author: tomaarsen
+  thumbnail: /blog/assets/matryoshka/thumbnail.png
+  date: Feb 23, 2024
+  tags:
+    - nlp
+    - community
+    - guide
 
 - local: gemma-peft
   title: "使用 Hugging Face 微调 Gemma 模型"
@@ -1306,3 +1341,25 @@
     - LLM
     - gcp
     - peft
+
+- local: watermarking
+  title: "人工智能水印技术入门：工具与技巧"
+  author: sasha
+  thumbnail: /blog/assets/watermarking/thumbnail.png
+  date: Feb 26, 2024
+  tags:
+    - ethics
+    - research
+    - nlp
+    - guide
+
+- local: starcoder2
+  title: "StarCoder2 及 The Stack v2 数据集正式发布"
+  author: lvwerra
+  thumbnail: /blog/assets/177_starcoder2/sc2-banner.png
+  date: Feb 28, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM 

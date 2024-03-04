@@ -149,7 +149,7 @@ For a production example, you can check the [ProteinMPNN](https://hf.space/simon
 
 <gradio-app theme_mode="light" space="simonduerr/ProteinMPNN"></gradio-app>
 
-# Issues
+## Issues
 
 If you encounter any issues with the integration of 3Dmol.js in Gradio/HF spaces, please open a discussion in [hf.space/simonduerr/3dmol.js](https://hf.space/simonduerr/3dmol.js/discussions).
 

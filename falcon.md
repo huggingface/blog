@@ -15,8 +15,6 @@ authors:
 # The Falcon has landed in the Hugging Face ecosystem
 
 
-## Introduction
-
 Falcon is a new family of state-of-the-art language models created by the [Technology Innovation Institute](https://www.tii.ae/) in Abu Dhabi, and released under the Apache 2.0 license. **Notably, [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) is the first “truly open” model with capabilities rivaling many current closed-source models**. This is fantastic news for practitioners, enthusiasts, and industry, as it opens the door for many exciting use cases.
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
@@ -66,7 +64,7 @@ This trick doesn’t significantly influence pretraining, but it greatly [improv
 **score from the base version not available, we report the tuned version instead.*
 
 
-# Demo
+## Demo
 
 You can easily try the Big Falcon Model (40 billion parameters!) in [this Space](https://huggingface.co/spaces/HuggingFaceH4/falcon-chat) or in the playground embedded below:
 
@@ -85,7 +83,7 @@ Video: Falcon 7B Instruct running on an M1 MacBook Pro with Core ML.
 The video shows a lightweight app that leverages a Swift library for the heavy lifting: model loading, tokenization, input preparation, generation, and decoding. We are busy building this library to empower developers to integrate powerful LLMs in all types of applications without having to reinvent the wheel. It's still a bit rough, but we can't wait to share it with you. Meanwhile, you can download the [Core ML weights](https://huggingface.co/tiiuae/falcon-7b-instruct/tree/main/coreml/text-generation) from the repo and explore them yourself!
 
 
-# Inference
+## Inference
 
 You can use the familiar transformers APIs to run the models on your own hardware, but you need to pay attention to a couple of details:
 
