@@ -84,7 +84,7 @@ We are open to supporting many types of projects, especially those of existing o
 
 Tasks can either be fully open or open to members of a particular Hugging Face Hub organization. 
 
-If you want to be part of the first cohort, please join us in the `#data-is-better-together` channel in the [Hugging Face Discord](http://hf.co/join/discord) and let us know what you want to build together! You can also reach out via email to daniel at thiswebsit.co. 
+If you want to be part of the first cohort, please join us in the `#data-is-better-together` channel in the [Hugging Face Discord](http://hf.co/join/discord) and let us know what you want to build together! 
 
 We are looking forward to building better datasets together with you!
 
