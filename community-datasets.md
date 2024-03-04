@@ -80,10 +80,12 @@ Our goal is to support the community in building better datasets together. We ar
 
 ## What types of projects are we looking for?
 
-We are open to supporting many types of projects, especially those of existing open-source communities. Our only current limitation is that we're primarily focused on text-based datasets. If you have a very cool idea for multimodal datasets, we'd love to hear from you, but we may not be able to support you in this first cohort.
+We are open to supporting many types of projects, especially those of existing open-source communities. We are particularly interested in projects focusing on building datasets for languages, domains, and tasks that are currently underrepresented in the open-source community. Our only current limitation is that we're primarily focused on text-based datasets. If you have a very cool idea for multimodal datasets, we'd love to hear from you, but we may not be able to support you in this first cohort. 
 
 Tasks can either be fully open or open to members of a particular Hugging Face Hub organization. 
 
-If you want to be part of the first cohort, please get in touch here.
-<!--TODO add contact method>
+If you want to be part of the first cohort, please join us in the `#data-is-better-together` channel in the [Hugging Face Discord](http://hf.co/join/discord) and let us know what you want to build together! You can also reach out via email to daniel at thiswebsit.co. 
+
+We are looking forward to building better datasets together with you!
+
 
