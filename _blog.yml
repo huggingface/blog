@@ -463,7 +463,6 @@
     - audio
     - cv
 
-
 - local: gradio-joins-hf
   title: "Gradio joins Hugging Face!"
   author: abidlabs
@@ -869,7 +868,7 @@
   thumbnail: /blog/assets/78_deep_rl_dqn/thumbnail.gif
   date: June 7, 2022
   tags:
-  - rl
+    - rl
 
 - local: annotated-diffusion
   title: "The Annotated Diffusion Model"
@@ -877,9 +876,9 @@
   thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
   date: June 7, 2022
   tags:
-  - guide
-  - diffusion
-  - stable-diffusion
+    - guide
+    - diffusion
+    - stable-diffusion
 
 - external: https://huggingface.co/spaces/loubnabnl/code-generation-models
   title: "Code generation with Hugging Face"
@@ -897,8 +896,8 @@
   thumbnail: /blog/assets/79_st_semantic_search/thumbnail.png
   date: June 10, 2022
   tags:
-  - nlp
-  - guide
+    - nlp
+    - guide
 
 - local: ml-director-insights-3
   title: "Director of Machine Learning Insights [Part 3: Finance Edition]"
@@ -935,8 +934,8 @@
   thumbnail: /blog/assets/80_getting_started_with_embeddings/thumbnail.png
   date: June 23, 2022
   tags:
-  - guide
-  - nlp
+    - guide
+    - nlp
 
 - local: eval-on-the-hub
   title: "Announcing Evaluation on the Hub"
@@ -944,9 +943,9 @@
   thumbnail: /blog/assets/82_eval_on_the_hub/thumbnail.png
   date: June 28, 2022
   tags:
-  - community
-  - launch
-  - guide
+    - community
+    - launch
+    - guide
 
 - local: accelerate-deepspeed
   title: "Accelerate Large Model Training using DeepSpeed"
@@ -954,7 +953,7 @@
   thumbnail: /blog/assets/83_accelerate_deepspeed/deepspeed-thumbnail.png
   date: June 28, 2022
   tags:
-  - guide
+    - guide
 
 - local: your-first-ml-project
   title: "Liftoff! How to get started with your first ML project 🚀"
@@ -970,7 +969,7 @@
   thumbnail: /blog/assets/85_policy_gradient/thumbnail.gif
   date: June 30, 2022
   tags:
-  - rl
+    - rl
 
 - local: sentiment-analysis-twitter
   title: "Getting Started with Sentiment Analysis on Twitter"
@@ -1014,11 +1013,11 @@
   title: "How to train your model dynamically using adversarial data"
   author: chrisjay
   thumbnail: /blog/assets/88_mnist_adversarial/mnist-adversarial.png
-  date:  July 16, 2022
+  date: July 16, 2022
   tags:
-  - mnist
-  - adversarial
-  - guide
+    - mnist
+    - adversarial
+    - guide
 
 - local: deep-rl-a2c
   title: "Advantage Actor Critic (A2C)"
@@ -1026,7 +1025,7 @@
   thumbnail: /blog/assets/89_deep_rl_a2c/thumbnail.gif
   date: July 22, 2022
   tags:
-  - rl
+    - rl
 
 - local: tf-serving-vision
   title: "Deploying TensorFlow Vision Models in Hugging Face with TF Serving"
@@ -1091,8 +1090,7 @@
   thumbnail: /blog/assets/93_deep_rl_ppo/thumbnail.png
   date: August 5, 2022
   tags:
-  - rl
-
+    - rl
 
 - local: how-to-train-sentence-transformers
   title: "Train and Fine-Tune Sentence Transformers Models"
@@ -1100,9 +1098,8 @@
   thumbnail: /blog/assets/95_training_st_models/thumbnail.png
   date: August 10, 2022
   tags:
-  - guide
-  - nlp
-
+    - guide
+    - nlp
 
 - local: deploy-tfserving-kubernetes
   title: "Deploying 🤗 ViT on Kubernetes with TF Serving"
@@ -1178,13 +1175,13 @@
   thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
   date: August 22, 2022
   tags:
-  - guide
-  - diffusion
-  - nlp
-  - text to image
-  - clip
-  - stable-diffusion
-  - dalle
+    - guide
+    - diffusion
+    - nlp
+    - text to image
+    - clip
+    - stable-diffusion
+    - dalle
 
 - local: spaces_3dmoljs
   title: "Visualize proteins on Hugging Face Spaces"
@@ -1216,10 +1213,10 @@
   thumbnail: /blog/assets/102_diffusers_2nd_month/inpainting.png
   date: September 12, 2022
   tags:
-  - guide
-  - diffusion
-  - text_to_image
-  - stable-diffusion
+    - guide
+    - diffusion
+    - text_to_image
+    - stable-diffusion
 
 - local: megatron-training
   title: "How to train a Language Model with Megatron-LM"
@@ -1474,12 +1471,12 @@
   thumbnail: /blog/assets/diffusion-models-event/thumbnail.png
   date: Nov 25, 2022
   tags:
-  - diffusion
-  - nlp
-  - text to image
-  - clip
-  - stable-diffusion
-  - dalle
+    - diffusion
+    - nlp
+    - text to image
+    - clip
+    - stable-diffusion
+    - dalle
 
 - local: interns-2023
   title: "We are hiring interns!"
@@ -1850,7 +1847,6 @@
     - safety
     - alignment
 
-
 - local: classification-use-cases
   title: "How Hugging Face Accelerated Development of Witty Works Writing Assistant"
   author: Violette
@@ -2200,7 +2196,6 @@
     - serialization
     - load times
 
-
 - local: huggingface-and-ibm
   title: "Hugging Face and IBM partner on watsonx.ai, the next-generation enterprise studio for AI builders"
   author: juliensimon
@@ -2434,10 +2429,9 @@
     - open-llm-leaderboard
     - leaderboard
 
-
 - local: ethics-soc-4
   title: "Ethics and Society Newsletter #4: Bias in Text-to-Image Models"
-  author:  sasha
+  author: sasha
   thumbnail: /blog/assets/152_ethics_soc_4/ethics_4_thumbnail.png
   date: June 26, 2023
   tags:
@@ -2495,7 +2489,6 @@
     - web
     - javascript
     - transformers.js
-
 
 - local: stable-diffusion-finetuning-intel
   title: "Fine-tuning Stable Diffusion models on Intel CPUs"
@@ -3185,7 +3178,6 @@
     - llm
     - transformers
 
-
 - local: 2023-in-llms
   title: "2023, year of open LLMs"
   thumbnail: /blog/assets/cv_state/thumbnail.png
@@ -3255,10 +3247,10 @@
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_vectara.png
   date: Jan 12, 2024
   tags:
-      - leaderboard
-      - guide
-      - collaboration
-      - community
+    - leaderboard
+    - guide
+    - collaboration
+    - community
 
 - local: sdxl_ort_inference
   title: "Accelerating SD Turbo and SDXL Turbo Inference with ONNX Runtime and Olive"
@@ -3345,7 +3337,6 @@
     - collaboration
     - research
 
-
 - local: leaderboard-hallucinations
   title: "The Hallucinations Leaderboard, an Open Effort to Measure Hallucinations in Large Language Models"
   author: pminervini
@@ -3378,9 +3369,9 @@
   guest: true
   date: January 31, 2024
   tags:
-      - leaderboard
-      - guide
-      - collaboration
+    - leaderboard
+    - guide
+    - collaboration
 
 - local: patchtst
   title: "Patch Time Series Transformer in Hugging Face"
@@ -3557,7 +3548,7 @@
 
 - local: arena-tts
   title: "TTS Arena: Benchmarking Text-to-Speech Models in the Wild"
-  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png 
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png
   author: mrfakename
   guest: true
   date: Feb 27, 2024
@@ -3575,7 +3566,7 @@
     - nlp
     - community
     - research
-    - LLM 
+    - LLM
 
 - local: textgen-pipe-gaudi
   title: "Text-Generation Pipeline on Intel® Gaudi® 2 AI Accelerator"
@@ -3596,7 +3587,7 @@
   author: davanstrien
   guest: true
   thumbnail: /blog/assets/community-datasets/thumbnail.png
-  date: Feb 29, 2024
+  date: Mar 4, 2024
   tags:
     - community
     - data
