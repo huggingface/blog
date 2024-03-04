@@ -122,8 +122,11 @@ import transformers
 from trl import SFTTrainer
 
 def formatting_func(example):
-    text = f"Quote: {example['quote'][0]}\nAuthor: {example['author'][0]}"
-    return [text]
+    output_texts = []
+    for i in range(len(example)):
+        text = f"Quote: {example['quote'][i]}\nAuthor: {example['author'][i]}"
+        output_texts.append(text)
+    return output_texts
 
 trainer = SFTTrainer(
     model=model,
