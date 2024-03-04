@@ -21,7 +21,7 @@ We refer to these tasks as "context-sensitive text-rich visual reasoning tasks".
 
 At the moment, most evaluations of instruction-tuned large multimodal models (LMMs) focus on testing how well models can respond to human instructions posed as questions or imperative sentences (“Count this”, “List that”, etc) over images... but not how well they understand context-sensitive text-rich scenes! 
 
-That’s why we created ConTextual, a Context-sensitive Text-rich visuaL reasoning dataset for evaluating LMMs. We also released a leaderboard, so that the community can see for themselves which models are the best at this task.
+That’s why we (researchers from University of California Los Angeles) created ConTextual, a Context-sensitive Text-rich visuaL reasoning dataset for evaluating LMMs. We also released a leaderboard, so that the community can see for themselves which models are the best at this task.
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="ucla-contextual/contextual_leaderboard"></gradio-app>
@@ -53,7 +53,7 @@ The leaderboard contains model results both on the validation and test datasets 
 For our initial experiments, our benchmark assessed the performance of 13 models. We divided them into three categories: 
 - **Augmented LLM approach**: GPT4 + visual information in the form of OCR of the image and/or dense image captions; 
 - **Closed-Source LMMs**: GPT4V(ision) and Gemini-Vision-Pro; 
-- **Open-Source LMMs**: LLaVA-v1.5-13B, ShareGPT4V-7B, Instruct-Blip-Vicuna-7B, mPlugOwl-v2-7B and so on.
+- **Open-Source LMMs**: LLaVA-v1.5-13B, ShareGPT4V-7B, Instruct-Blip-Vicuna-7B, mPlugOwl-v2-7B, Bliva-Vicuna-7B, Qwen-VL-7B and Idefics-9B.
 
 Our dataset includes a reference response for each instruction, allowing us to test various automatic evaluation methods. For evaluation, we use an LLM-as-a-judge approach, and prompt GPT-4 with the instruction, reference response, and predicted response. The model has to return whether the predicted response is acceptable or not. (GPT4 was chosen as it correlated the most with human judgement in our experiments.)
 
@@ -72,10 +72,15 @@ You’ll find more examples like this in the Appendix section of our [paper](htt
 While working on this, we found that:
 - Modern LMMs (proprietary and open models) struggle to perform on ConTextual dataset while humans are good at it, hinting at the possibility of model improvement to enhance reasoning over text-rich images, a domain with significant real-world applications.
 - Proprietary LMMs perform poorly in infographics reasoning that involves time reading, indicating a gap in their capabilities compared to humans. Notably, GPT-4V, the best performing model, surpasses humans in abstract reasoning, potentially due to exposure to memes and quotes data, but struggles in time-related tasks where humans excel.
-- Open models such as LLaVA-1.5-13B and ShareGPT-4V-7B achieve acceptable ratings only in abstract and natural scenes contexts, suggesting a limitation in their training data diversity.
-- The augmented LLM approach achieves a very low rating of 17.2%, which indicates that the dataset instances cannot be solved without precise visual perception.
+- For open-source models such as LLaVA-1.5-13B and ShareGPT-4V-7B, there is a strong gap between the domains on which they achieve acceptable human ratings (abstract and natural scene contexts) and the other domains ((time-reading, infographics, navigation, shopping, web, and mobile usage). It's therefore likely that many of the domains we cover in our samples are out-of-distribution for these models. Open-source models should therefore aim to increase the diversity in their training data.
+- Augmenting an LMMs with a Large Language Model, which receives visual information converted into text via OCR or captions, performs notably badly, with an human approval rate of 17.2%. Our samples need a combination of precise visual perception along with fine-grained nuanced vision-language alignment to be solved. 
 
-Our analysis suggests that the practitioners develop enhanced image encoders and create highly accurate image descriptions, to improve the model's perception and mitigate the occurrence of hallucinations. This, in turn, will lead to more effective context-sensitive text-rich visual reasoning.
+Our analysis suggests promising next steps include: 
+- developing enhanced image encoders, 
+- creating highly accurate image descriptions, 
+- facilitating fine-grained vision-language alignment to improve the model's perception and mitigate the occurrence of hallucinations. 
+
+This, in turn, will lead to more effective context-sensitive text-rich visual reasoning.
 
 ## What’s next?
 
