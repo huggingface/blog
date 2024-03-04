@@ -2328,7 +2328,7 @@
     - community
     - guide
 
-- local: llm-leaderboard
+- local: open-llm-leaderboard-rlhf
   title: "Can foundation models label data like humans?"
   author: nazneen
   thumbnail: /blog/assets/llm-leaderboard/leaderboard-thumbnail.png
@@ -2421,7 +2421,7 @@
     - visualization
     - apps
 
-- local: evaluating-mmlu-leaderboard
+- local: open-llm-leaderboard-mmlu
   title: "What's going on with the Open LLM Leaderboard?"
   author: clefourrier
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
@@ -3101,7 +3101,7 @@
     - stable diffusion
     - guide
 
-- local: leaderboard-drop-dive
+- local: open-llm-leaderboard-drop
   title: "Open LLM Leaderboard: DROP deep dive"
   author: clefourrier
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
@@ -3248,7 +3248,7 @@
     - llm
     - qlora
 
-- local: leaderboards-on-the-hub-vectara
+- local: leaderboard-vectara
   title: "A guide to setting up your own Hugging Face leaderboard: an end-to-end example with Vectara's hallucination leaderboard"
   author: ofermend
   guest: true
@@ -3333,7 +3333,7 @@
     - gcp
     - hardware
 
-- local: leaderboards-on-the-hub-decodingtrust
+- local: leaderboard-decodingtrust
   title: "An Introduction to AI Secure LLM Safety Leaderboard"
   author: danielz01
   guest: true
@@ -3346,7 +3346,7 @@
     - research
 
 
-- local: leaderboards-on-the-hub-hallucinations
+- local: leaderboard-hallucinations
   title: "The Hallucinations Leaderboard, an Open Effort to Measure Hallucinations in Large Language Models"
   author: pminervini
   guest: true
@@ -3371,7 +3371,7 @@
     - optimum
     - collaboration
     - community
-- local: leaderboards-on-the-hub-patronus
+- local: leaderboard-patronus
   title: "Introducing the Enterprise Scenarios Leaderboard: a Leaderboard for Real World Use Cases"
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_patronus.png
   author: sunitha98
@@ -3415,7 +3415,7 @@
     - rlhf
     - constitutional-ai
 
-- local: leaderboards-on-the-hub-nphardeval
+- local: leaderboard-nphardeval
   title: "NPHardEval Leaderboard: Unveiling the Reasoning Abilities of Large Language Models through Complexity Classes and Dynamic Updates"
   author: lizhouf
   guest: true
@@ -3486,7 +3486,7 @@
     - cv
     - lora
 
-- local: leaderboards-on-the-hub-upstage
+- local: leaderboard-upstage
   title: "Introducing the Open Ko-LLM Leaderboard: Leading the Korean LLM Evaluation Ecosystem"
   author: Chanjun
   guest: true
@@ -3519,7 +3519,7 @@
     - community
     - guide
 
-- local: leaderboards-on-the-hub-haizelab
+- local: leaderboard-haizelab
   title: "Introducing the Red-Teaming Resistance Leaderboard"
   author: steve-sli
   guest: true
@@ -3554,6 +3554,42 @@
     - research
     - nlp
     - guide
+
+- local: arena-tts
+  title: "TTS Arena: Benchmarking Text-to-Speech Models in the Wild"
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png 
+  author: mrfakename
+  guest: true
+  date: Feb 27, 2024
+  tags:
+    - leaderboard
+    - arena
+    - collaboration
+
+- local: starcoder2
+  title: "StarCoder2 and The Stack v2"
+  author: lvwerra
+  thumbnail: /blog/assets/177_starcoder2/sc2-banner.png
+  date: Feb 28, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM 
+
+- local: textgen-pipe-gaudi
+  title: "Text-Generation Pipeline on Intel® Gaudi® 2 AI Accelerator"
+  author: siddjags
+  guest: true
+  thumbnail: /blog/assets/textgen-pipe-gaudi/thumbnail.png
+  date: Feb 29, 2024
+  tags:
+    - habana
+    - partnerships
+    - hardware
+    - nlp
+    - llm
+    - inference
 
 - local: community-datasets
   title: "Data is better together"
