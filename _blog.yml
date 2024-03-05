@@ -3602,3 +3602,15 @@
     - data
     - collaboration
     - announcement
+
+- local: leaderboard-contextual
+  title: "Introducing ConTextual: How well can your Multimodal model jointly reason over text and image in text-rich scenes?"
+  author: rohan598
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_contextual.png
+  date: Mar 5, 2024
+  tags:
+    - leaderboard
+    - collaboration
+    - research
+
