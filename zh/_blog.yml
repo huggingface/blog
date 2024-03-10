@@ -1267,6 +1267,18 @@
     - langchain
     - benchmark
 
+- local: leaderboard-decodingtrust
+  title: "来自 AI Secure 实验室的 LLM 安全排行榜简介"
+  author: danielz01
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_decodingtrust.png
+  date: January 26, 2024
+  tags:
+    - leaderboard
+    - guide
+    - collaboration
+    - research
+
 - local: intel-starcoder-quantization
   title: "使用 🤗 Optimum Intel 在英特尔至强上加速 StarCoder：Q8/Q4 及投机解码"
   author: ofirzaf
@@ -1362,4 +1374,18 @@
     - nlp
     - community
     - research
-    - LLM 
+    - LLM
+
+- local: textgen-pipe-gaudi
+  title: "基于英特尔® Gaudi® 2 AI 加速器的文本生成流水线"
+  author: siddjags
+  guest: true
+  thumbnail: /blog/assets/textgen-pipe-gaudi/thumbnail.png
+  date: Feb 29, 2024
+  tags:
+    - habana
+    - partnerships
+    - hardware
+    - nlp
+    - llm
+    - inference 
