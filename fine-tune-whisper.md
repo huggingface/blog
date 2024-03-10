@@ -117,6 +117,8 @@ checkpoints are summarised in the following table with links to the models on th
 | small  | 12     | 768   | 12    | 244 M      | [✓](https://huggingface.co/openai/whisper-small.en)  | [✓](https://huggingface.co/openai/whisper-small)  |
 | medium | 24     | 1024  | 16    | 769 M      | [✓](https://huggingface.co/openai/whisper-medium.en) | [✓](https://huggingface.co/openai/whisper-medium) |
 | large  | 32     | 1280  | 20    | 1550 M     | x                                                    | [✓](https://huggingface.co/openai/whisper-large)  |
+| large-v2  | 32     | 1280  | 20    | 1550 M     | x                                                    | [✓](https://huggingface.co/openai/whisper-large-v2)  |
+| large-v3  | 32     | 1280  | 20    | 1550 M     | x                                                    | [✓](https://huggingface.co/openai/whisper-large-v3)  |
 
 For demonstration purposes, we'll fine-tune the multilingual version of the 
 [`small`](https://huggingface.co/openai/whisper-small) checkpoint with 244M params (~= 1GB). 
