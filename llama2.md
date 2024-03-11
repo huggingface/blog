@@ -62,6 +62,7 @@ If you’ve been waiting for an open alternative to closed-source chatbots, Llam
 | [Llama-2-70B](https://huggingface.co/meta-llama/Llama-2-70b-hf) | Llama 2 license | ✅ | 2,000B | 67.87 |
 | [Llama-2-70B-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) | Llama 2 license | ✅ | 2,000B | 62.4 |
 
+*Note: the performance scores shown in the table below have been updated to account for the new methodology introduced in November 2023, which added new benchmarks. More details in [this post](https://huggingface.co/blog/open-llm-leaderboard-drop)*.
 
 ## Demo
 
