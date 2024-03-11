@@ -53,7 +53,7 @@ Falcon 180B was the best openly released LLM at its release, outperforming Llama
 ![Palm 2 comparison](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/162_falcon_180b/palm2_480.jpg)
 
 
-With 68.74 on the Hugging Face Leaderboard, Falcon 180B was the highest-scoring openly released pre-trained LLM, surpassing Meta’s Llama 2.*
+With 68.74 on the Hugging Face Leaderboard at the time of release, Falcon 180B was the highest-scoring openly released pre-trained LLM, surpassing Meta’s Llama 2.*
 
 | Model   | Size | Leaderboard score | Commercial use or license | Pretraining length |
 | ------- | ---- | ----------------- | ------------------------- | ------------------ |
@@ -63,7 +63,7 @@ With 68.74 on the Hugging Face Leaderboard, Falcon 180B was the highest-scoring 
 | Falcon  | 40B  | 58.07             | 🟢                         | 1,000B             |
 | MPT     | 30B  | 52.77             | 🟢                         | 1,000B             |
 
-* The LLM Leaderboard benchmark added two new benchmarks. It turns out Llama 2 has a slightly higher Leaderboard score with the new scores.
+* The Open LLM Leaderboard added two new benchmarks in November 2023, and we updated the table above to reflect the latest score (67.85). Falcon is on par with Llama 2 70B according to the new methodology.
 
 ![open_llm_leaderboard.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/162_falcon_180b/open_llm_leaderboard.jpg)
 
