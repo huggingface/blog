@@ -16,7 +16,7 @@ authors:
 
 Falcon is a new family of state-of-the-art language models created by the [Technology Innovation Institute](https://www.tii.ae/) in Abu Dhabi, and released under the Apache 2.0 license. **Notably, [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) is the first “truly open” model with capabilities rivaling many current closed-source models**. This is fantastic news for practitioners, enthusiasts, and industry, as it opens the door for many exciting use cases.
 
-*Warning: Few months after this release, the Falcon team released a larger model of [180 billion parameters](https://huggingface.co/blog/falcon-180b).*
+*Note: Few months after this release, the Falcon team released a larger model of [180 billion parameters](https://huggingface.co/blog/falcon-180b).*
 
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
@@ -38,6 +38,8 @@ In this blog, we will be taking a deep dive into the Falcon models: first discus
 ## The Falcon models
 
 The Falcon family is composed of two base models: [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) and its little brother [Falcon-7B](https://huggingface.co/tiiuae/falcon-7b). **The 40B parameter model was at the top of the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) at the time of its release, while the 7B model was the best in its weight class**.
+
+*Note: the performance scores shown in the table below have been updated to account for the new methodology introduced in November 2023, which added new benchmarks. More details in [this post](https://huggingface.co/blog/open-llm-leaderboard-drop)*.
 
 Falcon-40B requires ~90GB of GPU memory — that’s a lot, but still less than LLaMA-65B, which Falcon outperforms. On the other hand, Falcon-7B only needs ~15GB, making inference and finetuning accessible even on consumer hardware. *(Later in this blog, we will discuss how we can leverage quantization to make Falcon-40B accessible even on cheaper GPUs!)* 
 
