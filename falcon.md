@@ -53,15 +53,13 @@ This trick doesn’t significantly influence pretraining, but it greatly [improv
 
 | Model | License | Commercial use? | Pretraining length [tokens] | Pretraining compute [PF-days] | Leaderboard score | K,V-cache size for a 2.048 context |
 | --- | --- | --- | --- | --- | --- | --- |
-| StableLM-Alpha-7B | CC-BY-SA-4.0 | ✅ | 1,500B | 700 | 38.3* | 800MB |
-| LLaMA-7B | LLaMA license | ❌ | 1,000B | 500 | 47.6 | 1,100MB |
-| MPT-7B | Apache 2.0 | ✅ | 1,000B | 500 | 48.6 | 1,100MB |
+| StableLM-Alpha-7B | CC-BY-SA-4.0 | ✅ | 1,500B | 700 | 34.37 | 800MB |
+| LLaMA-7B | LLaMA license | ❌ | 1,000B | 500 | 45.65 | 1,100MB |
+| MPT-7B | Apache 2.0 | ✅ | 1,000B | 500 | 44.28 | 1,100MB |
 | Falcon-7B | Apache 2.0 | ✅ | 1,500B | 700 | 48.8 | 20MB |
-| LLaMA-33B | LLaMA license | ❌ | 1,500B | 3200 | 56.9 | 3,300MB |
-| LLaMA-65B | LLaMA license | ❌ | 1,500B | 6300 | 58.3 | 5,400MB |
-| Falcon-40B | Apache 2.0 | ✅ | 1,000B | 2800 | 60.4 | 240MB |
-
-**score from the base version not available, we report the tuned version instead.*
+| LLaMA-33B | LLaMA license | ❌ | 1,500B | 3200 | - | 3,300MB |
+| LLaMA-65B | LLaMA license | ❌ | 1,500B | 6300 | 61.19 | 5,400MB |
+| Falcon-40B | Apache 2.0 | ✅ | 1,000B | 2800 | 58.07 | 240MB |
 
 
 ## Demo
