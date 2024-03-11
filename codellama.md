@@ -346,7 +346,7 @@ While HumanEval is a Python benchmark there have been significant efforts to tra
 | CodeGen-2.5-7B-Mono    | Apache-2.0         | ✅             | ✅               | 1400B                       | 45.65  | 23.22      | 12.1                  |
 | CodeGen-2.5-7B-Multi   | Apache-2.0         | ✅             | ✅               | 1400B                       | 28.7   | 26.27      | 20.04                 |
 
-**Note:** The scores presented in the table above are sourced from our code leaderboard, where we evaluate all models with the same settings. For more details, please refer to the [leaderboard](https://huggingface.co/spaces/bigcode/multilingual-code-evals).
+**Note:** The scores presented in the table above were sourced from our code leaderboard at the time of publication. Scores change as new models are released, because models are compared against one another. For more details, please refer to the [leaderboard](https://huggingface.co/spaces/bigcode/multilingual-code-evals).
 
 ## Additional Resources
 
