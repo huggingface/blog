@@ -755,7 +755,7 @@ We see that fine-tuning adapter layers of `mms-1b-all` for just 100 steps outper
 
 From the [official paper](https://scontent-cdg4-3.xx.fbcdn.net/v/t39.8562-6/348827959_6967534189927933_6819186233244071998_n.pdf?_nc_cat=104&ccb=1-7&_nc_sid=ad8a9d&_nc_ohc=fSo3qQ7uxr0AX8EWnWl&_nc_ht=scontent-cdg4-3.xx&oh=00_AfBL34K0MAAPb0CgnthjbHfiB6pSnnwbn5esj9DZVPvyoA&oe=6495E802) and this quick comparison it becomes clear that `mms-1b-all` has a much higher capability of transfering knowledge to a low-resource language and should be preferred over `xls-r-300m`. In addition, training is also more memory-efficient as only a small subset of layers are trained.
 
-The adapter weights will be uploaded as part of the model checkpoint, but we also want to make sure to save them seperately so that they can easily be off- and onloaded.
+The adapter weights will be uploaded as part of the model checkpoint, but we also want to make sure to save them separately so that they can easily be off- and onloaded.
 
 Let's save all the adapter layers into the training output dir so that it can be correctly uploaded to the Hub.
 

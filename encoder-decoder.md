@@ -12,8 +12,6 @@ authors:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-# **Transformer-based Encoder-Decoder Models**
-
 ```bash
 !pip install transformers==4.2.1
 !pip install sentencepiece==0.1.95

@@ -32,7 +32,7 @@ In this blog post, we will go over the most effective techniques at the time of 
 
 Throughout this notebook, we will offer an analysis of auto-regressive generation from a tensor's perspective. We delve into the pros and cons of adopting lower precision, provide a comprehensive exploration of the latest attention algorithms, and discuss improved LLM architectures. While doing so, we run practical examples showcasing each of the feature improvements.
 
-## 1. Harnessing the Power of Lower Precision
+### 1. Harnessing the Power of Lower Precision
 
 Memory requirements of LLMs can be best understood by seeing the LLM as a set of weight matrices and vectors and the text inputs as a sequence of vectors. In the following, the definition *weights* will be used to signify all model weight matrices and vectors.
 
@@ -289,7 +289,7 @@ If GPU memory is not a constraint for your use case, there is often no need to l
 For more in-detail usage information, we strongly recommend taking a look at the [Transformers Quantization Docs](https://huggingface.co/docs/transformers/main_classes/quantization#general-usage).
 Next, let's look into how we can improve computational and memory efficiency by using better algorithms and an improved model architecture.
 
-# 2. Flash Attention: A Leap Forward
+## 2. Flash Attention: A Leap Forward
 
 Today's top-performing LLMs share more or less the same fundamental architecture that consists of feed-forward layers, activation layers, layer normalization layers, and most crucially, self-attention layers.
 
@@ -617,7 +617,7 @@ As we can see every time we increase the text input tokens by the just sampled t
 
 With very few exceptions, LLMs are trained using the [causal language modeling objective](https://huggingface.co/docs/transformers/tasks/language_modeling#causal-language-modeling) and therefore mask the upper triangle matrix of the attention score - this is why in the two diagrams above the attention scores are left blank (*a.k.a* have 0 probability). For a quick recap on causal language modeling you can refer to the [*Illustrated Self Attention blog*](https://jalammar.github.io/illustrated-gpt2/#part-2-illustrated-self-attention).
 
-As a consequence, tokens *never* depend on previous tokens, more specifically the \\( \mathbf{q}_i \\) vector is never put in relation with any key, values vectors \\( \mathbf{k}_j, \mathbf{v}_j \\) if \\( j > i \\) . Instead \\( \mathbf{q}_i \\) only attends to previous key-value vectors \\( \mathbf{k}_{m < i}, \mathbf{v}_{m < i} \text{ , for } m \in \{0, \ldots i - 1\} \\). In order to reduce unnecessary computation, one can therefore cache each layer's key-value vectors for all previous timesteps.
+As a consequence, tokens *never* depend on future tokens, more specifically the \\( \mathbf{q}_i \\) vector is never put in relation with any key, values vectors \\( \mathbf{k}_j, \mathbf{v}_j \\) if \\( j > i \\) . Instead \\( \mathbf{q}_i \\) only attends to previous key-value vectors \\( \mathbf{k}_{m < i}, \mathbf{v}_{m < i} \text{ , for } m \in \{0, \ldots i - 1\} \\). In order to reduce unnecessary computation, one can therefore cache each layer's key-value vectors for all previous timesteps.
 
 In the following, we will tell the LLM to make use of the key-value cache by retrieving and forwarding it for each forward pass.
 In Transformers, we can retrieve the key-value cache by passing the `use_cache` flag to the `forward` call and can then pass it with the current token.
@@ -633,7 +633,12 @@ for _ in range(5):
   next_token_id = torch.argmax(next_logits, dim=-1)
 
   print("shape of input_ids", next_token_id.shape)
-  print("length of key-value cache", len(past_key_values[0][0]))  # past_key_values are of shape [num_layers, 0 for k, 1 for v, batch_size, length, hidden_dim]
+  # past_key_values are a tuple (one for each Transformer layer) of tuples (one for the keys, one for the values)
+  # cached keys and values each are of shape (batch_size, num_heads, sequence_length, embed_size_per_head)
+  # hence let's print how many cached keys and values we have for the first Transformer layer
+  print("number of cached keys of the first Transformer layer", len(past_key_values[0][0][0,0,:,:]))
+  print("number of cached values of the first Transformer layer", len(past_key_values[0][1][0,0,:,:]))
+  
   generated_tokens.append(next_token_id.item())
 
 generated_text = tokenizer.batch_decode(generated_tokens)
@@ -643,15 +648,20 @@ generated_text
 **Output**:
 ```
 shape of input_ids torch.Size([1, 1])
-length of key-value cache 20
+number of cached keys of the first Transformer layer: 20
+number of cached values of the first Transformer layer: 20
 shape of input_ids torch.Size([1, 1])
-length of key-value cache 21
+number of cached keys of the first Transformer layer: 21
+number of cached values of the first Transformer layer: 21
 shape of input_ids torch.Size([1, 1])
-length of key-value cache 22
+number of cached keys of the first Transformer layer: 22
+number of cached values of the first Transformer layer: 22
 shape of input_ids torch.Size([1, 1])
-length of key-value cache 23
+number of cached keys of the first Transformer layer: 23
+number of cached values of the first Transformer layer: 23
 shape of input_ids torch.Size([1, 1])
-length of key-value cache 24
+number of cached keys of the first Transformer layer: 24
+number of cached values of the first Transformer layer: 24
 [' Here', ' is', ' a', ' Python', ' function']
 ```
 

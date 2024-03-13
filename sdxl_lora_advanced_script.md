@@ -2,7 +2,7 @@
 title: "LoRA training scripts of the world, unite!"
 thumbnail: /blog/assets/dreambooth_lora_sdxl/thumbnail.png
 authors:
-- user: LinoyTsaban
+- user: linoyts
 - user: multimodalart
 ---
 
@@ -547,7 +547,7 @@ num_class_images = 150
 
 ## Inference
 
-Inference with models trained with the techniques above should work the same as with any trainer, except that , when we do pivotal tuning, besides the `*.safetensors` weights of your LoRA, there is also the `*.safetensors` text embeddings trained with the model
+Inference with models trained with the techniques above should work the same as with any trainer, except that, when we do pivotal tuning, besides the `*.safetensors` weights of your LoRA, there is also the `*.safetensors` text embeddings trained with the model
 for the new tokens. In order to do inference with those we add 2 steps to how we would normally load a LoRA:
 
 1. Download our trained embeddings from the hub

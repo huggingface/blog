@@ -2328,7 +2328,7 @@
     - community
     - guide
 
-- local: llm-leaderboard
+- local: open-llm-leaderboard-rlhf
   title: "Can foundation models label data like humans?"
   author: nazneen
   thumbnail: /blog/assets/llm-leaderboard/leaderboard-thumbnail.png
@@ -2421,7 +2421,7 @@
     - visualization
     - apps
 
-- local: evaluating-mmlu-leaderboard
+- local: open-llm-leaderboard-mmlu
   title: "What's going on with the Open LLM Leaderboard?"
   author: clefourrier
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
@@ -3101,7 +3101,7 @@
     - stable diffusion
     - guide
 
-- local: leaderboard-drop-dive
+- local: open-llm-leaderboard-drop
   title: "Open LLM Leaderboard: DROP deep dive"
   author: clefourrier
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
@@ -3248,11 +3248,11 @@
     - llm
     - qlora
 
-- local: leaderboards-on-the-hub-vectara
+- local: leaderboard-vectara
   title: "A guide to setting up your own Hugging Face leaderboard: an end-to-end example with Vectara's hallucination leaderboard"
   author: ofermend
   guest: true
-  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_vectara.png
   date: Jan 12, 2024
   tags:
       - leaderboard
@@ -3285,12 +3285,84 @@
     - nlp
     - research
 
-
-- local: intel-fast-embedding
-  title: "Fast Embeddings with 🤗 Optimum Intel and fastRAG"
-  author: peterizsak
+- local: patchtsmixer
+  title: "PatchTSMixer in HuggingFace"
+  author: ajati
   guest: true
-  thumbnail: /blog/assets/optimum_intel/thumbnail.png
+  thumbnail: /blog/assets/patchtsmixer/thumbnail.jpeg
+  date: January 19, 2024
+  tags:
+    - guide
+    - research
+    - time-series
+
+- local: fine-tune-w2v2-bert
+  title: "Fine-Tune W2V2-Bert for low-resource ASR with 🤗 Transformers"
+  author: ylacombe
+  thumbnail: /blog/assets/fine-tune-w2v2-bert/w2v_thumbnail.png
+  date: January 19, 2024
+  tags:
+    - guide
+    - audio
+    - asr
+    - low-resource
+
+- local: open-source-llms-as-agents
+  title: "Open-source LLMs as LangChain Agents"
+  author: m-ric
+  thumbnail: /blog/assets/open-source-llms-as-agents/thumbnail_open_source_agents.png
+  date: January 24, 2024
+  tags:
+    - mixtral
+    - zephyr
+    - solar
+    - llama2
+    - nlp
+    - llm
+    - agents
+    - langchain
+    - benchmark
+
+- local: gcp-partnership
+  title: "Hugging Face and Google partner for open AI collaboration"
+  author: jeffboudier
+  thumbnail: /blog/assets/173_gcp-partnership/thumbnail.jpg
+  date: January 25, 2024
+  tags:
+    - partnerships
+    - gcp
+    - hardware
+
+- local: leaderboard-decodingtrust
+  title: "An Introduction to AI Secure LLM Safety Leaderboard"
+  author: danielz01
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_decodingtrust.png
+  date: January 26, 2024
+  tags:
+    - leaderboard
+    - guide
+    - collaboration
+    - research
+
+
+- local: leaderboard-hallucinations
+  title: "The Hallucinations Leaderboard, an Open Effort to Measure Hallucinations in Large Language Models"
+  author: pminervini
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  date: January 29, 2024
+  tags:
+    - leaderboard
+    - guide
+    - collaboration
+    - research
+
+- local: intel-starcoder-quantization
+  title: "Accelerate StarCoder with 🤗 Optimum Intel on Xeon: Q8/Q4 and Speculative Decoding"
+  author: ofirzaf
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
   date: Jan 30, 2024
   tags:
     - nlp
@@ -3300,3 +3372,259 @@
     - collaboration
     - community
 
+- local: leaderboard-patronus
+  title: "Introducing the Enterprise Scenarios Leaderboard: a Leaderboard for Real World Use Cases"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_patronus.png
+  author: sunitha98
+  guest: true
+  date: January 31, 2024
+  tags:
+      - leaderboard
+      - guide
+      - collaboration
+
+- local: patchtst
+  title: "Patch Time Series Transformer in Hugging Face"
+  author: namctin
+  guest: true
+  thumbnail: /blog/assets/patchtst/thumbnail.png
+  date: February 1, 2024
+  tags:
+    - guide
+    - research
+    - time-series
+
+- local: text-generation-inference-on-inferentia2
+  title: "Hugging Face Text Generation Inference available for AWS Inferentia2"
+  author: philschmid
+  thumbnail: /blog/assets/175_text_generation_inference_on_inferentia2/thumbnail.jpg
+  date: Feb 1, 2024
+  tags:
+    - guide
+    - partnerships
+    - aws
+    - llm
+
+- local: constitutional_ai
+  title: "Constitutional AI with Open LLMs"
+  author: vwxyzjn
+  thumbnail: /blog/assets/175_constitutional_ai/thumbnail.png
+  date: Feburary 1, 2024
+  tags:
+    - research
+    - rl
+    - rlhf
+    - constitutional-ai
+
+- local: leaderboard-nphardeval
+  title: "NPHardEval Leaderboard: Unveiling the Reasoning Abilities of Large Language Models through Complexity Classes and Dynamic Updates"
+  author: lizhouf
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_nphardeval.png
+  date: Feb 2, 2024
+  tags:
+    - leaderboard
+    - guide
+    - collaboration
+    - research
+
+- local: segmoe
+  title: "SegMoE: Segmind Mixture of Diffusion Experts"
+  author: Warlord-K
+  guest: true
+  thumbnail: /blog/assets/segmoe/thumbnail.png
+  date: February 3, 2024
+  tags:
+    - text-to-image
+    - stable-diffusion
+    - moe
+    - segmoe
+
+- local: tgi-messages-api
+  title: "From OpenAI to Open LLMs with Messages API"
+  author: andrewrreed
+  thumbnail: /blog/assets/tgi-messages-api/thumbnail.jpg
+  date: Feb 8, 2024
+  tags:
+    - guide
+    - llm
+    - nlp
+    - tgi
+
+- local: amd_pervasive_developer_ai_contest
+  title: "AMD Pervasive AI Developer Contest!"
+  author: guruprasadmp
+  guest: true
+  thumbnail: /blog/assets/amd_pervasive_developer_ai_contest/amd_developer_general_abstract.jpg
+  date: Feb 14, 2024
+  tags:
+    - partner
+    - amd
+
+- local: synthetic-data-save-costs
+  title: "Synthetic data: save money, time and carbon with open source"
+  author: MoritzLaurer
+  thumbnail: /blog/assets/176_synthetic-data-save-costs/thumbnail.png
+  date: Feb 16, 2024
+  tags:
+    - guide
+    - llm
+    - nlp
+    - synthetic-data
+    - mixtral
+    - inference-endpoints
+    - autotrain
+
+- local: peft_merging
+  title: "🤗 PEFT welcomes new merging methods"
+  author: smangrul
+  thumbnail: /blog/assets/peft_merging/thumbnail.png
+  date: Feb 19, 2024
+  tags:
+    - guide
+    - llm
+    - nlp
+    - cv
+    - lora
+
+- local: leaderboard-upstage
+  title: "Introducing the Open Ko-LLM Leaderboard: Leading the Korean LLM Evaluation Ecosystem"
+  author: Chanjun
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_upstage.png
+  date: Feb 20, 2024
+  tags:
+    - leaderboard
+    - guide
+    - collaboration
+
+- local: gemma
+  title: "Welcome Gemma - Google's new open LLM"
+  author: philschmid
+  thumbnail: /blog/assets/gemma/thumbnail.jpg
+  date: Feb 21, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
+
+- local: matryoshka
+  title: "🪆 Introduction to Matryoshka Embedding Models"
+  author: tomaarsen
+  thumbnail: /blog/assets/matryoshka/thumbnail.png
+  date: Feb 23, 2024
+  tags:
+    - nlp
+    - community
+    - guide
+
+- local: leaderboard-haizelab
+  title: "Introducing the Red-Teaming Resistance Leaderboard"
+  author: steve-sli
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_haizelab.png
+  date: Feb 23, 2024
+  tags:
+    - leaderboard
+    - guide
+    - collaboration
+
+- local: gemma-peft
+  title: "Fine-Tuning Gemma Models in Hugging Face"
+  author: svaibhav
+  guest: true
+  thumbnail: /blog/assets/gemma-peft/thumbnail.png
+  date: Feb 23, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
+    - peft
+
+- local: watermarking
+  title: "AI Watermarking 101: Tools and Techniques"
+  author: sasha
+  thumbnail: /blog/assets/watermarking/thumbnail.png
+  date: Feb 26, 2024
+  tags:
+    - ethics
+    - research
+    - nlp
+    - guide
+
+- local: arena-tts
+  title: "TTS Arena: Benchmarking Text-to-Speech Models in the Wild"
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png 
+  author: mrfakename
+  guest: true
+  date: Feb 27, 2024
+  tags:
+    - leaderboard
+    - arena
+    - collaboration
+
+- local: starcoder2
+  title: "StarCoder2 and The Stack v2"
+  author: lvwerra
+  thumbnail: /blog/assets/177_starcoder2/sc2-banner.png
+  date: Feb 28, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM 
+
+- local: textgen-pipe-gaudi
+  title: "Text-Generation Pipeline on Intel® Gaudi® 2 AI Accelerator"
+  author: siddjags
+  guest: true
+  thumbnail: /blog/assets/textgen-pipe-gaudi/thumbnail.png
+  date: Feb 29, 2024
+  tags:
+    - habana
+    - partnerships
+    - hardware
+    - nlp
+    - llm
+    - inference
+
+- local: community-datasets
+  title: "Data is better together"
+  author: davanstrien
+  guest: true
+  thumbnail: /blog/assets/community-datasets/thumbnail.png
+  date: Mar 4, 2024
+  tags:
+    - community
+    - data
+    - collaboration
+    - announcement
+
+- local: leaderboard-contextual
+  title: "Introducing ConTextual: How well can your Multimodal model jointly reason over text and image in text-rich scenes?"
+  author: rohan598
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_contextual.png
+  date: Mar 5, 2024
+  tags:
+    - leaderboard
+    - collaboration
+    - research
+
+- local: intel-fast-embedding
+  title: "Fast Embeddings with 🤗 Optimum Intel and fastRAG"
+  author: peterizsak
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: Mar 15, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community

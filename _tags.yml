@@ -34,11 +34,11 @@
 - value: game-dev
   label: Game Development
 
-- value: time-series
-  label: Time Series
-
 - value: rlhf
   label: RLHF
+
+- value: leaderboard
+  label: Leaderboard
 
 - value: case-studies
   label: Case Studies

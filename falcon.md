@@ -14,10 +14,10 @@ authors:
 
 # The Falcon has landed in the Hugging Face ecosystem
 
-
-## Introduction
-
 Falcon is a new family of state-of-the-art language models created by the [Technology Innovation Institute](https://www.tii.ae/) in Abu Dhabi, and released under the Apache 2.0 license. **Notably, [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) is the first “truly open” model with capabilities rivaling many current closed-source models**. This is fantastic news for practitioners, enthusiasts, and industry, as it opens the door for many exciting use cases.
+
+*Note: Few months after this release, the Falcon team released a larger model of [180 billion parameters](https://huggingface.co/blog/falcon-180b).*
+
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
   September 2023 Update: <a href="https://huggingface.co/blog/falcon-180b">Falcon 180B</a> has just been released! It's currently the largest openly available model, and rivals proprietary models like PaLM-2. 
@@ -37,7 +37,9 @@ In this blog, we will be taking a deep dive into the Falcon models: first discus
 
 ## The Falcon models
 
-The Falcon family is composed of two base models: [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) and its little brother [Falcon-7B](https://huggingface.co/tiiuae/falcon-7b). **The 40B parameter model currently tops the charts of the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard), while the 7B model is the best in its weight class**.
+The Falcon family is composed of two base models: [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) and its little brother [Falcon-7B](https://huggingface.co/tiiuae/falcon-7b). **The 40B parameter model was at the top of the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) at the time of its release, while the 7B model was the best in its weight class**.
+
+*Note: the performance scores shown in the table below have been updated to account for the new methodology introduced in November 2023, which added new benchmarks. More details in [this post](https://huggingface.co/blog/open-llm-leaderboard-drop)*.
 
 Falcon-40B requires ~90GB of GPU memory — that’s a lot, but still less than LLaMA-65B, which Falcon outperforms. On the other hand, Falcon-7B only needs ~15GB, making inference and finetuning accessible even on consumer hardware. *(Later in this blog, we will discuss how we can leverage quantization to make Falcon-40B accessible even on cheaper GPUs!)* 
 
@@ -55,18 +57,16 @@ This trick doesn’t significantly influence pretraining, but it greatly [improv
 
 | Model | License | Commercial use? | Pretraining length [tokens] | Pretraining compute [PF-days] | Leaderboard score | K,V-cache size for a 2.048 context |
 | --- | --- | --- | --- | --- | --- | --- |
-| StableLM-Alpha-7B | CC-BY-SA-4.0 | ✅ | 1,500B | 700 | 38.3* | 800MB |
-| LLaMA-7B | LLaMA license | ❌ | 1,000B | 500 | 47.6 | 1,100MB |
-| MPT-7B | Apache 2.0 | ✅ | 1,000B | 500 | 48.6 | 1,100MB |
-| Falcon-7B | Apache 2.0 | ✅ | 1,500B | 700 | 48.8 | 20MB |
-| LLaMA-33B | LLaMA license | ❌ | 1,500B | 3200 | 56.9 | 3,300MB |
-| LLaMA-65B | LLaMA license | ❌ | 1,500B | 6300 | 58.3 | 5,400MB |
-| Falcon-40B | Apache 2.0 | ✅ | 1,000B | 2800 | 60.4 | 240MB |
-
-**score from the base version not available, we report the tuned version instead.*
+| StableLM-Alpha-7B | CC-BY-SA-4.0 | ✅ | 1,500B | 700 | 34.37 | 800MB |
+| LLaMA-7B | LLaMA license | ❌ | 1,000B | 500 | 45.65 | 1,100MB |
+| MPT-7B | Apache 2.0 | ✅ | 1,000B | 500 | 44.28 | 1,100MB |
+| Falcon-7B | Apache 2.0 | ✅ | 1,500B | 700 | 44.17 | 20MB |
+| LLaMA-33B | LLaMA license | ❌ | 1,500B | 3200 | - | 3,300MB |
+| LLaMA-65B | LLaMA license | ❌ | 1,500B | 6300 | 61.19 | 5,400MB |
+| Falcon-40B | Apache 2.0 | ✅ | 1,000B | 2800 | 58.07 | 240MB |
 
 
-# Demo
+## Demo
 
 You can easily try the Big Falcon Model (40 billion parameters!) in [this Space](https://huggingface.co/spaces/HuggingFaceH4/falcon-chat) or in the playground embedded below:
 
@@ -85,7 +85,7 @@ Video: Falcon 7B Instruct running on an M1 MacBook Pro with Core ML.
 The video shows a lightweight app that leverages a Swift library for the heavy lifting: model loading, tokenization, input preparation, generation, and decoding. We are busy building this library to empower developers to integrate powerful LLMs in all types of applications without having to reinvent the wheel. It's still a bit rough, but we can't wait to share it with you. Meanwhile, you can download the [Core ML weights](https://huggingface.co/tiiuae/falcon-7b-instruct/tree/main/coreml/text-generation) from the repo and explore them yourself!
 
 
-# Inference
+## Inference
 
 You can use the familiar transformers APIs to run the models on your own hardware, but you need to pay attention to a couple of details:
 

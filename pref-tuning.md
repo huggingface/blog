@@ -11,6 +11,10 @@ authors:
 
 # Preference Tuning LLMs with Direct Preference Optimization Methods
 
+**Addendum**
+
+After consulting with the authors of the [IPO paper](https://arxiv.org/abs/2310.12036), we discovered that the implementation of IPO in TRL was incorrect; in particular, the loss over the log-likelihoods of the completions needs to be _averaged_ instead of _summed_. We have added a fix in [this PR](https://github.com/huggingface/trl/pull/1265) and re-run the experiments. The results are now consistent with the paper, with IPO on par with DPO and performing better than KTO in the paired preference setting. We have updated the post to reflect these new results.
+
 **TL;DR**
 
 We evaluate three promising methods to align language models without reinforcement learning (or preference tuning) on a number of models and hyperparameter settings. In particular we train using different hyperparameters and evaluate on:
@@ -199,7 +203,7 @@ OpenHermes-7b-2.5 is clearly a stronger base model, with a mere 0.3 improvement 
 
 ## Summary & Insights
 
-In this post, we have highlighted the importance of choosing the right set of hyperparameters when performing preference alignment. We have empirically demonstrated DPO outperforms KTO in the paired preference setting, IPO appears to have lackluster performance despite stronger theoretical guarantees. 
+In this post, we have highlighted the importance of choosing the right set of hyperparameters when performing preference alignment. We have empirically demonstrated that DPO and IPO can achieve comparable results, outperforming KTO in a paired preference setting. 
 
 All code and configuration files replicating these results are now available in the [alignment-handbook](https://github.com/huggingface/alignment-handbook). The best-performing models and datasets can be found in [this collection](https://huggingface.co/collections/alignment-handbook/dpo-vs-kto-vs-ipo-65a69c5f03548d61dbe29ef8).
 

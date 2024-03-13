@@ -45,7 +45,7 @@ Let’s look at how to solve the above challenges and fine-tune a 70B model!
 
 Before we get started, here's all the required resources to reproduce our results:
 1. Codebase:
-https://github.com/pacman100/DHS-LLM-Workshop/tree/main/chat_assistant/training with flash-attn V2 monkey patch
+https://github.com/pacman100/DHS-LLM-Workshop/tree/main/chat_assistant/sft/training with flash-attn V2
 
 2. FSDP config: https://github.com/pacman100/DHS-LLM-Workshop/blob/main/chat_assistant/training/configs/fsdp_config.yaml
 
@@ -148,30 +148,50 @@ accelerate launch \
     --num_processes 16 \
     --num_machines 2 \
     train.py \
+    --seed 100 \
     --model_name "meta-llama/Llama-2-70b-chat-hf" \
     --dataset_name "smangrul/code-chat-assistant-v1" \
+    --chat_template_format "none" \
+    --add_special_tokens False \
+    --append_concat_token False \
+    --splits "train,test" \
     --max_seq_len 2048 \
     --max_steps 500 \
     --logging_steps 25 \
+    --log_level "info" \
     --eval_steps 100 \
     --save_steps 250 \
+    --logging_strategy "steps" \
+    --evaluation_strategy "steps" \
+    --save_strategy "steps" \
+    --push_to_hub \
+    --hub_private_repo True \
+    --hub_strategy "every_save" \
     --bf16 True \
     --packing True \
-    --output_dir "/shared_storage/sourab/experiments/full-finetune-llama-chat-asst" \
-    --per_device_train_batch_size 1 \
-    --gradient_accumulation_steps 1 \
-    --dataset_text_field "content" \
-    --use_gradient_checkpointing True \
-    --learning_rate 5e-5  \
+    --learning_rate 5e-5 \
     --lr_scheduler_type "cosine" \
     --weight_decay 0.01 \
     --warmup_ratio 0.03 \
-    --use_flash_attn True
+    --max_grad_norm 1.0 \
+    --output_dir "/shared_storage/sourab/experiments/full-finetune-llama-chat-asst" \
+    --per_device_train_batch_size 1 \
+    --per_device_eval_batch_size 1 \
+    --gradient_accumulation_steps 1 \
+    --gradient_checkpointing True \
+    --use_reentrant False \
+    --dataset_text_field "content" \
+    --use_flash_attn True \
+    --ddp_timeout 5400 \
+    --optim paged_adamw_32bit 
 ```
 
 Fine-tuning completed in ~13.5 hours and below is the training loss plot.
 
 ![train_loss](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/160_ram_efficient_fsdp/train_loss.png)
+
+**Important Note**:
+Here, if you are using only a single node with 8 A100 80GB GPUs, then `paged_adamw_32bit` optimizer from `bitsandbytes` is required. For more information about paged optimizers, please refer https://huggingface.co/docs/bitsandbytes/main/en/optimizers#paged-optimizers.
 
 Below is an example conversation using the above model:
 

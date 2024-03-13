@@ -35,18 +35,18 @@ To learn more about accessing and using the new Hugging Face DLCs with the Amazo
 
 
 
-# **Resources, Documentation & Samples 📄**
+## **Resources, Documentation & Samples 📄**
 
 Below you can find all the important resources for deploying your models to Amazon SageMaker.
 
 
-## **Blog/Video**
+### **Blog/Video**
 
 - [Video: Deploy a Hugging Face Transformers Model from S3 to Amazon SageMaker](https://youtu.be/pfBGgSGnYLs)
 - [Video: Deploy a Hugging Face Transformers Model from the Model Hub to Amazon SageMaker](https://youtu.be/l9QZuazbzWM)
 
 
-## **Samples/Documentation**
+### **Samples/Documentation**
 
 - [Hugging Face documentation for Amazon SageMaker](https://huggingface.co/docs/sagemaker/main)
 - [Deploy models to Amazon SageMaker](https://huggingface.co/docs/sagemaker/inference)
@@ -60,14 +60,14 @@ Below you can find all the important resources for deploying your models to Amaz
 ---
 
 
-# **SageMaker Hugging Face Inference Toolkit ⚙️**
+## **SageMaker Hugging Face Inference Toolkit ⚙️**
 
 In addition to the Hugging Face Transformers-optimized Deep Learning Containers for inference, we have created a new[ Inference Toolkit](https://github.com/aws/sagemaker-huggingface-inference-toolkit) for Amazon SageMaker. This new Inference Toolkit leverages the `pipelines` from the `transformers` library to allow zero-code deployments of models without writing any code for pre- or post-processing. In the "Getting Started" section below you find two examples of how to deploy your models to Amazon SageMaker.
 
 In addition to the zero-code deployment, the Inference Toolkit supports "bring your own code" methods, where you can override the default methods. You can learn more about "bring your own code" in the documentation[ here](https://github.com/aws/sagemaker-huggingface-inference-toolkit#-user-defined-codemodules) or you can check out the sample notebook "deploy custom inference code to Amazon SageMaker".
 
 
-## **API - Inference Toolkit Description**
+### **API - Inference Toolkit Description**
 
 Using the` transformers pipelines`, we designed an API, which makes it easy for you to benefit from all `pipelines` features. The API has a similar interface than the[ 🤗 Accelerated Inference API](https://api-inference.huggingface.co/docs/python/html/detailed_parameters.html), meaning your inputs need to be defined in the `inputs` key and if you want additional supported `pipelines` parameters you can add them in the `parameters` key. Below you can find examples for requests.
 
@@ -97,7 +97,7 @@ Using the` transformers pipelines`, we designed an API, which makes it easy for 
 }
 ```
 
-# **Getting started 🧭**
+## **Getting started 🧭**
 
 In this guide we will use the new Hugging Face Inference DLCs and Amazon SageMaker Python SDK to deploy two transformer models for inference.
 
@@ -106,7 +106,7 @@ In the first example, we deploy for inference a Hugging Face Transformer model t
 In the second example, we directly deploy one of the 10,000+ publicly available Hugging Face Transformers models from the[ Model Hub](https://huggingface.co/models) to Amazon SageMaker for Inference.
 
 
-## **Setting up the environment**
+### **Setting up the environment**
 
 We will use an Amazon SageMaker Notebook Instance for the example. You can learn[ here how to set up a Notebook Instance.](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi.html) To get started, jump into your Jupyter Notebook or JupyterLab and create a new Notebook with the `conda_pytorch_p36` kernel.
 
@@ -132,12 +132,12 @@ role = sagemaker.get_execution_role()
 
 ---
 
-## **Deploy a trained Hugging Face Transformer model to SageMaker for inference**
+### **Deploy a trained Hugging Face Transformer model to SageMaker for inference**
 
 There are two ways to deploy your SageMaker trained Hugging Face model. You can either deploy it after your training is finished, or you can deploy it later, using the `model_data` pointing to your saved model on Amazon S3. In addition to the two below-mentioned options, you can also instantiate Hugging Face endpoints with lower-level SDK such as `boto3` and `AWS CLI`, `Terraform` and with CloudFormation templates.
 
 
-### **Deploy the model directly after training with the Estimator class**
+#### **Deploy the model directly after training with the Estimator class**
 
 If you deploy your model directly after training, you need to ensure that all required model artifacts are saved in your training script, including the tokenizer and the model. A benefit of deploying directly after training is that SageMaker model container metadata will contain the source training job, providing lineage from training job to deployed model.
 
@@ -175,7 +175,7 @@ After we run our request we can delete the endpoint again with.
 predictor.delete_endpoint()
 ```
 
-### **Deploy the model from pre-trained checkpoints using the <code>HuggingFaceModel</code> class**
+#### **Deploy the model from pre-trained checkpoints using the <code>HuggingFaceModel</code> class**
 
 If you've already trained your model and want to deploy it at some later time, you can use the `model_data` argument to specify the location of your tokenizer and model weights.
 
@@ -215,7 +215,7 @@ predictor.delete_endpoint()
 
 
 
-## **Deploy one of the 10,000+ Hugging Face Transformers to Amazon SageMaker for Inference**
+### **Deploy one of the 10,000+ Hugging Face Transformers to Amazon SageMaker for Inference**
 
 To deploy a model directly from the Hugging Face Model Hub to Amazon SageMaker, we need to define two environment variables when creating the `HuggingFaceModel`. We need to define:
 
@@ -267,7 +267,7 @@ predictor.delete_endpoint()
 
 ---
 
-# **FAQ 🎯**
+## **FAQ 🎯**
 
 You can find the complete [Frequently Asked Questions](https://huggingface.co/docs/sagemaker/faq) in the [documentation](https://huggingface.co/docs/sagemaker/faq).
 
