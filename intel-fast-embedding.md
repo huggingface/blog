@@ -11,7 +11,7 @@ authors:
 - user: echarlaix
 - user: mfuntowicz
 - user: moshew
-guest: true
+  guest: true
 ---
 
 
@@ -65,7 +65,7 @@ We present a step-by-step guide for enhancing the performance of embedders, focu
 
 To install optimum-intel and IPEX run the following command:
 
-```
+```bash
 pip install -U optimum[neural-compressor] intel-extension-for-transformers
 ```
 
@@ -76,8 +76,8 @@ Post-training static quantization requires a calibration set to determine the dy
 The following snippet shows a sample code for quantization:
 
 
-```
-def quantize(model_name, output_path, calibration_set):
+```python
+def quantize(model_name: str, output_path: str, calibration_set: Dataset):
     model = AutoModel.from_pretrained(model_name)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
 
@@ -109,24 +109,24 @@ Once the model is quantized it is easy to integrate it into an inference pipelin
 Loading a quantized model by doing the following:
 
 
-```
+```python
 from optimum.intel import IPEXModel
 
-model_id = "Intel/bge-large-en-v1.5-rag-int8-static"
-model = IPEXModel.from_pretrained(model_id)
+model = IPEXModel.from_pretrained("Intel/bge-small-en-v1.5-rag-int8-static")
 ```
 
 And encode sentences using the [Transformers](https://github.com/huggingface/transformers) library :
 
-```
+```python
 from transformers import AutoTokenizer
 
-tokenizer = AutoTokenizer.from_pretrained(model_id)
+tokenizer = AutoTokenizer.from_pretrained("Intel/bge-small-en-v1.5-rag-int8-static")
 inputs = tokenizer(sentences, return_tensors="pt")
 
 with torch.no_grad():
     outputs = model(**inputs)
-    embedded = outputs[0][:, 0]
+    # get the [CLS] token
+    embeddings = outputs[0][:, 0]
 ```
 
 We provide additional and important details on how to configure the CPU-backend setup in the evaluation section below (correct machine setup).
@@ -185,36 +185,14 @@ Experimental setup notes:
 
 ### How did we run the evaluation?
 
-1. Encoding out-of-the-box PyTorch and Hugging Face:
+1. Baseline PyTorch and Hugging Face:
 
 
-```
+```python
 import torch
 from transformers import AutoModel
 
-model = AutoModel.from_pretrained(model_id)
-
-@torch.inference_mode()
-def encode_text():
-    outputs = model(inputs)
-
-with torch.cpu.amp.autocast(dtype=torch.bfloat16):
-    encode_text()
-
-```
-
-
-
-2. Running with IPEX and AMP:
-
-
-```
-import torch
-import intel_extension_for_pytorch as ipex
-from transformers import AutoModel
-
-model = AutoModel.from_pretrained(model_id)
-model = ipex.optimize(model, dtype=torch.bfloat16)
+model = AutoModel.from_pretrained("BAAI/bge-small-en-v1.5")
 
 @torch.inference_mode()
 def encode_text():
@@ -224,17 +202,16 @@ with torch.cpu.amp.autocast(dtype=torch.bfloat16):
     encode_text()
 ```
 
-
-3. Running with IPEX and AMP in torchscript mode:
-
+2. IPEX torchscript and bf16:
 
 
-```
+```python
 import torch
-import intel_extension_for_pytorch as ipex
 from transformers import AutoModel
+import intel_extension_for_pytorch as ipex
 
-model = AutoModel.from_pretrained(model_id)
+
+model = AutoModel.from_pretrained("BAAI/bge-small-en-v1.5")
 model = ipex.optimize(model, dtype=torch.bfloat16)
 
 vocab_size = model.config.vocab_size
@@ -242,6 +219,7 @@ batch_size = 1
 seq_length = 512
 d = torch.randint(vocab_size, size=[batch_size, seq_length])
 model = torch.jit.trace(model, (d,), check_trace=False, strict=False)
+model = torch.jit.freeze(model)
 
 @torch.inference_mode()
 def encode_text():
@@ -252,17 +230,15 @@ with torch.cpu.amp.autocast(dtype=torch.bfloat16):
 ```
 
 
+3. Optimum-intel with IPEX and int8 model:
 
 
-4. Running with Optimum Intel:
 
-
-```
+```python
 import torch
-import intel_extension_for_pytorch as ipex
 from optimum.intel import IPEXModel
 
-model = IPEXModel.from_pretrained(model_id)
+model = IPEXModel.from_pretrained("Intel/bge-small-en-v1.5-rag-int8-static")
 
 @torch.inference_mode()
 def encode_text():
@@ -284,25 +260,13 @@ We can see that the quantized model has the best latency overall, under 10 ms fo
 
 
 
+
 <p align="center">
- <img src="assets/174_intel_fast_embeddings/latency_small.png" alt="latency small"><br>
-<em>Figure 1. Latency for BGE small.</em>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/latency.png" alt="IN8 AG" style="width: 70%; height: auto;"><br>
+<em>Figure 1. Latency for BGE models.</em>
 </p>
 
 
-
-<p align="center">
- <img src="assets/174_intel_fast_embeddings/latency_base.png" alt="latency base"><br>
-<em>Figure 2. Latency for BGE base.</em>
-</p>
-
-
-
-
-<p align="center">
- <img src="assets/174_intel_fast_embeddings/latency_large.png" alt="latency large"><br>
-<em>Figure 3. Latency for BGE large.</em>
-</p>
 
 
 ### Throughput Performance
@@ -314,24 +278,25 @@ We set the encoded text lengths to 256 tokens as it serves as a good estimate of
 Results show that the quantized models running with the optimized backend have the best throughput over all other options and reach peak throughput at batch size 128. Overall, for all model sizes, the quantized model has x4-x5 higher throughput than the vanilla model at the peak performance batch size.
 
 
+
+
 <p align="center">
- <img src="assets/174_intel_fast_embeddings/throughput_small.png" alt="throughput small"><br>
-<em>Figure 4. Throughput for BGE small.</em>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_small.png" alt="IN8 AG" style="width: 70%; height: auto;"><br>
+<em>Figure 2. Throughput for BGE small.</em>
 </p>
 
 
 
 <p align="center">
- <img src="assets/174_intel_fast_embeddings/throughput_base.png" alt="throughput base"><br>
-<em>Figure 5. Throughput for BGE base.</em>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_base.png" alt="IN8 AG" style="width: 70%; height: auto;"><br>
+<em>Figure 2. Throughput for BGE base.</em>
 </p>
 
 
 
-
 <p align="center">
- <img src="assets/174_intel_fast_embeddings/throughput_large.png" alt="throughput large"><br>
-<em>Figure 6. Throughput for BGE large.</em>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_large.png" alt="IN8 AG" style="width: 70%; height: auto;"><br>
+<em>Figure 3. Throughput for BGE large.</em>
 </p>
 
 
