@@ -3614,3 +3614,13 @@
     - collaboration
     - research
 
+- local: websight
+  title: "Unlocking the conversion of Web Screenshots into HTML Code with the WebSight Dataset"
+  author: HugoLaurencon
+  thumbnail: /blog/assets/websight/thumbnail.png
+  date: Mar 14, 2024
+  tags:
+    - nlp
+    - cv
+    - data
+    - research
