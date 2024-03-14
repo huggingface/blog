@@ -17,7 +17,7 @@ authors:
 
 # CPU Optimized Embedding with 🤗 Optimum Intel and fastRAG
 
-Embedding models are useful for many applications such as retrieval, reranking, clustering, and classification. The research community has witnessed significant advancements in recent years in embedding models, leading to substantial enhancements in all applications building on semantic representation. Models such as [BGE](http://BAAI/bge-large-en-v1.5), [GTE](http://thenlper/gte-small), and [E5](http://intfloat/multilingual-e5-large) family of models are placed at the top of the [MTEB](https://github.com/embeddings-benchmark/mteb) benchmark and in some cases outperform proprietary embedding services. There are a variety of model sizes found in Hugging Face’s Model hub, from lightweight (100-350M parameters) to 7B models (such as [Salesforce/SFR-Embedding-Mistral](http://Salesforce/SFR-Embedding-Mistral)). The lightweight models based on an encoder architecture are ideal candidates for optimization and utilization on CPU backends running semantic search-based applications, such as Retrieval Augmented Generation ([RAG](https://en.wikipedia.org/wiki/Prompt_engineering#Retrieval-augmented_generation)).
+Embedding models are useful for many applications such as retrieval, reranking, clustering, and classification. The research community has witnessed significant advancements in recent years in embedding models, leading to substantial enhancements in all applications building on semantic representation. Models such as [BGE](http://BAAI/bge-large-en-v1.5), [GTE](http://thenlper/gte-small), and [E5](http://intfloat/multilingual-e5-large) family of models are placed at the top of the [MTEB](https://github.com/embeddings-benchmark/mteb) benchmark and in some cases outperform proprietary embedding services. There are a variety of model sizes found in Hugging Face's Model hub, from lightweight (100-350M parameters) to 7B models (such as [Salesforce/SFR-Embedding-Mistral](http://Salesforce/SFR-Embedding-Mistral)). The lightweight models based on an encoder architecture are ideal candidates for optimization and utilization on CPU backends running semantic search-based applications, such as Retrieval Augmented Generation ([RAG](https://en.wikipedia.org/wiki/Prompt_engineering#Retrieval-augmented_generation)).
 
 
 ## Information Retrieval with Embedding Models
@@ -142,28 +142,38 @@ We provide additional and important details on how to configure the CPU-backend 
 
 ### Model Evaluation with MTEB
 
-Quantizing the models’ weights to a lower precision introduces accuracy loss, as we lose precision moving from float32 weights to int8. Therefore, we aim to validate the accuracy of the optimized models by comparing them to the original models with two [MTEB](https://github.com/embeddings-benchmark/mteb)’s tasks:
+Quantizing the models' weights to a lower precision introduces accuracy loss, as we lose precision moving from float32 weights to int8. Therefore, we aim to validate the accuracy of the optimized models by comparing them to the original models with two [MTEB](https://github.com/embeddings-benchmark/mteb)'s tasks:
 
 - **Retrieval**  - where a corpus is encoded and ranked lists are created by searching the index given a query.
-- **Reranking**  - reranking the retrieval’s results for better relevance given a query.
+- **Reranking**  - reranking the retrieval's results for better relevance given a query.
 
 The table below shows the average accuracy (on multiple datasets)  of each task type (MAP for Reranking, NDCG@10 for Retrieval), where int8 is our quantized model and fp32 is the original model (results taken from the official MTEB leaderboard). The quantized models show less than 1% error rate compared to the original model in the Reranking task and less than 1.55% in the Retrieval task.
 
+<table>
+<tr><th> Reranking </th><th> Retrieval </th></tr>
+<tr><td>
 
----
-|           |  Reranking               | Retrieval                |
-|           |  int8  |  fp32  |  diff  |  int8  |  fp32  |  diff  |
-| --------- | ------ | ------ | ------ | ------ | ------ | ------ |
-| BGE-small | 0.5826 | 0.5836 | -0.17% | 0.5138 | 0.5168 | -0.58% |
-| BGE-base  | 0.5886 | 0.5886 |  0%    | 0.5242 | 0.5325 | -1.55% |
-| BGE-large | 0.5985 | 0.6003 | -0.3%  | 0.5346 | 0.5429 | -1.53% |
----
+|           |  int8  |  fp32  |  diff  |
+| --------- | ------ | ------ | ------ |
+| BGE-small | 0.5826 | 0.5836 | -0.17% |
+| BGE-base  | 0.5886 | 0.5886 |  0%    |
+| BGE-large | 0.5985 | 0.6003 | -0.3%  |
+
+</td><td>
+
+|  int8  |  fp32  |  diff  |
+| ------ | ------ | ------ |
+| 0.5138 | 0.5168 | -0.58% |
+| 0.5242 | 0.5325 | -1.55% |
+| 0.5346 | 0.5429 | -1.53% |
+
+</td></tr> </table>
 
 
 ### Speed and Latency
 
 We compare the performance of our models with two other common methods of usage of models:
-1. Using PyTorch and Huggingface’s Transformers library with bf16.
+1. Using PyTorch and Huggingface's Transformers library with bf16.
 2. Using [Intel extension for PyTorch](https://intel.github.io/intel-extension-for-pytorch/#introduction) (IPEX) runtime with bf16 and tracing the model using torchscript.
 
 Experimental setup notes:
@@ -286,7 +296,7 @@ We integrated the optimized bi-encoder embedding models in two modules:
 
 ### Fast indexing using the optimized Retriever
 
-Let’s create a dense index by using a dense retriever that utilizes an optimized embedding model.
+Let's create a dense index by using a dense retriever that utilizes an optimized embedding model.
 
 First, create a document store:
 
