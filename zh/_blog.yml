@@ -1365,6 +1365,17 @@
     - nlp
     - guide
 
+- local: arena-tts
+  title: "TTS 擂台: 文本转语音模型的自由搏击场"
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png
+  author: mrfakename
+  guest: true
+  date: Feb 27, 2024
+  tags:
+    - leaderboard
+    - arena
+    - collaboration
+
 - local: starcoder2
   title: "StarCoder2 及 The Stack v2 数据集正式发布"
   author: lvwerra
