@@ -3616,7 +3616,7 @@
     - research
 
 - local: intel-fast-embedding
-  title: "Fast Embeddings with 🤗 Optimum Intel and fastRAG"
+  title: "CPU Optimized Embedding with 🤗 Optimum Intel and fastRAG"
   author: peterizsak
   guest: true
   thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
