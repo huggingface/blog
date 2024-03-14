@@ -13,6 +13,8 @@ authors:
 - user: sanchit-gandhi
 translators:
 - user: MatrixYao
+- user: zhongdongy
+  proofreader: true
 ---
 
 # TTS 擂台: 文本转语音模型的自由搏击场
@@ -60,7 +62,3 @@ translators:
 ## 致谢
 
 非常感谢在此过程中给予我们帮助的所有人，包括 [Clémentine Fourrier](https://twitter.com/clefourrier)、[Lucian Pouget](https://twitter.com/wauplin)、[Yoach Lacombe]( https://twitter.com/yoachlacombe)、[Main Horse](https://twitter.com/main_horse) 以及整个 Hugging Face 团队。特别要感谢 [VB](https://twitter.com/reach_vb) 的时间及技术协助。还要感谢 [Sanchit Gandhi](https://twitter.com/sanchitgandhi99) 和 [Apolinário Passos](https://twitter.com/multimodalart) 在开发过程中提供的反馈及支持。
-
-> 英文原文: <url> https://huggingface.co/blog/arena-tts </url>
-> 原文作者：mrfakename，Vaibhav Srivastav，Clémentine Fourrier，Lucain Pouget，Yoach Lacombe，Main Horse，Sanchit Gandhi
-> 译者: Matrix Yao (姚伟峰)，英特尔深度学习工程师，工作方向为 transformer-family 模型在各模态数据上的应用及大规模模型的训练推理。
