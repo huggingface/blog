@@ -17,51 +17,64 @@ authors:
 
 # Fast Embeddings with 🤗 Optimum Intel and fastRAG
 
-## Introduction
+Embedding models are useful for many applications such as retrieval, reranking, clustering, and classification. The research community has witnessed significant advancements in recent years in embedding models, leading to substantial enhancements in all applications building on semantic representation. Models such as [BGE](http://BAAI/bge-large-en-v1.5), [GTE](http://thenlper/gte-small), and [E5](http://intfloat/multilingual-e5-large) family of models are placed at the top of the [MTEB](https://github.com/embeddings-benchmark/mteb) benchmark and in some cases outperform proprietary embedding services. There are a variety of model sizes found in Hugging Face’s Model hub, from lightweight (100-350M parameters) to 7B models (such as [Salesforce/SFR-Embedding-Mistral](http://Salesforce/SFR-Embedding-Mistral)). The lightweight models based on an encoder architecture are ideal candidates for optimization and utilization on CPU backends running semantic search-based applications, such as Retrieval Augmented Generation ([RAG](https://en.wikipedia.org/wiki/Prompt_engineering#Retrieval-augmented_generation)).
 
 
-Embedding models play a vital role in information retrieval by encoding textual data into vector representations that possess both semantic and contextual meaning. These models effectively capture the intricate relationships between words and documents, thereby enabling more accurate and efficient information searching. Moreover, by utilizing dense vector representations, embedding models allow for straightforward similarity calculations such as cosine similarity.
+## Information Retrieval with Embedding Models
 
-Embedding models provide us with semantic (dense) encoding. Semantic and sparse information retrieval are two distinct approaches to retrieving information from an index. Sparse retrieval involves searching through a large collection by matching terms or phrases, whereas semantic retrieval focuses on understanding the context and meaning behind the words in a document. Semantic retrieval can provide more accurate results by considering the overall meaning of a sentence or paragraph, whereas sparse retrieval may miss important information if it only focuses on specific keywords. However, dense retrieval is far more compute-heavy than traditional lexical-based matching algorithms (e.g., BM25).
+Embedding models encode textual data into dense vectors, capturing semantic and contextual meaning. This enables accurate information retrieval by representing word and document relationships more contextually. Typically, semantic similarity will be measured by cosine similarity between the embedding vectors.
 
-Embedding models are primarily utilized during the retrieval phase of retrieval augmented generation (RAG) use cases. This involves encoding documents when constructing a semantic or dense index, encoding queries in real-time for querying a dense index, and re-ordering (reranking) a set of documents to find the best similarity between the query vector and the retrieved documents.
-Embedding models are useful for many applications such as retrieval, reranking, clustering, classification, etc. The [Massive Text Embedding Benchmark (MTEB)](https://github.com/embeddings-benchmark/mteb) is a widely adapted benchmark for evaluating embedding models in different tasks and on multiple datasets. For evaluating embedding models for RAG, the “reranking” and “retrieval” tasks of MTEB are good indicators for embedding model performance.
+Should dense vectors always be used for information retrieval? The two dominant approaches have trade-offs:
 
-The embedding models research community has witnessed significant advancements in recent years, leading to substantial enhancements in the quality of open-source embedding models, such as the BGE, GTE, and E5 family of models. As a result, these models have become increasingly competitive with proprietary services that offer similar capabilities such as Open AI and Cohere. These models are usually lightweight (100-350M parameters) compared to LLMs and use an encoder architecture, which makes them ideal candidates for optimization and utilization on CPU backends running RAG pipelines.
-
-
- 
-## Optimize your model with Optimum Intel
-
-[Optimum Intel](https://github.com/huggingface/optimum-intel/) is an open-source library that accelerates end-to-end pipelines built with the Huggingface Transformers library on Intel Hardware. The library includes several techniques to accelerate models such as low-bit quantization, model weight pruning, distillation, and an accelerated runtime.
-
-The runtime and optimizations included in Optimum Intel take advantage of Intel® Advanced Vector Extensions 512 (Intel® AVX-512) Vector Neural Network Instructions (VNNI) and Intel® Advanced Matrix Extensions (Intel® AMX) on Intel CPUs to accelerate models.
-
-Optimizing pre-trained models can be done easily with Optimum Intel many simple examples can be found [here](https://huggingface.co/docs/optimum/main/en/intel/optimization_inc).
+* Sparse retrieval matches n-grams, phrases, or metadata to search large collections efficiently and at scale. However, it may miss relevant documents due to lexical gaps between the query and the  document. 
+* Semantic retrieval encodes text into dense vectors, capturing context and meaning better than bag-of-words. It can retrieve semantically related documents despite lexical mismatches. However, it's computationally intensive, has higher latency, and requires sophisticated encoding models compared to lexical matching like BM25.
 
 
+### Embedding models and RAG
+
+Embedding models serve multiple and critical purposes in RAG applications:
+
+* Offline Process: Encoding documents into dense vectors during indexing/updating of the retrieval document store (index).
+* Query Encoding: At query time, they encode the input query into a dense vector representation for retrieval.
+* Reranking: After initial retrieval, they can rerank the retrieved documents by encoding them into dense vectors and comparing against the query vector. This allows reranking documents that initially lacked dense representations.
+
+Optimizing the embedding model component in RAG pipelines is highly desirable for a higher efficiency experience, more particularly:
+
+* Document Indexing/Updating: Higher throughput allows encoding and indexing large document collections more rapidly during initial setup or periodic updates.
+* Query Encoding: Lower query encoding latency is critical for responsive real-time retrieval. Higher throughput supports encoding many concurrent queries efficiently, enabling scalability.
+* Reranking Retrieved Documents: After initial retrieval, embedding models need to quickly encode the retrieved candidates for reranking. Lower latency allows rapid reranking of documents for time-sensitive applications. Higher throughput supports reranking larger candidate sets in parallel for more comprehensive reranking.
 
 
-## Optimizing BGE-embedders with Optimum Intel
+## Optimizing Embedding Models with Optimum Intel and IPEX
+
+[Optimum Intel](https://github.com/huggingface/optimum-intel) is an open-source library that accelerates end-to-end pipelines built with Hugging Face libraries on Intel Hardware. Optimum Intel includes several techniques to accelerate models such as low-bit quantization, model weight pruning, distillation, and an accelerated runtime.
+
+The runtime and optimizations included in [Optimum Intel](https://github.com/huggingface/optimum-intel) take advantage of Intel® Advanced Vector Extensions 512 (Intel® AVX-512) Vector Neural Network Instructions (VNNI) and Intel® Advanced Matrix Extensions (Intel® AMX) on Intel CPUs to accelerate models. Specifically, it has built-in [BFloat16](https://en.wikipedia.org/wiki/Bfloat16_floating-point_format) (BF16) and Int8 GEMM accelerators in every core to accelerate deep learning training and inference workloads. AMX accelerated inference is introduced through PyTorch 2.0 and [Intel Extension for PyTorch](https://github.com/intel/intel-extension-for-pytorch) (IPEX) in addition to other optimizations for various common operators.
+
+Optimizing pre-trained models can be done easily with Optimum Intel; many simple examples can be found [here](https://huggingface.co/docs/optimum/main/en/intel/optimization_inc).
 
 
-In our evaluation, we focus on a family of embedding models (denoted as BGE) created by researchers at the [Beijing Academy of Artificial Intelligence](https://arxiv.org/pdf/2309.07597.pdf), as their models show competitive results on the widely adopted [MTEB leaderboard](https://github.com/embeddings-benchmark/mteb).
+## Example: Optimizing BGE Embedding Models
 
-### BGE Embedders Technical Details
+In this blog, we focus on recently released embedding models by researchers at the [Beijing Academy of Artificial Intelligence](https://arxiv.org/pdf/2309.07597.pdf), as their models show competitive results on the widely adopted [MTEB](https://github.com/embeddings-benchmark/mteb) leaderboard.
 
-Bi-encoder models are Transformer-based encoders that were trained to minimize a similarity metric, such as cosine-similarity, between two semantically similar texts as vectors. For example, popular embedders use a BERT model as a base pre-trained model and fine-tune it for embedding documents. The vector representing the encoded text can be anything from the output layer, for example, it could be the [CLS] token vector or a mean of all document tokens.
+### BGE Technical Details
 
-Unlike more complex embedding architectures, bi-encoders encode only single documents, thus they lack contextual interaction between encoded entities such as query-document and document-document. However, state-of-the-art bi-encoder embedders present competitive performance and are extremely fast due to its simple architecture.
+Bi-encoder models are Transformer-based encoders trained to minimize a similarity metric, such as cosine-similarity, between two semantically similar texts as vectors. For example, popular Embedding models use a BERT model as a base pre-trained model and fine-tune it for embedding documents. The vector representing the encoded text is created from the model outputs; for example, it can be the [CLS] token vector or a mean of all the token vectors.
+
+Unlike more complex embedding architectures, bi-encoders encode only single documents, thus they lack contextual interaction between encoded entities such as query-document and document-document. However, state-of-the-art bi-encoder embedding models present competitive performance and are extremely fast due to their simple architecture.
 
 We focus on 3 BGE models: [small](https://huggingface.co/BAAI/bge-small-en-v1.5), [base](https://huggingface.co/BAAI/bge-base-en-v1.5), and [large](https://huggingface.co/BAAI/bge-large-en-v1.5) consisting of 45M, 110M, and 355M parameters encoding to 384/768/1024 sized embedding vectors, respectively.
 
-We note that the optimization process we showcase below is generic and can be applied to other embedding models (including bi-encoder, cross-encoder, and such).
+We note that the optimization process we showcase below is generic and can be applied to other embedding models (including bi-encoders, cross-encoders, and such).
 
 
-### Optimization by Quantization
-We present a step-by-step guide for enhancing the performance of embedders, focusing on reducing latency (with a batch size of 1) and increasing throughput (measured in documents encoded per second). This recipe utilizes optimum-intel and [Intel Neural Compressor](https://github.com/intel/neural-compressor) to quantize the model and use [IPEX](https://intel.github.io/intel-extension-for-pytorch/#introduction) for optimized runtime on Intel-based hardware.
+### Step-by-step: Optimization by Quantization
 
-### Installing the Packages
+We present a step-by-step guide for enhancing the performance of embedding models, focusing on reducing latency (with a batch size of 1) and increasing throughput (measured in documents encoded per second). This recipe utilizes optimum-intel and [Intel Neural Compressor](https://github.com/intel/neural-compressor) to quantize the model, and uses [IPEX](https://github.com/intel/intel-extension-for-pytorch) for optimized runtime on Intel-based hardware.
+
+
+##### Step 1: Installing Packages
 
 To install optimum-intel and IPEX run the following command:
 
@@ -69,12 +82,11 @@ To install optimum-intel and IPEX run the following command:
 pip install -U optimum[neural-compressor] intel-extension-for-transformers
 ```
 
-### Post-training Static Quantization
+##### Step 2: Post-training Static Quantization
 
-Post-training static quantization requires a calibration set to determine the dynamic range of weights and activations. The calibration is done by running a representative set through the model, collecting statistics, and then quantizing the model based on the gathered info to minimize accuracy loss.
+Post-training static quantization requires a calibration set to determine the dynamic range of weights and activations. The calibration is done by running a representative set of data samples through the model, collecting statistics, and then quantizing the model based on the gathered info to minimize the accuracy loss.
 
-The following snippet shows a sample code for quantization:
-
+The following snippet shows a code snippet for quantization:
 
 ```python
 def quantize(model_name: str, output_path: str, calibration_set: Dataset):
@@ -101,13 +113,9 @@ def quantize(model_name: str, output_path: str, calibration_set: Dataset):
 In our calibration process we use a subset of the [qasper](https://huggingface.co/datasets/allenai/qasper) dataset.
 
 
-## Usage
+##### Step 3: Loading and running inference
 
-
-Once the model is quantized it is easy to integrate it into an inference pipeline.
-
-Loading a quantized model by doing the following:
-
+Loading a quantized model can be done by simply running:
 
 ```python
 from optimum.intel import IPEXModel
@@ -115,7 +123,7 @@ from optimum.intel import IPEXModel
 model = IPEXModel.from_pretrained("Intel/bge-small-en-v1.5-rag-int8-static")
 ```
 
-And encode sentences using the [Transformers](https://github.com/huggingface/transformers) library :
+Encoding sentences into vectors can be done similarly to what we are used to with the [Transformers](https://github.com/huggingface/transformers) library:
 
 ```python
 from transformers import AutoTokenizer
@@ -131,62 +139,46 @@ with torch.no_grad():
 
 We provide additional and important details on how to configure the CPU-backend setup in the evaluation section below (correct machine setup).
 
-## MTEB Evaluation
 
-Quantizing the models weights to a lower precision introduces accuracy loss as we lose precision moving from float32 weights to int8. Therefore, we aim to validate the accuracy of the optimized models by comparing them to the original models with two MTEB’s tasks:
-1. **Retrieval** - where a corpus is encoded and ranked lists are created by searching the index given a query
-2. **Reranking** – reranking the retrieval’s results for better relevancy given a query
+### Model Evaluation with MTEB
 
-The table below shows the average accuracy (on multiple datasets)  of each task type (MAP for Reranking, NDCG@10 for Retrieval), where fp8 is our quantized model and fp32 is the original model (results taken from the official MTEB leaderboard). We can see that the optimization process maintained accuracy as close as 0.24% loss in the Reranking task and at most 1.55% in the Retrieval tasks, proving that the optimization process marginally changed the embedders' capabilities in RAG related tasks.
+Quantizing the models’ weights to a lower precision introduces accuracy loss, as we lose precision moving from float32 weights to int8. Therefore, we aim to validate the accuracy of the optimized models by comparing them to the original models with two [MTEB](https://github.com/embeddings-benchmark/mteb)’s tasks:
 
+- **Retrieval**  - where a corpus is encoded and ranked lists are created by searching the index given a query.
+- **Reranking**  - reranking the retrieval’s results for better relevance given a query.
 
-
----
-|           |  int8  |  fp32  |  diff  |
-| --------- | ------ | ------ | ------ |
-
-| BGE-small | 0.5823 | 0.5836 | -0.22% |
-| BGE-base  | 0.5887 | 0.5886 | +0.02% |
-| BGE-large | 0.5988 | 0.6003 | -0.24% |
-
-Table 1: Reranking
-
----
+The table below shows the average accuracy (on multiple datasets)  of each task type (MAP for Reranking, NDCG@10 for Retrieval), where int8 is our quantized model and fp32 is the original model (results taken from the official MTEB leaderboard). The quantized models show less than 1% error rate compared to the original model in the Reranking task and less than 1.55% in the Retrieval task.
 
 
 ---
-|           |  int8  |  fp32  |  diff  |
-| --------- | ------ | ------ | ------ |
-
-| BGE-small | 0.514  | 0.5168 | -0.58% |
-| BGE-base  | 0.524  | 0.5325 | -1.55% |
-| BGE-large | 0.535  | 0.5429 | -1.53% |
-
-Table 2: Retrieval
-
+|           |  Reranking               | Retrieval                |
+|           |  int8  |  fp32  |  diff  |  int8  |  fp32  |  diff  |
+| --------- | ------ | ------ | ------ | ------ | ------ | ------ |
+| BGE-small | 0.5826 | 0.5836 | -0.17% | 0.5138 | 0.5168 | -0.58% |
+| BGE-base  | 0.5886 | 0.5886 |  0%    | 0.5242 | 0.5325 | -1.55% |
+| BGE-large | 0.5985 | 0.6003 | -0.3%  | 0.5346 | 0.5429 | -1.53% |
 ---
 
 
-
-## Speed and Latency Evaluations
-
+### Speed and Latency
 
 We compare the performance of our models with two other common methods of usage of models:
-
-1. Vanilla usage with PyTorch and Huggingface’s Transformers library with bf16.
-2. Intel extension for PyTorch (IPEX) runtime with bf16, AMP, and torchscript.
+1. Using PyTorch and Huggingface’s Transformers library with bf16.
+2. Using [Intel extension for PyTorch](https://intel.github.io/intel-extension-for-pytorch/#introduction) (IPEX) runtime with bf16 and tracing the model using torchscript.
 
 Experimental setup notes:
-
-- The vanilla model evaluation used all cores in the system (no additional environment flags).
-- IPEX/Optimum setups were run with ipexrun, on 1 socket, and cores ranging from 22-56.
 - Hardware (CPU):  4th gen Intel Xeon 8480+ with 2 sockets, 56 cores per socket.
-- TCMalloc was installed and defined as an environment variable.
+- The Pytorch model was evaluated with 56 cores on 1 CPU socket.
+- IPEX/Optimum setups were evaluated with ipexrun, 1 CPU socket, and cores ranging from 22-56.
+- TCMalloc was installed and defined as an environment variable in all runs.
+
 
 ### How did we run the evaluation?
 
-1. Baseline PyTorch and Hugging Face:
+We created a script that generated random examples using the vocabulary of the model. We loaded the original model and the optimized model and compared how much time it takes to encode those examples in the two scenarios we mentioned above: latency when encoding in batch size 1, and throughput using batched example encoding.
 
+
+1. Baseline PyTorch and Hugging Face:
 
 ```python
 import torch
@@ -203,7 +195,6 @@ with torch.cpu.amp.autocast(dtype=torch.bfloat16):
 ```
 
 2. IPEX torchscript and bf16:
-
 
 ```python
 import torch
@@ -230,10 +221,7 @@ with torch.cpu.amp.autocast(dtype=torch.bfloat16):
 ```
 
 
-3. Optimum-intel with IPEX and int8 model:
-
-
-
+3. Optimum Intel with IPEX and int8 model:
 ```python
 import torch
 from optimum.intel import IPEXModel
@@ -248,55 +236,123 @@ encode_text()
 ```
 
 
-
-
 ### Latency performance
 
-In this evaluation, we aim to measure how fast the models respond. This is an example use case for encoding queries in RAG pipelines.
+In this evaluation, we aim to measure how fast the models respond. This is an example use case for encoding queries in RAG pipelines. In this evaluation we set the batch size to 1 and we measure latency of different document lengths.
 
-The batch size is set to 1 and we measure document different lengths.
-
-We can see that the quantized model has the best latency overall, under 10 ms for the small and base models and <20 ms for the large model. Compared to the vanilla model, the quantized model shows x6 - x12 speedup in latency.
-
-
+We can see that the quantized model has the best latency overall, under 10 ms for the small and base models and <20 ms for the large model. Compared to the original model, the quantized model shows up to 4.5x speedup in latency.
 
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/latency.png" alt="IN8 AG" style="width: 70%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/latency.png" alt="latency" style="width: 70%; height: auto;"><br>
 <em>Figure 1. Latency for BGE models.</em>
 </p>
 
 
-
-
 ### Throughput Performance
 
-In our throughput evaluation, we aim to search for the peak performance of the model in terms of encoded documents per second. This experiment highlights the capability of the hardware and model when encoding large quantities of text (when creating an index).
+In our throughput evaluation, we aim to search for peak encoding performance in terms of documents per second.  We set text lengths to be 256 tokens longs, as it is a good estimate of an average document in a RAG pipeline, and evaluate with different batch sizes (4, 8, 16, 32, 64, 128, 256).
 
-We set the encoded text lengths to 256 tokens as it serves as a good estimate of an average passage in RAG pipelines. We run the evaluation with batch sizes of 4, 8, 16, 32, 64, 128, 256.
-
-Results show that the quantized models running with the optimized backend have the best throughput over all other options and reach peak throughput at batch size 128. Overall, for all model sizes, the quantized model has x4-x5 higher throughput than the vanilla model at the peak performance batch size.
-
-
-
+Results show that the quantized models reach higher throughput values compared to the other models, and reach peak throughput at batch size 128. Overall, for all model sizes, the quantized model shows up to 4x improvement compared to the baseline bf16 model in various batch sizes.
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_small.png" alt="IN8 AG" style="width: 70%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_small.png" alt="throughput small" style="width: 70%; height: auto;"><br>
 <em>Figure 2. Throughput for BGE small.</em>
 </p>
 
-
-
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_base.png" alt="IN8 AG" style="width: 70%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_base.png" alt="throughput base" style="width: 70%; height: auto;"><br>
 <em>Figure 2. Throughput for BGE base.</em>
 </p>
 
-
-
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_large.png" alt="IN8 AG" style="width: 70%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_large.png" alt="throughput large" style="width: 70%; height: auto;"><br>
 <em>Figure 3. Throughput for BGE large.</em>
 </p>
 
 
+## Optimized Embedding Models with fastRAG
+
+As an example, we will demonstrate how to integrate the optimized Retrieval/Reranking models into [fastRAG](https://github.com/IntelLabs/fastRAG) (which can also be easily integrated into other RAG frameworks such as Langchain and LlamaIndex).
+
+[fastRAG](https://github.com/IntelLabs/fastRAG) is a research framework for efficient and optimized retrieval augmented generative pipelines, incorporating state-of-the-art LLMs and Information Retrieval. fastRAG is fully compatible with [Haystack](https://haystack.deepset.ai/) and includes novel and efficient RAG modules for efficient deployment on Intel hardware.
+To get started with fastRAG we invite readers to see the installation instructions [here](https://github.com/IntelLabs/fastRAG#round_pushpin-installation) and get started with fastRAG using our [guide](https://github.com/IntelLabs/fastRAG/blob/main/getting_started.md).
+
+We integrated the optimized bi-encoder embedding models in two modules: 
+
+1. [`QuantizedBiEncoderRetriever`](https://github.com/IntelLabs/fastRAG/blob/main/fastrag/retrievers/optimized.py#L17) – for indexing and retrieving documents from a dense index
+2. [`QuantizedBiEncoderRanker`](https://github.com/IntelLabs/fastRAG/blob/main/fastrag/rankers/quantized_bi_encoder.py#L17) – for reranking a list of documents using the embedding model as part of an elaborate retrieval pipeline.
+
+
+### Fast indexing using the optimized Retriever
+
+Let’s create a dense index by using a dense retriever that utilizes an optimized embedding model.
+
+First, create a document store:
+
+```python
+from haystack.document_store import InMemoryDocumentStore
+
+document_store = InMemoryDocumentStore(use_gpu=False, use_bm25=False, embedding_dim=384, return_embedding=True)
+```
+
+Then, add some documents to it:
+
+```python
+from haystack.schema import Document
+
+# example documents to index
+examples = [
+   "There is a blue house on Oxford Street.",
+   "Paris is the capital of France.",
+   "The first commit in fastRAG was in 2022"  
+]
+
+documents = []
+for i, d in enumerate(examples):
+    documents.append(Document(content=d, id=i))
+document_store.write_documents(documents)
+```
+
+Load a Retriever with an optimized bi-encoder embedding model, and encode all the documents in the document store:
+
+```python
+from fastrag.retrievers import QuantizedBiEncoderRetriever
+
+model_id = "Intel/bge-small-en-v1.5-rag-int8-static"
+retriever = QuantizedBiEncoderRetriever(document_store=document_store, embedding_model=model_id)
+document_store.update_embeddings(retriever=retriever)
+```
+
+
+### Reranking using the Optimized Ranker
+
+Below is an example of loading an optimized model into a ranker node that encodes and re-ranks all the documents it retrieves from an index given a query:
+
+```python
+from haystack import Pipeline
+from fastrag.rankers import QuantizedBiEncoderRanker
+
+ranker = QuantizedBiEncoderRanker("Intel/bge-large-en-v1.5-rag-int8-static")
+
+p = Pipeline()
+p.add_node(component=retriever, name="retriever", inputs=["Query"])
+p.add_node(component=ranker, name="ranker", inputs=["retriever"])
+results = p.run(query="What is the capital of France?")
+
+```
+
+and plugging it into a pipeline:
+
+```python
+from haystack import Pipeline
+
+p = Pipeline()
+p.add_node(component=retriever, name="retriever", inputs=["Query"])
+p.add_node(component=ranker, name="ranker", inputs=["retriever"])
+```
+
+Done! The created pipeline can be used to retrieve documents from a document store and rank the retrieved documents using (another) embedding models to re-order the documents.
+A more complete example is provided in this [notebook](https://github.com/IntelLabs/fastRAG/blob/main/examples/optimized-embeddings.ipynb).
+
+For more RAG-related methods, models and examples we invite the readers to explore [fastRAG/examples](https://github.com/IntelLabs/fastRAG/tree/main/examples) notebooks.
