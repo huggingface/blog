@@ -262,12 +262,12 @@ Results show that the quantized models reach higher throughput values compared t
 
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_base.png" alt="throughput base" style="width: 70%; height: auto;"><br>
-<em>Figure 2. Throughput for BGE base.</em>
+<em>Figure 3. Throughput for BGE base.</em>
 </p>
 
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_large.png" alt="throughput large" style="width: 70%; height: auto;"><br>
-<em>Figure 3. Throughput for BGE large.</em>
+<em>Figure 4. Throughput for BGE large.</em>
 </p>
 
 
@@ -340,16 +340,8 @@ p.add_node(component=retriever, name="retriever", inputs=["Query"])
 p.add_node(component=ranker, name="ranker", inputs=["retriever"])
 results = p.run(query="What is the capital of France?")
 
-```
-
-and plugging it into a pipeline:
-
-```python
-from haystack import Pipeline
-
-p = Pipeline()
-p.add_node(component=retriever, name="retriever", inputs=["Query"])
-p.add_node(component=ranker, name="ranker", inputs=["retriever"])
+# print the documents retrieved
+print(results)
 ```
 
 Done! The created pipeline can be used to retrieve documents from a document store and rank the retrieved documents using (another) embedding models to re-order the documents.
