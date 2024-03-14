@@ -44,4 +44,3 @@ By iterating over WebSight, our goal is to build more capable AI systems that si
 - Dataset: https://huggingface.co/datasets/HuggingFaceM4/WebSight
 - Technical report: TO DO arxiv link
 - Google colab: https://colab.research.google.com/drive/1LdamGKR2oacrDk-kYwz_Wfc1-RBUdzcO?usp=sharing
-
