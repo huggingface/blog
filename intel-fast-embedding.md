@@ -149,14 +149,22 @@ Quantizing the models' weights to a lower precision introduces accuracy loss, as
 The table below shows the average accuracy (on multiple datasets)  of each task type (MAP for Reranking, NDCG@10 for Retrieval), where `int8` is our quantized model and `fp32` is the original model (results taken from the official MTEB leaderboard). The quantized models show less than 1% error rate compared to the original model in the Reranking task and less than 1.55% in the Retrieval task.
 
 <table>
-<tr><th> Reranking </th><th> Retrieval </th></tr>
+<tr><th> Model  </th><th>   Reranking </th><th> Retrieval </th></tr>
 <tr><td>
 
-|           |  int8  |  fp32  |  diff  |
-| --------- | ------ | ------ | ------ |
-| BGE-small | 0.5826 | 0.5836 | -0.17% |
-| BGE-base  | 0.5886 | 0.5886 |  0%    |
-| BGE-large | 0.5985 | 0.6003 | -0.3%  |
+| precision |
+| --------- |
+| BGE-small |
+| BGE-base  |
+| BGE-large |
+
+</td><td>
+
+|  int8  |  fp32  |  diff  |
+| ------ | ------ | ------ |
+| 0.5826 | 0.5836 | -0.17% |
+| 0.5886 | 0.5886 |  0%    |
+| 0.5985 | 0.6003 | -0.3%  |
 
 </td><td>
 
@@ -253,7 +261,7 @@ We can see that the quantized model has the best latency overall, under 10 ms fo
 
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/latency.png" alt="latency" style="width: 70%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/latency.png" alt="latency" style="width: 90%; height: auto;"><br>
 <em>Figure 1. Latency for BGE models.</em>
 </p>
 
@@ -265,17 +273,17 @@ In our throughput evaluation, we aim to search for peak encoding performance in 
 Results show that the quantized models reach higher throughput values compared to the other models, and reach peak throughput at batch size 128. Overall, for all model sizes, the quantized model shows up to 4x improvement compared to the baseline `bf16` model in various batch sizes.
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_small.png" alt="throughput small" style="width: 70%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_small.png" alt="throughput small" style="width: 60%; height: auto;"><br>
 <em>Figure 2. Throughput for BGE small.</em>
 </p>
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_base.png" alt="throughput base" style="width: 70%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_base.png" alt="throughput base" style="width: 60%; height: auto;"><br>
 <em>Figure 3. Throughput for BGE base.</em>
 </p>
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_large.png" alt="throughput large" style="width: 70%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_large.png" alt="throughput large" style="width: 60%; height: auto;"><br>
 <em>Figure 4. Throughput for BGE large.</em>
 </p>
 
