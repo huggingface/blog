@@ -100,7 +100,49 @@ TO BE COMPLETED
 
 ## Integration in 🤗 transformers
 
-TO BE COMPLETED
+
+Quanto library is seamlessly integrated in Hugging Face transformers library. You can quantize any model by passing a `QuantoConfig` to `from_pretrained`!
+
+Currently you need to use the latest version of accelerate to make sure that the integration is fully compatible. 
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer, QuantoConfig
+
+model_id = "facebook/opt-125m"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+
+quantization_config = QuantoConfig(weights="int8")
+
+quantized_model = AutoModelForCausalLM.from_pretrained(
+model_id, 
+quantization_config= quantization_config
+)
+```
+
+You can quantize the weights and / or activations in int8, float8, int4 or int2 by simply passing the correct argument in `QuantoConfig`. The activations can be either in int8 or float8 - note for float8 you need to have hardware that is compatible with float8 precision, otherwise quanto will silently upcast the weights and activations to torch.float32 or torch.float16 (depending on the original data type of the model) when we perform the matmul (only when the weight is quantized). Note if you try to use `float8` using MPS devices, `torch` will currently raise an error.
+
+Quanto is device agnostic, meaning you can quantize your model regardless if you are on CPU / GPU / MPS (Apple Silicon) therefore you can run quantized models on any of these devices.
+
+Quanto is also torch.compile friendly, you can quantize a model with quanto and call `torch.compile` to the model to compile it for faster generation. Note this feature might not work out of the box if dymanic quantization is involved (i.e. Quantization Aware Training or quantized activations enabled). Make sure to keep `activations=None` when creating your `QuantoConfig` in case you use the transformers integration.
+
+Note it is also possible to quantize any model, regardless of the modality using quanto ! We demonstrate how to quantize `openai/whisper-large-v3` model in int8 using quanto.
+
+```python
+from transformers import AutoModelForSpeechSeq2Seq
+
+model_id = "openai/whisper-large-v3"
+quanto_config = QuantoConfig(weights="int8")
+
+
+model = AutoModelForSpeechSeq2Seq.from_pretrained(
+   model_id,
+   torch_dtype=torch.float16,
+   device_map="cuda",
+   quantization_config=quanto_config
+)
+```
+
+Check out this [notebook](https://colab.research.google.com/drive/16CXfVmtdQvciSh9BopZUDYcmXCDpvgrT?usp=sharing#scrollTo=IHbdLXAg53JL) for a complete tutorial on how to properly use quanto with transformers integration !
 
 ## Contributing to 🤗 quanto
 
