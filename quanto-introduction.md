@@ -100,14 +100,43 @@ Please refer to the [examples](https://github.com/huggingface/quanto/tree/main/e
 
 ## Performances
 
-TO BE COMPLETED
+These are some very preliminary results, as we are constantly improving both the accuracy and efficiency of quantized models, but it looks already very promising.
+
+Below are two graphs evaluating the accuracy of different quantized configurations for [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1).
+
+Note: the first bar in each group always corresponds to the non-quantized model.
+
+<div class="row"><center>
+  <div class="column">
+    <img src="https://github.com/huggingface/quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Accuracy.png" alt="mistralai/Mistral-7B-v0.1 Lambada prediction accuracy">
+  </div>
+ </center>
+</div>
+
+<div class="row"><center>
+  <div class="column">
+    <img src="https://github.com/huggingface/quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Perplexity.png" alt="mistralai/Mistral-7B-v0.1 Lambada prediction accuracy">
+  </div>
+ </center>
+</div>
+
+The graph below gives the latency per-token measured on an NVIDIA A100 GPU.
+
+<div class="row"><center>
+  <div class="column">
+    <img src="https://github.com/huggingface/quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Latency__ms.png" alt="mistralai/Mistral-7B-v0.1 Mean Latency per token">
+  </div>
+ </center>
+</div>
+
+Please refer to the [quanto benchs](https://github.com/huggingface/quanto/tree/main/bench/) for detailed results for different model architectures and configurations.
 
 ## Integration in 🤗 transformers
 
 
 Quanto library is seamlessly integrated in Hugging Face transformers library. You can quantize any model by passing a `QuantoConfig` to `from_pretrained`!
 
-Currently you need to use the latest version of accelerate to make sure that the integration is fully compatible. 
+Currently you need to use the latest version of accelerate to make sure that the integration is fully compatible.
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer, QuantoConfig
@@ -118,7 +147,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_id)
 quantization_config = QuantoConfig(weights="int8")
 
 quantized_model = AutoModelForCausalLM.from_pretrained(
-model_id, 
+model_id,
 quantization_config= quantization_config
 )
 ```
