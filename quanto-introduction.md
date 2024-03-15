@@ -1,6 +1,6 @@
 ---
 title: "Quanto: a pytorch quantization toolkit"
-thumbnail: /blog/assets/quanto-intro/thumbnail.png
+thumbnail: /blog/assets/169_quanto_intro/thumbnail.png
 authors:
 - user: dacorvo
 - user: ybelkada
