@@ -30,7 +30,7 @@ Today, we are excited to introduce [🤗 quanto](https://github.com/huggingface/
 - supports not only `int8` weights, but also `int2` and `int4`,
 - supports not only `int8` activations, but also `float8`.
 
-Recent quantization methods appear to be focussed on quantizing Large Language Models (LLMs), whereas quanto intends to provide extremely simple quantization primitives for using simple quantization schemes (linear quantization, per-group quantization) that are adaptable across any modality.
+Recent quantization methods appear to be focussed on quantizing Large Language Models (LLMs), whereas [🤗 quanto](https://github.com/huggingface/quanto) intends to provide extremely simple quantization primitives for using simple quantization schemes (linear quantization, per-group quantization) that are adaptable across any modality.
 
 The goal of [🤗 quanto](https://github.com/huggingface/quanto) is not to replace other quantization libraries, but to foster innovation by lowering the bar
 to implement and combine quantization features.
@@ -120,6 +120,9 @@ Note: the first bar in each group always corresponds to the non-quantized model.
  </center>
 </div>
 
+These results are obtained without applying any Post-Training-Optimization algorithm, and they are already very promising.
+Stay tuned for updates as we will start including some optimizers.
+
 The graph below gives the latency per-token measured on an NVIDIA A100 GPU.
 
 <div class="row"><center>
@@ -129,14 +132,18 @@ The graph below gives the latency per-token measured on an NVIDIA A100 GPU.
  </center>
 </div>
 
+These are some very preliminary results, without any optimized matrix multiplication kernels.
+You can see that the quantization adds a significant overhead for lower bitwidth.
+Stay however tuned for updated results as we are constantly improving [🤗 quanto](https://github.com/huggingface/quanto) and will add soon optimized kernels.
+
 Please refer to the [quanto benchs](https://github.com/huggingface/quanto/tree/main/bench/) for detailed results for different model architectures and configurations.
 
 ## Integration in 🤗 transformers
 
 
-Quanto library is seamlessly integrated in Hugging Face transformers library. You can quantize any model by passing a `QuantoConfig` to `from_pretrained`!
+Quanto library is seamlessly integrated in Hugging Face [🤗 transformers](https://github.com/huggingface/transformers) library. You can quantize any model by passing a `QuantoConfig` to `from_pretrained`!
 
-Currently you need to use the latest version of accelerate to make sure that the integration is fully compatible.
+Currently you need to use the latest version of [🤗 accelerate](https://github.com/huggingface/accelerate) to make sure that the integration is fully compatible.
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer, QuantoConfig
@@ -224,14 +231,13 @@ Weights and biases are __not__ quantized. Outputs can be quantized.
 ### Custom operations
 
 Thanks to the awesome pytorch dispach mechanism, [🤗 quanto](https://github.com/huggingface/quanto) provides implementations for
-the most common functions used in 🤗 transformers or 🤗 diffusers models, allowing to use quantized Tensors without modifying
-much the modeling code.
+the most common functions used in [🤗 transformers](https://github.com/huggingface/transformers) or [🤗 diffusers](https://github.com/huggingface/diffusers) models, allowing to use quantized Tensors without modifying much the modeling code.
 
 Most of these "dispatched" functions can be performed using combinations of standard pytorch operations.
 
 Complex functions however require the definition of custom operations under the `torch.ops.quanto` namespace.
 
-Examples of such operations are `dqmm` for W8A16 matrix multiplications and `udqmm` for lower bitwidth matrix multiplications.
+Examples of such operations are fused matrix multiplications involving lower bitwidth terms.
 
 ### Post-training quantization optimizers
 
