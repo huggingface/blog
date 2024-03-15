@@ -124,7 +124,7 @@ The graph below gives the latency per-token measured on an NVIDIA A100 GPU.
 
 <div class="row"><center>
   <div class="column">
-    <img src="https://github.com/huggingface/quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Latency__ms.png" alt="mistralai/Mistral-7B-v0.1 Mean Latency per token">
+    <img src="https://github.com/huggingface/quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Latency__ms_.png" alt="mistralai/Mistral-7B-v0.1 Mean Latency per token">
   </div>
  </center>
 </div>
