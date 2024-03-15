@@ -120,7 +120,7 @@ Note: the first bar in each group always corresponds to the non-quantized model.
  </center>
 </div>
 
-These results are obtained without applying any Post-Training-Optimization algorithm, and they are already very promising.
+These results are obtained without applying any Post-Training-Optimization algorithm like [hqq](https://mobiusml.github.io/hqq_blog/) or [AWQ](https://github.com/mit-han-lab/llm-awq), and they are already very promising.
 Stay tuned for updates as we will start including some optimizers.
 
 The graph below gives the latency per-token measured on an NVIDIA A100 GPU.
@@ -241,7 +241,7 @@ Examples of such operations are fused matrix multiplications involving lower bit
 ### Post-training quantization optimizers
 
 That feature is not available yet in [🤗 quanto](https://github.com/huggingface/quanto), but the library is versatile enough
-to be compatible with most PTQ optimization algorithms.
+to be compatible with most PTQ optimization algorithms like [hqq](https://mobiusml.github.io/hqq_blog/) or [AWQ](https://github.com/mit-han-lab/llm-awq).
 
 The plan is to integrate the most popular algorithms in the most seamless possible way.
 
