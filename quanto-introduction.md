@@ -97,7 +97,7 @@ freeze(model)
 ```
 
 Please refer to the [examples](https://github.com/huggingface/quanto/tree/main/examples) for instantiations of that workflow.
-
+You can also check this [notebook](https://colab.research.google.com/drive/1qB6yXt650WXBWqroyQIegB-yrWKkiwhl?usp=sharing) where we show you how to quantize bloom model with quanto !
 ## Performances
 
 These are some very preliminary results, as we are constantly improving both the accuracy and efficiency of quantized models, but it looks already very promising.
@@ -154,8 +154,8 @@ tokenizer = AutoTokenizer.from_pretrained(model_id)
 quantization_config = QuantoConfig(weights="int8")
 
 quantized_model = AutoModelForCausalLM.from_pretrained(
-model_id,
-quantization_config= quantization_config
+    model_id,
+    quantization_config= quantization_config
 )
 ```
 
@@ -172,7 +172,6 @@ from transformers import AutoModelForSpeechSeq2Seq
 
 model_id = "openai/whisper-large-v3"
 quanto_config = QuantoConfig(weights="int8")
-
 
 model = AutoModelForSpeechSeq2Seq.from_pretrained(
    model_id,
