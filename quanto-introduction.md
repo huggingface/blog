@@ -123,7 +123,7 @@ You can quantize the weights and / or activations in int8, float8, int4 or int2 
 
 Quanto is device agnostic, meaning you can quantize your model regardless if you are on CPU / GPU / MPS (Apple Silicon) therefore you can run quantized models on any of these devices.
 
-Quanto is also torch.compile friendly, you can quantize a model with quanto and call `torch.compile` to the model to compile it for faster generation.
+Quanto is also torch.compile friendly, you can quantize a model with quanto and call `torch.compile` to the model to compile it for faster generation. Note this feature might not work out of the box if dymanic quantization is involved (i.e. Quantization Aware Training or quantized activations enabled). Make sure to keep `activations=None` when creating your `QuantoConfig` in case you use the transformers integration.
 
 Note it is also possible to quantize any model, regardless of the modality using quanto ! We demonstrate how to quantize `openai/whisper-large-v3` model in int8 using quanto.
 
