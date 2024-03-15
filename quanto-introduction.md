@@ -3,6 +3,8 @@ title: "Quanto: a pytorch quantization toolkit"
 thumbnail: /blog/assets/quanto-intro/thumbnail.png
 authors:
 - user: dacorvo
+- user: ybelkada
+- user: marcsun13
 ---
 
 # Quanto: a pytorch quantization toolkit
@@ -143,10 +145,6 @@ model = AutoModelForSpeechSeq2Seq.from_pretrained(
 ```
 
 Check out this [notebook](https://colab.research.google.com/drive/16CXfVmtdQvciSh9BopZUDYcmXCDpvgrT?usp=sharing#scrollTo=IHbdLXAg53JL) for a complete tutorial on how to properly use quanto with transformers integration !
-
-## Contributing to 🤗 quanto
-
-Contributions to [🤗 quanto](https://github.com/huggingface/quanto) are very much welcomed, and there
 
 ## Implementation details
 
