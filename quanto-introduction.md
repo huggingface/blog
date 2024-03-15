@@ -119,7 +119,7 @@ quantization_config= quantization_config
 )
 ```
 
-You can quantize the weights and / or activations in int8, float8, int4 or int2 by simply passing the correct argument in `QuantoConfig`. The activations can be either in int8 or float8 - note for float8 you need to have hardware that is compatible with float8 precision, otherwise quanto will silently upcast the weights and activations to torch.float32 or torch.float16 (depending on the original data type of the model) when we perform the matmul
+You can quantize the weights and / or activations in int8, float8, int4 or int2 by simply passing the correct argument in `QuantoConfig`. The activations can be either in int8 or float8 - note for float8 you need to have hardware that is compatible with float8 precision, otherwise quanto will silently upcast the weights and activations to torch.float32 or torch.float16 (depending on the original data type of the model) when we perform the matmul (only when the weight is quantized). Note if you try to use `float8` using MPS devices, `torch` will currently raise an error.
 
 Quanto is device agnostic, meaning you can quantize your model regardless if you are on CPU / GPU / MPS (Apple Silicon) therefore you can run quantized models on any of these devices.
 
