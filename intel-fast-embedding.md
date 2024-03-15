@@ -17,7 +17,7 @@ authors:
 
 # CPU Optimized Embeddings with 🤗 Optimum Intel and fastRAG
 
-Embedding models are useful for many applications such as retrieval, reranking, clustering, and classification. The research community has witnessed significant advancements in recent years in embedding models, leading to substantial enhancements in all applications building on semantic representation. Models such as [BGE](https://huggingface.co/BAAI/bge-large-en-v1.5), [GTE](https://huggingface.co/thenlper/gte-small), and [E5](https://huggingface.co/intfloat/multilingual-e5-large) family of models are placed at the top of the [MTEB](https://github.com/embeddings-benchmark/mteb) benchmark and in some cases outperform proprietary embedding services. There are a variety of model sizes found in Hugging Face's Model hub, from lightweight (100-350M parameters) to 7B models (such as [Salesforce/SFR-Embedding-Mistral](http://Salesforce/SFR-Embedding-Mistral)). The lightweight models based on an encoder architecture are ideal candidates for optimization and utilization on CPU backends running semantic search-based applications, such as Retrieval Augmented Generation ([RAG](https://en.wikipedia.org/wiki/Prompt_engineering#Retrieval-augmented_generation)).
+Embedding models are useful for many applications such as retrieval, reranking, clustering, and classification. The research community has witnessed significant advancements in recent years in embedding models, leading to substantial enhancements in all applications building on semantic representation. Models such as [BGE](https://huggingface.co/BAAI/bge-large-en-v1.5), [GTE](https://huggingface.co/thenlper/gte-small), and [E5](https://huggingface.co/intfloat/multilingual-e5-large) are placed at the top of the [MTEB](https://github.com/embeddings-benchmark/mteb) benchmark and in some cases outperform proprietary embedding services. There are a variety of model sizes found in Hugging Face's Model hub, from lightweight (100-350M parameters) to 7B models (such as [Salesforce/SFR-Embedding-Mistral](http://Salesforce/SFR-Embedding-Mistral)). The lightweight models based on an encoder architecture are ideal candidates for optimization and utilization on CPU backends running semantic search-based applications, such as Retrieval Augmented Generation ([RAG](https://en.wikipedia.org/wiki/Prompt_engineering#Retrieval-augmented_generation)).
 
 ## Information Retrieval with Embedding Models
 
@@ -48,7 +48,7 @@ Optimizing the embedding model component in RAG pipelines is highly desirable fo
 
 [Optimum Intel](https://github.com/huggingface/optimum-intel) is an open-source library that accelerates end-to-end pipelines built with Hugging Face libraries on Intel Hardware. Optimum Intel includes several techniques to accelerate models such as low-bit quantization, model weight pruning, distillation, and an accelerated runtime.
 
-The runtime and optimizations included in [Optimum Intel](https://github.com/huggingface/optimum-intel) take advantage of Intel® Advanced Vector Extensions 512 (Intel® AVX-512), Vector Neural Network Instructions (VNNI) and Intel® Advanced Matrix Extensions (Intel® AMX) on Intel CPUs to accelerate models. Specifically, it has built-in [BFloat16](https://en.wikipedia.org/wiki/Bfloat16_floating-point_format) (BF16) and Int8 GEMM accelerators in every core to accelerate deep learning training and inference workloads. AMX accelerated inference is introduced in PyTorch 2.0 and [Intel Extension for PyTorch](https://github.com/intel/intel-extension-for-pytorch) (IPEX) in addition to other optimizations for various common operators.
+The runtime and optimizations included in [Optimum Intel](https://github.com/huggingface/optimum-intel) take advantage of Intel® Advanced Vector Extensions 512 (Intel® AVX-512), Vector Neural Network Instructions (VNNI) and Intel® Advanced Matrix Extensions (Intel® AMX) on Intel CPUs to accelerate models. Specifically, it has built-in [BFloat16](https://en.wikipedia.org/wiki/Bfloat16_floating-point_format) (`bf16`) and `int8` GEMM accelerators in every core to accelerate deep learning training and inference workloads. AMX accelerated inference is introduced in PyTorch 2.0 and [Intel Extension for PyTorch](https://github.com/intel/intel-extension-for-pytorch) (IPEX) in addition to other optimizations for various common operators.
 
 Optimizing pre-trained models can be done easily with Optimum Intel; many simple examples can be found [here](https://huggingface.co/docs/optimum/main/en/intel/optimization_inc).
 
@@ -59,7 +59,7 @@ In this blog, we focus on recently released embedding models by researchers at t
 
 ### BGE Technical Details
 
-Bi-encoder models are Transformer-based encoders trained to minimize a similarity metric, such as cosine-similarity, between two semantically similar texts as vectors. For example, popular Embedding models use a BERT model as a base pre-trained model and fine-tune it for embedding documents. The vector representing the encoded text is created from the model outputs; for example, it can be the [CLS] token vector or a mean of all the token vectors.
+Bi-encoder models are Transformer-based encoders trained to minimize a similarity metric, such as cosine-similarity, between two semantically similar texts as vectors. For example, popular embedding models use a BERT model as a base pre-trained model and fine-tune it for embedding documents. The vector representing the encoded text is created from the model outputs; for example, it can be the [CLS] token vector or a mean of all the token vectors.
 
 Unlike more complex embedding architectures, bi-encoders encode only single documents, thus they lack contextual interaction between encoded entities such as query-document and document-document. However, state-of-the-art bi-encoder embedding models present competitive performance and are extremely fast due to their simple architecture.
 
@@ -75,7 +75,7 @@ We present a step-by-step guide for enhancing the performance of embedding model
 
 ##### Step 1: Installing Packages
 
-To install optimum-intel and IPEX run the following command:
+To install `optimum-intel` and `intel-extension-for-transformers` run the following command:
 
 ```bash
 pip install -U optimum[neural-compressor] intel-extension-for-transformers
@@ -141,12 +141,12 @@ We provide additional and important details on how to configure the CPU-backend 
 
 ### Model Evaluation with MTEB
 
-Quantizing the models' weights to a lower precision introduces accuracy loss, as we lose precision moving from float32 weights to int8. Therefore, we aim to validate the accuracy of the optimized models by comparing them to the original models with two [MTEB](https://github.com/embeddings-benchmark/mteb)'s tasks:
+Quantizing the models' weights to a lower precision introduces accuracy loss, as we lose precision moving from `fp32` weights to `int8`. Therefore, we aim to validate the accuracy of the optimized models by comparing them to the original models with two [MTEB](https://github.com/embeddings-benchmark/mteb) tasks:
 
 - **Retrieval**  - where a corpus is encoded and ranked lists are created by searching the index given a query.
 - **Reranking**  - reranking the retrieval's results for better relevance given a query.
 
-The table below shows the average accuracy (on multiple datasets)  of each task type (MAP for Reranking, NDCG@10 for Retrieval), where int8 is our quantized model and fp32 is the original model (results taken from the official MTEB leaderboard). The quantized models show less than 1% error rate compared to the original model in the Reranking task and less than 1.55% in the Retrieval task.
+The table below shows the average accuracy (on multiple datasets)  of each task type (MAP for Reranking, NDCG@10 for Retrieval), where `int8` is our quantized model and `fp32` is the original model (results taken from the official MTEB leaderboard). The quantized models show less than 1% error rate compared to the original model in the Reranking task and less than 1.55% in the Retrieval task.
 
 <table>
 <tr><th> Reranking </th><th> Retrieval </th></tr>
@@ -172,8 +172,8 @@ The table below shows the average accuracy (on multiple datasets)  of each task 
 ### Speed and Latency
 
 We compare the performance of our models with two other common methods of usage of models:
-1. Using PyTorch and Huggingface's Transformers library with bf16.
-2. Using [Intel extension for PyTorch](https://intel.github.io/intel-extension-for-pytorch/#introduction) (IPEX) runtime with bf16 and tracing the model using torchscript.
+1. Using PyTorch and Huggingface's Transformers library with `bf16`.
+2. Using [Intel extension for PyTorch](https://intel.github.io/intel-extension-for-pytorch/#introduction) (IPEX) runtime with `bf16` and tracing the model using torchscript.
 
 Experimental setup notes:
 - Hardware (CPU):  4th gen Intel Xeon 8480+ with 2 sockets, 56 cores per socket.
@@ -203,7 +203,7 @@ with torch.cpu.amp.autocast(dtype=torch.bfloat16):
     encode_text()
 ```
 
-2. IPEX torchscript and bf16:
+2. IPEX torchscript and `bf16`:
 
 ```python
 import torch
@@ -230,7 +230,7 @@ with torch.cpu.amp.autocast(dtype=torch.bfloat16):
 ```
 
 
-3. Optimum Intel with IPEX and int8 model:
+3. Optimum Intel with IPEX and `int8` model:
 ```python
 import torch
 from optimum.intel import IPEXModel
@@ -262,7 +262,7 @@ We can see that the quantized model has the best latency overall, under 10 ms fo
 
 In our throughput evaluation, we aim to search for peak encoding performance in terms of documents per second.  We set text lengths to be 256 tokens longs, as it is a good estimate of an average document in a RAG pipeline, and evaluate with different batch sizes (4, 8, 16, 32, 64, 128, 256).
 
-Results show that the quantized models reach higher throughput values compared to the other models, and reach peak throughput at batch size 128. Overall, for all model sizes, the quantized model shows up to 4x improvement compared to the baseline bf16 model in various batch sizes.
+Results show that the quantized models reach higher throughput values compared to the other models, and reach peak throughput at batch size 128. Overall, for all model sizes, the quantized model shows up to 4x improvement compared to the baseline `bf16` model in various batch sizes.
 
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/178_intel_ipex_quantization/throughput_small.png" alt="throughput small" style="width: 70%; height: auto;"><br>
