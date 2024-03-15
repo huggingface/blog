@@ -142,7 +142,7 @@ model = AutoModelForSpeechSeq2Seq.from_pretrained(
 )
 ```
 
-Check out this notebook for a complete tutorial on how to properly use quanto & transformers !
+Check out this [notebook](https://colab.research.google.com/drive/16CXfVmtdQvciSh9BopZUDYcmXCDpvgrT?usp=sharing#scrollTo=IHbdLXAg53JL) for a complete tutorial on how to properly use quanto with transformers integration !
 
 ## Contributing to 🤗 quanto
 
