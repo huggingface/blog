@@ -3371,6 +3371,7 @@
     - optimum
     - collaboration
     - community
+
 - local: leaderboard-patronus
   title: "Introducing the Enterprise Scenarios Leaderboard: a Leaderboard for Real World Use Cases"
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_patronus.png
@@ -3624,3 +3625,17 @@
     - cv
     - data
     - research
+  
+- local: intel-fast-embedding
+  title: "CPU Optimized Embeddings with 🤗 Optimum Intel and fastRAG"
+  author: peterizsak
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: Mar 15, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community
