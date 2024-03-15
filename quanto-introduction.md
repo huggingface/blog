@@ -30,6 +30,8 @@ Today, we are excited to introduce [🤗 quanto](https://github.com/huggingface/
 - supports not only `int8` weights, but also `int2` and `int4`,
 - supports not only `int8` activations, but also `float8`.
 
+Recent quantization methods appear to be focussed on quantizing Large Language Models (LLMs), whereas quanto intends to provide extremely simple quantization primitives for using simple quantization schemes (linear quantization, per-group quantization) that are adaptable across any modality.
+
 The goal of [🤗 quanto](https://github.com/huggingface/quanto) is not to replace other quantization libraries, but to foster innovation by lowering the bar
 to implement and combine quantization features.
 
