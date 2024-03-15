@@ -49,7 +49,7 @@ Optimizing the embedding model component in RAG pipelines is highly desirable fo
 
 [Optimum Intel](https://github.com/huggingface/optimum-intel) is an open-source library that accelerates end-to-end pipelines built with Hugging Face libraries on Intel Hardware. Optimum Intel includes several techniques to accelerate models such as low-bit quantization, model weight pruning, distillation, and an accelerated runtime.
 
-The runtime and optimizations included in [Optimum Intel](https://github.com/huggingface/optimum-intel) take advantage of Intel® Advanced Vector Extensions 512 (Intel® AVX-512) Vector Neural Network Instructions (VNNI) and Intel® Advanced Matrix Extensions (Intel® AMX) on Intel CPUs to accelerate models. Specifically, it has built-in [BFloat16](https://en.wikipedia.org/wiki/Bfloat16_floating-point_format) (BF16) and Int8 GEMM accelerators in every core to accelerate deep learning training and inference workloads. AMX accelerated inference is introduced through PyTorch 2.0 and [Intel Extension for PyTorch](https://github.com/intel/intel-extension-for-pytorch) (IPEX) in addition to other optimizations for various common operators.
+The runtime and optimizations included in [Optimum Intel](https://github.com/huggingface/optimum-intel) take advantage of Intel® Advanced Vector Extensions 512 (Intel® AVX-512), Vector Neural Network Instructions (VNNI) and Intel® Advanced Matrix Extensions (Intel® AMX) on Intel CPUs to accelerate models. Specifically, it has built-in [BFloat16](https://en.wikipedia.org/wiki/Bfloat16_floating-point_format) (BF16) and Int8 GEMM accelerators in every core to accelerate deep learning training and inference workloads. AMX accelerated inference is introduced in PyTorch 2.0 and [Intel Extension for PyTorch](https://github.com/intel/intel-extension-for-pytorch) (IPEX) in addition to other optimizations for various common operators.
 
 Optimizing pre-trained models can be done easily with Optimum Intel; many simple examples can be found [here](https://huggingface.co/docs/optimum/main/en/intel/optimization_inc).
 
@@ -71,7 +71,7 @@ We note that the optimization process we showcase below is generic and can be ap
 
 ### Step-by-step: Optimization by Quantization
 
-We present a step-by-step guide for enhancing the performance of embedding models, focusing on reducing latency (with a batch size of 1) and increasing throughput (measured in documents encoded per second). This recipe utilizes optimum-intel and [Intel Neural Compressor](https://github.com/intel/neural-compressor) to quantize the model, and uses [IPEX](https://github.com/intel/intel-extension-for-pytorch) for optimized runtime on Intel-based hardware.
+We present a step-by-step guide for enhancing the performance of embedding models, focusing on reducing latency (with a batch size of 1) and increasing throughput (measured in documents encoded per second). This recipe utilizes `optimum-intel` and [Intel Neural Compressor](https://github.com/intel/neural-compressor) to quantize the model, and uses [IPEX](https://github.com/intel/intel-extension-for-pytorch) for optimized runtime on Intel-based hardware.
 
 
 ##### Step 1: Installing Packages
