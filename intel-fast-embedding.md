@@ -17,8 +17,7 @@ authors:
 
 # CPU Optimized Embeddings with 🤗 Optimum Intel and fastRAG
 
-Embedding models are useful for many applications such as retrieval, reranking, clustering, and classification. The research community has witnessed significant advancements in recent years in embedding models, leading to substantial enhancements in all applications building on semantic representation. Models such as [BGE](http://BAAI/bge-large-en-v1.5), [GTE](http://thenlper/gte-small), and [E5](http://intfloat/multilingual-e5-large) family of models are placed at the top of the [MTEB](https://github.com/embeddings-benchmark/mteb) benchmark and in some cases outperform proprietary embedding services. There are a variety of model sizes found in Hugging Face's Model hub, from lightweight (100-350M parameters) to 7B models (such as [Salesforce/SFR-Embedding-Mistral](http://Salesforce/SFR-Embedding-Mistral)). The lightweight models based on an encoder architecture are ideal candidates for optimization and utilization on CPU backends running semantic search-based applications, such as Retrieval Augmented Generation ([RAG](https://en.wikipedia.org/wiki/Prompt_engineering#Retrieval-augmented_generation)).
-
+Embedding models are useful for many applications such as retrieval, reranking, clustering, and classification. The research community has witnessed significant advancements in recent years in embedding models, leading to substantial enhancements in all applications building on semantic representation. Models such as [BGE](https://huggingface.co/BAAI/bge-large-en-v1.5), [GTE](https://huggingface.co/thenlper/gte-small), and [E5](https://huggingface.co/intfloat/multilingual-e5-large) family of models are placed at the top of the [MTEB](https://github.com/embeddings-benchmark/mteb) benchmark and in some cases outperform proprietary embedding services. There are a variety of model sizes found in Hugging Face's Model hub, from lightweight (100-350M parameters) to 7B models (such as [Salesforce/SFR-Embedding-Mistral](http://Salesforce/SFR-Embedding-Mistral)). The lightweight models based on an encoder architecture are ideal candidates for optimization and utilization on CPU backends running semantic search-based applications, such as Retrieval Augmented Generation ([RAG](https://en.wikipedia.org/wiki/Prompt_engineering#Retrieval-augmented_generation)).
 
 ## Information Retrieval with Embedding Models
 
@@ -89,7 +88,7 @@ Post-training static quantization requires a calibration set to determine the dy
 The following snippet shows a code snippet for quantization:
 
 ```python
-def quantize(model_name: str, output_path: str, calibration_set: Dataset):
+def quantize(model_name: str, output_path: str, calibration_set: "datasets.Dataset"):
     model = AutoModel.from_pretrained(model_name)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
 
