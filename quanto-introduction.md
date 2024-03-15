@@ -101,8 +101,6 @@ TO BE COMPLETED
 ## Integration in 🤗 transformers
 
 
-(note this is the paragraph of “transformers integration” in  https://github.com/huggingface/blog/pull/1832 )
-
 Quanto library is seamlessly integrated in Hugging Face transformers library. You can quantize any model and push it on the Hub by passing a `QuantoConfig` to `from_pretrained`!
 
 Currently you need to use the latest version of accelerate to make sure that the integration is fully compatible. 
