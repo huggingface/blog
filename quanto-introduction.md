@@ -12,32 +12,32 @@ authors:
 Quantization is a technique to reduce the computational and memory costs of evaluating Deep Learning Models by representing their weights and activations with low-precision data types like 8-bit integer (int8) instead of the usual 32-bit floating point (float32).
 
 Reducing the number of bits means the resulting model requires less memory storage, which is crucial for deploying Large Language Models on consumer devices.
-It also allows to take advantage of specific optimizations for lower bitwidth datatypes, such as `int8` of `float8` matrix multiplications on CUDA devices.
+It also enables specific optimizations for lower bitwidth datatypes, such as `int8` or `float8` matrix multiplications on CUDA devices.
 
 Many open-source libraries are available to quantize pytorch Deep Learning Models, each providing very powerful features, yet often restricted to specific model configurations and devices.
 
-Also, although being based on the same design principles, they are unfortunately most of the time incompatible with one another.
+Also, although they are based on the same design principles, they are unfortunately often incompatible with one another.
 
 Today, we are excited to introduce [🤗 quanto](https://github.com/huggingface/quanto), a versatile pytorch quantization toolkit, that provides several unique features:
 
-- available in eager mode (works with non-traceable models),
+- available in eager mode (works with non-traceable models)
 - quantized models can be placed on any device (including CUDA and MPS),
 - automatically inserts quantization and dequantization stubs,
 - automatically inserts quantized functional operations,
 - automatically inserts quantized modules (see below the list of supported modules),
-- provides a seamless workflow from a float model to a dynamic to a static quantized model,
+- provides a seamless workflow for a float model, going from a dynamic to a static quantized model,
 - supports quantized model serialization as a `state_dict`,
 - supports not only `int8` weights, but also `int2` and `int4`,
 - supports not only `int8` activations, but also `float8`.
 
-Recent quantization methods appear to be focussed on quantizing Large Language Models (LLMs), whereas [🤗 quanto](https://github.com/huggingface/quanto) intends to provide extremely simple quantization primitives for using simple quantization schemes (linear quantization, per-group quantization) that are adaptable across any modality.
+Recent quantization methods appear to be focused on quantizing Large Language Models (LLMs), whereas [🤗 quanto](https://github.com/huggingface/quanto) intends to provide extremely simple quantization primitives for simple quantization schemes (linear quantization, per-group quantization) that are adaptable across any modality.
 
 The goal of [🤗 quanto](https://github.com/huggingface/quanto) is not to replace other quantization libraries, but to foster innovation by lowering the bar
 to implement and combine quantization features.
 
 Make no mistake, quantization is hard, and integrating it seamlessly in existing models requires a deep understanding of pytorch internals.
-But don't worry: [🤗 quanto](https://github.com/huggingface/quanto)'s goal is to do most of the heavy-lifting for you, so that you can focus
-on what matters most: exploring the realms of low-bitwidth machine learning and finding solutions for the GPU poor.
+But don't worry, [🤗 quanto](https://github.com/huggingface/quanto)'s goal is to do most of the heavy-lifting for you, so that you can focus
+on what matters most, exploring low-bitwidth machine learning and finding solutions for the GPU poor.
 
 ## Quantization workflow
 
@@ -47,8 +47,8 @@ Quanto is available as a pip package.
 pip install quanto
 ```
 
-[🤗 quanto](https://github.com/huggingface/quanto) does not make a clear distinction between dynamic and static quantization: models are first dynamically quantized,
-but their weights can later be "frozen" to static values.
+[🤗 quanto](https://github.com/huggingface/quanto) does not make a clear distinction between dynamic and static quantization. Models are dynamically quantized first,
+but their weights can be "frozen" later to static values.
 
 A typical quantization workflow consists of the following steps:
 
@@ -60,11 +60,11 @@ The first step converts a standard float model into a dynamically quantized mode
 quantize(model, weights=quanto.qint8, activations=quanto.qint8)
 ```
 
-At this stage, only the inference of the model is modified to dynamically quantize the float weights.
+At this stage, the model's float weights are dynamically quantized only for inference.
 
 **2. Calibrate (optional if activations are not quantized)**
 
-Quanto supports a calibration mode that allows to record the activation ranges while passing representative samples through the quantized model.
+Quanto supports a calibration mode that records the activation ranges while passing representative samples through the quantized model.
 
 ```python
 with calibration(momentum=0.9):
@@ -96,11 +96,11 @@ When freezing a model, its float weights are replaced by quantized integer weigh
 freeze(model)
 ```
 
-Please refer to the [examples](https://github.com/huggingface/quanto/tree/main/examples) for instantiations of that workflow.
-You can also check this [notebook](https://colab.research.google.com/drive/1qB6yXt650WXBWqroyQIegB-yrWKkiwhl?usp=sharing) where we show you how to quantize bloom model with quanto !
-## Performances
+Please refer to the [examples](https://github.com/huggingface/quanto/tree/main/examples) for instantiations of the quantization workflow.
+You can also check this [notebook](https://colab.research.google.com/drive/1qB6yXt650WXBWqroyQIegB-yrWKkiwhl?usp=sharing) where we show you how to quantize a BLOOM model with quanto!
+## Performance
 
-These are some very preliminary results, as we are constantly improving both the accuracy and efficiency of quantized models, but it looks already very promising.
+These are some very preliminary results, as we are constantly improving both the accuracy and efficiency of quantized models, but it already looks very promising.
 
 Below are two graphs evaluating the accuracy of different quantized configurations for [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1).
 
@@ -120,8 +120,7 @@ Note: the first bar in each group always corresponds to the non-quantized model.
  </center>
 </div>
 
-These results are obtained without applying any Post-Training-Optimization algorithm like [hqq](https://mobiusml.github.io/hqq_blog/) or [AWQ](https://github.com/mit-han-lab/llm-awq), and they are already very promising.
-Stay tuned for updates as we will start including some optimizers.
+These results are obtained without applying any Post-Training-Optimization algorithm like [hqq](https://mobiusml.github.io/hqq_blog/) or [AWQ](https://github.com/mit-han-lab/llm-awq).
 
 The graph below gives the latency per-token measured on an NVIDIA A100 GPU.
 
@@ -132,18 +131,18 @@ The graph below gives the latency per-token measured on an NVIDIA A100 GPU.
  </center>
 </div>
 
-These are some very preliminary results, without any optimized matrix multiplication kernels.
+These results don't include any optimized matrix multiplication kernels.
 You can see that the quantization adds a significant overhead for lower bitwidth.
-Stay however tuned for updated results as we are constantly improving [🤗 quanto](https://github.com/huggingface/quanto) and will add soon optimized kernels.
+Stay tuned for updated results as we are constantly improving [🤗 quanto](https://github.com/huggingface/quanto) and will soon add optimizers and optimized kernels.
 
-Please refer to the [quanto benchs](https://github.com/huggingface/quanto/tree/main/bench/) for detailed results for different model architectures and configurations.
+Please refer to the [quanto benchmarks](https://github.com/huggingface/quanto/tree/main/bench/) for detailed results for different model architectures and configurations.
 
 ## Integration in 🤗 transformers
 
 
-Quanto library is seamlessly integrated in Hugging Face [🤗 transformers](https://github.com/huggingface/transformers) library. You can quantize any model by passing a `QuantoConfig` to `from_pretrained`!
+Quanto is seamlessly integrated in the Hugging Face [🤗 transformers](https://github.com/huggingface/transformers) library. You can quantize any model by passing a `QuantoConfig` to `from_pretrained`!
 
-Currently you need to use the latest version of [🤗 accelerate](https://github.com/huggingface/accelerate) to make sure that the integration is fully compatible.
+Currently, you need to use the latest version of [🤗 accelerate](https://github.com/huggingface/accelerate) to make sure the integration is fully compatible.
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer, QuantoConfig
@@ -159,13 +158,13 @@ quantized_model = AutoModelForCausalLM.from_pretrained(
 )
 ```
 
-You can quantize the weights and / or activations in int8, float8, int4 or int2 by simply passing the correct argument in `QuantoConfig`. The activations can be either in int8 or float8 - note for float8 you need to have hardware that is compatible with float8 precision, otherwise quanto will silently upcast the weights and activations to torch.float32 or torch.float16 (depending on the original data type of the model) when we perform the matmul (only when the weight is quantized). Note if you try to use `float8` using MPS devices, `torch` will currently raise an error.
+You can quantize the weights and/or activations in int8, float8, int4, or int2 by simply passing the correct argument in `QuantoConfig`. The activations can be either in int8 or float8. For float8, you need to have hardware that is compatible with float8 precision, otherwise quanto will silently upcast the weights and activations to torch.float32 or torch.float16 (depending on the original data type of the model) when we perform the matmul (only when the weight is quantized). If you try to use `float8` using MPS devices, `torch` will currently raise an error.
 
-Quanto is device agnostic, meaning you can quantize your model regardless if you are on CPU / GPU / MPS (Apple Silicon) therefore you can run quantized models on any of these devices.
+Quanto is device agnostic, meaning you can quantize and run your model regardless if you are on CPU/GPU/ MPS (Apple Silicon).
 
-Quanto is also torch.compile friendly, you can quantize a model with quanto and call `torch.compile` to the model to compile it for faster generation. Note this feature might not work out of the box if dymanic quantization is involved (i.e. Quantization Aware Training or quantized activations enabled). Make sure to keep `activations=None` when creating your `QuantoConfig` in case you use the transformers integration.
+Quanto is also torch.compile friendly. You can quantize a model with quanto and call `torch.compile` to the model to compile it for faster generation. This feature might not work out of the box if dynamic quantization is involved (i.e., Quantization Aware Training or quantized activations enabled). Make sure to keep `activations=None` when creating your `QuantoConfig` in case you use the transformers integration.
 
-Note it is also possible to quantize any model, regardless of the modality using quanto ! We demonstrate how to quantize `openai/whisper-large-v3` model in int8 using quanto.
+It is also possible to quantize any model, regardless of the modality using quanto! We demonstrate how to quantize `openai/whisper-large-v3` model in int8 using quanto.
 
 ```python
 from transformers import AutoModelForSpeechSeq2Seq
@@ -181,7 +180,7 @@ model = AutoModelForSpeechSeq2Seq.from_pretrained(
 )
 ```
 
-Check out this [notebook](https://colab.research.google.com/drive/16CXfVmtdQvciSh9BopZUDYcmXCDpvgrT?usp=sharing#scrollTo=IHbdLXAg53JL) for a complete tutorial on how to properly use quanto with transformers integration !
+Check out this [notebook](https://colab.research.google.com/drive/16CXfVmtdQvciSh9BopZUDYcmXCDpvgrT?usp=sharing#scrollTo=IHbdLXAg53JL) for a complete tutorial on how to properly use quanto with the transformers integration!
 
 ## Implementation details
 
@@ -210,13 +209,13 @@ and require custom operations.
 
 Quanto provides a generic mechanism to replace torch modules (`torch.nn.Module`) by `quanto` modules that are able to process `quanto` tensors.
 
-Quanto modules dynamically convert their `weight` parameter until a model is frozen, which slows down inference a bit but is
+Quanto modules dynamically convert their `weight` parameter until a model is frozen, which slows inference down a bit but is
 required if the model needs to be tuned (a.k.a Quantization Aware Training).
 
 Module `bias` parameters are not quantized because they are much smaller than `weights` and quantized addition is hard to accelerate.
 
 Activations are dynamically quantized using static scales (defaults to the range `[-1, 1]`). The model needs to be calibrated to evaluate
-the best activation scales (using a momentum).
+the best activation scales (using momentum).
 
 The following modules can be quantized:
 
@@ -229,8 +228,8 @@ Weights and biases are __not__ quantized. Outputs can be quantized.
 
 ### Custom operations
 
-Thanks to the awesome pytorch dispach mechanism, [🤗 quanto](https://github.com/huggingface/quanto) provides implementations for
-the most common functions used in [🤗 transformers](https://github.com/huggingface/transformers) or [🤗 diffusers](https://github.com/huggingface/diffusers) models, allowing to use quantized Tensors without modifying much the modeling code.
+Thanks to the awesome pytorch dispatch mechanism, [🤗 quanto](https://github.com/huggingface/quanto) provides implementations for
+the most common functions used in [🤗 transformers](https://github.com/huggingface/transformers) or [🤗 diffusers](https://github.com/huggingface/diffusers) models, enabling quantized Tensors without modifying the modeling code too much.
 
 Most of these "dispatched" functions can be performed using combinations of standard pytorch operations.
 
@@ -240,10 +239,10 @@ Examples of such operations are fused matrix multiplications involving lower bit
 
 ### Post-training quantization optimizers
 
-That feature is not available yet in [🤗 quanto](https://github.com/huggingface/quanto), but the library is versatile enough
+Post-training quantization optimizers are not available yet in [🤗 quanto](https://github.com/huggingface/quanto), but the library is versatile enough
 to be compatible with most PTQ optimization algorithms like [hqq](https://mobiusml.github.io/hqq_blog/) or [AWQ](https://github.com/mit-han-lab/llm-awq).
 
-The plan is to integrate the most popular algorithms in the most seamless possible way.
+Moving forward, the plan is to integrate the most popular algorithms in the most seamless possible way.
 
 ## Contributing to 🤗 quanto
 
