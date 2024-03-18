@@ -88,9 +88,6 @@ After your training is complete, your fine-tuned model will be uploaded to a new
 
 Train on DGX Cloud is available today for all Enterprise Hub Organizations! Give the service a try, and let us know your feedback!
 
-If you want to see a live demo of Train on DGX Cloud and ask questions to [Abhishek](https://huggingface.co/abhishek) and [Rafael](https://huggingface.co/rafaelpierrehf), [don’t miss the Hugging Cast on Thursday, 3/21](https://streamyard.com/watch/YfEj26jJJg2w) at 8 am PT / 11 am ET / 17h CET.
-
-
 ## Pricing for Train on DGX Cloud
 
 Usage of Train on DGX Cloud is billed by the minute of the GPU instances used during your training jobs. Current prices for training jobs are $8.25 per GPU hour for H100 instances, and $2.75 per GPU hour for L40S instances. Usage fees accrue to your Enterprise Hub Organizations’ current monthly billing cycle, once a job is completed. You can check your current and past usage at any time within the billing settings of your Enterprise Hub Organization. 
@@ -136,3 +133,5 @@ Our collaboration on open science through [BigCode](https://huggingface.co/bigco
 Our collaboration on open source is fueling the new [optimum-nvidia library](https://github.com/huggingface/optimum-nvidia), accelerating the inference of LLMs on the latest NVIDIA GPUs and already achieving 1,200 tokens per second with Llama 2.
 
 Our collaboration on cloud services created Train on DGX Cloud today. We are also working with NVIDIA to optimize inference and make accelerated computing more accessible to the Hugging Face community, leveraging our collaboration on [NVIDIA TensorRT-LLM](https://developer.nvidia.com/blog/optimizing-inference-on-llms-with-tensorrt-llm-now-publicly-available/) and [optimum-nvidia](https://github.com/huggingface/optimum-nvidia). In addition, some of the most popular open models on Hugging Face will be on [NVIDIA NIM microservices](https://developer.nvidia.com/blog/nvidia-nim-offers-optimized-inference-microservices-for-deploying-ai-models-at-scale/), which was announced today at GTC.
+
+For those attending GTC this week, ensure you catch session [S63149](https://www.nvidia.com/gtc/session-catalog/?tab.allsessions=1700692987788001F1cG&search=S63149#/session/1704937870817001eXsB) on Wednesday, 3/20, at 3pm PT where [Jeff](https://huggingface.co/jeffboudier) will guide you through Train on DGX Cloud and beyond. Additionally, don't miss the chance for a live demo of Train on DGX Cloud, where you can ask questions directly to [Abhishek](https://huggingface.co/abhishek) and [Rafael](https://huggingface.co/rafaelpierrehf) during the Hugging Cast on Thursday, 3/21, at 9am PT / 12pm ET / 17h CET - [Register here](https://streamyard.com/watch/YfEj26jJJg2w).
