@@ -3651,3 +3651,15 @@
     - quantization
     - transformers
     - diffusers
+
+- local: train-dgx-cloud
+  title: "Easily Train Models with H100 GPUs on NVIDIA DGX Cloud"
+  author: philschmid
+  thumbnail: /blog/assets/train-dgx-cloud/thumbnail.jpg
+  date: March 18, 2024
+  tags:
+    - partnerships
+    - hardware
+    - nvidia
+    - llm
+    - training
