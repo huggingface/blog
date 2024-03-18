@@ -151,10 +151,10 @@ Quantizing the models' weights to a lower precision introduces accuracy loss, as
 The table below shows the average accuracy (on multiple datasets)  of each task type (MAP for Reranking, NDCG@10 for Retrieval), where `int8` is our quantized model and `fp32` is the original model (results taken from the official MTEB leaderboard). The quantized models show less than 1% error rate compared to the original model in the Reranking task and less than 1.55% in the Retrieval task.
 
 <table>
-<tr><th>  </th><th>   Reranking </th><th> Retrieval </th></tr>
+<tr><th> </th><th>   Reranking </th><th> Retrieval </th></tr>
 <tr><td>
 
-|           |
+|   &nbsp;  |
 | --------- |
 | BGE-small |
 | BGE-base  |
