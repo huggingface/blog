@@ -11,7 +11,7 @@ authors:
 
 # Easily Train Models with H100 GPUs on NVIDIA DGX Cloud
 
-Today, we are thrilled to announce the launch of **Train on DGX Cloud**, a new service on the Hugging Face Hub, available to Enterprise Hub organizations. Train on DGX Cloud makes it easy to use open models with the accelerated compute infrastructure of NVIDIA DGX Cloud. Together, we built Train on DGX Cloud so that Enterprise Hub users can easily access the latest NVIDIA H100 GPUs, to fine-tune popular Generative AI models like Llama, Mistral, and Stable Diffusion, in just a few clicks within the [Hugging Face Hub](https://huggingface.co/models). 
+Today, we are thrilled to announce the launch of **Train on DGX Cloud**, a new service on the Hugging Face Hub, available to Enterprise Hub organizations. Train on DGX Cloud makes it easy to use open models with the accelerated compute infrastructure of NVIDIA DGX Cloud. Together, we built Train on DGX Cloud so that Enterprise Hub users can easily access the latest NVIDIA H100 Tensor Core GPUs, to fine-tune popular Generative AI models like Llama, Mistral, and Stable Diffusion, in just a few clicks within the [Hugging Face Hub](https://huggingface.co/models). 
 
 <div align="center"> 
   <img src="/blog/assets/train-dgx-cloud/thumbnail.jpg" alt="Thumbnail"> 
