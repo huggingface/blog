@@ -18,7 +18,7 @@ Many open-source libraries are available to quantize pytorch Deep Learning Model
 
 Also, although they are based on the same design principles, they are unfortunately often incompatible with one another.
 
-Today, we are excited to introduce [🤗 quanto](https://github.com/huggingface/quanto), a versatile pytorch quantization toolkit, that provides several unique features:
+Today, we are excited to introduce [quanto](https://github.com/huggingface/quanto), a versatile pytorch quantization toolkit, that provides several unique features:
 
 - available in eager mode (works with non-traceable models)
 - quantized models can be placed on any device (including CUDA and MPS),
@@ -30,13 +30,13 @@ Today, we are excited to introduce [🤗 quanto](https://github.com/huggingface/
 - supports not only `int8` weights, but also `int2` and `int4`,
 - supports not only `int8` activations, but also `float8`.
 
-Recent quantization methods appear to be focused on quantizing Large Language Models (LLMs), whereas [🤗 quanto](https://github.com/huggingface/quanto) intends to provide extremely simple quantization primitives for simple quantization schemes (linear quantization, per-group quantization) that are adaptable across any modality.
+Recent quantization methods appear to be focused on quantizing Large Language Models (LLMs), whereas [quanto](https://github.com/huggingface/quanto) intends to provide extremely simple quantization primitives for simple quantization schemes (linear quantization, per-group quantization) that are adaptable across any modality.
 
-The goal of [🤗 quanto](https://github.com/huggingface/quanto) is not to replace other quantization libraries, but to foster innovation by lowering the bar
+The goal of [quanto](https://github.com/huggingface/quanto) is not to replace other quantization libraries, but to foster innovation by lowering the bar
 to implement and combine quantization features.
 
 Make no mistake, quantization is hard, and integrating it seamlessly in existing models requires a deep understanding of pytorch internals.
-But don't worry, [🤗 quanto](https://github.com/huggingface/quanto)'s goal is to do most of the heavy-lifting for you, so that you can focus
+But don't worry, [quanto](https://github.com/huggingface/quanto)'s goal is to do most of the heavy-lifting for you, so that you can focus
 on what matters most, exploring low-bitwidth machine learning and finding solutions for the GPU poor.
 
 ## Quantization workflow
@@ -47,7 +47,7 @@ Quanto is available as a pip package.
 pip install quanto
 ```
 
-[🤗 quanto](https://github.com/huggingface/quanto) does not make a clear distinction between dynamic and static quantization. Models are dynamically quantized first,
+[quanto](https://github.com/huggingface/quanto) does not make a clear distinction between dynamic and static quantization. Models are dynamically quantized first,
 but their weights can be "frozen" later to static values.
 
 A typical quantization workflow consists of the following steps:
@@ -133,16 +133,16 @@ The graph below gives the latency per-token measured on an NVIDIA A100 GPU.
 
 These results don't include any optimized matrix multiplication kernels.
 You can see that the quantization adds a significant overhead for lower bitwidth.
-Stay tuned for updated results as we are constantly improving [🤗 quanto](https://github.com/huggingface/quanto) and will soon add optimizers and optimized kernels.
+Stay tuned for updated results as we are constantly improving [quanto](https://github.com/huggingface/quanto) and will soon add optimizers and optimized kernels.
 
 Please refer to the [quanto benchmarks](https://github.com/huggingface/quanto/tree/main/bench/) for detailed results for different model architectures and configurations.
 
-## Integration in 🤗 transformers
+## Integration in transformers
 
 
-Quanto is seamlessly integrated in the Hugging Face [🤗 transformers](https://github.com/huggingface/transformers) library. You can quantize any model by passing a `QuantoConfig` to `from_pretrained`!
+Quanto is seamlessly integrated in the Hugging Face [transformers](https://github.com/huggingface/transformers) library. You can quantize any model by passing a `QuantoConfig` to `from_pretrained`!
 
-Currently, you need to use the latest version of [🤗 accelerate](https://github.com/huggingface/accelerate) to make sure the integration is fully compatible.
+Currently, you need to use the latest version of [accelerate](https://github.com/huggingface/accelerate) to make sure the integration is fully compatible.
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer, QuantoConfig
@@ -228,8 +228,8 @@ Weights and biases are __not__ quantized. Outputs can be quantized.
 
 ### Custom operations
 
-Thanks to the awesome pytorch dispatch mechanism, [🤗 quanto](https://github.com/huggingface/quanto) provides implementations for
-the most common functions used in [🤗 transformers](https://github.com/huggingface/transformers) or [🤗 diffusers](https://github.com/huggingface/diffusers) models, enabling quantized Tensors without modifying the modeling code too much.
+Thanks to the awesome pytorch dispatch mechanism, [quanto](https://github.com/huggingface/quanto) provides implementations for
+the most common functions used in [transformers](https://github.com/huggingface/transformers) or [diffusers](https://github.com/huggingface/diffusers) models, enabling quantized Tensors without modifying the modeling code too much.
 
 Most of these "dispatched" functions can be performed using combinations of standard pytorch operations.
 
@@ -239,15 +239,15 @@ Examples of such operations are fused matrix multiplications involving lower bit
 
 ### Post-training quantization optimizers
 
-Post-training quantization optimizers are not available yet in [🤗 quanto](https://github.com/huggingface/quanto), but the library is versatile enough
+Post-training quantization optimizers are not available yet in [quanto](https://github.com/huggingface/quanto), but the library is versatile enough
 to be compatible with most PTQ optimization algorithms like [hqq](https://mobiusml.github.io/hqq_blog/) or [AWQ](https://github.com/mit-han-lab/llm-awq).
 
 Moving forward, the plan is to integrate the most popular algorithms in the most seamless possible way.
 
-## Contributing to 🤗 quanto
+## Contributing to quanto
 
-Contributions to [🤗 quanto](https://github.com/huggingface/quanto) are very much welcomed, especially in the following areas:
+Contributions to [quanto](https://github.com/huggingface/quanto) are very much welcomed, especially in the following areas:
 
-- optimized kernels for [🤗 quanto](https://github.com/huggingface/quanto) operations targeting specific devices,
+- optimized kernels for [quanto](https://github.com/huggingface/quanto) operations targeting specific devices,
 - PTQ optimizers,
 - new dispatched operations for quantized Tensors.
