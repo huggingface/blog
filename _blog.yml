@@ -3639,3 +3639,12 @@
     - optimum
     - collaboration
     - community
+
+- local: noob_intro_transformers
+  title: "Total noob’s intro to Hugging Face Transformers"
+  author: 2legit2overfit
+  thumbnail: /blog/assets/78_ml_director_insights/guide.png
+  date: March 19, 2024
+  tags:
+    - guide
+    - community
