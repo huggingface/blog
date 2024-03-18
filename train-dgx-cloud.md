@@ -36,7 +36,7 @@ Training Hugging Face models on NVIDIA DGX Cloud has never been easier. Below yo
 
 _Note: You need access to an Organization with a [Hugging Face Enterprise](https://huggingface.co/enterprise) subscription to use Train on DGX Cloud_
 
-You can find Train on DGX Cloud on the model page of supported Generative AI models. It currently supports the following model architectures:  Llama, Falcon, Mistral, Mixtral, T5, Gemma, Stable Diffusion and Stable Diffusion XL. 
+You can find Train on DGX Cloud on the model page of supported Generative AI models. It currently supports the following model architectures:  Llama, Falcon, Mistral, Mixtral, T5, Gemma, Stable Diffusion, and Stable Diffusion XL. 
 
 
 <div align="center"> 
