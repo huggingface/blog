@@ -52,7 +52,7 @@ Open the “Train” menu, and select “NVIDIA DGX Cloud” - this will open an
 </div>
 
 
-Then, click on “Create new Space”. When using Train on DGX Cloud for the first time, the service will create a new Hugging Face Space within your Organization, so you can use AutoTrain to create training jobs that will be executed on the NVIDIA DGX Cloud backend. When you want to create another training job later, you will automatically be redirected back to the existing AutoTrain Space. 
+Then, click on “Create new Space”. When using Train on DGX Cloud for the first time, the service will create a new Hugging Face Space within your Organization, so you can use AutoTrain to create training jobs that will be executed on NVIDIA DGX Cloud. When you want to create another training job later, you will automatically be redirected back to the existing AutoTrain Space. 
 
 Once in the AutoTrain Space, you can create your training job by configuring the Hardware, Base Model, Task, and Training Parameters. 
 
