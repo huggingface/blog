@@ -3558,7 +3558,7 @@
 
 - local: arena-tts
   title: "TTS Arena: Benchmarking Text-to-Speech Models in the Wild"
-  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png 
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png
   author: mrfakename
   guest: true
   date: Feb 27, 2024
@@ -3576,7 +3576,7 @@
     - nlp
     - community
     - research
-    - LLM 
+    - LLM
 
 - local: textgen-pipe-gaudi
   title: "Text-Generation Pipeline on Intel® Gaudi® 2 AI Accelerator"
@@ -3625,7 +3625,7 @@
     - cv
     - data
     - research
-  
+
 - local: intel-fast-embedding
   title: "CPU Optimized Embeddings with 🤗 Optimum Intel and fastRAG"
   author: peterizsak
@@ -3639,3 +3639,15 @@
     - optimum
     - collaboration
     - community
+
+
+- local: quanto-introduction
+  title: "quanto: a pytorch quantization toolkit"
+  author: dacorvo
+  thumbnail: /blog/assets/169_quanto_intro/thumbnail.png
+  date: March 18, 2024
+  tags:
+    - guide
+    - quantization
+    - transformers
+    - diffusers
