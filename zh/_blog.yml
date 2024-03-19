@@ -1400,3 +1400,15 @@
     - nlp
     - llm
     - inference 
+
+- local: community-datasets
+  title: "数据好合"
+  author: davanstrien
+  guest: true
+  thumbnail: /blog/assets/community-datasets/thumbnail.png
+  date: Mar 4, 2024
+  tags:
+    - community
+    - data
+    - collaboration
+    - announcement
