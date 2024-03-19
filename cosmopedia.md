@@ -4,6 +4,7 @@ thumbnail: /blog/assets/cosmopedia/thumbnail.png
 authors:
 - user: loubnabnl
 - user: anton-l
+- user: davanstrien
 ---
 
 # Cosmopedia: how to create large-scale synthetic data for pre-training
