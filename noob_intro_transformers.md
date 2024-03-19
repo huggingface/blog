@@ -146,7 +146,7 @@ model_id = "alpindale/gemma-2b-it"
 
 ## What is an instruction tuned model?
 
-An instruction-tuned language model is a type of model that has been further trained from it’s base version to understand and respond to commands or prompts given by a user, improving its ability to follow instructions. Base models are able to autocomplete text, but often don’t respond to commands in a useful way.
+An instruction-tuned language model is a type of model that has been further trained from its base version to understand and respond to commands or prompts given by a user, improving its ability to follow instructions. Base models are able to autocomplete text, but often don’t respond to commands in a useful way.
 
 10.  Create a model object and load the model
 - To load the model from the Hugging Face Hub into our local environment we need to instantiate the model object. We do this by passing the “model_id” which we defined in the last step into the argument of the “.from_pretrained” method on the AutoModelForCausalLM Class.
