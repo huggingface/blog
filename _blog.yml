@@ -3667,7 +3667,7 @@
 - local: galore_introduction
   title: "Easily Train Models with H100 GPUs on NVIDIA DGX Cloud"
   author: Titus-von-Koeller
-  thumbnail: /blog/assets/train-dgx-cloud/thumbnail.jpg
+  thumbnail: /blog/assets/galore_introduction/thumbnail.png
   date: March 19, 2024
   tags:
     - galore
