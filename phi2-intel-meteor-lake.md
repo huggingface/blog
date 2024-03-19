@@ -138,7 +138,7 @@ If you have questions or feedback, we'd love to answer them on the [Hugging Face
 
 Thanks for reading!
 
-
+*The work featured in this post includes contributions from our friends at Intel Labs: Ofir Zafrir, Igor Margulis, Guy Boudoukh, and Moshe Wasserblat.*
 
  
  
