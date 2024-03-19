@@ -9,14 +9,14 @@ authors:
 # A Chatbot on your Laptop: Phi-2 on Intel Meteor Lake
 
 <kbd>
-  <img src="assets/phi2-intel-meteor-lake/02.jpg" alt="David vs. Goliath revisited">
+  <img src="assets/phi2-intel-meteor-lake/02.jpg" width="512" alt="David vs. Goliath revisited" align="middle">
 </kbd>
 
 Because of their impressive abilities, large language models (LLMs) require significant computing power, which is seldom available on personal computers. Consequently, we have no choice but to deploy them on powerful bespoke AI servers hosted on-premises or in the cloud.
 
 ## Why local LLM inference is desirable
 
-
+:q
 What if we could run state-of-the-art open-source LLMs on a typical personal computer? Wouldn't we enjoy benefits like:
 
 * **Increased privacy**: our data would not be sent to an external API for inference.
