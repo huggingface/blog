@@ -38,7 +38,10 @@ There's nothing that the human mind can't make smaller, faster, more elegant, an
 
 * **Quantization**: Quantization is a process that lowers memory and computing requirements by reducing the bit width of model parameters, for example, from 16-bit floating point (FP16) to 8-bit integers (INT8). Reducing the number of bits means that the resulting model requires less memory at inference time and that operations like matrix multiplication can be performed faster thanks to integer arithmetic.
 
-In this post, we'll leverage all of the above. Starting from the Microsoft Phi-2 model, we will quantize it to 4 bits thanks to the Intel OpenVINO integration in our Optimum Intel library. Then, we will run inference on a mid-range laptop powered by an Intel Meteor Lake CPU.
+In this post, we'll leverage all of the above. Starting from the Microsoft [Phi-2](https://huggingface.co/microsoft/phi-2) model, we will apply 4-bit quantization on the models weights, thanks to the Intel OpenVINO integration in our [Optimum Intel](https://github.com/huggingface/optimum-intel) library. Then, we will run inference on a mid-range laptop powered by an Intel Meteor Lake CPU.
+
+If you're interested in applying quantization on both weights and activations, you can find more information in our [documentation](https://huggingface.co/docs/optimum/main/en/intel/optimization_ov).
+
 
 Let's get to work.
 
