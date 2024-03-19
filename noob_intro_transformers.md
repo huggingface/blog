@@ -91,7 +91,7 @@ It's also important to choose a GPU with enough memory to store the model and pr
 
 5.  Login to JupyterLab
 
-- After the Space has finished building you will see a log in screen. If you left the token as default you can log in with “huggingface” otherwise use the token you set
+- After the Space has finished building, you will see a log in screen. If you left the token as default in the template, you can log in with “huggingface”. Otherwise, just use the token you set
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/guide5.png"><br>
