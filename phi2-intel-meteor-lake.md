@@ -99,6 +99,10 @@ This integration makes quantizing Phi-2 to 4 bits straightforward. We define a q
   pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
   results = pipe("He's a dreadful magician and")
 ```
+* The `group_size` parameter will define the group size to use for quantization,  the recommended value is `128`, while `-1` will results in per-column quantization.
+* The `ratio` parameter controls the ratio between 4-bit and 8-bit quantization. If set to 0.8, it means that 80% of the layers will be quantized to `int4` while 20% will be quantized to `int8`.
+
+Smaller `group_size` and `ratio` values usually improve accuracy at the sacrifice of the model size and inference latency.
 
 The entire notebook with text generation examples is [available on Github](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/quantized_generation_demo.ipynb).
 
