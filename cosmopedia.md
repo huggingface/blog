@@ -17,7 +17,7 @@ Traditionally, creating datasets for supervised fine-tuning and instruction-tuni
 <em>Figure 1. Datasets on Hugging Face hub with the tag synthetic.</em>
 </p>
 
-However, this is not another blog post on generating synthetic instruction-tuning datasets, a subject that the community is already extensively exploring. Our focus is on scaling from a **few thousand** to **millions** of samples that can be used for **pre-training LLMs from scratch**, presenting a unique set of challenges. This blog post is a follow-up to our first introductory blog to the world of synthetic datasets [TODO: add a link to Daniel’s blog].
+However, this is not another blog post on generating synthetic instruction-tuning datasets, a subject the community is already extensively exploring. We focus on scaling from a **few thousand** to **millions** of samples that can be used for **pre-training LLMs from scratch**. This presents a unique set of challenges. 
 
 ## Why Cosmopedia?
 
