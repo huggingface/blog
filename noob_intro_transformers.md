@@ -98,6 +98,7 @@ It's also important to choose a GPU with enough memory to store the model and pr
 </p>
 
 6.  Create a new notebook
+
 - Within the “Launcher” tab, select the top “Python 3” square under the “Notebook” heading, this will create a new notebook environment that already has Python already installed
 
 <p align="center">
