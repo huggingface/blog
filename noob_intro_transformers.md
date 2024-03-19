@@ -43,7 +43,7 @@ Notebooks are interactive applications that allow you to write and share live ex
 
 1. Create a Hugging Face account
 
-- Go to [hf.co](http://hf.co), click “Sign Up” and create an account if you don’t already have one
+- Go to [hf.co](https://hf.co), click “Sign Up” and create an account if you don’t already have one
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/guide1.png"><br>
 </p>
