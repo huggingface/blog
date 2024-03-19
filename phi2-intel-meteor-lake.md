@@ -125,7 +125,7 @@ As you can see in both examples, the generated answer is very high quality. The 
 
 ## Conclusion
 
-Thanks to Hugging Face and Intel, you can now run LLMs on your laptop, enjoying the many benefits of local inference, like privacy, low latency, and low cost. We hope to see more quality models optimized for the Meteor Lake platform and its successor, Lunar Lake. The Optimum Intel library makes it very easy to quantize models for Intel platforms, so why not give it a try and share your excellent models on the Hugging Face hub? We can always use more!
+Thanks to Hugging Face and Intel, you can now run LLMs on your laptop, enjoying the many benefits of local inference, like privacy, low latency, and low cost. We hope to see more quality models optimized for the Meteor Lake platform and its successor, Lunar Lake. The Optimum Intel library makes it very easy to quantize models for Intel platforms, so why not give it a try and share your excellent models on the Hugging Face Hub? We can always use more!
 
 Here are some resources to help you get started:
 
