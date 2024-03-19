@@ -19,7 +19,7 @@ Let’s get stuck in… but first some context.
 
 ## What is Hugging Face Transformers?
 
-Hugging Face Transformers is an open-source python library that provides access to thousands of pre-trained Transformers models for natural language processing (NLP), computer vision and audio tasks. It simplifies the process of implementing and deploying Transformer models by abstracting away the complexity of training or deploying models in lower level ML frameworks like Pytorch, Tensorflow and JAX.
+Hugging Face Transformers is an open-source Python library that provides access to thousands of pre-trained Transformers models for natural language processing (NLP), computer vision, audio tasks, and more. It simplifies the process of implementing and deploying Transformer models by abstracting away the complexity of training or deploying models in lower level ML frameworks like PyTorch, TensorFlow and JAX.
 
 ## What is a library?
 
