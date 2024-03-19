@@ -117,7 +117,7 @@ It's also important to choose a GPU with enough memory to store the model and pr
 
 ## What is !pip install? 
 
-`!pip` is a command that installs Python packages from the Python Package Index ([PyPI](https://pypi.org/)) a web repository of libraries available for use in a Python environment. It allows us to extend the functionality of Python applications by incorporating a wide range of third-party add ons.
+`!pip` is a command that installs Python packages from the Python Package Index ([PyPI](https://pypi.org/)) a web repository of libraries available for use in a Python environment. It allows us to extend the functionality of Python applications by incorporating a wide range of third-party add-ons.
 
 ## If we are using Transformers, why do we need Pytorch too?
 
