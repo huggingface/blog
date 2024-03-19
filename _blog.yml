@@ -3670,5 +3670,7 @@
   thumbnail: /blog/assets/train-dgx-cloud/thumbnail.jpg
   date: March 19, 2024
   tags:
+    - galore
+    - peft
     - llm
     - training
