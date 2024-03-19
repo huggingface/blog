@@ -42,6 +42,7 @@ In the tutorial we’ll be deploying one of the pre-configured ML applications, 
 Notebooks are interactive applications that allow you to write and share live executable code interwoven with complementary narrative text. Notebooks are especially useful for Data Scientists and Machine Learning Engineers as they allow you to experiment with code in realtime and easily review and share the results.
 
 1. Create a Hugging Face account
+
 - Go to [hf.co](http://hf.co), click “Sign Up” and create an account if you don’t already have one
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/guide1.png"><br>
