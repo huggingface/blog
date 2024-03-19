@@ -67,6 +67,7 @@ In order to run most LLMs you'll need a GPU, which unfortunately aren’t free, 
 </p>
 
 4. Configure your Space
+
 - Set your preferred space name
 - Select Docker > JupyterLab to select the pre-configured notebook app
 - Select Space Hardware as “Nvidia A10G Small”
