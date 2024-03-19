@@ -78,35 +78,26 @@ Partnering with Intel, we have integrated OpenVINO in Optimum Intel, our open-so
 This integration makes quantizing Phi-2 to 4 bits straightforward. We define a quantization configuration, set the optimization parameters, and load the model from the hub. Once it has been quantized and optimized, we store it locally.
 
 
-```
-from optimum.intel import OVModelForCausalLM, OVWeightQuantizationConfig
+```diff
+- from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
++ from optimum.intel import OVModelForCausalLM, OVWeightQuantizationConfig
 
-# Quantize 80% of the model to 4 bits
-quantization_config = OVWeightQuantizationConfig(
-    bits=4,
-    group_size=128,
-    ratio=0.8,
-)
+  # ratio=0.8 means 80% of the model is quantized to 4-bit and 20% to 8-bit
++ q_config = OVWeightQuantizationConfig(bits=4, group_size=128, ratio=0.8)
 
-# Optimize for low latency on the iGPU
-# and use full precision for inference
-load_kwargs = {
-    "device": "gpu",
-    "ov_config": {
-        "PERFORMANCE_HINT": "LATENCY",
-        "INFERENCE_PRECISION_HINT": "f32",
-    },
-    "compile": False,
-    "quantization_config": quantization_config
-}
+  tokenizer = AutoTokenizer.from_pretrained(model_id)
+- model = AutoModelForCausalLM.from_pretrained(model_id)
++ model = OVModelForCausalLM.from_pretrained(model_id, export=True, quantization_config=q_config)
+  model.to("gpu")
+  
+  # optional : model compilation step, if not explicitly called will be done by default before the first inference
++ model.compile()
+  save_directory = "phi-2-openvino"
+  model.save_pretrained(save_directory)
+  tokenizer.save_pretrained(save_directory)
 
-model = OVModelForCausalLM.from_pretrained(
-    "microsoft/phi-2",
-    export=True,
-    **load_kwargs,
-)
-
-model.save_pretrained("phi-2-openvino")
+  pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
+  results = pipe("He's a dreadful magician and")
 ```
 
 The entire notebook with text generation examples is [available on Github](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/quantized_generation_demo.ipynb).
