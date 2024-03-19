@@ -49,6 +49,7 @@ Notebooks are interactive applications that allow you to write and share live ex
 </p>
 
 2. Add your billing information
+
 - Within your HF account go to Settings > Billing, add your credit card to the payment information section
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/guide2.png"><br>
