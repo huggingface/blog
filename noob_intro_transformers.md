@@ -35,7 +35,7 @@ The Hugging Face Hub is a collaboration platform that hosts a huge collection of
 
 Spaces from Hugging Face is a service available on the Hugging Face Hub that provides an easy to use GUI for building and deploying web hosted ML demos and apps. The service allows you to quickly build ML demos, upload your own apps to be hosted, or even select a number of pre-configured ML applications to deploy instantly. 
 
-In the tutorial we’ll be deploying one of the pre-configured ML applications, a JupyterLab notebook by selecting the corresponding docker container.
+In the tutorial we’ll be deploying one of the pre-configured ML applications, a JupyterLab notebook, by selecting the corresponding docker container.
 
 ## What is a notebook?
 
