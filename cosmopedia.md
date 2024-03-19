@@ -159,7 +159,7 @@ We used HuggingChat for the initial iterations on the prompts. Then, we generate
 
 #### Benchmark decontamination
 
-Given How we generate synthetic data, there is a possibility of benchmark contamination within the seed samples or the model's training data. To address this, we implement a decontamination pipeline to ensure our dataset is free of any samples from the test benchmarks.
+Given that we generate synthetic data, there is a possibility of benchmark contamination within the seed samples or the model's training data. To address this, we implement a decontamination pipeline to ensure our dataset is free of any samples from the test benchmarks.
 
 Similar to Phi-1, we identify potentially contaminated samples using a 10-gram overlap. After retrieving the candidates,  we employ `difflib.SequenceMatcher` to compare the dataset sample against the benchmark sample. If the ratio of `len(matched_substrings)` to `len(benchmark_sample)` exceeds 0.5, we discard the sample. This decontamination process is applied across all benchmarks evaluated with the Cosmo-1B model, including MMLU, HellaSwag, PIQA, SIQA, Winogrande, OpenBookQA, ARC-Easy, and ARC-Challenge.
 
