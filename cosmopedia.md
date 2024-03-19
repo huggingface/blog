@@ -1,5 +1,5 @@
 ---
-title: "Cosmopedia: how to create large-scale synthetic data for pre-training"
+title: "Cosmopedia: how to create large-scale synthetic data for pre-training Large Language Models"
 thumbnail: /blog/assets/cosmopedia/thumbnail.png
 authors:
 - user: loubnabnl
