@@ -16,7 +16,6 @@ Because of their impressive abilities, large language models (LLMs) require sign
 
 ## Why local LLM inference is desirable
 
-:q
 What if we could run state-of-the-art open-source LLMs on a typical personal computer? Wouldn't we enjoy benefits like:
 
 * **Increased privacy**: our data would not be sent to an external API for inference.
@@ -116,11 +115,11 @@ So, how fast is the quantized model on our laptop? Watch the following videos to
 
 The first video asks our model a high-school physics question: "*Lily has a rubber ball that she drops from the top of a wall. The wall is 2 meters tall. How long will it take for the ball to reach the ground?*"
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/nTNYRDORq14" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://www.youtube.com/embed/nTNYRDORq14" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 The second video asks our model a coding question: "*Write a class which implements a fully connected layer with forward and backward functions using numpy. Use markdown markers for code.*"
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/igWrp8gnJZg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://www.youtube.com/embed/igWrp8gnJZg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 As you can see in both examples, the generated answer is very high quality. The quantization process hasn't degraded the Phi-2 model's initial high quality, and the generation speed is adequate. I would be happy to work locally with this model daily.
 
