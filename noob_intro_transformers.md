@@ -107,7 +107,7 @@ It's also important to choose a GPU with enough memory to store the model and pr
 
 7.  Install required packages
 
-- In your new notebook you’ll need to install Pytorch and Transformers libraries in the environment as they do not come pre-installed
+- In your new notebook you’ll need to install the PyTorch and Transformers libraries, as they do not come pre-installed in the environment .
 - This can be done by entering the !pip command + library name in your notebook. Click the play button to execute the code and watch as the libraries are installed (Alternatively: Hit CMD + Return / CTRL + Enter)
 
 ```json
