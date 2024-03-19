@@ -13,7 +13,7 @@ You might wonder, with the abundance of tutorials on Hugging Face already availa
 
 Therefore, this guide is tailored for a non-technical audience keen to better understand open-source machine learning without having to learn Python from scratch. We assume no prior knowledge and will explain concepts from the ground up to ensure clarity. If you're an engineer, you’ll find this guide a bit basic, but for beginners, it's an ideal starting point.
 
-If following this tutorial you want to continue your ML learning journey the recent [Hugging Face course](https://www.deeplearning.ai/short-courses/open-source-models-hugging-face/) in partnership with DeepLearning AI is also a great resource. 
+If you want to continue your ML learning journey after you follow this tutorial, I recommend the recent [Hugging Face course](https://www.deeplearning.ai/short-courses/open-source-models-hugging-face/) we released in partnership with DeepLearning AI. 
 
 Let’s get stuck in……..but first some context.
 
