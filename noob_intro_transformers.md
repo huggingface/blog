@@ -138,7 +138,7 @@ Although Transformers is already installed, the specific Classes within Transfor
 9.  Define which model you want to run
 - To detail the model you want to download and run from the Hugging Face Hub, you need to specify the name of the model repo in your code 
 - We do this by setting a variable equal to the model name, in this case we decide to call the variable `model_id`
-- We’ll use a non-gated version of Gemma 2B instruction tuned model which can be found at https://huggingface.co/alpindale/gemma-7b-it this saves us an extra step of having to authenticate your Hugging Face account in the code
+- We’ll use a non-gated version of Gemma 2B instruction tuned model which can be found at https://huggingface.co/alpindale/gemma-2b-it this saves us an extra step of having to authenticate your Hugging Face account in the code
 
 ```json
 model_id = "alpindale/gemma-2b-it"
