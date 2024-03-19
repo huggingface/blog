@@ -25,7 +25,7 @@ Hugging Face Transformers is an open-source Python library that provides access 
 
 A library is just a collection of reusable pieces of code that can be integrated into projects to implement functionality more efficiently without the need to write your own code from scratch.
 
-Notably the Transformers library provides re-usable code for implementing models in common frameworks like Pytorch, Tensorflow and Jax. This re-usable code can be accessed by calling upon functions also known as methods within the library.
+Notably, the Transformers library provides re-usable code for implementing models in common frameworks like PyTorch, TensorFlow and JAX. This re-usable code can be accessed by calling upon functions (also known as methods) within the library.
 
 ## What is the Hugging Face Hub?
 
