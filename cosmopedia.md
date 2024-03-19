@@ -131,7 +131,7 @@ We used [text-clustering](https://github.com/huggingface/text-clustering/) repos
 
 #### Textbooks generation at scale
 
-We leverage [llm-swarm](https://github.com/huggingface/llm-swarm) library to generate 25 billion tokens of synthetic content using  [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1). This is a tool for scalable synthetic data generation using local LLMs or inference endpoints on the Hugging Face Hub. It supports [TGI](https://github.com/huggingface/text-generation-inference) and [vLLM](https://github.com/vllm-project/vllm) inference libraries. We deployed Mixtral-8x7B locally on H100 GPUs from the Hugging Face Science cluster with TGI. The total compute time for generating Cosmopedia was over 10k GPU hours.
+We leverage the [llm-swarm](https://github.com/huggingface/llm-swarm) library to generate 25 billion tokens of synthetic content using  [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1). This is a scalable synthetic data generation tool using local LLMs or inference endpoints on the Hugging Face Hub. It supports [TGI](https://github.com/huggingface/text-generation-inference) and [vLLM](https://github.com/vllm-project/vllm) inference libraries. We deployed Mixtral-8x7B locally on H100 GPUs from the Hugging Face Science cluster with TGI. The total compute time for generating Cosmopedia was over 10k GPU hours.
 
 Here's an example to run generations with Mixtral on 100k Cosmopedia prompts using 2 TGI instances on a Slurm cluster:
 ```bash
