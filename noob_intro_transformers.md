@@ -15,7 +15,7 @@ Therefore, this guide is tailored for a non-technical audience keen to better un
 
 If you want to continue your ML learning journey after you follow this tutorial, I recommend the recent [Hugging Face course](https://www.deeplearning.ai/short-courses/open-source-models-hugging-face/) we released in partnership with DeepLearning AI. 
 
-Let’s get stuck in……..but first some context.
+Let’s get stuck in… but first some context.
 
 ## What is Hugging Face Transformers?
 
