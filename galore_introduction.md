@@ -2,11 +2,11 @@
 title: "GaLore: Advancing Large Model Training on Consumer-grade Hardware"
 authors:
 - user: Titus-von-Koeller
-- user: ybelkada
 - user: jiaweizhao
   guest: true
 - user: matthewdouglas
   guest: true
+- user: ybelkada
 - user: BenjaminB
 ---
 

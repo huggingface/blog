@@ -3665,7 +3665,7 @@
     - training
   
 - local: galore_introduction
-  title: "Easily Train Models with H100 GPUs on NVIDIA DGX Cloud"
+  title: "GaLore: Advancing Large Model Training on Consumer-grade Hardware"
   author: Titus-von-Koeller
   thumbnail: /blog/assets/galore_introduction/thumbnail.png
   date: March 19, 2024
