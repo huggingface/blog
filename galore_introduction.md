@@ -7,6 +7,9 @@ authors:
 - user: matthewdouglas
   guest: true
 - user: ybelkada
+- user: muellerzr
+- user: amyeroberts
+- user: smangrul
 - user: BenjaminB
 ---
 
