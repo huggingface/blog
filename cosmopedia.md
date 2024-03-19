@@ -1,6 +1,6 @@
 ---
 title: "Cosmopedia: how to create large-scale synthetic data for pre-training"
-thumbnail: /blog/assets/cosmopedia/thumbnail_cosmopedia.png
+thumbnail: /blog/assets/cosmopedia/thumbnail.png
 authors:
 - user: loubnabnl
 - user: anton-l
@@ -13,7 +13,7 @@ In this blog post, we outline the challenges and solutions involved in generatin
 Traditionally, creating datasets for supervised fine-tuning and instruction-tuning required the costly and time-consuming process of hiring human annotators. This practice entailed significant resources, limiting the development of such datasets to a few key players in the field. However, the landscape has recently changed. We've seen hundreds of high-quality synthetic fine-tuning datasets developed, primarily using GPT-3.5 and GPT-4. The community has also supported this development with numerous publications that guide the process for various domains, and address the associated challenges [[1](https://arxiv.org/abs/2305.14233)][[2](https://arxiv.org/abs/2312.02120)][[3](https://arxiv.org/abs/2402.10176)][[4](https://arxiv.org/abs/2304.12244)][[5](https://huggingface.co/blog/synthetic-data-save-costs)].
 
 <p align="center">
- <img src="assets/cosmopedia/data.png" alt="number of datasets with synthetic tag" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/cosmopedia/data.png" alt="number of datasets with synthetic tag" style="width: 90%; height: auto;"><br>
 <em>Figure 1. Datasets on Hugging Face hub with the tag synthetic.</em>
 </p>
 
@@ -47,7 +47,7 @@ Assuming an average file length of 1000 tokens, this suggests using approximatel
 We combine two approaches to build Cosmopedia’s prompts: conditioning on curated sources and conditioning on web data. We refer to the source of the data we condition on as “seed data”.
 
 <p align="center">
- <img src="assets/cosmopedia/piecharts.png" alt="piecharts of data sources"  style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/cosmopedia/piecharts.png" alt="piecharts of data sources"  style="width: 90%; height: auto;"><br>
 <em>Figure 2. The distribution of data sources for building Cosmopedia prompts (left plot) and the distribution of sources inside the Curated sources category (right plot).</em>
 </p>
 
@@ -64,7 +64,7 @@ One strategy to increase the variety of generated samples is to leverage the div
 Figure 3 illustrates how we adapt a prompt based on the same topic for different audiences.
 
 <p align="center">
- <img src="assets/cosmopedia/textbooks.png" alt="comparison of prompts" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/cosmopedia/textbooks.png" alt="comparison of prompts" style="width: 90%; height: auto;"><br>
 <em>Figure 3. Prompts for generating the same textbook for young children vs for professionals and researchers vs for high school students.</em>
 </p>
 
@@ -79,12 +79,12 @@ We inspected the clusters and excluded any deemed of low educational value. Exam
 We then built prompts by instructing the model to generate a textbook related to a web sample within the scope of the topic it belongs to based on the clustering. Figure 4 provides an example of a web-based prompt. To enhance diversity and account for any incompleteness in topic labeling, we condition the prompts on the topic only 50% of the time, and change the audience and generation styles, as explained in the previous section. We ultimately built 23 million prompts using this approach. Figure 5 shows the final distribution of seed data, generation formats, and audiences in Cosmopedia.
 
 <p align="center">
- <img src="assets/cosmopedia/web_samples.png" alt="web prompt" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/cosmopedia/web_samples.png" alt="web prompt" style="width: 90%; height: auto;"><br>
 <em>Figure 4. Example of a web extract and the associated prompt.</em>
 </p>
 
 <p align="center">
- <img src="assets/cosmopedia/histograms.png" alt="histogram" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/cosmopedia/histograms.png" alt="histogram" style="width: 90%; height: auto;"><br>
 <em>Figure 5. The distribution of seed data, generation format and target audiences in Cosmopedia dataset.</em>
 </p>
 
@@ -95,14 +95,14 @@ In addition to random web files, we used samples from AutoMathText, a carefully 
 In our initial assessments of models trained using the generated textbooks, we observed a lack of common sense and fundamental knowledge typical of grade school education. To address this, we created stories incorporating day-to-day knowledge and basic common sense using texts from the UltraChat and OpenHermes2.5 instruction-tuning datasets as seed data for the prompts. These datasets span a broad range of subjects. For instance, from UltraChat, we used the "Questions about the world" subset, which covers 30 meta-concepts about the world. For OpenHermes2.5, another diverse and high-quality instruction-tuning dataset, we omitted sources and categories unsuitable for storytelling, such as glaive-code-assist for programming and camelai for advanced chemistry. Figure 6 shows examples of prompts we used to generate these stories.
 
 <p align="center">
- <img src="assets/cosmopedia/stories.png" alt="stories prompts" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/cosmopedia/stories.png" alt="stories prompts" style="width: 90%; height: auto;"><br>
 <em>Figure 6. Prompts for generating stories from UltraChat and OpenHermes samples for young children vs a general audience vs reddit forums.</em>
 </p>
 
 That's the end of our prompt engineering story for building 30+ million diverse prompts that provide content with very few duplicates. The figure below shows the clusters present in Cosmopedia, this distribution resembles the clusters in the web data.
 
 <p align="center">
- <img src="assets/cosmopedia/clusters.png" alt="clusters" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/cosmopedia/clusters.png" alt="clusters" style="width: 90%; height: auto;"><br>
 <em>Figure 7. The clusters of Cosmopedia, annotated using Mixtral.</em>
 </p>
 
@@ -110,7 +110,7 @@ That's the end of our prompt engineering story for building 30+ million diverse 
 You can use the dataset [viewer](https://huggingface.co/datasets/HuggingFaceTB/cosmopedia/viewer/stanford) to investigate the dataset yourself:
 
 <p align="center">
- <img src="assets/cosmopedia/viewer.png" alt="dataset viewer" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/cosmopedia/viewer.png" alt="dataset viewer" style="width: 90%; height: auto;"><br>
  <em>Figure 8. Cosmopedia's dataset viewer.</em>
 </p>
 
@@ -125,7 +125,7 @@ In this section we'll highlight the technical stack used for text clustering, te
 We used [text-clustering](https://github.com/huggingface/text-clustering/) repository to implement the topic clustering for the web data used in Cosmopedia prompts. The plot below illustrates the pipeline for finding and labeling the clusters. We additionally asked Mixtral to give the cluster an educational score out of 10 in the labeling step; this helped us in the topics inspection step. You can find a demo of the web clusters and their scores in this [demo](https://huggingface.co/spaces/HuggingFaceTB/inspect_web_clusters).
 
 <p align="center">
- <img src="assets/cosmopedia/text_clustering.png" alt="text-clustering" style="width: 60%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/cosmopedia/text_clustering.png" alt="text-clustering" style="width: 60%; height: auto;"><br>
  <em>Figure 9. The pipleline of text-clustering.</em>
 </p>
 
@@ -150,7 +150,7 @@ python ./examples/textbooks/generate_synthetic_textbooks.py \
 
 You can even track the generations with `wandb` to monitor the throughput and number of generated tokens.
 <p align="center">
- <img src="assets/cosmopedia/wandb.png" alt="text-clustering" style="width: 60%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/cosmopedia/wandb.png" alt="text-clustering" style="width: 60%; height: auto;"><br>
  <em>Figure 10. Wandb plots for an llm-swarm run.</em>
 </p>
 
@@ -186,7 +186,7 @@ We used [datatrove](https://github.com/huggingface/datatrove) library for data d
 The model performs better than TinyLlama 1.1B on ARC-easy, ARC-challenge, OpenBookQA, and MMLU and is comparable to Qwen-1.5-1B on ARC-challenge and OpenBookQA. However, we notice some performance gaps compared to Phi-1.5, suggesting a better synthetic generation quality, which can be related to the LLM used for generation, topic coverage, or prompts.
 
 <p align="center">
- <img src="assets/cosmopedia/evals.png" alt="evaluation results" style="width: 60%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/cosmopedia/evals.png" alt="evaluation results" style="width: 60%; height: auto;"><br>
  <em>Figure 10. Evaluation results of Cosmo-1B.</em>
 </p>
 
