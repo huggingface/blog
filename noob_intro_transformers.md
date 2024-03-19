@@ -81,7 +81,7 @@ A Docker template is a predefined blueprint for a software environment that incl
 
 ## Why do I need to select a GPU Space Hardware?
 
-By default, our Space comes with a complimentary CPU, which is fine for some applications. However, the many computations required by a LLMs benefit significantly from being run in parallel to improve speed, which is something GPUs are great at.
+By default, our Space comes with a complimentary CPU, which is fine for some applications. However, the many computations required by LLMs benefit significantly from being run in parallel to improve speed, which is something GPUs are great at.
 
 It's also important to choose a GPU with enough memory to store the model and providing spare working memory. In our case, an A10G Small with 24GB is enough for  Gemma 2B. 
 
