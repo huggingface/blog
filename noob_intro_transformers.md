@@ -199,4 +199,5 @@ print(decoded_outputs)
 ```
 
 ## Why do I need to decode?
+
 Remember that the model only understands numbers, so when we provided our `input_ids` as vectors it returned an output in the same format. To return those outputs to text we need to reverse the initial encoding we did using the tokenizer.
