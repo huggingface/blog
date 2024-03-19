@@ -90,6 +90,7 @@ It's also important to choose a GPU with enough memory to store the model and pr
 </p>
 
 5.  Login to JupyterLab
+
 - After the Space has finished building you will see a log in screen. If you left the token as default you can log in with “huggingface” otherwise use the token you set
 
 <p align="center">
