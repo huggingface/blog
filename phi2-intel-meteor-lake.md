@@ -1,12 +1,16 @@
 ---
 title: "A Chatbot on your Laptop: Phi-2 on Intel Meteor Lake"
-thumbnail: /blog/assets/stable-diffusion-finetuning-intel/01.png
+thumbnail: /blog/assets/phi2-intel-meteor-lake/02.jpg
 authors:
 - user: juliensimon
 - user: echarlaix
 ---
 
 # A Chatbot on your Laptop: Phi-2 on Intel Meteor Lake
+
+<kbd>
+  <img src="assets/phi2-intel-meteor-lake/02.jpg" alt="David vs. Goliath revisited">
+</kbd>
 
 Because of their impressive abilities, large language models (LLMs) require significant computing power, which is seldom available on personal computers. Consequently, we have no choice but to deploy them on powerful bespoke AI servers hosted on-premises or in the cloud.
 
