@@ -127,7 +127,7 @@ Hugging Face is a library that is built on top of other frameworks like Pytorch,
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/guide7.png"><br>
 </p>
 
-8.  Import the Autotokenizer and AutomodelForCausalLM classes from Transformers
+8.  Import the AutoTokenizer and AutoModelForCausalLM classes from Transformers
 - Enter the following code on a new line and run it
 
 ```json
