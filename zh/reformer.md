@@ -15,7 +15,7 @@ translators:
 
 ## Reformer 如何在不到 8GB 的​​内存上训练 50 万个词元
 
-[Kitaev、Kaiser 等人于 20202 年引入的 Reformer 模型](https://arxiv.org/pdf/2001.04451.pdf) 是迄今为止长序列建模领域内存效率最高的 transformer 模型之一。
+[Kitaev、Kaiser 等人于 2020 年引入的 Reformer 模型](https://arxiv.org/pdf/2001.04451.pdf) 是迄今为止长序列建模领域内存效率最高的 transformer 模型之一。
 
 最近，人们对长序列建模的兴趣激增，仅今年一年，就涌现出了大量的工作，如 [Beltagy 等人的工作 (2020) ](https://arxiv.org/abs/2004.05150)、[Roy 等人的工作 (2020) ](https://arxiv.org/abs/2003.05997)、[Tay 等人的工作](https://arxiv.org/abs/2002.11296) 以及 [Wang 等人的工作](https://arxiv.org/abs/2006.04768) 等等。长序列建模背后的动机是，N​​LP 中的许多任务 (例如 _摘要、问答_ ) 要求模型处理更长的序列，这些序列长度超出了 BERT 等模型的处理能力。在需要模型处理长输入序列的任务中，长序列模型无需对输入序列进行裁剪以避免内存溢出，因此已被证明优于标准的 **BERT 类模型** ( _见_ [Beltagy 等人 2020 年的工作](https://arxiv.org/abs/2004.05150))。
 
