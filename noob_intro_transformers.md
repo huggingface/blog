@@ -60,6 +60,7 @@ Notebooks are interactive applications that allow you to write and share live ex
 In order to run most LLMs you'll need a GPU, which unfortunately aren’t free, you can however rent these from Hugging Face. Don’t worry, it shouldn’t cost you much. The GPU required for this tutorial, an NVIDIA A10G, only costs a couple of dollars per hour.
 
 3. Create a Space to host your notebook
+
 - On[hf.co](http://hf.co) go to Spaces > Create New
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/guide3.png"><br>
