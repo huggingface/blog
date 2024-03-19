@@ -155,7 +155,7 @@ You can even track the generations with `wandb` to monitor the throughput and nu
 </p>
 
 **Note:**
-We used HuggingChat for the initial iterations on the prompts. Then, we ran each prompt on a few hundred samples using `llm-swarm` to spot unusual patterns. For instance, the model used very similar introductory phrases for textbooks and frequently began stories with the same phrases, like "Once upon a time" and "The sun hung low in the sky". Explicitly asking the model to avoid these introductory statements and to be creative fixed the issue; they were still used but less frequently.
+We used HuggingChat for the initial iterations on the prompts. Then, we generated a few hundred samples for each prompt using `llm-swarm` to spot unusual patterns. For instance, the model used very similar introductory phrases for textbooks and frequently began stories with the same phrases, like "Once upon a time" and "The sun hung low in the sky". Explicitly asking the model to avoid these introductory statements and to be creative fixed the issue; they were still used but less frequently.
 
 #### Benchmark decontamination
 
