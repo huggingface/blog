@@ -5,16 +5,20 @@ authors:
 - user: juliensimon
 - user: echarlaix
 - user: ofirzaf
+  guest: true
 - user: imargulis
+  guest: true
 - user: guybd
+  guest: true
 - user: moshew
+  guest: true
 ---
 
 # A Chatbot on your Laptop: Phi-2 on Intel Meteor Lake
 
-<kbd>
-  <img src="assets/phi2-intel-meteor-lake/02.jpg" width="512" alt="David vs. Goliath revisited" align="middle">
-</kbd>
+<p align="center">
+ <img src="assets/phi2-intel-meteor-lake/02.jpg" alt="David vs. Goliath revisited" width="512"><br>
+</p>
 
 Because of their impressive abilities, large language models (LLMs) require significant computing power, which is seldom available on personal computers. Consequently, we have no choice but to deploy them on powerful bespoke AI servers hosted on-premises or in the cloud.
 
@@ -44,7 +48,7 @@ There's nothing that the human mind can't make smaller, faster, more elegant, an
 
 In this post, we'll leverage all of the above. Starting from the Microsoft [Phi-2](https://huggingface.co/microsoft/phi-2) model, we will apply 4-bit quantization on the model weights, thanks to the Intel OpenVINO integration in our [Optimum Intel](https://github.com/huggingface/optimum-intel) library. Then, we will run inference on a mid-range laptop powered by an Intel Meteor Lake CPU.
 
-> **_NOTE_**: If you're interested in applying quantization on both weights and activations, you can find more information in our [documentation](https://huggingface.co/docs/optimum/main/en/intel/optimization_ov).
+> **_NOTE_**: If you're interested in applying quantization on both weights and activations, you can find more information in our [documentation](https://huggingface.co/docs/optimum/main/en/intel/optimization_ov#static-quantization).
 
 Let's get to work.
 
@@ -56,11 +60,13 @@ The first Intel client processor to use a chiplet architecture, Meteor Lake incl
 
 * A **power-efficient CPU** with up to 16 cores,
 
-* An **integrated GPU (iGPU)** with up to 8 Xe cores, each featuring 16 Xe Vector Engines (XVE). As the name implies, an XVE can perform vector operations on 256-bit vectors. It also implements the DP4a instruction, which computes a dot product between two vectors of 4-byte values, stores the result in a 32-bit integer, and adds it to a third 32-bit integer. This makes the iGPU a good candidate for quantized models.
+* An **integrated GPU (iGPU)** with up to 8 Xe cores, each featuring 16 Xe Vector Engines (XVE). As the name implies, an XVE can perform vector operations on 256-bit vectors. It also implements the DP4a instruction, which computes a dot product between two vectors of 4-byte values, stores the result in a 32-bit integer, and adds it to a third 32-bit integer.
 
 * A **Neural Processing Unit (NPU)**, a first for Intel architectures. The NPU is a dedicated AI engine built for efficient client AI. It is optimized to handle demanding AI computations efficiently, freeing up the main CPU and graphics for other tasks. Compared to using the CPU or the iGPU for AI tasks, the NPU is designed to be more power-efficient.
 
 To run the demo below, we selected a [mid-range laptop](https://www.amazon.com/MSI-Prestige-Evo-Laptop-A1MG-029US/dp/B0CP9Y8Q6T/) powered by a [Core Ultra 7 155H CPU](https://www.intel.com/content/www/us/en/products/sku/236847/intel-core-ultra-7-processor-155h-24m-cache-up-to-4-80-ghz/specifications.html). Now, let's pick a lovely small language model to run on this laptop.
+
+> **_NOTE_**: To run this code on Linux, install your GPU driver by following [these instructions](https://docs.openvino.ai/2024/get-started/configurations/configurations-intel-gpu.html).
 
 ## The Microsoft Phi-2 model
 
@@ -82,32 +88,48 @@ Intel OpenVINO is an open-source toolkit for optimizing AI inference on many Int
 
 Partnering with Intel, we have integrated OpenVINO in Optimum Intel, our open-source library dedicated to accelerating Hugging Face models on Intel platforms ([Github](https://github.com/huggingface/optimum-intel), [documentation](https://huggingface.co/docs/optimum/intel/index)).
 
-This integration makes quantizing Phi-2 to 4 bits straightforward. We define a quantization configuration, set the optimization parameters, and load the model from the hub. Once it has been quantized and optimized, we store it locally. The code snippet below shows you how to adapt your existing code quickly.
+First make sure you have the latest version of `optimum-intel` with all the necessary libraries installed:
 
-```diff
-- from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
-+ from optimum.intel import OVModelForCausalLM, OVWeightQuantizationConfig
-
-+ # Quantization configuration
-+ q_config = OVWeightQuantizationConfig(bits=4, group_size=128, ratio=0.8)
-
-  tokenizer = AutoTokenizer.from_pretrained(model_id)
-- model = AutoModelForCausalLM.from_pretrained(model_id)
-+ model = OVModelForCausalLM.from_pretrained(model_id, export=True, quantization_config=q_config)
-  model.to("gpu")
-  
-+ # Optional : model compilation step
-+ # If not explicitly called, it will be done before the first inference
-+ model.compile()
-  save_directory = "phi-2-openvino"
-  model.save_pretrained(save_directory)
-  tokenizer.save_pretrained(save_directory)
-
-  pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
-  results = pipe("He's a dreadful magician and")
+```bash
+pip install --upgrade-strategy eager optimum[openvino,nncf]
 ```
 
-The `ratio` parameter controls the fraction of weights we'll quantize to 4 bits (here, 80%) and the rest to 8 bits. The `group_size` parameter defines the size of the weight quantization groups (here, 128), each group having its scaling factor. Decreasing these two values usually improves accuracy at the expense of model size and inference latency.
+This integration makes quantizing Phi-2 to 4-bit straightforward. We define a quantization configuration, set the optimization parameters, and load the model from the hub. Once it has been quantized and optimized, we store it locally.
+
+```python
+from transformers import AutoTokenizer, pipeline
+from optimum.intel import OVModelForCausalLM, OVWeightQuantizationConfig
+
+model_id = "microsoft/phi-2"
+device = "gpu"
+# Create the quantization configuration with desired quantization parameters
+q_config = OVWeightQuantizationConfig(bits=4, group_size=128, ratio=0.8)
+
+# Create OpenVINO configuration with optimal settings for this model
+ov_config = {"PERFORMANCE_HINT": "LATENCY", "CACHE_DIR": "model_cache", "INFERENCE_PRECISION_HINT": "f32"}
+
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = OVModelForCausalLM.from_pretrained(
+    model_id,
+    export=True, # export model to OpenVINO format: should be False if model already exported
+    quantization_config=q_config,
+    device=device,
+    ov_config=ov_config,
+  )
+
+# Compilation step : if not explicitly called, compilation will happen before the first inference
+model.compile()
+pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
+results = pipe("He's a dreadful magician and")
+
+save_directory = "phi-2-openvino"
+model.save_pretrained(save_directory)
+tokenizer.save_pretrained(save_directory)
+```
+
+The `ratio` parameter controls the fraction of weights we'll quantize to 4-bit (here, 80%) and the rest to 4-bit. The `group_size` parameter defines the size of the weight quantization groups (here, 128), each group having its scaling factor. Decreasing these two values usually improves accuracy at the expense of model size and inference latency.
+
+You can find more information on weight quantization in our [documentation](https://huggingface.co/docs/optimum/main/en/intel/optimization_ov#weight-only-quantization).
 
 > **_NOTE_**: the entire notebook with text generation examples is [available on Github](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/quantized_generation_demo.ipynb).
 
