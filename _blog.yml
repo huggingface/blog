@@ -3664,7 +3664,7 @@
     - llm
     - training
   
-- local: galore_introduction
+- local: galore
   title: "GaLore: Advancing Large Model Training on Consumer-grade Hardware"
   author: Titus-von-Koeller
   thumbnail: /blog/assets/galore_introduction/thumbnail.png
