@@ -7,19 +7,17 @@ authors:
 
 # Total noob’s intro to Hugging Face Transformers
 
-Welcome to "A Total Noob’s Introduction to Hugging Face Transformers," a guide designed specifically for those looking to understand the bare basics of using open-source ML. Our goal is to demystify what Hugging Face Transformers is and how it works, not to turn you into a machine learning practitioner, but to enable better understanding of and collaboration with those who are. That being said, the best way to learn is by doing, so we'll walk through a simple worked example of running Google’s new Gemma 2B LLM in a notebook in a Hugging Face space.
+Welcome to "A Total Noob’s Introduction to Hugging Face Transformers," a guide designed specifically for those looking to understand the bare basics of using open-source ML. Our goal is to demystify what Hugging Face Transformers is and how it works, not to turn you into a machine learning practitioner, but to enable better understanding of and collaboration with those who are. That being said, the best way to learn is by doing, so we'll walk through a simple worked example of running Microsoft’s Phi-2 LLM in a notebook on a Hugging Face space.
 
 You might wonder, with the abundance of tutorials on Hugging Face already available, why create another? The answer lies in accessibility: most existing resources assume some technical background, including Python proficiency, which can prevent non-technical individuals from grasping ML fundamentals. As someone who came from the business side of AI, I recognize that the learning curve presents a barrier and wanted to offer a more approachable path for like-minded learners.
 
 Therefore, this guide is tailored for a non-technical audience keen to better understand open-source machine learning without having to learn Python from scratch. We assume no prior knowledge and will explain concepts from the ground up to ensure clarity. If you're an engineer, you’ll find this guide a bit basic, but for beginners, it's an ideal starting point.
 
-If you want to continue your ML learning journey after you follow this tutorial, I recommend the recent [Hugging Face course](https://www.deeplearning.ai/short-courses/open-source-models-hugging-face/) we released in partnership with DeepLearning AI. 
-
 Let’s get stuck in… but first some context.
 
 ## What is Hugging Face Transformers?
 
-Hugging Face Transformers is an open-source Python library that provides access to thousands of pre-trained Transformers models for natural language processing (NLP), computer vision, audio tasks, and more. It simplifies the process of implementing and deploying Transformer models by abstracting away the complexity of training or deploying models in lower level ML frameworks like PyTorch, TensorFlow and JAX.
+Hugging Face Transformers is an open-source Python library that provides access to thousands of pre-trained Transformers models for natural language processing (NLP), computer vision, audio tasks, and more. It simplifies the process of implementing Transformer models by abstracting away the complexity of training or deploying models in lower level ML frameworks like PyTorch, TensorFlow and JAX.
 
 ## What is a library?
 
@@ -83,7 +81,7 @@ A Docker template is a predefined blueprint for a software environment that incl
 
 By default, our Space comes with a complimentary CPU, which is fine for some applications. However, the many computations required by LLMs benefit significantly from being run in parallel to improve speed, which is something GPUs are great at.
 
-It's also important to choose a GPU with enough memory to store the model and providing spare working memory. In our case, an A10G Small with 24GB is enough for  Gemma 2B. 
+It's also important to choose a GPU with enough memory to store the model and providing spare working memory. In our case, an A10G Small with 24GB is enough for  Phi-2. 
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama2-non-engineers/guide4.png"><br>
@@ -145,15 +143,15 @@ Although Transformers is already installed, the specific Classes within Transfor
 9.  Define which model you want to run
 - To detail the model you want to download and run from the Hugging Face Hub, you need to specify the name of the model repo in your code 
 - We do this by setting a variable equal to the model name, in this case we decide to call the variable `model_id`
-- We’ll use a non-gated version of Gemma 2B instruction tuned model which can be found at https://huggingface.co/alpindale/gemma-2b-it this saves us an extra step of having to authenticate your Hugging Face account in the code
+- We’ll use Microsoft's Phi-2, a small but surprisingly capable model which can be found at https://huggingface.co/microsoft/phi-2. Note: Phi-2 is a base not an instruction tuned model and so will respond unusually if you try to use it for chat
 
 ```json
-model_id = "alpindale/gemma-2b-it"
+model_id = "microsoft/phi-2"
 ```
 
 ## What is an instruction tuned model?
 
-An instruction-tuned language model is a type of model that has been further trained from its base version to understand and respond to commands or prompts given by a user, improving its ability to follow instructions. Base models are able to autocomplete text, but often don’t respond to commands in a useful way.
+An instruction-tuned language model is a type of model that has been further trained from its base version to understand and respond to commands or prompts given by a user, improving its ability to follow instructions. Base models are able to autocomplete text, but often don’t respond to commands in a useful way. We'll see this later when we try to prompt Phi.
 
 10.  Create a model object and load the model
 - To load the model from the Hugging Face Hub into our local environment we need to instantiate the model object. We do this by passing the “model_id” which we defined in the last step into the argument of the “.from_pretrained” method on the AutoModelForCausalLM Class.
@@ -184,7 +182,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_id, add_eos_token=True, padding_
 A tokenizer is a tool that splits sentences into smaller pieces of text (tokens) and assigns each token a numeric value called an input id. This is needed because our model only understands numbers, so we first must convert (a.k.a encode) the text into a format the model can understand. Each model has it’s own tokenizer vocabulary, it’s important to use the same tokenizer that the model was trained on or it will misinterpret the text.
 
 12.  Create the inputs for the model to process
-- Define a new variable `input_text` that will take the prompt you want to give the model
+- Define a new variable `input_text` that will take the prompt you want to give the model. In this case I asked "Who are you?" but you can choose whatever you prefer.
 - Pass the new variable as an argument to the tokenizer object to create the `input_ids`
 - Pass a second argument to the tokenizer object, `return_tensors="pt"`, this ensures the token_id is represented as the correct kind of vector for the model version we are using (i.e. in Pytorch not Tensorflow)
 
@@ -194,17 +192,26 @@ input_ids = tokenizer(input_text, return_tensors="pt")
 ```
 
 13.  Run generation and decode the output
-- Now the input in the right format we need to pass it into the model, we do this by calling the `.generate` method on the `model object` passing the `input_ids` as an argument and assigning it to a new variable `outputs`
+- Now the input in the right format we need to pass it into the model, we do this by calling the `.generate` method on the `model object` passing the `input_ids` as an argument and assigning it to a new variable `outputs`. We also set a second argument `max_new_tokens` equal to 100, this limts the number of tokens the model will generate.
 - The outputs are not human readable yet, to return them to text we must decode the output. We can do this with the `.decode` method and saving that to the variable `decoded_outputs`
 - Finally, passing the `decoded_output` variable into the print function allows us to see the model output in our notebook.
 - Optional: Pass the `outputs` variable into the print function to see how they compare to the `decoded outputs`
 
 ```json
-outputs = model.generate(input_ids["input_ids"])
+outputs = model.generate(input_ids["input_ids"], max_new_tokens=100)
 decoded_outputs = tokenizer.decode(outputs[0])
 print(decoded_outputs)
 ```
 
 ## Why do I need to decode?
 
-Remember that the model only understands numbers, so when we provided our `input_ids` as vectors it returned an output in the same format. To return those outputs to text we need to reverse the initial encoding we did using the tokenizer.
+Models only understand numbers, so when we provided our `input_ids` as vectors it returned an output in the same format. To return those outputs to text we need to reverse the initial encoding we did using the tokenizer.
+
+## Why does the output not make sense?
+
+Remember that Phi-2 is a base model that hasn't been instruction tuned for conversational uses, as such it's effectively a massive auto-complete model. Based on your input it is predicting what it thinks is most likely to come next based on all the web pages, books and other content it has seen previously. 
+
+Congratulations, you've run inference on your very first LLM! 
+
+I hope that working through this example helped you to better understand the world of open-source ML. If you want to continue your ML learning journey, I recommend the recent [Hugging Face course](https://www.deeplearning.ai/short-courses/open-source-models-hugging-face/) we released in partnership with DeepLearning AI. 
+
