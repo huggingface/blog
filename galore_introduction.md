@@ -40,6 +40,7 @@ The combination of GaLore with 8-bit precision optimizers represents a synergy t
 This combination is particularly effective in scenarios where memory is a critical bottleneck, such as training large models on consumer-grade hardware or deploying models in memory-constrained environments. It enables the use of more complex models and larger datasets within the same hardware constraints, pushing the boundaries of what can be achieved with limited resources.
 
 ## Implementation Details
+
 Integrating 8-bit optimizers with GaLore for training large language models (LLMs) involves quantizing the gradients, weights, and optimizer states to 8-bit representations. This quantization process significantly reduces the memory footprint, enabling the training of larger models or the use of larger batch sizes within the same memory constraints. The algorithmic details of this integration involve several key steps, some of which would benefit significantly from CUDA implementation for efficiency gains. GaLore opens new possibilities to integrate these techniques even closer with quantization and specialized parameterization of the matrices, which can lead to further reductions in memory usage and which we are currently working on in bitsandbytes. 
 
 ### Algorithmic Overview of 8-bit Optimization with GaLore
