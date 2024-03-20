@@ -25,7 +25,7 @@ The capability of GaLore to facilitate the training of models with up to 7 billi
 
 The optimizer state, especially in adaptive optimization algorithms like Adam, represents a significant portion of the memory footprint during model training. GaLore addresses this by projecting the gradients into a lower-dimensional subspace before they are processed by the optimizer. This not only reduces the memory required to store these states but also maintains the effectiveness of the optimization process.
 
-The memory savings are substantial, with [the authors reporting](https://x.com/AnimaAnandkumar/status/1765613815146893348?s=20) “more than **82.5% reduction in memory for storing optimizer states during training**”, making it feasible to train larger models or use larger batch sizes within the same memory constraints.  reducing memory usage by up to 65.5% in optimizer states compared to traditional methods. When combined with 8-bit precision optimizers, these savings can be even more pronounced
+The memory savings are substantial, with [the authors reporting](https://x.com/AnimaAnandkumar/status/1765613815146893348?s=20) “more than **82.5% reduction in memory for storing optimizer states during training**”, making it feasible to train larger models or use larger batch sizes within the same memory constraints. When combined with 8-bit precision optimizers, these savings can be even more pronounced.
 
 ## Subspace Switching and Advanced Projection Techniques
 
