@@ -60,7 +60,7 @@ The first Intel client processor to use a chiplet architecture, Meteor Lake incl
 
 * A **power-efficient CPU** with up to 16 cores,
 
-* An **integrated GPU (iGPU)** with up to 8 Xe cores, each featuring 16 Xe Vector Engines (XVE). As the name implies, an XVE can perform vector operations on 256-bit vectors. It also implements the DP4a instruction, which computes a dot product between two vectors of 4-byte values, stores the result in a 32-bit integer, and adds it to a third 32-bit integer. This makes the iGPU a good candidate for quantized models.
+* An **integrated GPU (iGPU)** with up to 8 Xe cores, each featuring 16 Xe Vector Engines (XVE). As the name implies, an XVE can perform vector operations on 256-bit vectors. It also implements the DP4a instruction, which computes a dot product between two vectors of 4-byte values, stores the result in a 32-bit integer, and adds it to a third 32-bit integer.
 
 * A **Neural Processing Unit (NPU)**, a first for Intel architectures. The NPU is a dedicated AI engine built for efficient client AI. It is optimized to handle demanding AI computations efficiently, freeing up the main CPU and graphics for other tasks. Compared to using the CPU or the iGPU for AI tasks, the NPU is designed to be more power-efficient.
 
