@@ -6,6 +6,8 @@ authors:
   guest: true
 - user: mdouglas
   guest: true
+- user: hiyouga
+  guest: true
 - user: ybelkada
 - user: muellerzr
 - user: amyeroberts
