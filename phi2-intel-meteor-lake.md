@@ -105,12 +105,16 @@ device = "gpu"
 # Create the quantization configuration with desired quantization parameters
 q_config = OVWeightQuantizationConfig(bits=4, group_size=128, ratio=0.8)
 
+# Create OpenVINO configuration with optimal settings for this model
+ov_config = {"PERFORMANCE_HINT": "LATENCY", "CACHE_DIR": "model_cache", "INFERENCE_PRECISION_HINT": "f32"}
+
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = OVModelForCausalLM.from_pretrained(
     model_id,
     export=True, # export model to OpenVINO format: should be False if model already exported
     quantization_config=q_config,
     device=device,
+    ov_config=ov_config,
   )
 
 # Compilation step : if not explicitly called, compilation will happen before the first inference
