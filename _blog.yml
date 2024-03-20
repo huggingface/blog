@@ -3686,3 +3686,13 @@
     - synthetic-data
     - llm
     - community
+
+- local: phi2-intel-meteor-lake
+  title: "A Chatbot on your Laptop: Phi-2 on Intel Meteor Lake"
+  author: juliensimon
+  thumbnail: /blog/assets/phi2-intel-meteor-lake/02.jpg
+  date: March 20, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
