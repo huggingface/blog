@@ -44,6 +44,7 @@ This combination is particularly effective in scenarios where memory is a critic
 Integrating 8-bit optimizers with GaLore for training large language models (LLMs) involves quantizing the gradients, weights, and optimizer states to 8-bit representations. This quantization process significantly reduces the memory footprint, enabling the training of larger models or the use of larger batch sizes within the same memory constraints. The algorithmic details of this integration involve several key steps, some of which would benefit significantly from native CUDA implementation for efficiency gains. GaLore opens new possibilities to integrate these techniques even more tightly with quantization and specialized parameterization of the matrices, which can lead to further reductions in memory usage. We are currently exploring this direction in the bitsandbytes library.
 
 ### Algorithmic Overview of 8-bit Optimization with GaLore
+
 **Gradient Projection**: GaLore projects the full-precision gradients into a low-rank subspace using projection matrices. This step reduces the dimensionality of the gradients, which are then quantized to 8-bit format.
 
 **Quantization**: The projected gradients, along with the model weights and optimizer states (such as the moving averages in Adam), are quantized from 32-bit floating-point to 8-bit integer representations. This involves scaling the floating-point values to the 8-bit range and rounding them to the nearest integer.
