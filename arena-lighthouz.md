@@ -2,11 +2,11 @@
 title: "Introducing the Chatbot Guardrails Arena"
 thumbnail: /blog/assets/arenas-on-the-hub/thumbnail_lighthouz.png
 authors:
-- user: Sonali Pattnaik
+- user: sonalipnaik
   guest: true
-- user: Rohan Karan
+- user: rohankaran
   guest: true
-- user: Srijan Kumar
+- user: srijankedia
   guest: true
 - user: clefourrier
 ---
