@@ -4,7 +4,7 @@ authors:
 - user: Titus-von-Koeller
 - user: jiaweizhao
   guest: true
-- user: matthewdouglas
+- user: mdouglas
   guest: true
 - user: ybelkada
 - user: muellerzr
