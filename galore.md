@@ -99,7 +99,7 @@ trainer.train()
 
 Another important point to mention are the _layer-wise_ optimizers (i.e. updating weights one layer at a time). Typically, the optimizer performs a single weight update for all layers after backpropagation. This is done by storing the entire weight gradients in memory. By adopting layer-wise weight updates, we can further reduce the memory footprint during training. Under the hood, this is implemented with PyTorch post-accumulation hooks on the layers the users want to update.
 
-To use this feature, simply post-pend `_layerwise` to the optimizer names, for example `galore_adamw_layerwise`.
+To use this feature, simply append `_layerwise` to the optimizer names, for example `galore_adamw_layerwise`.
 
 ## Conclusion
 
