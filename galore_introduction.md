@@ -51,7 +51,7 @@ Integrating 8-bit optimizers with GaLore for training large language models (LLM
 
 **De-quantization and Weight Update**: The 8-bit quantized weights undergo de-quantization to a floating-point representation for processing, albeit retaining the 8-bit precision inherent to their quantized form due to the limited range of values. This step is needed because standard operations in frameworks like PyTorch do not support 8-bit integers, and such integer weights cannot accommodate gradients. While this approach does not inherently enhance accuracy, it facilitates the practical application and gradient computation of quantized weights within the constraints of current deep learning libraries. Note that after de-quantization and before applying the weight update, GaLore employs one more projection that projects de-quantized low-rank updates back to the original space.
 
-## Use it with Hugging Face transformers
+## Use it with Hugging Face Transformers
 
 To use GaLore optimizers with Hugging Face transformers library, you first need to update the transformers library to a version that supports GaLore optimizers, by either installing the latest update or installing transformers from source.
 
