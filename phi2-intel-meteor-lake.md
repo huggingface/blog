@@ -4,6 +4,10 @@ thumbnail: /blog/assets/phi2-intel-meteor-lake/02.jpg
 authors:
 - user: juliensimon
 - user: echarlaix
+- user: ofirzaf
+- user: imargulis
+- user: guybd
+- user: moshew
 ---
 
 # A Chatbot on your Laptop: Phi-2 on Intel Meteor Lake
@@ -32,31 +36,29 @@ A lost cause, then? Of course not.
 
 There's nothing that the human mind can't make smaller, faster, more elegant, and more cost-effective. In recent months, the AI community has worked hard to shrink models without compromising their predictive quality.  Three areas are exciting:
 
-* **Hardware acceleration**: modern CPU architectures now embed hardware dedicated to accelerating the most common deep learning operators, such as matrix multiplication or convolution. The Intel Xeon Sapphire Rapids architecture is an excellent example, and in a previous post, we showed you how it could drastically [accelerate Stable Diffusion inference](https://huggingface.co/blog/stable-diffusion-inference-intel).
+* **Hardware acceleration**: modern CPU architectures embed hardware dedicated to accelerating the most common deep learning operators, such as matrix multiplication or convolution, enabling new Generative AI applications on AI PCs and significantly improving their speed and efficiency.
 
 * **Small Language Models (SLMs)**: thanks to innovative architectures and training techniques, these models are on par or even better than larger models. Because they have fewer parameters, inference requires less computing and memory, making them excellent candidates for resource-constrained environments.
 
-* **Quantization**: Quantization is a process that lowers memory and computing requirements by reducing the bit width of models weights and / or activations, for example, from 16-bit floating point (`fp16`) to 8-bit integers (`int8`). Reducing the number of bits means that the resulting model requires less memory at inference time, speeding up latency for memory-bound steps like the decoding phase (coming after the prefill phase). In addition, operations like matrix multiplication can be performed faster thanks to integer arithmetic when both the weights and activations are quantized.
+* **Quantization**: Quantization is a process that lowers memory and computing requirements by reducing the bit width of model weights and activations, for example, from 16-bit floating point (`fp16`) to 8-bit integers (`int8`). Reducing the number of bits means that the resulting model requires less memory at inference time, speeding up latency for memory-bound steps like the decoding phase when text is generated. In addition, operations like matrix multiplication can be performed faster thanks to integer arithmetic when quantizing both the weights and activations.
 
-In this post, we'll leverage all of the above. Starting from the Microsoft [Phi-2](https://huggingface.co/microsoft/phi-2) model, we will apply 4-bit quantization on the models weights, thanks to the Intel OpenVINO integration in our [Optimum Intel](https://github.com/huggingface/optimum-intel) library. Then, we will run inference on a mid-range laptop powered by an Intel Meteor Lake CPU.
+In this post, we'll leverage all of the above. Starting from the Microsoft [Phi-2](https://huggingface.co/microsoft/phi-2) model, we will apply 4-bit quantization on the model weights, thanks to the Intel OpenVINO integration in our [Optimum Intel](https://github.com/huggingface/optimum-intel) library. Then, we will run inference on a mid-range laptop powered by an Intel Meteor Lake CPU.
 
-If you're interested in applying quantization on both weights and activations, you can find more information in our [documentation](https://huggingface.co/docs/optimum/main/en/intel/optimization_ov).
-
+> **_NOTE_**: If you're interested in applying quantization on both weights and activations, you can find more information in our [documentation](https://huggingface.co/docs/optimum/main/en/intel/optimization_ov).
 
 Let's get to work.
 
 ## Intel Meteor Lake
 
-Launched in December 2023, Intel Meteor Lake, now renamed to [Core Ultra](https://www.intel.com/content/www/us/en/products/details/processors/core-ultra.html), is a new [architecture](https://www.intel.com/content/www/us/en/content-details/788851/meteor-lake-architecture-overview.html
-) optimized for high-performance laptops. 
+Launched in December 2023, Intel Meteor Lake, now renamed to [Core Ultra](https://www.intel.com/content/www/us/en/products/details/processors/core-ultra.html), is a new [architecture](https://www.intel.com/content/www/us/en/content-details/788851/meteor-lake-architecture-overview.html) optimized for high-performance laptops. 
 
-The first Intel client processor to use a chiplet architecture, the package includes:
+The first Intel client processor to use a chiplet architecture, Meteor Lake includes:
 
 * A **power-efficient CPU** with up to 16 cores,
 
-* An **integrated GPU (iGPU)** with up to 8 Xe cores, each featuring 16 Xe Vector Engines (XVE). As the name implies, an XVE can perform vector operations on 256-bit vectors. It also implements the DP4a instruction, which computes a dot product between two vectors of 4-byte values, stores the result in a 32-bit integer, and adds it to a third 32-bit integer. This makes the iGPU a good candidate for 8-bit quantized models like ours.
+* An **integrated GPU (iGPU)** with up to 8 Xe cores, each featuring 16 Xe Vector Engines (XVE). As the name implies, an XVE can perform vector operations on 256-bit vectors. It also implements the DP4a instruction, which computes a dot product between two vectors of 4-byte values, stores the result in a 32-bit integer, and adds it to a third 32-bit integer. This makes the iGPU a good candidate for quantized models.
 
-* A **Neural Processing Unit (NPU)** with hardware support for familiar operators like multiply and accumulate, convolution, pooling, linear, and activations. Digital signal processors (DSPs) are also present to allow for custom operator acceleration.
+* A **Neural Processing Unit (NPU)**, a first for Intel architectures. The NPU is a dedicated AI engine built for efficient client AI. It is optimized to handle demanding AI computations efficiently, freeing up the main CPU and graphics for other tasks. Compared to using the CPU or the iGPU for AI tasks, the NPU is designed to be more power-efficient.
 
 To run the demo below, we selected a [mid-range laptop](https://www.amazon.com/MSI-Prestige-Evo-Laptop-A1MG-029US/dp/B0CP9Y8Q6T/) powered by a [Core Ultra 7 155H CPU](https://www.intel.com/content/www/us/en/products/sku/236847/intel-core-ultra-7-processor-155h-24m-cache-up-to-4-80-ghz/specifications.html). Now, let's pick a lovely small language model to run on this laptop.
 
@@ -70,7 +72,9 @@ On reported benchmarks, unfazed by its smaller size, Phi-2 outperforms some of t
   <img src="assets/phi2-intel-meteor-lake/01.png">
 </kbd>
 
-This makes it an exciting candidate for laptop inference. Now, let's see how we can shrink the model to make it smaller and faster.
+This makes it an exciting candidate for laptop inference. Curious readers may also want to experiment with the 1.1-billion [TinyLlama](https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0) model.
+
+Now, let's see how we can shrink the model to make it smaller and faster.
 
 ## Quantization with Intel OpenVINO and Optimum Intel
 
@@ -78,14 +82,13 @@ Intel OpenVINO is an open-source toolkit for optimizing AI inference on many Int
 
 Partnering with Intel, we have integrated OpenVINO in Optimum Intel, our open-source library dedicated to accelerating Hugging Face models on Intel platforms ([Github](https://github.com/huggingface/optimum-intel), [documentation](https://huggingface.co/docs/optimum/intel/index)).
 
-This integration makes quantizing Phi-2 to 4 bits straightforward. We define a quantization configuration, set the optimization parameters, and load the model from the hub. Once it has been quantized and optimized, we store it locally.
-
+This integration makes quantizing Phi-2 to 4 bits straightforward. We define a quantization configuration, set the optimization parameters, and load the model from the hub. Once it has been quantized and optimized, we store it locally. The code snippet below shows you how to adapt your existing code quickly.
 
 ```diff
 - from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 + from optimum.intel import OVModelForCausalLM, OVWeightQuantizationConfig
 
-  # ratio=0.8 means 80% of the model is quantized to 4-bit and 20% to 8-bit
++ # Quantization configuration
 + q_config = OVWeightQuantizationConfig(bits=4, group_size=128, ratio=0.8)
 
   tokenizer = AutoTokenizer.from_pretrained(model_id)
@@ -93,7 +96,8 @@ This integration makes quantizing Phi-2 to 4 bits straightforward. We define a q
 + model = OVModelForCausalLM.from_pretrained(model_id, export=True, quantization_config=q_config)
   model.to("gpu")
   
-  # optional : model compilation step, if not explicitly called will be done by default before the first inference
++ # Optional : model compilation step
++ # If not explicitly called, it will be done before the first inference
 + model.compile()
   save_directory = "phi-2-openvino"
   model.save_pretrained(save_directory)
@@ -102,12 +106,10 @@ This integration makes quantizing Phi-2 to 4 bits straightforward. We define a q
   pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
   results = pipe("He's a dreadful magician and")
 ```
-* The `group_size` parameter will define the group size to use for quantization,  the recommended value is `128`, while `-1` will results in per-column quantization.
-* The `ratio` parameter controls the ratio between 4-bit and 8-bit quantization. If set to 0.8, it means that 80% of the layers will be quantized to `int4` while 20% will be quantized to `int8`.
 
-Smaller `group_size` and `ratio` values usually improve accuracy at the sacrifice of the model size and inference latency.
+The `ratio` parameter controls the fraction of weights we'll quantize to 4 bits (here, 80%) and the rest to 8 bits. The `group_size` parameter defines the size of the weight quantization groups (here, 128), each group having its scaling factor. Decreasing these two values usually improves accuracy at the expense of model size and inference latency.
 
-The entire notebook with text generation examples is [available on Github](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/quantized_generation_demo.ipynb).
+> **_NOTE_**: the entire notebook with text generation examples is [available on Github](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/quantized_generation_demo.ipynb).
 
 So, how fast is the quantized model on our laptop? Watch the following videos to see for yourself. Remember to select the 1080p resolution for maximum sharpness.
 
@@ -119,7 +121,7 @@ The second video asks our model a coding question: "*Write a class which impleme
 
 <iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://www.youtube.com/embed/igWrp8gnJZg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-As you can see in both examples, the generated answer is very high quality. The quantization process hasn't degraded the Phi-2 model's initial high quality, and the generation speed is adequate. I would be happy to work locally with this model daily.
+As you can see in both examples, the generated answer is very high quality. The quantization process hasn't degraded the high quality of Phi-2, and the generation speed is adequate. I would be happy to work locally with this model daily.
 
 ## Conclusion
 
@@ -134,9 +136,5 @@ Here are some resources to help you get started:
 
 If you have questions or feedback, we'd love to answer them on the [Hugging Face forum](https://discuss.huggingface.co/).
 
-Thanks for reading!
-
-*The work featured in this post includes contributions from our friends at Intel Labs: [Ofir Zafrir](https://huggingface.co/ofirzaf), [Igor Margulis](https://huggingface.co/imargulis), [Guy Boudoukh](https://huggingface.co/guybd), and [Moshe Wasserblat](https://huggingface.co/moshew).*
-
- 
+Thanks for reading! 
  
