@@ -19,7 +19,7 @@ The integration of GaLore into the training of large language models (LLMs) mark
 
 ## Scaling LLMs with Consumer-Grade Hardware
 
-The capability of GaLore to facilitate the training of models with up to 7 billion parameters, such as those based on the LLaMA architecture, on consumer GPUs like the NVIDIA RTX 4090, is groundbreaking. This is achieved by significantly reducing the memory requirements traditionally associated with optimizer states and gradients during the training process. The approach leverages the inherent low-rank structure of gradients in deep neural networks, applying a projection that reduces the dimensionality of the data that needs to be stored and manipulated.
+The capability of GaLore to facilitate the training of models with up to 7 billion parameters, such as those based on the Llama architecture, on consumer GPUs like the NVIDIA RTX 4090, is groundbreaking. This is achieved by significantly reducing the memory requirements traditionally associated with optimizer states and gradients during the training process. The approach leverages the inherent low-rank structure of gradients in deep neural networks, applying a projection that reduces the dimensionality of the data that needs to be stored and manipulated.
 
 ## Memory Efficiency in Optimizer States
 
