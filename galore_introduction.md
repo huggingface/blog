@@ -53,7 +53,7 @@ Integrating 8-bit optimizers with GaLore for training large language models (LLM
 
 ## Use it with Hugging Face Transformers
 
-To use GaLore optimizers with Hugging Face transformers library, you first need to update the transformers library to a version that supports GaLore optimizers, by either installing the latest update or installing transformers from source.
+To use GaLore optimizers with the Hugging Face transformers library, you first need to update it to a version that supports GaLore optimizers, by either installing the latest update or installing transformers from source.
 
 Then install the galore-torch library with `pip install galore-torch`. Below is a full working example of GaLore with transformers, for pretraining Mistral-7B on imdb dataset:
 
