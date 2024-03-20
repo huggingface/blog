@@ -21,15 +21,15 @@ Put on your creative caps! Chat with two anonymous LLMs with guardrails and try 
 
 Our vision behind the Chatbot Guardrails Arena is to establish the trusted benchmark for AI chatbot security, privacy, and guardrails. With a large-scale blind stress test by the community, this arena will offer an unbiased and practical assessment of the reliability of current privacy guardrails. 
 
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.21.0/gradio.js"> </script>
 <gradio-app theme_mode="light" space="lighthouzai/guardrails-arena"></gradio-app>
 
 
 ## Why Stress Test Privacy Guardrails?
 
-Data privacy is crucial even if you are building an internal-facing AI chatbot/agent – imagine one employee being able to trick an internal chatbot to find out another employee’s SSN, home address, or salary information. The need for data privacy is obvious when building external-facing AI chatbots/agents – you don’t want customers to have unauthorised access to company information. 
+Data privacy is crucial even if you are building an internal-facing AI chatbot/agent – imagine one employee being able to trick an internal chatbot into finding another employee’s SSN, home address, or salary information. The need for data privacy is obvious when building external-facing AI chatbots/agents – you don’t want customers to have unauthorised access to company information.
 
-Currently, there is no systematic study evaluating the privacy of AI chatbots, as far as we are aware. This arena bridges this gap with an initial focus on privacy of AI chatbots, however, we expect the learnings to inform the development of privacy-preserving AI agents and AI assistants in the future as well. 
+Currently, there is no systematic study evaluating the privacy of AI chatbots, as far as we are aware. This arena bridges this gap with an initial focus on the privacy of AI chatbots. However, we expect the learnings to inform the development of privacy-preserving AI agents and AI assistants in the future as well.
 
 Building a secure future requires building AI chatbots and agents that are privacy-aware, reliable, and trustworthy. This arena is a foundational step towards achieving this future. 
 
@@ -60,13 +60,13 @@ As is accepted practice, similar to [LMSYS](https://lmsys.org/)'s [Chatbot Arena
 
 ## How is the Chatbot Guardrails Arena different from other Chatbot Arenas?
 
-Traditional chatbot arenas, like the [LMSYS chatbot arena](https://arena.lmsys.org/), aim to measure the overall conversational quality of LLMs. The participants in these arenas converse on any general topic and rate based on their own judgement of response “quality”. 
+Traditional chatbot arenas, like the [LMSYS chatbot arena](https://arena.lmsys.org/), aim to measure the overall conversational quality of LLMs. The participants in these arenas converse on any general topic and rate based on their judgment of response “quality”. 
 
 On the other hand, in the Chatbot Guardrails Arena, the goal is to measure LLMs and guardrails' data privacy capabilities. To do so, the participant needs to act adversarially to extract secret information known to the chatbots. Participants vote based on the capability of preserving the secret information. 
 
 ## Taking Part in the Next Steps
 
-The Chatbot Guardrails Arena kickstarts the community stress testing of AI applications’ privacy concerns. By contributing to this platform, you’re not only stress testing the limits of AI and the current guardrail system but you’re actively participating in the definition of its ethical boundaries. Whether you’re a developer, an AI enthusiast, or simply curious about the future of technology, your participation matters. Participate in the arena, cast your vote, and share your successes with others on social media! 
+The Chatbot Guardrails Arena kickstarts the community stress testing of AI applications’ privacy concerns. By contributing to this platform, you’re not only stress-testing the limits of AI and the current guardrail system but actively participating in defining its ethical boundaries. Whether you’re a developer, an AI enthusiast, or simply curious about the future of technology, your participation matters. Participate in the arena, cast your vote, and share your successes with others on social media! 
 
 To foster community innovation and advance science, we're committing to share the results of our guardrail stress tests with the community via an open leaderboard and share a subset of the collected data in the coming months. This approach invites developers, researchers, and users to collaboratively enhance the trustworthiness and reliability of future AI systems, leveraging our findings to build more resilient and ethical AI solutions.
 
