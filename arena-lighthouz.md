@@ -13,15 +13,13 @@ authors:
 
 # Introducing the Chatbot Guardrails Arena
 
-Enterprise AI assistants (such as chatbots and agents), with access to internal databases, are set to revolutionize the future of enterprises and unlock productivity boosts beyond basic text editing/chatting. For instance, equipped with internal data, AI assistants can conduct administrative and HR tasks, provide tailored customer and employee support, and personalized financial advice. 
+With the recent jumps in augmented LLM capabilities, deployment of enterprise AI assistants (such as chatbots and agents) with access to internal databases is likely to increase; this trend could help with many tasks, from internal document summarization to personalised customer support. However, data privacy of said databases can be a serious concern (see [1](https://www.forrester.com/report/security-and-privacy-concerns-are-the-biggest-barriers-to-adopting/RES180179), [2](https://retool.com/reports/state-of-ai-2023) and [3](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-in-2023-generative-ais-breakout-year#/)) when deploying these models in production. So far, guardrails have emerged as the widely accepted technique to ensure the quality, security, and privacy of AI chatbots, but [anecdotal evidence](https://incidentdatabase.ai/) suggests that even the best guardrails can be circumvented with relative ease. 
 
-However, enterprises report data privacy concerns as a leading bottleneck in the use of Generative AI (see [1](https://www.forrester.com/report/security-and-privacy-concerns-are-the-biggest-barriers-to-adopting/RES180179), [2](https://retool.com/reports/state-of-ai-2023) and [3](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-in-2023-generative-ais-breakout-year#/)). To prevent data leaks, guardrails have emerged as the widely accepted technique to ensure the quality, security, and privacy of AI chatbots. Despite the popularity of guardrails in enterprises, [anecdotal evidence](https://incidentdatabase.ai/) suggests that even the best guardrails can be circumvented with relative ease. 
-
-Recognizing this, Lighthouz AI has launched the Chatbot Guardrails Arena, in collaboration with HuggingFace, to stress test LLMs and privacy guardrails in leaking sensitive data. 
+Lighthouz AI is therefore launching the Chatbot Guardrails Arena in collaboration with HuggingFace, to stress test LLMs and privacy guardrails in leaking sensitive data. 
 
 Put on your creative caps! Chat with two anonymous LLMs with guardrails and try to trick them into revealing sensitive financial information. Cast your vote for the model that demonstrates greater privacy. The votes will be compiled into a leaderboard showcasing the LLMs and guardrails rated highest by the community for their privacy.
 
-Our vision behind the Chatbot Guardrails Arena is to establish the trusted benchmark for AI chatbot security, privacy, and guardrails. With a large-scale blind stress test by end users, this arena will offer an unbiased and practical assessment of the reliability of current privacy guardrails. 
+Our vision behind the Chatbot Guardrails Arena is to establish the trusted benchmark for AI chatbot security, privacy, and guardrails. With a large-scale blind stress test by the community, this arena will offer an unbiased and practical assessment of the reliability of current privacy guardrails. 
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="lighthouzai/guardrails-arena"></gradio-app>
