@@ -82,14 +82,13 @@ Intel OpenVINO is an open-source toolkit for optimizing AI inference on many Int
 
 Partnering with Intel, we have integrated OpenVINO in Optimum Intel, our open-source library dedicated to accelerating Hugging Face models on Intel platforms ([Github](https://github.com/huggingface/optimum-intel), [documentation](https://huggingface.co/docs/optimum/intel/index)).
 
-This integration makes quantizing Phi-2 to 4-bit straightforward. We define a quantization configuration, set the optimization parameters, and load the model from the hub. Once it has been quantized and optimized, we store it locally. The code snippet below shows you how to adapt your existing code quickly.
-
 First make sure you have the latest version of `optimum-intel` with all the necessary libraries installed:
 
 ```bash
 pip install --upgrade-strategy eager optimum[openvino,nncf]
 ```
-Then apply 4-bit weight quantization on your models weights :
+
+This integration makes quantizing Phi-2 to 4-bit straightforward. We define a quantization configuration, set the optimization parameters, and load the model from the hub. Once it has been quantized and optimized, we store it locally.
 
 ```python
 from transformers import AutoTokenizer, pipeline
