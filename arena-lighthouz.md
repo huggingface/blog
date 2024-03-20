@@ -15,7 +15,7 @@ authors:
 
 With the recent jumps in augmented LLM capabilities, deployment of enterprise AI assistants (such as chatbots and agents) with access to internal databases is likely to increase; this trend could help with many tasks, from internal document summarization to personalised customer support. However, data privacy of said databases can be a serious concern (see [1](https://www.forrester.com/report/security-and-privacy-concerns-are-the-biggest-barriers-to-adopting/RES180179), [2](https://retool.com/reports/state-of-ai-2023) and [3](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-in-2023-generative-ais-breakout-year#/)) when deploying these models in production. So far, guardrails have emerged as the widely accepted technique to ensure the quality, security, and privacy of AI chatbots, but [anecdotal evidence](https://incidentdatabase.ai/) suggests that even the best guardrails can be circumvented with relative ease. 
 
-Lighthouz AI is therefore launching the Chatbot Guardrails Arena in collaboration with HuggingFace, to stress test LLMs and privacy guardrails in leaking sensitive data. 
+Lighthouz AI is therefore launching the Chatbot Guardrails Arena in collaboration with Hugging Face, to stress test LLMs and privacy guardrails in leaking sensitive data. 
 
 Put on your creative caps! Chat with two anonymous LLMs with guardrails and try to trick them into revealing sensitive financial information. Cast your vote for the model that demonstrates greater privacy. The votes will be compiled into a leaderboard showcasing the LLMs and guardrails rated highest by the community for their privacy.
 
