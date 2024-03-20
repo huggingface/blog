@@ -5,9 +5,13 @@ authors:
 - user: juliensimon
 - user: echarlaix
 - user: ofirzaf
+  guest: true
 - user: imargulis
+  guest: true
 - user: guybd
+  guest: true
 - user: moshew
+  guest: true
 ---
 
 # A Chatbot on your Laptop: Phi-2 on Intel Meteor Lake
