@@ -66,6 +66,8 @@ The first Intel client processor to use a chiplet architecture, Meteor Lake incl
 
 To run the demo below, we selected a [mid-range laptop](https://www.amazon.com/MSI-Prestige-Evo-Laptop-A1MG-029US/dp/B0CP9Y8Q6T/) powered by a [Core Ultra 7 155H CPU](https://www.intel.com/content/www/us/en/products/sku/236847/intel-core-ultra-7-processor-155h-24m-cache-up-to-4-80-ghz/specifications.html). Now, let's pick a lovely small language model to run on this laptop.
 
+> **_NOTE_**: To run this code on Linux, install your GPU driver by following [these instructions](https://docs.openvino.ai/2024/get-started/configurations/configurations-intel-gpu.html).
+
 ## The Microsoft Phi-2 model
 
 [Released](https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/) in December 2023, [Phi-2](https://huggingface.co/microsoft/phi-2) is a 2.7-billion parameter model trained for text generation. 
