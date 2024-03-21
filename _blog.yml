@@ -3558,7 +3558,7 @@
 
 - local: arena-tts
   title: "TTS Arena: Benchmarking Text-to-Speech Models in the Wild"
-  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png 
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png
   author: mrfakename
   guest: true
   date: Feb 27, 2024
@@ -3576,7 +3576,7 @@
     - nlp
     - community
     - research
-    - LLM 
+    - LLM
 
 - local: textgen-pipe-gaudi
   title: "Text-Generation Pipeline on Intel® Gaudi® 2 AI Accelerator"
@@ -3625,7 +3625,7 @@
     - cv
     - data
     - research
-  
+
 - local: intel-fast-embedding
   title: "CPU Optimized Embeddings with 🤗 Optimum Intel and fastRAG"
   author: peterizsak
@@ -3640,11 +3640,79 @@
     - collaboration
     - community
 
+- local: quanto-introduction
+  title: "quanto: a pytorch quantization toolkit"
+  author: dacorvo
+  thumbnail: /blog/assets/169_quanto_intro/thumbnail.png
+  date: March 18, 2024
+  tags:
+    - guide
+    - quantization
+    - transformers
+    - diffusers
+
+- local: train-dgx-cloud
+  title: "Easily Train Models with H100 GPUs on NVIDIA DGX Cloud"
+  author: philschmid
+  thumbnail: /blog/assets/train-dgx-cloud/thumbnail.jpg
+  date: March 18, 2024
+  tags:
+    - partnerships
+    - hardware
+    - nvidia
+    - llm
+    - training
+
+  
+- local: galore
+  title: "GaLore: Advancing Large Model Training on Consumer-grade Hardware"
+  author: Titus-von-Koeller
+  thumbnail: /blog/assets/galore_introduction/thumbnail.png
+  date: March 20, 2024
+  tags:
+    - galore
+    - peft
+    - llm
+    - training
+
+- local: cosmopedia
+  title: "Cosmopedia: how to create large-scale synthetic data for pre-training Large Language Models"
+  author: loubnabnl
+  thumbnail: /blog/assets/cosmopedia/thumbnail.png
+  date: March 20, 2024
+  tags:
+    - guide
+    - nlp
+    - synthetic-data
+    - llm
+    - community
+
+- local: phi2-intel-meteor-lake
+  title: "A Chatbot on your Laptop: Phi-2 on Intel Meteor Lake"
+  author: juliensimon
+  thumbnail: /blog/assets/phi2-intel-meteor-lake/02.jpg
+  date: March 20, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
+
+- local: arena-lighthouz
+  title: "Introducing the Chatbot Guardrails Arena"
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail_lighthouz.png
+  author: sonalipnaik
+  guest: true
+  date: Mar 21, 2024
+  tags:
+    - leaderboard
+    - arena
+    - collaboration
+
 - local: noob_intro_transformers
   title: "Total noob’s intro to Hugging Face Transformers"
   author: 2legit2overfit
   thumbnail: /blog/assets/78_ml_director_insights/guide.png
-  date: March 19, 2024
+  date: March 22, 2024
   tags:
     - guide
     - community

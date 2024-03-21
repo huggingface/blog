@@ -19,6 +19,8 @@ authors:
 
 Embedding models are useful for many applications such as retrieval, reranking, clustering, and classification. The research community has witnessed significant advancements in recent years in embedding models, leading to substantial enhancements in all applications building on semantic representation. Models such as [BGE](https://huggingface.co/BAAI/bge-large-en-v1.5), [GTE](https://huggingface.co/thenlper/gte-small), and [E5](https://huggingface.co/intfloat/multilingual-e5-large) are placed at the top of the [MTEB](https://github.com/embeddings-benchmark/mteb) benchmark and in some cases outperform proprietary embedding services. There are a variety of model sizes found in Hugging Face's Model hub, from lightweight (100-350M parameters) to 7B models (such as [Salesforce/SFR-Embedding-Mistral](http://Salesforce/SFR-Embedding-Mistral)). The lightweight models based on an encoder architecture are ideal candidates for optimization and utilization on CPU backends running semantic search-based applications, such as Retrieval Augmented Generation ([RAG](https://en.wikipedia.org/wiki/Prompt_engineering#Retrieval-augmented_generation)).
 
+In this blog, we will show how to unlock significant performance boost on Xeon based CPUs, and show how easy it is to integrate optimized models into existing RAG pipelines using [fastRAG](https://github.com/IntelLabs/fastRAG/).  
+
 ## Information Retrieval with Embedding Models
 
 Embedding models encode textual data into dense vectors, capturing semantic and contextual meaning. This enables accurate information retrieval by representing word and document relationships more contextually. Typically, semantic similarity will be measured by cosine similarity between the embedding vectors.
@@ -149,10 +151,10 @@ Quantizing the models' weights to a lower precision introduces accuracy loss, as
 The table below shows the average accuracy (on multiple datasets)  of each task type (MAP for Reranking, NDCG@10 for Retrieval), where `int8` is our quantized model and `fp32` is the original model (results taken from the official MTEB leaderboard). The quantized models show less than 1% error rate compared to the original model in the Reranking task and less than 1.55% in the Retrieval task.
 
 <table>
-<tr><th> Model  </th><th>   Reranking </th><th> Retrieval </th></tr>
+<tr><th> </th><th>   Reranking </th><th> Retrieval </th></tr>
 <tr><td>
 
-| precision |
+|   &nbsp;  |
 | --------- |
 | BGE-small |
 | BGE-base  |
@@ -290,9 +292,16 @@ Results show that the quantized models reach higher throughput values compared t
 
 ## Optimized Embedding Models with fastRAG
 
+<p align="center">
+ <a href="https://github.com/IntelLabs/fastRAG/">
+  <img src="https://github.com/IntelLabs/fastRAG/raw/main/assets/fastrag_header.png" style="float: right; width: 40%; height: auto; padding: 10">
+ </a>
+</p>
+
+
 As an example, we will demonstrate how to integrate the optimized Retrieval/Reranking models into [fastRAG](https://github.com/IntelLabs/fastRAG) (which can also be easily integrated into other RAG frameworks such as Langchain and LlamaIndex).
 
-[fastRAG](https://github.com/IntelLabs/fastRAG) is a research framework for efficient and optimized retrieval augmented generative pipelines, incorporating state-of-the-art LLMs and Information Retrieval. fastRAG is fully compatible with [Haystack](https://haystack.deepset.ai/) and includes novel and efficient RAG modules for efficient deployment on Intel hardware.
+[fastRAG](https://github.com/IntelLabs/fastRAG) is a research framework, developed by [Intel Labs](https://www.intel.com/content/www/us/en/research/overview.html), for efficient and optimized retrieval augmented generative pipelines, incorporating state-of-the-art LLMs and Information Retrieval. fastRAG is fully compatible with [Haystack](https://haystack.deepset.ai/) and includes novel and efficient RAG modules for efficient deployment on Intel hardware.
 To get started with fastRAG we invite readers to see the installation instructions [here](https://github.com/IntelLabs/fastRAG#round_pushpin-installation) and get started with fastRAG using our [guide](https://github.com/IntelLabs/fastRAG/blob/main/getting_started.md).
 
 We integrated the optimized bi-encoder embedding models in two modules: 
