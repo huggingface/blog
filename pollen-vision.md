@@ -24,7 +24,7 @@ Our initial release is focused on 3D object detection—laying the groundwork fo
 
 ### The Core Models of Pollen-Vision
 
-The library encapsulates several key models. We want the models we use to be zero-shot and versatile, allowing a wide range of detectable objects without re-training. The models also have to be “real time capable”, meaning they should run at at least a few fps on a “normal laptop” with a GPU. The first models we chose are:
+The library encapsulates several key models. We want the models we use to be zero-shot and versatile, allowing a wide range of detectable objects without re-training. The models also have to be “real-time capable”, meaning they should run at least a few fps on a consumer GPU. The first models we chose are:
 
 - **OWL-VIT** (Open World Localization - Vision Transformer, By Google Research): This model performs text-conditionned zero-shot 2D object localization in RGB images. It outputs bounding boxes (like YOLO) (https://huggingface.co/docs/transformers/model_doc/owlvit)
 - **Mobile SAM**: A lightweight version of the Segment Anything Model (SAM) by Meta AI. SAM is a zero shot image segmentation model. It can be prompted with bounding boxes or points. (https://github.com/ChaoningZhang/MobileSAM)
