@@ -20,7 +20,7 @@ We're excited to share the initial launch of our open-source `pollen-vision` lib
 
 We focused on selecting [zero-shot models](https://huggingface.co/tasks/zero-shot-object-detection), eliminating the need for any training, and making these tools instantly usable right out of the box.
 
-Our initial release is focused on 3D object detection—laying the groundwork for tasks like robotic grasping by providing a reliable estimate of objects' spatial coordinates. This functionality, while currently limited to positioning within a 3D space (not extending to full 6D pose estimation), establishes a solid foundation for basic robotic manipulation tasks.
+Our initial release is focused on 3D object detection—laying the groundwork for tasks like robotic grasping by providing a reliable estimate of objects' spatial coordinates. Currently limited to positioning within a 3D space (not extending to full 6D pose estimation), this functionality establishes a solid foundation for basic robotic manipulation tasks.
 
 ### The Core Models of Pollen-Vision
 
