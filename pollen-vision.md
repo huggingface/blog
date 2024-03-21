@@ -67,7 +67,7 @@ So it is interesting, performance-wise, to only prompt OWL-VIT with objects that
 
 ### A robotics use case: grasping unknown objects in unconstrained environments
 
-With the object’s segmentation mask, we can estimate its (u, v) position in pixel space by computing the centroid of the binary mask. Here, having the segmentation mask is very useful because it allows us to average the depth values inside the mask, rather than inside the full bounding box, which also contains background that would skew the average.
+With the object's segmentation mask, we can estimate its (u, v) position in pixel space by computing the centroid of the binary mask. Here, having the segmentation mask is very useful because it allows us to average the depth values inside the mask rather than inside the full bounding box, which also contains a background that would skew the average.
 
 One way to do that is by averaging the u and v coordinates of the non zero pixels in the mask
 
