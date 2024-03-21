@@ -27,7 +27,7 @@ Our initial release is focused on 3D object detection—laying the groundwork fo
 The library encapsulates several key models. We want the models we use to be zero-shot and versatile, allowing a wide range of detectable objects without re-training. The models also have to be “real-time capable”, meaning they should run at least a few fps on a consumer GPU. The first models we chose are:
 
 - **OWL-VIT** (Open World Localization - Vision Transformer, By Google Research): This model performs text-conditioned zero-shot 2D object localization in RGB images. It outputs bounding boxes (like YOLO) (https://huggingface.co/docs/transformers/model_doc/owlvit)
-- **Mobile SAM**: A lightweight version of the Segment Anything Model (SAM) by Meta AI. SAM is a zero shot image segmentation model. It can be prompted with bounding boxes or points. (https://github.com/ChaoningZhang/MobileSAM)
+- **Mobile SAM**: A lightweight version of the Segment Anything Model (SAM) by Meta AI. SAM is a zero-shot image segmentation model. It can be prompted with bounding boxes or points. (https://github.com/ChaoningZhang/MobileSAM)
 - **RAM** (Recognize Anything Model by OPPO Research Institute): Designed for zero-shot image tagging, RAM can determine the presence of an object in an image based on textual descriptions, laying the groundwork for further analysis. (https://github.com/xinyu1205/recognize-anything)
 
 ### Get started in very few lines of code!
