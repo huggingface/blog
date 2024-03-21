@@ -16,7 +16,7 @@ At Pollen Robotics, we're dedicated to simplifying robotics, making it more acce
 
 In the context of autonomous behaviors, the essence of a robot's usability lies in its ability to understand and interact with its environment. This understanding primarily comes from **visual perception**, which enables robots to identify objects, recognize people, navigate spaces, and much more.
 
-We're excited to share the initial launch of our open source **pollen-vision** library, a first step towards empowering our robots with the autonomy to grasp unknown objects. **This library is a carefully curated collection of vision models, chosen for their direct applicability to robotics.** **Pollen-vision** is designed for ease of installation and use, composed of independent modules that can be combined to create a 3D object detection pipeline, getting the position of the objects in 3D space (x, y, z). 
+We're excited to share the initial launch of our open-source `pollen-vision` library, a first step towards empowering our robots with the autonomy to grasp unknown objects. **This library is a carefully curated collection of vision models chosen for their direct applicability to robotics.** `Pollen-vision` is designed for ease of installation and use, composed of independent modules that can be combined to create a 3D object detection pipeline, getting the position of the objects in 3D space (x, y, z). 
 
 We focused on selecting [zero-shot models](https://huggingface.co/tasks/zero-shot-object-detection), eliminating the need for any training, making these tools instantly usable right out of the box. 
 
