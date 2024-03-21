@@ -15,8 +15,7 @@ authors:
 # Pollen-Vision: Unified interface for Zero-Shot vision models in robotics
 
 <!-- TODO intro mp4 -->
-
-At Pollen Robotics, we're dedicated to simplifying robotics, making it more accessible and practical for everyday applications. For this reason, we have created [Reachy](https://www.youtube.com/watch?v=iSL39WFxCLE), an open-source humanoid robot designed with manipulation in the real world in mind (80+ units sold around the world). It can be programmed through a simple Python [SDK](https://docs.pollen-robotics.com/docs/installation/use-sdk/) and [teleoperated via a VR headset](https://www.youtube.com/watch?v=lRWna6mEMv0).
+> [!NOTE] This is a guest blog post by the Pollen Robotics team. We are the creators of Reachy, an open-source humanoid robot designed for manipulation in the real world.
 
 In the context of autonomous behaviors, the essence of a robot's usability lies in its ability to understand and interact with its environment. This understanding primarily comes from **visual perception**, which enables robots to identify objects, recognize people, navigate spaces, and much more.
 
@@ -30,9 +29,9 @@ Our initial release is focused on 3D object detection—laying the groundwork fo
 
 The library encapsulates several key models. We want the models we use to be zero-shot and versatile, allowing a wide range of detectable objects without re-training. The models also have to be “real-time capable”, meaning they should run at least a few fps on a consumer GPU. The first models we chose are:
 
-- **OWL-VIT** (Open World Localization - Vision Transformer, By Google Research): This model performs text-conditioned zero-shot 2D object localization in RGB images. It outputs bounding boxes (like YOLO) (https://huggingface.co/docs/transformers/model_doc/owlvit)
-- **Mobile SAM**: A lightweight version of the Segment Anything Model (SAM) by Meta AI. SAM is a zero-shot image segmentation model. It can be prompted with bounding boxes or points. (https://github.com/ChaoningZhang/MobileSAM)
-- **RAM** (Recognize Anything Model by OPPO Research Institute): Designed for zero-shot image tagging, RAM can determine the presence of an object in an image based on textual descriptions, laying the groundwork for further analysis. (https://github.com/xinyu1205/recognize-anything)
+- [OWL-VIT](https://huggingface.co/docs/transformers/model_doc/owlvit) (Open World Localization - Vision Transformer, By Google Research): This model performs text-conditioned zero-shot 2D object localization in RGB images. It outputs bounding boxes (like YOLO)
+- [Mobile Sam](https://github.com/ChaoningZhang/MobileSAM): A lightweight version of the Segment Anything Model (SAM) by Meta AI. SAM is a zero-shot image segmentation model. It can be prompted with bounding boxes or points. 
+- [RAM](https://github.com/xinyu1205/recognize-anything) (Recognize Anything Model by OPPO Research Institute): Designed for zero-shot image tagging, RAM can determine the presence of an object in an image based on textual descriptions, laying the groundwork for further analysis. 
 
 ### Get started in very few lines of code!
 
@@ -114,6 +113,4 @@ What we presented in this post is a first step towards our goal, which is autono
 
 ### Try pollen-vision
 
-Wanna try pollen-vision? Check out the notebooks on Google Colab here https://drive.google.com/drive/folders/1Xx42Pk4exkS95iyD-5arHIYQLXyRWTXw.
-
-If you want to install it, follow the instructions on our [Github repository](https://github.com/pollen-robotics/pollen-vision).
+Wanna try pollen-vision? Check out our [Github repository](https://github.com/pollen-robotics/pollen-vision) !
