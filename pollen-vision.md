@@ -12,7 +12,7 @@ authors:
 
 <!-- TODO intro mp4 -->
 
-At Pollen Robotics, we're dedicated to simplifying robotics, making it more accessible and practical for everyday applications. For this reason, we have created [Reachy](https://www.youtube.com/watch?v=iSL39WFxCLE), an open source humanoid robot designed with manipulation in the real world in mind (80+ units sold around the world). It can be programmed through a simple Python [SDK](https://docs.pollen-robotics.com/docs/installation/use-sdk/) and [teleoperated via a VR headset](https://www.youtube.com/watch?v=lRWna6mEMv0).
+At Pollen Robotics, we're dedicated to simplifying robotics, making it more accessible and practical for everyday applications. For this reason, we have created [Reachy](https://www.youtube.com/watch?v=iSL39WFxCLE), an open-source humanoid robot designed with manipulation in the real world in mind (80+ units sold around the world). It can be programmed through a simple Python [SDK](https://docs.pollen-robotics.com/docs/installation/use-sdk/) and [teleoperated via a VR headset](https://www.youtube.com/watch?v=lRWna6mEMv0).
 
 In the context of autonomous behaviors, the essence of a robot's usability lies in its ability to understand and interact with its environment. This understanding primarily comes from **visual perception**, which enables robots to identify objects, recognize people, navigate spaces, and much more.
 
