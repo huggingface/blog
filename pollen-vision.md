@@ -3,9 +3,13 @@ title: "Pollen-Vision: Unified interface for Zero-Shot vision models in robotics
 thumbnail: /blog/assets/pollen-vision/thumbnail.jpg
 authors:
 - user: apirrone
+  guest: true
 - user: simheo
+  guest: true
 - user: PierreRouanet
+  guest: true
 - user: revellsi
+  guest: true
 ---
 
 # Pollen-Vision: Unified interface for Zero-Shot vision models in robotics

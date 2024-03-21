@@ -3674,3 +3674,14 @@
     - peft
     - llm
     - training
+
+- local: pollen-vision
+  title: "Pollen-Vision: Unified interface for Zero-Shot vision models in robotics"
+  author: apirrone
+  guest: true
+  thumbnail: /blog/assets/pollen-vision/thumbnail.jpg
+  date: March 21, 2024
+  tags:
+    - robotics
+    - vision
+    - object-detection
