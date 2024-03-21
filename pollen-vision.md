@@ -18,7 +18,7 @@ In the context of autonomous behaviors, the essence of a robot's usability lies 
 
 We're excited to share the initial launch of our open-source `pollen-vision` library, a first step towards empowering our robots with the autonomy to grasp unknown objects. **This library is a carefully curated collection of vision models chosen for their direct applicability to robotics.** `Pollen-vision` is designed for ease of installation and use, composed of independent modules that can be combined to create a 3D object detection pipeline, getting the position of the objects in 3D space (x, y, z). 
 
-We focused on selecting [zero-shot models](https://huggingface.co/tasks/zero-shot-object-detection), eliminating the need for any training, making these tools instantly usable right out of the box. 
+We focused on selecting [zero-shot models](https://huggingface.co/tasks/zero-shot-object-detection), eliminating the need for any training, and making these tools instantly usable right out of the box.
 
 Our initial release is focused on 3D object detection—laying the groundwork for tasks like robotic grasping by providing a reliable estimate of objects' spatial coordinates. This functionality, while currently limited to positioning within a 3D space (not extending to full 6D pose estimation), establishes a solid foundation for basic robotic manipulation tasks.
 
