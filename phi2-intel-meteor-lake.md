@@ -127,7 +127,7 @@ model.save_pretrained(save_directory)
 tokenizer.save_pretrained(save_directory)
 ```
 
-The `ratio` parameter controls the fraction of weights we'll quantize to 4-bit (here, 80%) and the rest to 4-bit. The `group_size` parameter defines the size of the weight quantization groups (here, 128), each group having its scaling factor. Decreasing these two values usually improves accuracy at the expense of model size and inference latency.
+The `ratio` parameter controls the fraction of weights we'll quantize to 4-bit (here, 80%) and the rest to 8-bit. The `group_size` parameter defines the size of the weight quantization groups (here, 128), each group having its scaling factor. Decreasing these two values usually improves accuracy at the expense of model size and inference latency.
 
 You can find more information on weight quantization in our [documentation](https://huggingface.co/docs/optimum/main/en/intel/optimization_ov#weight-only-quantization).
 
