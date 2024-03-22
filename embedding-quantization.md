@@ -43,7 +43,7 @@ We introduce the concept of embedding quantization and showcase their impact on 
 
 Embeddings are one of the most versatile tools in natural language processing, supporting a wide variety of settings and use cases. In essence, embeddings are numerical representations of more complex objects, like text, images, audio, etc. Specifically, the objects are represented as n-dimensional vectors. 
 
-After transforming the complex objects, you can then determine their similarity by calculating the similarity of the respective embeddings! This is crucial for a massive amount of use cases: it serves as the backbone for recommendation systems, retrieval, one-shot or few-shot learning, outlier detection, similarity search, paraphrase detection, clustering, classification, and much more.
+After transforming the complex objects, you can determine their similarity by calculating the similarity of the respective embeddings! This is crucial for many use cases: it serves as the backbone for recommendation systems, retrieval, one-shot or few-shot learning, outlier detection, similarity search, paraphrase detection, clustering, classification, and much more.
 
 ### Embeddings may struggle to scale
 
@@ -67,7 +67,7 @@ There are several ways to approach the challenges of scaling embeddings. The mos
 
 In recent news, [Matryoshka Representation Learning](https://arxiv.org/abs/2205.13147) ([blogpost](https://huggingface.co/blog/matryoshka)) (MRL) as used by [OpenAI](https://openai.com/blog/new-embedding-models-and-api-updates) also allows for cheaper embeddings. With MRL, only the first `n` embedding dimensions are used. This approach has already been adopted by some open models like [nomic-ai/nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) and [mixedbread-ai/mxbai-embed-2d-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-2d-large-v1) [^1]. 
 
-However, there is another new approach to achieve progress on this challenge; it does not entail dimensionality reduction, but rather a reduction in size of each of the individual values in the embedding: **Quantization**. Our experiments on quantization will show that we can maintain a large amount of performance while significantly speeding up computation and saving on memory, storage, and costs. Let's dive into it! 
+However, there is another new approach to achieve progress on this challenge; it does not entail dimensionality reduction, but rather a reduction in the size of each of the individual values in the embedding: **Quantization**. Our experiments on quantization will show that we can maintain a large amount of performance while significantly speeding up computation and saving on memory, storage, and costs. Let's dive into it! 
 
 
 ### Binary Quantization
@@ -84,7 +84,7 @@ $$
 \end{cases}
 $$
 
-We can use the Hamming Distance to efficiently perform retrieval with these binary embeddings. This is simply the number of positions at which the bits of two binary embeddings differ. The lower the Hamming Distance, the closer the embeddings, and thus the more relevant the document. A huge advantage of the Hamming Distance is that it can be easily calculated with 2 CPU cycles, allowing for blazingly fast performance.
+We can use the Hamming Distance to retrieve these binary embeddings efficiently. This is the number of positions at which the bits of two binary embeddings differ. The lower the Hamming Distance, the closer the embeddings; thus, the more relevant the document. A huge advantage of the Hamming Distance is that it can be easily calculated with 2 CPU cycles, allowing for blazingly fast performance.
 
 [Yamada et al. (2021)](https://arxiv.org/abs/2106.00882) introduced a rescore step, which they called *rerank*, to boost the performance. They proposed that the `float32` query embedding could be compared with the binary document embeddings using dot-product. In practice, we first retrieve `rescore_multiplier * top_k` results with the binary query embedding and the binary document embeddings -- i.e., the list of the first k results of the double-binary retrieval --  and then rescore that list of binary document embeddings with the `float32` query embedding.
 
@@ -126,7 +126,7 @@ binary_embeddings = quantize_embeddings(embeddings, precision="binary")
 * <a href="https://sbert.net/docs/package_reference/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode"><code>SentenceTransformer.encode</code></a>
 * <a href="https://sbert.net/docs/package_reference/quantization.html#sentence_transformers.quantization.quantize_embeddings"><code>quantize_embeddings</code></a>
 
-Here you can see the differences between default `float32` embeddings and binary embeddings in terms of shape, size, and `numpy` dtype:
+Here, you can see the differences between default `float32` embeddings and binary embeddings in terms of shape, size, and `numpy` dtype:
 
 ```python
 >>> embeddings.shape
@@ -157,16 +157,16 @@ Note that you can also choose `"ubinary"` to quantize to binary using the unsign
 
 ### Scalar (int8) Quantization
 
-To convert the `float32` embeddings into `int8`, we use a process called scalar quantization. This involves mapping the continuous range of `float32` values to the discrete set of `int8` values, which can represent 256 distinct levels (from -128 to 127) as shown in the image below. This is done by using a large calibration dataset of embeddings. We compute the range of these embeddings, i.e. the `min` and `max` of each of the embedding dimensions. From there, we calculate the steps (buckets) in which we categorize each value.
+We use a scalar quantization process to convert the `float32` embeddings into `int8`. This involves mapping the continuous range of `float32` values to the discrete set of `int8` values, which can represent 256 distinct levels (from -128 to 127), as shown in the image below. This is done by using a large calibration dataset of embeddings. We compute the range of these embeddings, i.e., the `min` and `max` of each embedding dimension. From there, we calculate the steps (buckets) to categorize each value.
 
-To further boost the retrieval performance, you can optionally apply the same rescoring step as for the binary embeddings. It is important to note here that the calibration dataset has a large influence on performance, since it defines the quantization buckets.
+To further boost the retrieval performance, you can optionally apply the same rescoring step as for the binary embeddings. It is important to note that the calibration dataset greatly influences performance since it defines the quantization buckets.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/embedding-quantization/scalar-quantization.png">
     <em><small>Source: <a href="https://qdrant.tech/articles/scalar-quantization/">https://qdrant.tech/articles/scalar-quantization/</a></small></em>
 </p>
 
-With scalar quantization to `int8`, we reduce the precision of the original `float32` embeddings such that each value is represented with an 8-bit integer (4x smaller). Note that this differs from the binary quantization case, where each value is represented by a single bit (32x smaller).
+With scalar quantization to `int8`, we reduce the original `float32` embeddings' precision so that each value is represented with an 8-bit integer (4x smaller). Note that this differs from the binary quantization case, where each value is represented by a single bit (32x smaller).
 
 #### Scalar Quantization in Sentence Transformers
 
@@ -239,7 +239,7 @@ int8
 
 ### Combining Binary and Scalar Quantization
 
-It is possible to combine binary and scalar quantization to get the best of both worlds: the extreme speed from binary embeddings and the great performance preservation of scalar embeddings with rescoring. See the [demo](#demo) below for a real-life implementation of this approach involving 41 million texts from Wikipedia. The pipeline for that setup is as follows:
+Combining binary and scalar quantization is possible to get the best of both worlds: the extreme speed from binary embeddings and the great performance preservation of scalar embeddings with rescoring. See the [demo](#demo) below for a real-life implementation of this approach involving 41 million texts from Wikipedia. The pipeline for that setup is as follows:
 
 1. The query is embedded using the [`mixedbread-ai/mxbai-embed-large-v1`](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1) SentenceTransformer model.
 2. The query is quantized to binary using the <a href="https://sbert.net/docs/package_reference/quantization.html#sentence_transformers.quantization.quantize_embeddings"><code>quantize_embeddings</code></a> function from the `sentence-transformers` library.
@@ -248,7 +248,7 @@ It is possible to combine binary and scalar quantization to get the best of both
 5. The top 40 documents are rescored using the float32 query and the int8 embeddings to get the top 10 documents.
 6. The top 10 documents are sorted by score and displayed.
 
-Through this approach, we use 5.2GB of memory and 52GB of disk space for the indices. This is considerably less than normal retrieval, for which we would require 200GB of memory and 200GB of disk space. Especially as you scale up even further, this will result in notable reductions in both latency and costs.
+Through this approach, we use 5.2GB of memory and 52GB of disk space for the indices. This is considerably less than normal retrieval, requiring 200GB of memory and 200GB of disk space. Especially as you scale up even further, this will result in notable reductions in latency and costs.
 
 ### Quantization Experiments
 
