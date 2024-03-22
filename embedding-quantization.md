@@ -166,6 +166,7 @@ To further boost the retrieval performance, you can optionally apply the same re
     <em><small>Source: <a href="https://qdrant.tech/articles/scalar-quantization/">https://qdrant.tech/articles/scalar-quantization/</a></small></em>
 </p>
 
+With scalar quantization to `int8`, we reduce the precision of the original `float32` embeddings such that each value is represented with an 8-bit integer (4x smaller). Note that this differs from the binary quantization case, where each value is represented by a single bit (32x smaller).
 
 #### Scalar Quantization in Sentence Transformers
 
