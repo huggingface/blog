@@ -108,7 +108,7 @@ It's also important to choose a GPU with enough memory to store the model and pr
 - In your new notebook you’ll need to install the PyTorch and Transformers libraries, as they do not come pre-installed in the environment .
 - This can be done by entering the !pip command + library name in your notebook. Click the play button to execute the code and watch as the libraries are installed (Alternatively: Hit CMD + Return / CTRL + Enter)
 
-```json
+```python
 !pip install torch
 !pip install transformers
 ```
@@ -128,7 +128,7 @@ Hugging Face is a library that is built on top of other frameworks like Pytorch,
 8.  Import the AutoTokenizer and AutoModelForCausalLM classes from Transformers
 - Enter the following code on a new line and run it
 
-```json
+```python
 from transformers import AutoTokenizer, AutoModelForCausalLM
 ```
 
@@ -145,7 +145,7 @@ Although Transformers is already installed, the specific Classes within Transfor
 - We do this by setting a variable equal to the model name, in this case we decide to call the variable `model_id`
 - We’ll use Microsoft's Phi-2, a small but surprisingly capable model which can be found at https://huggingface.co/microsoft/phi-2. Note: Phi-2 is a base not an instruction tuned model and so will respond unusually if you try to use it for chat
 
-```json
+```python
 model_id = "microsoft/phi-2"
 ```
 
@@ -157,7 +157,7 @@ An instruction-tuned language model is a type of model that has been further tra
 - To load the model from the Hugging Face Hub into our local environment we need to instantiate the model object. We do this by passing the “model_id” which we defined in the last step into the argument of the “.from_pretrained” method on the AutoModelForCausalLM Class.
 - Run your code and grab a drink, the model may take a few minutes to download
 
-```json
+```python
 model = AutoModelForCausalLM.from_pretrained(model_id)
 ```
 
@@ -173,7 +173,7 @@ A Method is another name for a function that specifically uses information from 
 - To load the tokenizer you now need to create a tokenizer object. To do this again pass the `model_id` as an argument into the `.from_pretrained` method on the AutoTokenizer Class. 
 - Note there are some additional arguments, for the purposes of this example they aren’t important to understand so we won’t explain them.
 
-```json
+```python
 tokenizer = AutoTokenizer.from_pretrained(model_id, add_eos_token=True, padding_side='left')
 ```
 
@@ -186,7 +186,7 @@ A tokenizer is a tool that splits sentences into smaller pieces of text (tokens)
 - Pass the new variable as an argument to the tokenizer object to create the `input_ids`
 - Pass a second argument to the tokenizer object, `return_tensors="pt"`, this ensures the token_id is represented as the correct kind of vector for the model version we are using (i.e. in Pytorch not Tensorflow)
 
-```json
+```python
 input_text = "Who are you?"
 input_ids = tokenizer(input_text, return_tensors="pt")
 ```
@@ -197,7 +197,7 @@ input_ids = tokenizer(input_text, return_tensors="pt")
 - Finally, passing the `decoded_output` variable into the print function allows us to see the model output in our notebook.
 - Optional: Pass the `outputs` variable into the print function to see how they compare to the `decoded outputs`
 
-```json
+```python
 outputs = model.generate(input_ids["input_ids"], max_new_tokens=100)
 decoded_outputs = tokenizer.decode(outputs[0])
 print(decoded_outputs)
