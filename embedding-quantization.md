@@ -63,11 +63,11 @@ The table below gives an overview of different models, dimension size, memory re
 
 ## Improving scalability
 
-There are several ways to approach the challenges of scaling embeddings. The most common approach is dimensionality reduction, such as PCA [^1]. However, classic dimensionality reduction -- like PCA methods -- tends to perform poorly when used with embeddings [^5].
+There are several ways to approach the challenges of scaling embeddings. The most common approach is dimensionality reduction, such as [PCA](https://en.wikipedia.org/wiki/Principal_component_analysis). However, classic dimensionality reduction -- like PCA methods -- [tends to perform poorly when used with embeddings](https://arxiv.org/abs/2205.11498).
 
-In recent news, Matryoshka Representation Learning [^2][^3] (MRL) as used by OpenAI [^4] also allows for cheaper embeddings. With MRL, only the first `n` embedding dimensions are used. This approach has already been adopted by some open models like [nomic-ai/nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) and [mixedbread-ai/mxbai-embed-2d-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-2d-large-v1) [^6]. 
+In recent news, [Matryoshka Representation Learning](https://arxiv.org/abs/2205.13147) ([blogpost](https://huggingface.co/blog/matryoshka)) (MRL) as used by [OpenAI](https://openai.com/blog/new-embedding-models-and-api-updates) also allows for cheaper embeddings. With MRL, only the first `n` embedding dimensions are used. This approach has already been adopted by some open models like [nomic-ai/nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) and [mixedbread-ai/mxbai-embed-2d-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-2d-large-v1) [^1]. 
 
-However, there is another new approach to achieve progress on this challenge; it does not entail dimensionality reduction, but rather a reduction in size of each of the individual values in the embedding: **Quantization** [^7][^8][^9]. Our experiments on quantization will show that we can maintain a large amount of performance while significantly speeding up computation and saving on memory, storage, and costs. Let's dive into it! 
+However, there is another new approach to achieve progress on this challenge; it does not entail dimensionality reduction, but rather a reduction in size of each of the individual values in the embedding: **Quantization**. Our experiments on quantization will show that we can maintain a large amount of performance while significantly speeding up computation and saving on memory, storage, and costs. Let's dive into it! 
 
 <!--
 With quantization, we change the amount of information used for every entry in vector, so that embedding takes less space. This is done by exchanging precision (bits per entry) with speed and storage cost. Our experiment in the following will show that we cen maintain a large amount of performance, gain significant speedups and save storage. Let's dive into it. 
@@ -95,7 +95,7 @@ $$
 
 We can use the Hamming Distance to efficiently perform retrieval with these binary embeddings. This is simply the number of positions at which the bits of two binary embeddings differ. The lower the Hamming Distance, the closer the embeddings, and thus the more relevant the document. A huge advantage of the Hamming Distance is that it can be easily calculated with 2 CPU cycles, allowing for blazingly fast performance.
 
-Yamada et al. (2021)[^10] introduced a rescore step, which they called *rerank*, to boost the performance. They proposed that the `float32` query embedding could be compared with the binary document embeddings using dot-product. In practice, we first retrieve `rescore_multiplier * top_k` results with the binary query embedding and the binary document embeddings -- i.e., the list of the first k results of the double-binary retrieval --  and then rescore that list of binary document embeddings with the `float32` query embedding.
+[Yamada et al. (2021)](https://arxiv.org/abs/2106.00882) introduced a rescore step, which they called *rerank*, to boost the performance. They proposed that the `float32` query embedding could be compared with the binary document embeddings using dot-product. In practice, we first retrieve `rescore_multiplier * top_k` results with the binary query embedding and the binary document embeddings -- i.e., the list of the first k results of the double-binary retrieval --  and then rescore that list of binary document embeddings with the `float32` query embedding.
 
 By applying this novel rescoring step, we are able to preserve up to ~96% of the total retrieval performance, while reducing the memory and disk space usage by 32x and improving the retrieval speed by up to 32x as well.
 
@@ -253,7 +253,7 @@ Through this approach, we use 5.2GB of memory and 52GB of disk space for the ind
 
 ### Quantization Experiments
 
-We conducted our experiments on the retrieval subset of the MTEB [^11] containing 15 benchmarks. First, we retrieved the top k (k=100) search results with a `rescore_multiplier` of 4. Therefore, we retrieved 400 results in total and performed the rescoring on these top 400. For the `int8` performance, we directly used the dot-product without any rescoring.
+We conducted our experiments on the retrieval subset of the [MTEB](https://huggingface.co/spaces/mteb/leaderboard) containing 15 benchmarks. First, we retrieved the top k (k=100) search results with a `rescore_multiplier` of 4. Therefore, we retrieved 400 results in total and performed the rescoring on these top 400. For the `int8` performance, we directly used the dot-product without any rescoring.
 
 <!-- Maybe change this? We first retrieve top 100 but then we retrieve 400? -->
 
@@ -280,7 +280,7 @@ Several key trends and benefits can be identified from the results of our quanti
 
 The benefits of quantization are, if anything, even more clearly visible when looking at the results obtained with binary models. In that scenario, the 1024 dimension models still outperform a now 10x more storage intensive base model, and the `mxbai-embed-large-v1` even manages to hold more than 96% of performance after a 32x reduction in resource requirements. The further quantization from `int8` to binary barely results in any additional loss of performance for this model. 
 
-Interestingly, we can also see that `all-MiniLM-L6-v2` exhibits stronger performance on binary than on `int8` quantization. A possible explanation for this could be the selection of calibration data. On `e5-base-v2`, we observe the effect of dimension collapse[^12], which causes the model to only use a subspace of the latent space; when performing the quantization, the whole space collapses further, leading to high performance losses.
+Interestingly, we can also see that `all-MiniLM-L6-v2` exhibits stronger performance on binary than on `int8` quantization. A possible explanation for this could be the selection of calibration data. On `e5-base-v2`, we observe the effect of [dimension collapse](https://arxiv.org/abs/2110.09348), which causes the model to only use a subspace of the latent space; when performing the quantization, the whole space collapses further, leading to high performance losses.
 
 This shows that quantization doesn't universally work with all embedding models. It remains crucial to consider exisiting benchmark outcomes and conduct experiments to determine a given model's compatibility with quantization.
 
@@ -379,16 +379,13 @@ This project is possible thanks to our collaboration with [mixedbread.ai](https:
 }
 ```
 
-### References
-[^1]: https://en.wikipedia.org/wiki/Principal_component_analysis
-[^2]: https://arxiv.org/abs/2205.13147
-[^3]: https://huggingface.co/blog/matryoshka
-[^4]: https://openai.com/blog/new-embedding-models-and-api-updates
-[^5]: https://arxiv.org/abs/2205.11498
-[^6]: For OpenAIs `text-embedding-3-large`, we see a performance retention of 93.1% at 12x compression. For nomic's model, we retain 95.8% of performance at 3x compression and 90% at 6x compression.
-[^7]: https://txt.cohere.com/int8-binary-embeddings/
-[^8]: https://qdrant.tech/documentation/guides/quantization
-[^9]: https://zilliz.com/learn/scalar-quantization-and-product-quantization
-[^10]: https://arxiv.org/abs/2106.00882
-[^11]: https://huggingface.co/spaces/mteb/leaderboard
-[^12]: https://arxiv.org/abs/2110.09348
+### Resources
+* <a href="https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1"><code>mixedbread-ai/mxbai-embed-large-v1</code></a>
+* <a href="https://sbert.net/docs/package_reference/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode"><code>SentenceTransformer.encode</code></a>
+* <a href="https://sbert.net/docs/package_reference/quantization.html#sentence_transformers.quantization.quantize_embeddings"><code>quantize_embeddings</code></a>
+* [Sentence Transformers docs - Embedding Quantization](https://sbert.net/examples/applications/embedding-quantization/README.html)
+* https://txt.cohere.com/int8-binary-embeddings/
+* https://qdrant.tech/documentation/guides/quantization
+* https://zilliz.com/learn/scalar-quantization-and-product-quantization
+
+[^1]: For OpenAIs `text-embedding-3-large`, we see a performance retention of 93.1% at 12x compression. For nomic's model, we retain 95.8% of performance at 3x compression and 90% at 6x compression.
