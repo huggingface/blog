@@ -3708,6 +3708,20 @@
     - arena
     - collaboration
 
+
+- local: embedding-quantization
+  title: "Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval"
+  author: aamirshakir
+  guest: true
+  thumbnail: /blog/assets/embedding-quantization/thumbnail.png
+  date: Mar 22, 2024
+  tags:
+    - nlp
+    - community
+    - guide
+    - collaboration
+    - research
+
 - local: noob_intro_transformers
   title: "Total noob’s intro to Hugging Face Transformers"
   author: 2legit2overfit
