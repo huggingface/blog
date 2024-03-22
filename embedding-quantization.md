@@ -69,21 +69,12 @@ In recent news, [Matryoshka Representation Learning](https://arxiv.org/abs/2205.
 
 However, there is another new approach to achieve progress on this challenge; it does not entail dimensionality reduction, but rather a reduction in size of each of the individual values in the embedding: **Quantization**. Our experiments on quantization will show that we can maintain a large amount of performance while significantly speeding up computation and saving on memory, storage, and costs. Let's dive into it! 
 
-<!--
-With quantization, we change the amount of information used for every entry in vector, so that embedding takes less space. This is done by exchanging precision (bits per entry) with speed and storage cost. Our experiment in the following will show that we cen maintain a large amount of performance, gain significant speedups and save storage. Let's dive into it. 
--->
 
 ### Binary Quantization
 
-<!--Binary embeddings convert the float32 values to 1 bit values, giving us a 32x reduction in memory. -->
 Binary quantization refers to the conversion of the `float32` values in an embedding to 1-bit values, resulting in a 32x reduction in memory and storage usage.
 
-<!--To quantize to binary, we apply an approach inspired by Yamada et al. (2021) [^7].-->
-
-<!--A classic approach for binary quantization is to apply hashing of some kind, like locality-sensitive hashing. Here we take a hashing from float embeddings to binary embeddings. However as it was shown in "Efficient Passage Retrieval with Hashing for Open-domain Question Answering"[^7] those methods works not so well. Instead take the approach introduced in this work called Binary Passage Retrieval. -->
-
-
-To quantize `float32` embeddings to binary, we simply threshold normalized embeddings at 0:<!-- if the value is smaller than 0, we make it 0 else 1. -->
+To quantize `float32` embeddings to binary, we simply threshold normalized embeddings at 0:
 
 $$
     f(x)= 
@@ -255,9 +246,6 @@ Through this approach, we use 5.2GB of memory and 52GB of disk space for the ind
 
 We conducted our experiments on the retrieval subset of the [MTEB](https://huggingface.co/spaces/mteb/leaderboard) containing 15 benchmarks. First, we retrieved the top k (k=100) search results with a `rescore_multiplier` of 4. Therefore, we retrieved 400 results in total and performed the rescoring on these top 400. For the `int8` performance, we directly used the dot-product without any rescoring.
 
-<!-- Maybe change this? We first retrieve top 100 but then we retrieve 400? -->
-
-
 | Model | Embedding Dimension | 250M Embeddings | MTEB Retrieval (NDCG@10) | Percentage of default performance | 
 | - | -: | -: | -: | -: |
 | **Open Models** | | | | |
@@ -315,8 +303,6 @@ We measured retrieval speed on a Google Cloud Platform `a2-highgpu-4g` instance 
 As indicated by the above table, applying `int8` scalar quantization resulted in a mean speedup of 3.66x compared to full-size `float32` embeddings. Additionally, binary quantization resulted in a mean speedup of 24.76x. For both scalar and binary quantization, even the worst case scenario resulted in very notable speedups.
 
 ### Performance Summarization
-
-<!-- We have to check if this table make sense or not! Perhaps we can merge the theoretical 32x and 4x speedup with the previous section of "Retrieval Speed" and then remove this section -->
 
 The experimental results, effects on resource use, retrieval speed, and retrieval performance by using quantization can be summarized as follows:
 
