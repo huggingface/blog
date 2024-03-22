@@ -3708,3 +3708,16 @@
     - leaderboard
     - arena
     - collaboration
+
+- local: embedding-quantization
+  title: "Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval"
+  author: aamirshakir
+  guest: true
+  thumbnail: /blog/assets/embedding-quantization/thumbnail.png
+  date: Mar 22, 2024
+  tags:
+    - nlp
+    - community
+    - guide
+    - collaboration
+    - research
