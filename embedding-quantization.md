@@ -98,7 +98,6 @@ Therefore, quantizing a `float32` embedding with a dimensionality of 1024 yields
 
 ```python
 from sentence_transformers import SentenceTransformer
-from sentence_transformers.quantization import quantize_embeddings
 
 # 1. Load an embedding model
 model = SentenceTransformer("mixedbread-ai/mxbai-embed-large-v1")
@@ -108,6 +107,14 @@ binary_embeddings = model.encode(
     ["I am driving to the lake.", "It is a beautiful day."],
     precision="binary",
 )
+```
+or
+```python
+from sentence_transformers import SentenceTransformer
+from sentence_transformers.quantization import quantize_embeddings
+
+# 1. Load an embedding model
+model = SentenceTransformer("mixedbread-ai/mxbai-embed-large-v1")
 
 # 2b. or, encode some text without quantization & apply quantization afterwards
 embeddings = model.encode(["I am driving to the lake.", "It is a beautiful day."])
