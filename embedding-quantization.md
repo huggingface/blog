@@ -2,7 +2,7 @@
 title: "Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval"
 thumbnail: /blog/assets/embedding-quantization/thumbnail.png
 authors:
-- user: angygraycat
+- user: aamirshakir
   guest: true
 - user: tomaarsen
 - user: SeanLee97
