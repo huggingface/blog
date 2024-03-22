@@ -107,8 +107,6 @@ If you are trying to compile an LLM with a configuration that is not yet cached,
 
 **Deploying TGI Neuronx Endpoint**  
 
-Before deploying the model to Amazon SageMaker, we must define the TGI Neuronx endpoint configuration. We need to make sure to set the following parameters according to the fixed-shape compilation parameters we used:
-
 Before deploying the model to Amazon SageMaker, we must define the TGI Neuronx endpoint configuration. We need to make sure the following additional parameters are defined: 
 
 - `HF_NUM_CORES`: Number of Neuron Cores used for the compilation.
