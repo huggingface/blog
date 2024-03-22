@@ -72,7 +72,7 @@ However, there is another new approach to achieve progress on this challenge; it
 
 ### Binary Quantization
 
-Binary quantization refers to the conversion of the `float32` values in an embedding to 1-bit values, resulting in a 32x reduction in memory and storage usage.
+Unlike quantization in models where you reduce the precision of weights, quantization for embeddings refers to a post-processing step for the embeddings themselves. In particular, binary quantization refers to the conversion of the `float32` values in an embedding to 1-bit values, resulting in a 32x reduction in memory and storage usage.
 
 To quantize `float32` embeddings to binary, we simply threshold normalized embeddings at 0:
 
