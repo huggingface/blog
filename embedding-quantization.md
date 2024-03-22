@@ -11,7 +11,7 @@ authors:
 
 # Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval
 
-In this blogpost, we will introduce the concept of embedding quantization and showcase their impact on retrieval speed, memory usage, disk space, and costs. We will discuss how embeddings can be quantized in theory and in practice, after which we introduce a demo showing a real-life retrieval scenario of 41 million Wikipedia texts.
+We introduce the concept of embedding quantization and showcase their impact on retrieval speed, memory usage, disk space, and cost. We'll discuss how embeddings can be quantized in theory and in practice, after which we introduce a demo showing a real-life retrieval scenario of 41 million Wikipedia texts.
 
 
 ## Table of Contents
@@ -41,20 +41,15 @@ In this blogpost, we will introduce the concept of embedding quantization and sh
 
 ## Why Embeddings?
 
-Embeddings are one of the most versatile tools in natural language processing, supporting their users in a variety of different settings and use cases. In essence, an embedding is a numerical representation of more complex objects like, for example, text, images, or audio. Specifically, the objects are represented as n-dimensional vectors. 
+Embeddings are one of the most versatile tools in natural language processing, supporting a wide variety of settings and use cases. In essence, embeddings are numerical representations of more complex objects, like text, images, audio, etc. Specifically, the objects are represented as n-dimensional vectors. 
 
 After transforming the complex objects, you can then determine their similarity by calculating the similarity of the respective embeddings! This is crucial for a massive amount of use cases: it serves as the backbone for recommendation systems, retrieval, one-shot or few-shot learning, outlier detection, similarity search, paraphrase detection, clustering, classification, and much more.
 
 ### Embeddings may struggle to scale
 
-However, these embeddings may be challenging to scale up, which leads to expensive solutions and high latencies. Currently, many state-of-the-art models produce embeddings with 1024 dimensions, each of which is encoded in `float32`, i.e., they require 4 bytes per dimension. To perform retrieval over 250 million vectors, you would therefore need around 1TB of memory!
+However, embeddings may be challenging to scale for production use cases, which leads to expensive solutions and high latencies. Currently, many state-of-the-art models produce embeddings with 1024 dimensions, each of which is encoded in `float32`, i.e., they require 4 bytes per dimension. To perform retrieval over 250 million vectors, you would therefore need around 1TB of memory!
 
 The table below gives an overview of different models, dimension size, memory requirement, and costs. Costs are computed at an estimated $3.8 per GB/mo with `x2gd` instances on AWS.
-
-<!--For example, the model [mxbai-embed-large-v1]() from mixedbread ai produces vectors which have 1024 dimensions. Every dimension is encoded in float32 - so 4 bytes per dimension. To store 250 Million vectors you will need around 1TB  of memory! The table below shows examples of different models, dimension, memory requirement and costs.-->
-
-
-<Table with costs for 1M, 10M, 100M, 1B embeddings at ?>
 
 | Embedding Dimension | Example Models                                                                                                                                          | 100M Embeddings         | 250M Embeddings | 1B Embeddings           |
 |---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|-----------------|-------------------------|
@@ -67,11 +62,12 @@ The table below gives an overview of different models, dimension size, memory re
 
 
 ## Improving scalability
-They are several ways to approach the challenges of scaling embeddings. The most common approach is dimensionality reduction, such as PCA [^1]. However, classic dimensionality reduction -- like PCA methods -- tends to perform poorly when used with embeddings [^5].
+
+There are several ways to approach the challenges of scaling embeddings. The most common approach is dimensionality reduction, such as PCA [^1]. However, classic dimensionality reduction -- like PCA methods -- tends to perform poorly when used with embeddings [^5].
 
 In recent news, Matryoshka Representation Learning [^2][^3] (MRL) as used by OpenAI [^4] also allows for cheaper embeddings. With MRL, only the first `n` embedding dimensions are used. This approach has already been adopted by some open models like [nomic-ai/nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) and [mixedbread-ai/mxbai-embed-2d-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-2d-large-v1) [^6]. 
 
-However, there is another new approach to achieve progress on this challenge; it entails no reduction of the dimensionality of the embeddings, but rather a reduction in size of each of the individual values in the embedding: **Quantization** [^7][^8][^9]. Our experiments on quantization will show that we can maintain a large amount of performance while significantly speeding up computation and saving on memory, storage, and costs. Let's dive into it! 
+However, there is another new approach to achieve progress on this challenge; it does not entail dimensionality reduction, but rather a reduction in size of each of the individual values in the embedding: **Quantization** [^7][^8][^9]. Our experiments on quantization will show that we can maintain a large amount of performance while significantly speeding up computation and saving on memory, storage, and costs. Let's dive into it! 
 
 <!--
 With quantization, we change the amount of information used for every entry in vector, so that embedding takes less space. This is done by exchanging precision (bits per entry) with speed and storage cost. Our experiment in the following will show that we cen maintain a large amount of performance, gain significant speedups and save storage. Let's dive into it. 
@@ -107,7 +103,7 @@ By applying this novel rescoring step, we are able to preserve up to ~96% of the
 
 Quantizing an embedding with a dimensionality of 1024 to binary would result in 1024 bits. In practice, it is much more common to store bits as bytes instead, so when we quantize to binary embeddings, we pack the bits into bytes using `np.packbits`.
 
-As a result, in practice quantizing a `float32` embedding with a dimensionality of 1024 yields an `int8` or `uint8` embedding with a dimensionality of 128. See two approaches of how you can produce quantized embeddings using [Sentence Transformers](https://sbert.net/) below:
+Therefore, quantizing a `float32` embedding with a dimensionality of 1024 yields an `int8` or `uint8` embedding with a dimensionality of 128. See two approaches of how you can produce quantized embeddings using [Sentence Transformers](https://sbert.net/) below:
 
 ```python
 from sentence_transformers import SentenceTransformer
@@ -148,7 +144,7 @@ float32
 >>> binary_embeddings.dtype
 int8
 ```
-Note that you can also choose `"ubinary"` to quantize to binary using the unsigned `uint8` data format. This may be a requirement for your vector library/database.
+Note that you can also choose `"ubinary"` to quantize to binary using the unsigned `uint8` data format. This may be a requirement depending on your vector library/database.
 
 #### Binary Quantization in Vector Databases
 
@@ -165,7 +161,7 @@ Note that you can also choose `"ubinary"` to quantize to binary using the unsign
 
 To convert the `float32` embeddings into `int8`, we use a process called scalar quantization. This involves mapping the continuous range of `float32` values to the discrete set of `int8` values, which can represent 256 distinct levels (from -128 to 127) as shown in the image below. This is done by using a large calibration dataset of embeddings. We compute the range of these embeddings, i.e. the `min` and `max` of each of the embedding dimensions. From there, we calculate the steps (buckets) in which we categorize each value.
 
-To further boost the retrieval performance, you can optionally apply the same rescoring step as for the binary embeddings. It is important to note here that the calibration dataset has a large influence on the performance, since it defines the buckets.
+To further boost the retrieval performance, you can optionally apply the same rescoring step as for the binary embeddings. It is important to note here that the calibration dataset has a large influence on performance, since it defines the quantization buckets.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/embedding-quantization/scalar-quantization.png">
@@ -290,15 +286,15 @@ This shows that quantization doesn't universally work with all embedding models.
 
 ### Influence of Rescoring
 
-In this chapter we will investigate the influence of rescoring on the retrieval performance. We are evaluating the results based on [mxbai-embed-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1).
+In this section we look at the influence of rescoring on retrieval performance. We evaluate the results based on [mxbai-embed-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1).
 
 #### Binary Rescoring
 
-For binary embeddings [mxbai-embed-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1) retains 92.53% of performance on MTEB Retrieval. Just doing the rescoring without retrieving more samples pushes the performance to 96.45%. We experimented with setting the`rescore_multiplier` from 1 to 10, but observe no further boost in performance. This indicates that the `top_k` search already retrieved the top candidates and the rescoring reordered these good candidates appropriately.
+With binary embeddings, [mxbai-embed-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1) retains 92.53% of performance on MTEB Retrieval. Just doing the rescoring without retrieving more samples pushes the performance to 96.45%. We experimented with setting the`rescore_multiplier` from 1 to 10, but observe no further boost in performance. This indicates that the `top_k` search already retrieved the top candidates and the rescoring reordered these good candidates appropriately.
 
 #### Scalar (Int8) Rescoring
 
-We additionally evaluated the [mxbai-embed-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1) model with `int8` rescoring, as Cohere showed that [Cohere-embed-english-v3.0](https://txt.cohere.com/introducing-embed-v3/) reached up to 100% of the performance of the `float32` model with `int8` quantization. For this experiment, we set the `rescore_multiplier` to [1, 4, 10] and received the following results:
+We also evaluated the [mxbai-embed-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1) model with `int8` rescoring, as Cohere showed that [Cohere-embed-english-v3.0](https://txt.cohere.com/introducing-embed-v3/) reached up to 100% of the performance of the `float32` model with `int8` quantization. For this experiment, we set the `rescore_multiplier` to [1, 4, 10] and got the following results:
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/embedding-quantization/rescoring-influence.png">
@@ -308,7 +304,7 @@ As we can see from the diagram, a higher rescore multiplier implies better reten
 
 #### Retrieval Speed
 
-The retrieval speed was measures on Google Cloud Platform `a2-highgpu-4g` Instance using the [mxbai-embed-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1) embeddings with 1024 dimension on the whole MTEB Retrieval. For int8 we used [USearch](https://github.com/unum-cloud/usearch) (Version 2.9.2) and binary quantization [Faiss](https://github.com/facebookresearch/faiss) (Version 1.8.0). Everything was computed on CPU using exact search.
+We measured retrieval speed on a Google Cloud Platform `a2-highgpu-4g` instance using the [mxbai-embed-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1) embeddings with 1024 dimension on the whole MTEB Retrieval. For int8 we used [USearch](https://github.com/unum-cloud/usearch) (Version 2.9.2) and binary quantization [Faiss](https://github.com/facebookresearch/faiss) (Version 1.8.0). Everything was computed on CPU using exact search.
 
 | Quantization | Min            | Mean               | Max           |
 |--------------|----------------|--------------------|---------------|
@@ -360,7 +356,7 @@ The following scripts can be used to experiment with embedding quantization for 
 
 We are looking forward to further advancements of binary quantization. To name a few potential improvements, we suspect that there may be room for scalar quantization smaller than `int8`, i.e. with 128 or 64 buckets instead of 256.
 
-Additionally, we are excited that embedding quantization is fully perpendicular to Matryoshka Representation Learning (MRL). With other words, it is possible to shrink MRL embeddings from e.g. 1024 to 128 (which usually corresponds with a 2% reduction in performance) and then apply binary or scalar quantization. We suspect this could speed up retrieval up to 32x for a ~3% reduction in quality or up to 256x for a ~10% reduction in quality.
+Additionally, we are excited that embedding quantization is fully perpendicular to Matryoshka Representation Learning (MRL). In other words, it is possible to shrink MRL embeddings from e.g. 1024 to 128 (which usually corresponds with a 2% reduction in performance) and then apply binary or scalar quantization. We suspect this could speed up retrieval up to 32x for a ~3% reduction in quality, or up to 256x for a ~10% reduction in quality.
 
 Lastly, we recognize that retrieval using embedding quantization can also be combined with a separate reranker model. We imagine that a 3-step pipeline of binary search, scalar (int8) rescoring, and cross-encoder reranking allows for state-of-the-art retrieval performance at low latencies, memory usage, disk space, and costs.
 
