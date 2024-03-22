@@ -207,7 +207,7 @@ print(decoded_outputs)
 
 Models only understand numbers, so when we provided our `input_ids` as vectors it returned an output in the same format. To return those outputs to text we need to reverse the initial encoding we did using the tokenizer.
 
-## Why does the output not make sense?
+## Why does the output read like a story?
 
 Remember that Phi-2 is a base model that hasn't been instruction tuned for conversational uses, as such it's effectively a massive auto-complete model. Based on your input it is predicting what it thinks is most likely to come next based on all the web pages, books and other content it has seen previously. 
 
