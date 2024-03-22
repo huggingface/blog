@@ -88,7 +88,7 @@ We can use the Hamming Distance to efficiently perform retrieval with these bina
 
 [Yamada et al. (2021)](https://arxiv.org/abs/2106.00882) introduced a rescore step, which they called *rerank*, to boost the performance. They proposed that the `float32` query embedding could be compared with the binary document embeddings using dot-product. In practice, we first retrieve `rescore_multiplier * top_k` results with the binary query embedding and the binary document embeddings -- i.e., the list of the first k results of the double-binary retrieval --  and then rescore that list of binary document embeddings with the `float32` query embedding.
 
-By applying this novel rescoring step, we are able to preserve up to ~96% of the total retrieval performance, while reducing the memory and disk space usage by 32x and improving the retrieval speed by up to 32x as well.
+By applying this novel rescoring step, we are able to preserve up to ~96% of the total retrieval performance, while reducing the memory and disk space usage by 32x and improving the retrieval speed by up to 32x as well. Without the rescoring, we are able to preserve roughly ~92.5% of the total retrieval performance.
 
 #### Binary Quantization in Sentence Transformers
 
