@@ -307,7 +307,7 @@ We measured retrieval speed on a Google Cloud Platform `a2-highgpu-4g` instance 
 | `int8`       | 2.99x speedup  | **3.66x** speedup  | 4.8x speedup  |
 | `binary`     | 15.05x speedup | **24.76x** speedup | 45.8x speedup |
 
-As indicated by the above table, applying `int8` scalar quantization resulted in a mean speedup of 3.66x compared to full-size `float32` embeddings. Additionally, binary quantization resulted in a mean speedup of 24.76x. For both scalar and binary quantization, even the worst case scenario resulted in very notable speedups.
+As shown in the table, applying `int8` scalar quantization results in an average speedup of 3.66x compared to full-size `float32` embeddings. Additionally, binary quantization achieves a speedup of 24.76x on average. For both scalar and binary quantization, even the worst case scenario resulted in very notable speedups.
 
 ### Performance Summarization
 
