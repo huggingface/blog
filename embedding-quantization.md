@@ -65,7 +65,7 @@ The table below gives an overview of different models, dimension size, memory re
 
 There are several ways to approach the challenges of scaling embeddings. The most common approach is dimensionality reduction, such as [PCA](https://en.wikipedia.org/wiki/Principal_component_analysis). However, classic dimensionality reduction -- like PCA methods -- [tends to perform poorly when used with embeddings](https://arxiv.org/abs/2205.11498).
 
-In recent news, [Matryoshka Representation Learning](https://arxiv.org/abs/2205.13147) ([blogpost](https://huggingface.co/blog/matryoshka)) (MRL) as used by [OpenAI](https://openai.com/blog/new-embedding-models-and-api-updates) also allows for cheaper embeddings. With MRL, only the first `n` embedding dimensions are used. This approach has already been adopted by some open models like [nomic-ai/nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) and [mixedbread-ai/mxbai-embed-2d-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-2d-large-v1) [^1]. 
+In recent news, [Matryoshka Representation Learning](https://arxiv.org/abs/2205.13147) ([blogpost](https://huggingface.co/blog/matryoshka)) (MRL) as used by [OpenAI](https://openai.com/blog/new-embedding-models-and-api-updates) also allows for cheaper embeddings. With MRL, only the first `n` embedding dimensions are used. This approach has already been adopted by some open models like [nomic-ai/nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) and [mixedbread-ai/mxbai-embed-2d-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-2d-large-v1) (For OpenAIs `text-embedding-3-large`, we see a performance retention of 93.1% at 12x compression. For nomic's model, we retain 95.8% of performance at 3x compression and 90% at 6x compression.).
 
 However, there is another new approach to achieve progress on this challenge; it does not entail dimensionality reduction, but rather a reduction in the size of each of the individual values in the embedding: **Quantization**. Our experiments on quantization will show that we can maintain a large amount of performance while significantly speeding up computation and saving on memory, storage, and costs. Let's dive into it! 
 
@@ -381,5 +381,3 @@ This project is possible thanks to our collaboration with [mixedbread.ai](https:
 * https://txt.cohere.com/int8-binary-embeddings/
 * https://qdrant.tech/documentation/guides/quantization
 * https://zilliz.com/learn/scalar-quantization-and-product-quantization
-
-[^1]: For OpenAIs `text-embedding-3-large`, we see a performance retention of 93.1% at 12x compression. For nomic's model, we retain 95.8% of performance at 3x compression and 90% at 6x compression.
