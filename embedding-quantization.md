@@ -253,7 +253,7 @@ It is possible to combine binary and scalar quantization to get the best of both
 5. The top 40 documents are rescored using the float32 query and the int8 embeddings to get the top 10 documents.
 6. The top 10 documents are sorted by score and displayed.
 
-Through this approach, we use 130MB of memory and 1.3GB of disk space for the indices. This is considerably less than normal retrieval, for which we would require 4GB of memory and 4GB of disk space. Especially as you scale up even further, this will result in notable reductions in both latency and costs.
+Through this approach, we use 5.2GB of memory and 52GB of disk space for the indices. This is considerably less than normal retrieval, for which we would require 200GB of memory and 200GB of disk space. Especially as you scale up even further, this will result in notable reductions in both latency and costs.
 
 ### Quantization Experiments
 
