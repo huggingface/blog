@@ -25,7 +25,7 @@ We focused on selecting [zero-shot models](https://huggingface.co/tasks/zero-sho
 
 Our initial release is focused on 3D object detection—laying the groundwork for tasks like robotic grasping by providing a reliable estimate of objects' spatial coordinates. Currently limited to positioning within a 3D space (not extending to full 6D pose estimation), this functionality establishes a solid foundation for basic robotic manipulation tasks.
 
-### The Core Models of Pollen-Vision
+## The Core Models of Pollen-Vision
 
 The library encapsulates several key models. We want the models we use to be zero-shot and versatile, allowing a wide range of detectable objects without re-training. The models also have to be “real-time capable”, meaning they should run at least at a few fps on a consumer GPU. The first models we chose are:
 
