@@ -54,6 +54,7 @@ masks = sam.infer(im, bboxes=bboxes)  # zero-shot object segmentation
 annotated_im = annotator.annotate(im, predictions, masks=masks)
 ```
 
+<!-- TODO missing example image -->
 
 OWL-VIT’s inference time depends on the number of prompts provided (i.e., the number of objects to detect). On a Laptop with a RTX 3070 GPU: 
 
