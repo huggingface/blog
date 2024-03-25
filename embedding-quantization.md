@@ -11,7 +11,7 @@ authors:
 
 # Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval
 
-We introduce the concept of embedding quantization and showcase their impact on retrieval speed, memory usage, disk space, and cost. We'll discuss how embeddings can be quantized in theory and in practice, after which we introduce a demo showing a real-life retrieval scenario of 41 million Wikipedia texts.
+We introduce the concept of embedding quantization and showcase their impact on retrieval speed, memory usage, disk space, and cost. We'll discuss how embeddings can be quantized in theory and in practice, after which we introduce a [demo](https://huggingface.co/spaces/sentence-transformers/quantized-retrieval) showing a real-life retrieval scenario of 41 million Wikipedia texts.
 
 
 ## Table of Contents
@@ -323,7 +323,7 @@ The experimental results, effects on resource use, retrieval speed, and retrieva
 
 ### Demo
 
-The following demo showcases the retrieval efficiency using `exact` search through combining binary search with scalar (`int8`) rescoring. The solution requires 5GB of memory for the binary index and 50GB of disk space for the binary and scalar indices, considerably less than the 200GB of memory and disk space which would be required for regular `float32` retrieval. Additionally, retrieval is much faster.
+The following [demo](https://huggingface.co/spaces/sentence-transformers/quantized-retrieval) showcases the retrieval efficiency using exact or approximate search by combining binary search with scalar (`int8`) rescoring. The solution requires 5GB of memory for the binary index and 50GB of disk space for the binary and scalar indices, considerably less than the 200GB of memory and disk space which would be required for regular `float32` retrieval. Additionally, retrieval is much faster.
 
 <iframe
 	src="https://sentence-transformers-quantized-retrieval.hf.space"
