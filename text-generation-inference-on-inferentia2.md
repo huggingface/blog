@@ -74,7 +74,7 @@ from sagemaker.huggingface import get_huggingface_llm_image_uri
 # retrieve the llm image uri
 llm_image = get_huggingface_llm_image_uri(
   "huggingface-neuronx",
-  version="0.0.17"
+  version="0.0.20"
 )
 
 # print ecr image uri
@@ -90,11 +90,9 @@ Text Generation Inference (TGI) on Inferentia2 supports popular open LLMs, inclu
 At the time of writing, [AWS Inferentia2 does not support dynamic shapes for inference](https://awsdocs-neuron.readthedocs-hosted.com/en/v2.6.0/general/arch/neuron-features/dynamic-shapes.html#neuron-dynamic-shapes), which means that we need to specify our sequence length and batch size ahead of time.
 To make it easier for customers to utilize the full power of Inferentia2, we created a [neuron model cache](https://huggingface.co/docs/optimum-neuron/guides/cache_system), which contains pre-compiled configurations for the most popular LLMs. A cached configuration is defined through a model architecture (Mistral), model size (7B), neuron version (2.16), number of inferentia cores (2), batch size (2), and sequence length (2048).
 
-This means compiling fine-tuned checkpoints for Mistral 7B with the same configuration will take only a few minutes. Examples of this are [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) and [HuggingFaceH4/zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta).
+This means we don't need to compile the model ourselves, but we can use the pre-compiled model from the cache. Examples of this are [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) and [HuggingFaceH4/zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta). You can find compiled/cached configurations on the [Hugging Face Hub](https://huggingface.co/aws-neuron/optimum-neuron-cache/tree/main/inference-cache-config). If your desired configuration is not yet cached, you can compile it yourself using the [Optimum CLI](https://huggingface.co/docs/optimum-neuron/cli/compile) or open a request at the [Cache repository](https://huggingface.co/aws-neuron/optimum-neuron-cache/discussions) 
 
-**Note:** Currently, TGI can only load compiled checkpoints and models. We are working on an on-the-fly compilation based on the cache. This means that you'll be able to pass any model ID from the Hugging face Hub, e.g., `HuggingFaceH4/zephyr-7b-beta` as long as there is a cached configuration. This post will be updated when this feature is released.
-
-For this post we compiled `HuggingFaceH4/zephyr-7b-beta` using the following command and parameters on a `inf2.8xlarge` instance, and pushed it to the Hub at [aws-neuron/zephyr-7b-seqlen-2048-bs-4-cores-2](https://huggingface.co/aws-neuron/zephyr-7b-seqlen-2048-bs-4-cores-2)
+For this post we re-compiled `HuggingFaceH4/zephyr-7b-beta` using the following command and parameters on a `inf2.8xlarge` instance, and pushed it to the Hub at [aws-neuron/zephyr-7b-seqlen-2048-bs-4-cores-2](https://huggingface.co/aws-neuron/zephyr-7b-seqlen-2048-bs-4-cores-2)
 
 ```bash
 # compile model with optimum for batch size 4 and sequence length 2048
@@ -109,15 +107,20 @@ If you are trying to compile an LLM with a configuration that is not yet cached,
 
 **Deploying TGI Neuronx Endpoint**  
 
-Before deploying the model to Amazon SageMaker, we must define the TGI Neuronx endpoint configuration. We need to make sure to set the following parameters according to the fixed-shape compilation parameters we used:
+Before deploying the model to Amazon SageMaker, we must define the TGI Neuronx endpoint configuration. We need to make sure the following additional parameters are defined: 
 
-- `MAX_CONCURRENT_REQUESTS`: Equal to the batch size that was used to compile the model.
-- `MAX_INPUT_LENGTH`: Less than or equal to the sequence length that was used to compile the model.
-- `MAX_TOTAL_TOKENS`: Equal to the sequence length that was used to compile the model.
-- `MAX_BATCH_PREFILL_TOKENS`: half of the maximum number of tokens `[batch_size * sequence_length] / 2`
-- `MAX_BATCH_TOTAL_TOKENS`: Equal to the maximum number of tokens `[batch_size * sequence_length]`
+- `HF_NUM_CORES`: Number of Neuron Cores used for the compilation.
+- `HF_BATCH_SIZE`: The batch size that was used to compile the model.
+- `HF_SEQUENCE_LENGTH`: The sequence length that was used to compile the model.
+- `HF_AUTO_CAST_TYPE`: The auto cast type that was used to compile the model.
 
-In addition, we need to set the `HF_MODEL_ID` pointing to the Hugging Face model ID.
+We still need to define traditional TGI parameters with:
+
+- `HF_MODEL_ID`: The Hugging Face model ID.
+- `HF_TOKEN`: The Hugging Face API token to access gated models.
+- `MAX_BATCH_SIZE`: The maximum batch size that the model can handle, equal to the batch size used for compilation.
+- `MAX_INPUT_LENGTH`: The maximum input length that the model can handle. 
+- `MAX_TOTAL_TOKENS`: The maximum total tokens the model can generate, equal to the sequence length used for compilation.
 
 ```python
 import json
@@ -125,18 +128,18 @@ from sagemaker.huggingface import HuggingFaceModel
 
 # sagemaker config & model config
 instance_type = "ml.inf2.8xlarge"
-health_check_timeout = 900
-batch_size = 4
-sequence_length = 2048
+health_check_timeout = 1800
 
 # Define Model and Endpoint configuration parameter
 config = {
-  'HF_MODEL_ID': "aws-neuron/zephyr-7b-seqlen-2048-bs-4-cores-2",
-  'MAX_CONCURRENT_REQUESTS': json.dumps(batch_size),
-  'MAX_INPUT_LENGTH': json.dumps(1512),
-  'MAX_TOTAL_TOKENS': json.dumps(sequence_length),
-  'MAX_BATCH_PREFILL_TOKENS': json.dumps(int(sequence_length*batch_size / 2)),
-  'MAX_BATCH_TOTAL_TOKENS': json.dumps(sequence_length*batch_size),
+    "HF_MODEL_ID": "HuggingFaceH4/zephyr-7b-beta",
+    "HF_NUM_CORES": "2",
+    "HF_BATCH_SIZE": "4",
+    "HF_SEQUENCE_LENGTH": "2048",
+    "HF_AUTO_CAST_TYPE": "bf16",  
+    "MAX_BATCH_SIZE": "4",
+    "MAX_INPUT_LENGTH": "1512",
+    "MAX_TOTAL_TOKENS": "2048",
 }
 
 # create HuggingFaceModel with the image uri
