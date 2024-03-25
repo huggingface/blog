@@ -263,6 +263,8 @@ We conducted our experiments on the retrieval subset of the [MTEB](https://huggi
 | [e5-base-v2](https://huggingface.co/intfloat/e5-base-v2): float32 | 768 | 286.10GB<br>$1087 / mo |50.77 | 100% |
 | [e5-base-v2](https://huggingface.co/intfloat/e5-base-v2): int8 | 768 | 178.81GB<br>$679 / mo| 47.54 | 94.68% | 
 | [e5-base-v2](https://huggingface.co/intfloat/e5-base-v2): binary | 768 | 22.35GB<br>$85 / mo | 37.96 |74.77% |
+| [nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5): float32 | 768 | 286.10GB<br>$1087 / mo | 53.01 | 100% |
+| [nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5): binary | 768 | 22.35GB<br>$85 / mo | 46.49 | 87.7% |
 | [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2): float32 | 384 | 357.62GB<br>$1358 / mo | 41.66 |100%
 | [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2): int8 | 384 | 89.40GB<br>$339 / mo| 37.82 | 90.79%
 | [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2): binary | 384 | 11.18GB<br>$42 / mo |39.07| 93.79%|
