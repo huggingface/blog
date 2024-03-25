@@ -3662,7 +3662,6 @@
     - nvidia
     - llm
     - training
-
   
 - local: galore
   title: "GaLore: Advancing Large Model Training on Consumer-grade Hardware"
@@ -3708,7 +3707,6 @@
     - arena
     - collaboration
 
-
 - local: embedding-quantization
   title: "Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval"
   author: aamirshakir
@@ -3730,3 +3728,14 @@
   tags:
     - guide
     - community
+
+- local: pollen-vision
+  title: "Pollen-Vision: Unified interface for Zero-Shot vision models in robotics"
+  author: apirrone
+  guest: true
+  thumbnail: /blog/assets/pollen-vision/thumbnail.jpg
+  date: March 25, 2024
+  tags:
+    - robotics
+    - vision
+    - object-detection
