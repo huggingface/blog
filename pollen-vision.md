@@ -33,7 +33,7 @@ The library encapsulates several key models. We want the models we use to be zer
 - [Mobile Sam](https://github.com/ChaoningZhang/MobileSAM): A lightweight version of the Segment Anything Model (SAM) by Meta AI. SAM is a zero-shot image segmentation model. It can be prompted with bounding boxes or points. 
 - [RAM](https://github.com/xinyu1205/recognize-anything) (Recognize Anything Model by OPPO Research Institute): Designed for zero-shot image tagging, RAM can determine the presence of an object in an image based on textual descriptions, laying the groundwork for further analysis. 
 
-### Get started in very few lines of code!
+## Get started in very few lines of code!
 
 Below is an example of how to use pollen-vision to build a simple object detection and segmentation pipeline, taking only images and text as input.
 
