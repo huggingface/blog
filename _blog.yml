@@ -18,30 +18,6 @@
     - guide
     - nlp
 
-- external: https://huggingface.co/zero-shot
-  title: "Zero Shot Topic Classification"
-  author: joeddav
-  date: May 29, 2020
-  tags:
-    - research
-    - nlp
-
-- external: https://huggingface.co/calculator
-  title: "How Big Should My Language Model Be?"
-  author: teven
-  date: June 8, 2020
-  tags:
-    - research
-    - nlp
-
-- external: https://yjernite.github.io/lfqa.html
-  title: "Long Form Question Answering with ELI5"
-  author: yjernite
-  date: June 17, 2020
-  tags:
-    - guide
-    - nlp
-
 - local: reformer
   title: "The Reformer - Pushing the limits of language modeling"
   author: patrickvonplaten
@@ -58,14 +34,6 @@
   date: Sep 10, 2020
   tags:
     - research
-    - nlp
-
-- external: https://huggingface.co/rag
-  title: "Retrieval Augmented Generation (RAG)"
-  author: yjernite
-  date: September 28, 2020
-  tags:
-    - guide
     - nlp
 
 - local: encoder-decoder
@@ -201,14 +169,6 @@
   date: March 31, 2021
   tags:
     - community
-    - research
-    - nlp
-
-- external: https://huggingface.co/blog/how_many_data_points
-  title: "How many data points is a prompt worth?"
-  author: teven
-  date: April 5, 2021
-  tags:
     - research
     - nlp
 
@@ -880,25 +840,6 @@
   - guide
   - diffusion
   - stable-diffusion
-
-- external: https://huggingface.co/spaces/loubnabnl/code-generation-models
-  title: "Code generation with Hugging Face"
-  author: loubnabnl
-  thumbnail: /blog/assets/79_code_generation_space/code_generation.png
-  date: June 8, 2022
-  tags:
-    - guide
-    - research
-    - nlp
-
-- external: https://huggingface.co/spaces/sentence-transformers/Sentence_Transformers_for_semantic_search
-  title: "Using Sentence Transformers for semantic search"
-  author: espejelomar
-  thumbnail: /blog/assets/79_st_semantic_search/thumbnail.png
-  date: June 10, 2022
-  tags:
-  - nlp
-  - guide
 
 - local: ml-director-insights-3
   title: "Director of Machine Learning Insights [Part 3: Finance Edition]"
