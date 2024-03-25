@@ -68,7 +68,7 @@ OWL-VIT’s inference time depends on the number of prompts provided (i.e., the 
 
 So it is interesting, performance-wise, to only prompt OWL-VIT with objects that we know are in the image. That’s where RAM is useful, as it is fast and provides exactly this information.
 
-### A robotics use case: grasping unknown objects in unconstrained environments
+## A robotics use case: grasping unknown objects in unconstrained environments
 
 With the object's segmentation mask, we can estimate its (u, v) position in pixel space by computing the centroid of the binary mask. Here, having the segmentation mask is very useful because it allows us to average the depth values inside the mask rather than inside the full bounding box, which also contains a background that would skew the average.
 
