@@ -17,7 +17,7 @@ authors:
 
 > [!NOTE] This is a guest blog post by the Pollen Robotics team. We are the creators of Reachy, an open-source humanoid robot designed for manipulation in the real world.
 
-<video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pollen_vision_intro.mp4"></video>
+<video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pollen-vision/pollen_vision_intro.mp4"></video>
 
 In the context of autonomous behaviors, the essence of a robot's usability lies in its ability to understand and interact with its environment. This understanding primarily comes from **visual perception**, which enables robots to identify objects, recognize people, navigate spaces, and much more.
 
@@ -56,7 +56,9 @@ masks = sam.infer(im, bboxes=bboxes)  # zero-shot object segmentation
 annotated_im = annotator.annotate(im, predictions, masks=masks)
 ```
 
-<!-- TODO missing example image -->
+<p align="center">
+    <img width="40%" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pollen-vision/paper_cups.png">
+</p>
 
 OWL-VIT’s inference time depends on the number of prompts provided (i.e., the number of objects to detect). On a Laptop with a RTX 3070 GPU: 
 
@@ -102,7 +104,7 @@ We now have an estimation of the 3D position of the object in the camera’s ref
 
 If we know where the camera is positioned relative to the robot’s origin frame, we can perform a simple transformation to get the 3D position of the object in the robot’s frame. This means we can move the end effector of our robot where the object is, **and grasp it** ! 🥳
 
-<video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/demo.mp4"></video>
+<video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pollen-vision/demo.mp4"></video>
 
 ## What’s next?
 
