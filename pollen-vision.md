@@ -14,8 +14,10 @@ authors:
 
 # Pollen-Vision: Unified interface for Zero-Shot vision models in robotics
 
-<!-- TODO intro mp4 -->
+
 > [!NOTE] This is a guest blog post by the Pollen Robotics team. We are the creators of Reachy, an open-source humanoid robot designed for manipulation in the real world.
+
+<video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pollen_vision_intro.mp4"></video>
 
 In the context of autonomous behaviors, the essence of a robot's usability lies in its ability to understand and interact with its environment. This understanding primarily comes from **visual perception**, which enables robots to identify objects, recognize people, navigate spaces, and much more.
 
@@ -100,9 +102,9 @@ We now have an estimation of the 3D position of the object in the camera’s ref
 
 If we know where the camera is positioned relative to the robot’s origin frame, we can perform a simple transformation to get the 3D position of the object in the robot’s frame. This means we can move the end effector of our robot where the object is, **and grasp it** ! 🥳
 
-<!-- TODO put demo video here -->
+<video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/demo.mp4"></video>
 
-### What’s next?
+## What’s next?
 
 What we presented in this post is a first step towards our goal, which is autonomous grasping of unknown objects in the wild. There are a few issues that still need addressing:
 
@@ -112,6 +114,6 @@ What we presented in this post is a first step towards our goal, which is autono
 - Grasping technique (only front grasp for now) was not the focus of this work. We will be working on different approaches to enhance the grasping capabilities in terms of perception (6D detection) and grasping pose generation.
 - Overall speed could be improved
 
-### Try pollen-vision
+## Try pollen-vision
 
 Wanna try pollen-vision? Check out our [Github repository](https://github.com/pollen-robotics/pollen-vision) !
