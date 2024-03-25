@@ -3640,7 +3640,6 @@
     - collaboration
     - community
 
-
 - local: quanto-introduction
   title: "quanto: a pytorch quantization toolkit"
   author: dacorvo
@@ -3707,6 +3706,28 @@
     - leaderboard
     - arena
     - collaboration
+
+- local: embedding-quantization
+  title: "Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval"
+  author: aamirshakir
+  guest: true
+  thumbnail: /blog/assets/embedding-quantization/thumbnail.png
+  date: Mar 22, 2024
+  tags:
+    - nlp
+    - community
+    - guide
+    - collaboration
+    - research
+
+- local: noob_intro_transformers
+  title: "Total noob’s intro to Hugging Face Transformers"
+  author: 2legit2overfit
+  thumbnail: /blog/assets/78_ml_director_insights/guide.png
+  date: March 22, 2024
+  tags:
+    - guide
+    - community
 
 - local: pollen-vision
   title: "Pollen-Vision: Unified interface for Zero-Shot vision models in robotics"
