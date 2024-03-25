@@ -55,7 +55,7 @@ annotated_im = annotator.annotate(im, predictions, masks=masks)
 ```
 
 
-OWL-VIT’s inference time depends on the number of prompts provided. On a Laptop with a RTX 3070 GPU: 
+OWL-VIT’s inference time depends on the number of prompts provided (i.e., the number of objects to detect). On a Laptop with a RTX 3070 GPU: 
 
 ```
 1 prompt   : ~75ms  per frame
