@@ -285,7 +285,8 @@ output = model.generate(**inputs, max_new_tokens=50)
 print(tokenizer.decode(output[0], skip_special_tokens=True))
 ```
 
-You could also just load the model using a GPTQ configuration setting the desired parameters, as usual when working with transformers.For faster inference and production load we want to leverage the exllama kernels ( Achieving the same latency as fp16 model, but 4x less memory usage ).
+You could also just load the model using a GPTQ configuration setting the desired parameters , as usual when working with transformers .
+For faster inference and production load we want to leverage the [exllama kernels](https://github.com/turboderp/exllama) ( Achieving the same latency as fp16 model, but 4x less memory usage ) .
 
 ```python
 import torch
@@ -305,7 +306,7 @@ output = model.generate(**inputs, max_new_tokens=50)
 print(tokenizer.decode(output[0], skip_special_tokens=True))
 ```
 
-If left unset , the "use_exllama" parameter defaults to True, enabling the exllama backend functionality, specifically designed to work with the "bits" value of 4.
+If left unset , the "use_exllama" parameter defaults to True , enabling the exllama backend functionality, specifically designed to work with the "bits" value of 4 .
 
 Note that for both QLoRA and GPTQ you need at least 30 GB of GPU VRAM to fit the model. You can make it work with 24 GB if you use `device_map="auto"`, like in the example above, so some layers are offloaded to CPU.
 
