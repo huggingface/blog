@@ -1401,6 +1401,20 @@
     - collaboration
     - announcement
 
+- local: intel-fast-embedding
+  title: "利用 🤗 Optimum Intel 和 fastRAG 在 CPU 上优化文本嵌入"
+  author: peterizsak
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: Mar 15, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community
+
 - local: train-dgx-cloud
   title: 在 NVIDIA DGX Cloud上使用 H100 GPU 轻松训练模型
   author: philschmid
@@ -1412,3 +1426,4 @@
     - nvidia
     - llm
     - training
+
