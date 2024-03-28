@@ -11,17 +11,17 @@ Today, integrating AI-powered features, particularly leveraging Large Language M
 
 Developers are increasingly recognizing these applications' potential benefits, particularly in enhancing core tasks such as scriptwriting, web development, and, now, interfacing with data. Historically, crafting insightful SQL queries for data analysis was primarily the domain of data analysts, SQL developers, data engineers, or professionals in related fields, all navigating the nuances of SQL dialect syntax. However, with the advent of AI-powered solutions, the landscape is evolving. These advanced models offer new avenues for interacting with data, potentially streamlining processes and uncovering insights with greater efficiency and depth.
 
-What if you could unlock fascinating insights from your dataset without diving deep into coding? To glean valuable information, one would need to craft a specialized SELECT statement, considering which columns to display, the source table, filtering conditions for selected rows, aggregation methods, and sorting preferences. This traditional approach involves a sequence of commands: SELECT, FROM, WHERE, GROUP, and ORDER.
+What if you could unlock fascinating insights from your dataset without diving deep into coding? To glean valuable information, one would need to craft a specialized `SELECT` statement, considering which columns to display, the source table, filtering conditions for selected rows, aggregation methods, and sorting preferences. This traditional approach involves a sequence of commands: `SELECT`, `FROM`, `WHERE`, `GROUP`, and `ORDER`.
 
 But what if you’re not a seasoned developer and still want to harness the power of your data? In such cases, seeking assistance from SQL specialists becomes necessary, highlighting a gap in accessibility and usability.
 
-This is where groundbreaking advancements in AI, particularly Language Model (LLM) technology, step in to bridge the divide. Imagine conversing with your data effortlessly, simply stating your information needs in plain language and having the model translate your request into a query. 
+This is where groundbreaking advancements in AI, LLM technology, step in to bridge the divide. Imagine conversing with your data effortlessly, simply stating your information needs in plain language and having the model translate your request into a query. 
 
-In recent months, significant strides have been made in this arena. MotherDuck and Numbers Station unveiled their latest innovation: DuckDB-NSQL-7B, a state-of-the-art LLM designed specifically for DuckDB SQL. What is this model’s mission? To empower users with the ability to unlock insights from their data effortlessly.
+In recent months, significant strides have been made in this arena. [MotherDuck](https://motherduck.com/) and [Numbers Station](https://numbersstation.ai/) unveiled their latest innovation: [DuckDB-NSQL-7B](https://huggingface.co/motherduckdb/DuckDB-NSQL-7B-v0.1), a state-of-the-art LLM designed specifically for [DuckDB SQL](https://duckdb.org/). What is this model’s mission? To empower users with the ability to unlock insights from their data effortlessly.
 
-Initially fine-tuned from Meta’s original Llama-2–7b model using a broad dataset covering general SQL queries, DuckDB-NSQL-7B underwent further refinement with DuckDB text-to-SQL pairs. Notably, its capabilities extend beyond crafting SELECT statements; it can generate a wide range of valid DuckDB SQL statements, including official documentation and extensions, making it a versatile tool for data exploration and analysis.
+Initially fine-tuned from Meta’s original [Llama-2–7b](https://huggingface.co/meta-llama/Llama-2-7b) model using a broad dataset covering general SQL queries, DuckDB-NSQL-7B underwent further refinement with DuckDB text-to-SQL pairs. Notably, its capabilities extend beyond crafting `SELECT` statements; it can generate a wide range of valid DuckDB SQL statements, including official documentation and extensions, making it a versatile tool for data exploration and analysis.
 
-In this article, we will learn how to create deal with text2sql task using DuckDB-NSQL-7B model, Hugging Face datasets server API for parquet files and duckdb.
+In this article, we will learn how to create deal with text2sql task using DuckDB-NSQL-7B model, Hugging Face datasets server API for parquet files and duckdb for data retrieval.
 
 <p align="center">
  <img src="https://huggingface.co/datasets/HuggingFaceTB/documentation-images/resolve/main/duckdb-nsql-7b/text2sql-flow.png" alt="text2sql flow" style="width: 90%; height: auto;"><br>
@@ -30,7 +30,7 @@ In this article, we will learn how to create deal with text2sql task using DuckD
 
 #### How to use the model
 
-- Using Hugging Face transformers pipeline
+- Using Hugging Face `transformers` pipeline
 
 ```
 from transformers import pipeline
@@ -47,7 +47,7 @@ tokenizer = AutoTokenizer.from_pretrained("motherduckdb/DuckDB-NSQL-7B-v0.1")
 model = AutoModelForCausalLM.from_pretrained("motherduckdb/DuckDB-NSQL-7B-v0.1")
 ```
 
-- Using llama.cpp to load the model in GGUF
+- Using `llama.cpp` to load the model in `GGUF`
 
 ```
 from llama_cpp import Llama
@@ -59,7 +59,7 @@ with pipes() as (out, err):
    )
 ```
 
-The main goal of llama.cpp is to enable LLM inference with minimal setup and state-of-the-art performance on a wide variety of hardware - locally and in the cloud, we will use this approach.
+The main goal of `llama.cpp` is to enable LLM inference with minimal setup and state-of-the-art performance on a wide variety of hardware - locally and in the cloud, we will use this approach.
 
 #### Hugging Face Datasets Server API for more than 120K datasets
 
@@ -72,7 +72,7 @@ Each dataset hosted by Hugging Face comes equipped with a comprehensive dataset 
 <em>Dataset viewer of world-cities-geo dataset</em>
 </p>
 
-Behind the scenes, each dataset in the hub is processed by the Hugging Face datasets server API, which gets useful information and serves functionalities like:
+Behind the scenes, each dataset in the hub is processed by the [Hugging Face datasets server API](https://huggingface.co/docs/datasets-server/index), which gets useful information and serves functionalities like:
 - List the dataset **splits, column names and data types**
 - Get the dataset **size** (in number of rows or bytes)
 - Download and view **rows at any index** in the dataset
@@ -81,7 +81,7 @@ Behind the scenes, each dataset in the hub is processed by the Hugging Face data
 - Get insightful **statistics** about the data
 - Access the dataset as **parquet files** to use in your favorite processing or analytics framework
 
-In this demo, we will use the last functionality, autoconverted parquet files.
+In this demo, we will use the last functionality, auto-converted parquet files.
 
 #### Generate SQL queries based on a given text for your Hugging Face Dataset
 We will be using the [world-cities-geo](jamescalam/world-cities-geo) dataset.
@@ -106,7 +106,7 @@ CMAKE_ARGS="-DLLAMA_METAL=on" pip install llama-cpp-python
 pip install duckdb
 ```
 
-To execute some text2SQL actions, we will use a prompt with the following structure:
+For the text2SQL model, we will use a prompt with the following structure:
 
 ```
    ### Instruction:
@@ -120,10 +120,11 @@ To execute some text2SQL actions, we will use a prompt with the following struct
    ### Response (use duckdb shorthand if possible):
 ```
 
-- **ddl_create will** will be the dataset schema as a SQL CREATE command
+- **ddl_create** will be the dataset schema as a SQL `CREATE` command
 - **query_input** will be the user in a natural language way
 
 So, we need to tell to the model about the schema of the Hugging Face dataset, for that, we are going to do a trick:
+
 - Get the URL of the first parquet file of the dataset hosted in `refs/convert/parquet` in Hugging Face. See https://huggingface.co/docs/datasets-server/parquet
 
 ```
@@ -144,7 +145,7 @@ first_parquet = get_first_parquet(dataset_name)
 first_parquet_url = first_parquet["url"]
 ```
 
-See a sample of getting the first parquet file for jamescalam/world-cities-geo dataset:
+See a sample of getting the first parquet file for [jamescalam/world-cities-geo](https://huggingface.co/datasets/jamescalam/world-cities-geo) dataset:
 
 ```
 GET https://datasets-server.huggingface.co/parquet?dataset=jamescalam/world-cities-geo
@@ -191,7 +192,7 @@ result = con.sql("SELECT sql FROM duckdb_tables() where table_name ='data';").df
 ddl_create = result.iloc[0,0]
 ```
 
-The CREATE schema ddl is:
+The `CREATE` schema DDL is:
 
 ```
 CREATE TABLE "data"(
@@ -259,19 +260,19 @@ Cities from Albania country
 ### Response (use duckdb shorthand if possible):
 ```
 
-The output SQL command will point to our `data` wildcard table, but since we don't have a real table but just a patch to the parquet file, we will replace all `data` occurrences by the `first_parquet_url`:
+The output SQL command will point to a `data` table, but since we don't have a real table but just a reference to the parquet file, we will replace all `data` occurrences by the `first_parquet_url`:
 
 ```
 sql_output = sql_output.replace("FROM data", f"FROM '{first_parquet_url}'")
 ```
 
-And the final ouput will be:
+And the final output will be:
 
 ```
 SELECT city FROM 'https://huggingface.co/datasets/jamescalam/world-cities-geo/resolve/refs%2Fconvert%2Fparquet/default/train/0000.parquet' WHERE country = 'Albania'
 ```
 
-- Now, it is time to finally execute our generated SQL directly in the dataset, so, lets use once again Duckdb powers:
+- Now, it is time to finally execute our generated SQL directly in the dataset, so, lets use once again DuckDB powers:
 
 ```
 try:
