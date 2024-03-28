@@ -654,7 +654,7 @@ training_args = Seq2SeqTrainingArguments(
     gradient_accumulation_steps=1,  # increase by 2x for every 2x decrease in batch size
     learning_rate=1e-5,
     warmup_steps=500,
-    max_steps=4000,
+    max_steps=5000,
     gradient_checkpointing=True,
     fp16=True,
     evaluation_strategy="steps",
@@ -717,10 +717,10 @@ to compensate.
 | 4000 |    0.0006     | 9.78  |     0.4519      | 32.01 |
 | 5000 |    0.0002     | 12.22 |     0.4679      | 32.10 |
 
-Our best WER is 32.0% after 5000 training steps. For reference, 
-the pre-trained Whisper `small` model achieves a WER of TODO%, 
-meaning we achieve an improvement of X% absolute through fine-tuning.
-Not bad for 8h of training data!
+Our best WER is 32.0% after 4000 training steps. For reference, 
+the pre-trained Whisper `small` model achieves a WER of 63.5%, 
+meaning we achieve an improvement of 31.5% absolute through fine-tuning.
+Not bad for just 8h of training data!
 
 We're now ready to share our fine-tuned model on the Hugging Face Hub.
 To make it more accessible with appropriate tags and README information,
