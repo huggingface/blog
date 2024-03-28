@@ -628,7 +628,7 @@ to None, since this was the legacy way of setting the language and
 task arguments:
 
 ```python
-model.generation_config.language = "Hindi"
+model.generation_config.language = "hindi"
 model.generation_config.task = "transcribe"
 
 model.generation_config.forced_decoder_ids = None
