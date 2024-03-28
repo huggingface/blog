@@ -340,4 +340,4 @@ Our final demo will be a Hugging Face space that looks like this:
 
 You can see the notebook with the code [here](https://colab.research.google.com/drive/1hOyQ_Lp5wwC2z9HYhEzBHuRuqy-5plDO?usp=sharing).
 
-And the Hugging Face Space [here](https://huggingface.co/spaces/asoria/datasets-text2sql/blob/main/app.py)
+And the Hugging Face Space [here](https://huggingface.co/spaces/asoria/datasets-text2sql)
