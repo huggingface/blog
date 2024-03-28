@@ -106,17 +106,19 @@ vocabulary of text tokens.
 
 The Whisper checkpoints come in five configurations of varying model sizes.
 The smallest four are trained on either English-only or multilingual data.
-The largest checkpoint is multilingual only. All nine of the pre-trained checkpoints 
+The largest checkpoints are multilingual only. All 11 of the pre-trained checkpoints 
 are available on the [Hugging Face Hub](https://huggingface.co/models?search=openai/whisper). The 
 checkpoints are summarised in the following table with links to the models on the Hub:
 
-| Size   | Layers | Width | Heads | Parameters | English-only                                         | Multilingual                                      |
-|--------|--------|-------|-------|------------|------------------------------------------------------|---------------------------------------------------|
-| tiny   | 4      | 384   | 6     | 39 M       | [✓](https://huggingface.co/openai/whisper-tiny.en)   | [✓](https://huggingface.co/openai/whisper-tiny.)  |
-| base   | 6      | 512   | 8     | 74 M       | [✓](https://huggingface.co/openai/whisper-base.en)   | [✓](https://huggingface.co/openai/whisper-base)   |
-| small  | 12     | 768   | 12    | 244 M      | [✓](https://huggingface.co/openai/whisper-small.en)  | [✓](https://huggingface.co/openai/whisper-small)  |
-| medium | 24     | 1024  | 16    | 769 M      | [✓](https://huggingface.co/openai/whisper-medium.en) | [✓](https://huggingface.co/openai/whisper-medium) |
-| large  | 32     | 1280  | 20    | 1550 M     | x                                                    | [✓](https://huggingface.co/openai/whisper-large)  |
+| Size     | Layers | Width | Heads | Parameters | English-only                                         | Multilingual                                        |
+|----------|--------|-------|-------|------------|------------------------------------------------------|-----------------------------------------------------|
+| tiny     | 4      | 384   | 6     | 39 M       | [✓](https://huggingface.co/openai/whisper-tiny.en)   | [✓](https://huggingface.co/openai/whisper-tiny.)    |
+| base     | 6      | 512   | 8     | 74 M       | [✓](https://huggingface.co/openai/whisper-base.en)   | [✓](https://huggingface.co/openai/whisper-base)     |
+| small    | 12     | 768   | 12    | 244 M      | [✓](https://huggingface.co/openai/whisper-small.en)  | [✓](https://huggingface.co/openai/whisper-small)    |
+| medium   | 24     | 1024  | 16    | 769 M      | [✓](https://huggingface.co/openai/whisper-medium.en) | [✓](https://huggingface.co/openai/whisper-medium)   |
+| large    | 32     | 1280  | 20    | 1550 M     | x                                                    | [✓](https://huggingface.co/openai/whisper-large)    |
+| large-v2 | 32     | 1280  | 20    | 1550 M     | x                                                    | [✓](https://huggingface.co/openai/whisper-large-v2) |
+| large-v3 | 32     | 1280  | 20    | 1550 M     | x                                                    | [✓](https://huggingface.co/openai/whisper-large-v3) |
 
 For demonstration purposes, we'll fine-tune the multilingual version of the 
 [`small`](https://huggingface.co/openai/whisper-small) checkpoint with 244M params (~= 1GB). 
@@ -134,7 +136,7 @@ strong performance in this language.
 ### Prepare Environment
 
 We'll employ several popular Python packages to fine-tune the Whisper model.
-We'll use `datasets` to download and prepare our training data, alongside 
+We'll use `datasets[audio]` to download and prepare our training data, alongside 
 `transformers` and `accelerate` to load and train our Whisper model. 
 We'll also require the `soundfile` package to pre-process audio files, 
 `evaluate` and `jiwer` to assess the performance of our model, and 
@@ -143,7 +145,7 @@ flashy demo of our fine-tuned model.
 
 ```bash
 !pip install --upgrade pip
-!pip install --upgrade datasets transformers accelerate soundfile librosa evaluate jiwer tensorboard gradio
+!pip install --upgrade datasets[audio] transformers accelerate evaluate jiwer tensorboard gradio
 ```
 
 We strongly advise you to upload model checkpoints directly the [Hugging Face Hub](https://huggingface.co/) 
@@ -172,12 +174,14 @@ Your token has been saved to /root/.huggingface/token
 
 Common Voice is a series of crowd-sourced datasets where speakers 
 record text from Wikipedia in various languages. We'll use the latest edition 
-of the Common Voice dataset ([version 11](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)). 
+of the Common Voice dataset at the time of writing ([version 11](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)). 
 As for our language, we'll fine-tune our model on 
 [_Hindi_](https://en.wikipedia.org/wiki/Hindi), an Indo-Aryan language 
 spoken in northern, central, eastern, and western India. Common Voice 11.0 
 contains approximately 12 hours of labelled Hindi data, 4 of which are 
 held-out test data.
+
+> **Tip**: you can find the latest version of the Common Voice dataset by checking the [Mozilla Foundation organisation page](https://huggingface.co/mozilla-foundation) on the Hugging Face Hub. Later versions cover more languages and contain more data per-language.
 
 Let's head to the Hub and view the dataset page for Common Voice: [mozilla-foundation/common_voice_11_0](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0).
 
@@ -611,18 +615,23 @@ from transformers import WhisperForConditionalGeneration
 model = WhisperForConditionalGeneration.from_pretrained("openai/whisper-small")
 ```
 
-The Whisper model has token ids that are forced as model outputs before 
-autoregressive generation is started ([`forced_decoder_ids`](https://huggingface.co/docs/transformers/main_classes/text_generation#transformers.generation_utils.GenerationMixin.generate.forced_decoder_ids)).
-These token ids control the transcription language and task for zero-shot ASR. For fine-tuning, 
-we'll set these ids to `None`, as we'll train the model to predict the correct language (Hindi) 
-and task (transcription). There are also tokens that are completely suppressed during generation 
-([`suppress_tokens`](https://huggingface.co/docs/transformers/main_classes/text_generation#transformers.generation_utils.GenerationMixin.generate.suppress_tokens)). 
-These tokens have their log probabilities set to `-inf`, such that they are never sampled. 
-We'll override these tokens to an empty list, meaning no tokens are suppressed:
+At inference time, the Whisper model automatically detects the language 
+of the source audio and predicts token ids in this language. 
+In cases where the source audio language is known *a-priori*, such as
+multilingual fine-tuning, it is beneficial to set the language explicitly. 
+This negates the scenarios when the incorrect language is predicted, 
+causing the predicted text to diverge from the true language in its 
+generations. To do so, we set the [langauge](https://huggingface.co/docs/transformers/en/model_doc/whisper#transformers.WhisperForConditionalGeneration.generate.language) 
+and [task](https://huggingface.co/docs/transformers/en/model_doc/whisper#transformers.WhisperForConditionalGeneration.generate.task) 
+arguments to the generation config. We'll also set any [`forced_decoder_ids`](https://huggingface.co/docs/transformers/main_classes/text_generation#transformers.generation_utils.GenerationMixin.generate.forced_decoder_ids) 
+to None, since this was the legacy way of setting the language and 
+task arguments:
 
 ```python
-model.config.forced_decoder_ids = None
-model.config.suppress_tokens = []
+model.generation_config.language = "Hindi"
+model.generation_config.task = "transcribe"
+
+model.generation_config.forced_decoder_ids = None
 ```
 
 ### Define the Training Arguments
@@ -708,22 +717,16 @@ to compensate.
 | 4000 |    0.0006     | 9.78  |     0.4519      | 32.01 |
 | 5000 |    0.0002     | 12.22 |     0.4679      | 32.10 |
 
-Our best WER is 32.0% - not bad for 8h of training data! The big question is how this 
-compares to other ASR systems. For that, we can view the [`hf-speech-bench`](https://huggingface.co/spaces/huggingface/hf-speech-bench), 
-a leaderboard that categorises models by language and dataset, and subsequently ranks 
-them according to their WER.
+Our best WER is 32.0% after 5000 training steps. For reference, 
+the pre-trained Whisper `small` model achieves a WER of TODO%, 
+meaning we achieve an improvement of X% absolute through fine-tuning.
+Not bad for 8h of training data!
 
-<figure>
-<img src="assets/111_fine_tune_whisper/hf_speech_bench.jpg" alt="Trulli" style="width:100%">
-</figure>
-
-Our fine-tuned model significantly improves upon the zero-shot performance of the Whisper 
-`small` checkpoint, highlighting the strong transfer learning capabilities of Whisper.
-
-We can automatically submit our checkpoint to the leaderboard when we
-push the training results to the Hub - we simply have to set the appropriate key-word 
-arguments (kwargs). You can change these values to match your dataset, language and 
-model name accordingly:
+We're now ready to share our fine-tuned model on the Hugging Face Hub.
+To make it more accessible with appropriate tags and README information,
+we can set the appropriate key-word arguments (kwargs) when we push. 
+You can change these values to match your dataset, language and model 
+name accordingly:
 
 ```python
 kwargs = {
@@ -734,7 +737,6 @@ kwargs = {
     "model_name": "Whisper Small Hi - Sanchit Gandhi",  # a 'pretty' name for your model
     "finetuned_from": "openai/whisper-small",
     "tasks": "automatic-speech-recognition",
-    "tags": "hf-asr-leaderboard",
 }
 ```
 
@@ -760,7 +762,7 @@ notebook is to demonstrate how the pre-trained Whisper checkpoints can
 be fine-tuned on any multilingual ASR dataset. The results could likely 
 be improved by optimising the training hyperparameters, such as 
 _learning rate_ and _dropout_, and using a larger pre-trained 
-checkpoint (`medium` or `large`).
+checkpoint (`medium` or `large-v3`).
 
 ### Building a Demo
 Now that we've fine-tuned our model, we can build a demo to show 
