@@ -620,8 +620,8 @@ of the source audio and predicts token ids in this language.
 In cases where the source audio language is known *a-priori*, such as
 multilingual fine-tuning, it is beneficial to set the language explicitly. 
 This negates the scenarios when the incorrect language is predicted, 
-causing the predicted text to diverge from the true language in its 
-generations. To do so, we set the [langauge](https://huggingface.co/docs/transformers/en/model_doc/whisper#transformers.WhisperForConditionalGeneration.generate.language) 
+causing the predicted text to diverge from the true language during 
+generation. To do so, we set the [langauge](https://huggingface.co/docs/transformers/en/model_doc/whisper#transformers.WhisperForConditionalGeneration.generate.language) 
 and [task](https://huggingface.co/docs/transformers/en/model_doc/whisper#transformers.WhisperForConditionalGeneration.generate.task) 
 arguments to the generation config. We'll also set any [`forced_decoder_ids`](https://huggingface.co/docs/transformers/main_classes/text_generation#transformers.generation_utils.GenerationMixin.generate.forced_decoder_ids) 
 to None, since this was the legacy way of setting the language and 
