@@ -52,11 +52,10 @@ model = AutoModelForCausalLM.from_pretrained("motherduckdb/DuckDB-NSQL-7B-v0.1")
 ```
 from llama_cpp import Llama
 
-with pipes() as (out, err):
-   llama = Llama(
+llama = Llama(
        model_path="DuckDB-NSQL-7B-v0.1-q8_0.gguf", # Path to local model
-       n_ctx=2048,
-   )
+       n_gpu_layers=-1,
+)
 ```
 
 The main goal of `llama.cpp` is to enable LLM inference with minimal setup and state-of-the-art performance on a wide variety of hardware - locally and in the cloud, we will use this approach.
@@ -66,6 +65,8 @@ The main goal of `llama.cpp` is to enable LLM inference with minimal setup and s
 Data is a crucial component in any Machine Learning endeavor. Hugging Face is a valuable resource, offering access to over 120,000 free and open datasets spanning various formats, including CSV, Parquet, JSON, audio, and image files.
 
 Each dataset hosted by Hugging Face comes equipped with a comprehensive dataset viewer. This viewer provides users essential functionalities such as statistical insights, data size assessment, full-text search capabilities, and efficient filtering options. This feature-rich interface empowers users to easily explore and evaluate datasets, facilitating informed decision-making throughout the machine learning workflow.
+
+For this demo, we will be using the [world-cities-geo](https://huggingface.co/datasets/jamescalam/world-cities-geo) dataset.
 
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/dataset-viewer.png" alt="dataset viewer" style="width: 90%; height: auto;"><br>
@@ -84,7 +85,6 @@ Behind the scenes, each dataset in the hub is processed by the [Hugging Face dat
 In this demo, we will use the last functionality, auto-converted parquet files.
 
 #### Generate SQL queries based on a given text for your Hugging Face Dataset
-We will be using the [world-cities-geo](jamescalam/world-cities-geo) dataset.
 
 First, [download](https://huggingface.co/motherduckdb/DuckDB-NSQL-7B-v0.1-GGUF/blob/main/DuckDB-NSQL-7B-v0.1-q8_0.gguf) the quantized models version of DuckDB-NSQL-7B-v0.1
 
@@ -128,19 +128,15 @@ So, we need to tell to the model about the schema of the Hugging Face dataset, f
 - Get the URL of the first parquet file of the dataset hosted in `refs/convert/parquet` in Hugging Face. See https://huggingface.co/docs/datasets-server/parquet
 
 ```
-from httpx import Client
+import requests
 
-BASE_DATASETS_SERVER_URL = "https://datasets-server.huggingface.co"
-headers = {
-"Accept" : "application/json",
-"Authorization": f"Bearer {HF_TOKEN}",
-"Content-Type": "application/json"
-}
-client = Client(headers=headers)
+API_URL = "https://datasets-server.huggingface.co/parquet?dataset="
 
 def get_first_parquet(dataset: str):
-   resp = client.get(f"{BASE_DATASETS_SERVER_URL}/parquet?dataset={dataset}")
-   return resp.json()["parquet_files"][0]
+   response = requests.get(f"{API_URL}{dataset}")
+   return response.json()["parquet_files"][0]
+
+dataset_name = "jamescalam/world-cities-geo"
 first_parquet = get_first_parquet(dataset_name)
 first_parquet_url = first_parquet["url"]
 ```
@@ -190,6 +186,7 @@ con.execute(f"CREATE TABLE data as SELECT * FROM '{first_parquet_url}' LIMIT 1;"
 
 result = con.sql("SELECT sql FROM duckdb_tables() where table_name ='data';").df()
 ddl_create = result.iloc[0,0]
+con.close()
 ```
 
 The `CREATE` schema DDL is:
@@ -217,7 +214,7 @@ And, as you can see, it matches the columns as in the dataset viewer:
 - Now, we can construct the prompt with the **ddl_create** and the **query** input
 
 ```
-text = f"""### Instruction:
+prompt = """### Instruction:
    Your task is to generate valid duckdb SQL to answer the following question.
    ### Input:
    Here is the database schema that the SQL query will run on:
@@ -228,23 +225,12 @@ text = f"""### Instruction:
    ### Response (use duckdb shorthand if possible):
    """
 ```
-
-- It is time to send the prompt to the model
-
-```
-from llama_cpp import Llama
-
-llama_pipeline = Llama(
-       model_path="DuckDB-NSQL-7B-v0.1-q8_0.gguf",
-       n_ctx=2048,
-       n_gpu_layers=50
-   )
-pred = llama_pipeline(prompt, temperature=0.1, max_tokens=1000)
-sql_output = pred["choices"][0]["text"]
-
-```
-
 If the user wants to know the **Cities from Albania country**, the prompt will look like this:
+
+```
+query = "Cities from Albania country"
+prompt = prompt.format(ddl_create=ddl_create, query_input=query)
+```
 
 ```
 ### Instruction:
@@ -259,6 +245,22 @@ Cities from Albania country
 
 ### Response (use duckdb shorthand if possible):
 ```
+
+- It is time to send the prompt to the model
+
+```
+from llama_cpp import Llama
+
+llm = Llama(
+       model_path="DuckDB-NSQL-7B-v0.1-q8_0.gguf",
+       n_ctx=2048,
+       n_gpu_layers=50
+   )
+pred = llm(prompt, temperature=0.1, max_tokens=1000)
+sql_output = pred["choices"][0]["text"]
+
+```
+
 
 The output SQL command will point to a `data` table, but since we don't have a real table but just a reference to the parquet file, we will replace all `data` occurrences by the `first_parquet_url`:
 
@@ -275,6 +277,7 @@ SELECT city FROM 'https://huggingface.co/datasets/jamescalam/world-cities-geo/re
 - Now, it is time to finally execute our generated SQL directly in the dataset, so, lets use once again DuckDB powers:
 
 ```
+con = duckdb.connect()
 try:
    query_result = con.sql(sql_output).df()
 except Exception as error:
@@ -335,4 +338,6 @@ Our final demo will be a Hugging Face space that looks like this:
   </video>
 </figure>
 
-You can see the detailed code [here](https://huggingface.co/spaces/asoria/datasets-text2sql/blob/main/app.py)
+You can see the notebook with the code [here](https://colab.research.google.com/drive/1hOyQ_Lp5wwC2z9HYhEzBHuRuqy-5plDO?usp=sharing).
+
+And the Hugging Face Space [here](https://huggingface.co/spaces/asoria/datasets-text2sql/blob/main/app.py)
