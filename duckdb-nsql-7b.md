@@ -24,7 +24,7 @@ Initially fine-tuned from Meta’s original [Llama-2–7b](https://huggingface.c
 In this article, we will learn how to create deal with text2sql task using DuckDB-NSQL-7B model, Hugging Face datasets server API for parquet files and duckdb for data retrieval.
 
 <p align="center">
- <img src="https://huggingface.co/datasets/HuggingFaceTB/documentation-images/resolve/main/duckdb-nsql-7b/text2sql-flow.png" alt="text2sql flow" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/text2sql-flow.png" alt="text2sql flow" style="width: 90%; height: auto;"><br>
 <em>text2sql flow</em>
 </p>
 
@@ -68,7 +68,7 @@ Data is a crucial component in any Machine Learning endeavor. Hugging Face is a 
 Each dataset hosted by Hugging Face comes equipped with a comprehensive dataset viewer. This viewer provides users essential functionalities such as statistical insights, data size assessment, full-text search capabilities, and efficient filtering options. This feature-rich interface empowers users to easily explore and evaluate datasets, facilitating informed decision-making throughout the machine learning workflow.
 
 <p align="center">
- <img src="https://huggingface.co/datasets/HuggingFaceTB/documentation-images/resolve/main/duckdb-nsql-7b/dataset-viewer.png" alt="dataset viewer" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/dataset-viewer.png" alt="dataset viewer" style="width: 90%; height: auto;"><br>
 <em>Dataset viewer of world-cities-geo dataset</em>
 </p>
 
@@ -89,7 +89,7 @@ We will be using the [world-cities-geo](jamescalam/world-cities-geo) dataset.
 First, [download](https://huggingface.co/motherduckdb/DuckDB-NSQL-7B-v0.1-GGUF/blob/main/DuckDB-NSQL-7B-v0.1-q8_0.gguf) the quantized models version of DuckDB-NSQL-7B-v0.1
 
 <p align="center">
- <img src="https://huggingface.co/datasets/HuggingFaceTB/documentation-images/resolve/main/duckdb-nsql-7b/download.png" alt="download model" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/download.png" alt="download model" style="width: 90%; height: auto;"><br>
 <em>Downloading the model</em>
 </p>
 
@@ -176,7 +176,7 @@ GET https://datasets-server.huggingface.co/parquet?dataset=jamescalam/world-citi
 The [parquet file](https://huggingface.co/datasets/jamescalam/world-cities-geo/resolve/refs%2Fconvert%2Fparquet/default/train/0000.parquet) is hosted in Hugging Face viewer under `refs/convert/parquet` revision:
 
 <p align="center">
- <img src="https://huggingface.co/datasets/HuggingFaceTB/documentation-images/resolve/main/duckdb-nsql-7b/parquet.png" alt="parquet file" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/parquet.png" alt="parquet file" style="width: 90%; height: auto;"><br>
 <em>Parquet file</em>
 </p>
 
@@ -210,7 +210,7 @@ CREATE TABLE "data"(
 And, as you can see, it matches the columns as in the dataset viewer:
 
 <p align="center">
- <img src="https://huggingface.co/datasets/HuggingFaceTB/documentation-images/resolve/main/duckdb-nsql-7b/columns.png" alt="dataset columns" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/columns.png" alt="dataset columns" style="width: 90%; height: auto;"><br>
 <em>Dataset columns</em>
 </p>
 
@@ -286,14 +286,14 @@ finally:
 And here we have the results (100 rows):
 
 <p align="center">
- <img src="https://huggingface.co/datasets/HuggingFaceTB/documentation-images/resolve/main/duckdb-nsql-7b/result.png" alt="sql command result" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/result.png" alt="sql command result" style="width: 90%; height: auto;"><br>
 <em>Execution result (100 rows)</em>
 </p>
 
 Let's compare this result with the dataset viewer using the "search function" for **Albania** country, it should be the same:
 
 <p align="center">
- <img src="https://huggingface.co/datasets/HuggingFaceTB/documentation-images/resolve/main/duckdb-nsql-7b/search.png" alt="search result" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/search.png" alt="search result" style="width: 90%; height: auto;"><br>
 <em>Search result for Albania country</em>
 </p>
 
@@ -331,12 +331,8 @@ Our final demo will be a Hugging Face space that looks like this:
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/duckdb-nsql-7b/demo.mp4" type="video/mp4">
+      <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/demo.mp4" type="video/mp4">
   </video>
 </figure>
-
-<div align="center"> 
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/soccertwos.gif" alt="SoccerTwos example"> 
-</div>
 
 You can see the detailed code [here](https://huggingface.co/spaces/asoria/datasets-text2sql/blob/main/app.py)
