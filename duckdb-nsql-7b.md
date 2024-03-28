@@ -1,6 +1,6 @@
 ---
 title: "Text2SQL using Hugging Face Datasets Server API and Motherduck DuckDB-NSQL-7B" 
-thumbnail: /blog/assets/duckdb-nsql-7b/thumbnail.gif
+thumbnail: /blog/assets/duckdb-nsql-7b/thumbnail.png
 authors:
 - user: asoria
 ---
