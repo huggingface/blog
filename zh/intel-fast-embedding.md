@@ -1,6 +1,6 @@
 ---
 title: "利用 🤗 Optimum Intel 和 fastRAG 在 CPU 上优化文本嵌入"
-thumbnail: /blog/assets/optimum_intel/thumbnail.png
+thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
 - user: peterizsak
   guest: true
