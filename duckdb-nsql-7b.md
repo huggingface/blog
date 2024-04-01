@@ -187,7 +187,6 @@ The [parquet file](https://huggingface.co/datasets/jamescalam/world-cities-geo/r
 ```
 import duckdb
 con = duckdb.connect()
-con.execute("INSTALL 'httpfs'; LOAD httpfs;")
 con.execute(f"CREATE TABLE data as SELECT * FROM '{first_parquet_url}' LIMIT 1;")
 
 result = con.sql("SELECT sql FROM duckdb_tables() where table_name ='data';").df()
