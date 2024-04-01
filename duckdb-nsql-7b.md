@@ -108,7 +108,7 @@ huggingface-cli download motherduckdb/DuckDB-NSQL-7B-v0.1-GGUF DuckDB-NSQL-7B-v0
 Now, lets install the needed dependencies:
 
 ```
-CMAKE_ARGS="-DLLAMA_METAL=on" pip install llama-cpp-python
+pip install llama-cpp-python
 pip install duckdb
 ```
 
@@ -129,53 +129,23 @@ For the text-to-SQL model, we will use a prompt with the following structure:
 - **ddl_create** will be the dataset schema as a SQL `CREATE` command
 - **query_input** will be the user instructions, expressed with natural language
 
-So, we need to tell to the model about the schema of the Hugging Face dataset. For that, we are going to do a trick:
-
-- Get the URL of the first parquet file of the dataset hosted in `refs/convert/parquet` in Hugging Face. See https://huggingface.co/docs/datasets-server/parquet
+So, we need to tell to the model about the schema of the Hugging Face dataset. For that, we are going to get the first parquet file for [jamescalam/world-cities-geo](https://huggingface.co/datasets/jamescalam/world-cities-geo) dataset:
 
 ```
-import requests
-
-API_URL = "https://datasets-server.huggingface.co/parquet?dataset="
-
-def get_first_parquet(dataset: str):
-   response = requests.get(f"{API_URL}{dataset}")
-   return response.json()["parquet_files"][0]
-
-dataset_name = "jamescalam/world-cities-geo"
-first_parquet = get_first_parquet(dataset_name)
-first_parquet_url = first_parquet["url"]
-```
-
-See a sample of getting the first parquet file for [jamescalam/world-cities-geo](https://huggingface.co/datasets/jamescalam/world-cities-geo) dataset:
-
-```
-GET https://datasets-server.huggingface.co/parquet?dataset=jamescalam/world-cities-geo
+GET https://huggingface.co/api/datasets/jamescalam/world-cities-geo/parquet
 ```
 
 ```
 {
-   "parquet_files":[
-      {
-         "dataset":"jamescalam/world-cities-geo",
-         "config":"default",
-         "split":"train",
-         "url":"https://huggingface.co/datasets/jamescalam/world-cities-geo/resolve/refs%2Fconvert%2Fparquet/default/train/0000.parquet",
-         "filename":"0000.parquet",
-         "size":499223
-      }
-   ],
-   "pending":[
-      
-   ],
-   "failed":[
-      
-   ],
-   "partial":false
+   "default":{
+      "train":[
+         "https://huggingface.co/api/datasets/jamescalam/world-cities-geo/parquet/default/train/0.parquet"
+      ]
+   }
 }
 ```
 
-The [parquet file](https://huggingface.co/datasets/jamescalam/world-cities-geo/resolve/refs%2Fconvert%2Fparquet/default/train/0000.parquet) is hosted in Hugging Face viewer under `refs/convert/parquet` revision:
+The [parquet file](https://huggingface.co/api/datasets/jamescalam/world-cities-geo/parquet/default/train/0.parquet) is hosted in Hugging Face viewer under `refs/convert/parquet` revision:
 
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/parquet.png" alt="parquet file" style="width: 90%; height: auto;"><br>
@@ -278,7 +248,7 @@ sql_output = sql_output.replace("FROM data", f"FROM '{first_parquet_url}'")
 And the final output will be:
 
 ```
-SELECT city FROM 'https://huggingface.co/datasets/jamescalam/world-cities-geo/resolve/refs%2Fconvert%2Fparquet/default/train/0000.parquet' WHERE country = 'Albania'
+SELECT city FROM 'https://huggingface.co/api/datasets/jamescalam/world-cities-geo/parquet/default/train/0.parquet' WHERE country = 'Albania'
 ```
 
 - Now, it is time to finally execute our generated SQL directly in the dataset, so, lets use once again DuckDB powers:
