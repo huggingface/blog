@@ -2,7 +2,7 @@
 title: "Text2SQL using Hugging Face Datasets Server API and Motherduck DuckDB-NSQL-7B" 
 thumbnail: /blog/assets/duckdb-nsql-7b/thumbnail.png
 authors:
-- user: asoria
+- user: asoria, tdoehmen, senwu, lorr
 ---
 
 # Text2SQL using Hugging Face Datasets Server API and Motherduck DuckDB-NSQL-7B
@@ -21,7 +21,7 @@ In recent months, significant strides have been made in this arena. [MotherDuck]
 
 Initially fine-tuned from Meta’s original [Llama-2–7b](https://huggingface.co/meta-llama/Llama-2-7b) model using a broad dataset covering general SQL queries, DuckDB-NSQL-7B underwent further refinement with DuckDB text-to-SQL pairs. Notably, its capabilities extend beyond crafting `SELECT` statements; it can generate a wide range of valid DuckDB SQL statements, including official documentation and extensions, making it a versatile tool for data exploration and analysis.
 
-In this article, we will learn how to create deal with text2sql task using DuckDB-NSQL-7B model, Hugging Face datasets server API for parquet files and duckdb for data retrieval.
+In this article, we will learn how to deal with text2sql tasks using the DuckDB-NSQL-7B model, Hugging Face datasets server API for parquet files and duckdb for data retrieval.
 
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/text2sql-flow.png" alt="text2sql flow" style="width: 90%; height: auto;"><br>
@@ -106,7 +106,7 @@ CMAKE_ARGS="-DLLAMA_METAL=on" pip install llama-cpp-python
 pip install duckdb
 ```
 
-For the text2SQL model, we will use a prompt with the following structure:
+For the text-to-SQL model, we will use a prompt with the following structure:
 
 ```
    ### Instruction:
