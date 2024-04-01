@@ -2,7 +2,13 @@
 title: "Text2SQL using Hugging Face Datasets Server API and Motherduck DuckDB-NSQL-7B" 
 thumbnail: /blog/assets/duckdb-nsql-7b/thumbnail.png
 authors:
-- user: asoria, tdoehmen, senwu, lorr
+- user: asoria
+- user: tdoehmen
+  guest: true
+- user: senwu
+  guest: true
+- user: lorr
+  guest: true
 ---
 
 # Text2SQL using Hugging Face Datasets Server API and Motherduck DuckDB-NSQL-7B
@@ -15,7 +21,7 @@ What if you could unlock fascinating insights from your dataset without diving d
 
 But what if you’re not a seasoned developer and still want to harness the power of your data? In such cases, seeking assistance from SQL specialists becomes necessary, highlighting a gap in accessibility and usability.
 
-This is where groundbreaking advancements in AI, LLM technology, step in to bridge the divide. Imagine conversing with your data effortlessly, simply stating your information needs in plain language and having the model translate your request into a query. 
+This is where groundbreaking advancements in AI and LLM technology step in to bridge the divide. Imagine conversing with your data effortlessly, simply stating your information needs in plain language and having the model translate your request into a query. 
 
 In recent months, significant strides have been made in this arena. [MotherDuck](https://motherduck.com/) and [Numbers Station](https://numbersstation.ai/) unveiled their latest innovation: [DuckDB-NSQL-7B](https://huggingface.co/motherduckdb/DuckDB-NSQL-7B-v0.1), a state-of-the-art LLM designed specifically for [DuckDB SQL](https://duckdb.org/). What is this model’s mission? To empower users with the ability to unlock insights from their data effortlessly.
 
@@ -28,7 +34,7 @@ In this article, we will learn how to deal with text2sql tasks using the DuckDB-
 <em>text2sql flow</em>
 </p>
 
-#### How to use the model
+### How to use the model
 
 - Using Hugging Face `transformers` pipeline
 
@@ -58,9 +64,9 @@ llama = Llama(
 )
 ```
 
-The main goal of `llama.cpp` is to enable LLM inference with minimal setup and state-of-the-art performance on a wide variety of hardware - locally and in the cloud, we will use this approach.
+The main goal of `llama.cpp` is to enable LLM inference with minimal setup and state-of-the-art performance on a wide variety of hardware - locally and in the cloud. We will use this approach.
 
-#### Hugging Face Datasets Server API for more than 120K datasets
+### Hugging Face Datasets Server API for more than 120K datasets
 
 Data is a crucial component in any Machine Learning endeavor. Hugging Face is a valuable resource, offering access to over 120,000 free and open datasets spanning various formats, including CSV, Parquet, JSON, audio, and image files.
 
@@ -73,7 +79,7 @@ For this demo, we will be using the [world-cities-geo](https://huggingface.co/da
 <em>Dataset viewer of world-cities-geo dataset</em>
 </p>
 
-Behind the scenes, each dataset in the hub is processed by the [Hugging Face datasets server API](https://huggingface.co/docs/datasets-server/index), which gets useful information and serves functionalities like:
+Behind the scenes, each dataset in the Hub is processed by the [Hugging Face datasets server API](https://huggingface.co/docs/datasets-server/index), which gets useful information and serves functionalities like:
 - List the dataset **splits, column names and data types**
 - Get the dataset **size** (in number of rows or bytes)
 - Download and view **rows at any index** in the dataset
@@ -84,7 +90,7 @@ Behind the scenes, each dataset in the hub is processed by the [Hugging Face dat
 
 In this demo, we will use the last functionality, auto-converted parquet files.
 
-#### Generate SQL queries based on a given text for your Hugging Face Dataset
+### Generate SQL queries from text instructions
 
 First, [download](https://huggingface.co/motherduckdb/DuckDB-NSQL-7B-v0.1-GGUF/blob/main/DuckDB-NSQL-7B-v0.1-q8_0.gguf) the quantized models version of DuckDB-NSQL-7B-v0.1
 
@@ -121,9 +127,9 @@ For the text-to-SQL model, we will use a prompt with the following structure:
 ```
 
 - **ddl_create** will be the dataset schema as a SQL `CREATE` command
-- **query_input** will be the user in a natural language way
+- **query_input** will be the user instructions, expressed with natural language
 
-So, we need to tell to the model about the schema of the Hugging Face dataset, for that, we are going to do a trick:
+So, we need to tell to the model about the schema of the Hugging Face dataset. For that, we are going to do a trick:
 
 - Get the URL of the first parquet file of the dataset hosted in `refs/convert/parquet` in Hugging Face. See https://huggingface.co/docs/datasets-server/parquet
 
@@ -204,7 +210,8 @@ CREATE TABLE "data"(
     z DOUBLE
 );
 ```
-And, as you can see, it matches the columns as in the dataset viewer:
+
+And, as you can see, it matches the columns in the dataset viewer:
 
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/columns.png" alt="dataset columns" style="width: 90%; height: auto;"><br>
@@ -232,6 +239,7 @@ query = "Cities from Albania country"
 prompt = prompt.format(ddl_create=ddl_create, query_input=query)
 ```
 
+So the expanded prompt that will be sent to the LLM looks like this:
 ```
 ### Instruction:
 Your task is to generate valid duckdb SQL to answer the following question.
