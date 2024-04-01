@@ -508,9 +508,9 @@ to transcribe speech in Hindi.
 
 ### Load a Pre-Trained Checkpoint
 
-We'll start our fine-tuning run from the pre-trained Whisper `small` checkpoint,
-the weights for which we need to load from the Hugging Face Hub. Again, this 
-is trivial through use of 🤗 Transformers!
+We'll start our fine-tuning run from the pre-trained Whisper `small` checkpoint. 
+To do this, we'll load the pre-trained weights from the Hugging Face Hub. 
+Again, this is trivial through use of 🤗 Transformers!
 
 ```python
 from transformers import WhisperForConditionalGeneration
