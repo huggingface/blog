@@ -50,7 +50,7 @@ _Note: If the model you want to use does not have a “Cloudflare Workers AI” 
 ![inference snippet](/blog/assets/cloudflare-workers-ai/modal.jpg)
 
 
-The integration can currently be used via two options: using the [Workers AI REST API](https://developers.cloudflare.com/workers-ai/get-started/rest-api/), or directly in Workers with the [Cloudflare AI SDK](https://developers.cloudflare.com/workers-ai/get-started/workers-wrangler/#1-create-a-worker-project). Select your preferred option and copy the code into your environment. When using the REST API, you need to make sure the <code>[ACCOUNT_ID](https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/)</code> and <code>[API_TOKEN](https://dash.cloudflare.com/profile/api-tokens)</code> variables are defined. 
+The integration can currently be used via two options: using the [Workers AI REST API](https://developers.cloudflare.com/workers-ai/get-started/rest-api/) or directly in Workers with the [Cloudflare AI SDK](https://developers.cloudflare.com/workers-ai/get-started/workers-wrangler/#1-create-a-worker-project). Select your preferred option and copy the code into your environment. When using the REST API, you need to make sure the <code>[ACCOUNT_ID](https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/)</code> and <code>[API_TOKEN](https://dash.cloudflare.com/profile/api-tokens)</code> variables are defined. 
 
 That’s it! Now you can start sending requests to Hugging Face Models hosted on Cloudflare Workers AI. Make sure to use the correct prompt & template expected by the model. 
 
