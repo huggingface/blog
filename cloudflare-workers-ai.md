@@ -4,6 +4,10 @@ thumbnail: /blog/assets/cloudflare-workers-ai/thumbnail.jpg
 authors:
 - user: philschmid
 - user: jeffboudier
+- user: rita3ko
+  guest: true
+- user: nkothariCF
+  guest: true
 ---
 
 # Bringing serverless GPU inference to Hugging Face users
