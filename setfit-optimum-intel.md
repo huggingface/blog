@@ -32,8 +32,14 @@ Setfit has been widely adopted by the AI developer community, with ~100k downloa
 
 ## Faster!
 
-In this blog post, we'll explain how you can accelerate inference with SetFit even further on Intel CPUs, by optimizing your SetFit model with 🤗 [Optimum Intel](https://github.com/huggingface/optimum-intel). We’ll show how you can achieve huge throughput gains by performing a simple post-training quantization step on your model.
-This can enable production-grade deployment of SetFit solutions using Intel Xeon CPUs. Our blog is accompanied by a [notebook](https://github.com/huggingface/setfit/blob/main/notebooks/setfit-optimum-intel.ipynb) for a step-by-step walkthrough.
+In this blog post, we'll explain how you can accelerate inference with SetFit even further on Intel CPUs, by optimizing your SetFit model with 🤗 [Optimum Intel](https://github.com/huggingface/optimum-intel). We’ll show how you can achieve huge throughput gains by performing a simple post-training quantization step on your model. This can enable production-grade deployment of SetFit solutions using Intel Xeon CPUs. 
+
+[Optimum Intel](https://github.com/huggingface/optimum-intel) is an open-source library that accelerates end-to-end pipelines built with Hugging Face libraries on Intel Hardware. Optimum Intel includes several techniques to accelerate models such as low-bit quantization, model weight pruning, distillation, and an accelerated runtime.
+
+The runtime and optimizations included in [Optimum Intel](https://github.com/huggingface/optimum-intel) take advantage of Intel® Advanced Vector Extensions 512 (Intel® AVX-512), Vector Neural Network Instructions (VNNI) and Intel® Advanced Matrix Extensions (Intel® AMX) on Intel CPUs to accelerate models. Specifically, it has built-in [BFloat16](https://en.wikipedia.org/wiki/Bfloat16_floating-point_format) (bf16) and int8 GEMM accelerators in every core to accelerate deep learning training and inference workloads. AMX accelerated inference is introduced in PyTorch 2.0 and [Intel Extension for PyTorch](https://github.com/intel/intel-extension-for-pytorch) (IPEX) in addition to other optimizations for various common operators.
+
+Optimizing pre-trained models can be done easily with Optimum Intel; many simple examples can be found [here](https://huggingface.co/docs/optimum/main/en/intel/optimization_inc).
+Our blog is accompanied by a [notebook](https://github.com/huggingface/setfit/blob/main/notebooks/setfit-optimum-intel.ipynb) for a step-by-step walkthrough.
 
 ## Step 1: Quantize the SetFit Model using 🤗 Optimum Intel
 
@@ -90,9 +96,12 @@ That’s it! We now have a local copy of our quantized SetFit model. Let’s tes
 
 ## Step 2: Benchmark Inference
 
-In our [notebook](https://github.com/huggingface/setfit/blob/main/notebooks/setfit-optimum-intel.ipynb), we’ve set up a `PerformanceBenchmark` class to compute model latency and throughput, as well as an accuracy measure. Let’s use it to benchmark the original model which uses the standard 🤗 Transformers backend, and our newly optimized model, which is quantized and run using 🤗 Optimum Intel.
+In our [notebook](https://github.com/huggingface/setfit/blob/main/notebooks/setfit-optimum-intel.ipynb), we’ve set up a `PerformanceBenchmark` class to compute model latency and throughput, as well as an accuracy measure. Let’s use it to benchmark our Optimum Intel model with two other commonly used methods:
 
-Load our test dataset, `sst2`, and run the benchmark on the original model:
+ - Using PyTorch and 🤗 Transformers library with fp32.
+ - Using [Intel Extension for PyTorch](https://github.com/intel/intel-extension-for-pytorch) (IPEX) runtime with bf16 and tracing the model using TorchScript.
+
+Load our test dataset, `sst2`, and run the benchmark using PyTorch and 🤗 Transformers library:
 
 ```python
 from datasets import load_dataset
@@ -102,14 +111,30 @@ test_dataset = load_dataset("SetFit/sst2")["validation"]
 model_path = "dkorat/bge-small-en-v1.5_setfit-sst2-english"
 setfit_model = SetFitModel.from_pretrained(model_path)
 pb = PerformanceBenchmark(
-    setfit_model,
-    test_dataset,
-    "bge-small (transformers)"
+    model=setfit_model,
+    dataset=test_dataset,
+    optim_type="bge-small (transformers)",
 )
 perf_metrics = pb.run_benchmark()
 ```
+For the second benchmark, we'll use [Intel Extension for PyTorch](https://github.com/intel/intel-extension-for-pytorch) (IPEX) with bf16 precision and TorchScript tracing. 
+To use IPEX we simply import the IPEX library and apply `ipex.optimize()` to the target model, which, in our case, is the SetFit (transformer) model body:
 
-Now let's run the benchmark on on our optimized model. We’ll first need to define a wrapper around our SetFit model which plugs in our quantized model body at inference (instead of the original model body). Then, we can run the benchmark using this wrapper.
+```python
+dtype = torch.bfloat16
+body = ipex.optimize(setfit_model.model_body, dtype=dtype)
+```
+
+For TorchScript tracing, we generate a random sequence based on the model's maximum input length, with tokens sampled from the tokenizer's vocabulary:
+
+```python
+tokenizer = setfit_model.model_body.tokenizer
+d = generate_random_sequences(batch_size=1, length=tokenizer.model_max_length, vocab_size=tokenizer.vocab_size)
+
+body = torch.jit.trace(body, (d,), check_trace=False, strict=False)
+setfit_model.model_body = torch.jit.freeze(body)
+```
+Now let's run the benchmark using our quantized Optimum model. We’ll first need to define a wrapper around our SetFit model which plugs in our quantized model body at inference (instead of the original model body). Then, we can run the benchmark using this wrapper.
 
 ```python
 from optimum.intel import IPEXModel
@@ -125,11 +150,11 @@ optimum_model = IPEXModel.from_pretrained(optimum_model_path)
 optimum_setfit_model = OptimumSetFitModel(setfit_model, model_body=optimum_model)
 
 pb = PerformanceBenchmark(
-   optimum_setfit_model,
-   test_dataset,
-   f"bge-small (optimum intel)",
-   model_path=optimum_model_path,
-   enable_autocast=True,
+    model=optimum_setfit_model,
+    dataset=test_dataset,
+    optim_type=f"bge-small (optimum-int8)",
+    model_path=optimum_model_path,
+    autocast_dtype=torch.bfloat16,
 )
 perf_metrics.update(pb.run_benchmark())
 ```
@@ -143,13 +168,13 @@ perf_metrics.update(pb.run_benchmark())
 </p>
 
 
-|                      | bge-small (transformers) | bge-small (optimum intel) |
-|----------------------|---------------------|---------------------------|
-| Model Size           | 127.32 MB           | 44.65 MB                  |
-| Accuracy on test set | 88.4%               | 88.1%                     |
-| Latency (bs=1) | 19.50 ms +/- 0.80 ms | 5.06 ms +/- 0.43 ms |
+|                      | bge-small (transformers) | bge-small (ipex-bfloat16) | bge-small (optimum-int8) |
+|----------------------|---------------------|---------------------------|---------------------------|
+| Model Size           | 127.32 MB           | 63.74 MB                  | 44.65 MB                  |
+| Accuracy on test set | 88.4%               | 88.4%                     | 88.1%                     |
+| Latency (bs=1) | 15.69 +/- 0.57 ms | 5.67 +/- 0.66 ms | 4.55 +/- 0.25 ms |
 
-When inspecting the performance at batch size 1, there’s a **3.85x reduction in latency** with our optimized model. Note that this is achieved with virtually no drop in accuracy! 
+When inspecting the performance at batch size 1, there’s a **3.45x reduction in latency** with our optimized model. Note that this is achieved with virtually no drop in accuracy! 
 It's also worth mentioning that the model size has shrunk by **2.85x**. 
 
 <p align="center">
@@ -157,11 +182,11 @@ It's also worth mentioning that the model size has shrunk by **2.85x**.
 </p>
 
 We move on to our main focus, which is the reported throughputs with different batch sizes.
-Here, the optimization has garnered even greater speedups. When comparing the highest achievable throughput (at any batch size), the optimized model is **7.01x faster than before!**
+Here, the optimization has garnered even greater speedups. When comparing the highest achievable throughput (at any batch size), the optimized model is **7.8x faster than the original transformers fp32 model!**
 
 ## Summary
 
-In this blog post, we have showed how to use quantization capabilities present in 🤗 Optimum Intel to optimize SetFit models. After running a quick and easy post-training quantization procedure, we've observed that accuracy level was preserved, while inference throughput increased by nearly 7x. This optimization method can be readily applied to any existing SetFit deployment running on Intel Xeon.
+In this blog post, we have showed how to use quantization capabilities present in 🤗 Optimum Intel to optimize SetFit models. After running a quick and easy post-training quantization procedure, we've observed that accuracy level was preserved, while inference throughput increased by **7.8x**. This optimization method can be readily applied to any existing SetFit deployment running on Intel Xeon.
 
 
 ## References
