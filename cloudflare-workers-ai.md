@@ -21,7 +21,7 @@ This new experience expands upon the [strategic partnership we announced last ye
 Let's take a look at a concrete example. Imagine you develop an RAG Application that gets ~1000 requests per day, with an input of 1k tokens and an output of 100 tokens using Meta Llama 2 7B. The LLM inference production costs would amount to about $1 a day.
 
 
-![cloudflare pricing](/blog/assets/cloudflare-workers-ai/pricing.png)
+![cloudflare pricing](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/cloudflare-workers-ai/pricing.png)
 
 
 "We're excited to bring this integration to life so quickly. Putting the power of Cloudflare's global network of serverless GPUs into the hands of developers, paired with the most popular open source models on Hugging Face, will open the doors to lots of exciting innovation by our community around the world," said John Graham-Cumming, CTO, Cloudflare
@@ -38,7 +38,7 @@ _Note: You need access to a [Cloudflare Account](https://developers.cloudflare.c
 You can find the Deploy on Cloudflare option on all available model pages, including models like Llama, Gemma or Mistral.
 
 
-![model card](/blog/assets/cloudflare-workers-ai/model-card.jpg)
+![model card](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/cloudflare-workers-ai/model-card.jpg)
 
 
 Open the “Deploy” menu, and select “Cloudflare Workers AI” - this will open an interface that includes instructions on how to use this model and send requests.
@@ -47,7 +47,7 @@ _Note: If the model you want to use does not have a “Cloudflare Workers AI” 
 
 
 
-![inference snippet](/blog/assets/cloudflare-workers-ai/modal.jpg)
+![inference snippet](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/cloudflare-workers-ai/modal.jpg)
 
 
 The integration can currently be used via two options: using the [Workers AI REST API](https://developers.cloudflare.com/workers-ai/get-started/rest-api/) or directly in Workers with the [Cloudflare AI SDK](https://developers.cloudflare.com/workers-ai/get-started/workers-wrangler/#1-create-a-worker-project). Select your preferred option and copy the code into your environment. When using the REST API, you need to make sure the <code>[ACCOUNT_ID](https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/)</code> and <code>[API_TOKEN](https://dash.cloudflare.com/profile/api-tokens)</code> variables are defined. 
