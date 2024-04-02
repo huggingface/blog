@@ -183,7 +183,7 @@ model, params = FlaxGemmaForCausalLM.from_pretrained(
 )
 
 inputs = tokenizer("Valencia and Málaga are", return_tensors="np", padding=True)
-output = model.generate(inputs, params=params, max_new_tokens=20, do_sample=False)
+output = model.generate(**inputs, params=params, max_new_tokens=20, do_sample=False)
 output_text = tokenizer.batch_decode(output.sequences, skip_special_tokens=True)
 ```
 
