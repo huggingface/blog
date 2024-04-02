@@ -161,7 +161,7 @@ perf_metrics.update(pb.run_benchmark())
 
 ## Results
 <p align="center">
-    <img src="assets/176_setfit_optimum_intel/latency.png" width=500>
+    <img src="assets/178_setfit_optimum_intel/latency.png" width=500>
 </p>
 <p align="center">
     <em>Accuracy vs latency at batch size=1</em>
@@ -178,7 +178,7 @@ When inspecting the performance at batch size 1, there’s a **3.45x reduction i
 It's also worth mentioning that the model size has shrunk by **2.85x**. 
 
 <p align="center">
-    <img src="assets/176_setfit_optimum_intel/throughput.png" width=500>
+    <img src="assets/178_setfit_optimum_intel/throughput.png" width=500>
 </p>
 
 We move on to our main focus, which is the reported throughputs with different batch sizes.
