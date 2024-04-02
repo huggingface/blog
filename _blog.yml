@@ -3680,3 +3680,17 @@
     - robotics
     - vision
     - object-detection
+
+- local: cloudflare-workers-ai
+  title: "Bringing serverless GPU inference to Hugging Face users"
+  author: philschmid
+  thumbnail: /blog/assets/cloudflare-workers-ai/thumbnail.jpg
+  date: April 2, 2024
+  tags:
+    - partnerships
+    - cloudflare
+    - llm
+    - inference
+    
+        
+    
