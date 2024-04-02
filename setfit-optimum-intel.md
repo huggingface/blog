@@ -10,6 +10,8 @@ authors:
 - user: moshew
   guest: true
 - user: echarlaix
+- user: aprabh2
+  guest: true
 ---
 
 # Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon
