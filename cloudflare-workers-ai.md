@@ -15,7 +15,7 @@ With Deploy on Cloudflare Workers AI, developers can build robust Generative AI 
 
 ## Generative AI for Developers
 
-This new experience expands upon the [strategic partnership we announced last year](https://blog.cloudflare.com/partnering-with-hugging-face-deploying-ai-easier-affordable) to simplify the access and deployment of open Generative AI models. One of the main problems developers and organizations face is the scarcity of GPU availability and the fixed costs of deploying servers to start building. Deploy on Cloudflare Workers AI offers an easy, low-cost solution to these challenges, providing serverless access to popular Hugging Face Models, with a [pay-per-request pricing model](https://developers.cloudflare.com/workers-ai/platform/pricing). 
+This new experience expands upon the [strategic partnership we announced last year](https://blog.cloudflare.com/partnering-with-hugging-face-deploying-ai-easier-affordable) to simplify the access and deployment of open Generative AI models. One of the main problems developers and organizations face is the scarcity of GPU availability and the fixed costs of deploying servers to start building. Deploy on Cloudflare Workers AI offers an easy, low-cost solution to these challenges, providing serverless access to popular Hugging Face Models with a [pay-per-request pricing model](https://developers.cloudflare.com/workers-ai/platform/pricing). 
 
 
 Let's take a look at a concrete example. Imagine you develop an RAG Application that gets ~1000 requests per day, with an input of 1k tokens and an output of 100 tokens using Meta Llama 2 7B. The LLM inference production costs would amount to about $1 a day.
