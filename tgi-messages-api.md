@@ -110,7 +110,7 @@ chat_completion = client.chat.completions.create(
         {"role": "user", "content": "Why is open-source software important?"},
     ],
     stream=True,
-     max_tokens=500
+    max_tokens=500
 )
 
 # iterate and print stream

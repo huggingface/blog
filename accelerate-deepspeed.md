@@ -11,7 +11,7 @@ authors:
 
 In this post we will look at how we can leverage the **[Accelerate](https://github.com/huggingface/accelerate)** library for training large models which enables users to leverage the ZeRO features of **[DeeSpeed](https://www.deepspeed.ai)**.
 
-# Motivation 🤗
+## Motivation 🤗
 **Tired of Out of Memory (OOM) errors while trying to train large models? We've got you covered. Large models are very performant [1] but difficult to train with the available hardware. To get the most of the available hardware for training large models one can leverage Data Parallelism using ZeRO - Zero Redundancy Optimizer [2]**. 
 
 Below is a short description of Data Parallelism using ZeRO with diagram from this [blog post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)
@@ -31,7 +31,7 @@ Below is a short description of Data Parallelism using ZeRO with diagram from th
 
 In this blogpost we will look at how to leverage Data Parallelism using ZeRO using Accelerate. **[DeepSpeed](https://github.com/microsoft/deepspeed)**, **[FairScale](https://github.com/facebookresearch/fairscale/)** and **[PyTorch FullyShardedDataParallel (FSDP)](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/)** have implemented the core ideas of the ZERO paper. These have already been integrated in 🤗 `transformers` Trainer and 🤗 `accelerate` accompanied by great blogs [Fit More and Train Faster With ZeRO via DeepSpeed and FairScale](https://huggingface.co/blog/zero-deepspeed-fairscale) [4] and [Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel](https://huggingface.co/blog/pytorch-fsdp) [5]. We defer the explanation of what goes behind the scenes to those blogs and mainly focus on leveraging DeepSpeed ZeRO using Accelerate.
 
-# Accelerate 🚀:  Leverage DeepSpeed ZeRO without any code changes
+## Accelerate 🚀:  Leverage DeepSpeed ZeRO without any code changes
 
 **Hardware setup**: 2X24GB NVIDIA Titan RTX GPUs. 60GB RAM.
 
@@ -95,7 +95,7 @@ With this bigger batch size, we observe ~**3.5X** speed up in total training tim
 
 To be able to tweak more options, you will need to use a DeepSpeed config file and minimal code changes. Let's see how to do this.
 
-# Accelerate 🚀:  Leverage a DeepSpeed Config file to tweak more options
+## Accelerate 🚀:  Leverage a DeepSpeed Config file to tweak more options
 
 First, We will look at the task of finetuning a sequence-to-sequence model for training our own Chatbot. Specifically, we will finetune `facebook/blenderbot-400M-distill` on the [smangrul/MuDoConv](https://huggingface.co/datasets/smangrul/MuDoConv) (Multi-Domain Conversation) dataset. The dataset contains conversations from 10 different data sources covering personas, grounding in specific emotional contexts, goal-oriented (e.g., restaurant reservation) and general wikipedia topics (e.g, Cricket).
 
@@ -229,7 +229,7 @@ In our Single-Node Multi-GPU setup, the maximum batch size that DDP supports wit
 ![Chatbot](./assets/83_accelerate_deepspeed/chatbot.png)
 
 ---
-## CPU/Disk Offloading to enable training humongous models that won’t fit the GPU memory
+### CPU/Disk Offloading to enable training humongous models that won’t fit the GPU memory
 
 On a single 24GB NVIDIA Titan RTX GPU, one cannot train GPT-XL Model (1.5B parameters) even with a batch size of 1. We will look at how we can use DeepSpeed ZeRO Stage-3 with CPU offloading of optimizer states, gradients and parameters to train GPT-XL Model. 
 
@@ -339,7 +339,7 @@ DDP will result in OOM error even with batch size 1. On the other hand, with Dee
 Finally, please, remember that, 🤗  `Accelerate` only integrates DeepSpeed, therefore if you
 have any problems or questions with regards to DeepSpeed usage, please, file an issue with [DeepSpeed GitHub](https://github.com/microsoft/DeepSpeed/issues).
 
-# References
+## References
 
 [1] [Train Large, Then Compress: Rethinking Model Size for Efficient Training and Inference of Transformers](http://nlp.cs.berkeley.edu/pubs/Li-Wallace-Shen-Lin-Keutzer-Klein-Gonzalez_2020_Transformers_paper.pdf)
 

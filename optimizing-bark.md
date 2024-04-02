@@ -32,7 +32,7 @@ This blog post is organized as follows:
 3.   A [presentation](#benchmark-results) of benchmark results
 
 
-# Bark Architecture
+## Bark Architecture
 
 
 **Bark** is a transformer-based text-to-speech model proposed by Suno AI in [suno-ai/bark](https://github.com/suno-ai/bark). It is capable of generating a wide range of audio outputs, including speech, music, background noise, and simple sound effects. Additionally, it can produce nonverbal communication sounds such as laughter, sighs, and sobs.
@@ -54,7 +54,7 @@ Bark is made of 4 main models:
 At the time of writing, two Bark checkpoints are available, a [smaller](https://huggingface.co/suno/bark-small) and a [larger](https://huggingface.co/suno/bark) version.
 
 
-## Load the Model and its Processor
+### Load the Model and its Processor
 
 The pre-trained Bark small and large checkpoints can be loaded from the [pre-trained weights](https://huggingface.co/suno/bark) on the Hugging Face Hub. You can change the repo-id with the checkpoint size that you wish to use.
 
@@ -83,11 +83,11 @@ from transformers import AutoProcessor
 processor = AutoProcessor.from_pretrained("suno/bark-small")
 ```
 
-# Optimization techniques
+## Optimization techniques
 
 In this section, we'll explore how to use off-the-shelf features from the 🤗 Optimum and 🤗 Accelerate libraries to optimize the Bark model, with minimal changes to the code.
 
-## Some set-ups
+### Some set-ups
 
 Let's prepare the inputs and define a function to measure the latency and GPU memory footprint of the Bark generation method.
 
@@ -137,7 +137,7 @@ def measure_latency_and_memory_use(model, inputs, nb_loops = 5):
   return output
 ```
 
-## Base case
+### Base case
 
 Before incorporating any optimizations, let's measure the performance of the baseline model and listen to a generated example. We'll benchmark the model over five iterations and report an average of the metrics:
 
@@ -172,7 +172,7 @@ The output sounds like this ([download audio](https://huggingface.co/datasets/hu
 Your browser does not support the audio element. 
 </audio> 
 
-### Important note:
+#### Important note:
 
  Here, the number of iterations is actually quite low. To accurately measure and compare results, one should increase it to at least 100.
 
@@ -180,7 +180,7 @@ One of the main reasons for the importance of increasing `nb_loops` is that the 
 
  One consequence of this is that the latency measured by `measure_latency_and_memory_use` may not actually reflect the actual performance of optimization techniques! The benchmark at the end of the blog post reports the results averaged over 100 iterations, which gives a true indication of the performance of the model.
 
-## 1. 🤗 Better Transformer
+### 1. 🤗 Better Transformer
 
 Better Transformer is an 🤗 Optimum feature that performs kernel fusion under the hood. This means that certain model operations will be better optimized on the GPU and that the model will ultimately be faster.
 
@@ -219,7 +219,7 @@ Your browser does not support the audio element.
 
 There's no performance degradation, which means you can get exactly the same result as without this function, while gaining 20% to 30% in speed! Want to know more? See this [blog post](https://pytorch.org/blog/out-of-the-box-acceleration/).
 
-## 2. Half-precision
+### 2. Half-precision
 
 Most AI models typically use a storage format called single-precision floating point, i.e. `fp32`. What does it mean in practice? Each number is stored using 32 bits.
 
@@ -257,7 +257,7 @@ Your browser does not support the audio element.
 
 With a slight degradation in performance, you benefit from a memory footprint reduced by 50% and a speed gain of 5%.
 
-## 3. CPU offload
+### 3. CPU offload
 
 As mentioned in the first section of this booklet, Bark comprises 4 sub-models, which are called up sequentially during audio generation. **In other words, while one sub-model is in use, the other sub-models are idle.**
 
@@ -303,7 +303,7 @@ That's the same memory footprint as `bark-small`!
 
 Want more? With `fp16` enabled, it's even down to 1GB. We'll see this in practice in the next section!
 
-## 4. Combine
+### 4. Combine
 
 Let's bring it all together. The good news is that you can combine optimization techniques, which means you can use CPU offload, as well as half-precision and 🤗 Better Transformer!
 
@@ -340,7 +340,7 @@ Your browser does not support the audio element.
 
 Ultimately, you get a 23% speed-up and a huge 80% memory saving!
 
-## Using batching
+### Using batching
 
 Want more?
 
@@ -384,7 +384,7 @@ Your browser does not support the audio element.
 
 
 
-# Benchmark results
+## Benchmark results
 
 As mentioned above, the little experiment we've carried out is an exercise in thinking and needs to be extended for a better measure of performance. One also needs to warm up the GPU with a few blank iterations before properly measuring performance.
 
@@ -392,9 +392,9 @@ Here are the results of a 100-sample benchmark extending the measurements, **usi
 
 The benchmark was run on an NVIDIA TITAN RTX 24GB with a maximum of 256 new tokens.
 
-## How to read the results?
+### How to read the results?
 
-### Latency
+#### Latency
 
 It measures the duration of a single call to the generation method, regardless of batch size.
 
@@ -402,14 +402,14 @@ In other words, it's equal to \\(\frac{elapsedTime}{nbLoops}\\).
 
 **A lower latency is preferred.**
 
-### Maximum memory footprint
+#### Maximum memory footprint
 
 It measures the maximum memory used during a single call to the generation method.
 
 **A lower footprint is preferred.**
 
 
-### Throughput
+#### Throughput
 
 It measures the number of samples generated per second. This time, the batch size is taken into account.
 
@@ -417,7 +417,7 @@ In other words, it's equal to \\(\frac{nbLoops*batchSize}{elapsedTime}\\).
 
 **A higher throughput is preferred.**
 
-## No batching
+### No batching
 
 Here are the results with `batch_size=1`.
 
@@ -435,13 +435,13 @@ Here are the results with `batch_size=1`.
 | offload + bettertransformer |    -15% |   -59% |
 | offload + bettertransformer + fp16            |    -23% |   -80% |
 
-### Comment
+#### Comment
 
 As expected, CPU offload greatly reduces memory footprint while slightly increasing latency.
 
 However, combined with bettertransformer and `fp16`, we get the best of both worlds, huge latency and memory decrease!
 
-## Batch size set to 8
+### Batch size set to 8
 And here are the benchmark results but with `batch_size=8` and throughput measurement.
 
 Note that since `bettertransformer` is a free optimization because it does exactly the same operation and has the same memory footprint as the non-optimized model while being faster, the benchmark was run with **this optimization enabled by default**.
@@ -461,13 +461,13 @@ Note that since `bettertransformer` is a free optimization because it does exact
 | + offload                       |      6% |   -38% |        -6% |
 | + offload + fp16                |    -43% |   -69% |       77% |
 
-### Comment
+#### Comment
 
 This is where we can see the potential of combining all three optimization features!
 
 The impact of `fp16` on latency is less marked with `batch_size = 1`, but here it is of enormous interest as it can reduce latency by almost half, and almost double throughput!
 
-# Concluding remarks
+## Concluding remarks
 
 This blog post showcased a few simple optimization tricks bundled in the 🤗 ecosystem. Using anyone of these techniques, or a combination of all three, can greatly improve Bark inference speed and memory footprint.
 

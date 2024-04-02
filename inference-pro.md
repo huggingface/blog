@@ -21,9 +21,11 @@ Hugging Face PRO users now have access to exclusive API endpoints for a curated 
 - [Supported Models](#supported-models)
 - [Getting started with Inference for PROs](#getting-started-with-inference-for-pros)
 - [Applications](#applications)
-  - [Chat with Llama 2 and Code Llama](#chat-with-llama-2-and-code-llama)
+  - [Chat with Llama 2 and Code Llama 34B](#chat-with-llama-2-and-code-llama-34b)
+  - [Chat with Code Llama 70B](#chat-with-code-llama-70b)
   - [Code infilling with Code Llama](#code-infilling-with-code-llama)
   - [Stable Diffusion XL](#stable-diffusion-xl)
+- [Messages API](#messages-api)
 - [Generation Parameters](#generation-parameters)
   - [Controlling Text Generation](#controlling-text-generation)
   - [Controlling Image Generation](#controlling-image-generation)
@@ -38,11 +40,17 @@ In addition to thousands of public models available in the Hub, PRO users get fr
 
 | Model               | Size                                                                                                                                                                                       | Context Length | Use                                   |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- | ------------------------------------- |
-| Zephyr 7B β         | [7B](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta) | 4k tokens      | Highest-ranked chat model at the 7B weight |
+| Mixtral 8x7B Instruct | [45B MOE](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1)                                                                                                                            | 32k tokens     | Performance comparable to top proprietary models |
+| Nous Hermes 2 Mixtral 8x7B DPO | [45B MOE](https://huggingface.co/NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO)                                                                                                   | 32k tokens     | Further trained over Mixtral 8x7B MoE |
+| Mistral 7B Instruct v0.2 | [7B](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2)                                                                                                                       | 4k tokens      | One of the best chat models at the 7B weight |
+| Zephyr 7B β         | [7B](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)                                                                                                                                  | 4k tokens      | One of the best chat models at the 7B weight |
 | Llama 2 Chat        | [7B](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), [13B](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf), and [70B](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) | 4k tokens      | One of the best conversational models |
 | Code Llama Base     | [7B](https://huggingface.co/codellama/CodeLlama-7b-hf) and [13B](https://huggingface.co/codellama/CodeLlama-13b-hf)                                                                        | 4k tokens      | Autocomplete and infill code          |
 | Code Llama Instruct | [34B](https://huggingface.co/codellama/CodeLlama-34b-Instruct-hf)                                                                                                                          | 16k tokens     | Conversational code assistant         |
+| **New** Code Llama 70B Instruct | [70B](https://huggingface.co/codellama/CodeLlama-34b-Instruct-hf)                                                                                                              | 4k tokens      | Conversational code assistant         |
+| OpenChat 3.5 | [7B](https://huggingface.co/openchat/openchat-3.5-0106)                                                                                                                                           | 8k tokens      | Great performance for a 7B model      |
 | Stable Diffusion XL | [3B UNet](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0)                                                                                                                 | -              | Generate images                       |
+| Bark | [0.9B](https://huggingface.co/suno/bark)                                                                                                                                                                  | -              | Text to audio generation              |
 
 Inference for PROs makes it easy to experiment and prototype with new models without having to deploy them on your own infrastructure. It gives PRO users access to ready-to-use HTTP endpoints for all the models listed above. It’s not meant to be used for heavy production applications - for that, we recommend using [Inference Endpoints](https://ui.endpoints.huggingface.co/catalog). Inference for PROs also allows using applications that depend upon an LLM endpoint, such as using a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) for code completion, or have your own version of [Hugging Chat](http://hf.co/chat).
 
@@ -111,7 +119,7 @@ In addition to Python, you can also use JavaScript to integrate inference calls 
 
 ## Applications
 
-### Chat with Llama 2 and Code Llama
+### Chat with Llama 2 and Code Llama 34B
 
 Models prepared to follow chat conversations are trained with very particular and specific chat templates that depend on the model used. You need to be careful about the format the model expects and replicate it in your queries.
 
@@ -146,6 +154,86 @@ If we wish to continue the conversation, we have to append the model response to
 This same format can be used with Code Llama Instruct to engage in technical conversations with a code-savvy assistant!
 
 Please, refer to [our Llama 2 blog post](https://huggingface.co/blog/llama2#how-to-prompt-llama-2) for more details.
+
+### Chat with Code Llama 70B
+
+The 70B version of Code Llama was released in January 2024, 5 months after the initial Code Llama release. This larger model was trained using a different chat format, so the instructions in the previous section don't apply to this model.
+
+If we are using Python code, the easiest way to apply the correct chat format is by using the chat template built into the tokenizer. Let's say we have a dialog with system instructions plus a few turns of conversation between the user and the assistant. We can represent the full conversation in a Python list with this format:
+
+```py
+chat = [
+    {"role": "system", "content": "System prompt    "},
+    {"role": "user", "content": "First user query"},
+    {"role": "assistant", "content": "Model response to first query"},
+    {"role": "user", "content": "Second user query"},
+]
+```
+
+The spaces at the ond of the system prompt are there to demonstrate how they are trimmed before use. To convert this conversation into a chat prompt, we'll use the Code Llama 70B tokenizer's chat template:
+
+```py
+from transformers import AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained("codellama/CodeLlama-70b-Instruct-hf")
+tokenizer.apply_chat_template(chat, tokenize=False)
+```
+
+This results in the following prompt:
+
+```
+'<s>Source: system\n\n System prompt <step> Source: user\n\n First user query <step> Source: assistant\n\n Model response to first query <step> Source: user\n\n Second user query <step> Source: assistant\nDestination: user\n\n '
+```
+
+The system prompt goes first, then we have alternating turns between user and assistant. Turns are preceded by `Source: `, and separated with ` <step> `. We have to be careful with newlines and separators. The last user turn is followed by a suffix `Source: assistant\nDestination: user` that is a hint for the model to generate the next response.
+
+We can replicate the same structure with a Python loop:
+
+```py
+output = "<s>"
+for m in chat:
+    output += f"Source: {m['role']}\n\n {m['content'].strip()}"
+    output += " <step> "
+output += "Source: assistant\nDestination: user\n\n "
+output
+```
+
+There's an additional caveat with this model. It tends to continue "talking" long after it's done with the response. For example, if you use the Pro endpoint like this:
+
+```py
+client = InferenceClient(model="codellama/CodeLlama-70b-Instruct-hf", token=YOUR_TOKEN)
+
+chat = [
+    {"role": "system", "content": ""},
+    {"role": "user", "content": "Write a hello world program in Python"},
+]
+prompt = tokenizer.apply_chat_template(chat, tokenize=False)
+client.text_generation(prompt, max_new_tokens=150)
+```
+
+You may see a response like the following:
+
+```
+'\n```\nprint("Hello, World!")\n```\n\nThis is a simple "Hello, World!" program in Python. It prints the string "Hello, World!" to the console. <step> Source: assistant\nEOT: true <step> Source: assistant\nDestination: user\n\n This program is a simple example of a "Hello, World!" program in Python. It demonstrates the basic syntax and structure of a Python program. <step> Source: assistant\nEOT: true <step> Source: assistant\nDestination: user\n\n The `print` function is used to display text or other data to the console. In this case, it displays the string "Hello, World!" to the console. <step> Source: assistant\nE'
+```
+
+The model inserts the `<step>` token to indicate that its response is done. However, that token is not the same as the tokenizer's usual EOS token (`</s>`, in this case), so the generation loop in the endpoint will go on until a real EOS is found. To fix this problem, we can include `<step>` as a stop condition in our query:
+
+```py
+client.text_generation(prompt, max_new_tokens=150, stop_sequences=["<step>", "</s>"])
+```
+
+```
+'\n```\nprint("Hello, World!")\n```\n\nThis is a simple "Hello, World!" program in Python. It prints the string "Hello, World!" to the console. <step>'
+```
+
+If you want to do the same yourself without the `InferenceClient` class, you can do it like this:
+
+```bash
+curl -X POST -H "x-use-cache: 0" -H "Authorization: Bearer YOUR_TOKEN" "https://api-inference.huggingface.co/models/codellama/CodeLlama-70b-Instruct-hf" -H "Content-Type: application/json" -d '{"inputs":"<s>Source: system\n\n You are a helpful and honest code assistant <step> Source: user\n\n Print a hello world in Python <step> Source: assistant\nDestination: user\n\n", "parameters": {"stop": ["<step>", "</s>"]}}'
+```
+
+For additional details on text generation parameters available in the API, please check [a later section in this post](#controlling-text-generation).
 
 ### Code infilling with Code Llama
 
@@ -204,6 +292,36 @@ image = sdxl.text_to_image(
 ![SDXL example generation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-for-pros/sdxl-example.png)
 
 For more details on how to control generation, please take a look at [this section](#controlling-image-generation).
+
+## Messages API
+
+All text generation models now support the Messages API, so they are compatible with OpenAI client libraries, including LangChain and LlamaIndex. The following snippet shows how to use the official `openai` client library with Code Llama 70B Instruct:
+
+```py
+from openai import OpenAI
+import huggingface_hub
+
+# Initialize the client, pointing it to one of the available models
+client = OpenAI(
+    base_url="https://api-inference.huggingface.co/models/codellama/CodeLlama-70b-Instruct-hf/v1/",
+    api_key=huggingface_hub.get_token(),
+)
+chat_completion = client.chat.completions.create(
+    model="codellama/CodeLlama-70b-Instruct-hf",
+    messages=[
+        {"role": "system", "content": "You are a helpful an honest programming assistant."},
+        {"role": "user", "content": "Is Rust better than Python?"},
+    ],
+    stream=True,
+    max_tokens=500
+)
+
+# iterate and print stream
+for message in chat_completion:
+    print(message.choices[0].delta.content, end="")
+```
+
+For more details about the use of the Messages API, please [check this post](https://huggingface.co/blog/tgi-messages-api).
 
 ## Generation Parameters
 
