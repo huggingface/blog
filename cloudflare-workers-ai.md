@@ -4,7 +4,7 @@ thumbnail: /blog/assets/cloudflare-workers-ai/thumbnail.jpg
 authors:
 - user: philschmid
 - user: jeffboudier
-- user rita3ko
+- user: rita3ko
   guest: true
 - user: nkothariCF
   guest: true
