@@ -1,8 +1,10 @@
 ---
 title: "Public Policy at Hugging Face"
-thumbnail: 
+thumbnail: /blog/assets/policy_docs/policy_blog_thumbnail.png
 authors:
-- user: irenesolaiman, yjernite, meg
+- user: irenesolaiman
+- user: yjernite
+- user: meg
 ---
 
 # Public Policy at Hugging Face
