@@ -31,7 +31,7 @@ Let's take a look at a concrete example. Imagine you develop an RAG Application 
 
 Using Hugging Face Models on Cloudflare Workers AI is super easy. Below, you will find step-by-step instructions on how to use Hermes 2 Pro on Mistral 7B, the newest model from Nous Research.
 
-. You can find all available models in this [Cloudflare Collection](https://huggingface.co/collections/Cloudflare/hf-curated-models-available-on-workers-ai-66036e7ad5064318b3e45db6).
+You can find all available models in this [Cloudflare Collection](https://huggingface.co/collections/Cloudflare/hf-curated-models-available-on-workers-ai-66036e7ad5064318b3e45db6).
 
 _Note: You need access to a [Cloudflare Account](https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/) and [API Token](https://dash.cloudflare.com/profile/api-tokens)._
 
