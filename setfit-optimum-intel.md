@@ -32,7 +32,7 @@ Setfit has been widely adopted by the AI developer community, with \~100k downlo
 
 ## Faster!
 
-In this blog post, we'll explain how you can accelerate inference with SetFit even further on Intel CPUs, by optimizing your SetFit model with 🤗 [Optimum Intel](https://github.com/huggingface/optimum-intel). We’ll show how you can achieve huge throughput gains by performing a simple post-training quantization step on your model. This can enable production-grade deployment of SetFit solutions using Intel Xeon CPUs. 
+In this blog post, we'll explain how you can accelerate inference with SetFit by **7.8x** on Intel CPUs, by optimizing your SetFit model with 🤗 [Optimum Intel](https://github.com/huggingface/optimum-intel). We’ll show how you can achieve huge throughput gains by performing a simple post-training quantization step on your model. This can enable production-grade deployment of SetFit solutions using Intel Xeon CPUs. 
 
 [Optimum Intel](https://github.com/huggingface/optimum-intel) is an open-source library that accelerates end-to-end pipelines built with Hugging Face libraries on Intel Hardware. Optimum Intel includes several techniques to accelerate models such as low-bit quantization, model weight pruning, distillation, and an accelerated runtime.
 
