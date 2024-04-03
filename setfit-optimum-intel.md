@@ -28,7 +28,7 @@ Compared to LLM based methods, SetFit has two unique advantages:
 
 For more details on SetFit, check out our [paper](https://arxiv.org/abs/2209.11055), [blog](https://huggingface.co/blog/setfit), [code](https://github.com/huggingface/setfit), and [data](https://huggingface.co/SetFit).
 
-Setfit has been widely adopted by the AI developer community, with ~100k downloads per month and [~1500](https://huggingface.co/models?library=setfit) SetFit models on the Hub, and growing with an average of ~4 models per day!
+Setfit has been widely adopted by the AI developer community, with \~100k downloads per month and [\~1500](https://huggingface.co/models?library=setfit) SetFit models on the Hub, and growing with an average of ~4 models per day!
 
 ## Faster!
 
