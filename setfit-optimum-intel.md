@@ -2,7 +2,7 @@
 title: "Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon"
 thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
-- user: dkorat
+- user: danielkorat
   guest: true
 - user: tomaarsen
 - user: orenpereg
