@@ -64,7 +64,7 @@ First, we’ll load 100 random samples from this dataset. Then, to prepare the d
 calibration_set = load_dataset("rotten_tomatoes", split="train").shuffle(seed=42).select(range(100)) 
 
 def tokenize(examples):
-   return tokenizer(examples["text"], padding="max_length", max_length=512, truncation=True)
+    return tokenizer(examples["text"], padding="max_length", max_length=512, truncation=True)
  
 tokenizer = setfit_model.model_body.tokenizer
 calibration_set = calibration_set.map(tokenize, remove_columns=["text", "label"])
@@ -140,10 +140,10 @@ Now let's run the benchmark using our quantized Optimum model. We’ll first nee
 from optimum.intel import IPEXModel
 
 class OptimumSetFitModel:
-   def __init__(self, setfit_model, model_body):
-       model_body.tokenizer = setfit_model.model_body.tokenizer
-       self.model_body = model_body
-       self.model_head = setfit_model.model_head
+    def __init__(self, setfit_model, model_body):
+        model_body.tokenizer = setfit_model.model_body.tokenizer
+        self.model_body = model_body
+        self.model_head = setfit_model.model_head
 
 
 optimum_model = IPEXModel.from_pretrained(optimum_model_path)
