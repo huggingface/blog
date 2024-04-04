@@ -3706,3 +3706,14 @@
     - collaboration
     - community    
     - open-source-collab
+
+- local: duckdb-nsql-7b
+  title: "Text2SQL using Hugging Face Datasets Server API and Motherduck DuckDB-NSQL-7B"
+  author: asoria
+  thumbnail: /blog/assets/duckdb-nsql-7b/thumbnail.png
+  date: April 4, 2024
+  tags:
+    - guide
+    - text2sql
+    - datasets
+    - llm
