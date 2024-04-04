@@ -1,6 +1,6 @@
 ---
 title: "CPU Optimized Embeddings with 🤗 Optimum Intel and fastRAG"
-thumbnail: /blog/assets/optimum_intel/thumbnail.png
+thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
 - user: peterizsak
   guest: true

@@ -3681,11 +3681,37 @@
     - vision
     - object-detection
 
+- local: cloudflare-workers-ai
+  title: "Bringing serverless GPU inference to Hugging Face users"
+  author: philschmid
+  thumbnail: /blog/assets/cloudflare-workers-ai/thumbnail.jpg
+  date: April 2, 2024
+  tags:
+    - partnerships
+    - cloudflare
+    - llm
+    - inference
+    
+- local: setfit-optimum-intel
+  title: "Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon"
+  author: danielkorat
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: April 3, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community    
+    - open-source-collab
+
 - local: duckdb-nsql-7b
   title: "Text2SQL using Hugging Face Datasets Server API and Motherduck DuckDB-NSQL-7B"
   author: asoria
   thumbnail: /blog/assets/duckdb-nsql-7b/thumbnail.png
-  date: March 28, 2024
+  date: April 4, 2024
   tags:
     - guide
     - text2sql
