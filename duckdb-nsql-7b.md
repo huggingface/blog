@@ -30,7 +30,7 @@ Initially fine-tuned from Meta’s original [Llama-2–7b](https://huggingface.c
 In this article, we will learn how to deal with text2sql tasks using the DuckDB-NSQL-7B model, Hugging Face datasets server API for parquet files and duckdb for data retrieval.
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/text2sql-flow.png" alt="text2sql flow" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/text2sql-flow.png" alt="text2sql flow"><br>
 <em>text2sql flow</em>
 </p>
 
@@ -38,7 +38,7 @@ In this article, we will learn how to deal with text2sql tasks using the DuckDB-
 
 - Using Hugging Face `transformers` pipeline
 
-```
+```python
 from transformers import pipeline
 
 pipe = pipeline("text-generation", model="motherduckdb/DuckDB-NSQL-7B-v0.1")
@@ -46,7 +46,7 @@ pipe = pipeline("text-generation", model="motherduckdb/DuckDB-NSQL-7B-v0.1")
 
 - Using transformers tokenizer and model
 
-```
+```python
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 tokenizer = AutoTokenizer.from_pretrained("motherduckdb/DuckDB-NSQL-7B-v0.1")
@@ -55,7 +55,7 @@ model = AutoModelForCausalLM.from_pretrained("motherduckdb/DuckDB-NSQL-7B-v0.1")
 
 - Using `llama.cpp` to load the model in `GGUF`
 
-```
+```python
 from llama_cpp import Llama
 
 llama = Llama(
@@ -75,7 +75,7 @@ Each dataset hosted by Hugging Face comes equipped with a comprehensive dataset 
 For this demo, we will be using the [world-cities-geo](https://huggingface.co/datasets/jamescalam/world-cities-geo) dataset.
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/dataset-viewer.png" alt="dataset viewer" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/dataset-viewer.png" alt="dataset viewer"><br>
 <em>Dataset viewer of world-cities-geo dataset</em>
 </p>
 
@@ -95,7 +95,7 @@ In this demo, we will use the last functionality, auto-converted parquet files.
 First, [download](https://huggingface.co/motherduckdb/DuckDB-NSQL-7B-v0.1-GGUF/blob/main/DuckDB-NSQL-7B-v0.1-q8_0.gguf) the quantized models version of DuckDB-NSQL-7B-v0.1
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/download.png" alt="download model" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/download.png" alt="download model"><br>
 <em>Downloading the model</em>
 </p>
 
@@ -148,13 +148,13 @@ GET https://huggingface.co/api/datasets/jamescalam/world-cities-geo/parquet
 The [parquet file](https://huggingface.co/api/datasets/jamescalam/world-cities-geo/parquet/default/train/0.parquet) is hosted in Hugging Face viewer under `refs/convert/parquet` revision:
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/parquet.png" alt="parquet file" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/parquet.png" alt="parquet file"><br>
 <em>Parquet file</em>
 </p>
 
 - Simulate a [DuckDB](https://duckdb.org/) table creation from the first row of the parquet file
 
-```
+```python
 import duckdb
 con = duckdb.connect()
 con.execute(f"CREATE TABLE data as SELECT * FROM '{first_parquet_url}' LIMIT 1;")
@@ -183,13 +183,13 @@ CREATE TABLE "data"(
 And, as you can see, it matches the columns in the dataset viewer:
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/columns.png" alt="dataset columns" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/columns.png" alt="dataset columns"><br>
 <em>Dataset columns</em>
 </p>
 
 - Now, we can construct the prompt with the **ddl_create** and the **query** input
 
-```
+```python
 prompt = """### Instruction:
    Your task is to generate valid duckdb SQL to answer the following question.
    ### Input:
@@ -203,12 +203,13 @@ prompt = """### Instruction:
 ```
 If the user wants to know the **Cities from Albania country**, the prompt will look like this:
 
-```
+```python
 query = "Cities from Albania country"
 prompt = prompt.format(ddl_create=ddl_create, query_input=query)
 ```
 
 So the expanded prompt that will be sent to the LLM looks like this:
+
 ```
 ### Instruction:
 Your task is to generate valid duckdb SQL to answer the following question.
@@ -225,7 +226,7 @@ Cities from Albania country
 
 - It is time to send the prompt to the model
 
-```
+```python
 from llama_cpp import Llama
 
 llm = Llama(
@@ -241,7 +242,7 @@ sql_output = pred["choices"][0]["text"]
 
 The output SQL command will point to a `data` table, but since we don't have a real table but just a reference to the parquet file, we will replace all `data` occurrences by the `first_parquet_url`:
 
-```
+```python
 sql_output = sql_output.replace("FROM data", f"FROM '{first_parquet_url}'")
 ```
 
@@ -253,7 +254,7 @@ SELECT city FROM 'https://huggingface.co/api/datasets/jamescalam/world-cities-ge
 
 - Now, it is time to finally execute our generated SQL directly in the dataset, so, lets use once again DuckDB powers:
 
-```
+```python
 con = duckdb.connect()
 try:
    query_result = con.sql(sql_output).df()
@@ -266,14 +267,14 @@ finally:
 And here we have the results (100 rows):
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/result.png" alt="sql command result" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/result.png" alt="sql command result"><br>
 <em>Execution result (100 rows)</em>
 </p>
 
 Let's compare this result with the dataset viewer using the "search function" for **Albania** country, it should be the same:
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/search.png" alt="search result" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/search.png" alt="search result"><br>
 <em>Search result for Albania country</em>
 </p>
 
@@ -282,7 +283,7 @@ You can also get the same result calling directly to the search or filter API:
 
 - Using [/search](https://huggingface.co/docs/datasets-server/search?code=python#search-text-in-a-dataset) API
 
-```
+```python
 import requests
 API_URL = "https://datasets-server.huggingface.co/search?dataset=jamescalam/world-cities-geo&config=default&split=train&query=Albania"
 def query():
@@ -293,7 +294,8 @@ data = query()
 
 
 - Using [filter](https://huggingface.co/docs/datasets-server/filter) API
-```
+
+```python
 import requests
 API_URL = "https://datasets-server.huggingface.co/filter?dataset=jamescalam/world-cities-geo&config=default&split=train&where=country='Albania'"
 def query():
@@ -302,13 +304,12 @@ def query():
 data = query()
 ```
 
-
 Our final demo will be a Hugging Face space that looks like this:
 
 <figure class="image table text-center m-0 w-full">
     <video 
         alt="Demo"
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 95%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
       <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/demo.mp4" type="video/mp4">
