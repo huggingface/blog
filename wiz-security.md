@@ -1,5 +1,6 @@
 ---
 title: "Hugging Face partners with Wiz Research to Improve AI Security"
+thumbnail: /blog/assets/wiz_security/security.png
 authors:
 - user: JJoe206
 - user: GuillaumeSalouHF
