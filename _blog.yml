@@ -3718,7 +3718,7 @@
     - datasets
     - llm
 
-- local: wiz-security
+- local: hugging-face-wiz-security-blog
   title: "Hugging Face partners with Wiz Research to Improve AI Security"
   author: JJoe206
   thumbnail: /blog/assets/wiz_security/security.png
