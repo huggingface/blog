@@ -227,7 +227,7 @@ More experts lead to improved sample efficiency and faster speedup, but these ar
 
 ## Fine-tuning MoEs
 
-> Mixtral is supported with version 4.36.0 of transformers. You can install it with `pip install "transformers==4.36.0 --upgrade`
+> Mixtral is supported with version 4.36.0 of transformers. You can install it with `pip install transformers==4.36.0 --upgrade`
 
 The overfitting dynamics are very different between dense and sparse models. Sparse models are more prone to overfitting, so we can explore higher regularization (e.g. dropout) within the experts themselves (e.g. we can have one dropout rate for the dense layers and another, higher, dropout for the sparse layers). 
 
