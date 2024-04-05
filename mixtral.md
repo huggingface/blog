@@ -306,7 +306,7 @@ output = model.generate(**inputs, max_new_tokens=50)
 print(tokenizer.decode(output[0], skip_special_tokens=True))
 ```
 
-If left unset , the "use_exllama" parameter defaults to True , enabling the exllama backend functionality, specifically designed to work with the "bits" value of 4 .
+If left unset , the "use_exllama" parameter defaults to True , enabling the exllama backend functionality, specifically designed to work with the "bits" value of 4.
 
 Note that for both QLoRA and GPTQ you need at least 30 GB of GPU VRAM to fit the model. You can make it work with 24 GB if you use `device_map="auto"`, like in the example above, so some layers are offloaded to CPU.
 
