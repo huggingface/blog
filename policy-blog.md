@@ -35,7 +35,7 @@ The following materials reflect what we find urgent to stress to policymakers at
         - December 2023: Response to OMB [RFC Agency Use of Artificial Intelligence](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2023_OMB%20EO%20RFC.pdf)
         - November 2023: Response to U.S. Copyright Office [Notice of Inquiry on Artificial Intelligence and Copyright](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2023_Copyright_Response.pdf)
         - June 2023: Response to NTIA [RFC on AI Accountability](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2023_NTIA_Response.pdf)
-        - September 2022: Response to NIST [AI Risk Management Framework]](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2022_NIST_RMF_Response.pdf)
+        - September 2022: Response to NIST [AI Risk Management Framework](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2022_NIST_RMF_Response.pdf)
         - June 2022: Response to NAIRR [Implementing Findings from the National Artificial Intelligence Research Resource Task Force](https://huggingface.co/blog/assets/92_us_national_ai_research_resource/Hugging_Face_NAIRR_RFI_2022.pdf)
 
 
