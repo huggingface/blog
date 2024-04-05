@@ -558,7 +558,7 @@
 
 - local: fine-tune-segformer
   title: "Fine-Tune a Semantic Segmentation Model with a Custom Dataset"
-  author: segments-tobias
+  author: tobiasc
   thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
   date: March 17, 2022
   tags:
@@ -1531,7 +1531,7 @@
 
 - local: clipseg-zero-shot
   title: "Zero-shot image segmentation with CLIPSeg"
-  author: segments-tobias
+  author: tobiasc
   thumbnail: /blog/assets/123_clipseg-zero-shot/thumb.png
   date: December 21, 2022
   tags:
