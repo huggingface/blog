@@ -285,8 +285,7 @@ output = model.generate(**inputs, max_new_tokens=50)
 print(tokenizer.decode(output[0], skip_special_tokens=True))
 ```
 
-You could also just load the model using a GPTQ configuration setting the desired parameters , as usual when working with transformers .
-For faster inference and production load we want to leverage the [exllama kernels](https://github.com/turboderp/exllama) (Achieving the same latency as fp16 model, but 4x less memory usage) .
+If you have [exllama kernels installed](https://github.com/turboderp/exllama), you can leverage them to run the GPTQ model. To do so, load the model with a custom GPTQ configuration where you set the desired parameters:
 
 ```python
 import torch
