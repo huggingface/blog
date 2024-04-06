@@ -295,8 +295,11 @@ model_id = "TheBloke/Mixtral-8x7B-v0.1-GPTQ"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 gptq_config = GPTQConfig(bits=4, use_exllama=True)
-model = AutoModelForCausalLM.from_pretrained(model_id,quantization_config=gptq_config,
-                                             device_map="auto")
+model = AutoModelForCausalLM.from_pretrained(
+    model_id,
+    quantization_config=gptq_config,
+    device_map="auto"
+)
 
 prompt = "[INST] Explain what a Mixture of Experts is in less than 100 words. [/INST]"
 inputs = tokenizer(prompt, return_tensors="pt").to(0)
