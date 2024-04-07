@@ -1402,7 +1402,7 @@
     - announcement
 
 - local: intel-fast-embedding
-  title: "利用 🤗 Optimum Intel 和 fastRAG 在 CPU 上优化文本嵌入"
+  title: 利用 🤗 Optimum Intel 和 fastRAG 在 CPU 上优化文本嵌入
   author: peterizsak
   guest: true
   thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
@@ -1427,3 +1427,14 @@
     - llm
     - training
 
+- local: cloudflare-workers-ai
+  title: 为 Hugging Face 用户带来无服务器 GPU 推理服务
+  author: philschmid
+  thumbnail: /blog/assets/cloudflare-workers-ai/thumbnail.jpg
+  date: April 2, 2024
+  tags:
+    - partnerships
+    - cloudflare
+    - llm
+    - inference
+    
