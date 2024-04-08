@@ -25,7 +25,7 @@ Like any other model available on the Hugging Face platform, select _Deploy_ and
 
 ![Alt text](assets/fhe-endpoints/one.png "Inference Endpoint (dedicated)")
 
-Next, choose the endpoint name or the region, and most importantly, the CPU (Concrete ML models do not use GPUs for now; we are [working](https://www.zama.ai/post/tfhe-rs-v0-5) on it) as well as the best machine available - in the example below we chose eight vCPU. Now click on _Create Endpoint_ and wait for the initialization to finish.
+Next, choose the Endpoint name or the region, and most importantly, the CPU (Concrete ML models do not use GPUs for now; we are [working](https://www.zama.ai/post/tfhe-rs-v0-5) on it) as well as the best machine available - in the example below we chose eight vCPU. Now click on _Create Endpoint_ and wait for the initialization to finish.
 
 ![Alt text](assets/fhe-endpoints/two.png "Create Endpoint")
 
@@ -33,7 +33,7 @@ After a few seconds, the Endpoint is deployed, and your privacy-preserving model
 
 ![Alt text](assets/fhe-endpoints/three.png "Endpoint is created")
 
-> [!NOTE]: Don’t forget to delete the endpoint (or at least pause it) when you are no longer using it, or else it will cost more than anticipated.
+> [!NOTE]: Don’t forget to delete the Endpoint (or at least pause it) when you are no longer using it, or else it will cost more than anticipated.
 
 ## Using the Endpoint
 
@@ -49,7 +49,7 @@ They will be given a small command line that they can run in their terminal:
 git clone https://huggingface.co/zama-fhe/concrete-ml-encrypted-decisiontree
 ```
 
-Once the command inside their terminal, they can go on the `concrete-ml-encrypted-decisiontree` directory and open `play_with_endpoint.py` with their editor. Here, they will find the line with `API_URL = …`, and should replace it with the new URL of the endpoint created in the previous section. In our case, it would be:
+Once the command is done, we can go to the `concrete-ml-encrypted-decisiontree` directory and open `play_with_endpoint.py` with their editor. Here, they will find the line with `API_URL = …` and should replace it with the new URL of the Endpoint created in the previous section. In our case, it would be:
 
 ```bash
 API_URL = "https://tcipez38maclnbm6.eu-west-1.aws.endpoints.huggingface.cloud”
@@ -61,7 +61,7 @@ In your case, fill it in with with _your_ entrypoint’s URL. Also, define an [a
 export HF_TOKEN=[your token hf_XX..XX]
 ```
 
-Lastly, your machine needs to have Concrete ML installed locally: Make a virtual environment, source it and install the necessary dependencies:
+Lastly, your machine needs to have Concrete ML installed locally: Make a virtual environment, source it, and install the necessary dependencies:
 
 ```bash
 python3.9 -m venv .venv
@@ -72,7 +72,7 @@ pip install -r requirements.txt
 
 ### Running inferences
 
-Now, you can run the inferences on the entry point, by running:
+Now, you can run inference on the Endpoint launching the script:
 
 ```bash
 python play_with_endpoint.py
@@ -101,7 +101,7 @@ Duration per inference: 4.123 seconds
 
 ### Adapting to your application or needs
 
-If you edit `play_with_endpoint.py`, you’ll see that we iterate over different samples of the test dataset, and run encrypted inferences directly on the endpoint.
+If you edit `play_with_endpoint.py`, you'll see that we iterate over different samples of the test dataset and run encrypted inferences directly on the Endpoint.
 
 ```python
 for i in range(nb_samples):
@@ -151,7 +151,7 @@ Please note that all of this is done thanks to the flexibility of [custom handle
 
 ### Limits
 
-One can remark however that keys are stored in the RAM of the endpoint, which is not convenient for a production environment: at each restart, the keys are lost and need to be re-sent; Plus, when you have several machines to handle huge traffic, this RAM is not shared between the machines. Finally, the fact that the available CPU machines only provide 8 vCPUs at most for endpoints makes the execution time worse than if deployed on AWS machines.
+One can remark however that keys are stored in the RAM of the Endpoint, which is not convenient for a production environment: at each restart, the keys are lost and need to be re-sent; Plus, when you have several machines to handle huge traffic, this RAM is not shared between the machines. Finally, the fact that the available CPU machines only provide 8 vCPUs at most for Endpoints makes the execution time worse than if deployed on AWS machines.
 
 ## Preparing your own pre-compiled model
 
@@ -171,7 +171,7 @@ Now, you can save this directory with the `compiled_model` directory and files, 
 
 For now, we have prepared a few pre-compiled models as examples, hoping the community will extend this soon.
 
-| Model kind  | Dataset  | Execution time on HF endpoint  |
+| Model kind  | Dataset  | Execution time on HF Endpoint  |
 |---|---|---|
 | [Logistic Regression](https://huggingface.co/zama-fhe/concrete-ml-encrypted-logreg) | Synthetic  | 0.4 sec |
 [DecisionTree](https://huggingface.co/zama-fhe/concrete-ml-encrypted-decisiontree) | Spam | 2.0 sec
@@ -179,19 +179,19 @@ For now, we have prepared a few pre-compiled models as examples, hoping the comm
 [CNN](https://huggingface.co/zama-fhe/concrete-ml-encrypted-deeplearning) | MNIST | 24 sec
 
 
-Keep in mind that CPU machines available as HF endpoints today are not as powerful as AWS' machines (generally m6i or hpc7a), so complex models' execution time is expected to be slower. Hopefully, more powerful machines will soon be available on Hugging Face endpoints to improve these timings.
+Keep in mind that CPU machines available as HF Endpoints today are not as powerful as AWS' machines (generally m6i or hpc7a), so complex models' execution time is expected to be slower. Hopefully, more powerful machines will soon be available on Hugging Face Endpoints to improve these timings.
 
 ## Conclusion and next steps
 
-In this blog post, we have shown that custom endpoints are pretty easy yet powerful to use: what we do in Concrete ML is pretty different from the regular workflow of ML practitioners but still, we are able to accommodate the custom endpoints to deal with most of our needs. Kudos to Hugging Face engineers for developing such a generic solution.
+In this blog post, we have shown that custom Endpoints are pretty easy yet powerful to use: what we do in Concrete ML is pretty different from the regular workflow of ML practitioners but still, we are able to accommodate the custom Endpoints to deal with most of our needs. Kudos to Hugging Face engineers for developing such a generic solution.
 
 We explained how:
 
 - Developers can create their own pre-compiled models and make them available on Hugging Face models.
-- Companies can deploy developers' pre-compiled models and make them available to their users via HF endpoints.
-- Users can use these endpoints to run their ML tasks over encrypted data.
+- Companies can deploy developers' pre-compiled models and make them available to their users via HF Endpoints.
+- Users can use these Endpoints to run their ML tasks over encrypted data.
 
-To go further, it would be useful to have more powerful machines available on Hugging Face endpoints, to make inferences faster. Also, we could imagine that Concrete ML becomes more integrated on Hugging Face’s interface, and have a _Private-Preserving Inference Endpoint_ button, which would simplify developers' life even more. Finally, for an integration in more server machines, it could be useful to have a way to share a state between machines, and keep this state non-volatile (FHE inference keys would be stored there).
+To go further, it would be useful to have more powerful machines available on Hugging Face Endpoints, to make inferences faster. Also, we could imagine that Concrete ML becomes more integrated on Hugging Face’s interface, and have a _Private-Preserving Inference Endpoint_ button, which would simplify developers' life even more. Finally, for an integration in more server machines, it could be useful to have a way to share a state between machines, and keep this state non-volatile (FHE inference keys would be stored there).
 
 
 Zama libraries [Concrete](https://github.com/zama-ai/concrete) and [Concrete-ML](https://github.com/zama-ai/concrete-ml) (Don't forget to star the repos on GitHub ⭐️💛) allow straightforward ML model building and conversion to the FHE equivalent to being able to compute and predict over encrypted data.
