@@ -2,7 +2,7 @@
 title: Zero-shot image segmentation with CLIPSeg
 thumbnail: /blog/assets/123_clipseg-zero-shot/thumb.png
 authors:
-- user: segments-tobias
+- user: tobiasc
   guest: true
 - user: nielsr
 ---

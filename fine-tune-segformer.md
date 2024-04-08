@@ -2,7 +2,7 @@
 title: Fine-Tune a Semantic Segmentation Model with a Custom Dataset
 thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
 authors:
-- user: segments-tobias
+- user: tobiasc
   guest: true
 - user: nielsr
 ---
@@ -377,7 +377,7 @@ trainer.push_to_hub(**kwargs)
 
 Now comes the exciting part, using our fine-tuned model! In this section, we'll show how you can load your model from the hub and use it for inference. 
 
-However, you can also try out your model directly on the Hugging Face Hub, thanks to the cool widgets powered by the [hosted inference API](https://api-inference.huggingface.co/docs/python/html/index.html). If you pushed your model to the Hub in the previous step, you should see an inference widget on your model page. You can add default examples to the widget by defining example image URLs in your model card. See [this model card](https://huggingface.co/segments-tobias/segformer-b0-finetuned-segments-sidewalk/blob/main/README.md) as an example.
+However, you can also try out your model directly on the Hugging Face Hub, thanks to the cool widgets powered by the [hosted inference API](https://api-inference.huggingface.co/docs/python/html/index.html). If you pushed your model to the Hub in the previous step, you should see an inference widget on your model page. You can add default examples to the widget by defining example image URLs in your model card. See [this model card](https://huggingface.co/tobiasc/segformer-b0-finetuned-segments-sidewalk/blob/main/README.md) as an example.
 
 <figure class="image table text-center m-0 w-full">
     <video 

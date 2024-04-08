@@ -558,7 +558,7 @@
 
 - local: fine-tune-segformer
   title: "Fine-Tune a Semantic Segmentation Model with a Custom Dataset"
-  author: segments-tobias
+  author: tobiasc
   thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
   date: March 17, 2022
   tags:
@@ -1531,7 +1531,7 @@
 
 - local: clipseg-zero-shot
   title: "Zero-shot image segmentation with CLIPSeg"
-  author: segments-tobias
+  author: tobiasc
   thumbnail: /blog/assets/123_clipseg-zero-shot/thumb.png
   date: December 21, 2022
   tags:
@@ -3696,8 +3696,40 @@
   title: "Public Policy at Hugging Face"
   author: irenesolaiman
   thumbnail: /blog/assets/policy_docs/policy_blog_thumbnail.png
+  date: April 8, 2024
+  tags:
+    - ethics
+   
+- local: setfit-optimum-intel
+  title: "Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon"
+  author: danielkorat
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
   date: April 3, 2024
   tags:
-    - community
-       
-    
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community    
+    - open-source-collab
+
+- local: duckdb-nsql-7b
+  title: "Text2SQL using Hugging Face Datasets Server API and Motherduck DuckDB-NSQL-7B"
+  author: asoria
+  thumbnail: /blog/assets/duckdb-nsql-7b/thumbnail.png
+  date: April 4, 2024
+  tags:
+    - guide
+    - text2sql
+    - datasets
+    - llm
+
+- local: hugging-face-wiz-security-blog
+  title: "Hugging Face partners with Wiz Research to Improve AI Security"
+  author: JJoe206
+  thumbnail: /blog/assets/wiz_security/security.png
+  date: April 4, 2024
+  tags:
+    - security
