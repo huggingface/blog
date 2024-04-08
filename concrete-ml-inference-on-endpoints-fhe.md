@@ -11,10 +11,9 @@ authors:
 
 Eighteen months ago, Zama started [Concrete ML](https://github.com/zama-ai/concrete-ml), a privacy-preserving ML framework with bindings to traditional ML frameworks such as scikit-learn, ONNX, PyTorch, and TensorFlow. To ensure privacy for users' data, Zama uses Fully Homomorphic Encryption (FHE), a cryptographic tool that allows us to make direct computations over encrypted data, without ever knowing the private key.
 
-From the start, we wanted to be able to pre-compile some FHE-friendly networks and make them available somewhere on the internet, for users to be able to use them trivially. We are ready today! And not in a random place on the internet, but directly on [Hugging Face](https://huggingface.co), the place to be for anything related to [open-source machine learning](https://github.com/huggingface)!
+From the start, we wanted to pre-compile some FHE-friendly networks and make them available somewhere on the internet, allowing users to use them trivially. We are ready today! And not in a random place on the internet, but directly on Hugging Face.
 
-More precisely, we use Hugging Face [endpoints](https://huggingface.co/docs/inference-endpoints/en/index) and [custom inference handlers](https://huggingface.co/docs/inference-endpoints/en/guides/custom_handler), to be able to store our Concrete ML models and let users deploy on HF machines in one click. At the end of our blog, readers should both understand how to use pre-compiled models and how to prepare their own pre-compiled models. This blog can also be considered as another tutorial for custom inference handlers.
-
+More precisely, we use Hugging Face [Endpoints](https://huggingface.co/docs/inference-endpoints/en/index) and [custom inference handlers](https://huggingface.co/docs/inference-endpoints/en/guides/custom_handler), to be able to store our Concrete ML models and let users deploy on HF machines in one click. At the end of this blog post, readers should understand how to use pre-compiled models and how to prepare their pre-compiled models. This blog can also be considered as another tutorial for custom inference handlers.
 
 ## Deploying a pre-compiled model
 
