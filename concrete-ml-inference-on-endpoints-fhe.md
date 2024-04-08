@@ -29,13 +29,13 @@ Next, choose the endpoint name or the region, and most importantly, the CPU (Con
 
 ![Alt text](assets/fhe-endpoints/two.png "Create Endpoint")
 
-After just a few seconds, the endpoint is deployed and your privacy-preserving model is ready to operate.
+After a few seconds, the Endpoint is deployed, and your privacy-preserving model is ready to operate.
 
 ![Alt text](assets/fhe-endpoints/three.png "Endpoint is created")
 
-Note: Don’t forget to delete the endpoint (or at least pause it) when you are no longer using it, or else it will cost more than anticipated.
+> [!NOTE]: Don’t forget to delete the endpoint (or at least pause it) when you are no longer using it, or else it will cost more than anticipated.
 
-## Using the endpoint
+## Using the Endpoint
 
 ### Installing the client side
 
