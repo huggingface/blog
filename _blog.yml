@@ -3735,6 +3735,7 @@
     - security
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 - local: codegemma
   title: "CodeGemma - an official Google release for code LLMs"
   author: pcuenq
@@ -3801,8 +3802,13 @@
 =======
 - local: concrete-ml-inference-on-endpoints-fhe
   title: "Running Privacy-Preserving Inferences on Hugging Face EndPoints"
+=======
+- local: fhe-endpoints
+  title: "Running Privacy-Preserving Inference on Hugging Face Endpoints"
+>>>>>>> 1dfe887 (reviews (to be squashed))
   author: binoua
-  thumbnail: /blog/assets/concrete-ml-inference-on-endpoints-fhe/thumbnail.png
+  guest: true
+  thumbnail: /blog/assets/fhe-endpoints/thumbnail.png
   date: April 11, 2024
   tags:
     - guide

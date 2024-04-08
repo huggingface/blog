@@ -1,14 +1,14 @@
-title: "Running Privacy-Preserving Inferences on Hugging Face EndPoints"
-thumbnail: /blog/assets/concrete-ml-inference-on-endpoints-fhe/thumbnail.png
+title: "Running Privacy-Preserving Inferences on Hugging Face Endpoints"
+thumbnail: /blog/assets/fhe-endpoints/thumbnail.png
 authors:
 - user: Benoit Chevallier-Mames
   guest: true
 ---
 
-# Running Privacy-Preserving Inferences on Hugging Face EndPoints
+# Running Privacy-Preserving Inferences on Hugging Face Endpoints
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
+> [!NOTE] This is a guest blog post by the Zama team. Zama is an open source cryptography company building state-of-the-art FHE solutions for blockchain and AI.
+
 
 Eighteen months ago, Zama started [Concrete ML](https://github.com/zama-ai/concrete-ml), our privacy-preserving ML framework, with bindings to traditional ML frameworks such as scikit-learn, ONNX, torch and tensorflow. To ensure privacy for users' data, we use Fully Homomorphic Encryption (FHE), which is a cryptographic tool that allows us to make computations directly over encrypted data, without ever knowing the private key.
 
@@ -25,15 +25,15 @@ First, look for the model you want to deploy: We have pre-compiled a [bunch of m
 
 Like any other model available on the Hugging Face platform, select _Deploy_ and then _Inference Endpoint (dedicated)_:
 
-![Alt text](assets/concrete-ml-inference-on-endpoints-fhe/one.png "Inference Endpoint (dedicated)")
+![Alt text](assets/fhe-endpoints/one.png "Inference Endpoint (dedicated)")
 
 Next, choose the endpoint name or the region, and most importantly the CPU (Concrete ML models do not use GPUs for now, we are [working](https://www.zama.ai/post/tfhe-rs-v0-5) on it) as well as the best machine available - in the example below we chose 8 vCPU. Now click on _Create Endpoint_ and wait for the initialization to finish.
 
-![Alt text](assets/concrete-ml-inference-on-endpoints-fhe/two.png "Create Endpoint")
+![Alt text](assets/fhe-endpoints/two.png "Create Endpoint")
 
 After just a few seconds, the endpoint is deployed and your privacy-preserving model is ready to operate.
 
-![Alt text](assets/concrete-ml-inference-on-endpoints-fhe/three.png "Endpoint is created")
+![Alt text](assets/fhe-endpoints/three.png "Endpoint is created")
 
 Note: Don’t forget to delete the endpoint (or at least pause it) when you are no longer using it, or else it will cost more than anticipated.
 
@@ -43,7 +43,7 @@ Note: Don’t forget to delete the endpoint (or at least pause it) when you are 
 
 Now, obviously, the goal is not only to deploy your endpoint, but to let users play with it. For that, users need to clone the repository on their computer. This is done by selecting _Clone Repository_, in the dropdown menu:
 
-![Alt text](assets/concrete-ml-inference-on-endpoints-fhe/four.png "Clone Repository")
+![Alt text](assets/fhe-endpoints/four.png "Clone Repository")
 
 They will be given a small command line that they can run in their terminal:
 
