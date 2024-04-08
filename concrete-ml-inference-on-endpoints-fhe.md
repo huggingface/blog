@@ -153,21 +153,21 @@ Please note that all of this is done thanks to the flexibility of [custom handle
 
 One can remark however that keys are stored in the RAM of the Endpoint, which is not convenient for a production environment: at each restart, the keys are lost and need to be re-sent; Plus, when you have several machines to handle huge traffic, this RAM is not shared between the machines. Finally, the fact that the available CPU machines only provide 8 vCPUs at most for Endpoints makes the execution time worse than if deployed on AWS machines.
 
-## Preparing your own pre-compiled model
+## Preparing your pre-compiled model
 
 Now that you know how easy it is to deploy a pre-compiled model, you may want to prepare yours. For this, you can fork [one of the repositories we have prepared](https://huggingface.co/zama-fhe?#models). All the model categories supported by Concrete ML ([linear](https://docs.zama.ai/concrete-ml/built-in-models/linear) models, [tree-based](https://docs.zama.ai/concrete-ml/built-in-models/tree) models, built-in [MLP](https://docs.zama.ai/concrete-ml/built-in-models/neural-networks), [PyTorch](https://docs.zama.ai/concrete-ml/deep-learning/torch_support) models) have at least one example, that can be used as a template for new pre-compiled models.
 
 Then, edit `creating_models.py`, and change the ML task to be the one you want to tackle in your pre-compiled model: for example, if you started with [concrete-ml-encrypted-decisiontree](https://huggingface.co/zama-fhe/concrete-ml-encrypted-decisiontree), change the dataset and the model kind.
 
-As explained earlier, you need to have installed Concrete ML to prepare your own pre-compiled model.
+As explained earlier, you must have installed Concrete ML to prepare your pre-compiled model.
 
-Now you can launch `python creating_models.py`. This will train a model and create the necessary development files (`client.zip`, `server.zip` and `versions.json`) in the `compiled_model` directory. As explained in the [documentation](https://docs.zama.ai/concrete-ml/deployment/client_server), these files contain your pre-compiled model. If you have any issue, you can get support on the [fhe.org discord](http://discord.fhe.org).
+Now you can launch `python creating_models.py`. This will train a model and create the necessary development files (`client.zip`, `server.zip`, and `versions.json`) in the `compiled_model` directory. As explained in the [documentation](https://docs.zama.ai/concrete-ml/deployment/client_server), these files contain your pre-compiled model. If you have any issues, you can get support on the [fhe.org discord](http://discord.fhe.org).
 
-Last step is to modify `play_with_endpoint.py`, to also deal with the same ML task as in `creating_models.py`: set the dataset accordingly.
+The last step is to modify `play_with_endpoint.py` to also deal with the same ML task as in `creating_models.py`: set the dataset accordingly.
 
-Now, you can save this directory with the `compiled_model` directory and files, and your modifications in `creating_models.py` and `play_with_endpoint.py` on Hugging Face models. Certainly, you will need to run some tests and make slight adjustments for it to work.
+Now, you can save this directory with the `compiled_model` directory and files, as well as your modifications in `creating_models.py` and `play_with_endpoint.py` on Hugging Face models. Certainly, you will need to run some tests and make slight adjustments for it to work.
 
-## Available pre-compiled models today
+## Pre-compiled models available today
 
 For now, we have prepared a few pre-compiled models as examples, hoping the community will extend this soon.
 
