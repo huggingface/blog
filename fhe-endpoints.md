@@ -183,7 +183,7 @@ Keep in mind that CPU machines available as HF Endpoints today are not as powerf
 
 ## Additional resources
 
-- Check out Zama libraries Concrete](https://github.com/zama-ai/concrete) and [Concrete-ML](https://github.com/zama-ai/concrete-ml) and start using FHE in your own applications.
+- Check out Zama libraries [Concrete](https://github.com/zama-ai/concrete) and [Concrete-ML](https://github.com/zama-ai/concrete-ml) and start using FHE in your own applications.
 - Check out [Zama's Hugging Face profile](https://huggingface.co/zama-fhe) to read more blog posts and try practical FHE demos.
 - Check out [@zama_fhe](https://twitter.com/zama_fhe) on twitter to get our latest updates.
 
@@ -195,6 +195,6 @@ We explained how:
 
 - Developers can create their own pre-compiled models and make them available on Hugging Face models.
 - Companies can deploy developers' pre-compiled models and make them available to their users via HF Endpoints.
-- Users can use these Endpoints to run their ML tasks over encrypted data.
+- Final users can use these Endpoints to run their ML tasks over encrypted data.
 
 To go further, it would be useful to have more powerful machines available on Hugging Face Endpoints, to make inferences faster. Also, we could imagine that Concrete ML becomes more integrated on Hugging Face’s interface, and have a _Private-Preserving Inference Endpoint_ button, which would simplify developers' life even more. Finally, for an integration in more server machines, it could be useful to have a way to share a state between machines, and keep this state non-volatile (FHE inference keys would be stored there).
