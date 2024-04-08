@@ -39,7 +39,7 @@ After a few seconds, the Endpoint is deployed, and your privacy-preserving model
 
 ### Installing the client side
 
-The goal is not only to deploy your Endpoint but also to let users play with it. For that, users need to clone the repository on their computer. This is done by selecting _Clone Repository_, in the dropdown menu:
+The goal is not only to deploy your Endpoint but also to let your users play with it. For that, they need to clone the repository on their computer. This is done by selecting _Clone Repository_, in the dropdown menu:
 
 ![Alt text](assets/fhe-endpoints/clone_repository.png "Clone Repository")
 
@@ -49,19 +49,19 @@ They will be given a small command line that they can run in their terminal:
 git clone https://huggingface.co/zama-fhe/concrete-ml-encrypted-decisiontree
 ```
 
-Once the command is done, we can go to the `concrete-ml-encrypted-decisiontree` directory and open `play_with_endpoint.py` with their editor. Here, they will find the line with `API_URL = …` and should replace it with the new URL of the Endpoint created in the previous section. In our case, it would be:
+Once the command is done, they go to the `concrete-ml-encrypted-decisiontree` directory and open `play_with_endpoint.py` with their editor. Here, they will find the line with `API_URL = …` and should replace it with the new URL of the Endpoint created in the previous section.
 
 ```bash
 API_URL = "https://tcipez38maclnbm6.eu-west-1.aws.endpoints.huggingface.cloud”
 ```
 
-In your case, fill it in with with _your_ entrypoint’s URL. Also, define an [access token](https://huggingface.co/docs/hub/en/security-tokens) and store it in an environment variable:
+Of course, fill it in with with _your_ Entrypoint’s URL. Also, define an [access token](https://huggingface.co/docs/hub/en/security-tokens) and store it in an environment variable:
 
 ```bash
 export HF_TOKEN=[your token hf_XX..XX]
 ```
 
-Lastly, your machine needs to have Concrete ML installed locally: Make a virtual environment, source it, and install the necessary dependencies:
+Lastly, your user machines need to have Concrete ML installed locally: Make a virtual environment, source it, and install the necessary dependencies:
 
 ```bash
 python3.9 -m venv .venv
@@ -72,7 +72,7 @@ pip install -r requirements.txt
 
 ### Running inferences
 
-Now, you can run inference on the Endpoint launching the script:
+Now, your users can run inference on the Endpoint launching the script:
 
 ```bash
 python play_with_endpoint.py
@@ -143,7 +143,7 @@ for i in range(nb_samples):
     nb_good += Y_test[i] == prediction
 ```
 
-Of course, this is just an example of the entrypoint's usage. Developers are encouraged to adapt this example to their own use-case or application.
+Of course, this is just an example of the Entrypoint's usage. Developers are encouraged to adapt this example to their own use-case or application.
 
 ### Under the hood
 
@@ -151,7 +151,7 @@ Please note that all of this is done thanks to the flexibility of [custom handle
 
 ### Limits
 
-One can remark however that keys are stored in the RAM of the Endpoint, which is not convenient for a production environment: at each restart, the keys are lost and need to be re-sent; Plus, when you have several machines to handle huge traffic, this RAM is not shared between the machines. Finally, the fact that the available CPU machines only provide 8 vCPUs at most for Endpoints makes the execution time worse than if deployed on AWS machines.
+One can remark however that keys are stored in the RAM of the Endpoint, which is not convenient for a production environment: at each restart, the keys are lost and need to be re-sent; Plus, when you have several machines to handle huge traffic, this RAM is not shared between the machines. Finally, the fact that the available CPU machines only provide 8 vCPUs at most for Endpoints makes the execution time worse than if deployed on AWS machines -- hopefully, this disadvantage will be removed if more powerful CPU machines are available as Endpoints.
 
 ## Preparing your pre-compiled model
 
