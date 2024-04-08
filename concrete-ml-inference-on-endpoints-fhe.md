@@ -23,15 +23,15 @@ First, look for the model you want to deploy: We have pre-compiled a [bunch of m
 
 Like any other model available on the Hugging Face platform, select _Deploy_ and then _Inference Endpoint (dedicated)_:
 
-![Alt text](assets/fhe-endpoints/one.png "Inference Endpoint (dedicated)")
+![Alt text](assets/fhe-endpoints/inference_endpoint.png "Inference Endpoint (dedicated)")
 
 Next, choose the Endpoint name or the region, and most importantly, the CPU (Concrete ML models do not use GPUs for now; we are [working](https://www.zama.ai/post/tfhe-rs-v0-5) on it) as well as the best machine available - in the example below we chose eight vCPU. Now click on _Create Endpoint_ and wait for the initialization to finish.
 
-![Alt text](assets/fhe-endpoints/two.png "Create Endpoint")
+![Alt text](assets/fhe-endpoints/create_endpoint.png "Create Endpoint")
 
 After a few seconds, the Endpoint is deployed, and your privacy-preserving model is ready to operate.
 
-![Alt text](assets/fhe-endpoints/three.png "Endpoint is created")
+![Alt text](assets/fhe-endpoints/endpoint_is_created.png "Endpoint is created")
 
 > [!NOTE]: Don’t forget to delete the Endpoint (or at least pause it) when you are no longer using it, or else it will cost more than anticipated.
 
@@ -41,7 +41,7 @@ After a few seconds, the Endpoint is deployed, and your privacy-preserving model
 
 The goal is not only to deploy your Endpoint but also to let users play with it. For that, users need to clone the repository on their computer. This is done by selecting _Clone Repository_, in the dropdown menu:
 
-![Alt text](assets/fhe-endpoints/four.png "Clone Repository")
+![Alt text](assets/fhe-endpoints/clone_repository.png "Clone Repository")
 
 They will be given a small command line that they can run in their terminal:
 
