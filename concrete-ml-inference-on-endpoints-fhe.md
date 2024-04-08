@@ -25,7 +25,7 @@ Like any other model available on the Hugging Face platform, select _Deploy_ and
 
 ![Alt text](assets/fhe-endpoints/one.png "Inference Endpoint (dedicated)")
 
-Next, choose the endpoint name or the region, and most importantly the CPU (Concrete ML models do not use GPUs for now, we are [working](https://www.zama.ai/post/tfhe-rs-v0-5) on it) as well as the best machine available - in the example below we chose 8 vCPU. Now click on _Create Endpoint_ and wait for the initialization to finish.
+Next, choose the endpoint name or the region, and most importantly, the CPU (Concrete ML models do not use GPUs for now; we are [working](https://www.zama.ai/post/tfhe-rs-v0-5) on it) as well as the best machine available - in the example below we chose eight vCPU. Now click on _Create Endpoint_ and wait for the initialization to finish.
 
 ![Alt text](assets/fhe-endpoints/two.png "Create Endpoint")
 
