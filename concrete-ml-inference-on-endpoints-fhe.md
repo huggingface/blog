@@ -9,8 +9,7 @@ authors:
 
 > [!NOTE] This is a guest blog post by the Zama team. Zama is an open source cryptography company building state-of-the-art FHE solutions for blockchain and AI.
 
-
-Eighteen months ago, Zama started [Concrete ML](https://github.com/zama-ai/concrete-ml), our privacy-preserving ML framework, with bindings to traditional ML frameworks such as scikit-learn, ONNX, torch and tensorflow. To ensure privacy for users' data, we use Fully Homomorphic Encryption (FHE), which is a cryptographic tool that allows us to make computations directly over encrypted data, without ever knowing the private key.
+Eighteen months ago, Zama started [Concrete ML](https://github.com/zama-ai/concrete-ml), a privacy-preserving ML framework with bindings to traditional ML frameworks such as scikit-learn, ONNX, PyTorch, and TensorFlow. To ensure privacy for users' data, Zama uses Fully Homomorphic Encryption (FHE), a cryptographic tool that allows us to make direct computations over encrypted data, without ever knowing the private key.
 
 From the start, we wanted to be able to pre-compile some FHE-friendly networks and make them available somewhere on the internet, for users to be able to use them trivially. We are ready today! And not in a random place on the internet, but directly on [Hugging Face](https://huggingface.co), the place to be for anything related to [open-source machine learning](https://github.com/huggingface)!
 
@@ -157,7 +156,7 @@ One can remark however that keys are stored in the RAM of the endpoint, which is
 
 ## Preparing your own pre-compiled model
 
-Now that you know how easy it is to deploy a pre-compiled model, you may want to prepare yours. For this, you can fork [one of the repositories we have prepared](https://huggingface.co/zama-fhe?#models). All the model categories supported by Concrete ML ([linear](https://docs.zama.ai/concrete-ml/built-in-models/linear) models, [tree-based](https://docs.zama.ai/concrete-ml/built-in-models/tree) models, built-in [MLP](https://docs.zama.ai/concrete-ml/built-in-models/neural-networks), [torch](https://docs.zama.ai/concrete-ml/deep-learning/torch_support) models) have at least one example, that can be used as a template for new pre-compiled models.
+Now that you know how easy it is to deploy a pre-compiled model, you may want to prepare yours. For this, you can fork [one of the repositories we have prepared](https://huggingface.co/zama-fhe?#models). All the model categories supported by Concrete ML ([linear](https://docs.zama.ai/concrete-ml/built-in-models/linear) models, [tree-based](https://docs.zama.ai/concrete-ml/built-in-models/tree) models, built-in [MLP](https://docs.zama.ai/concrete-ml/built-in-models/neural-networks), [PyTorch](https://docs.zama.ai/concrete-ml/deep-learning/torch_support) models) have at least one example, that can be used as a template for new pre-compiled models.
 
 Then, edit `creating_models.py`, and change the ML task to be the one you want to tackle in your pre-compiled model: for example, if you started with [concrete-ml-encrypted-decisiontree](https://huggingface.co/zama-fhe/concrete-ml-encrypted-decisiontree), change the dataset and the model kind.
 
