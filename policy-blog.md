@@ -12,7 +12,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-AI Policy at Hugging Face is a multidisciplinary and cross-organizational workstream. Instead of being part of a vertical communications or global affairs organization, our policy work is rooted in the expertise of our many researchers and developers, from [Ethics and Society Regulars](https://huggingface.co/blog/ethics-soc-1) and legal team to machine learning engineers working on healthcare, art, and evaluations.
+AI Policy at Hugging Face is a multidisciplinary and cross-organizational workstream. Instead of being part of a vertical communications or global affairs organization, our policy work is rooted in the expertise of our many researchers and developers, from [Ethics and Society Regulars](https://huggingface.co/blog/ethics-soc-1) and the legal team to machine learning engineers working on healthcare, art, and evaluations.
 
 What we work on is informed by our Hugging Face community needs and experiences on the Hub. We champion [responsible openness](https://huggingface.co/blog/ethics-soc-3), investing heavily in [ethics-forward research](https://huggingface.co/spaces/society-ethics/about), [transparency mechanisms](https://huggingface.co/blog/model-cards), [platform safeguards](https://huggingface.co/content-guidelines), and translate our lessons to policy. 
 
