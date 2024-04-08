@@ -181,7 +181,7 @@ For now, we have prepared a few pre-compiled models as examples, hoping the comm
 
 Keep in mind that CPU machines available as HF Endpoints today are not as powerful as AWS' machines (generally m6i or hpc7a), so complex models' execution time is expected to be slower. Hopefully, more powerful machines will soon be available on Hugging Face Endpoints to improve these timings.
 
-# Additional resources:
+## Additional resources
 
 - Check out Zama libraries Concrete](https://github.com/zama-ai/concrete) and [Concrete-ML](https://github.com/zama-ai/concrete-ml) and start using FHE in your own applications.
 - Check out [Zama's Hugging Face profile](https://huggingface.co/zama-fhe) to read more blog posts and try practical FHE demos.
