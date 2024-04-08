@@ -147,7 +147,7 @@ Of course, this is just an example of the entrypoint's usage. Developers are enc
 
 ### Under the hood
 
-Please note that all of this is done thanks to the flexibility of [custom handlers](https://huggingface.co/docs/inference-endpoints/en/guides/custom_handler) and we express our gratitude to the Hugging Face developers for offering such flexibility. The mechanism is defined in `handler.py`. As explained in the Hugging Face documentation, you can define the `__call__` method of `EndpointHandler` pretty much as you want: In our case, we have defined a `method` parameter, which can be `save_key` (to save FHE evaluation keys), `append_key` (to save FHE evaluation keys piece by piece if the key is too large to be sent in one single call) and finally `inference` (to run FHE inferences). These methods are used to set the evaluation key once, and then run all the inferences, one by one, as seen in `play_with_endpoint.py`.
+Please note that all of this is done thanks to the flexibility of [custom handlers](https://huggingface.co/docs/inference-endpoints/en/guides/custom_handler), and we express our gratitude to the Hugging Face developers for offering such flexibility. The mechanism is defined in `handler.py`. As explained in the Hugging Face documentation, you can define the `__call__` method of `EndpointHandler` pretty much as you want: In our case, we have defined a `method` parameter, which can be `save_key` (to save FHE evaluation keys), `append_key` (to save FHE evaluation keys piece by piece if the key is too large to be sent in one single call) and finally `inference` (to run FHE inferences). These methods are used to set the evaluation key once and then run all the inferences, one by one, as seen in `play_with_endpoint.py`.
 
 ### Limits
 
