@@ -13,7 +13,7 @@ Eighteen months ago, Zama started [Concrete ML](https://github.com/zama-ai/concr
 
 From the start, we wanted to pre-compile some FHE-friendly networks and make them available somewhere on the internet, allowing users to use them trivially. We are ready today! And not in a random place on the internet, but directly on Hugging Face.
 
-More precisely, we use Hugging Face [Endpoints](https://huggingface.co/docs/inference-endpoints/en/index) and [custom inference handlers](https://huggingface.co/docs/inference-endpoints/en/guides/custom_handler), to be able to store our Concrete ML models and let users deploy on HF machines in one click. At the end of this blog post, readers should understand how to use pre-compiled models and how to prepare their pre-compiled models. This blog can also be considered as another tutorial for custom inference handlers.
+More precisely, we use Hugging Face [Endpoints](https://huggingface.co/docs/inference-endpoints/en/index) and [custom inference handlers](https://huggingface.co/docs/inference-endpoints/en/guides/custom_handler), to be able to store our Concrete ML models and let users deploy on HF machines in one click. At the end of this blog post, you will understand how to use pre-compiled models and how to prepare your pre-compiled models. This blog can also be considered as another tutorial for custom inference handlers.
 
 ## Deploying a pre-compiled model
 
