@@ -19,7 +19,7 @@ What we work on is informed by our Hugging Face community needs and experiences 
 So what have we shared with policymakers?
 
 ## Policy Materials
-The following materials reflect what we find urgent to stress to policymakers at the time of the request for information and will be updated as materials are published.
+The following materials reflect what we have found urgent to stress to policymakers at the time of requests for information, and will be updated as materials are published.
 
 
 - United States of America
