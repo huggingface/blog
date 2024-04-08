@@ -39,7 +39,7 @@ After a few seconds, the Endpoint is deployed, and your privacy-preserving model
 
 ### Installing the client side
 
-Now, obviously, the goal is not only to deploy your endpoint, but to let users play with it. For that, users need to clone the repository on their computer. This is done by selecting _Clone Repository_, in the dropdown menu:
+The goal is not only to deploy your Endpoint but also to let users play with it. For that, users need to clone the repository on their computer. This is done by selecting _Clone Repository_, in the dropdown menu:
 
 ![Alt text](assets/fhe-endpoints/four.png "Clone Repository")
 
