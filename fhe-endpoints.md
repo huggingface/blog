@@ -151,7 +151,7 @@ Please note that all of this is done thanks to the flexibility of [custom handle
 
 ### Limits
 
-One can remark, however, that keys are stored in the RAM of the Endpoint, which is not convenient for a production environment: at each restart, the keys are lost and need to be re-sent. Plus, when you have several machines to handle massive traffic, this RAM is not shared between the machines. Finally, the available CPU machines only provide eight vCPUs at most for endpoints, which could be a limit for high-load applications.
+One can remark, however, that keys are stored in the RAM of the Endpoint, which is not convenient for a production environment: at each restart, the keys are lost and need to be re-sent. Plus, when you have several machines to handle massive traffic, this RAM is not shared between the machines. Finally, the available CPU machines only provide eight vCPUs at most for Endpoints, which could be a limit for high-load applications.
 
 ## Preparing your pre-compiled model
 
@@ -189,7 +189,7 @@ Keep in mind that CPU machines available as HF Endpoints today are not as powerf
 
 ## Conclusion and next steps
 
-In this blog post, we have shown that custom endpoints are pretty easy yet powerful to use. What we do in Concrete ML is pretty different from the regular workflow of ML practitioners, but we are still able to accommodate the custom endpoints to deal with most of our needs. Kudos to Hugging Face engineers for developing such a generic solution.
+In this blog post, we have shown that custom Endpoints are pretty easy yet powerful to use. What we do in Concrete ML is pretty different from the regular workflow of ML practitioners, but we are still able to accommodate the custom Endpoints to deal with most of our needs. Kudos to Hugging Face engineers for developing such a generic solution.
 
 We explained how:
 
@@ -197,4 +197,4 @@ We explained how:
 - Companies can deploy developers' pre-compiled models and make them available to their users via HF Endpoints.
 - Final users can use these Endpoints to run their ML tasks over encrypted data.
 
-To go further, it would be useful to have more powerful machines available on Hugging Face endpoints to make inferences faster. Also, we could imagine that Concrete ML becomes more integrated into Hugging Face's interface and has a _Private-Preserving Inference Endpoint_ button, simplifying developers' lives even more. Finally, for integration in more server machines, it could be helpful to have a way to share a state between machines and keep this state non-volatile (FHE inference keys would be stored there).
+To go further, it would be useful to have more powerful machines available on Hugging Face Endpoints to make inferences faster. Also, we could imagine that Concrete ML becomes more integrated into Hugging Face's interface and has a _Private-Preserving Inference Endpoint_ button, simplifying developers' lives even more. Finally, for integration in more server machines, it could be helpful to have a way to share a state between machines and keep this state non-volatile (FHE inference keys would be stored there).
