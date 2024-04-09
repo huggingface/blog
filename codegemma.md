@@ -28,6 +28,8 @@ We’ve collaborated with Google to ensure the best integration into the Hugging
 - Integration with Inference Endpoints
 - Code benchmarks
 
+Bonus: Colab notebook for you to try out the model at the touch of a button [here](https://github.com/Vaibhavs10/notebooks/blob/main/CodeGemma_colab.ipynb).
+
 ## Table of contents
 
   - [What is CodeGemma](#what-is-codegemma)
