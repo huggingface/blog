@@ -50,8 +50,6 @@ A month after the original release, Google released a new version of the instruc
 - [gemma-1.1-7b-it](https://huggingface.co/google/gemma-1.1-7b-it)
 - [gemma-1.1-2b-it](https://huggingface.co/google/gemma-1.1-2b-it)
 
-
-
 <div class="flex items-center justify-center">
 <img src="/blog/assets/gemma/Gemma-logo-small.png" alt="Gemma logo">
 </div>
