@@ -1,6 +1,6 @@
 ---
 title: "CodeGemma - an official Google release for code LLMs" 
-thumbnail: /blog/assets/codegemma/thumbnail.jpg
+thumbnail: /blog/assets/codegemma/thumbnail.png
 authors:
 - user: pcuenq
 - user: osanseviero
