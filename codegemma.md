@@ -22,7 +22,7 @@ CodeGemma comes in three flavors:
 
 We’ve collaborated with Google to ensure the best integration into the Hugging Face ecosystem. You can find the three open-access models ready to use on the Hub. Among the features and integrations being released, we have:
 
-- [Models on the Hub](https://huggingface.co/models?search=google/codegemma), with their model cards and licenses. There are versions for the transformers library, checkpoints for use with Google’s original codebases, and full-precision GGUF files that the community can quantize.
+- [Models on the Hub](https://huggingface.co/collections/google/codegemma-release-66152ac7b683e2667abdee11), with their model cards and licenses. There are versions for the transformers library, checkpoints for use with Google’s original codebases, and full-precision GGUF files that the community can quantize.
 - Transformers integration
 - Integration with Google Cloud
 - Integration with Inference Endpoints
@@ -248,6 +248,6 @@ client.text_generation(prompt=prompt)
 
 ## Additional Resources
 
-- [Models on the Hub](https://huggingface.co/models?search=google/codegemma)
+- [Models on the Hub](https://huggingface.co/collections/google/codegemma-release-66152ac7b683e2667abdee11)
 - [Code Leaderboard](https://huggingface.co/spaces/bigcode/bigcode-models-leaderboard)
 - [Technical Report](https://goo.gle/codegemma)
