@@ -45,6 +45,11 @@ Gemma is a family of 4 new LLM models by Google based on Gemini. It comes in two
 - [gemma-2b](https://huggingface.co/google/gemma-2b): Base 2B model.
 - [gemma-2b-it](https://huggingface.co/google/gemma-2b-it): Instruction fine-tuned version of the base 2B model.
 
+A month after the original release, Google released a new version of the instruct models. This version has better coding capabilities, factuality, instruction following and multi-turn quality. The model also is less prone to begin its with "Sure,".
+
+- [gemma-1.1-7b-it](https://huggingface.co/google/gemma-1.1-7b-it)
+- [gemma-1.1-2b-it](https://huggingface.co/google/gemma-1.1-2b-it)
+
 <div class="flex items-center justify-center">
 <img src="/blog/assets/gemma/Gemma-logo-small.png" alt="Gemma logo">
 </div>
@@ -91,7 +96,7 @@ Similarly, for the Gemma instruct models, no details have been shared about the 
 
 ## Demo
 
-You can chat with the Gemma Instruct model on Hugging Chat! Check out the link here: https://huggingface.co/chat?model=google/gemma-7b-it
+You can chat with the Gemma Instruct model on Hugging Chat! Check out the link here: https://huggingface.co/chat/models/google/gemma-1.1-7b-it
 
 ### Using 🤗 Transformers
 
@@ -114,13 +119,14 @@ pip install -U "transformers==4.38.1" --upgrade
 The following snippet shows how to use `gemma-7b-it` with transformers. It requires about 18 GB of RAM, which includes consumer GPUs such as 3090 or 4090.
 
 ```python
-from transformers import AutoTokenizer, pipeline
+from transformers import AutoTokenizer
+import transformers
 import torch
 
 model = "google/gemma-7b-it"
 
 tokenizer = AutoTokenizer.from_pretrained(model)
-pipeline = pipeline(
+pipeline = transformers.pipeline(
     "text-generation",
     model=model,
     model_kwargs={"torch_dtype": torch.bfloat16},
