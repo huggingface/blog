@@ -165,11 +165,11 @@ Now you can launch `python creating_models.py`. This will train a model and crea
 
 The last step is to modify `play_with_endpoint.py` to also deal with the same ML task as in `creating_models.py`: set the dataset accordingly.
 
-Now, you can save this directory with the `compiled_model` directory and files, as well as your modifications in `creating_models.py` and `play_with_endpoint.py` on Hugging Face models. Certainly, you will need to run some tests and make slight adjustments for it to work.
+Now, you can save this directory with the `compiled_model` directory and files, as well as your modifications in `creating_models.py` and `play_with_endpoint.py` on Hugging Face models. Certainly, you will need to run some tests and make slight adjustments for it to work. Do not forget to add a `concrete-ml` and `FHE` tag, such that your pre-compiled model appears easily in [searches](https://huggingface.co/models?other=concrete-ml).
 
 ## Pre-compiled models available today
 
-For now, we have prepared a few pre-compiled models as examples, hoping the community will extend this soon.
+For now, we have prepared a few pre-compiled models as examples, hoping the community will extend this soon. Pre-compiled models can be found by searching [concrete-ml](https://huggingface.co/models?other=concrete-ml) or [FHE](https://huggingface.co/models?other=FHE) tags.
 
 | Model kind  | Dataset  | Execution time on HF Endpoint  |
 |---|---|---|
