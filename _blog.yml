@@ -3737,7 +3737,7 @@
 - local: codegemma
   title: "CodeGemma - an official Google release for code LLMs"
   author: pcuenq
-  thumbnail: /blog/assets/codegemma/thumbnail.png
+  thumbnail: /blog/assets/codegemma/thumbnail_b.png
   date: April 9, 2024
   tags:
     - nlp
