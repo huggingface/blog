@@ -124,6 +124,8 @@ With Transformers [release 4.39](https://github.com/huggingface/transformers/re
 
 Like the Gemma models, CodeGemma is compatible with `torch.compile()` for an important inference speedup.
 
+*Bonus*: We made a Colab notebook for you to try out the model at the touch of a button [here](https://github.com/Vaibhavs10/notebooks/blob/main/CodeGemma_colab.ipynb).
+
 To use CodeGemma with transformers, make sure to use the latest release:
 
 ```jsx
