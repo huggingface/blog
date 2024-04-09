@@ -151,7 +151,7 @@ Please note that all of this is done thanks to the flexibility of [custom handle
 
 ### Limits
 
-One can remark however that keys are stored in the RAM of the Endpoint, which is not convenient for a production environment: at each restart, the keys are lost and need to be re-sent; Plus, when you have several machines to handle huge traffic, this RAM is not shared between the machines. Finally, the fact that the available CPU machines only provide 8 vCPUs at most for Endpoints which could be a limit for high-load applications -- hopefully, this disadvantage will be removed if more powerful CPU machines are available as Endpoints.
+One can remark, however, that keys are stored in the RAM of the Endpoint, which is not convenient for a production environment: at each restart, the keys are lost and need to be re-sent. Plus, when you have several machines to handle massive traffic, this RAM is not shared between the machines. Finally, the available CPU machines only provide eight vCPUs at most for endpoints, which could be a limit for high-load applications.
 
 ## Preparing your pre-compiled model
 
