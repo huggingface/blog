@@ -48,7 +48,7 @@ CodeGemma is a family of code-specialist LLM models by Google, based on the pre-
 
 ![The CodeGemma family](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/codegemma/codegemma-family.png "The CodeGemma family")
 
-This image is from [the original report](https://storage.googleapis.com/deepmind-media/gemma/codegemma_report.pdf)
+This image is from [the original report](https://goo.gle/codegemma)
 
 ### Evaluation Results
 
@@ -246,8 +246,8 @@ if __name__ == '__main__':
 client.text_generation(prompt=prompt)
 ```
 
-## **Additional Resources**
+## Additional Resources
 
-- [Models on the Hub](https://huggingface.co/models?other=mixtral)
+- [Models on the Hub](https://huggingface.co/models?search=google/codegemma)
 - [Code Leaderboard](https://huggingface.co/spaces/bigcode/bigcode-models-leaderboard)
-- [TODO]: add colabs
+- [Technical Report](https://goo.gle/codegemma)
