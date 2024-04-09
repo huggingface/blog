@@ -3692,6 +3692,14 @@
     - llm
     - inference
     
+- local: policy-blog
+  title: "Public Policy at Hugging Face"
+  author: irenesolaiman
+  thumbnail: /blog/assets/policy_docs/policy_blog_thumbnail.png
+  date: April 8, 2024
+  tags:
+    - ethics
+   
 - local: setfit-optimum-intel
   title: "Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon"
   author: danielkorat
