@@ -82,7 +82,7 @@ CodeGemma-7B outperforms similarly-sized 7B models except DeepSeek-Coder-7B on H
 
 Here is a table from the original report with a breakdown per language.
 
-![CodeGemma quality across languages](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/codegemma/codegemma-family.png "CodeGemma quality across languages")
+![CodeGemma quality across languages](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/codegemma/codegemma-table4.png "CodeGemma quality across languages")
 
 
 ### Prompt format
@@ -223,7 +223,7 @@ To deploy the CodeGemma model from Hugging Face, go to the [model page](https:/
 
 You can also access CodeGemma directly through the Vertex AI Model Garden. 
 
-![GCP Integration](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/codegemma/gcp-integration.png "GCP Integration")
+![GCP Integration](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/codegemma/gcp_integration.png "GCP Integration")
 
 ## Integration with Inference Endpoints
 
