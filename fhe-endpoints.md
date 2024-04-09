@@ -17,7 +17,7 @@ More precisely, we use Hugging Face [Endpoints](https://huggingface.co/docs/infe
 
 ## Deploying a pre-compiled model
 
-Let's start with deploying an FHE-friendly model (prepared by Zama or third parties - see "Preparing your pre-compiled model" section below for learning how to prepare yours).
+Let's start with deploying an FHE-friendly model (prepared by Zama or third parties - see [Preparing your pre-compiled model](#preparing-your-pre-compiled-model) section below for learning how to prepare yours).
 
 First, look for the model you want to deploy: We have pre-compiled a [bunch of models](https://huggingface.co/zama-fhe?#models) on Zama's HF page. Let's suppose you have chosen [concrete-ml-encrypted-decisiontree](https://huggingface.co/zama-fhe/concrete-ml-encrypted-decisiontree): As explained in the description, this pre-compiled model allows you to detect spam without looking at the message content in the clear.
 
