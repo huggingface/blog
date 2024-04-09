@@ -1,6 +1,6 @@
 ---
 title: "CodeGemma - an official Google release for code LLMs" 
-thumbnail: /blog/assets/codegemma/thumbnail.png
+thumbnail: /blog/assets/codegemma/thumbnail-blue.png
 authors:
 - user: pcuenq
 - user: osanseviero
@@ -30,14 +30,17 @@ We’ve collaborated with Google to ensure the best integration into the Hugging
 
 ## Table of contents
 
-  - [What is CodeGemma](#what-is-codegemma)
+- [CodeGemma - an official Google release for code LLMs](#codegemma---an-official-google-release-for-code-llms)
+  - [Table of contents](#table-of-contents)
+  - [What is CodeGemma?](#what-is-codegemma)
     - [Evaluation Results](#evaluation-results)
     - [Prompt format](#prompt-format)
-- [Using CodeGemma](#using-codegemma)
-    - [Using Transformers](#using-transformers)
+  - [Using CodeGemma](#using-codegemma)
+    - [Using Transformers](#usingtransformers)
+    - [A note on precision](#a-note-on-precision)
     - [Integration with Google Cloud](#integration-with-google-cloud)
-    - [Integration with Inference Endpoints](#integration-with-inference-endpoints)
-- [Additional Resources](#additional-resources)
+  - [Integration with Inference Endpoints](#integration-with-inference-endpoints)
+  - [Additional Resources](#additional-resources)
 
 ## What is CodeGemma?
 
@@ -54,31 +57,31 @@ This image is from [the original report](https://goo.gle/codegemma)
 
 CodeGemma-7B outperforms similarly-sized 7B models except DeepSeek-Coder-7B on HumanEval, a popular benchmark for evaluating code models on Python. The same goes for the evaluation of other programming languages like Java, JavaScript, and C++ from MultiPL-E, a translation of HumanEval. According to the technical report, the model performs best on [GSM8K](https://huggingface.co/datasets/gsm8k) among 7B models. The instruct version CodeGemma-7B-it improves on the most popular languages on both HumanEval and MBPP (cf paper table 5). For more details, you can check the [BigCode leaderboard](https://huggingface.co/spaces/bigcode/bigcode-models-leaderboard) or some metrics below.
 
-| Model | Pretraining size [tokens] | Python | JavaScript |
-| --- | --- | --- | --- |
-| 10B+ models |  |  |  |
-| StarCoder 2 15B | 4,000B+ | 44.15 | 44.24 |
-| Code Llama 13B | 2,500B | 35.07 | 38.26 |
-| 7B models |  |  |  |
-| DeepSeek Coder 7B | 2,000B | 45.83 | 45.9 |
-| CodeGemma 7B | 500B of extra training | 40.13 | 43.06 |
-| Code Llama 7B | 2,500B | 29.98 | 31.8 |
-| StarCoder 2 7B | 3,500B+ | 34.09 | 35.35 |
-| StarCoderBase 7B | 3,000B+ | 28.37 | 27.35 |
-| <3B models |  |  |  |
-| CodeGemma 2B | 500B of extra training | 27.28 | 29.94 |
-| Stable Code 3B | 1,300B | 30.72 | 28.75 |
-| StarCoder 2 3B | 3,000B+ | 31.44 | 35.37 |
+| Model             | Pretraining size [tokens] | Python | JavaScript |
+| ----------------- | ------------------------- | ------ | ---------- |
+| 10B+ models       |                           |        |            |
+| StarCoder 2 15B   | 4,000B+                   | 44.15  | 44.24      |
+| Code Llama 13B    | 2,500B                    | 35.07  | 38.26      |
+| 7B models         |                           |        |            |
+| DeepSeek Coder 7B | 2,000B                    | 45.83  | 45.9       |
+| CodeGemma 7B      | 500B of extra training    | 40.13  | 43.06      |
+| Code Llama 7B     | 2,500B                    | 29.98  | 31.8       |
+| StarCoder 2 7B    | 3,500B+                   | 34.09  | 35.35      |
+| StarCoderBase 7B  | 3,000B+                   | 28.37  | 27.35      |
+| <3B models        |                           |        |            |
+| CodeGemma 2B      | 500B of extra training    | 27.28  | 29.94      |
+| Stable Code 3B    | 1,300B                    | 30.72  | 28.75      |
+| StarCoder 2 3B    | 3,000B+                   | 31.44  | 35.37      |
 
-| Model | Pretraining size [tokens] | Python | JavaScript |
-| --- | --- | --- | --- |
-| 10B+ models |  |  |  |
-| Code Llama 13B | 2,620B | 50.6 | 40.92 |
-| Code Llama 13B | 2,620B | 42.89 | 40.66 |
-| 7B models |  |  |  |
-| CodeGemma 7B | 500B | 52.74 | 47.71 |
-| Code Llama 7B  | 2,620B | 40.48 | 36.34 |
-| Code Llama 7B | 2,620B | 25.65 | 33.11 |
+| Model          | Pretraining size [tokens] | Python | JavaScript |
+| -------------- | ------------------------- | ------ | ---------- |
+| 10B+ models    |                           |        |            |
+| Code Llama 13B | 2,620B                    | 50.6   | 40.92      |
+| Code Llama 13B | 2,620B                    | 42.89  | 40.66      |
+| 7B models      |                           |        |            |
+| CodeGemma 7B   | 500B                      | 52.74  | 47.71      |
+| Code Llama 7B  | 2,620B                    | 40.48  | 36.34      |
+| Code Llama 7B  | 2,620B                    | 25.65  | 33.11      |
 
 Here is a table from the original report with a breakdown per language.
 
