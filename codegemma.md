@@ -227,31 +227,23 @@ You can also access Gemma directly through the Vertex AI Model Garden.
 
 ## Integration with Inference Endpoints
 
-You can deploy CodeGemma on Hugging Face's [Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=mistralai%2FMixtral-8x7B-Instruct-v0.1&vendor=aws&region=us-east-1&accelerator=gpu&instance_size=2xlarge&task=text-generation&no_suggested_compute=true&tgi=true&tgi_max_batch_total_tokens=1024000&tgi_max_total_tokens=32000), which uses Text Generation Inference as the backend. [Text Generation Inference](https://github.com/huggingface/text-generation-inference) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, token streaming, tensor parallelism for fast inference on multiple GPUs, and production-ready logging and tracing.
+You can deploy CodeGemma on Hugging Face's [Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=google/codegemma-2b&vendor=aws&region=us-east-1&accelerator=gpu&instance_size=2xlarge&task=text-generation&no_suggested_compute=true&tgi=true&tgi_max_batch_total_tokens=1024000&tgi_max_total_tokens=32000), which uses Text Generation Inference as the backend. [Text Generation Inference](https://github.com/huggingface/text-generation-inference) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, token streaming, tensor parallelism for fast inference on multiple GPUs, and production-ready logging and tracing.
 
-To deploy a CodeGemma model, go to the [model page](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1) and click on the [Deploy -> Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=meta-llama/Llama-2-7b-hf) widget. You can learn more about [Deploying LLMs with Hugging Face Inference Endpoints](https://huggingface.co/blog/inference-endpoints-llm) in a previous blog post. 
+To deploy a CodeGemma model, go to the [model page](https://huggingface.co/google/codegemma-2b) and click on the [Deploy -> Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=google/codegemma-2b) widget. You can learn more about [Deploying LLMs with Hugging Face Inference Endpoints](https://huggingface.co/blog/inference-endpoints-llm) in a previous blog post. Note that T4s do not support the `bfloat16` format, so you will need to use a different GPU option.
 
 ```python
-import requests
+from huggingface_hub import InferenceClient
 
-API_URL = "" # YOUR ENDPOINT URL 
-headers = {
-	"Accept" : "application/json",
-	"Authorization": "Bearer hf_XXXXX",
-	"Content-Type": "application/json" 
-}
+client = InferenceClient(model=IE_ENDPOINT)
 
-def complete(payload):
-	response = requests.post(API_URL, headers=headers, json={"inputs": payload})
-	return response.json()
+prompt = """\
+<|fim_prefix|>import <|fim_suffix|>
 
-prompt = '''
-<|fim_prefix|>import datetime
-def calculate_age(birth_year):'''
+if __name__ == '__main__':
+  sys.exit(0)<|fim_middle|>\
+"""
 
-completion = complete(prompt)
-print(completion)
-
+client.text_generation(prompt=prompt)
 ```
 
 ## **Additional Resources**
