@@ -27,7 +27,7 @@ The following materials reflect what we have found urgent to stress to policymak
             - View [recorded testimony](https://science.house.gov/2023/6/artificial-intelligence-advancing-innovation-towards-the-national-interest)
         - November 2023: [Dr. Margaret Mitchell (Chief Ethics Scientist) Senate Insight Forum Statement](https://www.schumer.senate.gov/imo/media/doc/Margaret%20Mitchell%20-%20Statement.pdf)
     - Executive
-        - March 2024: Response to NTIA [RFC on Dual Use Foundation Artificial Intelligence Models with Widely Available Model Weights](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2023_NTIA_Response.pdf)
+        - March 2024: Response to NTIA [RFC on Dual Use Foundation Artificial Intelligence Models with Widely Available Model Weights](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2024_NTIA_Response.pdf)
         - February 2024: Response to NIST [RFI Assignments Under Sections 4.1, 4.5 and 11 of the Executive Order Concerning Artificial Intelligence](https://huggingface.co/datasets/huggingface/policy-docs/blob/main/2024_NIST%20RFI%20on%20EO.pdf)
         - December 2023: Response to OMB [RFC Agency Use of Artificial Intelligence](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2023_OMB%20EO%20RFC.pdf)
         - November 2023: Response to U.S. Copyright Office [Notice of Inquiry on Artificial Intelligence and Copyright](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2023_Copyright_Response.pdf)
