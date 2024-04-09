@@ -98,7 +98,7 @@ In addition to these, there's also `<|file_separator|>`, which provides multi-fi
 CodeGemma 7B Instruct uses the same prompt format as the base Gemma Instruction-tuned versions, following this conversation structure:
 
 ```bash
-<start_of_turn>user
+<bos><start_of_turn>user
 knock knock<end_of_turn>
 <start_of_turn>model
 who is there<end_of_turn>
@@ -114,7 +114,7 @@ As is the case with Gemma, the easiest way to reproduce this format is with the 
 
 ### Using Transformers
 
-With Transformers [release 4.39](https://github.com/huggingface/transformers/releases/tag/v4.39.0), you can use CodeGemma and leverage all the tools within the Hugging Face ecosystem, such as:
+With Transformers [release 4.39](https://github.com/huggingface/transformers/releases/tag/v4.39.3), you can use CodeGemma and leverage all the tools within the Hugging Face ecosystem, such as:
 
 - training and inference scripts and examples
 - safe file format (`safetensors`)
@@ -127,7 +127,7 @@ Like the Gemma models, CodeGemma is compatible with `torch.compile()` for an imp
 To use CodeGemma with transformers, make sure to use the latest release:
 
 ```jsx
-pip install -U "transformers==4.39.3" --upgrade
+pip install --upgrade transformers
 ```
 
 The following snippet shows how to use `codegemma-2b` for code completion with transformers. It requires about 6 GB of RAM using `float16` precision, making it perfectly suitable for consumer GPUs and on-device applications.
@@ -219,15 +219,15 @@ pipeline = pipeline(
 
 You can deploy and train Gemma on Google Cloud through Vertex AI or Google Kubernetes Engine (GKE), using [Text Generation Inference](https://huggingface.co/docs/text-generation-inference/index) and Transformers. 
 
-To deploy the CodeGemma model from Hugging Face, go to the [model page](https://huggingface.co/google/codegemma-7b-it) and click on [Deploy -> Google Cloud.](https://huggingface.co/google/codegemma-7b-it) This will bring you to the Google Cloud Console, where you can 1-click deploy Gemma on Vertex AI or GKE. Text Generation Inference powers Gemma on Google Cloud and is the first integration in our [partnership with Google Cloud.](https://huggingface.co/blog/gcp-partnership)
+To deploy the CodeGemma model from Hugging Face, go to the [model page](https://huggingface.co/google/codegemma-7b-it) and click on [Deploy -> Google Cloud.](https://huggingface.co/google/codegemma-7b-it) This will bring you to the Google Cloud Console, where you can 1-click deploy CodeGemma on Vertex AI or GKE, powered by Text Generation Inference.
 
-You can also access Gemma directly through the Vertex AI Model Garden. 
+You can also access CodeGemma directly through the Vertex AI Model Garden. 
 
 ![GCP Integration](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/codegemma/gcp-integration.png "GCP Integration")
 
 ## Integration with Inference Endpoints
 
-You can deploy CodeGemma on Hugging Face's [Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=google/codegemma-2b&vendor=aws&region=us-east-1&accelerator=gpu&instance_size=2xlarge&task=text-generation&no_suggested_compute=true&tgi=true&tgi_max_batch_total_tokens=1024000&tgi_max_total_tokens=32000), which uses Text Generation Inference as the backend. [Text Generation Inference](https://github.com/huggingface/text-generation-inference) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, token streaming, tensor parallelism for fast inference on multiple GPUs, and production-ready logging and tracing.
+You can deploy CodeGemma on Hugging Face's [Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=google/codegemma-2b&vendor=aws&region=us-east-1&accelerator=gpu&instance_size=2xlarge&task=text-generation&no_suggested_compute=true&tgi=true&tgi_max_batch_total_tokens=1024000&tgi_max_total_tokens=32000), which uses Text Generation Inference as the backend. [Text Generation Inference](https://github.com/huggingface/text-generation-inference) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, token streaming, tensor parallelism for fast inference on multiple GPUs, production-ready logging and tracing, and is distributed under the Apache 2 license.
 
 To deploy a CodeGemma model, go to the [model page](https://huggingface.co/google/codegemma-2b) and click on the [Deploy -> Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=google/codegemma-2b) widget. You can learn more about [Deploying LLMs with Hugging Face Inference Endpoints](https://huggingface.co/blog/inference-endpoints-llm) in a previous blog post. Note that T4s do not support the `bfloat16` format, so you will need to use a different GPU option.
 
