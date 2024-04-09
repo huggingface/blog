@@ -28,8 +28,6 @@ We’ve collaborated with Google to ensure the best integration into the Hugging
 - Integration with Inference Endpoints
 - Code benchmarks
 
-Bonus: Colab notebook for you to try out the model at the touch of a button [here](https://github.com/Vaibhavs10/notebooks/blob/main/CodeGemma_colab.ipynb).
-
 ## Table of contents
 
   - [What is CodeGemma](#what-is-codegemma)
@@ -125,6 +123,8 @@ With Transformers [release 4.39](https://github.com/huggingface/transformers/re
 - mechanisms to export the models to deploy
 
 Like the Gemma models, CodeGemma is compatible with `torch.compile()` for an important inference speedup.
+
+*Bonus*: We made a Colab notebook for you to try out the model at the touch of a button [here](https://github.com/Vaibhavs10/notebooks/blob/main/CodeGemma_colab.ipynb).
 
 To use CodeGemma with transformers, make sure to use the latest release:
 
