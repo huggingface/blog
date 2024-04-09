@@ -3734,8 +3734,6 @@
   tags:
     - security
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 - local: codegemma
   title: "CodeGemma - an official Google release for code LLMs"
   author: pcuenq
@@ -3747,6 +3745,7 @@
     - research
     - LLM
     - gcp
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 - local: google-cloud-model-garden
@@ -3803,9 +3802,11 @@
 - local: concrete-ml-inference-on-endpoints-fhe
   title: "Running Privacy-Preserving Inferences on Hugging Face EndPoints"
 =======
+=======
+
+>>>>>>> 077d776 (merge)
 - local: fhe-endpoints
   title: "Running Privacy-Preserving Inference on Hugging Face Endpoints"
->>>>>>> 1dfe887 (reviews (to be squashed))
   author: binoua
   guest: true
   thumbnail: /blog/assets/fhe-endpoints/thumbnail.png
@@ -3815,7 +3816,16 @@
     - privacy
     - research
     - FHE
+<<<<<<< HEAD
 >>>>>>> 0fe12cc (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
 >>>>>>> 149835e (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
+<<<<<<< HEAD
 >>>>>>> 5fdbe36 (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
+<<<<<<< HEAD
 >>>>>>> dd723da (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
+=======
+=======
+=======
+>>>>>>> 077d776 (merge)
+>>>>>>> 7eae955 (merge)
+>>>>>>> e34bce7 (merge)
