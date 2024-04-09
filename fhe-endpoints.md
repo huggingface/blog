@@ -178,8 +178,7 @@ For now, we have prepared a few pre-compiled models as examples, hoping the comm
 [QNN](https://huggingface.co/zama-fhe/concrete-ml-encrypted-qnn) | Iris | 3.7 sec
 [CNN](https://huggingface.co/zama-fhe/concrete-ml-encrypted-deeplearning) | MNIST | 24 sec
 
-
-Keep in mind that CPU machines available as HF Endpoints today are not as powerful as AWS' machines (generally m6i or hpc7a), so complex models' execution time is expected to be slower. Hopefully, more powerful machines will soon be available on Hugging Face Endpoints to improve these timings.
+Keep in mind that there's a limited set of configuration options in Hugging Face for CPU-backed Endpoints (up to 8 vCPU with 16 GB of RAM today). Depending on your production requirements and model characteristics, execution times could be faster on more powerful cloud instances. Hopefully, more powerful machines will soon be available on Hugging Face Endpoints to improve these timings.
 
 ## Additional resources
 
