@@ -34,6 +34,7 @@ We’ve collaborated with Google to ensure the best integration into the Hugging
     - [Evaluation Results](#evaluation-results)
     - [Prompt format](#prompt-format)
 - [Using CodeGemma](#using-codegemma)
+    - [Demo](#demo)
     - [Using Transformers](#using-transformers)
     - [Integration with Google Cloud](#integration-with-google-cloud)
     - [Integration with Inference Endpoints](#integration-with-inference-endpoints)
@@ -111,6 +112,15 @@ LaMDA who?<end_of_turn>
 As is the case with Gemma, the easiest way to reproduce this format is with the chat template available in `transformers`.
 
 ## Using CodeGemma
+
+### Demo
+
+You can easily try the CodeGemma Model (7 billion parameters!) in **[this Space](https://huggingface.co/spaces/ysharma/CodeGemma)** or in the Chatbot embedded below:
+
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.26.0/gradio.js"></script>
+<gradio-app src="https://ysharma-codegemma.hf.space"></gradio-app>
+
+Under the hood, this playground uses Transformers implementation. You can also duplicate the Space for your use – it's self-contained, so you can examine the source code and adapt it as you wish!
 
 ### Using Transformers
 
