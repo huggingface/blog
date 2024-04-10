@@ -68,4 +68,4 @@ And that’s it! Deploying a model like Zephyr Gemma directly, from the Vertex M
 
 ## We’re just getting started
 
-We are excited to collaborate with Google Cloud to make AI more open and accessible for everyone. Deploying open LLMs on Google Cloud has never been easier, whether you start from the Hugging Face Hub, or within the Google Cloud console. And we’re not going to stop there - stay tuned as we enable more experiences to build AI with open models on Google Cloud! 
+We are excited to collaborate with Google Cloud to make AI more open and accessible for everyone. Deploying open models on Google Cloud has never been easier, whether you start from the Hugging Face Hub, or within the Google Cloud console. And we’re not going to stop there – stay tuned as we enable more experiences to build AI with open models on Google Cloud! 
