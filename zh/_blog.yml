@@ -1402,7 +1402,7 @@
     - announcement
 
 - local: intel-fast-embedding
-  title: 利用 🤗 Optimum Intel 和 fastRAG 在 CPU 上优化文本嵌入
+  title: "利用 🤗 Optimum Intel 和 fastRAG 在 CPU 上优化文本嵌入"
   author: peterizsak
   guest: true
   thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
@@ -1437,6 +1437,19 @@
     - quantization
     - transformers
     - diffusers
+
+- local: embedding-quantization
+  title: "用于显著提高检索速度和降低成本的二进制和标量嵌入量化"
+  author: aamirshakir
+  guest: true
+  thumbnail: /blog/assets/embedding-quantization/thumbnail.png
+  date: Mar 22, 2024
+  tags:
+    - nlp
+    - community
+    - guide
+    - collaboration
+    - research
 
 - local: cloudflare-workers-ai
   title: 为 Hugging Face 用户带来无服务器 GPU 推理服务
