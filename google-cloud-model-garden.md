@@ -1,6 +1,6 @@
 ---
 title: "Making thousands of open LLMs bloom in the Google Model Garden" 
-thumbnail: /blog/assets/cloudflare-workers-ai/thumbnail.jpg
+thumbnail: /blog/assets/173_gcp-partnership/thumbnail.jpg
 authors:
 - user: philschmid
 - user: jeffboudier
