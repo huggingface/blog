@@ -1,5 +1,5 @@
 ---
-title: "Making thousands of open LLMs bloom in the Google Model Garden" 
+title: "Making thousands of open LLMs bloom in the Vertex AI Model Garden" 
 thumbnail: /blog/assets/173_gcp-partnership/thumbnail.jpg
 authors:
 - user: philschmid
@@ -7,18 +7,19 @@ authors:
 ---
 
 
-# Making thousands of open LLMs bloom in the Google Model Garden
+# Making thousands of open LLMs bloom in the Vertex AI Model Garden
 
-Today, we are thrilled to announce the launch of **Deploy on Google Cloud**, a new integration on the Hugging Face Hub to deploy thousands of LLMs easily to Google Cloud using Vertex AI or Google Kubernetes Engine (GKE). Deploy on Google Cloud makes it easy to deploy open LLMs as API Endpoints within your own Google Cloud account. Starting today, we are enabling the most popular open LLMs on Hugging Face for inference powered by our production solution, [Text Generation Inference](https://github.com/huggingface/text-generation-inference/). 
+Today, we are thrilled to announce the launch of **Deploy on Google Cloud**, a new integration on the Hugging Face Hub to deploy thousands of foundation models easily to Google Cloud using Vertex AI or Google Kubernetes Engine (GKE). Deploy on Google Cloud makes it easy to deploy open models as API Endpoints within your own Google Cloud account, either directly through Hugging Face model cards or within Vertex Model Garden, Google Cloud’s single place to discover, customize, and deploy a wide variety of models from Google and Google partners. Starting today, we are enabling the most popular open models on Hugging Face for inference powered by our production solution, [Text Generation Inference](https://github.com/huggingface/text-generation-inference/). 
 
 With Deploy on Google Cloud, developers can build production-ready Generative AI applications without managing infrastructure and servers, directly within their secure Google Cloud environment.
 
 
 ## A Collaboration for AI Builders
 
-This new experience expands upon the [strategic partnership we announced earlier this year](https://huggingface.co/blog/gcp-partnership) to simplify the access and deployment of open Generative AI models for Google customers. One of the main problems developers and organizations face is the time and resources it takes to deploy LLMs securely and reliably. Deploy on Google Cloud offers an easy, managed solution to these challenges, providing dedicated configurations and assets to Hugging Face Models. It’s a simple click-through experience to create a production-ready Endpoint on Google Vertex AI. 
+This new experience expands upon the [strategic partnership we announced earlier this year](https://huggingface.co/blog/gcp-partnership) to simplify the access and deployment of open Generative AI models for Google customers. One of the main problems developers and organizations face is the time and resources it takes to deploy models securely and reliably. Deploy on Google Cloud offers an easy, managed solution to these challenges, providing dedicated configurations and assets to Hugging Face Models. It’s a simple click-through experience to create a production-ready Endpoint on Google Cloud’s Vertex AI. 
+ 
 
-“The Vertex Model Garden integration with the Hugging Face Hub makes it seamless to discover and deploy open LLMs on Vertex AI and GKE, whether you start your journey on the Hub or directly in the Google Cloud Console_Quote_” says Wenming Ye, Product Manager at GoogleGoogle. “We can’t wait to see what Google Developers build, and to enable more experiences with Hugging Face_Follow up_”
+“Vertex AI’s Model Garden integration with the Hugging Face Hub makes it seamless to discover and deploy open models on Vertex AI and GKE, whether you start your journey on the Hub or directly in the Google Cloud Console” says Wenming Ye, Product Manager at Google. “We can’t wait to see what Google Developers build with Hugging Face models”.
 
 
 ## How it works - from the Hub
@@ -68,4 +69,4 @@ And that’s it! Deploying a model like Zephyr Gemma directly, from the Vertex M
 
 ## We’re just getting started
 
-We are excited to collaborate with Google Cloud to make AI more open and accessible for everyone. Deploying open LLMs on Google Cloud has never been easier, whether you start from the Hugging Face Hub, or within the Google Cloud console. And we’re not going to stop there - stay tuned as we enable more experiences to build AI with open models on Google Cloud! 
+We are excited to collaborate with Google Cloud to make AI more open and accessible for everyone. Deploying open models on Google Cloud has never been easier, whether you start from the Hugging Face Hub, or within the Google Cloud console. And we’re not going to stop there – stay tuned as we enable more experiences to build AI with open models on Google Cloud! 
