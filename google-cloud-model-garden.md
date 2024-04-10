@@ -63,7 +63,7 @@ Once you find the model you want to deploy, select it, and Vertex AI will prefil
 ![from-deploy.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/google-cloud-model-garden/from-deploy.png)
 
 
-And that’s it! Deploying a model like Zephyr Gemma directly, from the Vertex Model Garden, onto your own Google Cloud account is just a couple of clicks.
+And that’s it! Deploying a model like Zephyr Gemma directly, from the Vertex Model Garden onto your own Google Cloud account is just a couple of clicks.
 
 
 ## We’re just getting started
