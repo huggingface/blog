@@ -23,7 +23,7 @@ This new experience expands upon the [strategic partnership we announced earlier
 
 ## How it works - from the Hub
 
-Deploying Hugging Face Models on Google Cloud is super easy. Below, you will find step-by-step instructions on how to deploy [Zephyr Gemma](https://console.cloud.google.com/vertex-ai/publishers/HuggingFaceH4/model-garden/zephyr-7b-gemma-v0.1;hfSource=true;action=deploy?authuser=1). Starting today, [all models with the “text-generation-inference”](https://huggingface.co/models?pipeline_tag=text-generation&sort=trending) tag will be supported. 
+Deploying Hugging Face Models on Google Cloud is super easy. Below, you will find step-by-step instructions on how to deploy [Zephyr Gemma](https://console.cloud.google.com/vertex-ai/publishers/HuggingFaceH4/model-garden/zephyr-7b-gemma-v0.1;hfSource=true;action=deploy?authuser=1). Starting today, [all models with the “text-generation-inference”](https://huggingface.co/models?pipeline_tag=text-generation-inference&sort=trending) tag will be supported. 
 
 
 
