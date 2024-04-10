@@ -11,7 +11,7 @@ In this post, I will show you how you can build a functional AI application quic
 
 ## What does reload mode do?
 
-To put it simply, it pulls in the latest changes from your source file without restarting the gradio server. If that does not make sense to you yet, don't worry! It will be explained below.
+To put it simply, it pulls in the latest changes from your source files without restarting the gradio server. If that does not make sense yet, please continue reading.
 
 Gradio is a popular Python library for creating interactive machine learning apps.
 Gradio developers declare their UI layout entire in python and add some python logic that triggers whenever a UI event happens. It's easy to learn if you know basic python. Check out this [quickstart](https://www.gradio.app/guides/quickstart) if you are not familiar with Gradio.
@@ -26,7 +26,7 @@ In the rest of this post, I will show you how you can quickly build a functional
 
 ## Building a Document Analyzer Application
 
-Our application will allow users to upload pictures of documents and ask questions about them. They will receive answers in natural language. We will use the free[Hugginface Inference API](https://arc.net/l/quote/caqwjkub) so you should be able to follow along from your computer. No GPU required!
+Our application will allow users to upload pictures of documents and ask questions about them. They will receive answers in natural language. We will use the free [Hugginface Inference API](https://huggingface.co/docs/huggingface_hub/guides/inference) so you should be able to follow along from your computer. No GPU required!
 
 I will start off with a simple `gr.Interface` and launch the script in reload mode. I called the script `app.py` so I will run it with `gradio app.py`
 
@@ -48,7 +48,7 @@ Since I want to let users upload image files along with their questions, I will 
 
 ![Simple Interface with MultimodalTextbox](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-reload/change_to_multimodal_tb.gif)
 
-This UI works but I think it would be better if the input textbox was below the output textbox. I can do this with the `Blocks` api. I'm also customizing the input textbox by adding a placeholder text to guide users.
+This UI works but I think it would be better if the input textbox was below the output textbox. I can do this with the `Blocks` API. I'm also customizing the input textbox by adding a placeholder text to guide users.
 
 
 ![Switch to Blocks](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-reload/switch_to_blocks.gif?download=true)
@@ -128,6 +128,6 @@ As a final improvement, I will add a markdown header to the page:
 
 ### Conclusion
 
-In this post, I developed a working AI application with Gradio and the HuggingFace Inference API. When I started developing this, I didn't know what the final product would look like so being able to iterate through different ideas quickly was important. 
+In this post, I developed a working AI application with Gradio and the HuggingFace Inference API. When I started developing this, I didn't know what the final product would look like so having the UI and server logic reload instanty let me iterate on different ideas very quicky. It took me about an hour to develop this entire app!
 
 If you'd like to see the entire code for this demo, please check out this [space](https://huggingface.co/spaces/freddyaboulton/document-analzer)!
