@@ -3747,7 +3747,7 @@
     - gcp
 
 - local: google-cloud-model-garden
-  title: "Making thousands of open LLMs bloom in the Vertex Model Garden"
+  title: "Making thousands of open LLMs bloom in the Vertex AI Model Garden"
   author: philschmid
   thumbnail: /blog/assets/173_gcp-partnership/thumbnail.jpg
   date: April 10, 2024
