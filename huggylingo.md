@@ -75,9 +75,9 @@ dataset = load_dataset("biglam/on_the_books")
 
 However, for some of the datasets on the Hub, we might be keen not to download the whole dataset. We could instead try to load a sample of the dataset. However, depending on how the dataset was created, we might still end up downloading more data than we’d need onto the machine we’re working on. 
 
-Luckily, many datasets on the Hub are available via the [datasets server](https://huggingface.co/docs/datasets-server/index). The datasets server is an API that allows us to access datasets hosted on the Hub without downloading the dataset locally. The Datasets Server powers the Datasets Viewer preview you will see for many datasets hosted on the Hub. 
+Luckily, many datasets on the Hub are available via the [dataset viewer](https://huggingface.co/docs/datasets-server/index). The dataset viewer is an API that allows us to access datasets hosted on the Hub without downloading the dataset locally. The Dataset Viewer powers the Datasets Viewer preview you will see for many datasets hosted on the Hub. 
 
-For this first experiment with predicting language for datasets, we define a list of column names and data types likely to contain textual content i.e. `text` or `prompt` column names and `string` features are likely to be relevant `image` is not. This means we can avoid predicting the language for datasets where language information is less relevant, for example, image classification datasets. We use the Datasets Server to get 20 rows of text data to pass to a machine learning model (we could modify this to take more or fewer examples from the dataset). 
+For this first experiment with predicting language for datasets, we define a list of column names and data types likely to contain textual content i.e. `text` or `prompt` column names and `string` features are likely to be relevant `image` is not. This means we can avoid predicting the language for datasets where language information is less relevant, for example, image classification datasets. We use the Dataset Viewer to get 20 rows of text data to pass to a machine learning model (we could modify this to take more or fewer examples from the dataset). 
 
 This approach means that for the majority of datasets on the Hub we can quickly request the contents of likely text columns for the first 20 rows in a dataset. 
 
@@ -112,7 +112,7 @@ This automated system not only updates the datasets with language information, b
 
 As the number of datasets on the Hub grows, metadata becomes increasingly important. Language metadata, in particular, can be incredibly valuable for identifying the correct dataset for your use case.
 
-With the assistance of the Datasets Server and the [Librarian-Bots](https://huggingface.co/librarian-bots), we can update our dataset metadata at a scale that wouldn't be possible manually. As a result, we're enriching the Hub and making it an even more powerful tool for data scientists, linguists, and AI enthusiasts around the world. 
+With the assistance of the Dataset Viewer and the [Librarian-Bots](https://huggingface.co/librarian-bots), we can update our dataset metadata at a scale that wouldn't be possible manually. As a result, we're enriching the Hub and making it an even more powerful tool for data scientists, linguists, and AI enthusiasts around the world. 
 
 As the machine learning librarian at Hugging Face, I continue exploring opportunities for automatic metadata enrichment for machine learning artefacts hosted on the Hub. Feel free to reach out (daniel at thiswebsite dot co) if you have ideas or want to collaborate on this effort! 
 
