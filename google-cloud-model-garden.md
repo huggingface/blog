@@ -18,7 +18,7 @@ With Deploy on Google Cloud, developers can build production-ready Generative AI
 
 This new experience expands upon the [strategic partnership we announced earlier this year](https://huggingface.co/blog/gcp-partnership) to simplify the access and deployment of open Generative AI models for Google customers. One of the main problems developers and organizations face is the time and resources it takes to deploy LLMs securely and reliably. Deploy on Google Cloud offers an easy, managed solution to these challenges, providing dedicated configurations and assets to Hugging Face Models. It’s a simple click-through experience to create a production-ready Endpoint on Google Vertex AI. 
 
-“The Vertex Model Garden integration with the Hugging Face Hub makes it seamless to discover and deploy open LLMs on Vertex AI and GKE, whether you start your journey on the Hub or directly in the Google Cloud Console” says Wenming Ye, Product Manager at Google. “We can’t wait to see what Google Developers build, and to enable more experiences with Hugging Face”
+“The Vertex Model Garden integration with the Hugging Face Hub makes it seamless to discover and deploy open LLMs on Vertex AI and GKE, whether you start your journey on the Hub or directly in the Google Cloud Console” says Wenming Ye, Product Manager at Google. “We can’t wait to see what Google Developers build, and to enable more experiences with Hugging Face”.
 
 
 ## How it works - from the Hub
