@@ -1,5 +1,5 @@
 ---
-title: "Making thousands of open LLMs bloom in the Google Model Garden" 
+title: "Making thousands of open LLMs bloom in the Vertex Model Garden" 
 thumbnail: /blog/assets/173_gcp-partnership/thumbnail.jpg
 authors:
 - user: philschmid
@@ -7,7 +7,7 @@ authors:
 ---
 
 
-# Making thousands of open LLMs bloom in the Google Model Garden
+# Making thousands of open LLMs bloom in the Vertex Model Garden
 
 Today, we are thrilled to announce the launch of **Deploy on Google Cloud**, a new integration on the Hugging Face Hub to deploy thousands of LLMs easily to Google Cloud using Vertex AI or Google Kubernetes Engine (GKE). Deploy on Google Cloud makes it easy to deploy open LLMs as API Endpoints within your own Google Cloud account. Starting today, we are enabling the most popular open LLMs on Hugging Face for inference powered by our production solution, [Text Generation Inference](https://github.com/huggingface/text-generation-inference/). 
 
@@ -18,7 +18,7 @@ With Deploy on Google Cloud, developers can build production-ready Generative AI
 
 This new experience expands upon the [strategic partnership we announced earlier this year](https://huggingface.co/blog/gcp-partnership) to simplify the access and deployment of open Generative AI models for Google customers. One of the main problems developers and organizations face is the time and resources it takes to deploy LLMs securely and reliably. Deploy on Google Cloud offers an easy, managed solution to these challenges, providing dedicated configurations and assets to Hugging Face Models. It’s a simple click-through experience to create a production-ready Endpoint on Google Vertex AI. 
 
-“The Vertex Model Garden integration with the Hugging Face Hub makes it seamless to discover and deploy open LLMs on Vertex AI and GKE, whether you start your journey on the Hub or directly in the Google Cloud Console_Quote_” says Wenming Ye, Product Manager at GoogleGoogle. “We can’t wait to see what Google Developers build, and to enable more experiences with Hugging Face_Follow up_”
+“The Vertex Model Garden integration with the Hugging Face Hub makes it seamless to discover and deploy open LLMs on Vertex AI and GKE, whether you start your journey on the Hub or directly in the Google Cloud Console” says Wenming Ye, Product Manager at Google. “We can’t wait to see what Google Developers build, and to enable more experiences with Hugging Face”
 
 
 ## How it works - from the Hub
