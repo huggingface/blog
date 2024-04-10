@@ -38,7 +38,7 @@ Open the “Deploy” menu, and select “Google Cloud”. This will now bring y
 ![vertex-ai-model-garden](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/google-cloud-model-garden/vertex-ai-model-garden.png)
 
 
-Once you are in the Vertex Model Garden, you can select Vertex AI or GKE as your deployment environment. With Vertex AI you can deploy the model with 1-click on “Deploy”. For GKE you can follow instructions and manifest templates on how to deploy the model on a new or running Kubernetes Cluster. 
+Once you are in the Vertex Model Garden, you can select Vertex AI or GKE as your deployment environment. With Vertex AI you can deploy the model with 1-click on “Deploy”. For GKE, you can follow instructions and manifest templates on how to deploy the model on a new or running Kubernetes Cluster. 
 
 
 ## How it works - from Vertex Model Garden
