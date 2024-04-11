@@ -57,7 +57,7 @@ All models are trained on English unless stated otherwise in the additional capa
 <em>Vision Arena</em>
 </p>
 
-[Open VLM Leaderboard](https://huggingface.co/spaces/opencompass/open_vlm_leaderboard), is another leaderboard where various vision language models are ranked according to these metrics and average scores. You can also filter models according to model sizes, proprietary or open-source licenses, and filter, and rank for different metrics.
+[Open VLM Leaderboard](https://huggingface.co/spaces/opencompass/open_vlm_leaderboard), is another leaderboard where various vision language models are ranked according to these metrics and average scores. You can also filter models according to model sizes, proprietary or open-source licenses, and rank for different metrics.
 
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vlm/leaderboard.png" alt="VLM Capabilities" style="width: 90%; height: auto;"><be>
