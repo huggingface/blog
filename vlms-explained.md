@@ -64,7 +64,7 @@ All models are trained on English unless stated otherwise in the additional capa
 <em>Open VLM Leaderboard</em>
 </p>
 	 
-[VLMEvalKit](https://github.com/open-compass/VLMEvalKit) is the toolkit to run benchmarks on a vision language model powering the Open VLM Leaderboard. 
+[VLMEvalKit](https://github.com/open-compass/VLMEvalKit) is a toolkit to run benchmarks on a vision language models that powers the Open VLM Leaderboard. 
 Another evaluation suite is [LMMS-Eval](https://github.com/EvolvingLMMs-Lab/lmms-eval) which provides a standard command line interface to evaluate Hugging Face models of your choice with datasets hosted on Hugging Face Hub like below:
 
 ```bash
