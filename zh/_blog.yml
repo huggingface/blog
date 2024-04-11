@@ -1438,6 +1438,16 @@
     - transformers
     - diffusers
 
+- local: phi2-intel-meteor-lake
+  title: 笔记本电脑上的聊天机器人：在英特尔 Meteor Lake 上运行 Phi-2
+  author: juliensimon
+  thumbnail: /blog/assets/phi2-intel-meteor-lake/02.jpg
+  date: March 20, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
+
 - local: embedding-quantization
   title: "用于显著提高检索速度和降低成本的二进制和标量嵌入量化"
   author: aamirshakir
@@ -1450,6 +1460,7 @@
     - guide
     - collaboration
     - research
+
 
 - local: cloudflare-workers-ai
   title: 为 Hugging Face 用户带来无服务器 GPU 推理服务
