@@ -21,9 +21,10 @@ Vision language models are broadly defined as multimodal models that can learn f
 ## Overview of open-source VLMs
 
 There are many open vision language models on the Hugging Face Hub. Some of the most prominent ones are shown in the table below. 
-There are base models, and models fine-tuned for chat that can be used in conversational mode. 
-Some of these models have a feature called “grounding” which reduces model hallucinations. 
-All models are trained on English unless stated otherwise.
+
+- There are base models, and models fine-tuned for chat that can be used in conversational mode. 
+- Some of these models have a feature called “grounding” which reduces model hallucinations. 
+- All models are trained on English unless stated otherwise.
 
 | Model                  | Permissive License | Model Size | Image Resolution | Additional Capabilities               |
 |------------------------|--------------------|------------|------------------|---------------------------------------|
@@ -80,7 +81,9 @@ There are other more specific benchmarks across different domains, including Mat
 
 ## Technical details 
 
-There are various ways to pretrain a vision language model. The main trick is to unify the image and text representation and feed it to a text decoder for generation. The most common and prominent models often consist of an image encoder, an embedding projector to align image and text representations (often a dense neural network) and a text decoder stacked in this order. As for the training parts, different models have been following different approaches. For example, LLaVA consists of a CLIP image encoder, a multimodal projector and a Vicuna text decoder. The authors fed a dataset of images and captions to GPT-4 and generated questions related to the caption and the image. The authors have frozen the image encoder and text decoder and have only trained the multimodal projector to align the image and text features by feeding the model images and generated questions and comparing the model output to the ground truth captions. After the projector pretraining, they keep the image encoder frozen, unfreeze the text decoder, and train the projector with the decoder. This way of pre-training and fine-tuning is the most common way of training vision language models.
+There are various ways to pretrain a vision language model. The main trick is to unify the image and text representation and feed it to a text decoder for generation. The most common and prominent models often consist of an image encoder, an embedding projector to align image and text representations (often a dense neural network) and a text decoder stacked in this order. As for the training parts, different models have been following different approaches. 
+
+For instance, LLaVA consists of a CLIP image encoder, a multimodal projector and a Vicuna text decoder. The authors fed a dataset of images and captions to GPT-4 and generated questions related to the caption and the image. The authors have frozen the image encoder and text decoder and have only trained the multimodal projector to align the image and text features by feeding the model images and generated questions and comparing the model output to the ground truth captions. After the projector pretraining, they keep the image encoder frozen, unfreeze the text decoder, and train the projector with the decoder. This way of pre-training and fine-tuning is the most common way of training vision language models.
 
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vlm/vlm-structure.png" alt="VLM Structure" style="width: 90%; height: auto;"><br>
