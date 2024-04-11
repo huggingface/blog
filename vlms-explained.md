@@ -208,7 +208,7 @@ train_dataset = raw_datasets["train"]
 eval_dataset = raw_datasets["test"]
 ```
 
-Initialize the SFTTrainer, passing in the model, the dataset splits, PEFT configuration and data collator and call `train()`. To push our final checkpoints to Hub, call `push_to_hub()`.
+Initialize the SFTTrainer, passing in the model, the dataset splits, PEFT configuration and data collator and call `train()`. To push our final checkpoint to the Hub, call `push_to_hub()`.
 
 ```python
 from trl import SFTTrainer
