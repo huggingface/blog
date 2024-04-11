@@ -243,4 +243,4 @@ You can also try the model directly in our VLM playground below ⬇️
 
 **Acknowledgements**
 
-We would like to thank Pedro Cuenca and Omar Sanseviero for their reviews and suggestions on this blog post.
+We would like to thank Pedro Cuenca, Lewis Tunstall and Omar Sanseviero for their reviews and suggestions on this blog post.
