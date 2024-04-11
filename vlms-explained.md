@@ -45,7 +45,7 @@ All models are trained on English unless stated otherwise.
 | [KOSMOS-2](https://huggingface.co/microsoft/kosmos-2-patch14-224)               | ✅                  | ~2B        | 224x224          | Grounding, zero-shot object detection |
 | [Qwen-VL](https://huggingface.co/Qwen/Qwen-VL)                | ✅                  | 4B         | 448x448          | Zero-shot object detection            |
 | [Qwen-VL-Chat](https://huggingface.co/Qwen/Qwen-VL-Chat)           | ✅                  | 4B         | 448x448          | Chat                                  |
-| [Yi-VL-34B](https://huggingface.co/01-ai/Yi-VL-34B)              | ✅                  | 34B        | 448x448          | Bilinguality                          |
+| [Yi-VL-34B](https://huggingface.co/01-ai/Yi-VL-34B)              | ✅                  | 34B        | 448x448          |  Bilingual (English, Chinese) |
 
 
 ## Finding the right vision language model
