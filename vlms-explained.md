@@ -72,7 +72,7 @@ accelerate launch --num_processes=8 -m lmms_eval --model llava   --model_args pr
 ```
 These leaderboards are limited to the models that are submitted to them and require updates. If you want to find more models, you can browse Hugging Face Hub for [models](https://huggingface.co/models?pipeline_tag=image-text-to-text&sort=trending) under task `image-text-to-text`. 
 
-There are different benchmarks to evaluate vision language models that you may come across the leaderboards. We will go through a few of them.
+There are different benchmarks to evaluate vision language models that you may come across in the leaderboards. We will go through a few of them.
 
 ### MMMU
 
