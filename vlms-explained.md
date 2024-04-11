@@ -80,7 +80,7 @@ There are different benchmarks to evaluate vision language models that you may c
 
 ### MMBench
 
-[MMBench](https://huggingface.co/datasets/lmms-lab/MMBench) is an evaluation benchmark that consists of 3000 single-choice questions over 20 different skills, including OCR, object localization and more.  The paper also introduces an evaluation strategy called CircularEval, where the answer choices of a question are shuffled in different combinations, and the model is expected to give the right answer in every turn. 
+[MMBench](https://huggingface.co/datasets/lmms-lab/MMBench) is an evaluation benchmark that consists of 3000 single-choice questions over 20 different skills, including OCR, object localization and more.  The paper also introduces an evaluation strategy called CircularEval, where the answer choices of a question are shuffled in different combinations, and the model is expected to give the right answer at every turn. 
 There are other more specific benchmarks across different domains, including MathVista (visual mathematical reasoning), AI2D (diagram understanding), ScienceQA (Science Question Answering) and OCRBench (document understanding).
 
 ## Technical details 
