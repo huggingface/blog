@@ -104,6 +104,7 @@ Most of the time, you don’t need to pre-train a vision language model, as you 
 
 
 ## Using vision language models with transformers
+
 You can infer with vision language models without the pipeline in `LlavaNext` example below. Note that every model has its own prompt template.
 
 Let’s initialize the model and the processor first.
