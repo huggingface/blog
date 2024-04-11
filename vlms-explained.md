@@ -145,7 +145,7 @@ print(processor.decode(output[0], skip_special_tokens=True))
 
 ## Fine-tuning vision language models with TRL
 
-We are excited to announce that TRL’s `SFTTrainer` now includes experimental support for Vision Language Models. We provide an example here of how to perform SFT on a [Llava 1.5 VLM](https://huggingface.co/llava-hf/llava-1.5-7b-hf) using the [llava-instruct](https://huggingface.co/datasets/HuggingFaceH4/llava-instruct-mix-vsft) dataset which contains 260k image-conversation pairs.
+We are excited to announce that [TRL](https://github.com/huggingface/trl)’s `SFTTrainer` now includes experimental support for Vision Language Models! We provide an example here of how to perform SFT on a [Llava 1.5 VLM](https://huggingface.co/llava-hf/llava-1.5-7b-hf) using the [llava-instruct](https://huggingface.co/datasets/HuggingFaceH4/llava-instruct-mix-vsft) dataset which contains 260k image-conversation pairs.
 The dataset contains user-assistant interactions formatted as a sequence of messages. For example, each conversation is paired with an image that the user asks questions about.
 
 To use the experimental VLM training support, you must install the latest version of TRL, with `pip install -U trl`.
