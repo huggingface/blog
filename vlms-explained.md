@@ -212,6 +212,7 @@ Initialize the SFTTrainer, passing in the model, the dataset splits, PEFT config
 
 ```python
 from trl import SFTTrainer
+
 trainer = SFTTrainer(
     model=model,
     args=training_args,
