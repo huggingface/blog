@@ -8,7 +8,7 @@ authors:
 
 # Vision Language Models Explained
 
-Vision language models are models that can learn about both images and texts to tackle various tasks. These models can solve many problems from visual question answering to image captioning. In this blog post, we go through the main building blocks ofvision language models: have an overview, grasp how they work, figure out how to find the right model, and use them. 
+Vision language models are models that can learn about both images and texts to tackle various tasks. These models can solve many problems from visual question answering to image captioning. In this blog post, we go through the main building blocks of vision language models: have an overview, grasp how they work, figure out how to find the right model, and use them. 
 
 ## Table of Contents
 - [What is a vision language model?](#what-is-a-vision-language-model)
