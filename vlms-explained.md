@@ -138,6 +138,7 @@ output = model.generate(**inputs, max_new_tokens=100)
 ```
 
 Call decode to decode the output tokens.
+
 ```python
 print(processor.decode(output[0], skip_special_tokens=True))
 ```
