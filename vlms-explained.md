@@ -99,7 +99,7 @@ There are various ways to pretrain a vision language model. The main trick is to
  <em>Projection and text embeddings are concatenated</em>
 </p>
 
-Another example is KOSMOS-2, where the authors have chosen to fully train the model end-to-end, which is computationally expensive compared to LLaVA-like pre-training. The authors later do language only instruction fine-tuning to align the model. Fuyu-8B is another model that doesn’t have an image encoder, but image patches are directly fed to a projection layer and then a decoder. 
+Another example is KOSMOS-2, where the authors chose to fully train the model end-to-end, which is computationally expensive compared to LLaVA-like pre-training. The authors later did language-only instruction fine-tuning to align the model. Fuyu-8B, as another example, doesn’t even have an image encoder. Instead, image patches are directly fed to a projection layer and then the sequence goes through an auto-regressive decoder. 
 Most of the time, you don’t need to pre-train a vision language model, as you can either use one of the existing ones or fine-tune them on your own use case. We will go through how to use these models using transformers and fine-tune using `SFTTrainer`.
 
 
