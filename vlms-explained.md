@@ -96,7 +96,7 @@ There are various ways to pretrain a vision language model. The main trick is to
 </p>
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vlm/proj.jpg" alt="VLM Structure" style="width: 90%; height: auto;"><br>
- <em>Projection tokens are concatenated to text tokens</em>
+ <em>Projection and text embeddings are concatenated</em>
 </p>
 
 Another example is KOSMOS-2, where the authors have chosen to fully train the model end-to-end, which is computationally expensive compared to LLaVA-like pre-training. The authors later do language only instruction fine-tuning to align the model. Fuyu-8B is another model that doesn’t have an image encoder, but image patches are directly fed to a projection layer and then a decoder. 
