@@ -72,7 +72,8 @@ Another evaluation suite is [LMMS-Eval](https://github.com/EvolvingLMMs-Lab/lmms
 ```bash
 accelerate launch --num_processes=8 -m lmms_eval --model llava --model_args pretrained="liuhaotian/llava-v1.5-7b" --tasks mme,mmbench_en --batch_size 1 --log_samples --log_samples_suffix llava_v1.5_mme_mmbenchen --output_path ./logs/ 
 ```
-These leaderboards are limited to the models that are submitted to them and require updates. If you want to find more models, you can browse Hugging Face Hub for [models](https://huggingface.co/models?pipeline_tag=image-text-to-text&sort=trending) under task `image-text-to-text`. 
+
+Both the Vision Arena and the Open VLM Leaderbard are limited to the models that are submitted to them, and require updates to add new models. If you want to find additional models, you can browse the Hub for [models](https://huggingface.co/models?pipeline_tag=image-text-to-text&sort=trending) under the task `image-text-to-text`. 
 
 There are different benchmarks to evaluate vision language models that you may come across in the leaderboards. We will go through a few of them.
 
