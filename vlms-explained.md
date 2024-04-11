@@ -55,7 +55,7 @@ There are many ways to select the most appropriate model for your use case.
 [Vision Arena](https://huggingface.co/spaces/WildVision/vision-arena) is a leaderboard solely based on anonymous voting of model outputs and is updated continuously. In this arena, the users enter an image and a prompt, and outputs from two different models are sampled anonymously, then the user can pick their preferred output. This way, the leaderboard is constructed solely based on human preferences. 
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vlm/arena.png" alt="VLM Capabilities" style="width: 90%; height: auto;"><be>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vlm/arena.png" alt="Vision Arena" style="width: 90%; height: auto;"><be>
 <em>Vision Arena</em>
 </p>
 
