@@ -35,17 +35,17 @@ All models are trained on English unless stated otherwise in the additional capa
 
 | Model                  | Permissive License | Model Size | Image Resolution | Additional Capabilities               |
 |------------------------|--------------------|------------|------------------|---------------------------------------|
-| LLaVA 1.6 (Hermes 34B) | ✅                  | 34B        | 672x672          |                                       |
-| deepseek-vl-7b-base    | ✅                  | 7B         | 384x384          |                                       |
-| DeepSeek-VL-Chat       | ✅                  | 7N         | 384x384          | Chat                                  |
-| moondream2             | ✅                  | ~2B        | 378x378          |                                       |
-| CogVLM-base            | ✅                  | 17B        | 490x490          |                                       |
-| CogVLM-Chat            | ✅                  | 17B        | 490x490          | Grounding, chat                       |
-| Fuyu-8B                | ❌                  | 8B         | 300x300          | Text detection within image           |
-| KOSMOS-2               | ✅                  | ~2B        | 224x224          | Grounding, zero-shot object detection |
-| Qwen-VL                | ✅                  | 4B         | 448x448          | Zero-shot object detection            |
-| Qwen-VL-Chat           | ✅                  | 4B         | 448x448          | Chat                                  |
-| Yi-VL-34B              | ✅                  | 34B        | 448x448          | Bilinguality                          |
+| [LLaVA 1.6 (Hermes 34B)](https://huggingface.co/llava-hf/llava-v1.6-34b-hf) | ✅                  | 34B        | 672x672          |                                       |
+| [deepseek-vl-7b-base](https://huggingface.co/deepseek-ai/deepseek-vl-7b-base)    | ✅                  | 7B         | 384x384          |                                       |
+| [DeepSeek-VL-Chat](https://huggingface.co/deepseek-ai/deepseek-vl-7b-chat)       | ✅                  | 7B         | 384x384          | Chat                                  |
+| [moondream2](https://huggingface.co/vikhyatk/moondream2)             | ✅                  | ~2B        | 378x378          |                                       |
+| [CogVLM-base](https://huggingface.co/THUDM/cogvlm-base-490-hf)            | ✅                  | 17B        | 490x490          |                                       |
+| [CogVLM-Chat](https://huggingface.co/THUDM/cogvlm-chat-hf)            | ✅                  | 17B        | 490x490          | Grounding, chat                       |
+| [Fuyu-8B](https://huggingface.co/adept/fuyu-8b)                | ❌                  | 8B         | 300x300          | Text detection within image           |
+| [KOSMOS-2](https://huggingface.co/microsoft/kosmos-2-patch14-224)               | ✅                  | ~2B        | 224x224          | Grounding, zero-shot object detection |
+| [Qwen-VL](https://huggingface.co/Qwen/Qwen-VL)                | ✅                  | 4B         | 448x448          | Zero-shot object detection            |
+| [Qwen-VL-Chat](https://huggingface.co/Qwen/Qwen-VL-Chat)           | ✅                  | 4B         | 448x448          | Chat                                  |
+| [Yi-VL-34B](https://huggingface.co/01-ai/Yi-VL-34B)              | ✅                  | 34B        | 448x448          | Bilinguality                          |
 
 
 ## Finding the right vision language model
@@ -70,17 +70,17 @@ Another evaluation suite is [LMMS-Eval](https://github.com/EvolvingLMMs-Lab/lmms
 ```bash
 accelerate launch --num_processes=8 -m lmms_eval --model llava   --model_args pretrained="liuhaotian/llava-v1.5-7b"   --tasks mme,mmbench_en --batch_size 1 --log_samples --log_samples_suffix llava_v1.5_mme_mmbenchen --output_path ./logs/ 
 ```
-These leaderboards are limited to the models that are submitted to them and require updates. If you want to find more models, you can browse Hugging Face Hub for models under task `image-text-to-text`. 
+These leaderboards are limited to the models that are submitted to them and require updates. If you want to find more models, you can browse Hugging Face Hub for [models](https://huggingface.co/models?pipeline_tag=image-text-to-text&sort=trending) under task `image-text-to-text`. 
 
 There are different benchmarks to evaluate vision language models that you may come across the leaderboards. We will go through a few of them.
 
 ### MMMU
 
-A Massive Multi-discipline Multimodal Understanding and Reasoning Benchmark for Expert AGI (MMMU) is the most comprehensive benchmark to evaluate vision language models. It contains 11.5K multimodal challenges that require college-level subject knowledge and reasoning across different disciplines such as arts and engineering. 
+[A Massive Multi-discipline Multimodal Understanding and Reasoning Benchmark for Expert AGI (MMMU)](https://huggingface.co/datasets/MMMU/MMMU) is the most comprehensive benchmark to evaluate vision language models. It contains 11.5K multimodal challenges that require college-level subject knowledge and reasoning across different disciplines such as arts and engineering. 
 
 ### MMBench
 
-MMBench is an evaluation benchmark that consists of 3000 single choice questions over 20 different skills, including OCR, object localization and more.  The paper also introduces an evaluation strategy called CircularEval, where the answer choices of a question are shuffled in different combinations, and the model is expected to give the right answer in every turn. 
+[MMBench](https://huggingface.co/datasets/lmms-lab/MMBench) is an evaluation benchmark that consists of 3000 single-choice questions over 20 different skills, including OCR, object localization and more.  The paper also introduces an evaluation strategy called CircularEval, where the answer choices of a question are shuffled in different combinations, and the model is expected to give the right answer in every turn. 
 There are other more specific benchmarks across different domains, including MathVista (visual mathematical reasoning), AI2D (diagram understanding), ScienceQA (Science Question Answering) and OCRBench (document understanding).
 
 ## Technical details 
@@ -97,11 +97,11 @@ There are various ways to pretrain a vision language model. The main trick is to
 </p>
 
 Another example is KOSMOS-2, where the authors have chosen to fully train the model end-to-end, which is computationally expensive compared to LLaVA-like pre-training. The authors later do language only instruction fine-tuning to align the model. Fuyu-8B is another model that doesn’t have an image encoder, but image patches are directly fed to a projection layer and then a decoder. 
-Most of the time, you don’t need to pretrain a vision language model, as you can either use one of the existing ones or fine-tune them on your own use case. We will go through how to use these model using transformers and fine-tune using SFTTrainer.
+Most of the time, you don’t need to pre-train a vision language model, as you can either use one of the existing ones or fine-tune them on your own use case. We will go through how to use these model using transformers and fine-tune using `SFTTrainer`.
 
 
 ## Using vision language models with transformers
-You can infer with vision language models without the pipeline in below `LlavaNext` example. Note that every model has it’s own prompt template.
+You can infer with vision language models without the pipeline in `LlavaNext` example below. Note that every model has its own prompt template.
 
 Let’s initialize the model and the processor first.
 ```python
@@ -113,7 +113,7 @@ processor = LlavaNextProcessor.from_pretrained("llava-hf/llava-v1.6-mistral-7b-h
 model = LlavaNextForConditionalGeneration.from_pretrained("llava-hf/llava-v1.6-mistral-7b-hf", torch_dtype=torch.float16, low_cpu_mem_usage=True) 
 model.to(device)
 ```
-Pass the image and the text prompt to processor and then pass the processed inputs to call generate.
+Pass the image and the text prompt to the processor and then pass the processed inputs to call generate.
 
 ```python
 from PIL import Image
@@ -134,10 +134,10 @@ print(processor.decode(output[0], skip_special_tokens=True))
 
 ## Fine-tuning vision language models with TRL
 
-We are excited to announce that TRL’s SFTTrainer now includes experimental support for Vision Language Models, we provide a an example here over how to perform SFT on a Llava 1.5 VLM using the llava-instruct dataset which contains 260k image-conversation pairs.
-The dataset contains user-assistant interactions formatted as sequence of messages, for example, each conversation is paired with an image that the user asks questions about.
+We are excited to announce that TRL’s `SFTTrainer` now includes experimental support for Vision Language Models. We provide an example here of how to perform SFT on a [Llava 1.5 VLM](https://huggingface.co/llava-hf/llava-1.5-7b-hf) using the [llava-instruct](https://huggingface.co/datasets/HuggingFaceH4/llava-instruct-mix-vsft) dataset which contains 260k image-conversation pairs.
+The dataset contains user-assistant interactions formatted as a sequence of messages. For example, each conversation is paired with an image that the user asks questions about.
 
-To use the experimental VLM training support, you will need to install the latest version of TRL, with `pip install -U trl`.
+To use the experimental VLM training support, you must install the latest version of TRL, with `pip install -U trl`.
 The full example script can be found [here](https://github.com/huggingface/trl/blob/main/examples/scripts/vsft_llava.py).
 
 ```python
@@ -202,7 +202,7 @@ Load our dataset.
 
 ```python
 from datasets import load_dataset
-    raw_datasets = load_dataset(“HuggingFaceH4/llava-instruct-mix-vsft”)
+    raw_datasets = load_dataset("HuggingFaceH4/llava-instruct-mix-vsft")
     train_dataset = raw_datasets["train"]
     eval_dataset = raw_datasets["test"]
 ```
