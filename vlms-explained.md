@@ -202,9 +202,10 @@ Load our dataset.
 
 ```python
 from datasets import load_dataset
-    raw_datasets = load_dataset("HuggingFaceH4/llava-instruct-mix-vsft")
-    train_dataset = raw_datasets["train"]
-    eval_dataset = raw_datasets["test"]
+
+raw_datasets = load_dataset("HuggingFaceH4/llava-instruct-mix-vsft")
+train_dataset = raw_datasets["train"]
+eval_dataset = raw_datasets["test"]
 ```
 
 Initialize the SFTTrainer, passing in the model, the dataset splits, PEFT configuration and data collator and call `train()`. To push our final checkpoints to Hub, call `push_to_hub()`.
