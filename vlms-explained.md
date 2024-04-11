@@ -52,8 +52,18 @@ All models are trained on English unless stated otherwise in the additional capa
 
 [Vision Arena](https://huggingface.co/spaces/WildVision/vision-arena) is a leaderboard solely based on anonymous voting of model outputs, updated continuously. In this arena, the users enter an image and a prompt, and outputs from two different models are sampled anonymously, where user can pick their preferred output. This way, the leaderboard is constructed solely based on human preferences. 
 
+<p align="center">
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vlm/arena.png" alt="VLM Capabilities" style="width: 90%; height: auto;"><be>
+<em>Vision Arena</em>
+</p>
+
 [Open VLM Leaderboard](https://huggingface.co/spaces/opencompass/open_vlm_leaderboard), is another leaderboard where various vision language models are ranked according to these metrics and average score. You can also filter models according to model sizes, proprietary or open-source licenses, and filter, and rank for different metrics.
 
+<p align="center">
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vlm/leaderboard.png" alt="VLM Capabilities" style="width: 90%; height: auto;"><be>
+<em>Open VLM Leaderboard</em>
+</p>
+	 
 [VLMEvalKit](https://github.com/open-compass/VLMEvalKit) is the toolkit to run benchmarks on a vision language model powering the Open VLM Leaderboard. 
 Another evaluation suite is [LMMS-Eval](https://github.com/EvolvingLMMs-Lab/lmms-eval) which provides a standard command line interface to evaluate Hugging Face models of your choice with datasets hosted on Hugging Face Hub like below:
 
