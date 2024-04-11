@@ -28,7 +28,7 @@ Vision language models are broadly defined as multimodal models that can learn f
 
 ## Overview of existing open-source VLMs
 
-There are many open-vision language models on Hugging Face Hub. Some of the most prominent ones are given below. 
+There are many open vision language models on the Hugging Face Hub. Some of the most prominent ones are shown in the table below. 
 There are base models and the same models fine-tuned on chat for better user experience. 
 Some of these models have a feature called “grounding” which reduces model hallucinations. 
 All models are trained on English unless stated otherwise in the additional capabilities.
