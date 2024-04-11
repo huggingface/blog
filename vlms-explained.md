@@ -168,7 +168,7 @@ processor.tokenizer = tokenizer
 model = LlavaForConditionalGeneration.from_pretrained(model_id, torch_dtype=torch.float16)
 ````
 
-Let’s create a data collator to encode text and image pairs.
+Let’s create a data collator to combine text and image pairs.
 
 ```python
 class LLavaDataCollator:
