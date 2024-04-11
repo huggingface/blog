@@ -231,7 +231,7 @@ int8
 #### 向量数据库中的标量量化
 
 | 向量数据库 | 是否支持标量量化 |
-| --- | --- |间接通过
+| --- | --- |
 | Faiss | [IndexHNSWSQ](https://faiss.ai/cpp_api/struct/structfaiss_1_1IndexHNSWSQ.html) |
 | USearch | [是](https://github.com/unum-cloud/usearch) |
 | Vespa AI | [是](https://docs.vespa.ai/en/reference/tensor.html) |
