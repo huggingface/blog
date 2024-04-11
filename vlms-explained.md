@@ -122,7 +122,8 @@ model = LlavaNextForConditionalGeneration.from_pretrained(
 )
 model.to(device)
 ```
-Pass the image and the text prompt to the processor and then pass the processed inputs to call generate.
+
+We now pass the image and the text prompt to the processor, and then pass the processed inputs to the `generate`. Note that each model uses its own prompt template, be careful to use the right one to avoid performance degradation.
 
 ```python
 from PIL import Image
