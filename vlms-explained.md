@@ -10,14 +10,6 @@ authors:
 
 Vision language models are models that can learn simultaneously from images and texts to tackle many tasks, from visual question answering to image captioning. In this post, we go through the main building blocks of vision language models: have an overview, grasp how they work, figure out how to find the right model, how to use them for inference and how to easily fine-tune them with the new version of [trl](https://github.com/huggingface/trl) released today!
 
-## Table of Contents
-- [What is a vision language model?](#what-is-a-vision-language-model)
-- [Overview of existing open-source VLMs](#overview-of-existing-open-source-vlms)
-- [Finding the right vision language model](#finding-the-right-vision-language-model)
-- [Technical details](#technical-details)
-- [Using vision language models with transformers](#using-vision-language-models-with-transformers)
-- [Fine-tuning vision language models with TRL](#fine-tuning-vision-language-models-with-trl)
-
 ## What is a vision language model?
 
 Vision language models are broadly defined as multimodal models that can learn from images and text. They are a type of generative models that take image and text inputs, and generate text outputs. Large vision language models have good zero-shot capabilities, generalize well, and can work with many types of images, including documents, web pages, and more. The use cases include chatting about images, image recognition via instructions, visual question answering, document understanding, image captioning, and others. Some vision language models can also capture spatial properties in an image. These models can output bounding boxes or segmentation masks when prompted to detect or segment a particular subject, or they can localize different entities or answer questions about their relative or absolute positions. There’s a lot of diversity within the existing set of large vision language models, the data they were trained on, how they encode images, and, thus, their capabilities.
