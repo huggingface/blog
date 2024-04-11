@@ -79,9 +79,9 @@ dataset = load_dataset("biglam/on_the_books")
 
 对于 Hub 上的某些数据集，我们可能不希望下载整个数据集。我们可以尝试加载数据集的部分样本。然而，根据数据集的创建方式不同，对某些数据集，我们最终下载到机器上的数据可能仍比我们实际需要的多。
 
-幸运的是，Hub 上的许多数据集都可以通过 [datasets server](https://huggingface.co/docs/datasets-server/index) 获得。Datasets server 是一个 API，其允许我们无需下载到本地即可访问 Hub 上托管的数据集。Datasets server 已被应用于数据集查看器预览功能，Hub 上托管的许多数据集都支持数据集查看器预览功能。
+幸运的是，Hub 上的许多数据集都可以通过 [dataset viewer](https://huggingface.co/docs/datasets-server/index) 获得。Dataset viewer 是一个 API，其允许我们无需下载到本地即可访问 Hub 上托管的数据集。Dataset viewer 已被应用于数据集查看器预览功能，Hub 上托管的许多数据集都支持数据集查看器预览功能。
 
-为了给语言检测实验准备数据，我们首先定义了一个白名单，其中包含了可能包含文本的列名及数据类型，如名字为 `text` 或 `prompt` 的列以及数据类型为 `string` 的特征可能包含文本，但名字为 `image` 的列大概率是不相关的。这意味着我们可以避免为不相关的数据集预测其语言，例如为图像分类数据集预测语言。我们用 datasets server 获取 20 行文本数据并传给机器学习模型 (具体用多少行数据可以根据实际情况修改)。
+为了给语言检测实验准备数据，我们首先定义了一个白名单，其中包含了可能包含文本的列名及数据类型，如名字为 `text` 或 `prompt` 的列以及数据类型为 `string` 的特征可能包含文本，但名字为 `image` 的列大概率是不相关的。这意味着我们可以避免为不相关的数据集预测其语言，例如为图像分类数据集预测语言。我们用 dataset viewer 获取 20 行文本数据并传给机器学习模型 (具体用多少行数据可以根据实际情况修改)。
 
 这么做的话，我们可以对 Hub 上的大多数数据集，快速获取它们前 20 行数据的文本内容。
 
@@ -120,4 +120,4 @@ dataset = load_dataset("biglam/on_the_books")
 
 随着 Hub 上的数据集越来越多，元数据变得越来越重要，而其中语言元数据可以帮助用户甄别出合适自己场景的数据集。
 
-在 Datasets server 和 [Librarian-Bots](https://huggingface.co/librarian-bots) 的帮助下，我们可以大规模地自动更新数据集元数据，这是手动更新无法企及的。我们正在用这种方法不断丰富 Hub，进而使 Hub 成为服务世界各地的数据科学家、语言学家和人工智能爱好者的强大工具。
+在 Dataset viewer 和 [Librarian-Bots](https://huggingface.co/librarian-bots) 的帮助下，我们可以大规模地自动更新数据集元数据，这是手动更新无法企及的。我们正在用这种方法不断丰富 Hub，进而使 Hub 成为服务世界各地的数据科学家、语言学家和人工智能爱好者的强大工具。
