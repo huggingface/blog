@@ -235,7 +235,7 @@ trainer.push_to_hub()
 ```
 You can find the trained model [here](https://huggingface.co/HuggingFaceH4/vsft-llava-1.5-7b-hf-trl).
 
-You can also try the model directly in our VLM playground below ⬇️
+You can try the model we just trained directly in our VLM playground below ⬇️
 
 <script
 	type="module"
