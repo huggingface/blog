@@ -108,6 +108,7 @@ Most of the time, you don’t need to pre-train a vision language model, as you 
 You can infer with Llava using the `LlavaNext` model as shown below.
 
 Let’s initialize the model and the processor first.
+
 ```python
 from transformers import LlavaNextProcessor, LlavaNextForConditionalGeneration
 import torch
