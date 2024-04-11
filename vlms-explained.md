@@ -31,7 +31,7 @@ Vision language models are broadly defined as multimodal models that can learn f
 There are many open vision language models on the Hugging Face Hub. Some of the most prominent ones are shown in the table below. 
 There are base models, and models fine-tuned for chat that can be used in conversational mode. 
 Some of these models have a feature called “grounding” which reduces model hallucinations. 
-All models are trained on English unless stated otherwise in the additional capabilities.
+All models are trained on English unless stated otherwise.
 
 | Model                  | Permissive License | Model Size | Image Resolution | Additional Capabilities               |
 |------------------------|--------------------|------------|------------------|---------------------------------------|
