@@ -70,7 +70,7 @@ There are many ways to select the most appropriate model for your use case.
 Another evaluation suite is [LMMS-Eval](https://github.com/EvolvingLMMs-Lab/lmms-eval), which provides a standard command line interface to evaluate Hugging Face models of your choice with datasets hosted on the Hugging Face Hub, like below:
 
 ```bash
-accelerate launch --num_processes=8 -m lmms_eval --model llava   --model_args pretrained="liuhaotian/llava-v1.5-7b"   --tasks mme,mmbench_en --batch_size 1 --log_samples --log_samples_suffix llava_v1.5_mme_mmbenchen --output_path ./logs/ 
+accelerate launch --num_processes=8 -m lmms_eval --model llava --model_args pretrained="liuhaotian/llava-v1.5-7b" --tasks mme,mmbench_en --batch_size 1 --log_samples --log_samples_suffix llava_v1.5_mme_mmbenchen --output_path ./logs/ 
 ```
 These leaderboards are limited to the models that are submitted to them and require updates. If you want to find more models, you can browse Hugging Face Hub for [models](https://huggingface.co/models?pipeline_tag=image-text-to-text&sort=trending) under task `image-text-to-text`. 
 
