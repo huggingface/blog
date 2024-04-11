@@ -2,7 +2,13 @@
 title: "Introducing the LiveCodeBench Leaderboard - Holistic and Contamination-Free Evaluation of Code LLMs"
 thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
 authors:
-- user: 
+- user: StringChaos
+  guest: true
+- user: minimario
+  guest: true
+- user: tianjunz
+  guest: true
+- user: xu3kev
   guest: true
 - user: clefourrier
 ---
