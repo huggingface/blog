@@ -21,7 +21,7 @@ We are happy to share that we recently added another feature to help you analyze
 
 ## TLDR
 
-[Dataset Viewer](https://huggingface.co/docs/datasets-server/index) **automatically converts all public datasets on the Hub to Parquet files**, that you can see by clicking on the "Auto-converted to Parquet" button at the top of a dataset page. You can also access the list of the Parquet files URLs with a simple HTTP call.
+The [dataset viewer](https://huggingface.co/docs/datasets-server/index) **automatically converts all public datasets on the Hub to Parquet files**, that you can see by clicking on the "Auto-converted to Parquet" button at the top of a dataset page. You can also access the list of the Parquet files URLs with a simple HTTP call.
 
 ```py
 r = requests.get("https://datasets-server.huggingface.co/parquet?dataset=blog_authorship_corpus")
@@ -61,11 +61,11 @@ To learn more, check out the [documentation](https://huggingface.co/docs/dataset
 
 ## From dataset to Parquet
 
-[Parquet](https://parquet.apache.org/docs/) files are columnar, making them more efficient to store, load and analyze. This is especially important when you're working with large datasets, which we’re seeing more and more of in the LLM era. To support this, Dataset Viewer automatically converts and publishes any public dataset on the Hub as Parquet files. The URL to the Parquet files can be retrieved with the [`/parquet`](https://huggingface.co/docs/datasets-server/quick_start#access-parquet-files) endpoint.
+[Parquet](https://parquet.apache.org/docs/) files are columnar, making them more efficient to store, load and analyze. This is especially important when you're working with large datasets, which we’re seeing more and more of in the LLM era. To support this, the dataset viewer automatically converts and publishes any public dataset on the Hub as Parquet files. The URL to the Parquet files can be retrieved with the [`/parquet`](https://huggingface.co/docs/datasets-server/quick_start#access-parquet-files) endpoint.
 
 ## Analyze with DuckDB
 
-DuckDB offers super impressive performance for running complex analytical queries. It is able to execute a SQL query directly on a remote Parquet file without any overhead. With the [`httpfs`](https://duckdb.org/docs/extensions/httpfs) extension, DuckDB is able to query remote files such as datasets stored on the Hub using the URL provided from the `/parquet` endpoint. DuckDB also supports querying multiple Parquet files which is really convenient because Dataset Viewer shards big datasets into smaller 500MB chunks.
+DuckDB offers super impressive performance for running complex analytical queries. It is able to execute a SQL query directly on a remote Parquet file without any overhead. With the [`httpfs`](https://duckdb.org/docs/extensions/httpfs) extension, DuckDB is able to query remote files such as datasets stored on the Hub using the URL provided from the `/parquet` endpoint. DuckDB also supports querying multiple Parquet files which is really convenient because the dataset viewer shards big datasets into smaller 500MB chunks.
 
 ## Looking forward
 
