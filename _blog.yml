@@ -3745,8 +3745,6 @@
     - research
     - LLM
     - gcp
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 - local: google-cloud-model-garden
   title: "Making thousands of open LLMs bloom in the Vertex AI Model Garden"
@@ -3770,8 +3768,11 @@
     - guide
     - trl
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 =======
+=======
+>>>>>>> 0373399 (merge)
 <<<<<<< HEAD
 
 >>>>>>> dd723da (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
@@ -3803,19 +3804,21 @@
   title: "Running Privacy-Preserving Inferences on Hugging Face EndPoints"
 =======
 =======
+=======
+>>>>>>> 6f1a23a (merge)
 
->>>>>>> 077d776 (merge)
 - local: fhe-endpoints
   title: "Running Privacy-Preserving Inference on Hugging Face Endpoints"
   author: binoua
   guest: true
   thumbnail: /blog/assets/fhe-endpoints/thumbnail.png
-  date: April 11, 2024
+  date: April 15, 2024
   tags:
     - guide
     - privacy
     - research
     - FHE
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 0fe12cc (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
 >>>>>>> 149835e (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
@@ -3828,4 +3831,9 @@
 =======
 >>>>>>> 077d776 (merge)
 >>>>>>> 7eae955 (merge)
+<<<<<<< HEAD
 >>>>>>> e34bce7 (merge)
+=======
+=======
+>>>>>>> 6f1a23a (merge)
+>>>>>>> 0373399 (merge)
