@@ -21,7 +21,7 @@ Let's start with deploying an FHE-friendly model (prepared by Zama or third part
 
 First, look for the model you want to deploy: We have pre-compiled a [bunch of models](https://huggingface.co/zama-fhe?#models) on Zama's HF page (or you can [find them](https://huggingface.co/models?other=concrete-ml) with tags). Let's suppose you have chosen [concrete-ml-encrypted-decisiontree](https://huggingface.co/zama-fhe/concrete-ml-encrypted-decisiontree): As explained in the description, this pre-compiled model allows you to detect spam without looking at the message content in the clear.
 
-Like any other model available on the Hugging Face platform, select _Deploy_ and then _Inference Endpoint (dedicated)_:
+Like with any other model available on the Hugging Face platform, select _Deploy_ and then _Inference Endpoint (dedicated)_:
 
 ![Alt text](assets/fhe-endpoints/inference_endpoint.png "Inference Endpoint (dedicated)")
 
@@ -169,7 +169,7 @@ Now, you can save this directory with the `compiled_model` directory and files, 
 
 ## Pre-compiled models available today
 
-For now, we have prepared a few pre-compiled models as examples, hoping the community will extend this soon. Pre-compiled models can be found by searching [concrete-ml](https://huggingface.co/models?other=concrete-ml) or [FHE](https://huggingface.co/models?other=FHE) tags.
+For now, we have prepared a few pre-compiled models as examples, hoping the community will extend this soon. Pre-compiled models can be found by searching for the [concrete-ml](https://huggingface.co/models?other=concrete-ml) or [FHE](https://huggingface.co/models?other=FHE) tags.
 
 | Model kind  | Dataset  | Execution time on HF Endpoint  |
 |---|---|---|
