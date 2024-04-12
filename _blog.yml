@@ -3756,7 +3756,7 @@
     - gcp
     - hardware
 
-- local: vlms-explained
+- local: vlms
   title: "Vision Language Models Explained"
   author: merve
   thumbnail: /blog/assets/vlms_explained/thumbnail.png
