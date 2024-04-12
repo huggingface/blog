@@ -251,4 +251,4 @@ You can try the model we just trained directly in our VLM playground below â¬‡ï¸
 
 **Acknowledgements**
 
-We would like to thank Pedro Cuenca, Lewis Tunstall and Omar Sanseviero for their reviews and suggestions on this blog post.
+We would like to thank Pedro Cuenca, Lewis Tunstall, Kashif Rasul and Omar Sanseviero for their reviews and suggestions on this blog post.
