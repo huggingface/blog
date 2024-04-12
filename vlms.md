@@ -10,7 +10,7 @@ authors:
 
 Vision language models are models that can learn simultaneously from images and texts to tackle many tasks, from visual question answering to image captioning. In this post, we go through the main building blocks of vision language models: have an overview, grasp how they work, figure out how to find the right model, how to use them for inference and how to easily fine-tune them with the new version of [trl](https://github.com/huggingface/trl) released today!
 
-## What is a vision language model?
+## What is a Vision Language Model?
 
 Vision language models are broadly defined as multimodal models that can learn from images and text. They are a type of generative models that take image and text inputs, and generate text outputs. Large vision language models have good zero-shot capabilities, generalize well, and can work with many types of images, including documents, web pages, and more. The use cases include chatting about images, image recognition via instructions, visual question answering, document understanding, image captioning, and others. Some vision language models can also capture spatial properties in an image. These models can output bounding boxes or segmentation masks when prompted to detect or segment a particular subject, or they can localize different entities or answer questions about their relative or absolute positions. There’s a lot of diversity within the existing set of large vision language models, the data they were trained on, how they encode images, and, thus, their capabilities.
 
@@ -18,7 +18,7 @@ Vision language models are broadly defined as multimodal models that can learn f
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vlm/visual.jpg" alt="VLM Capabilities" style="width: 90%; height: auto;"><br>
 </p>
 
-## Overview of open-source VLMs
+## Overview of Open-source Vision Language Models
 
 There are many open vision language models on the Hugging Face Hub. Some of the most prominent ones are shown in the table below. 
 
@@ -41,7 +41,7 @@ There are many open vision language models on the Hugging Face Hub. Some of the 
 | [Yi-VL-34B](https://huggingface.co/01-ai/Yi-VL-34B)              | ✅                  | 34B        | 448x448          |  Bilingual (English, Chinese) |
 
 
-## Finding the right vision language model
+## Finding the right Vision Language Model
 
 There are many ways to select the most appropriate model for your use case.
 
@@ -79,7 +79,7 @@ There are different benchmarks to evaluate vision language models that you may c
 [MMBench](https://huggingface.co/datasets/lmms-lab/MMBench) is an evaluation benchmark that consists of 3000 single-choice questions over 20 different skills, including OCR, object localization and more.  The paper also introduces an evaluation strategy called CircularEval, where the answer choices of a question are shuffled in different combinations, and the model is expected to give the right answer at every turn. 
 There are other more specific benchmarks across different domains, including MathVista (visual mathematical reasoning), AI2D (diagram understanding), ScienceQA (Science Question Answering) and OCRBench (document understanding).
 
-## Technical details 
+## Technical Details 
 
 There are various ways to pretrain a vision language model. The main trick is to unify the image and text representation and feed it to a text decoder for generation. The most common and prominent models often consist of an image encoder, an embedding projector to align image and text representations (often a dense neural network) and a text decoder stacked in this order. As for the training parts, different models have been following different approaches. 
 
@@ -98,7 +98,7 @@ Another example is KOSMOS-2, where the authors chose to fully train the model en
 Most of the time, you don’t need to pre-train a vision language model, as you can either use one of the existing ones or fine-tune them on your own use case. We will go through how to use these models using transformers and fine-tune using `SFTTrainer`.
 
 
-## Using vision language models with transformers
+## Using Vision Language Models with transformers
 
 You can infer with Llava using the `LlavaNext` model as shown below.
 
@@ -138,7 +138,7 @@ Call decode to decode the output tokens.
 print(processor.decode(output[0], skip_special_tokens=True))
 ```
 
-## Fine-tuning vision language models with TRL
+## Fine-tuning Vision Language Models with TRL
 
 We are excited to announce that [TRL](https://github.com/huggingface/trl)’s `SFTTrainer` now includes experimental support for Vision Language Models! We provide an example here of how to perform SFT on a [Llava 1.5 VLM](https://huggingface.co/llava-hf/llava-1.5-7b-hf) using the [llava-instruct](https://huggingface.co/datasets/HuggingFaceH4/llava-instruct-mix-vsft) dataset which contains 260k image-conversation pairs.
 The dataset contains user-assistant interactions formatted as a sequence of messages. For example, each conversation is paired with an image that the user asks questions about.
