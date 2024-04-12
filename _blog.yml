@@ -3755,3 +3755,15 @@
     - partnerships
     - gcp
     - hardware
+
+- local: vlms
+  title: "Vision Language Models Explained"
+  author: merve
+  thumbnail: /blog/assets/vlms_explained/thumbnail.png
+  date: April 11, 2024
+  tags:
+    - vision
+    - vlm
+    - multimodal
+    - guide
+    - trl
