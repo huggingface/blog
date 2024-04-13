@@ -7,20 +7,27 @@ authors:
 
 # AI Aps in a Flash with Gradio's Reload Mode
 
-In this post, I will show you how you can build a functional AI application quickly with Gradio's reload mode. If you are already familiar with Gradio, please skip to the second [section](#building-a-document-analyzer-application).
+In this post, I will show you how you can build a functional AI application quickly with Gradio's reload mode. But before we get to that, I want to explain what reload mode does and why Gradio implements its own auto-reloading logic. If you are already familiar with Gradio and want to get to building, please skip to the third [section](#building-a-document-analyzer-application).
 
-## What does reload mode do?
+## What Does Reload Mode Do?
 
-To put it simply, it pulls in the latest changes from your source files without restarting the gradio server. If that does not make sense yet, please continue reading.
+To put it simply, it pulls in the latest changes from your source files without restarting the Gradio server. If that does not make sense yet, please continue reading.
 
 Gradio is a popular Python library for creating interactive machine learning apps.
 Gradio developers declare their UI layout entire in python and add some python logic that triggers whenever a UI event happens. It's easy to learn if you know basic python. Check out this [quickstart](https://www.gradio.app/guides/quickstart) if you are not familiar with Gradio.
 
-Gradio applications are launched like any other python script, just run `python app.py` (the file with the gradio code can be called anything). If you want to make changes to your app, you stop the server (typically with `Ctrl + C`), edit your source file, and then re-run the script.
+Gradio applications are launched like any other python script, just run `python app.py` (the file with the Fradio code can be called anything). If you want to make changes to your app, you stop the server (typically with `Ctrl + C`), edit your source file, and then re-run the script.
 
 Having to stop and relaunch the server can introduce a lot of latency while you are developing your app. It would be better if there was a way to pull in the latest code changes automatically so you can test new ideas instantly.
 
 That's exactly what Gradio's reload mode does. Simply run `gradio app.py` instead of `python app.py` to launch your app in reload mode!
+
+## Why Did Gradio Build Its Own Reloader?
+
+Gradio applications are run with [uvicorn](https://www.uvicorn.org/), an asynchronous server for python web frameworks. Uvicorn already offers [auto-reloading](https://www.uvicorn.org/) but Gradio implements its own logic for the following reasons:
+
+1. **Faster Reloading**: Uvicorn's auto-reload will shut down the server and spin it back up. This is faster than doing it by hand, but it's too slow for developing a Gradio app. Gradio developers build their UI in python so they should see how ther UI looks as soon as a change is made. This is standard in the javascript ecosystem but it's new to python. 
+2. **Selective Reloading**: Gradio applications are AI applications. This means they typically load an AI model into memory or connect to a datastore like a vector database. Relaunching the server during development will mean reloading that model or reconnecting to that database, which introduces too much latency between development cycles. To fix this issue, Gradio introduces an `if gr.NO_RELOAD:` code-block that you can use to mark code that should not be reloaded. This is only possible if Gradio implemented its own reloading logic.
 
 In the rest of this post, I will show you how you can quickly build a functional AI App with reload mode. 
 
@@ -56,7 +63,7 @@ This UI works but I think it would be better if the input textbox was below the 
 
 Now that I'm satisfied with the UI, I will start implementing the logic of the `chat_fn`.
 
-Since I'll be using HuggingFace's Inference API, I will import the `InferenceClient` from the `huggingface_hub` package (it comes pre-installed with gradio). I'll be using the [`impira/layouylm-document-qa`](https://huggingface.co/impira/layoutlm-document-qa) model to answer the user's question. I will then use the [HuggingFaceH4/zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta) LLM to provide a response in natural language.
+Since I'll be using HuggingFace's Inference API, I will import the `InferenceClient` from the `huggingface_hub` package (it comes pre-installed with Gradio). I'll be using the [`impira/layouylm-document-qa`](https://huggingface.co/impira/layoutlm-document-qa) model to answer the user's question. I will then use the [HuggingFaceH4/zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta) LLM to provide a response in natural language.
 
 
 ```python
