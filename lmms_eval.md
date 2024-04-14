@@ -4,6 +4,8 @@ thumbnail: https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/lmm
 authors:
 - user: kcz358
   guest: true
+- user: pufanyi
+  guest: true
 ---
 # Unified multimodal large model evaluation, accelerating multimodal intelligence emergence
 
