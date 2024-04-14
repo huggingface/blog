@@ -17,4 +17,4 @@ Another challenge lies in data acquisition and processing during the evaluation 
 
 To address these issues, researchers from Nanyang Technological University, ByteDance, and other institutions have jointly open-sourced lmms-eval, which is an evaluation framework designed specifically for multimodal large models. Building upon lm-evaluation-harness, this framework has been improved and expanded to provide a unified interface for defining models, datasets, and evaluation metrics, offering a one-stop, efficient solution for evaluating multimodal models (LMMs). We hope that through this framework, we can collectively drive the iteration cycle of multimodal models and promote their broader application in academia and industry. We sincerely look forward to witnessing more breakthroughs and innovations in the field of multimodal AI, jointly advancing towards a more efficient and intelligent future development of artificial intelligence technology.
 
-<image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/teaser.png" alt="Pipeline"/>
+<image src="https://huggingface.co/datasets/lmms-lab/blog-post-image/blob/main/pipeline.png" alt="Pipeline"/>
