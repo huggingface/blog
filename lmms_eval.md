@@ -2,7 +2,29 @@
 title: "Unified multimodal large model evaluation, accelerating multimodal intelligence emergence"
 thumbnail: https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/lmms-eval-header.png
 authors:
+- user: luodian
+  guest: true
+- user: PY007
+  guest: true
 - user: kcz358
+  guest: true
+- user: pufanyi
+  guest: true
+- user: JvThunder
+  guest: true
+- user: Xinrun Du
+  guest: true
+- user: THUdyh
+  guest: true
+- user: liuhaotian
+  guest: true
+- user: ZhangYuanhan
+  guest: true
+- user: Ge Zhang
+  guest: true
+- user: Chunyuan24
+  guest: true
+- user: liuziwei7
   guest: true
 ---
 # Unified multimodal large model evaluation, accelerating multimodal intelligence emergence
