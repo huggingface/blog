@@ -12,7 +12,7 @@ authors:
   guest: true
 - user: JvThunder
   guest: true
-- user: Xinrun Du
+- user: dododododo
   guest: true
 - user: THUdyh
   guest: true
@@ -20,7 +20,7 @@ authors:
   guest: true
 - user: ZhangYuanhan
   guest: true
-- user: Ge Zhang
+- user: zhangysk
   guest: true
 - user: Chunyuan24
   guest: true
