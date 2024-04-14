@@ -18,3 +18,46 @@ Another challenge lies in data acquisition and processing during the evaluation 
 To address these issues, researchers from Nanyang Technological University, ByteDance, and other institutions have jointly open-sourced lmms-eval, which is an evaluation framework designed specifically for multimodal large models. Building upon lm-evaluation-harness, this framework has been improved and expanded to provide a unified interface for defining models, datasets, and evaluation metrics, offering a one-stop, efficient solution for evaluating multimodal models (LMMs). We hope that through this framework, we can collectively drive the iteration cycle of multimodal models and promote their broader application in academia and industry. We sincerely look forward to witnessing more breakthroughs and innovations in the field of multimodal AI, jointly advancing towards a more efficient and intelligent future development of artificial intelligence technology.
 
 <image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/teaser.png" alt="Pipeline"/>
+
+## Overview of the main features
+
+**One-click evaluation**: lmms-eval allows users to easily evaluate their model performance on multiple datasets with a single command, without the need for manual dataset preparation. With just one line of code, users can obtain comprehensive evaluation results within minutes, including detailed logs and sample analysis covering model parameters, inputs and outputs, correct answers, etc. This is suitable for scenarios where advanced models like GPT4 are needed for scoring.
+
+```
+accelerate launch --num_processes=8 -m lmms_eval --model llava   --model_args pretrained="liuhaotian/llava-v1.5-7b"   --tasks mme,mmbench_en --batch_size 1 --log_samples --log_samples_suffix llava_v1.5_mme_mmbenchen --output_path ./logs
+```
+
+**Parallel acceleration and task merging**: Utilizing Huggingface's accelerator, lmms-eval supports multi-GPU, model parallelism, and multi-batch processing, significantly enhancing evaluation efficiency. This feature is particularly advantageous when testing multiple datasets simultaneously, greatly reducing evaluation time.
+
+Here is the total runtime on different datasets using 4 x A100 40G:
+
+
+
+| Dataset (#num)          | LLaVA-v1.5-7b      | LLaVA-v1.5-13b     |
+| :---------------------- | :----------------- | :----------------- |
+| mme (2374)              | 2 mins 43 seconds  | 3 mins 27 seconds  |
+| gqa (12578)             | 10 mins 43 seconds | 14 mins 23 seconds |
+| scienceqa_img (2017)    | 1 mins 58 seconds  | 2 mins 52 seconds  |
+| ai2d (3088)             | 3 mins 17 seconds  | 4 mins 12 seconds  |
+| coco2017_cap_val (5000) | 14 mins 13 seconds | 19 mins 58 seconds |
+
+
+Additionally, in the 0.1.1.dev update, the team has added support for tensor parallelism, enabling the running of larger models like LLaVA-v1.6-34B on 4 x 3090 GPUs, supporting efficient inference.
+
+Comprehensive dataset support: The lmms-eval team has hosted over 40 diverse datasets (with the number continually increasing) on Huggingface's lmms-lab, covering a range of tasks from COCO Captions to MMMU and others. All datasets have been transformed into a unified format for archiving, available for direct access on the team's lmms-lab official Huggingface Hub. Users can view specific details of evaluation data and easily download and use them with just one click.
+
+<image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/org_dataset.png" alt="dataset on organization"/>
+
+<image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/viewer.png"  alt="viewer" />
+
+**Easy to Extend**: Through a unified interface definition, lmms-eval not only simplifies the integration process of different models and datasets but also provides convenience for introducing new datasets and models. Additionally, it supports simple customization settings, allowing users to easily add new datasets through simple YAML file configuration and customize evaluation settings as needed by modifying the configuration file.
+
+**Comparability**: We provide an environment for authors to reproduce the scores reported in the paper for the original LLaVA 1.5 model. Furthermore, we offer complete experimental results of the LLaVA series models on all evaluation datasets, along with environmental parameters for reference (see the Readme section on GitHub).
+
+**Synchronized Online Logging**: We provide detailed logging tools to help you understand the evaluation process and results. Logs include model parameters, generation parameters, input questions, model responses, and ground truth answers. You can record every detail and visualize it in Weights & Biases runs. Users can access results in real-time from anywhere, making it convenient and efficient.
+
+<image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/wandb_table.jpg" alt="wandb_table" />
+
+## Conclusion
+
+In summary, the implementation of this framework not only provides new tools for multimodal model evaluation but also paves the way for future research and development, including video multimodal evaluation, few-shot evaluation modes, and batch inference acceleration, showcasing its powerful potential and foresight. The launch of lmms-eval marks the arrival of a new era in evaluation, opening up new paths for AI research and applications.
