@@ -3716,7 +3716,7 @@
     - open-source-collab
 
 - local: duckdb-nsql-7b
-  title: "Text2SQL using Hugging Face Datasets Server API and Motherduck DuckDB-NSQL-7B"
+  title: "Text2SQL using Hugging Face Dataset Viewer API and Motherduck DuckDB-NSQL-7B"
   author: asoria
   thumbnail: /blog/assets/duckdb-nsql-7b/thumbnail.png
   date: April 4, 2024
@@ -3755,6 +3755,18 @@
     - partnerships
     - gcp
     - hardware
+
+- local: vlms
+  title: "Vision Language Models Explained"
+  author: merve
+  thumbnail: /blog/assets/vlms_explained/thumbnail.png
+  date: April 11, 2024
+  tags:
+    - vision
+    - vlm
+    - multimodal
+    - guide
+    - trl
 
 - local: leaderboard-livecodebench
   title: "Introducing the LiveCodeBench Leaderboard - Holistic and Contamination-Free Evaluation of Code LLMs"
