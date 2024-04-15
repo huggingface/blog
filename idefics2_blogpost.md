@@ -124,7 +124,7 @@ We also provide a fine-tuning [colab](https://colab.research.google.com/drive/1N
 
 ## Ressources
 If you wish to deep dive further, here is the compilation of all ressources for Idefics2:
-* Idefics2 collection: [here](https://huggingface.co/collections/HuggingFaceM4/idefics2-661d1971b7c50831dd3ce0fe)
+* [Idefics2 collection](https://huggingface.co/collections/HuggingFaceM4/idefics2-661d1971b7c50831dd3ce0fe)
 * Idefics2 model with model card: [here](https://huggingface.co/HuggingFaceM4/idefics2-8b)
 * Idefics2-base model with model card: [here](https://huggingface.co/HuggingFaceM4/idefics2-8b-base)
 * Idefics2-chat model with model card: (coming soon)
