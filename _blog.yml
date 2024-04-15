@@ -3767,3 +3767,11 @@
     - multimodal
     - guide
     - trl
+
+- local: ryght-case-study
+  title: "Ryght’s Journey to Empower Healthcare and Life Sciences with Expert Support from Hugging Face"
+  author: andrewrreed
+  thumbnail: /blog/assets/ryght-case-study/thumbnail.png
+  date: April 16, 2024
+  tags:
+    - case-studies
