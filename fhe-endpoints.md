@@ -159,7 +159,7 @@ Now that you know how easy it is to deploy a pre-compiled model, you may want to
 
 Then, edit `creating_models.py`, and change the ML task to be the one you want to tackle in your pre-compiled model: For example, if you started with [concrete-ml-encrypted-decisiontree](https://huggingface.co/zama-fhe/concrete-ml-encrypted-decisiontree), change the dataset and the model kind.
 
-As explained earlier, you must have installed Concrete ML to prepare your pre-compiled model.
+As explained earlier, you must have installed Concrete ML to prepare your pre-compiled model. Remark that you may have to use the same python version than Hugging Face use by default (3.10 when this blog is written), or your models may need people to use a container with your python during the deployment.
 
 Now you can launch `python creating_models.py`. This will train the model and create the necessary development files (`client.zip`, `server.zip`, and `versions.json`) in the `compiled_model` directory. As explained in the [documentation](https://docs.zama.ai/concrete-ml/deployment/client_server), these files contain your pre-compiled model. If you have any issues, you can get support on the [fhe.org discord](http://discord.fhe.org).
 
