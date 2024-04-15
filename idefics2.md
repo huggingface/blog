@@ -8,7 +8,7 @@ authors:
 ---
 
 <p align="center">
-    <img src="https://huggingface.co/HuggingFaceM4/idefics-80b/resolve/main/assets/IDEFICS.png" alt="Idefics-Obelics logo" width="100" height="100">
+    <img src="https://huggingface.co/HuggingFaceM4/idefics-80b/resolve/main/assets/IDEFICS.png" alt="Idefics-Obelics logo" width="250" height="250">
 </p>
 
 # Introducing Idefics2: A Powerful 8B Vision-Language Model for the community
