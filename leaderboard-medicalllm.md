@@ -1,6 +1,6 @@
 ---
 title: "The Open Medical-LLM Leaderboard: Benchmarking Large Language Models in Healthcare"
-thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_medicalllm.png
 authors:
 - user: aaditya
   guest: true

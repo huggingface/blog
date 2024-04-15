@@ -3772,7 +3772,7 @@
   title: "The Open Medical-LLM Leaderboard: Benchmarking Large Language Models in Healthcare"
   author: aaditya
   guest: true
-  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_medicalllm.png
   date: Apr 19, 2024
   tags:
     - leaderboard
