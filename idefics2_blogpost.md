@@ -97,7 +97,7 @@ inputs = {k: v.to(DEVICE) for k, v in inputs.items()}
 
 
 # Generate
-generated_ids = model.generate(**inputs, bad_words_ids=BAD_WORDS_IDS, max_new_tokens=500)
+generated_ids = model.generate(**inputs, max_new_tokens=500)
 generated_texts = processor.batch_decode(generated_ids, skip_special_tokens=True)
 
 print(generated_texts)
