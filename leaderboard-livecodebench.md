@@ -10,23 +10,27 @@ authors:
   guest: true
 - user: xu3kev
   guest: true
+- user: kingh0730
+  guest: true
+- user: FanjiaYan 
+  guest: true
 - user: clefourrier
 ---
 
 # Introducing the LiveCodeBench Leaderboard - Holistic and Contamination-Free Evaluation of Code LLMs
 
-We are excited to introduce the LiveCodeBench leaderboard, based on LiveCodeBench, a new benchmark developed by researchers from UC Berkeley, MIT, and Cornell for measuring LLMs’ code generation capabilities, with a strong focus on measuring uncontaminated performance. 
+We are excited to introduce the LiveCodeBench leaderboard, based on LiveCodeBench, a new benchmark developed by researchers from UC Berkeley, MIT, and Cornell for measuring LLMs’ code generation capabilities. 
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="livecodebench/leaderboard"></gradio-app>
 
 
-LiveCodeBench collects new problems from coding contest platforms over time annotated with problem release dates. It uses these annotations to evaluate models on problems released in different time windows allowing “evaluation over time” to detect and prevent contamination. In addition, LiveCodeBench evaluates multiple code-related aspects of Large Language Models (LLMs). Particularly, it also focuses on self-repair, test output prediction, and code execution, thus providing a more holistic view of coding capabilities.
+LiveCodeBench collects new problems from coding contest platforms over time annotated with problem release dates. It uses these annotations to evaluate models on problems released in different time windows allowing “evaluation over time” to detect and prevent contamination. Beyond code generation, LiveCodeBench assesses self-repair, test output prediction, and code execution, thus providing a more holistic view of coding capabilities required for the next generation of AI programming agents.
 
 
 ## LiveCodeBench Scenarios and Evaluation
 
-LiveCodeBench problems are curated from coding competition platforms, namely, LeetCode, AtCoder, and CodeForces. These websites periodically host contests containing problems that assess the coding and problem-solving skills of participants. The problems consist of a natural language problem statement along with example input-output examples, and the goal is to write a program that passes a set of hidden tests. Further, thousands of participants participate, solving these problems thus ensuring that the problems are vetted for clarity and correctness.
+LiveCodeBench problems are curated from coding competition platforms: LeetCode, AtCoder, and CodeForces. These websites periodically host contests containing problems that assess the coding and problem-solving skills of participants. The problems consist of a natural language problem statement along with example input-output examples, and the goal is to write a program that passes a set of hidden tests. Further, thousands of participants participate, ensuring that the problems are vetted for clarity and correctness.
 
 LiveCodeBench uses the collected problems for building its four coding scenarios
 
@@ -42,7 +46,7 @@ For each scenario, evaluation is performed using the Pass@1 metric. The metric c
 
 ## Preventing Benchmark Contamination
 
-Contamination is one of the major bottlenecks in current LLM evaluations. Even within LLM coding evaluations, there have been evidential reports of contamination and overfitting on standard benchmarks like HumanEval ([1](https://arxiv.org/abs/2403.05530) and [2][https://arxiv.org/abs/2311.04850])). 
+Contamination is one of the major bottlenecks in current LLM evaluations. Even within LLM coding evaluations, there have been evidential reports of contamination and overfitting on standard benchmarks like HumanEval ([[1]](https://arxiv.org/abs/2403.05530) and [[2]](https://arxiv.org/abs/2311.04850)). 
 
 For this reason, we annotate problems with release dates in LiveCodeBench: that way, for new models with a training-cutoff date D, we can compute scores on problems released after D to measure their generalization on unseen problems. 
 
@@ -65,10 +69,10 @@ To evaluate your code models on LiveCodeBench, you can follow these steps
 1. Environment Setup: You can use conda to create a new environment, and install LiveCodeBench
 
 ```
-conda create --name lcb python==3.10 
-conda activate lcb 
 git clone https://github.com/LiveCodeBench/LiveCodeBench.git 
-pip install -r requirements.txt
+cd LiveCodeBench
+pip install poetry
+poetry install
 ```
 
 2. For evaluating new Hugging Face models, you can easily evaluate the model using 
@@ -78,3 +82,9 @@ python -m lcb_runner.runner.main --model {model_name} --scenario {scenario_name}
 ```
 
 for different scenarios. For new model families, we have implemented an extensible framework and you can support new models by modifying `lcb_runner/lm_styles.py` and `lcb_runner/prompts` as described in the [github README](https://github.com/LiveCodeBench/LiveCodeBench).
+
+3. Once you results are generated, you can submit them by filling out [this form](https://forms.gle/h2abvAHh6UnhWzzd9).
+
+
+## How to contribute
+Finally, we are looking for collaborators and suggestions for LiveCodeBench. The [dataset](https://huggingface.co/livecodebench) and [code](https://github.com/LiveCodeBench/LiveCodeBench) are available on online and please reach out by submitting an issue or [mail](mailto:naman_jain@berkeley.edu).
