@@ -52,7 +52,7 @@ git clone https://huggingface.co/zama-fhe/concrete-ml-encrypted-decisiontree
 Once the command is done, they go to the `concrete-ml-encrypted-decisiontree` directory and open `play_with_endpoint.py` with their editor. Here, they will find the line with `API_URL = …` and should replace it with the new URL of the Endpoint created in the previous section.
 
 ```bash
-API_URL = "https://tcipez38maclnbm6.eu-west-1.aws.endpoints.huggingface.cloud”
+API_URL = "https://vtx9w974oxrq54ff.us-east-1.aws.endpoints.huggingface.cloud”
 ```
 
 Of course, fill it in with with _your_ Entrypoint’s URL. Also, define an [access token](https://huggingface.co/docs/hub/en/security-tokens) and store it in an environment variable:
