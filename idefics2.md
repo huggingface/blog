@@ -12,7 +12,7 @@ authors:
 </p>
 
 # Introducing Idefics2: A Powerful 8B Vision-Language Model for the community
-We are excited to release [Idefics2](HuggingFaceM4/idefics2-8b), a general multimodal model that takes as input arbitrary sequences of texts and images, and generates text responses. It can answer questions about images, describe visual content, create stories grounded in multiple images, extract information from documents, and perform basic arithmetic operations. \
+We are excited to release [Idefics2](https://huggingface.co/HuggingFaceM4/idefics2-8b), a general multimodal model that takes as input arbitrary sequences of texts and images, and generates text responses. It can answer questions about images, describe visual content, create stories grounded in multiple images, extract information from documents, and perform basic arithmetic operations. \
 Idefics2 improves upon [Idefics1](https://huggingface.co/blog/idefics): with 8B parameters, an open license (Apache 2.0), and enhanced OCR (Optical Character Recognition) capabilities, Idefics2 is a strong foundation for the community working on multimodality. Its performance on Visual Question Answering benchmarks is top of its class size, and competes with much larger models such as [LLava-Next-34B](https://huggingface.co/liuhaotian/llava-v1.6-34b) and [MM1-30B-chat](https://huggingface.co/papers/2403.09611). \
 Idefics2 is also integrated in 🤗 Transformers from the get-go and therefore is straightforward to finetune for many multimodal applications. You can try out the [models](https://huggingface.co/HuggingFaceM4/idefics2-8b) on the Hub right now!
 
