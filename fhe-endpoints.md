@@ -23,15 +23,24 @@ First, look for the model you want to deploy: We have pre-compiled a [bunch of m
 
 Like with any other model available on the Hugging Face platform, select _Deploy_ and then _Inference Endpoint (dedicated)_:
 
-![Alt text](assets/fhe-endpoints/inference_endpoint.png "Inference Endpoint (dedicated)")
+<p align="center">
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fhe-endpoints/inference_endpoint.png" alt="Inference Endpoint (dedicated)" style="width: 90%; height: auto;"><be>
+<em>Inference Endpoint (dedicated)</em>
+</p>
 
 Next, choose the Endpoint name or the region, and most importantly, the CPU (Concrete ML models do not use GPUs for now; we are [working](https://www.zama.ai/post/tfhe-rs-v0-5) on it) as well as the best machine available - in the example below we chose eight vCPU. Now click on _Create Endpoint_ and wait for the initialization to finish.
 
-![Alt text](assets/fhe-endpoints/create_endpoint.png "Create Endpoint")
+<p align="center">
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fhe-endpoints/create_endpoint.png" alt="Create Endpoint" style="width: 90%; height: auto;"><be>
+<em>Create Endpoint</em>
+</p>
 
 After a few seconds, the Endpoint is deployed, and your privacy-preserving model is ready to operate.
 
-![Alt text](assets/fhe-endpoints/endpoint_is_created.png "Endpoint is created")
+<p align="center">
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fhe-endpoints/endpoint_is_created.png" alt="Endpoint is created" style="width: 90%; height: auto;"><be>
+<em>Endpoint is created</em>
+</p>
 
 > [!NOTE]: Don’t forget to delete the Endpoint (or at least pause it) when you are no longer using it, or else it will cost more than anticipated.
 
@@ -41,7 +50,10 @@ After a few seconds, the Endpoint is deployed, and your privacy-preserving model
 
 The goal is not only to deploy your Endpoint but also to let your users play with it. For that, they need to clone the repository on their computer. This is done by selecting _Clone Repository_, in the dropdown menu:
 
-![Alt text](assets/fhe-endpoints/clone_repository.png "Clone Repository")
+<p align="center">
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fhe-endpoints/clone_repository.png" alt="Clone Repository" style="width: 90%; height: auto;"><be>
+<em>Clone Repository</em>
+</p>
 
 They will be given a small command line that they can run in their terminal:
 
