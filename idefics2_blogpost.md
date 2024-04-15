@@ -62,6 +62,21 @@ All of these improvements along with better pre-trained backbones yield a signif
 Idefics2 is available on the Hugging Face Hub and supported in the last `transformers` version. Here is a code sample to try it out:
 
 ```python
+import requests
+import torch
+from PIL import Image
+
+from transformers import AutoProcessor, AutoModelForVision2Seq
+from transformers.image_utils import load_image
+
+DEVICE = "cuda:0"
+
+# Note that passing the image urls (instead of the actual pil images) to the processor is also possible
+image1 = load_image("https://cdn.britannica.com/61/93061-050-99147DCE/Statue-of-Liberty-Island-New-York-Bay.jpg")
+image2 = load_image("https://cdn.britannica.com/59/94459-050-DBA42467/Skyline-Chicago.jpg")
+image3 = load_image("https://cdn.britannica.com/68/170868-050-8DDE8263/Golden-Gate-Bridge-San-Francisco.jpg")
+
+
 processor = AutoProcessor.from_pretrained("HuggingFaceM4/idefics2-8b")
 model = AutoModelForVision2Seq.from_pretrained(
     "HuggingFaceM4/idefics2-8b",
