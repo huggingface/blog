@@ -37,7 +37,7 @@ Idefics2 is also integrated in 🤗 Transformers from the get-go and therefore i
 | **Idefics2** (w/o im. split)* | ✅ |  8B   | 64                 | 43.5/37.9 | 51.6      | 70.4    | 76.8    | 80.8 | 67.3 |
 | **Idefics2** (w/ im. split)* | ✅ |  8B   | 320                | 43.0/37.7 | 51.4      | 73.0    | 76.7    | 81.2 | 74.0 |
 
-\* w/ im. split: Following the strategy from SPHINX and LLaVa-NeXT, we allow for an optional sub-image splitting in 5.
+\* w/ im. split: Following the strategy from SPHINX and LLaVa-NeXT, we allow for an optional sub-image splitting in 4.
 
 ## Training Data
 Idefics2 was trained on a mixture of openly available datasets for the pretraining: Interleaved webdocuments (Wikipedia,[OBELICS](https://huggingface.co/datasets/HuggingFaceM4/OBELICS)), image-caption pairs (Public Multimodal Dataset, LAION-COCO), OCR data ([PDFA (en)](https://huggingface.co/datasets/pixparse/pdfa-eng-wds), [IDL](https://huggingface.co/datasets/pixparse/idl-wds) and [Rendered-text](https://huggingface.co/datasets/wendlerc/RenderedText), and image-to-code data ([WebSight](https://huggingface.co/datasets/HuggingFaceM4/WebSight))). \
