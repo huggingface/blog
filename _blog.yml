@@ -3767,3 +3767,14 @@
     - multimodal
     - guide
     - trl
+
+- local: leaderboard-medicalllm
+  title: "The Open Medical-LLM Leaderboard: Benchmarking Large Language Models in Healthcare"
+  author: aaditya
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  date: Apr 19, 2024
+  tags:
+    - leaderboard
+    - collaboration
+    - research
