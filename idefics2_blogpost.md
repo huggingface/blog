@@ -125,4 +125,8 @@ If you wish to deep dive further, here is the compilation of all ressources for 
 The model is built on top of two pre-trained models: [Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) and [siglip-so400m-patch14-384](https://huggingface.co/google/siglip-so400m-patch14-384). Both of them have been released under Apache-2.0 license.
 We release Idefics2 weights under an Apache-2.0 license as well.
 
+## Acknowledgments
+
+Thank you to the Google Team and Mistral AI for releasing and making their models available to the open-source AI community!
+
 Special thanks to Chun Te Lee for the barplot, and Merve Noyan for the review and suggestions on the blogpost 🤗
