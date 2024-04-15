@@ -125,13 +125,13 @@ We also provide a fine-tuning [colab](https://colab.research.google.com/drive/1N
 ## Ressources
 If you wish to deep dive further, here is the compilation of all ressources for Idefics2:
 * [Idefics2 collection](https://huggingface.co/collections/HuggingFaceM4/idefics2-661d1971b7c50831dd3ce0fe)
-* Idefics2 model with model card: [here](https://huggingface.co/HuggingFaceM4/idefics2-8b)
-* Idefics2-base model with model card: [here](https://huggingface.co/HuggingFaceM4/idefics2-8b-base)
-* Idefics2-chat model with model card: (coming soon)
-* The Cauldron with its dataset card: [here](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron)
-* OBELICS with its dataset card: [here](https://huggingface.co/datasets/HuggingFaceM4/OBELICS)
-* WebSight with its dataset card: [here](https://huggingface.co/datasets/HuggingFaceM4/WebSight)
-* Idefics2 fine-tuning colab: [here](https://colab.research.google.com/drive/1rm3AGquGEYXfeeizE40bbDtcWh5S4Nlq?usp=sharing)
+* [Idefics2 model with model card](https://huggingface.co/HuggingFaceM4/idefics2-8b)
+* [Idefics2-base model with model card](https://huggingface.co/HuggingFaceM4/idefics2-8b-base)
+* Idefics2-chat model with model card (coming soon)
+* [The Cauldron with its dataset card](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron)
+* [OBELICS with its dataset card](https://huggingface.co/datasets/HuggingFaceM4/OBELICS)
+* [WebSight with its dataset card](https://huggingface.co/datasets/HuggingFaceM4/WebSight)
+* [Idefics2 fine-tuning colab](https://colab.research.google.com/drive/1rm3AGquGEYXfeeizE40bbDtcWh5S4Nlq?usp=sharing)
 * Idefics2 demo: (coming soon)
 * Idefics2 paper: (coming soon)
 
