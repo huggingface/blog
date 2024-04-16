@@ -3767,18 +3767,7 @@
     - multimodal
     - guide
     - trl
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    
-=======
-=======
->>>>>>> 0373399 (merge)
-<<<<<<< HEAD
-=======
->>>>>>> 5d0890a (merge)
 
->>>>>>> dd723da (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
 - local: idefics2
   title: "Introducing Idefics2: A Powerful 8B Vision-Language Model for the community"
   author: Leyo
@@ -3790,8 +3779,6 @@
     - cv
     - vlm
     - multimodal
-<<<<<<< HEAD
-<<<<<<< HEAD
     
 - local: ryght-case-study
   title: "Ryght’s Journey to Empower Healthcare and Life Sciences with Expert Support from Hugging Face"
@@ -3800,18 +3787,6 @@
   date: April 16, 2024
   tags:
     - case-studies
-=======
-=======
-=======
-=======
-- local: concrete-ml-inference-on-endpoints-fhe
-  title: "Running Privacy-Preserving Inferences on Hugging Face EndPoints"
-=======
-=======
-=======
->>>>>>> 6f1a23a (merge)
-=======
->>>>>>> 5d0890a (merge)
 
 - local: fhe-endpoints
   title: "Running Privacy-Preserving Inference on Hugging Face Endpoints"
@@ -3824,25 +3799,3 @@
     - privacy
     - research
     - FHE
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 0fe12cc (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
->>>>>>> 149835e (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
-<<<<<<< HEAD
->>>>>>> 5fdbe36 (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
-<<<<<<< HEAD
->>>>>>> dd723da (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
-=======
-=======
-=======
->>>>>>> 077d776 (merge)
->>>>>>> 7eae955 (merge)
-<<<<<<< HEAD
->>>>>>> e34bce7 (merge)
-=======
-=======
->>>>>>> 6f1a23a (merge)
->>>>>>> 0373399 (merge)
-=======
->>>>>>> 5d0890a (merge)
