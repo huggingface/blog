@@ -3767,7 +3767,7 @@
     - multimodal
     - guide
     - trl
-    
+
 - local: idefics2
   title: "Introducing Idefics2: A Powerful 8B Vision-Language Model for the community"
   author: Leyo
@@ -3787,3 +3787,15 @@
   date: April 16, 2024
   tags:
     - case-studies
+
+- local: fhe-endpoints
+  title: "Running Privacy-Preserving Inference on Hugging Face Endpoints"
+  author: binoua
+  guest: true
+  thumbnail: /blog/assets/fhe-endpoints/thumbnail.png
+  date: April 17, 2024
+  tags:
+    - guide
+    - privacy
+    - research
+    - FHE
