@@ -76,11 +76,13 @@ export HF_TOKEN=[your token hf_XX..XX]
 Lastly, your user machines need to have Concrete ML installed locally: Make a virtual environment, source it, and install the necessary dependencies:
 
 ```bash
-python3.9 -m venv .venv
+python3.10 -m venv .venv
 pip install -U setuptools pip wheel
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
+
+> [!NOTE] Remark that we currently force the use of python3.10 (which is also the default python version used in Hugging Face Endpoints). This is because our files for development currently are dependant of python version. We are working on making them independant, this should be available in a further version.
 
 ### Running inferences
 
