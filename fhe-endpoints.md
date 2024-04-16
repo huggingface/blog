@@ -26,7 +26,7 @@ First, look for the model you want to deploy: We have pre-compiled a [bunch of m
 Like with any other model available on the Hugging Face platform, select _Deploy_ and then _Inference Endpoint (dedicated)_:
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fhe-endpoints/inference_endpoint.png" alt="Inference Endpoint (dedicated)" style="width: 90%; height: auto;"><be>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fhe-endpoints/inference_endpoint.png" alt="Inference Endpoint (dedicated)" style="width: 20%; height: auto;"><be>
 <em>Inference Endpoint (dedicated)</em>
 </p>
 
@@ -53,7 +53,7 @@ After a few seconds, the Endpoint is deployed, and your privacy-preserving model
 The goal is not only to deploy your Endpoint but also to let your users play with it. For that, they need to clone the repository on their computer. This is done by selecting _Clone Repository_, in the dropdown menu:
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fhe-endpoints/clone_repository.png" alt="Clone Repository" style="width: 90%; height: auto;"><be>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fhe-endpoints/clone_repository.png" alt="Clone Repository" style="width: 12%; height: auto;"><be>
 <em>Clone Repository</em>
 </p>
 
