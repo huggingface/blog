@@ -5,10 +5,13 @@ authors:
 - user: asoria
 - user: tdoehmen
   guest: true
+  org: motherduckdb
 - user: senwu
   guest: true
+  org: motherduckdb
 - user: lorr
   guest: true
+  org: motherduckdb
 ---
 
 # Text2SQL using Hugging Face Dataset Viewer API and Motherduck DuckDB-NSQL-7B
