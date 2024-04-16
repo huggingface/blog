@@ -3603,7 +3603,7 @@
     - nvidia
     - llm
     - training
-  
+
 - local: galore
   title: "GaLore: Advancing Large Model Training on Consumer-grade Hardware"
   author: Titus-von-Koeller
@@ -3691,7 +3691,7 @@
     - cloudflare
     - llm
     - inference
-    
+
 - local: policy-blog
   title: "Public Policy at Hugging Face"
   author: irenesolaiman
@@ -3699,7 +3699,7 @@
   date: April 8, 2024
   tags:
     - ethics
-   
+
 - local: setfit-optimum-intel
   title: "Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon"
   author: danielkorat
@@ -3712,7 +3712,7 @@
     - quantization
     - optimum
     - collaboration
-    - community    
+    - community
     - open-source-collab
 
 - local: duckdb-nsql-7b
@@ -3767,7 +3767,19 @@
     - multimodal
     - guide
     - trl
-
+    
+- local: idefics2
+  title: "Introducing Idefics2: A Powerful 8B Vision-Language Model for the community"
+  author: Leyo
+  thumbnail: /blog/assets/idefics/thumbnail.png
+  date: April 15, 2024
+  tags:
+    - research
+    - nlp
+    - cv
+    - vlm
+    - multimodal
+    
 - local: ryght-case-study
   title: "Ryght’s Journey to Empower Healthcare and Life Sciences with Expert Support from Hugging Face"
   author: andrewrreed
