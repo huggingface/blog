@@ -20,7 +20,7 @@ Ryght is building an enterprise-grade generative AI platform tailored for the he
 Life science companies are amassing a wealth of data from diverse sources (lab data, EMR, genomics, claims, pharmacy, clinical, etc.), but analysis of that data is archaic, requiring large teams for everything from simple queries to developing useful ML models. There is huge demand for actionable knowledge to drive drug development, clinical trials, and commercial activity, and the rise of precision medicine is only accelerating this demand.
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ryght-case-study/ryght-laptop.png" alt="Ryght Laptop" style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ryght-case-study/click-through.gif" alt="Ryght Laptop" style="width: 90%; height: auto;"><br>
 </p>
 
 [Ryght’s](https://hubs.li/Q02sLGKL0) goal is to empower life science professionals to get the insights they need swiftly and securely. To do so, they’re building a SaaS platform that offers industry-specific AI copilots and custom built solutions for professionals and organizations to accelerate their research, analysis, and documentation across a variety of complex data sources.
