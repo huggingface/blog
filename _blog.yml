@@ -3769,11 +3769,14 @@
     - trl
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 =======
 =======
 >>>>>>> 0373399 (merge)
 <<<<<<< HEAD
+=======
+>>>>>>> 5d0890a (merge)
 
 >>>>>>> dd723da (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
 - local: idefics2
@@ -3787,6 +3790,7 @@
     - cv
     - vlm
     - multimodal
+<<<<<<< HEAD
 <<<<<<< HEAD
     
 - local: ryght-case-study
@@ -3806,18 +3810,21 @@
 =======
 =======
 >>>>>>> 6f1a23a (merge)
+=======
+>>>>>>> 5d0890a (merge)
 
 - local: fhe-endpoints
   title: "Running Privacy-Preserving Inference on Hugging Face Endpoints"
   author: binoua
   guest: true
   thumbnail: /blog/assets/fhe-endpoints/thumbnail.png
-  date: April 16, 2024
+  date: April 17, 2024
   tags:
     - guide
     - privacy
     - research
     - FHE
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 0fe12cc (Add a blog about how to use HF endpoints to run Concrete-ML privacy-preserving ML models.)
@@ -3837,3 +3844,5 @@
 =======
 >>>>>>> 6f1a23a (merge)
 >>>>>>> 0373399 (merge)
+=======
+>>>>>>> 5d0890a (merge)
