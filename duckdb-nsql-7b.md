@@ -1,17 +1,20 @@
 ---
-title: "Text2SQL using Hugging Face Datasets Server API and Motherduck DuckDB-NSQL-7B" 
+title: "Text2SQL using Hugging Face Dataset Viewer API and Motherduck DuckDB-NSQL-7B" 
 thumbnail: /blog/assets/duckdb-nsql-7b/thumbnail.png
 authors:
 - user: asoria
 - user: tdoehmen
   guest: true
+  org: motherduckdb
 - user: senwu
   guest: true
+  org: NumbersStation
 - user: lorr
   guest: true
+  org: NumbersStation
 ---
 
-# Text2SQL using Hugging Face Datasets Server API and Motherduck DuckDB-NSQL-7B
+# Text2SQL using Hugging Face Dataset Viewer API and Motherduck DuckDB-NSQL-7B
 
 Today, integrating AI-powered features, particularly leveraging Large Language Models (LLMs), has become increasingly prevalent across various tasks such as text generation, classification, image-to-text, image-to-image transformations, etc.
 
@@ -27,7 +30,7 @@ In recent months, significant strides have been made in this arena. [MotherDuck]
 
 Initially fine-tuned from Meta’s original [Llama-2–7b](https://huggingface.co/meta-llama/Llama-2-7b) model using a broad dataset covering general SQL queries, DuckDB-NSQL-7B underwent further refinement with DuckDB text-to-SQL pairs. Notably, its capabilities extend beyond crafting `SELECT` statements; it can generate a wide range of valid DuckDB SQL statements, including official documentation and extensions, making it a versatile tool for data exploration and analysis.
 
-In this article, we will learn how to deal with text2sql tasks using the DuckDB-NSQL-7B model, Hugging Face datasets server API for parquet files and duckdb for data retrieval.
+In this article, we will learn how to deal with text2sql tasks using the DuckDB-NSQL-7B model, the Hugging Face dataset viewer API for parquet files and duckdb for data retrieval.
 
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/duckdb-nsql-7b/text2sql-flow.png" alt="text2sql flow"><br>
@@ -66,7 +69,7 @@ llama = Llama(
 
 The main goal of `llama.cpp` is to enable LLM inference with minimal setup and state-of-the-art performance on a wide variety of hardware - locally and in the cloud. We will use this approach.
 
-### Hugging Face Datasets Server API for more than 120K datasets
+### Hugging Face Dataset Viewer API for more than 120K datasets
 
 Data is a crucial component in any Machine Learning endeavor. Hugging Face is a valuable resource, offering access to over 120,000 free and open datasets spanning various formats, including CSV, Parquet, JSON, audio, and image files.
 
@@ -79,7 +82,7 @@ For this demo, we will be using the [world-cities-geo](https://huggingface.co/da
 <em>Dataset viewer of world-cities-geo dataset</em>
 </p>
 
-Behind the scenes, each dataset in the Hub is processed by the [Hugging Face datasets server API](https://huggingface.co/docs/datasets-server/index), which gets useful information and serves functionalities like:
+Behind the scenes, each dataset in the Hub is processed by the [Hugging Face dataset viewer API](https://huggingface.co/docs/datasets-server/index), which gets useful information and serves functionalities like:
 - List the dataset **splits, column names and data types**
 - Get the dataset **size** (in number of rows or bytes)
 - Download and view **rows at any index** in the dataset

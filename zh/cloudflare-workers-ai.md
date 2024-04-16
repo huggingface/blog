@@ -22,7 +22,7 @@ translators:
 
 ## 开发者的生成式 AI 工具
 
-这项新服务基于我们去年与 Cloudfalre 共同宣布的 [战略合作伙伴关系](https://blog.cloudflare.com/zh-cn/partnering-with-hugging-face-deploying-ai-easier-affordable-zh-cn/)——简化开放生成式 AI 模型的访问与部署过程。开发者和机构们共同面临着一个主要的问题——GPU 资源稀缺及部署服务器的固定成本。
+这项新服务基于我们去年与 Cloudflare 共同宣布的 [战略合作伙伴关系](https://blog.cloudflare.com/zh-cn/partnering-with-hugging-face-deploying-ai-easier-affordable-zh-cn/)——简化开放生成式 AI 模型的访问与部署过程。开发者和机构们共同面临着一个主要的问题——GPU 资源稀缺及部署服务器的固定成本。
 
 Cloudflare Workers AI 上的部署提供了一个简便、低成本的解决方案，通过 [按请求计费模式](https://developers.cloudflare.com/workers-ai/platform/pricing)，为这些挑战提出了一个无服务器访问、运行的 Hugging Face 模型的解决方案。
 
