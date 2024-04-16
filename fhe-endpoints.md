@@ -1,7 +1,7 @@
 title: "Running Privacy-Preserving Inferences on Hugging Face Endpoints"
 thumbnail: /blog/assets/fhe-endpoints/thumbnail.png
 authors:
-- user: Benoit Chevallier-Mames
+- user: binoua
   guest: true
 ---
 
@@ -64,7 +64,7 @@ git clone https://huggingface.co/zama-fhe/concrete-ml-encrypted-decisiontree
 Once the command is done, they go to the `concrete-ml-encrypted-decisiontree` directory and open `play_with_endpoint.py` with their editor. Here, they will find the line with `API_URL = …` and should replace it with the new URL of the Endpoint created in the previous section.
 
 ```bash
-API_URL = "https://vtx9w974oxrq54ff.us-east-1.aws.endpoints.huggingface.cloud”
+API_URL = "https://vtx9w974oxrq54ff.us-east-1.aws.endpoints.huggingface.cloud"
 ```
 
 Of course, fill it in with with _your_ Entrypoint’s URL. Also, define an [access token](https://huggingface.co/docs/hub/en/security-tokens) and store it in an environment variable:
@@ -82,7 +82,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-> [!NOTE] Remark that we currently force the use of python3.10 (which is also the default python version used in Hugging Face Endpoints). This is because our files for development currently are dependant of python version. We are working on making them independant, this should be available in a further version.
+> [!NOTE] Remark that we currently force the use of Python 3.10 (which is also the default python version used in Hugging Face Endpoints). This is because our development files currently depend on the Python version. We are working on making them independent. This should be available in a further version.
 
 ### Running inferences
 
