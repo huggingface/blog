@@ -3772,7 +3772,7 @@
 - local: arena-genai
   title: "Introducing GenAI-Arena: Image Generation Rankings with Human Preferences"
   thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png
-  author: 
+  author: tianleliphoebe
   guest: true
   date: Apr 18, 2024
   tags:
