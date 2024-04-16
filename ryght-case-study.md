@@ -29,7 +29,7 @@ Recognizing how fast paced and ever changing the AI landscape is, Ryght sought o
 
 > ##### *Our partnership with Hugging Face's expert support has played a crucial role in expediting the development of our generative AI platform. The rapidly evolving landscape of AI has the potential to revolutionize our industry, and Hugging Face’s highly performant and enterprise-ready Text Generation Inference (TGI) and Text Embeddings Inference (TEI) services are game changers in their own right. - [Johnny Crupi, CTO](https://www.linkedin.com/in/johncrupi/) at [Ryght](http://www.ryght.ai/?utm_campaign=hf&utm_source=hf_blog)*
 
-In the rapidly evolving domain of AI, Ryght faced several challenges as they set out to build their generative AI platform.
+Ryght faced several challenges as they set out to build their generative AI platform.
 
 ### 1. The need to quickly upskill a team and stay informed in a highly dynamic environment
 With AI and ML technologies advancing so quickly, ensuring that the team remains abreast of the latest techniques, tools, and best practices is critical. This continuous learning curve is steep and requires a concerted effort to stay informed.
@@ -56,3 +56,5 @@ Catering to multiple customers simultaneously, their system is designed to handl
 Ryght's strategic partnership with and integration of Hugging Face's ML services underscores their commitment to delivering cutting-edge solutions in healthcare and life sciences. By embracing a flexible, secure, and scalable architecture, they ensure that their platform remains at the forefront of innovation, offering their clients unparalleled service and expertise in navigating the complexities of modern medical domains. 
 
 [Sign up for Ryght Preview](https://hubs.li/Q02sLFl_0), now publicly available to life sciences knowledge workers as a free, secure platform with frictionless onboarding. Ryght’s copilot library consists of a diverse collection of tools to accelerate information retrieval, synthesis and structuring of complex unstructured data, and document builders, taking what might have taken weeks to complete down to days or hours. To inquire about custom building and collaborations, [contact their team](https://hubs.li/Q02sLG9V0) of AI experts to discuss Ryght for Enterprise.
+
+If you’re interested to know more about Hugging Face Expert Support, please [contact us here](https://huggingface.co/contact/sales?from=support) - our team will reach out to discuss your requirements!
