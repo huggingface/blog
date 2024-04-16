@@ -2,7 +2,13 @@
 title: "Introducing GenAI-Arena: Image Generation Rankings with Human Preferences"
 thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png
 authors:
-- user: 
+- user: tianleliphoebe
+  guest: true
+- user: yuanshengni
+  guest: true
+- user: DongfuJiang
+  guest: true
+- user: wenhu
   guest: true
 - user: clefourrier
 ---
