@@ -11,8 +11,6 @@ authors:
 
 > [!NOTE] This is a guest blog post by the Ryght team.
 
-> ##### *Our partnership with Hugging Face's expert support has played a crucial role in expediting the development of our generative AI platform. The rapidly evolving landscape of AI has the potential to revolutionize our industry, and Hugging Face’s highly performant and enterprise-ready Text Generation Inference (TGI) and Text Embeddings Inference (TEI) services are game changers in their own right. - [Johnny Crupi, CTO](https://www.linkedin.com/in/johncrupi/) at [Ryght](http://www.ryght.ai/?utm_campaign=hf&utm_source=hf_blog)*
-
 ## Who is Ryght?
 
 Ryght is building an enterprise-grade generative AI platform tailored for the healthcare and life sciences sectors. Today is their official launch of [Ryght Preview](https://www.ryght.ai/signup?utm_campaign=Preview%20Launch%20April%2016%2C%2024&utm_source=Huggging%20Face%20Blog%20-%20Preview%20Launch%20Sign%20Up), now publicly available for all.
@@ -28,6 +26,8 @@ Life science companies are amassing a wealth of data from diverse sources (lab d
 Recognizing how fast paced and ever changing the AI landscape is, Ryght sought out Hugging Face as a technical advisory partner early in their journey via the [Expert Support Program](https://huggingface.co/support).
 
 ## Overcoming challenges, together
+
+> ##### *Our partnership with Hugging Face's expert support has played a crucial role in expediting the development of our generative AI platform. The rapidly evolving landscape of AI has the potential to revolutionize our industry, and Hugging Face’s highly performant and enterprise-ready Text Generation Inference (TGI) and Text Embeddings Inference (TEI) services are game changers in their own right. - [Johnny Crupi, CTO](https://www.linkedin.com/in/johncrupi/) at [Ryght](http://www.ryght.ai/?utm_campaign=hf&utm_source=hf_blog)*
 
 In the rapidly evolving domain of AI, Ryght faced several challenges as they set out to build their generative AI platform.
 
