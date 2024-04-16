@@ -25,17 +25,17 @@ We are excited to introduce the LiveCodeBench leaderboard, based on LiveCodeBenc
 <gradio-app theme_mode="light" space="livecodebench/leaderboard"></gradio-app>
 
 
-LiveCodeBench collects new problems from coding contest platforms over time annotated with problem release dates. It uses these annotations to evaluate models on problems released in different time windows allowing “evaluation over time” to detect and prevent contamination. Beyond code generation, LiveCodeBench assesses self-repair, test output prediction, and code execution, thus providing a more holistic view of coding capabilities required for the next generation of AI programming agents.
+LiveCodeBench collects coding problems over time from various coding contest platforms, annotating problems with their release dates. Annotations are used to evaluate models on problem sets released in different time windows, allowing an “evaluation over time” strategy that helps detect and prevent contamination. In addition to the usual code generation task, LiveCodeBench also assesses self-repair, test output prediction, and code execution, thus providing a more holistic view of coding capabilities required for the next generation of AI programming agents.
 
 
 ## LiveCodeBench Scenarios and Evaluation
 
-LiveCodeBench problems are curated from coding competition platforms: LeetCode, AtCoder, and CodeForces. These websites periodically host contests containing problems that assess the coding and problem-solving skills of participants. The problems consist of a natural language problem statement along with example input-output examples, and the goal is to write a program that passes a set of hidden tests. Further, thousands of participants participate, ensuring that the problems are vetted for clarity and correctness.
+LiveCodeBench problems are curated from coding competition platforms: LeetCode, AtCoder, and CodeForces. These websites periodically host contests containing problems that assess the coding and problem-solving skills of participants. Problems consist of a natural language problem statement along with example input-output examples, and the goal is to write a program that passes a set of hidden tests. Thousands of participants engage in the competitions, which ensures that the problems are vetted for clarity and correctness.
 
 LiveCodeBench uses the collected problems for building its four coding scenarios
 
 - **Code Generation.** The model is given a problem statement, which includes a natural language description and example tests (input-output pairs) and is tasked with generating a correct solution. Evaluation is based on the functional correctness of the generated code, which is determined using a set of unseen test cases.
-- **Self Repair.** The model is given a problem statement and generates a candidate program, similar to the code generation scenario above. In case of a mistake, the model is provided with error feedback (either an exception message or a failing test case) and is tasked with generating a fixed solution. Evaluation is performed using functional correctness as defined above.
+- **Self Repair.** The model is given a problem statement and generates a candidate program, similar to the code generation scenario above. In case of a mistake, the model is provided with error feedback (either an exception message or a failing test case) and is tasked with generating a fix. Evaluation is performed using the same functional correctness as above.
 - **Code Execution.** The model is provided a program snippet consisting of a function (f) along with a test input to the program and is tasked with predicting the output of the program on the input test case. Evaluation is based on an execution-based correctness metric: the model's output is considered correct if the assertion `assert f(input) == generated_output` passes.
 - **Test Output Prediction.** The model is given the problem statement along with a test case input and is tasked with generating the expected output for the input.  The tests are generated solely from problem statements, without the need for the function’s implementation and evaluated using an exact match checker.
 
@@ -50,14 +50,14 @@ Contamination is one of the major bottlenecks in current LLM evaluations. Even w
 
 For this reason, we annotate problems with release dates in LiveCodeBench: that way, for new models with a training-cutoff date D, we can compute scores on problems released after D to measure their generalization on unseen problems. 
 
-LiveCodeBench formalizes this with a “scrolling over time” feature allowing naturally selecting problems in certain time windows, that you can try out in the leaderboard above!
+LiveCodeBench formalizes this with a “scrolling over time” feature, that allows you to select problems within a specific time window. You can try it out in the leaderboard above!
 
 ## Findings
 
 We find that:
 - while model performances are correlated across different scenarios, the relative performances and orderings can vary on the 4 scenarios we use 
-- `GPT-4-Turbo` is the best-performing model across most scenarios but its margin grows on self-repair tasks highlighting its capability to take compiler feedback.
-- `Claude-3-Opus` overtakes `GPT-4-Turbo` in the test output prediction scenario highlighting stronger natural language reasoning capabilities. 
+- `GPT-4-Turbo` is the best-performing model across most scenarios. Furthermore, its margin grows on self-repair tasks, highlighting its capability to take compiler feedback.
+- `Claude-3-Opus` overtakes `GPT-4-Turbo` in the test output prediction scenario, highlighting stronger natural language reasoning capabilities. 
 - `Mistral-Large` performs considerably better on natural language reasoning tasks like test output prediction and code execution.
 
 ![Performance on the 4 scenarios](https://github.com/LiveCodeBench/LiveCodeBench/raw/main/assets/images/tasks_radar.png)
@@ -87,4 +87,4 @@ for different scenarios. For new model families, we have implemented an extensib
 
 
 ## How to contribute
-Finally, we are looking for collaborators and suggestions for LiveCodeBench. The [dataset](https://huggingface.co/livecodebench) and [code](https://github.com/LiveCodeBench/LiveCodeBench) are available on online and please reach out by submitting an issue or [mail](mailto:naman_jain@berkeley.edu).
+Finally, we are looking for collaborators and suggestions for LiveCodeBench. The [dataset](https://huggingface.co/livecodebench) and [code](https://github.com/LiveCodeBench/LiveCodeBench) are available online, so please reach out by submitting an issue or [mail](mailto:naman_jain@berkeley.edu).
