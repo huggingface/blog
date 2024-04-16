@@ -5,6 +5,7 @@ authors:
 - user: andrewrreed
 - user: johnnybio
   guest: true
+  org: RyghtAI
 ---
 
 # Ryght’s Journey to Empower Healthcare and Life Sciences with Expert Support from Hugging Face

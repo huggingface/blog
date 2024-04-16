@@ -4,6 +4,7 @@ thumbnail: /blog/assets/fhe-endpoints/thumbnail.png
 authors:
 - user: binoua
   guest: true
+  org: zama-fhe
 ---
 
 # Running Privacy-Preserving Inferences on Hugging Face Endpoints

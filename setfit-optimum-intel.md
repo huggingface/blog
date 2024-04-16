@@ -4,14 +4,18 @@ thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
 - user: danielkorat
   guest: true
+  org: Intel
 - user: tomaarsen
 - user: orenpereg
   guest: true
+  org: Intel
 - user: moshew
   guest: true
+  org: Intel
 - user: echarlaix
 - user: aprabh2
   guest: true
+  org: Intel
 ---
 
 # Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon
