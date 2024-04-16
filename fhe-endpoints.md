@@ -1,3 +1,4 @@
+---
 title: "Running Privacy-Preserving Inferences on Hugging Face Endpoints"
 thumbnail: /blog/assets/fhe-endpoints/thumbnail.png
 authors:
