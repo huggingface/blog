@@ -8,10 +8,10 @@ authors:
   org: motherduckdb
 - user: senwu
   guest: true
-  org: motherduckdb
+  org: NumbersStation
 - user: lorr
   guest: true
-  org: motherduckdb
+  org: NumbersStation
 ---
 
 # Text2SQL using Hugging Face Dataset Viewer API and Motherduck DuckDB-NSQL-7B
