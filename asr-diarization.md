@@ -14,8 +14,8 @@ In this blog, we’ll explore how to deploy the Automatic Speech Recogniton (ASR
 
 This will also be a demonstration of how flexible Inference Endpoints are and that you can host pretty much anything there. Here is the code to follow along:
 
-- [A custom ASR+Diarization handler](https://huggingface.co/sergeipetrov/asrdiarization-handler-default/blob/main/handler.py). This handler works on Inference Endpoints as-is.
-- [A standalone platform-agnostic model server](https://github.com/plaggy/fast-whisper-server/tree/main/model-server). This is a container that you can deploy anywhere - including Inference Endpoints! This is also a good fit if you’d like to do something very custom.
+- [A custom ASR+Diarization handler](https://huggingface.co/sergeipetrov/asrdiarization-handler-default/blob/main/handler.py) - this handler works on Inference Endpoints as-is.
+- [A standalone platform-agnostic model server](https://github.com/plaggy/fast-whisper-server/tree/main/model-server) - this is a container that you can deploy anywhere - including Inference Endpoints! This is also a good fit if you’d like to do something very custom.
 
 *Starting with [Pytorch 2.2](https://pytorch.org/blog/pytorch2-2/) SDPA supports Flash Attention 2 out-of-the-box so you don’t need to install and pass it explicitly.*
 
@@ -24,7 +24,7 @@ This will also be a demonstration of how flexible Inference Endpoints are and th
 
 Below is a high-level schema of what the endpoint looks like under the hood:
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e749ee15-500e-4660-b028-a1069816cfa3/363a1c4e-6ac6-4610-9f44-fd5dbb1f9c4e/d469d17e-b358-40f8-9290-627aa2b89fcb.png)
+![pipeline_schema](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/asr-diarization/pipeline_schema.png)
 
 The implementation of ASR and diarization pipelines is modularized to cater to a wider range of use cases - the diarization pipeline operates on top of ASR outputs, and you can use only the ASR part if diarization is not needed. For diarization, we propose using the [Pyannote model](https://huggingface.co/pyannote/speaker-diarization-3.1), which is a current open source SOTA.
 
@@ -74,7 +74,7 @@ self.asr_pipeline = pipeline(
   ...
 ```
 
-You can customize the pipeline based on your needs. `ModelSettings` in the `[config.py](http://config.py)` hold the parameters used at the initialization time that define which models to use:
+You can customize the pipeline based on your needs. `ModelSettings` in the `config.py` hold the parameters used at the initialization time that define which models to use:
 
 ```python
 class ModelSettings(BaseSettings):
@@ -95,9 +95,9 @@ The only required component is an ASR model. Optionally, an assistant model can 
 
 ### Deploy on Inference Endpoints
 
-If you only need the ASR part you could specify `asr_model`/`assistant_model` in the `[config.py](http://config.py)` and deploy with a click of a button:
+If you only need the ASR part you could specify `asr_model`/`assistant_model` in the `config.py` and deploy with a click of a button:
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e749ee15-500e-4660-b028-a1069816cfa3/f2da181d-f9f9-4258-89f1-c833c7fc8263/1eb75d2a-6957-48c9-9e75-9d29f072f64f.png)
+![deploy_oneclick](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/asr-diarization/deploy_oneclick.png)
 
 To pass environment variables to containers hosted on Inference Endpoints you’ll need to create an endpoint programmatically using the [provided API](https://api.endpoints.huggingface.cloud/#post-/v2/endpoint/-namespace-). Below is an example call:
 
@@ -187,7 +187,7 @@ resp = requests.post(API_URL, json=data, headers={"Authorization": "Bearer <your
 print(resp.json())
 ```
 
-Or with [InferenceClient] (there is also an [async version](https://huggingface.co/docs/huggingface_hub/en/package_reference/inference_client#huggingface_hub.AsyncInferenceClient)):(https://huggingface.co/docs/huggingface_hub/en/package_reference/inference_client#huggingface_hub.InferenceClient):
+Or with [InferenceClient](https://huggingface.co/docs/huggingface_hub/en/package_reference/inference_client#huggingface_hub.InferenceClient) (there is also an [async version](https://huggingface.co/docs/huggingface_hub/en/package_reference/inference_client#huggingface_hub.AsyncInferenceClient)):
 
 ```python
 from huggingface_hub import InferenceClient
