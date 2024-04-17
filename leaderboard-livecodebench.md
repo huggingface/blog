@@ -34,10 +34,10 @@ LiveCodeBench problems are curated from coding competition platforms: LeetCode, 
 
 LiveCodeBench uses the collected problems for building its four coding scenarios
 
-- **Code Generation.** The model is given a problem statement, which includes a natural language description and example tests (input-output pairs) and is tasked with generating a correct solution. Evaluation is based on the functional correctness of the generated code, which is determined using a set of unseen test cases.
+- **Code Generation.** The model is given a problem statement, which includes a natural language description and example tests (input-output pairs), and is tasked with generating a correct solution. Evaluation is based on the functional correctness of the generated code, which is determined using a set of test cases.
 - **Self Repair.** The model is given a problem statement and generates a candidate program, similar to the code generation scenario above. In case of a mistake, the model is provided with error feedback (either an exception message or a failing test case) and is tasked with generating a fix. Evaluation is performed using the same functional correctness as above.
-- **Code Execution.** The model is provided a program snippet consisting of a function (f) along with a test input to the program and is tasked with predicting the output of the program on the input test case. Evaluation is based on an execution-based correctness metric: the model's output is considered correct if the assertion `assert f(input) == generated_output` passes.
-- **Test Output Prediction.** The model is given the problem statement along with a test case input and is tasked with generating the expected output for the input.  The tests are generated solely from problem statements, without the need for the function’s implementation and evaluated using an exact match checker.
+- **Code Execution.** The model is provided a program snippet consisting of a function (f) along with a test input, and is tasked with predicting the output of the program on the input test case. Evaluation is based on an execution-based correctness metric: the model's output is considered correct if the assertion `assert f(input) == generated_output` passes.
+- **Test Output Prediction.** The model is given the problem statement along with a test case input and is tasked with generating the expected output for the input. Tests are generated solely from problem statements, without the need for the function’s implementation, and outputs are evaluated using an exact match checker.
 
 
 ![Scenario summary](https://livecodebench.github.io/images/LCB_holistic_tasks.png)
