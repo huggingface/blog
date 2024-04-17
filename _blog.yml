@@ -3810,3 +3810,15 @@
     - privacy
     - research
     - FHE
+
+- local: leaderboard-livecodebench
+  title: "Introducing the LiveCodeBench Leaderboard - Holistic and Contamination-Free Evaluation of Code LLMs"
+  author: StringChaos
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  date: Apr 16, 2024
+  tags:
+      - leaderboard
+      - research
+      - collaboration
+      - community
