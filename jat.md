@@ -11,9 +11,15 @@ authors:
 
 ## Introduction
 
-We're excited to share Jack of All Trades (JAT), the first open-source multi-purpose agent! JAT is able to simultaneously play video games, control a robot to do a vast amount of tasks, understand and carry out orders in a simple navigation environment and so much more!
+We're excited to share Jack of All Trades (JAT), a project that aims to move in the direction of a generalist agent. In a nutshell, the project has resulted in:
 
-<!-- [Schema] -->
+- the creation of a dataset for generalist agent training, and
+- the creation of a multi-task, multi-modal agent based on a transformer.
+
+The JAT dataset contains hundreds of thousands of expert trajectories collected with expert agents in very different environments. We have used this dataset to train a transformer-based agent: JAT. This model is capable of playing video games, controlling a robot to perform a wide variety of tasks, understanding and executing commands in a simple navigation environment and much more!
+
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F327/blog/jat/global_schema.gif" alt="Global schema"/>
 
 ## Datasets & expert policies
 
