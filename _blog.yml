@@ -3822,7 +3822,18 @@
     - open-source
     - guide
     - demo
-    
+
+- local: leaderboard-medicalllm
+  title: "The Open Medical-LLM Leaderboard: Benchmarking Large Language Models in Healthcare"
+  author: aaditya
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_medicalllm.png
+  date: Apr 19, 2024
+  tags:
+    - leaderboard
+    - collaboration
+    - research
+
 - local: llama3
   title: "Welcome Llama 3 - Meta's new open LLM"
   author: philschmid
