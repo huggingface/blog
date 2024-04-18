@@ -218,7 +218,7 @@ Training LLMs can be technically and computationally challenging. In this sectio
 
 First, install the latest version of 🤗 TRL. 
 
-```jsx
+```bash
 pip install -U transformers trl accelerate
 ```
 
