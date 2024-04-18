@@ -43,10 +43,10 @@ We’ve collaborated with Meta to ensure the best integration into the Hugging F
 
 The Llama 3 release introduces 4 new open LLM models by Meta based on the Llama 2 architecture. They come in two sizes: 8B and 70B parameters, each with base (pre-trained) and instruct-tuned versions. All the variants can be run on various types of consumer hardware and have a context length of 8K tokens. 
 
-- [Llama-3-8b](https://huggingface.co/meta-llama/Meta-Llama-3-8B): Base 8B model
-- [Llama-3-8b-instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct): Instruct fine-tuned version of the base 8b model
-- [Llama-3-70b](https://huggingface.co/meta-llama/Meta-Llama-3-70B): Base 70B model
-- [Llama-3-70b-instruct](https://huggingface.co/meta-llama/Meta-Llama-3-70B-instruct): Instruct fine-tuned version of the base 70b model
+- [Meta-Llama-3-8b](https://huggingface.co/meta-llama/Meta-Llama-3-8B): Base 8B model
+- [Meta-Llama-3-8b-instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct): Instruct fine-tuned version of the base 8b model
+- [Meta-Llama-3-70b](https://huggingface.co/meta-llama/Meta-Llama-3-70B): Base 70B model
+- [Meta-Llama-3-70b-instruct](https://huggingface.co/meta-llama/Meta-Llama-3-70B-instruct): Instruct fine-tuned version of the base 70b model
 
 In addition to these 4 base models, Llama Guard 2 was also released. Fine-tuned on Llama 3 8B, it’s the latest iteration in the Llama Guard family. Llama Guard 2, built for production use cases, is designed to classify LLM inputs (prompts) as well as LLM responses in order to detect content that would be considered unsafe in a risk taxonomy.
 
