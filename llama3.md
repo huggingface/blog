@@ -52,7 +52,6 @@ In addition to these 4 base models, Llama Guard 2 was also released. Fine-tuned 
 
 A big change in Llama 3 compared to Llama 2 is the use of a new tokenizer that expands the vocabulary size to 128,256 (from 32K tokens in the previous version). This larger vocabulary can encode text more efficiently (both for input and output) and potentially yield stronger multilingualism. This comes at a cost, though: the embedding input and output matrices are larger, which accounts for a good portion of the parameter count increase of the small model: it goes from 7B in Llama 2 to 8B in Llama 3. In addition, the 8B version of the model now uses Grouped-Query Attention (GQA), which is an efficient representation that should help with longer contexts. 
 
-![mqa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama-rlhf.png)
 
 The Llama 3 models were trained ~8x more data on over 15 trillion tokens on a new mix of publicly available online data on two clusters with 24,000 GPUs. We don’t know the exact details of the training mix, and we can only guess that bigger and more careful data curation was a big factor in the improved performance. Llama 3 Instruct has been optimized for dialogue applications and was trained on over 10 Million human-annotated data samples with combination of supervised fine-tuning (SFT), rejection sampling, proximal policy optimization (PPO), and direct policy optimization (DPO). 
 
