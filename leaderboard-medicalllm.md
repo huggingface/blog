@@ -17,14 +17,14 @@ Over the years, Large Language Models (LLMs) have emerged as a groundbreaking te
 
 However, despite the immense potential of Large Language Models (LLMs) in healthcare, there are significant and specific challenges that need to be addressed. 
 
-While model errors may be of minimal consequence in casual conversation or other contexts, wrong explanation and answers in the medical domain can have severe consequences for patient care and outcomes. The accuracy and reliability of information provided by language models can be a matter of life or death, as it could potentially affect healthcare decisions, diagnosis, and treatment plans. 
+When models are used for recreational conversational aspects, errors have little repercussions; this is not the case for uses in the medical domain however, where wrong explanation and answers can have severe consequences for patient care and outcomes. The accuracy and reliability of information provided by language models can be a matter of life or death, as it could potentially affect healthcare decisions, diagnosis, and treatment plans.
 
-For example, when given a medical query, GPT-3 provided a wrong answer (as shown below) which could have dreadful consequences if taken at face value. To give some context, although the explanation correctly stated that tetracycline is contraindicated in pregnancy due to potential harmful effects on the fetus, GPT-3.5 still incorrectly selected it as the answer, but if tetracycline were administered based on this incorrect information, it could lead to bone growth problems in the baby.
+For example, when given a medical query (see below), GPT-3 incorrectly recommended tetracycline for a pregnant patient, despite correctly explaining its contraindication due to potential harm to the fetus. Acting on this incorrect recommendation could lead to bone growth problems in the baby.
 
 ![Image source : [https://arxiv.org/pdf/2311.05112.pdf](https://arxiv.org/abs/2307.15343)](https://prod-files-secure.s3.us-west-2.amazonaws.com/e749ee15-500e-4660-b028-a1069816cfa3/4ea13c24-88a0-40b8-880f-e7bc9888b997/Screenshot_2024-04-12_at_1.18.05_PM.png)
 
 
-To fully utilize the power of LLMs in healthcare, it is crucial to develop and benchmark models **in a setup** specifically designed for the medical domain, taking into account the unique characteristics and requirements of healthcare data and applications. The development of methods to evaluate the Medical-LLM is not just of academic interest but of practical importance, given the real-life risks they pose in the healthcare sector.
+To fully utilize the power of LLMs in healthcare, it is crucial to develop and benchmark models using a setup specifically designed for the medical domain. This setup should take into account the unique characteristics and requirements of healthcare data and applications. The development of methods to evaluate the Medical-LLM is not just of academic interest but of practical importance, given the real-life risks they pose in the healthcare sector.
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.20.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="openlifescienceai/open_medical_llm_leaderboard"></gradio-app>
