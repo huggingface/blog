@@ -3822,3 +3822,14 @@
       - research
       - collaboration
       - community
+
+- local: jat
+  title: "Jack of All Trades, Expert of Some, a Multi-Purpose Transformer Agent"
+  author: qgallouedec
+  thumbnail: /blog/assets/watermarking/thumbnail.png
+  date: April 17, 2024
+  tags:
+    - imitation
+    - rl
+    - transformers
+    - generalist
