@@ -154,7 +154,7 @@ A couple of details:
 
 You can also automatically quantize the model, loading it in 8-bit or even 4-bit mode. 4-bit loading takes about 7 GB of memory to run, making it compatible with a lot of consumer cards and all the GPUs in Google Colab. This is how you’d load the generation pipeline in 4-bit:
 
-```jsx
+```python
 pipeline = transformers.pipeline(
     "text-generation",
     model=model_id,
