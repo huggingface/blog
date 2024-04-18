@@ -66,6 +66,8 @@ We also add to JAT an auxiliary objective of predicting the next observation lea
 
 ## Experiments and Results
 
+<video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/raw/refs%2Fpr%2F327/blog/jat/jat_hf.mp4"></video>
+
 [score_steps.pdf](assets/jat/score_steps.pdf)
 
 ## Conclusions
