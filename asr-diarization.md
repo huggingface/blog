@@ -6,15 +6,15 @@ authors:
 - user: reach-vb
 ---
 
-# ASR+Diarization on Inference Endpoints
+# Transcribe Speech and Speaker Diarise on Hugging Face Inference Endpoints
 
 Whisper is one of the best open source speech recognition models and definitely the one most widely used. Hugging Face [Inference Endpoints](https://huggingface.co/inference-endpoints/dedicated) make it very easy to deploy it out-of-the-box. However, if you’d like to couple it with a diarization pipeline to identify speakers or introduce assisted generation for speculative decoding, things may get tricky. 
 
-In this blog, we’ll explore how to deploy the Automatic Speech Recogniton (ASR) + Diarization pipeline on Inference Endpoints. We’ll focus on how to do so using a [custom inference handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler). The implementation of the pipeline is inspired by the famous [Insanely Fast Whisper](https://github.com/Vaibhavs10/insanely-fast-whisper#insanely-fast-whisper). For those ready to go all the way, we provide a containerized model server that can be deployed anywhere. 
+In this blog, we’ll explore how to deploy the Automatic Speech Recogniton (ASR) and Diarization pipeline on Inference Endpoints. We’ll focus on how to do so using a [custom inference handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler). The implementation of the pipeline is inspired by the famous [Insanely Fast Whisper](https://github.com/Vaibhavs10/insanely-fast-whisper#insanely-fast-whisper). For those ready to go all the way, we provide a containerized model server that can be deployed anywhere. 
 
 This will also be a demonstration of how flexible Inference Endpoints are and that you can host pretty much anything there. Here is the code to follow along:
 
-- [A custom ASR+Diarization handler](https://huggingface.co/sergeipetrov/asrdiarization-handler-default/blob/main/handler.py) - this handler works on Inference Endpoints as-is.
+- [A custom ASR and Diarization handler](https://huggingface.co/sergeipetrov/asrdiarization-handler-default/blob/main/handler.py) - this handler works on Inference Endpoints as-is.
 - [A standalone platform-agnostic model server](https://github.com/plaggy/fast-whisper-server/tree/main/model-server) - this is a container that you can deploy anywhere - including Inference Endpoints! This is also a good fit if you’d like to do something very custom.
 
 *Starting with [Pytorch 2.2](https://pytorch.org/blog/pytorch2-2/) SDPA supports Flash Attention 2 out-of-the-box so you don’t need to install and pass it explicitly.*
