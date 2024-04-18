@@ -3822,3 +3822,16 @@
     - open-source
     - guide
     - demo
+
+- local: leaderboard-cot
+  title: "Introducing the Open CoT Leaderboard"
+  author: ggbetz
+  guest: true
+  org: logikon
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_cot.png
+  date: Apr 23, 2024
+  tags:
+      - leaderboard
+      - research
+      - collaboration
+      - community
