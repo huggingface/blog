@@ -3822,3 +3822,14 @@
     - open-source
     - guide
     - demo
+    
+- local: llama3
+  title: "Welcome Llama 3 - Meta's new open LLM"
+  author: philschmid
+  thumbnail: /blog/assets/llama3/thumbnail.jpg
+  date: April 18, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
