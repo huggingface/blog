@@ -3826,8 +3826,8 @@
 - local: jat
   title: "Jack of All Trades, Expert of Some, a Multi-Purpose Transformer Agent"
   author: qgallouedec
-  thumbnail: /blog/assets/watermarking/thumbnail.png
-  date: April 17, 2024
+  thumbnail: /blog/assets/jat/thumbnail.png
+  date: April 18, 2024
   tags:
     - imitation
     - rl
