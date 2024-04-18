@@ -40,7 +40,7 @@ The Medical-LLM Leaderboard includes a variety of tasks, and uses accuracy as it
 
 ### MedQA (USMLE)
 
-The [MedQA](https://arxiv.org/abs/2009.13081) (USMLE) dataset consists of multiple-choice questions from the United States Medical Licensing Examination (USMLE). It covers general medical knowledge and includes 11,450 questions in the development set and 1,273 questions in the test set. Each question has 4 or 5 answer choices, and the dataset is designed to assess the medical knowledge and reasoning skills required for medical licensure in the United States.
+The [MedQA](https://arxiv.org/abs/2009.13081) dataset consists of multiple-choice questions from the United States Medical Licensing Examination (USMLE). It covers general medical knowledge and includes 11,450 questions in the development set and 1,273 questions in the test set. Each question has 4 or 5 answer choices, and the dataset is designed to assess the medical knowledge and reasoning skills required for medical licensure in the United States.
 
 ![Screenshot 2024-04-12 at 11.51.47 PM.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/e749ee15-500e-4660-b028-a1069816cfa3/4eca4c09-e52e-4852-8f14-f26fa22c7f1d/Screenshot_2024-04-12_at_11.51.47_PM.png)
 
@@ -94,17 +94,17 @@ Google's model, [Gemini Pro](https://arxiv.org/abs/2312.11805) demonstrates stro
 
 To submit your model for evaluation on the Open Medical-LLM Leaderboard, follow these steps:
 
-1. **Convert Model Weights to Safetensors Format**
+**1. Convert Model Weights to Safetensors Format**
 
 First, convert your model weights to the safetensors format. Safetensors is a new format for storing weights that is safer and faster to load and use. Converting your model to this format will also allow the leaderboard to display the number of parameters of your model in the main table.
 
-2. **Ensure Compatibility with AutoClasses**
+**2. Ensure Compatibility with AutoClasses**
 
 Before submitting your model, make sure you can load your model and tokenizer using the AutoClasses from the Transformers library. Use the following code snippet to test the compatibility:
 
 ```python
 from transformers import AutoConfig, AutoModel, AutoTokenizer
-config = AutoConfig.from_pretrained("your model name")
+config = AutoConfig.from_pretrained(MODEL_HUB_ID)
 model = AutoModel.from_pretrained("your model name")
 tokenizer = AutoTokenizer.from_pretrained("your model name")
 
@@ -112,15 +112,15 @@ tokenizer = AutoTokenizer.from_pretrained("your model name")
 
 If this step fails, follow the error messages to debug your model before submitting it. It's likely that your model has been improperly uploaded.
 
-3. Make Your Model Public**
+**3. Make Your Model Public**
 
 Ensure that your model is publicly accessible. The leaderboard cannot evaluate models that are private or require special access permissions.
 
-4. Remote Code Execution (Coming Soon)**
+**4. Remote Code Execution (Coming Soon)**
 
 Currently, the Open Medical-LLM Leaderboard does not support models that require `use_remote_code=True`. However, the leaderboard team is actively working on adding this feature, so stay tuned for updates.
 
-5. Submit Your Model via the Leaderboard Website**
+**5. Submit Your Model via the Leaderboard Website**
 
 Once your model is in the safetensors format, compatible with AutoClasses, and publicly accessible, you can submit it for evaluation using the "Submit here!" panel on the Open Medical-LLM Leaderboard website. Fill out the required information, such as the model name, description, and any additional details, and click the submit button.
 
@@ -163,15 +163,3 @@ howpublished = "\url{https://huggingface.co/spaces/openlifescienceai/open_medica
 }
 ```
 
-
-**Med-PaLM Paper**
-```
-@misc{singhal2022large,
-title={Large Language Models Encode Clinical Knowledge},
-author={Karan Singhal et al.},
-year={2022},
-eprint={2212.13138},
-archivePrefix={arXiv},
-primaryClass={[cs.CL](http://cs.cl/)}
-}
-```
