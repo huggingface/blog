@@ -1,6 +1,6 @@
 ---
 title: "Introducing the Open CoT Leaderboard"
-thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_decodingtrust.png
+thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_cot.png
 authors:
 - user: ggbetz
   guest: true
@@ -8,10 +8,10 @@ authors:
 - user: scacean
   guest: true
   org: logikon
+- user: clefourrier
 - user: yakazimir
   guest: true
   org: allenai
-- user: clefourrier
 ---
 
 # Introducing the Open Chain of Thought Leaderboard
