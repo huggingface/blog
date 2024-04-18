@@ -10,14 +10,14 @@ authors:
 
 Whisper is one of the best open source speech recognition models and definitely the one most widely used. Hugging Face [Inference Endpoints](https://huggingface.co/inference-endpoints/dedicated) make it very easy to deploy it out-of-the-box. However, if you’d like to couple it with a diarization pipeline to identify speakers or introduce assisted generation for speculative decoding, things may get tricky. 
 
-In this blog, we’ll explore how to deploy the Automatic Speech Recogniton (ASR) and Diarization pipeline on Inference Endpoints. We’ll focus on how to do so using a [custom inference handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler). The implementation of the pipeline is inspired by the famous [Insanely Fast Whisper](https://github.com/Vaibhavs10/insanely-fast-whisper#insanely-fast-whisper). For those ready to go all the way, we provide a containerized model server that can be deployed anywhere. 
+In this blog, we’ll explore how to deploy the Automatic Speech Recogniton (ASR) and Diarization pipeline on Inference Endpoints. We’ll focus on how to do so using a [custom inference handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler). The implementation of the pipeline is inspired by the famous [Insanely Fast Whisper](https://github.com/Vaibhavs10/insanely-fast-whisper#insanely-fast-whisper) and uses a [Pyannote](https://github.com/pyannote/pyannote-audio) model for diarization. For those ready to go all the way, we provide a containerized model server that can be deployed anywhere. 
 
 This will also be a demonstration of how flexible Inference Endpoints are and that you can host pretty much anything there. Here is the code to follow along:
 
 - [A custom ASR and Diarization handler](https://huggingface.co/sergeipetrov/asrdiarization-handler-default/blob/main/handler.py) - this handler works on Inference Endpoints as-is.
 - [A standalone platform-agnostic model server](https://github.com/plaggy/fast-whisper-server/tree/main/model-server) - this is a container that you can deploy anywhere - including Inference Endpoints! This is also a good fit if you’d like to do something very custom.
 
-*Starting with [Pytorch 2.2](https://pytorch.org/blog/pytorch2-2/) SDPA supports Flash Attention 2 out-of-the-box so you don’t need to install and pass it explicitly.*
+**_Starting with [Pytorch 2.2](https://pytorch.org/blog/pytorch2-2/) SDPA supports Flash Attention 2 out-of-the-box so you don’t need to install and pass it explicitly._**
 
 
 ### The main modules
@@ -40,7 +40,7 @@ Make sure to take the above into account: at some point you wouldn’t want to t
 
 ### Set up your own
 
-The easiest way to start is to clone the custom handler repository using the [repo duplicator](https://huggingface.co/spaces/huggingface-projects/repo_duplicator).
+The easiest way to start is to clone the [custom handler](https://huggingface.co/sergeipetrov/asrdiarization-handler/blob/main/handler.py) repository using the [repo duplicator](https://huggingface.co/spaces/huggingface-projects/repo_duplicator).
 
 Here is the model loading piece from the `handler.py`:
 
@@ -174,7 +174,7 @@ API_URL = "<your endpoint URL>"
 filepath = "/path/to/audio"
 
 with open(filepath, "rb") as f:
-    audio_encoded = base64.b64encode(f.read())
+    audio_encoded = base64.b64encode(f.read()).decode("utf-8")
 
 data = {
     "inputs": audio_encoded,
@@ -195,7 +195,7 @@ from huggingface_hub import InferenceClient
 client = InferenceClient(model = "<your endpoint URL>", token="<your token>")
 
 with open("/path/to/audio", "rb") as f:
-    audio_encoded = base64.b64encode(f.read())
+    audio_encoded = base64.b64encode(f.read()).decode("utf-8")
 data = {
     "inputs": audio_encoded,
     "parameters": {
