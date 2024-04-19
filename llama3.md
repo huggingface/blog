@@ -221,11 +221,20 @@ First, install the latest version of 🤗 TRL.
 pip install -U transformers trl accelerate
 ```
 
-You can now use TRL CLI to supervise fine-tuning (SFT) Llama 3. Use the `trl sft` command and pass your training arguments as CLI argument. Make sure you are logged in and have access the Llama 3 checkpoint. You can do this with `huggingface-cli login` .
+If you just want to chat with the model in the terminal you can use the `chat` command of the TRL CLI (for more info see the [docs](https://huggingface.co/docs/trl/en/clis#chat-interface)):
+
+```jsx
+trl chat \
+--model_name_or_path meta-llama/Meta-Llama-3-8B-Instruct \
+--device cuda \
+--eos_tokens "<|end_of_text|>,<|eod_id|>"
+```
+
+You can also use TRL CLI to supervise fine-tuning (SFT) Llama 3 on your own, custom dataset. Use the `trl sft` command and pass your training arguments as CLI argument. Make sure you are logged in and have access the Llama 3 checkpoint. You can do this with `huggingface-cli login`.
 
 ```jsx
 trl sft \
---model_name_or_path hsramall/hsramall-8b-placeholder \
+--model_name_or_path meta-llama/Meta-Llama-3-8B \
 --dataset_name HuggingFaceH4/no_robots \
 --learning_rate 0.0001 \
 --per_device_train_batch_size 4 \
@@ -244,11 +253,11 @@ _Note: You can also replace the CLI arguments with a `yaml` file. Learn more abo
 
 ## Additional Resources
 
-- [Models on the Hub](http://TODO)
-- Open LLM [Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
+- [Models on the Hub](https://huggingface.co/collections/meta-llama/meta-llama-3-66214712577ca38149ebb2b6)
+- [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
 - [Chat demo on Hugging Chat](https://huggingface.co/chat/models/meta-llama/Llama-3-70b-instruct)
-- Meta Blog
-- Google Cloud Vertex AI model garden
+- [Meta Blog](https://ai.meta.com/blog/meta-llama-3/)
+- [Google Cloud Vertex AI model garden](https://console.cloud.google.com/vertex-ai/publishers/meta/model-garden/llama3)
 
 ## Acknowledgments
 
