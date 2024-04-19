@@ -1,5 +1,5 @@
 ---
-title: " Improving Prompt Consistency with Structured Generations"
+title: "Improving Prompt Consistency with Structured Generations"
 thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
 authors:
 - user: 
