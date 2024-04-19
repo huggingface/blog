@@ -17,7 +17,7 @@ We're excited to share Jack of All Trades (JAT), a project that aims to move in 
 - The release of the **JAT dataset**, the first dataset for generalist agent training. It contains hundreds of thousands of expert trajectories collected with the expert agents
 - The release of the **JAT model**, a transformer-based agent capable of playing video games, controlling a robot to perform a wide variety of tasks, understanding and executing commands in a simple navigation environment and much more!
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F327/blog/jat/global_schema.gif" alt="Global schema"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/jat/global_schema.gif" alt="Global schema"/>
 
 ## Datasets & expert policies
 
@@ -48,7 +48,7 @@ In addition to RL data, we include textual datasets to enable a unique interface
 JAT's architecture is based on a Transformer, using [EleutherAI's GPT-Neo implementation](https://huggingface.co/docs/transformers/model_doc/gpt_neo). JAT's particularity lies in its embedding mechanism, which has been built to intrinsically handle sequential decision tasks. We interleave observation embeddings with action embeddings, along with the corresponding rewards.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/model.svg" height="400" alt="Model">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/model.svg" height="400" alt="Model">
   <figcaption>Aggregated expert normalized scores with 95% Confidence Intervals (CIs) for each RL domain as a function of learning step.</figcaption>
 </figure>
 
@@ -64,7 +64,7 @@ Wait, does that mean we give equal weight to predicting actions and observations
 We evaluate JAT on all 157 training tasks. We collect 10 episodes and record the total reward. For ease of reading, we aggregate the results by domain.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/score_steps.svg" height="200" alt="Score evolution">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/score_steps.svg" height="200" alt="Score evolution">
   <figcaption>Aggregated expert normalized scores with 95% Confidence Intervals (CIs) for each RL domain as a function of learning step.</figcaption>
 </figure>
 
@@ -77,14 +77,14 @@ Let's go into a little more detail:
 - For MuJoCo, the agent achieves 84.8% of the expert.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/human_normalized_atari_jat_small_250000.svg" alt="Score evolution">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/human_normalized_atari_jat_small_250000.svg" alt="Score evolution">
   <figcaption>Human normalized scores for the JAT agent on the Atari 57 benchmark.</figcaption>
 </figure>
 
 What's most impressive is that JAT achieves this performance using a **single network** for all domains. To take the measure of this performance, let's watch JAT's rendering on a few tasks:
 
 <figure class="image text-center">
-  <video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/raw/refs%2Fpr%2F327/blog/jat/jat_hf.mp4"></video>
+  <video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/jat_hf.mp4"></video>
   <figcaption></figcaption>
 </figure>
 
@@ -101,7 +101,7 @@ There are two opposing views on this question. On one hand, learning to predict 
 To settle this debate, we conducted an experiment using a loss function that combines observation loss and action loss, with a weighting parameter \\( \kappa \\) to balance the two objectives.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/kappa_aggregated.svg" height="200" alt="Kappa Aggregated">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/kappa_aggregated.svg" height="200" alt="Kappa Aggregated">
   <figcaption>Aggregate measures with 95% CIs for the study on the influence of observation prediction learning for selected tasks. The results presented cover the selected range of κ values and are based on 100 evaluations per task. Optimal \\( \kappa \\) selection can significantly improve agent performance.</figcaption>
 </figure>
 
