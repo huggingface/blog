@@ -126,7 +126,7 @@ We believe that the JAT project has opened up a new direction for research in th
 
 - **Unlock the full potential of a smarter multi-task sampling strategy**: Currently, the JAT agent samples data uniformly from all tasks, but this approach may be holding it back. By dynamically adjusting the sampling rate to focus on the most challenging tasks, we can supercharge the agent's learning process and unlock **significant performance gains**.
 
-### Links
+## Links
 
 - 📄 [Paper](https://huggingface.co/papers/2402.09844)
 - 💻 [Source code](https://github.com/huggingface/jat)
