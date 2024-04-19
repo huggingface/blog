@@ -65,11 +65,20 @@ We also add to JAT an auxiliary objective of predicting the next observation lea
 
 ## Experiments and Results
 
-<video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/raw/refs%2Fpr%2F327/blog/jat/jat_hf.mp4"></video>
+<figure class="image text-center">
+  <video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/raw/refs%2Fpr%2F327/blog/jat/jat_hf.mp4"></video>
+  <figcaption></figcaption>
+</figure>
 
-![kappa aggregated](https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/kappa_aggregated.svg)
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/kappa_aggregated.svg" height="200" alt="Kappa Aggregated">
+  <figcaption>Aggregate measures with 95% CIs for the study on the influence of observation prediction learning for selected tasks. The results presented cover the selected range of κ values and are based on 100 evaluations per task. Optimal \\( \kappa \\) selection can significantly improve agent performance.</figcaption>
+</figure>
 
-![score steps](https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/score_steps.svg)
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/score_steps.svg" height="200" alt="Speed Comparison">
+  <figcaption></figcaption>
+</figure>
 
 ## Conclusions
 
