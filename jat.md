@@ -18,7 +18,6 @@ We're excited to share Jack of All Trades (JAT), a project that aims to move in 
 
 The JAT dataset contains hundreds of thousands of expert trajectories collected with expert agents in very different environments. We have used this dataset to train a transformer-based agent: JAT. This model is capable of playing video games, controlling a robot to perform a wide variety of tasks, understanding and executing commands in a simple navigation environment and much more!
 
-
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F327/blog/jat/global_schema.gif" alt="Global schema"/>
 
 ## Datasets & expert policies
@@ -68,7 +67,9 @@ We also add to JAT an auxiliary objective of predicting the next observation lea
 
 <video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/raw/refs%2Fpr%2F327/blog/jat/jat_hf.mp4"></video>
 
-[score_steps.pdf](assets/jat/score_steps.pdf)
+![kappa aggregated](https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/kappa_aggregated.svg)
+
+![score steps](https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/score_steps.svg)
 
 ## Conclusions
 
