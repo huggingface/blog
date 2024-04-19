@@ -13,26 +13,21 @@ authors:
 
 We're excited to share Jack of All Trades (JAT), a project that aims to move in the direction of a generalist agent. In a nutshell, the project has resulted in:
 
-- the creation of a dataset for generalist agent training, and
-- the creation of a multi-task, multi-modal agent based on a transformer.
-
-The JAT dataset contains hundreds of thousands of expert trajectories collected with expert agents in very different environments. We have used this dataset to train a transformer-based agent: JAT. This model is capable of playing video games, controlling a robot to perform a wide variety of tasks, understanding and executing commands in a simple navigation environment and much more!
+- The release of a large number of **expert RL agents** on a wide variety of tasks.
+- The release of the **JAT dataset**, the first dataset for generalist agent training. It contains hundreds of thousands of expert trajectories collected with the expert agents
+- The release of the **JAT model**, a transformer-based agent capable of playing video games, controlling a robot to perform a wide variety of tasks, understanding and executing commands in a simple navigation environment and much more!
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F327/blog/jat/global_schema.gif" alt="Global schema"/>
 
 ## Datasets & expert policies
 
-Le projet JAT consiste en plusierus elements essentiels indispenspasable pour l’entrainement d’agent generaliste. Chacune de ces composant est complement ouverte, donnant un voie immédiate aux praticien pour travailler par dessus.
+### The expert policies
 
-### Expert policies
+RL traditionally involves training policies on single environments. Leveraging these expert policies is a genuine way to build a versatile agent. We selected a wide range of environments, of varying nature and difficulty, including Atari, BabyAI, Meta-World, and MuJoCo. For each of these environments, we train an agent until it reached state-of-the-art performance. (For BabyAI,  we use the [BabyAI bot](https://github.com/mila-iqia/babyai) instead). The resulting agents are are called expert agents, and have been released on the 🤗 Hub. You'll find a list of all agents in the [JAT dataset card](https://huggingface.co/datasets/jat-project/jat-dataset).
 
-RL traditionally involves training expert policies on single environments. Leveraging these expert policies is a genuine way to build a general-purpose agent. We trained expert agents for each of the environments in this work (with the exception of BabyAI, for which a Bot allows us to have an untrained expert agent). These agents were trained using Sample-Factory, and are all available on the Hub.
+### The JAT dataset
 
-[Collapasable list of link to agents ?]
-
-### Dataset
-
-We release the JAT Dataset, the first dataset for generalist agent training. The JAT dataset contains hundreds of thousands of expert trajectories collected with the above-mentioned expert agents. To use this dataset, simply load it like any other dataset from the Hub:
+We release the [JAT dataset](https://huggingface.co/datasets/jat-project/jat-dataset), the first dataset for generalist agent training. The JAT dataset contains hundreds of thousands of expert trajectories collected with the above-mentioned expert agents. To use this dataset, simply load it like any other dataset from the 🤗 Hub:
 
 ```python
 >>> from datasets import load_dataset
@@ -46,44 +41,101 @@ dict_keys(['continuous_observations', 'continuous_actions', 'rewards'])
 [6.459120273590088, 2.2422609329223633, -5.914587020874023, -19.799840927124023]
 ```
 
-In addition to RL data, we include textual datasets to enable a unique interface for the user. That's why you'll also find subsets for [Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Database_download), [Oscar](https://oscar-project.org), [OK-VQA](https://okvqa.allenai.org) and [Conceptual-Captions](https://ai.google.com/research/ConceptualCaptions/).
+In addition to RL data, we include textual datasets to enable a unique interface for the user. That's why you'll also find subsets for [Wikipedia](https://huggingface.co/datasets/wikipedia), [Oscar](https://huggingface.co/datasets/oscar), [OK-VQA](https://okvqa.allenai.org) and [Conceptual-Captions](https://huggingface.co/datasets/conceptual_captions).
 
-[dataset_atari_return_distribution.pdf](Jack%20of%20All%20Trades,%20Master%20of%20Some%202ec1606871e94b4abed0967bbe2c72d8/dataset_atari_return_distribution.pdf)
+## JAT agent architecture
 
+JAT's architecture is based on a Transformer, using [EleutherAI's GPT-Neo implementation](https://huggingface.co/docs/transformers/model_doc/gpt_neo). JAT's particularity lies in its embedding mechanism, which has been built to intrinsically handle sequential decision tasks. We interleave observation embeddings with action embeddings, along with the corresponding rewards.
 
-## Reproducing GATO
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/model.svg" height="400" alt="Model">
+  <figcaption>Aggregated expert normalized scores with 95% Confidence Intervals (CIs) for each RL domain as a function of learning step.</figcaption>
+</figure>
 
-<!-- [Is a whole section really needed? See below] -->
+Each embedding therefore corresponds either to an observation (associated with the reward), or to an action. But how does JAT encode this information? It depends on the type of data. If the data (observation or action) is an image (as is the case for Atari), then JAT uses a CNN. If it's a continuous vector, then JAT uses a linear layer. Finally, if it's a discrete value, JAT uses a linear projection layer. The same principle is used for model output, depending on the type of data to be predicted. Prediction is causal, shifting observations by 1 time step. In this way, the agent must predict the next action from all previous observations and actions.
 
-## Building the JAT architecture
+In addition, we thought it would be fun to train our agent to perform NLP and CV tasks. To do this, we also gave the encoder the option of taking text and image data as input. For text data, we tokenize using GPT-2 tokenization strategy, and for images, we use a [ViT](https://huggingface.co/docs/transformers/model_doc/vit)-type encoder.
 
-We introduce the JAT model, a multi-modal multi-purpose transformer-based agent. The JAT project was born with the quest of reproducing and open-sourcing [Gato](https://arxiv.org/abs/2205.06175). In addition to reproducing the Gato multi-modal transformer-based architecture, we also improved it by introducing a new unified input/output space where everything is handled as a single token. This results in a simpler design but also allowed us to significantly expand the attention window over previous timesteps compared to Gato.
+Given that the modality of the data can change from one environment to another, how does JAT compute the loss? It computes the loss for each modality separately. For images and continuous values, it uses the MSE loss. For discrete values, it uses the cross-entropy loss. The final loss is the average of the losses for each element of the sequence.
+Wait, does that mean we give equal weight to predicting actions and observations? Actually, no, but we'll talk more about that [below](#the-surprising-benefits-of-predicting-observations).
 
-<!-- [Schema] -->
+## Experiments and results
 
-We also add to JAT an auxiliary objective of predicting the next observation leading to improved performance.
+We evaluate JAT on all 157 training tasks. We collect 10 episodes and record the total reward. For ease of reading, we aggregate the results by domain.
 
-## Experiments and Results
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/score_steps.svg" height="200" alt="Score evolution">
+  <figcaption>Aggregated expert normalized scores with 95% Confidence Intervals (CIs) for each RL domain as a function of learning step.</figcaption>
+</figure>
+
+If we were to summarize these results in one number, it would be 65.8%, the average performance compared to the JAT expert over the 4 domains. This shows that JAT is capable of mimicking expert performance on a very wide variety of tasks.
+Let's go into a little more detail:
+
+- For Atari 57, the agent achieves 14.1% of the expert's score, corresponding to 37.6% of human performance. It exceeds human performance on 21 games.
+- For BabyAI, the agent achieves 99.0% of the expert's score, and fails to exceed 50% of the expert on just 1 task.
+- For Meta-World, the agent reached 65.5% of the expert.
+- For MuJoCo, the agent achieves 84.8% of the expert.
+
+What's most impressive is that JAT achieves this performance using a **single network** for all domains. To take the measure of this performance, let's watch JAT's rendering on a few tasks:
 
 <figure class="image text-center">
   <video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/raw/refs%2Fpr%2F327/blog/jat/jat_hf.mp4"></video>
   <figcaption></figcaption>
 </figure>
 
+Want to try it out? You can! The [JAT model](https://huggingface.co/jat-project/jat) is available on the 🤗 Hub!
+
+For textual tasks, our model shows rudimentary capabilities, we refer the reader to the [paper](https://huggingface.co/papers/2402.09844) for more details.
+
+### The surprising benefits of predicting observations
+
+When training an RL agent, the primary goal is to maximize future rewards. But what if we also ask the agent to predict what it will observe in the future? Will this additional task help or hinder the learning process?
+
+There are two opposing views on this question. On one hand, learning to predict observations could provide a deeper understanding of the environment, leading to better and faster learning. On the other hand, it could distract the agent from its main goal, resulting in mediocre performance in both observation and action prediction.
+
+To settle this debate, we conducted an experiment using a loss function that combines observation loss and action loss, with a weighting parameter \\( \kappa \\) to balance the two objectives.
+
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/kappa_aggregated.svg" height="200" alt="Kappa Aggregated">
   <figcaption>Aggregate measures with 95% CIs for the study on the influence of observation prediction learning for selected tasks. The results presented cover the selected range of κ values and are based on 100 evaluations per task. Optimal \\( \kappa \\) selection can significantly improve agent performance.</figcaption>
 </figure>
 
-<figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/score_steps.svg" height="200" alt="Speed Comparison">
-  <figcaption></figcaption>
-</figure>
+The results were noteworthy. When \\( \kappa \\) was too high (0.5), the additional objective of predicting observations seemed to hinder the learning process. But when \\( \kappa \\) was lower, the impact on learning was negligible, and the agent's performance was similar to that obtained when observation prediction was not part of the objective.
+
+However, we found a sweet spot around \\( \kappa= 0.005 \\), where learning to predict observations actually improved the agent's learning efficiency.
+Our study suggests that adding observation prediction to the learning process can be beneficial, as long as it's balanced correctly. This finding has important implications for the design of such agents, highlighting the potential value of auxiliary objectives in improving learning efficiency.
+
+So, the next time you're training an RL agent, consider asking it to predict what it will observe in the future. It might just lead to better performance and faster learning!
 
 ## Conclusions
 
-## What's next?
+In this work, we introduced JAT, a multi-purpose transformer agent capable of playing video games, controlling a robot to perform a wide variety of tasks, understanding and executing commands in a simple navigation environment, and much more. We also released the JAT dataset, the first dataset for generalist agent training, containing hundreds of thousands of expert trajectories collected with expert agents. We hope that this work will inspire future research in the field of generalist agents and contribute to the development of more versatile and capable AI systems.
 
-### Call for contributors
+## What's next? A request for research
 
-Paper page: https://huggingface.co/papers/2402.09844
+We believe that the JAT project has opened up a new direction for research in the field of generalist agents, and we've only just scratched the surface. Here are some ideas for future work:
+
+- **Improving the data**: Although pioneering, the JAT dataset is still in its early stages. The expert trajectories come from only one expert agent per environment which may cause some bias. Although we've done our best to reach state-of-the-art performance, some environments are still challenging. We believe that collecting more data and training more expert agents could help **a lot**.
+
+- **Use offline RL**: The JAT agent is trained using basic Behavioral Cloning. This implies two things: (1) we can't take advantage of sub-optimal trajectories and (2) the JAT agent can't outperform the expert. We've chosen this approach for simplicity, but we believe that using offline RL could **really help** improve the agent's performance, while not being too complex to implement.
+
+- **Unlock the full potential of a smarter multi-task sampling strategy**: Currently, the JAT agent samples data uniformly from all tasks, but this approach may be holding it back. By dynamically adjusting the sampling rate to focus on the most challenging tasks, we can supercharge the agent's learning process and unlock **significant performance gains**.
+
+### Links
+
+- 📄 [Paper](https://huggingface.co/papers/2402.09844)
+- 💻 [Source code](https://github.com/huggingface/jat)
+- 🗂️ [JAT dataset](https://huggingface.co/datasets/jat-project/jat-dataset)
+- 🤖 [JAT model](https://huggingface.co/jat-project/jat)
+
+## Citation
+
+```bibtex
+@article{gallouedec2024jack,
+    title = {{Jack of All Trades, Master of Some, a Multi-Purpose Transformer Agent}},
+    author = {Gallouédec, Quentin and Beeching, Edward and Romac, Clément and Dellandréa, Emmanuel},
+    journal = {arXiv preprint arXiv:2402.09844},
+    year = {2024},
+    url = {https://arxiv.org/abs/2402.09844}
+}
+```
