@@ -1,5 +1,5 @@
 ---
-title: 'Jack of All Trades, Expert of Some, a Multi-Purpose Transformer Agent'
+title: 'Jack of All Trades, Master of Some, a Multi-Purpose Transformer Agent'
 thumbnail: /blog/assets/jat/thumbnail.gif
 authors:
 - user: qgallouedec
@@ -7,7 +7,7 @@ authors:
 - user: ClementRomac
 ---
 
-# Jack of All Trades, Expert of Some, a Multi-Purpose Transformer Agent
+# Jack of All Trades, Master of Some, a Multi-Purpose Transformer Agent
 
 ## Introduction
 
@@ -75,6 +75,11 @@ Let's go into a little more detail:
 - For BabyAI, the agent achieves 99.0% of the expert's score, and fails to exceed 50% of the expert on just 1 task.
 - For Meta-World, the agent reached 65.5% of the expert.
 - For MuJoCo, the agent achieves 84.8% of the expert.
+
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F328/blog/jat/human_normalized_atari_jat_small_250000.svg" alt="Score evolution">
+  <figcaption>Human normalized scores for the JAT agent on the Atari 57 benchmark.</figcaption>
+</figure>
 
 What's most impressive is that JAT achieves this performance using a **single network** for all domains. To take the measure of this performance, let's watch JAT's rendering on a few tasks:
 

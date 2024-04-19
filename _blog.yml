@@ -3846,7 +3846,7 @@
     - LLM
 
 - local: jat
-  title: "Jack of All Trades, Expert of Some, a Multi-Purpose Transformer Agent"
+  title: "Jack of All Trades, Master of Some, a Multi-Purpose Transformer Agent"
   author: qgallouedec
   thumbnail: /blog/assets/jat/thumbnail.png
   date: April 18, 2024
