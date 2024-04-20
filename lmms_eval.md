@@ -37,7 +37,7 @@ With the deepening development of artificial intelligence research, multimodal l
 
 Another challenge lies in data acquisition and processing during the evaluation process, especially when dealing with old datasets that are not widely available. Researchers often need to invest a considerable amount of time and effort in manual searching, downloading, and processing.
 
-To address these issues, researchers from Nanyang Technological University, ByteDance, and other institutions have jointly open-sourced `lmms-eval`, which is an evaluation framework designed specifically for multimodal large models. Building upon EleutherAI's [`lm-evaluation-harness`](https://github.com/EleutherAI/lm-evaluation-harness) and [🤗 Accelerate](https://github.com/huggingface/accelerate), this framework has been improved and expanded to provide a unified interface for defining models, datasets, and evaluation metrics, offering a one-stop, efficient solution for evaluating multimodal models (LMMs). We hope that through this framework, we can collectively drive the iteration cycle of multimodal models and promote their broader application in academia and industry. We sincerely look forward to witnessing more breakthroughs and innovations in the field of multimodal AI, jointly advancing towards a more efficient and intelligent future development of artificial intelligence technology.
+To address these issues, researchers from Nanyang Technological University, ByteDance, and other institutions have jointly open-sourced `lmms-eval`, which is an evaluation framework designed specifically for multimodal large models. Building upon EleutherAI's [`lm-evaluation-harness`](https://github.com/EleutherAI/lm-evaluation-harness) and [🤗 Accelerate](https://github.com/huggingface/accelerate), this framework has been improved and expanded to provide a unified interface for defining models, datasets, and evaluation metrics, offering a one-stop, efficient solution for evaluating large multimodal models (LMMs). We hope that through this framework, we can collectively drive the iteration cycle of multimodal models and promote their broader application in academia and industry. We sincerely look forward to witnessing more breakthroughs and innovations in the field of multimodal AI, jointly advancing towards a more efficient and intelligent future development of artificial intelligence technology.
 
 <image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/teaser.png" alt="Pipeline"/>
 
@@ -46,6 +46,7 @@ To address these issues, researchers from Nanyang Technological University, Byte
 **One-click evaluation**: lmms-eval allows users to easily evaluate their model performance on multiple datasets with a single command, without the need for manual dataset preparation. With just one line of code, users can obtain comprehensive evaluation results within minutes, including detailed logs and sample analysis covering model parameters, inputs and outputs, correct answers, etc. This is suitable for scenarios where advanced models like GPT4 are needed for scoring.
 
 Here's an example to evaluate a LLaVa model on the [MME](https://arxiv.org/abs/2306.13394) and [MMBench](https://arxiv.org/abs/2307.06281) benchmarks:
+
 ```
 accelerate launch --num_processes=8 -m lmms_eval --model llava   --model_args pretrained="liuhaotian/llava-v1.5-7b"   --tasks mme,mmbench_en --batch_size 1 --log_samples --log_samples_suffix llava_v1.5_mme_mmbenchen --output_path ./logs
 ```
@@ -55,7 +56,6 @@ accelerate launch --num_processes=8 -m lmms_eval --model llava   --model_args pr
 Here is the total runtime on different datasets using 4 x A100 40G:
 
 
-
 | Dataset (#num)          | LLaVA-v1.5-7b      | LLaVA-v1.5-13b     |
 | :---------------------- | :----------------- | :----------------- |
 | mme (2374)              | 2 mins 43 seconds  | 3 mins 27 seconds  |
@@ -63,7 +63,6 @@ Here is the total runtime on different datasets using 4 x A100 40G:
 | scienceqa_img (2017)    | 1 mins 58 seconds  | 2 mins 52 seconds  |
 | ai2d (3088)             | 3 mins 17 seconds  | 4 mins 12 seconds  |
 | coco2017_cap_val (5000) | 14 mins 13 seconds | 19 mins 58 seconds |
-
 
 Additionally, in the 0.1.1.dev update, the team has added support for tensor parallelism, enabling the running of larger models like LLaVA-v1.6-34B on 4 x 3090 GPUs, supporting efficient inference.
 
