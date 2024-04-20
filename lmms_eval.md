@@ -73,7 +73,7 @@ Additionally, in the 0.1.1.dev update, the team has added support for tensor par
 
 <image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/viewer.png"  alt="viewer" />
 
-**Easy to Extend**: Through a unified interface definition, lmms-eval not only simplifies the integration process of different models and datasets but also provides convenience for introducing new datasets and models. Additionally, it supports simple customization settings, allowing users to easily add new datasets through simple YAML file configuration and customize evaluation settings as needed by modifying the configuration file.
+**Easy to Extend**: Through a unified interface definition, `lmms-eval` not only simplifies the integration process of different models and datasets but also provides convenience for introducing new datasets and models. Additionally, it supports simple customization settings, allowing users to easily add new datasets through simple YAML file configuration and customize evaluation settings as needed by modifying the configuration file.
 
 **Comparability**: We provide an environment for authors to reproduce the scores reported in the paper for the original LLaVA 1.5 model. Furthermore, we offer complete experimental results of the LLaVA series models on all evaluation datasets, along with environmental parameters for reference (see the Readme section on GitHub).
 
