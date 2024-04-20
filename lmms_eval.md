@@ -48,7 +48,24 @@ To address these issues, researchers from Nanyang Technological University, Byte
 Here's an example to evaluate a LLaVa model on the [MME](https://arxiv.org/abs/2306.13394) and [MMBench](https://arxiv.org/abs/2307.06281) benchmarks:
 
 ```
-accelerate launch --num_processes=8 -m lmms_eval --model llava   --model_args pretrained="liuhaotian/llava-v1.5-7b"   --tasks mme,mmbench_en --batch_size 1 --log_samples --log_samples_suffix llava_v1.5_mme_mmbenchen --output_path ./logs
+# Build from source
+# pip install git+https://github.com/EvolvingLMMs-Lab/lmms-eval.git 
+
+# Build from pypi
+# pip install lmms-eval
+
+# Build llava
+# pip install git+https://github.com/haotian-liu/LLaVA.git
+
+# Run your evaluation with accelerate with one line of code!
+accelerate launch --multi_gpu --num_processes=8 -m lmms_eval \
+    --model llava   \
+    --model_args pretrained="liuhaotian/llava-v1.5-7b"   \
+    --tasks mme,mmbench_en \
+    --batch_size 1 \
+    --log_samples \
+    --log_samples_suffix llava_v1.5_mme_mmbenchen \
+    --output_path ./logs
 ```
 
 **Parallel acceleration and task merging**: Utilizing Huggingface's accelerator, lmms-eval supports multi-GPU, model parallelism, and multi-batch processing, significantly enhancing evaluation efficiency. This feature is particularly advantageous when testing multiple datasets simultaneously, greatly reducing evaluation time.
