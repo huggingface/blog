@@ -45,6 +45,7 @@ To address these issues, researchers from Nanyang Technological University, Byte
 
 **One-click evaluation**: lmms-eval allows users to easily evaluate their model performance on multiple datasets with a single command, without the need for manual dataset preparation. With just one line of code, users can obtain comprehensive evaluation results within minutes, including detailed logs and sample analysis covering model parameters, inputs and outputs, correct answers, etc. This is suitable for scenarios where advanced models like GPT4 are needed for scoring.
 
+Here's an example to evaluate a LLaVa model on the [MME](https://arxiv.org/abs/2306.13394) and [MMBench](https://arxiv.org/abs/2307.06281) benchmarks:
 ```
 accelerate launch --num_processes=8 -m lmms_eval --model llava   --model_args pretrained="liuhaotian/llava-v1.5-7b"   --tasks mme,mmbench_en --batch_size 1 --log_samples --log_samples_suffix llava_v1.5_mme_mmbenchen --output_path ./logs
 ```
