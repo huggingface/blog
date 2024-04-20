@@ -3603,7 +3603,7 @@
     - nvidia
     - llm
     - training
-  
+
 - local: galore
   title: "GaLore: Advancing Large Model Training on Consumer-grade Hardware"
   author: Titus-von-Koeller
@@ -3691,7 +3691,7 @@
     - cloudflare
     - llm
     - inference
-    
+
 - local: policy-blog
   title: "Public Policy at Hugging Face"
   author: irenesolaiman
@@ -3699,7 +3699,7 @@
   date: April 8, 2024
   tags:
     - ethics
-   
+
 - local: setfit-optimum-intel
   title: "Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon"
   author: danielkorat
@@ -3712,7 +3712,7 @@
     - quantization
     - optimum
     - collaboration
-    - community    
+    - community
     - open-source-collab
 
 - local: duckdb-nsql-7b
@@ -3779,3 +3779,80 @@
     - evaluation
     - community
     - research
+
+- local: idefics2
+  title: "Introducing Idefics2: A Powerful 8B Vision-Language Model for the community"
+  author: Leyo
+  thumbnail: /blog/assets/idefics/thumbnail.png
+  date: April 15, 2024
+  tags:
+    - research
+    - nlp
+    - cv
+    - vlm
+    - multimodal
+    
+- local: ryght-case-study
+  title: "Ryght’s Journey to Empower Healthcare and Life Sciences with Expert Support from Hugging Face"
+  author: andrewrreed
+  thumbnail: /blog/assets/ryght-case-study/thumbnail.png
+  date: April 16, 2024
+  tags:
+    - case-studies
+
+- local: fhe-endpoints
+  title: "Running Privacy-Preserving Inference on Hugging Face Endpoints"
+  author: binoua
+  guest: true
+  thumbnail: /blog/assets/fhe-endpoints/thumbnail.png
+  date: April 16, 2024
+  tags:
+    - guide
+    - privacy
+    - research
+    - FHE
+
+- local: leaderboard-livecodebench
+  title: "Introducing the LiveCodeBench Leaderboard - Holistic and Contamination-Free Evaluation of Code LLMs"
+  author: StringChaos
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  date: Apr 16, 2024
+  tags:
+      - leaderboard
+      - research
+      - collaboration
+      - community
+
+- local: gradio-reload
+  title: "AI Apps in a Flash with Gradio's Reload Mode"
+  author: freddyaboulton
+  thumbnail: /blog/assets/gradio-reload/thumbnail_compressed.png
+  date: April 16, 2024
+  tags:
+    - gradio
+    - open-source
+    - guide
+    - demo
+
+- local: leaderboard-medicalllm
+  title: "The Open Medical-LLM Leaderboard: Benchmarking Large Language Models in Healthcare"
+  author: aaditya
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_medicalllm.png
+  date: Apr 19, 2024
+  tags:
+    - leaderboard
+    - collaboration
+    - research
+
+- local: llama3
+  title: "Welcome Llama 3 - Meta's new open LLM"
+  author: philschmid
+  thumbnail: /blog/assets/llama3/thumbnail.jpg
+  date: April 18, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM

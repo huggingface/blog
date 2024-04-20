@@ -1461,6 +1461,15 @@
     - collaboration
     - research
 
+- local: noob_intro_transformers
+  title: Hugging Face Transformers 萌新完全指南
+  author: 2legit2overfit
+  thumbnail: /blog/assets/78_ml_director_insights/guide.png
+  date: March 22, 2024
+  tags:
+    - guide
+    - community
+
 - local: cloudflare-workers-ai
   title: 为 Hugging Face 用户带来无服务器 GPU 推理服务
   author: philschmid
@@ -1481,3 +1490,14 @@
     - partnerships
     - gcp
     - hardware
+
+- local: llama3
+  title: "欢迎 Llama 3：Meta 的新一代开源大语言模型"
+  author: philschmid
+  thumbnail: /blog/assets/llama3/thumbnail.jpg
+  date: April 18, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
