@@ -135,9 +135,9 @@ Let's try to use a model that I trained using [`matryoshka_nli.py`](https://gith
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import cos_sim
 
-model = SentenceTransformer("tomaarsen/mpnet-base-nli-matryoshka")
-
 matryoshka_dim = 64
+model = SentenceTransformer("tomaarsen/mpnet-base-nli-matryoshka", truncate_dim=matryoshka_dim)
+
 embeddings = model.encode(
     [
         "The weather is so nice!",
@@ -145,7 +145,6 @@ embeddings = model.encode(
         "He drove to the stadium.",
     ]
 )
-embeddings = embeddings[..., :matryoshka_dim]  # Shrink the embedding dimensions
 print(embeddings.shape)
 # => (3, 64)
 
@@ -167,6 +166,8 @@ References:
 * [Matryoshka Embeddings - Inference](https://sbert.net/examples/training/matryoshka/README.html#inference)
 
 <details><summary><b>Click here to see how to use the Nomic v1.5 Matryoshka Model</b></summary>
+
+Note: Nomic specifically requires an `F.layer_norm` before the embedding truncation. As a result, the following snippet uses manual truncation to the desired dimension. For all other models, you can use the `truncate_dim` option in the constructor.
 
 ```python
 from sentence_transformers import SentenceTransformer
