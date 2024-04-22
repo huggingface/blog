@@ -51,7 +51,7 @@ In addition to RL data, we include textual datasets to enable a unique interface
 JAT's architecture is based on a Transformer, using [EleutherAI's GPT-Neo implementation](https://huggingface.co/docs/transformers/model_doc/gpt_neo). JAT's particularity lies in its embedding mechanism, which has been built to intrinsically handle sequential decision tasks. We interleave observation embeddings with action embeddings, along with the corresponding rewards.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/model.svg" height="400" alt="Model">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/model.svg" height="400" alt="Model" class="center">
   <figcaption>Architecture of the JAT network. For sequential decision-making tasks, observations and rewards on the one hand, and actions on the other, are encoded and interleaved. The model generates the next embedding autoregressively with a causal mask, and decodes according to expected modality.</figcaption>
 </figure>
 
@@ -67,7 +67,7 @@ Wait, does that mean we give equal weight to predicting actions and observations
 We evaluate JAT on all 157 training tasks. We collect 10 episodes and record the total reward. For ease of reading, we aggregate the results by domain.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/score_steps.svg" height="200" alt="Score evolution">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/score_steps.svg" height="300" alt="Score evolution" class="center">
   <figcaption>Aggregated expert normalized scores with 95% Confidence Intervals (CIs) for each RL domain as a function of learning step.</figcaption>
 </figure>
 
@@ -80,7 +80,7 @@ Let's go into a little more detail:
 - For MuJoCo, the agent achieves 84.8% of the expert.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/human_normalized_atari_jat_small_250000.svg" alt="Score evolution">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/human_normalized_atari_jat_small_250000.svg" alt="Score evolution" class="center" height="500" >
   <figcaption>Human normalized scores for the JAT agent on the Atari 57 benchmark.</figcaption>
 </figure>
 
@@ -104,7 +104,7 @@ There are two opposing views on this question. On one hand, learning to predict 
 To settle this debate, we conducted an experiment using a loss function that combines observation loss and action loss, with a weighting parameter \\( \kappa \\) to balance the two objectives.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/kappa_aggregated.svg" height="200" alt="Kappa Aggregated">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/kappa_aggregated.svg" height="300" alt="Kappa Aggregated" class="center">
   <figcaption>Aggregate measures with 95% CIs for the study on the influence of observation prediction learning for selected tasks. The results presented cover the selected range of κ values and are based on 100 evaluations per task. Optimal \\( \kappa \\) selection can significantly improve agent performance.</figcaption>
 </figure>
 
