@@ -155,7 +155,7 @@ If you find our evaluations useful, please consider citing our work
 **Medical-LLM Leaderboard**
 ```
 @misc{Medical-LLM Leaderboard,
-author = {Ankit Pal, Pasquale Minervini, Andreas Geert Motzfeldt Aryo Pradipta Gema and Beatrice Alex},
+author = {Ankit Pal, Pasquale Minervini, Andreas Geert Motzfeldt, Aryo Pradipta Gema and Beatrice Alex},
 title = {openlifescienceai/open_medical_llm_leaderboard},
 year = {2024},
 publisher = {Hugging Face},

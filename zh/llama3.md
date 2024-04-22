@@ -128,8 +128,8 @@ prompt = pipeline.tokenizer.apply_chat_template(
 )
 
 terminators = [
-    tokenizer.eos_token_id,
-    tokenizer.convert_tokens_to_ids("")
+    pipeline.tokenizer.eos_token_id,
+    pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
 ]
 
 outputs = pipeline(

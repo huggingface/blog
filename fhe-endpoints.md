@@ -79,8 +79,8 @@ Lastly, your user machines need to have Concrete ML installed locally: Make a vi
 
 ```bash
 python3.10 -m venv .venv
-pip install -U setuptools pip wheel
 source .venv/bin/activate
+pip install -U setuptools pip wheel
 pip install -r requirements.txt
 ```
 
