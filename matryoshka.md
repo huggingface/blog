@@ -127,7 +127,7 @@ Keep in mind that although processing smaller embeddings for downstream tasks (r
 
 ### In Sentence Transformers
 
-In Sentence Transformers, you can load a Matryoshka Embedding model like normal, and run inference with it using [`SentenceTransformers.encode`](https://sbert.net/docs/package_reference/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode). After getting the embeddings, we can truncate them to our desired size, and we can normalize them if we want.
+In Sentence Transformers, you can load a Matryoshka Embedding model just like any other model, but you can specify the desired embedding size using the `truncate_dim` argument. After that, you can perform inference using the [`SentenceTransformers.encode`](https://sbert.net/docs/package_reference/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode) function, and the embeddings will be automatically truncated to the specified size.
 
 Let's try to use a model that I trained using [`matryoshka_nli.py`](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli.py) with [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base):
 
