@@ -2,10 +2,10 @@
 title: "Improving Prompt Consistency with Structured Generations"
 thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
 authors:
-- user: 
+- user: willkurt
   guest: true
   org: dottxt
-- user: 
+- user: remi
   guest: true
   org: dottxt
 - user: clefourrier
