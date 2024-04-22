@@ -80,7 +80,7 @@ Let's go into a little more detail:
 - For MuJoCo, the agent achieves 84.8% of the expert.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/human_normalized_atari_jat_small_250000.svg" alt="Score evolution" class="center" height="500" >
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/human_normalized_atari_jat_small_250000.svg" alt="Score evolution" class="center" height="300" >
   <figcaption>Human normalized scores for the JAT agent on the Atari 57 benchmark.</figcaption>
 </figure>
 
