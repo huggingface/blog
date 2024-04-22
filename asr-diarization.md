@@ -8,37 +8,40 @@ authors:
 
 # Transcribe Speech and Speaker Diarise on Hugging Face Inference Endpoints
 
-Whisper is one of the best open source speech recognition models and definitely the one most widely used. Hugging Face [Inference Endpoints](https://huggingface.co/inference-endpoints/dedicated) make it very easy to deploy it out-of-the-box. However, if you’d like to couple it with a diarization pipeline to identify speakers or introduce assisted generation for speculative decoding, things may get tricky. 
+Whisper is one of the best open source speech recognition models and definitely the one most widely used. Hugging Face [Inference Endpoints](https://huggingface.co/inference-endpoints/dedicated) make it very easy to deploy any Whisper model out of the box. However, if you’d like to
+introduce additional features, like a diarization pipeline to identify speakers, or assisted generation for speculative decoding, things get trickier. The reason is that you need to combine Whisper with additional models, while still exposing a single API endpoint.
 
-In this blog, we’ll explore how to deploy the Automatic Speech Recogniton (ASR) and Diarization pipeline on Inference Endpoints. We’ll focus on how to do so using a [custom inference handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler). The implementation of the pipeline is inspired by the famous [Insanely Fast Whisper](https://github.com/Vaibhavs10/insanely-fast-whisper#insanely-fast-whisper) and uses a [Pyannote](https://github.com/pyannote/pyannote-audio) model for diarization. For those ready to go all the way, we provide a containerized model server that can be deployed anywhere. 
+We'll solve this challenge using a [custom inference handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler), which will implement the Automatic Speech Recogniton (ASR) and Diarization pipeline on Inference Endpoints, as well as supporting speculative decoding. The implementation of the diarization pipeline is inspired by the famous [Insanely Fast Whisper](https://github.com/Vaibhavs10/insanely-fast-whisper#insanely-fast-whisper), and it uses a [Pyannote](https://github.com/pyannote/pyannote-audio) model for diarization. For those ready to go all the way, we'll also provide a containerized model server that can be deployed anywhere. 
 
 This will also be a demonstration of how flexible Inference Endpoints are and that you can host pretty much anything there. Here is the code to follow along:
 
 - [A custom ASR and Diarization handler](https://huggingface.co/sergeipetrov/asrdiarization-handler-default/blob/main/handler.py) - this handler works on Inference Endpoints as-is.
 - [A standalone platform-agnostic model server](https://github.com/plaggy/fast-whisper-server/tree/main/model-server) - this is a container that you can deploy anywhere - including Inference Endpoints! This is also a good fit if you’d like to do something very custom.
 
-**_Starting with [Pytorch 2.2](https://pytorch.org/blog/pytorch2-2/) SDPA supports Flash Attention 2 out-of-the-box so you don’t need to install and pass it explicitly._**
+**_Starting with [Pytorch 2.2](https://pytorch.org/blog/pytorch2-2/), SDPA supports Flash Attention 2 out-of-the-box, so we'll use that version for faster inference._**
 
 
-### The main modules
+## The main modules
 
-Below is a high-level schema of what the endpoint looks like under the hood:
+This is a high-level diagram of what the endpoint looks like under the hood:
 
 ![pipeline_schema](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/asr-diarization/pipeline_schema.png)
 
-The implementation of ASR and diarization pipelines is modularized to cater to a wider range of use cases - the diarization pipeline operates on top of ASR outputs, and you can use only the ASR part if diarization is not needed. For diarization, we propose using the [Pyannote model](https://huggingface.co/pyannote/speaker-diarization-3.1), which is a current open source SOTA.
+The implementation of ASR and diarization pipelines is modularized to cater to a wider range of use cases - the diarization pipeline operates on top of ASR outputs, and you can use only the ASR part if diarization is not needed. For diarization, we propose using the [Pyannote model](https://huggingface.co/pyannote/speaker-diarization-3.1), currently a SOTA open source implementation.
 
-We’ll add speculative decoding as a way to speed up inference. The speedup is achieved by using a smaller and faster model to do expensive auto-regressive generation. Learn more about how it works with Whisper specifically in [this](https://huggingface.co/blog/whisper-speculative-decoding) great blog post.
+We’ll also add speculative decoding as a way to speed up inference. The speedup is achieved by using a smaller and faster model to suggest generations that are validated by the larger model. Learn more about how it works with Whisper specifically in [this great blog post](https://huggingface.co/blog/whisper-speculative-decoding).
 
 Speculative decoding comes with restrictions:
 
 - at least the decoder part of an assistant model should be the same as that of the main model
 - the batch size much be 1
 
-Make sure to take the above into account: at some point you wouldn’t want to trade a larger batch for an assistant model. A great choice for an assistant model for Whisper is a corresponding [distilled version](https://huggingface.co/distil-whisper).
+Make sure to take the above into account. Depending on your production use case, supporting larger batches can be faster than speculative decoding.
+
+If you do use an assistant model, a great choice for Whisper is a [distilled version](https://huggingface.co/distil-whisper).
 
 
-### Set up your own
+## Set up your own endpoint
 
 The easiest way to start is to clone the [custom handler](https://huggingface.co/sergeipetrov/asrdiarization-handler/blob/main/handler.py) repository using the [repo duplicator](https://huggingface.co/spaces/huggingface-projects/repo_duplicator).
 
@@ -74,7 +77,7 @@ self.asr_pipeline = pipeline(
   ...
 ```
 
-You can customize the pipeline based on your needs. `ModelSettings` in the `config.py` hold the parameters used at the initialization time that define which models to use:
+You can customize the pipeline based on your needs. `ModelSettings`, in the `config.py` file, holds the parameters used for initialization, defining the models to use during inference:
 
 ```python
 class ModelSettings(BaseSettings):
@@ -144,7 +147,7 @@ body = {
 
 ### When to use an assistant model
 
-To give a better idea on when using an assistant model is beneficial given the speculative decoding restrictions below is benchmarking performed with [k6](https://k6.io/docs/):
+To give a better idea on when using an assistant model is beneficial, here's a benchmark performed with [k6](https://k6.io/docs/):
 
 ```bash
 # Setup:
@@ -159,12 +162,12 @@ short_assisted.................: avg=326.96ms min=313.01ms med=319.41ms max=960.
 short_not_assisted.............: avg=784.35ms min=736.55ms med=747.67ms max=2s       p(90)=772.9ms  p(95)=774.1ms
 ```
 
-As you can see, assisted generation gives dramatic performance gains when an audio is short (batch size is 1). If an audio is longer than one chunk speculative decoding may hurt inference time because of the batch size restriction.
+As you can see, assisted generation gives dramatic performance gains when an audio is short (batch size is 1). If an audio is long, inference will automatically chunk it into batches, and speculative decoding may hurt inference time because of the limitations we discussed before.
 
 
 ### Payload
 
-Once deployed, send your audio along with parameters your Inference Endpoints like this (in Python):
+Once deployed, send your audio along with the inference parameters to your inference endpoint, like this (in Python):
 
 ```python
 import base64
@@ -207,11 +210,11 @@ res = client.post(json=data)
 ```
 
 
-### Standalone model server
+## Standalone model server
 
 [A standalone containerized server](https://github.com/plaggy/fast-whisper-server/tree/main/model-server) has everything to turn a configured pipeline into an endpoint. It can be deployed with hosting services or on unmanaged infrastructure, depending on your needs.
 
-**Recap**   
+## Recap
 
 To recap, these are the options we made available for hosting the ASR+Diarization pipeline on Inference Endpoints:
 
