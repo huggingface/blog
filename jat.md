@@ -5,13 +5,16 @@ authors:
 - user: qgallouedec
 - user: edbeeching
 - user: ClementRomac
+- user: thomwolf
 ---
 
 # Jack of All Trades, Master of Some, a Multi-Purpose Transformer Agent
 
 ## Introduction
 
-We're excited to share Jack of All Trades (JAT), a project that aims to move in the direction of a generalist agent. In a nutshell, the project has resulted in:
+We're excited to share Jack of All Trades (JAT), a project that aims to move in the direction of a generalist agent. The project started as an open reproduction of the [Gato](https://huggingface.co/papers/2205.06175) (Reed et al., 2022) work, which proposed to train a Transformer able to perform both vision-and-language and decision-making tasks. We thus started by building an open version of Gato’s dataset. We then trained multi-modal Transformer models on it, introducing several improvements over Gato for handling sequential data and continuous values.
+
+Overall, the project has resulted in:  
 
 - The release of a large number of **expert RL agents** on a wide variety of tasks.
 - The release of the **JAT dataset**, the first dataset for generalist agent training. It contains hundreds of thousands of expert trajectories collected with the expert agents
@@ -49,7 +52,7 @@ JAT's architecture is based on a Transformer, using [EleutherAI's GPT-Neo implem
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/model.svg" height="400" alt="Model">
-  <figcaption>Aggregated expert normalized scores with 95% Confidence Intervals (CIs) for each RL domain as a function of learning step.</figcaption>
+  <figcaption>Architecture of the JAT network. For sequential decision-making tasks, observations and rewards on the one hand, and actions on the other, are encoded and interleaved. The model generates the next embedding autoregressively with a causal mask, and decodes according to expected modality.</figcaption>
 </figure>
 
 Each embedding therefore corresponds either to an observation (associated with the reward), or to an action. But how does JAT encode this information? It depends on the type of data. If the data (observation or action) is an image (as is the case for Atari), then JAT uses a CNN. If it's a continuous vector, then JAT uses a linear layer. Finally, if it's a discrete value, JAT uses a linear projection layer. The same principle is used for model output, depending on the type of data to be predicted. Prediction is causal, shifting observations by 1 time step. In this way, the agent must predict the next action from all previous observations and actions.
