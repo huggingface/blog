@@ -3848,7 +3848,7 @@
 
 - local: evaluation-structured-outputs
   title: "Improving Prompt Consistency with Structured Generations"
-  author: 
+  author: willkurt
   guest: true
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
   date: Apr 24, 2024
