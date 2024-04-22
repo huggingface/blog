@@ -229,11 +229,6 @@ data = {
 res = client.post(json=data)
 ```
 
-
-### Standalone model server
-
-If the level of customization provided by a custom handler is not enough for you, there is an implementation of a [standalone containerized server](https://github.com/plaggy/fast-whisper-server/tree/main/model-server) that replicates the pipeline descibed in the blog and also implements the server part. It can be deployed anywhere in the cloud or on unmanaged infrastructure. To deploy a custom container on Inference Endpoints, set `"custom"` under `"image"` and set some required parameters (follow the [Swagger](https://api.endpoints.huggingface.cloud/#post-/v2/endpoint/-namespace-))
-
 ## Recap
 
 In this blog, we discussed how to set up a modularized ASR + diarization + speculative decoding pipeline with Hugging Face Inference Endpoints. We did our best to make it easy to configure and adjust the pipeline as needed, and deployment with Inference Endpoints is always a piece of cake! We are lucky to have great models and tools openly available to the community that we used in the implementation:
