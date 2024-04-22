@@ -167,7 +167,7 @@ References:
 
 <details><summary><b>Click here to see how to use the Nomic v1.5 Matryoshka Model</b></summary>
 
-Note: Nomic specifically requires an `F.layer_norm` before the embedding truncation. As a result, the following snippet uses manual truncation to the desired dimension. For all other models, you can use the `truncate_dim` option in the constructor.
+Note: Nomic specifically requires an `F.layer_norm` before the embedding truncation. As a result, the following snippet uses manual truncation to the desired dimension. For all other models, you can use the `truncate_dim` option in the constructor, as shown in the previous example.
 
 ```python
 from sentence_transformers import SentenceTransformer
