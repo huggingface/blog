@@ -86,8 +86,10 @@ Let's go into a little more detail:
 
 What's most impressive is that JAT achieves this performance using a **single network** for all domains. To take the measure of this performance, let's watch JAT's rendering on a few tasks:
 
-<figure class="image text-center">
-  <video style="max-width: 100%; margin: auto;" autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/jat/jat_hf.mp4"></video>
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+  <video alt="jat_hf.mp4" autoplay loop autobuffer muted playsinline>
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/jat/jat_hf.mp4" type="video/mp4">
+  </video>
   <figcaption></figcaption>
 </figure>
 
