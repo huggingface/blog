@@ -15,6 +15,7 @@ authors:
 ---
 
 # Introducing the Open Chain of Thought Leaderboard
+
 [Chain-of-thought prompting](https://huggingface.co/docs/transformers/main/en/tasks/prompting#chain-of-thought) is emerging as a powerful and effective design pattern for LLM-based apps and agents. The basic idea of chain-of-thought prompting is to let a model generate a step-by-step solution (“reasoning trace”) before answering a question or taking a decision. With the Open CoT Leaderboard we’re tracking LLMs’ ability to generate effective chain-of-thought traces for challenging reasoning tasks. 
 
 Unlike most performance based leaderboards, we’re not scoring the absolute accuracy a model achieves on a given task, but the difference between the accuracy with and without chain-of-thought prompting:
@@ -30,7 +31,7 @@ This allows us to truly inspect the impact that chain-of-thought has on model ac
 
 ## What’s the motivation behind such a leaderboard for chain-of-thought?
 
-Chain-of-thought prompting is a universally applicable prompting strategy that may improve explainability and accuracy of LLM-based apps and agents (see, e.g., [this collection](https://github.com/logikon-ai/awesome-deliberative-prompting#readme) for recent research and implementations)). With frameworks like Langchain or LMQL, it’s straightforward to insert sophisticated reasoning chains in your apps. But even if you’ve never heard about chain-of-thought before, you may have noticed, while using a ChatBot, that it tends to proceeds step by step before answering your query. So, a systematic, up-to-date comparison of LLMs’ ability to generate effective chain-of-thought traces may inform the decisions of builders and users when choosing a model. 
+Chain-of-thought prompting is a universally applicable prompting strategy that may improve explainability and accuracy of LLM-based apps and agents (see, e.g., [this collection](https://github.com/logikon-ai/awesome-deliberative-prompting#readme) for recent research and implementations)). With frameworks like Langchain or LMQL, it’s straightforward to insert sophisticated reasoning chains in your apps. But even if you’ve never heard about chain-of-thought before, you may have noticed, while using a ChatBot, that it tends to proceed step by step before answering your query. So, a systematic, up-to-date comparison of LLMs’ ability to generate effective chain-of-thought traces may inform the decisions of builders and users when choosing a model. 
 
 Over time, static accuracy-based benchmarks risk to become less informative: Does a model score well because of its superior skill, because it has seen the correct answers during training, or because it has been developed in a competitive context that is governed by this very benchmark? These widely acknowledged issues are addressed by recent eval approaches such as ChatBot arenas, the use of LLMs as judges, or dynamic benchmarks with programmatically generated tasks. The Open CoT Leaderboard contributes to these efforts. It seems more robust to training data contamination because knowing the answer to a question doesn’t ensure that one can reason effectively about it. Plus, the leaderboard’s metric is inversely related to the default metric of other accuracy-based leaderboards (higher accuracy w/o CoT means, all else being equal, lower marginal accuracy gain due to CoT).
 
