@@ -119,7 +119,7 @@ We can score each model completion individually to identify which ones are parti
 
 ## Hurtful sentence completions
 
-The latest bias evaluation metric that we've added to 🤗 Evaluate is [HONEST](https://huggingface.co/spaces/evaluate-measurement/honest), which can be used to assess gendered stereotype bias. As in the examples above, HONEST scores are calculated from model completions for a [set of prompts](https://huggingface.co/datasets/MilaNLProc/honest), which are are available in several languages; here, we evaluate with the English (“en”) templates for LGBTQAI+ individuals:
+The latest bias evaluation metric that we've added to 🤗 Evaluate is [HONEST](https://huggingface.co/spaces/evaluate-measurement/honest), which can be used to assess gendered stereotype bias. As in the examples above, HONEST scores are calculated from model completions for a [set of prompts](https://huggingface.co/datasets/MilaNLProc/honest), which are available in several languages; here, we evaluate with the English (“en”) templates for LGBTQAI+ individuals:
 
 ```python
 >>> group1 = [

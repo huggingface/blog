@@ -26,7 +26,7 @@ Overall, the project has resulted in:
 
 ### The expert policies
 
-RL traditionally involves training policies on single environments. Leveraging these expert policies is a genuine way to build a versatile agent. We selected a wide range of environments, of varying nature and difficulty, including Atari, BabyAI, Meta-World, and MuJoCo. For each of these environments, we train an agent until it reached state-of-the-art performance. (For BabyAI,  we use the [BabyAI bot](https://github.com/mila-iqia/babyai) instead). The resulting agents are are called expert agents, and have been released on the 🤗 Hub. You'll find a list of all agents in the [JAT dataset card](https://huggingface.co/datasets/jat-project/jat-dataset).
+RL traditionally involves training policies on single environments. Leveraging these expert policies is a genuine way to build a versatile agent. We selected a wide range of environments, of varying nature and difficulty, including Atari, BabyAI, Meta-World, and MuJoCo. For each of these environments, we train an agent until it reached state-of-the-art performance. (For BabyAI,  we use the [BabyAI bot](https://github.com/mila-iqia/babyai) instead). The resulting agents are called expert agents, and have been released on the 🤗 Hub. You'll find a list of all agents in the [JAT dataset card](https://huggingface.co/datasets/jat-project/jat-dataset).
 
 ### The JAT dataset
 
