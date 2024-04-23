@@ -235,3 +235,5 @@ In this blog, we discussed how to set up a modularized ASR + diarization + specu
 - A family of [Whisper](https://huggingface.co/openai/whisper-large-v3) models by OpenAI
 - A [diarization model](https://huggingface.co/pyannote/speaker-diarization-3.1) by Pyannote
 - The [Insanely Fast Whisper repository](https://github.com/Vaibhavs10/insanely-fast-whisper/tree/main), which was the main source of inspiration
+
+There is a [repo](https://github.com/plaggy/fast-whisper-server) that implements the same pipeline along with the server part (FastAPI+Uvicorn). It may come in handy if you'd like to customize it even further or host somewhere else.
