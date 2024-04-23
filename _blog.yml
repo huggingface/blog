@@ -3823,13 +3823,46 @@
     - guide
     - demo
 
+- local: leaderboard-medicalllm
+  title: "The Open Medical-LLM Leaderboard: Benchmarking Large Language Models in Healthcare"
+  author: aaditya
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_medicalllm.png
+  date: Apr 19, 2024
+  tags:
+    - leaderboard
+    - collaboration
+    - research
+
+- local: llama3
+  title: "Welcome Llama 3 - Meta's new open LLM"
+  author: philschmid
+  thumbnail: /blog/assets/llama3/thumbnail.jpg
+  date: April 18, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: jat
+  title: "Jack of All Trades, Master of Some, a Multi-Purpose Transformer Agent"
+  author: qgallouedec
+  thumbnail: /blog/assets/jat/thumbnail.png
+  date: April 22, 2024
+  tags:
+    - imitation
+    - rl
+    - transformers
+    - generalist
+
 - local: leaderboard-cot
   title: "Introducing the Open Chain of Thought Leaderboard"
   author: ggbetz
   guest: true
   org: logikon
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_cot.png
-  date: Apr 22, 2024
+  date: Apr 23, 2024
   tags:
       - leaderboard
       - research

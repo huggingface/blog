@@ -1490,3 +1490,14 @@
     - partnerships
     - gcp
     - hardware
+
+- local: llama3
+  title: "欢迎 Llama 3：Meta 的新一代开源大语言模型"
+  author: philschmid
+  thumbnail: /blog/assets/llama3/thumbnail.jpg
+  date: April 18, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
