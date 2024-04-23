@@ -3824,7 +3824,7 @@
     - demo
 
 - local: leaderboard-cot
-  title: "Introducing the Open CoT Leaderboard"
+  title: "Introducing the Open Chain of Thought Leaderboard"
   author: ggbetz
   guest: true
   org: logikon

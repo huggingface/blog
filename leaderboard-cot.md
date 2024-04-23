@@ -1,5 +1,5 @@
 ---
-title: "Introducing the Open CoT Leaderboard"
+title: "Introducing the Open Chain of Thought Leaderboard"
 thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_cot.png
 authors:
 - user: ggbetz
@@ -26,6 +26,8 @@ accuracy gain Δ = accuracy with CoT – accuracy w/o CoT.
 
 This allows us to truly inspect the impact that chain-of-thought has on model accuracy.
 
+Note: without CoT prompting, we use the loglikelihood accuracy to score the model on multiple choice evaluation.
+
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.4.0/gradio.js"> </script>
 <gradio-app theme_mode="light" space="logikon/open_cot_leaderboard"></gradio-app>
 
@@ -33,9 +35,7 @@ This allows us to truly inspect the impact that chain-of-thought has on model ac
 
 Chain-of-thought prompting is a universally applicable prompting strategy that may improve explainability and accuracy of LLM-based apps and agents (see, e.g., [this collection](https://github.com/logikon-ai/awesome-deliberative-prompting#readme) for recent research and implementations)). With frameworks like Langchain or LMQL, it’s straightforward to insert sophisticated reasoning chains in your apps. But even if you’ve never heard about chain-of-thought before, you may have noticed, while using a ChatBot, that it tends to proceed step by step before answering your query. So, a systematic, up-to-date comparison of LLMs’ ability to generate effective chain-of-thought traces may inform the decisions of builders and users when choosing a model. 
 
-Over time, static accuracy-based benchmarks risk to become less informative: Does a model score well because of its superior skill, because it has seen the correct answers during training, or because it has been developed in a competitive context that is governed by this very benchmark? These widely acknowledged issues are addressed by recent eval approaches such as ChatBot arenas, the use of LLMs as judges, or dynamic benchmarks with programmatically generated tasks. The Open CoT Leaderboard contributes to these efforts. It seems more robust to training data contamination because knowing the answer to a question doesn’t ensure that one can reason effectively about it. Plus, the leaderboard’s metric is inversely related to the default metric of other accuracy-based leaderboards (higher accuracy w/o CoT means, all else being equal, lower marginal accuracy gain due to CoT).
-
-It is now common to distinguish fast and implicit (system-1) from slow and explicit (system-2) reasoning. These two modes are equally important dimensions of human cognition. To understand—for example in debates about AGI—what LLMs are capable of, it seems pivotal to assess LLMs comprehensively along all dimensions of human cognition. In accuracy-based benchmarks without CoT, LLMs arguably solve tasks fast and implicitly. To assess the system-2 reasoning skill of LLMs, we need chain-of-thought based benchmarks. The Open CoT Leaderboard may therefore also inform broader debates about the significance of LLMs and AGI.  
+Over time, static "accuracy-based" benchmarks risk becoming less informative: does a model score well because of its superior skill, because it has seen the correct answers during training, or because it has been developed in a competitive context that is governed by this very benchmark? These widely acknowledged issues are addressed by recent eval approaches such as ChatBot arenas, the use of LLMs as judges, or dynamic benchmarks with programmatically generated tasks. We hope the Open CoT Leaderboard contributes to these efforts, notably by being more robust to training data contamination: knowing the answer to a question doesn’t ensure that one can reason effectively about it. 
 
 ## Which tasks are used?
 
@@ -146,15 +146,14 @@ Each of our two prompting strategies—Classic and Reflect—is combined and run
 - Beam search (n=2).
 - Sampling (T=.3).
 
-This gives us, in combination, six “CoT generation regimes.” When we evaluate a model, we let it generate, for every example in the test datasets, one chain-of-thought trace for each regime. We obtain, accordingly, six different numerical scores for accuracy with chain-of-thought (namely one for each regime). In the Open CoT Leaderboard, we report (for every model/task) the best marginal accuracy gain achieved under any regime.
+This gives us, in combination, six “CoT generation regimes.” When we evaluate a model, we let it generate, for every example in the test datasets, one chain-of-thought trace for each regime. The generated traces are then plugged into the prompt template shown above, which we use to score the models. We obtain, accordingly, six different numerical scores for accuracy with chain-of-thought (namely one for each regime). In the Open CoT Leaderboard, we report (for every model/task) the best marginal accuracy gain achieved under any regime.
 
 ## What are the main take-aways so far?
 
 We’re gradually extending the Open CoT Leaderboard by evaluating more and more models, but current results (model count=30) already suggest some interesting insights.
 
-- Mighty dwarfs: We have been very pleased to see that relatively small (7B) open LLMs are capable of effective, i.e. accuracy-improving chain-of-thought reasoning. 🎉
+- Mighty dwarfs: We have been very pleased to see that relatively small (7B) open LLMs are capable of effective, i.e. accuracy-improving, chain-of-thought reasoning, in some cases at a better rate than bigger model. 🎉 For example, a small model like Phi-2 benefits more than the Mixtral model from added CoT traces.
 - Instruction- and chat-finetuning helps: Finetuned models score much better than their corresponding base models. More specifically, finetuning may improve both the baseline accuracy without CoT and the marginal accuracy gains achieved through CoT.
-- Vindication of *textbooks-is-all-you-need*: The Phi-2 model clearly outperforms the Mixtral MoE base model on the Open CoT Leaderboard.
 - Variable and ambiguous effects of CoT: Digging a bit deeper, we see that there is no single preferred or superior CoT generation [regime](#cot-generation). What works best for one model and one task might not work for another model, or another task. And sometimes CoT reduces accuracy rather than increasing it. We take this as a reminder that finding an implementation of CoT that is universally effective, reliable and robust remains a challenging problem.
 
 ## What are the next steps? – And how to contribute.
