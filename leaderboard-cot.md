@@ -52,7 +52,7 @@ We’ve chosen these tasks because they
 
 All tasks are rendered as multiple-choice problems, with the answer options being enumerated in the prompt.
 
-We use the following prompt template for assessing baseline and CoT accuracies – the reasoning traces (italics) are only added in the case “with CoT”:
+We use the following prompt template for assessing baseline and CoT accuracies – the reasoning traces (starting with `Reasoning`) are only added in the case “with CoT”:
 
 ```
 Answer the following question about the given passage. Base your answer on the reasoning below.
