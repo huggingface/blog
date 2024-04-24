@@ -7,7 +7,7 @@ authors:
 
 # Fetch Consolidates AI Tools and Saves 30% Development Time with Hugging Face on AWS
 
-_If you need support in using Hugging Face and AWS, please get in touch with us [here](https://huggingface.co/support#form) - our team will contact you to discuss your requirements!_
+_If you need support in using Hugging Face and AWS, please get in touch with us [here](https://huggingface.co/contact/sales?from=support) - our team will contact you to discuss your requirements!_
 
 ## Executive Summary
 
