@@ -48,7 +48,7 @@ Another challenge lies in data acquisition and processing during the evaluation 
 
 To address these issues, researchers from Nanyang Technological University, ByteDance, and other institutions have jointly open-sourced `lmms-eval`, which is an evaluation framework designed specifically for multimodal large models. Building upon EleutherAI's [`lm-evaluation-harness`](https://github.com/EleutherAI/lm-evaluation-harness) and [🤗 Accelerate](https://github.com/huggingface/accelerate), this framework has been improved and expanded to provide a unified interface for defining models, datasets, and evaluation metrics, offering a one-stop, efficient solution for evaluating large multimodal models (LMMs). We hope that through this framework, we can collectively drive the iteration cycle of multimodal models and promote their broader application in academia and industry. We sincerely look forward to witnessing more breakthroughs and innovations in the field of multimodal AI, jointly advancing towards a more efficient and intelligent future development of artificial intelligence technology.
 
-<image src="https://huggingface.co/datasets/kcz358/lmms-eval-blog/blob/main/teaser.png" alt="Pipeline"/>
+<image src="https://huggingface.co/datasets/kcz358/lmms-eval-blog//teaser.png" alt="Pipeline"/>
 
 ## OVERVIEW OF THE MAIN FEATURES
 
@@ -94,9 +94,9 @@ Additionally, in the 0.1.1.dev update, the team has added support for tensor par
 
 **Comprehensive dataset support:** The `lmms-eval` team has hosted over 40 diverse datasets (with the number continually increasing) on Huggingface's lmms-lab, covering a range of tasks from COCO Captions to MMMU and others. All datasets have been transformed into a unified format for archiving, available for direct access on the team's lmms-lab official Huggingface Hub. Users can view specific details of evaluation data and easily download and use them with just one click. You can find all the datasets we support in the framework under [this collection](https://huggingface.co/collections/lmms-lab/lmms-eval-661d51f70a9d678b6f43f272).
 
-<image src="https://huggingface.co/datasets/kcz358/lmms-eval-blog/blob/main/org_dataset.png" alt="dataset on organization"/>
+<image src="https://huggingface.co/datasets/kcz358/lmms-eval-blog/org_dataset.png" alt="dataset on organization"/>
 
-<image src="https://huggingface.co/datasets/kcz358/lmms-eval-blog/blob/main/viewer.png"  alt="viewer" />
+<image src="https://huggingface.co/datasets/kcz358/lmms-eval-blog/viewer.png"  alt="viewer" />
 
 **Easy to Extend**: Through a unified interface definition, `lmms-eval` not only simplifies the integration process of different models and datasets but also provides convenience for introducing new datasets and models. Additionally, it supports simple customization settings, allowing users to easily add new datasets through simple YAML file configuration and customize evaluation settings as needed by modifying the configuration file.
 
@@ -104,7 +104,7 @@ Additionally, in the 0.1.1.dev update, the team has added support for tensor par
 
 **Synchronized Online Logging**: We provide detailed logging tools to help you understand the evaluation process and results. Logs include model parameters, generation parameters, input questions, model responses, and ground truth answers. You can record every detail and visualize it in Weights & Biases runs. Users can access results in real-time from anywhere, making it convenient and efficient.
 
-<image src="https://huggingface.co/datasets/kcz358/lmms-eval-blog/blob/main/wandb_table.jpg" alt="wandb_table" />
+<image src="https://huggingface.co/datasets/kcz358/lmms-eval-blog/wandb_table.jpg" alt="wandb_table" />
 
 ## CONCLUSION
 
