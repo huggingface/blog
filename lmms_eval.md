@@ -48,7 +48,7 @@ To address these issues, researchers from Nanyang Technological University, Byte
 
 Here's an example to evaluate a LLaVa model on the [MME](https://arxiv.org/abs/2306.13394) and [MMBench](https://arxiv.org/abs/2307.06281) benchmarks:
 
-```
+```bash
 # Build from source
 # pip install git+https://github.com/EvolvingLMMs-Lab/lmms-eval.git 
 
