@@ -100,4 +100,4 @@ Additionally, in the 0.1.1.dev update, the team has added support for tensor par
 
 ## Conclusion
 
-In summary, the implementation of this framework not only provides new tools for multimodal model evaluation but also paves the way for future research and development, including video multimodal evaluation, few-shot evaluation modes, and batch inference acceleration, showcasing its powerful potential and foresight. The launch of `lmms-eval` marks the arrival of a new era in evaluation, opening up new paths for AI research and applications. We hope the community finds it useful for benchmarking their own models in this fast-moving field!
+In summary, the implementation of this framework not only provides new tools for multimodal model evaluation, but also paves the way for future research and development, including video multimodal evaluation, few-shot evaluation modes, and batch inference acceleration. This showcases its powerful potential and foresight, easing evaluation to open new paths for AI research and applications. We hope the community finds it useful for benchmarking their own models in this fast-moving field!
