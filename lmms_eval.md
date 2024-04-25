@@ -84,7 +84,7 @@ Here is the total runtime on different datasets using 4 x A100 40G:
 
 Additionally, in the 0.1.1.dev update, the team has added support for tensor parallelism, enabling the running of larger models like LLaVA-v1.6-34B on 4 x 3090 GPUs, supporting efficient inference.
 
-**Comprehensive dataset support:** The `lmms-eval` team has hosted over 40 diverse datasets (with the number continually increasing) on Huggingface's lmms-lab, covering a range of tasks from COCO Captions to MMMU and others. All datasets have been transformed into a unified format for archiving, available for direct access on the team's lmms-lab official Huggingface Hub. Users can view specific details of evaluation data and easily download and use them with just one click. You can find all the datasets we support in the framework under [this collection](https://huggingface.co/collections/lmms-lab/lmms-eval-661d51f70a9d678b6f43f272).
+**Comprehensive dataset support:** The `lmms-eval` team hosts over 40 diverse datasets (with the number continually increasing) on Hugging Face [lmms-lab community](https://huggingface.co/lmms-lab), covering a range of tasks from COCO Captions to MMMU and others. All datasets have been transformed into a unified format for archiving, and are available for direct access on the Hub. Users can view specific details of evaluation data and easily download and use them with just one click. You can find all the datasets we support in the framework under [this collection](https://huggingface.co/collections/lmms-lab/lmms-eval-661d51f70a9d678b6f43f272).
 
 <image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/org_dataset.png" alt="dataset on organization"/>
 
