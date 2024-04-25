@@ -21,7 +21,7 @@ is not discussed or improperly represented, we're sorry, please share it with us
 we're more than happy to try out new stuff and correct our mistakes.
 
 
-# Creating BLOOM
+## Creating BLOOM
 
 This goes without saying but without the large model being accessible in the first
 place, there would be no real reasons to optimize inference for it. This was an
@@ -32,7 +32,7 @@ and in the end, [Megatron-Deepspeed](https://github.com/bigscience-workshop/Mega
 This meant that the code as-is wasn't necessarily compatible with the `transformers`
 library.
 
-# Porting to transformers
+## Porting to transformers
 
 Because of the original training code, we set out to do something which we regularly
 do:  port an existing model to `transformers`. The goal was to extract from the
@@ -79,7 +79,7 @@ This took a while to pinpoint and either we went for 100% compliance and the mod
 was much slower, or we would take a small difference in generation
 but was much faster to run and simpler code. We opted for a configurable flag.
 
-# First inference (PP + Accelerate)
+## First inference (PP + Accelerate)
 
 ```
 Note: Pipeline Parallelism (PP) means in this context that each GPU will own
@@ -108,7 +108,7 @@ and so forth.
 
 In the end, with a small HTTP server on top, we could start serving bloom (the big model) !!
 
-# Starting point
+## Starting point
 
 But we haven't even started discussing optimizations yet!
 
@@ -194,7 +194,7 @@ your target. In this case, we're 2 orders of magnitude so pretty far. Also, this
 all the flops at the service of latency which means only a single request can go at a time (it's ok since you're maximizing your machine
 so there's not much else to be done, but we can have higher latency and get throughput back through batching much more easily).
 
-# Exploring many routes
+## Exploring many routes
 
 ```
 Note: Tensor Parallelism (TP) means in this context that each GPU will own
@@ -220,7 +220,7 @@ It is to note that this is a very wide range of approaches and the intent
 was deliberately to learn more about each tool and how it could fit in later
 endeavors.
 
-## Porting the code the JAX/Flax to run on TPUs:
+### Porting the code the JAX/Flax to run on TPUs:
   - Expected to be easier to choose the type of parallelism. so TP should be
     easier to test.
     It's one of the perks of Jax's design.
@@ -257,7 +257,7 @@ endeavors.
     at the numbers we really would have preferred a more fine-grained control.
     The numbers we were aiming for stem from the [100ms, 1s, 10s, 1mn](https://www.nngroup.com/articles/response-times-3-important-limits/) rule.
 
-## Using ONNX/TRT or other compiled approaches
+### Using ONNX/TRT or other compiled approaches
   - They are supposed to handle most of the optimization work
   - Con, Usually parallelism needs to be handled manually.
 
@@ -274,7 +274,7 @@ Results:
   Putting the loop within the external lib means losing flexibility just like
   Jax, so it was not envisioned in our use case.
 
-## DeepSpeed
+### DeepSpeed
   - This is the technology that powered training, it seemed only fair to use
     it for inference
   - Cons, it was never used/prepared for inference before.
@@ -308,7 +308,7 @@ Results:
   bleeding edge.
 
 
-## Webserver ideas
+### Webserver ideas
   - Given that we are going to run a free server where users are going to 
     send long text, short text, want a few tokens, or a whole recipe each with
     different parameters, something had to be done here.
@@ -329,7 +329,7 @@ Results:
   went from 0.3 RPS to ~2.5 RPS with the same latency. The optimal case would have been to increase throughput by 16X but the numbers shown here
   are real workloads measurements so this is not too bad. 
 
-## Pure PyTorch
+### Pure PyTorch
   - Purely modify the existing code to make it faster by removing operations
     like `reshape`, using better-optimized kernels so on and so forth.
   - Con, we have to code TP ourselves and we have a constraint that the code still fits our library (mostly).
@@ -340,9 +340,9 @@ Results
 
 
 
-# Final route: PyTorch + TP + 1 custom kernel + torch.jit.script
+## Final route: PyTorch + TP + 1 custom kernel + torch.jit.script
 
-## Writing more efficient PyTorch
+### Writing more efficient PyTorch
 
 The first item on the list was removing unnecessary operations in the first implementations
 Some can be seen by just looking at the code and figuring out obvious flaws:
@@ -376,7 +376,7 @@ Removing a lot of reshape/transpose, for instance, we figured out that:
     - We **could** remove the reshapes by reworking the weights themselves and the past.
     This is a breaking change but it did improve performance quite a bit!
 
-## Supporting TP
+### Supporting TP
 
 Ok, we have removed most of the low-hanging fruits now we went roughly from 350ms/token
 latency to 300ms/token in PP. That's a 15% reduction in latency, but it actually provided
@@ -393,7 +393,7 @@ Also, the throughput went up a lot to 10RPS. The throughput comes from the fact
 that running a query in batch_size=1 takes the same time as batch_size=32 
 and throughput becomes essentially *free* in latency cost at this point.
 
-## Low-hanging fruits
+### Low-hanging fruits
 
 Now that we had a TP implementation, we could start profiling and optimizing again.
 It's a significant enough shift that we had to start from scratch again.
@@ -437,7 +437,7 @@ Places where we found it worked well:
 - You have a hotspot with a few hard-to-remove reshape, copies in general
 - When the fusion happens.
 
-## Epic fail
+### Epic fail
 
 We also had some points, during our testing periods, where we ended up seeing some consistent
 25% lower latency for the Rust server compared to the Python one. This was rather
@@ -469,7 +469,7 @@ Another pretty common culprit is measuring times which are CPU times, and not
 actual CUDA times, so you need to `torch.cuda.synchronize()` when doing
 runs to be sure that the kernels complete.
 
-## Custom kernel
+### Custom kernel
 
 So far, we had achieved close to DeepSpeed performance without any custom code 
 outside of PyTorch! Pretty neat. We also didn't have to make any compromise
@@ -501,7 +501,7 @@ After that, we investigated and explored other things like fusing more operators
 removing other reshapes, or putting them in other places. But no attempt ever made
 a significant enough impact to make it to the final versions.
 
-## Webserver part
+### Webserver part
 
 Just like the Rust counterpart, we had to implement the batching of requests
 with different parameters. Since we were in the `PyTorch` world, we have pretty
@@ -536,7 +536,7 @@ tokens, and return to that user within the requested 1.5s! We also happen to sav
 
 So flexibility **is** important to get the best possible latency out there.
 
-# Last notes and crazy ideas
+## Last notes and crazy ideas
 
 Optimization is a never-ending job, and like any other project, 20% of work
 will usually yield 80% of the results.
@@ -545,7 +545,7 @@ potential yields of some idea we had, and if the tests didn't yield significant
 results then we discarded the idea. 1 day for a 10% increase is valuable enough, 2 weeks for 10X
 is valuable enough. 2 weeks for 10% is not so interesting.
 
-## Have you tried ...?
+### Have you tried ...?
 
 Stuff we know exists and haven't used because of various reasons. It 
 could be it felt like it wasn't adapted to our use case, it was too much
@@ -565,14 +565,14 @@ Please feel free to reach out if your favorite tool is missing from
 here or if you think we missed out on something important that could
 prove useful!
 
-## [Flash attention](https://github.com/HazyResearch/flash-attention)
+### [Flash attention](https://github.com/HazyResearch/flash-attention)
 
 We have briefly looked at integrating flash attention, and while it performs extremely
 well on the first forward pass (without `past_key_values`) it didn't yield as big improvements
 when running when using `past_key_values`. Since we needed to adapt it to include the `alibi` tensor
 in the calculation we decide to not do the work (at least not yet).
 
-## [OpenAI Triton](https://openai.com/blog/triton/)
+### [OpenAI Triton](https://openai.com/blog/triton/)
 
 [Triton](https://github.com/openai/triton) is a great framework for building custom kernels 
 in Python. We want to get to use it more but we haven't so far. We would
@@ -580,7 +580,7 @@ be eager to see if it performs better than our Cuda kernel. Writing directly in
 Cuda seemed like the shortest path for our goal when we considered our options
 for that part.
 
-## Padding and Reshapes
+### Padding and Reshapes
 
 As mentioned throughout this article, every tensor copy has a cost and another
 hidden cost of running production is padding. When two queries come in with very
@@ -598,7 +598,7 @@ Considering the performance improvements yielded when we could fuse operations i
 But to what extent this would deliver, we have no idea. If smarter GPU people have
 ideas we are listening!
 
-# Acknowledgments
+## Acknowledgments
 
 All this work results of the collaboration of many HF team members. In no particular
 order, [@ThomasWang](https://huggingface.co/TimeRobber) [@stas](https://huggingface.co/stas)

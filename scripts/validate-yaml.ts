@@ -22,8 +22,7 @@ for (const lang of ["", "zh/"]) {
     console.log(`Validating ${relativePath}`);
 
     z.array(z.object({
-      local: z.string().optional(),
-      external: z.string().optional(),
+      local: z.string(),
       title: z.string(),
       thumbnail: z.string().optional(),
       author: z.string(),

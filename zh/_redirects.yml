@@ -1,0 +1,8 @@
+# Redirects file. The format should be: `old_name: new_name`.
+# Example:
+# starcoder3: starcoder2
+# redirects hf.co/blog/starcoder3 -> hf.co/blog/starcoder2
+leaderboards-on-the-hub-patronus : leaderboard-patronus
+leaderboard-drop-dive : open-llm-leaderboard-drop
+evaluating-mmlu-leaderboard : open-llm-leaderboard-mmlu
+llm-leaderboard : open-llm-leaderboard-rlhf

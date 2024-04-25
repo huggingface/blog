@@ -7,11 +7,13 @@ on:
       - "**/_*.yml"
       - "schemas/_*.schema.yml"
       - ".github/workflows/validate-yaml.yml"
+      - "scripts/validate-yaml.ts"
   pull_request:
     paths: 
       - "**/_*.yml"
       - "schemas/_*.schema.yml"
       - ".github/workflows/validate-yaml.yml"
+      - "scripts/validate-yaml.ts"
 
 defaults:
   run:

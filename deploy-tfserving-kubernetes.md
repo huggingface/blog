@@ -11,8 +11,6 @@ authors:
 # Deploying 🤗 ViT on Kubernetes with TF Serving
 
 
-# Introduction
-
 In the [<u>previous post</u>](https://huggingface.co/blog/tf-serving-vision), we showed how
 to deploy a [<u>Vision Transformer (ViT)</u>](https://huggingface.co/docs/transformers/main/en/model_doc/vit)
 model from 🤗 Transformers locally with TensorFlow Serving. We covered
@@ -29,7 +27,7 @@ This post builds on top of the [<u>previous post</u>](https://huggingface.co/blo
 recommend reading it first. You can find all the code
 discussed throughout this post in [<u>this repository</u>](https://github.com/sayakpaul/deploy-hf-tf-vision-models/tree/main/hf_vision_model_onnx_gke).
 
-# Why go with Docker and Kubernetes?
+## Why go with Docker and Kubernetes?
 
 The basic workflow of scaling up a deployment like ours includes the
 following steps:
@@ -68,7 +66,7 @@ equally apply should you decide to use Minikube.
 as long as you have configured the `gcloud` utility along with Docker and `kubectl`.
 More instructions are available in the [accompanying repository](https://github.com/sayakpaul/deploy-hf-tf-vision-models/tree/main/hf_vision_model_onnx_gke). 
 
-# Containerization with Docker 
+## Containerization with Docker 
 
 The serving model can handle raw image inputs as bytes and is capable of preprocessing and
 postprocessing.
@@ -82,7 +80,7 @@ it from [<u>here</u>](https://huggingface.co/deploy-hf-tf-vit/vit-base16-extende
 just in case. Then `SavedModel` should be placed in the special directory
 structure of `<MODEL_NAME>/<VERSION>/<SavedModel>`. This is how TensorFlow Serving simultaneously manages multiple deployments of different versioned models.
 
-## Preparing the Docker image
+### Preparing the Docker image
 
 The shell script below places the `SavedModel` in `hf-vit/1` under the
 parent directory models. You'll copy everything inside it when preparing
@@ -150,7 +148,7 @@ $ docker commit \
     serving_base $NEW_IMAGE
 ```
 
-## Running the Docker image locally
+### Running the Docker image locally
 
 Lastly, you can run the newly built Docker image locally to see if it
 works fine. Below you see the output of the `docker run` command. Since
@@ -174,7 +172,7 @@ Running gRPC ModelServer at 0.0.0.0:8500 ...
 Exporting HTTP/REST API at:localhost:8501 ...
 ```
 
-## Pushing the Docker image
+### Pushing the Docker image
 
 The final step here is to push the Docker image to an image repository.
 You'll use [<u>Google Container Registry (GCR)</u>](https://cloud.google.com/container-registry) for this
@@ -193,7 +191,7 @@ Since we’re using GCR, you need to prefix the
 Docker image tag ([<u>note</u>](https://cloud.google.com/container-registry/docs/pushing-and-pulling) the other formats too) with `gcr.io/<GCP_PROJECT_ID>` . With the Docker image prepared and pushed to GCR, you can now proceed to deploy it on a
 Kubernetes cluster.
 
-# Deploying on a Kubernetes cluster
+## Deploying on a Kubernetes cluster
 
 Deployment on a Kubernetes cluster requires the following:
 
@@ -210,7 +208,7 @@ Deployment on a Kubernetes cluster requires the following:
 
 Let’s go over each of these steps. 
 
-## Provisioning a Kubernetes cluster on GKE
+### Provisioning a Kubernetes cluster on GKE
 
 You can use a shell script like so for this (available
 [<u>here</u>](https://github.com/sayakpaul/deploy-hf-tf-vision-models/blob/main/hf_vision_model_tfserving_gke/provision_gke_cluster.sh)):
@@ -250,7 +248,7 @@ The `gcloud container clusters get-credentials` command takes care of
 both connecting to the cluster and authentication. Once this is done,
 you’re ready to write the manifests.
 
-## Writing Kubernetes manifests
+### Writing Kubernetes manifests
 
 Kubernetes manifests are written in [<u>YAML</u>](https://yaml.org/)
 files. While it’s possible to use a single manifest file to perform the
@@ -412,7 +410,7 @@ requirements. Note, however, that autoscaling will be contingent on the
 quota you have available on GCP since GKE internally uses [<u>Google Compute Engine</u>](https://cloud.google.com/compute)
 to manage these resources.
 
-## Performing the deployment
+### Performing the deployment
 
 Once the manifests are ready, you can apply them to the currently
 connected Kubernetes cluster with the 
@@ -472,7 +470,7 @@ the crucial aspects you should care about while deploying a model. These
 include resource utilization, security (we didn’t cover that here),
 performance north stars like latency, etc.
 
-# Testing the endpoint
+## Testing the endpoint
 
 Given that you got an external IP for the endpoint, you can use the
 following listing to test it:
@@ -508,7 +506,7 @@ meets more traffic then we recommend you to check [<u>this article</u>](https://
 Refer to the corresponding [<u>repository</u>](https://github.com/sayakpaul/deploy-hf-tf-vision-models/tree/main/locust)
 to know more about running load tests with Locust and visualize the results.
 
-# Notes on different TF Serving configurations
+## Notes on different TF Serving configurations
 
 TensorFlow Serving
 [<u>provides</u>](https://www.tensorflow.org/tfx/serving/serving_config)
@@ -533,7 +531,7 @@ that are lazily instantiated with dummy input data. This way, you can
 ensure everything is appropriately loaded up and that there will be no
 lags during the actual service time.
 
-# Conclusion
+## Conclusion
 
 In this post and the associated [repository](https://github.com/sayakpaul/deploy-hf-tf-vision-models), 
 you learned about deploying the Vision Transformer model
@@ -551,7 +549,7 @@ significantly less code with [<u>Vertex AI</u>](https://cloud.google.com/vertex-
 `model.deploy(autoscaling_config=...)` and boom! We hope you’re just as
 excited as we are.
 
-# Acknowledgement
+## Acknowledgement
 
 Thanks to the ML Developer Relations Program team at Google, which
 provided us with GCP credits for conducting the experiments.
