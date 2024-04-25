@@ -28,7 +28,7 @@ authors:
   guest: true
 ---
 
-# Unified multimodal large model evaluation, accelerating multimodal intelligence emergence
+# UNIFIED MULTIMODAL LARGE MODEL EVALUATION, ACCELERATING MULTIMODAL INTELLIGENCE EMERGENCE
 
 GitHub repo : https://github.com/EvolvingLMMs-Lab/lmms-eval
 
@@ -42,7 +42,7 @@ To address these issues, researchers from Nanyang Technological University, Byte
 
 <image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/teaser.png" alt="Pipeline"/>
 
-## Overview of the main features
+## OVERVIEW OF THE MAIN FEATURES
 
 **One-click evaluation**: lmms-eval allows users to easily evaluate their model performance on multiple datasets with a single command, without the need for manual dataset preparation. With just one line of code, users can obtain comprehensive evaluation results within minutes, including detailed logs and sample analysis covering model parameters, inputs and outputs, correct answers, etc. This is suitable for scenarios where advanced models like GPT4 are needed for scoring.
 
@@ -98,6 +98,6 @@ Additionally, in the 0.1.1.dev update, the team has added support for tensor par
 
 <image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/wandb_table.jpg" alt="wandb_table" />
 
-## Conclusion
+## CONCLUSION
 
 In summary, the implementation of this framework not only provides new tools for multimodal model evaluation, but also paves the way for future research and development, including video multimodal evaluation, few-shot evaluation modes, and batch inference acceleration. This showcases its powerful potential and foresight, easing evaluation to open new paths for AI research and applications. We hope the community finds it useful for benchmarking their own models in this fast-moving field!
