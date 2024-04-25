@@ -48,7 +48,7 @@ Another challenge lies in data acquisition and processing during the evaluation 
 
 To address these issues, researchers from Nanyang Technological University, ByteDance, and other institutions have jointly open-sourced `lmms-eval`, which is an evaluation framework designed specifically for multimodal large models. Building upon EleutherAI's [`lm-evaluation-harness`](https://github.com/EleutherAI/lm-evaluation-harness) and [🤗 Accelerate](https://github.com/huggingface/accelerate), this framework has been improved and expanded to provide a unified interface for defining models, datasets, and evaluation metrics, offering a one-stop, efficient solution for evaluating large multimodal models (LMMs). We hope that through this framework, we can collectively drive the iteration cycle of multimodal models and promote their broader application in academia and industry. We sincerely look forward to witnessing more breakthroughs and innovations in the field of multimodal AI, jointly advancing towards a more efficient and intelligent future development of artificial intelligence technology.
 
-<image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/imgteaser.png" alt="Pipeline"/>
+<image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/teaser.png" alt="Pipeline"/>
 
 ## OVERVIEW OF THE MAIN FEATURES
 
@@ -104,7 +104,7 @@ Additionally, in the 0.1.1.dev update, the team has added support for tensor par
 
 **Synchronized Online Logging**: We provide detailed logging tools to help you understand the evaluation process and results. Logs include model parameters, generation parameters, input questions, model responses, and ground truth answers. You can record every detail and visualize it in Weights & Biases runs. Users can access results in real-time from anywhere, making it convenient and efficient.
 
-<image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/imgandb_table.jpg" alt="wandb_table" />
+<image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/wandb_table.jpg" alt="wandb_table" />
 
 ## CONCLUSION
 
