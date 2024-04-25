@@ -30,7 +30,7 @@ SetFit 仅需很少的标注数据就能达到较高的准确率，例如，在�
 
 有关 SetFit 的更多详情，请参阅：[论文](https://arxiv.org/abs/2209.11055)、[博客](https://huggingface.co/blog/setfit)、[代码](https://github.com/huggingface/setfit)及相关[数据](https://huggingface.co/SetFit)。
 
-Setfit 已被 AI 开发者社区广泛采用，每月下载量约为 10 万次，Hub 上的 SetFit 模型下载量约为 [1500](https://huggingface.co/models?library=setfit)，且平均日增量约为 4！
+Setfit 已被 AI 开发者社区广泛采用，每月下载量约为 10 万次，Hub 上的 SetFit 模型已有 [1600](https://huggingface.co/models?library=setfit) 个之多，且平均日增量约为 4 个左右。
 
 ## 加速！ 
 
