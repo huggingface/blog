@@ -3451,6 +3451,14 @@
     - LLM
     - gcp
 
+- local: fetch-eap-case-study
+  title: "Fetch Consolidates AI Tools and Saves 30% Development Time with Hugging Face on AWS"
+  author: Violette
+  thumbnail: /blog/assets/78_ml_director_insights/fetch2.png
+  date: Feb 23, 2023
+  tags:
+    - case-studies
+
 - local: matryoshka
   title: "🪆 Introduction to Matryoshka Embedding Models"
   author: tomaarsen
