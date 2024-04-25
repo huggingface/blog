@@ -1,5 +1,5 @@
 ---
-title: "Unified multimodal large model evaluation, accelerating multimodal intelligence emergence"
+title: "Unified Multimodal Large Model Evaluation, Accelerating Multimodal Intelligence Emergence"
 thumbnail: /blog/assets/lmms_eval/thumbnail.png
 authors:
 - user: luodian
