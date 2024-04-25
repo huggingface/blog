@@ -36,7 +36,7 @@ authors:
 - user: liuziwei7
   guest: true
 ---
-# Unified multimodal large model evaluation, accelerating multimodal intelligence emergence
+# UNIFIED MULTIMODAL LARGE MODEL EVALUATION, ACCELERATING MULTIMODAL INTELLIGENCE EMERGENCE
 
 GitHub repo : https://github.com/EvolvingLMMs-Lab/lmms-eval
 
@@ -48,9 +48,9 @@ Another challenge lies in data acquisition and processing during the evaluation 
 
 To address these issues, researchers from Nanyang Technological University, ByteDance, and other institutions have jointly open-sourced `lmms-eval`, which is an evaluation framework designed specifically for multimodal large models. Building upon EleutherAI's [`lm-evaluation-harness`](https://github.com/EleutherAI/lm-evaluation-harness) and [🤗 Accelerate](https://github.com/huggingface/accelerate), this framework has been improved and expanded to provide a unified interface for defining models, datasets, and evaluation metrics, offering a one-stop, efficient solution for evaluating large multimodal models (LMMs). We hope that through this framework, we can collectively drive the iteration cycle of multimodal models and promote their broader application in academia and industry. We sincerely look forward to witnessing more breakthroughs and innovations in the field of multimodal AI, jointly advancing towards a more efficient and intelligent future development of artificial intelligence technology.
 
-<image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/teaser.png" alt="Pipeline"/>
+<image src="https://github.com/lmms-lab/lmms-eval-blog/assets/img/teaser.png" alt="Pipeline"/>
 
-## Overview of the main features
+## OVERVIEW OF THE MAIN FEATURES
 
 **One-click evaluation**: lmms-eval allows users to easily evaluate their model performance on multiple datasets with a single command, without the need for manual dataset preparation. With just one line of code, users can obtain comprehensive evaluation results within minutes, including detailed logs and sample analysis covering model parameters, inputs and outputs, correct answers, etc. This is suitable for scenarios where advanced models like GPT4 are needed for scoring.
 
@@ -106,6 +106,6 @@ Additionally, in the 0.1.1.dev update, the team has added support for tensor par
 
 <image src="https://github.com/lmms-lab/lmms-eval-blog/blob/master/assets/img/wandb_table.jpg" alt="wandb_table" />
 
-## Conclusion
+## CONCLUSION
 
 In summary, the implementation of this framework not only provides new tools for multimodal model evaluation but also paves the way for future research and development, including video multimodal evaluation, few-shot evaluation modes, and batch inference acceleration, showcasing its powerful potential and foresight. The launch of `lmms-eval` marks the arrival of a new era in evaluation, opening up new paths for AI research and applications. We hope the community finds it useful for benchmarking their own models in this fast-moving field!
