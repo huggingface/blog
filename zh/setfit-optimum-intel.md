@@ -190,8 +190,3 @@ batch size 为 1 时，我们的优化模型将延迟降低了 **3.45 倍**。�
 
 ## 参考文献
 * Lewis Tunstall, Nils Reimers, Unso Eun Seo Jo, Luke Bates, Daniel Korat, Moshe Wasserblat, Oren Pereg, 2022. "Efficient Few-Shot Learning Without Prompts". https://arxiv.org/abs/2209.11055
-
-
-> 英文原文: <url> https://huggingface.co/blog/setfit-optimum-intel </url>
-> 原文作者：Daniel Korat，Tom Aarsen，Oren Pereg，Moshe Wasserblat，Ella Charlaix，Abirami Prabhakaran
-> 译者: Matrix Yao (姚伟峰)，英特尔深度学习工程师，工作方向为 transformer-family 模型在各模态数据上的应用及大规模模型的训练推理。
