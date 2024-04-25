@@ -27,6 +27,7 @@ authors:
 - user: liuziwei7
   guest: true
 ---
+
 # Unified multimodal large model evaluation, accelerating multimodal intelligence emergence
 
 GitHub repo : https://github.com/EvolvingLMMs-Lab/lmms-eval
