@@ -1530,7 +1530,7 @@
     - demo
 
 - local: llama3
-  title: "欢迎 Llama 3：Meta 的新一代开源大语言模型"
+  title: 欢迎 Llama 3：Meta 的新一代开源大语言模型
   author: philschmid
   thumbnail: /blog/assets/llama3/thumbnail.jpg
   date: April 18, 2024
@@ -1539,3 +1539,14 @@
     - community
     - research
     - LLM
+
+- local: leaderboard-medicalllm
+  title: 开源医疗大模型排行榜：健康领域大模型基准测试
+  author: aaditya
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_medicalllm.png
+  date: Apr 19, 2024
+  tags:
+    - leaderboard
+    - collaboration
+    - research
