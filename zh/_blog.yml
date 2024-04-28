@@ -1506,6 +1506,18 @@
     - gcp
     - hardware
 
+- local: vlms
+  title: 视觉语言模型详解
+  author: merve
+  thumbnail: /blog/assets/vlms_explained/thumbnail.png
+  date: April 11, 2024
+  tags:
+    - vision
+    - vlm
+    - multimodal
+    - guide
+    - trl
+
 - local: gradio-reload
   title: 使用 Gradio 的“热重载”模式快速开发 AI 应用
   author: freddyaboulton
