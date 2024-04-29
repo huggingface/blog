@@ -1,16 +1,24 @@
 ---
-title: "StarCoder2-Instruct: True Self-Alignment for Code Generation" 
+title: "StarCoder2-Instruct: Fully Transparent and Permissive Self-Alignment for Code Generation" 
 thumbnail: /blog/assets/sc2-instruct/sc2-instruct-banner.png
 authors:
 - user: yuxiang630
+  guest: true
 - user: cassanof
+  guest: true
 - user: ganler
+  guest: true
 - user: YifengDing
+  guest: true
 - user: StringChaos
+  guest: true
 - user: harmdevries
+  guest: true
 - user: lvwerra
 - user: arjunguha
+  guest: true
 - user: lingming
+  guest: true
 ---
 
 # StarCoder2-Instruct: True Self-Alignment for Code Generation
