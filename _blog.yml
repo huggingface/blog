@@ -3876,3 +3876,13 @@
       - research
       - collaboration
       - community
+
+- local: sc2-instruct
+  title: "StarCoder2-Instruct: True Self-Alignment for Code Generation"
+  author: yuxiang630
+  date: Apr 29, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
