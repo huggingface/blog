@@ -3879,6 +3879,7 @@
 
 - local: sc2-instruct
   title: "StarCoder2-Instruct: True Self-Alignment for Code Generation"
+  thumbnail: /blog/assets/sc2-instruct/sc2-instruct-banner.png
   author: yuxiang630
   date: Apr 29, 2024
   tags:
