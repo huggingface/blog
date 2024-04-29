@@ -1,5 +1,5 @@
 ---
-title: "StarCoder: A State-of-the-Art LLM for Code" 
+title: "StarCoder2-Instruct: True Self-Alignment for Code Generation" 
 thumbnail: /blog/assets/sc2-instruct/sc2-instruct-banner.png
 authors:
 - user: yuxiang630
