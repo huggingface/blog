@@ -21,7 +21,7 @@ authors:
   guest: true
 ---
 
-# StarCoder2-Instruct: True Self-Alignment for Code Generation
+# StarCoder2-Instruct: Fully Transparent and Permissive Self-Alignment for Code Generation
 
 <div class="flex items-center justify-center">
 <img src="https://huggingface.co/datasets/bigcode/starcoder2-instruct-assets/resolve/main/banner.png" alt="StarCoder2-Instruct">
