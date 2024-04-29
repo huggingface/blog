@@ -1,6 +1,6 @@
 ---
 title: "StarCoder: A State-of-the-Art LLM for Code" 
-thumbnail: /blog/assets/sc2_instruct/sc2_instruct_banner.png
+thumbnail: /blog/assets/sc2-instruct/sc2-instruct-banner.png
 authors:
 - user: yuxiang630
 - user: cassanof
