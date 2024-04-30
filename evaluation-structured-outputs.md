@@ -97,7 +97,7 @@ As no one reports their precise evaluation setup, this is what has historically 
 
 However, this is not the only source of variance in model scores. 
 
-Extended experiments comparing using the exact same few-shot samples, simply shuffled differently before the exact same prompt (A/B/C/D/E Prompt vs C/D/A/B/E Prompt, for example)  showed that we could get a difference of up to 3 points in performance for the same model.
+In extended experiments, we compared evaluating the same models, with the same prompt formats, using the exact same few-shot samples shuffled differently before the prompt (A/B/C/D/E Prompt vs C/D/A/B/E Prompt, for example). The following figure shows the model scores delta between these two few-shot orderings: we observe a difference of up to 3 points in performance for the same model/prompt combination!
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-2.png)
 
