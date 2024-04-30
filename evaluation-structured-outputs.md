@@ -102,11 +102,11 @@ Extended experiments comparing using the exact same few-shot samples, simply shu
 
 If we want to be able to properly evaluate and compare different models we need a way to overcome this challenge. 
 
-Sclar, et al’s *[Quantifying Language Model’s Sensitivity to Spurious Features in Prompt Design](https://arxiv.org/abs/2310.11324) also* gives a good overview of this issue, and the authors introduce [FormatSpread](https://github.com/msclar/formatspread), a software tool that evaluates each model with multiple different variations of formats, then calculate the variance of that models performance. Solutions such as this allow to determine with more confidence which models are better than others, but they come at a high computation cost.
+Sclar, et al’s *[Quantifying Language Model’s Sensitivity to Spurious Features in Prompt Design](https://arxiv.org/abs/2310.11324)* also gives a good overview of this issue, and the authors introduce [FormatSpread](https://github.com/msclar/formatspread), a software tool that evaluates each model with multiple different variations of formats, then calculate the variance of that models performance. Solutions such as this allow to determine with more confidence which models are better than others, but they come at a high computation cost.
 
 ## What if we focused on the output, not the input, to make results more consistent across these small changes to format?
 
-While FormatSpread is a great attempt to make leader boards more fair and honest, what we really want as practical users of LLMs is *prompt consistency*. That is, we would like to find some way to reduce this variance among prompts.
+While FormatSpread is a great attempt to make leaderboards more fair and honest, what we really want as practical users of LLMs is *prompt consistency*. That is, we would like to find some way to reduce this variance among prompts.
 
 At [.txt](http://dottxt.co/), we focus on improving and better understanding *structured generation,* which is when the output of an model is constrained to follow a specific structure. Our library, [Outlines](https://github.com/outlines-dev/outlines), allows us to structure the output of an LLM by defining a regular expression or a context-free grammar (we give examples below). 
 
