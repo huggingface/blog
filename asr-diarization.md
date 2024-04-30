@@ -15,7 +15,7 @@ introduce additional features, like a diarization pipeline to identify speakers,
 
 We'll solve this challenge using a [custom inference handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler), which will implement the Automatic Speech Recogniton (ASR) and Diarization pipeline on Inference Endpoints, as well as supporting speculative decoding. The implementation of the diarization pipeline is inspired by the famous [Insanely Fast Whisper](https://github.com/Vaibhavs10/insanely-fast-whisper#insanely-fast-whisper), and it uses a [Pyannote](https://github.com/pyannote/pyannote-audio) model for diarization. 
 
-This will also be a demonstration of how flexible Inference Endpoints are and that you can host pretty much anything there. [Here](https://huggingface.co/sergeipetrov/asrdiarization-handler/) is the code to follow along. Note that during initialization the whole repository gets mounted, and in your `handler.py` you can refer to other files in your repository if you prefer not to have all the logic in a single file. In this case, we decided to separate things into several files to keep things clean:
+This will also be a demonstration of how flexible Inference Endpoints are and that you can host pretty much anything there. [Here](https://huggingface.co/sergeipetrov/asrdiarization-handler/) is the code to follow along. Note that during initialization of the endpoint, the whole repository gets mounted, so your `handler.py` can refer to other files in your repository if you prefer not to have all the logic in a single file. In this case, we decided to separate things into several files to keep things clean:
 - `handler.py` contains initialization and inference code
 - `diarization_utils.py` has all the diarization-related pre- and post-processing
 - `config.py` has `ModelSettings` and `InferenceConfig`. `ModelSettings` define which models will be utilized in the pipeline (you don't have to use all of them), and `InferenceConfig` defines the default inference parameters
@@ -168,7 +168,9 @@ As you can see, assisted generation gives dramatic performance gains when an aud
 
 
 ### Inference parameters
-All the things you can parametrize on inference are in the `config.py`:
+
+All the inference parameters are in `config.py`:
+
 ```python
 class InferenceConfig(BaseModel):
     task: Literal["transcribe", "translate"] = "transcribe"
