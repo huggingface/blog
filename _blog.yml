@@ -3853,6 +3853,7 @@
     - research
     - LLM
 
+
 - local: jat
   title: "Jack of All Trades, Master of Some, a Multi-Purpose Transformer Agent"
   author: qgallouedec
@@ -3888,3 +3889,15 @@
     - community
     - research
     - LLM
+
+- local: evaluation-structured-outputs
+  title: "Improving Prompt Consistency with Structured Generations"
+  author: willkurt
+  guest: true
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: Apr 30, 2024
+  tags:
+    - evaluation
+    - collaboration
+    - research
+    - leaderboard
