@@ -82,13 +82,14 @@ Correct choice: “40%”
 
 Prompts either contain just the question, or some tags to indicate that we are in a question/answer format, and possibly the choices in the prompt. In all cases, evaluations compare the log-likelihood of the possible choices only. All these formats appear in the evaluation litterature, and should contain virtually the same amount of information in each row. However, just below, you can see the wide variation in performance across these theoretically superficial changes!
 
-![Untitled](https://cdn-uploads.huggingface.co/production/uploads/6202a599216215a22221dea9/C9iI8MWUBfAFLhOcDPiQJ.png)
+
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-0.png)
 
 Each model sees its performance vary by around 10 points, with the exception of the most extreme example, Qwen1.5-7B, dropping all the way to an accuracy of 22.9% with the 7th prompt variation (mostly due to a tokenizer issue), with essentially the same information it was able to achieve an accuracy of up to 51.2% with another prompt.
 
 In isolation a change in *score* is not necessarily a big deal so long as *ranking* is consistent. However, as we can see in the next plot, ranking is impacted by these changes:
 
-![Untitled](https://pbs.twimg.com/media/GKpNt_7XQAAQ80u?format=png&name=small)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-1.png)
 
 No model is consistently ranked across prompts even though the only thing different across prompts is the format, not the information itself. This means that if the authors of Gemma-7b wanted to show they are superior to Mistral-7B-v0.1, the could do so simply by choosing the correct prompt. 
 
@@ -98,7 +99,7 @@ However, this is not the only source of variance in model scores.
 
 Extended experiments comparing using the exact same few-shot samples, simply shuffled differently before the exact same prompt (A/B/C/D/E Prompt vs C/D/A/B/E Prompt, for example)  showed that we could get a difference of up to 3 points in performance for the same model.
 
-![Untitled](https://cdn-uploads.huggingface.co/production/uploads/6202a599216215a22221dea9/tweU_jkcnWjnF3GProUia.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-2.png)
 
 If we want to be able to properly evaluate and compare different models we need a way to overcome this challenge. 
 
@@ -118,7 +119,7 @@ In most cases, changing the prompt format to JSON, even when using unstructured 
 
 This lead us to question whether or not structured generation could be exploited for *prompt consistency*.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/a32e9d2b-65db-4e0e-a3d1-695d32fd278b/27d2b5f9-7cdc-4a8c-b811-3879f3d15040/Untitled.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-3.png)
 
 ### Note on the experimental setup: Focusing on n-shot and shot order
 
@@ -137,11 +138,11 @@ In order to test this out further, we wanted to explore the behavior of two very
 
 Here is the basic format of a GSM8K 1-shot prompt with the implied structure highlighted.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/a32e9d2b-65db-4e0e-a3d1-695d32fd278b/5fb9c7e0-4f8d-4d55-ba1c-7aaeb4c10363/Untitled.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-4.png)
 
 In order to consistently generate correctly structured answers we create a regular expression that matches the structure we see inherent in the original prompt format. The following regex is used in Outlines to define the structure for generation:
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/a32e9d2b-65db-4e0e-a3d1-695d32fd278b/b2b18f36-fe78-450f-bb94-d943b476a514/Untitled.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-5.png)
 
 We can see in the regex that we allow the model to reason for anywhere from 200 to 700 character, then it must declare that “The answer is” and then replies with up to 10 digit number (that cannot start with 0).
 
@@ -149,7 +150,7 @@ It’s worth mentioning that the regex controlling the structure is similar, but
 
 Our first experiment was to continue exploring the GSM8K dataset and iterated on 1 through 8 shot prompting. The results, shown below, were very compelling.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/a32e9d2b-65db-4e0e-a3d1-695d32fd278b/064755ad-bf1a-4cfd-8612-92926c276d9a/Untitled.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-6.png)
 
 There are two major features we see in this figure: variance in performance across the n-shot setups was majorly reduced and there were no instances where the ranking swapped (Mistral consistently lead over Zephyr). It’s also worth pointing out that 1-shot structured performance is substantially better than 1-shot unstructured performance, and on par with 5-shot. This leads to another area of research we’re terming “prompt efficiency”.
 
@@ -167,13 +168,13 @@ For the next experiment we wanted to look at varying both n-shots as well as the
 
 Additionally, to explore how transferable these results were, we changed the task to [Graduate-Level Google-Proof Q&A Benchmark (GPQA)](https://arxiv.org/abs/2311.12022). GPQA is a hard knowledge multi-choice evaluation task. Below is the prompt format and highlighted structure. 
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/a32e9d2b-65db-4e0e-a3d1-695d32fd278b/24eddf95-81f1-4e8c-9e37-bcdf734c9d40/Untitled.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-7.png)
 
 For this next experiment we are specifically we using the ‘diamond’ subset which represents curated and cleaned up high quality questions. Of the 198 questions in this dataset we reserve 8 for n-shot prompting (though only ever used the first 5), and then evaluated on the remaining 190 questions.
 
 Visualized below we can see a grid resenting the accuracy achieved for all the possible combinations for shot seed and *n*, for the two models, both without (left) and with (right) structured generation.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/a32e9d2b-65db-4e0e-a3d1-695d32fd278b/e5b0ecc6-59de-4b71-86ce-1c268dfad6e7/Untitled.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-9.png)
 
 One thing which immediately stands out is that the structured output tends to score higher than the unstructured output across the board. We see the mean of each grid for structured and unstructured below:
 
@@ -201,7 +202,7 @@ While increased expected performance and decreased variance are great properties
 - B: Mistral-7B-v0.1
 - “-”: tie
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/a32e9d2b-65db-4e0e-a3d1-695d32fd278b/1aa7a6a5-d766-4e97-a6b7-f501622b5285/Untitled.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-10.png)
 
 As we can see from these images, there is a major improvement in the consistency of calling a winner when structured generation is applied. These results paint a consistent picture with the findings we had using GSM8K across various n-shot.
 
