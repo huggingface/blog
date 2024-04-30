@@ -23,7 +23,7 @@ So, let's dig in!
 
 It has become increasingly clear that LLM benchmark performance is closely, and somewhat surprisingly, dependent on the *format* of the prompt itself, even though a number of methods have been introduced through the years to reduce prompt-related variance. For example, when we evaluate models in few-shot, we provide format examples to the model to force a specific pattern in output; when we compare the log-likelihood of plausible answers instead of allowing free-form generation, we attempt to constrain the answer space.
 
-The *Leaderboards and Evals* team provided a demonstration of this by looking at 8 different prompt formats for a well known task, MMLU (looking at 4 subsets of the task). These prompt variations were provided to 5 different models (chosen because SOTA at the time for their size, and covering a variety of tokenization and languages). Scores were computed using a log-probability evaluation, where the most probable answer is considered the correct one, a classic metric for multi-choice tasks. 
+The *Leaderboards and Evals* team provided a demonstration of this by looking at 8 different prompt formats for a well known task, MMLU (looking at 4 subsets of the task). These prompt variations were provided to 5 different models (chosen because they were SOTA at the time for their size, and covered a variety of tokenization and languages). Scores were computed using a log-probability evaluation, where the most probable answer is considered the correct one, a classic metric for multi-choice tasks. 
 
 Let's look at the different formats in more detail, by using the first question of the `global_facts` subset of MMLU.
 
@@ -87,13 +87,13 @@ Prompts either contain just the question, or some tags to indicate that we are i
 
 Each model sees its performance vary by around 10 points, with the exception of the most extreme example, Qwen1.5-7B, dropping all the way to an accuracy of 22.9% with the 7th prompt variation (mostly due to a tokenizer issue), with essentially the same information it was able to achieve an accuracy of up to 51.2% with another prompt.
 
-In isolation a change in *score* is not necessarily a big deal so long as *ranking* is consistent. However, as we can see in the next plot, ranking is impacted by these changes:
+In isolation, a change in *score* is not necessarily a big deal so long as the *ranking* is consistent. However, as we can see in the next plot, ranking is impacted by these changes:
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-1.png)
 
-No model is consistently ranked across prompts even though the only thing different across prompts is the format, not the information itself. This means that if the authors of Gemma-7b wanted to show that their model was superior to Mistral-7B-v0.1, they could do so simply by choosing the correct prompt. 
+No model is consistently ranked across prompts even though the only difference is their format, not the information itself. This means that if the authors of Gemma-7b wanted to show that their model was superior to Mistral-7B-v0.1, they could do so simply by choosing the correct prompt. 
 
-As no one reports their precise evaluation setup, this is what has historically happened in model reports, where authors chose to report the setup most advantageous to their model (which is why you’ll see extremely weird reported numbers of few-shots in some papers).
+As almost no one reports their precise evaluation setup, this is what has historically happened in model reports, where authors chose to report the setup most advantageous to their model (which is why you’ll see extremely weird reported numbers of few-shots in some papers).
 
 However, this is not the only source of variance in model scores. 
 
@@ -117,7 +117,7 @@ When working on earlier research exploring the benefits of structured generation
 
 In most cases, changing the prompt format to JSON, even when using unstructured generation, leads to improved benchmark performance for almost all models. However, this was not the case for MetaMath-Tulpar-7b-v2-Slerp, where we found a dramatic decrease in accuracy when using prompts formatted in JSON. Even more surprising was that when using *structured generation* to constrain the output of the model, the dip in performance was negligible! 
 
-This lead us to question whether or not structured generation could be exploited for *prompt consistency*.
+This led us to question whether or not structured generation could be exploited for *prompt consistency*.
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-3.png)
 
@@ -130,7 +130,7 @@ To focus our exploration of prompt space, we’re going to look at varying just 
 1. Varying the number of “shots” or examples used in the prompt (n*-shot*)
 2. Varying the order of those shots (*shot order*, specified by a *shot seed*)
 
-For number 2 with a given n-shot we are only shuffling the same *n* examples. This means that all shuffles of a 1-shot prompt are the same. This is done to avoid conflating the *format* of a prompt with the *information* it contains. Clearly a 5-shot prompt contains more information than a 1-shot prompt, but every shuffling of a 5-shot prompt contains the same examples, only in a different order.
+For point 2, with a given n-shot we are only shuffling the same *n* examples. This means that all shuffles of a 1-shot prompt are the same. This is done to avoid conflating the *format* of a prompt with the *information* it contains. Clearly a 5-shot prompt contains more information than a 1-shot prompt, but every shuffling of a 5-shot prompt contains the same examples, only in a different order.
 
 ## Initial Exploration: GSM8K 1-8 shot prompting
 
@@ -170,9 +170,9 @@ Additionally, to explore how transferable these results were, we changed the tas
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-7.png)
 
-For this next experiment we are specifically we using the ‘diamond’ subset which represents curated and cleaned up high quality questions. Of the 198 questions in this dataset we reserve 8 for n-shot prompting (though only ever used the first 5), and then evaluated on the remaining 190 questions.
+For this next experiment we are specifically using the ‘diamond’ subset which represents curated and cleaned up high quality questions. Of the 198 questions in this dataset we reserve 8 for n-shot prompting (though only ever used the first 5), and then evaluated on the remaining 190 questions.
 
-Visualized below we can see a grid resenting the accuracy achieved for all the possible combinations for shot seed and *n*, for the two models, both without (left) and with (right) structured generation.
+Visualized below we can see a grid representing the accuracy achieved for all the possible combinations for shot seed and *n*, for the two models, both without (left) and with (right) structured generation.
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-9.png)
 
@@ -208,4 +208,4 @@ As we can see from these images, there is a major improvement in the consistency
 
 ## Conclusion and Future Work
 
-While these results are incredibly promising, we still need to explore these results across more models and more tasks. What we’ve seen so far is that structured generation could prove to be an essential part of evaluation. Simultaneously *increasing* the expected score and *decreasing* the variance across prompt changes is a very promising result that desires further research.
+While these results are incredibly promising, we still need to explore these results across more models and more tasks. What we’ve seen so far is that structured generation could prove to be an essential part of evaluation. Simultaneously *increasing* the expected score and *decreasing* the variance across prompt changes is a very promising result that deserves further research.
