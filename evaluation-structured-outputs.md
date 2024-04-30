@@ -109,7 +109,7 @@ Sclar, et al’s *[Quantifying Language Model’s Sensitivity to Spurious Featur
 
 While FormatSpread is a great attempt to make leaderboards more fair and honest, what we really want as practical users of LLMs is *prompt consistency*. That is, we would like to find some way to reduce this variance among prompts.
 
-At [.txt](http://dottxt.co/), we focus on improving and better understanding *structured generation,* which is when the output of an model is constrained to follow a specific structure. Our library, [Outlines](https://github.com/outlines-dev/outlines), allows us to structure the output of an LLM by defining a regular expression or a context-free grammar (we give examples below). 
+At [.txt](http://dottxt.co/), we focus on improving and better understanding *structured generation,* which is when the output of a model is constrained to follow a specific structure. Our library, [Outlines](https://github.com/outlines-dev/outlines), allows us to structure the output of an LLM by defining a regular expression or a context-free grammar (we give examples below). 
 
 Our initial use case for structured generation was to make LLMs easier to interact with programmatically, by ensuring responses in well formatted JSON. However, we’ve continually been surprised by other benefits of structured generation we’ve uncovered. 
 
