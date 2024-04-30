@@ -26,16 +26,13 @@ We’ve collaborated with Meta to ensure the best integration into the Hugging F
 
 ## Table of contents
 
-
-  - [Introduction](#introduction)
-  - [Table of contents](#table-of-contents)
   - [What’s new with Llama 3?](#whats-new-with-llama-3)
   - [Llama 3 evaluation](#llama-3-evaluation)
   - [How to prompt Llama 3](#how-to-prompt-llama-3)
   - [Demo](#demo)
-  - [Using 🤗 Transformers](#using-transformers)
+  - [Using 🤗 Transformers](#using-🤗-transformers)
   - [Inference Integrations](#inference-integrations)
-  - [Fine-tuning with 🤗 TRL](#fine-tuning-with-trl)
+  - [Fine-tuning with 🤗 TRL](#fine-tuning-with-🤗-trl)
   - [Additional Resources](#additional-resources)
   - [Acknowledgments](#acknowledgments)
 
@@ -127,8 +124,8 @@ prompt = pipeline.tokenizer.apply_chat_template(
 )
 
 terminators = [
-    tokenizer.eos_token_id,
-    tokenizer.convert_tokens_to_ids("<|eot_id|>")
+    pipeline.tokenizer.eos_token_id,
+    pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
 ]
 
 outputs = pipeline(

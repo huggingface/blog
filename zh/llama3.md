@@ -128,8 +128,8 @@ prompt = pipeline.tokenizer.apply_chat_template(
 )
 
 terminators = [
-    tokenizer.eos_token_id,
-    tokenizer.convert_tokens_to_ids("")
+    pipeline.tokenizer.eos_token_id,
+    pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
 ]
 
 outputs = pipeline(
@@ -144,6 +144,8 @@ print(outputs[0]["generated_text"][len(prompt):])
 ```
 
 > Arrrr, me hearty! Me name be Captain Chat, the scurviest pirate chatbot to ever sail the Seven Seas! Me be here to swab the decks o' yer mind with me trusty responses, savvy? I be ready to hoist the Jolly Roger and set sail fer a swashbucklin' good time, matey! So, what be bringin' ye to these fair waters?
+
+
 一些细节：
 
 - 我们在 `bfloat16` 中加载了模型。这是 Meta 发布的原始检查点所使用的类型，因此它是推荐的运行方式，以确保最佳精确度或进行评估。对于实际使用，也可以安全地使用 `float16`，这可能取决于您的硬件而更快。
