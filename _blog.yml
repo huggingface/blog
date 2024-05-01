@@ -3901,3 +3901,13 @@
     - collaboration
     - research
     - leaderboard
+
+- local: asr-diarization
+  title: "Powerful ASR + diarization + speculative decoding with Hugging Face Inference Endpoints"
+  author: sergeipetrov
+  thumbnail: /blog/assets/asr-diarization/thumbnail.png
+  date: May 1, 2024
+  tags:
+    - audio
+    - asr
+    - inference
