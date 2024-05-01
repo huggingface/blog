@@ -3775,7 +3775,7 @@
     - multimodal
     - guide
     - trl
-    
+
 - local: idefics2
   title: "Introducing Idefics2: A Powerful 8B Vision-Language Model for the community"
   author: Leyo
@@ -3901,7 +3901,6 @@
     - collaboration
     - research
     - leaderboard
-
 
 - local: asr-diarization
   title: "Powerful ASR + diarization + speculative decoding with Hugging Face Inference Endpoints"
