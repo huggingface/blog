@@ -3451,6 +3451,14 @@
     - LLM
     - gcp
 
+- local: fetch-eap-case-study
+  title: "Fetch Consolidates AI Tools and Saves 30% Development Time with Hugging Face on AWS"
+  author: Violette
+  thumbnail: /blog/assets/78_ml_director_insights/fetch2.png
+  date: Feb 23, 2023
+  tags:
+    - case-studies
+
 - local: matryoshka
   title: "🪆 Introduction to Matryoshka Embedding Models"
   author: tomaarsen
@@ -3603,7 +3611,7 @@
     - nvidia
     - llm
     - training
-  
+
 - local: galore
   title: "GaLore: Advancing Large Model Training on Consumer-grade Hardware"
   author: Titus-von-Koeller
@@ -3691,7 +3699,7 @@
     - cloudflare
     - llm
     - inference
-    
+
 - local: policy-blog
   title: "Public Policy at Hugging Face"
   author: irenesolaiman
@@ -3699,7 +3707,7 @@
   date: April 8, 2024
   tags:
     - ethics
-   
+
 - local: setfit-optimum-intel
   title: "Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon"
   author: danielkorat
@@ -3712,7 +3720,7 @@
     - quantization
     - optimum
     - collaboration
-    - community    
+    - community
     - open-source-collab
 
 - local: duckdb-nsql-7b
@@ -3767,6 +3775,133 @@
     - multimodal
     - guide
     - trl
+    
+- local: idefics2
+  title: "Introducing Idefics2: A Powerful 8B Vision-Language Model for the community"
+  author: Leyo
+  thumbnail: /blog/assets/idefics/thumbnail.png
+  date: April 15, 2024
+  tags:
+    - research
+    - nlp
+    - cv
+    - vlm
+    - multimodal
+    
+- local: ryght-case-study
+  title: "Ryght’s Journey to Empower Healthcare and Life Sciences with Expert Support from Hugging Face"
+  author: andrewrreed
+  thumbnail: /blog/assets/ryght-case-study/thumbnail.png
+  date: April 16, 2024
+  tags:
+    - case-studies
+
+- local: fhe-endpoints
+  title: "Running Privacy-Preserving Inference on Hugging Face Endpoints"
+  author: binoua
+  guest: true
+  thumbnail: /blog/assets/fhe-endpoints/thumbnail.png
+  date: April 16, 2024
+  tags:
+    - guide
+    - privacy
+    - research
+    - FHE
+
+- local: leaderboard-livecodebench
+  title: "Introducing the LiveCodeBench Leaderboard - Holistic and Contamination-Free Evaluation of Code LLMs"
+  author: StringChaos
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  date: Apr 16, 2024
+  tags:
+      - leaderboard
+      - research
+      - collaboration
+      - community
+
+- local: gradio-reload
+  title: "AI Apps in a Flash with Gradio's Reload Mode"
+  author: freddyaboulton
+  thumbnail: /blog/assets/gradio-reload/thumbnail_compressed.png
+  date: April 16, 2024
+  tags:
+    - gradio
+    - open-source
+    - guide
+    - demo
+
+- local: leaderboard-medicalllm
+  title: "The Open Medical-LLM Leaderboard: Benchmarking Large Language Models in Healthcare"
+  author: aaditya
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_medicalllm.png
+  date: Apr 19, 2024
+  tags:
+    - leaderboard
+    - collaboration
+    - research
+
+- local: llama3
+  title: "Welcome Llama 3 - Meta's new open LLM"
+  author: philschmid
+  thumbnail: /blog/assets/llama3/thumbnail.jpg
+  date: April 18, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+
+- local: jat
+  title: "Jack of All Trades, Master of Some, a Multi-Purpose Transformer Agent"
+  author: qgallouedec
+  thumbnail: /blog/assets/jat/thumbnail.png
+  date: April 22, 2024
+  tags:
+    - imitation
+    - rl
+    - transformers
+    - generalist
+
+- local: leaderboard-cot
+  title: "Introducing the Open Chain of Thought Leaderboard"
+  author: ggbetz
+  guest: true
+  org: logikon
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_cot.png
+  date: Apr 23, 2024
+  tags:
+      - leaderboard
+      - research
+      - collaboration
+      - community
+
+- local: sc2-instruct
+  title: "StarCoder2-Instruct: Fully Transparent and Permissive Self-Alignment for Code Generation"
+  thumbnail: /blog/assets/sc2-instruct/sc2-instruct-banner.png
+  author: yuxiang630
+  guest: true
+  date: Apr 29, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: evaluation-structured-outputs
+  title: "Improving Prompt Consistency with Structured Generations"
+  author: willkurt
+  guest: true
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: Apr 30, 2024
+  tags:
+    - evaluation
+    - collaboration
+    - research
+    - leaderboard
+
 
 - local: asr-diarization
   title: "Powerful ASR + diarization + speculative decoding with Hugging Face Inference Endpoints"

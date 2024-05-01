@@ -1461,6 +1461,15 @@
     - collaboration
     - research
 
+- local: noob_intro_transformers
+  title: Hugging Face Transformers 萌新完全指南
+  author: 2legit2overfit
+  thumbnail: /blog/assets/78_ml_director_insights/guide.png
+  date: March 22, 2024
+  tags:
+    - guide
+    - community
+
 - local: cloudflare-workers-ai
   title: 为 Hugging Face 用户带来无服务器 GPU 推理服务
   author: philschmid
@@ -1472,6 +1481,21 @@
     - llm
     - inference
 
+- local: setfit-optimum-intel
+  title: 在英特尔至强 CPU 上使用 🤗 Optimum Intel 实现超快 SetFit 推理
+  author: danielkorat
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: April 3, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community
+    - open-source-collab
+
 - local: google-cloud-model-garden
   title: 在 Google Cloud 上轻松部署开放大语言模型
   author: philschmid
@@ -1481,3 +1505,48 @@
     - partnerships
     - gcp
     - hardware
+
+- local: vlms
+  title: 视觉语言模型详解
+  author: merve
+  thumbnail: /blog/assets/vlms_explained/thumbnail.png
+  date: April 11, 2024
+  tags:
+    - vision
+    - vlm
+    - multimodal
+    - guide
+    - trl
+
+- local: gradio-reload
+  title: 使用 Gradio 的“热重载”模式快速开发 AI 应用
+  author: freddyaboulton
+  thumbnail: /blog/assets/gradio-reload/thumbnail_compressed.png
+  date: April 16, 2024
+  tags:
+    - gradio
+    - open-source
+    - guide
+    - demo
+
+- local: llama3
+  title: 欢迎 Llama 3：Meta 的新一代开源大语言模型
+  author: philschmid
+  thumbnail: /blog/assets/llama3/thumbnail.jpg
+  date: April 18, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: leaderboard-medicalllm
+  title: 开源医疗大模型排行榜：健康领域大模型基准测试
+  author: aaditya
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_medicalllm.png
+  date: Apr 19, 2024
+  tags:
+    - leaderboard
+    - collaboration
+    - research

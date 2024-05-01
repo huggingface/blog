@@ -495,16 +495,47 @@ Now that we've prepared our data, we're ready to dive into the training pipeline
 The [🤗 Trainer](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer)
 will do much of the heavy lifting for us. All we have to do is:
 
+- Load a pre-trained checkpoint: we need to load a pre-trained checkpoint and configure it correctly for training.
+
 - Define a data collator: the data collator takes our pre-processed data and prepares PyTorch tensors ready for the model.
 
 - Evaluation metrics: during evaluation, we want to evaluate the model using the [word error rate (WER)](https://huggingface.co/metrics/wer) metric. We need to define a `compute_metrics` function that handles this computation.
-
-- Load a pre-trained checkpoint: we need to load a pre-trained checkpoint and configure it correctly for training.
 
 - Define the training arguments: these will be used by the 🤗 Trainer in constructing the training schedule.
 
 Once we've fine-tuned the model, we will evaluate it on the test data to verify that we have correctly trained it 
 to transcribe speech in Hindi.
+
+### Load a Pre-Trained Checkpoint
+
+We'll start our fine-tuning run from the pre-trained Whisper `small` checkpoint. 
+To do this, we'll load the pre-trained weights from the Hugging Face Hub. 
+Again, this is trivial through use of 🤗 Transformers!
+
+```python
+from transformers import WhisperForConditionalGeneration
+
+model = WhisperForConditionalGeneration.from_pretrained("openai/whisper-small")
+```
+
+At inference time, the Whisper model automatically detects the language 
+of the source audio and predicts token ids in this language. 
+In cases where the source audio language is known *a-priori*, such as
+multilingual fine-tuning, it is beneficial to set the language explicitly. 
+This negates the scenarios when the incorrect language is predicted, 
+causing the predicted text to diverge from the true language during 
+generation. To do so, we set the [langauge](https://huggingface.co/docs/transformers/en/model_doc/whisper#transformers.WhisperForConditionalGeneration.generate.language) 
+and [task](https://huggingface.co/docs/transformers/en/model_doc/whisper#transformers.WhisperForConditionalGeneration.generate.task) 
+arguments to the generation config. We'll also set any [`forced_decoder_ids`](https://huggingface.co/docs/transformers/main_classes/text_generation#transformers.generation_utils.GenerationMixin.generate.forced_decoder_ids) 
+to None, since this was the legacy way of setting the language and 
+task arguments:
+
+```python
+model.generation_config.language = "hindi"
+model.generation_config.task = "transcribe"
+
+model.generation_config.forced_decoder_ids = None
+```
 
 ### Define a Data Collator
 
@@ -536,6 +567,7 @@ from typing import Any, Dict, List, Union
 @dataclass
 class DataCollatorSpeechSeq2SeqWithPadding:
     processor: Any
+    decoder_start_token_id: int
 
     def __call__(self, features: List[Dict[str, Union[List[int], torch.Tensor]]]) -> Dict[str, torch.Tensor]:
         # split inputs and labels since they have to be of different lengths and need different padding methods
@@ -553,7 +585,7 @@ class DataCollatorSpeechSeq2SeqWithPadding:
 
         # if bos token is appended in previous tokenization step,
         # cut bos token here as it's append later anyways
-        if (labels[:, 0] == self.processor.tokenizer.bos_token_id).all().cpu().item():
+        if (labels[:, 0] == self.decoder_start_token_id).all().cpu().item():
             labels = labels[:, 1:]
 
         batch["labels"] = labels
@@ -564,7 +596,10 @@ class DataCollatorSpeechSeq2SeqWithPadding:
 Let's initialise the data collator we've just defined:
 
 ```python
-data_collator = DataCollatorSpeechSeq2SeqWithPadding(processor=processor)
+data_collator = DataCollatorSpeechSeq2SeqWithPadding(
+    processor=processor,
+    decoder_start_token_id=model.config.decoder_start_token_id,
+)
 ```
 
 ### Evaluation Metrics
@@ -602,36 +637,6 @@ def compute_metrics(pred):
     wer = 100 * metric.compute(predictions=pred_str, references=label_str)
 
     return {"wer": wer}
-```
-
-### Load a Pre-Trained Checkpoint
-
-Now let's load the pre-trained Whisper `small` checkpoint. Again, this 
-is trivial through use of 🤗 Transformers!
-
-```python
-from transformers import WhisperForConditionalGeneration
-
-model = WhisperForConditionalGeneration.from_pretrained("openai/whisper-small")
-```
-
-At inference time, the Whisper model automatically detects the language 
-of the source audio and predicts token ids in this language. 
-In cases where the source audio language is known *a-priori*, such as
-multilingual fine-tuning, it is beneficial to set the language explicitly. 
-This negates the scenarios when the incorrect language is predicted, 
-causing the predicted text to diverge from the true language during 
-generation. To do so, we set the [langauge](https://huggingface.co/docs/transformers/en/model_doc/whisper#transformers.WhisperForConditionalGeneration.generate.language) 
-and [task](https://huggingface.co/docs/transformers/en/model_doc/whisper#transformers.WhisperForConditionalGeneration.generate.task) 
-arguments to the generation config. We'll also set any [`forced_decoder_ids`](https://huggingface.co/docs/transformers/main_classes/text_generation#transformers.generation_utils.GenerationMixin.generate.forced_decoder_ids) 
-to None, since this was the legacy way of setting the language and 
-task arguments:
-
-```python
-model.generation_config.language = "hindi"
-model.generation_config.task = "transcribe"
-
-model.generation_config.forced_decoder_ids = None
 ```
 
 ### Define the Training Arguments
