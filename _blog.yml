@@ -3451,6 +3451,14 @@
     - LLM
     - gcp
 
+- local: fetch-eap-case-study
+  title: "Fetch Consolidates AI Tools and Saves 30% Development Time with Hugging Face on AWS"
+  author: Violette
+  thumbnail: /blog/assets/78_ml_director_insights/fetch2.png
+  date: Feb 23, 2023
+  tags:
+    - case-studies
+
 - local: matryoshka
   title: "🪆 Introduction to Matryoshka Embedding Models"
   author: tomaarsen
@@ -3845,6 +3853,7 @@
     - research
     - LLM
 
+
 - local: jat
   title: "Jack of All Trades, Master of Some, a Multi-Purpose Transformer Agent"
   author: qgallouedec
@@ -3868,6 +3877,74 @@
       - research
       - collaboration
       - community
+
+- local: sc2-instruct
+  title: "StarCoder2-Instruct: Fully Transparent and Permissive Self-Alignment for Code Generation"
+  thumbnail: /blog/assets/sc2-instruct/sc2-instruct-banner.png
+  author: yuxiang630
+  guest: true
+  date: Apr 29, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: evaluation-structured-outputs
+  title: "Improving Prompt Consistency with Structured Generations"
+  author: willkurt
+  guest: true
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: Apr 30, 2024
+  tags:
+    - evaluation
+    - collaboration
+    - research
+    - leaderboard
+
+- local: asr-diarization
+  title: "Powerful ASR + diarization + speculative decoding with Hugging Face Inference Endpoints"
+  author: sergeipetrov
+  thumbnail: /blog/assets/asr-diarization/thumbnail.png
+  date: May 1, 2024
+  tags:
+    - audio
+    - asr
+    - inference
+
+- local: sc2-instruct
+  title: "StarCoder2-Instruct: Fully Transparent and Permissive Self-Alignment for Code Generation"
+  thumbnail: /blog/assets/sc2-instruct/sc2-instruct-banner.png
+  author: yuxiang630
+  guest: true
+  date: Apr 29, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: evaluation-structured-outputs
+  title: "Improving Prompt Consistency with Structured Generations"
+  author: willkurt
+  guest: true
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: Apr 30, 2024
+  tags:
+    - evaluation
+    - collaboration
+    - research
+    - leaderboard
+
+- local: asr-diarization
+  title: "Powerful ASR + diarization + speculative decoding with Hugging Face Inference Endpoints"
+  author: sergeipetrov
+  thumbnail: /blog/assets/asr-diarization/thumbnail.png
+  date: May 1, 2024
+  tags:
+    - audio
+    - asr
+    - inference
 
 - local: lmms_eval
   title: "Unified multimodal large model evaluation, accelerating multimodal intelligence emergence"

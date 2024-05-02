@@ -49,9 +49,9 @@ Following common practices in the foundation model community, we further train t
 </p>
 
 ## Improvements over Idefics1
-* We manipulate images in their native resolutions (up to 980 x 980) and native aspect ratios by following the NaViT strategy. That circumvent the need to resize images to fixed-size squares as it has been historically been done in the computer vision community. Additionally, we follow the strategy from SPHINX and (optionally) allow sub-image splitting and passing images of very large resolution.
+* We manipulate images in their native resolutions (up to 980 x 980) and native aspect ratios by following the NaViT strategy. That circumvents the need to resize images to fixed-size squares as it has been historically done in the computer vision community. Additionally, we follow the strategy from SPHINX and (optionally) allow sub-image splitting and passing images of very large resolution.
 * We significantly enhanced OCR abilities by integrating data that requires the model to transcribe text in an image or a document. We also improved abilities in answering questions on charts, figures, and documents with appropriate training data.
-* We departed from the Idefics1's architecture (gated cross-attentions) and simplified the integration of visual features into the language backbone. The images are fed to the vision encoder followed by a learned Perceiver pooling and a MLP modality projection. That pooled sequence is then concatenated with the text embeddings to obtain an (interleaved) sequence of image(s) and text(s).
+* We departed from the Idefics1's architecture (gated cross-attentions) and simplified the integration of visual features into the language backbone. The images are fed to the vision encoder followed by a learned Perceiver pooling and an MLP modality projection. That pooled sequence is then concatenated with the text embeddings to obtain an (interleaved) sequence of image(s) and text(s).
 
 All of these improvements along with better pre-trained backbones yield a significant jump in performance over Idefics1 for a model that is 10x smaller.
 
@@ -123,8 +123,8 @@ We also provide a fine-tuning [colab](https://colab.research.google.com/drive/1N
       <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/idefics2/This_is_fine_example.png?download=true" width="1200" alt="The Cauldron"/>
 </p>
 
-## Ressources
-If you wish to deep dive further, here is the compilation of all ressources for Idefics2:
+## Resources
+If you wish to deep dive further, here is the compilation of all resources for Idefics2:
 * [Idefics2 collection](https://huggingface.co/collections/HuggingFaceM4/idefics2-661d1971b7c50831dd3ce0fe)
 * [Idefics2 model with model card](https://huggingface.co/HuggingFaceM4/idefics2-8b)
 * [Idefics2-base model with model card](https://huggingface.co/HuggingFaceM4/idefics2-8b-base)
