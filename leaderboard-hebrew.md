@@ -48,7 +48,7 @@ Below is a summary of each of the benchmarks included in the leaderboard. For a 
 
 ## Technical Setup
 
-The leaderboard is inspired by the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard), and uses the [Demo Leaderboard template](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard). Models that are submitted are deployed automatically using HuggingFace’s Inference Endpoints and evaluated through API requests managed by the lighteval library.
+The leaderboard is inspired by the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard), and uses the [Demo Leaderboard template](https://huggingface.co/demo-leaderboard-backend). Models that are submitted are deployed automatically using HuggingFace’s [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) and evaluated through API requests managed by the [lighteval](https://github.com/huggingface/lighteval) library.
 The implementation was straightforward, with the main task being to set up the environment; the rest of the code ran smoothly.
 
 ## Engage with Us
