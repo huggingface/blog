@@ -30,7 +30,7 @@ The default (full weight) training for language models, even for modest sizes, t
 
 ## PyTorch on GPU and TPU
 
-Gemma models in Hugging Face `transformers` are optimized for both PyTorch and PyTorch/XLA. This enables both TPU and GPU users to access and experiment with Gemma models as needed. Together with the Gemma release, we have also improved the [FSDP](https://engineering.fb.com/2021/07/15/open-source/fsdp/) experience for PyTorch/XLA in Hugging Face. This [FSDP via SPMD](https://github.com/pytorch/xla/issues/6379) integration also allows other Hugging Face models to take advantage of TPU acceleration via PyTorch/XLA. In this post, we will focus on PEFT, and more specifically on Low-Rank Adaptation (LoRA), for Gemma models. For a more comprehensive set of LoRA techniques, we encourage readers to review the [Scaling Down to Scale Up, from Lialin et al.](https://arxiv.org/pdf/2303.15647.pdf) and [this excellent post](https://pytorch.org/blog/finetune-llms/) post by Belkada et al. 
+Gemma models in Hugging Face `transformers` are optimized for both PyTorch and PyTorch/XLA. This enables both TPU and GPU users to access and experiment with Gemma models as needed. Together with the Gemma release, we have also improved the [FSDP](https://engineering.fb.com/2021/07/15/open-source/fsdp/) experience for PyTorch/XLA in Hugging Face. This [FSDP via SPMD](https://github.com/pytorch/xla/issues/6379) integration also allows other Hugging Face models to take advantage of TPU acceleration via PyTorch/XLA. In this post, we will focus on PEFT, and more specifically on Low-Rank Adaptation (LoRA), for Gemma models. For a more comprehensive set of LoRA techniques, we encourage readers to review the [Scaling Down to Scale Up, from Lialin et al.](https://arxiv.org/pdf/2303.15647.pdf) and [this excellent post](https://pytorch.org/blog/finetune-llms/) post by Belkada et al.
 
 ## Low-Rank Adaptation for Large Language Models
 
@@ -103,7 +103,6 @@ But this is not exactly the format we would love the answer to be. Let’s see i
 Quote: Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world.
 
 Author: Albert Einstein
-
 ```
 
 To begin with, let's select an English quotes dataset [Abirate/english_quotes](https://huggingface.co/datasets/Abirate/english_quotes).
@@ -122,11 +121,8 @@ import transformers
 from trl import SFTTrainer
 
 def formatting_func(example):
-    output_texts = []
-    for i in range(len(example)):
-        text = f"Quote: {example['quote'][i]}\nAuthor: {example['author'][i]}"
-        output_texts.append(text)
-    return output_texts
+    text = f"Quote: {example['quote'][0]}\nAuthor: {example['author'][0]}<eos>"
+    return [text]
 
 trainer = SFTTrainer(
     model=model,
@@ -164,7 +160,6 @@ This time we get the response in the format we like:
 
 ```
 Quote: Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world.
-
 Author: Albert Einstein
 ```
 
@@ -206,6 +201,6 @@ trainer.train()
 
 ## Next Steps
 
-We walked through this simple example adapted from the source notebook to illustrate the LoRA finetuning method applied to Gemma models. The full colab for GPU can be found [here](https://huggingface.co/google/gemma-7b/blob/main/examples/notebook_sft_peft.ipynb), and the full script for TPU can be found [here](https://huggingface.co/google/gemma-7b/blob/main/examples/example_fsdp.py). We are excited about the endless possibilities for research and learning thanks to this recent addition to our open source ecosystem. We encourage users to also visit the [Gemma documentation](https://huggingface.co/docs/transformers/v4.38.0/en/model_doc/gemma), as well as our [launch blog](https://huggingface.co/blog/gemma) for more examples to train, finetune and deploy Gemma models. 
+We walked through this simple example adapted from the source notebook to illustrate the LoRA finetuning method applied to Gemma models. The full colab for GPU can be found [here](https://huggingface.co/google/gemma-7b/blob/main/examples/notebook_sft_peft.ipynb), and the full script for TPU can be found [here](https://huggingface.co/google/gemma-7b/blob/main/examples/example_fsdp.py). We are excited about the endless possibilities for research and learning thanks to this recent addition to our open source ecosystem. We encourage users to also visit the [Gemma documentation](https://huggingface.co/docs/transformers/v4.38.0/en/model_doc/gemma), as well as our [launch blog](https://huggingface.co/blog/gemma) for more examples to train, finetune and deploy Gemma models.
 
 
