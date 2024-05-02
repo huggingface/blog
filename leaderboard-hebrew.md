@@ -16,7 +16,6 @@ authors:
 
 # Introducing the Open Leaderboard for Hebrew LLMs!
 
-The field of language technology (specifically, LLMs) has seen an underrepresentation of resources dedicated to languages other than English. 
 
 This project addresses the critical need for advancement in Hebrew NLP.  As Hebrew is considered a low-resource language, existing LLM leaderboards often lack benchmarks that accurately reflect its unique characteristics. Today, we are excited to introduce a pioneering effort to change this narrative — our new open LLM leaderboard, specifically designed to evaluate and enhance language models in Hebrew.
 
