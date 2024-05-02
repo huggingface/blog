@@ -3902,6 +3902,16 @@
     - research
     - leaderboard
 
+- local: asr-diarization
+  title: "Powerful ASR + diarization + speculative decoding with Hugging Face Inference Endpoints"
+  author: sergeipetrov
+  thumbnail: /blog/assets/asr-diarization/thumbnail.png
+  date: May 1, 2024
+  tags:
+    - audio
+    - asr
+    - inference
+
 - local: leaderboard-hebrew
   title: "Introducing the Open Leaderboard for Hebrew LLMs!"
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_hebrew.png

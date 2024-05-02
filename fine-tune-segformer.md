@@ -315,15 +315,13 @@ def compute_metrics(eval_pred):
     ).argmax(dim=1)
 
     pred_labels = logits_tensor.detach().cpu().numpy()
-    # currently using _compute instead of compute
-    # see this issue for more info: https://github.com/huggingface/evaluate/pull/328#issuecomment-1286866576
-    metrics = metric._compute(
-            predictions=pred_labels,
-            references=labels,
-            num_labels=len(id2label),
-            ignore_index=0,
-            reduce_labels=processor.do_reduce_labels,
-        )
+    metrics = metric.compute(
+        predictions=pred_labels,
+        references=labels,
+        num_labels=len(id2label),
+        ignore_index=0,
+        reduce_labels=processor.do_reduce_labels,
+    )
     
     # add per category metrics as individual key-value pairs
     per_category_accuracy = metrics.pop("per_category_accuracy").tolist()
