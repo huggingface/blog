@@ -59,6 +59,6 @@ Join us in this exciting journey to reshape the landscape of language modeling!
 
 ## Sponsorship
 
-The leaderboard is proudly sponsored by [DDR&D IMOD / The Israeli National Program for NLP in Hebrew and Arabic](https://nnlp-il.mafat.ai/) in collaboration with [DICTA: The Israel Center for Text Analysis](https://dicta.org.il) and [Webiks](https://webiks.com), a testament to the commitment towards advancing language technologies in Hebrew.
+The leaderboard is proudly sponsored by [DDR&D IMOD / The Israeli National Program for NLP in Hebrew and Arabic](https://nnlp-il.mafat.ai/) in collaboration with [DICTA: The Israel Center for Text Analysis](https://dicta.org.il) and [Webiks](https://webiks.com), a testament to the commitment towards advancing language technologies in Hebrew. We would like to extend our gratitude to Prof. Reut Tsarfaty from Bar-Ilan University for her scientific consultation and guidance.
 
 
