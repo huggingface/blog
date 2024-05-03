@@ -3911,3 +3911,15 @@
     - audio
     - asr
     - inference
+
+- local: leaderboard-artificial-analysis
+  title: "Bringing the Artificial Analysis LLM Performance Leaderboard to Hugging Face"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_artificialanalysis.png
+  author: mhillsmith
+  guest: true
+  date: May 3, 2024
+  tags:
+    - leaderboard
+    - research
+    - collaboration
+    - community
