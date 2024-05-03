@@ -15,7 +15,7 @@ authors:
 
 Building applications with LLMs requires considering more than just quality: for many use-cases, speed and price are equally or more important. 
 
-For consumer applications and chat experiences, speed and responsiveness are critical to user engagement. Users expect near-instant responses, and delays can directly lead to reduced engagement. When building more complex applications involving tool use or agentic systems, the importance of speed and cost becomes even more apparent - and can become the limiting factor on overall system capability. The time taken by sequential requests to LLMs can quickly stack up for each user request. The cost of requests can stack up just as quickly. 
+For consumer applications and chat experiences, speed and responsiveness are critical to user engagement. Users expect near-instant responses, and delays can directly lead to reduced engagement. When building more complex applications involving tool use or agentic systems, speed and cost become even more important - and can become the limiting factor on overall system capability. The time taken by sequential requests to LLMs can quickly stack up for each user request. The cost of requests can stack up just as quickly. 
 
 This is why [Artificial Analysis](https://artificialanalysis.ai/) ([@ArtificialAnlys](https://twitter.com/ArtificialAnlys)) developed a leaderboard of performance benchmarks, prices and quality metrics across >100 serverless LLM API endpoints, now coming to Hugging Face.
 
