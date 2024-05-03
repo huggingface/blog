@@ -35,7 +35,7 @@ Source: [LLM Performance Leaderboard](https://huggingface.co/spaces/ArtificialAn
 
 The metrics reported are:
 
-- **Quality:** a simplified index for comparing model quality and accuracy, calculated based on metrics such as MMLU, MT-Bench and Chatbot Arena ranking.
+- **Quality:** a simplified index for comparing model quality and accuracy, calculated based on metrics such as MMLU, MT-Bench, HumanEval scores, as reported by the model authors, and Chatbot Arena ranking.
 - **Context window:** the maximum number of tokens an LLM can work with at any one time (including both input and output tokens).
 - **Pricing:** the prices charged by a provider to query the model for inference. We report input/output per-token pricing, as well as "blended" pricing to compare hosting providers with a single metric. We blend input and output pricing at a 3:1 ratio (i.e., an assumption that the length of input is 3x longer than the output).
 - **Throughput:** how fast an endpoint outputs tokens during inference, measured in tokens per second (often referred to as tokens/s or "TPS"). We report the median, P5, P25, P75 and P95 values measured over the prior 14 days.
@@ -60,7 +60,7 @@ For further definitions, see our [full methodology page](https://artificialanaly
 
 ## Highlights (May 2024, see the leaderboard for the latest)
 
-- The language models market has exploded in complexity over the last year. Launches that have shaken up the market just within the last two months include proprietary models like Anthropic's Claude 3 series and open models such as Databricks' DBRX, Mistral's Mixtral 8x22B and Meta's Llama 3.
+- The language models market has exploded in complexity over the last year. Launches that have shaken up the market just within the last two months include proprietary models like Anthropic's Claude 3 series and open models such as Databricks' DBRX, Cohere's Command R Plus, Google's Gemma, Microsoft's Phi-3, Mistral's Mixtral 8x22B and Meta's Llama 3.
 - Price and speed vary considerably between models and providers. From Claude 3 Opus to Llama 3 8B, there is a 300x pricing spread - that's more than two orders of magnitude!
 - API providers have increased the speed of launching models. Within 48 hours, 7 providers were offering the Llama 3 models. Speaking to the demand for new, open-source models and the competitive dynamics between API providers.
 - Key models to highlight across quality segments:
