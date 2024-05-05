@@ -1,6 +1,6 @@
 ---
 title: "Ryght 在 Hugging Face 专家助力下赋能医疗保健和生命科学之旅" 
-thumbnail: /blog/assets/ryght-case-study/thumbnail.jpg
+thumbnail: /blog/assets/ryght-case-study/thumbnail.png
 authors:
 - user: andrewrreed
 - user: johnnybio
