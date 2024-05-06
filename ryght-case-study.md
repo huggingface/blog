@@ -1,6 +1,6 @@
 ---
 title: "Ryght’s Journey to Empower Healthcare and Life Sciences with Expert Support from Hugging Face" 
-thumbnail: /blog/assets/ryght-case-study/thumbnail.jpg
+thumbnail: /blog/assets/ryght-case-study/thumbnail.png
 authors:
 - user: andrewrreed
 - user: johnnybio
