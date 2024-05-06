@@ -50,7 +50,7 @@ To integrate kv quantization seamlessly in `transformers`, we rely on [quanto](h
 We know visuals speak louder than words, so we've prepared up some comparison plots to give you a snapshot of how quantization stacks up against FP16 precision. These plots will show you at a glance how the models' generation hold up in terms of quality when we tweak the precision settings for kv cache. We calculated the perplexity of [Llama2-7b-chat](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) model on the [`PG-19`](https://huggingface.co/datasets/emozilla/pg19-test) dataset. We can see that `int4` cache performs almost same as the original `fp16` precision, while the quality degrades when using `int2`.  
 
 <figure class="image text-center m-0">
-  <img class="center" src="assets/kv_cache_quantization/perplexity.png" alt="Log Perplexity Comparison"/>
+  <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/perplexity.png" alt="Log Perplexity Comparison"/>
   <figcaption>Log Perplexity of Llama2-7b-chat model on `PG-19` dataset</figcaption>
 </figure>
 
@@ -71,18 +71,18 @@ Now, let's talk about the trade-off between memory savings and speed. When we qu
 
 <div style="display: flex;">
   <figure class="image text-center m-0">
-    <img class="center" src="assets/kv_cache_quantization/gpu_mem_mmax_new_tokens.png" alt="GPU memory consumption as max new tokens increase"/>
+    <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gpu_mem_mmax_new_tokens.png" alt="GPU memory consumption as max new tokens increase"/>
     <figcaption>GPU memory consumption in MiB as the new tokens length increase</figcaption>
   </figure>
   <figure class="image text-center m-0">
-    <img class="center" src="assets/kv_cache_quantization/gpu_mem_bs.png" alt="GPU memory consumption as batch size increases"/>
+    <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/gpu_mem_bs.png" alt="GPU memory consumption as batch size increases"/>
     <figcaption>GPU memory consumption in MiB as batch size increases</figcaption>
   </figure>
 </div>
 
 
 <figure class="image text-center m-0">
-  <img class="center" src="assets/kv_cache_quantization/latency.png" alt="Latency as batch size increases"/>
+  <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/latency.png" alt="Latency as batch size increases"/>
   <figcaption>Latency as a function of batch size</figcaption>
 </figure>
 
