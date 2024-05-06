@@ -51,7 +51,6 @@ We know visuals speak louder than words, so we've prepared up some comparison pl
 
 <figure class="image text-center m-0">
   <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/perplexity.png" alt="Log Perplexity Comparison"/>
-  <figcaption>Log Perplexity of Llama2-7b-chat model on `PG-19` dataset</figcaption>
 </figure>
 
 
@@ -71,19 +70,16 @@ Now, let's talk about the trade-off between memory savings and speed. When we qu
 
 <div style="display: flex;">
   <figure class="image text-center m-0">
-    <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gpu_mem_mmax_new_tokens.png" alt="GPU memory consumption as max new tokens increase"/>
-    <figcaption>GPU memory consumption in MiB as the new tokens length increase</figcaption>
+    <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gpu_mem_max_new_tokens.png" alt="GPU memory consumption as max new tokens increase"/>
   </figure>
   <figure class="image text-center m-0">
     <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/gpu_mem_bs.png" alt="GPU memory consumption as batch size increases"/>
-    <figcaption>GPU memory consumption in MiB as batch size increases</figcaption>
   </figure>
 </div>
 
 
 <figure class="image text-center m-0">
   <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/latency.png" alt="Latency as batch size increases"/>
-  <figcaption>Latency as a function of batch size</figcaption>
 </figure>
 
 
