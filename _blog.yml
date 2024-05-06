@@ -3927,10 +3927,11 @@
 - local: leaderboard-hebrew
   title: "Introducing the Open Leaderboard for Hebrew LLMs!"
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_hebrew.png
-  author: shaltielshmid
+  author: Shaltiel
   guest: true
   date: May 05, 2024
   tags:
     - nlp
     - research
+    - leaderboard
     - LLM
