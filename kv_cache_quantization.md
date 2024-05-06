@@ -70,7 +70,7 @@ Now, let's talk about the trade-off between memory savings and speed. When we qu
 
 <div style="display: flex;">
   <figure class="image text-center m-0">
-    <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gpu_mem_max_new_tokens.png" alt="GPU memory consumption as max new tokens increase"/>
+    <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/gpu_mem_max_new_tokens.png" alt="GPU memory consumption as max new tokens increase"/>
   </figure>
   <figure class="image text-center m-0">
     <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/gpu_mem_bs.png" alt="GPU memory consumption as batch size increases"/>
