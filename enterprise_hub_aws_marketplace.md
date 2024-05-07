@@ -39,15 +39,15 @@ Once you meet these requirements, you can proceed with connecting your AWS and H
 
 The first step is to go to the [AWS Marketplace offering](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2) and subscribe to the Hugging Face Platform. There you open the [offer](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2) and then click on “View purchase options” at the top right screen. 
 
-![Marketplace Offer](assets/158_aws_marketplace/01_offering.jpg "Marketplace Offer")
+![Marketplace Offer](assets/158_aws_marketplace/01_bis_offering.jpg "Marketplace Offer")
 
 You are now on the “subscribe” page, where you can see the summary of pricing and where you can subscribe. To subscribe to the offer, click “Subscribe”. 
 
-![Marketplace Subscribe](assets/158_aws_marketplace/02_subscribe.jpg "Marketplace Subscribe")
+![Marketplace Subscribe](assets/158_aws_marketplace/02_bis_subscribe.jpg "Marketplace Subscribe")
 
 After you successfully subscribe, you should see a green banner at the top with a button “Set up your account”. You need to click on “Set up your account” to connect your Hugging Face Account with your AWS account.  
 
-![Marketplace Redirect](assets/158_aws_marketplace/03_redirect.jpg "Marketplace Redirect")
+![Marketplace Redirect](assets/158_aws_marketplace/03_bis_redirect.jpg "Marketplace Redirect")
 
 After clicking the button, you will be redirected to the Hugging Face Platform, where you can select the Hugging Face organization account you want to link to your AWS account. After selecting your account, click “Submit” 
 
@@ -68,7 +68,9 @@ To confirm it, you can open the Billing settings for [your organization account]
 
 ### 3. Activate the Enterprise Hub for your team and unlock new features
 
-Please follow the next steps if you want to enable the Enterprise Hub and use your organization as a private and safe collaborative platform for your team to build AI with open source. Open the Billing settings for your organization and click on the ‘Enterprise Hub’ Tab and click on “Subscribe Now”
+If you want to enable the Enterprise Hub and use your organization as a private and safe collaborative platform for your team to build AI with open source, please follow the steps below.
+
+Open the Billing settings for your organization and click on the ‘Enterprise Hub’ Tab and click on “Subscribe Now”
 
 ![Subscribe Now](assets/158_aws_marketplace/08_subscribe.jpg "Subscribe Now")
 
