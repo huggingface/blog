@@ -123,7 +123,7 @@ I like rock music because it's loud and energetic. I like to listen to it when I
 
 # Conclusion
 
-There are many more different methods to reduce memory usage by key-value cache, including [MultiQueryAttention](https://arxiv.org/abs/1911.02150), [GroupedQueryAttention](https://arxiv.org/abs/2305.13245) or recent [kv cache retrieval](https://arxiv.org/abs/2403.09054) methods. While some of these methods are bound to the model architecture choices, others can be applied post-training. Quantization is one of such post-training optimization tecniques and we can draw the following conclusion from our short blogpost:
+There are many more different methods to reduce memory usage by key-value cache, including [MultiQueryAttention](https://arxiv.org/abs/1911.02150), [GroupedQueryAttention](https://arxiv.org/abs/2305.13245) or recent [kv cache retrieval](https://arxiv.org/abs/2403.09054) methods. While some of these methods are bound to the model architecture choices, others can be applied post-training. Quantization is one of such post-training optimization techniques and we can draw the following conclusion from our short blogpost:
 
 1. **Memory vs Speed trade-off**: By quantizing the kv cache into lower precision formats, memory usage is significantly reduced, allowing for longer text generations without encountering memory constraints. But users have to decide on whether giving up a tiny bit of generation speed suits their use-case.
 
