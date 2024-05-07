@@ -137,3 +137,11 @@ There are many more different methods to reduce memory usage by key-value cache,
 
 # Acknowledgment
 
+
+# Further Resources
+1. Zirui Liu, Jiayi Yuan, Hongye Jin, Shaochen Zhong, Zhaozhuo Xu, Braverman, V., Beidi Chen, & Hu, X. (2023). [KIVI : Plug-and-play 2bit KV Cache Quantization with Streaming Asymmetric Quantization](https://arxiv.org/abs/2402.02750).
+2. Blogpost from Databricks on [LLM Inference Performance Engineering: Best Practices](https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices) 
+3. Coleman Hooper, Sehoon Kim, Hiva Mohammadzadeh, Michael W. Mahoney, Yakun Sophia Shao, Kurt Keutzer, & Amir Gholami. (2024). [KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization](https://arxiv.org/abs/2401.18079).
+4. T. Dettmers, M. Lewis, Y. Belkada, and L. Zettlemoyer, (2022). [LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale](https://arxiv.org/abs/2208.07339).
+5. A. Gholami, S. Kim, Z. Dong, Z. Yao, M. W. Mahoney, and K. Keutzer, (2021). A Survey of Quantization Methods for Efficient Neural Network Inference.
+
