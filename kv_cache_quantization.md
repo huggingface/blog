@@ -30,7 +30,7 @@ Even though kv cache speeds up autoregressive generation, it can become a memory
 
 of memory only to store the previous key-value cache, which is almost one third of the memory required to store model parameters in half-precision.
 
-Therefore by compressing kv cache into a more compact form we can save up a lot of memory and run long context generation on consumer GPUs. In out experiments, we were able to significantly reduce the memory footprint without sacrificing too much accuracy by quantizing the kv cache into lower precision formats. With this new quantization feature, we can now support longer generations without running out of memory, which means you can expand your model's context length without worrying about hitting a memory constraint.
+Therefore by compressing kv cache into a more compact form we can save up a lot of memory and run long context generation on consumer GPUs. In our experiments, we were able to significantly reduce the memory footprint without sacrificing too much accuracy by quantizing the kv cache into lower precision formats. With this new quantization feature, we can now support longer generations without running out of memory, which means you can expand your model's context length without worrying about hitting a memory constraint.
 
 
 # Implementation Details
