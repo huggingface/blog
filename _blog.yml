@@ -3935,3 +3935,20 @@
     - research
     - leaderboard
     - LLM
+
+- local: agents
+  title: "Release the Agents: Transformers Agents 2.0"
+  thumbnail: /blog/assets/agents/thumbnail.png
+  author: m-ric
+  date: May 07, 2024
+  tags:
+    - nlp
+    - leaderboard
+    - LLM
+    - agents
+    - transformers
+    - mixtral
+    - llama3
+    - agents
+    - langchain
+    - benchmark
