@@ -78,7 +78,7 @@ Now select the number of Enterprise Hub seats you are willing to buy for your or
 ![Select Seats](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/09_select.jpg "Select Seats")
 
 
-### 4. Congratulations! 🥳
+### Congratulations! 🥳
 
 Your organization is now subscribed to the Enterprise Hub, and billing is directly managed by your AWS account. All members of your Enterprise Hub can now start using safely and privately the Hugging Face Hub.
 
