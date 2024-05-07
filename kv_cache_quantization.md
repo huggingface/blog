@@ -41,7 +41,7 @@ Another key part of the KIVI method is retaining a residual cache to store keys 
 
 The implementation of kv cache in Transformers is partially based on KIVI, specifically we adopted the same strategy of retaining `k` tokens in the residual cache for quality maintenance. In contrast to the KIVI, Transformers quantizes both keys and value per-channel by grouping on the last dimension. We found that this type of per-channel quantization does not hurt accuracy of the generations. So given a key or value of shape `batch size, num of heads, num of tokens, head dim` we group it to `num of groups, group size` and perform affine quantization as follows:
 
-`X_Q = (X / S) - Z`
+`X_Q = round(X / S) - Z`
 
 where, 
 - X_Q is the quantized tensor
