@@ -350,7 +350,9 @@ The `agents_reasoning_benchmark` is a small - but mighty- reasoning test for eva
 
 This benchmark was already used (in an alpha version) and explained in more detail in [our earlier blog post](https://huggingface.co/blog/open-source-llms-as-agents). Here we try 3 different engines: [Mixtral-8x7B](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [Llama3-70B](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct), and [GPT-4 Turbo](https://platform.openai.com/docs/models).
 
-![aggregate_score.png](Blog%20Post%20Release%20the%20Agents%2020e1fb7a2d81440fa8cba98066a97cee/aggregate_score.png)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/agents/aggregate_score.png" alt="drawing" width=90%>
+</p>
 
 The results are shown above - as the average of two complete runs for more precision. We also tested [Command-R+](https://huggingface.co/CohereForAI/c4ai-command-r-plus) and [Mixtral-8x22B](https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1), but do not show them for clarity.
 
