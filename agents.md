@@ -1,12 +1,12 @@
 ---
-title: "Release the Agents"
-thumbnail: /blog/assets/agents-js/thumbnail.png
+title: "License to Call: Releasing Transformers Agents v2.0"
+thumbnail: /blog/assets/agents/thumbnail.png
 authors:
   - user: m-ric
   - user: lysandre
 ---
 
-# Release the Agents: Transformers Agents 2.0
+# License to Call: Releasing Transformers Agents v2.0
 
 ### TL;DR
 
@@ -137,7 +137,9 @@ Our documents belong to the following sources:
 'hf-endpoints-documentation', 'pytorch-image-models', 'hub-docs']
 ```
 
-How can we select which ones to use based on the user query? We can leave our agent in charge of this. We create a tool that the agent can call with the parameters of its choice:
+How can we select the relevant sources based on the user query?
+
+👉 Let us leave our agent in charge of this! We create a retriever tool that the agent can call with the parameters of its choice:
 
 ```python
 import json
@@ -286,13 +288,11 @@ react_agent_hf = ReactCodeAgent(
 )
 ```
 
-We test the agent with the following task:
+Let's run the agent with the following task:
 
 > *Use density measures from the chemistry materials licensed by Marisa Alviar-Agnew & Henry Agnew under the CK-12 license in LibreText's Introductory Chemistry materials as compiled 08/21/2023.*
-*I have a gallon of honey and a gallon of mayonnaise at 25C. I remove one cup of honey at a time from the gallon of honey. How many times will I need to remove a cup to have the honey weigh less than the mayonaise? Assume the containers themselves weigh the same.*
+> *I have a gallon of honey and a gallon of mayonnaise at 25C. I remove one cup of honey at a time from the gallon of honey. How many times will I need to remove a cup to have the honey weigh less than the mayonaise? Assume the containers themselves weigh the same.*
 > 
-
-Here is the agent trace:
 
 ```
 Thought: I will use the 'ask_search_agent' tool to find the density of honey and mayonnaise at 25C.
@@ -387,13 +387,12 @@ react_agent_hf = ReactCodeAgent(
 ```
 
 And after some time needed to complete the 165 questions, we submit our result to the [GAIA Leaderboard](https://huggingface.co/spaces/gaia-benchmark/leaderboard), and… 🥁🥁🥁 
-⇒ Our agent comes 4th: it beats many GPT4-based agents, and is now the reigning contender for the Open-Source category!
+⇒ Our agent comes at the 4th place: it beats many GPT4-based agents, and is now the reigning contender for the Open-Source category!
 
-![Untitled](Blog%20Post%20Release%20the%20Agents%2020e1fb7a2d81440fa8cba98066a97cee/Untitled%201.png)
 
 ## Conclusion
 
-We will keep improving this package in the coming months. We already identified several exciting paths:
+We will keep improving this package in the coming months. We have already identified several exciting paths:
 
 - agent sharing options
 - better tools (especially in image processing)
