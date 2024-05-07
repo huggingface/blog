@@ -79,10 +79,10 @@ Below are the performance metrics for kv cache in original precision and quantiz
 
 
 <div style="display: flex;">
-  <figure class="image m-0" style="width: 50%;">
+  <figure class="image m-0" style="width: 20%;">
     <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/gpu_mem_max_new_tokens.png" alt="GPU memory consumption as max new tokens increase"/>
   </figure>
-  <figure class="image m-0" style="width: 50%;">
+  <figure class="image m-0" style="width: 20%;">
     <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/gpu_mem_bs.png" alt="GPU memory consumption as batch size increases"/>
   </figure>
 </div>
