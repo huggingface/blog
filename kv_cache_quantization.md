@@ -3,7 +3,6 @@ title: "Unlocking Longer Generation with Key-Value Cache Quantization"
 thumbnail: /blog/assets/kv_cache_quantization/thumbnail.gif
 authors:
 - user: RaushanTurganbay
-- user: your_coauthor
 ---
 
 
