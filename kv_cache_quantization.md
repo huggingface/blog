@@ -72,7 +72,7 @@ Same holds true when calculating performance on the [LongBench](https://huggingf
 | Passage_retrieval_en  | NA          | NA           | 8.5                 | 9.5     | 4.82    |
 
 
-Now, let's talk about the trade-off between memory savings and speed. When we quantize the kv cache in models, we're making them less memory hungry, but sometimes that comes at a tiny cost to generation speed. While quantiziing the cache to `int4` can offer roughly an x2 memory saving, the generation speed starts to decrease with higher batch sizes. One has to decide whether using quantized kv cache and potentially sacrificing a bit of speed is worth the trade-off for the significant gains in memory efficiency. It's all about finding the approach that best suits your specific use case and priorities. 
+Now, let's talk about the trade-off between memory savings and speed. When we quantize the kv cache in models, we're making them less memory hungry, but sometimes that comes at a tiny cost to generation speed. While quantizing the cache to `int4` can offer roughly an x2 memory saving, the generation speed starts to decrease with higher batch sizes. One has to decide whether using quantized kv cache and potentially sacrificing a bit of speed is worth the trade-off for the significant gains in memory efficiency. It's all about finding the approach that best suits your specific use case and priorities. 
 
 Below are the performance metrics for kv cache in original precision and quantized format. Script to obtain the following figures is available [here](https://gist.github.com/zucchini-nlp/56ce57276d7b1ee666e957912d8d36ca).
 
