@@ -3,7 +3,6 @@ title: "The Enterprise Hub on the AWS Marketplace: Pay with your AWS Account"
 thumbnail: /blog/assets/158_aws_marketplace/thumbnail.jpg
 authors:
 - user: Violette
-- user: philschmid
 - user: sbrandeis
 - user: jeffboudier
 ---
@@ -39,32 +38,32 @@ Once you meet these requirements, you can proceed with connecting your AWS and H
 
 The first step is to go to the [AWS Marketplace offering](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2) and subscribe to the Hugging Face Platform. There you open the [offer](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2) and then click on “View purchase options” at the top right screen. 
 
-![Marketplace Offer](assets/158_aws_marketplace/01_bis_offering.jpg "Marketplace Offer")
+![Marketplace Offer](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/01_bis_offering.jpg "Marketplace Offer")
 
 You are now on the “subscribe” page, where you can see the summary of pricing and where you can subscribe. To subscribe to the offer, click “Subscribe”. 
 
-![Marketplace Subscribe](assets/158_aws_marketplace/02_bis_subscribe.jpg "Marketplace Subscribe")
+![Marketplace Subscribe](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/02_bis_subscribe.jpg "Marketplace Subscribe")
 
 After you successfully subscribe, you should see a green banner at the top with a button “Set up your account”. You need to click on “Set up your account” to connect your Hugging Face Account with your AWS account.  
 
-![Marketplace Redirect](assets/158_aws_marketplace/03_bis_redirect.jpg "Marketplace Redirect")
+![Marketplace Redirect](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/03_bis_redirect.jpg "Marketplace Redirect")
 
 After clicking the button, you will be redirected to the Hugging Face Platform, where you can select the Hugging Face organization account you want to link to your AWS account. After selecting your account, click “Submit” 
 
-![Connect Account](assets/158_aws_marketplace/04_connect.jpg "Connect Account")
+![Connect Account](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/04_connect.jpg "Connect Account")
 
 After clicking "Submit", you will be redirected to the Billings settings of the Hugging Face organization, where you can see the current state of your subscription, which should be `subscribe-pending`.
 
-![Subscription Pending](assets/158_aws_marketplace/05_pending.jpg "Subscription Pending")
+![Subscription Pending](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/05_pending.jpg "Subscription Pending")
 
 After a few minutes, you should receive 2 emails: 1 from AWS confirming your subscription and 1 from Hugging Face, which should look like the image below:
 
-![Email confirmation](assets/158_aws_marketplace/07_email.jpg "Email confirmation")
+![Email confirmation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/07_email.jpg "Email confirmation")
 
 If you have received this, your AWS Account and Hugging Face organization account are now successfully connected! 
 To confirm it, you can open the Billing settings for [your organization account](https://huggingface.co/settings/organizations), where you should now see a `subscribe-success` status.
 
-![Subscription Confirmed](assets/158_aws_marketplace/06_success.jpg "Subscription Confirmed")
+![Subscription Confirmed](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/06_success.jpg "Subscription Confirmed")
 
 ### 3. Activate the Enterprise Hub for your team and unlock new features
 
@@ -72,11 +71,11 @@ If you want to enable the Enterprise Hub and use your organization as a private 
 
 Open the Billing settings for your organization, click on the ‘Enterprise Hub’ Tab, and click on “Subscribe Now”
 
-![Subscribe Now](assets/158_aws_marketplace/08_subscribe.jpg "Subscribe Now")
+![Subscribe Now](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/08_subscribe.jpg "Subscribe Now")
 
 Now select the number of Enterprise Hub seats you are willing to buy for your organization, the billing frequency and click on Checkout. 
 
-![Select Seats](assets/158_aws_marketplace/09_select.jpg "Select Seats")
+![Select Seats](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/09_select.jpg "Select Seats")
 
 
 ### 4. Congratulations! 🥳
