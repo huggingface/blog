@@ -10,12 +10,12 @@ authors:
 
 # The Enterprise Hub on the AWS Marketplace: Pay with your AWS Account.
 
-AWS Enterprises Users can now use Hugging Face as a safe & private collaboration platform without sharing payment information with HF.
+AWS Enterprises Users can now use Hugging Face as a safe & private collaboration platform without sharing payment information with Hugging Face.
 
 ## What is the Enterprise Hub, the famous 🤗 Hub but in Enterprise mode? 
 
-In addition to offering widely adopted open-source libraries, and more than thousands of models and datasets, we enable an enterprise-ready version of the world’s leading AI platform. With the Enterprise Hub, you give your team the most advanced GDPR & SOC2T2 compliant platform to build AI with open-source resources complying with privacy and security Enterprise constraints: 
-- Benefit from SOTA machine learning, 
+In addition to offering widely adopted open-source libraries and thousands of models and datasets, we enable an enterprise-ready version of the world’s leading AI platform. With the Enterprise Hub, you give your team the most advanced GDPR & SOC2T2 compliant platform to build AI with open-source resources complying with privacy and security Enterprise constraints: 
+- Benefit from state-of-the-art machine learning, 
 - Run inference workloads, 
 - Compute budget for your team, 
 - Choose the location of your HF storage, 
