@@ -46,7 +46,7 @@ The implementation of kv cache in Transformers is partially based on KIVI, speci
 where, 
 - X_Q is the quantized tensor
 - S is the scale calculated as `(maxX - minX) / (max_val_for_precision - min_val_for_precision)`
-- Z is zeropoin calculated as `round(-minX / S)`
+- Z is zeropoint calculated as `round(-minX / S)`
 
 
 To integrate kv quantization seamlessly in Transformers, we rely on [quanto](https://github.com/huggingface/quanto) library. Quanto is a toolkit for easy implementation and combination of different quantization tecniques. Currently available quantization precisions for the key-value cache are `int2` and `int4`.
