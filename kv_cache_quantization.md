@@ -99,7 +99,7 @@ Although it is worth noting that processing input prompt tokens (aka pre-fill st
 
 # How to use quantized kv cache in 🤗 Transformers?
 
-To use kv cache quantization in 🤗 Tranformers we have to install external dependencies first by running `pip install quanto`. To activate quantization on kv cache, we have to pass in `cache_implementation="quantized"` and indicate quantization parameters in a cache config in dictionary format. And that's all we need to start using kv cache quantization. Additionally, since quanto is device agnostic, you can quantize and run your model regardless if you are on CPU/GPU/ MPS (Apple Silicon). 
+To use kv cache quantization in 🤗 Tranformers we have to install external dependencies first by running `pip install quanto`. To activate quantization on kv cache, we have to pass in `cache_implementation="quantized"` and indicate quantization parameters in a cache config in dictionary format. And that's all we need to start using kv cache quantization. Additionally, since quanto is device agnostic, you can quantize and run your model regardless if you are on CPU/GPU/MPS (Apple Silicon). 
 
 
 ```python
