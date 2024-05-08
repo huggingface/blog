@@ -9,7 +9,7 @@ authors:
 
 # Subscribe to Enterprise Hub with your AWS Account
 
-AWS Enterprise users can now use Hugging Face as a safe & private collaboration platform with all billing handled directly on AWS.
+You can now upgrade your Hugging Face Organization to Enterprise using your AWS account - get started [on the AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2).
 
 ## What is the Enterprise Hub, the famous 🤗 Hub but in Enterprise mode? 
 
