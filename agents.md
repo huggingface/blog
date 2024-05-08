@@ -13,9 +13,9 @@ authors:
 
 We are releasing Transformers Agents 2.0!
 
-⇒ 🎁 We introduce two new agent types that **can iterate based on past observations to solve complex tasks**.
+⇒ 🎁 On top of our existing agent type, we introduce two new agents that **can iterate based on past observations to solve complex tasks**.
 
-⇒ 💡 We aim for the code to be **simple and clear, and for common attributes like the final prompt and tools to be transparent**.
+⇒ 💡 We aim for the code to be **clear and modular, and for common attributes like the final prompt and tools to be transparent**.
 
 ⇒ 🤝 We add **sharing options** to boost community agents.
 
@@ -54,6 +54,7 @@ Our framework strives for:
 
 - **Clarity through simplicity:** we reduce abstractions to the minimum. Simple error logs and accessible attributes let you easily inspect what’s happening and give you more clarity.
 - **Modularity:** We prefer to propose building blocks rather than full, complex feature sets. You are free to choose whatever building blocks are best for your project.
+    - For instance, since any agent system is just a vehicle powered by an LLM engine, we decided to conceptually separate the two, which lets you create any agent type from any underlying LLM.
 
 On top of that, we have **sharing features** that let you build on the shoulders of giants!
 
@@ -208,6 +209,12 @@ class RetrieverTool(Tool):
 ```
 
 Now it’s straightforward to create an agent that leverages this tool!
+
+The agent will need these arguments upon initialization:
+- *`tools`*: a list of tools that the agent will be able to call.
+- *`llm_engine`*: the LLM that powers the agent.
+
+Our `llm_engine` must be a callable that takes as input a list of [messages](./chat_templating.) and returns text. It also needs to accept a `stop_sequences` argument that indicates when to stop its generation. For convenience, we directly use the `HfEngine` class provided in the package to get a LLM engine that calls our [Inference API](https://huggingface.co/docs/api-inference/en/index).
 
 ```python
 from transformers.agents import HfEngine, ReactJsonAgent
