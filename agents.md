@@ -31,7 +31,7 @@ We are releasing Transformers Agents 2.0!
     - [Self-correcting Retrieval-Augmented-Generation](#self-correcting-retrieval-augmented-generation)
     - [Using a simple multi-agent setup 🤝 for efficient web browsing](#using-a-simple-multi-agent-setup-for-efficient-web-browsing)
 - [Testing our agents](#testing-our-agents)
-    - [Comparing LLM engines](#comparing-llm-engines)
+    - [Benchmarking LLM engines](#benchmarking-llm-engines)
     - [Climbing up the GAIA Leaderboard with a multi-modal agent](#climbing-up-the-gaia-leaderboard-with-a-multi-modal-agent)
 - [Conclusion](#conclusion)
 
@@ -360,15 +360,17 @@ Let’s take our agent framework for a spin and benchmark different models with 
 
 All the code for the experiments below can be found [here](https://github.com/aymeric-roucher/agent_reasoning_benchmark).
 
-### Comparing LLM engines
+### Benchmarking LLM engines
 
-The `agents_reasoning_benchmark` is a small - but mighty- reasoning test for evaluating agent performance. The idea is that the choice the tools you use with your agents can radically alter performance for certain tasks. So this benchmark restricts the set of tools used to a calculator and a basic search tool. And we picked questions from several datasets that could be solved using only these two tools
+The `agents_reasoning_benchmark` is a small - but mighty- reasoning test for evaluating agent performance. This benchmark was already used and explained in more detail in [our earlier blog post](https://huggingface.co/blog/open-source-llms-as-agents). 
 
-- **30 questions from [HotpotQA](https://huggingface.co/datasets/hotpot_qa)** ([Yang et al., 2018](https://huggingface.co/papers/1809.09600)) ****to test search tool usage.
-- **40 questions from [GSM8K](https://huggingface.co/datasets/gsm8k)** ([Cobbe et al., 2021](https://huggingface.co/papers/2110.14168))to test calculator usage.
+The idea is that the choice the tools you use with your agents can radically alter performance for certain tasks. So this benchmark restricts the set of tools used to a calculator and a basic search tool. And we picked questions from several datasets that could be solved using only these two tools
+
+- **30 questions from [HotpotQA](https://huggingface.co/datasets/hotpot_qa)** ([Yang et al., 2018](https://huggingface.co/papers/1809.09600)) to test search tool usage.
+- **40 questions from [GSM8K](https://huggingface.co/datasets/gsm8k)** ([Cobbe et al., 2021](https://huggingface.co/papers/2110.14168)) to test calculator usage.
 - **20 questions from [GAIA](https://huggingface.co/datasets/gaia-benchmark/GAIA)** ([Mialon et al., 2023](https://huggingface.co/papers/2311.12983)) to test the usage of both tools for solving difficult questions.
 
-This benchmark was already used (in an alpha version) and explained in more detail in [our earlier blog post](https://huggingface.co/blog/open-source-llms-as-agents). Here we try 3 different engines: [Mixtral-8x7B](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [Llama3-70B](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct), and [GPT-4 Turbo](https://platform.openai.com/docs/models).
+Here we try 3 different engines: [Mixtral-8x7B](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [Llama3-70B](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct), and [GPT-4 Turbo](https://platform.openai.com/docs/models).
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/agents/aggregate_score.png" alt="benchmark of agent performances" width=90%>
@@ -376,20 +378,21 @@ This benchmark was already used (in an alpha version) and explained in more deta
 
 The results are shown above - as the average of two complete runs for more precision. We also tested [Command-R+](https://huggingface.co/CohereForAI/c4ai-command-r-plus) and [Mixtral-8x22B](https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1), but do not show them for clarity.
 
-**Llama3-70B-Instruct leads the Open-Source models: it is on par with GPT-4**, and it’s especially strong in a `ReactCodeAgent`  thanks to Llama3’s strong coding performance!
+⇒ **Llama3-70B-Instruct leads the Open-Source models: it is on par with GPT-4**, and it’s especially strong in a `ReactCodeAgent`  thanks to Llama3’s strong coding performance!
 
-Comparing JSON- and Code-based agents is interesting: for less powerful models like Mixtral-8x7B, Code-based agents do not perform well, since the LLM often fails to generate good code. But this version catches up at higher levels: in our experience, on the full GAIA test with Llama3-70B-Instruct, the Code version even outperforms the JSON. So that is what we used for the next step: testing on the complete GAIA benchmark.
+💡 It's interesting to compare JSON- and Code-based React agents: with less powerful LLM engines like Mixtral-8x7B, Code-based agents do not perform as well as JSON, since the LLM engine often fails to generate good code. But the Code version really shines with more powerful models as engines: in our experience, the Code version even outperforms the JSON with Llama3-70B-Instruct. As a result, we use the Code version for our next challenge: testing on the complete GAIA benchmark.
 
 ### Climbing up the GAIA Leaderboard with a multi-modal agent
 
 [GAIA](https://huggingface.co/datasets/gaia-benchmark/GAIA) ([Mialon et al., 2023](https://huggingface.co/papers/2311.12983)) is an extremely difficult benchmark. You can see in the `agent_reasoning_benchmark` above that models still do not perform well although we cherry-picked tasks that they could solve with basic tools. To get food performance we need an agent with specific tools:
-
 - `SearchTool`: the web browser defined above.
 - `TextInspectorTool`: open documents as text files and return their content.
 - `SpeechToTextTool`: transcribe audio files to text. We use the default tool based on [distil-whisper](https://huggingface.co/distil-whisper/distil-large-v3).
 - `VisualQATool`: visualize images. For these we use the shiny new [Idefics2-8b-chatty](https://huggingface.co/HuggingFaceM4/idefics2-8b-chatty)!
 
-Inspect the code in the [repo](https://github.com/aymeric-roucher/agent_reasoning_benchmark) for more detail on how we define these tools. Then we initialize our agent:
+We first initialize these toole (for more detail, inspect the code in the [repository](https://github.com/aymeric-roucher/agent_reasoning_benchmark)).
+
+Then we initialize our agent:
 
 ```python
 from transformers.agents import ReactCodeAgent, HfEngine
@@ -412,17 +415,19 @@ react_agent_hf = ReactCodeAgent(
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/agents/leaderboard.png" alt="GAIA leaderboard" width=90%>
 </p>
 
-And after some time needed to complete the 165 questions, we submit our result to the [GAIA Leaderboard](https://huggingface.co/spaces/gaia-benchmark/leaderboard), and… 🥁🥁🥁 
+And after some time needed to complete the 165 questions, we submit our result to the [GAIA Leaderboard](https://huggingface.co/spaces/gaia-benchmark/leaderboard), and… 🥁🥁🥁
+
 ⇒ Our agent comes at the 4th place: it beats many GPT4-based agents, and is now the reigning contender for the Open-Source category!
 
 
 ## Conclusion
 
-We will keep improving this package in the coming months. We have already identified several exciting paths:
-
+We will keep improving this package in the coming months. We have already identified several exciting paths in our development roadmap:
 - agent sharing options
 - better tools (especially in image processing)
 - long-term memory management
-- multi-agent collaboration
+- multi-agent collaboration.
 
-👉 **Go try out transformers agents!** We’re looking forward to receiving your feedback and your ideas. Let’s fill the top of the leaderboard with more open-source models! 🚀
+👉 **Go try out transformers agents!** We’re looking forward to receiving your feedback and your ideas.
+
+Let’s fill the top of the leaderboard with more open-source models! 🚀
