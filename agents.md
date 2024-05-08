@@ -64,7 +64,7 @@ On top of that, we have **sharing features** that let you build on the shoulders
 - `Toolbox`: It's a set of tools that are provided to an agent as resources to solve a particular task. For performance reasons, tools in a toolbox are already instantiated and ready to go. This is because some tools take time to initialize, so it’s usually better to re-use an existing toolbox and just swap one tool, rather than re-building a set of tools from scratch at each agent initialization.
 - `CodeAgent`: a very simple agent that generates its actions as one single blob of Python code. It will not be able to iterate on previous observations.
 - `ReactAgent`: ReAct agents follow a cycle of Thought ⇒ Action ⇒ Observation until they’ve solve the task. We propose two classes of ReactAgent:
-    - `ReactCodeAgent` generates its actions as code blobs.
+    - `ReactCodeAgent` generates its actions as python blobs.
     - `ReactJsonAgent` generates its actions as JSON blobs.
 
 Check out [the documentation](https://huggingface.co/docs/transformers/en/main_classes/agent) to learn how to use each component!
@@ -214,7 +214,7 @@ The agent will need these arguments upon initialization:
 - *`tools`*: a list of tools that the agent will be able to call.
 - *`llm_engine`*: the LLM that powers the agent.
 
-Our `llm_engine` must be a callable that takes as input a list of [messages](./chat_templating.) and returns text. It also needs to accept a `stop_sequences` argument that indicates when to stop its generation. For convenience, we directly use the `HfEngine` class provided in the package to get a LLM engine that calls our [Inference API](https://huggingface.co/docs/api-inference/en/index).
+Our `llm_engine` must be a callable that takes as input a list of [messages](https://huggingface.co/docs/transformers/main/chat_templating) and returns text. It also needs to accept a `stop_sequences` argument that indicates when to stop its generation. For convenience, we directly use the `HfEngine` class provided in the package to get a LLM engine that calls our [Inference API](https://huggingface.co/docs/api-inference/en/index).
 
 ```python
 from transformers.agents import HfEngine, ReactJsonAgent
@@ -440,10 +440,10 @@ And after some time needed to complete the 165 questions, we submit our result t
 ## Conclusion
 
 We will keep improving this package in the coming months. We have already identified several exciting paths in our development roadmap:
-- agent sharing options
-- better tools (especially in image processing)
-- long-term memory management
-- multi-agent collaboration.
+- More agent sharing options: for now you can push or load tools from the Hub, we will implement pushing/loading agents too.
+- Better tools, especially for image processing.
+- Long-term memory management.
+- Multi-agent collaboration.
 
 👉 **Go try out transformers agents!** We’re looking forward to receiving your feedback and your ideas.
 
