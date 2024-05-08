@@ -3940,15 +3940,14 @@
   title: "License to Call: Introducing Transformers Agents 2.0"
   thumbnail: /blog/assets/agents/thumbnail.png
   author: m-ric
-  date: May 07, 2024
+  date: May 8, 2024
   tags:
     - nlp
-    - leaderboard
     - LLM
     - agents
     - transformers
+    - gpt
     - mixtral
     - llama3
-    - agents
     - langchain
     - benchmark

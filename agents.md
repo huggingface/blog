@@ -18,7 +18,7 @@ We are releasing Transformers Agents 2.0!
 
 ⇒ 🤝 We add **sharing options** to boost community agents.
 
-⇒ 💪 **Extremely performant new agent framework**, allowing a Llama3-70B agent to outperform GPT-4 based agents in the GAIA Leaderboard!
+⇒ 💪 **Extremely performant new agent framework**, allowing a Llama-3-70B-Instruct agent to outperform GPT-4 based agents in the GAIA Leaderboard!
 
 🚀 Go try it out and climb ever higher on the GAIA leaderboard!
 
@@ -39,7 +39,7 @@ We are releasing Transformers Agents 2.0!
 
 What is an agent?
 
-Large Language Models (LLMs) can tackle a wide range of tasks, but they often struggle with specific tasks like logic, calculation, and search: thus when prompted in domains in which they do not perform well, they often fail to generate a correct answer.
+Large Language Models (LLMs) can tackle a wide range of tasks, but they often struggle with specific tasks like logic, calculation, and search. When prompted in these domains in which they do not perform well, they frequently fail to generate a correct answer.
 
 One approach to overcome this weakness is to create an **agent**, a program powered by an LLM. The agent is empowered by **tools** to help it perform its action.
 
@@ -370,7 +370,7 @@ The idea is that the choice the tools you use with your agents can radically alt
 - **40 questions from [GSM8K](https://huggingface.co/datasets/gsm8k)** ([Cobbe et al., 2021](https://huggingface.co/papers/2110.14168)) to test calculator usage.
 - **20 questions from [GAIA](https://huggingface.co/datasets/gaia-benchmark/GAIA)** ([Mialon et al., 2023](https://huggingface.co/papers/2311.12983)) to test the usage of both tools for solving difficult questions.
 
-Here we try 3 different engines: [Mixtral-8x7B](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [Llama3-70B](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct), and [GPT-4 Turbo](https://platform.openai.com/docs/models).
+Here we try 3 different engines: [Mixtral-8x7B](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1), [Llama-3-70B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct), and [GPT-4 Turbo](https://platform.openai.com/docs/models).
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/agents/aggregate_score.png" alt="benchmark of agent performances" width=90%>
@@ -378,17 +378,19 @@ Here we try 3 different engines: [Mixtral-8x7B](https://huggingface.co/mistralai
 
 The results are shown above - as the average of two complete runs for more precision. We also tested [Command-R+](https://huggingface.co/CohereForAI/c4ai-command-r-plus) and [Mixtral-8x22B](https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1), but do not show them for clarity.
 
-⇒ **Llama3-70B-Instruct leads the Open-Source models: it is on par with GPT-4**, and it’s especially strong in a `ReactCodeAgent`  thanks to Llama3’s strong coding performance!
+⇒ **Llama-3-70B-Instruct leads the Open-Source models: it is on par with GPT-4**, and it’s especially strong in a `ReactCodeAgent`  thanks to Llama 3’s strong coding performance!
 
-💡 It's interesting to compare JSON- and Code-based React agents: with less powerful LLM engines like Mixtral-8x7B, Code-based agents do not perform as well as JSON, since the LLM engine often fails to generate good code. But the Code version really shines with more powerful models as engines: in our experience, the Code version even outperforms the JSON with Llama3-70B-Instruct. As a result, we use the Code version for our next challenge: testing on the complete GAIA benchmark.
+💡 It's interesting to compare JSON- and Code-based React agents: with less powerful LLM engines like Mixtral-8x7B, Code-based agents do not perform as well as JSON, since the LLM engine frequently fails to generate good code. But the Code version really shines with more powerful models as engines: in our experience, the Code version even outperforms the JSON with Llama-3-70B-Instruct. As a result, we use the Code version for our next challenge: testing on the complete GAIA benchmark.
 
 ### Climbing up the GAIA Leaderboard with a multi-modal agent
 
-[GAIA](https://huggingface.co/datasets/gaia-benchmark/GAIA) ([Mialon et al., 2023](https://huggingface.co/papers/2311.12983)) is an extremely difficult benchmark. You can see in the `agent_reasoning_benchmark` above that models still do not perform well although we cherry-picked tasks that they could solve with basic tools. To get food performance we need an agent with specific tools:
+[GAIA](https://huggingface.co/datasets/gaia-benchmark/GAIA) ([Mialon et al., 2023](https://huggingface.co/papers/2311.12983)) is an extremely difficult benchmark: you can see in the `agent_reasoning_benchmark` above that models do not perform above 50% even though we cherry-picked tasks that could be solved with 2 basic tools.
+
+Now we want to get a score on the complete set, we do not cherry-pick questions anymore. Thus we have to cover all modalities, which leads us to use these specific tools:
 - `SearchTool`: the web browser defined above.
 - `TextInspectorTool`: open documents as text files and return their content.
 - `SpeechToTextTool`: transcribe audio files to text. We use the default tool based on [distil-whisper](https://huggingface.co/distil-whisper/distil-large-v3).
-- `VisualQATool`: visualize images. For these we use the shiny new [Idefics2-8b-chatty](https://huggingface.co/HuggingFaceM4/idefics2-8b-chatty)!
+- `VisualQATool`: analyze images visually. For these we use the shiny new [Idefics2-8b-chatty](https://huggingface.co/HuggingFaceM4/idefics2-8b-chatty)!
 
 We first initialize these toole (for more detail, inspect the code in the [repository](https://github.com/aymeric-roucher/agent_reasoning_benchmark)).
 
@@ -411,13 +413,13 @@ react_agent_hf = ReactCodeAgent(
 )
 ```
 
+And after some time needed to complete the 165 questions, we submit our result to the [GAIA Leaderboard](https://huggingface.co/spaces/gaia-benchmark/leaderboard), and… 🥁🥁🥁
+
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/agents/leaderboard.png" alt="GAIA leaderboard" width=90%>
 </p>
 
-And after some time needed to complete the 165 questions, we submit our result to the [GAIA Leaderboard](https://huggingface.co/spaces/gaia-benchmark/leaderboard), and… 🥁🥁🥁
-
-⇒ Our agent comes at the 4th place: it beats many GPT4-based agents, and is now the reigning contender for the Open-Source category!
+⇒ Our agent comes at the 4th place: it beats many GPT-4-based agents, and is now the reigning contender for the Open-Source category!
 
 
 ## Conclusion
