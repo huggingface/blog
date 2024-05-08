@@ -1,5 +1,5 @@
 ---
-title: "The Enterprise Hub on the AWS Marketplace: Pay with your AWS Account"
+title: "Subscribe to Enterprise Hub with your AWS Account"
 thumbnail: /blog/assets/158_aws_marketplace/thumbnail.jpg
 authors:
 - user: Violette
