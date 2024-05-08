@@ -1,5 +1,5 @@
 ---
-title: "Energy Star Ratings for AI Models - an Introduction"
+title: "Energy Star Ratings for AI Models - a Proposal"
 thumbnail: /blog/assets/energy_star_intro/thumbnail.png
 authors:
 - user: sasha

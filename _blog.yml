@@ -3935,3 +3935,15 @@
     - research
     - leaderboard
     - LLM
+    
+- local: energystarai_intro
+  title: "Energy Star Ratings for AI Models - a Proposal"
+  thumbnail: /blog/assets/energystarai-intro/thumbnail.png
+  author: sasha
+  guest: true
+  date: May 08, 2024
+  tags:
+    - energy
+    - research
+    - climate
+    - LLM
