@@ -3937,7 +3937,7 @@
     - LLM
 
 - local: agents
-  title: "License to Call: Releasing Transformers Agents v2.0"
+  title: "License to Call: Introducing Transformers Agents 2.0"
   thumbnail: /blog/assets/agents/thumbnail.png
   author: m-ric
   date: May 07, 2024

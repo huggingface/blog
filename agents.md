@@ -1,12 +1,12 @@
 ---
-title: "License to Call: Releasing Transformers Agents v2.0"
+title: "License to Call: Introducing Transformers Agents 2.0"
 thumbnail: /blog/assets/agents/thumbnail.png
 authors:
   - user: m-ric
   - user: lysandre
 ---
 
-# License to Call: Releasing Transformers Agents v2.0
+# License to Call: Introducing Transformers Agents 2.0
 
 ### TL;DR
 
