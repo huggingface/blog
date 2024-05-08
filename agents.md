@@ -45,7 +45,7 @@ One approach to overcome this weakness is to create an **agent**, a program powe
 
 Thus when during problem-solving the agent needs a specific skill, it can just rely on an appropriate tool from its toolbox.
 
-Experimentally, the agent framework works extremely well, often allowing to obtain state-of-the-art performance on benchmarks. For instance, have a look at [[list benchmarks]].
+Experimentally, the agent framework works extremely well, often allowing to obtain state-of-the-art performance on benchmarks. For instance, have a look at [the top submissions for HumanEval](https://paperswithcode.com/sota/code-generation-on-humaneval): they are agent systems.
 
 ## Our approach
 
@@ -88,6 +88,13 @@ For more general context about agents, you could read [this excellent blog post]
 
 ## Example use cases
 
+In order to get access to the early access of this feature, please first install `transformers` from its `main` branch:
+```
+pip install "git+https://github.com/huggingface/transformers.git#egg=transformers[agents]"
+```
+Agents 2.0 will be released in the v4.41.0 version, landing mid-May.
+
+
 ### Self-correcting Retrieval-Augmented-Generation
 
 Quick definition: Retrieval-Augmented-Generation (RAG) is “using an LLM to answer a user query, and letting base its answer on information retrieved from a knowledge base”. It has many advantages over using a vanilla or fine-tuned LLM: to name a few, it allows to ground the answer on true facts and reduce confabulations, it allows to provide the LLM with domain-specific knowledge, and it allows fine-grained control of access to information from the knowledge base.
@@ -96,7 +103,14 @@ Let’s say we want to perform RAG, and some parameters must be dynamically gene
 
 Well, we can do this by giving our agent an access to these parameters!
 
-Let us setup this system. We first load a knowledge base on which we want to perform RAG.
+Let us setup this system. 
+
+Tun the line below to install required dependancies:
+```
+pip install langchain sentence-transformers faiss-cpu
+```
+
+We first load a knowledge base on which we want to perform RAG.
 
 ```python
 import datasets
@@ -235,7 +249,9 @@ Action:
 
 We want to build an agent and test it on the GAIA benchmark ([Mialon et al. 2023](https://huggingface.co/papers/2311.12983)). GAIA is an extremely difficult benchmark, with most questions requiring several steps of reasoning using different tools. A specifically difficult requirement is to have a powerful web browser, able to navigate to pages with specific constraints: discovering pages using the website’s inner navigation, selecting specific articles in time...
 
-Since this browsing requires diving deeper into subpages, thus scrolling through lots of text tokens that will not necessary for the higher-level task-solving, we prefer to give the web-browsing sub-tasks to a specialized web surfer agent. We provide it with some tools to browse the web and a specific prompt (check the repo to find specific implementations).
+Since this browsing requires diving deeper into subpages, thus scrolling through lots of text tokens that will not necessary for the higher-level task-solving, we prefer to give the web-browsing sub-tasks to a specialized web surfer agent. We provide it with some tools to browse the web and a specific prompt. 
+
+Defining these tools is outside the scope of this post: but you can check [the repository](https://github.com/aymeric-roucher/agent_reasoning_benchmark) to find specific implementations.
 
 ```python
 from transformers.agents import ReactJsonAgent, HfEngine
