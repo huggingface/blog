@@ -7,7 +7,7 @@ authors:
 - user: jeffboudier
 ---
 
-# The Enterprise Hub on the AWS Marketplace: Pay with your AWS Account.
+# Subscribe to Enterprise Hub with your AWS Account
 
 AWS Enterprise users can now use Hugging Face as a safe & private collaboration platform with all billing handled directly on AWS.
 
