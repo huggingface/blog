@@ -36,7 +36,7 @@ In this blog, you will learn how Intel can help you develop and deploy RAG appli
 
 Before diving into the details, let’s access the hardware first. [Intel Gaudi 2](https://habana.ai/products/gaudi2/) is purposely built to accelerate deep learning training and inference in the data center and cloud. It is publicly available on the [Intel Developer Cloud](https://www.intel.com/content/www/us/en/developer/tools/devcloud/overview.html) (IDC) and for on-premises implementations.  IDC is the easiest way to start with Gaudi 2. If you don’t have an account yet, please register for one, subscribe to “Premium,” and then apply for access.
 
-On the software, we will build our application with LangChain, an open-source framework designed to simplify the creation of AI applications with LLMs. It provides template-based solutions, allowing developers to build RAG applications with custom embeddings, vector databases, and LLMs. The LangChain documentation provides more information. Intel has been actively contributing multiple optimizations to LangChain enabling developers to deploy GenAI applications efficiently on Intel platforms.
+On the software side, we will build our application with LangChain, an open-source framework designed to simplify the creation of AI applications with LLMs. It provides template-based solutions, allowing developers to build RAG applications with custom embeddings, vector databases, and LLMs. The LangChain documentation provides more information. Intel has been actively contributing multiple optimizations to LangChain, enabling developers to deploy GenAI applications efficiently on Intel platforms.
 
 In LangChain, we will use the `rag-redis` template to create our RAG application, with the [BAAI/bge-base-en-v1.5](https://huggingface.co/BAAI/bge-base-en-v1.5) embedding model and Redis as the default vector database. The diagram below shows the high-level architecture.
 
@@ -57,7 +57,7 @@ We provide a [Dockerfile](https://github.com/opea-project/GenAIExamples/tree/mai
 To populate the vector database, we use public financial documents from Nike. Here is the sample code. 
 
 ```
-# Ingest PDF files that contains Edgar 10k filings data for Nike.
+# Ingest PDF files that contain Edgar 10k filings data for Nike.
 company_name = "Nike"
 data_path = "data"
 doc_path = [os.path.join(data_path, file) for file in os.listdir(data_path)][0]
@@ -78,9 +78,9 @@ _ = Redis.from_texts(
 
 # Defining the RAG Pipeline
 
-We use the Chain API in LangChain to connect the prompt, the vector database, and the embedding model. 
+In LangChain, we use the Chain API to connect the prompt, the vector database, and the embedding model. 
 
-The full code is available in the [repository](https://github.com/opea-project/GenAIExamples/blob/main/ChatQnA/langchain/redis/rag_redis/chain.py).
+The complete code is available in the [repository](https://github.com/opea-project/GenAIExamples/blob/main/ChatQnA/langchain/redis/rag_redis/chain.py).
 
 
 ```
@@ -112,7 +112,7 @@ chain = (
 
 We will run our chat model on Gaudi2 with the Hugging Face Text Generation Inference (TGI) server. This combination enables high-performance text generation for popular open-source LLMs on Gaudi2 hardware, such as MPT, Llama, and Mistral.
 
-No setup is required. We can simply use a pre-built Docker image and pass the model name (e.g., Intel NeuralChat).
+No setup is required. We can use a pre-built Docker image and pass the model name (e.g., Intel NeuralChat).
 
 ```
 model=Intel/neural-chat-7b-v3-3
@@ -135,7 +135,7 @@ If you see a generated response, the LLM is running correctly and you can now en
 
 The TGI Gaudi container utilizes the bfloat16 data type by default. For higher throughput, you may want to enable FP8 quantization. According to our test results, FP8 quantization should yield a 1.8x throughput increase gain compared to BF16.  FP8 instructions are available in the [README](https://github.com/opea-project/GenAIExamples/blob/main/ChatQnA/README.md) file.
 
-Last, you could also enable content moderation with the Meta [Llama Guard](https://huggingface.co/meta-llama/LlamaGuard-7b) model. The [README](https://github.com/opea-project/GenAIExamples/blob/main/ChatQnA/README.md) file provides instructions for deploying Llama Guard on TGI Gaudi.
+Lastly, you can enable content moderation with the Meta [Llama Guard](https://huggingface.co/meta-llama/LlamaGuard-7b) model. The [README](https://github.com/opea-project/GenAIExamples/blob/main/ChatQnA/README.md) file provides instructions for deploying Llama Guard on TGI Gaudi.
 
 # Running the RAG service
 
@@ -192,7 +192,7 @@ We did intensive experiments with different models and configurations. The two f
 </kbd>
 
 
-In both cases, the same Intel Granite Rapids CPU platform is used for vector database and embedding models. For performance per dollar comparison, we use publicly available pricing to compute an average training performance per dollar, the same as the one reported by the [MosaicML](https://www.databricks.com/blog/llm-training-and-inference-intel-gaudi2-ai-accelerators) team in Jan 2024.
+In both cases, the same Intel Granite Rapids CPU platform is used for vector databases and embedding models. For performance per dollar comparison, we use publicly available pricing to compute an average training performance per dollar, the same as the one reported by the [MosaicML](https://www.databricks.com/blog/llm-training-and-inference-intel-gaudi2-ai-accelerators) team in January 2024.
  
 As you can see, the H100-based system has 1.13x more throughput but can only deliver 0.44x performance per dollar compared to Gaudi 2. These comparisons may vary based on customer-specific discounts on different cloud providers. Detailed benchmark configurations are listed at the end of the post.
 
@@ -209,10 +209,10 @@ The following developer resources should help you kickstart your GenAI projects 
 * [Intel AIML Ecosystem: Hugging Face](https://www.intel.com/content/www/us/en/developer/ecosystem/hugging-face.html)
 * [The Intel organization page on the Hugging Face hub](https://huggingface.co/Intel)
 
-If you have questions or feedback, we'd love to answer them on the Hugging Face forum. Thanks for reading!
+If you have questions or feedback, we'd love to answer them on the [Hugging Face forum](https://discuss.huggingface.co/). Thanks for reading!
 
 **Acknowledgements**:
-We’d like to thank Chaitanya Khened, Suyue Chen, Mikolaj Zyczynski, Wenjiao Yue, Wenxin Zhang, Letong Han, Sihan Chen, Hanwen Cheng, Yuan Wu, and Yi Wang for their great contributions to building enterprise-grade RAG systems on Intel Gaudi 2.
+We want to thank Chaitanya Khened, Suyue Chen, Mikolaj Zyczynski, Wenjiao Yue, Wenxin Zhang, Letong Han, Sihan Chen, Hanwen Cheng, Yuan Wu, and Yi Wang for their outstanding contributions to building enterprise-grade RAG systems on Intel Gaudi 2.
 
 
 ---
