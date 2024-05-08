@@ -26,7 +26,7 @@ Moving on to the second term, quantization is just a fancy word for reducing the
 
 Even though kv cache speeds up autoregressive generation, it can become a memory bottleneck with long context length or high batch size. Let's estimate how much memory we will need to store kv cache for an input of sequence length 10000 tokens for a 7B Llama-2 model. The memory required to store kv cache of one token is roughly `2 * 2 * num_layers * num_key_value_heads * head_dim`, where the first `2` accounts for keys and values and the second `2` is the number of bytes we need (assuming the model is loaded in `float16`). So if we have a context of length 10000 tokens, we would need
 
-`2 * 2 * 32 * 32 * 128 * 10000 = 5GB`
+`2 * 2 * 32 * 32 * 128 * 10000 ≈ 5GB`
 
 of memory only to store the previous key-value cache, which is almost one third of the memory required to store model parameters in half-precision.
 
