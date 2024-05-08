@@ -1518,6 +1518,14 @@
     - guide
     - trl
 
+- local: ryght-case-study
+  title: Ryght 在 Hugging Face 专家助力下赋能医疗保健和生命科学之旅
+  author: andrewrreed
+  thumbnail: /blog/assets/ryght-case-study/thumbnail.png
+  date: April 16, 2024
+  tags:
+    - case-studies
+
 - local: gradio-reload
   title: 使用 Gradio 的“热重载”模式快速开发 AI 应用
   author: freddyaboulton
