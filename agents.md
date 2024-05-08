@@ -4,6 +4,7 @@ thumbnail: /blog/assets/agents/thumbnail.png
 authors:
   - user: m-ric
   - user: lysandre
+  - user: pcuenq
 ---
 
 # License to Call: Introducing Transformers Agents 2.0
@@ -51,7 +52,7 @@ Building agent workflows is complex, and we feel these systems need a lot of cla
 
 Our framework strives for:
 
-- **Clarity through simplicity:** we reduce abstractions to the minimum. Simple error logs and accessible attributes let you easily inspect what’s happening, thus leaving you more clarity
+- **Clarity through simplicity:** we reduce abstractions to the minimum. Simple error logs and accessible attributes let you easily inspect what’s happening and give you more clarity.
 - **Modularity:** We prefer to propose building blocks rather than full, complex feature sets. You are free to choose whatever building blocks are best for your project.
 
 On top of that, we have **sharing features** that let you build on the shoulders of giants!
