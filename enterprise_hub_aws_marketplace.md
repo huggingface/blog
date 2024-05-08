@@ -11,7 +11,7 @@ authors:
 
 You can now upgrade your Hugging Face Organization to Enterprise using your AWS account - get started [on the AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2).
 
-## What is the Enterprise Hub, the famous 🤗 Hub but in Enterprise mode? 
+## What is Enterprise Hub? 
 
 In addition to offering widely adopted open-source libraries and thousands of models and datasets, we enable an enterprise-ready version of the world’s leading AI platform. With the Enterprise Hub, you give your team the most advanced GDPR & SOC2T2 compliant platform to build AI with open-source resources complying with privacy and security Enterprise constraints: 
 - Benefit from state-of-the-art machine learning, 
