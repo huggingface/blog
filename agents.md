@@ -8,7 +8,7 @@ authors:
 
 # License to Call: Introducing Transformers Agents 2.0
 
-### TL;DR
+## TL;DR
 
 We are releasing Transformers Agents 2.0!
 
@@ -24,8 +24,8 @@ We are releasing Transformers Agents 2.0!
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Our approach](#our-approach)
+- [What is an agent?](#what-is-an-agent)
+- [The Transformers Agents approach](#the-transformers-agents-approach)
     - [Main elements](#main-elements)
 - [Example use-cases](#example-use-cases)
     - [Self-correcting Retrieval-Augmented-Generation](#self-correcting-retrieval-augmented-generation)
@@ -35,49 +35,46 @@ We are releasing Transformers Agents 2.0!
     - [Climbing up the GAIA Leaderboard with a multi-modal agent](#climbing-up-the-gaia-leaderboard-with-a-multi-modal-agent)
 - [Conclusion](#conclusion)
 
-## Introduction
-
-What is an agent?
+## What is an agent?
 
 Large Language Models (LLMs) can tackle a wide range of tasks, but they often struggle with specific tasks like logic, calculation, and search. When prompted in these domains in which they do not perform well, they frequently fail to generate a correct answer.
 
-One approach to overcome this weakness is to create an **agent**, a program powered by an LLM. The agent is empowered by **tools** to help it perform its action.
+One approach to overcome this weakness is to create an **agent**, which is just a program driven by an LLM. The agent is empowered by **tools** to help it perform actions. When the agent needs a specific skill to solve a particular problem, it relies on an appropriate tool from its toolbox.
 
 Thus when during problem-solving the agent needs a specific skill, it can just rely on an appropriate tool from its toolbox.
 
-Experimentally, the agent framework works extremely well, often allowing to obtain state-of-the-art performance on benchmarks. For instance, have a look at [the top submissions for HumanEval](https://paperswithcode.com/sota/code-generation-on-humaneval): they are agent systems.
+Experimentally, agent frameworks generally work very well, achieving state-of-the-art performance on several benchmarks. For instance, have a look at [the top submissions for HumanEval](https://paperswithcode.com/sota/code-generation-on-humaneval): they are agent systems.
 
-## Our approach
+## The Transformers Agents approach
 
-Building agent workflows is complex, and we feel these systems need a lot of clarity and modularity. We launched Transformers Agents one year ago, and still believe our approach has a lot of value, so we’re doubling down.
+Building agent workflows is complex, and we feel these systems need a lot of clarity and modularity. We launched Transformers Agents one year ago, and we’re doubling down on our core design goals.
 
-Our frameworks strives for:
+Our framework strives for:
 
 - **Clarity through simplicity:** we reduce abstractions to the minimum. Simple error logs and accessible attributes let you easily inspect what’s happening, thus leaving you more clarity
-- **Modularity:** We prefer to propose building blocks rather than full sets, to let you choose whatever building blocks are best for your project.
+- **Modularity:** We prefer to propose building blocks rather than full, complex feature sets. You are free to choose whatever building blocks are best for your project.
 
 On top of that, we have **sharing features** that let you build on the shoulders of giants!
 
 ### Main elements
 
-- `Tool`: this is the class that lets you define a tool. It is composed mainly of a forward `method` that executes the tool call, and attributes `name`, `descriptions`, `inputs` and `output_type`  that are used to dynamically generate a usage manual for the tool and insert it into the LLM’s prompt.
-- `Toolbox`: We would have preferred to avoid creating that abstraction, but since some tools take time to initialize, it’s better to re-use a previous toolbox and just swap one tool rather than re-building a set of tools from scratch at each agent initialization.
+- `Tool`: this is the class that lets you use a tool or implement a new one. It is composed mainly of a callable forward `method` that executes the tool action, and a set of a few essential attributes: `name`, `descriptions`, `inputs` and `output_type`. These attributes are used to dynamically generate a usage manual for the tool and insert it into the LLM’s prompt.
+- `Toolbox`: It's a set of tools that are provided to an agent as resources to solve a particular task. For performance reasons, tools in a toolbox are already instantiated and ready to go. This is because some tools take time to initialize, so it’s usually better to re-use an existing toolbox and just swap one tool, rather than re-building a set of tools from scratch at each agent initialization.
 - `CodeAgent`: a very simple agent that generates its actions as one single blob of Python code. It will not be able to iterate on previous observations.
 - `ReactAgent`: ReAct agents follow a cycle of Thought ⇒ Action ⇒ Observation until they’ve solve the task. We propose two classes of ReactAgent:
     - `ReactCodeAgent` generates its actions as code blobs.
     - `ReactJsonAgent` generates its actions as JSON blobs.
 
-Check out the doc at [INSERT_LINK] to learn how to use each component!
+Check out [the documentation](https://huggingface.co/docs/transformers/en/main_classes/agent) to learn how to use each component!
 
-How do our agents work under the hood?
+How do agents work under the hood?
 
-What’s in common is that in the essence, an agent is “allowing an LLM to use tools”, you will need these key elements in your central `agent.run()` function:
+In essence, what an agent does is “allowing an LLM to use tools”. Agents have a key `agent.run()` method that:
 
-- Provide information about tool usage to your LLM in a **specific prompt**
-- **Parse** the tool calls from the LLM output (can be via code, JSON format, or any other format)
-- **Execute** calls
-- If you want the agent to iterate on previous outputs, you need to **keep a memory** with previous tool calls and observations (can be more or less fine-grained depending on how long-term you want it to be).
-
+- Provides information about tool usage to your LLM in a **specific prompt**. This way, the LLM can select tools to run to solve the task.
+- **Parses** the tool calls from the LLM output (can be via code, JSON format, or any other format).
+- **Executes** the calls.
+- If the agent is designed to iterate on previous outputs, it **keeps a memory** with previous tool calls and observations. This memory can be more or less fine-grained depending on how long-term you want it to be.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/agents/agent_single_multistep.png" alt="graph of agent workflows" width=90%>
@@ -85,6 +82,10 @@ What’s in common is that in the essence, an agent is “allowing an LLM to use
 
 
 For more general context about agents, you could read [this excellent blog post](https://lilianweng.github.io/posts/2023-06-23-agent/) by Lilian Weng or [our earlier blog post](https://huggingface.co/blog/open-source-llms-as-agents) about building agents with LangChain.
+
+
+To take a deeper dive in our package, go take a look at the [agents documentation](https://huggingface.co/docs/transformers/en/transformers_agents).
+
 
 ## Example use cases
 
@@ -97,27 +98,27 @@ Agents 2.0 will be released in the v4.41.0 version, landing mid-May.
 
 ### Self-correcting Retrieval-Augmented-Generation
 
-Quick definition: Retrieval-Augmented-Generation (RAG) is “using an LLM to answer a user query, and letting base its answer on information retrieved from a knowledge base”. It has many advantages over using a vanilla or fine-tuned LLM: to name a few, it allows to ground the answer on true facts and reduce confabulations, it allows to provide the LLM with domain-specific knowledge, and it allows fine-grained control of access to information from the knowledge base.
+Quick definition: Retrieval-Augmented-Generation (RAG) is “using an LLM to answer a user query, but basing the answer on information retrieved from a knowledge base”. It has many advantages over using a vanilla or fine-tuned LLM: to name a few, it allows to ground the answer on true facts and reduce confabulations, it allows to provide the LLM with domain-specific knowledge, and it allows fine-grained control of access to information from the knowledge base.
 
-Let’s say we want to perform RAG, and some parameters must be dynamically generated. For instance, it could be that we need to search only a specific subset of the knowledge base, for instance only the financial documents. Or we want to adapt the number of documents retrieved.
+Let’s say we want to perform RAG, and some parameters must be dynamically generated. For example, depending on the user query we could want to restrict the search to specific subsets of the knowledge base, or we could want to adjust the number of documents retrieved. The difficulty is: how to dynamically adjust these parameters based on the user query?
 
 Well, we can do this by giving our agent an access to these parameters!
 
-Let us setup this system. 
+Let's setup this system. 
 
 Tun the line below to install required dependancies:
 ```
 pip install langchain sentence-transformers faiss-cpu
 ```
 
-We first load a knowledge base on which we want to perform RAG.
+We first load a knowledge base on which we want to perform RAG: this dataset is a compilation of the documentation pages for many `huggingface` packages, stored as markdown.
 
 ```python
 import datasets
 knowledge_base = datasets.load_dataset("m-ric/huggingface_doc", split="train")
 ```
 
-Now we prepare the knowledge base to make it into a vector database for your retriever. We are going to use LangChain, since it features excellent utilities for vector databases:
+Now we prepare the knowledge base by processing the dataset and storing it into a vector database to be used by the retriever. We are going to use LangChain, since it features excellent utilities for vector databases:
 
 ```python
 from langchain.docstore.document import Document
@@ -140,11 +141,11 @@ vectordb = FAISS.from_documents(
 )
 ```
 
-Now that we have the database ready, let’s build an agent that uses it!
+Now that we have the database ready, let’s build a RAG system that answers user queries based on it!
 
-We want to leave our agent free to select only from the most relevant sources of information.
+We want our system to select only from the most relevant sources of information, depending on the query.
 
-Our documents belong to the following sources:
+Our documentation pages come from the following sources:
 
 ```python
 >>> all_sources = list(set([doc.metadata["source"] for doc in docs_processed]))
@@ -157,7 +158,9 @@ Our documents belong to the following sources:
 
 How can we select the relevant sources based on the user query?
 
-👉 Let us leave our agent in charge of this! We create a retriever tool that the agent can call with the parameters of its choice:
+👉 Let us build our RAG system as an agent that will be free to choose its sources!
+
+We create a retriever tool that the agent can call with the parameters of its choice:
 
 ```python
 import json
@@ -205,8 +208,6 @@ class RetrieverTool(Tool):
 
 Now it’s straightforward to create an agent that leverages this tool!
 
-By the way, the tool could have been loaded from the hub. The documentation shows how to use it, basically: 
-
 ```python
 from transformers.agents import HfEngine, ReactJsonAgent
 
@@ -219,6 +220,12 @@ agent_output = agent.run("Please show me a LORA finetuning script")
 print("Final output:")
 print(agent_output)
 ```
+
+Since we initialized the agent as a `ReactJsonAgent`, it has been automatically given a default system prompt that tells the LLM engine to process step-by-step and generate tool calls as JSON blobs (you could replace this prompt template with your own as needed).
+
+Then when its `.run()` method is launched, the agent takes care of calling the LLM engine, parsing the tool call JSON blobs and executing these tool calls, all in a loop that ends only when the final answer is provided.
+
+And we get the following output:
 
 ```
 Calling tool: retriever with arguments: {'query': 'LORA finetuning script', 'source': "['transformers', 'datasets-server', 'datasets']"}
@@ -247,9 +254,9 @@ Action:
 
 ### Using a simple multi-agent setup 🤝 for efficient web browsing
 
-We want to build an agent and test it on the GAIA benchmark ([Mialon et al. 2023](https://huggingface.co/papers/2311.12983)). GAIA is an extremely difficult benchmark, with most questions requiring several steps of reasoning using different tools. A specifically difficult requirement is to have a powerful web browser, able to navigate to pages with specific constraints: discovering pages using the website’s inner navigation, selecting specific articles in time...
+In this example, we want to build an agent and test it on the GAIA benchmark ([Mialon et al. 2023](https://huggingface.co/papers/2311.12983)). GAIA is an extremely difficult benchmark, with most questions requiring several steps of reasoning using different tools. A specifically difficult requirement is to have a powerful web browser, able to navigate to pages with specific constraints: discovering pages using the website’s inner navigation, selecting specific articles in time...
 
-Since this browsing requires diving deeper into subpages, thus scrolling through lots of text tokens that will not necessary for the higher-level task-solving, we prefer to give the web-browsing sub-tasks to a specialized web surfer agent. We provide it with some tools to browse the web and a specific prompt. 
+Web browsing requires diving deeper into subpages and scrolling through lots of text tokens that will not be necessary for the higher-level task-solving. We assign the web-browsing sub-tasks to a specialized web surfer agent. We provide it with some tools to browse the web and a specific prompt (check the repo to find specific implementations).
 
 Defining these tools is outside the scope of this post: but you can check [the repository](https://github.com/aymeric-roucher/agent_reasoning_benchmark) to find specific implementations.
 
@@ -293,10 +300,10 @@ class SearchTool(Tool):
     output_type = "text"
 
     def forward(self, question: str) -> str:
-        return surfer_agent.run(question)
+        return websurfer_agent.run(question)
 ```
 
-Then we initialize the task-solving agent this search tool and a specific prompt (basically we added a few modifications over the default prompt for a `ReactCodeAgent` , but you still could use the base prompt, it works well):
+Then we initialize the task-solving agent with this search tool:
 
 ```python
 from transformers.agents import ReactCodeAgent
@@ -364,7 +371,7 @@ All the code for the experiments below can be found [here](https://github.com/ay
 
 The `agents_reasoning_benchmark` is a small - but mighty- reasoning test for evaluating agent performance. This benchmark was already used and explained in more detail in [our earlier blog post](https://huggingface.co/blog/open-source-llms-as-agents). 
 
-The idea is that the choice the tools you use with your agents can radically alter performance for certain tasks. So this benchmark restricts the set of tools used to a calculator and a basic search tool. And we picked questions from several datasets that could be solved using only these two tools
+The idea is that the choice of tools you use with your agents can radically alter performance for certain tasks. So this benchmark restricts the set of tools used to a calculator and a basic search tool. We picked questions from several datasets that could be solved using only these two tools:
 
 - **30 questions from [HotpotQA](https://huggingface.co/datasets/hotpot_qa)** ([Yang et al., 2018](https://huggingface.co/papers/1809.09600)) to test search tool usage.
 - **40 questions from [GSM8K](https://huggingface.co/datasets/gsm8k)** ([Cobbe et al., 2021](https://huggingface.co/papers/2110.14168)) to test calculator usage.
