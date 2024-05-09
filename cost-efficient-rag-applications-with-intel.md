@@ -5,20 +5,28 @@ authors:
 - user: juliensimon
 - user: Haihao
   guest: true
+  org: Intel
 - user: antonyvance
   guest: true
+  org: Intel
 - user: MatrixYao
   guest: true
+  org: Intel
 - user: lianglv
   guest: true
+  org: Intel
 - user: Suleyman Sair
   guest: true
+  org: Intel
 - user: gserochi
   guest: true
+  org: Intel
 - user: Debbh
   guest: true
+  org: Intel
 - user: kding1
   guest: true
+  org: Intel
 
 ---
 
