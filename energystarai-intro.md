@@ -22,7 +22,7 @@ The aim of the [Energy Star AI project](https://huggingface.co/EnergyStarAI) is 
 
 ## Tasks and Models
 
-Since the original Energy Star ratings were developed to span a variety of use cases and consumer products, we picked 10 popular [tasks](https://huggingface.co/tasks) spanning both language and computer vision, and including multi-modal tasks. By testing a variety of models across different tasks, we aim to cover different use cases and AI applications that are relevant to different groups:
+Since the original Energy Star ratings were developed to span a variety of use cases and consumer products, we picked 10 popular [tasks](https://huggingface.co/tasks) spanning both language, audio and computer vision, and including multi-modal tasks. By testing a variety of models across different tasks, we aim to cover different use cases and AI applications that are relevant to different groups:
 
 **Language**
 - Text generation
