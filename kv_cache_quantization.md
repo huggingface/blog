@@ -35,11 +35,11 @@ Therefore by compressing kv cache into a more compact form we can save up a lot 
 
 # Implementation Details
 
-Key-value cache quantization in Transformers was largely inspired by the [KIVI: A Tuning-Free Asymmetric 2bit Quantization for kv Cache](https://arxiv.org/abs/2402.02750) paper. The paper introduced a 2bit asymmetrical quantization for large language models without quality degradation. KIVI quantizes the key cache per-channel (grouping on the sequence length dimension) and the value cache per-token, because keys have higher magnitudes of outliers in some channels while value cache does not such a pattern. That is why the relative error between quantized and original precision is much smaller when keys are quantized per-channel and the values per-token.
+Key-value cache quantization in Transformers was largely inspired by the [KIVI: A Tuning-Free Asymmetric 2bit Quantization for kv Cache](https://arxiv.org/abs/2402.02750) paper. The paper introduced a 2bit asymmetrical quantization for large language models without quality degradation. KIVI quantizes the key cache per-channel and the value cache per-token, because keys have higher magnitudes of outliers in some channels while value cache does not such a pattern. That is why the relative error between quantized and original precision is much smaller when keys are quantized per-channel and the values per-token.
 
 Another key part of the KIVI method is retaining a residual cache to store keys and values in their original precision, and when the residual cache reaches its maximum capacity the keys and values are quantized and the cache content is discarded. This small trick allows to preserve accuracy since some part of the most recent keys and values are always stored in their original precision. Also, it allows to run seamlessly the per-channel key quantization which requires the number of tokens to be divisible by the group size. The main consideration is the memory-efficiency trade-off when setting the residual cache length. While residual cache stores keys and values in their original precision, that may result in overall memory usage increase. So, the general idea of KIVI is to maintain two separate caches for quantized and residual parts of key and value matrices.
 
-The implementation of kv cache in Transformers is partially based on KIVI, specifically we adopted the same strategy of retaining `k` tokens in the residual cache for quality maintenance. In contrast to the KIVI, Transformers quantizes both keys and value per-channel by grouping on the last dimension. We found that this type of per-channel quantization does not hurt accuracy of the generations. So given a key or value of shape `batch size, num of heads, num of tokens, head dim` we group it to `num of groups, group size` and perform affine quantization as follows:
+The implementation of kv cache in Transformers is partially based on KIVI, specifically we adopted the same strategy of retaining `k` tokens in the residual cache for quality maintenance. In contrast to the KIVI, Transformers quantizes both keys and value per-token. We found that this type of per-token quantization does not hurt accuracy of the generations for `int4` precision. So given a key or value of shape `batch size, num of heads, num of tokens, head dim` we group it to `num of groups, group size` and perform affine quantization as follows:
 
 `X_Q = round(X / S) - Z`
 
@@ -72,7 +72,7 @@ Same holds true when calculating performance on the [LongBench](https://huggingf
 | Passage_retrieval_en  | NA          | NA           | 8.5                 | 9.5     | 4.82    |
 
 
-Now, let's talk about the trade-off between memory savings and speed. When we quantize the kv cache in models, we're making them less memory hungry, but sometimes that comes at a tiny cost to generation speed. While quantizing the cache to `int4` can offer roughly an x2 memory saving, the generation speed starts to decrease with higher batch sizes. One has to decide whether using quantized kv cache and potentially sacrificing a bit of speed is worth the trade-off for the significant gains in memory efficiency. It's all about finding the approach that best suits your specific use case and priorities. 
+Now, let's talk about the trade-off between memory savings and speed. When we quantize the kv cache in models, we're making them less memory hungry, but sometimes that comes at a tiny cost to generation speed. While quantizing the cache to `int4` can offer roughly an x2.5 memory saving, the generation speed starts to decrease with higher batch sizes. One has to decide whether using quantized kv cache and potentially sacrificing a bit of speed is worth the trade-off for the significant gains in memory efficiency. It's all about finding the approach that best suits your specific use case and priorities. 
 
 Below are the performance metrics for kv cache in original precision and quantized format. Script to obtain the following figures is available [here](https://gist.github.com/zucchini-nlp/56ce57276d7b1ee666e957912d8d36ca).
 
@@ -96,11 +96,13 @@ Wondering what happens when we throw weight quantization into the mix? Sure, com
 
 Although it is worth noting that processing input prompt tokens (aka pre-fill stage), unlike subsequent generated tokens, still require computing the entire key-value matrices in one go for the whole input that may be another memory bottleneck for long contexts. Respectively, the latency associated with generating the first token tends to be higher compared to subsequent tokens. There are other different strategies to decrease memory burden for the pre-fill stage by optimizing the attention computation stage, such like [Local Windowed Attention](https://arxiv.org/abs/2004.05150) or [Flash-Attention](https://arxiv.org/abs/2307.08691). If you are out of memory for the pre-fill stage, you can use `FlashAttention` in 🤗 Transformers along with the kv cache quantization to decrease memory usage even more for long input prompts. See [docs](https://huggingface.co/docs/transformers/main/en/perf_infer_gpu_one#flashattention-2) for more information on that.
 
+If you are interested how many tokens we can fit in the context if we were to push the memory usage to its limits, quantized kv cache can support up to 128k tokens with Flash Attention enabled in an 80GB A100. For the cache in half precision, the maximum capacity is 40k tokens.
 
 # How to use quantized kv cache in 🤗 Transformers?
 
 To use kv cache quantization in 🤗 Tranformers we have to install external dependencies first by running `pip install quanto`. To activate quantization on kv cache, we have to pass in `cache_implementation="quantized"` and indicate quantization parameters in a cache config in dictionary format. And that's all we need to start using kv cache quantization. Additionally, since quanto is device agnostic, you can quantize and run your model regardless if you are on CPU/GPU/MPS (Apple Silicon). 
 
+Here you can find a short [Colab notebook](https://colab.research.google.com/drive/1YKAdOLoBPIore77xR5Xy0XLN8Etcjhui?usp=sharing) with usage examples.
 
 ```python
 >>> import torch
@@ -135,6 +137,10 @@ There are many more different methods to reduce memory usage by key-value cache,
   
 
 # Acknowledgment
+
+Special thanks to [Younes](https://huggingface.co/ybelkada) and [Marc](https://huggingface.co/marcsun13) for help and valuable advice in quantization.
+
+Finally, we would like to thank [Joao](https://github.com/pcuenca) for his help with 
 
 
 # Further Resources
