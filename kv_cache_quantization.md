@@ -1,6 +1,6 @@
 ---
 title: "Unlocking Longer Generation with Key-Value Cache Quantization" 
-thumbnail: /blog/assets/kv_cache_quantization/thumbnail.gif
+thumbnail: /blog/assets/kv_cache_quantization/thumbnail.png
 authors:
 - user: RaushanTurganbay
 ---
@@ -61,7 +61,7 @@ We know visuals speak louder than words, so we've prepared up some comparison pl
 </figure>
 
 
-Same holds true when calculating performance on the [LongBench](https://huggingface.co/datasets/THUDM/LongBench) benchmark comparing it to results from the KIVI paper. `Int4` precision is comparable and even outperforms slighly the `fp16` in all of the datasets. 
+Same holds true when calculating performance on the [LongBench](https://huggingface.co/datasets/THUDM/LongBench) benchmark comparing it to results from the KIVI paper. `Int4` precision is comparable and even outperforms slighly the `fp16` in all of the datasets in the table below (higher is better).
 
 | Dataset               | KIVI f16p   | KIVI int2    | Our fp16            | Our int4| Our int2|
 |-----------------------|-------------|--------------|---------------------|---------|---------|
@@ -138,9 +138,9 @@ There are many more different methods to reduce memory usage by key-value cache,
 
 # Acknowledgment
 
-Special thanks to [Younes](https://huggingface.co/ybelkada) and [Marc](https://huggingface.co/marcsun13) for help and valuable advice in quantization.
+Special thanks to [Younes](https://huggingface.co/ybelkada) and [Marc](https://huggingface.co/marcsun13) for their assistance and advice on quantization techniques. Their expertise greatly contributed to the development of this feature.
 
-Finally, we would like to thank [Joao](https://github.com/pcuenca) for his help with 
+Additionally, I would like to thank [Joao](https://github.com/pcuenca) for his invaluable support.
 
 
 # Further Resources
