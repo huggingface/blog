@@ -3946,7 +3946,7 @@
     - intel
     - llm
     
-- local: energystarai_intro
+- local: energy-star-ai
   title: "Energy Star Ratings for AI Models - a Proposal"
   thumbnail: /blog/assets/energystarai-intro/thumbnail.png
   author: sasha
