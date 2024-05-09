@@ -14,12 +14,14 @@ You can now upgrade your Hugging Face Organization to Enterprise using your AWS 
 ## What is Enterprise Hub? 
 
 [Enterprise Hub](https://huggingface.co/enterprise) is a premium subscription to upgrade a free Hugging Face organization with advanced security features, access controls, collaboration tools and compute options. With Enterprise Hub, companies can build AI privately and securely within our GDPR compliant and SOC2 Type 2 certified platform. Exclusive features include: 
-- Benefit from state-of-the-art machine learning, 
-- Run inference workloads, 
-- Compute budget for your team, 
-- Choose the location of your Hugging Face repos/storage, 
-- Use your company's SSO with hf.co and increase security & productivity
-- Enable teams in regulated environments to keep up with the pace of open-source advancement frictionlessly
+- Single Sign-On: ensure all members of your organization are employees of your company.
+- Resource Groups: manage teams and projects with granular access controls for repositories.
+- Storage Regions: store company repositories in Europe for GDPR compliance.
+- Audit Logs: access detailed logs of changes to your organization and repositories.
+- Advanced Compute Options: give your team higher quota and access to more powerful GPUs.
+- Private Datasets Viewer: enable the Dataset Viewer on your private datasets for easier collaboration.
+- Train on DGX Cloud: train LLMs without code on NVIDIA H100 GPUs managed by NVIDIA DGX Cloud.
+- Premium Support: get the most out of Enterprise Hub and control your costs with dedicated support.
 
 How can I enable the Enterprise Hub with my AWS account?
 
