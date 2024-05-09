@@ -13,7 +13,7 @@ You can now upgrade your Hugging Face Organization to Enterprise using your AWS 
 
 ## What is Enterprise Hub? 
 
-In addition to offering widely adopted open-source libraries and thousands of models and datasets, we enable an enterprise-ready version of the world’s leading AI platform. With the Enterprise Hub, you give your team the most advanced GDPR & SOC2T2 compliant platform to build AI with open-source resources complying with privacy and security Enterprise constraints: 
+[Enterprise Hub](https://huggingface.co/enterprise) is a premium subscription to upgrade a free Hugging Face organization with advanced security features, access controls, collaboration tools and compute options. With Enterprise Hub, companies can build AI privately and securely within our GDPR compliant and SOC2 Type 2 certified platform. Exclusive features include: 
 - Benefit from state-of-the-art machine learning, 
 - Run inference workloads, 
 - Compute budget for your team, 
