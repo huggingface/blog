@@ -82,7 +82,7 @@ Now select the number of Enterprise Hub seats you are willing to buy for your or
 
 ### Congratulations! 🥳
 
-Your organization is now subscribed to the Enterprise Hub, and billing is directly managed by your AWS account. All members of your Enterprise Hub can now start using safely and privately the Hugging Face Hub.
+Your organization is now upgraded to Enterprise Hub, and its billing is directly managed by your AWS account. All members of your organization can now benefit from the advanced features of Enterprise Hub to build AI privately and securely.
 
 The pricing for Hugging Face Hub through the AWS marketplace offer is identical to the [public Hugging Face pricing](https://huggingface.co/pricing), but you will be billed through your AWS Account. You can monitor your organization's usage and billing anytime within the Billing section of your [organization settings](https://huggingface.co/settings/organizations).
 
