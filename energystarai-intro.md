@@ -18,7 +18,7 @@ Every time we use an electronic device like a computer, a phone, or even a washi
 
 Every time we query an AI model, we also use energy, whether it be locally on our computer or on a server in the cloud. The amount of energy that we use will depend on the characteristics of the model, such as its size and architecture, and the way in which it's deployed, i.e. the optimizations and engineering choices made.
 
-The aim of the [Energy Star AI project](https://huggingface.co/EnergyStarAI) is to develop an Energy Star rating system for AI model deployment that will guide members of the community in choosing models for different tasks based on their energy efficiency and to analyze the effect of implementation choices on the downstream energy usage of different models.
+The aim of the [Energy Star AI project](https://huggingface.co/EnergyStarAI) is to develop an Energy Star rating system for AI model deployment that will guide members of the community in choosing models (and ways to run them) for different tasks based on their energy efficiency and to analyze the effect of implementation choices on the downstream energy usage of different models.
 
 ## Tasks and Models
 
