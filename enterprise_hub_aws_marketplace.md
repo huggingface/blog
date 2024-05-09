@@ -23,7 +23,7 @@ You can now upgrade your Hugging Face Organization to Enterprise using your AWS 
 - Train on DGX Cloud: train LLMs without code on NVIDIA H100 GPUs managed by NVIDIA DGX Cloud.
 - Premium Support: get the most out of Enterprise Hub and control your costs with dedicated support.
 
-How can I enable the Enterprise Hub with my AWS account?
+If you're admin of your organization, you can upgrade it easily with a credit card. But how do you upgrade your organization to Enterprise Hub using your AWS account? We'll walk you through it step by step below.
 
 ### 1. Getting Started
 
