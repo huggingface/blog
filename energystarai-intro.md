@@ -20,6 +20,7 @@ For each query sent to an AI model, we also use energy, whether it be locally on
 
 The aim of the [Energy Star AI project](https://huggingface.co/EnergyStarAI) is to develop an Energy Star rating system for AI model deployment that will guide members of the community in choosing models (and ways to run them) for different tasks based on their energy efficiency and to analyze the effect of implementation choices on the downstream energy usage of different models.
 
+This article presents our initial work toward developing a broadly applicable energy rating system for AI models to be used **in conjunction with** other measures, including for example measures of task-specific performance. The choices made here represent our approach to setting a solid foundation for the project and are meant to evolve to increase its breadth and robustness in subsequent versions; we welcome early feedback to that end!
 ## Tasks and Models
 
 Since the original Energy Star ratings were developed to span a variety of use cases and consumer products, we picked 10 popular [tasks](https://huggingface.co/tasks) spanning both language, audio and computer vision, and including multi-modal tasks. By testing a variety of models across different tasks, we aim to cover different use cases and AI applications that are relevant to different groups:
