@@ -3936,6 +3936,17 @@
     - leaderboard
     - LLM
 
+- local: enterprise-hub-aws-marketplace
+  title: "Subscribe to Enterprise Hub with your AWS Account"
+  author: jeffboudier
+  thumbnail: /blog/assets/158_aws_marketplace/thumbnail.jpg
+  date: May 9, 2024
+  tags:
+    - guide
+    - announcement
+    - partnerships
+    - aws
+    
 - local: cost-efficient-rag-applications-with-intel
   title: "Building Cost-Efficient Enterprise RAG applications with Intel Gaudi 2 and Intel Xeon"
   author: juliensimon
