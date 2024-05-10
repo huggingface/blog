@@ -251,7 +251,7 @@ Switch Transformers 的作者观察到，在相同的预训练困惑度下，稀
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/08_superglue_dense_vs_sparse.png" alt="Table comparing fine-tuning batch size and learning rate between dense and sparse models.">
-  <figcaption>降低学习率和调大批量可以提升稀疏模型微调质量。该图来自 ST-MoE 论文</figcaption>
+  <figcaption>提高学习率和调小批量可以提升稀疏模型微调质量。该图来自 ST-MoE 论文</figcaption>
 </figure>
 
 此时，您可能会对人们微调 MoE 中遇到的这些挑战而感到沮丧，但最近的一篇论文 [《MoEs Meets Instruction Tuning》](https://arxiv.org/pdf/2305.14705.pdf) (2023 年 7 月) 带来了令人兴奋的发现。这篇论文进行了以下实验:
