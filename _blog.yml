@@ -3936,6 +3936,16 @@
     - leaderboard
     - LLM
 
+- local: cost-efficient-rag-applications-with-intel
+  title: "Building Cost-Efficient Enterprise RAG applications with Intel Gaudi 2 and Intel Xeon"
+  author: juliensimon
+  thumbnail: /blog/assets/cost_efficient_rag_applications_with_intel/main.jpg
+  date: May 9, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
+
 - local: enterprise-hub-aws-marketplace
   title: "Subscribe to Enterprise Hub with your AWS Account"
   author: jeffboudier
@@ -3946,13 +3956,3 @@
     - announcement
     - partnerships
     - aws
-    
-- local: cost-efficient-rag-applications-with-intel
-  title: "Building Cost-Efficient Enterprise RAG applications with Intel Gaudi 2 and Intel Xeon"
-  author: juliensimon
-  thumbnail: /blog/assets/cost_efficient_rag_applications_with_intel/main.jpg
-  date: May 9, 2024
-  tags:
-    - partnerships
-    - intel
-    - llm
