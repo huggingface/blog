@@ -140,7 +140,7 @@ There are many more different methods to reduce memory usage by key-value cache,
 
 Special thanks to [Younes](https://huggingface.co/ybelkada) and [Marc](https://huggingface.co/marcsun13) for their assistance and advice on quantization techniques. Their expertise greatly contributed to the development of this feature.
 
-Additionally, I would like to thank [Joao](https://github.com/pcuenca) for his invaluable support.
+Additionally, I would like to thank [Joao](https://huggingface.co/joaogante) for his invaluable support.
 
 
 # Further Resources
