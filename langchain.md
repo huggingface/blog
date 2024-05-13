@@ -7,6 +7,7 @@ authors:
   guest: true
 - user: efriis
   guest: true
+  org: langchain-ai
 ---
 # Hugging Face x LangChain : A new partner package in LangChain
 
