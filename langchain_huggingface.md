@@ -4,6 +4,7 @@ thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
 authors:
 - user: jofthomas
 - user: kkondratenko
+  guest: true
 ---
 # Hugging Face x Langchain : A new partner package in Langchain
 
