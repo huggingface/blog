@@ -72,7 +72,7 @@ When using this class, the model will be loaded in cache and use your computerâ€
 
 ### HuggingFaceEndpoint
 
-There is also two ways to use this class. Either by specifying the model with the `repo_id` parameter. Those endpoints use the [serverless API](https://huggingface.co/inference-api/serverless) which is particularly beneficial to people using [pro accounts](https://huggingface.co/subscribe/pro) or [enterprise hub](https://huggingface.co/enterprise).
+There is also two ways to use this class. Either by specifying the model with the `repo_id` parameter. Those endpoints use the [serverless API](https://huggingface.co/inference-api/serverless) which is particularly beneficial to people using [pro accounts](https://huggingface.co/subscribe/pro) or [enterprise hub](https://huggingface.co/enterprise) but regular users can already have access to a fair amount of request by connecting with their HF token in the environment where they are executing the code.
 
 ```python
 from langchain_huggingface.llms import HuggingFaceEndpoint
