@@ -4,7 +4,7 @@ thumbnail: /blog/assets/107_launching_doi/thumbnail.jpeg
 authors:
 - user: sasha
 - user: Sylvestre
-- user: cakiki
+- user: christopher
   guest: true
 - user: aleroy
   guest: true
