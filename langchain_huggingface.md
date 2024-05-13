@@ -1,3 +1,10 @@
+---
+title: "Hugging Face x Langchain : A new partner package in Langchain" 
+thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
+authors:
+- user: jofthomas
+- user: kkondratenko
+---
 # Hugging Face x Langchain : A new partner package in Langchain
 
 We are thrilled to announce the launch of **`langchain_huggingface`**, a partner package in Langchain jointly maintained by Hugging Face and LangChain. This new Python package is designed to bring the power of the latest development of Hugging Face into Langchain and keep it up to date. 
@@ -94,7 +101,7 @@ Under the hood, this class uses the [InferenceClient](https://huggingface.co/doc
 
 Every model has its own special tokens with which it works best. And by not adding those special tokens to your prompt, your model will greatly underperform !
 
-When going from a list of messages to a completion prompt, there is a method that exist in most LLM tokenizers called [chat_template](https://huggingface.co/docs/transformers/chat_templating).
+When going from a list of messages to a completion prompt, there is an attribute that exists in most LLM tokenizers called [chat_template](https://huggingface.co/docs/transformers/chat_templating).
 
 To learn more about chat_template in the different models, visit this [space](https://huggingface.co/spaces/Jofthomas/Chat_template_viewer) I made!
 
