@@ -1496,6 +1496,14 @@
     - community
     - open-source-collab
 
+- local: hugging-face-wiz-security-blog
+  title: "Hugging Face 与 Wiz Research 合作提高人工智能安全性"
+  author: JJoe206
+  thumbnail: /blog/assets/wiz_security/security.png
+  date: April 4, 2024
+  tags:
+    - security
+
 - local: google-cloud-model-garden
   title: 在 Google Cloud 上轻松部署开放大语言模型
   author: philschmid
@@ -1558,6 +1566,17 @@
     - leaderboard
     - collaboration
     - research
+
+- local: jat
+  title: "万事通，专精部分领域的多功能 Transformer 智能体"
+  author: qgallouedec
+  thumbnail: /blog/assets/jat/thumbnail.png
+  date: April 22, 2024
+  tags:
+    - imitation
+    - rl
+    - transformers
+    - generalist
 
 - local: sc2-instruct
   title: 'StarCoder2-Instruct: 完全透明和可自我对齐的代码生成'
