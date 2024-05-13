@@ -1,3 +1,12 @@
+---
+title: "Function calling with Hugging Face" 
+thumbnail: /blog/assets/Function_call/Thumbnail.png
+authors:
+- user: jofthomas
+- user: drbh
+- user: kkondratenko
+  guest: true
+---
 # Function Calling in Hugging Face is here !
 
 ## Introduction
