@@ -1,28 +1,28 @@
 ---
-title: "Function calling with Hugging Face" 
-thumbnail: /blog/assets/Function_call/thumbnail.png
+title: "Tool calling with Hugging Face" 
+thumbnail: /blog/assets/c
 authors:
 - user: jofthomas
 - user: drbh
 - user: kkondratenko
   guest: true
 ---
-# Function Calling in Hugging Face is here !
+# Tool Calling in Hugging Face is here !
 
 ## Introduction
 
-A few weeks ago, we introduced to you the brand new [Messages AP](https://huggingface.co/blog/tgi-messages-api)I that provided OpenAI compatibility with Text Generation Inference (TGI) and Inference Endpoints.
+A few weeks ago, we introduced to you the brand new [Messages API](https://huggingface.co/blog/tgi-messages-api) that provided OpenAI compatibility with Text Generation Inference (TGI) and Inference Endpoints.
 
 We wrote at the time that “*The Messages API does not currently support function calling” this is a limitation that has now been lifted !*
 
-Starting with version **1.4.5,** TGI offers an API compatible with the OpenAI Chat Completion API with the addition of the `tools` and the `tools_choice` keys. This change as been propagated in the**`huggingface_hub`** version **0.23.0.** Meaning any Huggingface endpoint can now call some tools if using a newer version than those.
+Starting with version **1.4.5,** TGI offers an API compatible with the OpenAI Chat Completion API with the addition of the `tools` and the `tools_choice` keys. This change as been propagated in the**`huggingface_hub`** version **0.23.0**, meaning any Hugging Face endpoint can now call some tools if using a newer version
 
 This new feature is available in Inference Endpoints (dedicated and serverless). and we’ll showcase how you can start building your open-source agents right away.
 
 To get you started quickly, we’ve included detailed code examples of how to:
 
 - Create an Inference Endpoint
-- Call Function with the InferencClient
+- Call tools with the InferenClient
 - Use OpenAI’s SDK
 - Integration with LangChain and LlamaIndex
 
@@ -98,7 +98,7 @@ Lets see how.
 
 ### With the InferencClient from Hugging Face
 
-Function can directly be called with the serverless API, or with any endpoint by with the enpoint url.
+Function can directly be called with the serverless API, or with any endpoint by with the endpoint url.
 
 ```jsx
 from huggingface_hub import InferenceClient
@@ -224,6 +224,8 @@ Now, let’s see how to use functions in the newly created package `langchain_hu
 ```python
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_core.output_parsers.openai_tools import JsonOutputToolsParser
+from langchain_huggingface.llms import HuggingFaceEndpoint
+from langchain_huggingface.chat_models.huggingface import ChatHuggingFace
 
 llm = HuggingFaceEndpoint(
     endpoint_url="https://aac2dhzj35gskpof.us-east-1.aws.endpoints.huggingface.cloud",
@@ -360,4 +362,4 @@ endpoint.delete()
 
 ## Conclusion
 
-You can now call some tools with Hugging Face models in the different frameworks. We can’t wait to see what use cases you will power with open LLMs and tools !
+Now that you can now call some tools with Hugging Face models in the different frameworks, we strongly encourage you to deploy ( and possibly fine tune ) your own models in an Inference Endpoint and experiment with this new feature. We are convinced that the capacity of small LLMs to call some tools will be very beneficial to the community. We can’t wait to see what use cases you will power with open LLMs and tools !
