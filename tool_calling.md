@@ -1,6 +1,6 @@
 ---
 title: "Tool calling with Hugging Face" 
-thumbnail: /blog/assets/c
+thumbnail: /blog/assets/tool_calling/thumbnail.png
 authors:
 - user: jofthomas
 - user: drbh
