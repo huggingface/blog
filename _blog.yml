@@ -3956,3 +3956,13 @@
     - announcement
     - partnerships
     - aws
+- local: langchain_huggingface
+  title: "Hugging Face x Langchain : A new partner package in Langchain"
+  author: jofthomas
+  thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
+  date: May 14, 2024
+  tags:
+    - collaboration
+    - community
+    - nlp
+    - llm
