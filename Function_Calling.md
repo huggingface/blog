@@ -1,6 +1,6 @@
 ---
 title: "Function calling with Hugging Face" 
-thumbnail: /blog/assets/Function_call/Thumbnail.png
+thumbnail: /blog/assets/Function_call/thumbnail.png
 authors:
 - user: jofthomas
 - user: drbh
