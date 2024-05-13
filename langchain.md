@@ -143,7 +143,7 @@ First choose your model, one good ressource for that is the [MTEB leaderboard](h
 
 ### HuggingFaceEmbeddings
 
-This class uses [sentence-transformers](https://sbert.net/) embeddings. it computes the embedding locally, hence using your computer ressources.
+This class uses [sentence-transformers](https://sbert.net/) embeddings. It computes the embedding locally, hence using your computer resources.
 
 ```python
 from langchain_huggingface.embeddings import HuggingFaceEmbeddings
