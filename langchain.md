@@ -1,5 +1,5 @@
 ---
-title: "Hugging Face x Langchain : A new partner package in Langchain" 
+title: "Hugging Face x LangChain : A new partner package in Langchain" 
 thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
 authors:
 - user: jofthomas
@@ -8,15 +8,15 @@ authors:
 - user: efriis
   guest: true
 ---
-# Hugging Face x Langchain : A new partner package in Langchain
+# Hugging Face x LangChain : A new partner package in LangChain
 
-We are thrilled to announce the launch of **`langchain_huggingface`**, a partner package in Langchain jointly maintained by Hugging Face and LangChain. This new Python package is designed to bring the power of the latest development of Hugging Face into Langchain and keep it up to date. 
+We are thrilled to announce the launch of **`langchain_huggingface`**, a partner package in LangChain jointly maintained by Hugging Face and LangChain. This new Python package is designed to bring the power of the latest development of Hugging Face into LangChain and keep it up to date. 
 
 # From the community, for the community
 
-All Huggingface related classes in Langchain were coded by the community, and while this is something we thrived for, over time some of them became deprecated because of the lack of insider’s perspective.
+All Huggingface related classes in LangChain were coded by the community, and while this is something we thrived for, over time some of them became deprecated because of the lack of insider’s perspective.
 
-By becoming a partner package, we aim at reducing the time to bring new features available in the Hugging Face ecosystem to Langchain’s users.
+By becoming a partner package, we aim at reducing the time to bring new features available in the Hugging Face ecosystem to LangChain’s users.
 
 **`langchain_huggingface`** integrates seamlessly with LangChain, providing an efficient and effective way to utilize Hugging Face models within the LangChain ecosystem. This partnership is not just about sharing technology but also about a joint commitment to maintain and continually improve this integration.
 
@@ -34,7 +34,7 @@ Now that the package is installed, let’s have a tour of what’s inside !
 
 ### HuggingFacePipeline
 
-Being in `transformers` the [Pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines), is most versatile tool in the Hugging Face toolbox. Langchain being designed primarly to adress RAG and Agents use-cases, the scope of the pipeline here is reduced to the following text centric tasks `“text-generation"` , `"text2text-generation"`, `"summarization"`, `"translation”`.
+Being in `transformers` the [Pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines), is most versatile tool in the Hugging Face toolbox. LangChain being designed primarly to adress RAG and Agents use-cases, the scope of the pipeline here is reduced to the following text centric tasks `“text-generation"` , `"text2text-generation"`, `"summarization"`, `"translation”`.
 
 Models can be loaded directly with the `from_model_id` method:
 
