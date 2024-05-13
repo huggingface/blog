@@ -221,7 +221,10 @@ from transformers.agents import HfEngine, ReactJsonAgent
 
 llm_engine = HfEngine("meta-llama/Meta-Llama-3-70B-Instruct")
 
-agent = ReactJsonAgent(tools=[RetrieverTool(vectordb, all_sources)], llm_engine=llm_engine)
+agent = ReactJsonAgent(
+    tools=[RetrieverTool(vectordb, all_sources)],
+    llm_engine=llm_engine
+)
 
 agent_output = agent.run("Please show me a LORA finetuning script")
 
@@ -318,8 +321,8 @@ from transformers.agents import ReactCodeAgent
 
 llm_engine = HfEngine(model="meta-llama/Meta-Llama-3-70B-Instruct")
 react_agent_hf = ReactCodeAgent(
-    llm_engine=llm_engine,
     tools=[SearchTool()],
+    llm_engine=llm_engine,
 )
 ```
 
@@ -422,8 +425,8 @@ TASK_SOLVING_TOOLBOX = [
 ]
 
 react_agent_hf = ReactCodeAgent(
-    llm_engine=HfEngine(model="meta-llama/Meta-Llama-3-70B-Instruct"),
     tools=TASK_SOLVING_TOOLBOX,
+    llm_engine=HfEngine(model="meta-llama/Meta-Llama-3-70B-Instruct"),
     memory_verbose=True,
 )
 ```
@@ -434,7 +437,7 @@ And after some time needed to complete the 165 questions, we submit our result t
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/agents/leaderboard.png" alt="GAIA leaderboard" width=90%>
 </p>
 
-⇒ Our agent comes at the 4th place: it beats many GPT-4-based agents, and is now the reigning contender for the Open-Source category!
+⇒ Our agent ranks 4th: it beats many GPT-4-based agents, and is now the reigning contender for the Open-Source category!
 
 
 ## Conclusion
