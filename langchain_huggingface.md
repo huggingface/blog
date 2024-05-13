@@ -5,6 +5,8 @@ authors:
 - user: jofthomas
 - user: kkondratenko
   guest: true
+- user: efriis
+  guest: true
 ---
 # Hugging Face x Langchain : A new partner package in Langchain
 
