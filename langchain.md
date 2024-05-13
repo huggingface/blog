@@ -15,7 +15,7 @@ We are thrilled to announce the launch of **`langchain_huggingface`**, a partner
 
 # From the community, for the community
 
-All Huggingface related classes in LangChain were coded by the community, and while this is something we thrived for, over time some of them became deprecated because of the lack of insider’s perspective.
+All Hugging Face-related classes in LangChain were coded by the community, and while we thrived on this, over time, some of them became deprecated because of the lack of an insider’s perspective.
 
 By becoming a partner package, we aim to reduce the time it takes to bring new features available in the Hugging Face ecosystem to LangChain's users.
 
