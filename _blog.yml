@@ -3956,6 +3956,22 @@
     - announcement
     - partnerships
     - aws
+    
+- local: agents
+  title: "License to Call: Introducing Transformers Agents 2.0"
+  thumbnail: /blog/assets/agents/thumbnail.png
+  author: m-ric
+  date: May 13, 2024
+  tags:
+    - nlp
+    - LLM
+    - agents
+    - transformers
+    - gpt
+    - mixtral
+    - llama3
+    - langchain
+    - benchmark
 
 - local: langchain
   title: "Hugging Face x Langchain : A new partner package in Langchain"
