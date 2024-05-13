@@ -3936,22 +3936,6 @@
     - leaderboard
     - LLM
 
-- local: agents
-  title: "License to Call: Introducing Transformers Agents 2.0"
-  thumbnail: /blog/assets/agents/thumbnail.png
-  author: m-ric
-  date: May 8, 2024
-  tags:
-    - nlp
-    - LLM
-    - agents
-    - transformers
-    - gpt
-    - mixtral
-    - llama3
-    - langchain
-    - benchmark
-
 - local: cost-efficient-rag-applications-with-intel
   title: "Building Cost-Efficient Enterprise RAG applications with Intel Gaudi 2 and Intel Xeon"
   author: juliensimon
@@ -3972,3 +3956,19 @@
     - announcement
     - partnerships
     - aws
+
+- local: agents
+  title: "License to Call: Introducing Transformers Agents 2.0"
+  thumbnail: /blog/assets/agents/thumbnail.png
+  author: m-ric
+  date: May 13, 2024
+  tags:
+    - nlp
+    - LLM
+    - agents
+    - transformers
+    - gpt
+    - mixtral
+    - llama3
+    - langchain
+    - benchmark
