@@ -7,34 +7,34 @@ authors:
 - user: kkondratenko
   guest: true
 ---
-# Tool Calling in Hugging Face is here !
+# Tool Calling in Hugging Face is here!
 
 ## Introduction
 
-A few weeks ago, we introduced to you the brand new [Messages API](https://huggingface.co/blog/tgi-messages-api) that provided OpenAI compatibility with Text Generation Inference (TGI) and Inference Endpoints.
+A few weeks ago, we introduced the new [Messages API](https://huggingface.co/blog/tgi-messages-api) that provided OpenAI compatibility with Text Generation Inference (TGI) and Inference Endpoints.
 
-We wrote at the time that “*The Messages API does not currently support function calling” this is a limitation that has now been lifted !*
+At the time, the Messages API did not support function calling. This is a limitation that has now been lifted !
 
-Starting with version **1.4.5,** TGI offers an API compatible with the OpenAI Chat Completion API with the addition of the `tools` and the `tools_choice` keys. This change as been propagated in the**`huggingface_hub`** version **0.23.0**, meaning any Hugging Face endpoint can now call some tools if using a newer version
+Starting with version **1.4.5,** TGI offers an API compatible with the OpenAI Chat Completion API with the addition of the `tools` and the `tools_choice` keys. This change has been propagated in the **`huggingface_hub`** version **0.23.0**, meaning any Hugging Face endpoint can now call some tools if using a newer version
 
-This new feature is available in Inference Endpoints (dedicated and serverless). and we’ll showcase how you can start building your open-source agents right away.
+This new feature is available in Inference Endpoints (dedicated and serverless). We’ll now showcase how you can start building your open-source agents right away.
 
 To get you started quickly, we’ve included detailed code examples of how to:
 
 - Create an Inference Endpoint
 - Call tools with the InferenClient
 - Use OpenAI’s SDK
-- Integration with LangChain and LlamaIndex
+- Leverage LangChain and LlamaIndex integrations
 
 ## **Create an Inference Endpoint using `huggingface_hub`**
 
 [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) offers a secure, production solution to easily deploy any Transformers model from the Hub on dedicated infrastructure managed by Hugging Face.
 
-To showcase this newfound power of TGI, we will deploy a 8B instruct tuned model : 
+To showcase this newfound power of TGI, we will deploy an 8B instruct tuned model: 
 
 [Meta-Llama-3-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)
 
-We can deploy the model in just [a few clicks from the UI](https://ui.endpoints.huggingface.co/new?vendor=aws&repository=NousResearch%2FNous-Hermes-2-Mixtral-8x7B-DPO&tgi_max_total_tokens=32000&tgi=true&tgi_max_input_length=1024&task=text-generation&instance_size=2xlarge&tgi_max_batch_prefill_tokens=2048&tgi_max_batch_total_tokens=1024000&no_suggested_compute=true&accelerator=gpu&region=us-east-1), or take advantage of the `huggingface_hub` Python library to programmatically create and manage Inference Endpoints. We demonstrate the use of the Hub library below.
+We can deploy the model in just [a few clicks from the UI](https://ui.endpoints.huggingface.co/new?vendor=aws&repository=NousResearch%2FNous-Hermes-2-Mixtral-8x7B-DPO&tgi_max_total_tokens=32000&tgi=true&tgi_max_input_length=1024&task=text-generation&instance_size=2xlarge&tgi_max_batch_prefill_tokens=2048&tgi_max_batch_total_tokens=1024000&no_suggested_compute=true&accelerator=gpu&region=us-east-1) or take advantage of the `huggingface_hub` Python library to programmatically create and manage Inference Endpoints. We demonstrate the use of the Hub library below.
 
 First, we need to specify the endpoint name and model repository, along with the task of text-generation. A protected Inference Endpoint means a valid HF token is required to access the deployed API. We also need to configure the hardware requirements like vendor, region, accelerator, instance type, and size. You can check out the list of available resource options [here](https://api.endpoints.huggingface.cloud/#get-/v2/provider) and view recommended configurations for select models in our catalog [here](https://ui.endpoints.huggingface.co/catalog). 
 
@@ -71,7 +71,7 @@ print(endpoint.status)
 
 ```
 
-Since the model is gated, it will be very important to replace `<HF_TOKEN>` with your own Huggingface token once you have accepted the terms and condition of Llama-3-8B-Instruct on the [model page](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)
+Since the model is gated, it will be very important to replace `<HF_TOKEN>` with your own Hugging Face token once you have accepted the terms and conditions of Llama-3-8B-Instruct on the [model page](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)
 
 It will take a few minutes for our deployment to spin up. We can utilize the `.wait()` utility to block the running thread until the endpoint reaches a final "running" state. Once running, we can confirm its status and take it for a spin via the UI Playground:
 
@@ -94,13 +94,13 @@ With this seamless transition, you can immediately take advantage of the numerou
 - No more worrying about rate limits
 - The ability to fully customize systems according to your specific needs
 
-Lets see how.
+Let's see how.
 
 ### With the InferencClient from Hugging Face
 
-Function can directly be called with the serverless API, or with any endpoint by with the endpoint url.
+The function can directly be called with the serverless API or with any endpoint by with the endpoint URL.
 
-```jsx
+```py
 from huggingface_hub import InferenceClient
 
 # Ask for weather in the next days using tools
@@ -152,7 +152,7 @@ ChatCompletionOutputFunctionDefinition(arguments={'format': 'celsius', 'location
 
 ### With the OpenAI Python client
 
-The example below shows how to make this transition using the [OpenAI Python Library](https://github.com/openai/openai-python). Simply replace the `<ENDPOINT_URL>` with your endpoint URL (be sure to include the `v1/` the suffix) and populate the `<HF_API_TOKEN>` field with a valid Hugging Face user token.
+The example below shows how to make this transition using the [OpenAI Python Library](https://github.com/openai/openai-python). Simply replace the `<ENDPOINT_URL>` with your endpoint URL (be sure to include the `v1/` suffix) and populate the `<HF_API_TOKEN>` field with a valid Hugging Face user token.
 
 We can then use the client as usual, passing a list of messages to stream responses from our Inference Endpoint.
 
@@ -210,10 +210,10 @@ print(called)
 Choice(finish_reason='eos_token', index=0, logprobs=None, message=ChatCompletionMessage(content=None, role='assistant', function_call=None, tool_calls=[ChatCompletionMessageToolCall(id=0, function=Function(arguments={'format': 'celsius', 'location': 'San Francisco, CA'}, name='get_current_weather', description=None), type='function')]))
 ```
 
-Behind the scenes, TGI’s Messages API automatically converts the list of messages into the model’s required instruction format using it’s [chat template](https://huggingface.co/docs/transformers/chat_templating). You can learn more about chat templates on the [documentation](https://huggingface.co/docs/transformers/main/en/chat_templating) or on this [space](https://huggingface.co/spaces/Jofthomas/Chat_template_viewer) !
+Behind the scenes, TGI’s Messages API automatically converts the list of messages into the model’s required instruction format using it’s [chat template](https://huggingface.co/docs/transformers/chat_templating). You can learn more about chat templates on the [documentation](https://huggingface.co/docs/transformers/main/en/chat_templating) or on this [space](https://huggingface.co/spaces/Jofthomas/Chat_template_viewer)!
 
 <aside>
-💡 Be mindful, that specifying the `auto` parameter will always call a function.
+💡 Be mindful that specifying the `auto` parameter will always call a function.
 
 </aside>
 
@@ -253,7 +253,7 @@ Let’s now use this declared LLM in a simple RAG pipeline to answer a question 
 
 ## How to use with LlamaIndex
 
-Similarly, you can also use a tools with TGI endpoints in [LLamaIndex](https://www.llamaindex.ai/), but not the serverless API yet
+Similarly, you can also use a tool with TGI endpoints in [LLamaIndex](https://www.llamaindex.ai/), but not the serverless API yet
 
 ```python
 import os
@@ -362,4 +362,4 @@ endpoint.delete()
 
 ## Conclusion
 
-Now that you can now call some tools with Hugging Face models in the different frameworks, we strongly encourage you to deploy ( and possibly fine tune ) your own models in an Inference Endpoint and experiment with this new feature. We are convinced that the capacity of small LLMs to call some tools will be very beneficial to the community. We can’t wait to see what use cases you will power with open LLMs and tools !
+Now that you can call some tools with Hugging Face models in the different frameworks, we strongly encourage you to deploy ( and possibly fine-tune) your own models in an Inference Endpoint and experiment with this new feature. We are convinced that the capacity of small LLMs to call some tools will be very beneficial to the community. We can’t wait to see what use cases you will power with open LLMs and tools!
