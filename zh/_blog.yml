@@ -1526,6 +1526,18 @@
     - guide
     - trl
 
+- local: idefics2
+  title: Idefics2 简介：为社区而生的强大 8B 视觉语言模型
+  author: Leyo
+  thumbnail: /blog/assets/idefics/thumbnail.png
+  date: April 15, 2024
+  tags:
+    - research
+    - nlp
+    - cv
+    - vlm
+    - multimodal
+
 - local: ryght-case-study
   title: Ryght 在 Hugging Face 专家助力下赋能医疗保健和生命科学之旅
   author: andrewrreed
