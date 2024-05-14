@@ -3956,7 +3956,7 @@
     - announcement
     - partnerships
     - aws
-
+    
 - local: agents
   title: "License to Call: Introducing Transformers Agents 2.0"
   thumbnail: /blog/assets/agents/thumbnail.png
@@ -3972,6 +3972,29 @@
     - llama3
     - langchain
     - benchmark
+    
+- local: leaderboard-arabic
+  title: "Introducing the Open Arabic LLM Leaderboard"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_arabic.png
+  author: Ali-C137
+  guest: true
+  date: May 14, 2024
+  tags:
+    - nlp
+    - research
+    - leaderboard
+    - LLM
+    
+- local: langchain
+  title: "Hugging Face x LangChain : A new partner package in LangChain"
+  author: jofthomas
+  thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
+  date: May 14, 2024
+  tags:
+    - collaboration
+    - community
+    - nlp
+    - llm
 
 - local: paligemma
   title: "PaliGemma – Google's Cutting-Edge Open Vision Language Model"
