@@ -1,10 +1,13 @@
 ---
 title: "Introducing the Open Arabic LLM Leaderboard"
-thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_arabic.png
 authors:
-- user: 
+- user: Ali-C137
   guest: true
-  org: 
+  org: 2A2I
+- user: Hamza-Alobeidli
+  guest: true
+  org: tiiuae
 - user: clefourrier
 ---
 
@@ -13,9 +16,12 @@ authors:
 
 The Open Arabic LLM Leaderboard (OALL) is designed to address the growing need for specialized benchmarks in the Arabic language processing domain. As the field of Natural Language Processing (NLP) progresses, the focus often remains heavily skewed towards English, leaving a significant gap in resources for other languages. The OALL aims to balance this by providing a platform specifically for evaluating and comparing the performance of Arabic Large Language Models (LLMs), thus promoting research and development in Arabic NLP.
 
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.4.0/gradio.js"> </script>
+<gradio-app theme_mode="light" space="OALL/Open-Arabic-LLM-Leaderboard"></gradio-app>
+
 This initiative is particularly significant given that it directly serves over 380 million Arabic speakers worldwide. By enhancing the ability to accurately evaluate and improve Arabic LLMs, we hope the OALL will play a crucial role in developing models and applications that are finely tuned to the nuances of the Arabic language, culture and heritage.
 
-##  Benchmarks, Metrics & Technical setup
+## Benchmarks, Metrics & Technical setup
 
 ### Benchmark Datasets
 The Open Arabic LLM Leaderboard (OALL) utilizes an extensive and diverse collection of robust datasets to ensure comprehensive model evaluation. 
@@ -29,7 +35,7 @@ Given the nature of the tasks, which include multiple-choice and yes/no question
 
 ### Technical setup
 The technical setup for the Open Arabic LLM Leaderboard (OALL) uses: 
-- front- and back-ends inspired by the [`demo-leaderboard`](https://huggingface.co/demo-leaderboard-backend), with the back-end running locally on the TIIUAE cluster
+- front- and back-ends inspired by the [`demo-leaderboard`](https://huggingface.co/demo-leaderboard-backend), with the back-end running locally on the TII cluster
 - the `lighteval` library to run the evaluations. Significant contributions have been made to integrate the Arabic benchmarks discussed above into `lighteval`, to support out-of-the-box evaluations of Arabic models for the community (see [PR #44](https://github.com/huggingface/lighteval/pull/44) and [PR #95](https://github.com/huggingface/lighteval/pull/95) on GitHub for more details).
 
 
@@ -41,7 +47,7 @@ Furthermore, we aim to extend our benchmarks to cover more comprehensive tasks b
 
 We’d love to welcome your contribution on these points! We encourage the community to contribute by submitting models, suggesting new benchmarks, or participating in discussions. We also encourage the community to make use of the top models of the current leaderboard to create new models through finetuning or any other techniques that might help your model to climb the ranks to the first place! You can be the next Arabic Open Models Hero! 
 
-We hope the OALL will encourage technological advancements and highlight the unique linguistic and cultural characteristics inherent to the Arabic languagen, and thatour technical setup and learnings from deploying a large-scale, language-specific leaderboard can be helpful for similar initiatives in other underrepresented languages. This focus will help bridge the gap in resources and research, traditionally dominated by English-centric models, enriching the global NLP landscape with more diverse and inclusive tools, which is crucial as AI technologies become increasingly integrated into everyday life around the world. 
+We hope the OALL will encourage technological advancements and highlight the unique linguistic and cultural characteristics inherent to the Arabic language, and that our technical setup and learnings from deploying a large-scale, language-specific leaderboard can be helpful for similar initiatives in other underrepresented languages. This focus will help bridge the gap in resources and research, traditionally dominated by English-centric models, enriching the global NLP landscape with more diverse and inclusive tools, which is crucial as AI technologies become increasingly integrated into everyday life around the world. 
 
 
 ## Submit Your Model !
@@ -78,7 +84,7 @@ If your model appears in the 'FAILED' category, this indicates that execution wa
 
 ##  Acknowledgements
 
-We extend our gratitude to all contributors, partners, and sponsors, particularly the Technology Innovation Institute and HuggingFace for their substantial support in this project. TII has provided generously the essential computational resources, in line with their commitment to supporting community-driven projects and advancing open science within the Arabic NLP field, whereas Hugging Face has assisted with the integration and customization of their new evaluation framework and leaderboard template.
+We extend our gratitude to all contributors, partners, and sponsors, particularly the Technology Innovation Institute and Hugging Face for their substantial support in this project. TII has provided generously the essential computational resources, in line with their commitment to supporting community-driven projects and advancing open science within the Arabic NLP field, whereas Hugging Face has assisted with the integration and customization of their new evaluation framework and leaderboard template.
 
 We would also like to express our thanks to Upstage for their work on the Open Ko-LLM Leaderboard, which served as a valuable reference and source of inspiration for our own efforts. Their pioneering contributions have been instrumental in guiding our approach to developing a comprehensive and inclusive Arabic LLM leaderboard.
 
