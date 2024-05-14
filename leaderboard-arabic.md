@@ -8,6 +8,9 @@ authors:
 - user: Hamza-Alobeidli
   guest: true
   org: tiiuae
+- user: rcojocaru
+  guest: true
+  org: tiiuae
 - user: clefourrier
 ---
 
