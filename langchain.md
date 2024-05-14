@@ -173,4 +173,4 @@ hf_embeddings.embed_documents(texts)
 
 ## Conclusion
 
-We are committed to making **`langchain-huggingface`** better by the day. We will be actively monitoring feedback and issues, and working to address them as quickly as possible. We will also be adding new features and functionality, and expanding the package to support an even wider range of the community's use cases. We strongly encourage you to try this package and to give your opinion as it will pave the way of the package's future.
+We are committed to making **`langchain-huggingface`** better by the day. We will be actively monitoring feedback and issues and working to address them as quickly as possible. We will also be adding new features and functionality and expanding the package to support an even wider range of the community's use cases. We strongly encourage you to try this package and to give your opinion, as it will pave the way for the package's future.
