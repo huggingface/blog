@@ -219,8 +219,6 @@ Behind the scenes, TGI’s Messages API automatically converts the list of messa
 Now, let’s see how to use functions in the newly created package `langchain_huggingface` 
 
 ```python
-from langchain_core.pydantic_v1 import BaseModel, Field
-from langchain_core.output_parsers.openai_tools import JsonOutputToolsParser
 from langchain_huggingface.llms import HuggingFaceEndpoint
 from langchain_huggingface.chat_models.huggingface import ChatHuggingFace
 
