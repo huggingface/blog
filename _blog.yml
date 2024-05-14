@@ -3972,9 +3972,21 @@
     - llama3
     - langchain
     - benchmark
-
-- local: langchain
-  title: "Hugging Face x Langchain : A new partner package in Langchain"
+    
+- local: leaderboard-arabic
+  title: "Introducing the Open Arabic LLM Leaderboard"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_arabic.png
+  author: Ali-C137
+  guest: true
+  date: May 14, 2024
+  tags:
+    - nlp
+    - research
+    - leaderboard
+    - LLM
+    
+ - local: langchain
+  title: "Hugging Face x LangChain : A new partner package in LangChain"
   author: jofthomas
   thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
   date: May 14, 2024
@@ -3983,3 +3995,4 @@
     - community
     - nlp
     - llm
+
