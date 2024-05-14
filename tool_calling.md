@@ -15,7 +15,7 @@ A few weeks ago, we introduced the new [Messages API](https://huggingface.co/blo
 
 At the time, the Messages API did not support function calling. This is a limitation that has now been lifted !
 
-Starting with version **1.4.5,** TGI offers an API compatible with the OpenAI Chat Completion API with the addition of the `tools` and the `tools_choice` keys. This change has been propagated in the **`huggingface_hub`** version **0.23.0**, meaning any Hugging Face endpoint can now call some tools if using a newer version
+Starting with version **1.4.5,** TGI offers an API compatible with the OpenAI Chat Completion API with the addition of the `tools` and the `tools_choice` keys. This change has been propagated in the **`huggingface_hub`** version **0.23.0**, meaning any Hugging Face endpoint can now call some tools if using a newer version.
 
 This new feature is available in Inference Endpoints (dedicated and serverless). We’ll now showcase how you can start building your open-source agents right away.
 
@@ -79,10 +79,9 @@ It will take a few minutes for our deployment to spin up. We can utilize the `.w
 
 Great, we now have a working deployment! 
 
-<aside>
-💡 By default, your endpoint will scale-to-zero after 15 minutes of idle time without any requests to optimize cost during periods of inactivity. Check out [the Hub Python Library documentation](https://huggingface.co/docs/huggingface_hub/guides/inference_endpoints) to see all the functionality available for managing your endpoint lifecycle.
 
-</aside>
+> ##### 💡 By default, your endpoint will scale-to-zero after 15 minutes of idle time without any requests to optimize cost during periods of inactivity. Check out [the Hub Python Library documentation](https://huggingface.co/docs/huggingface_hub/guides/inference_endpoints) to see all the functionality available for managing your endpoint lifecycle.
+
 
 ## Using Inference Endpoints via OpenAI client libraries
 
@@ -212,10 +211,8 @@ Choice(finish_reason='eos_token', index=0, logprobs=None, message=ChatCompletion
 
 Behind the scenes, TGI’s Messages API automatically converts the list of messages into the model’s required instruction format using it’s [chat template](https://huggingface.co/docs/transformers/chat_templating). You can learn more about chat templates on the [documentation](https://huggingface.co/docs/transformers/main/en/chat_templating) or on this [space](https://huggingface.co/spaces/Jofthomas/Chat_template_viewer)!
 
-<aside>
-💡 Be mindful that specifying the `auto` parameter will always call a function.
+> #####💡 Be mindful that specifying the `auto` parameter will always call a function.
 
-</aside>
 
 ## How to use with LangChain
 
