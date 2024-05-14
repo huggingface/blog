@@ -21,7 +21,7 @@ All models are released in the Hugging Face Hub model repositories with their mo
 
 PaliGemma ([Github](https://github.com/google-research/big_vision/blob/main/big_vision/configs/proj/paligemma/README.md)) is a family of vision-language models with an architecture consisting of [SigLIP-So400m](https://huggingface.co/google/siglip-so400m-patch14-384) as the image encoder and [Gemma-2B](https://huggingface.co/google/gemma-2b) as text decoder. SigLIP is a state-of-the-art model that can understand both images and text. Like CLIP, it consists of an image and text encoder trained jointly. Similar to [PaLI-3](https://arxiv.org/abs/2310.09199), the combined PaliGemma model is pre-trained on image-text data and can then easily be fine-tuned on downstream tasks, such as captioning, or referring segmentation. [Gemma](https://huggingface.co/blog/gemma) is a decoder-only model for text generation. Combining the image encoder of SigLIP with Gemma using a linear adapter makes PaliGemma a powerful vision language model.
 
-![Architecture](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/paligemma/paligemma_arch.png)
+![Architecture](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/paligemma/paligemma_arch.png)
 
 
 The PaliGemma release comes with three types of models:
@@ -49,31 +49,31 @@ The examples below use the mix checkpoints to demonstrate some of the capabiliti
 
 PaliGemma can caption images when prompted to. You can try various captioning prompts with the mix checkpoints to see how they respond. 
 
-![Captioning](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/paligemma/captioning.png)
+![Captioning](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/paligemma/captioning.png)
 
 ### Visual Question Answering
 
 PaliGemma can answer questions about an image, simply pass your question along with the image to do so.
 
-![VQA](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/paligemma/vqa.png)
+![VQA](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/paligemma/vqa.png)
 
 ### Detection
 
 PaliGemma can detect entities in an image using the `detect [entity]` prompt. It will output the location for the bounding box coordinates in the form of special `<loc[value]>` tokens, where `value` is a number that represents a normalized coordinate. Each detection is represented by four location coordinates in the order _y_min, x_min, y_max, x_max_, followed by the label that was detected in that box. To convert values to coordinates, you first need to divide the numbers by 1024, then multiply `y` by the image height and `x` by its width. This will give you  the coordinates of the bounding boxes, relative to the original image size. 
 
-![Detection](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/paligemma/detect.png)
+![Detection](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/paligemma/detect.png)
 
 ### Referring Expression Segmentation
 
 PaliGemma mix checkpoints can also segment entities in an image when given the `segment [entity]` prompt. This is called referring expression segmentation, because we refer to the entities of interest using natural language descriptions. The output is a sequence of location and segmentation tokens. The location tokens represent a bounding box as described above. The segmentation tokens can be further processed to generate segmentation masks.
 
-![Segmentation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/paligemma/segment.png)
+![Segmentation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/paligemma/segment.png)
 
 ### Document Understanding
 
 PaliGemma mix checkpoints have great document understanding and reasoning capabilities.
 
-![ocrqa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/paligemma/ocrqa.png)
+![ocrqa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/paligemma/ocrqa.png)
 
 ### Mix Benchmarks
 
