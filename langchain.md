@@ -34,7 +34,7 @@ Now that the package is installed, let’s have a tour of what’s inside !
 ## The LLMs
 
 ### HuggingFacePipeline
-Among `transformers`, the [Pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines) is the most versatile tool in the Hugging Face toolbox. LangChain being designed primarily to address RAG and Agent use cases, the scope of the pipeline here is reduced to the following text-centric tasks: ' `“text-generation', `' text2text-generation`, `' summarization`, `translation`.
+Among `transformers`, the [Pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines) is the most versatile tool in the Hugging Face toolbox. LangChain being designed primarily to address RAG and Agent use cases, the scope of the pipeline here is reduced to the following text-centric tasks: `“text-generation"`, `“text2text-generation"`, `“summarization”`, `“translation”`.
 
 Models can be loaded directly with the `from_model_id` method:
 
