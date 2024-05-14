@@ -34,8 +34,8 @@ The models come in three different resolutions (224x224, 448x448, 896x896) and t
 
 As explained in detail further down, the high-resolution models require a lot more memory to run, because the input sequences are much longer. They may help with fine-grained tasks such as OCR, but the quality increase is small for most tasks. The 224 versions are perfectly fine for most purposes.
 
-You can find all the models and Spaces in this [collection](TODO: add link).
-(TODO: there will be at least two collections)
+You can find all the models and Spaces in this [collection](https://huggingface.co/collections/google/paligemma-release-6643a9ffbf57de2ae0448dda).
+
 
 ## Model Capabilities
 
@@ -318,7 +318,7 @@ trainer.train()
 - [Notebook for inference](https://colab.research.google.com/drive/1gOhRCFyt9yIoasJkd4VoaHcIqJPdJnlg?usp=sharing)
 - [Big vision PaliGemma demo](https://huggingface.co/spaces/google/paligemma)
 - [🤗 transformers PaliGemma demo](https://huggingface.co/spaces/google/paligemma-hf)
-- TODO: links to collections
+- [Collection for all PaliGemma models](https://huggingface.co/collections/google/paligemma-release-6643a9ffbf57de2ae0448dda)
 - [Original Implementation](https://github.com/google-research/big_vision/blob/main/big_vision/models/proj/paligemma/paligemma.py)
 
 We would like to thank [Omar Sanseviero](osanseviero), [Lucas Beyer](https://huggingface.co/giffmana), [Xiaohua Zhai](https://huggingface.co/xiaohuazhai) and [Matthias Minderer](https://huggingface.co/mjlm) for their thorough reviews on this blog post.
