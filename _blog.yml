@@ -3985,7 +3985,7 @@
     - leaderboard
     - LLM
     
- - local: langchain
+- local: langchain
   title: "Hugging Face x LangChain : A new partner package in LangChain"
   author: jofthomas
   thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
