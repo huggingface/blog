@@ -1,5 +1,5 @@
 ---
-title: "Hugging Face x LangChain : A new partner package in Langchain" 
+title: "Hugging Face x LangChain : A new partner package" 
 thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
 authors:
 - user: jofthomas
@@ -19,11 +19,11 @@ All Hugging Face-related classes in LangChain were coded by the community, and w
 
 By becoming a partner package, we aim to reduce the time it takes to bring new features available in the Hugging Face ecosystem to LangChain's users.
 
-**`langchain_huggingface`** integrates seamlessly with LangChain, providing an efficient and effective way to utilize Hugging Face models within the LangChain ecosystem. This partnership is not just about sharing technology but also about a joint commitment to maintain and continually improve this integration.
+**`langchain-huggingface`** integrates seamlessly with LangChain, providing an efficient and effective way to utilize Hugging Face models within the LangChain ecosystem. This partnership is not just about sharing technology but also about a joint commitment to maintain and continually improve this integration.
 
 ## **Getting Started**
 
-Getting started with **`langchain_huggingface`** is straightforward. Here’s how you can install and begin using the [package](https://github.com/langchain-ai/langchain/tree/master/libs/partners/huggingface):
+Getting started with **`langchain-huggingface`** is straightforward. Here’s how you can install and begin using the [package](https://github.com/langchain-ai/langchain/tree/master/libs/partners/huggingface):
 
 ```python
 pip install langchain_huggingface
@@ -39,15 +39,16 @@ Among `transformers`, the [Pipeline](https://huggingface.co/docs/transformers/ma
 Models can be loaded directly with the `from_model_id` method:
 
 ```python
-from langchain_huggingface.llms import HuggingFacePipeline
+from langchain_huggingface import HuggingFacePipeline
 
 llm = HuggingFacePipeline.from_model_id(
     model_id="microsoft/Phi-3-mini-4k-instruct",
     task="text-generation",
-    pipeline_kwargs={"max_new_tokens": 100,
+    pipeline_kwargs={
+        "max_new_tokens": 100,
         "top_k": 50,
         "temperature": 0.1,
-        },
+    },
 )
 llm.invoke("Hugging Face is")
 ```
@@ -76,7 +77,7 @@ When using this class, the model will be loaded in cache and use your computer�
  "There are also two ways to use this class. You can specify the model with the `repo_id` parameter. Those endpoints use the [serverless API](https://huggingface.co/inference-api/serverless), which is particularly beneficial to people using [pro accounts](https://huggingface.co/subscribe/pro) or [enterprise hub](https://huggingface.co/enterprise). Still, regular users can already have access to a fair amount of request by connecting with their HF token in the environment where they are executing the code.
  
 ```python
-from langchain_huggingface.llms import HuggingFaceEndpoint
+from langchain_huggingface import HuggingFaceEndpoint
 
 llm = HuggingFaceEndpoint(
     repo_id="meta-llama/Meta-Llama-3-8B-Instruct",
@@ -110,8 +111,7 @@ To learn more about chat_template in the different models, visit this [space](ht
 This class is wrapper around the other LLMs. It takes as input a list of messages an then creates the correct completion prompt by using the `tokenizer.apply_chat_template` method.
 
 ```python
-from langchain_huggingface.chat_models.huggingface import ChatHuggingFace
-from langchain_huggingface.llms import HuggingFaceEndpoint
+from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 
 llm = HuggingFaceEndpoint(
     endpoint_url="<endpoint_url>",
@@ -173,4 +173,4 @@ hf_embeddings.embed_documents(texts)
 
 ## Conclusion
 
-We are committed to making **`langchain_huggingface`** better by the day. We will be actively monitoring feedback and issues, and working to address them as quickly as possible. We will also be adding new features and functionality, and expanding the package to support an even wider range of the community's use cases. We strongly encourage you to try this package and to give your opinion as it will pave the way of the package's future.
+We are committed to making **`langchain-huggingface`** better by the day. We will be actively monitoring feedback and issues, and working to address them as quickly as possible. We will also be adding new features and functionality, and expanding the package to support an even wider range of the community's use cases. We strongly encourage you to try this package and to give your opinion as it will pave the way of the package's future.
