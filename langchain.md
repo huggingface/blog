@@ -26,7 +26,7 @@ By becoming a partner package, we aim to reduce the time it takes to bring new f
 Getting started with **`langchain-huggingface`** is straightforward. Here’s how you can install and begin using the [package](https://github.com/langchain-ai/langchain/tree/master/libs/partners/huggingface):
 
 ```python
-pip install langchain_huggingface
+pip install langchain-huggingface
 ```
 
 Now that the package is installed, let’s have a tour of what’s inside !
