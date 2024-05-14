@@ -74,7 +74,7 @@ llm.invoke("Hugging Face is")
 When using this class, the model will be loaded in cache and use your computer’s hardware; thus, you may be limited by the available resources on your computer.
 
 ### HuggingFaceEndpoint
- "There are also two ways to use this class. You can specify the model with the `repo_id` parameter. Those endpoints use the [serverless API](https://huggingface.co/inference-api/serverless), which is particularly beneficial to people using [pro accounts](https://huggingface.co/subscribe/pro) or [enterprise hub](https://huggingface.co/enterprise). Still, regular users can already have access to a fair amount of request by connecting with their HF token in the environment where they are executing the code.
+There are also two ways to use this class. You can specify the model with the `repo_id` parameter. Those endpoints use the [serverless API](https://huggingface.co/inference-api/serverless), which is particularly beneficial to people using [pro accounts](https://huggingface.co/subscribe/pro) or [enterprise hub](https://huggingface.co/enterprise). Still, regular users can already have access to a fair amount of request by connecting with their HF token in the environment where they are executing the code.
  
 ```python
 from langchain_huggingface import HuggingFaceEndpoint
