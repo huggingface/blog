@@ -3972,3 +3972,13 @@
     - llama3
     - langchain
     - benchmark
+
+- local: paligemma
+  title: "PaliGemma – Google's Cutting-Edge Open Vision Language Model"
+  thumbnail: /blog/assets/paligemma/Paligemma.png
+  author: merve
+  date: May 14, 2024
+  tags:
+    - multimodal
+    - LLM
+    - vision
