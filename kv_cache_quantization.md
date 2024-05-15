@@ -48,8 +48,7 @@ where,
 - S is the scale calculated as `(maxX - minX) / (max_val_for_precision - min_val_for_precision)`
 - Z is zeropoint calculated as `round(-minX / S)`
 
-
-To integrate kv quantization seamlessly in Transformers, we rely on [quanto](https://github.com/huggingface/quanto) library. Quanto is a toolkit for easy implementation and combination of different quantization tecniques. Currently available quantization precisions for the key-value cache are `int2` and `int4`.
+Currently the kv quantization works on [quanto](https://github.com/huggingface/quanto) backend and supports precisions `int2` and `int4`. Although we don't currently support other quantization backends, we are open to community contributions that could help integrate them. Specifically, quantization methods that do not need calibration data and can dynamically calculate lower-bit tensors on-the-fly can be easily integrated.
 
 
 # Comparing performance of fp16 and quantized cache
@@ -77,14 +76,13 @@ Now, let's talk about the trade-off between memory savings and speed. When we qu
 Below are the performance metrics for kv cache in original precision and quantized format. Script to obtain the following figures is available [here](https://gist.github.com/zucchini-nlp/56ce57276d7b1ee666e957912d8d36ca).
 
 
-<div style="display: flex;">
-  <figure class="image m-0" style="width: 20%;">
-    <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/gpu_mem_max_new_tokens.png" alt="GPU memory consumption as max new tokens increase"/>
-  </figure>
-  <figure class="image m-0" style="width: 20%;">
-    <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/gpu_mem_bs.png" alt="GPU memory consumption as batch size increases"/>
-  </figure>
-</div>
+<figure class="image text-center m-0" style="width: 20%;">
+  <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/gpu_mem_max_new_tokens.png" alt="GPU memory consumption as max new tokens increase"/>
+</figure>
+
+<figure class="image text-center m-0" style="width: 20%;">
+  <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/gpu_mem_bs.png" alt="GPU memory consumption as batch size increases"/>
+</figure>
 
 
 <figure class="image text-center m-0">
