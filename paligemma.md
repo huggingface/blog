@@ -30,7 +30,7 @@ The PaliGemma release comes with three types of models:
 - Mix checkpoints: PT models fine-tuned to a mixture of tasks. They are suitable for general-purpose inference with free-text prompts, and can be used for research purposes only.
 - FT checkpoints: A set of fine-tuned models, each one specialized on a different academic benchmark. They are available in various resolutions and are intended for research purposes only.
 
-The models come in three different resolutions (224x224, 448x448, 896x896) and three different precisions (bfloat16, float16, and float32). Each repository contains the checkpoints for a given resolution and task, with three revisions for each of the available precisions. The `main` branch of each repository contains `float32` checkpoints, where as the `bfloat16` and `float16` revisions contain the corresponding precisions. There are separate repositories for models compatible with 🤗 transformers, and with the original JAX implementation.
+The models come in three different resolutions (`224x224`, `448x448`, `896x896`) and three different precisions (`bfloat16`, `float16`, and `float32`). Each repository contains the checkpoints for a given resolution and task, with three revisions for each of the available precisions. The `main` branch of each repository contains `float32` checkpoints, where as the `bfloat16` and `float16` revisions contain the corresponding precisions. There are separate repositories for models compatible with 🤗 transformers, and with the original JAX implementation.
 
 As explained in detail further down, the high-resolution models require a lot more memory to run, because the input sequences are much longer. They may help with fine-grained tasks such as OCR, but the quality increase is small for most tasks. The 224 versions are perfectly fine for most purposes.
 
@@ -281,6 +281,7 @@ We will now initialize the Trainer and TrainingArguments. If you will do QLoRA f
 from transformers import TrainingArguments
 args=TrainingArguments(
             num_train_epochs=2,
+            remove_unused_columns=False,
             per_device_train_batch_size=16,
             gradient_accumulation_steps=4,
             warmup_steps=2,
@@ -294,11 +295,12 @@ args=TrainingArguments(
             push_to_hub=True,
             save_total_limit=1,
             bf16=True,
-            report_to=["tensorboard"]
+            report_to=["tensorboard"],
+            dataloader_pin_memory=False
         )
 ```
 
-Initialize Trainer, pass in the datasets, data collating function and training arguments, and call `train()` to start training.
+Initialize `Trainer`, pass in the datasets, data collating function and training arguments, and call `train()` to start training.
 
 ```python
 trainer = Trainer(
@@ -319,6 +321,7 @@ trainer.train()
 - [Big vision PaliGemma demo](https://huggingface.co/spaces/google/paligemma)
 - [🤗 transformers PaliGemma demo](https://huggingface.co/spaces/google/paligemma-hf)
 - [Collection for all PaliGemma models](https://huggingface.co/collections/google/paligemma-release-6643a9ffbf57de2ae0448dda)
+- [Collection for all PaliGemma fine-tuned models](https://huggingface.co/collections/google/paligemma-ft-models-6643b03efb769dad650d2dda)
 - [Original Implementation](https://github.com/google-research/big_vision/blob/main/big_vision/models/proj/paligemma/paligemma.py)
 
 We would like to thank [Omar Sanseviero](osanseviero), [Lucas Beyer](https://huggingface.co/giffmana), [Xiaohua Zhai](https://huggingface.co/xiaohuazhai) and [Matthias Minderer](https://huggingface.co/mjlm) for their thorough reviews on this blog post.
