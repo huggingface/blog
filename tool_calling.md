@@ -13,7 +13,7 @@ authors:
 
 A few weeks ago, we introduced the new [Messages API](https://huggingface.co/blog/tgi-messages-api) that provided OpenAI compatibility with Text Generation Inference (TGI) and Inference Endpoints.
 
-At the time, the Messages API did not support function calling. This is a limitation that has now been lifted !
+At the time, the Messages API did not support function calling. This is a limitation that has now been lifted!
 
 Starting with version **1.4.5,** TGI offers an API compatible with the OpenAI Chat Completion API with the addition of the `tools` and the `tools_choice` keys. This change has been propagated in the **`huggingface_hub`** version **0.23.0**, meaning any Hugging Face endpoint can now call some tools if using a newer version.
 
@@ -95,7 +95,7 @@ With this seamless transition, you can immediately take advantage of the numerou
 
 Let's see how.
 
-### With the InferencClient from Hugging Face
+### With the InferenceClient from Hugging Face
 
 The function can directly be called with the serverless API or with any endpoint by with the endpoint URL.
 
