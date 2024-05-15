@@ -184,7 +184,7 @@ class RetrieverTool(Tool):
     }
     output_type = "text"
     
-    def __init__(self, vectordb: VectorStore, all_sources: str, **kwargs):
+    def __init__(self, vectordb: VectorStore, all_sources: list[str], **kwargs):
         super().__init__(**kwargs)
         self.vectordb = vectordb
         self.inputs["source"]["description"] = (
