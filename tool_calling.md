@@ -75,7 +75,7 @@ Since the model is gated, it will be very important to replace `<HF_TOKEN>` with
 
 It will take a few minutes for our deployment to spin up. We can utilize the `.wait()` utility to block the running thread until the endpoint reaches a final "running" state. Once running, we can confirm its status and take it for a spin via the UI Playground:
 
-[ENDPOINT IMAGE]
+![IE UI Overview](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tool_calling/endpoint.png)
 
 Great, we now have a working deployment! 
 
