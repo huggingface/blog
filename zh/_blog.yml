@@ -1496,6 +1496,14 @@
     - community
     - open-source-collab
 
+- local: hugging-face-wiz-security-blog
+  title: "Hugging Face 与 Wiz Research 合作提高人工智能安全性"
+  author: JJoe206
+  thumbnail: /blog/assets/wiz_security/security.png
+  date: April 4, 2024
+  tags:
+    - security
+
 - local: google-cloud-model-garden
   title: 在 Google Cloud 上轻松部署开放大语言模型
   author: philschmid
@@ -1517,6 +1525,18 @@
     - multimodal
     - guide
     - trl
+
+- local: idefics2
+  title: Idefics2 简介：为社区而生的强大 8B 视觉语言模型
+  author: Leyo
+  thumbnail: /blog/assets/idefics/thumbnail.png
+  date: April 15, 2024
+  tags:
+    - research
+    - nlp
+    - cv
+    - vlm
+    - multimodal
 
 - local: ryght-case-study
   title: Ryght 在 Hugging Face 专家助力下赋能医疗保健和生命科学之旅
@@ -1559,11 +1579,34 @@
     - collaboration
     - research
 
+- local: jat
+  title: "万事通，专精部分领域的多功能 Transformer 智能体"
+  author: qgallouedec
+  thumbnail: /blog/assets/jat/thumbnail.png
+  date: April 22, 2024
+  tags:
+    - imitation
+    - rl
+    - transformers
+    - generalist
+
+- local: sc2-instruct
+  title: 'StarCoder2-Instruct: 完全透明和可自我对齐的代码生成'
+  thumbnail: /blog/assets/sc2-instruct/sc2-instruct-banner.png
+  author: yuxiang630
+  guest: true
+  date: Apr 29, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
 - local: lmms_eval
   title: "统一多模态大模型评估，加速多模态智能涌现"
   author: kcz358
   thumbnail: /blog/assets/lmms_eval/thumbnail.png
-  date: May 2, 2024
+  date: May 15, 2024
   tags:
     - vlm
     - multimodal
