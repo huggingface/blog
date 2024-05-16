@@ -141,7 +141,7 @@ Special thanks to [Younes](https://huggingface.co/ybelkada) and [Marc](https://h
 Additionally, I would like to thank [Joao](https://huggingface.co/joaogante) for his invaluable support.
 
 
-# Further Resources
+## Additional Resources
 1. Zirui Liu, Jiayi Yuan, Hongye Jin, Shaochen Zhong, Zhaozhuo Xu, Braverman, V., Beidi Chen, & Hu, X. (2023). [KIVI : Plug-and-play 2bit KV Cache Quantization with Streaming Asymmetric Quantization](https://arxiv.org/abs/2402.02750).
 2. Blogpost from Databricks on [LLM Inference Performance Engineering: Best Practices](https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices) 
 3. Coleman Hooper, Sehoon Kim, Hiva Mohammadzadeh, Michael W. Mahoney, Yakun Sophia Shao, Kurt Keutzer, & Amir Gholami. (2024). [KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization](https://arxiv.org/abs/2401.18079).
