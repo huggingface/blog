@@ -33,7 +33,7 @@ of memory only to store the previous key-value cache, which is almost one third 
 Therefore, by compressing kv cache into a more compact form we can save up a lot of memory and run longer context generation on consumer GPUs. In our experiments, we were able to significantly reduce the memory footprint without sacrificing too much quality by quantizing the kv cache into lower precision formats. With this new quantization feature, we can now support longer generations without running out of memory, which means you can expand your model's context length without worrying about hitting a memory constraint.
 
 
-# Implementation Details
+## Implementation Details
 
 Key-value cache quantization in Transformers was largely inspired by the [KIVI: A Tuning-Free Asymmetric 2bit Quantization for kv Cache](https://arxiv.org/abs/2402.02750) paper. The paper introduced a 2bit asymmetrical quantization for large language models without quality degradation. KIVI quantizes the key cache per-channel and the value cache per-token, because keys have higher magnitudes of outliers in some channels while value cache does not such a pattern. That is why the relative error between quantized and original precision is much smaller when keys are quantized per-channel and the values per-token.
 
