@@ -6,7 +6,7 @@ authors:
 ---
 
 
-# Introduction
+# Unlocking Longer Generation with Key-Value Cache Quantization
 
 At Hugging Face, we are excited to share with you a new feature that's going to take your language models to the next level: *kv cache quantization*. 
 
