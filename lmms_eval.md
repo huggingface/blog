@@ -77,7 +77,7 @@ accelerate launch --multi_gpu --num_processes=8 -m lmms_eval \
     --output_path ./logs
 ```
 
-**Parallel acceleration and task merging**: Utilizing Huggingface's accelerator, lmms-eval supports multi-GPU, model parallelism, and multi-batch processing, significantly enhancing evaluation efficiency. This feature is particularly advantageous when testing multiple datasets simultaneously, greatly reducing evaluation time.
+**Parallel acceleration and task merging**: Using Hugging Face `accelerate`, lmms-eval supports multi-GPU, model parallelism, and multi-batch processing, significantly enhancing evaluation efficiency. This feature is particularly advantageous when testing multiple datasets simultaneously, greatly reducing evaluation time.
 
 Here is the total runtime on different datasets using 4 x A100 40G:
 
