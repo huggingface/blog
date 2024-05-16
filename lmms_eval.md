@@ -109,3 +109,13 @@ Additionally, we have added support for tensor parallelism in the 0.1.1.dev upda
 ## Conclusion
 
 In summary, the implementation of this framework not only provides new tools for multimodal model evaluation but also paves the way for future research and development, including video multimodal evaluation, few-shot evaluation modes, and batch inference acceleration, showcasing its powerful potential and foresight. The launch of `lmms-eval` marks the arrival of a new era in evaluation, opening up new paths for AI research and applications. We hope the community finds it useful for benchmarking their own models in this fast-moving field!
+
+## Resources
+
+GitHub repo : https://github.com/EvolvingLMMs-Lab/lmms-eval
+
+Official website : https://lmms-lab.github.io/
+
+Huggingface website : https://huggingface.co/lmms-lab
+
+Dataset collection : https://huggingface.co/collections/lmms-lab/lmms-eval-661d51f70a9d678b6f43f272
