@@ -60,7 +60,7 @@ Here's an example to evaluate a LLaVa model on the [MME](https://arxiv.org/abs/2
 # Build from source
 # pip install git+https://github.com/EvolvingLMMs-Lab/lmms-eval.git 
 
-# Build from pypi
+# or simply install from pypi
 # pip install lmms-eval
 
 # Build llava
