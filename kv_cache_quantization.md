@@ -134,7 +134,7 @@ There are many more different methods to reduce memory usage by key-value cache,
 4. **Potential for Further Optimization**: While kv cache quantization provides significant benefits on its own, it can also be combined with other optimization techniques, such as weight quantization, to further enhance memory efficiency and computational speed.
   
 
-# Acknowledgment
+## Acknowledgment
 
 Special thanks to [Younes](https://huggingface.co/ybelkada) and [Marc](https://huggingface.co/marcsun13) for their assistance and advice on quantization techniques. Their expertise greatly contributed to the development of this feature.
 
