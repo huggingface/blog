@@ -4005,3 +4005,13 @@
     - multimodal
     - LLM
     - vision
+
+- local: kv-cache-quantization
+  title: "Unlocking Longer Generation with Key-Value Cache Quantization"
+  thumbnail: /blog/assets/kv_cache_quantization/thumbnail.png
+  author: RaushanTurganbay
+  date: May 16, 2024
+  tags:
+    - generation
+    - LLM
+    - quantization
