@@ -90,7 +90,7 @@ Here is the total runtime on different datasets using 4 x A100 40G:
 | ai2d (3088)             | 3 mins 17 seconds  | 4 mins 12 seconds  |
 | coco2017_cap_val (5000) | 14 mins 13 seconds | 19 mins 58 seconds |
 
-Additionally, in the 0.1.1.dev update, the team has added support for tensor parallelism, enabling the running of larger models like LLaVA-v1.6-34B on 4 x 3090 GPUs, supporting efficient inference.
+Additionally, we have added support for tensor parallelism in the 0.1.1.dev update, which enables evaluation of large models like LLaVA-v1.6-34B on 4 x 3090 GPUs.
 
 **Comprehensive dataset support:** The `lmms-eval` team has hosted over 40 diverse datasets (with the number continually increasing) on Huggingface's lmms-lab, covering a range of tasks from COCO Captions to MMMU and others. All datasets have been transformed into a unified format for archiving, available for direct access on the team's lmms-lab official Huggingface Hub. Users can view specific details of evaluation data and easily download and use them with just one click. You can find all the datasets we support in the framework under [this collection](https://huggingface.co/collections/lmms-lab/lmms-eval-661d51f70a9d678b6f43f272).
 
