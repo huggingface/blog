@@ -2,7 +2,7 @@
 title: "Introducing the Open Leaderboard for Hebrew LLMs!"
 thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_hebrew.png
 authors:
-- user: shaltielshmid
+- user: Shaltiel
   guest: true
   org: dicta-il
 - user: TalGeva

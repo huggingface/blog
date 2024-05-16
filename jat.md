@@ -1,6 +1,6 @@
 ---
 title: 'Jack of All Trades, Master of Some, a Multi-Purpose Transformer Agent'
-thumbnail: /blog/assets/jat/thumbnail.gif
+thumbnail: /blog/assets/jat/thumbnail.png
 authors:
 - user: qgallouedec
 - user: edbeeching

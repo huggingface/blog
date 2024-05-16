@@ -152,7 +152,7 @@ output = model.generate(
     max_new_tokens=50,
 )
 output = output[0].to("cpu")
-print(tokenizer.decode(output)
+print(tokenizer.decode(output))
 ```
 
 This could produce an output such as:
