@@ -46,7 +46,7 @@ The implementation of kv cache in Transformers is partially based on KIVI, speci
 where, 
 - X_Q is the quantized tensor
 - S is the scale calculated as `(maxX - minX) / (max_val_for_precision - min_val_for_precision)`
-- Z is zeropoint calculated as `round(-minX / S)`
+- Z is the zeropoint, calculated as `round(-minX / S)`
 
 Currently the kv quantization works on [quanto](https://github.com/huggingface/quanto) backend and supports precisions `int2` and `int4`. Although we don't currently support other quantization backends, we are open to community contributions that could help integrate them. Specifically, quantization methods that do not need calibration data and can dynamically calculate lower-bit tensors on-the-fly can be easily integrated.
 
