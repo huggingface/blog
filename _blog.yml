@@ -4005,3 +4005,16 @@
     - multimodal
     - LLM
     - vision
+
+- local: tool_calling
+  title: "Tool calling with Hugging Face"
+  thumbnail: /blog/assets/tool_calling/thumbnail.png
+  author: jofthomas
+  date: May 15, 2024
+  tags:
+    - nlp
+    - LLM
+    - agents
+    - inference
+    - guide
+
