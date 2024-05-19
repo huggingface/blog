@@ -79,3 +79,10 @@ A couple of alternatives:
 ## How to Use Highlight Boxes
 
 See an example [in this PR](https://github.com/huggingface/blog/pull/1180). This is to be used sparingly :)
+
+## More Assistance
+
+Feel free to check out this [assistant space](https://huggingface.co/spaces/derek-thomas/hugging-face-blog-assistant) 
+to help with rending some of the tricky markdown. Give it a like if it was helpful.
+
+Also you can use the [community blog editor](https://huggingface.co/new-blog) which has a preview function.
