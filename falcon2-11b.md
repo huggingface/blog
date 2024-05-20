@@ -93,7 +93,7 @@ Performance on Open LLM Leaderboard tasks:
 | Llama3-8B  | 15000 | 82.09       | 77.35       | 59.47          | 43.90   | 66.69 | 44.79   |  62.38   |
 | Mistral-7B | N/A   | 83.31       | 78.37       | 59.98          | 42.15   | 64.16 | 37.83   |  60.97   |
 
-The HuggingFace leaderboard team provided an official evaluation of our model on the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) tasks. The model performs better than models such as Llama3-8B (trained on three times more data) and Mistral-7B, and on par with Gemma-7b.
+The Hugging Face Leaderboard team provided an official evaluation of our model on the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) tasks. The model performs better than models such as Llama3-8B (trained on three times more data) and Mistral-7B, and on par with Gemma-7b.
 
 Zero shot performance:
 | Checkpoint | GT   | HellaSwag | ArcEasy | Winogrande  | ArcChallenge |
