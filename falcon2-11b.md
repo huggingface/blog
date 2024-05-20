@@ -30,9 +30,9 @@ authors:
 
 The first generation of Falcon models, featuring [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) and [Falcon-180B](https://huggingface.co/tiiuae/falcon-180B), made a significant contribution to the open-source community, promoting the release of advanced LLMs with permissive licenses. For more information on the previous generation of Falcon models, see the [RefinedWeb, Penedo et. al, 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/fa3ed726cc5073b9c31e3e49a807789c-Abstract-Datasets_and_Benchmarks.html) and [The Falcon Series of Open Language Models, Almazrouei et. al, 2023](https://arxiv.org/abs/2311.16867) papers.
 
-The second generation of models is focused on increased usability and integrability, buiding an multi-modal ecosystem. We start this journey by releasing not only the base [11B LLM](https://huggingface.co/tiiuae/falcon-11B), but also the [11B VLM model](https://huggingface.co/tiiuae/Falcon-11B-vlm) that offers image understanding capabilities. Hence, allowing users to engage in chats about visual content using text.
+The second generation of models is focused on increased usability and integrability, buiding a multi-modal ecosystem. We start this journey by releasing not only the base [11B LLM](https://huggingface.co/tiiuae/falcon-11B), but also the [11B VLM model](https://huggingface.co/tiiuae/Falcon-11B-vlm) that offers image understanding capabilities. The VLM will allow users to engage in chats about visual content using text.
 
-As with our previous work, the models offer support mainly in English, but have good capabilities in ten other languages, including Spanish, German and French.
+As with our previous work, the models offer support mainly in English, but have good capabilities in ten other languages, including Spanish, French and German.
 
 # [Falcon2-11B LLM](#training)
 
