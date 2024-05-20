@@ -4006,6 +4006,7 @@
     - LLM
     - vision
 
+<<<<<<< HEAD
 - local: microsoft-collaboration
   title: "From cloud to developers: Hugging Face and Microsoft Deepen Collaboration" 
   thumbnail: /blog/assets/microsoft-collaboration/thumbnail.jpg
@@ -4084,3 +4085,18 @@
     - research
     - leaderboard
     - LLM
+
+- local: falcon2-11b
+  title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens>
+  author: Quent-01
+  guest: true
+  thumbnail: /blog/assets/179_falcon2-11b/thumbnail.jpg
+  date: May 24, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - multimodal
+    - vision
+    - open-source
