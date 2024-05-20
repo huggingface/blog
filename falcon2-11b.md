@@ -3,12 +3,26 @@ title: "Falcon2: An 11B parameter pretrained language model and VLM, trained on 
 thumbnail: /blog/assets/179_falcon2-11b/thumbnail.jpg
 authors:
 - user: Quent-01
+  guest: true
+  org: tiiuae
 - user: nilabhra
+  guest: true
+  org: tiiuae
 - user: rcojocaru
+  guest: true
+  org: tiiuae
 - user: Mughaira
+  guest: true
+  org: tiiuae
 - user: yasserTII
+  guest: true
+  org: tiiuae
 - user: SanathNarayan
+  guest: true
+  org: tiiuae
 - user: griffintaur
+  guest: true
+  org: tiiuae
 - user: clefourrier
 - user: SailorTwift
 ---
