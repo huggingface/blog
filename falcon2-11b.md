@@ -102,7 +102,7 @@ Zero shot performance:
 | Falcon-40B | 1000 | 82.82    | 81.86   | 76.4      | 54.69       |
 | Falcon-7B  | 1500 | 76.31    | 74.74   | 67.17     | 43.43       | 
 
-The evaluation results show that the Falcon2-11B shows similar performance to Falcon-40B, at four times smaller model size!
+The evaluation results show that the Falcon2-11B shows similar performance to Falcon-40B, at a four times smaller model size!
 
 ### Multilingual capabilities
 Using the [Multilingual LLM leaderboard](https://huggingface.co/spaces/uonlp/open_multilingual_llm_leaderboard), we compare the Falcon2-11B model to the Llama-7B and Bloom-7B. For reference, we also include Falcon-40B (that supports the same languages), Falcon-7B (that supports French) and Mistral-7B.
