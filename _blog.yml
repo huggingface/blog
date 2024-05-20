@@ -4005,3 +4005,16 @@
     - multimodal
     - LLM
     - vision
+
+- local: falcon2-11b
+  title: "Falcon2: An 11B parameter pretrained language model and VLM, trained on over 5000 B tokens and 11 languages"
+  author: Quent-01
+  thumbnail: /blog/assets/179_falcon2-11b/thumbnail.jpg
+  date: May 20, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - multimodal
+    - vision
