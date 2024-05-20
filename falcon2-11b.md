@@ -37,7 +37,7 @@ As with our previous work, the models offer support mainly in English but have g
 # [Falcon2-11B LLM](#training)
 
 ### Training Data
-Falcon2-11B was trained on over 5,000B tokens of RefinedWeb, a high-quality filtered and deduplicated web dataset, enhanced with curated corpora. It followed a four stage training strategy. The first three stages were focused on increasing the context length, from to 2048 to 4096 and finally to 8192 tokens. The last stage aimed to further enhance performance using only high quality data.
+Falcon2-11B was trained on over 5,000B tokens of RefinedWeb, a high-quality filtered and deduplicated web dataset, enhanced with curated corpora. It followed a four-stage training strategy. The first three stages were focused on increasing the context length, from 2048 to 4096 and finally to 8192 tokens. The last stage aimed to further enhance performance using only high-quality data.
 
 Overall, the data sources included RefinedWeb-English, Refined Web-Europe (*cs*, *de*, *es*, *fr*, *it*, *nl*, *pl*, *pt*, *ro*, *sv*), high quality technical data, code data, and conversational data extracted from public sources.
 
