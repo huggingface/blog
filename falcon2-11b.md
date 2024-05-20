@@ -32,7 +32,7 @@ The first generation of Falcon models, featuring [Falcon-40B](https://huggingfac
 
 The second generation of models is focused on increased usability and integrability, building a multi-modal ecosystem. We start this journey by releasing not only the base [11B LLM](https://huggingface.co/tiiuae/falcon-11B) but also the [11B VLM model](https://huggingface.co/tiiuae/Falcon-11B-vlm) that offers image understanding capabilities. The VLM will allow users to engage in chats about visual content using text.
 
-As with our previous work, the models offer support mainly in English, but have good capabilities in ten other languages, including Spanish, French and German.
+As with our previous work, the models offer support mainly in English but have good capabilities in ten other languages, including Spanish, French, and German.
 
 # [Falcon2-11B LLM](#training)
 
