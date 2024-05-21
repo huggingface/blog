@@ -1612,6 +1612,22 @@
     - intel
     - llm
 
+- local: agents
+  title: '授权调用：介绍 Transformers 智能体 2.0  '
+  thumbnail: /blog/assets/agents/thumbnail.png
+  author: m-ric
+  date: May 13, 2024
+  tags:
+    - nlp
+    - LLM
+    - agents
+    - transformers
+    - gpt
+    - mixtral
+    - llama3
+    - langchain
+    - benchmark
+
 - local: paligemma
   title: PaliGemma 正式发布 — Google 最新发布的前沿开放视觉语言模型
   thumbnail: /blog/assets/paligemma/Paligemma.png
