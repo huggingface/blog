@@ -4005,3 +4005,13 @@
     - multimodal
     - LLM
     - vision
+
+- local: tgi-benchmarking
+  title: "Benchmarking Text Generation Inference"
+  thumbnail: /blog/assets/tgi-benchmarking/tgi-benchmarking-thumbnail.png
+  author: derek-thomas
+  date: May 22, 2024
+  tags:
+    - LLM
+    - NLP
+    - guide
