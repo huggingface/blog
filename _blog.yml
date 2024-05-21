@@ -4005,3 +4005,13 @@
     - multimodal
     - LLM
     - vision
+
+- local: spaces-dev-mode
+  title: "From cloud to developers: Hugging Face and Microsoft Deepen Collaboration" 
+  thumbnail: /blog/assets/microsoft-collaboration/thumbnail.jpg
+  author: pagezyhf
+  date: May 21, 2024
+  tags:
+    - spaces
+    - azure
+    - partnership
