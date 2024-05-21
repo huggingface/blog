@@ -32,7 +32,7 @@ In a couple of hours our infrastructure team was able to deploy, setup and get e
 
 We also moved away from our old infrastructure to a managed Kubernetes cluster taking care of scheduling all the Github workflows Hugging Face collaborators would like to run on hardware specific pods.
 This migration now allows us to run the exact same CI/CD pipeline on a variety of hardware platforms abstracted away from the developer.
-We were able to get the CI?CD up and running within a couple of days without much effort on the Azure MI300X VM.
+We were able to get the CI/CD up and running within a couple of days without much effort on the Azure MI300X VM.
 
 As a result, transformers and text-generation-inference are now being tested on a regular basis on both the previous generation of AMD Instinct GPUs, namely MI250 and also on the latest MI300. 
 In practice, there are tens of thousands of unit tests which are regularly validating the state of these repositories ensuring the correctness and robustness of the integration in the long run.
