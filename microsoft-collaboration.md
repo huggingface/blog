@@ -54,8 +54,10 @@ Recently, Hugging Face and Microsoft have been focusing on enabling local infere
 
 To see the power of WebGPU in action, consider this [demo of Phi-3](https://x.com/xenovacom/status/1792661746269692412) generating over 70 tokens per second locally in the browser!
 
-![video](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/microsoft-collaboration/phi-3-webgpu.mp4) 
-
+<video class="w-full" autoplay loop muted>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/microsoft-collaboration/phi-3-webgpu.mp4" type="video/mp4">
+  Your browser does not support playing the video.
+</video>
 
 ## A Collaboration for Developers
 
