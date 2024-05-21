@@ -1602,6 +1602,16 @@
     - research
     - LLM
 
+- local: cost-efficient-rag-applications-with-intel
+  title: 利用英特尔 Gaudi 2 和至强 CPU 构建经济高效的企业级 RAG 应用
+  author: juliensimon
+  thumbnail: /blog/assets/cost_efficient_rag_applications_with_intel/main.jpg
+  date: May 9, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
+
 - local: paligemma
   title: PaliGemma 正式发布 — Google 最新发布的前沿开放视觉语言模型
   thumbnail: /blog/assets/paligemma/Paligemma.png
