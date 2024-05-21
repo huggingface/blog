@@ -14,6 +14,9 @@ authors:
 - user: Mughaira
   guest: true
   org: tiiuae
+- user: gcamp
+  guest: true
+  org: tiiuae
 - user: yasserTII
   guest: true
   org: tiiuae
@@ -98,23 +101,23 @@ Falcon2-11B was trained on 1024 A100 40GB GPUs for the majority of the training,
 ### English performance
 
 Performance on Open LLM Leaderboard tasks:
-| Checkpoint | GT    | HellaSwag-10 | Winogrande-5 | ArcChallenge-25 | TQA-0    | MMLU-5 | GSMK8k-5 | Average   |
-|------------|-------|--------------|--------------|-----------------|----------|--------|----------|-----------|
-| Falcon-11B | 5500  | 82.91       | 78.30       | 59.73          | 52.56   | 58.37 | 53.83   |  64.28   |
-| Falcon-40B | 1000  | 85.28       | 81.29        | 61.86          | 41.65   | 56.89 | 21.46   |  58.07   |
-| Falcon-7B  | 1500  | 78.13        | 72.38       | 47.87          | 34.26    | 27.79   | 4.62   |  44.17   |
-| Gemma-7B   | 6000  | 82.47       | 78.45       | 61.09          | 44.91   | 66.03 | 52.77   |  64.29   |
-| Llama3-8B  | 15000 | 82.09       | 77.35       | 59.47          | 43.90   | 66.69 | 44.79   |  62.38   |
-| Mistral-7B | N/A   | 83.31       | 78.37       | 59.98          | 42.15   | 64.16 | 37.83   |  60.97   |
+| Checkpoint  | GT    | HellaSwag-10 | Winogrande-5 | ArcChallenge-25 | TQA-0    | MMLU-5 | GSMK8k-5 | Average   |
+|-------------|-------|--------------|--------------|-----------------|----------|--------|----------|-----------|
+| Falcon2-11B | 5500  | 82.91       | 78.30       | 59.73          | 52.56   | 58.37 | 53.83   |  64.28   |
+| Falcon-40B  | 1000  | 85.28       | 81.29        | 61.86          | 41.65   | 56.89 | 21.46   |  58.07   |
+| Falcon-7B   | 1500  | 78.13        | 72.38       | 47.87          | 34.26    | 27.79   | 4.62   |  44.17   |
+| Gemma-7B    | 6000  | 82.47       | 78.45       | 61.09          | 44.91   | 66.03 | 52.77   |  64.29   |
+| Llama3-8B   | 15000 | 82.09       | 77.35       | 59.47          | 43.90   | 66.69 | 44.79   |  62.38   |
+| Mistral-7B  | N/A   | 83.31       | 78.37       | 59.98          | 42.15   | 64.16 | 37.83   |  60.97   |
 
 The Hugging Face Leaderboard team provided an official evaluation of our model on the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) tasks. The model performs better than models such as Llama3-8B (trained on three times more data) and Mistral-7B, and on par with Gemma-7b.
 
 Zero shot performance:
-| Checkpoint | GT   | HellaSwag | ArcEasy | Winogrande  | ArcChallenge |
-|------------|------|-----------|----------|------------|--------------|
-| Falcon-11B | 5500 | 82.07    | 77.78   | 78.30     | 50.17       |
-| Falcon-40B | 1000 | 82.82    | 81.86   | 76.4      | 54.69       |
-| Falcon-7B  | 1500 | 76.31    | 74.74   | 67.17     | 43.43       | 
+| Checkpoint  | GT   | HellaSwag | ArcEasy | Winogrande  | ArcChallenge |
+|-------------|------|-----------|----------|------------|--------------|
+| Falcon2-11B | 5500 | 82.07    | 77.78   | 78.30     | 50.17       |
+| Falcon-40B  | 1000 | 82.82    | 81.86   | 76.4      | 54.69       |
+| Falcon-7B   | 1500 | 76.31    | 74.74   | 67.17     | 43.43       | 
 
 The evaluation results show that the Falcon2-11B shows similar performance to Falcon-40B, at a four times smaller model size!
 
@@ -123,7 +126,7 @@ Using the [Multilingual LLM leaderboard](https://huggingface.co/spaces/uonlp/ope
 
 | Model       | Language ID | ArcChallenge-25 | Hellaswag | MMLU 25 | TQA | Average |
 |-------------|-------------|----------|----------|----------|-----------|----------|
-| Falcon-11B  | *de*        | 43.7     | 67.96    | 38.3     | 47.53     | **49.37** |
+| Falcon2-11B | *de*        | 43.7     | 67.96    | 38.3     | 47.53     | **49.37** |
 |             | *es*        | 46.2     | 73.63    | 37.9     | 46.43     | **51.06** |
 |             | *fr*        | 45.8     | 72.41    | 39.53    | 47.30     | **51.27** |
 |             | *it*        | 45.6     | 70.83    | 38.05    | 47.14     | **50.42** |
@@ -157,7 +160,12 @@ Using the [Multilingual LLM leaderboard](https://huggingface.co/spaces/uonlp/ope
 
 In the spirit of the original Falcon models, the Falcon2-11B was trained not only on English data, but also on ten other languages. Our multilingual evaluation results show that the model presents good capabilities in the six languages (*de*, *es*, *fr*, *it*, *nl*, *ro*) featured on the Multilingual LLM Leaderboard, and actually shows higher performance that the Falcon-40B and several other multilingual models on all the cited languages.
 
-We will soon release more extensive evaluation results for multilingual capabilities in the [Falcon-11B model card](https://huggingface.co/tiiuae/falcon-11B)!
+We will soon release more extensive evaluation results for multilingual capabilities in the [Falcon2-11B model card](https://huggingface.co/tiiuae/falcon-11B)!
+
+### Code genration capabilities
+
+We check the model's performance on code generation against the [BigCode Leaderboard](https://huggingface.co/spaces/bigcode/bigcode-models-leaderboard
+) on the HumanEval benchmark for the Python language, obtaining pass@1 of 29.59%.
 
 ## [Using Falcon2-11B](#using)
 ```python
@@ -202,7 +210,7 @@ This enables the multimodal projector to learn a mapping from visual to text emb
 
 | Model | MME | GQA | SQA | POPE | VQAv2 | TextVQA | MM-Bench | SEED-IMG | Average |
 |----|----|----|----|----|----|----|----|----|----|
-| Falcon-11B VLM | **1589/343** | 64.5 | **74.9** | **88.4** | 82.1 | 66.7 | **72.0** | **72.3** |**74.4** |
+| Falcon2-11B VLM | **1589/343** | 64.5 | **74.9** | **88.4** | 82.1 | 66.7 | **72.0** | **72.3** |**74.4** |
 | LLaVA-1.6 (Vicuna-7B) | 1519/332 | 64.2 |  70.1 | 86.5 | 81.8 | 64.9 | 67.4 | 70.2 | 72.1 |
 | LLaVA-1.6 (Vicuna-13B) | 1575/326 | **65.4** | 73.6 | 86.2 | **82.8** | **67.1** | 70.0 | 71.9 |73.8 |
 | LLaVA-1.6 (Mistral-7B) | 1498/321 |64.8 | 72.8 | 86.7 | 82.2 | 65.7 | 68.7 | 72.2 |73.3 |
