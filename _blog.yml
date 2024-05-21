@@ -4007,8 +4007,8 @@
     - vision
 
 - local: spaces-dev-mode
-  title: "From cloud to developers: Hugging Face and Microsoft Deepen Collaboration" 
-  thumbnail: /blog/assets/microsoft-collaboration/thumbnail.jpg
+  title: "Introducing Spaces Dev Mode for a seamless developer experience" 
+  thumbnail: /blog/assets/spaces-dev-mode/thumbnail.jpg
   author: pagezyhf
   date: May 21, 2024
   tags:

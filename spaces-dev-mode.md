@@ -1,24 +1,24 @@
 ---
-title: "Introducing Spaces Dev mode for a seamless developer experience" 
+title: "Introducing Spaces Dev Mode for a seamless developer experience" 
 thumbnail: /blog/assets/spaces-dev-mode/thumbnail.jpg
 authors:
 - user: pagezyhf
 ---
 
-# Introducing Spaces Dev mode for a seamless developer experience
+# Introducing Spaces Dev Mode for a seamless developer experience
 
-Hugging Face Spaces makes it easy for you to create and deploy AI-powered demos in minutes. Over 500,000 Spaces have been created by the Hugging Face community and it keeps growing! As part of [Hugging Face Spaces](https://huggingface.co/spaces), we recently released support for “Dev mode”, to make your experience of building Spaces even more seamless.
+Hugging Face Spaces makes it easy for you to create and deploy AI-powered demos in minutes. Over 500,000 Spaces have been created by the Hugging Face community and it keeps growing! As part of [Hugging Face Spaces](https://huggingface.co/spaces), we recently released support for “Dev Mode”, to make your experience of building Spaces even more seamless.
 
-Spaces Dev mode lets you connect with VS Code or SSH directly to your Space. In a click, you can connect to your Space, and start editing your code, removing the need to push your local changes to the Space repository using git.
+Spaces Dev Mode lets you connect with VS Code or SSH directly to your Space. In a click, you can connect to your Space, and start editing your code, removing the need to push your local changes to the Space repository using git.
 Let's see how to setup this feature in your Space’s settings 🔥
 
-## Enable Dev mode
+## Enable Dev Mode
 
 Spaces Dev Mode is currently in beta, and available to [PRO subscribers](https://huggingface.co/pricing#pro). To learn more about Spaces Dev Mode, check out the [documentation](https://huggingface.co/dev-mode-explorers). After creating your space, navigate to Settings.
 
 ![dev-mode-settings-1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/spaces-dev-mode/dev-mode-settings-1.png)
 
-Scroll down in the Settings and click on “Enable Dev mode”. Your Space will automatically Restart. 
+Scroll down in the Settings and click on “Enable Dev Mode”. Your Space will automatically Restart. 
 
 ![dev-mode-settings-2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/spaces-dev-mode/dev-mode-settings-2.png)
 
