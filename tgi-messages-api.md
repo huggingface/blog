@@ -49,8 +49,8 @@ endpoint = create_inference_endpoint(
     vendor="aws",
     region="us-east-1",
     type="protected",
-    instance_type="p4de",
-    instance_size="2xlarge",
+    instance_type="nvidia-a100",
+    instance_size="x2",
     custom_image={
         "health_route": "/health",
         "env": {

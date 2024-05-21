@@ -11,6 +11,9 @@ authors:
 - user: rcojocaru
   guest: true
   org: tiiuae
+- user: Basma-b
+  guest: true
+  org: tiiuae
 - user: clefourrier
 ---
 
@@ -46,7 +49,7 @@ The technical setup for the Open Arabic LLM Leaderboard (OALL) uses:
 
 We have many ideas about expanding the scope of the Open Arabic LLM Leaderboard. Plans are in place to introduce additional leaderboards under various categories, such as one for evaluating Arabic LLMs in Retrieval Augmented Generation (RAG) scenarios and another as a chatbot arena that calculates the ELO scores of different Arabic chatbots based on user preferences. 
 
-Furthermore, we aim to extend our benchmarks to cover more comprehensive tasks by developing the OpenDolphin benchmark, which will include about 50 datasets and will be an open replication of the work done by Nagoudi et al. in the paper titled [“Dolphin: A Challenging and Diverse Benchmark for Arabic NLG”](https://arxiv.org/abs/2305.14989). For those interested in adding their benchmarks or collaborating on the OpenDolphin project, please contact us through the discussion tab or at this [email address](elfilali.ali01@gmail.com).
+Furthermore, we aim to extend our benchmarks to cover more comprehensive tasks by developing the OpenDolphin benchmark, which will include about 50 datasets and will be an open replication of the work done by Nagoudi et al. in the paper titled [“Dolphin: A Challenging and Diverse Benchmark for Arabic NLG”](https://arxiv.org/abs/2305.14989). For those interested in adding their benchmarks or collaborating on the OpenDolphin project, please contact us through the discussion tab or at this [email address](mailto:elfilali.ali01@gmail.com).
 
 We’d love to welcome your contribution on these points! We encourage the community to contribute by submitting models, suggesting new benchmarks, or participating in discussions. We also encourage the community to make use of the top models of the current leaderboard to create new models through finetuning or any other techniques that might help your model to climb the ranks to the first place! You can be the next Arabic Open Models Hero! 
 
