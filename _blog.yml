@@ -4027,3 +4027,18 @@
     - cloud
     - azure
     - partnership
+
+- local: huggingface-amd-mi300
+  title: "Hugging Face on AMD Instinct MI300 GPU"
+  thumbnail: /blog/assets/optimum_amd/amd_hf_logo_fixed.png
+  author: mfuntowicz
+  date: May 21, 2024
+  tags:
+    - llm
+    - amd
+    - llama
+    - inference
+    - optimum
+    - rocm
+    - text-generation
+
