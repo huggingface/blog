@@ -3,6 +3,7 @@ title: "From cloud to developers: Hugging Face and Microsoft Deepen Collaboratio
 thumbnail: /blog/assets/microsoft-collaboration/thumbnail.jpg
 authors:
 - user: jeffboudier
+- user: philschmid
 ---
 
 # From cloud to developers: Hugging Face and Microsoft Deepen Collaboration 
