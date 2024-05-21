@@ -202,7 +202,7 @@ The [Falcon2-11B VLM](https://huggingface.co/tiiuae/Falcon-11B-vlm) is a vision-
 For enhancing the VLM's perception of fine-grained details w.r.t small objects in images, we employ a dynamic encoding mechanism at high-resolution for image inputs, similar to [LLaVA-Next](https://llava-vl.github.io/blog/2024-01-30-llava-next/).
 
 ### Training 
-The training is done in two stages: pretraining and finetuning. In both stages, the visual encoder weights are kept frozen. In the pretraining stage, the LLM is kept frozen and only the multimodal projector is trained on 558K image-caption pairs. 
+The training is done in two stages: pretraining and finetuning. In both stages, the visual encoder weights are kept frozen. In the pretraining stage, the LLM is kept frozen, and only the multimodal projector is trained on 558K image-caption pairs. 
 This enables the multimodal projector to learn a mapping from visual to text embedding space. During finetuning, both the projector and LLM weights are trained on a corpus of 1.2M image-text instruction data from public datasets, which also includes multi-round conversations.
 
 ### [Evaluation](#vlm-evaluation)
