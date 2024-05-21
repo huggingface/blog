@@ -1,5 +1,5 @@
 ---
-title: "PUT YOUR TITLE HERE" 
+title: "Introducing Spaces Dev mode for a seamless developer experience" 
 thumbnail: /blog/assets/spaces-dev-mode/thumbnail.jpg
 authors:
 - user: pagezyhf
