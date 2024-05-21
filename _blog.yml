@@ -4018,3 +4018,12 @@
     - dell
     - partnerships
 
+- local: microsoft-collaboration
+  title: "From cloud to developers: Hugging Face and Microsoft Deepen Collaboration" 
+  thumbnail: /blog/assets/microsoft-collaboration/thumbnail.jpg
+  author: jeffboudier
+  date: May 21, 2024
+  tags:
+    - cloud
+    - azure
+    - partnership
