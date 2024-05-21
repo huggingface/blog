@@ -84,7 +84,7 @@ See an example [in this PR](https://github.com/huggingface/blog/pull/1180). This
 
 You can use the [community blog editor](https://huggingface.co/new-blog) which has a preview function.
 
-Feel free to check out this [assistant space](https://huggingface.co/spaces/derek-thomas/hugging-face-blog-assistant) 
+Or check out this [assistant space](https://huggingface.co/spaces/derek-thomas/hugging-face-blog-assistant) 
 to help with rending some of the tricky markdown like:
 - Inserting caption figures with image tables
 - Tip formatting
