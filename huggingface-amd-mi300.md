@@ -69,7 +69,7 @@ When the warmup phase is done, we disable the tuner and leverage the optimized r
 
 As said previously, we ran all our benchmarks using Azure ND MI300x V5, recently introduced at Microsoft BUILD, which integrates eight AMD Instinct GPUs onboard, against the previous generation MI250 on Meta Llama 3 70B, deployment, we observe a 2x-3x speedup in the time to first token latency (also called prefill), and a 2x speedup in latency in the following autoregressive decoding phase. 
 
-![text-generation-inference results on Meta Llama3 70B mi300 vs mi250](assets/hf-amd-mi300/tgi_mi300_vs_mi250.png)
+![text-generation-inference results on Meta Llama3 70B mi300 vs mi250](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-amd-mi300/tgi_mi300_vs_mi250.png)
 
 _TGI latency results for Meta Llama 3 70B, comparing AMD Instinct MI300X on an Azure VM against the previous generation AMD Instinct MI250_
 
@@ -82,7 +82,7 @@ On Llama 3 70B, our workload consists of batches of 448 tokens, with a batch siz
 
 From our comparison on Llama 3 70B, we are able to train about 2x times faster on an Azure VM powered by MI300X, compared to an HPC server using the previous generation AMD Instinct MI250.
 
-![PEFT finetuning on mi300 vs mi250](assets/hf-amd-mi300/peft_finetuning_mi300_vs_mi250.png)
+![PEFT finetuning on mi300 vs mi250](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-amd-mi300/peft_finetuning_mi300_vs_mi250.png)
 
 _Moreover, as the MI300X benefits from its 192 GB HBM3 memory (compared to 128 GB for MI250), we manage to fully load and fine-tune Meta Llama 3 70B on a single device, while an MI250 GPU would not be able to fit in full the ~140 GB model on a single device, in float16 nor bfloat16._
 _Because it’s always important to be able to replicate and challenge a benchmark, we are releasing a [companion Github repository](https://github.com/huggingface/hf-rocm-benchmark) containing all the artifacts and source code we used to collect performance showcased in this blog._
