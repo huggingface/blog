@@ -26,12 +26,12 @@ Let’s dive in!
 With so many things happening right now in AI it was absolutely necessary to make sure the MI300 line-up is correctly tested and monitored in the long-run. 
 To achieve this, we have been working closely with the infrastructure team here at Hugging Face to make sure we have robust building blocks available for whoever requires to enable continuous integration and deployment (CI/CD) and to be able to do so without pain and without impacting the others already in place.
 
-To enable such things, we worked together with AMD and Microsoft Azure teams to leverage the recently introduced [Azure ND MI300x V5](LINK) as the building block targeting MI300.
+To enable such things, we worked together with AMD and Microsoft Azure teams to leverage the recently introduced [Azure ND MI300x V5](https://techcommunity.microsoft.com/t5/azure-high-performance-computing/introducing-the-new-azure-ai-infrastructure-vm-series-nd-mi300x/ba-p/4145152) as the building block targeting MI300.
 In a couple of hours our infrastructure team was able to deploy, setup and get everything up and running for us to get our hands on the MI300!
 
 We also moved away from our old infrastructure to a managed Kubernetes cluster taking care of scheduling all the Github workflows Hugging Face collaborators would like to run on hardware specific pods.
 This migration now allows us to run the exact same CI/CD pipeline on a variety of hardware platforms abstracted away from the developer.
-We were able to get the CI?CD up and running within couple of days without much effort on the Azure MI300X VM.
+We were able to get the CI?CD up and running within a couple of days without much effort on the Azure MI300X VM.
 
 As a result, transformers and text-generation-inference are now being tested on a regular basis on both the previous generation of AMD Instinct GPUs, namely MI250 and also on the latest MI300. 
 In practice, there are tens of thousands of unit tests which are regularly validating the state of these repositories ensuring the correctness and robustness of the integration in the long run.
@@ -45,14 +45,14 @@ TGI can be seen as three different components:
 -	A scheduling layer, making sure these requests are potentially batched together (i.e. continuous batching) to increase the computational density on the hardware without impacting the user experience
 -	A modeling layer, taking care of running the actual computations on the device, leveraging highly optimized routines involved in the model
 
-Here, with the help of AMD engineers, we focused on this last component, the modeling, to effectively setup, run and optimize the workload for serving models as the Meta Llama family [LINK]. In particular, we focused on:
+Here, with the help of AMD engineers, we focused on this last component, the modeling, to effectively setup, run and optimize the workload for serving models as the [Meta Llama family](https://huggingface.co/meta-llama). In particular, we focused on:
 -	Flash Attention v2
 -	Paged Attention
 -	GPTQ/AWQ compression techniques
 -	PyTorch integration of [ROCm TunableOp](https://github.com/pytorch/pytorch/tree/main/aten/src/ATen/cuda/tunable)
 -	Integration of optimized fused kernels
 
-Most of these have been around for quite some time now, FlashAttention v2 [LINK], Paged Attention [LINK] and GPTQ/AWQ compression methods (especially their optimized routines/kernels). We won’t detail the three above and we invite you to navigate to their original implementation page to learn more about it. 
+Most of these have been around for quite some time now, [FlashAttention v2](https://huggingface.co/papers/2307.08691), [PagedAttention](https://huggingface.co/papers/2309.06180) and [GPTQ](https://huggingface.co/papers/2210.17323)/[AWQ](https://huggingface.co/papers/2306.00978) compression methods (especially their optimized routines/kernels). We won’t detail the three above and we invite you to navigate to their original implementation page to learn more about it. 
 
 Still, with a totally new hardware platform, new SDK releases, it was important to carefully validate, profile and optimize every bit to make sure the user gets all the power from this new platform.
 
