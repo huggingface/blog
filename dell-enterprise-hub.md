@@ -3,6 +3,13 @@ title: "Build AI on premise with Dell Enterprise Hub"
 thumbnail: /blog/assets/dell-enterprise-hub/thumbnail.jpg
 authors:
 - user: jeffboudier
+- user: philschmid
+- user: balaatdell
+  guest: true
+  org: DellTechnologies
+- user: ianr007
+  guest: true
+  org: DellTechnologies
 ---
 
 
