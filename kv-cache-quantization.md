@@ -50,23 +50,26 @@ where,
 - S is the scale, calculated as `(maxX - minX) / (max_val_for_precision - min_val_for_precision)`
 - Z is the zeropoint, calculated as `round(-minX / S)`
 
-Currently, the kv quantization works on [quanto](https://github.com/huggingface/quanto) backend and supports `int2` and `int4` precisions. For more information about `quanto` refer to the previous [blogpost](https://huggingface.co/blog/quanto-introduction). Although we don't currently support other quantization backends, we are open to community contributions that could help integrate them. Specifically, quantization methods that do not need calibration data and can dynamically calculate lower-bit tensors on-the-fly can be easily integrated. Additionally, we are planning to give more freedom to tweak quantization parameters in the next releases, so that you can decide whether to perform per-channel or per-token quantization depending on your use case.
+Currently, the kv quantization works on [quanto](https://github.com/huggingface/quanto) backend with `int2` and `int4` precisions and [`HQQ`](https://github.com/mobiusml/hqq/tree/master) backend with `int2`, `int4` and `int8` precisions. For more information about `quanto` refer to the previous [blogpost](https://huggingface.co/blog/quanto-introduction). Although we don't currently support more quantization backends, we are open to community contributions that could help integrate them. Specifically, quantization methods that do not need calibration data and can dynamically calculate lower-bit tensors on-the-fly can be easily integrated. Additionally, you can indicate the most common quantization parameters in the config, thus have freedom to tweak quantization process, e.g. decide whether to perform per-channel or per-token quantization depending on your use case.
 
 
 
 ## Comparing performance of fp16 and quantized cache
 
-We know visuals speak louder than words, so we've prepared some comparison plots to give you a snapshot of how quantization stacks up against FP16 precision. These plots show you at a glance how the model's generation holds up in terms of quality when we tweak the precision settings for kv cache. We calculated the perplexity of [Llama2-7b-chat](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) model on the [`PG-19`](https://huggingface.co/datasets/emozilla/pg19-test) dataset. We can see that `int4` cache performs almost the same as the original `fp16` precision, while the quality degrades when using `int2`. The script to reproduce the results is available [here](https://gist.github.com/zucchini-nlp/a7b19ec32f8c402761d48f3736eac808).
+We know visuals speak louder than words, so we've prepared some comparison plots to give you a snapshot of how quantization stacks up against FP16 precision. These plots show you at a glance how the model's generation holds up in terms of quality when we tweak the precision settings for kv cache. We calculated the perplexity of [Llama2-7b-chat](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) model on the [`PG-19`](https://huggingface.co/datasets/emozilla/pg19-test) dataset with the following quantization parameters: `nbits=4, group_size=64, resildual_length=128, per_token=True`
+
+
+We can see that `int4` cache performs almost the same as the original `fp16` precision for both backends, while the quality degrades when using `int2`. The script to reproduce the results is available [here](https://gist.github.com/zucchini-nlp/a7b19ec32f8c402761d48f3736eac808).
 
 <figure class="image text-center m-0">
   <img class="center" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv_cache_quantization/perplexity.png" alt="Log Perplexity Comparison"/>
 </figure>
 
 
-The same conclusion holds when calculating performance on the [LongBench](https://huggingface.co/datasets/THUDM/LongBench) benchmark comparing it to results from the KIVI paper. `Int4` precision is comparable and even outperforms slightly the `fp16` in all of the datasets in the table below (higher is better).
+The same conclusion holds when calculating performance on the [LongBench](https://huggingface.co/datasets/THUDM/LongBench) benchmark comparing it to results from the KIVI paper. `Int4 quanto` precision is comparable and even outperforms slightly the `fp16` in all of the datasets in the table below (higher is better).
 
 
-| Dataset               | KIVI f16p   | KIVI int2    | Our fp16            | Our int4| Our int2|
+| Dataset               | KIVI f16p   | KIVI int2    | Transformers fp16   | Quanto int4| Quanto int2|
 |-----------------------|-------------|--------------|---------------------|---------|---------|
 | TREC                  | 63.0        | 67.5         | 63.0                | 63.0    | 55.0    |
 | SAMSum                | 41.12       | 42.18        | 41.12               | 41.3    | 14.04   |
@@ -114,7 +117,7 @@ Here you can find a short [Colab notebook](https://colab.research.google.com/dri
 >>> model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-2-7b-chat-hf", torch_dtype=torch.float16, device_map="cuda:0")
 >>> inputs = tokenizer("I like rock music because", return_tensors="pt").to(model.device)
 
->>> out = model.generate(**inputs, do_sample=False, max_new_tokens=20, cache_implementation="quantized", cache_config={"nbits": 4})
+>>> out = model.generate(**inputs, do_sample=False, max_new_tokens=20, cache_implementation="quantized", cache_config={"backend": "quanto", "nbits": 4})
 >>> print(tokenizer.batch_decode(out, skip_special_tokens=True)[0])
 I like rock music because it's loud and energetic. It's a great way to express myself and rel
 
