@@ -4005,3 +4005,16 @@
     - multimodal
     - LLM
     - vision
+
+- local: dell-enterprise-hub
+  title: "Build AI on premise with Dell Enterprise Hub"
+  thumbnail: /blog/assets/dell-enterprise-hub/thumbnail.jpg
+  author: jeffboudier
+  date: May 21, 2024
+  tags:
+    - announcement
+    - enterprise
+    - hub
+    - dell
+    - partnerships
+
