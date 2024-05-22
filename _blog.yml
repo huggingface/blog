@@ -4006,6 +4006,53 @@
     - LLM
     - vision
 
+
+- local: microsoft-collaboration
+  title: "From cloud to developers: Hugging Face and Microsoft Deepen Collaboration" 
+  thumbnail: /blog/assets/microsoft-collaboration/thumbnail.jpg
+  author: jeffboudier
+  date: May 21, 2024
+  tags:
+    - cloud
+    - azure
+    - partnership
+
+- local: huggingface-amd-mi300
+  title: "Hugging Face on AMD Instinct MI300 GPU"
+  thumbnail: /blog/assets/optimum_amd/amd_hf_logo_fixed.png
+  author: mfuntowicz
+  date: May 21, 2024
+  tags:
+    - llm
+    - amd
+    - llama
+    - inference
+    - optimum
+    - rocm
+    - text-generation
+
+- local: dell-enterprise-hub
+  title: "Build AI on premise with Dell Enterprise Hub"
+  thumbnail: /blog/assets/dell-enterprise-hub/thumbnail.jpg
+  author: jeffboudier
+  date: May 21, 2024
+  tags:
+    - announcement
+    - enterprise
+    - hub
+    - dell
+    - partnerships
+
+- local: spaces-dev-mode
+  title: "Introducing Spaces Dev Mode for a seamless developer experience" 
+  thumbnail: /blog/assets/spaces-dev-mode/thumbnail.png
+  author: pagezyhf
+  date: May 21, 2024
+  tags:
+    - spaces
+    - azure
+    - partnership
+
 - local: falcon2-11b
   title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages"
   author: Quent-01
