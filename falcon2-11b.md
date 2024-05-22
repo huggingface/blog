@@ -197,7 +197,8 @@ for seq in sequences:
 ```
 
 # [Falcon2-11B VLM](#vlm-training)
-The [Falcon2-11B VLM](https://huggingface.co/tiiuae/Falcon-11B-vlm) is a vision-language model (VLM) for additionally handling image inputs and answering the queries corresponding to the images. To achieve this, we integrate the pretrained CLIP ViT-L/14 vision encoder with our Falcon2-11B chat-finetuned model and train with image-text data. 
+[Falcon2-11B VLM](https://huggingface.co/tiiuae/Falcon-11B-vlm) is a vision-language model (VLM) built on top of the LLM, that additionally handles image inputs and is capable of answering queries about the images. To achieve this, we integrate the pretrained CLIP ViT-L/14 vision encoder with our Falcon2-11B chat-finetuned model, and train with image-text data. 
+
 For enhancing the VLM's perception of fine-grained details w.r.t small objects in images, we employ a dynamic encoding mechanism at high-resolution for image inputs, similar to [LLaVA-Next](https://llava-vl.github.io/blog/2024-01-30-llava-next/).
 
 ### Training 
