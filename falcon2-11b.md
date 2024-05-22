@@ -51,7 +51,7 @@ The second generation of models is focused on increased usability and integrabil
 
 As with our previous work, the models offer support mainly in English but have good capabilities in ten other languages, including Spanish, French, and German.
 
-# [Falcon2-11B LLM](#training)
+## [Falcon2-11B LLM](#training)
 
 ### Training Data
 Falcon2-11B was trained on over 5,000 GT (billion tokens) of RefinedWeb, a high-quality filtered and deduplicated web dataset, enhanced with curated corpora. It followed a four-stage training strategy. The first three stages were focused on increasing the context length, from 2048 to 4096 and finally to 8192 tokens. The last stage aimed to further enhance performance using only high-quality data.
