@@ -158,7 +158,7 @@ Using the [Multilingual LLM leaderboard](https://huggingface.co/spaces/uonlp/ope
 |             | *nl*        | 23.1     | 31.7     | 27.5     | 42.7      | 31.3  |
 |             | *ro*        | 26.9     | 31.8     | 27.4     | 46.1      | 33.1  |
 
-In the spirit of the original Falcon models, the Falcon2-11B was trained not only on English data but also on ten other languages. Our multilingual evaluation results show that the model presents good capabilities in the six languages (*de*, *es*, *fr*, *it*, *nl*, *ro*) featured on the Multilingual LLM Leaderboard and actually shows higher performance that the Falcon-40B and several other multilingual models on all the cited languages.
+In the spirit of the original Falcon models, the Falcon2-11B was trained not only on English data but also on ten other languages. Our multilingual evaluation results show that the model presents good capabilities in the six languages (*de*, *es*, *fr*, *it*, *nl*, *ro*) featured on the Multilingual LLM Leaderboard and actually shows higher performance than the Falcon-40B and several other multilingual models on all the cited languages.
 
 We will soon release more extensive evaluation results for multilingual capabilities in the [Falcon2-11B model card](https://huggingface.co/tiiuae/falcon-11B)!
 
