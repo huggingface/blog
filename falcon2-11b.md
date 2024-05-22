@@ -183,7 +183,9 @@ pipeline = transformers.pipeline(
     device_map="auto",
 )
 ```
+
 And then, you'd run text generation using code like the following:
+
 ```python
 sequences = pipeline(
    "Can you explain the concept of Quantum Computing?",
