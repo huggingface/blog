@@ -41,22 +41,22 @@ authors:
 - [11B VLM Using the Model](#vlm-using)
 - [Licensing information](#license)
 
-# [The Falcon2 Models](#the-falcon-models)
+## [The Falcon2 Models](#the-falcon-models)
 
-[TII](www.tii.ae) is launching a new generation of models, [Falcon2](https://falconllm.tii.ae/), focused on providing the open-source community with a series of smaller models with enhanced performance and multi-modal support to enable cheaper inference and encourage the development of more downstream applications with improved usability.
+[TII](www.tii.ae) is launching a new generation of models, [Falcon 2](https://falconllm.tii.ae/), focused on providing the open-source community with a series of smaller models with enhanced performance and multi-modal support. Our goal is to enable cheaper inference and encourage the development of more downstream applications with improved usability.
 
 The first generation of Falcon models, featuring [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) and [Falcon-180B](https://huggingface.co/tiiuae/falcon-180B), made a significant contribution to the open-source community, promoting the release of advanced LLMs with permissive licenses. For more information on the previous generation of Falcon models, see the [RefinedWeb, Penedo et al., 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/fa3ed726cc5073b9c31e3e49a807789c-Abstract-Datasets_and_Benchmarks.html) and [The Falcon Series of Open Language Models, Almazrouei et al., 2023](https://arxiv.org/abs/2311.16867) papers.
 
-The second generation of models is focused on increased usability and integrability, building a multi-modal ecosystem. We start this journey by releasing not only the base [11B LLM](https://huggingface.co/tiiuae/falcon-11B) but also the [11B VLM model](https://huggingface.co/tiiuae/Falcon-11B-vlm) that offers image understanding capabilities. The VLM will allow users to engage in chats about visual content using text.
+The second generation of models is focused on increased usability and integrability, building a multi-modal ecosystem. We start this journey by releasing not only the base [11B LLM](https://huggingface.co/tiiuae/falcon-11B), but also the [11B VLM model](https://huggingface.co/tiiuae/Falcon-11B-vlm) that incorporates image understanding capabilities. The vision-language model, or VLM, will allow users to engage in chats about visual content using text.
 
 As with our previous work, the models offer support mainly in English but have good capabilities in ten other languages, including Spanish, French, and German.
 
-# [Falcon2-11B LLM](#training)
+## [Falcon2-11B LLM](#training)
 
 ### Training Data
 Falcon2-11B was trained on over 5,000 GT (billion tokens) of RefinedWeb, a high-quality filtered and deduplicated web dataset, enhanced with curated corpora. It followed a four-stage training strategy. The first three stages were focused on increasing the context length, from 2048 to 4096 and finally to 8192 tokens. The last stage aimed to further enhance performance using only high-quality data.
 
-Overall, the data sources included RefinedWeb-English, Refined Web-Europe (*cs*, *de*, *es*, *fr*, *it*, *nl*, *pl*, *pt*, *ro*, *sv*), high-quality technical data, code data, and conversational data extracted from public sources.
+Overall, the data sources included RefinedWeb-English, RefinedWeb-Europe (*cs*, *de*, *es*, *fr*, *it*, *nl*, *pl*, *pt*, *ro*, *sv*), high-quality technical data, code data, and conversational data extracted from public sources.
 
 The training stages were as follows:
 
@@ -70,7 +70,7 @@ The training stages were as follows:
 The data was tokenized with [11B](https://huggingface.co/tiiuae/falcon-11B), the same tokenizer as for the previous Falcon models.
 
 ### Model Architecture
-The following table summaries some of the crucial details about the model architecture:
+The following table summarizes some of the crucial details about the model architecture:
 | Design choice                | value|
 |------------------------------|-----|
 | Number of Transformer Blocks | 60  |
@@ -158,7 +158,7 @@ Using the [Multilingual LLM leaderboard](https://huggingface.co/spaces/uonlp/ope
 |             | *nl*        | 23.1     | 31.7     | 27.5     | 42.7      | 31.3  |
 |             | *ro*        | 26.9     | 31.8     | 27.4     | 46.1      | 33.1  |
 
-In the spirit of the original Falcon models, the Falcon2-11B was trained not only on English data but also on ten other languages. Our multilingual evaluation results show that the model presents good capabilities in the six languages (*de*, *es*, *fr*, *it*, *nl*, *ro*) featured on the Multilingual LLM Leaderboard and actually shows higher performance that the Falcon-40B and several other multilingual models on all the cited languages.
+In the spirit of the original Falcon models, the Falcon2-11B was trained not only on English data but also on ten other languages. Our multilingual evaluation results show that the model presents good capabilities in the six languages (*de*, *es*, *fr*, *it*, *nl*, *ro*) featured on the Multilingual LLM Leaderboard and actually shows higher performance than the Falcon-40B and several other multilingual models on all the cited languages.
 
 We will soon release more extensive evaluation results for multilingual capabilities in the [Falcon2-11B model card](https://huggingface.co/tiiuae/falcon-11B)!
 
@@ -167,6 +167,7 @@ We will soon release more extensive evaluation results for multilingual capabili
 We check the model's performance on code generation against the [BigCode Leaderboard](https://huggingface.co/spaces/bigcode/bigcode-models-leaderboard) on the HumanEval benchmark for the Python language, obtaining pass@1 of 29.59%.
 
 ## [Using Falcon2-11B](#using)
+
 ```python
 from transformers import AutoTokenizer
 import transformers
@@ -182,7 +183,9 @@ pipeline = transformers.pipeline(
     device_map="auto",
 )
 ```
+
 And then, you'd run text generation using code like the following:
+
 ```python
 sequences = pipeline(
    "Can you explain the concept of Quantum Computing?",
@@ -196,9 +199,11 @@ for seq in sequences:
     print(f"Result: {seq['generated_text']}")
 ```
 
-# [Falcon2-11B VLM](#vlm-training)
-The [Falcon2-11B VLM](https://huggingface.co/tiiuae/Falcon-11B-vlm) is a vision-language model (VLM) for additionally handling image inputs and answering the queries corresponding to the images. To achieve this, we integrate the pretrained CLIP ViT-L/14 vision encoder with our Falcon2-11B chat-finetuned model and train with image-text data. 
-For enhancing the VLM's perception of fine-grained details w.r.t small objects in images, we employ a dynamic encoding mechanism at high-resolution for image inputs, similar to [LLaVA-Next](https://llava-vl.github.io/blog/2024-01-30-llava-next/).
+## [Falcon2-11B VLM](#vlm-training)
+
+[Falcon2-11B VLM](https://huggingface.co/tiiuae/Falcon-11B-vlm) is a vision-language model (VLM) built on top of the LLM, that additionally handles image inputs and is capable of answering queries about the images. To achieve this, we integrate the pretrained CLIP ViT-L/14 vision encoder with our Falcon2-11B chat-finetuned model, and train with image-text data. 
+
+To enhance the VLM's perception of fine-grained details w.r.t small objects in images, we employ a dynamic encoding mechanism at high-resolution for image inputs, similar to [LLaVA-Next](https://llava-vl.github.io/blog/2024-01-30-llava-next/).
 
 ### Training 
 The training is done in two stages: pretraining and finetuning. In both stages, the visual encoder weights are kept frozen. In the pretraining stage, the LLM is kept frozen, and only the multimodal projector is trained on 558K image-caption pairs. 
@@ -243,4 +248,4 @@ print(generated_captions)
 
 # [License information](#license)
 
-The Falcon2 models are made available under the [TII Falcon License 2.0](https://falconllm-staging.tii.ae/falcon-2-terms-and-conditions.html), the permissive Apache 2.0-based software license which includes an [acceptable use policy](https://falconllm-staging.tii.ae/falcon-2-acceptable-use-policy.html) that promotes the responsible use of AI. This license was crafted within the spirit of TII's commitment to the open source community.
+The Falcon 2 models are made available under the [TII Falcon License 2.0](https://falconllm-staging.tii.ae/falcon-2-terms-and-conditions.html), a permissive Apache 2.0-based software license which includes an [acceptable use policy](https://falconllm-staging.tii.ae/falcon-2-acceptable-use-policy.html) that promotes the responsible use of AI. This license was crafted within the spirit of TII's commitment to the open source community.
