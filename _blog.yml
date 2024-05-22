@@ -4070,6 +4070,7 @@
     - partnership
     - optimum
 
+<<<<<<< HEAD
 - local: kv-cache-quantization
   title: "Unlocking Longer Generation with Key-Value Cache Quantization"
   thumbnail: /blog/assets/kv_cache_quantization/thumbnail.png
@@ -4093,11 +4094,11 @@
     - LLM
 
 - local: falcon2-11b
-  title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages"
+  title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens>
   author: Quent-01
   guest: true
   thumbnail: /blog/assets/179_falcon2-11b/thumbnail.jpg
-  date: May 22, 2024
+  date: May 23, 2024
   tags:
     - nlp
     - community
