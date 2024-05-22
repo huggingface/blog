@@ -244,4 +244,4 @@ print(generated_captions)
 
 # [License information](#license)
 
-The Falcon2 models are made available under the [TII Falcon License 2.0](https://falconllm-staging.tii.ae/falcon-2-terms-and-conditions.html), the permissive Apache 2.0-based software license which includes an [acceptable use policy](https://falconllm-staging.tii.ae/falcon-2-acceptable-use-policy.html) that promotes the responsible use of AI. This license was crafted within the spirit of TII's commitment to the open source community.
+The Falcon 2 models are made available under the [TII Falcon License 2.0](https://falconllm-staging.tii.ae/falcon-2-terms-and-conditions.html), a permissive Apache 2.0-based software license which includes an [acceptable use policy](https://falconllm-staging.tii.ae/falcon-2-acceptable-use-policy.html) that promotes the responsible use of AI. This license was crafted within the spirit of TII's commitment to the open source community.
