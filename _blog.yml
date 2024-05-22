@@ -4063,3 +4063,18 @@
     - aws
     - partnership
     - optimum
+
+- local: falcon2-11b
+  title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens>
+  author: Quent-01
+  guest: true
+  thumbnail: /blog/assets/179_falcon2-11b/thumbnail.jpg
+  date: May 23, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - multimodal
+    - vision
+    - open-source
