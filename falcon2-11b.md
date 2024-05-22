@@ -41,7 +41,7 @@ authors:
 - [11B VLM Using the Model](#vlm-using)
 - [Licensing information](#license)
 
-# [The Falcon2 Models](#the-falcon-models)
+## [The Falcon2 Models](#the-falcon-models)
 
 [TII](www.tii.ae) is launching a new generation of models, [Falcon2](https://falconllm.tii.ae/), focused on providing the open-source community with a series of smaller models with enhanced performance and multi-modal support to enable cheaper inference and encourage the development of more downstream applications with improved usability.
 
