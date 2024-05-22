@@ -43,7 +43,7 @@ authors:
 
 ## [The Falcon2 Models](#the-falcon-models)
 
-[TII](www.tii.ae) is launching a new generation of models, [Falcon2](https://falconllm.tii.ae/), focused on providing the open-source community with a series of smaller models with enhanced performance and multi-modal support to enable cheaper inference and encourage the development of more downstream applications with improved usability.
+[TII](www.tii.ae) is launching a new generation of models, [Falcon 2](https://falconllm.tii.ae/), focused on providing the open-source community with a series of smaller models with enhanced performance and multi-modal support. Our goal is to enable cheaper inference and encourage the development of more downstream applications with improved usability.
 
 The first generation of Falcon models, featuring [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) and [Falcon-180B](https://huggingface.co/tiiuae/falcon-180B), made a significant contribution to the open-source community, promoting the release of advanced LLMs with permissive licenses. For more information on the previous generation of Falcon models, see the [RefinedWeb, Penedo et al., 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/fa3ed726cc5073b9c31e3e49a807789c-Abstract-Datasets_and_Benchmarks.html) and [The Falcon Series of Open Language Models, Almazrouei et al., 2023](https://arxiv.org/abs/2311.16867) papers.
 
