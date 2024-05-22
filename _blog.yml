@@ -4007,6 +4007,10 @@
     - vision
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> Fixed _blog.yml
 - local: microsoft-collaboration
   title: "From cloud to developers: Hugging Face and Microsoft Deepen Collaboration" 
   thumbnail: /blog/assets/microsoft-collaboration/thumbnail.jpg
@@ -4052,6 +4056,7 @@
     - spaces
     - azure
     - partnership
+<<<<<<< HEAD
     
 - local: inferentia-inference-endpoints
   title: "Deploy models on AWS Inferentia2 from Hugging Face" 
