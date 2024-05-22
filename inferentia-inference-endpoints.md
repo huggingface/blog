@@ -32,7 +32,7 @@ Following these simple code snippets, AWS customers will be able to easily deplo
 
 # Hugging Face Inference Endpoints introduces support for AWS Inferentia2
 
-Another option to deploy models from the Hugging Face model hub, the is [Hugging Face Inference Endpoints](https://huggingface.co/inference-endpoints/dedicated). Today, we are happy to introduce new Inferentia 2 instances for Hugging Face Inference Endpoints. So, now when you find a model in Hugging Face you are interested in, you can deploy it in just a few clicks on Inferentia2. All you need to do is select the model you want to deploy, select the new Inf2 instance option under the Amazon Web Services instance configuration, and you’re off to the races.
+The easiest option to deploy models from the Hub is [Hugging Face Inference Endpoints](https://huggingface.co/inference-endpoints/dedicated). Today, we are happy to introduce new Inferentia 2 instances for Hugging Face Inference Endpoints. So now, when you find a model in Hugging Face you are interested in, you can deploy it in just a few clicks on Inferentia2. All you need to do is select the model you want to deploy, select the new Inf2 instance option under the Amazon Web Services instance configuration, and you’re off to the races.
 
 For supported models like Llama 3, you can select 2 flavors:
 * Inf2-small, with 2 cores and 16 GB memory ($0.75/hour) perfect for Llama 3 8B
