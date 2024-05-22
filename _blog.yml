@@ -4087,7 +4087,7 @@
     - LLM
 
 - local: falcon2-11b
-  title: "Falcon2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages"
+  title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages"
   author: Quent-01
   guest: true
   thumbnail: /blog/assets/179_falcon2-11b/thumbnail.jpg
