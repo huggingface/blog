@@ -70,7 +70,7 @@ The training stages were as follows:
 The data was tokenized with [11B](https://huggingface.co/tiiuae/falcon-11B), the same tokenizer as for the previous Falcon models.
 
 ### Model Architecture
-The following table summaries some of the crucial details about the model architecture:
+The following table summarizes some of the crucial details about the model architecture:
 | Design choice                | value|
 |------------------------------|-----|
 | Number of Transformer Blocks | 60  |
