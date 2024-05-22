@@ -4052,3 +4052,15 @@
     - spaces
     - azure
     - partnership
+
+- local: leaderboard-llamaguard
+  title: "CyberSecEval 2 - A Comprehensive Evaluation Framework for Cybersecurity Risks and Capabilities of Large Language Models"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  author: r34p3r1321
+  guest: true
+  date: May 22, 2024
+  tags:
+    - nlp
+    - research
+    - leaderboard
+    - LLM
