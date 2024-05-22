@@ -1,5 +1,5 @@
 ---
-title: "Falcon2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages" 
+title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages" 
 thumbnail: /blog/assets/179_falcon2-11b/thumbnail.jpg
 authors:
 - user: Quent-01
@@ -30,6 +30,18 @@ authors:
 - user: SailorTwift
 ---
 
+# Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages
+
+## [The Falcon2 Models](#the-falcon-models)
+
+[TII](www.tii.ae) is launching a new generation of models, [Falcon 2](https://falconllm.tii.ae/), focused on providing the open-source community with a series of smaller models with enhanced performance and multi-modal support. Our goal is to enable cheaper inference and encourage the development of more downstream applications with improved usability.
+
+The first generation of Falcon models, featuring [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) and [Falcon-180B](https://huggingface.co/tiiuae/falcon-180B), made a significant contribution to the open-source community, promoting the release of advanced LLMs with permissive licenses (see the [Falcon-180B blogpost](https://huggingface.co/blog/falcon, https://huggingface.co/blog/falcon-180b)). More detailed information on the previous generation of Falcon models can be found in the [RefinedWeb, Penedo et al., 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/fa3ed726cc5073b9c31e3e49a807789c-Abstract-Datasets_and_Benchmarks.html) and [The Falcon Series of Open Language Models, Almazrouei et al., 2023](https://arxiv.org/abs/2311.16867) papers.
+
+The second generation of models is focused on increased usability and integrability, building a multi-modal ecosystem. We start this journey by releasing not only the base [11B LLM](https://huggingface.co/tiiuae/falcon-11B), but also the [11B VLM model](https://huggingface.co/tiiuae/Falcon-11B-vlm) that incorporates image understanding capabilities. The vision-language model, or VLM, will allow users to engage in chats about visual content using text.
+
+As with our previous work, the models offer support mainly in English but have good capabilities in ten other languages, including Spanish, French, and German.
+
 ## Table of Contents
 
 - [The Falcon2 Models](#the-falcon-models)
@@ -40,16 +52,6 @@ authors:
 - [11B VLM Evaluation](#vlm-evaluation)
 - [11B VLM Using the Model](#vlm-using)
 - [Licensing information](#license)
-
-## [The Falcon2 Models](#the-falcon-models)
-
-[TII](www.tii.ae) is launching a new generation of models, [Falcon 2](https://falconllm.tii.ae/), focused on providing the open-source community with a series of smaller models with enhanced performance and multi-modal support. Our goal is to enable cheaper inference and encourage the development of more downstream applications with improved usability.
-
-The first generation of Falcon models, featuring [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) and [Falcon-180B](https://huggingface.co/tiiuae/falcon-180B), made a significant contribution to the open-source community, promoting the release of advanced LLMs with permissive licenses. For more information on the previous generation of Falcon models, see the [RefinedWeb, Penedo et al., 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/fa3ed726cc5073b9c31e3e49a807789c-Abstract-Datasets_and_Benchmarks.html) and [The Falcon Series of Open Language Models, Almazrouei et al., 2023](https://arxiv.org/abs/2311.16867) papers.
-
-The second generation of models is focused on increased usability and integrability, building a multi-modal ecosystem. We start this journey by releasing not only the base [11B LLM](https://huggingface.co/tiiuae/falcon-11B), but also the [11B VLM model](https://huggingface.co/tiiuae/Falcon-11B-vlm) that incorporates image understanding capabilities. The vision-language model, or VLM, will allow users to engage in chats about visual content using text.
-
-As with our previous work, the models offer support mainly in English but have good capabilities in ten other languages, including Spanish, French, and German.
 
 ## [Falcon2-11B LLM](#training)
 
@@ -67,7 +69,7 @@ The training stages were as follows:
 | Stage 3 | 8192             | 250  | 
 | Stage 4 | 8192             | 500  | 
 
-The data was tokenized with [11B](https://huggingface.co/tiiuae/falcon-11B), the same tokenizer as for the previous Falcon models.
+The data was tokenized with [Falcon2-11B tokenizer](https://huggingface.co/tiiuae/falcon-11B/blob/main/tokenizer.json), the same tokenizer as for the previous Falcon models.
 
 ### Model Architecture
 The following table summarizes some of the crucial details about the model architecture:
