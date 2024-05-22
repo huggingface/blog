@@ -167,6 +167,7 @@ We will soon release more extensive evaluation results for multilingual capabili
 We check the model's performance on code generation against the [BigCode Leaderboard](https://huggingface.co/spaces/bigcode/bigcode-models-leaderboard) on the HumanEval benchmark for the Python language, obtaining pass@1 of 29.59%.
 
 ## [Using Falcon2-11B](#using)
+
 ```python
 from transformers import AutoTokenizer
 import transformers
