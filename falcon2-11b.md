@@ -222,7 +222,7 @@ from PIL import Image
 import requests
 import torch
 
-processor = LlavaNextProcessor.from_pretrained("tiiuae/falcon-11B-vlm", tokenizer_class='PreTrainedTokenizerFast')
+processor = LlavaNextProcessor.from_pretrained("tiiuae/falcon-11B-vlm")
 model = LlavaNextForConditionalGeneration.from_pretrained("tiiuae/falcon-11B-vlm", torch_dtype=torch.bfloat16)
 
 
