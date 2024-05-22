@@ -54,7 +54,7 @@ As with our previous work, the models offer support mainly in English but have g
 # [Falcon2-11B LLM](#training)
 
 ### Training Data
-Falcon2-11B was trained on over 5,000B tokens of RefinedWeb, a high-quality filtered and deduplicated web dataset, enhanced with curated corpora. It followed a four-stage training strategy. The first three stages were focused on increasing the context length, from 2048 to 4096 and finally to 8192 tokens. The last stage aimed to further enhance performance using only high-quality data.
+Falcon2-11B was trained on over 5,000 GT (billion tokens) of RefinedWeb, a high-quality filtered and deduplicated web dataset, enhanced with curated corpora. It followed a four-stage training strategy. The first three stages were focused on increasing the context length, from 2048 to 4096 and finally to 8192 tokens. The last stage aimed to further enhance performance using only high-quality data.
 
 Overall, the data sources included RefinedWeb-English, Refined Web-Europe (*cs*, *de*, *es*, *fr*, *it*, *nl*, *pl*, *pt*, *ro*, *sv*), high-quality technical data, code data, and conversational data extracted from public sources.
 
@@ -101,11 +101,11 @@ Falcon2-11B was trained on 1024 A100 40GB GPUs for the majority of the training,
 ### English performance
 
 Performance on Open LLM Leaderboard tasks:
-| Checkpoint  | GT    | HellaSwag-10 | Winogrande-5 | ArcChallenge-25 | TQA-0    | MMLU-5 | GSMK8k-5 | Average   |
+| Checkpoint  | GT    | HellaSwag-10 | Winogrande-5 | ArcChallenge-25 | TruthfulQA-0    | MMLU-5 | GSMK8k-5 | Average   |
 |-------------|-------|--------------|--------------|-----------------|----------|--------|----------|-----------|
 | Falcon2-11B | 5500  | 82.91       | 78.30       | 59.73          | 52.56   | 58.37 | 53.83   |  64.28   |
-| Falcon-40B  | 1000  | 85.28       | 81.29        | 61.86          | 41.65   | 56.89 | 21.46   |  58.07   |
-| Falcon-7B   | 1500  | 78.13        | 72.38       | 47.87          | 34.26    | 27.79   | 4.62   |  44.17   |
+| Falcon-40B  | 1000  | 85.28       | 81.29       | 61.86          | 41.65   | 56.89 | 21.46   |  58.07   |
+| Falcon-7B   | 1500  | 78.13       | 72.38       | 47.87          | 34.26   | 27.79 | 4.62    |  44.17   |
 | Gemma-7B    | 6000  | 82.47       | 78.45       | 61.09          | 44.91   | 66.03 | 52.77   |  64.29   |
 | Llama3-8B   | 15000 | 82.09       | 77.35       | 59.47          | 43.90   | 66.69 | 44.79   |  62.38   |
 | Mistral-7B  | N/A   | 83.31       | 78.37       | 59.98          | 42.15   | 64.16 | 37.83   |  60.97   |
