@@ -18,9 +18,7 @@ As model sizes grow, Generative AI implementations require significant inference
 
 Inference optimizations for text generation are essential for reducing latency, infrastructure costs, and power consumption. This can lead to an improved user experience and increased efficiency in text generation tasks.
 
-Another necessary condition is that the optimizations are compatible with each other. That is, implementing a certain optimization should not preclude or conflict with other optimizations. There are several levels of optimizations that can provide significant speedup without "bumping into each other" in a way that will compromise overall efficiency.
-
-Optimum-Habana, an extension of the HuggingFace library optimized for Intel Gaudi processors, now supports the Assisted Decoding. Our experiments show the effectiveness of this method in improving performance on Intel Gaudi processors. Overall, our work contributes to the field of assisted generation support for efficient text generation in large-scale models.
+Assisted decoding is a popular method for speeding up text generation. We adapted and optimized it for Intel Gaudi, which deliver similar performance as Nvidia H100 GPUs as shown in [a previous post](https://huggingface.co/blog/bridgetower) while its price is in the same ballpark as Nvidia A100 80GB GPUs. This work is now part of Optimum Habana, which extends various Hugging Face libraries like Transformers and Diffusers so that your AI workflows are fully optimized for Intel Gaudi processors.
 
 ## Speculative Sampling - Assisted Decoding
 
