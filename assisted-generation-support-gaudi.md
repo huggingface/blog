@@ -18,9 +18,7 @@ As model sizes grow, Generative AI implementations require significant inference
 
 Inference optimizations for text generation are essential for reducing latency, infrastructure costs, and power consumption. This can lead to an improved user experience and increased efficiency in text generation tasks.
 
-Another necessary condition is that the optimizations are compatible with each other. That is, implementing a certain optimization should not preclude or conflict with other optimizations. There are several levels of optimizations that can provide significant speedup without "bumping into each other" in a way that will compromise overall efficiency.
-
-Optimum-Habana, an extension of the HuggingFace library optimized for Intel Gaudi processors, now supports the Assisted Decoding. Our experiments show the effectiveness of this method in improving performance on Intel Gaudi processors. Overall, our work contributes to the field of assisted generation support for efficient text generation in large-scale models.
+Assisted decoding is a popular method for speeding up text generation. We adapted and optimized it for Intel Gaudi, which deliver similar performance as Nvidia H100 GPUs as shown in [a previous post](https://huggingface.co/blog/bridgetower) while its price is in the same ballpark as Nvidia A100 80GB GPUs. This work is now part of Optimum Habana, which extends various Hugging Face libraries like Transformers and Diffusers so that your AI workflows are fully optimized for Intel Gaudi processors.
 
 ## Speculative Sampling - Assisted Decoding
 
@@ -38,7 +36,7 @@ However, the draft model and target model have different sizes that would be rep
 
 Note that the authors [2] prove that the target distribution is recovered when performing speculative sampling - this guarantees the same sampling quality as autoregressive sampling on the target itself. Therefore, the situations where not leveraging speculative sampling is not worthwhile have to do with the case where there are not enough savings in the relative size of the draft model or the acceptance rate of the draft model is not high enough to benefit from the smaller size of the draft model.
 
-There is a technique similar to Speculative Sampling, known as Assisted Generation. This was developed independently around the same time [3]. The author integrated this method into HuggingFace Transformers, and the *.generate()* call now has an optional *assistant_model* parameter to enable this method.
+There is a technique similar to Speculative Sampling, known as Assisted Generation. This was developed independently around the same time [3]. The author integrated this method into Hugging Face Transformers, and the *.generate()* call now has an optional *assistant_model* parameter to enable this method.
 
 ## Usage & Experiments
 
@@ -46,7 +44,7 @@ The usage of Assisted Generation is straightforward. As would be expected, the p
 
 # Conclusion
 
-Accelerating text generation with Gaudi with assisted generation is now supported and easy to use. The method is compatible with other optimizations and can be used to improve performance on Intel Gaudi processors. The method is based on Speculative Sampling, which has been shown to be effective in improving performance on large transformer-based models. The method is also compatible with other optimizations, such as quantization, and can be used to improve performance on Intel Gaudi processors.
+Accelerating text generation with Gaudi with assisted generation is now supported and easy to use. The method is compatible with other optimizations (e.g. static shapes, bucketing) and can be used to improve performance on Intel Gaudi processors. The method is based on Speculative Sampling, which has been shown to be effective in improving performance on large transformer-based models.
 
 # References
 
