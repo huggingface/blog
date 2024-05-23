@@ -217,7 +217,7 @@ We will now load the processor, which contains the image processing and tokeniza
 ```python
 from transformers import PaliGemmaProcessor 
 model_id = "google/paligemma-3b-pt-224"
-processor = PaliGemmaProcessor(model_id)
+processor = PaliGemmaProcessor.from_pretrained(model_id)
 ```
 
 We will create a prompt template to condition PaliGemma to answer visual questions. Since the tokenizer pads the inputs, we need to set the pads in our labels to something other than the pad token in the tokenizer, as well as the image token.
