@@ -48,7 +48,7 @@ The usage of Assisted Generation is straightforward. As would be expected, the p
 
 # Conclusion
 
-Accelerating text generation with Gaudi with assisted generation is now supported and easy to use. The method is compatible with other optimizations and can be used to improve performance on Intel Gaudi processors. The method is based on Speculative Sampling, which has been shown to be effective in improving performance on large transformer-based models. The method is also compatible with other optimizations, such as quantization, and can be used to improve performance on Intel Gaudi processors.
+Accelerating text generation with Gaudi with assisted generation is now supported and easy to use. The method is compatible with other optimizations (e.g. static shapes, bucketing) and can be used to improve performance on Intel Gaudi processors. The method is based on Speculative Sampling, which has been shown to be effective in improving performance on large transformer-based models.
 
 # References
 
