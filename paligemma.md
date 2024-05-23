@@ -11,6 +11,8 @@ authors:
 
 # PaliGemma – Google's Cutting-Edge Open Vision Language Model
 
+Updated on 23-05-2024: We have introduced a few changes to transformers PaliGemma implementation around fine-tuning, which you can find in this [notebook](https://colab.research.google.com/drive/1x_OEphRK0H97DqqxEyiMewqsTiLD_Xmi?usp=sharing).
+
 PaliGemma is a new family of vision language models from Google. PaliGemma can take in an image and a text and output text.
 
 The team at Google has released three types of models: the pretrained (pt) models, the mix models, and the fine-tuned (ft) models, each with different resolutions and available in multiple precisions for convenience.
@@ -189,7 +191,7 @@ Fine-tuning PaliGemma is very easy, thanks to transformers. One can also do QLoR
 We will install the latest version of the transformers library. 
 
 ```bash
-pip install git+https://github.com/huggingface/transformers.git
+pip install transformers
 ```
 Just like on the inference section, we will authenticate to access the model using `notebook_login()`. 
 
@@ -223,19 +225,18 @@ We will create a prompt template to condition PaliGemma to answer visual questio
 Note: In the tokenization part, we are passing a `tokenize_newline_separately` flag because the newline is used for prompt conditioning and has to be tokenized separately. During inference, this defaults to `True`.
 
 ```python
+import torch
 device = "cuda"
 
 image_token = processor.tokenizer.convert_tokens_to_ids("<image>")
 def collate_fn(examples):
-  texts = ["answer " + example["question"] + "\n" + example['multiple_choice_answer'] for example in examples]
+  texts = ["answer " + example["question"] for example in examples]
+  labels= [example['multiple_choice_answer'] for example in examples]
   images = [example["image"].convert("RGB") for example in examples]
-  tokens = processor(text=texts, images=images,
+  tokens = processor(text=texts, images=images, suffix=labels,
                     return_tensors="pt", padding="longest",
                     tokenize_newline_separately=False)
-  labels = tokens["input_ids"].clone()
-  labels[labels == processor.tokenizer.pad_token_id] = -100
-  labels[labels == image_token] = -100
-  tokens["labels"] = labels
+
   tokens = tokens.to(torch.bfloat16).to(device)
   return tokens
 ```
