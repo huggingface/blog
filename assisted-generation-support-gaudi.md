@@ -1,5 +1,5 @@
 ---
-title: "Assisted Generation Support for Intel Gaudi"
+title: "Faster assisted generation support for Intel Gaudi"
 thumbnail: /blog/assets/assisted-generation/thumbnail.png
 authors:
 - user: haimbarad
@@ -10,7 +10,7 @@ authors:
 - guest: true
 ---
 
-# Assisted Generation Support for Intel Gaudi
+# Faster assisted generation support for Intel Gaudi
 
 ## Introduction
 
@@ -39,10 +39,6 @@ However, the draft model and target model have different sizes that would be rep
 Note that the authors [2] prove that the target distribution is recovered when performing speculative sampling - this guarantees the same sampling quality as autoregressive sampling on the target itself. Therefore, the situations where not leveraging speculative sampling is not worthwhile have to do with the case where there are not enough savings in the relative size of the draft model or the acceptance rate of the draft model is not high enough to benefit from the smaller size of the draft model.
 
 There is a technique similar to Speculative Sampling, known as Assisted Generation. This was developed independently around the same time [3]. The author integrated this method into HuggingFace Transformers, and the *.generate()* call now has an optional *assistant_model* parameter to enable this method.
-
-## Optimum-Habana
-
-HuggingFace Optimum is an extension of their popular Transformers library, but with a focus on performance and efficiency for specific hardware. Support is now available for Speculative Sampling (Assisted Generation) within optimum-habana for Intel Gaudi processors.
 
 ## Usage & Experiments
 
