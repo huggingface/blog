@@ -8,7 +8,9 @@ authors:
 
 # Unlocking Longer Generation with Key-Value Cache Quantization
 
-At Hugging Face, we are excited to share with you a new feature that's going to take your language models to the next level: *kv cache quantization*. 
+At Hugging Face, we are excited to share with you a new feature that's going to take your language models to the next level: *KV Cache Quantization*. 
+
+TL;DR: KV Cache Quantization reduces memory usage for long-context text generation in LLMs with minimal impact on quality, offering customizable trade-offs between memory efficiency and generation speed.
 
 Have you ever tried generating a lengthy piece of text with your language model, only to hit a wall because of pesky memory limitations? As language models continue to grow in size and capabilities, supporting longer generations can start to really eat up memory. It's a common frustration, especially when you're dealing with limited resources. That's where kv cache quantization swoops in to save the day.
 
