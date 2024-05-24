@@ -33,7 +33,7 @@ authors:
 # Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages
 
 <a name="the-falcon-models"></a>
-## The Falcon2 Models
+## The Falcon 2 Models
 
 [TII](www.tii.ae) is launching a new generation of models, [Falcon 2](https://falconllm.tii.ae/), focused on providing the open-source community with a series of smaller models with enhanced performance and multi-modal support. Our goal is to enable cheaper inference and encourage the development of more downstream applications with improved usability.
 
@@ -45,7 +45,7 @@ As with our previous work, the models offer support mainly in English but have g
 
 ## Table of Contents
 
-- [The Falcon2 Models](#the-falcon-models)
+- [The Falcon 2 Models](#the-falcon-models)
 - Falcon 2 11B LLM
     - [11B LLM Training Details](#falcon2-11b-llm)
     - [11B LLM Evaluation](#falcon2-11b-evaluation)
