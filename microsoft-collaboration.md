@@ -68,7 +68,7 @@ The Hugging Face community has created over 500,000 AI demo applications on the 
 
 ![dev-mode](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/microsoft-collaboration/dev-mode.png) 
 
-Spaces Dev Mode is currently in beta, and available to [PRO subscribers](https://huggingface.co/pricing#pro). To learn more about Spaces Dev Mode, check out [Introducing Spaces Dev mode for a seamless developer experience](hf.co/blog/spaces-dev-mode) or [documentation](https://huggingface.co/dev-mode-explorers).
+Spaces Dev Mode is currently in beta, and available to [PRO subscribers](https://huggingface.co/pricing#pro). To learn more about Spaces Dev Mode, check out [Introducing Spaces Dev mode for a seamless developer experience](https://huggingface.co/blog/spaces-dev-mode) or [documentation](https://huggingface.co/dev-mode-explorers).
 
 
 ## What’s Next
