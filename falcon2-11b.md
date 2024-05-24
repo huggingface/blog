@@ -256,7 +256,7 @@ print(generated_captions)
 ```
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/179_falcon2-11b/falcon_example_tiny.png" width="500" />
+    <img src="blog/179_falcon2-11b/falcon_example_tiny.png" width="500" />
 </p>
 
 <a name="license-information"></a>
