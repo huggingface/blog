@@ -242,7 +242,6 @@ cats_image = Image.open(requests.get(url, stream=True).raw)
 prompt = 'User: <image>\nWrite a long paragraph about this picture.'
 
 inputs = processor(prompt, images=cats_image, return_tensors="pt", padding=True).to('cuda:0')
->>>>>>> 15a69b16e1b716e3cbb7f15eef343874e736f363
 
 model.to('cuda:0')
 output = model.generate(**inputs, max_new_tokens=256)
