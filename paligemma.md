@@ -11,7 +11,7 @@ authors:
 
 # PaliGemma – Google's Cutting-Edge Open Vision Language Model
 
-Updated on 23-05-2024: We have introduced a few changes to the transformers PaliGemma implementation around fine-tuning, which you can find in this [notebook](https://colab.research.google.com/drive/1x_OEphRK0H97DqqxEyiMewqsTiLD_Xmi?usp=sharing).
+Updated on 23-05-2024: We have introduced a few changes to the transformers PaliGemma implementation around fine-tuning, which you can find in this [notebook](https://github.com/merveenoyan/smol-vision/blob/main/Fine_tune_PaliGemma.ipynb).
 
 PaliGemma is a new family of vision language models from Google. PaliGemma can take in an image and a text and output text.
 
@@ -222,8 +222,6 @@ processor = PaliGemmaProcessor.from_pretrained(model_id)
 
 We will create a prompt template to condition PaliGemma to answer visual questions. Since the tokenizer pads the inputs, we need to set the pads in our labels to something other than the pad token in the tokenizer, as well as the image token.
 
-Note: In the tokenization part, we are passing a `tokenize_newline_separately` flag because the newline is used for prompt conditioning and has to be tokenized separately. During inference, this defaults to `True`.
-
 ```python
 import torch
 device = "cuda"
@@ -234,8 +232,7 @@ def collate_fn(examples):
   labels= [example['multiple_choice_answer'] for example in examples]
   images = [example["image"].convert("RGB") for example in examples]
   tokens = processor(text=texts, images=images, suffix=labels,
-                    return_tensors="pt", padding="longest",
-                    tokenize_newline_separately=False)
+                    return_tensors="pt", padding="longest")
 
   tokens = tokens.to(torch.bfloat16).to(device)
   return tokens
@@ -325,4 +322,4 @@ trainer.train()
 - [Collection for all PaliGemma fine-tuned models](https://huggingface.co/collections/google/paligemma-ft-models-6643b03efb769dad650d2dda)
 - [Original Implementation](https://github.com/google-research/big_vision/blob/main/big_vision/models/proj/paligemma/paligemma.py)
 
-We would like to thank [Omar Sanseviero](osanseviero), [Lucas Beyer](https://huggingface.co/giffmana), [Xiaohua Zhai](https://huggingface.co/xiaohuazhai) and [Matthias Minderer](https://huggingface.co/mjlm) for their thorough reviews on this blog post.
+We would like to thank [Omar Sanseviero](osanseviero), [Lucas Beyer](https://huggingface.co/giffmana), [Xiaohua Zhai](https://huggingface.co/xiaohuazhai) and [Matthias Minderer](https://huggingface.co/mjlm) for their thorough reviews on this blog post. We would like to thank [Peter Robicheaux](https://github.com/probicheaux) for their help with fine-tuning changes in transformers.
