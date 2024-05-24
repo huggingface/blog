@@ -237,12 +237,6 @@ prompt = "User: <image>\nWhat's special about this bird?"
 
 inputs = processor(prompt, images=falcon_image, return_tensors="pt", padding=True).to('cuda:0')
 
-url = "http://images.cocodataset.org/val2017/000000039769.jpg"
-cats_image = Image.open(requests.get(url, stream=True).raw)
-prompt = 'User: <image>\nWrite a long paragraph about this picture.'
-
-inputs = processor(prompt, images=cats_image, return_tensors="pt", padding=True).to('cuda:0')
-
 model.to('cuda:0')
 output = model.generate(**inputs, max_new_tokens=256)
 
