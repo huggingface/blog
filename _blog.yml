@@ -4006,7 +4006,6 @@
     - LLM
     - vision
 
-
 - local: microsoft-collaboration
   title: "From cloud to developers: Hugging Face and Microsoft Deepen Collaboration" 
   thumbnail: /blog/assets/microsoft-collaboration/thumbnail.jpg
@@ -4064,12 +4063,34 @@
     - partnership
     - optimum
 
+- local: kv-cache-quantization
+  title: "Unlocking Longer Generation with Key-Value Cache Quantization"
+  thumbnail: /blog/assets/kv_cache_quantization/thumbnail.png
+  author: RaushanTurganbay
+  date: May 16, 2024
+  tags:
+    - generation
+    - LLM
+    - quantization
+ 
+- local: leaderboard-llamaguard
+  title: "CyberSecEval 2 - A Comprehensive Evaluation Framework for Cybersecurity Risks and Capabilities of Large Language Models"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_llamaguard.png
+  author: r34p3r1321
+  guest: true
+  date: May 24, 2024
+  tags:
+    - nlp
+    - research
+    - leaderboard
+    - LLM
+
 - local: falcon2-11b
   title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens>
   author: Quent-01
   guest: true
   thumbnail: /blog/assets/179_falcon2-11b/thumbnail.jpg
-  date: May 23, 2024
+  date: May 24, 2024
   tags:
     - nlp
     - community
@@ -4078,3 +4099,4 @@
     - multimodal
     - vision
     - open-source
+
