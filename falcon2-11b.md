@@ -231,9 +231,9 @@ import torch
 processor = LlavaNextProcessor.from_pretrained("tiiuae/falcon-11B-vlm")
 model = LlavaNextForConditionalGeneration.from_pretrained("tiiuae/falcon-11B-vlm", torch_dtype=torch.bfloat16)
 
-url = "https://huggingface.co/datasets/tiiuae/documentation_images/blob/main/HF_blog_179_falcon2-11b/painted_falcon.png"
+url = "https://merzougabirding.com/wp-content/uploads/2023/09/falcon-size.jpg"
 falcon_image = Image.open(requests.get(url, stream=True).raw)
-prompt = "User: <image>\nWhat's special about this bird?"
+prompt = "User: <image>\nWhat's special about this bird's vision?"
 
 inputs = processor(prompt, images=falcon_image, return_tensors="pt", padding=True).to('cuda:0')
 
