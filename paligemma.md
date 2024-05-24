@@ -11,7 +11,7 @@ authors:
 
 # PaliGemma – Google's Cutting-Edge Open Vision Language Model
 
-Updated on 23-05-2024: We have introduced a few changes to transformers PaliGemma implementation around fine-tuning, which you can find in this [notebook](https://colab.research.google.com/drive/1x_OEphRK0H97DqqxEyiMewqsTiLD_Xmi?usp=sharing).
+Updated on 23-05-2024: We have introduced a few changes to the transformers PaliGemma implementation around fine-tuning, which you can find in this [notebook](https://colab.research.google.com/drive/1x_OEphRK0H97DqqxEyiMewqsTiLD_Xmi?usp=sharing).
 
 PaliGemma is a new family of vision language models from Google. PaliGemma can take in an image and a text and output text.
 
