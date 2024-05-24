@@ -232,11 +232,11 @@ processor = LlavaNextProcessor.from_pretrained("tiiuae/falcon-11B-vlm")
 model = LlavaNextForConditionalGeneration.from_pretrained("tiiuae/falcon-11B-vlm", torch_dtype=torch.bfloat16)
 
 
-url = "http://images.cocodataset.org/val2017/000000039769.jpg"
-cats_image = Image.open(requests.get(url, stream=True).raw)
-prompt = 'User: <image>\nWrite a long paragraph about this picture.'
+url = "https://huggingface.co/datasets/tiiuae/documentation_images/blob/main/HF_blog_179_falcon2-11b/painted_falcon.png"
+falcon_image = Image.open(requests.get(url, stream=True).raw)
+prompt = 'User: <image>\nWhat's special about this bird?'
 
-inputs = processor(prompt, images=cats_image, return_tensors="pt", padding=True).to('cuda:0')
+inputs = processor(prompt, images=falcon_image, return_tensors="pt", padding=True).to('cuda:0')
 
 model.to('cuda:0')
 output = model.generate(**inputs, max_new_tokens=256)
@@ -247,6 +247,10 @@ generated_captions = processor.decode(output[0], skip_special_tokens=True).strip
 
 print(generated_captions)
 ```
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/179_falcon2-11b/falcon_example_tiny.png" width="500" />
+</p>
 
 ## [License information](#license)
 
