@@ -77,7 +77,7 @@ The data was tokenized with [Falcon2-11B tokenizer](https://huggingface.co/tiiua
 
 ### Model Architecture
 The following table summarizes some of the crucial details about the model architecture:
-| Design choice                | value|
+| Design choice                | Value |
 |------------------------------|-----|
 | Number of Transformer Blocks | 60  |
 | Number of Query Heads        | 32  |
@@ -256,10 +256,10 @@ print(generated_captions)
 ```
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/179_falcon2-11b/falcon_example_tiny.png" width="500" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/179_falcon2-11b/falcon_example_tiny.png" />
 </p>
 
 <a name="license-information"></a>
 ## License information
 
-The Falcon 2 models are made available under the [TII Falcon License 2.0](https://falconllm-staging.tii.ae/falcon-2-terms-and-conditions.html), a permissive Apache 2.0-based software license which includes an [acceptable use policy](https://falconllm-staging.tii.ae/falcon-2-acceptable-use-policy.html) that promotes the responsible use of AI. This license was crafted within the spirit of TII's commitment to the open source community.
+The Falcon 2 models are made available under the [TII Falcon 2 License](https://falconllm-staging.tii.ae/falcon-2-terms-and-conditions.html), a permissive Apache 2.0-based software license which includes an [acceptable use policy](https://falconllm-staging.tii.ae/falcon-2-acceptable-use-policy.html) that promotes the responsible use of AI. This license was crafted within the spirit of TII's commitment to the open source community.
