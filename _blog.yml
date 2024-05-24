@@ -4006,11 +4006,6 @@
     - LLM
     - vision
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> Fixed _blog.yml
 - local: microsoft-collaboration
   title: "From cloud to developers: Hugging Face and Microsoft Deepen Collaboration" 
   thumbnail: /blog/assets/microsoft-collaboration/thumbnail.jpg
@@ -4056,8 +4051,6 @@
     - spaces
     - azure
     - partnership
-<<<<<<< HEAD
-<<<<<<< HEAD
     
 - local: inferentia-inference-endpoints
   title: "Deploy models on AWS Inferentia2 from Hugging Face" 
@@ -4070,8 +4063,6 @@
     - partnership
     - optimum
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 - local: kv-cache-quantization
   title: "Unlocking Longer Generation with Key-Value Cache Quantization"
   thumbnail: /blog/assets/kv_cache_quantization/thumbnail.png
