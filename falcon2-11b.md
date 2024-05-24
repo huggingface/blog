@@ -32,7 +32,8 @@ authors:
 
 # Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages
 
-## [The Falcon2 Models]<a name="the-falcon-models"></a>
+<a name="the-falcon-models"></a>
+## The Falcon2 Models
 
 [TII](www.tii.ae) is launching a new generation of models, [Falcon 2](https://falconllm.tii.ae/), focused on providing the open-source community with a series of smaller models with enhanced performance and multi-modal support. Our goal is to enable cheaper inference and encourage the development of more downstream applications with improved usability.
 
@@ -45,15 +46,18 @@ As with our previous work, the models offer support mainly in English but have g
 ## Table of Contents
 
 - [The Falcon2 Models](#the-falcon-models)
-- [11B LLM Training Details](#training)
-- [11B LLM Evaluation](#evaluation)
-- [11B LLM Using the Model](#using)
-- [11B VLM Training](#vlm-training)
-- [11B VLM Evaluation](#vlm-evaluation)
-- [11B VLM Using the Model](#vlm-using)
-- [Licensing information](#license)
+- Falcon 2 11B LLM
+    - [11B LLM Training Details](#falcon2-11b-llm)
+    - [11B LLM Evaluation](#falcon2-11b-evaluation)
+    - [11B LLM Using the Model](#using-falcon2-11b)
+- Falcon 2 11B VLM
+    - [11B VLM Training](#falcon2-11b-vlm)
+    - [11B VLM Evaluation](#falcon2-11b-vlm-evaluation)
+    - [11B VLM Using the Model](#using-falcon2-11b-falconvlm)
+- [Licensing information](#license-information)
 
-## [Falcon2-11B LLM]<a name="training"></a>
+<a name="falcon2-11b-llm"></a>
+## Falcon2-11B LLM
 
 ### Training Data
 Falcon2-11B was trained on over 5,000 GT (billion tokens) of RefinedWeb, a high-quality filtered and deduplicated web dataset, enhanced with curated corpora. It followed a four-stage training strategy. The first three stages were focused on increasing the context length, from 2048 to 4096 and finally to 8192 tokens. The last stage aimed to further enhance performance using only high-quality data.
@@ -98,7 +102,8 @@ Falcon2-11B was trained on 1024 A100 40GB GPUs for the majority of the training,
 | Z-loss         | 1e-4      |
 | Batch size     | Variable  |
 
-## [Falcon2-11B Evaluation]<a name="evaluation"></a>
+<a name="falcon2-11b-evaluation"></a>
+## Falcon2-11B Evaluation
 
 ### English performance
 
@@ -168,7 +173,8 @@ We will soon release more extensive evaluation results for multilingual capabili
 
 We check the model's performance on code generation against the [BigCode Leaderboard](https://huggingface.co/spaces/bigcode/bigcode-models-leaderboard) on the HumanEval benchmark for the Python language, obtaining pass@1 of 29.59%.
 
-## [Using Falcon2-11B]<a name="using"></a>
+<a name="using-falcon2-11b"></a>
+## Using Falcon2-11B
 
 ```python
 from transformers import AutoTokenizer
@@ -201,7 +207,8 @@ for seq in sequences:
     print(f"Result: {seq['generated_text']}")
 ```
 
-## [Falcon2-11B VLM]<a name="vlm-training"></a>
+<a name="falcon2-11b-vlm"></a>
+## Falcon2-11B VLM
 
 [Falcon2-11B VLM](https://huggingface.co/tiiuae/Falcon-11B-vlm) is a vision-language model (VLM) built on top of the LLM, that additionally handles image inputs and is capable of answering queries about the images. To achieve this, we integrate the pretrained CLIP ViT-L/14 vision encoder with our Falcon2-11B chat-finetuned model, and train with image-text data. 
 
@@ -211,7 +218,8 @@ To enhance the VLM's perception of fine-grained details w.r.t small objects in i
 The training is done in two stages: pretraining and finetuning. In both stages, the visual encoder weights are kept frozen. In the pretraining stage, the LLM is kept frozen, and only the multimodal projector is trained on 558K image-caption pairs. 
 This enables the multimodal projector to learn a mapping from visual to text embedding space. During finetuning, both the projector and LLM weights are trained on a corpus of 1.2M image-text instruction data from public datasets, which also includes multi-round conversations.
 
-## [Falcon2-11B VLM Evaluation]<a name="vlm-evaluation"></a>
+<a name="falcon2-11b-vlm-evaluation"></a>
+## Falcon2-11B VLM Evaluation
 
 | Model | MME | GQA | SQA | POPE | VQAv2 | TextVQA | MM-Bench | SEED-IMG | Average |
 |----|----|----|----|----|----|----|----|----|----|
@@ -220,8 +228,8 @@ This enables the multimodal projector to learn a mapping from visual to text emb
 | LLaVA-1.6 (Vicuna-13B) | 1575/326 | **65.4** | 73.6 | 86.2 | **82.8** | **67.1** | 70.0 | 71.9 |73.8 |
 | LLaVA-1.6 (Mistral-7B) | 1498/321 |64.8 | 72.8 | 86.7 | 82.2 | 65.7 | 68.7 | 72.2 |73.3 |
 
-
-## [Using Falcon2-11B-FalconVLM]<a name="vlm-using"></a>
+<a name="using-falcon2-11b-falconvlm"></a>
+## Using Falcon2-11B-FalconVLM
 ```python
 from transformers import LlavaNextForConditionalGeneration, LlavaNextProcessor
 from PIL import Image
@@ -248,9 +256,10 @@ print(generated_captions)
 ```
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/179_falcon2-11b/falcon_example_tiny.png" width="500" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/179_falcon2-11b/falcon_example_tiny.png" width="500" />
 </p>
 
-## [License information]<a name="license"></a>
+<a name="license-information"></a>
+## License information
 
 The Falcon 2 models are made available under the [TII Falcon License 2.0](https://falconllm-staging.tii.ae/falcon-2-terms-and-conditions.html), a permissive Apache 2.0-based software license which includes an [acceptable use policy](https://falconllm-staging.tii.ae/falcon-2-acceptable-use-policy.html) that promotes the responsible use of AI. This license was crafted within the spirit of TII's commitment to the open source community.
