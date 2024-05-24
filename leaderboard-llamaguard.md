@@ -1,6 +1,6 @@
 ---
 title: "CyberSecEval 2 - A Comprehensive Evaluation Framework for Cybersecurity Risks and Capabilities of Large Language Models"
-thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_llamaguard.png
 authors:
 - user: r34p3r1321
   guest: true
