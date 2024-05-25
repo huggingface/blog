@@ -12,6 +12,11 @@ authors:
 
 # Hugging Face on AMD Instinct MI300 GPU
 
+> [!TIP]
+> Join the next Hugging Cast on June 6th to ask questions to the post authors, watch a live demo deploying Llama 3 on MI300X on Azure, plus a bonus demo deploying models locally on Ryzen AI PC!
+>
+> Register at https://streamyard.com/watch/iMZUvJnmz8BV
+
 ## Introduction
 At Hugging Face we want to make it easy to build AI with open models and open source, whichever framework, cloud and stack you want to use.
 A key component is the ability to deploy AI models on a versatile choice of hardware. 
@@ -103,4 +108,4 @@ As you can see, AMD MI300 brings a significant boost of performance on AI use-ca
 We, at Hugging Face, are very excited to see what the community and enterprises will be able to achieve with these new hardware and integrations. 
 We are eager to hear from you and help in your use-cases.
 
-Make sure to stop by optimum-AMD and text-generation-inference Github repositories to get the latest performance optimization towards AMD GPUs!
+Make sure to stop by [optimum-AMD](https://github.com/huggingface/optimum-amd) and [text-generation-inference](https://github.com/huggingface/text-generation-inference/) Github repositories to get the latest performance optimization towards AMD GPUs!
