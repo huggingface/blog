@@ -83,7 +83,7 @@ Both can be installed by following the steps below.
 
 1. Install IBM Time Series Foundation Model Repository [`tsfm`](https://github.com/ibm/tsfm).
 ```
-pip install git+https://github.com:IBM/tsfm.git
+pip install git+https://github.com/IBM/tsfm.git
 ```
 2. Install Hugging Face [`Transformers`](https://github.com/huggingface/transformers#installation)
 ```

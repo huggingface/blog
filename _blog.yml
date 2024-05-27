@@ -18,30 +18,6 @@
     - guide
     - nlp
 
-- external: https://huggingface.co/zero-shot
-  title: "Zero Shot Topic Classification"
-  author: joeddav
-  date: May 29, 2020
-  tags:
-    - research
-    - nlp
-
-- external: https://huggingface.co/calculator
-  title: "How Big Should My Language Model Be?"
-  author: teven
-  date: June 8, 2020
-  tags:
-    - research
-    - nlp
-
-- external: https://yjernite.github.io/lfqa.html
-  title: "Long Form Question Answering with ELI5"
-  author: yjernite
-  date: June 17, 2020
-  tags:
-    - guide
-    - nlp
-
 - local: reformer
   title: "The Reformer - Pushing the limits of language modeling"
   author: patrickvonplaten
@@ -58,14 +34,6 @@
   date: Sep 10, 2020
   tags:
     - research
-    - nlp
-
-- external: https://huggingface.co/rag
-  title: "Retrieval Augmented Generation (RAG)"
-  author: yjernite
-  date: September 28, 2020
-  tags:
-    - guide
     - nlp
 
 - local: encoder-decoder
@@ -201,14 +169,6 @@
   date: March 31, 2021
   tags:
     - community
-    - research
-    - nlp
-
-- external: https://huggingface.co/blog/how_many_data_points
-  title: "How many data points is a prompt worth?"
-  author: teven
-  date: April 5, 2021
-  tags:
     - research
     - nlp
 
@@ -598,7 +558,7 @@
 
 - local: fine-tune-segformer
   title: "Fine-Tune a Semantic Segmentation Model with a Custom Dataset"
-  author: segments-tobias
+  author: tobiasc
   thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
   date: March 17, 2022
   tags:
@@ -880,25 +840,6 @@
   - guide
   - diffusion
   - stable-diffusion
-
-- external: https://huggingface.co/spaces/loubnabnl/code-generation-models
-  title: "Code generation with Hugging Face"
-  author: loubnabnl
-  thumbnail: /blog/assets/79_code_generation_space/code_generation.png
-  date: June 8, 2022
-  tags:
-    - guide
-    - research
-    - nlp
-
-- external: https://huggingface.co/spaces/sentence-transformers/Sentence_Transformers_for_semantic_search
-  title: "Using Sentence Transformers for semantic search"
-  author: espejelomar
-  thumbnail: /blog/assets/79_st_semantic_search/thumbnail.png
-  date: June 10, 2022
-  tags:
-  - nlp
-  - guide
 
 - local: ml-director-insights-3
   title: "Director of Machine Learning Insights [Part 3: Finance Edition]"
@@ -1590,7 +1531,7 @@
 
 - local: clipseg-zero-shot
   title: "Zero-shot image segmentation with CLIPSeg"
-  author: segments-tobias
+  author: tobiasc
   thumbnail: /blog/assets/123_clipseg-zero-shot/thumb.png
   date: December 21, 2022
   tags:
@@ -3510,6 +3451,14 @@
     - LLM
     - gcp
 
+- local: fetch-eap-case-study
+  title: "Fetch Consolidates AI Tools and Saves 30% Development Time with Hugging Face on AWS"
+  author: Violette
+  thumbnail: /blog/assets/78_ml_director_insights/fetch2.png
+  date: Feb 23, 2023
+  tags:
+    - case-studies
+
 - local: matryoshka
   title: "🪆 Introduction to Matryoshka Embedding Models"
   author: tomaarsen
@@ -3558,7 +3507,7 @@
 
 - local: arena-tts
   title: "TTS Arena: Benchmarking Text-to-Speech Models in the Wild"
-  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png 
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail.png
   author: mrfakename
   guest: true
   date: Feb 27, 2024
@@ -3576,7 +3525,7 @@
     - nlp
     - community
     - research
-    - LLM 
+    - LLM
 
 - local: textgen-pipe-gaudi
   title: "Text-Generation Pipeline on Intel® Gaudi® 2 AI Accelerator"
@@ -3625,7 +3574,7 @@
     - cv
     - data
     - research
-  
+
 - local: intel-fast-embedding
   title: "CPU Optimized Embeddings with 🤗 Optimum Intel and fastRAG"
   author: peterizsak
@@ -3639,3 +3588,514 @@
     - optimum
     - collaboration
     - community
+
+- local: quanto-introduction
+  title: "quanto: a pytorch quantization toolkit"
+  author: dacorvo
+  thumbnail: /blog/assets/169_quanto_intro/thumbnail.png
+  date: March 18, 2024
+  tags:
+    - guide
+    - quantization
+    - transformers
+    - diffusers
+
+- local: train-dgx-cloud
+  title: "Easily Train Models with H100 GPUs on NVIDIA DGX Cloud"
+  author: philschmid
+  thumbnail: /blog/assets/train-dgx-cloud/thumbnail.jpg
+  date: March 18, 2024
+  tags:
+    - partnerships
+    - hardware
+    - nvidia
+    - llm
+    - training
+
+- local: galore
+  title: "GaLore: Advancing Large Model Training on Consumer-grade Hardware"
+  author: Titus-von-Koeller
+  thumbnail: /blog/assets/galore_introduction/thumbnail.png
+  date: March 20, 2024
+  tags:
+    - galore
+    - peft
+    - llm
+    - training
+
+- local: cosmopedia
+  title: "Cosmopedia: how to create large-scale synthetic data for pre-training Large Language Models"
+  author: loubnabnl
+  thumbnail: /blog/assets/cosmopedia/thumbnail.png
+  date: March 20, 2024
+  tags:
+    - guide
+    - nlp
+    - synthetic-data
+    - llm
+    - community
+
+- local: phi2-intel-meteor-lake
+  title: "A Chatbot on your Laptop: Phi-2 on Intel Meteor Lake"
+  author: juliensimon
+  thumbnail: /blog/assets/phi2-intel-meteor-lake/02.jpg
+  date: March 20, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
+
+- local: arena-lighthouz
+  title: "Introducing the Chatbot Guardrails Arena"
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail_lighthouz.png
+  author: sonalipnaik
+  guest: true
+  date: Mar 21, 2024
+  tags:
+    - leaderboard
+    - arena
+    - collaboration
+
+- local: embedding-quantization
+  title: "Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval"
+  author: aamirshakir
+  guest: true
+  thumbnail: /blog/assets/embedding-quantization/thumbnail.png
+  date: Mar 22, 2024
+  tags:
+    - nlp
+    - community
+    - guide
+    - collaboration
+    - research
+
+- local: noob_intro_transformers
+  title: "Total noob’s intro to Hugging Face Transformers"
+  author: 2legit2overfit
+  thumbnail: /blog/assets/78_ml_director_insights/guide.png
+  date: March 22, 2024
+  tags:
+    - guide
+    - community
+
+- local: pollen-vision
+  title: "Pollen-Vision: Unified interface for Zero-Shot vision models in robotics"
+  author: apirrone
+  guest: true
+  thumbnail: /blog/assets/pollen-vision/thumbnail.jpg
+  date: March 25, 2024
+  tags:
+    - robotics
+    - vision
+    - object-detection
+
+- local: cloudflare-workers-ai
+  title: "Bringing serverless GPU inference to Hugging Face users"
+  author: philschmid
+  thumbnail: /blog/assets/cloudflare-workers-ai/thumbnail.jpg
+  date: April 2, 2024
+  tags:
+    - partnerships
+    - cloudflare
+    - llm
+    - inference
+
+- local: policy-blog
+  title: "Public Policy at Hugging Face"
+  author: irenesolaiman
+  thumbnail: /blog/assets/policy_docs/policy_blog_thumbnail.png
+  date: April 8, 2024
+  tags:
+    - ethics
+
+- local: setfit-optimum-intel
+  title: "Blazing Fast SetFit Inference with 🤗 Optimum Intel on Xeon"
+  author: danielkorat
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: April 3, 2024
+  tags:
+    - nlp
+    - intel
+    - quantization
+    - optimum
+    - collaboration
+    - community
+    - open-source-collab
+
+- local: duckdb-nsql-7b
+  title: "Text2SQL using Hugging Face Dataset Viewer API and Motherduck DuckDB-NSQL-7B"
+  author: asoria
+  thumbnail: /blog/assets/duckdb-nsql-7b/thumbnail.png
+  date: April 4, 2024
+  tags:
+    - guide
+    - text2sql
+    - datasets
+    - llm
+
+- local: hugging-face-wiz-security-blog
+  title: "Hugging Face partners with Wiz Research to Improve AI Security"
+  author: JJoe206
+  thumbnail: /blog/assets/wiz_security/security.png
+  date: April 4, 2024
+  tags:
+    - security
+
+- local: codegemma
+  title: "CodeGemma - an official Google release for code LLMs"
+  author: pcuenq
+  thumbnail: /blog/assets/codegemma/thumbnail_b.png
+  date: April 9, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
+
+- local: google-cloud-model-garden
+  title: "Making thousands of open LLMs bloom in the Vertex AI Model Garden"
+  author: philschmid
+  thumbnail: /blog/assets/173_gcp-partnership/thumbnail.jpg
+  date: April 10, 2024
+  tags:
+    - partnerships
+    - gcp
+    - hardware
+
+- local: vlms
+  title: "Vision Language Models Explained"
+  author: merve
+  thumbnail: /blog/assets/vlms_explained/thumbnail.png
+  date: April 11, 2024
+  tags:
+    - vision
+    - vlm
+    - multimodal
+    - guide
+    - trl
+
+- local: idefics2
+  title: "Introducing Idefics2: A Powerful 8B Vision-Language Model for the community"
+  author: Leyo
+  thumbnail: /blog/assets/idefics/thumbnail.png
+  date: April 15, 2024
+  tags:
+    - research
+    - nlp
+    - cv
+    - vlm
+    - multimodal
+    
+- local: ryght-case-study
+  title: "Ryght’s Journey to Empower Healthcare and Life Sciences with Expert Support from Hugging Face"
+  author: andrewrreed
+  thumbnail: /blog/assets/ryght-case-study/thumbnail.png
+  date: April 16, 2024
+  tags:
+    - case-studies
+
+- local: fhe-endpoints
+  title: "Running Privacy-Preserving Inference on Hugging Face Endpoints"
+  author: binoua
+  guest: true
+  thumbnail: /blog/assets/fhe-endpoints/thumbnail.png
+  date: April 16, 2024
+  tags:
+    - guide
+    - privacy
+    - research
+    - FHE
+
+- local: leaderboard-livecodebench
+  title: "Introducing the LiveCodeBench Leaderboard - Holistic and Contamination-Free Evaluation of Code LLMs"
+  author: StringChaos
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  date: Apr 16, 2024
+  tags:
+      - leaderboard
+      - research
+      - collaboration
+      - community
+
+- local: gradio-reload
+  title: "AI Apps in a Flash with Gradio's Reload Mode"
+  author: freddyaboulton
+  thumbnail: /blog/assets/gradio-reload/thumbnail_compressed.png
+  date: April 16, 2024
+  tags:
+    - gradio
+    - open-source
+    - guide
+    - demo
+
+- local: leaderboard-medicalllm
+  title: "The Open Medical-LLM Leaderboard: Benchmarking Large Language Models in Healthcare"
+  author: aaditya
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_medicalllm.png
+  date: Apr 19, 2024
+  tags:
+    - leaderboard
+    - collaboration
+    - research
+
+- local: llama3
+  title: "Welcome Llama 3 - Meta's new open LLM"
+  author: philschmid
+  thumbnail: /blog/assets/llama3/thumbnail.jpg
+  date: April 18, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+
+- local: jat
+  title: "Jack of All Trades, Master of Some, a Multi-Purpose Transformer Agent"
+  author: qgallouedec
+  thumbnail: /blog/assets/jat/thumbnail.png
+  date: April 22, 2024
+  tags:
+    - imitation
+    - rl
+    - transformers
+    - generalist
+
+- local: leaderboard-cot
+  title: "Introducing the Open Chain of Thought Leaderboard"
+  author: ggbetz
+  guest: true
+  org: logikon
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_cot.png
+  date: Apr 23, 2024
+  tags:
+      - leaderboard
+      - research
+      - collaboration
+      - community
+
+- local: sc2-instruct
+  title: "StarCoder2-Instruct: Fully Transparent and Permissive Self-Alignment for Code Generation"
+  thumbnail: /blog/assets/sc2-instruct/sc2-instruct-banner.png
+  author: yuxiang630
+  guest: true
+  date: Apr 29, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: evaluation-structured-outputs
+  title: "Improving Prompt Consistency with Structured Generations"
+  author: willkurt
+  guest: true
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: Apr 30, 2024
+  tags:
+    - evaluation
+    - collaboration
+    - research
+    - leaderboard
+
+- local: asr-diarization
+  title: "Powerful ASR + diarization + speculative decoding with Hugging Face Inference Endpoints"
+  author: sergeipetrov
+  thumbnail: /blog/assets/asr-diarization/thumbnail.png
+  date: May 1, 2024
+  tags:
+    - audio
+    - asr
+    - inference
+
+- local: leaderboard-artificial-analysis
+  title: "Bringing the Artificial Analysis LLM Performance Leaderboard to Hugging Face"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_artificialanalysis.png
+  author: mhillsmith
+  guest: true
+  date: May 3, 2024
+  tags:
+    - leaderboard
+    - research
+    - collaboration
+    - community
+
+- local: leaderboard-hebrew
+  title: "Introducing the Open Leaderboard for Hebrew LLMs!"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_hebrew.png
+  author: Shaltiel
+  guest: true
+  date: May 05, 2024
+  tags:
+    - nlp
+    - research
+    - leaderboard
+    - LLM
+
+- local: cost-efficient-rag-applications-with-intel
+  title: "Building Cost-Efficient Enterprise RAG applications with Intel Gaudi 2 and Intel Xeon"
+  author: juliensimon
+  thumbnail: /blog/assets/cost_efficient_rag_applications_with_intel/main.jpg
+  date: May 9, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
+
+- local: enterprise-hub-aws-marketplace
+  title: "Subscribe to Enterprise Hub with your AWS Account"
+  author: jeffboudier
+  thumbnail: /blog/assets/158_aws_marketplace/thumbnail.jpg
+  date: May 9, 2024
+  tags:
+    - guide
+    - announcement
+    - partnerships
+    - aws
+    
+- local: agents
+  title: "License to Call: Introducing Transformers Agents 2.0"
+  thumbnail: /blog/assets/agents/thumbnail.png
+  author: m-ric
+  date: May 13, 2024
+  tags:
+    - nlp
+    - LLM
+    - agents
+    - transformers
+    - gpt
+    - mixtral
+    - llama3
+    - langchain
+    - benchmark
+    
+- local: leaderboard-arabic
+  title: "Introducing the Open Arabic LLM Leaderboard"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_arabic.png
+  author: Ali-C137
+  guest: true
+  date: May 14, 2024
+  tags:
+    - nlp
+    - research
+    - leaderboard
+    - LLM
+    
+- local: langchain
+  title: "Hugging Face x LangChain : A new partner package in LangChain"
+  author: jofthomas
+  thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
+  date: May 14, 2024
+  tags:
+    - collaboration
+    - community
+    - nlp
+    - llm
+
+- local: paligemma
+  title: "PaliGemma – Google's Cutting-Edge Open Vision Language Model"
+  thumbnail: /blog/assets/paligemma/Paligemma.png
+  author: merve
+  date: May 14, 2024
+  tags:
+    - multimodal
+    - LLM
+    - vision
+
+- local: microsoft-collaboration
+  title: "From cloud to developers: Hugging Face and Microsoft Deepen Collaboration" 
+  thumbnail: /blog/assets/microsoft-collaboration/thumbnail.jpg
+  author: jeffboudier
+  date: May 21, 2024
+  tags:
+    - cloud
+    - azure
+    - partnership
+
+- local: huggingface-amd-mi300
+  title: "Hugging Face on AMD Instinct MI300 GPU"
+  thumbnail: /blog/assets/optimum_amd/amd_hf_logo_fixed.png
+  author: mfuntowicz
+  date: May 21, 2024
+  tags:
+    - llm
+    - amd
+    - llama
+    - inference
+    - optimum
+    - rocm
+    - text-generation
+
+- local: dell-enterprise-hub
+  title: "Build AI on premise with Dell Enterprise Hub"
+  thumbnail: /blog/assets/dell-enterprise-hub/thumbnail.jpg
+  author: jeffboudier
+  date: May 21, 2024
+  tags:
+    - announcement
+    - enterprise
+    - hub
+    - dell
+    - partnerships
+
+- local: spaces-dev-mode
+  title: "Introducing Spaces Dev Mode for a seamless developer experience" 
+  thumbnail: /blog/assets/spaces-dev-mode/thumbnail.png
+  author: pagezyhf
+  date: May 21, 2024
+  tags:
+    - spaces
+    - azure
+    - partnership
+    
+- local: inferentia-inference-endpoints
+  title: "Deploy models on AWS Inferentia2 from Hugging Face" 
+  thumbnail:  /blog/assets/inferentia-inference-endpoints/thumbnail.jpg
+  author: philschmid
+  date: May 22, 2024
+  tags:
+    - cloud
+    - aws
+    - partnership
+    - optimum
+
+- local: kv-cache-quantization
+  title: "Unlocking Longer Generation with Key-Value Cache Quantization"
+  thumbnail: /blog/assets/kv_cache_quantization/thumbnail.png
+  author: RaushanTurganbay
+  date: May 16, 2024
+  tags:
+    - generation
+    - LLM
+    - quantization
+ 
+- local: leaderboard-llamaguard
+  title: "CyberSecEval 2 - A Comprehensive Evaluation Framework for Cybersecurity Risks and Capabilities of Large Language Models"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_llamaguard.png
+  author: r34p3r1321
+  guest: true
+  date: May 24, 2024
+  tags:
+    - nlp
+    - research
+    - leaderboard
+    - LLM
+
+- local: falcon2-11b
+  title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens tokens and 11 languages"
+  author: Quent-01
+  guest: true
+  thumbnail: /blog/assets/179_falcon2-11b/thumbnail.jpg
+  date: May 24, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - multimodal
+    - vision
+    - open-source
