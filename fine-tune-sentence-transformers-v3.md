@@ -9,7 +9,7 @@ authors:
 
 Sentence Transformers v3.0 released today: the biggest [Sentence Transformers](https://sbert.net/) update since the inception of the project. Alongside many smaller changes, the main change is a new training approach. In this blogpost, I'll be showing you how to use it to train/finetune Sentence Transformer models to improve their performance on specific tasks.
 
-Finetuning Sentence Transformers now involves several components, including datasets, loss functions, training arguments, evaluators, and the trainer itself. I'll go through each of these components in detail and provide examples of how to use them to train effective models.
+Finetuning Sentence Transformers now involves several components, including datasets, loss functions, training arguments, evaluators, and the new trainer itself. I'll go through each of these components in detail and provide examples of how to use them to train effective models.
 
 ## Why Finetune?
 
@@ -473,6 +473,10 @@ trainer.train()
 model.save_pretrained("bert-base-all-nli-stsb-quora-nq")
 model.push_to_hub("bert-base-all-nli-stsb-quora-nq")
 ```
+
+## Deprecation
+
+Prior to the Sentence Transformer v3 release, all models would be trained using the [`SentenceTransformer.fit`](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer.fit) method. Rather than deprecating this method, starting from v3.0, this method will use the [`SentenceTransformerTrainer`](https://sbert.net/docs/package_reference/sentence_transformer/trainer.html#sentence_transformers.trainer.SentenceTransformerTrainer) behind the scenes. This means that your old training code should still work, and should even be upgraded with the new features such as multi-gpu training, loss logging, etc. That said, the new training approach is much more powerful, so it is **recommended** to write new training scripts using the new approach.
 
 ## Training Examples
 
