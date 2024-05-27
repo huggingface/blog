@@ -5,6 +5,9 @@ authors:
 - user: espejelomar
 ---
 
+> [!WARNING]
+> This guide is only suited for Sentence Transformers before v3.0. Read [Training and Finetuning Embedding Models with Sentence Transformers v3](fine-tune-sentence-transformers-v3) for an updated guide.
+
 # Train and Fine-Tune Sentence Transformers Models
 
 
