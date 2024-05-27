@@ -66,16 +66,16 @@ If you’ve been waiting for an open alternative to closed-source chatbots, Llam
 
 ## Demo
 
-You can easily try the Big Llama 2 Model (70 billion parameters!) in [this Space](https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI) or in the playground embedded below:
+You can easily try the 13B Llama 2 Model in [this Space](https://huggingface.co/spaces/huggingface-projects/llama-2-13b-chat) or in the playground embedded below:
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.37.0/gradio.js"> </script>
-<gradio-app theme_mode="light" space="ysharma/Explore_llamav2_with_TGI"></gradio-app>
+<gradio-app theme_mode="light" space="huggingface-projects/llama-2-13b-chat"></gradio-app>
 
-Under the hood, this playground uses Hugging Face's [Text Generation Inference](https://github.com/huggingface/text-generation-inference), the same technology that powers [HuggingChat](https://huggingface.co/chat/), and which we'll share more in the following sections.
-
+To learn more about how this demo works, read on below about how to run inference on Llama 2 models.
 
 ## Inference
-In this section, we’ll go through different approaches to running inference of the Llama2 models. Before using these models, make sure you have requested access to one of the models in the official [Meta Llama 2](https://huggingface.co/meta-llama) repositories. 
+
+In this section, we’ll go through different approaches to running inference of the Llama 2 models. Before using these models, make sure you have requested access to one of the models in the official [Meta Llama 2](https://huggingface.co/meta-llama) repositories. 
 
 **Note: Make sure to also fill the official Meta form. Users are provided access to the repository once both forms are filled after few hours.**
 
