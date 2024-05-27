@@ -13,7 +13,7 @@ In this post we will look at how we can visualize proteins on Hugging Face Space
 
 **Update May 2024**
 
-While the method described below still works you'll likely want to save some time and use the [Molecule3D Gradio Custom Component](https://www.gradio.app/custom-components/gallery?id=simonduerr%2Fgradio_molecule3d). This component will allow users to modify the protein visualization on the fly and you can more easily set the default visualization. Simply install it using:
+While the method described below still works, you'll likely want to save some time and use the [Molecule3D Gradio Custom Component](https://www.gradio.app/custom-components/gallery?id=simonduerr%2Fgradio_molecule3d). This component will allow users to modify the protein visualization on the fly and you can more easily set the default visualization. Simply install it using:
 
 ```bash
 pip install gradio_molecule3d
