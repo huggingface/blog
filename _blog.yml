@@ -4101,7 +4101,7 @@
     - open-source
 
 - local: fine-tune-sentence-transformers-v3
-  title: "Training and Finetuning Embedding Models with Sentence Transformers v3.0+"
+  title: "Training and Finetuning Embedding Models with Sentence Transformers v3"
   author: tomaarsen
   thumbnail: /blog/assets/fine-tune-sentence-transformers-v3/st-hf-thumbnail.png
   date: May 28, 2024
