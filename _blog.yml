@@ -4100,10 +4100,10 @@
     - vision
     - open-source
 
-- local: fine-tune-sentence-transformers-v3
+- local: train-sentence-transformers
   title: "Training and Finetuning Embedding Models with Sentence Transformers v3"
   author: tomaarsen
-  thumbnail: /blog/assets/fine-tune-sentence-transformers-v3/st-hf-thumbnail.png
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
   date: May 28, 2024
   tags:
     - nlp

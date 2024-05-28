@@ -1,13 +1,13 @@
 ---
 title: "Training and Finetuning Embedding Models with Sentence Transformers v3"
-thumbnail: /blog/assets/fine-tune-sentence-transformers-v3/st-hf-thumbnail.png
+thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
 authors:
 - user: tomaarsen
 ---
 
 # Training and Finetuning Embedding Models with Sentence Transformers v3
 
-Sentence Transformers v3.0 released today: the biggest [Sentence Transformers](https://sbert.net/) update since the inception of the project. Alongside many smaller changes, the main change is a new training approach. In this blogpost, I'll be showing you how to use it to train/finetune Sentence Transformer models to improve their performance on specific tasks.
+[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more. Its v3.0 update is the largest since the project's inception, introducing a new training approach. In this blogpost, I'll show you how to use it to train/finetune Sentence Transformer models to improve their performance on specific tasks.
 
 Finetuning Sentence Transformers now involves several components, including datasets, loss functions, training arguments, evaluators, and the new trainer itself. I'll go through each of these components in detail and provide examples of how to use them to train effective models.
 
