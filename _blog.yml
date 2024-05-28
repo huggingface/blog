@@ -4099,3 +4099,14 @@
     - multimodal
     - vision
     - open-source
+
+- local: train-sentence-transformers
+  title: "Training and Finetuning Embedding Models with Sentence Transformers v3"
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: May 28, 2024
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
