@@ -367,7 +367,7 @@ model.save_pretrained("models/mpnet-base-all-nli-triplet/final")
 model.push_to_hub("mpnet-base-all-nli-triplet")
 ```
 
-In this example I'm finetuning from [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base), i.e. a foundational model that is not yet a Sentence Transformer model. This requires more training data than finetuning an existing Sentence Transformer model, like [`all-mpnet-base-v2`](https://huggingface.co/sentence-transformers/all-mpnet-base-v2).
+In this example I'm finetuning from [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base), a base model that is not yet a Sentence Transformer model. This requires more training data than finetuning an existing Sentence Transformer model, like [`all-mpnet-base-v2`](https://huggingface.co/sentence-transformers/all-mpnet-base-v2).
 
 After running this script, the [tomaarsen/mpnet-base-all-nli-triplet](https://huggingface.co/tomaarsen/mpnet-base-all-nli-triplet) model was uploaded for me. The triplet accuracy using cosine similarity, i.e. what percentage of the time `cosine_similarity(anchor, positive) > cosine_similarity(anchor, negative)` is 90.04% for the development set and 91.5% for the testing set! For reference, the [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base) model scored only 68.32% on the dev set before training.
 
