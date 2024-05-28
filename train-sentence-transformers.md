@@ -7,7 +7,7 @@ authors:
 
 # Training and Finetuning Embedding Models with Sentence Transformers v3
 
-[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more. Its v3.0 update is the largest since the project's inception, introducing a new training approach. In this blogpost, I'll show you how to use it to train/finetune Sentence Transformer models to improve their performance on specific tasks.
+[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more. Its v3.0 update is the largest since the project's inception, introducing a new training approach. In this blogpost, I'll show you how to use it to finetune Sentence Transformer models to improve their performance on specific tasks. You can also use this method to train new Sentence Transformer models from scratch.
 
 Finetuning Sentence Transformers now involves several components, including datasets, loss functions, training arguments, evaluators, and the new trainer itself. I'll go through each of these components in detail and provide examples of how to use them to train effective models.
 
@@ -40,7 +40,7 @@ Note: Many Hugging Face datasets that work out of the box with Sentence Transfor
 
 ### Data on Hugging Face Hub
 
-To load data from the Hugging Face Datasets Hub, use the [`datasets.load_dataset`](https://huggingface.co/docs/datasets/main/en/package_reference/loading_methods#datasets.load_dataset) function:
+To load data from datasets in the Hugging Face Hub, use the [`load_dataset`](https://huggingface.co/docs/datasets/main/en/package_reference/loading_methods#datasets.load_dataset) function:
 
 ```python
 from datasets import load_dataset
@@ -61,7 +61,7 @@ Some datasets, like [`sentence-transformers/all-nli`](https://huggingface.co/dat
 
 ### Local Data (CSV, JSON, Parquet, Arrow, SQL)
 
-If you have local data in common file formats, you can easily load it using [`datasets.load_dataset`](https://huggingface.co/docs/datasets/main/en/package_reference/loading_methods#datasets.load_dataset):
+If you have local data in common file formats, you can easily load it using [`load_dataset`](https://huggingface.co/docs/datasets/main/en/package_reference/loading_methods#datasets.load_dataset) too:
 
 ```python
 from datasets import load_dataset
@@ -318,7 +318,7 @@ trainer = SentenceTransformerTrainer(
 )
 trainer.train()
 
-# (Optional) Evaluate the trained model on the test set
+# (Optional) Evaluate the trained model on the test set, after training completes
 test_evaluator = TripletEvaluator(
     anchors=test_dataset["anchor"],
     positives=test_dataset["positive"],
