@@ -100,7 +100,7 @@ It's crucial to ensure that your dataset format matches your chosen [loss functi
     
 For example, if your loss function accepts `(anchor, positive, negative) triplets`, then your first, second, and third dataset columns correspond with `anchor`, `positive`, and `negative`, respectively. This means that your first and second column must contain texts that should embed closely, and that your first and third column must contain texts that should embed far apart. That is why depending on your loss function, your dataset column order matters.
 
-Consider a dataset with columns `["text1", "text2", "label"]`, where the `"label"` column contains float similarity scores. This dataset can be used with `CoSENTLoss`, `AnglELoss`, and `CosineSimilarityLoss` because:
+Consider a dataset with columns `["text1", "text2", "label"]`, where the `"label"` column contains floating point similarity scores. This dataset can be used with `CoSENTLoss`, `AnglELoss`, and `CosineSimilarityLoss` because:
 
 1. The dataset has a "label" column, which is required by these loss functions.
 2. The dataset has 2 non-label columns, matching the number of inputs required by these loss functions.
@@ -122,7 +122,7 @@ from sentence_transformers.losses import CoSENTLoss
 model = SentenceTransformer("FacebookAI/xlm-roberta-base")
 
 # Initialize the CoSENTLoss
-# This loss requires pairs of text and a float similarity score as a label
+# This loss requires pairs of text and a floating point similarity score as a label
 loss = CoSENTLoss(model)
 
 # Load an example training dataset that works with our loss function:
