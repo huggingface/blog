@@ -211,8 +211,10 @@ dev_evaluator = EmbeddingSimilarityEvaluator(
     main_similarity=SimilarityFunction.COSINE,
     name="sts-dev",
 )
-# Run evaluation:
-# dev_evaluator(model)
+# Run evaluation manually:
+# print(dev_evaluator(model))
+
+# Later, you can provide this evaluator to the trainer to get results during training
 ```
 
 ### TripletEvaluator with AllNLI
@@ -239,8 +241,10 @@ dev_evaluator = TripletEvaluator(
     main_distance_function=SimilarityFunction.COSINE,
     name=f"all-nli-{max_samples}-dev",
 )
-# Run evaluation:
-# dev_evaluator(model)
+# Run evaluation manually:
+# print(dev_evaluator(model))
+
+# Later, you can provide this evaluator to the trainer to get results during training
 ```
 
 ## Trainer
