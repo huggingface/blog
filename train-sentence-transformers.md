@@ -223,6 +223,10 @@ If you don't have the necessary evaluation data but still want to track the mode
 
 ### EmbeddingSimilarityEvaluator with STSb
 
+The STS Benchmark (a.k.a. STSb) is a commonly used benchmarking dataset to measure the model's understanding of semantic textual similarity of short texts like "A man is feeding a mouse to a snake.".
+
+Feel free to browse the [sentence-transformers/stsb](https://huggingface.co/datasets/sentence-transformers/stsb) dataset on Hugging Face.
+
 ```python
 from datasets import load_dataset
 from sentence_transformers.evaluation import EmbeddingSimilarityEvaluator, SimilarityFunction
@@ -243,6 +247,12 @@ dev_evaluator = EmbeddingSimilarityEvaluator(
 ```
 
 ### TripletEvaluator with AllNLI
+
+AllNLI is a concatenation of the [SNLI](https://huggingface.co/datasets/stanfordnlp/snli) and [MultiNLI](https://huggingface.co/datasets/nyu-mll/multi_nli) datasets, both of which are datasets for Natural Language Inference. This task is traditionally for determining whether two texts are an entailment, contradiction, or neither. It has since been adopted for training embedding models, as the entailing and contradictory sentences make for useful `(anchor, positive, negative)` triplets: a common format for training embedding models. 
+
+In this snippet, it is used to evaluate how frequently the model considers the anchor text and the entailing text to be more similar than the anchor text and the contradictory text. An example text is "An older man is drinking orange juice at a restaurant.".
+
+Feel free to browse the [sentence-transformers/all-nli](https://huggingface.co/datasets/sentence-transformers/all-nli) dataset on Hugging Face.
 
 ```python
 from datasets import load_dataset
