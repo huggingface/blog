@@ -10,9 +10,11 @@ authors:
   org: langchain-ai
 translators:
 - user: MatrixYao
+- user: zhongdongy
+  proofreader: true
 ---
 
-# Hugging Face x LangChain：全新 LangChain 合作伙伴包
+# Hugging Face x LangChain: 全新 LangChain 合作伙伴包
 
 我们很高兴官宣发布 **`langchain_huggingface`**，这是一个由 Hugging Face 和 LangChain 共同维护的 LangChain 合作伙伴包。这个新的 Python 包旨在将 Hugging Face 最新功能引入 LangChain 并保持同步。
 
@@ -26,7 +28,7 @@ translators:
 
 ## **起步**
 
-**`langchain-huggingface`** 的起步非常简单。以下是安装该[软件包](https://github.com/langchain-ai/langchain/tree/master/libs/partners/huggingface)的方法：
+**`langchain-huggingface`** 的起步非常简单。以下是安装该 [软件包](https://github.com/langchain-ai/langchain/tree/master/libs/partners/huggingface) 的方法:
 
 ```python
 pip install langchain-huggingface
@@ -34,13 +36,13 @@ pip install langchain-huggingface
 
 现在，包已经安装完毕，我们来看看里面有什么吧！
 
-## LLM 文本生成 
+## LLM 文本生成
 
 ### HuggingFacePipeline
 
-`transformers` 中的 [Pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines) 类是 Hugging Face 工具箱中最通用的工具。LangChain 的设计主要是面向 RAG 和 Agent 应用场景，因此，在 Langchain 中流水线被简化为下面几个以文本为中心的任务：`文本生成`、`文生文`、`摘要`、 `翻译` 等。
+`transformers` 中的 [Pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines) 类是 Hugging Face 工具箱中最通用的工具。LangChain 的设计主要是面向 RAG 和 Agent 应用场景，因此，在 Langchain 中流水线被简化为下面几个以文本为中心的任务: `文本生成` 、 `文生文` 、 `摘要` 、 `翻译` 等。
 
-用户可以使用 `from_model_id` 方法直接加载模型：
+用户可以使用 `from_model_id` 方法直接加载模型:
 
 ```python
 from langchain_huggingface import HuggingFacePipeline
@@ -57,7 +59,7 @@ llm = HuggingFacePipeline.from_model_id(
 llm.invoke("Hugging Face is")
 ```
 
-也可以自定义流水线，再传给 `HuggingFacePipeline` 类：
+也可以自定义流水线，再传给 `HuggingFacePipeline` 类:
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer,pipeline
@@ -79,8 +81,8 @@ llm.invoke("Hugging Face is")
 
 ### HuggingFaceEndpoint
 
-该类也有两种方法。你可以使用 `repo_id` 参数指定模型。也可以使用 `endpoint_url` 指定服务终端，这些终端使用[无服务器 API](https://huggingface.co/inference-api/serverless)，这对于有 Hugging Face [专业帐户](https://huggingface.co/subscribe/pro) 或 [企业 hub](https://huggingface.co/enterprise) 的用户大有好处。普通用户也可以通过在代码环境中设置自己的 HF 令牌从而在免费请求数配额内使用终端。
- 
+该类也有两种方法。你可以使用 `repo_id` 参数指定模型。也可以使用 `endpoint_url` 指定服务终端，这些终端使用 [无服务器 API](https://huggingface.co/inference-api/serverless)，这对于有 Hugging Face [专业帐户](https://huggingface.co/subscribe/pro) 或 [企业 hub](https://huggingface.co/enterprise) 的用户大有好处。普通用户也可以通过在代码环境中设置自己的 HF 令牌从而在免费请求数配额内使用终端。
+
 ```python
 from langchain_huggingface import HuggingFaceEndpoint
 
@@ -128,7 +130,7 @@ llm_engine_hf = ChatHuggingFace(llm=llm)
 llm_engine_hf.invoke("Hugging Face is")
 ```
 
-上述代码等效于：
+上述代码等效于:
 
 ```python
 # with mistralai/Mistral-7B-Instruct-v0.2
@@ -159,7 +161,7 @@ texts = ["Hello, world!", "How are you?"]
 hf_embeddings.embed_documents(texts)
 ```
 
-### HuggingFaceEndpointEmbeddings 
+### HuggingFaceEndpointEmbeddings
 
 `HuggingFaceEndpointEmbeddings` 与 `HuggingFaceEndpoint` 对 LLM 所做的非常相似，其在实现上也是使用 InferenceClient 来计算嵌入。它可以与 hub 上的模型以及 TEI 实例一起使用，TEI 实例无论是本地部署还是在线部署都可以。
 
@@ -178,8 +180,3 @@ hf_embeddings.embed_documents(texts)
 ## 总结
 
 我们致力于让 **`langchain-huggingface`** 变得越来越好。我们将积极监控反馈和问题，并努力尽快解决它们。我们还将不断添加新的特性和功能，以拓展该软件包使其支持更广泛的社区应用。我们强烈推荐你尝试 `langchain-huggingface` 软件包并提出宝贵意见，有了你的支持，这个软件包的未来道路才会越走越宽。
-
-
-> 英文原文: <url> https://huggingface.co/blog/langchain </url>
-> 原文作者：Joffrey Thomas，Kirill Kondratenko，Erick Friis
-> 译者: Matrix Yao (姚伟峰)，英特尔深度学习工程师，工作方向为 transformer-family 模型在各模态数据上的应用及大规模模型的训练推理。
