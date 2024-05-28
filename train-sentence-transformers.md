@@ -11,6 +11,28 @@ authors:
 
 Finetuning Sentence Transformers now involves several components, including datasets, loss functions, training arguments, evaluators, and the new trainer itself. I'll go through each of these components in detail and provide examples of how to use them to train effective models.
 
+## Table of Contents
+
+* [Why Finetune?](#why-finetune)
+* [Training Components](#training-components)
+* [Dataset](#dataset)
+    + [Data on Hugging Face Hub](#data-on-hugging-face-hub)
+    + [Local Data (CSV, JSON, Parquet, Arrow, SQL)](#local-data-csv-json-parquet-arrow-sql)
+    + [Local Data that requires pre-processing](#local-data-that-requires-pre-processing)
+    + [Dataset Format](#dataset-format)
+* [Loss Function](#loss-function)
+* [Training Arguments](#training-arguments)
+* [Evaluator](#evaluator)
+    + [EmbeddingSimilarityEvaluator with STSb](#embeddingsimilarityevaluator-with-stsb)
+    + [TripletEvaluator with AllNLI](#tripletevaluator-with-allnli)
+* [Trainer](#trainer)
+    + [Callbacks](#callbacks)
+* [Multi-Dataset Training](#multi-dataset-training)
+* [Deprecation](#deprecation)
+* [Additional Resources](#additional-resources)
+    + [Training Examples](#training-examples)
+    + [Documentation](#documentation)
+
 ## Why Finetune?
 
 Finetuning Sentence Transformer models can significantly enhance their performance on specific tasks. This is because each task requires a unique notion of similarity. Let's consider a couple of news article headlines as an example:
