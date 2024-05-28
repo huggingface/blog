@@ -119,7 +119,7 @@ from sentence_transformers import SentenceTransformer
 from sentence_transformers.losses import CoSENTLoss
 
 # Load a model to train/finetune
-model = SentenceTransformer("xlm-roberta-base")
+model = SentenceTransformer("FacebookAI/xlm-roberta-base")
 
 # Initialize the CoSENTLoss
 # This loss requires pairs of text and a float similarity score as a label
