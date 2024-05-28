@@ -78,14 +78,14 @@ If your local data requires pre-processing, you can use [`datasets.Dataset.from_
 ```python
 from datasets import Dataset
 
-sentence1_list = []
-sentence2_list = []
+anchors = []
+positives = []
 # Open a file, perform preprocessing, filtering, cleaning, etc.
 # and append to the lists
 
 dataset = Dataset.from_dict({
-    "sentence1": sentence1_list,
-    "sentence2": sentence2_list,
+    "anchor": anchors,
+    "positive": positives,
 })
 ```
 
