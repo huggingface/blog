@@ -93,7 +93,7 @@ Each key in the dictionary becomes a column in the resulting dataset.
 
 ### Dataset Format
 
-It's crucial to ensure that your dataset format matches your chosen loss function. This involves checking two things:
+It's crucial to ensure that your dataset format matches your chosen [loss function](#loss-function). This involves checking two things:
 
 1. If your loss function requires a *Label* (as indicated in the [Loss Overview](https://sbert.net/docs/sentence_transformer/loss_overview.html) table), your dataset must have a column named **"label"** or **"score"**.
 2. All columns other than **"label"** or **"score"** are considered *Inputs* (as indicated in the [Loss Overview](https://sbert.net/docs/sentence_transformer/loss_overview.html) table). The number of these columns must match the number of valid inputs for your chosen loss function. The names of the columns don't matter, **only their order matters**.
