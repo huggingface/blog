@@ -171,7 +171,9 @@ Note that `eval_strategy` was introduced in `transformers` version `4.41.0`. Pri
 
 ## Evaluator
 
-Sentence Transformers provides several evaluators to assess the model's performance before, during, or after training:
+You can provide the [`SentenceTransformerTrainer`](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer) with an `eval_dataset` to get the evaluation loss during training, but it may be useful to get more concrete metrics during training, too. For this, you can use evaluators to assess the model's performance with useful metrics before, during, or after training. You can both an `eval_dataset` and an evaluator, one or the other, or neither. They evaluate based on the `eval_strategy` and `eval_steps` [Training Arguments](#training-arguments).
+
+Here are the implemented Evaluators that come with Sentence Tranformers:
 
 | Evaluator | Required Data |
 | --- | --- |
@@ -184,7 +186,7 @@ Sentence Transformers provides several evaluators to assess the model's performa
 | [`TranslationEvaluator`](https://sbert.net/docs/package_reference/sentence_transformer/evaluation.html#translationevaluator) | Pairs of sentences in two separate languages. |
 | [`TripletEvaluator`](https://sbert.net/docs/package_reference/sentence_transformer/evaluation.html#tripletevaluator) | (anchor, positive, negative) pairs. |
 
-Additionally, you can use [`SequentialEvaluator`](https://sbert.net/docs/package_reference/sentence_transformer/evaluation.html#sequentialevaluator) to combine multiple evaluators into one, which can then be passed to the [`SentenceTransformerTrainer`](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer). The `eval_strategy` and `eval_steps` training arguments determine when the evaluator is run.
+Additionally, you can use [`SequentialEvaluator`](https://sbert.net/docs/package_reference/sentence_transformer/evaluation.html#sequentialevaluator) to combine multiple evaluators into one, which can then be passed to the [`SentenceTransformerTrainer`](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer).
 
 If you don't have the necessary evaluation data but still want to track the model's performance on common benchmarks, you can use these evaluators with data from Hugging Face:
 
