@@ -354,6 +354,8 @@ The Sentence Transformers trainer supports various [`transformers.TrainerCallbac
 - [`TensorBoardCallback`](https://huggingface.co/docs/transformers/en/main_classes/callback#transformers.integrations.TensorBoardCallback) for logging training metrics to TensorBoard if `tensorboard` is accessible
 - [`CodeCarbonCallback`](https://huggingface.co/docs/transformers/en/main_classes/callback#transformers.integrations.CodeCarbonCallback) for tracking carbon emissions during training if `codecarbon` is installed
 
+These are automatically used without you having to specify anything, as long as the required dependency is installed.
+
 Refer to the [Transformers Callbacks documentation](https://huggingface.co/docs/transformers/en/main_classes/callback) for more information on these callbacks and how to create your own.
 
 ## Multi-Dataset Training
