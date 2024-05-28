@@ -465,7 +465,9 @@ model.push_to_hub("bert-base-all-nli-stsb-quora-nq")
 
 Prior to the Sentence Transformer v3 release, all models would be trained using the [`SentenceTransformer.fit`](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer.fit) method. Rather than deprecating this method, starting from v3.0, this method will use the [`SentenceTransformerTrainer`](https://sbert.net/docs/package_reference/sentence_transformer/trainer.html#sentence_transformers.trainer.SentenceTransformerTrainer) behind the scenes. This means that your old training code should still work, and should even be upgraded with the new features such as multi-gpu training, loss logging, etc. That said, the new training approach is much more powerful, so it is **recommended** to write new training scripts using the new approach.
 
-## Training Examples
+## Additional Resources
+
+### Training Examples
 
 The following pages contain training examples with explanations as well as links to code. We recommend that you browse through these to familiarize yourself with the training loop:
 
@@ -479,7 +481,7 @@ The following pages contain training examples with explanations as well as links
 * [Model Distillation](https://sbert.net/examples/training/distillation/README.html)
 * [Augmented Sentence Transformers](https://sbert.net/examples/training/data_augmentation/README.html)
 
-## Documentation
+### Documentation
 
 Additionally, the following pages may be useful to learn more about Sentence Transformers:
 
