@@ -1628,6 +1628,17 @@
     - langchain
     - benchmark
 
+- local: langchain
+  title: Hugging Face x LangChain：全新 LangChain 合作伙伴包
+  author: jofthomas
+  thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
+  date: May 14, 2024
+  tags:
+    - collaboration
+    - community
+    - nlp
+    - llm
+
 - local: paligemma
   title: PaliGemma 正式发布 — Google 最新发布的前沿开放视觉语言模型
   thumbnail: /blog/assets/paligemma/Paligemma.png
