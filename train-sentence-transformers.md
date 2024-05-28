@@ -344,7 +344,7 @@ In this example I'm finetuning from [`microsoft/mpnet-base`](https://huggingface
 
 After running this script, the [tomaarsen/mpnet-base-all-nli-triplet](https://huggingface.co/tomaarsen/mpnet-base-all-nli-triplet) model was uploaded for me. The triplet accuracy using cosine similarity, i.e. what percentage of the time `cosine_similarity(anchor, positive) > cosine_similarity(anchor, negative)` is 90.04% for the development set and 91.5% for the testing set! For reference, the [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base) model scored only 68.32% on the dev set before training.
 
-All of this information is stored in the automatically generated model card, including the base model, maximum sequence length, output dimensionality, similarity function, training dataset, language, license, usage, evaluation results, training & evaluation dataset (dataset name, size, approximate statistics, examples), hyperparameters, training logs, environmental impact, training hardware, framework versions, and citations. Without any effort, your uploaded models should contain all the information that your potential users would need to determine whether your model is suitable for them.
+All of this information is stored in the automatically generated model card, including the base model, language, license, evaluation results, training & evaluation dataset info, hyperparameters, training logs, and more. Without any effort, your uploaded models should contain all the information that your potential users would need to determine whether your model is suitable for them.
 
 ### Callbacks
 
