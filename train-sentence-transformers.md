@@ -97,11 +97,13 @@ It's crucial to ensure that your dataset format matches your chosen loss functio
 
 1. If your loss function requires a *Label* (as indicated in the [Loss Overview](https://sbert.net/docs/sentence_transformer/loss_overview.html) table), your dataset must have a column named **"label"** or **"score"**.
 2. All columns other than **"label"** or **"score"** are considered *Inputs* (as indicated in the [Loss Overview](https://sbert.net/docs/sentence_transformer/loss_overview.html) table). The number of these columns must match the number of valid inputs for your chosen loss function. The names of the columns don't matter, **only their order matters**.
+    
+For example, if your loss function accepts `(anchor, positive, negative) triplets`, then your first, second, and third dataset columns correspond with `anchor`, `positive`, and `negative`, respectively. This means that your first and second column must contain texts that should embed closely, and that your first and third column must contain texts that should embed far apart. That is why depending on your loss function, your dataset column order matters.
 
-For example, consider a dataset with columns `["text1", "text2", "label"]`, where the `"label"` column contains float similarity scores. This dataset can be used with `CoSENTLoss`, `AnglELoss`, and `CosineSimilarityLoss` because:
+Consider a dataset with columns `["text1", "text2", "label"]`, where the `"label"` column contains float similarity scores. This dataset can be used with `CoSENTLoss`, `AnglELoss`, and `CosineSimilarityLoss` because:
 
-1. It has a "label" column, which is required by these loss functions.
-2. It has 2 non-label columns, matching the number of inputs required by these loss functions.
+1. The dataset has a "label" column, which is required by these loss functions.
+2. The dataset has 2 non-label columns, matching the number of inputs required by these loss functions.
 
 If the columns in your dataset are not ordered correctly, use [`Dataset.select_columns`](https://huggingface.co/docs/datasets/main/en/package_reference/main_classes#datasets.Dataset.select_columns) to reorder them. Additionally, remove any extraneous columns (e.g., `sample_id`, `metadata`, `source`, `type`) using [`Dataset.remove_columns`](https://huggingface.co/docs/datasets/main/en/package_reference/main_classes#datasets.Dataset.remove_columns), as they will be treated as inputs otherwise.
 
