@@ -111,7 +111,7 @@ If the columns in your dataset are not ordered correctly, use [`Dataset.select_c
 
 Loss functions measure how well a model performs on a given batch of data and guide the optimization process. The choice of loss function depends on your available data and target task. Refer to the [Loss Overview](https://sbert.net/docs/sentence_transformer/loss_overview.html) for a comprehensive list of options.
 
-Most loss functions can be initialized with just the `SentenceTransformer` you're training and some optional parameters:
+Most loss functions can be initialized with just the `SentenceTransformer` `model` that you're training:
 
 ```python
 from datasets import load_dataset
