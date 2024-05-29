@@ -78,7 +78,7 @@ Here is a simplified view of how an LLM generates text. The model (typically) ge
 Thinking Question: Why does pre-filling only take 1 pass when we are submitting multiple unseen tokens as input?
 <details>
 <summary>Click to reveal the answer</summary>
-We don’t need to generate what comes after “What is the”. We know its “capital” from the user.  </div>
+We don’t need to generate what comes after “What is the”. We know its “capital” from the user.
 </details>
 </div>
 
