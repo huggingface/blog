@@ -4,14 +4,15 @@ thumbnail: /blog/assets/tgi-benchmarking/tgi-benchmarking-thumbnail.png
 authors:
 - user: derek-thomas
 ---
-# Introduction
+
+# Benchmarking Text Generation Inference
 
 In this blog we will be exploring [Text Generation Inference’s](https://github.com/huggingface/text-generation-inference) (TGI) little brother, the [TGI Benchmarking tool](https://github.com/huggingface/text-generation-inference/blob/main/benchmark/README.md). It will help us understand how to profile TGI beyond simple throughput to better understand the tradeoffs to make decisions on how to tune your deployment for your needs. If you have ever felt like LLM deployments cost too much or if you want to tune your deployment to improve performance this blog is for you!
 
 I’ll show you how to do this in a convenient [Hugging Face Space](https://huggingface.co/spaces). You can take the results and use it on an [Inference Endpoint](https://huggingface.co/inference-endpoints/dedicated) or other copy of the same hardware.
 
 
-# Motivation
+## Motivation
 
 To get a better understanding of the need to profile, let's discuss some background information first.
 
@@ -40,11 +41,11 @@ In RAG it's important to have the right document to get a quality response, you 
 Given that we have such different scenarios, we need to make sure that we configure our LLM server accordingly depending on which one is more relevant. Hugging Face has a [benchmarking tool](https://github.com/huggingface/text-generation-inference/blob/main/benchmark/README.md) that can help us explore what configurations make the most sense and I'll explain how you can do this on a [Hugging Face Space](https://huggingface.co/docs/hub/en/spaces-overview). 
 
 
-# Pre-requisites
+## Pre-requisites
 
 Let’s make sure we have a common understanding of a few key concepts before we dive into the tool.
 
-## Latency vs Throughput
+### Latency vs Throughput
 <video style="width: auto; height: auto;" controls autoplay loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tgi-benchmarking/LatencyThroughputVisualization.webm" type="video/webm">
   Your browser does not support the video tag.
@@ -64,7 +65,8 @@ Latency is a tricky measurement because it doesn’t tell you the whole picture.
 It’s important to understand that Throughput and Latency are orthogonal measurements, and depending on how we configure our server, we can optimize for one or the other. Our benchmarking tool will help us understand the trade-off via a data visualization.
 
 
-## Pre-filling and Decoding
+### Pre-filling and Decoding
+
 |![Prefilling vs Decoding](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tgi-benchmarking/prefilling_vs_decoding.png)|
 |:--:|
 |*Figure 2: Prefilling vs Decoding inspired by [[2]](#2)*|
@@ -82,9 +84,9 @@ We don’t need to generate what comes after “What is the”. We know its “c
 
 I only included a short example for illustration purposes, but consider that pre-filling only needs 1 forward pass through the model, but decoding can take hundreds or more. Even in our short example we can see more blue arrows than orange. We can see now why it takes so much time to get output from an LLM! Decoding is usually where we spend more time thinking through due to the many passes.
 
-# Benchmarking Tool
+## Benchmarking Tool
 
-## Motivation
+### Motivation
 
 We have all seen comparisons of tools, new algorithms, or models that show throughput. While this is an important part of the LLM inference story, it's missing some key information. At a minimum (you can of course go more in-depth) we need to know what the throughput AND what the latency is to make good decisions. One of the primary benefits of the TGI benchmarking tool is that it has this capability. 
 
@@ -125,11 +127,11 @@ Here are some ideas on how that can play out. Remember there is no free lunch. B
   </tr>
 </table>
 
-## Setup
+### Setup
 
 The benchmarking tool is installed with TGI, but you need access to the server to run it. With that in mind I’ve provided this space [derek-thomas/tgi-benchmark-space](https://huggingface.co/spaces/derek-thomas/tgi-benchmark-space) to combine a TGI docker image (pinned to latest) and a jupyter lab working space. It's designed to be duplicated, so dont be alarmed if it's sleeping. It will allow us to deploy a model of our choosing and easily run the benchmarking tool via a CLI. I’ve added some notebooks that will allow you to easily follow along. Feel free to dive into the [Dockerfile](https://huggingface.co/spaces/derek-thomas/tgi-benchmark-space/blob/main/Dockerfile) to get a feel for how it’s built, especially if you want to tweak it. 
 
-## Getting Started
+### Getting Started
 
 Please note that it's much better to run the benchmarking tool in a jupyter lab terminal rather than a notebook due to its interactive nature, but I'll put the commands in a notebook so I can annotate and it's easy to follow along.
 
@@ -142,7 +144,8 @@ Please note that it's much better to run the benchmarking tool in a jupyter lab 
 4. Launch `01_2_TGI-benchmark.ipynb` 
     * This will launch the TGI benchmarking tool with some demo settings
 
-## Main Components
+### Main Components
+
 |![Benchmarking Tool Numbered](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tgi-benchmarking/TGI-benchmark-tool-numbered.png)|
 |:--:|
 |*Figure 3: Benchmarking Tool Components*|
@@ -157,7 +160,8 @@ Please note that it's much better to run the benchmarking tool in a jupyter lab 
     * The legend shows us our batch-size
     * An “*ideal*” point would be in the top left corner (low latency and high throughput)
 
-## Understanding the Benchmarking tool
+### Understanding the Benchmarking tool
+
 |![Benchmarking Tool Charts](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tgi-benchmarking/TGI-benchmark-screenshot.png)|
 |:--:|
 |*Figure 4: Benchmarking Tool Charts*|
@@ -183,7 +187,7 @@ If your batch size is in a vertical area, this is great, you can get more throug
 
 Now that we learned a bit about TGI’s behavior in various scenarios we can try different settings for TGI and benchmark again. It's good to go through this cycle a few times before deciding on a good configuration. If there is enough interest maybe we can have a part 2 which dives into the optimization for a use-case like chat or RAG.
 
-## Winding Down
+### Winding Down
 
 It's important to keep track of actual user behavior. When we estimate user behavior we have to start somewhere and make educated guesses. These number choices will make a big impact on how we are able to profile. Luckily TGI can tell us this information in the logs, so be sure to check that out as well.
 
@@ -192,13 +196,14 @@ Once you are done with your exploration, be sure to stop running everything so y
 * Hit `q` in the terminal to stop the profiling tool. 
 * Hit pause in the settings of the space
 
-# Conclusion
+## Conclusion
 
 LLMs are bulky and expensive, but there are a number of ways to reduce that cost. LLM inference servers like TGI have done most of the work for us as long as we leverage their capabilities properly. The first step is to understand what is going on and what trade-offs you can make. We’ve seen how to do that with the TGI Benchmarking tool. We can take these results and use them on any equivalent HW in AWS, GCP, or Inference Endpoints. 
 
 Thanks to Nicolas Patry and Olivier Dehaene for creating [TGI](https://github.com/huggingface/text-generation-inference) and its [benchmarking tool](https://github.com/huggingface/text-generation-inference/blob/main/benchmark/README.md). Also special thanks to Nicholas Patry, Moritz Laurer, Nicholas Broad, Diego Maniloff, and Erik Rignér for their very helpful proofreading. 
 
-# References
+## References
+
 <a id="1">[1]</a> : Sara Hooker, [The Hardware Lottery](https://arxiv.org/abs/1911.05248), 2020
 
 <a id="2">[2]</a> : Pierre Lienhart, [LLM Inference Series: 2. The two-phase process behind LLMs’ responses](https://medium.com/@plienhar/llm-inference-series-2-the-two-phase-process-behind-llms-responses-1ff1ff021cd5), 2023
