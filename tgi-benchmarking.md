@@ -46,7 +46,7 @@ Given that we have such different scenarios, we need to make sure that we config
 Let’s make sure we have a common understanding of a few key concepts before we dive into the tool.
 
 ### Latency vs Throughput
-<video style="width: auto; height: auto;" controls autoplay loop>
+<video style="width: auto; height: auto;" controls autoplay muted loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tgi-benchmarking/LatencyThroughputVisualization.webm" type="video/webm">
   Your browser does not support the video tag.
 </video>
@@ -78,7 +78,7 @@ Here is a simplified view of how an LLM generates text. The model (typically) ge
 Thinking Question: Why does pre-filling only take 1 pass when we are submitting multiple unseen tokens as input?
 <details>
 <summary>Click to reveal the answer</summary>
-We don’t need to generate what comes after “What is the”. We know its “capital” from the user.  </div>
+We don’t need to generate what comes after “What is the”. We know its “capital” from the user.
 </details>
 </div>
 
