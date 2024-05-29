@@ -4006,13 +4006,119 @@
     - LLM
     - vision
 
+- local: microsoft-collaboration
+  title: "From cloud to developers: Hugging Face and Microsoft Deepen Collaboration" 
+  thumbnail: /blog/assets/microsoft-collaboration/thumbnail.jpg
+  author: jeffboudier
+  date: May 21, 2024
+  tags:
+    - cloud
+    - azure
+    - partnership
+
+- local: huggingface-amd-mi300
+  title: "Hugging Face on AMD Instinct MI300 GPU"
+  thumbnail: /blog/assets/optimum_amd/amd_hf_logo_fixed.png
+  author: mfuntowicz
+  date: May 21, 2024
+  tags:
+    - llm
+    - amd
+    - llama
+    - inference
+    - optimum
+    - rocm
+    - text-generation
+
+- local: dell-enterprise-hub
+  title: "Build AI on premise with Dell Enterprise Hub"
+  thumbnail: /blog/assets/dell-enterprise-hub/thumbnail.jpg
+  author: jeffboudier
+  date: May 21, 2024
+  tags:
+    - announcement
+    - enterprise
+    - hub
+    - dell
+    - partnerships
+
+- local: spaces-dev-mode
+  title: "Introducing Spaces Dev Mode for a seamless developer experience" 
+  thumbnail: /blog/assets/spaces-dev-mode/thumbnail.png
+  author: pagezyhf
+  date: May 21, 2024
+  tags:
+    - spaces
+    - azure
+    - partnership
+    
+- local: inferentia-inference-endpoints
+  title: "Deploy models on AWS Inferentia2 from Hugging Face" 
+  thumbnail:  /blog/assets/inferentia-inference-endpoints/thumbnail.jpg
+  author: philschmid
+  date: May 22, 2024
+  tags:
+    - cloud
+    - aws
+    - partnership
+    - optimum
+
+- local: kv-cache-quantization
+  title: "Unlocking Longer Generation with Key-Value Cache Quantization"
+  thumbnail: /blog/assets/kv_cache_quantization/thumbnail.png
+  author: RaushanTurganbay
+  date: May 16, 2024
+  tags:
+    - generation
+    - LLM
+    - quantization
+ 
+- local: leaderboard-llamaguard
+  title: "CyberSecEval 2 - A Comprehensive Evaluation Framework for Cybersecurity Risks and Capabilities of Large Language Models"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_llamaguard.png
+  author: r34p3r1321
+  guest: true
+  date: May 24, 2024
+  tags:
+    - nlp
+    - research
+    - leaderboard
+    - LLM
+
+- local: falcon2-11b
+  title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens tokens and 11 languages"
+  author: Quent-01
+  guest: true
+  thumbnail: /blog/assets/179_falcon2-11b/thumbnail.jpg
+  date: May 24, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - multimodal
+    - vision
+    - open-source
+
+- local: train-sentence-transformers
+  title: "Training and Finetuning Embedding Models with Sentence Transformers v3"
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: May 28, 2024
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+
 - local: tgi-benchmarking
   title: "Benchmarking Text Generation Inference"
   thumbnail: /blog/assets/tgi-benchmarking/tgi-benchmarking-thumbnail.png
   author: derek-thomas
-  date: May 22, 2024
+  date: May 29, 2024
   tags:
     - LLM
     - NLP
     - guide
     - tgi
+

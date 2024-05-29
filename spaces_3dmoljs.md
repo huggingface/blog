@@ -11,6 +11,35 @@ authors:
 
 In this post we will look at how we can visualize proteins on Hugging Face Spaces.
 
+**Update May 2024**
+
+While the method described below still works, you'll likely want to save some time and use the [Molecule3D Gradio Custom Component](https://www.gradio.app/custom-components/gallery?id=simonduerr%2Fgradio_molecule3d). This component will allow users to modify the protein visualization on the fly and you can more easily set the default visualization. Simply install it using:
+
+```bash
+pip install gradio_molecule3d
+```
+
+```python
+from gradio_molecule3d import Molecule3D
+
+reps =    [
+    {
+      "model": 0,
+      "chain": "",
+      "resname": "",
+      "style": "stick",
+      "color": "whiteCarbon",
+      "residue_range": "",
+      "around": 0,
+      "byres": False,
+    }
+  ]
+
+with gr.Blocks() as demo:
+    Molecule3D(reps=reps)
+```
+
+
 ## Motivation 🤗
 
 Proteins have a huge impact on our life - from medicines to washing powder. Machine learning on proteins is a rapidly growing field to help us design new and interesting proteins. Proteins are complex 3D objects generally composed of a series of building blocks called amino acids that are arranged in 3D space to give the protein its function. For machine learning purposes a protein can for example be represented as coordinates, as graph or as 1D sequence of letters for use in a protein language model.

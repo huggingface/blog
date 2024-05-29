@@ -1602,6 +1602,43 @@
     - research
     - LLM
 
+- local: cost-efficient-rag-applications-with-intel
+  title: 利用英特尔 Gaudi 2 和至强 CPU 构建经济高效的企业级 RAG 应用
+  author: juliensimon
+  thumbnail: /blog/assets/cost_efficient_rag_applications_with_intel/main.jpg
+  date: May 9, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
+
+- local: agents
+  title: '授权调用：介绍 Transformers 智能体 2.0  '
+  thumbnail: /blog/assets/agents/thumbnail.png
+  author: m-ric
+  date: May 13, 2024
+  tags:
+    - nlp
+    - LLM
+    - agents
+    - transformers
+    - gpt
+    - mixtral
+    - llama3
+    - langchain
+    - benchmark
+
+- local: langchain
+  title: Hugging Face x LangChain：全新 LangChain 合作伙伴包
+  author: jofthomas
+  thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
+  date: May 14, 2024
+  tags:
+    - collaboration
+    - community
+    - nlp
+    - llm
+
 - local: paligemma
   title: PaliGemma 正式发布 — Google 最新发布的前沿开放视觉语言模型
   thumbnail: /blog/assets/paligemma/Paligemma.png
