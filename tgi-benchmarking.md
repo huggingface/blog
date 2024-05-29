@@ -46,7 +46,7 @@ Given that we have such different scenarios, we need to make sure that we config
 Let’s make sure we have a common understanding of a few key concepts before we dive into the tool.
 
 ### Latency vs Throughput
-<video style="width: auto; height: auto;" controls autoplay loop>
+<video style="width: auto; height: auto;" controls autoplay muted loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tgi-benchmarking/LatencyThroughputVisualization.webm" type="video/webm">
   Your browser does not support the video tag.
 </video>
