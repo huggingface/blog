@@ -119,16 +119,12 @@ pip install -U "transformers==4.38.1" --upgrade
 The following snippet shows how to use `gemma-7b-it` with transformers. It requires about 18 GB of RAM, which includes consumer GPUs such as 3090 or 4090.
 
 ```python
-from transformers import AutoTokenizer
-import transformers
+from transformers import pipeline
 import torch
 
-model = "google/gemma-7b-it"
-
-tokenizer = AutoTokenizer.from_pretrained(model)
-pipeline = transformers.pipeline(
+pipe = pipeline(
     "text-generation",
-    model=model,
+    model="google/gemma-7b-it",
     model_kwargs={"torch_dtype": torch.bfloat16},
     device="cuda",
 )
@@ -136,16 +132,16 @@ pipeline = transformers.pipeline(
 messages = [
 	{"role": "user", "content": "Who are you? Please, answer in pirate-speak."},
 ]
-prompt = pipeline.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-outputs = pipeline(
-    prompt,
+outputs = pipe(
+    messages,
     max_new_tokens=256,
     do_sample=True,
     temperature=0.7,
     top_k=50,
     top_p=0.95
 )
-print(outputs[0]["generated_text"][len(prompt):])
+assistant_response = outputs[0]["generated_text"][-1]["content"]
+print(assistant_response)
 ```
 
 > `Avast me, me hearty. I am a pirate of the high seas, ready to pillage and plunder. Prepare for a tale of adventure and booty!`
