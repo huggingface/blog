@@ -145,23 +145,20 @@ pip install -U "transformers==4.36.0" --upgrade
 下面的代码片段展示了如何使用 🤗 transformers 及 4 比特量化来运行推理。由于模型尺寸较大，你需要一张显存至少为 30GB 的卡才能运行，符合要求的卡有 A100 (80 或 40GB 版本) 、A6000 (48GB) 等。
 
 ```python
-from transformers import AutoTokenizer
-import transformers
+from transformers import pipeline
 import torch
 
 model = "mistralai/Mixtral-8x7B-Instruct-v0.1"
 
-tokenizer = AutoTokenizer.from_pretrained(model)
-pipeline = transformers.pipeline(
+pipe = pipeline(
     "text-generation",
     model=model,
     model_kwargs={"torch_dtype": torch.float16, "load_in_4bit": True},
 )
 
 messages = [{"role": "user", "content": "Explain what a Mixture of Experts is in less than 100 words."}]
-prompt = pipeline.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-outputs = pipeline(prompt, max_new_tokens=256, do_sample=True, temperature=0.7, top_k=50, top_p=0.95)
-print(outputs[0]["generated_text"])
+outputs = pipe(messages, max_new_tokens=256, do_sample=True, temperature=0.7, top_k=50, top_p=0.95)
+print(outputs[0]["generated_text"][-1]["content"])
 ```
 
 > \<s>[INST] Explain what a Mixture of Experts is in less than 100 words. [/INST] A

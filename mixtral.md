@@ -138,23 +138,20 @@ pip install -U "transformers==4.36.0" --upgrade
 In the following code snippet, we show how to run inference with 🤗 Transformers and 4-bit quantization. Due to the large size of the model, you’ll need a card with at least 30 GB of RAM to run it. This includes cards such as A100 (80 or 40GB versions), or A6000 (48 GB).
 
 ```python
-from transformers import AutoTokenizer
-import transformers
+from transformers import pipeline
 import torch
 
 model = "mistralai/Mixtral-8x7B-Instruct-v0.1"
 
-tokenizer = AutoTokenizer.from_pretrained(model)
-pipeline = transformers.pipeline(
+pipe = pipeline(
     "text-generation",
     model=model,
     model_kwargs={"torch_dtype": torch.float16, "load_in_4bit": True},
 )
 
 messages = [{"role": "user", "content": "Explain what a Mixture of Experts is in less than 100 words."}]
-prompt = pipeline.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-outputs = pipeline(prompt, max_new_tokens=256, do_sample=True, temperature=0.7, top_k=50, top_p=0.95)
-print(outputs[0]["generated_text"])
+outputs = pipe(messages, max_new_tokens=256, do_sample=True, temperature=0.7, top_k=50, top_p=0.95)
+print(outputs[0]["generated_text"][-1]["content"])
 ```
 
 > \<s>[INST] Explain what a Mixture of Experts is in less than 100 words. [/INST] A
