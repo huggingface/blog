@@ -1497,7 +1497,7 @@
     - open-source-collab
 
 - local: hugging-face-wiz-security-blog
-  title: "Hugging Face 与 Wiz Research 合作提高人工智能安全性"
+  title: Hugging Face 与 Wiz Research 合作提高人工智能安全性
   author: JJoe206
   thumbnail: /blog/assets/wiz_security/security.png
   date: April 4, 2024
@@ -1580,7 +1580,7 @@
     - research
 
 - local: jat
-  title: "万事通，专精部分领域的多功能 Transformer 智能体"
+  title: 万事通，专精部分领域的多功能 Transformer 智能体
   author: qgallouedec
   thumbnail: /blog/assets/jat/thumbnail.png
   date: April 22, 2024
@@ -1602,11 +1602,58 @@
     - research
     - LLM
 
+- local: cost-efficient-rag-applications-with-intel
+  title: 利用英特尔 Gaudi 2 和至强 CPU 构建经济高效的企业级 RAG 应用
+  author: juliensimon
+  thumbnail: /blog/assets/cost_efficient_rag_applications_with_intel/main.jpg
+  date: May 9, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
+
+- local: agents
+  title: '授权调用：介绍 Transformers 智能体 2.0  '
+  thumbnail: /blog/assets/agents/thumbnail.png
+  author: m-ric
+  date: May 13, 2024
+  tags:
+    - nlp
+    - LLM
+    - agents
+    - transformers
+    - gpt
+    - mixtral
+    - llama3
+    - langchain
+    - benchmark
+
+- local: langchain
+  title: Hugging Face x LangChain：全新 LangChain 合作伙伴包
+  author: jofthomas
+  thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
+  date: May 14, 2024
+  tags:
+    - collaboration
+    - community
+    - nlp
+    - llm
+
+- local: paligemma
+  title: PaliGemma 正式发布 — Google 最新发布的前沿开放视觉语言模型
+  thumbnail: /blog/assets/paligemma/Paligemma.png
+  author: merve
+  date: May 14, 2024
+  tags:
+    - multimodal
+    - LLM
+    - vision
+
 - local: lmms_eval
   title: "统一多模态大模型评估，加速多模态智能涌现"
   author: kcz358
   thumbnail: /blog/assets/lmms_eval/thumbnail.png
-  date: May 15, 2024
+  date: May 30, 2024
   tags:
     - vlm
     - multimodal

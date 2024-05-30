@@ -45,7 +45,7 @@ In addition to thousands of public models available in the Hub, PRO users get fr
 | Nous Hermes 2 Mixtral 8x7B DPO | [45B MOE](https://huggingface.co/NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO)                                                                                                              | 32k tokens     | Further trained over Mixtral 8x7B MoE                        |
 | Zephyr ORPO 141B A35B          | [141B MOE](https://huggingface.co/HuggingFaceH4/zephyr-orpo-141b-A35b-v0.1)                                                                                                                | 65k tokens     | A high-quality conversational model with high context length |
 | Zephyr 7B β                    | [7B](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)                                                                                                                                  | 4k tokens      | One of the best chat models at the 7B weight                 |
-| Llama 2 Chat                   | [7B](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), [13B](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf), and [70B](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) | 4k tokens      | One of the best conversational models                        |
+| Llama 2 Chat                   | [7B](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), [13B](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) | 4k tokens      | One of the best conversational models                        |
 | Mistral 7B Instruct v0.2       | [7B](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2)                                                                                                                            | 4k tokens      | One of the best chat models at the 7B weight                 |
 | Code Llama Base                | [7B](https://huggingface.co/codellama/CodeLlama-7b-hf) and [13B](https://huggingface.co/codellama/CodeLlama-13b-hf)                                                                        | 4k tokens      | Autocomplete and infill code                                 |
 | Code Llama Instruct            | [34B](https://huggingface.co/codellama/CodeLlama-34b-Instruct-hf)                                                                                                                          | 16k tokens     | Conversational code assistant                                |
@@ -56,10 +56,10 @@ Inference for PROs makes it easy to experiment and prototype with new models wit
 
 ## Getting started with Inference For PROs
 
-Using Inference for PROs is as simple as sending a POST request to the API endpoint for the model you want to run. You'll also need to get a PRO account authentication token from [your token settings page](https://huggingface.co/settings/tokens) and use it in the request. For example, to generate text using [Llama 2 70B Chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) in a terminal session, you'd do something like:
+Using Inference for PROs is as simple as sending a POST request to the API endpoint for the model you want to run. You'll also need to get a PRO account authentication token from [your token settings page](https://huggingface.co/settings/tokens) and use it in the request. For example, to generate text using [Meta Llama 3 8B Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) in a terminal session, you'd do something like:
 
 ```bash
-curl https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf \
+curl https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8b-Instruct \
     -X POST \
     -d '{"inputs": "In a surprising turn of events, "}' \
     -H "Content-Type: application/json" \
@@ -71,7 +71,7 @@ Which would print something like this:
 ```json
 [
   {
-    "generated_text": "In a surprising turn of events, 20th Century Fox has released a new trailer for Ridley Scott's Alien"
+    "generated_text": "In a surprising turn of events, 2021 has brought us not one, but TWO seasons of our beloved TV show, \"Stranger Things.\""
   }
 ]
 ```
@@ -79,19 +79,11 @@ Which would print something like this:
 You can also use many of the familiar transformers generation parameters, like `temperature` or `max_new_tokens`:
 
 ```bash
-curl https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf \
+curl https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8b-Instruct \
     -X POST \
     -d '{"inputs": "In a surprising turn of events, ", "parameters": {"temperature": 0.7, "max_new_tokens": 100}}' \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer <YOUR_TOKEN>"
-```
-
-```json
-[
-  {
-    "generated_text": "In a surprising turn of events, 2K has announced that it will be releasing a new free-to-play game called NBA 2K23 Arcade Edition. This game will be available on Apple iOS devices and will allow players to compete against each other in quick, 3-on-3 basketball matches.\n\nThe game promises to deliver fast-paced, action-packed gameplay, with players able to choose from a variety of NBA teams and players, including some of the biggest"
-  }
-]
 ```
 
 For more details on the generation parameters, please take a look at [_Controlling Text Generation_](#controlling-text-generation) below.
@@ -107,7 +99,7 @@ pip install huggingface_hub
 ```python
 from huggingface_hub import InferenceClient
 
-client = InferenceClient(model="meta-llama/Llama-2-70b-chat-hf", token=YOUR_TOKEN)
+client = InferenceClient(model="meta-llama/Meta-Llama-3-8b-Instruct", token=YOUR_TOKEN)
 
 output = client.text_generation("Can you please let us know more details about your ")
 print(output)
@@ -281,7 +273,7 @@ If you run the same generation multiple times, you’ll see that the result retu
 If you are using `InferenceClient`, you can simply append it to the `headers` client property:
 
 ```Python
-client = InferenceClient(model="meta-llama/Llama-2-70b-chat-hf", token=YOUR_TOKEN)
+client = InferenceClient(model="meta-llama/Meta-Llama-3-8b-Instruct", token=YOUR_TOKEN)
 client.headers["x-use-cache"] = "0"
 
 output = client.text_generation("In a surprising turn of events, ", do_sample=True)
@@ -324,7 +316,7 @@ for token in client.text_generation("How do you make cheese?", max_new_tokens=12
 To use the generate_stream endpoint with curl, you can add the `-N`/`--no-buffer` flag, which disables curl default buffering and shows data as it arrives from the server.
 
 ```
-curl -N https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf \
+curl -N https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8b-Instruct \
     -X POST \
     -d '{"inputs": "In a surprising turn of events, ", "parameters": {"temperature": 0.7, "max_new_tokens": 100}}' \
     -H "Content-Type: application/json" \
