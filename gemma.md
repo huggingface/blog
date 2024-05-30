@@ -9,6 +9,8 @@ authors:
 
 # Welcome Gemma - Google’s new open LLM
 
+> [!NOTE] An update to the Gemma models was released two months after this post, see the latest versions [in this collection](https://huggingface.co/collections/google/gemma-release-65d5efbccdbb8c4202ec078b).
+
 Gemma, a new family of state-of-the-art open LLMs, was released today by Google! It's great to see Google reinforcing its commitment to open-source AI, and we’re excited to fully support the launch with comprehensive integration in Hugging Face.
 
 Gemma comes in two sizes: 7B parameters, for efficient deployment and development on consumer-size GPU and TPU and 2B versions for CPU and on-device applications. Both come in base and instruction-tuned variants.
