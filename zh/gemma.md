@@ -108,7 +108,7 @@ LaMDA who?<end_of_turn>
 确保你使用的是最新版本的 `transformers`：
 
 ```jsx
-pip install -U "transformers==4.38.1" --upgrade
+pip install --upgrade transformers
 ```
 
 以下代码片段展示了如何结合 transformers 使用 `gemma-7b-it`。运行此代码需大约 18 GB 的 RAM，适用于包括 3090 或 4090 在内的消费级 GPU。

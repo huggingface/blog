@@ -112,10 +112,10 @@ With Transformers [release 4.38](https://github.com/huggingface/transformers/re
 
 In addition, Gemma models are compatible with `torch.compile()` with CUDA graphs, giving them a ~4x speedup at inference time!
 
-To use Gemma models with transformers, make sure to use the latest `transformers` release:
+To use Gemma models with transformers, make sure to install a recent version of `transformers`:
 
 ```jsx
-pip install -U "transformers==4.38.1" --upgrade
+pip install --upgrade transformers
 ```
 
 The following snippet shows how to use `gemma-7b-it` with transformers. It requires about 18 GB of RAM, which includes consumer GPUs such as 3090 or 4090.

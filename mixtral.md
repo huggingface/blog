@@ -129,10 +129,10 @@ With transformers [release 4.36](https://github.com/huggingface/transformers/re
 - utilities and helpers to run generation with the model
 - mechanisms to export the models to deploy
 
-Make sure to use the latest `transformers` release:
+Make sure to use a recent version of `transformers`:
 
 ```bash
-pip install -U "transformers==4.36.0" --upgrade
+pip install --upgrade transformers
 ```
 
 In the following code snippet, we show how to run inference with 🤗 Transformers and 4-bit quantization. Due to the large size of the model, you’ll need a card with at least 30 GB of RAM to run it. This includes cards such as A100 (80 or 40GB versions), or A6000 (48 GB).

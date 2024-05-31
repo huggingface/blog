@@ -91,10 +91,10 @@ With Transformers [release 4.40](https://github.com/huggingface/transformers/re
 
 In addition, Llama 3 models are compatible with `torch.compile()` with CUDA graphs, giving them a ~4x speedup at inference time!
 
-To use Llama 3 models with transformers, make sure to use the latest `transformers` release:
+To use Llama 3 models with transformers, make sure to install a recent version of `transformers`:
 
 ```jsx
-pip install -U "transformers==4.40.0" --upgrade
+pip install --upgrade transformers
 ```
 
 The following snippet shows how to use `Llama-3-8b-instruct` with transformers. It requires about 16 GB of RAM, which includes consumer GPUs such as 3090 or 4090.

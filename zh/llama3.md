@@ -98,7 +98,7 @@ system
 要在 transformers 中使用 Llama 3 模型，请确保安装了最新版本：
 
 ```jsx
-pip install -U "transformers==4.40.0" --upgrade
+pip install --upgrade transformers
 ```
 
 以下代码片段展示了如何在 transformers 中使用 `Llama-3-8b-instruct`。这需要大约 16 GB 的 RAM，包括 3090 或 4090 等消费级 GPU。
