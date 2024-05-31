@@ -1648,3 +1648,15 @@
     - multimodal
     - LLM
     - vision
+
+- local: lmms_eval
+  title: "统一多模态大模型评估，加速多模态智能涌现"
+  author: kcz358
+  thumbnail: /blog/assets/lmms_eval/thumbnail.png
+  date: May 30, 2024
+  tags:
+    - vlm
+    - multimodal
+    - evaluation
+    - community
+    - research

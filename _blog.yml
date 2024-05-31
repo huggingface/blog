@@ -4005,7 +4005,7 @@
     - multimodal
     - LLM
     - vision
-
+    
 - local: microsoft-collaboration
   title: "From cloud to developers: Hugging Face and Microsoft Deepen Collaboration" 
   thumbnail: /blog/assets/microsoft-collaboration/thumbnail.jpg
@@ -4122,3 +4122,14 @@
     - guide
     - tgi
 
+- local: lmms_eval
+  title: "Unified multimodal large model evaluation, accelerating multimodal intelligence emergence"
+  author: kcz358
+  thumbnail: /blog/assets/lmms_eval/thumbnail.png
+  date: May 30, 2024
+  tags:
+    - vlm
+    - multimodal
+    - evaluation
+    - community
+    - research
