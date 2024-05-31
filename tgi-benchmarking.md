@@ -56,9 +56,9 @@ Let’s make sure we have a common understanding of a few key concepts before we
 | *Figure 1: Latency vs Throughput Visualization* |
 
 * Token Latency – The amount of time it takes 1 token to be processed and sent to a user
-* Request Latency – The amount of time it takes to respond to a request
-* Time to First Token
-* Throughput – how many tokens the server can return in a set amount of time 4 tokens per second in this case
+* Request Latency – The amount of time it takes to fully respond to a request
+* Time to First Token - The amount of time from the initial request to the first token returning to the user. This is a combination of the amount of time to process the prefill input and a single generated token
+* Throughput – The number of tokens the server can return in a set amount of time (4 tokens per second in this case)
 
 Latency is a tricky measurement because it doesn’t tell you the whole picture. You might have a long generation or a short one which won't tell you much regarding your actual server performance.
 
