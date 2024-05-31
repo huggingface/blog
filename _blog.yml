@@ -4122,3 +4122,10 @@
     - guide
     - tgi
 
+- local: space-secrets-disclosure
+  title: "Space secrets security update"
+  thumbnail: /blog/assets/space-secrets-security-update/space-secrets-security-update.png
+  author: huggingface
+  date: May 31, 2024
+  tags:
+    - security
