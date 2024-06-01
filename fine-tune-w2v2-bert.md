@@ -609,7 +609,7 @@ def compute_metrics(pred):
     return {"wer": wer}
 ```
 
-Now, we can load the main pre-trained |checkpoint](https://huggingface.co/facebook/w2v-bert-2.0). The tokenizer's `pad_token_id` must be to define the model's `pad_token_id` or in the case of `Wav2Vec2BertForCTC` also CTC's *blank token* \\( {}^2 \\). To save GPU memory, we enable PyTorch's [gradient checkpointing](https://pytorch.org/docs/stable/checkpoint.html) and also set the loss reduction to "*mean*".
+Now, we can load the main pre-trained [checkpoint](https://huggingface.co/facebook/w2v-bert-2.0). The tokenizer's `pad_token_id` must be to define the model's `pad_token_id` or in the case of `Wav2Vec2BertForCTC` also CTC's *blank token* \\( {}^2 \\). To save GPU memory, we enable PyTorch's [gradient checkpointing](https://pytorch.org/docs/stable/checkpoint.html) and also set the loss reduction to "*mean*".
 
 Since, we're only training a small subset of weights, the model is not prone to overfitting. Therefore, we make sure to disable all dropout layers.
 
