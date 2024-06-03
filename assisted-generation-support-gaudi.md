@@ -33,7 +33,8 @@ There is a technique similar to Speculative Sampling, known as Assisted Generati
 
 ## Usage & Experiments
 
-The usage of Assisted Generation is straightforward. As would be expected, the parameter `--assistant_model` is used to specify the draft model. The draft model is used to generate K tokens, which are then evaluated in the target model. The target model is used to generate the next token when the draft model is rejected. The draft model is used to generate the next K tokens, and the process repeats. As the acceptance rate of the draft model is partly dependent on the input text. Typically, we have seen speed ups of about 2x for large transformer-based models.
+The usage of Assisted Generation is straightforward. An example is provided [here](https://github.com/huggingface/optimum-habana/tree/main/examples/text-generation#run-speculative-sampling-on-gaudi).
+As would be expected, the parameter `--assistant_model` is used to specify the draft model. The draft model is used to generate K tokens, which are then evaluated in the target model. The target model is used to generate the next token when the draft model is rejected. The draft model is used to generate the next K tokens, and the process repeats. The acceptance rate of the draft model is partly dependent on the input text. Typically, we have seen speed-ups of about 2x for large transformer-based models.
 
 ## Conclusion
 
@@ -41,7 +42,7 @@ Accelerating text generation with Gaudi with assisted generation is now supporte
 
 # References
 
-[1] N. Shazeer, “Fast Transformer Decoding: One Write-Head is All You Need,” Nov. 2019. arXiv:1911.02150. 
+[1] N. Shazeer, “Fast Transformer Decoding: One Write-Head is All You Need,” Nov. 2019. arXiv:1911.02150.
 
 [2] C. Chen, S. Borgeaud, G. Irving, J.B. Lespiau, L. Sifre, and J. Jumper, “Accelerating Large Language Model Decoding with Speculative Sampling,” Feb. 2023. arXiv:2302.01318.
 
