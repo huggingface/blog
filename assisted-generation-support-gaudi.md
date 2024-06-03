@@ -1,6 +1,6 @@
 ---
 title: "Faster assisted generation support for Intel Gaudi"
-thumbnail: /blog/assets/assisted-generation/thumbnail.png
+thumbnail: /blog/assets/assisted-generation-support-gaudi/thumbnail.png
 authors:
 - user: haimbarad
   guest: true
