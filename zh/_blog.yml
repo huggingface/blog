@@ -1658,3 +1658,14 @@
     - multimodal
     - LLM
     - vision
+
+- local: train-sentence-transformers
+  title: 用 Sentence Transformers v3 训练和微调嵌入模型
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: May 28, 2024
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
