@@ -4133,7 +4133,7 @@
 - local: assisted-generation-support-gaudi
   title: "Faster assisted generation support for Intel Gaudi"
   author: haimbarad
-  thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
+  thumbnail: /blog/assets/assisted-generation-support-gaudi/thumbnail.png
   date: June 4, 2024
   tags:
     - partnerships
