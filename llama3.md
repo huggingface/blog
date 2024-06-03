@@ -91,21 +91,21 @@ With Transformers [release 4.40](https://github.com/huggingface/transformers/re
 
 In addition, Llama 3 models are compatible with `torch.compile()` with CUDA graphs, giving them a ~4x speedup at inference time!
 
-To use Llama 3 models with transformers, make sure to use the latest `transformers` release:
+To use Llama 3 models with transformers, make sure to install a recent version of `transformers`:
 
 ```jsx
-pip install -U "transformers==4.40.0" --upgrade
+pip install --upgrade transformers
 ```
 
 The following snippet shows how to use `Llama-3-8b-instruct` with transformers. It requires about 16 GB of RAM, which includes consumer GPUs such as 3090 or 4090.
 
 ```python
-import transformers
+from transformers import pipeline
 import torch
 
 model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
 
-pipeline = transformers.pipeline(
+pipe = pipeline(
     "text-generation",
     model=model_id,
     model_kwargs={"torch_dtype": torch.bfloat16},
@@ -117,26 +117,21 @@ messages = [
     {"role": "user", "content": "Who are you?"},
 ]
 
-prompt = pipeline.tokenizer.apply_chat_template(
-		messages, 
-		tokenize=False, 
-		add_generation_prompt=True
-)
-
 terminators = [
-    pipeline.tokenizer.eos_token_id,
-    pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
+    pipe.tokenizer.eos_token_id,
+    pipe.tokenizer.convert_tokens_to_ids("<|eot_id|>")
 ]
 
-outputs = pipeline(
-    prompt,
+outputs = pipe(
+    messages,
     max_new_tokens=256,
     eos_token_id=terminators,
     do_sample=True,
     temperature=0.6,
     top_p=0.9,
 )
-print(outputs[0]["generated_text"][len(prompt):])
+assistant_response = outputs[0]["generated_text"][-1]["content"]
+print(assistant_response)
 ```
 
 > Arrrr, me hearty! Me name be Captain Chat, the scurviest pirate chatbot to ever sail the Seven Seas! Me be here to swab the decks o' yer mind with me trusty responses, savvy? I be ready to hoist the Jolly Roger and set sail fer a swashbucklin' good time, matey! So, what be bringin' ye to these fair waters?

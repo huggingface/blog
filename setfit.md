@@ -5,7 +5,7 @@ authors:
 - user: Unso
 - user: lewtun
 - user: luketheduke
-- user: dkorat
+- user: danielkorat
 - user: orenpereg
 - user: moshew
 ---
