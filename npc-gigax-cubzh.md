@@ -1,5 +1,5 @@
 ---
-title: "NPC GIGAX CUBZH" 
+title: "Introducing NPC-Playground, a 3D playground to interact with LLM-powered NPCs" 
 thumbnail: /blog/assets/181_npc-gigax-cubzh/thumbnail.jpg
 authors:
 - user: Trist4x
@@ -21,8 +21,6 @@ authors:
 ---
 
 # Introducing NPC-Playground, a 3D playground to interact with LLM-powered NPCs
-
-Let’s find another title this one is bad 😅
 
 ADD THUMBNAIL HERE TOO
 
@@ -74,7 +72,7 @@ In this demo, Cubzh serves as the **game engine, providing a seamless and immers
 
 [Gigax](https://github.com/GigaxGames/gigax) is the platform game developers use to run **LLM-powered NPCs at scale**.
 
-ADD ILLUSTRATION
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/181_npc-gigax-cubzh/gigax.png" alt="gigax" />
 
 Gigax has fine-tuned large language models for NPC interactions, using the "function calling" principle. It's easier to think about this in terms of input/output flow:
 - In **input**, the model reads [a text description](https://github.com/GigaxGames/gigax/blob/main/gigax/prompt.py) of a 3D scene, alongside a description of the recent events and a list of the NPC's available actions (e.g., `<say>`, `<jump>`, `<attack>`, etc.).
