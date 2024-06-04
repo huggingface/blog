@@ -76,16 +76,14 @@ In this demo, Cubzh serves as the **game engine, providing a seamless and immers
 
 ADD ILLUSTRATION
 
-By training large language models specifically for NPC interactions, **Gigax enables these characters to make decisions and perform actions based on predefined parameters**.
+Gigax has fine-tuned large language models for NPC interactions, using the "function calling" principle. It's easier to think about this in terms of input/output flow:
+- In **input**, the model reads [a text description](https://github.com/GigaxGames/gigax/blob/main/gigax/prompt.py) of a 3D scene, alongside a description of the recent events and a list of the NPC's available actions (e.g., `<say>`, `<jump>`, `<attack>`, etc.).
+- The model then **outputs** one of these actions using parameters that refer to 3D entities that exist in the scene, e.g. `say NPC1 "Hello, Captain!"`.
 
-This makes NPCs smarter, more interactive, and more human-like.
-
-Gigax published their models on the Hub: https://huggingface.co/Gigax
-
-And their package is available on Github: https://github.com/GigaxGames/gigax
+Gigax has open-sourced their stack! You can download their [fine-tuned models on the 🤗 Hub](https://huggingface.co/Gigax), and clone their [inference stack on Github](https://github.com/GigaxGames/gigax).
 
 
-## The (NAME OF THE DEMO) Demo
+## The NPC-Playground Demo
 
 This new demo **leverages the strengths of Cubzh and Gigax, along with Hugging Face Spaces for online hosting**.
 
