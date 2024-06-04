@@ -4129,3 +4129,11 @@
   date: May 31, 2024
   tags:
     - security
+
+- local: npc-gigax-cubzh
+  title: "Introducing NPC-Playground, a 3D playground to interact with LLM-powered NPCs"
+  thumbnail: /blog/assets/181_npc-gigax-cubzh/thumbnail.png
+  author: ThomasSimonini
+  date: June 4, 2024
+  tags:
+    - game-dev

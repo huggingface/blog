@@ -1,6 +1,6 @@
 ---
 title: "Introducing NPC-Playground, a 3D playground to interact with LLM-powered NPCs" 
-thumbnail: /blog/assets/181_npc-gigax-cubzh/thumbnail.jpg
+thumbnail: /blog/assets/181_npc-gigax-cubzh/thumbnail.png
 authors:
 - user: Trist4x
   guest: true
@@ -22,9 +22,7 @@ authors:
 
 # Introducing NPC-Playground, a 3D playground to interact with LLM-powered NPCs
 
-ADD THUMBNAIL HERE TOO
-
-## Introduction
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/181_npc-gigax-cubzh/thumbnail.png" alt="Thumbnail"/>
 
 One of the most important breakthrough in using AI in games are Large Language Models (LLM) powered NPCs (Non-Playable Characters).
 
