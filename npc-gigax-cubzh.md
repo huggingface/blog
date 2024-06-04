@@ -24,11 +24,11 @@ authors:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/181_npc-gigax-cubzh/thumbnail.png" alt="Thumbnail"/>
 
-One of the most important breakthrough in using AI in games are Large Language Models (LLM) powered NPCs (Non-Playable Characters).
+AI-powered NPCs (Non-Playable Characters) are one of the most important breakthroughs brought about by the use of LLMs in games.
 
-These intelligent characters, made possible thanks of LLM, **can engage in realistic conversations and perform complex actions, dramatically enhancing player experience**.
+LLMs, or Large Language Models, make it possible to design _"intelligent"_ in-game characters that **can engage in realistic conversations with the player, perform complex actions and follow instructions, dramatically enhancing the player's experience**. AI-powered NPCs represent a huge advancement vs rule-based and heuristics systems.
 
-That's why today, we are excited to **introduce a groundbreaking demo** (NAME OF THE DEMO) created through the collaboration of [Cubzh](https://cu.bzh/) and [Gigax](https://github.com/GigaxGames/gigax) teams, showcasing the potential of smart LLM-powered NPCs.
+Today, we are excited to **introduce a groundbreaking demo** (NAME OF THE DEMO) created through the collaboration of the [Cubzh](https://cu.bzh/) and [Gigax](https://github.com/GigaxGames/gigax) teams, showcasing the potential of smart LLM-powered NPCs.
 
 VIDEO OF THE DEMO
 
