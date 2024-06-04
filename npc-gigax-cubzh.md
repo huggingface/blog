@@ -20,7 +20,7 @@ authors:
 - user: ThomasSimonini
 ---
 
-# Introducing (name of the demo) Experience the Next Level of NPC Interaction
+# Introducing NPC-Playground, a 3D playground to interact with LLM-powered NPCs
 
 Let’s find another title this one is bad 😅
 
