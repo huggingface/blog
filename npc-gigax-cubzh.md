@@ -24,7 +24,7 @@ authors:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/181_npc-gigax-cubzh/thumbnail.png" alt="Thumbnail"/>
 
-AI-powered NPCs (Non-Playable Characters) are one of the most important breakthroughs brought about by the use of LLMs in games.
+*AI-powered NPCs* (Non-Playable Characters) are **one of the most important breakthroughs brought** about by the use of LLMs in games.
 
 LLMs, or Large Language Models, make it possible to design _"intelligent"_ in-game characters that **can engage in realistic conversations with the player, perform complex actions and follow instructions, dramatically enhancing the player's experience**. AI-powered NPCs represent a huge advancement vs rule-based and heuristics systems.
 
@@ -50,8 +50,7 @@ To create this, the teams used three main tools:
 [Cubzh](https://cu.bzh/) is the new UGC gaming platform to create cross-platform games with Lua and Cubes.
 
 It offers a **rich gaming environment for players to create their own game experiences to share with friends**.
-
-ADD ILLUSTRATION
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/181_npc-gigax-cubzh/gigax.gif" alt="Cubzh"/>
 
 With Cubzh, you can:
 
@@ -91,6 +90,7 @@ In this demo, you can **interact, have conversations with the NPCs and teach the
 
 You can start playing with the demo here 👉 [Link to Demo]
 
+## How 
 
 Playing with the demo is just the first step! If you're **interested in customizing it**, [check out our comprehensive ML for Games Course tutorial for step-by-step instructions and resources](https://huggingface.co/learn/ml-games-course/unit3/introduction).
 
