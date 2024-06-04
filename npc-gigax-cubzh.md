@@ -42,7 +42,7 @@ In this demo, (describe the demo in one sentence)
 
 To create this, the teams used three main tools:
 
-- [Cubzh](https://cu.bzh/): the game platform.
+- [Cubzh](https://cu.bzh/): the cross-platform UGC Game Engine.
 - [Gigax](https://github.com/GigaxGames/gigax): the smart LLM-powered NPCs engine.
 - [Hugging Face Spaces](https://huggingface.co/spaces): for hosting the game online.
 
@@ -51,9 +51,9 @@ In this blog post, **we will explore Cubzh, Gigax, and how the demo works**.
 
 ## What is Cubzh?
 
-[Cubzh](https://cu.bzh/) is an online game platform where everything is made from voxels (cubes). 
+[Cubzh](https://cu.bzh/) is the new UGC gaming platform to create cross-platform games with Lua and Cubes.
 
-It offers a **rich gaming environment for players to build, explore, and share unique experiences**.
+It offers a **rich gaming environment for players to create the best gaming experiences to play with friends.**.
 
 ADD ILLUSTRATION
 
@@ -61,9 +61,11 @@ With Cubzh, you can:
 
 - **Create your own worlds** and craft new game items and avatars.
 
-- **Code your games using the Lua programming language**.
+- Use a **library of +25k free assets created by Cubzh's community**.
 
-- Play for free on [Steam](https://store.steampowered.com/app/1386770/Cubzh_Open_Alpha/?l=french) or [directly in your browser](https://app.cu.bzh/).
+- **Code games using a simple but powerful Lua scripting API**.
+
+You can download and play Cubzh for free on Desktop via [Steam](https://store.steampowered.com/app/1386770/Cubzh_Open_Alpha/), [Epic Game Store](https://store.epicgames.com/en-US/p/cubzh-3cc767), on Mobile via [AppStore](https://apps.apple.com/th/app/cubzh/id1478257849), [Google Play Store](https://play.google.com/store/apps/details?id=com.voxowl.pcubes.android&hl=en&gl=US&pli=1) or even play directly from your [browser](https://app.cu.bzh/).
 
 In this demo, Cubzh serves as the **game engine, providing a seamless and immersive experience**.
 
