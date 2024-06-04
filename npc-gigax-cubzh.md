@@ -32,7 +32,7 @@ Today, we are excited to **introduce a groundbreaking demo**: *NPC-Playground* c
 
 VIDEO OF THE DEMO
 
-You can play with the demo here 👉 ADD LINK TO THE DEMO
+You can play with the demo 👉 [here](https://huggingface.co/spaces/cubzh/ai-npcs) 
 
 In this 3D demo, you can **interact with the NPCs and teach them new skills with just a few lines of Lua scripting!**
 
@@ -41,7 +41,9 @@ In this 3D demo, you can **interact with the NPCs and teach them new skills with
 To create this, the teams used three main tools:
 
 - [Cubzh](https://cu.bzh/): the cross-platform UGC (user content generated) Game Engine.
+
 - [Gigax](https://github.com/GigaxGames/gigax): the engine for smart NPCs.
+
 - [Hugging Face Spaces](https://huggingface.co/spaces): the easiest way to host your game online.
 
 
@@ -88,17 +90,23 @@ This new demo **leverages the strengths of Cubzh and Gigax, along with Hugging F
 
 In this demo, you can **interact, have conversations with the NPCs and teach them new skills with just a few lines of Lua scripting!**
 
-You can start playing with the demo here 👉 [Link to Demo]
+You can play with the demo 👉 [here](https://huggingface.co/spaces/cubzh/ai-npcs) 
 
-## How 
+
+## Make your own demo 🔥
 
 Playing with the demo is just the first step! If you're **interested in customizing it**, [check out our comprehensive ML for Games Course tutorial for step-by-step instructions and resources](https://huggingface.co/learn/ml-games-course/unit3/introduction).
+
+We **can't wait to see the amazing demos you're going to make 🔥**.
+
+In addition, [you can check the documentation to learn more](https://huggingface.co/spaces/cubzh/ai-npcs/blob/main/README.md) on how to tweak NPC behavior and teach NPCs new skills.
 
 -- 
 The collaboration between Cubzh and Gigax has demonstrated **how advanced AI can transform NPC interactions, making them more engaging and lifelike.**
 
-If you want to dive more on Cubzh and Gigax don’t hesitate to join their communities:
+If you want to dive more into Cubzh and Gigax don’t hesitate to join their communities:
 
 - [Cubzh Discord Server](https://discord.com/invite/cubzh) 
 - [Gigax Discord Server](https://discord.gg/rRBSueTKXg)
 
+And to stay updated on the latest updates on Machine Learning for Games, don't forget to [join the 🤗 Discord](https://discord.com/invite/JfAtkvEtRb)
