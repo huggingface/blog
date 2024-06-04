@@ -72,7 +72,7 @@ In this demo, Cubzh serves as the **game engine, providing a seamless and immers
 
 ## What is Gigax?
 
-[Gigax](https://github.com/GigaxGames/gigax) is a platform that **provides LLM-powered NPCs at scale**.
+[Gigax](https://github.com/GigaxGames/gigax) is the platform game developers use to run **LLM-powered NPCs at scale**.
 
 ADD ILLUSTRATION
 
