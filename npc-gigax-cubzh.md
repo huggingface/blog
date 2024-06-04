@@ -38,7 +38,7 @@ VIDEO OF THE DEMO
 
 You can play with the demo here 👉
 
-In this demo, (describe the demo in one sentence)
+In this 3D demo, you can interact with the NPCs and teach them new skills with just a few lines of Lua scripting!
 
 To create this, the teams used three main tools:
 
