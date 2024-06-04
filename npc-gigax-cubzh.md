@@ -71,7 +71,7 @@ In this demo, Cubzh serves as the **game engine, providing an immersive experien
 
 [Gigax](https://github.com/GigaxGames/gigax) is the platform game developers use to run **LLM-powered NPCs at scale**.
 
-Gigax has fine-tuned large language models for NPC interactions, **using the "function calling" principle. **
+Gigax has fine-tuned large language models for NPC interactions, **using the "function calling" principle.**
 
 It's easier to think about this in terms of input/output flow:
 
@@ -86,11 +86,8 @@ Gigax has **open-sourced their stack!** You can download their [fine-tuned model
 
 ## The NPC-Playground Demo
 
-This new demo **leverages the strengths of Cubzh and Gigax, along with Hugging Face Spaces for online hosting**.
-
-In this demo, you can **interact, have conversations with the NPCs and teach them new skills with just a few lines of Lua scripting!**
-
-You can play with the demo 👉 [here](https://huggingface.co/spaces/cubzh/ai-npcs) 
+Interact with LLM-powered NPCs in our 3D Playground by clicking  👉 [here](https://huggingface.co/spaces/cubzh/ai-npcs).
+You can modify the `world.lua` file to teach them new skills with a few lines of Lua scripting.
 
 
 ## Make your own demo 🔥
