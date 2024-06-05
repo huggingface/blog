@@ -6,7 +6,7 @@ authors:
   guest: true
 - user: tomaarsen
 - user: lewtun
-- user: dkorat
+- user: danielkorat
   guest: true
 - user: orenpereg
   guest: true
