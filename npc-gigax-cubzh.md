@@ -24,7 +24,7 @@ authors:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/181_npc-gigax-cubzh/thumbnail.png" alt="Thumbnail"/>
 
-*AI-powered NPCs* (Non-Playable Characters) are **one of the most important breakthroughs brought** about by the use of LLMs in games.
+*AI-powered NPCs* (Non-Playable Characters) are **one of the most important breakthroughs** brought about by the use of LLMs in games.
 
 LLMs, or Large Language Models, make it possible to design _"intelligent"_ in-game characters that **can engage in realistic conversations with the player, perform complex actions and follow instructions, dramatically enhancing the player's experience**. AI-powered NPCs represent a huge advancement vs rule-based and heuristics systems.
 
@@ -52,19 +52,20 @@ To create this, the teams used three main tools:
 [Cubzh](https://github.com/cubzh/cubzh) is a cross-platform UGC game engine, that aims to provide an open-source alternative to Roblox.
 
 It offers a **rich gaming environment where users can create their own game experiences and play with friends**.
+
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/181_npc-gigax-cubzh/gigax.gif" alt="Cubzh"/>
 
 In Cubzh, you can:
 
-- **Create your own worlds items and avatars**.
+- **Create your own world items and avatars**.
 
-- Build fast, using community **made voxel items** (+25K so far in the library) and **open-source Lua modules**.
+- Build fast, using **community-made voxel items** (+25K so far in the library) and **open-source Lua modules**.
 
 - **Code games using a simple yet powerful Lua scripting API**.
 
 Cubzh is in public Alpha. You can download and play Cubzh for free on Desktop via [Steam](https://store.steampowered.com/app/1386770/Cubzh_Open_Alpha/), [Epic Game Store](https://store.epicgames.com/en-US/p/cubzh-3cc767), or on Mobile via [Apple's App Store](https://apps.apple.com/th/app/cubzh/id1478257849), [Google Play Store](https://play.google.com/store/apps/details?id=com.voxowl.pcubes.android&hl=en&gl=US&pli=1) or even play directly from your [browser](https://app.cu.bzh/).
 
-In this demo, Cubzh serves as the **game engine** running directly within a Hugging Face Space, users can easily clone it to experiment with custom scripts and NPC personas.
+In this demo, Cubzh serves as the **game engine** running directly within a Hugging Face Space. You can easily clone it to experiment with custom scripts and NPC personas!
 
 
 ## What is Gigax?
@@ -75,7 +76,7 @@ Gigax has fine-tuned (trained) large language models for NPC interactions, **usi
 
 It's easier to think about this in terms of input/output flow:
 
-- In **input**, the model reads [a text description](https://github.com/GigaxGames/gigax/blob/main/gigax/prompt.py) of a 3D scene, alongside a description of the recent events and a list of the NPC's available actions (e.g., `<say>`, `<jump>`, `<attack>`, etc.).
+- On **input**, the model reads [a text description (prompt)](https://github.com/GigaxGames/gigax/blob/main/gigax/prompt.py) of a 3D scene, alongside a description of recent events and a list of actions available for the NPCs (e.g., `<say>`, `<jump>`, `<attack>`, etc.).
 
 - The model then **outputs** one of these actions using parameters that refer to 3D entities that exist in the scene, e.g. `say NPC1 "Hello, Captain!"`.
 
