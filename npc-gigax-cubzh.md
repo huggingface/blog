@@ -103,6 +103,9 @@ Just clone the repository and modify `cubzh.lua` to teach NPCs new skills with a
 
 Playing with the demo is just the first step! If you're **interested in customizing it**, [check out our comprehensive ML for Games Course tutorial for step-by-step instructions and resources](https://huggingface.co/learn/ml-games-course/unit3/introduction).
 
+<img src="https://huggingface.co/datasets/huggingface-ml-4-games-course/course-images/resolve/main/en/unit3/thumbnail.png" alt="Thumbnail" />
+
+The tutorial 👉 [here](ttps://huggingface.co/learn/ml-games-course/unit3/introduction)
 
 In addition, [you can check the documentation to learn more](https://huggingface.co/spaces/cubzh/ai-npcs/blob/main/README.md) on how to tweak NPC behavior and teach NPCs new skills.
 
