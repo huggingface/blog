@@ -1,6 +1,6 @@
 ---
 title: "Introducing NPC-Playground, a 3D playground to interact with LLM-powered NPCs" 
-thumbnail: /blog/assets/181_npc-gigax-cubzh/thumbnail.png
+thumbnail: /blog/181_npc-gigax-cubzh/thumbnail.png
 authors:
 - user: Trist4x
   guest: true
