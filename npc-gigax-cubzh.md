@@ -30,7 +30,10 @@ LLMs, or Large Language Models, make it possible to design _"intelligent"_ in-ga
 
 Today, we are excited to introduce **NPC-Playground**, a demo created by [Cubzh](https://github.com/cubzh/cubzh) and [Gigax](https://github.com/GigaxGames/gigax) where you can **interact with LLM-powered NPCs** and see for yourself what the future holds!
 
-VIDEO OF THE DEMO
+<video width="1280" height="720" controls="true" src="https://huggingface.co/datasets/huggingface-ml-4-games-course/course-images/resolve/main/en/unit3/demo.mp4">
+</video>
+
+
 
 You can play with the demo directly on your browser 👉 [here](https://huggingface.co/spaces/cubzh/ai-npcs) 
 
