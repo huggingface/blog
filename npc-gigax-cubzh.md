@@ -5,9 +5,6 @@ authors:
 - user: Trist4x
   guest: true
   org: Gigax
-- user: SolitonMa
-  guest: true
-  org: cubzh
 - user: aduermael
   guest: true
   org: cubzh
