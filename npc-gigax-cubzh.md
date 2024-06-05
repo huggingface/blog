@@ -28,7 +28,7 @@ authors:
 
 LLMs, or Large Language Models, make it possible to design _"intelligent"_ in-game characters that **can engage in realistic conversations with the player, perform complex actions and follow instructions, dramatically enhancing the player's experience**. AI-powered NPCs represent a huge advancement vs rule-based and heuristics systems.
 
-Today, we are excited to **introduce a groundbreaking demo**: *NPC-Playground* created through the collaboration of the [Cubzh](https://github.com/cubzh/cubzh) and [Gigax](https://github.com/GigaxGames/gigax) teams, showcasing the potential of smart LLM-powered NPCs.
+Today, we are excited to introduce **NPC-Playground**, a demo created by [Cubzh](https://github.com/cubzh/cubzh) and [Gigax](https://github.com/GigaxGames/gigax) where you can **interact with LLM-powered NPCs** and see for yourself what the future holds!
 
 VIDEO OF THE DEMO
 
@@ -71,7 +71,7 @@ In this demo, Cubzh serves as the **game engine** running directly within a Hugg
 
 [Gigax](https://github.com/GigaxGames/gigax) is the platform game developers use to run **LLM-powered NPCs at scale**.
 
-Gigax has fine-tuned large language models for NPC interactions, **using the "function calling" principle.**
+Gigax has fine-tuned (trained) large language models for NPC interactions, **using the "function calling" principle.**
 
 It's easier to think about this in terms of input/output flow:
 
