@@ -112,6 +112,7 @@ In addition, [you can check the documentation to learn more](https://huggingface
 We **can't wait to see the amazing demos you're going to make 🔥**. Share your demo on LinkedIn and X, and tag us  @cubzh_ @gigax @huggingface **we'll repost it** 🤗. 
 
 -- 
+
 The collaboration between Cubzh and Gigax has demonstrated **how advanced AI can transform NPC interactions, making them more engaging and lifelike.**
 
 If you want to dive more into Cubzh and Gigax don’t hesitate to join their communities:
