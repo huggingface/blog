@@ -28,7 +28,7 @@ authors:
 
 LLMs, or Large Language Models, make it possible to design _"intelligent"_ in-game characters that **can engage in realistic conversations with the player, perform complex actions and follow instructions, dramatically enhancing the player's experience**. AI-powered NPCs represent a huge advancement vs rule-based and heuristics systems.
 
-Today, we are excited to **introduce a groundbreaking demo**: *NPC-Playground* created through the collaboration of the [Cubzh](https://cu.bzh/) and [Gigax](https://github.com/GigaxGames/gigax) teams, showcasing the potential of smart LLM-powered NPCs.
+Today, we are excited to **introduce a groundbreaking demo**: *NPC-Playground* created through the collaboration of the [Cubzh](https://github.com/cubzh/cubzh) and [Gigax](https://github.com/GigaxGames/gigax) teams, showcasing the potential of smart LLM-powered NPCs.
 
 VIDEO OF THE DEMO
 
@@ -49,7 +49,7 @@ To create this, the teams used three main tools:
 
 ## What is Cubzh?
 
-[Cubzh](https://cu.bzh/) s a cross-platform UGC game engine, that aims to provide an open-source alternative to Roblox.
+[Cubzh](https://github.com/cubzh/cubzh) s a cross-platform UGC game engine, that aims to provide an open-source alternative to Roblox.
 
 It offers a **rich gaming environment where users can create their own game experiences and play with friends**.
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/181_npc-gigax-cubzh/gigax.gif" alt="Cubzh"/>
@@ -86,8 +86,9 @@ Gigax has **open-sourced their stack!** You can download their [fine-tuned model
 
 ## The NPC-Playground Demo
 
-Interact with LLM-powered NPCs in our 3D Playground by clicking  👉 [here](https://huggingface.co/spaces/cubzh/ai-npcs).
-You can modify the `world.lua` file to teach them new skills with a few lines of Lua scripting.
+Interact with LLM-powered NPCs in our 3D Playground, in your browser: [huggingface.co/spaces/cubzh/ai-npcs](https://huggingface.co/spaces/cubzh/ai-npcs).
+
+Just clone the repository and modify `cubzh.lua` to teach NPCs new skills with a few lines of Lua scripting!
 
 
 ## Make your own demo 🔥
