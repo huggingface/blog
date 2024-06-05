@@ -49,7 +49,7 @@ To create this, the teams used three main tools:
 
 ## What is Cubzh?
 
-[Cubzh](https://github.com/cubzh/cubzh) s a cross-platform UGC game engine, that aims to provide an open-source alternative to Roblox.
+[Cubzh](https://github.com/cubzh/cubzh) is a cross-platform UGC game engine, that aims to provide an open-source alternative to Roblox.
 
 It offers a **rich gaming environment where users can create their own game experiences and play with friends**.
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/181_npc-gigax-cubzh/gigax.gif" alt="Cubzh"/>
