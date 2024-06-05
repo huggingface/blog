@@ -4147,3 +4147,12 @@
   date: June 5, 2024
   tags:
     - game-dev
+
+- local: transformers-docs-redesign
+  title: "Making sense of this mess"
+  thumbnail: /blog/assets/transformers-docs-redesign/thumbnail.png
+  author: stevhliu
+  date: June 6, 2024
+  tags:
+    - community
+    - open-source
