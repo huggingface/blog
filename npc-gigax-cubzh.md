@@ -82,7 +82,14 @@ It's easier to think about this in terms of input/output flow:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/181_npc-gigax-cubzh/gigax.png" alt="gigax" />
 
-Gigax has **open-sourced their stack!** You can download their [fine-tuned models on the 🤗 Hub](https://huggingface.co/Gigax), and clone their [inference stack on Github](https://github.com/GigaxGames/gigax).
+Gigax has **open-sourced their stack!** 
+You can clone their [inference stack on Github](https://github.com/GigaxGames/gigax).
+
+For this demo, their models are hosted in the cloud, but you can [download them yourself on the 🤗 Hub](https://huggingface.co/Gigax):
+
+- [Phi-3 fine-tuned model](https://huggingface.co/Gigax/NPC-LLM-3_8B)
+
+- [Mistral-7B fine-tuned model](https://huggingface.co/Gigax/NPC-LLM-7B)
 
 
 ## The NPC-Playground Demo
