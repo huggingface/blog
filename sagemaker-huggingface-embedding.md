@@ -166,13 +166,13 @@ number_of_requests = int(3900 // number_of_threads)
 print(f"number of threads: {number_of_threads}")
 print(f"number of requests per thread: {number_of_requests}")
  
-def send_rquests():
+def send_requests():
     for _ in range(number_of_requests):
         # input counted at https://huggingface.co/spaces/Xenova/the-tokenizer-playground for 100 tokens
         emb.predict(data={"inputs": "Hugging Face is a company and a popular platform in the field of natural language processing (NLP) and machine learning. They are known for their contributions to the development of state-of-the-art models for various NLP tasks and for providing a platform that facilitates the sharing and usage of pre-trained models. One of the key offerings from Hugging Face is the Transformers library, which is an open-source library for working with a variety of pre-trained transformer models, including those for text generation, translation, summarization, question answering, and more. The library is widely used in the research and development of NLP applications and is supported by a large and active community. Hugging Face also provides a model hub where users can discover, share, and download pre-trained models. Additionally, they offer tools and frameworks to make it easier for developers to integrate and use these models in their own projects. The company has played a significant role in advancing the field of NLP and making cutting-edge models more accessible to the broader community. Hugging Face also provides a model hub where users can discover, share, and download pre-trained models. Additionally, they offer tools and frameworks to make it easier for developers and ma"})
  
 # Create multiple threads
-threads = [threading.Thread(target=send_rquests) for _ in range(number_of_threads) ]
+threads = [threading.Thread(target=send_requests) for _ in range(number_of_threads) ]
 # start all threads
 start = time.time()
 [t.start() for t in threads]
