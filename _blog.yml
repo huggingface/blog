@@ -4159,3 +4159,14 @@
     - research
     - collaboration
     - community
+    
+- local: sagemaker-huggingface-embedding
+  title: "Introducing the Hugging Face Embedding Container for Amazon SageMaker"
+  thumbnail: /blog/assets/sagemaker-huggingface-embedding/thumbnail.jpg
+  author: philschmid
+  date: Jun 7, 2024
+  tags:
+    - cloud
+    - aws
+    - partnership
+    - guide

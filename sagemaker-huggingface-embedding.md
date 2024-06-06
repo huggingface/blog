@@ -1,8 +1,9 @@
 ---
 title:  Introducing the Hugging Face Embedding Container for Amazon SageMaker
-thumbnail: /blog/assets/145_sagemaker-huggingface-llm/thumbnail.jpg
+thumbnail: /blog/assets/sagemaker-huggingface-embedding/thumbnail.jpg
 authors:
 - user: philschmid
+- user: jeffboudier
 ---
 
 # Introducing the Hugging Face Embedding Container for Amazon SageMaker
@@ -192,7 +193,7 @@ print(f"https://console.aws.amazon.com/cloudwatch/home?region={sess.boto_region_
 
 ```
 
-![cw](./assets/cw.png)
+![cw](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/cw.png)
 
 ## 5. Delete model and endpoint
 
