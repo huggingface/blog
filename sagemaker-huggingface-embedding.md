@@ -130,7 +130,7 @@ emb = emb_model.deploy(
 
 ```
 
-SageMaker will now create our endpoint and deploy the model to it. This can takes  ~5 minutes. 
+SageMaker will now create our endpoint and deploy the model to it. This can take  ~5 minutes. 
 
 ## 4. Run and evaluate Inference performance
 
