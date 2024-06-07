@@ -155,7 +155,7 @@ Awesome! Now that we can generate embeddings, lets test the performance of our m
 
 We will send 3,900 requests to our endpoint and use threading with 10 concurrent threads. We will measure the average latency and throughput of our endpoint. We are going to send an input of 256 tokens for a total of ~1 Million tokens. We decided to use 256 tokens as input length to find the right balance between shorter and longer inputs.
 
-Note: When running the load test, the requests are sent from europe and the endpoint is deployed in us-east-1. This adds a network overhead to it.
+Note: When running the load test, the requests are sent from Europe, and the endpoint is deployed in us-east-1. This adds network overhead latency to the requests.
 
 
 ```python
