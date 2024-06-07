@@ -185,7 +185,7 @@ Sending 3,900 requests or embedding 1 million tokens took around 841 seconds. Th
 
 _Note: We ran the same test on a `ml.g5.xlarge` with 1x NVIDIA A10G GPU. Embedding 1 million tokens took around 30 seconds. This means we can run around ~130 requests per second. The latency for the endpoint is 4ms at 10 concurrent requests. The `ml.g5.xlarge` costs around $1.408 per hour on Amazon SageMaker._
 
-GPU instance are much faster than CPU instances, but they are also more expensive. If you want to bulk process embeddings, you can use a GPU instance. If you want to run a small endpoint with low costs, you can use a CPU instance. We plan to work on a dedicated benchmark for the Hugging Face Embedding DLC in the future.
+GPU instances are much faster than CPU instances, but they are also more expensive. If you want to bulk process embeddings, you can use a GPU instance. If you want to run a small endpoint with low costs, you can use a CPU instance. We plan to work on a dedicated benchmark for the Hugging Face Embedding Container in the future.
 
 
 ```python
