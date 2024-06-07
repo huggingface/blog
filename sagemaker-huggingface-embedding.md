@@ -50,7 +50,7 @@ We are going to use the `sagemaker` python SDK to deploy Snowflake Arctic to Ama
 !pip install "sagemaker>=2.221.1" --upgrade --quiet
 ```
 
-If you are going to use Sagemaker in a local environment. You need access to an IAM Role with the required permissions for Sagemaker. You can find [here](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html) more about it.
+If you are going to use Sagemaker in a local environment, you need access to an IAM Role with the required permissions for Sagemaker. You can find out more about it [here](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html).
 
 
 ```python
