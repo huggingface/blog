@@ -14,7 +14,7 @@ When I joined Hugging Face nearly 3 years ago, the Transformers documentation wa
 
 As transformer models increasingly became the default way to approach AI, the documentation expanded significantly to include new models and new usage patterns. But new content was added incrementally without really considering how the audience and the Transformers library have evolved.
 
-I think it's the reason the documentation experience (DocX) feels disjointed, difficult to navigate, and outdated. Basically, a mess.
+I think that's the reason why the documentation experience (DocX) feels disjointed, difficult to navigate, and outdated. Basically, a mess.
 
 This is why a Transformers documentation redesign is necessary to make sense of this mess. The goal is to:
 
@@ -28,7 +28,7 @@ This is why a Transformers documentation redesign is necessary to make sense of 
 
 The Transformers documentation was initially written for machine learning engineers and researchers, model tinkerers.
 
-Now that AI is more mainstream and mature, and not just a fad, developers are growing interested in learning how to build AI into products. This means realizing developers interact with documentation unlike machine learning engineers and researchers.
+Now that AI is more mainstream and mature, and not just a fad, developers are growing interested in learning how to build AI into products. This means realizing developers interact with documentation differently than machine learning engineers and researchers do.
 
 Two key distinctions are:
 
@@ -70,9 +70,9 @@ Each era *incrementally* added new content to the documentation, unbalancing and
 
 A redesign will help rebalance the overall documentation experience. Content will feel native and integrated rather than added on.
 
-## Conclusion
+## Next steps
 
-This post explored the reason and motivation behind redesigning the Transformers documentation.
+This post explored the reason and motivation behind our quest to redesign the Transformers documentation.
 
 Stay tuned for the next post which identifies the mess in more detail and answers important questions such as, who are the intended users and stakeholders, what is the current state of the content, and how is it being interpreted.
 
