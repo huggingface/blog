@@ -8,7 +8,7 @@ authors:
 
 # Introducing the Hugging Face Embedding Container for Amazon SageMaker
 
-We are excited to announce that the new Hugging Face Embedding Container for Amazon SageMaker is now generally available (GA). AWS customers can now efficiently deploy embedding models on SageMaker to Generative AI applications, particularly Retrieval-Augmented Generation (RAG) applications. 
+We are excited to announce that the new Hugging Face Embedding Container for Amazon SageMaker is now generally available (GA). AWS customers can now efficiently deploy embedding models on SageMaker to build Generative AI applications, including Retrieval-Augmented Generation (RAG) applications. 
 
 In this Blog we will show you how to deploy open Embedding Models, like [Snowflake/snowflake-arctic-embed-l](https://huggingface.co/Snowflake/snowflake-arctic-embed-l), [BAAI/bge-large-en-v1.5](https://huggingface.co/BAAI/bge-large-en-v1.5) or [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) to Amazon SageMaker for inference using the new Hugging Face Embedding Inference Container. We will deploy the [Snowflake/snowflake-arctic-embed-m](https://huggingface.co/Snowflake/snowflake-arctic-embed-m) one of the best open Embedding Models for retrieval and ranking on the [MTEB Leaderboard](https://huggingface.co/spaces/mteb/leaderboard). 
 
