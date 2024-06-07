@@ -20,7 +20,7 @@ The example covers:
 - [4. Run and evaluate Inference performance](#4-run-and-evaluate-inference-performance)
 - [5. Delete model and endpoint](#5-delete-model-and-endpoint)
 
-## What is Hugging Face Embedding Container?
+## What is the Hugging Face Embedding Container?
 
 The Hugging Face Embedding Container is a new purpose-built Inference Container to easily deploy Embedding Models in a secure and managed environment. The DLC is powered by [Text Embedding Inference (TEI)](https://github.com/huggingface/text-embeddings-inference) a blazing fast and memory efficient solution for deploying and serving Embedding Models. TEI enables high-performance extraction for the most popular models, including FlagEmbedding, Ember, GTE and E5. TEI implements many features such as:
 
