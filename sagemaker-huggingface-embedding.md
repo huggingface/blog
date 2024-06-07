@@ -151,7 +151,7 @@ print(f"length of embeddings: {len(res[0])}")
 print(f"first 10 elements of embeddings: {res[0][:10]}")
 ```
 
-Awesome we can now generate embeddings with our model, Lets test the performance of our model.
+Awesome! Now that we can generate embeddings, lets test the performance of our model.
 
 We will send 3,900 requests to our endpoint use threading with 10 concurrent threads. We will measure the average latency and throughput of our endpoint. We are going to sent an input of 256 tokens to have a total of ~1 Million tokens. We decided to use 256 tokens as input length to find the balance between shorter and longer inputs.
 
