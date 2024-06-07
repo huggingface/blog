@@ -4148,11 +4148,34 @@
   tags:
     - game-dev
 
+- local: leaderboard-artificial-analysis2
+  title: "Launching the Artificial Analysis Text to Image Leaderboard & Arena"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_artificialanalysis.png
+  author: mhillsmith
+  guest: true
+  date: Jun 6, 2024
+  tags:
+    - leaderboard
+    - research
+    - collaboration
+    - community
+    
+- local: sagemaker-huggingface-embedding
+  title: "Introducing the Hugging Face Embedding Container for Amazon SageMaker"
+  thumbnail: /blog/assets/sagemaker-huggingface-embedding/thumbnail.jpg
+  author: philschmid
+  date: Jun 7, 2024
+  tags:
+    - cloud
+    - aws
+    - partnership
+    - guide
+
 - local: transformers-docs-redesign
   title: "Making sense of this mess"
   thumbnail: /blog/assets/transformers-docs-redesign/thumbnail.png
   author: stevhliu
-  date: June 6, 2024
+  date: June 7, 2024
   tags:
     - community
     - open-source
