@@ -4170,3 +4170,12 @@
     - aws
     - partnership
     - guide
+
+- local: transformers-docs-redesign
+  title: "Making sense of this mess"
+  thumbnail: /blog/assets/transformers-docs-redesign/thumbnail.png
+  author: stevhliu
+  date: June 7, 2024
+  tags:
+    - community
+    - open-source
