@@ -9,12 +9,12 @@ authors:
 
 # From DeepSpeed to FSDP and Back Again: How Interchangeable are the Frameworks?
 
-There are two popular implementations of the [ZeRO](https://arxiv.org/abs/1910.02054) algorithm in the community, one
-from [Microsoft (DeepSpeed)](https://github.com/microsoft/DeepSpeed) and the other from [PyTorch (Fully Sharded Data Parallelism, or FSDP as it will be referred to throughout the rest of this blog)](https://pytorch.org/docs/stable/fsdp.html). [Hugging Face Accelerate](https://github.com/huggingface/accelerate) exposes both
-these frameworks for the end users to train/tune their models, and as a result is
-upstreamed to the majority of the Hugging Face stack. This blog highlights some
-fundamental differences between these frameworks, and has been summarized into an official [concept
-guide](https://huggingface.co/docs/accelerate/v0.31.0/concept_guides/fsdp_and_deepspeed) so that end users can switch seamlessly between these frameworks.
+There are two popular implementations of the [Zero Redundancy Optimizer (ZeRO)](https://arxiv.org/abs/1910.02054) algorithm in the community, one
+from [Microsoft (DeepSpeed)](https://github.com/microsoft/DeepSpeed) and the other from [PyTorch Fully Sharded Data Parallelism, (FSDP)](https://pytorch.org/docs/stable/fsdp.html). [Hugging Face Accelerate](https://github.com/huggingface/accelerate) exposes both
+frameworks for the end users to train/tune their models, and as a result is
+upstreamed to the majority of the Hugging Face stack.
+
+This blog highlights some fundamental differences between these frameworks.
 
 ## Are FSDP and DeepSpeed Interchangeable?
 
@@ -33,25 +33,22 @@ using 4 GPUs. Then we saw the following loss behavior, shown in Figure 2:
 
 It looked as though scaling the learning rate had indeed helped improve the reproducibility between the two frameworks! However, our next experiment debunked this hypothesis. 
 
-After setting both FSDP and DeepSpeed to a higher learning rate (`1e-5` from `1e-6` initially), and we observed similar loss and gradient norm characteristics, shown in Figure 3:
+After setting both FSDP and DeepSpeed to a higher learning rate (`1e-5` from `1e-6` initially), we observed similar loss and gradient norm characteristics, shown in Figure 3:
 
 ## The Investigation Unfolds: Precision Matters
 
 Inside the `DeepSpeed` codebase, specifically, in the implementation of
-`DeepSpeedZeroOptimizer_Stage3` (as the name implies, what handles doing Stage 3 optimizer sharding), we noticed that the `trainable_param_groups` (the parameter groups being trained on) pass through an 
+`DeepSpeedZeroOptimizer_Stage3` (as the name implies, what handles doing Stage 3 optimizer sharding), we noticed that the `trainable_param_groups`, the parameter groups being trained on, pass through an 
 internal `_setup_for_real_optimizer` function call, which calls another function called `_create_fp32_partitions`.
 
-Essentially `DeepSpeed` was performing upcasting from `bf16` to `fp32` internally, and it always kept the master weights in 
-`fp32` (full precision) *by design*. This upcasting meant that the optimizer could converge at learning rates that struggled
-in lower precisions. In Figure 1, the FSDP was not coverging with `1e-6`, and was just a coincidence that bumping up the learning rate to
-`4e-6` (4x) just happened to be sufficient for converging, as show in in Figure 2. 
+This function was upcasting from `bf16` to `fp32` (full precision) internally, and it always kept the master weights in  `fp32` *by design*. This upcasting meant that the optimizer could converge at learning rates that struggled in lower precisions. In Figure 1, FSDP was not converging with `1e-6`, and it was just a coincidence that bumping up the learning rate to `4e-6` (4x) just happened to be sufficient for converging, as shown in Figure 2. 
 
 The crux of the issue is how these two frameworks handle training on and utilizing lower precisions.
 
 During distributed training, before the model and optimizer parameters are split across GPUs they are first "flattened" to
 a one-dimensional `torch.Tensor` (or, a list). FSDP and DeepSpeed use different `dtype`s for these "flattened"
 parameters which has ramifications for PyTorch Optimizers. Table 1 outlines the processes for both
-frameworks; the "Local" column indicates if the process occurring per-GPU, therefore the memory
+frameworks. The "Local" column indicates if the process occurs per-GPU, and therefore the memory
 overhead from upcasting is amortized by the number of GPUs.
 
 | **Process**                                                                              | **Local?** | **Framework**     | **Details**                                                                                                                                                                |
@@ -65,7 +62,7 @@ overhead from upcasting is amortized by the number of GPUs.
 
 > Table 1: Summary of how FSDP and DeepSpeed handle mixed precision
 
-A few takeaway points:
+A few takeaways:
 * As noted in the [🤗 Accelerate Documentation], a rule of thumb when performing mixed precision
 is to keep trainable parameters in `torch.float32`.
 * The upcasting done by `DeepSpeed` may have negligible effect on memory
@@ -76,7 +73,6 @@ consumption can be **significant**.
 user to operate `torch.Optimizer` in low precision. This offers more flexibility than
 the native upcasting of `DeepSpeed`.
 
-We created a 🤗 Accelerate pull request that was included in the 0.30.0 release that aimed to improve this.
 
 ## Harmonizing DeepSpeed and FSDP in 🤗 Accelerate
 
@@ -131,8 +127,8 @@ We considered various modes of configuring these in 🤗 Accelerate as well:
 - From the command line during `accelerate launch`
 - From the various `Plugin` classes 🤗 Accelerate provides for (`DeepSpeed`)[https://huggingface.co/docs/accelerate/main/en/package_reference/deepspeed] and (`FSDP`)[https://huggingface.co/docs/accelerate/main/en/package_reference/fsdp]
 
-🤗 accelerate makes it almost **trivial** to switch between FSDP and DeepSpeed, with the majority of it being an
-accelerate config file change, see the new concept guide for instructions on this. Besides the config
+🤗 Accelerate makes it almost **trivial** to switch between FSDP and DeepSpeed, with the majority of it being an
+Accelerate config file change (see the new concept guide for instructions on this). Besides the config
 change, some of the other considerations (also outlined in the guide) are differences in how checkpoints are handled, etc.
 
 All experiments in this blog can be reproduced with the code from the [original 🤗 Accelerate issue](https://github.com/huggingface/accelerate/issues/2624).
