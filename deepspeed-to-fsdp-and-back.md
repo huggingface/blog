@@ -38,7 +38,7 @@ Inside the `DeepSpeed` codebase, specifically, in the implementation of
 `DeepSpeedZeroOptimizer_Stage3` (as the name implies, what handles doing Stage 3 optimizer sharding), we noticed that the `trainable_param_groups`, the parameter groups being trained on, pass through an 
 internal `_setup_for_real_optimizer` function call, which calls another function called `_create_fp32_partitions`.
 
-This function was upcasting from `bf16` to `fp32` (full precision) internally, and it always kept the master weights in  `fp32` *by design*. This upcasting meant that the optimizer could converge at learning rates that struggled in lower precisions. In Figure 1, FSDP was not converging with `1e-6`, and it was just a coincidence that bumping up the learning rate to `4e-6` (4x) just happened to be sufficient for converging, as shown in Figure 2. 
+This function was upcasting from `bf16` to `fp32` (full precision) internally, and it always kept the master weights in `fp32` *by design*. This upcasting meant that the optimizer could converge at learning rates that struggled in lower precisions. In Figure 1, FSDP was not converging with `1e-6`, and it was just a coincidence that bumping up the learning rate to `4e-6` (4x) just happened to be sufficient for converging, as shown in Figure 2. 
 
 The crux of the issue is how these two frameworks handle training on and utilizing lower precisions.
 
@@ -93,9 +93,9 @@ The two new FSDP modes are summarized below and compared to DeepSpeed, with the 
 
 > Table 2: Summary of the two new FSDP modes and comparisons with DeepSpeed
 
-## A Note on Throughput
+## Throughput results
 
-We use the [IBM `granite7b`](https://huggingface.co/ibm-granite/granite-7b-base) model (which follows the Meta Llama2 architecture) for throughput comparisons. We compare MFU and tokens/sec/GPU metrics and show them for FSDP (full sharding) and DeepSpeed (Zero3). 
+We use the [IBM `granite7b`](https://huggingface.co/ibm-granite/granite-7b-base) model (which follows the Meta Llama2 architecture) for throughput comparisons. We compare model flops utilization (MFU) and tokens/sec/GPU metrics and show them for FSDP (full sharding) and DeepSpeed (Zero3). 
 
 We utilized four A100 GPUs with the following hyperparameters:
 - Batch size of 8
