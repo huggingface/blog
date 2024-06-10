@@ -23,10 +23,9 @@ using 4 GPUs. Then we saw the following loss behavior, shown in Figure 2:
 
 [[ZACH: INSERT FIGURE TWO HERE]]
 
-It looked as though scaling the learning rate had indeed helped improve the reproducibility between the two frameworks! However, our next experiment debunked this hypothesis. 
+We hypothesized that the learning rate may need scaling by the number of GPUs and bumped up the learning rate by 4x since we were using 4 GPUs. Then, we saw the following loss behavior, shown in Figure 2. 
 
-After setting both FSDP and DeepSpeed to a higher learning rate (`1e-5` from `1e-6` initially), we observed similar loss and gradient norm characteristics, shown in Figure 3:
-
+It looked like the desired behavior had been achieved by scaling the FSDP learning rate by the number of GPUs! However,  when we tried a different learning rate (`1e-5`) without scaling, we observed similar loss and gradient norm characteristics for both frameworks, shown in Figure 3.
 ## The Investigation Unfolds: Precision Matters
 
 Inside the `DeepSpeed` codebase, specifically, in the implementation of
