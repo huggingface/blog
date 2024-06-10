@@ -73,12 +73,11 @@ available since the 0.30.0 release.
 
 [[ZACH: INSERT FIGURE FOUR HERE]]
 
-The result of this allowed FSDP to operate in two modes:
-- A "mixed-precision" mode which uses a similar behavior to DeepSpeed
-- A low precision mode for memory-constrained scenarios, as shown in Figure 4.
+The result of this PR is to allow FSDP to operate in two modes:
+-  A “mixed-precision” mode like the DeepSpeed counterpart
+- A low precision mode for memory constrained scenarios, as shown in Figure 5.
 
-The two new FSDP modes are summarized below and compared to DeepSpeed, with the second mode achieving complete parity with DeepSpeed:
-
+The two new FSDP modes are summarized in Figure 6 and compared with DeepSpeed.
 | **Framework**             | **Model Loading (`torch_dtype`)** | **Mixed Precision** | **Preparation (Local)** | **Training** | **Optimizer (Local)** |
 | ------------------------- | --------------------------------- | ------------------- | ----------------------- | ------------ | --------------------- |
 | FSDP (memory-constrained) | `bf16`                            | default (none)      | `bf16`                  | `bf16`       | `bf16`                |
