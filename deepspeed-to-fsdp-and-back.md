@@ -108,25 +108,24 @@ Table 3 shows that FSDP and DeepSpeed are expected to perform similarly.
 
 ## Closing thoughts
 
-We provided a new [concept guide](https://huggingface.co/docs/accelerate/v0.31.0/concept_guides/fsdp_and_deepspeed) to help users migrate between the two frameworks. The guide helps users answer questions such as:
-
+We provided a [new concept guide](https://huggingface.co/docs/accelerate/v0.31.0/en/concept_guides/fsdp_and_deepspeed) to help users migrate between the two frameworks. The guide helps users answer questions such as:
 * How do we achieve equivalent sharding strategies?
 * How do we perform efficient model loading?
 * How is weight prefetching managed in FSDP and DeepSpeed?
 * What is the equivalent of FSDP wrapping in DeepSpeed?
 
-We considered various modes of configuring these in 🤗 Accelerate as well:
+We consider various modes of configuring these frameworks in 🤗 Accelerate,
 - From the command line during `accelerate launch`
 - From the various `Plugin` classes 🤗 Accelerate provides for (`DeepSpeed`)[https://huggingface.co/docs/accelerate/main/en/package_reference/deepspeed] and (`FSDP`)[https://huggingface.co/docs/accelerate/main/en/package_reference/fsdp]
 
-🤗 Accelerate makes it almost **trivial** to switch between FSDP and DeepSpeed, with the majority of it being an
-Accelerate config file change (see the new concept guide for instructions on this). Besides the config
+🤗 Accelerate makes it almost **trivial** to switch between FSDP and DeepSpeed, with the majority of it being an Accelerate config file change (see the new concept guide for instructions on this).
+
+Besides the config
 change, some of the other considerations (also outlined in the guide) are differences in how checkpoints are handled, etc.
 
 All experiments in this blog can be reproduced with the code from the [original 🤗 Accelerate issue](https://github.com/huggingface/accelerate/issues/2624).
 
 We intend to follow up with throughput comparisons at scale and techniques to better utilize those GPUs for tuning and alignment jobs while maintaining model quality.
-
 ## Acknowledgements
 
 This is an effort that involved several teams across multiple organizations to come together. It started at IBM Research, specifically Aldo Pareja who found the issue and Fabian Lim who identified the precision gaps and fixed this issue. Zach Mueller and [Stas Bekman](https://github.com/stas00) have been phenomenal in providing feedback and the fixes to accelerate. Less Wright from the PyTorch Team at Meta was very helpful in questions on FSDP parameters. Finally, we would also like to thank the [DeepSpeed team](https://www.deepspeed.ai/) for providing feedback on this blog.
