@@ -8,12 +8,7 @@ authors:
 
 # From DeepSpeed to FSDP and Back Again With Hugging Face Accelerate: How Interchangeable Are They?
 
-There are two popular implementations of the [Zero Redundancy Optimizer (ZeRO)](https://arxiv.org/abs/1910.02054) algorithm in the community, one
-from [Microsoft (DeepSpeed)](https://github.com/microsoft/DeepSpeed) and the other from [PyTorch Fully Sharded Data Parallelism, (FSDP)](https://pytorch.org/docs/stable/fsdp.html). [Hugging Face Accelerate](https://github.com/huggingface/accelerate) exposes both
-frameworks for the end users to train/tune their models, and as a result is
-upstreamed to the majority of the Hugging Face stack.
-
-This blog highlights some fundamental differences between these frameworks.
+There are two popular implementations of the [ZeRO Redundancy Optimizer (Zero)](https://arxiv.org/abs/1910.02054) algorithm in the community, one from [DeepSpeed](https://github.com/microsoft/DeepSpeed) and the other from [PyTorch](https://pytorch.org/docs/stable/fsdp.html). Hugging Face [Accelerate](https://huggingface.co/docs/accelerate/en/index) exposes both these frameworks for the end users to train/tune their models. This blog highlights the differences between how these backends are exposed through Accelerate. To enable users to seamlessly switch between these backends, we [upstreamed a precision related change](https://github.com/huggingface/accelerate/issues/2624) and a [concept guide](https://huggingface.co/docs/accelerate/concept_guides/fsdp_and_deepspeed).
 
 ## Are FSDP and DeepSpeed Interchangeable?
 
