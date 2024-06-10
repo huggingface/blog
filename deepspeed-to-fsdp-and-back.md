@@ -88,17 +88,16 @@ The two new FSDP modes are summarized in Figure 6 and compared with DeepSpeed.
 
 ## Throughput results
 
-We use the [IBM `granite7b`](https://huggingface.co/ibm-granite/granite-7b-base) model (which follows the Meta Llama2 architecture) for throughput comparisons. We compare model flops utilization (MFU) and tokens/sec/GPU metrics and show them for FSDP (full sharding) and DeepSpeed (Zero3). 
+We use the [IBM Granite 7B](https://huggingface.co/ibm-granite/granite-7b-base) model (which follows the Meta Llama2 architecture) for throughput comparisons. We compare Model Flops Utilization (MFU) and tokens/sec/GPU metrics and show them for FSDP (full sharding) and DeepSpeed (Zero3). 
 
-We utilized four A100 GPUs with the following hyperparameters:
+We used four A100 GPUs as before with the following hyperparameters:
 - Batch size of 8
 - Model loaded in `torch.bfloat16`
-- Mixed precision is the same dtype.
-  
-Table 3 shows that FSDP and DeepSpeed are expected to perform relatively similarly.
+- Mixed precision is the same dtype. 
 
-> We intend to follow up with a comprehensive throughput comparison and approaches to improve throughput (e.g., 4D masks with packing, torch.compile, selective activation checkpointing) as large scale alignment techniques like InstructLab and GLAN become popular.
+Table 3 shows that FSDP and DeepSpeed are expected to perform similarly. 
 
+> We intend to follow up with a comprehensive throughput comparison and approaches to improve throughput (e.g., 4D masks with packing, torch.compile, selective activation checkpointing) as large scale alignment techniques like [InstructLab](https://github.com/instructlab) and [GLAN](https://arxiv.org/abs/2402.13064) become popular.
 
 | **Framework**       | **Tokens / sec / device** | **Step time (s)** | **Model Flops Utilization (MFU)** |
 | ------------------- | ------------------------- | ----------------- | --------------------------------- |
