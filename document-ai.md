@@ -91,7 +91,11 @@ alt="drawing" width="600"/>
 
 <small> Donut model consisting of an encoder-decoder Transformer. Taken from the <a href="https://arxiv.org/abs/2111.15664">Donut paper.</a> </small>
 
-After Donut, various similar models were released, including [Pix2Struct](https://huggingface.co/docs/transformers/model_doc/pix2struct) by Google and [UDOP](https://huggingface.co/docs/transformers/model_doc/udop) by Microsoft. Nowadays, vision-language models such as [LLaVa-NeXT](https://huggingface.co/docs/transformers/model_doc/llava_next) and [Idefics2](https://huggingface.co/docs/transformers/model_doc/idefics2) can be fine-tuned to perform document parsing in an end-to-end manner. As a matter of fact, these models can be fine-tuned to perform any document AI task, from document image classification to document parsing, as long as the task can be defined as an image-text-to-text task.
+After Donut, various similar models were released, including [Pix2Struct](https://huggingface.co/docs/transformers/model_doc/pix2struct) by Google and [UDOP](https://huggingface.co/docs/transformers/model_doc/udop) by Microsoft. Nowadays, larger vision-language models such as [LLaVa-NeXT](https://huggingface.co/docs/transformers/model_doc/llava_next) and [Idefics2](https://huggingface.co/docs/transformers/model_doc/idefics2) can be fine-tuned to perform document parsing in an end-to-end manner. As a matter of fact, these models can be fine-tuned to perform any document AI task, from document image classification to document parsing, as long as the task can be defined as an image-text-to-text task. See for instance the [tutorial notebook](https://github.com/NielsRogge/Transformers-Tutorials/blob/master/PaliGemma/Fine_tune_PaliGemma_for_image_%3EJSON.ipynb) to fine-tune Google's PaliGemma (another vision-language model) to return a JSON from receipt images.
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/112_document_ai/paligemma.jpeg" width="600"/>
+
+<small> Vision-language models such as PaliGemma can be fine-tuned on any image-text-to-text task. See the <a href="https://github.com/NielsRogge/Transformers-Tutorials/blob/master/PaliGemma/Fine_tune_PaliGemma_for_image_%3EJSON.ipynb">tutorial notebook.</a> </small>
 
 Data scientists are finding document layout analysis and extraction as key use cases for enterprises. The existing commercial solutions typically cannot handle the diversity of most enterprise data, in content and structure. Consequently, data science teams can often surpass commercial tools by fine-tuning their own models.
 </div>
@@ -133,7 +137,7 @@ In the past, building a DocVQA system would often require multiple models workin
 
 DocVQA is typically evaluated using the Average Normalized Levenshtein Similarity (ANLS) metric. For more details regarding this metric, we refer to [this guide](https://rrc.cvc.uab.es/?ch=11&com=tasks). The current state-of-the-art on the DocVQA benchmark that is open-source is [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) which achieves an ANLS score of 83.37. However, this model consists of a pipeline of OCR + multimodal Transformer. 
 
-Nwever models such as [Donut](https://huggingface.co/docs/transformers/model_doc/donut) and [Idefics2](https://huggingface.co/docs/transformers/model_doc/idefics2) solve the task in an end-to-end manner using a single Transformer neural network, not relying on OCR. Impira hosts an [exciting Space](https://huggingface.co/spaces/impira/docquery) that illustrates LayoutLM and Donut for DocVQA.
+Nwever models such as [Donut](https://huggingface.co/docs/transformers/model_doc/donut), [LLaVa-NeXT](https://huggingface.co/docs/transformers/model_doc/idefics2) and [Idefics2](https://huggingface.co/docs/transformers/model_doc/llava_next) solve the task in an end-to-end manner using a single Transformer-based neural network, not relying on OCR. Impira hosts an [exciting Space](https://huggingface.co/spaces/impira/docquery) that illustrates LayoutLM and Donut for DocVQA.
 
 Visual question answering is compelling; however, there are many considerations for successfully using it. Having accurate training data, evaluation metrics, and post-processing is vital. For teams taking on this use case, be aware that DocVQA can be challenging to work properly. In some cases, responses can be unpredictable, and the model can “hallucinate” by giving an answer that doesn't appear within the document. Visual question answering models can inherit biases in data raising ethical issues. Ensuring proper model setup and post-processing is integral to building a successful DocVQA solution.
 </div>
@@ -217,7 +221,7 @@ Notebooks and tutorials for many Document AI models can be found at:
     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
       <div itemprop="text">   
 
-A table of the currently available Transformers models achieving state-of-the-art performance on Document AI tasks. An important trend is that we see more and more models that perform document AI tasks in an end-to-end manner, taking the document image(s) as an input and producing text as an output.
+A table of the currently available Transformers models achieving state-of-the-art performance on Document AI tasks. An important trend is that we see more and more vision-language models that perform document AI tasks in an end-to-end manner, taking the document image(s) as an input and producing text as an output.
 
 This was last updated in June 2024.
 
@@ -234,7 +238,8 @@ This was last updated in June 2024.
 | [Donut](https://huggingface.co/docs/transformers/main/en/model_doc/donut#overview) | [arxiv](https://arxiv.org/abs/2111.15664) | [MIT](https://github.com/clovaai/donut#license) | [huggingface](https://huggingface.co/models?other=donut) |
 | [Pix2Struct](https://huggingface.co/docs/transformers/main/en/model_doc/pix2struct) | [arxiv](https://arxiv.org/abs/2210.03347) | [Apache 2.0](https://github.com/google-research/pix2struct/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=pix2struct) |
 | [UDOP](https://huggingface.co/docs/transformers/main/en/model_doc/udop) | [arxiv](https://arxiv.org/abs/2212.02623) | [MIT](https://github.com/microsoft/UDOP/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=udop) |
-| [Idefics2](https://huggingface.co/docs/transformers/main/en/model_doc/idefics2) | [arxiv](https://arxiv.org/abs/2405.02246) | [Apache 2.0](https://huggingface.co/HuggingFaceM4/idefics2-8b) | [huggingface](https://huggingface.co/HuggingFaceM4/idefics2-8b) |
+| [Idefics2](https://huggingface.co/docs/transformers/main/en/model_doc/idefics2) | [arxiv](https://arxiv.org/abs/2405.02246) | [Apache 2.0](https://huggingface.co/HuggingFaceM4/idefics2-8b) | [huggingface](https://huggingface.co/collections/HuggingFaceM4/idefics2-661d1971b7c50831dd3ce0fe) |
+| [PaliGemma](https://huggingface.co/docs/transformers/main/en/model_doc/paligemma) | [blog post](https://huggingface.co/blog/paligemma) | [PaliGemma](https://ai.google.dev/gemma/terms) | [huggingface](https://huggingface.co/collections/google/paligemma-release-6643a9ffbf57de2ae0448dda) |
 
 </div>
     </div>
