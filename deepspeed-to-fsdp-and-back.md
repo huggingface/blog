@@ -1,13 +1,12 @@
 ---
-title: "From DeepSpeed to FSDP and Back Again"
+title: "From DeepSpeed to FSDP and Back Again with Hugging Face Accelerate"
 authors:
 - user: mirinflim
-- user: rganti
 - user: muellerzr
 - user: stas00
 ---
 
-# From DeepSpeed to FSDP and Back Again: How Interchangeable are the Frameworks?
+# From DeepSpeed to FSDP and Back Again With Hugging Face Accelerate: How Interchangeable Are They?
 
 There are two popular implementations of the [Zero Redundancy Optimizer (ZeRO)](https://arxiv.org/abs/1910.02054) algorithm in the community, one
 from [Microsoft (DeepSpeed)](https://github.com/microsoft/DeepSpeed) and the other from [PyTorch Fully Sharded Data Parallelism, (FSDP)](https://pytorch.org/docs/stable/fsdp.html). [Hugging Face Accelerate](https://github.com/huggingface/accelerate) exposes both
@@ -22,8 +21,6 @@ Recently we ported a training pipeline from DeepSpeed to FSDP. We were surprised
 the results obtained differed *substantially*. The specific model used was a Mistral-7B loaded in
 half-precision (`bfloat16`). While the DeepSpeed (blue) loss had converged well, the FSDP (orange)
 loss was not decreasing, as can be seen in Figure 1.
-
-[[ZACH: INSERT FIGURE ONE HERE]]
 
 Initially we thought that FSDP may be computing the mean of the gradients rather than the sum,
 hence requiring a higher learning rate. So, we bumped up the learning rate by 4x since we were
@@ -96,16 +93,19 @@ The two new FSDP modes are summarized below and compared to DeepSpeed, with the 
 
 > Table 2: Summary of the two new FSDP modes and comparisons with DeepSpeed
 
-## The Results
+## A Note on Throughput
 
-Table 3 shows ballpark comparisons between FSDP (full sharding) and DeepSpeed
-(Zero3) on some standard throughput metrics. We utilized four A100 GPUs with the following hyperparameters:
+We use the [IBM `granite7b`](https://huggingface.co/ibm-granite/granite-7b-base) model (which follows the Meta Llama2 architecture) for throughput comparisons. We compare MFU and tokens/sec/GPU metrics and show them for FSDP (full sharding) and DeepSpeed (Zero3). 
+
+We utilized four A100 GPUs with the following hyperparameters:
 - Batch size of 8
 - Model loaded in `torch.bfloat16`
 - Mixed precision is the same dtype.
   
-We ran on the [IBM `granite7b`](https://huggingface.co/ibm-granite/granite-7b-base) model recently released on Hugging Face. Table 3 shows
-that FSDP and DeepSpeed are expected to perform relatively similarly.
+Table 3 shows that FSDP and DeepSpeed are expected to perform relatively similarly.
+
+> We intend to follow up with a comprehensive throughput comparison and approaches to improve throughput (e.g., 4D masks with packing, torch.compile, selective activation checkpointing) as large scale alignment techniques like InstructLab and GLAN become popular.
+
 
 | **Framework**       | **Tokens / sec / device** | **Step time (s)** | **Model Flops Utilization (MFU)** |
 | ------------------- | ------------------------- | ----------------- | --------------------------------- |
@@ -132,3 +132,9 @@ Accelerate config file change (see the new concept guide for instructions on thi
 change, some of the other considerations (also outlined in the guide) are differences in how checkpoints are handled, etc.
 
 All experiments in this blog can be reproduced with the code from the [original 🤗 Accelerate issue](https://github.com/huggingface/accelerate/issues/2624).
+
+We intend to follow up with throughput comparisons at scale and techniques to better utilize those GPUs for tuning and alignment jobs while maintaining model quality.
+
+## Acknowledgements
+
+This is an effort that involved several teams across multiple organizations to come together. It started at IBM Research, specifically Aldo Pareja who found the issue and Fabian Lim who identified the precision gaps and fixed this issue. Zach Mueller and [Stas Bekman](https://github.com/stas00) have been phenomenal in providing feedback and the fixes to accelerate. Less Wright from the PyTorch Team at Meta was very helpful in questions on FSDP parameters. Finally, we would also like to thank the [DeepSpeed team](https://www.deepspeed.ai/) for providing feedback on this blog.
