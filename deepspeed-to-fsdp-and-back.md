@@ -15,11 +15,17 @@ There are two popular implementations of the [ZeRO Redundancy Optimizer (Zero)](
 
 Recently we tried running a training pipeline with DeepSpeed and PyTorch FSDP. We noticed that the results obtained differed. The specific model was Mistral-7B base and it was loaded in half-precision (`bfloat16`). While the DeepSpeed (blue) loss had converged well, the FSDP (orange) loss was not decreasing, as can be seen in Figure 1.
 
-[[ZACH: INSERT FIGURE TWO HERE]]
+![Figure 1](https://cdn-lfs.huggingface.co/datasets/huggingface/documentation-images/1666e2fac64a29bdb6993c3856cc2964db208be8640f5d9e23b4a2111c0c800c?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27figure_1.png%3B+filename%3D%22figure_1.png%22%3B&response-content-type=image%2Fpng&Expires=1718385931&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTcxODM4NTkzMX19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy5odWdnaW5nZmFjZS5jby9kYXRhc2V0cy9odWdnaW5nZmFjZS9kb2N1bWVudGF0aW9uLWltYWdlcy8xNjY2ZTJmYWM2NGEyOWJkYjY5OTNjMzg1NmNjMjk2NGRiMjA4YmU4NjQwZjVkOWUyM2I0YTIxMTFjMGM4MDBjP3Jlc3BvbnNlLWNvbnRlbnQtZGlzcG9zaXRpb249KiZyZXNwb25zZS1jb250ZW50LXR5cGU9KiJ9XX0_&Signature=hNbNoQ8MClNsqOVTlWLAZF-3MJ5xIYoue7BoImRSoZyV3tb0lqYYqssLsLRCFE95PSkMj%7Eq0Yl7CGAEwAdTovDgeze5G46vNCDdkS8f5IXNHk%7ExCKQ4M0nRV4RQK9tDYiQOxFjRnU8STKtZtV8SejnVC1EapBgiNyCuptOWfpKAmsPqVds4LoiVMfHfk4ZV1Q41O4HIsLl4F9Iwnl37kHeykNb0tZgaKU8JaIoGBuDmpRESc3pjuQ2OHZN4TktQf4yaXuprAN2iuojVPHyc8KRMf3JOldq9yL22dynIvg6EWsx8iZmKaNHQuCu7OEa-694iYl61wqaQNiexE9qkcOw__&Key-Pair-Id=KVTP0A1DKRTAX)
 
 We hypothesized that the learning rate may need scaling by the number of GPUs and bumped up the learning rate by 4x since we were using 4 GPUs. Then, we saw the following loss behavior, shown in Figure 2. 
 
+![Figure 2](https://cdn-lfs.huggingface.co/datasets/huggingface/documentation-images/ba57b663be4a9252e3a3bc3db02c992b1958a3fd72b2278198bd08fb3d6277c6?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27figure_2.png%3B+filename%3D%22figure_2.png%22%3B&response-content-type=image%2Fpng&Expires=1718385962&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTcxODM4NTk2Mn19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy5odWdnaW5nZmFjZS5jby9kYXRhc2V0cy9odWdnaW5nZmFjZS9kb2N1bWVudGF0aW9uLWltYWdlcy9iYTU3YjY2M2JlNGE5MjUyZTNhM2JjM2RiMDJjOTkyYjE5NThhM2ZkNzJiMjI3ODE5OGJkMDhmYjNkNjI3N2M2P3Jlc3BvbnNlLWNvbnRlbnQtZGlzcG9zaXRpb249KiZyZXNwb25zZS1jb250ZW50LXR5cGU9KiJ9XX0_&Signature=wdNZQPB2N5vQSBF0izLR8FK1y-DM10RyYpJnUUOgkG%7ExQ2aDRueltp6edXG-f6cln-c8BzaL-w0YUSyQkEiegkScCjAg46ttqhv-H5IRlvMJ2TvmunZXEtV3CKxShxlSyjaq7BOcR0VzlyIPFybMIcD9%7EDR6dHICDFO-mYzwKLuOTCKb7AU3GaEAupKjELm1XRsniDDFa4QpOA7zTnNOXDTR8uMVTx0itvhcASHKkcj%7EJ4hsdfAzVj1nxz0EHKvmudRaeC6o5CBw%7EwKm2At%7EHFN9Kgr7eZ48pze5f-rvLvQHn6BuQF-VwAN8UJCwNj4ilCzdhPpa7nw2VFmRQAjRrw__&Key-Pair-Id=KVTP0A1DKRTAX)
+
 It looked like the desired behavior had been achieved by scaling the FSDP learning rate by the number of GPUs! However, when we tried a different learning rate (`1e-5`) without scaling, we observed similar loss and gradient norm characteristics for both frameworks, shown in Figure 3.
+
+![Figure 3](https://cdn-lfs.huggingface.co/datasets/huggingface/documentation-images/e86c69648c3a6bfc8709c5149e28b29dbd5d61af621201175e97abbcf57a26ee?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27figure_3.png%3B+filename%3D%22figure_3.png%22%3B&response-content-type=image%2Fpng&Expires=1718385978&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTcxODM4NTk3OH19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy5odWdnaW5nZmFjZS5jby9kYXRhc2V0cy9odWdnaW5nZmFjZS9kb2N1bWVudGF0aW9uLWltYWdlcy9lODZjNjk2NDhjM2E2YmZjODcwOWM1MTQ5ZTI4YjI5ZGJkNWQ2MWFmNjIxMjAxMTc1ZTk3YWJiY2Y1N2EyNmVlP3Jlc3BvbnNlLWNvbnRlbnQtZGlzcG9zaXRpb249KiZyZXNwb25zZS1jb250ZW50LXR5cGU9KiJ9XX0_&Signature=r4pufHy2LN0gemtuivnUDVyaDiNkssKsfD-6K%7EGfao%7EoRwOS9IRe4AqiIZkyFIpnbs4yRZCrTdhIlfzxZyQzlnkia29CuEGIujiHo4uR3wTssI06GutEvaxDGzPnfkOiNqogr24BySHzEq1cBKytaiIzqlTbETcRkeI-FckCZ9a3wjnEEp%7EPd1oy1HYhAARlbPWJrzhBtuNgMsHjG7bA0WqfiuX-BuwYNVXuyfH2uWV4SKZ3pqz-P%7EAmmOSmvat3Yu2PZmtbe6grJGymMSqCZy%7Ej-RzwmrNFLNf14M9WA-P7MgYoB1dHDKosdj7CA9V67eevYIV3RiQSQvF37SYj9A__&Key-Pair-Id=KVTP0A1DKRTAX)
+
+
 ## Precision Matters
 
 Inside the `DeepSpeed` codebase, specifically, in the implementation of
@@ -49,13 +55,14 @@ A few takeaway points:
 ## Harmonizing DeepSpeed and FSDP in 🤗 Accelerate
 
 To better align DeepSpeed and FSDP in 🤗 Accelerate, we can perform upcasting automatically for FSDP when mixed precision is enabled. We created a pull request with this change that was included in the [0.30.0 release](https://github.com/huggingface/accelerate/releases/tag/v0.30.0).
-[[ZACH: INSERT FIGURE FOUR HERE]]
+
+![Figure 4](https://cdn-lfs.huggingface.co/datasets/huggingface/documentation-images/ec55b20f2ce9609efe736c5718840d15f1440f83ea9e8f45f29b6abb6d5251c6?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27figure_4.png%3B+filename%3D%22figure_4.png%22%3B&response-content-type=image%2Fpng&Expires=1718385992&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTcxODM4NTk5Mn19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy5odWdnaW5nZmFjZS5jby9kYXRhc2V0cy9odWdnaW5nZmFjZS9kb2N1bWVudGF0aW9uLWltYWdlcy9lYzU1YjIwZjJjZTk2MDllZmU3MzZjNTcxODg0MGQxNWYxNDQwZjgzZWE5ZThmNDVmMjliNmFiYjZkNTI1MWM2P3Jlc3BvbnNlLWNvbnRlbnQtZGlzcG9zaXRpb249KiZyZXNwb25zZS1jb250ZW50LXR5cGU9KiJ9XX0_&Signature=Vt8AJKjQptx1x3bmzVzfWHbu3ZQY1xjQcrk6A36yHh2gZikqzZbSbK3j82JItRtn1FaxrlO5mK2oZAoGIxZGlIMqSFc%7EWQmr51wBTChSbgMMyup0WeBXtrCq8%7Eb5KPaD7MCHSYEc1CAJWwOwbUfjqqJFFtnj9J1Yh%7Ea%7EKFmrY-FDdu7fknw%7EjEBuIZE%7EPJS3nPBpVTe4fRt4vKgJnqUWbd9Cg0qny6b1bgPSsDWW5qjR0lGqWy%7EGXihEbBwuoV%7EhpCDMiv3K64P5iCQKX3VQVzsXNQfvWYssOqXYuijLgaNoT6r6BbYmnNiVkyvEHnwrTvEwvGk%7ECBm8%7E1kVr1m1jg__&Key-Pair-Id=KVTP0A1DKRTAX)
 
 The result of this PR is to allow FSDP to operate in two modes:
 - A “mixed-precision” mode like the DeepSpeed counterpart
-- A low precision mode for memory constrained scenarios, as shown in Figure 5.
+- A low precision mode for memory constrained scenarios, as shown in Figure 4.
 
-The two new FSDP modes are summarized in Figure 6 and compared with DeepSpeed.
+The two new FSDP modes are summarized in Table 2 and compared with DeepSpeed.
 | **Framework**             | **Model Loading (`torch_dtype`)** | **Mixed Precision** | **Preparation (Local)** | **Training** | **Optimizer (Local)** |
 | ------------------------- | --------------------------------- | ------------------- | ----------------------- | ------------ | --------------------- |
 | FSDP (memory-constrained) | `bf16`                            | default (none)      | `bf16`                  | `bf16`       | `bf16`                |
