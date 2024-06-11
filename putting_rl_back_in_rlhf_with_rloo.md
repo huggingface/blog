@@ -86,7 +86,7 @@ print(f"action='entire completion', reward={entire_generation_reward}")
 # action='entire completion', reward=-0.2000 (-1 + 0.1 + 0.7)
 ```
 
-Second, RLOO uses the REINFORCE loss, which basically multiplies the (reward - baseline) by the logprob of actions. Here we highlight the differences between per-token REINFORCE loss and the entire completion REINFORCE loss. Note that for PPO's loss, we would need to calculate the advantage additionally based on the value model with [Generalized Advantage Estimation (GAE)](https://arxiv.org/abs/1506.02438).
+Second, RLOO uses the REINFORCE loss, which basically multiplies the (reward - baseline) by the logprob of actions. Here, we highlight the differences between per-token REINFORCE loss and the entire completion REINFORCE loss. Note that for PPO's loss, we would need to calculate the advantage additionally based on the value model with [Generalized Advantage Estimation (GAE)](https://arxiv.org/abs/1506.02438).
 
 ```python
 from torch import Tensor
