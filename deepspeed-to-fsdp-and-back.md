@@ -66,7 +66,7 @@ The two new FSDP modes are summarized in Table 2 and compared with DeepSpeed.
 | **Framework**             | **Model Loading (`torch_dtype`)** | **Mixed Precision** | **Preparation (Local)** | **Training** | **Optimizer (Local)** |
 | ------------------------- | --------------------------------- | ------------------- | ----------------------- | ------------ | --------------------- |
 | FSDP (memory-constrained) | `bf16`                            | default (none)      | `bf16`                  | `bf16`       | `bf16`                |
-| FSDP (aligned mode)       | `bf16`                            | `bf16`              | `fp32`                  | `bf16`       | `fp32`                |
+| FSDP (mixed precision mode)       | `bf16`                            | `bf16`              | `fp32`                  | `bf16`       | `fp32`                |
 | DeepSpeed                 | `bf16`                            | `bf16`              | `fp32`                  | `bf16`       | `fp32`                |
 
 > Table 2: Summary of the two new FSDP modes and comparisons with DeepSpeed
