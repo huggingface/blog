@@ -47,7 +47,7 @@ In FSDP, before the model and optimizer parameters are distributed across GPUs, 
 > Table 1: Summary of how FSDP and DeepSpeed handle mixed precision
 
 A few takeaway points:
-* As noted in the 🤗 Accelerate documentation, a rule of thumb when performing mixed precision is to keep trainable parameters in torch.float32. 
+* As noted an [🤗 Accelerate issue](https://github.com/huggingface/accelerate/issues/2624#issuecomment-2058402753), a rule of thumb when performing mixed precision is to keep trainable parameters in torch.float32. 
 * Upcasting, as is done in `DeepSpeed`, may have negligible effect on memory consumption when sharding over a large number of GPUs. However, when using `DeepSpeed` on a small number of GPUs, the 2x increase in memory consumption can be significant.
 * The torch-native implementation of FSDP does not force upcasting, allowing a user to operate PyTorch optimizers in low precision. This offers more flexibility than the native upcasting of `DeepSpeed`.
 
