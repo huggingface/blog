@@ -13,35 +13,21 @@ There are two popular implementations of the [ZeRO Redundancy Optimizer (Zero)](
 
 ## Are FSDP and DeepSpeed Interchangeable?
 
-Recently we ported a training pipeline from DeepSpeed to FSDP. We were surprised when
-the results obtained differed *substantially*. The specific model used was a Mistral-7B loaded in
-half-precision (`bfloat16`). While the DeepSpeed (blue) loss had converged well, the FSDP (orange)
-loss was not decreasing, as can be seen in Figure 1.
-
-Initially we thought that FSDP may be computing the mean of the gradients rather than the sum,
-hence requiring a higher learning rate. So, we bumped up the learning rate by 4x since we were
-using 4 GPUs. Then we saw the following loss behavior, shown in Figure 2:
+Recently we tried running a training pipeline with DeepSpeed and PyTorch FSDP. We noticed that the results obtained differed. The specific model was Mistral-7B base and it was loaded in half-precision (`bfloat16`). While the DeepSpeed (blue) loss had converged well, the FSDP (orange) loss was not decreasing, as can be seen in Figure 1.
 
 [[ZACH: INSERT FIGURE TWO HERE]]
 
 We hypothesized that the learning rate may need scaling by the number of GPUs and bumped up the learning rate by 4x since we were using 4 GPUs. Then, we saw the following loss behavior, shown in Figure 2. 
 
 It looked like the desired behavior had been achieved by scaling the FSDP learning rate by the number of GPUs! However,  when we tried a different learning rate (`1e-5`) without scaling, we observed similar loss and gradient norm characteristics for both frameworks, shown in Figure 3.
-## The Investigation Unfolds: Precision Matters
+## Precision Matters
 
 Inside the `DeepSpeed` codebase, specifically, in the implementation of
 `DeepSpeedZeroOptimizer_Stage3` (as the name implies, what handles doing Stage 3 optimizer sharding), we noticed that the `trainable_param_groups`, the parameter groups being trained on, pass through an 
 internal `_setup_for_real_optimizer` function call, which calls another function called `_create_fp32_partitions`.
+As the `fp32` in the name suggests, `DeepSpeed` was performing upcasting internally, and it always keeps its master weights in `fp32` by design. This upcasting to full precision meant that the optimizer could converge at learning rates that it would not converge in lower precision. The earlier observations were artifacts of this precision difference.
 
-This function was upcasting from `bf16` to `fp32` (full precision) internally, and it always kept the master weights in `fp32` *by design*. This upcasting meant that the optimizer could converge at learning rates that struggled in lower precisions. In Figure 1, FSDP was not converging with `1e-6`, and it was just a coincidence that bumping up the learning rate to `4e-6` (4x) just happened to be sufficient for converging, as shown in Figure 2. 
-
-The crux of the issue is how these two frameworks handle training on and utilizing lower precisions.
-
-During distributed training, before the model and optimizer parameters are split across GPUs they are first "flattened" to
-a one-dimensional `torch.Tensor` (or, a list). FSDP and DeepSpeed use different `dtype`s for these "flattened"
-parameters which has ramifications for PyTorch Optimizers. Table 1 outlines the processes for both
-frameworks. The "Local" column indicates if the process occurs per-GPU, and therefore the memory
-overhead from upcasting is amortized by the number of GPUs.
+In FSDP, before the model and optimizer parameters are distributed across GPUs, they are first "flattened" to a one-dimensional tensor. FSDP and DeepSpeed use different `dtype`s for these "flattened" parameters which has ramifications for PyTorch optimizers. Table 1 outlines the processes for both frameworks; the "Local" column indicates the process occurring per-GPU, therefore the memory overhead from upcasting is amortized by the number of GPUs.
 
 | **Process**                                                                              | **Local?** | **Framework**     | **Details**                                                                                                                                                                |
 | ---------------------------------------------------------------------------------------- | ---------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
