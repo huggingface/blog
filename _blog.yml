@@ -4179,3 +4179,13 @@
   tags:
     - community
     - open-source
+
+- local: putting_rl_back_in_rlhf_with_rloo
+  title: "Putting RL back in RLHF"
+  thumbnail: /blog/assets/putting_rl_back_in_rlhf_with_rloo/thumbnail.png
+  author: vwxyzjn
+  date: June 12, 2024
+  tags:
+    - research
+    - rl
+    - rlhf
