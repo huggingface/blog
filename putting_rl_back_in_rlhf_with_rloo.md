@@ -12,15 +12,15 @@ We are excited to introduce the RLOO (REINFORCE Leave One-Out) Trainer in TRL. A
 
 
 1. 🤑RLOO uses **approximately 50-70% less** vRAM than PPO, depending on the model size
-2. 🚀RLOO runs **2x faster** than PPO with 1B models and up to **3x faster **than PPO with 6.9B models.
+2. 🚀RLOO runs **2x faster** than PPO with 1B models and up to **3x faster** than PPO with 6.9B models.
 3. 🔥RLOO performs **competitively to PPO** in terms of the response win rate (judged by GPT4) and consistently outperforms popular offline methods like DPO.
 
 With RLOO, we bring reinforcement learning back into RLHF, enabling the community to explore online RL methods more easily. This is exciting because more and more studies have shown that online RL is more effective than offline methods such as DPO ([https://arxiv.org/abs/2402.04792](https://arxiv.org/abs/2402.04792), [https://arxiv.org/abs/2405.08448](https://arxiv.org/abs/2405.08448)). 
 
 
-![alt_text](assets/putting_rl_back_in_rlhf_with_rloo/image3.png "image_tooltip")
-![alt_text](assets/putting_rl_back_in_rlhf_with_rloo/image8.png "image_tooltip")
-![alt_text](assets/putting_rl_back_in_rlhf_with_rloo/image1.png "image_tooltip")
+![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image3.png?download=true "image_tooltip")
+![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image8.png?download=true "image_tooltip")
+![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image1.png?download=true "image_tooltip")
 
 
 This blog post will explain the motivation behind the RLOO Trainer, how it works, and how to use it in TRL. 
@@ -31,7 +31,7 @@ This blog post will explain the motivation behind the RLOO Trainer, how it works
 PPO is an effective online RLHF training algorithm that is used to train state-of-the-art models such as GPT-4. However, PPO can be quite challenging to use in practice due to its high GPU memory requirements. In particular, PPO needs to load 4 copies of the models into the memory: 1) the policy model, 2) the reference policy model, 3) the reward model, and 4) the value model, as shown in the following figure. PPO also has many subtle implementation details that can be difficult to get right ([Engstrom et al; 2020](https://openreview.net/forum?id=r1etN1rtPB), [Huang et al 2022](https://iclr-blog-track.github.io/2022/03/25/ppo-implementation-details/)).
 
 
-![alt_text](assets/putting_rl_back_in_rlhf_with_rloo/image7.png "image_tooltip")
+![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image7.png?download=true "image_tooltip")
 
 
 In a new paper from Cohere, [Ahmadian et al. (2024)](https://cohere.com/research/papers/back-to-basics-revisiting-reinforce-style-optimization-for-learning-from-human-feedback-in-llms-2024-02-23) revisited the basics of RLHF training and proposed a more elegant method called RLOO, a new online training algorithm. RLOO only needs to load 3 copies of the models into the memory: 1) the policy model, 2) the reference policy model, and 3) the reward model, as shown in the figure above. 
@@ -47,7 +47,7 @@ Importantly, RLOO requires less memory, meaning it’s easier to
 Furthermore, RLOO models the entire completion tokens as a single action, as illustrated in the figure below. In the next section, we will dive into further detail with code snippets.
 
 
-![alt_text](assets/putting_rl_back_in_rlhf_with_rloo/image4.png "image_tooltip")
+![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image4.png?download=true "image_tooltip")
 
 
 
@@ -197,7 +197,7 @@ Here is an example of tracked weights and biases experiments: [https://wandb.ai/
 
 
 
-![alt_text](assets/putting_rl_back_in_rlhf_with_rloo/image9.png "image_tooltip")
+![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image9.png?download=true "image_tooltip")
 
 
 When coding the RLOO and PPOv2 implementation, we emphasize making it easier to improve the transparency of model development. In particular, we have enhanced the docs to include an explanation of logged metrics and a cookbook guide on reading and debugging these metrics. For example, we recommend closely monitoring objective/rlhf_reward, the ultimate objective of the RLHF training, during training.
@@ -205,9 +205,9 @@ When coding the RLOO and PPOv2 implementation, we emphasize making it easier to 
 
 
 
-![alt_text](assets/putting_rl_back_in_rlhf_with_rloo/image2.png "image_tooltip")
+![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image2.png?download=true "image_tooltip")
 
-![alt_text](assets/putting_rl_back_in_rlhf_with_rloo/image6.png "image_tooltip")
+![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image6.png?download=true "image_tooltip")
 
 
 
@@ -221,7 +221,7 @@ To help visualize the training progress,, we periodically log some sample comple
 
 
 
-![alt_text](assets/putting_rl_back_in_rlhf_with_rloo/image5.gif "image_tooltip")
+![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image5.gif?download=true "image_tooltip")
 
 
 
