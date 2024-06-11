@@ -61,10 +61,7 @@ A few takeaway points:
 
 ## Harmonizing DeepSpeed and FSDP in 🤗 Accelerate
 
-To better align DeepSpeed and FSDP in 🤗 Accelerate, [Stas Bekman](https://github.com/stas00) suggested performing the upcasting automatically
-for FSDP when mixed precision was enabled. This was completed in [this accelerate PR](https://github.com/huggingface/accelerate/pull/2674) and has been
-available since the 0.30.0 release.
-
+To better align DeepSpeed and FSDP in 🤗 Accelerate, we can perform upcasting automatically for FSDP when mixed precision is enabled. We created a pull request with this change that was included  in the [0.30.0 release](https://github.com/huggingface/accelerate/releases/tag/v0.30.0).
 [[ZACH: INSERT FIGURE FOUR HERE]]
 
 The result of this PR is to allow FSDP to operate in two modes:
