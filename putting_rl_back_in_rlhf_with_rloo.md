@@ -9,14 +9,14 @@ authors:
 
 
 
-We are excited to introduce the RLOO (REINFORCE Leave One-Out) Trainer in TRL. As an alternative to PPO, RLOO is a new online RLHF training algorithm that is designed to be more accessible and easier to implement. In particular, **RLOO requires less GPU memory and takes less wall time to converge.** As shown in the figures below:
+We are excited to introduce the RLOO (REINFORCE Leave One-Out) Trainer in TRL. As an alternative to PPO, RLOO is a new online RLHF training algorithm designed to be more accessible and easier to implement. In particular, **RLOO requires less GPU memory and takes less wall time to converge.** As shown in the figures below:
 
 
 1. 🤑RLOO uses **approximately 50-70% less** vRAM than PPO, depending on the model size
 2. 🚀RLOO runs **2x faster** than PPO with 1B models and up to **3x faster** than PPO with 6.9B models.
 3. 🔥RLOO performs **competitively to PPO** in terms of the response win rate (judged by GPT4) and consistently outperforms popular offline methods like DPO.
 
-With RLOO, we bring reinforcement learning back into RLHF, enabling the community to explore online RL methods more easily. This is exciting because more and more studies have shown that online RL is more effective than offline methods such as DPO ([https://arxiv.org/abs/2402.04792](https://arxiv.org/abs/2402.04792), [https://arxiv.org/abs/2405.08448](https://arxiv.org/abs/2405.08448)). 
+With RLOO, we bring Reinforcement Learning back into RLHF, enabling the community to explore online RL methods more easily. This is exciting because more and more studies have shown that online RL is more effective than offline methods such as DPO ([https://arxiv.org/abs/2402.04792](https://arxiv.org/abs/2402.04792), [https://arxiv.org/abs/2405.08448](https://arxiv.org/abs/2405.08448)). 
 
 
 ![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image3.png?download=true "image_tooltip")
@@ -39,8 +39,6 @@ In a new paper from Cohere, [Ahmadian et al. (2024)](https://cohere.com/research
 
 Importantly, RLOO requires less memory, meaning it’s easier to 
 
-
-
 1. run without OOMs (out-of-memory errors) 
 2. being able to load larger batch sizes
 3. runs more efficiently and faster.
@@ -56,9 +54,9 @@ Furthermore, RLOO models the entire completion tokens as a single action, as ill
 
 Both RLOO and PPO have several shared steps: 
 
-1. The policy model would generate some completion tokens and get the per-token logprobs under the current policy and the reference policy. 
+1. The policy model would generate some completion tokens and get the per-token log probs under the current and reference policies. 
 
-2. We then calculate the per-token KL penalties as the difference between the logprobs under the current policy and the reference policy.
+2. We then calculate the per-token KL penalties as the difference between the logprobs under the current and reference policies.
 
 3. We then get the score of the entire completion from the reward model.
 
@@ -147,14 +145,15 @@ A big shout out to Arash Ahmadian, who provided the vectorized implementation of
 
 # Get started with using RLOO with TRL
 
-To get started with RLOO, you can install the latest version of of TRL via `pip install --upgrade trl` and import the RLOOTrainer. Below is a short snippet that shows some high-level API usage. Feel free to checkout the documentation 
+To get started with RLOO, you can install the latest version of TRL via `pip install --upgrade trl` and import the RLOOTrainer. Below is a short snippet that shows some high-level API usage. Feel free to checkout the documentation 
 
 
 
 * [https://huggingface.co/docs/trl/main/en/rloo_trainer](https://huggingface.co/docs/trl/main/en/rloo_trainer) 
 * [https://huggingface.co/docs/trl/main/en/ppov2_trainer](https://huggingface.co/docs/trl/main/en/ppov2_trainer) 
 
-```pythonfrom transformers import (
+```python
+from transformers import (
     AutoModelForCausalLM,
     AutoModelForSequenceClassification,
     AutoTokenizer,
@@ -193,10 +192,6 @@ trainer.train()
 ```
 
 Here is an example of tracked weights and biases experiments: [https://wandb.ai/huggingface/trl/runs/dd2o3g35](https://wandb.ai/huggingface/trl/runs/dd2o3g35) 
-
-
-
-
 
 ![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image9.png?download=true "image_tooltip")
 
@@ -283,7 +278,7 @@ The key results are as follows:
 
 # Numerical Stability: The Dark Side
 
-Despite the performance and compute efficiency advantages of RLOO, we want to highlight some numerical issues. Specifically, the response logprobs obtained during generation are slightly numerically different from the logprobs obtained during the training forward passes under `bf16`. This causes an issue for both PPO and RLOO, but it’s much worse for RLOO as explained below.
+Despite RLOO's performance and compute efficiency advantages, we want to highlight some numerical issues. Specifically, the response logprobs obtained during generation are slightly numerically different from the logprobs obtained during the training forward passes under `bf16`. This causes an issue for both PPO and RLOO, but it’s much worse for RLOO, as explained below.
 
 For example, say we are generating 10 tokens for two sequences. Under the precision `fp32`, the output looks as follows, where the `ratio = (forward_logprob - generation_logprob).exp()` and is what PPO used to clip. Under the first epoch and first minibatch, the ratio should be exactly the same because the model hasn’t done any updates:
 
@@ -347,9 +342,9 @@ ratio.min()=0.9921875
 ```
 
 
-Note that the ratio for `bf16` is very unstable for some reason. When ratio becomes large, PPO’s clip coefficient = 0.2 kicks in, **nulling** the gradient of the tokens for which the ratio is greater than 1.2 or lower than 0.8. With RLOO, this issue is more extreme because we are looking at the `(forward_logprob.sum(1) - generation_logprob.sum(1)).exp() = [ 1.0625, 12.1875]`, which means the gradient for the entire second sequence is nulled. 
+Note that the ratio for `bf16` is very unstable for some reason. When the ratio becomes large, PPO’s clip coefficient = 0.2 kicks in, **nulling** the gradient of the tokens for which the ratio is greater than 1.2 or lower than 0.8. With RLOO, this issue is more extreme because we are looking at the `(forward_logprob.sum(1) - generation_logprob.sum(1)).exp() = [ 1.0625, 12.1875]`, which means the gradient for the entire second sequence is nulled. 
 
-In practice, we noticed PPO nulls the gradient of approximately 3% of the batch data, whereas RLOO nulls about 20-40% of the batch data. Theoretically, RLOO should null 0% of the batch data, when not using mini-batches. Importantly, we observe that the clipping ratio for RLOO did not change significantly once we increased the number of gradient steps before generating new batches (through num_ppo_epochs and num_mini_batches), this provides empirical evidence that the clipping ratio is indeed due to numerical issues with bf16 as opposed to the behavior and latest policies being significantly different, as positioned in the paper. 
+In practice, we noticed PPO nulls the gradient of approximately 3% of the batch data, whereas RLOO nulls about 20-40% of the batch data. Theoretically, RLOO should null 0% of the batch data when not using mini-batches. Importantly, we observe that the clipping ratio for RLOO did not change significantly once we increased the number of gradient steps before generating new batches (through num_ppo_epochs and num_mini_batches); this provides empirical evidence that the clipping ratio is indeed due to numerical issues with bf16 as opposed to the behavior and latest policies being significantly different, as positioned in the paper. 
 
 To keep reading about the latest issue updates, feel free to check out [https://github.com/huggingface/transformers/issues/31267](https://github.com/huggingface/transformers/issues/31267). 
 
