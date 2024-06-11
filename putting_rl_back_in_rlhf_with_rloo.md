@@ -89,7 +89,27 @@ print(f"action='entire completion', reward={entire_generation_reward}")
 Second, RLOO uses the REINFORCE loss, which basically multiplies the (reward - baseline) by the logprob of actions. Here we highlight the differences between per-token REINFORCE loss and the entire completion REINFORCE loss. Note that for PPO's loss, we would need to calculate the advantage additionally based on the value model with [Generalized Advantage Estimation (GAE)](https://arxiv.org/abs/1506.02438).
 
 ```python
-# ... continue from above
+from torch import Tensor
+response = Tensor([4., 5., 6.])
+per_token_logprobs = Tensor([-12.3, -8.3, -2.3])
+reference_per_token_logprobs = Tensor([-11.3, -8.4, -2.0])
+kl = per_token_logprobs - reference_per_token_logprobs
+score_from_rm = 1.0
+print(f"{kl=}")  # kl=tensor([-1.0000,  0.1000, -0.3000])
+per_token_reward = kl.clone()
+per_token_reward[-1] += score_from_rm  # assume last token is the EOS token
+print(f"{per_token_reward=}")  # per_token_reward=tensor([-1.0000,  0.1000,  0.7000])
+print(f"{score_from_rm=}")  # score_from_rm=1.0
+print("#### Modeling each token as an action")
+for action, reward in zip(response, per_token_reward):
+    print(f"{action=}, {reward=}")
+# action=tensor(4.), reward=tensor(-1.)
+# action=tensor(5.), reward=tensor(0.1000)
+# action=tensor(6.), reward=tensor(0.7000)
+print("#### Modeling the entire response as an action")
+entire_generation_reward = per_token_reward.sum()
+print(f"action='entire completion', reward={entire_generation_reward}")
+# action='entire completion', reward=-0.2000 (-1 + 0.1 + 0.7)
 baseline = Tensor([0.2, 0.3, 0.4])  # dummy baseline
 print("#### Modeling each token as an action")
 advantage = per_token_reward - baseline
