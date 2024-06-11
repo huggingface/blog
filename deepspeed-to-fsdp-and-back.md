@@ -19,7 +19,7 @@ Recently we tried running a training pipeline with DeepSpeed and PyTorch FSDP. W
 
 We hypothesized that the learning rate may need scaling by the number of GPUs and bumped up the learning rate by 4x since we were using 4 GPUs. Then, we saw the following loss behavior, shown in Figure 2. 
 
-It looked like the desired behavior had been achieved by scaling the FSDP learning rate by the number of GPUs! However,  when we tried a different learning rate (`1e-5`) without scaling, we observed similar loss and gradient norm characteristics for both frameworks, shown in Figure 3.
+It looked like the desired behavior had been achieved by scaling the FSDP learning rate by the number of GPUs! However, when we tried a different learning rate (`1e-5`) without scaling, we observed similar loss and gradient norm characteristics for both frameworks, shown in Figure 3.
 ## Precision Matters
 
 Inside the `DeepSpeed` codebase, specifically, in the implementation of
@@ -41,18 +41,18 @@ In FSDP, before the model and optimizer parameters are distributed across GPUs, 
 > Table 1: Summary of how FSDP and DeepSpeed handle mixed precision
 
 A few takeaway points:
-* As noted in the 🤗  Documentation, a rule of thumb when performing mixed precision is to keep trainable parameters in torch.float32. 
+* As noted in the 🤗 Accelerate documentation, a rule of thumb when performing mixed precision is to keep trainable parameters in torch.float32. 
 * Upcasting, as is done in `DeepSpeed`, may have negligible effect on memory consumption when sharding over a large number of GPUs. However, when using `DeepSpeed` on a small number of GPUs, the 2x increase in memory consumption can be significant.
-* The torch-native implementation of FSDP does not force upcasting, allowing a user to operate PyTorch Optimizers  in low precision. This offers more flexibility than the native upcasting of `DeepSpeed`.
+* The torch-native implementation of FSDP does not force upcasting, allowing a user to operate PyTorch optimizers in low precision. This offers more flexibility than the native upcasting of `DeepSpeed`.
 
 
 ## Harmonizing DeepSpeed and FSDP in 🤗 Accelerate
 
-To better align DeepSpeed and FSDP in 🤗 Accelerate, we can perform upcasting automatically for FSDP when mixed precision is enabled. We created a pull request with this change that was included  in the [0.30.0 release](https://github.com/huggingface/accelerate/releases/tag/v0.30.0).
+To better align DeepSpeed and FSDP in 🤗 Accelerate, we can perform upcasting automatically for FSDP when mixed precision is enabled. We created a pull request with this change that was included in the [0.30.0 release](https://github.com/huggingface/accelerate/releases/tag/v0.30.0).
 [[ZACH: INSERT FIGURE FOUR HERE]]
 
 The result of this PR is to allow FSDP to operate in two modes:
--  A “mixed-precision” mode like the DeepSpeed counterpart
+- A “mixed-precision” mode like the DeepSpeed counterpart
 - A low precision mode for memory constrained scenarios, as shown in Figure 5.
 
 The two new FSDP modes are summarized in Figure 6 and compared with DeepSpeed.
