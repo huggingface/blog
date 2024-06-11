@@ -1,6 +1,6 @@
 ---
 title: "Putting RL back in RLHF"
-thumbnail: 
+thumbnail: /blog/assets/putting_rl_back_in_rlhf_with_rloo/thumbnail.png
 authors:
 - user: vwxyzjn
 - user: ArashAhmadian
