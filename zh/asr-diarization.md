@@ -69,8 +69,7 @@ self.asr_pipeline = pipeline(
       torch_dtype=torch_dtype,
       low_cpu_mem_usage=True,
       use_safetensors=True
-  )
-  
+  )  
   ...
 
   self.diarization_pipeline = Pipeline.from_pretrained(
