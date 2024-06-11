@@ -2,6 +2,7 @@
 title: "From DeepSpeed to FSDP and Back Again with Hugging Face Accelerate"
 authors:
 - user: mirinflim
+- user: aldopareja
 - user: muellerzr
 - user: stas00
 ---
