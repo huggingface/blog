@@ -1602,6 +1602,16 @@
     - research
     - LLM
 
+- local: asr-diarization
+  title: 使用 Hugging Face 推理终端搭建强大的“语音识别 + 说话人分割 + 投机解码”工作流
+  author: sergeipetrov
+  thumbnail: /blog/assets/asr-diarization/thumbnail.png
+  date: May 1, 2024
+  tags:
+    - audio
+    - asr
+    - inference
+
 - local: cost-efficient-rag-applications-with-intel
   title: 利用英特尔 Gaudi 2 和至强 CPU 构建经济高效的企业级 RAG 应用
   author: juliensimon
@@ -1628,6 +1638,17 @@
     - langchain
     - benchmark
 
+- local: langchain
+  title: Hugging Face x LangChain：全新 LangChain 合作伙伴包
+  author: jofthomas
+  thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
+  date: May 14, 2024
+  tags:
+    - collaboration
+    - community
+    - nlp
+    - llm
+
 - local: paligemma
   title: PaliGemma 正式发布 — Google 最新发布的前沿开放视觉语言模型
   thumbnail: /blog/assets/paligemma/Paligemma.png
@@ -1637,3 +1658,24 @@
     - multimodal
     - LLM
     - vision
+
+- local: kv-cache-quantization
+  title: 用 KV 缓存量化解锁长文本生成
+  thumbnail: /blog/assets/kv_cache_quantization/thumbnail.png
+  author: RaushanTurganbay
+  date: May 16, 2024
+  tags:
+    - generation
+    - LLM
+    - quantization
+
+- local: train-sentence-transformers
+  title: 用 Sentence Transformers v3 训练和微调嵌入模型
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: May 28, 2024
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source

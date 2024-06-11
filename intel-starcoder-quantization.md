@@ -7,7 +7,7 @@ authors:
 - user: echarlaix
 - user: imargulis
   guest: true
-- user: dkorat
+- user: danielkorat
   guest: true
 - user: jmamou
   guest: true

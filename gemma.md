@@ -9,6 +9,8 @@ authors:
 
 # Welcome Gemma - Google’s new open LLM
 
+> [!NOTE] An update to the Gemma models was released two months after this post, see the latest versions [in this collection](https://huggingface.co/collections/google/gemma-release-65d5efbccdbb8c4202ec078b).
+
 Gemma, a new family of state-of-the-art open LLMs, was released today by Google! It's great to see Google reinforcing its commitment to open-source AI, and we’re excited to fully support the launch with comprehensive integration in Hugging Face.
 
 Gemma comes in two sizes: 7B parameters, for efficient deployment and development on consumer-size GPU and TPU and 2B versions for CPU and on-device applications. Both come in base and instruction-tuned variants.
@@ -110,25 +112,21 @@ With Transformers [release 4.38](https://github.com/huggingface/transformers/re
 
 In addition, Gemma models are compatible with `torch.compile()` with CUDA graphs, giving them a ~4x speedup at inference time!
 
-To use Gemma models with transformers, make sure to use the latest `transformers` release:
+To use Gemma models with transformers, make sure to install a recent version of `transformers`:
 
 ```jsx
-pip install -U "transformers==4.38.1" --upgrade
+pip install --upgrade transformers
 ```
 
 The following snippet shows how to use `gemma-7b-it` with transformers. It requires about 18 GB of RAM, which includes consumer GPUs such as 3090 or 4090.
 
 ```python
-from transformers import AutoTokenizer
-import transformers
+from transformers import pipeline
 import torch
 
-model = "google/gemma-7b-it"
-
-tokenizer = AutoTokenizer.from_pretrained(model)
-pipeline = transformers.pipeline(
+pipe = pipeline(
     "text-generation",
-    model=model,
+    model="google/gemma-7b-it",
     model_kwargs={"torch_dtype": torch.bfloat16},
     device="cuda",
 )
@@ -136,16 +134,16 @@ pipeline = transformers.pipeline(
 messages = [
 	{"role": "user", "content": "Who are you? Please, answer in pirate-speak."},
 ]
-prompt = pipeline.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-outputs = pipeline(
-    prompt,
+outputs = pipe(
+    messages,
     max_new_tokens=256,
     do_sample=True,
     temperature=0.7,
     top_k=50,
     top_p=0.95
 )
-print(outputs[0]["generated_text"][len(prompt):])
+assistant_response = outputs[0]["generated_text"][-1]["content"]
+print(assistant_response)
 ```
 
 > `Avast me, me hearty. I am a pirate of the high seas, ready to pillage and plunder. Prepare for a tale of adventure and booty!`
