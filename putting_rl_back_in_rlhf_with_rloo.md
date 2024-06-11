@@ -86,7 +86,7 @@ print(f"action='entire completion', reward={entire_generation_reward}")
 # action='entire completion', reward=-0.2000 (-1 + 0.1 + 0.7)
 ```
 
-Second, RLOO uses the REINFORCE loss, which basically multiplies the (reward - baseline) by the logprob of actions. Here we highlight the differences between per-token REINFORCE loss and the entire completion REINFORCE loss. Note that for PPO's loss, we would need to calculate the advantage additionally based on the value model with GAE.
+Second, RLOO uses the REINFORCE loss, which basically multiplies the (reward - baseline) by the logprob of actions. Here we highlight the differences between per-token REINFORCE loss and the entire completion REINFORCE loss. Note that for PPO's loss, we would need to calculate the advantage additionally based on the value model with [Generalized Advantage Estimation (GAE)](https://arxiv.org/abs/1506.02438).
 
 ```python
 # ... continue from above
@@ -260,7 +260,7 @@ To validate the RLOO implementation works, we ran experiments on the Pythia 1B a
 
 * [https://huggingface.co/collections/vwxyzjn/rloo-ppov2-tl-dr-summarize-checkpoints-66679a3bfd95ddf66c97420d](https://huggingface.co/collections/vwxyzjn/rloo-ppov2-tl-dr-summarize-checkpoints-66679a3bfd95ddf66c97420d)  
 
-We take the SFT / RM models directly from ([https://arxiv.org/pdf/2403.17031](https://arxiv.org/pdf/2403.17031)). To evaluate, we use vLLM to load the checkpoints and GPT4 as a judge model to assess the generated TL;DR against the reference TL;DR. We also look at the GPU memory usage and runtime, as shown in the figures at the beginning of the blog post. To reproduce our work, feel free to check out the commands in our docs:
+We take the SFT / RM models directly from [Huang et al., 2024](https://arxiv.org/abs/2403.17031). To evaluate, we use vLLM to load the checkpoints and GPT4 as a judge model to assess the generated TL;DR against the reference TL;DR. We also look at the GPU memory usage and runtime, as shown in the figures at the beginning of the blog post. To reproduce our work, feel free to check out the commands in our docs:
 
 
 
