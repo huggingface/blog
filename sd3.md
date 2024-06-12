@@ -103,7 +103,7 @@ image
 
 ![wizard_cat](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/sd3/wizard_cat.png)
 
-You can check out the SD3 documentation here (TODO). 
+You can check out the SD3 documentation [here](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion_3). 
 
 ## Memory Optimizations for SD3
 
@@ -220,7 +220,7 @@ We benchmarked the performance of `torch.compile()`on SD3 on a single 80GB A100 
 
 Additionally, we’re providing a [DreamBooth](https://dreambooth.github.io/) fine-tuning script for SD3 leveraging [LoRA](https://huggingface.co/blog/lora). The script can be used to efficiently fine-tune SD3 and serves as a reference for implementing rectified flow-based training pipelines. Other popular implementations of rectified flow include [minRF](https://github.com/cloneofsimo/minRF/). 
 
-To get started with the script, first, ensure you have the right setup and a demo dataset available (such as [this one](https://huggingface.co/datasets/diffusers/dog-example)). Refer here (TODO) for details. Install `peft` and `bitsandbytes` and then we’re good to go:
+To get started with the script, first, ensure you have the right setup and a demo dataset available (such as [this one](https://huggingface.co/datasets/diffusers/dog-example)). Refer [here](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_sd3.md) for details. Install `peft` and `bitsandbytes` and then we’re good to go:
 
 ```bash
 export MODEL_NAME="stabilityai/stable-diffusion-3-medium"
