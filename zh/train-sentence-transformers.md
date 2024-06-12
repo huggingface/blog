@@ -182,9 +182,9 @@ args = SentenceTransformerTrainingArguments(
     per_device_train_batch_size=16,
     per_device_eval_batch_size=16,
     warmup_ratio=0.1,
-    fp16=True, # Set to False if your GPU can't handle FP16
-    bf16=False, # Set to True if your GPU supports BF16
-    batch_sampler=BatchSamplers.NO_DUPLICATES, # Losses using "in-batch negatives" benefit from no duplicates
+    fp16=True,  # Set to False if your GPU can't handle FP16
+    bf16=False,  # Set to True if your GPU supports BF16
+    batch_sampler=BatchSamplers.NO_DUPLICATES,  # Losses using "in-batch negatives" benefit from no duplicates
     # Optional tracking/debugging parameters:
     eval_strategy="steps",
     eval_steps=100,
@@ -192,7 +192,7 @@ args = SentenceTransformerTrainingArguments(
     save_steps=100,
     save_total_limit=2,
     logging_steps=100,
-    run_name="mpnet-base-all-nli-triplet", # Used in W&B if `wandb` is installed
+    run_name="mpnet-base-all-nli-triplet",  # Used in W&B if `wandb` is installed
 )
 ```
 
@@ -320,9 +320,9 @@ args = SentenceTransformerTrainingArguments(
     per_device_train_batch_size=16,
     per_device_eval_batch_size=16,
     warmup_ratio=0.1,
-    fp16=True, # Set to False if GPU can't handle FP16
-    bf16=False, # Set to True if GPU supports BF16
-    batch_sampler=BatchSamplers.NO_DUPLICATES, # MultipleNegativesRankingLoss benefits from no duplicates
+    fp16=True,  # Set to False if GPU can't handle FP16
+    bf16=False,  # Set to True if GPU supports BF16
+    batch_sampler=BatchSamplers.NO_DUPLICATES,  # MultipleNegativesRankingLoss benefits from no duplicates
     # Optional tracking/debugging parameters:
     eval_strategy="steps",
     eval_steps=100,
@@ -330,7 +330,7 @@ args = SentenceTransformerTrainingArguments(
     save_steps=100,
     save_total_limit=2,
     logging_steps=100,
-    run_name="mpnet-base-all-nli-triplet", # Used in W&B if `wandb` is installed
+    run_name="mpnet-base-all-nli-triplet",  # Used in W&B if `wandb` is installed
 )
 
 # 6. (Optional) Create an evaluator & evaluate the base model

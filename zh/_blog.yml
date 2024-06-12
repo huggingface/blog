@@ -1659,6 +1659,16 @@
     - LLM
     - vision
 
+- local: kv-cache-quantization
+  title: 用 KV 缓存量化解锁长文本生成
+  thumbnail: /blog/assets/kv_cache_quantization/thumbnail.png
+  author: RaushanTurganbay
+  date: May 16, 2024
+  tags:
+    - generation
+    - LLM
+    - quantization
+
 - local: train-sentence-transformers
   title: 用 Sentence Transformers v3 训练和微调嵌入模型
   author: tomaarsen
