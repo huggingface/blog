@@ -50,7 +50,7 @@ The rectified flow-matching sampling process is simpler and performs well when r
 
 To quickly try out SD3, refer to the application below: 
 
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="stabilityai/stable-diffusion-3-medium"></gradio-app>
 
 ## Using SD3 with Diffusers
