@@ -20,9 +20,12 @@ We are excited to introduce the RLOO (REINFORCE Leave One-Out) Trainer in TRL. A
 With RLOO, we bring Reinforcement Learning back into RLHF, enabling the community to explore online RL methods more easily. This is exciting because more and more studies have shown that online RL is more effective than offline methods such as DPO ([https://arxiv.org/abs/2402.04792](https://arxiv.org/abs/2402.04792), [https://arxiv.org/abs/2405.08448](https://arxiv.org/abs/2405.08448)). 
 
 
-![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image3.png?download=true "image_tooltip")
-![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image8.png?download=true "image_tooltip")
-![alt_text](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/image1.png?download=true "image_tooltip")
+<p align="center">
+  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/win_rate_comparison.png?download=true" alt="alt_text" title="image_tooltip" />
+</p>
+<p align="center">
+  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/memory_runtime_comparison.png?download=true" alt="alt_text" title="image_tooltip" />
+</p>
 
 
 This blog post will explain the motivation behind the RLOO Trainer, how it works, and how to use it in TRL. 
