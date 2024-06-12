@@ -187,6 +187,7 @@ args = SentenceTransformerTrainingArguments(
     save_total_limit=2,
     logging_steps=100,
     run_name="mpnet-base-all-nli-triplet",  # Used in W&B if `wandb` is installed
+)
 ```
 
 Note that `eval_strategy` was introduced in `transformers` version `4.41.0`. Prior versions should use `evaluation_strategy` instead.
