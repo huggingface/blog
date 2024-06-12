@@ -385,4 +385,4 @@ The introduction of the RLOO (REINFORCE Leave One-Out) Trainer in TRL is an exci
 
 # Acknowledgment and Thanks 
 
-We thank Lewis Tunstall, Sarah Hooker, Omar Sanseviero, and Leandro Von Werra for the helpful feedback on this blog post.
+We thank Lewis Tunstall, Sara Hooker, Omar Sanseviero, and Leandro Von Werra for the helpful feedback on this blog post.
