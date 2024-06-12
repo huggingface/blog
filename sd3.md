@@ -38,7 +38,7 @@ SD3 is a latent diffusion model that consists of three different text encoders (
 
 SD3 processes text inputs and pixel latents as a sequence of embeddings. Positional encodings are added to 2x2 patches of the latents which are then flattened into a patch encoding sequence. This sequence, along with the text encoding sequence are fed into the MMDiT blocks, where they are embedded to a common dimensionality, concatenated, and passed through a sequence of modulated attentions and MLPs.
 
-In order to account for the differences between two modalities, the MMDiT blocks use two separate sets of weights to embed the text and image sequences to a common dimensionality.  These sequences are joined before the attention operation, which allows both representations to work in their own space while taking the other one into account during the attention operation [1]. This two-way flow of information between text and image data differs from previous approaches for text-to-image synthesis, where text information is incorporated into the latent via cross-attention with a fixed text representation.       
+In order to account for the differences between the two modalities, the MMDiT blocks use two separate sets of weights to embed the text and image sequences to a common dimensionality.  These sequences are joined before the attention operation, which allows both representations to work in their own space while taking the other one into account during the attention operation [1]. This two-way flow of information between text and image data differs from previous approaches for text-to-image synthesis, where text information is incorporated into the latent via cross-attention with a fixed text representation.       
 
 SD3 also makes use of the pooled text embeddings from both its CLIP models as part of its timestep conditioning. These embeddings are first concatenated and added to the timestep embedding before being passed to each of the MMDiT blocks.           
 
@@ -214,7 +214,7 @@ image.save("sd3_hello_world.png")
 
 *Refer [here](https://gist.github.com/sayakpaul/508d89d7aad4f454900813da5d42ca97) for the full script.*
 
-We benchmarked the performance of `torch.compile()`on SD3 on a single 80GB A100 machine  using `fp16` precision and PyTorch 2.3. We ran 10 iterations of a pipeline inference call with 20 tdiffusion steps. We found that the average inference time with the compiled versions of the models was **0.585 seconds,** *a 4X speed up over eager execution*.    
+We benchmarked the performance of `torch.compile()`on SD3 on a single 80GB A100 machine  using `fp16` precision and PyTorch 2.3. We ran 10 iterations of a pipeline inference call with 20 diffusion steps. We found that the average inference time with the compiled versions of the models was **0.585 seconds,** *a 4X speed up over eager execution*.    
 
 ## Dreambooth and LoRA fine-tuning
 
@@ -222,7 +222,7 @@ Additionally, we’re providing a [DreamBooth](https://dreambooth.github.io/) fi
 
 To get started with the script, first, ensure you have the right setup and a demo dataset available (such as [this one](https://huggingface.co/datasets/diffusers/dog-example)). Refer here (TODO) for details. Install `peft` and `bitsandbytes` and then we’re good to go:
 
-```python
+```bash
 export MODEL_NAME="stabilityai/stable-diffusion-3-medium"
 export INSTANCE_DIR="dog"
 export OUTPUT_DIR="dreambooth-sd3-lora"
