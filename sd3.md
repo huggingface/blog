@@ -250,4 +250,4 @@ accelerate launch train_dreambooth_lora_sd3.py \
 
 ## Acknowledgements
 
-Thanks to the Stability AI team for making Stable Diffusion 3 happen and providing us with its early access.
+Thanks to the Stability AI team for making Stable Diffusion 3 happen and providing us with its early access. Thanks to [Linoy](https://huggingface.co/linoyts) for helping us with the blogpost thumbnail.
