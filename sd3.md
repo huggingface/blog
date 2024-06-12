@@ -2,7 +2,12 @@
 title: "Diffusers welcomes Stable Diffusion 3"
 thumbnail: /blog/assets/sd3/thumbnail.png
 authors:
-- user: diffusers
+- user: dn6
+- user: YiYiXu
+- user: sayakpaul
+- user: OzzyGT
+- user: kashif
+- user: multimodalart
 ---
 
 # 🧨 Diffusers welcomes Stable Diffusion 3
