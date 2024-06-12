@@ -61,7 +61,11 @@ To use SD3 with Diffusers, make sure to upgrade to the latest Diffusers release.
 pip install --upgrade diffusers  
 ```
 
-Additionally, you will need to accept the StabilityAI license from the model repository here to access the model. 
+As the model is gated, before using it with diffusers you first need to go to the [Stable Diffusion 3 Medium Hugging Face page](https://huggingface.co/stabilityai/stable-diffusion-3-medium-diffusers), fill in the form and accept the gate. Once you are in, you need to log in so that your system knows you’ve accepted the gate. Use the command below to log in: 
+
+```bash
+huggingface-cli login
+```
 
 The following snippet will download the 2B parameter version of SD3 in `fp16` precision. This is the format used in the original checkpoint published by Stability AI, and is the recommended way to run inference.  
 
