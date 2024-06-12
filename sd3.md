@@ -78,7 +78,7 @@ image = pipe(
 image
 ```
 
-![Untitled](%F0%9F%A7%A8%20Diffusers%20welcomes%20Stable%20Diffusion%203%20cb744fcd59bb43e794810ee31f69d54f/Untitled.png)
+![hello_world_cat](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/sd3/hello_world_cat.png)
 
 ### Image-To-Image
 
@@ -96,7 +96,7 @@ image = pipe(prompt, image=init_image).images[0]
 image
 ```
 
-![Untitled](%F0%9F%A7%A8%20Diffusers%20welcomes%20Stable%20Diffusion%203%20cb744fcd59bb43e794810ee31f69d54f/Untitled%201.png)
+![wizard_cat](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/sd3/wizard_cat.png)
 
 You can check out the SD3 documentation here (TODO). 
 
