@@ -3,7 +3,6 @@ title: "Putting RL back in RLHF"
 thumbnail: /blog/assets/putting_rl_back_in_rlhf_with_rloo/thumbnail.png
 authors:
 - user: vwxyzjn
-  org: HuggingFaceH4
 - user: ArashAhmadian
   org: CohereForAI
   guest: true
