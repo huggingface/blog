@@ -2,9 +2,15 @@
 title: "From DeepSpeed to FSDP and Back Again with Hugging Face Accelerate"
 authors:
 - user: mirinflim
+  guest: true
+  org: IBM
 - user: aldopareja
+  guest: true
+  org: IBM
 - user: muellerzr
 - user: stas00
+  guest: true
+  org: ContextualAI
 ---
 
 # A Hugging Face Accelerate Story of Multiple Backends: FSDP and DeepSpeed
