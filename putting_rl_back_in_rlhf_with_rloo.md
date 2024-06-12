@@ -3,12 +3,13 @@ title: "Putting RL back in RLHF"
 thumbnail: /blog/assets/putting_rl_back_in_rlhf_with_rloo/thumbnail.png
 authors:
 - user: vwxyzjn
+  org: HuggingFaceH4
 - user: ArashAhmadian
   org: CohereForAI
   guest: true
 ---
 
-
+# Putting RL back in RLHF
 
 We are excited to introduce the RLOO (REINFORCE Leave One-Out) Trainer in TRL. As an alternative to PPO, RLOO is a new online RLHF training algorithm designed to be more accessible and easier to implement. In particular, **RLOO requires less GPU memory and takes less wall time to converge.** As shown in the figures below:
 
