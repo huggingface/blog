@@ -107,7 +107,7 @@ image
 
 ![wizard_cat](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/sd3/wizard_cat.png)
 
-You can check out the SD3 documentation [here](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion_3). 
+You can check out the SD3 documentation [here](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/stable_diffusion_3). 
 
 ## Memory Optimizations for SD3
 
