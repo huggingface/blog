@@ -71,7 +71,7 @@ The following snippet will download the 2B parameter version of SD3 in `fp16` pr
 import torch
 from diffusers import StableDiffusion3Pipeline
 
-pipe = StableDiffusion3Pipeline.from_pretrained("stabilityai/stable-diffusion-3-medium", torch_dtype=torch.float16)
+pipe = StableDiffusion3Pipeline.from_pretrained("stabilityai/stable-diffusion-3-medium-diffusers", torch_dtype=torch.float16)
 pipe = pipe.to("cuda")
 
 image = pipe(
@@ -92,7 +92,7 @@ import torch
 from diffusers import StableDiffusion3Img2ImgPipeline
 from diffusers.utils import load_image
 
-pipe = StableDiffusion3Img2ImgPipeline.from_pretrained("stabilityai/stable-diffusion-3-medium", torch_dtype=torch.float16)
+pipe = StableDiffusion3Img2ImgPipeline.from_pretrained("stabilityai/stable-diffusion-3-medium-diffusers", torch_dtype=torch.float16)
 pipe = pipe.to("cuda")
 
 init_image = load_image("https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png")
@@ -119,7 +119,7 @@ The most basic memory optimization available in Diffusers allows you to offload 
 import torch
 from diffusers import StableDiffusion3Pipeline
 
-pipe = StableDiffusion3Pipeline.from_pretrained("stabilityai/stable-diffusion-3-medium", torch_dtype=torch.float16)
+pipe = StableDiffusion3Pipeline.from_pretrained("stabilityai/stable-diffusion-3-medium-diffusers", torch_dtype=torch.float16)
 pipe.enable_model_cpu_offload()
 
 prompt = "smiling cartoon dog sits at a table, coffee mug on hand, as a room goes up in flames. “This is fine,” the dog assures himself."
@@ -134,7 +134,7 @@ image = pipe(prompt).images[0]
 import torch
 from diffusers import StableDiffusion3Pipeline
 
-pipe = StableDiffusion3Pipeline.from_pretrained("stabilityai/stable-diffusion-3-medium", text_encoder_3=None, tokenizer_3=None, torch_dtype=torch.float16)
+pipe = StableDiffusion3Pipeline.from_pretrained("stabilityai/stable-diffusion-3-medium-diffusers", text_encoder_3=None, tokenizer_3=None, torch_dtype=torch.float16)
 pipe = pipe.to("cuda")
 
 prompt = "smiling cartoon dog sits at a table, coffee mug on hand, as a room goes up in flames. “This is fine,” the dog assures himself."
@@ -153,7 +153,7 @@ from transformers import T5EncoderModel, BitsAndBytesConfig
 # Make sure you have `bitsandbytes` installed. 
 quantization_config = BitsAndBytesConfig(load_in_8bit=True)
 
-model_id = "stabilityai/stable-diffusion-3-medium"
+model_id = "stabilityai/stable-diffusion-3-medium-diffusers"
 text_encoder = T5EncoderModel.from_pretrained(
     model_id,
     subfolder="text_encoder_3",
@@ -191,7 +191,7 @@ torch._inductor.config.epilogue_fusion = False
 torch._inductor.config.coordinate_descent_check_all_directions = True
 
 pipe = StableDiffusion3Pipeline.from_pretrained(
-    "stabilityai/stable-diffusion-3-medium",
+    "stabilityai/stable-diffusion-3-medium-diffusers",
     torch_dtype=torch.float16
 ).to("cuda")
 pipe.set_progress_bar_config(disable=True)
@@ -223,7 +223,7 @@ Additionally, we’re providing a [DreamBooth](https://dreambooth.github.io/) fi
 To get started with the script, first, ensure you have the right setup and a demo dataset available (such as [this one](https://huggingface.co/datasets/diffusers/dog-example)). Refer [here](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_sd3.md) for details. Install `peft` and `bitsandbytes` and then we’re good to go:
 
 ```bash
-export MODEL_NAME="stabilityai/stable-diffusion-3-medium"
+export MODEL_NAME="stabilityai/stable-diffusion-3-medium-diffusers"
 export INSTANCE_DIR="dog"
 export OUTPUT_DIR="dreambooth-sd3-lora"
 
