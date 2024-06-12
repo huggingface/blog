@@ -4179,3 +4179,14 @@
   tags:
     - community
     - open-source
+
+
+- local: sd3
+  title: "🧨 Diffusers welcomes Stable Diffusion 3"
+  author: diffusers
+  thumbnail: /blog/assets/sd3/thumbnail.png
+  date: June 12, 2024
+  tags:
+    - diffusers
+    - guide
+    - sd3
