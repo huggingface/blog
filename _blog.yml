@@ -4180,6 +4180,17 @@
     - community
     - open-source
 
+
+- local: sd3
+  title: "🧨 Diffusers welcomes Stable Diffusion 3"
+  author: diffusers
+  thumbnail: /blog/assets/sd3/thumbnail.png
+  date: June 12, 2024
+  tags:
+    - diffusers
+    - guide
+    - sd3
+    
 - local: putting_rl_back_in_rlhf_with_rloo
   title: "Putting RL back in RLHF"
   thumbnail: /blog/assets/putting_rl_back_in_rlhf_with_rloo/thumbnail.png
