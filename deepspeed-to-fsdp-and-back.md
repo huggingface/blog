@@ -9,11 +9,11 @@ authors:
 
 # A Hugging Face Accelerate Story of Multiple Backends: FSDP and DeepSpeed
 
-There are two popular implementations of the [ZeRO Redundancy Optimizer (Zero)](https://arxiv.org/abs/1910.02054) algorithm in the community, one from [DeepSpeed](https://github.com/microsoft/DeepSpeed) and the other from [PyTorch](https://pytorch.org/docs/stable/fsdp.html). Hugging Face [Accelerate](https://huggingface.co/docs/accelerate/en/index) exposes both these frameworks for the end users to train/tune their models. This blog highlights the differences between how these backends are exposed through Accelerate. To enable users to seamlessly switch between these backends, we [upstreamed a precision related change](https://github.com/huggingface/accelerate/issues/2624) and a [concept guide](https://huggingface.co/docs/accelerate/concept_guides/fsdp_and_deepspeed).
+There are two popular implementations of the [ZeRO Redundancy Optimizer (Zero)](https://arxiv.org/abs/1910.02054) algorithm in the community, one from [DeepSpeed](https://github.com/microsoft/DeepSpeed) and the other from [PyTorch](https://pytorch.org/docs/stable/fsdp.html). Hugging Face [Accelerate](https://huggingface.co/docs/accelerate/en/index) exposes both these frameworks for the end users to train/tune their models. This blog highlights the differences between how these backends are exposed through Accelerate. To enable users to seamlessly switch between these backends, we [upstreamed a precision-related change](https://github.com/huggingface/accelerate/issues/2624) and a [concept guide](https://huggingface.co/docs/accelerate/concept_guides/fsdp_and_deepspeed).
 
 ## Are FSDP and DeepSpeed Interchangeable?
 
-Recently we tried running a training pipeline with DeepSpeed and PyTorch FSDP. We noticed that the results obtained differed. The specific model was Mistral-7B base and it was loaded in half-precision (`bfloat16`). While the DeepSpeed (blue) loss had converged well, the FSDP (orange) loss was not decreasing, as can be seen in Figure 1.
+Recently, we tried running a training pipeline with DeepSpeed and PyTorch FSDP. We noticed that the results obtained differed. The specific model was Mistral-7B base and it was loaded in half-precision (`bfloat16`). While the DeepSpeed (blue) loss had converged well, the FSDP (orange) loss was not decreasing, as can be seen in Figure 1.
 
 ![Figure 1](https://cdn-lfs.huggingface.co/datasets/huggingface/documentation-images/1666e2fac64a29bdb6993c3856cc2964db208be8640f5d9e23b4a2111c0c800c?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27figure_1.png%3B+filename%3D%22figure_1.png%22%3B&response-content-type=image%2Fpng&Expires=1718385931&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTcxODM4NTkzMX19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy5odWdnaW5nZmFjZS5jby9kYXRhc2V0cy9odWdnaW5nZmFjZS9kb2N1bWVudGF0aW9uLWltYWdlcy8xNjY2ZTJmYWM2NGEyOWJkYjY5OTNjMzg1NmNjMjk2NGRiMjA4YmU4NjQwZjVkOWUyM2I0YTIxMTFjMGM4MDBjP3Jlc3BvbnNlLWNvbnRlbnQtZGlzcG9zaXRpb249KiZyZXNwb25zZS1jb250ZW50LXR5cGU9KiJ9XX0_&Signature=hNbNoQ8MClNsqOVTlWLAZF-3MJ5xIYoue7BoImRSoZyV3tb0lqYYqssLsLRCFE95PSkMj%7Eq0Yl7CGAEwAdTovDgeze5G46vNCDdkS8f5IXNHk%7ExCKQ4M0nRV4RQK9tDYiQOxFjRnU8STKtZtV8SejnVC1EapBgiNyCuptOWfpKAmsPqVds4LoiVMfHfk4ZV1Q41O4HIsLl4F9Iwnl37kHeykNb0tZgaKU8JaIoGBuDmpRESc3pjuQ2OHZN4TktQf4yaXuprAN2iuojVPHyc8KRMf3JOldq9yL22dynIvg6EWsx8iZmKaNHQuCu7OEa-694iYl61wqaQNiexE9qkcOw__&Key-Pair-Id=KVTP0A1DKRTAX)
 
@@ -28,7 +28,7 @@ It looked like the desired behavior had been achieved by scaling the FSDP learni
 
 ## Precision Matters
 
-Inside the `DeepSpeed` codebase, specifically, in the implementation of
+Inside the `DeepSpeed` codebase, specifically in the implementation of
 `DeepSpeedZeroOptimizer_Stage3` (as the name implies, what handles doing Stage 3 optimizer sharding), we noticed that the `trainable_param_groups`, the parameter groups being trained on, pass through an 
 internal `_setup_for_real_optimizer` function call, which calls another function called `_create_fp32_partitions`.
 As the `fp32` in the name suggests, `DeepSpeed` was performing upcasting internally, and it always keeps its master weights in `fp32` by design. This upcasting to full precision meant that the optimizer could converge at learning rates that it would not converge in lower precision. The earlier observations were artifacts of this precision difference.
@@ -47,8 +47,8 @@ In FSDP, before the model and optimizer parameters are distributed across GPUs, 
 > Table 1: Summary of how FSDP and DeepSpeed handle mixed precision
 
 A few takeaway points:
-* As noted an [🤗 Accelerate issue](https://github.com/huggingface/accelerate/issues/2624#issuecomment-2058402753), a rule of thumb when performing mixed precision is to keep trainable parameters in torch.float32. 
-* Upcasting, as is done in `DeepSpeed`, may have negligible effect on memory consumption when sharding over a large number of GPUs. However, when using `DeepSpeed` on a small number of GPUs, the 2x increase in memory consumption can be significant.
+* As noted an [🤗 Accelerate issue](https://github.com/huggingface/accelerate/issues/2624#issuecomment-2058402753), a rule of thumb when performing mixed precision is to keep trainable parameters in `float32`. 
+* Upcasting, as is done in `DeepSpeed`, may have a negligible effect on memory consumption when sharding over a large number of GPUs. However, when using `DeepSpeed` on a small number of GPUs, the 2x increase in memory consumption can be significant.
 * The torch-native implementation of FSDP does not force upcasting, allowing a user to operate PyTorch optimizers in low precision. This offers more flexibility than the native upcasting of `DeepSpeed`.
 
 
@@ -113,4 +113,4 @@ All experiments in this blog can be reproduced with the code from the [original 
 We intend to follow up with throughput comparisons at scale and techniques to better utilize those GPUs for tuning and alignment jobs while maintaining model quality.
 ## Acknowledgements
 
-This is an effort that involved several teams across multiple organizations to come together. It started at IBM Research, specifically Aldo Pareja who found the issue and Fabian Lim who identified the precision gaps and fixed this issue. Zach Mueller and [Stas Bekman](https://github.com/stas00) have been phenomenal in providing feedback and the fixes to accelerate. Less Wright from the PyTorch Team at Meta was very helpful in questions on FSDP parameters. Finally, we would also like to thank the [DeepSpeed](https://www.deepspeed.ai/) team for providing feedback on this blog.
+This is an effort that involved several teams across multiple organizations to come together. It started at IBM Research, specifically Aldo Pareja, who found the issue, and Fabian Lim, who identified the precision gaps and fixed this issue. Zach Mueller and [Stas Bekman](https://github.com/stas00) have been phenomenal in providing feedback and the fixes to accelerate. Less Wright from the PyTorch Team at Meta was very helpful with questions on FSDP parameters. Finally, we would also like to thank the [DeepSpeed](https://www.deepspeed.ai/) team for providing feedback on this blog.
