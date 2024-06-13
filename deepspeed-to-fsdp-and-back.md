@@ -9,7 +9,7 @@ authors:
   guest: true
   org: IBM
 - user: muellerzr
-- user: stas00
+- user: stas
   guest: true
   org: ContextualAI
 ---
@@ -22,15 +22,15 @@ There are two popular implementations of the [ZeRO Redundancy Optimizer (Zero)](
 
 Recently, we tried running a training pipeline with DeepSpeed and PyTorch FSDP. We noticed that the results obtained differed. The specific model was Mistral-7B base and it was loaded in half-precision (`bfloat16`). While the DeepSpeed (blue) loss had converged well, the FSDP (orange) loss was not decreasing, as can be seen in Figure 1.
 
-![Figure 1](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/deepspeed-to-fsdp-and-back/figure_1.png)
+![Figure 1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/deepspeed-to-fsdp-and-back/figure_1.png)
 
 We hypothesized that the learning rate may need scaling by the number of GPUs and bumped up the learning rate by 4x since we were using 4 GPUs. Then, we saw the following loss behavior, shown in Figure 2. 
 
-![Figure 2](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/deepspeed-to-fsdp-and-back/figure_2.png)
+![Figure 2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/deepspeed-to-fsdp-and-back/figure_2.png)
 
 It looked like the desired behavior had been achieved by scaling the FSDP learning rate by the number of GPUs! However, when we tried a different learning rate (`1e-5`) without scaling, we observed similar loss and gradient norm characteristics for both frameworks, shown in Figure 3.
 
-![Figure 3](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/deepspeed-to-fsdp-and-back/figure_3.png)
+![Figure 3](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/deepspeed-to-fsdp-and-back/figure_3.png)
 
 
 ## Precision Matters
@@ -63,7 +63,7 @@ A few takeaway points:
 
 To better align DeepSpeed and FSDP in 🤗 Accelerate, we can perform upcasting automatically for FSDP when mixed precision is enabled. We created a pull request with this change that was included in the [0.30.0 release](https://github.com/huggingface/accelerate/releases/tag/v0.30.0).
 
-![Figure 4](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/deepspeed-to-fsdp-and-back/figure_4.png)
+![Figure 4](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/deepspeed-to-fsdp-and-back/figure_4.png)
 
 The result of this PR is to allow FSDP to operate in two modes:
 - A “mixed-precision” mode like the DeepSpeed counterpart
