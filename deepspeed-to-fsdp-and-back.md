@@ -1,5 +1,6 @@
 ---
 title: "From DeepSpeed to FSDP and Back Again with Hugging Face Accelerate"
+thumbnail: /blog/assets/deepspeed-to-fsdp-and-back/thumbnail.png
 authors:
 - user: mirinflim
   guest: true
