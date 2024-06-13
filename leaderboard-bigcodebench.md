@@ -183,7 +183,7 @@ We open-source all the artifacts of BigCodeBench, including the tasks, test case
 - [`bigcodebench` HF Leaderboard](https://huggingface.co/spaces/bigcode/bigcodebench-leaderboard)
 - [`bigcodebench` GitHub Pages Leaderboard](https://bigcode-bench.github.io/)
 
-If you have any questions or suggestions, please feel free to open an issue in the  repository or contact us via [terry.zhuo@monash.edu](mailto:terry.zhuo@monash.edu) or [contact@bigcode-project.org](mailto:contact@bigcode-project.org)
+If you have any questions or suggestions, please feel free to open an issue in the repository or contact us via [terry.zhuo@monash.edu](mailto:terry.zhuo@monash.edu) or [contact@bigcode-project.org](mailto:contact@bigcode-project.org).
 
 ## Citation
 
