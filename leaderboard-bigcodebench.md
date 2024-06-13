@@ -4,20 +4,26 @@ thumbnail:
 authors:
 - user: terryyz
   guest: true
+  org: bigcode
 - user: ganler
   guest: true
+  org: bigcode
 - user: zijwang
   guest: true
+  org: bigcode
 - user: SivilTaram
   guest: true
 - user: huybery
   guest: true
 - user: Muennighoff
   guest: true
+  org: bigcode
 - user: dpfried
   guest: true
+  org: bigcode
 - user: harmdevries
   guest: true
+  org: bigcode
 - user: lvwerra
 - user: clefourrier
 ---
@@ -77,6 +83,8 @@ To help the community better understand how the models perform on each task, we 
 
 We make BigCodeBench easily accessible to the community by providing a simple and user-friendly evaluation framework, which can be downloaded via [PyPI](https://pydigger.com/pypi/bigcodebench). The prototype of the evaluation framework is based on [EvalPlus](https://github.com/evalplus/evalplus) for HumanEval+ and MBPP+ benchmarks. Different from EvalPlus, we take great effort to build a less bounded and more flexible execution environment  to support tasks with diverse library dependencies, and adapt it for `unittest` in the test harness of BigCodeBench.
 
+To facilitate the evaluation, we provide pre-built Docker images for _code generation_ with [cuda-11.8.0](https://hub.docker.com/r/terryzho/bigcodebench-generate-cu11) and [cuda-12.1.1](https://hub.docker.com/r/terryzho/bigcodebench-generate-cu12), and [code execution](https://hub.docker.com/r/terryzho/bigcodebench-evaluate).
+
 ### Setup
 ```bash
 # Install to use bigcodebench.evaluate
@@ -109,10 +117,48 @@ bigcodebench.generate \
     --n_samples [n_samples] \
     --resume \
     --backend [vllm|hf|openai|mistral|anthropic|google] \
-    --tp [gpu_number]
+    --tp [gpu_number] \
+    [--trust_remote_code] \
+    [--base_url [base_url]]
 ```
 >
-The generated code samples will be stored in a file named `[model_name]--bigcodebench-[instruct|complete]--[backend]-[temp]-[n_samples].jsonl`.
+The generated code samples will be stored in a file named `[model_name]--bigcodebench-[instruct|complete]--[backend]-[temp]-[n_samples].jsonl`. Alternatively, you can use the following command to utilize our pre-built docker images for generating code samples:
+>
+```shell
+# If you are using GPUs
+docker run --gpus '"device=$CUDA_VISIBLE_DEVICES"' -v $(pwd):/app -t terryzho/bigcodebench-generate-cu11:latest \
+    --model [model_name] \ 
+    --subset [complete|instruct] \
+    [--greedy] \
+    --bs [bs] \   
+    --temperature [temp] \
+    --n_samples [n_samples] \
+    --resume \
+    --backend [vllm|hf|openai|mistral|anthropic|google] \
+    --tp [gpu_number]
+
+# ...Or if you are using CPUs
+docker run -v $(pwd):/app -t terryzho/bigcodebench-generate-cu11:latest \
+    --model [model_name] \ 
+    --subset [complete|instruct] \
+    [--greedy] \
+    --bs [bs] \   
+    --temperature [temp] \
+    --n_samples [n_samples] \
+    --resume \
+    --backend [vllm|hf|openai|mistral|anthropic|google]
+```
+
+>
+```shell
+# If you wish to use gated or private HuggingFace models and datasets
+docker run -e HUGGING_FACE_HUB_TOKEN=$token -v $(pwd):/app -t terryzho/bigcodebench-generate-cu11:latest # omit other arguments4
+
+# Similarly, to use other backends that require authentication
+docker run -e OPENAI_API_KEY=$OPENAI_API_KEY -v $(pwd):/app -t terryzho/bigcodebench-generate-cu11:latest # omit other arguments
+docker run -e GOOGLE_API_KEY=$OPENAI_API_KEY -v $(pwd):/app -t terryzho/bigcodebench-generate-cu11:latest # omit other arguments
+docker run -e ANTHROPIC_KEY=$ANTHROPIC_KEY -v $(pwd):/app -t terryzho/bigcodebench-generate-cu11:latest # omit other arguments
+```
 
 ### Code Post-processing
 
@@ -133,29 +179,40 @@ bigcodebench.sanitize --samples /path/to/vicuna-[??]b_temp_[??]
 # Sanitized code will be produced to `/path/to/vicuna-[??]b_temp_[??]-sanitized`
 ```
 
-### Code Evaluation
-
 You are strongly recommended to use a sandbox such as [docker](https://docs.docker.com/get-docker/):
 
 ```bash
 # mount the current directory to the container
-docker run -v $(pwd):/bigcodebench terryzho/bigcodebench-evaluate:latest --subset [complete|instruct] --samples samples.jsonl
+docker run -v $(pwd):/app terryzho/bigcodebench-evaluate:latest --subset [complete|instruct] --samples samples.jsonl
+# ...Or locally ⚠️
+bigcodebench.evaluate --subset [complete|instruct] --samples samples.jsonl
+# ...If the ground truth is working locally
+bigcodebench.evaluate --subset [complete|instruct] --samples samples.jsonl --no-gt
 ```
 
 ...Or if you want to try it locally regardless of the risks ⚠️:
 
 First, install the dependencies for BigCodeBench:
 
-```bash
+```shell
 pip install -r https://raw.githubusercontent.com/bigcode-project/bigcodebench/main/Requirements/requirements-eval.txt
 ```
 
 Then, run the evaluation:
 
 ```bash
+# ...Or locally ⚠️
 bigcodebench.evaluate --subset [complete|instruct] --samples samples-calibrated.jsonl
-# ...if the ground truth is not working locally
+# ...If the ground truth is not working locally
 bigcodebench.evaluate --subset [complete|instruct] --samples samples-calibrated.jsonl --no-gt
+```
+
+### Failure Inspection
+
+You can inspect the failed samples by using the following command:
+
+```shell
+bigcodebench.inspect --eval-results sample-sanitized_eval_results.json --in-place
 ```
 
 ## What's next?
