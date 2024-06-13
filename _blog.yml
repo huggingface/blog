@@ -4199,3 +4199,14 @@
     - diffusers
     - guide
     - sd3
+    
+- local: deepspeed-to-fsdp-and-back
+  title: "From DeepSpeed to FSDP and Back Again with Hugging Face Accelerate"
+  thumbnail: /blog/assets/deepspeed-to-fsdp-and-back/thumbnail.png
+  author: muellerzr
+  date: June 13, 2024
+  tags:
+    - open-source
+    - guide
+    - research
+    - collaboration
