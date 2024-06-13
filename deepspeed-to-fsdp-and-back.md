@@ -9,7 +9,7 @@ authors:
   guest: true
   org: IBM
 - user: muellerzr
-- user: stas00
+- user: stas
   guest: true
   org: ContextualAI
 ---
