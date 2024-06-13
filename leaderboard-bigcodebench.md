@@ -29,7 +29,7 @@ authors:
 While there have been some efforts to address this issue, they are either domain-specific, solution-specific, or hard-to-deploy (sorry [DS-1000](https://github.com/HKUNLP/DS-1000), [ODEX](https://github.com/zorazrw/odex), and [SWE-bench](https://github.com/princeton-nlp/SWE-bench) 💔).
 The community still lacks an easy-to-use benchmark that can fundamentally evaluate the programming capabilities of LLMs.
 
-To address aforementioned limitations, we spent a whole year developing a new benchmark with the BigCode community. We are excited to announce the release of BigCodeBench, the benchmark that evaluates LLMs on solving practical and challenging programming tasks. Specifically, BigCodeBench contain 1,140 function-level tasks to challenge LLMs to follow instruction and compose multiple function calls as tools from 139 libraries. To evaluate LLMs rigorously, each programming task encompasses 5.6 test cases with an average branch coverage of 99%.
+To address aforementioned limitations, we spent a whole year developing a new benchmark from scratch with the BigCode community. We are excited to announce the release of BigCodeBench, the benchmark that evaluates LLMs on solving practical and challenging programming tasks. Specifically, BigCodeBench contain 1,140 function-level tasks to challenge LLMs to follow instruction and compose multiple function calls as tools from 139 libraries. To evaluate LLMs rigorously, each programming task encompasses 5.6 test cases with an average branch coverage of 99%.
 
 Ready to deep dive into BigCodeBench? Let's get started! 🚀
 
