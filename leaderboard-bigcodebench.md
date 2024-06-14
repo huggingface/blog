@@ -33,9 +33,10 @@ authors:
 [HumanEval](https://github.com/openai/human-eval) is a widely used benchmark for evaluating large language models (LLMs) on code generation tasks. One main reason is that it is easy to evaluate a condense function-level code snippet. There are growing concerns about the effectiveness of HumanEval in evaluating programming capabilities of LLMs. The main concern is that the tasks in HumanEval are too simple and may not be representative of real-world programming tasks.
 
 While there have been some efforts to address this issue, they are either domain-specific, solution-specific, or hard-to-deploy (sorry [DS-1000](https://github.com/HKUNLP/DS-1000), [ODEX](https://github.com/zorazrw/odex), and [SWE-bench](https://github.com/princeton-nlp/SWE-bench) 💔).
-The community still lacks an easy-to-use benchmark that can fundamentally evaluate the programming capabilities of LLMs.
 
-To address aforementioned limitations, we spent a whole year developing a new benchmark from scratch with the BigCode community. We are excited to announce the release of BigCodeBench, the benchmark that evaluates LLMs on solving practical and challenging programming tasks. Specifically, BigCodeBench contain 1,140 function-level tasks to challenge LLMs to follow instruction and compose multiple function calls as tools from 139 libraries. To evaluate LLMs rigorously, each programming task encompasses 5.6 test cases with an average branch coverage of 99%.
+As the community still lacks an easy-to-use benchmark that can fundamentally evaluate the programming capabilities of LLMs, we spent a whole year developing a new benchmark from scratch with the BigCode community! 
+
+We are excited to announce the release of BigCodeBench, which evaluates LLMs on solving practical and challenging programming tasks. Specifically, BigCodeBench contain 1,140 function-level tasks to challenge LLMs to follow instruction and compose multiple function calls as tools from 139 libraries. To evaluate LLMs rigorously, each programming task encompasses 5.6 test cases with an average branch coverage of 99%.
 
 Ready to deep dive into BigCodeBench? Let's get started! 🚀
 
