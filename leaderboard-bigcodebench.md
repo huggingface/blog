@@ -123,7 +123,7 @@ To help the community understand model performance on each task, we track solve 
 
 We make BigCodeBench easily accessible to the community by providing a simple and user-friendly evaluation framework, which can be downloaded via [PyPI](https://pydigger.com/pypi/bigcodebench). The prototype of the evaluation framework is based on [EvalPlus](https://github.com/evalplus/evalplus) for HumanEval+ and MBPP+ benchmarks. Different from EvalPlus, we take great effort to build a less bounded and more flexible execution environment  to support tasks with diverse library dependencies, and adapt it for `unittest` in the test harness of BigCodeBench.
 
-To facilitate the evaluation, we provide pre-built Docker images for _code generation_ with [cuda-11.8.0](https://hub.docker.com/r/terryzho/bigcodebench-generate-cu11) and [cuda-12.1.1](https://hub.docker.com/r/terryzho/bigcodebench-generate-cu12), and [code execution](https://hub.docker.com/r/terryzho/bigcodebench-evaluate). Check out our [GitHub repository](https://github.com/bigcode-project/bigcodebench) to find more details on how to use the evaluation framework.
+To facilitate the evaluation, we provide pre-built Docker images for [_code generation_](https://hub.docker.com/r/terryzho/bigcodebench-generate), and [_code execution_](https://hub.docker.com/r/terryzho/bigcodebench-evaluate). Check out our [GitHub repository](https://github.com/bigcode-project/bigcodebench) to find more details on how to use the evaluation framework.
 
 ### Setup
 ```bash
@@ -185,8 +185,12 @@ bigcodebench.sanitize --samples /path/to/vicuna-[??]b_temp_[??]
 You are strongly recommended to use a sandbox such as [docker](https://docs.docker.com/get-docker/):
 
 ```bash
-# mount the current directory to the container
-docker run -v $(pwd):/app terryzho/bigcodebench-evaluate:latest --subset [complete|instruct] --samples samples.jsonl
+# Mount the current directory to the container
+docker run -v $(pwd):/app bigcodebench/bigcodebench-evaluate:latest --subset [complete|instruct] --samples samples-sanitized-calibrated
+# ...Or locally ⚠️
+bigcodebench.evaluate --subset [complete|instruct] --samples samples-sanitized-calibrated
+# ...If the ground truth is working locally (due to some flaky tests)
+bigcodebench.evaluate --subset [complete|instruct] --samples samples-sanitized-calibrated --no-gt
 ```
 
 ## What's next?
