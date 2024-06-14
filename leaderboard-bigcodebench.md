@@ -40,7 +40,7 @@ We are excited to announce the release of BigCodeBench, which evaluates LLMs on 
 
 Ready to deep dive into BigCodeBench? Let's get started! 🚀
 
-## What does the task in BigCodeBench look like? 🕵️‍♂️
+## What do the tasks in BigCodeBench look like? 🕵️‍♂️
 
 <img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/tease.png?raw=true" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
 
