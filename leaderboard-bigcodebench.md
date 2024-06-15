@@ -25,7 +25,7 @@ authors:
 - user: clefourrier
 ---
 
-# Introducing the BigCodeBench Leaderboard: Benchmarking Large Language Models on Solving Practical and Challenging Programming Tasks
+# BigCodeBench: Benchmarking Large Language Models on Solving Practical and Challenging Programming Tasks
 
 [HumanEval](https://github.com/openai/human-eval) is a widely used benchmark for evaluating large language models (LLMs) on code generation tasks. One main reason is that it is easy to evaluate a condense function-level code snippet. There are growing concerns about the effectiveness of HumanEval in evaluating programming capabilities of LLMs. The main concern is that the tasks in HumanEval are too simple and may not be representative of real-world programming tasks. Futhermore, HumanEval has been greatly contaminated by the training data, making it less reliable for evaluating the generalization of LLMs.
 
