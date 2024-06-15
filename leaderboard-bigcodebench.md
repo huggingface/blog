@@ -86,7 +86,7 @@ To better understand implementation complexity and tool-use diversity, we compar
 
 As shown in the task figure, the main target scenario is code completion (denoted as BigCodeBench-Complete), where LLMs are required to finish the implementation of a function based on detailed instructions in the docstring. However, considering downstream applications such as multi-turn dialogue, users may describe requirements in a more conversational and less verbose manner. This is where instruction-tuned LLMs are beneficial, as they are trained to follow natural-language instructions and generate code snippets accordingly. To test if models can truly understand human intents and translate them into code, we create BigCodeBench-Instruct, a more challenging variant of BigCodeBench designed to evaluate instruction-tuned LLMs.
 
-## Where does the task come from? 🤔
+## Where do the tasks come from? 🤔  
 
 <img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/construct_pipeline.svg?raw=true" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
 
