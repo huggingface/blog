@@ -8,9 +8,6 @@ authors:
 - user: ganler
   guest: true
   org: bigcode
-- user: zijwang
-  guest: true
-  org: bigcode
 - user: SivilTaram
   guest: true
 - user: huybery
