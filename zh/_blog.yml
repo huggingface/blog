@@ -1679,3 +1679,13 @@
     - guide
     - community
     - open-source
+
+- local: putting_rl_back_in_rlhf_with_rloo
+  title: 将强化学习重新引入RLHF
+  thumbnail: /blog/assets/putting_rl_back_in_rlhf_with_rloo/thumbnail.png
+  author: vwxyzjn
+  date: June 12, 2024
+  tags:
+    - research
+    - rl
+    - rlhf
