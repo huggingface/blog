@@ -79,3 +79,16 @@ A couple of alternatives:
 ## How to Use Highlight Boxes
 
 See an example [in this PR](https://github.com/huggingface/blog/pull/1180). This is to be used sparingly :)
+
+## More Assistance
+
+You can use the [community blog editor](https://huggingface.co/new-blog) which has a preview function.
+
+Or check out this [assistant space](https://huggingface.co/spaces/derek-thomas/hugging-face-blog-assistant) 
+to help with rendering some tricky markdown blocks like:
+- Inserting caption figures with image tables
+- Tip formatting
+- Inserting clickable references
+ 
+Do give it a like if it was helpful.
+

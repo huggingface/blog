@@ -1497,7 +1497,7 @@
     - open-source-collab
 
 - local: hugging-face-wiz-security-blog
-  title: "Hugging Face 与 Wiz Research 合作提高人工智能安全性"
+  title: Hugging Face 与 Wiz Research 合作提高人工智能安全性
   author: JJoe206
   thumbnail: /blog/assets/wiz_security/security.png
   date: April 4, 2024
@@ -1525,6 +1525,18 @@
     - multimodal
     - guide
     - trl
+
+- local: idefics2
+  title: Idefics2 简介：为社区而生的强大 8B 视觉语言模型
+  author: Leyo
+  thumbnail: /blog/assets/idefics/thumbnail.png
+  date: April 15, 2024
+  tags:
+    - research
+    - nlp
+    - cv
+    - vlm
+    - multimodal
 
 - local: ryght-case-study
   title: Ryght 在 Hugging Face 专家助力下赋能医疗保健和生命科学之旅
@@ -1568,7 +1580,7 @@
     - research
 
 - local: jat
-  title: "万事通，专精部分领域的多功能 Transformer 智能体"
+  title: 万事通，专精部分领域的多功能 Transformer 智能体
   author: qgallouedec
   thumbnail: /blog/assets/jat/thumbnail.png
   date: April 22, 2024
@@ -1589,3 +1601,101 @@
     - community
     - research
     - LLM
+
+- local: asr-diarization
+  title: 使用 Hugging Face 推理终端搭建强大的“语音识别 + 说话人分割 + 投机解码”工作流
+  author: sergeipetrov
+  thumbnail: /blog/assets/asr-diarization/thumbnail.png
+  date: May 1, 2024
+  tags:
+    - audio
+    - asr
+    - inference
+
+- local: cost-efficient-rag-applications-with-intel
+  title: 利用英特尔 Gaudi 2 和至强 CPU 构建经济高效的企业级 RAG 应用
+  author: juliensimon
+  thumbnail: /blog/assets/cost_efficient_rag_applications_with_intel/main.jpg
+  date: May 9, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
+
+- local: agents
+  title: '授权调用：介绍 Transformers 智能体 2.0  '
+  thumbnail: /blog/assets/agents/thumbnail.png
+  author: m-ric
+  date: May 13, 2024
+  tags:
+    - nlp
+    - LLM
+    - agents
+    - transformers
+    - gpt
+    - mixtral
+    - llama3
+    - langchain
+    - benchmark
+
+- local: langchain
+  title: Hugging Face x LangChain：全新 LangChain 合作伙伴包
+  author: jofthomas
+  thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
+  date: May 14, 2024
+  tags:
+    - collaboration
+    - community
+    - nlp
+    - llm
+
+- local: paligemma
+  title: PaliGemma 正式发布 — Google 最新发布的前沿开放视觉语言模型
+  thumbnail: /blog/assets/paligemma/Paligemma.png
+  author: merve
+  date: May 14, 2024
+  tags:
+    - multimodal
+    - LLM
+    - vision
+
+- local: kv-cache-quantization
+  title: 用 KV 缓存量化解锁长文本生成
+  thumbnail: /blog/assets/kv_cache_quantization/thumbnail.png
+  author: RaushanTurganbay
+  date: May 16, 2024
+  tags:
+    - generation
+    - LLM
+    - quantization
+
+- local: train-sentence-transformers
+  title: 用 Sentence Transformers v3 训练和微调嵌入模型
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: May 28, 2024
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+
+- local: putting_rl_back_in_rlhf_with_rloo
+  title: 将强化学习重新引入 RLHF
+  thumbnail: /blog/assets/putting_rl_back_in_rlhf_with_rloo/thumbnail.png
+  author: vwxyzjn
+  date: June 12, 2024
+  tags:
+    - research
+    - rl
+    - rlhf
+
+- local: sd3
+  title: "欢迎 Stable Diffusion 3 加入 🧨 Diffusers"
+  author: diffusers
+  thumbnail: /blog/assets/sd3/thumbnail.png
+  date: June 12, 2024
+  tags:
+    - diffusers
+    - guide
+    - sd3

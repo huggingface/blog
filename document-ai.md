@@ -10,8 +10,6 @@ authors:
 
 # Accelerating Document AI
 
-
-
 Enterprises are full of documents containing knowledge that isn't accessible by digital workflows. These documents can vary from letters, invoices, forms, reports, to receipts. With the improvements in text, vision, and multimodal AI, it's now possible to unlock that information. This post shows you how your teams can use open-source models to build custom solutions for free!
 
 Document AI includes many data science tasks from [image classification](https://huggingface.co/tasks/image-classification), [image to text](https://huggingface.co/tasks/image-to-text), [document question answering](https://huggingface.co/tasks/document-question-answering), [table question answering](https://huggingface.co/tasks/table-question-answering), and [visual question answering](https://huggingface.co/tasks/visual-question-answering). This post starts with a taxonomy of use cases within Document AI and the best open-source models for those use cases. Next, the post focuses on licensing, data preparation, and modeling. Throughout this post, there are links to web demos, documentation, and models. 
@@ -78,13 +76,26 @@ Document layout analysis typically uses the mAP (mean average-precision) metric,
     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
       <div itemprop="text">
 
-A step beyond layout analysis is document parsing. Document parsing is identifying and extracting key information from a document, such as names, items, and totals from an invoice form. This [LayoutLMv2 Space](https://huggingface.co/spaces/nielsr/LayoutLMv2-FUNSD) shows to parse a document to recognize questions, answers, and headers.
+A step beyond layout analysis is document parsing. Document parsing is identifying and extracting key information (often in the form of key-value pairs) from a document, such as names, items, and totals from an invoice form. This [LayoutLMv2 Space](https://huggingface.co/spaces/nielsr/LayoutLMv2-FUNSD) shows to parse a document to recognize questions, answers, and headers.
 
 The first version of LayoutLM (now known as LayoutLMv1) was released in 2020 and dramatically improved over existing benchmarks, and it's still one of the most popular models on the Hugging Face Hub for Document AI. [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) and [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) incorporate visual features during pre-training, which provides an improvement. The LayoutLM family produced a step change in Document AI performance. For example, on the [FUNSD](https://guillaumejaume.github.io/FUNSD/) benchmark dataset, a BERT model has an F1 score of 60%, but with LayoutLM, it is possible to get to 90%! 
 
-LayoutLMv1 now has many successors. [Donut](https://huggingface.co/docs/transformers/model_doc/donut) builds on LayoutLM but can take the image as input, so it doesn't require a separate OCR engine. [ERNIE-Layout](https://arxiv.org/abs/2210.06155) was recently released with promising results, see the [Space](https://huggingface.co/spaces/PaddlePaddle/ERNIE-Layout). For multilingual use cases, there are multilingual variants of LayoutLM, like [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) and [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt). This figure from the LayoutLM paper shows LayoutLM analyzing some different documents.
+LayoutLMv1 now has many successors, including [ERNIE-Layout](https://arxiv.org/abs/2210.06155) which shows promising results as shown in this [Space](https://huggingface.co/spaces/PaddlePaddle/ERNIE-Layout). For multilingual use cases, there are multilingual variants of LayoutLM, like [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) and [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt). This figure from the LayoutLM paper shows LayoutLM analyzing some different documents.
 
 ![png](assets/112_document-ai/layoutlm.png)
+
+Many successors of LayoutLM adopt a generative, end-to-end approach. This started with the [Donut](https://huggingface.co/docs/transformers/model_doc/donut) model, which simply takes a document's image as input and produces text as an output, not relying on any separate OCR engine. 
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/112_document_ai/donut.png"
+alt="drawing" width="600"/>
+
+<small> Donut model consisting of an encoder-decoder Transformer. Taken from the <a href="https://arxiv.org/abs/2111.15664">Donut paper.</a> </small>
+
+After Donut, various similar models were released, including [Pix2Struct](https://huggingface.co/docs/transformers/model_doc/pix2struct) by Google and [UDOP](https://huggingface.co/docs/transformers/model_doc/udop) by Microsoft. Nowadays, larger vision-language models such as [LLaVa-NeXT](https://huggingface.co/docs/transformers/model_doc/llava_next) and [Idefics2](https://huggingface.co/docs/transformers/model_doc/idefics2) can be fine-tuned to perform document parsing in an end-to-end manner. As a matter of fact, these models can be fine-tuned to perform any document AI task, from document image classification to document parsing, as long as the task can be defined as an image-text-to-text task. See, for instance, the [tutorial notebook](https://github.com/NielsRogge/Transformers-Tutorials/tree/master/PaliGemma) to fine-tune Google's [PaliGemma](https://huggingface.co/docs/transformers/model_doc/paligemma) (a smaller vision-language model) to return a JSON from receipt images.
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/112_document_ai/paligemma.jpeg" width="600"/>
+
+<small> Vision-language models such as PaliGemma can be fine-tuned on any image-text-to-text task. See the <a href="https://github.com/NielsRogge/Transformers-Tutorials/blob/master/PaliGemma/Fine_tune_PaliGemma_for_image_%3EJSON.ipynb">tutorial notebook.</a> </small>
 
 Data scientists are finding document layout analysis and extraction as key use cases for enterprises. The existing commercial solutions typically cannot handle the diversity of most enterprise data, in content and structure. Consequently, data science teams can often surpass commercial tools by fine-tuning their own models.
 </div>
@@ -124,7 +135,9 @@ Question answering on documents has dramatically changed how people interact wit
 
 In the past, building a DocVQA system would often require multiple models working together. There could be separate models for analyzing the document layout, performing OCR, extracting entities, and then answering a question. The latest DocVQA models enable question-answering in an end-to-end manner, comprising only a single (multimodal) model.
 
-DocVQA is typically evaluated using the Average Normalized Levenshtein Similarity (ANLS) metric. For more details regarding this metric, we refer to [this guide](https://rrc.cvc.uab.es/?ch=11&com=tasks). The current state-of-the-art on the DocVQA benchmark that is open-source is [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) which achieves an ANLS score of 83.37. However, this model consists of a pipeline of OCR + multimodal Transformer. [Donut](https://huggingface.co/docs/transformers/model_doc/donut) solves the task in an end-to-end manner using a single encoder-decoder Transformer, not relying on OCR. Donut doesn't provide state-of-the-art accuracy but shows the great potential of the end-to-end approach using a generative T5-like model. Impira hosts an [exciting Space](https://huggingface.co/spaces/impira/docquery) that illustrates LayoutLM and Donut for DocVQA.
+DocVQA is typically evaluated using the Average Normalized Levenshtein Similarity (ANLS) metric. For more details regarding this metric, we refer to [this guide](https://rrc.cvc.uab.es/?ch=11&com=tasks). The current state-of-the-art on the DocVQA benchmark that is open-source is [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3), which achieves an ANLS score of 83.37. However, this model consists of a pipeline of OCR + multimodal Transformer. 
+
+Newer models such as [Donut](https://huggingface.co/docs/transformers/model_doc/donut), [LLaVa-NeXT](https://huggingface.co/docs/transformers/model_doc/idefics2) and [Idefics2](https://huggingface.co/docs/transformers/model_doc/llava_next) solve the task in an end-to-end manner using a single Transformer-based neural network, not relying on OCR. Impira hosts an [exciting Space](https://huggingface.co/spaces/impira/docquery) that illustrates LayoutLM and Donut for DocVQA.
 
 Visual question answering is compelling; however, there are many considerations for successfully using it. Having accurate training data, evaluation metrics, and post-processing is vital. For teams taking on this use case, be aware that DocVQA can be challenging to work properly. In some cases, responses can be unpredictable, and the model can “hallucinate” by giving an answer that doesn't appear within the document. Visual question answering models can inherit biases in data raising ethical issues. Ensuring proper model setup and post-processing is integral to building a successful DocVQA solution.
 </div>
@@ -174,7 +187,12 @@ For teams considering building their own pre-trained model, be aware this can in
 
 Do you want the model to handle the OCR? For example, [Donut](https://huggingface.co/docs/transformers/model_doc/donut) doesn't require the document to be OCRed and directly works on full-resolution images, so there is no need for OCR before modeling. However, depending on your problem setup, it may be simpler to get OCR separately.
 
-Should you use higher-resolution images? When using images with [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2), it downscales them to 224 by 224, whereas [Donut](https://huggingface.co/docs/transformers/model_doc/donut) uses the full high-resolution image. However, using the full high-resolution image dramatically increases the memory required for training and inference.
+Should you use higher-resolution images? When using images with [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2), it downscales them to 224 by 224, which destroys the original aspect ratio of the images. Newer models such as [Donut](https://huggingface.co/docs/transformers/model_doc/donut), [Pix2Struct](https://huggingface.co/docs/transformers/model_doc/pix2struct) and [Idefics2](https://huggingface.co/docs/transformers/model_doc/idefics2) uses the full high-resolution image, keeping the original aspect ratio. Research has shown that performance dramatically increases with a higher image resolution, as it allows models to "see" a lot more. However, it also comes at the cost of additional memory required for training and inference.
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/112_document_ai/pix2struct.png"
+alt="drawing" width="600"/>
+
+<small> Effect of image resolution on downstream performance. Taken from the <a href="https://arxiv.org/abs/2210.03347">Pix2Struct paper.</a> </small>
 
 How are you evaluating the model? Watch out for misaligned bounding boxes. You should ensure bounding boxes provided by the OCR engine of your choice align with the model processor. Verifying this can save you from unexpectedly poor results. Second, let your project requirements guide your evaluation metrics. For example, in some tasks like token classification or question answering, a 100% match may not be the best metric. A metric like partial match could allow for many more potential tokens to be considered, such as “Acme” and “inside Acme” as a match. Finally, consider ethical issues during your evaluation as these models may be working with biased data or provide unstable outcomes that could biased against certain groups of people.
 
@@ -203,11 +221,12 @@ Notebooks and tutorials for many Document AI models can be found at:
     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
       <div itemprop="text">   
 
-A table of the currently available Transformers models achieving state-of-the-art performance on Document AI tasks. This was last updated in November 2022.
+A table of the currently available Transformers models achieving state-of-the-art performance on Document AI tasks. An important trend is that we see more and more vision-language models that perform document AI tasks in an end-to-end manner, taking the document image(s) as an input and producing text as an output.
+
+This was last updated in June 2024.
 
 | model | paper | license | checkpoints |
 | --- | --- | --- | --- |
-| [Donut](https://huggingface.co/docs/transformers/main/en/model_doc/donut#overview) | [arxiv](https://arxiv.org/abs/2111.15664) | [MIT](https://github.com/clovaai/donut#license) | [huggingface](https://huggingface.co/models?other=donut) |
 | [LayoutLM](https://huggingface.co/docs/transformers/model_doc/layoutlm) | [arxiv](https://arxiv.org/abs/1912.13318) | [MIT](https://github.com/microsoft/unilm/blob/master/LICENSE) | [huggingface](https://huggingface.co/models?other=layoutlm) |
 | [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) | [arxiv](https://arxiv.org/abs/2104.08836) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutxlm) | [huggingface](https://huggingface.co/microsoft/layoutxlm-base) |
 | [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) | [arxiv](https://arxiv.org/abs/2012.14740) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutlmv2) | [huggingface](https://huggingface.co/models?other=layoutlmv2) |
@@ -216,6 +235,11 @@ A table of the currently available Transformers models achieving state-of-the-ar
 | [TrOCR](https://huggingface.co/docs/transformers/main/en/model_doc/trocr) | [arxiv](https://arxiv.org/abs/2109.10282) | [MIT](https://github.com/microsoft/unilm/blob/master/LICENSE) | [huggingface](https://huggingface.co/models?search=trocr) |
 | [Table Transformer](https://huggingface.co/docs/transformers/main/en/model_doc/table-transformer) | [arxiv](https://arxiv.org/abs/2110.00061) | [MIT](https://github.com/microsoft/table-transformer/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=table-transformer) |
 | [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt) | [arxiv](https://arxiv.org/abs/2202.13669) | [MIT](https://github.com/jpWang/LiLT/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=lilt) |
+| [Donut](https://huggingface.co/docs/transformers/main/en/model_doc/donut#overview) | [arxiv](https://arxiv.org/abs/2111.15664) | [MIT](https://github.com/clovaai/donut#license) | [huggingface](https://huggingface.co/models?other=donut) |
+| [Pix2Struct](https://huggingface.co/docs/transformers/main/en/model_doc/pix2struct) | [arxiv](https://arxiv.org/abs/2210.03347) | [Apache 2.0](https://github.com/google-research/pix2struct/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=pix2struct) |
+| [UDOP](https://huggingface.co/docs/transformers/main/en/model_doc/udop) | [arxiv](https://arxiv.org/abs/2212.02623) | [MIT](https://github.com/microsoft/UDOP/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=udop) |
+| [Idefics2](https://huggingface.co/docs/transformers/main/en/model_doc/idefics2) | [arxiv](https://arxiv.org/abs/2405.02246) | [Apache 2.0](https://huggingface.co/HuggingFaceM4/idefics2-8b) | [huggingface](https://huggingface.co/collections/HuggingFaceM4/idefics2-661d1971b7c50831dd3ce0fe) |
+| [PaliGemma](https://huggingface.co/docs/transformers/main/en/model_doc/paligemma) | [blog post](https://huggingface.co/blog/paligemma) | [PaliGemma](https://ai.google.dev/gemma/terms) | [huggingface](https://huggingface.co/collections/google/paligemma-release-6643a9ffbf57de2ae0448dda) |
 
 </div>
     </div>
