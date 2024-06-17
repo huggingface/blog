@@ -27,10 +27,10 @@ authors:
 
 # BigCodeBench: Benchmarking Large Language Models on Solving Practical and Challenging Programming Tasks
 
-[HumanEval](https://github.com/openai/human-eval) is a widely used benchmark for evaluating large language models (LLMs) on code generation tasks. A main reason for its widespread use is that it is easy to evaluate a compact function-level code snippet. However, there are growing concerns about the effectiveness of HumanEval in evaluating programming capabilities of LLMs. The main concern is that the tasks in HumanEval are too simple and may not be representative of real-world programming tasks. Compared to the algorithm-oriented tasks in HumanEval, real-world software developement is often involved with diverse libraries and function calls. Futhermore, LLMs' performance on HumanEval is subject to [contamination and overfitting issues](https://arxiv.org/abs/2403.07974), making it less reliable for evaluating the generalization of LLMs.
+[HumanEval](https://github.com/openai/human-eval) is a reference benchmark for evaluating large language models (LLMs) on code generation tasks, as it makes the evaluation of compact function-level code snippets easy. However, there are growing concerns about its effectiveness in evaluating programming capabilities of LLMs, and the main concern is that tasks in HumanEval are too simple, and may not be representative of real-world programming tasks. Compared to the algorithm-oriented tasks in HumanEval, real-world software developement is often involved with diverse libraries and function calls. Futhermore, LLMs' performance on HumanEval is subject to [contamination and overfitting issues](https://arxiv.org/abs/2403.07974), making it less reliable for evaluating the generalization of LLMs.
 
 While there have been some efforts to address these issue, they are either domain-specific, determinisitc, or agent-centric (sorry [DS-1000](https://github.com/HKUNLP/DS-1000), [ODEX](https://github.com/zorazrw/odex), and [SWE-bench](https://github.com/princeton-nlp/SWE-bench) 💔).
-The community still lacks an easy-to-use benchmark that can broadly evaluate the programming capabilities of LLMs.
+We feel that the community still lacks an easy-to-use benchmark that can broadly evaluate the programming capabilities of LLMs, and that's what we focused on.
 
 We are excited to announce the release of BigCodeBench, which evaluates LLMs on solving practical and challenging programming tasks without contamination. Specifically, BigCodeBench contain 1,140 function-level tasks to challenge LLMs to follow instruction and compose multiple function calls as tools from 139 libraries. To evaluate LLMs rigorously, each programming task encompasses 5.6 test cases with an average branch coverage of 99%.
 
@@ -39,6 +39,8 @@ Ready to deep dive into BigCodeBench? Let's get started! 🚀
 ## What do the tasks in BigCodeBench look like? 🕵️‍♂️
 
 <img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/tease.svg?raw=true" alt="task" style="display: block; margin-left: auto; margin-right: auto;">
+
+BigCodeBench features complex, user-oriented instructions for each task, including clear functionality descriptions, input/output formats, error handling, and verified interactive examples. We avoid step-by-step task instructions, believing capable LLMs should understand and solve tasks from the user's perspective in an open-ended manner. We verify specific features using test cases.
 
 ```python
 # We elaborate the above task with some test cases:
@@ -72,7 +74,6 @@ class TestCases(unittest.TestCase):
 
     # More test cases...
 ```
-BigCodeBench features complex, user-oriented instructions for each task, including clear functionality descriptions, input/output formats, error handling, and verified interactive examples. We avoid step-by-step task instructions, believing capable LLMs should understand and solve tasks from the user's perspective in an open-ended manner. We verify specific features using test cases.
 
 Tasks in BigCodeBench utilize diverse function calls from popular libraries. We don't restrict the function calls LLMs can use, expecting them to choose appropriate functions and combine them flexibly to solve tasks. Test cases are designed as test harnesses to examine expected program behaviors during runtime.
 
@@ -108,7 +109,7 @@ We host the BigCodeBench leaderboard on both [Hugging Face Space](https://huggin
 
 <gradio-app theme_mode="light" space="bigcode/bigcodebench-leaderboard"></gradio-app>
 
-Interestingly, we observe that instruction-tuned LLMs like GPT-4 can omit essential import statements in the long prompts of BigCodeBench-Complete, leading to task failures due to missing modules and constants. This behavior, called "model laziness," is discussed in the [community](https://community.openai.com/t/why-i-think-gpt-is-now-lazy/534332).
+Interestingly, we observe that instruction-tuned LLMs like GPT-4 can omit essential import statements in the long prompts of BigCodeBench-Complete, leading to task failures due to missing modules and constants. This behavior, called "model laziness", is discussed in the [community](https://community.openai.com/t/why-i-think-gpt-is-now-lazy/534332).
 
 <u>Compared to human performance, LLMs perform significantly lower on BigCodeBench-Complete and even lower on BigCodeBench-Instruct.</u> The best model (GPT-4o) achieves a calibrated Pass@1 of 61.1% on BigCodeBench-Complete and 51.1% on BigCodeBench-Instruct. Additionally, there is a notable performance gap between closed and open LLMs.
 
@@ -120,9 +121,10 @@ To help the community understand model performance on each task, we track solve 
 
 We make BigCodeBench easily accessible to the community by providing a simple and user-friendly evaluation framework, which can be downloaded via [PyPI](https://pydigger.com/pypi/bigcodebench). The prototype of the evaluation framework is based on [EvalPlus](https://github.com/evalplus/evalplus) for the HumanEval+ and MBPP+ benchmarks. However, as our benchmark has tasks with much more diverse library dependencies than EvalPlus, we build less resource-constrained execution environment, and adapt it for `unittest` in the test harness of BigCodeBench.
 
-To facilitate the evaluation, we provide pre-built Docker images for [_code generation_](https://hub.docker.com/r/terryzho/bigcodebench-generate), and [_code execution_](https://hub.docker.com/r/terryzho/bigcodebench-evaluate). Check out our [GitHub repository](https://github.com/bigcode-project/bigcodebench) to find more details on how to use the evaluation framework.
+To facilitate the evaluation, we provide pre-built Docker images for [_code generation_](https://hub.docker.com/r/bigcodebench/bigcodebench-generate), and [_code execution_](https://hub.docker.com/r/bigcodebench/bigcodebench-evaluate). Check out our [GitHub repository](https://github.com/bigcode-project/bigcodebench) to find more details on how to use the evaluation framework.
 
 ### Setup
+
 ```bash
 # Install to use bigcodebench.evaluate
 pip install bigcodebench --upgrade
@@ -135,12 +137,15 @@ pip install bigcodebench[generate] --upgrade
 ```
 
 ### Code Generation
+
 You are suggested to use `flash-attn` for generating code samples.
+
 ```bash
 pip install -U flash-attn
 ```
 
 To generate code samples from a model, you can use the following command:
+
 ```bash
 bigcodebench.generate \
     --model [model_name] \
@@ -191,12 +196,12 @@ bigcodebench.evaluate --subset [complete|instruct] --samples samples-sanitized-c
 ```
 
 ## What's next?
-We share a long-term roadmap to address the limitations of BigCodeBench and sustainably build with the community. We believe that [program-aided language models](https://arxiv.org/abs/2211.10435) for task completion and reasoning offer a path toward artificial general intelligence. Our goal is to provide the community with the most open, reliable, and scalable evaluations to truly understand the fundamental capabilities of LLMs for programming and pinpoint ways to unleash their power. Specifically, we plan to enhance the following aspects of BigCodeBench:
+
+We share a long-term roadmap to address the limitations of BigCodeBench and sustainably build with the community. Our goal is to provide the community with the most open, reliable, and scalable evaluations to truly understand the fundamental capabilities of LLMs for programming and pinpoint ways to unleash their power. Specifically, we plan to enhance the following aspects of BigCodeBench:
 
 - **Multilingualism**: Currently, BigCodeBench is Python-only and cannot be easily extended to other programming languages. Since function calls are mostly language-specific, finding packages or libraries with the same functionalities in languages other than Python is challenging.
 
-- **Rigorousness**: While we achieve high test coverage for ground-truth solutions in BigCodeBench, it does not guarantee that *all* code solutions generated by LLMs will be correctly assessed against existing test cases. Previous works like EvalPlus have attempted to extend limited test cases by augmenting input-output pairs via LLM- and mutation-based strategies. However, adapting EvalPlus to the test harness in BigCodeBench is challenging, as it only emphasizes the input-output assertions. However, 
-most of test harnesses in BigCoeBench require non-trivial configurations (e.g., mock patching) to examine expected program behaviors during runtime.
+- **Rigorousness**: While we achieve high test coverage for ground-truth solutions in BigCodeBench, it does not guarantee that _all_ code solutions generated by LLMs will be correctly assessed against existing test cases. Previous works like EvalPlus have attempted to extend limited test cases by augmenting input-output pairs via LLM- and mutation-based strategies. However, adapting EvalPlus to the test harness in BigCodeBench is challenging, as it only emphasizes the input-output assertions. However, most of test harnesses in BigCoeBench require non-trivial configurations (e.g., mock patching) to examine expected program behaviors during runtime.
 
 - **Generalization**: A key question is, "How well do the models generalize to unseen tools and tasks?" Currently, BigCodeBench covers common libraries and daily programming tasks. Benchmarking models on programming tasks that use emerging libraries like [transformers](https://github.com/huggingface/transformers) and [langchain](https://github.com/langchain-ai/langchain) would be more interesting.
 
