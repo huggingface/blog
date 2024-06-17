@@ -217,11 +217,11 @@ We are excited to see the community's feedback and contributions to building Big
 
 We open-source all the artifacts of BigCodeBench, including the tasks, test cases, evaluation framework, and leaderboard. You can find them as follows:
 
-- [`bigcodebench` GitHub Repository](https://github.com/bigcode-project/bigcodebench)
-- [`bigcodebench` HF Data Viewer](https://huggingface.co/spaces/bigcode/bigcodebench-viewer)
-- [`bigcodebench` HF Dataset](https://huggingface.co/datasets/bigcode/bigcodebench)
-- [`bigcodebench` HF Leaderboard](https://huggingface.co/spaces/bigcode/bigcodebench-leaderboard)
-- [`bigcodebench` GitHub Pages Leaderboard](https://bigcode-bench.github.io/)
+- [GitHub Repository](https://github.com/bigcode-project/bigcodebench)
+- [HF Data Viewer](https://huggingface.co/spaces/bigcode/bigcodebench-viewer)
+- [HF Dataset](https://huggingface.co/datasets/bigcode/bigcodebench)
+- [HF Leaderboard](https://huggingface.co/spaces/bigcode/bigcodebench-leaderboard)
+- [GitHub Pages Leaderboard](https://bigcode-bench.github.io/)
 
 If you have any questions or suggestions, please feel free to open an issue in the repository or contact us via [terry.zhuo@monash.edu](mailto:terry.zhuo@monash.edu) or [contact@bigcode-project.org](mailto:contact@bigcode-project.org).
 
