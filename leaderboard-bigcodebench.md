@@ -24,6 +24,7 @@ authors:
   guest: true
   org: bigcode
 - user: lvwerra
+  org: bigcode
 - user: clefourrier
 ---
 
