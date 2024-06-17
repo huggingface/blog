@@ -29,12 +29,12 @@ authors:
 
 [HumanEval](https://github.com/openai/human-eval) is a reference benchmark for evaluating large language models (LLMs) on code generation tasks, as it makes the evaluation of compact function-level code snippets easy. However, there are growing concerns about its effectiveness in evaluating programming capabilities of LLMs, and the main concern is that tasks in HumanEval are too simple, and may not be representative of real-world programming tasks. Compared to the algorithm-oriented tasks in HumanEval, real-world software developement is often involved with diverse libraries and function calls. Futhermore, LLMs' performance on HumanEval is subject to [contamination and overfitting issues](https://arxiv.org/abs/2403.07974), making it less reliable for evaluating the generalization of LLMs.
 
-While there have been some efforts to address these issue, they are either domain-specific, determinisitc, or agent-centric (sorry [DS-1000](https://github.com/HKUNLP/DS-1000), [ODEX](https://github.com/zorazrw/odex), and [SWE-bench](https://github.com/princeton-nlp/SWE-bench) 💔).
+While there have been some efforts to address these issues, they are either domain-specific, determinisitc, or agent-centric (sorry [DS-1000](https://github.com/HKUNLP/DS-1000), [ODEX](https://github.com/zorazrw/odex), and [SWE-bench](https://github.com/princeton-nlp/SWE-bench) 💔).
 We feel that the community still lacks an easy-to-use benchmark that can broadly evaluate the programming capabilities of LLMs, and that's what we focused on.
 
-We are excited to announce the release of BigCodeBench, which evaluates LLMs on solving practical and challenging programming tasks without contamination. Specifically, BigCodeBench contain 1,140 function-level tasks to challenge LLMs to follow instruction and compose multiple function calls as tools from 139 libraries. To evaluate LLMs rigorously, each programming task encompasses 5.6 test cases with an average branch coverage of 99%.
+We are excited to announce the release of BigCodeBench, which evaluates LLMs on solving practical and challenging programming tasks without contamination. Specifically, BigCodeBench contains 1,140 function-level tasks to challenge LLMs to follow instructions and compose multiple function calls as tools from 139 libraries. To evaluate LLMs rigorously, each programming task encompasses 5.6 test cases with an average branch coverage of 99%.
 
-Ready to deep dive into BigCodeBench? Let's get started! 🚀
+Ready to dive into BigCodeBench? Let's get started! 🚀
 
 ## What do the tasks in BigCodeBench look like? 🕵️‍♂️
 
@@ -119,7 +119,7 @@ To help the community understand model performance on each task, we track solve 
 
 ## Great! So how can I evaluate my model on BigCodeBench? 🛠️
 
-We make BigCodeBench easily accessible to the community by providing a simple and user-friendly evaluation framework, which can be downloaded via [PyPI](https://pydigger.com/pypi/bigcodebench). The prototype of the evaluation framework is based on [EvalPlus](https://github.com/evalplus/evalplus) for the HumanEval+ and MBPP+ benchmarks. However, as our benchmark has tasks with much more diverse library dependencies than EvalPlus, we build less resource-constrained execution environment, and adapt it for `unittest` in the test harness of BigCodeBench.
+We make BigCodeBench easily accessible to the community by providing a simple and user-friendly evaluation framework, which can be downloaded via [PyPI](https://pydigger.com/pypi/bigcodebench). The prototype of the evaluation framework is based on [EvalPlus](https://github.com/evalplus/evalplus) for the HumanEval+ and MBPP+ benchmarks. However, as our benchmark has tasks with much more diverse library dependencies than EvalPlus, we build a less resource-constrained execution environment, and adapt it for `unittest` in the test harness of BigCodeBench.
 
 To facilitate the evaluation, we provide pre-built Docker images for [_code generation_](https://hub.docker.com/r/bigcodebench/bigcodebench-generate), and [_code execution_](https://hub.docker.com/r/bigcodebench/bigcodebench-evaluate). Check out our [GitHub repository](https://github.com/bigcode-project/bigcodebench) to find more details on how to use the evaluation framework.
 
@@ -128,7 +128,7 @@ To facilitate the evaluation, we provide pre-built Docker images for [_code gene
 ```bash
 # Install to use bigcodebench.evaluate
 pip install bigcodebench --upgrade
-# If you want to use the evaluate locally, you need to install the requirements
+# If you want to evaluate locally, you need to install the requirements
 pip install -I -r https://raw.githubusercontent.com/bigcode-project/bigcodebench/main/Requirements/requirements-eval.txt
 
 # Install to use bigcodebench.generate
@@ -169,7 +169,7 @@ LLM-generated text may not be compilable code as it includes natural language li
 We provide a tool namely `bigcodebench.sanitize` to clean up the code:
 
 ```bash
-# 💡 If you want to storing calibrated codes in jsonl:
+# 💡 If you want to store calibrated code in jsonl:
 bigcodebench.sanitize --samples samples.jsonl --calibrate
 # Sanitized code will be produced to `samples-sanitized-calibrated.jsonl`
 
