@@ -118,7 +118,7 @@ To help the community understand model performance on each task, we track solve 
 
 ## Great! So, how can I evaluate my model on BigCodeBench? 🛠️
 
-We make BigCodeBench easily accessible to the community by providing a simple and user-friendly evaluation framework, which can be downloaded via [PyPI](https://pydigger.com/pypi/bigcodebench). The prototype of the evaluation framework is based on [EvalPlus](https://github.com/evalplus/evalplus) for the HumanEval+ and MBPP+ benchmarks. However, as our benchmark has tasks with much more diverse library dependencies than EvalPlus, we build a less resource-constrained execution environment, and adapt it for `unittest` in the test harness of BigCodeBench.  
+We make BigCodeBench easily accessible to the community by providing a simple and user-friendly evaluation framework, which can be downloaded via [PyPI](https://pydigger.com/pypi/bigcodebench). The prototype of the evaluation framework is based on [EvalPlus](https://github.com/evalplus/evalplus) for the HumanEval+ and MBPP+ benchmarks. However, as our benchmark has tasks with much more diverse library dependencies than EvalPlus, we build less resource-constrained execution environment, and adapt it for `unittest` in the test harness of BigCodeBench.
 
 To facilitate the evaluation, we provide pre-built Docker images for [_code generation_](https://hub.docker.com/r/bigcodebench/bigcodebench-generate), and [_code execution_](https://hub.docker.com/r/bigcodebench/bigcodebench-evaluate). Check out our [GitHub repository](https://github.com/bigcode-project/bigcodebench) to find more details on how to use the evaluation framework.
 
@@ -127,8 +127,7 @@ To facilitate the evaluation, we provide pre-built Docker images for [_code gene
 ```bash
 # Install to use bigcodebench.evaluate
 pip install bigcodebench --upgrade
-
-# If you want to evaluate locally, you need to install the requirements 
+# If you want to use the evaluate locally, you need to install the requirements
 pip install -I -r https://raw.githubusercontent.com/bigcode-project/bigcodebench/main/Requirements/requirements-eval.txt
 
 # Install to use bigcodebench.generate
