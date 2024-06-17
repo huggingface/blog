@@ -1679,3 +1679,23 @@
     - guide
     - community
     - open-source
+
+- local: putting_rl_back_in_rlhf_with_rloo
+  title: 将强化学习重新引入 RLHF
+  thumbnail: /blog/assets/putting_rl_back_in_rlhf_with_rloo/thumbnail.png
+  author: vwxyzjn
+  date: June 12, 2024
+  tags:
+    - research
+    - rl
+    - rlhf
+
+- local: sd3
+  title: "欢迎 Stable Diffusion 3 加入 🧨 Diffusers"
+  author: diffusers
+  thumbnail: /blog/assets/sd3/thumbnail.png
+  date: June 12, 2024
+  tags:
+    - diffusers
+    - guide
+    - sd3
