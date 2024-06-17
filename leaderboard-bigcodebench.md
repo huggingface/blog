@@ -10,6 +10,7 @@ authors:
   org: bigcode
 - user: SivilTaram
   guest: true
+  org: bigcode
 - user: huybery
   guest: true
   org: bigcode
