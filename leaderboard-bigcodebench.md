@@ -24,6 +24,7 @@ authors:
   guest: true
   org: bigcode
 - user: lvwerra
+  org: bigcode
 - user: clefourrier
 ---
 
@@ -82,7 +83,7 @@ To assess LLM performance, we use Pass@1 with greedy decoding, measuring the per
 
 <img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/depth-breadth.svg?raw=true" alt="comparison" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
 
-To better understand implementation complexity and tool-use diversity, we compare the tasks in BigCodeBench with those in representative benchmarks, including [APPS](https://github.com/hendrycks/apps), [DS-1000](https://github.com/HKUNLP/DS-1000), [ODEX](https://github.com/zorazrw/odex), [APIBench](https://github.com/ShishirPatil/gorilla/tree/main/data/apibench), [MBPP](https://github.com/google-research/google-research/tree/master/mbpp), [NumpyEval](https://github.com/microsoft/PyCodeGPT/tree/main/cert/pandas-numpy-eval), [PandasEval](https://github.com/microsoft/PyCodeGPT/tree/main/cert/pandas-numpy-eval), [HumanEval](https://github.com/openai/human-eval), and [TorchDataEval](https://github.com/microsoft/PyCodeGPT/tree/main/apicoder/private-eval). We find that tasks in BigCodeBench require more complex reasoning and problem-solving skills to implement comprehensive functionalities.
+To better understand implementation complexity and tool-use diversity, we compare the tasks in BigCodeBench with those in representative benchmarks, including [APPS](https://github.com/hendrycks/apps), [DS-1000](https://github.com/HKUNLP/DS-1000), [ODEX](https://github.com/zorazrw/odex), [APIBench](https://github.com/ShishirPatil/gorilla/tree/main/data/apibench), [MBPP](https://github.com/google-research/google-research/tree/master/mbpp), [NumpyEval](https://github.com/microsoft/PyCodeGPT/tree/main/cert/pandas-numpy-eval), [PandasEval](https://github.com/microsoft/PyCodeGPT/tree/main/cert/pandas-numpy-eval), [HumanEval](https://github.com/openai/human-eval), and [TorchDataEval](https://github.com/microsoft/PyCodeGPT/tree/main/apicoder/private-eval). We find that BigCodeBench requires more complex reasoning and problem-solving skills to implement comprehensive functionalities.
 
 <img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/bigcodebench_prompt.svg?raw=true" alt="prompt" style="display: block; margin-left: auto; margin-right: auto; width: 70%;">
 
@@ -217,11 +218,11 @@ We are excited to see the community's feedback and contributions to building Big
 
 We open-source all the artifacts of BigCodeBench, including the tasks, test cases, evaluation framework, and leaderboard. You can find them as follows:
 
-- [`bigcodebench` GitHub Repository](https://github.com/bigcode-project/bigcodebench)
-- [`bigcodebench` HF Data Viewer](https://huggingface.co/spaces/bigcode/bigcodebench-viewer)
-- [`bigcodebench` HF Dataset](https://huggingface.co/datasets/bigcode/bigcodebench)
-- [`bigcodebench` HF Leaderboard](https://huggingface.co/spaces/bigcode/bigcodebench-leaderboard)
-- [`bigcodebench` GitHub Pages Leaderboard](https://bigcode-bench.github.io/)
+- [GitHub Repository](https://github.com/bigcode-project/bigcodebench)
+- [HF Data Viewer](https://huggingface.co/spaces/bigcode/bigcodebench-viewer)
+- [HF Dataset](https://huggingface.co/datasets/bigcode/bigcodebench)
+- [HF Leaderboard](https://huggingface.co/spaces/bigcode/bigcodebench-leaderboard)
+- [GitHub Pages Leaderboard](https://bigcode-bench.github.io/)
 
 If you have any questions or suggestions, please feel free to open an issue in the repository or contact us via [terry.zhuo@monash.edu](mailto:terry.zhuo@monash.edu) or [contact@bigcode-project.org](mailto:contact@bigcode-project.org).
 
