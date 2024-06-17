@@ -4199,3 +4199,15 @@
     - diffusers
     - guide
     - sd3
+
+- local: leaderboard-bigcodebench
+  title: "BigCodeBench: Benchmarking Large Language Models on Solving Practical and Challenging Programming Tasks"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_bigcode.png
+  author: terryyz
+  guest: true
+  date: Jun 18, 2024
+  tags:
+    - leaderboard
+    - research
+    - collaboration
+    - community
