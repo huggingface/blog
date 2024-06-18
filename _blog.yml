@@ -4210,3 +4210,14 @@
     - guide
     - research
     - collaboration
+
+- local: vdpo
+  title: "Preference Optimization for Visual Language Models"
+  author: qgallouedec
+  thumbnail: /blog/assets/vdpo/thumbnail.png
+  date: June 16, 2024
+  tags:
+    - vlm
+    - multimodal
+    - trl
+    - rlhf
