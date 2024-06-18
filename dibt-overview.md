@@ -11,7 +11,7 @@ authors:
 
 For the past few months, we have been working on the [Data Is Better Together](https://github.com/huggingface/data-is-better-together) initiative. With this collaboration between Hugging Face and Argilla and the support of the open-source ML community, our goal has been to empower the open-source community to create impactful datasets collectively.
 
-Now, we have decided to move forward to explore new possibilities while always keeping our main goal in mind. To provide a clear overview of our achievements and the tasks where everyone can still contribute, we have organized this into two sections: community efforts and cookbook efforts.
+Now, we have decided to move forward to explore new possibilities while always keeping our main goal in mind. To provide a clear overview of our achievements and the tasks to which everyone can still contribute, we have organized this into two sections: community efforts and cookbook efforts.
 
 ## Community efforts
 
