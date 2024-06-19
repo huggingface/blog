@@ -39,7 +39,7 @@ As part of [DIBT](https://github.com/huggingface/data-is-better-together), we al
 
 ## What have we learnt?
 
-- The community is eager to participate in this efforts and there is excitement about collectively working on datasets
+- The community is eager to participate in these efforts, and there is excitement about collectively working on datasets.
 - There are existing inequalities that must be overcome to ensure comprehensive and inclusive benchmarks. Datasets for certain languages, domains, and tasks are currently underrepresented in the open-source community.
 - We have many of the tools needed for the community to effectively collaborate on building valuable datasets.
 
