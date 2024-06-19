@@ -9,8 +9,6 @@ authors:
   guest: true
 ---
 
-[]()
-
 # Going multimodal: How Prezi is leveraging the Hub and the Expert Support Program to accelerate their ML roadmap
 
 Everybody knows that a great visual is worth a thousand words. The team at Prezi, a visual communications software company, is putting this insight into practice with their Prezi presentations that combine images and text in highly dynamic presentations. 
