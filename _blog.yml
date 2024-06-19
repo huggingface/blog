@@ -4223,12 +4223,11 @@
     - collaboration
     - community
 
-- local: dibt-overview
+- local: dibt
   title: "Data Is Better Together: A Look Back and Forward"
-  thumbnail: /blog/assets/dibt-overview/thumbnail.png
+  thumbnail: /blog/assets/dibt/thumbnail.png
   author: sdiazlor
-  guest: true
-  date: Jun 18, 2024
+  date: Jun 19, 2024
   tags:
     - collaboration
     - community
