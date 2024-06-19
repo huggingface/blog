@@ -45,7 +45,7 @@ As part of [DIBT](https://github.com/huggingface/data-is-better-together), we al
 
 ## How can you get involved?
 
-You can still contribute to the cookbook efforts by following the instructions in the README of the project you're interested in and share your datasets and results with the community. Or provide new guides and tools for everyone. Your contributions are invaluable in helping us build a robust and comprehensive resource for all.
+You can still contribute to the cookbook efforts by following the instructions in the README of the project you're interested in, sharing your datasets and results with the community, or providing new guides and tools for everyone. Your contributions are invaluable in helping us build a robust and comprehensive resource for all.
 
 If you want to be part, please join us in the `#data-is-better-together` channel in the [**Hugging Face Discord**](http://hf.co/join/discord) and let us know what you want to build together!
 
