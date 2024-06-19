@@ -34,7 +34,7 @@ Going forward, we’ll continue to support community efforts focused on building
 As part of [DIBT](https://github.com/huggingface/data-is-better-together), we also created guides and tools that help the community build valuable datasets on their own.
 
 - **Domain Specific dataset**: To bootstrap the creation of more domain-specific datasets for training models, bringing together engineers and domain experts.
-- **DPO/ORPO dataset**: To help foster a community of people building more DPO-style datasets for different languages, domains and tasks.
+- **DPO/ORPO dataset**: To help foster a community of people building more DPO-style datasets for different languages, domains, and tasks.
 - **KTO dataset**: To help the community create their own KTO datasets.
 
 ## What have we learnt?
