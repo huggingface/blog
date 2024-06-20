@@ -57,11 +57,11 @@ To quickly try out SD3, refer to the application below:
 
 To use SD3 with Diffusers, make sure to upgrade to the latest Diffusers release. 
 
-```python
+```sh
 pip install --upgrade diffusers  
 ```
 
-As the model is gated, before using it with diffusers you first need to go to the [Stable Diffusion 3 Medium Hugging Face page](https://huggingface.co/stabilityai/stable-diffusion-3-medium-diffusers), fill in the form and accept the gate. Once you are in, you need to log in so that your system knows you’ve accepted the gate. Use the command below to log in: 
+As the model is gated, before using it with `diffusers` you first need to go to the [Stable Diffusion 3 Medium Hugging Face page](https://huggingface.co/stabilityai/stable-diffusion-3-medium-diffusers), fill in the form and accept the gate. Once you are in, you need to log in so that your system knows you’ve accepted the gate. Use the command below to log in: 
 
 ```bash
 huggingface-cli login
@@ -142,7 +142,7 @@ pipe = StableDiffusion3Pipeline.from_pretrained("stabilityai/stable-diffusion-3-
 pipe = pipe.to("cuda")
 
 prompt = "smiling cartoon dog sits at a table, coffee mug on hand, as a room goes up in flames. “This is fine,” the dog assures himself."
-image = pipe("").images[0]
+image = pipe(prompt).images[0]
 ```
 
 ## Using A Quantized Version of the T5-XXL Model
