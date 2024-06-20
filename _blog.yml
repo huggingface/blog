@@ -4222,3 +4222,13 @@
     - research
     - collaboration
     - community
+
+- local: dibt
+  title: "Data Is Better Together: A Look Back and Forward"
+  thumbnail: /blog/assets/dibt/thumbnail.png
+  author: sdiazlor
+  date: Jun 20, 2024
+  tags:
+    - collaboration
+    - community
+    - open-source
