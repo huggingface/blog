@@ -1680,6 +1680,17 @@
     - community
     - open-source
 
+- local: tgi-benchmarking
+  title: TGI 基准测试
+  thumbnail: /blog/assets/tgi-benchmarking/tgi-benchmarking-thumbnail.png
+  author: derek-thomas
+  date: May 29, 2024
+  tags:
+    - LLM
+    - NLP
+    - guide
+    - tgi
+
 - local: putting_rl_back_in_rlhf_with_rloo
   title: 将强化学习重新引入 RLHF
   thumbnail: /blog/assets/putting_rl_back_in_rlhf_with_rloo/thumbnail.png
