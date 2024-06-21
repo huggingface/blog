@@ -177,7 +177,7 @@ pipe = StableDiffusion3Pipeline.from_pretrained(
 
 All benchmarking runs were conducted using the 2B version of the SD3 model on an A100 GPU with 80GB of VRAM using `fp16` precision and PyTorch 2.3.
 
-For our memory benchmarks, we use 3 iterations of pipeline calls for warming up and report a an average inference time of 10 iterations of pipeline calls. We use the default arguments of the [`StableDiffusion3Pipeline` `__call__()` method](https://github.com/huggingface/diffusers/blob/adc31940a9cedbbe2fca8142d09bb81db14a8a52/src/diffusers/pipelines/stable_diffusion_3/pipeline_stable_diffusion_3.py#L634).
+For our memory benchmarks, we use 3 iterations of pipeline calls for warming up and report an average inference time of 10 iterations of pipeline calls. We use the default arguments of the [`StableDiffusion3Pipeline` `__call__()` method](https://github.com/huggingface/diffusers/blob/adc31940a9cedbbe2fca8142d09bb81db14a8a52/src/diffusers/pipelines/stable_diffusion_3/pipeline_stable_diffusion_3.py#L634).
 
 | **Technique**         | **Inference Time (secs)** | **Memory (GB)** |
 |:-----------------:|:---------------------:|:-----------:|
