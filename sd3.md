@@ -177,7 +177,15 @@ pipe = StableDiffusion3Pipeline.from_pretrained(
 
 All benchmarking runs were conducted using the 2B version of the SD3 model on an A100 GPU with 80GB of VRAM using `fp16` precision and PyTorch 2.3.
 
-We ran 10 iterations of a pipeline inference call, and measured the average peak memory usage of the pipeline and the average time to perform 20 diffusion steps.
+For our memory benchmarks, we use 3 iterations of pipeline calls for warming up and report a an average inference time of 10 iterations of pipeline calls. We use the default arguments of the [`StableDiffusion3Pipeline` `__call__()` method](https://github.com/huggingface/diffusers/blob/adc31940a9cedbbe2fca8142d09bb81db14a8a52/src/diffusers/pipelines/stable_diffusion_3/pipeline_stable_diffusion_3.py#L634).
+
+| **Technique**         | **Inference Time (secs)** | **Memory (GB)** |
+|:-----------------:|:---------------------:|:-----------:|
+| Default       | 4.762                  | 18.765         |
+| Offloading       | 32.765 (~6.8x)                 | 12.0645 (~1.55x)       |
+| Offloading + no T5       | 19.110 (~4.013x)                 | 4.266 (~4.398x)       |
+| 8bit T5       |        4.932 (~1.036x)        |     10.586 (~1.77x)    |
+
 
 ## Performance Optimizations for SD3
 
