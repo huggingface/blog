@@ -153,7 +153,8 @@ for epoch in range(epochs):
     for batch in tqdm(train_loader, desc=f"Training Epoch {epoch + 1}/{epochs}"):
         i += 1
         inputs, answers = batch
-        input_ids = inputs["input_ids"] pixel_values = inputs["pixel_values"] 
+        input_ids = inputs["input_ids"]
+        pixel_values = inputs["pixel_values"] 
         labels = processor.tokenizer(text=answers, return_tensors="pt", padding=True, return_token_type_ids=False).input_ids.to(device)
         outputs = model(input_ids=input_ids, pixel_values=pixel_values, labels=labels)
         loss = outputs.loss
