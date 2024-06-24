@@ -180,4 +180,5 @@ You can save the model and processor by calling `save_pretrained()` on both obje
 
 - [Vision Language Models Explained] (https://huggingface.co/blog/vlms)
 - [Notebook for Florence-2 Inference] (https://huggingface.co/microsoft/Florence-2-large/blob/main/sample_inference.ipynb)
-- [Florence-2 Demo] (https://huggingface.co/spaces/gokaygo
+- [Florence-2 DocVQA Demo](https://huggingface.co/spaces/andito/Florence-2-DocVQA)
+- [Florence-2 Demo] (https://huggingface.co/spaces/gokaygo)
