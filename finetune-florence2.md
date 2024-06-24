@@ -187,7 +187,7 @@ You can save the model and processor by calling `save_pretrained()` on both obje
 
 <script
 	type="module"
-	src="https://gradio.s3-us-west-2.amazonaws.com/3.23.0/gradio.js"></script>
+	src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"></script>
 
 <gradio-app theme_mode="light" src="https://andito-Florence-2-DocVQA.hf.space"></gradio-app>
 
