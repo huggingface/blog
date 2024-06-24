@@ -139,7 +139,7 @@ We'll now build the data collator that builds training batches from the dataset 
 import os 
 from torch.utils.data import DataLoader
 from tqdm import tqdm 
-from transformers import (AdamW, AutoProcessor, get_scheduler)
+from transformers import AdamW, get_scheduler
 
 def collate_fn(batch): 
     questions, answers, images = zip(*batch)
