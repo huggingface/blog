@@ -129,9 +129,7 @@ class DocVQADataset(Dataset):
         example = self.data[idx]
         question = "<DocVQA>" + example['question'] 
         first_answer = example['answers'][0]
-        image = example['image']  
-        if image.mode != "RGB":
-            image = image.convert("RGB")
+        image = example['image'].convert("RGB")
         return question, first_answer, image
 ```
 
