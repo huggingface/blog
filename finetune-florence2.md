@@ -150,9 +150,8 @@ for epoch in range(epochs):
     model.train() 
     train_loss = 0
     i = -1
-    for batch in tqdm(train_loader, desc=f"Training Epoch {epoch + 1}/{epochs}"):
+    for inputs, answers in tqdm(train_loader, desc=f"Training Epoch {epoch + 1}/{epochs}"):
         i += 1
-        inputs, answers = batch
         input_ids = inputs["input_ids"]
         pixel_values = inputs["pixel_values"] 
         labels = processor.tokenizer(text=answers, return_tensors="pt", padding=True, return_token_type_ids=False).input_ids.to(device)
