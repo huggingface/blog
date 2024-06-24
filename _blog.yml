@@ -4235,7 +4235,7 @@
 
 - local: ethics-soc-6
   title: "Ethics and Society Newsletter #6: Building Better AI: The Importance of Data Quality"
-  thumbnail: assets/182_ethics-soc-6/thumbnail.png
+  thumbnail: /blog/assets/182_ethics-soc-6/thumbnail.png
   date: June 24, 2024
   tags:
     - ethics
