@@ -124,7 +124,8 @@ class DocVQADataset(Dataset):
     def __len__(self): 
         return len(self.data)
     def __getitem__(self, idx):
-        example = self.data[idx] question = "<DocVQA>" + example['question'] 
+        example = self.data[idx]
+        question = "<DocVQA>" + example['question'] 
         first_answer = example['answers'][0]
         image = example['image']  
         if image.mode != "RGB":
