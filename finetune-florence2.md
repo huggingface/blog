@@ -18,9 +18,15 @@ Florence supports captioning, object detection, OCR, and more out of the box. Ho
 In this blog, we focus on fine-tuning Florence on DocVQA since the authors report that Florence 2 can perform visual question answering, but their released model didn't include this capability.
 
 ## Pre-training Details and Architecture
+
+<p align="center">
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/florence-2.png" alt="VLM Structure" style="width: 90%; height: auto;"><br>
+ <em>Florence-2 Architecture</em>
+</p>
+
 Regardless of the computer vision task being performed, Florence-2 formulates the problem as a sequence-to-sequence task. Florence-2 takes an image and text as input and generates text as output.
 The model has a simple structure. It utilizes a DaViT vision encoder to convert images into visual embeddings and BERT to convert text prompts into text and location embeddings. The resulting embeddings are then processed by a standard encoder-decoder transformer architecture, generating text and location tokens.
-Florence-2's strength doesn't stem from its architecture, but from the massive dataset it was pre-trained on. The authors noted that leading computer vision datasets typically contain limited information - WIT only includes image/caption pairs, SA-1B only contains images and associated segmentation masks. Therefore, they decided to build a new FLD-5B dataset containing a wide range of information about each image - boxes, masks, captions, and grounding.
+Florence-2's strength doesn't stem from its architecture, but from the massive dataset it was pre-trained on. The authors noted that leading computer vision datasets typically contain limited information - WIT only includes image/caption pairs, [SA-1B](https://ai.meta.com/datasets/segment-anything/) only contains images and associated segmentation masks. Therefore, they decided to build a new FLD-5B dataset containing a wide range of information about each image - boxes, masks, captions, and grounding.
 The dataset creation process was largely automated. The authors used off-the-shelf task-specific models and a set of heuristics and quality checks to clean the obtained results. The result was a new dataset containing over 5 billion annotations for 126 million images, which was used to pre-train the Florence-2 model.
 ## Original performance on VQA
 
@@ -32,7 +38,17 @@ We also tested several "unsupported" prompts such as "<VQA>", "<vqa>", and "<Vis
 We measure performance using the [Levenshtein's similarity](https://en.wikipedia.org/wiki/Levenshtein_distance), the standard metric for this dataset. Initially, before fine-tuning, the similarity between the model's predictions and the ground truth on the validation dataset was 0, as the model's outputs were not close to the ground truth. After fine-tuning with the training set for seven epochs, the similarity score on the validation set improved to 57.0.
 We created a 🤗 [space](https://huggingface.co/spaces/andito/Florence-2-DocVQA) to demo the fine-tuned model. While the model performs well for DocVQA, it still struggles with more general document understanding and isn't very chatty. However, it clearly accomplishes the tasks, demonstrating the significant potential for fine-tuning Florence-2 for downstream tasks. To create a great VQA model, we suggest further fine-tuning Florence-2 using [the cauldron](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron), and already provide the implemented code on our GitHub page.
 
+To give a solid example, below we provide two inference results before and after fine-tuning. You can also try the model [here](https://huggingface.co/spaces/andito/Florence-2-DocVQA).
 
+<p align="center">
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/before-ft.png" alt="VLM Structure" style="width: 90%; height: auto;"><br>
+ <em>Before Fine-tuning</em>
+</p>
+
+<p align="center">
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/after-ft.png" alt="VLM Structure" style="width: 90%; height: auto;"><br>
+ <em>After Fine-tuning</em>
+</p>
 
 ## Fine-tuning Details
 The authors utilized a batch size of 2048 for their base model and 3072 for the large model. In our experiments, we adapted this approach to a lower-resource setup. Specifically, we froze the vision encoder and used a batch size of 6 on a single A100 GPU in Colab, or a batch size of 1 with a T4. The authors also reported an improvement in performance when fine-tuning with an unfrozen image encoder compared to freezing it.
