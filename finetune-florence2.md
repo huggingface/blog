@@ -133,7 +133,7 @@ class DocVQADataset(Dataset):
         return question, first_answer, image
 ```
 
-Let's get to fine-tuning. We will create our dataset, the data collator, and start training. In A100 with 40GB memory, we can fit in 6 examples. If you're training on T4, you can use batch size of 1.
+We'll now build the data collator that builds training batches from the dataset samples, and start training. In A100 with 40GB memory, we can fit in 6 examples. If you're training on T4, you can use a batch size of 1.
 
 ```python
 import os 
