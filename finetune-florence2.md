@@ -27,7 +27,7 @@ The dataset creation process was largely automated. The authors used off-the-she
 We experimented with various methods to adapt the model for VQA (Visual Question Answering) responses. The most effective approach we found was region-to-description prompting, though it doesn't fully align with VQA tasks. Captioning provides descriptive information about the image but doesn't allow for direct question input.
 We also tested several "unsupported" prompts such as "<VQA>", "<vqa>", and "<Visual question answering>". Unfortunately, these attempts yielded unusable results.
 
-# Performance on DocVQA after fine-tuning
+## Performance on DocVQA after fine-tuning
 
 We measure performance using the [Levenshtein's similarity](https://en.wikipedia.org/wiki/Levenshtein_distance), the standard metric for this dataset. Initially, before fine-tuning, the similarity between the model's predictions and the ground truth on the validation dataset was 0, as the model's outputs were not close to the ground truth. After fine-tuning with the training set for seven epochs, the similarity score on the validation set improved to 57.0.
 We created a 🤗 [space](https://huggingface.co/spaces/andito/Florence-2-DocVQA) to demo the fine-tuned model. While the model performs well for DocVQA, it still struggles with more general document understanding and isn't very chatty. However, it clearly accomplishes the tasks, demonstrating the significant potential for fine-tuning Florence-2 for downstream tasks. To create a great VQA model, we suggest further fine-tuning Florence-2 using [the cauldron](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron), and already provide the implemented code on our GitHub page.
@@ -170,9 +170,14 @@ for epoch in range(epochs):
 
 You can save the model and processor by calling `save_pretrained()` on both objects. The resulting model is here. 
 
-[Maybe we could embed the docvqa Space here too?]
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/3.23.0/gradio.js"></script>
 
-##Useful Resources
-[Vision Language Models Explained] (https://huggingface.co/blog/vlms)
-[Notebook for Florence-2 Inference] (https://huggingface.co/microsoft/Florence-2-large/blob/main/sample_inference.ipynb)
-[Florence-2 Demo] (https://huggingface.co/spaces/gokaygo
+<gradio-app theme_mode="light" src="https://andito-Florence-2-DocVQA.hf.space"></gradio-app>
+
+## Useful Resources
+
+- [Vision Language Models Explained] (https://huggingface.co/blog/vlms)
+- [Notebook for Florence-2 Inference] (https://huggingface.co/microsoft/Florence-2-large/blob/main/sample_inference.ipynb)
+- [Florence-2 Demo] (https://huggingface.co/spaces/gokaygo
