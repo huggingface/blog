@@ -123,6 +123,7 @@ class DocVQADataset(Dataset):
         self.data = data
     def __len__(self): 
         return len(self.data)
+        
     def __getitem__(self, idx):
         example = self.data[idx]
         question = "<DocVQA>" + example['question'] 
