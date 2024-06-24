@@ -57,7 +57,7 @@ In every case, we found a small learning rate of 1e-6 to be beneficial for train
 
 ## Code Walkthrough
 
-You can find the notebook that includes the notebook [here](https://colab.research.google.com/drive/1hKDrJ5AH_o7I95PtZ9__VlCTNAo1Gjpf?usp=sharing). We will fine-tune [Florence-2-base-ft](https://huggingface.co/microsoft/Florence-2-base-ft) checkpoint on [DocVQA](https://huggingface.co/datasets/HuggingFaceM4/DocumentVQA) dataset.
+If you want to follow along, you can find our Colab fine-tuning notebook [here](https://colab.research.google.com/drive/1hKDrJ5AH_o7I95PtZ9__VlCTNAo1Gjpf?usp=sharing). We will be fine-tuning the [Florence-2-base-ft](https://huggingface.co/microsoft/Florence-2-base-ft) checkpoint on the [DocVQA](https://huggingface.co/datasets/HuggingFaceM4/DocumentVQA) dataset.
 Let's start by installing the dependencies.
 
 ```python
