@@ -15,7 +15,7 @@ Florence-2, released by Microsoft in June 2024, is a foundation vision-language 
 
 Florence supports many tasks out of the box: captioning, object detection, OCR, and more. However, your task or domain might not be supported, or you may want to better control the model's output for your task. That's when you will need to fine-tune.
 
-In this post, we show an example on fine-tuning Florence on DocVQA. The authors report that Florence 2 can perform visual question answering (VQA), but the released models don't include a DocVQA capability. Let's see what we can do!
+In this post, we show an example on fine-tuning Florence on DocVQA. The authors report that Florence 2 can perform visual question answering (VQA), but the released models don't include VQA capability. Let's see what we can do!
 
 ## Pre-training Details and Architecture
 
