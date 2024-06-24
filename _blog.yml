@@ -4233,7 +4233,6 @@
     - community
     - open-source
 
-<<<<<<< dataqualityblog
 - local: ethics-soc-6
   title: "Ethics and Society Newsletter #6: Building Better AI: The Importance of Data Quality"
   thumbnail: assets/182_ethics-soc-6/thumbnail.png
@@ -4241,7 +4240,7 @@
   tags:
     - ethics
   author: evijit
-=======
+
 - local: finetune-florence2
   title: "Fine-tuning Florence-2 - Microsoft's Cutting-edge Vision Language Models"
   thumbnail: /blog/assets/182_finetune-florence/thumbnail.png
@@ -4252,4 +4251,3 @@
     - community
     - open-source
     - research
->>>>>>> main
