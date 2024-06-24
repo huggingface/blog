@@ -130,7 +130,7 @@ Gathering human feedback using data labeling tools (like [Argilla](https://argil
 
 Beyond these specific practices, there are general strategies that can ensure data quality. Establishing a robust data governance framework is foundational. This framework should include policies, standards, and processes for data management, with clearly defined roles and responsibilities to ensure accountability and maintain high standards. Regular quality assessments are also vital. These assessments, which can utilize metrics like accuracy, completeness, consistency, and validity, help identify and address issues early. Tools such as data profiling and statistical analysis can be instrumental in this process.
 
-## Are you working on data quality? Share your tools and methods on Hugging Face Hub!
+## Are you working on data quality? Share your tools and methods on the Hugging Face Hub!
 The most important part of Hugging Face is our community. If you're a researcher focused on improving data quality in machine learning, especially within the context of open science, we want to support and showcase your work!
 
 Thanks for reading! 🤗
