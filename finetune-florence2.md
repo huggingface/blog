@@ -50,8 +50,10 @@ To give a solid example, below we provide two inference results before and after
 ## Fine-tuning Details
 For pre-training, the authors used a batch size of 2048 for the base model and 3072 for the large one. They also describe a performance improvement when fine-tuning with an unfrozen image encoder, compared with freezing it.
 
-We conducted our experiments with a much lower resource setup, to explore what the model would be capable of in more constrained fine-tuning environments. We froze the vision encoder and used a batch size of 6 on a single A100 GPU in Colab, or a batch size of 1 with a T4.
+We conducted our experiments with a much lower resource setup, to explore what the model would be capable of in more constrained fine-tuning environments. We froze the vision encoder and used a batch size of 6 on a single A100 GPU in [Colab](https://colab.research.google.com/drive/1hKDrJ5AH_o7I95PtZ9__VlCTNAo1Gjpf?usp=sharing), or a batch size of 1 with a T4.
 In parallel, we conducted an experiment with more resources, fine-tuning the entire model with a batch size of 64. This training process took 70 minutes on a cluster equipped with 8 H100 GPUs.
+This trained model can be [found here](https://huggingface.co/HuggingFaceM4/Florence-2-DocVQA).
+
 In every case, we found a small learning rate of 1e-6 to be beneficial for training. With larger learning rates the model will quickly overfit the training set.
 
 ## Code Walkthrough
@@ -72,7 +74,7 @@ from datasets import load_dataset
 data = load_dataset("HuggingFaceM4/DocumentVQA")
 ```
 
-We can load the model and processor using the `AutoModelForCausalLM` and `AutoProcessor` classes from the transformers library. We need to pass `trust_remote_code=True` because the model uses custom code – it has not been natively integrated into transformers yet.
+We can load the model and processor using the `AutoModelForCausalLM` and `AutoProcessor` classes from the transformers library. We need to pass `trust_remote_code=True` because the model uses custom code – it has not been natively integrated into transformers yet. We will also freeze the vision encoder to make fine-tuning less expensive.
 
 ```python
 from transformers import AutoModelForCausalLM, AutoProcessor
@@ -85,33 +87,14 @@ model = AutoModelForCausalLM.from_pretrained(
     trust_remote_code=True,
     revision='refs/pr/6'
 ).to(device) 
-processor = AutoProcessor.from_pretrained("microsoft/Florence-2-base-ft", trust_remote_code=True, revision='refs/pr/6')
+processor = AutoProcessor.from_pretrained("microsoft/Florence-2-base-ft", 
+    trust_remote_code=True, revision='refs/pr/6')
+
+for param in model.vision_tower.parameters():
+  param.is_trainable = False
 ```
 
-Let's run inference on the dataset to see how the model performs before fine-tuning.
-
-
-```python
-# a document
-image = data['train'][3]['image']
-
-prompt = "DocVQA" + "What do you see in this image?" # task prefix with question
-
-inputs = processor(text=prompt, images=image, return_tensors="pt").to(device) 
-
-generated_ids = model.generate(
-    input_ids=inputs["input_ids"],
-    pixel_values=inputs["pixel_values"],
-    max_new_tokens=1024,
-    num_beams=3,
-)
-generated_text = processor.batch_decode(generated_ids, skip_special_tokens=False)[0]
-
-print(processor.post_process_generation(generated_text, task=task_prompt, image_size=(image.width, image.height)))
-# {'DocVQA': '499150498'}
-```
-
-We need to construct our dataset. Note how we are adding a new task prefix `<DocVQA>` before the question when constructing the prompt.
+Let's now fine-tune the model! We'll build a training PyTorch Dataset in which we'll prepend a \<DocVQA\> prefix to each question from the dataset.
 
 ```python
 import torch from torch.utils.data import Dataset 
@@ -150,18 +133,21 @@ val_dataset = DocVQADataset(data['validation'])
 batch_size = 6
 num_workers = 0
 
-train_loader = DataLoader(train_dataset, batch_size=batch_size, collate_fn=collate_fn, num_workers=num_workers, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=batch_size, collate_fn=collate_fn, num_workers=num_workers)
+train_loader = DataLoader(train_dataset, batch_size=batch_size, 
+                          collate_fn=collate_fn, num_workers=num_workers, shuffle=True)
+val_loader = DataLoader(val_dataset, batch_size=batch_size, 
+                          collate_fn=collate_fn, num_workers=num_workers)
 ```
 
 We can train the model now.
 
 ```python
-epochs = 2
+epochs = 7
 optimizer = AdamW(model.parameters(), lr=1e-6)
 num_training_steps = epochs * len(train_loader)
 
-lr_scheduler = get_scheduler(name="linear", optimizer=optimizer, num_warmup_steps=0, num_training_steps=num_training_steps,)
+lr_scheduler = get_scheduler(name="linear", optimizer=optimizer, 
+                              num_warmup_steps=0, num_training_steps=num_training_steps,)
 
 for epoch in range(epochs): 
     model.train() 
@@ -205,9 +191,15 @@ You can save the model and processor by calling `save_pretrained()` on both obje
 
 <gradio-app theme_mode="light" src="https://andito-Florence-2-DocVQA.hf.space"></gradio-app>
 
+## Conclusions
+
+In this post, we showed that Florence-2 can be effectively fine-tuned to a custom dataset, achieving impressive performance on a completely new task in a short amount of time. This capability is particularly valuable for those looking to deploy this small model on devices or use it cost-effectively in production environments. We encourage the open-source community to leverage this fine-tuning tutorial and explore the remarkable potential of Florence-2 for a wide range of new tasks! We can't wait to see your models on the 🤗 Hub!
+
 ## Useful Resources
 
 - [Vision Language Models Explained](https://huggingface.co/blog/vlms)
+- [Fine tuning Colab](https://colab.research.google.com/drive/1hKDrJ5AH_o7I95PtZ9__VlCTNAo1Gjpf?usp=sharing)
+- [Fine tuning Github Repo](https://github.com/andimarafioti/florence2-finetuning)
 - [Notebook for Florence-2 Inference](https://huggingface.co/microsoft/Florence-2-large/blob/main/sample_inference.ipynb)
 - [Florence-2 DocVQA Demo](https://huggingface.co/spaces/andito/Florence-2-DocVQA)
 - [Florence-2 Demo](https://huggingface.co/spaces/gokaygo)
