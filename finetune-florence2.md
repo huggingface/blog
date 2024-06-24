@@ -32,12 +32,12 @@ The dataset creation process was largely automated. The authors used off-the-she
 ## Original performance on VQA
 
 We experimented with various methods to adapt the model for VQA (Visual Question Answering) responses. The most effective approach we found was region-to-description prompting, though it doesn't fully align with VQA tasks. Captioning provides descriptive information about the image but doesn't allow for direct question input.
-We also tested several "unsupported" prompts such as "<VQA>", "<vqa>", and "<Visual question answering>". Unfortunately, these attempts yielded unusable results.
+We also tested several "unsupported" prompts such as " \<VQA\>", "\<vqa\>", and "\<Visual question answering\>". Unfortunately, these attempts yielded unusable results.
 
 ## Performance on DocVQA after fine-tuning
 
 We measure performance using the [Levenshtein's similarity](https://en.wikipedia.org/wiki/Levenshtein_distance), the standard metric for the DocVQA dataset. Before fine-tuning, the similarity between the model's predictions and the ground truth on the validation dataset was 0, as the outputs were not close to the ground truth. After fine-tuning with the training set for seven epochs, the similarity score on the validation set improved to 57.0.
-We created a 🤗 [space](https://huggingface.co/spaces/andito/Florence-2-DocVQA) to demo the fine-tuned model. While the model performs well for DocVQA, it still struggles with more general document understanding and isn't very chatty. However, it clearly accomplishes the tasks, demonstrating the significant potential for fine-tuning Florence-2 for downstream tasks. To create a great VQA model, we suggest further fine-tuning Florence-2 using [the cauldron](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron), and already provide the implemented code on our GitHub page.
+We created a 🤗 [space](https://huggingface.co/spaces/andito/Florence-2-DocVQA) to demo the fine-tuned model. While the model performs well for DocVQA, it still struggles with more general document understanding and isn't very chatty. However, it clearly accomplishes the tasks, demonstrating the significant potential for fine-tuning Florence-2 for downstream tasks. To create a great VQA model, we suggest further fine-tuning Florence-2 using [the cauldron](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron), and already provide the implemented code on [our GitHub page](https://github.com/andimarafioti/florence2-finetuning).
 
 To give a solid example, below we provide two inference results before and after fine-tuning. You can also try the model [here](https://huggingface.co/spaces/andito/Florence-2-DocVQA).
 
@@ -52,7 +52,6 @@ For pre-training, the authors used a batch size of 2048 for the base model and 3
 
 We conducted our experiments with a much lower resource setup, to explore what the model would be capable of in more constrained fine-tuning environments. We froze the vision encoder and used a batch size of 6 on a single A100 GPU in Colab, or a batch size of 1 with a T4.
 In parallel, we conducted an experiment with more resources, fine-tuning the entire model with a batch size of 64. This training process took 70 minutes on a cluster equipped with 8 H100 GPUs.
-[Maybe we could give links to all the models here]
 In every case, we found a small learning rate of 1e-6 to be beneficial for training. With larger learning rates the model will quickly overfit the training set.
 
 ## Code Walkthrough
