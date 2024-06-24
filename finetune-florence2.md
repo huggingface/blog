@@ -184,7 +184,7 @@ for epoch in range(epochs):
       print(val_loss / len(val_loader))
 ```
 
-You can save the model and processor by calling `save_pretrained()` on both objects. The resulting model is here. 
+You can save the model and processor by calling `save_pretrained()` on both objects. The fully fine-tuned model is [here](https://huggingface.co/HuggingFaceM4/Florence-2-DocVQA)  and the demo is [here](https://huggingface.co/spaces/andito/Florence-2-DocVQA). 
 
 <script
 	type="module"
