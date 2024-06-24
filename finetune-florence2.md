@@ -48,7 +48,9 @@ To give a solid example, below we provide two inference results before and after
 
 
 ## Fine-tuning Details
-The authors utilized a batch size of 2048 for their base model and 3072 for the large model. In our experiments, we adapted this approach to a lower-resource setup. Specifically, we froze the vision encoder and used a batch size of 6 on a single A100 GPU in Colab, or a batch size of 1 with a T4. The authors also reported an improvement in performance when fine-tuning with an unfrozen image encoder compared to freezing it.
+For pre-training, the authors used a batch size of 2048 for the base model and 3072 for the large one. They also describe a performance improvement when fine-tuning with an unfrozen image encoder, compared with freezing it.
+
+We conducted our experiments with a much lower resource setup, to explore what the model would be capable of in more constrained fine-tuning environments. We froze the vision encoder and used a batch size of 6 on a single A100 GPU in Colab, or a batch size of 1 with a T4.
 In parallel, we conducted an experiment with more resources, fine-tuning the entire model with a batch size of 64. This training process took 70 minutes on a cluster equipped with 8 H100 GPUs.
 [Maybe we could give links to all the models here]
 In every case, we found a small learning rate of 1e-6 to be beneficial for training. With larger learning rates the model will quickly overfit the training set.
