@@ -4,9 +4,15 @@ thumbnail: assets/182_ethics-soc-6/thumbnail.png
 authors:
 - user: evijit
 - user: frimelle
+- user: yjernite
+- user: meg
+- user: irenesolaiman
+- user: dvilasuero
+- user: fdaudens
+- user: BrigitteTousi
+- user: giadap
+- user: sasha
 ---
-
-
 
 
 # Ethics and Society Newsletter #6: Building Better AI: The Importance of Data Quality
@@ -23,7 +29,7 @@ In the age of artificial intelligence, [massive amounts of data](https://arxiv.o
 
 So, what makes data "high-quality," and why is it crucial to prioritize data quality from the outset? Achieving data quality is not just a matter of accuracy or quantity; it requires a [holistic, responsible approach](https://huggingface.co/blog/ethics-soc-3) woven throughout the entire AI development lifecycle. As data quality has garnered [renewed ](https://twitter.com/Senseye_Winning/status/1791007128578322722)attention, we explore what constitutes "high quality" data, why prioritizing data quality from the outset is crucial, and how organizations can utilize AI for beneficial initiatives while mitigating risks to privacy, fairness, safety, and sustainability.
 
-In this article, we will first provide a high-level overview of the relevant concepts, followed by a more detailed discussion.
+In this article, we first provide a high-level overview of the relevant concepts, followed by a more detailed discussion.
 
 ## What is Good, High-Quality Data?
 
