@@ -67,7 +67,8 @@ Let's start by installing the dependencies.
 Load the DocVQA dataset from the Hugging Face Hub.
 
 ```python
-import torch from datasets import load_dataset 
+import torch
+from datasets import load_dataset 
 data = load_dataset("HuggingFaceM4/DocumentVQA")
 ```
 
