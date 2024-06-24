@@ -64,7 +64,7 @@ Let's start by installing the dependencies.
 !pip install -q datasets flash_attn timm einops
 ```
 
-Load the DocVQA dataset from Hugging Face Hub.
+Load the DocVQA dataset from the Hugging Face Hub.
 
 ```python
 import torch from datasets import load_dataset 
