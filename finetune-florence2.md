@@ -89,7 +89,7 @@ model = AutoModelForCausalLM.from_pretrained(
 processor = AutoProcessor.from_pretrained("microsoft/Florence-2-base-ft", trust_remote_code=True, revision='refs/pr/6')
 ```
 
-Let's do inference with our dataset first to see how the model performs already with our dataset before fine-tuning.
+Let's run inference on the dataset to see how the model performs before fine-tuning.
 
 
 ```python
