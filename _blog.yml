@@ -4232,3 +4232,14 @@
     - collaboration
     - community
     - open-source
+
+- local: finetune-florence2
+  title: "Fine-tuning Florence-2 - Microsoft's Cutting-edge Vision Language Models"
+  thumbnail: /blog/assets/182_finetune-florence/thumbnail.png
+  author: andito
+  date: Jun 24, 2024
+  tags:
+    - collaboration
+    - community
+    - open-source
+    - research
