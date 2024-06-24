@@ -41,14 +41,10 @@ We created a 🤗 [space](https://huggingface.co/spaces/andito/Florence-2-DocVQA
 To give a solid example, below we provide two inference results before and after fine-tuning. You can also try the model [here](https://huggingface.co/spaces/andito/Florence-2-DocVQA).
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/before-ft.png" alt="VLM Structure" style="width: 90%; height: auto;"><br>
- <em>Before Fine-tuning</em>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/before-after.png" alt="Before After Fine-tuning" style="width: 90%; height: auto;"><br>
+ <em>Before and After Fine-tuning</em>
 </p>
 
-<p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/after-ft.png" alt="VLM Structure" style="width: 90%; height: auto;"><br>
- <em>After Fine-tuning</em>
-</p>
 
 ## Fine-tuning Details
 The authors utilized a batch size of 2048 for their base model and 3072 for the large model. In our experiments, we adapted this approach to a lower-resource setup. Specifically, we froze the vision encoder and used a batch size of 6 on a single A100 GPU in Colab, or a batch size of 1 with a T4. The authors also reported an improvement in performance when fine-tuning with an unfrozen image encoder compared to freezing it.
