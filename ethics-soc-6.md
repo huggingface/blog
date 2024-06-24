@@ -1,6 +1,6 @@
 ---
 title: "Ethics and Society Newsletter #6: Building Better AI: The Importance of Data Quality"
-thumbnail: assets/182_ethics-soc-1/thumbnail.png
+thumbnail: assets/182_ethics-soc-6/thumbnail.png
 authors:
 - user: evijit
 - user: frimelle
