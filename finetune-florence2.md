@@ -72,7 +72,7 @@ from datasets import load_dataset
 data = load_dataset("HuggingFaceM4/DocumentVQA")
 ```
 
-We can load the model using `AutoModelForCausalLM` and the processor using `AutoProcessor` classes of transformers library. Note that we need to pass `trust_remote_code` as `True` since this model is not a transformers model.
+We can load the model and processor using the `AutoModelForCausalLM` and `AutoProcessor` classes from the transformers library. We need to pass `trust_remote_code=True` because the model uses custom code – it has not been natively integrated into transformers yet.
 
 ```python
 from transformers import AutoModelForCausalLM, AutoProcessor
