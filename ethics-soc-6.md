@@ -120,7 +120,7 @@ Synthetic data has emerged as a [cost-efficient alternative to real-world data](
 
 ## Data Quality Practices at Hugging Face
 
-Ensuring high data quality is essential for developing effective and reliable AI models. Here are some examples of the several data quality strategies that we employ at Hugging Face:
+Ensuring high data quality is essential for developing effective and reliable AI models. Here are some examples of data quality strategies that teams at Hugging Face have employed:
 
 A crucial aspect of data quality is filtering and deduplication. For instance, in creating large, high-quality datasets like [FineWeb-Edu](https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu). Hugging Face employs tools such as [DataTrove](https://github.com/huggingface/datatrove). Filtering involves selecting only relevant and high-quality data, ensuring that the dataset is comprehensive without unnecessary noise. Deduplication removes redundant entries, which improves the efficiency and performance of AI models. This meticulous approach ensures that the dataset remains robust and relevant.
 
