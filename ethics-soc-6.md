@@ -72,6 +72,8 @@ The process toward high-quality datasets involves several key strategies. Meticu
 * [Policy Questions Blog 1: AI Data Transparency Remarks for NAIAC Panel](https://huggingface.co/blog/yjernite/naiac-data-transparency)
 * [📚 Training Data Transparency in AI: Tools, Trends, and Policy Recommendations 🗳️](https://huggingface.co/blog/yjernite/data-transparency)
 
+We dive deeper into these different aspects below.
+
 ## Data Quality for Improving Model Performance
 
 Investing in data quality is crucial for enhancing the performance of AI systems. Numerous studies have demonstrated that [better data quality directly correlates with improved model outcomes](https://aclanthology.org/2022.acl-long.577/#:~:text=Deduplication%20allows%20us%20to%20train,the%20same%20or%20better%20accuracy), as most recently seen in the [Yi 1.5 model release](https://x.com/Dorialexander/status/1789709739695202645).  Achieving high data quality involves meticulous data cleaning and preprocessing to remove noise, correct inaccuracies, fill in missing values, and standardize formats. Incorporating diverse, multi-source data prevents overfitting and exposes models to a wide range of real-world scenarios. 
@@ -116,9 +118,9 @@ One of the crucial aspects for high-quality data, just as for code, is the thoro
 
 Synthetic data has emerged as a [cost-efficient alternative to real-world data](https://huggingface.co/blog/synthetic-data-save-costs), providing a scalable solution for training and testing AI models without the expenses and privacy concerns associated with collecting and managing large volumes of real data, as done for example in [Cosmopedia](https://huggingface.co/blog/cosmopedia). This approach enables organizations to generate diverse datasets tailored to specific needs, accelerating development cycles and reducing costs. However, it is crucial to be aware of the potential downsides. Synthetic data can inadvertently [introduce biases](https://facctconference.org/static/papers24/facct24-117.pdf) if the algorithms generating the data are themselves biased, [leading to skewed model outcome](https://facctconference.org/static/papers24/facct24-144.pdf)s. It is important to [mark model output as generated content](https://huggingface.co/blog/alicia-truepic/identify-ai-generated-content), e.g., by [watermarking](https://huggingface.co/blog/watermarking) [across](https://huggingface.co/blog/imatag-vch/stable-signature-bzh) [modalities](https://arxiv.org/abs/2401.17264) ([overview](https://huggingface.co/collections/society-ethics/provenance-watermarking-and-deepfake-detection-65c6792b0831983147bb7578)). Additionally, over-reliance on synthetic data can result in [model collapse](https://en.wikipedia.org/wiki/Model_collapse), where the model becomes overly tuned to the synthetic data patterns. Therefore, while synthetic data is a powerful tool, it should be used judiciously, complemented by real-world data and robust validation processes to ensure model performance and fairness.
 
-## The Process Toward Data Quality
+## Data Quality Practices at Hugging Face
 
-Ensuring high data quality is essential for developing effective and reliable AI models. Here are several strategies for approaching data quality, illustrated with examples from Hugging Face's practices.
+Ensuring high data quality is essential for developing effective and reliable AI models. Here are some examples of the several data quality strategies that we employ at Hugging Face:
 
 A crucial aspect of data quality is filtering and deduplication. For instance, in creating large, high-quality datasets like [FineWeb-Edu](https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu). Hugging Face employs tools such as [DataTrove](https://github.com/huggingface/datatrove). Filtering involves selecting only relevant and high-quality data, ensuring that the dataset is comprehensive without unnecessary noise. Deduplication removes redundant entries, which improves the efficiency and performance of AI models. This meticulous approach ensures that the dataset remains robust and relevant.
 
