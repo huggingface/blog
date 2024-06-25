@@ -4233,6 +4233,14 @@
     - community
     - open-source
 
+- local: ethics-soc-6
+  title: "Ethics and Society Newsletter #6: Building Better AI: The Importance of Data Quality"
+  thumbnail: /blog/assets/182_ethics-soc-6/thumbnail.png
+  date: June 24, 2024
+  tags:
+    - ethics
+  author: evijit
+
 - local: finetune-florence2
   title: "Fine-tuning Florence-2 - Microsoft's Cutting-edge Vision Language Models"
   thumbnail: /blog/assets/182_finetune-florence/thumbnail.png
@@ -4244,6 +4252,7 @@
     - open-source
     - research
 
+
 - local: xlscout-case-study
   title: "XLSCOUT Unveils ParaEmbed 2.0: a Powerful Embedding Model Tailored for Patents and IP with Expert Support from Hugging Face"
   author: andrewrreed
@@ -4251,3 +4260,4 @@
   date: June 25, 2024
   tags:
     - case-studies
+
