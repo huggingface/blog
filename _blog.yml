@@ -4251,3 +4251,13 @@
     - community
     - open-source
     - research
+
+
+- local: xlscout-case-study
+  title: "XLSCOUT Unveils ParaEmbed 2.0: a Powerful Embedding Model Tailored for Patents and IP with Expert Support from Hugging Face"
+  author: andrewrreed
+  thumbnail: /blog/assets/xlscout-case-study/thumbnail.png
+  date: June 25, 2024
+  tags:
+    - case-studies
+
