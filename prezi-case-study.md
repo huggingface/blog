@@ -13,7 +13,7 @@ authors:
 
 Everybody knows that a great visual is worth a thousand words. The team at Prezi, a visual communications software company, is putting this insight into practice with their Prezi presentations that combine images and text in highly dynamic presentations. 
 
-Prezi has joined the Hugging Face Expert Support Program to leverage modern machine learning's potential fully. Over the past months, Hugging Face has supported Prezi in integrating smaller, more efficient open-source models into their ML workflows. This cooperation started at a perfect time, as multimodal models are becoming increasingly capable. 
+Prezi has joined the Hugging Face Expert Support Program to fully leverage modern machine learning's potential. Over the past months, Hugging Face has supported Prezi in integrating smaller, more efficient open-source models into their ML workflows. This cooperation started at a perfect time, as multimodal models are becoming increasingly capable. 
 
 We recently sat down with [Máté Börcsök](https://www.linkedin.com/in/mateborcsok/?originalSubdomain=hu), a backend engineer at [Prezi](https://prezi.com/), to talk about their experience in the [Expert Support Program](https://huggingface.co/support). In this short video, Máté walks us through some of their machine learning work and shares their experience collaborating with our team via the Expert Support Program. 
 
