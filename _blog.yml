@@ -4223,6 +4223,7 @@
     - collaboration
     - community
 
+prezi-case-study
 - local: prezi-case-study
   title: "Going multimodal: How Prezi is leveraging the Hub and the Expert Support Program to accelerate their ML roadmap"
   author: Violette
@@ -4230,3 +4231,32 @@
   date: June 19, 2024
   tags:
     - case-studies
+
+- local: dibt
+  title: "Data Is Better Together: A Look Back and Forward"
+  thumbnail: /blog/assets/dibt/thumbnail.png
+  author: sdiazlor
+  date: Jun 20, 2024
+  tags:
+    - collaboration
+    - community
+    - open-source
+
+- local: ethics-soc-6
+  title: "Ethics and Society Newsletter #6: Building Better AI: The Importance of Data Quality"
+  thumbnail: /blog/assets/182_ethics-soc-6/thumbnail.png
+  date: June 24, 2024
+  tags:
+    - ethics
+  author: evijit
+
+- local: finetune-florence2
+  title: "Fine-tuning Florence-2 - Microsoft's Cutting-edge Vision Language Models"
+  thumbnail: /blog/assets/182_finetune-florence/thumbnail.png
+  author: andito
+  date: Jun 24, 2024
+  tags:
+    - collaboration
+    - community
+    - open-source
+    - research

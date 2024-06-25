@@ -1691,6 +1691,16 @@
     - guide
     - tgi
 
+- local: assisted-generation-support-gaudi
+  title: 英特尔 Gaudi 加速辅助生成
+  author: haimbarad
+  thumbnail: /blog/assets/assisted-generation-support-gaudi/thumbnail.png
+  date: June 4, 2024
+  tags:
+    - partnerships
+    - intel
+    - hardware
+
 - local: putting_rl_back_in_rlhf_with_rloo
   title: 将强化学习重新引入 RLHF
   thumbnail: /blog/assets/putting_rl_back_in_rlhf_with_rloo/thumbnail.png
