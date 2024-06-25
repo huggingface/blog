@@ -17,7 +17,7 @@ Prezi has joined the Hugging Face Expert Support Program to fully leverage moder
 
 We recently sat down with [Máté Börcsök](https://www.linkedin.com/in/mateborcsok/?originalSubdomain=hu), a backend engineer at [Prezi](https://prezi.com/), to talk about their experience in the [Expert Support Program](https://huggingface.co/support). In this short video, Máté walks us through some of their machine learning work and shares their experience collaborating with our team via the Expert Support Program. 
 
-<iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://www.youtube.com/watch?v=pM6D0tRoIbI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" style="aspect-ratio: 16 / 9;" src="https://www.youtube.com/embed/pM6D0tRoIbI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 _If you'd like to accelerate your machine learning roadmap with the help of our experts, as Máté and his team did, visit [hf.co/support](https://huggingface.co/support) to learn more about our Expert Support Program and request a quote._
 
