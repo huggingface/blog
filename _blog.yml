@@ -4269,3 +4269,15 @@
     - research
     - LLM
     - gcp
+
+- local: beating_gaia
+  title: "Beating GAIA with a Transformers Code Agent"
+  author: m-ric
+  thumbnail: /blog/assets/beating_gaia/thumbnail.jpg
+  date: Jun 29, 2024
+  tags:
+    - agents
+    - nlp
+    - community
+    - research
+    - leaderboard
