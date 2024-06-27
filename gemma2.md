@@ -75,7 +75,7 @@ Soft capping is a technique that prevents logits from growing excessively large 
 
 Putting it all together, the logits are calculated by: `logits ← soft_cap ∗ tanh(logits/soft_cap)`
 
-Gemma 2 employs soft capping for the final and each attention layer. The attention logits are capped at 50.0, and the final logits at 30.0.
+Gemma 2 employs soft capping for the final layer and for every attention layer. The attention logits are capped at 50.0, and the final logits at 30.0.
 
 At the time of release, soft-capping is incompatible with Flash Attention / SDPA, but they can still be used in inference for maximum efficiency. The Gemma 2 team observed very minor differences when soft-capping is removed during inference.
 
