@@ -45,7 +45,7 @@ On GAIA’s [public leaderboard](https://huggingface.co/spaces/gaia-benchmark/le
 __Let’s take them on. 🥊__
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/beating_gaia/prepare_for_battle.gif" alt="Let's fight" width=90%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/beating_gaia/prepare_for_battle.gif" alt="Let's fight" width=70%>
 </p>
 
 ## 1. Building the right tools 🛠️
@@ -74,14 +74,12 @@ As shown by [Wang et al. (2024)](https://huggingface.co/papers/2402.01030), lett
 
 Consider this example given in the paper:
 
-<p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/beating_gaia/code_vs_json.png" alt="Code agents are just more intuitive than JSON" width=90%>
-</p>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/beating_gaia/code_vs_json.png" alt="Code agents are just more intuitive than JSON" width=100%>
 
 This highlights several advantages of using code:
 
 - Code actions are **much more concise** than JSON.
-    - Need to run 4 parallel streams of 5 consecutive actions ? In JSON, you would need to generate 20 JSON blobs, each in their separate step; in Code it’s only 1 step.
+    - Need to run 4 parallel streams of 5 consecutive actions? In JSON, you would need to generate 20 JSON blobs, each in their separate step; in Code it’s only 1 step.
     - On average, the paper shows that Code actions require 30% fewer steps than JSON, which amounts to an equivalent reduction in the tokens generated. Since LLM calls are often the dimensioning cost of agent systems, it means your agent system runs are ~30% cheaper.
 - Code enables to re-use tools from common libraries
 - Better performance in benchmarks, due to two reasons:
@@ -117,7 +115,7 @@ Web browsing is a very context-rich activity, and most of this context is useles
 So this is an instance where a multi-agent step makes sense: we can create a manager agent and a web search agent, with the manager agent solving the higher-level task and assigning specific web search task to the web search agent: then the agent returns only the useful outputs of its search, so that the manager is not cluttered with useless information.
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/beating_gaia/apes_together.gif" alt="Apes together strong" width=90%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/beating_gaia/apes_together.gif" alt="Apes together strong" width=70%>
 </p>
 
 Having a designated manager responsible for success also neatly leverages the planning component: a planning step helps the manager identify key steps to accomplish using the given set of tools.
@@ -150,11 +148,9 @@ Both the summary of facts and the plan are then used as additional context to ge
 
 [Here is the final code used for our submission.](https://github.com/aymeric-roucher/GAIA)
 
-We get 44.2% on the validation set: so that means Transformers Agent’s ReactCodeAgent is now #1 overall, with 4 points above the second! On the test set, we get 33.3%, so we rank #2, in front of Microsoft Autogen’s submission, and we get the best average score on the hardcore Level 3 questions.
+We get 44.2% on the validation set: so that means Transformers Agent’s ReactCodeAgent is now #1 overall, with 4 points above the second! **On the test set, we get 33.3%, so we rank #2, in front of Microsoft Autogen’s submission, and we get the best average score on the hardcore Level 3 questions!**
 
-<p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/beating_gaia/leaderboard.png" alt="We did it!" width=90%>
-</p>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/beating_gaia/leaderboard.png" alt="We did it!" width=100%>
 
 This is a data point to support that [Code actions work better](https://huggingface.co/papers/2402.01030). I think Code actions will replace JSON/OAI format as the standard for agents writing their actions.
 
