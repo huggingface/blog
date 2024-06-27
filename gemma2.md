@@ -189,10 +189,9 @@ assistant_response = outputs[0]["generated_text"][-1]["content"]
 print(assistant_response)
 ```
 
-> `Ahoy, matey! I be a humble ship o' words, sailin' the digital seas. They call me Gemma, a creation o' the fine folks at Google DeepMind. I be trained on a treasure trove o' texts, learnin' to speak and write like a true scallywag.
-
-Ask me yer questions, and I'll do me best to answer 'em, aye!  🦜📚`
-> 
+> Ahoy, matey! I be a humble ship o' words, sailin' the digital seas. They call me Gemma, a creation o' the fine folks at Google DeepMind. I be trained on a treasure trove o' texts, learnin' to speak and write like a true scallywag.
+>
+> Ask me yer questions, and I'll do me best to answer 'em, aye!  🦜📚
 
 *We used bfloat16 because that’s the reference precision for the instruction-tuned model. Running in float16 may be faster on your hardware, and results should be similar on the 9B model. Do note, however, that the 27B instruction-tuned model produces erratic outputs when using float16: you must use bfloat16 for that model weight.*
 
