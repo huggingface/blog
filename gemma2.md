@@ -14,7 +14,7 @@ authors:
 
 Google released Gemma 2, the latest addition to its family of state-of-the-art open LLMs, and we are excited to collaborate with Google to ensure the best integration in the Hugging Face ecosystem. You can find the 4 open-weight models (2 base models & 2 fine-tuned ones) on the Hub. Among the features and integrations being released, we have:
 
-- [Models on the Hub](https://huggingface.co/models?search=mistralai/Mixtral)
+- [Models on the Hub](https://huggingface.co/collections/google/g-667d6600fd5220e7b967f315)
 - Hugging Face [Transformers integration](https://github.com/huggingface/transformers/releases/tag/v4.42.0)
 - Integration with Google Cloud
 - Integration with Inference Endpoints
@@ -44,7 +44,7 @@ Google released Gemma 2, the latest addition to its family of state-of-the-art o
 
 Gemma 2 is Google's latest iteration of open LLMs. It comes in two sizes, 9 billion and 27 billion parameters with base (pre-trained) and instruction-tuned versions. Gemma is based on Google Deepmind Gemini and has a context length of 8K tokens:
 
-- [gemma-2-9b](https://huggingface.co/google/gemma-7b): Base 9B model.
+- [gemma-2-9b](https://huggingface.co/google/gemma-2-9b): Base 9B model.
 - [gemma-2-9b-it](https://huggingface.co/google/gemma-2-9b-it): Instruction fine-tuned version of the base 9B model.
 - [gemma-2-27b](https://huggingface.co/google/gemma-2-27b): Base 27B model.
 - [gemma-2-27b-it](https://huggingface.co/google/gemma-2-27b-it): Instruction fine-tuned version of the base 27B model.
@@ -155,9 +155,7 @@ This format has to be exactly reproduced for effective use. We’ll later show h
 
 ## Demo
 
-You can chat with the Gemma 27B Instruct model on Hugging Chat! Check out the link here: https://huggingface.co/chat/?model=Google/Gemma-7b-instruct.
-
-You can chat with Gemma Instruct models (27B and 9B on the Hugging Face spaces).
+You can chat with the Gemma 27B Instruct model on Hugging Chat! Check out the link here: https://huggingface.co/chat/models/google/gemma-2-27b-it.
 
 ## Using Hugging Face Transformers
 
@@ -212,7 +210,7 @@ pipeline = pipeline(
 )
 ```
 
-For more details on using the models with transformers, please check [the model cards](https://huggingface.co/gg-hf/gemma-7b).
+For more details on using the models with transformers, please check [the model cards](https://huggingface.co/gg-hf/gemma-2-9b).
 
 ## Integration with Google Cloud
 
@@ -220,11 +218,16 @@ For more details on using the models with transformers, please check [the model 
 
 ## Integration with Inference Endpoints
 
-You can deploy Gemma 2 on Hugging Face's [Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=mistralai%2FMixtral-8x7B-Instruct-v0.1&vendor=aws&region=us-east-1&accelerator=gpu&instance_size=2xlarge&task=text-generation&no_suggested_compute=true&tgi=true&tgi_max_batch_total_tokens=1024000&tgi_max_total_tokens=32000) using Text Generation Inference as the backend. [Text Generation Inference](https://github.com/huggingface/text-generation-inference) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, token streaming, tensor parallelism for fast inference on multiple GPUs, and production-ready logging and tracing.
+You can deploy Gemma 2 on Hugging Face's [Inference Endpoints](https://ui.endpoints.huggingface.co/philschmid/new?repository=google%2Fgemma-2-27b-it&accelerator=gpu&instance_id=aws-us-east-1-nvidia-a100-x1&task=text-generation&no_suggested_compute=true&tgi=true) using Text Generation Inference as the backend. [Text Generation Inference](https://github.com/huggingface/text-generation-inference) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, token streaming, tensor parallelism for fast inference on multiple GPUs, and production-ready logging and tracing.
 
-To deploy a Gemma 2 model, go to the [model page](https://huggingface.co/google/gemma-2-27b-it) and click on the [Deploy -> Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=meta-llama/Llama-2-7b-hf) widget. Inference Endpoints supports OpenAI compatible [Messages API](https://huggingface.co/blog/tgi-messages-api) that allows you to switch from another closed model to an open one by simply changing the URL.
+To deploy a Gemma 2 model, go to the [model page](https://huggingface.co/google/gemma-2-27b-it) and click on the [Deploy -> Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=google/gemma-2-27b-it) widget. Inference Endpoints supports OpenAI compatible [Messages API](https://huggingface.co/blog/tgi-messages-api) that allows you to switch from another closed model to an open one by simply changing the URL.
 
 ```bash
+curl https://api.endpoints.huggingface.cloud/v2/endpoint/philschmid \
+-X POST \
+-d '{"compute":{"accelerator":"gpu","instanceSize":"x1","instanceType":"nvidia-a100","scaling":{"maxReplica":1,"minReplica":1}},"model":{"framework":"pytorch","image":{"huggingface":{"env":{}}},"repository":"google/gemma-2-27b-it","task":"text-generation"},"name":"test","provider":{"region":"us-east-1","vendor":"aws"},"type":"protected"}' \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer XXXXX"
 from openai import OpenAI
 
 # initialize the client but point it to TGI
@@ -280,9 +283,9 @@ accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num
 
 ## Additional Resources
 
-- [Models on the Hub](https://huggingface.co/models?other=gemma)
+- [Models on the Hub](https://huggingface.co/collections/google/g-667d6600fd5220e7b967f315)
 - [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
-- [Chat demo on Hugging Chat](https://huggingface.co/chat/?model=mistralai/Mixtral-8x7B-Instruct-v0.1)
+- [Chat demo on Hugging Chat](https://huggingface.co/chat/models/google/gemma-2-27b-it)
 - Google Blog
 - Google Notebook
 - Vertex AI model garden link
