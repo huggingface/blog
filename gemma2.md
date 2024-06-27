@@ -160,7 +160,7 @@ You can chat with the Gemma 27B Instruct model on Hugging Chat! Check out the li
 
 With Transformers [release 4.42](https://github.com/huggingface/transformers/releases/tag/v4.42.0), you can use Gemma and leverage all the tools within the Hugging Face ecosystem. To use Gemma models with transformers, make sure to use the latest `transformers` release:
 
-```jsx
+```bash
 pip install "transformers==4.42.0" --upgrade
 ```
 
@@ -197,7 +197,7 @@ print(assistant_response)
 
 You can also automatically quantize the model, loading it in 8-bit or even 4-bit mode. 4-bit loading of the large 27B version takes about 18 GB of memory to run, making it compatible with a lot of consumer cards and GPUs in Google Colab. This is how you’d load the generation pipeline in 4-bit:
 
-```jsx
+```python
 pipeline = pipeline(
     "text-generation",
     model=model,
@@ -220,12 +220,7 @@ You can deploy Gemma 2 on Hugging Face's [Inference Endpoints](https://ui.endpo
 
 To deploy a Gemma 2 model, go to the [model page](https://huggingface.co/google/gemma-2-27b-it) and click on the [Deploy -> Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=google/gemma-2-27b-it) widget. Inference Endpoints supports OpenAI compatible [Messages API](https://huggingface.co/blog/tgi-messages-api) that allows you to switch from another closed model to an open one by simply changing the URL.
 
-```bash
-curl https://api.endpoints.huggingface.cloud/v2/endpoint/philschmid \
--X POST \
--d '{"compute":{"accelerator":"gpu","instanceSize":"x1","instanceType":"nvidia-a100","scaling":{"maxReplica":1,"minReplica":1}},"model":{"framework":"pytorch","image":{"huggingface":{"env":{}}},"repository":"google/gemma-2-27b-it","task":"text-generation"},"name":"test","provider":{"region":"us-east-1","vendor":"aws"},"type":"protected"}' \
--H "Content-Type: application/json" \
--H "Authorization: Bearer XXXXX"
+```python
 from openai import OpenAI
 
 # initialize the client but point it to TGI
