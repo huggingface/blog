@@ -253,9 +253,9 @@ for message in chat_completion:
 - [Models on the Hub](https://huggingface.co/collections/google/g-667d6600fd5220e7b967f315)
 - [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
 - [Chat demo on Hugging Chat](https://huggingface.co/chat/models/google/gemma-2-27b-it)
-- Google Blog
-- Google Notebook
-- Vertex AI model garden link
+- [Google Blog](https://blog.google/technology/developers/google-gemma-2/)
+- Google Notebook _coming soon_
+- Vertex AI model garden _coming soon_
 
 ## Acknowledgments
 
