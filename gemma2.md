@@ -266,12 +266,12 @@ cd trl
 
 Then you can run the script:
 
-```jsx
+```bash
 accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num_processes=1 \
 	examples/scripts/sft.py \
 	--model_name google/gemma-2-27b \
 	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
-	--batch_size 2 \
+	--batch_size 1 \
 	--gradient_accumulation_steps 1 \
 	--learning_rate 2e-4 \
 	--save_steps 20_000 \
