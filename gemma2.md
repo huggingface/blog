@@ -23,23 +23,24 @@ Google released Gemma 2, the latest addition to its family of state-of-the-art o
 ## Table of contents
 
 
-  - [What is Gemma 2?](#what-is-gemma-2)
-  - [Technical advances in Gemma 2](#technical-advances-in-gemma-2)
-    - [Sliding window attention](#sliding-window-attention)
-    - [Soft-capping and attention implementations](#soft-capping-and-attention-implementations)
-    - [Knowledge Distillation](#knowledge-distillation)
-    - [Model Merging](#model-merging)
-  - [Gemma 2 evaluation](#gemma-2-evaluation)
-    - [Technical Report results](#technical-report-results)
-    - [Open LLM Leaderboard results](#open-llm-leaderboard-results)
-  - [How to prompt Gemma 2](#how-to-prompt-gemma-2)
-  - [Demo](#demo)
-  - [Using Hugging Face Transformers](#using-hugging-facetransformers)
-  - [Integration with Google Cloud](#integration-with-google-cloud)
-  - [Integration with Inference Endpoints](#integration-with-inference-endpoints)
-  - [Fine-tuning with 🤗 TRL](#fine-tuning-with-trl)
-  - [Additional Resources](#additional-resources)
-  - [Acknowledgments](#acknowledgments)
+
+- [What is Gemma 2?](#what-is-gemma-2)
+- [Technical advances in Gemma 2](#technical-advances-in-gemma-2)
+  - [Sliding window attention](#sliding-window-attention)
+  - [Soft-capping and attention implementations](#soft-capping-and-attention-implementations)
+  - [Knowledge Distillation](#knowledge-distillation)
+  - [Model Merging](#model-merging)
+- [Gemma 2 evaluation](#gemma-2-evaluation)
+  - [Technical Report results](#technical-report-results)
+  - [Open LLM Leaderboard results](#open-llm-leaderboard-results)
+- [How to prompt Gemma 2](#how-to-prompt-gemma-2)
+- [Demo](#demo)
+- [Using Hugging Face Transformers](#using-hugging-facetransformers)
+- [Integration with Google Cloud](#integration-with-google-cloud)
+- [Integration with Inference Endpoints](#integration-with-inference-endpoints)
+- [Fine-tuning with 🤗 TRL](#fine-tuning-with-trl)
+- [Additional Resources](#additional-resources)
+- [Acknowledgments](#acknowledgments)
 
 ## What is Gemma 2?
 
@@ -58,10 +59,10 @@ Gemma 2 comes with the [same license](https://ai.google.dev/gemma/terms) as the 
 
 Gemma 2 has many similarities with the first iteration. It has a context length of 8192 tokens and uses Rotary Position Embedding (RoPE). There are four main advances in Gemma 2 compared to the original Gemma: 
 
-- Sliding window attention: Interleave sliding window and full-quadratic attention for quality generation.
-- Logit soft-capping prevents logits from growing excessively by scaling them to a fixed range, improving training.
-- Knowledge Distillation: Leverage a larger teacher model to train a smaller model (for the 9B model).
-- Model Merging: Combines two or more LLMs into a single new model
+- [Sliding window attention](#sliding-window-attention): Interleave sliding window and full-quadratic attention for quality generation.
+- [Logit soft-capping](#soft-capping-and-attention-implementations): Prevents logits from growing excessively by scaling them to a fixed range, improving training.
+- [Knowledge Distillation](#knowledge-distillation): Leverage a larger teacher model to train a smaller model (for the 9B model).
+- [Model Merging](#model-merging): Combines two or more LLMs into a single new model
 
 Gemma 2 was trained on [Google Cloud TPU (27B on v5p](https://cloud.google.com/blog/products/ai-machine-learning/introducing-cloud-tpu-v5p-and-ai-hypercomputer?hl=en), [9B on TPU v4)](https://cloud.google.com/tpu/docs/v4) using [JAX](https://jax.readthedocs.io/en/latest/quickstart.html) and [ML Pathways](https://blog.google/technology/ai/introducing-pathways-next-generation-ai-architecture/). Gemma 2 Instruct has been optimized for dialogue applications and trained on a mix of synthetic and human-generated prompt-response pairs using Supervised Fine-Tuning (SFT), Distillation from a larger model, Reinforcement Learning from Human Feedback (RLHF) using a reward model oriented more towards conversational capabilities and model merging models using WARP to improve overall performance.
 
@@ -75,9 +76,7 @@ Similar to the pre-training mix, no details about the fine-tuning datasets or th
 
 Soft capping is a technique that prevents logits from growing excessively large without truncating them. It works by dividing the logits by a maximum value threshold (soft_cap), then passing them through a `tanh` layer (ensuring they are in the `(-1, 1)` range), and finally multiplying by the threshold again. This guarantees that the final values will be in the `(-soft_cap, +soft_cap)` interval without losing much information but stabilizing the training.
 
-Putting it all together, the logits are calculated by:
-
-`logits ← soft_cap ∗ tanh(logits/soft_cap)`
+Putting it all together, the logits are calculated by: `logits ← soft_cap ∗ tanh(logits/soft_cap)`
 
 Gemma 2 employs soft capping for the final and each attention layer. The attention logits are capped at 50.0, and the final logits at 30.0.
 
@@ -158,7 +157,7 @@ This format has to be exactly reproduced for effective use. We’ll later show h
 
 ## Demo
 
-You can chat with the Gemma Instruct model on Hugging Chat! Check out the link here: https://huggingface.co/chat/?model=Google/Gemma-7b-instruct.
+You can chat with the Gemma 27B Instruct model on Hugging Chat! Check out the link here: https://huggingface.co/chat/?model=Google/Gemma-7b-instruct.
 
 You can chat with Gemma Instruct models (27B and 9B on the Hugging Face spaces).
 
@@ -292,6 +291,6 @@ accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num
 
 ## Acknowledgments
 
-Releasing such models with support and evaluations in the ecosystem would not be possible without the contributions of many community members, including [Clémentine](https://huggingface.co/clefourrier) and [Nathan](https://huggingface.co/SaylorTwift) for LLM evaluations; [Nicolas](https://huggingface.co/Narsil) for Text Generation Inference Support; [Arthur](https://huggingface.co/ArthurZ), [Sanchit](https://huggingface.co/sanchit-gandhi), [Joao](https://huggingface.co/joaogante), and [Lysandre for](https://huggingface.co/lysandre) integrating Gemma 2 into transformers; [Nathan](https://huggingface.co/nsarrazin), [Victor](https://huggingface.co/victor), and [Mishig](https://huggingface.co/mishig) for making Gemma available in Hugging Chat. 
+Releasing such models with support and evaluations in the ecosystem would not be possible without the contributions of many community members, including [Clémentine](https://huggingface.co/clefourrier) and [Nathan](https://huggingface.co/SaylorTwift) for LLM evaluations; [Nicolas](https://huggingface.co/Narsil) for Text Generation Inference Support; [Arthur](https://huggingface.co/ArthurZ), [Sanchit](https://huggingface.co/sanchit-gandhi), [Joao](https://huggingface.co/joaogante), and [Lysandre for](https://huggingface.co/lysandre) integrating Gemma 2 into transformers; [Nathan](https://huggingface.co/nsarrazin) and [Victor](https://huggingface.co/victor) for making Gemma 2 available in Hugging Chat. 
 
 And Thank you to the Google Team for releasing Gemma 2 and making it available to the open-source AI community!
