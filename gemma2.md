@@ -270,6 +270,7 @@ Then you can run the script:
 accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num_processes=1 \
 	examples/scripts/sft.py \
 	--model_name google/gemma-2-27b \
+        --output_dir gemma-2-oasst \
 	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
 	--batch_size 1 \
 	--gradient_accumulation_steps 1 \
