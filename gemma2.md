@@ -203,7 +203,7 @@ pipeline = pipeline(
     "text-generation",
     model=model,
     model_kwargs={
-        "torch_dtype": torch.float16,
+        "torch_dtype": torch.bfloat16,
         "quantization_config": {"load_in_4bit": True}
     },
 )
