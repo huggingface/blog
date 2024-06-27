@@ -18,7 +18,6 @@ Google released Gemma 2, the latest addition to its family of state-of-the-art o
 - Hugging Face [Transformers integration](https://github.com/huggingface/transformers/releases/tag/v4.42.0)
 - Integration with Google Cloud
 - Integration with Inference Endpoints
-- An example of fine-tuning Gemma 2 on a single GPU with Hugging Face TRL
 
 ## Table of contents
 
@@ -249,38 +248,6 @@ for message in chat_completion:
     print(message.choices[0].delta.content, end="")
 ```
 
-## Fine-tuning with 🤗 TRL
-
-Training LLMs can be technically and computationally challenging. In this section, we’ll look at the tools available in the Hugging Face ecosystem to efficiently train Gemma on consumer-size GPUs
-
-An example command to fine-tune Gemma on OpenAssistant’s [chat dataset](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) can be found below. We use 4-bit quantization and [QLoRA](https://arxiv.org/abs/2305.14314) to conserve memory to target all the attention blocks' linear layers. Note that, unlike dense transformers, one should not target the MLP layers as they are sparse and don’t interact well with PEFT.
-
-First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
-
-```jsx
-pip install "transformers==4.42.0" --upgrade
-pip install git+https://github.com/huggingface/trl
-git clone https://github.com/huggingface/trl
-cd trl
-```
-
-Then you can run the script:
-
-```bash
-accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num_processes=1 \
-	examples/scripts/sft.py \
-	--model_name google/gemma-2-27b \
-        --output_dir gemma-2-oasst \
-	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
-	--batch_size 1 \
-	--gradient_accumulation_steps 1 \
-	--learning_rate 2e-4 \
-	--save_steps 20_000 \
-	--use_peft \
-	--peft_lora_r 16 --peft_lora_alpha 32 \
-	--target_modules q_proj k_proj v_proj o_proj \
-	--load_in_4bit
-```
 
 ## Additional Resources
 
