@@ -4271,7 +4271,7 @@
     - gcp
 
 - local: beating_gaia
-  title: "Beating GAIA with a Transformers Code Agent"
+  title: "Beating the GAIA benchmark with a Transformers Code Agent"
   author: m-ric
   thumbnail: /blog/assets/beating_gaia/thumbnail.jpg
   date: Jun 29, 2024
