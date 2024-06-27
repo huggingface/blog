@@ -194,7 +194,7 @@ print(assistant_response)
 Ask me yer questions, and I'll do me best to answer 'em, aye!  🦜📚`
 > 
 
-*Note: that we used `bfloat16` because that’s the reference precision for the instruction-tuned model. Running in `float16` may be faster on your hardware, and results should be similar.*
+*We used bfloat16 because that’s the reference precision for the instruction-tuned model. Running in float16 may be faster on your hardware, and results should be similar on the 9B model. Do note, however, that the 27B instruction-tuned model produces erratic outputs when using float16: you must use bfloat16 for that model weight.*
 
 You can also automatically quantize the model, loading it in 8-bit or even 4-bit mode. 4-bit loading of the large 27B version takes about 18 GB of memory to run, making it compatible with a lot of consumer cards and GPUs in Google Colab. This is how you’d load the generation pipeline in 4-bit:
 
