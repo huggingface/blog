@@ -22,8 +22,6 @@ Google released Gemma 2, the latest addition to its family of state-of-the-art o
 
 ## Table of contents
 
-
-
 - [What is Gemma 2?](#what-is-gemma-2)
 - [Technical advances in Gemma 2](#technical-advances-in-gemma-2)
   - [Sliding window attention](#sliding-window-attention)
@@ -118,21 +116,21 @@ This Technical Report of Gemma 2 compares the performance of different open LLMs
 
 |            | Llama 3 (70B) | Qwen 1.5 (32B) | Gemma 2 (27B) |
 | ---------- | ------------- | -------------- | ------------- |
-| MMLU       | 79.2          | 74.3           | 75.2          |
-| GSM8K      | 76.9          | 61.1           | 75.1          |
-| ARC-c      | 68.8          | 63.6           | 71.4          |
-| HellaSwag  | 88.0          | 85.0           | 86.4          |
-| Winogrande | 85.3          | 81.5           | 83.7          |
+| MMLU       | **79.2**      | 74.3           | 75.2          |
+| GSM8K      | **76.9**      | 61.1           | 75.1          |
+| ARC-c      | 68.8          | 63.6           | **71.4**      |
+| HellaSwag  | **88.0**      | 85.0           | 86.4          |
+| Winogrande | **85.3**      | 81.5           | 83.7          |
 
 The Report also compares the performance of Small Language Models. 
 
 | Benchmark  | Mistral (7B) | Llama 3 (8B) | Gemma (8B) | Gemma 2 (9B) |
 | ---------- | ------------ | ------------ | ---------- | ------------ |
-| MMLU       | 62.5         | 66.6         | 64.4       | 71.3         |
-| GSM8K      | 34.5         | 45.7         | 50.9       | 62.3         |
-| ARC-C      | 60.5         | 59.2         | 61.1       | 68.4         |
-| HellaSwag  | 83.0         | 82.0         | 82.3       | 81.9         |
-| Winogrande | 78.5         | 78.5         | 79.0       | 80.6         |
+| MMLU       | 62.5         | 66.6         | 64.4       | **71.3**     |
+| GSM8K      | 34.5         | 45.7         | 50.9       | **62.3**     |
+| ARC-C      | 60.5         | 59.2         | 61.1       | **68.4**     |
+| HellaSwag  | **83.0**     | 82.0         | 82.3       | 81.9         |
+| Winogrande | 78.5         | 78.5         | 79.0       | **80.6**     |
 
 ### Open LLM Leaderboard results
 
