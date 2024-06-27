@@ -77,7 +77,7 @@ Putting it all together, the logits are calculated by: `logits ← soft_cap ∗ 
 
 Gemma 2 employs soft capping for the final and each attention layer. The attention logits are capped at 50.0, and the final logits at 30.0.
 
-At the time of release soft-capping is incompatible with Flash Attention/ SDPA. To ensure maximum efficiency we remove it during inference. Gemma 2 team observed minor difference in inference performance.
+At the time of release, soft-capping is incompatible with Flash Attention / SDPA, but they can still be used in inference for maximum efficiency. The Gemma 2 team observed very minor differences when soft-capping is removed during inference.
 
 *Note: For stable fine-tuning runs, you still need to enable soft-capping and hence, we recommend fine-tuning with `eager` attention instead of SDPA.*
 
