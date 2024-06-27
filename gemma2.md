@@ -138,7 +138,7 @@ The Report also compares the performance of Small Language Models.
 
 The base models have no prompt format. Like other base models, they can be used to continue an input sequence with a plausible continuation or for zero-shot/few-shot inference. The Instruct versions have a very simple conversation structure:
 
-```bash
+```
 <start_of_turn>user
 knock knock<end_of_turn>
 <start_of_turn>model
