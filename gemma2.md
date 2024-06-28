@@ -160,7 +160,7 @@ You can chat with the Gemma 27B Instruct model on Hugging Chat! Check out the li
 With Transformers [release 4.42](https://github.com/huggingface/transformers/releases/tag/v4.42.0), you can use Gemma and leverage all the tools within the Hugging Face ecosystem. To use Gemma models with transformers, make sure to use the latest `transformers` release:
 
 ```bash
-pip install "transformers==4.42.0" --upgrade
+pip install "transformers==4.42.1" --upgrade
 ```
 
 The following snippet shows how to use `gemma-2-9b-it` with transformers. It requires about 18 GB of RAM, which fits many consumer GPUs. The same snippet works for `gemma-2-27b-it`, which, at 56GB of RAM, makes it a very interesting model for production use cases. Memory consumption can be further reduced by loading in 8-bit or 4-bit mode.
