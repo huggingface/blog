@@ -34,7 +34,7 @@ Google released Gemma 2, the latest addition to its family of state-of-the-art o
 - [Using Hugging Face Transformers](#using-hugging-facetransformers)
 - [Integration with Google Cloud](#integration-with-google-cloud)
 - [Integration with Inference Endpoints](#integration-with-inference-endpoints)
-- [Fine-tuning with 🤗 TRL](#fine-tuning-with-trl)
+- [Fine-tuning with 🤗 TRL](#fine-tuning-with-🤗-trl)
 - [Additional Resources](#additional-resources)
 - [Acknowledgments](#acknowledgments)
 
@@ -160,10 +160,10 @@ You can chat with the Gemma 27B Instruct model on Hugging Chat! Check out the li
 With Transformers [release 4.42](https://github.com/huggingface/transformers/releases/tag/v4.42.0), you can use Gemma and leverage all the tools within the Hugging Face ecosystem. To use Gemma models with transformers, make sure to use the latest `transformers` release:
 
 ```bash
-pip install "transformers==4.42.1" --upgrade
+pip install "transformers>=4.42.3" --upgrade
 ```
 
-The following snippet shows how to use `gemma-2-9b-it` with transformers. It requires about 18 GB of RAM, which fits many consumer GPUs. The same snippet works for `gemma-2-27b-it`, which, at 56GB of RAM, makes it a very interesting model for production use cases. Memory consumption can be further reduced by loading in 8-bit or 4-bit mode.
+The following snippet shows how to use `gemma-2-9b-it` with `transformers`. It requires about 18 GB of RAM, which fits many consumer GPUs. The same snippet works for `gemma-2-27b-it`, which, at 56GB of RAM, makes it a very interesting model for production use cases. Memory consumption can be further reduced by loading in 8-bit or 4-bit mode.
 
 ```python
 from transformers import pipeline
@@ -207,7 +207,7 @@ pipeline = pipeline(
 )
 ```
 
-For more details on using the models with transformers, please check [the model cards](https://huggingface.co/gg-hf/gemma-2-9b).
+For more details on using the models with `transformers`, please check [the model cards](https://huggingface.co/gg-hf/gemma-2-9b).
 
 ## Integration with Google Cloud
 
@@ -223,7 +223,7 @@ An example command to fine-tune Gemma on OpenAssistant’s [chat dataset](https:
 First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
 
 ```jsx
-pip install "transformers==4.42.2"
+pip install "transformers>=4.42.3" --upgrade
 pip install --upgrade bitsandbytes
 pip install --ugprade peft
 pip install git+https://github.com/huggingface/trl
@@ -257,9 +257,6 @@ python \
 	--output_dir models/gemma2
 ```
 
-
-
-
 If you have more GPUs to spare, you can run training with DeepSpeed and ZeRO Stage 3:
 
 ```bash
@@ -280,9 +277,6 @@ accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml
     --gradient_checkpointing \
 	--output_dir models/gemma2
 ```
-
-
-
 
 ## Integration with Inference Endpoints
 
@@ -323,6 +317,6 @@ for message in chat_completion:
 
 ## Acknowledgments
 
-Releasing such models with support and evaluations in the ecosystem would not be possible without the contributions of many community members, including [Clémentine](https://huggingface.co/clefourrier) and [Nathan](https://huggingface.co/SaylorTwift) for LLM evaluations; [Nicolas](https://huggingface.co/Narsil) for Text Generation Inference Support; [Arthur](https://huggingface.co/ArthurZ), [Sanchit](https://huggingface.co/sanchit-gandhi), [Joao](https://huggingface.co/joaogante), and [Lysandre for](https://huggingface.co/lysandre) integrating Gemma 2 into transformers; [Nathan](https://huggingface.co/nsarrazin) and [Victor](https://huggingface.co/victor) for making Gemma 2 available in Hugging Chat. 
+Releasing such models with support and evaluations in the ecosystem would not be possible without the contributions of many community members, including [Clémentine](https://huggingface.co/clefourrier) and [Nathan](https://huggingface.co/SaylorTwift) for LLM evaluations; [Nicolas](https://huggingface.co/Narsil) for Text Generation Inference Support; [Arthur](https://huggingface.co/ArthurZ), [Sanchit](https://huggingface.co/sanchit-gandhi), [Joao](https://huggingface.co/joaogante), and [Lysandre for](https://huggingface.co/lysandre) integrating Gemma 2 into `transformers`; [Nathan](https://huggingface.co/nsarrazin) and [Victor](https://huggingface.co/victor) for making Gemma 2 available in Hugging Chat. 
 
 And Thank you to the Google Team for releasing Gemma 2 and making it available to the open-source AI community!

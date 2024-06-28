@@ -163,7 +163,7 @@ https://huggingface.co/chat/models/google/gemma-2-27b-it
 随着 Transformers [版本 4.42](https://github.com/huggingface/transformers/releases/tag/v4.42.0) 的发布，你可以使用 Gemma 并利用 Hugging Face 生态系统中的所有工具。要使用 Transformers 使用 Gemma 模型，请确保使用最新的 `transformers` 版本：
 
 ```bash
-pip install "transformers==4.42.1" --upgrade
+pip install "transformers>=4.42.3" --upgrade
 ```
 
 以下代码片段展示了如何使用 `transformers` 使用 `gemma-2-9b-it`。它需要大约 18 GB 的 RAM，适用于许多消费者 GPU。相同的代码片段适用于 `gemma-2-27b-it`，需要 56GB 的 RAM，使其非常适合生产用例。通过加载 8-bit 或 4-bit 模式，可以进一步减少内存消耗。
@@ -226,7 +226,7 @@ pipeline = pipeline(
 首先,安装 🤗 TRL 的每日版本并克隆仓库以访问[训练脚本](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
 
 ```jsx
-pip install "transformers==4.42.2"
+pip install "transformers>=4.42.3" --upgrade
 pip install --upgrade bitsandbytes
 pip install --ugprade peft
 pip install git+https://github.com/huggingface/trl
@@ -295,6 +295,6 @@ accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml
 
 ## 致谢
 
-在生态系统中发布此类模型及其支持和评估离不开许多社区成员的贡献，包括 [Clémentine](https://huggingface.co/clefourrier) 和 [Nathan](https://huggingface.co/SaylorTwift) 对 LLM 的评估；[Nicolas](https://huggingface.co/Narsil) 对文本生成推理的支持；[Arthur](https://huggingface.co/ArthurZ)、[Sanchit](https://huggingface.co/sanchit-gandhi)、[Joao](https://huggingface.co/joaogante) 和 [Lysandre](https://huggingface.co/lysandre) 对 Gemma 2 集成到 Transformers 中的支持；[Nathan](https://huggingface.co/nsarrazin) 和 [Victor](https://huggingface.co/victor) 使 Gemma 2 在 Hugging Chat 中可用。
+在生态系统中发布此类模型及其支持和评估离不开许多社区成员的贡献，包括 [Clémentine](https://huggingface.co/clefourrier) 和 [Nathan](https://huggingface.co/SaylorTwift) 对 LLM 的评估；[Nicolas](https://huggingface.co/Narsil) 对文本生成推理的支持；[Arthur](https://huggingface.co/ArthurZ)、[Sanchit](https://huggingface.co/sanchit-gandhi)、[Joao](https://huggingface.co/joaogante) 和 [Lysandre](https://huggingface.co/lysandre) 对 Gemma 2 集成到 `transformers` 中的支持；[Nathan](https://huggingface.co/nsarrazin) 和 [Victor](https://huggingface.co/victor) 使 Gemma 2 在 Hugging Chat 中可用。
 
 感谢 Google 团队发布 Gemma 2 并使其对开源 AI 社区开放！
