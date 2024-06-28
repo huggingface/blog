@@ -266,7 +266,7 @@ python \
 
 如果你有更多的 GPU 可用,可以使用 DeepSpeed 和 ZeRO Stage 3 进行训练:
 
-```jsx
+```bash
 accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml \
 	examples/scripts/sft.py \
 	--model_name google/gemma-2-27b \
