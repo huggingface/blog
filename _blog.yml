@@ -4269,3 +4269,16 @@
     - research
     - LLM
     - gcp
+
+- local: multi-lora-serving
+  title: "TGI Multi-LoRA: Deploy Once Serve 30 models"
+  author: derek-thomas
+  thumbnail: /blog/assets/multi-lora-serving/thumbnail.png
+  date: Jun 28, 2024
+  tags:
+    - nlp
+    - tgi
+    - LLM
+    - lora
+    - peft
+    - open-source
