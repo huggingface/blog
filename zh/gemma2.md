@@ -236,7 +236,7 @@ cd trl
 
 然后你可以运行该脚本:
 
-```jsx
+```bash
 # peft 调优;单 GPU;https://wandb.ai/costa-huang/huggingface/runs/l1l53cst
 python \
 	examples/scripts/sft.py \
