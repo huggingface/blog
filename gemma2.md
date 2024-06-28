@@ -251,15 +251,12 @@ python \
 	--lora_target_modules q_proj k_proj v_proj o_proj \
 	--load_in_4bit \
     --use_peft \
-	--attn_implementation flash_attention_2 \
-    --logging_steps=1 \
+	--attn_implementation eager \
+    --logging_steps=10 \
     --gradient_checkpointing \
 	--output_dir models/gemma2
 ```
 
-<p align="center">
-  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/gemma2/lora.png?download=true" alt="alt_text" title="image_tooltip" />
-</p>
 
 
 
@@ -278,16 +275,13 @@ accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml
 	--report_to wandb \
 	--bf16 \
 	--max_seq_length 1024 \
-	--attn_implementation flash_attention_2 \
-    --logging_steps=1 \
+	--attn_implementation eager \
+    --logging_steps=10 \
     --gradient_checkpointing \
 	--output_dir models/gemma2
 ```
 
 
-<p align="center">
-  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/gemma2/ds3.png?download=true?download=true" alt="alt_text" title="image_tooltip" />
-</p>
 
 
 ## Integration with Inference Endpoints
