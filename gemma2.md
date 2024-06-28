@@ -213,6 +213,84 @@ For more details on using the models with transformers, please check [the model 
 
 *Note: We are currently working on adding new containers to GKE and Vertex AI to run Google Gemma 2 efficiently. We will update this section as soon as the containers are available.* 
 
+
+
+## Fine-tuning with 🤗 TRL
+
+Training LLMs can be technically and computationally challenging. In this section, we’ll look at the tools available in the Hugging Face ecosystem to efficiently train Gemma on consumer-size GPUs
+
+An example command to fine-tune Gemma on OpenAssistant’s [chat dataset](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) can be found below. We use 4-bit quantization and [QLoRA](https://arxiv.org/abs/2305.14314) to conserve memory to target all the attention blocks' linear layers. Note that, unlike dense transformers, one should not target the MLP layers as they are sparse and don’t interact well with PEFT.
+
+First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
+
+```jsx
+pip install "transformers==4.42.0" --upgrade
+pip install --upgrade bitsandbytes
+pip install --ugprade peft
+pip install git+https://github.com/huggingface/trl
+git clone https://github.com/huggingface/trl
+cd trl
+```
+
+Then you can run the script:
+
+```jsx
+# peft tuning; single GPU; https://wandb.ai/costa-huang/huggingface/runs/l1l53cst
+python \
+	examples/scripts/sft.py \
+	--model_name google/gemma-2-27b \
+	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
+	--dataset_text_field="text" \
+	--per_device_train_batch_size 1 \
+	--per_device_eval_batch_size 1 \
+	--gradient_accumulation_steps 4 \
+	--learning_rate 2e-4 \
+	--report_to wandb \
+	--bf16 \
+	--max_seq_length 1024 \
+	--lora_r 16 --lora_alpha 32 \
+	--lora_target_modules q_proj k_proj v_proj o_proj \
+	--load_in_4bit \
+    --use_peft \
+	--attn_implementation flash_attention_2 \
+    --logging_steps=1 \
+    --gradient_checkpointing \
+	--output_dir models/gemma2
+```
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/gemma2/lora.png?download=true" alt="alt_text" title="image_tooltip" />
+</p>
+
+
+
+If you have more GPUs to spare, you can run training with DeepSpeed and ZeRO Stage 3:
+
+```jsx
+accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml \
+	examples/scripts/sft.py \
+	--model_name google/gemma-2-27b \
+	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
+	--dataset_text_field="text" \
+	--per_device_train_batch_size 1 \
+	--per_device_eval_batch_size 1 \
+	--gradient_accumulation_steps 4 \
+	--learning_rate 2e-5 \
+	--report_to wandb \
+	--bf16 \
+	--max_seq_length 1024 \
+	--attn_implementation flash_attention_2 \
+    --logging_steps=1 \
+    --gradient_checkpointing \
+	--output_dir models/gemma2
+```
+
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/gemma2/ds3.png?download=true?download=true" alt="alt_text" title="image_tooltip" />
+</p>
+
+
 ## Additional Resources
 
 - [Models on the Hub](https://huggingface.co/collections/google/g-667d6600fd5220e7b967f315)

@@ -216,6 +216,80 @@ pipeline = pipeline(
 
 **注意：我们目前正在为 GKE 和 Vertex AI 添加新的容器，以高效运行 Google Gemma 2。我们将在容器可用时更新此部分。**
 
+
+## 使用 🤗 TRL 进行微调
+
+训练大型语言模型在技术和计算上都具有挑战性。在本节中,我们将了解 Hugging Face 生态系统中可用的工具,以便在消费级 GPU 上高效训练 Gemma。
+
+下面是在 OpenAssistant 的[聊天数据集](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25)上微调 Gemma 的示例命令。我们使用 4 位量化和 [QLoRA](https://arxiv.org/abs/2305.14314) 来节省内存,以针对所有注意力块的线性层。请注意,与密集变换器不同,不应针对 MLP 层,因为它们是稀疏的,与 PEFT 不太兼容。
+
+首先,安装 🤗 TRL 的每日版本并克隆仓库以访问[训练脚本](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
+
+```jsx
+pip install "transformers==4.42.0" --upgrade
+pip install --upgrade bitsandbytes
+pip install --ugprade peft
+pip install git+https://github.com/huggingface/trl
+git clone https://github.com/huggingface/trl
+cd trl
+```
+
+然后你可以运行该脚本:
+
+```jsx
+# peft 调优;单 GPU;https://wandb.ai/costa-huang/huggingface/runs/l1l53cst
+python \
+	examples/scripts/sft.py \
+	--model_name google/gemma-2-27b \
+	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
+	--dataset_text_field="text" \
+	--per_device_train_batch_size 1 \
+	--per_device_eval_batch_size 1 \
+	--gradient_accumulation_steps 4 \
+	--learning_rate 2e-4 \
+	--report_to wandb \
+	--bf16 \
+	--max_seq_length 1024 \
+	--lora_r 16 --lora_alpha 32 \
+	--lora_target_modules q_proj k_proj v_proj o_proj \
+	--load_in_4bit \
+    --use_peft \
+	--attn_implementation flash_attention_2 \
+    --logging_steps=1 \
+    --gradient_checkpointing \
+	--output_dir models/gemma2
+```
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/gemma2/lora.png?download=true" alt="alt_text" title="image_tooltip" />
+</p>
+
+如果你有更多的 GPU 可用,可以使用 DeepSpeed 和 ZeRO Stage 3 进行训练:
+
+```jsx
+accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml \
+	examples/scripts/sft.py \
+	--model_name google/gemma-2-27b \
+	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
+	--dataset_text_field="text" \
+	--per_device_train_batch_size 1 \
+	--per_device_eval_batch_size 1 \
+	--gradient_accumulation_steps 4 \
+	--learning_rate 2e-5 \
+	--report_to wandb \
+	--bf16 \
+	--max_seq_length 1024 \
+	--attn_implementation flash_attention_2 \
+    --logging_steps=1 \
+    --gradient_checkpointing \
+	--output_dir models/gemma2
+```
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/gemma2/ds3.png?download=true?download=true" alt="alt_text" title="image_tooltip" />
+</p>
+
+
 ## 其他资源
 
 - [Hub 上的模型](https://huggingface.co/collections/google/g-667d6600fd5220e7b967f315)
