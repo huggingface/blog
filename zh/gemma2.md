@@ -163,7 +163,7 @@ https://huggingface.co/chat/models/google/gemma-2-27b-it
 随着 Transformers [版本 4.42](https://github.com/huggingface/transformers/releases/tag/v4.42.0) 的发布，你可以使用 Gemma 并利用 Hugging Face 生态系统中的所有工具。要使用 Transformers 使用 Gemma 模型，请确保使用最新的 `transformers` 版本：
 
 ```bash
-pip install "transformers==4.42.0" --upgrade
+pip install "transformers==4.42.1" --upgrade
 ```
 
 以下代码片段展示了如何使用 `transformers` 使用 `gemma-2-9b-it`。它需要大约 18 GB 的 RAM，适用于许多消费者 GPU。相同的代码片段适用于 `gemma-2-27b-it`，需要 56GB 的 RAM，使其非常适合生产用例。通过加载 8-bit 或 4-bit 模式，可以进一步减少内存消耗。
