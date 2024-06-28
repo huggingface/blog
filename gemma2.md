@@ -234,7 +234,7 @@ cd trl
 
 Then you can run the script:
 
-```jsx
+```bash
 # peft tuning; single GPU; https://wandb.ai/costa-huang/huggingface/runs/l1l53cst
 python \
 	examples/scripts/sft.py \
