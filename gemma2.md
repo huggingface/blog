@@ -209,9 +209,37 @@ pipeline = pipeline(
 
 For more details on using the models with transformers, please check [the model cards](https://huggingface.co/gg-hf/gemma-2-9b).
 
-## Integration with Google Cloud & Integration with Inference Endpoints
+## Integration with Google Cloud
 
 *Note: We are currently working on adding new containers to GKE and Vertex AI to run Google Gemma 2 efficiently. We will update this section as soon as the containers are available.* 
+
+## Integration with Inference Endpoints
+
+You can deploy Gemma 2 on Hugging Face's [Inference Endpoints](https://ui.endpoints.huggingface.co/philschmid/new?repository=google%2Fgemma-2-27b-it&accelerator=gpu&instance_id=aws-us-east-1-nvidia-a100-x1&task=text-generation&no_suggested_compute=true&tgi=true) using Text Generation Inference as the backend. [Text Generation Inference](https://github.com/huggingface/text-generation-inference) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, token streaming, tensor parallelism for fast inference on multiple GPUs, and production-ready logging and tracing.
+
+To deploy a Gemma 2 model, go to the [model page](https://huggingface.co/google/gemma-2-27b-it) and click on the [Deploy -> Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=google/gemma-2-27b-it) widget. Inference Endpoints supports OpenAI compatible [Messages API](https://huggingface.co/blog/tgi-messages-api) that allows you to switch from another closed model to an open one by simply changing the URL.
+
+```python
+from openai import OpenAI
+
+# initialize the client but point it to TGI
+client = OpenAI(
+    base_url="<ENDPOINT_URL>" + "/v1/",  # replace with your endpoint url
+    api_key="<HF_API_TOKEN>",  # replace with your token
+)
+chat_completion = client.chat.completions.create(
+    model="tgi",
+    messages=[
+        {"role": "user", "content": "Why is open-source software important?"},
+    ],
+    stream=True,
+    max_tokens=500
+)
+
+# iterate and print stream
+for message in chat_completion:
+    print(message.choices[0].delta.content, end="")
+```
 
 ## Additional Resources
 
