@@ -34,7 +34,7 @@ Google released Gemma 2, the latest addition to its family of state-of-the-art o
 - [Using Hugging Face Transformers](#using-hugging-facetransformers)
 - [Integration with Google Cloud](#integration-with-google-cloud)
 - [Integration with Inference Endpoints](#integration-with-inference-endpoints)
-- [Fine-tuning with 🤗 TRL](#fine-tuning-with-🤗-trl)
+- [Fine-tuning with 🤗 TRL](#fine-tuning-with-trl)
 - [Additional Resources](#additional-resources)
 - [Acknowledgments](#acknowledgments)
 
