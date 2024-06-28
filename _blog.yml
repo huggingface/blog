@@ -4262,7 +4262,7 @@
   title: "Welcome Gemma 2 - Google's new open LLM"
   author: philschmid
   thumbnail: /blog/assets/gemma2/thumbnail.jpg
-  date: Jun 27, 2024
+  date: June 27, 2024
   tags:
     - nlp
     - community
@@ -4274,7 +4274,7 @@
   title: "Beating the GAIA benchmark with a Transformers Code Agent"
   author: m-ric
   thumbnail: /blog/assets/beating_gaia/thumbnail.jpg
-  date: Jun 29, 2024
+  date: July 1, 2024
   tags:
     - agents
     - nlp
