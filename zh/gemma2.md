@@ -226,7 +226,7 @@ pipeline = pipeline(
 首先,安装 🤗 TRL 的每日版本并克隆仓库以访问[训练脚本](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
 
 ```jsx
-pip install "transformers==4.42.1"
+pip install "transformers==4.42.2"
 pip install --upgrade bitsandbytes
 pip install --ugprade peft
 pip install git+https://github.com/huggingface/trl
