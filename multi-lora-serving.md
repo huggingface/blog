@@ -104,7 +104,7 @@ There is already a lot of good information on [how to deploy TGI](https://github
 3. Add the `LORA_ADAPTERS` env var during deployment
     * Example: `LORA_ADAPTERS=predibase/customer_support,predibase/magicoder` 
 
-```
+```bash
 model=mistralai/Mistral-7B-v0.1
 # share a volume with the Docker container to avoid downloading weights every run
 volume=$PWD/data
@@ -147,12 +147,48 @@ Maybe some of you are Musophobic and don't want to click, we donâ€™t judge. Itâ€
 
 It took ~3m40s for my endpoint to deploy. Note for more models it will take longer. Do make a [github issue](https://github.com/huggingface/text-generation-inference/issues) if you are facing issues with load time!
 
+```python
+from huggingface_hub import create_inference_endpoint
+
+# Custom Docker image details
+custom_image = {
+    "health_route": "/health",
+    "url": "ghcr.io/huggingface/text-generation-inference:2.1.0",  # This is the min version
+    "env": {
+        "LORA_ADAPTERS": "predibase/customer_support,predibase/magicoder",  # Add adapters here
+        "MAX_BATCH_PREFILL_TOKENS": "2048",  # Set according to your needs
+        "MAX_INPUT_LENGTH": "1024", # Set according to your needs
+        "MAX_TOTAL_TOKENS": "1512", # Set according to your needs
+        "MODEL_ID": "/repository"
+    }
+}
+
+# Creating the inference endpoint
+endpoint = create_inference_endpoint(
+    name="mistral-7b-multi-lora",
+    repository="mistralai/Mistral-7B-v0.1",
+    framework="pytorch",
+    accelerator="gpu",
+    instance_size="x1",
+    instance_type="nvidia-l4",
+    region="us-east-1",
+    vendor="aws",
+    min_replica=1,
+    max_replica=1,
+    task="text-generation",
+    custom_image=custom_image,
+)
+endpoint.wait()
+
+print("Your model is ready to use!")
+
+```
 
 ## Consume
 
 When you consume your endpoint you will need to specify your `adapter_id`. Here is a CURL example:
 
-```
+```bash
 curl 127.0.0.1:3000/generate \
     -X POST \
     -H 'Content-Type: application/json' \
@@ -167,7 +203,7 @@ curl 127.0.0.1:3000/generate \
 
 Alternatively here is an example using [InferenceClient](https://huggingface.co/docs/huggingface_hub/guides/inference) from the wonderful [HuggingFace Hub Python library](https://huggingface.co/docs/huggingface_hub/v0.23.4/en/index). We do expect tighter integrations in the near future!
 
-```
+```python
 from huggingface_hub import InferenceClient
 
 tgi_deployment = "127.0.0.1:3000"
