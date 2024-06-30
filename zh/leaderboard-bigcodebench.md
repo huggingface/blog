@@ -234,9 +234,10 @@ bigcodebench.evaluate --subset [complete|instruct] --samples samples-sanitized-c
 
 如果你觉得我们的评估有用，请考虑引用我们的工作
 ```bibtex
-@article{bigcodebench,
+@article{zhuo2024bigcodebench,
   title={BigCodeBench: Benchmarking Code Generation with Diverse Function Calls and Complex Instructions},
-  author={Zhuo, Terry Yue and Vu, Min Chien and Chim, Jenny and Hu, Han and Yu, Wenhao and Widyasari, Ratnadira and Yusuf, Imam Nur Bani and Zhan, Haolan and He, Junda and Paul, Indraneil and Brunner, Simon and Gong, Chen and Hoang, Thong and Zebaze, Armel Randy and Hong, Xiaoheng and Li, Wen-Ding and Kaddour, Jean and Xu, Ming and Zhang, Zhihan and Yadav, Prateek and Jain, Naman and Gu, Alex and Cheng, Zhoujun and Liu, Jiawei and Liu, Qian and Wang, Zijian and Lo, David and Hui, Binyuan and Muennighoff, Niklas and Fried, Daniel and Du, Xiaoning and de Vries, Harm and Von Werra, Leandro},
+  author={Zhuo, Terry Yue and Vu, Minh Chien and Chim, Jenny and Hu, Han and Yu, Wenhao and Widyasari, Ratnadira and Yusuf, Imam Nur Bani and Zhan, Haolan and He, Junda and Paul, Indraneil and others},
+  journal={arXiv preprint arXiv:2406.15877},
   year={2024}
 }
 ```
