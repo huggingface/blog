@@ -1,6 +1,6 @@
 ---
 title: "Our Transformers Code Agent beats the GAIA benchmark 🏅"
-thumbnail: /blog/assets/beating-gaia/thumbnail.png
+thumbnail: /blog/assets/beating-gaia/thumbnail.jpeg
 authors:
   - user: m-ric
   - user: sergeipetrov
@@ -8,7 +8,7 @@ authors:
 
 ## TL;DR
 
-After some experiments, we were impressed by the performance of Transformers Agents to build agentic systems, so we wanted to see how good it was! We tested using a Code Agent built with the library on the GAIA benchmark, arguably the most difficult and comprehensive agent benchmark… and ended up on top!
+After some experiments, we were impressed by the performance of Transformers Agents to build agentic systems, so we wanted to see how good it was! We tested using a [Code Agent built with the library](https://github.com/aymeric-roucher/GAIA) on the GAIA benchmark, arguably the most difficult and comprehensive agent benchmark… and ended up on top!
 
 
 ## GAIA: a tough benchmark for Agents
@@ -36,8 +36,6 @@ Here is an example of a tricky question:
 
 You can see this question involves several difficulties:
 
-
-
 - Answering in a constrained format.
 - Multimodal abilities to read the fruits from the image
 - Several informations to gather, some depending on the others:
@@ -57,7 +55,6 @@ On GAIA’s[ public leaderboard](https://huggingface.co/spaces/gaia-benchmark/le
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/beating_gaia/prepare_for_battle.gif" alt="Let's fight" width=70%>
 </p>
-
 
 
 ## Building the right tools 🛠️
