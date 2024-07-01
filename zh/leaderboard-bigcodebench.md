@@ -1,5 +1,5 @@
 ---
-title: "BigCodeBench: 继 HumanEval 之后的新一代代码生成测试基准"
+title: "BigCodeBench: 继 HumanEval 之后的新一代代码生成基准测试"
 thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_bigcode.png
 authors:
 - user: terryyz
@@ -85,7 +85,7 @@ BigCodeBench 中的任务利用了来自流行库的多样化函数调用。我�
 
 <img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/depth-breadth.svg?raw=true" alt="comparison" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
 
-为了更好地理解实现的复杂性和工具使用的多样性，我们将 BigCodeBench 中的任务与代表性基准的任务进行了比较，包括[APPS](https://github.com/hendrycks/apps)、[DS-1000](https://github.com/HKUNLP/DS-1000)、[ODEX](https://github.com/zorazrw/odex)、[APIBench](https://github.com/ShishirPatil/gorilla/tree/main/data/apibench)、[MBPP](https://github.com/google-research/google-research/tree/master/mbpp)、[NumpyEval](https://github.com/microsoft/PyCodeGPT/tree/main/cert/pandas-numpy-eval)、[PandasEval](https://github.com/microsoft/PyCodeGPT/tree/main/cert/pandas-numpy-eval)、[HumanEval](https://github.com/openai/human-eval) 和 [TorchDataEval](https://github.com/microsoft/PyCodeGPT/tree/main/apicoder/private-eval)。我们发现 BigCodeBench 需要更复杂的推理和问题解决技能来实现全面的功能。
+为了更好地理解实现的复杂性和工具使用的多样性，我们将 BigCodeBench 中的任务与代表性基准测试的任务进行了比较，包括[APPS](https://github.com/hendrycks/apps)、[DS-1000](https://github.com/HKUNLP/DS-1000)、[ODEX](https://github.com/zorazrw/odex)、[APIBench](https://github.com/ShishirPatil/gorilla/tree/main/data/apibench)、[MBPP](https://github.com/google-research/google-research/tree/master/mbpp)、[NumpyEval](https://github.com/microsoft/PyCodeGPT/tree/main/cert/pandas-numpy-eval)、[PandasEval](https://github.com/microsoft/PyCodeGPT/tree/main/cert/pandas-numpy-eval)、[HumanEval](https://github.com/openai/human-eval) 和 [TorchDataEval](https://github.com/microsoft/PyCodeGPT/tree/main/apicoder/private-eval)。我们发现 BigCodeBench 需要更复杂的推理和问题解决技能来实现全面的功能。
 
 <img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/bigcodebench_prompt.svg?raw=true" alt="prompt" style="display: block; margin-left: auto; margin-right: auto; width: 70%;">
 
@@ -99,7 +99,7 @@ BigCodeBench 中的任务利用了来自流行库的多样化函数调用。我�
 
 接下来，20位拥有超过5年 Python 编程经验的志愿专家在基于执行的沙箱中指导 GPT-4。他们不断指示 GPT-4 完善生成的任务并添加测试用例。然后在本地环境中检查这些任务和测试用例，在其他 LLMs 上进行预评估，并由另外7位人类专家交叉检查以确保其质量。
 
-为了确保整体质量，作者抽样了任务让11位人类专家解决，平均人类表现为97%。
+为了确保整体质量，我们抽样了任务让11位人类专家解决，平均人类表现为97%。
 
 ## LLMs 在 BigCodeBench 上的表现如何？📊
 
@@ -120,11 +120,11 @@ BigCodeBench 中的任务利用了来自流行库的多样化函数调用。我�
 
 虽然 Pass@1 是评估整体表现的好指标，但它不足以直接比较模型。受到[Chatbot Arena](https://lmsys.org/blog/2023-05-03-arena/)的启发，我们使用 Elo 评分来对`BigCodeBench-Complete`上的模型进行排名。该方法最初用于国际象棋，根据玩家的比赛表现进行排名。我们将其适应于编程任务，将每个任务视为一场比赛，每个模型视为一个玩家。Elo 评分更新基于比赛结果和预期，使用任务级校准 Pass@1（0%或100%），排除平局。我们从初始 Elo 评分1000开始，使用最大似然估计和500次自举来获得最终分数。<u>我们发现 GPT-4o 远远领先于其他模型，DeepSeekCoder-V2 位居第二梯队。</u>
 
-为了帮助社区了解每个任务上的模型表现，我们跟踪解决率，通过校准 Pass@1 测量。在`BigCodeBench-Complete`上，149个任务被所有模型解决，而6个任务被完全解决。在`BigCodeBench-Instruct`上，278个任务未被解决，14个任务被所有模型完全解决。大量未解决的任务和少量完全解决的任务表明，BigCodeBench 对 LLMs 来说是一个具有挑战性的基准。
+为了帮助社区了解每个任务上的模型表现，我们跟踪解决率，通过校准 Pass@1 测量。在`BigCodeBench-Complete`上，149个任务被所有模型解决，而6个任务被完全解决。在`BigCodeBench-Instruct`上，278个任务未被解决，14个任务被所有模型完全解决。大量未解决的任务和少量完全解决的任务表明，BigCodeBench 对 LLMs 来说是一个具有挑战性的基准测试。
 
 ## 太好了！那么，我如何在 BigCodeBench 上评估我的模型？🛠️
 
-我们通过提供一个简单易用的评估框架，使 BigCodeBench 对社区易于访问，可以通过[PyPI](https://pydigger.com/pypi/bigcodebench)下载。评估框架的原型基于[EvalPlus](https://github.com/evalplus/evalplus)用于 HumanEval+ 和 MBPP+ 基准。然而，由于我们的基准任务比 EvalPlus 有更多样的库依赖性，我们构建了资源约束更少的执行环境，并适应于 BigCodeBench的`unittest` 测试框架。
+我们通过提供一个简单易用的评估框架，使 BigCodeBench 对社区易于访问，可以通过[PyPI](https://pydigger.com/pypi/bigcodebench)下载。评估框架的原型基于[EvalPlus](https://github.com/evalplus/evalplus)用于 HumanEval+ 和 MBPP+ 基准测试。然而，由于我们的基准任务比 EvalPlus 有更多样的库依赖性，我们构建了资源约束更少的执行环境，并适应于 BigCodeBench的`unittest` 测试框架。
 
 为了便于评估，我们提供了预构建的 Docker 镜像用于[_代码生成_](https://hub.docker.com/r/bigcodebench/bigcodebench-generate)和[_代码执行_](https://hub.docker.com/r/bigcodebench/bigcodebench-evaluate)。请查看我们的[GitHub仓库](https://github.com/bigcode-project/bigcodebench)，了解如何使用评估框架的更多细节。
 
