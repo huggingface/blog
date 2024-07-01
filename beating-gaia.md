@@ -1,5 +1,5 @@
 ---
-title: "Beating the GAIA benchmark with a Transformers Code Agent 🏅"
+title: "Our Transformers Code Agent beats the GAIA benchmark 🏅"
 thumbnail: /blog/assets/agents/thumbnail.png
 authors:
   - user: m-ric
@@ -192,6 +192,6 @@ We hope you enjoyed reading this blog post! And the work is just getting started
 - **Web browser tool:** using the `selenium` package, we could have a web browser that passes cookie banners and loads javascript, thus allowing us to read many pages that are for now not accessible.
 - **Improve planning further:** We’re running some ablation tests with other options from the literature to see which method works best. We are planning to give a try to alternative implementations of existing components and also some new components. We will publish our updates when we have more insights!
 
-Keep an eye on Transformers Agents in the next few months!
+Keep an eye on Transformers Agents in the next few months! 🚀
 
 And don’t hesitate to reach out to us with your use cases, now that we have knowledge on the subject we’ll be happy to lend a hand! 🤝

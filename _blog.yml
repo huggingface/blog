@@ -4270,10 +4270,10 @@
     - LLM
     - gcp
 
-- local: beating_gaia
-  title: "Beating the GAIA benchmark with a Transformers Code Agent"
+- local: beating-gaia
+  title: "Our Transformers Code Agent beats the GAIA benchmark!"
   author: m-ric
-  thumbnail: /blog/assets/beating_gaia/thumbnail.jpg
+  thumbnail: /blog/assets/beating-gaia/thumbnail.jpeg
   date: July 1, 2024
   tags:
     - agents
