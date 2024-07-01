@@ -1,6 +1,6 @@
 ---
 title: "Our Transformers Code Agent beats the GAIA benchmark 🏅"
-thumbnail: /blog/assets/agents/thumbnail.png
+thumbnail: /blog/assets/beating-gaia/thumbnail.png
 authors:
   - user: m-ric
   - user: sergeipetrov
@@ -131,8 +131,6 @@ When encountering a function call (`ast.Call`), if the function name is one of t
 
 We also do several tweaks to help with LLM usage of the interpreter:
 
-
-
 - We cap the number of operations in execution to prevent infinite loops caused by issues in LLM-generated code: at each operation, a counter gets incremented, and if it reaches a certain threshold the execution is interrupted
 - We cap the number of lines in print outputs to avoid flooding the context length of the LLM with junk. For instance if the LLM reads a 1M lines text files and decides to print every line, at some point this output will be truncated, so that the agent memory does not explode.
 
@@ -174,7 +172,7 @@ Both the summary of facts and the plan are then used as additional context to ge
 
 [Here is the final code used for our submission.](https://github.com/aymeric-roucher/GAIA)
 
-We get 44.2% on the validation set: so that means Transformers Agent’s ReactCodeAgent is now #1 overall, with 4 points above the second! On the test set, we get 33.3%, so we rank #2, in front of Microsoft Autogen’s submission, and we get the best average score on the hardcore Level 3 questions.
+We get 44.2% on the validation set: so that means Transformers Agent’s ReactCodeAgent is now #1 overall, with 4 points above the second! **On the test set, we get 33.3%, so we rank #2, in front of Microsoft Autogen’s submission, and we get the best average score on the hardcore Level 3 questions.**
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/beating_gaia/leaderboard.png" alt="We did it!" width=100%>
 
@@ -194,4 +192,4 @@ We hope you enjoyed reading this blog post! And the work is just getting started
 
 Keep an eye on Transformers Agents in the next few months! 🚀
 
-And don’t hesitate to reach out to us with your use cases, now that we have knowledge on the subject we’ll be happy to lend a hand! 🤝
+And don’t hesitate to reach out to us with your use cases, now that we have built internal expertise on Agents we’ll be happy to lend a hand! 🤝
