@@ -260,6 +260,10 @@ python \
 	--output_dir models/gemma2
 ```
 
+<p align="center">
+  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/gemma2/lora.png?download=true" alt="alt_text" title="image_tooltip" />
+</p>
+
 
 如果你有更多的 GPU 可用,可以使用 DeepSpeed 和 ZeRO Stage 3 进行训练:
 
@@ -283,6 +287,10 @@ accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml
 ```
 
 
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/gemma2/ds3.png?download=true?download=true" alt="alt_text" title="image_tooltip" />
+</p>
 
 ## 其他资源
 

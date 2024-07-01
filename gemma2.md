@@ -257,6 +257,12 @@ python \
 	--output_dir models/gemma2
 ```
 
+<p align="center">
+  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/gemma2/lora.png?download=true" alt="alt_text" title="image_tooltip" />
+</p>
+
+
+
 If you have more GPUs to spare, you can run training with DeepSpeed and ZeRO Stage 3:
 
 ```bash
@@ -277,6 +283,11 @@ accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml
     --gradient_checkpointing \
 	--output_dir models/gemma2
 ```
+
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/gemma2/ds3.png?download=true?download=true" alt="alt_text" title="image_tooltip" />
+</p>
 
 ## Integration with Inference Endpoints
 
