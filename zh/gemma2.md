@@ -216,7 +216,6 @@ pipeline = pipeline(
 
 **注意：我们目前正在为 GKE 和 Vertex AI 添加新的容器，以高效运行 Google Gemma 2。我们将在容器可用时更新此部分。**
 
-
 ## 使用 🤗 TRL 进行微调
 
 训练大型语言模型在技术和计算上都具有挑战性。在本节中,我们将了解 Hugging Face 生态系统中可用的工具,以便在消费级 GPU 上高效训练 Gemma。
@@ -281,8 +280,6 @@ accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml
     --gradient_checkpointing \
 	--output_dir models/gemma2
 ```
-
-
 
 ## 其他资源
 
