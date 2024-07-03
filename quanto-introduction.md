@@ -5,6 +5,7 @@ authors:
 - user: dacorvo
 - user: ybelkada
 - user: marcsun13
+- user: sugatoray
 ---
 
 # Quanto: a pytorch quantization toolkit
@@ -18,7 +19,7 @@ Many open-source libraries are available to quantize pytorch Deep Learning Model
 
 Also, although they are based on the same design principles, they are unfortunately often incompatible with one another.
 
-Today, we are excited to introduce [quanto](https://github.com/huggingface/quanto), a versatile pytorch quantization toolkit, that provides several unique features:
+Today, we are excited to introduce [optimum-quanto](https://github.com/huggingface/optimum-quanto), (was earlier known as `quanto`) a versatile pytorch quantization toolkit, that provides several unique features:
 
 - available in eager mode (works with non-traceable models)
 - quantized models can be placed on any device (including CUDA and MPS),
@@ -30,24 +31,26 @@ Today, we are excited to introduce [quanto](https://github.com/huggingface/quant
 - supports not only `int8` weights, but also `int2` and `int4`,
 - supports not only `int8` activations, but also `float8`.
 
-Recent quantization methods appear to be focused on quantizing Large Language Models (LLMs), whereas [quanto](https://github.com/huggingface/quanto) intends to provide extremely simple quantization primitives for simple quantization schemes (linear quantization, per-group quantization) that are adaptable across any modality.
+Recent quantization methods appear to be focused on quantizing Large Language Models (LLMs), whereas [optimum-quanto](https://github.com/huggingface/optimum-quanto) intends to provide extremely simple quantization primitives for simple quantization schemes (linear quantization, per-group quantization) that are adaptable across any modality.
 
-The goal of [quanto](https://github.com/huggingface/quanto) is not to replace other quantization libraries, but to foster innovation by lowering the bar
+The goal of [optimum-quanto](https://github.com/huggingface/optimum-quanto) is not to replace other quantization libraries, but to foster innovation by lowering the bar
 to implement and combine quantization features.
 
 Make no mistake, quantization is hard, and integrating it seamlessly in existing models requires a deep understanding of pytorch internals.
-But don't worry, [quanto](https://github.com/huggingface/quanto)'s goal is to do most of the heavy-lifting for you, so that you can focus
+But don't worry, [optimum-quanto](https://github.com/huggingface/optimum-quanto)'s goal is to do most of the heavy-lifting for you, so that you can focus
 on what matters most, exploring low-bitwidth machine learning and finding solutions for the GPU poor.
+
+> :bulb: For simplicity, we will use `optimum-quanto` and `quanto` interchangeably from here.
 
 ## Quantization workflow
 
 Quanto is available as a pip package.
 
 ```sh
-pip install quanto
+pip install optimum-quanto
 ```
 
-[quanto](https://github.com/huggingface/quanto) does not make a clear distinction between dynamic and static quantization. Models are dynamically quantized first,
+[quanto](https://github.com/huggingface/optimum-quanto) does not make a clear distinction between dynamic and static quantization. Models are dynamically quantized first,
 but their weights can be "frozen" later to static values.
 
 A typical quantization workflow consists of the following steps:
@@ -57,6 +60,9 @@ A typical quantization workflow consists of the following steps:
 The first step converts a standard float model into a dynamically quantized model.
 
 ```python
+import optimum.quanto as quanto
+from optimum.quanto import quantize
+
 quantize(model, weights=quanto.qint8, activations=quanto.qint8)
 ```
 
@@ -67,7 +73,9 @@ At this stage, the model's float weights are dynamically quantized only for infe
 Quanto supports a calibration mode that records the activation ranges while passing representative samples through the quantized model.
 
 ```python
-with calibration(momentum=0.9):
+from optimum.quanto import Calibration
+
+with Calibration(momentum=0.9):
     model(samples)
 ```
 
@@ -93,10 +101,12 @@ for batch_idx, (data, target) in enumerate(train_loader):
 When freezing a model, its float weights are replaced by quantized integer weights.
 
 ```python
+from optimum.quanto import freeze
+
 freeze(model)
 ```
 
-Please refer to the [examples](https://github.com/huggingface/quanto/tree/main/examples) for instantiations of the quantization workflow.
+Please refer to the [examples](https://github.com/huggingface/optimum-quanto/tree/main/examples) for instantiations of the quantization workflow.
 You can also check this [notebook](https://colab.research.google.com/drive/1qB6yXt650WXBWqroyQIegB-yrWKkiwhl?usp=sharing) where we show you how to quantize a BLOOM model with quanto!
 ## Performance
 
@@ -108,14 +118,14 @@ Note: the first bar in each group always corresponds to the non-quantized model.
 
 <div class="row"><center>
   <div class="column">
-    <img src="https://github.com/huggingface/quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Accuracy.png?raw=true" alt="mistralai/Mistral-7B-v0.1 Lambada prediction accuracy">
+    <img src="https://github.com/huggingface/optimum-quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Accuracy.png?raw=true" alt="mistralai/Mistral-7B-v0.1 Lambada prediction accuracy">
   </div>
  </center>
 </div>
 
 <div class="row"><center>
   <div class="column">
-    <img src="https://github.com/huggingface/quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Perplexity.png?raw=true" alt="mistralai/Mistral-7B-v0.1 Lambada prediction accuracy">
+    <img src="https://github.com/huggingface/optimum-quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Perplexity.png?raw=true" alt="mistralai/Mistral-7B-v0.1 Lambada prediction accuracy">
   </div>
  </center>
 </div>
@@ -126,16 +136,16 @@ The graph below gives the latency per-token measured on an NVIDIA A100 GPU.
 
 <div class="row"><center>
   <div class="column">
-    <img src="https://github.com/huggingface/quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Latency__ms_.png?raw=true" alt="mistralai/Mistral-7B-v0.1 Mean Latency per token">
+    <img src="https://github.com/huggingface/optimum-quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Latency__ms_.png?raw=true" alt="mistralai/Mistral-7B-v0.1 Mean Latency per token">
   </div>
  </center>
 </div>
 
 These results don't include any optimized matrix multiplication kernels.
 You can see that the quantization adds a significant overhead for lower bitwidth.
-Stay tuned for updated results as we are constantly improving [quanto](https://github.com/huggingface/quanto) and will soon add optimizers and optimized kernels.
+Stay tuned for updated results as we are constantly improving [quanto](https://github.com/huggingface/optimum-quanto) and will soon add optimizers and optimized kernels.
 
-Please refer to the [quanto benchmarks](https://github.com/huggingface/quanto/tree/main/bench/) for detailed results for different model architectures and configurations.
+Please refer to the [quanto benchmarks](https://github.com/huggingface/optimum-quanto/tree/main/bench/) for detailed results for different model architectures and configurations.
 
 ## Integration in transformers
 
@@ -228,7 +238,7 @@ Weights and biases are __not__ quantized. Outputs can be quantized.
 
 ### Custom operations
 
-Thanks to the awesome pytorch dispatch mechanism, [quanto](https://github.com/huggingface/quanto) provides implementations for
+Thanks to the awesome pytorch dispatch mechanism, [quanto](https://github.com/huggingface/optimum-quanto) provides implementations for
 the most common functions used in [transformers](https://github.com/huggingface/transformers) or [diffusers](https://github.com/huggingface/diffusers) models, enabling quantized Tensors without modifying the modeling code too much.
 
 Most of these "dispatched" functions can be performed using combinations of standard pytorch operations.
@@ -239,15 +249,15 @@ Examples of such operations are fused matrix multiplications involving lower bit
 
 ### Post-training quantization optimizers
 
-Post-training quantization optimizers are not available yet in [quanto](https://github.com/huggingface/quanto), but the library is versatile enough
+Post-training quantization optimizers are not available yet in [quanto](https://github.com/huggingface/optimum-quanto), but the library is versatile enough
 to be compatible with most PTQ optimization algorithms like [hqq](https://mobiusml.github.io/hqq_blog/) or [AWQ](https://github.com/mit-han-lab/llm-awq).
 
 Moving forward, the plan is to integrate the most popular algorithms in the most seamless possible way.
 
 ## Contributing to quanto
 
-Contributions to [quanto](https://github.com/huggingface/quanto) are very much welcomed, especially in the following areas:
+Contributions to [optimum-quanto](https://github.com/huggingface/optimum-quanto) are very much welcomed, especially in the following areas:
 
-- optimized kernels for [quanto](https://github.com/huggingface/quanto) operations targeting specific devices,
+- optimized kernels for [optimum-quanto](https://github.com/huggingface/optimum-quanto) operations targeting specific devices,
 - PTQ optimizers,
 - new dispatched operations for quantized Tensors.
