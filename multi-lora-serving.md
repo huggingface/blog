@@ -77,7 +77,7 @@ First, you need to train your LoRA models and export the adapters. You can find 
 
 ### Low Code Teams
 
-For some teams, it's not feasible to train a LoRA for every use-case. Not every use-case has a dedicated machine learning engineer (MLE). Even after you choose a base and prepare your data, you will need to keep up with the latest techniques, explore hyper parameters, find HW resources, write the code, and then evaluate. This can be quite the task even for experienced MLEs. 
+For some organizations, it may be hard to train one LoRA for every use-case, as they may lack the expertise, or other resources. Even after you choose a base and prepare your data, you will need to keep up with the latest techniques, explore hyper parameters, find HW resources, write the code, and then evaluate. This can be quite the task even for experienced teams. 
 
 AutoTrain can lower this barrier to entry significantly. AutoTrain is a no-code solution that allows you to train machine learning models in just a few clicks. There are a number of ways to use AutoTrain. In addition to [locally/on-prem](https://github.com/huggingface/autotrain-advanced?tab=readme-ov-file#local-installation) we have:
 
