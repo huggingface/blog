@@ -140,9 +140,7 @@ Note that this is the minimum, but you should configure the other settings as yo
 
 ### Inference Endpoints Code
 
-Maybe some of you are Musophobic and don't want to click, we don’t judge. It’s easy enough to automate this in code and only use your keyboard. 
-
-It took ~3m40s for my endpoint to deploy. Note for more models it will take longer. Do make a [github issue](https://github.com/huggingface/text-generation-inference/issues) if you are facing issues with load time!
+Maybe some of you are [musophobic](https://en.wikipedia.org/wiki/Fear_of_mice_and_rats) and don't want to use your mouse, we don’t judge. It’s easy enough to automate this in code and only use your keyboard. 
 
 ```python
 from huggingface_hub import create_inference_endpoint
@@ -180,6 +178,8 @@ endpoint.wait()
 print("Your model is ready to use!")
 
 ```
+
+It took ~3m40s for this configuration to deploy. Note for more models it will take longer. Do make a [github issue](https://github.com/huggingface/text-generation-inference/issues) if you are facing issues with load time!
 
 ## Consume
 
