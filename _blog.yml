@@ -4271,7 +4271,7 @@
     - gcp
 
 - local: multi-lora-serving
-  title: "TGI Multi-LoRA: Deploy Once Serve 30 models"
+  title: "TGI Multi-LoRA: Deploy Once, Serve 30 Models"
   author: derek-thomas
   thumbnail: /blog/assets/multi-lora-serving/thumbnail.png
   date: Jul 1, 2024
