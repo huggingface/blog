@@ -12,7 +12,7 @@ authors:
 Are you tired of the complexity and expense of managing multiple AI models? **What if you could deploy once and serve 30 models?** In today's AI world, organizations looking to leverage the value of their data will likely end up in a _fine-tuned world_, building a multitude of models, each one highly specialized for a specific task. But how can you keep up with the hassle and cost of deploying a model for each use-case? The answer is Multi-LoRA serving.
 
 
-# Motivation
+## Motivation
 
 Within an organization building a multitude of models via fine tuning makes sense for multiple reasons. 
 
@@ -53,7 +53,7 @@ The obvious benefit of LoRA is that it makes fine-tuning a lot cheaper by reduci
 In training LoRA freezes the original weights \\W\\ and fine-tunes two small matrices \\A\\ and \\B\\ which makes fine-tuning much more memory efficient. With this in mind, we can see in _Figure 1_ how LoRA works during inference. We take the output from the pre-trained model \\Wx\\ and we add the Low Rank _adaptation_ term \\BAx\\ [[6]](#6).
 
 
-# Multi-LoRA Serving
+## Multi-LoRA Serving
 
 Now that we understand the basic idea of model adaptation introduced by LoRA, we are ready to delve into multi-LoRA serving. The concept is simple: given one base pre-trained model and many different tasks for which you can fine tune that base model, multi-LoRA serving is a mechanism to dynamically pick the adaptation term \\BAx\\ based on the incoming request.
 
@@ -222,10 +222,10 @@ request_data = {
 response = client.post(json=request_data)
 ```
 
-# Practical Discussion
+## Practical Considerations
 
 
-## Cost
+### Cost
 
 We are not the first to climb this summit as discussed [below](#Acknowledgements). LoRAX from Predibase has an excellent write up [[4]](#4). Do check it out as this section is based on their work. 
 
@@ -261,18 +261,18 @@ It is easy enough to re-train the LoRAs if you have a _compelling reason_ to upd
 * Update with the new model/settings
 
 
-# Conclusion
+## Conclusion
 
 Multi-LoRA serving represents a transformative approach in the deployment of AI models, providing a solution to the cost and complexity barriers associated with managing multiple specialized models. By leveraging a single base model and dynamically applying fine-tuned adapters, organizations can significantly reduce operational overhead while maintaining or even enhancing performance across diverse tasks. **AI Directors we ask you to be bold, choose a base model and embrace the Multi-LoRA paradigm,** the simplicity and cost savings will pay off in dividends. Let Multi-LoRA be the cornerstone of your AI strategy, ensuring your organization stays ahead in the rapidly evolving landscape of technology.
 
 
-# Acknowledgements
+## Acknowledgements
 
 Implementing Multi-LoRA serving can be really tricky, but due to awesome work by [punica-ai](https://github.com/punica-ai/punica) and the [lorax](https://github.com/predibase/lorax) team, optimized kernels and frameworks have been developed to make this process more efficient. TGI leverages these optimizations in order to provide fast and efficient inference with multiple LoRA models.
 
 Special thanks to the Punica, LoRAX, and SLoRA teams for their excellent and open work in multi-LoRA serving. 
 
-# References
+## References
 
 * <a id="1">[1]</a> : Dan Biderman, Jose Gonzalez Ortiz, Jacob Portes, Mansheej Paul, Philip Greengard, Connor Jennings, Daniel King, Sam Havens, Vitaliy Chiley, Jonathan Frankle, Cody Blakeney, John P. Cunningham, [LoRA Learns Less and Forgets Less](https://huggingface.co/papers/2405.09673), 2024
 * <a id="2">[2]</a>  : Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen, [LoRA: Low-Rank Adaptation of Large Language Models](https://huggingface.co/papers/2106.09685), 2021
