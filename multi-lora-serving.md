@@ -64,7 +64,7 @@ Now that we understand the basic idea of model adaptation introduced by LoRA, we
 
 _Figure 2_ shows how this dynamic adaptation works. Each user request contains the input \\x\\ along with the id for the corresponding LoRA for the request (we call this a heterogenous batch of user requests). The task information is what allows TGI to pick the right LoRA adapter to use. 
 
-Multi-LoRA serving enables you to deploy the base model just once. And since the LoRA adapters are small, you can load many adapters. Note the exact number will depend on your available GPU resources and what model you deploy. What you end up with is effectively equivalent to having x fine-tuned models in one single deployment.
+Multi-LoRA serving enables you to deploy the base model just once. And since the LoRA adapters are small, you can load many adapters. Note the exact number will depend on your available GPU resources and what model you deploy. What you end up with is effectively equivalent to having multiple fine-tuned models in one single deployment.
 
 LoRAs (the adapter weights) can vary based on rank and quantization, but in general they are quite tiny. Let's get a quick appreciation for how small these adapters are: [predibase/magicoder](https://huggingface.co/predibase/magicoder/tree/main) is 13.6MB, which is less than 1/1000th the size [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1/tree/main), which is 14.48GB. In relative terms, loading 30 adapters in RAM is only a 3% increase in VRAM. Ultimately this is no issue for most deployment, hence we have 1 deployment for many models.
 
