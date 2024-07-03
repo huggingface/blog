@@ -48,7 +48,7 @@ The obvious benefit of LoRA is that it makes fine-tuning a lot cheaper by reduci
 |-------------------------------------------------|
 | *Figure 1: LoRA Explained* |
 
-In training LoRA freezes the original weights \\W\\ and fine-tunes two small matrices \\A\\ and \\B\\ which makes fine-tuning much more memory efficient. With this in mind, we can see in _Figure 1_ how LoRA works during inference. We take the output from the pre-trained model \\Wx\\ and we add the Low Rank _adaptation_ term \\BAx\\ [[6]](#6).
+During training, LoRA freezes the original weights \\W\\ and fine-tunes two small matrices, \\A\\ and \\B\\, making fine-tuning much more efficient. With this in mind, we can see in _Figure 1_ how LoRA works during inference. We take the output from the pre-trained model \\Wx\\ and we add the Low Rank _adaptation_ term \\BAx\\ [[6]](#6).
 
 
 ## Multi-LoRA Serving
