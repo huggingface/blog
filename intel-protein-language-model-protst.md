@@ -37,7 +37,7 @@ One of PLM's most popular tasks is predicting the subcellular location of an ami
 
 To make ProtST more accessible, Intel and MILA have re-architected and shared the model on the Hugging Face Hub. You can download the models and datasets [here](https://huggingface.co/mila-intel). 
 
-This post will show you how to run ProtST inference efficiently and fine-tune it with Intel Gaudi 2 accelerators and the Optimum for Intel Gaudi open-source library. [Intel Gaudi 2](https://habana.ai/products/gaudi2/) is the second-generation AI  accelerator that Intel’s Habana Labs designed. Check out our [previous blog post](https://huggingface.co/blog/habana-gaudi-2-bloom#habana-gaudi2) for an in-depth introduction and a guide to accessing it through the [Intel Developer Cloud](https://cloud.intel.com). Thanks to the [Optimum for Intel Gaudi library](https://github.com/huggingface/optimum-habana), you can port your transformers-based scripts to Gaudi 2 with minimal code changes.
+This post will show you how to run ProtST inference efficiently and fine-tune it with Intel Gaudi 2 accelerators and the Optimum for Intel Gaudi open-source library. [Intel Gaudi 2](https://habana.ai/products/gaudi2/) is the second-generation AI  accelerator that Intel designed. Check out our [previous blog post](https://huggingface.co/blog/habana-gaudi-2-bloom#habana-gaudi2) for an in-depth introduction and a guide to accessing it through the [Intel Developer Cloud](https://cloud.intel.com). Thanks to the [Optimum for Intel Gaudi library](https://github.com/huggingface/optimum-habana), you can port your transformers-based scripts to Gaudi 2 with minimal code changes.
 
 ## Inference with ProtST
 
