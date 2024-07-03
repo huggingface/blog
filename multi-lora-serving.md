@@ -35,7 +35,7 @@ So where is the catch? Deploying and serving Large Language Models (LLMs) is cha
 That is why today we are super excited to introduce TGI's latest feature - **Multi-LoRA serving**.
 
 
-# Background on LoRA
+## Background on LoRA
 
 Let’s do a quick review of LoRA before we jump into Multi-LoRA serving.
 
