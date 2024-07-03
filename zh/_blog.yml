@@ -1438,6 +1438,18 @@
     - transformers
     - diffusers
 
+- local: cosmopedia
+  title: Cosmopedia：如何为大语言模型预训练构建大规模合成数据集
+  author: loubnabnl
+  thumbnail: /blog/assets/cosmopedia/thumbnail.png
+  date: March 20, 2024
+  tags:
+    - guide
+    - nlp
+    - synthetic-data
+    - llm
+    - community
+
 - local: phi2-intel-meteor-lake
   title: 笔记本电脑上的聊天机器人：在英特尔 Meteor Lake 上运行 Phi-2
   author: juliensimon
