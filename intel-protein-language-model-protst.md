@@ -27,7 +27,7 @@ authors:
 
 ## Introduction
 
-Protein Language Models (PLMs) have emerged as potent tools for predicting and designing protein structure and function. At the International Conference of Machine Learning 2023 (ICML), MILA and Intel Labs released [ProtST](https://proceedings.mlr.press/v202/xu23t.html), a pioneering multi-modal language model for protein design based on text prompts. Since then, ProtST has been well-received in the research community, accumulating more than 40 citations in less than a year, showing the scientific strength of the work.
+Protein Language Models (PLMs) have emerged as potent tools for predicting and designing protein structure and function. At the International Conference on Machine Learning 2023 (ICML), MILA and Intel Labs released [ProtST](https://proceedings.mlr.press/v202/xu23t.html), a pioneering multi-modal language model for protein design based on text prompts. Since then, ProtST has been well-received in the research community, accumulating more than 40 citations in less than a year, showing the scientific strength of the work.
 
 One of PLM's most popular tasks is predicting the subcellular location of an amino acid sequence. In this task, users feed an amino acid sequence into the model, and the model outputs a label indicating the subcellular location of this sequence. Out of the box, zero-shot ProtST-ESM-1b outperforms state-of-the-art few-shot classifiers.
 
