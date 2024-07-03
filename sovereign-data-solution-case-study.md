@@ -25,7 +25,7 @@ authors:
     - [Key Success Factors Success Factors](#Key-Success-Factors)
 - Case Study in French - Banque des Territoires (Groupe CDC) x Polyconseil x Hugging Face : améliorer un programme environnemental français majeur grâce à une solution data souveraine
     - [Résumé](#Résumé)
-    - [La puissance du RAG au service d'objectifs environnementaux](#La-puissance-du-RAG-au-service-d-objectifs-environnementaux)
+    - [La puissance du RAG au service d'objectifs environnementaux](#La-puissance-du-RAG-au-service-d-'-objectifs-environnementaux)
     - [Industrialiser en garantissant performance et souveraineté](#Industrialiser-en-garantissant-performance-et-souveraineté)
     - [Une solution modulaire pour répondre au dynamisme du secteur](#Une-solution-modulaire-pour-répondre-au-dynamisme-du-secteur)
     - [Facteurs clés de succès](#Facteurs-clés-de-succès)
