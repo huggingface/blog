@@ -53,7 +53,7 @@ During training, LoRA freezes the original weights \\W\\ and fine-tunes two smal
 
 ## Multi-LoRA Serving
 
-Now that we understand the basic idea of model adaptation introduced by LoRA, we are ready to delve into multi-LoRA serving. The concept is simple: given one base pre-trained model and many different tasks for which you can fine tune that base model, multi-LoRA serving is a mechanism to dynamically pick the adaptation term \\BAx\\ based on the incoming request.
+Now that we understand the basic idea of model adaptation introduced by LoRA, we are ready to delve into multi-LoRA serving. The concept is simple: given one base pre-trained model and many different tasks for which you have fine-tuned specific LoRAs, multi-LoRA serving is a mechanism to dynamically pick the desired LoRA  based on the incoming request.
 
 | <video style="width: auto; height: auto;" controls autoplay muted loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-lora-serving/MultiLoRA.webm">
