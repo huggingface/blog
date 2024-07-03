@@ -17,10 +17,10 @@ Are you tired of the complexity and expense of managing multiple AI models? **Wh
 As an organization, building a multitude of models via fine tuning makes sense for multiple reasons. 
 
 
-- **Performance -** There is compelling evidence [[1]](#1) that smaller, specialized models outperform their larger, general-purpose counterparts on the tasks that they were trained on. Predibase [[5]](#5) showed that you can get better performance than GPT-4 using task-specific LoRAs with a base like [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1/tree/main).
+- **Performance -** There is [compelling evidence](https://huggingface.co/papers/2405.09673) that smaller, specialized models outperform their larger, general-purpose counterparts on the tasks that they were trained on. Predibase [[5]](#5) showed that you can get better performance than GPT-4 using task-specific LoRAs with a base like [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1/tree/main).
 
 
-- **Adaptability -** Models like Mistral or Llama are extremely versatile. You can pick one of them as your base model, and build many specialized models, even when the downstream tasks are very different [[5]](#5). Also note that you aren't locked in as you can easily swap that base and fine-tune with your data on another base.
+- **Adaptability -** Models like Mistral or Llama are extremely versatile. You can pick one of them as your base model, and build many specialized models, even when the [downstream tasks are very different](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4). Also note that you aren't locked in as you can easily swap that base and fine-tune with your data on another base.
 
 
 - **Independence -** For each task that your organization cares about, different teams can work on different fine tunes, allowing for independence in data preparation,  configurations, evaluation criteria, and cadence of model updates.
@@ -37,9 +37,9 @@ That is why today we are super excited to introduce TGI's latest feature - **Mul
 
 ## Background on LoRA
 
-LoRA, which stands for Low-Rank Adaptation [[2]](#2), is a technique to fine-tune large pre-trained models efficiently. The core idea is to adapt large pre-trained models to specific tasks without needing to retrain the entire model, but only a small set of parameters called adapters. These adapters typically only add about 1% of storage and memory overhead compared to the size of the pre-trained LLM. 
+LoRA, which stands for [Low-Rank Adaptation](https://huggingface.co/papers/2106.09685), is a technique to fine-tune large pre-trained models efficiently. The core idea is to adapt large pre-trained models to specific tasks without needing to retrain the entire model, but only a small set of parameters called adapters. These adapters typically only add about 1% of storage and memory overhead compared to the size of the pre-trained LLM. 
 
-The obvious benefit of LoRA is that it makes fine-tuning a lot cheaper by reducing the memory needs ~3x. It also reduces catastrophic forgetting, and works better with small datasets[[1]](#1)[[3]](#3).
+The obvious benefit of LoRA is that it makes fine-tuning a lot cheaper by reducing the memory needs ~3x. It also reduces catastrophic forgetting, and works better with [small](https://huggingface.co/papers/2405.09673) [datasets](https://huggingface.co/blog/peft).
 
 | <video style="width: auto; height: auto;" controls autoplay muted loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-lora-serving/LoRA.webm">
@@ -91,7 +91,7 @@ AutoTrain can lower this barrier to entry significantly. AutoTrain is a no-code 
 
 
 ## Deploy
-For our examples we will use the excellent adapters features in LoRALand from Predibase [[5]](#5).
+For our examples we will use the excellent adapters features in [LoRALand from Predibase](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4).
 
 
 ### TGI
@@ -225,7 +225,7 @@ response = client.post(json=request_data)
 
 ### Cost
 
-We are not the first to climb this summit as discussed [below](#Acknowledgements). LoRAX from Predibase has an excellent write up [[4]](#4). Do check it out as this section is based on their work. 
+We are not the first to climb this summit as discussed [below](#Acknowledgements). LoRAX from Predibase has an excellent [write up](https://predibase.com/blog/lorax-the-open-source-framework-for-serving-100s-of-fine-tuned-llms-in). Do check it out as this section is based on their work. 
 
 | ![multi-lora-cost](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-lora-serving/multi-lora-cost.png) |
 |-------------------------------------------------|
@@ -251,7 +251,7 @@ When we consolidate with Multi-LoRA we get much more stable usage. We can see th
 
 What happens in the real world with AI moving at breakneck speeds? What if you want to choose a different/newer model as your base? The examples we used are using [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) as a base. There are other bases like LLaMA 3, and even updates to v0.1 as [v0.3](https://ubiops.com/function-calling-deploy-the-mistral-7b-v03/) is out. As expected v0.3 performs better, and has [function calling](https://ubiops.com/function-calling-deploy-the-mistral-7b-v03/) which can enable more certainty and ultimately more use-cases. We expect new bases to come out and top leaderboards, new datasets will be safer, more efficient, and more performant. 
 
-It is easy enough to re-train the LoRAs if you have a _compelling reason_ to update your base model. Training is relatively cheap, in fact Predibase [[5]](#5) found it cost only ~$8.00 to train each one. The amount of code changes are minimal with modern frameworks and common engineering practices:
+It is easy enough to re-train the LoRAs if you have a _compelling reason_ to update your base model. Training is relatively cheap, in fact [Predibase found](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4) it cost only ~$8.00 to train each one. The amount of code changes are minimal with modern frameworks and common engineering practices:
 
 * Keep the notebook/code used to train your model
 * Version control your datasets
