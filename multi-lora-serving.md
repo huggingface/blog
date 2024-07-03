@@ -14,7 +14,7 @@ Are you tired of the complexity and expense of managing multiple AI models? **Wh
 
 ## Motivation
 
-Within an organization building a multitude of models via fine tuning makes sense for multiple reasons. 
+As an organization, building a multitude of models via fine tuning makes sense for multiple reasons. 
 
 
 - **Performance -** There is compelling evidence [[1]](#1) that smaller, specialized models outperform their larger, general-purpose counterparts on the tasks that they were trained on. Predibase [[5]](#5) showed that you can get better performance than GPT-4 using task-specific LoRAs with a base like [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1/tree/main).
