@@ -4262,7 +4262,7 @@
   title: "Welcome Gemma 2 - Google's new open LLM"
   author: philschmid
   thumbnail: /blog/assets/gemma2/thumbnail.jpg
-  date: Jun 27, 2024
+  date: June 27, 2024
   tags:
     - nlp
     - community
@@ -4270,11 +4270,23 @@
     - LLM
     - gcp
 
+- local: beating-gaia
+  title: "Our Transformers Code Agent beats the GAIA benchmark!"
+  author: m-ric
+  thumbnail: /blog/assets/beating-gaia/thumbnail.jpeg
+  date: July 1, 2024
+  tags:
+    - agents
+    - nlp
+    - community
+    - research
+    - leaderboard
+
 - local: multi-lora-serving
   title: "TGI Multi-LoRA: Deploy Once, Serve 30 Models"
   author: derek-thomas
   thumbnail: /blog/assets/multi-lora-serving/thumbnail.png
-  date: Jul 1, 2024
+  date: Jul 5, 2024
   tags:
     - nlp
     - tgi
@@ -4282,3 +4294,4 @@
     - lora
     - peft
     - open-source
+
