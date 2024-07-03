@@ -4281,3 +4281,13 @@
     - community
     - research
     - leaderboard
+
+- local: intel-protein-language-model-protst.md
+  title: "Accelerating Protein Language Model ProtST on Intel Gaudi 2"
+  author: juliensimon
+  thumbnail: /blog/assets/intel-protein-language-model-protst/01.jpeg
+  date: July 3, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
