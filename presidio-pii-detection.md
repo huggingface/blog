@@ -21,7 +21,7 @@ To help ML practitioners with the challenges related to PII and for transparency
 
 Presidio is an open source state-of-the-art PII detection tool that relies on detection patterns and machine learning models.
 
-You can see an example on this [pre-training dataset](https://huggingface.co/datasets/allenai/c4), where Presidio detects small amounts of email and sensitive PII:
+You can see an example on this [pre-training dataset](https://huggingface.co/datasets/allenai/c4), where Presidio detects small amounts of emails and sensitive PII:
 
 ![presidio report](assets/presidio-pii-detection/presidio_report.jpg)
 
