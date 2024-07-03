@@ -37,7 +37,7 @@ Dataset owners can also benefit from this feature by using the reports to valida
 
 ## An Example of a Presidio Report
 
-Let's take a look at an example of a Presidio report for a pre-training dataset:
+Let's take a look at an example of a Presidio report for this [pre-training dataset](https://huggingface.co/datasets/allenai/c4):
 
 ![Presidio report](assets/presidio-pii-detection/presidio_report.jpg)
 
