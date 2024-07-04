@@ -12,6 +12,7 @@ authors:
   guest: true
 - user: sywangyi
   guest: true
+  org: Intel
 - user: MatrixYao
   guest: true
   org: Intel
