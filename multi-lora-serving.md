@@ -45,6 +45,7 @@ The obvious benefit of LoRA is that it makes fine-tuning a lot cheaper by reduci
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-lora-serving/LoRA.webm">
   Your browser does not support the video tag.
 </video>
+
 |                            |
 |----------------------------|
 | *Figure 1: LoRA Explained* |
@@ -60,6 +61,7 @@ Now that we understand the basic idea of model adaptation introduced by LoRA, we
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-lora-serving/MultiLoRA.webm">
   Your browser does not support the video tag.
 </video>
+
 |                                  |
 |----------------------------------|
 | *Figure 2: Multi-LoRA Explained* |
