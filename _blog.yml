@@ -4282,6 +4282,16 @@
     - research
     - leaderboard
 
+- local: intel-protein-language-model-protst
+  title: "Accelerating Protein Language Model ProtST on Intel Gaudi 2"
+  author: juliensimon
+  thumbnail: /blog/assets/intel-protein-language-model-protst/01.jpeg
+  date: July 3, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
+
 - local: multi-lora-serving
   title: "TGI Multi-LoRA: Deploy Once, Serve 30 Models"
   author: derek-thomas
@@ -4294,4 +4304,3 @@
     - lora
     - peft
     - open-source
-
