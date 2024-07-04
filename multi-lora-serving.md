@@ -41,11 +41,12 @@ LoRA, which stands for [Low-Rank Adaptation](https://huggingface.co/papers/2106.
 
 The obvious benefit of LoRA is that it makes fine-tuning a lot cheaper by reducing the memory needs. It also reduces catastrophic forgetting, and works better with [small](https://huggingface.co/papers/2405.09673) [datasets](https://huggingface.co/blog/peft).
 
-| <video style="width: auto; height: auto;" controls autoplay muted loop>
+<video style="width: auto; height: auto;" controls autoplay muted loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-lora-serving/LoRA.webm">
   Your browser does not support the video tag.
-</video> |
-|-------------------------------------------------|
+</video>
+|                            |
+|----------------------------|
 | *Figure 1: LoRA Explained* |
 
 During training, LoRA freezes the original weights \\W\\ and fine-tunes two small matrices, \\A\\ and \\B\\, making fine-tuning much more efficient. With this in mind, we can see in _Figure 1_ how LoRA works during inference. We take the output from the pre-trained model \\Wx\\ and we add the Low Rank _adaptation_ term \\BAx\\ [[6]](#6).
@@ -55,11 +56,12 @@ During training, LoRA freezes the original weights \\W\\ and fine-tunes two smal
 
 Now that we understand the basic idea of model adaptation introduced by LoRA, we are ready to delve into multi-LoRA serving. The concept is simple: given one base pre-trained model and many different tasks for which you have fine-tuned specific LoRAs, multi-LoRA serving is a mechanism to dynamically pick the desired LoRA  based on the incoming request.
 
-| <video style="width: auto; height: auto;" controls autoplay muted loop>
+<video style="width: auto; height: auto;" controls autoplay muted loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-lora-serving/MultiLoRA.webm">
   Your browser does not support the video tag.
-</video> |
-|-------------------------------------------------|
+</video>
+|                                  |
+|----------------------------------|
 | *Figure 2: Multi-LoRA Explained* |
 
 _Figure 2_ shows how this dynamic adaptation works. Each user request contains the input \\x\\ along with the id for the corresponding LoRA for the request (we call this a heterogenous batch of user requests). The task information is what allows TGI to pick the right LoRA adapter to use. 
