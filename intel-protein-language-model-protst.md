@@ -19,6 +19,7 @@ authors:
   guest: true
 - user: kding1
   guest: true
+  org: Intel
 ---
 
 # Accelerating Protein Language Model ProtST on Intel Gaudi 2
