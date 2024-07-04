@@ -50,6 +50,13 @@ Quanto is available as a pip package.
 pip install optimum-quanto
 ```
 
+> :bulb: **NOTE**: `optimum-quanto` was initially released under the 
+> name [`quanto`](https://pypi.org/project/quanto) on PyPI. However, 
+> it was later rebranded under the name 
+> [`optimum-quanto`](https://pypi.org/project/optimum-quanto) on PyPI 
+> and on the GitHub repository. So, if you are using this library, 
+> please use the `optimum-quanto` package and NOT `quanto` from PyPI.
+
 [quanto](https://github.com/huggingface/optimum-quanto) does not make a clear distinction between dynamic and static quantization. Models are dynamically quantized first,
 but their weights can be "frozen" later to static values.
 
@@ -86,6 +93,8 @@ This automatically activates the quantization of the activations in the quantize
 If the performance of the model degrades too much, one can tune it for a few epochs to try to recover the float model performance.
 
 ```python
+import torch
+
 model.train()
 for batch_idx, (data, target) in enumerate(train_loader):
     data, target = data.to(device), target.to(device)
@@ -177,7 +186,8 @@ Quanto is also torch.compile friendly. You can quantize a model with quanto and 
 It is also possible to quantize any model, regardless of the modality using quanto! We demonstrate how to quantize `openai/whisper-large-v3` model in int8 using quanto.
 
 ```python
-from transformers import AutoModelForSpeechSeq2Seq
+import torch
+from transformers import AutoModelForSpeechSeq2Seq, QuantoConfig
 
 model_id = "openai/whisper-large-v3"
 quanto_config = QuantoConfig(weights="int8")
