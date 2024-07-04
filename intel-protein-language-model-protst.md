@@ -7,13 +7,13 @@ authors:
   guest: true
 - user: Santiago Miret
   guest: true
-- user: Xinyu Yuan
+- user: katarinayuan
   guest: true
 - user: sywangyi
   guest: true
 - user: MatrixYao
   guest: true
-- user: Minghao Xu
+- user: ChrisAllenMing
   guest: true
 - user: kding1
   guest: true
