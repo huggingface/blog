@@ -5,6 +5,7 @@ authors:
 - user: juliensimon
 - user: Jiqing
   guest: true
+  org: Intel
 - user: Santiago Miret
   guest: true
 - user: katarinayuan
