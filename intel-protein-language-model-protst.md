@@ -13,6 +13,7 @@ authors:
   guest: true
 - user: MatrixYao
   guest: true
+  org: Intel
 - user: ChrisAllenMing
   guest: true
 - user: kding1
