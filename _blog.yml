@@ -4282,7 +4282,7 @@
     - research
     - leaderboard
 
-- local: intel-protein-language-model-protst.md
+- local: intel-protein-language-model-protst
   title: "Accelerating Protein Language Model ProtST on Intel Gaudi 2"
   author: juliensimon
   thumbnail: /blog/assets/intel-protein-language-model-protst/01.jpeg
