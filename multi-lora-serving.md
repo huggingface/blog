@@ -20,7 +20,7 @@ As an organization, building a multitude of models via fine tuning makes sense f
 - **Performance -** There is [compelling evidence](https://huggingface.co/papers/2405.09673) that smaller, specialized models outperform their larger, general-purpose counterparts on the tasks that they were trained on. Predibase [[5]](#5) showed that you can get better performance than GPT-4 using task-specific LoRAs with a base like [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1/tree/main).
 
 
-- **Adaptability -** Models like Mistral or Llama are extremely versatile. You can pick one of them as your base model, and build many specialized models, even when the [downstream tasks are very different](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4). Also note that you aren't locked in as you can easily swap that base and fine-tune with your data on another base.
+- **Adaptability -** Models like Mistral or Llama are extremely versatile. You can pick one of them as your base model, and build many specialized models, even when the [downstream tasks are very different](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4). Also note that you aren't locked in as you can easily swap that base and fine-tune with your data on another base (more on this later).
 
 
 - **Independence -** For each task that your organization cares about, different teams can work on different fine tunes, allowing for independence in data preparation,  configurations, evaluation criteria, and cadence of model updates.
@@ -246,7 +246,7 @@ One real-world challenge when you deploy multiple models is that you will have a
 When we consolidate with Multi-LoRA we get much more stable usage. We can see the results of this in _Figure 6_ where the Multi-Lora Serving pattern is quite stable even though it consists of more volatile patterns. By consolidating the models you allow much smoother usage and more manageable scaling. Do note that these are just illustrative patterns, but think through your own patterns and how Mulit-LoRA can help. Scale 1 model and not 30!
 
 
-## Feasibility
+## Changing the base model
 
 What happens in the real world with AI moving at breakneck speeds? What if you want to choose a different/newer model as your base? The examples we used are using [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) as a base. There are other bases like LLaMA 3, and even updates to v0.1 as [v0.3](https://ubiops.com/function-calling-deploy-the-mistral-7b-v03/) is out. As expected v0.3 performs better, and has [function calling](https://ubiops.com/function-calling-deploy-the-mistral-7b-v03/) which can enable more certainty and ultimately more use-cases. We expect new bases to come out and top leaderboards, new datasets will be safer, more efficient, and more performant. 
 
