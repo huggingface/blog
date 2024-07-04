@@ -56,7 +56,22 @@ Regarding the licensing terms, Llama 3 comes with a permissive license that allo
 
 ## Llama 3 evaluation
 
-_Note: We are currently evaluating Meta Llama 3 individually and will update this section as soon as we get the results._ 
+Here, you can see a list of models and their [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) scores. This is not a comprehensive list and we encourage you to look at the full leaderboard. Note that the LLM Leaderboard is specially useful to evaluate pre-trained models, as there are other benchmarks specific to conversational models. 
+
+| Model | License  | Pretraining length [tokens] |  Leaderboard score |
+| --- | --- | --- | --- |
+| [MPT-7B](https://huggingface.co/mosaicml/mpt-7b) | Apache 2.0 | 1,000B | 5.98 |
+| [Falcon-7B](https://huggingface.co/tiiuae/falcon-7b) | Apache 2.0 | 1,500B | 5.1 |
+| [Llama-2-7B](https://huggingface.co/meta-llama/Llama-2-7b-hf) | Llama 2 license | 2T | 8.72 |
+| [Qwen 2 7B](https://huggingface.co/Qwen/Qwen2-7B) | Apache 2.0 | ? | 23.66 |
+| [Llama-3-8B](https://huggingface.co/meta-llama/Meta-Llama-3-8B) | Llama 3 license | 15T | 13.41 |
+| [Llama-2-13B](https://huggingface.co/meta-llama/Llama-2-13b-hf) | Llama 2 license | 2T | 10.99 |
+| [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) | Apache 2.0 | 1,000B | 11.33 |
+| [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) | Apache 2.0 | 1,000B | 11.33 |
+| [Llama-2-70B](https://huggingface.co/meta-llama/Llama-2-70b-hf) | Llama 2 license | 2T | 18.25 |
+| [Llama-3-70B](https://huggingface.co/meta-llama/Meta-Llama-3-8B) | Llama 3 license | 15T | 26.37 |
+| [Mixtral 8x22B](https://huggingface.co/mistralai/Mixtral-8x22B-v0.1) | Apache 2 | ? | 25.49 |
+
 
 
 ## How to prompt Llama 3
