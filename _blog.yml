@@ -4296,7 +4296,7 @@
   title: "TGI Multi-LoRA: Deploy Once, Serve 30 Models"
   author: derek-thomas
   thumbnail: /blog/assets/multi-lora-serving/thumbnail.png
-  date: Jul 5, 2024
+  date: Jul 8, 2024
   tags:
     - nlp
     - tgi
