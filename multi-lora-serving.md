@@ -20,7 +20,7 @@ As an organization, building a multitude of models via fine-tuning makes sense f
 - **Performance -** There is [compelling evidence](https://huggingface.co/papers/2405.09673) that smaller, specialized models outperform their larger, general-purpose counterparts on the tasks that they were trained on. Predibase [[5]](#5) showed that you can get better performance than GPT-4 using task-specific LoRAs with a base like [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1/tree/main).
 
 
-- **Adaptability -** Models like Mistral or Llama are extremely versatile. You can pick one of them as your base model, and build many specialized models, even when the [downstream tasks are very different](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4). Also note that you aren't locked in as you can easily swap that base and fine-tune with your data on another base (more on this later).
+- **Adaptability -** Models like Mistral or Llama are extremely versatile. You can pick one of them as your base model and build many specialized models, even when the [downstream tasks are very different](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4). Also, note that you aren't locked in as you can easily swap that base and fine-tune it with your data on another base (more on this later).
 
 
 - **Independence -** For each task that your organization cares about, different teams can work on different fine tunes, allowing for independence in data preparation,  configurations, evaluation criteria, and cadence of model updates.
