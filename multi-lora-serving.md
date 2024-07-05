@@ -70,7 +70,7 @@ _Figure 2_ shows how this dynamic adaptation works. Each user request contains t
 
 Multi-LoRA serving enables you to deploy the base model just once. And since the LoRA adapters are small, you can load many adapters. Note the exact number will depend on your available GPU resources and what model you deploy. What you end up with is effectively equivalent to having multiple fine-tuned models in one single deployment.
 
-LoRAs (the adapter weights) can vary based on rank and quantization, but in general they are quite tiny. Let's get a quick appreciation for how small these adapters are: [predibase/magicoder](https://huggingface.co/predibase/magicoder/tree/main) is 13.6MB, which is less than 1/1000th the size of [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1/tree/main), which is 14.48GB. In relative terms, loading 30 adapters in RAM is only a 3% increase in VRAM. Ultimately this is no issue for most deployment, hence we have 1 deployment for many models.
+LoRAs (the adapter weights) can vary based on rank and quantization, but in general, they are quite tiny. Let's get a quick appreciation for how small these adapters are: [predibase/magicoder](https://huggingface.co/predibase/magicoder/tree/main) is 13.6MB, which is less than 1/1000th the size of [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1/tree/main), which is 14.48GB. In relative terms, loading 30 adapters into RAM results in only a 3% increase in VRAM. Ultimately, this is not an issue for most deployments. Hence, we can have one deployment for many models.
 
 
 # How to Use
