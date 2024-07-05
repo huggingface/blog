@@ -95,7 +95,7 @@ AutoTrain can lower this barrier to entry significantly. AutoTrain is a no-code 
 
 
 ## Deploy
-For our examples we will use a couple of the excellent adapters features in [LoRALand from Predibase](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4):
+For our examples, we will use a couple of the excellent adapters featured in [LoRALand from Predibase](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4):
 
 - [predibase/customer_support](https://huggingface.co/predibase/customer_support) is trained on
   the [Gridspace-Stanford Harper Valley speech dataset](https://github.com/cricketclub/gridspace-stanford-harper-valley)
