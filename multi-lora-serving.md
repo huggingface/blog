@@ -109,7 +109,7 @@ For our examples we will use a couple of the excellent adapters features in [LoR
 ### TGI
 There is already a lot of good information on [how to deploy TGI](https://github.com/huggingface/text-generation-inference). Deploy like you normally would, but ensure that you:
 
-1. Use a TGI version newer or equal to `v2.1.0`
+1. Use a TGI version newer or equal to `v2.1.1`
 2. Deploy your base: `mistralai/Mistral-7B-v0.1`
 3. Add the `LORA_ADAPTERS` env var during deployment
     * Example: `LORA_ADAPTERS=predibase/customer_support,predibase/magicoder` 
