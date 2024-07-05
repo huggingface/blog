@@ -28,7 +28,7 @@ As an organization, building a multitude of models via fine-tuning makes sense f
 
 - **Privacy -** Specialized models offer flexibility with training data segregation and access restrictions to different users based on data privacy requirements. Additionally, in cases where running models locally is important, a small model can be made highly capable for a specific task while keeping its size small enough to run on device. 
 
-In summary, fine tuning enables organizations to unlock the value of their data, and this advantage becomes especially significant, even game-changing, when organizations use highly specialized data that is uniquely theirs.
+In summary, fine-tuning enables organizations to unlock the value of their data, and this advantage becomes especially significant, even game-changing, when organizations use highly specialized data that is uniquely theirs.
 
 So where is the catch? Deploying and serving Large Language Models (LLMs) is challenging in many ways. Cost and operational complexity are key considerations when deploying a single model, let alone _n_ models. This means that, for all its glory, fine tuning complicates LLM deployment and serving even further.
 
