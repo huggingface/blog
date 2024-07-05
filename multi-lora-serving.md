@@ -77,7 +77,7 @@ LoRAs (the adapter weights) can vary based on rank and quantization, but in gene
 
 ## Gather LoRAs
 
-First, you need to train your LoRA models and export the adapters. You can find a [guide here](https://huggingface.co/docs/peft/en/task_guides/lora_based_methods) on fine-tuning LoRA adapters. Do note that when you push your fine-tuned model to the Hub, you need to push the adapter, and not the merged model. For deeper support, please check out our [Expert Support Program](https://huggingface.co/support). The real value will come when you create your own LoRAs on your specific use-cases.
+First, you need to train your LoRA models and export the adapters. You can find a [guide here](https://huggingface.co/docs/peft/en/task_guides/lora_based_methods) on fine-tuning LoRA adapters. Do note that when you push your fine-tuned model to the Hub, you need to push the adapter, not the merged model. For deeper support, please check out our [Expert Support Program](https://huggingface.co/support). The real value will come when you create your own LoRAs for your specific use cases.
 
 
 ### Low Code Teams
