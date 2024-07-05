@@ -161,7 +161,7 @@ from huggingface_hub import create_inference_endpoint
 # Custom Docker image details
 custom_image = {
     "health_route": "/health",
-    "url": "ghcr.io/huggingface/text-generation-inference:2.1.0",  # This is the min version
+    "url": "ghcr.io/huggingface/text-generation-inference:2.1.1",  # This is the min version
     "env": {
         "LORA_ADAPTERS": "predibase/customer_support,predibase/magicoder",  # Add adapters here
         "MAX_BATCH_PREFILL_TOKENS": "2048",  # Set according to your needs
