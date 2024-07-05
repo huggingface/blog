@@ -129,7 +129,7 @@ docker run --gpus all --shm-size 1g -p 8080:80 -v $volume:/data \
 
 [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/en/index) allows you to have access to deploy any Hugging Face model on many [GPUs and alternative HW types](https://huggingface.co/docs/inference-endpoints/en/pricing#gpu-instances) across AWS, GCP, and Azure all in a few clicks! In the GUI, it's easy to deploy. Under the hood, we use TGI by default for text generation (though you have the [option](https://huggingface.co/docs/inference-endpoints/en/guides/custom_container) to use any image you choose).
 
-To use Multi-LoRA serving on Inference Endpoints you just need to go to your [dashboard](https://ui.endpoints.huggingface.co/), then:
+To use Multi-LoRA serving on Inference Endpoints, you just need to go to your [dashboard](https://ui.endpoints.huggingface.co/), then:
 
 1. Choose your base model: `mistralai/Mistral-7B-v0.1`
 2. Choose your `Cloud` | `Region` | `HW`
@@ -197,7 +197,7 @@ It took ~3m40s for this configuration to deploy. Note for more models it will ta
 
 ## Consume
 
-When you consume your endpoint you will need to specify your `adapter_id`. Here is a CURL example:
+When you consume your endpoint, you will need to specify your `adapter_id`. Here is a CURL example:
 
 ```bash
 curl 127.0.0.1:3000/generate \
@@ -212,7 +212,7 @@ curl 127.0.0.1:3000/generate \
 }'
 ```
 
-Alternatively here is an example using [InferenceClient](https://huggingface.co/docs/huggingface_hub/guides/inference) from the wonderful [HuggingFace Hub Python library](https://huggingface.co/docs/huggingface_hub/v0.23.4/en/index). We do expect tighter integrations in the near future!
+Alternatively, here is an example using [InferenceClient](https://huggingface.co/docs/huggingface_hub/guides/inference) from the wonderful [HuggingFace Hub Python library](https://huggingface.co/docs/huggingface_hub/v0.23.4/en/index). We do expect tighter integrations in the near future!
 
 ```python
 from huggingface_hub import InferenceClient
@@ -238,7 +238,7 @@ response = client.post(json=request_data)
 
 ### Cost
 
-We are not the first to climb this summit as discussed [below](#Acknowledgements). LoRAX from Predibase has an excellent [write up](https://predibase.com/blog/lorax-the-open-source-framework-for-serving-100s-of-fine-tuned-llms-in). Do check it out as this section is based on their work. 
+We are not the first to climb this summit, as discussed [below](#Acknowledgements). LoRAX from Predibase has an excellent [write up](https://predibase.com/blog/lorax-the-open-source-framework-for-serving-100s-of-fine-tuned-llms-in). Do check it out, as this section is based on their work. 
 
 | ![multi-lora-cost](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-lora-serving/multi-lora-cost.png) |
 |-------------------------------------------------|
@@ -255,16 +255,16 @@ One of the big benefits of Multi-LoRA serving is that **you don’t need to have
 |-------------------------------------------------|
 | *Figure 6: Multi-LoRA Serving Pattern* |
 
-One real-world challenge when you deploy multiple models is that you will have a strong variance in your usage patterns. Some models might have low usage, some might be bursty, some might be high frequency. This makes it really hard to scale, especially when each model is independent. There is a lot of “rounding” error when you have to add another GPU, and that adds up fast. In an ideal world you would maximize your GPU utilization per GPU and not use any extra. You need to make sure you have access to enough GPUs knowing some will be idle which can be quite tedious. 
+One real-world challenge when you deploy multiple models is that you will have a strong variance in your usage patterns. Some models might have low usage; some might be bursty, and some might be high frequency. This makes it really hard to scale, especially when each model is independent. There are a lot of “rounding” errors when you have to add another GPU, and that adds up fast. In an ideal world, you would maximize your GPU utilization per GPU and not use any extra. You need to make sure you have access to enough GPUs, knowing some will be idle, which can be quite tedious. 
 
-When we consolidate with Multi-LoRA we get much more stable usage. We can see the results of this in _Figure 6_ where the Multi-Lora Serving pattern is quite stable even though it consists of more volatile patterns. By consolidating the models you allow much smoother usage and more manageable scaling. Do note that these are just illustrative patterns, but think through your own patterns and how Mulit-LoRA can help. Scale 1 model and not 30!
+When we consolidate with Multi-LoRA, we get much more stable usage. We can see the results of this in _Figure 6_ where the Multi-Lora Serving pattern is quite stable even though it consists of more volatile patterns. By consolidating the models, you allow much smoother usage and more manageable scaling. Do note that these are just illustrative patterns, but think through your own patterns and how Mulit-LoRA can help. Scale 1 model and not 30!
 
 
 ## Changing the base model
 
-What happens in the real world with AI moving at breakneck speeds? What if you want to choose a different/newer model as your base? The examples we used are using [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) as a base. There are other bases like LLaMA 3, and even updates to v0.1 as [v0.3](https://ubiops.com/function-calling-deploy-the-mistral-7b-v03/) is out. As expected v0.3 performs better, and has [function calling](https://ubiops.com/function-calling-deploy-the-mistral-7b-v03/) which can enable more certainty and ultimately more use-cases. We expect new bases to come out and top leaderboards, new datasets will be safer, more efficient, and more performant. 
+What happens in the real world with AI moving at breakneck speeds? What if you want to choose a different/newer model as your base? The examples we used are using [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) as a base. There are other bases like Llama 3 and even updates to v0.1 as [v0.3](https://ubiops.com/function-calling-deploy-the-mistral-7b-v03/) are out. As expected, v0.3 performs better and has [function calling](https://ubiops.com/function-calling-deploy-the-mistral-7b-v03/), which can enable more certainty and, ultimately, more use cases. We expect new bases to come out and top leaderboards and new datasets will be safer, more efficient, and more performant. 
 
-It is easy enough to re-train the LoRAs if you have a _compelling reason_ to update your base model. Training is relatively cheap, in fact [Predibase found](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4) it cost only ~$8.00 to train each one. The amount of code changes are minimal with modern frameworks and common engineering practices:
+It is easy enough to re-train the LoRAs if you have a _compelling reason_ to update your base model. Training is relatively cheap; in fact [Predibase found](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4) it costs only ~$8.00 to train each one. The amount of code changes is minimal with modern frameworks and common engineering practices:
 
 * Keep the notebook/code used to train your model
 * Version control your datasets
