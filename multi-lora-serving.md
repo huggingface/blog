@@ -66,7 +66,7 @@ Now that we understand the basic idea of model adaptation introduced by LoRA, we
 |----------------------------------|
 | *Figure 2: Multi-LoRA Explained* |
 
-_Figure 2_ shows how this dynamic adaptation works. Each user request contains the input \\x\\ along with the id for the corresponding LoRA for the request (we call this a heterogenous batch of user requests). The task information is what allows TGI to pick the right LoRA adapter to use. 
+_Figure 2_ shows how this dynamic adaptation works. Each user request contains the input \\x\\ along with the id for the corresponding LoRA for the request (we call this a heterogeneous batch of user requests). The task information is what allows TGI to pick the right LoRA adapter to use. 
 
 Multi-LoRA serving enables you to deploy the base model just once. And since the LoRA adapters are small, you can load many adapters. Note the exact number will depend on your available GPU resources and what model you deploy. What you end up with is effectively equivalent to having multiple fine-tuned models in one single deployment.
 
