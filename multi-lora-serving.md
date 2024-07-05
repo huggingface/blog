@@ -9,7 +9,7 @@ authors:
 
 # TGI Multi-LoRA: Deploy Once, Serve 30 models
 
-Are you tired of the complexity and expense of managing multiple AI models? **What if you could deploy once and serve 30 models?** In today's AI world, organizations looking to leverage the value of their data will likely end up in a _fine-tuned world_, building a multitude of models, each one highly specialized for a specific task. But how can you keep up with the hassle and cost of deploying a model for each use-case? The answer is Multi-LoRA serving.
+Are you tired of the complexity and expense of managing multiple AI models? **What if you could deploy once and serve 30 models?** In today's ML world, organizations looking to leverage the value of their data will likely end up in a _fine-tuned world_, building a multitude of models, each one highly specialized for a specific task. But how can you keep up with the hassle and cost of deploying a model for each use case? The answer is Multi-LoRA serving.
 
 
 ## Motivation
