@@ -120,7 +120,7 @@ model=mistralai/Mistral-7B-v0.1
 volume=$PWD/data
 
 docker run --gpus all --shm-size 1g -p 8080:80 -v $volume:/data \
-    ghcr.io/huggingface/text-generation-inference:2.1.0 --model-id $model --lora-adapters=predibase/customer_support,predibase/magicoder
+    ghcr.io/huggingface/text-generation-inference:2.1.1 --model-id $model --lora-adapters=predibase/customer_support,predibase/magicoder
 ```
 
 
