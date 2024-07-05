@@ -25,7 +25,7 @@ authors:
     - [Key Success Factors Success Factors](#Key-Success-Factors)
 - Case Study in French - Banque des Territoires (Groupe CDC) x Polyconseil x Hugging Face : améliorer un programme environnemental français majeur grâce à une solution data souveraine
     - [Résumé](#Résumé)
-    - [La puissance du RAG au service d'objectifs environnementaux](#La-puissance-du-RAG-au-service-d-'-objectifs-environnementaux)
+    - [La puissance du RAG au service d'objectifs environnementaux](#puissance-rag)
     - [Industrialiser en garantissant performance et souveraineté](#Industrialiser-en-garantissant-performance-et-souveraineté)
     - [Une solution modulaire pour répondre au dynamisme du secteur](#Une-solution-modulaire-pour-répondre-au-dynamisme-du-secteur)
     - [Facteurs clés de succès](#Facteurs-clés-de-succès)
@@ -126,6 +126,7 @@ Cet article partage quelques enseignements clés d'un co-développement fructueu
 - une équipe pluridisciplinaire de Polyconseil comprenant développeurs, DevOps et Product Manager ;
 - un expert Hugging Face en déploiement de solutions de Machine Learning et d’IA.
 
+<a name="puissance-rag"></a>
 ## La puissance du RAG au service d'objectifs environnementaux
 
 Mis en place par la Banque des Territoires, EduRénov est un programme phare de la stratégie de transformation écologique et énergétique française. Il vise à simplifier, accompagner et financer les démarches de rénovation énergétique des bâtiments scolaires publics. L’ambition se traduit par des objectifs exigeants : 10 000 projets de rénovation d’écoles, collèges, lycées, crèches ou universités - soit 20% du parc national - accompagnés afin qu’ils puissent réaliser 40% d’économie d’énergie en 5 ans. Pour y répondre, la Banque des Territoires mobilise des moyens d’action inédits : une enveloppe de 2 milliards d’euros de prêts pour financer les travaux et 50 millions d’euros dédiés à l’ingénierie préparatoire. Après seulement un an d’existence, le programme compte déjà presque 2 000 projets mais conforte les moyens de ses ambitions ; comme le souligne le directeur du programme Nicolas Turcat : 
