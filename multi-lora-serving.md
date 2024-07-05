@@ -30,7 +30,7 @@ As an organization, building a multitude of models via fine-tuning makes sense f
 
 In summary, fine-tuning enables organizations to unlock the value of their data, and this advantage becomes especially significant, even game-changing, when organizations use highly specialized data that is uniquely theirs.
 
-So where is the catch? Deploying and serving Large Language Models (LLMs) is challenging in many ways. Cost and operational complexity are key considerations when deploying a single model, let alone _n_ models. This means that, for all its glory, fine tuning complicates LLM deployment and serving even further.
+So, where is the catch? Deploying and serving Large Language Models (LLMs) is challenging in many ways. Cost and operational complexity are key considerations when deploying a single model, let alone _n_ models. This means that, for all its glory, fine-tuning complicates LLM deployment and serving even further.
 
 That is why today we are super excited to introduce TGI's latest feature - **Multi-LoRA serving**.
 
