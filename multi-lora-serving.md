@@ -39,7 +39,7 @@ That is why today we are super excited to introduce TGI's latest feature - **Mul
 
 LoRA, which stands for [Low-Rank Adaptation](https://huggingface.co/papers/2106.09685), is a technique to fine-tune large pre-trained models efficiently. The core idea is to adapt large pre-trained models to specific tasks without needing to retrain the entire model, but only a small set of parameters called adapters. These adapters typically only add about 1% of storage and memory overhead compared to the size of the pre-trained LLM while maintaining the quality compared to fully fine-tuned models. 
 
-The obvious benefit of LoRA is that it makes fine-tuning a lot cheaper by reducing the memory needs. It also reduces catastrophic forgetting, and works better with [small](https://huggingface.co/papers/2405.09673) [datasets](https://huggingface.co/blog/peft).
+The obvious benefit of LoRA is that it makes fine-tuning a lot cheaper by reducing memory needs. It also reduces catastrophic forgetting and works better with [small](https://huggingface.co/papers/2405.09673) [datasets](https://huggingface.co/blog/peft).
 
 <video style="width: auto; height: auto;" controls autoplay muted loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-lora-serving/LoRA.webm">
