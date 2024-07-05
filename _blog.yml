@@ -4262,13 +4262,35 @@
   title: "Welcome Gemma 2 - Google's new open LLM"
   author: philschmid
   thumbnail: /blog/assets/gemma2/thumbnail.jpg
-  date: Jun 27, 2024
+  date: June 27, 2024
   tags:
     - nlp
     - community
     - research
     - LLM
     - gcp
+
+- local: beating-gaia
+  title: "Our Transformers Code Agent beats the GAIA benchmark!"
+  author: m-ric
+  thumbnail: /blog/assets/beating-gaia/thumbnail.jpeg
+  date: July 1, 2024
+  tags:
+    - agents
+    - nlp
+    - community
+    - research
+    - leaderboard
+
+- local: intel-protein-language-model-protst
+  title: "Accelerating Protein Language Model ProtST on Intel Gaudi 2"
+  author: juliensimon
+  thumbnail: /blog/assets/intel-protein-language-model-protst/01.jpeg
+  date: July 3, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
 
 - local: datasets-filters
   title: "Announcing 4 New Dataset Search Features"

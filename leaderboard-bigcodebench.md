@@ -1,5 +1,5 @@
 ---
-title: "BigCodeBench: Benchmarking Large Language Models on Solving Practical and Challenging Programming Tasks"
+title: "BigCodeBench: The Next Generation of HumanEval"
 thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_bigcode.png
 authors:
 - user: terryyz
@@ -28,7 +28,7 @@ authors:
 - user: clefourrier
 ---
 
-# BigCodeBench: Benchmarking Large Language Models on Solving Practical and Challenging Programming Tasks
+# BigCodeBench: The Next Generation of HumanEval
 
 [HumanEval](https://github.com/openai/human-eval) is a reference benchmark for evaluating large language models (LLMs) on code generation tasks, as it makes the evaluation of compact function-level code snippets easy. However, there are growing concerns about its effectiveness in evaluating the programming capabilities of LLMs, and the main concern is that tasks in HumanEval are too simple and may not be representative of real-world programming tasks. Compared to the algorithm-oriented tasks in HumanEval, real-world software development often involves diverse libraries and function calls. Furthermore, LLMs' performance on HumanEval is subject to [contamination and overfitting issues](https://arxiv.org/abs/2403.07974), making it less reliable for evaluating the generalization of LLMs.
 
@@ -230,9 +230,10 @@ If you have any questions or suggestions, please feel free to open an issue in t
 
 If you find our evaluations useful, please consider citing our work
 ```bibtex
-@article{bigcodebench,
+@article{zhuo2024bigcodebench,
   title={BigCodeBench: Benchmarking Code Generation with Diverse Function Calls and Complex Instructions},
-  author={Zhuo, Terry Yue and Vu, Min Chien and Chim, Jenny and Hu, Han and Yu, Wenhao and Widyasari, Ratnadira and Yusuf, Imam Nur Bani and Zhan, Haolan and He, Junda and Paul, Indraneil and Brunner, Simon and Gong, Chen and Hoang, Thong and Zebaze, Armel Randy and Hong, Xiaoheng and Li, Wen-Ding and Kaddour, Jean and Xu, Ming and Zhang, Zhihan and Yadav, Prateek and Jain, Naman and Gu, Alex and Cheng, Zhoujun and Liu, Jiawei and Liu, Qian and Wang, Zijian and Lo, David and Hui, Binyuan and Muennighoff, Niklas and Fried, Daniel and Du, Xiaoning and de Vries, Harm and Von Werra, Leandro},
+  author={Zhuo, Terry Yue and Vu, Minh Chien and Chim, Jenny and Hu, Han and Yu, Wenhao and Widyasari, Ratnadira and Yusuf, Imam Nur Bani and Zhan, Haolan and He, Junda and Paul, Indraneil and others},
+  journal={arXiv preprint arXiv:2406.15877},
   year={2024}
 }
 ```
