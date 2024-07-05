@@ -33,7 +33,7 @@ We released a set of filters that allows you to filter datasets that have one or
 
 For example it is possible to look for datasets that contain both text and image data:
 
-![search by modality example](TODO: add image link)
+![search by modality example](assets/announcing-4-new-dataset-search-features/image_and_text.png)
 
 The modalities of each dataset are automatically detected based on files contents and extensions.
 
@@ -41,12 +41,9 @@ The modalities of each dataset are automatically detected based on files content
 
 We recently released a new feature in the Dataset Hub interface to show the number of rows of each dataset:
 
-![number of rows of each dataset](TODO: add image link)
+![number of rows of each dataset](assets/announcing-4-new-dataset-search-features/datasets_sizes_in_overview.png)
 
-Following this, it is now possible to search dataset by number of rows by specifing a minimum and maximum number of rows:
-
-![number of rows of each dataset](TODO: add image link)
-
+Following this, it is now possible to search dataset by number of rows by specifing a minimum and maximum number of rows.
 This will let you look for datasets of small size to the biggest datasets that exist (for example the ones used to pretrain LLMs).
 
 The number of rows information is available for all the datasets in [supported formats](https://huggingface.co/docs/hub/datasets-adding#file-formats).
@@ -54,7 +51,7 @@ Even for the biggest datasets that don't have the number of rows in their metada
 
 For example if you are looking at the datasets with the highest number of rows on Hugging Face, you can look for datasets with more than 1T (10<sup>12</sup>) rows:
 
-![biggest datasets](TODO: add image link)
+![biggest datasets](assets/announcing-4-new-dataset-search-features/biggest_datasets.png)
 
 ## Search by Format
 
@@ -69,23 +66,25 @@ The dataset format therefore indicates which use cases are favoured, and whether
 
 Here you can see the datasets in WebDataset format:
 
-![webdatasets](TODO: add image link)
+![webdatasets](assets/announcing-4-new-dataset-search-features/webdatasets.png)
 
 ## Search by Library
 
 There are many good libraries and tools to load datasets and prepare them for training like Pandas, Dask, or the 🤗 Datasets library.
 The Hugging Face Hub allows you to use your favorite tools and to filter datasets compatible with any library:
 
-![pandas compatible datasets](TODO: add image link)
+![pandas compatible datasets](assets/announcing-4-new-dataset-search-features/pandas_datasets)
 
 The dataset compatibility is based on the dataset format and size (e.g. Dask can load big JSON Lines dataset unlike Pandas which requires to load the full dataset in memory).
 In addition to this, we also provide the code snippet to load any dataset in your favorite tool:
 
-![load fineweb-edu in dask](TODO: add image link)
+![load fineweb-edu in dask](assets/announcing-4-new-dataset-search-features/dask_fineweb_edu.png)
+
+If you would like your library to appear in the list of supported library, feel free to open a discussion on [huggingface.js](https://github.com/huggingface/huggingface.js/issues) !
 
 ## Combine filters
 
 Those 4 new Dataset Search tools can be used together and with the other existing filters like Language, Tasks, Licenses.
 Combining those filters with the text search bar you can look for the specific dataset you are looking for:
 
-![search for a webdataset of images of pdf](TODO: add image link)
+![search for a webdataset of images of pdf](assets/announcing-4-new-dataset-search-features/dataset_cars.png)
