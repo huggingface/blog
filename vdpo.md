@@ -85,7 +85,8 @@ def format(example):
 # Apply the formatting function to the dataset
 dataset = dataset.map(format, remove_columns=dataset.column_names)
 
-# Make sure that the images are decoded, it prevent from storing bytes
+# Make sure that the images are decoded, it prevents from storing bytes.
+# More info here https://github.com/huggingface/blog/pull/2148#discussion_r1667400478
 f = dataset.features
 f["images"] = features.Sequence(features.Image(decode=True))  # to avoid bytes
 dataset = dataset.cast(f)
@@ -109,13 +110,111 @@ In this section, we embark on training Idefics2 using the DPO implementation of 
 
 ### Choosing the parameters
 
-I myself have a GPU with 80GB of memory. Is this enough to train my Idefics2-8b model? To answer this question, we need to calculate the memory requirements for training. Here's a rough estimate.
-The components to consider are:
+I myself have a GPU with 80GB of memory. Is this enough to train my Idefics2-8b model? To answer this question, we need to calculate the memory requirements for training. Here are the calculations steps to get a rough estimate:
 
-- The model to train
-- The reference model
-- The gradients
-- The optimizer states
+Let \( N \) be the number of parameters, \( P \) the precision. We need to consider the following components:
+
+- **Model to train**: \( N \times P \)
+- **Reference model**: we use the same model as the one to train, so it also requires \( N \times P \)
+- **Gradients**: we train the whole model, and each parameter requires a gradient, so it requires \( N \times P \)
+- **Optimizer states**: we use [AdamW](https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html), which requires 2 times the number of parameters for the first and second moments: \( 2 \times N \times P \)
+
+Idefics2-8b has 8 billion parameters, and we use float32 precision which requires 4 bytes. So the total memory required is:
+
+| Component          | Calculation                           | Memory (GB) |
+| ------------------ | ------------------------------------- | ----------- |
+| Model to train     | \( 8 \times 10^9 \times 4 \)          | 32          |
+| Reference model    | \( 8 \times 10^9 \times 4 \)          | 32          |
+| Gradients          | \( 8 \times 10^9 \times 4 \)          | 32          |
+| Optimizer states   | \( 2 \times 8 \times 10^9 \times 4 \) | 64          |
+| **Total**          |                                       | **160**     |
+
+This is way above my GPU's memory capacity. We need to reduce the memory usage.
+To do this, we will use two techniques: quantization and LoRA.
+
+#### Quantization
+
+Quantization is a technique that reduces the precision of the model's weights and activations. We can use `bfloat16` precision instead of `float32`, which requires 2 bytes instead of 4. To do this, we need to load the model with the `bfloat16` precision:
+
+```python
+import torch
+from transformers import AutoModelForVision2Seq
+
+model = AutoModelForVision2Seq.from_pretrained("HuggingFaceM4/idefics2-8b", torch_dtype=torch.bfloat16)
+```
+
+To use `bfloat16` precision for the optimizer, we also need to set `--bf16` in the training arguments.
+
+```python
+from transformers import TrainingArguments
+
+training_args = TrainingArguments(..., bf16=True)
+```
+
+#### LoRA
+
+LoRA is a method that reduces the number of trainable parameters by learning pairs of rank-decomposition matrices while keeping the original weights frozen. This significantly decreases the storage needs for large language models adapted to specific tasks. LoRA is integrated in PEFT and you can set it up in no time:
+
+```diff
++ from peft import get_peft_model
+  from transformers import AutoModelForVision2Seq
++ from trl import get_peft_config
+  from trl import ModelConfig
+
+  model_id = "HuggingFaceM4/idefics2-8b"
+  model_config = ModelConfig(
+      model_id,
++     lora_target_modules="all-linear",
++     use_peft=True,
+  )
+  model = AutoModelForVision2Seq.from_pretrained(model_id)
++ peft_config = get_peft_config(model_config)
++ model = get_peft_model(model, peft_config)
+```
+
+How much LoRA reduces the number of trainable parameters?
+
+```python
+>>> model.print_trainable_parameters()
+trainable params: 55,348,736 || all params: 8,458,116,848 || trainable%: 0.6543860411799315
+```
+
+It reduces the number of trainable parameters from 8 billion to 55 million, which is a huge gap.
+
+Now that we have reduced the memory requirements, let's recalculate the memory needed:
+
+| Component          | Calculation                           | Memory (GB) |
+| ------------------ | ------------------------------------- | ----------- |
+| Model to train     | \( 8 \mathrm{G} \times 2 \)           | 16          |
+| Reference model    | \( 8 \mathrm{G} \times 2 \)           | 16          |
+| Gradients          | \( 55 \mathrm{M} \times 2 \)          | 0.2         |
+| Optimizer states   | \( 2 \times 55 \mathrm{M} \times 2 \) | 0.4         |
+| **Total**          |                                       | **32.6**    |
+
+This time, we need around 30GB of memory to finetune our Idefics2, which is much more reasonable and fits within my GPU!
+
+Putting all together, the training script looks like this:
+
+```python
+from peft import get_peft_model
+from transformers import AutoModelForVision2Seq
+from trl import get_peft_config
+from trl import ModelConfig
+
+model_id = "HuggingFaceM4/idefics2-8b"
+model_config = ModelConfig(model_id, lora_target_modules="all-linear", use_peft=True)
+model = AutoModelForVision2Seq.from_pretrained(model_id)
+peft_config = get_peft_config(model_config)
+model = get_peft_model(model, peft_config)
+
+from transformers import TrainingArguments
+ref_model = AutoModelForVision2Seq.from_pretrained("HuggingFaceM4/idefics2-8b")
+trainer = DPOTrainer(
+    model,
+    ref_model,
+    args=training_args,
+    train_dataset=train_dataset
+```
 
 --------------------------------------------
 
@@ -140,8 +239,6 @@ Dans notre cas, le calcul est le suivant:
 
 Aïe, 160 est bien au deussus de ce que mon hardware peut contenir (80Gb). Il va falloir réduire la quantité de mémoire utilisée.
 
-Precision mixte
-[Explication de la précision mixte]
 
 Parameters efficient training
 
@@ -206,10 +303,10 @@ To train a model using TRL, you need to define a `TRLTrainer` and pass it the `T
 
 ```python
 from transformers import TrainingArguments
-model_ref = AutoModelForVision2Seq.from_pretrained("HuggingFaceM4/idefics2-8b")
+ref_model = AutoModelForVision2Seq.from_pretrained("HuggingFaceM4/idefics2-8b")
 trainer = DPOTrainer(
     model,
-    model_ref,
+    ref_model,
     args=training_args,
     train_dataset=train_dataset,
     eval_dataset=eval_dataset,
