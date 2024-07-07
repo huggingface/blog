@@ -1,6 +1,6 @@
 ---
 title: 'Direct Preference Optimization for Visual Language Models with TRL'
-thumbnail: /blog/assets/vdpo/thumbnail.png
+thumbnail: /blog/assets/dpo_vlm/thumbnail.png
 authors:
 - user: qgallouedec
 - user: vwxyzjn
