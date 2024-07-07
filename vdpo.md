@@ -193,28 +193,98 @@ Now that we have reduced the memory requirements, let's recalculate the memory n
 
 This time, we need around 30GB of memory to finetune our Idefics2, which is much more reasonable and fits within my GPU!
 
-Putting all together, the training script looks like this:
+#### What about the batch size?
+
+Our memory calculation isn't exact as it doesn't account for activations, which are the intermediate outputs of the network layers. Activations depend on the batch size, which affects the overall memory usage. To choose an appropriate training batch size, a practical approach is to start with your desired batch size (e.g., 64). You will likely encounter an OOM error with this size. If so, halve the batch size until the memory fits within your GPU. For each reduction by half, double the gradient accumulation steps to maintain the same effective batch size. In our case, we end up with a batch size of 2 and gradient accumulation steps of 32.
+
+#### Summary: training script
+
+Now, we've set up the model, the dataset, and the training parameters, and we're ready to train our model. Putting all together, the training script looks like this:
 
 ```python
-from peft import get_peft_model
-from transformers import AutoModelForVision2Seq
-from trl import get_peft_config
-from trl import ModelConfig
+# dpo_idefics2-8b.py
+from datasets import features, load_dataset
+from transformers import AutoModelForVision2Seq, AutoProcessor
+import torch
+from trl import DPOConfig, DPOTrainer
+from peft import LoraConfig
 
-model_id = "HuggingFaceM4/idefics2-8b"
-model_config = ModelConfig(model_id, lora_target_modules="all-linear", use_peft=True)
-model = AutoModelForVision2Seq.from_pretrained(model_id)
-peft_config = get_peft_config(model_config)
-model = get_peft_model(model, peft_config)
 
-from transformers import TrainingArguments
-ref_model = AutoModelForVision2Seq.from_pretrained("HuggingFaceM4/idefics2-8b")
-trainer = DPOTrainer(
-    model,
-    ref_model,
-    args=training_args,
-    train_dataset=train_dataset
+def main():
+    # Load the model and processor
+    model = AutoModelForVision2Seq.from_pretrained("HuggingFaceM4/Idefics2-8b", torch_dtype=torch.bfloat16)
+    processor = AutoProcessor.from_pretrained("HuggingFaceM4/Idefics2-8b", do_image_splitting=False)
+
+    # Load the dataset
+    dataset = load_dataset("openbmb/RLAIF-V-Dataset", split="train")
+
+    def format(example):
+        # Prepare the input for the chat template
+        prompt = [{"role": "user", "content": [{"type": "image"}, {"type": "text", "text": example["question"]}]}]
+        chosen = [{"role": "assistant", "content": [{"type": "text", "text": example["chosen"]}]}]
+        rejected = [{"role": "assistant", "content": [{"type": "text", "text": example["rejected"]}]}]
+        # Apply the chat template
+        prompt = processor.apply_chat_template(prompt, tokenize=False)
+        chosen = processor.apply_chat_template(chosen, tokenize=False)
+        rejected = processor.apply_chat_template(rejected, tokenize=False)
+        # Resize the image to ensure it fits within the maximum allowable
+        # size of the processor to prevent OOM errors.
+        max_size = processor.image_processor.size["longest_edge"] // 2
+        example["image"].thumbnail((max_size, max_size))
+        return {"images": [example["image"]], "prompt": prompt, "chosen": chosen, "rejected": rejected}
+
+    # Apply the formatting function to the dataset
+    dataset = dataset.map(format, remove_columns=dataset.column_names, num_proc=32)
+
+    # Make sure that the images are decoded, it prevents from storing bytes.
+    # More info here https://github.com/huggingface/blog/pull/2148#discussion_r1667400478
+    f = dataset.features
+    f["images"] = features.Sequence(features.Image(decode=True))
+    dataset = dataset.cast(f)
+
+    # Train the model
+    training_args = DPOConfig(
+        output_dir="idefics2-8b-dpo",
+        bf16=True,
+        per_device_train_batch_size=2,
+        gradient_accumulation_steps=32,
+        num_train_epochs=1,
+        dataset_num_proc=32,
+        dataloader_num_workers=32,
+        logging_steps=10,
+    )
+    trainer = DPOTrainer(
+        model,
+        ref_model=None,  # not needed when using peft
+        args=training_args,
+        train_dataset=dataset,
+        tokenizer=processor,
+        peft_config=LoraConfig(target_modules="all-linear"),
+    )
+
+    trainer.train()
+
+
+if __name__ == "__main__":
+    main()
 ```
+
+Let's run and wait... 🚀
+
+```sh
+accelerate launch dpo_idefics2-8b.py
+```
+
+### Results
+
+A few hours later, the training is complete. Let's have a look at the training curves:
+
+![Learning curves](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dpo_vlm/learning_curves.png)
+
+In DPO, we focus on some metrics to determine if the training went well.
+
+- **The accuracy**: the percentage of training samples for which the model has a higher chance of outputting the chosen answer than the rejected answer. We can see that the accuracy is increasing, which is a good sign.
+- **The rewards**: the reward are somewhat related to the probability of an answer being chosen. We refer the reader to the TODO for more details. We expect the reward of the chosen answer to be higher than the rejected answer. To check this, we can watch the _reward margin_ which is the difference between the rewards of the chosen answer and the rejected answer. We can see that the reward margin is increasing, which is a also good sign.
 
 --------------------------------------------
 
@@ -234,7 +304,6 @@ Dans notre cas, le calcul est le suivant:
 | Gradients           | Même que le modèle à entrainer              | 8b \( \times \) 4 bytes                | 32            |
 | Optimiseur          | 2* modèle à entrainer (AdamW)               | 2 \( \times \) 8B \( \times \) 4 bytes | 64            |
 | **Total**           |                                             |                                        | **160**       |
-
 
 
 Aïe, 160 est bien au deussus de ce que mon hardware peut contenir (80Gb). Il va falloir réduire la quantité de mémoire utilisée.
