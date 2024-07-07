@@ -1755,3 +1755,15 @@
     - research
     - LLM
     - gcp
+
+- local: beating-gaia
+  title: Transformers 代码智能体成功刷榜 GAIA
+  author: m-ric
+  thumbnail: /blog/assets/beating-gaia/thumbnail.jpeg
+  date: July 1, 2024
+  tags:
+    - agents
+    - nlp
+    - community
+    - research
+    - leaderboard
