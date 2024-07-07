@@ -1438,6 +1438,18 @@
     - transformers
     - diffusers
 
+- local: cosmopedia
+  title: Cosmopedia：如何为大语言模型预训练构建大规模合成数据集
+  author: loubnabnl
+  thumbnail: /blog/assets/cosmopedia/thumbnail.png
+  date: March 20, 2024
+  tags:
+    - guide
+    - nlp
+    - synthetic-data
+    - llm
+    - community
+
 - local: phi2-intel-meteor-lake
   title: 笔记本电脑上的聊天机器人：在英特尔 Meteor Lake 上运行 Phi-2
   author: juliensimon
@@ -1680,6 +1692,27 @@
     - community
     - open-source
 
+- local: tgi-benchmarking
+  title: TGI 基准测试
+  thumbnail: /blog/assets/tgi-benchmarking/tgi-benchmarking-thumbnail.png
+  author: derek-thomas
+  date: May 29, 2024
+  tags:
+    - LLM
+    - NLP
+    - guide
+    - tgi
+
+- local: assisted-generation-support-gaudi
+  title: 英特尔 Gaudi 加速辅助生成
+  author: haimbarad
+  thumbnail: /blog/assets/assisted-generation-support-gaudi/thumbnail.png
+  date: June 4, 2024
+  tags:
+    - partnerships
+    - intel
+    - hardware
+
 - local: putting_rl_back_in_rlhf_with_rloo
   title: 将强化学习重新引入 RLHF
   thumbnail: /blog/assets/putting_rl_back_in_rlhf_with_rloo/thumbnail.png
@@ -1691,7 +1724,7 @@
     - rlhf
 
 - local: sd3
-  title: "欢迎 Stable Diffusion 3 加入 🧨 Diffusers"
+  title: 欢迎 Stable Diffusion 3 加入 🧨 Diffusers
   author: diffusers
   thumbnail: /blog/assets/sd3/thumbnail.png
   date: June 12, 2024
@@ -1699,3 +1732,26 @@
     - diffusers
     - guide
     - sd3
+
+- local: deepspeed-to-fsdp-and-back
+  title: 从 DeepSpeed 到 FSDP，再回到 Hugging Face Accelerate
+  thumbnail: /blog/assets/deepspeed-to-fsdp-and-back/thumbnail.png
+  author: muellerzr
+  date: June 13, 2024
+  tags:
+    - open-source
+    - guide
+    - research
+    - collaboration
+
+- local: gemma2
+  title: Google 发布最新开放大语言模型 Gemma 2，现已登陆 Hugging Face Hub
+  author: philschmid
+  thumbnail: /blog/assets/gemma2/thumbnail.jpg
+  date: Jun 27, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
