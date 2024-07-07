@@ -4223,14 +4223,15 @@
     - collaboration
     - community
 
-- local: vdpo
+- local: dpo_vlm
   title: "Preference Optimization for Visual Language Models"
   author: qgallouedec
-  thumbnail: /blog/assets/vdpo/thumbnail.png
+  thumbnail: /blog/assets/dpo_vlm/thumbnail.png
   date: June 16, 2024
   tags:
     - vlm
     - multimodal
     - trl
     - rlhf
+    - dpo
 
