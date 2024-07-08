@@ -242,7 +242,7 @@ We are not the first to climb this summit, as discussed [below](#Acknowledgement
 
 | ![multi-lora-cost](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-lora-serving/multi-lora-cost.png) |
 |-------------------------------------------------|
-| *Figure 5: Multi-LoRA Cost* For TGI I deployed [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) as a base on nvidia-l4, which has a [cost](https://huggingface.co/docs/inference-endpoints/en/pricing#gpu-instances) of $0.8/hr on [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/en/index). I was able to get 75 requests/s with an average of 450 input tokens and 234 output tokens and adjusted accordingly for GPT3.5 Turbo.|
+| *Figure 5: Multi-LoRA Cost* For TGI, I deployed [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) as a base on nvidia-l4, which has a [cost](https://huggingface.co/docs/inference-endpoints/en/pricing#gpu-instances) of $0.8/hr on [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/en/index). I was able to get 75 requests/s with an average of 450 input tokens and 234 output tokens and adjusted accordingly for GPT3.5 Turbo.|
 
 
 
