@@ -36,7 +36,7 @@ Together with the product and engineering teams at Google, we're excited to brin
 
 1. We've created an open-source library called [Optimum TPU](https://github.com/huggingface/optimum-tpu), which makes it super easy for you to train and deploy Hugging Face models on Google TPUs.
 2. Inference Endpoints uses Optimum TPU along with Text Generation Inference (TGI) to serve Large Language Models (LLMs) on TPUs.
-3. We’re always working on support for a variety of model architectures. Starting today you can deploy Gemma, Llama & Mistral in a few clicks. (Optimum TPU supported models).
+3. We’re always working on support for a variety of model architectures. Starting today you can deploy Gemma & Llama (Mistral soon) in a few clicks. (Optimum TPU supported models).
 
 ## Hugging Face Spaces support for TPUs
 
