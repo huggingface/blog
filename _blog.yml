@@ -4293,9 +4293,9 @@
     - llm
 
 - local: datasets-filters
-  title: "Announcing 4 New Dataset Search Features"
+  title: "Announcing New Dataset Search Features"
   author: lhoestq
   thumbnail: /blog/assets/datasets-filters/thumbnail.jpg
-  date: Jul 5, 2024
+  date: Jul 8, 2024
   tags:
     - datasets
