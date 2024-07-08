@@ -4299,3 +4299,15 @@
   date: Jul 8, 2024
   tags:
     - datasets
+
+- local: tpu-inference-endpoints-spaces
+  title: "Data Is Better Together: A Look Back and Forward"
+  thumbnail: /blog/assets/tpu-inference-endpoints-spaces/thumbnail.png
+  author: pagezyhf
+  date: Jun 27, 2024
+  tags:
+    - partnerships
+    - gcp
+    - spaces
+    - inference
+    - hardware
