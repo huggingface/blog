@@ -197,7 +197,7 @@ It took ~3m40s for this configuration to deploy. Note for more models it will ta
 
 ## Consume
 
-When you consume your endpoint, you will need to specify your `adapter_id`. Here is a CURL example:
+When you consume your endpoint, you will need to specify your `adapter_id`. Here is a cURL example:
 
 ```bash
 curl 127.0.0.1:3000/generate \
