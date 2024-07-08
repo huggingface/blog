@@ -4292,6 +4292,14 @@
     - intel
     - llm
 
+- local: datasets-filters
+  title: "Announcing New Dataset Search Features"
+  author: lhoestq
+  thumbnail: /blog/assets/datasets-filters/thumbnail.png
+  date: Jul 8, 2024
+  tags:
+    - datasets
+
 - local: multi-lora-serving
   title: "TGI Multi-LoRA: Deploy Once, Serve 30 Models"
   author: derek-thomas
