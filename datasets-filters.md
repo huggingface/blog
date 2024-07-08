@@ -1,6 +1,6 @@
 ---
 title: "Announcing New Dataset Search Features" 
-thumbnail: /blog/assets/datasets-filters/thumbnail.jpg
+thumbnail: /blog/assets/datasets-filters/thumbnail.png
 authors:
 - user: lhoestq
 - user: severo
