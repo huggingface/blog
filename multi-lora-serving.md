@@ -281,7 +281,7 @@ Multi-LoRA serving represents a transformative approach in the deployment of AI 
 
 Implementing Multi-LoRA serving can be really tricky, but due to awesome work by [punica-ai](https://github.com/punica-ai/punica) and the [lorax](https://github.com/predibase/lorax) team, optimized kernels and frameworks have been developed to make this process more efficient. TGI leverages these optimizations in order to provide fast and efficient inference with multiple LoRA models.
 
-Special thanks to the Punica, LoRAX, and SLoRA teams for their excellent and open work in multi-LoRA serving. 
+Special thanks to the Punica, LoRAX, and S-LoRA teams for their excellent and open work in multi-LoRA serving. 
 
 ## References
 
