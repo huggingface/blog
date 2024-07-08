@@ -73,7 +73,7 @@ Here you can see the [datasets in WebDataset format](https://huggingface.co/data
 There are many good libraries and tools to load datasets and prepare them for training, like Pandas, Dask, or the 🤗 Datasets library.
 The Hub allows you to use your favorite tools and filter datasets compatible with any library, for example you can look for [datasets compatible with Pandas](https://huggingface.co/datasets?library=library:pandas&sort=trending):
 
-![pandas compatible datasets](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/datasets-filters/pandas_datasets)
+![pandas compatible datasets](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/datasets-filters/pandas_datasets.png)
 
 The dataset compatibility is based on the dataset format and size (e.g., Dask can load big JSON Lines dataset, unlike Pandas, which requires loading the full dataset in memory).
 In addition to this, we also provide the code snippet to load any dataset in your favorite tool:
