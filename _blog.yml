@@ -4301,7 +4301,7 @@
     - datasets
 
 - local: tpu-inference-endpoints-spaces
-  title: "Data Is Better Together: A Look Back and Forward"
+  title: "Google Cloud TPUs made available to Hugging Face users"
   thumbnail: /blog/assets/tpu-inference-endpoints-spaces/thumbnail.png
   author: pagezyhf
   date: Jun 27, 2024
