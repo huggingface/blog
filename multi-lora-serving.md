@@ -238,7 +238,7 @@ response = client.post(json=request_data)
 
 ### Cost
 
-We are not the first to climb this summit, as discussed [below](#Acknowledgements). LoRAX from Predibase has an excellent [write up](https://predibase.com/blog/lorax-the-open-source-framework-for-serving-100s-of-fine-tuned-llms-in). Do check it out, as this section is based on their work. 
+We are not the first to climb this summit, as discussed [below](#Acknowledgements). The team behind LoRAX, Predibase, has an excellent [write up](https://predibase.com/blog/lorax-the-open-source-framework-for-serving-100s-of-fine-tuned-llms-in). Do check it out, as this section is based on their work. 
 
 | ![multi-lora-cost](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-lora-serving/multi-lora-cost.png) |
 |-------------------------------------------------|
