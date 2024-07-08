@@ -7,7 +7,7 @@ authors:
 
 # [Presidio] Experimenting with Automatic PII Detection on the Hub
 
-At Hugging Face, we've noticed an interesting trend in machine learning (ML) datasets – the emergence of Personal Identifiable Information (PII), which poses some unique challenges for ML practitioners.
+At Hugging Face, working closely with machine learning (ML) datasets hosted on our Hub, we've noticed a concerning trend – the increasing prevalence of undocumented Personal Identifiable Information (PII), which poses some unique challenges for ML practitioners.
 In this blog post, we'll explore different types of datasets containing PII, the issues they present, and a new feature we're experimenting with on the Dataset Hub to help address these challenges.
 
 ## Types of Datasets with PII
