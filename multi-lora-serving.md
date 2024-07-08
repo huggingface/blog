@@ -125,6 +125,7 @@ docker run --gpus all --shm-size 1g -p 8080:80 -v $volume:/data \
     ghcr.io/huggingface/text-generation-inference:2.1.1 \
     --model-id $model \
     --lora-adapters=predibase/customer_support,predibase/magicoder
+```
 
 
 ### Inference Endpoints GUI
@@ -192,7 +193,6 @@ endpoint = create_inference_endpoint(
 endpoint.wait()
 
 print("Your model is ready to use!")
-
 ```
 
 It took ~3m40s for this configuration to deploy. Note for more models it will take longer. Do make a [github issue](https://github.com/huggingface/text-generation-inference/issues) if you are facing issues with load time!
@@ -259,7 +259,7 @@ One of the big benefits of Multi-LoRA serving is that **you don’t need to have
 
 One real-world challenge when you deploy multiple models is that you will have a strong variance in your usage patterns. Some models might have low usage; some might be bursty, and some might be high frequency. This makes it really hard to scale, especially when each model is independent. There are a lot of “rounding” errors when you have to add another GPU, and that adds up fast. In an ideal world, you would maximize your GPU utilization per GPU and not use any extra. You need to make sure you have access to enough GPUs, knowing some will be idle, which can be quite tedious. 
 
-When we consolidate with Multi-LoRA, we get much more stable usage. We can see the results of this in _Figure 6_ where the Multi-Lora Serving pattern is quite stable even though it consists of more volatile patterns. By consolidating the models, you allow much smoother usage and more manageable scaling. Do note that these are just illustrative patterns, but think through your own patterns and how Mulit-LoRA can help. Scale 1 model and not 30!
+When we consolidate with Multi-LoRA, we get much more stable usage. We can see the results of this in _Figure 6_ where the Multi-Lora Serving pattern is quite stable even though it consists of more volatile patterns. By consolidating the models, you allow much smoother usage and more manageable scaling. Do note that these are just illustrative patterns, but think through your own patterns and how Multi-LoRA can help. Scale 1 model, not 30!
 
 
 ## Changing the base model
