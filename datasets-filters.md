@@ -6,7 +6,7 @@ authors:
 - user: severo
 ---
 
-# Announcing 4 New Dataset Search Features
+# Announcing New Dataset Search Features
 
 The AI and ML community has shared more than 180,000 public datasets on The [Hugging Face Dataset Hub](https://huggingface.co/datasets).
 Researchers and engineers are using these datasets for various tasks, from training LLMs to chat with users to evaluating automatic speech recognition or computer vision systems.
