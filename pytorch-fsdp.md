@@ -72,7 +72,7 @@ time accelerate launch run_clm_no_trainer.py \
 --per_device_train_batch_size $BS 
 --per_device_eval_batch_size $BS 
 --num_train_epochs 1 
---block_size 12
+--block_size 128
 ```
 Sample FSDP Run:
 ![Sample FSDP Run](./assets/62_pytorch_fsdp/sample_fsdp_run.png)
@@ -107,7 +107,7 @@ time accelerate launch run_clm_no_trainer.py \
 --per_device_train_batch_size $BS 
 --per_device_eval_batch_size $BS 
 --num_train_epochs 1 
---block_size 12
+--block_size 128
 ```
 
 | Method | Batch Size Max ($BS) | Num GPUs | Approx Train Time (Hours) | Notes |
