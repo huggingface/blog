@@ -108,6 +108,7 @@ For our examples, we will use a couple of the excellent adapters featured in [Lo
   a code instruction dataset that is synthetically generated.
 
 ### TGI
+
 There is already a lot of good information on [how to deploy TGI](https://github.com/huggingface/text-generation-inference). Deploy like you normally would, but ensure that you:
 
 1. Use a TGI version newer or equal to `v2.1.1`
