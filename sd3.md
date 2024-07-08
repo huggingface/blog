@@ -34,11 +34,11 @@ As part of this release, we have provided:
 
 ### Model
 
-SD3 is a latent diffusion model that consists of three different text encoders ([CLIP L/14](https://huggingface.co/openai/clip-vit-large-patch14),  [OpenCLIP bigG/14](https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k) and [T5-v1.1-XXL](https://huggingface.co/google/t5-v1_1-xxl)), a novel Multimodal Diffusion Transformer (MMDiT) model, and a 16 channel AutoEncoder model that is similar to the one used in [Stable Diffusion XL](https://arxiv.org/abs/2307.01952).
+SD3 is a latent diffusion model that consists of three different text encoders ([CLIP L/14](https://huggingface.co/openai/clip-vit-large-patch14), [OpenCLIP bigG/14](https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k), and [T5-v1.1-XXL](https://huggingface.co/google/t5-v1_1-xxl)), a novel Multimodal Diffusion Transformer (MMDiT) model, and a 16 channel AutoEncoder model that is similar to the one used in [Stable Diffusion XL](https://arxiv.org/abs/2307.01952).
 
 SD3 processes text inputs and pixel latents as a sequence of embeddings. Positional encodings are added to 2x2 patches of the latents which are then flattened into a patch encoding sequence. This sequence, along with the text encoding sequence are fed into the MMDiT blocks, where they are embedded to a common dimensionality, concatenated, and passed through a sequence of modulated attentions and MLPs.
 
-In order to account for the differences between the two modalities, the MMDiT blocks use two separate sets of weights to embed the text and image sequences to a common dimensionality.  These sequences are joined before the attention operation, which allows both representations to work in their own space while taking the other one into account during the attention operation [1]. This two-way flow of information between text and image data differs from previous approaches for text-to-image synthesis, where text information is incorporated into the latent via cross-attention with a fixed text representation.
+In order to account for the differences between the two modalities, the MMDiT blocks use two separate sets of weights to embed the text and image sequences to a common dimensionality.  These sequences are joined before the attention operation, which allows both representations to work in their own space while taking the other one into account during the attention operation. This two-way flow of information between text and image data differs from previous approaches for text-to-image synthesis, where text information is incorporated into the latent via cross-attention with a fixed text representation.
 
 SD3 also makes use of the pooled text embeddings from both its CLIP models as part of its timestep conditioning. These embeddings are first concatenated and added to the timestep embedding before being passed to each of the MMDiT blocks.
 
@@ -75,8 +75,9 @@ The following snippet will download the 2B parameter version of SD3 in `fp16` pr
 import torch
 from diffusers import StableDiffusion3Pipeline
 
-pipe = StableDiffusion3Pipeline.from_pretrained("stabilityai/stable-diffusion-3-medium-diffusers", torch_dtype=torch.float16)
-pipe = pipe.to("cuda")
+pipe = StableDiffusion3Pipeline.from_pretrained(
+    "stabilityai/stable-diffusion-3-medium-diffusers", torch_dtype=torch.float16
+).to("cuda")
 
 image = pipe(
 	"A cat holding a sign that says hello world",
@@ -96,8 +97,9 @@ import torch
 from diffusers import StableDiffusion3Img2ImgPipeline
 from diffusers.utils import load_image
 
-pipe = StableDiffusion3Img2ImgPipeline.from_pretrained("stabilityai/stable-diffusion-3-medium-diffusers", torch_dtype=torch.float16)
-pipe = pipe.to("cuda")
+pipe = StableDiffusion3Img2ImgPipeline.from_pretrained(
+    "stabilityai/stable-diffusion-3-medium-diffusers", torch_dtype=torch.float16
+).to("cuda")
 
 init_image = load_image("https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png")
 prompt = "cat wizard, gandalf, lord of the rings, detailed, fantasy, cute, adorable, Pixar, Disney, 8k"
@@ -123,7 +125,9 @@ The most basic memory optimization available in Diffusers allows you to offload 
 import torch
 from diffusers import StableDiffusion3Pipeline
 
-pipe = StableDiffusion3Pipeline.from_pretrained("stabilityai/stable-diffusion-3-medium-diffusers", torch_dtype=torch.float16)
+pipe = StableDiffusion3Pipeline.from_pretrained(
+    "stabilityai/stable-diffusion-3-medium-diffusers", torch_dtype=torch.float16
+)
 pipe.enable_model_cpu_offload()
 
 prompt = "smiling cartoon dog sits at a table, coffee mug on hand, as a room goes up in flames. “This is fine,” the dog assures himself."
@@ -138,8 +142,12 @@ image = pipe(prompt).images[0]
 import torch
 from diffusers import StableDiffusion3Pipeline
 
-pipe = StableDiffusion3Pipeline.from_pretrained("stabilityai/stable-diffusion-3-medium-diffusers", text_encoder_3=None, tokenizer_3=None, torch_dtype=torch.float16)
-pipe = pipe.to("cuda")
+pipe = StableDiffusion3Pipeline.from_pretrained(
+    "stabilityai/stable-diffusion-3-medium-diffusers",
+    text_encoder_3=None, 
+    tokenizer_3=None, 
+    torch_dtype=torch.float16
+).to("cuda")
 
 prompt = "smiling cartoon dog sits at a table, coffee mug on hand, as a room goes up in flames. “This is fine,” the dog assures himself."
 image = pipe(prompt).images[0]
@@ -177,7 +185,15 @@ pipe = StableDiffusion3Pipeline.from_pretrained(
 
 All benchmarking runs were conducted using the 2B version of the SD3 model on an A100 GPU with 80GB of VRAM using `fp16` precision and PyTorch 2.3.
 
-We ran 10 iterations of a pipeline inference call, and measured the average peak memory usage of the pipeline and the average time to perform 20 diffusion steps.
+For our memory benchmarks, we use 3 iterations of pipeline calls for warming up and report an average inference time of 10 iterations of pipeline calls. We use the default arguments of the [`StableDiffusion3Pipeline` `__call__()` method](https://github.com/huggingface/diffusers/blob/adc31940a9cedbbe2fca8142d09bb81db14a8a52/src/diffusers/pipelines/stable_diffusion_3/pipeline_stable_diffusion_3.py#L634).
+
+| **Technique**         | **Inference Time (secs)** | **Memory (GB)** |
+|:-----------------:|:---------------------:|:-----------:|
+| Default       | 4.762                  | 18.765         |
+| Offloading       | 32.765 (~6.8x 🔼)                 | 12.0645 (~1.55x 🔽)       |
+| Offloading + no T5       | 19.110 (~4.013x 🔼)                 | 4.266 (~4.398x 🔽)       |
+| 8bit T5       |        4.932 (~1.036x 🔼)        |     10.586 (~1.77x 🔽)    |
+
 
 ## Performance Optimizations for SD3
 
