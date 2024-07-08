@@ -20,7 +20,7 @@ This is a big step in our ongoing [collaboration](https://huggingface.co/blog/gc
 
 ## Hugging Face Inference Endpoints support for TPUs
 
-Hugging Face Inference Endpoints provides a seamless way to deploy Generative AI models  with a few clicks on a dedicated, managed infrastructure using the cloud provider of your choice. Starting today, Google [TPU v5e](https://cloud.google.com/tpu/docs/v5e-inference) is available on Inference Endpoints. Choose the model you want to deploy, select TPU v5e under Google Cloud Platform instance configuration and you’re ready to go.
+Hugging Face Inference Endpoints provides a seamless way to deploy Generative AI models  with a few clicks on a dedicated, managed infrastructure using the cloud provider of your choice. Starting today, Google [TPU v5e](https://cloud.google.com/tpu/docs/v5e-inference) is available on Inference Endpoints. Choose the model you want to deploy, select Google Cloud Platform, select us-east1 and you’re ready to pick a TPU configuration:
 
 We have 3 instance configurations, with more to come:
 
