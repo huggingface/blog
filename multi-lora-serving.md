@@ -129,7 +129,7 @@ docker run --gpus all --shm-size 1g -p 8080:80 -v $volume:/data \
 
 ### Inference Endpoints GUI
 
-[Inference Endpoints](https://huggingface.co/docs/inference-endpoints/en/index) allows you to have access to deploy any Hugging Face model on many [GPUs and alternative HW types](https://huggingface.co/docs/inference-endpoints/en/pricing#gpu-instances) across AWS, GCP, and Azure all in a few clicks! In the GUI, it's easy to deploy. Under the hood, we use TGI by default for text generation (though you have the [option](https://huggingface.co/docs/inference-endpoints/en/guides/custom_container) to use any image you choose).
+[Inference Endpoints](https://huggingface.co/docs/inference-endpoints/en/index) allows you to have access to deploy any Hugging Face model on many [GPUs and alternative Hardware types](https://huggingface.co/docs/inference-endpoints/en/pricing#gpu-instances) across AWS, GCP, and Azure all in a few clicks! In the GUI, it's easy to deploy. Under the hood, we use TGI by default for text generation (though you have the [option](https://huggingface.co/docs/inference-endpoints/en/guides/custom_container) to use any image you choose).
 
 To use Multi-LoRA serving on Inference Endpoints, you just need to go to your [dashboard](https://ui.endpoints.huggingface.co/), then:
 
