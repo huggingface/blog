@@ -337,9 +337,9 @@ As an illustration, here are some examples where the model hallucinates less:
 
 | Image | Question | Idefics2 | Idefics2+DPO |
 | ----- | -------- | -------- | ------------ |
-| ![](AMBER_2.jpg) | Are there two ships in this image? | Yes | No |
-| ![](AMBER_7.jpg) | Is the ground uneven in this image? | No | Yes |
-| ![](AMBER_111.jpg) | Is there one shovel in this image? | Yes | No |
+| ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dpo_vlm/AMBER_2.jpg) | Are there two ships in this image? | Yes | No |
+| ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dpo_vlm/AMBER_7.jpg) | Is the ground uneven in this image? | No | Yes |
+| ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dpo_vlm/AMBER_111.jpg) | Is there one shovel in this image? | Yes | No |
 
 ### Finetuning Llava 1.5, PaliGemma and others
 
