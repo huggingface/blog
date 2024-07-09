@@ -4292,11 +4292,39 @@
     - intel
     - llm
 
+- local: datasets-filters
+  title: "Announcing New Dataset Search Features"
+  author: lhoestq
+  thumbnail: /blog/assets/datasets-filters/thumbnail.png
+  date: Jul 8, 2024
+  tags:
+    - datasets
+
+- local: sovereign-data-solution-case-study
+  title: "Banque des Territoires (CDC Group) x Polyconseil x Hugging Face: Enhancing a Major French Environmental Program with a Sovereign Data Solution"
+  author: florentgbelidji
+  thumbnail: /blog/assets/78_ml_director_insights/cdc_poly_hf.png
+  date: July 9, 2024
+  tags:
+    - case-studies
+  
+- local: tpu-inference-endpoints-spaces
+  title: "Google Cloud TPUs made available to Hugging Face users"
+  thumbnail: /blog/assets/tpu-inference-endpoints-spaces/thumbnail.png
+  author: pagezyhf
+  date: Jun 27, 2024
+  tags:
+    - partnerships
+    - gcp
+    - spaces
+    - inference
+    - hardware
+
 - local: dpo_vlm
   title: "Preference Optimization for Visual Language Models"
   author: qgallouedec
   thumbnail: /blog/assets/dpo_vlm/thumbnail.png
-  date: July 8, 2024
+  date: July 9, 2024
   tags:
     - vlm
     - multimodal
