@@ -7,14 +7,14 @@ authors:
 
 # [Presidio] Experimenting with Automatic PII Detection on the Hub
 
-At Hugging Face, working closely with machine learning (ML) datasets hosted on our Hub, we've noticed a concerning trend – the increasing prevalence of undocumented Personal Identifiable Information (PII), which poses some unique challenges for ML practitioners.
-In this blog post, we'll explore different types of datasets containing PII, the issues they present, and a new feature we're experimenting with on the Dataset Hub to help address these challenges.
+At Hugging Face, we've noticed a concerning trend in machine learning (ML) datasets hosted on our Hub: Undocumented private information about individuals. This poses some unique challenges for ML practitioners.
+In this blog post, we'll explore different types of datasets containing a type of private information known as Personally Identifying Information (PII), the issues they present, and a new feature we're experimenting with on the Dataset Hub to help address these challenges.
 
 ## Types of Datasets with PII
 
 We noticed two types of datasets that contain PII:
 
-1. Annotated PII datasets: These datasets are specifically designed to train PII Detection Models, which are used to detect and mask PII. For example, these models can help with online content moderation or provide anonymized databases.
+1. Annotated PII datasets: Datasets like [PII-Masking-300k by Ai4Privacy](https://huggingface.co/datasets/ai4privacy/pii-masking-300k) are specifically designed to train PII Detection Models, which are used to detect and mask PII. For example, these models can help with online content moderation or provide anonymized databases.
 2. Pre-training datasets: These are large-scale datasets, often terabytes in size, that are typically obtained through web crawls. While these datasets are generally filtered to remove certain types of PII, small amounts of sensitive information can still slip through the cracks due to the sheer volume of data and the imperfections of PII Detection Models.
 
 ## The Challenges of PII in ML Datasets
