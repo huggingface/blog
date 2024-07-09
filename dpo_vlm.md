@@ -16,7 +16,7 @@ We are excited to announce that the [TRL](https://huggingface.co/docs/trl/index)
 
 ## Dataset
 
-Preference optimisation requires data that captures user preferences. For example, you need to have samples like the following:
+Preference optimization requires data that captures user preferences. For example, you need to have samples like the following:
 
 ![Example Image](https://datasets-server.huggingface.co/assets/openbmb/RLAIF-V-Dataset/--/fb08536fc84ca3c8b5aed0bc72b1130b37c7a91e/--/default/train/1/image/image.jpg?Expires=1720283142&Signature=OIttYvFmQtbx6qqxuWi67Y07VxAddRL4dDXjTto-oBT2TPPYJCcttKmLCfmNq2upWmWB~rvxXmcfSXWgMr3uOY6Kp5-dl2vBLO3MjIuDnncyc1sAyFC891BH-PqfeuB2sz6d-JLQLAlL7fBcT5-0WUtbA2fhoep5eqoZcu3As-a0xYvHNKa2W5hNQQxmmIYchY2F7YaFeGzn2r7FM8NIZVbyJRedQ7YSblFitJPvbIu73FBSpAEVrLkVt6WiTdngsqy3GUshAW7JNIIJIurSu51mNuEg8HyFlmBdGOwhk9s9AazS39zt4nowz2snsnTnG53U4GneQpiPo7fMLbZmXg__&Key-Pair-Id=K3EI6M078Z3AC3)
 
