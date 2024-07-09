@@ -9,7 +9,7 @@ authors:
 
 # Direct Preference Optimization for Visual Language Models with TRL
 
-Training models to understand and predict human preferences can be incredibly complex. Traditional methods, like supervised fine-tuning, often require assigning specific labels to data, which can be difficult, especially for nuanced tasks. There is an alternative approach that can simplify this process and yield more accurate results: preference optimization. By focusing on comparing and ranking candidate answers rather than assigning fixed labels, preference optimization allows models to capture the subtleties of human judgment more effectively.
+Training models to understand and predict human preferences can be incredibly complex. Traditional methods, like supervised fine-tuning, often require assigning specific labels to data, which is not cost-efficient, especially for nuanced tasks. Preference optimization is an alternative approach that can simplify this process and yield more accurate results. By focusing on comparing and ranking candidate answers rather than assigning fixed labels, preference optimization allows models to capture the subtleties of human judgment more effectively.
 
 Preference optimization is widely used for finetuning language models, but it can also be applied to visual language models (VLM).
 We are excited to announce that the [TRL](https://huggingface.co/docs/trl/index) library now supports direct preference optimization for VLMs. This article will guide you through the process of training VLMs using TRL and direct preference optimization.
