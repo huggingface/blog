@@ -327,11 +327,11 @@ As mentionned earlier, the dataset used is meant to reduce hallucination. Have w
 | QWEN-VL          | 81.9     | 86.4 |
 | LLaVA-NeXT       | 81.4     | 85.4 |
 | MiniGemini       | 82.6     | 87.6 |
-| GPT-4o           | 0.0      | 0.0  |
-| Idefics2         | 0.0      | 0.0  |
-| **Idefics2+DPO** | 0.0      | 0.0  |
+| GPT-4o           | 84.5     | 85.3 |
+| Idefics2         | 85.8     | 89.1 |
+| **Idefics2+DPO** | 85.9     | 89.4 |
 
-Overall, the model seems to hallucinate less. The training seems to have been successful!
+Overall, the model seems to hallucinate a bit less. The training seems to have been successful!
 
 As an illustration, here are some examples where the model hallucinates less:
 
