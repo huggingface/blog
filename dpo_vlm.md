@@ -106,7 +106,7 @@ Warm up your GPUs, the dataset is ready for training!
 
 ## Training
 
-In this section, we embark on training Idefics2 using the DPO implementation of TRL with our formatted dataset. Before delving into the training process, we'll first ensure everything fits smoothly into memory.
+In this section, we embark on training Idefics2 using the DPO implementation of TRL with our formatted dataset. Before looking into the training process, we'll first ensure everything fits smoothly into memory.
 
 ### Choosing the parameters
 
