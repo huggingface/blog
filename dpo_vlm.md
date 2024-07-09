@@ -7,7 +7,7 @@ authors:
 - user: merve
 ---
 
-# Direct Preference Optimization for Visual Language Models with TRL
+# Preference Optimization for Vision Language Models with TRL
 
 Training models to understand and predict human preferences can be incredibly complex. Traditional methods, like supervised fine-tuning, often require assigning specific labels to data, which is not cost-efficient, especially for nuanced tasks. Preference optimization is an alternative approach that can simplify this process and yield more accurate results. By focusing on comparing and ranking candidate answers rather than assigning fixed labels, preference optimization allows models to capture the subtleties of human judgment more effectively.
 
@@ -121,13 +121,13 @@ Let \( N \) be the number of parameters, \( P \) the precision. We need to consi
 
 Idefics2-8b has 8 billion parameters, and we use float32 precision which requires 4 bytes. So the total memory required is:
 
-| Component          | Calculation                           | Memory (GB) |
-| ------------------ | ------------------------------------- | ----------- |
-| Model to train     | \( 8 \times 10^9 \times 4 \)          | 32          |
-| Reference model    | \( 8 \times 10^9 \times 4 \)          | 32          |
-| Gradients          | \( 8 \times 10^9 \times 4 \)          | 32          |
-| Optimizer states   | \( 2 \times 8 \times 10^9 \times 4 \) | 64          |
-| **Total**          |                                       | **160**     |
+| Component        | Calculation                           | Memory (GB) |
+| ---------------- | ------------------------------------- | ----------- |
+| Model to train   | \( 8 \times 10^9 \times 4 \)          | 32          |
+| Reference model  | \( 8 \times 10^9 \times 4 \)          | 32          |
+| Gradients        | \( 8 \times 10^9 \times 4 \)          | 32          |
+| Optimizer states | \( 2 \times 8 \times 10^9 \times 4 \) | 64          |
+| **Total**        |                                       | **160**     |
 
 This is way above my GPU's memory capacity. We need to reduce the memory usage.
 To do this, we will use two techniques: quantization and LoRA.
@@ -183,13 +183,13 @@ It reduces the number of trainable parameters from 8 billion to 55 million, whic
 
 Now that we have reduced the memory requirements, let's recalculate the memory needed:
 
-| Component          | Calculation                           | Memory (GB) |
-| ------------------ | ------------------------------------- | ----------- |
-| Model to train     | \( 8 \mathrm{G} \times 2 \)           | 16          |
-| Reference model    | \( 8 \mathrm{G} \times 2 \)           | 16          |
-| Gradients          | \( 55 \mathrm{M} \times 2 \)          | 0.2         |
-| Optimizer states   | \( 2 \times 55 \mathrm{M} \times 2 \) | 0.4         |
-| **Total**          |                                       | **32.6**    |
+| Component        | Calculation                           | Memory (GB) |
+| ---------------- | ------------------------------------- | ----------- |
+| Model to train   | \( 8 \mathrm{G} \times 2 \)           | 16          |
+| Reference model  | \( 8 \mathrm{G} \times 2 \)           | 16          |
+| Gradients        | \( 55 \mathrm{M} \times 2 \)          | 0.2         |
+| Optimizer states | \( 2 \times 55 \mathrm{M} \times 2 \) | 0.4         |
+| **Total**        |                                       | **32.6**    |
 
 This time, we need around 30GB of memory to finetune our Idefics2, which is much more reasonable and fits within my GPU!
 
@@ -287,104 +287,77 @@ In DPO, we focus on some metrics to determine if the training went well.
 - **The accuracy**: the percentage of training samples for which the model has a higher chance of outputting the chosen answer than the rejected answer. We can see that the accuracy is increasing, which is a good sign.
 - **The rewards**: the reward are somewhat related to the probability of an answer being chosen. We refer the reader to the TODO for more details. We expect the reward of the chosen answer to be higher than the rejected answer. To check this, we can watch the _reward margin_ which is the difference between the rewards of the chosen answer and the rejected answer. We can see that the reward margin is increasing, which is a also good sign.
 
---------------------------------------------
+### Evaluation
 
-- Les paramètres du modèle à entrainer
-- Les paramètres du modèle de référence
-- Les gradients
-- Les états de l'optimiseur
-
-Il y a d'autre chose à considérer, mais nous faisons ici un calcul rapide qui nous permet d'avoir une appriximation de la taille requises.
-
-Dans notre cas, le calcul est le suivant:
-
-| Composant           |                                             | Calcul                                 | Mémoire en Gb |
-| ------------------- | ------------------------------------------- | -------------------------------------- | ------------- |
-| Modèle à entrainer  | Nombre de paramètres \( \times \) Precision | 8b \( \times \) 4 bytes (float32)      | 32            |
-| Modèle de référence | Même que le modèle à entrainer              | 8b \( \times \) 4 bytes                | 32            |
-| Gradients           | Même que le modèle à entrainer              | 8b \( \times \) 4 bytes                | 32            |
-| Optimiseur          | 2* modèle à entrainer (AdamW)               | 2 \( \times \) 8B \( \times \) 4 bytes | 64            |
-| **Total**           |                                             |                                        | **160**       |
-
-
-Aïe, 160 est bien au deussus de ce que mon hardware peut contenir (80Gb). Il va falloir réduire la quantité de mémoire utilisée.
-
-
-Parameters efficient training
-
-Work has shown that it is possible to reduce the search set to a small set of parameters. In particular, LoRA  is a method that reduces the number of trainable parameters by learning pairs of rank-decomposition matrices while keeping the original weights frozen. This significantly decreases the storage needs for large language models adapted to specific tasks.
-LoRA is integrated in PEFT and you can set it up in no time:
-
-```diff
-+ from peft import get_peft_model
-  from transformers import AutoModelForVision2Seq
-+ from trl get_peft_config
-  from trl import ModelConfig
-
-  model_id = "HuggingFaceM4/idefics2-8b"
-  model_config = ModelConfig(
-      model_id,
-+     lora_target_modules="all-linear",
-+     use_peft=True,
-  )
-  model = AutoModelForVision2Seq.from_pretrained(model_id)
-+ peft_config = get_peft_config(model_config)
-+ model = get_peft_model(model, peft_config)
-```
-
-Regardons dans quelle mesure l'utilisation de LoRA permet de réduire le nombre de parametres à entrainer:
+Now that the model is trained, we can get a sense of how well it performs by evaluating it on some examples. We can use the following script to evaluate the model:
 
 ```python
->>> model.print_trainable_parameters()
-trainable params: 55,348,736 || all params: 8,458,116,848 || trainable%: 0.6543860411799315
+from transformers import AutoModelForVision2Seq, AutoProcessor
+from PIL import Image
+
+model = AutoModelForVision2Seq.from_pretrained("HuggingFaceM4/idefics2-8b").to("cuda")
+processor = AutoProcessor.from_pretrained("HuggingFaceM4/idefics2-8b", do_image_splitting=False)
+model.load_adapter("HuggingFaceH4/idefics2-8b-dpo-rlaif-v-v0.3")  # <-- Load the adapter we've just trained
+
+# Process
+user_message = "How many families?"
+image_path = "image.jpg"
+data = [{"role": "user", "content": [{"type": "image"}, {"type": "text", "text": user_message}]}]
+prompts = processor.apply_chat_template(data, add_generation_prompt=True)
+images = [Image.open(image_path)]
+inputs = processor(prompts, images, return_tensors="pt", padding=True)
+inputs = {k: v.to("cuda") for k, v in inputs.items()}
+
+# Generate
+generated_ids = model.generate(**inputs, max_new_tokens=500)
+response_text = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
+print(response_text)  # 18,000,000 families
 ```
 
-You pass from 8b to 55m, which is a huge improvement: in term of memory, you go from 32Gb to 0.2Gb
+### Does it still hallucinate?
 
-Re-faisons le bilan approximatif de mémoire requis:
+As mentionned earlier, the dataset used is meant to reduce hallucination. Have we succeeded in this task? To check this, we can use the AMBER benchmark which is a dataset specifically designed to evaluate hallucination in VLMs. We report also results for other models for comparison.
 
-| Composant           |                                             | Calcul                                 | Mémoire en Gb |
-| ------------------- | ------------------------------------------- | -------------------------------------- | ------------- |
-| Modèle à entrainer  | Nombre de paramètres \( \times \) Precision | 8B \( \times \) 2 bytes (bfloat16)     | 16            |
-| Modèle de référence | Même que le modèle à entrainer              | 8B \( \times \) 2 bytes                | 16            |
-| Gradients           | Même que le modèle à entrainer              | 55m \( \times \) 2 bytes               | 0.2            |
-| Optimiseur          | 2* modèle à entrainer                       | 2 \( \times \) 55m \( \times \) 2 bytes | 0.4            |
-| **Total**           |                                             |                                        | **32.6**       |
+|                  | Accuracy | F1   |
+| ---------------- | -------- | ---- |
+| VCD              | 71.8     | 74.9 |
+| Less-is-more     | 72.4     | 75.8 |
+| OPERA            | 75.2     | 78.3 |
+| LURE             | 73.5     | 77.7 |
+| QWEN-VL          | 81.9     | 86.4 |
+| LLaVA-NeXT       | 81.4     | 85.4 |
+| MiniGemini       | 82.6     | 87.6 |
+| GPT-4o           | 0.0      | 0.0  |
+| Idefics2         | 0.0      | 0.0  |
+| **Idefics2+DPO** | 0.0      | 0.0  |
 
-Cette fois, il nous faut autour de 30 Gb de mémoire pour finetuner notre idefics8 ce qui bien plus raisonable, mais surtout, qui fit dans mon GPU!
+Overall, the model seems to hallucinate less. The training seems to have been successful!
 
+As an illustration, here are some examples where the model hallucinates less:
 
-Putting all together, the training parameters are:
+| Image | Question | Idefics2 | Idefics2+DPO |
+| ----- | -------- | -------- | ------------ |
+| ![](AMBER_2.jpg) | Are there two ships in this image? | Yes | No |
+| ![](AMBER_7.jpg) | Is the ground uneven in this image? | No | Yes |
+| ![](AMBER_111.jpg) | Is there one shovel in this image? | Yes | No |
 
-```python
-from peft import get_peft_model
-from transformers import AutoModelForVision2Seq
-from trl get_peft_config
-from trl import ModelConfig
+### Finetuning Llava 1.5, PaliGemma and others
 
-model_id = "HuggingFaceM4/idefics2-8b"
-model_config = ModelConfig(model_id, lora_target_modules="all-linear", use_peft=True)
-model = AutoModelForVision2Seq.from_pretrained(model_id)
-peft_config = get_peft_config(model_config)
-model = get_peft_model(model, peft_config)
+At the time of writing, the DPO implementation in TRL supports Idefics2, Llava 1.5 and PaliGemma, and we're working on adding support for more models. To finetune these models the easier is to use the [example script](https://github.com/huggingface/trl/blob/main/examples/scripts/dpo_visual.py) provided in the TRL repository. For example, to finetune PaliGemma, you can use the following command:
+
+```sh
+accelerate launch examples/scripts/dpo_visual.py \
+    --dataset_name HuggingFaceH4/rlaif-v_formatted \
+    --model_name_or_path google/paligemma-3b-pt-224 \
+    --per_device_train_batch_size 2 \
+    --gradient_accumulation_steps 32 \
+    --dataset_num_proc 32 \
+    --output_dir dpo_paligemma_rlaif-v \
+    --bf16 \
+    --torch_dtype bfloat16 \
+    --gradient_checkpointing \
+    --use_peft \
+    --lora_target_modules=all-linear
 ```
 
-To train a model using TRL, you need to define a `TRLTrainer` and pass it the `TRL`.
-
-```python
-from transformers import TrainingArguments
-ref_model = AutoModelForVision2Seq.from_pretrained("HuggingFaceM4/idefics2-8b")
-trainer = DPOTrainer(
-    model,
-    ref_model,
-    args=training_args,
-    train_dataset=train_dataset,
-    eval_dataset=eval_dataset,
-    tokenizer=processor,
-)
-```
-
-
-- Training (curves)
-- Evulation (embed compraing space, metrics, with polar plot)
-- Conclusion
+You can also refer to the [smol-vision](https://github.com/merveenoyan/smol-vision) project where you'll find more examples and scripts to finetune vision models with DPO.
