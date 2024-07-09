@@ -1,6 +1,6 @@
 ---
 title: "Announcing New Hugging Face and Keras NLP integration" 
-thumbnail: /blog/assets/todo
+thumbnail: /blog/assets/keras-nlp-integration/thumbnail.png
 authors:
 - user: ariG23498
 ---
@@ -44,8 +44,9 @@ They were missing out on the extensive collection of over 300K
 models created with the transformers library. Figure 1 shows 4k
 Gemma models in the Hub.
 
-![models on hf](./assets/keras-x-hf/hf-blog.png)
-*Figure 1: Gemma Models in the Hugging Face Hub (Source:https://huggingface.co/models?other=gemma)*
+|![models on hf](./assets/keras-nlp-integration/hf-blog.png)|
+|:--:|
+|Figure 1: Gemma Models in the Hugging Face Hub (Source:https://huggingface.co/models?other=gemma)|
 
 > However, what if we told you that you can now access and use these
 300K+ models with KerasNLP, significantly expanding your model
