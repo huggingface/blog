@@ -4282,6 +4282,36 @@
     - research
     - leaderboard
 
+- local: intel-protein-language-model-protst
+  title: "Accelerating Protein Language Model ProtST on Intel Gaudi 2"
+  author: juliensimon
+  thumbnail: /blog/assets/intel-protein-language-model-protst/01.jpeg
+  date: July 3, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
+
+- local: datasets-filters
+  title: "Announcing New Dataset Search Features"
+  author: lhoestq
+  thumbnail: /blog/assets/datasets-filters/thumbnail.png
+  date: Jul 8, 2024
+  tags:
+    - datasets
+
+- local: tpu-inference-endpoints-spaces
+  title: "Google Cloud TPUs made available to Hugging Face users"
+  thumbnail: /blog/assets/tpu-inference-endpoints-spaces/thumbnail.png
+  author: pagezyhf
+  date: Jun 27, 2024
+  tags:
+    - partnerships
+    - gcp
+    - spaces
+    - inference
+    - hardware
+
 - local: sovereign-data-solution-case-study
   title: "Banque des Territoires (CDC Group) x Polyconseil x Hugging Face: Enhancing a Major French Environmental Program with a Sovereign Data Solution"
   author: florentgbelidji
