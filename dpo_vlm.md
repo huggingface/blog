@@ -18,7 +18,7 @@ We are excited to announce that the [TRL](https://huggingface.co/docs/trl/index)
 
 Preference optimization requires data that captures user preferences. For example, you need to have samples like the following:
 
-![Example Image](https://datasets-server.huggingface.co/assets/openbmb/RLAIF-V-Dataset/--/fb08536fc84ca3c8b5aed0bc72b1130b37c7a91e/--/default/train/1/image/image.jpg?Expires=1720283142&Signature=OIttYvFmQtbx6qqxuWi67Y07VxAddRL4dDXjTto-oBT2TPPYJCcttKmLCfmNq2upWmWB~rvxXmcfSXWgMr3uOY6Kp5-dl2vBLO3MjIuDnncyc1sAyFC891BH-PqfeuB2sz6d-JLQLAlL7fBcT5-0WUtbA2fhoep5eqoZcu3As-a0xYvHNKa2W5hNQQxmmIYchY2F7YaFeGzn2r7FM8NIZVbyJRedQ7YSblFitJPvbIu73FBSpAEVrLkVt6WiTdngsqy3GUshAW7JNIIJIurSu51mNuEg8HyFlmBdGOwhk9s9AazS39zt4nowz2snsnTnG53U4GneQpiPo7fMLbZmXg__&Key-Pair-Id=K3EI6M078Z3AC3)
+![Example Image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dpo_vlm/how-many-families.jpg)
 
 **❔ Question**: _How many families?_
 
@@ -338,8 +338,8 @@ As an illustration, here are some examples where the model hallucinates less:
 | Image | Question | Idefics2 | Idefics2+DPO |
 | ----- | -------- | -------- | ------------ |
 | ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dpo_vlm/AMBER_2.jpg) | Are there two ships in this image? | Yes | No |
-| ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dpo_vlm/AMBER_7.jpg) | Is the ground uneven in this image? | No | Yes |
-| ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dpo_vlm/AMBER_111.jpg) | Is there one shovel in this image? | Yes | No |
+| ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dpo_vlm/AMBER_111.jpg) | Is the ground uneven in this image? | No | Yes |
+| ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dpo_vlm/AMBER_7.jpg) | Is there one shovel in this image? | Yes | No |
 
 ### Finetuning Llava 1.5, PaliGemma and others
 
