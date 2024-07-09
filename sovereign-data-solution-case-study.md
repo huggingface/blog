@@ -18,18 +18,20 @@ authors:
 ## Table of contents
 
 - Case Study in English - Banque des Territoires (CDC Group) x Polyconseil x Hugging Face: Enhancing a Major French Environmental Program with a Sovereign Data Solution
-    - [Executive summary](#Executive-summary)   
-    - [The power of RAG to meet environmental objectives](#The-power-of-RAG-to-meet-environmental-objectives)
-    - [Industrializing while ensuring performance and sovereignty](#Industrializing-while-ensuring-performance-and-sovereignty)
-    - [A modular solution to respond to a dynamic sector](#A-modular-solution-to-respond-to-a-dynamic-sector)
-    - [Key Success Factors Success Factors](#Key-Success-Factors)
+    - [Executive summary](#executive-summary)   
+    - [The power of RAG to meet environmental objectives](#power-of-rag)
+    - [Industrializing while ensuring performance and sovereignty](#industrializing-ensuring-performance-sovereignty)
+    - [A modular solution to respond to a dynamic sector](#modular-solution-to-respond-to-a-dynamic-sector)
+    - [Key Success Factors Success Factors](#key-success-factors)
 - Case Study in French - Banque des Territoires (Groupe CDC) x Polyconseil x Hugging Face : améliorer un programme environnemental français majeur grâce à une solution data souveraine
-    - [Résumé](#Résumé)
+    - [Résumé](#resume)
     - [La puissance du RAG au service d'objectifs environnementaux](#puissance-rag)
-    - [Industrialiser en garantissant performance et souveraineté](#Industrialiser-en-garantissant-performance-et-souveraineté)
-    - [Une solution modulaire pour répondre au dynamisme du secteur](#Une-solution-modulaire-pour-répondre-au-dynamisme-du-secteur)
-    - [Facteurs clés de succès](#Facteurs-clés-de-succès)
+    - [Industrialiser en garantissant performance et souveraineté](#industrialiser-garantissant-performance-souverainete)
+    - [Une solution modulaire pour répondre au dynamisme du secteur](#solution-modulaire-repondre-dynamisme-secteur)
+    - [Facteurs clés de succès](#facteurs-cles-succes)
 
+
+<a name="executive-summary"></a>
 ## Executive summary
 
 The collaboration initiated last January between Banque des Territoires (part of the Caisse des Dépôts et Consignations group), Polyconseil, and Hugging Face illustrates the possibility of merging the potential of generative AI with the pressing demands of data sovereignty.
@@ -41,6 +43,7 @@ This article shares some key insights from a successful co-development between:
 - A multidisciplinary team from Polyconseil, including developers, DevOps, and Product Managers ;
 - A Hugging Face expert in Machine Learning and AI solutions deployment.
 
+<a name="power-of-rag"></a>
 ## The power of RAG to meet environmental objectives
 
 Launched by Banque des Territoires (BdT), EduRénov is a flagship program within France's ecological and energy transformation strategy. It aims to simplify, support, and finance the energetic renovation of public school buildings. Its ambition is reflected in challenging objectives: assisting 10,000 renovation projects, from nurseries to universities - representing 20% of the national pool of infrastructures - to achieve 40% energy savings within 5 years. Banque des Territoires mobilizes unprecedented means to meet this goal: 2 billion euros in loans to finance the work and 50 million euros dedicated to preparatory engineering. After just one year of operation, the program signed nearly 2,000 projects but aims to expand further. As program director Nicolas Turcat emphasizes: 
@@ -53,6 +56,7 @@ Since the launch of ChatGPT and the growing craze around generative AI, many com
 
 In this context, LLMs and open-source technological ecosystems present significant advantages, especially as their generalist performances catch up with proprietary solutions currently leading the field. Thus, the CDC launched a pilot data transformation project around the EduRénov program, chosen for its operational criticality and potential impact, with an unyielding condition:  to guarantee the sovereignty of compute services and models used.
 
+<a name="industrializing-ensuring-performance-sovereignty"></a>
 ## Industrializing while ensuring performance and sovereignty
 
 Before starting the project, CDC teams experimented with different models and frameworks, notably using open-source solutions proposed by Hugging Face (Text Generation Inference, Transformers, Sentence Transformers, Tokenizers, etc.). These tests validated the potential of a RAG approach. The CDC, therefore, wished to develop a secure application to improve the responsiveness of BdT's support to communities.
@@ -63,6 +67,7 @@ Given Caisse des Dépôts (CDC) status in the French public ecosystem and the ne
 
 - Founded in 2016, Hugging Face has become, over the years, the most widely used platform for AI collaboration on a global scale. Initially specializing in Transformers and publisher of the famous open-source library of the same name, Hugging Face is now globally recognized for its platform, the 'Hub',  which brings together the machine learning community. Hugging Face offers widely adopted libraries, more than 750,000 models, and over 175,000 datasets ready to use. Hugging Face has become, in a few years, an essential global player in artificial intelligence. With the mission to democratize machine learning, Hugging Face now counts more than 200,000 daily active users and 15,000 companies that build, train, and deploy models and datasets.
 
+<a name="modular-solution-to-respond-to-a-dynamic-sector"></a>
 ## A modular solution to respond to a dynamic sector
 
 The imagined solution consists of an application made available to BdT employees, allowing them to submit an email sent by a prospect and automatically generate a suitable and sourced project response based on EduRénov documentation. The agent can then edit the response before sending it to their interlocutor. This final step enables alignment with the agents' expectations using a method such as Reinforcement Learning from Human Feedback (RLHF).
@@ -92,6 +97,7 @@ To implement this overall process, four main subsystems are distinguished:
 - In purple: the Retrieval Augmented Generation system itself.
 - In red: the entire pipeline and the fine-tuning and RLHF database.
 
+<a name="key-success-factors"></a>
 ## Key Success Factors Success Factors
 
 The state-of-the-art in the GenAI field evolves at a tremendous pace; making it critical to modify models during a project without significantly affecting the developed solution. Polyconseil designed a modular architecture where simple configuration changes can adjust the LLM, embedding model, and retrieval method. This lets data scientists easily test different configurations to optimize the solution's performance. Finally,  this means that the optimal open and sovereign LLM solution to date can be available in production relatively simply.
@@ -115,6 +121,7 @@ _If you are interested in the Hugging Face Expert Support program for your compa
 
 # Banque des Territoires (Groupe CDC) x Polyconseil x Hugging Face : améliorer un programme environnemental français majeur grâce à une solution data souveraine
 
+<a name="resume"></a>
 ## Résumé
 
 La collaboration lancée en janvier dernier entre la Banque des Territoires de la Caisse des Dépôts et Consignations (CDC), Polyconseil et Hugging Face démontre qu’il est possible d’allier le potentiel de l’IA générative avec les enjeux de souveraineté.
@@ -139,6 +146,7 @@ Depuis le lancement de ChatGPT et le début de l’engouement autour de l’IA g
 
 Dans ce contexte, les LLMs et les écosystèmes technologiques open source présentent des avantages significatifs, et ce d'autant plus que leurs performances généralistes rattrapent celles des solutions propriétaires, leaders du domaine. C'est ainsi que la CDC a décidé de lancer un projet de transformation data pilote autour du programme EduRénov, choisi pour sa criticité opérationnelle et son impact potentiel, en imposant une condition essentielle : garantir le caractère souverain du cloud et des modèles utilisés dans ce cadre.
 
+<a name="industrialiser-garantissant-performance-souverainete"></a>
 ## Industrialiser en garantissant performance et souveraineté
 
 À la genèse du projet, les équipes de la CDC ont expérimenté avec différents modèles et frameworks, notamment à l’aide des solutions open source proposées par Hugging Face (Text Generation Inference, Transformers, Sentence Transformers, Tokenizers, etc.). Ces tests ont validé le potentiel de l’approche RAG envisagée. La CDC a donc souhaité développer une application sécurisée permettant d’améliorer la réactivité d’accompagnement des collectivités par la Banque des Territoires.
@@ -149,6 +157,7 @@ Compte tenu du statut de la Caisse des Dépôts dans l’écosystème public fra
 
 - Fondée en 2016, Hugging Face est devenue au fil des années la plateforme la plus utilisée pour la collaboration sur l’Intelligence Artificielle à l’échelle mondiale. Hugging Face, d’abord spécialiste des Transformers et éditeur de la célèbre librairie Open-Source éponyme, est maintenant reconnue mondialement pour sa plateforme, le « Hub », qui rassemble la communauté du machine learning. Proposant à la fois des bibliothèques très largement adoptées, plus de 750 000 modèles, et plus de 175 000 jeux de données (datasets) prêts à l'emploi, Hugging Face est devenue en quelques années un acteur mondial incontournable en intelligence artificielle. Avec pour mission de démocratiser le machine learning, Hugging Face compte aujourd'hui plus de 200 000 utilisateurs actifs quotidiens et 15 000 entreprises qui construisent, entraînent et déploient des modèles et des ensembles de données. 
 
+<a name="solution-modulaire-repondre-dynamisme-secteur"></a>
 ## Une solution modulaire pour répondre au dynamisme du secteur
 
 La solution imaginée consiste en une application mise à disposition des collaborateurs de la Banque des Territoires, qui leur permet de soumettre un courriel envoyé par un prospect et de générer automatiquement un projet de réponse adapté et sourcé, basé sur la documentation métier. L’agent peut ensuite éditer la réponse avant de l’envoyer à son interlocuteur. Cette dernière étape permet d’envisager une phase d’alignement aux attentes des agents du système à l’aide grâce à différentes techniques comme “Reinforcement Learning from Human Feedback” (RLHF). 
@@ -178,7 +187,7 @@ Pour implémenter ce processus d'ensemble on distingue 4 grands sous-systèmes :
 - en violet : le système Retrieval Augmented Generation proprement dit. 
 - en rouge : l'ensemble du pipeline et de la base de données de fine-tuning et RLHF.
 
-
+<a name="facteurs-cles-succes"></a>
 ## Facteurs clés de succès
 
 L'état de l'art du domaine évolue à très grande vitesse ; il est donc critique de pouvoir changer de modèles en cours de projet sans remettre en cause significativement la solution développée. Polyconseil a donc conçu une architecture modulaire, dans laquelle le LLM, le modèle d'embedding et la méthode de retrieval peuvent être modifiés par une simple configuration. Ceci permet en outre aux data scientists d'itérer facilement sur différentes configurations pour optimiser la performance de la solution. Cela permet enfin plus globalement de disposer en production et assez simplement de la meilleure solution de LLM à date, ouverte et assurant le caractère souverain.
