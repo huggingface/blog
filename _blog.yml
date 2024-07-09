@@ -4321,7 +4321,7 @@
     - hardware
 
 - local: dpo_vlm
-  title: "Preference Optimization for Visual Language Models"
+  title: "Preference Optimization for Vision Language Models"
   author: qgallouedec
   thumbnail: /blog/assets/dpo_vlm/thumbnail.png
   date: July 9, 2024
