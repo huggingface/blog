@@ -168,7 +168,7 @@ training_args = TrainingArguments(..., bf16=True)
 + model = get_peft_model(model, peft_config)
 ```
 
-PEFT acts like a wrapper (called _adaptater_) around the model. This is this adapter that will be trained while the inner model is kept frozen. How much LoRA reduces the number of trainable parameters?
+PEFT acts like a wrapper (called _adaptater_) around the model. This is the adapter that will be trained while the inner model is kept frozen. How much does LoRA reduce the number of trainable parameters?
 
 ```python
 >>> model.print_trainable_parameters()
