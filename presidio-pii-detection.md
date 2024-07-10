@@ -48,4 +48,10 @@ In this case, Presidio has detected small amounts of emails and sensitive PII in
 
 ## Conclusion
 
-The presence of PII in ML datasets is an evolving challenge for the ML community. At Hugging Face, we're committed to transparency and helping practitioners navigate these challenges. By experimenting with new features like Presidio reports on the Dataset Hub, we hope to empower users to make informed decisions and build more robust and ethical ML models. Stay tuned for more updates on this exciting development!
+The presence of PII in ML datasets is an evolving challenge for the ML community.
+At Hugging Face, we're committed to transparency and helping practitioners navigate these challenges.
+By experimenting with new features like Presidio reports on the Dataset Hub, we hope to empower users to make informed decisions and build more robust and ethical ML models.
+Stay tuned for more updates on this exciting development!
+
+We also thank the CNIL for the [help on GDPR compliance](https://huggingface.co/blog/cnil).
+Their guidance has been invaluable in navigating the complexities of AI and personal data issues.
