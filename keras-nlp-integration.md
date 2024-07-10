@@ -5,7 +5,7 @@ authors:
 - user: ariG23498
 ---
 
-# Introduction
+# Announcing New Hugging Face and Keras NLP integration
 
 The Hugging Face Hub is a vast repository, currently hosting
 [750K+](https://huggingface.co/models?sort=trending) public models,
