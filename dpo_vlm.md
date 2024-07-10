@@ -116,21 +116,21 @@ For the sake of the example, we'll be training the [Idefics2-8b](https://hugging
 
 I have a GPU with 80GB of VRAM. Is it enough to train my Idefics2-8b model? Here are the calculation steps to get a rough estimate of the memory needed.
 
-Let \( N \) be the number of parameters, \( P \) the precision. The following components will have to fit together in memory:
+Let \\( N \\) be the number of parameters, \\( P \\) the precision. The following components will have to fit together in memory:
 
-- **Model to train**: \( N \times P \)
-- **Reference model**: the reference model is the same as the model to train, so it also requires \( N \times P \)
-- **Gradients**: we train the whole model, and each parameter requires a gradient, so it requires \( N \times P \)
-- **Optimizer states**: we use [AdamW](https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html), which requires two states per parameter, so it requires \( 2 \times N \times P \)
+- **Model to train**: \\( N \times P \\)
+- **Reference model**: the reference model is the same as the model to train, so it also requires \\( N \times P \\)
+- **Gradients**: we train the whole model, and each parameter requires a gradient, so it requires \\( N \times P \\)
+- **Optimizer states**: we use [AdamW](https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html), which requires two states per parameter, so it requires \\( 2 \times N \times P \\)
 
 Idefics2-8b has 8 billion parameters, and we use `float32` precision which requires 4 bytes per float. So the total memory required is:
 
 | Component        | Calculation                           | Memory     |
 | ---------------- | ------------------------------------- | ---------- |
-| Model to train   | \( 8 \times 10^9 \times 4 \)          | 32 GB      |
-| Reference model  | \( 8 \times 10^9 \times 4 \)          | 32 GB      |
-| Gradients        | \( 8 \times 10^9 \times 4 \)          | 32 GB      |
-| Optimizer states | \( 2 \times 8 \times 10^9 \times 4 \) | 64 GB      |
+| Model to train   | \\( 8 \times 10^9 \times 4 \\)          | 32 GB      |
+| Reference model  | \\( 8 \times 10^9 \times 4 \\)          | 32 GB      |
+| Gradients        | \\( 8 \times 10^9 \times 4 \\)          | 32 GB      |
+| Optimizer states | \\( 2 \times 8 \times 10^9 \times 4 \\) | 64 GB      |
 | **Total**        |                                       | **160 GB** |
 
 This is way above my GPU's memory capacity. Fortunately, by applying techniques such as quantization and LoRA, we can significantly reduce the memory requirements and make the training feasible. Let's see how to do this.
@@ -183,10 +183,10 @@ Now that we have reduced the memory requirements, let's recalculate the memory n
 
 | Component        | Calculation                           | Memory      |
 | ---------------- | ------------------------------------- | ----------- |
-| Model to train   | \( 8 \mathrm{G} \times 2 \)           | 16  GB      |
-| Reference model  | \( 8 \mathrm{G} \times 2 \)           | 16  GB      |
-| Gradients        | \( 55 \mathrm{M} \times 2 \)          | 0.1 GB      |
-| Optimizer states | \( 2 \times 55 \mathrm{M} \times 2 \) | 0.2 GB      |
+| Model to train   | \\( 8 \mathrm{G} \times 2 \\)           | 16  GB      |
+| Reference model  | \\( 8 \mathrm{G} \times 2 \\)           | 16  GB      |
+| Gradients        | \\( 55 \mathrm{M} \times 2 \\)          | 0.1 GB      |
+| Optimizer states | \\( 2 \times 55 \mathrm{M} \times 2 \\) | 0.2 GB      |
 | **Total**        |                                       | **32.3 GB** |
 
 This time, we need around 32GB of memory to finetune our Idefics2-8b model, which is much more reasonable and fits within my GPU!
