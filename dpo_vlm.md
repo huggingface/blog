@@ -373,4 +373,4 @@ accelerate launch examples/scripts/dpo_visual.py \
 
 You can find a detailed focus on PaliGemma finetuning in the [smol-vision](https://github.com/merveenoyan/smol-vision) project.
 
-🚀🚀 Now you have everything you need to start fine-tuning your own VLMs with DPO. Share your findings, models and datasets with the community!
+🚀🚀 Now you have everything you need to start fine-tuning your own VLMs with DPO. Share your findings, models, and datasets with the community!
