@@ -4319,3 +4319,15 @@
     - spaces
     - inference
     - hardware
+
+- local: dpo_vlm
+  title: "Preference Optimization for Vision Language Models"
+  author: qgallouedec
+  thumbnail: /blog/assets/dpo_vlm/thumbnail.png
+  date: July 10, 2024
+  tags:
+    - vlm
+    - multimodal
+    - trl
+    - rlhf
+    - dpo
