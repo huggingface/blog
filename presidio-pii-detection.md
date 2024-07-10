@@ -3,6 +3,7 @@ title: "[Presidio] Experimenting with Automatic PII Detection on the Hub"
 thumbnail: /blog/assets/presidio-pii-detection/thumbnail.png
 authors:
 - user: lhoestq
+- user: omri374
 ---
 
 # [Presidio] Experimenting with Automatic PII Detection on the Hub
