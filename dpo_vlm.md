@@ -14,7 +14,7 @@ Training models to understand and predict human preferences can be incredibly co
 Preference optimization is widely used for fine-tuning language models, but it can also be applied to vision language models (VLM).
 We are excited to announce that the **[TRL](https://huggingface.co/docs/trl/index) library now supports direct preference optimization (DPO) for VLMs**. This article will guide you through the process of training VLMs using TRL and DPO.
 
-## Dataset
+## Preference dataset
 
 Preference optimization requires data that captures user preferences. In the binary choice setting, each example consists of a prompt, and two candidate answers: one that is chosen and one that is rejected. The model's goal is to learn to predict the chosen answer over the rejected one.
 For example, you need to have samples like the following:
@@ -45,8 +45,6 @@ For this blog post, we'll be using the [openbmb/RLAIF-V-Dataset](https://hugging
 >>> sample["chosen"]
 'The image shows a Union Organization table setup with 18,000 families.'
 ```
-
-## Formatting the Dataset
 
 Our model requires both text and images as input, so the first step is to format the dataset to fit this requirement. The data should be structured to simulate a conversation between a user and an assistant. The user provides a prompt that includes an image and a question, while the assistant responds with an answer. Here's how this formatting is done:
 
