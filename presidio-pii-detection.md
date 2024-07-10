@@ -5,6 +5,7 @@ authors:
 - user: lhoestq
 - user: meg
 - user: presidio
+- user: omri374
 ---
 
 # Experimenting with Automatic PII Detection on the Hub using Presidio
