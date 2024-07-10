@@ -54,5 +54,6 @@ By experimenting with new features like Presidio reports on the Dataset Hub, we 
 
 We also thank the CNIL for the [help on GDPR compliance](https://huggingface.co/blog/cnil).
 Their guidance has been invaluable in navigating the complexities of AI and personal data issues.
+Check out their updated AI how-to sheets [here](https://www.cnil.fr/fr/ai-how-to-sheets).
 
 Stay tuned for more updates on this exciting development!
