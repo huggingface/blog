@@ -4331,3 +4331,12 @@
     - trl
     - rlhf
     - dpo
+
+- local: presidio-pii-detection
+  title: "[Presidio] Experimenting with Automatic PII Detection on the Hub"
+  author: lhoestq
+  thumbnail: /blog/assets/presidio-pii-detection/thumbnail.png
+  date: Jul 10, 2024
+  tags:
+    - datasets
+    - pii
