@@ -192,6 +192,8 @@ Now that we have reduced the memory requirements, let's recalculate the memory n
 
 This time, we need around 32GB of memory to finetune our Idefics2-8b model, which is much more reasonable and fits within my GPU!
 
+For additional information on optimizing memory usage using LoRA and QLoRA, refer to the [PEFT documentation](https://huggingface.co/docs/peft/en/index) or [LoRA and QLoRA Google's recommendations for LLMs](https://cloud.google.com/vertex-ai/generative-ai/docs/model-garden/lora-qlora).
+
 ### What about the batch size?
 
 Our memory calculation isn't exact as it doesn't account for activations. Activations are the intermediate outputs of the network layers and their memory requirements depend on the model structure and batch size. Precisely calculating the memory needed for activations is challenging, so we'll rely on empirical observations.
