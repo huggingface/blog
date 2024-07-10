@@ -114,9 +114,9 @@ For the sake of the example, we'll be training the [Idefics2-8b](https://hugging
 
 ### How much memory do I need?
 
-I myself have a GPU with 80GB of VRAM. Is it enough to train my Idefics2-8b model? Here are the calculations steps to get a rough estimate of the memory needed.
+I have a GPU with 80GB of VRAM. Is it enough to train my Idefics2-8b model? Here are the calculation steps to get a rough estimate of the memory needed.
 
-Let \( N \) be the number of parameters, \( P \) the precision. The following components require will have to fit together in memory:
+Let \( N \) be the number of parameters, \( P \) the precision. The following components will have to fit together in memory:
 
 - **Model to train**: \( N \times P \)
 - **Reference model**: the reference model is the same as the model to train, so it also requires \( N \times P \)
