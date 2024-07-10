@@ -1,6 +1,6 @@
 ---
 title: "[Presidio] Experimenting with Automatic PII Detection on the Hub" 
-thumbnail: /blog/assets/presidio-pii-detection/presidio_report.png
+thumbnail: /blog/assets/presidio-pii-detection/thumbnail.png
 authors:
 - user: lhoestq
 ---
@@ -39,7 +39,7 @@ Dataset owners can also benefit from this feature by using the reports to valida
 
 Let's take a look at an example of a Presidio report for this [pre-training dataset](https://huggingface.co/datasets/allenai/c4):
 
-![Presidio report](assets/presidio-pii-detection/presidio_report.png)
+![Presidio report](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/presidio-pii-detection/presidio_report.png)
 
 In this case, Presidio has detected small amounts of emails and sensitive PII in the dataset.
 
