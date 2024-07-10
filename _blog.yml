@@ -4232,3 +4232,14 @@
     - collaboration
     - community
     - open-source
+
+- local: argilla-chatbot
+  title: "Creating a chatbot for the new Argilla SDK: leveraging distilabel to fine-tune a custom Embedding model for RAG"
+  thumbnail: /blog/assets/argilla-chatbot/thumbnail.png
+  author: plaguss
+  date: Jul 10, 2024
+  tags:
+    - nlp
+    - guide
+    - open-source
+    - apps
