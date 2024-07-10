@@ -209,3 +209,8 @@ This is just the beginning. We envision expanding this integration to
 encompass an even wider range of Hugging Face models and architectures.
 Stay tuned for updates and be sure to explore the incredible potential
 that this collaboration unlocks!
+
+I would like to take this opportunity to thank
+[Matthew Carrigan](https://x.com/carrigmat) and
+[Matthew Watson](https://www.linkedin.com/in/mattdangerw/) for their
+help in the entire process.
