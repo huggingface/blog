@@ -168,7 +168,7 @@ training_args = TrainingArguments(..., bf16=True)
 + model = get_peft_model(model, peft_config)
 ```
 
-PEFT acts like a wrapper (called _adaptater_) around the model. This is this adapter that will be trained while the inner model is kept frozen. How much LoRA reduces the number of trainable parameters?
+PEFT acts like a wrapper (called _adaptater_) around the model. This is the adapter that will be trained while the inner model is kept frozen. How much does LoRA reduce the number of trainable parameters?
 
 ```python
 >>> model.print_trainable_parameters()
@@ -371,6 +371,6 @@ accelerate launch examples/scripts/dpo_visual.py \
     --lora_target_modules=all-linear
 ```
 
-You can find a detailled focus on PaliGemma finetuning in the [smol-vision](https://github.com/merveenoyan/smol-vision) project.
+You can find a detailed focus on PaliGemma finetuning in the [smol-vision](https://github.com/merveenoyan/smol-vision) project.
 
-🚀🚀 Now you have everything you need to start fine-tuning your own VLMs with DPO. Share your findings, models and datasets with the community!
+🚀🚀 Now you have everything you need to start fine-tuning your own VLMs with DPO. Share your findings, models, and datasets with the community!
