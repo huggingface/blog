@@ -5,6 +5,7 @@ authors:
 - user: qgallouedec
 - user: vwxyzjn
 - user: merve
+- user: kashif
 ---
 
 # Preference Optimization for Vision Language Models with TRL
