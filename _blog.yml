@@ -4340,3 +4340,12 @@
   tags:
     - datasets
     - pii
+
+- local: keras-nlp-integration
+  title: "Announcing New Hugging Face and Keras NLP integration"
+  thumbnail: /blog/assets/keras-nlp-integration/thumbnail.png
+  author: ariG23498
+  date: Jul 10, 2024
+  tags:
+    - open-source-collab
+    - nlp
