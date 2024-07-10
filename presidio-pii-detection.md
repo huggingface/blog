@@ -1,12 +1,14 @@
 ---
-title: "[Presidio] Experimenting with Automatic PII Detection on the Hub" 
+title: "Experimenting with Automatic PII Detection on the Hub using Presidio"
 thumbnail: /blog/assets/presidio-pii-detection/thumbnail.png
 authors:
 - user: lhoestq
+- user: meg
+- user: presidio
 - user: omri374
 ---
 
-# [Presidio] Experimenting with Automatic PII Detection on the Hub
+# Experimenting with Automatic PII Detection on the Hub using Presidio
 
 At Hugging Face, we've noticed a concerning trend in machine learning (ML) datasets hosted on our Hub: Undocumented private information about individuals. This poses some unique challenges for ML practitioners.
 In this blog post, we'll explore different types of datasets containing a type of private information known as Personally Identifying Information (PII), the issues they present, and a new feature we're experimenting with on the Dataset Hub to help address these challenges.
