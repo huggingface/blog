@@ -22,13 +22,11 @@ authors:
 
 # How NuminaMath Won the 1st AIMO Progress Prize
 
-This year, [**Numina**](https://projectnumina.ai) and Hugging Face collaborated to compete in the 1st Progress Prize of the [**AI Math Olympiad (AIMO)**](https://aimoprize.com). ****This competition involved fine-tuning open LLMs to solve difficult math problems that high school students use to train for the International Math Olympiad. We’re excited to share that our model — [**NuminaMath 7B TIR**](https://huggingface.co/AI-MO/NuminaMath-7B-TIR)  — was the winner and managed to solve 29 out of 50 problems on the private test set 🥳!
+This year, [**Numina**](https://projectnumina.ai) and Hugging Face collaborated to compete in the 1st Progress Prize of the [**AI Math Olympiad (AIMO)**](https://aimoprize.com). This competition involved fine-tuning open LLMs to solve difficult math problems that high school students use to train for the International Math Olympiad. We’re excited to share that our model — [**NuminaMath 7B TIR**](https://huggingface.co/AI-MO/NuminaMath-7B-TIR)  — was the winner and managed to solve 29 out of 50 problems on the private test set 🥳!
 
-In this blog post, we introduce the Numina initiative and the technical details behind our winning solution. If you want to skip straight to testing out the model, check out our demo below:
+![kaggle.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/kaggle.png)
 
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"></script>
-
-<gradio-app theme_mode="light" space="AI-MO/math-olympiad-solver"></gradio-app>
+In this blog post, we introduce the Numina initiative and the technical details behind our winning solution. If you want to skip straight to testing out the model with your hardest math problems, check out our [**demo**](https://huggingface.co/spaces/AI-MO/math-olympiad-solver).
 
 Let’s dive in!
 
@@ -47,7 +45,7 @@ Let’s dive in!
 
 There is something very special about mathematics.
 
-Mathematics is a domain accessible to everyone, even to children long before they can read. Some of the greatest mathematicians of all time were actually self-taught, like [**Srinivasa Ramanujan](https://en.wikipedia.org/wiki/Srinivasa_Ramanujan),** who was born into a modest family in India in 1887.
+Mathematics is a domain accessible to everyone, even to children long before they can read. Some of the greatest mathematicians of all time were actually self-taught, like [**Srinivasa Ramanujan**](https://en.wikipedia.org/wiki/Srinivasa_Ramanujan), who was born into a modest family in India in 1887.
 
 Mathematics is essential to humanity, being the backbone upon which we have built everything from commerce to iPhones and nuclear power plants. Yet even solving maths problems for a critical application can be a playful experience.
 
@@ -57,9 +55,9 @@ This is why when we started [**Numina**](http://projectnumina.ai), going open-so
 
 With the initial support from Mistral AI, Numina was founded late 2023 by a collective passionate about AI and mathematics ([**Jia Li**](https://x.com/JiaLi52524397), [**Yann Fleureau**](https://www.linkedin.com/in/yann-fleureau-b1179983/), [**Guillaume Lample**](https://x.com/GuillaumeLample), [**Stan Polu**](https://x.com/spolu) and [**Hélène Evain**](https://www.linkedin.com/in/h%C3%A9l%C3%A8ne-evain-473815b1)), inspired by the AI Math Olympiad (AIMO) competition initiated by Alex Gerko and XTX Markets.
 
-In early 2024, the Numina team was reinforced by two LLM fine-tuning experts from Hugging Face (👋 [**Lewis Tunstall](https://x.com/_lewtun)** and [**Ed Beeching**](https://x.com/edwardbeeching)) to tackle the [**2024 AIMO progress prize**](https://www.kaggle.com/competitions/ai-mathematical-olympiad-prize). We also received additional support from [**General Catalyst**](https://www.generalcatalyst.com/) and [**Answer.ai**](http://answer.ai/), and by March 2024, Numina had gathered a team of [**top talents from all around the world**](http://projectnumina.ai/about-us).
+In early 2024, the Numina team was reinforced by two LLM fine-tuning experts from Hugging Face (👋 [**Lewis Tunstall**](https://x.com/_lewtun) and [**Ed Beeching**](https://x.com/edwardbeeching)) to tackle the [**2024 AIMO progress prize**](https://www.kaggle.com/competitions/ai-mathematical-olympiad-prize). We also received additional support from [**General Catalyst**](https://www.generalcatalyst.com/) and [**Answer.ai**](http://answer.ai/), and by March 2024, Numina had gathered a team of [**top talents from all around the world**](http://projectnumina.ai/about-us).
 
-In this blog post, we go through all the details behind our winning solution to the 2024 AIMO Progress Prize. Let’s dive in!
+With the team in place, it was time to tackle the AIMO challenge!
 
 ## The AI Math Olympiad (AIMO) prize
 
@@ -67,7 +65,7 @@ Every year, high school students from all around the world compete in the [**Int
 
 ![imo-problem.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/imo-problem.png)
 
-In November 2023, the [**AIMO Prize](https://aimoprize.com)** was launched to drive the open development of AI models that excel in mathematical reasoning. A grand prize of $5M will be awarded to whoever can create an AI model that can win a gold medal in the IMO. Alongside the grand prize, AIMO has introduced a series of *progress prizes* to mark milestones toward this ultimate goal. The first progress prize was held as a [**Kaggle competition**](https://www.kaggle.com/competitions/ai-mathematical-olympiad-prize), with problems that are less challenging than those in the IMO but are at the level of IMO preselection.
+In November 2023, the [**AIMO Prize**](https://aimoprize.com) was launched to drive the open development of AI models that excel in mathematical reasoning. A grand prize of $5M will be awarded to whoever can create an AI model that can win a gold medal in the IMO. Alongside the grand prize, AIMO has introduced a series of *progress prizes* to mark milestones toward this ultimate goal. The first progress prize was held as a [**Kaggle competition**](https://www.kaggle.com/competitions/ai-mathematical-olympiad-prize), with problems that are less challenging than those in the IMO but are at the level of IMO preselection.
 
 The competition featured two sets of 50 problems, forming public and private leaderboards, with problems hidden from competitors. The problems, comparable in difficulty to [**AMC12**](https://artofproblemsolving.com/wiki/index.php/AMC_12) and [**AIME**](https://en.wikipedia.org/wiki/American_Invitational_Mathematics_Examination) exams, require integer outputs for verification. The private leaderboard determined the final rankings. Competitors can submit solutions twice daily, using only open-weight models released before February 23. Each submission is allocated either a P100 GPU or 2xT4 GPUs and up to 9 hours to solve the 50 problems.
 
@@ -77,26 +75,26 @@ Given these constraints and rules, strategic choices were essential to develop o
 
 After much iteration throughout the competition, our solution to the 1st Progress Prize consisted of three main components:
 
-- a recipe to fine-tune [DeepSeekMath-Base 7B](https://huggingface.co/deepseek-ai/deepseek-math-7b-base) to act as a [“reasoning agent”](https://arxiv.org/abs/2309.17452) that can solve mathematical problems via a mix of natural language reasoning and the use of the Python REPL to compute intermediate results.
-- a novel decoding algorithm for tool-integrated reasoning (TIR) with code execution feedback to generate solution candidates during inference.
-- a variety of internal validation sets that we used to guide model selection and avoid overfitting to the public leaderboard.
+- A recipe to fine-tune [**DeepSeekMath-Base 7B**](https://huggingface.co/deepseek-ai/deepseek-math-7b-base) to act as a "reasoning agent" that can solve mathematical problems via a mix of natural language reasoning and the use of the Python REPL to compute intermediate results.
+- A novel decoding algorithm for tool-integrated reasoning (TIR) with code execution feedback to generate solution candidates during inference.
+- A variety of internal validation sets that we used to guide model selection and avoid overfitting to the public leaderboard.
 
-We used a mix of open-source libraries to train our models, notably [TRL](https://github.com/huggingface/trl), [PyTorch](https://github.com/pytorch/pytorch), [vLLM](https://github.com/vllm-project/vllm), and [DeepSpeed](https://github.com/microsoft/DeepSpeed). On one node of 8 x H100 GPUs, our models took 10 hours to train.
+We used a mix of open-source libraries to train our models, notably [**TRL**](https://github.com/huggingface/trl), [**PyTorch**](https://github.com/pytorch/pytorch), [**vLLM**](https://github.com/vllm-project/vllm), and [**DeepSpeed**](https://github.com/microsoft/DeepSpeed). On one node of 8 x H100 GPUs, our models took 10 hours to train.
 
 ## The training recipe
 
-Our fine-tuning recipe was largely based on the [MuMath-Code paper](https://arxiv.org/abs/2405.07551), which involves training the model in two stages:
+Our fine-tuning recipe was largely based on the [**MuMath-Code paper**](https://arxiv.org/abs/2405.07551), which involves training the model in two stages:
 
 ![mumath.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/mumath.png)
 
 Two-stage training method from the MuMath-Code paper
 
-- **Stage 1:** fine-tune the base model on a large, diverse dataset of natural language math problems and solutions, where each solution is templated with Chain of Thought (CoT) to facilitate reasoning.
-- **Stage 2:** fine-tune the model from Stage 1 on a synthetic dataset of tool-integrated reasoning, where each math problem is decomposed into a sequence of rationales, Python programs, and their outputs. Here, we followed Microsoft’s [ToRA paper](https://arxiv.org/abs/2309.17452) and prompted GPT-4 to produce solutions in the ToRA format with code execution feedback. Fine-tuning on this data produces a reasoning agent that can solve mathematical problems via a mix of natural language reasoning and the use of the Python REPL to compute intermediate results (see screenshot below).
+- **Stage 1:** Fine-tune the base model on a large, diverse dataset of natural language math problems and solutions, where each solution is templated with Chain of Thought (CoT) to facilitate reasoning.
+- **Stage 2:** Fine-tune the model from Stage 1 on a synthetic dataset of tool-integrated reasoning, where each math problem is decomposed into a sequence of rationales, Python programs, and their outputs. Here, we followed Microsoft’s [**ToRA paper**](https://arxiv.org/abs/2309.17452) and prompted GPT-4 to produce solutions in the ToRA format with code execution feedback. Fine-tuning on this data produces a reasoning agent that can solve mathematical problems via a mix of natural language reasoning and the use of the Python REPL to compute intermediate results (see screenshot below).
 
     ![tora.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/tora.png)
 
-    Figure from the ToRA paper on the tool integrated reasoning format we trained our models with.
+    _Figure from the ToRA paper on the tool integrated reasoning format we trained our models with._
 
 
 We performed “full fine-tuning” in both stages, where all model weights were updated during backpropagation. In other words, we did not use parameter-efficient techniques like LoRA or DoRA because we were not confident they could match the performance of full fine-tuning without significant experimentation. We used the “packing” feature from TRL’s `SFTTrainer` to concatenate multiple samples in a single chunk of 2048 tokens. All models were trained with gradient checkpointing and sharded with the DeepSpeed ZeRO-3 protocol to ensure the weights, gradients, and optimizer states could fit within the available VRAM. See below for the main hyperparameters we used in each stage:
@@ -110,7 +108,7 @@ We performed “full fine-tuning” in both stages, where all model weights were
 | lr scheduler     | cosine  | cosine  |
 | warmup ratio     | 0.1     | 0.1     |
 
-Our initial submissions used DeepSeek 7B models that were only fine-tuned on Stage 1, but we found the performance was quite limited, with 8/50 being our best score on the public leaderboard using maj@32. It was [Abdur Rafae](https://www.kaggle.com/abdurrafae)’s [public notebook](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) that prompted us to take a look at integrating code execution in the training recipe. Initially, we focused on the [Mix of Minimal Optimal Sets (MMOS)](https://github.com/cyzhh/MMOS) dataset, as described in the notebook's title. We found that using MMOS improved performance but was still capped at 16/50 on the public leaderboard with maj@32, likely due to the fact that MMOS only consists of single-turn solutions (i.e., the model only generates a single Python program, which is insufficient for hard problems). We later realized that MMOS was a misnomer and that Kaggle notebooks were actually running the [DeepSeekMath 7B RL](https://huggingface.co/deepseek-ai/deepseek-math-7b-rl) model, which is capable of multi-step reasoning and code execution.
+Our initial submissions used DeepSeek 7B models that were only fine-tuned on Stage 1, but we found the performance was quite limited, with 8/50 being our best score on the public leaderboard using maj@32. It was [**Abdur Rafae**](https://www.kaggle.com/abdurrafae)’s [**public prize notebook**](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) that prompted us to take a look at integrating code execution in the training recipe. Initially, we focused on the [**Mix of Minimal Optimal Sets (MMOS)**](https://github.com/cyzhh/MMOS) dataset, as described in the notebook's title. We found that using MMOS improved performance but was still capped at 16/50 on the public leaderboard with maj@32, likely due to the fact that MMOS only consists of single-turn solutions (i.e., the model only generates a single Python program, which is insufficient for hard problems). We later realized that MMOS was a misnomer and that Kaggle notebooks were actually running the [**DeepSeekMath 7B RL**](https://huggingface.co/deepseek-ai/deepseek-math-7b-rl) model, which is capable of multi-step reasoning and code execution.
 
 At this point, we focused our efforts on producing a dataset similar to the one used by the DeepSeekMath Instruct / RL models, and this, together with the MuMath-Code recipe, led to significant improvements.
 
@@ -149,11 +147,9 @@ As a point of reference, here is the performance of our Stage 1 model `NuminaMat
 | Model                    | MATH (%)                   |
 |--------------------------|----------------------------|
 |                          | Chain of Thought Reasoning |
-| Proprietary models       |                            |
 | GPT-4 (2023)             | 42.5                       |
 | GPT-4o                   | 76.6                       |
 | Claude 3.5 Sonnet        | 71.1                       |
-| Open models              |                            |
 | DeepSeekMath-7B-Instruct | 46.8                       |
 | DeepSeekMath-7B-RL       | 51.7                       |
 | NuminaMath-7B-CoT        | 56.3                       |
@@ -172,7 +168,7 @@ As other competitors noted, this competition posed several challenges with respe
 - The evaluation API provides problems in random order, so tactics like early stopping produce high variance because one run may have more hard problems at the start, which leaves less time for the remainder (and vice versa)
 - Most innovations in LLM inference require access to modern GPUs, so standard methods like Flash Attention 2 or torch.compile do not work on T4 GPUs. Similarly, modern data types like bfloat16 are not supported, which prompted us to explore post-training quantization methods like AWQ and GPTQ.
 
-Initially, we used [Abdur Rafae](https://www.kaggle.com/abdurrafae)’s [public notebook](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) for our submissions, but found the high variance to be problematic. To handle this, we took a different approach based Tool Integrated Reasoning:
+Initially, we used [**Abdur Rafae**](https://www.kaggle.com/abdurrafae)’s [**public notebook**](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) for our submissions, but found the high variance to be problematic. To handle this, we took a different approach based Tool Integrated Reasoning:
 
 ![sc-tir.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/sc-tir.png)
 
@@ -182,7 +178,7 @@ Initially, we used [Abdur Rafae](https://www.kaggle.com/abdurrafae)’s [public 
 4. Repeat M times to produce a batch of generations of size N and depth M, allowing the model to self-correct code errors using the traceback. If a sample fails to produce sensible outputs (e.g., incomplete code blocks), prune that result.
 5. Postprocess the solution candidates and then apply majority voting to select the final answer
 
-For our winning submission, we generated N=48 candidates with a depth of M=4. Increasing either parameter did not improve performance, so we took a conservative approach to stay within the time limit. In effect, this algorithm augments [Self Consistency with CoT](https://arxiv.org/abs/2305.10601) (shown below) with Tool-Integrated Reasoning.
+For our winning submission, we generated N=48 candidates with a depth of M=4. Increasing either parameter did not improve performance, so we took a conservative approach to stay within the time limit. In effect, this algorithm augments [**Self Consistency with CoT**](https://arxiv.org/abs/2305.10601) (shown below) with Tool-Integrated Reasoning.
 
 ![imo-problem.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/tot.png)
 
@@ -194,7 +190,7 @@ One technical detail worth mentioning is that we found it helpful to quantize th
 - T4 GPUs do not support bfloat16, and casting to float16 leads to a degradation in model performance. Casting to float32 was not possible as that exceeded the available GPU memory.
 - In addition, a 16-bit model consumes approximately 32GB VRAM just to load the weights. With 2xT4s, this would have required manipulating the KV cache to run fast, and we found it beneficial to tradeoff model precision for speed.
 
-We quantized our models using [AutoGPTQ](https://github.com/AutoGPTQ/AutoGPTQ) along with the training datasets for calibration. In practice, this led to a small drop in accuracy but provided the best compromise to accommodate the constraints imposed by evaluation on the Kaggle platform.
+We quantized our models using [**AutoGPTQ**](https://github.com/AutoGPTQ/AutoGPTQ) along with the training datasets for calibration. In practice, this led to a small drop in accuracy but provided the best compromise to accommodate the constraints imposed by evaluation on the Kaggle platform.
 
 ### Avoiding the curse of overfitting
 
@@ -202,8 +198,8 @@ Overfitting to the public leaderboard is a common risk in Kaggle competitions, a
 
 To guide model selection, we used four internal validation sets to gauge the performance of our models on math problems of varying difficulty. To avoid potential contamination in the base model, we selected problems from AMC12 (2022, 2023) and AIME (2022, 2023, 2024) to create two internal validation datasets:
 
-- **AMC (83 problems):** We picked all the problems from [AMC12](https://artofproblemsolving.com/wiki/index.php/AMC_12_Problems_and_Solutions) 22, AMC12 23 and kept those that can be converted to integer outputs. This results in a dataset of 83 problems. This validation set was designed to mimic the private test set on Kaggle and we found our models could solve about 60-65% of these problems. To measure the variance, we ran each evaluation with 5-10 different seeds and typically saw variations of around 1-3% with our SC-TIR algorithm.
-- **AIME (90 problems):** We picked all the problems from [AIME 22](https://artofproblemsolving.com/wiki/index.php/2022_AIME_I), [AIME 23](https://artofproblemsolving.com/wiki/index.php/2023_AIME_I_Problems), and [AIME 24](https://artofproblemsolving.com/wiki/index.php/2024_AIME_I) to measure how well our models could perform on difficult problems, as well as to gauge the most common failure modes. As above, we ran each evaluation with 5-10 seeds to measure variation.
+- **AMC (83 problems):** We picked all the problems from [**AMC12**](https://artofproblemsolving.com/wiki/index.php/AMC_12_Problems_and_Solutions) 22, AMC12 23 and kept those that can be converted to integer outputs. This results in a dataset of 83 problems. This validation set was designed to be representative of the private test set on Kaggle since we knew from the competition description that the problems were of this level or harder. We found our models could solve about 60-65% of these problems. To measure the variance, we ran each evaluation with 5-10 different seeds and typically saw variations of around 1-3% with our SC-TIR algorithm.
+- **AIME (90 problems):** We picked all the problems from [**AIME 22**](https://artofproblemsolving.com/wiki/index.php/2022_AIME_I), [**AIME 23**](https://artofproblemsolving.com/wiki/index.php/2023_AIME_I_Problems), and [**AIME 24**](https://artofproblemsolving.com/wiki/index.php/2024_AIME_I) to measure how well our models could perform on difficult problems, as well as to gauge the most common failure modes. As above, we ran each evaluation with 5-10 seeds to measure variation.
 
 Due to the small size of the AMC/AIME validation sets, model performance on these datasets was susceptible to noise, similar to the public leaderboard. To better assess our model's performance, we also evaluated it using a subset of the MATH test set, which contains 5,000 problems. We retained only the problems with integer outputs, to simplify majority voting and mimic competition evaluation. This resulted in two additional validation sets:
 
@@ -219,7 +215,7 @@ As mentioned above, we tried a few approaches that were ultimately discarded in 
 - Training a pure CoT model and using majority voting for evaluation
 - Training an MMOS model to solve problems with Python in a single step
 
-Another technique we tried was applying [Kahneman-Tversky Optimisation (KTO)](https://arxiv.org/abs/2402.01306) to new completions sampled from the SFT model. Here the approach was similar to [OrcaMath](https://arxiv.org/abs/2402.14830), namely:
+Another technique we tried was applying [**Kahneman-Tversky Optimisation (KTO)**](https://arxiv.org/abs/2402.01306) to new completions sampled from the SFT model. Here the approach was similar to [**OrcaMath**](https://arxiv.org/abs/2402.14830), namely:
 
 - Sample 4 completions per problem with the SFT model, using interleaved rationales and code execution. We used the SFT dataset from Stage 2 as the source of prompts.
 - Extract the answer and compare it with the ground truth. If correct, label the sample as positive, else negative.
@@ -235,7 +231,7 @@ Unfortunately, we ran out of time to apply this method to our final SFT model, s
 
 We also experimented with applying our SFT recipe to larger models like InternLM-20B, CodeLama-33B, and Mixtral-8x7B, but found that (a) the DeepSeek 7B model is very hard to beat due their continued pretraining on math, and (b) inference is very slow on 2xT4 GPUs and we experienced a number of mysterious timeouts that we couldn’t trace the root cause of.
 
-Another failed experiment includes trying to use reinforcement learning (specifically the Proximal Policy Optimization algorithm and [REINFORCE-leave-one-out (RLOO) algorithm](https://arxiv.org/abs/2402.14740)) with code execution feedback and shaped rewards for writing code and getting correct/incorrect solutions. We applied this to the DeepSeekMath 7B RL model. While we saw some promising reward curves, we did not see any significant gains in performance. Given that online methods like RLOO are bottlenecked by text generation and slow to iterate with, we abandoned reinforcement learning in favor of KTO.
+Another failed experiment includes trying to use reinforcement learning (specifically the Proximal Policy Optimization algorithm and [**REINFORCE-leave-one-out (RLOO) algorithm**](https://arxiv.org/abs/2402.14740)) with code execution feedback and shaped rewards for writing code and getting correct/incorrect solutions. We applied this to the DeepSeekMath 7B RL model. While we saw some promising reward curves, we did not see any significant gains in performance. Given that online methods like RLOO are bottlenecked by text generation and slow to iterate with, we abandoned reinforcement learning in favor of KTO.
 
 ![rloo.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/rloo.png)
 
@@ -247,7 +243,7 @@ A variety of model merging techniques like DARE, TIES, and WARP. Here we used me
 
 ## Numina’s future - looking for contributors and partners!
 
-Following the initial success of Numina at winning the AIMO 2024 progress prize, we now aim to pursue our mission of fostering the development of artificial and human intelligence in the field of mathematics. You can visit our website to know more about our projects and please always feel free to drop us a note at [**contact@projectnumina.ai](mailto:contact@projectnumina.ai).**
+Following the initial success of Numina at winning the AIMO 2024 progress prize, we now aim to pursue our mission of fostering the development of artificial and human intelligence in the field of mathematics. You can visit our website to know more about our projects and please always feel free to drop us a note at [**contact@projectnumina.ai**](mailto:contact@projectnumina.ai).
 
 Numina, like mathematics, is meant to be open for talents and supporters from all around the world willing to bring mathematics further with AI!
 
