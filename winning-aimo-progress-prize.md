@@ -24,7 +24,11 @@ authors:
 
 This year, [**Numina**](https://projectnumina.ai) and Hugging Face collaborated to compete in the 1st Progress Prize of the [**AI Math Olympiad (AIMO)**](https://aimoprize.com). ****This competition involved fine-tuning open LLMs to solve difficult math problems that high school students use to train for the International Math Olympiad. We’re excited to share that our model — [**NuminaMath 7B TIR**](https://huggingface.co/AI-MO/NuminaMath-7B-TIR)  — was the winner and managed to solve 29 out of 50 problems on the private test set 🥳!
 
-In this blog post, we introduce the Numina initiative and the technical details behind our winning solution. If you want to skip straight to testing the model, check out our demo here: [https://huggingface.co/spaces/AI-MO/math-olympiad-solver](https://huggingface.co/spaces/AI-MO/math-olympiad-solver)
+In this blog post, we introduce the Numina initiative and the technical details behind our winning solution. If you want to skip straight to testing out the model, check out our demo below:
+
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"></script>
+
+<gradio-app theme_mode="light" space="AI-MO/math-olympiad-solver"></gradio-app>
 
 Let’s dive in!
 
