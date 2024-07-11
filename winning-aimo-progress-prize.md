@@ -249,6 +249,6 @@ Numina, like mathematics, is meant to be open to talents and supporters from all
 
 We thank Thomas Wolf and Leandro von Werra for enabling the Numina and Hugging Face collaboration. We also thank Hugo Larcher for helping make the GPUs go brrrr on the Hugging Face cluster, Colin Raffel for his advice on model merging methods, and Omar Sanseviero for feedback on the blog post.
 
-We also wanted to express our gratitude to [**Mistral.ai**](https://mistral.ai), [**General Catalyst**](https://www.generalcatalyst.com/) and [**Answer.ai**](http://Answer.ai) who supported the project from the beginning.
+We also wanted to express our gratitude to [**Mistral.ai**](https://mistral.ai), [**General Catalyst**](https://www.generalcatalyst.com/), [**Answer.ai**](http://Answer.ai), and [Beijing International Center for Mathematical Research](https://bicmr.pku.edu.cn/) @ Peking University who supported the project from the beginning.
 
 Finally, we thank the AIMO Prize team for launching such an exciting and inspiring competition!
