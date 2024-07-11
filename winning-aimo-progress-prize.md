@@ -96,7 +96,7 @@ Two-stage training method from the MuMath-Code paper
 
     ![tora.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/tora.png)
 
-    _Figure from the ToRA paper on the tool integrated reasoning format we trained our models with._
+    _Figure from the ToRA paper on the tool-integrated reasoning format we trained our models with._
 
 
 We performed “full fine-tuning” in both stages, where all model weights were updated during backpropagation. In other words, we did not use parameter-efficient techniques like LoRA or DoRA because we were not confident they could match the performance of full fine-tuning without significant experimentation. We used the “packing” feature from TRL’s `SFTTrainer` to concatenate multiple samples in a single chunk of 2048 tokens. All models were trained with gradient checkpointing and sharded with the DeepSpeed ZeRO-3 protocol to ensure the weights, gradients, and optimizer states could fit within the available VRAM. See below for the main hyperparameters we used in each stage:
@@ -118,24 +118,20 @@ Let’s take a look at how we built these datasets.
 
 ## Good data is all you need
 
-In terms of the dataset, we have extensively referred to DeepSeek Math and other scholars' approaches, scaling them up significantly. This has resulted in a fine-tuned dataset of approximately one million problem-solution pairs, covering topics from high school mathematics to competition-level mathematics. This dataset will be fully open-sourced over the next few weeks, potentially with larger models to see how well our recipe scales. Please refer to our upcoming dataset technical report for details on the dataset construction.
+In terms of the dataset, we have extensively referred to DeepSeek Math and other scholars' approaches, scaling them up significantly. This has resulted in a fine-tuned dataset of several hundred thousand problem-solution pairs, covering topics from high school mathematics to competition-level mathematics. This dataset will be fully open-sourced over the next few weeks, potentially with larger models to see how well our recipe scales. Please refer to our upcoming dataset technical report for details on the dataset construction.
 When it comes to the progress prize, we have built two datasets so to finetune our model.
 
 ### Chain of Thought
 
-  This dataset consists of one million problems, each with solutions written in a Chain of Thought manner. The sources of the dataset range from Chinese high school math exercises to US and international mathematics olympiad competition problems. The data were primarily collected from online exam paper PDFs and mathematics discussion forums.
+This dataset consists of several hundred thousand problems, each with solutions written in a Chain of Thought manner. The sources of the dataset range from Chinese high school math exercises to US and international mathematics olympiad competition problems. The data were primarily collected from online exam paper PDFs and mathematics discussion forums.
 
-  The processing steps include:
+The processing steps include:
 
-  1. OCR from the original PDFs.
-
-  2. Segmentation into problem-solution pairs.
-
-  3. Translation into English.
-
-  4. Realignment to produce a Chain of Thought reasoning format.
-
-  5. Final answer formatting.
+1. OCR from the original PDFs.
+2. Segmentation into problem-solution pairs.
+3. Translation into English.
+4. Realignment to produce a Chain of Thought reasoning format.
+5. Final answer formatting.
 
 ### Tool-integrated reasoning
 
@@ -144,21 +140,21 @@ When it comes to the progress prize, we have built two datasets so to finetune o
   We then utilized a pipeline leveraging GPT-4 to generate TORA-like reasoning paths, executing the code and producing results until the solution was complete. We filtered out solutions where the final answer did not match the reference and repeated this process three times to ensure accuracy and consistency. This iterative approach allowed us to generate high-quality TORA data efficiently.
 
 
-As a point of reference, here is the performance of our Stage 1 model `NuminaMath-7B-CoT` and final Stage 2 model `NuminaMath-7B-TIR` on the [**MATH benchmark**](https://arxiv.org/abs/2103.03874) compared to other open and proprietary models:
+As a point of reference, here is the performance of our Stage 1 model **NuminaMath-7B-CoT** and final Stage 2 model **NuminaMath-7B-TIR** on the [**MATH benchmark**](https://arxiv.org/abs/2103.03874) compared to other open and proprietary models:
 
-| Model                    | MATH (%)                   |
-|--------------------------|----------------------------|
-|                          | Chain of Thought Reasoning |
-| GPT-4 (2023)             | 42.5                       |
-| GPT-4o                   | 76.6                       |
-| Claude 3.5 Sonnet        | 71.1                       |
-| DeepSeekMath-7B-Instruct | 46.8                       |
-| DeepSeekMath-7B-RL       | 51.7                       |
-| NuminaMath-7B-CoT        | 56.3                       |
-|                          | Tool-Integrated Reasoning  |
-| DeepSeekMath-7B-Instruct | 57.4                       |
-| DeepSeekMath-7B-RL       | 58.8                       |
-| NuminaMath-7B-TIR        | 68.2                       |
+| Model                    | MATH (%)                       |
+|--------------------------|--------------------------------|
+|                          | **Chain of Thought Reasoning** |
+| GPT-4 (2023)             | 42.5                           |
+| GPT-4o                   | 76.6                           |
+| Claude 3.5 Sonnet        | 71.1                           |
+| DeepSeekMath-7B-Instruct | 46.8                           |
+| DeepSeekMath-7B-RL       | 51.7                           |
+| NuminaMath-7B-CoT        | 56.3                           |
+|                          | **Tool-Integrated Reasoning**  |
+| DeepSeekMath-7B-Instruct | 57.4                           |
+| DeepSeekMath-7B-RL       | 58.8                           |
+| NuminaMath-7B-TIR        | 68.2                           |
 
 *Performance on MATH benchmark. All numbers, unless explicitly stated,
 are obtained with zero-shot greedy decoding.*
@@ -170,7 +166,7 @@ As other competitors noted, this competition posed several challenges with respe
 - The evaluation API provides problems in random order, so tactics like early stopping produce high variance because one run may have more hard problems at the start, which leaves less time for the remainder (and vice versa)
 - Most innovations in LLM inference require access to modern GPUs, so standard methods like Flash Attention 2 or torch.compile do not work on T4 GPUs. Similarly, modern data types like bfloat16 are not supported, which prompted us to explore post-training quantization methods like AWQ and GPTQ.
 
-Initially, we used [**Abdur Rafae**](https://www.kaggle.com/abdurrafae)’s [**public notebook**](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) for our submissions, but found the high variance to be problematic. To handle this, we took a different approach based Tool Integrated Reasoning:
+Initially, we used [**Abdur Rafae**](https://www.kaggle.com/abdurrafae)’s [**public notebook**](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) for our submissions, but found the high variance to be problematic. To handle this, we took a different approach based on tool-integrated reasoning:
 
 ![sc-tir.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/sc-tir.png)
 
@@ -184,7 +180,7 @@ For our winning submission, we generated N=48 candidates with a depth of M=4. In
 
 ![imo-problem.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/tot.png)
 
-We found that our Self Consistency with Tool Integrated Reasoning (SC-TIR) algorithm produced more robust results with significantly less variance on both our internal evaluations and the public leaderboard.
+We found that our SC-TIR algorithm produced more robust results with significantly less variance on both our internal evaluations and the public leaderboard.
 
 One technical detail worth mentioning is that we found it helpful to quantize the models in 8-bit precision. This was for three reasons:
 
