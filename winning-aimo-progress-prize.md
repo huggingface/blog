@@ -239,7 +239,7 @@ On the inference side, we also experimented with:
 
 - Using a static KV cache and torch compilation. We found we were able to speed up generation in native transformers code by 2-3x on a H100, but hit a variety of cryptic errors on the Kaggle T4s, mostly due to the lack of support for model sharding with torch compilation in accelerate.
 
-A variety of model merging techniques like DARE, TIES, and WARP. Here we used mergekit ([https://github.com/arcee-ai/mergekit](https://github.com/arcee-ai/mergekit)) to merge the SFT and KTO models, or the SFT models with the public DeepSeekMath ones. Overall we found these merges led to either significant regressions on our internal evaluations and we ran out of time to explore this more deeply.
+A variety of model merging techniques like DARE, TIES, and WARP. Here we used [**mergekit**](https://github.com/arcee-ai/mergekit) to merge the SFT and KTO models, or the SFT models with the public DeepSeekMath ones. Overall we found these merges led to either significant regressions on our internal evaluations and we ran out of time to explore this more deeply.
 
 ## Numina’s future - looking for contributors and partners!
 
