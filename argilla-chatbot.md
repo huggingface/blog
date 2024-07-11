@@ -1,5 +1,5 @@
 ---
-title: "Creating a chatbot for the new Argilla SDK: leveraging distilabel to fine-tune a custom Embedding model for RAG"
+title: "Argilla 2.0 Chatbot: Leveraging Distilabel to fine-tune a custom embedding model"
 thumbnail: /blog/assets/argilla-chatbot/thumbnail.png
 authors:
 - user: plaguss
@@ -9,7 +9,7 @@ authors:
 - user: dvilasuero
 ---
 
-# Creating a chatbot for Argilla 2.0: Leveraging distilabel to fine-tune a custom Embedding model for RAG
+# Argilla 2.0 Chatbot: Leveraging Distilabel to fine-tune a custom embedding model
 
 ## TL;DR
 
@@ -30,7 +30,7 @@ Click the next image to go to the app.
 
 ## Table of Contents
 
-- [Creating a chatbot for Argilla 2.0: Leveraging distilabel to fine-tune a custom Embedding model for RAG](#creating-a-chatbot-for-argilla-20-leveraging-distilabel-to-fine-tune-a-custom-embedding-model-for-rag)
+- [Argilla 2.0 Chatbot: Leveraging Distilabel to fine-tune a custom embedding model](#argilla-2.0-chatbot:-leveraging-distilabel-to-fine-tune-a-custom-embedding-model)
   - [TL;DR](#tldr)
   - [Table of Contents](#table-of-contents)
   - [Generating Synthetic Data for Fine-Tuning Custom Embedding Models](#generating-synthetic-data-for-fine-tuning-custom-embedding-models)
