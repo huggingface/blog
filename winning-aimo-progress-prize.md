@@ -45,11 +45,11 @@ Let’s dive in!
 
 There is something very special about mathematics.
 
-Mathematics is a domain accessible to everyone, even to children long before they can read. Some of the greatest mathematicians of all time were actually self-taught, like [**Srinivasa Ramanujan**](https://en.wikipedia.org/wiki/Srinivasa_Ramanujan), who was born into a modest family in India in 1887.
+Mathematics is a domain accessible to everyone, even to children long before they can read. One of the greatest mathematicians of all time  [**Srinivasa Ramanujan**](https://en.wikipedia.org/wiki/Srinivasa_Ramanujan) was self-taught, being born into a modest family in India in 1887. While for others it varies from recreation to profession and everything in between.
 
 Mathematics is essential to humanity, being the backbone upon which we have built everything from commerce to iPhones and nuclear power plants. Yet even solving maths problems for a critical application can be a playful experience.
 
-Mathematics transcends intelligence like an endless ocean only the mind can sail.
+Pure mathematics transcends intelligence like an endless ocean only the mind can sail.
 
 This is why when we started [**Numina**](http://projectnumina.ai), going open-source and open-dataset was the natural option. As for human intelligence, we believe progress in artificial intelligence for maths should be universal. If the computer is a bicycle for the mind, artificial intelligence is its engine - opening new horizons for the Ramanujans of our time.
 
