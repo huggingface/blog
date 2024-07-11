@@ -89,7 +89,7 @@ Our fine-tuning recipe was largely based on the [**MuMath-Code paper**](https://
 
 ![mumath.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/mumath.png)
 
-Two-stage training method from the MuMath-Code paper
+  _Two-stage training method from the MuMath-Code paper_
 
 - **Stage 1:** Fine-tune the base model on a large, diverse dataset of natural language math problems and solutions, where each solution is templated with Chain of Thought (CoT) to facilitate reasoning.
 - **Stage 2:** Fine-tune the model from Stage 1 on a synthetic dataset of tool-integrated reasoning, where each math problem is decomposed into a sequence of rationales, Python programs, and their outputs. Here, we followed Microsoft’s [**ToRA paper**](https://arxiv.org/abs/2309.17452) and prompted GPT-4 to produce solutions in the ToRA format with code execution feedback. Fine-tuning on this data produces a reasoning agent that can solve mathematical problems via a mix of natural language reasoning and the use of the Python REPL to compute intermediate results (see screenshot below).
@@ -237,7 +237,7 @@ On the inference side, we also experimented with:
 
 - Using a static KV cache and torch compilation. We found we were able to speed up generation in native transformers code by 2-3x on a H100, but hit a variety of cryptic errors on the Kaggle T4s, mostly due to the lack of support for model sharding with torch compilation in accelerate.
 
-A variety of model merging techniques like DARE, TIES, and WARP. Here we used [**mergekit**](https://github.com/arcee-ai/mergekit) to merge the SFT and KTO models, or the SFT models with the public DeepSeekMath ones. Overall we found these merges led to either significant regressions on our internal evaluations and we ran out of time to explore this more deeply.
+A variety of model merging techniques like [**DARE**](https://arxiv.org/abs/2311.03099), [**TIES**](https://arxiv.org/abs/2306.01708), and [**WARP**](https://arxiv.org/abs/2406.16768v1). Here we used [**mergekit**](https://github.com/arcee-ai/mergekit) to merge the SFT and KTO models, or the SFT models with the public DeepSeekMath ones. Overall we found these merges led to either significant regressions on our internal evaluations and we ran out of time to explore this more deeply.
 
 ## Numina’s future - looking for contributors and partners!
 
