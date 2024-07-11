@@ -165,20 +165,20 @@ are obtained with zero-shot greedy decoding.*
 
 As other competitors noted, this competition posed several challenges with respect to model submission and evaluation:
 
-- The evaluation API provides problems in random order, so tactics like early stopping produce high variance because one run may have more hard problems at the start which leaves less time for the remainder (and vice versa)
-- Most innovations in LLM inference require access to modern GPUs, so standard methods like Flash Attention 2 or torch.compile do not work on T4 GPUs. Similarly, modern data types like bfloat16 are not supported which prompted us to explore post-training quantization methods like AWQ and GPTQ.
+- The evaluation API provides problems in random order, so tactics like early stopping produce high variance because one run may have more hard problems at the start, which leaves less time for the remainder (and vice versa)
+- Most innovations in LLM inference require access to modern GPUs, so standard methods like Flash Attention 2 or torch.compile do not work on T4 GPUs. Similarly, modern data types like bfloat16 are not supported, which prompted us to explore post-training quantization methods like AWQ and GPTQ.
 
-Initially we used [Abdur Rafae](https://www.kaggle.com/abdurrafae)’s [public notebook](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) for our submissions, but found the high variance to be problematic. To handle this, we took a different approach based Tool Integrated Reasoning:
+Initially, we used [Abdur Rafae](https://www.kaggle.com/abdurrafae)’s [public notebook](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) for our submissions, but found the high variance to be problematic. To handle this, we took a different approach based Tool Integrated Reasoning:
 
 ![sc-tir.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/sc-tir.png)
 
 1. For each problem, copy the input N times to define the initial batch of prompts to feed vLLM. This effectively defines the number of candidates one uses for majority voting.
 2. Sample N diverse completions until a complete block of Python code is produced.
 3. Execute each Python block and concatenate the output, including tracebacks if they appear.
-4. Repeat M times to produce a batch of generations of size N and depth M, allowing the model to self-correct code errors using the traceback. If a sample fails to produce sensible outputs (e.g. incomplete code blocks) prune that result.
+4. Repeat M times to produce a batch of generations of size N and depth M, allowing the model to self-correct code errors using the traceback. If a sample fails to produce sensible outputs (e.g., incomplete code blocks), prune that result.
 5. Postprocess the solution candidates and then apply majority voting to select the final answer
 
-For our winning submission, we generated N=48 candidates with a depth of M=4. Increasing either parameter did not improve performance and we took a conservative approach to stay within the time limit, In effect, this algorithm augments [Self Consistency with CoT](https://arxiv.org/abs/2305.10601) (shown below) with Tool Integrated Reasoning.
+For our winning submission, we generated N=48 candidates with a depth of M=4. Increasing either parameter did not improve performance, so we took a conservative approach to stay within the time limit. In effect, this algorithm augments [Self Consistency with CoT](https://arxiv.org/abs/2305.10601) (shown below) with Tool-Integrated Reasoning.
 
 ![imo-problem.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/tot.png)
 
@@ -186,11 +186,11 @@ We found that our Self Consistency with Tool Integrated Reasoning (SC-TIR) algor
 
 One technical detail worth mentioning is that we found it helpful to quantize the models in 8-bit precision. This was for three reasons:
 
-- It is very slow to upload models to the Kaggle Hub and compressing the model made this step twice as fast.
-- T4 GPUs do not support bfloat16 and casting to float16 led to a degradation in model performance. Casting to float32 was not possible as that exceeded the available GPU memory.
-- In addition, a 16-bit model consumes approximately 32GB VRAM just to load the weights. With 2xT4s, this would have required manipulating the KV cache to run fast and we found it beneficial to tradeoff model precision for speed.
+- It is very slow to upload models to the Kaggle Hub, and compressing the model made this step twice as fast.
+- T4 GPUs do not support bfloat16, and casting to float16 leads to a degradation in model performance. Casting to float32 was not possible as that exceeded the available GPU memory.
+- In addition, a 16-bit model consumes approximately 32GB VRAM just to load the weights. With 2xT4s, this would have required manipulating the KV cache to run fast, and we found it beneficial to tradeoff model precision for speed.
 
-We quantized our models using [AutoGPTQ](https://github.com/AutoGPTQ/AutoGPTQ) along with the training datasets for calibration. In practice this led to a small drop in accuracy, but provided the best compromise to accommodate the constraints imposed by evaluation on the Kaggle platform.
+We quantized our models using [AutoGPTQ](https://github.com/AutoGPTQ/AutoGPTQ) along with the training datasets for calibration. In practice, this led to a small drop in accuracy but provided the best compromise to accommodate the constraints imposed by evaluation on the Kaggle platform.
 
 ### Avoiding the curse of overfitting
 
@@ -198,8 +198,8 @@ Overfitting to the public leaderboard is a common risk in Kaggle competitions, a
 
 To guide model selection, we used four internal validation sets to gauge the performance of our models on math problems of varying difficulty. To avoid potential contamination in the base model, we selected problems from AMC12 (2022, 2023) and AIME (2022, 2023, 2024) to create two internal validation datasets:
 
-- **AMC (83 problems):** we picked all the problems from [AMC12](https://artofproblemsolving.com/wiki/index.php/AMC_12_Problems_and_Solutions) 22, AMC12 23 and kept those that can be converted to integer outputs. This results in a dataset of 83 problems. . This validation set was designed to mimic the private test set on Kaggle and we found our models could solve about 60-65% of these problems. To measure the variance, we ran each evaluation with 5-10 different seeds and typically saw variations of around 1-3% with our SC-TIR algorithm.
-- **AIME (90 problems):** we picked all the problems from [AIME 22](https://artofproblemsolving.com/wiki/index.php/2022_AIME_I), [AIME 23](https://artofproblemsolving.com/wiki/index.php/2023_AIME_I_Problems), and [AIME 24](https://artofproblemsolving.com/wiki/index.php/2024_AIME_I) to measure how well our models could perform on difficult problems, as well as to gauge the most common failure modes. As above, we ran each evaluation with 5-10 seeds to measure variation.
+- **AMC (83 problems):** We picked all the problems from [AMC12](https://artofproblemsolving.com/wiki/index.php/AMC_12_Problems_and_Solutions) 22, AMC12 23 and kept those that can be converted to integer outputs. This results in a dataset of 83 problems. This validation set was designed to mimic the private test set on Kaggle and we found our models could solve about 60-65% of these problems. To measure the variance, we ran each evaluation with 5-10 different seeds and typically saw variations of around 1-3% with our SC-TIR algorithm.
+- **AIME (90 problems):** We picked all the problems from [AIME 22](https://artofproblemsolving.com/wiki/index.php/2022_AIME_I), [AIME 23](https://artofproblemsolving.com/wiki/index.php/2023_AIME_I_Problems), and [AIME 24](https://artofproblemsolving.com/wiki/index.php/2024_AIME_I) to measure how well our models could perform on difficult problems, as well as to gauge the most common failure modes. As above, we ran each evaluation with 5-10 seeds to measure variation.
 
 Due to the small size of the AMC/AIME validation sets, model performance on these datasets was susceptible to noise, similar to the public leaderboard. To better assess our model's performance, we also evaluated it using a subset of the MATH test set, which contains 5,000 problems. We retained only the problems with integer outputs, to simplify majority voting and mimic competition evaluation. This resulted in two additional validation sets:
 
