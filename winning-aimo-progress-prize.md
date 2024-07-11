@@ -3,6 +3,21 @@ title: "How NuminaMath Won the 1st AIMO Progress Prize"
 thumbnail: /blog/assets/winning-aimo-progress-prize/thumbnail.png
 authors:
   - user: yfleureau
+    guest: true
+    org: AI-MO
+  - user: liyongsea
+    guest: true
+    org: AI-MO
+  - user: edbeeching
+  - user: lewtun
+  - user: benlipkin
+    guest: true
+    org: AI-MO
+  - user: romansoletskyi
+    guest: true
+    org: AI-MO
+  - user: vwxyzjn
+  - user: kashif
 ---
 
 # How NuminaMath Won the 1st AIMO Progress Prize
@@ -46,7 +61,7 @@ In this blog post, we go through all the details behind our winning solution to 
 
 Every year, high school students from all around the world compete in the [**International Math Olympiad**](https://www.imo-official.org) - a competition to solve six challenging problems across domains like algebra, geometry, and number theory. To give you a sense of the difficulty involved, here’s one of [**last year’s problems**](https://www.imo-official.org/problems.aspx):
 
-![Capture d’écran 2024-07-11 à 10.21.11.png](AIMO%20Blog%20Post%209f9fb68afdb44b3c98e6c9b63cac7c1b/Capture_decran_2024-07-11_a_10.21.11.png)
+![imo-problem.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/imo-problem.png)
 
 In November 2023, the [**AIMO Prize](https://aimoprize.com)** was launched to drive the open development of AI models that excel in mathematical reasoning. A grand prize of $5M will be awarded to whoever can create an AI model that can win a gold medal in the IMO. Alongside the grand prize, AIMO has introduced a series of *progress prizes* to mark milestones toward this ultimate goal. The first progress prize was held as a [**Kaggle competition**](https://www.kaggle.com/competitions/ai-mathematical-olympiad-prize), with problems that are less challenging than those in the IMO but are at the level of IMO preselection.
 
@@ -68,14 +83,14 @@ We used a mix of open-source libraries to train our models, notably [TRL](https:
 
 Our fine-tuning recipe was largely based on the [MuMath-Code paper](https://arxiv.org/abs/2405.07551), which involves training the model in two stages:
 
-![Two-stage training method from the MuMath-Code paper ](AIMO%20Blog%20Post%209f9fb68afdb44b3c98e6c9b63cac7c1b/Screenshot_2024-07-09_at_14.54.47.png)
+![mumath.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/mumath.png)
 
 Two-stage training method from the MuMath-Code paper
 
 - **Stage 1:** fine-tune the base model on a large, diverse dataset of natural language math problems and solutions, where each solution is templated with Chain of Thought (CoT) to facilitate reasoning.
 - **Stage 2:** fine-tune the model from Stage 1 on a synthetic dataset of tool-integrated reasoning, where each math problem is decomposed into a sequence of rationales, Python programs, and their outputs. Here, we followed Microsoft’s [ToRA paper](https://arxiv.org/abs/2309.17452) and prompted GPT-4 to produce solutions in the ToRA format with code execution feedback. Fine-tuning on this data produces a reasoning agent that can solve mathematical problems via a mix of natural language reasoning and the use of the Python REPL to compute intermediate results (see screenshot below).
 
-    ![Figure from the ToRA paper on the tool integrated reasoning format we trained our models with.](AIMO%20Blog%20Post%209f9fb68afdb44b3c98e6c9b63cac7c1b/Screenshot_2024-07-09_at_14.56.17.png)
+    ![tora.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/tora.png)
 
     Figure from the ToRA paper on the tool integrated reasoning format we trained our models with.
 
@@ -155,7 +170,7 @@ As other competitors noted, this competition posed several challenges with respe
 
 Initially we used [Abdur Rafae](https://www.kaggle.com/abdurrafae)’s [public notebook](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) for our submissions, but found the high variance to be problematic. To handle this, we took a different approach based Tool Integrated Reasoning:
 
-![sc-tir.png](AIMO%20Blog%20Post%209f9fb68afdb44b3c98e6c9b63cac7c1b/sc-tir.png)
+![sc-tir.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/sc-tir.png)
 
 1. For each problem, copy the input N times to define the initial batch of prompts to feed vLLM. This effectively defines the number of candidates one uses for majority voting.
 2. Sample N diverse completions until a complete block of Python code is produced.
@@ -165,7 +180,7 @@ Initially we used [Abdur Rafae](https://www.kaggle.com/abdurrafae)’s [public n
 
 For our winning submission, we generated N=48 candidates with a depth of M=4. Increasing either parameter did not improve performance and we took a conservative approach to stay within the time limit, In effect, this algorithm augments [Self Consistency with CoT](https://arxiv.org/abs/2305.10601) (shown below) with Tool Integrated Reasoning.
 
-![Screenshot 2024-07-09 at 15.03.17.png](AIMO%20Blog%20Post%209f9fb68afdb44b3c98e6c9b63cac7c1b/Screenshot_2024-07-09_at_15.03.17.png)
+![imo-problem.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/tot.png)
 
 We found that our Self Consistency with Tool Integrated Reasoning (SC-TIR) algorithm produced more robust results with significantly less variance on both our internal evaluations and the public leaderboard.
 
@@ -210,7 +225,7 @@ We found this form of on-policy KTO produced a slightly better model than the SF
 
 One nice feature of KTO is that you can track the implicit reward during training and this really helps with debugging a run - for example, here’s one of our successful training logs where one sees the chosen (i.e. correct solutions) rewards increase over training, while the rejected ones are suppressed.
 
-![Screenshot 2024-07-09 at 15.03.47.png](AIMO%20Blog%20Post%209f9fb68afdb44b3c98e6c9b63cac7c1b/Screenshot_2024-07-09_at_15.03.47.png)
+![kto.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/kto.png)
 
 Unfortunately, we ran out of time to apply this method to our final SFT model, so it is possible we may have been able to 1-2 more problems!
 
@@ -218,7 +233,7 @@ We also experimented with applying our SFT recipe to larger models like InternLM
 
 Another failed experiment includes trying to use reinforcement learning (specifically the Proximal Policy Optimization algorithm and [REINFORCE-leave-one-out (RLOO) algorithm](https://arxiv.org/abs/2402.14740)) with code execution feedback and shaped rewards for writing code and getting correct/incorrect solutions. We applied this to the DeepSeekMath 7B RL model. While we saw some promising reward curves, we did not see any significant gains in performance. Given that online methods like RLOO are bottlenecked by text generation and slow to iterate with, we abandoned reinforcement learning in favor of KTO.
 
-![Untitled](AIMO%20Blog%20Post%209f9fb68afdb44b3c98e6c9b63cac7c1b/Untitled.png)
+![rloo.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/rloo.png)
 
 On the inference side, we also experimented with:
 
