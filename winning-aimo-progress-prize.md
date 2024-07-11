@@ -116,10 +116,10 @@ Let’s take a look at how we built these datasets.
 
 ## Good data is all you need
 
-In terms of the dataset, we have extensively referred to DeepSeek Math and other scholars' approaches, scaling them up significantly. This has resulted in a fine-tuned dataset of approximately one million problem-solution pairs, covering topics from high school mathematics to competition-level mathematics. This dataset will be fully open-sourced over the next few weeks. Please refer to our upcoming dataset technical report for details on the dataset construction.
+In terms of the dataset, we have extensively referred to DeepSeek Math and other scholars' approaches, scaling them up significantly. This has resulted in a fine-tuned dataset of approximately one million problem-solution pairs, covering topics from high school mathematics to competition-level mathematics. This dataset will be fully open-sourced over the next few weeks, potentially with larger models to see how well our recipe scales. Please refer to our upcoming dataset technical report for details on the dataset construction.
 When it comes to the progress prize, we have built two datasets so to finetune our model.
 
-- numina-dataset.
+### Chain of Thought
 
     This dataset consists of one million problems, each with solutions written in a Chain of Thought manner. The sources of the dataset range from Chinese high school math exercises to US and international mathematics olympiad competition problems. The data were primarily collected from online exam paper PDFs and mathematics discussion forums.
 
@@ -135,7 +135,7 @@ When it comes to the progress prize, we have built two datasets so to finetune o
 
     5. Final answer formatting.
 
-- numina-dataset-TIR.
+### Tool-integrated reasoning
 
     Tool-integrated reasoning (TIR) plays a crucial role in this competition. However, collecting and annotating such data is both costly and time-consuming. To address this, we selected approximately 60,000 problems from the Numina dataset, focusing on those with numerical outputs, most of which are integers.
 
@@ -249,8 +249,8 @@ Numina, like mathematics, is meant to be open to talents and supporters from all
 
 ## Acknowledgements
 
-We thank Thomas Wolf and Leandro von Werra for enabling the Numina and Hugging Face collaboration. We also thank Hugo Larcher for helping make the GPUs go brrrr on the Hugging Face cluster and Colin Raffel for his advice on model merging methods.
+We thank Thomas Wolf and Leandro von Werra for enabling the Numina and Hugging Face collaboration. We also thank Hugo Larcher for helping make the GPUs go brrrr on the Hugging Face cluster, Colin Raffel for his advice on model merging methods, and Omar Sanseviero for feedback on the blog post.
 
-We also wanted to express our gratitude to [**Mistral.ai**](http://Mistral.aihttps://mistral.ai/fr/), [**General Catalyst**](https://www.generalcatalyst.com/) and [**Answer.ai**](http://Answer.ai) who supported the project from the beginning.
+We also wanted to express our gratitude to [**Mistral.ai**](https://mistral.ai), [**General Catalyst**](https://www.generalcatalyst.com/) and [**Answer.ai**](http://Answer.ai) who supported the project from the beginning.
 
 Finally, we thank the AIMO Prize team for launching such an exciting and inspiring competition!
