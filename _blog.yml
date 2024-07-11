@@ -4320,8 +4320,51 @@
     - inference
     - hardware
 
+- local: dpo_vlm
+  title: "Preference Optimization for Vision Language Models"
+  author: qgallouedec
+  thumbnail: /blog/assets/dpo_vlm/thumbnail.png
+  date: July 10, 2024
+  tags:
+    - vlm
+    - multimodal
+    - trl
+    - rlhf
+    - dpo
+
+- local: presidio-pii-detection
+  title: "Experimenting with Automatic PII Detection on the Hub using Presidio"
+  author: lhoestq
+  thumbnail: /blog/assets/presidio-pii-detection/thumbnail.png
+  date: Jul 10, 2024
+  tags:
+    - datasets
+    - pii
+
+- local: keras-nlp-integration
+  title: "Announcing New Hugging Face and Keras NLP integration"
+  thumbnail: /blog/assets/keras-nlp-integration/thumbnail.png
+  author: ariG23498
+  date: Jul 10, 2024
+  tags:
+    - open-source-collab
+    - nlp
+
+- local: winning-aimo-progress-prize
+  title: "How NuminaMath Won the 1st AIMO Progress Prize"
+  author: yfleureau
+  thumbnail: /blog/assets/winning-aimo-progress-prize/thumbnail.png
+  date: July 11, 2024
+  tags:
+    - ai4math
+    - nlp
+    - community
+    - research
+    - leaderboard
+    - open-science-collab
+
 - local: argilla-chatbot
-  title: "Creating a chatbot for the new Argilla SDK: leveraging distilabel to fine-tune a custom Embedding model for RAG"
+  title: "Argilla 2.0 Chatbot: Leveraging Distilabel to fine-tune a custom embedding model"
   thumbnail: /blog/assets/argilla-chatbot/thumbnail.png
   author: plaguss
   date: Jul 10, 2024
@@ -4331,4 +4374,3 @@
     - open-source
     - spaces
     - apps
-
