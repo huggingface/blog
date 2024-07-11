@@ -206,7 +206,7 @@ Due to the small size of the AMC/AIME validation sets, model performance on thes
 - **MATH level 4 (754 problems)**
 - **MATH level 5 (721 problems)**
 
-By using these four validation sets, we were able to pick the most promising models across different training stages and narrow down the choice of hyperparameters. We found that combining small, but representative validation sets with larger ones was useful in this particular competition where each submission is subject to some stochasticity from sampling.
+By using these four validation sets, we were able to pick the most promising models across different training stages and narrow down the choice of hyperparameters. We found that combining small but representative validation sets with larger ones was useful in this particular competition, where each submission is subject to some stochasticity from sampling.
 
 ## Other ideas we tried
 
@@ -219,17 +219,17 @@ Another technique we tried was applying [**Kahneman-Tversky Optimisation (KTO)**
 
 - Sample 4 completions per problem with the SFT model, using interleaved rationales and code execution. We used the SFT dataset from Stage 2 as the source of prompts.
 - Extract the answer and compare it with the ground truth. If correct, label the sample as positive, else negative.
-- Apply KTO to the SFT model on this dataset
+- Apply KTO to the SFT model on this dataset.
 
 We found this form of on-policy KTO produced a slightly better model than the SFT one (a few percentage points on our internal evaluations) and scored 27/50 on the public leaderboard.
 
-One nice feature of KTO is that you can track the implicit reward during training and this really helps with debugging a run - for example, here’s one of our successful training logs where one sees the chosen (i.e. correct solutions) rewards increase over training, while the rejected ones are suppressed.
+One nice feature of KTO is that you can track the implicit reward during training, and this really helps with debugging a run - for example, here’s one of our successful training logs where one sees the chosen (i.e., correct solutions) rewards increase over training, while the rejected ones are suppressed.
 
 ![kto.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/kto.png)
 
 Unfortunately, we ran out of time to apply this method to our final SFT model, so it is possible we may have been able to 1-2 more problems!
 
-We also experimented with applying our SFT recipe to larger models like InternLM-20B, CodeLama-33B, and Mixtral-8x7B, but found that (a) the DeepSeek 7B model is very hard to beat due their continued pretraining on math, and (b) inference is very slow on 2xT4 GPUs and we experienced a number of mysterious timeouts that we couldn’t trace the root cause of.
+We also experimented with applying our SFT recipe to larger models like InternLM-20B, CodeLama-33B, and Mixtral-8x7B but found that (a) the DeepSeek 7B model is very hard to beat due to its continued pretraining on math, and (b) inference is very slow on 2xT4 GPUs, and we experienced a number of mysterious timeouts that we couldn’t trace the root cause of.
 
 Another failed experiment includes trying to use reinforcement learning (specifically the Proximal Policy Optimization algorithm and [**REINFORCE-leave-one-out (RLOO) algorithm**](https://arxiv.org/abs/2402.14740)) with code execution feedback and shaped rewards for writing code and getting correct/incorrect solutions. We applied this to the DeepSeekMath 7B RL model. While we saw some promising reward curves, we did not see any significant gains in performance. Given that online methods like RLOO are bottlenecked by text generation and slow to iterate with, we abandoned reinforcement learning in favor of KTO.
 
@@ -245,11 +245,11 @@ A variety of model merging techniques like DARE, TIES, and WARP. Here we used [*
 
 Following the initial success of Numina at winning the AIMO 2024 progress prize, we now aim to pursue our mission of fostering the development of artificial and human intelligence in the field of mathematics. You can visit our website to know more about our projects and please always feel free to drop us a note at [**contact@projectnumina.ai**](mailto:contact@projectnumina.ai).
 
-Numina, like mathematics, is meant to be open for talents and supporters from all around the world willing to bring mathematics further with AI!
+Numina, like mathematics, is meant to be open to talents and supporters from all around the world who are willing to bring mathematics further with AI!
 
 ## Acknowledgements
 
-We thank Thomas Wolf and Leandro von Werra for enabling the Numina and Hugging Face collaboration. We also thank Hugo Larcher for his help with making the GPUs go brrrr on the Hugging Face cluster and Colin Raffel for his advice on model merging methods.
+We thank Thomas Wolf and Leandro von Werra for enabling the Numina and Hugging Face collaboration. We also thank Hugo Larcher for helping make the GPUs go brrrr on the Hugging Face cluster and Colin Raffel for his advice on model merging methods.
 
 We also wanted to express our gratitude to [**Mistral.ai**](http://Mistral.aihttps://mistral.ai/fr/), [**General Catalyst**](https://www.generalcatalyst.com/) and [**Answer.ai**](http://Answer.ai) who supported the project from the beginning.
 
