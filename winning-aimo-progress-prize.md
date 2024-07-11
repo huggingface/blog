@@ -121,28 +121,28 @@ When it comes to the progress prize, we have built two datasets so to finetune o
 
 ### Chain of Thought
 
-    This dataset consists of one million problems, each with solutions written in a Chain of Thought manner. The sources of the dataset range from Chinese high school math exercises to US and international mathematics olympiad competition problems. The data were primarily collected from online exam paper PDFs and mathematics discussion forums.
+  This dataset consists of one million problems, each with solutions written in a Chain of Thought manner. The sources of the dataset range from Chinese high school math exercises to US and international mathematics olympiad competition problems. The data were primarily collected from online exam paper PDFs and mathematics discussion forums.
 
-    The processing steps include:
+  The processing steps include:
 
-    1. OCR from the original PDFs.
+  1. OCR from the original PDFs.
 
-    2. Segmentation into problem-solution pairs.
+  2. Segmentation into problem-solution pairs.
 
-    3. Translation into English.
+  3. Translation into English.
 
-    4. Realignment to produce a Chain of Thought reasoning format.
+  4. Realignment to produce a Chain of Thought reasoning format.
 
-    5. Final answer formatting.
+  5. Final answer formatting.
 
 ### Tool-integrated reasoning
 
-    Tool-integrated reasoning (TIR) plays a crucial role in this competition. However, collecting and annotating such data is both costly and time-consuming. To address this, we selected approximately 60,000 problems from the Numina dataset, focusing on those with numerical outputs, most of which are integers.
+  Tool-integrated reasoning (TIR) plays a crucial role in this competition. However, collecting and annotating such data is both costly and time-consuming. To address this, we selected approximately 60,000 problems from the Numina dataset, focusing on those with numerical outputs, most of which are integers.
 
-    We then utilized a pipeline leveraging GPT-4 to generate TORA-like reasoning paths, executing the code and producing results until the solution was complete. We filtered out solutions where the final answer did not match the reference and repeated this process three times to ensure accuracy and consistency. This iterative approach allowed us to generate high-quality TORA data efficiently.
+  We then utilized a pipeline leveraging GPT-4 to generate TORA-like reasoning paths, executing the code and producing results until the solution was complete. We filtered out solutions where the final answer did not match the reference and repeated this process three times to ensure accuracy and consistency. This iterative approach allowed us to generate high-quality TORA data efficiently.
 
 
-As a point of reference, here is the performance of our Stage 1 model `NuminaMath-7B-CoT` on the MATH benchmark compared to other open and proprietary models:
+As a point of reference, here is the performance of our Stage 1 model `NuminaMath-7B-CoT` and final Stage 2 model `NuminaMath-7B-TIR` on the [**MATH benchmark**](https://arxiv.org/abs/2103.03874) compared to other open and proprietary models:
 
 | Model                    | MATH (%)                   |
 |--------------------------|----------------------------|
