@@ -4353,7 +4353,7 @@
 - local: winning-aimo-progress-prize
   title: "How NuminaMath Won the 1st AIMO Progress Prize"
   author: yfleureau
-  thumbnail: /blog/assets/winning-aimo-progress-prize/thumbnail.jpeg
+  thumbnail: /blog/assets/winning-aimo-progress-prize/thumbnail.png
   date: July 11, 2024
   tags:
     - ai4math
