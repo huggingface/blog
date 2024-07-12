@@ -102,7 +102,20 @@ Additionally, we will also work with the [CRUXEval](https://crux-eval.github.io/
 
 Stay tuned for more updates on BigCodeBench!
 
+## Resources
+
+We open-source all the artifacts of BigCodeBench-Hard, including the data, code, and leaderboard. You can find the them as follows:
+- [BigCodeBench-Hard Dataset](https://huggingface.co/datasets/bigcode/bigcodebench-hard)
+- [GitHub Repository](https://github.com/bigcode-project/bigcodebench)
+- [Stack Overflow Embeddings](https://huggingface.co/datasets/bigcode/stack-exchange-embeddings-20230914)
+- [BigCodeBench Embeddings](https://huggingface.co/datasets/bigcode/bigcodebench-embeddings)
+- [Retrieved BigCodeBench Tasks](https://huggingface.co/datasets/bigcode/se_bcb_results)
+- [BigCodeBench Leaderboard](https://huggingface.co/spaces/bigcode/bigcodebench-leaderboard)
+
+## Citation
+
 If you find our evaluations useful, please consider citing our work:
+
 ```bibtex
 @article{zhuo2024bigcodebench,
   title={BigCodeBench: Benchmarking Code Generation with Diverse Function Calls and Complex Instructions},
