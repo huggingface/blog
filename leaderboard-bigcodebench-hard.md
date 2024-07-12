@@ -62,7 +62,7 @@ However, the retrieved 626 tasks are still infeasible for evaluation. To improve
 
 2. **Solution Length**: We set the threshold at 426 tokens, which is the average solution length of the tasks in BigCodeBench. The ground-truth solution provides a reference for the task complexity, and tasks with longer solutions are more challenging to solve.
 
-3. **Solve Rate**: We compute the solve rate per task based on all the evaluated models on the leaderboard. The solve rate is defined as the number of models that can solve the task divided by the total number of models. Specifically, we deem tasks with a solve rate below 0.5 as hard tasks.
+3. **Solve Rate**: We compute the solve rate per task based on all the evaluated models on the leaderboard. The solve rate is defined as the number of models that can solve the task divided by the total number of models. Specifically, we deem tasks with a solve rate below 50% as hard tasks.
 
 <img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/hard_rank.svg?raw=true" alt="rank" style="display: block; margin-left: auto; margin-right: auto; width: 80%;">
 
