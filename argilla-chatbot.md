@@ -1,5 +1,5 @@
 ---
-title: "Argilla 2.0 Chatbot: Leveraging Distilabel to fine-tune a custom embedding model"
+title: "Argilla 2.0 Chatbot: Leveraging Distilabel to fine-tune a domain-specific embedding model"
 thumbnail: /blog/assets/argilla-chatbot/thumbnail.png
 authors:
 - user: plaguss
@@ -9,17 +9,17 @@ authors:
 - user: dvilasuero
 ---
 
-# Argilla 2.0 Chatbot: Leveraging Distilabel to fine-tune a custom embedding model
+# Argilla 2.0 Chatbot: Leveraging Distilabel to fine-tune a domain-specific embedding model
 
 ## TL;DR
 
 Discover how to build a Chatbot for a tool of your choice ([Argilla 2.0](https://github.com/argilla-io/argilla) in this case) that can understand technical documentation and chat with users about it. 
 
-In this article, we'll show you how to leverage [distilabel](https://github.com/argilla-io/distilabel) and fine-tune a custom embedding model to create a conversational model that's both accurate and engaging. 
+In this article, we'll show you how to leverage [distilabel](https://github.com/argilla-io/distilabel) and fine-tune a domain-specific embedding model to create a conversational model that's both accurate and engaging. 
 
 This article outlines the process of creating a Chatbot for Argilla 2.0. We will:
 
-* create a synthetic dataset from the technical documentation to fine-tune a custom embedding model,
+* create a synthetic dataset from the technical documentation to fine-tune a domain-specific embedding model,
 * create a vector database to store and retrieve the documentation and
 * deploy the final Chatbot to a Hugging Face Space allowing users to interact with it, storing the interactions in Argilla for continuous evaluation and improvement.
 
@@ -30,7 +30,7 @@ Click the next image to go to the app.
 
 ## Table of Contents
 
-- [Generating Synthetic Data for Fine-Tuning Custom Embedding Models](#generating-synthetic-data-for-fine-tuning-custom-embedding-models)
+- [Generating Synthetic Data for Fine-Tuning a domain-specific Embedding Models](#generating-synthetic-data-for-fine-tuning-domain-specific-embedding-models)
 - [Downloading and chunking data](#downloading-and-chunking-data)
 - [Generating synthetic data for our embedding model using distilabel](#generating-synthetic-data-for-our-embedding-model-using-distilabel)
 - [Explore the datasets in Argilla](#explore-the-datasets-in-argilla)
