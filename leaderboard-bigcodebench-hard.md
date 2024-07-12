@@ -24,11 +24,11 @@ pip install -U bigcodebench
 bigcodebench.generate \
   --model [model_name] \
   --split [complete|instruct] \
-  --Hard [full|hard] \
+  --subset [full|hard] \
   --greedy
 
 # bigcodebench.evaluate
-bigcodebench.evaluate --split [complete|instruct] --Hard [full|hard] --samples samples-sanitized-calibrated.jsonl
+bigcodebench.evaluate --split [complete|instruct] --subset [full|hard] --samples samples-sanitized-calibrated.jsonl
 ```
 
 ## Introducing BigCodeBench-Hard
