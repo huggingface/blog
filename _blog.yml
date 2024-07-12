@@ -4364,10 +4364,10 @@
     - open-science-collab
 
 - local: argilla-chatbot
-  title: "Argilla 2.0 Chatbot: Leveraging Distilabel to fine-tune a custom embedding model"
+  title: "How we leveraged distilabel to create an Argilla 2.0 Chatbot"
   thumbnail: /blog/assets/argilla-chatbot/thumbnail.png
   author: plaguss
-  date: Jul 12, 2024
+  date: Jul 15, 2024
   tags:
     - nlp
     - guide

@@ -1,5 +1,5 @@
 ---
-title: "Argilla 2.0 Chatbot: Leveraging Distilabel to fine-tune a domain-specific embedding model"
+title: "How we leveraged distilabel to create an Argilla 2.0 Chatbot"
 thumbnail: /blog/assets/argilla-chatbot/thumbnail.png
 authors:
 - user: plaguss
@@ -9,7 +9,7 @@ authors:
 - user: dvilasuero
 ---
 
-# Argilla 2.0 Chatbot: Leveraging Distilabel to fine-tune a domain-specific embedding model
+# How we leveraged distilabel to create an Argilla 2.0 Chatbot
 
 ## TL;DR
 
