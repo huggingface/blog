@@ -4202,7 +4202,7 @@
     - collaboration
 
 - local: leaderboard-bigcodebench
-  title: "BigCodeBench: Benchmarking Large Language Models on Solving Practical and Challenging Programming Tasks"
+  title: "BigCodeBench: The Next Generation of HumanEval"
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_bigcode.png
   author: terryyz
   guest: true
@@ -4291,3 +4291,16 @@
     - partnerships
     - intel
     - llm
+
+
+- local: leaderboard-bigcodebench-hard
+  title: "Announcing BigCodeBench Hard, and More"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_bigcode.png
+  author: terryyz
+  guest: true
+  date: July 15, 2024
+  tags:
+    - leaderboard
+    - research
+    - collaboration
+    - community

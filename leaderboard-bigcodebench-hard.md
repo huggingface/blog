@@ -1,5 +1,5 @@
 ---
-title: "Announcing BigCodeBench Hard and More"
+title: "Announcing BigCodeBench Hard, and More"
 thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_bigcode.png
 authors:
 - user: terryyz
