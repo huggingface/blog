@@ -28,6 +28,7 @@ bigcodebench.generate \
   --greedy
 
 # bigcodebench.evaluate
+# note that you need to have a separate environment for evaluation
 bigcodebench.evaluate --split [complete|instruct] --subset [full|hard] --samples samples-sanitized-calibrated.jsonl
 ```
 
