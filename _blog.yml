@@ -4292,7 +4292,6 @@
     - intel
     - llm
 
-
 - local: leaderboard-bigcodebench-hard
   title: "Announcing BigCodeBench Hard, and More"
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_bigcode.png
