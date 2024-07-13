@@ -36,7 +36,7 @@ bigcodebench.evaluate --split [complete|instruct] --subset [full|hard] --samples
 
 The workflow to construct BigCodeBench-Hard is mainly inspired by [MixEval](https://arxiv.org/abs/2406.06565), which utilizes a small number of benchmark samples to align user-facing evaluation. While MixEval focuses on general-domain evaluation and considers only code generation tasks with minimal samples from MBPP and HumanEval, we extend the idea to make code generation evaluation more user-centric. Specifically, we follow these steps to create BigCodeBench-Hard:
 
-<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/bigcodebench_hard.svg?raw=true" alt="task" style="display: block; margin-left: auto; margin-right: auto; width: 70%;">
+<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/bigcodebench_hard.svg?raw=true" alt="task" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
 
 First, we chose [an anonymized archive of Stack Overflow](https://huggingface.co/datasets/bigcode/stack-exchange-preferences-20230914-clean-anonymization) that has been preprocessed by the BigCode community. Details of the preprocessing can be found in the [StarCoder2 report](https://arxiv.org/pdf/2402.19173). The archive contains 10.4 million questions and answers, covering diverse programming languages and topics, making it a good source of user queries.
 
@@ -48,11 +48,11 @@ We illustrate the alignment between the Stack Overflow queries and the BigCodeBe
 
 #### Stack Overflow Query
 
-<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/query.svg?raw=true" alt="query" style="display: block; margin-left: auto; margin-right: auto; width: 70%;">
+<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/query.svg?raw=true" alt="query" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
 
 #### Retrieved BigCodeBench Task Prompt
 
-<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/task.svg?raw=true" alt="task" style="display: block; margin-left: auto; margin-right: auto; width: 70%;">
+<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/task.svg?raw=true" alt="task" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
 
 As shown in the example above, both the query and the task prompt revolve around web scraping to extract hyperlinks from web pages, using Python libraries to handle HTTP requests and parse HTML. Both involve interaction with CSV files to either read input URLs or write output data. While the specific implementation details differ, the core objective of extracting and handling hyperlink data from web pages is a shared aspect, aligning their overall scope closely.
 
@@ -64,7 +64,7 @@ However, the retrieved 626 tasks are still infeasible for evaluation. To improve
 
 3. **Solve Rate**: We compute the solve rate per task based on all the evaluated models on the leaderboard. The solve rate is defined as the number of models that can solve the task divided by the total number of models. Specifically, we deem tasks with a solve rate below 50% as hard tasks.
 
-<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/hard_rank.svg?raw=true" alt="rank" style="display: block; margin-left: auto; margin-right: auto; width: 80%;">
+<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/hard_rank.svg?raw=true" alt="rank" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
 
 Through the comparison, we notice that the rankings of the models on BigCodeBench-Hard differ significantly from the rankings on BigCodeBench. We suggest that these differences arise from the imbalanced distribution of target domains in the original BigCodeBench, resulting in a slight misalignment between the evaluation and the user-facing tasks.
 
@@ -78,23 +78,23 @@ We update the [BigCodeBench Leaderboard](https://huggingface.co/bigcode/bigcodeb
 
 ### Did you notice the recent DeepSeek-V2-Chat Upgrade?
 
-<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/deepseek_v2_comparison.svg?raw=true" alt="rank" style="display: block; margin-left: auto; margin-right: auto; width: 80%;">
+<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/deepseek_v2_comparison.svg?raw=true" alt="rank" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
 
 The recent upgrade to DeepSeek-V2-Chat on June 28, 2024, has brought significant improvements to its performance. The results demonstrate a remarkable 109% increase in Complete performance, with the score rising from 15.5 to 32.4. While BigCodeBench-Instruct also shows an enhancement, its improvement was more modest, with a 15.7% increase from 21.6 to 25.0. These upgrades demonstrate DeepSeek's commitment to enhancing their chat model.
 
 ### Did Gemma-2-27B-Instruct outperform the previous Llama-3-70-Instruct?
 
-<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/gemma_comparison.svg?raw=true" alt="rank" style="display: block; margin-left: auto; margin-right: auto; width: 80%;">
+<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/gemma_comparison.svg?raw=true" alt="rank" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
 
 On both the Complete and Instruct splits, Llama-3-70B-Instruct still outperformed Gemma-2-27B-Instruct, albeit by small margins. The difference was more pronounced on the Complete tasks (3.7% difference) compared to Instruct (1.8% difference). It's worth noting that despite having fewer parameters (27B vs 70B), Gemma-2-Instruct comes close to Llama-3-70B-Instruct's performance. This is impressive given the significant difference in model size.
 
 ### How good is the secret update of Phi-3-Mini?
 
-<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/phi_3_comparison.svg?raw=true" alt="rank" style="display: block; margin-left: auto; margin-right: auto; width: 80%;">
+<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/phi_3_comparison.svg?raw=true" alt="rank" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
 
 We use Phi-3-Mini-128k-Instruct for the comparison. The significant improvements shown in the plot indicate that the secret update was highly effective. The larger relative gain on the Instruct split (24.3% vs. 13.8% on Complete) suggests that the update may have focused on optimizing the model's ability to understand and execute less verbose instructions.
 
-## One More Thing 🤗...
+## One More Thing 🤗
 
 We are happy to announce our collaboration with the [EvalPlus](https://evalplus.github.io/leaderboard.html) team to create a new variant of BigCodeBench: BigCodeBench+, a benchmark that enhances test rigor!
 
