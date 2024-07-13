@@ -85,7 +85,7 @@ We update the [BigCodeBench Leaderboard](https://huggingface.co/bigcode/bigcodeb
 
 The recent upgrade to DeepSeek-V2-Chat on June 28, 2024, has brought significant improvements to its performance. The results demonstrate a remarkable 109% increase in Complete performance, with the score rising from 15.5 to 32.4. While BigCodeBench-Instruct also shows an enhancement, its improvement was more modest, with a 15.7% increase from 21.6 to 25.0. These upgrades demonstrate DeepSeek's commitment to enhancing their chat model.
 
-### Did Gemma-2-27B-Instruct outperform the previous Llama-3-70-Instruct?
+### Is Gemma-2-27B-Instruct better than Llama-3-70-Instruct at coding?
 
 <img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/gemma_comparison.svg?raw=true" alt="rank" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
 
