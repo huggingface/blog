@@ -27,6 +27,9 @@ bigcodebench.generate \
   --subset [full|hard] \
   --greedy
 
+# bigcodebench.sanitize
+bigcodebench.sanitize --samples samples.jsonl --calibrate
+
 # bigcodebench.evaluate
 # note that you need to have a separate environment for evaluation
 bigcodebench.evaluate --split [complete|instruct] --subset [full|hard] --samples samples-sanitized-calibrated.jsonl
@@ -105,6 +108,7 @@ Stay tuned for more updates on BigCodeBench!
 ## Resources
 
 We open-source all the artifacts of BigCodeBench-Hard, including the data, code, and leaderboard. You can find the them as follows:
+
 - [BigCodeBench-Hard Dataset](https://huggingface.co/datasets/bigcode/bigcodebench-hard)
 - [GitHub Repository](https://github.com/bigcode-project/bigcodebench)
 - [Stack Overflow Embeddings](https://huggingface.co/datasets/bigcode/stack-exchange-embeddings-20230914)
