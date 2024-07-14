@@ -1743,6 +1743,17 @@
     - guide
     - research
     - collaboration
+ 
+- local: finetune-florence2
+  title: 微调 Florence-2 - 微软的尖端视觉语言模型
+  thumbnail: /blog/assets/182_finetune-florence/thumbnail.png
+  author: andito
+  date: Jun 24, 2024
+  tags:
+    - collaboration
+    - community
+    - open-source
+    - research
 
 - local: gemma2
   title: Google 发布最新开放大语言模型 Gemma 2，现已登陆 Hugging Face Hub
