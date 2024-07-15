@@ -1778,3 +1778,15 @@
     - community
     - research
     - leaderboard
+
+- local: dpo_vlm
+  title: "为视觉语言多模态模型进行偏好优化"
+  author: qgallouedec
+  thumbnail: /blog/assets/dpo_vlm/thumbnail.png
+  date: July 10, 2024
+  tags:
+    - vlm
+    - multimodal
+    - trl
+    - rlhf
+    - dpo
