@@ -4374,3 +4374,16 @@
     - open-source
     - spaces
     - apps
+
+- local: smollm
+  title: "SmolLM - blazingly fast and remarkably powerful"
+  author: loubnabnl
+  thumbnail: /blog/assets/cosmopedia/thumbnail.png
+  date: July 16, 2024
+  tags:
+    - llm
+    - nlp
+    - synthetic-data
+    - research
+    - datasets
+    - community
