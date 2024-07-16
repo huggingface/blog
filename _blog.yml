@@ -4378,7 +4378,7 @@
 - local: smollm
   title: "SmolLM - blazingly fast and remarkably powerful"
   author: loubnabnl
-  thumbnail: /blog/assets/smollm/thumbnail.png
+  thumbnail: /blog/assets/smollm/banner.png
   date: July 16, 2024
   tags:
     - llm
