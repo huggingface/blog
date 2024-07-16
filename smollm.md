@@ -141,7 +141,7 @@ SmolLM models are available in three sizes and were trained on the data mixture 
 - 1.7B model, trained on 1T tokens from Smollm-Corpus
 
 <p align="center">
- <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/Untitled%209.png" alt=""  style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/Untitled%209.png" alt=""  style="width: 60%; height: auto;"><br>
 <em>Training mixture of SmolLM models.</em>
 </p>
 
@@ -194,7 +194,7 @@ We find that:
 <em>Comparison of SmolLM models to other SLMs. We evaluate all models on the same setup, except for MobieLLM, which isn't publicly available.</em>
 </p>
 <p align="center">
- <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/Untitled%2015.png" alt=""  style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/image.png" alt=""  style="width: 50%; height: auto;"><br>
 <em>Evaluation of SmolLM models on HumanEval.</em>
 </p>
 
@@ -203,7 +203,7 @@ We also instruction tuned the models using publicly available permissive instruc
 The table below shows the performance of SmolLM-Instruct and other models on the IFEval benchmark (Prompt Strict Accuracy). Qwen2-1.5B-Instruct model scores the highest with 29.94, SmolLM-Instruct models provide a good balance between model size and performance, using only publicly available permissive datasets.
 
 <p align="center">
- <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/Untitled%2016.png" alt=""  style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/Untitled%2016.png" alt=""  style="width: 60%; height: auto;"><br>
 <em>Evaluation of SmolLM-Instruct models on IFEval.</em>
 </p>
 
@@ -212,7 +212,7 @@ The table below shows the performance of SmolLM-Instruct and other models on the
 Our models are designed to be small and can run locally on various hardware configurations. For reference, an iPhone 15 has 6GB of DRAM, while an iPhone 15 Pro has 16GB. These memory requirements make our models suitable for deployment on a wide range of devices, from smartphones to laptops. We benchmarked the memory footprint of our three model sizes:
 
 <p align="center">
- <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/Untitled%2013.png" alt=""  style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/Untitled%2013.png" alt=""  style="width: 60%; height: auto;"><br>
 <em>Memory footprint of SmolLM models.</em>
 </p>
 
