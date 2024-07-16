@@ -23,7 +23,7 @@ This article outlines the process of creating a Chatbot for Argilla 2.0. We will
 * create a vector database to store and retrieve the documentation and
 * deploy the final Chatbot to a Hugging Face Space allowing users to interact with it, storing the interactions in Argilla for continuous evaluation and improvement.
 
-Click the next image to go to the app.
+Click [here](https://huggingface.co/spaces/plaguss/argilla-sdk-chatbot-space) to go to the app.
 
 <a href="https://huggingface.co/spaces/plaguss/argilla-sdk-chatbot-space" rel="some text">![argilla-sdk-chatbot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/argilla-chatbot/chatbot.png)</a>
 
