@@ -23,7 +23,7 @@ This article outlines the process of creating a Chatbot for Argilla 2.0. We will
 * create a vector database to store and retrieve the documentation and
 * deploy the final Chatbot to a Hugging Face Space allowing users to interact with it, storing the interactions in Argilla for continuous evaluation and improvement.
 
-Click the next image to go to the app.
+Click [here](https://huggingface.co/spaces/plaguss/argilla-sdk-chatbot-space) to go to the app.
 
 <a href="https://huggingface.co/spaces/plaguss/argilla-sdk-chatbot-space" rel="some text">![argilla-sdk-chatbot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/argilla-chatbot/chatbot.png)</a>
 
@@ -65,7 +65,7 @@ Chunking data means dividing your text data into manageable chunks of approximat
 
 Let's dive into the first step: processing the documentation of your target repository. To simplify this task, you can leverage libraries like [llama-index](https://docs.llamaindex.ai/en/stable/examples/data_connectors/GithubRepositoryReaderDemo/) to read the repository contents and parse the markdown files. Specifically, langchain offers useful tools like [MarkdownTextSplitter](https://python.langchain.com/v0.1/docs/modules/data_connection/document_transformers/markdown_header_metadata/) and `llama-index` provides [MarkdownNodeParser](https://docs.llamaindex.ai/en/stable/module_guides/loading/node_parsers/modules/?h=markdown#markdownnodeparser) to help you extract the necessary information. If you prefer a more streamlined approach, consider using the [corpus-creator](https://huggingface.co/spaces/davanstrien/corpus-creator) app from [`davanstrien`](https://huggingface.co/davanstrien).
 
-To make things easier and more efficient, we've developed a custom Python script that does the heavy lifting for you. You can find it in our repository [here](https://github.com/argilla-io/argilla-sdk-chatbot/blob/develop/docs_dataset.py).
+To make things easier and more efficient, we've developed a custom Python script that does the heavy lifting for you. You can find it in our repository [here](https://github.com/argilla-io/argilla-sdk-chatbot/blob/main/docs_dataset.py).
 
 This script automates the process of retrieving documentation from a GitHub repository and storing it as a dataset on the Hugging Face Hub. And the best part? It's incredibly easy to use! Let's see how we can run it:
 
@@ -150,7 +150,7 @@ options:
 
 We will generate synthetic questions from our documentation that can be answered by every chunk of documentation. We will also generate hard negative examples by generating unrelated questions that can be easily distinguishable. We can use the questions, hard negatives, and docs to build the triples for the fine-tuning dataset.
 
-The full pipeline script can be seen at [`pipeline_docs_queries.py`](https://github.com/argilla-io/argilla-sdk-chatbot/blob/develop/pipeline_docs_queries.py) in the reference repository, but let's go over the different steps:
+The full pipeline script can be seen at [`pipeline_docs_queries.py`](https://github.com/argilla-io/argilla-sdk-chatbot/blob/main/pipeline_docs_queries.py) in the reference repository, but let's go over the different steps:
 
 1. `load_data`:
 
@@ -453,7 +453,7 @@ if __name__ == "__main__":
 
 ### Explore the datasets in Argilla
 
-Now that we've generated our datasets, it's time to dive deeper and refine them as needed using Argilla. To get started, take a look at our [argilla_datasets.ipynb](https://github.com/argilla-io/argilla-sdk-chatbot/blob/develop/argilla_datasets.ipynb) notebook, which provides a step-by-step guide on how to upload your datasets to Argilla.
+Now that we've generated our datasets, it's time to dive deeper and refine them as needed using Argilla. To get started, take a look at our [argilla_datasets.ipynb](https://github.com/argilla-io/argilla-sdk-chatbot/blob/main/argilla_datasets.ipynb) notebook, which provides a step-by-step guide on how to upload your datasets to Argilla.
 
 If you haven't set up an Argilla instance yet, don't worry! Follow our easy-to-follow guide in the [docs](https://argilla-io.github.io/argilla/latest/getting_started/quickstart/#run-the-argilla-server) to create a Hugging Face Space with Argilla. Once you've got your Space up and running, simply connect to it by updating the `api_url` to point to your Space:
 
@@ -642,7 +642,7 @@ Once our chatbot has garnered significant user engagement, this dataset can serv
 
 Now that our custom embedding model dataset is prepared, it's time to dive into the training process.
 
-To guide us through this step, we'll be referencing the [`train_embedding.ipynb`](https://github.com/argilla-io/argilla-sdk-chatbot/blob/develop/train_embedding.ipynb) notebook, which draws inspiration from Philipp Schmid's [blog post](https://www.philschmid.de/fine-tune-embedding-model-for-rag) on fine-tuning embedding models for RAG. While the blog post provides a comprehensive overview of the process, we'll focus on the key differences and nuances specific to our use case.
+To guide us through this step, we'll be referencing the [`train_embedding.ipynb`](https://github.com/argilla-io/argilla-sdk-chatbot/blob/main/train_embedding.ipynb) notebook, which draws inspiration from Philipp Schmid's [blog post](https://www.philschmid.de/fine-tune-embedding-model-for-rag) on fine-tuning embedding models for RAG. While the blog post provides a comprehensive overview of the process, we'll focus on the key differences and nuances specific to our use case.
 
 For a deeper understanding of the underlying decisions and a detailed walkthrough, be sure to check out the original blog post and review the notebook for a step-by-step explanation.
 
@@ -759,7 +759,7 @@ We've made significant progress so far, creating a dataset and fine-tuning a mod
 
 When it comes to choosing a vector database, there are numerous alternatives available. To keep things simple and straightforward, we'll be using [lancedb](https://lancedb.github.io/lancedb/), a lightweight, embedded database that doesn't require a server, similar to SQLite. As we'll see, lancedb allows us to create a simple file to store our embeddings, making it easy to move around and retrieve data quickly, which is perfect for our use case.
 
-To follow along, please refer to the accompanying notebook: [`vector_db.ipynb`](https://github.com/argilla-io/argilla-sdk-chatbot/blob/develop/vector_db.ipynb). In this notebook, we'll delve into the details of building and utilizing our vector database.
+To follow along, please refer to the accompanying notebook: [`vector_db.ipynb`](https://github.com/argilla-io/argilla-sdk-chatbot/blob/main/vector_db.ipynb). In this notebook, we'll delve into the details of building and utilizing our vector database.
 
 ### Connect to the database
 
@@ -959,7 +959,7 @@ All the pieces are ready for our chatbot; we need to connect them and make them 
 
 ### The Gradio App
 
-Let's bring the RAG app to life! Using [gradio](https://www.gradio.app/), we can effortlessly create chatbot apps. In this case, we'll design a simple yet effective interface to showcase our chatbot's capabilities. To see the app in action, take a look at the [app.py](https://github.com/argilla-io/argilla-sdk-chatbot/blob/develop/app/app.py) script in the Argilla SDK Chatbot repository on GitHub.
+Let's bring the RAG app to life! Using [gradio](https://www.gradio.app/), we can effortlessly create chatbot apps. In this case, we'll design a simple yet effective interface to showcase our chatbot's capabilities. To see the app in action, take a look at the [app.py](https://github.com/argilla-io/argilla-sdk-chatbot/blob/main/app/app.py) script in the Argilla SDK Chatbot repository on GitHub.
 
 Before we dive into the details of building our chatbot app, let's take a step back and admire the final result. With just a few lines of code, we've managed to create a user-friendly interface that brings our RAG chatbot to life.
 
