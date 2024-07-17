@@ -207,7 +207,7 @@ The table below shows the performance of SmolLM-Instruct and other models on the
 
 ## How to run locally ?
 
-Our models are designed to be small and can run locally on various hardware configurations. For reference, an iPhone 15 has 6GB of DRAM, while an iPhone 15 Pro has 16GB. These memory requirements make our models suitable for deployment on a wide range of devices, from smartphones to laptops. We benchmarked the memory footprint of our three model sizes:
+Our models are designed to be small and can run locally on various hardware configurations. For reference, an iPhone 15 has 6GB of DRAM, while an iPhone 15 Pro has 8GB. These memory requirements make our models suitable for deployment on a wide range of devices, from smartphones to laptops. We benchmarked the memory footprint of our three model sizes:
 
 <p align="center">
  <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/Untitled%2013.png" alt=""  style="width: 60%; height: auto;"><br>
