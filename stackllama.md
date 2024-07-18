@@ -105,7 +105,7 @@ lora_config = LoraConfig(
     task_type="CAUSAL_LM",
 )
 
-model = get_peft_model(model, config)
+model = get_peft_model(model, lora_config)
 ```
 
 We train the model for a few thousand steps with the causal language modeling objective and save the model. Since we will tune the model again with different objectives, we merge the adapter weights with the original model weights.

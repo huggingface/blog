@@ -4,6 +4,7 @@ thumbnail: /blog/assets/datasets-filters/thumbnail.png
 authors:
 - user: lhoestq
 - user: severo
+- user: kramp
 ---
 
 # Announcing New Dataset Search Features

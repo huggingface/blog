@@ -4300,11 +4300,99 @@
   tags:
     - datasets
 
+- local: sovereign-data-solution-case-study
+  title: "Banque des Territoires (CDC Group) x Polyconseil x Hugging Face: Enhancing a Major French Environmental Program with a Sovereign Data Solution"
+  author: florentgbelidji
+  thumbnail: /blog/assets/78_ml_director_insights/cdc_poly_hf.png
+  date: July 9, 2024
+  tags:
+    - case-studies
+  
+- local: tpu-inference-endpoints-spaces
+  title: "Google Cloud TPUs made available to Hugging Face users"
+  thumbnail: /blog/assets/tpu-inference-endpoints-spaces/thumbnail.png
+  author: pagezyhf
+  date: July 9, 2024
+  tags:
+    - partnerships
+    - gcp
+    - spaces
+    - inference
+    - hardware
+
+- local: dpo_vlm
+  title: "Preference Optimization for Vision Language Models"
+  author: qgallouedec
+  thumbnail: /blog/assets/dpo_vlm/thumbnail.png
+  date: July 10, 2024
+  tags:
+    - vlm
+    - multimodal
+    - trl
+    - rlhf
+    - dpo
+
+- local: presidio-pii-detection
+  title: "Experimenting with Automatic PII Detection on the Hub using Presidio"
+  author: lhoestq
+  thumbnail: /blog/assets/presidio-pii-detection/thumbnail.png
+  date: Jul 10, 2024
+  tags:
+    - datasets
+    - pii
+
+- local: keras-nlp-integration
+  title: "Announcing New Hugging Face and Keras NLP integration"
+  thumbnail: /blog/assets/keras-nlp-integration/thumbnail.png
+  author: ariG23498
+  date: Jul 10, 2024
+  tags:
+    - open-source-collab
+    - nlp
+
+- local: winning-aimo-progress-prize
+  title: "How NuminaMath Won the 1st AIMO Progress Prize"
+  author: yfleureau
+  thumbnail: /blog/assets/winning-aimo-progress-prize/thumbnail.png
+  date: July 11, 2024
+  tags:
+    - ai4math
+    - nlp
+    - community
+    - research
+    - leaderboard
+    - open-science-collab
+
+- local: argilla-chatbot
+  title: "How we leveraged distilabel to create an Argilla 2.0 Chatbot"
+  thumbnail: /blog/assets/argilla-chatbot/thumbnail.png
+  author: plaguss
+  date: Jul 16, 2024
+  tags:
+    - nlp
+    - guide
+    - open-source
+    - spaces
+    - apps
+
+- local: smollm
+  title: "SmolLM - blazingly fast and remarkably powerful"
+  author: loubnabnl
+  thumbnail: /blog/assets/smollm/banner.png
+  date: July 16, 2024
+  tags:
+    - llm
+    - nlp
+    - synthetic-data
+    - research
+    - datasets
+    - community
+
 - local: multi-lora-serving
   title: "TGI Multi-LoRA: Deploy Once, Serve 30 Models"
   author: derek-thomas
   thumbnail: /blog/assets/multi-lora-serving/thumbnail.png
-  date: Jul 8, 2024
+  date: Jul 18, 2024
   tags:
     - nlp
     - tgi

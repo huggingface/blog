@@ -13,7 +13,7 @@ authors:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-This tutorial will show how to leverage Hugging Face to federate the training of language models over multiple clients using [Flower](https://flower.dev/). More specifically, we will fine-tune a pre-trained Transformer model (distilBERT) for sequence classification over a dataset of IMDB ratings. The end goal is to detect if a movie rating is positive or negative.
+This tutorial will show how to leverage Hugging Face to federate the training of language models over multiple clients using [Flower](https://flower.ai/). More specifically, we will fine-tune a pre-trained Transformer model (distilBERT) for sequence classification over a dataset of IMDB ratings. The end goal is to detect if a movie rating is positive or negative.
 
 A notebook is also available [here](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/fl-with-flower.ipynb) but instead of running on multiple separate clients it utilizes the simulation functionality of Flower (using `flwr['simulation']`) in order to emulate a federated setting inside Google Colab (this also means that instead of calling `start_server` we will call `start_simulation`, and that a few other modifications are needed).
 
@@ -136,7 +136,7 @@ net = AutoModelForSequenceClassification.from_pretrained(
 
 ## Federating the example
 
-The idea behind Federated Learning is to train a model between multiple clients and a server without having to share any data. This is done by letting each client train the model locally on its data and send its parameters back to the server, which then aggregates all the clients’ parameters together using a predefined strategy. This process is made very simple by using the [Flower](https://github.com/adap/flower) framework. If you want a more complete overview, be sure to check out this guide: [What is Federated Learning?](https://flower.dev/docs/tutorial/Flower-0-What-is-FL.html)
+The idea behind Federated Learning is to train a model between multiple clients and a server without having to share any data. This is done by letting each client train the model locally on its data and send its parameters back to the server, which then aggregates all the clients’ parameters together using a predefined strategy. This process is made very simple by using the [Flower](https://github.com/adap/flower) framework. If you want a more complete overview, be sure to check out this guide: [What is Federated Learning?](https://flower.ai/docs/framework/tutorial-series-what-is-federated-learning.html)
 
 ### Creating the IMDBClient
 
@@ -175,8 +175,10 @@ The `get_parameters` function lets the server get the client's parameters. Inver
 We can now start client instances using:
 
 ```python
-fl.client.start_numpy_client(server_address="127.0.0.1:8080", 
-															 client=IMDBClient())
+fl.client.start_numpy_client(
+    server_address="127.0.0.1:8080",
+    client=IMDBClient(),
+)
 ```
 
 ### Starting the server
@@ -209,7 +211,7 @@ The `weighted_average` function is there to provide a way to aggregate the metri
 
 ## Putting everything together
 
-If you want to check out everything put together, you should check out the code example we wrote for the Flower repo: [https://github.com/adap/flower/tree/main/examples/quickstart_huggingface](https://github.com/adap/flower/tree/main/examples/quickstart_huggingface). 
+If you want to check out everything put together, you should check out the code example we wrote for the Flower repo: [https://github.com/adap/flower/tree/main/examples/quickstart-huggingface](https://github.com/adap/flower/tree/main/examples/quickstart-huggingface). 
 
 Of course, this is a very basic example, and a lot can be added or modified, it was just to showcase how simply we could federate a Hugging Face workflow using Flower.
 
