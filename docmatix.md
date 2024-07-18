@@ -12,7 +12,7 @@ authors:
 With this blog we are releasing [Docmatix - a huge dataset for Document Visual Question Answering](https://huggingface.co/datasets/HuggingFaceM4/Docmatix) (DocVQA) that is 100s of times larger than previously available. Ablations using this dataset for fine-tuning Florence-2 show a 20% increase in performance on DocVQA.   
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/docmatix_example.png" alt="Example from the dataset" style="width: 80%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/docmatix_example.png" alt="Example from the dataset" style="width: 90%; height: auto;"><br>
  <em>An example from the dataset</em>
 </p>
 
@@ -21,7 +21,7 @@ We first had the idea to create Docmatix when we developed [The Cauldron](https:
 To address this limitation, we are excited to introduce Docmatix, a DocVQA dataset featuring 2.4 million images and 9.5 million Q/A pairs derived from 1.3 million PDF documents. A **240X** increase in scale compared to previous datasets.
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/docmatix_dataset_comp.png" alt="Comparing Docmatix to other DocVQA datasets" style="width: 80%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/docmatix_dataset_comp.png" alt="Comparing Docmatix to other DocVQA datasets" style="width: 90%; height: auto;"><br>
  <em>Comparing Docmatix to other DocVQA datasets</em>
 </p>
 
@@ -39,7 +39,7 @@ The dataset contains a row for each PDF. We converted the PDFs to images at a re
 All the original PDFs in Docmatix can be traced back to the original PDFA dataset, providing transparency and reliability. Still, we uploaded the processed images for convenience because converting many PDFs to images can be resource-intensive.
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/docmatix_processing.png" alt="Processing for Docmatix" style="width: 80%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/docmatix_processing.png" alt="Processing for Docmatix" style="width: 90%; height: auto;"><br>
  <em>Processing pipeline to generate Docmatix</em>
 </p>
 
@@ -48,7 +48,7 @@ Additionally, we aimed for answers to be human-like, avoiding excessively short 
 
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/docmatix_prompt_analysis.png" alt="Prompt analysis Docmatix" style="width: 80%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/docmatix_prompt_analysis.png" alt="Prompt analysis Docmatix" style="width: 90%; height: auto;"><br>
  <em>Analysis of Docmatix per prompt</em>
 </p>
 
