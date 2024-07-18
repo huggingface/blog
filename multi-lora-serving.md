@@ -221,18 +221,7 @@ from huggingface_hub import InferenceClient
 
 tgi_deployment = "127.0.0.1:3000"
 client = InferenceClient(tgi_deployment)
-
-# Prepare the JSON data for the request
-request_data = {
-    "inputs": "Hello who are you?",
-    "parameters": {
-        "max_new_tokens": 40,
-        "adapter_id": "predibase/customer_support"
-    }
-}
-
-# Make the POST request
-response = client.post(json=request_data)
+response = client.text_generation(prompt="Hello who are you?", max_new_tokens=40, adapter_id='predibase/customer_support')
 ```
 
 ## Practical Considerations
