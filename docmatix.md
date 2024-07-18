@@ -19,6 +19,7 @@ To address this limitation, we are excited to introduce Docmatix, a DocVQA datas
  <em>Comparing Docmatix to other DocVQA datasets</em>
 </p>
 
+Here you can explore the dataset yourself and see the type of documents and question-answer pairs contained in Docterix.
 
 <iframe
   src="https://huggingface.co/datasets/HuggingFaceM4/Docmatix/embed/viewer/default/train"
@@ -27,7 +28,7 @@ To address this limitation, we are excited to introduce Docmatix, a DocVQA datas
   height="560px"
 ></iframe>
 
-Docmatix is generated from PDFA, an extensive OCR dataset containing 2.1 million PDFs. We took the transcriptions from PDFA and employed a Phi-3-small model to generate Q/A pairs. To ensure the dataset's quality, we filtered the generations, discarding 15% of the Q/A pairs identified as hallucinations. To do so, we used regular expressions to detect code and removed answers that contained the keyword “unanswerable”. 
+Docmatix is generated from [PDFA, an extensive OCR dataset containing 2.1 million PDFs](https://huggingface.co/datasets/pixparse/pdfa-eng-wds). We took the transcriptions from PDFA and employed a [Phi-3-small](https://huggingface.co/microsoft/Phi-3-small-8k-instruct) model to generate Q/A pairs. To ensure the dataset's quality, we filtered the generations, discarding 15% of the Q/A pairs identified as hallucinations. To do so, we used regular expressions to detect code and removed answers that contained the keyword “unanswerable”. 
 The dataset contains a row for each PDF. We converted the PDFs to images at a resolution of 150 dpi, and uploaded the processed images to the Hugging Face Hub for easy access. 
 All the original PDFs in Docmatix can be traced back to the original PDFA dataset, providing transparency and reliability. Still, we uploaded the processed images for convenience because converting many PDFs to images can be resource-intensive.
 
@@ -37,7 +38,7 @@ All the original PDFs in Docmatix can be traced back to the original PDFA datase
 </p>
 
 After processing the first small batch of the dataset, we performed several ablation studies to optimize the prompts. We aimed to generate around four pairs of Q/A per page. Too many pairs indicate a large overlap between them, while too few pairs suggest a lack of detail.
-Additionally, we aimed for answers to be human-like, avoiding excessively short or long responses. We also prioritized diversity in the questions, ensuring minimal repetition. Interestingly, when we guided the Phi-3 model to ask questions based on the specific information in the document  (e.g., "What are the titles of John Doe?"), the questions showed very few repetitions. The following plot presents some key statistics from our analysis:
+Additionally, we aimed for answers to be human-like, avoiding excessively short or long responses. We also prioritized diversity in the questions, ensuring minimal repetition. Interestingly, when we guided the [Phi-3 model](https://huggingface.co/docs/transformers/main/en/model_doc/phi3) to ask questions based on the specific information in the document  (e.g., "What are the titles of John Doe?"), the questions showed very few repetitions. The following plot presents some key statistics from our analysis:
 
 
 <p align="center">
@@ -52,11 +53,11 @@ The results are significant: training on this small portion of Docmatix yielded 
 
 <div align="center">
 
-| Dataset                              | ANSL on DocVQA |
-|--------------------------------------|----------------|
-| Florence 2 fine-tuned on DocVQA      | 60.1           | 
-| Florence 2 fine-tuned on Docmatix    | 71,4           |
-| Idefics2                             | 74,0           | 
+| Dataset                              | ANSL on DocVQA |model size      |
+|--------------------------------------|----------------|----------------|
+| Florence 2 fine-tuned on DocVQA      | 60.1           | 700M           |
+| Florence 2 fine-tuned on Docmatix    | 71,4           | 700M           |
+| Idefics2                             | 74,0           |   8B           |
 
 </div>
 
@@ -78,6 +79,6 @@ In this post, we presented Docmatix, a gigantic dataset for DocVQA. We showed th
 - [Fine tuning Florence-2 Github Repo](https://github.com/andimarafioti/florence2-finetuning)
 - [Vision Language Models Explained](https://huggingface.co/blog/vlms)
 
-We would like to thank merve for her reviews on this blog post.
+We would like to thank merve and leo for their reviews on this blog post.
 
 
