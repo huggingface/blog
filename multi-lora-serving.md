@@ -214,7 +214,7 @@ curl 127.0.0.1:3000/generate \
 }'
 ```
 
-Alternatively, here is an example using [InferenceClient](https://huggingface.co/docs/huggingface_hub/guides/inference) from the wonderful [Hugging Face Hub Python library](https://huggingface.co/docs/huggingface_hub/v0.24.0.rc0/en/index). Do make sure you are using `huggingface-hub>=0.24.0` and that you are [logged in](https://huggingface.co/docs/huggingface_hub/v0.24.0.rc0/en/quick-start#authentication) if necessary.
+Alternatively, here is an example using [InferenceClient](https://huggingface.co/docs/huggingface_hub/guides/inference) from the wonderful [Hugging Face Hub Python library](https://huggingface.co/docs/huggingface_hub/index). Do make sure you are using `huggingface-hub>=0.24.0` and that you are [logged in](https://huggingface.co/docs/huggingface_hub/quick-start#authentication) if necessary.
 
 ```python
 from huggingface_hub import InferenceClient
