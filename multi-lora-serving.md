@@ -151,7 +151,7 @@ Note that this is the minimum, but you should configure the other settings as yo
 | *Figure 3: Multi-LoRA Inference Endpoints* |
 
 
-| ![multi-lora-inference-endpoints](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-lora-serving/multi-lora-inference-endpoints.png) |
+| ![multi-lora-inference-endpoints](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-lora-serving/multi-lora-inference-endpoints-2.png) |
 |-------------------------------------------------|
 | *Figure 4: Multi-LoRA Inference Endpoints 2* |
 
