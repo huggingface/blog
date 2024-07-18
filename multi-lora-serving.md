@@ -266,7 +266,7 @@ When we consolidate with Multi-LoRA, we get much more stable usage. We can see t
 
 What happens in the real world with AI moving at breakneck speeds? What if you want to choose a different/newer model as your base? While our examples use [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) as a base model, there are other bases like Mistral's [v0.3](https://ubiops.com/function-calling-deploy-the-mistral-7b-v03/) which supports [function calling](https://ubiops.com/function-calling-deploy-the-mistral-7b-v03/), and altogether different model families like Llama 3. In general, we expect new base models that are more efficient and more performant to come out all the time.
 
-It is easy enough to re-train the LoRAs if you have a _compelling reason_ to update your base model. Training is relatively cheap; in fact [Predibase found](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4) it costs only ~$8.00 to train each one. The amount of code changes is minimal with modern frameworks and common engineering practices:
+But worry not! It is easy enough to re-train the LoRAs if you have a _compelling reason_ to update your base model. Training is relatively cheap; in fact [Predibase found](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4) it costs only ~$8.00 to train each one. The amount of code changes is minimal with modern frameworks and common engineering practices:
 
 * Keep the notebook/code used to train your model
 * Version control your datasets
