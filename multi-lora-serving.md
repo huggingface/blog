@@ -221,7 +221,11 @@ from huggingface_hub import InferenceClient
 
 tgi_deployment = "127.0.0.1:3000"
 client = InferenceClient(tgi_deployment)
-response = client.text_generation(prompt="Hello who are you?", max_new_tokens=40, adapter_id='predibase/customer_support')
+response = client.text_generation(
+    prompt="Hello who are you?",
+    max_new_tokens=40,
+    adapter_id='predibase/customer_support',
+)
 ```
 
 ## Practical Considerations
