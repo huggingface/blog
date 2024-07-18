@@ -10,7 +10,7 @@ authors:
 
 
 During our work on Idefics2, we developed [The Cauldron](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron), an extensive collection of 50 datasets for the fine-tuning of Vision-Language Model (VLM). Through this process, we identified a significant gap in the availability of large-scale Document Visual Question Answering (DocVQA) datasets. The primary dataset we relied on was DocVQA, which contains 10,000 images and 39,000 question-answer (Q/A) pairs.
-To address this limitation, we are excited to introduce Docmatix, a groundbreaking DocVQA dataset featuring 2.4 million images and 9.5 million Q/A pairs derived from 1.3 million PDF documents. This marks a 240X increase in scale.
+To address this limitation, we are excited to introduce Docmatix, a DocVQA dataset featuring 2.4 million images and 9.5 million Q/A pairs derived from 1.3 million PDF documents. This marks a 240X increase in scale compared to previous datasets.
 
 <div align="center">
 
