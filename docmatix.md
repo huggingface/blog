@@ -1,6 +1,6 @@
 ---
 title: "Docmatix - an instruct dataset for Document Visual Question Answering" 
-thumbnail: /blog/assets/182_finetune-florence/thumbnail.png
+thumbnail: /blog/assets/183_docmatix/thumbnail.png
 authors:
 - user: andito
 - user: HugoLaurencon
@@ -9,20 +9,23 @@ authors:
 # Docmatix - An instruct dataset for Document Visual Question Answering
 
 
-During our work on Idefics2, we developed [The Cauldron](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron), an extensive collection of 50 datasets for the fine-tuning of Vision-Language Model (VLM). Through this process, we identified a significant gap in the availability of large-scale Document Visual Question Answering (DocVQA) datasets. The primary dataset we relied on was DocVQA, which contains 10,000 images and 39,000 question-answer (Q/A) pairs.
-To address this limitation, we are excited to introduce Docmatix, a DocVQA dataset featuring 2.4 million images and 9.5 million Q/A pairs derived from 1.3 million PDF documents. This marks a **240X** increase in scale compared to previous datasets.
+With this blog we are releasing [Docmatix - an instruct dataset for Document Visual Question Answering](https://huggingface.co/datasets/HuggingFaceM4/Docmatix) (DocVQA) that is 100s of times larger than previously available. Ablations using this dataset for fine-tuning Florence-2 show a 20% increase in performance on DocVQA.   
 
-<div align="center">
+We first had the idea to create Docmatix when we developed [The Cauldron](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron), an extensive collection of 50 datasets for the fine-tuning of Vision-Language Model (VLM), and [Idefics2](https://huggingface.co/blog/idefics2) in particular. Through this process, we identified a significant gap in the availability of large-scale Document Visual Question Answering (DocVQA) datasets. The primary dataset we relied on for Idefics2 was DocVQA, which contains 10,000 images and 39,000 question-answer (Q/A) pairs. Fine-tuning on this and other datasets, open-sourced models still maintain a large gap in performance to closed-source ones.
+To address this limitation, we are excited to introduce Docmatix, a DocVQA dataset featuring 2.4 million images and 9.5 million Q/A pairs derived from 1.3 million PDF documents. A **240X** increase in scale compared to previous datasets.
 
-| Dataset              | # images | # Q/A pairs | # tokens   |
-|----------------------|----------|-------------|------------|
-| **Docmatix**         | **2,444,750**| **9,500,000**   | **390,000,000**|
-| DocVQA               | 10,189   | 39,463      | 337,829    |
-| VisualMRC            | 3,027    | 11,988      | 168,828    |
-| InfoVQA              | 2,118    | 10,074      | 61,048     |
+<p align="center">
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/docmatix_dataset_comp.png" alt="Comparing Docmatix to other DocVQA datasets" style="width: 90%; height: auto;"><br>
+ <em>Comparing Docmatix to other DocVQA datasets</em>
+</p>
 
-</div>
 
+<iframe
+  src="https://huggingface.co/datasets/HuggingFaceM4/Docmatix/embed/viewer/default/train"
+  frameborder="0"
+  width="100%"
+  height="560px"
+></iframe>
 
 Docmatix is generated from PDFA, an extensive OCR dataset containing 2.1 million PDFs. We took the transcriptions from PDFA and employed a Phi-3-small model to generate Q/A pairs. To ensure the dataset's quality, we filtered the generations, discarding 15% of the Q/A pairs identified as hallucinations. To do so, we used regular expressions to detect code and removed answers that contained the keyword “unanswerable”. 
 The dataset contains a row for each PDF. We converted the PDFs to images at a resolution of 150 dpi, and uploaded the processed images to the Hugging Face Hub for easy access. 
@@ -34,8 +37,7 @@ All the original PDFs in Docmatix can be traced back to the original PDFA datase
 </p>
 
 After processing the first small batch of the dataset, we performed several ablation studies to optimize the prompts. We aimed to generate around four pairs of Q/A per page. Too many pairs indicate a large overlap between them, while too few pairs suggest a lack of detail.
-Additionally, we aimed for answers to be human-like, avoiding excessively short or long responses. We also prioritized diversity in the questions, ensuring minimal repetition. Interestingly, this last objective was easily accomplished once our prompts guided the Phi3 model to ask questions based on the specific information it received (e.g., "What are the titles of John Doe?").
-The following plot presents some key statistics from our analysis:
+Additionally, we aimed for answers to be human-like, avoiding excessively short or long responses. We also prioritized diversity in the questions, ensuring minimal repetition. Interestingly, when we guided the Phi-3 model to ask questions based on the specific information in the document  (e.g., "What are the titles of John Doe?"), the questions showed very few repetitions. The following plot presents some key statistics from our analysis:
 
 
 <p align="center">
@@ -58,11 +60,24 @@ The results are significant: training on this small portion of Docmatix yielded 
 
 </div>
 
-<iframe
-  src="https://huggingface.co/datasets/HuggingFaceM4/Docmatix/embed/viewer/default/train"
-  frameborder="0"
-  width="100%"
-  height="560px"
-></iframe>
+
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"></script>
+
+<gradio-app theme_mode="light" src="https://HuggingFaceM4-Docmatix-Florence-2.hf.space"></gradio-app>
+
+## Conclusion
+
+In this post, we presented Docmatix, a gigantic dataset for DocVQA. We showed that using Docmatix we can achieve a 20% increase in DocVQA performance when finetuning Florence-2. This dataset should help bridge the gap between proprietary VLMs and open-sourced VLMs. We encourage the open-source community to leverage Docmatix and train new amazing DocVQA models! We can't wait to see your models on the 🤗 Hub!
+
+## Useful Resources
+
+- [Docmatix used to finetune Florence-2 Demo](https://huggingface.co/spaces/HuggingFaceM4/Docmatix-Florence-2)
+- [Finetuning Florence-2 Blog](https://huggingface.co/blog/finetune-florence2)
+- [Fine tuning Florence-2 Github Repo](https://github.com/andimarafioti/florence2-finetuning)
+- [Vision Language Models Explained](https://huggingface.co/blog/vlms)
+
+We would like to thank merve for her reviews on this blog post.
 
 
