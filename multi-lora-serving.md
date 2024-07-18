@@ -1,6 +1,6 @@
 ---
 title: "TGI Multi-LoRA: Deploy Once, Serve 30 Models" 
-thumbnail: /blog/assets/thumbnail.png
+thumbnail: /blog/assets/multi-lora-serving/thumbnail.png
 authors:
 - user: derek-thomas
 - user: dmaniloff
