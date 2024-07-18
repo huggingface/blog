@@ -85,6 +85,6 @@ In this post, we presented Docmatix, a gigantic dataset for DocVQA. We showed th
 - [Fine tuning Florence-2 Github Repo](https://github.com/andimarafioti/florence2-finetuning)
 - [Vision Language Models Explained](https://huggingface.co/blog/vlms)
 
-We would like to thank merve and leo for their reviews on this blog post.
+We would like to thank merve and leo for their reviews and thumbnails for this blog.
 
 
