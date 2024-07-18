@@ -6,7 +6,7 @@ authors:
 - user: HugoLaurencon
 ---
 
-# Docmatix - An instruct dataset for Document Visual Question Answering
+# Docmatix - A huge dataset for Document Visual Question Answering
 
 
 With this blog we are releasing [Docmatix - a huge dataset for Document Visual Question Answering](https://huggingface.co/datasets/HuggingFaceM4/Docmatix) (DocVQA) that is 100s of times larger than previously available. Ablations using this dataset for fine-tuning Florence-2 show a 20% increase in performance on DocVQA.   
