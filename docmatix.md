@@ -1,6 +1,6 @@
 ---
 title: "Docmatix - a huge dataset for Document Visual Question Answering" 
-thumbnail: /blog/assets/183_docmatix/thumbnail.png
+thumbnail: /blog/assets/183_docmatix/thumbnail_new.png
 authors:
 - user: andito
 - user: HugoLaurencon
