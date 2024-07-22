@@ -71,7 +71,7 @@ work with ML tensors. These are multi-dimensional data structures every
 ML framework uses. Python developers working on ML are familiar with
 `numpy` arrays or `torch` tensors, which provide convenient,
 high-level interfaces to manipulate these large multi-dimensional
-matrices easily. The new `MLTensor` type provides a high-level
+matrices easily. The new [`MLTensor`](https://developer.apple.com/documentation/coreml/MLTensor) type provides a high-level
 abstraction that mimics the ones available in Python frameworks, greatly
 simplifying working with tensor data in Swift.
 
