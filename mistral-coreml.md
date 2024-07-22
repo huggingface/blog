@@ -203,7 +203,7 @@ To achieve this goal, we have to use a different attention
 implementation that considers these factors. This requires modifying the
 transformers modeling code for the Mistral architecture, and it’s done
 in [this fragment of
-code](https://github.com/huggingface/swift-transformers-staging/blob/wwdc24/Examples/Mistral7B/modeling.py#L251).
+code](https://github.com/huggingface/swift-transformers/blob/preview/Examples/Mistral7B/export.py#L121).
 
 Note: If you want to follow along and replicate the conversion (or
 convert another Mistral-based model, like a different fine-tune), you
