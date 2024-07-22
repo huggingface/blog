@@ -102,7 +102,7 @@ handle these operations without custom code.
 we wrote a lot of code (later extended by the community, thanks! ❤️) to
 help with input preparations (convert words to tokens) and output
 post-processing. For example, check out [our softmax operation](https://github.com/huggingface/swift-transformers/blob/main/Sources/TensorUtils/Math.swift#L103)
-using Accelerate. All this can be removed when using `MLTensor` as
+using Accelerate. All this can be removed when using `MLTensor`, as
 `softmax` is provided out of the box!
 
 ### Stateful Buffers
