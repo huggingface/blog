@@ -308,6 +308,7 @@ mlmodel_fp16 = ct.convert(
     states=states,
     outputs=outputs,
     minimum_deployment_target=ct.target.iOS18,
+    skip_model_load=True,
 )
 ```
 
