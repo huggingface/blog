@@ -202,13 +202,11 @@ buffers.
 To achieve this goal, we have to use a different attention
 implementation that considers these factors. This requires modifying the
 transformers modeling code for the Mistral architecture, and it’s done
-in [this fragment of
-code](https://github.com/huggingface/swift-transformers/blob/preview/Examples/Mistral7B/export.py#L121).
+in [this fragment of code](https://github.com/huggingface/swift-transformers/blob/preview/Examples/Mistral7B/export.py#L121).
 
 Note: If you want to follow along and replicate the conversion (or
 convert another Mistral-based model, like a different fine-tune), you
-can use [this
-script](https://github.com/huggingface/swift-transformers-staging/blob/wwdc24/Examples/Mistral7B/export.py)
+can use [this script](https://github.com/huggingface/swift-transformers/blob/preview/Examples/Mistral7B/export.py)
 to run all the conversion steps.
 
 ### Tracing & Conversion
@@ -260,7 +258,7 @@ above), there’s another input called `causalMask`, which specifies the
 tokens the model needs to pay attention to. This is mostly used when
 generating multiple sequences at the same time using batching. Check out
 how these inputs are used in an [example runner
-here](https://github.com/huggingface/swift-transformers-staging/blob/wwdc24/Examples/Mistral7B/generate.py#L29-L42).
+here](https://github.com/huggingface/swift-transformers/blob/preview/Examples/Mistral7B/generate.py#L29-L42).
 
 In this situation, all the input sequences inside a batch must have the
 same length, so we use padding tokens and the causal mask to tell the
