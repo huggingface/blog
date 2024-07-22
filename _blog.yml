@@ -4420,7 +4420,7 @@
 - local: mistral-coreml
   title: "WWDC 24: Running Mistral 7B with Core ML"
   thumbnail: /blog/assets/mistral-coreml/thumbnail.png
-  author: reach-vb
+  author: FL33TW00D-HF
   date: Jul 22, 2024
   tags:
     - coreml
