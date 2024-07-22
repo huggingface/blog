@@ -233,8 +233,7 @@ input_ids = torch.zeros((1, 2), dtype=torch.int32)
 
 causal_mask = torch.zeros((1, 1, 2, 5), dtype=torch.float32)
 
-traced_model = torch.jit.trace(torch_model, [input_ids,
-causal_mask])
+traced_model = torch.jit.trace(torch_model, [input_ids, causal_mask])
 
 ```
 
