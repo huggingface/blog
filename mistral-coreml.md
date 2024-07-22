@@ -57,7 +57,10 @@ learn the new tools available in iOS 18 & MacOS Sequoia.
 
 This is what we’ll be building today:
 
-[swift-chat.mp4](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/mistral-coreml/swift-chat.mp4)
+<video controls title="Mistral 7B running with Core ML">
+<source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mistral-coreml/swift-chat.mp4" type="video/mp4">
+Video: Mistral 7B running with Core ML.
+</video>
 
 ## TL;DR
 
