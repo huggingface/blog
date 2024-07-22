@@ -288,8 +288,14 @@ buffer during conversion.
 # Specify kv-cache states by using `StateType`.
 
 states = [
-ct.StateType(wrapped_type=ct.TensorType(shape=torch_model.kv_cache_shape, dtype=np.float16), name="keyCache"),
-ct.StateType(wrapped_type=ct.TensorType(shape=torch_model.kv_cache_shape, dtype=np.float16), name="valueCache"),
+    ct.StateType(
+        wrapped_type=ct.TensorType(shape=torch_model.kv_cache_shape, dtype=np.float16),
+        name="keyCache",
+    ),
+    ct.StateType(
+        wrapped_type=ct.TensorType(shape=torch_model.kv_cache_shape, dtype=np.float16),
+        name="valueCache",
+    ),
 ]
 
 ```
