@@ -32,10 +32,9 @@ appropriate (and fun!) helpers that are deeply integrated with apps and
 the OS, that also offer developers a number of ways to include these
 features within their own apps.
 
-Apple Intelligence features can only work this seamlessly and this well
-because of the vertically integrated software stack that truly harnesses
-Apple Silicon's capabilities to the fullest. Apple also offers an
-incredible platform for developers to run models on-device, known as
+Apple Intelligence features can only work this well
+because of the vertically integrated software stack that harnesses
+Apple Silicon's capabilities to the fullest. Apple also offers a platform for developers to run models on-device, known as
 Core ML. This software stack allows you to run ML models across all 3
 compute units (CPU, GPU & Neural Engine).
 
