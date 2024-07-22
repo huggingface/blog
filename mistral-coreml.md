@@ -56,7 +56,7 @@ accompanying the latest macOS release AND you will have successfully run
 a 7B parameter model using less than 4GB of memory on your Mac.
 
 Step 1: Clone the `preview` branch of the `swift-transformers` repo: git clone -b preview [`https://github.com/huggingface/swift-transformers`](https://github.com/huggingface/swift-transformers)
-Step 2: Download the converted Core ML models from [`this Hugging Face repo`](https://huggingface.co/coreml-projects/mistral-coreml)
+Step 2: Download the converted Core ML models from [`this Hugging Face repo`](https://huggingface.co/apple/mistral-coreml)
 Step 3: Run inference using Swift: `swift run transformers "Best recommendations for a place to visit in Paris in August 2024:" --max-length 200 Mistral7B-CoreML/StatefulMistralInstructInt4.mlpackage`
 
 ## Best new Core ML features from WWDC’ 24
@@ -365,7 +365,7 @@ mlmodel_int4._spec.description.metadata.userDefined.update({
 The generated model is a `mlpackage` of about 3.8G, compared with the
 14G that a `float16` conversion would produce. [You can find it
 here on the
-Hub.](https://huggingface.co/coreml-projects/mistral-coreml/tree/main)
+Hub.](https://huggingface.co/apple/mistral-coreml/tree/main)
 
 ## Running Mistral 7B with Swift
 
