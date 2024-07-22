@@ -395,7 +395,7 @@ including the following important features:
 Since adopting these features is a breaking change and requires iOS 18
 or macOS 15, we’ll keep them in a `preview` branch for now.
 
-To run the model from the command line, please first clone the preview
+To run the model from the command line, please first clone the `preview`
 branch from the GitHub repo:
 
 ```bash 
