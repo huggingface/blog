@@ -351,7 +351,7 @@ used by models, and it’s different for every model.
 
 ```python
 mlmodel_int4._spec.description.metadata.userDefined.update({
-"co.huggingface.exporters.name": MODEL_ID
+    "co.huggingface.exporters.name": MODEL_ID
 })
 
 ```
