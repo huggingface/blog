@@ -243,20 +243,12 @@ length of 2048. We can use
 dimensions to specify these bounds.
 
 ```python
-query_length = ct.RangeDim(lower_bound=1, upper_bound=2048,
-default=1)
-
-end_step_dim = ct.RangeDim(lower_bound=1, upper_bound=2048,
-default=1)
+query_length = ct.RangeDim(lower_bound=1, upper_bound=2048, default=1)
+end_step_dim = ct.RangeDim(lower_bound=1, upper_bound=2048, default=1)
 
 inputs = [
-
-ct.TensorType(shape=(1, query_length), dtype=np.int32,
-name="inputIds"),
-
-ct.TensorType(shape=(1, 1, query_length, end_step_dim),
-dtype=np.float16, name="causalMask"),
-
+    ct.TensorType(shape=(1, query_length), dtype=np.int32, name="inputIds"),
+    ct.TensorType(shape=(1, 1, query_length, end_step_dim), dtype=np.float16, name="causalMask"),
 ]
 
 outputs = [ct.TensorType(dtype=np.float16, name="logits")]
