@@ -57,7 +57,7 @@ learn the new tools available in iOS 18 & MacOS Sequoia.
 
 This is what we’ll be building today:
 
-[swift-chat.mp4](https://drive.google.com/file/d/16hKLzG7wHN_FCcmSGNqok4-Mt-LWYkR1/view?usp=sharing)
+[swift-chat.mp4](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/mistral-coreml/swift-chat.mp4)
 
 ## TL;DR
 
