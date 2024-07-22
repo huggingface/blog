@@ -10,7 +10,6 @@ authors:
 
 # WWDC 24: Running Mistral 7B with Core ML
 
-
 WWDC’ 24 is the moment Apple officially unveiled Apple Intelligence and
 reiterated their commitment to efficient, private, and on-device AI.
 During the keynote and the sessions that followed, they demonstrated
@@ -430,7 +429,7 @@ creating cool apps. There are a few things on our drawing board:
     out on a few example models. This work will be based on the
     learnings discussed in this [2022 (and still very relevant) article by Apple](https://machinelearning.apple.com/research/neural-engine-transformers).
     We won’t run Mistral 7B on iPhone, but there are several smaller
-    models, like Microsoft’s Phi or Apple’s OpenELM that make for great
+    models, like Apple’s OpenELM or DCLM that make for great
     candidates to explore!
 
 -   The code presented here is highly experimental. As summer goes on,
