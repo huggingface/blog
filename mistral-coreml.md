@@ -456,7 +456,7 @@ creating cool apps. There are a few things on our drawing board:
 
 ## How can you help?
 
-The tools released by Apple this week help us on our long-term goal to
+The tools released by Apple in WWDC help us on our long-term goal to
 make AI easy and accessible to all, and we’d love to see where you can
 take them. The example we showed is experimental, but you can use it to
 convert any Mistral fine-tune to Core ML – please let us know if you do!
