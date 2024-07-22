@@ -366,7 +366,7 @@ code will use this to download the tokenizer files from the Hub.
 Tokenization is converting text data to the numerical representations
 used by models, and it’s different for every model.
 
-```
+```python
 mlmodel_int4._spec.description.metadata.userDefined.update({
 "co.huggingface.exporters.name": MODEL_ID
 })
