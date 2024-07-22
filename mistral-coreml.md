@@ -36,7 +36,7 @@ Apple Intelligence features can only work this well
 because of the vertically integrated software stack that harnesses
 Apple Silicon's capabilities to the fullest. Apple also offers a platform for developers to run models on-device, known as
 Core ML. This software stack allows you to run ML models across all 3
-compute units (CPU, GPU & Neural Engine).
+compute units (CPU, GPU & Neural Engine) available on Apple Silicon hardware.
 
 In this blog post, we’ll be exploring some of the best new Core ML
 features to replicate the Mistral 7B example Apple showcased in the
