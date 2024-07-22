@@ -230,7 +230,6 @@ we don’t need real data.
 
 ```python
 input_ids = torch.zeros((1, 2), dtype=torch.int32)
-
 causal_mask = torch.zeros((1, 1, 2, 5), dtype=torch.float32)
 
 traced_model = torch.jit.trace(torch_model, [input_ids, causal_mask])
