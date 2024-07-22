@@ -336,9 +336,7 @@ Let’s use that configuration to quantize the model. The following line
 will take a few minutes to run:
 
 ```python
-mlmodel_int4 =
-ct.optimize.coreml.linear_quantize_weights(mlmodel_fp16,
-config=config)
+mlmodel_int4 = ct.optimize.coreml.linear_quantize_weights(mlmodel_fp16, config=config)
 
 mlmodel_int4.save("StatefulMistral7BInstructInt4.mlpackage")
 
