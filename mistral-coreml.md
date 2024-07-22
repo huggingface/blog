@@ -217,9 +217,9 @@ The first step is to load the model. We’ll use the patched
 implementation with the in-place cache method.
 
 ```python
-from modeling import WrappedWithStateMistralForCausalLM
 MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.3"
-torch_model = WrappedWithStateMistralForCausalLM(MODEL_ID)
+torch_model = StatefulMistralForCausalLM(MODEL_ID)
+torch_model.eval()
 ```
 
 Before running Core ML conversion, we need to trace the model with
