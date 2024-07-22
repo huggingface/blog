@@ -10,17 +10,6 @@ authors:
 
 # WWDC 24: Running Mistral 7B with Core ML
 
-Table of Contents:
-1.  What is Core ML? and Why on-device?
-2.  What does it take to run a LLM on-device?
-3.  What’s new in this release?
-4.  How do you convert the Mistral 7B model?
-5.  How to run the model?
-6.  Benchmarks
-7.  What next?
-
-
-### What is Core ML? Why on-device?
 
 WWDC’ 24 is the moment Apple officially unveiled Apple Intelligence and
 reiterated their commitment to efficient, private, and on-device AI.
@@ -52,7 +41,7 @@ silicon](https://developer.apple.com/videos/play/wwdc2024/10159/)
 session, where part of the Mistral 7B conversion process is shown.
 
 Let’s see what steps to take to run it as efficiently as possible, and
-learn the new tools available in iOS 18 & MacOS Sequoia.
+learn the new tools available in iOS 18 & macOS Sequoia.
 
 This is what we’ll be building today:
 
@@ -63,12 +52,12 @@ Video: Mistral 7B running with Core ML.
 
 ## TL;DR
 
-By the end of this blog post, you would’ve learnt all the new goodies
-accompanying the latest MacOS release AND you will have successfully run
+By the end of this blog post, you will have learnt all the new goodies
+accompanying the latest macOS release AND you will have successfully run
 a 7B parameter model using less than 4GB of memory on your Mac.
 
-Step 1: Clone Github repo: git clone -b preview [`https://github.com/huggingface/swift-transformers`](https://github.com/huggingface/swift-transformers)
-Step 2: Clone the HuggingFace repo [`here`](https://huggingface.co/coreml-projects/mistral-coreml)
+Step 1: Clone the `preview` branch of the `swift-transformers` repo: git clone -b preview [`https://github.com/huggingface/swift-transformers`](https://github.com/huggingface/swift-transformers)
+Step 2: Download the converted Core ML models from [`this Hugging Face repo`](https://huggingface.co/coreml-projects/mistral-coreml)
 Step 3: Run inference using Swift: `swift run transformers "Best recommendations for a place to visit in Paris in August 2024:" --max-length 200 Mistral7B-CoreML/StatefulMistralInstructInt4.mlpackage`
 
 ## Best new Core ML features from WWDC’ 24
@@ -156,8 +145,8 @@ update about stateful models.
 ### New Quantization Techniques
 
 In WWDC 23, we explored a very cool technique called palletization, and
-we showed how it could help bring text-to-image models, such as Stable
-Diffusion, to Macs and iPhones.
+we showed how it could help bring text-to-image models, [such as Stable
+Diffusion](https://huggingface.co/blog/fast-diffusers-coreml), to Macs and iPhones.
 
 Whilst these techniques allow you to reduce the size considerably, if
 pushed too far, the impact on quality is drastic. Bigger models suffer
@@ -245,8 +234,8 @@ input_ids = torch.zeros((1, 2), dtype=torch.int32)
 
 causal_mask = torch.zeros((1, 1, 2, 5), dtype=torch.float32)
 
-traced_model = torch.jit.trace(torch_model, \[input_ids,
-causal_mask\])
+traced_model = torch.jit.trace(torch_model, [input_ids,
+causal_mask])
 
 ```
 
@@ -263,7 +252,7 @@ default=1)
 end_step_dim = ct.RangeDim(lower_bound=1, upper_bound=2048,
 default=1)
 
-inputs = \[
+inputs = [
 
 ct.TensorType(shape=(1, query_length), dtype=np.int32,
 name="inputIds"),
@@ -271,16 +260,16 @@ name="inputIds"),
 ct.TensorType(shape=(1, 1, query_length, end_step_dim),
 dtype=np.float16, name="causalMask"),
 
-\]
+]
 
-outputs = \[ct.TensorType(dtype=np.float16, name="logits")\]
+outputs = [ct.TensorType(dtype=np.float16, name="logits")]
 
 ```
 
 In addition to the sequence tokens (called `inputIds` in the example
 above), there’s another input called `causalMask`, which specifies the
 tokens the model needs to pay attention to. This is mostly used when
-generating multiple sequences at the same time using batching. Checkout
+generating multiple sequences at the same time using batching. Check out
 how these inputs are used in an [example runner
 here](https://github.com/huggingface/swift-transformers-staging/blob/wwdc24/Examples/Mistral7B/generate.py#L29-L42).
 
@@ -301,10 +290,10 @@ buffer during conversion.
 ```python
 # Specify kv-cache states by using `StateType`.
 
-states = \[
+states = [
 ct.StateType(wrapped_type=ct.TensorType(shape=torch_model.kv_cache_shape, dtype=np.float16), name="keyCache"),
 ct.StateType(wrapped_type=ct.TensorType(shape=torch_model.kv_cache_shape, dtype=np.float16), name="valueCache"),
-\]
+]
 
 ```
 
@@ -330,7 +319,7 @@ mlmodel_fp16 = ct.convert(
 ### Model Compression
 
 Using the new block-size quantization strategies described above, we use
-4-bit linear quantization with a block size 32. This will greatly reduce
+4-bit linear quantization with block size 32. This will greatly reduce
 model size and make the model run faster. Even though computation will
 still be performed in `float16`, weights are transferred in 4-bit mode
 and decompressed on the fly, which is more efficient than transferring a
@@ -351,7 +340,8 @@ config = ct.optimize.coreml.OptimizationConfig(global_config=op_config)
 Let’s use that configuration to quantize the model. The following line
 will take a few minutes to run:
 
-```mlmodel_int4 =
+```python
+mlmodel_int4 =
 ct.optimize.coreml.linear_quantize_weights(mlmodel_fp16,
 config=config)
 
