@@ -934,7 +934,7 @@ What’s next? Besides the example above, `distilabel` comes with exciting appro
 ## Additional Resources
 
 - [Models on the Hub](https://huggingface.co/collections/meta-llama/llama-31-669fc079a0c406a149a5738f)
-- [Hugging Face Llama Receipes](https://github.com/huggingface/huggingface-llama-recipes)
+- [Hugging Face Llama Recipes](https://github.com/huggingface/huggingface-llama-recipes)
 - [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
 - [Chat demo on Hugging Chat](https://huggingface.co/chat/models/meta-llama/Meta-Llama-3.1-405b-instruct/)
 - [Meta Blog](TOOD:)
