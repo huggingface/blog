@@ -35,8 +35,6 @@ Among the features and integrations being released, we have:
 
 ## Table of contents 
 
-- [Llama 3.1 - 405B, 70B \& 8B with multilinguality and long context](#llama-31---405b-70b--8b-with-multilinguality-and-long-context)
-  - [Table of contents](#table-of-contents)
   - [What’s new with Llama 3.1?](#whats-new-with-llama-31)
   - [How much memory does Llama 3.1 need?](#how-much-memory-does-llama-31-need)
     - [Inference Memory Requirements](#inference-memory-requirements)
