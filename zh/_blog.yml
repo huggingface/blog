@@ -1778,3 +1778,25 @@
     - community
     - research
     - leaderboard
+
+- local: intel-protein-language-model-protst
+  title: 在英特尔 Gaudi 2 上加速蛋白质语言模型 ProtST
+  author: juliensimon
+  thumbnail: /blog/assets/intel-protein-language-model-protst/01.jpeg
+  date: July 3, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
+
+- local: dpo_vlm
+  title: "为视觉语言多模态模型进行偏好优化"
+  author: qgallouedec
+  thumbnail: /blog/assets/dpo_vlm/thumbnail.png
+  date: July 10, 2024
+  tags:
+    - vlm
+    - multimodal
+    - trl
+    - rlhf
+    - dpo
