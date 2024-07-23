@@ -24,7 +24,7 @@ In addition to the six generative models, Meta released two new models: Llama Gu
 Among the features and integrations being released, we have:
 
 
-* [Models on the Hub](https://huggingface.co/collections/meta-llama/llama-31-release-669fc079a0c406a149a5738f)
+* [Models on the Hub](https://huggingface.co/collections/meta-llama/llama-31-669fc079a0c406a149a5738f)
 * Hugging Face Transformers and TGI integration
 * [Hugging Chat integration for Meta Llama 3.1 405B Instruct](https://huggingface.co/chat/models/meta-llama/Meta-Llama-3.1-405b-instruct/)
 * Inference & Deployment Integration with Inference Endpoints, Google Cloud, Amazon SageMaker & DELL Enterprise Hub
@@ -933,7 +933,7 @@ What’s next? Besides the example above, `distilabel` comes with exciting appro
 
 ## Additional Resources
 
-- [Models on the Hub](https://huggingface.co/collections/meta-llama/llama-31-release-669fc079a0c406a149a5738f)
+- [Models on the Hub](https://huggingface.co/collections/meta-llama/llama-31-669fc079a0c406a149a5738f)
 - [Hugging Face Llama Receipes](https://github.com/huggingface/huggingface-llama-recipes)
 - [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
 - [Chat demo on Hugging Chat](https://huggingface.co/chat/models/meta-llama/Meta-Llama-3.1-405b-instruct/)
