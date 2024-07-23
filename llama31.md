@@ -582,7 +582,7 @@ The Instruct versions support conversational format with 4 roles:
 1. **system:** Sets the context for the conversation. It allows including rules, guidelines, or necessary information that help to respond effectively. It’s also used to enable tool use when appropriate.
 2. **user:** User inputs, commands, and questions for the models.
 3. **assistant:** The assistant's response, based on the context provided in the ‘system’ and ‘user’ prompts.
-4. **ipython:** A new role introduced in Llama 3.1. This role is used as the output of a tool call when sent back to the LLM.  \
+4. **ipython:** A new role introduced in Llama 3.1. This role is used as the output of a tool call when sent back to the LLM.
 
 
 The Instruct versions use the following conversation structure for simple conversations:
