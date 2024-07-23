@@ -780,7 +780,7 @@ from huggingface_hub import InferenceClient
 
 # Initialize the client, pointing it to one of the available models
 client = InferenceClient(
-    base_url="<ENDPOINT_URL>" + "/v1/",
+    base_url="<ENDPOINT_URL>",
 )
 
 # Create a chat completion
