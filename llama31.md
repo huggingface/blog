@@ -756,7 +756,7 @@ chat_completion = client.chat.completions.create(
         {"role": "system", "content": "You are a helpful an honest programming assistant."},
         {"role": "user", "content": "Is Rust better than Python?"},
     ],
-    stream=False,
+    stream=True,
     max_tokens=500
 )
 
@@ -776,12 +776,11 @@ You can deploy Llama 3.1 on Hugging Face's [Inference Endpoints](https://ui.endp
 * [Meta-Llama-3.1-405B-Instruct-FP8](https://huggingface.co/sllhf/Meta-Llama-3.1-405B-Instruct-FP8) is recommended on 8x NVIDIA H100 in FP or as [AWQ](https://huggingface.co/hugging-quants/Meta-Llama-3.1-405B-Instruct-AWQ-INT4)/[GPTQ](https://huggingface.co/hugging-quants/Meta-Llama-3.1-405B-Instruct-GPTQ-INT4) quantized on 8x A100s
 
 ```python
-from huggingface_hub import InferenceClient, get_token
+from huggingface_hub import InferenceClient
 
 # Initialize the client, pointing it to one of the available models
 client = InferenceClient(
     base_url="<ENDPOINT_URL>" + "/v1/",
-    api_key=get_token(),
 )
 
 # Create a chat completion
