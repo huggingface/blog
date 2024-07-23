@@ -3,9 +3,9 @@ title: "WWDC 24: Running Mistral 7B with Core ML"
 thumbnail: /blog/assets/mistral-coreml/thumbnail.png
 authors:
 - user: pcuenq
-- user: osanseviero
-- user: reach-vb
 - user: FL33TW00D-HF
+- user: reach-vb
+- user: osanseviero
 ---
 
 # WWDC 24: Running Mistral 7B with Core ML
