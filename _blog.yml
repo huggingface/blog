@@ -4428,3 +4428,14 @@
     - llm
     - swift
     - wwdc
+
+- local: llama31
+  title: "Llama 3.1 - 405B, 70B & 8B with multilinguality and long context"
+  author: philschmid
+  thumbnail: /blog/assets/llama31/thumbnail.jpg
+  date: July 23, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
