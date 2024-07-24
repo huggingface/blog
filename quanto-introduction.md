@@ -44,7 +44,7 @@ on what matters most, exploring low-bitwidth machine learning and finding soluti
 Quanto is available as a pip package.
 
 ```sh
-pip install quanto
+pip install optimum-quanto
 ```
 
 [quanto](https://github.com/huggingface/quanto) does not make a clear distinction between dynamic and static quantization. Models are dynamically quantized first,
