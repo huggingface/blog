@@ -820,7 +820,7 @@ if __name__ == "__main__":
 - [Hugging Face Llama Recipes](https://github.com/huggingface/huggingface-llama-recipes)
 - [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
 - [Llama 3.1 405B Instruct 的 Hugging Chat 演示](https://huggingface.co/chat/models/meta-llama/Meta-Llama-3.1-405b-instruct/)
-- [Meta 博客](TODO:)
+- [Meta 博客](https://ai.meta.com/blog/meta-llama-3-1/)
 
 ## 致谢
 
