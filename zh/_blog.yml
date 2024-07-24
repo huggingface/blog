@@ -1800,3 +1800,14 @@
     - trl
     - rlhf
     - dpo
+
+- local: llama31
+  title: "Llama 3.1：405B/70B/8B 模型的跨语言与长上下文能力解析"
+  author: philschmid
+  thumbnail: /blog/assets/llama31/thumbnail.jpg
+  date: July 23, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
