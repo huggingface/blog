@@ -3,7 +3,6 @@ title: "LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need 
 authors:
 - user: danaaubakirova
 - user: andito 
-  guest: true
 
 ---
 
