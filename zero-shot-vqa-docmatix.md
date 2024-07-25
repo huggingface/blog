@@ -1,5 +1,6 @@
 ---
 title: "LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need Fine-Tuning?" 
+thumbnail: /assets/184_zero_shot_docmatix/thumb.001.jpeg
 authors:
 - user: danaaubakirova
 - user: andito 
@@ -7,11 +8,6 @@ authors:
 ---
 
 # LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need Fine-Tuning?
- 
-<div align="center">
-    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/LujEJcY27jndsD2XTpw-P.png" alt="VQA Evaluation" style="width: 90%; border: none;">
-</div>
-
 
 What happens when we apply zero-shot VQA to a synthetic dataset? As illustrated in the Figure 1, the generated answers often semantically align with the reference answers. However, most traditional VQA metrics fall into the 'very low' range. This raises the question: Should we fine-tune the models, or should we develop new metrics that account for distribution shifts and focus on capturing the core meaning of answers?
 
