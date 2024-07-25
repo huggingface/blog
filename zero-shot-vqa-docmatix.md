@@ -27,7 +27,6 @@ Our community has recently focused on out-of-distribution (OOD) evaluation, util
 
 Traditionally, VQA Accuracy has been the main metric for evaluating model performance. It relies on exact string matching between a model's predicted answer and a set of reference answers annotated by humans. This metric worked well because VQA evaluation followed an independent and identically distributed (IID) paradigm, where training and testing data distributions were similar, allowing models to adapt effectively [See details here](https://arxiv.org/pdf/2205.12191).
 
-In OOD settings, generated answers might not match reference answers despite being correct due to differences in format, specificity, or interpretation. This paradigm is perfectly illustrated in the Figure 1, where we compare the zero-shot generated captions vs the reference captions from the synthetic dataset. This is particularly true for instruction-generated datasets and their human-curated counterparts.  Some [methods](https://proceedings.mlr.press/v202/li23q.html) have attempted to align answer formats with references, but this only addresses the symptom, not the root cause of flawed evaluation metrics. While human evaluation is reliable, it is costly and not scalable, highlighting the need for metrics that better align with human judgment. 
 
 
 ## Method
