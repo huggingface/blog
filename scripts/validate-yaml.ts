@@ -21,8 +21,14 @@ for (const lang of ["", "zh/"]) {
     const relativePath = `${lang}_blog.yml`;
     console.log(`Validating ${relativePath}`);
 
+    const localMdFiles = [...Deno.readDirSync("../" + lang)].map((entry) =>
+      entry.name
+    ).filter((name) => name.endsWith(".md")).map((name) =>
+      name.slice(0, -".md".length)
+    );
+
     z.array(z.object({
-      local: z.string(),
+      local: z.enum([...localMdFiles] as [string, ...string[]]),
       title: z.string(),
       thumbnail: z.string().optional(),
       author: z.string(),
