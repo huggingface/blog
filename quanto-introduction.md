@@ -1,5 +1,5 @@
 ---
-title: "Quanto: a pytorch quantization backend for optimum"
+title: "Quanto: a PyTorch quantization backend for Optimum"
 thumbnail: /blog/assets/169_quanto_intro/thumbnail.png
 authors:
 - user: dacorvo
@@ -7,7 +7,7 @@ authors:
 - user: marcsun13
 ---
 
-# Quanto: a pytorch quantization backend for optimum
+# Quanto: a PyTorch quantization backend for Optimum
 
 Quantization is a technique to reduce the computational and memory costs of evaluating Deep Learning Models by representing their weights and activations with low-precision data types like 8-bit integer (int8) instead of the usual 32-bit floating point (float32).
 
@@ -18,7 +18,7 @@ Many open-source libraries are available to quantize pytorch Deep Learning Model
 
 Also, although they are based on the same design principles, they are unfortunately often incompatible with one another.
 
-Today, we are excited to introduce [quanto](https://github.com/huggingface/optimum-quanto), a pytorch quantization backend for [Optimum](https://huggingface.co/docs/optimum/index).
+Today, we are excited to introduce [quanto](https://github.com/huggingface/optimum-quanto), a PyTorch quantization backend for [Optimum](https://huggingface.co/docs/optimum/index).
 
 It has been designed with versatility and simplicity in mind:
 
@@ -28,7 +28,7 @@ It has been designed with versatility and simplicity in mind:
 - automatically inserts quantized functional operations,
 - automatically inserts quantized modules (see below the list of supported modules),
 - provides a seamless workflow from a float model to a dynamic to a static quantized model,
-- serialization compatible with pytorch `weight_only` and 🤗 `safetensors`,
+- serialization compatible with PyTorch `weight_only` and 🤗 [Safetensors](https://huggingface.co/docs/safetensors/index),
 - accelerated matrix multiplications on CUDA devices (int8-int8, fp16-int4, bf16-int8, bf16-int4),
 - supports int2, int4, int8 and float8 weights,
 - supports int8 and float8 activations.
@@ -59,7 +59,7 @@ At this stage, only the inference of the model is modified to dynamically quanti
 
 **2. Calibrate (optional if activations are not quantized)**
 
-Quanto supports a calibration mode that allows to record the activation ranges while passing representative samples through the quantized model.
+Quanto supports a calibration mode that allows the recording of the activation ranges while passing representative samples through the quantized model.
 
 ```python
 from optimum.quanto import Calibration
@@ -109,8 +109,8 @@ from safetensors.torch import save_file
 save_file(model.state_dict(), 'model.safetensors')
 ```
 
-In order to be able to reload these weights, you also need to store the quantized
-model quantization map.
+In order to reload these weights, you also need to store the quantized
+models quantization map.
 
 ```python
 import json
@@ -124,7 +124,7 @@ with open('quantization_map.json', w) as f:
 **5. Reload a quantized model**
 
 A serialized quantized model can be reloaded from a `state_dict` and a `quantization_map` using the `requantize` helper.
-Note that you need first to instantiate an empty model.
+Note that you need to first instantiate an empty model.
 
 ```python
 import json
