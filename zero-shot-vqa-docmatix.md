@@ -32,12 +32,12 @@ In OOD settings, generated answers might not match reference answers despite bei
 
 ## Method
 
-[Docmatix](https://huggingface.co/blog/docmatix) is the largest synthetic DocVQA dataset, generated from the curated document dataset, [PDFA](https://huggingface.co/datasets/pixparse/pdfa-eng-wds). It is 100x larger than previously available datasets. The human-curated counterpart is DocVQA, which serves as an evaluation benchmark for VQA models for Document Understanding.  In this post, we are going to use **the subset of Docmatix** which consists areound of 1700 train and 200 test samples, which can be downloaded here [Docmatix-zero-shot-exp](https://huggingface.co/datasets/HuggingFaceM4/Docmatix/viewer/zero-shot-exp). 
+[Docmatix](https://huggingface.co/blog/docmatix) is the largest synthetic DocVQA dataset, generated from the curated document dataset, [PDFA](https://huggingface.co/datasets/pixparse/pdfa-eng-wds). It is 100x larger than previously available datasets. The human-curated counterpart is DocVQA, which serves as an evaluation benchmark for VQA models for Document Understanding.  In this post, we are going to use **the subset of Docmatix** which consists around 200 test samples, which can be downloaded here [Docmatix-zero-shot-exp](https://huggingface.co/datasets/HuggingFaceM4/Docmatix/viewer/zero-shot-exp). 
 
 
-<div style="display: flex; justify-content: space-around;">
-    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/JA4-est_L4ZkQFCP5FAuj.png" alt="Image 1" style="max-width: 45%; height: auto;">
-    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/LNF27TEwKnj3cHA1Hgm8b.png" alt="Image 2" style="max-width: 45%; height: auto;">
+<div style="display: flex; justify-content: center; align-items: center; gap: 0px; width: 100%; margin: 0 auto;">
+    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/feXi3iSLo8hBXTh2y8NnR.png" alt="Image 1" style="width: 45%; height: auto; object-fit: cover;">
+    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/2X4KdrTi6M8VYU6hOdmk1.png" alt="Image 2" style="width: 45%; height: auto; object-fit: cover;">
 </div>
 <p align="center">
   <em> Figure 2: The examples of Q&A pairs from Docmatix and DocVQA test set. Note: the corresponding images are not shown here. </em>
