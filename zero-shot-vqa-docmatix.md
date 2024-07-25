@@ -49,6 +49,17 @@ In OOD settings, generated answers might not match reference answers despite bei
 
 Although the content of the question and answer pairs in Docmatix and DocVQA is similar, their styles differ significantly. Traditional metrics like CIDER, ANLS, and BLEU can be overly restrictive for zero-shot evaluation in this context. Motivated by the similarity of the embeddings observed in t-SNE (Figure 1), we decided to use a different evaluation metric. In this post, we consider the LAVE metric to better assess generalization on this unseen but semantically similar dataset.
 
+<div style="display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; margin: 0 auto;">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/C4twDu9D6cw0XHdA57Spe.png" alt="Image 1" style="width: 30%; height: auto; object-fit: cover;">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/pYsiOyToOXzRitmRidejW.png" alt="Image 2" style="width: 30%; height: auto; object-fit: cover;">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/uM6IPAAvjyiYTPJXdB10w.png" alt="Image 3" style="width: 30%; height: auto; object-fit: cover;">
+</div>
+
+
+<p align="left">
+  <em> Figure 5: t-SNE visualization of Question, Answer and Image features from Docmatix and DocVQA datasets </em>
+</p>
+
 For our evaluation, we chose [MPLUGDocOwl1.5](https://arxiv.org/pdf/2403.12895) as a baseline model. This model achieves an 84% ANLS score on the test subset of the original DocVQA dataset. We then ran a zero-shot generation on a subset of Docmatix, consisting of 200 images. We used [Llama-2-Chat-7b](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) for rating the answers. 
 
 ## About LAVE
@@ -100,16 +111,6 @@ The results of our evaluation are summarized in the table below:
     <td style="border: 1px solid black; padding: 8px; text-align: center;">0.58</td>
   </tr>
 </table>
-
-<div style="display: flex; justify-content: space-around;">
-    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/C4twDu9D6cw0XHdA57Spe.png" alt="Image 1" style="max-width: 25%; height: auto;">
-    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/pYsiOyToOXzRitmRidejW.png" alt="Image 2" style="max-width: 25%; height: auto;">
-    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/uM6IPAAvjyiYTPJXdB10w.png" alt="Image 3" style="max-width: 25%; height: auto;">
-</div>
-
-<p align="left">
-  <em> Figure 5: t-SNE visualization of Question, Answer and Image features from Docmatix and DocVQA datasets </em>
-</p>
 
 ## Qualitative Examples
 
