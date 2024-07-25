@@ -88,9 +88,9 @@ The results of our evaluation are summarized in the table below:
 </table>
 
 <div style="display: flex; justify-content: space-around;">
-    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/C4twDu9D6cw0XHdA57Spe.png" alt="Image 1" style="max-width: 30%; height: auto; margin: 5px;">
-    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/pYsiOyToOXzRitmRidejW.png" alt="Image 2" style="max-width: 30%; height: auto; margin: 5px;">
-    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/uM6IPAAvjyiYTPJXdB10w.png" alt="Image 3" style="max-width: 30%; height: auto; margin: 5px;">
+    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/C4twDu9D6cw0XHdA57Spe.png" alt="Image 1" style="max-width: 25%; height: auto; margin: 5px;">
+    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/pYsiOyToOXzRitmRidejW.png" alt="Image 2" style="max-width: 25%; height: auto; margin: 5px;">
+    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/uM6IPAAvjyiYTPJXdB10w.png" alt="Image 3" style="max-width: 25%; height: auto; margin: 5px;">
 </div>
 
 <p align="left">
@@ -118,8 +118,56 @@ The results of our evaluation are summarized in the table below:
 
 ## Are we too strict in evaluating VQA systems and do we need finetuning?
 
-We have approximately 50% accuracy when using LLMs to evaluate responses, indicating that answers can be correct despite not adhering to a strict format. This suggests that our current evaluation metrics may be too rigid. It’s important to note that this is not a comprehensive research paper, and more ablation studies are needed to fully understand the effectiveness of different metrics on the evaluation of zero-shot performance on synthetic dataset.  We hope this work serves as a starting point to broaden the current research focus on improving the evaluation of zero-shot vision-language models within the context of synthetic datasets and to explore more efficient approaches beyond prompt learning.
+We have approximately 50% accuracy gain when using LLMs to evaluate responses, indicating that the answers can be correct despite not adhering to a strict format. This suggests that our current evaluation metrics may be too rigid. It’s important to note that this is not a comprehensive research paper, and more ablation studies are needed to fully understand the effectiveness of different metrics on the evaluation of zero-shot performance on synthetic dataset.  We hope this work serves as a starting point to broaden the current research focus on improving the evaluation of zero-shot vision-language models within the context of synthetic datasets and to explore more efficient approaches beyond prompt learning.
 
 ## References
 
-[FIXME: add bibtex refs]
+```
+@inproceedings{cascante2022simvqa,
+  title={Simvqa: Exploring simulated environments for visual question answering},
+  author={Cascante-Bonilla, Paola and Wu, Hui and Wang, Letao and Feris, Rogerio S and Ordonez, Vicente},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={5056--5066},
+  year={2022}
+}
+
+@article{hu2024mplug,
+  title={mplug-docowl 1.5: Unified structure learning for ocr-free document understanding},
+  author={Hu, Anwen and Xu, Haiyang and Ye, Jiabo and Yan, Ming and Zhang, Liang and Zhang, Bo and Li, Chen and Zhang, Ji and Jin, Qin and Huang, Fei and others},
+  journal={arXiv preprint arXiv:2403.12895},
+  year={2024}
+}
+
+@article{agrawal2022reassessing,
+  title={Reassessing evaluation practices in visual question answering: A case study on out-of-distribution generalization},
+  author={Agrawal, Aishwarya and Kaji{\'c}, Ivana and Bugliarello, Emanuele and Davoodi, Elnaz and Gergely, Anita and Blunsom, Phil and Nematzadeh, Aida},
+  journal={arXiv preprint arXiv:2205.12191},
+  year={2022}
+}
+
+@inproceedings{li2023blip,
+  title={Blip-2: Bootstrapping language-image pre-training with frozen image encoders and large language models},
+  author={Li, Junnan and Li, Dongxu and Savarese, Silvio and Hoi, Steven},
+  booktitle={International conference on machine learning},
+  pages={19730--19742},
+  year={2023},
+  organization={PMLR}
+}
+@inproceedings{manas2024improving,
+  title={Improving automatic vqa evaluation using large language models},
+  author={Ma{\~n}as, Oscar and Krojer, Benno and Agrawal, Aishwarya},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={38},
+  number={5},
+  pages={4171--4179},
+  year={2024}
+}
+
+@article{li2023scigraphqa,
+  title={Scigraphqa: A large-scale synthetic multi-turn question-answering dataset for scientific graphs},
+  author={Li, Shengzhi and Tajbakhsh, Nima},
+  journal={arXiv preprint arXiv:2308.03349},
+  year={2023}
+}
+
+```
