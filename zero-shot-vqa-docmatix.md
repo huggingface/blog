@@ -4,13 +4,9 @@
     <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/LujEJcY27jndsD2XTpw-P.png" alt="VQA Evaluation" style="width: 90%; border: none;">
 </div>
 
-## Introduction
 
-Our community has recently focused on out-of-distribution (OOD) evaluation, utilizing methods like zero-shot transfer to unseen VQA tasks or fine-tuning on one VQA dataset and evaluating on another. This shift is increasingly relevant with the rise of synthetic datasets such as Docmatix, SciGraphQA, SimVQA used to fine-tune Vision Language Models (VLMs).
+What happens when we apply zero-shot VQA to a synthetic dataset? As illustrated in the Figure 1, the generated answers often semantically align with the reference answers. However, most traditional VQA metrics fall into the 'very low' range. This raises the question: Should we fine-tune the models, or should we develop new metrics that account for distribution shifts and focus on capturing the core meaning of answers?
 
-Traditionally, VQA Accuracy has been the main metric for evaluating model performance. It relies on exact string matching between a model's predicted answer and a set of reference answers annotated by humans. This metric worked well because VQA evaluation followed an independent and identically distributed (IID) paradigm, where training and testing data distributions were similar, allowing models to adapt effectively [See details here](https://arxiv.org/pdf/2205.12191).
-
-In OOD settings, generated answers might not match reference answers despite being correct due to differences in format, specificity, or interpretation. This paradigm is perfectly illustrated in the Figure 1, where we compare the zero-shot generated captions vs the reference captions from the synthetic dataset. This is particularly true for instruction-generated datasets and their human-curated counterparts.  Some [methods](https://proceedings.mlr.press/v202/li23q.html) have attempted to align answer formats with references, but this only addresses the symptom, not the root cause of flawed evaluation metrics. While human evaluation is reliable, it is costly and not scalable, highlighting the need for metrics that better align with human judgment. 
 
 <div align="center">
     <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/RaQZkkcnTAcS80pPyt55J.png" alt="VQA Evaluation" style="width: 55%; border: none;">
@@ -20,9 +16,18 @@ In OOD settings, generated answers might not match reference answers despite bei
   <em> Figure 1: t-SNE visualization of Zero-Shot Generated and Reference Answers from Docmatix dataset </em>
 </p> 
 
+## Introduction
+
+Our community has recently focused on out-of-distribution (OOD) evaluation, utilizing methods like zero-shot transfer to unseen VQA tasks or fine-tuning on one VQA dataset and evaluating on another. This shift is increasingly relevant with the rise of synthetic datasets such as Docmatix, SciGraphQA, SimVQA used to fine-tune Vision Language Models (VLMs).
+
+Traditionally, VQA Accuracy has been the main metric for evaluating model performance. It relies on exact string matching between a model's predicted answer and a set of reference answers annotated by humans. This metric worked well because VQA evaluation followed an independent and identically distributed (IID) paradigm, where training and testing data distributions were similar, allowing models to adapt effectively [See details here](https://arxiv.org/pdf/2205.12191).
+
+In OOD settings, generated answers might not match reference answers despite being correct due to differences in format, specificity, or interpretation. This paradigm is perfectly illustrated in the Figure 1, where we compare the zero-shot generated captions vs the reference captions from the synthetic dataset. This is particularly true for instruction-generated datasets and their human-curated counterparts.  Some [methods](https://proceedings.mlr.press/v202/li23q.html) have attempted to align answer formats with references, but this only addresses the symptom, not the root cause of flawed evaluation metrics. While human evaluation is reliable, it is costly and not scalable, highlighting the need for metrics that better align with human judgment. 
+
+
 ## Method
 
-[Docmatix](https://huggingface.co/blog/docmatix) is the largest synthetic DocVQA dataset, generated from the curated document dataset, [PDFA] (https://huggingface.co/datasets/pixparse/pdfa-eng-wds). It is 100x larger than previously available datasets. The human-curated counterpart is DocVQA, which serves as an evaluation benchmark for VQA models for Document Understanding.  In this post, we are going to use **the subset of Docmatix** which consists areound of 1700 train and 200 test samples, which can be downloaded here [Docmatix-zero-shot-exp](https://huggingface.co/datasets/HuggingFaceM4/Docmatix/viewer/zero-shot-exp). 
+[Docmatix](https://huggingface.co/blog/docmatix) is the largest synthetic DocVQA dataset, generated from the curated document dataset, [PDFA](https://huggingface.co/datasets/pixparse/pdfa-eng-wds). It is 100x larger than previously available datasets. The human-curated counterpart is DocVQA, which serves as an evaluation benchmark for VQA models for Document Understanding.  In this post, we are going to use **the subset of Docmatix** which consists areound of 1700 train and 200 test samples, which can be downloaded here [Docmatix-zero-shot-exp](https://huggingface.co/datasets/HuggingFaceM4/Docmatix/viewer/zero-shot-exp). 
 
 
 <div style="display: flex; justify-content: space-around;">
@@ -88,9 +93,9 @@ The results of our evaluation are summarized in the table below:
 </table>
 
 <div style="display: flex; justify-content: space-around;">
-    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/C4twDu9D6cw0XHdA57Spe.png" alt="Image 1" style="max-width: 25%; height: auto; margin: 5px;">
-    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/pYsiOyToOXzRitmRidejW.png" alt="Image 2" style="max-width: 25%; height: auto; margin: 5px;">
-    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/uM6IPAAvjyiYTPJXdB10w.png" alt="Image 3" style="max-width: 25%; height: auto; margin: 5px;">
+    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/C4twDu9D6cw0XHdA57Spe.png" alt="Image 1" style="max-width: 25%; height: auto;">
+    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/pYsiOyToOXzRitmRidejW.png" alt="Image 2" style="max-width: 25%; height: auto;">
+    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/uM6IPAAvjyiYTPJXdB10w.png" alt="Image 3" style="max-width: 25%; height: auto;">
 </div>
 
 <p align="left">
