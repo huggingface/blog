@@ -122,7 +122,7 @@ The results of our evaluation are summarized in the table below:
 <div align="center">
     <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/scly6WR_2Wvrk5qd05cx4.png" alt="VQA Evaluation" style="width:120%, border: none;">
 </div>
-<p align="left">
+<p align="center">
   <em> Figure 3: Llama rating and rationale for the generated and reference answers from Docmatix test subset. </em>
 </p> 
 
