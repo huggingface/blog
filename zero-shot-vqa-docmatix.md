@@ -66,7 +66,7 @@ Although the content of the question and answer pairs in Docmatix and DocVQA is 
 </div>
 
 
-<p align="left">
+<p align="center">
   <em> Figure 5: t-SNE visualization of Question, Answer and Image features from Docmatix and DocVQA datasets </em>
 </p>
 
