@@ -32,7 +32,11 @@ In OOD settings, generated answers might not match reference answers despite bei
 
 ## Method
 
+<<<<<<< HEAD
 [Docmatix](https://huggingface.co/blog/docmatix) is the largest synthetic DocVQA dataset, generated from the curated document dataset, [PDFA](https://huggingface.co/datasets/pixparse/pdfa-eng-wds). It is 100x larger than previously available datasets. The human-curated counterpart is DocVQA, which serves as an evaluation benchmark for VQA models for Document Understanding.  In this post, we are going to use **the subset of Docmatix** which consists around 200 test samples, which can be downloaded here [Docmatix-zero-shot-exp](https://huggingface.co/datasets/HuggingFaceM4/Docmatix/viewer/zero-shot-exp). 
+=======
+[Docmatix](https://huggingface.co/blog/docmatix) is the largest synthetic DocVQA dataset, generated from the curated document dataset, [PDFA] (https://huggingface.co/datasets/pixparse/pdfa-eng-wds). It is 100x larger than previously available datasets. The human-curated counterpart is DocVQA, which serves as an evaluation benchmark for VQA models for Document Understanding.  In this post, we are going to use **the subset of Docmatix** which consists areound of 1700 train and 200 test samples, which can be downloaded here [Docmatix-zero-shot-exp](https://huggingface.co/datasets/HuggingFaceM4/Docmatix/viewer/zero-shot-exp). 
+>>>>>>> cb908d4 (added the link to the Docmatix subset)
 
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 0px; width: 100%; margin: 0 auto;">
