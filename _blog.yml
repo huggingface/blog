@@ -4439,3 +4439,17 @@
     - community
     - research
     - LLM
+
+- local: lave
+  title: "LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need Fine-Tuning?" 
+  author: danaaubakirova
+  thumbnail: /blog/assets/184_zero_shot_docmatix/thumb.001.jpeg
+  date: Jul 25, 2024
+  tags:
+    - community
+    - evaluation
+    - synthetic-data
+    - vqa
+    - vlm
+    - zero-shot 
+    - research
