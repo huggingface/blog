@@ -518,7 +518,7 @@ _Note: We are currently evaluating Llama 3.1 individually on the new [Open LLM L
 
 ## Using Hugging Face Transformers 
 
-Llama 3.1 requires a minor modeling update to handle RoPE scaling effectively. With Transformers [release 4.43.2](https://github.com/huggingface/transformers/tags), you can use the new Llama 3.1 models and leverage all the tools within the Hugging Face ecosystem. Make sure to use the latest `transformers` release:
+Llama 3.1 requires a minor modeling update to handle RoPE scaling effectively. With Transformers [release 4.43.2](https://github.com/huggingface/transformers/releases/tag/v4.43.2), you can use the new Llama 3.1 models and leverage all the tools within the Hugging Face ecosystem. Make sure to use the latest `transformers` release:
 
 ```bash
 pip install "transformers>=4.43.2" --upgrade
