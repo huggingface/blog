@@ -1,6 +1,6 @@
 ---
 title: "LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need Fine-Tuning?" 
-thumbnail: /assets/184_zero_shot_docmatix/thumb.001.jpeg
+thumbnail: /blog/assets/184_zero_shot_docmatix/thumb.001.jpeg
 authors:
 - user: danaaubakirova
 - user: andito 
