@@ -9,14 +9,15 @@ authors:
 
 # LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need Fine-Tuning?
 
-What happens when we apply zero-shot VQA to a synthetic dataset? As illustrated in the Figure 1, the generated answers often semantically align with the reference answers. However, most traditional VQA metrics fall into the 'very low' range. This raises the question: Should we fine-tune the models, or should we develop new metrics that account for distribution shifts and focus on capturing the core meaning of answers?
+While developing Docmatix, we noticed that fine-tuning Florence-2 on it yielded great performance on DocVQA, but resulted in low scores on the benchmark. To enhance performance, we had to fine-tune the model further on DocVQA to learn the syntax required for the benchmark. Interestingly, this additional fine-tuning seemed to perform worse according to human evaluators, which is why we primarily used it for ablation studies and released the model only trained on Docmatix for broader use.
 
+Although the generated answers semantically align with the reference answers, as illustrated in Figure 1, they still receive low scores. This raises these questions: Should we fine-tune the models to improve these metrics, or should we develop new metrics that better align with human perception?
 
 <div align="center">
     <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/RaQZkkcnTAcS80pPyt55J.png" alt="VQA Evaluation" style="width: 55%; border: none;">
 </div>
 
-<p align="left">
+<p align="center">
   <em> Figure 1: t-SNE visualization of Zero-Shot Generated and Reference Answers from Docmatix dataset </em>
 </p> 
 
@@ -38,11 +39,11 @@ In OOD settings, generated answers might not match reference answers despite bei
     <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/JA4-est_L4ZkQFCP5FAuj.png" alt="Image 1" style="max-width: 45%; height: auto;">
     <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/LNF27TEwKnj3cHA1Hgm8b.png" alt="Image 2" style="max-width: 45%; height: auto;">
 </div>
-<p align="left">
+<p align="center">
   <em> Figure 2: The examples of Q&A pairs from Docmatix and DocVQA test set. Note: the corresponding images are not shown here. </em>
 </p> 
 
-Although the content of the question and answer pairs in Docmatix and DocVQA is similar, their styles differ significantly. Traditional metrics like CIDER, ANLS, and BLEU can be overly restrictive for zero-shot evaluation in this context. Motivated by the similarity of the embeddings observed in t-SNE (Figure 1), we decided to use a different evaluation metric. In this post, we consider the LAVE metric to better assess generalization on this unseen but semantically similar dataset.
+Although the content of the question and answer pairs in Docmatix and DocVQA is similar, their styles differ significantly. Traditional metrics like CIDER, ANLS, and BLEU can be overly restrictive for zero-shot evaluation in this context. Motivated by the similarity of the embeddings observed in t-SNE (Figure 1), we decided to use a different evaluation metric. In this post, we consider the LAVE (LLM-Assisted VQA Evaluation) metric to better assess generalization on this unseen but semantically similar dataset.
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; margin: 0 auto;">
   <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/C4twDu9D6cw0XHdA57Spe.png" alt="Image 1" style="width: 30%; height: auto; object-fit: cover;">
@@ -51,7 +52,7 @@ Although the content of the question and answer pairs in Docmatix and DocVQA is 
 </div>
 
 
-<p align="left">
+<p align="center">
   <em> Figure 5: t-SNE visualization of Question, Answer and Image features from Docmatix and DocVQA datasets </em>
 </p>
 
@@ -114,15 +115,15 @@ The results of our evaluation are summarized in the table below:
 </div>
 
 
-<p align="left">
-  <em> Figure 2: Llama rating and rationale. </em>
+<p align="center">
+  <em> Figure 2: Llama rating and rationale for the generated and reference answers from Docmatix test subset. </em>
 </p> 
 
 <div align="center">
     <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/scly6WR_2Wvrk5qd05cx4.png" alt="VQA Evaluation" style="width:120%, border: none;">
 </div>
 <p align="left">
-  <em> Figure 3: Llama rating and rationale. </em>
+  <em> Figure 3: Llama rating and rationale for the generated and reference answers from Docmatix test subset. </em>
 </p> 
 
 
