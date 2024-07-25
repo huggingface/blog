@@ -518,10 +518,10 @@ _Note: We are currently evaluating Llama 3.1 individually on the new [Open LLM L
 
 ## Using Hugging Face Transformers 
 
-Llama 3.1 requires a minor modeling update to handle RoPE scaling effectively. With Transformers [release 4.43](https://github.com/huggingface/transformers/tags), you can use the new Llama 3.1 models and leverage all the tools within the Hugging Face ecosystem. Make sure to use the latest `transformers` release:
+Llama 3.1 requires a minor modeling update to handle RoPE scaling effectively. With Transformers [release 4.43.2](https://github.com/huggingface/transformers/releases/tag/v4.43.2), you can use the new Llama 3.1 models and leverage all the tools within the Hugging Face ecosystem. Make sure to use the latest `transformers` release:
 
 ```bash
-pip install "transformers>=4.43" --upgrade
+pip install "transformers>=4.43.2" --upgrade
 ```
 
 A couple of details:
@@ -814,7 +814,7 @@ In this section, we’ll look at the tools available in the Hugging Face ecosyst
 First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
 
 ``` 
-pip install "transformers>=4.43" --upgrade
+pip install "transformers>=4.43.2" --upgrade
 pip install --upgrade bitsandbytes
 pip install --ugprade peft
 pip install git+https://github.com/huggingface/trl
