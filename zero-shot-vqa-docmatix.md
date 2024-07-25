@@ -24,6 +24,15 @@ In OOD settings, generated answers might not match reference answers despite bei
 
 [Docmatix](https://huggingface.co/blog/docmatix) is the largest synthetic DocVQA dataset, generated from the curated document dataset, [PDFA] (https://huggingface.co/datasets/pixparse/pdfa-eng-wds). It is 100x larger than previously available datasets. The human-curated counterpart is DocVQA, which serves as an evaluation benchmark for VQA models for Document Understanding.  In this post, we are going to use **the subset of Docmatix** which consists areound of 1700 train and 200 test samples, which can be downloaded here [Docmatix-zero-shot-exp](https://huggingface.co/datasets/HuggingFaceM4/Docmatix/viewer/zero-shot-exp). 
 
+
+<div style="display: flex; justify-content: space-around;">
+    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/JA4-est_L4ZkQFCP5FAuj.png" alt="Image 1" style="max-width: 45%; height: auto;">
+    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/LNF27TEwKnj3cHA1Hgm8b.png" alt="Image 2" style="max-width: 45%; height: auto;">
+</div>
+<p align="left">
+  <em> Figure 2: The examples of Q&A pairs from Docmatix and DocVQA test set. Note: the corresponding images are not shown here. </em>
+</p> 
+
 Although the content of the question and answer pairs in Docmatix and DocVQA is similar, their styles differ significantly. Traditional metrics like CIDER, ANLS, and BLEU can be overly restrictive for zero-shot evaluation in this context. Motivated by the similarity of the embeddings observed in t-SNE (Figure 1), we decided to use a different evaluation metric. In this post, we consider the LAVE metric to better assess generalization on this unseen but semantically similar dataset.
 
 For our evaluation, we chose [MPLUGDocOwl1.5](https://arxiv.org/pdf/2403.12895) as a baseline model. This model achieves an 84% ANLS score on the test subset of the original DocVQA dataset. We then ran a zero-shot generation on a subset of Docmatix, consisting of 200 images. We used [Llama-2-Chat-7b](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) for rating the answers. 
@@ -78,6 +87,15 @@ The results of our evaluation are summarized in the table below:
   </tr>
 </table>
 
+<div style="display: flex; justify-content: space-around;">
+    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/C4twDu9D6cw0XHdA57Spe.png" alt="Image 1" style="max-width: 30%; height: auto; margin: 5px;">
+    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/pYsiOyToOXzRitmRidejW.png" alt="Image 2" style="max-width: 30%; height: auto; margin: 5px;">
+    <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/uM6IPAAvjyiYTPJXdB10w.png" alt="Image 3" style="max-width: 30%; height: auto; margin: 5px;">
+</div>
+
+<p align="left">
+  <em> Figure 5: t-SNE visualization of Question, Answer and Image features from Docmatix and DocVQA datasets </em>
+</p>
 
 ## Qualitative Examples
 
