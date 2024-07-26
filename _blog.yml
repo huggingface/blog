@@ -4453,3 +4453,13 @@
     - vlm
     - zero-shot 
     - research
+
+- local: quanto-diffusers
+  title: "Memory-efficient Diffusion Transformers with Quanto and Diffusers"
+  author: sayakpaul
+  thumbnail: /blog/assets/quanto-diffusers/thumbnail.png
+  date: July 30, 2024
+  tags:
+    - diffusers
+    - guide
+    - diffusion-transformers
