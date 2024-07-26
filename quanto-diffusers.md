@@ -87,7 +87,7 @@ image = pipeline("ghibli style, a fantasy landscape with castles").images[0]
             <caption>FP16</caption>
         </td>
         <td>
-            <img src="mory-efficient%20Diffusion%20Transformers%20with%20Quant%20e09d4d6d607a43ef914e495d95f22006/ckptpixart-bs1-dtypefp16-qtypefp8-qte0.png" alt="Image 2">
+            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptpixart-bs1-dtypefp16-qtypefp8-qte0.png" alt="Image 2">
             <caption>Diffusion Transformer in FP8</caption>
         </td>
     </tr>
