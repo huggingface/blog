@@ -145,37 +145,28 @@ Please refer to the [examples](https://github.com/huggingface/optimum-quanto/tre
 You can also check this [notebook](https://colab.research.google.com/drive/1qB6yXt650WXBWqroyQIegB-yrWKkiwhl?usp=sharing) where we show you how to quantize a BLOOM model with quanto!
 ## Performance
 
-Below are two graphs evaluating the accuracy of different quantized configurations for [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1).
+Below are two graphs evaluating the accuracy of different quantized configurations for [meta-llama/Meta-Llama-3.1-8B](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B.
 
 Note: the first bar in each group always corresponds to the non-quantized model.
 
 <div class="row"><center>
   <div class="column">
-    <img src="https://github.com/huggingface/optimum-quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Accuracy.png?raw=true" alt="mistralai/Mistral-7B-v0.1 Lambada prediction accuracy">
-  </div>
- </center>
-</div>
-
-<div class="row"><center>
-  <div class="column">
-    <img src="https://github.com/huggingface/optimum-quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Perplexity.png?raw=true" alt="mistralai/Mistral-7B-v0.1 Lambada prediction accuracy">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/quanto-introduction/meta-llama-Meta-Llama-3.1-8B_bf16_Perplexity.png" alt=""meta-llama/Meta-Llama-3.1-8B WikiText perplexity">
   </div>
  </center>
 </div>
 
 These results are obtained without applying any Post-Training-Optimization algorithm like [hqq](https://mobiusml.github.io/hqq_blog/) or [AWQ](https://github.com/mit-han-lab/llm-awq).
 
-The graph below gives the latency per-token measured on an NVIDIA A100 GPU.
+The graph below gives the latency per-token measured on an NVIDIA A10 GPU.
 
 <div class="row"><center>
   <div class="column">
-    <img src="https://github.com/huggingface/optimum-quanto/blob/main/bench/generation/charts/mistralai-Mistral-7B-v0.1_Latency__ms_.png?raw=true" alt="mistralai/Mistral-7B-v0.1 Mean Latency per token">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/quanto-introduction/meta-llama-Meta-Llama-3.1-8B_bf16_Latency__ms_.png" alt="meta-llama/Meta-Llama-3.1-8B Mean latency per token">
   </div>
  </center>
 </div>
 
-These results don't include any optimized matrix multiplication kernels.
-You can see that the quantization adds a significant overhead for lower bitwidth.
 Stay tuned for updated results as we are constantly improving [quanto](https://github.com/huggingface/optimum-quanto) with optimizers and optimized kernels.
 
 Please refer to the [quanto benchmarks](https://github.com/huggingface/optimum-quanto/tree/main/bench/) for detailed results for different model architectures and configurations.
