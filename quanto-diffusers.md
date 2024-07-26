@@ -151,7 +151,7 @@ The table below gives an idea about the expected memory savings for various text
         </td>
         <td>
             <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptsd3-bs1-dtypefp16-qtypefp8-qte1-third1.png" alt="Image 2">
-            <caption>Quantized Text Encoder: 2</caption>
+            <caption>Quantized Text Encoder: 3</caption>
         </td>
         <td>
             <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptsd3-bs1-dtypefp16-qtypefp8-qte1-first1-third1%201.png" alt="Image 3">
