@@ -145,13 +145,13 @@ Please refer to the [examples](https://github.com/huggingface/optimum-quanto/tre
 You can also check this [notebook](https://colab.research.google.com/drive/1qB6yXt650WXBWqroyQIegB-yrWKkiwhl?usp=sharing) where we show you how to quantize a BLOOM model with quanto!
 ## Performance
 
-Below are two graphs evaluating the accuracy of different quantized configurations for [meta-llama/Meta-Llama-3.1-8B](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B.
+Below are two graphs evaluating the accuracy of different quantized configurations for [meta-llama/Meta-Llama-3.1-8B](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B).
 
 Note: the first bar in each group always corresponds to the non-quantized model.
 
 <div class="row"><center>
   <div class="column">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/quanto-introduction/meta-llama-Meta-Llama-3.1-8B_bf16_Perplexity.png" alt=""meta-llama/Meta-Llama-3.1-8B WikiText perplexity">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/quanto-introduction/meta-llama-Meta-Llama-3.1-8B_bf16_Perplexity.png" alt=""meta-llama/Meta-Llama-3.1-8B WikiText perplexity">
   </div>
  </center>
 </div>
@@ -162,7 +162,7 @@ The graph below gives the latency per-token measured on an NVIDIA A10 GPU.
 
 <div class="row"><center>
   <div class="column">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/quanto-introduction/meta-llama-Meta-Llama-3.1-8B_bf16_Latency__ms_.png" alt="meta-llama/Meta-Llama-3.1-8B Mean latency per token">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/quanto-introduction/meta-llama-Meta-Llama-3.1-8B_bf16_Latency__ms_.png" alt="meta-llama/Meta-Llama-3.1-8B Mean latency per token">
   </div>
  </center>
 </div>
