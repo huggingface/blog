@@ -223,7 +223,7 @@ The following table outlines the approximate memory requirements for training Ll
   <tr>
    <td>70B
    </td>
-   <td>300 GB
+   <td>500 GB
    </td>
    <td>160 GB
    </td>
