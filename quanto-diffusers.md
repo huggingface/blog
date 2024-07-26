@@ -20,6 +20,9 @@ These high memory requirements can make the field exclusive for those with only 
 - [Quantizing a `DiffusionPipeline` with Quanto](#quantizing-a-diffusionpipeline-with-quanto)
 - [Generality of the observations](#generality-of-the-observations)
 - [Misc findings](#misc-findings)
+  - [`bfloat16` as the main compute data-type](#bfloat16-is-usually-better-on-h100)
+  - [The promise of `qint8`](#the-promise-of-qint8)
+  - [INT4](#how-about-int4)
 - [Bonus - saving and loading Diffusers models in Quanto](#bonus---saving-and-loading-diffusers-models-in-quanto)
 - [Tips](#tips)
 - [Conclusion](#conclusion)
@@ -163,6 +166,8 @@ The table below gives an idea about the expected memory savings for various text
 
 ## Misc findings
 
+### `bfloat16` is usually better on H100
+
 `bfloat16` as the computation data-type can be slightly better both in terms of memory and inference latency for supported GPU architectures. The table below presents some numbers for PixArt: 
 
 | **Batch Size** | **Precision** | **Quantization** | **Memory (GB)** | **Latency \n(Seconds)** | **Quantize \nTE** |
@@ -172,7 +177,9 @@ The table below gives an idea about the expected memory savings for various text
 | 1 | FP16 | FP8 | 5.363 | 1.601 | True |
 | 1 | BF16 | FP8 | 5.363 | **1.495** | True |
 
-Additionally, we found quantizing with `qint8`  is generally better in terms of inference latency. This effect gets more pronounced when we horizontally fuse the attention QKV projections (calling `fuse_qkv_projections()` in Diffusers), thereby thickening the dimensions of the int8 kernels to speed up computation. We present some evidence below for PixArt: 
+### The promise of `qint8`
+
+We found quantizing with `qint8`  is generally better in terms of inference latency. This effect gets more pronounced when we horizontally fuse the attention QKV projections (calling `fuse_qkv_projections()` in Diffusers), thereby thickening the dimensions of the int8 kernels to speed up computation. We present some evidence below for PixArt: 
 
 | **Batch Size** | **Quantization** | **Memory \n(GB)** | **Latency \n(Seconds)** | **Quantize \nTE** | **QKV \nProjection** |
 | --- | --- | --- | --- | --- | --- |
@@ -180,6 +187,47 @@ Additionally, we found quantizing with `qint8`  is generally better in terms of 
 | 1 | INT8 | 5.536 | **1.504** | True | True |
 | 4 | INT8 | 5.365 | 5.129 | True | False |
 | 4 | INT8 | 5.538 | **4.989** | True | True |
+
+### How about INT4?
+
+We additionally experimented with `qint4` when using `bfloat16`. This is only applicable to `bfloat16` on H100 because other configurations are not supported yet. With `qint4`, we can expect to see more improvements in memory consumption at the cost of increased inference latency (PixArt-Sigma numbers below):
+
+| **Batch Size** | **Quantize TE** | **Memory (GB)** | **Latency (Seconds)** |
+| --- | --- | --- | --- |
+| 1 | No | 9.380 | 7.431 |
+| 1 | Yes | **3.058**	 | 7.604 |
+
+Note, however, that due to the aggressive discretization of INT4, the end results can take a hit. This is why, for Transformer-based models in general, we usually leave the final projection layer out of quantization. In Quanto, we do this by:
+
+```python
+quantize(pipeline.transformer, weights=qint4, exclude="proj_out")
+freeze(pipeline.transformer)
+```
+
+`"proj_out"` corresponds to the final layer in `pipeline.transformer`. The table below presents results for various settings:
+
+<table>
+    <tr>
+        <td>
+            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%400-fuse%400.png" alt="Image 1">
+            <caption>Quantize TE: No, Layer exclusion: None</caption>
+        </td>
+        <td>
+            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%400-fuse%400-exclude%40proj_out.png" alt="Image 2">
+            <caption>Quantize TE: No, Layer exclusion: "proj_out"</caption>
+        </td>
+        <td>
+            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%401-fuse%400.png" alt="Image 3">
+            <caption>Quantize TE: Yes, Layer exclusion: None</caption>
+        </td>
+        <td>
+            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%401-fuse%400-exclude%40proj_out.png" alt="Image 4">
+            <caption>Quantize TE: Yes, Layer exclusion: "proj_out"</caption>
+        </td>
+    </tr>
+</table>
+
+To recover the lost image quality, a common practice is to perform quantization-aware training, which is supported in Quanto.
 
 All the results of our experiments for this post can be found [here](https://huggingface.co/datasets/sayakpaul/sample-datasets/tree/main/quanto-exps-2). 
 
