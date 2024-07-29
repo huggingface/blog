@@ -10,7 +10,7 @@ authors:
 
 We are excited to announce that the new Hugging Face Embedding Container for Amazon SageMaker is now generally available (GA). AWS customers can now efficiently deploy embedding models on SageMaker to build Generative AI applications, including Retrieval-Augmented Generation (RAG) applications. 
 
-In this Blog we will show you how to deploy open Embedding Models, like [Snowflake/snowflake-arctic-embed-l](https://huggingface.co/Snowflake/snowflake-arctic-embed-l), [BAAI/bge-large-en-v1.5](https://huggingface.co/BAAI/bge-large-en-v1.5) or [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) to Amazon SageMaker for inference using the new Hugging Face Embedding Container. We will deploy the [Snowflake/snowflake-arctic-embed-m](https://huggingface.co/Snowflake/snowflake-arctic-embed-m) one of the best open Embedding Models for retrieval - you can check its rankings on the [MTEB Leaderboard](https://huggingface.co/spaces/mteb/leaderboard). 
+In this Blog we will show you how to deploy open Embedding Models, like [Snowflake/snowflake-arctic-embed-l](https://huggingface.co/Snowflake/snowflake-arctic-embed-l), [BAAI/bge-large-en-v1.5](https://huggingface.co/BAAI/bge-large-en-v1.5) or [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) to Amazon SageMaker for inference using the new Hugging Face Embedding Container. We will deploy the [Snowflake/snowflake-arctic-embed-m-v1.5](https://huggingface.co/Snowflake/snowflake-arctic-embed-m-v1.5) one of the best open Embedding Models for retrieval - you can check its rankings on the [MTEB Leaderboard](https://huggingface.co/spaces/mteb/leaderboard). 
 
 The example covers:
 - [1. Setup development environment](#1-setup-development-environment)
@@ -31,7 +31,7 @@ The Hugging Face Embedding Container is a new purpose-built Inference Container 
 * Production ready (distributed tracing with Open Telemetry, Prometheus metrics)
 
 TEI supports the following model architectures
-* BERT/CamemBERT, e.g. [BAAI/bge-large-en-v1.5](https://huggingface.co/BAAI/bge-large-en-v1.5) or [Snowflake/snowflake-arctic-embed-m](https://huggingface.co/Snowflake/snowflake-arctic-embed-m)
+* BERT/CamemBERT, e.g. [BAAI/bge-large-en-v1.5](https://huggingface.co/BAAI/bge-large-en-v1.5) or [Snowflake/snowflake-arctic-embed-m-v1.5](https://huggingface.co/Snowflake/snowflake-arctic-embed-m-v1.5)
 * RoBERTa, [sentence-transformers/all-roberta-large-v1](https://huggingface.co/sentence-transformers/all-roberta-large-v1) 
 * XLM-RoBERTa, e.g. [sentence-transformers/paraphrase-xlm-r-multilingual-v1](https://huggingface.co/sentence-transformers/paraphrase-xlm-r-multilingual-v1)
 * NomicBert, e.g. [jinaai/jina-embeddings-v2-base-en](https://huggingface.co/jinaai/jina-embeddings-v2-base-en)
@@ -93,7 +93,7 @@ def get_image_uri(instance_type):
 
 ## 3. Deploy Snowflake Arctic to Amazon SageMaker
 
-To deploy  [Snowflake/snowflake-arctic-embed-m](https://huggingface.co/Snowflake/snowflake-arctic-embed-m) to Amazon SageMaker we create a `HuggingFaceModel` model class and define our endpoint configuration including the `HF_MODEL_ID`, `instance_type` etc. We will use a `c6i.2xlarge` instance type, which has 4 Intel Ice-Lake vCPUs, 8GB of memory and costs around $0.204 per hour. 
+To deploy  [Snowflake/snowflake-arctic-embed-m-v1.5](https://huggingface.co/Snowflake/snowflake-arctic-embed-m-v1.5) to Amazon SageMaker we create a `HuggingFaceModel` model class and define our endpoint configuration including the `HF_MODEL_ID`, `instance_type` etc. We will use a `c6i.2xlarge` instance type, which has 4 Intel Ice-Lake vCPUs, 8GB of memory and costs around $0.204 per hour. 
 
 
 ```python
@@ -105,7 +105,7 @@ instance_type = "ml.g5.xlarge"
 
 # Define Model and Endpoint configuration parameter
 config = {
-  'HF_MODEL_ID': "Snowflake/snowflake-arctic-embed-m", # model_id from hf.co/models
+  'HF_MODEL_ID': "Snowflake/snowflake-arctic-embed-m-v1.5", # model_id from hf.co/models
 }
 
 # create HuggingFaceModel with the image uri
