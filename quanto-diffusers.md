@@ -29,7 +29,7 @@ These high memory requirements can make the field exclusive for those with only 
 
 ## Preliminaries
 
-For a detailed introduction to Quanto, please refer to [this post](https://huggingface.co/blog/quanto-introduction). In short, it is a quantization toolkit in PyTorch. 
+For a detailed introduction to Quanto, please refer to [this post](https://huggingface.co/blog/quanto-introduction). In short, it is a quantization toolkit in PyTorch and is a part of [Hugging Face Optimum](https://github.com/huggingface/optimum). 
 
 For the benchmarking purposes, we use an H100 GPU with the following environment: 
 
