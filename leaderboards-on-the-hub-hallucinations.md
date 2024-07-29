@@ -22,7 +22,7 @@ In the rapidly evolving field of Natural Language Processing (NLP), Large Langua
 
 The **[Hallucinations Leaderboard](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard)** aims to address this problem: it is a comprehensive platform that evaluates a wide array of LLMs against benchmarks specifically designed to assess hallucination-related issues via in-context learning.
 
-**UPDATE** -- We just released a paper on this project; you can find it here: [The Hallucinations Leaderboard -- An Open Effort to Measure Hallucinations in Large Language Models](https://arxiv.org/abs/2404.05904).
+**UPDATE** -- We released a paper on this project; you can find it in arxiv: [The Hallucinations Leaderboard -- An Open Effort to Measure Hallucinations in Large Language Models](https://arxiv.org/abs/2404.05904). Here's also the [Hugging Face paper page](https://huggingface.co/papers/2404.05904) for community discussions.
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="hallucinations-leaderboard/leaderboard"></gradio-app>
