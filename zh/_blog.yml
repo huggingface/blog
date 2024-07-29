@@ -1823,6 +1823,19 @@
     - leaderboard
     - open-science-collab
 
+- local: smollm
+  title: "SmolLM：一个超快速、超高性能的小模型集合"
+  author: loubnabnl
+  thumbnail: /blog/assets/smollm/banner.png
+  date: July 16, 2024
+  tags:
+    - llm
+    - nlp
+    - synthetic-data
+    - research
+    - datasets
+    - community
+
 - local: llama31
   title: "Llama 3.1：405B/70B/8B 模型的多语言与长上下文能力解析"
   author: philschmid
