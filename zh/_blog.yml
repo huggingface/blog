@@ -1801,6 +1801,41 @@
     - rlhf
     - dpo
 
+- local: presidio-pii-detection
+  title: "在 Hub 上使用 Presidio 进行自动 PII 检测实验"
+  author: lhoestq
+  thumbnail: /blog/assets/presidio-pii-detection/thumbnail.png
+  date: Jul 10, 2024
+  tags:
+    - datasets
+    - pii
+
+- local: winning-aimo-progress-prize
+  title: NuminaMath 是如何荣膺首届 AIMO 进步奖的？
+  author: yfleureau
+  thumbnail: /blog/assets/winning-aimo-progress-prize/thumbnail.png
+  date: July 11, 2024
+  tags:
+    - ai4math
+    - nlp
+    - community
+    - research
+    - leaderboard
+    - open-science-collab
+
+- local: smollm
+  title: "SmolLM：一个超快速、超高性能的小模型集合"
+  author: loubnabnl
+  thumbnail: /blog/assets/smollm/banner.png
+  date: July 16, 2024
+  tags:
+    - llm
+    - nlp
+    - synthetic-data
+    - research
+    - datasets
+    - community
+
 - local: llama31
   title: "Llama 3.1：405B/70B/8B 模型的多语言与长上下文能力解析"
   author: philschmid
