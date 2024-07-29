@@ -99,7 +99,7 @@ translators:
     _MuMath-Code 论文中的两阶段训练方法_
 
 - **第 1 阶段:** 在自然语言“数学题 + 解答”的大规模、多样化数据集上微调基础模型，其中每个解答都需套用思维链 (CoT) 模板以促使 LLM 进行推理。
-- **第 2 阶段: ** 在工具整合推理的合成数据集上微调第 1 阶段得到的模型，其中每个数学题都分解为一系列推理、Python 程序及其输出。此时，我们遵循微软的 [**ToRA 论文**](https://arxiv.org/abs/2309.17452) 的做法，提示 GPT-4 以 ToRA 格式生成带有代码执行反馈的解答。对这些数据进行微调会产生一个推理代理，它可以通过将自然语言推理和使用 Python REPL 来计算中间结果结合起来以解决数学问题 (请参见下图)。
+- **第 2 阶段:** 在工具整合推理的合成数据集上微调第 1 阶段得到的模型，其中每个数学题都分解为一系列推理、Python 程序及其输出。此时，我们遵循微软的 [**ToRA 论文**](https://arxiv.org/abs/2309.17452) 的做法，提示 GPT-4 以 ToRA 格式生成带有代码执行反馈的解答。对这些数据进行微调会产生一个推理代理，它可以通过将自然语言推理和使用 Python REPL 来计算中间结果结合起来以解决数学问题 (请参见下图)。
 
     ![tora.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/tora.png)
 
@@ -116,7 +116,7 @@ translators:
 | 学习率调度器 | cosine | cosine |
 | 预热率 | 0.1 | 0.1 |
 
-首次提交时，我们使用了 `DeepSeek 7B` 模型，我们仅对它进行了第 1 阶段微调，但我们发现性能相当有限，其在公开排行榜上的最佳 maj@32 成绩仅为 8/50。[**Abdur Ra​​fae**](https://www.kaggle.com/abdurrafae) 的 [**公开笔记本**](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) 促使我们考虑在训练方案中加入代码执行。最初，我们专注于 [**MMOS (Mix of Minimal Optimal Sets)**](https://github.com/cyzhh/MMOS) 数据集。我们发现使用 MMOS 虽然提高了性能，但在公开排行榜上的 maj@32 最高分仍只有 16/50，我们当时望文生义地猜测其原因是 MMOS 仅包含单轮解 (即该模型仅生成单个 Python 程序，这不足以解决难题)。后来，我们意识到 MMOS 是一个误称，该 Kaggle 笔记本实际上使用的是 [**DeepSeekMath 7B RL**](https://huggingface.co/deepseek-ai/deepseek-math-7b-rl) 模型，也就是说它能够进行多步推理及代码执行。
+首次提交时，我们使用了 `DeepSeek 7B` 模型，我们仅对它进行了第 1 阶段微调，但我们发现性能相当有限，其在公开排行榜上的最佳 maj@32 成绩仅为 8/50。[**Abdur Rafae**](https://www.kaggle.com/abdurrafae) 的 [**公开笔记本**](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) 促使我们考虑在训练方案中加入代码执行。最初，我们专注于 [**MMOS (Mix of Minimal Optimal Sets)**](https://github.com/cyzhh/MMOS) 数据集。我们发现使用 MMOS 虽然提高了性能，但在公开排行榜上的 maj@32 最高分仍只有 16/50，我们当时望文生义地猜测其原因是 MMOS 仅包含单轮解 (即该模型仅生成单个 Python 程序，这不足以解决难题)。后来，我们意识到 MMOS 是一个误称，该 Kaggle 笔记本实际上使用的是 [**DeepSeekMath 7B RL**](https://huggingface.co/deepseek-ai/deepseek-math-7b-rl) 模型，也就是说它能够进行多步推理及代码执行。
 
 经此一役，我们想集中精力生成一个与 DeepSeekMath Instruct/RL 模型使用的数据集类似的数据集，这一做法与 MuMath-Code 攻略结合后，带来了显著的改进。
 
@@ -171,7 +171,7 @@ _各模型在 MATH 基准上的表现。除非明确说明，所有跑分均由�
 - 评估 API 以随机顺序出题，因此提前停止等策略会产生较高的波动，因为可能一开始就会遇到很多难题，这就导致留给剩余部分的时间就不多了 (反之亦然)。
 - LLM 推理中的大多数创新都是基于最新的 GPU 的，因此 `Flash Attention 2` 或 `torch.compile` 等标准方法不适用于 T4 GPU。同样，老 GPU 并不支持 bfloat16 等新数据类型，这促使我们探索 AWQ 和 GPTQ 等训后量化方法。
 
-最初，我们使用 [**Abdur Ra​​fae**](https://www.kaggle.com/abdurrafae) 的 [**公开笔记本**](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) 来提交，但发现高波动是个大问题。为了解决这个问题，我们采取了一种基于工具整合推理的新方法:
+最初，我们使用 [**Abdur Ra​fae**](https://www.kaggle.com/abdurrafae) 的 [**公开笔记本**](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) 来提交，但发现高波动是个大问题。为了解决这个问题，我们采取了一种基于工具整合推理的新方法:
 
 ![sc-tir.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/sc-tir.png)
 
