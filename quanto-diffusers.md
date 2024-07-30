@@ -137,7 +137,7 @@ Quantizing the text encoder together with the diffusion backbone generally works
 - Only quantize the third text encoder ([`T5EncoderModel`](https://huggingface.co/docs/transformers/en/model_doc/t5#transformers.T5EncoderModel)) or
 - Quantize the first and third text encoders
 
-The table below gives an idea about the expected memory savings for various text encoder quantization combinations: 
+The table below gives an idea about the expected memory savings for various text encoder quantization combinations (the diffusion transformer is quantized in all cases): 
 
 | **Batch Size** | **Quantization** | **Quantize \nTE 1** | **Quantize \nTE 2** | **Quantize \nTE 3** | **Memory (GB)** | **Latency (Seconds)** |
 | --- | --- | --- | --- | --- | --- | --- |
