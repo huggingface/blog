@@ -251,7 +251,7 @@ qmodel.save_pretrained("pixart-sigma-fp8")
 The resulting checkpoint is ***587MB*** in size, instead of the original 2.44GB. We can then load it:
 
 ```python
-from diffusers import PixArtTransformer2DModel
+from optimum.quanto import QuantizedPixArtTransformer2DModel
 import torch
 
 transformer = QuantizedPixArtTransformer2DModel.from_pretrained("pixart-sigma-fp8") 
@@ -262,6 +262,7 @@ And use it in a `DiffusionPipeline`:
 
 ```python
 from diffusers import DiffusionPipeline
+import torch
 
 pipe = DiffusionPipeline.from_pretrained(
     "PixArt-alpha/PixArt-Sigma-XL-2-1024-MS", 
@@ -285,7 +286,7 @@ pipe = PixArtSigmaPipeline.from_pretrained(
 ).to("cuda")
 ```
 
-If you want more models from Diffusers supported in Quanto for saving and loading, please open an issue [here](https://github.com/huggingface/optimum-quanto/issues/new) and mention `@sayakpaul`.  
+`QuantizedPixArtTransformer2DModel` implementation is available [here](https://github.com/huggingface/optimum-quanto/blob/601dc193ce0ed381c479fde54a81ba546bdf64d1/optimum/quanto/models/diffusers_models.py#L184) for reference. If you want more models from Diffusers supported in Quanto for saving and loading, please open an issue [here](https://github.com/huggingface/optimum-quanto/issues/new) and mention `@sayakpaul`.  
 
 ## Tips
 
@@ -295,3 +296,5 @@ If you want more models from Diffusers supported in Quanto for saving and loadin
 ## Conclusion
 
 In this post, we showed how to quantize Transformer models from Diffusers and optimize their memory consumption. The effects of quantization become more visible when we additionally quantize the text encoders involved in the mix. We hope you will apply some of the workflows to your projects and benefit from them 🤗
+
+Thanks to [Pedro Cuenca](https://github.com/pcuenca) for his extensive reviews on the post. 
