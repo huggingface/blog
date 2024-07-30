@@ -139,7 +139,7 @@ Quantizing the text encoder together with the diffusion backbone generally works
 
 The table below gives an idea about the expected memory savings for various text encoder quantization combinations (the diffusion transformer is quantized in all cases): 
 
-| **Batch Size** | **Quantization** | **Quantize \nTE 1** | **Quantize \nTE 2** | **Quantize \nTE 3** | **Memory (GB)** | **Latency (Seconds)** |
+| **Batch Size** | **Quantization** | **Quantize TE 1** | **Quantize TE 2** | **Quantize TE 3** | **Memory (GB)** | **Latency (Seconds)** |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 | FP8 | 1 | 1 | 1 | 8.200 | 2.858 |
 | 1 ✅ | FP8 | 0 | 0 | 1 | 8.294 | 2.781 |
@@ -174,7 +174,7 @@ The table below gives an idea about the expected memory savings for various text
 
 Using `bfloat16` can be faster for supported GPU architectures, such as H100 or 4090. The table below presents some numbers for PixArt measured on our H100 reference hardware: 
 
-| **Batch Size** | **Precision** | **Quantization** | **Memory (GB)** | **Latency \n(Seconds)** | **Quantize \nTE** |
+| **Batch Size** | **Precision** | **Quantization** | **Memory (GB)** | **Latency (Seconds)** | **Quantize TE** |
 | --- | --- | --- | --- | --- | --- |
 | 1 | FP16 | INT8 | 5.363 | 1.538 | True |
 | 1 | BF16 | INT8 | 5.364 | **1.454** | True |
@@ -185,7 +185,7 @@ Using `bfloat16` can be faster for supported GPU architectures, such as H100 or 
 
 We found quantizing with `qint8` (instead of `fp8`)  is generally better in terms of inference latency. This effect gets more pronounced when we horizontally fuse the attention QKV projections (calling `fuse_qkv_projections()` in Diffusers), thereby thickening the dimensions of the int8 kernels to speed up computation. We present some evidence below for PixArt: 
 
-| **Batch Size** | **Quantization** | **Memory \n(GB)** | **Latency \n(Seconds)** | **Quantize \nTE** | **QKV \nProjection** |
+| **Batch Size** | **Quantization** | **Memory (GB)** | **Latency (Seconds)** | **Quantize TE** | **QKV Projection** |
 | --- | --- | --- | --- | --- | --- |
 | 1 | INT8 | 5.363 | 1.538 | True | False |
 | 1 | INT8 | 5.536 | **1.504** | True | True |
