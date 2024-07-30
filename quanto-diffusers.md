@@ -36,7 +36,7 @@ Model quantization is a popular tool among LLM practitioners, but not so much wi
 For benchmarking purposes, we use an H100 GPU with the following environment: 
 
 - CUDA 12.2
-- PyTorch 2.4.1
+- PyTorch 2.4.0
 - Diffusers (installed from [this commit](https://github.com/huggingface/diffusers/commit/bce9105ac79636f68dcfdcfc9481b89533db65e5))
 - Quanto (installed from [this commit](https://github.com/huggingface/optimum-quanto/commit/285862b4377aa757342ed810cd60949596b4872b))
 
@@ -131,7 +131,7 @@ Quantizing the text encoder produces results very similar to the previous case:
 
 ## Generality of the observations
 
-Quantizing the text encoder together with the diffusion backbone generally works for the models we tried. Stable Diffusion 3 is a special case, as it uses three different text encoders. We found that quantizing the _second_ text encoder does not work well, se we recommend the following alternatives:
+Quantizing the text encoder together with the diffusion backbone generally works for the models we tried. Stable Diffusion 3 is a special case, as it uses three different text encoders. We found that quantizing the _second_ text encoder does not work well, so we recommend the following alternatives:
 
 - Only quantize the first text encoder ([`CLIPTextModelWithProjection`](https://huggingface.co/docs/transformers/en/model_doc/clip#transformers.CLIPTextModelWithProjection)) or
 - Only quantize the third text encoder ([`T5EncoderModel`](https://huggingface.co/docs/transformers/en/model_doc/t5#transformers.T5EncoderModel)) or
@@ -211,7 +211,7 @@ freeze(pipeline.transformer)
     <th>Quantize TE: No, Layer exclusion: None</th>
     <th>Quantize TE: No, Layer exclusion: "proj_out"</th>
     <th>Quantize TE: Yes, Layer exclusion: None</th>
-    <th>QQuantize TE: Yes, Layer exclusion: "proj_out"</th>
+    <th>Quantize TE: Yes, Layer exclusion: "proj_out"</th>
 </tr>
 <tr>
     <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%400-fuse%400.png" width=300 alt="Image 1 without text encoder quantization."/></td>
@@ -285,6 +285,6 @@ pipe = PixArtSigmaPipeline.from_pretrained(
 
 ## Conclusion
 
-In this post, we showed how to quantize Transformer models from Diffusers and optimize their memory consumption. The effects of quantization become more visible when we additionally quantize the text encoders involved in the mix. We hope you will apply some of the workflows to your projects and benefit from them 🤗
+In this post, we showed how to quantize Transformer models from Diffusers and optimize their memory consumption. The effects of quantization become more visible when we additionally quantize the text encoders involved in the mix. We hope you will apply some of the workflows to your projects and benefit from them 🤗.
 
 Thanks to [Pedro Cuenca](https://github.com/pcuenca) for his extensive reviews on the post. 
