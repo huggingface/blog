@@ -31,6 +31,8 @@ These high memory requirements can make it difficult to use these models with co
 
 For a detailed introduction to Quanto, please refer to [this post](https://huggingface.co/blog/quanto-introduction). In short, Quanto is a quantization toolkit built on PyTorch. It's part of [Hugging Face Optimum](https://github.com/huggingface/optimum), a set of tools for hardware optimization.
 
+Model quantization is a popular tool among LLM practitioners, but not so much with diffusion models. Quanto can help bridge this gap and provide memory savings with little or no quality degradation.
+
 For benchmarking purposes, we use an H100 GPU with the following environment: 
 
 - CUDA 12.2
