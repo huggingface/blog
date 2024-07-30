@@ -211,7 +211,7 @@ freeze(pipeline.transformer)
     <th>Quantize TE: No, Layer exclusion: None</th>
     <th>Quantize TE: No, Layer exclusion: "proj_out"</th>
     <th>Quantize TE: Yes, Layer exclusion: None</th>
-    <th>QQuantize TE: Yes, Layer exclusion: "proj_out"</th>
+    <th>Quantize TE: Yes, Layer exclusion: "proj_out"</th>
 </tr>
 <tr>
     <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%400-fuse%400.png" width=300 alt="Image 1 without text encoder quantization."/></td>
@@ -285,6 +285,6 @@ pipe = PixArtSigmaPipeline.from_pretrained(
 
 ## Conclusion
 
-In this post, we showed how to quantize Transformer models from Diffusers and optimize their memory consumption. The effects of quantization become more visible when we additionally quantize the text encoders involved in the mix. We hope you will apply some of the workflows to your projects and benefit from them 🤗
+In this post, we showed how to quantize Transformer models from Diffusers and optimize their memory consumption. The effects of quantization become more visible when we additionally quantize the text encoders involved in the mix. We hope you will apply some of the workflows to your projects and benefit from them 🤗.
 
 Thanks to [Pedro Cuenca](https://github.com/pcuenca) for his extensive reviews on the post. 
