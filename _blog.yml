@@ -4307,7 +4307,7 @@
   date: July 9, 2024
   tags:
     - case-studies
-  
+
 - local: tpu-inference-endpoints-spaces
   title: "Google Cloud TPUs made available to Hugging Face users"
   thumbnail: /blog/assets/tpu-inference-endpoints-spaces/thumbnail.png
@@ -4441,7 +4441,7 @@
     - LLM
 
 - local: zero-shot-vqa-docmatix
-  title: "LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need Fine-Tuning?" 
+  title: "LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need Fine-Tuning?"
   author: danaaubakirova
   thumbnail: /blog/assets/184_zero_shot_docmatix/thumb.001.jpeg
   date: Jul 25, 2024
@@ -4451,8 +4451,20 @@
     - synthetic-data
     - vqa
     - vlm
-    - zero-shot 
+    - zero-shot
     - research
+
+- local: inference-dgx-cloud
+  title: "Serverless Inference with Hugging Face and NVIDIA NIMs"
+  author: philschmid
+  thumbnail: /blog/assets/train-dgx-cloud/thumbnail.jpg
+  date: July 29, 2024
+  tags:
+    - partnerships
+    - hardware
+    - nvidia
+    - llm
+    - inference
 
 - local: quanto-diffusers
   title: "Memory-efficient Diffusion Transformers with Quanto and Diffusers"

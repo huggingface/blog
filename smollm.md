@@ -122,7 +122,7 @@ In Smollm-Corpus we include 220B deduplicated tokens from FineWeb.
 
 ### Stack-Edu-Python
 
-We applied the same idea of FineWeb-Edu to Code. We used Llama3 to annotate 500,000 python samples from The Stack dataset and used them to train an [educational classifier](https://huggingface.co/HuggingFaceTB/python-edu-scorer) using the same recipe as the FineWeb-Edu classifier. We then applied this classifier on Python subset of StarCoder models training corpus. From the 40B Python tokens available, we retained only the samples with a score of 4 or higher, resulting in a refined dataset of 4B tokens.
+We applied the same idea of FineWeb-Edu to Code. We used Llama3 to annotate 500,000 Python samples from The Stack dataset and used them to train an [educational code classifier](https://huggingface.co/HuggingFaceTB/python-edu-scorer) using the same recipe as the FineWeb-Edu classifier. We then applied this classifier to a Python subset of the StarCoder models training corpus. From the 40B Python tokens available, we retained only the samples with a score of 4 or higher, resulting in a refined dataset of 4B tokens.
 
 The plot below compares Python-Edu to the unfiltered Python code and to using a less strict threshold of 3. We can see that the model trained on Python-Edu converges more than 3 times faster than the model trained on unfiltered Python code, achieving 16% pass@1 after only 12B tokens. 
 

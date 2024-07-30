@@ -269,7 +269,7 @@ Inspired by [Imagen](https://imagen.research.google/), Stable Diffusion does **n
 
 **Why is latent diffusion fast and efficient?**
 
-Since latent diffusion operates on a low dimensional space, it greatly reduces the memory and compute requirements compared to pixel-space diffusion models. For example, the autoencoder used in Stable Diffusion has a reduction factor of 8. This means that an image of shape `(3, 512, 512)` becomes `(3, 64, 64)` in latent space, which requires `8 × 8 = 64` times less memory.
+Since latent diffusion operates on a low dimensional space, it greatly reduces the memory and compute requirements compared to pixel-space diffusion models. For example, the autoencoder used in Stable Diffusion has a reduction factor of 8. This means that an image of shape `(3, 512, 512)` becomes `(4, 64, 64)` in latent space, which means the spatial compression ratio is `8 × 8 = 64`.
 
 This is why it's possible to generate `512 × 512` images so quickly, even on 16GB Colab GPUs!
 
