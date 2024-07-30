@@ -8,11 +8,11 @@ authors:
 
 # Memory-efficient Diffusion Transformers with Quanto and Diffusers
 
-Over the past few months, we have seen an emergence in the use of Transformer-based diffusion backbones for high-resolution text-to-image (T2I) generation. Thanks to the nature of Transformers, these backbones show good scalability. For example, they can vary from 0.6B parameters all the way up to 8B parameters. 
+Over the past few months, we have seen an emergence in the use of Transformer-based diffusion backbones for high-resolution text-to-image (T2I) generation. These models use the transformer architecture as the building block for the diffusion process, instead of the UNet architecture that was prevalent in many of the initial diffusion models. Thanks to the nature of Transformers, these backbones show good scalability, with models ranging from 0.6B to 8B parameters. 
 
-With bigger scales arises the problem of memory management. The problem intensifies because a diffusion pipeline consists of several components: - a text encoder, a diffusion backbone, and a decoder (for latent-space diffusion). Modern diffusion pipelines use multiple text encoders. Stable Diffusion 3 uses three as an example. It takes 18.765 GB of GPU memory to run inference in the FP16 precision. 
+As models become larger, memory requirements increase. The problem intensifies because a diffusion pipeline usually consists of several components: a text encoder, a diffusion backbone, and an image decoder. Furthermore, modern diffusion pipelines use multiple text encoders – for example, there are three in the case of Stable Diffusion 3. It takes 18.765 GB of GPU memory to run SD3 inference using FP16 precision. 
 
-These high memory requirements can make the field exclusive for those with only consumer GPUs. In this post, we discuss improving the memory efficiency of Transformer-based diffusion pipelines in Diffusers with Quanto. We will do this with the help of Quanto's quantization utilities. 
+These high memory requirements can make it difficult to use these models with consumer GPUs, slowing adoption and making experimentation harder. In this post, we show how to improve the memory efficiency of Transformer-based diffusion pipelines by leveraging Quanto's quantization utilities from the Diffusers library.
 
 ### Table of contents
 
@@ -29,16 +29,16 @@ These high memory requirements can make the field exclusive for those with only 
 
 ## Preliminaries
 
-For a detailed introduction to Quanto, please refer to [this post](https://huggingface.co/blog/quanto-introduction). In short, it is a quantization toolkit in PyTorch and is a part of [Hugging Face Optimum](https://github.com/huggingface/optimum). 
+For a detailed introduction to Quanto, please refer to [this post](https://huggingface.co/blog/quanto-introduction). In short, Quanto is a quantization toolkit built on PyTorch. It's part of [Hugging Face Optimum](https://github.com/huggingface/optimum), a set of tools for hardware optimization.
 
-For the benchmarking purposes, we use an H100 GPU with the following environment: 
+For benchmarking purposes, we use an H100 GPU with the following environment: 
 
 - CUDA 12.2
 - PyTorch 2.4.1
 - Diffusers (installed from [this commit](https://github.com/huggingface/diffusers/commit/bce9105ac79636f68dcfdcfc9481b89533db65e5))
 - Quanto (installed from [this commit](https://github.com/huggingface/optimum-quanto/commit/285862b4377aa757342ed810cd60949596b4872b))
 
-Unless otherwise specified, we default to perform computations in FP16. Because the VAEs usually lead to numerical instability problems, we decided not to quantize the VAE at all. Our benchmarking code can be found [here](https://huggingface.co/datasets/sayakpaul/sample-datasets/blob/main/quanto-exps-2/benchmark.py). 
+Unless otherwise specified, we default to performing computations in FP16. We chose not to quantize the VAE to prevent numerical instability issues. Our benchmarking code can be found [here](https://huggingface.co/datasets/sayakpaul/sample-datasets/blob/main/quanto-exps-2/benchmark.py). 
 
 At the time of this writing, we have the following Transformer-based diffusion pipelines for text-to-image generation in Diffusers:
 
@@ -48,7 +48,9 @@ At the time of this writing, we have the following Transformer-based diffusion p
 - [Lumina](https://huggingface.co/docs/diffusers/main/en/api/pipelines/lumina)
 - [Aura Flow](https://huggingface.co/docs/diffusers/main/en/api/pipelines/aura_flow)
 
-We also have [Latte](https://huggingface.co/docs/diffusers/main/en/api/pipelines/latte), which is a Transformer-based text-to-video generation pipeline. For brevity, for this post, we keep our study limited to the following three: PixArt-Sigma, Stable Diffusion 3, and Aura Flow. The table below shows the parameter counts of their diffusion backbones:
+We also have [Latte](https://huggingface.co/docs/diffusers/main/en/api/pipelines/latte), a Transformer-based text-to-video generation pipeline.
+
+For brevity, we keep our study limited to the following three: PixArt-Sigma, Stable Diffusion 3, and Aura Flow. The table below shows the parameter counts of their diffusion backbones:
 
 | **Model** | **Checkpoint** | **# Params (Billion)** |
 | --- | --- | --- |
@@ -75,7 +77,7 @@ quantize(pipeline.transformer, weights=qfloat8)
 freeze(pipeline.transformer)
 ```
 
-We call `quantize()` on the model to be quantized, specifying what we want to quantize. In the above case, we are just quantizing the parameters, leaving the activations as is. We’re quantizing to the FP8 data-type. We finally call `freeze()` to replace the original parameters with the quantized parameters. 
+We call `quantize()` on the module to be quantized, specifying what we want to quantize. In the above case, we are just quantizing the parameters, leaving the activations as is. We’re quantizing to the FP8 data-type. We finally call `freeze()` to replace the original parameters with the quantized parameters. 
 
 We can then call this `pipeline` normally:
 
@@ -96,7 +98,7 @@ image = pipeline("ghibli style, a fantasy landscape with castles").images[0]
     </tr>
 </table>
 
-We notice almost no quality degradation in the FP8 output but it leads to memory savings: 
+We notice the following memory savings when using FP8, with slightly higher latency and almost no quality degradation: 
 
 | **Batch Size** | **Quantization** | **Memory (GB)** | **Latency (Seconds)** |
 | --- | --- | --- | --- |
@@ -112,7 +114,7 @@ quantize(pipeline.text_encoder, weights=qfloat8)
 freeze(pipeline.text_encoder)
 ```
 
-Quantizing the text encoder additionally leads to further memory improvements: 
+The text encoder is also a transformer model, and we can quantize it too. Quantizing both the text encoder and the diffusion backbone leads to much larger memory improvements: 
 
 | **Batch Size** | **Quantization** | **Quantize TE** | **Memory (GB)** | **Latency (Seconds)** |
 | --- | --- | --- | --- | --- |
@@ -121,13 +123,13 @@ Quantizing the text encoder additionally leads to further memory improvements:
 | 4 | FP8 | False | 11.548 | 5.109 |
 | 4 | FP8 | True | **5.364** | 5.141 |
 
-Text encoder quantization doesn't lead to quality degradation in this case:
+Quantizing the text encoder produces results very similar to the previous case:
 
 ![ckpt@pixart-bs@1-dtype@fp16-qtype@fp8-qte@1.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptpixart-bs1-dtypefp16-qtypefp8-qte1.png)
 
 ## Generality of the observations
 
-These observations generally hold for the models we considered except for Stable Diffusion 3. For it to work with quantization, we can
+Quantizing the text encoder together with the diffusion backbone generally works for the models we tried. Stable Diffusion 3 is a special case, as it uses three different text encoders. We found that quantizing the _second_ text encoder does not work well, se we recommend the following alternatives:
 
 - Only quantize the first text encoder ([`CLIPTextModelWithProjection`](https://huggingface.co/docs/transformers/en/model_doc/clip#transformers.CLIPTextModelWithProjection)) or
 - Only quantize the third text encoder ([`T5EncoderModel`](https://huggingface.co/docs/transformers/en/model_doc/t5#transformers.T5EncoderModel)) or
@@ -168,7 +170,7 @@ The table below gives an idea about the expected memory savings for various text
 
 ### `bfloat16` is usually better on H100
 
-`bfloat16` as the computation data-type can be slightly better both in terms of memory and inference latency for supported GPU architectures. The table below presents some numbers for PixArt: 
+Using `bfloat16` can be faster for supported GPU architectures, such as H100 or 4090. The table below presents some numbers for PixArt measured on our H100 reference hardware: 
 
 | **Batch Size** | **Precision** | **Quantization** | **Memory (GB)** | **Latency \n(Seconds)** | **Quantize \nTE** |
 | --- | --- | --- | --- | --- | --- |
@@ -179,7 +181,7 @@ The table below gives an idea about the expected memory savings for various text
 
 ### The promise of `qint8`
 
-We found quantizing with `qint8`  is generally better in terms of inference latency. This effect gets more pronounced when we horizontally fuse the attention QKV projections (calling `fuse_qkv_projections()` in Diffusers), thereby thickening the dimensions of the int8 kernels to speed up computation. We present some evidence below for PixArt: 
+We found quantizing with `qint8` (instead of `fp8`)  is generally better in terms of inference latency. This effect gets more pronounced when we horizontally fuse the attention QKV projections (calling `fuse_qkv_projections()` in Diffusers), thereby thickening the dimensions of the int8 kernels to speed up computation. We present some evidence below for PixArt: 
 
 | **Batch Size** | **Quantization** | **Memory \n(GB)** | **Latency \n(Seconds)** | **Quantize \nTE** | **QKV \nProjection** |
 | --- | --- | --- | --- | --- | --- |
@@ -190,7 +192,7 @@ We found quantizing with `qint8`  is generally better in terms of inference late
 
 ### How about INT4?
 
-We additionally experimented with `qint4` when using `bfloat16`. This is only applicable to `bfloat16` on H100 because other configurations are not supported yet. With `qint4`, we can expect to see more improvements in memory consumption at the cost of increased inference latency (PixArt-Sigma numbers below):
+We additionally experimented with `qint4` when using `bfloat16`. This is only applicable to `bfloat16` on H100 because other configurations are not supported yet. With `qint4`, we can expect to see more improvements in memory consumption at the cost of increased inference latency. Increased latency is expected, because there is no native hardware support for int4 computation – the weights are transferred using 4 bits, but computation is still done in `bfloat16`. The table below shows our results for PixArt-Sigma:
 
 | **Batch Size** | **Quantize TE** | **Memory (GB)** | **Latency (Seconds)** |
 | --- | --- | --- | --- |
@@ -227,13 +229,13 @@ freeze(pipeline.transformer)
     </tr>
 </table>
 
-To recover the lost image quality, a common practice is to perform quantization-aware training, which is supported in Quanto.
+To recover the lost image quality, a common practice is to perform quantization-aware training, which is also supported in Quanto. This technique is out of the scope of this post, feel free to contact us if you're interested!
 
 All the results of our experiments for this post can be found [here](https://huggingface.co/datasets/sayakpaul/sample-datasets/tree/main/quanto-exps-2). 
 
 ## Bonus - saving and loading Diffusers models in Quanto
 
-We added the support to save and load quantized models from Diffusers in Quanto. This means we can save a model like `PixArtTransformer2DModel` using a quantization precision of our choice:
+Quantized Diffusers models can be saved and loaded:
 
 ```python
 from diffusers import PixArtTransformer2DModel
@@ -244,7 +246,7 @@ qmodel = QuantizedPixArtTransformer2DModel.quantize(model, weights=qfloat8)
 qmodel.save_pretrained("pixart-sigma-fp8")
 ```
 
-The resulting checkpoint is ***587MB*** in size as opposed to the original 2.44GB. We can then load it:
+The resulting checkpoint is ***587MB*** in size, instead of the original 2.44GB. We can then load it:
 
 ```python
 from diffusers import PixArtTransformer2DModel
@@ -259,7 +261,7 @@ And use it in a `DiffusionPipeline`:
 ```python
 from diffusers import DiffusionPipeline
 
-pipe = PixArtSigmaPipeline.from_pretrained(
+pipe = DiffusionPipeline.from_pretrained(
     "PixArt-alpha/PixArt-Sigma-XL-2-1024-MS", 
     transformer=None,
     torch_dtype=torch.float16,
@@ -270,7 +272,7 @@ prompt = "A small cactus with a happy face in the Sahara desert."
 image = pipe(prompt).images[0]
 ```
 
-In the future, we can expect to pass the `transformer` directly when initializing the pipeline so that this works:
+In the future, we can expect to pass the `transformer` directly when initializing the pipeline so that this will work:
 
 ```diff
 pipe = PixArtSigmaPipeline.from_pretrained(
@@ -285,7 +287,7 @@ If you want more models from Diffusers supported in Quanto for saving and loadin
 
 ## Tips
 
-- Based on the requirements, you may want to apply different kinds of quantization to the different models involved in a `DiffusionPipeline`. For example, FP8 for the text encoder and INT8 for the diffusion transformer. Thanks to the flexibility of Diffusers and Quanto, this can be done seamlessly.
+- Based on your requirements, you may want to apply different types of quantization to different pipeline modules. For example, you could use FP8 for the text encoder but INT8 for the diffusion transformer. Thanks to the flexibility of Diffusers and Quanto, this can be done seamlessly.
 - To optimize for your use cases, you can even combine quantization with other [memory optimization techniques](https://huggingface.co/docs/diffusers/main/en/optimization/memory) in Diffusers, such as `enable_model_cpu_offload()`.
 
 ## Conclusion
