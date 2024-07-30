@@ -54,13 +54,15 @@ We also have [Latte](https://huggingface.co/docs/diffusers/main/en/api/pipelines
 
 For brevity, we keep our study limited to the following three: PixArt-Sigma, Stable Diffusion 3, and Aura Flow. The table below shows the parameter counts of their diffusion backbones:
 
-| **Model** | **Checkpoint** | **# Params (Billion)** |
-| --- | --- | --- |
-| PixArt | https://huggingface.co/PixArt-alpha/PixArt-Sigma-XL-2-1024-MS | 0.611 |
-| Stable Diffusion 3 | https://huggingface.co/stabilityai/stable-diffusion-3-medium-diffusers | 2.028 |
-| Aura Flow | https://huggingface.co/fal/AuraFlow/ | 6.843 |
+|     **Model**     |                      **Checkpoint**                      | **# Params (Billion)** |
+|:-----------------:|:--------------------------------------------------------:|:----------------------:|
+|      PixArt       | https://huggingface.co/PixArt-alpha/PixArt-Sigma-XL-2-1024-MS |         0.611         |
+| Stable Diffusion 3| https://huggingface.co/stabilityai/stable-diffusion-3-medium-diffusers |         2.028         |
+|     Aura Flow     |        https://huggingface.co/fal/AuraFlow/              |         6.843         |
 
-It’s worth keeping in mind that this post primarily focuses on memory efficiency at a slight or negligible cost of inference latency. 
+<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
+It’s worth keeping in mind that this post primarily focuses on memory efficiency at a slight or negligible cost of inference latency.
+</div>
 
 ## Quantizing a `DiffusionPipeline` with Quanto
 
@@ -88,26 +90,24 @@ image = pipeline("ghibli style, a fantasy landscape with castles").images[0]
 ```
 
 <table>
-    <tr>
-        <td>
-            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptpixart-bs1-dtypefp16-qtypenone-qte0.png" alt="Image 1">
-            <caption>FP16</caption>
-        </td>
-        <td>
-            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptpixart-bs1-dtypefp16-qtypefp8-qte0.png" alt="Image 2">
-            <caption>Diffusion Transformer in FP8</caption>
-        </td>
-    </tr>
+<tr style="text-align: center;">
+    <th>FP16</th>
+    <th>Diffusion Transformer in FP8</th>
+</tr>
+<tr>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptpixart-bs1-dtypefp16-qtypenone-qte0.png" width=512 alt="FP16 image."/></td>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptpixart-bs1-dtypefp16-qtypefp8-qte0.png" width=512 alt="FP8 quantized image."/></td>
+</tr>
 </table>
 
 We notice the following memory savings when using FP8, with slightly higher latency and almost no quality degradation: 
 
 | **Batch Size** | **Quantization** | **Memory (GB)** | **Latency (Seconds)** |
-| --- | --- | --- | --- |
-| 1 | None | 12.086 | 1.2 |
-| 1 | FP8 | **11.547** | 1.540 |
-| 4 | None | 12.087 | 4.482 |
-| 4 | FP8 | **11.548** | 5.109 |
+|:--------------:|:----------------:|:---------------:|:--------------------:|
+|       1        |       None       |      12.086     |         1.200        |
+|       1        |       FP8        |     **11.547**  |         1.540        |
+|       4        |       None       |      12.087     |         4.482        |
+|       4        |       FP8        |     **11.548**  |         5.109        |
 
 We can quantize the text encoder in the same way:
 
@@ -119,11 +119,11 @@ freeze(pipeline.text_encoder)
 The text encoder is also a transformer model, and we can quantize it too. Quantizing both the text encoder and the diffusion backbone leads to much larger memory improvements: 
 
 | **Batch Size** | **Quantization** | **Quantize TE** | **Memory (GB)** | **Latency (Seconds)** |
-| --- | --- | --- | --- | --- |
-| 1 | FP8 | False | 11.547 | 1.540 |
-| 1 | FP8 | True | **5.363** | 1.601 |
-| 4 | FP8 | False | 11.548 | 5.109 |
-| 4 | FP8 | True | **5.364** | 5.141 |
+|:--------------:|:----------------:|:---------------:|:---------------:|:--------------------:|
+|       1        |       FP8        |      False      |      11.547     |         1.540        |
+|       1        |       FP8        |       True      |     **5.363**   |         1.601        |
+|       4        |       FP8        |      False      |      11.548     |         5.109        |
+|       4        |       FP8        |       True      |     **5.364**   |         5.141        |
 
 Quantizing the text encoder produces results very similar to the previous case:
 
@@ -140,33 +140,29 @@ Quantizing the text encoder together with the diffusion backbone generally works
 The table below gives an idea about the expected memory savings for various text encoder quantization combinations (the diffusion transformer is quantized in all cases): 
 
 | **Batch Size** | **Quantization** | **Quantize TE 1** | **Quantize TE 2** | **Quantize TE 3** | **Memory (GB)** | **Latency (Seconds)** |
-| --- | --- | --- | --- | --- | --- | --- |
-| 1 | FP8 | 1 | 1 | 1 | 8.200 | 2.858 |
-| 1 ✅ | FP8 | 0 | 0 | 1 | 8.294 | 2.781 |
-| 1 | FP8 | 1 | 1 | 0 | 14.384 | 2.833 |
-| 1 | FP8 | 0 | 1 | 0 | 14.475 | 2.818 |
-| 1 ✅ | FP8 | 1 | 0 | 0 | 14.384 | 2.730 |
-| 1  | FP8 | 0 | 1 | 1 | 8.325 | 2.875 |
-| 1 ✅ | FP8 | 1 | 0 | 1 | 8.204 | 2.789 |
-| 1 | None | - | - | - | 16.403 | 2.118 |
+|:--------------:|:----------------:|:-----------------:|:-----------------:|:-----------------:|:---------------:|:--------------------:|
+|       1        |       FP8        |         1         |         1         |         1         |      8.200      |         2.858        |
+|      1 ✅       |       FP8        |         0         |         0         |         1         |      8.294      |         2.781        |
+|       1        |       FP8        |         1         |         1         |         0         |     14.384      |         2.833        |
+|       1        |       FP8        |         0         |         1         |         0         |     14.475      |         2.818        |
+|      1 ✅       |       FP8        |         1         |         0         |         0         |     14.384      |         2.730        |
+|       1        |       FP8        |         0         |         1         |         1         |      8.325      |         2.875        |
+|      1 ✅       |       FP8        |         1         |         0         |         1         |      8.204      |         2.789        |
+|       1        |       None       |         -         |         -         |         -         |     16.403      |         2.118        |
+
 
 <table>
-    <tr>
-        <td>
-            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptsd3-bs1-dtypefp16-qtypefp8-qte1-first1.png" alt="Image 1">
-            <caption>Quantized Text Encoder: 1</caption>
-        </td>
-        <td>
-            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptsd3-bs1-dtypefp16-qtypefp8-qte1-third1.png" alt="Image 2">
-            <caption>Quantized Text Encoder: 3</caption>
-        </td>
-        <td>
-            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptsd3-bs1-dtypefp16-qtypefp8-qte1-first1-third1%201.png" alt="Image 3">
-            <caption>Quantized Text Encoders: 1 and 3</caption>
-        </td>
-    </tr>
+<tr style="text-align: center;">
+    <th>Quantized Text Encoder: 1</th>
+    <th>Quantized Text Encoder: 3</th>
+    <th>Quantized Text Encoders: 1 and 3</th>
+</tr>
+<tr>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptsd3-bs1-dtypefp16-qtypefp8-qte1-first1.png" width=300 alt="Image with quantized text encoder 1."/></td>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptsd3-bs1-dtypefp16-qtypefp8-qte1-third1.png" width=300 alt="Image with quantized text encoder 3."/></td>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckptsd3-bs1-dtypefp16-qtypefp8-qte1-first1-third1%201.png" width=300 alt="Image with quantized text encoders 1 and 3."/></td>
+</tr>
 </table>
-
 
 ## Misc findings
 
@@ -175,31 +171,31 @@ The table below gives an idea about the expected memory savings for various text
 Using `bfloat16` can be faster for supported GPU architectures, such as H100 or 4090. The table below presents some numbers for PixArt measured on our H100 reference hardware: 
 
 | **Batch Size** | **Precision** | **Quantization** | **Memory (GB)** | **Latency (Seconds)** | **Quantize TE** |
-| --- | --- | --- | --- | --- | --- |
-| 1 | FP16 | INT8 | 5.363 | 1.538 | True |
-| 1 | BF16 | INT8 | 5.364 | **1.454** | True |
-| 1 | FP16 | FP8 | 5.363 | 1.601 | True |
-| 1 | BF16 | FP8 | 5.363 | **1.495** | True |
+|:--------------:|:-------------:|:----------------:|:---------------:|:--------------------:|:---------------:|
+|       1        |      FP16     |       INT8       |      5.363      |         1.538        |       True      |
+|       1        |      BF16     |       INT8       |      5.364      |        **1.454**     |       True      |
+|       1        |      FP16     |       FP8        |      5.363      |         1.601        |       True      |
+|       1        |      BF16     |       FP8        |      5.363      |        **1.495**     |       True      |
 
 ### The promise of `qint8`
 
-We found quantizing with `qint8` (instead of `fp8`)  is generally better in terms of inference latency. This effect gets more pronounced when we horizontally fuse the attention QKV projections (calling `fuse_qkv_projections()` in Diffusers), thereby thickening the dimensions of the int8 kernels to speed up computation. We present some evidence below for PixArt: 
+We found quantizing with `qint8` (instead of `qfloat8`)  is generally better in terms of inference latency. This effect gets more pronounced when we horizontally fuse the attention QKV projections (calling `fuse_qkv_projections()` in Diffusers), thereby thickening the dimensions of the int8 kernels to speed up computation. We present some evidence below for PixArt: 
 
 | **Batch Size** | **Quantization** | **Memory (GB)** | **Latency (Seconds)** | **Quantize TE** | **QKV Projection** |
-| --- | --- | --- | --- | --- | --- |
-| 1 | INT8 | 5.363 | 1.538 | True | False |
-| 1 | INT8 | 5.536 | **1.504** | True | True |
-| 4 | INT8 | 5.365 | 5.129 | True | False |
-| 4 | INT8 | 5.538 | **4.989** | True | True |
+|:--------------:|:----------------:|:---------------:|:--------------------:|:---------------:|:------------------:|
+|       1        |       INT8       |      5.363      |         1.538        |       True      |       False        |
+|       1        |       INT8       |      5.536      |        **1.504**     |       True      |       True         |
+|       4        |       INT8       |      5.365      |         5.129        |       True      |       False        |
+|       4        |       INT8       |      5.538      |        **4.989**     |       True      |       True         |
 
 ### How about INT4?
 
 We additionally experimented with `qint4` when using `bfloat16`. This is only applicable to `bfloat16` on H100 because other configurations are not supported yet. With `qint4`, we can expect to see more improvements in memory consumption at the cost of increased inference latency. Increased latency is expected, because there is no native hardware support for int4 computation – the weights are transferred using 4 bits, but computation is still done in `bfloat16`. The table below shows our results for PixArt-Sigma:
 
 | **Batch Size** | **Quantize TE** | **Memory (GB)** | **Latency (Seconds)** |
-| --- | --- | --- | --- |
-| 1 | No | 9.380 | 7.431 |
-| 1 | Yes | **3.058**	 | 7.604 |
+|:--------------:|:---------------:|:---------------:|:--------------------:|
+|       1        |       No        |      9.380      |         7.431        |
+|       1        |       Yes       |     **3.058**   |         7.604        |
 
 Note, however, that due to the aggressive discretization of INT4, the end results can take a hit. This is why, for Transformer-based models in general, we usually leave the final projection layer out of quantization. In Quanto, we do this by:
 
@@ -211,24 +207,18 @@ freeze(pipeline.transformer)
 `"proj_out"` corresponds to the final layer in `pipeline.transformer`. The table below presents results for various settings:
 
 <table>
-    <tr>
-        <td>
-            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%400-fuse%400.png" alt="Image 1">
-            <caption>Quantize TE: No, Layer exclusion: None</caption>
-        </td>
-        <td>
-            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%400-fuse%400-exclude%40proj_out.png" alt="Image 2">
-            <caption>Quantize TE: No, Layer exclusion: "proj_out"</caption>
-        </td>
-        <td>
-            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%401-fuse%400.png" alt="Image 3">
-            <caption>Quantize TE: Yes, Layer exclusion: None</caption>
-        </td>
-        <td>
-            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%401-fuse%400-exclude%40proj_out.png" alt="Image 4">
-            <caption>Quantize TE: Yes, Layer exclusion: "proj_out"</caption>
-        </td>
-    </tr>
+<tr style="text-align: center;">
+    <th>Quantize TE: No, Layer exclusion: None</th>
+    <th>Quantize TE: No, Layer exclusion: "proj_out"</th>
+    <th>Quantize TE: Yes, Layer exclusion: None</th>
+    <th>QQuantize TE: Yes, Layer exclusion: "proj_out"</th>
+</tr>
+<tr>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%400-fuse%400.png" width=300 alt="Image 1 without text encoder quantization."/></td>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%400-fuse%400-exclude%40proj_out.png" width=300 alt="Image 2 without text encoder quantization but with proj_out excluded in diffusion transformer quantization."/></td>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%401-fuse%400.png" width=300 alt="Image 3 with text encoder quantization."/></td>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quanto-diffusers/ckpt%40pixart-bs%401-dtype%40bf16-qtype%40int4-qte%401-fuse%400-exclude%40proj_out.png" width=300 alt="Image 3 with text encoder quantization but with proj_out excluded in diffusion transformer quantization.."/></td>
+</tr>
 </table>
 
 To recover the lost image quality, a common practice is to perform quantization-aware training, which is also supported in Quanto. This technique is out of the scope of this post, feel free to contact us if you're interested!
