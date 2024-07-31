@@ -3,6 +3,7 @@ title: "Google releases Gemma 2 2B, ShieldGemma and Gemma Scope"
 thumbnail: /blog/assets/gemma-july-update/thumbnail.png
 authors:
 - user: Xenova
+- user: pcuenq
 - user: reach-vb
 ---
 
