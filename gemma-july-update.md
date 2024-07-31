@@ -24,7 +24,7 @@ Gemma 2 2B shares the same architecture as the other models in the Gemma 2 famil
 
 ### Use with Transformers
 
-With Transformers, you can use Gemma and leverage all the tools within the Hugging Face ecosystem. To use Gemma models with transformers, make sure to use `transformers` from main for the latest fixes and optimizations:
+With Transformers, you can use Gemma and leverage all the tools within the Hugging Face ecosystem. To use Gemma models with transformers, make sure to use `transformers` from `main` for the latest fixes and optimizations:
 
 ```bash
 pip install git+https://github.com/huggingface/transformers.git --upgrade
