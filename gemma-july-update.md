@@ -133,15 +133,15 @@ This format has to be exactly reproduced for effective use. We’ll later show h
 
 ### Open LLM Leaderboard v2 Evaluation
 
-| Benchmark   | google/gemma-2-2B-it  | google/gemma-2-2B   | [microsoft/Phi-2](https://huggingface.co/microsoft/phi-2) | [Qwen/Qwen2-1.5B-Instruct](https://huggingface.co/Qwen/Qwen2-1.5B-Instruct) |
-| ----------------- | ------------ | —--- |---------|---------|
-| BBH		|     18.0    |  11.8 |  28.0 | 13.7   |
-| IFEval	|     **56.7**    |  20.0 |  27.4 | 33.7   |
-| MATH Hard |       0.1    |    2.9 |   2.4  |   5.8   |
-| GPQA  	|     **3.2**    |    1.7 |   2.9  |   1.6   |
-| MuSR  	|       7.1    |  11.4 | 13.9  | 12.0   |
-| MMLU-Pro 	|     **17.2**    |  13.1 | 18.1  | 16.7   |
-| Mean 	|     17.0    |  10.1 | 15.5 | 13.9 |
+| Benchmark | google/gemma-2-2B-it | google/gemma-2-2B | [microsoft/Phi-2](https://huggingface.co/microsoft/phi-2) | [Qwen/Qwen2-1.5B-Instruct](https://huggingface.co/Qwen/Qwen2-1.5B-Instruct) |
+| :---- | :---- | :---- | :---- | :---- |
+| BBH       |     18.0 | 11.8 |  28.0 | 13.7 |
+| IFEval    | **56.7** | 20.0 |  27.4 | 33.7 |
+| MATH Hard |      0.1 |  2.9 |   2.4 |  5.8 |
+| GPQA      |  **3.2** |  1.7 |   2.9 |  1.6 |
+| MuSR      |      7.1 | 11.4 |  13.9 | 12.0 |
+| MMLU-Pro  | **17.2** | 13.1 |  18.1 | 16.7 |
+| Mean      |     17.0 | 10.1 |  15.5 | 13.9 |
 
 Gemma 2 2B seems to be better at knowledge-related and instructions following (for the instruct version) tasks than other models of the same size.
 
