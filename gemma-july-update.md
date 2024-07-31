@@ -67,7 +67,7 @@ On a Mac you can directly install llama.cpp with brew. To set up llama.cpp on ot
 ```bash
 brew install llama.cpp
 ```
-Note: if you are building llama.cpp from scratch then remember to pass `LLAMA_CURL=1` flag.
+Note: if you are building llama.cpp from scratch then remember to pass the `LLAMA_CURL=1` flag.
 
 Step 2: Run inference
 
@@ -109,7 +109,7 @@ Note: The above example runs the inference using the official GGUF weights provi
 
 ### Demo
 
-You can chat with the Gemma 2 2B Instruct model on Hugging Face Spaces! Check it out here: https://huggingface.co/spaces/huggingface-projects/gemma-2-2b-it.
+You can chat with the Gemma 2 2B Instruct model on Hugging Face Spaces! [Check it out here](https://huggingface.co/spaces/huggingface-projects/gemma-2-2b-it).
 
 In addition to this you can run the Gemma 2 2B Instruct model directly from a [colab here](https://github.com/Vaibhavs10/gpu-poor-llm-notebooks/blob/main/Gemma_2_2B_colab.ipynb)
 
@@ -128,9 +128,7 @@ LaMDA<end_of_turn>
 LaMDA who?<end_of_turn><eos>
 ```
 
-This format has to be exactly reproduced for effective use. We’ll later show how easy it is to reproduce the instruct prompt with the chat template available in `transformers`. 
-
-[TODO] add mention of chat template here?
+This format has to be exactly reproduced for effective use. In [a previous section](#use-with-transformers) we showed how easy it is to reproduce the instruct prompt with the chat template available in `transformers`. 
 
 ### Open LLM Leaderboard v2 Evaluation
 
