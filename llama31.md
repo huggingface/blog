@@ -529,7 +529,7 @@ A couple of details:
 * Assistant responses may end with the special token `<|eot_id|>`, but we must also stop generation if the regular EOS token is found. We can stop generation early by providing a list of terminators in the `eos_token_id` parameter.
 * We used the default sampling parameters (`temperature` and `top_p`) taken from the original meta codebase. We haven’t had time to conduct extensive tests yet, feel free to explore!
 
-The following snippet shows how to use `meta-llama/Meta-Llama-3.1-8B-Instruct`. It requires about 16 GB of VRAM, which fits many consumer GPUs. The same snippet works for `meta-llama/Meta-Llama-3.1-70B-Instruct``, which, at 140GB of VRAM & `meta-llama/Meta-Llama-3.1-405B-Instruct`` (requiring 810GB VRAM), makes it a very interesting model for production use cases. Memory consumption can be further reduced by loading in 8-bit or 4-bit mode.
+The following snippet shows how to use `meta-llama/Meta-Llama-3.1-8B-Instruct`. It requires about 16 GB of VRAM, which fits many consumer GPUs. The same snippet works for `meta-llama/Meta-Llama-3.1-70B-Instruct`, which, at 140GB of VRAM & `meta-llama/Meta-Llama-3.1-405B-Instruct` (requiring 810GB VRAM), makes it a very interesting model for production use cases. Memory consumption can be further reduced by loading in 8-bit or 4-bit mode.
 
 
 ```python
