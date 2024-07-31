@@ -110,7 +110,7 @@ Note: The above example runs the inference using the official GGUF weights provi
 
 You can chat with the Gemma 2 2B Instruct model on Hugging Face Spaces! Check it out here: https://huggingface.co/spaces/huggingface-projects/gemma-2-2b-it.
 
-In addition to this you can run the Gemma 2 2B Instruct model directly from a colab here: [TODO add the link shortly before the release]
+In addition to this you can run the Gemma 2 2B Instruct model directly from a [colab here](https://github.com/Vaibhavs10/gpu-poor-llm-notebooks/blob/main/Gemma_2_2B_colab.ipynb)
 
 ### How to prompt Gemma 2
 
