@@ -4479,7 +4479,7 @@
 - local: gemma-july-update
   title: "Google releases Gemma 2 2B, ShieldGemma and Gemma Scope"
   author: Xenova
-  thumbnail: /blog/assets/gemma-july-update/thumbnail.png
+  thumbnail: /blog/assets/gemma-july-update/thumbnail.jpg
   date: July 31, 2024
   tags:
     - nlp
