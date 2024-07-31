@@ -1,12 +1,12 @@
 ---
-title: "PUT YOUR TITLE HERE" 
+title: "Google releases Gemma 2 2B, ShieldGemma and Gemma Scope"
 thumbnail: /blog/assets/gemma-july-update/thumbnail.png
 authors:
 - user: Xenova
 - user: reach-vb
 ---
 
-# Google releases Gemma 2 2B, ShieldGemma and Gemma Scope.
+# Google releases Gemma 2 2B, ShieldGemma and Gemma Scope
 
 One month after the release of [Gemma 2](https://huggingface.co/blog/gemma2), Google has expanded their set of Gemma models to include the following new additions:
 - [Gemma 2 2B](https://huggingface.co/collections/google/gemma-2-2b-release-66a20f3796a2ff2a7c76f98f) - The 2.6B parameter version of Gemma 2, making it a great candidate for on-device use.
