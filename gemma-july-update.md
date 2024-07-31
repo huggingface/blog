@@ -5,6 +5,7 @@ authors:
 - user: Xenova
 - user: pcuenq
 - user: reach-vb
+- user: joaogante
 ---
 
 # Google releases Gemma 2 2B, ShieldGemma and Gemma Scope
