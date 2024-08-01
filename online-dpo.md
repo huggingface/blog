@@ -23,4 +23,4 @@ judge.judge(
 ) # Outputs: [0, 1]
 ```
 
-Under the hood, HfPairwiseJudge uses [Llama 3 70B Instruct](https://huggingface.co/models/meta-llama/Meta-Llama-3-70B-Instruct)` via the [Hugging Face Inference API](https://huggingface.co/docs/huggingface_hub/main/en/guides/inference).
+Under the hood, HfPairwiseJudge uses [Llama 3 70B Instruct](https://huggingface.co/models/meta-llama/Meta-Llama-3-70B-Instruct) via the [Hugging Face Inference API](https://huggingface.co/docs/huggingface_hub/main/en/guides/inference). For more information on how to use different judges, see the [Judges section of the TRL documentation](/https://huggingface.co/docs/trl/main/judges).
