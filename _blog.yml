@@ -4487,3 +4487,12 @@
     - research
     - LLM
     - gcp
+
+- local: online-dpo
+  title: "Online DPO"
+  author: TODO
+  guest: true
+  thumbnail: /blog/assets/online-dpo/thumbnail.png
+  date: TODO
+  tags:
+    - TODO
