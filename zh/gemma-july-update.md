@@ -1,3 +1,4 @@
+---
 title: "Google 最新发布： Gemma 2 2B, ShieldGemma 和 Gemma Scope"
 thumbnail: /blog/assets/gemma-july-update/thumbnail.jpg
 authors:
