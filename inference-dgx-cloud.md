@@ -27,7 +27,7 @@ Inference-as-a-Service complements [Train on DGX Cloud](https://huggingface.co/b
 
 Running serverless inference with Hugging Face models has never been easier. Here’s a step-by-step guide to get you started:
 
-_Note: You need access to an Organization with a [Hugging Face Enterprise](https://huggingface.co/enterprise) subscription to run Inference._
+_Note: You need access to an Organization with a [Hugging Face Enterprise Hub](https://huggingface.co/enterprise) subscription to run Inference._
 
 Before you begin, ensure you meet the following requirements:
 1. You are member of an Enterprise Hub organization.
