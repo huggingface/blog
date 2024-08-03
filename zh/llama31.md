@@ -192,50 +192,50 @@ _注意: 上面引用的数字表示仅加载模型检查点所需的 GPU VRAM�
 
 以下表格概述了使用不同技术训练 Llama 3.1 模型的大致内存需求:
 
+
 <table>
   <tr>
-   <td><strong>模型规格</strong>
+   <td><strong> 模型规格 </strong>
    </td>
-   <td><strong>1k token</strong>
+   <td><strong> 全量微调 </strong>
    </td>
-   <td><strong>16k token</strong>
+   <td><strong>LoRA</strong>
    </td>
-   <td><strong>128k token</strong>
+   <td><strong>Q-LoRA</strong>
    </td>
   </tr>
   <tr>
    <td>8B
    </td>
-   <td>0.125 GB
+   <td>60 GB
    </td>
-   <td>1.95 GB
+   <td>16 GB
    </td>
-   <td>15.62 GB
+   <td>6 GB
    </td>
-
-
   </tr>
   <tr>
    <td>70B
    </td>
-   <td>0.313 GB
+   <td>500 GB
    </td>
-   <td>4.88 GB
+   <td>160 GB
    </td>
-   <td>39.06 GB
+   <td>48 GB
    </td>
   </tr>
   <tr>
    <td>405B
    </td>
-   <td>0.984 GB
+   <td>3.25 TB
    </td>
-   <td>15.38
+   <td>950 GB
    </td>
-   <td>123.05 GB
+   <td>250 GB
    </td>
   </tr>
 </table>
+
 
 _注意: 这些是估计值，可能会根据具体实现细节和优化情况有所不同。_
 
