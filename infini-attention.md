@@ -12,7 +12,7 @@ The context length of language models is one of the central attributes besides t
 Even with ring attention, the number of GPUs required to train an Llama 3 8B [[link]](https://arxiv.org/abs/2407.21783) on a 1-million-token context length with a batch size of 1 is 512 GPUs [[link]](https://x.com/Haojun_Zhao14/status/1815419356408336738). As scaling law has shown [[link]](https://arxiv.org/abs/2001.08361), there is a strong correlation between model size and its downstream performance, that means the bigger the model, the better (of course, both models should be both well-trained). So we not only want a 1m context length, but we want a 1m context length on the biggest model (e.g., Llama 3 8B 400B). And there are only a few companies in existence that have the resources to do so.
 
 > Recap on the memory complexity of self-attention
-In standard attention, every token attends to every other token in the sequence, resulting in an attention matrix of size [seq_len, seq_len]. For each pair of tokens, we compute an attention score, and as the sequence length (seq_len) increases, the memory requirements grow quadratically: Memory for the attention matrix is O(seq_len^2). For instance, a 10x increase in sequence length results in a 100x increase in memory requirements. 
+> In standard attention, every token attends to every other token in the sequence, resulting in an attention matrix of size [seq_len, seq_len]. For each pair of tokens, we compute an attention score, and as the sequence length (seq_len) increases, the memory requirements grow quadratically: Memory for the attention matrix is O(seq_len^2). For instance, a 10x increase in sequence length results in a 100x increase in memory requirements. 
 
 Motivated by this, we explore an alternative approach to standard attention: infini-attention. The paper was released by researchers from Google in April 2024 [[link]](https://arxiv.org/abs/2404.07143). Instead of computing attention scores between every word, Infini attention divides the sequence into segments, compresses earlier segments into a fixed buffer, and allows the next segment to retrieve memory from the earlier segments while limiting attention scores to words within the current segment.  A key advantage is that it uses the same query within a segment to access information from both its own segment and the compressed memory. This enables us to cheaply extend the context length for a pretrained model. Since it updates the compressed memory on the go, and success is not guaranteed, but if it all works out we can have infinite context length, as it only keeps a single buffer for all the memory of earlier segments. However, by definition, compression has limits on the amount of information it can effectively compress. The question now is: how good is the compressed memory if it works?
 
@@ -41,8 +41,8 @@ With these principles in mind, let's dive into how Infini-attention actually wor
     + $A_{\text {mem }} \in \mathbb{R}^{N \times d_{\text {value }}}:$ The retrieved content from memory, representing the long-term context.
     + $Q \in \mathbb{R}^{N \times d_{\text {key }}}$ : The query matrix, where $N$ is the number of queries, and $d_{\text {key }}$ is the dimension of each query.
     + $M_{s-1} \in \mathbb{R}^{d_{\text {key }} \times d_{\text {value }}}$ : The memory matrix from the previous segment, storing key-value pairs.
-    + $\sigma$ : A nonlinear activation function, specifically element-wise Exponential Linear Unit (ELU) plus 1 , which helps stabilize training by maintaining non-negative outputs.
-    + $z_{s-1} \in \mathbb{R}^{d_{\text {key }}}$ : A normalization term that acts as a sum over all keys in the previous segment, ensuring that the retrieved content is appropriately scaled.
+    + $\sigma$ : A nonlinear activation function, specifically element-wise Exponential Linear Unit (ELU) plus 1.
+    + $z_{s-1} \in \mathbb{R}^{d_{\text {key }}}$ : A normalization term.
 
 ```python
 def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
@@ -95,7 +95,7 @@ def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
 
     + $A \in \mathbb{R}^{N \times d_{\text {value }}}$ : The combined attention output.
     + $\operatorname{sigmoid}(\beta)$ : A learnable scalar parameter that controls the trade-off between the long-term memory content $A_{\text {mem }}$ and the local context.
-    + $A_{\text {dot }} \in \mathbb{R}^{N \times d_{\text {value }}}$ : The attention output from the current segment using dot-product attention.
+    + $A_{\text {dot }} \in \mathbb{R}^{N \times d_{\text {value }}}$: The attention output from the current segment using dot-product attention.
 
 + Step 5: Update the compressive memory by adding the key-value states from the current segment. So that we accumulate the context over time.
 
@@ -107,7 +107,7 @@ def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
     + $K \in \mathbb{R}^{N \times d_{\text {key }}}$ : The key matrix for the current segment, representing the new keys to be stored.
     + $V \in \mathbb{R}^{N \times d_{\text {value }}}$ : The value matrix for the current segment, representing the new values associated with the keys.
     + $K_t$ : The $t$-th key vector in the key matrix.
-    + $z_s$ : The updated normalization term for the current segment, which aggregates the contribution of the current keys.
+    + $z_s$ : The updated normalization term for the current segment.
 
 ```python
 def _update_memory(prev_memory, prev_normalization, key_states, value_states):
