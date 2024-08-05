@@ -46,27 +46,7 @@ With these principles in mind, let's dive into how Infini-attention actually wor
 
 ```python
 def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
-    if prev_memory is None or prev_normalization is None:
-        return torch.zeros_like(query_states)
-
-    assert (prev_memory is None and prev_normalization is None) or (
-        prev_memory is not None and prev_normalization is not None
-    )
-
-    if self.n_repeats > 1:
-        from einops import repeat
-
-        prev_memory = repeat(
-            prev_memory,
-            "batch_size n_kv_heads d_k d_v -> batch_size (n_kv_heads n) d_k d_v",
-            n=self.n_repeats,
-        )
-        prev_normalization = repeat(
-            prev_normalization,
-            "batch_size n_kv_heads d_head -> batch_size (n_kv_heads n) d_head",
-            n=self.n_repeats,
-        )
-
+    ...
     sigma_query_states = F.elu(query_states) + 1
     retrieved_memory = einsum(
         sigma_query_states,
@@ -111,9 +91,7 @@ def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
 
 ```python
 def _update_memory(prev_memory, prev_normalization, key_states, value_states):
-    assert (prev_memory is None and prev_normalization is None) or (
-        prev_memory is not None and prev_normalization is not None
-    )
+    ...
 
     sigma_key_states = F.elu(key_states) + 1
 
