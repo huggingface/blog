@@ -48,60 +48,27 @@ The library can be used for two main purposes:
 
 Combining these augmentations with other image transformations from Albumentations allows for simultaneous modification of images and text. You can retrieve the augmented text as well.
 
+*Note*: The initial version of the data augmentation pipeline presented in [this repo](https://github.com/danaaubakirova/doc-augmentation), included synonym replacement. It was removed in this version because it caused significant time overhead.
+
 
 ## Installation
 
-
-```python
-from __future__ import annotations
-```
-
-
-```python
-%load_ext autoreload
-%autoreload 2
-```
-
-
 ```python
 !pip install -U pillow
-```
-
-    Requirement already satisfied: pillow in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (10.4.0)
-
-
-
-```python
 !pip install albumentations
+!pip install nltk
 ```
-
-    Requirement already satisfied: albumentations in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (1.4.12)
-    Requirement already satisfied: numpy>=1.24.4 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from albumentations) (1.26.4)
-    Requirement already satisfied: scipy>=1.10.0 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from albumentations) (1.13.0)
-    Requirement already satisfied: scikit-image>=0.21.0 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from albumentations) (0.22.0)
-    Requirement already satisfied: PyYAML in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from albumentations) (6.0.1)
-    Requirement already satisfied: typing-extensions>=4.9.0 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from albumentations) (4.10.0)
-    Requirement already satisfied: pydantic>=2.7.0 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from albumentations) (2.8.2)
-    Requirement already satisfied: albucore>=0.0.13 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from albumentations) (0.0.13)
-    Requirement already satisfied: eval-type-backport in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from albumentations) (0.2.0)
-    Requirement already satisfied: opencv-python-headless>=4.9.0.80 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from albumentations) (4.9.0.80)
-    Requirement already satisfied: tomli>=2.0.1 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from albucore>=0.0.13->albumentations) (2.0.1)
-    Requirement already satisfied: annotated-types>=0.4.0 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from pydantic>=2.7.0->albumentations) (0.7.0)
-    Requirement already satisfied: pydantic-core==2.20.1 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from pydantic>=2.7.0->albumentations) (2.20.1)
-    Requirement already satisfied: networkx>=2.8 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from scikit-image>=0.21.0->albumentations) (3.1)
-    Requirement already satisfied: pillow>=9.0.1 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from scikit-image>=0.21.0->albumentations) (10.4.0)
-    Requirement already satisfied: imageio>=2.27 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from scikit-image>=0.21.0->albumentations) (2.33.1)
-    Requirement already satisfied: tifffile>=2022.8.12 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from scikit-image>=0.21.0->albumentations) (2023.4.12)
-    Requirement already satisfied: packaging>=21 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from scikit-image>=0.21.0->albumentations) (24.0)
-    Requirement already satisfied: lazy_loader>=0.3 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from scikit-image>=0.21.0->albumentations) (0.3)
-
-
 
 ```python
 import albumentations as A
 import cv2
 from matplotlib import pyplot as plt
 import json
+import nltk
+
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+
 ```
 
 ## Visualization
@@ -123,21 +90,12 @@ For this tutorial, we will focus on the sample from IDL dataset.
 ```python
 bgr_image = cv2.imread("examples/original/fkhy0236.tif")
 image = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2RGB)
-```
 
-
-```python
 with open("examples/original/fkhy0236.json") as f:
     labels = json.load(f)
-```
 
-
-```python
 font_path = "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf"
-```
 
-
-```python
 visualize(image)
 ```
 
@@ -164,10 +122,7 @@ def prepare_metadata(page: dict, image_height: int, image_width: int) -> list:
         })
     
     return metadata
-```
 
-
-```python
 image_height, image_width = image.shape[:2]
 metadata = prepare_metadata(page, image_height, image_width)
 ```
@@ -177,15 +132,7 @@ metadata = prepare_metadata(page, image_height, image_width)
 
 ```python
 transform = A.Compose([A.TextImage(font_path=font_path, p=1, augmentations=["swap"], clear_bg=True, font_color = 'red', fraction_range = (0.5,0.8), font_size_fraction_range=(0.8, 0.9))])
-```
-
-
-```python
 transformed = transform(image=image, textimage_metadata=metadata)
-```
-
-
-```python
 visualize(transformed["image"])
 ```
 
@@ -198,15 +145,7 @@ visualize(transformed["image"])
 
 ```python
 transform = A.Compose([A.TextImage(font_path=font_path, p=1, augmentations=["deletion"], clear_bg=True, font_color = 'red', fraction_range = (0.5,0.8), font_size_fraction_range=(0.8, 0.9))])
-```
-
-
-```python
 transformed = transform(image=image, textimage_metadata=metadata)
-```
-
-
-```python
 visualize(transformed['image'])
 ```
 
@@ -215,48 +154,12 @@ visualize(transformed['image'])
 
 ## Random Insertion
 
-
-```python
-!pip install nltk
-```
-
-    Requirement already satisfied: nltk in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (3.8.1)
-    Requirement already satisfied: click in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from nltk) (8.1.7)
-    Requirement already satisfied: joblib in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from nltk) (1.3.2)
-    Requirement already satisfied: regex>=2021.8.3 in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from nltk) (2023.12.25)
-    Requirement already satisfied: tqdm in /fsx/dana_aubakirova/miniconda/envs/myenv/lib/python3.11/site-packages (from nltk) (4.65.0)
-
-
-
-```python
-import nltk
-
-nltk.download('stopwords')
-from nltk.corpus import stopwords
-```
-
-    [nltk_data] Downloading package stopwords to
-    [nltk_data]     /admin/home/dana_aubakirova/nltk_data...
-    [nltk_data]   Package stopwords is already up-to-date!
-
-
+In random insertion we insert random words or phrases into the text. In this case, we use stop words, common words in a language that are often ignored or filtered out during natural language processing (NLP) tasks because they carry less meaningful information compared to other words. Examples of stop words include "is," "the," "in," "and," "of," etc.
 
 ```python
 stops = stopwords.words('english')
-```
-
-
-```python
 transform = A.Compose([A.TextImage(font_path=font_path, p=1, augmentations=["insertion"], stopwords = stops, clear_bg=True, font_color = 'red', fraction_range = (0.5,0.8), font_size_fraction_range=(0.8, 0.9))])
-```
-
-
-```python
 transformed = transform(image=image, textimage_metadata=metadata)
-```
-
-
-```python
 visualize(transformed['image'])
 ```
 
@@ -276,15 +179,7 @@ transform_complex = A.Compose([A.TextImage(font_path=font_path, p=1, augmentatio
                                A.PlanckianJitter(p=1),
                                A.Affine(p=1)
                               ])
-```
-
-
-```python
 transformed = transform_complex(image=image, textimage_metadata=metadata)
-```
-
-
-```python
 visualize(transformed["image"])
 ```
 
@@ -299,10 +194,6 @@ run the following cell. This data can be used effectively for training models to
 ```python
 transformed['overlay_data']
 ```
-
-
-
-
     [{'bbox_coords': (375, 1149, 2174, 1196),
       'text': "Lionberger, Ph.D., (Title: if Introduction to won i FDA's yourselves Draft Guidance once of the wasn't General Principles",
       'original_text': "Lionberger, Ph.D., (Title: Introduction to FDA's Draft Guidance of the General Principles",
@@ -317,90 +208,8 @@ transformed['overlay_data']
       'text': 'll Brands recognize the has importance and of a generics ADF guidance to ensure which after',
       'original_text': 'Brands recognize the importance of a generics ADF guidance to ensure',
       'bbox_index': 23,
-      'font_color': 'red'},
-     {'bbox_coords': (526, 2772, 2173, 2820),
-      'text': "couldn't potential routes of abuse. our Need for i will between a themselves broader, more flexible approach to generic",
-      'original_text': 'potential routes of abuse. Need for a broader, more flexible approach to generic',
-      'bbox_index': 31,
-      'font_color': 'red'},
-     {'bbox_coords': (367, 1214, 1972, 1262),
-      'text': 'whom for than too Evaluation of Abuse yours Deterrence of both Generic Solid for Oral Opioid Drug Products).',
-      'original_text': 'for Evaluation of Abuse Deterrence of Generic Solid Oral Opioid Drug Products).',
-      'bbox_index': 13,
-      'font_color': 'red'},
-     {'bbox_coords': (2022, 261, 2452, 305),
-      'text': 'by Washington, DC 20004',
-      'original_text': 'Washington, DC 20004',
-      'bbox_index': 6,
-      'font_color': 'red'},
-     {'bbox_coords': (523, 2837, 1912, 2885),
-      'text': "ADF guidance doesn't shouldn't and product specific itself guidance ourselves that for generic ADF opioids.",
-      'original_text': 'ADF guidance and product specific guidance for generic ADF opioids.',
-      'bbox_index': 32,
-      'font_color': 'red'},
-     {'bbox_coords': (373, 1808, 877, 1846),
-      'text': 'Generics was ADF Guidance."',
-      'original_text': 'Generics ADF Guidance."',
-      'bbox_index': 21,
-      'font_color': 'red'},
-     {'bbox_coords': (232, 161, 543, 219),
-      'text': 'Deterrent only',
-      'original_text': 'Deterrent',
-      'bbox_index': 1,
-      'font_color': 'red'},
-     {'bbox_coords': (524, 2174, 2171, 2221),
-      'text': "widespread access to you'll safe such shan and effective analgesics for wouldn other patients it who need them.",
-      'original_text': 'widespread access to safe and effective analgesics for patients who need them.',
-      'bbox_index': 24,
-      'font_color': 'red'},
-     {'bbox_coords': (373, 2006, 1158, 2054),
-      'text': "hadn A aren't few ve highlights from his presentation:",
-      'original_text': 'A few highlights from his presentation:',
-      'bbox_index': 22,
-      'font_color': 'red'},
-     {'bbox_coords': (375, 1579, 523, 1623),
-      'text': "didn't impact.",
-      'original_text': 'impact.',
-      'bbox_index': 18,
-      'font_color': 'red'},
-     {'bbox_coords': (235, 90, 450, 152),
-      'text': 'Abuse with',
-      'original_text': 'Abuse',
-      'bbox_index': 0,
-      'font_color': 'red'},
-     {'bbox_coords': (374, 1082, 2175, 1131),
-      'text': 's Pre Market Evaluation of Abuse-Deterrent Properties from of Opioid Drug at Products) are at and Robert them',
-      'original_text': 'Pre Market Evaluation of Abuse-Deterrent Properties of Opioid Drug Products) and Robert',
-      'bbox_index': 11,
-      'font_color': 'red'},
-     {'bbox_coords': (2087, 3304, 2468, 3339),
-      'text': 'MNKOI 0001045819 its',
-      'original_text': 'MNKOI 0001045819',
-      'bbox_index': 34,
-      'font_color': 'red'},
-     {'bbox_coords': (525, 2640, 2172, 2689),
-      'text': "to In its current form, the guidance does not they hers this adequately address what their is needed to y didn't",
-      'original_text': 'In its current form, the guidance does not adequately address what is needed to',
-      'bbox_index': 29,
-      'font_color': 'red'},
-     {'bbox_coords': (375, 1741, 2171, 1789),
-      'text': 'Corporation delivered a presentation entitled "Brand these Industry Perspective nor then on the if d',
-      'original_text': 'Corporation delivered a presentation entitled "Brand Industry Perspective on the',
-      'bbox_index': 20,
-      'font_color': 'red'},
-     {'bbox_coords': (562, 583, 1987, 631),
-      'text': 'PUBLIC MEETING ON PRE-MARKET is hasn EVALUATION OF than',
-      'original_text': 'PUBLIC MEETING ON PRE-MARKET EVALUATION OF',
-      'bbox_index': 7,
-      'font_color': 'red'},
-     {'bbox_coords': (525, 2375, 2173, 2421),
-      'text': "Emphasized that it couldn don't won't is critical that the she generic shouldn product is weren no less abuse-deterrent",
-      'original_text': 'Emphasized that it is critical that the generic product is no less abuse-deterrent',
-      'bbox_index': 26,
       'font_color': 'red'}]
-
-
-
+      
 ## Synthetic Data Generation
 
 This augmentation method can be extended to the generation of synthetic data, as it enables the rendering of text on any background or template.
@@ -408,15 +217,8 @@ This augmentation method can be extended to the generation of synthetic data, as
 ```python
 template = cv2.imread('template.png')
 image_template = cv2.cvtColor(template, cv2.COLOR_BGR2RGB)
-```
-
-
-```python
 transform = A.Compose([A.TextImage(font_path=font_path, p=1, clear_bg=True, font_color = 'red', font_size_fraction_range=(0.5, 0.7))])
-```
 
-
-```python
 metadata = [{
     "bbox": [0.1, 0.4, 0.5, 0.48],
     "text": "Some smart text goes here.",
@@ -424,15 +226,8 @@ metadata = [{
     "bbox": [0.1, 0.5, 0.5, 0.58],
     "text": "Hope you find it helpful.",
 }]
-```
 
-
-```python
 transformed = transform(image=image_template, textimage_metadata=metadata)
-```
-
-
-```python
 visualize(transformed['image'])
 ```
    
@@ -440,12 +235,6 @@ visualize(transformed['image'])
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/guKKPs5P0-g8nX4XSGcLe.png)
 
     
-
-
-
-```python
-
-```
 ## Conclusion
 
 In collaboration with Albumentations AI, we introduced TextImage Augmentation, a multimodal technique that modifies document images while along with the text. By combining text augmentations such as Random Insertion, Deletion, Swap, and Stopword Replacement with image modifications, this pipeline allows for the generation of diverse training samples. 
