@@ -136,14 +136,14 @@ def _update_memory(prev_memory, prev_normalization, key_states, value_states):
 
 ```python
 def forward(...):
-
-    memory = None
-    normalization = None
+    ...
 
     outputs = []
     global_weights = F.sigmoid(self.balance_factors)
     ...
     local_weights = 1 - global_weights
+    memory = None
+    normalization = None
 
     for segment_hidden_state, segment_sequence_mask in zip(segment_hidden_states, segment_sequence_masks):
         attn_outputs = self.forward_with_hidden_states(
