@@ -122,8 +122,7 @@ def _update_memory(prev_memory, prev_normalization, key_states, value_states):
         sigma_key_states,
         "batch_size n_heads seq_len d_head -> batch_size n_heads d_head",
         reduction="sum",
-        n_heads=self.n_local_kv_heads,
-        d_head=self.d_qk,
+        ...
     )
 
     memory += prev_memory if prev_memory is not None else 0
