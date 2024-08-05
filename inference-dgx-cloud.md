@@ -1,12 +1,12 @@
 ---
-title: "Serverless Inference with Hugging Face and NVIDIA NIMs" 
+title: "Serverless Inference with Hugging Face and NVIDIA NIM" 
 thumbnail: /blog/assets/train-dgx-cloud/thumbnail.jpg
 authors:
 - user: philschmid
 - user: jeffboudier
 ---
 
-# Serverless Inference with Hugging Face and NVIDIA NIMs
+# Serverless Inference with Hugging Face and NVIDIA NIM
 
 Today, we are thrilled to announce the launch of **Hugging Face** **Inference-as-a-Service powered by NVIDIA NIM**, a new service on the Hugging Face Hub, available to Enterprise Hub organizations. This new service makes it easy to use open models with the accelerated compute platform, of [NVIDIA DGX Cloud](https://www.nvidia.com/en-us/data-center/dgx-cloud) accelerated compute platform for inference serving. We built this solution so that Enterprise Hub users can easily access the latest NVIDIA AI technology in a serverless way to run inference on popular Generative AI models including Llama and Mistral, using standardized APIs and a few lines of code within the[ Hugging Face Hub](https://huggingface.co/models).
 
@@ -27,7 +27,7 @@ Inference-as-a-Service complements [Train on DGX Cloud](https://huggingface.co/b
 
 Running serverless inference with Hugging Face models has never been easier. Here’s a step-by-step guide to get you started:
 
-_Note: You need access to an Organization with a [Hugging Face Enterprise](https://huggingface.co/enterprise) subscription to run Inference. _
+_Note: You need access to an Organization with a [Hugging Face Enterprise Hub](https://huggingface.co/enterprise) subscription to run Inference._
 
 Before you begin, ensure you meet the following requirements:
 1. You are member of an Enterprise Hub organization.

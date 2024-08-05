@@ -1846,3 +1846,15 @@
     - community
     - research
     - LLM
+
+- local: gemma-july-update
+  title: "Google 最新发布：Gemma 2 2B、ShieldGemma 和 Gemma Scope"
+  author: Xenova
+  thumbnail: /blog/assets/gemma-july-update/thumbnail.jpg
+  date: July 31, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp

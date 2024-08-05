@@ -4476,6 +4476,18 @@
     - guide
     - diffusion-transformers
 
+- local: gemma-july-update
+  title: "Google releases Gemma 2 2B, ShieldGemma and Gemma Scope"
+  author: Xenova
+  thumbnail: /blog/assets/gemma-july-update/thumbnail.jpg
+  date: July 31, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
+
 - local: infini-attention
   title: "A failed experiment: Infini-Attention, and why we should keep trying?"
   author: neuralink
