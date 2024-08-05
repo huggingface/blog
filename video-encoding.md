@@ -1,14 +1,14 @@
 ---
-title: "Using video datasets for Robotics Application"
+title: "Scaling robotics datasets with video encoding"
 thumbnail: /blog/assets/video-encoding/thumbnail.png 
 authors:
 - user: aliberts
 - user: cadene
 ---
 
-# Video encoding: A case study for video datasets in robotics
+# Scaling robotics datasets with video encoding
 
-Building a library for end-to-end machine learning applied to robotics such as [🤗 LeRobot](https://github.com/huggingface/lerobot) comes with many challenges. A big chunk of these is the dataset aspect of things. While we have been lucky with LLMs and image generation models to have a huge database of text and images in the form of the internet, we have not been so lucky with robotics. In their general form — at least the one we are interested in within an end-to-end learning framework — they come in 2 modalities: videos and state/action vectors (the robot's proprioception and the goal positions). Here's what this can look like in practice:
+Building a library for end-to-end machine learning applied to robotics such as [🤗 LeRobot](https://github.com/huggingface/lerobot) comes with many challenges. A big chunk of these is the dataset aspect of things. While we have been lucky with LLMs and image generation models to have a huge database of text and images in the form of the internet, we have not been so lucky with robotics.  In their general form — at least the one we are interested in within an end-to-end learning framework — they come in 2 modalities: videos and state/action vectors (the robot's proprioception and the goal positions). Here's what this can look like in practice:
 
 <center>
     <iframe 
@@ -59,7 +59,7 @@ Thanks to these 2 ideas, video encoding is able to reduce the size of videos dow
 4. These differences themselvses are then compressed spatially.
 5. This compressed data from I-frames, P-frames and B-frames is encoded into a bitstream.
 6. That video bitstream is then packaged into a container format (MP4, MKV, AVI...) along with potentially other bitstreams (audio, subtitles) and metadata.
-7. At this point, some post processing may be applied to reduce compression artifacts and ensure quality.
+7. At this point, additional processing may be applied to reduce any visual distortions caused by compression and to ensure the overall video quality meets desired standards.
 
 Obviously, this is a high-level summary of what's happening and there are a lot of moving parts and configuration choices to make in this process. Logically, we wanted to evaluate the best way of doing it given our needs and constraints, so we built a benchmark to assess this according to a number of criteria.
 
@@ -93,7 +93,7 @@ For quality, we looked at 3 commonly used metrics:
 
 - **[Average Structural Similarity Index Measure](https://en.wikipedia.org/wiki/Structural_similarity_index_measure) (higher is better):** evaluates the perceived quality of images by comparing luminance, contrast, and structure. SSIM values range from -1 to 1, where 1 indicates perfect similarity.
 
-Additionally, we checked visually various levels of encoding quality to get a sense of what these metrics translate to visually. However, video encoding is designed to appeal to the human eye by taking advantage of several principles of how the human visual perception works, tricking our brains to maintain a level of perceived quality. This might have a different impact on a neural net. Therefore, besides these metrics and a visual check, it was important for us to also validate that the encoding did not degrade our policies performance by A/B testing it.
+Additionally, we tried various levels of encoding quality to get a sense of what these metrics translate to visually. However, video encoding is designed to appeal to the human eye by taking advantage of several principles of how the human visual perception works, tricking our brains to maintain a level of perceived quality. This might have a different impact on a neural net. Therefore, besides these metrics and a visual check, it was important for us to also validate that the encoding did not degrade our policies performance by A/B testing it.
 
 For compatibility, we don't have a metric *per se*, but it basically boils down to the video codec and the pixel format. For the video codec, the three that we chose (h264, h265 and AV1) are common and don't pose an issue. However, the pixel format is important as well and we found afterwards that on most browsers for instance, `yuv444p` is not supported and the video can't be decoded.
 
@@ -170,51 +170,303 @@ However, due to how video decoding is implemented with `pyav`, we don't have acc
 ### Benchmark
 The full results of our study are available in [this spreadsheet](https://docs.google.com/spreadsheets/d/1OYJB43Qu8fC26k_OyoMFgGBBKfQRCi4BIuYitQnq3sw/edit?usp=sharing). The tables below show a summary of the results for `g=2` and `crf=30`, using `timestamps-modes=6_frames` and `backend=pyav`
 
-| video_images_size_ratio (lower is better) | vcodec     | pix_fmt |           |           |           |
-| ----------------------------------------- | ---------- | ------- | --------- | --------- | --------- |
-|                                           | libx264    |         | libx265   |           | libsvtav1 |
-| repo_id                                   | yuv420p    | yuv444p | yuv420p   | yuv444p   | yuv420p   |
-| lerobot/pusht_image                       | **16.97%** | 17.58%  | 18.57%    | 18.86%    | 22.06%    |
-| aliberts/aloha_mobile_shrimp_image        | 2.14%      | 2.11%   | 1.38%     | **1.37%** | 5.59%     |
-| aliberts/paris_street                     | 2.12%      | 2.13%   | **1.54%** | **1.54%** | 4.43%     |
-| aliberts/kitchen                          | 1.40%      | 1.39%   | **1.00%** | **1.00%** | 2.52%     |
+<!-- #### Table 1: Ratio of video size and images size (lower is better)
+|                                    | libx264    |         | libx265   |           | libsvtav1 |
+| repo_id                            | yuv420p    | yuv444p | yuv420p   | yuv444p   | yuv420p   |
+|------------------------------------|------------|---------|-----------|-----------|-----------|
+| lerobot/pusht_image                | **16.97%** | 17.58%  | 18.57%    | 18.86%    | 22.06%    |
+| aliberts/aloha_mobile_shrimp_image | 2.14%      | 2.11%   | 1.38%     | **1.37%** | 5.59%     |
+| aliberts/paris_street              | 2.12%      | 2.13%   | **1.54%** | **1.54%** | 4.43%     |
+| aliberts/kitchen                   | 1.40%      | 1.39%   | **1.00%** | **1.00%** | 2.52%     | -->
 
+<details>
+  <summary><b> Table 1: Ratio of video size and images size (lower is better) </b></summary>
+  <table>
+    <thead>
+        <tr>
+            <th rowspan="2">repo_id</th>
+            <th colspan="2">libx264</th>
+            <th colspan="2">libx265</th>
+            <th colspan="1">libsvtav1</th>
+        </tr>
+        <tr>
+            <th>yuv420p</th>
+            <th>yuv444p</th>
+            <th>yuv420p</th>
+            <th>yuv444p</th>
+            <th>yuv420p</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>lerobot/pusht_image</td>
+            <td><strong style="color:green;">16.97%</strong></td>
+            <td>17.58%</td>
+            <td>18.57%</td>
+            <td>18.86%</td>
+            <td>22.06%</td>
+        </tr>
+        <tr>
+            <td>aliberts/aloha_mobile_shrimp_image</td>
+            <td>2.14%</td>
+            <td>2.11%</td>
+            <td>1.38%</td>
+            <td><strong style="color:green;">1.37%</strong></td>
+            <td>5.59%</td>
+        </tr>
+        <tr>
+            <td>aliberts/paris_street</td>
+            <td>2.12%</td>
+            <td>2.13%</td>
+            <td><strong style="color:green;">1.54%</strong></td>
+            <td><strong style="color:green;">1.54%</strong></td>
+            <td>4.43%</td>
+        </tr>
+        <tr>
+            <td>aliberts/kitchen</td>
+            <td>1.40%</td>
+            <td>1.39%</td>
+            <td><strong style="color:green;">1.00%</strong></td>
+            <td><strong style="color:green;">1.00%</strong></td>
+            <td>2.52%</td>
+        </tr>
+    </tbody>
+</table>
+</details>
 
-| video_images_load_time_ratio (lower is better) | vcodec  | pix_fmt |          |         |           |
-| ---------------------------------------------- | ------- | ------- | -------- | ------- | --------- |
-|                                                | libx264 |         | libx265  |         | libsvtav1 |
-| repo_id                                        | yuv420p | yuv444p | yuv420p  | yuv444p | yuv420p   |
-| lerobot/pusht_image                            | 6.45    | 5.19    | **1.90** | 2.12    | 2.47      |
-| aliberts/aloha_mobile_shrimp_image             | 11.80   | 7.92    | 0.71     | 0.85    | **0.48**  |
-| aliberts/paris_street                          | 2.21    | 2.05    | 0.36     | 0.49    | **0.30**  |
-| aliberts/kitchen                               | 1.46    | 1.46    | 0.28     | 0.51    | **0.26**  |
+<!-- #### Table 2: Ratio of video and images loading times (lower is better)
+|                                    | libx264 |         | libx265  |         | libsvtav1 |
+| repo_id                            | yuv420p | yuv444p | yuv420p  | yuv444p | yuv420p   |
+|------------------------------------|---------|---------|----------|---------|-----------|
+| lerobot/pusht_image                | 6.45    | 5.19    | **1.90** | 2.12    | 2.47      |
+| aliberts/aloha_mobile_shrimp_image | 11.80   | 7.92    | 0.71     | 0.85    | **0.48**  |
+| aliberts/paris_street              | 2.21    | 2.05    | 0.36     | 0.49    | **0.30**  |
+| aliberts/kitchen                   | 1.46    | 1.46    | 0.28     | 0.51    | **0.26**  | -->
 
+<details>
+  <summary><b> Table 2: Ratio of video and images loading times (lower is better) </b></summary>
+  <table>
+      <thead>
+          <tr>
+              <th rowspan="2">repo_id</th>
+              <th colspan="2">libx264</th>
+              <th colspan="2">libx265</th>
+              <th colspan="1">libsvtav1</th>
+          </tr>
+          <tr>
+              <th>yuv420p</th>
+              <th>yuv444p</th>
+              <th>yuv420p</th>
+              <th>yuv444p</th>
+              <th>yuv420p</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>lerobot/pusht_image</td>
+              <td>6.45</td>
+              <td>5.19</td>
+              <td><strong style="color:green;">1.90</strong></td>
+              <td>2.12</td>
+              <td>2.47</td>
+          </tr>
+          <tr>
+              <td>aliberts/aloha_mobile_shrimp_image</td>
+              <td>11.80</td>
+              <td>7.92</td>
+              <td>0.71</td>
+              <td>0.85</td>
+              <td><strong style="color:green;">0.48</strong></td>
+          </tr>
+          <tr>
+              <td>aliberts/paris_street</td>
+              <td>2.21</td>
+              <td>2.05</td>
+              <td>0.36</td>
+              <td>0.49</td>
+              <td><strong style="color:green;">0.30</strong></td>
+          </tr>
+          <tr>
+              <td>aliberts/kitchen</td>
+              <td>1.46</td>
+              <td>1.46</td>
+              <td>0.28</td>
+              <td>0.51</td>
+              <td><strong style="color:green;">0.26</strong></td>
+          </tr>
+      </tbody>
+  </table>
+</details>
 
-|                                    |          | vcodec   | pix_fmt      |          |           |              |
-|------------------------------------|----------|----------|--------------|----------|-----------|--------------|
-|                                    |          | libx264  |              | libx265  |           | libsvtav1    |
-| repo_id                            | metric   | yuv420p  | yuv444p      | yuv420p  | yuv444p   | yuv420p      |
-| lerobot/pusht_image                | avg_mse  | 2.90E-04 | **2.03E-04** | 3.13E-04 | 2.29E-04  | 2.19E-04     |
-|                                    | avg_psnr | 35.44    | 37.07        | 35.49    | **37.30** | 37.20        |
-|                                    | avg_ssim | 98.28%   | **98.85%**   | 98.31%   | 98.84%    | 98.72%       |
-| aliberts/aloha_mobile_shrimp_image | avg_mse  | 2.76E-04 | 2.59E-04     | 3.17E-04 | 3.06E-04  | **1.30E-04** |
-|                                    | avg_psnr | 35.91    | 36.21        | 35.88    | 36.09     | **40.17**    |
-|                                    | avg_ssim | 95.19%   | 95.18%       | 95.00%   | 95.05%    | **97.73%**   |
-| aliberts/paris_street              | avg_mse  | 6.89E-04 | 6.70E-04     | 4.03E-03 | 4.02E-03  | **3.09E-04** |
-|                                    | avg_psnr | 33.48    | 33.68        | 32.05    | 32.15     | **35.40**    |
-|                                    | avg_ssim | 93.76%   | 93.75%       | 89.46%   | 89.46%    | **95.46%**   |
-| aliberts/kitchen                   | avg_mse  | 2.50E-04 | 2.24E-04     | 4.28E-04 | 4.18E-04  | **1.53E-04** |
-|                                    | avg_psnr | 36.73    | 37.33        | 36.56    | 36.75     | **39.12**    |
-|                                    | avg_ssim | 95.47%   | 95.58%       | 95.52%   | 95.53%    | **96.82%**   |
+<!-- #### Table 3: Quality (mse: lower is better, psnr & ssim: higher is better)
+|                                    |        | libx264  |              | libx265  |           | libsvtav1    |
+| repo_id                            | metric | yuv420p  | yuv444p      | yuv420p  | yuv444p   | yuv420p      |
+|------------------------------------|--------|----------|--------------|----------|-----------|--------------|
+| lerobot/pusht_image                | mse    | 2.90E-04 | **2.03E-04** | 3.13E-04 | 2.29E-04  | 2.19E-04     |
+|                                    | psnr   | 35.44    | 37.07        | 35.49    | **37.30** | 37.20        |
+|                                    | ssim   | 98.28%   | **98.85%**   | 98.31%   | 98.84%    | 98.72%       |
+| aliberts/aloha_mobile_shrimp_image | mse    | 2.76E-04 | 2.59E-04     | 3.17E-04 | 3.06E-04  | **1.30E-04** |
+|                                    | psnr   | 35.91    | 36.21        | 35.88    | 36.09     | **40.17**    |
+|                                    | ssim   | 95.19%   | 95.18%       | 95.00%   | 95.05%    | **97.73%**   |
+| aliberts/paris_street              | mse    | 6.89E-04 | 6.70E-04     | 4.03E-03 | 4.02E-03  | **3.09E-04** |
+|                                    | psnr   | 33.48    | 33.68        | 32.05    | 32.15     | **35.40**    |
+|                                    | ssim   | 93.76%   | 93.75%       | 89.46%   | 89.46%    | **95.46%**   |
+| aliberts/kitchen                   | mse    | 2.50E-04 | 2.24E-04     | 4.28E-04 | 4.18E-04  | **1.53E-04** |
+|                                    | psnr   | 36.73    | 37.33        | 36.56    | 36.75     | **39.12**    |
+|                                    | ssim   | 95.47%   | 95.58%       | 95.52%   | 95.53%    | **96.82%**   | -->
+
+<details>
+  <summary><b> Table 3: Quality (mse: lower is better, psnr & ssim: higher is better) </b></summary>
+  <table>
+    <thead>
+        <tr>
+            <th rowspan="2">repo_id</th>
+            <th rowspan="2">metric</th>
+            <th colspan="2">libx264</th>
+            <th colspan="2">libx265</th>
+            <th colspan="1">libsvtav1</th>
+        </tr>
+        <tr>
+            <th>yuv420p</th>
+            <th>yuv444p</th>
+            <th>yuv420p</th>
+            <th>yuv444p</th>
+            <th>yuv420p</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>lerobot/pusht_image</td>
+            <td>mse</td>
+            <td>2.90E-04</td>
+            <td><strong style="color:green;">2.03E-04</strong></td>
+            <td>3.13E-04</td>
+            <td>2.29E-04</td>
+            <td>2.19E-04</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>psnr</td>
+            <td>35.44</td>
+            <td>37.07</td>
+            <td>35.49</td>
+            <td><strong style="color:green;">37.30</strong></td>
+            <td>37.20</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ssim</td>
+            <td>98.28%</td>
+            <td><strong style="color:green;">98.85%</strong></td>
+            <td>98.31%</td>
+            <td>98.84%</td>
+            <td>98.72%</td>
+        </tr>
+        <tr>
+            <td>aliberts/aloha_mobile_shrimp_image</td>
+            <td>mse</td>
+            <td>2.76E-04</td>
+            <td>2.59E-04</td>
+            <td>3.17E-04</td>
+            <td>3.06E-04</td>
+            <td><strong style="color:green;">1.30E-04</strong></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>psnr</td>
+            <td>35.91</td>
+            <td>36.21</td>
+            <td>35.88</td>
+            <td>36.09</td>
+            <td><strong style="color:green;">40.17</strong></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ssim</td>
+            <td>95.19%</td>
+            <td>95.18%</td>
+            <td>95.00%</td>
+            <td>95.05%</td>
+            <td><strong style="color:green;">97.73%</strong></td>
+        </tr>
+        <tr>
+            <td>aliberts/paris_street</td>
+            <td>mse</td>
+            <td>6.89E-04</td>
+            <td>6.70E-04</td>
+            <td>4.03E-03</td>
+            <td>4.02E-03</td>
+            <td><strong style="color:green;">3.09E-04</strong></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>psnr</td>
+            <td>33.48</td>
+            <td>33.68</td>
+            <td>32.05</td>
+            <td>32.15</td>
+            <td><strong style="color:green;">35.40</strong></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ssim</td>
+            <td>93.76%</td>
+            <td>93.75%</td>
+            <td>89.46%</td>
+            <td>89.46%</td>
+            <td><strong style="color:green;">95.46%</strong></td>
+        </tr>
+        <tr>
+            <td>aliberts/kitchen</td>
+            <td>mse</td>
+            <td>2.50E-04</td>
+            <td>2.24E-04</td>
+            <td>4.28E-04</td>
+            <td>4.18E-04</td>
+            <td><strong style="color:green;">1.53E-04</strong></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>psnr</td>
+            <td>36.73</td>
+            <td>37.33</td>
+            <td>36.56</td>
+            <td>36.75</td>
+            <td><strong style="color:green;">39.12</strong></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ssim</td>
+            <td>95.47%</td>
+            <td>95.58%</td>
+            <td>95.52%</td>
+            <td>95.53%</td>
+            <td><strong style="color:green;">96.82%</strong></td>
+        </tr>
+    </tbody>
+  </table>
+</details>
+
 
 ### Policies
-<!-- TODO(aliberts): Add training runs and results here -->
+Policies have been trained and evaluated on AV1-encoded datasets and compared against our previous reference (h264):
+
+- Diffusion on pusht:
+  - [h264-encoded run](https://wandb.ai/aliberts/lerobot/runs/zubx2fwe/workspace?nw=nwuseraliberts)
+  - [AV1-encoded run](https://wandb.ai/aliberts/lerobot/runs/mlestyd6/workspace?nw=nwuseraliberts)
+- ACT on aloha_sim_transfer_cube_human:
+  - [h264-encoded run](https://wandb.ai/aliberts/lerobot/runs/le8scox9?nw=nwuseraliberts)
+  - [AV1-encoded run](https://wandb.ai/aliberts/lerobot/runs/rz454evx/workspace?nw=nwuseraliberts)
+- ACT on aloha_sim_insertion_scripted:
+  - [h264-encoded run](https://wandb.ai/aliberts/lerobot/runs/r6q2bsq4/workspace?nw=nwuseraliberts)
+  - [AV1-encoded run](https://wandb.ai/aliberts/lerobot/runs/4abyvtcz/workspace?nw=nwuseraliberts)
+
 
 ### Encoded datasets
 
-After running this study, we decided to switch to a different encoding from v1.6 on.
+After running this study, we switched to a different encoding from v1.6 on.
 
-| codebase version | `v1.5`         | `v1.6`      |
+| codebase version | v1.5           | v1.6        |
 | ---------------- | -------------- | ----------- |
 | vcodec           | `libx264`      | `libsvtav1` |
 | pix-fmt          | `yuv444p`      | `yuv420p`   |
@@ -222,9 +474,10 @@ After running this study, we decided to switch to a different encoding from v1.6
 | crf              | `None` (=`23`) | `30`        |
 
 
-Considering this, we can compare the repo size (so the total size of the dataset, including non-video modalities) from the raw format vs. our format using video encoding.
+Considering this, we can compare the repo size (so the total size of the dataset, including non-video modalities) from the raw format vs. our format using video encoding. We managed to gain more quality thanks to AV1 encoding while using the more compatible `yuv420p` pixel format.
+Thankfully, the size remains similar with an average total compression ratio of about 25%.
 
-| repo_id                                    | raw size | v1.5 size | v1.6 size | ratio (v1.6/raw) |
+<!-- | repo_id                                    | raw size | v1.5 size | v1.6 size | ratio (v1.6/raw) |
 | ------------------------------------------ | -------- | --------- | --------- | ---------------- |
 | `lerobot/pusht`                            | 29.6MB   | 12.9MB    | 7.5MB     | 25.3%            |
 | `lerobot/unitreeh1_two_robot_greeting`     | 181.2MB  | N/A       | 79.0MB    | 43.6%            |
@@ -260,13 +513,272 @@ Considering this, we can compare the repo size (so the total size of the dataset
 | `lerobot/aloha_sim_insertion_scripted`     | 17.9GB   | 50.0MB    | 67.6MB    | 0.4%             |
 | `lerobot/aloha_sim_transfer_cube_scripted` | 17.9GB   | 50.3MB    | 68.5MB    | 0.4%             |
 | `lerobot/aloha_static_pro_pencil`          | 21.1GB   | 397.9MB   | 504.0MB   | 2.3%             |
-| `lerobot/aloha_sim_insertion_human`        | 21.5GB   | 64.0MB    | 87.3MB    | 0.4%             |
+| `lerobot/aloha_sim_insertion_human`        | 21.5GB   | 64.0MB    | 87.3MB    | 0.4%             | -->
 <!-- TODO(aliberts): Add open X repos here once they're pushed -->
 
-We managed to gain more quality thanks to AV1 encoding while using the more compatible `yuv420p` pixel format.
-Thankfully, the size remains similar with an average total compression ratio of about 25%.
+<details>
+    <summary><b> Table 4: Dataset sizes comparison </b></summary>
+    <table>
+        <thead>
+            <tr>
+                <th>repo_id</th>
+                <th>raw size</th>
+                <th>v1.5 size</th>
+                <th>v1.6 size</th>
+                <th>ratio (v1.6/raw)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>lerobot/pusht</code></td>
+                <td>29.6MB</td>
+                <td>12.9MB</td>
+                <td>7.5MB</td>
+                <td>25.3%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/unitreeh1_two_robot_greeting</code></td>
+                <td>181.2MB</td>
+                <td>N/A</td>
+                <td>79.0MB</td>
+                <td>43.6%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/unitreeh1_rearrange_objects</code></td>
+                <td>283.3MB</td>
+                <td>N/A</td>
+                <td>138.4MB</td>
+                <td>48.8%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_pingpong_test</code></td>
+                <td>480.9MB</td>
+                <td>151.2MB</td>
+                <td>168.5MB</td>
+                <td>35.0%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/unitreeh1_warehouse</code></td>
+                <td>666.7MB</td>
+                <td>N/A</td>
+                <td>236.9MB</td>
+                <td>35.5%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/xarm_push_medium</code></td>
+                <td>808.5MB</td>
+                <td>13.6MB</td>
+                <td>15.9MB</td>
+                <td>2.0%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/xarm_push_medium_replay</code></td>
+                <td>808.5MB</td>
+                <td>13.6MB</td>
+                <td>17.8MB</td>
+                <td>2.2%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/xarm_lift_medium</code></td>
+                <td>808.6MB</td>
+                <td>13.1MB</td>
+                <td>17.3MB</td>
+                <td>2.1%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/xarm_lift_medium_replay</code></td>
+                <td>808.6MB</td>
+                <td>13.6MB</td>
+                <td>18.4MB</td>
+                <td>2.3%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_ziploc_slide</code></td>
+                <td>1.3GB</td>
+                <td>418.5MB</td>
+                <td>498.4MB</td>
+                <td>37.2%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_screw_driver</code></td>
+                <td>1.5GB</td>
+                <td>461.3MB</td>
+                <td>507.8MB</td>
+                <td>33.1%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_thread_velcro</code></td>
+                <td>1.5GB</td>
+                <td>1023.0MB</td>
+                <td>1.1GB</td>
+                <td>73.2%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_cups_open</code></td>
+                <td>1.6GB</td>
+                <td>459.9MB</td>
+                <td>486.3MB</td>
+                <td>30.4%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_towel</code></td>
+                <td>1.6GB</td>
+                <td>534.1MB</td>
+                <td>565.3MB</td>
+                <td>34.0%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/unitreeh1_fold_clothes</code></td>
+                <td>2.0GB</td>
+                <td>N/A</td>
+                <td>922.0MB</td>
+                <td>44.5%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_battery</code></td>
+                <td>2.3GB</td>
+                <td>712.6MB</td>
+                <td>770.5MB</td>
+                <td>33.0%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_tape</code></td>
+                <td>2.5GB</td>
+                <td>769.8MB</td>
+                <td>829.6MB</td>
+                <td>32.5%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_candy</code></td>
+                <td>2.6GB</td>
+                <td>799.2MB</td>
+                <td>833.4MB</td>
+                <td>31.5%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_vinh_cup</code></td>
+                <td>3.1GB</td>
+                <td>979.6MB</td>
+                <td>1.0GB</td>
+                <td>32.3%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_vinh_cup_left</code></td>
+                <td>3.5GB</td>
+                <td>1.1GB</td>
+                <td>1.1GB</td>
+                <td>32.1%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_mobile_elevator</code></td>
+                <td>3.7GB</td>
+                <td>600.6MB</td>
+                <td>558.5MB</td>
+                <td>14.8%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_mobile_shrimp</code></td>
+                <td>3.9GB</td>
+                <td>1.1GB</td>
+                <td>1.3GB</td>
+                <td>34.6%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_mobile_wash_pan</code></td>
+                <td>4.0GB</td>
+                <td>939.8MB</td>
+                <td>1.1GB</td>
+                <td>26.5%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_mobile_wipe_wine</code></td>
+                <td>4.3GB</td>
+                <td>1.1GB</td>
+                <td>1.2GB</td>
+                <td>28.0%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_fork_pick_up</code></td>
+                <td>4.6GB</td>
+                <td>1.3GB</td>
+                <td>1.4GB</td>
+                <td>31.6%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_coffee</code></td>
+                <td>4.7GB</td>
+                <td>1.4GB</td>
+                <td>1.5GB</td>
+                <td>31.3%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_coffee_new</code></td>
+                <td>6.1GB</td>
+                <td>1.8GB</td>
+                <td>1.9GB</td>
+                <td>31.5%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_mobile_cabinet</code></td>
+                <td>7.0GB</td>
+                <td>1.5GB</td>
+                <td>1.6GB</td>
+                <td>23.2%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_mobile_chair</code></td>
+                <td>7.4GB</td>
+                <td>1.9GB</td>
+                <td>2.0GB</td>
+                <td>27.2%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/umi_cup_in_the_wild</code></td>
+                <td>16.8GB</td>
+                <td>2.7GB</td>
+                <td>2.9GB</td>
+                <td>17.6%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_sim_transfer_cube_human</code></td>
+                <td>17.9GB</td>
+                <td>49.9MB</td>
+                <td>66.7MB</td>
+                <td>0.4%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_sim_insertion_scripted</code></td>
+                <td>17.9GB</td>
+                <td>50.0MB</td>
+                <td>67.6MB</td>
+                <td>0.4%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_sim_transfer_cube_scripted</code></td>
+                <td>17.9GB</td>
+                <td>50.3MB</td>
+                <td>68.5MB</td>
+                <td>0.4%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_static_pro_pencil</code></td>
+                <td>21.1GB</td>
+                <td>397.9MB</td>
+                <td>504.0MB</td>
+                <td>2.3%</td>
+            </tr>
+            <tr>
+                <td><code>lerobot/aloha_sim_insertion_human</code></td>
+                <td>21.5GB</td>
+                <td>64.0MB</td>
+                <td>87.3MB</td>
+                <td>0.4%</td>
+            </tr>
+        </tbody>
+    </table>
+</details>
 
-## Caveats
+## Future work
 
 Video encoding/decoding is a vast and complex subject, and we're only scratching the surface here. Here are the things we left over in this experiment:
 
