@@ -27,16 +27,11 @@ Our community has recently focused on out-of-distribution (OOD) evaluation, util
 
 Traditionally, VQA Accuracy has been the main metric for evaluating model performance. It relies on exact string matching between a model's predicted answer and a set of reference answers annotated by humans. This metric worked well because VQA evaluation followed an independent and identically distributed (IID) paradigm, where training and testing data distributions were similar, allowing models to adapt effectively [See details here](https://arxiv.org/pdf/2205.12191).
 
-
+In OOD settings, generated answers might not match reference answers despite being correct due to differences in format, specificity, or interpretation. This paradigm is perfectly illustrated in the Figure 1, where we compare the zero-shot generated captions vs the reference captions from the synthetic dataset. This is particularly true for instruction-generated datasets and their human-curated counterparts.  Some [methods](https://proceedings.mlr.press/v202/li23q.html) have attempted to align answer formats with references, but this only addresses the symptom, not the root cause of flawed evaluation metrics. While human evaluation is reliable, it is costly and not scalable, highlighting the need for metrics that better align with human judgment. 
 
 ## Method
 
-<<<<<<< HEAD
 [Docmatix](https://huggingface.co/blog/docmatix) is the largest synthetic DocVQA dataset, generated from the curated document dataset, [PDFA](https://huggingface.co/datasets/pixparse/pdfa-eng-wds). It is 100x larger than previously available datasets. The human-curated counterpart is DocVQA, which serves as an evaluation benchmark for VQA models for Document Understanding.  In this post, we are going to use **the subset of Docmatix** which consists around 200 test samples, which can be downloaded here [Docmatix-zero-shot-exp](https://huggingface.co/datasets/HuggingFaceM4/Docmatix/viewer/zero-shot-exp). 
-=======
-[Docmatix](https://huggingface.co/blog/docmatix) is the largest synthetic DocVQA dataset, generated from the curated document dataset, [PDFA] (https://huggingface.co/datasets/pixparse/pdfa-eng-wds). It is 100x larger than previously available datasets. The human-curated counterpart is DocVQA, which serves as an evaluation benchmark for VQA models for Document Understanding.  In this post, we are going to use **the subset of Docmatix** which consists areound of 1700 train and 200 test samples, which can be downloaded here [Docmatix-zero-shot-exp](https://huggingface.co/datasets/HuggingFaceM4/Docmatix/viewer/zero-shot-exp). 
->>>>>>> cb908d4 (added the link to the Docmatix subset)
-
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 0px; width: 100%; margin: 0 auto;">
     <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/feXi3iSLo8hBXTh2y8NnR.png" alt="Image 1" style="width: 45%; height: auto; object-fit: cover;">
