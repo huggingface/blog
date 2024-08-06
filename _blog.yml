@@ -4499,3 +4499,12 @@
     - synthetic-data
     - albumentations
     - research
+
+- local: 2024-security-features
+  title: 2024 Security Features
+  author: jack-kumar
+  thumbnail: /blog/assets/2024-security-features/thumbnail.png
+  date: August 6, 2024
+  tags:
+    - security
+    - enterprise
