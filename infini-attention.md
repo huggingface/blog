@@ -38,7 +38,8 @@ With these principles in mind, let's dive into how Infini-attention actually wor
 
 - Step 1: Split the input sequence into smaller, fixed-size chunks called segments.
 - Step 2: Calculate the standard causal dot-product attention within each segment.
-- Step 3: Pull out relevant information from the compressive memory using the current segment’s query vector. The retrieval process is defined mathematically as follows:
+- Step 3: Pull relevant information from the compressive memory using the current segment’s query vector. The retrieval process is defined mathematically as follows:
+
     $$A_{\text {mem }}=\frac{\sigma(Q) M_{s-1}}{\sigma(Q) z_{s-1}}$$
 
     + $A_{\text {mem }} \in \mathbb{R}^{N \times d_{\text {value }}}:$ The retrieved content from memory, representing the long-term context.
