@@ -7,6 +7,12 @@ authors:
 - user: thomwolf
 ---
 
+
+TLDR: Infini-attention's performance gets worse as we increase the number of times we compress the memory, and to the best of our knowledge, ring attention [[link]](https://x.com/Haojun_Zhao14/status/1815419356408336738), YaRN [[link]](https://arxiv.org/abs/2309.00071) and rope scaling [[link]](https://arxiv.org/abs/2309.16039) are still the best ways for extending a pretrained model to longer context length.
+
+
+# Section 0: Introduction
+
 The context length of language models is one of the central attributes besides the model’s performance. Since the emergence of in-context learning, adding relevant information to the model’s input has become increasingly important. Thus, the context length rapidly increased from paragraphs (512 tokens with BERT/GPT-1) to pages (1024/2048 with GPT-2 and GPT-3 respectively) to books (128k of Claude) all the way to collections of books (1-10M tokens of Gemini). However, extending standard attention to such length remains challenging.
 
 > A little into to Ring Attention: to the best of our knowledge, Ring Attention was first introduced by researchers from UC Berkeley in 2024 [[link]](https://arxiv.org/abs/2310.01889). It is an engineering technique that helps overcome memory limitations by allowing us to obtain an output equivalent to standard attention without storing all keys and values in a sequence.
@@ -16,11 +22,11 @@ Even with ring attention, the number of GPUs required to train a Llama 3 8B [[li
 > Recap on the memory complexity of self-attention
 > In standard attention, every token attends to every other token in the sequence, resulting in an attention matrix of size [seq_len, seq_len]. For each pair of tokens, we compute an attention score, and as the sequence length (seq_len) increases, the memory and computation requirements grow quadratically: Memory for the attention matrix is O(seq_len^2). For instance, a 10x increase in sequence length results in a 100x increase in memory requirements.
 
-Motivated by this, we explore an alternative approach to standard attention: infini-attention. The paper was released by researchers from Google in April 2024 [[link]](https://arxiv.org/abs/2404.07143). Instead of computing attention scores between every word, Infini attention divides the sequence into segments, compresses earlier segments into a fixed buffer, and allows the next segment to retrieve memory from the earlier segments while limiting attention scores to words within the current segment.  A key advantage is that it uses the same query within a segment to access information from both its own segment and the compressed memory, so this enables us to cheaply extend the context length for a pretrained model. Since it updates the compressed memory on the go, and success is not guaranteed, but if it all works out we can have infinite context length, as it only keeps a single buffer for all the memory of earlier segments. However, by definition, compression has limits on the amount of information it can effectively compress. The question now is: how good is the compressed memory if it works?
+Motivated by this, we explore an alternative approach to standard attention: infini-attention. The paper was released by researchers from Google in April 2024 [[link]](https://arxiv.org/abs/2404.07143). Instead of computing attention scores between every word, Infini-attention divides the sequence into segments, compresses earlier segments into a fixed buffer, and allows the next segment to retrieve memory from the earlier segments while limiting attention scores to words within the current segment.  A key advantage is that it uses the same query within a segment to access information from both its own segment and the compressed memory, so this enables us to cheaply extend the context length for a pretrained model. And since success is not guaranteed, but if it all works out, we can achieve infinite context length, as it only keeps a single buffer for all the memory of earlier segments. However, by definition, compression has limits on the amount of information it can effectively compress. The question now is: how good is the compressed memory if it works?
 
 However, conceptually understanding a new method can be relatively easy compared to actually making it work, and this is rarely shared publicly (we spent 90% of our time debugging a convergence issue). Motivated by this, we want to share how we reproduced the Infini-attention paper, what motivated us throughout the debugging process, and how hard it is to make these things work.
 
-Following the recent release of Llama 3 8B, which has a context length limit of 8k tokens, we sought to extend this length to 1m tokens without quadratically increasing the memory. In this blog post, we will start by explaining how Infini Attention works. We’ll then outline our reproduction principles and describe our initial small-scale experiment. We will discuss the challenges we faced, how we addressed them, and conclude with a summary of our findings and other ideas we explored. If you’re interested in testing our trained checkpoint [[link]](https://huggingface.co/nanotron/llama3-8b-infini-attention), you can find it in the following repo [[link]](https://github.com/huggingface/nanotron/tree/xrsrke/infini_attention_this_actually_works) (note that, as the technique doesn’t work well enough, so we did not invest much effort in cleaning up the code).
+Following the release of Llama 3 8B, which has a context length limit of 8k tokens, we sought to extend this length to 1m tokens without quadratically increasing the memory. In this blog post, we will start by explaining how Infini-attention works. We’ll then outline our reproduction principles and describe our initial small-scale experiment. We will discuss the challenges we faced, how we addressed them, and conclude with a summary of our findings and other ideas we explored. If you’re interested in testing our trained checkpoint [[link]](https://huggingface.co/nanotron/llama3-8b-infini-attention), you can find it in the following repo [[link]](https://github.com/huggingface/nanotron/tree/xrsrke/infini_attention_this_actually_works) (note that, as the technique doesn’t work well enough, so we did not invest much effort in cleaning up the code).
 
 
 # Section 1: Reproduction Principles
@@ -49,6 +55,10 @@ With these principles in mind, let's dive into how Infini-attention actually wor
     + $z_{s-1} \in \mathbb{R}^{d_{\text {key }}}$ : A normalization term.
 
 ```python
+import torch.nn.functional as F
+from torch import einsum
+from einops import rearrange
+
 def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
     ...
     sigma_query_states = F.elu(query_states) + 1
@@ -81,7 +91,7 @@ def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
     + $\operatorname{sigmoid}(\beta)$ : A learnable scalar parameter that controls the trade-off between the long-term memory content $A_{\text {mem }}$ and the local context.
     + $A_{\text {dot }} \in \mathbb{R}^{N \times d_{\text {value }}}$: The attention output from the current segment using dot-product attention.
 
-+ Step 5: Update the compressive memory by adding the key-value states from the current segment. So that we accumulate the context over time.
++ Step 5: Update the compressive memory by adding the key-value states from the current segment, so this allows us to accumulate the context over time.
 
     $$M_s \leftarrow M_{s-1}+\sigma(K)^T V$$
 
@@ -94,6 +104,8 @@ def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
     + $z_s$ : The updated normalization term for the current segment.
 
 ```python
+import torch
+
 def _update_memory(prev_memory, prev_normalization, key_states, value_states):
     ...
 
@@ -180,7 +192,7 @@ Now that we've got a handle on the theory, it's time to roll up our sleeves and 
 
 # Section 3: Start with experiments on a small scale
 
-Since Llama 3 8B is quite large, for rapid experimental feedback, we initially pretrained Infini Attention from scratch on a 200M Llama using Nanotron [[link]](https://github.com/huggingface/nanotron) with the Fineweb dataset [[link]](https://huggingface.co/datasets/HuggingFaceFW/fineweb), and once we obtained good results with the 200M model, we proceeded with continual pretraining on Llama 3 8B. We used a batch size of 2 million tokens, a context length of 256, gradient clipping of 1, and weight decay of 0.1, the first 5,000 iterations were a linear warmup, while the remaining steps were cosine decay, with a learning rate of 3e-5. 
+Since Llama 3 8B is quite large, for rapid experimental feedback, we initially pretrained Infini-attention from scratch on a 200M Llama using Nanotron [[link]](https://github.com/huggingface/nanotron) with the Fineweb dataset [[link]](https://huggingface.co/datasets/HuggingFaceFW/fineweb), and once we obtained good results with the 200M model, we proceeded with continual pretraining on Llama 3 8B. We used a batch size of 2 million tokens, a context length of 256, gradient clipping of 1, and weight decay of 0.1, the first 5,000 iterations were a linear warmup, while the remaining steps were cosine decay, with a learning rate of 3e-5. 
 
 **The evaluation**
 
@@ -194,9 +206,9 @@ We consider the model successful at this task if its output contains the "needle
 
 ![](./assets/185_infini_attention/200m_generation_first_signals.png)
 
-As you can see it somewhat works, and if you look at these sample generations, you can see that Infini attention generates content related to the earlier segment.
+As you can see it somewhat works, and if you look at these sample generations, you can see that Infini-attention generates content related to the earlier segment.
 
-Since Infini attention predicts the first token in the second segment by conditioning on the entire content of the first segment, which it generated as "_grad" for the first token, this provides a good signal. To validate whether this signal is a false positive, we hypothesize that Infini attention generates content related to its earlier segment because when given "_grad" as the first generated token of the second segment, it consistently generates PyTorch-related tutorials, which happen to relate to its earlier segment. Therefore, we conducted a sanity test where the only input token was "_grad", and it generated [text here]. This suggests it does use the memory, but just doesn’t use it well enough (to retrieve the exact needle or continue the exact content of its earlier segment). The generation:
+Since Infini-attention predicts the first token in the second segment by conditioning on the entire content of the first segment, which it generated as "_grad" for the first token, this provides a good signal. To validate whether this signal is a false positive, we hypothesize that Infini-attention generates content related to its earlier segment because when given "_grad" as the first generated token of the second segment, it consistently generates PyTorch-related tutorials, which happen to relate to its earlier segment. Therefore, we conducted a sanity test where the only input token was "_grad", and it generated [text here]. This suggests it does use the memory, but just doesn’t use it well enough (to retrieve the exact needle or continue the exact content of its earlier segment). The generation:
 
 > _graduate_education.html
 > Graduate Education
@@ -221,7 +233,7 @@ And also note that since the gradients don't always go in the same direction, ca
 
 > Conclusion: with a global learning rate of  3.0x10^-4, and a gating learning rate of 0.01, this allows the gating function to converge.
 
-Now the balance factors in infini attention are trainable, but 200m llama's loss went NaN after 20B tokens (we tried learning rates from 0.001 to 1.0e-6). So, we ran some generation at the 20B tokens checkpoint (10k training steps), as you can see in the Figure 4a, now it can continue the exact content and recall identities (if knock out the memory, it generated trash). But it isn't able to recall the needle in the 1st segment (it does so reliably within the segment).
+Now the balance factors in Infini-attention are trainable, but 200m llama's loss went NaN after 20B tokens (we tried learning rates from 0.001 to 1.0e-6). So, we ran some generation at the 20B tokens checkpoint (10k training steps), as you can see in the Figure 4a, now it can continue the exact content and recall identities (if knock out the memory, it generated trash). But it isn't able to recall the needle in the 1st segment (it does so reliably within the segment).
 
 ![Figure 4b: generation](./assets/185_infini_attention/exp_51_generation.png)
 
@@ -242,7 +254,7 @@ Another reason could be that we used too small a rollout. In the 200m experiment
 
 ![Figure 5c: global weights across training](./assets/185_infini_attention/exp57_global_weights_across_training.png)
 
-As you see, the global weights are now distributed across the range from 0 to 1, with 10% of heads having a global weight between 0.9 and 1.0, even though after 18k steps, most heads stopped changing their global weights. But now we are quite confident in saying that we have set up the experiments to allow convergence if gradient descent wants to. The only question now is whether Infini Attention works well enough.
+As you see, the global weights are now distributed across the range from 0 to 1, with 10% of heads having a global weight between 0.9 and 1.0, even though after 18k steps, most heads stopped changing their global weights. But now we are quite confident in saying that we have set up the experiments to allow convergence if gradient descent wants to. The only question now is whether Infini-attention works well enough.
 
 The following valuations were run at 1.5B tokens.
 
@@ -260,13 +272,13 @@ And now it continues the exact content of earlier segments. (Before this, it did
 
 # Section 6: Conclusion
 
-Unfortunately, Infini Attention doesn’t work well enough. To the best of our knowledge, ring attention [[link]](https://x.com/Haojun_Zhao14/status/1815419356408336738), YaRN [[link]](https://arxiv.org/abs/2309.00071) and rope scaling [[link]](https://arxiv.org/abs/2309.16039) are still the best ways for extending a pretrained model to longer context length. However, it requires a massive amount of resources for very large model sizes (e.g., 400B and beyond). Therefore, we will leave it here and encourage researchers to explore other attention compression techniques or figure out where we went wrong.
+Unfortunately, Infini-attention doesn’t work well enough. To the best of our knowledge, ring attention [[link]](https://x.com/Haojun_Zhao14/status/1815419356408336738), YaRN [[link]](https://arxiv.org/abs/2309.00071) and rope scaling [[link]](https://arxiv.org/abs/2309.16039) are still the best ways for extending a pretrained model to longer context length. However, it requires a massive amount of resources for very large model sizes (e.g., 400B and beyond). Therefore, we will leave it here and encourage researchers to explore other attention compression techniques or figure out where we went wrong.
 
 **Recaps**
 
 - What it means to train a neural network: give it good data, set up the architecture and training to receive good gradient signals, and allow it to converge.
-- Infini attention's long context performance decreases as the number of times we compresses the memory.
-- Gating is important; tweaking the training to allow the gating to converge improves Infini attention’s long context performance (but not good enough).
+- Infini-attention's long context performance decreases as the number of times we compresses the memory.
+- Gating is important; tweaking the training to allow the gating to converge improves Infini-attention's long context performance (but not good enough).
 - Always train a good reference model as a baseline to measure progress.
 - There is another bug that messes up the dimensions in the attention output, resulting in a situation where, even though the loss decreases throughout training, the model still can't generate coherent text within its segment length. Lesson learned: Even if you condition the model poorly, gradient descent can still find a way to decrease the loss. However, the model won't work as expected, so always run evaluations.
 
