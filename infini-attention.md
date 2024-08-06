@@ -25,10 +25,11 @@ Following the recent release of Llama 3 8B, which has a context length limit of 
 
 # Section 1: Reproduction Principles
 
-We found the following rules being helpful when implementing a new method and use it as guiding principles for a lot of our work:
-+ Principle 1. Start with the smallest model size that provides good signals, and scale up the experiments once you get good signals.
-+ Principle 2. Always train a solid baseline to measure progress.
-+ Principle 3. To determine if a factor improves performance, train two identical models except for the difference in the factor being tested.
+We found the following rules helpful when implementing a new method and use it as guiding principles for a lot of our work:
+
++ **Principle 1:** Start with the smallest model size that provides good signals, and scale up the experiments once you get good signals.
++ **Principle 2.** Always train a solid baseline to measure progress.
++ **Principle 3.** To determine if a factor improves performance, train two identical models except for the difference in the factor being tested.
 
 With these principles in mind, let's dive into how Infini-attention actually works. Understanding the mechanics will be crucial as we move forward with our experiments.
 
