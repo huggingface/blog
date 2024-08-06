@@ -26,7 +26,7 @@ To address this need, we introduce a **new data augmentation pipeline** develope
 
 As discussed in a previous [blog post](https://huggingface.co/blog/danaaubakirova/doc-augmentation), our goal is to test the hypothesis that integrating augmentations on both text and images during pretraining of VLMs is effective. Detailed parameters and use case illustrations can be found on the  [Albumentations AI Documentation](https://albumentations.ai/docs/examples/example_textimage/?h=textimage). Albumentations AI enables the dynamic design of these augmentations and their integration with other types of augmentations.
 
-# Method 
+## Method 
 
 To augment document images, we begin by randomly selecting lines within the document. A hyperparameter `fraction_range` controls the bounding box fraction to be modified.
 
@@ -237,7 +237,7 @@ visualize(transformed['image'])
     
 ## Conclusion
 
-In collaboration with Albumentations AI, we introduced TextImage Augmentation, a multimodal technique that modifies document images while along with the text. By combining text augmentations such as Random Insertion, Deletion, Swap, and Stopword Replacement with image modifications, this pipeline allows for the generation of diverse training samples. 
+In collaboration with Albumentations AI, we introduced TextImage Augmentation, a multimodal technique that modifies document images along with the text. By combining text augmentations such as Random Insertion, Deletion, Swap, and Stopword Replacement with image modifications, this pipeline allows for the generation of diverse training samples. 
 
 For detailed parameters and use case illustrations, refer to the [Albumentations AI Documentation](https://albumentations.ai/docs/examples/example_textimage/?h=textimage). We hope you find these augmentations useful for enhancing your document image processing workflows.
 
