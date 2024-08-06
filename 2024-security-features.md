@@ -62,7 +62,7 @@ In the event a malicious file is detected, the scans will place a notice on the 
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/2024-security-features/security-scanning.png)
 
-For any secrets detected, the pipeline will send you an email notifying the owner of the secret so that they can invalidate and refresh the secret. You can learn more about automated scanning here: 
+For any secrets detected, the pipeline will send you an email notifying the owner so that they can invalidate and refresh the secret. You can learn more about automated scanning here: 
 - https://huggingface.co/docs/hub/en/security-malware 
 - https://huggingface.co/docs/hub/en/security-pickle 
 - https://huggingface.co/docs/hub/en/security-secrets 
@@ -103,4 +103,4 @@ Hugging Face is SOC2 Type 2 certified and GDPR compliant. We offer Business Asso
 Hugging Face offers custom agreements and development of features and tools for Enterprise accounts which are established via Statement of Work (SoW) and Service Level Agreements (SLA). You can reach out directly to sales to discuss your options at https://huggingface.co/contact/sales.
 
 ## Conclusion
-At Hugging Face, we're committed to providing a secure and trustworthy platform for the AI community. With our robust security features, users can focus on building and deploying AI models with confidence. Whether you're a individual researcher or a large enterprise, our security features are designed to empower you to protect yourself and your assets. By continually enhancing our defenses and expanding our security capabilities, we aim to stay ahead of emerging threats and maintain the trust of our users. If you have any questions or feedback about our security features, we'd love to hear from you. Reach out at security@huggingface.co!
+At Hugging Face, we're committed to providing a secure and trustworthy platform for the AI community. With our robust security features, users can focus on building and deploying AI models with confidence. Whether you're an individual researcher or a large enterprise, our security features are designed to empower you to protect yourself and your assets. By continually enhancing our defenses and expanding our security capabilities, we aim to stay ahead of emerging threats and maintain the trust of our users. If you have any questions or feedback about our security features, we'd love to hear from you. Reach out at security@huggingface.co!
