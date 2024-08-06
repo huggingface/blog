@@ -4491,7 +4491,7 @@
 - local: doc_aug_hf_alb
   title: "Introducing TextImage Augmentation for Document Images"
   author: danaaubakirova
-  thumbnail: /blog/assets/185_albumentations/thumbnail.jpeg
+  thumbnail: /blog/assets/185_albumentations/thumbnail.png
   date: Aug 6, 2024
   tags:
     - document ai
