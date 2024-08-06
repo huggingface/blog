@@ -62,7 +62,7 @@ In the event a malicious file is detected, the scans will place a notice on the 
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/2024-security-features/security-scanning.png)
 
-For any secrets detected, the pipeline will send you an email notifying the owner so that they can invalidate and refresh the secret. You can learn more about automated scanning here: 
+For any secrets detected, the pipeline will send an email notifying the owner so that they can invalidate and refresh the secret. You can learn more about automated scanning here: 
 - https://huggingface.co/docs/hub/en/security-malware 
 - https://huggingface.co/docs/hub/en/security-pickle 
 - https://huggingface.co/docs/hub/en/security-secrets 
