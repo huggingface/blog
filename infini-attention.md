@@ -73,7 +73,7 @@ def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
     return retrieved_memory
 ```
 
-- Step 4: Combine the local context (from the current segment) with the long-term context (retrieved from the compressive memory) to generate the final output. So that we can have both short-term and long-term contexts are considered in the attention output.
+- Step 4: Combine the local context (from the current segment) with the long-term context (retrieved from the compressive memory) to generate the final output. This way, both short-term and long-term contexts can be considered in the attention output.
 
     $$A=\operatorname{sigmoid}(\beta) \odot A_{\text {mem }}+(1-\operatorname{sigmoid}(\beta)) \odot A_{\text {dot }}$$
 
