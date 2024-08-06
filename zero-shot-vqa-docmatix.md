@@ -94,7 +94,7 @@ demonstrations = [
 
 #### Scoring Function
 
-Given the LLM’s generated text for the test example, we extracted the rating from the last character (either 1, 2, or 3) and mapped it to a score in the range [0, 1]: $$ s = \frac{r - 1}{2} $$
+Given the LLM’s generated text for the test example, we extracted the rating from the last character (either 1, 2, or 3) and mapped it to a score in the range [0, 1]: \[ s = \frac{r - 1}{2} \]
 
 #### Table of Results
 
