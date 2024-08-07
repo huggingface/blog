@@ -4488,6 +4488,27 @@
     - LLM
     - gcp
 
+- local: doc_aug_hf_alb
+  title: "Introducing TextImage Augmentation for Document Images"
+  author: danaaubakirova
+  thumbnail: /blog/assets/185_albumentations/thumbnail.png
+  date: Aug 6, 2024
+  tags:
+    - document ai
+    - data augmentation
+    - synthetic-data
+    - albumentations
+    - research
+
+- local: 2024-security-features
+  title: 2024 Security Feature Highlights
+  author: jack-kumar
+  thumbnail: /blog/assets/2024-security-features/thumbnail.png
+  date: August 6, 2024
+  tags:
+    - security
+    - enterprise
+
 - local: introduction-to-ggml
   title: "Introduction to ggml"
   author: ngxson
