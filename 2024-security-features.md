@@ -65,8 +65,10 @@ In addition to the base organizational access controls, Enterprises can define a
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/2024-security-features/resource-groups.png)
 
-### Organizational Token Management
+### Organization Token Management
 ✨New✨ Enterprise users can now manage which tokens can access their organization and resources. Organization owners can enforce the usage of fine-grained tokens and require administrator approval for each token. Administrators can review and revoke each token that has access to their repositories at any time.
+
+You can learn more about Organization Token Management here: https://huggingface.co/docs/hub/enterprise-hub-tokens-management
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/2024-security-features/organizational-token-management-1.png)
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/2024-security-features/organizational-token-management-2.png)
