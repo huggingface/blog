@@ -3,7 +3,11 @@ title: "Introduction to ggml"
 thumbnail: /blog/assets/introduction-to-ggml/cover.jpg
 authors:
 - user: ngxson
+- user: pcuenq
 - user: ggerganov
+  guest: true
+  org: ggml-org
+- user: slaren
   guest: true
   org: ggml-org
 ---
@@ -23,17 +27,7 @@ The main reasons people choose to use ggml over other libraries are:
 5. **Support for quantized tensors**: Tensors can be quantized to save memory (similar to JPEG compression) and in certain cases to improve performance.
 6. **Extremely memory efficient**: This is both an advantage and a disadvantage. Overhead for storing tensors and performing computations is minimal.
 
-# Terminology and concepts
-
-Before diving deep into ggml, we should understand some key concepts. If you're coming from high-level libraries like PyTorch or TensorFlow, these may seem challenging to grasp. However, keep in mind that ggml is a **low-level** library. Understanding these terms can give you much more control over performance:
-
-- [ggml_context](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml.c#L1792): A "container" that holds objects such as tensors, graphs and optionally data
-- [ggml_backend](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L80): Represents an interface for executing computation graphs. There are many types of backends: CPU (default), CUDA, Metal (Apple Silicon), Vulkan, RPC, etc.
-- [ggml_backend_buffer_type](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L18): Represents a buffer type. Think of it as a "memory allocator" connected to each `ggml_backend`. For example, if you want to perform calculations on a GPU, you need to allocate memory on the GPU via `buffer_type` (usually abbreviated as `buft`).
-- [ggml_backend_buffer](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L52): Represents a buffer allocated by `buffer_type`. Remember: a buffer can hold the data of multiple tensors.
-- [ggml_cgraph](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/include/ggml.h#L652): Represents a computational graph. Think of it as the "order of computation" that will be transferred to the backend.
-- [ggml_gallocr](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-alloc.c#L354): Represents a memory allocator, used by `ggml_cgraph` to dynamically allocate memory for computation.
-- [ggml_backend_sched](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend.c#L1048): A backend scheduler that allows using multiple backends simultaneously. For example, if a model is too large, some tensors and operations can be processed on the GPU, while others can be handled by the CPU. This is also useful when working with multiple GPUs.
+This guide focuses on the fundamentals of ggml for developers looking to get started with the library. It does not cover higher-level tasks such as LLM inference with llama.cpp, which builds upon ggml. Instead, we'll explore the core concepts and basic usage of ggml to provide a solid foundation for further learning and development.
 
 ## Getting started
 
@@ -68,6 +62,18 @@ mul mat (4 x 3) (transposed result):
 ```
 
 If you see the expected result, that means we're good to go!
+
+## Terminology and concepts
+
+Before diving deep into ggml, we should understand some key concepts. If you're coming from high-level libraries like PyTorch or TensorFlow, these may seem challenging to grasp. However, keep in mind that ggml is a **low-level** library. Understanding these terms can give you much more control over performance:
+
+- [ggml_context](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml.c#L1792): A "container" that holds objects such as tensors, graphs, and optionally data
+- [ggml_cgraph](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/include/ggml.h#L652): Represents a computational graph. Think of it as the "order of computation" that will be transferred to the backend.
+- [ggml_backend](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L80): Represents an interface for executing computation graphs. There are many types of backends: CPU (default), CUDA, Metal (Apple Silicon), Vulkan, RPC, etc.
+- [ggml_backend_buffer_type](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L18): Represents a buffer type. Think of it as a "memory allocator" connected to each `ggml_backend`. For example, if you want to perform calculations on a GPU, you need to allocate memory on the GPU via `buffer_type` (usually abbreviated as `buft`).
+- [ggml_backend_buffer](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L52): Represents a buffer allocated by `buffer_type`. Remember: a buffer can hold the data of multiple tensors.
+- [ggml_gallocr](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-alloc.c#L354): Represents a memory allocator, used by `ggml_cgraph` to dynamically allocate memory for computation.
+- [ggml_backend_sched](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend.c#L1048): A backend scheduler that allows using multiple backends simultaneously. For example, if a model is too large, some tensors and operations can be processed on the GPU, while others can be handled by the CPU. This is also useful when working with multiple GPUs.
 
 ## Simple example
 
@@ -104,7 +110,7 @@ touch examples/demo/demo.cpp
 touch examples/demo/CMakeLists.txt
 ```
 
-The code for this example is based on [simple-ctx.cpp](https://github.com/ggerganov/ggml/blob/master/examples/simple/simple-ctx.cpp)
+The code for this example is based on [simple-ctx.cpp](https://github.com/ggerganov/ggml/blob/6c71d5a071d842118fb04c03c4b15116dff09621/examples/simple/simple-ctx.cpp)
 
 Edit `examples/demo/demo.cpp` with the content below:
 
@@ -242,7 +248,7 @@ When doing a computation or inference with backend, common steps that need to be
 10. Retrieve results (output tensors)
 11. Free memory and exit
 
-The code for this example is based on [simple-backend.cpp](https://github.com/ggerganov/ggml/blob/master/examples/simple/simple-backend.cpp)
+The code for this example is based on [simple-backend.cpp](https://github.com/ggerganov/ggml/blob/6c71d5a071d842118fb04c03c4b15116dff09621/examples/simple/simple-backend.cpp)
 
 ```cpp
 #include "ggml.h"
@@ -425,3 +431,9 @@ ggml_graph_dump_dot(gf, NULL, "debug.dot");
 You can use the `dot` command or this [online website](https://dreampuf.github.io/GraphvizOnline) to render `debug.dot` into a final image:
 
 ![ggml-debug](assets/introduction-to-ggml/ggml-debug.svg)
+
+## Conclusion
+
+In this introductory post, we've covered the basics of ggml, including its key concepts, a simple example, and how to work with backends. This foundation should give you a good starting point for working with ggml in your projects.
+
+In upcoming posts, we'll dive deeper into more advanced topics such as GGUF format, working with different backends, and implementing more complex models using ggml. Stay tuned for more in-depth explorations of this powerful library!
