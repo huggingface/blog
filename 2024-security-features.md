@@ -7,26 +7,11 @@ authors:
 
 # 2024 Security Feature Highlights
 
-Security is a top priority at Hugging Face, and we're committed to continually enhancing our defenses to safeguard our users. In our ongoing security efforts, we have developed a range of security features designed to empower users to protect themselves and their  assets. In this blog post, we'll take a look at our current security landscape as of August 6th, 2024, and break down key security features available on the Hugging Face Hub. We'll explore two categories: the essential security features available to all users, and the advanced controls available to Enterprise users.
+Security is a top priority at Hugging Face, and we're committed to continually enhancing our defenses to safeguard our users. In our ongoing security efforts, we have developed a range of security features designed to empower users to protect themselves and their  assets. In this blog post, we'll take a look at our current security landscape as of August 6th, 2024, and break down key security features available on the Hugging Face Hub. 
 
-**Table Of Contents**
-- [Hub Security Features](#hub-security-features)
-  - [Fine Grained Tokens](#fine-grained-token)
-  - [Two Factor Authentication](#two-factor-authentication-2fa)
-  - [Commit Signing](#commit-signing)
-  - [Organizational Access Controls](#organizational-access-controls)
-  - [Automated Security Scanning](#automated-security-scanning)
-- [Enterprise Security Features](#enterprise-security-features)
-  - [Single Sign-On (SSO)](#single-sign-on-sso)
-  - [Resource Groups](#resource-groups)
-  - [Organizational Token Management](#organizational-token-management)
-  - [Data Residency](#data-residency)
-  - [Audit Logs](#audit-logs)
-  - [Compliance](#compliance)
-  - [Custom Security Features](#custom-security-features)
-- [Conclusion](#conclusion)
+This post is broken down into two parts: in the first sections, we explore the essential security features available to all users of the Hub. Then in the second section we describe the advanced controls available to Enterprise Hub users.
 
-## Hub Security Features
+## "Default" Hub Security Features
 The following security features are available to all users of the Hugging Face Hub. We highly recommend that you use all of these controls where possible as it will help increase your resiliency against a variety of common attacks, such as phishing, token leaks, credential stuffing, session hijacking, etc.
 
 ### Fine Grained Token
@@ -67,7 +52,7 @@ For any secrets detected, the pipeline will send an email notifying the owner so
 - https://huggingface.co/docs/hub/en/security-pickle 
 - https://huggingface.co/docs/hub/en/security-secrets 
 
-## Enterprise Security Features
+## Enterprise Hub Security Features
 In addition to the security features available to all users, Hugging Face offers advanced security controls for Enterprise users. These additional controls allow enterprises to build a security configuration that is most effective for them.
 
 ### Single Sign-On (SSO)
