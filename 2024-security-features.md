@@ -74,7 +74,7 @@ You can learn more about Organization Token Management here: https://huggingface
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/2024-security-features/organizational-token-management-2.png)
 
 ### Data Residency
-Enterprise users have access to data residency controls, which allow them to define where repositories (models, datasets, spaces) are stored. This allows for regulatory and legal compliance, while also improving download and upload performance by bringing the data closer to your users. We currently support US and EU regions, with Asia-Pacific coming soon. You can learn more about Data Residency here: https://huggingface.co/docs/hub/en/storage-regions 
+Enterprise users have access to data residency controls, which allow them to define where repositories (models, datasets, spaces) are stored. This allows for regulatory and legal compliance, while also improving download and upload performance by bringing the data closer to your users. We currently support US and EU regions, with Asia-Pacific coming soon. We call this feature "Storage Regions". You can learn more about Data Residency here: https://huggingface.co/docs/hub/en/storage-regions 
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/2024-security-features/data-residency.png)
 
