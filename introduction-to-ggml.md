@@ -5,11 +5,12 @@ authors:
 - user: ngxson
 - user: ggerganov
   guest: true
+  org: ggml-org
 ---
 
 # Introduction to ggml
 
-[ggml](https://ggml.ai/) is a machine learning (ML) library developed by [Georgi Gerganov](https://github.com/ggerganov/). Similar to other ML libraries like PyTorch or TensorFlow, ggml provides functions to work with tensors and perform mathematical operations.
+[ggml](https://github.com/ggerganov/ggml) is a machine learning (ML) library written in C and C++ with a focus on Transformer inference. The project is open-source and is being actively developed by a growing community. ggml is similar to ML libraries such as PyTorch and TensorFlow, though it is still in it's early stages of development and some of it's fundamentals are still changing rapidly.
 
 Over time, ggml has gained popularity alongside other projects like [llama.cpp](https://github.com/ggerganov/llama.cpp) and [whisper.cpp](https://github.com/ggerganov/whisper.cpp). Many other projects also use ggml under the hood to enable on-device LLM, including [ollama](https://github.com/ollama/ollama), [jan](https://github.com/janhq/jan), [LM Studio](https://github.com/lmstudio-ai).
 
@@ -19,22 +20,22 @@ The main reasons people choose to use ggml over other libraries are:
 2. **Easy compilation**: You don't need fancy build tools. Without GPU support, you only need GCC or Clang!
 3. **Lightweight**: The compiled binary size is less than 1MB, which is tiny compared to PyTorch (which usually takes hundreds of MB).
 4. **Good compatibility**: It supports many types of hardware, including x86_64, ARM, Apple Silicon, CUDA, etc.
-5. **Support for quantized tensors**: Tensors can be quantized to save memory space (similar to JPEG compression) without affecting computation performance (it's even faster than F32).
+5. **Support for quantized tensors**: Tensors can be quantized to save memory (similar to JPEG compression) and in certain cases to improve performance.
 6. **Extremely memory efficient**: This is both an advantage and a disadvantage. Overhead for storing tensors and performing computations is minimal.
 
 # Terminology and concepts
 
 Before diving deep into ggml, we should understand some key concepts. If you're coming from high-level libraries like PyTorch or TensorFlow, these may seem challenging to grasp. However, keep in mind that ggml is a **low-level** library. Understanding these terms can give you much more control over performance:
 
-- [ggml_context](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml.c#L1792): A "container" that holds data of allocated tensors. Memory must be allocated explicitly.
-- [ggml_backend](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L80): Represents a hardware backend. There are many types of backends: CPU (default), CUDA, Metal (Apple Silicon), Vulkan, etc.
+- [ggml_context](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml.c#L1792): A "container" that holds objects such as tensors, graphs and optionally data
+- [ggml_backend](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L80): Represents an interface for executing computation graphs. There are many types of backends: CPU (default), CUDA, Metal (Apple Silicon), Vulkan, RPC, etc.
 - [ggml_backend_buffer_type](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L18): Represents a buffer type. Think of it as a "memory allocator" connected to each `ggml_backend`. For example, if you want to perform calculations on a GPU, you need to allocate memory on the GPU via `buffer_type` (usually abbreviated as `buft`).
-- [ggml_backend_buffer](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L52): Represents a buffer allocated by `buffer_type`. Remember: a buffer can hold multiple tensors.
+- [ggml_backend_buffer](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L52): Represents a buffer allocated by `buffer_type`. Remember: a buffer can hold the data of multiple tensors.
 - [ggml_cgraph](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/include/ggml.h#L652): Represents a computational graph. Think of it as the "order of computation" that will be transferred to the backend.
 - [ggml_gallocr](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-alloc.c#L354): Represents a memory allocator, used by `ggml_cgraph` to dynamically allocate memory for computation.
 - [ggml_backend_sched](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend.c#L1048): A backend scheduler that allows using multiple backends simultaneously. For example, if a model is too large, some tensors and operations can be processed on the GPU, while others can be handled by the CPU. This is also useful when working with multiple GPUs.
 
-# Getting started
+## Getting started
 
 Great, so how do you start?
 
@@ -66,11 +67,11 @@ mul mat (4 x 3) (transposed result):
  42.00 29.00 28.00 64.00 ]
 ```
 
-If you see the expected result, that mean we're good to go!
+If you see the expected result, that means we're good to go!
 
-# Simple example
+## Simple example
 
-In this example, we want to create 2 random matrices, multiply them and get the result. Using `pytorch`, the code looks like this:
+In this example, we want to create 2 random matrices, multiply them and get the result. Using PyTorch, the code looks like this:
 
 ```py
 import torch
@@ -83,7 +84,7 @@ matrix2 = torch.rand(4, 2)
 result = torch.matmul(matrix1, matrix2)
 ```
 
-With ggml, these steps must be done to archive the same result:
+With ggml, these steps must be done to achieve the same result:
 1. Allocate `ggml_context` to store tensor data
 2. Create tensors and set data
 3. Create a `ggml_cgraph` for mul_mat operation
@@ -91,7 +92,7 @@ With ggml, these steps must be done to archive the same result:
 5. Retrieve results (output tensors)
 6. Free memory and exit
 
-**NOTE**: In this example, for simplification, we will allocate the tensor data **inside** `ggml_context`. In reality, memory should be allocated in device buffer (we will see in the next section).
+**NOTE**: In this example, we will allocate the tensor data **inside** the `ggml_context` for simplicity. In practice, memory should be allocated as a device buffer, as we'll see in the next section.
 
 To get started, let's create a new directory `examples/demo`
 
@@ -220,18 +221,18 @@ mul mat (4 x 3) (transposed result):
  42.00 29.00 28.00 64.00 ]
 ```
 
-# Example with backend
+## Example with backend
 
 "Backend" in ggml refers to a device that can handle tensor operations. Backend can be CPU, CUDA, Vulkan, etc.
 
-In reality, most programs using ggml will store tensor in backend, even if the backend is CPU. The advantages of this approach are:
+In reality, most programs using ggml will store tensors in a backend, even if the backend is CPU. The advantages of this approach are:
 - Developer can re-use the same code for other backend. For example, if the code works with CPU, then you can run it on GPU.
 - Tensors for result and intermediate operations are allocated automatically.
 
 When doing a computation or inference with backend, common steps that need to be done are:
 1. Initialize `ggml_backend`
 2. Allocate `ggml_context` to store tensor metadata (we **don't need** to allocate tensor data right away)
-3. Create tensors metadata (only there shapes and data type)
+3. Create tensors metadata (only their shapes and data types)
 4. Allocate a `ggml_backend_buffer` to store all tensors
 5. Copy tensor data from main memory (RAM) to backend buffer
 6. Create a `ggml_cgraph` for mul_mat operation
@@ -387,7 +388,7 @@ mul mat (4 x 3) (transposed result):
  42.00 29.00 28.00 64.00 ]
 ```
 
-# Print the computational graph
+## Printing the computational graph
 
 When working with a bigger cgraph, you can print out the graph for debugging.
 
@@ -421,6 +422,6 @@ Additionally, you can draw the cgraph as graphviz dot format:
 ggml_graph_dump_dot(gf, NULL, "debug.dot");
 ```
 
-You can use `dot` command or [online website](https://dreampuf.github.io/GraphvizOnline) to render `debug.dot` into final image:
+You can use the `dot` command or this [online website](https://dreampuf.github.io/GraphvizOnline) to render `debug.dot` into a final image:
 
 ![ggml-debug](assets/introduction-to-ggml/ggml-debug.svg)
