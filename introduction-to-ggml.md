@@ -27,7 +27,12 @@ The main reasons people choose to use ggml over other libraries are:
 5. **Support for quantized tensors**: Tensors can be quantized to save memory (similar to JPEG compression) and in certain cases to improve performance.
 6. **Extremely memory efficient**: This is both an advantage and a disadvantage. Overhead for storing tensors and performing computations is minimal.
 
-This guide focuses on the fundamentals of ggml for developers looking to get started with the library. It does not cover higher-level tasks such as LLM inference with llama.cpp, which builds upon ggml. Instead, we'll explore the core concepts and basic usage of ggml to provide a solid foundation for further learning and development.
+However, ggml also comes with some disadvantages that you need to keep in mind when using it (Attention: this list may change in future versions of ggml):
+- Not all tensor operations are supported on all backends. For example, some may work on CPU but won't work on CUDA.
+- Coding may not be straightforward and may require deep knowledge of low-level programming.
+- The project is in active development, so breaking changes are expected.
+
+In this article, we will focus on the fundamentals of ggml for developers looking to get started with the library. It does not cover higher-level tasks such as LLM inference with llama.cpp, which builds upon ggml. Instead, we'll explore the core concepts and basic usage of ggml to provide a solid foundation for further learning and development.
 
 ## Getting started
 
