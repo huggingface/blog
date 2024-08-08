@@ -439,6 +439,6 @@ You can use the `dot` command or this [online website](https://dreampuf.github.i
 
 ## Conclusion
 
-In this introductory post, we've covered the basics of ggml, including its key concepts, a simple example, and how to work with backends. This foundation should give you a good starting point for working with ggml in your projects.
+This article has provided an introductory overview of ggml, covering the key concepts, a simple usage example, and an example using a backend. While we've covered the basics, there is much more to explore when it comes to ggml.
 
-In upcoming posts, we'll dive deeper into more advanced topics such as GGUF format, working with different backends, and implementing more complex models using ggml. Stay tuned for more in-depth explorations of this powerful library!
+In upcoming articles, we'll dive deeper into other ggml-related subjects, such as the GGMF format, quantization, and how the different backends are organized and utilized. Additionally, you can visit the [ggml examples directory](https://github.com/ggerganov/ggml/tree/master/examples) to see more advanced use cases and sample code. Stay tuned for more ggml content in the future!
