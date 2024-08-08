@@ -29,10 +29,10 @@ The main reasons people choose to use ggml over other libraries are:
 
 However, ggml also comes with some disadvantages that you need to keep in mind when using it (Attention: this list may change in future versions of ggml):
 - Not all tensor operations are supported on all backends. For example, some may work on CPU but won't work on CUDA.
-- Coding may not be straightforward and may require deep knowledge of low-level programming.
+- Development with ggml may not be straightforward and may require deep knowledge of low-level programming.
 - The project is in active development, so breaking changes are expected.
 
-In this article, we will focus on the fundamentals of ggml for developers looking to get started with the library. It does not cover higher-level tasks such as LLM inference with llama.cpp, which builds upon ggml. Instead, we'll explore the core concepts and basic usage of ggml to provide a solid foundation for further learning and development.
+In this article, we will focus on the fundamentals of ggml for developers looking to get started with the library. We do not cover higher-level tasks such as LLM inference with llama.cpp, which builds upon ggml. Instead, we'll explore the core concepts and basic usage of ggml to provide a solid foundation for further learning and development.
 
 ## Getting started
 
@@ -95,7 +95,7 @@ matrix2 = torch.rand(4, 2)
 result = torch.matmul(matrix1, matrix2)
 ```
 
-With ggml, these steps must be done to achieve the same result:
+With ggml, the following steps must be done to achieve the same result:
 1. Allocate `ggml_context` to store tensor data
 2. Create tensors and set data
 3. Create a `ggml_cgraph` for mul_mat operation
@@ -232,7 +232,7 @@ mul mat (4 x 3) (transposed result):
  42.00 29.00 28.00 64.00 ]
 ```
 
-## Example with backend
+## Example with a backend
 
 "Backend" in ggml refers to a device that can handle tensor operations. Backend can be CPU, CUDA, Vulkan, etc.
 
