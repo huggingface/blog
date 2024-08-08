@@ -29,7 +29,7 @@ Let's say you have a 10GB Parquet file. You add a single row. Today you need to 
 
 Another example for GGUF model files: let’s say [@bartowski](https://huggingface.co/bartowski) wants to update one single metadata value in the GGUF header for a Llama 3.1 405B repo. Well, in the future bartowski can only re-upload a single chunk of a few kilobytes, making the process way more efficient 🔥
 
-As the field moves to trillion parameters models in the coming months (thanks Maxime Labonne for the new <a href="https://huggingface.co/mlabonne/BigLlama-3.1-1T-Instruct">BigLlama-3.1-1T</a> 🤯) our hope if that this new tech will unlock new scale both in the community, and inside of Enterprise companies.
+As the field moves to trillion parameters models in the coming months (thanks Maxime Labonne for the new [BigLlama-3.1-1T](https://huggingface.co/mlabonne/BigLlama-3.1-1T-Instruct) 🤯) our hope if that this new tech will unlock new scale both in the community, and inside of Enterprise companies.
 
 Finally, with large datasets and large models come challenges with collaboration. How do teams work together on large data, models and code? How do users understand how their data and models are evolving? We will be working to find better solutions to answer these questions.
 
