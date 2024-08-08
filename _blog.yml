@@ -4518,3 +4518,13 @@
     - announcement
     - enterprise
     - hub
+
+- local: unified-tool-use
+  title: "Tool Use, Unified"
+  author: rocketknight1
+  thumbnail: /blog/assets/chat-templates/thumbnail.png
+  date: August 8, 2024
+  tags:
+    - LLM
+    - nlp
+    - community
