@@ -4508,3 +4508,13 @@
   tags:
     - security
     - enterprise
+
+- local: xethub-joins-hf
+  title: "XetHub is joining Hugging Face!"
+  author: julien-c
+  thumbnail: /blog/assets/xethub-joins-hf/thumbnail.png
+  date: August 8, 2024
+  tags:
+    - announcement
+    - enterprise
+    - hub
