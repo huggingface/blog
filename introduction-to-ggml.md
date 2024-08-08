@@ -401,9 +401,9 @@ mul mat (4 x 3) (transposed result):
 
 ## Printing the computational graph
 
-When working with a bigger cgraph, you can print out the graph for debugging.
+The `ggml_cgraph` represents the computational graph, which defines the order of operations that will be executed by the backend. Printing the graph can be a helpful debugging tool, especially when working with more complex models and computations.
 
-You can add `ggml_graph_print` to do that:
+You can add `ggml_graph_print` to print the cgraph:
 
 ```cpp
 ...
