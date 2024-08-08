@@ -1,0 +1,46 @@
+<svg class="mx-auto" width="266pt" height="142pt" viewBox="0.00 0.00 265.72 142.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 138)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-138 261.7224,-138 261.7224,4 -4,4"/>
+<!-- 0x7ff906fb60b0 -->
+<g id="node1" class="node">
+<title>0x7ff906fb60b0</title>
+<polygon fill="#ffffff" stroke="#000000" points="169.026,-59.1 169.026,-133.5 257.7224,-133.5 257.7224,-59.1 169.026,-59.1"/>
+<text text-anchor="middle" x="213.3742" y="-116.9" font-family="Times,serif" font-size="14.00" fill="#000000">node_0 (f32)</text>
+<polyline fill="none" stroke="#000000" points="169.026,-108.7 257.7224,-108.7 "/>
+<text text-anchor="middle" x="213.3742" y="-92.1" font-family="Times,serif" font-size="14.00" fill="#000000">0 [4, 3]</text>
+<polyline fill="none" stroke="#000000" points="169.026,-83.9 257.7224,-83.9 "/>
+<text text-anchor="middle" x="213.3742" y="-67.3" font-family="Times,serif" font-size="14.00" fill="#000000">X*Y</text>
+</g>
+<!-- 0x563f17827fe0 -->
+<g id="node2" class="node">
+<title>0x563f17827fe0</title>
+<polygon fill="#ffc0cb" stroke="#000000" points="0,-69.5 0,-119.1 106.2062,-119.1 106.2062,-69.5 0,-69.5"/>
+<text text-anchor="middle" x="53.1031" y="-102.5" font-family="Times,serif" font-size="14.00" fill="#000000">leaf_0 (f32)</text>
+<polyline fill="none" stroke="#000000" points="0,-94.3 106.2062,-94.3 "/>
+<text text-anchor="middle" x="53.1031" y="-77.7" font-family="Times,serif" font-size="14.00" fill="#000000">CONST 0 [2, 4]</text>
+</g>
+<!-- 0x563f17827fe0&#45;&gt;0x7ff906fb60b0 -->
+<g id="edge1" class="edge">
+<title>0x563f17827fe0:x-&gt;0x7ff906fb60b0:x</title>
+<path fill="none" stroke="#000000" d="M106.1031,-106.3C134.4734,-106.3 137.0176,-79.0225 159.3349,-72.6293"/>
+<polygon fill="#000000" stroke="#000000" points="169.3742,-71.3 160.0515,-77.0738 164.4175,-71.9564 159.4607,-72.6127 159.4607,-72.6127 159.4607,-72.6127 164.4175,-71.9564 158.87,-68.1517 169.3742,-71.3 169.3742,-71.3"/>
+<text text-anchor="middle" x="137.6161" y="-104.5" font-family="Times,serif" font-size="14.00" fill="#000000">src 0</text>
+</g>
+<!-- 0x563f17828150 -->
+<g id="node3" class="node">
+<title>0x563f17828150</title>
+<polygon fill="#ffc0cb" stroke="#000000" points="0,-.5 0,-50.1 106.2062,-50.1 106.2062,-.5 0,-.5"/>
+<text text-anchor="middle" x="53.1031" y="-33.5" font-family="Times,serif" font-size="14.00" fill="#000000">leaf_1 (f32)</text>
+<polyline fill="none" stroke="#000000" points="0,-25.3 106.2062,-25.3 "/>
+<text text-anchor="middle" x="53.1031" y="-8.7" font-family="Times,serif" font-size="14.00" fill="#000000">CONST 1 [2, 3]</text>
+</g>
+<!-- 0x563f17828150&#45;&gt;0x7ff906fb60b0 -->
+<g id="edge2" class="edge">
+<title>0x563f17828150:x-&gt;0x7ff906fb60b0:x</title>
+<path fill="none" stroke="#000000" d="M106.1031,-37.3C127.6452,-37.3 132.6375,-44.2784 151.026,-55.5 156.1932,-58.6533 157.9478,-63.2584 160.4093,-66.6842"/>
+<polygon fill="#000000" stroke="#000000" points="169.3742,-71.3 158.4235,-70.7232 164.9288,-69.0112 160.4834,-66.7223 160.4834,-66.7223 160.4834,-66.7223 164.9288,-69.0112 162.5434,-62.7215 169.3742,-71.3 169.3742,-71.3"/>
+<text text-anchor="middle" x="137.6161" y="-59.5" font-family="Times,serif" font-size="14.00" fill="#000000">src 1</text>
+</g>
+</g>
+</svg>
