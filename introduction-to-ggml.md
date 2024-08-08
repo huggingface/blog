@@ -25,9 +25,9 @@ The main reasons people choose to use ggml over other libraries are:
 3. **Lightweight**: The compiled binary size is less than 1MB, which is tiny compared to PyTorch (which usually takes hundreds of MB).
 4. **Good compatibility**: It supports many types of hardware, including x86_64, ARM, Apple Silicon, CUDA, etc.
 5. **Support for quantized tensors**: Tensors can be quantized to save memory (similar to JPEG compression) and in certain cases to improve performance.
-6. **Extremely memory efficient**: This is both an advantage and a disadvantage. Overhead for storing tensors and performing computations is minimal.
+6. **Extremely memory efficient**: Overhead for storing tensors and performing computations is minimal.
 
-However, ggml also comes with some disadvantages that you need to keep in mind when using it (Attention: this list may change in future versions of ggml):
+However, ggml also comes with some disadvantages that you need to keep in mind when using it (this list may change in future versions of ggml):
 - Not all tensor operations are supported on all backends. For example, some may work on CPU but won't work on CUDA.
 - Development with ggml may not be straightforward and may require deep knowledge of low-level programming.
 - The project is in active development, so breaking changes are expected.
@@ -82,7 +82,7 @@ Before diving deep into ggml, we should understand some key concepts. If you're 
 
 ## Simple example
 
-In this example, we want to create 2 random matrices, multiply them and get the result. Using PyTorch, the code looks like this:
+In this example, we'll go through the steps to replicate the code we ran in [Getting Started](#getting-started). We need to create 2 matrices, multiply them and get the result. Using PyTorch, the code looks like this:
 
 ```py
 import torch
@@ -199,7 +199,7 @@ int main(void) {
 }
 ```
 
-For the `examples/demo/CMakeLists.txt`:
+Write these lines in the `examples/demo/CMakeLists.txt` file you created:
 
 ```
 set(TEST_TARGET demo)
@@ -207,7 +207,7 @@ add_executable(${TEST_TARGET} demo)
 target_link_libraries(${TEST_TARGET} PRIVATE ggml)
 ```
 
-Edit the `examples/CMakeLists.txt`, add this line at the end:
+Edit `examples/CMakeLists.txt`, add this line at the end:
 
 ```
 add_subdirectory(demo)
