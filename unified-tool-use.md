@@ -26,7 +26,7 @@ The obvious approach to supporting tool use, then, was to extend chat templates 
 
 Our first criterion when designing the tool use API was that it should be intuitive to define tools and pass them to the chat template. We found that most users wrote their tool functions first, and then figured out how to generate tool definitions from them and pass those to the model. This led to an obvious approach: What if users could simply pass functions directly to the chat template, and let it generate tool definitions for them?
 
-The problem here, though, is that “passing functions” is a very language-specific thing to do, and lots of people access chat models through [Javascript](https://huggingface.co/docs/transformers.js/en/index) or [Rust](https://huggingface.co/docs/text-generation-inference/en/index) instead of Python. So, we found a compromise that we think offers the best of both worlds: **Chat templates expect tools to be defined as JSON schema, but if you pass Python functions to the template instead, they will be automatically converted to JSON schema for you.** This results in a nice, clean API:
+The problem here, though, is that “passing functions” is a very language-specific thing to do, and lots of people access chat models through [JavaScript](https://huggingface.co/docs/transformers.js/en/index) or [Rust](https://huggingface.co/docs/text-generation-inference/en/index) instead of Python. So, we found a compromise that we think offers the best of both worlds: **Chat templates expect tools to be defined as JSON schema, but if you pass Python functions to the template instead, they will be automatically converted to JSON schema for you.** This results in a nice, clean API:
 
 ```python
 def get_current_temperature(location: str):
