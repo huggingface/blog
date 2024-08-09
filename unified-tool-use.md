@@ -1,7 +1,5 @@
 # Tool Use, Unified
 
-## tl;dr
-
 There is now a **unified tool use API** across several popular families of models. This API means the same code is portable - few or no model-specific changes are needed to use tools in chats with [Mistral](https://huggingface.co/mistralai), [Cohere](https://huggingface.co/CohereForAI), [NousResearch](https://huggingface.co/NousResearch) or [Llama](https://huggingface.co/collections/meta-llama/llama-31-669fc079a0c406a149a5738f) models. In addition, Transformers now includes helper functionality to make tool calling even easier, as well as [complete documentation](https://huggingface.co/docs/transformers/main/chat_templating#advanced-tool-use--function-calling) and [examples](https://colab.research.google.com/drive/1NPV5ia3_RZB1ksY0DtngQlD0Q7mDl9ln?usp=sharing) for the entire tool use process. Support for even more models will be added in the near future.
 
 ## Introduction
@@ -18,7 +16,7 @@ Worse, different models can have wildly different implementations of tool use. E
 
 Devoted fans of the Hugging Face Cinematic Universe will remember that the open-source community faced a similar challenge in the past with **chat models**. Chat models models use control tokens like `<|start_of_user_turn|>` or `<|end_of_message|>` to let the model know what’s going on in the chat, but different models were trained with totally different control tokens, which meant that users needed to write specific formatting code for each model they wanted to use. This was a huge headache at the time.
 
-Our solution to this was **chat templates** - essentially, models would come with a tiny Jinja template, which would render chats with the right format and control tokens for each model. Chat templates meant that users could write chats in a universal, model-agnostic format, trusting in the Jinja templates to handle any model-specific formatting required.
+Our solution to this was **chat templates** - essentially, models would come with a tiny [Jinja](https://jinja.palletsprojects.com/en/3.1.x/) template, which would render chats with the right format and control tokens for each model. Chat templates meant that users could write chats in a universal, model-agnostic format, trusting in the Jinja templates to handle any model-specific formatting required.
 
 The obvious approach to supporting tool use, then, was to extend chat templates to support tools as well. And that’s exactly what we did, but tools created a lot of new challenges for the templating system. Let’s go through what those challenges were and how we solved them, and in the process hopefully you’ll gain a deeper understanding of how the system works, and how you can make it work for you.
 
