@@ -22,7 +22,7 @@ Our solution to this was **chat templates** - essentially, models would come wit
 
 The obvious approach to supporting tool use, then, was to extend chat templates to support tools as well. And that’s exactly what we did, but tools created a lot of new challenges for the templating system. Let’s go through what those challenges were and how we solved them, and in the process hopefully you’ll gain a deeper understanding of how the system works, and how you can make it work for you.
 
-## **Passing tools to a chat template**
+## Passing tools to a chat template
 
 Our first criterion when designing the tool use API was that it should be intuitive to define tools and pass them to the chat template. We found that most users wrote their tool functions first, and then figured out how to generate tool definitions from them and pass those to the model. This led to an obvious approach: What if users could simply pass functions directly to the chat template, and let it generate tool definitions for them?
 
