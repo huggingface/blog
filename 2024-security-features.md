@@ -1,6 +1,6 @@
 ---
 title: 2024 Security Feature Highlights
-thumbnail: /blog/assets/2024-security-feature.png
+thumbnail: /blog/assets/2024-security-features/thumbnail.png
 authors:
 - user: jack-kumar
 ---
