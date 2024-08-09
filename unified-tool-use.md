@@ -180,9 +180,9 @@ and we get:
 </tool_call><|im_end|>
 ```
 
-The model has requested a tool! Note how the model correctly inferred that it should pass the argument “Paris, France” rather than just “Paris”, because that is the format recommended by the function docstring. 
+The model has requested a tool! Note how it correctly inferred that it should pass the argument “Paris, France” rather than just “Paris”, because that is the format recommended by the function docstring. 
 
-The model does not really have programmatic access to the tools, though - like all language models, it just generates text. It's up to you as the programmer to take the model's request and Let’s add the tool invocation instructions as an additional message to the chat:
+The model does not really have programmatic access to the tools, though - like all language models, it just generates text. It's up to you as the programmer to take the model's request and call the function. First, though, let’s add the model's tool request to the chat:
 
 ```python
 message = {
@@ -200,7 +200,7 @@ message = {
 chat.append(message)
 ```
 
-Now, we actually call the tool, and we add its response to the chat:
+Now, we actually call the tool with the arguments supplied by the model, and we add its response to the chat:
 
 ```python
 message = {
