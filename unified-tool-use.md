@@ -200,7 +200,7 @@ message = {
 chat.append(message)
 ```
 
-Now, we actually call the tool with the arguments supplied by the model, and we add its response to the chat:
+Now, we actually call the tool in our Python code, and we add its response to the chat:
 
 ```python
 message = {
