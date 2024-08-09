@@ -1,3 +1,10 @@
+---
+title: "Tool Use, Unified"
+thumbnail: /blog/assets/unified-tool-use/thumbnail.png
+authors:
+- user: rocketknight1
+---
+
 # Tool Use, Unified
 
 There is now a **unified tool use API** across several popular families of models. This API means the same code is portable - few or no model-specific changes are needed to use tools in chats with [Mistral](https://huggingface.co/mistralai), [Cohere](https://huggingface.co/CohereForAI), [NousResearch](https://huggingface.co/NousResearch) or [Llama](https://huggingface.co/collections/meta-llama/llama-31-669fc079a0c406a149a5738f) models. In addition, Transformers now includes helper functionality to make tool calling even easier, as well as [complete documentation](https://huggingface.co/docs/transformers/main/chat_templating#advanced-tool-use--function-calling) and [examples](https://colab.research.google.com/drive/1NPV5ia3_RZB1ksY0DtngQlD0Q7mDl9ln?usp=sharing) for the entire tool use process. Support for even more models will be added in the near future.
