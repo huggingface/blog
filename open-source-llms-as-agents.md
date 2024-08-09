@@ -116,7 +116,7 @@ And the task is solved!
 
 Generally, the difficult parts of running an agent system for the LLM engine are:
 
-1. From supplied tools, choose the one that will help advance to a desired goal: e.g. when asked `"What is the smallest prime number greater than 30,000?"`, the agent could call the `Search` tool with `"What is he height of K2"` but it won't help.
+1. From supplied tools, choose the one that will help advance to a desired goal: e.g. when asked `"What is the smallest prime number greater than 30,000?"`, the agent could call the `Search` tool with `"What is the height of K2"` but it won't help.
 2. Call tools with a rigorous argument formatting: for instance when trying to calculate the speed of a car that went 3 km in 10 minutes, you have to call tool `Calculator` to divide `distance` by `time` : even if your Calculator tool accepts calls in the JSON format: `{”tool”: “Calculator”, “args”: “3km/10min”}` , there are many pitfalls, for instance:
     - Misspelling the tool name: `“calculator”` or `“Compute”` wouldn’t work
     - Giving the name of the arguments instead of their values: `“args”: “distance/time”`
