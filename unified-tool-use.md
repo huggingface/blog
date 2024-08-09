@@ -239,9 +239,9 @@ The current temperature in Paris is 22.0 degrees Celsius. Enjoy your day!<|im_en
 
 ## The regrettable disunity of response formats
 
-Even though chat templates can hide model-specific differences when converting from chats and tool definitions to formatted text, the same isn’t true in reverse - when the model emits a tool-call, it will do so in its own format, so you’ll need to parse it out manually for now before adding it to the chat in the universal format. Thankfully, most of the formats are pretty intuitive, so this should only be a couple of lines of `json.loads()` or, at worst, a simple `re.search()` to create the tool call dict you need.
+While reading this example, you may have noticed that even though chat templates can hide model-specific differences when converting from chats and tool definitions to formatted text, the same isn’t true in reverse. When the model emits a tool-call, it will do so in its own format, so you’ll need to parse it out manually for now before adding it to the chat in the universal format. Thankfully, most of the formats are pretty intuitive, so this should only be a couple of lines of `json.loads()` or, at worst, a simple `re.search()` to create the tool call dict you need.
 
-We do have some ideas to eliminate this inconvenience, but they’re not quite ready for prime-time yet. “Let us cook”, as the kids say.
+Still, this is a biggest part of the process that remains "un-unified". We have some ideas on how to fix it, but they’re not quite ready for prime-time yet. “Let us cook”, as the kids say.
 
 ## Conclusion
 
