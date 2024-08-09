@@ -14,7 +14,7 @@ The problems arise, however, when you actually try to implement tool use. Docume
 
 Worse, different models can have wildly different implementations of tool use. Even at the most basic level of just defining the available tools, some providers expect JSON schemas, others expect Python function headers. Even among the ones that expect JSON schemas, small details often differ and create big API incompatibilities. This creates a lot of friction, and generally just deepens user confusion. So what can we do about all of this?
 
-## **Chat Templating**
+## Chat Templating
 
 Devoted fans of the Hugging Face Cinematic Universe will remember that the open-source community faced a similar challenge in the past with **chat models**. Chat models models use control tokens like `<|start_of_user_turn|>` or `<|end_of_message|>` to let the model know what’s going on in the chat, but different models were trained with totally different control tokens, which meant that users needed to write specific formatting code for each model they wanted to use. This was a huge headache at the time.
 
