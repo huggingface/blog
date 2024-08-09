@@ -79,6 +79,8 @@ Internally, the `get_current_temperature` function will be expanded into a compl
 
 If you prefer manual control, or you’re coding in a language other than Python, you can pass JSON schemas like these directly to the template. However, when you’re working in Python, you can avoid handling JSON schema directly. All you need to do is define your tool functions with clear **names,** accurate **type hints**, and complete **docstrings,** including **argument docstrings,** since all of these will be used to generate the JSON schema that will be read by the template. Much of this is good Python practice anyway, and if you follow it, then you’ll find that no extra work is required - your functions are already usable as tools!
 
+Remember: accurate JSON schemas, whether generated from docstrings and typehints or specified manually, are crucial for the model to understand how to use your tools. The model will never see the code inside your functions, but it will see the JSON schemas. The cleaner and more accurate they are, the better!
+
 ## Adding tool calls to the chat
 
 One detail that is often overlooked by users (and model documentation 😬) is that when a model calls a tool, this actually requires **two** messages to be added to the chat history. The first message is the assistant **calling** the tool, and the second is the **tool response,** the output of the called function. 
@@ -178,9 +180,9 @@ and we get:
 </tool_call><|im_end|>
 ```
 
-Success! Note how the model correctly inferred that it should pass the argument “Paris, France” rather than just “Paris”, because that is the format recommended by the function docstring.
+The model has requested a tool! Note how the model correctly inferred that it should pass the argument “Paris, France” rather than just “Paris”, because that is the format recommended by the function docstring. 
 
-Next, let’s add that tool call to the chat:
+The model does not really have programmatic access to the tools, though - like all language models, it just generates text. It's up to you as the programmer to take the model's request and Let’s add the tool invocation instructions as an additional message to the chat:
 
 ```python
 message = {
