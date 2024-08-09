@@ -231,7 +231,7 @@ generated_text = out[0, tool_prompt['input_ids'].shape[1]:]
 print(tokenizer.decode(generated_text))
 ```
 
-And we get:
+And we get the final response to the user, built using information from the intermediate tool calling step:
 
 ```html
 The current temperature in Paris is 22.0 degrees Celsius. Enjoy your day!<|im_end|>
