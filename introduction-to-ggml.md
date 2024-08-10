@@ -155,7 +155,8 @@ int main(void) {
     size_t ctx_size = 0;
     ctx_size += rows_A * cols_A * ggml_type_size(GGML_TYPE_F32); // tensor a
     ctx_size += rows_B * cols_B * ggml_type_size(GGML_TYPE_F32); // tensor b
-    ctx_size += 2 * ggml_tensor_overhead(), // tensors
+    ctx_size += rows_A * rows_B * ggml_type_size(GGML_TYPE_F32); // result
+    ctx_size += 3 * ggml_tensor_overhead(); // metadata for 3 tensors
     ctx_size += ggml_graph_overhead(); // compute graph
     ctx_size += 1024; // some overhead
 
