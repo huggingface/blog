@@ -1,10 +1,15 @@
 ---
 title: Optimize and deploy 🤗 Transformer models with Optimum-Intel and OpenVINO Gen.AI
-thumbnail: /blog/assets/train_optimize_sd_intel/thumbnail.png
 authors:
 - user: AlexKoff88
   guest: true
 - user: MrOpenVINO
+  guest: true
+- user: katuni4ka
+  guest: true
+- user: sandye51
+  guest: true
+- user: raymondlo84
   guest: true
 - user: helenai
   guest: true
