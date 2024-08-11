@@ -20,6 +20,18 @@ Recently, OpenVINO introduced [Generative AI (Gen.AI) API](https://docs.openvino
 
 In this blog post, we will outline the LLM deployment steps that include exporting model from Transformers library to OpenVINO Intermediate Representation (IR) using [Optimum-Intel](https://huggingface.co/docs/optimum/en/intel/index), model optimization with [Neural Network Compression Framework (NNCF)](https://github.com/openvinotoolkit/nncf), and deployment with new Gen.AI API. We will guide user through all these step and highlight changes of basic model KPIs, namely accuracy and peformance.
 
+## Pre-requisites
+
+A Python and C++ environments are required to run the examples below.
+
+Python requirements:
+- transformers==4.44
+- openvino==24.3
+- optimum-intel==1.20
+
+For Gen.AI C++ libraries installation follow the instruction [here](https://docs.openvino.ai/2024/get-started/install-openvino/install-openvino-genai.html).
+
+
 ## Exporting model from 🤗 Transformers to OpenVINO
 
 🤗 and Intel have a long story of collaboration and [Optimum-Intel](https://huggingface.co/docs/optimum/en/intel/index) project is a part of this story. It is designed to optimize Transformers models for inference on Intel HW. Optimum-Intel supports OpenVINO as an inference backend and its API has wrappers various model architectures built on top of OpenVINO inference API. All of these wrappers start from `OV` prefix, for example, `OVModelForCausalLM`. Otherwise, it is similar to the API of 🤗 Transformers library.
@@ -37,7 +49,7 @@ model.save_pretrained("./llam-3.1-8b-ov")
 
 Alternativly, the same can be don with CLI as follows:
 ```sh
-optimum-cli export openvino -m meta-llama/Meta-Llama-3-8B ./llam-3.1-8b-ov
+optimum-cli export openvino -m meta-llama/Meta-Llama-3.1-8B ./llam-3.1-8b-ov
 ```
 
 The `./llam-3.1-8b-ov` folder will contain `.xml` and `bin` IR model files and required configuration files that come from the source model. If `openvino-tokenizers` library is installed the export process will also convert 🤗 tokenizer to the formant of OpenVINO Tokinizers library and create corresponding configuration files in the same folder.
@@ -49,7 +61,7 @@ By default, weights of the models that are larger than one billion parameters ar
 
 For `meta-llama/Meta-Llama-3.1-8B` model we recommend stacking AWQ, quantization scale estimation along with mixed-precision INT4/INT8 quantization of weights using a calibration dataset that reflects a deployment use case. As in case of export, there are two options how to apply 4-bit weight-only quantizaiton to LLM model:
 - Specify `quantization_config` parameter in the `.from_pretrained()` method. In this case `OVWeightQuantizationConfig` object should be created and set to this parameter as follows:
-```
+```python
 from optimum.intel import OVModelForCausalLM, OVWeightQuantizationConfig
 
 MODEL_ID = "meta-llama/Meta-Llama-3.1-8B"
@@ -60,7 +72,29 @@ model.save_pretrained("./llam-3.1-8b-ov")
 
 - Use command-line options to enable 4-bit weight-only quantization:
 ```sh
-optimum-cli export openvino -m meta-llama/Meta-Llama-3-8B --weight-format int4 --awq --scale-estimation --group-size 64 --dataset c4 ./llam-3.1-8b-ov
+optimum-cli export openvino -m meta-llama/Meta-Llama-3.1-8B --weight-format int4 --awq --scale-estimation --group-size 64 --dataset c4 ./llam-3.1-8b-ov
 ```
 
+>**Note**: Model optimization process can take time as it and applies several methods subsequently and uses model inference over the specified dataset.
+
 Model optimization with API is more flexible as it allows using custom datasets that cat be passed as an iterable object, for example, and instance of `Dataset` object of 🤗 library or just a list of strings.
+
+Weight quantization usually introduces some degradation of the accuracy metric. To compare optimized and source models we report Word Perplexity metric measured on the [Wikitext](https://huggingface.co/datasets/EleutherAI/wikitext_document_level) dataset with [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness.git) project which support both 🤗 Transformers and Optimum-Intel models out-of-the-box.
+
+TODO compare metrics of the PyTorch, OV 8-bit and OV 4-bit models. 
+
+## Deploy model with OpenVINO Gen.AI C++ API
+
+In this part we will show how to run optimized model with OpenVINO Gen.AI C++ API. The Gen.AI API is designed to be intuitive and provides a seamless migratation from 🤗 Transformers API. The basic concept of this API is `ov::genai::LLMPipeline` class. Its instance can be created directly from the folder with the converted model. It will automatically load the main model, tokenizer, detokenizer, and the default generation configuration. The basic inference with `LLMPipeline` looks as follows:
+```cpp
+#include "openvino/genai/llm_pipeline.hpp"
+#include <iostream>
+
+int main(int argc, char* argv[]) {
+   std::string model_path = "./llam-3.1-8b-ov";
+   ov::genai::LLMPipeline pipe(model_path, "CPU");
+   std::cout << pipe.generate("What is LLM model?", ov::genai::max_new_tokens(256));
+}
+```
+
+`LLMPipeline` also allows specifying custom generation options by means of `ov::genai::GenerationConfig`. It also supports streaming and chat scenarios as well as Beam Search. You can find more details in this [tutorial](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/genai-guide.html).
