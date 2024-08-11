@@ -28,6 +28,7 @@ Python requirements:
 - transformers==4.44
 - openvino==24.3
 - optimum-intel==1.20
+- lm-eval==0.4.3
 
 For Gen.AI C++ libraries installation follow the instruction [here](https://docs.openvino.ai/2024/get-started/install-openvino/install-openvino-genai.html).
 
