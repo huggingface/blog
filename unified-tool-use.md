@@ -131,7 +131,7 @@ chat.append(message)
 
 Let’s take the code we have so far and build a complete example of tool-calling. If you want to use tools in your own projects, we recommend playing around with the code here - try running it yourself, adding or removing tools, swapping models, and tweaking details to get a feel for the system. That familiarity will make things much easier when the time comes to implement tool use in your software! To make that easier, this example is [available as a Colab notebook](https://colab.research.google.com/drive/1NPV5ia3_RZB1ksY0DtngQlD0Q7mDl9ln?usp=sharing) as well.
 
-First, let’s set up our model. We’ll use `Hermes-2-Pro-Llama-3-8B`, because it’s small, capable, ungated, and it supports tool calling. You may get better results on complex tasks if you use a larger model, though!
+First, let’s set up our model. We’ll use `Hermes-2-Pro-Llama-3-8B` because it’s small, capable, ungated, and it supports tool calling. You may get better results on complex tasks if you use a larger model, though!
 
 ```python
 import torch
