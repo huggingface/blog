@@ -4518,3 +4518,15 @@
     - announcement
     - enterprise
     - hub
+
+- local: falconmamba
+  title: "Welcome FalconMamba - First competitive large-scale pure Mamba model"
+  author: JingweiZuo
+  thumbnail: /blog/assets/falconmamba/thumbnail.png
+  date: August 12, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - Mamba
