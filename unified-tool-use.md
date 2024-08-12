@@ -17,7 +17,7 @@ Tool use overcomes a lot of the core limitations of LLMs. Many LLMs are fluent a
 
 The problems arise, however, when you actually try to implement tool use. Documentation is often sparse, inconsistent, and even contradictory - and this is true for both closed-source APIs as well as open-access models! Although tool use is simple in theory, it frequently becomes a nightmare in practice: How do you pass tools to the model? How do you ensure the tool prompts match the formats it was trained with? When the model calls a tool, how do you incorporate that into the chat? If you’ve tried to implement tool use before, you’ve probably found that these questions are surprisingly tricky and that the documentation wasn’t always complete and helpful.
 
-Worse, different models can have wildly different implementations of tool use. Even at the most basic level of just defining the available tools, some providers expect JSON schemas, others expect Python function headers. Even among the ones that expect JSON schemas, small details often differ and create big API incompatibilities. This creates a lot of friction, and generally just deepens user confusion. So what can we do about all of this?
+Worse, different models can have wildly different implementations of tool use. Even at the most basic level of defining the available tools, some providers expect JSON schemas, while others expect Python function headers. Even among the ones that expect JSON schemas, small details often differ and create big API incompatibilities. This creates a lot of friction and generally just deepens user confusion. So, what can we do about all of this?
 
 ## Chat Templating
 
