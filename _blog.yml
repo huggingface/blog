@@ -4528,3 +4528,16 @@
     - LLM
     - nlp
     - community
+
+- local: falconmamba
+  title: "Welcome FalconMamba: The first strong attention-free 7B model "
+  guest: true
+  author: JingweiZuo
+  thumbnail: /blog/assets/falconmamba/thumbnail.png
+  date: August 12, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - Mamba
