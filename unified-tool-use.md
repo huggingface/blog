@@ -7,7 +7,7 @@ authors:
 
 # Tool Use, Unified
 
-There is now a **unified tool use API** across several popular families of models. This API means the same code is portable - few or no model-specific changes are needed to use tools in chats with [Mistral](https://huggingface.co/mistralai), [Cohere](https://huggingface.co/CohereForAI), [NousResearch](https://huggingface.co/NousResearch) or [Llama](https://huggingface.co/collections/meta-llama/llama-31-669fc079a0c406a149a5738f) models. In addition, Transformers now includes helper functionality to make tool calling even easier, as well as [complete documentation](https://huggingface.co/docs/transformers/main/chat_templating#advanced-tool-use--function-calling) and [examples](https://github.com/huggingface/blog/blob/unified-tool-use/notebooks/unified-tool-calling.ipynb) for the entire tool use process. Support for even more models will be added in the near future.
+There is now a **unified tool use API** across several popular families of models. This API means the same code is portable - few or no model-specific changes are needed to use tools in chats with [Mistral](https://huggingface.co/mistralai), [Cohere](https://huggingface.co/CohereForAI), [NousResearch](https://huggingface.co/NousResearch) or [Llama](https://huggingface.co/collections/meta-llama/llama-31-669fc079a0c406a149a5738f) models. In addition, Transformers now includes helper functionality to make tool calling even easier, as well as [complete documentation](https://huggingface.co/docs/transformers/main/chat_templating#advanced-tool-use--function-calling) and [examples](https://github.com/huggingface/blog/blob/main/notebooks/unified-tool-calling.ipynb) for the entire tool use process. Support for even more models will be added in the near future.
 
 ## Introduction
 
@@ -129,7 +129,7 @@ chat.append(message)
 
 ## Tool use in action
 
-Let’s take the code we have so far and build a complete example of tool-calling. If you want to use tools in your own projects, we recommend playing around with the code here - try running it yourself, adding or removing tools, swapping models, and tweaking details to get a feel for the system. That familiarity will make things much easier when the time comes to implement tool use in your software! To make that easier, this example is [available as a notebook](https://github.com/huggingface/blog/blob/unified-tool-use/notebooks/unified-tool-calling.ipynb) as well.
+Let’s take the code we have so far and build a complete example of tool-calling. If you want to use tools in your own projects, we recommend playing around with the code here - try running it yourself, adding or removing tools, swapping models, and tweaking details to get a feel for the system. That familiarity will make things much easier when the time comes to implement tool use in your software! To make that easier, this example is [available as a notebook](https://github.com/huggingface/blog/blob/main/notebooks/unified-tool-calling.ipynb) as well.
 
 First, let’s set up our model. We’ll use `Hermes-2-Pro-Llama-3-8B` because it’s small, capable, ungated, and it supports tool calling. You may get better results on complex tasks if you use a larger model, though!
 
