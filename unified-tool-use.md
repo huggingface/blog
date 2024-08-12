@@ -84,7 +84,7 @@ Internally, the `get_current_temperature` function will be expanded into a compl
 }
 ```
 
-If you prefer manual control, or you’re coding in a language other than Python, you can pass JSON schemas like these directly to the template. However, when you’re working in Python, you can avoid handling JSON schema directly. All you need to do is define your tool functions with clear **names,** accurate **type hints**, and complete **docstrings,** including **argument docstrings,** since all of these will be used to generate the JSON schema that will be read by the template. Much of this is good Python practice anyway, and if you follow it, then you’ll find that no extra work is required - your functions are already usable as tools!
+If you prefer manual control or you’re coding in a language other than Python, you can pass JSON schemas like these directly to the template. However, when you’re working in Python, you can avoid handling JSON schema directly. All you need to do is define your tool functions with clear **names,** accurate **type hints**, and complete **docstrings,** including **argument docstrings,** since all of these will be used to generate the JSON schema that will be read by the template. Much of this is good Python practice anyway, and if you follow it, then you’ll find that no extra work is required - your functions are already usable as tools!
 
 Remember: accurate JSON schemas, whether generated from docstrings and typehints or specified manually, are crucial for the model to understand how to use your tools. The model will never see the code inside your functions, but it will see the JSON schemas. The cleaner and more accurate they are, the better!
 
