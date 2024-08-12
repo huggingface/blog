@@ -25,7 +25,7 @@ Devoted fans of the Hugging Face Cinematic Universe will remember that the open-
 
 Our solution to this was **chat templates** - essentially, models would come with a tiny [Jinja](https://jinja.palletsprojects.com/en/3.1.x/) template, which would render chats with the right format and control tokens for each model. Chat templates meant that users could write chats in a universal, model-agnostic format, trusting in the Jinja templates to handle any model-specific formatting required.
 
-The obvious approach to supporting tool use, then, was to extend chat templates to support tools as well. And that’s exactly what we did, but tools created a lot of new challenges for the templating system. Let’s go through what those challenges were and how we solved them, and in the process hopefully you’ll gain a deeper understanding of how the system works, and how you can make it work for you.
+The obvious approach to supporting tool use, then, was to extend chat templates to support tools as well. And that’s exactly what we did, but tools created many new challenges for the templating system. Let’s go through those challenges and how we solved them. In the process, hopefully, you’ll gain a deeper understanding of how the system works and how you can make it work for you.
 
 ## Passing tools to a chat template
 
