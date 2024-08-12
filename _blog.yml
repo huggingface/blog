@@ -4520,7 +4520,7 @@
     - hub
 
 - local: falconmamba
-  title: "Welcome FalconMamba - First competitive large-scale pure Mamba model"
+  title: "Welcome FalconMamba: The first strong attention-free 7B model "
   author: JingweiZuo
   thumbnail: /blog/assets/falconmamba/thumbnail.png
   date: August 12, 2024
