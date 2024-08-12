@@ -4487,7 +4487,46 @@
     - research
     - LLM
     - gcp
+- local: doc_aug_hf_alb
+  title: "Introducing TextImage Augmentation for Document Images"
+  author: danaaubakirova
+  thumbnail: /blog/assets/185_albumentations/thumbnail.png
+  date: Aug 6, 2024
+  tags:
+    - document ai
+    - data augmentation
+    - synthetic-data
+    - albumentations
+    - research
 
+- local: 2024-security-features
+  title: 2024 Security Feature Highlights
+  author: jack-kumar
+  thumbnail: /blog/assets/2024-security-features/thumbnail.png
+  date: August 6, 2024
+  tags:
+    - security
+    - enterprise
+
+- local: xethub-joins-hf
+  title: "XetHub is joining Hugging Face!"
+  author: julien-c
+  thumbnail: /blog/assets/xethub-joins-hf/thumbnail.png
+  date: August 8, 2024
+  tags:
+    - announcement
+    - enterprise
+    - hub
+
+- local: unified-tool-use
+  title: "Tool Use, Unified"
+  author: rocketknight1
+  thumbnail: /blog/assets/unified-tool-use/thumbnail.png
+  date: August 12, 2024
+  tags:
+    - LLM
+    - nlp
+    - community
 - local: infini-attention
   title: "A failed experiment: Infini-Attention, and why we should keep trying?"
   author: neuralink
