@@ -3,18 +3,30 @@ title: "Welcome FalconMamba: The first strong attention-free 7B model"
 thumbnail: /blog/assets/falconmamba/thumbnail.png
 authors:
 - user: JingweiZuo
+  guest: true
+  org: tiiuae
 - user: yellowvm
+  guest: true
+  org: tiiuae
 - user: DhiyaEddine
+  guest: true
+  org: tiiuae
 - user: IChahed
+  guest: true
+  org: tiiuae
 - user: ybelkada
+  guest: true
+  org: tiiuae
 - user: Gkunsch
+  guest: true
+  org: tiiuae
 ---
 
 [Falcon Mamba](https://falconllm.tii.ae/tii-releases-first-sslm-with-falcon-mamba-7b.html) is a new model by [Technology Innovation Institute (TII)](https://www.tii.ae/ai-and-digital-science) in Abu Dhabi released under the TII Falcon License 2.0. The model is open access and available within the Hugging Face ecosystem [here](https://huggingface.co/tiiuae/falcon-mamba-7b) for anyone to use for their research or application purposes.
 
 In this blog, we will go through the design decisions behind the model, how the model is competitive with respect to other existing SoTA models, and how to use it within the Hugging Face ecosystem.
 
-## First competitive large-scale pure Mamba model
+## First general purpose large-scale pure Mamba model
 
 Transformers, based on the attention mechanism, are the dominant architecture used in all the strongest large language models today. Yet, the attention mechanism is fundamentally limited in processing large sequences due to the increase in compute and memory costs with sequence length. Various alternative architectures, in particular State Space Language Models (SSLMs), tried to address the sequence scaling limitation but fell back in performance compared to SoTA transformers.
 
@@ -124,7 +136,12 @@ output = model.generate(**inputs, max_new_tokens=100, do_sample=True)
 
 print(tokenizer.decode(output[0], skip_special_tokens=True)) 
 ```
-We are also pleased to introduce the instruction-tuned version of FalconMamba, which has been fine-tuned with an additional 5 billion tokens of supervised fine-tuning (SFT) data. This extended training enhances the model's ability to perform instructional tasks with better precision and effectiveness. You can experience the capabilities of the instruct model through our demo, available [here](https://huggingface.co/spaces/tiiuae/falcon-mamba-playground).
+We are also pleased to introduce the instruction-tuned version of FalconMamba, which has been fine-tuned with an additional 5 billion tokens of supervised fine-tuning (SFT) data. This extended training enhances the model's ability to perform instructional tasks with better precision and effectiveness. You can experience the capabilities of the instruct model through our demo, available [here](https://huggingface.co/spaces/tiiuae/falcon-mamba-playground). For the chat template we use the following format:
+```bash
+<|im_start|>user
+prompt<|im_end|>
+<|im_start|>assistant
+```
 
 You can also directly use the 4-bit converted version of both the [base model](https://huggingface.co/tiiuae/falcon-mamba-7b-4bit) and the [instruct model](https://huggingface.co/tiiuae/falcon-mamba-7b-instruct-4bit). Make sure to have access to a GPU that is compatible with `bitsandbytes` library to run the quantized model.
 
