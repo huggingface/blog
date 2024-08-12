@@ -10,15 +10,15 @@ authors:
 - user: Gkunsch
 ---
 
-[Falcon Mamba](https://falconllm.tii.ae/) is a new model by [Technology Innovation Institute (TII)](https://www.tii.ae/ai-and-digital-science) in Abu Dhabi released under the TII Falcon License 2.0. The model is open source and available within the Hugging Face ecosystem [here](https://huggingface.co/tiiuae/falcon-mamba-7b) for anyone to use it for their research or application purpose.
+[Falcon Mamba](https://falconllm.tii.ae/tii-releases-first-sslm-with-falcon-mamba-7b.html) is a new model by [Technology Innovation Institute (TII)](https://www.tii.ae/ai-and-digital-science) in Abu Dhabi released under the TII Falcon License 2.0. The model is open access and available within the Hugging Face ecosystem [here](https://huggingface.co/tiiuae/falcon-mamba-7b) for anyone to use for their research or application purposes.
 
-In this blog, we will go through the design decisions behind the model, how the model is competitive with respect to other existing SoTA models and how to use it within the Hugging Face ecosystem.
+In this blog, we will go through the design decisions behind the model, how the model is competitive with respect to other existing SoTA models, and how to use it within the Hugging Face ecosystem.
 
 ## First competitive large-scale pure Mamba model
 
-Transformers, based on attention mechanism, is the dominant architecture used in all the strongest large language models today. Yet, attention mechanism is fundamentally limited in processing large sequences due to the increase in the compute and memory costs with sequence length. Various alternative architectures, in particular State Space Language Models (SSLMs), tried to address the sequence scaling limitation but fell back in performance compared to SoTA transformers.
+Transformers, based on the attention mechanism, are the dominant architecture used in all the strongest large language models today. Yet, the attention mechanism is fundamentally limited in processing large sequences due to the increase in compute and memory costs with sequence length. Various alternative architectures, in particular State Space Language Models (SSLMs), tried to address the sequence scaling limitation but fell back in performance compared to SoTA transformers.
 
-With FalconMamba we demonstrate that sequence scaling limitation can indeed be overcome without loss in performance. FalconMamba is based on the original Mamba architecture, proposed in [*Mamba: Linear-Time Sequence Modeling with Selective State Spaces*](https://arxiv.org/abs/2312.00752), with the addition of extra RMS normalization layers to ensure stable training at scale. This choice of architecture ensures that FalconMamba:
+With FalconMamba, we demonstrate that sequence scaling limitation can indeed be overcome without loss in performance. FalconMamba is based on the original Mamba architecture, proposed in [*Mamba: Linear-Time Sequence Modeling with Selective State Spaces*](https://arxiv.org/abs/2312.00752), with the addition of extra RMS normalization layers to ensure stable training at scale. This choice of architecture ensures that FalconMamba:
 * can process sequences of arbitrary length without any increase in memory storage, in particular, fitting on a single A10 24GB GPU.
 * takes a constant amount of time to generate a new token, regardless of the size of the context (see this [section](#hardware-performance))
 
@@ -29,7 +29,7 @@ FalconMamba was trained with ~ 5500GT of data, mainly composed of RefinedWeb dat
 ## Evaluations
 
 
-We evaluate our model on all benchmarks of the new leaderboard's version using the `lm-evaluation-harness` package, and then normalize the evaluation results with HuggingFace score normalization.
+We evaluate our model on all benchmarks of the new leaderboard's version using the `lm-evaluation-harness` package and then normalize the evaluation results with Hugging Face score normalization.
 
 
 | `model name`              |`IFEval`| `BBH` |`MATH LvL5`| `GPQA`| `MUSR`|`MMLU-PRO`|`Average`| 
@@ -49,7 +49,7 @@ We evaluate our model on all benchmarks of the new leaderboard's version using t
 | `gemma-7B`                | 26.59  | 21.12 |    6.42   | 4.92  | 10.98 | 21.64    |**15.28**|
 
 
-Also, we evaluate our model on the benchmarks of the first leaderboard using `lighteval`.
+Also, we evaluate our model on the benchmarks of the first version of the LLM Leaderboard using `lighteval`.
 
 
 | `model name`                 |`ARC`|`HellaSwag`   |`MMLU` |`Winogrande`|`TruthfulQA`|`GSM8K`|`Average`         | 
@@ -67,34 +67,34 @@ Also, we evaluate our model on the benchmarks of the first leaderboard using `li
 | `Mistral-7B-v0.1`            | 59.98  | 83.31     | 64.16 | 78.37      | 42.15      | 37.83 | 60.97            |
 | `gemma-7B`                   | 61.09  |   82.20   | 64.56 |   79.01    |   44.79    | 50.87 |  63.75           |
 
-Mostly, we took evaluation results from both leaderboards. For the models marked by *star* we evaluated the tasks internally, while for the models marked by two *stars* the results were taken from paper or model card.
+For the models marked by *star*, we evaluated the tasks internally, while for the models marked by two *stars*, the results were taken from paper or model card.
 
 ## Processing large sequences
 
-Following theoretical efficiency SSM models in processing large sequences, we perform a comparison of memory usage and generation throughput between FalconMamba and popular transfomer models using
-[optimum-benchmark](https://github.com/huggingface/optimum-benchmark) library. For a fair comparison, we rescale the vocabulary size of all transformer models to match FalconMamba, since it has a big impact on the memory requirements of the model.
+Following theoretical efficiency SSM models in processing large sequences, we perform a comparison of memory usage and generation throughput between FalconMamba and popular transfomer models using the
+[optimum-benchmark](https://github.com/huggingface/optimum-benchmark) library. For a fair comparison, we rescaled the vocabulary size of all transformer models to match FalconMamba since it has a big impact on the memory requirements of the model.
 
-Before going to the results, let's first discuss the difference between the prompt (prefill) and generated (decode) parts of the sequence. As we will see, the details of prefill are more important for state space models than for transformer models. When a transformer generates the next token, it needs to attend to the keys and values of all previous tokens in the context. This implies linear scaling of both memory requirements and generation time with context length. A state space model attends to and stores only its recurrent state, and therefore doesn't need additional memory or time to generate large sequences. While this explains the claimed advantage of SSMs over transformers in the decode stage, the prefill stage requires additional effort to fully utilize SSM architecture.
+Before going to the results, let's first discuss the difference between the prompt (prefill) and generated (decode) parts of the sequence. As we will see, the details of prefill are more important for state space models than for transformer models. When a transformer generates the next token, it needs to attend to the keys and values of all previous tokens in the context. This implies linear scaling of both memory requirements and generation time with context length. A state space model attends to and stores only its recurrent state and, therefore, doesn't need additional memory or time to generate large sequences. While this explains the claimed advantage of SSMs over transformers in the decode stage, the prefill stage requires additional effort to fully utilize SSM architecture.
 
-A standard approach for prefill is to process the whole prompt in parallel to fully utilize GPU. This approach is used in [optimum-benchmark](https://github.com/huggingface/optimum-benchmark) library and we will refer to it as parallel prefill. Parallel prefill needs to store in memory the hidden states of each token in the prompt. For transformers, this additional memory is dominated by the memory of stored KV caches. For SSM models, no caching is required and the memory for storing hidden states becomes the only component proportional to the prompt length. As a result, the memory requirement will scale with prompt length, and SSM models will lose the ability to process arbitrary long sequences, similar to transformers. 
+A standard approach for prefill is to process the whole prompt in parallel to fully utilize GPU. This approach is used in [optimum-benchmark](https://github.com/huggingface/optimum-benchmark) library and we will refer to it as parallel prefill. Parallel prefill needs to store in memory the hidden states of each token in the prompt. For transformers, this additional memory is dominated by the memory of stored KV caches. For SSM models, no caching is required, and the memory for storing hidden states becomes the only component proportional to the prompt length. As a result, the memory requirement will scale with prompt length, and SSM models will lose the ability to process arbitrary long sequences, similar to transformers. 
 
-An alternative to parallel prefill is to process the prompt token by token, which we will refer to as *sequential prefill*. Akin to sequence parallelism, it can be also done on larger chunks of the prompt instead of individual tokens for better GPU usage. While for transformers sequential prefill makes little sense, it brings back the possibility to process arbitrary long prompts by SSM models. 
+An alternative to parallel prefill is to process the prompt token by token, which we will refer to as *sequential prefill*. Akin to sequence parallelism, it can also be done on larger chunks of the prompt instead of individual tokens for better GPU usage. While sequential prefill makes little sense for transformers, it brings back the possibility of processing arbitrary long prompts by SSM models. 
 
-With these remarks in mind, we first test the largest sequence length that can fit on a single 24 GB A10 GPU, putting the results on the [figure](#max-length) below. The batch size is fixed at 1 and we are using float32 precision. Even for parallel prefill, FalconMamba can fit larger sequences than a transformer, while in sequential prefill it unlocks its full potential and can process arbitrary long prompt
+With these remarks in mind, we first test the largest sequence length that can fit on a single 24 GB A10 GPU, putting the results on the [figure](#max-length) below. The batch size is fixed at 1, and we are using float32 precision. Even for parallel prefill, FalconMamba can fit larger sequences than a transformer, while in sequential prefill, it unlocks its full potential and can process arbitrary long prompt
 
 <a id="max-length"></a>
 ![Model Performance](https://huggingface.co/datasets/tiiuae/documentation-images/resolve/main/falcon_mamba/max_len_llalma3-1.png)
 
-Next, we measure the generation throughput in a setting with a prompt of length 1 and up to 130k generated tokens, using batch size 1 and H100 GPU. The results are reported in the [figure](#throughput) below. We observe that our Falcon Mamba is generating all the tokens at constant throughput and without any increase in CUDA peak memory. For the transformer model, the peak memory grows and generation speed slows down as the number of generated tokens grows.
+Next, we measure the generation throughput in a setting with a prompt of length 1 and up to 130k generated tokens, using batch size 1 and H100 GPU. The results are reported in the [figure](#throughput) below. We observe that our Falcon Mamba is generating all the tokens at constant throughput and without any increase in CUDA peak memory. For the transformer model, the peak memory grows, and generation speed slows down as the number of generated tokens grows.
 
 <a id="throughput"></a>
 ![Model Performance](https://huggingface.co/datasets/tiiuae/documentation-images/resolve/main/falcon_mamba/thoughput-llama3-1.png)
 
 ## How to use it within Hugging Face transformers?
 
-The FalconMamba architecture will be available on the next release of Hugging Face transformers library (>4.42.4). Make sure to install the latest version of Hugging Face transformers, or install the library from source to use the model.
+The FalconMamba architecture will be available in the next release of the Hugging Face transformers library (>4.45.0). To use the model, make sure to install the latest version of Hugging Face transformers or install the library from the source.
 
-FalconMamba is compatible with most of the APIs Hugging Face offers, which whom you are familiar with, such as `AutoModelForCausalLM` or `pipeline` : 
+FalconMamba is compatible with most of the APIs Hugging Face offers, which you are familiar with, such as `AutoModelForCausalLM` or `pipeline` : 
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer 
@@ -122,20 +122,20 @@ model = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=quant
 inputs = tokenizer("Hello world, today", return_tensors="pt").to(0) 
 output = model.generate(**inputs, max_new_tokens=100, do_sample=True) 
 
-print(tokenizer.decode(Output[0], skip_special_tokens=True)) 
+print(tokenizer.decode(output[0], skip_special_tokens=True)) 
 ```
 We are also pleased to introduce the instruction-tuned version of FalconMamba, which has been fine-tuned with an additional 5 billion tokens of supervised fine-tuning (SFT) data. This extended training enhances the model's ability to perform instructional tasks with better precision and effectiveness. You can experience the capabilities of the instruct model through our demo, available [here](https://huggingface.co/spaces/tiiuae/falcon-mamba-playground).
 
 You can also directly use the 4-bit converted version of both the [base model](https://huggingface.co/tiiuae/falcon-mamba-7b-4bit) and the [instruct model](https://huggingface.co/tiiuae/falcon-mamba-7b-instruct-4bit). Make sure to have access to a GPU that is compatible with `bitsandbytes` library to run the quantized model.
 
-You can also benefit from faster inference using `torch.compile`, simply call `model = torch.compile(model)` once you loaded the model. 
+You can also benefit from faster inference using `torch.compile`; simply call `model = torch.compile(model)` once you have loaded the model. 
 
 ## Acknowledgments
 
-Authors of this blogpost would like to thank the Hugging Face team for their smooth support and integration within their ecosystem, in particular
+The authors of this blog post would like to thank the Hugging Face team for their smooth support and integration within their ecosystem, in particular
 
 - [Alina Lozovskaya](https://huggingface.co/alozowski) and [Clementine Fourrier](https://huggingface.co/clefourrier) for helping us evaluating the model on the leaderboard
 - [Arthur Zucker](https://huggingface.co/ArthurZ) for the transformers integration
 - [Vaibhav Srivastav](https://huggingface.co/reach-vb), [hysts](https://huggingface.co/hysts) and [Omar Sanseviero](https://huggingface.co/osanseviero) for their support with questions related to Hub
 
-Authors would also like to thank Tri Dao and Albert Gu for implementing and open-sourcing Mamba architecture to the community.
+The authors would also like to thank Tri Dao and Albert Gu for implementing and open-sourcing Mamba architecture to the community.
