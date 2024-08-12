@@ -78,7 +78,7 @@ model.save_pretrained("./llam-3.1-8b-ov")
 
 - Use command-line options to enable 4-bit weight-only quantization:
 ```sh
-optimum-cli export openvino -m meta-llama/Meta-Llama-3.1-8B --weight-format int4 --awq --scale-estimation --group-size 64 --dataset c4 ./llam-3.1-8b-ov
+optimum-cli export openvino -m meta-llama/Meta-Llama-3.1-8B --weight-format int4 --awq --scale-estimation --group-size 64 --dataset wikitext2 ./llam-3.1-8b-ov
 ```
 
 >**Note**: The model optimization process can take time as it and applies several methods subsequently and uses model inference over the specified dataset.
@@ -88,6 +88,9 @@ Model optimization with API is more flexible as it allows using custom datasets 
 Weight quantization usually introduces some degradation of the accuracy metric. To compare optimized and source models we report Word Perplexity metric measured on the [Wikitext](https://huggingface.co/datasets/EleutherAI/wikitext_document_level) dataset with [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness.git) project which support both 🤗 Transformers and Optimum-Intel models out-of-the-box.
 
 TODO compare metrics of the PyTorch, OV 8-bit and OV 4-bit models. 
+| Model                        | PPL PyTorch FP32 | OpenVINO INT8 | OpenVINO INT4 |
+| :--------------------------- | :--------------: | :-----------: | :-----------: |
+| meta-llama/Meta-Llama-3.1-8B |   7.3366         | 7.3463        | 7.8288        | 
 
 ## Deploy model with OpenVINO Gen.AI C++ API
 
