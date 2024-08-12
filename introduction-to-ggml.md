@@ -3,7 +3,6 @@ title: "Introduction to ggml"
 thumbnail: /blog/assets/introduction-to-ggml/cover.jpg
 authors:
 - user: ngxson
-- user: pcuenq
 - user: ggerganov
   guest: true
   org: ggml-org
@@ -158,7 +157,7 @@ int main(void) {
     ctx_size += rows_A * rows_B * ggml_type_size(GGML_TYPE_F32); // result
     ctx_size += 3 * ggml_tensor_overhead(); // metadata for 3 tensors
     ctx_size += ggml_graph_overhead(); // compute graph
-    ctx_size += 1024; // some overhead
+    ctx_size += 1024; // some overhead (exact calculation omitted for simplicity)
 
     // Allocate `ggml_context` to store tensor data
     struct ggml_init_params params = {
