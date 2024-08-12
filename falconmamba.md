@@ -1,6 +1,6 @@
 ---
-title: "Welcome FalconMamba: The first strong attention-free 7B model" 
-thumbnail: /blog/assets/falconmamba/thumbnail.png
+title: "Welcome Falcon Mamba: The first strong attention-free 7B model" 
+thumbnail: /blog/assets/Falcon Mamba/thumbnail.png
 authors:
 - user: JingweiZuo
   guest: true
@@ -30,13 +30,13 @@ In this blog, we will go through the design decisions behind the model, how the 
 
 Transformers, based on the attention mechanism, are the dominant architecture used in all the strongest large language models today. Yet, the attention mechanism is fundamentally limited in processing large sequences due to the increase in compute and memory costs with sequence length. Various alternative architectures, in particular State Space Language Models (SSLMs), tried to address the sequence scaling limitation but fell back in performance compared to SoTA transformers.
 
-With FalconMamba, we demonstrate that sequence scaling limitation can indeed be overcome without loss in performance. FalconMamba is based on the original Mamba architecture, proposed in [*Mamba: Linear-Time Sequence Modeling with Selective State Spaces*](https://arxiv.org/abs/2312.00752), with the addition of extra RMS normalization layers to ensure stable training at scale. This choice of architecture ensures that FalconMamba:
+With Falcon Mamba, we demonstrate that sequence scaling limitation can indeed be overcome without loss in performance. Falcon Mamba is based on the original Mamba architecture, proposed in [*Mamba: Linear-Time Sequence Modeling with Selective State Spaces*](https://arxiv.org/abs/2312.00752), with the addition of extra RMS normalization layers to ensure stable training at scale. This choice of architecture ensures that Falcon Mamba:
 * can process sequences of arbitrary length without any increase in memory storage, in particular, fitting on a single A10 24GB GPU.
 * takes a constant amount of time to generate a new token, regardless of the size of the context (see this [section](#hardware-performance))
 
 ## Model training
 
-FalconMamba was trained with ~ 5500GT of data, mainly composed of RefinedWeb data with addition of high-quality technical data and code data from public sources. We used constant learning rate for the most of the training, followed by a relatively short learning rate decay stage. In this last stage, we also added a small portion of high-quality curated data to further enhance model performance.
+Falcon Mamba was trained with ~ 5500GT of data, mainly composed of RefinedWeb data with addition of high-quality technical data and code data from public sources. We used constant learning rate for the most of the training, followed by a relatively short learning rate decay stage. In this last stage, we also added a small portion of high-quality curated data to further enhance model performance.
 
 ## Evaluations
 
@@ -47,7 +47,7 @@ We evaluate our model on all benchmarks of the new leaderboard's version using t
 | `model name`              |`IFEval`| `BBH` |`MATH LvL5`| `GPQA`| `MUSR`|`MMLU-PRO`|`Average`| 
 |:--------------------------|:------:|:-----:|:---------:|:-----:|:-----:|:--------:|:-------:|
 | ***Pure SSM models***     |        |       |           |       |       |          |         |
-| `FalconMamba-7B`          | 33.36  | 19.88 |    3.63   | 8.05  | 10.86 | 14.47    |**15.04**|
+| `Falcon Mamba-7B`          | 33.36  | 19.88 |    3.63   | 8.05  | 10.86 | 14.47    |**15.04**|
 | `TRI-ML/mamba-7b-rw`<sup>*</sup>| 22.46  | 6.71  | 0.45      | 1.12  | 5.51  | 1.69     | 6.25    |
 |***Hybrid SSM-attention models***   |       |           |       |       |          |         |
 |`recurrentgemma-9b`        | 30.76  | 14.80 | 4.83      | 4.70  | 6.60  | 17.88    |  13.20  |
@@ -67,7 +67,7 @@ Also, we evaluate our model on the benchmarks of the first version of the LLM Le
 | `model name`                 |`ARC`|`HellaSwag`   |`MMLU` |`Winogrande`|`TruthfulQA`|`GSM8K`|`Average`         | 
 |:-----------------------------|:------:|:---------:|:-----:|:----------:|:----------:|:-----:|:----------------:|
 | ***Pure SSM models***        |        |           |       |            |            |       |                  |
-| `FalconMamba-7B`<sup>*</sup>             |62.03   |   80.82   | 62.11 |   73.64    |   53.42    | 52.54 |  **64.09**       |
+| `Falcon Mamba-7B`<sup>*</sup>             |62.03   |   80.82   | 62.11 |   73.64    |   53.42    | 52.54 |  **64.09**       |
 | `TRI-ML/mamba-7b-rw`<sup>*</sup>         | 51.25  | 80.85     | 33.41 | 71.11      | 32.08      | 4.70  | 45.52            |
 |***Hybrid SSM-attention models***|     |           |       |            |            |       |                  |
 | `recurrentgemma-9b`<sup>**</sup>          |52.00   |   80.40   | 60.50 |   73.60    |   38.60    | 42.60 |  57.95           |
@@ -83,8 +83,8 @@ For the models marked by *star*, we evaluated the tasks internally, while for th
 
 ## Processing large sequences
 
-Following theoretical efficiency SSM models in processing large sequences, we perform a comparison of memory usage and generation throughput between FalconMamba and popular transfomer models using the
-[optimum-benchmark](https://github.com/huggingface/optimum-benchmark) library. For a fair comparison, we rescaled the vocabulary size of all transformer models to match FalconMamba since it has a big impact on the memory requirements of the model.
+Following theoretical efficiency SSM models in processing large sequences, we perform a comparison of memory usage and generation throughput between Falcon Mamba and popular transfomer models using the
+[optimum-benchmark](https://github.com/huggingface/optimum-benchmark) library. For a fair comparison, we rescaled the vocabulary size of all transformer models to match Falcon Mamba since it has a big impact on the memory requirements of the model.
 
 Before going to the results, let's first discuss the difference between the prompt (prefill) and generated (decode) parts of the sequence. As we will see, the details of prefill are more important for state space models than for transformer models. When a transformer generates the next token, it needs to attend to the keys and values of all previous tokens in the context. This implies linear scaling of both memory requirements and generation time with context length. A state space model attends to and stores only its recurrent state and, therefore, doesn't need additional memory or time to generate large sequences. While this explains the claimed advantage of SSMs over transformers in the decode stage, the prefill stage requires additional effort to fully utilize SSM architecture.
 
@@ -92,7 +92,7 @@ A standard approach for prefill is to process the whole prompt in parallel to fu
 
 An alternative to parallel prefill is to process the prompt token by token, which we will refer to as *sequential prefill*. Akin to sequence parallelism, it can also be done on larger chunks of the prompt instead of individual tokens for better GPU usage. While sequential prefill makes little sense for transformers, it brings back the possibility of processing arbitrary long prompts by SSM models. 
 
-With these remarks in mind, we first test the largest sequence length that can fit on a single 24 GB A10 GPU, putting the results on the [figure](#max-length) below. The batch size is fixed at 1, and we are using float32 precision. Even for parallel prefill, FalconMamba can fit larger sequences than a transformer, while in sequential prefill, it unlocks its full potential and can process arbitrary long prompt
+With these remarks in mind, we first test the largest sequence length that can fit on a single 24 GB A10 GPU, putting the results on the [figure](#max-length) below. The batch size is fixed at 1, and we are using float32 precision. Even for parallel prefill, Falcon Mamba can fit larger sequences than a transformer, while in sequential prefill, it unlocks its full potential and can process arbitrary long prompt
 
 <a id="max-length"></a>
 ![Model Performance](https://huggingface.co/datasets/tiiuae/documentation-images/resolve/main/falcon_mamba/max_len_llalma3-1.png)
@@ -104,9 +104,9 @@ Next, we measure the generation throughput in a setting with a prompt of length 
 
 ## How to use it within Hugging Face transformers?
 
-The FalconMamba architecture will be available in the next release of the Hugging Face transformers library (>4.45.0). To use the model, make sure to install the latest version of Hugging Face transformers or install the library from the source.
+The Falcon Mamba architecture will be available in the next release of the Hugging Face transformers library (>4.45.0). To use the model, make sure to install the latest version of Hugging Face transformers or install the library from the source.
 
-FalconMamba is compatible with most of the APIs Hugging Face offers, which you are familiar with, such as `AutoModelForCausalLM` or `pipeline` : 
+Falcon Mamba is compatible with most of the APIs Hugging Face offers, which you are familiar with, such as `AutoModelForCausalLM` or `pipeline` : 
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer 
@@ -136,7 +136,7 @@ output = model.generate(**inputs, max_new_tokens=100, do_sample=True)
 
 print(tokenizer.decode(output[0], skip_special_tokens=True)) 
 ```
-We are also pleased to introduce the instruction-tuned version of FalconMamba, which has been fine-tuned with an additional 5 billion tokens of supervised fine-tuning (SFT) data. This extended training enhances the model's ability to perform instructional tasks with better precision and effectiveness. You can experience the capabilities of the instruct model through our demo, available [here](https://huggingface.co/spaces/tiiuae/falcon-mamba-playground). For the chat template we use the following format:
+We are also pleased to introduce the instruction-tuned version of Falcon Mamba, which has been fine-tuned with an additional 5 billion tokens of supervised fine-tuning (SFT) data. This extended training enhances the model's ability to perform instructional tasks with better precision and effectiveness. You can experience the capabilities of the instruct model through our demo, available [here](https://huggingface.co/spaces/tiiuae/falcon-mamba-playground). For the chat template we use the following format:
 ```bash
 <|im_start|>user
 prompt<|im_end|>
