@@ -191,7 +191,7 @@ The model has requested a tool! Note how it correctly inferred that it should pa
 
 The model does not really have programmatic access to the tools, though - like all language models, it just generates text. It's up to you as the programmer to take the model's request and call the function. First, though, let’s add the model's tool request to the chat.
 
-Note that this step can require a little bit of manual processing - although you should always add the request to the chat in the format below, the text of the tool call request, such as the `<tool_call>` tags, may differ between models. Usually it's quite intuitive, but bear in mind you may need a little bit of model-specific `json.loads()` or `re.search()` when trying this in your own code!
+Note that this step can require a little bit of manual processing - although you should always add the request to the chat in the format below, the text of the tool call request, such as the `<tool_call>` tags, may differ between models. Usually, it's quite intuitive, but bear in mind you may need a little bit of model-specific `json.loads()` or `re.search()` when trying this in your own code!
 
 ```python
 message = {
