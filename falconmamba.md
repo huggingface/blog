@@ -22,7 +22,7 @@ authors:
   org: tiiuae
 ---
 
-[Falcon Mamba](https://falconllm.tii.ae/tii-releases-first-sslm-with-falcon-mamba-7b.html) is a new model by [Technology Innovation Institute (TII)](https://www.tii.ae/ai-and-digital-science) in Abu Dhabi released under the TII Falcon License 2.0. The model is open access and available within the Hugging Face ecosystem [here](https://huggingface.co/tiiuae/falcon-mamba-7b) for anyone to use for their research or application purposes.
+[Falcon Mamba](https://falconllm.tii.ae/tii-releases-first-sslm-with-falcon-mamba-7b.html) is a new model by [Technology Innovation Institute (TII)](https://www.tii.ae/ai-and-digital-science) in Abu Dhabi released under the [TII Falcon Mamba 7B License 1.0](https://falconllm.tii.ae/falcon-mamba-7b-terms-and-conditions.html). The model is open access and available within the Hugging Face ecosystem [here](https://huggingface.co/tiiuae/falcon-mamba-7b) for anyone to use for their research or application purposes.
 
 In this blog, we will go through the design decisions behind the model, how the model is competitive with respect to other existing SoTA models, and how to use it within the Hugging Face ecosystem.
 
