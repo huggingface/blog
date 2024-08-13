@@ -160,7 +160,7 @@ We used a tokenizer trained on the Smollm Corpus with a vocab size of 49152.
 
 ### Experiments
 
-One advantage of using the trapezoidal scheduler is that it can reduce the time needed to perform scaling law experiments, as shown in [Hägele et al.](https://arxiv.org/pdf/2405.18392). We illustrate this with a small scaling law study on our smallest model, SmolLM-125M. We observed that performance continues to improve with longer training, even beyond the Chinchilla optimal point. Therefore, we decided to the 1.7B model on 1 trillion tokens and the 135M and 360M models on 600B tokens, as the performance gains after 400B tokens begin to slow on some benchmarks for these smaller models.
+One advantage of using the trapezoidal scheduler is that it can reduce the time needed to perform scaling law experiments, as shown in [Hägele et al.](https://arxiv.org/pdf/2405.18392). We illustrate this with a small scaling law study on our smallest model, SmolLM-125M. We observed that performance continues to improve with longer training, even beyond the Chinchilla optimal point. Therefore, we decided to train the 1.7B model on 1 trillion tokens and the 135M and 360M models on 600B tokens, as the performance gains after 400B tokens begin to slow on some benchmarks for these smaller models.
 
 <p align="center">
  <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/Untitled%2011.png" alt=""  style="width: 90%; height: auto;"><br>

@@ -4519,11 +4519,34 @@
     - enterprise
     - hub
 
+- local: unified-tool-use
+  title: "Tool Use, Unified"
+  author: rocketknight1
+  thumbnail: /blog/assets/unified-tool-use/thumbnail.png
+  date: August 12, 2024
+  tags:
+    - LLM
+    - nlp
+    - community
+
+- local: falconmamba
+  title: "Welcome FalconMamba: The first strong attention-free 7B model "
+  guest: true
+  author: JingweiZuo
+  thumbnail: /blog/assets/falconmamba/thumbnail.png
+  date: August 12, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - Mamba
+
 - local: introduction-to-ggml
   title: "Introduction to ggml"
   author: ngxson
   thumbnail: /blog/assets/introduction-to-ggml/cover.jpg
-  date: August 8, 2024
+  date: August 13, 2024
   tags:
     - guide
     - community
