@@ -120,15 +120,15 @@ To get started, let's create a new directory `examples/demo`
 cd ggml # make sure you're in the project root
 
 # create cpp and CMakeLists file
-touch examples/demo/demo.cpp
+touch examples/demo/demo.c
 touch examples/demo/CMakeLists.txt
 ```
 
 The code for this example is based on [simple-ctx.cpp](https://github.com/ggerganov/ggml/blob/6c71d5a071d842118fb04c03c4b15116dff09621/examples/simple/simple-ctx.cpp)
 
-Edit `examples/demo/demo.cpp` with the content below:
+Edit `examples/demo/demo.c` with the content below:
 
-```cpp
+```c
 #include "ggml.h"
 #include <string.h>
 #include <stdio.h>
@@ -267,6 +267,11 @@ The code for this example is based on [simple-backend.cpp](https://github.com/gg
 #include "ggml.h"
 #include "ggml-alloc.h"
 #include "ggml-backend.h"
+#ifdef GGML_USE_CUDA
+#include "ggml-cuda.h"
+#endif
+
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 
@@ -362,7 +367,7 @@ int main(void) {
     // 10. Retrieve results (output tensors)
     // in this example, output tensor is always the last tensor in the graph
     struct ggml_tensor * result = gf->nodes[gf->n_nodes - 1];
-    float * result_data = new float[ggml_nelements(result)];
+    float * result_data = malloc(ggml_nbytes(result));
     // because the tensor data is stored in device buffer, we need to copy it back to RAM
     ggml_backend_tensor_get(result, result_data, 0, ggml_nbytes(result));
     printf("mul mat (%d x %d) (transposed result):\n[", (int) result->ne[0], (int) result->ne[1]);
@@ -376,9 +381,9 @@ int main(void) {
         }
     }
     printf(" ]\n");
+    free(result_data);
 
     // 11. Free memory and exit
-    delete[] result_data;
     ggml_free(ctx_cgraph);
     ggml_gallocr_free(allocr);
     ggml_free(ctx);
