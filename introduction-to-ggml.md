@@ -119,7 +119,7 @@ To get started, let's create a new directory `examples/demo`
 ```sh
 cd ggml # make sure you're in the project root
 
-# create cpp and CMakeLists file
+# create C source and CMakeLists file
 touch examples/demo/demo.c
 touch examples/demo/CMakeLists.txt
 ```
