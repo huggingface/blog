@@ -4541,3 +4541,13 @@
     - research
     - LLM
     - Mamba
+
+- local: introduction-to-ggml
+  title: "Introduction to ggml"
+  author: ngxson
+  thumbnail: /blog/assets/introduction-to-ggml/cover.jpg
+  date: August 13, 2024
+  tags:
+    - guide
+    - community
+    - ggml
