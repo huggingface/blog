@@ -1836,6 +1836,20 @@
     - datasets
     - community
 
+- local: multi-lora-serving
+  title: TGI 多-LoRA：部署一次，搞定 30 个模型的推理服务
+  author: derek-thomas
+  thumbnail: /blog/assets/multi-lora-serving/thumbnail.png
+  date: Jul 18, 2024
+  tags:
+    - nlp
+    - tgi
+    - LLM
+    - lora
+    - peft
+    - open-source
+    - guide
+
 - local: llama31
   title: "Llama 3.1：405B/70B/8B 模型的多语言与长上下文能力解析"
   author: philschmid
