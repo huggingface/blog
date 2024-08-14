@@ -7,11 +7,12 @@ authors:
 - user: thomwolf
 ---
 
+# A failed experiment: Infini-Attention, and why we should keep trying?
 
 TLDR: Infini-attention's performance gets worse as we increase the number of times we compress the memory, and to the best of our knowledge, [ring attention](https://x.com/Haojun_Zhao14/status/1815419356408336738), [YaRN](https://arxiv.org/abs/2309.00071) and [rope scaling](https://arxiv.org/abs/2309.16039) are still the best ways for extending a pretrained model to longer context length.
 
 
-# Section 0: Introduction
+## Section 0: Introduction
 
 The context length of language models is one of the central attributes besides the model’s performance. Since the emergence of in-context learning, adding relevant information to the model’s input has become increasingly important. Thus, the context length rapidly increased from paragraphs (512 tokens with BERT/GPT-1) to pages (1024/2048 with GPT-2 and GPT-3 respectively) to books (128k of Claude) all the way to collections of books (1-10M tokens of Gemini). However, extending standard attention to such length remains challenging.
 
@@ -29,7 +30,7 @@ However, conceptually understanding a new method can be relatively easy compared
 Following the release of Llama 3 8B, which has a context length limit of 8k tokens, we sought to extend this length to 1m tokens without quadratically increasing the memory. In this blog post, we will start by explaining how Infini-attention works. We’ll then outline our reproduction principles and describe our initial small-scale experiment. We will discuss the challenges we faced, how we addressed them, and conclude with a summary of our findings and other ideas we explored. If you’re interested in testing our trained checkpoint [[link]](https://huggingface.co/nanotron/llama3-8b-infini-attention), you can find it in the following repo [[link]](https://github.com/huggingface/nanotron/tree/xrsrke/infini_attention_this_actually_works) (note that, as the technique doesn’t work well enough, so we did not invest much effort in cleaning up the code).
 
 
-# Section 1: Reproduction Principles
+## Section 1: Reproduction Principles
 
 We found the following rules helpful when implementing a new method and use it as guiding principles for a lot of our work:
 
@@ -40,7 +41,7 @@ We found the following rules helpful when implementing a new method and use it a
 With these principles in mind, let's dive into how Infini-attention actually works. Understanding the mechanics will be crucial as we move forward with our experiments.
 
 
-# Section 2: How does Infini-attention works
+## Section 2: How does Infini-attention works
 
 - Step 1: Split the input sequence into smaller, fixed-size chunks called segments.
 - Step 2: Calculate the standard causal dot-product attention within each segment.
@@ -190,7 +191,7 @@ def forward(...):
 Now that we've got a handle on the theory, it's time to roll up our sleeves and get our hands dirty with some actual experiments. We started small to get quick feedback and iterate rapidly.
 
 
-# Section 3: Start with experiments on a small scale
+## Section 3: Start with experiments on a small scale
 
 Since Llama 3 8B is quite large, for rapid experimental feedback, we initially pretrained Infini-attention from scratch on a 200M Llama using Nanotron [[link]](https://github.com/huggingface/nanotron) with the Fineweb dataset [[link]](https://huggingface.co/datasets/HuggingFaceFW/fineweb), and once we obtained good results with the 200M model, we proceeded with continual pretraining on Llama 3 8B. We used a batch size of 2 million tokens, a context length of 256, gradient clipping of 1, and weight decay of 0.1, the first 5,000 iterations were a linear warmup, while the remaining steps were cosine decay, with a learning rate of 3e-5. 
 
@@ -224,7 +225,7 @@ Based on these results, it suggests that the model does use compressed memory, s
 ![Figure 3b: global weight's heatmap](./assets/185_infini_attention/exp55_llama3_8b_global_weights_heatmap.png)
 
 
-# Section 4: Convergable?
+## Section 4: Convergable?
 
 So we simulated how the amount of weight would change during training given gradients are in a good range (L2 norm is 0.01), and found that, given the config of the last 8B LLaMA3 fine-tuning experiment, the total of absolute changes in the weight would be 0.03. Since we initialize balance factors at 0 (it doesn’t matter in this case), the weights at the end would be in the range [0 - 0.03, 0 + 0.03] = [-0.03, 0.03].
 
@@ -245,7 +246,7 @@ Now the balance factors in Infini-attention are trainable, but 200m llama's loss
 But needle evaluation fails completely when the needle is placed in the 1st segment (100% success when placed in the 2nd segment, out of 2 segments total). And based on Figure 4b, after 5,000 steps, the balance factors stopped changing.  While we made some progress, we weren't out of the woods yet. The balance factors were still not behaving as we hoped, so we had to dig deeper and make some more adjustments.
 
 
-# Section 5: No weight decay on balance factors
+## Section 5: No weight decay on balance factors
 
 So we inspected the balance factor once again and saw some progress: approximately 95% of the heads now show a global weight ranging from 0.4 to 0.5, and none of the heads have a global weight greater than 0.6, but the weights still aren't in the ideal range. Another reason could be weight decay, which encourages a small L2 norm of balance factors, leading sigmoid values close to zero to center around 0.5.
 
@@ -273,7 +274,7 @@ The following valuations were run at 1.5B tokens.
 And now it continues the exact content of earlier segments. (Before this, it didn't continue the exact content of an earlier segment and only generated something related; this model is way better than the last one.)
 
 
-# Section 6: Conclusion
+## Section 6: Conclusion
 
 Unfortunately, Infini-attention doesn’t work well enough. To the best of our knowledge, Ring Attention [[link]](https://x.com/Haojun_Zhao14/status/1815419356408336738), YaRN [[link]](https://arxiv.org/abs/2309.00071) and rope scaling [[link]](https://arxiv.org/abs/2309.16039) are still the best ways for extending a pretrained model to longer context length. However, it requires a massive amount of resources for very large model sizes (e.g., 400B and beyond). Therefore, we will leave it here and encourage researchers to explore other attention compression techniques or figure out where we went wrong.
 
@@ -286,6 +287,6 @@ Unfortunately, Infini-attention doesn’t work well enough. To the best of our k
 - There is another bug that messes up the dimensions in the attention output, resulting in a situation where, even though the loss decreases throughout training, the model still can't generate coherent text within its segment length. Lesson learned: Even if you condition the model poorly, gradient descent can still find a way to decrease the loss. However, the model won't work as expected, so always run evaluations.
 
 
-# Acknowledgements 
+## Acknowledgements 
 
 Thanks to Leandro von Werra and Thomas Wolf for their guidance on the project, and to Tsendsuren Munkhdalai for sharing additional details on the original experiments. We also appreciate Leandro's feedback on the blog post and are grateful to Hugging Face’s science cluster for the compute.
