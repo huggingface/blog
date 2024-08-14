@@ -4487,7 +4487,6 @@
     - research
     - LLM
     - gcp
-
 - local: doc_aug_hf_alb
   title: "Introducing TextImage Augmentation for Document Images"
   author: danaaubakirova
@@ -4551,3 +4550,13 @@
     - guide
     - community
     - ggml
+
+- local: infini-attention
+  title: "A failed experiment: Infini-Attention, and why we should keep trying?"
+  author: neuralink
+  thumbnail: /blog/assets/185_infini_attention/infini_attention_thumbnail.png
+  date: August 14, 2024
+  tags:
+    - long-context
+    - infini-attention
+    - memory-compression
