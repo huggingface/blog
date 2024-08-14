@@ -205,7 +205,7 @@ We consider the model successful at this task if its output contains the "needle
 
 **The results**
 
-![](./assets/185_infini_attention/200m_generation_first_signals.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/200m_generation_first_signals.png)
 
 As you can see it somewhat works, and if you look at these sample generations, you can see that Infini-attention generates content related to the earlier segment.
 
@@ -220,9 +220,9 @@ The Department of Physics and Astronomy offers a program leading to the Master o
 
 Based on these results, it suggests that the model does use compressed memory, so we decided to scale up our experiments by continually pretraining a Llama 3 8B. Unfortunately, the model failed to pass the needle evaluation when the needle was placed in an earlier segment. This led us to inspect the balance factors across all layers, and based on Figure 3a, and Figure 3b, we found that 95% of the weights are centered around 0.5. Recall that for a weight to converge to an ideal range, it depends on two general factors: the step size and the magnitude of the gradients. However, since Adam normalizes the gradients to a magnitude of 1, the question now is: are we setting up the training to allow it to converge?
 
-![Figure 3a: global weight's heatmap](./assets/185_infini_attention/exp55_llama3_8b_global_weights_heatmap.png)
+![Figure 3a: global weight's heatmap](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/exp55_llama3_8b_global_weights_heatmap.png)
 
-![Figure 3b: global weight's heatmap](./assets/185_infini_attention/exp55_llama3_8b_global_weights_heatmap.png)
+![Figure 3b: global weight's heatmap](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/exp55_llama3_8b_global_weights_heatmap.png)
 
 
 ## Section 4: Convergable?
@@ -231,7 +231,7 @@ So we simulated how the amount of weight would change during training given grad
 
 An educated guess for ininfi attention to work well is its global weights spread out in the range 0 and 1 as in the paper. Given the weight above, sigmoid([-0.03, 0.03]) = tensor([0.4992, 0.5008]) (this fits with our previous experiment results that the balance factor is ~0.5). The next step is to use a higher learning rate for balance factors (and all other parameters use Llama 3 8B's learning rate), and a total number of training steps that allow the balance factors to change by at least 4, so that we allow global weights to reach the ideal weights if gradient descent wants (sigmoid(-4) ≈ 0, sigmoid(4) ≈ 1).
 
-![Figure 4a: generation](./assets/185_infini_attention/total_abs_change_in_adam.png)
+![Figure 4a: generation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/total_abs_change_in_adam.png)
 
 And also note that since the gradients don't always go in the same direction, cancellations occur. This means you should aim for a learning rate and training steps that are significantly larger than the total absolute changes. Recall that the learning rate for Llama 3 8B is 3.0x10^-4, which means if we use this as a global learning rate, the gating cannot converge by any means.
 
@@ -239,9 +239,9 @@ And also note that since the gradients don't always go in the same direction, ca
 
 Now the balance factors in Infini-attention are trainable, but 200m llama's loss went NaN after 20B tokens (we tried learning rates from 0.001 to 1.0e-6). So, we ran some generation at the 20B tokens checkpoint (10k training steps), as you can see in the Figure 4a, now it can continue the exact content and recall identities (if knock out the memory, it generated trash). But it isn't able to recall the needle in the 1st segment (it does so reliably within the segment).
 
-![Figure 4b: generation](./assets/185_infini_attention/exp_51_generation.png)
+![Figure 4b: generation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/exp_51_generation.png)
 
-![Figure 4c: global weights across training steps](./assets/185_infini_attention/exp_51_global_weights_across_training_steps.png)
+![Figure 4c: global weights across training steps](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/exp_51_global_weights_across_training_steps.png)
 
 But needle evaluation fails completely when the needle is placed in the 1st segment (100% success when placed in the 2nd segment, out of 2 segments total). And based on Figure 4b, after 5,000 steps, the balance factors stopped changing.  While we made some progress, we weren't out of the woods yet. The balance factors were still not behaving as we hoped, so we had to dig deeper and make some more adjustments.
 
@@ -252,19 +252,19 @@ So we inspected the balance factor once again and saw some progress: approximate
 
 Another reason could be that we used too small a rollout. In the 200m experiment, we only used 4 rollouts *, and in the 8b experiment, we only used 2 rollouts (8192**2). It makes sense that using a larger rollout would pressure the model to learn how to compress and use the memory well. So we decided to increase the number of rollouts to 16 and use no weight decay.  So we decided to scale down the context length to 1024 context length, with 16 rollouts, so the segment length is 64.
 
-![Figure 5a: global weights's heatmap](./assets/185_infini_attention/exp57_global_weights_heatmap.png)
+![Figure 5a: global weights's heatmap](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/exp57_global_weights_heatmap.png)
 
-![Figure 5b: global weights's distribution](./assets/185_infini_attention/exp57_global_weights_distribution.png)
+![Figure 5b: global weights's distribution](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/exp57_global_weights_distribution.png)
 
-![Figure 5c: global weights across training](./assets/185_infini_attention/exp57_global_weights_across_training.png)
+![Figure 5c: global weights across training](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/exp57_global_weights_across_training.png)
 
 As you see, the global weights are now distributed across the range from 0 to 1, with 10% of heads having a global weight between 0.9 and 1.0, even though after 18k steps, most heads stopped changing their global weights. But now we are quite confident in saying that we have set up the experiments to allow convergence if gradient descent wants to. The only question now is whether Infini-attention works well enough.
 
 The following valuations were run at 1.5B tokens.
 
-![Figure 5a: generation 1](./assets/185_infini_attention/exp57_generation_1.png)
+![Figure 5a: generation 1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/exp57_generation_1.png)
 
-![Figure 5a: generation 2](./assets/185_infini_attention/exp57_generation_2.png)
+![Figure 5a: generation 2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/exp57_generation_2.png)
 
 - 0-short: In the prompt 2, it recalls where a person studies (the 8b model yesterday failed at this), but fails at the needle passkey (not comprehensively run yet; will run).
 - 1-short
