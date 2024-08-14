@@ -4554,8 +4554,8 @@
 - local: infini-attention
   title: "A failed experiment: Infini-Attention, and why we should keep trying?"
   author: neuralink
-  thumbnail: /blog/assets/quanto-diffusers/thumbnail.png
-  date: August 15, 2024
+  thumbnail: /blog/assets/185_infini_attention/infini_attention_thumbnail.png
+  date: August 14, 2024
   tags:
     - long-context
     - infini-attention
