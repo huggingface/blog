@@ -142,4 +142,24 @@ config.max_new_tokens = 256;
 std::string result = pipe.generate(prompt, config);
 ```
 
-GenAI code samples also demostrate streaming and chat scenarios as well as Beam Search. You can find more details in this [tutorial](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/genai-guide.html).
+GenAI code samples demostrate streaming and chat scenarios as well as Beam Search, etc. For example, one can use the following API to plug streamer to the text generation process:
+
+```cpp
+ov::genai::GenerationConfig config;
+config.max_new_tokens = 100;
+config.do_sample = true;
+config.top_p = 0.9;
+config.top_k = 30;
+auto streamer = [](std::string subword) {
+    std::cout << subword << std::flush;
+    return false;
+};
+
+// Since the streamer is set, the results will
+// be printed each time a new token is generated.
+pipe.generate(prompt, config, streamer);
+```
+
+You can find more details in this [tutorial](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/genai-guide.html).
+
+To build the C++ examples above refer to this [document](https://github.com/openvinotoolkit/openvino.genai/blob/releases/2024/3/src/docs/BUILD.md).
