@@ -32,7 +32,7 @@ Recently, OpenVINO introduced [Generative AI (GenAI) API](https://docs.openvino.
 In this blog post, we will outline the LLM deployment steps that include exporting model from Transformers library to OpenVINO Intermediate Representation (IR) using [Optimum-Intel](https://huggingface.co/docs/optimum/en/intel/index), model optimization with [Neural Network Compression Framework (NNCF)](https://github.com/openvinotoolkit/nncf), and deployment with new GenAI API. We will guide the user through all these steps and highlight changes of basic model KPIs, namely accuracy and performance.
 
 
-![OpenVINO GenAI workflow diagram](/blog/assets/xlscout-case-study/thumbnail.png "OpenVINO GenAI workflow diagram")
+![OpenVINO GenAI workflow diagram](/blog/assets/deploy-with-openvino/openvino_genai_workflow.png "OpenVINO GenAI workflow diagram")
 
 
 ## Pre-requisites
