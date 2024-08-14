@@ -8,16 +8,16 @@ authors:
 ---
 
 
-TLDR: Infini-attention's performance gets worse as we increase the number of times we compress the memory, and to the best of our knowledge, ring attention [[link]](https://x.com/Haojun_Zhao14/status/1815419356408336738), YaRN [[link]](https://arxiv.org/abs/2309.00071) and rope scaling [[link]](https://arxiv.org/abs/2309.16039) are still the best ways for extending a pretrained model to longer context length.
+TLDR: Infini-attention's performance gets worse as we increase the number of times we compress the memory, and to the best of our knowledge, [ring attention](https://x.com/Haojun_Zhao14/status/1815419356408336738), [YaRN](https://arxiv.org/abs/2309.00071) and [rope scaling](https://arxiv.org/abs/2309.16039) are still the best ways for extending a pretrained model to longer context length.
 
 
 # Section 0: Introduction
 
 The context length of language models is one of the central attributes besides the model’s performance. Since the emergence of in-context learning, adding relevant information to the model’s input has become increasingly important. Thus, the context length rapidly increased from paragraphs (512 tokens with BERT/GPT-1) to pages (1024/2048 with GPT-2 and GPT-3 respectively) to books (128k of Claude) all the way to collections of books (1-10M tokens of Gemini). However, extending standard attention to such length remains challenging.
 
-> A little into to Ring Attention: to the best of our knowledge, Ring Attention was first introduced by researchers from UC Berkeley in 2024 [[link]](https://arxiv.org/abs/2310.01889). It is an engineering technique that helps overcome memory limitations by allowing us to obtain an output equivalent to standard attention without storing all keys and values in a sequence.
+> A small intro to Ring Attention: to the best of our knowledge, Ring Attention was first introduced by researchers from UC Berkeley in 2024 [[link]](https://arxiv.org/abs/2310.01889). It is an engineering technique that helps overcome memory limitations by allowing us to obtain an output equivalent to standard attention without storing all keys and values in a sequence.
 
-Even with ring attention, the number of GPUs required to train a Llama 3 8B [[link]](https://arxiv.org/abs/2407.21783) on a 1-million-token context length with a batch size of 1 is 512 GPUs [[link]](https://x.com/Haojun_Zhao14/status/1815419356408336738). As scaling law has shown [[link]](https://arxiv.org/abs/2001.08361), there is a strong correlation between model size and its downstream performance, which means the bigger the model, the better (of course, both models should be well-trained). So we not only want a 1m context length, but we want a 1m context length on the biggest model (e.g., Llama 3 8B 405B). And there are only a few companies in existence that have the resources to do so.
+Even with Ring Attention, the number of GPUs required to train a [Llama 3 8B](https://arxiv.org/abs/2407.21783) on a 1-million-token context length with a batch size of 1 is 512 GPUs. As scaling laws have [shown](https://arxiv.org/abs/2001.08361), there is a strong correlation between model size and its downstream performance, which means the bigger the model, the better (of course, both models should be well-trained). So we not only want a 1m context length, but we want a 1m context length on the biggest model (e.g., Llama 3 8B 405B). And there are only a few companies in existence that have the resources to do so.
 
 > Recap on the memory complexity of self-attention
 > In standard attention, every token attends to every other token in the sequence, resulting in an attention matrix of size [seq_len, seq_len]. For each pair of tokens, we compute an attention score, and as the sequence length (seq_len) increases, the memory and computation requirements grow quadratically: Memory for the attention matrix is O(seq_len^2). For instance, a 10x increase in sequence length results in a 100x increase in memory requirements.
@@ -85,10 +85,10 @@ def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
 
 - Step 4: Combine the local context (from the current segment) with the long-term context (retrieved from the compressive memory) to generate the final output. This way, both short-term and long-term contexts can be considered in the attention output.
 
-    $$A=\operatorname{sigmoid}(\beta) \odot A_{\text {mem }}+(1-\operatorname{sigmoid}(\beta)) \odot A_{\text {dot }}$$
+    $$A=\text{sigmoid}(\beta) \odot A_{\text {mem }}+(1-\text{sigmoid}(\beta)) \odot A_{\text {dot }}$$
 
     + $A \in \mathbb{R}^{N \times d_{\text {value }}}$ : The combined attention output.
-    + $\operatorname{sigmoid}(\beta)$ : A learnable scalar parameter that controls the trade-off between the long-term memory content $A_{\text {mem }}$ and the local context.
+    + $\text{sigmoid}(\beta)$ : A learnable scalar parameter that controls the trade-off between the long-term memory content $A_{\text {mem }}$ and the local context.
     + $A_{\text {dot }} \in \mathbb{R}^{N \times d_{\text {value }}}$: The attention output from the current segment using dot-product attention.
 
 + Step 5: Update the compressive memory by adding the key-value states from the current segment, so this allows us to accumulate the context over time.
@@ -210,9 +210,12 @@ As you can see it somewhat works, and if you look at these sample generations, y
 
 Since Infini-attention predicts the first token in the second segment by conditioning on the entire content of the first segment, which it generated as "_grad" for the first token, this provides a good signal. To validate whether this signal is a false positive, we hypothesize that Infini-attention generates content related to its earlier segment because when given "_grad" as the first generated token of the second segment, it consistently generates PyTorch-related tutorials, which happen to relate to its earlier segment. Therefore, we conducted a sanity test where the only input token was "_grad", and it generated [text here]. This suggests it does use the memory, but just doesn’t use it well enough (to retrieve the exact needle or continue the exact content of its earlier segment). The generation:
 
-> _graduate_education.html
-> Graduate Education
-> The Department of Physics and Astronomy offers a program leading to the Master of Science degree in physics. The program is designed to provide students with a broad background in
+
+```
+_graduate_education.html
+Graduate Education
+The Department of Physics and Astronomy offers a program leading to the Master of Science degree in physics. The program is designed to provide students with a broad background in
+```
 
 Based on these results, it suggests that the model does use compressed memory, so we decided to scale up our experiments by continually pretraining a Llama 3 8B. Unfortunately, the model failed to pass the needle evaluation when the needle was placed in an earlier segment. This led us to inspect the balance factors across all layers, and based on Figure 3a, and Figure 3b, we found that 95% of the weights are centered around 0.5. Recall that for a weight to converge to an ideal range, it depends on two general factors: the step size and the magnitude of the gradients. However, since Adam normalizes the gradients to a magnitude of 1, the question now is: are we setting up the training to allow it to converge?
 
@@ -272,7 +275,7 @@ And now it continues the exact content of earlier segments. (Before this, it did
 
 # Section 6: Conclusion
 
-Unfortunately, Infini-attention doesn’t work well enough. To the best of our knowledge, ring attention [[link]](https://x.com/Haojun_Zhao14/status/1815419356408336738), YaRN [[link]](https://arxiv.org/abs/2309.00071) and rope scaling [[link]](https://arxiv.org/abs/2309.16039) are still the best ways for extending a pretrained model to longer context length. However, it requires a massive amount of resources for very large model sizes (e.g., 400B and beyond). Therefore, we will leave it here and encourage researchers to explore other attention compression techniques or figure out where we went wrong.
+Unfortunately, Infini-attention doesn’t work well enough. To the best of our knowledge, Ring Attention [[link]](https://x.com/Haojun_Zhao14/status/1815419356408336738), YaRN [[link]](https://arxiv.org/abs/2309.00071) and rope scaling [[link]](https://arxiv.org/abs/2309.16039) are still the best ways for extending a pretrained model to longer context length. However, it requires a massive amount of resources for very large model sizes (e.g., 400B and beyond). Therefore, we will leave it here and encourage researchers to explore other attention compression techniques or figure out where we went wrong.
 
 **Recaps**
 
