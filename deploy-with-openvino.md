@@ -1,29 +1,35 @@
 ---
-title: Optimize and deploy 🤗 Transformer models with Optimum-Intel and OpenVINO Gen.AI
+title: Optimize and deploy 🤗 Transformer models with Optimum-Intel and OpenVINO GenAI
 authors:
 - user: AlexKoff88
   guest: true
+  org: Intel
 - user: MrOpenVINO
   guest: true
+  org: Intel
 - user: katuni4ka
   guest: true
+  org: Intel
 - user: sandye51
   guest: true
+  org: Intel
 - user: raymondlo84
   guest: true
+  org: Intel
 - user: helenai
   guest: true
+  org: Intel
 - user: sayakpaul
 - user: echarlaix
 ---
 
-# Optimize and deploy 🤗 Transformer models with Optimum-Intel and OpenVINO Gen.AI
+# Optimize and deploy 🤗 Transformer models with Optimum-Intel and OpenVINO GenAI
 
 When it comes to the Edge or Client deployment of the Transformers models Python is not always a suitable solution for this purpose. Many ISV's applications are written in C++ and require model inference API to be also in C++. Another aspect of such deployment is the application footprint which also should be minimized to simplify SW installation and update. [OpenVINO Toolkit](https://docs.openvino.ai/) initially emerged as a C++ AI inference solution that has bindings to popular programming languages such as Python or Java. It continues to be popular for Edge and Client deployment with the minimum dependencies on 3rd party SW libraries.
 
-Recently, OpenVINO introduced [Generative AI (Gen.AI) API](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/genai-guide.html) designed to simplify integration of Generative AI model inference into C++ (or Python) application with the minimum external dependencies. LLM inference is the first feature in Gen.AI API that is currently available. OpenVINO Gen.AI SW package is supplied with [OpenVINO Tokenizers](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/ov-tokenizers.html) library required for text tokenization-detokenization which is lightweight and has C++ API as well. Gen.AI repository also contains various [examples](https://github.com/openvinotoolkit/openvino.genai/tree/master/samples): from naive LLM decoder-based inference to speculative decoding.
+Recently, OpenVINO introduced [Generative AI (GenAI) API](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/genai-guide.html) designed to simplify integration of Generative AI model inference into C++ (or Python) application with the minimum external dependencies. LLM inference is the first feature in GenAI API that is currently available. OpenVINO GenAI SW package is supplied with [OpenVINO Tokenizers](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/ov-tokenizers.html) library required for text tokenization-detokenization which is lightweight and has C++ API as well. GenAI repository also contains various [examples](https://github.com/openvinotoolkit/openvino.genai/tree/master/samples): from naive LLM decoder-based inference to speculative decoding.
 
-In this blog post, we will outline the LLM deployment steps that include exporting model from Transformers library to OpenVINO Intermediate Representation (IR) using [Optimum-Intel](https://huggingface.co/docs/optimum/en/intel/index), model optimization with [Neural Network Compression Framework (NNCF)](https://github.com/openvinotoolkit/nncf), and deployment with new Gen.AI API. We will guide the user through all these steps and highlight changes of basic model KPIs, namely accuracy and performance.
+In this blog post, we will outline the LLM deployment steps that include exporting model from Transformers library to OpenVINO Intermediate Representation (IR) using [Optimum-Intel](https://huggingface.co/docs/optimum/en/intel/index), model optimization with [Neural Network Compression Framework (NNCF)](https://github.com/openvinotoolkit/nncf), and deployment with new GenAI API. We will guide the user through all these steps and highlight changes of basic model KPIs, namely accuracy and performance.
 
 ## Pre-requisites
 
@@ -41,7 +47,7 @@ The following Python packages were used to reproduce the results that are claime
 - optimum-intel==1.20
 - lm-eval==0.4.3
 
-For Gen.AI C++ libraries installation follow the instruction [here](https://docs.openvino.ai/2024/get-started/install-openvino/install-openvino-genai.html).
+For GenAI C++ libraries installation follow the instruction [here](https://docs.openvino.ai/2024/get-started/install-openvino/install-openvino-genai.html).
 
 
 ## Exporting model from 🤗 Transformers to OpenVINO
@@ -73,7 +79,7 @@ By default, weights of the models that are larger than one billion parameters ar
 
 For `meta-llama/Meta-Llama-3.1-8B` model we recommend stacking AWQ, quantization scale estimation along with mixed-precision INT4/INT8 quantization of weights using a calibration dataset that reflects a deployment use case. As in the case of export, there are two options on how to apply 4-bit weight-only quantization to LLM model:
 - Specify `quantization_config` parameter in the `.from_pretrained()` method. In this case `OVWeightQuantizationConfig` object should be created and set to this parameter as follows:
-```python
+```pythonTransformers
 from optimum.intel import OVModelForCausalLM, OVWeightQuantizationConfig
 
 MODEL_ID = "meta-llama/Meta-Llama-3.1-8B"
@@ -97,18 +103,43 @@ Weight quantization usually introduces some degradation of the accuracy metric. 
 | :--------------------------- | :--------------: | :-----------: | :-----------: |
 | meta-llama/Meta-Llama-3.1-8B |   7.3366         | 7.3463        | 7.8288        | 
 
-## Deploy model with OpenVINO Gen.AI C++ API
+## Deploy model with OpenVINO GenAI API
 
-Now, we have successfully converted and optimized the model, let's see how to run it using OpenVINO Gen.AI C++ API. The Gen.AI API is designed to be intuitive and provides a seamless migration from 🤗 Transformers API. The basic concept of this API is `ov::genai::LLMPipeline` class. Its instance can be created directly from the folder with the converted model. It will automatically load the main model, tokenizer, detokenizer, and the default generation configuration. The basic inference with `LLMPipeline` looks as follows:
+Now, we have successfully converted and optimized Llama-3.1-8B model. Let's first run it with Python API of OpenVINO GenAI as the easiest path from 🤗 Optimum-Intel. The basic concept of this API is `LLMPipeline` class. Its instance can be created directly from the folder with the converted model. It will automatically load the main model, tokenizer, detokenizer, and the default generation configuration. The simple greedy-search text generation example with the Python version of `LLMPipeline` looks as follows:
+```python
+import argparse
+import openvino_genai
+
+device = "CPU"  # GPU can be used as well
+pipe = openvino_genai.LLMPipeline(args.model_dir, device)
+config = openvino_genai.GenerationConfig()
+config.max_new_tokens = 100
+print(pipe.generate(args.prompt, config))
+```
+
+To run this example you need minimum dependencies to be installed into the Python enviroment as OpenVINO GenAI is designed to provide a lightweight deployment. You can install OpenVINO GenAI package to the same Python environemt or create a separate one to compare the application footprint:
+```sh
+pip install openvino-genai==24.3
+```
+
+Let's see how to run the same pipilene with OpenVINO GenAI C++ API. The GenAI API is designed to be intuitive and provides a seamless migration from 🤗 Transformers API. 
 ```cpp
 #include "openvino/genai/llm_pipeline.hpp"
 #include <iostream>
 
 int main(int argc, char* argv[]) {
    std::string model_path = "./llama-3.1-8b-ov";
-   ov::genai::LLMPipeline pipe(model_path, "CPU");
+   std::string device = "CPU"  // GPU can be used as well
+   ov::genai::LLMPipeline pipe(model_path, device);
    std::cout << pipe.generate("What is LLM model?", ov::genai::max_new_tokens(256));
 }
 ```
 
-`LLMPipeline` also allows specifying custom generation options by means of `ov::genai::GenerationConfig`. It also supports streaming and chat scenarios as well as Beam Search. You can find more details in this [tutorial](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/genai-guide.html).
+`LLMPipeline` also allows specifying custom generation options by means of `ov::genai::GenerationConfig`:
+```cpp
+ov::genai::GenerationConfig config;
+config.max_new_tokens = 256;
+std::string result = pipe.generate(prompt, config);
+```
+
+GenAI code samples also demostrate streaming and chat scenarios as well as Beam Search. You can find more details in this [tutorial](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/genai-guide.html).
