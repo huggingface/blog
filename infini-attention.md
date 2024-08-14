@@ -47,13 +47,13 @@ With these principles in mind, let's dive into how Infini-attention actually wor
 - Step 2: Calculate the standard causal dot-product attention within each segment.
 - Step 3: Pull relevant information from the compressive memory using the current segment’s query vector. The retrieval process is defined mathematically as follows:
 
-    $$A_{\text {mem }}=\frac{\sigma(Q) M_{s-1}}{\sigma(Q) z_{s-1}}$$
+    \\( A_{\text {mem }}=\frac{\sigma(Q) M_{s-1}}{\sigma(Q) z_{s-1}} \\)
 
-    + $A_{\text {mem }} \in \mathbb{R}^{N \times d_{\text {value }}}:$ The retrieved content from memory, representing the long-term context.
-    + $Q \in \mathbb{R}^{N \times d_{\text {key }}}$ : The query matrix, where $N$ is the number of queries, and $d_{\text {key }}$ is the dimension of each query.
-    + $M_{s-1} \in \mathbb{R}^{d_{\text {key }} \times d_{\text {value }}}$ : The memory matrix from the previous segment, storing key-value pairs.
-    + $\sigma$ : A nonlinear activation function, specifically element-wise Exponential Linear Unit (ELU) plus 1.
-    + $z_{s-1} \in \mathbb{R}^{d_{\text {key }}}$ : A normalization term.
+    + \\( A_{\text {mem }} \in \mathbb{R}^{N \times d_{\text {value }}} \\) : The retrieved content from memory, representing the long-term context.
+    + \\( Q \in \mathbb{R}^{N \times d_{\text {key }}}  \\) : The query matrix, where \\( N \\) is the number of queries, and \\( d_{\text {key }} \\) is the dimension of each query.
+    + \\( M_{s-1} \in \mathbb{R}^{d_{\text {key }} \times d_{\text {value }}}  \\) : The memory matrix from the previous segment, storing key-value pairs.
+    + \\( \sigma \\): A nonlinear activation function, specifically element-wise Exponential Linear Unit (ELU) plus 1.
+    + \\( z_{s-1} \in \mathbb{R}^{d_{\text {key }}} \\) : A normalization term.
 
 ```python
 import torch.nn.functional as F
@@ -86,23 +86,23 @@ def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
 
 - Step 4: Combine the local context (from the current segment) with the long-term context (retrieved from the compressive memory) to generate the final output. This way, both short-term and long-term contexts can be considered in the attention output.
 
-    $$A=\text{sigmoid}(\beta) \odot A_{\text {mem }}+(1-\text{sigmoid}(\beta)) \odot A_{\text {dot }}$$
+    \\( A=\text{sigmoid}(\beta) \odot A_{\text {mem }}+(1-\text{sigmoid}(\beta)) \odot A_{\text {dot }} \\)
 
-    + $A \in \mathbb{R}^{N \times d_{\text {value }}}$ : The combined attention output.
-    + $\text{sigmoid}(\beta)$ : A learnable scalar parameter that controls the trade-off between the long-term memory content $A_{\text {mem }}$ and the local context.
-    + $A_{\text {dot }} \in \mathbb{R}^{N \times d_{\text {value }}}$: The attention output from the current segment using dot-product attention.
+    + \\( A \in \mathbb{R}^{N \times d_{\text {value }}} \\) : The combined attention output.
+    + \\( \text{sigmoid}(\beta) \\) : A learnable scalar parameter that controls the trade-off between the long-term memory content \\( A_{\text {mem }} \\) and the local context.
+    + \\( A_{\text {dot }} \in \mathbb{R}^{N \times d_{\text {value }}} \\) : The attention output from the current segment using dot-product attention.
 
 + Step 5: Update the compressive memory by adding the key-value states from the current segment, so this allows us to accumulate the context over time.
 
-    $$M_s \leftarrow M_{s-1}+\sigma(K)^T V$$
+    \\( M_s \leftarrow M_{s-1}+\sigma(K)^T V \\)
 
-    $$z_s \leftarrow z_{s-1}+\sum_{t=1}^N \sigma\left(K_t\right)$$
+    \\( z_s \leftarrow z_{s-1}+\sum_{t=1}^N \sigma\left(K_t\right) \\)
 
-    + $M_s \in \mathbb{R}^{d_{\text {key }} \times d_{\text {value }}}$ : The updated memory matrix for the current segment, incorporating new information.
-    + $K \in \mathbb{R}^{N \times d_{\text {key }}}$ : The key matrix for the current segment, representing the new keys to be stored.
-    + $V \in \mathbb{R}^{N \times d_{\text {value }}}$ : The value matrix for the current segment, representing the new values associated with the keys.
-    + $K_t$ : The $t$-th key vector in the key matrix.
-    + $z_s$ : The updated normalization term for the current segment.
+    + \\( M_s \in \mathbb{R}^{d_{\text {key }} \times d_{\text {value }}} \\) : The updated memory matrix for the current segment, incorporating new information.
+    + \\( K \in \mathbb{R}^{N \times d_{\text {key }}} \\) : The key matrix for the current segment, representing the new keys to be stored.
+    + \\( V \in \mathbb{R}^{N \times d_{\text {value }}} \\) : The value matrix for the current segment, representing the new values associated with the keys.
+    + \\( K_t \\) : The \\( t \\)-th key vector in the key matrix.
+    + \\( z_s \\) : The updated normalization term for the current segment.
 
 ```python
 import torch
