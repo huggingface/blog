@@ -241,7 +241,7 @@ We also note that since the gradients don't always go in the same direction, can
 
 > Conclusion: we decided to go with a global learning rate of  3.0x10^-4 and a gating learning rate of 0.01 which should allows the gating function to converge.
 
-With these hyper-parameters the balance factors in Infini-attention are trainable, but we observed that the 200M llama's loss went NaN after 20B tokens (we tried learning rates from 0.001 to 1.0e-6). We investigated a few generation at the 20B tokens checkpoint (10k training steps) which you can see in the Figure 4a. The model now continue the exact content and recall identities (if knock out the memory, it generated trash). 
+With these hyper-parameters the balance factors in Infini-attention are trainable, but we observed that the 200M llama's loss went NaN after 20B tokens (we tried learning rates from 0.001 to 1.0e-6). We investigated a few generations at the 20B tokens checkpoint (10k training steps) which you can see in Figure 4a. The model now continue the exact content and recall identities (if the memory is knocked out, it generates trash). 
 
 ![Figure 4b: generation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/exp_51_generation.png)
 
