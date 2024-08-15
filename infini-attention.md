@@ -36,7 +36,7 @@ We found the following rules helpful when implementing a new method and use it a
 
 + **Principle 1:** Start with the smallest model size that provides good signals, and scale up the experiments once you get good signals.
 + **Principle 2.** Always train a solid baseline to measure progress.
-+ **Principle 3.** To determine if a modification improves performance, train two models fully identical excepted for the modification being tested.
++ **Principle 3.** To determine if a modification improves performance, train two models identically except for the modification being tested.
 
 With these principles in mind, let's dive into how Infini-attention actually works. Understanding the mechanics will be crucial as we move forward with our experiments.
 
