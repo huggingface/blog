@@ -15,7 +15,7 @@ authors:
 
 [ggml](https://github.com/ggerganov/ggml) is a machine learning (ML) library written in C and C++ with a focus on Transformer inference. The project is open-source and is being actively developed by a growing community. ggml is similar to ML libraries such as PyTorch and TensorFlow, though it is still in its early stages of development and some of its fundamentals are still changing rapidly.
 
-Over time, ggml has gained popularity alongside other projects like [llama.cpp](https://github.com/ggerganov/llama.cpp) and [whisper.cpp](https://github.com/ggerganov/whisper.cpp). Many other projects also use ggml under the hood to enable on-device LLM, including [ollama](https://github.com/ollama/ollama), [jan](https://github.com/janhq/jan), [LM Studio](https://github.com/lmstudio-ai).
+Over time, ggml has gained popularity alongside other projects like [llama.cpp](https://github.com/ggerganov/llama.cpp) and [whisper.cpp](https://github.com/ggerganov/whisper.cpp). Many other projects also use ggml under the hood to enable on-device LLM, including [ollama](https://github.com/ollama/ollama), [jan](https://github.com/janhq/jan), [LM Studio](https://github.com/lmstudio-ai), [GPT4All](https://github.com/nomic-ai/gpt4all).
 
 The main reasons people choose to use ggml over other libraries are:
 
