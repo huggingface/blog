@@ -247,7 +247,7 @@ With these hyper-parameters the balance factors in Infini-attention are trainabl
 
 ![Figure 4c: global weights across training steps](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/exp_51_global_weights_across_training_steps.png)
 
-But it is still not able to recall the needle from one segment to the other (it does so reliably within the segment). Needle evaluation fails completely when the needle is placed in the 1st segment (100% success when placed in the 2nd segment, out of 2 segments total). As showed in Figure 4b, we also observed that the balance factors stopped changing after 5,000 steps.  While we made some progress, we weren't such not yet out of the woods. The balance factors were still not behaving as we hoped. We decided to dig deeper and make more adjustments.
+But it is still not able to recall the needle from one segment to the other (it does so reliably within the segment). Needle evaluation fails completely when the needle is placed in the 1st segment (100% success when placed in the 2nd segment, out of 2 segments total). As showed in Figure 4b, we also observed that the balance factors stopped changing after 5,000 steps.  While we made some progress, we were not yet out of the woods. The balance factors were still not behaving as we hoped. We decided to dig deeper and make more adjustments.
 
 
 ## Section 5: No weight decay on balance factors
