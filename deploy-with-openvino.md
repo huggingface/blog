@@ -39,7 +39,7 @@ In this blog post, we will outline the LLM deployment steps that include exporti
 
 Python and C++ environments are required to run the examples below.
 
-To install packages into the Python environment use:
+To install packages on the Python environment use:
 ```sh
 pip install --upgrade --upgrade-strategy eager "optimum[openvino]"
 ```
