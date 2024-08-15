@@ -264,7 +264,7 @@ Yet another potential reason could be that we used too small a rollout. In the 2
 
 ![Figure 5c: global weights across training](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/185_infini_attention/exp57_global_weights_across_training.png)
 
-As you can see, global weights are now distributed across the range from 0 to 1, with 10% of heads having a global weight between 0.9 and 1.0, even though after 18k steps, most heads stopped changing their global weights. We were then quite confident that the experiments were setup to allow convergence if the spirits of gradient descents are with us. The only question remaining was whether the general approach of Infini-attention could works well enough.
+As you can see, global weights are now distributed across the range from 0 to 1, with 10% of heads having a global weight between 0.9 and 1.0, even though after 18k steps, most heads stopped changing their global weights. We were then quite confident that the experiments were setup to allow convergence if the spirits of gradient descent are with us. The only question remaining was whether the general approach of Infini-attention could works well enough.
 
 The following evaluations were run at 1.5B tokens.
 
