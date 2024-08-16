@@ -167,3 +167,6 @@ pipe.generate(prompt, config, streamer);
 You can find more details in this [tutorial](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/genai-guide.html).
 
 To build the C++ examples above refer to this [document](https://github.com/openvinotoolkit/openvino.genai/blob/releases/2024/3/src/docs/BUILD.md).
+
+
+![OpenVINO GenAI C++ chat demo](/blog/assets/deploy-with-openvino/demo.gif "OpenVINO GenAI C++ chat demo")
