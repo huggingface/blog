@@ -37,12 +37,12 @@ In this blog post, we will outline the LLM deployment steps that include model e
 
 Python and C++ environments are required to run the examples below.
 
-To install packages into the Python environment use:
+To install packages on the Python environment, use the following command.
 ```sh
 pip install --upgrade --upgrade-strategy eager "optimum[openvino]"
 ```
 
-The following Python packages were used to reproduce the results that are claimed in this blogpost:
+The following Python packages were used to reproduce the results in this blog post.
 - transformers==4.44
 - openvino==24.3
 - openvino-tokenizers==24.3
