@@ -1861,6 +1861,16 @@
     - research
     - LLM
 
+- local: quanto-diffusers
+  title: 基于 Quanto 和 Diffusers 的内存高效 transformer 扩散模型
+  author: sayakpaul
+  thumbnail: /blog/assets/quanto-diffusers/thumbnail.png
+  date: July 30, 2024
+  tags:
+    - diffusers
+    - guide
+    - diffusion-transformers
+
 - local: gemma-july-update
   title: "Google 最新发布：Gemma 2 2B、ShieldGemma 和 Gemma Scope"
   author: Xenova
