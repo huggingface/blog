@@ -11,8 +11,8 @@ authors:
   org: ggml-org
 - translators:
 - user: hugging-hoi2022
-- user:
-  proofreader: false
+- user: zhongdongy
+  proofreader: true
 ---
 
 # ggml 简介
@@ -21,16 +21,16 @@ authors:
 
 相比于 [llama.cpp](https://github.com/ggerganov/llama.cpp) 和 [whisper.cpp](https://github.com/ggerganov/whisper.cpp) 等项目，ggml 也在一直不断广泛普及。为了实现端侧大语言模型推理，包括 [ollama](https://github.com/ollama/ollama)、[jan](https://github.com/janhq/jan)、[LM Studio](https://github.com/lmstudio-ai) 等很多项目内部都使用了 ggml。
 
-相比于其它库，ggml 有以下优势：
+相比于其它库，ggml 有以下优势:
 
-1. **最小化实现**：核心库独立，仅包含 5 个文件。如果你想加入 GPU 支持，你可以自行加入相关实现，这不是必选的。
-2. **编译简单**：你不需要花哨的编译工具，如果不需要 GPU，单纯 GGC 或 Clang 就可以完成编译。
-3. **轻量化**：编译好的二进制文件还不到 1MB，和 PyTorch（需要几百 MB）对比实在是够小了。
-4. **兼容性好**：支持各类硬件，包括 x86_64、ARM、Apple Silicon、CUDA 等等。
-5. **支持张量的量化**：张量可以被量化，以此节省内存，有些时候甚至还提升了性能。
-6. **内存使用高效到了极致**：存储张量和执行计算的开销是最小化的。
+1. **最小化实现**: 核心库独立，仅包含 5 个文件。如果你想加入 GPU 支持，你可以自行加入相关实现，这不是必选的。
+2. **编译简单**: 你不需要花哨的编译工具，如果不需要 GPU，单纯 GGC 或 Clang 就可以完成编译。
+3. **轻量化**: 编译好的二进制文件还不到 1MB，和 PyTorch (需要几百 MB) 对比实在是够小了。
+4. **兼容性好**: 支持各类硬件，包括 x86_64、ARM、Apple Silicon、CUDA 等等。
+5. **支持张量的量化**: 张量可以被量化，以此节省内存，有些时候甚至还提升了性能。
+6. **内存使用高效到了极致**: 存储张量和执行计算的开销是最小化的。
 
-当然，目前 ggml 还存在一些缺点。如果你选择 ggml 进行开发，这些方面你需要了解（后续可能会改进）：
+当然，目前 ggml 还存在一些缺点。如果你选择 ggml 进行开发，这些方面你需要了解 (后续可能会改进):
 
 - 并非任何张量操作都可以在你期望的后端上执行。比如有些 CPU 上可以跑的操作，可能在 CUDA 上还不支持。
 - 使用 ggml 开发可能没那么简单直接，因为这需要一些比较深入的底层编程知识。
@@ -40,7 +40,7 @@ authors:
 
 ## 开始学习
 
-我们先从编译开始。简单起见，我们以在 **Ubuntu** 上编译 ggml 作为示例。当然 ggml 支持在各类平台上编译（包括 Windows、macOS、BSD 等）。指令如下：
+我们先从编译开始。简单起见，我们以在 **Ubuntu** 上编译 ggml 作为示例。当然 ggml 支持在各类平台上编译 (包括 Windows、macOS、BSD 等)。指令如下:
 
 ```sh
 # Start by installing build dependencies
@@ -59,7 +59,7 @@ cmake --build build --config Release --target simple-ctx
 ./build/bin/simple-ctx
 ```
 
-期望输出：
+期望输出:
 
 ```
 mul mat (4 x 3) (transposed result):
@@ -72,19 +72,19 @@ mul mat (4 x 3) (transposed result):
 
 ## 术语和概念
 
-首先我们学习一些 ggml 的核心概念。如果你熟悉 PyTorch 或 TensorFlow，这可能对你来说有比较大的跨度。但由于 ggml 是一个**低层**的库，理解这些概念能让你更大幅度地掌控性能。
+首先我们学习一些 ggml 的核心概念。如果你熟悉 PyTorch 或 TensorFlow，这可能对你来说有比较大的跨度。但由于 ggml 是一个 **低层** 的库，理解这些概念能让你更大幅度地掌控性能。
 
-- [ggml_context](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/include/ggml.h#L355)：一个装载各类对象（如张量、计算图、其他数据）的“容器”。
-- [ggml_cgraph](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/include/ggml.h#L652)：计算图的表示，可以理解为将要传给后端的“计算执行顺序”。
-- [ggml_backend](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L80)：执行计算图的接口，有很多种类型：CPU（默认）、CUDA、Metal（Apple Silicon）、Vulkan、RPC等等。
-- [ggml_backend_buffer_type](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L18)：表示一种缓存，可以理解为连接到每个 `ggml_backend` 的一个“内存分配器”。比如你要在 GPU 上执行计算，那你就需要通过一个`buffer_type`（通常缩写为 `buft`）去在 GPU 上分配内存。
-- [ggml_backend_buffer](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L52)：表示一个通过 `buffer_type` 分配的缓存。需要注意的是，一个缓存可以存储多个张量数据。
-- [ggml_gallocr](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/include/ggml-alloc.h#L46)：表示一个给计算图分配内存的分配器，可以给计算图中的张量进行高效的内存分配。
-- [ggml_backend_sched](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/include/ggml-backend.h#L169)：一个调度器，使得多种后端可以并发使用，在处理大模型或多 GPU 推理时，实现跨硬件平台地分配计算任务（如 CPU 加 GPU 混合计算）。该调度器还能自动将 GPU 不支持的算子转移到 CPU 上，来确保最优的资源利用和兼容性。
+- [ggml_context](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/include/ggml.h#L355): 一个装载各类对象 (如张量、计算图、其他数据) 的“容器”。
+- [ggml_cgraph](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/include/ggml.h#L652): 计算图的表示，可以理解为将要传给后端的“计算执行顺序”。
+- [ggml_backend](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L80): 执行计算图的接口，有很多种类型: CPU (默认) 、CUDA、Metal (Apple Silicon) 、Vulkan、RPC 等等。
+- [ggml_backend_buffer_type](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L18): 表示一种缓存，可以理解为连接到每个 `ggml_backend` 的一个“内存分配器”。比如你要在 GPU 上执行计算，那你就需要通过一个`buffer_type` (通常缩写为 `buft` ) 去在 GPU 上分配内存。
+- [ggml_backend_buffer](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/src/ggml-backend-impl.h#L52): 表示一个通过 `buffer_type` 分配的缓存。需要注意的是，一个缓存可以存储多个张量数据。
+- [ggml_gallocr](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/include/ggml-alloc.h#L46): 表示一个给计算图分配内存的分配器，可以给计算图中的张量进行高效的内存分配。
+- [ggml_backend_sched](https://github.com/ggerganov/ggml/blob/18703ad600cc68dbdb04d57434c876989a841d12/include/ggml-backend.h#L169): 一个调度器，使得多种后端可以并发使用，在处理大模型或多 GPU 推理时，实现跨硬件平台地分配计算任务 (如 CPU 加 GPU 混合计算)。该调度器还能自动将 GPU 不支持的算子转移到 CPU 上，来确保最优的资源利用和兼容性。
 
 ## 简单示例
 
-这里的简单示例将复现[第一节](#开始学习)最后一行指令代码中的示例程序。我们首先创建两个矩阵，然后相乘得到结果。如果使用 PyTorch，代码可能长这样：
+这里的简单示例将复现 [第一节](#开始学习) 最后一行指令代码中的示例程序。我们首先创建两个矩阵，然后相乘得到结果。如果使用 PyTorch，代码可能长这样:
 
 ```py
 import torch
@@ -107,7 +107,8 @@ result = torch.matmul(matrix1, matrix2.T)
 print(result.T)
 ```
 
-使用 ggml，则需要根据以下步骤来：
+使用 ggml，则需要根据以下步骤来:
+
 1. 分配一个 `ggml_context` 来存储张量数据
 2. 分配张量并赋值
 3. 为矩阵乘法运算创建一个 `ggml_cgraph`
@@ -115,9 +116,9 @@ print(result.T)
 5. 获取计算结果
 6. 释放内存并退出
 
-**请注意**：本示例中，我们直接在 `ggml_context` 里分配了张量的具体数据。但实际上，内存应该被分配成一个设备端的缓存，我们将在下一部分介绍。
+**请注意**: 本示例中，我们直接在 `ggml_context` 里分配了张量的具体数据。但实际上，内存应该被分配成一个设备端的缓存，我们将在下一部分介绍。
 
-我们先创建一个新文件夹 `examples/demo`，然后执行以下命令创建 C 文件和 CMake 文件。
+我们先创建一个新文件夹 `examples/demo` ，然后执行以下命令创建 C 文件和 CMake 文件。
 
 ```sh
 cd ggml # make sure you're in the project root
@@ -129,7 +130,7 @@ touch examples/demo/CMakeLists.txt
 
 本示例的代码是基于 [simple-ctx.cpp](https://github.com/ggerganov/ggml/blob/6c71d5a071d842118fb04c03c4b15116dff09621/examples/simple/simple-ctx.cpp) 的。
 
-编辑 `examples/demo/demo.c`，写入以下代码：
+编辑 `examples/demo/demo.c` ，写入以下代码:
 
 ```c
 #include "ggml.h"
@@ -164,9 +165,9 @@ int main(void) {
 
     // Allocate `ggml_context` to store tensor data
     struct ggml_init_params params = {
-        /*.mem_size   =*/ ctx_size,
+        /*.mem_size =*/ ctx_size,
         /*.mem_buffer =*/ NULL,
-        /*.no_alloc   =*/ false,
+        /*.no_alloc =*/ false,
     };
     struct ggml_context * ctx = ggml_init(params);
 
@@ -195,12 +196,12 @@ int main(void) {
     // 5. Retrieve results (output tensors)
     float * result_data = (float *) result->data;
     printf("mul mat (%d x %d) (transposed result):\n[", (int) result->ne[0], (int) result->ne[1]);
-    for (int j = 0; j < result->ne[1] /* rows */; j++) {
+    for (int j = 0; j < result->ne[1]/* rows */; j++) {
         if (j > 0) {
             printf("\n");
         }
 
-        for (int i = 0; i < result->ne[0] /* cols */; i++) {
+        for (int i = 0; i < result->ne[0]/* cols */; i++) {
             printf(" %.2f", result_data[j * result->ne[0] + i]);
         }
     }
@@ -212,7 +213,7 @@ int main(void) {
 }
 ```
 
-然后将以下代码写入 `examples/demo/CMakeLists.txt`：
+然后将以下代码写入 `examples/demo/CMakeLists.txt` :
 
 ```
 set(TEST_TARGET demo)
@@ -220,13 +221,13 @@ add_executable(${TEST_TARGET} demo)
 target_link_libraries(${TEST_TARGET} PRIVATE ggml)
 ```
 
-编辑 `examples/CMakeLists.txt`，在末尾加入这一行代码：
+编辑 `examples/CMakeLists.txt` ，在末尾加入这一行代码:
 
 ```
 add_subdirectory(demo)
 ```
 
-然后编译并运行：
+然后编译并运行:
 
 ```sh
 cmake -B build
@@ -236,7 +237,7 @@ cmake --build build --config Release --target demo
 ./build/bin/demo
 ```
 
-期望的结果应该是这样：
+期望的结果应该是这样:
 
 ```
 mul mat (4 x 3) (transposed result):
@@ -247,27 +248,25 @@ mul mat (4 x 3) (transposed result):
 
 ## 使用后端的示例
 
-"Backend" in ggml refers to an interface that can handle tensor operations. Backend can be CPU, CUDA, Vulkan, etc.
-
-在 ggml 中，“后端”指的是一个可以处理张量操作的接口，比如 CPU、CUDA、Vulkan等。
+在 ggml 中，“后端”指的是一个可以处理张量操作的接口，比如 CPU、CUDA、Vulkan 等。
 
 后端可以抽象化计算图的执行。当定义后，一个计算图就可以在相关硬件上用对应的后端实现去进行计算。注意，在这个过程中，ggml 会自动为需要的中间结果预留内存，并基于其生命周期优化内存使用。
 
-使用后端进行计算或推理，基本步骤如下：
+使用后端进行计算或推理，基本步骤如下:
 
 1. 初始化 `ggml_backend`
-2. 分配 `ggml_context` 以保存张量的 metadata（此时还不需要直接分配张量的数据）
-3. 为张量创建 metadata（也就是形状和数据类型）
+2. 分配 `ggml_context` 以保存张量的 metadata (此时还不需要直接分配张量的数据)
+3. 为张量创建 metadata (也就是形状和数据类型)
 4. 分配一个 `ggml_backend_buffer` 用来存储所有的张量
-5. 从内存（RAM）中复制张量的具体数据到后端缓存
+5. 从内存 (RAM) 中复制张量的具体数据到后端缓存
 6. 为矩阵乘法创建一个 `ggml_cgraph`
 7. 创建一个 `ggml_gallocr` 用以分配计算图
-8. 可选：用 `ggml_backend_sched` 调度计算图
+8. 可选: 用 `ggml_backend_sched` 调度计算图
 9. 运行计算图
 10. 获取结果，即计算图的输出
 11. 释放内存并退出
 
-本示例的代码基于 [simple-backend.cpp](https://github.com/ggerganov/ggml/blob/6c71d5a071d842118fb04c03c4b15116dff09621/examples/simple/simple-backend.cpp)：
+本示例的代码基于 [simple-backend.cpp](https://github.com/ggerganov/ggml/blob/6c71d5a071d842118fb04c03c4b15116dff09621/examples/simple/simple-backend.cpp):
 
 ```cpp
 #include "ggml.h"
@@ -318,9 +317,9 @@ int main(void) {
 
     // 2. Allocate `ggml_context` to store tensor data
     struct ggml_init_params params = {
-        /*.mem_size   =*/ ctx_size,
+        /*.mem_size =*/ ctx_size,
         /*.mem_buffer =*/ NULL,
-        /*.no_alloc   =*/ true, // the tensors will be allocated later by ggml_backend_alloc_ctx_tensors()
+        /*.no_alloc =*/ true, // the tensors will be allocated later by ggml_backend_alloc_ctx_tensors()
     };
     struct ggml_context * ctx = ggml_init(params);
 
@@ -341,9 +340,9 @@ int main(void) {
     {
         // create a temporally context to build the graph
         struct ggml_init_params params0 = {
-            /*.mem_size   =*/ ggml_tensor_overhead()*GGML_DEFAULT_GRAPH_SIZE + ggml_graph_overhead(),
+            /*.mem_size =*/ ggml_tensor_overhead()*GGML_DEFAULT_GRAPH_SIZE + ggml_graph_overhead(),
             /*.mem_buffer =*/ NULL,
-            /*.no_alloc   =*/ true, // the tensors will be allocated later by ggml_gallocr_alloc_graph()
+            /*.no_alloc =*/ true, // the tensors will be allocated later by ggml_gallocr_alloc_graph()
         };
         ctx_cgraph = ggml_init(params0);
         gf = ggml_new_graph(ctx_cgraph);
@@ -377,12 +376,12 @@ int main(void) {
     // because the tensor data is stored in device buffer, we need to copy it back to RAM
     ggml_backend_tensor_get(result, result_data, 0, ggml_nbytes(result));
     printf("mul mat (%d x %d) (transposed result):\n[", (int) result->ne[0], (int) result->ne[1]);
-    for (int j = 0; j < result->ne[1] /* rows */; j++) {
+    for (int j = 0; j < result->ne[1]/* rows */; j++) {
         if (j > 0) {
             printf("\n");
         }
 
-        for (int i = 0; i < result->ne[0] /* cols */; i++) {
+        for (int i = 0; i < result->ne[0]/* cols */; i++) {
             printf(" %.2f", result_data[j * result->ne[0] + i]);
         }
     }
@@ -399,7 +398,7 @@ int main(void) {
 }
 ```
 
-编译并运行：
+编译并运行:
 
 ```sh
 cmake -B build
@@ -409,7 +408,7 @@ cmake --build build --config Release --target demo
 ./build/bin/demo
 ```
 
-期望结果应该和上面的例子相同：
+期望结果应该和上面的例子相同:
 
 ```
 mul mat (4 x 3) (transposed result):
@@ -422,7 +421,7 @@ mul mat (4 x 3) (transposed result):
 
 `ggml_cgraph` 代表了计算图，它定义了后端执行计算的顺序。打印计算图是一个非常有用的 debug 工具，尤其是模型复杂时。
 
-可以使用 `ggml_graph_print` 去打印计算图：
+可以使用 `ggml_graph_print` 去打印计算图:
 
 ```cpp
 ...
@@ -434,27 +433,27 @@ ggml_build_forward_expand(gf, result0);
 ggml_graph_print(gf);
 ```
 
-运行程序：
+运行程序:
 
 ```
 === GRAPH ===
 n_nodes = 1
- -   0: [     4,     3,     1]          MUL_MAT  
+ - 0: [     4, 3, 1] MUL_MAT
 n_leafs = 2
- -   0: [     2,     4]     NONE           leaf_0
- -   1: [     2,     3]     NONE           leaf_1
+ - 0: [     2, 4] NONE leaf_0
+ - 1: [     2, 3] NONE leaf_1
 ========================================
 ```
 
-此外，你还可以把计算图打印成 graphviz 的 dot 文件格式：
+此外，你还可以把计算图打印成 graphviz 的 dot 文件格式:
 
 ```cpp
 ggml_graph_dump_dot(gf, NULL, "debug.dot");
 ```
 
-然后使用 `dot` 命令或使用这个[网站](https://dreampuf.github.io/GraphvizOnline)把 `debug.dot` 文件渲染成图片：
+然后使用 `dot` 命令或使用这个 [网站](https://dreampuf.github.io/GraphvizOnline) 把 `debug.dot` 文件渲染成图片:
 
-![ggml-debug](assets/introduction-to-ggml/ggml-debug.svg)
+![ggml-debug](https://hf.co/blog/assets/introduction-to-ggml/ggml-debug.svg)
 
 ## 总结
 
