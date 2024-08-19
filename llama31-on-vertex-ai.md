@@ -14,7 +14,7 @@ authors:
 
 In this blog you will learn how to programmatically deploy [`meta-llama/Meta-Llama-3.1-405B-Instruct-FP8`](https://hf.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8), the FP8 quantized variant of [`meta-llama/Meta-Llama-3.1-405B-Instruct`](https://huggingface.co/meta-llama/Meta-Llama-3.1-405B-Instruct), in a Google Cloud A3 node with 8 x H100 NVIDIA GPUs on Vertex AI with [Text Generation Inference](https://github.com/huggingface/text-generation-inference) (TGI) using the Hugging Face purpose-built Deep Learning Containers (DLCs) for Google Cloud.
 
-Alternatively, you can deploy [`meta-llama/Meta-Llama-3.1-405B-Instruct-FP8`](https://hf.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8) without writing any code directly from the [Hub](https://huggingface.co/blog/google-cloud-model-garden#how-it-works---from-the-hub) or from [Vertex Model Garden](https://huggingface.co/blog/google-cloud-model-garden#how-it-works---from-the-hub)!
+Alternatively, you can deploy [`meta-llama/Meta-Llama-3.1-405B-Instruct-FP8`](https://hf.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8) without writing any code directly from the [Hub](https://huggingface.co/blog/google-cloud-model-garden#how-it-works---from-the-hub) or from [Vertex Model Garden](https://console.cloud.google.com/vertex-ai/model-garden)!
 
 This blog will cover:
 
