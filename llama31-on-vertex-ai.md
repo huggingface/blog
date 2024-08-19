@@ -1,5 +1,5 @@
 ---
-title: "How to deploy Meta Llama 3.1 405B on Vertex AI" 
+title: "Deploy Meta Llama 3.1 405B on Google Cloud Vertex AI" 
 thumbnail: /blog/assets/llama31-on-vertex-ai/thumbnail.png
 authors:
 - user: alvarobartt

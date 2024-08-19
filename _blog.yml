@@ -4563,7 +4563,7 @@
     - memory-compression
 
 - local: llama31-on-vertex-ai
-  title: "How to deploy Meta Llama 3.1 405B on Vertex AI"
+  title: "Deploy Meta Llama 3.1 405B on Google Cloud Vertex AI"
   author: alvarobartt
   thumbnail: /blog/assets/llama31-on-vertex-ai/thumbnail.png
   date: August 19, 2024
