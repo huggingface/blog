@@ -32,9 +32,7 @@ This blog will cover:
 6. [Clean up resources](#6-clean-up-resources)
 
 [Conclusion](#conclusion)
-
-Lets get started! 🚀
-
+Lets get started! 🚀 Alternatively, you can follow along from [this Jupyter Notebook](https://github.com/alvarobartt/meta-llama-3-1-on-vertex-ai/blob/main/notebooks/meta-llama-3-1-on-vertex-ai/vertex-notebook.ipynb).
 ## Introduction to Vertex AI
 
 Vertex AI is a machine learning (ML) platform that lets you train and deploy ML models and AI applications, and customize Large Language Models (LLMs) for use in your AI-powered applications. Vertex AI combines data engineering, data science, and ML engineering workflows, enabling your teams to collaborate using a common toolset and scale your applications using the benefits of Google Cloud.
