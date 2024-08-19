@@ -90,11 +90,11 @@ Meta Llama 3.1 brings exciting advancements. However, running these models requi
 
 _Note: The above-quoted numbers indicate the GPU VRAM required just to load the model checkpoint. They don’t include torch reserved space for kernels or CUDA graphs._
 
-As an example, an A3 instance (8 H100s with 80GiB each) has a total of ~640GB of VRAM, so the 405B model would need to be run in a multi-node setup or run at a lower precision (e.g. FP8), which would be the recommended approach. Read more about it in the [Hugging Face Blog for Meta Llama 3.1](https://huggingface.co/blog/llama31#inference-memory-requirements).
+As an example, an H100 node (8 H100s with 80GB each) has a total of ~640GB of VRAM, so the 405B model would need to be run in a multi-node setup or run at a lower precision (e.g. FP8), which would be the recommended approach. Read more about it in the [Hugging Face Blog for Meta Llama 3.1](https://huggingface.co/blog/llama31#inference-memory-requirements).
 
-The A3 machine series in Google Cloud has 208 vCPUs, and 1,872 GB of memory. This machine series is optimized for compute and memory intensive, network bound ML training, and HPC workloads. Read more about the A3 accelerator-optimized machines with 8 x NVIDIA H100 80GB GPUs availability announcement at [Announcing A3 supercomputers with NVIDIA H100 GPUs, purpose-built for AI](https://cloud.google.com/blog/products/compute/introducing-a3-supercomputers-with-nvidia-h100-gpus) and about the A3 machine series at [Compute Engine - Accelerator-optimized machine family](https://cloud.google.com/compute/docs/accelerator-optimized-machines#a3-vms).
+The A3 accelerator-optimized machine series in Google Cloud comes with 8 H100s 80GB NVIDIA GPUs, 208 vCPUs, and 1872 GB of memory. This machine series is optimized for compute and memory intensive, network bound ML training, and HPC workloads. Read more about the A3 machines availability announcement at [Announcing A3 supercomputers with NVIDIA H100 GPUs, purpose-built for AI](https://cloud.google.com/blog/products/compute/introducing-a3-supercomputers-with-nvidia-h100-gpus) and about the A3 machine series at [Compute Engine - Accelerator-optimized machine family](https://cloud.google.com/compute/docs/accelerator-optimized-machines#a3-vms).
 
-Even if the A3 accelerator-optimized machines with 8 x NVIDIA H100 80GB GPUs are available within Google Cloud, you will still need to request a custom quota increase in Google Cloud, as those need a specific approval. Note that the A3 accelerator-optimized machines are only available in some zones, so make sure to check the availability of both A3 High or even A3 Mega per zone at [Compute Engine - GPU regions and zones](https://cloud.google.com/compute/docs/gpus/gpu-regions-zones).
+Even if the A3 machines are available within Google Cloud, you will still need to request a custom quota increase in Google Cloud, as those need a specific approval. Note that the A3 machines are only available in some zones, so make sure to check the availability of both A3 High or even A3 Mega per zone at [Compute Engine - GPU regions and zones](https://cloud.google.com/compute/docs/gpus/gpu-regions-zones).
 
 In this case, to request a quota increase to use the A3 High GPU machine type you will need to increase the following quotas:
 
@@ -226,7 +226,7 @@ Congrats, you already deployed Meta Llama 3.1 405B in your Google Cloud account!
 
 ## 5. Run online predictions with Meta Llama 3.1 405B
 
-Vertex AI will expose the endpoint `/predict` that is built on top of the `/vertex` endpoint within the Text Generation Inference (TGI) DLC, which runs the standard `/generate` method from TGI, but making sure that the I/O data is compliant with Vertex AI.
+Vertex AI will expose an online prediction endpoint within the `/predict` route that is serving the text generation from Text Generation Inference (TGI) DLC, making sure that the I/O data is compliant with Vertex AI payloads (read more about Vertex AI I/O payloads in [Vertex AI Documentation - Get online predictions from a custom trained model](https://cloud.google.com/vertex-ai/docs/predictions/get-online-predictions#formatting-prediction-input)).
 
 As `/generate` is the endpoint that is being exposed, you will need to format the messages with the chat template before sending the request to Vertex AI, so it's recommended to install 🤗`transformers` to use the `apply_chat_template` method from the `PreTrainedTokenizerFast` tokenizer instance.
 
