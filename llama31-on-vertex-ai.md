@@ -25,14 +25,16 @@ This blog will cover:
 3. [Register the Meta Llama 3.1 405B Model on Vertex AI](#3-register-the-meta-llama-31-405b-model-on-vertex-ai)
 4. [Deploy Meta Llama 3.1 405B on Vertex AI](#4-deploy-meta-llama-31-405b-on-vertex-ai)
 5. [Run online predictions with Meta Llama 3.1 405B](#5-run-online-predictions-with-meta-llama-31-405b)
-    5.1 [Via Python](#51-via-python)
-        5.1.1 [Within the same session](#511-within-the-same-session)
-        5.1.2 [From a different session](#512-from-a-different-session)
-    5.2 [Via the Vertex AI Online Prediction UI](#52-via-the-vertex-ai-online-prediction-ui)
+    1. [Via Python](#51-via-python)
+        1. [Within the same session](#511-within-the-same-session)
+        2. [From a different session](#512-from-a-different-session)
+    2. [Via the Vertex AI Online Prediction UI](#52-via-the-vertex-ai-online-prediction-ui)
 6. [Clean up resources](#6-clean-up-resources)
 
 [Conclusion](#conclusion)
+
 Lets get started! 🚀 Alternatively, you can follow along from [this Jupyter Notebook](https://github.com/alvarobartt/meta-llama-3-1-on-vertex-ai/blob/main/notebooks/meta-llama-3-1-on-vertex-ai/vertex-notebook.ipynb).
+
 ## Introduction to Vertex AI
 
 Vertex AI is a machine learning (ML) platform that lets you train and deploy ML models and AI applications, and customize Large Language Models (LLMs) for use in your AI-powered applications. Vertex AI combines data engineering, data science, and ML engineering workflows, enabling your teams to collaborate using a common toolset and scale your applications using the benefits of Google Cloud.
@@ -205,7 +207,7 @@ model.wait()
 
 Once Meta Llama 3.1 405B is registered on Vertex AI Model Registry, then you can create a Vertex AI Endpoint and deploy the model to the endpoint, with the Hugging Face DLC for TGI as the serving container.
 
-As mentioned before, since Meta Llama 3.1 405B in FP8 takes ~400 GiB of disk space, that means we need at least 400 GiB of GPU VRAM to load the model, and the GPUs within the node need to support the FP8 data type. In this case, an A3 instance with 8 x NVIDIA H100 80GB with a total of \~640 GiB of VRAM will be used to load the model while also leaving some free VRAM for the KV Cache and the CUDA Graphs.
+As mentioned before, since Meta Llama 3.1 405B in FP8 takes ~400 GiB of disk space, that means we need at least 400 GiB of GPU VRAM to load the model, and the GPUs within the node need to support the FP8 data type. In this case, an A3 instance with 8 x NVIDIA H100 80GB with a total of ~640 GiB of VRAM will be used to load the model while also leaving some free VRAM for the KV Cache and the CUDA Graphs.
 
 ```python
 endpoint = aiplatform.Endpoint.create(display_name="Meta-Llama-3.1-405B-FP8-Endpoint")
@@ -259,9 +261,7 @@ inputs = tokenizer.apply_chat_template(
 
 Now you have a string out of the initial conversation messages, formatted using the default chat template for Meta Llama 3.1:
 
-```text
-<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are an assistant that responds as a pirate.<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nWhat's the Theory of Relativity?<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n
-```
+> <|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are an assistant that responds as a pirate.<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nWhat's the Theory of Relativity?<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n
 
 Which is what you will be sending within the payload to the deployed Vertex AI Endpoint, as well as the generation arguments as in [Consuming Text Generation Inference (TGI) -> Generate](https://huggingface.co/docs/huggingface_hub/main/en/package_reference/inference_client#huggingface_hub.InferenceClient.text_generation).
 
@@ -289,9 +289,7 @@ output = deployed_model.predict(
 
 Producing the following `output`:
 
-```
-Prediction(predictions=["Yer want ta know about them fancy science things, eh? Alright then, matey, settle yerself down with a pint o' grog and listen close. I be tellin' ye about the Theory o' Relativity, as proposed by that swashbucklin' genius, Albert Einstein.\n\nNow, ye see, Einstein said that time and space be connected like the sea and the wind. Ye can't have one without the other, savvy? And he proposed that how ye see time and space depends on how fast ye be movin' and where ye be standin'. That be called relativity, me"], deployed_model_id='***', metadata=None, model_version_id='1', model_resource_name='projects/***/locations/***/models/***', explanations=None)
-```
+> Prediction(predictions=["Yer want ta know about them fancy science things, eh? Alright then, matey, settle yerself down with a pint o' grog and listen close. I be tellin' ye about the Theory o' Relativity, as proposed by that swashbucklin' genius, Albert Einstein.\n\nNow, ye see, Einstein said that time and space be connected like the sea and the wind. Ye can't have one without the other, savvy? And he proposed that how ye see time and space depends on how fast ye be movin' and where ye be standin'. That be called relativity, me"], deployed_model_id='***', metadata=None, model_version_id='1', model_resource_name='projects/***/locations/***/models/***', explanations=None)
 
 #### 5.1.2 From a different session
 
@@ -321,9 +319,8 @@ output = endpoint.predict(
 
 Producing the following `output`:
 
-```
-Prediction(predictions=["Yer lookin' fer a treasure trove o' knowledge about them fancy physics, eh? Alright then, matey, settle yerself down with a pint o' grog and listen close, as I spin ye the yarn o' Einstein's Theory o' Relativity.\n\nIt be a tale o' two parts, me hearty: Special Relativity and General Relativity. Now, I know what ye be thinkin': what in blazes be the difference? Well, matey, let me break it down fer ye.\n\nSpecial Relativity be the idea that time and space be connected like the sea and the sky."], deployed_model_id='***', metadata=None, model_version_id='1', model_resource_name='projects/***/locations/***/models/***', explanations=None)
-```
+
+> Prediction(predictions=["Yer lookin' fer a treasure trove o' knowledge about them fancy physics, eh? Alright then, matey, settle yerself down with a pint o' grog and listen close, as I spin ye the yarn o' Einstein's Theory o' Relativity.\n\nIt be a tale o' two parts, me hearty: Special Relativity and General Relativity. Now, I know what ye be thinkin': what in blazes be the difference? Well, matey, let me break it down fer ye.\n\nSpecial Relativity be the idea that time and space be connected like the sea and the sky."], deployed_model_id='***', metadata=None, model_version_id='1', model_resource_name='projects/***/locations/***/models/***', explanations=None)
 
 ### 5.2 Via the Vertex AI Online Prediction UI
 
