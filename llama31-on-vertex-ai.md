@@ -12,7 +12,9 @@ authors:
 
 [Meta Llama 3.1](https://huggingface.co/blog/llama31) is the latest open LLM from Meta, released in July 2024. Meta Llama 3.1 comes in three sizes: 8B for efficient deployment and development on consumer-size GPU, 70B for large-scale AI native applications, and 405B for synthetic data, LLM as a Judge or distillation; among other use cases. Some of its key features include: a large context length of 128K tokens (vs original 8K), multilingual capabilities, tool usage capabilities, and a more permissive license.
 
-In this blog you will learn how to deploy [`meta-llama/Meta-Llama-3.1-405B-Instruct-FP8`](https://hf.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8) in a Google Cloud A3 node with 8 x H100 NVIDIA GPUs on Vertex AI with [Text Generation Inference](https://github.com/huggingface/text-generation-inference) (TGI) using the Hugging Face purpose-built Deep Learning Containers (DLCs) for Google Cloud.
+In this blog you will learn how to programmatically deploy [`meta-llama/Meta-Llama-3.1-405B-Instruct-FP8`](https://hf.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8) in a Google Cloud A3 node with 8 x H100 NVIDIA GPUs on Vertex AI with [Text Generation Inference](https://github.com/huggingface/text-generation-inference) (TGI) using the Hugging Face purpose-built Deep Learning Containers (DLCs) for Google Cloud.
+
+Alternatively, you can deploy [`meta-llama/Meta-Llama-3.1-405B-Instruct-FP8`](https://hf.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8) without writing any code directly from the [Hub](https://huggingface.co/blog/google-cloud-model-garden#how-it-works---from-the-hub) or from [Vertex Model Garden](https://huggingface.co/blog/google-cloud-model-garden#how-it-works---from-the-hub)! 
 
 This blog will cover:
 
