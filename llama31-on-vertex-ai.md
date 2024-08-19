@@ -12,9 +12,9 @@ authors:
 
 [Meta Llama 3.1](https://huggingface.co/blog/llama31) is the latest open LLM from Meta, released in July 2024. Meta Llama 3.1 comes in three sizes: 8B for efficient deployment and development on consumer-size GPU, 70B for large-scale AI native applications, and 405B for synthetic data, LLM as a Judge or distillation; among other use cases. Some of its key features include: a large context length of 128K tokens (vs original 8K), multilingual capabilities, tool usage capabilities, and a more permissive license.
 
-In this blog you will learn how to programmatically deploy [`meta-llama/Meta-Llama-3.1-405B-Instruct-FP8`](https://hf.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8) in a Google Cloud A3 node with 8 x H100 NVIDIA GPUs on Vertex AI with [Text Generation Inference](https://github.com/huggingface/text-generation-inference) (TGI) using the Hugging Face purpose-built Deep Learning Containers (DLCs) for Google Cloud.
+In this blog you will learn how to programmatically deploy [`meta-llama/Meta-Llama-3.1-405B-Instruct-FP8`](https://hf.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8), the FP8 quantized variant of [`meta-llama/Meta-Llama-3.1-405B-Instruct`](https://huggingface.co/meta-llama/Meta-Llama-3.1-405B-Instruct), in a Google Cloud A3 node with 8 x H100 NVIDIA GPUs on Vertex AI with [Text Generation Inference](https://github.com/huggingface/text-generation-inference) (TGI) using the Hugging Face purpose-built Deep Learning Containers (DLCs) for Google Cloud.
 
-Alternatively, you can deploy [`meta-llama/Meta-Llama-3.1-405B-Instruct-FP8`](https://hf.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8) without writing any code directly from the [Hub](https://huggingface.co/blog/google-cloud-model-garden#how-it-works---from-the-hub) or from [Vertex Model Garden](https://huggingface.co/blog/google-cloud-model-garden#how-it-works---from-the-hub)! 
+Alternatively, you can deploy [`meta-llama/Meta-Llama-3.1-405B-Instruct-FP8`](https://hf.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8) without writing any code directly from the [Hub](https://huggingface.co/blog/google-cloud-model-garden#how-it-works---from-the-hub) or from [Vertex Model Garden](https://huggingface.co/blog/google-cloud-model-garden#how-it-works---from-the-hub)!
 
 This blog will cover:
 
@@ -103,7 +103,7 @@ In this case, to request a quota increase to use the A3 High GPU machine type yo
 * `Service: Vertex AI API` and `Name: Custom model serving Nvidia H100 80GB GPUs per region` set to **8**
 * `Service: Vertex AI API` and `Name: Custom model serving A3 CPUs per region` set to **208**
 
-![A3 Quota Request in Google Cloud](https://raw.githubusercontent.com/alvarobartt/meta-llama-3-1-on-vertex-ai/main/notebooks/meta-llama-3-1-on-vertex-ai/imgs/a3-quota-request.png)
+![A3 Quota Request in Google Cloud](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama31-on-vertex-ai/a3-quota-request.png)
 
 Read more on how to request a quota increase at [Google Cloud Documentation - View and manage quotas](https://cloud.google.com/docs/quotas/view-manage).
 
@@ -201,7 +201,7 @@ model = aiplatform.Model.upload(
 model.wait()
 ```
 
-![Meta Llama 3.1 405B FP8 registered on Vertex AI](https://raw.githubusercontent.com/alvarobartt/meta-llama-3-1-on-vertex-ai/main/notebooks/meta-llama-3-1-on-vertex-ai/imgs/vertex-ai-model.png)
+![Meta Llama 3.1 405B FP8 registered on Vertex AI](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama31-on-vertex-ai/vertex-ai-model.png)
 
 ## 4. Deploy Meta Llama 3.1 405B on Vertex AI
 
@@ -220,9 +220,9 @@ deployed_model = model.deploy(
 )
 ```
 
-> Note that the Meta Llama 3.1 405B deployment on Vertex AI may take around 30 minutes to deploy, as it needs to allocate the resources on Google Cloud, download the weights from the Hugging Face Hub (\~10 minutes), and load them for inference in TGI.
+> Note that the Meta Llama 3.1 405B deployment on Vertex AI may take around 25-30 minutes to deploy, as it needs to allocate the resources on Google Cloud, download the weights from the Hugging Face Hub (\~10 minutes), and load them for inference in TGI (\~2 minutes).
 
-![Meta Llama 3.1 405B Instruct FP8 deployed on Vertex AI](https://raw.githubusercontent.com/alvarobartt/meta-llama-3-1-on-vertex-ai/main/notebooks/meta-llama-3-1-on-vertex-ai/imgs/vertex-ai-endpoint.png)
+![Meta Llama 3.1 405B Instruct FP8 deployed on Vertex AI](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama31-on-vertex-ai/vertex-ai-endpoint.png)
 
 Congrats, you already deployed Meta Llama 3.1 405B in your Google Cloud account! 🔥 Now is time to put the model to the test.
 
@@ -349,7 +349,7 @@ Alternatively, for testing purposes you can also use the Vertex AI Online Predic
 
 So that the output is generated and printed within the UI too.
 
-![Meta Llama 3.1 405B Instruct FP8 online prediction on Vertex AI](https://raw.githubusercontent.com/alvarobartt/meta-llama-3-1-on-vertex-ai/main/notebooks/meta-llama-3-1-on-vertex-ai/imgs/vertex-ai-online-prediction.png)
+![Meta Llama 3.1 405B Instruct FP8 online prediction on Vertex AI](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama31-on-vertex-ai/vertex-ai-online-prediction.png)
 
 ## 6. Clean up resources
 
