@@ -1836,6 +1836,20 @@
     - datasets
     - community
 
+- local: multi-lora-serving
+  title: TGI 多-LoRA：部署一次，搞定 30 个模型的推理服务
+  author: derek-thomas
+  thumbnail: /blog/assets/multi-lora-serving/thumbnail.png
+  date: Jul 18, 2024
+  tags:
+    - nlp
+    - tgi
+    - LLM
+    - lora
+    - peft
+    - open-source
+    - guide
+
 - local: llama31
   title: "Llama 3.1：405B/70B/8B 模型的多语言与长上下文能力解析"
   author: philschmid
@@ -1846,6 +1860,16 @@
     - community
     - research
     - LLM
+
+- local: quanto-diffusers
+  title: 基于 Quanto 和 Diffusers 的内存高效 transformer 扩散模型
+  author: sayakpaul
+  thumbnail: /blog/assets/quanto-diffusers/thumbnail.png
+  date: July 30, 2024
+  tags:
+    - diffusers
+    - guide
+    - diffusion-transformers
 
 - local: gemma-july-update
   title: "Google 最新发布：Gemma 2 2B、ShieldGemma 和 Gemma Scope"
@@ -1858,3 +1882,23 @@
     - research
     - LLM
     - gcp
+
+- local: xethub-joins-hf
+  title: "XetHub 加入 Hugging Face!"
+  author: julien-c
+  thumbnail: /blog/assets/xethub-joins-hf/thumbnail.png
+  date: August 8, 2024
+  tags:
+    - announcement
+    - enterprise
+    - hub
+
+- local: introduction-to-ggml
+  title: "ggml 简介"
+  author: ngxson
+  thumbnail: /blog/assets/introduction-to-ggml/cover.jpg
+  date: August 13, 2024
+  tags:
+    - guide
+    - community
+    - ggml
