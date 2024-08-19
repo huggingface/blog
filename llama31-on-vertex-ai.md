@@ -8,7 +8,7 @@ authors:
 - user: jeffboudier
 ---
 
-# How to deploy Meta Llama 3.1 405B on Vertex AI
+# Deploy Meta Llama 3.1 405B on Google Cloud Vertex AI
 
 [Meta Llama 3.1](https://huggingface.co/blog/llama31) is the latest open LLM from Meta, released in July 2024. Meta Llama 3.1 comes in three sizes: 8B for efficient deployment and development on consumer-size GPU, 70B for large-scale AI native applications, and 405B for synthetic data, LLM as a Judge or distillation; among other use cases. Some of its key features include: a large context length of 128K tokens (vs original 8K), multilingual capabilities, tool usage capabilities, and a more permissive license.
 
