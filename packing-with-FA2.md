@@ -1,7 +1,7 @@
 # Improving Hugging Face Training Efficiency Through Packing with Flash Attention
 
 ## TL;DR
-Packing instruction tuning examples whilst still availing Flash Attention is now available in Hugging Face, thanks to a recent PR on Enhancing Training Efficiency Using Packing and FlashAttention2 with Position ID and the new DataCollatorWithFlattening. Users will find it can provide up to 2x improvement in training throughput while maintaining convergence quality.
+Packing instruction tuning examples whilst still availing Flash Attention is now available in Hugging Face, thanks to a recent PR (https://github.com/huggingface/transformers/pull/31629/commits/8120b3a3c4077ed699b029cbc37256bf3c58b6e9#top)  and the new DataCollatorWithFlattening. Users will find it can provide up to 2x improvement in training throughput while maintaining convergence quality.
 
 ## Introduction
 It is well known that packing small examples together improves the computational efficiency of training. Previously, however, packing used with Flash Attention 2 did not take into account example boundaries. In instruction tuning, it is important for the masking mechanism to be aware of the example boundaries if the examples are packed together to avoid undesirable cross-example-attention. This feature is now available in Hugging Face Transformers, along with a new data_collator called DataCollatorWithFlattening.
