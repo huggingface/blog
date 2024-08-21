@@ -8,12 +8,13 @@ authors:
 - user: ArthurZ
 - user: achikundu
   guest: true
+  org: ibm
 - user: lwtr
   guest: true
   org: ibm
 - user: rganti
   guest: true
-  org: ibm-ai-platform
+  org: ibm
 - user: mayank-mishra
   guest: true
   org: ibm
@@ -31,7 +32,6 @@ Padding input sequences in mini-batches is a usual method to collate inputs duri
 Hugging Face Transformers now addresses this with a new feature that maintains boundary awareness during packing, alongside the introduction of a new data collator, `DataCollatorWithFlattening`.
 
 By selecting `DataCollatorWithFlattening`, Hugging Face `Trainer` users can now seamlessly concatenate sequences into a single tensor while accounting for sequence boundaries during Flash Attention 2 computations. This is achieved through the `flash_attn_varlen_func`, which calculates the cumulative sequence lengths in each mini-batch (`cu_seqlens`).
-
 
 ## Up to 2x throughput increase 
 
@@ -53,14 +53,17 @@ Packing examples, when it reduces the number of optimization steps, may harm tra
 
 ![ValLoss](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/packing-with-FA2/ValLoss.png)
 
-
-
 ## How it works 
 
 Consider a batch of data with a batchsize = 4 where the four sequences are as follows:
+
+![batch](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/packing-with-FA2/four_sequences.png)
+
 [10,11,12,13] ; [20,21,22,23,24,25,26,27] ; [30,31,32,33,34] and [40,41,42,43,44,45,46,47,48,49,401].
 
 After concatenating the examples, the padding-free collator returns the input IDs, labels, and the `position_ids` of each example. Hence, the collator provides, for this example,  
+
+![example](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/packing-with-FA2/input_ids_labels_position_ids.png)
 
 input_ids = [[10,11,12,13,20,21,22,23,24,25,26,27,30,31,32,33,34,40,41,42,43,44,45,46,47,48,49,401]]
 
