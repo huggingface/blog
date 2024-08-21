@@ -8,11 +8,11 @@ authors:
 
 # Scaling robotics datasets with video encoding
 
-Over the past few years, text and image-based models have seen dramatic performance improvements, primarily due to scaling up model weights and dataset sizes. While the internet provides an extensive database of text and images for LLMs and image generation models, robotics lacks such a vast and diverse qualitative data source and efficient data formats. Despite efforts like [Open X](https://robotics-transformer-x.github.io/), we are still far from achieving the scale and diversity seen in Large Language Models. Additionally, we lack the necessary tools for this endeavor, such as dataset formats that are lightweight, fast to load from, easy to share and visualize online. This gap is what [🤗 LeRobot](https://github.com/huggingface/lerobot) aims to address.
+Over the past few years, text and image-based models have seen dramatic performance improvements, primarily due to scaling up model weights and dataset sizes. While the internet provides an extensive database of text and images for LLMs and image generation models, robotics lacks such a vast and diverse qualitative data source and efficient data formats. Despite efforts like [Open X](https://robotics-transformer-x.github.io/), we are still far from achieving the scale and diversity seen with Large Language Models. Additionally, we lack the necessary tools for this endeavor, such as dataset formats that are lightweight, fast to load from, easy to share and visualize online. This gap is what [🤗 LeRobot](https://github.com/huggingface/lerobot) aims to address.
 
 ## What's a dataset in robotics?
 
-In their general form — at least the one we are interested in within an end-to-end learning framework — they come in 2 modalities: the visual modality and the robot's proprioception / goal positions modality (state/action vectors). Here's what this can look like in practice:
+In their general form — at least the one we are interested in within an end-to-end learning framework — robotics datasets typically come in two modalities: the visual modality and the robot's proprioception / goal positions modality (state/action vectors). Here's what this can look like in practice:
 
 <center>
     <iframe 
@@ -26,7 +26,7 @@ In their general form — at least the one we are interested in within an end-to
     </iframe>
 </center>
 
-Until now, the best way to store visual modality was png for individual frames. This is very redundant as there's a lot of repetition among the frames. People did not use videos because of loading times which could be order of magnitude above. These datasets are usually released in various formats from academic papers (hdf5, zarr, pickle...).
+Until now, the best way to store visual modality was png for individual frames. This is very redundant as there's a lot of repetition among the frames. People did not use videos because the loading times could be order of magnitude above. These datasets are usually released in various formats from academic papers (hdf5, zarr, pickle...).
 
 
 ## Motivation & contribution
@@ -57,7 +57,7 @@ At its core, video encoding reduces the size of videos by using mainly 2 ideas:
 
 - **Spatial Compression:** This is the same principle used in a compressed image like jpeg or png. Spatial compression uses the self-similarities of an image to reduce its size. For instance, a single frame of a video showing a blue sky will have large areas of similar color. Spatial compression takes advantage of this to compress these areas without losing much in quality.
 
-- **Temporal Compression:** Rather than storing each frame *as is*, which takes up a lot of space, temporal compression calculates the differences between each frame and keeps only those differences (which are generally much smaller) in the encoded video stream. At decoding time, each frame is reconstructed by applying those differences back. Of course, this approach requires at least one frame of reference to start computing these differences with. In practice though, we use more than one placed at regular intervals. There are several reasons of why that is that are detailed in [this article](https://aws.amazon.com/blogs/media/part-1-back-to-basics-gops-explained/). These "reference frames" are called keyframes or I-frames (for Intra-coded frames).
+- **Temporal Compression:** Rather than storing each frame *as is*, which takes up a lot of space, temporal compression calculates the differences between each frame and keeps only those differences (which are generally much smaller) in the encoded video stream. At decoding time, each frame is reconstructed by applying those differences back. Of course, this approach requires at least one frame of reference to start computing these differences with. In practice though, we use more than one placed at regular intervals. There are several reasons for this, which are detailed in [this article](https://aws.amazon.com/blogs/media/part-1-back-to-basics-gops-explained/). These "reference frames" are called keyframes or I-frames (for Intra-coded frames).
 
 Thanks to these 2 ideas, video encoding is able to reduce the size of videos down to something manageable. Knowing this, the encoding process roughly looks like this:
 1. Keyframes are determined based on user's specifications and scenes changes.
@@ -72,7 +72,7 @@ Obviously, this is a high-level summary of what's happening and there are a lot 
 
 ## Criteria
 
-While size was the initial reason we decided to go with video encoding, we soon realized that there are other aspects to consider as well. Of course, decoding time is an important one for machine learning applications as we want to maximize to amount of time spent training rather than loading data. Quality needs to remains above a certain level as well so as to not degrade our policies performance. Lastly, one less obvious but equally important aspect is the compatibility of our encoded videos in order to be easily decoded and played on the majority of media player, web browser, devices etc. Having the ability to easily and quickly visualize the content of any of our datasets was a must-have feature for us.
+While size was the initial reason we decided to go with video encoding, we soon realized that there were other aspects to consider as well. Of course, decoding time is an important one for machine learning applications as we want to maximize to amount of time spent training rather than loading data. Quality needs to remains above a certain level as well so as to not degrade our policies performance. Lastly, one less obvious but equally important aspect is the compatibility of our encoded videos in order to be easily decoded and played on the majority of media player, web browser, devices etc. Having the ability to easily and quickly visualize the content of any of our datasets was a must-have feature for us.
 
 To summarize, these are the criteria we wanted to optimize:
 - **Size:** Impacts storage disk space and download times.
@@ -107,7 +107,7 @@ For compatibility, we don't have a metric *per se*, but it basically boils down 
 ## Variables
 
 #### Image content & size
-We don't expect the same optimal settings for a dataset of images from a simulation, or from real-world in an apartment, or in a factory, or outdoor, or with lots of moving objects in the scene, etc. Similarly, loading times might not vary linearly with the image size (resolution).
+We don't expect the same optimal settings for a dataset of images from a simulation, or from the real world in an apartment, or in a factory, or outdoor, or with lots of moving objects in the scene, etc. Similarly, loading times might not vary linearly with the image size (resolution).
 For these reasons, we ran this benchmark on four representative datasets:
 - `lerobot/pusht_image`: (96 x 96 pixels) simulation with simple geometric shapes, fixed camera.
 - `aliberts/aloha_mobile_shrimp_image`: (480 x 640 pixels) real-world indoor, moving camera.
@@ -833,7 +833,7 @@ Similarly on the decoding side, other decoders exist but are not implemented in 
 - `decord`
 - `nvc`
 
-Note as well that since we are mostly interested in the performance at decoding time (also because encoding is done only once before uploading a dataset), we did not measure encoding times nor have any metrics regarding encoding.
+Also note that since we are primarily interested in decoding performance (as encoding is only done once before uploading a dataset), we did not measure encoding times nor have any metrics regarding encoding.
 However, besides the necessity to build ffmpeg from source, encoding did not pose any issue and it didn't take a significant amount of time during this benchmark.
 
 
