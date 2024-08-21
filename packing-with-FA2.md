@@ -59,19 +59,11 @@ Consider a batch of data with a batchsize = 4 where the four sequences are as fo
 
 ![batch](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/packing-with-FA2/four_sequences.png)
 
-[10,11,12,13] ; [20,21,22,23,24,25,26,27] ; [30,31,32,33,34] and [40,41,42,43,44,45,46,47,48,49,401].
-
-After concatenating the examples, the padding-free collator returns the input IDs, labels, and the `position_ids` of each example. Hence, the collator provides, for this example,  
+After concatenating the examples, the padding-free collator returns the `input_ids`, `labels`, and `position_ids` of each example. Hence, the collator provides, for this batch of data,  
 
 ![example](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/packing-with-FA2/input_ids_labels_position_ids.png)
 
-input_ids = [[10,11,12,13,20,21,22,23,24,25,26,27,30,31,32,33,34,40,41,42,43,44,45,46,47,48,49,401]]
-
-labels = [[-100,11,12,13,-100,21,22,23,24,25,26,27,-100,31,32,33,34,-100,41,42,43,44,45,46,47,48,49,401]] and
-
-position_ids = [[0,1,2,3,0,1,2,3,4,5,6,7,0,1,2,3,4,0,1,2,3,4,5,6,7,8,9,10]]
-
-The modifications required are lightweight and are limited to providing the `position_ids` to Flash Attention. 
+The modifications required are lightweight and are limited to providing the `position_ids` to Flash Attention 2. 
 
 This relies, however, on the model exposing `position_ids`. As of the time of writing, 14 models expose them and are supported by the solution. Specifically, Llama 2 and 3, Mistral, Mixtral, Granite, DBRX, Falcon, Gemma, OLMo, Phi 1, 2, and 3, phi3, Qwen 2 and 2 MoE, StableLM, and StarCoder 2 are all supported by the solution.
 
@@ -88,7 +80,7 @@ Reaping the benefits of packing with `position_ids` is easy. To use packing with
 
 ## Conclusions
 
-Packing instruction tuning examples, instead of padding, is now fully compatible with Flash Attention 2, thanks to a recent PR and the new `DataCollatorWithFlattening`. The method is compatible with models that use position IDs, and benefits can be seen in throughput during training and peak memory usage, with no degradation in training convergence. Actual throughput and memory improvement depends on the model and the distribution of example lengths in the training data. Training with data that has a wide variation of example lengths will see the greatest benefit, with respect to padding, from using packing with `position_ids`.
+Packing instruction tuning examples, instead of padding, is now fully compatible with Flash Attention 2, thanks to a recent PR and the new `DataCollatorWithFlattening`. The method is compatible with models that use `position_ids`. Benefits can be seen in throughput and peak memory usage during training, with no degradation in training convergence. Actual throughput and memory improvement depends on the model and the distribution of example lengths in the training data. Training with data that has a wide variation of example lengths will see the greatest benefit, with respect to padding, by using the `DataCollatorWithFlattening`.
 
 For a more detailed analysis, have a look at the paper at https://huggingface.co/papers/2407.09105
 
