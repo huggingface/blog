@@ -1,68 +1,59 @@
 ---
-title: "Improving Hugging Face Training Efficiency Through Packing with Flash Attention" 
-thumbnail: /blog/assets/packing-with-FA2/thumbnail.gif
+title: "Improving Hugging Face Training Efficiency Through Packing with Flash Attention 2" 
+thumbnail: /blog/assets/packing-with-FA2/thumbnail.png
 authors:
-- user: RhuiDih
+- user: RQlee
   guest: true
   org: ibm
-- user: ArthurZucker
+- user: ArthurZ
 - user: achikundu
   guest: true
-  org: ibm
-- user: wynterl
+- user: lwtr
   guest: true
   org: ibm
-- user: raghukiran1224
+- user: rganti
   guest: true
-  org: ibm
-- user: mayank31398
+  org: ibm-ai-platform
+- user: mayank-mishra
   guest: true
   org: ibm
 ---
 
 
 ## TL;DR
+Training with packed instruction tuning examples (without padding) is now compatible with Flash Attention 2 in Hugging Face, thanks to a [recent PR](https://github.com/huggingface/transformers/pull/31629) and the new [DataCollatorWithFlattening](https://huggingface.co/docs/transformers/main/en/main_classes/data_collator#transformers.DataCollatorWithFlattening)
 
-Packing instruction tuning examples whilst still availing Flash Attention is now available in Hugging Face, thanks to a [recent PR](https://github.com/huggingface/transformers/pull/31629) and the new [DataCollatorWithFlattening](https://huggingface.co/docs/transformers/main/en/main_classes/data_collator#transformers.DataCollatorWithFlattening)
- 
-Users will find it can provide up to 2x improvement in training throughput while maintaining convergence quality.
+It can provide up to 2x improvement in training throughput while maintaining convergence quality. Read on for the details! 
 
 ## Introduction
-It is well known that packing small examples together improves the computational efficiency of training. However, previous implementations of Flash Attention 2 did not consider example boundaries during packing, leading to potential issues in instruction tuning. In instruction tuning, it is important for the masking mechanism to be aware of the example boundaries if the examples are packed together to avoid undesirable cross-example-attention. 
+Padding input sequences in mini-batches is a usual method to collate inputs during training. However, this introduces inefficiencies because of the irrelevant padding tokens. Packing examples without padding, and using the token position information, is a more efficient alternative. However, previous implementations of packing did not consider example boundaries when using Flash Attention 2, resulting in undesired cross-example attention that reduce quality and convergence.
 
-Hugging Face Transformers now address this with a new feature that maintains boundary awareness during packing, alongside the introduction of a new data collator, `DataCollatorWithFlattening`.
+Hugging Face Transformers now addresses this with a new feature that maintains boundary awareness during packing, alongside the introduction of a new data collator, `DataCollatorWithFlattening`.
 
-By selecting `DataCollatorWithFlattening`, Hugging Face `Trainer` users can now seamlessly concatenate sequences into a single tensor while accounting for sequence boundaries during Flash Attention computations. This is achieved through the `flash_attn_varlen_func`, which calculates each mini-batch's cumulative sequence lengths (`cu_seqlens`).
+By selecting `DataCollatorWithFlattening`, Hugging Face `Trainer` users can now seamlessly concatenate sequences into a single tensor while accounting for sequence boundaries during Flash Attention 2 computations. This is achieved through the `flash_attn_varlen_func`, which calculates the cumulative sequence lengths in each mini-batch (`cu_seqlens`).
+
 
 ## Up to 2x throughput increase 
 
 We see significant improvement in training throughput using this feature with the new `DataCollatorWithFlattening`. The figure below shows the throughput measured in tokens/second during training. In this example, the throughput is the per-GPU average over 8 A100-80 GPU over one epoch of a 20K randomly selected sample from two different instruct tuning datasets, FLAN and OrcaMath. 
 
-![throughput](https://github.com/user-attachments/assets/09248359-5aa2-4b36-b896-ba76f98ecbfa)
-
 ![throughput](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/packing-with-FA2/thruput.png)
 
-
-FLAN has short sequences on average but a large variance in sequence length, so that example lengths in each batch may vary widely. This means that padded FLAN batches may require a considerable amount of padding. Training on the FLAN dataset shows a significant benefit from packing with position IDs in terms of increased throughput. We see a 2x throughput increase on the models shown here: llama2-7B, mistral-7B, and granite-8B-code. 
+FLAN has short sequences on average but a large variance in sequence length, so example lengths in each batch may vary widely. This means that padded FLAN batches may incur a significant overhead in unused padding tokens. Training on the FLAN dataset shows a significant benefit using the new `DataCollatorWithFlattening` in terms of increased throughput. We see a 2x throughput increase on the models shown here: llama2-7B, mistral-7B, and granite-8B-code. 
 
 OrcaMath has longer examples and a lower variance in example length. As such, the improvement from packing is lower. Our experiments show a 1.4x increase in throughput when training using this form of packing on the OrcaMath dataset across these three models.
 
-![memory](https://github.com/user-attachments/assets/377caa9c-cef5-4472-9128-85eb158faebf)
-
 ![memory](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/packing-with-FA2/memory.png)
 
-
-Memory usage also improves through packing with `position_ids`. The following figure shows the peak memory usage of the same three models training on the same two datasets. Peak memory is reduced by 20% on the FLAN dataset, which benefits considerably from packing. 
+Memory usage also improves through packing with the new `DataCollatorWithFlattening`. The following figure shows the peak memory usage of the same three models training on the same two datasets. Peak memory is reduced by 20% on the FLAN dataset, which benefits considerably from packing. 
 
 Peak memory reduction is 6% on the OrcaMath dataset with its more homogeneous example lengths.
 
-![ValLoss](https://github.com/user-attachments/assets/3fc30fd6-85a8-4f76-a644-7a0a7f16487d)
+Packing examples, when it reduces the number of optimization steps, may harm training convergence. The new feature, however, retains the minibatches and, hence, the same number of optimization steps as would be used with padded examples. Thus, there is no impact on train convergence, as we see in the next figure, which shows identical validation loss of the same three models training on the same two datasets, whether the models are trained with packing using the new `DataCollatorWithFlattening` or with padding.
 
 ![ValLoss](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/packing-with-FA2/ValLoss.png)
 
 
-
-Packing examples, when it reduces the number of optimization steps, may harm training convergence. The new feature, however, retains the minibatches and, hence, the same number of optimization steps as would be used with padded examples. Thus, there is no impact on train convergence, as we see in the next figure, which shows identical validation loss of the same three models training on the same two datasets, whether the models are trained with padding or packing with `position_ids`.
 
 ## How it works 
 
@@ -89,16 +80,12 @@ Reaping the benefits of packing with `position_ids` is easy. To use packing with
    
 ## How to use it
 
-![image1](https://github.com/user-attachments/assets/43790e8c-c2ca-4bc3-98ce-f06169624b2d)
-![image2](https://github.com/user-attachments/assets/6a77f17d-9289-4850-b293-543aa67f7d2e)
-
 ![image1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/packing-with-FA2/image1.png)
 ![image2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/packing-with-FA2/image2.png)
 
 ## Conclusions
 
-Packing instruction tuning examples with correct within-example-attention, while still availing of Flash Attention 2, is now available in Hugging Face, thanks to a recent PR Enhancing SFT Training Efficiency Using Packing and FlashAttention2 with Position ID and the new `DataCollatorWithFlattening`. Benefits can be seen in throughput during training and peak memory usage. There is no degradation in training convergence, making it a win-win. Actual throughput and memory improvement depends on the model and the distribution of example lengths in the training data. Training with data that has a wide variation of example lengths will see the greatest benefit, with respect to padding, from using packing with `position_ids`.
+Packing instruction tuning examples, instead of padding, is now fully compatible with Flash Attention 2, thanks to a recent PR and the new `DataCollatorWithFlattening`. The method is compatible with models that use position IDs, and benefits can be seen in throughput during training and peak memory usage, with no degradation in training convergence. Actual throughput and memory improvement depends on the model and the distribution of example lengths in the training data. Training with data that has a wide variation of example lengths will see the greatest benefit, with respect to padding, from using packing with `position_ids`.
 
-For a more detailed analysis, have a look at the paper at https://arxiv.org/abs/2407.09105
-
+For a more detailed analysis, have a look at the paper at https://huggingface.co/papers/2407.09105
 
