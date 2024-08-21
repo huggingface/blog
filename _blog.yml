@@ -4582,3 +4582,11 @@
     - padding
     - packing
     - Flash Attention 2
+
+- local: ai-security-defcon-32
+  title: AI + Security Highlights from DEF CON 32
+  author: jack-kumar
+  thumbnail: /blog/assets/ai-security-defcon-32/thumbnail.png
+  date: August 26, 2024
+  tags:
+    - security
