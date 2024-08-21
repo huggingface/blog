@@ -29,6 +29,7 @@ Users will find it can provide up to 2x improvement in training throughput while
 
 ## Introduction
 It is well known that packing small examples together improves the computational efficiency of training. However, previous implementations of Flash Attention 2 did not consider example boundaries during packing, leading to potential issues in instruction tuning. In instruction tuning, it is important for the masking mechanism to be aware of the example boundaries if the examples are packed together to avoid undesirable cross-example-attention. 
+
 Hugging Face Transformers now address this with a new feature that maintains boundary awareness during packing, alongside the introduction of a new data collator, `DataCollatorWithFlattening`.
 
 By selecting `DataCollatorWithFlattening`, Hugging Face `Trainer` users can now seamlessly concatenate sequences into a single tensor while accounting for sequence boundaries during Flash Attention computations. This is achieved through the `flash_attn_varlen_func`, which calculates each mini-batch's cumulative sequence lengths (`cu_seqlens`).
