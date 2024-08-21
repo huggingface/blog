@@ -45,16 +45,16 @@ We see significant improvement in training throughput using this feature with th
 
 FLAN has short sequences on average but a large variance in sequence length, so that example lengths in each batch may vary widely. This means that padded FLAN batches may require a considerable amount of padding. Training on the FLAN dataset shows a significant benefit from packing with position IDs in terms of increased throughput. We see a 2x throughput increase on the models shown here: llama2-7B, mistral-7B, and granite-8B-code. 
 
-OrcaMath has somewhat longer examples and a much lower variance in example length. As such, the improvement from packing is somewhat lower. Our experiments show a 1.4x increase in throughput when training using this form of packing on the OrcaMath dataset across these three models.
+OrcaMath has longer examples and a lower variance in example length. As such, the improvement from packing is lower. Our experiments show a 1.4x increase in throughput when training using this form of packing on the OrcaMath dataset across these three models.
 
 ![memory](https://github.com/user-attachments/assets/377caa9c-cef5-4472-9128-85eb158faebf)
 
 ![memory](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/packing-with-FA2/memory.png)
 
 
-Memory usage also improves through packing with position_ids. The following figure shows the peak memory usage of the same three models training on the same two datasets. Peak memory is reduced by 20% on the FLAN dataset, which benefits considerably from packing. 
+Memory usage also improves through packing with `position_ids`. The following figure shows the peak memory usage of the same three models training on the same two datasets. Peak memory is reduced by 20% on the FLAN dataset, which benefits considerably from packing. 
 
-That number is a more modest 6% on the OrcaMath dataset with its more homogeneous example lengths.
+Peak memory reduction is 6% on the OrcaMath dataset with its more homogeneous example lengths.
 
 ![ValLoss](https://github.com/user-attachments/assets/3fc30fd6-85a8-4f76-a644-7a0a7f16487d)
 
@@ -65,6 +65,7 @@ That number is a more modest 6% on the OrcaMath dataset with its more homogeneou
 Packing examples, when it reduces the number of optimization steps, may harm training convergence. The new feature, however, retains the minibatches and, hence, the same number of optimization steps as would be used with padded examples. Thus, there is no impact on train convergence, as we see in the next figure, which shows identical validation loss of the same three models training on the same two datasets, whether the models are trained with padding or packing with `position_ids`.
 
 ## How it works 
+
 Consider a batch of data with a batchsize = 4 where the four sequences are as follows:
 [10,11,12,13] ; [20,21,22,23,24,25,26,27] ; [30,31,32,33,34] and [40,41,42,43,44,45,46,47,48,49,401].
 
@@ -80,13 +81,13 @@ The modifications required are lightweight and are limited to providing the `pos
 
 This relies, however, on the model exposing `position_ids`. As of the time of writing, 14 models expose them and are supported by the solution. Specifically, Llama 2 and 3, Mistral, Mixtral, Granite, DBRX, Falcon, Gemma, OLMo, Phi 1, 2, and 3, phi3, Qwen 2 and 2 MoE, StableLM, and StarCoder 2 are all supported by the solution.
 
-## Getting Started
+## Getting started
 Reaping the benefits of packing with `position_ids` is easy. To use packing with `position_ids`, only two steps are required:
 
 1) Instantiate the model with Flash Attention 2
 2) Use the new `DataCollatorWithFlattening`
    
-## How To Use It
+## How to use it
 
 ![image1](https://github.com/user-attachments/assets/43790e8c-c2ca-4bc3-98ce-f06169624b2d)
 ![image2](https://github.com/user-attachments/assets/6a77f17d-9289-4850-b293-543aa67f7d2e)
