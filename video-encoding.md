@@ -82,13 +82,13 @@ To summarize, these are the criteria we wanted to optimize:
 
 Obviously, some of these criteria are in direct contradiction: you can hardly e.g. reduce the file size without degrading quality and vice versa. The goal was therefore to find the best compromise overall.
 
-Note that because of our specific use case and our needs, some encoding settings traditionnally used for media consumption don't really apply to us. A good example of that is with [GOP](https://en.wikipedia.org/wiki/Group_of_pictures) (Group of Pictures) size. More on that in a bit.
+Note that because of our specific use case and our needs, some encoding settings traditionally used for media consumption don't really apply to us. A good example of that is with [GOP](https://en.wikipedia.org/wiki/Group_of_pictures) (Group of Pictures) size. More on that in a bit.
 
 ## Metrics
 
 Given those criteria, we chose metrics accordingly.
 
-- **Size compression ratio (lower is better)**: as mentionned, this is the size of the encoded video over the size of its set of original, unencoded frames.
+- **Size compression ratio (lower is better)**: as mentioned, this is the size of the encoded video over the size of its set of original, unencoded frames.
 
 - **Load times ratio (lower is better)**: this is the time it take to decode a given frame from a video over the time it takes to load that frame from an individual image.
 
@@ -107,7 +107,7 @@ For compatibility, we don't have a metric *per se*, but it basically boils down 
 ## Variables
 
 #### Image content & size
-We don't expect the same optimal settings for a dataset of images from a simulation, or from real-world in an appartment, or in a factory, or outdoor, or with lots of moving objects in the scene, etc. Similarly, loading times might not vary linearly with the image size (resolution).
+We don't expect the same optimal settings for a dataset of images from a simulation, or from real-world in an apartment, or in a factory, or outdoor, or with lots of moving objects in the scene, etc. Similarly, loading times might not vary linearly with the image size (resolution).
 For these reasons, we ran this benchmark on four representative datasets:
 - `lerobot/pusht_image`: (96 x 96 pixels) simulation with simple geometric shapes, fixed camera.
 - `aliberts/aloha_mobile_shrimp_image`: (480 x 640 pixels) real-world indoor, moving camera.
@@ -820,7 +820,7 @@ Video encoding/decoding is a vast and complex subject, and we're only scratching
 
 For the encoding, additional encoding parameters exist that are not included in this benchmark. In particular:
 - `-preset` which allows for selecting encoding presets. This represents a collection of options that will provide a certain encoding speed to compression ratio. By leaving this parameter unspecified, it is considered to be `medium` for libx264 and libx265 and `8` for libsvtav1.
-- `-tune` which allows to optimize the encoding for certains aspects (e.g. film quality, live, etc.). In particular, a `fast decode` option is available to optimise the encoded bit stream for faster decoding.
+- `-tune` which allows to optimize the encoding for certain aspects (e.g. film quality, live, etc.). In particular, a `fast decode` option is available to optimise the encoded bit stream for faster decoding.
 
 The more detailed and comprehensive list of these parameters and others is available on the codecs documentations:
 - h264: https://trac.ffmpeg.org/wiki/Encode/H.264
