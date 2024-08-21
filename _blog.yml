@@ -4572,3 +4572,13 @@
     - partnerships
     - gcp
     - vertex
+    
+- local: packing-with-FA2
+  title: "Improving Hugging Face Training Efficiency Through Packing with Flash Attention"
+  author: lwtr
+  thumbnail: /blog/assets/packing-with-FA2/thumbnail.png
+  date: August 21, 2024
+  tags:
+    - padding
+    - packing
+    - Flash Attention 2
