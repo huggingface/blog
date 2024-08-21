@@ -161,7 +161,7 @@ The total cost for a request will depend on the model size, the number of GPUs r
 
 Usage fees accrue to your Enterprise Hub Organizations’ current monthly billing cycle. You can check your current and past usage at any time within the billing settings of your Enterprise Hub Organization.
 
-**Supported Models **
+**Supported Models**
 
 
 <table>
