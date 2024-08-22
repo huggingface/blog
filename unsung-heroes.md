@@ -1,11 +1,11 @@
 ---
-title: "Unsung Heroes of the Hugging Face Hub" 
+title: "The 5 Most Under-Rated Tools on Hugging Face" 
 thumbnail: /blog/assets/unsung-heroes/thumbnail.png
 authors:
 - user: derek-thomas
 ---
 
-# Unsung Heroes of the Hugging Face Hub
+# The 5 Most Under-Rated Tools on Hugging Face
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
 tl;dr The Hugging Face Hub has a number of tools and integrations that are often overlooked that can make it easier to build many types of AI solutions</div>
@@ -440,7 +440,7 @@ time.sleep(sleep_time)
 
 Using Nomic Atlas should be pretty self-explanatory and you can find
 some [further documentation here](https://docs.nomic.ai). But I'll give a quick intro so I can then highlight some of
-the lesser known features, unsung if you will 😉.
+the lesser known features.
 
 The main area with the dots shows each embedded document. The closer each document is, the more related it is. This will
 vary based on a few things (how well the embedder works on your data, compression from high dimensionality to 2D
