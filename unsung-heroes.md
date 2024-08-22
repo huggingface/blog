@@ -401,7 +401,7 @@ features for data exploration:
 
 * Semantic Search with [nomic-ai/nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) (in beta
   now)
-* Feature rich filtering
+* Feature-rich filtering
 * Keyword search
 * Lasso Search (I can draw boundaries\!\!)
 
