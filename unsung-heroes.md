@@ -409,7 +409,7 @@ features for data exploration:
 
 I built the nomic Atlas in the **Data Processing Space**. In the flow I have already built the **Processed Dataset** and
 the only thing left is to visualize it. You can see how I build with nomic
-in [build\_nomic.py](https://huggingface.co/spaces/reddit-tools-HF/processing-bestofredditorupdates/blob/main/src/build\_nomic.py).
+in [build_nomic.py](https://huggingface.co/spaces/reddit-tools-HF/processing-bestofredditorupdates/blob/main/src/build_nomic.py).
 As before Ill extrapolate the relevant parts for this blog:
 
 ```py
