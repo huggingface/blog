@@ -44,8 +44,8 @@ I'll be demonstrating this by using a subreddit as my data source and using the 
 number of ways to implement this. I could put everything in 1 space, but that would be quite messy. On the other hand, having too
 many components in a solution has its own challenges. Ultimately, **I chose a design that allows me to highlight some of
 the unsung heroes on the Hub and demonstrate how you can use them effectively**. The architecture is shown in *Figure 1*
-and is fully hosted on Hugging Face in the form of spaces, datasets and webhooks. For accessibility, every feature I'm
-using is free, but as you scale, you might want to upgrade.
+and is fully hosted on Hugging Face in the form of spaces, datasets and webhooks. Every feature I'm
+using is free for maximum accessibility. As you need to scale your service, you might consider upgrading to the [Enterprise Hub](https://huggingface.co/enterprise).
 
 |![Project Flow](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/unsung-heros/miro-board.jpeg)|
 |:--:|
@@ -71,11 +71,9 @@ You can see that I'm using [r/bestofredditorupdates](https://www.reddit.com/r/Be
 
 ## ZeroGPU
 
-### Introduction
-
 One of the challenges with modern models is they typically require GPUs or other heavy hardware to run. These can be
-bulky with year long commits and very expensive. Spaces makes it easy to use the hardware you desire at a low cost, but
-it’s not usually spun up and down programmatically (though you totally
+bulky with year long commitments and very expensive. Spaces makes it easy to use the hardware you desire at a low cost, but
+it’s not automatically spun up and down (though you could programmatically do it!)
 could!). [ZeroGPU](https://huggingface.co/zero-gpu-explorers) is a new kind of hardware for Spaces. There is a quota for
 free users and a bigger one for [PRO users](https://huggingface.co/pricing\#pro).
 
@@ -88,8 +86,7 @@ It has two goals :
 |:--:|
 |Figure 2: ZeroGPU behind the scenes |
 
-This is achieved by making Spaces efficiently hold and release GPUs as needed (as opposed to a classical GPU Space that
-holds exactly one GPU at any point in time). ZeroGPU uses Nvidia A100 GPUs under the hood (40GB of vRAM are available
+This is achieved by making Spaces efficiently hold and release GPUs as needed (as opposed to a classical GPU Space with a GPU attached at all times). ZeroGPU uses Nvidia A100 GPUs under the hood (40GB of vRAM are available
 for each workload).
 
 ### Application
@@ -113,15 +110,13 @@ def embed(document: str):
 
 ## Multi-process Docker
 
-### Introduction
-
 |![Data Processing Space](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/unsung-heros/processing_boru_space_logs.png)|
 |:--:|
 |Figure 3: Data Processing Space |
 
 One of the most common requests we see from enterprises is that I want feature X, or tool Y integrated. One of the best
 parts of the Hugging Face Hub is that we have
-an [unreasonably robust API](https://huggingface.co/docs/huggingface\_hub/main/en/index) that can integrate with
+an [unreasonably robust API](https://huggingface.co/docs/huggingface_hub/main/en/index) that can integrate with
 basically anything. The second way of solving this problem is usually in spaces. Here I'll use a
 blank [docker space](https://huggingface.co/docs/hub/spaces-sdks-docker) that can run an arbitrary docker container with
 the Hardware of your choice (a free CPU in my case).
@@ -171,7 +166,6 @@ stdout_logfile_maxbytes=0
 stderr_logfile=/dev/stderr
 stderr_logfile_maxbytes=0
 autostart=true
-# autorestart=true
 
 [program:app]
 command=python app.py
@@ -191,13 +185,11 @@ CMD ["supervisord", "-c", "supervisord.conf"]
 
 ## Gradio API
 
-### Introduction
-
 In the **Data Processing Space** I need embeddings for the posts, this presents a challenge if I abstract the embedding
 model in another space. How do I call it?
 
 When you build a [Gradio app](https://www.gradio.app), by default you can treat any interaction as an API call. This
-means all those [cool spaces](https://huggingface.co/spaces) on the hub have an API associated with them (Spaces allows
+means all those [cool spaces](https://huggingface.co/spaces) on the Hub have an API associated with them (Spaces allows
 you to use an API call to Streamlit or Docker spaces too if the author enables it)! Even cooler, is that we have
 an [easy to use client](https://www.gradio.app/docs/python-client/client) for this API.
 
@@ -231,8 +223,6 @@ There is even a really cool <a href="https://huggingface.co/posts/abidlabs/21684
 
 ## Webhooks
 
-### Introduction
-
 |![Webhooks](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*D0JykQxrL0IpYCZ6LH0CiA.png)|
 |:--:|
 |Figure 4: Project Webhooks [^1]|
@@ -241,18 +231,16 @@ There is even a really cool <a href="https://huggingface.co/posts/abidlabs/21684
 listen for new changes on specific repos or to all repos belonging to a particular set of users/organizations (not just
 your repos, but any repo).
 
-You can use them to auto-convert models, build community bots, or build CI/CD for your models, datasets, and Spaces, and
+You can use them to auto-convert models, build community bots, build CI/CD for your models, datasets, and Spaces, and
 much more!
 
 ### Application
 
 In my use-case I wanted to rebuild the **Processed Dataset** whenever I update the **Raw Dataset**. You can see
-the [full code here](https://huggingface.co/spaces/reddit-tools-HF/processing-bestofredditorupdates/blob/main/app.py\#L73-L139).
+the [full code here](https://huggingface.co/spaces/reddit-tools-HF/processing-bestofredditorupdates/blob/main/app.py#L73-L139).
 To do this I need to add a webhook that triggers on the **Raw Dataset** updates and to send it’s payload to the **Data
-Processing Space**. There are multiple types of updates that can happen, some might be on other branches, or in outside
-of the repo like the discussions. My criteria is when the  `README.md` is changed along with another file (the data that
-is updated) on the main branch of the repo. This is because of what is changed in the commit that Im looking for,
-like [here](https://huggingface.co/api/datasets/reddit-tools-HF/dataset-creator-reddit-bestofredditorupdates/compare/984759c734ab6d01c43739ac7eb46870eacf304b..adcc0f523c8fabe0f04448139fc7f72befa5428e?raw=true):
+Processing Space**. There are multiple types of updates that can happen, some might be on other branches, or in the discussions tab. My criteria is to trigger when both the `README.md` file and another file are updated
+on the main branch of the repo, because that's what changes when a new commit is pushed to the dataset ([here's an example](https://huggingface.co/api/datasets/reddit-tools-HF/dataset-creator-reddit-bestofredditorupdates/compare/984759c734ab6d01c43739ac7eb46870eacf304b..adcc0f523c8fabe0f04448139fc7f72befa5428e?raw=true)).
 
 ```
 # Commit cleaned up for readability
@@ -265,10 +253,10 @@ You will need to carefully decide what your criteria is  as you adapt this to yo
 </div>
 
 First you will need to create your webhook in your settings. It's best to
-follow [this guide](https://huggingface.co/docs/hub/en/webhooks\#create-your-webhook) on how to create a webhook, make
+follow [this guide](https://huggingface.co/docs/hub/en/webhooks#create-your-webhook) on how to create a webhook, make
 sure to use consistent endpoint names (`/dataset_repo` in my case). Also note the webhook url is the *Direct URL*
 with `/webhooks` appended. The *Direct URL* can be found by clicking the 3 dots above the space and
-selecting `Embed this Space`. I also set a [webhook secret](https://huggingface.co/docs/hub/en/webhooks\#webhook-secret)
+selecting `Embed this Space`. I also set a [webhook secret](https://huggingface.co/docs/hub/en/webhooks#webhook-secret)
 in the **Data Processing Space** so it’s secure.
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
@@ -295,9 +283,9 @@ Next you will need to consume your webhook in your space. To do this I'll discus
 #### How to setup the webhook server
 
 First we need to consume the payload. We have a convenient way
-to [consume a webhook payload](https://huggingface.co/docs/huggingface\_hub/main/en/guides/webhooks\#custom-server)
-built into the [huggingface\_hub](https://huggingface.co/docs/huggingface\_hub/index) library. You can see that I
-use `@app.add_webhook` to define an endpoint that matches what I did upon webhook creation. Then I define my function
+to [consume a webhook payload](https://huggingface.co/docs/huggingface_hub/main/en/guides/webhooks#custom-server)
+built into the [huggingface_hub](https://huggingface.co/docs/huggingface_hub/index) library. You can see that I
+use `@app.add_webhook` to define an endpoint that matches what I did upon webhook creation. Then I define my function.
 
 Note you need to respond to the payload request within 30s or you will get a `500` error. This is why I have an async
 function to respond and then kick off my actual process instead of doing the processing in
@@ -390,8 +378,6 @@ except Exception as e:
 ```
 
 ## Nomic Atlas
-
-### Introduction
 
 One of the common pain points we see with customers/partners is that data understanding and collaboration are
 challenging. Data understanding is often the first step to solving any AI use-case. My favorite way to do that is
