@@ -20,8 +20,8 @@ Spaces.
 The Hugging Face Hub allows broad usage since you have diverse hardware, and you can run almost anything you want
 in [Docker Spaces](https://huggingface.co/docs/hub/en/spaces-sdks-docker). I’ve noticed we have a number of features
 that are unsung (listed below). In the process of creating a semantic search application on the Hugging Face hub I took
-advantage of all of these features to implement various parts of the solution. While I think the final application (
-detailed in this org [reddit-tools-HF](https://huggingface.co/reddit-tools-HF)), is compelling, I'd like to use this example to show how you can apply them to
+advantage of all of these features to implement various parts of the solution. While I think the final application 
+(detailed in this org [reddit-tools-HF](https://huggingface.co/reddit-tools-HF)), is compelling, I'd like to use this example to show how you can apply them to
 your own projects.
 
 * [ZeroGPU](#zerogpu) - How can I use a free GPU?
