@@ -146,12 +146,22 @@ The total cost for a request will depend on the model size, the number of GPUs r
    <td>$0.0184
    </td>
   </tr>
+  <tr>
+   <td>meta-llama/Meta-Llama-3.1-405B-Instruct-FP8
+   </td>
+   <td>8
+   </td>
+   <td>5 seconds
+   </td>
+   <td>$0.0917
+   </td>
+  </tr>
 </table>
 
 
 Usage fees accrue to your Enterprise Hub Organizations’ current monthly billing cycle. You can check your current and past usage at any time within the billing settings of your Enterprise Hub Organization.
 
-**Supported Models **
+**Supported Models**
 
 
 <table>
@@ -201,6 +211,12 @@ Usage fees accrue to your Enterprise Hub Organizations’ current monthly billin
    <td><a href="https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct">meta-llama/Meta-Llama-3-70B-Instruct</a>
    </td>
    <td>4
+   </td>
+  </tr>
+  <tr>
+   <td><a href="https://huggingface.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8">meta-llama/Meta-Llama-3.1-405B-Instruct-FP8</a>
+   </td>
+   <td>8
    </td>
   </tr>
 </table>
