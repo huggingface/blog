@@ -1,6 +1,6 @@
 ---
 title: "Unsung Heroes of the Hugging Face Hub" 
-thumbnail: /blog/assets/unsung_heroes/thumbnail.png
+thumbnail: /blog/assets/unsung-heroes/thumbnail.png
 authors:
 - user: derek-thomas
 ---
