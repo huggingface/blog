@@ -41,7 +41,7 @@ It’s easy to imagine multiple scenarios where this is useful:
 * Researchers who have to keep up with new advances and find relevant papers or articles for their needs
 
 I'll be demonstrating this by using a subreddit as my data source and using the Hub to facilitate the rest. There are a
-number of ways to implement this. I could put everything in 1 space, but that would be quite messy. Though having too
+number of ways to implement this. I could put everything in 1 space, but that would be quite messy. On the other hand, having too
 many components in a solution has its own challenges. Ultimately, **I chose a design that allows me to highlight some of
 the unsung heroes on the Hub and demonstrate how you can use them effectively**. The architecture is shown in *Figure 1*
 and is fully hosted on Hugging Face in the form of spaces, datasets and webhooks. For accessibility, every feature I'm
