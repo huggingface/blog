@@ -7,8 +7,6 @@ authors:
 
 # Unsung Heroes of the Hugging Face Hub
 
-## Introduction
-
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
 tl;dr The Hugging Face Hub has a number of tools and integrations that are often overlooked that can make it easier to build many types of AI solutions</div>
 
