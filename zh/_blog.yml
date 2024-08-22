@@ -1778,3 +1778,127 @@
     - community
     - research
     - leaderboard
+
+- local: intel-protein-language-model-protst
+  title: 在英特尔 Gaudi 2 上加速蛋白质语言模型 ProtST
+  author: juliensimon
+  thumbnail: /blog/assets/intel-protein-language-model-protst/01.jpeg
+  date: July 3, 2024
+  tags:
+    - partnerships
+    - intel
+    - llm
+
+- local: dpo_vlm
+  title: "为视觉语言多模态模型进行偏好优化"
+  author: qgallouedec
+  thumbnail: /blog/assets/dpo_vlm/thumbnail.png
+  date: July 10, 2024
+  tags:
+    - vlm
+    - multimodal
+    - trl
+    - rlhf
+    - dpo
+
+- local: presidio-pii-detection
+  title: "在 Hub 上使用 Presidio 进行自动 PII 检测实验"
+  author: lhoestq
+  thumbnail: /blog/assets/presidio-pii-detection/thumbnail.png
+  date: Jul 10, 2024
+  tags:
+    - datasets
+    - pii
+
+- local: winning-aimo-progress-prize
+  title: NuminaMath 是如何荣膺首届 AIMO 进步奖的？
+  author: yfleureau
+  thumbnail: /blog/assets/winning-aimo-progress-prize/thumbnail.png
+  date: July 11, 2024
+  tags:
+    - ai4math
+    - nlp
+    - community
+    - research
+    - leaderboard
+    - open-science-collab
+
+- local: smollm
+  title: "SmolLM：一个超快速、超高性能的小模型集合"
+  author: loubnabnl
+  thumbnail: /blog/assets/smollm/banner.png
+  date: July 16, 2024
+  tags:
+    - llm
+    - nlp
+    - synthetic-data
+    - research
+    - datasets
+    - community
+
+- local: multi-lora-serving
+  title: TGI 多-LoRA：部署一次，搞定 30 个模型的推理服务
+  author: derek-thomas
+  thumbnail: /blog/assets/multi-lora-serving/thumbnail.png
+  date: Jul 18, 2024
+  tags:
+    - nlp
+    - tgi
+    - LLM
+    - lora
+    - peft
+    - open-source
+    - guide
+
+- local: llama31
+  title: "Llama 3.1：405B/70B/8B 模型的多语言与长上下文能力解析"
+  author: philschmid
+  thumbnail: /blog/assets/llama31/thumbnail.jpg
+  date: July 23, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: quanto-diffusers
+  title: 基于 Quanto 和 Diffusers 的内存高效 transformer 扩散模型
+  author: sayakpaul
+  thumbnail: /blog/assets/quanto-diffusers/thumbnail.png
+  date: July 30, 2024
+  tags:
+    - diffusers
+    - guide
+    - diffusion-transformers
+
+- local: gemma-july-update
+  title: "Google 最新发布：Gemma 2 2B、ShieldGemma 和 Gemma Scope"
+  author: Xenova
+  thumbnail: /blog/assets/gemma-july-update/thumbnail.jpg
+  date: July 31, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
+
+- local: xethub-joins-hf
+  title: "XetHub 加入 Hugging Face!"
+  author: julien-c
+  thumbnail: /blog/assets/xethub-joins-hf/thumbnail.png
+  date: August 8, 2024
+  tags:
+    - announcement
+    - enterprise
+    - hub
+
+- local: introduction-to-ggml
+  title: "ggml 简介"
+  author: ngxson
+  thumbnail: /blog/assets/introduction-to-ggml/cover.jpg
+  date: August 13, 2024
+  tags:
+    - guide
+    - community
+    - ggml

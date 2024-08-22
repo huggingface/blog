@@ -40,10 +40,10 @@ In addition to thousands of public models available in the Hub, PRO users get fr
 
 | Model                          | Size                                                                                                                                                                                       | Context Length | Use                                                          |
 |--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|--------------------------------------------------------------|
+| Meta Llama 3.1 405B Instruct FP8 | [405B](https://huggingface.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8)                                                       | 128k tokens      | High quality multilingual chat model with large context length |
 | Meta Llama 3 Instruct          | [8B](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct), [70B](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct)                                                       | 8k tokens      | One of the best chat models                                  |
 | Mixtral 8x7B Instruct          | [45B MOE](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1)                                                                                                                     | 32k tokens     | Performance comparable to top proprietary models             |
 | Nous Hermes 2 Mixtral 8x7B DPO | [45B MOE](https://huggingface.co/NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO)                                                                                                              | 32k tokens     | Further trained over Mixtral 8x7B MoE                        |
-| Zephyr ORPO 141B A35B          | [141B MOE](https://huggingface.co/HuggingFaceH4/zephyr-orpo-141b-A35b-v0.1)                                                                                                                | 65k tokens     | A high-quality conversational model with high context length |
 | Zephyr 7B β                    | [7B](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)                                                                                                                                  | 4k tokens      | One of the best chat models at the 7B weight                 |
 | Llama 2 Chat                   | [7B](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), [13B](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) | 4k tokens      | One of the best conversational models                        |
 | Mistral 7B Instruct v0.2       | [7B](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2)                                                                                                                            | 4k tokens      | One of the best chat models at the 7B weight                 |
@@ -208,7 +208,7 @@ For more details on how to control generation, please take a look at [this secti
 
 ## Messages API
 
-All text generation models now support the Messages API, so they are compatible with OpenAI client libraries, including LangChain and LlamaIndex. The following snippet shows how to use the official `openai` client library with Code Llama 70B Instruct:
+All text generation models now support the Messages API, so they are compatible with OpenAI client libraries, including LangChain and LlamaIndex. The following snippet shows how to use the official `openai` client library with Llama 3.1 405B Instruct (FP8):
 
 ```py
 from openai import OpenAI
@@ -216,11 +216,11 @@ import huggingface_hub
 
 # Initialize the client, pointing it to one of the available models
 client = OpenAI(
-    base_url="https://api-inference.huggingface.co/models/codellama/CodeLlama-70b-Instruct-hf/v1/",
+    base_url="https://api-inference.huggingface.co/v1/",
     api_key=huggingface_hub.get_token(),
 )
 chat_completion = client.chat.completions.create(
-    model="codellama/CodeLlama-70b-Instruct-hf",
+    model="meta-llama/Meta-Llama-3.1-405B-Instruct-FP8",
     messages=[
         {"role": "system", "content": "You are a helpful an honest programming assistant."},
         {"role": "user", "content": "Is Rust better than Python?"},

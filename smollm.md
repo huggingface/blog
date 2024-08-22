@@ -122,7 +122,7 @@ In Smollm-Corpus we include 220B deduplicated tokens from FineWeb.
 
 ### Stack-Edu-Python
 
-We applied the same idea of FineWeb-Edu to Code. We used Llama3 to annotate 500,000 python samples from The Stack dataset and used them to train an [educational classifier](https://huggingface.co/HuggingFaceTB/python-edu-scorer) using the same recipe as the FineWeb-Edu classifier. We then applied this classifier on Python subset of StarCoder models training corpus. From the 40B Python tokens available, we retained only the samples with a score of 4 or higher, resulting in a refined dataset of 4B tokens.
+We applied the same idea of FineWeb-Edu to Code. We used Llama3 to annotate 500,000 Python samples from The Stack dataset and used them to train an [educational code classifier](https://huggingface.co/HuggingFaceTB/python-edu-scorer) using the same recipe as the FineWeb-Edu classifier. We then applied this classifier to a Python subset of the StarCoder models training corpus. From the 40B Python tokens available, we retained only the samples with a score of 4 or higher, resulting in a refined dataset of 4B tokens.
 
 The plot below compares Python-Edu to the unfiltered Python code and to using a less strict threshold of 3. We can see that the model trained on Python-Edu converges more than 3 times faster than the model trained on unfiltered Python code, achieving 16% pass@1 after only 12B tokens. 
 
@@ -160,7 +160,7 @@ We used a tokenizer trained on the Smollm Corpus with a vocab size of 49152.
 
 ### Experiments
 
-One advantage of using the trapezoidal scheduler is that it can reduce the time needed to perform scaling law experiments, as shown in [Hägele et al.](https://arxiv.org/pdf/2405.18392). We illustrate this with a small scaling law study on our smallest model, SmolLM-125M. We observed that performance continues to improve with longer training, even beyond the Chinchilla optimal point. Therefore, we decided to the 1.7B model on 1 trillion tokens and the 135M and 360M models on 600B tokens, as the performance gains after 400B tokens begin to slow on some benchmarks for these smaller models.
+One advantage of using the trapezoidal scheduler is that it can reduce the time needed to perform scaling law experiments, as shown in [Hägele et al.](https://arxiv.org/pdf/2405.18392). We illustrate this with a small scaling law study on our smallest model, SmolLM-125M. We observed that performance continues to improve with longer training, even beyond the Chinchilla optimal point. Therefore, we decided to train the 1.7B model on 1 trillion tokens and the 135M and 360M models on 600B tokens, as the performance gains after 400B tokens begin to slow on some benchmarks for these smaller models.
 
 <p align="center">
  <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/Untitled%2011.png" alt=""  style="width: 90%; height: auto;"><br>

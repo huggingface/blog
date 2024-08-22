@@ -4307,7 +4307,7 @@
   date: July 9, 2024
   tags:
     - case-studies
-  
+
 - local: tpu-inference-endpoints-spaces
   title: "Google Cloud TPUs made available to Hugging Face users"
   thumbnail: /blog/assets/tpu-inference-endpoints-spaces/thumbnail.png
@@ -4404,7 +4404,7 @@
 
 - local: docmatix
   title: "Docmatix - a huge dataset for Document Visual Question Answering"
-  thumbnail: /blog/assets/183_docmatix/thumbnail.png
+  thumbnail: /blog/assets/183_docmatix/thumbnail_new.png
   author: andito
   date: Jul 18, 2024
   tags:
@@ -4416,3 +4416,169 @@
     - vlm
     - announcement
     - research
+
+- local: mistral-coreml
+  title: "WWDC 24: Running Mistral 7B with Core ML"
+  thumbnail: /blog/assets/mistral-coreml/thumbnail.png
+  author: FL33TW00D-HF
+  date: Jul 22, 2024
+  tags:
+    - coreml
+    - guide
+    - llm
+    - swift
+    - wwdc
+
+- local: llama31
+  title: "Llama 3.1 - 405B, 70B & 8B with multilinguality and long context"
+  author: philschmid
+  thumbnail: /blog/assets/llama31/thumbnail.jpg
+  date: July 23, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: zero-shot-vqa-docmatix
+  title: "LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need Fine-Tuning?"
+  author: danaaubakirova
+  thumbnail: /blog/assets/184_zero_shot_docmatix/thumb.001.jpeg
+  date: Jul 25, 2024
+  tags:
+    - community
+    - evaluation
+    - synthetic-data
+    - vqa
+    - vlm
+    - zero-shot
+    - research
+
+- local: inference-dgx-cloud
+  title: "Serverless Inference with Hugging Face and NVIDIA NIMs"
+  author: philschmid
+  thumbnail: /blog/assets/train-dgx-cloud/thumbnail.jpg
+  date: July 29, 2024
+  tags:
+    - partnerships
+    - hardware
+    - nvidia
+    - llm
+    - inference
+
+- local: quanto-diffusers
+  title: "Memory-efficient Diffusion Transformers with Quanto and Diffusers"
+  author: sayakpaul
+  thumbnail: /blog/assets/quanto-diffusers/thumbnail.png
+  date: July 30, 2024
+  tags:
+    - diffusers
+    - guide
+    - diffusion-transformers
+
+- local: gemma-july-update
+  title: "Google releases Gemma 2 2B, ShieldGemma and Gemma Scope"
+  author: Xenova
+  thumbnail: /blog/assets/gemma-july-update/thumbnail.jpg
+  date: July 31, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - gcp
+
+- local: doc_aug_hf_alb
+  title: "Introducing TextImage Augmentation for Document Images"
+  author: danaaubakirova
+  thumbnail: /blog/assets/185_albumentations/thumbnail.png
+  date: Aug 6, 2024
+  tags:
+    - document ai
+    - data augmentation
+    - synthetic-data
+    - albumentations
+    - research
+
+- local: 2024-security-features
+  title: 2024 Security Feature Highlights
+  author: jack-kumar
+  thumbnail: /blog/assets/2024-security-features/thumbnail.png
+  date: August 6, 2024
+  tags:
+    - security
+    - enterprise
+
+- local: xethub-joins-hf
+  title: "XetHub is joining Hugging Face!"
+  author: julien-c
+  thumbnail: /blog/assets/xethub-joins-hf/thumbnail.png
+  date: August 8, 2024
+  tags:
+    - announcement
+    - enterprise
+    - hub
+
+- local: unified-tool-use
+  title: "Tool Use, Unified"
+  author: rocketknight1
+  thumbnail: /blog/assets/unified-tool-use/thumbnail.png
+  date: August 12, 2024
+  tags:
+    - LLM
+    - nlp
+    - community
+
+- local: falconmamba
+  title: "Welcome FalconMamba: The first strong attention-free 7B model "
+  guest: true
+  author: JingweiZuo
+  thumbnail: /blog/assets/falconmamba/thumbnail.png
+  date: August 12, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - Mamba
+
+- local: introduction-to-ggml
+  title: "Introduction to ggml"
+  author: ngxson
+  thumbnail: /blog/assets/introduction-to-ggml/cover.jpg
+  date: August 13, 2024
+  tags:
+    - guide
+    - community
+    - ggml
+
+- local: infini-attention
+  title: "A failed experiment: Infini-Attention, and why we should keep trying?"
+  author: neuralink
+  thumbnail: /blog/assets/185_infini_attention/infini_attention_thumbnail.png
+  date: August 14, 2024
+  tags:
+    - long-context
+    - infini-attention
+    - memory-compression
+
+- local: llama31-on-vertex-ai
+  title: "Deploy Meta Llama 3.1 405B on Google Cloud Vertex AI"
+  author: alvarobartt
+  thumbnail: /blog/assets/llama31-on-vertex-ai/thumbnail.png
+  date: August 19, 2024
+  tags:
+    - nlp
+    - partnerships
+    - gcp
+    - vertex
+    
+- local: packing-with-FA2
+  title: "Improving Hugging Face Training Efficiency Through Packing with Flash Attention"
+  author: lwtr
+  thumbnail: /blog/assets/packing-with-FA2/thumbnail.png
+  date: August 21, 2024
+  tags:
+    - padding
+    - packing
+    - Flash Attention 2
