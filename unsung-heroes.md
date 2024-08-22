@@ -73,8 +73,8 @@ You can see that I'm using [r/bestofredditorupdates](https://www.reddit.com/r/Be
 
 One of the challenges with modern models is they typically require GPUs or other heavy hardware to run. These can be
 bulky with year long commitments and very expensive. Spaces makes it easy to use the hardware you desire at a low cost, but
-it’s not automatically spun up and down (though you could programmatically do it!)
-could!). [ZeroGPU](https://huggingface.co/zero-gpu-explorers) is a new kind of hardware for Spaces. There is a quota for
+it’s not automatically spun up and down (though you could programmatically do it!).
+[ZeroGPU](https://huggingface.co/zero-gpu-explorers) is a new kind of hardware for Spaces. There is a quota for
 free users and a bigger one for [PRO users](https://huggingface.co/pricing\#pro).
 
 It has two goals :
