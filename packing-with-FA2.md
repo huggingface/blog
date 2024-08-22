@@ -75,8 +75,40 @@ Reaping the benefits of packing with `position_ids` is easy. To use packing with
    
 ## How to use it
 
-![image1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/packing-with-FA2/image1.png)
-![image2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/packing-with-FA2/image2.png)
+```python
+import torch
+
+# load model as usual
+from transformers import AutoModelForCausalLM
+model = AutoModelForCausalLM.from_pretrained(
+    "my_model",
+    torch_dtype=torch.bfloat16,
+    attn_implementation="flash_attention_2"
+)
+
+# read dataset as usual
+from datasets import load_dataset
+train_dataset = load_dataset("json", data_files="path/to/my/dataset")["train"]
+
+# use DataCollatorWithFlattening, instead of DataCollatorForSeq2Seq
+```
+
+```python
+from transformers import DataCollatorWithFlattening
+data_collator = DataCollatorWithFlattening()
+
+# train
+from transformers import TrainingArguments, Trainer
+train_args = TrainingArguments()
+trainer = Trainer(
+    args=train_args,
+    model=model,
+    train_dataset=train_dataset,
+    data_collator=data_collator
+)
+
+trainer.train()
+```
 
 ## Conclusions
 
