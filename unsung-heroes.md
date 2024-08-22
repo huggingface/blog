@@ -32,7 +32,7 @@ problems than the use-case I'm showing.
 
 ## Use-Case
 
-> An automatically updated, visually enabled, semantic search for a dynamic data source for free
+> An automatically updated, visually enabled, semantic search for a dynamic data source, for free
 
 It’s easy to imagine multiple scenarios where this is useful:
 
