@@ -447,7 +447,7 @@ vary based on a few things (how well the embedder works on your data, compressio
 representation, etc) so take it with a grain of salt. We have the ability to search and view documents on the left.
 
 In the **red box** in *Figure 5* we can see 5 boxes that allow us to search in different ways. Each one is applied
-iteratively, which makes It a great way
+iteratively, which makes it a great way
 to “[chip away at the elephant](https://philipchircop.wordpress.com/2012/07/03/chip-it-away/)”. We could search by date
 or other field, and then use a text search for instance. The coolest feature is the one on the *far left*, it's a neural
 search that you can use in 3 ways:
