@@ -207,7 +207,7 @@ For more details on how to control generation, please take a look at [this secti
 
 ## Messages API
 
-All text generation models now support the Messages API, so they are compatible with OpenAI client libraries, including LangChain and LlamaIndex. The following snippet shows how to use the official `openai` client library with Llama 3.1 405B Instruct (FP8):
+All text generation models now support the Messages API, so they are compatible with OpenAI client libraries, including LangChain and LlamaIndex. The following snippet shows how to use the official `openai` client library with Llama 3.1 70B:
 
 ```py
 from openai import OpenAI
@@ -219,7 +219,7 @@ client = OpenAI(
     api_key=huggingface_hub.get_token(),
 )
 chat_completion = client.chat.completions.create(
-    model="meta-llama/Meta-Llama-3.1-405B-Instruct-FP8",
+    model="meta-llama/Meta-Llama-3.1-70B-Instruct",
     messages=[
         {"role": "system", "content": "You are a helpful an honest programming assistant."},
         {"role": "user", "content": "Is Rust better than Python?"},
