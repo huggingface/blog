@@ -1,11 +1,11 @@
 ---
-title: "Hugging Face Hub Unsung Heroes" 
+title: "Unsung Heroes of the Hugging Face Hub" 
 thumbnail: /blog/assets/unsung_heroes/thumbnail.png
 authors:
 - user: derek-thomas
 ---
 
-# Hugging Face Hub Unsung Heroes
+# Unsung Heroes of the Hugging Face Hub
 
 ## Introduction
 
