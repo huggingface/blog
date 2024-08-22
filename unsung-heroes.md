@@ -254,10 +254,7 @@ You will need to carefully decide what your criteria is  as you adapt this to yo
 
 First you will need to create your webhook in your settings. It's best to
 follow [this guide](https://huggingface.co/docs/hub/en/webhooks#create-your-webhook) on how to create a webhook, make
-sure to use consistent endpoint names (`/dataset_repo` in my case). Also note the webhook url is the *Direct URL*
-with `/webhooks` appended. The *Direct URL* can be found by clicking the 3 dots above the space and
-selecting `Embed this Space`. I also set a [webhook secret](https://huggingface.co/docs/hub/en/webhooks#webhook-secret)
-in the **Data Processing Space** so it’s secure.
+sure to use consistent endpoint names (`/dataset_repo` in my case). 
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
     <p>Also note the webhook url is the <em>Direct URL</em> with <code>/webhooks</code> appended. The <em>Direct URL</em> can be found by clicking the 3 dots above the space and selecting <code>Embed this Space</code>. I also set a <a href="https://huggingface.co/docs/hub/en/webhooks#webhook-secret">webhook secret</a> in the <strong>Data Processing Space</strong> so it’s secure.</p>
