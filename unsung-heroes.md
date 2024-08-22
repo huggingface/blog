@@ -11,7 +11,7 @@ authors:
 tl;dr The Hugging Face Hub has a number of tools and integrations that are often overlooked that can make it easier to build many types of AI solutions</div>
 
 The Hugging Face Hub boasts over 850K public models, with \~50k new ones added every month, and that just seems to be
-climbing higher and higher. We also offer a Enterprise Hub subscription that
+climbing higher and higher. We also offer an Enterprise Hub subscription that
 unlocks [compliance](https://huggingface.co/docs/hub/en/storage-regions\#regulatory-and-legal-compliance), [security](https://huggingface.co/docs/hub/en/security\#security),
 and [governance](https://huggingface.co/docs/hub/en/enterprise-hub-resource-groups) features, along with additional
 compute capacities on inference endpoints for production-level inference and more hardware options for doing demos on
