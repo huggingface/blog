@@ -4582,3 +4582,20 @@
     - padding
     - packing
     - Flash Attention 2
+
+- local: unsung-heroes
+  title: "Unsung Heroes of the Hugging Face Hub"
+  author: derek-thomas
+  thumbnail: /blog/assets/unsung-heroes/thumbnail.png
+  date: August 22, 2024
+  tags:
+    - hub
+    - api
+    - apps
+    - datasets
+    - enterprise
+    - nlp
+    - visualization
+    - nomic
+    - atlas
+    - guide
