@@ -403,7 +403,7 @@ features for data exploration:
   now)
 * Feature-rich filtering
 * Keyword search
-* Lasso Search (I can draw boundaries\!\!)
+* Lasso Search (I can draw boundaries!!)
 
 ### Application
 
