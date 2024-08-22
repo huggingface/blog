@@ -63,7 +63,7 @@ You can see that I'm using [r/bestofredditorupdates](https://www.reddit.com/r/Be
 | **Processed Dataset** | The resulting dataset with the embeddings | [reddit-tools-HF/reddit-bestofredditorupdates-processed](https://huggingface.co/datasets/reddit-tools-HF/reddit-bestofredditorupdates-processed) (dataset) |                                                                                                |
 | **Data Explorer** | Visual and text-based semantic search tool | [Nomic Atlas Map](https://atlas.nomic.ai/data/derek2/boru-subreddit-neural-search/map) | Built with [Nomic Atlas](https://atlas.nomic.ai): Powerful filtering and narrowing tools       |
 
-*There are a few good reasons to use [nomic-ai/nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5):
+*I used [nomic-ai/nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) to generate the embeddings for a few reasons:
 - Handles long contexts well (8192 tokens)
 - Efficient at 137M parameters 
 - High on the [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard) 
