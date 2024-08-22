@@ -1,6 +1,6 @@
 ---
 title: "The 5 Most Under-Rated Tools on Hugging Face" 
-thumbnail: /blog/assets/unsung-heroes/thumbnail.png
+thumbnail: /blog/assets/unsung-heroes/new-thumbnail.png
 authors:
 - user: derek-thomas
 ---
