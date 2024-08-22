@@ -4586,7 +4586,7 @@
 - local: unsung-heroes
   title: "The 5 Most Under-Rated Tools on Hugging Face"
   author: derek-thomas
-  thumbnail: /blog/assets/unsung-heroes/thumbnail.png
+  thumbnail: /blog/assets/unsung-heroes/new-thumbnail.png
   date: August 22, 2024
   tags:
     - hub
