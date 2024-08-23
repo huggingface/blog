@@ -150,8 +150,6 @@ This table summarizes the different values we tried for our study:
 
 ### Decoding parameters
 
-<!-- TODO(aliberts): Add text here -->
-
 #### Decoder
 We tested two video decoding backends from torchvision:
 - `pyav` (default)
@@ -835,9 +833,3 @@ Similarly on the decoding side, other decoders exist but are not implemented in 
 
 Also note that since we are primarily interested in decoding performance (as encoding is only done once before uploading a dataset), we did not measure encoding times nor have any metrics regarding encoding.
 However, besides the necessity to build ffmpeg from source, encoding did not pose any issue and it didn't take a significant amount of time during this benchmark.
-
-
-## Conclusions
-
-As we are looking to build the largest set of publicly available datasets for robotics thanks to the community, spending time on the basics of how those datasets are built and stored is important.
-<!-- TODO -->
