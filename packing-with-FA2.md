@@ -77,7 +77,7 @@ If you are using Hugging Face `Trainer` from `Transformers`, only two steps are 
 1) Instantiate the model with Flash Attention 2
 2) Use the new `DataCollatorWithFlattening`
 
-If you are using Hugging Face `SFTTrainer` from `TRL` with `DataCollatorForCompletionOnlyLM`, then the two steps required are:
+If you are using Hugging Face `SFTTrainer` from `TRL` with `DataCollatorForCompletionOnlyLM`, then the two required steps are:
 
 1) Instantiate the model with Flash Attention 2
 2) Set `padding_free=True`  when calling `DataCollatorForCompletionOnlyLM` as follows:
@@ -87,7 +87,7 @@ If you are using Hugging Face `SFTTrainer` from `TRL` with `DataCollatorForCompl
 
 For `Trainer` users, the example below illustrates how to use the new feature. 
 
-```
+```Python
 # Example using DataCollatorWithFlattening
  
 import torch
@@ -122,7 +122,7 @@ trainer.train()
 
 For `TRL` users, the example below shows how to use the new feature with `SFTTrainer`.
 
-```
+```Python
 # SFTTrainer example using DataCollatorForCompletionOnlyLM
 
 import torch
