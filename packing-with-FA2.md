@@ -33,7 +33,7 @@ Hugging Face Transformers now addresses this with a new feature that maintains b
 
 By selecting `DataCollatorWithFlattening`, Hugging Face `Trainer` users can now seamlessly concatenate sequences into a single tensor while accounting for sequence boundaries during Flash Attention 2 computations. This is achieved through the `flash_attn_varlen_func`, which calculates the cumulative sequence lengths in each mini-batch (`cu_seqlens`).
 
-The same feature is available to Hugging Face `SFTTrainer` users in the `TRL` library by setting a new flag `padding_free=True` when calling the data collator `DataCollatorForCompletionOnlyLM`.
+The same feature is available to Hugging Face `SFTTrainer` users in the `TRL` library by setting a new flag, `padding_free=True`, when calling the data collator `DataCollatorForCompletionOnlyLM`.
 
 ## Up to 2x throughput increase 
 
