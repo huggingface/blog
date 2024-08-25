@@ -1743,7 +1743,7 @@
     - guide
     - research
     - collaboration
- 
+
 - local: finetune-florence2
   title: 微调 Florence-2 - 微软的尖端视觉语言模型
   thumbnail: /blog/assets/182_finetune-florence/thumbnail.png
@@ -1790,7 +1790,7 @@
     - llm
 
 - local: dpo_vlm
-  title: "为视觉语言多模态模型进行偏好优化"
+  title: 为视觉语言多模态模型进行偏好优化
   author: qgallouedec
   thumbnail: /blog/assets/dpo_vlm/thumbnail.png
   date: July 10, 2024
@@ -1802,7 +1802,7 @@
     - dpo
 
 - local: presidio-pii-detection
-  title: "在 Hub 上使用 Presidio 进行自动 PII 检测实验"
+  title: 在 Hub 上使用 Presidio 进行自动 PII 检测实验
   author: lhoestq
   thumbnail: /blog/assets/presidio-pii-detection/thumbnail.png
   date: Jul 10, 2024
@@ -1824,7 +1824,7 @@
     - open-science-collab
 
 - local: smollm
-  title: "SmolLM：一个超快速、超高性能的小模型集合"
+  title: SmolLM：一个超快速、超高性能的小模型集合
   author: loubnabnl
   thumbnail: /blog/assets/smollm/banner.png
   date: July 16, 2024
@@ -1866,7 +1866,7 @@
     - research
 
 - local: llama31
-  title: "Llama 3.1：405B/70B/8B 模型的多语言与长上下文能力解析"
+  title: Llama 3.1：405B/70B/8B 模型的多语言与长上下文能力解析
   author: philschmid
   thumbnail: /blog/assets/llama31/thumbnail.jpg
   date: July 23, 2024
@@ -1887,7 +1887,7 @@
     - diffusion-transformers
 
 - local: gemma-july-update
-  title: "Google 最新发布：Gemma 2 2B、ShieldGemma 和 Gemma Scope"
+  title: Google 最新发布：Gemma 2 2B、ShieldGemma 和 Gemma Scope
   author: Xenova
   thumbnail: /blog/assets/gemma-july-update/thumbnail.jpg
   date: July 31, 2024
@@ -1899,7 +1899,7 @@
     - gcp
 
 - local: xethub-joins-hf
-  title: "XetHub 加入 Hugging Face!"
+  title: XetHub 加入 Hugging Face!
   author: julien-c
   thumbnail: /blog/assets/xethub-joins-hf/thumbnail.png
   date: August 8, 2024
@@ -1917,3 +1917,13 @@
     - guide
     - community
     - ggml
+
+- local: infini-attention
+  title: 一次失败的实验——无限注意力，我们为什么坚持实验
+  author: neuralink
+  thumbnail: /blog/assets/185_infini_attention/infini_attention_thumbnail.png
+  date: August 14, 2024
+  tags:
+    - long-context
+    - infini-attention
+    - memory-compression
