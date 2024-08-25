@@ -6,18 +6,20 @@ authors:
 - user: HugoLaurencon
 - translators:
 - user: MatrixYao
+- user: zhongdongy
+  proofreader: true
 ---
 
 # Docmatix - 超大文档视觉问答数据集
 
-本文，我们将发布 [Docmatix - 一个超大的文档视觉问答（DocVQA）数据集](https://huggingface.co/datasets/HuggingFaceM4/Docmatix)，比之前的数据集大 100 倍。当使用 Docmatix 微调 Florence-2 时，消融实验显示 DocVQA 任务的性能提高了 20%。   
+本文，我们将发布 [Docmatix - 一个超大的文档视觉问答 (DocVQA) 数据集](https://huggingface.co/datasets/HuggingFaceM4/Docmatix)，比之前的数据集大 100 倍。当使用 Docmatix 微调 Florence-2 时，消融实验显示 DocVQA 任务的性能提高了 20%。
 
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/docmatix_example.png" alt="数据集样本实例" style="width: 90%; height: auto;"><br>
  <em>Docmatix 数据集样本示例</em>
 </p>
 
-缘起于[丹鼎（The Cauldron）](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron) 的开发，丹鼎包含了 50 个数据集，旨在用于视觉语言模型（VLM）的微调，我们的 [Idefics2](https://huggingface.co/blog/idefics2) 就是由此训得。在丹鼎的开发过程中，我们发现缺乏大规模文档视觉问答（DocVQA）数据集。Idefics2 依赖的视觉问答数据集主要是 DocVQA，其中仅包含 1 万张图像以及 3 万 9 千对问答（Q/A）。基于其以及其他数据集微调出的开源模型在性能上与闭源模型差距很大。
+缘起于 [丹鼎 (The Cauldron)](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron) 的开发，丹鼎包含了 50 个数据集，旨在用于视觉语言模型 (VLM) 的微调，我们的 [Idefics2](https://huggingface.co/blog/idefics2) 就是由此训得。在丹鼎的开发过程中，我们发现缺乏大规模文档视觉问答 (DocVQA) 数据集。Idefics2 依赖的视觉问答数据集主要是 DocVQA，其中仅包含 1 万张图像以及 3 万 9 千对问答 (Q/A)。基于其以及其他数据集微调出的开源模型在性能上与闭源模型差距很大。
 
 为了解决这一问题，我们很高兴推出 Docmatix，这是一个 DocVQA 数据集，包含 240 万张图像以及源自 130 万个 PDF 文档的 950 万对问答。与之前的数据集相比，规模扩大了 **240 倍**。
 
@@ -42,14 +44,14 @@ Docmatix 是基于 [PDFA - 一个包含 210 万个 PDF 的 OCR 数据集](https:
  <em>生成 Docmatix 的数据处理流水线</em>
 </p>
 
-我们先处理了一小批数据集，并对其进行多次消融研究以对提示进行优化。我们的目标是每页生成大约 4 对问答。太多的话，它们之间会有很大的重叠，太少的话，则说明当前页的内容中细节较少。此外，我们的目标是让生成的答案与人类回答相似，避免过短或过长的答案。我们还比较重视问题的多样性，以确保尽量减少重复问题。有趣的是，当我们引导 [Phi-3 模型](https://huggingface.co/docs/transformers/main/en/model_doc/phi3)根据文档中的具体信息提出问题时（例如，“某甲的头衔是什么？”），问题几乎没有重复。下图展示了我们得到的一些关键统计分析数据：
+我们先处理了一小批数据集，并对其进行多次消融研究以对提示进行优化。我们的目标是每页生成大约 4 对问答。太多的话，它们之间会有很大的重叠，太少的话，则说明当前页的内容中细节较少。此外，我们的目标是让生成的答案与人类回答相似，避免过短或过长的答案。我们还比较重视问题的多样性，以确保尽量减少重复问题。有趣的是，当我们引导 [Phi-3 模型](https://huggingface.co/docs/transformers/main/en/model_doc/phi3) 根据文档中的具体信息提出问题时 (例如，“某甲的头衔是什么？”)，问题几乎没有重复。下图展示了我们得到的一些关键统计分析数据:
 
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/docmatix_prompt_analysis.png" alt="从提示的维度分析 Docmatix" style="width: 90%; height: auto;"><br>
  <em>从提示的维度分析 Docmatix</em>
 </p>
 
-为了评估 Docmatix 的质量，我们使用 Florence-2 模型进行了消融实验。我们训练了两个版本的模型以进行比较。第一个版本在 DocVQA 数据集上训练数个 epoch。第二个版本先在 Docmatix 上训练 1 个 epoch（仅使用 20% 的图像、4% 的 Q/A 对），然后再在 DocVQA 上训练 1 个 epoch，以确保模型的输出格式符合 DocVQA 评估的要求。结果很明显：先对 Docmatix 进行微调可带来近 20% 的相对指标提升。此外，所得的 0.7B Florence-2 模型的性能仅比基于混合训练集训练的 8B Idefics2 模型差 5%，要知道从模型尺寸上来看 8B 可以比 0.7B 大得远不止 5%。
+为了评估 Docmatix 的质量，我们使用 Florence-2 模型进行了消融实验。我们训练了两个版本的模型以进行比较。第一个版本在 DocVQA 数据集上训练数个 epoch。第二个版本先在 Docmatix 上训练 1 个 epoch (仅使用 20% 的图像、4% 的 Q/A 对)，然后再在 DocVQA 上训练 1 个 epoch，以确保模型的输出格式符合 DocVQA 评估的要求。结果很明显: 先对 Docmatix 进行微调可带来近 20% 的相对指标提升。此外，所得的 0.7B Florence-2 模型的性能仅比基于混合训练集训练的 8B Idefics2 模型差 5%，要知道从模型尺寸上来看 8B 可以比 0.7B 大得远不止 5%。
 
 <div align="center">
 
@@ -64,7 +66,6 @@ Docmatix 是基于 [PDFA - 一个包含 210 万个 PDF 的 OCR 数据集](https:
 <script
 	type="module"
 	src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"></script>
-
 <gradio-app theme_mode="light" src="https://HuggingFaceM4-Docmatix-Florence-2.hf.space"></gradio-app>
 
 ## 总结
@@ -79,7 +80,3 @@ Docmatix 是基于 [PDFA - 一个包含 210 万个 PDF 的 OCR 数据集](https:
 - [视觉语言模型详解](https://huggingface.co/blog/zh/vlms)
 
 我们要感谢 merve 和 leo 对本文的审阅并提供了缩略图。
-
-> 英文原文: <url> https://huggingface.co/blog/docmatix </url>
-> 原文作者：Andres Marafioti，Hugo Laurençon
-> 译者: Matrix Yao (姚伟峰)，英特尔深度学习工程师，工作方向为 transformer-family 模型在各模态数据上的应用及大规模模型的训练推理。
