@@ -1850,6 +1850,21 @@
     - open-source
     - guide
 
+- local: docmatix
+  title: Docmatix - 超大文档视觉问答数据集
+  thumbnail: /blog/assets/183_docmatix/thumbnail_new.png
+  author: andito
+  date: Jul 18, 2024
+  tags:
+    - community
+    - datasets
+    - synthetic-data
+    - open-source
+    - cv
+    - vlm
+    - announcement
+    - research
+
 - local: llama31
   title: "Llama 3.1：405B/70B/8B 模型的多语言与长上下文能力解析"
   author: philschmid
