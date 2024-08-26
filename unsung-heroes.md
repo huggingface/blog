@@ -133,7 +133,7 @@ to:
     * This is run by `app.py`
 
 Note that both of these should run in separate processes. I’ve come across
-many [use-cases](https://huggingface.co/spaces/Leaderboard-Organization/leaderboard-backend) that visualizing the logs
+many use-cases where visualizing the logs
 is actually really useful and important. It’s a great debugging tool and it's also much more aesthetically pleasing in
 scenarios where there isn’t a natural UI.
 
