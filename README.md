@@ -91,6 +91,9 @@ Just add:
 <gradio-app theme_mode="light" space="derek-thomas/hugging-face-blog-assistant"></gradio-app>
 ```
 
+Code: [leaderboard-bigcodebench.md](leaderboard-bigcodebench.md)
+[Blog Example](https://huggingface.co/blog/leaderboard-bigcodebench#how-well-do-llms-perform-on-bigcodebench-%F0%9F%93%8A)
+
 ## More Assistance
 
 You can use the [community blog editor](https://huggingface.co/new-blog) which has a preview function.
