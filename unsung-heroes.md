@@ -225,7 +225,7 @@ There is even a really cool <a href="https://huggingface.co/posts/abidlabs/21684
 
 |![Webhooks](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*D0JykQxrL0IpYCZ6LH0CiA.png)|
 |:--:|
-|Figure 4: Project Webhooks [^1]|
+|Figure 4: Project Webhooks|
 
 [Webhooks](https://huggingface.co/docs/hub/en/webhooks) are a foundation for MLOps-related features. They allow you to
 listen for new changes on specific repos or to all repos belonging to a particular set of users/organizations (not just
