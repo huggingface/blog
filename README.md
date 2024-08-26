@@ -80,7 +80,8 @@ A couple of alternatives:
 
 See an example [in this PR](https://github.com/huggingface/blog/pull/1180). This is to be used sparingly :)
 
-## Embed a 🤗 space
+## Embed a Space
+
 Just add:
 
 ```
