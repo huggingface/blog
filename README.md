@@ -82,6 +82,7 @@ See an example [in this PR](https://github.com/huggingface/blog/pull/1180). This
 
 ## Embed a 🤗 space
 Just add:
+
 ```
 <script
 	type="module"
