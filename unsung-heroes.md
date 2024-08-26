@@ -20,8 +20,8 @@ Spaces.
 The Hugging Face Hub allows broad usage since you have diverse hardware, and you can run almost anything you want
 in [Docker Spaces](https://huggingface.co/docs/hub/en/spaces-sdks-docker). I’ve noticed we have a number of features
 that are unsung (listed below). In the process of creating a semantic search application on the Hugging Face hub I took
-advantage of all of these features to implement various parts of the solution. While I think the final application (
-detailed in this org [reddit-tools-HF](https://huggingface.co/reddit-tools-HF)), is compelling, I'd like to use this example to show how you can apply them to
+advantage of all of these features to implement various parts of the solution. While I think the final application 
+(detailed in this org [reddit-tools-HF](https://huggingface.co/reddit-tools-HF)), is compelling, I'd like to use this example to show how you can apply them to
 your own projects.
 
 * [ZeroGPU](#zerogpu) - How can I use a free GPU?
@@ -73,8 +73,8 @@ You can see that I'm using [r/bestofredditorupdates](https://www.reddit.com/r/Be
 
 One of the challenges with modern models is they typically require GPUs or other heavy hardware to run. These can be
 bulky with year long commitments and very expensive. Spaces makes it easy to use the hardware you desire at a low cost, but
-it’s not automatically spun up and down (though you could programmatically do it!)
-could!). [ZeroGPU](https://huggingface.co/zero-gpu-explorers) is a new kind of hardware for Spaces. There is a quota for
+it’s not automatically spun up and down (though you could programmatically do it!).
+[ZeroGPU](https://huggingface.co/zero-gpu-explorers) is a new kind of hardware for Spaces. There is a quota for
 free users and a bigger one for [PRO users](https://huggingface.co/pricing\#pro).
 
 It has two goals :
@@ -133,7 +133,7 @@ to:
     * This is run by `app.py`
 
 Note that both of these should run in separate processes. I’ve come across
-many [use-cases](https://huggingface.co/spaces/Leaderboard-Organization/leaderboard-backend) that visualizing the logs
+many use-cases where visualizing the logs
 is actually really useful and important. It’s a great debugging tool and it's also much more aesthetically pleasing in
 scenarios where there isn’t a natural UI.
 
@@ -225,7 +225,7 @@ There is even a really cool <a href="https://huggingface.co/posts/abidlabs/21684
 
 |![Webhooks](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*D0JykQxrL0IpYCZ6LH0CiA.png)|
 |:--:|
-|Figure 4: Project Webhooks [^1]|
+|Figure 4: Project Webhooks|
 
 [Webhooks](https://huggingface.co/docs/hub/en/webhooks) are a foundation for MLOps-related features. They allow you to
 listen for new changes on specific repos or to all repos belonging to a particular set of users/organizations (not just
@@ -447,7 +447,7 @@ vary based on a few things (how well the embedder works on your data, compressio
 representation, etc) so take it with a grain of salt. We have the ability to search and view documents on the left.
 
 In the **red box** in *Figure 5* we can see 5 boxes that allow us to search in different ways. Each one is applied
-iteratively, which makes It a great way
+iteratively, which makes it a great way
 to “[chip away at the elephant](https://philipchircop.wordpress.com/2012/07/03/chip-it-away/)”. We could search by date
 or other field, and then use a text search for instance. The coolest feature is the one on the *far left*, it's a neural
 search that you can use in 3 ways:
