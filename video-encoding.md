@@ -40,7 +40,7 @@ Our datasets are on average 14% the size their original version (reaching up to 
 - In the advantageous case where we're decoding multiple successive frames, our loading time is 25%-50% that of loading those frames from compressed images.
 
 
-## But what is a codec? And what exactly is video encoding & decoding actually doing?
+## But what is a codec? And what is video encoding & decoding actually doing?
 
 <center>
     <iframe 
@@ -56,14 +56,14 @@ Our datasets are on average 14% the size their original version (reaching up to 
 
 At its core, video encoding reduces the size of videos by using mainly 2 ideas:
 
-- **Spatial Compression:** This is the same principle used in a compressed image like jpeg or png. Spatial compression uses the self-similarities of an image to reduce its size. For instance, a single frame of a video showing a blue sky will have large areas of similar color. Spatial compression takes advantage of this to compress these areas without losing much in quality.
+- **Spatial Compression:** This is the same principle used in a compressed image like JPEG or PNG. Spatial compression uses the self-similarities of an image to reduce its size. For instance, a single frame of a video showing a blue sky will have large areas of similar color. Spatial compression takes advantage of this to compress these areas without losing much in quality.
 
 - **Temporal Compression:** Rather than storing each frame *as is*, which takes up a lot of space, temporal compression calculates the differences between each frame and keeps only those differences (which are generally much smaller) in the encoded video stream. At decoding time, each frame is reconstructed by applying those differences back. Of course, this approach requires at least one frame of reference to start computing these differences with. In practice though, we use more than one placed at regular intervals. There are several reasons for this, which are detailed in [this article](https://aws.amazon.com/blogs/media/part-1-back-to-basics-gops-explained/). These "reference frames" are called keyframes or I-frames (for Intra-coded frames).
 
 Thanks to these 2 ideas, video encoding is able to reduce the size of videos down to something manageable. Knowing this, the encoding process roughly looks like this:
 1. Keyframes are determined based on user's specifications and scenes changes.
 2. Those keyframes are compressed spatially.
-3. The frames in-between are then compressed temporally as "differences" (also called P-frames or B-frames, more info on this in the article linked above).
+3. The frames in-between are then compressed temporally as "differences" (also called P-frames or B-frames, more on these in the article linked above).
 4. These differences themselvses are then compressed spatially.
 5. This compressed data from I-frames, P-frames and B-frames is encoded into a bitstream.
 6. That video bitstream is then packaged into a container format (MP4, MKV, AVI...) along with potentially other bitstreams (audio, subtitles) and metadata.
