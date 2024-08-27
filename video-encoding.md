@@ -4,6 +4,7 @@ thumbnail: /blog/assets/video-encoding/thumbnail.png
 authors:
 - user: aliberts
 - user: cadene
+- user: mfarre
 ---
 
 # Scaling robotics datasets with video encoding
@@ -31,7 +32,7 @@ Until now, the best way to store visual modality was png for individual frames. 
 
 ## Motivation & contribution
 
-These days, modern video codecs can achieve impressive compression ratios — meaning the size of the encoded video compared to the original uncompressed frames — while still preserving excellent quality. This means that with a ratio compression ratio of 1:20, or 5% for instance (which is easily achievable), you get from a 20GB dataset down to a single GB of data. Because of this, we decided to use video encoding to store the visual modalities of our datasets.
+These days, modern video codecs can achieve impressive compression ratios — meaning the size of the encoded video compared to the original uncompressed frames — while still preserving excellent quality. This means that with a compression ratio of 1:20, or 5% for instance (which is easily achievable), you get from a 20GB dataset down to a single GB of data. Because of this, we decided to use video encoding to store the visual modalities of our datasets.
 
 We propose a `LeRobotDataset` format that is simple, lightweight, easy to share (with native integration to the hub) and easy to visualize.
 Our datasets are on average 25% the size their original version (reaching up to 0.4% for some of them) while preserving full training capabilities on them by maintaining a very good level of quality. Additionally, we observed decoding times of video frames to follow this patern, depending on resolution:
@@ -62,7 +63,7 @@ At its core, video encoding reduces the size of videos by using mainly 2 ideas:
 Thanks to these 2 ideas, video encoding is able to reduce the size of videos down to something manageable. Knowing this, the encoding process roughly looks like this:
 1. Keyframes are determined based on user's specifications and scenes changes.
 2. Those keyframes are compressed spatially.
-3. The frames in-between are then compressed temporally as "differences" (P-frames or B-frames).
+3. The frames in-between are then compressed temporally as "differences" (also called P-frames or B-frames, more info on this in the article linked above).
 4. These differences themselvses are then compressed spatially.
 5. This compressed data from I-frames, P-frames and B-frames is encoded into a bitstream.
 6. That video bitstream is then packaged into a container format (MP4, MKV, AVI...) along with potentially other bitstreams (audio, subtitles) and metadata.
@@ -819,6 +820,7 @@ Video encoding/decoding is a vast and complex subject, and we're only scratching
 For the encoding, additional encoding parameters exist that are not included in this benchmark. In particular:
 - `-preset` which allows for selecting encoding presets. This represents a collection of options that will provide a certain encoding speed to compression ratio. By leaving this parameter unspecified, it is considered to be `medium` for libx264 and libx265 and `8` for libsvtav1.
 - `-tune` which allows to optimize the encoding for certain aspects (e.g. film quality, live, etc.). In particular, a `fast decode` option is available to optimise the encoded bit stream for faster decoding.
+- two-pass encoding would also be interesting to look at as it increases quality, although it is likely to increase encoding time significantly. Note that since we are primarily interested in decoding performance (as encoding is only done once before uploading a dataset), we did not measure encoding times nor have any metrics regarding encoding. Using a 1-pass encoding did not pose any issue and it didn't take a significant amount of time during this benchmark (with the condition of using `libsvtav1` instead of `libaom` for AV1 encoding).
 
 The more detailed and comprehensive list of these parameters and others is available on the codecs documentations:
 - h264: https://trac.ffmpeg.org/wiki/Encode/H.264
@@ -831,5 +833,4 @@ Similarly on the decoding side, other decoders exist but are not implemented in 
 - `decord`
 - `nvc`
 
-Also note that since we are primarily interested in decoding performance (as encoding is only done once before uploading a dataset), we did not measure encoding times nor have any metrics regarding encoding.
-However, besides the necessity to build ffmpeg from source, encoding did not pose any issue and it didn't take a significant amount of time during this benchmark.
+Finally, we did not look into video encoding with depth maps. Although we did port datasets that include depth maps images, we are not using that modality for now.
