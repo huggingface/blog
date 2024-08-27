@@ -35,7 +35,7 @@ Until now, the best way to store visual modality was png for individual frames. 
 These days, modern video codecs can achieve impressive compression ratios — meaning the size of the encoded video compared to the original uncompressed frames — while still preserving excellent quality. This means that with a compression ratio of 1:20, or 5% for instance (which is easily achievable), you get from a 20GB dataset down to a single GB of data. Because of this, we decided to use video encoding to store the visual modalities of our datasets.
 
 We propose a `LeRobotDataset` format that is simple, lightweight, easy to share (with native integration to the hub) and easy to visualize.
-Our datasets are on average 14% the size their original version (reaching up to 0.2% in the best case) while preserving full training capabilities on them by maintaining a very good level of quality. Additionally, we observed decoding times of video frames to follow this patern, depending on resolution:
+Our datasets are on average 14% the size their original version (reaching up to 0.2% in the best case) while preserving full training capabilities on them by maintaining a very good level of quality. Additionally, we observed decoding times of video frames to follow this pattern, depending on resolution:
 - In the nominal case where we're decoding a single frame, our loading time is comparable to that of loading the frame from a compressed image (png).
 - In the advantageous case where we're decoding multiple successive frames, our loading time is 25%-50% that of loading those frames from compressed images.
 
