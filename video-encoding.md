@@ -988,16 +988,26 @@ The full results of our study are available in [this spreadsheet](https://docs.g
 
 ### Policies
 
-<div style="text-align: center; margin-bottom: 20px;">
-    <h3>Training curves for Diffusion policy on pusht dataset</h3>
+We validated that this new format did not impact performance on trained policies by training some of them on our format. The performance of those policies were on par with those trained on the image versions.
+
+<details>
+  <summary><b>Figure 1: Training curves for Diffusion policy on pusht dataset</b></summary>
+  <div style="text-align: center; margin-bottom: 20px;">
     <a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/e16c03dc5cd17c3614310ba32267698b2398de45/blog/video-encoding/train-pusht.png" target="_blank">
-        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/e16c03dc5cd17c3614310ba32267698b2398de45/blog/video-encoding/train-pusht.png" alt="train-pusht" style="width: 75%;">
+        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/e16c03dc5cd17c3614310ba32267698b2398de45/blog/video-encoding/train-pusht.png" alt="train-pusht" style="width: 85%;">
     </a>
-    <h3>Training curves for ACT policy on aloha dataset</h3>
+  </div>
+</details>
+
+<details>
+  <summary><b>Figure 2: Training curves for ACT policy on an aloha dataset</b></summary>
+  <div style="text-align: center; margin-bottom: 20px;">
     <a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/e16c03dc5cd17c3614310ba32267698b2398de45/blog/video-encoding/train-aloha.png" target="_blank">
-        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/e16c03dc5cd17c3614310ba32267698b2398de45/blog/video-encoding/train-aloha.png" alt="train-aloha" style="width: 75%;">
+        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/e16c03dc5cd17c3614310ba32267698b2398de45/blog/video-encoding/train-aloha.png" alt="train-aloha" style="width: 85%;">
     </a>
-</div>
+  </div>
+</details>
+<br>
 
 Policies have also been trained and evaluated on AV1-encoded datasets and compared against our previous reference (h264):
 
