@@ -4599,3 +4599,13 @@
     - nomic
     - atlas
     - guide
+
+- local: video-encoding
+  title: "Scaling robotics datasets with video encoding"
+  author: aliberts
+  thumbnail: /blog/assets/video-encoding/thumbnail.png
+  date: August 27, 2024
+  tags:
+    - video
+    - datasets
+    - robotics
