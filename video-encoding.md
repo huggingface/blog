@@ -35,7 +35,7 @@ Until now, the best way to store visual modality was png for individual frames. 
 These days, modern video codecs can achieve impressive compression ratios — meaning the size of the encoded video compared to the original uncompressed frames — while still preserving excellent quality. This means that with a compression ratio of 1:20, or 5% for instance (which is easily achievable), you get from a 20GB dataset down to a single GB of data. Because of this, we decided to use video encoding to store the visual modalities of our datasets.
 
 We propose a `LeRobotDataset` format that is simple, lightweight, easy to share (with native integration to the hub) and easy to visualize.
-Our datasets are on average 25% the size their original version (reaching up to 0.4% for some of them) while preserving full training capabilities on them by maintaining a very good level of quality. Additionally, we observed decoding times of video frames to follow this patern, depending on resolution:
+Our datasets are on average 14% the size their original version (reaching up to 0.2% in the best case) while preserving full training capabilities on them by maintaining a very good level of quality. Additionally, we observed decoding times of video frames to follow this patern, depending on resolution:
 - In the nominal case where we're decoding a single frame, our loading time is comparable to that of loading the frame from a compressed image (png).
 - In the advantageous case where we're decoding multiple successive frames, our loading time is 25%-50% that of loading those frames from compressed images.
 
@@ -173,8 +173,6 @@ However, due to how video decoding is implemented with `pyav`, we don't have acc
 
 ## Results
 
-### Sizes
-
 After running this study, we switched to a different encoding from v1.6 on.
 
 | codebase version | v1.5           | v1.6        |
@@ -184,309 +182,513 @@ After running this study, we switched to a different encoding from v1.6 on.
 | g                | `2`            | `2`         |
 | crf              | `None` (=`23`) | `30`        |
 
+We managed to gain more quality thanks to AV1 encoding while using the more compatible `yuv420p` pixel format.
 
-Considering this, we can compare the repo size (so the total size of the dataset, including non-video modalities) from the raw format vs. our format using video encoding. We managed to gain more quality thanks to AV1 encoding while using the more compatible `yuv420p` pixel format.
-Thankfully, the size remains similar with an average total compression ratio of about 25%.
+### Sizes
 
-<!-- | repo_id                                    | raw size | v1.5 size | v1.6 size | ratio (v1.6/raw) |
-| ------------------------------------------ | -------- | --------- | --------- | ---------------- |
-| `lerobot/pusht`                            | 29.6MB   | 12.9MB    | 7.5MB     | 25.3%            |
-| `lerobot/unitreeh1_two_robot_greeting`     | 181.2MB  | N/A       | 79.0MB    | 43.6%            |
-| `lerobot/unitreeh1_rearrange_objects`      | 283.3MB  | N/A       | 138.4MB   | 48.8%            |
-| `lerobot/aloha_static_pingpong_test`       | 480.9MB  | 151.2MB   | 168.5MB   | 35.0%            |
-| `lerobot/unitreeh1_warehouse`              | 666.7MB  | N/A       | 236.9MB   | 35.5%            |
-| `lerobot/xarm_push_medium`                 | 808.5MB  | 13.6MB    | 15.9MB    | 2.0%             |
-| `lerobot/xarm_push_medium_replay`          | 808.5MB  | 13.6MB    | 17.8MB    | 2.2%             |
-| `lerobot/xarm_lift_medium`                 | 808.6MB  | 13.1MB    | 17.3MB    | 2.1%             |
-| `lerobot/xarm_lift_medium_replay`          | 808.6MB  | 13.6MB    | 18.4MB    | 2.3%             |
-| `lerobot/aloha_static_ziploc_slide`        | 1.3GB    | 418.5MB   | 498.4MB   | 37.2%            |
-| `lerobot/aloha_static_screw_driver`        | 1.5GB    | 461.3MB   | 507.8MB   | 33.1%            |
-| `lerobot/aloha_static_thread_velcro`       | 1.5GB    | 1023.0MB  | 1.1GB     | 73.2%            |
-| `lerobot/aloha_static_cups_open`           | 1.6GB    | 459.9MB   | 486.3MB   | 30.4%            |
-| `lerobot/aloha_static_towel`               | 1.6GB    | 534.1MB   | 565.3MB   | 34.0%            |
-| `lerobot/unitreeh1_fold_clothes`           | 2.0GB    | N/A       | 922.0MB   | 44.5%            |
-| `lerobot/aloha_static_battery`             | 2.3GB    | 712.6MB   | 770.5MB   | 33.0%            |
-| `lerobot/aloha_static_tape`                | 2.5GB    | 769.8MB   | 829.6MB   | 32.5%            |
-| `lerobot/aloha_static_candy`               | 2.6GB    | 799.2MB   | 833.4MB   | 31.5%            |
-| `lerobot/aloha_static_vinh_cup`            | 3.1GB    | 979.6MB   | 1.0GB     | 32.3%            |
-| `lerobot/aloha_static_vinh_cup_left`       | 3.5GB    | 1.1GB     | 1.1GB     | 32.1%            |
-| `lerobot/aloha_mobile_elevator`            | 3.7GB    | 600.6MB   | 558.5MB   | 14.8%            |
-| `lerobot/aloha_mobile_shrimp`              | 3.9GB    | 1.1GB     | 1.3GB     | 34.6%            |
-| `lerobot/aloha_mobile_wash_pan`            | 4.0GB    | 939.8MB   | 1.1GB     | 26.5%            |
-| `lerobot/aloha_mobile_wipe_wine`           | 4.3GB    | 1.1GB     | 1.2GB     | 28.0%            |
-| `lerobot/aloha_static_fork_pick_up`        | 4.6GB    | 1.3GB     | 1.4GB     | 31.6%            |
-| `lerobot/aloha_static_coffee`              | 4.7GB    | 1.4GB     | 1.5GB     | 31.3%            |
-| `lerobot/aloha_static_coffee_new`          | 6.1GB    | 1.8GB     | 1.9GB     | 31.5%            |
-| `lerobot/aloha_mobile_cabinet`             | 7.0GB    | 1.5GB     | 1.6GB     | 23.2%            |
-| `lerobot/aloha_mobile_chair`               | 7.4GB    | 1.9GB     | 2.0GB     | 27.2%            |
-| `lerobot/umi_cup_in_the_wild`              | 16.8GB   | 2.7GB     | 2.9GB     | 17.6%            |
-| `lerobot/aloha_sim_transfer_cube_human`    | 17.9GB   | 49.9MB    | 66.7MB    | 0.4%             |
-| `lerobot/aloha_sim_insertion_scripted`     | 17.9GB   | 50.0MB    | 67.6MB    | 0.4%             |
-| `lerobot/aloha_sim_transfer_cube_scripted` | 17.9GB   | 50.3MB    | 68.5MB    | 0.4%             |
-| `lerobot/aloha_static_pro_pencil`          | 21.1GB   | 397.9MB   | 504.0MB   | 2.3%             |
-| `lerobot/aloha_sim_insertion_human`        | 21.5GB   | 64.0MB    | 87.3MB    | 0.4%             | -->
-<!-- TODO(aliberts): Add open X repos here once they're pushed -->
+We achieved an average compression ratio of about 14% across the total dataset sizes. Most of our datasets are reduced to under 40% of their original size, with some being less than 1%. These variations can be attributed to the diverse formats from which these datasets originate. Datasets with the highest size reductions often contain uncompressed images, allowing the encoder’s temporal and spatial compression to drastically reduce their sizes. On the other hand, datasets where images were already stored using a form of spatial compression (such as JPEG or PNG) have experienced less reduction in size. Other factors, such as image resolution, also affect the effectiveness of video compression.
 
 <details>
-    <summary><b> Table 1: Dataset sizes comparison </b></summary>
-    <table>
-        <thead>
-            <tr>
-                <th>repo_id</th>
-                <th>raw size</th>
-                <th>v1.5 size</th>
-                <th>v1.6 size</th>
-                <th>ratio (v1.6/raw)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><code>lerobot/pusht</code></td>
-                <td>29.6MB</td>
-                <td>12.9MB</td>
-                <td>7.5MB</td>
-                <td>25.3%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/unitreeh1_two_robot_greeting</code></td>
-                <td>181.2MB</td>
-                <td>N/A</td>
-                <td>79.0MB</td>
-                <td>43.6%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/unitreeh1_rearrange_objects</code></td>
-                <td>283.3MB</td>
-                <td>N/A</td>
-                <td>138.4MB</td>
-                <td>48.8%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_pingpong_test</code></td>
-                <td>480.9MB</td>
-                <td>151.2MB</td>
-                <td>168.5MB</td>
-                <td>35.0%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/unitreeh1_warehouse</code></td>
-                <td>666.7MB</td>
-                <td>N/A</td>
-                <td>236.9MB</td>
-                <td>35.5%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/xarm_push_medium</code></td>
-                <td>808.5MB</td>
-                <td>13.6MB</td>
-                <td>15.9MB</td>
-                <td>2.0%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/xarm_push_medium_replay</code></td>
-                <td>808.5MB</td>
-                <td>13.6MB</td>
-                <td>17.8MB</td>
-                <td>2.2%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/xarm_lift_medium</code></td>
-                <td>808.6MB</td>
-                <td>13.1MB</td>
-                <td>17.3MB</td>
-                <td>2.1%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/xarm_lift_medium_replay</code></td>
-                <td>808.6MB</td>
-                <td>13.6MB</td>
-                <td>18.4MB</td>
-                <td>2.3%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_ziploc_slide</code></td>
-                <td>1.3GB</td>
-                <td>418.5MB</td>
-                <td>498.4MB</td>
-                <td>37.2%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_screw_driver</code></td>
-                <td>1.5GB</td>
-                <td>461.3MB</td>
-                <td>507.8MB</td>
-                <td>33.1%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_thread_velcro</code></td>
-                <td>1.5GB</td>
-                <td>1023.0MB</td>
-                <td>1.1GB</td>
-                <td>73.2%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_cups_open</code></td>
-                <td>1.6GB</td>
-                <td>459.9MB</td>
-                <td>486.3MB</td>
-                <td>30.4%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_towel</code></td>
-                <td>1.6GB</td>
-                <td>534.1MB</td>
-                <td>565.3MB</td>
-                <td>34.0%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/unitreeh1_fold_clothes</code></td>
-                <td>2.0GB</td>
-                <td>N/A</td>
-                <td>922.0MB</td>
-                <td>44.5%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_battery</code></td>
-                <td>2.3GB</td>
-                <td>712.6MB</td>
-                <td>770.5MB</td>
-                <td>33.0%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_tape</code></td>
-                <td>2.5GB</td>
-                <td>769.8MB</td>
-                <td>829.6MB</td>
-                <td>32.5%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_candy</code></td>
-                <td>2.6GB</td>
-                <td>799.2MB</td>
-                <td>833.4MB</td>
-                <td>31.5%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_vinh_cup</code></td>
-                <td>3.1GB</td>
-                <td>979.6MB</td>
-                <td>1.0GB</td>
-                <td>32.3%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_vinh_cup_left</code></td>
-                <td>3.5GB</td>
-                <td>1.1GB</td>
-                <td>1.1GB</td>
-                <td>32.1%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_mobile_elevator</code></td>
-                <td>3.7GB</td>
-                <td>600.6MB</td>
-                <td>558.5MB</td>
-                <td>14.8%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_mobile_shrimp</code></td>
-                <td>3.9GB</td>
-                <td>1.1GB</td>
-                <td>1.3GB</td>
-                <td>34.6%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_mobile_wash_pan</code></td>
-                <td>4.0GB</td>
-                <td>939.8MB</td>
-                <td>1.1GB</td>
-                <td>26.5%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_mobile_wipe_wine</code></td>
-                <td>4.3GB</td>
-                <td>1.1GB</td>
-                <td>1.2GB</td>
-                <td>28.0%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_fork_pick_up</code></td>
-                <td>4.6GB</td>
-                <td>1.3GB</td>
-                <td>1.4GB</td>
-                <td>31.6%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_coffee</code></td>
-                <td>4.7GB</td>
-                <td>1.4GB</td>
-                <td>1.5GB</td>
-                <td>31.3%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_coffee_new</code></td>
-                <td>6.1GB</td>
-                <td>1.8GB</td>
-                <td>1.9GB</td>
-                <td>31.5%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_mobile_cabinet</code></td>
-                <td>7.0GB</td>
-                <td>1.5GB</td>
-                <td>1.6GB</td>
-                <td>23.2%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_mobile_chair</code></td>
-                <td>7.4GB</td>
-                <td>1.9GB</td>
-                <td>2.0GB</td>
-                <td>27.2%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/umi_cup_in_the_wild</code></td>
-                <td>16.8GB</td>
-                <td>2.7GB</td>
-                <td>2.9GB</td>
-                <td>17.6%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_sim_transfer_cube_human</code></td>
-                <td>17.9GB</td>
-                <td>49.9MB</td>
-                <td>66.7MB</td>
-                <td>0.4%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_sim_insertion_scripted</code></td>
-                <td>17.9GB</td>
-                <td>50.0MB</td>
-                <td>67.6MB</td>
-                <td>0.4%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_sim_transfer_cube_scripted</code></td>
-                <td>17.9GB</td>
-                <td>50.3MB</td>
-                <td>68.5MB</td>
-                <td>0.4%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_static_pro_pencil</code></td>
-                <td>21.1GB</td>
-                <td>397.9MB</td>
-                <td>504.0MB</td>
-                <td>2.3%</td>
-            </tr>
-            <tr>
-                <td><code>lerobot/aloha_sim_insertion_human</code></td>
-                <td>21.5GB</td>
-                <td>64.0MB</td>
-                <td>87.3MB</td>
-                <td>0.4%</td>
-            </tr>
-        </tbody>
-    </table>
+  <summary><b> Table 1: Dataset sizes comparison </b></summary>
+  <table>
+    <thead>
+        <tr>
+            <th>repo_id</th>
+            <th>raw</th>
+            <th>ours (v1.6)</th>
+            <th>ratio (ours/raw)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>lerobot/nyu_rot_dataset</td>
+            <td>5.3MB</td>
+            <td>318.2KB</td>
+            <td>5.8%</td>
+        </tr>
+        <tr>
+            <td>lerobot/pusht</td>
+            <td>29.6MB</td>
+            <td>7.5MB</td>
+            <td>25.3%</td>
+        </tr>
+        <tr>
+            <td>lerobot/utokyo_saytap</td>
+            <td>55.4MB</td>
+            <td>6.5MB</td>
+            <td>11.8%</td>
+        </tr>
+        <tr>
+            <td>lerobot/imperialcollege_sawyer_wrist_cam</td>
+            <td>81.9MB</td>
+            <td>3.8MB</td>
+            <td>4.6%</td>
+        </tr>
+        <tr>
+            <td>lerobot/utokyo_xarm_bimanual</td>
+            <td>138.5MB</td>
+            <td>8.1MB</td>
+            <td>5.9%</td>
+        </tr>
+        <tr>
+            <td>lerobot/unitreeh1_two_robot_greeting</td>
+            <td>181.2MB</td>
+            <td>79.0MB</td>
+            <td>43.6%</td>
+        </tr>
+        <tr>
+            <td>lerobot/usc_cloth_sim</td>
+            <td>254.5MB</td>
+            <td>23.7MB</td>
+            <td>9.3%</td>
+        </tr>
+        <tr>
+            <td>lerobot/unitreeh1_rearrange_objects</td>
+            <td>283.3MB</td>
+            <td>138.4MB</td>
+            <td>48.8%</td>
+        </tr>
+        <tr>
+            <td>lerobot/tokyo_u_lsmo</td>
+            <td>335.7MB</td>
+            <td>22.8MB</td>
+            <td>6.8%</td>
+        </tr>
+        <tr>
+            <td>lerobot/utokyo_pr2_opening_fridge</td>
+            <td>360.6MB</td>
+            <td>29.2MB</td>
+            <td>8.1%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_pingpong_test</td>
+            <td>480.9MB</td>
+            <td>168.5MB</td>
+            <td>35.0%</td>
+        </tr>
+        <tr>
+            <td>lerobot/cmu_franka_exploration_dataset</td>
+            <td>602.3MB</td>
+            <td>18.2MB</td>
+            <td>3.0%</td>
+        </tr>
+        <tr>
+            <td>lerobot/unitreeh1_warehouse</td>
+            <td>666.7MB</td>
+            <td>236.9MB</td>
+            <td>35.5%</td>
+        </tr>
+        <tr>
+            <td>lerobot/cmu_stretch</td>
+            <td>728.1MB</td>
+            <td>38.7MB</td>
+            <td>5.3%</td>
+        </tr>
+        <tr>
+            <td>lerobot/asu_table_top</td>
+            <td>737.6MB</td>
+            <td>39.1MB</td>
+            <td>5.3%</td>
+        </tr>
+        <tr>
+            <td>lerobot/xarm_push_medium</td>
+            <td>808.5MB</td>
+            <td>15.9MB</td>
+            <td>2.0%</td>
+        </tr>
+        <tr>
+            <td>lerobot/xarm_push_medium_replay</td>
+            <td>808.5MB</td>
+            <td>17.8MB</td>
+            <td>2.2%</td>
+        </tr>
+        <tr>
+            <td>lerobot/xarm_lift_medium_replay</td>
+            <td>808.6MB</td>
+            <td>18.4MB</td>
+            <td>2.3%</td>
+        </tr>
+        <tr>
+            <td>lerobot/xarm_lift_medium</td>
+            <td>808.6MB</td>
+            <td>17.3MB</td>
+            <td>2.1%</td>
+        </tr>
+        <tr>
+            <td>lerobot/utokyo_pr2_tabletop_manipulation</td>
+            <td>829.4MB</td>
+            <td>40.6MB</td>
+            <td>4.9%</td>
+        </tr>
+        <tr>
+            <td>lerobot/utokyo_xarm_pick_and_place</td>
+            <td>1.3GB</td>
+            <td>54.6MB</td>
+            <td>4.1%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_ziploc_slide</td>
+            <td>1.3GB</td>
+            <td>498.4MB</td>
+            <td>37.2%</td>
+        </tr>
+        <tr>
+            <td>lerobot/ucsd_kitchen_dataset</td>
+            <td>1.3GB</td>
+            <td>46.5MB</td>
+            <td>3.4%</td>
+        </tr>
+        <tr>
+            <td>lerobot/berkeley_gnm_cory_hall</td>
+            <td>1.4GB</td>
+            <td>85.6MB</td>
+            <td>6.0%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_thread_velcro</td>
+            <td>1.5GB</td>
+            <td>1.1GB</td>
+            <td>73.2%</td>
+        </tr>
+        <tr>
+            <td>lerobot/austin_buds_dataset</td>
+            <td>1.5GB</td>
+            <td>87.8MB</td>
+            <td>5.7%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_screw_driver</td>
+            <td>1.5GB</td>
+            <td>507.8MB</td>
+            <td>33.1%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_cups_open</td>
+            <td>1.6GB</td>
+            <td>486.3MB</td>
+            <td>30.4%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_towel</td>
+            <td>1.6GB</td>
+            <td>565.3MB</td>
+            <td>34.0%</td>
+        </tr>
+        <tr>
+            <td>lerobot/dlr_sara_grid_clamp</td>
+            <td>1.7GB</td>
+            <td>93.6MB</td>
+            <td>5.5%</td>
+        </tr>
+        <tr>
+            <td>lerobot/unitreeh1_fold_clothes</td>
+            <td>2.0GB</td>
+            <td>922.0MB</td>
+            <td>44.5%</td>
+        </tr>
+        <tr>
+            <td>lerobot/droid_100<sup>*</sup></td>
+            <td>2.0GB</td>
+            <td>443.0MB</td>
+            <td>21.2%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_battery</td>
+            <td>2.3GB</td>
+            <td>770.5MB</td>
+            <td>33.0%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_tape</td>
+            <td>2.5GB</td>
+            <td>829.6MB</td>
+            <td>32.5%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_candy</td>
+            <td>2.6GB</td>
+            <td>833.4MB</td>
+            <td>31.5%</td>
+        </tr>
+        <tr>
+            <td>lerobot/conq_hose_manipulation</td>
+            <td>2.7GB</td>
+            <td>634.9MB</td>
+            <td>23.4%</td>
+        </tr>
+        <tr>
+            <td>lerobot/columbia_cairlab_pusht_real</td>
+            <td>2.8GB</td>
+            <td>84.8MB</td>
+            <td>3.0%</td>
+        </tr>
+        <tr>
+            <td>lerobot/dlr_sara_pour</td>
+            <td>2.9GB</td>
+            <td>153.1MB</td>
+            <td>5.1%</td>
+        </tr>
+        <tr>
+            <td>lerobot/dlr_edan_shared_control</td>
+            <td>3.1GB</td>
+            <td>138.4MB</td>
+            <td>4.4%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_vinh_cup</td>
+            <td>3.1GB</td>
+            <td>1.0GB</td>
+            <td>32.3%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_vinh_cup_left</td>
+            <td>3.5GB</td>
+            <td>1.1GB</td>
+            <td>32.1%</td>
+        </tr>
+        <tr>
+            <td>lerobot/ucsd_pick_and_place_dataset</td>
+            <td>3.5GB</td>
+            <td>125.8MB</td>
+            <td>3.5%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_mobile_elevator</td>
+            <td>3.7GB</td>
+            <td>558.5MB</td>
+            <td>14.8%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_mobile_shrimp</td>
+            <td>3.9GB</td>
+            <td>1.3GB</td>
+            <td>34.6%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_mobile_wash_pan</td>
+            <td>4.0GB</td>
+            <td>1.1GB</td>
+            <td>26.5%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_mobile_wipe_wine</td>
+            <td>4.3GB</td>
+            <td>1.2GB</td>
+            <td>28.0%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_fork_pick_up</td>
+            <td>4.6GB</td>
+            <td>1.4GB</td>
+            <td>31.6%</td>
+        </tr>
+        <tr>
+            <td>lerobot/berkeley_cable_routing</td>
+            <td>4.7GB</td>
+            <td>309.3MB</td>
+            <td>6.5%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_coffee</td>
+            <td>4.7GB</td>
+            <td>1.5GB</td>
+            <td>31.3%</td>
+        </tr>
+        <tr>
+            <td>lerobot/nyu_franka_play_dataset<sup>*</sup></td>
+            <td>5.2GB</td>
+            <td>192.1MB</td>
+            <td>3.6%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_coffee_new</td>
+            <td>6.1GB</td>
+            <td>1.9GB</td>
+            <td>31.5%</td>
+        </tr>
+        <tr>
+            <td>lerobot/austin_sirius_dataset</td>
+            <td>6.5GB</td>
+            <td>428.7MB</td>
+            <td>6.4%</td>
+        </tr>
+        <tr>
+            <td>lerobot/cmu_play_fusion</td>
+            <td>6.7GB</td>
+            <td>470.2MB</td>
+            <td>6.9%</td>
+        </tr>
+        <tr>
+            <td>lerobot/berkeley_gnm_sac_son<sup>*</sup></td>
+            <td>7.0GB</td>
+            <td>501.4MB</td>
+            <td>7.0%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_mobile_cabinet</td>
+            <td>7.0GB</td>
+            <td>1.6GB</td>
+            <td>23.2%</td>
+        </tr>
+        <tr>
+            <td>lerobot/nyu_door_opening_surprising_effectiveness</td>
+            <td>7.1GB</td>
+            <td>378.4MB</td>
+            <td>5.2%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_mobile_chair</td>
+            <td>7.4GB</td>
+            <td>2.0GB</td>
+            <td>27.2%</td>
+        </tr>
+        <tr>
+            <td>lerobot/berkeley_fanuc_manipulation</td>
+            <td>8.9GB</td>
+            <td>312.8MB</td>
+            <td>3.5%</td>
+        </tr>
+        <tr>
+            <td>lerobot/jaco_play</td>
+            <td>9.2GB</td>
+            <td>411.1MB</td>
+            <td>4.3%</td>
+        </tr>
+        <tr>
+            <td>lerobot/viola</td>
+            <td>10.4GB</td>
+            <td>873.6MB</td>
+            <td>8.2%</td>
+        </tr>
+        <tr>
+            <td>lerobot/kaist_nonprehensile</td>
+            <td>11.7GB</td>
+            <td>203.1MB</td>
+            <td>1.7%</td>
+        </tr>
+        <tr>
+            <td>lerobot/berkeley_mvp</td>
+            <td>12.3GB</td>
+            <td>127.0MB</td>
+            <td>1.0%</td>
+        </tr>
+        <tr>
+            <td>lerobot/uiuc_d3field<sup>*</sup></td>
+            <td>15.8GB</td>
+            <td>1.4GB</td>
+            <td>9.1%</td>
+        </tr>
+        <tr>
+            <td>lerobot/umi_cup_in_the_wild</td>
+            <td>16.8GB</td>
+            <td>2.9GB</td>
+            <td>17.6%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_sim_transfer_cube_human</td>
+            <td>17.9GB</td>
+            <td>66.7MB</td>
+            <td>0.4%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_sim_insertion_scripted</td>
+            <td>17.9GB</td>
+            <td>67.6MB</td>
+            <td>0.4%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_sim_transfer_cube_scripted</td>
+            <td>17.9GB</td>
+            <td>68.5MB</td>
+            <td>0.4%</td>
+        </tr>
+        <tr>
+            <td>lerobot/berkeley_gnm_recon<sup>*</sup></td>
+            <td>18.7GB</td>
+            <td>29.3MB</td>
+            <td>0.2%</td>
+        </tr>
+        <tr>
+            <td>lerobot/austin_sailor_dataset</td>
+            <td>18.8GB</td>
+            <td>1.1GB</td>
+            <td>6.0%</td>
+        </tr>
+        <tr>
+            <td>lerobot/utaustin_mutex</td>
+            <td>20.8GB</td>
+            <td>1.4GB</td>
+            <td>6.6%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_static_pro_pencil</td>
+            <td>21.1GB</td>
+            <td>504.0MB</td>
+            <td>2.3%</td>
+        </tr>
+        <tr>
+            <td>lerobot/aloha_sim_insertion_human</td>
+            <td>21.5GB</td>
+            <td>87.3MB</td>
+            <td>0.4%</td>
+        </tr>
+        <tr>
+            <td>lerobot/stanford_kuka_multimodal_dataset</td>
+            <td>32.0GB</td>
+            <td>269.9MB</td>
+            <td>0.8%</td>
+        </tr>
+        <tr>
+            <td>lerobot/berkeley_rpt</td>
+            <td>40.6GB</td>
+            <td>1.1GB</td>
+            <td>2.7%</td>
+        </tr>
+        <tr>
+            <td>lerobot/roboturk<sup>*</sup></td>
+            <td>45.4GB</td>
+            <td>1.9GB</td>
+            <td>4.1%</td>
+        </tr>
+        <tr>
+            <td>lerobot/iamlab_cmu_pickup_insert</td>
+            <td>50.3GB</td>
+            <td>1.8GB</td>
+            <td>3.6%</td>
+        </tr>
+        <tr>
+            <td>lerobot/stanford_hydra_dataset</td>
+            <td>72.5GB</td>
+            <td>2.9GB</td>
+            <td>4.0%</td>
+        </tr>
+        <tr>
+            <td>lerobot/berkeley_autolab_ur5<sup>*</sup></td>
+            <td>76.4GB</td>
+            <td>14.4GB</td>
+            <td>18.9%</td>
+        </tr>
+        <tr>
+            <td>lerobot/stanford_robocook<sup>*</sup></td>
+            <td>124.6GB</td>
+            <td>3.8GB</td>
+            <td>3.1%</td>
+        </tr>
+        <tr>
+            <td>lerobot/toto</td>
+            <td>127.7GB</td>
+            <td>5.3GB</td>
+            <td>4.1%</td>
+        </tr>
+        <tr>
+            <td>lerobot/fmb<sup>*</sup></td>
+            <td>356.5GB</td>
+            <td>4.2GB</td>
+            <td>1.2%</td>
+        </tr>
+    </tbody>
+  </table>
+  <p style="font-size: 0.9em;"><sup>*</sup>These datasets contain depth maps which were not included in our format.</p>
 </details>
 
 ### Loading times
@@ -797,9 +999,6 @@ The full results of our study are available in [this spreadsheet](https://docs.g
     </a>
 </div>
 
-
-
-
 Policies have also been trained and evaluated on AV1-encoded datasets and compared against our previous reference (h264):
 
 - Diffusion on pusht:
@@ -828,6 +1027,7 @@ The more detailed and comprehensive list of these parameters and others is avail
 - AV1: https://trac.ffmpeg.org/wiki/Encode/AV1
 
 Similarly on the decoding side, other decoders exist but are not implemented in our current benchmark. To name a few:
+- `torchcodec`
 - `torchaudio`
 - `ffmpegio`
 - `decord`
