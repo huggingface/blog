@@ -27,18 +27,40 @@ In their general form — at least the one we are interested in within an end-to
     </iframe>
 </center>
 
-Until now, the best way to store visual modality was png for individual frames. This is very redundant as there's a lot of repetition among the frames. People did not use videos because the loading times could be order of magnitude above. These datasets are usually released in various formats from academic papers (hdf5, zarr, pickle...).
+Until now, the best way to store visual modality was PNG for individual frames. This is very redundant as there's a lot of repetition among the frames. Practioners did not use videos because the loading times could be order of magnitude above. These datasets are usually released in various formats from academic papers (hdf5, zarr, pickle, tar, zip...). These days, modern video codecs can achieve impressive compression ratios — meaning the size of the encoded video compared to the original uncompressed frames — while still preserving excellent quality. This means that with a compression ratio of 1:20, or 5% for instance (which is easily achievable), you get from a 20GB dataset down to a single GB of data. Because of this, we decided to use video encoding to store the visual modalities of our datasets.
 
-
-## Motivation & contribution
-
-These days, modern video codecs can achieve impressive compression ratios — meaning the size of the encoded video compared to the original uncompressed frames — while still preserving excellent quality. This means that with a compression ratio of 1:20, or 5% for instance (which is easily achievable), you get from a 20GB dataset down to a single GB of data. Because of this, we decided to use video encoding to store the visual modalities of our datasets.
+## Contribution
 
 We propose a `LeRobotDataset` format that is simple, lightweight, easy to share (with native integration to the hub) and easy to visualize.
 Our datasets are on average 14% the size their original version (reaching up to 0.2% in the best case) while preserving full training capabilities on them by maintaining a very good level of quality. Additionally, we observed decoding times of video frames to follow this pattern, depending on resolution:
 - In the nominal case where we're decoding a single frame, our loading time is comparable to that of loading the frame from a compressed image (png).
 - In the advantageous case where we're decoding multiple successive frames, our loading time is 25%-50% that of loading those frames from compressed images.
 
+On top of this, we're building tools to easily understand and browse these datasets.
+You can explore a few examples yourself in the following Spaces using our visualization tool (click the images):
+
+<div style="display: flex; align-items: center; justify-content: space-around;">
+    <div style="position: relative; text-align: center;">
+        <p style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                  background-color: rgba(0, 0, 0, 0.6); color: white; padding: 5px 10px; 
+                  border-radius: 5px; font-weight: bold; font-size: 1.5em;">
+            aliberts/koch_tutorial
+        </p>
+        <a href="https://cadene-visualize-dataset-train.hf.space" target="_blank">
+            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/visualize_lego.png" alt="visualize_lego" style="width: 60%;">
+        </a>
+    </div>
+    <div style="position: relative; text-align: center;">
+        <p style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                  background-color: rgba(0, 0, 0, 0.6); color: white; padding: 5px 10px; 
+                  border-radius: 5px; font-weight: bold; font-size: 1.5em;">
+            cadene/koch_bimanual_folding
+        </p>
+        <a href="https://cadene-visualize-dataset-koch-bimanual-folding.hf.space" target="_blank">
+            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/visualize_fold.png" alt="visualize_fold" style="width: 60%;">
+        </a>
+    </div>
+</div>
 
 ## But what is a codec? And what is video encoding & decoding actually doing?
 
@@ -134,12 +156,57 @@ Pixel format specifies both the [color space](https://en.wikipedia.org/wiki/Colo
 The constant rate factor represent the amount of lossy compression applied. A value of 0 means that no information is lost while a high value (around 50-60 depending on the codec used) is very lossy.
 Using this parameter rather than specifying a target bitrate is [preferable](https://www.dr-lex.be/info-stuff/videotips.html#bitrate) since it allows to aim for a constant visual quality level with a potentially variable bitrate rather than the opposite.
 
-<!-- #TODO: Merge PR https://huggingface.co/datasets/huggingface/documentation-images/discussions/349 and link images there  -->
-| crf | libx264 | libx265 | libsvtav1 |
-|-----|---------|---------|-----------|
-| `10` | ![libx264_yuv420p_2_10.png](https://github.com/huggingface/lerobot/assets/75076266/f7e263f5-9c58-4987-8adb-e7ecc7909b80) | ![libx265_yuv420p_2_10.png](https://github.com/huggingface/lerobot/assets/75076266/98f94cbb-24b9-48aa-a4c4-dd1a3b149534) | ![libsvtav1_yuv420p_2_10.png](https://github.com/huggingface/lerobot/assets/75076266/bcd2db64-12a8-4024-b3d0-3fec2441adf7) |
-| `30` | ![libx264_yuv420p_2_30.png](https://github.com/huggingface/lerobot/assets/75076266/f2bf0600-5e2e-45f3-830c-3b3913be0ca0) | ![libx265_yuv420p_2_30.png](https://github.com/huggingface/lerobot/assets/75076266/9a12dc40-49a6-4210-a061-6f2c7165ab44) | ![libsvtav1_yuv420p_2_30.png](https://github.com/huggingface/lerobot/assets/75076266/1fd3b0a1-3831-4be4-8ec5-ab5666984371) |
-| `50` | ![libx264_yuv420p_2_50.png](https://github.com/huggingface/lerobot/assets/75076266/019fbe0e-b543-46b8-800e-61b597bf955a) | ![libx265_yuv420p_2_50.png](https://github.com/huggingface/lerobot/assets/75076266/fc5d8602-403c-4625-88dd-9a177e122cbb) | ![libsvtav1_yuv420p_2_50.png](https://github.com/huggingface/lerobot/assets/75076266/c395a505-004c-4a15-a4e2-fe735479a69d) |
+<center>
+<table>
+    <thead>
+        <tr>
+            <th>crf</th>
+            <th>libx264</th>
+            <th>libx265</th>
+            <th>libsvtav1</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>10</code></td>
+            <td><a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libx264_yuv420p_2_10.png" target="_blank">
+                <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libx264_yuv420p_2_10.png" alt="libx264_yuv420p_2_10" style="width: 100%;">
+            </a></td>
+            <td><a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libx265_yuv420p_2_10.png" target="_blank">
+                <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libx265_yuv420p_2_10.png" alt="libx265_yuv420p_2_10" style="width: 100%;">
+            </a></td>
+            <td><a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libsvtav1_yuv420p_2_10.png" target="_blank">
+                <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libsvtav1_yuv420p_2_10.png" alt="libsvtav1_yuv420p_2_10" style="width: 100%;">
+            </a></td>
+        </tr>
+        <tr>
+            <td><code>30</code></td>
+            <td><a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libx264_yuv420p_2_30.png" target="_blank">
+                <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libx264_yuv420p_2_30.png" alt="libx264_yuv420p_2_30" style="width: 100%;">
+            </a></td>
+            <td><a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libx265_yuv420p_2_30.png" target="_blank">
+                <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libx265_yuv420p_2_30.png" alt="libx265_yuv420p_2_30" style="width: 100%;">
+            </a></td>
+            <td><a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libsvtav1_yuv420p_2_30.png" target="_blank">
+                <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libsvtav1_yuv420p_2_30.png" alt="libsvtav1_yuv420p_2_30" style="width: 100%;">
+            </a></td>
+        </tr>
+        <tr>
+            <td><code>50</code></td>
+            <td><a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libx264_yuv420p_2_50.png" target="_blank">
+                <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libx264_yuv420p_2_50.png" alt="libx264_yuv420p_2_50" style="width: 100%;">
+            </a></td>
+            <td><a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libx265_yuv420p_2_50.png" target="_blank">
+                <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libx265_yuv420p_2_50.png" alt="libx265_yuv420p_2_50" style="width: 100%;">
+            </a></td>
+            <td><a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libsvtav1_yuv420p_2_50.png" target="_blank">
+                <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/libsvtav1_yuv420p_2_50.png" alt="libsvtav1_yuv420p_2_50" style="width: 100%;">
+            </a></td>
+        </tr>
+    </tbody>
+</table>
+</center>
+
 
 This table summarizes the different values we tried for our study:
 | parameter   | values                                                       |
@@ -693,10 +760,26 @@ We achieved an average compression ratio of about 14% across the total dataset s
 
 ### Loading times
 Thanks to video encoding, our loading times scale much better with the resolution. This is especially true in advantageous scenarios where we decode multiple successive frames.
-<!-- TODO: changes urls when https://huggingface.co/datasets/huggingface/documentation-images/discussions/349 is merged -->
-| 1 frame | 2 frames | 6 frames |
-| ------- | -------- | -------- |
-| ![Load_times_1_frame.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/e16c03dc5cd17c3614310ba32267698b2398de45/blog/video-encoding/Load_times_1_frame.png) | ![Load_times_2_frames.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/e16c03dc5cd17c3614310ba32267698b2398de45/blog/video-encoding/Load_times_2_frames.png) | ![Load_times_6_frames.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/e16c03dc5cd17c3614310ba32267698b2398de45/blog/video-encoding/Load_times_6_frames.png) |
+
+<center>
+<table>
+    <thead>
+        <tr>
+            <th>1 frame</th>
+            <th>2 frames</th>
+            <th>6 frames</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/Load_times_1_frame.png" alt="Load_times_1_frame" style="width: 100%;"></td>
+            <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/Load_times_2_frames.png" alt="Load_times_2_frames" style="width: 100%;"></td>
+            <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/Load_times_6_frames.png" alt="Load_times_6_frames" style="width: 100%;"></td>
+        </tr>
+    </tbody>
+</table>
+</center>
+
 
 ### Summary
 The full results of our study are available in [this spreadsheet](https://docs.google.com/spreadsheets/d/1OYJB43Qu8fC26k_OyoMFgGBBKfQRCi4BIuYitQnq3sw/edit?usp=sharing). The tables below show the averaged results for `g=2` and `crf=30`, using `backend=pyav` and in all timestamps-modes (`1_frame`, `2_frames`, `6_frames`).
@@ -993,8 +1076,8 @@ We validated that this new format did not impact performance on trained policies
 <details>
   <summary><b>Figure 1: Training curves for Diffusion policy on pusht dataset</b></summary>
   <div style="text-align: center; margin-bottom: 20px;">
-    <a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/e16c03dc5cd17c3614310ba32267698b2398de45/blog/video-encoding/train-pusht.png" target="_blank">
-        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/e16c03dc5cd17c3614310ba32267698b2398de45/blog/video-encoding/train-pusht.png" alt="train-pusht" style="width: 85%;">
+    <a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/train-pusht.png" target="_blank">
+        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/train-pusht.png" alt="train-pusht" style="width: 85%;">
     </a>
   </div>
 </details>
@@ -1002,8 +1085,8 @@ We validated that this new format did not impact performance on trained policies
 <details>
   <summary><b>Figure 2: Training curves for ACT policy on an aloha dataset</b></summary>
   <div style="text-align: center; margin-bottom: 20px;">
-    <a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/e16c03dc5cd17c3614310ba32267698b2398de45/blog/video-encoding/train-aloha.png" target="_blank">
-        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/e16c03dc5cd17c3614310ba32267698b2398de45/blog/video-encoding/train-aloha.png" alt="train-aloha" style="width: 85%;">
+    <a href="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/train-aloha.png" target="_blank">
+        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/train-aloha.png" alt="train-aloha" style="width: 85%;">
     </a>
   </div>
 </details>
