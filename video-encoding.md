@@ -69,7 +69,7 @@ Thanks to these 2 ideas, video encoding is able to reduce the size of videos dow
 6. That video bitstream is then packaged into a container format (MP4, MKV, AVI...) along with potentially other bitstreams (audio, subtitles) and metadata.
 7. At this point, additional processing may be applied to reduce any visual distortions caused by compression and to ensure the overall video quality meets desired standards.
 
-Obviously, this is a high-level summary of what's happening and there are a lot of moving parts and configuration choices to make in this process. Logically, we wanted to evaluate the best way of doing it given our needs and constraints, so we built a benchmark to assess this according to a number of criteria.
+Obviously, this is a high-level summary of what's happening and there are a lot of moving parts and configuration choices to make in this process. Logically, we wanted to evaluate the best way of doing it given our needs and constraints, so we built a [benchmark](https://github.com/huggingface/lerobot/tree/main/benchmarks/video) to assess this according to a number of criteria.
 
 ## Criteria
 
