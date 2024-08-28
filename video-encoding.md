@@ -27,7 +27,7 @@ In their general form — at least the one we are interested in within an end-to
     </iframe>
 </center>
 
-Until now, the best way to store visual modality was PNG for individual frames. This is very redundant as there's a lot of repetition among the frames. Practioners did not use videos because the loading times could be order of magnitude above. These datasets are usually released in various formats from academic papers (hdf5, zarr, pickle, tar, zip...). These days, modern video codecs can achieve impressive compression ratios — meaning the size of the encoded video compared to the original uncompressed frames — while still preserving excellent quality. This means that with a compression ratio of 1:20, or 5% for instance (which is easily achievable), you get from a 20GB dataset down to a single GB of data. Because of this, we decided to use video encoding to store the visual modalities of our datasets.
+Until now, the best way to store visual modality was PNG for individual frames. This is very redundant as there's a lot of repetition among the frames. Practitioners did not use videos because the loading times could be orders of magnitude above. These datasets are usually released in various formats from academic papers (hdf5, zarr, pickle, tar, zip...). These days, modern video codecs can achieve impressive compression ratios — meaning the size of the encoded video compared to the original uncompressed frames — while still preserving excellent quality. This means that with a compression ratio of 1:20, or 5% for instance (which is easily achievable), you get from a 20GB dataset down to a single GB of data. Because of this, we decided to use video encoding to store the visual modalities of our datasets.
 
 ## Contribution
 
@@ -43,21 +43,21 @@ You can explore a few examples yourself in the following Spaces using our visual
     <div style="position: relative; text-align: center;">
         <p style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
                   background-color: rgba(0, 0, 0, 0.6); color: white; padding: 5px 10px; 
-                  border-radius: 5px; font-weight: bold; font-size: 1.5em;">
+                  border-radius: 5px; font-weight: bold; font-size: 1.1em;">
             aliberts/koch_tutorial
         </p>
         <a href="https://cadene-visualize-dataset-train.hf.space" target="_blank">
-            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/visualize_lego.png" alt="visualize_lego" style="width: 60%;">
+            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/visualize_lego.png" alt="visualize_lego" style="width: 95%;">
         </a>
     </div>
     <div style="position: relative; text-align: center;">
         <p style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
                   background-color: rgba(0, 0, 0, 0.6); color: white; padding: 5px 10px; 
-                  border-radius: 5px; font-weight: bold; font-size: 1.5em;">
+                  border-radius: 5px; font-weight: bold; font-size: 1.1em;">
             cadene/koch_bimanual_folding
         </p>
         <a href="https://cadene-visualize-dataset-koch-bimanual-folding.hf.space" target="_blank">
-            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/visualize_fold.png" alt="visualize_fold" style="width: 60%;">
+            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-encoding/visualize_fold.png" alt="visualize_fold" style="width: 95%;">
         </a>
     </div>
 </div>
@@ -86,7 +86,7 @@ Thanks to these 2 ideas, video encoding is able to reduce the size of videos dow
 1. Keyframes are determined based on user's specifications and scenes changes.
 2. Those keyframes are compressed spatially.
 3. The frames in-between are then compressed temporally as "differences" (also called P-frames or B-frames, more on these in the article linked above).
-4. These differences themselvses are then compressed spatially.
+4. These differences themselves are then compressed spatially.
 5. This compressed data from I-frames, P-frames and B-frames is encoded into a bitstream.
 6. That video bitstream is then packaged into a container format (MP4, MKV, AVI...) along with potentially other bitstreams (audio, subtitles) and metadata.
 7. At this point, additional processing may be applied to reduce any visual distortions caused by compression and to ensure the overall video quality meets desired standards.
@@ -95,7 +95,7 @@ Obviously, this is a high-level summary of what's happening and there are a lot 
 
 ## Criteria
 
-While size was the initial reason we decided to go with video encoding, we soon realized that there were other aspects to consider as well. Of course, decoding time is an important one for machine learning applications as we want to maximize to amount of time spent training rather than loading data. Quality needs to remains above a certain level as well so as to not degrade our policies performance. Lastly, one less obvious but equally important aspect is the compatibility of our encoded videos in order to be easily decoded and played on the majority of media player, web browser, devices etc. Having the ability to easily and quickly visualize the content of any of our datasets was a must-have feature for us.
+While size was the initial reason we decided to go with video encoding, we soon realized that there were other aspects to consider as well. Of course, decoding time is an important one for machine learning applications as we want to maximize the amount of time spent training rather than loading data. Quality needs to remains above a certain level as well so as to not degrade our policies' performances. Lastly, one less obvious but equally important aspect is the compatibility of our encoded videos in order to be easily decoded and played on the majority of media player, web browser, devices etc. Having the ability to easily and quickly visualize the content of any of our datasets was a must-have feature for us.
 
 To summarize, these are the criteria we wanted to optimize:
 - **Size:** Impacts storage disk space and download times.
@@ -232,7 +232,7 @@ This of course is affected by the `-g` parameter during encoding, which specifie
 
 Note that this differs significantly from a typical use case like watching a movie, in which every frame is loaded sequentially from the beginning to the end and it's acceptable to have big values for `-g`.
 
-Additionally, because some policies might request single timestamps that are a few frames appart, we also have the following scenario:
+Additionally, because some policies might request single timestamps that are a few frames apart, we also have the following scenario:
 - `2_frames_4_space`: 2 frames with 4 consecutive frames of spacing in between (e.g `[t, t + 5 / fps]`),
 
 However, due to how video decoding is implemented with `pyav`, we don't have access to an accurate seek so in practice this scenario is essentially the same as `6_frames` since all 6 frames between `t` and `t + 5 / fps` will be decoded.
@@ -1071,7 +1071,7 @@ The full results of our study are available in [this spreadsheet](https://docs.g
 
 ### Policies
 
-We validated that this new format did not impact performance on trained policies by training some of them on our format. The performance of those policies were on par with those trained on the image versions.
+We validated that this new format did not impact performance on trained policies by training some of them on our format. The performances of those policies were on par with those trained on the image versions.
 
 <details>
   <summary><b>Figure 1: Training curves for Diffusion policy on pusht dataset</b></summary>
