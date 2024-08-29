@@ -54,7 +54,7 @@ translators:
   \\( A_{\text {mem }}=\frac{\sigma(Q) M_{s-1}}{\sigma(Q) z_{s-1}} \\)
 
   + \\( A_{\text {mem }} \in \mathbb{R}^{N \times d_{\text {value }}} \\) : 从内存中检索的内容，表示长期上下文。
-  + \\( Q \in \mathbb{R}^{N \times d_{\text {key }}}  \\) : 查询矩阵，其中 \\( N \\) 是查询的数量，\\( d_{\text {key }} \\) 是每个查询的维度。
+  + \\( Q \in \mathbb{R}^{N \times d_{\text {key }}}  \\) : 查询矩阵，其中 \\( N \\) 是查询的数量， \\( d_{\text {key }} \\) 是每个查询的维度。
   + \\( M_{s-1} \in \mathbb{R}^{d_{\text {key }} \times d_{\text {value }}}  \\) : 来自前一个片段的内存矩阵，存储键值对。
   + \\( \sigma \\): 非线性激活函数，具体为逐元素指数线性单元 (ELU) 加 1。
   + \\( z_{s-1} \in \mathbb{R}^{d_{\text {key }}} \\) : 归一化项。
