@@ -104,7 +104,7 @@ def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
     + \\( M_s \in \mathbb{R}^{d_{\text {key }} \times d_{\text {value }}} \\) : 当前片段的更新后内存矩阵，包含了新信息。
     + \\( K \in \mathbb{R}^{N \times d_{\text {key }}} \\): 当前片段的键矩阵，表示要存储的新键。
     + \\( V \in \mathbb{R}^{N \times d_{\text {value }}} \\) : 当前片段的值矩阵，表示与键相关联的新值。
-    + \\( K_t \\) : 键矩阵中的第 $ t $ 个键向量。
+    + \\( K_t \\) : 键矩阵中的第 \\( t \\) 个键向量。
     + \\( z_s \\) : 当前片段更新后的归一化项。
 
 ```python
