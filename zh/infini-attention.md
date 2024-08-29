@@ -51,13 +51,13 @@ translators:
 - 步骤 2: 在每个片段内计算标准的因果点积注意力。
 - 步骤 3: 使用当前片段的查询向量从压缩内存中提取相关信息。检索过程的数学定义如下:
 
-   $ A_{\text {mem }}=\frac{\sigma(Q) M_{s-1}}{\sigma(Q) z_{s-1}} $
+  \\( A_{\text {mem }}=\frac{\sigma(Q) M_{s-1}}{\sigma(Q) z_{s-1}} \\)
 
-  - $ A_{\text {mem }} \in \mathbb{R}^{N \times d_{\text {value }}} $ : 从内存中检索的内容，表示长期上下文。
-  - $ Q \in \mathbb{R}^{N \times d_{\text {key }}} $ : 查询矩阵，其中 $ N $ 是查询的数量，$ d_{\text {key }} $ 是每个查询的维度。
-  - $ M_{s-1} \in \mathbb{R}^{d_{\text {key }} \times d_{\text {value }}} $ : 来自前一个片段的内存矩阵，存储键值对。
-  - $ \sigma $: 非线性激活函数，具体为逐元素指数线性单元 (ELU) 加 1。
-  - $ z_{s-1} \in \mathbb{R}^{d_{\text {key }}} $ : 归一化项。
+  + \\( A_{\text {mem }} \in \mathbb{R}^{N \times d_{\text {value }}} \\) : 从内存中检索的内容，表示长期上下文。
+  + \\( Q \in \mathbb{R}^{N \times d_{\text {key }}}  \\) : 查询矩阵，其中 \\( N \\) 是查询的数量，\\( d_{\text {key }} \\) 是每个查询的维度。
+  + \\( M_{s-1} \in \mathbb{R}^{d_{\text {key }} \times d_{\text {value }}}  \\) : 来自前一个片段的内存矩阵，存储键值对。
+  + \\( \sigma \\): 非线性激活函数，具体为逐元素指数线性单元 (ELU) 加 1。
+  + \\( z_{s-1} \in \mathbb{R}^{d_{\text {key }}} \\) : 归一化项。
 
 ```python
 import torch.nn.functional as F
@@ -90,22 +90,22 @@ def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
 
 - 步骤 4: 将局部上下文 (来自当前片段) 与长期上下文 (从压缩内存中检索) 结合，生成最终输出。这样，注意力输出可以同时考虑短期和长期上下文。
 
-      $ A=\text{sigmoid}(\beta) \odot A_{\text {mem }}+(1-\text{sigmoid}(\beta)) \odot A_{\text {dot }} $
+    \\( A=\text{sigmoid}(\beta) \odot A_{\text {mem }}+(1-\text{sigmoid}(\beta)) \odot A_{\text {dot }} \\)
 
-    - $ A \in \mathbb{R}^{N \times d_{\text {value }}} $ : 组合后的注意力输出。
-    - $ \text{sigmoid}(\beta) $ : 一个可学习的标量参数，用于控制长期内存内容 $ A_{\text {mem }} $ 和局部上下文之间的权衡。
-    - $ A_{\text {dot }} \in \mathbb{R}^{N \times d_{\text {value }}} $ : 使用点积注意力从当前片段得到的注意力输出。
+    + \\( A \in \mathbb{R}^{N \times d_{\text {value }}} \\) : 组合后的注意力输出。
+    + \\( \text{sigmoid}(\beta) \\) : 一个可学习的标量参数，用于控制长期内存内容 \\( A_{\text {mem }} \\) 和局部上下文之间的权衡。
+    + \\( A_{\text {dot }} \in \mathbb{R}^{N \times d_{\text {value }}} \\) : 使用点积注意力从当前片段得到的注意力输出。
 - 步骤 5: 通过添加当前片段的键值状态来更新压缩内存，这使我们能够随时间累积上下文。
 
-   $ M_s \leftarrow M_{s-1}+\sigma(K)^T V $
+    \\( M_s \leftarrow M_{s-1}+\sigma(K)^T V \\)
 
-   $ z_s \leftarrow z_{s-1}+\sum_{t=1}^N \sigma\left(K_t\right) $
+    \\( z_s \leftarrow z_{s-1}+\sum_{t=1}^N \sigma\left(K_t\right) \\)
 
-  - $ M_s \in \mathbb{R}^{d_{\text {key }} \times d_{\text {value }}} $ : 当前片段的更新后内存矩阵，包含了新信息。
-  - $ K \in \mathbb{R}^{N \times d_{\text {key }}} $ : 当前片段的键矩阵，表示要存储的新键。
-  - $ V \in \mathbb{R}^{N \times d_{\text {value }}} $ : 当前片段的值矩阵，表示与键相关联的新值。
-  - $ K_t $ : 键矩阵中的第 $ t $ 个键向量。
-  - $ z_s $ : 当前片段更新后的归一化项。
+    + \\( M_s \in \mathbb{R}^{d_{\text {key }} \times d_{\text {value }}} \\) : 当前片段的更新后内存矩阵，包含了新信息。
+    + \\( K \in \mathbb{R}^{N \times d_{\text {key }}} \\): 当前片段的键矩阵，表示要存储的新键。
+    + \\( V \in \mathbb{R}^{N \times d_{\text {value }}} \\) : 当前片段的值矩阵，表示与键相关联的新值。
+    + \\( K_t \\) : 键矩阵中的第 $ t $ 个键向量。
+    + \\( z_s \\) : 当前片段更新后的归一化项。
 
 ```python
 import torch
