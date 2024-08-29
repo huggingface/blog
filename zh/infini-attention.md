@@ -54,7 +54,7 @@ translators:
   \\( A_{\text {mem }}=\frac{\sigma(Q) M_{s-1}}{\sigma(Q) z_{s-1}} \\)
 
   + \\( A_{\text {mem }} \in \mathbb{R}^{N \times d_{\text {value }}} \\) : 从内存中检索的内容，表示长期上下文。
-  + \\( Q \in \mathbb{R}^{N \times d_{\text {key }}}  \\) : 查询矩阵，其中 \\( N \\) 是查询的数量，\\( d_{\text {key }} \\) 是每个查询的维度。
+  + \\( Q \in \mathbb{R}^{N \times d_{\text {key }}}  \\) : 查询矩阵，其中 \\( N \\) 是查询的数量， \\( d_{\text {key }} \\) 是每个查询的维度。
   + \\( M_{s-1} \in \mathbb{R}^{d_{\text {key }} \times d_{\text {value }}}  \\) : 来自前一个片段的内存矩阵，存储键值对。
   + \\( \sigma \\): 非线性激活函数，具体为逐元素指数线性单元 (ELU) 加 1。
   + \\( z_{s-1} \in \mathbb{R}^{d_{\text {key }}} \\) : 归一化项。
@@ -104,7 +104,7 @@ def _retrieve_from_memory(query_states, prev_memory, prev_normalization):
     + \\( M_s \in \mathbb{R}^{d_{\text {key }} \times d_{\text {value }}} \\) : 当前片段的更新后内存矩阵，包含了新信息。
     + \\( K \in \mathbb{R}^{N \times d_{\text {key }}} \\): 当前片段的键矩阵，表示要存储的新键。
     + \\( V \in \mathbb{R}^{N \times d_{\text {value }}} \\) : 当前片段的值矩阵，表示与键相关联的新值。
-    + \\( K_t \\) : 键矩阵中的第 $ t $ 个键向量。
+    + \\( K_t \\) : 键矩阵中的第 \\( t \\) 个键向量。
     + \\( z_s \\) : 当前片段更新后的归一化项。
 
 ```python
