@@ -1876,6 +1876,20 @@
     - research
     - LLM
 
+- local: zero-shot-vqa-docmatix
+  title: LAVE：使用 LLM 对 Docmatix 进行零样本 VQA 评估 - 我们还需要微调吗？
+  author: danaaubakirova
+  thumbnail: /blog/assets/184_zero_shot_docmatix/thumb.001.jpeg
+  date: Jul 25, 2024
+  tags:
+    - community
+    - evaluation
+    - synthetic-data
+    - vqa
+    - vlm
+    - zero-shot
+    - research
+
 - local: quanto-diffusers
   title: 基于 Quanto 和 Diffusers 的内存高效 transformer 扩散模型
   author: sayakpaul
