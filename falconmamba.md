@@ -1,6 +1,6 @@
 ---
 title: "Welcome Falcon Mamba: The first strong attention-free 7B model" 
-thumbnail: /blog/assets/Falcon Mamba/thumbnail.png
+thumbnail: /blog/assets/falconmamba/thumbnail.png
 authors:
 - user: JingweiZuo
   guest: true
