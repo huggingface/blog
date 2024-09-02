@@ -1922,6 +1922,19 @@
     - enterprise
     - hub
 
+- local: falconmamba
+  title: "Falcon Mamba: 首个高效的无注意力机制 7B 模型"
+  guest: true
+  author: JingweiZuo
+  thumbnail: /blog/assets/falconmamba/thumbnail.png
+  date: August 12, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - Mamba
+
 - local: introduction-to-ggml
   title: ggml 简介
   author: ngxson
@@ -1943,7 +1956,7 @@
     - memory-compression
 
 - local: packing-with-FA2
-  title: 通过打包 Flash Attention 来提升 hugging Face  训练效率
+  title: 通过打包 Flash Attention 来提升 Hugging Face 训练效率
   author: lwtr
   thumbnail: /blog/assets/packing-with-FA2/thumbnail.png
   date: August 21, 2024
