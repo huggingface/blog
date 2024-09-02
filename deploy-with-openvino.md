@@ -48,7 +48,7 @@ The following Python packages were used to reproduce the results that are claime
 - transformers==4.44
 - openvino==24.3
 - openvino-tokenizers==24.3
-- optimum-intel==1.20
+- optimum-intel==1.18.3
 - lm-eval==0.4.3
 
 For GenAI C++ libraries installation follow the instruction [here](https://docs.openvino.ai/2024/get-started/install-openvino/install-openvino-genai.html).
@@ -87,7 +87,7 @@ For `meta-llama/Meta-Llama-3.1-8B` model we recommend stacking AWQ, quantization
 from optimum.intel import OVModelForCausalLM, OVWeightQuantizationConfig
 
 MODEL_ID = "meta-llama/Meta-Llama-3.1-8B"
-quantization_config = OVWeightQuantizationConfig(awq=True, scale_estimation=True, group_size=64, dataset="c4")
+quantization_config = OVWeightQuantizationConfig(bits=4, awq=True, scale_estimation=True, group_size=64, dataset="c4")
 model = OVModelForCausalLM.from_pretrained(MODEL_ID, export=True, quantization_config=quantization_config)
 model.save_pretrained("./llam-3.1-8b-ov")
 ```
