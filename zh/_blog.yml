@@ -1923,7 +1923,7 @@
     - hub
 
 - local: introduction-to-ggml
-  title: "ggml 简介"
+  title: ggml 简介
   author: ngxson
   thumbnail: /blog/assets/introduction-to-ggml/cover.jpg
   date: August 13, 2024
@@ -1941,3 +1941,13 @@
     - long-context
     - infini-attention
     - memory-compression
+
+- local: packing-with-FA2
+  title: 通过打包 Flash Attention 来提升 hugging Face  训练效率
+  author: lwtr
+  thumbnail: /blog/assets/packing-with-FA2/thumbnail.png
+  date: August 21, 2024
+  tags:
+    - padding
+    - packing
+    - Flash Attention 2
