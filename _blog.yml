@@ -4609,3 +4609,13 @@
     - video
     - datasets
     - robotics
+
+- local: trufflesecurity-partnership
+  title: "Hugging Face partners with TruffleHog to Scan for Secrets"
+  author: mcpotato
+  thumbnail: /blog/assets/trufflesecurity-partnership/thumbnail.png
+  date: September 4, 2024
+  tags:
+    - hub
+    - partnerships
+    - security
