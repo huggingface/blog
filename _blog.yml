@@ -4610,7 +4610,7 @@
     - datasets
     - robotics
 
-- local: hf-x-trufflesecurity
+- local: trufflesecurity-partnership
   title: "Hugging Face partners with TruffleHog to Scan for Secrets"
   author: mcpotato
   thumbnail: /blog/assets/trufflesecurity-partnership/thumbnail.png
