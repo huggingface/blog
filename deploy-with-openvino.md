@@ -128,7 +128,7 @@ config.max_new_tokens = 100
 print(pipe.generate(args.prompt, config))
 ```
 
-To run this example you need minimum dependencies to be installed into the Python enviroment as OpenVINO GenAI is designed to provide a lightweight deployment. You can install OpenVINO GenAI package to the same Python environemt or create a separate one to compare the application footprint:
+To run this example you need minimum dependencies to be installed into the Python enviroment as OpenVINO GenAI is designed to provide a lightweight deployment. You can install OpenVINO GenAI package to the same Python environment or create a separate one to compare the application footprint:
 ```sh
 pip install openvino-genai==24.3
 ```
