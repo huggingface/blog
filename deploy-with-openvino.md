@@ -19,7 +19,6 @@ authors:
 - user: helenai
   guest: true
   org: Intel
-- user: sayakpaul
 - user: echarlaix
 ---
 
