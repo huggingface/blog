@@ -8,7 +8,7 @@ authors:
 
 # Serverless Inference with Hugging Face and NVIDIA NIM
 
-Today, we are thrilled to announce the launch of **Hugging Face** **Inference-as-a-Service powered by NVIDIA NIM**, a new service on the Hugging Face Hub, available to Enterprise Hub organizations. This new service makes it easy to use open models with the accelerated compute platform, of [NVIDIA DGX Cloud](https://www.nvidia.com/en-us/data-center/dgx-cloud) accelerated compute platform for inference serving. We built this solution so that Enterprise Hub users can easily access the latest NVIDIA AI technology in a serverless way to run inference on popular Generative AI models including Llama and Mistral, using standardized APIs and a few lines of code within the[ Hugging Face Hub](https://huggingface.co/models).
+Today, we are thrilled to announce the launch of **Hugging Face** **NVIDIA NIM API (serverless)**, a new service on the Hugging Face Hub, available to Enterprise Hub organizations. This new service makes it easy to use open models with the accelerated compute platform, of [NVIDIA DGX Cloud](https://www.nvidia.com/en-us/data-center/dgx-cloud) accelerated compute platform for inference serving. We built this solution so that Enterprise Hub users can easily access the latest NVIDIA AI technology in a serverless way to run inference on popular Generative AI models including Llama and Mistral, using standardized APIs and a few lines of code within the[ Hugging Face Hub](https://huggingface.co/models).
 
 
 <div align="center"> 
@@ -18,9 +18,9 @@ Today, we are thrilled to announce the launch of **Hugging Face** **Inference-as
 
 ## Serverless Inference powered by NVIDIA NIM
 
-This new experience builds on our[ collaboration with NVIDIA](https://nvidianews.nvidia.com/news/nvidia-and-hugging-face-to-connect-millions-of-developers-to-generative-ai-supercomputing) to simplify the access and use of open Generative AI models on NVIDIA accelerated computing. One of the main challenges developers and organizations face is the upfront cost of infrastructure and the complexity of optimizing inference workloads for LLM. With Hugging Face Inference-as-a-Service powered by NVIDIA NIM, we offer an easy solution to these challenges, providing instant access to state-of-the-art open Generative AI models optimized for NVIDIA infrastructure with a simple API for running inference. The pay-as-you-go pricing model ensures that you only pay for the request time you use, making it an economical choice for businesses of all sizes.
+This new experience builds on our[ collaboration with NVIDIA](https://nvidianews.nvidia.com/news/nvidia-and-hugging-face-to-connect-millions-of-developers-to-generative-ai-supercomputing) to simplify the access and use of open Generative AI models on NVIDIA accelerated computing. One of the main challenges developers and organizations face is the upfront cost of infrastructure and the complexity of optimizing inference workloads for LLM. With Hugging Face NVIDIA NIM API (serverless), we offer an easy solution to these challenges, providing instant access to state-of-the-art open Generative AI models optimized for NVIDIA infrastructure with a simple API for running inference. The pay-as-you-go pricing model ensures that you only pay for the request time you use, making it an economical choice for businesses of all sizes.
 
-Inference-as-a-Service complements [Train on DGX Cloud](https://huggingface.co/blog/train-dgx-cloud), an AI training service already available on Hugging Face. 
+NVIDIA NIM API (serverless) complements [Train on DGX Cloud](https://huggingface.co/blog/train-dgx-cloud), an AI training service already available on Hugging Face. 
 
 
 ## How it works
@@ -57,9 +57,9 @@ Now, make sure to save this token value to authenticate your requests later.
 
 ### **Find your NIM**
 
-You can find “NVIDIA NIM Endpoints” on the model page of supported Generative AI models. You can find all supported models in this [NVIDIA NIM Collection](https://huggingface.co/collections/nvidia/nim-66a3c6fcdcb5bbc6e975b508), and in the Pricing section. 
+You can find “NVIDIA NIM API (serverless)” on the model page of supported Generative AI models. You can find all supported models in this [NVIDIA NIM Collection](https://huggingface.co/collections/nvidia/nim-66a3c6fcdcb5bbc6e975b508), and in the Pricing section. 
 
-We will use the `meta-llama/Meta-Llama-3-8B-Instruct`. Go the [meta-llama/Meta-Llama-3-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) model card open “Deploy” menu, and select “NVIDIA NIM Endpoints” - this will open an interface with pre-generated code snippets for Python, Javascript or Curl. 
+We will use the `meta-llama/Meta-Llama-3-8B-Instruct`. Go the [meta-llama/Meta-Llama-3-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) model card open “Deploy” menu, and select “NVIDIA NIM API (serverless)” - this will open an interface with pre-generated code snippets for Python, Javascript or Curl. 
 
 
 
@@ -70,7 +70,7 @@ We will use the `meta-llama/Meta-Llama-3-8B-Instruct`. Go the [meta-llama/Meta-L
 
 ### **Send your requests**
 
-Inference-as-a-Service and NVIDIA NIM are standardized on the OpenAI API. This allows you to use the `openai’` sdk for inference. Replace the `YOUR_FINE_GRAINED_TOKEN_HERE` with your fine-grained token and you are ready to run inference. 
+NVIDIA NIM API (serverless) is standardized on the OpenAI API. This allows you to use the `openai’` sdk for inference. Replace the `YOUR_FINE_GRAINED_TOKEN_HERE` with your fine-grained token and you are ready to run inference. 
 
 ```python
 from openai import OpenAI
@@ -97,7 +97,7 @@ for message in chat_completion:
 
 Congrats! 🎉 You can now start building your Generative AI applications using open models. 🔥
 
-Inference-as-a-Service currently only supports the `chat.completions.create` and `models.list` API. We are working on extending this while adding more models. The `models.list` can be used to check which models are currently available for Inference. 
+NVIDIA NIM API (serverless) currently only supports the `chat.completions.create` and `models.list` API. We are working on extending this while adding more models. The `models.list` can be used to check which models are currently available for Inference. 
 
 ```python
 models = client.models.list()
@@ -108,7 +108,7 @@ for m in models.data:
 
 ## Supported Models and Pricing 
 
-Usage of Hugging Face Inference-as-a Service on DGX Cloud is billed based on the compute time spent per request. We exclusively use NVIDIA H100 Tensor Core GPUs, which are priced at $8.25 per hour. To make this easier to understand for per-request pricing, we can convert this to a per-second.
+Usage of Hugging Face NVIDIA NIM API (serverless) is billed based on the compute time spent per request. We exclusively use NVIDIA H100 Tensor Core GPUs, which are priced at $8.25 per hour. To make this easier to understand for per-request pricing, we can convert this to a per-second.
 
 $8.25 per hour = $0.0023 per second (rounded to 4 decimal places)
 
@@ -146,12 +146,22 @@ The total cost for a request will depend on the model size, the number of GPUs r
    <td>$0.0184
    </td>
   </tr>
+  <tr>
+   <td>meta-llama/Meta-Llama-3.1-405B-Instruct-FP8
+   </td>
+   <td>8
+   </td>
+   <td>5 seconds
+   </td>
+   <td>$0.0917
+   </td>
+  </tr>
 </table>
 
 
 Usage fees accrue to your Enterprise Hub Organizations’ current monthly billing cycle. You can check your current and past usage at any time within the billing settings of your Enterprise Hub Organization.
 
-**Supported Models **
+**Supported Models**
 
 
 <table>
@@ -201,6 +211,12 @@ Usage fees accrue to your Enterprise Hub Organizations’ current monthly billin
    <td><a href="https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct">meta-llama/Meta-Llama-3-70B-Instruct</a>
    </td>
    <td>4
+   </td>
+  </tr>
+  <tr>
+   <td><a href="https://huggingface.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8">meta-llama/Meta-Llama-3.1-405B-Instruct-FP8</a>
+   </td>
+   <td>8
    </td>
   </tr>
 </table>

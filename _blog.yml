@@ -4519,6 +4519,107 @@
     - enterprise
     - hub
 
+- local: unified-tool-use
+  title: "Tool Use, Unified"
+  author: rocketknight1
+  thumbnail: /blog/assets/unified-tool-use/thumbnail.png
+  date: August 12, 2024
+  tags:
+    - LLM
+    - nlp
+    - community
+
+- local: falconmamba
+  title: "Welcome FalconMamba: The first strong attention-free 7B model "
+  guest: true
+  author: JingweiZuo
+  thumbnail: /blog/assets/falconmamba/thumbnail.png
+  date: August 12, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+    - Mamba
+
+- local: introduction-to-ggml
+  title: "Introduction to ggml"
+  author: ngxson
+  thumbnail: /blog/assets/introduction-to-ggml/cover.jpg
+  date: August 13, 2024
+  tags:
+    - guide
+    - community
+    - ggml
+
+- local: infini-attention
+  title: "A failed experiment: Infini-Attention, and why we should keep trying?"
+  author: neuralink
+  thumbnail: /blog/assets/185_infini_attention/infini_attention_thumbnail.png
+  date: August 14, 2024
+  tags:
+    - long-context
+    - infini-attention
+    - memory-compression
+
+- local: llama31-on-vertex-ai
+  title: "Deploy Meta Llama 3.1 405B on Google Cloud Vertex AI"
+  author: alvarobartt
+  thumbnail: /blog/assets/llama31-on-vertex-ai/thumbnail.png
+  date: August 19, 2024
+  tags:
+    - nlp
+    - partnerships
+    - gcp
+    - vertex
+    
+- local: packing-with-FA2
+  title: "Improving Hugging Face Training Efficiency Through Packing with Flash Attention"
+  author: lwtr
+  thumbnail: /blog/assets/packing-with-FA2/thumbnail.png
+  date: August 21, 2024
+  tags:
+    - padding
+    - packing
+    - Flash Attention 2
+
+- local: unsung-heroes
+  title: "The 5 Most Under-Rated Tools on Hugging Face"
+  author: derek-thomas
+  thumbnail: /blog/assets/unsung-heroes/new-thumbnail.png
+  date: August 22, 2024
+  tags:
+    - hub
+    - api
+    - apps
+    - datasets
+    - enterprise
+    - nlp
+    - visualization
+    - nomic
+    - atlas
+    - guide
+
+- local: video-encoding
+  title: "Scaling robotics datasets with video encoding"
+  author: aliberts
+  thumbnail: /blog/assets/video-encoding/thumbnail.png
+  date: August 27, 2024
+  tags:
+    - video
+    - datasets
+    - robotics
+
+- local: trufflesecurity-partnership
+  title: "Hugging Face partners with TruffleHog to Scan for Secrets"
+  author: mcpotato
+  thumbnail: /blog/assets/trufflesecurity-partnership/thumbnail.png
+  date: September 4, 2024
+  tags:
+    - hub
+    - partnerships
+    - security
+
 - local: openvino-genai
   title: "Optimize and deploy 🤗 Transformer models with Optimum-Intel and OpenVINO GenAI"
   author: AlexKoff88
