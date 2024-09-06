@@ -25,7 +25,7 @@ authors:
 
 # Optimize and deploy models with Optimum-Intel and OpenVINO GenAI
 
-Deploying Transformer models at the edge or client-side requires careful consideration of performance and compatibility. Python, though powerful, is not always ideal for such deployments, especially in environments dominated by C++. This blog will guide you through optimizing and deploying Hugging Face Transformer models using Optimum-Intel and OpenVINO™ GenAI, ensuring efficient AI inference with minimal dependencies.
+Deploying Transformers models at the edge or client-side requires careful consideration of performance and compatibility. Python, though powerful, is not always ideal for such deployments, especially in environments dominated by C++. This blog will guide you through optimizing and deploying Hugging Face Transformer models using Optimum-Intel and OpenVINO™ GenAI, ensuring efficient AI inference with minimal dependencies.
 
 ## Table of Contents
 1. Why Use OpenVINO™ for Edge Deployment
