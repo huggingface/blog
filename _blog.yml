@@ -4518,3 +4518,13 @@
     - announcement
     - enterprise
     - hub
+
+- local: openvino-genai
+  title: "Optimize and deploy 🤗 Transformer models with Optimum-Intel and OpenVINO GenAI"
+  author: AlexKoff88
+  thumbnail: /blog/assets/deploy-with-openvino/openvino_genai_workflow.png
+  date: September 9, 2024
+  tags:
+    - announcement
+    - enterprise
+    - hub
