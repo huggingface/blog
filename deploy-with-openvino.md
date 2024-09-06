@@ -70,7 +70,7 @@ from optimum.intel import OVModelForCausalLM
 
 MODEL_ID = "meta-llama/Meta-Llama-3.1-8B"
 model = OVModelForCausalLM.from_pretrained(MODEL_ID, export=True)
-model.save_pretrained("./llam-3.1-8b-ov")
+model.save_pretrained("./llama-3.1-8b-ov")
 ```
 
 ### Using Command Line Interface (CLI)
