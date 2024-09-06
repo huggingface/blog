@@ -68,8 +68,8 @@ To export Transformer models to OpenVINO Intermediate Representation (IR) one ca
 ```python
 from optimum.intel import OVModelForCausalLM
 
-MODEL_ID = "meta-llama/Meta-Llama-3.1-8B"
-model = OVModelForCausalLM.from_pretrained(MODEL_ID, export=True)
+model_id = "meta-llama/Meta-Llama-3.1-8B"
+model = OVModelForCausalLM.from_pretrained(model_id, export=True)
 model.save_pretrained("./llama-3.1-8b-ov")
 ```
 
