@@ -99,7 +99,7 @@ model.save_pretrained("./llam-3.1-8b-ov")
 
 ### Using Command Line Interface (CLI):
 ```sh
-optimum-cli export openvino -m meta-llama/Meta-Llama-3.1-8B --weight-format int4 --awq --scale-estimation --group-size 64 --dataset wikitext2 ./llam-3.1-8b-ov
+optimum-cli export openvino -m meta-llama/Meta-Llama-3.1-8B --weight-format int4 --awq --scale-estimation --group-size 64 --dataset wikitext2 ./llama-3.1-8b-ov
 ```
 
 >**Note**: The model optimization process can take time as it and applies several methods subsequently and uses model inference over the specified dataset.
