@@ -1,5 +1,5 @@
 ---
-title: Optimize and deploy 🤗 Transformer models with Optimum-Intel and OpenVINO GenAI
+title: Optimize and deploy with Optimum-Intel and OpenVINO GenAI
 authors:
 - user: AlexKoff88
   guest: true
