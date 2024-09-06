@@ -63,7 +63,7 @@ For GenAI C++ libraries installation follow the instruction [here](https://docs.
 
 Hugging Face and Intel's collaboration has led to the [Optimum-Intel](https://huggingface.co/docs/optimum/en/intel/index) project. It is designed to optimize Transformers models for inference on Intel HW. Optimum-Intel supports OpenVINO as an inference backend and its API has wrappers for various model architectures built on top of OpenVINO inference API. All of these wrappers start from `OV` prefix, for example, `OVModelForCausalLM`. Otherwise, it is similar to the API of 🤗 Transformers library.
 
-To export Transformer models to OpenVINO Intermediate Representation (IR) one can use two options: This can be done using Python’s .from_pretrained() method or the Optimum command-line interface (CLI). Below are examples using both methods:
+To export Transformer models to OpenVINO Intermediate Representation (IR) one can use two options: This can be done using Python’s `.from_pretrained()` method or the Optimum command-line interface (CLI). Below are examples using both methods:
 ### Using Python API
 ```python
 from optimum.intel import OVModelForCausalLM
