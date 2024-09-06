@@ -94,7 +94,7 @@ from optimum.intel import OVModelForCausalLM, OVWeightQuantizationConfig
 MODEL_ID = "meta-llama/Meta-Llama-3.1-8B"
 quantization_config = OVWeightQuantizationConfig(bits=4, awq=True, scale_estimation=True, group_size=64, dataset="c4")
 model = OVModelForCausalLM.from_pretrained(MODEL_ID, export=True, quantization_config=quantization_config)
-model.save_pretrained("./llam-3.1-8b-ov")
+model.save_pretrained("./llama-3.1-8b-ov")
 ```
 
 ### Using Command Line Interface (CLI):
