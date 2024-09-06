@@ -75,7 +75,7 @@ model.save_pretrained("./llama-3.1-8b-ov")
 
 ### Using Command Line Interface (CLI)
 ```sh
-optimum-cli export openvino -m meta-llama/Meta-Llama-3.1-8B ./llam-3.1-8b-ov
+optimum-cli export openvino -m meta-llama/Meta-Llama-3.1-8B ./llama-3.1-8b-ov
 ```
 
 The `./llama-3.1-8b-ov` folder will contain `.xml` and `bin` IR model files and required configuration files that come from the source model. 🤗 tokenizer will be also converted to the format of `openvino-tokenizers` library and corresponding configuration files will be created in the same folder.
