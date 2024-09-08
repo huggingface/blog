@@ -4619,3 +4619,15 @@
     - hub
     - partnerships
     - security
+
+- local: bitnet-finetuning
+  title: "1.58 Bit LLM : a new era of extreme quantization"
+  author: medmekk
+  thumbnail: /blog/assets/video-encoding/thumbnail.png
+  date: September 10, 2024
+  tags:
+    - nlp
+    - quantization
+    - finetuning
+    - kernels
+    - transformers
