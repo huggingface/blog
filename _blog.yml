@@ -4620,7 +4620,7 @@
     - partnerships
     - security
 
-- local: bitnet-finetuning
+- local: 1.58llm_extreme_quantization
   title: "1.58 Bit LLM : a new era of extreme quantization"
   author: medmekk
   thumbnail: /blog/assets/video-encoding/thumbnail.png
