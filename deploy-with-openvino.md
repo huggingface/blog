@@ -195,8 +195,9 @@ The combination of Optimum-Intel and OpenVINO™ GenAI offers a powerful, flexib
 ## Additional Resources
 1. You can find more details in this [tutorial](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/genai-guide.html).
 2. To build the C++ examples above refer to this [document](https://github.com/openvinotoolkit/openvino.genai/blob/releases/2024/3/src/docs/BUILD.md).
-3. [OpenVINO Documentation] (docs.openvino.ai)
-4. [Jupyter Notebooks] (https://docs.openvino.ai/2024/learn-openvino/interactive-tutorials-python.html)
+3. [OpenVINO Documentation](docs.openvino.ai)
+4. [Jupyter Notebooks](https://docs.openvino.ai/2024/learn-openvino/interactive-tutorials-python.html)
+5. [Optimum Documentation](https://huggingface.co/docs/optimum/main/en/intel/index)
 
 ## About the Authors
 Raymond Lo, currently based in Silicon Valley, is the global lead of Intel's AI evangelist team, focusing on the OpenVINO™ Toolkit. With a diverse background that includes founding the augmented reality company Meta, Raymond has also held key roles at Samsung NEXT and Google Cloud AI. His work spans startup entrepreneurship and enterprise innovation, with a strong presence in global conferences like TED Talks and SIGGRAPH.
