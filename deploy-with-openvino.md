@@ -87,7 +87,7 @@ By default, weights of the models that are larger than one billion parameters ar
 For `meta-llama/Meta-Llama-3.1-8B` model we recommend stacking AWQ, quantization scale estimation along with mixed-precision INT4/INT8 quantization of weights using a calibration dataset that reflects a deployment use case. As in the case of export, there are two options on how to apply 4-bit weight-only quantization to LLM model:
 ### Using Python API
 - Specify `quantization_config` parameter in the `.from_pretrained()` method. In this case `OVWeightQuantizationConfig` object should be created and set to this parameter as follows:
-```pythonTransformers
+```python
 from optimum.intel import OVModelForCausalLM, OVWeightQuantizationConfig
 
 MODEL_ID = "meta-llama/Meta-Llama-3.1-8B"
