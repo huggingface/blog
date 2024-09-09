@@ -91,7 +91,7 @@ In isolation, a change in *score* is not necessarily a big deal so long as the *
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-1.png)
 
-No model is consistently ranked across prompts even though the only difference is their format, not the information itself. This means that if the authors of Gemma-7b wanted to show that their model was superior to Mistral-7B-v0.1, they could do so simply by choosing the correct prompt. 
+No model is consistently ranked across prompts even though the only difference is their format, not the information itself. This means that if the authors of [Gemma-7b](https://huggingface.co/google/gemma-7b) wanted to show that their model was superior to Mistral-7B-v0.1, they could do so simply by choosing the correct prompt. 
 
 As almost no one reports their precise evaluation setup, this is what has historically happened in model reports, where authors chose to report the setup most advantageous to their model (which is why you’ll see extremely weird reported numbers of few-shots in some papers).
 
@@ -146,7 +146,7 @@ In order to consistently generate correctly structured answers we create a regul
 
 We can see in the regex that we allow the model to reason for anywhere from 200 to 700 characters, then it must declare that “The answer is” and then reply with up to 10 digit number (that cannot start with 0).
 
-It’s worth mentioning that the regex controlling the structure is similar, but not identical to, the regex used to parse out the answer. We’ve learned there’s an interesting bit of nuance in defining the structure since, like the prompt, it can impact performance. For example, notice that `{200,700}` in the regex. This means that the model has 200 to 700 characters to “reason” before answering. Changing these values can impact performance and leads to something we refer to as “thought control”, an area we’re hoping to write more about soon.
+It’s worth mentioning that the regex [controlling the similar structure](https://originality.ai/blog/huggingface-ai-content-detection-review), but not identical to, the regex used to parse out the answer. We’ve learned there’s an interesting bit of nuance in defining the structure since, like the prompt, it can impact performance. For example, notice that `{200,700}` in the regex. This means that the model has 200 to 700 characters to “reason” before answering. Changing these values can impact performance and leads to something we refer to as “thought control”, an area we’re hoping to write more about soon.
 
 Our first experiment was to continue exploring the GSM8K dataset and iterated on 1 through 8 shot prompting. The results, shown below, were very compelling.
 
