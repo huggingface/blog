@@ -4623,7 +4623,7 @@
 - local: 1.58llm_extreme_quantization
   title: "1.58 Bit LLM : a new era of extreme quantization"
   author: medmekk
-  thumbnail: /blog/assets/video-encoding/thumbnail.png
+  thumbnail: /blog/assets/1.58llm_extreme_quantization/thumbnail.png
   date: September 10, 2024
   tags:
     - nlp
