@@ -25,7 +25,7 @@ At Hugging Face, we are committed to protecting our users' sensitive information
 
 - malware scanning: scans for known malware signatures with [ClamAV](https://www.clamav.net/)
 - pickle scanning: scans pickle files for malicious executable code with [picklescan](https://github.com/mmaitre314/picklescan)
-- secret scanning: scans for passwords, tokens and API keys with TruffleHog
+- secret scanning: scans for passwords, tokens and API keys with [TruffleHog](https://github.com/trufflesecurity/trufflehog)
 
 We run the `trufflehog filesystem` command on every new or modified file on each push to a repository, scanning for potential secrets. If and when a verified secret is detected, we notify the user via email, empowering them to take corrective action.
 
