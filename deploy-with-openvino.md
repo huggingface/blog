@@ -200,11 +200,4 @@ The combination of Optimum-Intel and OpenVINO™ GenAI offers a powerful, flexib
 5. [Optimum Documentation](https://huggingface.co/docs/optimum/main/en/intel/index)
 
 
-## Notices & Disclaimers
-Intel technologies may require enabled hardware, software, or service activation.
-No product or component can be absolutely secure.
-Your costs and results may vary.
-© Intel Corporation. Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries. Other names and brands may be claimed as the property of others.
-
-
 ![OpenVINO GenAI C++ chat demo](/blog/assets/deploy-with-openvino/demo.gif "OpenVINO GenAI C++ chat demo")
