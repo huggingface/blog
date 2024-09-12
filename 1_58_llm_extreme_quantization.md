@@ -30,7 +30,7 @@ BitNet offers a unique approach to the challenges of extreme quantization. It re
 
 ## What is BitNet?
 
-BitNet replaces traditional Linear layers in Multi-Head Attention and Feed-Forward Networks with specialized layers called BitLinear with ternary precision. The BitLinear layers quantize the weights using ternary precision (with values of -1, 0, and 1) and quantize the activations to 8-bit precision.
+BitNet replaces traditional Linear layers in Multi-Head Attention and Feed-Forward Networks with specialized layers called BitLinear with ternary (or binary in the older version) precision. The BitLinear layers we introduce in this blogpost quantize the weights using ternary  precision (with values of -1, 0, and 1) and quantize the activations to 8-bit precision.
 
 The main obstacle to training in ternary precision is that the weight values are discretized (via the `round()` function) and thus non-differentiable. BitLinear solves this with a nice trick: [STE (Straight Through Estimator)](https://arxiv.org/abs/1903.05662). The STE allows gradients to flow through the non-differentiable rounding operation by approximating its gradient as 1 (treating `round()` as equivalent to the identity function). Another way to view it is that, instead of stopping the gradient at the rounding step, the STE lets the gradient pass through as if the rounding never occurred, enabling weight updates using standard gradient-based optimization techniques.
 
@@ -56,7 +56,7 @@ $$
 W_{dequantized} = W_q*scale_w
 $$
 
-Activations are then quantized to a specified bit-width (e.g., 8-bit) using [absmax](https://arxiv.org/pdf/2208.07339) quantization (symmetric per channel quantization). This involves scaling the activations into a range [−Qb,Qb[. The quantization formula is:
+Activations are then quantized to a specified bit-width (e.g., 8-bit) using [absmax](https://arxiv.org/pdf/2208.07339) quantization (symmetric per channel quantization). This involves scaling the activations into the range [−128,127[ for an 8-bit bit-width. The quantization formula is:
 
 $$
 scale_x = \frac{127}{|X|_{\text{max}, \, \text{dim}=-1}}
@@ -147,7 +147,7 @@ $$
 W_{dequantized} = W_q \times scale_w
 $$
 
-Substituting \( scale_w \approx 1.2 \), we get:
+Substituting scale_w, we get:
 
 $$
 W_{dequantized} = 
