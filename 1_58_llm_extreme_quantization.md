@@ -1,6 +1,6 @@
 ---
 title: "1.58 Bit LLM a new era of extreme quantization" 
-thumbnail: /blog/assets/1.58llm_extreme_quantization/thumbnail.png
+thumbnail: /blog/assets/1_58_llm_extreme_quantization/thumbnail.png
 authors:
 - user: medmekk
 - user: lvwerra
@@ -20,8 +20,8 @@ BitNet offers a unique approach to the challenges of extreme quantization. It re
 
 - [What is BitNet ?](#what-is-bitnet-)
 - [Results in the paper](#results-in-the-paper)
-- [Pretraining results in 1.58b](#pretraining-results-in-158b)
-- [Finetuning in 1.58bit](#finetuning-in-158bit)
+- [Pretraining in 1.58b](#pretraining-results-in-158b)
+- [Finetuning in 1.58b](#finetuning-in-158bit)
 - [Kernels used & Benchmarks](#kernels-used--benchmarks)
 - [Additional Resources](#additional-resources)
 - [Integration in Transformers & how to use](#integration-in-transformers--how-to-use)
@@ -30,16 +30,19 @@ BitNet offers a unique approach to the challenges of extreme quantization. It re
 
 ## What is BitNet?
 
-BitNet replaces traditional Linear layers in Multi-Head Attention and Feed-Forward Networks with specialized layers called BitLinear with ternary precision. The main obstacle to training in ternary precision is that the weight values are discretized (via the `round()` function) and thus non-differentiable. BitLinear solves this with a nice trick: [STE (Straight Through Estimator)](https://arxiv.org/abs/1903.05662). The STE allows gradients to flow through the non-differentiable rounding operation by approximating its gradient as 1 (treating `round()` as equivalent to the identity function). Another way to view it is that, instead of stopping the gradient at the rounding step, the STE lets the gradient pass through as if the rounding never occurred, enabling weight updates using standard gradient-based optimization techniques.
+BitNet replaces traditional Linear layers in Multi-Head Attention and Feed-Forward Networks with specialized layers called BitLinear with ternary precision. The BitLinear layers quantize the weights using ternary precision (with values of -1, 0, and 1) and quantize the activations to 8-bit precision.
 
-The BitLinear layers quantize the weights using ternary precision (with values of -1, 0, and 1) and quantize the activations to 8-bit precision. After performing the matrix multiplication operation during inference, the data is dequantized, allowing the model to continue with high-precision operations. 
+The main obstacle to training in ternary precision is that the weight values are discretized (via the `round()` function) and thus non-differentiable. BitLinear solves this with a nice trick: [STE (Straight Through Estimator)](https://arxiv.org/abs/1903.05662). The STE allows gradients to flow through the non-differentiable rounding operation by approximating its gradient as 1 (treating `round()` as equivalent to the identity function). Another way to view it is that, instead of stopping the gradient at the rounding step, the STE lets the gradient pass through as if the rounding never occurred, enabling weight updates using standard gradient-based optimization techniques.
+
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/bitlinear.png" alt="Alt Text" />
   <figcaption>The architecture of BitNet with BitLinear layers</figcaption>
 </figure>
 
-In the BitNet layer, during training, we start by making the weights ternary. We first compute the average of the weight matrix absolute value and use this value as a scale, then divide the weights by the scale, round the values, keep them between -1 and 1, and then rescale them 
+### Training Phase
+
+It's worth mentioning that the behavior of BitLinear differs between training and inference. For example, during training, we start by quantizing the weights into ternary values, using symmetric per tensor quantization. First, we compute the average of the absolute values of the weight matrix and use this as a scale. We then divide the weights by the scale, round the values, constrain them between -1 and 1, and finally rescale them to continue in full precision.
 
 $$
 scale_w = \frac{1}{\frac{1}{nm} \sum_{ij} |W_{ij}|}
@@ -53,10 +56,10 @@ $$
 W_{dequantized} = W_q*scale_w
 $$
 
-Activations are then quantized to a specified bit-width (e.g., 8-bit) using [absmax](https://arxiv.org/pdf/2208.07339) quantization. This involves scaling the activations into a range [−Qb,Qb[. The quantization formula is:
+Activations are then quantized to a specified bit-width (e.g., 8-bit) using [absmax](https://arxiv.org/pdf/2208.07339) quantization (symmetric per channel quantization). This involves scaling the activations into a range [−Qb,Qb[. The quantization formula is:
 
 $$
-scale_x = \frac{1}{|X|_{max}}
+scale_x = \frac{127}{|X|_{\text{max}, \, \text{dim}=-1}}
 $$
 
 $$
@@ -67,9 +70,204 @@ $$
 X_{dequantized} = X_q * scale_x
 $$
 
-However, during inference, we just quantize the weights to ternary weights without rescaling. We do the same thing with activations on 8 bits, and then we do a matmul with an efficient kernel before dividing by both the weight scales and activations scales. This should result in a notable improvement in inference speed, especially with appropriate optimized hardware.
+To make the formulas clearer, here are examples of weight and activation quantization using a 3x3 matrix:
 
-To maintain the variance of the output after quantization, we apply Layer Normalization (LN) before quantizing the activations. This normalization ensures that the variance remains around 1:
+---
+#### Example 1: **Weight Matrix Quantization**
+
+Let the weight matrix \( W \) be:
+
+$$
+W = 
+\begin{bmatrix}
+0.8 & -0.5 & 1.2 \\
+-1.5 & 0.4 & -0.9 \\
+1.3 & -0.7 & 0.2
+\end{bmatrix}
+$$
+
+**Step 1: Compute the Scale for Weights**
+Using the formula:
+
+$$
+scale_w = \frac{1}{\frac{1}{nm} \sum_{ij} |W_{ij}|}
+$$
+
+we calculate the average absolute value of \( W \):
+
+$$
+\frac{1}{nm} \sum_{ij} |W_{ij}| = \frac{1}{9}(0.8 + 0.5 + 1.2 + 1.5 + 0.4 + 0.9 + 1.3 + 0.7 + 0.2) = \frac{1}{9}(7.5) = 0.8333
+$$
+
+Now, the scale factor is:
+
+$$
+scale_w = \frac{1}{0.8333} \approx 1.2
+$$
+
+**Step 2: Quantize the Weight Matrix**
+Using the formula:
+
+$$
+W_q = \text{clamp}_{[-1, 1]}(\text{round}(W \times scale_w))
+$$
+
+We first scale the weights by \( scale_w \approx 1.2 \):
+
+$$
+W \times scale_w = 
+\begin{bmatrix}
+0.8 \times 1.2 & -0.5 \times 1.2 & 1.2 \times 1.2 \\
+-1.5 \times 1.2 & 0.4 \times 1.2 & -0.9 \times 1.2 \\
+1.3 \times 1.2 & -0.7 \times 1.2 & 0.2 \times 1.2
+\end{bmatrix}
+=
+\begin{bmatrix}
+0.96 & -0.6 & 1.44 \\
+-1.8 & 0.48 & -1.08 \\
+1.56 & -0.84 & 0.24
+\end{bmatrix}
+$$
+
+Next, we round the values and clamp them to the range \([-1, 1]\):
+
+$$
+W_q = 
+\begin{bmatrix}
+1 & -1 & 1 \\
+-1 & 0 & -1 \\
+1 & -1 & 0
+\end{bmatrix}
+$$
+
+**Step 3: Dequantize the Weights**
+Finally, we dequantize the weights using:
+
+$$
+W_{dequantized} = W_q \times scale_w
+$$
+
+Substituting \( scale_w \approx 1.2 \), we get:
+
+$$
+W_{dequantized} = 
+\begin{bmatrix}
+1 \times 1.2 & -1 \times 1.2 & 1 \times 1.2 \\
+-1 \times 1.2 & 0 \times 1.2 & -1 \times 1.2 \\
+1 \times 1.2 & -1 \times 1.2 & 0 \times 1.2
+\end{bmatrix}
+=
+\begin{bmatrix}
+1.2 & -1.2 & 1.2 \\
+-1.2 & 0 & -1.2 \\
+1.2 & -1.2 & 0
+\end{bmatrix}
+$$
+
+---
+
+#### Example 2: **Activation Matrix Quantization**
+
+Let the activation matrix \( X \) be:
+
+$$
+X = 
+\begin{bmatrix}
+1.0 & -0.6 & 0.7 \\
+-0.9 & 0.4 & -1.2 \\
+0.8 & -0.5 & 0.3
+\end{bmatrix}
+$$
+
+**Step 1: Compute the Scale for Activations**
+
+For each row (or channel), compute the maximum absolute value:
+
+- **Row 1**: Maximum absolute value = 1.0
+- **Row 2**: Maximum absolute value = 1.2
+- **Row 3**: Maximum absolute value = 0.8
+
+Compute the scale factors for each row:
+
+$$
+\text{scale} = \begin{bmatrix}
+\frac{127}{1.0} \\
+\frac{127}{1.2} \\
+\frac{127}{0.8}
+\end{bmatrix}
+=
+\begin{bmatrix}
+127 \\
+105.83 \\
+158.75
+\end{bmatrix}
+$$
+
+**Step 2: Quantize the Activation Matrix**
+
+Using the formula:
+
+$$
+X_q = \text{clamp}_{[-127,128]}(\text{round}(X \times \text{scale}))
+$$
+
+Scale the activations:
+
+$$
+X \times \text{scale} = 
+\begin{bmatrix}
+1.0 \times 127 & -0.6 \times 127 & 0.7 \times 127 \\
+-0.9 \times 105.83 & 0.4 \times 105.83 & -1.2 \times 105.83 \\
+0.8 \times 158.75 & -0.5 \times 158.75 & 0.3 \times 158.75
+\end{bmatrix}
+=
+\begin{bmatrix}
+127 & -76.2 & 88.9 \\
+-95.2 & 42.3 & -127 \\
+127 & -79.4 & 47.6
+\end{bmatrix}
+$$
+
+Round the values and clamp them to the range \([-127, 128]\):
+
+$$
+X_q = 
+\begin{bmatrix}
+127 & -76 & 89 \\
+-95 & 42 & -127 \\
+127 & -79 & 48
+\end{bmatrix}
+$$
+
+**Step 3: Dequantize the Activations**
+
+Finally, dequantize the activations using:
+
+$$
+X_{dequantized} = X_q \times \frac{1}{\text{scale}}
+$$
+
+Substituting the scales:
+
+$$
+X_{dequantized} = 
+\begin{bmatrix}
+127 \times \frac{1}{127} & -76 \times \frac{1}{127} & 89 \times \frac{1}{127} \\
+-95 \times \frac{1}{105.83} & 42 \times \frac{1}{105.83} & -127 \times \frac{1}{105.83} \\
+127 \times \frac{1}{158.75} & -79 \times \frac{1}{158.75} & 48 \times \frac{1}{158.75}
+\end{bmatrix}
+=
+\begin{bmatrix}
+1.0 & -0.6 & 0.7 \\
+-0.9 & 0.4 & -1.2 \\
+0.8 & -0.5 & 0.3
+\end{bmatrix}
+$$
+---
+
+
+
+To maintain the variance of the output after quantization during the training, we apply Layer Normalization (LN) before quantizing the activations. This normalization ensures that the variance remains around 1:
 
 $$
 \text{LN}(x) = \frac{x - E(x)}{\sqrt{\text{Var}(x) + \epsilon}}
@@ -77,7 +275,7 @@ $$
 
 where ϵ is a small number to prevent overflow.
 
-After the introduction of the round function, which is nondifferentiable during the training phase, the backward pass computation needs the introduction of a [STE](https://arxiv.org/pdf/1903.05662) as mentioned before using the trick in the code below : 
+After the introduction of the round function, which is nondifferentiable during the training phase, the backward pass computation needs the introduction of a [STE](https://arxiv.org/pdf/1903.05662) as mentioned before using the `detach()` trick in the code below : 
 
 ```python
 # Adapted from https://github.com/microsoft/unilm/blob/master/bitnet/The-Era-of-1-bit-LLMs__Training_Tips_Code_FAQ.pdf
@@ -97,7 +295,7 @@ def weight_quant(w):
 
 class BitLinear(nn.Linear):
     """
-    Only for training; kernel optimization is needed for efficiency.
+    Only for training
     """
     def forward(self, x):
         w = self.weight
@@ -111,6 +309,34 @@ class BitLinear(nn.Linear):
         y = F.linear(x_quant, w_quant)
         return y
 ```
+
+### Inference Phase
+
+During inference, we just quantize the weights to ternary values without rescaling. We do the same thing with activations on 8 bits, and then we do a matmul with an efficient kernel before dividing by both the weight scales and activations scales. This should result in a notable improvement in inference speed, especially with appropriate optimized hardware.
+```python
+# Adapted from https://github.com/microsoft/unilm/blob/master/bitnet/The-Era-of-1-bit-LLMs__Training_Tips_Code_FAQ.pdf
+import torch
+import torch.nn as nn 
+import torch.nn.functional as F
+
+def activation_quant_inference(x):
+    x = LN(x)
+    scale = 127.0 / x.abs().max(dim=-1, keepdim=True).values.clamp_(min=1e-5)
+    y = (x * scale).round().clamp_(-128, 127)
+    return y, scale
+ 
+class BitLinear(nn.Linear):
+    """
+    Only for training
+    """
+    def forward(self, x):
+        w = self.weight # weights here are already quantized to (-1, 0, 1)    
+        w_scale = self.w_scale  
+        x_quant, x_scale = activation_quant_inference(x)
+        y = efficient_kernel(x_quant, w) / w_scale / x_scale
+        return y
+```
+
 
 ## Results In the Paper
 
