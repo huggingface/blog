@@ -63,7 +63,7 @@ scale_x = \frac{127}{|X|_{\text{max}, \, \text{dim}=-1}}
 $$
 
 $$
-X_q = \text{clamp}_{[-127,128]}(\text{round}(X*scale))
+X_q = \text{clamp}_{[-128,127]}(\text{round}(X*scale))
 $$
 
 $$
@@ -208,7 +208,7 @@ $$
 Using the formula:
 
 $$
-X_q = \text{clamp}_{[-127,128]}(\text{round}(X \times \text{scale}))
+X_q = \text{clamp}_{[-128,127]}(\text{round}(X \times \text{scale}))
 $$
 
 Scale the activations:
