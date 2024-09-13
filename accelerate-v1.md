@@ -64,20 +64,20 @@ To try the first release candidate for Accelerate today, please use one of the f
 * pip:
 
 ```bash
-pip install accelerate==1.0.0rc0
+pip install accelerate==1.0.0rc1
 ```
 
 * Docker:
 
 ```bash
-docker pull huggingface/accelerate:gpu-release-1.0.0rc
+docker pull huggingface/accelerate:gpu-release-1.0.0rc1
 ```
 
 Valid release tags are:
-* `gpu-release-1.0.0rc`
-* `cpu-release-1.0.0rc`
-* `gpu-fp8-transformerengine-release-1.0.0rc`
-* `gpu-deepspeed-release-1.0.0rc`
+* `gpu-release-1.0.0rc1`
+* `cpu-release-1.0.0rc1`
+* `gpu-fp8-transformerengine-release-1.0.0rc1`
+* `gpu-deepspeed-release-1.0.0rc1`
 
 ## Migration assistance
 
