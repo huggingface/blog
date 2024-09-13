@@ -4619,3 +4619,11 @@
     - hub
     - partnerships
     - security
+
+- local: accelerate-v1
+  title: "Accelerate 1.0.0"
+  author: muellerzr
+  thumbnail: /blog/assets/186_accelerate_v1/accelerate_v1_thumbnail.png
+  date: September 13, 2024
+  tags:
+    - guide
