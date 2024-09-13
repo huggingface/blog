@@ -21,15 +21,15 @@ large-scale training and large models in an age where 405 billion parameters are
 
 * A flexible low-level training API, allowing for training on 6 different hardware accelerators (CPU, GPU, TPU, XPU, NPU, MLU) while maintaining 99% of your original training loop
 * An easy-to-use command-line interface aimed at configuring and running scripts across different hardware configurations
-* The birthplace of `device_map="auto"` and Big Model Inference, allowing users to not only perform inference on large models but now also aid in training large models on small compute through techniques like PEFT
+* The birthplace of `device_map="auto"` and Big Model Inference, allowing users to not only perform inference on large models but now also aiding in training large models on small compute through techniques like parameter-efficient fine-tuning
 
 These three facets have allowed Accelerate to become the foundation of **nearly every framework at Hugging Face**!
 
-As the framework has been stable for nearly a year, we're excited to announce that as of today we've published **the first of a series of release candidates for Accelerate 1.0.0**!
+As the framework has been stable for nearly a year, we're excited to announce that as of today we've published **the first release candidates for Accelerate 1.0.0**!
 
 This blog will detail:
 
-1. Why did we decide to do 1.0? (Aside from the API is "stable")
+1. Why did we decide to do 1.0?
 2. What is the future for Accelerate, and where do we see PyTorch as a whole going?
 3. What are the breaking changes and deprecations that occurred, and how can you migrate over easily?
 
@@ -55,8 +55,8 @@ rewrites and changes in the codebase as new technologies come to fruition.
 As previously mentioned, we're going through with this change because we foresee some radical changes in the PyTorch ecosystem very soon:
 
 * As part of the multiple-model DeepSpeed support, we found that while generally how DeepSpeed is currently *could* work, some heavy changes to the overall API may eventually be needed as we work to support simple wrappings to prepare models for any multiple-model training scenario.
-* With the [torchao](https://github.com/pytorch/ao) and [torchtitan](https://github.com/pytorch/torchtitan) picking up steam they hint at the future of PyTorch as a whole. Hinting at more native support for FP8 training, a new distributed sharding API, and support for a new version of FSDP, FSDPv2, we predict that much of the internals and general usage API of Accelerate will need to change (hopefully not too drastic) to meet these needs as the frameworks slowly become more stable.
-* Riding on `torchao`/FP8, many new frameworks are bringing in different ideas and implementations on how to make FP8 training work and be stable (`transformer_engine`, `torchao`, `MS-AMP`, `nanotron`, to name a few). Our aim with Accelerate is to house each of these implementations in one place with easy configurations, to let users explore and test out each one as they please intending to find the ones that wind up being the most stable and flexible in the end. It's a rapidly accelerating (no pun intended) field of research, especially with NVIDIA's FP4 training support on the way, and we want to make sure that not only can we support each of these methods, but aim to provide **solid benchmarks for each** to show their tendencies out-of-the-box (with minimal tweaking) compared to native BF16 training
+* With [torchao](https://github.com/pytorch/ao) and [torchtitan](https://github.com/pytorch/torchtitan) picking up steam, they hint at the future of PyTorch as a whole. Aiming at more native support for FP8 training, a new distributed sharding API, and support for a new version of FSDP, FSDPv2, we predict that much of the internals and general usage API of Accelerate will need to change (hopefully not too drastic) to meet these needs as the frameworks slowly become more stable.
+* Riding on `torchao`/FP8, many new frameworks are bringing in different ideas and implementations on how to make FP8 training work and be stable (`transformer_engine`, `torchao`, `MS-AMP`, `nanotron`, to name a few). Our aim with Accelerate is to house each of these implementations in one place with easy configurations, to let users explore and test out each one as they please, intending to find the ones that wind up being the most stable and flexible in the end. It's a rapidly accelerating (no pun intended) field of research, especially with NVIDIA's FP4 training support on the way, and we want to make sure that not only can we support each of these methods, but aim to provide **solid benchmarks for each** to show their tendencies out-of-the-box (with minimal tweaking) compared to native BF16 training
 
 We're extremely excited about the future of distributed training in the PyTorch ecosystem, and we want to make sure that Accelerate is there every step of the way providing a lower barrier to entry for these new techniques. By doing so, we hope the community will continue to experiment and learn together as we find the best techniques for training and scaling larger models on more complex computing systems.
 
@@ -91,7 +91,7 @@ Below are the full details for all deprecations that are being enacted as part o
 * `Accelerator().autocast()` no longer accepts a `cache_enabled` argument. Instead, an `AutocastKwargs()` instance should be used which handles this flag (among others)
 * `accelerate.utils.is_tpu_available` should be replaced with `accelerate.utils.is_torch_xla_available`
 * `accelerate.utils.modeling.shard_checkpoint` should be replaced with `split_torch_state_dict_into_shards` from the `huggingface_hub` library
-* `accelerate.tqdm.tqdm()` no longer accepts `True`/`False` as the first argument, and instead `main_process_only` should be passed in as an explicit kwarg
+* `accelerate.tqdm.tqdm()` no longer accepts `True`/`False` as the first argument, and instead `main_process_only` should be passed in as a named argument
 * `ACCELERATE_DISABLE_RICH` is no longer a valid environmental variable, and instead one should manually enable `rich` traceback by setting `ACCELERATE_ENABLE_RICH=1`
 * The FSDP setting `fsdp_backward_prefetch_policy` has been replaced with `fsdp_backward_prefetch`
 
