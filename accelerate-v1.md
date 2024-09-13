@@ -21,7 +21,7 @@ large-scale training and large models in an age where 405 billion parameters (Ll
 
 * [A flexible low-level training API](https://huggingface.co/docs/accelerate/basic_tutorials/migration), allowing for training on 6 different hardware accelerators (CPU, GPU, TPU, XPU, NPU, MLU) while maintaining 99% of your original training loop
 * An easy-to-use [command-line interface](https://huggingface.co/docs/accelerate/basic_tutorials/launch) aimed at configuring and running scripts across different hardware configurations
-* The birthplace of `device_map="auto"` and [Big Model Inference](https://huggingface.co/docs/accelerate/usage_guides/big_modeling), allowing users to not only perform inference on LLMs but now also aiding in training LLLms on small compute through techniques like parameter-efficient fine-tuning
+* The birthplace of [Big Model Inference](https://huggingface.co/docs/accelerate/usage_guides/big_modeling) or `device_map="auto"`, allowing users to not only perform inference on LLMs with multi-devices but now also aiding in training LLMs on small compute through techniques like parameter-efficient fine-tuning (PEFT)
 
 These three facets have allowed Accelerate to become the foundation of **nearly every package at Hugging Face**, including `transformers`, `diffusers`, `peft`, `trl`, and more!
 
@@ -98,4 +98,4 @@ Thank you so much for using Accelerate, it's been amazing watching a small idea 
 
 With this release candidate, we hope to give the community an opportunity to try it out and have time to migrate over to 1.0 before the official release.
 
-Please stay tuned for more information by keeping an eye on the [github](https://github.com/huggingface/accelerat) and on [socials](https://x.com/TheZachMueller)!
+Please stay tuned for more information by keeping an eye on the [github](https://github.com/huggingface/accelerate) and on [socials](https://x.com/TheZachMueller)!
