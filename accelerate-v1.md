@@ -1,6 +1,6 @@
 ---
 title: "Accelerate 1.0.0"
-thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
+thumbnail: /blog/assets/186_accelerate_v1/accelerate_v1_thumbnail.png
 authors:
 - user: muellerzr
 - user: marcsun13
