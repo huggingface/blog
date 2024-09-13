@@ -1,5 +1,5 @@
 ---
-title: "Accelerate 1.0, a staple across the 🤗 ecosystem"
+title: "Accelerate 1.0.0"
 thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
 authors:
 - user: muellerzr
@@ -7,11 +7,11 @@ authors:
 - user: BenjaminB
 ---
 
-# Accelerate 1.0, a staple across the 🤗 ecosystem
+# Accelerate 1.0.0
 
 ## What is Accelerate today?
 
-3.5 years ago, Accelerate was a simple framework aimed at making training on multi-GPU and TPU systems easier
+3.5 years ago, [Accelerate](https://github.com/huggingface/accelerate) was a simple framework aimed at making training on multi-GPU and TPU systems easier
 by having a low-level abstraction that simplified a *raw* PyTorch training loop:
 
 ![Sylvain's tweet announcing accelerate](https://raw.githubusercontent.com/muellerzr/presentations/master/talks/ai_dev_2024/sylvain_tweet.JPG)
@@ -19,13 +19,13 @@ by having a low-level abstraction that simplified a *raw* PyTorch training loop:
 Since then, Accelerate has expanded into a multi-faceted library aimed at tackling many of the common problems with both
 large-scale training and large models in an age where 405 billion parameters are the new language model size. This involves:
 
-* A flexible low-level training API, allowing for training on 6 different hardware accelerators (CPU, GPU, TPU, XPU, NPU, MLU) while maintaining 99% of your original training loop
-* An easy-to-use command-line interface aimed at configuring and running scripts across different hardware configurations
-* The birthplace of `device_map="auto"` and Big Model Inference, allowing users to not only perform inference on large models but now also aiding in training large models on small compute through techniques like parameter-efficient fine-tuning
+* [A flexible low-level training API](https://huggingface.co/docs/accelerate/basic_tutorials/migration), allowing for training on 6 different hardware accelerators (CPU, GPU, TPU, XPU, NPU, MLU) while maintaining 99% of your original training loop
+* An easy-to-use [command-line interface](https://huggingface.co/docs/accelerate/basic_tutorials/launch) aimed at configuring and running scripts across different hardware configurations
+* The birthplace of `device_map="auto"` and [Big Model Inference](https://huggingface.co/docs/accelerate/usage_guides/big_modeling), allowing users to not only perform inference on large models but now also aiding in training large models on small compute through techniques like parameter-efficient fine-tuning
 
-These three facets have allowed Accelerate to become the foundation of **nearly every framework at Hugging Face**!
+These three facets have allowed Accelerate to become the foundation of **nearly every package at Hugging Face**!
 
-As the framework has been stable for nearly a year, we're excited to announce that as of today we've published **the first release candidates for Accelerate 1.0.0**!
+As the package has been stable for nearly a year, we're excited to announce that as of today we've published **the first release candidates for Accelerate 1.0.0**!
 
 This blog will detail:
 
