@@ -12,25 +12,24 @@ authors:
 
 As Large Language Models (LLMs) grow in size and complexity, finding ways to reduce their computational and energy costs has become a critical challenge. One popular solution is quantization, where model precision is reduced from the standard 16-bit floating-point (FP16) or 32-bit floating-point (FP32) to lower-bit formats like 8-bit or 4-bit. While this approach significantly cuts down on memory usage and speeds up computation, it often comes at the expense of accuracy. Reducing the precision too much can cause models to lose crucial information, resulting in degraded performance. 
 
-In this blog, we'll dive into the process of 1.58-bit quantization. First, we'll review the key research paper that explains the theory behind this quantization method. Next, we'll address the challenges of fine-tuning quantized BitNet models and how we managed to train the best-performing 7/8B BitNet on downstream tasks. Finally, we'll discuss optimizing performance for fast inference, including writing specialized kernels to speed up processing. This comprehensive look will help you understand how to get the best out of LLMs while reducing their computational costs.
+In this blog, we'll explore the process of 1.58-bit quantization. We'll start by reviewing the key research [paper](https://arxiv.org/abs/2402.17764), *The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits*, which explains the theory behind this quantization method. Next, we'll introduce the 8B models we've developed under the [HF1BitLLM](https://huggingface.co/HF1BitLLM) organization. Two of these models have been trained on 10B tokens, and the third on 100B tokens. Notably, our models surpass Llama 1 7B in MMLU benchmarks. We'll then address the challenges of fine-tuning quantized BitNet models and how we managed to train the best-performing 8B BitNet. Finally, we'll discuss optimizing performance for fast inference, including writing specialized kernels to speed up processing. This comprehensive look will help you understand how to get the best out of LLMs while reducing their computational costs.
+
 
 BitNet offers a unique approach to the challenges of extreme quantization. It represents each parameter with just 1.58 bits using a ternary system (-1, 0, 1). However, a key limitation is that BitNet goes one step further and trains a model in 1.58 bits. While this is cool, not everybody has the budget to pre-train such models. Thus, in this blog post, we explore that if we add a few tricks, we can simply fine-tune existing models to 1.58 bits! Keep reading to find out!
 
 ## Table of Contents
 
 - [What is BitNet ?](#what-is-bitnet-)
-- [Results in the paper](#results-in-the-paper)
+- [Integration in Transformers & how to use](#integration-in-transformers--how-to-use)
 - [Pretraining in 1.58b](#pretraining-results-in-158b)
 - [Finetuning in 1.58b](#finetuning-in-158bit)
 - [Kernels used & Benchmarks](#kernels-used--benchmarks)
-- [Additional Resources](#additional-resources)
-- [Integration in Transformers & how to use](#integration-in-transformers--how-to-use)
 - [Conclusion](#conclusion)
 - [Additional Resources](#additional-resources)
 
 ## What is BitNet?
 
-[BitNet](https://arxiv.org/abs/2402.17764) replaces traditional Linear layers in Multi-Head Attention and Feed-Forward Networks with specialized layers called BitLinear with ternary (or binary in the older version) precision. The BitLinear layers we introduce in this blogpost quantize the weights using ternary  precision (with values of -1, 0, and 1) and quantize the activations to 8-bit precision.
+[BitNet](https://arxiv.org/abs/2402.17764) replaces traditional Linear layers in Multi-Head Attention and Feed-Forward Networks with specialized layers called BitLinear with ternary (or binary in the older version) precision. The BitLinear layers we introduce in this blogpost quantize the weights using ternary  precision (with values of -1, 0, and 1) and quantize the activations to 8-bit precision. We use different implementation of BitLinear for training and inference. 
 
 The main obstacle to training in ternary precision is that the weight values are discretized (via the `round()` function) and thus non-differentiable. BitLinear solves this with a nice trick: [STE (Straight Through Estimator)](https://arxiv.org/abs/1903.05662). The STE allows gradients to flow through the non-differentiable rounding operation by approximating its gradient as 1 (treating `round()` as equivalent to the identity function). Another way to view it is that, instead of stopping the gradient at the rounding step, the STE lets the gradient pass through as if the rounding never occurred, enabling weight updates using standard gradient-based optimization techniques.
 
@@ -73,196 +72,201 @@ $$
 To make the formulas clearer, here are examples of weight and activation quantization using a 3x3 matrix:
 
 ---
-#### Example 1: **Weight Matrix Quantization**
+<details>
+  <summary>Example 1: Weight Matrix Quantization</summary>
 
-Let the weight matrix \( W \) be:
+  Let the weight matrix \( W \) be:
 
-$$
-W = 
-\begin{bmatrix}
-0.8 & -0.5 & 1.2 \\
--1.5 & 0.4 & -0.9 \\
-1.3 & -0.7 & 0.2
-\end{bmatrix}
-$$
+  $$
+  W = 
+  \begin{bmatrix}
+  0.8 & -0.5 & 1.2 \\
+  -1.5 & 0.4 & -0.9 \\
+  1.3 & -0.7 & 0.2
+  \end{bmatrix}
+  $$
 
-**Step 1: Compute the Scale for Weights**
-Using the formula:
+  **Step 1: Compute the Scale for Weights**  
+  Using the formula:
 
-$$
-scale_w = \frac{1}{\frac{1}{nm} \sum_{ij} |W_{ij}|}
-$$
+  $$
+  scale_w = \frac{1}{\frac{1}{nm} \sum_{ij} |W_{ij}|}
+  $$
 
-we calculate the average absolute value of \( W \):
+  we calculate the average absolute value of \( W \):
 
-$$
-\frac{1}{nm} \sum_{ij} |W_{ij}| = \frac{1}{9}(0.8 + 0.5 + 1.2 + 1.5 + 0.4 + 0.9 + 1.3 + 0.7 + 0.2) = \frac{1}{9}(7.5) = 0.8333
-$$
+  $$
+  \frac{1}{nm} \sum_{ij} |W_{ij}| = \frac{1}{9}(0.8 + 0.5 + 1.2 + 1.5 + 0.4 + 0.9 + 1.3 + 0.7 + 0.2) = \frac{1}{9}(7.5) = 0.8333
+  $$
 
-Now, the scale factor is:
+  Now, the scale factor is:
 
-$$
-scale_w = \frac{1}{0.8333} \approx 1.2
-$$
+  $$
+  scale_w = \frac{1}{0.8333} \approx 1.2
+  $$
 
-**Step 2: Quantize the Weight Matrix**
-Using the formula:
+  **Step 2: Quantize the Weight Matrix**  
+  Using the formula:
 
-$$
-W_q = \text{clamp}_{[-1, 1]}(\text{round}(W \times scale_w))
-$$
+  $$
+  W_q = \text{clamp}_{[-1, 1]}(\text{round}(W \times scale_w))
+  $$
 
-We first scale the weights by \( scale_w \approx 1.2 \):
+  We first scale the weights by \( scale_w \approx 1.2 \):
 
-$$
-W \times scale_w = 
-\begin{bmatrix}
-0.8 \times 1.2 & -0.5 \times 1.2 & 1.2 \times 1.2 \\
--1.5 \times 1.2 & 0.4 \times 1.2 & -0.9 \times 1.2 \\
-1.3 \times 1.2 & -0.7 \times 1.2 & 0.2 \times 1.2
-\end{bmatrix}
-=
-\begin{bmatrix}
-0.96 & -0.6 & 1.44 \\
--1.8 & 0.48 & -1.08 \\
-1.56 & -0.84 & 0.24
-\end{bmatrix}
-$$
+  $$
+  W \times scale_w = 
+  \begin{bmatrix}
+  0.8 \times 1.2 & -0.5 \times 1.2 & 1.2 \times 1.2 \\
+  -1.5 \times 1.2 & 0.4 \times 1.2 & -0.9 \times 1.2 \\
+  1.3 \times 1.2 & -0.7 \times 1.2 & 0.2 \times 1.2
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+  0.96 & -0.6 & 1.44 \\
+  -1.8 & 0.48 & -1.08 \\
+  1.56 & -0.84 & 0.24
+  \end{bmatrix}
+  $$
 
-Next, we round the values and clamp them to the range \([-1, 1]\):
+  Next, we round the values and clamp them to the range \([-1, 1]\):
 
-$$
-W_q = 
-\begin{bmatrix}
-1 & -1 & 1 \\
--1 & 0 & -1 \\
-1 & -1 & 0
-\end{bmatrix}
-$$
+  $$
+  W_q = 
+  \begin{bmatrix}
+  1 & -1 & 1 \\
+  -1 & 0 & -1 \\
+  1 & -1 & 0
+  \end{bmatrix}
+  $$
 
-**Step 3: Dequantize the Weights**
-Finally, we dequantize the weights using:
+  **Step 3: Dequantize the Weights**  
+  Finally, we dequantize the weights using:
 
-$$
-W_{dequantized} = W_q \times scale_w
-$$
+  $$
+  W_{dequantized} = W_q \times scale_w
+  $$
 
-Substituting scale_w, we get:
+  Substituting scale_w, we get:
 
-$$
-W_{dequantized} = 
-\begin{bmatrix}
-1 \times 1.2 & -1 \times 1.2 & 1 \times 1.2 \\
--1 \times 1.2 & 0 \times 1.2 & -1 \times 1.2 \\
-1 \times 1.2 & -1 \times 1.2 & 0 \times 1.2
-\end{bmatrix}
-=
-\begin{bmatrix}
-1.2 & -1.2 & 1.2 \\
--1.2 & 0 & -1.2 \\
-1.2 & -1.2 & 0
-\end{bmatrix}
-$$
+  $$
+  W_{dequantized} = 
+  \begin{bmatrix}
+  1 \times 1.2 & -1 \times 1.2 & 1 \times 1.2 \\
+  -1 \times 1.2 & 0 \times 1.2 & -1 \times 1.2 \\
+  1 \times 1.2 & -1 \times 1.2 & 0 \times 1.2
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+  1.2 & -1.2 & 1.2 \\
+  -1.2 & 0 & -1.2 \\
+  1.2 & -1.2 & 0
+  \end{bmatrix}
+  $$
 
----
+</details>
 
-#### Example 2: **Activation Matrix Quantization**
+<details>
+  <summary>Example 2: Activation Matrix Quantization</summary>
 
-Let the activation matrix \( X \) be:
+  Let the activation matrix \( X \) be:
 
-$$
-X = 
-\begin{bmatrix}
-1.0 & -0.6 & 0.7 \\
--0.9 & 0.4 & -1.2 \\
-0.8 & -0.5 & 0.3
-\end{bmatrix}
-$$
+  $$
+  X = 
+  \begin{bmatrix}
+  1.0 & -0.6 & 0.7 \\
+  -0.9 & 0.4 & -1.2 \\
+  0.8 & -0.5 & 0.3
+  \end{bmatrix}
+  $$
 
-**Step 1: Compute the Scale for Activations**
+  **Step 1: Compute the Scale for Activations**  
 
-For each row (or channel), compute the maximum absolute value:
+  For each row (or channel), compute the maximum absolute value:
 
-- **Row 1**: Maximum absolute value = 1.0
-- **Row 2**: Maximum absolute value = 1.2
-- **Row 3**: Maximum absolute value = 0.8
+  - **Row 1**: Maximum absolute value = 1.0
+  - **Row 2**: Maximum absolute value = 1.2
+  - **Row 3**: Maximum absolute value = 0.8
 
-Compute the scale factors for each row:
+  Compute the scale factors for each row:
 
-$$
-\text{scale} = \begin{bmatrix}
-\frac{127}{1.0} \\
-\frac{127}{1.2} \\
-\frac{127}{0.8}
-\end{bmatrix}
-=
-\begin{bmatrix}
-127 \\
-105.83 \\
-158.75
-\end{bmatrix}
-$$
+  $$
+  \text{scale} = \begin{bmatrix}
+  \frac{127}{1.0} \\
+  \frac{127}{1.2} \\
+  \frac{127}{0.8}
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+  127 \\
+  105.83 \\
+  158.75
+  \end{bmatrix}
+  $$
 
-**Step 2: Quantize the Activation Matrix**
+  **Step 2: Quantize the Activation Matrix**  
 
-Using the formula:
+  Using the formula:
 
-$$
-X_q = \text{clamp}_{[-128,127]}(\text{round}(X \times \text{scale}))
-$$
+  $$
+  X_q = \text{clamp}_{[-128,127]}(\text{round}(X \times \text{scale}))
+  $$
 
-Scale the activations:
+  Scale the activations:
 
-$$
-X \times \text{scale} = 
-\begin{bmatrix}
-1.0 \times 127 & -0.6 \times 127 & 0.7 \times 127 \\
--0.9 \times 105.83 & 0.4 \times 105.83 & -1.2 \times 105.83 \\
-0.8 \times 158.75 & -0.5 \times 158.75 & 0.3 \times 158.75
-\end{bmatrix}
-=
-\begin{bmatrix}
-127 & -76.2 & 88.9 \\
--95.2 & 42.3 & -127 \\
-127 & -79.4 & 47.6
-\end{bmatrix}
-$$
+  $$
+  X \times \text{scale} = 
+  \begin{bmatrix}
+  1.0 \times 127 & -0.6 \times 127 & 0.7 \times 127 \\
+  -0.9 \times 105.83 & 0.4 \times 105.83 & -1.2 \times 105.83 \\
+  0.8 \times 158.75 & -0.5 \times 158.75 & 0.3 \times 158.75
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+  127 & -76.2 & 88.9 \\
+  -95.2 & 42.3 & -127 \\
+  127 & -79.4 & 47.6
+  \end{bmatrix}
+  $$
 
-Round the values and clamp them to the range \([-127, 128]\):
+  Round the values and clamp them to the range \([-127, 128]\):
 
-$$
-X_q = 
-\begin{bmatrix}
-127 & -76 & 89 \\
--95 & 42 & -127 \\
-127 & -79 & 48
-\end{bmatrix}
-$$
+  $$
+  X_q = 
+  \begin{bmatrix}
+  127 & -76 & 89 \\
+  -95 & 42 & -127 \\
+  127 & -79 & 48
+  \end{bmatrix}
+  $$
 
-**Step 3: Dequantize the Activations**
+  **Step 3: Dequantize the Activations**  
 
-Finally, dequantize the activations using:
+  Finally, dequantize the activations using:
 
-$$
-X_{dequantized} = X_q \times \frac{1}{\text{scale}}
-$$
+  $$
+  X_{dequantized} = X_q \times \frac{1}{\text{scale}}
+  $$
 
-Substituting the scales:
+  Substituting the scales:
 
-$$
-X_{dequantized} = 
-\begin{bmatrix}
-127 \times \frac{1}{127} & -76 \times \frac{1}{127} & 89 \times \frac{1}{127} \\
--95 \times \frac{1}{105.83} & 42 \times \frac{1}{105.83} & -127 \times \frac{1}{105.83} \\
-127 \times \frac{1}{158.75} & -79 \times \frac{1}{158.75} & 48 \times \frac{1}{158.75}
-\end{bmatrix}
-=
-\begin{bmatrix}
-1.0 & -0.6 & 0.7 \\
--0.9 & 0.4 & -1.2 \\
-0.8 & -0.5 & 0.3
-\end{bmatrix}
-$$
+  $$
+  X_{dequantized} = 
+  \begin{bmatrix}
+  127 \times \frac{1}{127} & -76 \times \frac{1}{127} & 89 \times \frac{1}{127} \\
+  -95 \times \frac{1}{105.83} & 42 \times \frac{1}{105.83} & -127 \times \frac{1}{105.83} \\
+  127 \times \frac{1}{158.75} & -79 \times \frac{1}{158.75} & 48 \times \frac{1}{158.75}
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+  1.0 & -0.6 & 0.7 \\
+  -0.9 & 0.4 & -1.2 \\
+  0.8 & -0.5 & 0.3
+  \end{bmatrix}
+  $$
+
+</details>
+
 ---
 
 
@@ -312,7 +316,8 @@ class BitLinear(nn.Linear):
 
 ### Inference Phase
 
-During inference, we just quantize the weights to ternary values without rescaling. We do the same thing with activations on 8 bits, and then we do a matmul with an efficient kernel before dividing by both the weight scales and activations scales. This should result in a notable improvement in inference speed, especially with appropriate optimized hardware.
+During inference, we simply quantize the weights to ternary values without rescaling. We apply the same approach to activations using 8-bit precision, then perform a matrix multiplication with an efficient kernel, followed by dividing by both the weight and activation scales. This should significantly improve inference speed, particularly with optimized hardware. You can see that the rescaling process differs during training, as matrix multiplications are kept in fp16/bf16/fp32 for proper training in the backward pass using STE and fake quantization layers.
+
 ```python
 # Adapted from https://github.com/microsoft/unilm/blob/master/bitnet/The-Era-of-1-bit-LLMs__Training_Tips_Code_FAQ.pdf
 import torch
@@ -337,20 +342,29 @@ class BitLinear(nn.Linear):
         return y
 ```
 
+## Integration in Transformers & How To Use
 
-## Results In the Paper
+To integrate the BitNet architecture into Transformers, we introduced a new quantization method called "bitnet." This method involves replacing the standard Linear layers with specialized BitLinear layers that are compatible with the BitNet architecture, with appropriate activation dynamic quantization, weight unpacking, and matrix multiplication. 
 
-### Computational Efficiency :
+Loading and testing the model in Transformers is incredibly straightforward! Here's how you can do it:
 
-For BitNet, the energy consumption during matrix multiplication is primarily influenced by the addition operations, given that the weights are ternary. The multiplication operations are limited to scaling the output with the weights scale and activations scale, which provides enormous energy and computation savings.
+```python
+model = AutoModelForCausalLM.from_pretrained("HF1BitLLM/Llama3-8B-1.58-100B-tokens", device_map="cuda", torch_dtype=torch.bfloat16)    
+tokenizer = AutoTokenizer.from_pretrained("meta-llama/Meta-Llama-3-8B-Instruct")
 
-### Downstream Tasks
+input_text = "Daniel went back to the the the garden. Mary travelled to the kitchen. Sandra journeyed to the kitchen. Sandra went to the hallway. John went to the bedroom. Mary went back to the garden. Where is Mary?\nAnswer:"
 
-BitNet is effective in delivering strong performance compared to baseline methods, especially at lower bit levels. According to the paper, BitNet achieves scores that are on par with 8-bit models but with significantly lower inference costs. In the case of 4-bit models, methods that only quantize weights outperform those that quantize both weights and activations, as activations are harder to quantify. However, BitNet, which uses 1.58-bit weights, surpasses both weight-only and weight-and-activation quantization methods.
+input_ids = tokenizer.encode(input_text, return_tensors="pt").cuda()
+output = model_.generate(input_ids, max_length=10, do_sample=False)
+generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+print(generated_text)
+```
+
+With this code, everything is managed seamlessly behind the scenes, so there's no need to worry about additional complexities. 
 
 ## Pretraining Results in 1.58b
 
-We tried to reproduce the results of the BitNet paper; we started with a small dataset, [tinystories](https://huggingface.co/datasets/roneneldan/TinyStories), and a Llama3 8B model architecture. It seemed that adding a normalization function like in the paper improves the performance. For example, after 2000 steps of training, we had a perplexity on the validation part of the dataset equal to 6.3 without normalization, and 5.9 with normalization, but in both cases, the training was stable.
+We tried to reproduce the results of the BitNet paper; we started with a small dataset, [tinystories](https://huggingface.co/datasets/roneneldan/TinyStories), and a Llama3 8B model architecture (all the experiments on Llama3 8B are conducted using [meta-llama/Meta-Llama-3-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)). It seemed that adding a normalization function like in the paper improves the performance. For example, after 2000 steps of training, we had a perplexity on the validation part of the dataset equal to 6.3 without normalization, and 5.9 with normalization, but in both cases, the training was stable.
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/pretraining.png" alt="Alt Text" style="width: 80%;"/>
@@ -361,7 +375,9 @@ While this approach looks very interesting for pretraining, only a few instituti
 
 ## Finetuning in 1.58bit
 
-When we began finetuning from Llama3 weights instead of pretraining starting from random weights, the model performed slightly better but not as well as we expected: 
+When we began finetuning from Llama3 8B weights instead of pretraining starting from random weights, the model performed slightly better but not as well as we expected. 
+
+> **Note:** All our experiments were conducted using [Nanotron](https://github.com/huggingface/nanotron). If you're interested in trying pretraining or fine-tuning, you can check out this [PR](https://github.com/huggingface/nanotron/pull/180).
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/finetuning_basic.png" alt="Alt Text" style="width: 80%;"/>
@@ -543,7 +559,7 @@ Additionally, we experimented with training models from scratch using random wei
 
 None of the models trained from random weights performed better than our fine-tuned model. The best perplexity we achieved with those models was 26, which falls short compared to the results from our fine-tuning approach.
 
-### Scaling to 100B !
+### Scaling to 100B Tokens !
 
 We scaled our experiments to 100 billion tokens to see if we could match the performance of Llama3 8B. We conducted longer training runs, starting from our best-performing checkpoint from the shorter runs with the linear scheduler, and continued fine-tuning for 45,000 steps. We experimented with different learning rates, and while the model performed closely to the Llama3 model in some metrics, on average, it still lagged behind.
 
@@ -571,19 +587,15 @@ For example, here are the loss curves for the [Smol LLM 135M](https://huggingfac
   <figcaption>Smoll LLm finetuning experiment with & without warmup quantization</figcaption>
 </figure>
 
-### Experiments On a 70B Model
-
-Noticing that the metrics in our 100 billion token run started to stagnate, we realized that trying to match the performance of a Llama3 8B model using ternary weights might be unrealistic, especially given the reduced compute available for fine-tuning. Instead, we decided to apply our method to fine-tune the [Llama3.1 70B](https://huggingface.co/meta-llama/Meta-Llama-3.1-70B) model and compare its performance on benchmarks against the Llama3 8B model.
-
-We performed several short runs to identify the optimal learning rate while maintaining the previously used lambda. Following this, we initiated a larger run on approximately 8 billion tokens to evaluate the model's performance after a brief fine-tuning process.
-
 ### Results & Comparison
+
+BitNet is effective in delivering strong performance compared to baseline methods, especially at lower bit levels. According to the paper, BitNet achieves scores that are on par with 8-bit models but with significantly lower inference costs. In the case of 4-bit models, methods that only quantize weights outperform those that quantize both weights and activations, as activations are harder to quantify. However, BitNet, which uses 1.58-bit weights, surpasses both weight-only and weight-and-activation quantization methods.
 
 The table below presents the results for various metrics after the 10B finetuning process of Llama3 8B. These results are compared against those from other model architectures to provide a comprehensive overview of performance (All evaluations were conducted using [Lighteval](https://github.com/huggingface/lighteval) on the [Nanotron](https://github.com/huggingface/nanotron) format model)
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metrics_comparison_updated.png" alt="Alt Text" style="width: 60%;"/>
-  <figcaption>Metrics comparison with Llama models : L means Linear lambda scheduler, and S means Sigmoid lambda scheduler (in our case k = 100)</figcaption>
+  <figcaption>Metrics comparison with Llama models : Linear means Linear lambda scheduler, and Sigmoid means Sigmoid lambda scheduler (in our case k = 100)</figcaption>
 </figure>
 
 After fine-tuning on just 10 billion tokens using ternary weights, the model demonstrates impressive performance, especially when compared to other models that underwent much more extensive training. For instance, it outperforms the Bitnet 7B model, which was trained on a significantly larger dataset of 100 billion tokens. Additionally, it performs better than the FBI LLM (Fully Binarized LLM), a model that was distilled on an even more massive 1.26 trillion tokens. This highlights the model's efficiency and effectiveness despite the relatively smaller scale of its fine-tuning process.
@@ -594,8 +606,6 @@ For the 100B tokens experiments, the best performing checkpoint we had is the fo
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metrics_100B_table.png" alt="Alt Text" style="width: 60%;"/>
   <figcaption>Metrics comparison with Llama models for the model trained on 100B tokens</figcaption>
 </figure>
-
-For the 70B model
 
 ## Kernels Used & Benchmarks
 
@@ -768,27 +778,8 @@ The benchmark results are promising, as BitBlas outperforms both our custom kern
 
 However, during model loading, BitBlas needs to compile kernels tailored to the shape of the weight matrix and store them in a local database, which can increase the initial loading time. 
 
-## Integration in Transformers & How To Use
-
-To integrate the BitNet architecture into Transformers, we introduced a new quantization method called "bitnet." This method involves replacing the standard Linear layers with specialized BitLinear layers that are compatible with the BitNet architecture, with appropriate activation dynamic quantization, weight unpacking, and matrix multiplication. 
-
-Loading and testing the model in Transformers is incredibly straightforward! Here's how you can do it:
-
-```python
-model = AutoModelForCausalLM.from_pretrained("", device_map="cuda", torch_dtype=torch.bfloat16)    
-tokenizer = AutoTokenizer.from_pretrained("meta-llama/Meta-Llama-3-8B-Instruct")
-
-input_text = ""
-input_ids = tokenizer.encode(input_text, return_tensors="pt").cuda()
-output = model_.generate(input_ids, max_length=100, do_sample=False)
-generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
-print(generated_text)
-```
-
-With this code, everything is managed seamlessly behind the scenes, so there's no need to worry about additional complexities. 
-
 ## Conclusion
-In conclusion, as (LLMs) continue to expand, reducing their computational demands through quantization is essential. This blog has explored the approach of 1.58-bit quantization, which uses ternary weights. While pretraining models in 1.58 bits is resource-intensive, we’ve demonstrated that, with some tricks, it’s possible to fine-tune existing models to this precision level, achieving efficient performance without sacrificing accuracy. By optimizing inference speed and utilizing specialized kernels, BitNet opens new possibilities for making LLMs more practical and scalable.
+In conclusion, as (LLMs) continue to expand, reducing their computational demands through quantization is essential. This blog has explored the approach of 1.58-bit quantization, which uses ternary weights. While pretraining models in 1.58 bits is resource-intensive, we’ve demonstrated that, with some tricks, it’s possible to fine-tune existing models to this precision level, achieving efficient performance without sacrificing accuracy. By optimizing inference speed through specialized kernels, BitNet opens new possibilities for making LLMs more practical and scalable.
 
 ## Additional Resources
 1. H. Wang et al., *BitNet: Scaling 1-bit Transformers for Large Language Models*. [arxiv paper](https://arxiv.org/pdf/2310.11453)
