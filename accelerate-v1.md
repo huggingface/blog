@@ -64,7 +64,7 @@ To try the first release candidate for Accelerate today, please use one of the f
 * pip:
 
 ```bash
-pip install accelerate==1.0.0rc1
+pip install --pre accelerate
 ```
 
 * Docker:
