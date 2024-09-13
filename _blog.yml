@@ -4624,8 +4624,16 @@
   title: "1.58 Bit LLM : a new era of extreme quantization"
   author: medmekk
   thumbnail: /blog/assets/1_58_llm_extreme_quantization/thumbnail.png
-  date: September 10, 2024
+  date: September 16, 2024
   tags:
     - nlp
     - research
     - community
+
+- local: accelerate-v1
+  title: "Accelerate 1.0.0"
+  author: muellerzr
+  thumbnail: /blog/assets/186_accelerate_v1/accelerate_v1_thumbnail.png
+  date: September 13, 2024
+  tags:
+    - guide
