@@ -362,6 +362,8 @@ print(generated_text)
 
 With this code, everything is managed seamlessly behind the scenes, so there's no need to worry about additional complexities. 
 
+For a quick test of the model, check out this [notebook](https://colab.research.google.com/drive/1ovmQUOtnYIdvcBkwEE4MzVL1HKfFHdNT?usp=sharing)
+
 ## Pretraining Results in 1.58b
 
 We tried to reproduce the results of the BitNet paper; we started with a small dataset, [tinystories](https://huggingface.co/datasets/roneneldan/TinyStories), and a Llama3 8B model architecture (all the experiments on Llama3 8B are conducted using [meta-llama/Meta-Llama-3-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)). It seemed that adding a normalization function like in the paper improves the performance. For example, after 2000 steps of training, we had a perplexity on the validation part of the dataset equal to 6.3 without normalization, and 5.9 with normalization, but in both cases, the training was stable.
@@ -607,9 +609,13 @@ For the 100B tokens experiments, the best performing checkpoint we had is the fo
   <figcaption>Metrics comparison with Llama models for the model trained on 100B tokens</figcaption>
 </figure>
 
-## Kernels Used & Benchmarks
+To replicate these results, you can check out this [PR](https://github.com/huggingface/nanotron/pull/174) to convert models to nanotron format, unpack the weights (check the function [unpack_weights](https://gist.github.com/MekkCyber/78c1532e8767e8da0588b778faf61866)), and use lighteval
 
-To benefit from the BitNet low-precision weights, we pack them into an `int8` tensor. During inference, these weights must be unpacked before performing matrix multiplication. We implemented custom kernels in Cuda and Triton to handle the on-the-fly unpacking during the matrix multiplication process. For the matrix multiplication itself, we employed the cached tiled matrix multiplication technique. To fully grasp this approach, let's first review some Cuda programming fundamentals.
+Note that even though the models are fine-tuned from an Instruct-tuned model, they still need to be fine-tuned using an Instruct dataset as well. These can be considered base models.
+
+## Kernels & Benchmarks
+
+To benefit from the BitNet low-precision weights, we pack them into an `int8` tensor (this makes the number of parameters go from 8B to 2.8B!). During inference, these weights must be unpacked before performing matrix multiplication. We implemented custom kernels in Cuda and Triton to handle the on-the-fly unpacking during the matrix multiplication process. For the matrix multiplication itself, we employed the cached tiled matrix multiplication technique. To fully grasp this approach, let's first review some Cuda programming fundamentals.
 
 ### **Basic GPU Concepts: Threads, Blocks, and Shared Memory**
 
@@ -786,7 +792,7 @@ In conclusion, as (LLMs) continue to expand, reducing their computational demand
 2. S. Ma et al., *The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits*. [arxiv paper](https://arxiv.org/pdf/2402.17764)
 3. S. Ma et al., *The Era of 1-bit LLMs: Training Tips, Code and FAQ*. [link](https://github.com/microsoft/unilm/blob/master/bitnet/The-Era-of-1-bit-LLMs__Training_Tips_Code_FAQ.pdf)
 4. RJ. Honicky, *Are All Large Language Models Really in 1.58 Bits?*. [blogpost](https://learning-exhaust.hashnode.dev/are-all-large-language-models-really-in-158-bits)
-
+5. L. Mao, *CUDA Matrix Multiplication Optimization*. [blogpost](https://leimao.github.io/article/CUDA-Matrix-Multiplication-Optimization/)
 
 
 
