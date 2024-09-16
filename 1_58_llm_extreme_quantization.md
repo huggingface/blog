@@ -352,7 +352,7 @@ While this approach looks very interesting for pretraining, only a few instituti
 
 ## Finetuning in 1.58bit
 
-When we began finetuning from Llama3 8B weights instead of pretraining starting from random weights, the model performed slightly better but not as well as we expected. 
+When we began finetuning from the pre-trained Llama3 8B weights, the model performed slightly better but not as well as we expected. 
 
 > **Note:** All our experiments were conducted using [Nanotron](https://github.com/huggingface/nanotron). If you're interested in trying pretraining or fine-tuning, you can check out this [PR](https://github.com/huggingface/nanotron/pull/180).
 
