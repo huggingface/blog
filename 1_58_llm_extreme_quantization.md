@@ -432,7 +432,7 @@ w_quant = w + lambda_ * (weight_quant(w) - w).detach()
 
 When `lambda` is set to 0, there is essentially no quantization occurring, while at `lambda=1`, full quantization is applied.
 
-We initially tested some discrete `lambda` values, such as 0.25, 0.5, 0.75, and 1. However, this approach did not lead to any significant improvement in results mainly because `lambda=0.25` is already high enough for the loss to start very high.
+We initially tested some discrete `lambda` values, such as 0.25, 0.5, 0.75, and 1. However, this approach did not lead to any significant improvement in results, mainly because `lambda=0.25` is already high enough for the loss to start very high.
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/lambda_0.25.png" alt="Alt Text" style="width: 80%;"/>
