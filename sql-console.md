@@ -36,9 +36,9 @@ To power the dataset viewer on Hugging Face, the first 5GB of every dataset is a
 
 The beauty of this is that you can run SQL queries on the dataset without needing to download the entire dataset. DuckDB can skip row groups based on filters, utilizing the metadata in the Parquet files. This is done using [DuckDB](https://duckdb.org/) and HTTP requests with byte ranges to the dataset. 
 
-You can learn more about the Parquet format and range requests [here](https://huggingface.co/blog/cfahlgren1/intro-to-parquet-format).
+You can learn more about the Parquet format and range requests [here](https://huggingface.co/blog/cfahlgren1/intro-to-parquet-format). The DuckDB CLI also supports the `hf://` protocol to read the parquet conversion. 
 
-You can use the Parquet conversion in the DuckDB CLI as well. Here's how it works:
+Here's how it works:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/duckdb_hf_url.png" alt="DuckDB CLI" width="500"/>
 
