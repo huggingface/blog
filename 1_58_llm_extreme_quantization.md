@@ -242,7 +242,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
 
 
 
-To maintain the variance of the output after quantization during the training, we apply Layer Normalization (LN) before quantizing the activations. This normalization ensures that the variance remains around 1:
+We apply Layer Normalization (LN) before quantizing the activations to maintain the variance of the output:
 
 $$
 \text{LN}(x) = \frac{x - E(x)}{\sqrt{\text{Var}(x) + \epsilon}}
