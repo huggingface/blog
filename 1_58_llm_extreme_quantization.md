@@ -90,8 +90,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
 
   We first scale the weights by \\( scale_w \approx 1.2 \\):
 
-  $$
-  W \times scale_w = 
+\\( W \times scale_w = 
   \begin{bmatrix}
   0.8 \times 1.2 & -0.5 \times 1.2 & 1.2 \times 1.2 \\
   -1.5 \times 1.2 & 0.4 \times 1.2 & -0.9 \times 1.2 \\
@@ -102,8 +101,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
   0.96 & -0.6 & 1.44 \\
   -1.8 & 0.48 & -1.08 \\
   1.56 & -0.84 & 0.24
-  \end{bmatrix}
-  $$
+  \end{bmatrix} \\)
 
   Next, we round the values and clamp them to the range \([-1, 1]\):
 
