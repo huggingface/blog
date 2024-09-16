@@ -82,6 +82,67 @@ Remember, it's one click to download your SQL results as a Parquet file and use 
 
 We would love to hear what you think of the SQL Console and if you have any feedback, please comment in this [post!](https://huggingface.co/posts/cfahlgren1/845769119345136)
 
+## Example: Converting a dataset from Alpaca to conversations
+
+For finetuning, there are different formats you can use. One common format is conversational. This is where each row is a conversation between a user and the model and consists of multiple turns.
+
+In this example, we will convert an Alpaca dataset to a conversational format. 
+
+Typically, it would be easiest to do this with a script, however, we can also use the SQL Console to do this in 30 seconds. 
+
+<iframe
+  src="https://huggingface.co/datasets/yahma/alpaca-cleaned/embed/viewer/default/train"
+  frameborder="0"
+  width="100%"
+  height="560px"
+></iframe>
+
+
+### SQL Query
+
+```sql
+-- Convert Alpaca format to Conversation format
+WITH 
+source_view AS (
+  SELECT * FROM train  -- Change 'train' to your desired view name here
+)
+SELECT 
+  [
+    struct_pack(
+      "from" := 'user',
+      "value" := CASE 
+                   WHEN input IS NOT NULL AND input != '' 
+                   THEN instruction || '\n\n' || input
+                   ELSE instruction
+                 END
+    ),
+    struct_pack(
+      "from" := 'assistant',
+      "value" := output
+    )
+  ] AS conversation
+FROM source_view
+WHERE instruction IS NOT NULL 
+AND output IS NOT NULL;
+```
+
+The query above is structured to make it easy to swap out the view name. Essentially, we are taking the columns `instruction` and `input` and concatenating them together with a newline. 
+
+We are also adding a `from` field to the conversation to indicate that the message is from the assistant. We use `struct_pack` to create a new STRUCT row for each conversation.
+
+DuckDB has some great documentation on the `STRUCT` [Data Type](https://duckdb.org/docs/sql/data_types/struct.html) and [Functions](https://duckdb.org/docs/sql/functions/struct.html).
+
+![Alpaca to Conversation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/alpaca-to-conversation.png)
+
+Once we have the results, we can download the results as a Parquet file. You can see what the final output looks like below.
+
+<iframe
+  src="https://huggingface.co/datasets/cfahlgren1/alpaca-conversational/embed/viewer/default/train"
+  frameborder="0"
+  width="100%"
+  height="560px"
+></iframe>
+
 ### Resources
 
 - [DuckDB WASM](https://duckdb.org/docs/api/wasm/overview.html)
