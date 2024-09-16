@@ -348,7 +348,7 @@ Before attempting fine-tuning, we first tried to reproduce the results of the Bi
   <figcaption>Pretraining plots without (blue) & with (green) layer normalisation </figcaption>
 </figure>
 
-While this approach looks very interesting for pretraining, only a few institutions can afford pretraining models at the necessary scale. However, there is already a wide range of strong pretrained models, and it would be extremely useful if they could be converted to 1.58bit after pretraining. Thus we set out on an investigation to see if we can make 1.58 fine-tuning work. 
+While this approach looks very interesting for pretraining, only a few institutions can afford doing it at the necessary scale. However, there is already a wide range of strong pretrained models, and it would be extremely useful if they could be converted to 1.58bit after pretraining. Other groups had reported that fine-tuning results were not as strong as those achieved with pretraining, so we set out on an investigation to see if we could make 1.58 fine-tuning work.
 
 ## Finetuning in 1.58bit
 
