@@ -81,9 +81,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
 
   Now, the scale factor is:
 
-  $$
-  scale_w = \frac{1}{0.8333} \approx 1.2
-  $$
+  \\( scale_w = \frac{1}{0.8333} \approx 1.2 \\)
 
   **Step 2: Quantize the Weight Matrix**  
   Using the formula:
