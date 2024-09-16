@@ -250,7 +250,7 @@ $$
 
 where ϵ is a small number to prevent overflow.
 
-After the introduction of the round function, which is nondifferentiable during the training phase, the backward pass computation needs the introduction of a [STE](https://arxiv.org/pdf/1903.05662) as mentioned before using the `detach()` trick in the code below : 
+The `round()` function is not differentiable, as mentioned before. We use `detach()` as a trick to implement a differentiable straight-through estimator in the backward pass: 
 
 ```python
 # Adapted from https://github.com/microsoft/unilm/blob/master/bitnet/The-Era-of-1-bit-LLMs__Training_Tips_Code_FAQ.pdf
