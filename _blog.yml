@@ -4619,3 +4619,14 @@
     - hub
     - partnerships
     - security
+
+- local: community-tools
+  title: "Introducing Community Tools"
+  author: nsarrazin
+  thumbnail: /blog/assets/community-tools/thumbnail.png
+  date: September 16, 2024
+  tags:
+    - huggingchat
+    - tools
+    - community
+    - guide
