@@ -63,14 +63,12 @@ To make the formulas clearer, here are examples of weight and activation quantiz
 
   Let the weight matrix \( W \) be:
 
-  $$
-  W = 
+  \\(  W = 
   \begin{bmatrix}
   0.8 & -0.5 & 1.2 \\
   -1.5 & 0.4 & -0.9 \\
   1.3 & -0.7 & 0.2
-  \end{bmatrix}
-  $$
+  \end{bmatrix} \\)
 
   **Step 1: Compute the Scale for Weights**  
   Using the formula:
