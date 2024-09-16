@@ -43,9 +43,7 @@ We train in full precision, but quantize the weights into ternary values as we g
 
 \\( scale_w = \frac{1}{\frac{1}{nm} \sum_{ij} |W_{ij}|} \\)
 
-$$
-W_q = \text{clamp}_{[-1,1]}(\text{round}(W*scale))
-$$
+\\( W_q = \text{clamp}_{[-1,1]}(\text{round}(W*scale)) \\)
 
 $$
 W_{dequantized} = W_q*scale_w
