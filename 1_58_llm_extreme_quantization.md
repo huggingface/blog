@@ -622,7 +622,7 @@ Before diving into cached tiled matrix multiplication, it's important to underst
 - **Threads and Blocks**: GPUs execute thousands of threads simultaneously. These threads are grouped into blocks, and each block runs independently. The grid is made up of these blocks, and it represents the entire problem space. For example, in matrix multiplication, each thread might be responsible for computing a single element of the output matrix.
 - **Shared Memory**: Each block has access to a limited amount of shared memory, which is much faster than global memory (the main memory on the GPU). However, shared memory is limited in size and shared among all threads within a block. Using shared memory effectively is key to improving performance in GPU programs.
 
-### **Challenges in Matrix Multiplication**
+### Challenges in Matrix Multiplication
 
 A simple implementation of matrix multiplication on a GPU might involve each thread computing a single element of the result matrix by directly reading the necessary elements from global memory. However, this approach can be inefficient for the following reasons:
 
