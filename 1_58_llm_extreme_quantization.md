@@ -88,7 +88,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
 
  \\( W_q = \text{clamp}_{[-1, 1]}(\text{round}(W \times scale_w)) \\)
 
-  We first scale the weights by \( scale_w \approx 1.2 \):
+  We first scale the weights by \\( scale_w \approx 1.2 \\):
 
   $$
   W \times scale_w = 
