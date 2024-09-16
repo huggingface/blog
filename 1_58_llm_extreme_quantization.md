@@ -460,7 +460,7 @@ With this configuration, after 2000 steps we have :
 
 Our fine-tuning method shows better convergence overall. You can observe a slight increase in the loss curve around 1,000 steps, which corresponds to when we begin approaching `lambda=1`, or full quantization. However, immediately after this point, the loss starts to converge again, leading to an improved perplexity of approximately 4.
 
-Despite this progress, when we tested the quantized model, which was fine-tuned on the tinystories small dataset, using the WikiText dataset, the model showed a very high perplexity. This suggests that fine-tuning the model in low-bit mode on a specific dataset causes it to lose much of its general knowledge. This issue might arise because the minimal representations we aim for with ternary weights can vary significantly from one dataset to another. To address this problem, we scaled our training process to include the larger [FineWeb-edu](https://huggingface.co/datasets/HuggingFaceFW/fineweb) dataset. We maintained a `lambda` value of:
+Despite this progress, when we tested the quantized model on the WikiText dataset (instead of the tinystories one we used for fine-tuning), it showed a very high perplexity. This suggests that fine-tuning the model in low-bit mode on a specific dataset causes it to lose much of its general knowledge. This issue might arise because the minimal representations we aim for with ternary weights can vary significantly from one dataset to another. To address this problem, we scaled our training process to include the larger [FineWeb-edu](https://huggingface.co/datasets/HuggingFaceFW/fineweb) dataset. We maintained a `lambda` value of:
 
 ```python
 lambda_ = min(training_step/1000, 1)
