@@ -118,9 +118,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
   
   Finally, we dequantize the weights using:
 
-  $$
-  W_{dequantized} = W_q \times scale_w
-  $$
+\\( W_{dequantized} = W_q \times scale_w \\)
 
   Substituting scale_w, we get:
 
