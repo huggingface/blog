@@ -105,14 +105,12 @@ To make the formulas clearer, here are examples of weight and activation quantiz
 
   Next, we round the values and clamp them to the range \\( [-1, 1] \\):
 
-  $$
-  W_q = 
+\\( W_q = 
   \begin{bmatrix}
   1 & -1 & 1 \\
   -1 & 0 & -1 \\
   1 & -1 & 0
-  \end{bmatrix}
-  $$
+  \end{bmatrix} \\)
 
   **Step 3: Dequantize the Weights**  
   Finally, we dequantize the weights using:
