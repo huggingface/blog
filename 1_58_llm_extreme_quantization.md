@@ -555,7 +555,7 @@ and the average score looks like :
 
 ### Experiments on Smaller Models
 
-In our initial experiments with smaller models like Smol LLMs, we observed that the warmup quantization technique didn’t yield as much improvement as it did with larger models. This suggests that the effectiveness of warmup quantization could be more closely related to model size and complexity.
+In our initial experiments with smaller models like SmolLM, we observed that the warmup quantization technique didn’t yield as much improvement as it did with larger models. This suggests that the effectiveness of warmup quantization could be more closely related to model size and complexity.
 
 For example, here are the loss curves for the [SmolLM 135M](https://huggingface.co/HuggingFaceTB/SmolLM-135M) model, comparing warmup quantization with full quantization from the start. Interestingly, the curves closely align, and the resulting perplexities aren't significantly different.
 
