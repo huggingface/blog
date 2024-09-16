@@ -34,7 +34,7 @@ The main obstacle to training in ternary precision is that the weight values are
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/bitlinear.png" alt="Alt Text" />
-  <figcaption>The architecture of BitNet with BitLinear layers</figcaption>
+  <figcaption>The architecture of BitNet with BitLinear layers (source: BitNet paper https://arxiv.org/pdf/2310.11453)</figcaption>
 </figure>
 
 ### Training Phase
