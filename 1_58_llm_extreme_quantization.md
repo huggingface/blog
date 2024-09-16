@@ -538,7 +538,7 @@ None of the models trained from random weights performed better than our fine-tu
 
 ### Scaling to 100B Tokens !
 
-We scaled our experiments to 100 billion tokens to see if we could match the performance of Llama3 8B. We conducted longer training runs, starting from our best-performing checkpoint from the shorter runs with the linear scheduler, and continued fine-tuning for 45,000 steps. We experimented with different learning rates, and while the model performed closely to the Llama3 model in some metrics, on average, it still lagged behind.
+We scaled our experiments to 100 billion tokens to see if we could match the performance of Llama 3 8B. We conducted longer training runs, starting from our best-performing checkpoint from the shorter runs with the linear scheduler, and continued fine-tuning for 45,000 steps. We experimented with different learning rates, and while the model performed closely to the Llama 3 model in some metrics, on average, it still lagged behind.
 
 Here are some examples of the metrics we evaluated at various checkpoints during the training :
 <figure style="text-align: center;">
