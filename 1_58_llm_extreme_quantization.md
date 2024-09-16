@@ -317,7 +317,7 @@ class BitLinear(nn.Linear):
 
 To integrate the BitNet architecture into Transformers, we introduced a new quantization method called "bitnet". This method involves replacing the standard Linear layers with specialized BitLinear layers that are compatible with the BitNet architecture, with appropriate dynamic quantization of activations, weight unpacking, and matrix multiplication. 
 
-Loading and testing the model in Transformers is incredibly straightforward! Here's how you can do it:
+Loading and testing the model in Transformers is incredibly straightforward, there are zero changes to the API:
 
 ```python
 model = AutoModelForCausalLM.from_pretrained("HF1BitLLM/Llama3-8B-1.58-100B-tokens", device_map="cuda", torch_dtype=torch.bfloat16)    
