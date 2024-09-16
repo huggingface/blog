@@ -86,9 +86,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
   **Step 2: Quantize the Weight Matrix**  
   Using the formula:
 
-  $$
-  W_q = \text{clamp}_{[-1, 1]}(\text{round}(W \times scale_w))
-  $$
+ \\( W_q = \text{clamp}_{[-1, 1]}(\text{round}(W \times scale_w)) \\)
 
   We first scale the weights by \( scale_w \approx 1.2 \):
 
