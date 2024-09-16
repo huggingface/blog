@@ -114,7 +114,8 @@ To make the formulas clearer, here are examples of weight and activation quantiz
   1 & -1 & 0
   \end{bmatrix} \\)
 
-  **Step 3: Dequantize the Weights**  
+  **Step 3: Dequantize the Weights**
+  
   Finally, we dequantize the weights using:
 
   $$
