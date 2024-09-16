@@ -524,7 +524,7 @@ We ran 5 experiments this time with k in [15, 20, 25, 40, 100] :
   <figcaption>Finetuning plots with sigmoid scheduler</figcaption>
 </figure>
 
-The sharp increase in lambda caused instability around the 500th step and didn’t fix the first divergence issue. However, for \( k = 100 \), we observed some improvement in downstream tasks (see the results table), although perplexity remained around ~13.5. Despite this, it didn’t show a clear performance boost over a linear scheduler.
+The sharp increase in lambda caused instability around the 500th step and didn’t fix the first divergence issue. However, for \\( k = 100 \\), we observed some improvement in downstream tasks (see the results table), although perplexity remained around ~13.5. Despite this, it didn’t show a clear performance boost over a linear scheduler.
 
 
 Additionally, we experimented with training models from scratch using random weights and various learning rates. This allowed us to compare the effectiveness of our fine-tuning approach against traditional pretraining methods.
