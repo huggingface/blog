@@ -113,4 +113,4 @@ Once the Space is started up you can easily create a tool out of it on HuggingCh
 
 ### Share your feedback with us
 
-With the release of Community Tools we hope you’ll be able to enhance your chats with multimodal content and custom tools. The feature is still experimental so if you see Spaces that are not supported or tools that don’t work, please share them with us in the feedback thread!
+With the release of Community Tools we hope you’ll be able to enhance your chats with multimodal content and custom tools. The feature is still experimental so if you see Spaces that are not supported or tools that don’t work, please share them with us in [the feedback thread](https://huggingface.co/spaces/huggingchat/chat-ui/discussions/569)!
