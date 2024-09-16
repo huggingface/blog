@@ -615,7 +615,7 @@ Note that even though the models are fine-tuned from an Instruct-tuned model, th
 
 To benefit from the BitNet low-precision weights, we pack them into an `int8` tensor (this makes the number of parameters go from 8B to 2.8B!). During inference, these weights must be unpacked before performing matrix multiplication. We implemented custom kernels in Cuda and Triton to handle the on-the-fly unpacking during the matrix multiplication process. For the matrix multiplication itself, we employed the cached tiled matrix multiplication technique. To fully grasp this approach, let's first review some Cuda programming fundamentals.
 
-### **Basic GPU Concepts: Threads, Blocks, and Shared Memory**
+### Basic GPU Concepts: Threads, Blocks, and Shared Memory
 
 Before diving into cached tiled matrix multiplication, it's important to understand some basic GPU concepts:
 
