@@ -320,7 +320,11 @@ To integrate the BitNet architecture into Transformers, we introduced a new quan
 Loading and testing the model in Transformers is incredibly straightforward, there are zero changes to the API:
 
 ```python
-model = AutoModelForCausalLM.from_pretrained("HF1BitLLM/Llama3-8B-1.58-100B-tokens", device_map="cuda", torch_dtype=torch.bfloat16)    
+model = AutoModelForCausalLM.from_pretrained(
+    "HF1BitLLM/Llama3-8B-1.58-100B-tokens",
+    device_map="cuda",
+    torch_dtype=torch.bfloat16
+)    
 tokenizer = AutoTokenizer.from_pretrained("meta-llama/Meta-Llama-3-8B-Instruct")
 
 input_text = "Daniel went back to the the the garden. Mary travelled to the kitchen. Sandra journeyed to the kitchen. Sandra went to the hallway. John went to the bedroom. Mary went back to the garden. Where is Mary?\nAnswer:"
