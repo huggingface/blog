@@ -445,7 +445,7 @@ As a result, we decided to experiment with a `lambda` value that adjusts dynamic
 lambda_ = training_step / total_training_steps
 ```
 
-Using this dynamic `lambda` value led to better loss convergence, but the perplexity (ppl) results during inference, when `lambda` was set to 1, were still far from satisfactory. We realized this was likely because the model hadn't been trained long enough with `lambda`=1. To address this, we adjusted our `lambda` value to improve the training process.
+Using this dynamic `lambda` value led to better loss convergence, but the perplexity (ppl) results during inference, when `lambda` was set to 1, were still far from satisfactory. We realized this was likely because the model hadn't been trained long enough with `lambda=1`. To address this, we adjusted our `lambda` value to improve the training process.
 
 ```python
 lambda_ = min(2 * training_step / total_training_steps, 1)
