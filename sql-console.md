@@ -40,7 +40,7 @@ You can learn more about the Parquet format and range requests [here](https://hu
 
 You can use the Parquet conversion in the DuckDB CLI as well. Here's how it works:
 
-![DuckDB CLI](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/duckdb_hf_url.png)
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/duckdb_hf_url.png" alt="DuckDB CLI" width="500"/>
 
 ## DuckDB WASM 🦆
 
@@ -62,13 +62,31 @@ While queries will take longer based on the size of the dataset and query comple
 - The SQL Console will work for a lot of queries, however, the memory limit is ~3GB, so it is possible to run out of memory and not be able to process the query (_Tip: try to use filters to reduce the amount of data you are querying along with `LIMIT`_).
 - While DuckDB WASM is very powerful, it is not as feature complete as a full DuckDB engine. For example, it does not yet support the `hf://` protocol to download datasets.
 
-## Try it out!
+**Try it out!**
 
 You can try out a SQL Console query for [SkunkworksAI/reasoning-0.01](https://huggingface.co/datasets/SkunkworksAI/reasoning-0.01?sql_console=true&sql=--+Find+instructions+with+more+than+10+reasoning+steps%0Aselect+*+from+train%0Awhere+len%28reasoning_chains%29+%3E+10%0Alimit+100&sql_row=43) to see instructions with more than 10 reasoning steps.
 
 ## SQL Snippets
 
 DuckDB has a ton of use cases that we are still exploring. We created a [SQL Snippets](https://huggingface.co/spaces/cfahlgren1/sql-snippets) space to showcase what you can do with the SQL Console.
-## Feedback
+
+Here are some really interesting use cases we have found:
+
+- [Filtering a function calling dataset for a specific function with regex](https://x.com/qlhoest/status/1835687940376207651)
+- [Finding the most popular base models from open-llm-leaderboard](https://x.com/polinaeterna/status/1834601082862842270)
+- [Converting an alpaca dataset to a conversational format](https://x.com/calebfahlgren/status/1834674871688704144)
+- [Performing similarity search with embeddings](https://x.com/andrejanysa/status/1834253758152269903)
+- [Filtering 50k+ rows from a dataset for the highest quality, reasoning instructions](https://x.com/calebfahlgren/status/1835703284943749301)
+
+Remember, it's one click to download your SQL results as a Parquet file and use for your dataset!
 
 We would love to hear what you think of the SQL Console and if you have any feedback, please comment in this [post!](https://huggingface.co/posts/cfahlgren1/845769119345136)
+
+### Resources
+
+- [DuckDB WASM](https://duckdb.org/docs/api/wasm/overview.html)
+- [DuckDB Syntax](https://duckdb.org/docs/sql/introduction.html)
+- [DuckDB WASM Paper](https://www.vldb.org/pvldb/vol15/p3574-kohn.pdf)
+- [Intro to Parquet Format](https://huggingface.co/blog/cfahlgren1/intro-to-parquet-format)
+- [Hugging Face + DuckDB](https://huggingface.co/docs/hub/en/datasets-duckdb)
+- [SQL Snippets Space](https://huggingface.co/spaces/cfahlgren1/sql-snippets)
