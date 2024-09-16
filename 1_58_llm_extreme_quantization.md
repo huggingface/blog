@@ -200,7 +200,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
   \end{bmatrix}
   $$
 
-  Round the values and clamp them to the range \([-127, 128]\):
+  Round the values and clamp them to the range \\([-128, 127] \\):
 
   $$
   X_q = 
