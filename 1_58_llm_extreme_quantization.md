@@ -39,7 +39,7 @@ The main obstacle to training in ternary precision is that the weight values are
 
 ### Training Phase
 
-During training, we start by quantizing the weights into ternary values, using symmetric per tensor quantization. First, we compute the average of the absolute values of the weight matrix and use this as a scale. We then divide the weights by the scale, round the values, constrain them between -1 and 1, and finally rescale them to continue in full precision.
+We train in full precision, but quantize the weights into ternary values as we go, using symmetric per tensor quantization. First, we compute the average of the absolute values of the weight matrix and use this as a scale. We then divide the weights by the scale, round the values, constrain them between -1 and 1, and finally rescale them to continue in full precision.
 
 $$
 scale_w = \frac{1}{\frac{1}{nm} \sum_{ij} |W_{ij}|}
