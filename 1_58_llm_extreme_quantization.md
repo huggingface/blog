@@ -70,7 +70,8 @@ To make the formulas clearer, here are examples of weight and activation quantiz
   1.3 & -0.7 & 0.2
   \end{bmatrix} \\)
 
-  **Step 1: Compute the Scale for Weights**  
+  **Step 1: Compute the Scale for Weights**
+  
   Using the formula:
 
   \\( scale_w = \frac{1}{\frac{1}{nm} \sum_{ij} |W_{ij}|} \\)
