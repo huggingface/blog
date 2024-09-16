@@ -5,7 +5,7 @@ authors:
 - user: nsarrazin
 ---
 
-Today we’re releasing our latest feature on HuggingChat: community tools! This lets you turn any Space that you love on HuggingFace into a tool that can be used by models directly from HuggingChat. 
+Today we’re releasing our latest feature on HuggingChat: Community Tools! This lets you turn any Space that you love on HuggingFace into a tool that can be used by models directly from HuggingChat. 
 
 With this feature, we’re also expanding the modalities available in HuggingChat. You can now use community tools to understand images, generate videos, or answer with a text-to-speech model. The possibilities are endless and anyone can create tools using spaces on Hugging Face! Explore existing tools [here](https://huggingface.co/chat/tools).
 
