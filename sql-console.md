@@ -60,7 +60,7 @@ While queries will take longer based on the size of the dataset and query comple
 
 **Limitations**
 - The SQL Console will work for a lot of queries, however, the memory limit is ~3GB, so it is possible to run out of memory and not be able to process the query (_Tip: try to use filters to reduce the amount of data you are querying along with `LIMIT`_).
-- While DuckDB WASM is very powerful, it is not as feature complete as a full DuckDB engine. For example, it does not yet support the `hf://` protocol to download datasets.
+- While DuckDB WASM is very powerful, it is not 1 to 1 with the DuckDB CLI. For example, it does not yet support the `hf://` protocol to download datasets.
 
 **Try it out!**
 
