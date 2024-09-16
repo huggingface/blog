@@ -354,7 +354,7 @@ While this approach looks very interesting for pretraining, only a few instituti
 
 When we began finetuning from the pre-trained Llama3 8B weights, the model performed slightly better but not as well as we expected. 
 
-> **Note:** All our experiments were conducted using [Nanotron](https://github.com/huggingface/nanotron). If you're interested in trying pretraining or fine-tuning, you can check out this [PR](https://github.com/huggingface/nanotron/pull/180).
+> **Note:** All our experiments were conducted using [Nanotron](https://github.com/huggingface/nanotron). If you're interested in trying 1.58bit pretraining or fine-tuning, you can check out this [PR](https://github.com/huggingface/nanotron/pull/180).
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/finetuning_basic.png" alt="Alt Text" style="width: 80%;"/>
