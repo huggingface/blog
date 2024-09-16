@@ -418,7 +418,7 @@ def weight_quant_scaling(w):
     return quantized_weights
 ```
 
-We observed that both the random weights and Llama3 weights resulted in losses starting at approximately the same value of 13. This suggests that the Llama3 model loses all of its prior information when quantization is introduced. To further investigate how much information the model loses during this process, we experimented with per-group quantization.
+We observed that both the random weights and the Llama 3 weights resulted in losses starting at approximately the same value of 13. This suggests that the Llama 3 model loses all of its prior information when quantization is introduced. To further investigate how much information the model loses during this process, we experimented with per-group quantization.
 
 As a sanity check, we first set the group size to 1, which essentially means no quantization. In this scenario, the loss started at 1.45, as expected. However, when we increased the group size to 2, the loss jumped to around 11. This indicates that even with a minimal group size of 2, the model still loses nearly all of its information.
 
