@@ -611,7 +611,7 @@ To replicate these results, you can check out this [PR](https://github.com/huggi
 
 Note that even though the models are fine-tuned from an Instruct-tuned model, they still need to be fine-tuned using an Instruct dataset as well. These can be considered base models.
 
-## Kernels & Benchmarks
+## Custom Kernels & Benchmarks
 
 To benefit from the BitNet low-precision weights, we pack them into an `int8` tensor (this makes the number of parameters go from 8B to 2.8B!). During inference, these weights must be unpacked before performing matrix multiplication. We implemented custom kernels in Cuda and Triton to handle the on-the-fly unpacking during the matrix multiplication process. For the matrix multiplication itself, we employed the cached tiled matrix multiplication technique. To fully grasp this approach, let's first review some Cuda programming fundamentals.
 
