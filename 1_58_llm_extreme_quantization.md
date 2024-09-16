@@ -49,17 +49,11 @@ We train in full precision, but quantize the weights into ternary values as we g
 
 Activations are then quantized to a specified bit-width (e.g., 8-bit) using [absmax](https://arxiv.org/pdf/2208.07339) quantization (symmetric per channel quantization). This involves scaling the activations into the range [−128,127[ for an 8-bit bit-width. The quantization formula is:
 
-$$
-scale_x = \frac{127}{|X|_{\text{max}, \, \text{dim}=-1}}
-$$
+\\( scale_x = \frac{127}{|X|_{\text{max}, \, \text{dim}=-1}} \\)
 
-$$
-X_q = \text{clamp}_{[-128,127]}(\text{round}(X*scale))
-$$
+\\( X_q = \text{clamp}_{[-128,127]}(\text{round}(X*scale)) \\)
 
-$$
-X_{dequantized} = X_q * scale_x
-$$
+\\( X_{dequantized} = X_q * scale_x \\)
 
 To make the formulas clearer, here are examples of weight and activation quantization using a 3x3 matrix:
 
