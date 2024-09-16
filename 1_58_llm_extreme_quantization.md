@@ -77,9 +77,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
 
   we calculate the average absolute value of \( W \):
 
-  $$
-  \frac{1}{nm} \sum_{ij} |W_{ij}| = \frac{1}{9}(0.8 + 0.5 + 1.2 + 1.5 + 0.4 + 0.9 + 1.3 + 0.7 + 0.2) = \frac{1}{9}(7.5) = 0.8333
-  $$
+\\( \frac{1}{nm} \sum_{ij} |W_{ij}| = \frac{1}{9}(0.8 + 0.5 + 1.2 + 1.5 + 0.4 + 0.9 + 1.3 + 0.7 + 0.2) = \frac{1}{9}(7.5) = 0.8333 \\)
 
   Now, the scale factor is:
 
