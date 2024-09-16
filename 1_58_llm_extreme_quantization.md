@@ -73,9 +73,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
   **Step 1: Compute the Scale for Weights**  
   Using the formula:
 
-  $$
-  scale_w = \frac{1}{\frac{1}{nm} \sum_{ij} |W_{ij}|}
-  $$
+  \\( scale_w = \frac{1}{\frac{1}{nm} \sum_{ij} |W_{ij}|} \\)
 
   we calculate the average absolute value of \( W \):
 
