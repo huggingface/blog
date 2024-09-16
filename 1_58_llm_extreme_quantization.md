@@ -122,8 +122,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
 
   Substituting scale_w, we get:
 
-  $$
-  W_{dequantized} = 
+ \\( W_{dequantized} = 
   \begin{bmatrix}
   1 \times 1.2 & -1 \times 1.2 & 1 \times 1.2 \\
   -1 \times 1.2 & 0 \times 1.2 & -1 \times 1.2 \\
@@ -134,8 +133,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
   1.2 & -1.2 & 1.2 \\
   -1.2 & 0 & -1.2 \\
   1.2 & -1.2 & 0
-  \end{bmatrix}
-  $$
+  \end{bmatrix} \\)
 
 </details>
 
