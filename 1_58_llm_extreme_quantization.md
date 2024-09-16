@@ -140,7 +140,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
 <details>
   <summary>Example 2: Activation Matrix Quantization</summary>
 
-  Let the activation matrix \( X \) be:
+  Let the activation matrix \\( X \\) be:
 
   $$
   X = 
