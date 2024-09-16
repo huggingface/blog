@@ -341,7 +341,7 @@ For a quick test of the model, check out this [notebook](https://colab.research.
 
 ## Pretraining Results in 1.58b
 
-We tried to reproduce the results of the BitNet paper; we started with a small dataset, [tinystories](https://huggingface.co/datasets/roneneldan/TinyStories), and a Llama3 8B model architecture (all the experiments on Llama3 8B are conducted using [meta-llama/Meta-Llama-3-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)). It seemed that adding a normalization function like in the paper improves the performance. For example, after 2000 steps of training, we had a perplexity on the validation part of the dataset equal to 6.3 without normalization, and 5.9 with normalization, but in both cases, the training was stable.
+Before attempting fine-tuning, we first tried to reproduce the results of the BitNet paper with pretraining. We started with a small dataset, [tinystories](https://huggingface.co/datasets/roneneldan/TinyStories), and a [Llama3 8B model](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct). We confirmed that adding a normalization function, like the paper does, improves performance. For example, after 2000 steps of training, we had a perplexity on the validation set equal to 6.3 without normalization, and 5.9 with normalization. Training was stable in both cases.
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/pretraining.png" alt="Alt Text" style="width: 80%;"/>
