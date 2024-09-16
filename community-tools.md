@@ -7,14 +7,14 @@ authors:
 
 Today we’re releasing our latest feature on HuggingChat: Community Tools! This lets you turn any Space that you love on HuggingFace into a tool that can be used by models directly from HuggingChat. 
 
-With this feature, we’re also expanding the modalities available in HuggingChat. You can now use community tools to understand images, generate videos, or answer with a text-to-speech model. The possibilities are endless and anyone can create tools using spaces on Hugging Face! Explore existing tools [here](https://huggingface.co/chat/tools).
+With this feature, we’re also expanding the modalities available in HuggingChat. You can now use community tools to understand images, generate videos, or answer with a text-to-speech model. The possibilities are endless and anyone can create tools using Spaces on Hugging Face! Explore existing tools [here](https://huggingface.co/chat/tools).
 
 In this post we’re going to look at a few use cases for creating community tools:
 
-1. Turning a community ZeroGPU space into a tool 
-2. Creating a custom tool yourself
-3. Enhance your assistants with community tools.
-4. Create a RAG tool on your own documents
+1. [Turning a community space into a tool](#turning-a-community-space-into-a-tool)
+2. [Creating a custom tool yourself](#creating-a-custom-tool-yourself)
+3. [Enhance your assistants with community tools](#enhance-your-assistants-with-community-tools)
+4. [Create a RAG tool on your own documents](#create-a-rag-tool-on-your-own-documents)
 
 ## Turning a community space into a tool
 
@@ -49,14 +49,13 @@ Now that our tool is created, we can enable it and start using it with tools com
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/community-tools/tools-step-3.png"/>
 </div>
 
-## **Creating a custom tool for yourself**
+## **Creating a custom tool yourself**
 
 Using existing spaces can cover a lot of use cases but if you can write basic python then you can just as easily create custom tools for yourself. Let’s do a simple example of a dice roll tool since LLMs are quite bad at picking random numbers by themselves.
 
 Start by creating a [new gradio space](https://huggingface.co/new-space?sdk=gradio) on Hugging Face. The *CPU Basic* free tier works fine for this. Your space will have to be public in order to be used inside HuggingChat. 
 
 Create a simple [`app.py`](http://app.py) app inside your space repo, in the case of our roll dice example that could be:
-
 ```python
 import gradio as gr
 import random
@@ -87,7 +86,7 @@ Once you’re done, push the changes and when your space is deployed you can cre
 </div>
 
 
-## Enhance Assistants using Community Tools
+## Enhance your assistants with Community Tools
 
 You can activate tools directly by going to [the tools page](https://huggingface.co/chat/tools) and picking the ones you like or you can also package tools in an assistant. 
 
