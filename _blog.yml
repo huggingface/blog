@@ -4619,3 +4619,13 @@
     - hub
     - partnerships
     - security
+
+- local: sql-console
+  title: "Introducing the SQL Console on Datasets"
+  author: cfahlgren1
+  thumbnail: /blog/assets/sql_console/thumbnail.png
+  date: September 16, 2024
+  tags:
+    - datasets
+    - sql
+    - duckdb

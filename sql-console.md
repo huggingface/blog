@@ -1,0 +1,74 @@
+---
+title: "Introducing the SQL Console on Datasets" 
+thumbnail: /blog/assets/sql_console/thumbnail.png
+authors:
+- user: cfahlgren1
+---
+
+Datasets have been exploding and Hugging Face has become the default home for many datasets. 
+
+# Datasets Growth
+
+Each month, the amount of datasets uploaded compounds, and so does the need to query, filter and discover them.
+
+![Dataset Monthly Creations](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/dataset_monthly_creations.png)
+
+As the number of datasets has grown, so has the need to query and filter them. 
+
+We are very excited to announce that you can now run SQL queries on your datasets directly in the Hugging Face Hub!
+
+# Introducing the SQL Console on Datasets
+
+On every dataset you should see a new **SQL Console** badge. In one click, you can open a [DuckDB](https://duckdb.org/) SQL Console for the given dataset.
+
+![SQLConsole](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/SQLConsole.gif)
+
+- **No dependencies**: The SQL Console is powered by DuckDB WASM, so you can query your dataset without any dependencies.
+- **Full DuckDB Syntax**: DuckDB has [full SQL](https://duckdb.org/docs/sql/introduction.html) syntax support along with many built in functions for regex, lists, JSON, embeddings and more. You'll find, DuckDB syntax is very similar to PostgreSQL.
+- **Export Results**: You can export the results of your query to parquet.
+- **Shareable**: You can share your query results of public datasets with a link.
+
+# How it works
+
+## Parquet Conversion
+
+To power the dataset viewer on Hugging Face, the first 5GB of every dataset is auto-converted to Parquet (unless it was already a Parquet dataset). Parquet is a columnar data format that is optimized for performance and storage efficiency. 
+
+The beauty of this is that you can run SQL queries on the dataset without needing to download the entire dataset. DuckDB can skip row groups based on filters, utilizing the metadata in the Parquet files. This is done using [DuckDB](https://duckdb.org/) and HTTP requests with byte ranges to the dataset. 
+
+You can learn more about the Parquet format and range requests [here](https://huggingface.co/blog/cfahlgren1/intro-to-parquet-format).
+
+You can use the Parquet conversion in the DuckDB CLI as well. Here's how it works:
+
+![DuckDB CLI](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/duckdb_hf_url.png)
+
+## DuckDB WASM 🦆
+
+[DuckDB WASM](https://duckdb.org/docs/api/wasm/overview.html) is the engine that powers the SQL Console. It is an in-process SQL engine that runs on the Web Assembly (WASM). 
+
+This enables it to run entirely in the browser, with no server or backend required. This gives the user the upmost flexibility to query data as they please without any dependencies.
+
+You may be wondering, _"Will it work for big datasets?"_ and the answer is, "Yes!". 
+
+Here's a query of the [OpenCo7/UpVoteWeb](https://huggingface.co/datasets/OpenCo7/UpVoteWeb) dataset which has `12.6M` rows in the Parquet conversion.
+
+![Reddit Movie Suggestions](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/reddit-movie-suggestions.png)
+
+You can see we got results for a simple filter query in under 3 seconds. 
+
+While queries will take longer based on the size of the dataset and query complexity, you will be suprised what you can do with the SQL Console.
+
+**Limitations**
+- The SQL Console will work for a lot of queries, however, the memory limit is ~3GB, so it is possible to run out of memory and not be able to process the query (_Tip: try to use filters to reduce the amount of data you are querying along with `LIMIT`_).
+- While DuckDB WASM is very powerful, it is not as feature complete as a full DuckDB engine. For example, it does not yet support the `hf://` protocol to download datasets.
+
+## Try it out!
+
+You can try out a SQL Console query for [SkunkworksAI/reasoning-0.01](https://huggingface.co/datasets/SkunkworksAI/reasoning-0.01?sql_console=true&sql=--+Find+instructions+with+more+than+10+reasoning+steps%0Aselect+*+from+train%0Awhere+len%28reasoning_chains%29+%3E+10%0Alimit+100&sql_row=43) to see instructions with more than 10 reasoning steps.
+
+## SQL Snippets
+
+DuckDB has a ton of use cases that we are still exploring. We created a [SQL Snippets](https://huggingface.co/spaces/cfahlgren1/sql-snippets) space to showcase what you can do with the SQL Console.
+## Feedback
+
+We would love to hear what you think of the SQL Console and if you have any feedback, please comment in this [post!](https://huggingface.co/posts/cfahlgren1/845769119345136)
