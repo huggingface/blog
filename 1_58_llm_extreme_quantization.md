@@ -315,7 +315,7 @@ class BitLinear(nn.Linear):
 
 ## Integration in Transformers & How To Use
 
-To integrate the BitNet architecture into Transformers, we introduced a new quantization method called "bitnet." This method involves replacing the standard Linear layers with specialized BitLinear layers that are compatible with the BitNet architecture, with appropriate activation dynamic quantization, weight unpacking, and matrix multiplication. 
+To integrate the BitNet architecture into Transformers, we introduced a new quantization method called "bitnet". This method involves replacing the standard Linear layers with specialized BitLinear layers that are compatible with the BitNet architecture, with appropriate dynamic quantization of activations, weight unpacking, and matrix multiplication. 
 
 Loading and testing the model in Transformers is incredibly straightforward! Here's how you can do it:
 
