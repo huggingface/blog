@@ -103,7 +103,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
   1.56 & -0.84 & 0.24
   \end{bmatrix} \\)
 
-  Next, we round the values and clamp them to the range \([-1, 1]\):
+  Next, we round the values and clamp them to the range \\( [-1, 1] \\):
 
   $$
   W_q = 
