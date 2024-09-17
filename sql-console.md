@@ -5,11 +5,7 @@ authors:
 - user: cfahlgren1
 ---
 
-Datasets use has been exploding and Hugging Face has become the default home for many datasets. 
-
-## Datasets Growth
-
-Each month, as the amount of datasets uploaded to the Hub increases, so does the need to query, filter and discover them.
+Datasets use has been exploding and Hugging Face has become the default home for many datasets. Each month, as the amount of datasets uploaded to the Hub increases, so does the need to query, filter and discover them.
 
 ![Dataset Monthly Creations](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/dataset_monthly_creations.png) 
 _Datasets created on Hugging Face Hub each month_
