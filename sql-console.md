@@ -39,7 +39,7 @@ All the work is done in the browser and the console comes with a few neat featur
 
 To power the dataset viewer on Hugging Face, the first 5GB of every dataset are auto-converted to Parquet (unless it was already a Parquet dataset, then the full dataset is available). Parquet is a columnar data format that is optimized for performance and storage efficiency. You can find more information about the Parquet conversion process in the [Dataset Viewer Parquet API documentation](https://huggingface.co/docs/dataset-viewer/en/parquet).
 
-Using this Parquet conversion, the SQL Console creates views for you to query based on your dataset splits and configs. 
+Using the Parquet files, the SQL Console creates views for you to query based on your dataset splits and configs. 
 
 ### DuckDB WASM 🦆
 
