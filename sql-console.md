@@ -7,7 +7,7 @@ authors:
 
 Datasets have been exploding and Hugging Face has become the default home for many datasets. 
 
-# Datasets Growth
+## Datasets Growth
 
 Each month, as the amount of datasets uploaded compounds, and so does the need to query, filter and discover them.
 
