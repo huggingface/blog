@@ -9,21 +9,22 @@ Datasets have been exploding and Hugging Face has become the default home for ma
 
 # Datasets Growth
 
-Each month, the amount of datasets uploaded compounds, and so does the need to query, filter and discover them.
+Each month, as the amount of datasets uploaded compounds, and so does the need to query, filter and discover them.
 
-![Dataset Monthly Creations](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/dataset_monthly_creations.png)
-
-As the number of datasets has grown, so has the need to query and filter them. 
+![Dataset Monthly Creations](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/dataset_monthly_creations.png) 
+_Datasets created on Hugging Face Hub each month_
 
 We are very excited to announce that you can now run SQL queries on your datasets directly in the Hugging Face Hub!
 
-# Introducing the SQL Console on Datasets
+# Introducing the SQL Console for Datasets
 
 On every dataset you should see a new **SQL Console** badge. In one click, you can open a [DuckDB](https://duckdb.org/) SQL Console for the given dataset.
 
 ![SQLConsole](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/SQLConsole.gif)
 
-- **No dependencies**: The SQL Console is powered by DuckDB WASM, so you can query your dataset without any dependencies.
+All the work is done in the browser and the console comes with a few neat features:
+
+- **100% Local**: The SQL Console is powered by DuckDB WASM, so you can query your dataset without any dependencies.
 - **Full DuckDB Syntax**: DuckDB has [full SQL](https://duckdb.org/docs/sql/introduction.html) syntax support along with many built in functions for regex, lists, JSON, embeddings and more. You'll find, DuckDB syntax is very similar to PostgreSQL.
 - **Export Results**: You can export the results of your query to parquet.
 - **Shareable**: You can share your query results of public datasets with a link.
@@ -34,19 +35,13 @@ On every dataset you should see a new **SQL Console** badge. In one click, you c
 
 To power the dataset viewer on Hugging Face, the first 5GB of every dataset is auto-converted to Parquet (unless it was already a Parquet dataset). Parquet is a columnar data format that is optimized for performance and storage efficiency. 
 
-The beauty of this is that you can run SQL queries on the dataset without needing to download the entire dataset. DuckDB can skip row groups based on filters, utilizing the metadata in the Parquet files. This is done using [DuckDB](https://duckdb.org/) and HTTP requests with byte ranges to the dataset. 
-
-You can learn more about the Parquet format and range requests [here](https://huggingface.co/blog/cfahlgren1/intro-to-parquet-format). The DuckDB CLI also supports the `hf://` protocol to read the parquet conversion. 
-
-Here's how it works:
-
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/duckdb_hf_url.png" alt="DuckDB CLI" width="500"/>
+Using this parquet conversion, the SQL Console creates views for you to query based on your dataset splits and configs.
 
 ## DuckDB WASM 🦆
 
-[DuckDB WASM](https://duckdb.org/docs/api/wasm/overview.html) is the engine that powers the SQL Console. It is an in-process SQL engine that runs on the Web Assembly (WASM). 
+[DuckDB WASM](https://duckdb.org/docs/api/wasm/overview.html) is the engine that powers the SQL Console. It is an in-process database engine that runs on Web Assembly in the browser. No server or backend needed.
 
-This enables it to run entirely in the browser, with no server or backend required. This gives the user the upmost flexibility to query data as they please without any dependencies.
+By being soley in the browser, it gives the user the upmost flexibility to query data as they please without any dependencies. It also makes it really simple to share reproducible results with a simple link.
 
 You may be wondering, _"Will it work for big datasets?"_ and the answer is, "Yes!". 
 
@@ -54,13 +49,13 @@ Here's a query of the [OpenCo7/UpVoteWeb](https://huggingface.co/datasets/OpenCo
 
 ![Reddit Movie Suggestions](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/reddit-movie-suggestions.png)
 
-You can see we got results for a simple filter query in under 3 seconds. 
+You can see we received results for a simple filter query in under 3 seconds. 
 
-While queries will take longer based on the size of the dataset and query complexity, you will be suprised what you can do with the SQL Console.
+While queries will take longer based on the size of the dataset and query complexity, you will be suprised about how much you can do with the SQL Console. 
 
-**Limitations**
+As with any technology, there are limitations.
 - The SQL Console will work for a lot of queries, however, the memory limit is ~3GB, so it is possible to run out of memory and not be able to process the query (_Tip: try to use filters to reduce the amount of data you are querying along with `LIMIT`_).
-- While DuckDB WASM is very powerful, it is not 1 to 1 with the DuckDB CLI. For example, it does not yet support the `hf://` protocol to download datasets.
+- While DuckDB WASM is very powerful, it is not fully feature parity with DuckDB. For example, DuckDB WASM does not yet support the `hf://` protocol to download datasets.
 
 **Try it out!**
 
@@ -91,14 +86,19 @@ In this example, we will convert an Alpaca dataset to a conversational format.
 Typically, it would be easiest to do this with a script, however, we can also use the SQL Console to do this in 30 seconds. 
 
 <iframe
-  src="https://huggingface.co/datasets/yahma/alpaca-cleaned/embed/viewer/default/train"
+  src="https://huggingface.co/datasets/yahma/alpaca-cleaned/embed/viewer/default/train?sql=--+Convert+Alpaca+format+to+Conversation+format%0AWITH+%0Asource_view+AS+%28%0A++SELECT+*+FROM+train++--+Change+%27train%27+to+your+desired+view+name+here%0A%29%0ASELECT+%0A++%5B%0A++++struct_pack%28%0A++++++%22from%22+%3A%3D+%27user%27%2C%0A++++++%22value%22+%3A%3D+CASE+%0A+++++++++++++++++++WHEN+input+IS+NOT+NULL+AND+input+%21%3D+%27%27+%0A+++++++++++++++++++THEN+instruction+%7C%7C+%27%5Cn%5Cn%27+%7C%7C+input%0A+++++++++++++++++++ELSE+instruction%0A+++++++++++++++++END%0A++++%29%2C%0A++++struct_pack%28%0A++++++%22from%22+%3A%3D+%27assistant%27%2C%0A++++++%22value%22+%3A%3D+output%0A++++%29%0A++%5D+AS+conversation%0AFROM+source_view%0AWHERE+instruction+IS+NOT+NULL+%0AAND+output+IS+NOT+NULL%3B"
   frameborder="0"
   width="100%"
   height="560px"
 ></iframe>
 
+In the dataset above, click on the **SQL Console** badge to open the SQL Console. You should see the query below automatically populated.
 
-### SQL Query
+When you are ready, click the **Run Query** button to execute the query. 
+
+
+
+### SQL
 
 ```sql
 -- Convert Alpaca format to Conversation format
@@ -126,11 +126,9 @@ WHERE instruction IS NOT NULL
 AND output IS NOT NULL;
 ```
 
-The query above is structured to make it easy to swap out the view name. Essentially, we are taking the columns `instruction` and `input` and concatenating them together with a newline. 
+In the query we use the `struct_pack` function to create a new STRUCT row for each conversation.
 
-We are also adding a `from` field to the conversation to indicate that the message is from the assistant. We use `struct_pack` to create a new STRUCT row for each conversation.
-
-DuckDB has some great documentation on the `STRUCT` [Data Type](https://duckdb.org/docs/sql/data_types/struct.html) and [Functions](https://duckdb.org/docs/sql/functions/struct.html).
+DuckDB has great documentation on the `STRUCT` [Data Type](https://duckdb.org/docs/sql/data_types/struct.html) and [Functions](https://duckdb.org/docs/sql/functions/struct.html). You'll find many datasets contain columns with JSON data. DuckDB provides functions to easily parse and query these columns.
 
 ![Alpaca to Conversation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/alpaca-to-conversation.png)
 
