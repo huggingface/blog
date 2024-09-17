@@ -804,3 +804,4 @@ We would like to express our sincere gratitude to Leandro von Werra, Thomas Wolf
 5. L. Mao, *CUDA Matrix Multiplication Optimization*. [blogpost](https://leimao.github.io/article/CUDA-Matrix-Multiplication-Optimization/)
 6. *Tutorial: OpenCL SGEMM tuning for Kepler*. [link](https://cnugteren.github.io/tutorial/pages/page4.html)
 7. *CUDAMODE*. [github](https://github.com/cuda-mode), [youtube](https://www.youtube.com/channel/UCJgIbYl6C5no72a0NUAPcTA)
+8. Wen-mei W. Hwu, David B. Kirk, Izzat El Hajj, *Programming Massively Parallel Processors : A Hands-on Approach*
