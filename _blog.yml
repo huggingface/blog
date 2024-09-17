@@ -4637,3 +4637,14 @@
     - huggingchat
     - tools
     - community
+
+- local: sql-console
+  title: "Introducing the SQL Console on Datasets"
+  author: cfahlgren1
+  thumbnail: /blog/assets/sql_console/thumbnail.png
+  date: September 17, 2024
+  tags:
+    - datasets
+    - sql
+    - duckdb
+    
