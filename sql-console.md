@@ -112,7 +112,7 @@ DuckDB has great documentation on the `STRUCT` [Data Type](https://duckdb.org/do
 
 ![Alpaca to Conversation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/alpaca-to-conversation.png)
 
-Once we have the results, we can download the results as a Parquet file. You can see what the final output looks like below.
+Once we have the results, we can download them as a Parquet file. You can see what the final output looks like below.
 
 <iframe
   src="https://huggingface.co/datasets/cfahlgren1/alpaca-conversational/embed/viewer/default/train"
