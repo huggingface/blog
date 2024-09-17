@@ -57,26 +57,6 @@ As with any technology, there are limitations.
 - The SQL Console will work for a lot of queries, however, the memory limit is ~3GB, so it is possible to run out of memory and not be able to process the query (_Tip: try to use filters to reduce the amount of data you are querying along with `LIMIT`_).
 - While DuckDB WASM is very powerful, it is not fully feature parity with DuckDB. For example, DuckDB WASM does not yet support the `hf://` protocol to download datasets.
 
-**Try it out!**
-
-You can try out a SQL Console query for [SkunkworksAI/reasoning-0.01](https://huggingface.co/datasets/SkunkworksAI/reasoning-0.01?sql_console=true&sql=--+Find+instructions+with+more+than+10+reasoning+steps%0Aselect+*+from+train%0Awhere+len%28reasoning_chains%29+%3E+10%0Alimit+100&sql_row=43) to see instructions with more than 10 reasoning steps.
-
-## SQL Snippets
-
-DuckDB has a ton of use cases that we are still exploring. We created a [SQL Snippets](https://huggingface.co/spaces/cfahlgren1/sql-snippets) space to showcase what you can do with the SQL Console.
-
-Here are some really interesting use cases we have found:
-
-- [Filtering a function calling dataset for a specific function with regex](https://x.com/qlhoest/status/1835687940376207651)
-- [Finding the most popular base models from open-llm-leaderboard](https://x.com/polinaeterna/status/1834601082862842270)
-- [Converting an alpaca dataset to a conversational format](https://x.com/calebfahlgren/status/1834674871688704144)
-- [Performing similarity search with embeddings](https://x.com/andrejanysa/status/1834253758152269903)
-- [Filtering 50k+ rows from a dataset for the highest quality, reasoning instructions](https://x.com/calebfahlgren/status/1835703284943749301)
-
-Remember, it's one click to download your SQL results as a Parquet file and use for your dataset!
-
-We would love to hear what you think of the SQL Console and if you have any feedback, please comment in this [post!](https://huggingface.co/posts/cfahlgren1/845769119345136)
-
 ## Example: Converting a dataset from Alpaca to conversations
 
 For finetuning, there are different formats you can use. One common format is conversational. This is where each row is a conversation between a user and the model and consists of multiple turns.
@@ -89,14 +69,12 @@ Typically, it would be easiest to do this with a script, however, we can also us
   src="https://huggingface.co/datasets/yahma/alpaca-cleaned/embed/viewer/default/train?sql=--+Convert+Alpaca+format+to+Conversation+format%0AWITH+%0Asource_view+AS+%28%0A++SELECT+*+FROM+train++--+Change+%27train%27+to+your+desired+view+name+here%0A%29%0ASELECT+%0A++%5B%0A++++struct_pack%28%0A++++++%22from%22+%3A%3D+%27user%27%2C%0A++++++%22value%22+%3A%3D+CASE+%0A+++++++++++++++++++WHEN+input+IS+NOT+NULL+AND+input+%21%3D+%27%27+%0A+++++++++++++++++++THEN+instruction+%7C%7C+%27%5Cn%5Cn%27+%7C%7C+input%0A+++++++++++++++++++ELSE+instruction%0A+++++++++++++++++END%0A++++%29%2C%0A++++struct_pack%28%0A++++++%22from%22+%3A%3D+%27assistant%27%2C%0A++++++%22value%22+%3A%3D+output%0A++++%29%0A++%5D+AS+conversation%0AFROM+source_view%0AWHERE+instruction+IS+NOT+NULL+%0AAND+output+IS+NOT+NULL%3B"
   frameborder="0"
   width="100%"
-  height="560px"
+  height="800px"
 ></iframe>
 
 In the dataset above, click on the **SQL Console** badge to open the SQL Console. You should see the query below automatically populated.
 
 When you are ready, click the **Run Query** button to execute the query. 
-
-
 
 ### SQL
 
@@ -140,6 +118,26 @@ Once we have the results, we can download the results as a Parquet file. You can
   width="100%"
   height="560px"
 ></iframe>
+
+**Try it out!**
+
+You can try out a SQL Console query for [SkunkworksAI/reasoning-0.01](https://huggingface.co/datasets/SkunkworksAI/reasoning-0.01?sql_console=true&sql=--+Find+instructions+with+more+than+10+reasoning+steps%0Aselect+*+from+train%0Awhere+len%28reasoning_chains%29+%3E+10%0Alimit+100&sql_row=43) to see instructions with more than 10 reasoning steps.
+
+## SQL Snippets
+
+DuckDB has a ton of use cases that we are still exploring. We created a [SQL Snippets](https://huggingface.co/spaces/cfahlgren1/sql-snippets) space to showcase what you can do with the SQL Console.
+
+Here are some really interesting use cases we have found:
+
+- [Filtering a function calling dataset for a specific function with regex](https://x.com/qlhoest/status/1835687940376207651)
+- [Finding the most popular base models from open-llm-leaderboard](https://x.com/polinaeterna/status/1834601082862842270)
+- [Converting an alpaca dataset to a conversational format](https://x.com/calebfahlgren/status/1834674871688704144)
+- [Performing similarity search with embeddings](https://x.com/andrejanysa/status/1834253758152269903)
+- [Filtering 50k+ rows from a dataset for the highest quality, reasoning instructions](https://x.com/calebfahlgren/status/1835703284943749301)
+
+Remember, it's one click to download your SQL results as a Parquet file and use for your dataset!
+
+We would love to hear what you think of the SQL Console and if you have any feedback, please comment in this [post!](https://huggingface.co/posts/cfahlgren1/845769119345136)
 
 ### Resources
 
