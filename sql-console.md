@@ -65,8 +65,6 @@ As with any technology, there are limitations.
 
 Now that we've introduced the SQL Console, let's explore a practical example. When fine-tuning a Large Language Model (LLM), you often need to work with different data formats. One particularly popular format is the conversational format, where each row represents a multi-turn dialogue between a user and the model. The SQL Console can help us transform data into this format efficiently. Let's see how we can convert an Alpaca dataset to a conversational format using SQL.
 
-In this example, we will convert an Alpaca dataset to a conversational format. 
-
 Typically, it would be easier to do this with a Python script, however, we can also use the SQL Console to do this in less than 30 seconds. 
 
 <iframe
