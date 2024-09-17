@@ -33,7 +33,7 @@ On every public dataset you should see a new **SQL Console** badge. With just on
 All the work is done in the browser and the console comes with a few neat features:
 
 - **100% Local**: The SQL Console is powered by [DuckDB](https://duckdb.org/) WASM, so you can query your dataset without any dependencies.
-- **Full DuckDB Syntax**: DuckDB has [full SQL](https://duckdb.org/docs/sql/introduction.html) syntax support along with many built in functions for regex, lists, JSON, embeddings and more. You'll find, DuckDB syntax is very similar to PostgreSQL.
+- **Full DuckDB Syntax**: DuckDB has [full SQL](https://duckdb.org/docs/sql/introduction.html) syntax support, along with many built in functions for regex, lists, JSON, embeddings and more. You'll find DuckDB syntax to be very similar to PostgreSQL.
 - **Export Results**: You can export the results of your query to parquet.
 - **Shareable**: You can share your query results of public datasets with a link.
 
