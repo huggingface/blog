@@ -20,7 +20,7 @@ We are very excited to announce that you can now run SQL queries on your dataset
 
 On every dataset you should see a new **SQL Console** badge. In one click, you can open a [DuckDB](https://duckdb.org/) SQL Console for the given dataset.
 
-<figure class="image flex flex-col items-center text-center m-0 w-full">
+<figure class="image flex flex-col items-center text-center m-0">
    <video
       alt="SQL Console Demo"
       autoplay loop autobuffer muted playsinline
