@@ -20,7 +20,15 @@ We are very excited to announce that you can now run SQL queries on your dataset
 
 On every dataset you should see a new **SQL Console** badge. In one click, you can open a [DuckDB](https://duckdb.org/) SQL Console for the given dataset.
 
-![SQLConsole](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/SQLConsole.gif)
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+   <video
+      alt="SQL Console Demo"
+      autoplay loop autobuffer muted playsinline
+    >
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/Magpie-Ultra-Demo-SQL-Console.mp4" type="video/mp4">
+  </video>
+  <figcaption class="text-center text-sm italic">Querying the Magpie-Ultra dataset for excellent, high quality reasoning instructions.</figcaption>
+</figure>
 
 All the work is done in the browser and the console comes with a few neat features:
 
