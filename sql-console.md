@@ -16,7 +16,7 @@ _Datasets created on Hugging Face Hub each month_
 
 We are very excited to announce that you can now run SQL queries on your datasets directly in the Hugging Face Hub!
 
-# Introducing the SQL Console for Datasets
+## Introducing the SQL Console for Datasets
 
 On every dataset you should see a new **SQL Console** badge. In one click, you can open a [DuckDB](https://duckdb.org/) SQL Console for the given dataset.
 
