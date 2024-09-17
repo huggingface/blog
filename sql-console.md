@@ -33,9 +33,9 @@ All the work is done in the browser and the console comes with a few neat featur
 
 ## Parquet Conversion
 
-To power the dataset viewer on Hugging Face, the first 5GB of every dataset is auto-converted to Parquet (unless it was already a Parquet dataset, then you have the full dataset). Parquet is a columnar data format that is optimized for performance and storage efficiency. 
+To power the dataset viewer on Hugging Face, the first 5GB of every dataset is auto-converted to Parquet (unless it was already a Parquet dataset, then you have the full dataset). Parquet is a columnar data format that is optimized for performance and storage efficiency. You can find more information about the Parquet conversion process in the [Parquet List API documentation](https://huggingface.co/docs/dataset-viewer/en/parquet).
 
-Using this parquet conversion, the SQL Console creates views for you to query based on your dataset splits and configs.
+Using this parquet conversion, the SQL Console creates views for you to query based on your dataset splits and configs. 
 
 ## DuckDB WASM 🦆
 
@@ -55,15 +55,15 @@ While queries will take longer based on the size of the dataset and query comple
 
 As with any technology, there are limitations.
 - The SQL Console will work for a lot of queries, however, the memory limit is ~3GB, so it is possible to run out of memory and not be able to process the query (_Tip: try to use filters to reduce the amount of data you are querying along with `LIMIT`_).
-- While DuckDB WASM is very powerful, it is not fully feature parity with DuckDB. For example, DuckDB WASM does not yet support the `hf://` protocol to download datasets.
+- While DuckDB WASM is very powerful, it is not fully feature parity with DuckDB. For example, DuckDB WASM does not yet support the [`hf://` protocol to query datasets](https://github.com/duckdb/duckdb-wasm/discussions/1858).
 
 ## Example: Converting a dataset from Alpaca to conversations
 
-For finetuning, there are different formats you can use. One common format is conversational. This is where each row is a conversation between a user and the model and consists of multiple turns.
+Now that we've introduced the SQL Console, let's explore a practical example. When fine-tuning a Large Language Model (LLM), you often need to work with different data formats. One particularly popular format is the conversational format, where each row represents a multi-turn dialogue between a user and the model. The SQL Console can help us transform data into this format efficiently. Let's see how we can convert an Alpaca dataset to a conversational format using SQL.
 
 In this example, we will convert an Alpaca dataset to a conversational format. 
 
-Typically, it would be easiest to do this with a script, however, we can also use the SQL Console to do this in 30 seconds. 
+Typically, it would be easiest to do this with a Python script, however, we can also use the SQL Console to do this in less than30 seconds. 
 
 <iframe
   src="https://huggingface.co/datasets/yahma/alpaca-cleaned/embed/viewer/default/train?sql=--+Convert+Alpaca+format+to+Conversation+format%0AWITH+%0Asource_view+AS+%28%0A++SELECT+*+FROM+train++--+Change+%27train%27+to+your+desired+view+name+here%0A%29%0ASELECT+%0A++%5B%0A++++struct_pack%28%0A++++++%22from%22+%3A%3D+%27user%27%2C%0A++++++%22value%22+%3A%3D+CASE+%0A+++++++++++++++++++WHEN+input+IS+NOT+NULL+AND+input+%21%3D+%27%27+%0A+++++++++++++++++++THEN+instruction+%7C%7C+%27%5Cn%5Cn%27+%7C%7C+input%0A+++++++++++++++++++ELSE+instruction%0A+++++++++++++++++END%0A++++%29%2C%0A++++struct_pack%28%0A++++++%22from%22+%3A%3D+%27assistant%27%2C%0A++++++%22value%22+%3A%3D+output%0A++++%29%0A++%5D+AS+conversation%0AFROM+source_view%0AWHERE+instruction+IS+NOT+NULL+%0AAND+output+IS+NOT+NULL%3B"
