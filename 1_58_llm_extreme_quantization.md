@@ -19,7 +19,7 @@ As Large Language Models (LLMs) grow in size and complexity, finding ways to red
 ## Table of Contents
 - [TL;DR](#tldr)
 - [What is BitNet ?](#what-is-bitnet-in-more-depth)
-- [Pre-training in 1.58b](#pre-training-results-in-158b)
+- [Pre-training Results in 1.58b](#pre-training-results-in-158b)
 - [Fine-tuning in 1.58b](#fine-tuning-in-158bit)
 - [Kernels used & Benchmarks](#kernels-used--benchmarks)
 - [Conclusion](#conclusion)
@@ -38,7 +38,7 @@ We have successfully fine-tuned a [Llama3 8B model](https://huggingface.co/meta-
 
 ### How to Use with Transformers
 
-To integrate the BitNet architecture into Transformers, we introduced a new quantization method called "bitnet". This method involves replacing the standard Linear layers with specialized BitLinear layers that are compatible with the BitNet architecture, with appropriate dynamic quantization of activations, weight unpacking, and matrix multiplication. 
+To integrate the BitNet architecture into Transformers, we introduced a new quantization method called "bitnet" ([PR](https://github.com/huggingface/transformers/pull/33410)). This method involves replacing the standard Linear layers with specialized BitLinear layers that are compatible with the BitNet architecture, with appropriate dynamic quantization of activations, weight unpacking, and matrix multiplication. 
 
 Loading and testing the model in Transformers is incredibly straightforward, there are zero changes to the API:
 
@@ -581,7 +581,7 @@ BitNet is effective in delivering strong performance compared to baseline method
 The table below presents the results for various metrics after the 10B fine-tuning process of Llama3 8B. These results are compared against those from other model architectures to provide a comprehensive overview of performance (All evaluations were conducted using [Lighteval](https://github.com/huggingface/lighteval) on the [Nanotron](https://github.com/huggingface/nanotron) format model)
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metrics_comparison_updated.png" alt="Metrics comparison with Llama models" style="width: 60%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metrics_comparison_updated.png" alt="Metrics comparison with Llama models" style="width: 80%;"/>
   <figcaption>Metrics comparison with Llama models : Linear means Linear lambda scheduler, and Sigmoid means Sigmoid lambda scheduler (in our case k = 100)</figcaption>
 </figure>
 
@@ -590,7 +590,7 @@ After fine-tuning on just 10 billion tokens using ternary weights, the model dem
 For the 100B tokens experiments, the best performing checkpoint we had is the following : 
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metrics_100B_table.png" alt="Metrics comparison with Llama models for the model trained on 100B tokens" style="width: 60%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metrics_100B_table.png" alt="Metrics comparison with Llama models for the model trained on 100B tokens" style="width: 80%;"/>
   <figcaption>Metrics comparison with Llama models for the model trained on 100B tokens</figcaption>
 </figure>
 
