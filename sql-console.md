@@ -58,7 +58,7 @@ You can see we received results for a simple filter query in under 3 seconds.
 While queries will take longer based on the size of the dataset and query complexity, you will be suprised about how much you can do with the SQL Console. 
 
 As with any technology, there are limitations.
-- The SQL Console will work for a lot of queries, however, the memory limit is ~3GB, so it is possible to run out of memory and not be able to process the query (_Tip: try to use filters to reduce the amount of data you are querying along with `LIMIT`_).
+- The SQL Console will work for a lot of queries. However, the memory limit is ~3GB, so it is possible to run out of memory and not be able to process the query (_Tip: try to use filters to reduce the amount of data you are querying along with `LIMIT`_).
 - While DuckDB WASM is very powerful, it is not fully feature parity with DuckDB. For example, DuckDB WASM does not yet support the [`hf://` protocol to query datasets](https://github.com/duckdb/duckdb-wasm/discussions/1858).
 
 ### Example: Converting a dataset from Alpaca to conversations
