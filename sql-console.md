@@ -5,7 +5,7 @@ authors:
 - user: cfahlgren1
 ---
 
-Datasets have been exploding and Hugging Face has become the default home for many datasets. 
+Datasets use has been exploding and Hugging Face has become the default home for many datasets. 
 
 ## Datasets Growth
 
