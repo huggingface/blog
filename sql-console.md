@@ -123,7 +123,7 @@ Once we have the results, we can download the results as a Parquet file. You can
 
 **Try it out!**
 
-You can try out a SQL Console query for [SkunkworksAI/reasoning-0.01](https://huggingface.co/datasets/SkunkworksAI/reasoning-0.01?sql_console=true&sql=--+Find+instructions+with+more+than+10+reasoning+steps%0Aselect+*+from+train%0Awhere+len%28reasoning_chains%29+%3E+10%0Alimit+100&sql_row=43) to see instructions with more than 10 reasoning steps.
+As an another example, you can try a SQL Console query for [SkunkworksAI/reasoning-0.01](https://huggingface.co/datasets/SkunkworksAI/reasoning-0.01?sql_console=true&sql=--+Find+instructions+with+more+than+10+reasoning+steps%0Aselect+*+from+train%0Awhere+len%28reasoning_chains%29+%3E+10%0Alimit+100&sql_row=43) to see instructions with more than 10 reasoning steps.
 
 ## SQL Snippets
 
