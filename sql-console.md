@@ -20,7 +20,7 @@ We are very excited to announce that you can now run SQL queries on your dataset
 
 On every dataset you should see a new **SQL Console** badge. In one click, you can open a [DuckDB](https://duckdb.org/) SQL Console for the given dataset.
 
-<figure class="image flex flex-col items-center text-center m-0">
+<figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="SQL Console Demo"
       autoplay loop autobuffer muted playsinline
@@ -37,15 +37,15 @@ All the work is done in the browser and the console comes with a few neat featur
 - **Export Results**: You can export the results of your query to parquet.
 - **Shareable**: You can share your query results of public datasets with a link.
 
-# How it works
+## How it works
 
-## Parquet Conversion
+### Parquet Conversion
 
 To power the dataset viewer on Hugging Face, the first 5GB of every dataset is auto-converted to Parquet (unless it was already a Parquet dataset, then you have the full dataset). Parquet is a columnar data format that is optimized for performance and storage efficiency. You can find more information about the Parquet conversion process in the [Parquet List API documentation](https://huggingface.co/docs/dataset-viewer/en/parquet).
 
 Using this parquet conversion, the SQL Console creates views for you to query based on your dataset splits and configs. 
 
-## DuckDB WASM 🦆
+### DuckDB WASM 🦆
 
 [DuckDB WASM](https://duckdb.org/docs/api/wasm/overview.html) is the engine that powers the SQL Console. It is an in-process database engine that runs on Web Assembly in the browser. No server or backend needed.
 
@@ -147,7 +147,7 @@ Remember, it's one click to download your SQL results as a Parquet file and use 
 
 We would love to hear what you think of the SQL Console and if you have any feedback, please comment in this [post!](https://huggingface.co/posts/cfahlgren1/845769119345136)
 
-### Resources
+## Resources
 
 - [DuckDB WASM](https://duckdb.org/docs/api/wasm/overview.html)
 - [DuckDB Syntax](https://duckdb.org/docs/sql/introduction.html)
