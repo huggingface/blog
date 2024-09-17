@@ -45,7 +45,7 @@ Using the Parquet files, the SQL Console creates views for you to query based on
 
 [DuckDB WASM](https://duckdb.org/docs/api/wasm/overview.html) is the engine that powers the SQL Console. It is an in-process database engine that runs on Web Assembly in the browser. No server or backend needed.
 
-By being soley in the browser, it gives the user the upmost flexibility to query data as they please without any dependencies. It also makes it really simple to share reproducible results with a simple link.
+By running solely in the browser, it gives the user the upmost flexibility to query data as they please without any dependencies. It also makes it really simple to share reproducible results with a simple link.
 
 You may be wondering, _"Will it work for big datasets?"_ and the answer is, "Yes!". 
 
