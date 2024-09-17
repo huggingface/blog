@@ -33,7 +33,7 @@ All the work is done in the browser and the console comes with a few neat featur
 
 ## Parquet Conversion
 
-To power the dataset viewer on Hugging Face, the first 5GB of every dataset is auto-converted to Parquet (unless it was already a Parquet dataset). Parquet is a columnar data format that is optimized for performance and storage efficiency. 
+To power the dataset viewer on Hugging Face, the first 5GB of every dataset is auto-converted to Parquet (unless it was already a Parquet dataset, then you have the full dataset). Parquet is a columnar data format that is optimized for performance and storage efficiency. 
 
 Using this parquet conversion, the SQL Console creates views for you to query based on your dataset splits and configs.
 
