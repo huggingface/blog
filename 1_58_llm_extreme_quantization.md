@@ -14,7 +14,7 @@ authors:
 
 As Large Language Models (LLMs) grow in size and complexity, finding ways to reduce their computational and energy costs has become a critical challenge. One popular solution is quantization, where the precision of parameters is reduced from the standard 16-bit floating-point (FP16) or 32-bit floating-point (FP32) to lower-bit formats like 8-bit or 4-bit. While this approach significantly cuts down on memory usage and speeds up computation, it often comes at the expense of accuracy. Reducing the precision too much can cause models to lose crucial information, resulting in degraded performance. 
 
-[BitNet](https://arxiv.org/abs/2402.17764) is a special transformers architecture that represents each parameter with only three values: `(-1, 0, 1)`, offering a extreme quantization of just 1.58 (\\( log_2(3) \\)) bits per parameter. However, it works by training a model from scratch. While this is cool, not everybody has the budget to pre-train an LLM, even if it's in 1.58 bits. To overcome this limitation, we explored a few tricks that allow fine-tuning an existing model to 1.58 bits! Keep reading to find out!
+[BitNet](https://arxiv.org/abs/2402.17764) is a special transformers architecture that represents each parameter with only three values: `(-1, 0, 1)`, offering a extreme quantization of just 1.58 ( \\( log_2(3) \\) ) bits per parameter. However, it works by training a model from scratch. While this is cool, not everybody has the budget to pre-train an LLM, even if it's in 1.58 bits. To overcome this limitation, we explored a few tricks that allow fine-tuning an existing model to 1.58 bits! Keep reading to find out!
 
 ## Table of Contents
 - [TL;DR](#tldr)
@@ -23,14 +23,16 @@ As Large Language Models (LLMs) grow in size and complexity, finding ways to red
 - [Fine-tuning in 1.58b](#fine-tuning-in-158bit)
 - [Kernels used & Benchmarks](#kernels-used--benchmarks)
 - [Conclusion](#conclusion)
+- [Acknowledgements](#acknowledgements)
 - [Additional Resources](#additional-resources)
 
 ## TL;DR
 
 [BitNet](https://arxiv.org/abs/2402.17764) is an architecture introduced by Microsoft Research that uses extreme quantization, representing each parameter with only three values: -1, 0, and 1. This results in a model that uses just 1.58 bits per parameter, significantly reducing computational and memory requirements. 
-This architecture uses INT8 addition calculations, in contrast to LLaMA LLM's FP16 addition and multiplication operations. This results in dramatically reduced theoritical energy consumption, with BitNet b1.58 saving 71.4 times the arithmetic operations energy for matrix multiplication compared to the Llama baseline.
+
+This architecture uses INT8 addition calculations, in contrast to LLaMA LLM's FP16 addition and multiplication operations. This results in a theoritically reduced energy consumption, with BitNet b1.58 saving 71.4 times the arithmetic operations energy for matrix multiplication compared to the Llama baseline.
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/energy_consumption.png" alt="Energy consumption of BitNet b1.58 compared to LLaMA" style="width: 70%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/energy_consumption.png" alt="Energy consumption of BitNet b1.58 compared to LLaMA" style="width: 100%;"/>
   <figcaption>Energy consumption of BitNet b1.58 compared to LLama (source: BitNet paper https://arxiv.org/abs/2402.17764)</figcaption>
 </figure>
 
@@ -70,7 +72,7 @@ The main obstacle to training in ternary precision is that the weight values are
 
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/bitlinear.png" alt="The architecture of BitNet with BitLinear layers" />
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/bitlinear.png" alt="The architecture of BitNet with BitLinear layers" style="width: 100%"/>
   <figcaption>The architecture of BitNet with BitLinear layers (source: BitNet paper https://arxiv.org/pdf/2310.11453)</figcaption>
 </figure>
 
@@ -78,19 +80,27 @@ The main obstacle to training in ternary precision is that the weight values are
 
 We train in full precision, but quantize the weights into ternary values as we go, using symmetric per tensor quantization. First, we compute the average of the absolute values of the weight matrix and use this as a scale. We then divide the weights by the scale, round the values, constrain them between -1 and 1, and finally rescale them to continue in full precision.
 
+
 \\( scale_w = \frac{1}{\frac{1}{nm} \sum_{ij} |W_{ij}|} \\)
+
 
 \\( W_q = \text{clamp}_{[-1,1]}(\text{round}(W*scale)) \\)
 
+
 \\( W_{dequantized} = W_q*scale_w \\)
+
 
 Activations are then quantized to a specified bit-width (8-bit, in our case) using absmax per token quantization (for a comprehensive introduction to quantization methods check out this [post](https://mlabonne.github.io/blog/posts/Introduction_to_Weight_Quantization.html)). This involves scaling the activations into the range `[−128, 127]` for an 8-bit bit-width. The quantization formula is:
 
+
 \\( scale_x = \frac{127}{|X|_{\text{max}, \, \text{dim}=-1}} \\)
+
 
 \\( X_q = \text{clamp}_{[-128,127]}(\text{round}(X*scale)) \\)
 
+
 \\( X_{dequantized} = X_q * scale_x \\)
+
 
 To make the formulas clearer, here are examples of weight and activation quantization using a 3x3 matrix:
 
@@ -99,6 +109,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
   <summary>Example 1: Weight Matrix Quantization</summary>
 
   Let the weight matrix \( W \) be:
+  
 
   \\(  W = 
   \begin{bmatrix}
@@ -110,24 +121,29 @@ To make the formulas clearer, here are examples of weight and activation quantiz
   **Step 1: Compute the Scale for Weights**
   
   Using the formula:
+  
 
   \\( scale_w = \frac{1}{\frac{1}{nm} \sum_{ij} |W_{ij}|} \\)
 
   we calculate the average absolute value of \( W \):
 
+
 \\( \frac{1}{nm} \sum_{ij} |W_{ij}| = \frac{1}{9}(0.8 + 0.5 + 1.2 + 1.5 + 0.4 + 0.9 + 1.3 + 0.7 + 0.2) = \frac{1}{9}(7.5) = 0.8333 \\)
 
   Now, the scale factor is:
+  
 
   \\( scale_w = \frac{1}{0.8333} \approx 1.2 \\)
 
   **Step 2: Quantize the Weight Matrix**
   
   Using the formula:
+  
 
  \\( W_q = \text{clamp}_{[-1, 1]}(\text{round}(W \times scale_w)) \\)
 
   We first scale the weights by \\( scale_w \approx 1.2 \\):
+  
 
 \\( W \times scale_w = 
   \begin{bmatrix}
@@ -144,6 +160,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
 
   Next, we round the values and clamp them to the range \\( [-1, 1] \\):
 
+
 \\( W_q = 
   \begin{bmatrix}
   1 & -1 & 1 \\
@@ -154,10 +171,12 @@ To make the formulas clearer, here are examples of weight and activation quantiz
   **Step 3: Dequantize the Weights**
   
   Finally, we dequantize the weights using:
+  
 
 \\( W_{dequantized} = W_q \times scale_w \\)
 
   Substituting scale_w, we get:
+  
 
  \\( W_{dequantized} = 
   \begin{bmatrix}
@@ -215,6 +234,7 @@ To make the formulas clearer, here are examples of weight and activation quantiz
   **Step 2: Quantize the Activation Matrix**  
 
   Using the formula:
+  
 
   \\( X_q = \text{clamp}_{[-128,127]}(\text{round}(X \times \text{scale})) \\)
 
@@ -354,7 +374,7 @@ class BitLinear(nn.Linear):
 Before attempting fine-tuning, we first tried to reproduce the results of the BitNet paper with pre-training. We started with a small dataset, [tinystories](https://huggingface.co/datasets/roneneldan/TinyStories), and a [Llama3 8B model](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct). We confirmed that adding a normalization function, like the paper does, improves performance. For example, after 2000 steps of training, we had a perplexity on the validation set equal to 6.3 without normalization, and 5.9 with normalization. Training was stable in both cases.
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/pre-training.png" alt="Pre-training plots without (blue) & with (green) layer normalisation" style="width: 80%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/pre-training.png" alt="Pre-training plots without (blue) & with (green) layer normalisation" style="width: 100%;"/>
   <figcaption>Pre-training plots without (blue) & with (green) layer normalisation </figcaption>
 </figure>
 
@@ -367,7 +387,7 @@ When we began fine-tuning from the pre-trained Llama3 8B weights, the model perf
 > **Note:** All our experiments were conducted using [Nanotron](https://github.com/huggingface/nanotron). If you're interested in trying 1.58bit pre-training or fine-tuning, you can check out this [PR](https://github.com/huggingface/nanotron/pull/180).
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/finetuning_basic.png" alt="Fine-tuning plot compared to pre-training plot" style="width: 80%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/finetuning_basic.png" alt="Fine-tuning plot compared to pre-training plot" style="width: 100%;"/>
   <figcaption>Fine-tuning plot compared to pre-training plot</figcaption>
 </figure>
 
@@ -404,9 +424,9 @@ The initial random weight distribution is a mix of two normal distributions:
 
 This results from using different stds for column linear and row linear weights in `nanotron`. In the quantized version, all matrices have only 2 weight scales (50.25 and 402), which are the inverse of the mean absolute value of the weights for each matrix: `scale = 1.0 / w.abs().mean().clamp_(min=1e-5)`
 
-- For \\ (\text{scale} = 50.25 \\), \\( w.abs().mean() = 0.0199 \\), leading to \\ (\text{std} = 0.025 \\) which matches our first standard deviation. The formula used to derive the std is based on the expectation of the half-normal distribution of \\( |w| \\):  
+- For \\(\text{scale} = 50.25 \\), \\( w.abs().mean() = 0.0199 \\), leading to \\(\text{std} = 0.025 \\) which matches our first standard deviation. The formula used to derive the std is based on the expectation of the half-normal distribution of \\( |w| \\):  
   \\( \mathbb{E}(|w|) = \text{std}(w) \cdot \sqrt{\frac{2}{\pi}} \\)
-- For \\( \text{scale} = 402 \\), \\( w.abs().mean() = 0.0025 \\), leading to \\ (\text{std} = 0.00325 \\)
+- For \\( \text{scale} = 402 \\), \\( w.abs().mean() = 0.0025 \\), leading to \\(\text{std} = 0.00325 \\)
 
 On the other hand, the pretrained weight's distribution looks like a normal distribution with an \\( \text{std} = 0.013 \\)
 
@@ -445,7 +465,7 @@ When `lambda` is set to 0, there is essentially no quantization occurring, while
 We initially tested some discrete `lambda` values, such as 0.25, 0.5, 0.75, and 1. However, this approach did not lead to any significant improvement in results, mainly because `lambda=0.25` is already high enough for the loss to start very high.
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/lambda_0.25.png" alt="Fine-tuning plot with lambda = 0.25->0.5->0.75->1" style="width: 80%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/lambda_0.25.png" alt="Fine-tuning plot with lambda = 0.25->0.5->0.75->1" style="width: 100%;"/>
   <figcaption>Fine-tuning plot with lambda = 0.25->0.5->0.75->1</figcaption>
 </figure>
 
@@ -464,7 +484,7 @@ lambda_ = min(2 * training_step / total_training_steps, 1)
 With this configuration, after 2000 steps we have : 
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/lambda_training_step.png" alt="Fine-tuning plot with lambda = min(2*training_step/total_training_steps, 1)" style="width: 80%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/lambda_training_step.png" alt="Fine-tuning plot with lambda = min(2*training_step/total_training_steps, 1)" style="width: 100%;"/>
   <figcaption>Fine-tuning plot with lambda = min(2*training_step/total_training_steps, 1)</figcaption>
 </figure>
 
@@ -481,7 +501,7 @@ We chose this `lambda` value because it seemed to be a good starting point for w
 Finding the right learning rate and the right decay was challenging; it seems to be a crucial factor in the model's performance.
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/fineweb-edu.png" alt="Fine-tuning plot with warmup quantization on Fineweb-edu" style="width: 70%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/fineweb-edu.png" alt="Fine-tuning plot with warmup quantization on Fineweb-edu" style="width: 100%;"/>
   <figcaption>Fine-tuning plot with warmup quantization on Fineweb-edu</figcaption>
 </figure>
 
@@ -498,14 +518,14 @@ def scheduler(step, total_steps, k):
 for different k values, with a number of total warmup steps of 1, we have plots like the following :
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/exp_scheduler.png" alt="Exponential scheduler for different k values" style="width: 60%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/exp_scheduler.png" alt="Exponential scheduler for different k values" style="width: 100%;"/>
   <figcaption>Exponential scheduler for different k values</figcaption>
 </figure>
 
 We ran 4 experiments using the best-performing learning rate of 1e-4, testing values of k in [4, 6, 8, 10].
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/exp_scheduler_results.png" alt="Fine-tuning plots with exponential scheduler" style="width: 80%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/exp_scheduler_results.png" alt="Fine-tuning plots with exponential scheduler" style="width: 100%;"/>
   <figcaption>Fine-tuning plots with exponential scheduler</figcaption>
 </figure>
 
@@ -523,14 +543,14 @@ def sigmoid_scheduler(step, total_steps, k):
 For different k values we have the following curves : 
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/sig_scheduler.png" alt="Sigmoid scheduler for different k values" style="width: 60%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/sig_scheduler.png" alt="Sigmoid scheduler for different k values" style="width: 100%;"/>
   <figcaption>Sigmoid scheduler for different k values</figcaption>
 </figure>
 
 We ran 5 experiments this time with k in [15, 20, 25, 40, 100] : 
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/sig_scheduler_exps.png" alt="Finetuning plots with sigmoid scheduler" style="width: 80%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/sig_scheduler_exps.png" alt="Finetuning plots with sigmoid scheduler" style="width: 100%;"/>
   <figcaption>Fine-tuning plots with sigmoid scheduler</figcaption>
 </figure>
 
@@ -540,7 +560,7 @@ The sharp increase in lambda caused instability around the 500th step and didn�
 Additionally, we experimented with training models from scratch using random weights and various learning rates. This allowed us to compare the effectiveness of our fine-tuning approach against traditional pre-training methods.
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/exp-randoms.png" alt="Different Pre-training plots with different learning rates" style="width: 80%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/exp-randoms.png" alt="Different Pre-training plots with different learning rates" style="width: 100%;"/>
   <figcaption>Different Pre-training plots with different learning rates</figcaption>
 </figure>
 
@@ -552,14 +572,14 @@ We scaled our experiments to 100 billion tokens to see if we could match the per
 
 Here are some examples of the metrics we evaluated at various checkpoints during the training :
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metrics_100B.png" alt="Metrics evaluations during the training for different lrs" style="width: 80%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metrics_100B.png" alt="Metrics evaluations during the training for different lrs" style="width: 100%;"/>
   <figcaption>Metrics evaluations during the training for different lrs</figcaption>
 </figure>
 
 and the average score looks like : 
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metric_avg.png" alt="Average evaluation during the training for different lrs" style="width: 60%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metric_avg.png" alt="Average evaluation during the training for different lrs" style="width: 100%;"/>
   <figcaption>Average evaluation during the training for different lrs</figcaption>
 </figure>
 
@@ -570,7 +590,7 @@ In our initial experiments with smaller models like SmolLM, we observed that the
 For example, here are the loss curves for the [SmolLM 135M](https://huggingface.co/HuggingFaceTB/SmolLM-135M) model, comparing warmup quantization with full quantization from the start. Interestingly, the curves closely align, and the resulting perplexities aren't significantly different.
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/smol_llm_exp.png" alt="Smoll LLm fine-tuning experiment with & without warmup quantization" style="width: 60%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/smol_llm_exp.png" alt="Smoll LLm fine-tuning experiment with & without warmup quantization" style="width: 100%;"/>
   <figcaption>Smoll LLm fine-tuning experiment with & without warmup quantization</figcaption>
 </figure>
 
@@ -581,7 +601,7 @@ BitNet is effective in delivering strong performance compared to baseline method
 The table below presents the results for various metrics after the 10B fine-tuning process of Llama3 8B. These results are compared against those from other model architectures to provide a comprehensive overview of performance (All evaluations were conducted using [Lighteval](https://github.com/huggingface/lighteval) on the [Nanotron](https://github.com/huggingface/nanotron) format model)
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metrics_comparison_updated.png" alt="Metrics comparison with Llama models" style="width: 80%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metrics_comparison_updated.png" alt="Metrics comparison with Llama models" style="width: 100%;"/>
   <figcaption>Metrics comparison with Llama models : Linear means Linear lambda scheduler, and Sigmoid means Sigmoid lambda scheduler (in our case k = 100)</figcaption>
 </figure>
 
@@ -590,7 +610,7 @@ After fine-tuning on just 10 billion tokens using ternary weights, the model dem
 For the 100B tokens experiments, the best performing checkpoint we had is the following : 
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metrics_100B_table.png" alt="Metrics comparison with Llama models for the model trained on 100B tokens" style="width: 80%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metrics_100B_table.png" alt="Metrics comparison with Llama models for the model trained on 100B tokens" style="width: 100%;"/>
   <figcaption>Metrics comparison with Llama models for the model trained on 100B tokens</figcaption>
 </figure>
 
@@ -629,8 +649,8 @@ Here’s how it works:
 - **Accumulating Results**: After computing the partial products for one tile, the threads load the next tiles from matrices A and B into shared memory and repeat the process. The results are accumulated in a register (or local memory), and once all tiles have been processed, the final value for the output matrix element is written back to global memory.
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/illustration_tiling.png" alt="Tiled Matrix multiplication illustration" style="width: 40%;"/>
-  <figcaption>Tiled Matrix multiplication illustration</figcaption>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/illustration_tiling.png" alt="Tiled Matrix multiplication illustration" style="width: 100%;"/>
+  <figcaption>Tiled Matrix multiplication illustration (source https://cnugteren.github.io/tutorial/pages/page4.html)</figcaption>
 </figure>
 
 **Practical Considerations**
@@ -755,7 +775,7 @@ For a more detailed explanation of the code, checkout this [PR](https://github.c
 We benchmarked our kernel against the method of unpacking the weights using `@torch.compile` followed by performing the matmul in BF16 precision, and found that both approaches achieved approximately the same performance. To ensure accurate benchmarking, we performed the matmul operation over 2000 iterations and averaged the time taken during the last 1000 iterations, to eliminate any inefficiencies related to initial loading or compilation. Below is a graph showing the benchmark results. We also tested various matrix sizes, with the x-axis representing the number of multiplications on a log scale, and the y-axis showing the average time in ms.
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/without_bitblas.png" alt="Triton kernel compared to torch.compile" style="width: 60%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/without_bitblas.png" alt="Triton kernel compared to torch.compile" style="width: 100%;"/>
   <figcaption>Triton kernel compared to torch.compile</figcaption>
 </figure>
 
@@ -764,7 +784,7 @@ We also tried using BitBlas, which is a software library designed to perform mat
 The benchmark results are promising, as BitBlas outperforms both our custom kernel and Torch's `matmul` function in low precision, as shown in the graph.
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/with_bitblas.png" alt="Bitblas benchmark" style="width: 60%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/with_bitblas.png" alt="Bitblas benchmark" style="width: 100%;"/>
   <figcaption>Bitblas benchmark</figcaption>
 </figure>
 
@@ -772,6 +792,9 @@ However, during model loading, BitBlas needs to compile kernels tailored to the 
 
 ## Conclusion
 In conclusion, as (LLMs) continue to expand, reducing their computational demands through quantization is essential. This blog has explored the approach of 1.58-bit quantization, which uses ternary weights. While pre-training models in 1.58 bits is resource-intensive, we’ve demonstrated that, with some tricks, it’s possible to fine-tune existing models to this precision level, achieving efficient performance without sacrificing accuracy. By optimizing inference speed through specialized kernels, BitNet opens new possibilities for making LLMs more practical and scalable.
+
+## Acknowledgements
+We would like to express our sincere gratitude to Leandro von Werra, Thomas Wolf, and Marc Sun for their invaluable assistance and insights throughout this project. We also extend our thanks to Omar Sanseviero and Pedro Cuenca for their contributions in refining this blog post, helping to communicate our findings clearly and effectively to the AI community.
 
 ## Additional Resources
 1. H. Wang et al., *BitNet: Scaling 1-bit Transformers for Large Language Models*. [arxiv paper](https://arxiv.org/pdf/2310.11453)
@@ -781,6 +804,3 @@ In conclusion, as (LLMs) continue to expand, reducing their computational demand
 5. L. Mao, *CUDA Matrix Multiplication Optimization*. [blogpost](https://leimao.github.io/article/CUDA-Matrix-Multiplication-Optimization/)
 6. *Tutorial: OpenCL SGEMM tuning for Kepler*. [link](https://cnugteren.github.io/tutorial/pages/page4.html)
 7. *CUDAMODE*. [github](https://github.com/cuda-mode), [youtube](https://www.youtube.com/channel/UCJgIbYl6C5no72a0NUAPcTA)
-
-
-
