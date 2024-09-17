@@ -65,7 +65,7 @@ As with any technology, there are limitations.
 - The SQL Console will work for a lot of queries, however, the memory limit is ~3GB, so it is possible to run out of memory and not be able to process the query (_Tip: try to use filters to reduce the amount of data you are querying along with `LIMIT`_).
 - While DuckDB WASM is very powerful, it is not fully feature parity with DuckDB. For example, DuckDB WASM does not yet support the [`hf://` protocol to query datasets](https://github.com/duckdb/duckdb-wasm/discussions/1858).
 
-## Example: Converting a dataset from Alpaca to conversations
+### Example: Converting a dataset from Alpaca to conversations
 
 Now that we've introduced the SQL Console, let's explore a practical example. When fine-tuning a Large Language Model (LLM), you often need to work with different data formats. One particularly popular format is the conversational format, where each row represents a multi-turn dialogue between a user and the model. The SQL Console can help us transform data into this format efficiently. Let's see how we can convert an Alpaca dataset to a conversational format using SQL.
 
