@@ -1922,6 +1922,16 @@
     - enterprise
     - hub
 
+- local: unified-tool-use
+  title: 对 LLM 工具使用进行统一
+  author: rocketknight1
+  thumbnail: /blog/assets/unified-tool-use/thumbnail.png
+  date: August 12, 2024
+  tags:
+    - LLM
+    - nlp
+    - community
+
 - local: falconmamba
   title: "Falcon Mamba: 首个高效的无注意力机制 7B 模型"
   guest: true
