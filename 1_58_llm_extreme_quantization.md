@@ -36,7 +36,7 @@ This architecture uses INT8 addition calculations when performing matrix multipl
   <figcaption>Energy consumption of BitNet b1.58 compared to LLama (source: BitNet paper https://arxiv.org/abs/2402.17764)</figcaption>
 </figure>
 
-We have successfully fine-tuned a [Llama3 8B model](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) using the BitNet architecture, achieving strong performance on downstream tasks. The 8B models we developed are released under the [HF1BitLLM](https://huggingface.co/HF1BitLLM) organization. Two of these models were fine-tuned on 10B tokens, while the third was fine-tuned on 100B tokens. Notably, our models surpass the Llama 1 7B model in MMLU benchmarks.
+We have successfully fine-tuned a [Llama3 8B model](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) using the BitNet architecture, achieving strong performance on downstream tasks. The 8B models we developed are released under the [HF1BitLLM](https://huggingface.co/HF1BitLLM) organization. Two of these models were fine-tuned on 10B tokens with different training setup, while the third was fine-tuned on 100B tokens. Notably, our models surpass the Llama 1 7B model in MMLU benchmarks.
 
 ### How to Use with Transformers
 
