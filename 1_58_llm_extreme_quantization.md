@@ -1,5 +1,5 @@
 ---
-title: "1.58 Bit LLM a new era of extreme quantization" 
+title: "Fine-tuning LLMs to 1.58bit: extreme quantization made easy" 
 thumbnail: /blog/assets/1_58_llm_extreme_quantization/thumbnail.png
 authors:
 - user: medmekk
@@ -18,7 +18,7 @@ As Large Language Models (LLMs) grow in size and complexity, finding ways to red
 
 ## Table of Contents
 - [TL;DR](#tldr)
-- [What is BitNet ?](#what-is-bitnet-in-more-depth)
+- [What is BitNet in More Depth?](#what-is-bitnet-in-more-depth)
 - [Pre-training Results in 1.58b](#pre-training-results-in-158b)
 - [Fine-tuning in 1.58b](#fine-tuning-in-158bit)
 - [Kernels used & Benchmarks](#kernels-used--benchmarks)
@@ -30,7 +30,14 @@ As Large Language Models (LLMs) grow in size and complexity, finding ways to red
 
 [BitNet](https://arxiv.org/abs/2402.17764) is an architecture introduced by Microsoft Research that uses extreme quantization, representing each parameter with only three values: -1, 0, and 1. This results in a model that uses just 1.58 bits per parameter, significantly reducing computational and memory requirements. 
 
-This architecture uses INT8 addition calculations when performing matrix multiplication, in contrast to LLaMA LLM's FP16 addition and multiplication operations. This results in a theoretically reduced energy consumption, with BitNet b1.58 saving 71.4 times the arithmetic operations energy for matrix multiplication compared to the Llama baseline.
+This architecture uses INT8 addition calculations when performing matrix multiplication, in contrast to LLaMA LLM's FP16 addition and multiplication operations. 
+
+<figure style="text-align: center;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/matmulfree.png" alt="The new computation paradigm of BitNet b1.58" style="width: 100%;"/>
+  <figcaption>The new computation paradigm of BitNet b1.58 (source: BitNet paper https://arxiv.org/abs/2402.17764)</figcaption>
+</figure>
+
+This results in a theoretically reduced energy consumption, with BitNet b1.58 saving 71.4 times the arithmetic operations energy for matrix multiplication compared to the Llama baseline.
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/energy_consumption.png" alt="Energy consumption of BitNet b1.58 compared to LLaMA" style="width: 100%;"/>
   <figcaption>Energy consumption of BitNet b1.58 compared to LLama (source: BitNet paper https://arxiv.org/abs/2402.17764)</figcaption>
@@ -795,6 +802,7 @@ In conclusion, as LLMs continue to expand, reducing their computational demands 
 
 ## Acknowledgements
 We would like to express our sincere gratitude to Leandro von Werra, Thomas Wolf, and Marc Sun for their invaluable assistance and insights throughout this project. We also extend our thanks to Omar Sanseviero and Pedro Cuenca for their contributions in refining this blog post, helping to communicate our findings clearly and effectively to the AI community.
+Furthermore, we want to acknowledge the GeneralAI team for their pioneering work on the BitNet project. Their research has been foundational to our efforts, and we are particularly grateful for the clear and precise figures provided in their paper.
 
 ## Additional Resources
 1. H. Wang et al., *BitNet: Scaling 1-bit Transformers for Large Language Models*. [arxiv paper](https://arxiv.org/pdf/2310.11453)

@@ -4621,7 +4621,7 @@
     - security
 
 - local: 1_58_llm_extreme_quantization
-  title: "1.58 Bit LLM: a new era of extreme quantization"
+  title: "Fine-tuning LLMs to 1.58bit: extreme quantization made easy"
   author: medmekk
   thumbnail: /blog/assets/1_58_llm_extreme_quantization/thumbnail.png
   date: September 18, 2024
