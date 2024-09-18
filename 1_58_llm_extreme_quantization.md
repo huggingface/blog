@@ -30,7 +30,7 @@ As Large Language Models (LLMs) grow in size and complexity, finding ways to red
 
 [BitNet](https://arxiv.org/abs/2402.17764) is an architecture introduced by Microsoft Research that uses extreme quantization, representing each parameter with only three values: -1, 0, and 1. This results in a model that uses just 1.58 bits per parameter, significantly reducing computational and memory requirements. 
 
-This architecture uses INT8 addition calculations, in contrast to LLaMA LLM's FP16 addition and multiplication operations. This results in a theoritically reduced energy consumption, with BitNet b1.58 saving 71.4 times the arithmetic operations energy for matrix multiplication compared to the Llama baseline.
+This architecture uses INT8 addition calculations when performing matrix multiplication, in contrast to LLaMA LLM's FP16 addition and multiplication operations. This results in a theoretically reduced energy consumption, with BitNet b1.58 saving 71.4 times the arithmetic operations energy for matrix multiplication compared to the Llama baseline.
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/energy_consumption.png" alt="Energy consumption of BitNet b1.58 compared to LLaMA" style="width: 100%;"/>
   <figcaption>Energy consumption of BitNet b1.58 compared to LLama (source: BitNet paper https://arxiv.org/abs/2402.17764)</figcaption>
