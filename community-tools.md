@@ -5,6 +5,12 @@ authors:
   - user: nsarrazin
 ---
 
+<div align="center">
+    <video alt="demo.mp4" autoplay loop autobuffer muted playsinline>
+        <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/community-tools/demo.webm" type="video/webm">
+    </video>
+</div>
+
 Today we’re releasing our latest feature on HuggingChat: Community Tools! This lets you turn any Space that you love on HuggingFace into a tool that can be used by models directly from HuggingChat.
 
 With this feature, we’re also expanding the modalities available in HuggingChat. You can now use community tools to understand images, generate videos, or answer with a text-to-speech model. The possibilities are endless and anyone can create tools using Spaces on Hugging Face! Explore existing tools [here](https://huggingface.co/chat/tools).
@@ -28,9 +34,9 @@ Start by [creating a new tool](https://huggingface.co/chat/tools/new) and fillin
 
 There are some fields that need to be filled in correctly in order to ensure optimal tool performance.
 
-- **Tool Description:** The description \*\*\*\*is passed to the LLM to explain what the tool can do. Keep it short and describe what the tool can be used for.
-- **AI Function Name**: The tools are represented as code functions. This is your tool’s function name. Keep it short, unique and self-explanatory.
-- **Arguments**: These are the tool parameters the LLM can fill-in. They can be:
+- **Tool Description:** The description is passed to the LLM to explain what the tool can do. Keep it short and describe what the tool can be used for.
+- **AI Function Name:** The tools are represented as code functions. This is your tool’s function name. Keep it short, unique and self-explanatory.
+- **Arguments:** These are the tool parameters the LLM can fill-in. They can be:
   - **Required:** The model must fill in a value to use this tool. This required the parameter to be described properly.
   - **Optional:** There is a default value provided but the model can override it if needed.
   - **Fixed:** The value is fixed when creating the tool and can’t be changed by the model.
