@@ -62,7 +62,7 @@ tokenizer = AutoTokenizer.from_pretrained("meta-llama/Meta-Llama-3-8B-Instruct")
 input_text = "Daniel went back to the the the garden. Mary travelled to the kitchen. Sandra journeyed to the kitchen. Sandra went to the hallway. John went to the bedroom. Mary went back to the garden. Where is Mary?\nAnswer:"
 
 input_ids = tokenizer.encode(input_text, return_tensors="pt").cuda()
-output = model_.generate(input_ids, max_length=10)
+output = model.generate(input_ids, max_new_tokens=10)
 generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
 print(generated_text)
 ```
@@ -382,7 +382,7 @@ Before attempting fine-tuning, we first tried to reproduce the results of the Bi
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/pre-training.png" alt="Pre-training plots without (blue) & with (green) layer normalisation" style="width: 100%;"/>
-  <figcaption>Pre-training plots without (blue) & with (green) layer normalisation </figcaption>
+  <figcaption>Pre-training plots without (blue) & with (orange) layer normalisation </figcaption>
 </figure>
 
 While this approach looks very interesting for pre-training, only a few institutions can afford doing it at the necessary scale. However, there is already a wide range of strong pretrained models, and it would be extremely useful if they could be converted to 1.58bit after pre-training. Other groups had reported that fine-tuning results were not as strong as those achieved with pre-training, so we set out on an investigation to see if we could make 1.58 fine-tuning work.
