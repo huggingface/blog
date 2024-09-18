@@ -14,7 +14,7 @@ authors:
 
 As Large Language Models (LLMs) grow in size and complexity, finding ways to reduce their computational and energy costs has become a critical challenge. One popular solution is quantization, where the precision of parameters is reduced from the standard 16-bit floating-point (FP16) or 32-bit floating-point (FP32) to lower-bit formats like 8-bit or 4-bit. While this approach significantly cuts down on memory usage and speeds up computation, it often comes at the expense of accuracy. Reducing the precision too much can cause models to lose crucial information, resulting in degraded performance. 
 
-[BitNet](https://arxiv.org/abs/2402.17764) is a special transformers architecture that represents each parameter with only three values: `(-1, 0, 1)`, offering a extreme quantization of just 1.58 ( \\( log_2(3) \\) ) bits per parameter. However, it works by training a model from scratch. While this is cool, not everybody has the budget to pre-train an LLM, even if it's in 1.58 bits. To overcome this limitation, we explored a few tricks that allow fine-tuning an existing model to 1.58 bits! Keep reading to find out!
+[BitNet](https://arxiv.org/abs/2402.17764) is a special transformers architecture that represents each parameter with only three values: `(-1, 0, 1)`, offering a extreme quantization of just 1.58 ( \\( log_2(3) \\) ) bits per parameter. However, it requires to train a model from scratch. While the results are impressive, not everybody has the budget to pre-train an LLM. To overcome this limitation, we explored a few tricks that allow fine-tuning an existing model to 1.58 bits! Keep reading to find out how !
 
 ## Table of Contents
 - [TL;DR](#tldr)
