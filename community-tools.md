@@ -6,7 +6,7 @@ authors:
 ---
 
 <div align="center">
-    <video alt="demo.mp4" autoplay loop autobuffer muted playsinline>
+    <video alt="demo.mp4" controls autoplay loop autobuffer muted playsinline>
         <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/community-tools/demo.webm" type="video/webm">
     </video>
 </div>
