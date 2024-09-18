@@ -34,9 +34,9 @@ Start by [creating a new tool](https://huggingface.co/chat/tools/new) and fillin
 
 There are some fields that need to be filled in correctly in order to ensure optimal tool performance.
 
-- **Tool Description:** The description \*\*\*\*is passed to the LLM to explain what the tool can do. Keep it short and describe what the tool can be used for.
-- **AI Function Name**: The tools are represented as code functions. This is your tool’s function name. Keep it short, unique and self-explanatory.
-- **Arguments**: These are the tool parameters the LLM can fill-in. They can be:
+- **Tool Description:** The description is passed to the LLM to explain what the tool can do. Keep it short and describe what the tool can be used for.
+- **AI Function Name:** The tools are represented as code functions. This is your tool’s function name. Keep it short, unique and self-explanatory.
+- **Arguments:** These are the tool parameters the LLM can fill-in. They can be:
   - **Required:** The model must fill in a value to use this tool. This required the parameter to be described properly.
   - **Optional:** There is a default value provided but the model can override it if needed.
   - **Fixed:** The value is fixed when creating the tool and can’t be changed by the model.
