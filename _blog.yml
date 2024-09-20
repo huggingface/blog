@@ -4647,7 +4647,7 @@
     - datasets
     - sql
     - duckdb
-    
+
 - local: 1_58_llm_extreme_quantization
   title: "Fine-tuning LLMs to 1.58bit: extreme quantization made easy"
   author: medmekk
@@ -4657,3 +4657,14 @@
     - nlp
     - research
     - community
+
+- local: deploy-with-openvino
+  title: "Optimize and deploy models with Optimum-Intel and OpenVINO GenAI"
+  author: AlexKoff88
+  thumbnail: /blog/assets/deploy-with-openvino/openvino_genai_workflow.png
+  date: September 20, 2024
+  tags:
+    - intel
+    - optimum
+    - quantization
+    - inference
