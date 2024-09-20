@@ -4629,7 +4629,7 @@
     - guide
 
 - local: community-tools
-  title: "Introducing Community Tools"
+  title: "Introducing Community Tools on HuggingChat"
   author: nsarrazin
   thumbnail: /blog/assets/community-tools/thumbnail.png
   date: September 16, 2024
