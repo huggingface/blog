@@ -4657,3 +4657,12 @@
     - nlp
     - research
     - community
+
+- local: daily-papers
+  title: "Exploring the Daily Papers Page on Hugging Face"
+  author: AdinaY
+  thumbnail: /blog/assets/1_58_llm_extreme_quantization/thumbnail.png
+  date: September 20, 2024
+  tags:
+    - research
+    - community
