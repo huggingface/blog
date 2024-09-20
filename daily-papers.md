@@ -36,7 +36,7 @@ Whether to ask clarifying questions or share constructive feedback, it opens the
 
 On each paper’s page, you’ll find related resources, such as models, datasets, Spaces and other useful collections, all linked on the right side.
 
-Authors can easily associate their models or datasets with their paper by simply adding paper's arXiv link to the README.md file of their resources. This feature not only gives authors a chance to highlight their work but also helps users access everything they need in one convenient place.
+Authors can easily associate their models or datasets with their paper by simply adding paper's arXiv URL to the README.md file of their resources. This feature not only gives authors a chance to highlight their work but also helps users access everything they need in one convenient place.
 
 ## 🗳 Show Your Support with Upvotes
 
