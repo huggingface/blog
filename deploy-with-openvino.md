@@ -200,4 +200,4 @@ The combination of Optimum-Intel and OpenVINO™ GenAI offers a powerful, flexib
 5. [Optimum Documentation](https://huggingface.co/docs/optimum/main/en/intel/index)
 
 
-![OpenVINO GenAI C++ chat demo](/blog/assets/deploy-with-openvino/demo.gif "OpenVINO GenAI C++ chat demo")
+![OpenVINO GenAI C++ chat demo](https://huggingface.co/datasets/OpenVINO/documentation/resolve/main/blog/openvino_genai_workflow/demo.gif)
