@@ -8,7 +8,7 @@ However, many people may not have fully explored all of the features Daily Paper
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/63a369d98c0c89dcae3b8329/-SfUilxjvtiJHeic3DWhE.png)
 
-On the Daily Papers page, you’ll notice author names listed under the title of each paper. If you're one of the authors and have a Hugging Face account, you can claim your paper with a single click! After claiming, the paper will be automatically linked to your account, adding visibility to your research and helping build your personal brand in the community. 
+On the Daily Papers page, you’ll notice author names listed under the title of each paper. If you're one of the authors and have a Hugging Face account, you can [claim your paper](https://huggingface.co/docs/hub/paper-pages) with a single click! After claiming, the paper will be automatically linked to your account, adding visibility to your research and helping build your personal brand in the community. 
 
 This feature makes it easy for the community to connect with you and your work, creating more opportunities for collaboration and interaction.
 
@@ -34,9 +34,9 @@ Whether to ask clarifying questions or share constructive feedback, it opens the
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/63a369d98c0c89dcae3b8329/flNjYihJjvWTB4q_hfbvl.png)
 
-On each paper’s page, you’ll find related resources, such as models, datasets, Spaces and other useful collections, all linked on the right side.
+On each paper’s page, you’ll find related [resources](https://huggingface.co/docs/hub/paper-pages), such as models, datasets, Spaces and other useful collections, all linked on the right side.
 
-Authors can easily associate their models or datasets with their paper by simply adding paper's arXiv URL to the README.md file of their resources. This feature not only gives authors a chance to highlight their work but also helps users access everything they need in one convenient place.
+Authors can easily associate their models or datasets with their paper by simply adding paper's arXiv URL to the README.md file of their resources.This feature not only gives authors a chance to highlight their work but also helps users access everything they need in one convenient place. 
 
 ## 🗳 Show Your Support with Upvotes
 
@@ -77,6 +77,6 @@ To use arXiv to HF Paper Pages feature, you'll need to install an extention, whi
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/63a369d98c0c89dcae3b8329/MvUS1d5t5ibM2TOKT8i-S.png)
 
-On arXiv, you can also check if a paper has a demo hosted on Hugging Face Spaces. If the author has added a link, you can click it to jump directly to the Space and try out the demo yourself!
+On arXiv, you can also check if a paper has a demo hosted on Hugging Face Spaces. If the author has added a link, you can click it to jump directly to the Space and try out the demo yourself! 
 
-We hope this guide helps you make the most of Daily Papers on Hugging Face. By utilizing all these features, you can stay up-to-date with the latest research, engage with authors and contribute to the growing AI community. Whether you're a researcher, developer or curious beginner, Daily Papers is here to help you connect with the top AI research!
+We hope this guide helps you make the most of [Daily Papers](https://huggingface.co/docs/hub/paper-pages) on Hugging Face.By utilizing all these features, you can stay up-to-date with the latest research, engage with authors and contribute to the growing AI community. Whether you're a researcher, developer or curious beginner, Daily Papers is here to help you connect with the top AI research!
