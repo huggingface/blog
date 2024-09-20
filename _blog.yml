@@ -4620,6 +4620,44 @@
     - partnerships
     - security
 
+- local: accelerate-v1
+  title: "Accelerate 1.0.0"
+  author: muellerzr
+  thumbnail: /blog/assets/186_accelerate_v1/accelerate_v1_thumbnail.png
+  date: September 13, 2024
+  tags:
+    - guide
+
+- local: community-tools
+  title: "Introducing Community Tools"
+  author: nsarrazin
+  thumbnail: /blog/assets/community-tools/thumbnail.png
+  date: September 16, 2024
+  tags:
+    - huggingchat
+    - tools
+    - community
+
+- local: sql-console
+  title: "Introducing the SQL Console on Datasets"
+  author: cfahlgren1
+  thumbnail: /blog/assets/sql_console/thumbnail.png
+  date: September 17, 2024
+  tags:
+    - datasets
+    - sql
+    - duckdb
+
+- local: 1_58_llm_extreme_quantization
+  title: "Fine-tuning LLMs to 1.58bit: extreme quantization made easy"
+  author: medmekk
+  thumbnail: /blog/assets/1_58_llm_extreme_quantization/thumbnail.png
+  date: September 18, 2024
+  tags:
+    - nlp
+    - research
+    - community
+
 - local: deploy-with-openvino
   title: "Optimize and deploy models with Optimum-Intel and OpenVINO GenAI"
   author: AlexKoff88
