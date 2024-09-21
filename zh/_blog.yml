@@ -1964,3 +1964,12 @@
     - padding
     - packing
     - Flash Attention 2
+
+- local: 1_58_llm_extrem_quantziation
+  title: 1.58 万亿参数的极端量化
+  thumbnail: /blog/assets/1_58_llm_extreme_quantization/thumbnail.png
+  date: September 18, 2024
+  tags:
+    - nlp
+    - research
+    - community
