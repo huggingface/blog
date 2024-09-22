@@ -1,6 +1,6 @@
 # Exploring the Daily Papers Page on Hugging Face 
 
-In the fast-paced world of research, staying up-to-date with the latest advancements is crucial. To help developers and researchers keep a pulse on the cutting-edge of AI, we introduced the [Daily Papers](https://huggingface.co/papers) page. Since its launch, Daily Papers has featured high-quality research selected by [AK](https://huggingface.co/akhaliq) and researchers from the community. Over the past year, more than 3,700 papers have been featured and the page has grown to over 12k subscribers! 
+In the fast-paced world of research, staying up-to-date with the latest advancements is crucial. To help developers and researchers keep a pulse on the cutting-edge of AI, Hugging Face introduced the [Daily Papers](https://huggingface.co/papers) page. Since its launch, Daily Papers has featured high-quality research selected by [AK](https://huggingface.co/akhaliq) and researchers from the community. Over the past year, more than 3,700 papers have been featured, and the page has grown to over 12k subscribers! 
 
 However, many people may not have fully explored all of the features Daily Papers offers. This article will guide you through some hidden functionalities to help you make the most of this platform.
 
