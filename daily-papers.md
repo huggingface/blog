@@ -18,7 +18,7 @@ This feature makes it easy for the community to connect with you and your work, 
 
 The paper submission feature is open to all users who’ve claimed a paper. Users don’t have to limit submissions to their own work, they can also share interesting research papers that would benefit the community.
 
-This allows us to maintain an up-to-date and ever-expanding collection of research in the AI field, curated by the community! 
+This allows Hugging Face Papers to maintain an up-to-date and ever-expanding collection of research in the AI field, curated by the community! 
 
 ## 💬 Chat with Authors
 
