@@ -65,6 +65,7 @@ Whether you’re providing feedback, discussing a question, or exchanging ideas,
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/63a369d98c0c89dcae3b8329/nhmtanbDgQB51XCUryTbG.png)
 
 You can subscribe to Daily Papers by clicking the "Subscribe" button at the top of the page. You'll receive daily updates (excluding weekends) with the latest papers straight to your inbox. 📩
+
 This feature makes it easy to browse the latest titles at a glance and jump into any research that catches your eye. 
 
 ## 💡 Interactive Features with arXiv
