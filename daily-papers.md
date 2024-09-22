@@ -26,7 +26,7 @@ This allows Hugging Face Papers to maintain an up-to-date and ever-expanding col
 
 Under each paper, there is a discussion section where users can leave comments and engage in direct conversations with the authors. Tagging the authors (@username) can lead to real-time feedback, questions or discussion of the research. 
 
-This feature fosters interaction, bringing together researchers from the whole community. Everyone, from beginners to experts can contribute their ideas, making the global AI community even more connected and inclusive.
+This feature fosters interaction, bringing together researchers from the whole community. Everyone, from beginners to experts, can contribute their ideas, making the global AI community even more connected and inclusive.
 
 Whether to ask clarifying questions or share constructive feedback, it opens the door to meaningful dialogue and can even spark new ideas or collaborations.
 
