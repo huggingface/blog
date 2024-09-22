@@ -78,6 +78,6 @@ To use arXiv to HF Paper Pages feature, you'll need to install an extention, whi
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/63a369d98c0c89dcae3b8329/MvUS1d5t5ibM2TOKT8i-S.png)
 
-On arXiv, you can also check if a paper has a demo hosted on Hugging Face Spaces. If the author has added a link, you can click it to jump directly to the Space and try out the demo yourself! 
+On arXiv, you can also check if a paper has a demo hosted on Hugging Face Spaces. If the author has added a link, you can click it to jump directly to the Space and try out the demo yourself!
 
 We hope this guide helps you make the most of [Daily Papers](https://huggingface.co/docs/hub/paper-pages) on Hugging Face.By utilizing all these features, you can stay up-to-date with the latest research, engage with authors and contribute to the growing AI community. Whether you're a researcher, developer or curious beginner, Daily Papers is here to help you connect with the top AI research!
