@@ -58,7 +58,7 @@ By typing @librarian-bot in the comment section, the system will automatically s
 
 At Hugging Face, we value diversity and that extends to language as well. On the Daily Papers page, users can leave comments in any language, and our built-in translation feature will ensure everyone can understand and contribute.
  
-Whether you’re providing feedback, discussing a question or exchanging ideas, this feature helps break down language barriers, making global collaboration even easier.
+Whether you’re providing feedback, discussing a question, or exchanging ideas, this feature helps break down language barriers, making global collaboration even easier.
 
 ## ✅ Subscription
 
