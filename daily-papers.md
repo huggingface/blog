@@ -72,7 +72,7 @@ This feature makes it easy to browse the latest titles at a glance and jump into
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/63a369d98c0c89dcae3b8329/AOLHbUcjJbvTlRdOKFx4q.png)
 
-There’s also some cool interaction between Paper Pages and arXiv. For example, you can easily check if a paper on arXiv has already been featured on Hugging Face's Daily Papers page. If you spot the familiar emoji 🤗 on the page, you can click it to jump straight to the paper page on Daily Papers and explore all the features mentioned above. 
+There’s also some cool integration between Paper Pages and arXiv. For example, you can easily check if a paper on arXiv has already been featured on Hugging Face's Daily Papers page. If you spot the familiar emoji 🤗 on the page, you can click it to jump straight to the paper page on Daily Papers and explore all the features mentioned above. 
 
 To use arXiv to HF Paper Pages feature, you'll need to install an extention, which you can find here: https://chromewebstore.google.com/detail/arxiv-to-hf/icfbnjkijgggnhmlikeppnoehoalpcpp.
 
