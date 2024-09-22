@@ -34,7 +34,7 @@ Whether to ask clarifying questions or share constructive feedback, it opens the
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/63a369d98c0c89dcae3b8329/flNjYihJjvWTB4q_hfbvl.png)
 
-On each paper’s page, you’ll find related [resources](https://huggingface.co/docs/hub/paper-pages), such as models, datasets, Spaces and other useful collections, all linked on the right side.
+On each paper’s page, you’ll find related [resources](https://huggingface.co/docs/hub/paper-pages), such as models, datasets, demos and other useful collections, all linked on the right side.
 
 Authors can easily associate their models or datasets with their paper by simply adding paper's arXiv URL to the README.md file of their resources.This feature not only gives authors a chance to highlight their work but also helps users access everything they need in one convenient place. 
 
