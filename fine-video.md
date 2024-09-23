@@ -1,6 +1,6 @@
 ---
 title: "FineVideo: behind the scenes" 
-thumbnail: /blog/assets/186_fine_video/finevideo.png
+thumbnail: /blog/assets/186_fine_video/thumbnail.png
 authors:
 - user: mfarre
 - user: andito
