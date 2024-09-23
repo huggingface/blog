@@ -1,5 +1,5 @@
 ---
-  title: "Exploring the Daily Papers Page on Hugging Face"
+title: "Exploring the Daily Papers Page on Hugging Face"
 thumbnail: /blog/assets/daily-papers/thumbnail.png
 authors:
 - user: AdinaY
