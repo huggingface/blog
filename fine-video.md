@@ -450,36 +450,28 @@ Instructor allowed us to experiment with different models to convert the free te
         <iframe width="200" height="113" src="https://www.youtube.com/embed/-E9Te2S1gXY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </td>
       <td>
-        <pre><code>
+        <pre style="line-height: 1.0;"><code>
 
-**CharacterList:**
-* **Man:** Slim build, brown eyes, shaved sides, black hoodie with colorful logo, black pants.
-
-**Scenes:**
-<br>
-**Scene 1:**
-* **Start:** 0:00 **End:** 0:55
-* **Characters:** [Man]
-* **Activities:**
-    - Introduces bus
-    - Describes peaceful location with cows
-
-**Props:**
-* Bus, cows, deck.
-
-**Mood:**
-- Excited, adventure.
-
-**Narrative Progression:**
-- Introduction to bus.
-- Tour begins outside, highlighting nature and relaxation.
-
-**Dynamism Score:** 0.7 
-**Audio-Visual Correlation:** 1
+CharacterList:
+Man Slim build, brown eyes, shaved sides, black hoodie with colorful logo, black pants.
+Scenes
+Scene 1
+Start 0:00 End 0:55
+Characters: [Man]
+Activities:
+Introduces bus
+Describes peaceful location with cows
+Props: Bus, cows, deck.
+Mood:Excited, adventure.
+Narrative Progression:
+Introduction to bus.
+Tour begins outside, highlighting nature and relaxation.
+Dynamism Score 0.7 
+Audio-Visual Correlation 1
         </code></pre>
       </td>
       <td>
-        <pre><code>
+        <pre style="line-height: 1.0;"><code>
 {
   "title": "Bertie the Bus Tour",
   "description": "Guided tour of converted bus.",
