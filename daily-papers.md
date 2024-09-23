@@ -8,7 +8,7 @@ However, many people may not have fully explored all of the features Daily Paper
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/63a369d98c0c89dcae3b8329/-SfUilxjvtiJHeic3DWhE.png)
 
-On the Daily Papers page, you’ll notice author names listed under the title of each paper. If you're one of the authors and have a Hugging Face account, you can [claim your paper](https://huggingface.co/docs/hub/paper-pages) with a single click! After claiming, the paper will be automatically linked to your account, adding visibility to your research and helping build your personal brand in the community. 
+On the Daily Papers page, you’ll notice author names listed under the title of each paper. If you're one of the authors and have a Hugging Face account, you can [claim your paper](https://huggingface.co/docs/hub/paper-pages#claiming-authorship-to-a-paper) with a single click! After claiming, the paper will be automatically linked to your account, adding visibility to your research and helping build your personal brand in the community. 
 
 This feature makes it easy for the community to connect with you and your work, creating more opportunities for collaboration and interaction.
 
