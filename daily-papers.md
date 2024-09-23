@@ -28,7 +28,7 @@ Under each paper, there is a discussion section where users can leave comments a
 
 This feature fosters interaction, bringing together researchers from the whole community. Everyone, from beginners to experts, can contribute their ideas, making the global AI community even more connected and inclusive.
 
-Whether to ask clarifying questions or share constructive feedback, it opens the door to meaningful dialogue and can even spark new ideas or collaborations.
+Whether to ask clarification questions or share constructive feedback, it opens the door to meaningful dialogue and can even spark new ideas or collaborations.
 
 ## 🔗 All You Need in One Page
 
