@@ -4620,7 +4620,6 @@
     - partnerships
     - security
 
-
 - local: accelerate-v1
   title: "Accelerate 1.0.0"
   author: muellerzr
@@ -4678,7 +4677,7 @@
   tags:
     - research
     - community
-    
+
 - local: finevideo
   title: FineVideo: behind the scenes
   author: mfarre
