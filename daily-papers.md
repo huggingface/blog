@@ -50,7 +50,7 @@ For authors, each upvote acts as a recognition of their efforts and can be a sou
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/63a369d98c0c89dcae3b8329/U1IwjaQJBOQ5rv32T8VTh.png)
 
-By typing @librarian-bot in the comment section, the system will automatically suggest related papers. This feature is great for those looking to dive deeper into a topic or explore similar ideas. It’s like having a personal AI-powered research assistant! 
+If you type @librarian-bot in the comment section, the system will automatically suggest related papers. This feature is great for those looking to dive deeper into a topic or explore similar ideas. It’s like having a personal AI-powered research assistant! 
 
 ## 🔠 Multilingual Comments and Translation
 
