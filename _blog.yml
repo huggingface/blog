@@ -4619,3 +4619,13 @@
     - hub
     - partnerships
     - security
+
+- local: finevideo
+  title: FineVideo: behind the scenes
+  author: mfarre
+  thumbnail: /blog/assets/186_fine_video/finevideo.png
+  date: September 23, 2024
+  tags:
+    - video
+    - datasets
+    - multimodal   
