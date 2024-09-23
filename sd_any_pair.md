@@ -1,5 +1,5 @@
 ---
-title: "Speculative Decoding with Any Assistant Model"
+title: "Assisted Generation with Any Assistant Model"
 thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
 - user: user1
@@ -10,7 +10,7 @@ authors:
   org: Intel
 ---
 
-# AnyPair - Speculative Decoding with Any Target and Assistant Models
+# Assisted Generation with Any Assistant Model
 
 The unprecedented success of LLMs has redefined the limits of NLP. However, a major challenge in their deployment is optimizing performance to reduce their response time.
 Speculative decoding is a very popular and practical approach for accelerating LLMs achieving considerable speedups.
@@ -32,12 +32,11 @@ print("This is a python code block example")
     <em>IMAGE CAPTION HERE</em>
 </p>
 
-|                      | bge-small (transformers) | bge-small (ipex-bfloat16) | bge-small (optimum-int8) |
-|----------------------|---------------------|---------------------------|---------------------------|
-| Model Size           | 127.32 MB           | 63.74 MB                  | 44.65 MB                  |
-| Accuracy on test set | 88.4%               | 88.4%                     | 88.1%                     |
-| Latency (bs=1) | 15.69 +/- 0.57 ms | 5.67 +/- 0.66 ms | 4.55 +/- 0.25 ms |
-
+| target | assistant | dataset | task | speedup |
+|----------------------|---------------------|---------------------------|---------------------------|---------------------------|
+| `codellama/CodeLlama-13b-Instruct-hf` | `bigcode/tiny_starcoder_py` | `openai/humaneval` | code generation | **2.01x** |
+| `microsoft/Phi-3-medium-128k-instruct` | `Qwen/Qwen2-0.5B-Instruct`  | `tau/scrolls`   | long-context summarization | **1.65x** |
+| `google/gemma-2-9b` | `double7/vicuna-68m`  | `cnn_dailymail`   | summarization | **1.72x** |
 
 ## Summary
 
