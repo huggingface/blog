@@ -7,7 +7,7 @@ authors:
 
 # Hugging Face 论文平台 Daily Papers 功能全解析
 
-在快速发展的研究领域，保持对最新进展的关注至关重要。为了帮助开发者和研究人员跟踪 AI 领域的前沿动态，Hugging Face 推出了 [Daily Papers](https://huggingface.co/papers) 页面。自发布以来，Daily Papers 已展示了由 [AK](https://huggingface.co/akhaliq) 和社区研究人员精心挑选的高质量研究。在过去一年里，已有超过 3700 篇论文被发布，页面订阅用户也增长至超过 12k！
+在快速发展的研究领域，保持对最新进展的关注至关重要。为了帮助开发者和研究人员跟踪 AI 领域的前沿动态，Hugging Face 推出了 [Daily Papers](https://huggingface.co/papers) 页面。自发布以来，Daily Papers 已展示了由 [AK](https://huggingface.co/akhaliq) 和社区研究人员精心挑选的高质量研究。在过去一年里，已有超过 3700 篇论文被发布，页面订阅用户也增长至超过 1.2 万！
 
 然而，许多人可能还不了解 Daily Papers 页面的全部功能。本文将介绍一些论文页面的隐藏功能，帮助你充分利用这个平台。
 
@@ -81,7 +81,7 @@ authors:
 
 Paper Pages 和 arXiv 之间还有一些有趣的集成功能。例如，你可以轻松查看 arXiv 上的论文是否已经被 Hugging Face 的 Daily Papers 页面展示。如果在页面上看到熟悉的表情符号 🤗，点击它就可以直接跳转到 Daily Papers 上的论文页面，探索上述所有功能。
 
-要使用 arXiv 到 HF Paper Pages 的功能，需要安装一个扩展程序 👉：https://chromewebstore.google.com/detail/arxiv-to-hf/icfbnjkijgggnhmlikeppnoehoalpcpp。
+要使用 arXiv 到 HF Paper Pages 的功能，需要安装一个 Chrome 扩展程序 👉：https://chromewebstore.google.com/detail/arxiv-to-hf/icfbnjkijgggnhmlikeppnoehoalpcpp。
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/63a369d98c0c89dcae3b8329/MvUS1d5t5ibM2TOKT8i-S.png)
 
