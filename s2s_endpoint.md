@@ -68,3 +68,11 @@ With the Docker image built and pushed, it’s ready to be used in the Hugging F
 
 Derek, can you fill this?
 
+# Building the webserver
+Basically go over my code on webservice_starlette.py 
+
+- How to handle streaming connections with a websocket / they are not supported in the default example and I added code for them
+
+# Custom handler custom client
+
+Go over the custom handler and the custom client.
