@@ -202,6 +202,6 @@ In this post, we showed that Florence-2 can be effectively fine-tuned to a custo
 - [Fine tuning Github Repo](https://github.com/andimarafioti/florence2-finetuning)
 - [Notebook for Florence-2 Inference](https://huggingface.co/microsoft/Florence-2-large/blob/main/sample_inference.ipynb)
 - [Florence-2 DocVQA Demo](https://huggingface.co/spaces/andito/Florence-2-DocVQA)
-- [Florence-2 Demo](https://huggingface.co/spaces/gokaygo)
+- [Florence-2 Demo](https://huggingface.co/spaces/gokaygokay/Florence-2)
 
 We would like to thank Pedro Cuenca for his reviews on this blog post.
