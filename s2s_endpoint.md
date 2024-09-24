@@ -18,40 +18,53 @@ In this blog post, I’ll guide you step by step through how I built a custom Do
 
 # Building the custom Docker image
 
-To start building my custom Docker image, I cloned the default Docker image repository provided by Hugging Face.
+To begin creating my custom Docker image, I started by cloning Hugging Face’s default Docker image repository. This serves as a great starting point for deploying machine learning models in inference tasks.
 
 ```bash
 git clone https://github.com/huggingface/huggingface-inference-toolkit
 ```
 
-Why Clone the Default Repository?
-- Solid Foundation: Provides a proven base image optimized for inference tasks.
-- Compatibility: Ensures that the custom image aligns with Hugging Face's deployment requirements.
-- Ease of Customization: Offers a structured environment to implement specific changes for your application.
+## Why Clone the Default Repository?
+- Solid Foundation: he repository provides a pre-optimized base image designed specifically for inference workloads, which gives a reliable starting point.
+- Compatibility: Since the image is built to align with Hugging Face’s deployment environment, this ensures smooth integration when you deploy your own custom image.
+- Ease of Customization: The repository offers a clean and structured environment, making it easy to customize the image for the specific requirements of your application.
 
-You can see all of [our changes here](https://github.com/andimarafioti/speech-to-speech-inference-toolkit/pull/1/files)
+You can check out all of [our changes here](https://github.com/andimarafioti/speech-to-speech-inference-toolkit/pull/1/files)
 
-With the base repository cloned, the next step was to customize it for my speech-to-speech application.
+## Customizing the Docker Image for the Speech-to-Speech Application
 
-First, I added my speech-to-speech project as submodules to the project. This approach allows for better version control and integration. 
+With the repository cloned, the next step was tailoring the image to support my speech-to-speech pipeline.
 
-I also added some data I will copy to the docker container. For this, I created a repository on Hugging Face and dumped my data there, which I then initialized here as a submodule. This saves me from downloading the data each time that I instanciate the endpoint or build the container, and it gives me an easy way to track the data and make the project reproducible.
+1. Adding the Speech-to-Speech Project as Submodules
+
+To integrate my project smoothly, I added the speech-to-speech codebase and any required datasets as submodules. This approach offers better version control, ensuring the exact version of the code and data is always available when the Docker image is built.
+
+By including data directly within the Docker container, I avoid having to download it each time the endpoint is instantiated, which significantly reduces startup time and ensures the system is reproducible. The data is stored in a Hugging Face repository, which provides easy tracking and versioning.
 
 ```bash
 git submodule add https://github.com/your-username/speech-to-speech.git
 git submodule add https://huggingface.co/andito/fast-unidic
 ```
 
-Then, I modified some parts of the Dockerfile (removed packages I know I won't need), and moved in the install of the `requirements.txt` for my project into the Dockerfile to avoid having it done on the inference endpoint. Once the Dockerfile was complete, I built and pushed it with:
+2. Modifying the Dockerfile
 
+Next, I optimized the Dockerfile to suit my needs:
+
+- Streamlining the Image: I removed packages and dependencies that weren’t relevant to my use case. This reduces the image size and cuts down on unnecessary overhead during inference.
+- Installing Requirements: I moved the installation of `requirements.txt` from the entry point to the Dockerfile itself. This way, the dependencies are installed when building the Docker image, speeding up deployment since these packages won’t need to be installed at runtime.
+
+Once the modifications were in place, I built and pushed the custom image to Docker Hub:
 ```bash
 DOCKER_DEFAULT_PLATFORM="linux/amd64" docker build -t speech-to-speech -f dockerfiles/pytorch/Dockerfile . 
 docker tag speech-to-speech andito/speech-to-speech:latest 
 docker push andito/speech-to-speech:latest
 ```
 
-Once this is done, we can use the docker image directly in the endpoint. 
+3. Deploying the Custom Image
+
+With the Docker image built and pushed, it’s ready to be used in the Hugging Face Inference Endpoint. By using this pre-built image, the endpoint can launch faster and run more efficiently, as all dependencies and data are pre-packaged within the image.
 
 # Setting up an endpoint with a custom docker image:
 
 Derek, can you fill this?
+
