@@ -96,6 +96,8 @@ Pre-Steps
 
 ## Inference Endpoints API
 
+Here we will walk through the steps for creating the endpoint with the API. Just use this code in your python environment of choice.
+
 Make sure to use `0.25.1` or greater
 ```bash
 pip install huggingface_hub>=0.25.1
