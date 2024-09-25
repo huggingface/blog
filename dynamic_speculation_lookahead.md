@@ -65,7 +65,10 @@ outputs = model.generate(**inputs, assistant_model=assistant_model)
 
 # Results
 
-ADD section on DISCO
+Add section on DISCO
+
+# Future Work
+Adjust the threshold at each iteration according to the probabilities of the accepted/rejected tokens
 
 # References
 - [Dynamic Speculation Lookahead Accelerates Speculative Decoding of Large Language Models](https://arxiv.org/abs/2405.04304)
