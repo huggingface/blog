@@ -273,7 +273,7 @@ You can run both Llama 3.2 1B and 3B directly on your device's CPU/ GPU/ Browser
 
 ### Llama.cpp & Llama-cpp-python
 
-[Llama.cpp](https://github.com/ggerganov/llama.cpp) is the go-to framework for all things cross-platform on-device ML inference. We provide quantized 4-bit & 8-bit weights for both 1B & 3B models in this collection. We expect the community to embrace these models and create additional quantizations and fine-tunes. For example, here you can see models in the Hub that were quantized from the Llama 3.1 8B model.
+[Llama.cpp](https://github.com/ggerganov/llama.cpp) is the go-to framework for all things cross-platform on-device ML inference. We provide quantized 4-bit & 8-bit weights for both 1B & 3B models in this collection. We expect the community to embrace these models and create additional quantizations and fine-tunes. You can find all the quantized Llama 3.2 models [here](https://huggingface.co/models?search=hugging-quants/Llama-3.2-).
 
 Here’s how you can use these checkpoints directly with llama.cpp.
 
