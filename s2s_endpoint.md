@@ -64,9 +64,28 @@ docker push andito/speech-to-speech:latest
 
 With the Docker image built and pushed, it’s ready to be used in the Hugging Face Inference Endpoint. By using this pre-built image, the endpoint can launch faster and run more efficiently, as all dependencies and data are pre-packaged within the image.
 
-# Setting up an endpoint with a custom docker image:
+# Setting up an Inference Endpoint
 
-Derek, can you fill this?
+Using a custom docker image just requires a slightly different configuration, feel free to check out the [documentation](https://huggingface.co/docs/inference-endpoints/en/guides/custom_container). 
+
+Pre-Steps
+1. Login: https://huggingface.co/login
+2. Create a read-only token: https://huggingface.co/settings/tokens
+3. Request access to [meta-llama/Meta-Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct)
+
+1. Navigate to https://ui.endpoints.huggingface.co/new (you might need to login)
+2. Fill in the relevant information
+    - Model Repository - `andito/fast-unidic`
+    - Model Name - Feel free to rename if you dont like the generated name like `Speech-to-Speech-Demo`
+    - Choose your preferred Cloud and Hardware -  I used `AWS` `GPU` `A100`
+    - Advanced Configuration
+        - Container Type - `Custom`
+        - Container URL - `andito/speech-to-speech:latest`
+        - Secrets - `HF_TOKEN`|`<your token here>`
+3. Click `Create Endpoint`
+
+> [!NOTE] The Model Repository doesn't actually matter since the models are specified and downloaded in the container creation, but Inference Endpoints requires a model, so feel free to pick a slim one of your choice.
+> [!NOTE] You need to specify `HF_TOKEN` because we need to download gated models in the container creation stage. This won't be necessary if you use models that aren't gated or private.
 
 # Building the webserver
 Basically go over my code on webservice_starlette.py 
