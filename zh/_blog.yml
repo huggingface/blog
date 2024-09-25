@@ -1964,12 +1964,22 @@
     - padding
     - packing
     - Flash Attention 2
-
+    
 - local: daily-papers
   title: "Hugging Face 论文平台 Daily Papers 功能全解析"
   author: AdinaY
   thumbnail: /blog/assets/daily-papers/thumbnail.png
   date: September 23, 2024
   tags:
+    - research
+    - community
+
+- local: 1_58_llm_extreme_quantization
+  title: 1.58 万亿参数的极端量化
+  author: medmekk
+  thumbnail: /blog/assets/1_58_llm_extreme_quantization/thumbnail.png
+  date: September 18, 2024
+  tags:
+    - nlp
     - research
     - community
