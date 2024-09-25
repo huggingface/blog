@@ -28,7 +28,7 @@ Among the features and integrations being released, we have:
 ## Table of contents
 
 - [What is Llama 3.2 Vision?](#what-is-llama-32-vision)
-- [Llama 3.2 license changes. Sorry, EU :(](#llama-32-license-changes-sorry-eu)
+- [Llama 3.2 license changes. Sorry, EU :(](#llama-32-license-changes-sorry-eu-)
 - [What is special about Llama 3.2 1B and 3B?](#what-is-special-about-llama-32-1b-and-3b)
 - [Demo](#demo)
 - [Using Hugging Face Transformers](#using-hugging-face-transformers)
@@ -53,11 +53,12 @@ The architecture of these models is based on the combination of Llama 3.1 LLMs c
 Below you can find some inference examples from the 11B instruction-tuned model that showcase real world knowledge, document reasoning and infographics understanding capabilities.
 
 
-| Image                                                                                                         | Prompt                                                                     | Response                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-|---------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ![Wat Arun](https://huggingface.co/datasets/huggingface/release-assets/resolve/main/wat_arun.jpg)             | Where is this located in? What are other attractions nearby?               | The image depicts the Grand Palace in Bangkok, Thailand. The Grand Palace is a complex of buildings that served as the official residence of the King of Siam and the administrative seat of government for 150 years. It is one of the most popular tourist attractions in Bangkok and a must see for anyone visiting the city. <br> Some other attractions near the Grand Palace include:  <br> * Wat Phra Kaew: This temple is located within the Grand Palace complex and is home to the famous Emerald Buddha statue. <br>  * Wat Arum: This temple is located on the west bank of the Chao Phraya River and is known for its stunning architecture and beautiful views of the city. <br>  * Wat Plo: This temple is located near the Grand Palace and is home to a large reclining Buddha statue.  <br> * Lump hini Park: This park is located in the heart of Bangkok and offers a peaceful escape from the hustle and bustle of the city. <br>  * Jim Thompson House: This museum showcases the life and work of Jim Thompson, an American businessman who helped revitalize the Thai silk industry in the 1950 s and 1960 s.  Overall, the Grand Palace is a must- see attraction in Bangkok, and there are many other interesting places to visit in the area. |
-| ![Weather Events](https://huggingface.co/datasets/huggingface/release-assets/resolve/main/weather_events.png) | Where do the droughts happen according to this diagram?                    | Drought Regions in 2016 <br> According to the diagram, droughts occurred in two distinct regions in 2016: <br> * **Eastern and Southern Africa:** This region experienced severe droughts. <br> * **Chile:** Chile was the driest in January in over 50 years. These areas faced significant water scarcity issues during that period.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| ![Invoice](https://huggingface.co/datasets/huggingface/release-assets/resolve/main/invoice.png)               | How long does it take from invoice date to due date? Be short and concise. | To determine the time difference between the invoice date and the due date, we need to subtract the invoice date from the due date. <br> **Invoice Date:** 11/02/2019  <br> **Due Date:** 26/02/2019 <br> **Time Difference Calculation:** o 26/02/2019 - 11/02/2019 = 15 days The time difference between the invoice date and the due date is **15 days.**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Image                                                                                                          | Prompt                                                                     | Response                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+|---------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![Wat Arun](https://huggingface.co/datasets/huggingface/release-assets/resolve/main/wat_arun.jpg)              | Where is this located in? What are other attractions nearby?               | The image depicts the Grand Palace in Bangkok, Thailand. The Grand Palace is a complex of buildings that served as the official residence of the King of Siam and the administrative seat of government for 150 years. It is one of the most popular tourist attractions in Bangkok and a must-see for anyone visiting the city.<br><br>Some other attractions near the Grand Palace include:<br>* Wat Phra Kaew: This temple is located within the Grand Palace complex and is home to the famous Emerald Buddha statue.<br>* Wat Arun: This temple is located on the west bank of the Chao Phraya River and is known for its stunning architecture and beautiful views of the city.<br>* Wat Pho: This temple is located near the Grand Palace and is home to a large reclining Buddha statue.<br>* Lumpini Park: This park is located in the heart of Bangkok and offers a peaceful escape from the hustle and bustle of the city.<br>* Jim Thompson House: This museum showcases the life and work of Jim Thompson, an American businessman who helped revitalize the Thai silk industry in the 1950s and 1960s. Overall, the Grand Palace is a must-see attraction in Bangkok, and there are many other interesting places to visit in the area. |
+| ![Weather Events](https://huggingface.co/datasets/huggingface/release-assets/resolve/main/weather_events.png)   | Where do the droughts happen according to this diagram?                    | **Drought Regions in 2016**<br>According to the diagram, droughts occurred in two distinct regions in 2016:<br>* **Eastern and Southern Africa:** This region experienced severe droughts.<br>* **Chile:** Chile was the driest in January in over 50 years. These areas faced significant water scarcity issues during that period.                                                                                                                                                                                                                                                                                                                                                 |
+| ![Invoice](https://huggingface.co/datasets/huggingface/release-assets/resolve/main/invoice.png)                | How long does it take from invoice date to due date? Be short and concise. | **Invoice Date:** 11/02/2019<br>**Due Date:** 26/02/2019<br>**Time Difference Calculation:**<br>26/02/2019 - 11/02/2019 = 15 days<br><br>The time difference between the invoice date and the due date is **15 days.**                                                                                                                                                                                                                                                                                                                                                                           |
+
 
 Vision models have a context length of 128k tokens, which allows for multiple-turn conversations that may contain images. However, the model works best when attending to a single image, so the `transformers` implementation only attends to the last image provided in the input. This preserves quality and saves memory.
 
@@ -112,7 +113,7 @@ Remarkably, the 3B model is as strong as the 8B one on IFEval! This makes the mo
 
 Tool use is supported in both the 1B and 3B instruction-tuned models. Tools are specified by the user in a zero-shot setting (the model has no previous information about the tools developers will use). Thus, the built-in tools that were part of the Llama 3.1 models (`brave_search` and `wolfram_alpha`) are no longer available.
 
-Due to their size, these small models can be used as assistants for bigger models and perform [assisted generation](https://huggingface.co/blog/assisted-generation) (also known as speculative decoding). Here is an example of using the Llama 3.2 1B model as an assistant to the Llama 3.1 8B model. For offline use cases, please check the on-device section later in the post.
+Due to their size, these small models can be used as assistants for bigger models and perform [assisted generation](https://huggingface.co/blog/assisted-generation) (also known as speculative decoding). [Here](https://github.com/huggingface/huggingface-llama-recipes/tree/main) is an example of using the Llama 3.2 1B model as an assistant to the Llama 3.1 8B model. For offline use cases, please check the on-device section later in the post.
 
 ## Demo
 You can experiment with the three Instruct models in the following demos:
@@ -251,16 +252,16 @@ from transformers import MllamaForConditionalGeneration, AutoProcessor
 +from transformers import BitsAndBytesConfig
 
 +bnb_config = BitsAndBytesConfig(
-    load_in_4bit=True,
-    bnb_4bit_quant_type="nf4",
-    bnb_4bit_compute_dtype=torch.bfloat16
++    load_in_4bit=True,
++    bnb_4bit_quant_type="nf4",
++    bnb_4bit_compute_dtype=torch.bfloat16
 )
  
 model = MllamaForConditionalGeneration.from_pretrained(
     model_id,
--    torch_dtype=torch.bfloat16,
--    device="cuda",
-+    quantization_config=bnb_config,
+-   torch_dtype=torch.bfloat16,
+    device="cuda",
++   quantization_config=bnb_config,
 )
 ```
 
@@ -274,9 +275,9 @@ You can run both Llama 3.2 1B and 3B directly on your device's CPU/ GPU/ Browser
 
 [Llama.cpp](https://github.com/ggerganov/llama.cpp) is the go-to framework for all things cross-platform on-device ML inference. We provide quantized 4-bit & 8-bit weights for both 1B & 3B models in this collection. We expect the community to embrace these models and create additional quantizations and fine-tunes. For example, here you can see models in the Hub that were quantized from the Llama 3.1 8B model.
 
-Here’s how you can use these checkpoints directly with llama.cpp
+Here’s how you can use these checkpoints directly with llama.cpp.
 
-Install llama.cpp through brew (works on Mac and Linux)
+Install llama.cpp through brew (works on Mac and Linux).
 
 ```bash
 brew install llama.cpp
@@ -318,7 +319,7 @@ llm.create_chat_completion(
 
 ### Transformers.js
 
-You can even run Llama 3.2 in your browser (or any JavaScript runtime like Node.js, Deno, or Bun) using [Transformers.js](https://huggingface.co/docs/transformers.js). If you haven't already, you can install the library from [NPM](https://www.npmjs.com/package/@huggingface/transformers) using:
+You can even run Llama 3.2 in your browser (or any JavaScript runtime like Node.js, Deno, or Bun) using [Transformers.js](https://huggingface.co/docs/transformers.js). You can find the [ONNX model](https://huggingface.co/onnx-community/Llama-3.2-1B-Instruct) on Hub. If you haven't already, you can install the library from [NPM](https://www.npmjs.com/package/@huggingface/transformers) using:
 
 ```bash
 npm i @huggingface/transformers
@@ -380,8 +381,7 @@ Support for fine tuning Llama 3.2 Vision is also available in TRL with [this scr
 accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml \
     examples/scripts/sft_vlm.py \
     --dataset_name HuggingFaceH4/llava-instruct-mix-vsft \
-    --model_name_or_path meta-llama/Llama-3.2-11B-Vision-Instruct
- \
+    --model_name_or_path meta-llama/Llama-3.2-11B-Vision-Instruct \
     --per_device_train_batch_size 8 \
     --gradient_accumulation_steps 8 \
     --output_dir Llama-3.2-11B-Vision-Instruct-sft \
@@ -390,7 +390,7 @@ accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml
     --gradient_checkpointing
 ```
 
-You can also check out [this notebook](https://github.com/huggingface/huggingface-llama-recipes/blob/add-llama32/Llama-Vision%20FT.ipynb) for LoRA fine-tuning using transformers and PEFT. 
+You can also check out [this notebook](https://github.com/huggingface/huggingface-llama-recipes/blob/main/Llama-Vision%20FT.ipynb) for LoRA fine-tuning using transformers and PEFT. 
 
 ## Hugging Face Partner Integrations
 
@@ -404,11 +404,11 @@ We are currently working with our partners at AWS, Google Cloud, Microsoft Azure
 - [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
 - [Meta Blog](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/)
 - [Evaluation datasets](https://huggingface.co/collections/meta-llama/llama-32-evals-66f44b3d2df1c7b136d821f0)
-
+- [](https://huggingface.co/onnx-community/Llama-3.2-1B-Instruct)
 
 ## Acknowledgements
 
-Releasing such models with support and evaluations in the ecosystem would not be possible without the contributions of thousands of community members who have contributed to transformers, text-generation-inference, vllm, pytorch, LM Eval Harness, and many other projects. Hat tip to the VLLM team for their help in testing and reporting issues. This release couldn't have happened without all the support of Clémentine, Alina, Elie, and Loubna for LLM evaluations, Nicolas Patry, Olivier Dehaene, and Daniël de Kok for Text Generation Inference; Lysandre, Arthur, Pavel, Edward Beeching, Amy, Benjamin, Joao, Pablo, Raushan Turganbay, Matthew Carrigan, and Joshua Lochner for transformers, transformers.js, TRL, and PEFT support; Brigitte Tousignant and Florent Daudens for communication; Nathan Sarrazin and Victor for making Llama 3.2 available in Hugging Chat; Julien, Simon, Pierric, Eliott, Lucain, Alvaro, Caleb, and Mishig from the Hub team for Hub development and features for launch.
+Releasing such models with support and evaluations in the ecosystem would not be possible without the contributions of thousands of community members who have contributed to transformers, text-generation-inference, vllm, pytorch, LM Eval Harness, and many other projects. Hat tip to the VLLM team for their help in testing and reporting issues. This release couldn't have happened without all the support of Clémentine, Alina, Elie, and Loubna for LLM evaluations, Nicolas Patry, Olivier Dehaene, and Daniël de Kok for Text Generation Inference; Lysandre, Arthur, Pavel, Edward Beeching, Amy, Benjamin, Joao, Pablo, Raushan Turganbay, Matthew Carrigan, and Joshua Lochner for transformers, transformers.js, TRL, and PEFT support; Brigitte Tousignant and Florent Daudens for communication; Julien, Simon, Pierric, Eliott, Lucain, Alvaro, Caleb, and Mishig from the Hub team for Hub development and features for launch.
 
 And big thanks to the Meta Team for releasing Llama 3.2 and making it available to the open AI community!
 
