@@ -28,17 +28,17 @@ Among the features and integrations being released, we have:
 
 ## Table of contents
 
-- [What is Llama 3.2 Vision?](#whats-new-with-llama-32)
+- [What is Llama 3.2 Vision?](#what-is-llama-32-vision)
 - [Llama 3.2 license changes. Sorry, EU :(](#llama-32-license-changes-sorry-eu)
 - [What is special about Llama 3.2 1B and 3B?](#what-is-special-about-llama-32-1b-and-3b)
 - [Demo](#demo)
 - [Using Hugging Face Transformers](#using-hugging-face-transformers)
 - [Llama 3.2 1B & 3B Language Models](#llama-32-1b-3b-language-models)
 - [Llama 3.2 Vision](llama-32-vision)
-- [On-Device](#on-device)
+- [On-device](#ondevice)
 - [Llama.cpp & Llama-cpp-python](#llamacpp-llama-cpp-python)
 - [Transformers.js](#transformersjs)
-- [Fine-tuning Llama 3.2](#fine-tuning-llama-32)
+- [Fine-tuning Llama 3.2](#finetuning-llama-32)
 - [Hugging Face Partner Integrations](#hugging-face-partner-integrations)
 - [Additional Resources](#additional-resources)
 - [Acknowledgements](#acknowledgements)
