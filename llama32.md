@@ -178,7 +178,7 @@ A couple of details:
 
 The Vision models are larger, so they require more memory to run than the small text models. For reference, the 11B Vision model takes about 10 GB of GPU RAM during inference, in 4-bit mode.
 
-The easiest way to infer with the instruction-tuned Llama Vision model is to use the built-in chat template. The inputs have `user` and `assistant` roles to indicate the conversation turns. One difference with respect to the text models is that the system role is not supported. User turns may include image-text or text-only inputs. To indicate that the input contains an image, add {"type": "image"} to the content part of the input and then pass the image data to the `processor`:
+The easiest way to infer with the instruction-tuned Llama Vision model is to use the built-in chat template. The inputs have `user` and `assistant` roles to indicate the conversation turns. One difference with respect to the text models is that the system role is not supported. User turns may include image-text or text-only inputs. To indicate that the input contains an image, add `{"type": "image"}` to the content part of the input and then pass the image data to the `processor`:
 
 ```python
 import requests
