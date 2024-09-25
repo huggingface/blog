@@ -173,7 +173,7 @@ A couple of details:
 
 - By default, transformers uses the same sampling parameters (temperature=0.6 and top_p=0.9) as the original meta codebase. We haven’t conducted extensive tests yet, feel free to explore!
 
-## Llama 3.2 Vision
+## Llama 3.2 Vision
 
 The Vision models are larger, so they require more memory to run than the small text models. For reference, the 11B Vision model takes about 10 GB of GPU RAM during inference, in 4-bit mode.
 
@@ -267,7 +267,7 @@ model = MllamaForConditionalGeneration.from_pretrained(
 
 You can then apply the chat template, use the processor, and call the model just like you did before.
 
-## On-device
+## On-device
 
 You can run both Llama 3.2 1B and 3B directly on your device's CPU/ GPU/ Browser using several open-source libraries like the following.
 
