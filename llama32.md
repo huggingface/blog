@@ -41,7 +41,7 @@ Among the features and integrations being released, we have:
 - [Fine-tuning Llama 3.2](#fine-tuning-llama-32)
 - [Hugging Face Partner Integrations](#hugging-face-partner-integrations)
 - [Additional Resources](#additional-resources)
-- [Acknowledgments](#acknowledgements)
+- [Acknowledgements](#acknowledgements)
 
 ## What is Llama 3.2 Vision?
 
@@ -400,11 +400,13 @@ We are currently working with our partners at AWS, Google Cloud, Microsoft Azure
 
 
 ## Additional Resources
+
 - [Models on the Hub](https://huggingface.co/collections/meta-llama/llama-32-66f448ffc8c32f949b04c8cf)
 - [Hugging Face Llama Recipes](https://github.com/huggingface/huggingface-llama-recipes)
 - [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
 - [Chat demo on Hugging Chat](https://huggingface.co/chat/models/meta-llama/Meta-Llama-3.1-405b-instruct/)
 - [Meta Blog](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/)
+
 
 ## Acknowledgements
 
