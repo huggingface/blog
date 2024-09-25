@@ -15,7 +15,7 @@ authors:
 
 Llama 3.2 is out! Today we welcome the next iteration of the Llama collection to Hugging Face. This time, we’re excited to collaborate with Meta on the release of multimodal and small models. Ten open-weight models (5 multimodal models and 5 text-only ones) are available on the Hub.
 
-Llama 3.2 Vision comes in two sizes: 11B for efficient deployment and development on consumer-size GPU and 90B for large-scale applications. Both versions come in base and instruction-tuned variants. In addition to the four multimodal models, Meta released a new version of Llama Guard with vision support. Llama Guard 3 is a safeguard model that can classify model inputs and generations, including detecting harmful multimodal prompts or assistant responses.
+Llama 3.2 Vision comes in two sizes: 11B for efficient deployment and development on consumer-size GPU, and 90B for large-scale applications. Both versions come in base and instruction-tuned variants. In addition to the four multimodal models, Meta released a new version of Llama Guard with vision support. Llama Guard 3 is a safeguard model that can classify model inputs and generations, including detecting harmful multimodal prompts or assistant responses.
 
 Llama 3.2 also includes small text-only language models that can run on-device. They come in two new sizes (1B and 3B) with base and instruct variants, and they have strong capabilities for their sizes. There’s also a small 1B version of Llama Guard that can be deployed alongside these or the larger text models in production use cases.
 
