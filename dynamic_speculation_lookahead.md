@@ -65,7 +65,9 @@ outputs = model.generate(**inputs, assistant_model=assistant_model)
 
 # Results
 
+ADD section on DISCO
+
 # References
 - [Dynamic Speculation Lookahead Accelerates Speculative Decoding of Large Language Models](https://arxiv.org/abs/2405.04304)
-- ["Assisted Generation: a new direction toward low-latency text generation](https://huggingface.co/blog/assisted-generation)
+- [Assisted Generation: a new direction toward low-latency text generation](https://huggingface.co/blog/assisted-generation)
 
