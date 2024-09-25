@@ -29,7 +29,7 @@ Among the features and integrations being released, we have:
 ## Table of contents
 
 - [What is Llama 3.2 Vision?](#whats-new-with-llama-32)
-- [Llama 3.2 license changes. Sorry, EU :(](#llama-32-license-changes)
+- [Llama 3.2 license changes. Sorry, EU :(](#llama-32-license-changes-sorry-eu)
 - [What is special about Llama 3.2 1B and 3B?](#what-is-special-about-llama-32-1b-and-3b)
 - [Demo](#demo)
 - [Using Hugging Face Transformers](#using-hugging-face-transformers)
