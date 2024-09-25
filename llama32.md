@@ -34,7 +34,7 @@ Among the features and integrations being released, we have:
 - [Demo](#demo)
 - [Using Hugging Face Transformers](#using-hugging-face-transformers)
 - [Llama 3.2 1B & 3B Language Models](#llama-32-1b-3b-language-models)
-- [Llama 3.2 Vision](llama-32-vision)
+- [Llama 3.2 Vision](#llama-32-vision)
 - [On-device](#ondevice)
 - [Llama.cpp & Llama-cpp-python](#llamacpp-llama-cpp-python)
 - [Transformers.js](#transformersjs)
