@@ -319,7 +319,7 @@ llm.create_chat_completion(
 
 ### Transformers.js
 
-You can even run Llama 3.2 in your browser (or any JavaScript runtime like Node.js, Deno, or Bun) using [Transformers.js](https://huggingface.co/docs/transformers.js). You can find the [ONNX model](https://huggingface.co/onnx-community/Llama-3.2-1B-Instruct) on Hub. If you haven't already, you can install the library from [NPM](https://www.npmjs.com/package/@huggingface/transformers) using:
+You can even run Llama 3.2 in your browser (or any JavaScript runtime like Node.js, Deno, or Bun) using [Transformers.js](https://huggingface.co/docs/transformers.js). You can find the [ONNX model](https://huggingface.co/onnx-community/Llama-3.2-1B-Instruct) on the Hub. If you haven't already, you can install the library from [NPM](https://www.npmjs.com/package/@huggingface/transformers) using:
 
 ```bash
 npm i @huggingface/transformers
