@@ -10,7 +10,7 @@ authors:
 
 [Speech-to-speech](https://github.com/huggingface/speech-to-speech) is an exciting new project from Hugging Face that combines several advanced models to create a seamless, almost magical experience: you speak, and the system responds with a synthesized voice. However, running such a complex system isn’t easy—it demands substantial computational power, and even when run on a high-end laptop, latency can become a problem, especially when using the best-performing models. While a powerful GPU could solve this issue, not everyone wants to build their own cluster.
 
-This is where Hugging Face's Inference Endpoints (IE) come into play. Inference Endpoints allow you to rent a virtual machine equipped with a GPU and pay only for the time your system is running, providing an ideal solution for deploying performance-heavy applications like speech-to-speech.
+This is where Hugging Face's [Inference Endpoints (IE)](https://huggingface.co/inference-endpoints) come into play. Inference Endpoints allow you to rent a virtual machine equipped with a GPU and pay only for the time your system is running, providing an ideal solution for deploying performance-heavy applications like speech-to-speech.
 
 For simpler models, deploying with Inference Endpoints is straightforward. You can set up a model from Hugging Face's Transformers library with minimal configuration. However, for a more complex pipeline—like mine, which involves voice activity detection (VAD), speech-to-text (STT), language models (LMM), and text-to-speech (TTS)—using a custom endpoint handler quickly revealed limitations. To overcome these, I turned to a more flexible and powerful approach: deploying a custom Docker image.
 
