@@ -3,6 +3,9 @@ title: "Deploying Speech-to-Speech on Hugging Face Inference Endpoints with a Cu
 thumbnail: 
 authors:
 - user: andito
+- user: derek-thomas
+- user: dmaniloff
+- user: eustlb
 
 ---
 
@@ -73,7 +76,7 @@ Pre-Steps
 2. Create a read-only token: https://huggingface.co/settings/tokens
 3. Request access to [meta-llama/Meta-Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct)
 
-Steps
+
 1. Navigate to https://ui.endpoints.huggingface.co/new (you might need to login)
 2. Fill in the relevant information
     - Model Repository - `andito/fast-unidic`
