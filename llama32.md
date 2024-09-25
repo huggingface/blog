@@ -404,7 +404,6 @@ We are currently working with our partners at AWS, Google Cloud, Microsoft Azure
 - [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
 - [Meta Blog](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/)
 - [Evaluation datasets](https://huggingface.co/collections/meta-llama/llama-32-evals-66f44b3d2df1c7b136d821f0)
-- [](https://huggingface.co/onnx-community/Llama-3.2-1B-Instruct)
 
 ## Acknowledgements
 
