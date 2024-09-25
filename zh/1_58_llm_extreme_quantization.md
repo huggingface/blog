@@ -12,17 +12,17 @@ translators:
 - user: Zipxuan
 ---
 
-# 将LLMs精调至1.58比特：使极端量化变简单
+# 将 LLMs 精调至 1.58 比特：使极端量化变简单
 
 随着大语言模型（LLMs）规模和复杂性的增长，寻找减少它们的计算和能耗的方法已成为一个关键挑战。一种流行的解决方案是量化，其中参数的精度从标准的16位浮点（FP16）或32位浮点（FP32）降低到8位或4位等低位格式。虽然这种方法显著减少了内存使用量并加快了计算速度，但往往以准确性为代价。过度降低精度可能导致模型丢失关键信息，从而导致性能下降。
 
-[BitNet](https://arxiv.org/abs/2402.17764)是一种特殊的transformers架构，它用仅三个值：`(-1, 0, 1)`表示每个参数，提供了每个参数仅为1.58 ( \\( log_2(3) \\) )比特的极端量化。然而，这需要从头开始训练一个模型。虽然结果令人印象深刻，但并非每个人都有预算来进行大语言模型的预训练。为了克服这一限制，我们探索了一些技巧，允许将现有模型精调至1.58比特！继续阅读以了解更多！
+[BitNet](https://arxiv.org/abs/2402.17764)是一种特殊的transformers架构，它用仅三个值：`(-1, 0, 1)`表示每个参数，提供了每个参数仅为1.58 ( \\( log_2(3) \\) )比特的极端量化。然而，这需要从头开始训练一个模型。虽然结果令人印象深刻，但并非每个人都有预算来进行大语言模型的预训练。为了克服这一限制，我们探索了一些技巧，允许将现有模型精调至 1.58 比特！继续阅读以了解更多！
 
 ## 目录
 - [简介](#简介)
 - [更深入地了解什么是BitNet](#更深入地了解什么是BitNet)
-- [1.58比特的预训练结果](#1.58比特的预训练结果)
-- [1.58比特的微调](#1.58比特的微调)
+- [1.58 比特的预训练结果](#1.58比特的预训练结果)
+- [1.58 比特的微调](#1.58比特的微调)
 - [使用的内核和测试标准](#使用的算子和测试标准)
 - [结论](#结论)
 - [致谢](#致谢)
@@ -39,19 +39,19 @@ translators:
   <figcaption>BitNet b1.58的新计算范式 (出处: BitNet论文 https://arxiv.org/abs/2402.17764)</figcaption>
 </figure>
 
-这种方法在理论上降低能耗，与Llama基准相比，BitNet b1.58在矩阵乘法方面节省了71.4倍的计算能耗。
+这种方法在理论上降低能耗，与 Llama 基准相比，BitNet b1.58 在矩阵乘法方面节省了 71.4 倍的计算能耗。
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/energy_consumption.png" alt="BitNet b1.58与Llama的能耗对比" style="width: 100%;"/>
   <figcaption>BitNet b1.58与Llama的能耗对比 (出处: BitNet 论文 https://arxiv.org/abs/2402.17764)</figcaption>
 </figure>
 
-我们成功地使用BitNet架构对[Llama3 8B model](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)模型进行了精调，在下游任务中取得了良好的性能。我们开发的8B模型由[HF1BitLLM](https://huggingface.co/HF1BitLLM)组织发布。其中两个模型在10B的token上进行了不同的训练设置的微调，而第三个模型在100B的token上进行了微调。值得注意的是，我们的模型在MMLU基准测试中超越了Llama 1 7B模型。
+我们成功地使用BitNet架构对[Llama3 8B model](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)模型进行了精调，在下游任务中取得了良好的性能。我们开发的 8B 模型由 [HF1BitLLM](https://huggingface.co/HF1BitLLM)组织发布。其中两个模型在10B的token上进行了不同的训练设置的微调，而第三个模型在100B的token上进行了微调。值得注意的是，我们的模型在MMLU基准测试中超越了 Llama 1 7B 模型。
 
-### 如何在Transformer中使用
+### 如何在 Transformers 中使用
 
-为了将BitNet架构集成到Transformers中，我们引入了一种名为"bitnet"的新量化方法（[PR](https://github.com/huggingface/transformers/pull/33410)）。该方法涉及将标准的Linear层替换为专门设计用于BitNet架构的BitLinear层，其实现了相应的动态的激活量化、权重解包和矩阵乘法的操作。
+为了将BitNet架构集成到Transformers中，我们引入了一种名为"bitnet"的新量化方法（[PR](https://github.com/huggingface/transformers/pull/33410)）。该方法涉及将标准的 Linear 层替换为专门设计用于 BitNet 架构的 BitLinear 层，其实现了相应的动态的激活量化、权重解包和矩阵乘法的操作。
 
-在Transformers中加载和测试模型非常简单，API没有任何更改：
+在 Transformers 中加载和测试模型非常简单，API没有任何更改：
 ```python
 model = AutoModelForCausalLM.from_pretrained(
     "HF1BitLLM/Llama3-8B-1.58-100B-tokens",
@@ -69,22 +69,22 @@ print(generated_text)
 ```
 通过这段代码，一切都直接在幕后完美地完成了，因此无需担心额外的复杂性，您只需要做的只是安装最新版本的transformers。
 
-要快速测试模型，请查看这个[notebook](https://colab.research.google.com/drive/1ovmQUOtnYIdvcBkwEE4MzVL1HKfFHdNT?usp=sharing)。
+要快速测试模型，请查看这个 [notebook](https://colab.research.google.com/drive/1ovmQUOtnYIdvcBkwEE4MzVL1HKfFHdNT?usp=sharing)。
 
 ## 更深入地了解什么是BitNet
 
-[BitNet](https://arxiv.org/abs/2402.17764)在多头注意力和前馈网络中替换了传统的Linear层，使用了称为BitLinear的特殊层，这些层使用三值精度（甚至在初始版本中使用二值精度）。在这个项目中，我们使用的BitLinear层对权重使用三值精度（取值为-1、0和1），并将激活量化为8位精度。我们在训练和推理中使用不同的BitLinear实现，接下来的部分将会介绍。
+[BitNet](https://arxiv.org/abs/2402.17764) 在多头注意力和前馈网络中替换了传统的 Linear 层，使用了称为 BitLinear 的特殊层，这些层使用三值精度（甚至在初始版本中使用二值精度）。在这个项目中，我们使用的 BitLinear 层对权重使用三值精度（取值为 -1、0 和 1），并将激活量化为 8 位精度。我们在训练和推理中使用不同的 BitLinear 实现，接下来的部分将会介绍。
 
-在三值精度训练中的主要障碍是权重值被离散化（通过`round()`函数），因此不可微分。BitLinear通过一个巧妙的技巧解决了这个问题：[STE (Straight Through Estimator)](https://arxiv.org/abs/1903.05662)。STE允许梯度通过不可微分的取整操作，通过将其梯度近似为1（将`round()`视为等同于恒等函数）来实现。另一种观点是，STE让梯度通过取整步骤，好像取整从未发生过一样，从而使用标准基于梯度的优化技术来更新权重。
+在三值精度训练中的主要障碍是权重值被离散化（通过`round()`函数），因此不可微分。BitLinear 通过一个巧妙的技巧解决了这个问题：[STE (Straight Through Estimator)](https://arxiv.org/abs/1903.05662)。STE 允许梯度通过不可微分的取整操作，通过将其梯度近似为1（将`round()`视为等同于恒等函数）来实现。另一种观点是，STE 让梯度通过取整步骤，好像取整从未发生过一样，从而使用标准基于梯度的优化技术来更新权重。
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/bitlinear.png" alt="使用BitLienar的BitNet模型架构" style="width: 100%"/>
-  <figcaption>使用BitLienar的BitNet模型架构 (出处: BitNet 论文 https://arxiv.org/pdf/2310.11453)</figcaption>
+  <figcaption>使用 BitLienar 的 BitNet 模型架构 (出处: BitNet 论文 https://arxiv.org/pdf/2310.11453)</figcaption>
 </figure>
 
 ### 训练
 
-我们在完整精度下进行训练，但在训练过程中将权重量化为三值，使用per-tensor的对称量化。首先，我们计算权重矩阵的绝对值的平均值，并将其用作scale。然后，我们将权重除以scale，对值进行取整，将其限制在-1和1的区间内，最后将权重其反量化回完整精度。
+我们在完整精度下进行训练，但在训练过程中将权重量化为三值，使用 per-tensor 的对称量化。首先，我们计算权重矩阵的绝对值的平均值，并将其用作 scale。然后，我们将权重除以 scale，对值进行取整，将其限制在 -1 和 1 的区间内，最后将权重其反量化回完整精度。
 
 \\( scale_w = \frac{1}{\frac{1}{nm} \sum_{ij} |W_{ij}|} \\)
 
@@ -132,7 +132,7 @@ print(generated_text)
 
 \\( \frac{1}{nm} \sum_{ij} |W_{ij}| = \frac{1}{9}(0.8 + 0.5 + 1.2 + 1.5 + 0.4 + 0.9 + 1.3 + 0.7 + 0.2) = \frac{1}{9}(7.5) = 0.8333 \\)
 
-  现在得到的scale为：
+  现在得到的 scale 为：
   
 
   \\( scale_w = \frac{1}{0.8333} \approx 1.2 \\)
@@ -204,7 +204,7 @@ print(generated_text)
   0.8 & -0.5 & 0.3
   \end{bmatrix} \\) 
 
-  **第一步：计算激活的scale**
+  **第一步：计算激活的 scale**
 
   对于每一行（或者通道），计算其最大的绝对值
 
@@ -212,7 +212,7 @@ print(generated_text)
  - **第2行**：最大绝对值 = 1.2
  - **第3行**：最大绝对值 = 0.8
 
-  计算每行的scale：
+  计算每行的 scale：
 
   \\( \text{scale} = \begin{bmatrix}
   \frac{127}{1.0} \\
@@ -263,7 +263,7 @@ print(generated_text)
   \\( X_{dequantized} = X_q \times \frac{1}{\text{scale}} \\)
   
 
-  使用scale对值进行恢复：
+  使用 scale 对值进行恢复：
 
   \\( X_{dequantized} = 
   \begin{bmatrix}
@@ -326,7 +326,7 @@ class BitLinear(nn.Linear):
 
 ### 推理
 
-在推理过程中，我们只是将权重量化为三值，而不重新反量化。我们对激活采用相同的方法，使用8位精度，然后使用高效的算子执行矩阵乘法，接着通过权重和激活的scale进行除法。这能够显著提高推理的速度，特别是在优化的硬件上。您可以看到，在训练期间反量化的过程与推理不同，因为矩阵乘法保持在fp16/bf16/fp32中以进行正确的训练。
+在推理过程中，我们只是将权重量化为三值，而不重新反量化。我们对激活采用相同的方法，使用8位精度，然后使用高效的算子执行矩阵乘法，接着通过权重和激活的 scale 进行除法。这能够显著提高推理的速度，特别是在优化的硬件上。您可以看到，在训练期间反量化的过程与推理不同，因为矩阵乘法保持在fp16/bf16/fp32中以进行正确的训练。
 
 ```python
 # Adapted from https://github.com/microsoft/unilm/blob/master/bitnet/The-Era-of-1-bit-LLMs__Training_Tips_Code_FAQ.pdf
@@ -354,18 +354,18 @@ class BitLinear(nn.Linear):
 
 ## 1.58比特的预训练结果
 
-在尝试微调之前，我们首先尝试复现BitNet论文中关于预训练的结果。我们使用了一个小数据集[tinystories](https://huggingface.co/datasets/roneneldan/TinyStories)，以及一个[Llama3 8B模型](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)。我们发现，像论文中所做的那样添加归一化函数会提高性能。例如，在训练2000步之后，我们在验证集上的困惑度，没有归一化时为6.3，使用归一化后为5.9。在这两种情况下，训练都是稳定的。
+在尝试微调之前，我们首先尝试复现 BitNet 论文中关于预训练的结果。我们使用了一个小数据集[tinystories](https://huggingface.co/datasets/roneneldan/TinyStories)，以及一个[Llama3 8B模型](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)。我们发现，像论文中所做的那样添加归一化函数会提高性能。例如，在训练2000步之后，我们在验证集上的困惑度，没有归一化时为 6.3，使用归一化后为 5.9。在这两种情况下，训练都是稳定的。
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/pre-training.png" alt="在有层归一化（蓝色）和没有（橙色）的预训练图像" style="width: 100%;"/>
   <figcaption> 在有层归一化（蓝色）和没有（橙色）的预训练图像 </figcaption>
 </figure>
 
-虽然这种方法在预训练中看起来非常有趣，但只有少数机构能够负担大规模的预训练。然而，因为存在有大量强大的预训练模型，如果它们可以在预训练后转换为1.58位，将会非常有用。其他小组曾报告称，微调的结果不如预训练取得的结果那么强大，因此我们展开了研究，看看我们是否能够让1.58比特地微调起作用。
+虽然这种方法在预训练中看起来非常有趣，但只有少数机构能够负担大规模的预训练。然而，因为存在有大量强大的预训练模型，如果它们可以在预训练后转换为 1.58 位，将会非常有用。其他小组曾报告称，微调的结果不如预训练取得的结果那么强大，因此我们展开了研究，看看我们是否能够让 1.58 比特地微调起作用。
 
 ## 1.58比特的微调
 
-当我们从预训练的Llama3 8B权重开始微调时，模型表现略有提高，但并不如我们预期的那么好。
+当我们从预训练的 Llama3 8B 权重开始微调时，模型表现略有提高，但并不如我们预期的那么好。
 
 > **Note:** 所有的实验都在[Nanotron](https://github.com/huggingface/nanotron)上进行，如果您对尝试1.58位的预训练或微调感兴趣，可以查看这个[PR链接](https://github.com/huggingface/nanotron/pull/180)。
 
@@ -379,7 +379,7 @@ class BitLinear(nn.Linear):
 <div style="display: flex; justify-content: center;">
   <figure style="margin-right: 20px; text-align: center;">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/poids_aléatoires.png" alt="随机的权重分布（合并的标准差为2）" style="width: 400px;" />
-    <figcaption> 随机的权重分布（合并的标准差为2）</figcaption>
+    <figcaption> 随机的权重分布（合并的标准差为 2）</figcaption>
   </figure>
   <figure style="text-align: center;">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/poids_llama3.png" alt="预训练Llama3的权重分布" style="width: 400px;" />
@@ -431,7 +431,7 @@ def weight_quant_scaling(w):
     return quantized_weights
 ```
 
-我们观察到，随机权重和Llama 3权重在损失开始时的数值约为13，这表明当引入量化时，Llama 3模型失去了所有先前的信息。为了进一步研究模型在这个过程中失去了多少信息，我们尝试了 per-group 量化。
+我们观察到，随机权重和 Llama 3 权重在损失开始时的数值约为13，这表明当引入量化时，Llama 3模型失去了所有先前的信息。为了进一步研究模型在这个过程中失去了多少信息，我们尝试了 per-group 量化。
 
 作为一个合理性检查，我们首先将 group 大小设置为 1，这基本上意味着没有量化。在这种情况下，损失从 1.45 开始，与正常微调时的情况相同。然而，当我们将组大小增加到 2时，损失跳升到大约 11。这表明即使组大小最小为 2，模型仍几乎失去了所有信息。
 
@@ -583,9 +583,9 @@ BitNet 在与基准方法相比表现出色，特别是在较低比特数情况�
   <figcaption>与 Llama 模型的指标比较：线性表示线性lambda调度器，Sigmoid表示 Sigmoid调度器（在我们的情况下 k = 100）</figcaption>
 </figure>
 
-在仅使用三值权重进行10B个token微调后，该模型展现出令人印象深刻的性能，特别是与经历了更加广泛训练的其他模型相比。例如，它胜过了在数据集规模显著大得多的100B个token上训练的 Bitnet 7B 模型。此外，它的表现也优于 FBI LLM（Fully Binarized LLM）模型，后者在更庞大的1.26T个token上进行了蒸馏。这突显了该模型的效率和有效性，尽管其微调过程相对规模较小。
+在仅使用三值权重进行 10B 个 token 微调后，该模型展现出令人印象深刻的性能，特别是与经历了更加广泛训练的其他模型相比。例如，它胜过了在数据集规模显著大得多的100B个token上训练的 Bitnet 7B 模型。此外，它的表现也优于 FBI LLM（Fully Binarized LLM）模型，后者在更庞大的 1.26T 个 token 上进行了蒸馏。这突显了该模型的效率和有效性，尽管其微调过程相对规模较小。
 
-对于100B个token的实验，我们拥有的表现最佳的checkpoint如下：
+对于 100B 个 token 的实验，我们拥有的表现最佳的checkpoint如下：
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/metrics_100B_table.png" alt="100B个token微调后与 Llama 模型的指标比较" style="width: 100%;"/>
@@ -761,7 +761,7 @@ def matmul(a, b):
 
 我们还尝试使用 BitBlas，这是一个旨在使用混合精度执行矩阵运算的软件库。它通过允许在较低精度格式（如 INT8、INT4，甚至 INT2）而不是传统的 FP32 或 FP16 格式中进行计算，来帮助优化这些操作。
 
-基准测试结果令人鼓舞，如图所示，BitBlas在低精度下优于我们的自定义内核和Torch的 `matmul` 函数。
+基准测试结果令人鼓舞，如图所示，BitBlas 在低精度下优于我们的自定义内核和Torch的 `matmul` 函数。
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/with_bitblas.png" alt="Bitblas 测试" style="width: 100%;"/>
@@ -772,11 +772,11 @@ def matmul(a, b):
 
 ## 结论
 
-总之，随着大型语言模型的不断扩展，通过量化来减少它们的计算需求至关重要。本博文探讨了 1.58 位量化的方法，该方法使用了三值权重。虽然在 1.58 位进行预训练模型是资源密集型的，但我们已经证明，通过一些技巧，可以将现有模型微调到这个精度水平，实现高效的性能而不牺牲准确性。通过专门的内核优化推理速度，BitNet为使大型语言模型更具实用性和可扩展性打开了新的可能性。
+总之，随着大型语言模型的不断扩展，通过量化来减少它们的计算需求至关重要。本博文探讨了 1.58 位量化的方法，该方法使用了三值权重。虽然在 1.58 位进行预训练模型是资源密集型的，但我们已经证明，通过一些技巧，可以将现有模型微调到这个精度水平，实现高效的性能而不牺牲准确性。通过专门的内核优化推理速度，BitNet 为使大型语言模型更具实用性和可扩展性打开了新的可能性。
 
 ## 致谢
 
-我们要衷心感谢Leandro von Werra、Thomas Wolf和Marc Sun在整个项目中提供的宝贵帮助和见解。我们还要感谢Omar Sanseviero和Pedro Cuenca在完善这篇博文方面的贡献，帮助我们清晰有效地向人工智能社区传达我们的发现。此外，我们要感谢GeneralAI团队在BitNet项目上的开创性工作。他们的研究对我们的努力具有基础性意义，我们特别感谢他们在论文中提供的清晰准确的数据。
+我们要衷心感谢 Leandro von Werra、Thomas Wolf 和 Marc Sun 在整个项目中提供的宝贵帮助和见解。我们还要感谢 Omar Sanseviero 和 Pedro Cuenca 在完善这篇博文方面的贡献，帮助我们清晰有效地向人工智能社区传达我们的发现。此外，我们要感谢GeneralAI团队在BitNet项目上的开创性工作。他们的研究对我们的努力具有基础性意义，我们特别感谢他们在论文中提供的清晰准确的数据。
 
 ## 更多资源
 
