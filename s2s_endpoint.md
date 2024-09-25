@@ -53,14 +53,14 @@ Next, I optimized the Dockerfile to suit my needs:
 - Streamlining the Image: I removed packages and dependencies that weren’t relevant to my use case. This reduces the image size and cuts down on unnecessary overhead during inference.
 - Installing Requirements: I moved the installation of `requirements.txt` from the entry point to the Dockerfile itself. This way, the dependencies are installed when building the Docker image, speeding up deployment since these packages won’t need to be installed at runtime.
 
+3. Deploying the Custom Image
+ 
 Once the modifications were in place, I built and pushed the custom image to Docker Hub:
 ```bash
 DOCKER_DEFAULT_PLATFORM="linux/amd64" docker build -t speech-to-speech -f dockerfiles/pytorch/Dockerfile . 
 docker tag speech-to-speech andito/speech-to-speech:latest 
 docker push andito/speech-to-speech:latest
 ```
-
-3. Deploying the Custom Image
 
 With the Docker image built and pushed, it’s ready to be used in the Hugging Face Inference Endpoint. By using this pre-built image, the endpoint can launch faster and run more efficiently, as all dependencies and data are pre-packaged within the image.
 
