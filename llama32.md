@@ -408,7 +408,8 @@ We are currently working with our partners at AWS, Google Cloud, Microsoft Azure
 - [Meta Blog](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/)
 
 
-## Acknowledgements
+
+## Acknowledgements
 
 Releasing such models with support and evaluations in the ecosystem would not be possible without the contributions of thousands of community members who have contributed to transformers, text-generation-inference, vllm, pytorch, LM Eval Harness, and many other projects. We want to thank the VLLM team for their contribution to this release. This release couldn't have happened without all the support of Clémentine, Alina, Elie, and Loubna for LLM evaluations, Nicolas Patry, Olivier Dehaene, and Daniël de Kok for Text Generation Inference; Lysandre, Arthur, Pavel, Edward Beeching, Amy, Benjamin, Joao, Pablo, Raushan Turganbay, Matthew Carrigan, and Joshua Lochner for transformers, transformers.js, TRL, and PEFT support; Brigitte Tousignant and Florent Daudens for communication; Nathan Sarrazin and Victor for making Llama 3.2 available in Hugging Chat; Julien, Simon, Pierric, Eliott, Lucain, Alvaro, Caleb, and Mishig from the Hub team for Hub development and features for launch.
 
