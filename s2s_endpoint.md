@@ -25,7 +25,7 @@ git clone https://github.com/huggingface/huggingface-inference-toolkit
 ```
 
 ## Why Clone the Default Repository?
-- Solid Foundation: he repository provides a pre-optimized base image designed specifically for inference workloads, which gives a reliable starting point.
+- Solid Foundation: The repository provides a pre-optimized base image designed specifically for inference workloads, which gives a reliable starting point.
 - Compatibility: Since the image is built to align with Hugging Face’s deployment environment, this ensures smooth integration when you deploy your own custom image.
 - Ease of Customization: The repository offers a clean and structured environment, making it easy to customize the image for the specific requirements of your application.
 
