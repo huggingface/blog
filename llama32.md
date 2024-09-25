@@ -22,7 +22,6 @@ Llama 3.2 also includes small text-only language models that can run on-device. 
 Among the features and integrations being released, we have:
 - [Model checkpoints on the Hub](https://huggingface.co/collections/meta-llama/llama-32-66f448ffc8c32f949b04c8cf)
 - Hugging Face Transformers and TGI integration for the Vision models
-- [Hugging Chat](https://huggingface.co/chat/) integration for Meta Llama 3.2 90B Vision Instruct
 - Inference & Deployment Integration with Inference Endpoints, Google Cloud, Amazon SageMaker & DELL Enterprise Hub
 - Fine-tuning Llama 3.2 11B Vision on a single GPU with [transformers🤗](https://github.com/huggingface/huggingface-llama-recipes/llama32.ipynb) and [TRL](https://github.com/huggingface/trl/tree/main/examples/scripts/sft_vlm.py)
 
@@ -118,7 +117,6 @@ Due to their size, these small models can be used as assistants for bigger model
 ## Demo
 You can experiment with the three Instruct models in the following demos:
 
-- [Hugging Chat with Llama 3.2 90B Vision Instruct](https://huggingface.co/chat/): The whole inference stack is open-source. Hugging Chat is powered by [chat-ui](https://github.com/huggingface/chat-ui) and [text-generation-inference](https://github.com/huggingface/text-generation-inference).
 - [Gradio Space with Llama 3.2 11B Vision Instruct](https://huggingface.co/spaces/huggingface-projects/llama-3.2-vision-11B)
 - [Gradio-powered Space with Llama 3.2 3B](https://huggingface.co/spaces/huggingface-projects/llama-3.2-3B-Instruct)
 - Llama 3.2 3B running on WebGPU 
@@ -392,7 +390,7 @@ accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml
     --gradient_checkpointing
 ```
 
-You can also check out this notebook for LoRA fine-tuning using transformers and PEFT. 
+You can also check out [this notebook](https://github.com/huggingface/huggingface-llama-recipes/blob/add-llama32/Llama-Vision%20FT.ipynb) for LoRA fine-tuning using transformers and PEFT. 
 
 ## Hugging Face Partner Integrations
 
@@ -404,14 +402,13 @@ We are currently working with our partners at AWS, Google Cloud, Microsoft Azure
 - [Models on the Hub](https://huggingface.co/collections/meta-llama/llama-32-66f448ffc8c32f949b04c8cf)
 - [Hugging Face Llama Recipes](https://github.com/huggingface/huggingface-llama-recipes)
 - [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
-- [Chat demo on Hugging Chat](https://huggingface.co/chat/models/meta-llama/Meta-Llama-3.1-405b-instruct/)
 - [Meta Blog](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/)
 
 
 
 ## Acknowledgements
 
-Releasing such models with support and evaluations in the ecosystem would not be possible without the contributions of thousands of community members who have contributed to transformers, text-generation-inference, vllm, pytorch, LM Eval Harness, and many other projects. We want to thank the VLLM team for their contribution to this release. This release couldn't have happened without all the support of Clémentine, Alina, Elie, and Loubna for LLM evaluations, Nicolas Patry, Olivier Dehaene, and Daniël de Kok for Text Generation Inference; Lysandre, Arthur, Pavel, Edward Beeching, Amy, Benjamin, Joao, Pablo, Raushan Turganbay, Matthew Carrigan, and Joshua Lochner for transformers, transformers.js, TRL, and PEFT support; Brigitte Tousignant and Florent Daudens for communication; Nathan Sarrazin and Victor for making Llama 3.2 available in Hugging Chat; Julien, Simon, Pierric, Eliott, Lucain, Alvaro, Caleb, and Mishig from the Hub team for Hub development and features for launch.
+Releasing such models with support and evaluations in the ecosystem would not be possible without the contributions of thousands of community members who have contributed to transformers, text-generation-inference, vllm, pytorch, LM Eval Harness, and many other projects. We want to thank the VLLM team for their contribution to this release. This release couldn't have happened without all the support of Clémentine, Alina, Elie, and Loubna for LLM evaluations, Nicolas Patry, Olivier Dehaene, and Daniël de Kok for Text Generation Inference; Lysandre, Arthur, Pavel, Edward Beeching, Amy, Benjamin, Joao, Pablo, Raushan Turganbay, Matthew Carrigan, and Joshua Lochner for transformers, transformers.js, TRL, and PEFT support; Brigitte Tousignant and Florent Daudens for communication; Julien, Simon, Pierric, Eliott, Lucain, Alvaro, Caleb, and Mishig from the Hub team for Hub development and features for launch.
 
 And big thanks to the Meta Team for releasing Llama 3.2 and making it available to the open AI community!
 
