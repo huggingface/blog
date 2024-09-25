@@ -69,7 +69,7 @@ With the Docker image built and pushed, it’s ready to be used in the Hugging F
 
 # Setting up an Inference Endpoint
 
-Using a custom docker image just requires a slightly different configuration, feel free to check out the [documentation](https://huggingface.co/docs/inference-endpoints/en/guides/custom_container).
+Using a custom docker image just requires a slightly different configuration, feel free to check out the [documentation](https://huggingface.co/docs/inference-endpoints/en/guides/custom_container). We will walk through the approach to do this in both the GUI and the API.
 
 Pre-Steps
 1. Login: https://huggingface.co/login
