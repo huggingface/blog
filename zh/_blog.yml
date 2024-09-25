@@ -1974,7 +1974,7 @@
     - research
     - community
 
-- local: 1_58_llm_extrem_quantziation
+- local: 1_58_llm_extreme_quantization
   title: 1.58 万亿参数的极端量化
   author: medmekk
   thumbnail: /blog/assets/1_58_llm_extreme_quantization/thumbnail.png
