@@ -1922,6 +1922,16 @@
     - enterprise
     - hub
 
+- local: unified-tool-use
+  title: 对 LLM 工具使用进行统一
+  author: rocketknight1
+  thumbnail: /blog/assets/unified-tool-use/thumbnail.png
+  date: August 12, 2024
+  tags:
+    - LLM
+    - nlp
+    - community
+
 - local: falconmamba
   title: "Falcon Mamba: 首个高效的无注意力机制 7B 模型"
   guest: true
@@ -1964,6 +1974,14 @@
     - padding
     - packing
     - Flash Attention 2
+
+- local: accelerate-v1
+  title: "Accelerate 1.0.0"
+  author: muellerzr
+  thumbnail: /blog/assets/186_accelerate_v1/accelerate_v1_thumbnail.png
+  date: September 13, 2024
+  tags:
+    - guide
     
 - local: daily-papers
   title: "Hugging Face 论文平台 Daily Papers 功能全解析"

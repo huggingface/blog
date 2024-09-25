@@ -9,7 +9,7 @@ authors:
 - user: slaren
   guest: true
   org: ggml-org
-- translators:
+translators:
 - user: hugging-hoi2022
 - user: zhongdongy
   proofreader: true
