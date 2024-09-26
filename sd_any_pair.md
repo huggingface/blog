@@ -43,5 +43,4 @@ print("This is a python code block example")
 INSERT SUMMARY HERE
 
 ## References
-
-* Lewis Tunstall, Nils Reimers, Unso Eun Seo Jo, Luke Bates, Daniel Korat, Moshe Wasserblat, Oren Pereg, 2022. "Efficient Few-Shot Learning Without Prompts". https://arxiv.org/abs/2209.11055
+- [Assisted Generation: a new direction toward low-latency text generation](https://huggingface.co/blog/assisted-generation)
