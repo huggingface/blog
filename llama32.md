@@ -23,7 +23,7 @@ Among the features and integrations being released, we have:
 - [Model checkpoints on the Hub](https://huggingface.co/collections/meta-llama/llama-32-66f448ffc8c32f949b04c8cf)
 - Hugging Face Transformers and TGI integration for the Vision models
 - Inference & Deployment Integration with Inference Endpoints, Google Cloud, Amazon SageMaker & DELL Enterprise Hub
-- Fine-tuning Llama 3.2 11B Vision on a single GPU with [transformers🤗](https://github.com/huggingface/huggingface-llama-recipes/llama32.ipynb) and [TRL](https://github.com/huggingface/trl/tree/main/examples/scripts/sft_vlm.py)
+- Fine-tuning Llama 3.2 11B Vision on a single GPU with [transformers🤗](https://github.com/huggingface/huggingface-llama-recipes/tree/main/Llama-Vision FT.ipynb) and [TRL](https://github.com/huggingface/trl/tree/main/examples/scripts/sft_vlm.py)
 
 ## Table of contents
 
