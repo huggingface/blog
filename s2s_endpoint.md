@@ -38,20 +38,20 @@ You can check out all of [our changes here](https://github.com/andimarafioti/spe
 
 With the repository cloned, the next step was tailoring the image to support my speech-to-speech pipeline.
 
-1. Adding the Speech-to-Speech Project as Submodules
+1. Adding the Speech-to-Speech Project
 
 To integrate my project smoothly, I added the speech-to-speech codebase and any required datasets as submodules. This approach offers better version control, ensuring the exact version of the code and data is always available when the Docker image is built.
 
 By including data directly within the Docker container, I avoid having to download it each time the endpoint is instantiated, which significantly reduces startup time and ensures the system is reproducible. The data is stored in a Hugging Face repository, which provides easy tracking and versioning.
 
 ```bash
-git submodule add https://github.com/your-username/speech-to-speech.git
+git submodule add https://github.com/huggingface/speech-to-speech.git
 git submodule add https://huggingface.co/andito/fast-unidic
 ```
 
-2. Modifying the Dockerfile
+2. Optimizing the Docker Image
 
-Next, I optimized the Dockerfile to suit my needs:
+Next, I modified the Dockerfile to suit my needs:
 
 - Streamlining the Image: I removed packages and dependencies that weren’t relevant to my use case. This reduces the image size and cuts down on unnecessary overhead during inference.
 - Installing Requirements: I moved the installation of `requirements.txt` from the entry point to the Dockerfile itself. This way, the dependencies are installed when building the Docker image, speeding up deployment since these packages won’t need to be installed at runtime.
