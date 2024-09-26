@@ -20,7 +20,7 @@ Speculative decoding is an iterative process, during each cycle, the draft model
 
 The remarkable speedups offered by speculative decoding come with a significant drawback: the target and draft models must share the same tokenizer, meaning they need to be from the same model family. However, many widely-used models lack smaller versions that are both compact and accurate enough to deliver substantial latency reductions. Based on our experience, meaningful speedups are typically seen when the size ratio between the target and draft models is at least 50-100. For instance, LLaMA 3.1-8B lacks a smaller version, and Gemma 2-9B only has a 2B variant which is still not sufficiently small to achieve significant performance improvements.
  
-In order to mitigate this painpoint Intel labs together with our friends in Hugging face developed "AG_anyPair". "AG_anyPair", which is integrated as part of Hugging face Transformers 4.46.0, enables to select any pair of target and draft models regardless of their tokenizer. For 
+In order to mitigate this pain point Intel labs together with our friends in Hugging face developed "AG_anyPair". "AG_anyPair", which is integrated as part of Hugging face Transformers 4.46.0, enables to select any pair of target and draft models regardless of their tokenizer. For example, gemma-2-9b can be used as target model together with vicuna-68m as draft model.
 
 ## SUBSECTION EXAMPLE
 
