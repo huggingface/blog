@@ -90,9 +90,18 @@ Pre-Steps
         - It's only `$0.80` an hour and is big enough to handle the models
     - Advanced Configuration (click the expansion arrow ➤)
         - Container Type - `Custom`
-        - Container Port - 5000
+        - Container Port - `5000`
         - Container URL - `andito/speech-to-speech:latest`
         - Secrets - `HF_TOKEN`|`<your token here>`
+<details>
+  <summary>Click to show images</summary>
+  <p>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/s2s_endpoint/new-inference-endpoint.png" alt="New Inference Endpoint" width="500px">
+  </p>
+  <p>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/s2s_endpoint/advanced-configuration.png" alt="Advanced Configuration" width="500px">
+  </p>
+</details>
 3. Click `Create Endpoint`
 
 > [!NOTE] The Model Repository doesn't actually matter since the models are specified and downloaded in the container creation, but Inference Endpoints requires a model, so feel free to pick a slim one of your choice.
