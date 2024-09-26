@@ -27,7 +27,7 @@ The static speculation lookahead (blue bars), where the number of generated draf
 <p align="center">
     <em>Oracle and static speculation lookahead values for different speculative iterations on one MBPP example.</em>
 </p>
-The figure below illustrates the average speculation lookahead across the normalized index of speculative iterations for the [Alpaca dataset](https://huggingface.co/datasets/tatsu-lab/alpaca).
+The figure below illustrates the average speculation lookahead across the normalized index of speculative iterations for the [Alpaca dataset](https://huggingface.co/datasets/tatsu-lab/alpaca).  
 
 <p align="center">
     <img src="assets/dynamic_speculation_lookahead/Alpaca.png" width=500>
@@ -38,7 +38,7 @@ The figure below illustrates the average speculation lookahead across the normal
 
 Both figures demonstrate significant variability in oracle speculation lookahead values, suggesting that a static speculation lookahead may be suboptimal.
 
-We propose a straightforward method to dynamically adjust the speculation lookahead value at each iteration. After generating each draft token, we determine whether the draft model should continue generating the next token or switch to the target model for verification. This decision is based on the assistant model's confidence in its prediction estimated by the softmax of the logits. If the assistant model's confidence in its current token prediction falls below a predefined threshold referred to as the `assistant_confidence_threshold`, it halts the token generation process for that iteration, even if the maximum number of speculative tokens `num_assistant_tokens` has not been reached.
+Aiming to narrow the gap with the Oracle, we propose a straightforward method to dynamically adjust the speculation lookahead value at each iteration. After generating each draft token, we determine whether the draft model should continue generating the next token or switch to the target model for verification. This decision is based on the assistant model's confidence in its prediction estimated by the softmax of the logits. If the assistant model's confidence in the current token prediction falls below a predefined threshold referred to as the `assistant_confidence_threshold`, it halts the token generation process for that iteration, even if the maximum number of speculative tokens `num_assistant_tokens` has not been reached. After halting, the draft tokens that were generated so far in the current iteration are sent for verification by the target model.
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
