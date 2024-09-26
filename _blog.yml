@@ -4699,3 +4699,14 @@
     - llm
     - nlp
     - vision
+
+- local: vertex-colored-to-textured-mesh
+  title: "Converting Vertex-Colored Meshes to Textured Meshes"
+  author: dylanebert
+  thumbnail: /blog/assets/vertex-colored-to-textured-mesh/thumbnail.png
+  date: September 27. 2024
+  tags:
+    - vision
+    - 3d
+    - mesh
+    - tutorial
