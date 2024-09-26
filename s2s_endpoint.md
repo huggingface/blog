@@ -154,6 +154,12 @@ endpoint.wait()
 # Overview
 ![Overview](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/s2s_endpoint/overview.png)
 
+Major Componants
+- [Speech To Speech](https://github.com/huggingface/speech-to-speech/tree/inference-endpoint)
+  - This is a Hugging Face Library, we put some inference-endpoint specific files in the `inference-endpoint` branch
+- andito/fast-unidic
+- [andimarafioti/speech-to-speech-toolkit](https://github.com/andimarafioti/speech-to-speech-inference-toolkit)
+  - This was forked from [huggingface/huggingface-inference-toolkit](https://github.com/huggingface/huggingface-inference-toolkit) to help us build the Custom Container configured as we desire 
 
 
 ## Building the webserver
