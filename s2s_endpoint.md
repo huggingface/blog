@@ -73,26 +73,31 @@ Using a custom docker image just requires a slightly different configuration, fe
 
 Pre-Steps
 1. Login: https://huggingface.co/login
-2. Create a token: https://huggingface.co/settings/tokens
-   - Create a read-only token if you are using the GUI, or a write/appropriate Fine-Grained token for the API
-3. Request access to [meta-llama/Meta-Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct)
+2. Request access to [meta-llama/Meta-Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct)
+3. Create a Fine-Graned Token: https://huggingface.co/settings/tokens/new?tokenType=fineGrained
+![Fine-Grained Token](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/s2s_endpoint/fine-grained-token.png)
+    - Select access to gated repos
+    - If you are using the API make sure to select permissions to Manage Inference Endpoints
 
 ## Inference Endpoints GUI
-1. Navigate to https://ui.endpoints.huggingface.co/new (you might need to login)
+1. Navigate to https://ui.endpoints.huggingface.co/new
 2. Fill in the relevant information
     - Model Repository - `andito/fast-unidic`
-    - Model Name - Feel free to rename if you dont like the generated name 
+    - Model Name - Feel free to rename if you don't like the generated name 
         - e.g. `speech-to-speech-demo` 
         - Keep it lower-case and short
-    - Choose your preferred Cloud and Hardware -  I used `AWS` `GPU` `A100`
-    - Advanced Configuration
+    - Choose your preferred Cloud and Hardware -  I used `AWS` `GPU` `L4`
+        - It's only `$0.80` an hour and is big enough to handle the models
+    - Advanced Configuration (click the expansion arrow ➤)
         - Container Type - `Custom`
+        - Container Port - 5000
         - Container URL - `andito/speech-to-speech:latest`
         - Secrets - `HF_TOKEN`|`<your token here>`
 3. Click `Create Endpoint`
 
 > [!NOTE] The Model Repository doesn't actually matter since the models are specified and downloaded in the container creation, but Inference Endpoints requires a model, so feel free to pick a slim one of your choice.
 > [!NOTE] You need to specify `HF_TOKEN` because we need to download gated models in the container creation stage. This won't be necessary if you use models that aren't gated or private.
+> [!WARNING] The current [huggingface-inference-toolkit entrypoint](https://github.com/huggingface/huggingface-inference-toolkit/blob/028b8250427f2ab8458ed12c0d8edb50ff914a08/scripts/entrypoint.sh#L4) uses port 5000. You should match this in the **Container Port**
 
 ## Inference Endpoints API
 
@@ -124,11 +129,12 @@ endpoint = create_inference_endpoint(
     accelerator="gpu",
     region="us-east-1",
     instance_size="x1",
-    instance_type="nvidia-a100",
+    instance_type="nvidia-l4",
     # Image Configuration
     custom_image={
         "health_route": "/health",
         "url": "andito/speech-to-speech:latest", # Pulls from DockerHub
+        "port": 5000
     },
     secrets={'HF_TOKEN':get_token()}
 )
