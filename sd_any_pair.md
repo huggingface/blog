@@ -15,8 +15,12 @@ authors:
 The unprecedented success of LLMs has redefined the limits of NLP. However, a major challenge in their deployment is optimizing performance to reduce their response time.
 Speculative decoding is a very popular and practical approach for accelerating LLMs achieving considerable speedups.
  
-The core concept of this method involves using a pair of models, referred to as the target and draft models. The draft model is a smaller, more efficient version of the target model, such as using Llama3-8b as the draft model for the larger Llama3-70b target model.
+The core concept of this method involves using a pair of models, referred to as the target and draft models. The draft model is a smaller, more efficient version of the target model, for example using Llama3.1-8b as the draft model for the larger Llama3.1-70b target model.
 Speculative decoding is an iterative process, during each cycle, the draft model generates a sequence of tokens autoregressively, one at a time. The target model then verifies these draft tokens in a single forward pass. The speedup is achieved by generating multiple tokens in each forward pass of the target model, rather than producing just one token at a time.
+
+The remarkable speedups offered by speculative decoding come with a significant drawback: the target and draft models must share the same tokenizer, meaning they need to be from the same model family. However, many widely-used models lack smaller versions that are both compact and accurate enough to deliver substantial latency reductions. Based on our experience, meaningful speedups are typically seen when the size ratio between the target and draft models is at least 50-100. For instance, LLaMA 3.1-8B lacks a smaller version, and Gemma 2-9B only has a 2B variant which is still not sufficiently small to achieve significant performance improvements.
+ 
+In order to mitigate this painpoint Intel labs together with our friends in Hugging face developed "AG_anyPair". "AG_anyPair", which is integrated as part of Hugging face Transformers 4.46.0, enables to select any pair of target and draft models regardless of their tokenizer. For 
 
 ## SUBSECTION EXAMPLE
 
