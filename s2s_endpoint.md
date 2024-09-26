@@ -22,8 +22,10 @@ The project implements a cascaded pipeline leveraging models available through t
 
 What's more, S2S has multi-language support! It currently supports English, French, Spanish, Chinese, Japanese, and Korean. You can run the pipeline in single-language mode or use the `auto` flag for automatic language detection. Check out the repo for more details [here](https://github.com/huggingface/speech-to-speech).
 
-> 👩🏽‍💻: That's all amazing, but how do I run S2S? 
+```
+> 👩🏽‍💻: That's all amazing, but how do I run S2S?
 > 🤗: Great question!
+```
 
 Running Speech-to-Speech requires significant computational resources. Even on a high-end laptop you might encounter latency issues, particularly when using the most advanced models. While a powerful GPU can mitigate these problems, not everyone has the means (or desire!) to set up their own hardware.
 
@@ -61,16 +63,16 @@ Let's get into it!
 
 # Building the custom Docker image
 
-To begin creating my custom Docker image, I started by cloning Hugging Face’s default Docker image repository. This serves as a great starting point for deploying machine learning models in inference tasks.
+To begin creating a custom Docker image, we started by cloning Hugging Face’s default Docker image repository. This serves as a great starting point for deploying machine learning models in inference tasks.
 
 ```bash
 git clone https://github.com/huggingface/huggingface-inference-toolkit
 ```
 
 ### Why Clone the Default Repository?
-- Solid Foundation: The repository provides a pre-optimized base image designed specifically for inference workloads, which gives a reliable starting point.
-- Compatibility: Since the image is built to align with Hugging Face’s deployment environment, this ensures smooth integration when you deploy your own custom image.
-- Ease of Customization: The repository offers a clean and structured environment, making it easy to customize the image for the specific requirements of your application.
+- **Solid Foundation**: The repository provides a pre-optimized base image designed specifically for inference workloads, which gives a reliable starting point.
+- **Compatibility**: Since the image is built to align with Hugging Face’s deployment environment, this ensures smooth integration when you deploy your own custom image.
+- **Ease of Customization**: The repository offers a clean and structured environment, making it easy to customize the image for the specific requirements of your application.
 
 You can check out all of [our changes here](https://github.com/andimarafioti/speech-to-speech-inference-toolkit/pull/1/files)
 
@@ -80,9 +82,9 @@ With the repository cloned, the next step was tailoring the image to support my 
 
 1. Adding the Speech-to-Speech Project
 
-To integrate my project smoothly, I added the speech-to-speech codebase and any required datasets as submodules. This approach offers better version control, ensuring the exact version of the code and data is always available when the Docker image is built.
+To integrate my project smoothly, we added the speech-to-speech codebase and any required datasets as submodules. This approach offers better version control, ensuring the exact version of the code and data is always available when the Docker image is built.
 
-By including data directly within the Docker container, I avoid having to download it each time the endpoint is instantiated, which significantly reduces startup time and ensures the system is reproducible. The data is stored in a Hugging Face repository, which provides easy tracking and versioning.
+By including data directly within the Docker container, we avoid having to download it each time the endpoint is instantiated, which significantly reduces startup time and ensures the system is reproducible. The data is stored in a Hugging Face repository, which provides easy tracking and versioning.
 
 ```bash
 git submodule add https://github.com/huggingface/speech-to-speech.git
@@ -91,10 +93,10 @@ git submodule add https://huggingface.co/andito/fast-unidic
 
 2. Optimizing the Docker Image
 
-Next, I modified the Dockerfile to suit my needs:
+Next, I modified the Dockerfile to suit our needs:
 
-- Streamlining the Image: I removed packages and dependencies that weren’t relevant to my use case. This reduces the image size and cuts down on unnecessary overhead during inference.
-- Installing Requirements: I moved the installation of `requirements.txt` from the entry point to the Dockerfile itself. This way, the dependencies are installed when building the Docker image, speeding up deployment since these packages won’t need to be installed at runtime.
+- **Streamlining the Image**: We removed packages and dependencies that weren’t relevant to my use case. This reduces the image size and cuts down on unnecessary overhead during inference.
+- **Installing Requirements**: We moved the installation of `requirements.txt` from the entry point to the Dockerfile itself. This way, the dependencies are installed when building the Docker image, speeding up deployment since these packages won’t need to be installed at runtime.
 
 3. Deploying the Custom Image
  
@@ -122,15 +124,15 @@ Pre-Steps
 ### Inference Endpoints GUI
 1. Navigate to https://ui.endpoints.huggingface.co/new
 2. Fill in the relevant information
-    - Model Repository - `andito/fast-unidic`
+    - Model Repository - `andito/s2s`
     - Model Name - Feel free to rename if you don't like the generated name 
         - e.g. `speech-to-speech-demo` 
         - Keep it lower-case and short
-    - Choose your preferred Cloud and Hardware -  I used `AWS` `GPU` `L4`
+    - Choose your preferred Cloud and Hardware - We used `AWS` `GPU` `L4`
         - It's only `$0.80` an hour and is big enough to handle the models
     - Advanced Configuration (click the expansion arrow ➤)
         - Container Type - `Custom`
-        - Container Port - `5000`
+        - Container Port - `80`
         - Container URL - `andito/speech-to-speech:latest`
         - Secrets - `HF_TOKEN`|`<your token here>`
 <details>
@@ -146,7 +148,7 @@ Pre-Steps
 
 > [!NOTE] The Model Repository doesn't actually matter since the models are specified and downloaded in the container creation, but Inference Endpoints requires a model, so feel free to pick a slim one of your choice.
 > [!NOTE] You need to specify `HF_TOKEN` because we need to download gated models in the container creation stage. This won't be necessary if you use models that aren't gated or private.
-> [!WARNING] The current [huggingface-inference-toolkit entrypoint](https://github.com/huggingface/huggingface-inference-toolkit/blob/028b8250427f2ab8458ed12c0d8edb50ff914a08/scripts/entrypoint.sh#L4) uses port 5000. You should match this in the **Container Port**
+> [!WARNING] The current [huggingface-inference-toolkit entrypoint](https://github.com/huggingface/huggingface-inference-toolkit/blob/028b8250427f2ab8458ed12c0d8edb50ff914a08/scripts/entrypoint.sh#L4) uses port 5000 as default, but the inference endpoint expects port 80. You should match this in the **Container Port**. We already set it in our dockerfile, but beware if making your own from scratch!
 
 ## Inference Endpoints API
 
