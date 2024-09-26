@@ -1,6 +1,6 @@
 ---
 title: "Deploying Speech-to-Speech on Hugging Face Inference Endpoints with a Custom Docker Container" 
-thumbnail: 
+thumbnail: /blog/assets/s2s_endpoint/thumbnail.jpeg
 authors:
 - user: andito
 - user: derek-thomas
