@@ -82,7 +82,7 @@ With the repository cloned, the next step was tailoring the image to support my 
 
 1. Adding the Speech-to-Speech Project
 
-To integrate my project smoothly, we added the speech-to-speech codebase and any required datasets as submodules. This approach offers better version control, ensuring the exact version of the code and data is always available when the Docker image is built.
+To integrate the project smoothly, we added the speech-to-speech codebase and any required datasets as submodules. This approach offers better version control, ensuring the exact version of the code and data is always available when the Docker image is built.
 
 By including data directly within the Docker container, we avoid having to download it each time the endpoint is instantiated, which significantly reduces startup time and ensures the system is reproducible. The data is stored in a Hugging Face repository, which provides easy tracking and versioning.
 
@@ -93,14 +93,14 @@ git submodule add https://huggingface.co/andito/fast-unidic
 
 2. Optimizing the Docker Image
 
-Next, I modified the Dockerfile to suit our needs:
+Next, we modified the Dockerfile to suit our needs:
 
-- **Streamlining the Image**: We removed packages and dependencies that weren’t relevant to my use case. This reduces the image size and cuts down on unnecessary overhead during inference.
+- **Streamlining the Image**: We removed packages and dependencies that weren’t relevant to our use case. This reduces the image size and cuts down on unnecessary overhead during inference.
 - **Installing Requirements**: We moved the installation of `requirements.txt` from the entry point to the Dockerfile itself. This way, the dependencies are installed when building the Docker image, speeding up deployment since these packages won’t need to be installed at runtime.
 
 3. Deploying the Custom Image
  
-Once the modifications were in place, I built and pushed the custom image to Docker Hub:
+Once the modifications were in place, we built and pushed the custom image to Docker Hub:
 ```bash
 DOCKER_DEFAULT_PLATFORM="linux/amd64" docker build -t speech-to-speech -f dockerfiles/pytorch/Dockerfile . 
 docker tag speech-to-speech andito/speech-to-speech:latest 
@@ -159,7 +159,7 @@ Make sure to use `0.25.1` or greater
 pip install huggingface_hub>=0.25.1
 ```
 
-Use a token that can write an endpoint (Write or Fine-Grained)
+Use a [token](https://huggingface.co/docs/hub/en/security-tokens) that can write an endpoint (Write or Fine-Grained)
 ```python
 from huggingface_hub import login
 login()
