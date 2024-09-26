@@ -151,13 +151,16 @@ endpoint = create_inference_endpoint(
 # Optional
 endpoint.wait()
 ```
+# Overview
+![Overview](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/s2s_endpoint/overview.png)
 
 
-# Building the webserver
+
+## Building the webserver
 Basically go over my code on webservice_starlette.py 
 
 - How to handle streaming connections with a websocket / they are not supported in the default example and I added code for them
 
-# Custom handler custom client
+## Custom handler custom client
 
 Go over the custom handler and the custom client.
