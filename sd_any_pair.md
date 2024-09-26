@@ -1,5 +1,5 @@
 ---
-title: "Assisted Generation with any assistant model"
+title: "Enabling assisted generation with any assistant model"
 thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
 - user: user1
@@ -10,7 +10,7 @@ authors:
   org: Intel
 ---
 
-# Assisted Generation with any assistant model
+# Enabling assisted generation with any assistant model
 
 The unprecedented success of LLMs has redefined the limits of NLP. However, a major challenge in their deployment is optimizing performance to reduce their response time.
 Speculative decoding is a very popular and practical approach for accelerating LLMs achieving considerable speedups.
