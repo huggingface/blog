@@ -247,3 +247,16 @@ The client's audio section has 4 tasks:
 4. Playback the audio responses
 
 The audio is recorded on the `audio_input_callback` method, it simply submits all chunks to a queue. Then, it is sent to the server with the `send_audio` method. Here, if there is no audio to send, we still submit an empty array in order to receive a response from the server. The responses from the server are handled by the `on_message` method we saw earlier in the blog. Then, the playback of the audio responses are handled by the `audio_output_callback` method. Here we only need to ensure that the audio is in the range we expect (We don't want to destroy someone eardrum's because of a faulty package!) and ensure that the size of the output array is what the playback library expects. 
+
+# Conclusion
+
+In this post, we walked through the steps of deploying the Speech-to-Speech (S2S) pipeline on Hugging Face Inference Endpoints using a custom Docker image. We built a custom container to handle the complexities of the S2S pipeline and demonstrated how to configure it for scalable, efficient deployment. Hugging Face Inference Endpoints make it easier to bring performance-heavy applications like Speech-to-Speech to life, without the hassle of managing hardware or infrastructure.
+
+If you're interested in trying it out or have any questions, feel free to explore the following resources:
+
+- [Speech-to-Speech GitHub Repository](https://github.com/huggingface/speech-to-speech)
+- [Speech-to-Speech Inference Toolkit](https://github.com/andimarafioti/speech-to-speech-inference-toolkit)
+- [Base Inference Toolkit](https://github.com/huggingface/huggingface-inference-toolkit)
+- [Hugging Face Inference Endpoints Documentation](https://huggingface.co/docs/inference-endpoints/en/guides/custom_container)
+
+Have issues or questions? Open a discussion on the relevant GitHub repository, and we’ll be happy to help!
