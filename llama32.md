@@ -408,14 +408,10 @@ npm install @mlc/web-llm
 ```
 
 Then, you can run the model as follows:
-
-Then import the module in your code.
 ```js
 // Import everything
 import * as webllm from "@mlc-ai/web-llm";
 // Or only import what you need
-import { CreateMLCEngine } from "@mlc-ai/web-llm";
-
 import { CreateMLCEngine } from "@mlc-ai/web-llm";
 
 // Callback function to update model loading progress
