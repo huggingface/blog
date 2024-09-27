@@ -205,10 +205,45 @@ Major Componants
 
 
 ## Building the webserver
-Basically go over my code on webservice_starlette.py 
 
-- How to handle streaming connections with a websocket / they are not supported in the default example and I added code for them
+To use the endpoint, we will need to build a small webservice. The code for it is done on `webservice_starlette.py` and `s2s_handler.py`. Normally, you would only have a custom handler for an endpoint, but since we want to have a really low latency, we also built the webservice to support websocket connections instead of normal requests. This sounds intimidating at first, but the webservice is only 32 lines of code!
+
+  <p>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/s2s_endpoint/webservice.png" alt="Webservice code" width="800px">
+  </p>
+
+This code will run `prepare_handler` on startup, which will initialize all the models and warm them up. Then, each message will be processed by `inference_handler.process_streaming_data`
+
+  <p>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/s2s_endpoint/process_streaming.png" alt="Process streaming code" width="800px">
+  </p>
+
+This method simply receives the audio data from the client, chunks it into small parts for the VAD, and submits it to a queue for processing. Then it checks the output processing queue (the spoken response from the model!) and returns it if there is something. All of the internal processing is handled by [Hugging Face's speech_to_speech library](https://github.com/huggingface/speech-to-speech).
 
 ## Custom handler custom client
 
-Go over the custom handler and the custom client.
+The webservice receives and returns audio. But there is still a big missing piece, how do we record and play back the audio? For that, we created [a client](https://github.com/huggingface/speech-to-speech/blob/inference-endpoint/audio_streaming_client.py) that connects to the service. The easiest is to divide the analysis in the connection to the webservice and the recording/playing of audio.
+
+  <p>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/s2s_endpoint/client.png" alt="Audio client code" width="800px">
+  </p>
+
+Initializing the webservice client requires setting a header for all messages with our Hugging Face Token. When initializing the client, we set what we want to do on common messages (open, close, error, message). This will determine what our client does when the server sends it messages. 
+
+  <p>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/s2s_endpoint/messages.png" alt="Audio client messages code" width="800px">
+  </p>
+
+We can see that the reactions to the messages are straight forward, with the `on_message` being the only method with more complexity. This method understands when the server is done responding and starts 'listening' back to the user. Otherwise, it puts the data from the server in the playback queue.
+
+  <p>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/s2s_endpoint/client-audio.png" alt="Client's audio record and playback" width="800px">
+  </p>
+
+The client's audio section has 4 tasks:
+1. Record the audio
+2. Submit the audio recordings
+3. Receive the audio responses from the server
+4. Playback the audio responses
+
+The audio is recorded on the `audio_input_callback` method, it simply submits all chunks to a queue. Then, it is sent to the server with the `send_audio` method. Here, if there is no audio to send, we still submit an empty array in order to receive a response from the server. The responses from the server are handled by the `on_message` method we saw earlier in the blog. Then, the playback of the audio responses are handled by the `audio_output_callback` method. Here we only need to ensure that the audio is in the range we expect (We don't want to destroy someone eardrum's because of a faulty package!) and ensure that the size of the output array is what the playback library expects. 
