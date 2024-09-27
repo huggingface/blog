@@ -29,22 +29,22 @@ Llama 3.2 还包括可以在设备上运行的小型仅文本语言模型。它�
 
 ## 目录
 
-- [什么是 Llama 3.2 视觉模型？](#what-is-llama-32-vision)
-- [Llama 3.2 许可变更。抱歉，欧盟 :(](#llama-32-license-changes-sorry-eu-)
-- [Llama 3.2 1B 和 3B 的特别之处？](#what-is-special-about-llama-32-1b-and-3b)
-- [演示](#demo)
-- [使用 Hugging Face Transformers](#using-hugging-face-transformers)
-- [Llama 3.2 1B 和 3B 语言模型](#llama-32-1b--3b-language-models)
-- [Llama 3.2 视觉模型](#llama-32-vision)
-- [在设备上](#on-device)
+- [什么是 Llama 3.2 视觉模型？](#什么是Llama32视觉模型)
+- [Llama 3.2 许可变更。抱歉，欧盟](#Llama-32-许可变更-抱歉-欧盟用户)
+- [Llama 3.2 1B 和 3B 的特别之处？](#Llama-32-1B和3B有什么特别之处)
+- [演示](#演示)
+- [使用 Hugging Face Transformers](#使用Hugging-Face-Transformers)
+- [Llama 3.2 1B 和 3B 语言模型](#Llama-32-1B和3B语言模型)
+- [Llama 3.2 视觉模型](#Llama-32-视觉模型)
+- [设备端部署](#设备端部署)
 - [Llama.cpp 和 Llama-cpp-python](#llamacpp--llama-cpp-python)
 - [Transformers.js](#transformersjs)
-- [微调 Llama 3.2](#fine-tuning-llama-32)
-- [Hugging Face 合作伙伴集成](#hugging-face-partner-integrations)
-- [其他资源](#additional-resources)
-- [致谢](#acknowledgements)
+- [微调 Llama 3.2](#微调-llama-32)
+- [Hugging Face 合作伙伴集成](#Hugging-Face-合作伙伴集成)
+- [其他资源](#额外资源)
+- [致谢](#鸣谢)
 
-## 什么是 Llama 3.2 视觉模型？
+## 什么是Llama3.2视觉模型？
 
 Llama 3.2 视觉模型是 Meta 发布的最强大的开源多模态模型。它具有出色的视觉理解和推理能力，可以用于完成各种任务，包括视觉推理与定位、文档问答和图像-文本检索。思维链（CoT）答案通常非常优秀，使得视觉推理特别强大。
 
@@ -105,7 +105,7 @@ Llama 3.2 视觉模型可以处理文本和图像，也可以仅处理文本。�
 
 我们预计这些模型的文本能力将与8B和70B的Llama 3.1模型相当，因为我们的理解是文本模型在视觉模型训练期间是冻结的。因此，文本基准测试应该与8B和70B一致。
 
-## Llama 3.2 许可变更。抱歉，欧盟用户 :(
+## Llama 3.2 许可变更, 抱歉, 欧盟用户
 
 ![License Change](https://huggingface.co/datasets/huggingface/release-assets/resolve/main/license_change.png)
 
@@ -204,11 +204,11 @@ print(response)
 
 - 默认情况下，transformers 使用与原始 Meta 代码库相同的采样参数（temperature=0.6 和 top_p=0.9）。我们尚未进行广泛测试，请随意探索！
 
-## Llama 3.2 Vision
+## Llama 3.2 视觉模型
 
 视觉模型较大，因此它们在运行时需要比小型文本模型更多的内存。作为参考，11B 视觉模型在推理时大约需要 10 GB 的 GPU RAM，采用4-bit模式。
 
-使用指令调优的 Llama Vision 模型进行推理的最简单方法是使用内置的聊天模板。输入具有 `user` 和 `assistant` 角色，以指示对话的轮次。与文本模型的一个区别是不支持系统角色。用户轮次可以包括图像-文本或仅文本输入。要指示输入包含图像，请在输入的内容部分添加 `{"type": "image"}`，然后将图像数据传递给 `processor`：
+使用指令调优的 Llama 视觉模型进行推理的最简单方法是使用内置的聊天模板。输入具有 `user` 和 `assistant` 角色，以指示对话的轮次。与文本模型的一个区别是不支持系统角色。用户轮次可以包括图像-文本或仅文本输入。要指示输入包含图像，请在输入的内容部分添加 `{"type": "image"}`，然后将图像数据传递给 `processor`：
 
 ```python
 import requests
@@ -298,7 +298,7 @@ model = MllamaForConditionalGeneration.from_pretrained(
 
 然后，您可以应用聊天模板，使用`processor`，并像以前一样调用模型。
 
-## 设备端
+## 设备端部署
 
 您可以直接在设备的 CPU/GPU/浏览器上运行 Llama 3.2 1B 和 3B，使用多个开源库，如下所示。
 
