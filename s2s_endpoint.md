@@ -78,7 +78,7 @@ You can check out all of [our changes here](https://github.com/andimarafioti/spe
 
 ### Customizing the Docker Image for the Speech-to-Speech Application
 
-With the repository cloned, the next step was tailoring the image to support my speech-to-speech pipeline.
+With the repository cloned, the next step was tailoring the image to support our Speech-to-Speech pipeline.
 
 1. Adding the Speech-to-Speech Project
 
