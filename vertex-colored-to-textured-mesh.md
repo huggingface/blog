@@ -270,7 +270,7 @@ The quality of the UV map and texture are also far below the standards of a prod
 
 However, if you're looking for a quick solution to map from a vertex-colored mesh to a UV-mapped mesh, then this approach may be useful for you.
 
-### Conclusion
+## Conclusion
 
 This tutorial walked through how to convert a vertex-colored mesh to a UV-mapped, textured mesh.
 
