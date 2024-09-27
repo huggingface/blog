@@ -13,7 +13,7 @@ authors:
 
 # Llama can now see and run on your device - welcome Llama 3.2
 
-Llama 3.2 is out! Today we welcome the next iteration of the Llama collection to Hugging Face. This time, we’re excited to collaborate with Meta on the release of multimodal and small models. Ten open-weight models (5 multimodal models and 5 text-only ones) are available on the Hub.
+Llama 3.2 is out! Today, we welcome the next iteration of the [Llama collection](https://huggingface.co/collections/meta-llama/llama-32-66f448ffc8c32f949b04c8cf) to Hugging Face. This time, we’re excited to collaborate with Meta on the release of multimodal and small models. Ten open-weight models (5 multimodal models and 5 text-only ones) are available on the Hub.
 
 Llama 3.2 Vision comes in two sizes: 11B for efficient deployment and development on consumer-size GPU, and 90B for large-scale applications. Both versions come in base and instruction-tuned variants. In addition to the four multimodal models, Meta released a new version of Llama Guard with vision support. Llama Guard 3 is a safeguard model that can classify model inputs and generations, including detecting harmful multimodal prompts or assistant responses.
 
@@ -21,9 +21,9 @@ Llama 3.2 also includes small text-only language models that can run on-device. 
 
 Among the features and integrations being released, we have:
 - [Model checkpoints on the Hub](https://huggingface.co/collections/meta-llama/llama-32-66f448ffc8c32f949b04c8cf)
-- Hugging Face Transformers and TGI integration for the Vision models
+- [Hugging Face Transformers](https://huggingface.co/docs/transformers/v4.45.1/en/model_doc/mllama) and TGI integration for the Vision models
 - Inference & Deployment Integration with Inference Endpoints, Google Cloud, Amazon SageMaker & DELL Enterprise Hub
-- Fine-tuning Llama 3.2 11B Vision on a single GPU with [transformers🤗](https://github.com/huggingface/huggingface-llama-recipes/tree/main/Llama-Vision FT.ipynb) and [TRL](https://github.com/huggingface/trl/tree/main/examples/scripts/sft_vlm.py)
+- Fine-tuning Llama 3.2 11B Vision on a single GPU with [transformers🤗](https://github.com/huggingface/huggingface-llama-recipes/blob/main/Llama-Vision%20FT.ipynb) and [TRL](https://github.com/huggingface/trl/tree/main/examples/scripts/sft_vlm.py)
 
 ## Table of contents
 
@@ -46,7 +46,18 @@ Among the features and integrations being released, we have:
 
 Llama 3.2 Vision is the most powerful open multimodal model released by Meta. It has great visual understanding and reasoning capabilities and can be used to accomplish a variety of tasks, including visual reasoning and grounding, document question answering, and image-text retrieval. Chain of Thought (CoT) answers are often very good, which makes visual reasoning particularly powerful.
 
-Llama 3.2 Vision can be used to process text and an image as well as only text. With image-text prompting, the model can take English inputs, while for text-only prompting, the model can handle multiple languages. The full list of languages in text-only mode is English, German, French, Italian, Portuguese, Hindi, Spanish, and Thai.
+Llama 3.2 Vision can be used to process text and an image as well as only text. With image-text prompting, the model can take English inputs, while for text-only prompting, the model can handle multiple languages.
+
+The full list of languages in text-only mode is:
+
+- English
+- German
+- French
+- Italian
+- Portuguese
+- Hindi
+- Spanish
+- Thai
 
 The architecture of these models is based on the combination of Llama 3.1 LLMs combined with a vision tower and an image adapter. The text models used are Llama 3.1 8B for the Llama 3.2 11B Vision model, and Llama 3.1 70B for the 3.2 90B Vision model. To the best of our understanding, the text models were frozen during the training of the vision models to preserve text-only performance.
 
@@ -142,14 +153,14 @@ Remarkably, the 3B model is as strong as the 8B one on IFEval! This makes the mo
 
 Tool use is supported in both the 1B and 3B instruction-tuned models. Tools are specified by the user in a zero-shot setting (the model has no previous information about the tools developers will use). Thus, the built-in tools that were part of the Llama 3.1 models (`brave_search` and `wolfram_alpha`) are no longer available.
 
-Due to their size, these small models can be used as assistants for bigger models and perform [assisted generation](https://huggingface.co/blog/assisted-generation) (also known as speculative decoding). [Here](https://github.com/huggingface/huggingface-llama-recipes/tree/main) is an example of using the Llama 3.2 1B model as an assistant to the Llama 3.1 8B model. For offline use cases, please check the on-device section later in the post.
+Due to their size, these small models can be used as assistants for bigger models and perform [assisted generation](https://huggingface.co/blog/assisted-generation) (also known as speculative decoding). [Here](https://github.com/huggingface/huggingface-llama-recipes/blob/main/assisted_decoding_8B_1B.ipynb) is an example of using the Llama 3.2 1B model as an assistant to the Llama 3.1 8B model. For offline use cases, please check the [on-device section](#on-device) later in the post.
 
 ## Demo
 You can experiment with the three Instruct models in the following demos:
 
 - [Gradio Space with Llama 3.2 11B Vision Instruct](https://huggingface.co/spaces/huggingface-projects/llama-3.2-vision-11B)
 - [Gradio-powered Space with Llama 3.2 3B](https://huggingface.co/spaces/huggingface-projects/llama-3.2-3B-Instruct)
-- Llama 3.2 3B running on WebGPU 
+- [Llama 3.2 3B running on WebGPU](https://huggingface.co/spaces/webml-community/llama-3.2-webgpu)
 
 ![Demo GIF](https://huggingface.co/datasets/huggingface/release-assets/resolve/main/demo_gif.gif)
 
