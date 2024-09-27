@@ -13,7 +13,7 @@ authors:
 
 # Llama can now see and run on your device - welcome Llama 3.2
 
-Llama 3.2 is out! Today we welcome the next iteration of the [Llama collection](https://huggingface.co/collections/meta-llama/llama-32-66f448ffc8c32f949b04c8cf) to Hugging Face. This time, we’re excited to collaborate with Meta on the release of multimodal and small models. Ten open-weight models (5 multimodal models and 5 text-only ones) are available on the Hub.
+Llama 3.2 is out! Today, we welcome the next iteration of the [Llama collection](https://huggingface.co/collections/meta-llama/llama-32-66f448ffc8c32f949b04c8cf) to Hugging Face. This time, we’re excited to collaborate with Meta on the release of multimodal and small models. Ten open-weight models (5 multimodal models and 5 text-only ones) are available on the Hub.
 
 Llama 3.2 Vision comes in two sizes: 11B for efficient deployment and development on consumer-size GPU, and 90B for large-scale applications. Both versions come in base and instruction-tuned variants. In addition to the four multimodal models, Meta released a new version of Llama Guard with vision support. Llama Guard 3 is a safeguard model that can classify model inputs and generations, including detecting harmful multimodal prompts or assistant responses.
 
