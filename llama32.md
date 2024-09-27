@@ -439,7 +439,7 @@ const engine = await CreateMLCEngine(
 
 ```
 
-After successfully initializing the engine, you can now invoke chat completions using OpenAI style chat APIs through the engine.chat.completions interface.
+After successfully initializing the engine, you can now invoke chat completions using OpenAI style chat APIs through the `engine.chat.completions` interface.
 
 ```js
 const messages = [
