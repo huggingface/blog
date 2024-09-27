@@ -64,7 +64,7 @@ The architecture of these models is based on the combination of Llama 3.1 LLMs c
 Below you can find some inference examples from the 11B instruction-tuned model that showcase real world knowledge, document reasoning and infographics understanding capabilities.
 
 
-<table>
+<table><thead><tr><th>Input Image</th><th>Input Prompt</th><th>Answer</th></tr></thead><tbody><tr> 
   <tr>
     <td style="vertical-align: middle;"><img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/wat_arun.jpg" width="300"/></td>
     <td style="vertical-align: middle;">
@@ -84,7 +84,7 @@ Below you can find some inference examples from the 11B instruction-tuned model 
     <strong>Where do the droughts happen according to this diagram?</strong>
     </td>
     <td style="vertical-align: middle;">
-      <strong>Drought Regions in 2016</strong>According to the diagram, droughts occurred in two distinct regions in 2016:<br>
+      <strong>Drought Regions in 2016</strong><br>According to the diagram, droughts occurred in two distinct regions in 2016:<br>
       * <strong>Eastern and Southern Africa:</strong> This region experienced severe droughts.<br>
       * <strong>Chile:</strong> Chile was the driest in January in over 50 years. These areas faced significant water scarcity issues during that period.
     </td>
