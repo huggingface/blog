@@ -14,8 +14,6 @@ This tutorial walks through a quick solution to convert vertex-colored meshes to
 
 ## The Short Version
 
-### Installation
-
 Install the [InstantTexture](https://github.com/dylanebert/InstantTexture) library for easy conversion.
 
 For a detailed explanation, see [The Long Version](#the-long-version) below.
