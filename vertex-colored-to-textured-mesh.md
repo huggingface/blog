@@ -50,8 +50,6 @@ For a detailed walkthrough, continue reading.
 
 ## The Long Version
 
-### Installation
-
 Install the following dependencies:
 
 - **numpy** for numerical operations
