@@ -14,9 +14,7 @@ This tutorial walks through a quick solution to convert vertex-colored meshes to
 
 ## The Short Version
 
-Install the [InstantTexture](https://github.com/dylanebert/InstantTexture) library for easy conversion.
-
-For a detailed explanation, see [The Long Version](#the-long-version) below.
+Install the [InstantTexture](https://github.com/dylanebert/InstantTexture) library for easy conversion. This is a small library we wrote that implements the steps described in [The Long Version](#the-long-version) below.
 
 ```bash
 pip install git+https://github.com/dylanebert/InstantTexture
@@ -73,7 +71,7 @@ import xatlas
 from PIL import Image, ImageFilter
 ```
 
-Load the vertex-colored input mesh.
+Load the vertex-colored input mesh. This should be a `.obj` file located at `input_mesh_path`.
 
 If it's a local file, use `trimesh.load()` instead of `trimesh.load_remote()`.
 
@@ -205,6 +203,8 @@ image_texture = Image.fromarray(texture_buffer)
 display(image_texture)
 ```
 
+![Texture with holes](https://github.com/dylanebert/InstantTexture/blob/main/notebooks/tex_output_1.png?raw=true)
+
 As we can see, the texture has a lot of holes.
 
 To correct for this, we'll combine 4 techniques:
@@ -238,6 +238,8 @@ image_texture = image_texture.resize((texture_size, texture_size), Image.LANCZOS
 # Display the final texture
 display(image_texture)
 ```
+
+![Texture without holes](https://github.com/dylanebert/InstantTexture/blob/main/notebooks/tex_output_2.png?raw=true)
 
 As we can see, the texture is now much smoother and has no holes.
 
@@ -273,5 +275,7 @@ However, if you're looking for a quick solution to map from a vertex-colored mes
 ## Conclusion
 
 This tutorial walked through how to convert a vertex-colored mesh to a UV-mapped, textured mesh.
+
+If you have any questions or feedback, please feel free to open an issue on [GitHub](https://github.com/dylanebert/InstantTexture) or on the [Space](https://huggingface.co/spaces/dylanebert/InstantTexture).
 
 Thank you for reading!
