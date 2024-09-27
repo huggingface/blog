@@ -149,7 +149,7 @@ You can experiment with the three Instruct models in the following demos:
 
 - [Gradio Space with Llama 3.2 11B Vision Instruct](https://huggingface.co/spaces/huggingface-projects/llama-3.2-vision-11B)
 - [Gradio-powered Space with Llama 3.2 3B](https://huggingface.co/spaces/huggingface-projects/llama-3.2-3B-Instruct)
-- Llama 3.2 3B running on WebGPU 
+- [Llama 3.2 3B running on WebGPU powered by MLC Web-LLM](https://huggingface.co/spaces/cfahlgren1/webllm-llama-3.2)
 
 ![Demo GIF](https://huggingface.co/datasets/huggingface/release-assets/resolve/main/demo_gif.gif)
 
@@ -326,7 +326,13 @@ And you’d fire up the server like this:
 llama-server --hf-repo hugging-quants/Llama-3.2-3B-Instruct-Q8_0-GGUF --hf-file llama-3.2-3b-instruct-q8_0.gguf -c 2048
 ```
 
-You can also use [llama-cpp-python](https://github.com/abetlen/llama-cpp-python) to access these models programmatically in Python.
+You can also use [llama-cpp-python](https://github.com/abetlen/llama-cpp-python) to access these models programmatically in Python. Pip install the library from [PyPI](https://pypi.org/project/llama-cpp-python/) using:
+
+```bash
+pip install llama-cpp-python
+```
+
+Then, you can run the model as follows:
 
 ```python
 from llama_cpp import Llama
@@ -335,7 +341,7 @@ llm = Llama.from_pretrained(
     repo_id="hugging-quants/Llama-3.2-3B-Instruct-Q8_0-GGUF",
     filename="*q8_0.gguf",
 )
-llm.create_chat_completion(
+output = llm.create_chat_completion(
       messages = [
           {
               "role": "user",
@@ -343,8 +349,9 @@ llm.create_chat_completion(
           }
       ]
 )
-```
 
+print(output)
+```
 
 ### Transformers.js
 
@@ -387,6 +394,57 @@ I hope that made you laugh! Do you want to hear another one?
 ```
 
 </details>
+
+### MLC.ai Web-LLM
+
+MLC.ai Web-LLM is a high-performance in-browser LLM inference engine that brings language model inference directly onto web browsers with hardware acceleration. Everything runs inside the browser with no server support and is accelerated with WebGPU.
+
+WebLLM is fully compatible with OpenAI API. That is, you can use the same OpenAI API on any open source models locally, with functionalities including streaming, JSON-mode, function-calling, etc.
+
+You can install Web-LLM from npm
+
+```bash
+npm install @mlc/web-llm
+```
+
+Then, you can run the model as follows:
+
+Then import the module in your code.
+```js
+// Import everything
+import * as webllm from "@mlc-ai/web-llm";
+// Or only import what you need
+import { CreateMLCEngine } from "@mlc-ai/web-llm";
+
+import { CreateMLCEngine } from "@mlc-ai/web-llm";
+
+// Callback function to update model loading progress
+const initProgressCallback = (initProgress) => {
+  console.log(initProgress);
+}
+const selectedModel = "Llama-3.2-3B-Instruct-q4f32_1-MLC";
+
+const engine = await CreateMLCEngine(
+  selectedModel,
+  { initProgressCallback: initProgressCallback }, // engineConfig
+);
+
+```
+
+After successfully initializing the engine, you can now invoke chat completions using OpenAI style chat APIs through the engine.chat.completions interface.
+
+```js
+const messages = [
+  { role: "system", content: "You are a helpful AI assistant." },
+  { role: "user", content: "Explain the meaning of life as a pirate!" },
+]
+
+const reply = await engine.chat.completions.create({
+  messages,
+});
+console.log(reply.choices[0].message);
+console.log(reply.usage);
+```
 
 ## Fine-tuning Llama 3.2
 
