@@ -2003,7 +2003,7 @@
     - community
 
 - local: llama32
-  title: "现在Llama具备视觉能力并可以在你的设备上运行 - 欢迎Llama 3.2"
+  title: "现在 Llama 具备视觉能力并可以在你的设备上运行 - 欢迎 Llama 3.2"
   author: merve
   thumbnail: /blog/assets/llama32/thumbnail.jpg
   date: September 25, 2024
