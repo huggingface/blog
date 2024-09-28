@@ -73,25 +73,25 @@ Llama 3.2 视觉模型可以处理文本和图像，也可以仅处理文本。�
     <td style="vertical-align: middle;"><img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/weather_events.png" width="300"/></td>
     <td style="vertical-align: middle;">
       <strong>根据这张图表，干旱发生在什么地方？</strong><br>
-      <strong>2016年干旱区域：</strong>根据图表，2016年发生干旱的地区有两个：<br>
+      <strong>2016 年干旱区域：</strong>根据图表，2016 年发生干旱的地区有两个：<br>
       * <strong>东非和南非：</strong>该地区经历了严重的干旱。<br>
-      * <strong>智利：</strong>智利在1月份经历了50多年来最干燥的天气。这些地区在那段时间面临严重的水资源短缺问题。
+      * <strong>智利：</strong>智利在 1 月份经历了 50 多年来最干燥的天气。这些地区在那段时间面临严重的水资源短缺问题。
     </td>
   </tr>
   <tr>
     <td style="vertical-align: middle;"><img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/invoice.png" width="300"/></td>
     <td style="vertical-align: middle;">
       <strong>从发票日期到到期日期需要多长时间？请简洁明了。</strong><br>
-      <strong>发票日期：</strong>2019年2月11日<br>
-      <strong>到期日期：</strong>2019年2月26日<br>
+      <strong>发票日期：</strong>2019 年 2 月 11 日<br>
+      <strong>到期日期：</strong>2019 年 2 月 26 日<br>
       <strong>时间差计算：</strong><br>
-      2019年2月26日 - 2019年2月11日 = 15天<br><br>
-      发票日期与到期日期之间的时间差为**15天**。
+      2019年2月26日 - 2019年2月11日 = 15 天<br><br>
+      发票日期与到期日期之间的时间差为**15 天**。
     </td>
   </tr>
 </table>
 
-视觉模型的上下文长度为128k个标记，这允许包含图像的多轮对话。然而，该模型在关注单一图像时效果最佳，因此`transformers`实现仅关注输入中的最后一张图像。这可以保持质量并节省内存。
+视觉模型的上下文长度为 128k 个标记，这允许包含图像的多轮对话。然而，该模型在关注单一图像时效果最佳，因此`transformers`实现仅关注输入中的最后一张图像。这可以保持质量并节省内存。
 
 11B 基础模型支持 448 的分块尺寸，而指令微调版本和 90B 模型都使用 560 的分块尺寸。这些模型在一个包含 60 亿图文对的海量数据集上进行了训练，数据来源非常多样化。这使得它们成为下游任务微调的极佳候选模型。下表展示了 11B、90B 模型及其指令微调版本在一些基准测试中的表现，数据来自 Meta。有关更多基准测试和细节，请参考模型卡。
 
@@ -109,21 +109,21 @@ Llama 3.2 视觉模型可以处理文本和图像，也可以仅处理文本。�
 
 ![License Change](https://huggingface.co/datasets/huggingface/release-assets/resolve/main/license_change.png)
 
-关于许可条款，Llama 3.2的许可与Llama 3.1非常相似，唯一的关键区别在于可接受使用政策：任何居住在欧盟的个人或在欧盟有主要营业地点的公司不被授予使用Llama 3.2中包含的多模态模型的许可权。这一限制不适用于集成了任何此类多模态模型的产品或服务的最终用户，因此人们仍然可以构建全球产品与视觉变体。
+关于许可条款，Llama 3.2 的许可与Llama 3.1 非常相似，唯一的关键区别在于可接受使用政策：任何居住在欧盟的个人或在欧盟有主要营业地点的公司不被授予使用 Llama 3.2 中包含的多模态模型的许可权。这一限制不适用于集成了任何此类多模态模型的产品或服务的最终用户，因此人们仍然可以构建全球产品与视觉变体。
 
 有关详细信息，请务必阅读[官方许可](https://huggingface.co/meta-llama/Llama-3.2-1B/blob/main/LICENSE.txt)和[可接受使用政策](https://huggingface.co/meta-llama/Llama-3.2-1B/blob/main/USE_POLICY.md)。
 
-## Llama 3.2 1B和3B有什么特别之处？
+## Llama 3.2 1B 和 3B 有什么特别之处？
 
-Llama 3.2系列包括1B和3B文本模型。这些模型旨在用于设备上的使用案例，如提示重写、多语言知识检索、摘要任务、工具使用和本地运行的助手。它们在这些规模上超过了许多可用的开放访问模型，并与许多倍大的模型竞争。在后面的部分中，我们将展示如何离线运行这些模型。
+Llama 3.2 系列包括 1B 和 3B 文本模型。这些模型旨在用于设备上的使用案例，如提示重写、多语言知识检索、摘要任务、工具使用和本地运行的助手。它们在这些规模上超过了许多可用的开放访问模型，并与许多倍大的模型竞争。在后面的部分中，我们将展示如何离线运行这些模型。
 
-这些模型遵循与Llama 3.1相同的架构。它们使用高达9万亿个标记进行训练，并仍然支持长上下文长度的128k个标记。模型是多语言的，支持英语、德语、法语、意大利语、葡萄牙语、印地语、西班牙语和泰语。
+这些模型遵循与 Llama 3.1 相同的架构。它们使用高达 9 万亿个标记进行训练，并仍然支持长上下文长度的 128k 个标记。模型是多语言的，支持英语、德语、法语、意大利语、葡萄牙语、印地语、西班牙语和泰语。
 
-还有一个新的Llama Guard小版本，Llama Guard 3 1B，可以与这些模型一起部署，以评估多轮对话中最后一次用户或助手的响应。它使用一组预定义的类别（在此版本中新增），可以根据开发者的用例进行自定义或排除。有关使用Llama Guard的更多详细信息，请参考模型卡。
+还有一个新的 Llama Guard 小版本，Llama Guard 3 1B，可以与这些模型一起部署，以评估多轮对话中最后一次用户或助手的响应。它使用一组预定义的类别（在此版本中新增），可以根据开发者的用例进行自定义或排除。有关使用Llama Guard的更多详细信息，请参考模型卡。
 
-额外信息：Llama 3.2接触了比上述8种语言更广泛的语言集合。鼓励开发者针对特定语言用例微调Llama 3.2模型。
+额外信息：Llama 3.2 接触了比上述8种语言更广泛的语言集合。鼓励开发者针对特定语言用例微调Llama 3.2模型。
 
-我们通过Open LLM Leaderboard评估套件对基础模型进行了测试，而指令模型则在三个流行的基准上进行了评估，这些基准衡量遵循指令的能力，并与LMSYS聊天机器人竞技场的相关性较高：[IFEval](https://arxiv.org/abs/2311.07911)、[AlpacaEval](https://arxiv.org/abs/2404.04475)和[MixEval-Hard](https://arxiv.org/abs/2406.06565)。以下是基础模型的结果，其中包括Llama-3.1-8B作为参考：
+我们通过 Open LLM Leaderboard 评估套件对基础模型进行了测试，而指令模型则在三个流行的基准上进行了评估，这些基准衡量遵循指令的能力，并与 LMSYS 聊天机器人竞技场的相关性较高：[IFEval](https://arxiv.org/abs/2311.07911)、[AlpacaEval](https://arxiv.org/abs/2404.04475)和 [MixEval-Hard](https://arxiv.org/abs/2406.06565)。以下是基础模型的结果，其中包括 Llama-3.1-8B 作为参考：
 
 
 | Model                | BBH   | MATH Lvl 5 | GPQA  | MUSR  | MMLU-PRO | Average |
@@ -140,9 +140,9 @@ Llama 3.2系列包括1B和3B文本模型。这些模型旨在用于设备上的�
 | Meta-Llama-3.2-3B-Instruct   | 20.88           | 77.01  | 31.80        | 43.23   |
 | Meta-Llama-3.1-8B-Instruct   | 25.74           | 76.49  | 44.10        | 48.78   |
 
-令人瞩目的是，3B模型在IFEval上的表现与8B模型相当！这使得该模型非常适合用于代理应用，其中遵循指令对于提高可靠性至关重要。这个高的IFEval得分对于这个规模的模型来说非常令人印象深刻。
+令人瞩目的是，3B 模型在 IFEval 上的表现与8B模型相当！这使得该模型非常适合用于代理应用，其中遵循指令对于提高可靠性至关重要。这个高的 IFEval 得分对于这个规模的模型来说非常令人印象深刻。
 
-1B和3B的指令调优模型均支持工具使用。用户在0-shot环境中指定工具（模型对开发者将使用的工具没有先前的信息）。因此，Llama 3.1模型中包含的内置工具（`brave_search`和`wolfram_alpha`）不再可用。
+1B和3B的指令调优模型均支持工具使用。用户在 0-shot 环境中指定工具（模型对开发者将使用的工具没有先前的信息）。因此，Llama 3.1 模型中包含的内置工具（`brave_search`和`wolfram_alpha`）不再可用。
 
 由于其体积小，这些小模型可以作为更大模型的助手，执行[辅助生成](https://huggingface.co/blog/assisted-generation)（也称为推测解码）。[这里](https://github.com/huggingface/huggingface-llama-recipes/tree/main)是一个使用Llama 3.2 1B模型作为Llama 3.1 8B模型助手的示例。有关离线使用案例，请在文章后面查看设备上的部分。
 
@@ -163,11 +163,11 @@ Llama 3.2系列包括1B和3B文本模型。这些模型旨在用于设备上的�
 pip install "transformers>=4.45.0" --upgrade
 ```
 
-升级后，您可以使用新的Llama 3.2模型，并利用Hugging Face生态系统的所有工具。
+升级后，您可以使用新的 Llama 3.2 模型，并利用 Hugging Face 生态系统的所有工具。
 
 ## Llama 3.2 1B和3B语言模型
 
-您可以仅用几行代码通过Transformers运行1B和3B文本模型检查点。模型检查点以`bfloat16`精度上传，但您也可以使用float16或量化权重。内存要求取决于模型大小和权重精度。以下是一个表格，显示使用不同配置进行推理时所需的大致内存：
+您可以仅用几行代码通过 Transformers 运行 1B 和 3B 文本模型检查点。模型检查点以`bfloat16`精度上传，但您也可以使用 float16 或量化权重。内存要求取决于模型大小和权重精度。以下是一个表格，显示使用不同配置进行推理时所需的大致内存：
 
 | Model Size | BF16/FP16 | FP8     | INT4    |
 |------------|--------|---------|---------|
@@ -275,7 +275,7 @@ print(processor.decode(output[0][inputs["input_ids"].shape[-1]:]))
 In the background, there is a stone house with a thatched roof, a dirt road, a field of flowers, and rolling hills.
 ```
 
-您还可以使用 `bitsandbytes` 库自动量化模型，以8-bit或甚至4-bit模式加载。以下是如何在 4-bit模式下加载生成管道的示例：
+您还可以使用 `bitsandbytes` 库自动量化模型，以 8-bit 或甚至 4-bit 模式加载。以下是如何在 4-bit 模式下加载生成管道的示例：
 
 ```diff
 import torch
