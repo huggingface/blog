@@ -27,7 +27,8 @@ The static speculation lookahead (blue bars), where the number of generated draf
 <p align="center">
     <em>Oracle and static speculation lookahead values for different speculative iterations on one MBPP example.</em>
 </p>
-The figure below illustrates the average speculation lookahead across the normalized index of speculative iterations for the [Alpaca dataset](https://huggingface.co/datasets/tatsu-lab/alpaca).  
+
+The figure below illustrates the average speculation lookahead across the normalized index of speculative iterations for the [Alpaca](https://huggingface.co/datasets/tatsu-lab/alpaca) dataset.  
 
 <p align="center">
     <img src="assets/dynamic_speculation_lookahead/Alpaca.png" width=500>
@@ -45,7 +46,16 @@ Aiming to narrow the gap with the Oracle, we propose a straightforward method to
 
 # Code
 
-Dynamic speculation has been integrated into release 4.45.0 of Hugging face Transformers and now serves as the default operation mode. This code shows how to use assisted generation with dynamic speculation lookahead in Transformers. Note that the default dynamic speculation lookahead parameters reflect optimal values but can be changed for achieveing better performance for specific model pairs/datasets:
+Dynamic speculation has been integrated into release [4.45.0](https://github.com/huggingface/transformers/releases/tag/v4.45.0) of Hugging face Transformers and now serves as the default operation mode for assisted decoding. 
+When using assisted generation, the following parameters, relevant to the dynamic speculation lookahead, are set by default
+```python
+assistant_model.num_assistant_tokens_schedule='constant'
+assistant_model.generation_config.assistant_confidence_threshold="0.4"
+assistant_model.generation_config.num_assistant_tokens="20"
+```
+Note that the default dynamic speculation lookahead parameters reflect optimal values but can be changed for achieveing better performance for specific model pairs/datasets.
+
+The code below shows how to use assisted generation:
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -61,11 +71,6 @@ inputs = tokenizer(prompt, return_tensors="pt").to(device)
 
 model = AutoModelForCausalLM.from_pretrained(checkpoint).to(device)
 assistant_model = AutoModelForCausalLM.from_pretrained(assistant_checkpoint).to(device)
-
-# Set parameters for the dynamic speculation lookahead
-assistant_model.num_assistant_tokens_schedule='constant'
-assistant_model.generation_config.assistant_confidence_threshold="0.4"
-assistant_model.generation_config.num_assistant_tokens="20"
 
 outputs = model.generate(**inputs, assistant_model=assistant_model)
 ```
