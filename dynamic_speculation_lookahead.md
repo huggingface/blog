@@ -40,6 +40,11 @@ Both figures demonstrate significant variability in oracle speculation lookahead
 
 Aiming to narrow the gap with the Oracle, we propose a straightforward method to dynamically adjust the speculation lookahead value at each iteration. After generating each draft token, we determine whether the draft model should continue generating the next token or switch to the target model for verification. This decision is based on the assistant model's confidence in its prediction estimated by the softmax of the logits. If the assistant model's confidence in the current token prediction falls below a predefined threshold referred to as the `assistant_confidence_threshold`, it halts the token generation process for that iteration, even if the maximum number of speculative tokens `num_assistant_tokens` has not been reached. Once halted, the draft tokens generated during the current iteration are sent to the target model for verification.
 
+# Results
+
+
+# Code
+
 Dynamic speculation has been integrated into release 4.45.0 of Hugging face Transformers and now serves as the default operation mode. This code shows how to use assisted generation with dynamic speculation lookahead in Transformers. Note that the default dynamic speculation lookahead parameters reflect optimal values but can be changed for achieveing better performance for specific model pairs/datasets:
 
 ```python
@@ -66,9 +71,6 @@ outputs = model.generate(**inputs, assistant_model=assistant_model)
 ```
 
 
-# Results
-
-Add section on DISCO
 
 
 # References
