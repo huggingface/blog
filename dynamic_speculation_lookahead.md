@@ -58,7 +58,7 @@ assistant_model.generation_config.num_assistant_tokens="20"
 ```
 Note that the default dynamic speculation lookahead parameters reflect optimal values but can be changed for achieveing better performance for specific model pairs/datasets.
 
-The code below shows how to use assisted generation:
+The code below shows how to run assisted generation:
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
