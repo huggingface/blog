@@ -24,11 +24,13 @@ In order to mitigate this pain point Intel labs together with our friends in Hug
 
 The table below shows the latency improvements observed for target models when paired with draft models using different tokenizers:
 
-| target | assistant | dataset | task | speedup |
+| Target model | Assistant model | Dataset | Task | Speedup |
 |----------------------|---------------------|---------------------------|---------------------------|---------------------------|
 | `codellama/CodeLlama-13b-Instruct-hf` | `bigcode/tiny_starcoder_py` | `openai/humaneval` | code generation | **2.01x** |
 | `microsoft/Phi-3-medium-128k-instruct` | `Qwen/Qwen2-0.5B-Instruct`  | `tau/scrolls`   | long-context summarization | **1.65x** |
 | `google/gemma-2-9b` | `double7/vicuna-68m`  | `cnn_dailymail`   | summarization | **1.72x** |
+
+We note that 
 
 ## SUBSECTION EXAMPLE
 
@@ -44,11 +46,7 @@ print("This is a python code block example")
     <em>IMAGE CAPTION HERE</em>
 </p>
 
-| target | assistant | dataset | task | speedup |
-|----------------------|---------------------|---------------------------|---------------------------|---------------------------|
-| `codellama/CodeLlama-13b-Instruct-hf` | `bigcode/tiny_starcoder_py` | `openai/humaneval` | code generation | **2.01x** |
-| `microsoft/Phi-3-medium-128k-instruct` | `Qwen/Qwen2-0.5B-Instruct`  | `tau/scrolls`   | long-context summarization | **1.65x** |
-| `google/gemma-2-9b` | `double7/vicuna-68m`  | `cnn_dailymail`   | summarization | **1.72x** |
+
 
 ## Summary
 
