@@ -1,5 +1,5 @@
 ---
-title: "Dynamic number of speculative tokens accelerates assisted generation"
+title: "Dynamic Assisted Generation"
 thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
 - user: user1
@@ -40,8 +40,26 @@ Both figures demonstrate significant variability in oracle speculation lookahead
 
 Aiming to narrow the gap with the Oracle, we propose a straightforward method to dynamically adjust the speculation lookahead value at each iteration. After generating each draft token, we determine whether the draft model should continue generating the next token or switch to the target model for verification. This decision is based on the assistant model's confidence in its prediction estimated by the softmax of the logits. If the assistant model's confidence in the current token prediction falls below a predefined threshold referred to as the `assistant_confidence_threshold`, it halts the token generation process for that iteration, even if the maximum number of speculative tokens `num_assistant_tokens` has not been reached. Once halted, the draft tokens generated during the current iteration are sent to the target model for verification.
 
-# Results
+# Benchmarking
 
+We benchmarked the dynamic approach against the heuristic approach across a range of tasks and model pairings. The dynamic approach showed better performance in 7 out of 8 tests. 
+Notably, using the dynamic approach, with Llama3.2 1B as assistant for Llama3.1 8B, delivers speedups of up to 1.52x. Whereas, the heuristic approach shows no significant speedup all 6 tests.
+
+
+| # | Target model | Assistant model | Task | Speedup - heur | Speedup - dyn | 
+|----------------------|----------------------|---------------------|---------------------------|---------------------------|---------------------------|
+| 1 | `openai/whisper-large-v2` | `openai/whisper-tiny` |	automatic speech recognition |**1.61** |	1.51 |
+| 2 | `facebook/opt-6.7b` | `facebook/opt-125m` |	summarization | 1.82 |	**2.71** |
+| 3 | `facebook/opt-6.7b` | `facebook/opt-125m` |	open-ended generation |	1.23 |	**1.59** |
+| 4 | `Salesforce/codegen-6B-mono` | `Salesforce/codegen-350M-mono` |	code generation (python) | 0.89 |	**1.09** |
+| 5 | `google/flan-t5-xl` | `google/flan-t5-small` | summarization |	1.18 |	**1.31** |
+| 6 | `meta-llama/Llama-3.1-8B` | `meta-llama/Llama-3.2-1B` |	summarization |	1 |	**1.52** |
+| 7 | `meta-llama/Llama-3.1-8B` | `meta-llama/Llama-3.2-1B` |	open-ended generation |	1 |	**1.18** |
+| 8 | `meta-llama/Llama-3.1-8B` | `meta-llama/Llama-3.2-1B` |	code generation (python) |	1.09 |	**1.15** |
+
+*The results in the table reflect greedy decoding (temperature = 0). Similar trends were observed when using sampling (temperature > 0).
+
+*All tests were conducted on an RTX 4090.
 
 # Code
 
