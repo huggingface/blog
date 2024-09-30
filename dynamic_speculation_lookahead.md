@@ -17,28 +17,23 @@ Speculative decoding is a technique often employed to decrease the inference lat
 
 We anticipate that an enhanced optimization strategy for managing the number of generated draft tokens could squeeze out further latency reductions. For testing this thesis we utilize an oracle that determines the optimal speculation lookahead value for each speculative iteration. The oracle employs the draft model to autoregressively generate tokens until a discrepancy arises between the predicted tokens of the draft and target models. 
 
-The figure below illustrates the oracle and static speculation lookahead values across the speculative iterations of a code generation example from the [MBPP](https://huggingface.co/datasets/google-research-datasets/mbpp) dataset. A high variance in oracle speculation lookahead values (orange bars) is observed. 
-The static speculation lookahead (blue bars), where the number of generated draft tokens is fixed to 5, performs 38 target forward passes and 192 draft forward passes, whereas the oracle speculation lookahead, performs only 27 target forward passes and 129 draft forward passes - a significant reduction. 
+The left figure below illustrates the oracle and static speculation lookahead values across the speculative iterations of a code generation example from the [MBPP](https://huggingface.co/datasets/google-research-datasets/mbpp) dataset. A high variance in oracle speculation lookahead values (orange bars) is observed. 
+The static speculation lookahead (blue bars), where the number of generated draft tokens is fixed to 5, performs 38 target forward passes and 192 draft forward passes, whereas the oracle speculation lookahead, performs only 27 target forward passes and 129 draft forward passes - a significant reduction. The right figure shows the oracle and static speculation lookahead across the entire Alpaca dataset.
+
 
 <p align="center">
-    <img src="assets/dynamic_speculation_lookahead/oracle_K_2.png" width=500>
+  <img src="assets/dynamic_speculation_lookahead/oracle_K_2.png" width="400" style="float: left; margin-right: 20px;">
+  <img src="assets/dynamic_speculation_lookahead/Alpaca.png" width="465" style="float: left;">
 </p>
-<p align="center">
-    <em>Oracle and static speculation lookahead values for different speculative iterations on one MBPP example.</em>
+<p align="center" style="clear: both;">
+  <em>Oracle and static speculation lookahead (SL) values on one MBPP example (left) and average oracle speculation lookahead for the entire Alpaca dataset (right).</em>
 </p>
 
-The figure below illustrates the average speculation lookahead across the normalized index of speculative iterations for the [Alpaca](https://huggingface.co/datasets/tatsu-lab/alpaca) dataset.  
-
-<p align="center">
-    <img src="assets/dynamic_speculation_lookahead/Alpaca.png" width=500>
-</p>
-<p align="center">
-    <em>The average oracle speculation lookahead over the normalized index of the speculative iterations for the Alpaca dataset</em>
-</p>
 
 Both figures demonstrate significant variability in oracle speculation lookahead values, suggesting that a static speculation lookahead may be suboptimal.
 
-Aiming to narrow the gap with the Oracle, we propose a straightforward method to dynamically adjust the speculation lookahead value at each iteration. After generating each draft token, we determine whether the draft model should continue generating the next token or switch to the target model for verification. This decision is based on the assistant model's confidence in its prediction estimated by the softmax of the logits. If the assistant model's confidence in the current token prediction falls below a predefined threshold referred to as the `assistant_confidence_threshold`, it halts the token generation process for that iteration, even if the maximum number of speculative tokens `num_assistant_tokens` has not been reached. Once halted, the draft tokens generated during the current iteration are sent to the target model for verification.
+
+In order to get closer to the Oracle and gain extra speedup, Intel labs together with our friends in Hugging face developed a straightforward method to dynamically adjust the speculation lookahead value at each iteration. After generating each draft token, we determine whether the draft model should continue generating the next token or switch to the target model for verification. This decision is based on the assistant model's confidence in its prediction estimated by the softmax of the logits. If the assistant model's confidence in the current token prediction falls below a predefined threshold referred to as the `assistant_confidence_threshold`, it halts the token generation process for that iteration, even if the maximum number of speculative tokens `num_assistant_tokens` has not been reached. Once halted, the draft tokens generated during the current iteration are sent to the target model for verification.
 
 # Benchmarking
 
