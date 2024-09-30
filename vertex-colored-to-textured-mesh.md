@@ -1,3 +1,10 @@
+---
+title: "Converting Vertex-Colored Meshes to Textured Meshes"
+thumbnail: /blog/assets/vertex-colored-to-textured-mesh/thumbnail.png
+authors:
+- user: dylanebert
+---
+
 # Converting Vertex-Colored Meshes to Textured Meshes
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://githubtocolab.com/dylanebert/InstantTexture/blob/main/notebooks/walkthrough.ipynb)
