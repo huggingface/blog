@@ -20,7 +20,14 @@ The project implements a cascaded pipeline leveraging models available through t
 3. Language Model (LM)
 4. Text to Speech (TTS)
 
-What's more, S2S has multi-language support! It currently supports English, French, Spanish, Chinese, Japanese, and Korean. You can run the pipeline in single-language mode or use the `auto` flag for automatic language detection. Check out the repo for more details [here](https://github.com/huggingface/speech-to-speech).
+What's more, S2S has multi-language support! It currently supports English, French, Spanish, Chinese, Japanese, and Korean. You can run the pipeline in single-language mode or use the `auto` flag for automatic language detection. Check out the repo for more details [here](https://github.com/huggingface/speech-to-speech). Or even better, check out this demo:
+
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/<@eustache fill the version in>/gradio.js"
+></script>
+
+<gradio-app theme_mode="light" space="<@eustache fill the space in>"></gradio-app>
 
 ```
 > 👩🏽‍💻: That's all amazing, but how do I run S2S?
