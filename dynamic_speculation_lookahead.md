@@ -50,16 +50,16 @@ We benchmarked the dynamic approach against the heuristic approach across a rang
 Notably, using the dynamic approach, with Llama3.2 1B as assistant for Llama3.1 8B, delivers speedups of up to 1.52x. Whereas, the heuristic approach shows no significant speedups. Another observation is that `codegen-6B-mono` yields slowdown using the heuristic approach whereas the dynamic approach shows speedup
 
 
-| # | Target model | Assistant model | Task | Speedup - heur | Speedup - dyn | 
-|----------------------|----------------------|---------------------|---------------------------|---------------------------|---------------------------|
-| 1 | `openai/whisper-large-v2` | `openai/whisper-tiny` |	automatic speech recognition |**1.61x** |	1.51x |
-| 2 | `facebook/opt-6.7b` | `facebook/opt-125m` |	summarization | 1.82 |	**2.71x** |
-| 3 | `facebook/opt-6.7b` | `facebook/opt-125m` |	open-ended generation |	1.23x |	**1.59x** |
-| 4 | `Salesforce/codegen-6B-mono` | `Salesforce/codegen-350M-mono` |	code generation (python) | 0.89x |	**1.09x** |
-| 5 | `google/flan-t5-xl` | `google/flan-t5-small` | summarization |	1.18x |	**1.31x** |
-| 6 | `meta-llama/Llama-3.1-8B` | `meta-llama/Llama-3.2-1B` |	summarization |	1.00x |	**1.52x** |
-| 7 | `meta-llama/Llama-3.1-8B` | `meta-llama/Llama-3.2-1B` |	open-ended generation |	1.00x |	**1.18x** |
-| 8 | `meta-llama/Llama-3.1-8B` | `meta-llama/Llama-3.2-1B` |	code generation (python) |	1.09x |	**1.15x** |
+| Target model | Assistant model | Task | Speedup - heur | Speedup - dyn | 
+|----------------------|---------------------|---------------------------|---------------------------|---------------------------|
+| `openai/whisper-large-v2` | `openai/whisper-tiny` |	automatic speech recognition |**1.61x** |	1.51x |
+| `facebook/opt-6.7b` | `facebook/opt-125m` |	summarization | 1.82x |	**2.71x** |
+| `facebook/opt-6.7b` | `facebook/opt-125m` |	open-ended generation |	1.23x |	**1.59x** |
+| `Salesforce/codegen-6B-mono` | `Salesforce/codegen-350M-mono` |	code generation (python) | 0.89x |	**1.09x** |
+| `google/flan-t5-xl` | `google/flan-t5-small` | summarization |	1.18x |	**1.31x** |
+| `meta-llama/Llama-3.1-8B` | `meta-llama/Llama-3.2-1B` |	summarization |	1.00x |	**1.52x** |
+| `meta-llama/Llama-3.1-8B` | `meta-llama/Llama-3.2-1B` |	open-ended generation |	1.00x |	**1.18x** |
+| `meta-llama/Llama-3.1-8B` | `meta-llama/Llama-3.2-1B` |	code generation (python) |	1.09x |	**1.15x** |
 
 *The results in the table reflect greedy decoding (temperature = 0). Similar trends were observed when using sampling (temperature > 0).
 
