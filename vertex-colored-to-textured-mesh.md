@@ -203,7 +203,7 @@ image_texture = Image.fromarray(texture_buffer)
 display(image_texture)
 ```
 
-![Texture with holes](https://github.com/dylanebert/InstantTexture/blob/main/notebooks/tex_output_1.png?raw=true)
+![Texture with holes](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/vertex-colored-to-textured-mesh/tex_output_1.png)
 
 As we can see, the texture has a lot of holes.
 
@@ -239,7 +239,7 @@ image_texture = image_texture.resize((texture_size, texture_size), Image.LANCZOS
 display(image_texture)
 ```
 
-![Texture without holes](https://github.com/dylanebert/InstantTexture/blob/main/notebooks/tex_output_2.png?raw=true)
+![Texture without holes](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/vertex-colored-to-textured-mesh/tex_output_2.png)
 
 As we can see, the texture is now much smoother and has no holes.
 
@@ -259,6 +259,8 @@ visuals = trimesh.visual.TextureVisuals(uv=uvs, material=material)
 mesh.visual = visuals
 mesh.show()
 ```
+
+![Final mesh](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/vertex-colored-to-textured-mesh/mesh_output.png)
 
 Et voilà! The mesh is UV-mapped and textured.
 
