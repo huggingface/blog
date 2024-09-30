@@ -27,7 +27,7 @@ Speculative decoding is a technique often employed to decrease the inference lat
 We anticipate that an enhanced optimization strategy for managing the number of generated draft tokens could squeeze out further latency reductions. For testing this thesis we utilize an oracle that determines the optimal speculation lookahead value for each speculative iteration. The oracle employs the draft model to autoregressively generate tokens until a discrepancy arises between the predicted tokens of the draft and target models. 
 
 The left figure below illustrates the oracle and static speculation lookahead values across the speculative iterations of a code generation example from the [MBPP](https://huggingface.co/datasets/google-research-datasets/mbpp) dataset. A high variance in oracle speculation lookahead values (orange bars) is observed. 
-The static speculation lookahead (blue bars), where the number of generated draft tokens is fixed to 5, performs 38 target forward passes and 192 draft forward passes, whereas the oracle speculation lookahead, performs only 27 target forward passes and 129 draft forward passes - a significant reduction. The right figure shows the oracle and static speculation lookahead across the entire Alpaca dataset.
+The static speculation lookahead (blue bars), where the number of generated draft tokens is fixed to 5, performs 38 target forward passes and 192 draft forward passes, whereas the oracle speculation lookahead, performs only 27 target forward passes and 129 draft forward passes - a significant reduction. The right figure shows the oracle and static speculation lookahead across the entire [Alpaca](https://huggingface.co/datasets/tatsu-lab/alpaca) dataset.
 
 
 <p align="center">
@@ -106,7 +106,7 @@ assistant_model.generation_config.assistant_confidence_threshold="0"
 assistant_model.generation_config.num_assistant_tokens="5"
 ```
 
-In case you want to revert back to the constant speculation lookahead (as in Leviathan et al.) approach use:
+In case you want to revert back to the **constant** speculation lookahead (as in [Leviathan et al.](https://arxiv.org/pdf/2211.17192)) approach use:
 ```python
 assistant_model.generation_config.num_assistant_tokens_schedule='constant' 
 assistant_model.generation_config.assistant_confidence_threshold="0"
@@ -117,4 +117,5 @@ assistant_model.generation_config.num_assistant_tokens="5"
 # References
 - [Dynamic Speculation Lookahead Accelerates Speculative Decoding of Large Language Models](https://arxiv.org/abs/2405.04304)
 - [Assisted Generation: a new direction toward low-latency text generation](https://huggingface.co/blog/assisted-generation)
+- [Fast Inference from Transformers via Speculative Decoding](https://arxiv.org/pdf/2211.17192)
 
