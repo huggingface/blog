@@ -2,7 +2,8 @@
 title: "Improving Parquet Dedupe"
 thumbnail: /blog/assets/improve_parquet_dedupe/thumbnail.png
 authors:
-  - user: ylow
+  - user: yuchenglow
+  - user: seanses
 ---
 
 # Improving Parquet Dedupe
