@@ -34,7 +34,7 @@ number of rows (for instance 1000 rows). Each column within the row group is
 then compressed and stored:
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/layout.png" alt="Parquet Layout" width=90%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/layout.png" alt="Parquet Layout" width=80%>
 </p>
 
 
@@ -49,7 +49,7 @@ original version. Green represents all deduped blocks, red represents all
 new blocks, and shades in between are proportionate.
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/1_append.png" alt="Visualization of dedupe from data appends" width=90%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/1_append.png" alt="Visualization of dedupe from data appends" width=30%>
 </p>
 
 Here we see that indeed we are able to dedupe pretty much the entire file,
@@ -65,7 +65,7 @@ modification to row 10000, and we see while most of the file does dedupe,
 there are many small regularly spaced sections of new data!
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/2_mod.png" alt="Visualization of dedupe from data modifications" width=90%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/2_mod.png" alt="Visualization of dedupe from data modifications" width=30%>
 </p>
 
 A quick scan of the [Parquet file
@@ -90,7 +90,7 @@ Here we delete a row from the middle of the file. (Insertion should have
     the file, but the remaining file is has completely new blocks. 
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/3_delete.png" alt="Visualization of dedupe from data deletion" width=90%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/3_delete.png" alt="Visualization of dedupe from data deletion" width=30%>
 </p>
 
 This is mostly because the Parquet format compresses each column
@@ -98,7 +98,7 @@ aggressively. If we turn off compression we are able to dedupe more
 aggressively.
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/4_delete_no_compress.png" alt="Visualization of dedupe from data deletion without column compression" width=90%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/4_delete_no_compress.png" alt="Visualization of dedupe from data deletion without column compression" width=30%>
 </p>
 
 
@@ -125,7 +125,7 @@ column header.
 
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/5_content_defined.png" alt="Visualization of dedupe from data deletion with content defined row groups" width=90%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/5_content_defined.png" alt="Visualization of dedupe from data deletion with content defined row groups" width=30%>
 </p>
 
 # Optimizing Parquet for Dedupe-ability
