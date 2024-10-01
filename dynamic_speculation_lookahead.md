@@ -26,8 +26,15 @@ authors:
 
 ---
 
-Speculative decoding is a technique often employed to decrease the inference latency of large language models. Its success largely hinges on the speculation lookahead (SL)—the count of tokens produced by the draft model in each iteration.
+Speculative decoding is a technique often employed to decrease the inference latency of large language models while preserving their accuracy. It expedites the generation by dividing it into
+two stages (see figure below). In the first stage, a fast but less accurate *draft* (AKA assistant) model autoregressively generates a sequence of tokens. In the second stage, a large but more accurate *target* model conducts parallelized verification over the generated draft tokens. This process allows the model to produce multiple tokens in a single target forward pass. Its success largely hinges on the speculation lookahead (SL)—the count of tokens produced by the draft model in each iteration.
 
+<p align="center">
+  <img src="assets/dynamic_speculation_lookahead/spec_dec_diagram.png" width="250" style="float: left;">
+</p>
+<p align="center" style="clear: both;">
+  <em>Oracle and static speculation lookahead (SL) values on one MBPP example (left) and average oracle speculation lookahead for the entire Alpaca dataset (right).</em>
+</p>
 
 [Hugging Face Transformers](https://github.com/huggingface/transformers) offer two distinct methods to determine the schedule for adjusting the number of assistant tokens during inference. The straightforward method uses a static value of the speculation lookahead and involves generating a constant number of candidate tokens at each speculative iteration (`num_assistant_tokens_schedule="constant"`). Alternatively, a heuristic-based approach adjusts the number of candidate tokens for the next iteration based on the acceptance rate of the current iteration. If all speculative tokens are correct, the number of candidate tokens increases; otherwise, it decreases (`num_assistant_tokens_schedule="heuristic"`). 
 
