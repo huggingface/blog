@@ -17,12 +17,12 @@ authors:
 - user: danielkorat
   guest: true
   org: Intel
-- user: moshew
-  guest: true
-  org: Intel
 - user: Nadav-Timor
   guest: true
   org: WIS
+- user: moshew
+  guest: true
+  org: Intel
 
 ---
 
