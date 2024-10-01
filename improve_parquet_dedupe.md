@@ -13,17 +13,17 @@ for over 2.2PB of that storage. Since many of these files are bulk exports from
 various data analysis pipelines or databases, they often appear as full
 snapshots rather than incremental updates.
 
-This is where data deduplication becomes critical. If users want to provide
-updated datasets on a regular basis, we would like to be able to store all
+This is where data deduplication becomes critical. If users want to 
+update these datasets on a regular basis, data duplictaion becomes critical to store all
 versions of the dataset in as compact a way as possible. Dataset updates should
 not require everything to be uploaded again. In an ideal case, we should be
 able to store every version of a growing dataset, in little more than the size
 of the largest version of the dataset.
 
-While we use Content Defined Chunking which allows us to dedupe well over
-insertions and deletions, the Parquet layout brings some challenges. Here we
-run some dedupe experiments seeing how some simple data modifications behave on
-Parquet files. We experiment  on a 2GB parquet file with 1092000 rows from the
+Content Defined Chunking allows us to dedupe well over
+insertions and deletions, but the Parquet layout brings some challenges. Here we
+run some experiments to see how some simple modifications behave on
+Parquet files. We experiment on a 2GB Parquet file with 1,092,000 rows from the
 [FineWeb](https://huggingface.co/datasets/HuggingFaceFW/fineweb/tree/main/data/CC-MAIN-2013-20)
 dataset, generating visualizations using our [dedupe
 estimator](https://github.com/huggingface/dedupe_estimator).
@@ -45,7 +45,7 @@ test this out!
 
 ## Append
 
-Here we are appending 10,000 new rows to the file and comparing /with the
+Here we append 10,000 new rows to the file and comparing /with the
 original version. Green represents all deduped blocks, red represents all
 new blocks, and shades in between are proportionate.
 
