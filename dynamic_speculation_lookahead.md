@@ -64,7 +64,7 @@ We benchmarked the dynamic approach against the heuristic approach across a rang
 Notably, using the dynamic approach, with Llama3.2 1B as assistant for Llama3.1 8B, delivers speedups of up to 1.52x. Whereas, the heuristic approach shows no significant speedups. Another observation is that `codegen-6B-mono` yields slowdown using the heuristic approach whereas the dynamic approach shows speedup
 
 
-| Target model | Assistant model | Task | Speedup - heuristic | Speedup - dynamic | 
+| Target model | Draft (Assistant) model | Task | Speedup - heuristic | Speedup - dynamic | 
 |----------------------|---------------------|---------------------------|---------------------------|---------------------------|
 | `openai/whisper-large-v2` | `openai/whisper-tiny` |	automatic speech recognition |**1.61x** |	1.51x |
 | `facebook/opt-6.7b` | `facebook/opt-125m` |	summarization | 1.82x |	**2.71x** |
