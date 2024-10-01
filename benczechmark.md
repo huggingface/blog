@@ -96,7 +96,7 @@ This is the complete list of categories, alongside the datasets and metrics used
     - *CSFever* - AUROC (Czech version of FEVER dataset, using partial translation) - asks whether claim is (at least partially) supported in the evidence.
     - *CTKFacts* - AUROC- same format as CSFEVER, but manually sourced from Czech News Agency articles.
     - *Propaganda* - AUROC - contains 13 tasks predicting various aspects of news articles, such as location, genre  and emotive theme.
-7. **Named Entity Recognition** determines, whether model recognizes different named entity types in the text.
+7. **Named Entity Recognition** determines whether the model recognizes different named entity types in the text.
     - *CNEC2.0* - EM - standard NER dataset in Czech
     - *Court Decisions* - EM - NER derived from decisions of Czech Supreme/Constitutional Courts.
 8. **Sentiment Analysis** quantifies, how well can model estimate sentimental information in the text.
