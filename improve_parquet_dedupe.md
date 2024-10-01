@@ -30,7 +30,7 @@ estimator](https://github.com/huggingface/dedupe_estimator).
 
 ## Background
 
-Parquet tables work by splitting the table into Row Groups : each with a fixed
+Parquet tables work by splitting the table into row groups, each with a fixed
 number of rows (for instance 1000 rows). Each column within the row group is
 then compressed and stored:
 
@@ -45,7 +45,7 @@ test this out!
 
 ## Append
 
-Here we  appending 10,000 new rows to the file and compare with the
+Here we are appending 10,000 new rows to the file and comparing /with the
 original version. Green represents all deduped blocks, red represents all
 new blocks, and shades in between are proportionate.
 
@@ -53,14 +53,14 @@ new blocks, and shades in between are proportionate.
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/1_append.png" alt="Visualization of dedupe from data appends" width=30%>
 </p>
 
-Here we see that indeed we are able to dedupe pretty much the entire file,
+Here we see that indeed we are able to dedupe nearly the entire file,
 but only with changes seen at the end of the file. The new file is 99.1%
 deduped: requiring only 20MB of additional storage. This matches our
 intuition pretty well here.
 
 ## Modification
 
-Given the layout we would expect that row modifications to be pretty
+Given the layout, we would expect that row modifications to be pretty
 isolated, but this is apparently not the case. Here we make a small
 modification to row 10000, and we see while most of the file does dedupe,
 there are many small regularly spaced sections of new data!
@@ -80,13 +80,10 @@ column header.
 Here, the new file is only 89% deduped, requiring 230MB of additional
 storage.
 
-(Idea for the Parquet format maintainers. Perhaps switch to relative offsets
-instead of absolute offsets?)
-
 ## Deletion
 
-Here we delete a row from the middle of the file. (Insertion should have
-    similar behavior) As this reorganizes the entire row group layout (each
+Here we delete a row from the middle of the file (Insertion should have
+    similar behavior). As this reorganizes the entire row group layout (each
         row group is 1000 rows), we see that we dedupe the first half of
     the file, but the remaining file is has completely new blocks. 
 
@@ -111,7 +108,7 @@ time?
 
 ## Content Defined Row Groups
 
-One solution is to consider content defined chunking. i.e. We split row
+One solution is to consider content defined chunking: we split row
 groups not based on absolute count (1000 rows), but on a hash of a provided
 “Key” column. In other words, I split off a row group whenever the hash of
 the key column % [target row count] = 0, with some allowances for a minimum
@@ -145,8 +142,8 @@ will have to be updated.
 
 While we will continue exploring ways to improve Parquet storage performance
 (Ex: perhaps we could optionally rewrite Parquet files before uploading?
-Strip absolute file offsets on upload and restore on download?), we will
-love to work with the Apache Arrow project to see there is  interest in
+Strip absolute file offsets on upload and restore on download?), we would 
+love to work with the Apache Arrow project to see if there is interest in
 implementing some of these ideas in the Parquet / Arrow code base.
 
 In the meantime, we are also exploring the behavior of our data dedupe process
