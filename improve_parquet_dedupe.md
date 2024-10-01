@@ -8,12 +8,15 @@ authors:
 
 # Improving Parquet Dedupe
 
-HuggingFace hosts nearly 11PB of datasets, with Parquet files alone accounting
-for over 2.2PB of that storage. Since many of these files are bulk exports from
-various data analysis pipelines or databases, they often appear as full
-snapshots rather than incremental updates.
+The Xet team at Hugging Face is working on improving the efficiency of the
+storage architecture at Hugging Face to make it easier and quicker for users to
+store and update data and models. As Hugging Face hosts nearly 11PB of datasets
+with Parquet files alone accounting for over 2.2PB of that storage,
+optimizing Parquet storage is of pretty high priority. 
 
-This is where data deduplication becomes critical. If users want to 
+Most Parquet files are bulk exports from various data analysis pipelines
+or databases, they often appear as full snapshots rather than incremental
+updates. This is where data deduplication becomes critical. If users want to 
 update these datasets on a regular basis, data duplictaion becomes critical to store all
 versions of the dataset in as compact a way as possible. Dataset updates should
 not require everything to be uploaded again. In an ideal case, we should be
