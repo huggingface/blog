@@ -73,7 +73,7 @@ The translated portion of the dataset (10% of the total) was mostly translated v
 
 This is the complete list of categories, alongside the datasets and metrics used:
 
-1. **Reading Comprehension** tests, whether system can extract answer for a question based on information provided in the context.
+1. **Reading Comprehension** tests whether the system can extract the answer for a question based on information provided in the context.
     - *Belebele* - Acc - contains questions about manually translated web articles.
     - *SQAD3.2* - EM -  is a well-established reading comprehension task in SQuAD format, sourced from Wikipedia.
 2. **Factual Knowledge** contains questions testing factual knowledge stored in the model.
@@ -87,7 +87,7 @@ This is the complete list of categories, alongside the datasets and metrics used
 4. **Language Modeling** tests how likely the model would sample specific Czech language samples.
     - *Czech National Corpus* - Ppl - includes 7 tasks that span across spoken, dialect, historical, and other versions of Czech language, sourced from [ČNK](https://www.korpus.cz/).
     - *HellaSwag* - Acc - (Translated using CUBITT) requires selecting plausible continuation of text from 4 options.
-5. **Math Reasoning in Czech** quantifies, how well can the model process and solve Czech math assignments.
+5. **Math Reasoning in Czech** quantifies how well the model can process and solve Czech math assignments.
     - *Klokan QA* - Acc - elementary/high school problems from Czech math competition.
     - *CERMAT* - EM/Acc - Math subsection of CERMAT Open/MC.
     - *Umimeto (Math)* - Acc - Math subsection of Umimeto.
@@ -96,14 +96,14 @@ This is the complete list of categories, alongside the datasets and metrics used
     - *CSFever* - AUROC (Czech version of FEVER dataset, using partial translation) - asks whether claim is (at least partially) supported in the evidence.
     - *CTKFacts* - AUROC- same format as CSFEVER, but manually sourced from Czech News Agency articles.
     - *Propaganda* - AUROC - contains 13 tasks predicting various aspects of news articles, such as location, genre  and emotive theme.
-7. **Named Entity Recognition** determines, whether model recognizes different named entity types in the text.
+7. **Named Entity Recognition** determines whether the model recognizes different named entity types in the text.
     - *CNEC2.0* - EM - standard NER dataset in Czech
     - *Court Decisions* - EM - NER derived from decisions of Czech Supreme/Constitutional Courts.
-8. **Sentiment Analysis** quantifies, how well can model estimate sentimental information in the text.
+8. **Sentiment Analysis** quantifies how well the model estimates sentiment information in the text.
     - *Subjectivity* - AUROC - asks whether a passage is subjective or objective.
     - *CzechSentiment* (MALL/CSFD/FB) - AUROC - sentiment analysis of product reviews, movie reviews, and Facebook comments.
 9. **Document Retrieval** focuses on identifying the relevant documents.
-    - *Historical IR* - Acc - multiple-choice task for selecting passages relevant/irrelevant to query.
+    - *Historical IR* - Acc - multiple-choice task for selecting passages relevant/irrelevant to a query.
 
 ## ⚔️ Model Duels and Average Score
 
