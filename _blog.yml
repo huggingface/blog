@@ -4700,11 +4700,22 @@
     - nlp
     - vision
 
+- local: vertex-colored-to-textured-mesh
+  title: "Converting Vertex-Colored Meshes to Textured Meshes"
+  author: dylanebert
+  thumbnail: /blog/assets/vertex-colored-to-textured-mesh/thumbnail.png
+  date: September 30, 2024
+  tags:
+    - vision
+    - 3d
+    - mesh
+    - tutorial
+
 - local: benczechmark
   title: "🇨🇿 BenCzechMark - Can your LLM Understand Czech?"
   author: mfajcik
   thumbnail: /blog/assets/197_benczechmark/thumbnail.png
-  date: September 30, 2024
+  date: October 1, 2024
   tags:
     - nlp
     - research

@@ -64,25 +64,27 @@ The architecture of these models is based on the combination of Llama 3.1 LLMs c
 Below you can find some inference examples from the 11B instruction-tuned model that showcase real world knowledge, document reasoning and infographics understanding capabilities.
 
 
-<table>
+<table><thead><tr><th>Input Image</th><th>Input Prompt</th><th>Answer</th></tr></thead><tbody><tr> 
   <tr>
     <td style="vertical-align: middle;"><img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/wat_arun.jpg" width="300"/></td>
     <td style="vertical-align: middle;">
-      <strong>Where is this located in? What are other attractions nearby?</strong><br>
+    <strong>Where is this located in? What are other attractions nearby?</strong>
+    </td>
+    <td style="vertical-align: middle;">
       The image depicts the Grand Palace in Bangkok, Thailand. The Grand Palace is a complex of buildings that served as the official residence of the King of Siam and the administrative seat of government for 150 years. It is one of the most popular tourist attractions in Bangkok and a must-see for anyone visiting the city.<br><br>
       Some other attractions near the Grand Palace include:<br>
       * Wat Phra Kaew: This temple is located within the Grand Palace complex and is home to the famous Emerald Buddha statue.<br>
       * Wat Arun: This temple is located on the west bank of the Chao Phraya River and is known for its stunning architecture and beautiful views of the city.<br>
       * Wat Pho: This temple is located near the Grand Palace and is home to a large reclining Buddha statue.<br>
-      * Lumpini Park: This park is located in the heart of Bangkok and offers a peaceful escape from the hustle and bustle of the city.<br>
-      * Jim Thompson House: This museum showcases the life and work of Jim Thompson, an American businessman who helped revitalize the Thai silk industry in the 1950s and 1960s.
     </td>
   </tr>
   <tr>
     <td style="vertical-align: middle;"><img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/weather_events.png" width="300"/></td>
     <td style="vertical-align: middle;">
-      <strong>Where do the droughts happen according to this diagram?</strong><br>
-      <strong>Drought Regions in 2016**</strong>According to the diagram, droughts occurred in two distinct regions in 2016:<br>
+    <strong>Where do the droughts happen according to this diagram?</strong>
+    </td>
+    <td style="vertical-align: middle;">
+      <strong>Drought Regions in 2016</strong><br>According to the diagram, droughts occurred in two distinct regions in 2016:<br>
       * <strong>Eastern and Southern Africa:</strong> This region experienced severe droughts.<br>
       * <strong>Chile:</strong> Chile was the driest in January in over 50 years. These areas faced significant water scarcity issues during that period.
     </td>
@@ -90,15 +92,18 @@ Below you can find some inference examples from the 11B instruction-tuned model 
   <tr>
     <td style="vertical-align: middle;"><img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/invoice.png" width="300"/></td>
     <td style="vertical-align: middle;">
-      <strong>How long does it take from invoice date to due date? Be short and concise.</strong><br>
+    <strong>How long does it take from invoice date to due date? Be short and concise.</strong>
+    </td>
+    <td style="vertical-align: middle;">
       <strong>Invoice Date:</strong> 11/02/2019<br>
       <strong>Due Date:</strong> 26/02/2019<br>
       <strong>Time Difference Calculation:</strong><br>
-      26/02/2019 - 11/02/2019 = 15 days<br><br>
-      The time difference between the invoice date and the due date is **15 days.**
+      26/02/2019 - 11/02/2019 = 15 days<br>
+      The time difference between the invoice date and the due date is <strong>15 days.</strong>
     </td>
   </tr>
 </table>
+  
 
 Vision models have a context length of 128k tokens, which allows for multiple-turn conversations that may contain images. However, the model works best when attending to a single image, so the `transformers` implementation only attends to the last image provided in the input. This preserves quality and saves memory.
 
@@ -248,9 +253,11 @@ input_text = processor.apply_chat_template(
     messages, add_generation_prompt=True,
 )
 inputs = processor(
-    image, input_text, return_tensors="pt"
+    image,
+    input_text,
+    add_special_tokens=False,
+    return_tensors="pt",
 ).to(model.device)
-
 output = model.generate(**inputs, max_new_tokens=70)
 
 print(processor.decode(output[0][inputs["input_ids"].shape[-1]:]))
