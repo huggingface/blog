@@ -69,7 +69,7 @@ The 🇨🇿 BenCzechMark (in it’s current version) is divided into **9** cat
         - Out-of-the-box language models are often biased by the class distributions in their training data, the way prompts are structured, and the examples provided during inference. These biases can vary across models, making predictions inconsistent depending on the specific model and its influences. To ensure reliable decision-making on datasets with different class distributions, calibration is necessary to adjust the model's predictions. However, by using threshold-free metrics like AUROC, which focus on ranking rather than decision thresholds, calibration can be avoided entirely. This approach enables fairer model comparisons by eliminating the need for calibration (see e.g., [Zhaeo et al., 2021](https://proceedings.mlr.press/v139/zhao21c/zhao21c.pdf) for more details on calibration of LLMs).
     - **Word-level Perplexity** (Ppl) is associated with language modeling tasks. It quantifies the likelihood the model would generate text with, normalized per number of words in corpus.
 
-The translated portion of datasets was mostly translated via CUBBITT [LINDAT Translation](https://lindat.mff.cuni.cz/services/translation/). The exception is CSFever, where the authors used [DeepL](https://www.deepl.com/) for translation.
+The translated portion of the dataset (10% of the total) was mostly translated via CUBBITT [LINDAT Translation](https://lindat.mff.cuni.cz/services/translation/), except for CsFever, where the authors used [DeepL](https://www.deepl.com/) for translation.
 
 This is the complete list of categories, alongside the datasets and metrics used:
 
