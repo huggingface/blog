@@ -84,7 +84,7 @@ This is the complete list of categories, alongside the datasets and metrics used
     - *CERMAT* (Open/TF/MC) - EM/AUROC/Acc  - focuses on understanding tasks sourced from 6th, 9th-year primary school tests and state high school exams in Open/True-False/Multiple-choice formats.
     - *Grammar Error Detection* - AUC (True/False grammar error prediction task) - contains sentences from language learner essays.
     - *Agree* - Acc - requires filling in missing grammar suffixes of past tense verbs
-4. **Language Modeling** tests, how likely it is the model would sample specific Czech language samples.
+4. **Language Modeling** tests how likely the model would sample specific Czech language samples.
     - *Czech National Corpus* - Ppl - includes 7 tasks that span across spoken, dialect, historical, and other versions of Czech language, sourced from [ČNK](https://www.korpus.cz/).
     - *HellaSwag* - Acc - (Translated using CUBITT) requires selecting plausible continuation of text from 4 options.
 5. **Math Reasoning in Czech** quantifies, how well can the model process and solve Czech math assignments.
