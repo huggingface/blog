@@ -26,8 +26,6 @@ authors:
 
 ---
 
-# Introduction
-
 Speculative decoding is a technique often employed to decrease the inference latency of large language models while preserving their accuracy. It expedites the generation by dividing it into
 two stages (see figure below). In the first stage, a fast but less accurate *draft* (AKA assistant) model autoregressively generates a sequence of tokens. In the second stage, a large but more accurate *target* model conducts parallelized verification over the generated draft tokens. This process allows the model to produce multiple tokens in a single target forward pass. Its success largely hinges on the speculation lookahead (SL)—the count of tokens produced by the draft model in each iteration.
 
