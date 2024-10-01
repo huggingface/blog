@@ -39,7 +39,7 @@ two stages (see figure below). In the first stage, a fast but less accurate *dra
 </p>
 
 
-Intel labs with together with Hugging Face, developed dynamic speculative decoding which significantly speeds up text generation by up to 2.71x, depending on the task.
+⭐ Intel labs with together with Hugging Face, developed dynamic speculative decoding which significantly speeds up text generation by up to 2.71x, depending on the task. ⭐
 
 # Dynamic Speculative Decoding
 
