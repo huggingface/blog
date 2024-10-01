@@ -73,7 +73,7 @@ The translated portion of the dataset (10% of the total) was mostly translated v
 
 This is the complete list of categories, alongside the datasets and metrics used:
 
-1. **Reading Comprehension** tests, whether system can extract answer for a question based on information provided in the context.
+1. **Reading Comprehension** tests whether the system can extract the answer for a question based on information provided in the context.
     - *Belebele* - Acc - contains questions about manually translated web articles.
     - *SQAD3.2* - EM -  is a well-established reading comprehension task in SQuAD format, sourced from Wikipedia.
 2. **Factual Knowledge** contains questions testing factual knowledge stored in the model.
