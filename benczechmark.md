@@ -128,7 +128,7 @@ To identify the top-performing open-source model in our suite, we evaluated **26
 
 - Maximum input length: 2048 tokens
 - Few-shot examples: 3
-- Truncation: Smart truncation (Truncates few-shot samples first then task description)
+- Truncation: Smart truncation (truncates few-shot samples first then task description)
 - Log-probability aggregation: Average-pooling (helps mitigate long-document bias)
 - Chat templates: Not used
 
