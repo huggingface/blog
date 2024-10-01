@@ -3,19 +3,42 @@ title: "🇨🇿 BenCzechMark - Can your LLM Understand Czech?"
 thumbnail: /blog/assets/186_fine_video/thumbnail.png
 authors:
 - user: mfajcik
+  guest: true
+  org: BUT-FIT
 - user: hynky
 - user: mdocekal
-- user: jdolezal
-- user: kbenes
-- user: jkapsa
-- user: hales
-- user: michal-stefanik
-- user: Adamiros
-- user: davidamczyk
-- user: janH
-- user: jsedivy
-- user: Lakoc
+  guest: true
+  org: BUT-FIT
+- user: xdolez52
+  guest: true
+  org: BUT-FIT
 - user: jstetina
+  guest: true
+  org: BUT-FIT
+- user: Lakoc
+  guest: true
+  org: BUT-FIT
+- user: popelucha
+  guest: true
+  org: MU-NLPC
+- user: hales
+  guest: true
+  org: MU-NLPC
+- user: michal-stefanik
+  guest: true
+  org: MU-NLPC
+- user: Adamiros
+  guest: true
+  org: CIIRC-NLP
+- user: davidamczyk
+  guest: true
+  org: CIIRC-NLP
+- user: janH
+  guest: true
+  org: CIIRC-NLP
+- user: jsedivy
+  guest: true
+  org: CIIRC-NLP
 ---
 
 # 🇨🇿 BenCzechMark - Can your LLM Understand Czech?
@@ -24,7 +47,6 @@ The 🇨🇿 BenCzechMark is the first and most comprehensive evaluation suite 
 
 - Reason and perform complex tasks in Czech.
 - Generate and verify grammatically and semantically correct Czech.
-- Understand and follow simple instructions in Czech.
 - Extract Information and Store knowledge by answer questing question about Czech culture and Czech-related facts.
 - Do what language models are trained for—estimate the probability of Czech texts.
 
@@ -106,11 +128,12 @@ To identify the top-performing open-source model in our suite, we evaluated **26
 
 - Maximum input length: 2048 tokens
 - Few-shot examples: 3
-- Truncation: Smart truncation
-- Log-probability aggregation: Average-pooling
+- Truncation: Smart truncation (Truncates few-shot samples first then task description)
+- Log-probability aggregation: Average-pooling (Helps mitigate long-document bias)
 - Chat templates: Not used
 
-The results can be explored in our [**Space**](https://huggingface.co/spaces/CZLC/BenCzechMark). While Llama-450B emerged as the clear overall winner, it didn’t dominated every category. Interestingly, some models have excelled in specific areas—for instance:
+
+The results can be explored in our [**Space**](https://huggingface.co/spaces/CZLC/BenCzechMark). While Llama-450B emerged as the clear overall winner, it didn’t dominated every category. Interestingly, some models have excelled in specific areas — for instance:
 
 - *Qwen-72B* shone in Math and Information Retrieval but lagged behind similarly-sized models in other categories.
 - *Aya-21-35B* model excels in Sentiment and Language Modeling, but similarly lags behind in different categories.
