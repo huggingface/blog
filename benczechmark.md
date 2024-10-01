@@ -1,6 +1,6 @@
 ---
 title: "🇨🇿 BenCzechMark - Can your LLM Understand Czech?" 
-thumbnail: /blog/assets/186_fine_video/thumbnail.png
+thumbnail: /blog/assets/187_benczechmark/thumbnail.png
 authors:
 - user: mfajcik
   guest: true
