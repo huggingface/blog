@@ -103,7 +103,7 @@ This is the complete list of categories, alongside the datasets and metrics used
     - *Subjectivity* - AUROC - asks whether a passage is subjective or objective.
     - *CzechSentiment* (MALL/CSFD/FB) - AUROC - sentiment analysis of product reviews, movie reviews, and Facebook comments.
 9. **Document Retrieval** focuses on identifying the relevant documents.
-    - *Historical IR* - Acc - multiple-choice task for selecting passages relevant/irrelevant to query.
+    - *Historical IR* - Acc - multiple-choice task for selecting passages relevant/irrelevant to a query.
 
 ## ⚔️ Model Duels and Average Score
 
