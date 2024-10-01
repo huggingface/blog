@@ -99,7 +99,7 @@ This is the complete list of categories, alongside the datasets and metrics used
 7. **Named Entity Recognition** determines whether the model recognizes different named entity types in the text.
     - *CNEC2.0* - EM - standard NER dataset in Czech
     - *Court Decisions* - EM - NER derived from decisions of Czech Supreme/Constitutional Courts.
-8. **Sentiment Analysis** quantifies, how well can model estimate sentimental information in the text.
+8. **Sentiment Analysis** quantifies how well the model estimates sentiment information in the text.
     - *Subjectivity* - AUROC - asks whether a passage is subjective or objective.
     - *CzechSentiment* (MALL/CSFD/FB) - AUROC - sentiment analysis of product reviews, movie reviews, and Facebook comments.
 9. **Document Retrieval** focuses on identifying the relevant documents.
