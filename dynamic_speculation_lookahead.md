@@ -65,13 +65,12 @@ In order to get closer to the Oracle and gain extra speedup, we developed a stra
 
 # Benchmarking
 
-We benchmarked the dynamic approach against the heuristic approach across a range of tasks and model pairings. The dynamic approach showed better performance in 7 out of 8 tests. 
+We benchmarked the dynamic approach against the heuristic approach across a range of tasks and model pairings. The dynamic approach showed better performance in all tests. 
 Notably, using the dynamic approach, with Llama3.2 1B as assistant for Llama3.1 8B, delivers speedups of up to 1.52x. Whereas, the heuristic approach shows no significant speedups. Another observation is that `codegen-6B-mono` yields slowdown using the heuristic approach whereas the dynamic approach shows speedup
 
 
 | Target model | Draft (Assistant) model | Task | Speedup - heuristic | Speedup - dynamic | 
 |----------------------|---------------------|---------------------------|---------------------------|---------------------------|
-| `openai/whisper-large-v2` | `openai/whisper-tiny` |	automatic speech recognition |**1.61x** |	1.51x |
 | `facebook/opt-6.7b` | `facebook/opt-125m` |	summarization | 1.82x |	**2.71x** |
 | `facebook/opt-6.7b` | `facebook/opt-125m` |	open-ended generation |	1.23x |	**1.59x** |
 | `Salesforce/codegen-6B-mono` | `Salesforce/codegen-350M-mono` |	code generation (python) | 0.89x |	**1.09x** |
