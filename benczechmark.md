@@ -71,7 +71,7 @@ The 🇨🇿 BenCzechMark (in it’s current version) is divided into **9** cat
 
 The translated portion of datasets was mostly translated via CUBBITT [LINDAT Translation](https://lindat.mff.cuni.cz/services/translation/). The exception is CSFever, where the authors used [DeepL](https://www.deepl.com/) for translation.
 
-The complete lists of categories is:
+This is the complete list of categories, alongside the datasets and metrics used:
 
 1. **Reading Comprehension** tests, whether system can extract answer for a question based on information provided in the context.
     - *Belebele* - Acc - contains questions about manually translated web articles.
