@@ -120,6 +120,10 @@ assistant_model.generation_config.assistant_confidence_threshold=0
 assistant_model.generation_config.num_assistant_tokens=5
 ```
 
+# What’s next?
+
+In this post we introduced a faster default strategy for assisted generation. In our upcoming post, we'll introduce a game changing method for assisted generation: combine any assistant model with any target model! This will open the door for accelerating countless models on HF Hub that do not have small enough assistant variants, e.g `Phi-3`, `gemma-2`, `CodeLlama` and many many more. Stay tuned!
+
 # References
 - [Dynamic Speculation Lookahead Accelerates Speculative Decoding of Large Language Models](https://arxiv.org/abs/2405.04304)
 - [Assisted Generation: a new direction toward low-latency text generation](https://huggingface.co/blog/assisted-generation)
