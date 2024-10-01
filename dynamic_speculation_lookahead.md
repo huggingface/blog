@@ -129,7 +129,7 @@ assistant_model.generation_config.num_assistant_tokens=5
 
 In this post we introduced a faster default strategy for assisted generation.
 
-In our upcoming post, we'll introduce a game changing method for assisted generation: combine any assistant model with any target model! This will open the door for accelerating countless models on HF Hub that do not have small enough assistant variants, e.g `Phi-3`, `gemma-2`, `CodeLlama` and many many more. Stay tuned!
+In our upcoming post, we'll introduce a new method for assisted generation: combine any target model with any assistant model! This will open the door for accelerating countless models on HF Hub that do not have small enough assistant variants, e.g `Phi-3`, `gemma-2`, `CodeLlama` and many many more. Stay tuned!
 
 # References
 - [Dynamic Speculation Lookahead Accelerates Speculative Decoding of Large Language Models](https://arxiv.org/abs/2405.04304)
