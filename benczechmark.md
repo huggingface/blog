@@ -133,7 +133,7 @@ To identify the top-performing open-source model in our suite, we evaluated **26
 - Chat templates: Not used
 
 
-The results can be explored in our [**Space**](https://huggingface.co/spaces/CZLC/BenCzechMark). While Llama-450B emerged as the clear overall winner, it didn’t dominated every category. Interestingly, some models have excelled in specific areas — for instance:
+The results can be explored in our [**Space**](https://huggingface.co/spaces/CZLC/BenCzechMark). While Llama-450B emerged as the clear overall winner, it didn’t dominate every category. Interestingly, some models have excelled in specific areas — for instance:
 
 - *Qwen-72B* shone in Math and Information Retrieval but lagged behind similarly-sized models in other categories.
 - *Aya-21-35B* model excels in Sentiment and Language Modeling, but similarly lags behind in different categories.
