@@ -39,6 +39,8 @@ two stages (see figure below). In the first stage, a fast but less accurate *dra
 </p>
 
 
+Intel labs with together with Hugging Face, developed dynamic speculative decoding which significantly speeds up text generation by up to 2.71x, depending on the task.
+
 # Dynamic Speculative Decoding
 
 [Transformers🤗](https://github.com/huggingface/transformers) offer two distinct methods to determine the schedule for adjusting the number of draft (assistant) tokens during inference. The straightforward method uses a static value of the speculation lookahead and involves generating a constant number of candidate tokens at each speculative iteration (`num_assistant_tokens_schedule="constant"`). Alternatively, a heuristic-based approach adjusts the number of candidate tokens for the next iteration based on the acceptance rate of the current iteration. If all speculative tokens are correct, the number of candidate tokens increases; otherwise, it decreases (`num_assistant_tokens_schedule="heuristic"`). 
