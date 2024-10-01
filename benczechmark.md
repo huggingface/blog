@@ -62,14 +62,14 @@ In this blog, we introduce both the evaluation suite itself and the BenCzechMark
 The 🇨🇿 BenCzechMark (in it’s current version) is divided into **9** categories to comprehensively assess LLM abilities. For each task,
 
 - We manually design at least 5 prompts, and record best performance and variance across prompts.
-- We distinguish between 4 types of tasks, and associate them with non-neural metrics:
+- We distinguish between 4 types of tasks, and associate them with metrics:
     - **Accuracy** (Acc) measures multi-choice(MC) tasks,
     - **Exact Match** (EM) measures tasks with open short answer generation,
     - **Area Under the Receiver Operating Characteristic Curve** (AUROC, computed as average of one-vs-all in multi-class setting) measures the performance on classification tasks, without need for threshold calibration.
-        - Out-of-the-box language models are often biased by the class distributions in their training data, the way prompts are structured, and the examples provided during inference. These biases can vary across models, making predictions inconsistent depending on the specific model and its influences. To ensure reliable decision-making on datasets with different class distributions, calibration is necessary to adjust the model's predictions. However, by using threshold-free metrics like AUROC, which focus on ranking rather than decision thresholds, calibration can be avoided entirely. This approach enables fairer model comparisons by eliminating the need for calibration (see e.g., [Zhaeo et al., 2021](https://proceedings.mlr.press/v139/zhao21c/zhao21c.pdf) for more details on calibration of LLMs).
+        Out-of-the-box language models are often biased by the class distributions in their training data, the way prompts are structured, and the examples provided during inference. These biases can vary across models, making predictions inconsistent depending on the specific model and its influences. To ensure reliable decision-making on datasets with different class distributions, calibration is necessary to adjust the model's predictions. However, by using threshold-free metrics like AUROC, which focus on ranking rather than decision thresholds, calibration can be avoided entirely. This approach enables fairer model comparisons by eliminating the need for calibration (see e.g., [Zhaeo et al., 2021](https://proceedings.mlr.press/v139/zhao21c/zhao21c.pdf) for more details on calibration of LLMs).
     - **Word-level Perplexity** (Ppl) is associated with language modeling tasks. It quantifies the likelihood the model would generate text with, normalized per number of words in corpus.
 
-The translated portion of the dataset (10% of the total) was mostly translated via CUBBITT [LINDAT Translation](https://lindat.mff.cuni.cz/services/translation/), except for CsFever, where the authors used [DeepL](https://www.deepl.com/) for translation.
+The translated portion of the dataset (10% of the total) was mostly translated via CUBBITT [LINDAT Translation](https://lindat.mff.cuni.cz/services/translation/), except for [CsFever](https://arxiv.org/abs/2201.11115), where the authors used [DeepL](https://www.deepl.com/) for translation.
 
 This is the complete list of categories, alongside the datasets and metrics used:
 
@@ -136,7 +136,7 @@ To identify the top-performing open-source model in our suite, we evaluated **26
 The results can be explored in our [**Space**](https://huggingface.co/spaces/CZLC/BenCzechMark). While Llama-450B emerged as the clear overall winner, it didn’t dominate every category. Interestingly, some models have excelled in specific areas — for instance:
 
 - *Qwen-72B* shone in Math and Information Retrieval but lagged behind similarly-sized models in other categories.
-- *Aya-21-35B* model excels in Sentiment and Language Modeling, but similarly lags behind in different categories.
+- *Aya-23-35B* model excels in Sentiment and Language Modeling, but similarly lags behind in different categories.
 - *Gemma-2 9B* delivers excellent results in Czech reading comprehension, outperforming much larger models.
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js" ></script>
