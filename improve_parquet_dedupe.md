@@ -47,7 +47,7 @@ test this out!
 
 Here we append 10,000 new rows to the file and comparing /with the
 original version. Green represents all deduped blocks, red represents all
-new blocks, and shades in between are proportionate.
+new blocks, and shades in between show different levels of deduplication.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/improve_parquet_dedupe/1_append.png" alt="Visualization of dedupe from data appends" width=30%>
