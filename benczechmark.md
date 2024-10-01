@@ -87,7 +87,7 @@ This is the complete list of categories, alongside the datasets and metrics used
 4. **Language Modeling** tests how likely the model would sample specific Czech language samples.
     - *Czech National Corpus* - Ppl - includes 7 tasks that span across spoken, dialect, historical, and other versions of Czech language, sourced from [ČNK](https://www.korpus.cz/).
     - *HellaSwag* - Acc - (Translated using CUBITT) requires selecting plausible continuation of text from 4 options.
-5. **Math Reasoning in Czech** quantifies, how well can the model process and solve Czech math assignments.
+5. **Math Reasoning in Czech** quantifies how well the model can process and solve Czech math assignments.
     - *Klokan QA* - Acc - elementary/high school problems from Czech math competition.
     - *CERMAT* - EM/Acc - Math subsection of CERMAT Open/MC.
     - *Umimeto (Math)* - Acc - Math subsection of Umimeto.
