@@ -48,7 +48,7 @@ The 🇨🇿 BenCzechMark is the first and most comprehensive evaluation suite 
 - Reason and perform complex tasks in Czech.
 - Generate and verify grammatically and semantically correct Czech.
 - Extract information and store knowledge by answering questions about Czech culture and Czech-related facts.
-- Do what language models are trained for—estimate the probability of Czech texts.
+- Do what language models were originally trained for—estimate the probability of Czech texts.
 
 To achieve this, we've sourced **50** tasks spanning **9** categories, with 90% of tasks having native, non-translated content.
 
