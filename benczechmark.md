@@ -152,9 +152,9 @@ To help you get started, we've prepared a straightforward 3-step guide, which yo
 
 ## **🌟 Acknowledgements**
 
-We'd like to extend our thanks to all contributors from **BUT** **FIT**, **FI** **MUNI**, **CIIRC** **CTU**, and **Hugging** **Face** for their invaluable work in bringing BenCzechMark to life.
+We'd like to extend our thanks to all contributors from [**BUT** **FIT**](https://fit.vut.cz/), [**FI** **MUNI**](https://www.fi.muni.cz/), [**CIIRC** **CTU**](https://ciirc.cvut.cz/), and [**Hugging** **Face**](https://huggingface.co/) for their invaluable work in bringing BenCzechMark to life.
 
-We're also grateful to the organizations that provided source data for some of the tasks, namely **Umímeto**, **CERMAT**, and **ČNK**.
+We're also grateful to the organizations that provided source data for some of the tasks, namely [**Umímeto**](https://www.umimeto.org/), [**CERMAT**](https://cermat.cz/), and [**ČNK**](https://www.korpus.cz/).
 
 ## 📚 Citation and references
 
