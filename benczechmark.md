@@ -158,7 +158,7 @@ We're also grateful to the organizations that provided source data for some of t
 
 ## 📚 Citation and references
 
-```jsx
+```
 @article{fajcik2024benczechmark,
 title = {{B}en{C}zech{M}ark: A Czech-centric Multitask and Multimetric Benchmark for Language Models with Duel Scoring Mechanism},
 author = {Martin Fajcik and Martin Docekal and Jan Dolezal and Karel Ondrej and Karel Benes and Jan Kapsa and Michal Hradis and Zuzana Neverilova and Ales Horak and Michal Stefanik and Adam Jirkovsky and David Adamczyk and Jan Hula and Jan Sedivy and Hynek Kydlicek},
