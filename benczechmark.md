@@ -54,8 +54,7 @@ To achieve this, we've sourced **50** tasks spanning **9** categories, with 90% 
 
 In this blog, we introduce both the evaluation suite itself and the BenCzechMark leaderboard, featuring over **25** open-source models of various sizes!
 
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js" ></script>
-<gradio-app theme_mode="light" space="CZLC/BenCzechMark"></gradio-app>
+<iframe space="CZLC/BenCzechMark" src="https://czlc-benczechmark.hf.space" width="100%" height="1200px" frameborder="0"></iframe>
 
 ## 📋 Tasks and Categories
 
@@ -138,9 +137,6 @@ The results can be explored in our [**Space**](https://huggingface.co/spaces/CZL
 - *Qwen-72B* shone in Math and Information Retrieval but lagged behind similarly-sized models in other categories.
 - *Aya-23-35B* model excels in Sentiment and Language Modeling, but similarly lags behind in different categories.
 - *Gemma-2 9B* delivers excellent results in Czech reading comprehension, outperforming much larger models.
-
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js" ></script>
-<gradio-app theme_mode="light" space="CZLC/BenCzechMark-Results"></gradio-app>
 
 ## 🇨🇿 Think Your Model Can Excel in Czech? Submit It!
 
