@@ -26,8 +26,7 @@ authors:
 
 ---
 
-Speculative decoding is a technique often employed to decrease the inference latency of large language models while preserving their accuracy. It expedites the generation by dividing it into
-two stages (see figure below). In the first stage, a fast but less accurate *draft* (AKA assistant) model autoregressively generates a sequence of tokens. In the second stage, a large but more accurate *target* model conducts parallelized verification over the generated draft tokens. This process allows the model to produce multiple tokens in a single target forward pass. Its success largely hinges on the speculation lookahead (SL)—the count of tokens produced by the draft model in each iteration.
+[Speculative decoding](https://arxiv.org/abs/2211.17192) is a popular technique to accelerate the inference of large language models, while preserving their accuracy. As shown in the figure below, speculative decoding works by dividing the generative process into two stages. In the first stage, a fast, but less accurate *draft* model (AKA assistant) autoregressively generates a sequence of tokens. In the second stage, a large, but more accurate *target* model conducts parallelized verification over the generated draft tokens. This process allows the target model to produce multiple tokens in a single forward pass and thus accelerate autoregressive decoding. The success of speculative decoding largely hinges on the _speculation lookahead_ (SL), i.e. the number of tokens produced by the draft model in each iteration. In practice, the SL is either a static value or based on heuristics, neither of which is optimal for squeezing out maximium performance during inference. 
 
 <p align="center">
   <img src="assets/dynamic_speculation_lookahead/spec_dec_diagram.png" width="250" style="float: left;">
@@ -37,7 +36,7 @@ two stages (see figure below). In the first stage, a fast but less accurate *dra
 </p>
 
 
-⭐ Intel labs together with Hugging Face, developed dynamic speculative decoding which significantly speeds up text generation by up to 2.71x, depending on the task. 
+⭐ Intel labs together with Hugging Face has developed _dynamic speculative decoding_, which significantly speeds up text generation by up to 2.7x, depending on the task. 
 
 # Dynamic Speculative Decoding
 
@@ -126,7 +125,7 @@ assistant_model.generation_config.num_assistant_tokens=5
 
 # What’s next?
 
-In this post we introduced a faster default strategy for assisted generation.
+In this post we introduced a faster strategy for assisted generation called _dynamic speculative decoding_. 
 
 In our upcoming post, we'll introduce a new method for assisted generation: combine any target model with any assistant model! This will open the door for accelerating countless models on HF Hub that do not have small enough assistant variants, e.g `Phi-3`, `gemma-2`, `CodeLlama` and many many more. Stay tuned!
 
