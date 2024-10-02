@@ -16,6 +16,7 @@ authors:
 - user: alejandroll10
   guest: true
 - user: Benyou
+  org: FreedomIntelligence
   guest: true
 - user: ldruth
   org: TheFinAI
