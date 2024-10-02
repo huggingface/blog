@@ -47,7 +47,7 @@ The leaderboard provides a **specialized evaluation framework** tailored specifi
 * **Focused Zero-Shot Evaluation:** The leaderboard employs a **zero-shot evaluation** method, testing models on unseen financial tasks without any prior fine-tuning. This approach reveals a model’s ability to generalize and perform well in financial contexts, such as predicting stock price movements or extracting entities from regulatory filings, without being explicitly trained on those tasks.
 
 
-## **Key Features of the Open Financial LLM Leaderboard**
+## Key Features of the Open Financial LLM Leaderboard
 
 * **Diverse Task Categories:** The leaderboard covers tasks across seven categories: Information Extraction (IE), Textual Analysis (TA), Question Answering (QA), Text Generation (TG), Risk Management (RM), Forecasting (FO), and Decision-Making (DM).  
 * **Evaluation Metrics:** Models are assessed using a variety of metrics, including Accuracy, F1 Score, ROUGE Score, and Matthews Correlation Coefficient (MCC). These metrics provide a multidimensional view of model performance, helping users identify the strengths and weaknesses of each model.
@@ -69,7 +69,7 @@ The selection of task categories in OFLL is intentionally designed to capture th
 * **Risk Management (RM):** This category focuses on tasks that evaluate a model’s ability to predict and assess financial risks, such as **Credit Scoring**, **Fraud Detection**, and **Financial Distress Identification**. These tasks are fundamental for credit evaluation, risk management, and compliance purposes.  
 * **Decision-Making (DM):** In finance, making informed decisions based on multiple inputs (e.g., market data, sentiment, and historical trends) is crucial. Decision-making tasks simulate complex financial decisions, such as **Mergers & Acquisitions** and **Stock Trading**, testing the model’s ability to handle multimodal inputs and offer actionable insights.
 
-#### Metrics
+### Metrics
 
 * **F1-score**, the harmonic mean of precision and recall, offers a balanced evaluation, especially important in cases of class imbalance within the dataset. Both metrics are standard in classification tasks and together give a comprehensive view of the model's capability to discern sentiments in financial language.  
 * **Accuracy** measures the proportion of correctly classified instances out of all instances, providing a straightforward assessment of overall performance.  
@@ -541,11 +541,11 @@ After uploading your model, the leaderboard will **automatically start evaluatin
 Throughout the evaluation process on the Open FinLLM Leaderboard, several models have demonstrated exceptional capabilities across various financial tasks. 
 
 As of the latest evaluation:
-- **Best model**: GPT-4 and Llama3.1 have consistently outperformed other models in many tasks, showing high accuracy and robustness in interpreting financial sentiment.  
-- **Surprising Results**: The **Forecasting(FO)** task, focused on stock movement predictions, showed that smaller models, such as **Llama3.1-7b, internlm-7b**,often outperformed larger models, for example Llama3.1-70b, in terms of accuracy and MCC. This suggests that model size does not necessarily correlate with better performance in financial forecasting, especially in tasks where real-time market data and nuanced sentiment analysis are critical. These results highlight the importance of evaluating models based on task-specific performance rather than relying solely on size or general-purpose benchmarks.
+- **Best model**: GPT-4 and Llama 3.1 have consistently outperformed other models in many tasks, showing high accuracy and robustness in interpreting financial sentiment.  
+- **Surprising Results**: The **Forecasting(FO)** task, focused on stock movement predictions, showed that smaller models, such as **Llama-3.1-7b, internlm-7b**,often outperformed larger models, for example Llama-3.1-70b, in terms of accuracy and MCC. This suggests that model size does not necessarily correlate with better performance in financial forecasting, especially in tasks where real-time market data and nuanced sentiment analysis are critical. These results highlight the importance of evaluating models based on task-specific performance rather than relying solely on size or general-purpose benchmarks.
 
 
-## **Acknowledgments**
+## Acknowledgments
 
 We would like to thank our sponsors, including The Linux Foundation, for their generous support in making the Open FinLLM Leaderboard possible. Their contributions have helped us build a platform that serves the financial AI community and advances the evaluation of financial language models.
 
