@@ -1,6 +1,6 @@
 ---
 title: "A Short Summary of Chinese AI Global Expansion"
-thumbnail: /blog/assets/daily-papers/thumbnail.png
+thumbnail: /blog/assets/chinese-ai-expansion/thumbnail.png
 authors:
 - user: AdinaY
 ---
