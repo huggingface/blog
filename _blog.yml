@@ -4722,3 +4722,14 @@
     - leaderboard
     - LLM
     
+
+- local: leaderboard-finbench
+  title: "Introducing the Open FinLLM Leaderboard - Selecting the best AI models for finance"
+  author: QianqianXie1994
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+  date: Oct 4, 2024
+  tags:
+    - leaderboard
+    - collaboration
+    - community
