@@ -69,7 +69,7 @@ Through open-source initiatives, these projects have gained considerable influen
 
 An interesting point is that many Chinese companies, after expanding overseas, tend to adopt a new brand name or prefer to promote themselves using the name of their models or applications. “Chinese companies often create new brands for oversea products, even one per country, while Western companies prefer to use unified product names globally.” Engineer from Hugging Face Tiezhen Wang said. This approach helps them fit into local markets better and shields them from geopolitical pressure at the same time. 
 
-#### Promoting ESG Strategy
+### Promoting ESG Strategy
 
 AI for Good is no doubt an important initiative to explore the potential of AI for a bigger purpose, which is an all inclusive statement without borders. In Beijing, the China ESG30 Forum released the **"2024 China Enterprises Global Expansion Strategy Report."** This report highlighted the importance of ESG and AI, as two pillars for Chinese companies to integrate into a new phase of globalization. Some tech giants have already begun adopting green energy to drive the sustainable development of their global data centers, or using AI image recognition technologies to monitor wildlife, among others. AI applications are also being used with AI startups and traditional industries to co-develop green technologies, such as renewable energy and electric vehicles. Such innovations further promote product sustainability, helping Chinese firms stand out in the competitive landscape.
 
