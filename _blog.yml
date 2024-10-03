@@ -4726,7 +4726,7 @@
   title: "Improving Parquet Dedupe on Hugging Face Hub"
   author: yuchenglow
   thumbnail: /blog/assets/improve_parquet_dedupe/thumbnail.png
-  date: Oct 5, 2024
+  date: October 5, 2024
   tags:
     - parquet
     - dedupe
