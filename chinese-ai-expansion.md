@@ -79,7 +79,7 @@ AI for Good is no doubt an important initiative to explore the potential of AI f
 
 What’s more, AI is still in an early stage of development, and its true power is unleashed when AI companies find the sweet spot of being an AI enabler to reshape the industries. Going abroad is relevant today for Chinese AI companies to grow, but it would become even more relevant when it actually integrates and brings value to the local industries.
 
-Zheng He’s expedition to the “west ocean” was powered by a whole nation strategy thanks to its strong economic power, history seems to repeating itself today but with a different context : Technological innovation thrives not through centralized national efforts, but through the dynamic forces of the free market, where competition, entrepreneurship, and open exchange drive creativity and progress. China’s AI companies have made a long way to rise, and it still needs a long way to flourish.
+Zheng He’s expedition to the “west ocean” was powered by a whole nation strategy thanks to its strong economic power. History seems to be repeating itself today but with a different context: technological innovation thrives not through centralized national efforts, but through the dynamic forces of the free market, where competition, entrepreneurship, and open exchange drive creativity and progress. China’s AI companies have made a long way to rise, and they still are a long way to flourish.
 
 Thanks to Tiezhen Wang, Luke Cheng, Shao Meng and Sam Guo for providing valuable feedback.
 
