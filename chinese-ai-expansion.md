@@ -75,7 +75,7 @@ AI for Good is no doubt an important initiative to explore the potential of AI f
 
 ## Conclusion
 
-**Chinese AI companies are at a critical turning point**. Expanding overseas is not just a simple market expansion strategy but a necessary choice, for a harsh domestic environment but also a seems-to-be promising overseas opportunities. However, overseas expansion is not guaranteed for success. Under unfamiliar markets and audiences, to be able to quickly adjust to the local market, comply with regulations and build awareness seems also no less challenging.
+**Chinese AI companies are at a critical turning point**. Expanding overseas is not just a simple market expansion strategy but a necessary choice, because of a harsh domestic environment but also for seemingly promising overseas opportunities. However, overseas expansion is not guaranteed to succeed. Under unfamiliar markets and audiences, to be able to quickly adjust to the local market, comply with regulations and build awareness seems also no less challenging.
 
 What’s more, AI is still in an early stage of development, and its true power is unleashed when AI companies find the sweet spot of being an AI+ enabler to reshape the industries. Going abroad is relevant today for Chinese AI companies to grow, but it would become even more relevant when it actually integrates and brings value to the local industries.
 
