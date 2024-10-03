@@ -4724,7 +4724,7 @@
     
 
 - local: leaderboard-finbench
-  title: "Introducing the Open FinLLM Leaderboard - Selecting the best AI models for finance"
+  title: "Introducing the Open FinLLM Leaderboard"
   author: QianqianXie1994
   guest: true
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_finbench.png

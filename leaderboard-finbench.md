@@ -1,5 +1,5 @@
 ---
-title: "Introducing the Open FinLLM Leaderboard - Selecting the best AI models for finance"
+title: "Introducing the Open FinLLM Leaderboard"
 thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
 authors:
 - user: QianqianXie1994
@@ -36,11 +36,13 @@ authors:
 - user: clefourrier
 ---
 
-# Introducing the Open FinLLM Leaderboard - Selecting the best AI models for finance
+# Introducing the Open FinLLM Leaderboard
 
-The growing complexity of financial language models (LLMs) necessitates evaluations that go beyond general NLP benchmarks. While traditional leaderboards focus on broader NLP tasks like translation or summarization, they often fall short in addressing the specific needs of the finance industry. Financial tasks, such as predicting stock movements, assessing credit risks, and extracting information from financial reports, present unique challenges that require models with specialized skills. This is why we decided to create the **Open FinLLM Leaderboard** 
+*Finding the best LLM models for finance use cases*
 
-The leaderboard provides a **specialized evaluation framework** tailored specifically to the financial sector. We hope it fills this critical gap, by providing a transparent framework that assesses model readiness for real-world use with a one-stop solution. The leaderboard is designed to highlight a model's **financial skill** by focusing on tasks that matter most to finance professionals—such as information extraction from financial documents, market sentiment analysis, and forecasting financial trends.
+The growing complexity of financial language models (LLMs) necessitates evaluations that go beyond general NLP benchmarks. While traditional leaderboards focus on broader NLP tasks like translation or summarization, they often fall short in addressing the specific needs of the finance industry. Financial tasks, such as predicting stock movements, assessing credit risks, and extracting information from financial reports, present unique challenges that require models with specialized skills. This is why we decided to create the [**Open FinLLM Leaderboard**](https://huggingface.co/spaces/TheFinAI/Open-Financial-LLM-Leaderboard).
+
+The [leaderboard](https://huggingface.co/spaces/TheFinAI/Open-Financial-LLM-Leaderboard) provides a **specialized evaluation framework** tailored specifically to the financial sector. We hope it fills this critical gap, by providing a transparent framework that assesses model readiness for real-world use with a one-stop solution. The leaderboard is designed to highlight a model's **financial skill** by focusing on tasks that matter most to finance professionals—such as information extraction from financial documents, market sentiment analysis, and forecasting financial trends.
 
 * **Comprehensive Financial Task Coverage:** The leaderboard evaluates models only on tasks that are directly relevant to finance. These tasks include **information extraction**, **sentiment analysis**, **credit risk scoring**, and **stock movement forecasting**, which are crucial for real-world financial decision-making.  
 * **Real-World Financial Relevance:** The datasets used for the benchmarks represent real-world challenges faced by the finance industry. This ensures that models are actually assessed on their ability to handle complex financial data, making them suitable for industry applications.  
@@ -96,126 +98,159 @@ We use 40 tasks on this leaderboard, across these categories:
 
  <details><summary><b>Click here for a short explanation of each task</b></summary> 
    
-1. **FPB (Financial PhraseBank Sentiment Classification)**  
+1. **[FPB (Financial PhraseBank Sentiment Classification)](https://huggingface.co/datasets/ChanceFocus/en-fpb)  **  
    **Description:** Sentiment analysis of phrases in financial news and reports, classifying into positive, negative, or neutral categories.  
-   **Metrics:** Accuracy, F1-Score								Source: [https://huggingface.co/datasets/ChanceFocus/en-fpb](https://huggingface.co/datasets/ChanceFocus/en-fpb)  
-2. **FiQA-SA (Sentiment Analysis in Financial Domain)**  
+   **Metrics:** Accuracy, F1-Score
+2. **[FiQA-SA (Sentiment Analysis in Financial Domain)](https://huggingface.co/datasets/ChanceFocus/flare-fiqasa)**  
    **Description:** Sentiment analysis in financial media (news, social media). Classifies sentiments into positive, negative, and neutral, aiding in market sentiment interpretation.  
-   **Metrics:** F1-Score									Source: [https://huggingface.co/datasets/ChanceFocus/flare-fiqasa](https://huggingface.co/datasets/ChanceFocus/flare-fiqasa)  
-3. **TSA (Sentiment Analysis on Social Media)**  
-   **Description:** Sentiment classification for financial tweets, reflecting public opinion on market trends. Challenges include informal language and brevity.			**Metrics:** F1-Score, RMSE								Source: [https://huggingface.co/datasets/ChanceFocus/flare-fiqasa](https://huggingface.co/datasets/ChanceFocus/flare-fiqasa)  
-4. **Headlines (News Headline Classification)**  
+   **Metrics:** F1-Score  
+3. **[TSA (Sentiment Analysis on Social Media)](https://huggingface.co/datasets/ChanceFocus/flare-fiqasa)**  
+   **Description:** Sentiment classification for financial tweets, reflecting public opinion on market trends. Challenges include informal language and brevity.			**Metrics:** F1-Score, RMSE
+4. **[Headlines (News Headline Classification)](https://huggingface.co/datasets/ChanceFocus/flare-headlines)**  
    **Description:** Classification of financial news headlines into sentiment or event categories. Critical for understanding market-moving information.  
-   **Metrics:** AvgF1									Source: [https://huggingface.co/datasets/ChanceFocus/flare-headlines](https://huggingface.co/datasets/ChanceFocus/flare-headlines)
-
-5. **FOMC (Hawkish-Dovish Classification)**  
+   **Metrics:** AvgF1
+5. **[FOMC (Hawkish-Dovish Classification)](https://huggingface.co/datasets/ChanceFocus/flare-fomc)**  
    **Description:** Classification of FOMC statements as hawkish (favoring higher interest rates) or dovish (favoring lower rates), key for monetary policy predictions.  
-   **Metrics:** F1-Score, Accuracy								Source: [https://huggingface.co/datasets/ChanceFocus/flare-fomc](https://huggingface.co/datasets/ChanceFocus/flare-fomc)  
-6. **FinArg-ACC (Argument Unit Classification)**  
+   **Metrics:** F1-Score, Accuracy
+6. **[FinArg-ACC (Argument Unit Classification)](https://huggingface.co/datasets/ChanceFocus/flare-finarg-ecc-auc)**  
    **Description:** Identifies key argument units (claims, evidence) in financial texts, crucial for automated document analysis and transparency.  
-   **Metrics:** F1-Score, Accuracy								Source: [https://huggingface.co/datasets/ChanceFocus/flare-finarg-ecc-auc](https://huggingface.co/datasets/ChanceFocus/flare-finarg-ecc-auc)  
-7. **FinArg-ARC (Argument Relation Classification)**  
+   **Metrics:** F1-Score, Accuracy
+7. **[FinArg-ARC (Argument Relation Classification)](https://huggingface.co/datasets/ChanceFocus/flare-finarg-ecc-arc)**  
    **Description:** Classification of relationships between argument units (support, opposition) in financial documents, helping analysts construct coherent narratives.  
-   **Metrics:** F1-Score, Accuracy								Source: [https://huggingface.co/datasets/ChanceFocus/flare-finarg-ecc-arc](https://huggingface.co/datasets/ChanceFocus/flare-finarg-ecc-arc)  
-8. **MultiFin (Multi-Class Sentiment Analysis)**  
+   **Metrics:** F1-Score, Accuracy								
+
+8. **[MultiFin (Multi-Class Sentiment Analysis)](https://huggingface.co/datasets/ChanceFocus/flare-es-multifin)**  
    **Description:** Classification of diverse financial texts into sentiment categories (bullish, bearish, neutral), valuable for sentiment-driven trading.  
-   **Metrics:** F1-Score, Accuracy								Source: [https://huggingface.co/datasets/ChanceFocus/flare-es-multifin](https://huggingface.co/datasets/ChanceFocus/flare-es-multifin)  
-9. **MA (Deal Completeness Classification)**  
+   **Metrics:** F1-Score, Accuracy								
+
+9. **[MA (Deal Completeness Classification)](https://huggingface.co/datasets/ChanceFocus/flare-ma)**  
    **Description:** Classifies mergers and acquisitions reports as completed, pending, or terminated. Critical for investment and strategy decisions.  
-   **Metrics:** F1-Score, Accuracy								Source: [https://huggingface.co/datasets/ChanceFocus/flare-ma](https://huggingface.co/datasets/ChanceFocus/flare-ma)  
-10. **MLESG (ESG Issue Identification)**  
+   **Metrics:** F1-Score, Accuracy								
+
+10. **[MLESG (ESG Issue Identification)](https://huggingface.co/datasets/ChanceFocus/flare-mlesg)**  
     **Description:** Identifies Environmental, Social, and Governance (ESG) issues in financial documents, important for responsible investing.  
-    **Metrics:** F1-Score, Accuracy								Source: [https://huggingface.co/datasets/ChanceFocus/flare-mlesg](https://huggingface.co/datasets/ChanceFocus/flare-mlesg)  
-11. **NER (Named Entity Recognition in Financial Texts)**  
+    **Metrics:** F1-Score, Accuracy								
+
+11. **[NER (Named Entity Recognition in Financial Texts)](https://huggingface.co/datasets/ChanceFocus/flare-ner)**  
     **Description:** Identifies and categorizes entities (companies, instruments) in financial documents, essential for information extraction.  
-    **Metrics:** Entity F1-Score								Source: [https://huggingface.co/datasets/ChanceFocus/flare-ner](https://huggingface.co/datasets/ChanceFocus/flare-ner)  
-12. **FINER-ORD (Ordinal Classification in Financial NER)**  
+    **Metrics:** Entity F1-Score								
+
+12. **[FINER-ORD (Ordinal Classification in Financial NER)](https://huggingface.co/datasets/ChanceFocus/flare-finer-ord)**  
     **Description:** Extends NER by classifying entity relevance within financial documents, helping prioritize key information.  
-    **Metrics:** Entity F1-Score								Source: [https://huggingface.co/datasets/ChanceFocus/flare-finer-ord](https://huggingface.co/datasets/ChanceFocus/flare-finer-ord)  
-13. **FinRED (Financial Relation Extraction)**  
+    **Metrics:** Entity F1-Score								
+
+13. **[FinRED (Financial Relation Extraction)](https://huggingface.co/datasets/ChanceFocus/flare-finred)**  
     **Description:** Extracts relationships (ownership, acquisition) between entities in financial texts, supporting knowledge graph construction.  
-    **Metrics:** F1-Score, Entity F1-Score							Source: [https://huggingface.co/datasets/ChanceFocus/flare-finred](https://huggingface.co/datasets/ChanceFocus/flare-finred)  
-14. **SC (Causal Classification)**  
+    **Metrics:** F1-Score, Entity F1-Score							
+
+14. **[SC (Causal Classification)](https://huggingface.co/datasets/ChanceFocus/flare-causal20-sc)**  
     **Description:** Classifies causal relationships in financial texts (e.g., "X caused Y"), aiding in market risk assessments.  
-    **Metrics:** F1-Score, Entity F1-Score							Source: [https://huggingface.co/datasets/ChanceFocus/flare-causal20-sc](https://huggingface.co/datasets/ChanceFocus/flare-causal20-sc)  
-15. **CD (Causal Detection)**  
+    **Metrics:** F1-Score, Entity F1-Score							
+
+15. **[CD (Causal Detection)](https://huggingface.co/datasets/ChanceFocus/flare-cd)**  
     **Description:** Detects causal relationships in financial texts, helping in risk analysis and investment strategies.  
-    **Metrics:** F1-Score, Entity F1-Score							Source: [https://huggingface.co/datasets/ChanceFocus/flare-cd](https://huggingface.co/datasets/ChanceFocus/flare-cd)  
-16. **FinQA (Numerical Question Answering in Finance)**  
+    **Metrics:** F1-Score, Entity F1-Score							
+
+16. **[FinQA (Numerical Question Answering in Finance)](https://huggingface.co/datasets/ChanceFocus/flare-finqa)**  
     **Description:** Answers numerical questions from financial documents (e.g., balance sheets), crucial for automated reporting and analysis.  
-    **Metrics:** Exact Match Accuracy (EmAcc)						Source: [https://huggingface.co/datasets/ChanceFocus/flare-finqa](https://huggingface.co/datasets/ChanceFocus/flare-finqa)  
-17. **TATQA (Table-Based Question Answering)**  
+    **Metrics:** Exact Match Accuracy (EmAcc)						
+
+17. **[TATQA (Table-Based Question Answering)](https://huggingface.co/datasets/ChanceFocus/flare-tatqa)**  
     **Description:** Extracts information from financial tables (balance sheets, income statements) to answer queries requiring numerical reasoning.  
-    **Metrics:** F1-Score, EmAcc								Source: [https://huggingface.co/datasets/ChanceFocus/flare-tatqa](https://huggingface.co/datasets/ChanceFocus/flare-tatqa)  
-18. **ConvFinQA (Multi-Turn QA in Finance)**  
+    **Metrics:** F1-Score, EmAcc								
+
+18. **[ConvFinQA (Multi-Turn QA in Finance)](https://huggingface.co/datasets/ChanceFocus/flare-convfinqa)**  
     **Description:** Handles multi-turn dialogues in financial question answering, maintaining context throughout the conversation.  
-    **Metrics:** EmAcc									Source: [https://huggingface.co/datasets/ChanceFocus/flare-convfinqa](https://huggingface.co/datasets/ChanceFocus/flare-convfinqa)  
-19. **FNXL (Numeric Labeling)**  
+    **Metrics:** EmAcc									
+
+19. **[FNXL (Numeric Labeling)](https://huggingface.co/datasets/ChanceFocus/flare-fnxl)**  
     **Description:** Labels numeric values in financial documents (e.g., revenue, expenses), aiding in financial data extraction.  
-    **Metrics:** F1-Score, EmAcc								Source: [https://huggingface.co/datasets/ChanceFocus/flare-fnxl](https://huggingface.co/datasets/ChanceFocus/flare-fnxl)  
-20. **FSRL (Financial Statement Relation Linking)**  
+    **Metrics:** F1-Score, EmAcc								
+
+20. **[FSRL (Financial Statement Relation Linking)](https://huggingface.co/datasets/ChanceFocus/flare-fsrl)**  
     **Description:** Links related information across financial statements (e.g., revenue in income statements and cash flow data).  
-    **Metrics:** F1-Score, EmAcc								Source: [https://huggingface.co/datasets/ChanceFocus/flare-fsrl](https://huggingface.co/datasets/ChanceFocus/flare-fsrl)  
-21. **EDTSUM (Extractive Document Summarization)**  
+    **Metrics:** F1-Score, EmAcc								
+
+21. **[EDTSUM (Extractive Document Summarization)](https://huggingface.co/datasets/ChanceFocus/flare-edtsum)**  
     **Description:** Summarizes long financial documents, extracting key information for decision-making.  
-    **Metrics:** ROUGE, BERTScore, BARTScore						Source: [https://huggingface.co/datasets/ChanceFocus/flare-edtsum](https://huggingface.co/datasets/ChanceFocus/flare-edtsum)  
-22. **ECTSUM (Extractive Content Summarization)**  
+    **Metrics:** ROUGE, BERTScore, BARTScore						
+
+22. **[ECTSUM (Extractive Content Summarization)](https://huggingface.co/datasets/ChanceFocus/flare-ectsum)**  
     **Description:** Summarizes financial content, extracting key sentences or phrases from large texts.  
-    **Metrics:** ROUGE, BERTScore, BARTScore							Source: [https://huggingface.co/datasets/ChanceFocus/flare-ectsum](https://huggingface.co/datasets/ChanceFocus/flare-ectsum)  
-23. **BigData22 (Stock Movement Prediction)**  
+    **Metrics:** ROUGE, BERTScore, BARTScore							
+
+23. **[BigData22 (Stock Movement Prediction)](https://huggingface.co/datasets/TheFinAI/en-forecasting-bigdata)**  
     **Description:** Predicts stock price movements based on financial news, using textual data to forecast market trends.  
-    **Metrics:** Accuracy, MCC								Source: [https://huggingface.co/datasets/TheFinAI/en-forecasting-bigdata](https://huggingface.co/datasets/TheFinAI/en-forecasting-bigdata)  
-24. **ACL18 (Financial News-Based Stock Prediction)**  
+    **Metrics:** Accuracy, MCC								
+
+24. **[ACL18 (Financial News-Based Stock Prediction)](https://huggingface.co/datasets/ChanceFocus/flare-sm-acl)**  
     **Description:** Predicts stock price movements from news articles, interpreting sentiment and events for short-term forecasts.  
-    **Metrics:** Accuracy, MCC								Source: [https://huggingface.co/datasets/ChanceFocus/flare-sm-acl](https://huggingface.co/datasets/ChanceFocus/flare-sm-acl)  
-25. **CIKM18 (Financial Market Prediction Using News)**  
+    **Metrics:** Accuracy, MCC								
+
+25. **[CIKM18 (Financial Market Prediction Using News)](https://huggingface.co/datasets/ChanceFocus/flare-sm-cikm)**  
     **Description:** Predicts broader market movements (indices) from financial news, synthesizing information for market trend forecasts.  
-    **Metrics:** Accuracy, MCC								Source: [https://huggingface.co/datasets/ChanceFocus/flare-sm-cikm](https://huggingface.co/datasets/ChanceFocus/flare-sm-cikm)  
-26. **German (Credit Scoring in Germany)**  
+    **Metrics:** Accuracy, MCC								
+
+26. **[German (Credit Scoring in Germany)](https://huggingface.co/datasets/ChanceFocus/flare-german)**  
     **Description:** Predicts creditworthiness of loan applicants in Germany, important for responsible lending and risk management.  
-    **Metrics:** F1-Score, MCC								Source: [https://huggingface.co/datasets/ChanceFocus/flare-german](https://huggingface.co/datasets/ChanceFocus/flare-german)  
-27. **Australian (Credit Scoring in Australia)**  
+    **Metrics:** F1-Score, MCC								
+
+27. **[Australian (Credit Scoring in Australia)](https://huggingface.co/datasets/ChanceFocus/flare-australian)**  
     **Description:** Predicts creditworthiness in the Australian market, considering local economic conditions.  
-    **Metrics:** F1-Score, MCC								Source: [https://huggingface.co/datasets/ChanceFocus/flare-australian](https://huggingface.co/datasets/ChanceFocus/flare-australian)  
-28. **LendingClub (Peer-to-Peer Lending Risk Prediction)**  
+    **Metrics:** F1-Score, MCC								
+
+28. **[LendingClub (Peer-to-Peer Lending Risk Prediction)](https://huggingface.co/datasets/ChanceFocus/cra-lendingclub)**  
     **Description:** Predicts loan default risk for peer-to-peer lending, helping lenders manage risk.  
-    **Metrics:** F1-Score, MCC								Source: [https://huggingface.co/datasets/ChanceFocus/cra-lendingclub](https://huggingface.co/datasets/ChanceFocus/cra-lendingclub)  
-29. **ccf (Credit Card Fraud Detection)**  
+    **Metrics:** F1-Score, MCC								
+
+29. **[ccf (Credit Card Fraud Detection)](https://huggingface.co/datasets/ChanceFocus/cra-ccf)**  
     **Description:** Identifies fraudulent credit card transactions, ensuring financial security and fraud prevention.  
-    **Metrics:** F1-Score, MCC								Source: [https://huggingface.co/datasets/ChanceFocus/cra-ccf](https://huggingface.co/datasets/ChanceFocus/cra-ccf)  
-30. **ccfraud (Credit Card Transaction Fraud Detection)**  
+    **Metrics:** F1-Score, MCC								
+
+30. **[ccfraud (Credit Card Transaction Fraud Detection)](https://huggingface.co/datasets/ChanceFocus/cra-ccfraud)**  
     **Description:** Detects anomalies in credit card transactions that indicate fraud, while handling imbalanced datasets.  
-    **Metrics:** F1-Score, MCC								Source: [https://huggingface.co/datasets/ChanceFocus/cra-ccfraud](https://huggingface.co/datasets/ChanceFocus/cra-ccfraud)  
-31. **Polish (Credit Risk Prediction in Poland)**  
+    **Metrics:** F1-Score, MCC								
+
+31. **[Polish (Credit Risk Prediction in Poland)](https://huggingface.co/datasets/ChanceFocus/cra-polish)**  
     **Description:** Predicts credit risk for loan applicants in Poland, assessing factors relevant to local economic conditions.  
-    **Metrics:** F1-Score, MCC								Source: [https://huggingface.co/datasets/ChanceFocus/cra-polish](https://huggingface.co/datasets/ChanceFocus/cra-polish)  
-32. **Taiwan (Credit Risk Prediction in Taiwan)**  
+    **Metrics:** F1-Score, MCC								
+
+32. **[Taiwan (Credit Risk Prediction in Taiwan)](https://huggingface.co/datasets/TheFinAI/cra-taiwan)**  
     **Description:** Predicts credit risk in the Taiwanese market, helping lenders manage risk in local contexts.  
-    **Metrics:** F1-Score, MCC								Source: [https://huggingface.co/datasets/TheFinAI/cra-taiwan](https://huggingface.co/datasets/TheFinAI/cra-taiwan)  
-33. **Portoseguro (Claim Analysis in Brazil)**  
+    **Metrics:** F1-Score, MCC								
+
+33. **[Portoseguro (Claim Analysis in Brazil)](https://huggingface.co/datasets/TheFinAI/en-forecasting-portosegur**  
     **Description:** Predicts the outcome of insurance claims in Brazil, focusing on auto insurance claims.  
-    **Metrics:** F1-Score, MCC								Source: [https://huggingface.co/datasets/TheFinAI/en-forecasting-portoseguro](https://huggingface.co/datasets/TheFinAI/en-forecasting-portoseguro)  
-34. **Travel Insurance (Claim Prediction)**  
+    **Metrics:** F1-Score, MCC								
+
+34. **[Travel Insurance (Claim Prediction)](https://huggingface.co/datasets/TheFinA**  
     **Description:** Predicts the likelihood of travel insurance claims, helping insurers manage pricing and risk.  
-    **Metrics:** F1-Score, MCC								Source: [https://huggingface.co/datasets/TheFinAI/en-forecasting-travelinsurance](https://huggingface.co/datasets/TheFinAI/en-forecasting-travelinsurance)  
-35. **MultiFin-ES (Sentiment Analysis in Spanish)**  
+    **Metrics:** F1-Score, MCC								
+
+35. **[MultiFin-ES (Sentiment Analysis in Spanish)](https://huggingface.co/datasets/ChanceFocus/flare-es-multifin)**  
     **Description:** Classifies sentiment in Spanish-language financial texts (bullish, bearish, neutral).  
-    **Metrics:** F1-Score									Source: [https://huggingface.co/datasets/ChanceFocus/flare-es-multifin](https://huggingface.co/datasets/ChanceFocus/flare-es-multifin)  
-36. **EFP (Financial Phrase Classification in Spanish)**  
+    **Metrics:** F1-Score									
+
+36. **[EFP (Financial Phrase Classification in Spanish)](https://huggingface.co/datasets/ChanceFocus/flare-es-efp)**  
     **Description:** Classifies sentiment or intent in Spanish financial phrases (positive, negative, neutral).  
-    **Metrics:** F1-Score									Source: [https://huggingface.co/datasets/ChanceFocus/flare-es-efp](https://huggingface.co/datasets/ChanceFocus/flare-es-efp)  
-37. **EFPA (Argument Classification in Spanish)**  
+    **Metrics:** F1-Score									
+
+37. **[EFPA (Argument Classification in Spanish)](https://huggingface.co/datasets/ChanceFocus/flare-es-efpa)**  
     **Description:** Identifies claims, evidence, and counterarguments in Spanish financial texts.  
-    **Metrics:** F1-Score									Source: [https://huggingface.co/datasets/ChanceFocus/flare-es-efpa](https://huggingface.co/datasets/ChanceFocus/flare-es-efpa)  
-38. **FinanceES (Sentiment Classification in Spanish)**  
+    **Metrics:** F1-Score									
+
+38. **[FinanceES (Sentiment Classification in Spanish)](https://huggingface.co/datasets/ChanceFocus/flare-es-financees)**  
     **Description:** Classifies sentiment in Spanish financial documents, understanding linguistic nuances.  
-    **Metrics:** F1-Score									Source: [https://huggingface.co/datasets/ChanceFocus/flare-es-financees](https://huggingface.co/datasets/ChanceFocus/flare-es-financees)  
-39. **TSA-Spanish (Sentiment Analysis in Spanish Tweets)**  
+    **Metrics:** F1-Score									
+
+39. **[TSA-Spanish (Sentiment Analysis in Spanish Tweets)](https://huggingface.co/datasets/TheFinAI/flare-es-tsa)**  
     **Description:** Sentiment analysis of Spanish tweets, interpreting informal language in real-time market discussions.  
-    **Metrics:** F1-Score									Source: [https://huggingface.co/datasets/TheFinAI/flare-es-tsa](https://huggingface.co/datasets/TheFinAI/flare-es-tsa)  
-40. **FinTrade (Stock Trading Simulation)**  
+    **Metrics:** F1-Score									
+
+40. **[FinTrade (Stock Trading Simulation)](https://huggingface.co/datasets/TheFinAI/FinTrade_train)**  
     **Description:** Evaluates models on stock trading simulations, analyzing historical stock prices and financial news to optimize trading outcomes.  
-    **Metrics:** Sharpe Ratio (SR)								Source: [https://huggingface.co/datasets/TheFinAI/FinTrade\_train](https://huggingface.co/datasets/TheFinAI/FinTrade_train)  
+    **Metrics:** Sharpe Ratio (SR)								
+
 </details>
 
  <details><summary><b>Click here for a detailed explanation of each task</b></summary> 
