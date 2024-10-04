@@ -1,6 +1,6 @@
 ---
 title: "Introducing the Open FinLLM Leaderboard"
-thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail.png
+thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_finbench.png
 authors:
 - user: QianqianXie1994
   org: TheFinAI
