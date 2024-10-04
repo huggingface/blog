@@ -23,7 +23,7 @@ Among the features and integrations being released, we have:
 - [Model checkpoints on the Hub](https://huggingface.co/collections/meta-llama/llama-32-66f448ffc8c32f949b04c8cf)
 - [Hugging Face Transformers](https://huggingface.co/docs/transformers/v4.45.1/en/model_doc/mllama) and TGI integration for the Vision models
 - Inference & Deployment Integration with Inference Endpoints, Google Cloud, Amazon SageMaker & DELL Enterprise Hub
-- Fine-tuning Llama 3.2 11B Vision on a single GPU with [transformers🤗](https://github.com/huggingface/huggingface-llama-recipes/blob/main/Llama-Vision%20FT.ipynb) and [TRL](https://github.com/huggingface/trl/tree/main/examples/scripts/sft_vlm.py)
+- Fine-tuning Llama 3.2 11B Vision on a single GPU with [transformers🤗](https://github.com/huggingface/huggingface-llama-recipes/blob/main/fine_tune/Llama-Vision%20FT.ipynb) and [TRL](https://github.com/huggingface/huggingface-llama-recipes/blob/main/fine_tune/sft_vlm.py)
 
 ## Table of contents
 
@@ -158,7 +158,7 @@ Remarkably, the 3B model is as strong as the 8B one on IFEval! This makes the mo
 
 Tool use is supported in both the 1B and 3B instruction-tuned models. Tools are specified by the user in a zero-shot setting (the model has no previous information about the tools developers will use). Thus, the built-in tools that were part of the Llama 3.1 models (`brave_search` and `wolfram_alpha`) are no longer available.
 
-Due to their size, these small models can be used as assistants for bigger models and perform [assisted generation](https://huggingface.co/blog/assisted-generation) (also known as speculative decoding). [Here](https://github.com/huggingface/huggingface-llama-recipes/blob/main/assisted_decoding_8B_1B.ipynb) is an example of using the Llama 3.2 1B model as an assistant to the Llama 3.1 8B model. For offline use cases, please check the [on-device section](#on-device) later in the post.
+Due to their size, these small models can be used as assistants for bigger models and perform [assisted generation](https://huggingface.co/blog/assisted-generation) (also known as speculative decoding). [Here](https://github.com/huggingface/huggingface-llama-recipes/blob/main/assisted_decoding/assisted_decoding_8B_1B.ipynb) is an example of using the Llama 3.2 1B model as an assistant to the Llama 3.1 8B model. For offline use cases, please check the [on-device section](#on-device) later in the post.
 
 ## Demo
 You can experiment with the three Instruct models in the following demos:
@@ -492,7 +492,7 @@ accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml
     --gradient_checkpointing
 ```
 
-You can also check out [this notebook](https://github.com/huggingface/huggingface-llama-recipes/blob/main/Llama-Vision%20FT.ipynb) for LoRA fine-tuning using transformers and PEFT. 
+You can also check out [this notebook](https://github.com/huggingface/huggingface-llama-recipes/blob/main/fine_tune/Llama-Vision%20FT.ipynb) for LoRA fine-tuning using transformers and PEFT. 
 
 ## Hugging Face Partner Integrations
 
