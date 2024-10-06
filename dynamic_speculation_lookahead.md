@@ -83,7 +83,7 @@ Notably, using the dynamic approach, with `Llama3.2-1B` as assistant for `Llama3
 
 *All tests were conducted on an RTX 4090.
 
-*Our benchmark is now publicly available for anyone to access and evaluate: https://github.com/gante/huggingface-demos/tree/main/experiments/faster_generation
+*Our benchmark is publicly available allowing everyone to evaluate further improvements: https://github.com/gante/huggingface-demos/tree/main/experiments/faster_generation
 # Code
 
 Dynamic speculation has been integrated into release [4.45.0](https://github.com/huggingface/transformers/releases/tag/v4.45.0) of Hugging Face Transformers library and now serves as the default operation mode for assisted decoding. To use assisted generation with dynamic speculation, no code changes are required—just execute the code as you normally would:
