@@ -26,6 +26,9 @@ authors:
 
 ---
 
+⭐ In this blog post, we’ll explore *dynamic speculative decoding* —a novel method developed by Intel labs and Hugging Face that accelerates text generation by up to 2.7x, depending on the task. This method is the default operational mode for assisted generation starting from [Transformers🤗](https://github.com/huggingface/transformers) release [4.45.0](https://github.com/huggingface/transformers/releases/tag/v4.45.0) ⭐
+
+# Speculative Decoding
 [Speculative decoding](https://arxiv.org/abs/2211.17192) is a popular technique to accelerate the inference of large language models, while preserving their accuracy. As shown in the figure below, speculative decoding works by dividing the generative process into two stages. In the first stage, a fast, but less accurate *draft* model (AKA assistant) autoregressively generates a sequence of tokens. In the second stage, a large, but more accurate *target* model conducts parallelized verification over the generated draft tokens. This process allows the target model to produce multiple tokens in a single forward pass and thus accelerate autoregressive decoding. The success of speculative decoding largely hinges on the _speculation lookahead_ (SL), i.e. the number of tokens produced by the draft model in each iteration. In practice, the SL is either a static value or based on heuristics, neither of which is optimal for squeezing out maximium performance during inference. 
 
 
@@ -35,9 +38,6 @@ authors:
 <p align="center" style="clear: both;">
   <em> Speculative decoding iteration.</em>
 </p>
-
-
-⭐ Intel labs together with Hugging Face has developed _dynamic speculative decoding_, which significantly speeds up text generation by up to 2.7x, depending on the task. 
 
 # Dynamic Speculative Decoding
 
