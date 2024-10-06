@@ -41,7 +41,7 @@ authors:
 
 # Dynamic Speculative Decoding
 
-[Transformers🤗](https://github.com/huggingface/transformers) offer two distinct methods to determine the schedule for adjusting the number of draft (assistant) tokens during inference. The straightforward method uses a static value of the speculation lookahead and involves generating a constant number of candidate tokens at each speculative iteration. Alternatively, a heuristic-based approach adjusts the number of candidate tokens for the next iteration based on the acceptance rate of the current iteration. If all speculative tokens are correct, the number of candidate tokens increases; otherwise, it decreases. 
+[Transformers🤗](https://github.com/huggingface/transformers) offer two distinct methods to determine the schedule for adjusting the number of draft (assistant) tokens during inference. The straightforward method, based on [Leviathan et al.](https://arxiv.org/pdf/2211.17192) uses a static value of the speculation lookahead and involves generating a constant number of candidate tokens at each speculative iteration. Alternatively, a [heuristic-based approach](https://huggingface.co/blog/assisted-generation) adjusts the number of candidate tokens for the next iteration based on the acceptance rate of the current iteration. If all speculative tokens are correct, the number of candidate tokens increases; otherwise, it decreases. 
 
 We anticipate that an enhanced optimization strategy for managing the number of generated draft tokens could squeeze out further latency reductions. For testing this thesis we utilize an oracle that determines the optimal speculation lookahead value for each speculative iteration. The oracle employs the draft model to autoregressively generate tokens until a discrepancy arises between the predicted tokens of the draft and target models. This process is repeated for each speculative iteration, ultimately identifying the optimal (maximum) number of draft tokens accepted per iteration. The draft/target token mismatch is identified using the rejection sampling algorithm, introduced by Leviathan et al., with zero temperature. This oracle realizes the full potential of speculative decoding by generating the maximum number of valid draft tokens at each step and minimizing the number of calls to both the draft and target models.
 
@@ -66,7 +66,7 @@ In order to get closer to the Oracle and gain extra speedup, we developed a stra
 # Benchmarking
 
 We benchmarked the dynamic approach against the heuristic approach across a range of tasks and model pairings. The dynamic approach showed better performance in all tests. 
-Notably, using the dynamic approach, with Llama3.2 1B as assistant for Llama3.1 8B, delivers speedups of up to 1.52x. Whereas, the heuristic approach shows no significant speedups. Another observation is that `codegen-6B-mono` yields slowdown using the heuristic approach whereas the dynamic approach shows speedup
+Notably, using the dynamic approach, with `Llama3.2-1B` as assistant for `Llama3.1-8B`, delivers speedups of up to 1.52x. Whereas, the heuristic approach shows no significant speedups. Another observation is that `codegen-6B-mono` yields slowdown using the heuristic approach whereas the dynamic approach shows speedup
 
 
 | Target model | Draft (Assistant) model | Task | Speedup - heuristic | Speedup - dynamic | 
