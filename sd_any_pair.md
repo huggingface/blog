@@ -22,6 +22,8 @@ The remarkable speedups offered by speculative decoding come with a significant 
  
 In order to mitigate this pain point Intel labs together with our friends in Hugging face developed "AG_anyPair". "AG_anyPair", which is integrated as part of Hugging face Transformers 4.46.0, enables to select any pair of target and draft models regardless of their tokenizer. For example, gemma-2-9b can be used as target model together with vicuna-68m as draft model. The main idea behind this method is 2-way tokenizer translations. Once the draft model completes a generation iteration, the draft tokens are converted to text, which is then tokenized using the target model's tokenizer to generate target tokens. After the verification step, the target tokens are similarly converted back to draft tokens, which are then appended to the draft model's context before the next drafting iteration begins.
 
+# Benchmarking
+
 The table below shows the latency improvements observed for target models when paired with draft models using different tokenizers:
 
 | Target model | Assistant model | Dataset | Task | Speedup |
