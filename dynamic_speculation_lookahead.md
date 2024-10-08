@@ -82,7 +82,7 @@ Notably, using the dynamic approach with `Llama3.2-1B` as the assistant for `Lla
 * Our benchmark is publicly available allowing everyone to evaluate further improvements: https://github.com/gante/huggingface-demos/tree/main/experiments/faster_generation
 ## Code
 
-Dynamic speculation has been integrated into release [4.45.0](https://github.com/huggingface/transformers/releases/tag/v4.45.0) of Hugging Face Transformers library and now serves as the default operation mode for assisted decoding. To use assisted generation with dynamic speculation, no code changes are required—just execute the code as you normally would:
+Dynamic speculation has been integrated into release [4.45.0](https://github.com/huggingface/transformers/releases/tag/v4.45.0) of the Hugging Face Transformers library and now serves as the default operation mode for assisted decoding. To use assisted generation with dynamic speculation, no code changes are required—just execute the code as you normally would:
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
