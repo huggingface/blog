@@ -43,7 +43,7 @@ Our goal with Gradio 5 was to listen to and address the most common pain points 
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/gradio-5/simple-playground.mp4">
 </video>
 
-Gradio 5 fixes these issues while maintaining Gradio’s simple and intuitive developer-facing API. Since Gradio 5 intended to be a production-ready web framework for all kinds of machine learning applications, we've also made significant improvements around web security (including getting a 3rd-party audit of Gradio) -- more about that in an upcoming post!
+Gradio 5 provides all these features while maintaining Gradio’s simple and intuitive developer-facing API. Since Gradio 5 intended to be a production-ready web framework for all kinds of machine learning applications, we've also made significant improvements around web security (including getting a 3rd-party audit of Gradio) -- more about that in an upcoming post!
 
 ### Breaking changes
 
