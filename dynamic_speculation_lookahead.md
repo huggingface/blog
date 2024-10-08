@@ -9,8 +9,6 @@ authors:
   guest: true
   org: Intel
 - user: joaogante
-  guest: false
-  org: Hugging face
 - user: lewtun
   guest: false
   org: Hugging face
