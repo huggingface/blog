@@ -1,5 +1,5 @@
 ---
-title: "Multi-GPU Text Classification with Hugging Face + Dask"
+title: "Scaling AI-based Data Processing with Hugging Face + Dask"
 thumbnail: /blog/assets/dask-nlp/thumbnail.png
 authors:
 - user: scj13
@@ -8,7 +8,7 @@ authors:
 - user: davanstrien
 ---
 
-# Multi-GPU Text Classification with Hugging Face + Dask
+# Scaling AI-Based Data Processing with Hugging Face + Dask
 
 The Hugging Face platform has many datasets and pre-trained models that make using and training state-of-the-art machine learning models increasingly accessible. However, it can be hard to scale AI tasks because AI datasets are often large (100s to TBs) and using Hugging Face transformers for model inference can sometimes be computationally expensive.
 
@@ -35,7 +35,7 @@ df = pd.read_parquet(
 )
 ```
 
-Next, we’ll use the HF [FineWeb-Edu classifier](https://huggingface.co/HuggingFaceFW/fineweb-edu-classifier) to judge the educational value of the web pages in our dataset. Web pages are ranked on a scale from 0 to 5, with 0 being not educational and 5 being highly educational. We can use pandas to do this on a smaller, 100-row subset of the data, which takes ~30 seconds on a M1 Mac with a GPU.
+Next, we’ll use the HF [FineWeb-Edu classifier](https://huggingface.co/HuggingFaceFW/fineweb-edu-classifier) to judge the educational value of the web pages in our dataset. Web pages are ranked on a scale from 0 to 5, with 0 being not educational and 5 being highly educational. We can use pandas to do this on a smaller, 100-row subset of the data, which takes ~10 seconds on a M1 Mac with a GPU.
 
 ```python
 from transformers import pipeline
@@ -88,7 +88,7 @@ df = dd.read_parquet(
 )
 ```
 
-We’ll apply the `compute_scores` function for text classification in parallel on our Dask DataFrame using `map_partitions`, and applies our function in parallel on each pandas DataFrame in the larger Dask DataFrame. The `meta` argument is specific to Dask, and indicates the data structure (column names and data types) of the output.
+We’ll apply the `compute_scores` function for text classification in parallel on our Dask DataFrame using `map_partitions`, which applies our function in parallel on each pandas DataFrame in the larger Dask DataFrame. The `meta` argument is specific to Dask, and indicates the data structure (column names and data types) of the output.
 
 ```python
 from transformers import pipeline
