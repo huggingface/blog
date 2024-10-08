@@ -40,16 +40,16 @@ Next, we’ll use the HF [FineWeb-Edu classifier](https://huggingface.co/Hugging
 ```python
 from transformers import pipeline
 
-def compute_scores(row):
+def compute_scores(texts):
     import torch
 
     # Select which hardware to use
     if torch.cuda.is_available():
-    device = torch.device("cuda")        # NVIDIA GPU
+        device = torch.device("cuda")        # NVIDIA GPU
     elif torch.backends.mps.is_available():
-    device = torch.device("mps")         # Apple silicon GPU
+        device = torch.device("mps")         # Apple silicon GPU
     else:
-    device = torch.device("cpu")         # CPU
+        device = torch.device("cpu")         # CPU
 
     pipe = pipeline(
         "text-classification",
@@ -57,7 +57,7 @@ def compute_scores(row):
         device=device
     )
     results = pipe(
-        row["text"],
+        texts.to_list(),
         batch_size=25,                    # Choose batch size based on data size and hardware
         padding="longest",
         truncation=True,
@@ -68,7 +68,7 @@ def compute_scores(row):
 
 df = df[:100]
 min_edu_score = 3
-df["edu-classifier-score"] = df.apply(compute_scores, axis=1)
+df["edu-classifier-score"] = compute_scores(df.text)
 df = df[df["edu-classifier-score"] >= min_edu_score]
 ```
 
@@ -88,7 +88,7 @@ df = dd.read_parquet(
 )
 ```
 
-We’ll apply the `compute_scores` function for text classification in parallel on our Dask DataFrame using `map_partitions`, which is like a parallel version of a pandas `apply`, and applies our function in parallel on each pandas DataFrame in the larger Dask DataFrame. The `meta` argument is specific to Dask, and indicates the data structure (column names and data types) of the output.
+We’ll apply the `compute_scores` function for text classification in parallel on our Dask DataFrame using `map_partitions`, and applies our function in parallel on each pandas DataFrame in the larger Dask DataFrame. The `meta` argument is specific to Dask, and indicates the data structure (column names and data types) of the output.
 
 ```python
 from transformers import pipeline
@@ -98,11 +98,11 @@ def compute_scores(texts):
 
     # Select which hardware to use
     if torch.cuda.is_available():
-    device = torch.device("cuda")        # NVIDIA GPU
+        device = torch.device("cuda")        # NVIDIA GPU
     elif torch.backends.mps.is_available():
-    device = torch.device("mps")         # Apple silicon GPU
+        device = torch.device("mps")         # Apple silicon GPU
     else:
-    device = torch.device("cpu")         # CPU
+        device = torch.device("cpu")         # CPU
 
     pipe = pipeline(
         "text-classification",
@@ -225,7 +225,6 @@ df = df[df["edu-classifier-score"] >= min_edu_score]
 to_parquet(
     df,
     "hf://datasets/<your-hf-user>/<data-dir>"               # Replace with your HF user and directory
-    storage_options={"token": os.environ.get("HF_TOKEN")}
 )
 ```
 
