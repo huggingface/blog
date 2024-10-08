@@ -4753,7 +4753,7 @@
     - dedupe
     - storage
     
-- local: dynamic-sl
+- local: dynamic_speculation_lookahead
   title: "Faster Assisted Generation with Dynamic Speculation"
   author: jmamou
   guest: true
