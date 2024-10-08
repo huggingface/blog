@@ -4752,3 +4752,14 @@
     - parquet
     - dedupe
     - storage
+
+- local: gradio-5
+  title: "A Security Review of Gradio 5"
+  author: abidlabs
+  thumbnail: /blog/assets/gradio-5-security/thumbnail.png
+  date: October 10, 2024
+  tags:
+    - gradio
+    - spaces
+    - open-source
+    - security
