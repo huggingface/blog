@@ -27,7 +27,7 @@ Our goal with Gradio 5 was to listen to and address the most common pain points 
 
 *   “Gradio apps load too slowly” → Gradio 5 ships with major performance improvements, including the ability to serve Gradio apps via server-side rendering (SSR) which loads Gradio apps almost instantaneously in the browser. _No more loading spinner_! We also no longer render components in the DOM that are not visible, which should significantly reduce the memory footprint of larger Gradio apps 🏎️💨
 
-<video width="600" controls>
+<video width="600" controls playsinline>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gradio-5/gradio-4-vs-5-load.mp4">
 </video>
 
