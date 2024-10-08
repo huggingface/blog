@@ -46,8 +46,8 @@ The static speculation lookahead (blue bars), where the number of generated draf
 
 
 <p align="center">
-  <img src="assets/dynamic_speculation_lookahead/oracle_K_2.png" width="400" style="float: left; margin-right: 20px;">
-  <img src="assets/dynamic_speculation_lookahead/Alpaca.png" width="465" style="float: left;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dynamic_speculation_lookahead/oracle_K_2.png" width="400" style="float: left; margin-right: 20px;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dynamic_speculation_lookahead/Alpaca.png" width="465" style="float: left;">
 </p>
 <p align="center" style="clear: both;">
   <em>Oracle and static speculation lookahead (SL) values on one MBPP example (left) and average oracle speculation lookahead for the entire Alpaca dataset (right).</em>
