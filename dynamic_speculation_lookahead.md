@@ -59,7 +59,7 @@ Both figures demonstrate significant variability in oracle speculation lookahead
 
 In order to get closer to the Oracle and gain extra speedup, we developed a straightforward method to dynamically adjust the speculation lookahead value at each iteration. After generating each draft token, we determine whether the draft model should continue generating the next token or switch to the target model for verification. This decision is based on the assistant model's confidence in its prediction, estimated by the softmax of the logits. If the assistant model's confidence in the current token prediction falls below a predefined threshold, referred to as the `assistant_confidence_threshold`, it halts the token generation process for that iteration, even if the maximum number of speculative tokens `num_assistant_tokens` has not been reached. Once halted, the draft tokens generated during the current iteration are sent to the target model for verification.
 
-# Benchmarking
+## Benchmarking
 
 We benchmarked the dynamic approach against the heuristic approach across a range of tasks and model pairings. The dynamic approach showed better performance in all tests. 
 Notably, using the dynamic approach, with `Llama3.2-1B` as assistant for `Llama3.1-8B`, delivers speedups of up to 1.52x. Whereas, the heuristic approach shows no significant speedups. Another observation is that `codegen-6B-mono` yields slowdown using the heuristic approach whereas the dynamic approach shows speedup
