@@ -59,7 +59,7 @@ Many of the changes we’ve made in Gradio 5 are designed to enable new function
     
 *   Support for running Gradio apps on mobile using PWA and potentially native app support
     
-*   More media components to support new modalities that emerging around images and videos
+*   More media components to support emerging modalities around images and videos
     
 *   A richer DataFrame component with support for common spreadsheet-type operations
     
