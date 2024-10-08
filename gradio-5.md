@@ -34,7 +34,7 @@ Our goal with Gradio 5 was to listen to and address the most common pain points 
 
 *   "This Gradio app looks old-school" → Many of the core Gradio components, including Buttons, Tabs, Sliders, as well as the high-level chatbot interface, have been refreshed with a more modern design in Gradio 5. We’re also releasing a new set of built-in themes, to let you easily create fresh-looking Gradio apps 🎨
 
-*   “I can’t build realtime apps in Gradio” → We have changed how streaming works internally: we now use websockets and send data in base64 to minimize latency. We [support WebRTC via custom components](https://huggingface.co/spaces/freddyaboulton/webrtc), and have also added significantly more documentation and example demos that are focused on common streaming use cases, such as webcam-based object detection, video streaming, real-time speech transcription and generation, and [conversational chatbots](https://huggingface.co/spaces/gradio/omni-mini). 🎤
+*   “I can’t build realtime apps in Gradio” → We have changed how streaming works internally: we now use websockets and send data in base64 to minimize latency. We support WebRTC via custom components, and have also added significantly more documentation and example demos that are focused on common streaming use cases, such as webcam-based object detection, video streaming, real-time speech transcription and generation, and conversational chatbots. 🎤
 
 
 *   "LLMs don't know Gradio" → Gradio 5 ships with an experimental AI Playground where you can use AI to generate or modify Gradio apps and preview the app right in your browser immediately: [https://www.gradio.app/playground](https://www.gradio.app/playground) 
