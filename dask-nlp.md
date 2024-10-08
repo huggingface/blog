@@ -72,7 +72,7 @@ df["edu-classifier-score"] = compute_scores(df.text)
 df = df[df["edu-classifier-score"] >= min_edu_score]
 ```
 
-Note that we also added a step to check the available hardware, to make it easy to go from testing locally (either on a CPU or maybe you have a MacBook with an Apple silicon GPU) to deploying on NVIDIA GPUs.
+Note that we also added a step to check the available hardware inside the `compute_scores` function, because it will be distributed when we scale with Dask in the next step. This makes it easy to go from testing locally on a single machine (either on a CPU or maybe you have a MacBook with an Apple silicon GPU) to distributing across multiple machines (like NVIDIA GPUs).
 
 ## Scaling to 211 Million Rows with Dask
 
