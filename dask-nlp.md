@@ -3,21 +3,23 @@ title: "Scaling AI-based Data Processing with Hugging Face + Dask"
 thumbnail: /blog/assets/dask-nlp/thumbnail.png
 authors:
 - user: scj13
+  guest: true
 - user: jrbourbeau
+  guest: true
 - user: lhoestq
 - user: davanstrien
 ---
 
 # Scaling AI-Based Data Processing with Hugging Face + Dask
 
-The Hugging Face platform has many datasets and pre-trained models that make using and training state-of-the-art machine learning models increasingly accessible. However, it can be hard to scale AI tasks because AI datasets are often large (100s to TBs) and using Hugging Face transformers for model inference can sometimes be computationally expensive.
+The Hugging Face platform has many datasets and pre-trained models that make using and training state-of-the-art machine learning models increasingly accessible. However, it can be hard to scale AI tasks because AI datasets are often large (100s GBs to TBs) and using Hugging Face transformers for model inference can sometimes be computationally expensive.
 
 [Dask](https://www.dask.org/?utm_source=hf-blog), a Python library for distributed computing, can handle out-of-core computing (processing data that doesn’t fit in memory) by breaking datasets into manageable chunks. This makes it easy to do things like:
 * Efficient data loading and preprocessing of TB-scale datasets with an easy to use API that mimics pandas
 * Parallel model inference (with the option of multi-node GPU inference)
 
-In this example, we’ll process data from the FineWeb dataset, using the FineWeb-Edu classifier to identify web pages with high educational value. We’ll show:
-* Processing 100 rows locally with pandas
+In this post we show an example of data processing from the FineWeb dataset, using the FineWeb-Edu classifier to identify web pages with high educational value. We’ll show:
+* How to process 100 rows locally with pandas
 * Scaling to 211 million rows with Dask across multiple GPUs on the cloud
 
 
@@ -45,11 +47,11 @@ def compute_scores(texts):
 
     # Select which hardware to use
     if torch.cuda.is_available():
-        device = torch.device("cuda")        # NVIDIA GPU
+        device = torch.device("cuda")
     elif torch.backends.mps.is_available():
-        device = torch.device("mps")         # Apple silicon GPU
+        device = torch.device("mps")
     else:
-        device = torch.device("cpu")         # CPU
+        device = torch.device("cpu")
 
     pipe = pipeline(
         "text-classification",
@@ -78,7 +80,7 @@ Note that we also added a step to check the available hardware inside the `compu
 
 The entire 2024 February/March crawl is 432 GB on disk, or ~715 GB in memory, split up across 250 Parquet files. Even on a machine with enough memory for the whole dataset, this would be prohibitively slow to do serially.
 
-To scale up, we can use [Dask DataFrame](https://docs.dask.org/en/stable/dataframe.html?utm_source=hf-blog), which helps you process large tabular data by parallelizing pandas. It closely resembles the pandas API making it easy to go from testing on a single dataset to scaling out to the full dataset. Dask works well with Parquet, the default format on HF to enable rich data types, efficient columnar filtering, and compression.
+To scale up, we can use [Dask DataFrame](https://docs.dask.org/en/stable/dataframe.html?utm_source=hf-blog), which helps you process large tabular data by parallelizing pandas. It closely resembles the pandas API, making it easy to go from testing on a single dataset to scaling out to the full dataset. Dask works well with Parquet, the default format on Hugging Face datasets, to enable rich data types, efficient columnar filtering, and compression.
 
 ```python
 import dask.dataframe as dd
@@ -137,7 +139,7 @@ to_parquet(
 )
 ```
 
-In the future, we’ll create a direct integration with Dask and `huggingface_hub`, but for now, you can copy + paste [this custom function](https://gist.github.com/lhoestq/8f73187a4e4b97b9bb40b561e35f6ccb) for your own use. In this example, we’ve saved it to a file called `dask_hf.py`.
+In the future, we’ll create a direct integration with Dask and `huggingface_hub`, but for now, you can copy + paste [this custom function](https://gist.github.com/lhoestq/8f73187a4e4b97b9bb40b561e35f6ccb) for your own use. In this example, we’ve saved it to a file called `dask_hf.py`, which is the file referenced in the `import` clause above.
 
 
 ### Multi-GPU Parallel Model Inference 
