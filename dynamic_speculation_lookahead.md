@@ -75,7 +75,7 @@ Notably, using the dynamic approach with `Llama3.2-1B` as the assistant for `Lla
 | `meta-llama/Llama-3.1-8B` | `meta-llama/Llama-3.2-1B` |	open-ended generation |	1.00x |	**1.18x** |
 | `meta-llama/Llama-3.1-8B` | `meta-llama/Llama-3.2-1B` |	code generation (python) |	1.09x |	**1.15x** |
 
-*The results in the table reflect greedy decoding (temperature = 0). Similar trends were observed when using sampling (temperature > 0).
+* The results in the table reflect greedy decoding (temperature = 0). Similar trends were observed when using sampling (temperature > 0).
 
 *All tests were conducted on an RTX 4090.
 
