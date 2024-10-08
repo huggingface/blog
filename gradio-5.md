@@ -19,7 +19,7 @@ pip install --upgrade gradio
 
 and start building your [first Gradio application](https://www.gradio.app/guides/quickstart).
 
-### Gradio 5: production-ready machine learning apps
+## Gradio 5: production-ready machine learning apps
 
 If you have used Gradio before, you might be wondering what’s different about Gradio 5. 
 
