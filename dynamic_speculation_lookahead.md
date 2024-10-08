@@ -15,7 +15,7 @@ authors:
   org: Intel
 - user: Nadav-Timor
   guest: true
-  org: WIS
+  org: Weizmann Institute of Science
 - user: moshew
   guest: true
   org: Intel
