@@ -4,7 +4,7 @@ thumbnail: /blog/assets/183_docmatix/thumbnail_new.png
 authors:
 - user: andito
 - user: HugoLaurencon
-- translators:
+translators:
 - user: MatrixYao
 - user: zhongdongy
   proofreader: true
