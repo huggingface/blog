@@ -125,7 +125,7 @@ assistant_model.generation_config.num_assistant_tokens=5
 
 # What’s next?
 
-In this post we introduced a faster strategy for assisted generation called _dynamic speculative decoding_. 
+We introduced a faster strategy for assisted generation called _dynamic speculative decoding_, which outperforms heuristics-based methods as well as drawing a constant number of candidate tokens.
 
 In an upcoming blog post, we'll show a new method for assisted generation: combine any target model with any assistant model! This will open the door for accelerating countless models on the Hugging Face Hub that do not have small enough assistant variants. For example, `Phi 3`, `Gemma 2`, `CodeLlama` and many more will be eligible for speculative decoding. Stay tuned!
 
