@@ -49,7 +49,7 @@ Gradio 5 provides all these features while maintaining Gradio’s simple and int
 
 Gradio apps that did not raise any deprecation warnings in Gradio 4.x should continue to work in Gradio 5, with a [small number of exceptions. See a list of breaking changes in Gradio 5 here](https://github.com/gradio-app/gradio/issues/9463). 
 
-### What’s next for Gradio?
+## What’s next for Gradio?
 
 Many of the changes we’ve made in Gradio 5 are designed to enable new functionality that we will be shipping in the coming weeks. Stay tuned for:
 
