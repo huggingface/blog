@@ -62,7 +62,7 @@ In order to get closer to the Oracle and gain extra speedup, we developed a stra
 ## Benchmarking
 
 We benchmarked the dynamic approach against the heuristic approach across a range of tasks and model pairings. The dynamic approach showed better performance in all tests. 
-Notably, using the dynamic approach, with `Llama3.2-1B` as assistant for `Llama3.1-8B`, delivers speedups of up to 1.52x. Whereas, the heuristic approach shows no significant speedups. Another observation is that `codegen-6B-mono` yields slowdown using the heuristic approach whereas the dynamic approach shows speedup
+Notably, using the dynamic approach with `Llama3.2-1B` as the assistant for `Llama3.1-8B`, we observe speedups of up to 1.52x, whereas the heuristic approach showed no significant speedups with the same setup. Another observation is that `codegen-6B-mono` yields _slowdown_ using the heuristic approach, whereas the dynamic approach shows speedup.
 
 
 | Target model | Draft (Assistant) model | Task | Speedup - heuristic | Speedup - dynamic | 
