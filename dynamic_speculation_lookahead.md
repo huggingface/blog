@@ -10,8 +10,6 @@ authors:
   org: Intel
 - user: joaogante
 - user: lewtun
-  guest: false
-  org: Hugging face
 - user: danielkorat
   guest: true
   org: Intel
