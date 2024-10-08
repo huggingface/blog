@@ -4753,10 +4753,10 @@
     - dedupe
     - storage
 
-- local: dask-nlp
+- local: dask-scaling
   title: "Scaling AI-based Data Processing with Hugging Face + Dask"
   author: scj13
-  thumbnail: /blog/assets/dask-nlp/thumbnail.png
+  thumbnail: /blog/assets/dask-scaling/thumbnail.png
   date: October 8, 2024
   tags:
     - nlp

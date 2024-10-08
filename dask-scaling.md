@@ -1,6 +1,6 @@
 ---
 title: "Scaling AI-based Data Processing with Hugging Face + Dask"
-thumbnail: /blog/assets/dask-nlp/thumbnail.png
+thumbnail: /blog/assets/dask-scaling/thumbnail.png
 authors:
 - user: scj13
   guest: true
@@ -86,7 +86,8 @@ To scale up, we can use [Dask DataFrame](https://docs.dask.org/en/stable/datafra
 import dask.dataframe as dd
 
 df = dd.read_parquet(
-    "hf://datasets/HuggingFaceFW/fineweb/data/CC-MAIN-2024-10/*.parquet" # Load the full dataset lazily with Dask
+    # Load the full dataset lazily with Dask
+    "hf://datasets/HuggingFaceFW/fineweb/data/CC-MAIN-2024-10/*.parquet" 
 )
 ```
 
@@ -100,11 +101,11 @@ def compute_scores(texts):
 
     # Select which hardware to use
     if torch.cuda.is_available():
-        device = torch.device("cuda")        # NVIDIA GPU
+        device = torch.device("cuda")
     elif torch.backends.mps.is_available():
-        device = torch.device("mps")         # Apple silicon GPU
+        device = torch.device("mps")
     else:
-        device = torch.device("cpu")         # CPU
+        device = torch.device("cpu")
 
     pipe = pipeline(
         "text-classification",
@@ -165,7 +166,7 @@ Under the hood Coiled handles:
 The workflow took ~5 hours to complete and we had good GPU hardware utilization.
 
 <figure style="text-align: center;">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dask-nlp/gpu-util.png" alt="Median GPU utilization is 100% and median memory usage is 21.5 GB, just under the 24 GB available on the GPU." style="width: 100%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dask-scaling/gpu-util.png" alt="Median GPU utilization is 100% and median memory usage is 21.5 GB, just under the 24 GB available on the GPU." style="width: 100%;"/>
   <figcaption>GPU utilization and memory usage are both near their maximum capacity, which means we're utilizing the available hardware well.</figcaption>
 </figure>
 
