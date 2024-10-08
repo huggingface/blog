@@ -4753,7 +4753,7 @@
     - dedupe
     - storage
 
-- local: gradio-5
+- local: gradio-5-security
   title: "A Security Review of Gradio 5"
   author: abidlabs
   thumbnail: /blog/assets/gradio-5-security/thumbnail.png
