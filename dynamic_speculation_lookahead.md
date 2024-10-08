@@ -130,7 +130,7 @@ We introduced a faster strategy for assisted generation called _dynamic speculat
 In an upcoming blog post, we'll show a new method for assisted generation: combine any target model with any assistant model! This will open the door for accelerating countless models on the Hugging Face Hub that do not have small enough assistant variants. For example, `Phi 3`, `Gemma 2`, `CodeLlama` and many more will be eligible for speculative decoding. Stay tuned!
 
 ## References
-- [Dynamic Speculation Lookahead Accelerates Speculative Decoding of Large Language Models](https://arxiv.org/abs/2405.04304) \
+- [Dynamic Speculation Lookahead Accelerates Speculative Decoding of Large Language Models](https://arxiv.org/abs/2405.04304).
 In this paper, we introduced DISCO, a dynamic speculation lookahead optimization method that utilizes a classifier to decide whether the draft model should proceed with generating the next token or pause, and switch to the target model for validation instead of using a simple threshold on the prediction probability.
 - [Assisted Generation: a new direction toward low-latency text generation](https://huggingface.co/blog/assisted-generation)
 - [Fast Inference from Transformers via Speculative Decoding](https://arxiv.org/pdf/2211.17192)
