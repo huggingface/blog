@@ -77,7 +77,7 @@ Notably, using the dynamic approach with `Llama3.2-1B` as the assistant for `Lla
 
 * The results in the table reflect greedy decoding (temperature = 0). Similar trends were observed when using sampling (temperature > 0).
 
-*All tests were conducted on an RTX 4090.
+* All tests were conducted on an RTX 4090.
 
 * Our benchmark is publicly available allowing everyone to evaluate further improvements: https://github.com/gante/huggingface-demos/tree/main/experiments/faster_generation
 ## Code
