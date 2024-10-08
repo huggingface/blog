@@ -105,7 +105,8 @@ outputs = model.generate(**inputs, assistant_model=assistant_model)
 The default dynamic speculation lookahead parameters reflect optimal values but can be adjusted to improve performance for specific model pairs or datasets by using the following code:
 
 ```python
-assistant_model.generation_config.assistant_confidence_threshold=0.4 # confidence threshold
+# confidence threshold
+assistant_model.generation_config.assistant_confidence_threshold=0.4
 
 assistant_model.generation_config.num_assistant_tokens_schedule='constant' 
 # 'constant' means that num_assistant_tokens stays unchanged during generation
