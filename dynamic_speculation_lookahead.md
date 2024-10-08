@@ -123,7 +123,7 @@ assistant_model.generation_config.assistant_confidence_threshold=0
 assistant_model.generation_config.num_assistant_tokens=5
 ```
 
-# What’s next?
+## What’s next?
 
 We introduced a faster strategy for assisted generation called _dynamic speculative decoding_, which outperforms heuristics-based methods as well as drawing a constant number of candidate tokens.
 
