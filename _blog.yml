@@ -4752,3 +4752,12 @@
     - parquet
     - dedupe
     - storage
+
+- local: dask-nlp
+  title: "Multi-GPU Text Classification with Hugging Face + Dask"
+  author: scj13
+  thumbnail: /blog/assets/dask-nlp/thumbnail.png
+  date: October 8, 2024
+  tags:
+    - nlp
+    - guide
