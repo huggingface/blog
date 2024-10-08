@@ -45,7 +45,7 @@ Our goal with Gradio 5 was to listen to and address the most common pain points 
 
 Gradio 5 provides all these features while maintaining Gradio’s simple and intuitive developer-facing API. Since Gradio 5 intended to be a production-ready web framework for all kinds of machine learning applications, we've also made significant improvements around web security (including getting a 3rd-party audit of Gradio) -- more about that in an upcoming post!
 
-### Breaking changes
+## Breaking changes
 
 Gradio apps that did not raise any deprecation warnings in Gradio 4.x should continue to work in Gradio 5, with a [small number of exceptions. See a list of breaking changes in Gradio 5 here](https://github.com/gradio-app/gradio/issues/9463). 
 
