@@ -29,7 +29,7 @@ authors:
 
 
 <p align="center">
-  <img src="assets/dynamic_speculation_lookahead/spec_dec_diagram.png" width="250" style="float: left;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dynamic_speculation_lookahead/spec_dec_diagram.png" width="250" style="float: left;">
 </p>
 <p align="center" style="clear: both;">
   <em> Speculative decoding iteration.</em>
