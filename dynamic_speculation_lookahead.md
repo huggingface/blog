@@ -35,7 +35,7 @@ authors:
   <em> Speculative decoding iteration.</em>
 </p>
 
-# Dynamic Speculative Decoding
+## Dynamic Speculative Decoding
 
 [Transformers🤗](https://github.com/huggingface/transformers) offer two distinct methods to determine the schedule for adjusting the number of draft (assistant) tokens during inference. The straightforward method, based on [Leviathan et al.](https://arxiv.org/pdf/2211.17192), uses a static value of the speculation lookahead and involves generating a constant number of candidate tokens at each speculative iteration. Alternatively, a [heuristic-based approach](https://huggingface.co/blog/assisted-generation) adjusts the number of candidate tokens for the next iteration based on the acceptance rate of the current iteration. If all speculative tokens are correct, the number of candidate tokens increases; otherwise, it decreases. 
 
