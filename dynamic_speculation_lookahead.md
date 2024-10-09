@@ -28,7 +28,7 @@ authors:
 [Speculative decoding](https://arxiv.org/abs/2211.17192) is a popular technique to accelerate the inference of large language models, while preserving their accuracy. As shown in the figure below, speculative decoding works by splitting the generative process into two stages. In the first stage, a fast, but less accurate *draft* model (AKA assistant) autoregressively generates a sequence of tokens. In the second stage, a large, but more accurate *target* model conducts parallelized verification over the generated draft tokens. This process allows the target model to produce multiple tokens in a single forward pass and thus accelerate autoregressive decoding. The success of speculative decoding largely hinges on the _speculation lookahead_ (SL), i.e. the number of tokens produced by the draft model in each iteration. In practice, the SL is either a static value or based on heuristics, neither of which is optimal for squeezing out maximium performance during inference.
 
 
-<figure style="text-align: center;">
+<figure class="image table text-center m-0 w-full">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dynamic_speculation_lookahead/spec_dec_diagram.png" width="250">
   <figcaption><em>Speculative decoding iteration.</em></figcaption>
 </figure>
