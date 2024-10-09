@@ -2003,7 +2003,7 @@
     - community
 
 - local: fine-video
-  title: "揭秘FineVideo数据集构建的背后的秘密"
+  title: "揭秘 FineVideo 数据集构建的背后的秘密"
   author: mfarre
   thumbnail: /blog/assets/186_fine_video/thumbnail.png
   date: September 23, 2024
@@ -2013,7 +2013,7 @@
     - multimodal 
 
 - local: llama32
-  title: "现在 Llama 具备视觉能力并可以在你的设备上运行 - 欢迎 Llama 3.2"
+  title: "现在 Llama 具备视觉能力并可以在你的设备上运行 - 欢迎使用 Llama 3.2"
   author: merve
   thumbnail: /blog/assets/llama32/thumbnail.jpg
   date: September 25, 2024
