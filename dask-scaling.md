@@ -27,7 +27,7 @@ In this post we show an example of data processing from the FineWeb dataset, usi
 
 The [FineWeb dataset](https://huggingface.co/datasets/HuggingFaceFW/fineweb) consists of 15 trillion tokens of English web data from [Common Crawl](http://commoncrawl.org/), a non-profit that hosts a public web crawl dataset updated monthly. This dataset is often used for a variety of tasks such as large language model training, classification, content filtering, and information retrieval across a variety of sectors.
 
-It takes ~ 5 minutes to read in a single file with pandas on a laptop.
+It can take > 1 minute to download and read in a single file with pandas on a laptop.
 
 ```python
 import pandas as pd
