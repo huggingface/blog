@@ -71,4 +71,7 @@ And much more! With Gradio 5 providing a robust foundation to build web applicat
 
 Here are some Hugging Face Spaces that are running Gradio 5:
 
-* 
+* https://huggingface.co/spaces/akhaliq/depth-pro
+* https://huggingface.co/spaces/hf-audio/whisper-large-v3-turbo
+* https://huggingface.co/spaces/gradio/chatbot_streaming_main
+* https://huggingface.co/spaces/gradio/scatter_plot_demo_main
