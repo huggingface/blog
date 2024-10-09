@@ -4752,6 +4752,16 @@
     - parquet
     - dedupe
     - storage
+    
+- local: dynamic_speculation_lookahead
+  title: "Faster Assisted Generation with Dynamic Speculation"
+  author: jmamou
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: October 8, 2024
+  tags:
+    - research
+    - nlp
 
 - local: dask-scaling
   title: "Scaling AI-based Data Processing with Hugging Face + Dask"
