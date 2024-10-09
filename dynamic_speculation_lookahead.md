@@ -30,7 +30,7 @@ authors:
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dynamic_speculation_lookahead/spec_dec_diagram.png" width="250">
-  <figcaption><em>Speculative decoding iteration..</em></figcaption>
+  <figcaption><em>Speculative decoding iteration.</em></figcaption>
 </p>
 
 ## Dynamic Speculative Decoding
