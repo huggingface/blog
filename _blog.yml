@@ -4772,3 +4772,13 @@
     - nlp
     - guide
     - datasets
+
+- local: gradio-5
+  title: "Welcome, Gradio 5"
+  author: abidlabs
+  thumbnail: /blog/assets/gradio-5/thumbnail.png
+  date: October 9, 2024
+  tags:
+    - gradio
+    - spaces
+    - open-source
