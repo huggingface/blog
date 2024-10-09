@@ -4762,3 +4762,13 @@
   tags:
     - research
     - nlp
+
+- local: dask-scaling
+  title: "Scaling AI-based Data Processing with Hugging Face + Dask"
+  author: scj13
+  thumbnail: /blog/assets/dask-scaling/thumbnail.png
+  date: October 9, 2024
+  tags:
+    - nlp
+    - guide
+    - datasets
