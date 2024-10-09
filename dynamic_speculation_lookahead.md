@@ -28,7 +28,7 @@ authors:
 [Speculative decoding](https://arxiv.org/abs/2211.17192) is a popular technique to accelerate the inference of large language models, while preserving their accuracy. As shown in the figure below, speculative decoding works by splitting the generative process into two stages. In the first stage, a fast, but less accurate *draft* model (AKA assistant) autoregressively generates a sequence of tokens. In the second stage, a large, but more accurate *target* model conducts parallelized verification over the generated draft tokens. This process allows the target model to produce multiple tokens in a single forward pass and thus accelerate autoregressive decoding. The success of speculative decoding largely hinges on the _speculation lookahead_ (SL), i.e. the number of tokens produced by the draft model in each iteration. In practice, the SL is either a static value or based on heuristics, neither of which is optimal for squeezing out maximium performance during inference.
 
 
-<figure class="image table text-center m-0 w-full">
+<figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dynamic_speculation_lookahead/spec_dec_diagram.png" width="250">
   <figcaption>Speculative decoding iteration.</figcaption>
 </figure>
@@ -45,11 +45,11 @@ The static speculation lookahead (blue bars), where the number of generated draf
 
 <div style="display: flex; justify-content: center;">
   <figure style="margin-right: 20px; text-align: center;">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dynamic_speculation_lookahead/oracle_K_2.png" style="width: 400px;" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dynamic_speculation_lookahead/oracle_K_2.png" style="height: 300px;" />
     <figcaption>Oracle and static speculation lookahead (SL) values on one MBPP example.</figcaption>
   </figure>
   <figure style="text-align: center;">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dynamic_speculation_lookahead/Alpaca.png" style="width: 400px;" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dynamic_speculation_lookahead/Alpaca.png" style="height: 300px;" />
     <figcaption>Average oracle speculation lookahead for the entire Alpaca dataset.</figcaption>
   </figure>
 </div>
