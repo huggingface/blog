@@ -25,7 +25,7 @@ If you have used Gradio before, you might be wondering what’s different about 
 
 Our goal with Gradio 5 was to listen to and address the most common pain points that we’ve heard from Gradio developers about building production-ready Gradio apps. For example, we’ve heard some developers tell us:
 
-*   “Gradio apps load too slowly” → Gradio 5 ships with major performance improvements, including the ability to serve Gradio apps via server-side rendering (SSR) which loads Gradio apps almost instantaneously in the browser. _No more loading spinner_! We also no longer render components in the DOM that are not visible, which should significantly reduce the memory footprint of larger Gradio apps 🏎️💨
+*   “Gradio apps load too slowly” → Gradio 5 ships with major performance improvements, including the ability to serve Gradio apps via server-side rendering (SSR) which loads Gradio apps almost instantaneously in the browser. _No more loading spinner_!  🏎️💨
 
 <video width="600" controls playsinline>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gradio-5/gradio-4-vs-5-load.mp4">
@@ -34,7 +34,7 @@ Our goal with Gradio 5 was to listen to and address the most common pain points 
 
 *   "This Gradio app looks old-school" → Many of the core Gradio components, including Buttons, Tabs, Sliders, as well as the high-level chatbot interface, have been refreshed with a more modern design in Gradio 5. We’re also releasing a new set of built-in themes, to let you easily create fresh-looking Gradio apps 🎨
 
-*   “I can’t build realtime apps in Gradio” → We have changed how streaming works internally: we now use websockets and send data in base64 to minimize latency. We support WebRTC via custom components, and have also added significantly more documentation and example demos that are focused on common streaming use cases, such as webcam-based object detection, video streaming, real-time speech transcription and generation, and conversational chatbots. 🎤
+*   “I can’t build realtime apps in Gradio” → We have unlocked low-latency streaming in Gradio! We use base64 encoding and websockets automatically where it offers speedups, support WebRTC via custom components, and have also added significantly more documentation and example demos that are focused on common streaming use cases, such as webcam-based object detection, video streaming, real-time speech transcription and generation, and conversational chatbots. 🎤
 
 
 *   "LLMs don't know Gradio" → Gradio 5 ships with an experimental AI Playground where you can use AI to generate or modify Gradio apps and preview the app right in your browser immediately: [https://www.gradio.app/playground](https://www.gradio.app/playground) 
@@ -53,15 +53,22 @@ Gradio apps that did not raise any deprecation warnings in Gradio 4.x should con
 
 Many of the changes we’ve made in Gradio 5 are designed to enable new functionality that we will be shipping in the coming weeks. Stay tuned for:
 
-*   Multi-page Gradio apps
-    
-*   Navbars and sidebars
+*   Multi-page Gradio apps, along with native navbars and sidebars
     
 *   Support for running Gradio apps on mobile using PWA and potentially native app support
     
 *   More media components to support emerging modalities around images and videos
     
 *   A richer DataFrame component with support for common spreadsheet-type operations
-    
 
-And much more. With Gradio 5 providing a robust foundation to build web applications, we’re excited to _really_ _get started_ letting developers build all sorts of ML apps with Gradio.
+*   One-line integrations with machine learning model and API providers
+    
+*   Further improvements that will decrease the memory consumption of Gradio apps
+
+And much more! With Gradio 5 providing a robust foundation to build web applications, we’re excited to _really_ _get started_ letting developers build all sorts of ML apps with Gradio.
+
+## Try Gradio 5 right now
+
+Here are some Hugging Face Spaces that are running Gradio 5:
+
+* 
