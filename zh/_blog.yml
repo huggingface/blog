@@ -1933,7 +1933,7 @@
     - community
 
 - local: falconmamba
-  title: "Falcon Mamba: 首个高效的无注意力机制 7B 模型"
+  title: 'Falcon Mamba: 首个高效的无注意力机制 7B 模型'
   guest: true
   author: JingweiZuo
   thumbnail: /blog/assets/falconmamba/thumbnail.png
@@ -1976,15 +1976,15 @@
     - Flash Attention 2
 
 - local: accelerate-v1
-  title: "Accelerate 1.0.0"
+  title: Accelerate 1.0.0
   author: muellerzr
   thumbnail: /blog/assets/186_accelerate_v1/accelerate_v1_thumbnail.png
   date: September 13, 2024
   tags:
     - guide
-    
+
 - local: daily-papers
-  title: "Hugging Face 论文平台 Daily Papers 功能全解析"
+  title: Hugging Face 论文平台 Daily Papers 功能全解析
   author: AdinaY
   thumbnail: /blog/assets/daily-papers/thumbnail.png
   date: September 23, 2024
@@ -2002,8 +2002,18 @@
     - research
     - community
 
+- local: fine-video
+  title: 揭秘 FineVideo 数据集构建的背后的秘密
+  author: mfarre
+  thumbnail: /blog/assets/186_fine_video/thumbnail.png
+  date: September 23, 2024
+  tags:
+    - video
+    - datasets
+    - multimodal
+
 - local: llama32
-  title: "现在 Llama 具备视觉能力并可以在你的设备上运行 - 欢迎 Llama 3.2"
+  title: 现在 Llama 具备视觉能力并可以在你的设备上运行 - 欢迎使用 Llama 3.2
   author: merve
   thumbnail: /blog/assets/llama32/thumbnail.jpg
   date: September 25, 2024
@@ -2013,3 +2023,13 @@
     - llm
     - nlp
     - vision
+
+- local: gradio-5
+  title: Gradio 5 现已发布
+  author: abidlabs
+  thumbnail: /blog/assets/gradio-5/thumbnail.png
+  date: October 9, 2024
+  tags:
+    - gradio
+    - spaces
+    - open-source
