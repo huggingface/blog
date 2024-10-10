@@ -15,24 +15,24 @@ authors:
 The unprecedented success of LLMs has redefined the limits of NLP. However, a major challenge in their deployment is optimizing performance to reduce their response time.
 Speculative decoding is a very popular and practical approach for accelerating LLMs achieving considerable speedups.
  
-The core concept of this method involves using a pair of models, referred to as the target and draft models. The draft model is a smaller, more efficient version of the target model, for example using Llama3.1-8b as the draft model for the larger Llama3.1-70b target model.
-Speculative decoding is an iterative process, during each cycle, the draft model generates a sequence of tokens autoregressively, one at a time. The target model then verifies these draft tokens in a single forward pass. The speedup is achieved by generating multiple tokens in each forward pass of the target model, rather than producing just one token at a time.
+The core concept of this method involves using a pair of models, referred to as the target and assistant models. The assistant model is a smaller, more efficient version of the target model, for example using `Llama3.1-8b` as the assistant model for the larger `Llama3.1-70b` target model.
+Speculative decoding is an iterative process, during each cycle, the assistant model generates a sequence of tokens autoregressively, one at a time. The target model then verifies these assistant tokens in a single forward pass. The speedup is achieved by generating multiple tokens in each forward pass of the target model, rather than producing just one token at a time.
 
-The remarkable speedups offered by speculative decoding come with a significant drawback: the target and draft models must share the same tokenizer, meaning they need to be from the same model family. However, many widely-used models lack smaller versions that are both compact and accurate enough to deliver substantial latency reductions. Based on our experience, meaningful speedups are typically seen when the size ratio between the target and draft models is at least 50-100. For instance, LLaMA 3.1-8B lacks a smaller version, and Gemma 2-9B only has a 2B variant which is still not sufficiently small to achieve significant performance improvements.
+The remarkable speedups offered by speculative decoding come with a significant drawback: the target and assistant models must share the same tokenizer, meaning they need to be from the same model family. However, many widely-used models lack smaller versions that are both compact and accurate enough to deliver substantial latency reductions. Based on our experience, meaningful speedups are typically seen when the size ratio between the target and assistant models is at least 50-100. For instance, LLaMA 3.1-8B lacks a smaller version, and Gemma 2-9B only has a 2B variant which is still not sufficiently small to achieve significant performance improvements.
  
-In order to mitigate this pain point Intel labs together with our friends in Hugging face developed "AG_anyPair". "AG_anyPair", which is integrated as part of Hugging face Transformers 4.46.0, enables to select any pair of target and draft models regardless of their tokenizer. For example, gemma-2-9b can be used as target model together with vicuna-68m as draft model. The main idea behind this method is 2-way tokenizer translations. Once the draft model completes a generation iteration, the draft tokens are converted to text, which is then tokenized using the target model's tokenizer to generate target tokens. After the verification step, the target tokens are similarly converted back to draft tokens, which are then appended to the draft model's context before the next drafting iteration begins.
+In order to mitigate this pain point Intel labs together with our friends in Hugging face developed Universal Assisted Generation (UAG). UAG, which is integrated as part of 🤗 Transformers 4.46.0.dev0, enables selecting any pair of target and assistant models regardless of their tokenizer. For example, `gemma-2-9b` can be used as target model together with `vicuna-68m` as assistant model. The main idea behind this method is 2-way tokenizer translations. Once the assistant model completes a generation iteration, the assistant tokens are converted to text, which is then tokenized using the target model's tokenizer to generate target tokens. After the verification step, the target tokens are similarly converted back to assistant tokens, which are then appended to the assistant model's context before the next assistanting iteration begins.
 
 # Benchmarking
 
-The table below shows the latency improvements observed for target models when paired with draft models using different tokenizers:
+The table below shows the latency improvements observed for target models when paired with assistant models using different tokenizers:
 
 | Target model | Assistant model | Dataset | Task | Speedup |
 |----------------------|---------------------|---------------------------|---------------------------|---------------------------|
-| `codellama/CodeLlama-13b-Instruct-hf` | `bigcode/tiny_starcoder_py` | `openai/humaneval` | code generation | **2.01x** |
-| `microsoft/Phi-3-medium-128k-instruct` | `Qwen/Qwen2-0.5B-Instruct`  | `tau/scrolls`   | long-context summarization | **1.65x** |
-| `google/gemma-2-9b` | `double7/vicuna-68m`  | `cnn_dailymail`   | summarization | **1.72x** |
+| `codellama/CodeLlama-13b-Instruct-hf` | `bigcode/tiny_starcoder_py` | `openai/humaneval` | code generation | **1.90x** |
+| `microsoft/Phi-3-medium-128k-instruct` | `Qwen/Qwen2-0.5B-Instruct`  | `tau/scrolls`   | long-context summarization | **1.91x** |
+| `google/gemma-2-9b` | `double7/vicuna-68m`  | `cnn_dailymail`   | summarization | **1.76x** |
 
-We note that 
+Experimental setup: 1 x A6000 GPU
 
 ## SUBSECTION EXAMPLE
 
