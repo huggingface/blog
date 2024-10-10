@@ -61,7 +61,7 @@ By the end of the collaboration, we fixed all of the security risks that were id
 
 ### **Major findings**
 
-In this section, we’d like to share the major security vulnerabilities that were discovered by Trail of Bits corresponding to the 4 scenarios above. In the interest of transparency and the spirit of open-source, we are making the full security report public, and more details for each of these issues can be found in the report.
+We outline below the major security vulnerabilities that were discovered by Trail of Bits corresponding to the 4 scenarios above. In the interest of transparency and the spirit of open-source, we are making the full security report public, and more details for each of these issues can be found in the report.
 
 **Gradio apps running locally**
 
