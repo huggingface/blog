@@ -40,7 +40,7 @@ Now, we’re adding **web** **security** to this list. We asked [Trail of Bits](
 
 This means that machine learning **apps that you build with Gradio 5** **will follow best practices when it comes to web security** without any significant changes to your code.
 
-### **Why a security audit?**
+## Why a security audit?
 
 In the past couple of years, the Gradio team has worked with the community to patch security vulnerabilities as they are discovered. But as Gradio’s popularity has grown (with >6 million monthly downloads on PyPi and >470,000 Gradio apps on Hugging Face Spaces), ensuring security has become even more important.
 
