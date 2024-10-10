@@ -35,7 +35,7 @@ We ran the benchmarks  using two different batch sizes—16 and 32—across five
 - Essay Writing (128 input tokens / 1024 output tokens)
 - Live Captioning (16 input tokens / 16 output tokens). 
 
-These configurations not only facilitates a comprehensive analysis of how each server performs under varying workloads but also simulates real-world applications of LLMs. Specifically, we plot the decode throughput (excluding the first token) for each use case, to illustrate performance differences.
+These configurations not only facilitate a comprehensive analysis of how each server performs under varying workloads but also simulate real-world applications of LLMs. Specifically, we plot the decode throughput (excluding the first token) for each use case, to illustrate performance differences.
 
 ### Results for Llama 3.1 8B Instruct
 
