@@ -19,7 +19,7 @@ During the last few weeks, we have been working with AMD to validate that the Hu
 
 Also, we have been cooking some exciting new ways to leverage `torch.compile` for AMD CPU through the use of `AMD ZenDNN PyTorch plugin (zentorch)` to speed up even more the kind of workloads we will be discussing after.
 
-While we were able to get early access to this work to test Hugging Face models and libraries and share with you performances, we expect AMD to make it soon available to the community - stay tuned!, we are hard at work to make it a reality for all our users.
+While we were able to get early access to this work to test Hugging Face models and libraries and share with you performance, we expect AMD to make it soon available to the community - stay tuned!
 
 
 ## AMD Turin vs AMD Genoa Performance - A 2X speedup
