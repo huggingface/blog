@@ -39,18 +39,22 @@ Organizations on Hugging Face have access to Organizational Access Controls. Thi
 
 ### Automated Security Scanning
 Hugging Face implements an automated security scanning pipeline that scans all repos and commits. Currently, there are three major components of the pipeline:
-- malware scanning: scans for known malware signatures
-- pickle scanning: scans pickle files for malicious executable code
-- secret scanning: scans for passwords, tokens and API keys
+- malware scanning: scans for known malware signatures with [ClamAV](https://clamav.net)
+- pickle scanning: scans pickle files for malicious executable code with [picklescan](https://github.com/mmaitre314/picklescan)
+- secret scanning: scans for passwords, tokens and API keys using the [`trufflehog filesystem`](https://github.com/trufflesecurity/trufflehoghttps://github.com/trufflesecurity/trufflehog) command
 
 In the event a malicious file is detected, the scans will place a notice on the repo allowing users to see that they may potentially be interacting with a malicious repository. You can see an example of a (fake) malicious repository here: https://huggingface.co/mcpotato/42-eicar-street/tree/main. 
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/2024-security-features/security-scanning.png)
 
-For any secrets detected, the pipeline will send an email notifying the owner so that they can invalidate and refresh the secret. You can learn more about automated scanning here: 
-- https://huggingface.co/docs/hub/en/security-malware 
-- https://huggingface.co/docs/hub/en/security-pickle 
-- https://huggingface.co/docs/hub/en/security-secrets 
+For any verified secret detected, the pipeline will send an email notifying the owner so that they can invalidate and refresh the secret.
+
+Verified secrets are the ones that have been confirmed to work for authentication against their respective providers. Note, however, that unverified secrets are not necessarily harmless or invalid: verification can fail due to technical reasons, such as in the case of down time from the provider.
+
+You can learn more about automated scanning here:
+- https://huggingface.co/docs/hub/en/security-malware
+- https://huggingface.co/docs/hub/en/security-pickle
+- https://huggingface.co/docs/hub/en/security-secrets
 
 ## Enterprise Hub Security Features
 In addition to the security features available to all users, Hugging Face offers advanced security controls for Enterprise users. These additional controls allow enterprises to build a security configuration that is most effective for them.
