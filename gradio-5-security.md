@@ -21,8 +21,7 @@ def generate(seed, prompt): 
 # gr.Interface creates a web-based UI
 gr.Interface(
     generate,   
-    inputs=
-    [gr.Slider(), gr.Textbox()],  
+    inputs=[gr.Slider(), gr.Textbox()],  
     outputs=[gr.Image()]
 ).launch(share=True)  
 # share=True generates a public link instantly
