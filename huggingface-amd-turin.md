@@ -41,7 +41,7 @@ These configurations not only facilitates a comprehensive analysis of how each s
 
 ![Turin vs Genoa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-amd-turin/zentorch_bs_16_32_turin_vs_genoa.png)
 
-_Throughput results for Meta Llama 3.1 8B, comparing AMD Turin against AMD Genoa. AMD Turin consistently outperforms the AMD Genoa CPUs, achieving approximately 90% higher throughput in most configurations._
+_Throughput results for Meta Llama 3.1 8B, comparing AMD Turin against AMD Genoa. AMD Turin consistently outperforms the AMD Genoa CPUs, achieving approximately 2X higher throughput in most configurations._
 
 ## Conclusion
 
@@ -53,6 +53,6 @@ You can find more information at [AMD Zen Deep Neural Network (ZenDNN)](https://
 
 ## Useful Resources
 
-ZenTF: ​ https://github.com/amd/ZenDNN-tensorflow-plugin​
-ZenTorch: ​https://github.com/amd/ZenDNN-pytorch-plugin ​
-ZenDNN ONNXRuntime:  https://github.com/amd/ZenDNN-onnxruntime
+- ZenTF: ​ https://github.com/amd/ZenDNN-tensorflow-plugin​
+- ZenTorch: ​https://github.com/amd/ZenDNN-pytorch-plugin ​
+- ZenDNN ONNXRuntime:  https://github.com/amd/ZenDNN-onnxruntime
