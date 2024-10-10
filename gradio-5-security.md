@@ -93,7 +93,7 @@ We outline below the major security vulnerabilities that were discovered by Trai
 *   Separately, a [GitHub security researcher reported](https://github.com/gradio-app/gradio/security/advisories/GHSA-48pj-2428-pp3w) that our GitHub actions could allow untrusted code execution and secret exfiltration if an attacker triggered a workflow and cleverly dumped the memory of GitHub runners. 
     
 
-### **Going forward**
+## Going forward
 
 We are committed to ensuring that as we continue to develop Gradio 5 (and we have lots of plans!), we do so in a manner that prioritizes security so that we can do our part in making machine learning applications better and safer! 
 
