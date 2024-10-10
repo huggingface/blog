@@ -10,7 +10,7 @@ authors:
 
 **We audited Gradio 5 so that your machine learning apps are safe!**
 
-In the past few years, [Gradio](https://github.com/gradio-app/gradio/) has become the default way to build machine learning web applications in Python. In just a few lines of code, you can create a user interface for an image generation app, a chatbot, or any other kind of ML app _and_ share it with others using Gradio’s built-in share links or [Hugging Face Spaces](https://huggingface.co/spaces).
+In the past few years, [Gradio](https://github.com/gradio-app/gradio/) (>6 million monthly Pypi installs) has become the default way to build machine learning web applications in Python. In just a few lines of code, you can create a user interface for an image generation app, a chatbot, or any other kind of ML app _and_ share it with others using Gradio’s built-in share links or [Hugging Face Spaces](https://huggingface.co/spaces).
 
 ```py
 import gradio as gr
@@ -42,7 +42,7 @@ This means that machine learning apps that **you build** with Gradio 5 **will fo
 
 ## Why a security audit?
 
-In the past couple of years, the Gradio team has worked with the community to patch security vulnerabilities as they are discovered. But as Gradio’s popularity has grown (with >6 million monthly downloads on PyPi and >470,000 Gradio apps on Hugging Face Spaces), ensuring security has become even more important.
+In the past couple of years, the Gradio team has worked with the community to patch security vulnerabilities as they are discovered. But as Gradio’s popularity has grown (with >470,000 Gradio apps currently on Hugging Face Spaces), ensuring security has become even more important.
 
 So in Gradio 5, we decided to take a different approach -- do a _preemptive_ security audit of the Gradio codebase so that your machine learning applications built with Gradio 5 are safe by default. 
 
@@ -61,7 +61,7 @@ By the end of the collaboration, we fixed all of the security risks that were id
 
 ## Major findings
 
-We outline below the major security vulnerabilities that were discovered by Trail of Bits corresponding to the 4 scenarios above. In the interest of transparency and the spirit of open-source, we are making the full security report public, and more details for each of these issues can be found in the report.
+We outline below the major security vulnerabilities that were discovered by Trail of Bits corresponding to the 4 scenarios above. In the interest of transparency and the spirit of open-source, we are making the [full security report public](https://drive.google.com/file/d/1ndvdLe4-mP7ns6xF3ZfAKEfMK2x_x-_6/view?usp=sharing), and more details for each of these issues can be found in the report.
 
 **Gradio apps running locally**
 
@@ -95,8 +95,18 @@ We outline below the major security vulnerabilities that were discovered by Trai
 
 ## Going forward
 
-We are committed to ensuring that as we continue to develop Gradio 5 (and we have lots of plans!), we do so in a manner that prioritizes security so that we can do our part in making machine learning applications better and safer! 
-
-In addition to continuing to work with the security community, we have also added security unit tests to our test suite, fuzzer tests specifically designed to identify potential vulnerabilities, and are using static analysis tools like Semgrep in our CI to detect common security issues in our code and prevent security regressions.
-
 We’re very grateful to Trail of Bits for the comprehensive security audit of Gradio and for validating the mitigations that we put in place for Gradio 5.
+
+Going forward, we are planning to continue working with the security community to identify and mitigate security issues in Gradio. We have also added security unit tests to our test suite, fuzzer tests specifically designed to identify potential vulnerabilities, and are using static analysis tools like Semgrep in our CI to detect common security issues in our code and prevent security regressions.
+
+We are committed to ensuring that as we continue to develop Gradio 5 ([and we have lots of plans!](https://huggingface.co/blog/gradio-5)), we do so in a manner that prioritizes security so that we can do our part in making machine learning applications better and safer. 
+
+
+Install Gradio 5 today:
+
+
+`pip install --upgrade gradio`
+
+
+And start [building your first Gradio 5 application](https://www.gradio.app/guides/quickstart).
+
