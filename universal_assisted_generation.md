@@ -20,9 +20,9 @@ Speculative decoding is an iterative process, during each cycle, the assistant m
 
 The remarkable speedups offered by speculative decoding come with a significant drawback: the target and assistant models must share the same tokenizer, meaning they need to be from the same model family. However, many widely-used models lack smaller versions that are both compact and accurate enough to deliver substantial latency reductions. Based on our experience, meaningful speedups are typically seen when the size ratio between the target and assistant models is at least 50-100. For instance, LLaMA 3.1-8B lacks a smaller version, and Gemma 2-9B only has a 2B variant which is still not sufficiently small to achieve significant performance improvements.
  
-In order to mitigate this pain point Intel labs together with our friends in Hugging face developed Universal Assisted Generation (UAG). UAG, which is integrated as part of 🤗 Transformers 4.46.0.dev0, enables selecting any pair of target and assistant models regardless of their tokenizer. For example, `gemma-2-9b` can be used as target model together with `vicuna-68m` as assistant model. The main idea behind this method is 2-way tokenizer translations. Once the assistant model completes a generation iteration, the assistant tokens are converted to text, which is then tokenized using the target model's tokenizer to generate target tokens. After the verification step, the target tokens are similarly converted back to assistant tokens, which are then appended to the assistant model's context before the next assistanting iteration begins.
+In order to mitigate this pain point Intel labs together with our friends in Hugging face developed Universal Assisted Generation (UAG). UAG, which is integrated into 🤗 Transformers 4.46.0.dev0, enables selecting any pair of target and assistant models regardless of their tokenizer. For example, `gemma-2-9b` can be used as target model together with `vicuna-68m` as assistant model. The main idea behind this method is 2-way tokenizer translations. Once the assistant model completes a generation iteration, the assistant tokens are converted to text, which is then tokenized using the target model's tokenizer to generate target tokens. After the verification step, the target tokens are similarly converted back to assistant tokens, which are then appended to the assistant model's context before the next assistanting iteration begins.
 
-# Benchmarking
+# Benchmarks
 
 The table below shows the latency improvements observed for target models when paired with assistant models using different tokenizers:
 
@@ -34,25 +34,37 @@ The table below shows the latency improvements observed for target models when p
 
 Experimental setup: 1 x A6000 GPU
 
-## SUBSECTION EXAMPLE
+## Code
+Universal Assisted Generation currently in the `main` version of 🤗 Transformers. Install using:
 
-```python
-print("This is a python code block example")
+```bash
+pip install git+https://github.com/huggingface/transformers
 ```
 
-## EXAMPLE RESULTS SECTION
-<p align="center">
-    <img src="assets/178_setfit_optimum_intel/latency.png" width=500>
-</p>
-<p align="center">
-    <em>IMAGE CAPTION HERE</em>
-</p>
+To use, pass `tokenizer` and `assistant_tokenizer` to `generate()`:
+
+```python
+>>> from transformers import AutoModelForCausalLM, AutoTokenizer
+
+>>> prompt = "Alice and Bob"
+>>> checkpoint = "google/gemma-2-9b"
+>>> assistant_checkpoint = "double7/vicuna-68m"
+
+>>> assistant_tokenizer = AutoTokenizer.from_pretrained(assistant_checkpoint)
+>>> tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+>>> inputs = tokenizer(prompt, return_tensors="pt")
+
+>>> model = AutoModelForCausalLM.from_pretrained(checkpoint)
+>>> assistant_model = AutoModelForCausalLM.from_pretrained(assistant_checkpoint)
+>>> outputs = model.generate(**inputs, assistant_model=assistant_model, tokenizer=tokenizer, assistant_tokenizer=assistant_tokenizer)
+>>> tokenizer.batch_decode(outputs, skip_special_tokens=True)
+['Alice and Bob are sitting in a bar. Alice is drinking a beer and Bob is drinking a']
+```
 
 
+## Next Steps / Summary
 
-## Summary
-
-INSERT SUMMARY HERE
+Text goes here
 
 ## References
 - [Assisted Generation: a new direction toward low-latency text generation](https://huggingface.co/blog/assisted-generation)
