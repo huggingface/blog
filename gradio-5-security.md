@@ -33,7 +33,7 @@ Our goal with Gradio is to allow developers to build web applications that work 
 *   Scale easily to large numbers of concurrent users
 *   Are accessible to as many users as possible
 *   Provide consistent UI, UX, and theming
-*   Work reliably across a large number of browser and devices
+*   Work reliably across a large number of browsers and devices
     
 ...even if you are not an expert in scaling, accessibility, or UI/UX!
 
