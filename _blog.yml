@@ -4782,3 +4782,13 @@
     - gradio
     - spaces
     - open-source
+
+- local: keras_llama_32
+  title: "Llama 3.2 in Keras"
+  author: martin-gorner
+  thumbnail: /blog/keras_llama_32/thumbnail.gif
+  date: October 14, 2024
+  tags:
+    - keras
+    - llm
+    - open-source
