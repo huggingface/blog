@@ -53,7 +53,7 @@ We asked Trail of Bits to conduct an independent and comprehensive audit of Grad
 *   Gradio apps shared with built-in share links 
 *   Supply chain vulnerabilities originating from the Gradio CI pipeline
 
-![](https://huggingface.co/datasets/huggingface/documentation-images/raw/main/blog/gradio-5/security-scenarios.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gradio-5/security-scenarios.png)
 
 Then, we worked closely with Trail of Bits to identify mitigation strategies for each of these risks. Gradio’s simplicity and ease of use, while beneficial for developers, also presented unique security challenges, as we didn’t want developers to need to set up complex security measures like CORS and CSP policies.
 
