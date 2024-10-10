@@ -36,7 +36,7 @@ Our goal with Gradio is to allow developers to build web applications that work 
     
 ...even if you are not an expert in scaling, accessibility, or UI/UX!
 
-Now, we’re adding **web** **security** to this list. We asked [Trail of Bits](https://www.trailofbits.com/), a well-known cybersecurity company, to conduct an independent audit of Gradio, and we fixed the security issues that they discovered ahead of the Gradio 5 release. 
+Now, we’re adding **web** **security** to this list. We asked [Trail of Bits](https://www.trailofbits.com/), a well-known cybersecurity company, to conduct an independent audit of Gradio. The security issues they discovered were all fixed ahead of the Gradio 5 release.
 
 This means that machine learning **apps that you build with Gradio 5** **will follow best practices when it comes to web security** without any significant changes to your code.
 
