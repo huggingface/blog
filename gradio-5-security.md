@@ -59,7 +59,7 @@ Then, we worked closely with Trail of Bits to identify mitigation strategies for
 
 By the end of the collaboration, we fixed all of the security risks that were identified by Trail of Bits. All the fixes were validated by Trail of Bits, and are included in the Gradio 5.0 release. While it is impossible to prove the absence of security vulnerabilities, this is a major step in giving reassurance that your Gradio apps are safe.
 
-### **Major findings**
+## Major findings
 
 We outline below the major security vulnerabilities that were discovered by Trail of Bits corresponding to the 4 scenarios above. In the interest of transparency and the spirit of open-source, we are making the full security report public, and more details for each of these issues can be found in the report.
 
