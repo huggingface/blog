@@ -39,12 +39,9 @@ These configurations not only facilitates a comprehensive analysis of how each s
 
 ### Results for Llama 3.1 8B Instruct
 
-<br>
-<figure class="image table text-center m-0 w-full">
-  <img alt="" src="assets/optimum_amd/zentorch_bs_16_32_turin_vs_genoa.png" />
-  <figcaption>Throughput results for Meta Llama 3.1 8B, comparing AMD Turin against AMD Genoa. AMD Turin consistently outperforms the AMD Genoa CPUs, achieving approximately 90% higher throughput in most configurations.</figcaption>
-</figure>
-<br>
+![Turin vs Genoa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-amd-turin/zentorch_bs_16_32_turin_vs_genoa.png)
+
+_Throughput results for Meta Llama 3.1 8B, comparing AMD Turin against AMD Genoa. AMD Turin consistently outperforms the AMD Genoa CPUs, achieving approximately 90% higher throughput in most configurations._
 
 ## Conclusion
 
