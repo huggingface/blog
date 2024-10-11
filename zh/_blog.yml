@@ -2033,3 +2033,12 @@
     - gradio
     - spaces
     - open-source
+
+- local: chinese-ai-expansion
+  title: "中国 AI 出海现状概述"
+  author: AdinaY
+  thumbnail: /blog/assets/chinese-ai-expansion/thumbnail.png
+  date: October 3, 2024
+  tags:
+    - research
+    - community 
