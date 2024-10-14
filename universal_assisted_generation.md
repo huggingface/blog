@@ -12,7 +12,7 @@ authors:
 
 # Universal Assisted Generation: Enabling assisted generation with any assistant model
 
-🏎️ <em>TL;DR</em>: Many models such as `Llama-3.1-8B` lack a smaller version to use for assisted generation. In this blog post we present a method developed by Intel labs and Hugging Face for using a small model **from any other model family** to accelerate inference by **1.5x-2.0x**! 🏎️
+🏎️ <em>TL;DR</em>: Many models such as `Llama-3.1-8B` lack a smaller version to use for [assisted generation](https://huggingface.co/blog/assisted-generation). In this blog post we present a method developed by Intel labs and Hugging Face for using a small model **from any other model family** to accelerate inference by **1.5x-2.0x**! 🏎️
 
 The unprecedented success of LLMs has redefined the limits of NLP. However, a major challenge in their deployment is optimizing performance to reduce their response time.
 Speculative decoding is a very popular and practical approach for accelerating LLMs achieving considerable speedups.
@@ -20,7 +20,7 @@ Speculative decoding is a very popular and practical approach for accelerating L
 # Assisted Generation
  
 The core concept of this method involves using a pair of models, referred to as the target and assistant models. The assistant model is a smaller, more efficient version of the target model, for example using `Llama-3.1-8b` as the assistant model for the larger `Llama-3.1-70b` target model.
-Speculative decoding is an iterative process, during each cycle, the assistant model generates a sequence of tokens autoregressively, one at a time. The target model then verifies these assistant tokens in a single forward pass. The speedup is achieved by generating multiple tokens in each forward pass of the target model, rather than producing just one token at a time.
+Speculative decoding is an iterative process, during each cycle, the assistant model generates a sequence of tokens autoregressively, one at a time. The target model then verifies these assistant tokens in a single forward pass. The speedup is achieved by generating multiple tokens in each forward pass of the target model, rather than producing just one token at a time. For more detailed explanation see the original assited original [blog post](https://huggingface.co/blog/assisted-generation).
 
 The remarkable speedups offered by speculative decoding come with a significant drawback: the target and assistant models must share the same tokenizer, meaning they need to be from the same model family. However, many widely-used models lack smaller versions that are both compact and accurate enough to deliver substantial latency reductions. Based on our experience, meaningful speedups are typically seen when the size ratio between the target and assistant models is at least 50-100. For instance, `CodeLlama-13bB` lacks a smaller version, and `Gemma-2-9B` only has a 2B variant which is still not sufficiently small/fast to achieve significant performance improvements.
 
