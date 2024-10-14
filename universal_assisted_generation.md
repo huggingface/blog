@@ -28,6 +28,14 @@ The remarkable speedups offered by speculative decoding come with a significant 
  
 In order to mitigate this pain point, Intel Labs together with our friends in Hugging face developed Universal Assisted Generation (UAG). UAG enables selecting any pair of target and assistant models regardless of their tokenizer. For example, `gemma-2-9b` can be used as target model together with `vicuna-68m` as assistant model. The main idea behind this method is 2-way tokenizer translations. Once the assistant model completes a generation iteration, the assistant tokens are converted to text, which is then tokenized using the target model's tokenizer to generate target tokens. After the verification step, the target tokens are similarly converted back to the assistant tokens format, which are then appended to the assistant model's context before the next iteration begins.
 
+<!-- [GIF 1 -- FWD PASS] -->
+<figure class="image table text-center m-0 w-full">
+    <video
+        style="max-width: 90%; margin: auto;"
+        autoplay loop muted playsinline
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/assisted-generation/gif_1_1080p.mov"
+    ></video>
+</figure>
 
 # Benchmarks
 
