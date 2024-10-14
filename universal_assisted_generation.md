@@ -54,7 +54,7 @@ Since the assistant and target tokenizers use different vocabularies it's necess
 While not shown in the video above, token re-encoding from target to draft follows a similar process. However, mismatched tokens must be discarded from the assistant model's key-value (KV) cache to ensure data integrity.
 
 
-# Benchmarks
+## Benchmarks
 
 The table below shows the latency improvements observed for target models when paired with assistant models using different tokenizers:
 
