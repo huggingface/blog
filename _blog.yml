@@ -4808,7 +4808,7 @@
     - cpu
     - text-generation
 
-- local: universal-assisted-generation
+- local: universal_assisted_generation
   title: "Universal Assisted Generation: Enabling assisted generation with any assistant model"
   author: danielkorat
   guest: true
