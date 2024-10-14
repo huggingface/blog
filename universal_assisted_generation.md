@@ -28,7 +28,7 @@ authors:
 The unprecedented success of LLMs has redefined the limits of NLP. However, a major challenge in their deployment is optimizing performance to reduce their response time.
 Speculative decoding is a very popular and practical approach for accelerating LLMs achieving considerable speedups.
 
-# Assisted Generation
+## Assisted Generation
  
 The core concept of this method involves using a pair of models, referred to as the target and assistant models. The assistant model is a smaller, more efficient version of the target model, for example using `Llama-3.1-8b` as the assistant model for the larger `Llama-3.1-70b` target model.
 Speculative decoding is an iterative process, during each cycle, the assistant model generates a sequence of tokens autoregressively, one at a time. The target model then verifies these assistant tokens in a single forward pass. The speedup is achieved by generating multiple tokens in each forward pass of the target model, rather than producing just one token at a time. For more detailed explanation see the original [blog post](https://huggingface.co/blog/assisted-generation).
