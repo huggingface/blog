@@ -41,7 +41,6 @@ In order to mitigate this pain point, Intel Labs together with our friends in Hu
 
 Since the assistant and target tokenizers use different vocabularies it's necessary to handle the discrepancies between them. To accurately re-encode the newly generated assistant tokens, it’s essential to prepend a context window consisting of several previous tokens. This entire sequence is then re-encoded into the target token format and aligned with the most recent target tokens to pinpoint the exact location where the newly generated tokens should be appended. This process is illustrated in the video below.
 
-![image](https://github.com/user-attachments/assets/bd9c12e6-d7d0-4cf0-9915-7cc90ad2ef25)
 
 <!-- [GIF 1 -- FWD PASS] -->
 <figure class="image table text-center m-0 w-full">
