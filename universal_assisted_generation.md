@@ -72,7 +72,7 @@ Experimental setup: 1 x A6000 GPU
 
 ## Code
 
-Universal Assisted Generation currently is currently in the `main` version of 🤗 Transformers. Install using:
+Universal Assisted Generation currently is currently available in the `main` version of 🤗 Transformers. Install using:
 
 ```bash
 pip install git+https://github.com/huggingface/transformers
