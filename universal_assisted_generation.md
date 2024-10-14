@@ -56,6 +56,8 @@ Since the assistant and target tokenizers use different vocabularies it's necess
 <em>Speculative decoding iteration.</em>
 </figure>
 
+While not shown in the video above, token re-encoding from target to draft follows a similar process. However, mismatched tokens must be discarded from the assistant model's key-value (KV) cache to ensure data integrity.
+
 
 # Benchmarks
 
