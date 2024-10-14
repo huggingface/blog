@@ -47,7 +47,7 @@ Since the assistant and target tokenizers use different vocabularies it's necess
     <video
         style="max-width: 80%; margin: auto;"
         autoplay loop muted playsinline
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/0aaefdde43cb67306c00c1cd604ab9526136e497/blog/universal-assisted-generation/method-animation.mov"
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/universal-assisted-generation/method-animation.mov"
     ></video>
 </figure>
 
