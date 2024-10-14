@@ -4783,6 +4783,31 @@
     - spaces
     - open-source
 
+- local: gradio-5-security
+  title: "A Security Review of Gradio 5"
+  author: abidlabs
+  thumbnail: /blog/assets/gradio-5-security/thumbnail.png
+  date: October 10, 2024
+  tags:
+    - gradio
+    - spaces
+    - open-source    
+    - security
+
+- local: huggingface-amd-turin
+  title: "Introducing the AMD 5th Gen EPYC™ CPU"
+  author: huggingface-team
+  thumbnail: /blog/assets/optimum_amd/amd_hf_logo_fixed.png
+  date: October 10, 2024
+  tags:
+    - llm
+    - amd
+    - llama
+    - inference
+    - optimum
+    - cpu
+    - text-generation
+
 - local: universal-assisted-generation
   title: "Universal Assisted Generation: Enabling assisted generation with any assistant model"
   author: danielkorat
