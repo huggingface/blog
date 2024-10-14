@@ -12,7 +12,7 @@ authors:
 
 # Universal Assisted Generation: Enabling assisted generation with any assistant model
 
-<em>TL;DR</em>: Many models such as `LlaMA 3.1-8B` lack a smaller version to use for assisted generation. It's now possible to use a small model **from any other model family** to accelerate inference by **1.5x-2.0x**!
+<em>TL;DR</em>: Many models such as `LlaMA 3.1-8B` lack a smaller version to use for assisted generation. In this blog post we present a method developed by Intel labs and Hugging Face for using a small model **from any other model family** to accelerate inference by **1.5x-2.0x**!
 
 The unprecedented success of LLMs has redefined the limits of NLP. However, a major challenge in their deployment is optimizing performance to reduce their response time.
 Speculative decoding is a very popular and practical approach for accelerating LLMs achieving considerable speedups.
