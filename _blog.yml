@@ -4782,3 +4782,15 @@
     - gradio
     - spaces
     - open-source
+
+- local: universal-assisted-generation
+  title: "Universal Assisted Generation: Enabling assisted generation with any assistant model"
+  author: danielkorat
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: October 15, 2024
+  tags:
+    - research
+    - nlp
+    - open-source
+    - collaboration
