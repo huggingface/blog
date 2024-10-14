@@ -2,12 +2,23 @@
 title: "Universal Assisted Generation: Enabling assisted generation with any assistant model"
 thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
-- user: user1
+- user: danielkorat
   guest: true
   org: Intel
-- user: user2
+- user: orenpereg
   guest: true
   org: Intel
+- user: moshew
+  guest: true
+  org: Intel
+- user: jmamou
+  guest: true
+  org: Intel
+- user: joaogante
+- user: lewtun
+- user: Nadav-Timor
+  guest: true
+  org: weizmannscience
 ---
 
 # Universal Assisted Generation: Enabling assisted generation with any assistant model
