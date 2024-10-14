@@ -37,6 +37,12 @@ In order to mitigate this pain point, Intel Labs together with our friends in Hu
     ></video>
 </figure>
 
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dynamic_speculation_lookahead/spec_dec_diagram.png" width="250"><br>
+<em>Speculative decoding iteration.</em>
+</figure>
+
+
 # Benchmarks
 
 The table below shows the latency improvements observed for target models when paired with assistant models using different tokenizers:
