@@ -19,6 +19,9 @@ authors:
 - user: Nadav-Timor
   guest: true
   org: weizmannscience
+- user: moshew
+  guest: true
+  org: Intel
 ---
 
 # Universal Assisted Generation: Enabling assisted generation with any assistant model
@@ -39,7 +42,7 @@ The remarkable speedups offered by speculative decoding come with a significant 
 
 ## Universal Assisted Generation
  
-In order to mitigate this pain point, Intel Labs together with our friends in Hugging face has developed Universal Assisted Generation (UAG). UAG enables selecting any pair of target and assistant models regardless of their tokenizer. For example, `gemma-2-9b` can be used as target model together with `vicuna-68m` as assistant model. The main idea behind this method is 2-way tokenizer translations. Once the assistant model completes a generation iteration, the assistant tokens are converted to text, which is then tokenized using the target model's tokenizer to generate target tokens. After the verification step, the target tokens are similarly converted back to the assistant tokens format, which are then appended to the assistant model's context before the next iteration begins.
+In order to mitigate this pain point, Intel Labs together with our friends at Hugging Face has developed Universal Assisted Generation (UAG). UAG enables selecting any pair of target and assistant models regardless of their tokenizer. For example, `gemma-2-9b` can be used as target model together with `vicuna-68m` as assistant model. The main idea behind this method is 2-way tokenizer translations. Once the assistant model completes a generation iteration, the assistant tokens are converted to text, which is then tokenized using the target model's tokenizer to generate target tokens. After the verification step, the target tokens are similarly converted back to the assistant tokens format, which are then appended to the assistant model's context before the next iteration begins.
 
 Since the assistant and target tokenizers use different vocabularies it's necessary to handle the discrepancies between them. To accurately re-encode the newly generated assistant tokens, it’s essential to prepend a context window consisting of several previous tokens. This entire sequence is then re-encoded into the target token format and aligned with the most recent target tokens to pinpoint the exact location where the newly generated tokens should be appended. This process is illustrated in the video below.
 
