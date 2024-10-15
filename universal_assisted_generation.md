@@ -56,7 +56,7 @@ Since the assistant and target tokenizers use different vocabularies it's necess
     ></video>
 </figure>
 
-While not shown in the video above, token re-encoding from target to draft follows a similar process. However, mismatched tokens must be discarded from the assistant model's key-value (KV) cache to ensure data integrity.
+While not shown in the video above, token re-encoding from target to assistant follows a similar process. However, mismatched tokens must be discarded from the assistant model's key-value (KV) cache to ensure data integrity.
 
 
 ## Benchmarks
@@ -102,10 +102,14 @@ To use, pass `tokenizer` and `assistant_tokenizer` to `generate()`:
 ```
 
 
-## Next Steps / Summary
+## Future Directions
 
-- Leviathan integration (?)
+Whle UAG supports multinomial sampling by passing `do_sample=True`, it does not support rejection sampling, which guarantees similar token distributions for speculative and greedy generations.
+We plan to enhance UAG by adding this feature. 
+In addition, we plan to integrate UAG into 🤗 Transformers pipelines, which will allow a more concise and streamlined usage.
+
 
 
 ## References
+- [Fast Inference from Transformers via Speculative Decoding](https://arxiv.org/pdf/2211.17192)
 - [Assisted Generation: a new direction toward low-latency text generation](https://huggingface.co/blog/assisted-generation)
