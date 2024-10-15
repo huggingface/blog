@@ -8,7 +8,7 @@ authors:
 - user: orenpereg
   guest: true
   org: Intel
-- user: mosheber
+- user: mber
   guest: true
   org: Intel
 - user: jmamou
