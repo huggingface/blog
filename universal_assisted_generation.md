@@ -1,5 +1,5 @@
 ---
-title: "Universal Assisted Generation: Enabling assisted generation with any assistant model"
+title: "Universal Assisted Generation: Faster Decoding with Any Assistant Model"
 thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
 - user: danielkorat
@@ -24,7 +24,7 @@ authors:
   org: Intel
 ---
 
-# Universal Assisted Generation: Enabling assisted generation with any assistant model
+# Universal Assisted Generation: Faster Decoding with Any Assistant Model
 
 🏎️ <em>TL;DR</em>: Many models such as `Llama-3.1-8B` lack a smaller version to use for [assisted generation](https://huggingface.co/blog/assisted-generation). In this blog post we present a method developed by Intel Labs and Hugging Face for using a small model **from any other model family** to accelerate inference by **1.5x-2.0x**! 🏎️
 
