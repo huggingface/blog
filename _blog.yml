@@ -4809,7 +4809,7 @@
     - text-generation
 
 - local: universal_assisted_generation
-  title: "Universal Assisted Generation: Enabling assisted generation with any assistant model"
+  title: "Universal Assisted Generation: Faster Decoding with Any Assistant Model"
   author: danielkorat
   guest: true
   thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
