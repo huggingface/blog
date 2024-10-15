@@ -28,7 +28,7 @@ authors:
 ## Introduction
 
 The unprecedented success of LLMs has redefined the limits of NLP. However, a major challenge in their deployment is optimizing performance to reduce their response time.
-Speculative decoding is a very popular and practical approach for accelerating LLMs achieving considerable speedups.
+[Speculative decoding](https://arxiv.org/abs/2211.17192) is a very popular and practical approach for accelerating LLMs achieving considerable speedups.
 
 ## Assisted Generation
  
