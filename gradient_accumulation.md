@@ -8,6 +8,7 @@ authors:
 - user: muellerzr
 - user: ydshieh
 - user: BenjaminB
+- user: pcuenq
 ---
 
 # Fixing Gradient Accumulation
