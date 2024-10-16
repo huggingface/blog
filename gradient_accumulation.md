@@ -25,7 +25,26 @@ This is the default method which is not meant to be customizable: it is only com
 However, the transformers Trainer, as well as many Trainers, heavily leverage these methods because of the simplicity it offers: it is a double-edged sword. Providing a simple API that becomes different as the use-case differs is not a well-thought out API, and we've been caught by surprise ourselves.
 
 To be precise, for gradient accumulation across token-level tasks like causal LM training, the correct loss should be computed by the total loss across all batches in a gradient accumulation step divided by the total number of all non padding tokens in those batches. This is not the same as the average of the per-batch loss values.
+The fix is quite simple, see the following:
+```diff
+def ForCausalLMLoss(logits, labels, vocab_size, **kwargs):
+    # Upcast to float if we need to compute the loss to avoid potential precision issues
+    logits = logits.float()
+    # Shift so that tokens < n predict n
+    shift_logits = logits[..., :-1, :].contiguous()
+    shift_labels = labels[..., 1:].contiguous()
 
+    # Flatten the tokens
+    shift_logits = shift_logits.view(-1, vocab_size)
+    shift_labels = shift_labels.view(-1)
+    # Enable model parallelism
+    shift_labels = shift_labels.to(shift_logits.device)
+
+    num_items = kwargs.pop("num_items", None)
++        loss = nn.functional.cross_entropy(shift_logits, shift_labels, ignore_index=-100, reduction="sum")
++        loss = loss / num_items
+-        loss = nn.functional.cross_entropy(shift_logits, shift_labels, ignore_index=-100)
+    return loss
 ### How we're fixing it
 
 To address this issue, we’re changing the way our models and training works in two ways:
