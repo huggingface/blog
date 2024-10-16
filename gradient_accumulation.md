@@ -24,7 +24,7 @@ This is the default method which is not meant to be customizable: it is only com
 
 However, the transformers Trainer, as well as many Trainers, is heavily leveraging these methods: by the simplicity it offers, it is a double-edged sword. Providing a simple API that becomes different as the use-case differs is not a well-thought out API, and we've been caught by surprise ourselves.
 
-To be precise, for gradient accumulation across token-level tasks like causal LM training, the correct loss should be computed by the total loss across all batches in a gradient accumulation step divided by the total number of all non padding tokens in those batches. This is not the same as the average of the per-batch loss values
+To be precise, for gradient accumulation across token-level tasks like causal LM training, the correct loss should be computed by the total loss across all batches in a gradient accumulation step divided by the total number of all non padding tokens in those batches. This is not the same as the average of the per-batch loss values.
 
 ### How we're fixing it
 
