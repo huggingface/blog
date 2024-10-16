@@ -2002,6 +2002,17 @@
     - research
     - community
 
+- local: deploy-with-openvino
+  title: 使用Optimum-Intel和OpenVINO GenAI优化和部署模型
+  author: AlexKoff88
+  thumbnail: /blog/assets/deploy-with-openvino/openvino_genai_workflow.png
+  date: September 20, 2024
+  tags:
+    - intel
+    - optimum
+    - quantization
+    - inference
+
 - local: fine-video
   title: 揭秘 FineVideo 数据集构建的背后的秘密
   author: mfarre
@@ -2035,6 +2046,25 @@
     - mesh
     - tutorial
 
+- local: chinese-ai-expansion
+  title: "中国 AI 出海现状概述"
+  author: AdinaY
+  thumbnail: /blog/assets/chinese-ai-expansion/thumbnail.png
+  date: October 3, 2024
+  tags:
+    - research
+    - community 
+
+- local: dynamic_speculation_lookahead
+  title: 更快的辅助生成：动态推测
+  author: jmamou
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: October 8, 2024
+  tags:
+    - research
+    - nlp
+
 - local: gradio-5
   title: Gradio 5 现已发布
   author: abidlabs
@@ -2044,12 +2074,3 @@
     - gradio
     - spaces
     - open-source
-
-- local: chinese-ai-expansion
-  title: "中国 AI 出海现状概述"
-  author: AdinaY
-  thumbnail: /blog/assets/chinese-ai-expansion/thumbnail.png
-  date: October 3, 2024
-  tags:
-    - research
-    - community 
