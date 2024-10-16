@@ -22,7 +22,7 @@ This is the default method which is not meant to be customizable: it is only com
 
 This is also showcased in all of our examples in the `transformers` repository (for example [in this GLUE script](https://github.com/huggingface/transformers/blob/main/examples/pytorch/text-classification/run_glue_no_trainer.py#L564)).
 
-However, it was not enabled by default; and the transformers Trainer, as well as many others, is heavily leveraging these methods: by the simplicity it offers, it is a double-edged sword. Providing a simple API that becomes different as the use-case differs is not a well-thought API, and we've been caught by surprise ourselves.
+However, it was not enabled by default; and the transformers Trainer, as well as many Trainers, is heavily leveraging these methods: by the simplicity it offers, it is a double-edged sword. Providing a simple API that becomes different as the use-case differs is not a well-thought API, and we've been caught by surprise ourselves.
 
 ### How we're fixing it
 
