@@ -6,6 +6,7 @@ authors:
 - user: lysandre
 - user: ArthurZ
 - user: muellerzr
+- user: ydshieh
 ---
 
 # Fixing Gradient Accumulation
@@ -20,9 +21,9 @@ Inside the modeling code of each model, `transformers` offers a "default" loss f
 
 This is the default method which is not meant to be customizable: it is only computed when `labels` and `input_ids` are passed as inputs to the model. The default loss is useful but is limited **by design**: for anything different being done, then we expect the labels to **not be passed directly, and for users to get the logits back from the model and use them to compute the loss outside of the model.**
 
-This is also showcased in all of our examples in the `transformers` repository (for example [in this GLUE script](https://github.com/huggingface/transformers/blob/main/examples/pytorch/text-classification/run_glue_no_trainer.py#L564)).
+However, the transformers Trainer, as well as many Trainers, is heavily leveraging these methods: by the simplicity it offers, it is a double-edged sword. Providing a simple API that becomes different as the use-case differs is not a well-thought API, and we've been caught by surprise ourselves.
 
-However, it was not enabled by default; and the transformers Trainer, as well as many Trainers, is heavily leveraging these methods: by the simplicity it offers, it is a double-edged sword. Providing a simple API that becomes different as the use-case differs is not a well-thought API, and we've been caught by surprise ourselves.
+To be precise, for gradient accumulation across token-level tasks like causal LM training, the correct loss should be computed by the total loss across all batches in a gradient accumulation step divided by the total number of all non padding tokens in those batches. This is not the same as the average of the per-batch loss values
 
 ### How we're fixing it
 
@@ -40,7 +41,9 @@ We are also actively working to ship the second change in this PR: https://githu
 
 —
 
-By tomorrow, you should expect the Trainer to behave correctly with gradient accumulation. In general, we are very responsive to bug reports submitted to our issue tracker: https://github.com/huggingface/transformers/issues
+By tomorrow, you should expect the Trainer to behave correctly with gradient accumulation. Please install from `main` in order to benefit from the fix.
+
+In general, we are very responsive to bug reports submitted to our issue tracker: https://github.com/huggingface/transformers/issues
 
 This particular bug was fixed within 24 hours of disclosure; and that’s what we aim for bugs like this one in transformers. Please, come and submit your issues if you have some; this is the only way we can get transformers to improve and fit well within your different use-cases.
 
