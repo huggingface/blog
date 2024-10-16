@@ -45,6 +45,8 @@ def ForCausalLMLoss(logits, labels, vocab_size, **kwargs):
 +        loss = loss / num_items
 -        loss = nn.functional.cross_entropy(shift_logits, shift_labels, ignore_index=-100)
     return loss
+```
+
 ## How we're fixing it
 
 To address this issue, we’re changing the way our models and training work in two ways:
@@ -54,12 +56,14 @@ To address this issue, we’re changing the way our models and training work in 
 
 All model that inherit from `PreTrainedModel` now have a `loss_function` property, which is determined by either: 
 - the `config.loss_type`: this is to make sure anyone can use his custom loss. You can do this by modifying the `LOSS_MAPPING`:
+
 ```python
 def my_super_loss(logits, labels):
     return loss = nn.functional.cross_entropy(logits, labels, ignore_index=-100)
 
-
 LOSS_MAPPING["my_loss_type"] = my_super_loss
+```
+
 
 We are working to ship the first change for the most popular models in this PR: https://github.com/huggingface/transformers/pull/34191#pullrequestreview-2372725010. Following this, a call for contributions to help propagate this to the rest of the models will be done so that the majority of models is supported by next release.
 
