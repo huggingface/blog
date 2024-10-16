@@ -10,15 +10,15 @@ authors:
 
 # Fixing Gradient Accumulation
 
-Our friends at Unsloth shared an issue regarding gradient accumulation yesterday that is affecting the transformers Trainer.
+Our friends at Unsloth [shared an issue](https://unsloth.ai/blog/gradient) regarding gradient accumulation yesterday that is affecting the transformers Trainer.
 
-Gradient accumulation is supposed to be mathematically equivalent to full batch training; however, losses did not match between training runs where the setting was toggled on and off.
+Gradient accumulation is *supposed* to be mathematically equivalent to full batch training; however, losses did not match between training runs where the setting was toggled on and off.
 
 ### Where does it stem from?
 
-First of all, inside the modeling code of each model, transformers offers a "default" loss function that's the most typically used loss function by the model architecture. It depends on what the class itself should be used for: question answering, token classification, causal LM, masked LM.
+Inside the modeling code of each model, `transformers` offers a "default" loss function that's the most typically used loss function by the model architecture. It is determined by what the class itself should be used for: question answering, token classification, causal LM, masked LM.
 
-This is the default method which is not meant to be customizable: it is only computed when labels, as well as input_ids, are passed sa inputs to the model. The default loss is useful but is limited by design: for anything different being done, then we expect the labels to not be passed directly, and for users to get the logits back from the model and use them to compute the loss outside of the model.
+This is the default method which is not meant to be customizable: it is only computed when `labels` and `input_ids` are passed as inputs to the model. The default loss is useful but is limited **by design**: for anything different being done, then we expect the labels to **not be passed directly, and for users to get the logits back from the model and use them to compute the loss outside of the model.**
 
 This is also showcased in all of our examples in the `transformers` repository (for example [in this GLUE script](https://github.com/huggingface/transformers/blob/main/examples/pytorch/text-classification/run_glue_no_trainer.py#L564)).
 
@@ -27,8 +27,9 @@ However, it was not enabled by default; and the transformers Trainer, as well as
 ### How we're fixing it
 
 To address this issue, we’re changing the way our models and training works in two ways:
-If users are using the “default” loss functions by each model architecture, we will automatically take into account the needed changes when using gradient accumulation on them to make sure the proper loss is reported and utilized, fixing the core issue at hand. 
-To ensure that any future issues with calculating losses might come up in the future won’t block users, we’ll be exposing an API to let users pass in their own loss functions to the `Trainer` directly so they can use their own fix in easily until we have fixed any issues internally and pushed onto a new release. 
+
+* If users are using the “default” loss functions by each model architecture, we will automatically take into account the needed changes when using gradient accumulation on them to make sure the proper loss is reported and utilized, fixing the core issue at hand. 
+* To ensure that any future issues with calculating losses might come up in the future won’t block users, we’ll be exposing an API to let users pass in their own loss functions to the `Trainer` directly so they can use their own fix in easily until we have fixed any issues internally and pushed onto a new release. 
 
 ### When will it land
 
