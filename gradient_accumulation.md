@@ -67,7 +67,11 @@ We are also actively working to ship the second change in this PR: https://githu
 
 —
 
-By tomorrow, you should expect the Trainer to behave correctly with gradient accumulation. Please install from `main` in order to benefit from the fix.
+By tomorrow, you should expect the Trainer to behave correctly with gradient accumulation. Please install from `main` in order to benefit from the fix then:
+
+```
+pip install git+https://github.com/huggingface/transformers
+```
 
 In general, we are very responsive to bug reports submitted to our issue tracker: https://github.com/huggingface/transformers/issues
 
