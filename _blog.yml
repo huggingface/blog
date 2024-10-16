@@ -4807,3 +4807,13 @@
     - optimum
     - cpu
     - text-generation
+
+- local: gradient_accumulation
+  title: "Fixing Gradient Accumulation"
+  author: lysandre
+  thumbnail: /blog/assets/gradient_accumulation/gradient_accumulation.png
+  date: October 16, 2024
+  tags:
+    - transformers
+    - bug
+    - gradient_accumulation
