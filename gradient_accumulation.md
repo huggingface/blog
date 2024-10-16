@@ -1,7 +1,7 @@
 
 ---
 title: "Fixing Gradient Accumulation" 
-thumbnail: /blog/assets/159_autogptq_transformers/thumbnail.jpg
+thumbnail: /blog/assets/gradient_accumulation/gradient_accumulation.png
 authors:
 - user: lysandre
 - user: ArthurZ
