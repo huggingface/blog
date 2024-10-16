@@ -12,7 +12,7 @@ authors:
 
 # Fixing Gradient Accumulation
 
-Our friends at Unsloth [shared an issue](https://unsloth.ai/blog/gradient) regarding gradient accumulation yesterday that is affecting the transformers Trainer.
+Our friends at Unsloth [shared an issue](https://unsloth.ai/blog/gradient) regarding gradient accumulation yesterday that is affecting the transformers Trainer. The initial report comes from @bnjmn_marie (kudos to him!).
 
 Gradient accumulation is *supposed* to be mathematically equivalent to full batch training; however, losses did not match between training runs where the setting was toggled on and off.
 
