@@ -20,7 +20,9 @@ First of all, inside the modeling code of each model, transformers offers a "def
 
 This is the default method which is not meant to be customizable: it is only computed when labels, as well as input_ids, are passed sa inputs to the model. The default loss is useful but is limited by design: for anything different being done, then we expect the labels to not be passed directly, and for users to get the logits back from the model and use them to compute the loss outside of the model.
 
-However, the transformers Trainer, as well as many others, is heavily leveraging these methods: by the simplicity it offers, it is a double-edged sword. Providing a simple API that becomes different as the use-case differs is not a well-thought API, and we've been caught by surprise ourselves.
+This is also showcased in all of our examples in the `transformers` repository (for example [in this GLUE script](https://github.com/huggingface/transformers/blob/main/examples/pytorch/text-classification/run_glue_no_trainer.py#L564)).
+
+However, it was not enabled by default; and the transformers Trainer, as well as many others, is heavily leveraging these methods: by the simplicity it offers, it is a double-edged sword. Providing a simple API that becomes different as the use-case differs is not a well-thought API, and we've been caught by surprise ourselves.
 
 ### How we're fixing it
 
