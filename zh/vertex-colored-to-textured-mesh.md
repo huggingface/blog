@@ -5,6 +5,8 @@ authors:
 - user: dylanebert
 translators:
 - user: cheninwang
+- user: zhongdongy
+  proofreader: true
 ---
 
 # 顶点着色网格转换为 UV 映射的纹理化网格
@@ -14,7 +16,6 @@ translators:
 顶点着色网格转换为 UV 映射的纹理化网格。
 
 <gradio-app theme_mode="light" space="dylanebert/InstantTexture"></gradio-app>
-
 
 ## 简介
 
@@ -31,6 +32,7 @@ pip install git+https://github.com/dylanebert/InstantTexture
 ```
 
 ### 用法
+
 以下代码将顶点着色的 `.obj` 网格转换为 UV 映射的纹理 `.glb` 网格，并将其保存为 `output.glb` 文件。
 
 ```python
@@ -57,7 +59,7 @@ mesh.show()
 
 ## 详细版
 
-首先安装以下依赖项：
+首先安装以下依赖项:
 
 - **numpy** 用于数值运算
 - **trimesh** 用于加载和保存网格数据
@@ -80,9 +82,9 @@ import xatlas
 from PIL import Image, ImageFilter
 ```
 
-加载带有顶点颜色的输入网格。该文件应为 `.obj` 格式，位于 `input_mesh_path`。
+加载带有顶点颜色的输入网格。该文件应为 `.obj` 格式，位于 `input_mesh_path` 。
 
-如果是本地文件，使用 `trimesh.load()` 而不是 `trimesh.load_remote()`。
+如果是本地文件，使用 `trimesh.load()` 而不是 `trimesh.load_remote()` 。
 
 ```python
 mesh = trimesh.load_remote(input_mesh_path)
@@ -130,16 +132,16 @@ texture_buffer = np.zeros((buffer_size, buffer_size, 4), dtype=np.uint8)
 
 使用质心插值填充 UV 映射网格的纹理。
 
-1. **质心插值**：计算在由顶点 `v0`、`v1` 和 `v2` 定义的三角形内的点 `p` 的插值颜色，分别对应颜色 `c0`、`c1` 和 `c2`。
-2. **点在三角形内测试**：确定点 `p` 是否位于由顶点 `v0`、`v1` 和 `v2` 定义的三角形内。
-3. **纹理填充循环**：
-    - 遍历网格的每个面。
-    - 检索当前面的 UV 坐标 (`uv0`, `uv1`, `uv2`) 和颜色 (`c0`, `c1`, `c2`)。
-    - 将 UV 坐标转换为缓冲区坐标。
-    - 确定纹理缓冲区中三角形的边界框。
-    - 对于边界框中的每个像素，检查该像素是否在三角形内，使用点在三角形内测试。
-    - 如果在内部，使用重心插值计算插值颜色。
-    - 将颜色分配给纹理缓冲区中的相应像素。
+1. **质心插值**: 计算在由顶点 `v0` 、`v1` 和 `v2` 定义的三角形内的点 `p` 的插值颜色，分别对应颜色 `c0` 、`c1` 和 `c2` 。
+2. **点在三角形内测试**: 确定点 `p` 是否位于由顶点 `v0` 、`v1` 和 `v2` 定义的三角形内。
+3. **纹理填充循环**:
+  - 遍历网格的每个面。
+  - 检索当前面的 UV 坐标 (`uv0` , `uv1` , `uv2` ) 和颜色 (`c0` , `c1` , `c2` )。
+  - 将 UV 坐标转换为缓冲区坐标。
+  - 确定纹理缓冲区中三角形的边界框。
+  - 对于边界框中的每个像素，检查该像素是否在三角形内，使用点在三角形内测试。
+  - 如果在内部，使用重心插值计算插值颜色。
+  - 将颜色分配给纹理缓冲区中的相应像素。
 
 ```python
 # Barycentric interpolation
@@ -164,11 +166,10 @@ def barycentric_interpolate(v0, v1, v2, c0, c1, c2, p):
     interpolate_color = u * c0 + v * c1 + w * c2
     return np.clip(interpolate_color, 0, 255)
 
-
 # Point-in-Triangle test
 def is_point_in_triangle(p, v0, v1, v2):
     def sign(p1, p2, p3):
-        return (p1[0] - p3[0]) * (p2[1] - p3[1]) - (p2[0] - p3[0]) * (p1[1] - p3[1])
+        return (p1[0] - p3[0])*(p2[1] - p3[1]) - (p2[0] - p3[0])*(p1[1] - p3[1])
 
     d1 = sign(p, v0, v1)
     d2 = sign(p, v1, v2)
@@ -184,9 +185,9 @@ for face in mesh.faces:
     uv0, uv1, uv2 = uvs[face]
     c0, c1, c2 = vertex_colors[face]
 
-    uv0 = (uv0 * (buffer_size - 1)).astype(int)
-    uv1 = (uv1 * (buffer_size - 1)).astype(int)
-    uv2 = (uv2 * (buffer_size - 1)).astype(int)
+    uv0 = (uv0 *(buffer_size - 1)).astype(int)
+    uv1 = (uv1 *(buffer_size - 1)).astype(int)
+    uv2 = (uv2 *(buffer_size - 1)).astype(int)
 
     min_x = max(int(np.floor(min(uv0[0], uv1[0], uv2[0]))), 0)
     max_x = min(int(np.ceil(max(uv0[0], uv1[0], uv2[0]))), buffer_size - 1)
@@ -216,17 +217,17 @@ display(image_texture)
 
 正如我们所看到的，纹理有很多空洞。
 
-为了解决这个问题，我们将结合四种技术：
+为了解决这个问题，我们将结合四种技术:
 
-1. **图像修复**：使用周围像素的平均颜色填充空洞。
-2. **中值滤波**：通过用周围像素的中值颜色替换每个像素来去除噪声。
-3. **高斯模糊**：平滑纹理以去除任何剩余噪声。
-4. **降采样**：使用 LANCZOS 重采样缩小到 `texture_size`。
+1. **图像修复**: 使用周围像素的平均颜色填充空洞。
+2. **中值滤波**: 通过用周围像素的中值颜色替换每个像素来去除噪声。
+3. **高斯模糊**: 平滑纹理以去除任何剩余噪声。
+4. **降采样**: 使用 LANCZOS 重采样缩小到 `texture_size` 。
 
 ```python
 # Inpainting
 image_bgra = texture_buffer.copy()
-mask = (image_bgra[:, :, 3] == 0).astype(np.uint8) * 255
+mask = (image_bgra[:, :, 3] == 0).astype(np.uint8)* 255
 image_bgr = cv2.cvtColor(image_bgra, cv2.COLOR_BGRA2BGR)
 inpainted_bgr = cv2.inpaint(
     image_bgr, mask, inpaintRadius=3, flags=cv2.INPAINT_TELEA
@@ -279,7 +280,7 @@ mesh.show()
 
 正如您所看到的，网格仍然存在许多小的伪影。
 
-UV地图和纹理的质量与生产级网格的标准仍有较大差距。
+UV 地图和纹理的质量与生产级网格的标准仍有较大差距。
 
 然而，如果您正在寻找一种快速解决方案，将顶点着色网格映射到 UV 映射网格，这种方法可能会对您有所帮助。
 
