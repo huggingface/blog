@@ -4808,12 +4808,22 @@
     - cpu
     - text-generation
 
+- local: gradient_accumulation
+  title: "Fixing Gradient Accumulation"
+  author: lysandre
+  thumbnail: /blog/assets/gradient_accumulation/gradient_accumulation.png
+  date: October 16, 2024
+  tags:
+    - transformers
+    - bug
+    - gradient_accumulation
+
 - local: universal_assisted_generation
   title: "Universal Assisted Generation: Faster Decoding with Any Assistant Model"
   author: danielkorat
   guest: true
   thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
-  date: October 15, 2024
+  date: October 18, 2024
   tags:
     - research
     - nlp
