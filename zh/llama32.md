@@ -33,20 +33,21 @@ Llama 3.2 还包括可以在设备上运行的小型仅文本语言模型。它�
 
 ## 目录
 
-- [什么是 Llama 3.2 视觉模型？](# 什么是 Llama32 视觉模型)
-- [Llama 3.2 许可变更。抱歉，欧盟](#Llama-32- 许可变更 - 抱歉 - 欧盟用户)
-- [Llama 3.2 1B 和 3B 的特别之处？](#Llama-32-1B 和 3B 有什么特别之处)
-- [演示](# 演示)
-- [使用 Hugging Face Transformers](# 使用 Hugging-Face-Transformers)
-- [Llama 3.2 1B 和 3B 语言模型](#Llama-32-1B 和 3B 语言模型)
-- [Llama 3.2 视觉模型](#Llama-32- 视觉模型)
-- [设备端部署](# 设备端部署)
+
+- [什么是 Llama 3.2 视觉模型？](# 什么是Llama32-Vision-模型)
+- [Llama 3.2 许可变更。抱歉，欧盟](#Llama-32-许可变更-抱歉-欧盟用户)
+- [Llama 3.2 1B 和 3B 的特别之处？](#Llama-32-1B-和-3B-有什么特别之处)
+- [演示](#演示)
+- [使用 Hugging Face Transformers](#使用-Hugging-Face-Transformers)
+- [Llama 3.2 1B 和 3B 语言模型](#Llama-32-1B-和-3B-语言模型)
+- [Llama 3.2 视觉模型](#Llama-32-视觉模型)
+- [设备端部署](#设备端部署)
 - [Llama.cpp 和 Llama-cpp-python](#llamacpp--llama-cpp-python)
 - [Transformers.js](#transformersjs)
-- [微调 Llama 3.2](# 微调 -llama-32)
-- [Hugging Face 合作伙伴集成](#Hugging-Face- 合作伙伴集成)
-- [其他资源](# 额外资源)
-- [致谢](# 鸣谢)
+- [微调 Llama 3.2](#微调-llama-32)
+- [Hugging Face 合作伙伴集成](#Hugging-Face-合作伙伴集成)
+- [其他资源](#额外资源)
+- [致谢](#鸣谢)
 
 ## 什么是 Llama3.2 Vision 模型？
 
@@ -93,6 +94,10 @@ Llama 3.2 Vision 可以处理文本和图像，也可以仅处理文本。对于
     </td>
   </tr>
 </table>
+
+Vision 模型的上下文长度为 128k 个token，这允许包含图像的多轮对话。然而，该模型在关注单一图像时效果最佳，因此`transformers`实现仅关注输入中的最后一张图像。这可以保持质量并节省内存。
+
+11B 基础模型支持 448 的分块尺寸，而指令微调版本和 90B 模型都使用 560 的分块尺寸。这些模型在一个包含 60 亿图文对的海量数据集上进行了训练，数据来源非常多样化。这使得它们成为下游任务微调的极佳候选模型。下表展示了 11B、90B 模型及其指令微调版本在一些基准测试中的表现，数据来自 Meta。请参阅模型卡片以获取更多基准测试和详细信息。
 
 Vision 模型的上下文长度为 128k 个 token，这允许包含图像的多轮对话。然而，该模型在关注单一图像时效果最佳，因此 `transformers` 实现仅关注输入中的最后一张图像。这可以保持质量并节省内存。
 
@@ -155,6 +160,7 @@ Llama 3.2 系列包括 1B 和 3B 文本模型。这些模型旨在用于设备�
 - [Gradio 驱动的空间中的 Llama 3.2 3B](https://huggingface.co/spaces/huggingface-projects/llama-3.2-3B-Instruct)
 - Llama 3.2 3B 在 WebGPU 上运行
 
+
 ![Demo GIF](https://huggingface.co/datasets/huggingface/release-assets/resolve/main/demo_gif.gif)
 
 ## 使用 Hugging Face Transformers
@@ -205,7 +211,7 @@ print(response)
 - 我们使用 `bfloat16` 加载模型。如上所述，这是 Meta 发布的原始检查点所使用的类型，因此建议以确保最佳精度或进行评估。根据你的硬件，float16 可能会更快。
 - 默认情况下，transformers 使用与原始 Meta 代码库相同的采样参数 (temperature=0.6 和 top_p=0.9)。我们尚未进行广泛测试，请随意探索！
 
-## Llama 3.2 视觉模型
+## Llama 3.2 Vision 模型
 
 Vision 模型更大，因此比小型文本模型需要更多的内存来运行。作为参考，11B Vision 模型在 4 位模式下进行推理大约需要 10 GB 的 GPU RAM。
 
@@ -269,6 +275,7 @@ inputs = processor(image, input_text, return_tensors="pt").to(model.device)
 output = model.generate(**inputs, max_new_tokens=70)
 print(processor.decode(output[0][inputs["input_ids"].shape[-1]:]))
 ```
+
 
 这是我们得到的回复:
 

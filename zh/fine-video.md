@@ -55,6 +55,8 @@ FineVideo 包含高度多样化的视频和元数据集合，使其成为训练�
 
 ## 关于这篇博客文章
 
+在这篇博客文章中，我们分享了开发FineVideo的技术细节和代码：从[YouTube-Commons](https://huggingface.co/datasets/PleIAs/YouTube-Commons)中的190万个视频开始，到最终获得44,000个带有详细标注的视频。
+
 在这篇博客文章中，我们分享了开发 FineVideo 的技术细节和代码: 从 [YouTube-Commons](https://huggingface.co/datasets/PleIAs/YouTube-Commons) 中的 190 万个视频开始，到最终获得 44,000 个带有详细标注的视频。
 
 一个好的开始方式是查看我们旅程的不同步骤。这些步骤涉及内容过滤、标注和输出结构化。
@@ -80,7 +82,7 @@ FineVideo 包含高度多样化的视频和元数据集合，使其成为训练�
 
 YouTube Commons 包含多种语言的视频和转录，我们的初始任务是将其内容缩小到同一种语言。
 
-我们过滤 YouTube-Commons 中的英语视频，同时收集相关元数据。通过这种初步过滤，我们收集了 190 万个视频、它们的闭 captions 和元数据。
+我们过滤 YouTube-Commons 中的英语视频，同时收集相关元数据。通过这种初步过滤，我们收集了 190 万个视频、它们的 closed captions 和元数据。
 
 以下是一些过滤和保留的元数据字段的详细信息:
 
@@ -131,7 +133,7 @@ YouTube Commons 包含多种语言的视频和转录，我们的初始任务是�
       </tr>
       <tr>
         <td>character_count</td>
-        <td>闭 captions 中的字符数</td>
+        <td>closed captions 中的字符数</td>
       </tr>
       <tr>
         <td>comment_count</td>
@@ -163,7 +165,7 @@ YouTube Commons 包含多种语言的视频和转录，我们的初始任务是�
       </tr>
       <tr>
         <td>text</td>
-        <td>闭 captions</td>
+        <td>closed captions</td>
       </tr>
       <tr>
         <td>title</td>
@@ -187,7 +189,7 @@ YouTube Commons 包含多种语言的视频和转录，我们的初始任务是�
       </tr>
       <tr>
         <td>word_count</td>
-        <td>闭 captions 中的单词数</td>
+        <td>closed captions 中的单词数</td>
       </tr>
     </table>
   </details>
@@ -200,18 +202,21 @@ YouTube Commons 包含多种语言的视频和转录，我们的初始任务是�
 
 一旦我们有了 190 万个目标视频列表，我们成功下载了 180 万个视频 (一些视频被频道所有者删除，一些视频更改了权限)。
 
-我们探索了两种不同的分布式下载方法。<u><b> 选项 1: Video2dataset</b></u>
+我们探索了两种不同的分布式下载方法。
+
+<u><b> 选项 1: Video2dataset</b></u>
 
 video2dataset 是一个开源项目 [[链接](https://github.com/iejMac/video2dataset)]，专注于分布式视频下载、转换和打包为不同的数据集格式。该项目原生支持 Slurm 工作负载管理器，因此我们可以在我们的 CPU 集群上运行它。
 
 <center>
     <br>
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/finevideo/video2dataset_overview.png" alt="Dataset Creation" style="width: 60%;">
-    <figcaption style="font-style: italic;"> 来源: Video2Dataset GitHub 页面 </figcaption>
+    <figcaption style="font-style: italic;">来源: Video2Dataset GitHub 页面</figcaption>
     <br><br>
 </center>
 
 由于我们所有集群实例都通过相同的公共 IP 访问互联网，我们为项目贡献了指定代理的可能性，以方便视频下载。虽然该功能尚未合并，但你可以通过我们的 PR [[链接](https://github.com/iejMac/video2dataset/pull/350)] 修补 video2dataset 以使用代理功能。
+
 <br>
 <u><b> 选项 2: 云批处理作业 </b></u>
 <br><br>
@@ -221,7 +226,7 @@ video2dataset 是一个开源项目 [[链接](https://github.com/iejMac/video2da
 
 构建 Docker 容器的文件可在此处找到 [[代码](https://github.com/mfarre/fineVideo/tree/main/rawdataset/ytdlps3)]。
 
-<u><b> 我们的结论 </b></u>
+<u><b>我们的结论</b></u>
 
 虽然 Video2Dataset 在有代理的情况下是可行的，并允许我们进行额外的处理步骤，但我们能够对代理进行的每秒请求数成为了瓶颈。这使我们转向云批处理作业。
 
@@ -233,7 +238,7 @@ video2dataset 是一个开源项目 [[链接](https://github.com/iejMac/video2da
 
 我们以视频中的词密度作为音频动态性的代理。词密度的定义为:
 
-`词密度 = 闭 captions 中的单词数 / 视频总时长 (秒)`
+`词密度 = closed captions 中的单词数 / 视频总时长 (秒)`
 
 通过在不同密度阈值下采样并视觉评估内容质量，我们决定删除词密度低于 0.5 词/秒的所有视频。
 
@@ -256,7 +261,7 @@ video2dataset 是一个开源项目 [[链接](https://github.com/iejMac/video2da
 
 我们重新利用 FFMPEG 的 [Freezedetect 过滤器](https://ffmpeg.org/ffmpeg-filters.html#freezedetect) 来判断视频的动态性。虽然此过滤器旨在识别视频中的冻结部分 (多个相同帧连续放置)，但我们可以通过将 `noise` 参数设置为非常高的值来识别低运动块。
 
-我们不是在整个视频上运行 freezedetect，而是通过时间片段分析视频，并根据被分类为静态的片段数量来投票视频是否静态。通过手动评估，我们设置了一个阈值，如果分析的片段中有 40%是低运动的，则丢弃该视频。
+我们不是在整个视频上运行 freezedetect，而是通过时间片段分析视频，并根据被分类为静态的片段数量来投票视频是否静态。通过手动评估，我们设置了一个阈值，如果分析的片段中有 40% 是低运动的，则丢弃该视频。
 
 经过此过滤后丢弃的一些内容类型:
 <div style="text-align: center;margin: auto; width: 50%;">
@@ -275,7 +280,7 @@ video2dataset 是一个开源项目 [[链接](https://github.com/iejMac/video2da
 
 ## 视频分类
 
-为了实现最多样化的内容选择，我们使用闭 captions 和 YouTube 元数据对 60 万个过滤后的资产进行分类。为了在分类过程中获得控制，我们创建了一个分类法，并指导标注过程以遵循该分类法。
+为了实现最多样化的内容选择，我们使用 closed captions 和 YouTube 元数据对 60 万个过滤后的资产进行分类。为了在分类过程中获得控制，我们创建了一个分类法，并指导标注过程以遵循该分类法。
 
 ### 自定义构建的分类法
 
@@ -296,11 +301,11 @@ video2dataset 是一个开源项目 [[链接](https://github.com/iejMac/video2da
 ```python
 prompt_template = """
 给定这些类别: {leaves}
-根据其闭 captions 和一些元数据细节对 YouTube 视频进行分类。仅返回所选类别，不要返回其他内容！
+根据其closed captions 和一些元数据细节对 YouTube 视频进行分类。仅返回所选类别，不要返回其他内容！
 标题: {title}
 描述: {description}
 频道: {channel}
-闭 captions: {closed_caption}
+closed captions: {closed_caption}
 """
 ```
 
@@ -308,6 +313,7 @@ prompt_template = """
 
 <center>
     <br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/<center>
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/finevideo/categorization-feedback-loop.png" alt="Categorization feedback loop" style="width: 40%;">
     <figcaption style="font-style: italic;">分类法调整在内容分类过程中的反馈循环</figcaption>
     <br><br>
@@ -340,7 +346,7 @@ prompt_template = """
 <center>
     <br>
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/finevideo/gemini-context-cartoon.png" alt="Gemini context" style="width: 80%;">
-    <figcaption style="font-style: italic;"> 探索: 加速视频以适应 Gemini 的上下文 </figcaption>
+    <figcaption style="font-style: italic;">探索: 加速视频以适应 Gemini 的上下文</figcaption>
     <br><br>
 </center>
 
@@ -357,11 +363,13 @@ prompt_template = """
 为了从 60 万个视频中选择 4,000 小时的内容，我们准备了一个算法，该算法平衡了内容类别、用户参与度和频道代表性，以达到目标时长。
 
 <div style="display: flex; align-items: flex-start;">
-<!-- 左侧图片 -->
-<div style="flex: 1; text-align: center;">
+
+  <!-- 左侧图片 -->
+  <div style="flex: 1; text-align: center;">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/finevideo/oracle-flow.png" alt="Oracle Flow" style="max-width: 100%; height: auto;clip-path: inset(0px 0px 3px 0px);">
     <p><em> 算法流程图 </em></p>
   </div>
+ 
   <!-- 右侧文本 -->
   <div style="flex: 1; padding-left: 20px;">
     <br><br><br>
@@ -376,18 +384,18 @@ prompt_template = """
 
 <!-- 图片和文本下方的附加文本 -->
 <div style="margin-top: 20px;">
-  <p> 代码可在此处找到 <a href="https://github.com/mfarre/fineVideo/blob/main/contentselection/oracle.py" target="_blank">[链接]</a>。</p>
+  <p>代码可在此处找到 <a href="https://github.com/mfarre/fineVideo/blob/main/contentselection/oracle.py" target="_blank">[链接]</a>。</p>
 </div>
 
 <br>
 
 ### 使用 Gemini 1.5 Pro 和 GPT4o 进行结构化输出标注
 
-<u><b> 为什么需要结构化数据？</b></u>
+<u><b>为什么需要结构化数据？</b></u>
 
 我们构建 FineVideo 的目标之一是提供结构化数据，以赋能我们的社区: 如果你正在研究多模态 LLMs，你可以对数据进行切片，并决定哪些类别适合你的预训练或微调组合。如果你更关注计算机视觉，你可以直接使用数据集来训练基于 FineVideo 中包含的数值类别的分类器，例如动态性评分、场景边界或音视频相关性评分。
 
-<u><b> 结构化数据和 Gemini 1.5</u></b>
+<u><b>结构化数据和 Gemini 1.5</u></b>
 
 Gemini 1.5 Pro 允许通过提供模式生成基于 JSON 的输出。我们探索了这一功能，并很快意识到两个问题:
 
@@ -437,10 +445,9 @@ Instructor 允许我们使用不同的模型来将 Gemini 的自由文本转换�
 <div style="text-align: center;margin: auto; width: 100%; font-size: 12px;">
 <table>
   <thead>
-    <tr>
-      <th><strong> 视频 </strong></th>
-      <th><strong>Gemini 输出 </strong></th>
-      <th><strong>Instructor 输出 </strong></th>
+      <th><strong>视频</strong></th>
+      <th><strong>Gemini 输出</strong></th>
+      <th><strong>Instructor 输出</strong></th>
     </tr>
   </thead>
   <tbody>
@@ -465,7 +472,7 @@ Mood:Excited, adventure.
 Narrative Progression:
 Introduction to bus.
 Tour begins outside, highlighting nature and relaxation.
-Dynamism Score 0.7
+Dynamism Score 0.7 
 Audio-Visual Correlation 1
         </code></pre>
       </td>
@@ -509,6 +516,7 @@ Audio-Visual Correlation 1
 </div>
 
 <br>
+
 值得注意的是，Gemini 的内容过滤会丢弃一些视频，这是使用 Gemini 时可能发生的情况。在我们的案例中，由于我们目标的内容量，Gemini 过滤掉的总分钟数可以忽略不计。
 
 标注视频的完整代码可在此处找到 [[链接](https://github.com/mfarre/fineVideo/blob/main/contentannotation/video2annotation.py)]。
