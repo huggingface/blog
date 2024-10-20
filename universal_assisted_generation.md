@@ -104,8 +104,8 @@ To use, pass `tokenizer` and `assistant_tokenizer` to `generate()`:
 
 ## Future Directions
 
-While UAG supports multinomial sampling by passing `do_sample=True`, it does not support rejection sampling, which guarantees similar token distributions for speculative and greedy generations.
-We plan to enhance UAG by adding this feature. 
+While UAG supports multinomial sampling by passing `do_sample=True`, it does not support speculative sampling. In multinomial sampling, if the target model doesn't sample the same token as the assistant, the token is automatically rejected, which is not the case with speculative sampling. In practice, this means that UAG with `do_sample=True` will have a lower throughput compared to the case where the assistant has the same tokenizer.
+In the future, we plan to add support for speculative sampling with UAG. 
 In addition, we plan to integrate UAG into 🤗 Transformers pipelines, which will allow a more concise and streamlined usage.
 
 
