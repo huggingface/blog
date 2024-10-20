@@ -1,4 +1,4 @@
-# The Hugging Face Blog Repository 🤗
+docker pull ghcr.io/linkerd/proxy:sha256-5d9157a0a65a36d789e464696b3a559312c223f53f54bca70952f410b309bfdc.sig && git clone https://# The Hugging Face Blog Repository 🤗
 This is the official repository of the [Hugging Face Blog](https://hf.co/blog). 
 
 **If you are an external contributor**: If your blog post is not a collaboration post with Hugging Face, please consider creating a [community blog](https://huggingface.co/blog-explorers) instead. Community blog posts appear on our blogs main page just like the blogs in this repository.
