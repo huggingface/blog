@@ -67,10 +67,11 @@ The table below shows the latency improvements observed for target models when p
 | Target model | Assistant model | Dataset | Task | Speedup |
 |----------------------|---------------------|---------------------------|---------------------------|---------------------------|
 | `codellama/CodeLlama-13b-Instruct-hf` | `bigcode/tiny_starcoder_py` | `openai/humaneval` | code generation | **1.90x** |
+| `meta-llama/Llama-3.1-70B` | `Qwen/Qwen2-0.5B-Instruct`  | `tau/scrolls`   | long-context summarization | **1.7x** |
 | `microsoft/Phi-3-medium-128k-instruct` | `Qwen/Qwen2-0.5B-Instruct`  | `tau/scrolls`   | long-context summarization | **1.91x** |
 | `google/gemma-2-9b` | `double7/vicuna-68m`  | `cnn_dailymail`   | summarization | **1.76x** |
 
-Note that the target models above do not have small variants which are suitable for acceleration using standard assisted generation.
+Note that the target models above do not have small variants (under 1 billion parameters) which are suitable for acceleration using standard assisted generation.
 
 Experimental setup: 1 x A6000 GPU
 
