@@ -4829,7 +4829,7 @@
     - open-source
 
 - local: transformersjs-v3
-  title: "Transformers.js v3: WebGPU support, new models & tasks, and more..."
+  title: "Transformers.js v3: WebGPU support, new models & tasks, and more…"
   author: Xenova
   thumbnail: /blog/assets/transformersjs-v3/thumbnail.png
   date: October 22, 2024
