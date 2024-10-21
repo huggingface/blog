@@ -304,7 +304,7 @@ This release increases the total number of supported architectures to 120 (see [
 
 ## Example projects and templates
 
-As part of the release, we've publishing 25 new example projects and templates, primarily focused on showcasing WebGPU support! This includes demos like [Phi-3.5 WebGPU](https://github.com/huggingface/transformers.js-examples/tree/main/phi-3.5-webgpu) and [Whisper WebGPU](https://github.com/xenova/whisper-web/tree/experimental-webgpu), as shown below.
+As part of the release, we've published 25 new example projects and templates, primarily focused on showcasing WebGPU support! This includes demos like [Phi-3.5 WebGPU](https://github.com/huggingface/transformers.js-examples/tree/main/phi-3.5-webgpu) and [Whisper WebGPU](https://github.com/xenova/whisper-web/tree/experimental-webgpu), as shown below.
 
 > [!NOTE]  
 > We're in the process of moving all our example projects and demos to https://github.com/huggingface/transformers.js-examples, so stay tuned for updates on this!
