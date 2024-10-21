@@ -265,7 +265,7 @@ console.log(result);
 This release increases the total number of supported architectures to 120 (see [full list](https://huggingface.co/docs/transformers.js/index#models)), spanning a wide range of input modalities and tasks. Notable new names include: Phi-3, Gemma & Gemma 2, LLaVa, Moondream, Florence-2, MusicGen, Sapiens, Depth Pro, PyAnnote, and RT-DETR.
 
 <p align="middle">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformersjs-v3/architectures.png" width="500" alt="Bubble diagram of new architectures in Transformers.js v3" />
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformersjs-v3/architectures.png" alt="Bubble diagram of new architectures in Transformers.js v3" />
 </p>
 
 <details>
