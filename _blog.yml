@@ -4181,7 +4181,7 @@
     - rlhf
 
 - local: sd3
-  title: "🧨 Diffusers welcomes Stable Diffusion 3"
+  title: "🧨 Diffusers welcomes Stable Diffusion 3"
   author: diffusers
   thumbnail: /blog/assets/sd3/thumbnail.png
   date: June 12, 2024
@@ -4783,11 +4783,46 @@
     - spaces
     - open-source
 
-- local: keras_llama_32
+- local: gradio-5-security
+  title: "A Security Review of Gradio 5"
+  author: abidlabs
+  thumbnail: /blog/assets/gradio-5-security/thumbnail.png
+  date: October 10, 2024
+  tags:
+    - gradio
+    - spaces
+    - open-source    
+    - security
+
+- local: huggingface-amd-turin
+  title: "Introducing the AMD 5th Gen EPYC™ CPU"
+  author: huggingface-team
+  thumbnail: /blog/assets/optimum_amd/amd_hf_logo_fixed.png
+  date: October 10, 2024
+  tags:
+    - llm
+    - amd
+    - llama
+    - inference
+    - optimum
+    - cpu
+    - text-generation
+
+- local: gradient_accumulation
+  title: "Fixing Gradient Accumulation"
+  author: lysandre
+  thumbnail: /blog/assets/gradient_accumulation/gradient_accumulation.png
+  date: October 16, 2024
+  tags:
+    - transformers
+    - bug
+    - gradient_accumulation
+
+- local: keras-llama-32
   title: "Llama 3.2 in Keras"
   author: martin-gorner
   thumbnail: /blog/keras_llama_32/thumbnail.gif
-  date: October 14, 2024
+  date: October 21, 2024
   tags:
     - keras
     - llm
