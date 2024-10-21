@@ -6,6 +6,8 @@ authors:
 ---
 # HF Expert Support story: Bolstering a RAG app with LLM-as-a-Judge
 
+> [!NOTE] This is a guest blog post by the Digital Green team.
+
 There are an estimated 500 million smallholder farmers globally: they play a critical role in global food security. Timely access to accurate information is essential for these farmers to make informed decisions and improve their yields.
 
 An “agricultural extension service” offers technical advice on agriculture to farmers, and also supplies them with the necessary inputs and services to support their agricultural production.   
@@ -14,7 +16,7 @@ Agriculture extension agents are 300K in India alone, they provide necessary inf
 But although their number is impressive, extension workers are not in large enough numbers to cope with all the demand: they interact with farmers at typically in the ratio of 1:1000. Reaching the agriculture extension workers and farmers through partnership and technology remains the key.
 
 Enter project GAIA, a collaborative initiative pioneered by [CGIAR](https://www.cgiar.org/).  
-It brought together [Hugging Face](https://huggingface.co/) as mentor through the Expert Support program, and [Digital Green](http://digitalgreen.org) as project partner.
+It brought together [Hugging Face](https://huggingface.co/) as mentor through the [Expert Support program](https://huggingface.co/support), and [Digital Green](http://digitalgreen.org) as project partner.
 
 GAIA has a lofty goal to bring years of agriculture knowledge in the form of research papers meticulously maintained in [GARDIAN portal](https://gardian.bigdata.cgiar.org/#/) in the hands of the farmers. There are close to 46000 research papers and reports that have agricultural knowledge globally carried over multiple decades across different crops.
 
