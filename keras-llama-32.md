@@ -20,11 +20,11 @@ Yes, Keras Llama3 can be loaded from any standard (i.e. safetensor) Hugging Face
 !pip install keras_hub
 
 from keras_hub import models.Llama3CausalLM
-model = Llama3CausalLM.from_preset("hf://meta-llama/Llama-3.2-1B-Instruct", dtype="float16")
+model = Llama3CausalLM.from_preset("hf://meta-llama/Llama-3.2-1B-Instruct", dtype="bfloat16")
 model.generate("Hi there!")
 ```
 
-Here is a [Colab](https://colab.research.google.com/drive/1Zz4wTCCYV3BqtFLroNDLqmUhJZJiqpkK?usp=sharing) to try this out. Enjoy! 🤗
+### Here is a [Colab](https://drive.google.com/file/d/1cnAUQbDfM8lErQ8MD2x9Mo5sfKIqIxEh/view?usp=sharing) to try this out. Enjoy! 🤗
 
 ---
 
@@ -50,9 +50,10 @@ Keras is a modeling library and [keras-hub](https://keras.io/keras_hub/) is its 
 I mean, "tokenizer included". `model.generate()` just works on strings:
 ```
 model.generate("Hi there!")
+> "Hi there! I'm looking for information on how to ...
 ```
 
-Same thing for training:
+Same thing for training. You can train on a set of strings directly:
 
 ```
 model.fit(strings) # list or dataset of input strings
@@ -72,11 +73,9 @@ Instruction-tuned variants of popular LLMs can be used for turn-by-turn conversa
 ```
 The conversation, once formatted in this way, can be fed directly to `model.generate()`.
 
-For convenience, the [demo Colab](https://colab.research.google.com/drive/1Zz4wTCCYV3BqtFLroNDLqmUhJZJiqpkK?usp=sharing) implements a helper class called `ChatState` that does the necessary string concats automatically.
+For convenience, the [demo Colab](https://colab.research.google.com/drive/1cnAUQbDfM8lErQ8MD2x9Mo5sfKIqIxEh#scrollTo=nsETCgARe9Sz) implements a helper class called `ChatState` that does the necessary string concats automatically.
 
-## Keras has a built-in trainer
 
-TODO
 
 ## Lower level access: Tokenizer, Backbone
 
@@ -125,10 +124,60 @@ model.backbone(model.preprocessor(["Hello", "Hi!"])[0]) # raw logits as output
 # More typically you would use Keras built-in functions model.generate, model.fit, model.predict, model.evaluate
 ```
 
-## You can upload to Hub too
+## Keras has a built-in trainer
 
-TODO
+Just call `model.fit(ds)` on your training dataset. This trainer is compatible with the various [distributed training](https://keras.io/guides/distribution/), [mixed precision](https://keras.io/api/mixed_precision/), [quantization](https://keras.io/examples/keras_recipes/float8_training_and_inference_with_transformer/) or [LoRA/QLoRA](https://keras.io/examples/keras_recipes/parameter_efficient_finetuning_of_gemma_with_lora_and_qlora/) options available in Keras. It's also totally optional. You can write a custom training loop if you want.
 
-## Distributed inference or training
+For a complete example, see the [demo Colab](https://colab.research.google.com/drive/1cnAUQbDfM8lErQ8MD2x9Mo5sfKIqIxEh#scrollTo=nsETCgARe9Sz) where we fine-tune Llam 3.2 to speak like a pirate:
 
-TODO
+![llama speaks like a pirate: Q: "Aye there!" A: "Aye! What be on yer mind?"](assets/keras-llama-32/llama-pirate.png)
+
+
+
+## You can upload to the Hub
+
+Once you are happy with your fine-tuned model, upload it directly from Keras using:
+
+```
+model.save_to_preset("./pirate-llama")
+# Use your own repo here
+keras_hub.upload_preset(
+    uri = "hf://martin-gorner/llama-3.2-1B-pirate-instruct",
+    preset = "./pirate-llama")
+```
+
+## Distributed model parallelism for inference or training
+
+### Demo Colab for this section: [Llama 3.1 Keras model parallel](https://drive.google.com/file/d/1WzErEM04rieeCMY6s_wGyTjWcuhAF-3D/view?usp=sharing)
+
+Some of you are wondering, why use Keras when one can already work with LLMs on Hugging Face using Transformers? Answer: even if you don't care about Keras flexibility and usability as a modeling framework (you should!), Keras is your quickest path to advanced model parallelism thanks to [JAX](https://github.com/jax-ml/jax) and its powerful [XLA](https://github.com/openxla/xla) compiler.
+
+Let's pick an 8B parameters model to demonstrate: meta-llama/Llama-3.1-8B-Instruct ([demo Colab here](https://drive.google.com/file/d/1WzErEM04rieeCMY6s_wGyTjWcuhAF-3D/view?usp=sharing)). Without quantization, this model is too large for any single accelerator. With Keras, you can load it on multiple accelerators, GPU or TPU. If you are uncertain about the "correct" weight sharding, most models provide sensible defaults. Here, call `keras_hub.models.Llama3Backbone.get_layout_map(device_mesh)`:
+
+```
+devices = keras.distribution.list_devices() # 8 TPU cores: let's do a 2x4 mesh
+device_mesh = keras.distribution.DeviceMesh((2, 4), ["batch", "model"], devices)
+layout_map = keras_hub.models.Llama3Backbone.get_layout_map(device_mesh) # defaults
+distrib = keras.distribution.ModelParallel(layout_map=layout_map, batch_dim_name="batch")
+keras.distribution.set_distribution(distrib)
+
+# Now load the model, distributed across the accelerators
+model = keras_hub.models.Llama3CausalLM.from_preset("hf://meta-llama/Llama-3.1-8B-Instruct")
+```
+
+And if you don't trust the default layout map provided by the model, you can define your own. In this example running on a "small" TPU setup with only 8 cores, the following layout map is a bit faster than the default (54s/epoch rather than 62s/epoch):
+
+```
+layout_map = keras.distribution.LayoutMap(device_mesh)
+
+layout_map["token_embedding/embeddings"] = ("model", None)
+layout_map["token_embedding/reverse_embeddings"] = ("model", None)
+layout_map["self_attention.*(query|key|value).kernel"] = ("model", None, None)
+layout_map["self_attention.*attention_output.kernel"] = ("model", None, None)
+layout_map["feedforward_intermediate_dense.kernel"] = (None, "model")
+layout_map["feedforward_gate_dense.kernel"] = (None, "model")
+layout_map["feedforward_output_dense.kernel"] = ("model", None)
+```
+
+Check out the [demo Colab here](https://drive.google.com/file/d/1WzErEM04rieeCMY6s_wGyTjWcuhAF-3D/view?usp=sharing) which fine-tunes the larger 8B Llama on pirate-speak, in just under 8 min on a Google TPU v5e (available in [JupyterLab on Hugging Face Spaces](https://huggingface.co/docs/hub/main/en/spaces-sdks-docker-jupyter). And if you need a short model explainer about model parallelism and Keras, I have you [covered here](https://developers.googleblog.com/en/fine-tuning-gemma-2-with-keras-hugging-face-update/). 
+
