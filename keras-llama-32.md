@@ -1,6 +1,6 @@
 ---
 title: “Llama 3.2 in Keras” 
-thumbnail: /blog/assets/keras_llama_32/thumbnail.gif
+thumbnail: /blog/assets/keras_llama_32/thumbnail.jpg
 authors:
 - user: martin-gorner
 ---
