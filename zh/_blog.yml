@@ -2002,6 +2002,17 @@
     - research
     - community
 
+- local: deploy-with-openvino
+  title: 使用 Optimum-Intel 和 OpenVINO GenAI 优化和部署模型
+  author: AlexKoff88
+  thumbnail: /blog/assets/deploy-with-openvino/openvino_genai_workflow.png
+  date: September 20, 2024
+  tags:
+    - intel
+    - optimum
+    - quantization
+    - inference
+
 - local: fine-video
   title: 揭秘 FineVideo 数据集构建的背后的秘密
   author: mfarre
@@ -2010,7 +2021,7 @@
   tags:
     - video
     - datasets
-    - multimodal
+    - multimodal 
 
 - local: llama32
   title: 现在 Llama 具备视觉能力并可以在你的设备上运行 - 欢迎使用 Llama 3.2
@@ -2024,15 +2035,16 @@
     - nlp
     - vision
 
-- local: gradio-5
-  title: Gradio 5 现已发布
-  author: abidlabs
-  thumbnail: /blog/assets/gradio-5/thumbnail.png
-  date: October 9, 2024
+- local: vertex-colored-to-textured-mesh
+  title: "顶点着色网格转换为 UV 映射的纹理化网格"
+  author: dylanebert
+  thumbnail: /blog/assets/vertex-colored-to-textured-mesh/thumbnail.png
+  date: September 30, 2024
   tags:
-    - gradio
-    - spaces
-    - open-source
+    - vision
+    - 3d
+    - mesh
+    - tutorial
 
 - local: chinese-ai-expansion
   title: "中国 AI 出海现状概述"
@@ -2042,3 +2054,23 @@
   tags:
     - research
     - community 
+
+- local: dynamic_speculation_lookahead
+  title: "更快的辅助生成: 动态推测"
+  author: jmamou
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: October 8, 2024
+  tags:
+    - research
+    - nlp
+
+- local: gradio-5
+  title: Gradio 5 现已发布
+  author: abidlabs
+  thumbnail: /blog/assets/gradio-5/thumbnail.png
+  date: October 9, 2024
+  tags:
+    - gradio
+    - spaces
+    - open-source
