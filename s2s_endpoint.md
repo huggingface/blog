@@ -20,14 +20,7 @@ The project implements a cascaded pipeline leveraging models available through t
 3. Language Model (LM)
 4. Text to Speech (TTS)
 
-What's more, S2S has multi-language support! It currently supports English, French, Spanish, Chinese, Japanese, and Korean. You can run the pipeline in single-language mode or use the `auto` flag for automatic language detection. Check out the repo for more details [here](https://github.com/huggingface/speech-to-speech). Or even better, check out this demo:
-
-<script
-	type="module"
-	src="https://gradio.s3-us-west-2.amazonaws.com/<@eustache fill the version in>/gradio.js"
-></script>
-
-<gradio-app theme_mode="light" space="<@eustache fill the space in>"></gradio-app>
+What's more, S2S has multi-language support! It currently supports English, French, Spanish, Chinese, Japanese, and Korean. You can run the pipeline in single-language mode or use the `auto` flag for automatic language detection. Check out the repo for more details [here](https://github.com/huggingface/speech-to-speech).
 
 ```
 > 👩🏽‍💻: That's all amazing, but how do I run S2S?
@@ -60,9 +53,9 @@ Inference Endpoints supports all of the Transformers and Sentence-Transformers t
 2. **Custom Handlers**: Define custom inference logic for more complex pipelines.
 3. **Custom Docker Images**: Use your own Docker images to encapsulate all dependencies and custom code.
 
-For simpler models, options 1 and 2 are ideal and make deploying with Inference Endpoints super straightforward. However, for a complex pipeline like S2S, wen will need the flexibility of option 3: deploying our IE using a custom Docker image.
+For simpler models, options 1 and 2 are ideal and make deploying with Inference Endpoints super straightforward. However, for a complex pipeline like S2S, you will need the flexibility of option 3: deploying our IE using a custom Docker image.
 
-This method not only provided more flexibility but also improved performance by optimizing the build process and bundling necessary data. If you’re dealing with complex model pipelines or want to optimize your application deployment, this guide will offer valuable insights.
+This method not only provides more flexibility but also improved performance by optimizing the build process and gathering necessary data. If you’re dealing with complex model pipelines or want to optimize your application deployment, this guide will offer valuable insights.
 
 
 # Deploying Speech-to-Speech on Inference Endpoints
@@ -177,7 +170,7 @@ from huggingface_hub import create_inference_endpoint, get_token
 endpoint = create_inference_endpoint(
     # Model Configuration
     "speech-to-speech-demo",
-    repository="andito/fast-unidic",
+    repository="andito/s2s",
     framework="custom",
     task="custom",
     # Security
@@ -192,9 +185,9 @@ endpoint = create_inference_endpoint(
     custom_image={
         "health_route": "/health",
         "url": "andito/speech-to-speech:latest", # Pulls from DockerHub
-        "port": 5000
+        "port": 80
     },
-    secrets={'HF_TOKEN':get_token()}
+    secrets={'HF_TOKEN': get_token()}
 )
 
 # Optional
@@ -205,15 +198,15 @@ endpoint.wait()
 
 Major Componants
 - [Speech To Speech](https://github.com/huggingface/speech-to-speech/tree/inference-endpoint)
-  - This is a Hugging Face Library, we put some inference-endpoint specific files in the `inference-endpoint` branch
-- andito/fast-unidic
-- [andimarafioti/speech-to-speech-toolkit](https://github.com/andimarafioti/speech-to-speech-inference-toolkit)
+  - This is a Hugging Face Library, we put some inference-endpoint specific files in the `inference-endpoint` branch which will be merged to main soon.
+- andito/s2s or any other repository. This is not needed for us since we have the models in the container creation stage, but the inference-endpoint requires a model, so we pass a repository that is slim.
+- [andimarafioti/speech-to-speech-toolkit](https://github.com/andimarafioti/speech-to-speech-inference-toolkit).
   - This was forked from [huggingface/huggingface-inference-toolkit](https://github.com/huggingface/huggingface-inference-toolkit) to help us build the Custom Container configured as we desire 
 
 
 ## Building the webserver
 
-To use the endpoint, we will need to build a small webservice. The code for it is done on `webservice_starlette.py` and `s2s_handler.py`. Normally, you would only have a custom handler for an endpoint, but since we want to have a really low latency, we also built the webservice to support websocket connections instead of normal requests. This sounds intimidating at first, but the webservice is only 32 lines of code!
+To use the endpoint, we will need to build a small webservice. The code for it is done on `s2s_handler.py` in the [speech_to_speech library](https://github.com/huggingface/speech-to-speech) which we use for the client and `webservice_starlette.py` in the[speech_to_speech_inference_toolkit](https://github.com/huggingface/speech-to-speech-inference-toolkit) which we used to build the docker image. Normally, you would only have a custom handler for an endpoint, but since we want to have a really low latency, we also built the webservice to support websocket connections instead of normal requests. This sounds intimidating at first, but the webservice is only 32 lines of code!
 
   <p>
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/s2s_endpoint/webservice.png" alt="Webservice code" width="800px">
