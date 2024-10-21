@@ -59,24 +59,22 @@ Now this system has many moving parts, and each part has a radical impart on som
 
 In the last one year, the usage of farmer.chat has grown to service more than 20k farmers handling over 340k queries. How can we evaluate the performance of the system at this scale?
 
-Here, we enter the exciting realm of using LLMs as judges to assess the performance of these AI systems. 
+During weekly brainstorming sessions, Hugging Face provided a source to their  article on [LLM as a Judge](https://huggingface.co/learn/cookbook/en/llm_judge): it was discussed in detail, and what followed became a practice that has helped navigating [farmer.chat](https://farmerchat.digitalgreen.org/)’s development.
 
-During weekly brainstorming sessions, Hugging Face provided a source to their  article on [LLM as a Judge](https://huggingface.co/learn/cookbook/en/llm_judge): it was discussed in detail, and what followed became a practice that has helped navigating farmer.chat’s development. LLM as judge helped create a metrics driven approach to measure the accuracy and impact of [farmer.chat](https://farmerchat.digitalgreen.org/) in a more objective and data-driven way. 
 
 ## The Power of LLMs-as-Judges
 
-The use of LLMs-as-Judges lies at the heart of metrics-driven development that becomes necessary in the rapidly evolving landscape. It empowers us to go beyond simply measuring how many questions a chatbot can answer or how quickly it responds. Instead, we can delve deeper into the quality of the responses and understand the user experience in a more nuanced way. The results were published recently in this [scientific article](https://arxiv.org/abs/2409.08916), focusing on the quantitative study of user research.
+Farmer.Chat employs a sophisticated Retrieval-Augmented Generation (RAG) pipeline to deliver accurate and relevant information to farmers that is grounded in the knowledge base.
+The RAG pipeline uses an LLM to retrieve information from a vast knowledge base and then generate a concise and informative response.
 
-Farmer.Chat employs a sophisticated Retrieval-Augmented Generation (RAG) pipeline to deliver accurate and relevant information to farmers that is grounded in the knowledge base. The RAG pipeline uses an LLM to retrieve information from a vast knowledge base and then generate a concise and informative response. But how do we measure the effectiveness of this pipeline?
+But how do we measure the effectiveness of this pipeline?
 
-Here, LLMs step in as judges. The research team behind Farmer.Chat leverages the capabilities of LLMs to evaluate several crucial metrics:
+The difficulty here is that there is no deterministic metric that one could use to rate the quality of an answer, its conciseness, its precision...
 
-* **Prompt Clarity Score**: This metric evaluates how well users can articulate their questions. LLMs are trained to assess the clarity of user intent, topic specificity, and entity-attribute identification, providing insights into how effectively users can communicate their needs.  
-* **Question Type**: This metric classifies user questions into different categories based on their cognitive complexity. LLMs analyze the user's query and assign it to one of six categories, such as "remember," "understand," "apply," "analyze," "evaluate," and "create," helping us understand the cognitive demands of user interactions.  
-* **Answered Queries**: This metric tracks the percentage of questions answered by the chatbot, providing insights into the breadth of the knowledge base and the platform's ability to address a wide range of queries.  
-* **RAG Accuracy**: This metric assesses the faithfulness and relevance of the information retrieved by the RAG pipeline. The LLM acts as a judge, comparing the retrieved information to the user's query and evaluating whether the response is accurate and relevant.
+That is where *LLM-as-a-judge* technique steps in. The idea is simple: ask an LLM to rate the output on any metric.
+The immense advantage is that the metric can be anything: LLM-as-a-Judge is extremely versatile.
 
-What is interesting about the metrics is how versatile LLM as Judge can be. For example, you can use it to evaluate the clarity of a prompt as follows:
+For example, you can use it to evaluate the clarity of a prompt as follows:
 
 ```
 You will be given a user input about agriculture, and your task is to score it on various aspects.
@@ -97,7 +95,19 @@ Criterion 3: scores 2, as the entity is clear (batian variety) but not the attri
 
 As mentioned in [this article that we referred to earlier](https://huggingface.co/learn/cookbook/en/llm_judge), the key to use LLM-as-a-judge is to clearly define the task, the criteria and the integer rating scale. 
 
-On the other hand, for RAG accuracy we use LLM-as-a-judge to evaluate on a binary scale: zero or one. But the way the task is broken down leads to a well established process that comes up with a score that we tested with human evaluators on roughly 360 questions: LLM answers are found to actually do a great job and have high correlation with human evaluations!
+The research team behind Farmer.Chat leverages the capabilities of LLMs to evaluate several crucial metrics:
+
+* **Prompt Clarity**: This metric evaluates how well users can articulate their questions. LLMs are trained to assess the clarity of user intent, topic specificity, and entity-attribute identification, providing insights into how effectively users can communicate their needs.  
+* **Question Type**: This metric classifies user questions into different categories based on their cognitive complexity. LLMs analyze the user's query and assign it to one of six categories, such as "remember," "understand," "apply," "analyze," "evaluate," and "create," helping us understand the cognitive demands of user interactions.  
+* **Answered Queries**: This metric tracks the percentage of questions answered by the chatbot, providing insights into the breadth of the knowledge base and the platform's ability to address a wide range of queries.  
+* **RAG Accuracy**: This metric assesses the faithfulness and relevance of the information retrieved by the RAG pipeline. The LLM acts as a judge, comparing the retrieved information to the user's query and evaluating whether the response is accurate and relevant.
+
+
+It empowers us to go beyond simply measuring how many questions a chatbot can answer or how quickly it responds.
+Instead, we can delve deeper into the quality of the responses and understand the user experience in a more nuanced way.
+
+For RAG accuracy we use LLM-as-a-judge to evaluate on a binary scale: zero or one.
+But the way the task is broken down leads to a well established process that comes up with a score that we tested with human evaluators on roughly 360 questions: LLM answers are found to actually do a great job and have high correlation with human evaluations!
 
 Here is the prompt, which was inspired from the RAGAS library.
 
@@ -116,9 +126,11 @@ Context : {context}
 
 Statements : {statements}
 ```
+
 The context variable above is the input chunks given for generating the answers while statements are the atomic factual statements generated by another LLM call.
 
-This was a very important step as it enables evaluation at scale which is important when dealing with large numbers of documents and queries. The LLM-as-a-judge at core leads to metrics that act as a compass navigating the various options available for AI pipeline.
+This was a very important step as it enables evaluation at scale which is important when dealing with large numbers of documents and queries.
+The LLM-as-a-judge at core leads to metrics that act as a compass navigating the various options available for our AI pipeline.
 
 ### Results: benchmarking LLMs for RAG
 
@@ -145,7 +157,8 @@ By leveraging LLMs as judges, we gain a deeper understanding of user behavior an
 * **Optimizing the knowledge base**: The analysis of unanswered queries helps us identify gaps in the knowledge base and prioritize content development.  
 * **Selecting the right LLMs**: By benchmarking different LLMs on key metrics, we can make informed decisions about which models are best suited for specific tasks and contexts.
 
-In the rapidly evolving landscape of generative AI, LLMs are becoming increasingly powerful and versatile. Their ability to act as judges in evaluating AI performance is a game-changer. It allows us to measure the impact of these systems in a more objective and data-driven way, ultimately leading to the development of more robust, effective, and user-friendly AI tools for agriculture.
+In the rapidly evolving landscape of generative AI, LLMs are becoming increasingly powerful and versatile. Their ability to act as judges in evaluating AI performance is a game-changer.
+It allows us to measure the impact of these systems in a more objective and data-driven way, ultimately leading to the development of more robust, effective, and user-friendly AI tools for agriculture.
 
 In the span of over a year, we have continuously evolved our product. In this small timeframe we have been able to:
 
@@ -153,6 +166,8 @@ In the span of over a year, we have continuously evolved our product. In this sm
 * Answer \> 340k questions  
 * Serve \> 6 languages, for 50 value chain crops  
 * Maintain close to zero biases or toxic responses
+
+The results were published recently in this [scientific article](https://arxiv.org/abs/2409.08916), focusing on the quantitative study of user research.
 
 <p align="center">
     <img src="https://cdn.prod.website-files.com/659d11eefb40654676991482/65e612f59aa42d0216e15236_Map%20and%20data%20(3).gif" alt="System demo" width=80%>
