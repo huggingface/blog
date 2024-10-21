@@ -316,7 +316,7 @@ As part of the release, we've published 25 new example projects and templates, p
 
 As of today's release, the community has converted over 1200 models to be compatible with Transformers.js! You can find the full list of available models [here](https://hf.co/models?library=transformers.js).
 
-If you'd like to convert your own models, you can use our [conversion script](https://github.com/huggingface/transformers.js/blob/main/scripts/convert.py) as follows:
+If you'd like to convert your own models or fine-tunes, you can use our [conversion script](https://github.com/huggingface/transformers.js/blob/main/scripts/convert.py) as follows:
 
 ```sh
 python -m scripts.convert --quantize --model_id <model_name_or_path>
