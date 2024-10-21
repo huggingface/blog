@@ -4181,7 +4181,7 @@
     - rlhf
 
 - local: sd3
-  title: "🧨 Diffusers welcomes Stable Diffusion 3"
+  title: "🧨 Diffusers welcomes Stable Diffusion 3"
   author: diffusers
   thumbnail: /blog/assets/sd3/thumbnail.png
   date: June 12, 2024
@@ -4817,6 +4817,16 @@
     - transformers
     - bug
     - gradient_accumulation
+
+- local: keras-llama-32
+  title: "Llama 3.2 in Keras"
+  author: martin-gorner
+  thumbnail: /blog/assets/keras-llama-32/thumbnail.jpg
+  date: October 21, 2024
+  tags:
+    - keras
+    - llm
+    - open-source
 
 - local: transformersjs-v3
   title: "Transformers.js v3: WebGPU support, new models & tasks, and more..."
