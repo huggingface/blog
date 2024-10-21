@@ -345,6 +345,6 @@ Transformers.js v3 is now compatible with the three most popular server-side Jav
 Finally, we're delighted to announce that Transformers.js will now be published under the official Hugging Face organization on NPM as [`@huggingface/transformers`](https://www.npmjs.com/package/@huggingface/transformers) (instead of
 [`@xenova/transformers`](https://www.npmjs.com/package/@xenova/transformers), which was used for v1 and v2).
 
-We've also moved the repository to the official Hugging Face organization on GitHub (https://github.com/huggingface/transformers.js), which will be our new home — come say hi!
+We've also moved the repository to the official Hugging Face organization on GitHub (https://github.com/huggingface/transformers.js), which will be our new home — come say hi! We look forward to hearing your feedback, responding to your issues, and reviewing your PRs!
 
-This is a significant milestone and we're extremely grateful to the community for helping us achieve this long-term goal! None of this would be possible without all of you... thank you! 🤗
+This is a significant milestone and we're extremely grateful to the community for helping us achieve this long-term goal! None of this would be possible without all of you… thank you! 🤗
