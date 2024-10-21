@@ -309,10 +309,8 @@ As part of the release, we've publishing 25 new example projects and templates, 
 > [!NOTE]  
 > We're in the process of moving all our example projects and demos to https://github.com/huggingface/transformers.js-examples, so stay tuned for updates on this!
 
-<p align="middle">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformersjs-v3/phi-3.5-webgpu.gif" width="43.25%" alt="Phi-3.5 running on WebGPU" />
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformersjs-v3/whisper-turbo-webgpu.gif" width="50%" alt="Whisper Turbo running on WebGPU" />
-</p>
+| <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformersjs-v3/phi-3.5-webgpu.gif" style="max-height: 500px;" alt="Phi-3.5 running on WebGPU" /> | <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformersjs-v3/whisper-turbo-webgpu.gif" style="max-height: 500px;" alt="Whisper Turbo running on WebGPU" /> |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
 ## Over 1200 pre-converted models
 
@@ -327,7 +325,7 @@ python -m scripts.convert --quantize --model_id <model_name_or_path>
 After uploading the generated files to the Hugging Face Hub, remember to add the `transformers.js` tag so others can easily find and use your model!
 
 <p align="center">
-    <picture> 
+    <picture>
         <source media="(prefers-color-scheme: dark)" srcset="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformersjs-v3/models-dark.jpg" style="max-width: 100%;">
         <source media="(prefers-color-scheme: light)" srcset="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformersjs-v3/models-light.jpg" style="max-width: 100%;">
         <img alt="Available Transformers.js models" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformersjs-v3/models-dark.jpg" style="max-width: 100%;">
