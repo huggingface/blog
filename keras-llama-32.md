@@ -14,7 +14,7 @@ This is going to be the shortest blog post ever.
 
 > **Answer**: *It has been working from day 1 😀. There is nothing to wait for.*
 
-Yes, Keras Llama3 can be loaded from any standard (i.e. safetensor) Hugging Face checkpoint, including the 3.2 checkpoints. If a conversion is required, it happens on the fly. Try this:
+Yes, Keras Llama3 can be loaded from any standard (i.e. safetensors) Hugging Face checkpoint, including the 3.2 checkpoints. If a conversion is required, it happens on the fly. Try this:
 
 ```Python
 !pip install keras_hub
