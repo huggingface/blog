@@ -24,7 +24,7 @@ model = Llama3CausalLM.from_preset("hf://meta-llama/Llama-3.2-1B-Instruct", dtyp
 model.generate("Hi there!")
 ```
 
-### Here is a [Colab](https://colab.research.google.com/drive/1cnAUQbDfM8lErQ8MD2x9Mo5sfKIqIxEh) to try this out. Enjoy! 🤗
+#### Here is a [Colab](https://colab.research.google.com/drive/1cnAUQbDfM8lErQ8MD2x9Mo5sfKIqIxEh) to try this out. Enjoy! 🤗
 
 ---
 
@@ -128,7 +128,7 @@ model.backbone(model.preprocessor(["Hello", "Hi!"])[0]) # raw logits as output
 
 Just call `model.fit(ds)` on your training dataset. This trainer is compatible with the various [distributed training](https://keras.io/guides/distribution/), [mixed precision](https://keras.io/api/mixed_precision/), [quantization](https://keras.io/examples/keras_recipes/float8_training_and_inference_with_transformer/) or [LoRA/QLoRA](https://keras.io/examples/keras_recipes/parameter_efficient_finetuning_of_gemma_with_lora_and_qlora/) options available in Keras. It's also totally optional. You can write a custom training loop if you want.
 
-For a complete example, see the [demo Colab](https://colab.research.google.com/drive/1cnAUQbDfM8lErQ8MD2x9Mo5sfKIqIxEh) where we fine-tune Llam 3.2 to speak like a pirate:
+For a complete example, see the [demo Colab](https://colab.research.google.com/drive/1cnAUQbDfM8lErQ8MD2x9Mo5sfKIqIxEh) where we fine-tune Llama 3.2 to speak like a pirate:
 
 ![llama speaks like a pirate: Q: "Aye there!" A: "Aye! What be on yer mind?"](assets/keras-llama-32/llama-pirate.png)
 
@@ -150,7 +150,7 @@ The uploaded model is visible [here](https://huggingface.co/martin-gorner/llama-
 
 ## Distributed model parallelism for inference or training
 
-### Demo Colab for this section: [Llama 3.1 Keras model parallel](https://colab.research.google.com/drive/1WzErEM04rieeCMY6s_wGyTjWcuhAF-3D)
+#### Demo Colab for this section: [Llama 3.1 Keras model parallel](https://colab.research.google.com/drive/1WzErEM04rieeCMY6s_wGyTjWcuhAF-3D)
 
 Some of you are wondering, why use Keras when one can already work with LLMs on Hugging Face using Transformers? Answer: even if you don't care about Keras' flexibility and usability as a modeling framework (you should!), Keras is your quickest path to advanced model parallelism thanks to [JAX](https://github.com/jax-ml/jax) and its powerful [XLA](https://github.com/openxla/xla) compiler.
 
