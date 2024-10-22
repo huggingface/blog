@@ -48,12 +48,12 @@ After that, regardless of the path we take, there is only one valid next charact
 It might not immediately be obvious how amazing structured generation can be. The first use-case many think of is “nice, now my LLM can return valid JSON, so I can treat it as an API and serialize/deserialize JSON reliably”. But that’s just scratching the surface. When you think about it, structure is everywhere, even in places where you least expect it like the [GSM8K benchmark](https://blog.dottxt.co/performance-gsm8k.html).
 
 These are just a [few examples](https://dottxt-ai.github.io/outlines/cookbook/) of what structured generation enables:
-- Generating synthetic data
+- Generating [synthetic data](https://dottxt-ai.github.io/outlines/latest/cookbook/dating_profiles/), (there's also an [integration with Distilabel](https://distilabel.argilla.io/dev/sections/pipeline_samples/examples/llama_cpp_with_outlines/) for this)
 - Extracting information from documents and images.
-- Function calling/building agents
-- Chain of Thought
+- Function [calling/building agents](https://blog.dottxt.co/oss-v-gpt4.html)
+- [Chain of Thought](https://dottxt-ai.github.io/outlines/latest/cookbook/chain_of_thought/)
 - Making sure your LLM outputs a [valid tic-tac-toe board](https://x.com/dottxtai/status/1840826952577421646)
-- Or ever generating virtual worlds!
+- Or ever [generating virtual worlds!](https://github.com/dottxt-ai/demos/tree/main/lore-generator)
 
 And, perhaps more surprising, it reduces the sensitivity of evaluations to the [specific prompt being used](https://huggingface.co/blog/evaluation-structured-outputs) and the [number of shots](https://blog.dottxt.co/prompt-efficiency.html). Apart from the amazing tricks that structure gives you, it’s also more performant. The dottxt blog has many good articles with performance benchmarks.
 
