@@ -4838,3 +4838,13 @@
     - speech-to-speech
     - inference
     - inference-endpoints
+
+- local: outlines-core
+  title: "Releasing Outlines-core 0.1.0: structured generation in Rust and Python"
+  thumbnail: /blog/assets/outlines-core/thumbnail.png
+  author: erikkaum
+  date: October 22, 2024
+  tags:
+    - structured generation
+    - llm
+    - open-source
