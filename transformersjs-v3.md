@@ -21,7 +21,7 @@ Highlights include:
 
 ## Installation
 
-You can get started by installing [Transformers.js v3](https://huggingface.co/docs/transformers.js) from [NPM](https://www.npmjs.com/package/@huggingface/transformers) using:
+You can get started by installing Transformers.js v3 from [NPM](https://www.npmjs.com/package/@huggingface/transformers) using:
 
 ```bash
 npm i @huggingface/transformers
@@ -33,13 +33,13 @@ Then, importing the library with
 import { pipeline } from "@huggingface/transformers";
 ```
 
-or via a CDN,
+or, via a CDN
 
 ```js
 import { pipeline } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.0";
 ```
 
-For more information, check out the [documentation](http://hf.co/docs/transformers.js).
+For more information, check out the [documentation](https://hf.co/docs/transformers.js).
 
 ## WebGPU support
 
@@ -61,18 +61,18 @@ Thanks to our collaboration with [ONNX Runtime Web](https://www.npmjs.com/packag
 **Example:** Compute text embeddings on WebGPU ([demo](https://v2.scrimba.com/s06a2smeej))
 
 ```js
-import { pipeline } from '@huggingface/transformers';
+import { pipeline } from "@huggingface/transformers";
 
 // Create a feature-extraction pipeline
 const extractor = await pipeline(
-  'feature-extraction',
-  'mixedbread-ai/mxbai-embed-xsmall-v1',
-  { device: 'webgpu' },
+  "feature-extraction",
+  "mixedbread-ai/mxbai-embed-xsmall-v1",
+  { device: "webgpu" },
 });
 
 // Compute embeddings
-const texts = ['Hello world!', 'This is an example sentence.'];
-const embeddings = await extractor(texts, { pooling: 'mean', normalize: true });
+const texts = ["Hello world!", "This is an example sentence."];
+const embeddings = await extractor(texts, { pooling: "mean", normalize: true });
 console.log(embeddings.tolist());
 // [
 //   [-0.016986183822155, 0.03228696808218956, -0.0013630966423079371, ... ],
@@ -93,8 +93,7 @@ const transcriber = await pipeline(
 );
 
 // Transcribe audio from a URL
-const url =
-  "https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav";
+const url = "https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav";
 const output = await transcriber(url);
 console.log(output);
 // { text: ' And so my fellow Americans ask not what your country can do for you, ask what you can do for your country.' }
@@ -113,8 +112,7 @@ const classifier = await pipeline(
 );
 
 // Classify an image from a URL
-const url =
-  "https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/tiger.jpg";
+const url = "https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/tiger.jpg";
 const output = await classifier(url);
 console.log(output);
 // [
@@ -224,8 +222,7 @@ const processor = await AutoProcessor.from_pretrained(model_id);
 const tokenizer = await AutoTokenizer.from_pretrained(model_id);
 
 // Load image and prepare vision inputs
-const url =
-  "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/car.jpg";
+const url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/car.jpg";
 const image = await RawImage.fromURL(url);
 const vision_inputs = await processor(image);
 
