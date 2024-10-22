@@ -117,7 +117,7 @@ Using a custom docker image just requires a slightly different configuration, fe
 Pre-Steps
 1. Login: https://huggingface.co/login
 2. Request access to [meta-llama/Meta-Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct)
-3. Create a Fine-Graned Token: https://huggingface.co/settings/tokens/new?tokenType=fineGrained
+3. Create a Fine-Grained Token: https://huggingface.co/settings/tokens/new?tokenType=fineGrained
 ![Fine-Grained Token](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/s2s_endpoint/fine-grained-token.png)
     - Select access to gated repos
     - If you are using the API make sure to select permissions to Manage Inference Endpoints
