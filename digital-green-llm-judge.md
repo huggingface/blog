@@ -134,20 +134,22 @@ The LLM-as-a-judge at core leads to metrics that act as a compass navigating the
 
 ### Results: benchmarking LLMs for RAG
 
-We created a sample dataset of \> 700 user queries randomized across different value chains (crops) and date (months). While this upgrade itself had 11 different versions that evaluated using RAG accuracy and percentage answered, the same approach was used to measure performance of the leading LLMs without any prompt changes in each LLM call. For this experiment, we selected GPT-4 by OpenAI, Gemini-1.5 in Pro and Flash versions, and Llama-3-70B-Instruct.
+We created a sample dataset of \> 700 user queries randomized across different value chains (crops) and date (months). While this upgrade itself had 11 different versions that evaluated using RAG accuracy and percentage answered, the same approach was used to measure performance of the leading LLMs without any prompt changes in each LLM call. For this experiment, we selected GPT-4-Turbo by OpenAI, Gemini-1.5 in Pro and Flash versions, and Llama-3-70B-Instruct.
 
-| LLM | Faithful | Relevance | Answered \* Relevance | Answered \*  Faithful | %  Unanswered |
+| LLM | Faithful | Relevance | Answered * Relevance | Answered *  Faithful | %  Unanswered |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | GPT-4-turbo | 88% | 75% | 59% | 69% | 21.95% |
-| Llama3-70B | 78% | 76% | 76% | 78% | 0.28% |
+| Llama-3-70B | 78% | 76% | 76% | 78% | 0.28% |
 | Gemini-1.5-Pro | 91% | 88% | 71% | 73% | 19.37% |
 | Gemini-1.5-Flash | 89% | 78% | 74 % | 85% | 4.50% |
 
-What we see is that amongst the four models, the highest level of factually correct answers (“Faithful” column) is obtained with Gemini-1.5-pro, followed very closely by Gemini 1.5-flash and GPT-4-turbo.
+What we see is that amongst the four models, the highest level of factually correct answers (“Faithful” column) is obtained with Gemini-1.5-pro, followed very closely by Gemini-1.5-Flash and GPT-4-turbo.
 
 We also decided to score the performance of the LLM based on percentage answered times average relevance and percentage answered time faithful, which are columns 4th and 5th in the table above. While Llama-3-70B comes out on top in the first one, it is distant second on the other. 
 
-What we found was that purely on the basis of accuracy (a response is deemed accurate if faithful \+ relevant to the question), Gemini-1.5-pro supersedes the other models followed by gpt4 at the time of testing. But if we also put the criteria of percentage answered, Llama3-70B and Gemini 1.5-flash perform better simply because they tend to answer even if the context is empty. 
+What we found was that purely on the basis of accuracy (a response is deemed accurate if faithful \+ relevant to the question), Gemini-1.5-Pro beats the other models. But if we also put the criteria of percentage answered, Llama-3-70B and Gemini-1.5-Flash perform better simply because they tend to answer even if the context is empty. 
+
+In the end, we picked Gemini-1.5-Flash due to its superior trade-off of a low percentage of unanswered questions and very high faithfulness.
 
 ### Conclusion
 
@@ -163,14 +165,14 @@ It allows us to measure the impact of these systems in a more objective and data
 In the span of over a year, we have continuously evolved our product. In this small timeframe we have been able to:
 
 * Reach more than 20k farmers  
-* Answer \> 340k questions  
-* Serve \> 6 languages, for 50 value chain crops  
+* Answer > 340k questions  
+* Serve > 6 languages, for 50 value chain crops  
 * Maintain close to zero biases or toxic responses
 
 The results were published recently in this [scientific article](https://arxiv.org/abs/2409.08916), focusing on the quantitative study of user research.
 
 <p align="center">
-    <img src="https://cdn.prod.website-files.com/659d11eefb40654676991482/65e612f59aa42d0216e15236_Map%20and%20data%20(3).gif" alt="System demo" width=80%>
+    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExamVwc2VhdTU2dHFrdzVwaHhsMmpodnNrbXQ2aGUwNHp4dTltZ2hocSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/XhqzekbhZ4cDjh63nY/giphy-downsized-large.gif" alt="System demo" width=60%>
 </p>
 
 _If you are interested in the Hugging Face Expert Support program for your company, don't hesitate to contact us [here](https://huggingface.co/contact/sales?from=support) - our sales team will get in touch to discuss your needs!_
