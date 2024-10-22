@@ -153,7 +153,7 @@ Pre-Steps
 
 > [!WARNING] The current [huggingface-inference-toolkit entrypoint](https://github.com/huggingface/huggingface-inference-toolkit/blob/028b8250427f2ab8458ed12c0d8edb50ff914a08/scripts/entrypoint.sh#L4) uses port 5000 as default, but the inference endpoint expects port 80. You should match this in the **Container Port**. We already set it in our dockerfile, but beware if making your own from scratch!
 
-## Inference Endpoints API
+### Inference Endpoints API
 
 Here we will walk through the steps for creating the endpoint with the API. Just use this code in your python environment of choice.
 
