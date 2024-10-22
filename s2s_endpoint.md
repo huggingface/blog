@@ -1,5 +1,5 @@
 ---
-title: "Deploying Speech-to-Speech on Hugging Face Inference Endpoints with a Custom Docker Container" 
+title: "Deploying Speech-to-Speech on Hugging Face" 
 thumbnail: /blog/assets/s2s_endpoint/thumbnail.png
 authors:
 - user: andito
@@ -9,7 +9,7 @@ authors:
 
 ---
 
-# Deploying Speech-to-Speech on Hugging Face Inference Endpoints with a Custom Docker Container
+# Deploying Speech-to-Speech on Hugging Face
 ## Introduction
 
 [Speech-to-Speech (S2S)](https://github.com/huggingface/speech-to-speech) is an exciting new project from Hugging Face that combines several advanced models to create a seamless, almost magical experience: you speak, and the system responds with a synthesized voice. 

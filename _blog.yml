@@ -4829,7 +4829,7 @@
     - open-source
 
 - local: s2s_endpoint
-  title: "Deploying Speech-to-Speech on Hugging Face Inference Endpoints with a Custom Docker Container"
+  title: "Deploying Speech-to-Speech on Hugging Face"
   author: andito
   thumbnail: /blog/assets/s2s_endpoint/thumbnail.png
   date: October 1, 2024
