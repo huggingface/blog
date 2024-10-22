@@ -23,6 +23,8 @@ As Hugging Face has become a popular platform for model sharing, we’d like to 
 
 Pickle is not the only exploitable format out there, [see for reference](https://github.com/Azure/counterfit/wiki/Abusing-ML-model-file-formats-to-create-malware-on-AI-systems:-A-proof-of-concept) how one can exploit Keras Lambda layers to achieve arbitrary code execution. The good news is that Guardian catches both of these exploits and more in additional file formats – see their [Knowledge Base](https://protectai.com/insights/knowledge-base/) for up to date scanner information.
 
+> [!TIP]
+> Read all our documentation on security here: https://huggingface.co/docs/hub/security 🔥
 
 ## Integration
 
