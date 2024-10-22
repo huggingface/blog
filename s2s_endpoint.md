@@ -9,7 +9,8 @@ authors:
 
 ---
 
-# Introduction
+# Deploying Speech-to-Speech on Hugging Face Inference Endpoints with a Custom Docker Container
+## Introduction
 
 [Speech-to-Speech (S2S)](https://github.com/huggingface/speech-to-speech) is an exciting new project from Hugging Face that combines several advanced models to create a seamless, almost magical experience: you speak, and the system responds with a synthesized voice. 
 
@@ -37,7 +38,7 @@ In this blog post, we’ll guide you step by step to deploy Speech-to-Speech to 
 - Building a custom docker image for S2S
 - Deploying the custom image to IE and having some fun with S2S!
 
-# Inference Endpoints
+## Inference Endpoints
 
 Inference Endpoints provide a scalable and efficient way to deploy machine learning models. These endpoints allow you to serve models with minimal setup, leveraging a variety of powerful hardware. Inference Endpoints are ideal for deploying applications that require high performance and reliability, without the need to manage underlying infrastructure.
 
@@ -58,10 +59,10 @@ For simpler models, options 1 and 2 are ideal and make deploying with Inference 
 This method not only provides more flexibility but also improved performance by optimizing the build process and gathering necessary data. If you’re dealing with complex model pipelines or want to optimize your application deployment, this guide will offer valuable insights.
 
 
-# Deploying Speech-to-Speech on Inference Endpoints
+## Deploying Speech-to-Speech on Inference Endpoints
 Let's get into it!
 
-# Building the custom Docker image
+### Building the custom Docker image
 
 To begin creating a custom Docker image, we started by cloning Hugging Face’s default Docker image repository. This serves as a great starting point for deploying machine learning models in inference tasks.
 
@@ -109,7 +110,7 @@ docker push andito/speech-to-speech:latest
 
 With the Docker image built and pushed, it’s ready to be used in the Hugging Face Inference Endpoint. By using this pre-built image, the endpoint can launch faster and run more efficiently, as all dependencies and data are pre-packaged within the image.
 
-# Setting up an Inference Endpoint
+## Setting up an Inference Endpoint
 
 Using a custom docker image just requires a slightly different configuration, feel free to check out the [documentation](https://huggingface.co/docs/inference-endpoints/en/guides/custom_container). We will walk through the approach to do this in both the GUI and the API.
 
@@ -195,7 +196,7 @@ endpoint = create_inference_endpoint(
 # Optional
 endpoint.wait()
 ```
-# Overview
+## Overview
 ![Overview](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/s2s_endpoint/overview.png)
 
 Major Componants
@@ -206,7 +207,7 @@ Major Componants
   - This was forked from [huggingface/huggingface-inference-toolkit](https://github.com/huggingface/huggingface-inference-toolkit) to help us build the Custom Container configured as we desire 
 
 
-## Building the webserver
+### Building the webserver
 
 To use the endpoint, we will need to build a small webservice. The code for it is done on `s2s_handler.py` in the [speech_to_speech library](https://github.com/huggingface/speech-to-speech) which we use for the client and `webservice_starlette.py` in the[speech_to_speech_inference_toolkit](https://github.com/huggingface/speech-to-speech-inference-toolkit) which we used to build the docker image. Normally, you would only have a custom handler for an endpoint, but since we want to have a really low latency, we also built the webservice to support websocket connections instead of normal requests. This sounds intimidating at first, but the webservice is only 32 lines of code!
 
@@ -222,7 +223,7 @@ This code will run `prepare_handler` on startup, which will initialize all the m
 
 This method simply receives the audio data from the client, chunks it into small parts for the VAD, and submits it to a queue for processing. Then it checks the output processing queue (the spoken response from the model!) and returns it if there is something. All of the internal processing is handled by [Hugging Face's speech_to_speech library](https://github.com/huggingface/speech-to-speech).
 
-## Custom handler custom client
+### Custom handler custom client
 
 The webservice receives and returns audio. But there is still a big missing piece, how do we record and play back the audio? For that, we created [a client](https://github.com/huggingface/speech-to-speech/blob/inference-endpoint/audio_streaming_client.py) that connects to the service. The easiest is to divide the analysis in the connection to the webservice and the recording/playing of audio.
 
@@ -250,7 +251,7 @@ The client's audio section has 4 tasks:
 
 The audio is recorded on the `audio_input_callback` method, it simply submits all chunks to a queue. Then, it is sent to the server with the `send_audio` method. Here, if there is no audio to send, we still submit an empty array in order to receive a response from the server. The responses from the server are handled by the `on_message` method we saw earlier in the blog. Then, the playback of the audio responses are handled by the `audio_output_callback` method. Here we only need to ensure that the audio is in the range we expect (We don't want to destroy someone eardrum's because of a faulty package!) and ensure that the size of the output array is what the playback library expects. 
 
-# Conclusion
+## Conclusion
 
 In this post, we walked through the steps of deploying the Speech-to-Speech (S2S) pipeline on Hugging Face Inference Endpoints using a custom Docker image. We built a custom container to handle the complexities of the S2S pipeline and demonstrated how to configure it for scalable, efficient deployment. Hugging Face Inference Endpoints make it easier to bring performance-heavy applications like Speech-to-Speech to life, without the hassle of managing hardware or infrastructure.
 
