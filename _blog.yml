@@ -4868,3 +4868,20 @@
     - transformers
     - javascript
     - webgpu
+
+
+- local: hugs
+  title: "Introducing HUGS - Scale your AI with Open Models"
+  author: philschmid
+  thumbnail: /blog/assets/hugs/thumbnail.jpg
+  date: October 23, 2024
+  tags:
+    - announcement
+    - partnerships
+    - aws
+    - gcp
+    - azure
+    - digitalocean
+    - llm
+    - inference
+    - enterprise
