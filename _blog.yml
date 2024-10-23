@@ -4848,6 +4848,7 @@
     - structured generation
     - llm
     - open-source
+
 - local: sd3-5
   title: "🧨 Diffusers welcomes Stable Diffusion 3.5 Large"
   author: diffusers
@@ -4857,6 +4858,7 @@
     - diffusers
     - guide
     - sd3-5
+
 - local: transformersjs-v3
   title: "Transformers.js v3: WebGPU support, new models & tasks, and more…"
   author: Xenova
@@ -4869,6 +4871,15 @@
     - javascript
     - webgpu
 
+- local: cinepile2
+  title: "CinePile 2.0 - making stronger datasets with adversarial refinement"
+  author: mfarre
+  thumbnail: /blog/assets/188_cinepile2/thumbnail.png
+  date: October 23, 2024
+  tags:
+    - video
+    - datasets
+    - multimodal 
 
 - local: hugs
   title: "Introducing HUGS - Scale your AI with Open Models"
