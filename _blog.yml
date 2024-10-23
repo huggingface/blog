@@ -4872,7 +4872,7 @@
     - webgpu
 
 - local: cinepile2
-  title: "FineVideo: behind the scenes"
+  title: "CinePile 2.0 - making stronger datasets with adversarial refinement"
   author: mfarre
   thumbnail: /blog/assets/188_cinepile2/thumbnail.png
   date: October 23, 2024
