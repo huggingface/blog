@@ -51,7 +51,7 @@ Using HUGS is straightforward. Here's how you can get started:
 HUGS is available through several channels:
 
 1. **Cloud Service Provider (CSP) Marketplaces**: You can find and deploy HUGS on [Amazon Web Services (AWS)](https://aws.amazon.com/marketplace/pp/prodview-bqy5zfvz3wox6) with [Google Cloud Platform (GCP)](https://huggingface.co/docs/hugs/how-to/cloud/gcp) and [Microsoft Azure](https://huggingface.co/docs/hugs/how-to/cloud/azure) support coming soon (being published at the moment)  
-2. **DigitalOcean**: HUGS is natively available within [DigitalOcean as a new 1-Click Models service](https://www.digitalocean.com/products/ai-ml/1-click-models), powered by Hugging Face HUGS and GPU Droplets.  
+2. **DigitalOcean**: HUGS is natively available within [DigitalOcean as a new 1-Click Models service](http://digitalocean.com/blog/one-click-models-on-do-powered-by-huggingface), powered by Hugging Face HUGS and GPU Droplets.  
 3. **Enterprise Hub**: If your organization is upgraded to Enterprise Hub, [contact our Sales team](https://huggingface.co/contact/sales?from=hugs) to get access to HUGS.
 
 For specific deployment instructions for each platform, please refer to the relevant documentation linked above.
