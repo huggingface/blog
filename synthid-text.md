@@ -1,7 +1,8 @@
 ---
 title: "Introducing SynthID Text"
+thumbnail: /blog/assets/synthid-text/thumbnail.png
 authors:
-  - user: Sumedh Ghaisas
+  - user: sumedhghaisas
     org: Google DeepMind
     guest: true
   - user: Sumanth Dathathri
@@ -12,7 +13,7 @@ authors:
     guest: true
   - user: joaogante
     org: Hugging Face
-  - user: marc
+  - user: marcsun13
     org: Hugging Face
   - user: RaushanTurganbay
     org: Hugging Face
