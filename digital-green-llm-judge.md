@@ -172,7 +172,7 @@ In the span of over a year, we have continuously evolved our product. In this sm
 The results were published recently in this [scientific article](https://arxiv.org/abs/2409.08916), focusing on the quantitative study of user research.
 
 <p align="center">
-    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExamVwc2VhdTU2dHFrdzVwaHhsMmpodnNrbXQ2aGUwNHp4dTltZ2hocSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/XhqzekbhZ4cDjh63nY/giphy-downsized-large.gif" alt="System demo" width=60%>
+    <img src="https://cdn.prod.website-files.com/659d11eefb40654676991482/65e612f59aa42d0216e15236_Map%20and%20data%20(3).gif" alt="System demo" width=60%>
 </p>
 
 _If you are interested in the Hugging Face Expert Support program for your company, don't hesitate to contact us [here](https://huggingface.co/contact/sales?from=support) - our sales team will get in touch to discuss your needs!_
