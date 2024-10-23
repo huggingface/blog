@@ -114,7 +114,16 @@ The *Adversarial Refinement* pipeline aims to modify questions or answers until 
 3. Our question-generation model uses this rationale to modify the question and/or answer choices, removing implicit clues
 4. This process repeats up to five times per question until the Deaf-Blind LLM's performance drops to random chance
 
-<a name="gen_refine_qa"></a> ![Generated to Refined QA Example](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/cinepile2/cinepile_refine_ques.png)
+<div style="display: flex; gap: 20px; align-items: center;">
+    <div style="flex: 1;">
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/kD0zHgK3BJ8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div style="flex: 2;">
+        <a name="teaser"></a>
+        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/cinepile2/cinepile_refine_ques.png" alt="Generated to Refined QA Example" style="width: 100%; height: auto;">
+    </div>
+</div>
+
 
 Given the computational demands of this iterative process, we needed a powerful yet accessible LLM that could run locally to avoid API usage limits, delays, and cloud service costs. We chose:
 * LLaMA 3.1 70B (open-source model) as the Deaf-Blind LLM
