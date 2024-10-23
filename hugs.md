@@ -91,9 +91,9 @@ HUGS supports a growing ecosystem of open models and hardware platforms. Refer t
 
 We launch today with 13 popular open LLMs: 
 
-* [meta-llama/Meta-Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct)  
-* [meta-llama/Meta-Llama-3.1-70B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3.1-70B-Instruct)  
-* [meta-llama/Meta-Llama-3.1-405B-Instruct-FP8](https://huggingface.co/meta-llama/Meta-Llama-3.1-405B-Instruct-FP8)  
+* [meta-llama/Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)  
+* [meta-llama/Llama-3.1-70B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct)  
+* [meta-llama/Llama-3.1-405B-Instruct-FP8](https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct-FP8)  
 * [NousResearch/Hermes-3-Llama-3.1-8B](https://huggingface.co/NousResearch/Hermes-3-Llama-3.1-8B)  
 * [NousResearch/Hermes-3-Llama-3.1-70B](https://huggingface.co/NousResearch/Hermes-3-Llama-3.1-70B)  
 * [NousResearch/Hermes-3-Llama-3.1-405B-FP8](https://huggingface.co/NousResearch/Hermes-3-Llama-3.1-405B-FP8)  
