@@ -5,7 +5,7 @@ authors:
   - user: sumedhghaisas
     org: Google DeepMind
     guest: true
-  - user: Sumanth Dathathri
+  - user: sdathath
     org: Google DeepMind
     guest: true
   - user: RyanMullins
