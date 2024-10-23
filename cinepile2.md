@@ -1,6 +1,6 @@
 ---
 title: "CinePile 2.0 - making stronger datasets with adversarial refinement" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+thumbnail: /blog/assets/188_cinepile2/thumbnail.png
 authors:
 - user: RuchitRawal
 - user: mfarre
@@ -11,7 +11,9 @@ authors:
 
 # CinePile 2.0 - making stronger datasets with adversarial refinement
 
-In this blog post shares our journey of releasing [CinePile 2.0](https://huggingface.co/datasets/tomg-group-umd/cinepile), a significantly improved version of our long video QA dataset. While working on this update, we developed an approach called adversarial dataset refinement - a method that helped us make the benchmark more robust. We're excited to share both CinePile 2.0 and our adversarial refinement method (including code), which we believe can strengthen many existing machine learning datasets.
+In this blog post we share the journey of releasing [CinePile 2.0](https://huggingface.co/datasets/tomg-group-umd/cinepile), a significantly improved version of our long video QA dataset. The improvements in the new dataset rely on a new approach that we coined adversarial dataset refinement. 
+
+We're excited to share both CinePile 2.0 and our adversarial refinement method implementation, which we believe can strengthen many existing datasets and directly be part of future dataset creation pipelines.
 
 <a name="adv_ref_pipe"></a> ![Advesarial Refinement Pipeline](
 https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/cinepile2/adv_refine.png)
@@ -22,16 +24,14 @@ If you are mainly interested in the adversarial refinement method, you can [jump
 ## Wait. What is CinePile?
 
 In May 2024, we launched CinePile, a long video QA dataset with about 300,000 training samples and 5,000 test samples.
-CinePile stands out from other datasets in two aspects:
 
+The first release stood out from other datasets in two aspects:
 * Question diversity: It covers temporal understanding, plot analysis, character dynamics, setting, and themes.
 * Question difficulty: In our benchmark, humans outperformed the best commercial vision models by 25% and open-source ones by 65%.
 
-Part of the secret sauce behind it is that it relies on movie clips from YouTube and Q&A distilled from precise audio descriptions designed for visually impaired audiences. These descriptions offer rich context beyond basic visuals, helping us create more complex questions.
-
 ### Taking a look at a data sample
 
-As we can see in the example below, CinePile stands out from other datasets by going beyond simple perceptual questions (e.g., "What color is the car?"):
+Part of the secret sauce behind it is that it relies on movie clips from YouTube and Q&A distilled from precise audio descriptions designed for visually impaired audiences. These descriptions offer rich context beyond basic visuals (e.g., "What color is the car?"), helping us create more complex questions.
 
 <div style="display: flex; gap: 20px; align-items: center;">
     <div style="flex: 1;">
@@ -42,10 +42,6 @@ As we can see in the example below, CinePile stands out from other datasets by g
         <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/cinepile2/teaser_figure.png" alt="Sample Scene" style="width: 100%; height: auto;">
     </div>
 </div>
-
-
-The dataset includes about 9,400 movie clips from various genres and eras, combining both dialogue and visual descriptions (from audio transcriptions) into what we call *scene-text-annotation*.
-
 
 ### Tell me more. How did you put together the original dataset?
 
@@ -95,9 +91,7 @@ Through continued use of the benchmark by our team and the broader community, we
 
 ## CinePile 2.0
 
-For CinePile's second release, the University of Maryland and the Weizmann Institute of Science collaborated with Hugging Face, following their successful experimentation with fine-tuning [Video Llava 7B on CinePile](https://huggingface.co/mfarre/Video-LLaVA-7B-hf-CinePile).
-
-Drawing from our combined experience with CinePile, we identified and prioritized several areas for improvement.
+For CinePile's second release, we worked together with Hugging Face (following their successful experimentation with fine-tuning [Video Llava 7B on CinePile](https://huggingface.co/mfarre/Video-LLaVA-7B-hf-CinePile)) to identify and prioritize several areas of improvement.
 
 ### Issues in CinePile 1.0
 
@@ -178,7 +172,7 @@ The open-source video-LLM community has made significant progress from the first
   * MiniCPM-V 2.6 (8B parameters)
   * Both outperformed InternVL2 (26B parameters)
   
-* **There is room to improves**
+* **There is room to improve**
   * Nearly all models showed 15-20% accuracy drop on the hard-split
   * Indicates significant room for improvement
 
