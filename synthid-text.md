@@ -141,7 +141,8 @@ is provided in Transformers, along with an
 of how to train a detector to recognize watermarked text using a specific
 watermarking configuration. Models that use the same tokenizer can also share
 watermarking configuration and detector, thus sharing a common watermark, so
-long as the detector's training set includes examples from all models.
+long as the detector's training set includes examples from all models that share
+a watermark.
 
 This trained detector can be uploaded to a private HF Hub to make it accessible
 across your organization. Google’s
