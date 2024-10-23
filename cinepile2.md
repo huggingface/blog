@@ -152,14 +152,14 @@ In this release, we're publishing both our adversarial refinement pipeline and t
 
 ### Evaluations
 
-We evaluated both previously tested models and 16 new Video-LLMs on the modified test set. The results showed:
+After testing both previously evaluated models and 16 new Video-LLMs on the modified test set, we’ve highlighted the top performers in the figure below. Here’s what the results show:
 
 * **Gemini 1.5 Pro** led among commercial Vision Language Models (VLMs)
   * Excelled particularly in "Setting and Technical Analysis"
   * Best performance on visually-driven questions about movie environments and character interactions
 
 * **GPT-based models** showed competitive performance
-  * Strongest in "Narrative and Plot Analysis"
+  * Strong in "Narrative and Plot Analysis"
   * Performed well on questions about storylines and character interactions
 
 * **Gemini 1.5 Flash**, a lighter version of Gemini 1.5 Pro
@@ -167,7 +167,7 @@ We evaluated both previously tested models and 16 new Video-LLMs on the modified
   * Performed particularly well in "Setting and Technical Analysis"
 
 
-<a name="acc_cats"></a> ![Model Evaluations](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/cinepile2/stacked_bar_chart.png)
+<a name="acc_cats"></a> ![Model Evaluations](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/cinepile2/model_evals_cats.png)
 
 #### Open Source models
 The open-source video-LLM community has made significant progress from the first to the current release of CinePile. This is what we learned:
