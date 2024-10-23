@@ -3,6 +3,8 @@ title: "CinePile 2.0 - making stronger datasets with adversarial refinement"
 thumbnail: /blog/assets/188_cinepile2/thumbnail.png
 authors:
 - user: RuchitRawal
+  guest: true
+  org: UMD
 - user: mfarre
 - user: somepago
 - user: lvwerra
