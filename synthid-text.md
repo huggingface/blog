@@ -98,7 +98,7 @@ from transformers import (
     SynthIDTextWatermarkingConfig,
 )
 
-# Standard model and toeknizer initialization
+# Standard model and tokenizer initialization
 tokenizer = AutoTokenizer.from_pretrained('repo/id')
 model = AutoModelForCausalLM.from_pretrained('repo/id')
 
