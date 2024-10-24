@@ -3,6 +3,8 @@ title: "HF Expert Support story: Bolstering a RAG app with LLM-as-a-Judge"
 thumbnail: /blog/assets/digital-gren-llm-judge/thumbnail.png
 authors:
   - user: Vinsingh
+    guest: true
+    org: DigiGreen
   - user: m-ric
 ---
 
