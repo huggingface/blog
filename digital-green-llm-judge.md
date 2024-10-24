@@ -134,7 +134,7 @@ The context variable above is the input chunks given for generating the answers 
 This was a very important step as it enables evaluation at scale which is important when dealing with large numbers of documents and queries.
 The LLM-as-a-judge at core leads to metrics that act as a compass navigating the various options available for our AI pipeline.
 
-### Results: benchmarking LLMs for RAG
+## Results: benchmarking LLMs for RAG
 
 We created a sample dataset of \> 700 user queries randomized across different value chains (crops) and date (months). While this upgrade itself had 11 different versions that evaluated using RAG accuracy and percentage answered, the same approach was used to measure performance of the leading LLMs without any prompt changes in each LLM call. For this experiment, we selected GPT-4-Turbo by OpenAI, Gemini-1.5 in Pro and Flash versions, and Llama-3-70B-Instruct.
 
