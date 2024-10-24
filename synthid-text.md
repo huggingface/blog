@@ -75,7 +75,7 @@ You must define two parameters in every watermarking configuration:
   at least 2.
 
 You can further configure the watermark based on your performance needs. See the
-[`SynthIDTextWatermarkingConfig` class](https://github.com/huggingface/transformers/blob/v4.46.0/src/transformers/generation/configuration_utils.py#L1448-L1490)
+[`SynthIDTextWatermarkingConfig` class](https://huggingface.co/docs/transformers/v4.46.0/en/internal/generation_utils#transformers.SynthIDTextWatermarkingConfig)
 for more information.
 
 The [research paper](https://www.nature.com/articles/s41586-024-08025-4)
