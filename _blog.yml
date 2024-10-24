@@ -4871,18 +4871,6 @@
     - javascript
     - webgpu
 
-- local: digital-green-llm-judge
-  title: "HF Expert Support story: Bolstering a RAG app with LLM-as-a-Judge"
-  author: m-ric
-  thumbnail: /blog/assets/digital-green-llm-judge/thumbnail.png
-  date: October 24, 2024
-  tags:
-    - RAG
-    - llm
-    - expert-support-program
-    - expert-support
-    - case-studies
-
 - local: cinepile2
   title: "CinePile 2.0 - making stronger datasets with adversarial refinement"
   author: mfarre
@@ -4921,3 +4909,15 @@
     - llm
     - watermarking
     - open-source
+
+- local: digital-green-llm-judge
+  title: "Expert Support case study: Bolstering a RAG app with LLM-as-a-Judge"
+  author: m-ric
+  thumbnail: /blog/assets/digital-green-llm-judge/thumbnail.png
+  date: October 25, 2024
+  tags:
+    - RAG
+    - llm
+    - expert-support-program
+    - expert-support
+    - case-studies

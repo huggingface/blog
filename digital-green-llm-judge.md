@@ -1,16 +1,16 @@
 ---
-title: "HF Expert Support story: Bolstering a RAG app with LLM-as-a-Judge"
+title: "Expert Support case study: Bolstering a RAG app with LLM-as-a-Judge"
 thumbnail: /blog/assets/digital-gren-llm-judge/thumbnail.png
 authors:
   - user: Vinsingh
     guest: true
-    org: DigiGreen
+    org: CGIAR
   - user: m-ric
 ---
 
-# HF Expert Support story: Bolstering a RAG app with LLM-as-a-Judge
+# Expert Support case study: Bolstering a RAG app with LLM-as-a-Judge
 
-> [!NOTE] This post is authored by the Digital Green team.
+> [!NOTE] This post is authored by the [Digital Green](https://huggingface.co/DigiGreen) team in collab with HF + [CGIAR](https://huggingface.co/CGIAR).
 
 There are an estimated 500 million smallholder farmers globally: they play a critical role in global food security. Timely access to accurate information is essential for these farmers to make informed decisions and improve their yields.
 
