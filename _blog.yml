@@ -4909,3 +4909,15 @@
     - llm
     - watermarking
     - open-source
+
+- local: aya-expanse
+  title: "A Deepdive into Aya Expanse: Advancing the Frontier of Multilinguality"
+  author: johndang-cohere
+  thumbnail: /blog/assets/aya-expanse/thumbnail.jpg
+  date: October 24, 2024
+  tags:
+    - announcement
+    - cohere
+    - llm
+    - aya
+    - open-source
