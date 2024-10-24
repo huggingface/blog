@@ -153,7 +153,7 @@ What we found was that purely on the basis of accuracy (a response is deemed acc
 
 In the end, we picked Gemini-1.5-Flash due to its superior trade-off of a low percentage of unanswered questions and very high faithfulness.
 
-### Conclusion
+## Conclusion
 
 By leveraging LLMs as judges, we gain a deeper understanding of user behavior and the effectiveness of AI-powered tools in the agricultural context. This data-driven approach is crucial for:
 
