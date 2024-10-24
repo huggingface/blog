@@ -84,4 +84,8 @@ Zheng He’s expedition to the “west ocean” was powered by a whole nation st
 Thanks to Tiezhen Wang, Luke Cheng, Shao Meng and Sam Guo for providing valuable feedback.
 
 Thank you for reading!
+
+The blog was originally posted on https://www.turingpost.com/p/chinese-ai-expeditions-over-the-west-ocean 
+
+
  
