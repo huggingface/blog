@@ -59,29 +59,25 @@ Since the assistant and target tokenizers use different vocabularies it's necess
 
 While not shown in the video above, token re-encoding from target to assistant follows a similar process. However, mismatched tokens must be discarded from the assistant model's key-value (KV) cache to ensure data integrity.
 
-
 ## Benchmarks
 
-The table below shows the latency improvements observed for target models when paired with assistant models using different tokenizers:
+The table below shows the latency improvements observed for target models when paired with assistant models using different tokenizers.
 
 | Target model | Assistant model | Dataset | Task | Speedup |
 |----------------------|---------------------|---------------------------|---------------------------|---------------------------|
-| `codellama/CodeLlama-13b-Instruct-hf` | `bigcode/tiny_starcoder_py` | `openai/humaneval` | code generation | **1.90x** |
-| `meta-llama/Llama-3.1-70B` | `Qwen/Qwen2-0.5B-Instruct`  | `tau/scrolls`   | long-context summarization | **1.7x** |
-| `microsoft/Phi-3-medium-128k-instruct` | `Qwen/Qwen2-0.5B-Instruct`  | `tau/scrolls`   | long-context summarization | **1.91x** |
-| `google/gemma-2-9b` | `double7/vicuna-68m`  | `cnn_dailymail`   | summarization | **1.76x** |
+| `codellama/CodeLlama-13b-Instruct-hf` | `bigcode/tiny_starcoder_py` | [`openai/humaneval`](https://huggingface.co/openai/humaneval) | code generation | **1.90x** |
+| `mistralai/Mixtral-8x22B-Instruct-v0.1` | `Qwen/Qwen2-0.5B-Instruct`  | [`tau/scrolls`](https://huggingface.co/tau/scrolls)   | long-context summarization | **1.89x** |
+| `meta-llama/Llama-3.1-70B` | `Qwen/Qwen2-0.5B-Instruct`  | [`tau/scrolls`](https://huggingface.co/tau/scrolls)   | long-context summarization | **1.78x** |
+| `microsoft/Phi-3-medium-128k-instruct` | `Qwen/Qwen2-0.5B-Instruct`  | [`tau/scrolls`](https://huggingface.co/tau/scrolls)   | long-context summarization | **1.91x** |
+| `google/gemma-2-9b` | `double7/vicuna-68m`  | [`cnn_dailymail`](https://huggingface.co/cnn_dailymail)   | summarization | **1.76x** |
 
 Note that the target models above do not have small variants (under 1 billion parameters) which are suitable for acceleration using standard assisted generation.
 
-Experimental setup: 1 x A6000 GPU
+Experiments with `Llama` and `Mixtral` target models use 2 and 4 A100 GPUs, respectively. All other experiments ran with a single A6000 GPU.
 
 ## Code
 
-Universal Assisted Generation is currently available in the `main` version of 🤗 Transformers. Install using:
-
-```bash
-pip install git+https://github.com/huggingface/transformers
-```
+Dynamic speculation has been integrated into release [4.46.0](https://github.com/huggingface/transformers/releases/tag/v4.46.0) of 🤗 Transformers.
 
 To use, pass `tokenizer` and `assistant_tokenizer` to `generate()`:
 
