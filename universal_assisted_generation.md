@@ -33,7 +33,7 @@ authors:
 The unprecedented success of LLMs has redefined the limits of NLP. However, a major challenge in their deployment is optimizing performance to reduce their response time. Assisted generation, also known as [speculative decoding](https://arxiv.org/abs/2211.17192), is a very popular and practical approach for accelerating LLMs achieving considerable speedups.
 
 ## Assisted Generation
- 
+
 The core idea behind assisted generation involves using a pair of models, referred to as the _target_ and _assistant_ models. The assistant model is a smaller, more efficient version of the target model, for example you can use [`Llama-3.2-1B`](https://huggingface.co/meta-llama/Llama-3.2-1B) as the assistant model for the larger [`Llama-3.1-70b`](https://huggingface.co/meta-llama/Llama-3.1-70b) target model.
 Assisted generation is an iterative process. Each cycle, the assistant model generates a sequence of tokens autoregressively, one at a time. The target model then verifies all the assistant tokens in the sequence in a single forward pass. The speedup is achieved by confirming multiple tokens in each forward pass of the target model, rather than producing just one token at a time. For a more detailed explanation, see the original [blog post](https://huggingface.co/blog/assisted-generation). Combined with the recently introduced [Dynamic Speculation](https://huggingface.co/blog/dynamic_speculation_lookahead) strategy, assisted generation accelerates text generation by 1.5x-3x, depending on the task and the models used.
 
@@ -66,7 +66,7 @@ The table below shows the latency improvements observed for target models when p
 | Target model | Assistant model | Dataset | Task | Speedup |
 |----------------------|---------------------|---------------------------|---------------------------|---------------------------|
 | `codellama/CodeLlama-13b-Instruct-hf` | `bigcode/tiny_starcoder_py` | [`openai/humaneval`](https://huggingface.co/openai/humaneval) | code generation | **1.90x** |
-| `mistralai/Mixtral-8x22B-Instruct-v0.1` | `Qwen/Qwen2-0.5B-Instruct`  | [`tau/scrolls`](https://huggingface.co/tau/scrolls)   | long-context summarization | **1.89x** |
+| `mistralai/Mixtral-8x22B-Instruct-v0.1` | `double7/vicuna-68m`  | [`cnn_dailymail`](https://huggingface.co/cnn_dailymail)   | summarization | **1.52x** |
 | `meta-llama/Llama-3.1-70B` | `Qwen/Qwen2-0.5B-Instruct`  | [`tau/scrolls`](https://huggingface.co/tau/scrolls)   | long-context summarization | **1.78x** |
 | `microsoft/Phi-3-medium-128k-instruct` | `Qwen/Qwen2-0.5B-Instruct`  | [`tau/scrolls`](https://huggingface.co/tau/scrolls)   | long-context summarization | **1.91x** |
 | `google/gemma-2-9b` | `double7/vicuna-68m`  | [`cnn_dailymail`](https://huggingface.co/cnn_dailymail)   | summarization | **1.76x** |
