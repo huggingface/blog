@@ -4342,7 +4342,7 @@
     - pii
 
 - local: keras-hub-integration
-  title: "Announcing New Hugging Face and Keras NLP integration"
+  title: "Announcing New Hugging Face and KerasHub integration"
   thumbnail: /blog/assets/keras-hub-integration/thumbnail.png
   author: ariG23498
   date: Jul 10, 2024
