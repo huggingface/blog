@@ -4341,9 +4341,9 @@
     - datasets
     - pii
 
-- local: keras-nlp-integration
+- local: keras-hub-integration
   title: "Announcing New Hugging Face and Keras NLP integration"
-  thumbnail: /blog/assets/keras-nlp-integration/thumbnail.png
+  thumbnail: /blog/assets/keras-hub-integration/thumbnail.png
   author: ariG23498
   date: Jul 10, 2024
   tags:
