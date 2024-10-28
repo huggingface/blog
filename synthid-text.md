@@ -26,9 +26,9 @@ Face are excited to launch
 [SynthID Text](https://deepmind.google/technologies/synthid/) in Transformers
 v4.46.0, releasing later today. This technology allows you to apply watermarks
 to AI-generated text using a
-[logits processor](https://huggingface.co/docs/transformers/v4.46.0/en/internal/generation_utils)
+[logits processor](https://huggingface.co/docs/transformers/v4.46.0/en/internal/generation_utils#transformers.SynthIDTextWatermarkLogitsProcessor)
 for generation tasks, and detect those watermarks with a
-[classifier](https://github.com/huggingface/transformers/tree/v4.46.0/examples/research_projects/synthid_text/detector_bayesian.py).
+[classifier](https://huggingface.co/docs/transformers/v4.46.0/en/internal/generation_utils#transformers.SynthIDTextWatermarkDetector).
 
 Check out the SynthID Text
 [paper in _Nature_](https://www.nature.com/articles/s41586-024-08025-4) for the
@@ -45,10 +45,10 @@ quality. Google DeepMind has developed a watermarking technique that uses a
 pseudo-random function, called a g-function, to augment the generation process
 of any LLM such that the watermark is imperceptible to humans but is visible to
 a trained model. This has been implemented as a
-[generation utility](https://huggingface.co/docs/transformers/v4.46.0/en/internal/generation_utils)
+[generation utility](https://huggingface.co/docs/transformers/v4.46.0/en/internal/generation_utils#transformers.SynthIDTextWatermarkLogitsProcessor)
 that is compatible with any LLM without modification using the
 `model.generate()` API, along with an
-[end-to-end example](https://github.com/huggingface/transformers/tree/v4.46.0/examples/research_projects/synthid_text/detector_bayesian.py)
+[end-to-end example](https://github.com/huggingface/transformers/tree/v4.46.0/examples/research_projects/synthid_text/detector_training.py)
 of how to train detectors to recognize watermarked text. Check out the
 [research paper](https://www.nature.com/articles/s41586-024-08025-4) that has
 more complete details about the SynthID Text algorithm.
@@ -56,7 +56,7 @@ more complete details about the SynthID Text algorithm.
 ## Configuring a watermark
 
 Watermarks are
-[configured using a dataclass](https://github.com/huggingface/transformers/blob/v4.46.0/src/transformers/generation/configuration_utils.py)
+[configured using a dataclass](https://huggingface.co/docs/transformers/v4.46.0/en/internal/generation_utils#transformers.SynthIDTextWatermarkingConfig)
 that parameterizes the _g_-function and how it is applied in the tournament
 sampling process. Each model you use should have its own watermarking
 configuration that **_should be stored securely and privately_**, otherwise your
@@ -75,7 +75,7 @@ You must define two parameters in every watermarking configuration:
   at least 2.
 
 You can further configure the watermark based on your performance needs. See the
-[`SynthIDTextWatermarkingConfig` class](https://github.com/huggingface/transformers/tree/v4.46.0/src/transformers/generation/configuration_utils.py#L1461-L1478)
+[`SynthIDTextWatermarkingConfig` class](https://huggingface.co/docs/transformers/v4.46.0/en/internal/generation_utils#transformers.SynthIDTextWatermarkingConfig)
 for more information.
 
 The [research paper](https://www.nature.com/articles/s41586-024-08025-4)
@@ -135,9 +135,9 @@ The basic detector training process is:
 - Productionize your model with the watermarking configuration and associated detector.
 
 A
-[Bayesian detector class](https://github.com/huggingface/transformers/blob/v4.46.0/src/transformers/generation/watermarking.py)
+[Bayesian detector class](https://huggingface.co/docs/transformers/v4.46.0/en/internal/generation_utils#transformers.BayesianDetectorModel)
 is provided in Transformers, along with an
-[end-to-end example](https://github.com/huggingface/transformers/tree/v4.46.0/examples/research_projects/synthid_text/detector_bayesian.py)
+[end-to-end example](https://github.com/huggingface/transformers/tree/v4.46.0/examples/research_projects/synthid_text/detector_training.py)
 of how to train a detector to recognize watermarked text using a specific
 watermarking configuration. Models that use the same tokenizer can also share
 watermarking configuration and detector, thus sharing a common watermark, so
