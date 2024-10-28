@@ -4,13 +4,16 @@ thumbnail: /blog/assets/digital-gren-llm-judge/thumbnail.png
 authors:
   - user: Vinsingh
     guest: true
-    org: CGIAR
+    org: DigiGreen
+  - user: rajgreen
+    guest: true
+    org: DigiGreen
   - user: m-ric
 ---
 
 # Expert Support case study: Bolstering a RAG app with LLM-as-a-Judge
 
-> [!NOTE] This post is authored by the [Digital Green](https://huggingface.co/DigiGreen) team in collab with HF + [CGIAR](https://huggingface.co/CGIAR).
+> [!NOTE] This is a guest blog post authored by [Digital Green](https://huggingface.co/DigiGreen). Digital green is participating in a [CGIAR](https://huggingface.co/CGIAR)-led collaboration to bring agricultural support to smallholder farmers.
 
 There are an estimated 500 million smallholder farmers globally: they play a critical role in global food security. Timely access to accurate information is essential for these farmers to make informed decisions and improve their yields.
 
