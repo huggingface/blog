@@ -1,3 +1,12 @@
+---
+title: "Argilla 2.4: Curate Hub Datasets with Human Feedback—No Code Needed"
+thumbnail: /blog/assets/argilla-ui-hub/thumbnail.png
+authors:
+- user: nataliaElv
+- user: burtenshaw
+- user: dvilasuero
+---
+
 # Argilla 2.4: Curate Hub Datasets with Human Feedback—No Code Needed
 
 We are extremely excited to share a major new feature: you can now start off your AI dataset projects without code. Using Argilla’s UI, you can easily import any dataset from the Hugging Face Hub, define questions, and start collecting human feedback.
