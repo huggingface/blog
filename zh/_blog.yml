@@ -1983,15 +1983,17 @@
   tags:
     - guide
 
-- local: daily-papers
-  title: Hugging Face 论文平台 Daily Papers 功能全解析
-  author: AdinaY
-  thumbnail: /blog/assets/daily-papers/thumbnail.png
-  date: September 23, 2024
+- local: sql-console
+  title: 为数据集而生的SQL控制台
+  author: cfahlgren1
+  thumbnail: /blog/assets/sql_console/thumbnail.png
+  date: September 17, 2024
   tags:
-    - research
-    - community
-
+    - datasets
+    - sql
+    - duckdb
+    - community 
+    
 - local: 1_58_llm_extreme_quantization
   title: 1.58 万亿参数的极端量化
   author: medmekk
@@ -1999,6 +2001,15 @@
   date: September 18, 2024
   tags:
     - nlp
+    - research
+    - community
+
+- local: daily-papers
+  title: Hugging Face 论文平台 Daily Papers 功能全解析
+  author: AdinaY
+  thumbnail: /blog/assets/daily-papers/thumbnail.png
+  date: September 23, 2024
+  tags:
     - research
     - community
 
@@ -2053,7 +2064,7 @@
   date: October 3, 2024
   tags:
     - research
-    - community 
+    - community
 
 - local: dynamic_speculation_lookahead
   title: "更快的辅助生成: 动态推测"

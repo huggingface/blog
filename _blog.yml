@@ -4932,6 +4932,18 @@
     - partnerships
     - security
 
+- local: digital-green-llm-judge
+  title: "Expert Support case study: Bolstering a RAG app with LLM-as-a-Judge"
+  author: m-ric
+  thumbnail: /blog/assets/digital-green-llm-judge/thumbnail.png
+  date: October 28, 2024
+  tags:
+    - RAG
+    - llm
+    - expert-support-program
+    - expert-support
+    - case-studies
+
 - local: universal_assisted_generation
   title: "Universal Assisted Generation: Faster Decoding with Any Assistant Model"
   author: danielkorat
