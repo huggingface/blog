@@ -68,6 +68,7 @@ The table below shows the latency improvements observed for target models when p
 | `codellama/CodeLlama-13b-Instruct-hf` | `bigcode/tiny_starcoder_py` | [`openai/humaneval`](https://huggingface.co/openai/humaneval) | code generation | **1.90x** |
 | `mistralai/Mixtral-8x22B-Instruct-v0.1` | `double7/vicuna-68m`  | [`cnn_dailymail`](https://huggingface.co/cnn_dailymail)   | summarization | **1.52x** |
 | `google/gemma-2-9b` | `double7/vicuna-68m`  | [`cnn_dailymail`](https://huggingface.co/cnn_dailymail)   | summarization | **1.76x** |
+| `mistralai/Mixtral-8x22B-Instruct-v0.1` | `Qwen/Qwen2-0.5B-Instruct`  | [`tau/scrolls`](https://huggingface.co/tau/scrolls)   | long-context summarization | **1.78x** |
 | `meta-llama/Llama-3.1-70B` | `Qwen/Qwen2-0.5B-Instruct`  | [`tau/scrolls`](https://huggingface.co/tau/scrolls)   | long-context summarization | **1.78x** |
 | `microsoft/Phi-3-medium-128k-instruct` | `Qwen/Qwen2-0.5B-Instruct`  | [`tau/scrolls`](https://huggingface.co/tau/scrolls)   | long-context summarization | **1.91x** |
 
