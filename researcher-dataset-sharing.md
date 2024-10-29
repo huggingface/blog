@@ -3,19 +3,22 @@ title: "Creating open machine learning datasets? Share them on the Hugging Face 
 thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
 authors:
 - user: davanstrien
+- user: cfahlgren1
+- user: lhoestq
 ---
-
-# Creating open machine learning datasets? Share them on the Hugging Face Hub!
 
 ## Who is this blog post for?
 
-Are you a researcher doing data-intensive research or using machine learning as a research tool? As part of this research, you have likely created datasets for training and evaluating machine learning models, and like many researchers, you may be sharing these datasets via Google Drive, OneDrive, or your own personal server. In this post, we’ll outline why you might want to consider sharing these datasets on the Hugging Face Hub instead. 
+Are you a researcher doing data-intensive research or using machine learning as a research tool? As part of this research, you have likely created datasets for training and evaluating machine learning models, and like many researchers, you may be sharing these datasets via Google Drive, OneDrive, or your own personal server. In this post, we’ll outline why Hugging Face Hub is the best place on the internet to host open datasets.
 
-This post outlines:
+Many of the world's leading research institutions and companies such as Meta, Google, OpenAI, and THUDM are using the Hugging Face Hub to host their datasets. By hosting a dataset on the Hugging Face Hub, you instantly get access to many features that can maximize the impact of your dataset:
 
-- Why researchers should openly share their data (feel free to skip this section if you are already convinced about this!)
-- What the Hugging Face Hub offers for researchers who want to share their datasets.
-- Resources for getting started with sharing your datasets on the Hugging Face Hub.
+- Generous Limits
+- Dataset Viewer
+- Third Party Library Support
+- SQL Console
+- Access Controls
+- Reach and Visibility
 
 ## Why share your data?
 
@@ -38,9 +41,11 @@ The [Hugging Face Hub](https://huggingface.co/) has become the central hub for s
 
 This blog post won’t cover all of the features and benefits of hosting datasets on the Hugging Face Hub but will instead highlight some that are particularly relevant for researchers. 
 
-### Visibility for your work 
+### Reach and Visibility
 
-The Hugging Face Hub has become the central Hub for people to collaborate on open machine learning. Making your datasets available via the Hugging Face Hub ensures it is visible to a wide audience of machine learning researchers. The Hub makes it possible to expose links between datasets, models and demos which makes it easier to see how people are using your datasets for training models and creating demos. 
+The Hugging Face Hub has become the central Hub for people to collaborate on open machine learning. Making your datasets available via the Hugging Face Hub ensures it is visible to a wide audience of machine learning researchers. The Hub makes it possible to expose links between datasets, models, academic papers, and demos which makes it easier to see how people are using your datasets for training models and creating demos.
+
+Each dataset on the Hub includes a customizable README file that serves as comprehensive documentation. This README allows you to provide detailed dataset descriptions, proper citations, and links to related academic papers. Additionally, your dataset gets its own SEO-optimized URL, making it easily discoverable by other researchers and practitioners.
 
 ### Tools for exploring and working with datasets
 
