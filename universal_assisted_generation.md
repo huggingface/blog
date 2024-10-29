@@ -30,7 +30,7 @@ authors:
 
 ## Introduction
 
-Nowadays, the strongest open weight LLMs typically have billions to hundreds of billions parameters (hello Llama-3.1-405B 👋), and deploying these beasts in production environments poses a range of engineering challenges. One such challenge is that generating text from these large models is _slow_, which has prompted the community to developed a wide range of techniques to accelerate the decoding process. Assisted generation, also known as [speculative decoding](https://arxiv.org/abs/2211.17192), is a very popular and practical approach for accelerating LLM inference without accuracy loss. In this blog post, we take a look at how assisted generation works and share our   research to extend it towards _any_ of the [140,000 language models](https://huggingface.co/models?pipeline_tag=text-generation&sort=trending) on the Hugging Face Hub 🚀! 
+Nowadays, the strongest open weight LLMs typically have billions to hundreds of billions parameters (hello Llama-3.1-405B 👋), and deploying these beasts in production environments poses a range of engineering challenges. One such challenge is that generating text from these large models is _slow_, which has prompted the community to develop a wide range of techniques to accelerate the decoding process. Assisted generation, also known as [speculative decoding](https://arxiv.org/abs/2211.17192), is a very popular and practical approach for accelerating LLM inference without accuracy loss. In this blog post, we take a look at how assisted generation works and share our   research to extend it towards _any_ of the [140,000 language models](https://huggingface.co/models?pipeline_tag=text-generation&sort=trending) on the Hugging Face Hub 🚀! 
 
 ## Assisted Generation
 
