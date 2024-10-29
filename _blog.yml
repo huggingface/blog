@@ -4943,3 +4943,15 @@
     - expert-support-program
     - expert-support
     - case-studies
+
+- local: universal_assisted_generation
+  title: "Universal Assisted Generation: Faster Decoding with Any Assistant Model"
+  author: danielkorat
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: October 29, 2024
+  tags:
+    - research
+    - nlp
+    - open-source
+    - collaboration
