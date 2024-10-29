@@ -74,7 +74,7 @@ The table below shows the latency improvements observed for target models when p
 
 Note that the target models above do not have small variants (under 1 billion parameters) which are suitable for acceleration using standard assisted generation.
 
-Each experiment was conducted on 100 examples.
+Each experiment was conducted on 100 randomly selected examples.
 Experiments with `Llama` and `Mixtral` target models use 2 and 4 A100 GPUs, respectively. All other experiments ran with a single A6000 GPU.
 
 ## Code
