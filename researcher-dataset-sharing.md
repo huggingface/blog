@@ -1,5 +1,5 @@
 ---
-title: "Creating open machine learning datasets? Share them on the Hugging Face Hub!"
+title: Share your open ML datasets on Hugging Face Hub!"
 thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
 authors:
 - user: davanstrien
@@ -8,13 +8,11 @@ authors:
 - user: erinys
 ---
 
-## Who is this blog post for?
+If you're working on data-intensive research or machine learning projects, you're likely also creating datasets for training and evaluating models. At times, the datasets you curate are ones that the whole community can benefit from, pushing forward future development and enabling new applications. Public datasets such as Common Crawl, MNIST, ImageNet, and more are critical to the open ML ecosystem, yet can be a challenge to host and share. 
 
-Are you a researcher doing data-intensive research or using machine learning as a research tool? As part of this research, you have likely created datasets for training and evaluating machine learning models, and like many researchers, you may be sharing these datasets via Google Drive, OneDrive, or your own personal server. In this post, we’ll outline why Hugging Face Hub is the best place on the internet to host open datasets.
-
-Many of the world's leading research institutions and companies such as Meta, Google, Stanford and THUDM are using the Hugging Face Hub to host their datasets. 
-
-By hosting a dataset on the Hugging Face Hub, you instantly get access to many features that can maximize the impact of your dataset:
+Hugging Face Hub is built to enable open ML collaboration, especially for datasets. Many of the world's leading research institutions and companies such as Meta, Google, Stanford, and THUDM choose Hugging Face to host their public datasets.
+ 
+By hosting a dataset on the Hugging Face Hub, you get instant access to features that can maximize your work's impact:
 
 - [Generous Limits](#generous-limits)
 - [Dataset Viewer](#dataset-viewer)
@@ -27,7 +25,7 @@ By hosting a dataset on the Hugging Face Hub, you instantly get access to many f
 
 ### Support for large datasets
 
-The Hub can host large datasets; it currently hosts datasets with multiple TBs of data.The datasets library, which users can use to download and process datasets from the Hub, supports streaming, making it possible to work with large datasets without downloading the entire dataset upfront. This can be invaluable for allowing researchers with less computational resources to work with your datasets, or to select small portions of a huge dataset for testing, development or prototyping.
+The Hub can host terabyte-scale datasets, with high [per-file and per-repository limits](https://huggingface.co/docs/hub/en/repositories-recommendations). If you have data to share, the Hugging Face datasets team can help suggest the best format for uploading your data for community usage. The [🤗 Datasets library](https://huggingface.co/docs/datasets/index) makes it easy to upload and download your files, or even create a dataset from scratch. 🤗 Datasets also enables dataset streaming , making it possible to work with large datasets without needing to download the entire thing. This can be invaluable to allow researchers with less computational resources to work with your datasets, or to select small portions of a huge dataset for testing, development or prototyping.
 
 
 <p align="center"> 
@@ -35,6 +33,7 @@ The Hub can host large datasets; it currently hosts datasets with multiple TBs o
 <em>The Hugging Face Hub can host the large datasets often created for machine learning research.</em> 
  </p> 
 
+_Note: The [Xet team](https://huggingface.co/xet-team) is currently working on a backend update that will increase per-file limits from the current 50 GB to 500 GB, while also improving storage and transfer efficiency._ 
 
 ## Dataset Viewer
 
