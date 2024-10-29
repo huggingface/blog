@@ -26,7 +26,7 @@ authors:
 
 # Universal Assisted Generation: Faster Decoding with Any Assistant Model
 
-🏎️ <em>TL;DR</em>: Many models such as `gemma-2-9b` lack a smaller version to use for [assisted generation](https://huggingface.co/blog/assisted-generation). In this blog post we present a method developed by Intel Labs and Hugging Face for using a small model **from any model family** to accelerate inference by **1.5x-2.0x**! 🏎️
+🏎️ <em>TL;DR</em>: Many models such as `gemma-2-9b` lack a much smaller version to use for [assisted generation](https://huggingface.co/blog/assisted-generation). In this blog post, we present _Universal Assisted Generation_: a method developed by Intel Labs and Hugging Face which extends assisted generation to work with a small model **from any model family** 🤯. As a result, it is now possible to accelerate inference from _any_ decoder or [Mixture of Experts](https://huggingface.co/blog/moe) model by **1.5x-2.0x** at almost zero-cost! 🏎️
 
 ## Introduction
 
