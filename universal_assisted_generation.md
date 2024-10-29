@@ -78,7 +78,7 @@ Experiments with `Llama` and `Mixtral` target models use 2 and 4 A100 GPUs, resp
 
 ## Code
 
-Dynamic speculation has been integrated into release [4.46.0](https://github.com/huggingface/transformers/releases/tag/v4.46.0) of 🤗 Transformers.
+Universal assisted generation has been integrated into release [4.46.0](https://github.com/huggingface/transformers/releases/tag/v4.46.0) of 🤗 Transformers.
 
 To use, pass `tokenizer` and `assistant_tokenizer` to `generate()`:
 
