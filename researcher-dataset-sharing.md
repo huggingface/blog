@@ -18,7 +18,7 @@ By hosting a dataset on the Hugging Face Hub, you get instant access to features
 - [Dataset Viewer](#dataset-viewer)
 - [Third Party Library Support](#third-party-library-support)
 - [SQL Console](#sql-console)
-- [Access Controls](#access-controls)
+- [Security](#security)
 - [Reach and Visibility](#reach-and-visibility)
 
 ##  Generous Limits
@@ -41,7 +41,29 @@ The Datasets Viewer allows people to explore and interact with datasets hosted o
 
 ### Full Text Search
 
+Built-in Full Text Search is one of the most powerful features of the Datasets Viewer. Any text columns in a dataset immediately become searchable.
+
+The Arxiver dataset contains 63.4k rows of arXiv research papers converted to Markdown. By using Full Text Search, it's easy to find the papers containing a specific author such as Ilya Sutskever below.
+
+<iframe
+  src="https://huggingface.co/datasets/neuralwork/arxiver/embed/viewer/default/train?q=ilya+sutskever"
+  frameborder="0"
+  width="100%"
+  height="560px"
+></iframe>
+
 ### Sorting
+
+The Datasets Viewer allows you to sort the dataset by clicking on the column headers. This makes it easy to find the most relevant examples in a dataset.
+
+Below is an example of a dataset sorted by the `helpfulness` column in descending order for the [HelpSteer2](https://huggingface.co/datasets/nvidia/HelpSteer2) dataset.
+
+<iframe
+  src="https://huggingface.co/datasets/nvidia/HelpSteer2/embed/viewer/default/train?sort[column]=helpfulness&sort[direction]=desc"
+  frameborder="0"
+  width="100%"
+  height="560px"
+></iframe>
 
 ## Third Party Library Support
 
@@ -56,7 +78,7 @@ Here are some of the libraries Hugging Face supports out of the box:
 | [Dask](https://huggingface.co/docs/hub/datasets-dask) | Parallel and distributed computing library that scales the existing Python and PyData ecosystem. | **12M** |
 | [Polars](https://huggingface.co/docs/hub/datasets-polars) | A DataFrame library on top of an OLAP query engine. | **8.5M** |
 | [DuckDB](https://huggingface.co/docs/hub/datasets-duckdb) | In-process SQL OLAP database management system. | **6M** |
-| [WebDataset](https://huggingface.co/docs/hub/datasets-webdataset) | Library to write I/O pipelines for large datasets. | **871k** |
+| [WebDataset](https://huggingface.co/docs/hub/datasets-webdataset) | Library to write I/O pipelines for large datasets. | **871K** |
 | [Argilla](https://huggingface.co/docs/hub/datasets-argilla) | Collaboration tool for AI engineers and domain experts that value high quality data. | **400k** |
 
  Most of these libraries enable you to load or stream a dataset in 1 single line of code. 
@@ -73,11 +95,59 @@ You can find more information about integrated libraries in the [Datasets docume
 
 ## SQL Console
 
-## Access Controls
+The [SQL Console](https://huggingface.co/blog/sql-console) provides an interactive SQL editor that runs entirely in your browser, enabling instant data exploration without any setup. Key features include:
+
+- **One-Click**: Open a SQL Console to query a dataset with a single click
+- **Shareable and Embeddable Results**: Share and embed interesting query results
+- **Full DuckDB Syntax**: Use full SQL syntax with built-in functions for regex, lists, JSON, embeddings, and more
+
+On every public dataset you should see a new **SQL Console** badge. With just one click you can open a SQL Console to query that dataset.
+
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+   <video
+      alt="SQL Console Demo"
+      autoplay loop autobuffer muted playsinline
+    >
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/Magpie-Ultra-Demo-SQL-Console.mp4" type="video/mp4">
+  </video>
+  <figcaption class="text-center text-sm italic">Querying the Magpie-Ultra dataset for excellent, high quality reasoning instructions.</figcaption>
+</figure>
+
+
+## Security
+
+### Access Controls
+
+The Hugging Face Hub supports unique access control options for who has access to the dataset.
+
+- **Public**: Anyone can access the dataset.
+- **Private**: Only you and those in your organization can access the dataset.
+- **Gated**: Control access to your dataset through two options:
+  - **Automatic Approval**: Users must provide required information (like name and email) and agree to terms before gaining access
+  - **Manual Approval**: You review and manually approve/reject each access request
+
+For more details about gated datasets, see the [gated datasets documentation](https://huggingface.co/docs/hub/en/datasets-gated). For more fine-grained controls, there are Enterprise plan features where organizations can [create resource security groups](https://huggingface.co/docs/hub/en/security-resource-groups), use [SSO](https://huggingface.co/docs/hub/en/security-sso), and more.
+
+### Built-in Security Scanning
+
+Along with access controls, the Hugging Face Hub offers several security scanners:
+| Feature | Description |
+| :---- | :---- |
+| [Malware Scanning](https://huggingface.co/docs/hub/en/security-malware) | Scans files for malware and suspicious content at each commit and visit |
+| [Secrets Scanning](https://huggingface.co/docs/hub/en/security-secrets) | Blocks datasets with hardcoded secrets and environment variables |
+| [Pickle Scanning](https://huggingface.co/docs/hub/en/security-pickle) | Scans pickle files and shows vetted imports for PyTorch weights |
+| [ProtectAI](https://huggingface.co/docs/hub/en/security-protectai) | Uses Guardian tech to block datasets with pickle, Keras and other exploits |
+
+<figure class="flex flex-col items-center text-center m-0 w-full">
+  <img class="rounded" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/security-scanner-status-banner.png" alt="Security scanner status banner showing various security checks"/>
+  <figcaption class="text-center text-sm italic mt-2">To learn more about these scanners, see the <a href="https://huggingface.co/docs/hub/en/security">security scanners documentation</a>.</figcaption>
+</figure>
+
 
 ## Reach and Visibility
+Reach and visibility are crucial for researchers sharing datasets - it helps maximize research impact, enables reproducibility, facilitates collaboration, and ensures valuable data can benefit the broader scientific community.
 
-The Hugging Face Hub has become the central platform for open machine learning collaboration, offering researchers a powerful way to share and promote their datasets. When you host your dataset on the Hub, you gain:
+With over 5M builders actively using the platform, the Hugging Face Hub provides researchers with powerful tools for community engagement and visibility. Here's what you can expect:
 
 ### Better Community Engagement
 - Built-in discussion tabs for each dataset for community engagement
@@ -101,7 +171,7 @@ The Hugging Face Hub has become the central platform for open machine learning c
 <em>The Hub makes it easy to ask questions and discuss datasets.</em> 
  </p> 
 
-### How can I host my dataset on the Hugging Face Hub? 
+## How can I host my dataset on the Hugging Face Hub? 
 
 Here are some resources to help you get started with sharing your datasets on the Hugging Face Hub:
 
