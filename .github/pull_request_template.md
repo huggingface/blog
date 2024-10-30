@@ -21,6 +21,6 @@ Please make sure to get a review from someone on your team or a co-author.
 Once this is done and once all the steps above are completed, you should be able to merge.
 There is no need for additional reviews if you and your co-authors are happy and meet all of the above.
 
-Feel free to add @osanseviero or @pcuenca as reviewers if you want a final check. They'll be biased toward light reviews
+Feel free to add @pcuenca as reviewers if you want a final check. They'll be biased toward light reviews
 (e.g., check for proper metadata) rather than content reviews unless explicitly asked. 
 
