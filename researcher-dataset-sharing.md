@@ -1,5 +1,5 @@
 ---
-title: Share your open ML datasets on Hugging Face Hub!"
+title: "Share your open ML datasets on Hugging Face Hub!"
 thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
 authors:
 - user: davanstrien
