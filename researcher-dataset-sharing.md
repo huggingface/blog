@@ -25,7 +25,8 @@ By hosting a dataset on the Hugging Face Hub, you get instant access to features
 
 ### Support for large datasets
 
-The Hub can host terabyte-scale datasets, with high [per-file and per-repository limits](https://huggingface.co/docs/hub/en/repositories-recommendations). If you have data to share, the Hugging Face datasets team can help suggest the best format for uploading your data for community usage. The [🤗 Datasets library](https://huggingface.co/docs/datasets/index) makes it easy to upload and download your files, or even create a dataset from scratch. 🤗 Datasets also enables dataset streaming , making it possible to work with large datasets without needing to download the entire thing. This can be invaluable to allow researchers with less computational resources to work with your datasets, or to select small portions of a huge dataset for testing, development or prototyping.
+The Hub can host terabyte-scale datasets, with high [per-file and per-repository limits](https://huggingface.co/docs/hub/en/repositories-recommendations). If you have data to share, the Hugging Face datasets team can help suggest the best format for uploading your data for community usage. 
+The [🤗 Datasets library](https://huggingface.co/docs/datasets/index) makes it easy to upload and download your files, or even create a dataset from scratch. 🤗 Datasets also enables dataset streaming , making it possible to work with large datasets without needing to download the entire thing. This can be invaluable to allow researchers with less computational resources to work with your datasets, or to select small portions of a huge dataset for testing, development or prototyping.
 
 
 <p align="center"> 
@@ -38,6 +39,12 @@ _Note: The [Xet team](https://huggingface.co/xet-team) is currently working on a
 ## Dataset Viewer
 
 The Datasets Viewer allows people to explore and interact with datasets hosted on the Hub directly in the browser when visiting the dataset. This makes it much easier for others to view and explore your data without first having to download it. The Datasets Viewer also includes a few features which make it easier to explore a dataset.
+
+<p align="center"> 
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/datasets/infinity-instruct.png" alt="Screenshot of the Datasets Viewer"><br> 
+<em>The Dataset Viewer for the Infinity-Instruct dataset.</em> 
+</p> 
+
 
 ### Full Text Search
 
