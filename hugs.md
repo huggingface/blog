@@ -50,7 +50,7 @@ Using HUGS is straightforward. Here's how you can get started:
 
 HUGS is available through several channels:
 
-1. **Cloud Service Provider (CSP) Marketplaces**: You can find and deploy HUGS on [Amazon Web Services (AWS)](https://aws.amazon.com/marketplace/pp/prodview-bqy5zfvz3wox6) with [Google Cloud Platform (GCP)](https://huggingface.co/docs/hugs/how-to/cloud/gcp) and [Microsoft Azure](https://huggingface.co/docs/hugs/how-to/cloud/azure) support coming soon (being published at the moment)  
+1. **Cloud Service Provider (CSP) Marketplaces**: You can find and deploy HUGS on [Amazon Web Services (AWS)](https://aws.amazon.com/marketplace/pp/prodview-bqy5zfvz3wox6) with [Google Cloud Platform (GCP)](https://console.cloud.google.com/marketplace/product/huggingface-public/hugs) and [Microsoft Azure](https://huggingface.co/docs/hugs/how-to/cloud/azure) support coming soon (being published at the moment)  
 2. **DigitalOcean**: HUGS is natively available within [DigitalOcean as a new 1-Click Models service](http://digitalocean.com/blog/one-click-models-on-do-powered-by-huggingface), powered by Hugging Face HUGS and GPU Droplets.  
 3. **Enterprise Hub**: If your organization is upgraded to Enterprise Hub, [contact our Sales team](https://huggingface.co/contact/sales?from=hugs) to get access to HUGS.
 
@@ -111,4 +111,4 @@ For a detailed view of supported Models x Hardware, check out the [documentation
 
 HUGS makes it easy to harness the power of open models, with zero-configuration optimized inference in your own infra. With HUGS, you can take control of your AI applications and easily transition proof of concept applications built with closed models to open models you host yourself. 
 
-Get started today and deploy HUGS on [AWS](https://aws.amazon.com/marketplace/pp/prodview-bqy5zfvz3wox6) or [DigitalOcean](https://www.digitalocean.com/products/ai-ml/1-click-models)!
+Get started today and deploy HUGS on [AWS](https://aws.amazon.com/marketplace/pp/prodview-bqy5zfvz3wox6), [Google Cloud](https://console.cloud.google.com/marketplace/product/huggingface-public/hugs) or [DigitalOcean](https://www.digitalocean.com/products/ai-ml/1-click-models)!
