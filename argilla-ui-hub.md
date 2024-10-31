@@ -35,7 +35,7 @@ First, you need to deploy Argilla. The recommended way is to deploy on Spaces, [
 
 [screen recording]
 
-Once Argilla is running, sign in and click the “Import from Hub” button in the Home page. You can get started with one of our example datasets or input the repo id of the dataset you want to use. Argilla will automatically suggest an initial configuration based on the dataset’s features, so you don’t need to start from scratch.
+Once Argilla is running, sign in and click the “Import dataset from Hugging Face" button in the Home page. You can get started with one of our example datasets or input the repo id of the dataset you want to use. Argilla will automatically suggest an initial configuration based on the dataset’s features, so you don’t need to start from scratch.
 
 > [!NOTE]
 > In this first version, the Hub dataset must be public, if you are interested in support for private datasets, we’d love to hear from you on [GitHub](https://github.com/argilla-io/argilla).
