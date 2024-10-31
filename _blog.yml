@@ -4933,7 +4933,7 @@
     - security
 
 - local: argilla-ui-hub
-  title: "Argilla 2.4: Curate Hub Datasets with Human Feedback—No Code Needed"
+  title: "Argilla 2.4: Easily Add Human Feedback to Hub Datasets—No Code Required"
   author: nataliaElv
   thumbnail: /blog/assets/argilla-ui-hub/thumbnail.png
   date: November 4, 2024
