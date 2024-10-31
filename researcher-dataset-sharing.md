@@ -38,13 +38,16 @@ _Note: The [Xet team](https://huggingface.co/xet-team) is currently working on a
 
 ## Dataset Viewer
 
-The Datasets Viewer allows people to explore and interact with datasets hosted on the Hub directly in the browser when visiting the dataset. This makes it much easier for others to view and explore your data without first having to download it. The Datasets Viewer also includes a few features which make it easier to explore a dataset.
+With the Datasets Viewer, users can explore and interact with datasets hosted on the Hub directly in their browser. This provides an easy way for others to view and explore your data without downloading it first.
+
+Hugging Face datasets supports many different modalities (audio, images, video, etc.) and file formats (CSV, JSON, Parquet, etc.), and compression formats (Gzip, Zip, etc.). Check out the [Datasets File Formats](https://huggingface.co/docs/hub/en/datasets-adding#file-formats) page for more details.
 
 <p align="center"> 
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/datasets/infinity-instruct.png" alt="Screenshot of the Datasets Viewer"><br> 
 <em>The Dataset Viewer for the Infinity-Instruct dataset.</em> 
 </p> 
 
+The Datasets Viewer also includes a few features which make it easier to explore a dataset.
 
 ### Full Text Search
 
@@ -186,6 +189,7 @@ Here are some resources to help you get started with sharing your datasets on th
 - Guides for particular modalities:
   - Creating an [audio dataset](https://huggingface.co/docs/datasets/audio_dataset)
   - Creating an [image dataset](https://huggingface.co/docs/datasets/image_dataset)
+  - Creating a [video dataset](https://huggingface.co/docs/datasets/main/en/video_dataset)
 - Guidance on [structuring your repository](https://huggingface.co/docs/datasets/repository_structure) so a dataset can be automatically loaded from the Hub.
 
 The following pages will be useful if you want to share large datasets:
