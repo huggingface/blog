@@ -1,5 +1,5 @@
 ---
-title: "From Files to Chunks: Improving HF Storage Efficiency" 
+title: "From Files to Chunks: Improving Hugging Face Storage Efficiency" 
 thumbnail: /blog/assets/from-files-to-chunks/thumbnail.png
 authors:
 - user: jsulz
