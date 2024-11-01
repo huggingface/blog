@@ -4955,3 +4955,13 @@
     - nlp
     - open-source
     - collaboration
+
+- local: from-files-to-chunks
+  title: "From Files to Chunks: Improving Hugging Face Storage Efficiency"
+  author: jsulz
+  thumbnail: /blog/assets/from-files-to-chunks/thumbnail.png
+  date: November 4, 2024
+  tags:
+    - dedupe
+    - storage
+    - content defined chunking
