@@ -34,7 +34,7 @@ The [🤗 Datasets library](https://huggingface.co/docs/datasets/index) makes it
 <em>The Hugging Face Hub can host the large datasets often created for machine learning research.</em> 
  </p> 
 
-_Note: The [Xet team](https://huggingface.co/xet-team) is currently working on a backend update that will increase per-file limits from the current 50 GB to 500 GB, while also improving storage and transfer efficiency._ 
+_Note: The [Xet team](https://huggingface.co/xet-team) is currently working on a backend update that will increase per-file limits from the current 50 GB to 500 GB while also improving storage and transfer efficiency._ 
 
 ## Dataset Viewer
 
