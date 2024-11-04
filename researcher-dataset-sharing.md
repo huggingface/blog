@@ -8,7 +8,7 @@ authors:
 - user: erinys
 ---
 
-If you're working on data-intensive research or machine learning projects, you're likely creating datasets for training and evaluating models. At times, the datasets you curate are ones the whole community can benefit from, pushing forward future development and enabling new applications. Public datasets such as Common Crawl, MNIST, ImageNet, and more are critical to the open ML ecosystem, yet they can be challenging to host and share. 
+If you're working on data-intensive research or machine learning projects, you're likely creating datasets for training and evaluating models. Public datasets such as Common Crawl, MNIST, ImageNet, and more are critical to the open ML ecosystem, yet they can be challenging to host and share. 
 
 Hugging Face Hub is built to enable open ML collaboration, especially for datasets. Many of the world's leading research institutions and companies, such as [Meta](https://huggingface.co/meta-llama), [Google](https://huggingface.co/google), [Stanford](https://huggingface.co/stanfordnlp), and [THUDM](https://huggingface.co/THUDM), choose Hugging Face to host their public datasets. The Hub is also being used by many community organizations, non-profits, and government agencies to share datasets. 
  
@@ -38,7 +38,7 @@ _Note: The [Xet team](https://huggingface.co/xet-team) is currently working on a
 
 ## Dataset Viewer
 
-With the Datasets Viewer, users can explore and interact with datasets hosted on the Hub directly in their browser. This provides an easy way for others to view and explore your data without downloading it first.
+Beyond just hosting your data, the Hub provides powerful tools for exploration. With the Datasets Viewer, users can explore and interact with datasets hosted on the Hub directly in their browser. This provides an easy way for others to view and explore your data without downloading it first.
 
 Hugging Face datasets supports many different modalities (audio, images, video, etc.) and file formats (CSV, JSON, Parquet, etc.), and compression formats (Gzip, Zip, etc.). Check out the [Datasets File Formats](https://huggingface.co/docs/hub/en/datasets-adding#file-formats) page for more details.
 
@@ -126,6 +126,8 @@ On every public dataset you should see a new **SQL Console** badge. With just on
 
 ## Security
 
+While making datasets accessible is important, protecting sensitive data is equally crucial. The Hugging Face Hub provides robust security features to help you maintain control over your data while sharing it with the right audiences.
+
 ### Access Controls
 
 The Hugging Face Hub supports unique access control options for who has access to the dataset.
@@ -155,7 +157,8 @@ Along with access controls, the Hugging Face Hub offers several security scanner
 
 
 ## Reach and Visibility
-Reach and visibility are crucial for researchers sharing datasets - it helps maximize research impact, enables reproducibility, facilitates collaboration, and ensures valuable data can benefit the broader scientific community.
+
+Having a secure platform with powerful features is valuable, but the true impact of research comes from reaching the right audience. Reach and visibility are crucial for researchers sharing datasets - it helps maximize research impact, enables reproducibility, facilitates collaboration, and ensures valuable data can benefit the broader scientific community.
 
 With over 5M builders actively using the platform, the Hugging Face Hub provides researchers with powerful tools for community engagement and visibility. Here's what you can expect:
 
@@ -183,7 +186,7 @@ With over 5M builders actively using the platform, the Hugging Face Hub provides
 
 ## How can I host my dataset on the Hugging Face Hub? 
 
-Here are some resources to help you get started with sharing your datasets on the Hugging Face Hub:
+Now that you understand the benefits of hosting your dataset on the Hub, you might be wondering how to get started. Here are some comprehensive resources to guide you through the process:
 
 - General guidance on [creating](https://huggingface.co/docs/datasets/create_dataset) and [sharing datasets on the Hub](https://huggingface.co/docs/datasets/upload_dataset)
 - Guides for particular modalities:
