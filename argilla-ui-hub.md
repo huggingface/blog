@@ -1,5 +1,5 @@
 ---
-title: "Argilla 2.4: Easily Add Human Feedback to Hub Datasets—No Code Required"
+title: "Argilla 2.4: Easily Build Fine-Tuning and Evaluation Datasets on the Hub — No Code Required"
 thumbnail: /blog/assets/argilla-ui-hub/thumbnail.png
 authors:
 - user: nataliaElv
@@ -7,7 +7,7 @@ authors:
 - user: dvilasuero
 ---
 
-# Argilla 2.4: Easily Add Human Feedback to Hub Datasets—No Code Required
+# Argilla 2.4: Easily Build Fine-Tuning and Evaluation Datasets on the Hub — No Code Required
 
 We are incredibly excited to share the most impactful feature since Argilla joined Hugging Face: you can start your AI dataset projects without code and from any Hub dataset.
 
@@ -29,13 +29,12 @@ This new feature democratizes building high-quality datasets on the Hub:
 - If you have published an open dataset and want the community to contribute, import it into a public Argilla Space and share the URL with the world!
 - If you want to start annotating a new dataset from scratch, upload a CSV to the Hub, import it into your Argilla Space, and start labeling!
 - If you want to curate an existing Hub dataset for fine-tuning or evaluating your model,  import the dataset into an Argilla Space and start curating!
-
 - If you want to improve an existing Hub dataset to benefit the community, import it into an Argilla Space and start giving feedback!
 
 
 ## How it works
 
-First, you need to deploy Argilla. The recommended way is to deploy on Spaces [following this guide](https://docs.argilla.io/latest/getting_started/quickstart/). The default deployment comes with Hugging Face OAuth enabled, meaning your Space will be open to any Hub users to annotate your dataset. OAuth is perfect for use cases when you want the community to contribute to your dataset if you're going to keep the annotation restricted to you and other collaborators,[check this other guide](https://docs.argilla.io/latest/getting_started/how-to-configure-argilla-on-huggingface/).
+First, you need to deploy Argilla. The recommended way is to deploy on Spaces [following this guide](https://docs.argilla.io/latest/getting_started/quickstart/). The default deployment comes with Hugging Face OAuth enabled, meaning your Space will be open for annotation contributions from any Hub user. OAuth is perfect for use cases when you want the community to contribute to your dataset. If you want to restrict annotation to you and other collaborators, [check this guide](https://docs.argilla.io/latest/getting_started/how-to-configure-argilla-on-huggingface/) for additional configuration options.
 
 <video controls title="Import a HF dataset from the Hub in the Argilla UI">
 <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/argilla-ui-hub/import_hub_dataset.mp4" type="video/mp4">
@@ -49,7 +48,7 @@ Once Argilla is running, sign in and click the “Import dataset from Hugging Fa
 
 The goal is to map dataset columns to fields and questions in Argilla. Fields include the data you want feedback on, like text, chats, or images. Questions are the feedback you wish to collect, like labels, ratings, rankings, or text. You can add and configure questions or remove unnecessary fields if needed. You can preview all changes in real time to get a clear idea of the Argilla dataset you’re configuring.
 
-Once you’re happy with the result, click “Create dataset” to import the dataset. Now you’re ready to give feedback!
+Once you’re happy with the result, click “Create dataset” to import the dataset with your configuration. Now you’re ready to give feedback!
 
 You can try this for yourself by following the [quickstart guide](https://docs.argilla.io/latest/getting_started/quickstart/). It takes under 5 minutes!
 
