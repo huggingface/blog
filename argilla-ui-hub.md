@@ -26,7 +26,7 @@ Why is this new feature important to you and the community?
 
 This new feature democratizes building high-quality datasets on the Hub:
 
-- You have just published an open dataset and want the community to contribute: import it into a public Argilla Space and share the URL with the world!
+- If you have published an open dataset and want the community to contribute, import it into a public Argilla Space and share the URL with the world!
 - If you want to start annotating a new dataset from scratch, upload a CSV to the Hub, import it into your Argilla Space, and start labeling!
 - If you want to curate an existing Hub dataset for fine-tuning or evaluating your model,  import the dataset into an Argilla Space and start curating!
 
@@ -44,7 +44,7 @@ Once Argilla is running, sign in and click the “Import dataset from Hugging Fa
 > [!NOTE]
 > In this first version, the Hub dataset must be public. If you are interested in support for private datasets, we’d love to hear from you on [GitHub](https://github.com/argilla-io/argilla).
 
-The dataset’s columns will be mapped to fields and questions in Argilla. Fields include the data that you want feedback on, like text, chats, or images. Questions are the feedback you want to collect, like labels, ratings, rankings, or text. If you need, you can add and configure questions or remove unnecessary fields. All of the changes that you make will be previewed in real time, so you can see how your changes affect the dataset.
+The goal is to map dataset columns to fields and questions in Argilla. Fields include the data you want feedback on, like text, chats, or images. Questions are the feedback you wish to collect, like labels, ratings, rankings, or text. You can add and configure questions or remove unnecessary fields if needed. You can preview all changes in real time to get a clear idea of the Argilla dataset you’re configuring.
 
 Once you’re happy with the result, click “Create dataset” to import the dataset. Now you’re ready to give feedback!
 
