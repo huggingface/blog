@@ -34,17 +34,16 @@ This new feature democratizes building high-quality datasets on the Hub:
 
 First, you need to deploy Argilla. The recommended way is to deploy on Spaces [following this guide](https://docs.argilla.io/latest/getting_started/quickstart/). The default deployment comes with Hugging Face OAuth enabled, meaning your Space will be open for annotation contributions from any Hub user. OAuth is perfect for use cases when you want the community to contribute to your dataset. If you want to restrict annotation to you and other collaborators, [check this guide](https://docs.argilla.io/latest/getting_started/how-to-configure-argilla-on-huggingface/) for additional configuration options.
 
-<video controls title="Import a HF dataset from the Hub in the Argilla UI">
+<video controls autoplay title="Import a HF dataset from the Hub in the Argilla UI">
 <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/argilla-ui-hub/import_hub_dataset.mp4" type="video/mp4">
 Import a HF dataset from the Hub in the Argilla UI
 </video>
 
-Once Argilla is running, sign in and click the “Import dataset from Hugging Face” button on the Home page. You can start with one of our example datasets or input the repo id of the dataset you want to use. Argilla automatically suggests an initial configuration based on the dataset’s features, so you don’t need to start from scratch.
-
+Once Argilla is running, sign in and click the “Import dataset from Hugging Face” button on the Home page. You can start with one of our example datasets or input the repo id of the dataset you want to use.
 > [!NOTE]
 > In this first version, the Hub dataset must be public. If you are interested in support for private datasets, we’d love to hear from you on [GitHub](https://github.com/argilla-io/argilla/issues/new/choose).
 
-You can also add and configure questions or remove unnecessary fields if needed. You can preview all changes in real time to get a clear idea of the Argilla dataset you’re configuring. Fields should include the data you want feedback on, like text, chats, or images. Questions are the feedback you wish to collect, like labels, ratings, rankings, or text.
+Argilla automatically suggests an initial configuration based on the dataset’s features, so you don’t need to start from scratch, but you can add questions or remove unnecessary fields. Fields should include the data you want feedback on, like text, chats, or images. Questions are the feedback you wish to collect, like labels, ratings, rankings, or text. All changes are shown in real time, so you can get a clear idea of the Argilla dataset you’re configuring. 
 
 Once you’re happy with the result, click “Create dataset” to import the dataset with your configuration. Now you’re ready to give feedback!
 
