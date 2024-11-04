@@ -37,7 +37,10 @@ This new feature democratizes building high-quality datasets on the Hub:
 
 First, you need to deploy Argilla. The recommended way is to deploy on Spaces [following this guide](https://docs.argilla.io/latest/getting_started/quickstart/). The default deployment comes with Hugging Face OAuth enabled, meaning your Space will be open to any Hub users to annotate your dataset. OAuth is perfect for use cases when you want the community to contribute to your dataset if you're going to keep the annotation restricted to you and other collaborators,[check this other guide](https://docs.argilla.io/latest/getting_started/how-to-configure-argilla-on-huggingface/).
 
-[screen recording]
+<video controls title="Import a HF dataset from the Hub in the Argilla UI">
+<source src="https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/argilla-ui-hub/import_hub_dataset.mp4" type="video/mp4">
+Import a HF dataset from the Hub in the Argilla UI
+</video>
 
 Once Argilla is running, sign in and click the “Import dataset from Hugging Face” button on the Home page. You can start with one of our example datasets or input the repo id of the dataset you want to use. Argilla automatically suggests an initial configuration based on the dataset’s features, so you don’t need to start from scratch.
 
