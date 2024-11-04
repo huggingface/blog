@@ -1,6 +1,11 @@
-# Draft PyCharm integration blogpost
+---
+title: "Hugging Face + Pycharm" 
+thumbnail: /blog/assets/pycharm-integration/thumbnail.png
+authors:
+- user: rocketknight1
+---
 
-## The cold open
+# Hugging Face + PyCharm
 
 It’s a Tuesday morning. As a Transformers maintainer, I’m doing the same thing I do most weekday mornings: Opening [PyCharm](https://jb.gg/get-pycharm-hf), loading up the Transformers codebase and gazing lovingly at the [chat template documentation](https://huggingface.co/docs/transformers/main/chat_templating) while ignoring the 50 user issues I was pinged on that day. But this time, something feels different:
 
