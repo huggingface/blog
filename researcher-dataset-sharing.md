@@ -8,9 +8,9 @@ authors:
 - user: erinys
 ---
 
-If you're working on data-intensive research or machine learning projects, you're likely creating datasets for training and evaluating models. Public datasets such as Common Crawl, MNIST, ImageNet, and more are critical to the open ML ecosystem, yet they can be challenging to host and share. 
+If you're working on data-intensive research or machine learning projects, you need a reliable way to share and host your datasets. Public datasets such as Common Crawl, MNIST, ImageNet, and more are critical to the open ML ecosystem, yet they can be challenging to host and share.
 
-Hugging Face Hub is built to enable open ML collaboration, especially for datasets. Many of the world's leading research institutions and companies, such as [Meta](https://huggingface.co/meta-llama), [Google](https://huggingface.co/google), [Stanford](https://huggingface.co/stanfordnlp), and [THUDM](https://huggingface.co/THUDM), choose Hugging Face to host their public datasets. The Hub is also being used by many community organizations, non-profits, and government agencies to share datasets. 
+Hugging Face Hub makes it seamless to host and share datasets, trusted by many leading research institutions, companies, and government agencies, including [Meta](https://huggingface.co/meta-llama), [Google](https://huggingface.co/google), [Stanford](https://huggingface.co/stanfordnlp), NASA(https://huggingface.co/ibm-nasa-geospatial) and [THUDM](https://huggingface.co/THUDM).
  
 By hosting a dataset on the Hugging Face Hub, you get instant access to features that can maximize your work's impact:
 
@@ -95,10 +95,18 @@ Here are some of the libraries Hugging Face supports out of the box:
  
  Here's pandas as an example:
 
-```py
+```python
+# Pandas example
 import pandas as pd
-
 df = pd.read_parquet("hf://datasets/neuralwork/arxiver/data/train.parquet")
+
+# Polars example 
+import polars as pl
+df = pl.read_parquet("hf://datasets/neuralwork/arxiver/data/train.parquet")
+
+# DuckDB example - SQL queries
+import duckdb
+duckdb.sql("SELECT * FROM 'hf://datasets/neuralwork/arxiver/data/train.parquet' LIMIT 10")
 ```
 
 You can find more information about integrated libraries in the [Datasets documentation](https://huggingface.co/docs/hub/en/datasets-libraries). Along with the libraries listed above, there are many more community supported tools which support the Hugging Face Hub such as [Lilac](https://lilacml.com/) and [Spotlight](https://github.com/Renumics/spotlight).
@@ -178,7 +186,6 @@ With over 5M builders actively using the platform, the Hugging Face Hub provides
 - Support for detailed dataset descriptions and proper academic citations
 - Links to related research papers and publications
 
-<!-- TODO: Replace with a better image showing community engagement  -->
 <p align="center"> 
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/researcher-dataset-sharing/discussion.png" alt="Screenshot of a discussion for a dataset on the Hub."><br> 
 <em>The Hub makes it easy to ask questions and discuss datasets.</em> 
