@@ -8,7 +8,7 @@ authors:
 - user: erinys
 ---
 
-If you're working on data-intensive research or machine learning projects, you're likely also creating datasets for training and evaluating models. At times, the datasets you curate are ones that the whole community can benefit from, pushing forward future development and enabling new applications. Public datasets such as Common Crawl, MNIST, ImageNet, and more are critical to the open ML ecosystem, yet can be a challenge to host and share. 
+If you're working on data-intensive research or machine learning projects, you're likely creating datasets for training and evaluating models. At times, the datasets you curate are ones the whole community can benefit from, pushing forward future development and enabling new applications. Public datasets such as Common Crawl, MNIST, ImageNet, and more are critical to the open ML ecosystem, yet they can be challenging to host and share. 
 
 Hugging Face Hub is built to enable open ML collaboration, especially for datasets. Many of the world's leading research institutions and companies such as Meta, Google, Stanford, and THUDM choose Hugging Face to host their public datasets.
  
