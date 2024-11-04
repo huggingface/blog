@@ -4955,3 +4955,15 @@
     - research
     - datasets
     - guide
+
+- local: argilla-ui-hub
+  title: "Argilla 2.4: Easily Build Fine-Tuning and Evaluation datasets on the Hub — No Code Required"
+  author: nataliaElv
+  thumbnail: /blog/assets/argilla-ui-hub/thumbnail.png
+  date: November 4, 2024
+  tags:
+    - hub
+    - spaces
+    - datasets
+    - argilla
+    - human feedback
