@@ -51,4 +51,4 @@ You can try this for yourself by following the [quickstart guide](https://docs.a
 
 This new workflow streamlines the import of datasets from the Hub, but you can still [import datasets using Argilla’s Python SDK](https://docs.argilla.io/latest/how_to_guides/dataset/) if you need further customization.
 
-We’d love to hear your thoughts and first experiences. Let us know on GitHub or the HF Discord!
+We’d love to hear your thoughts and first experiences. Let us know on [GitHub](https://github.com/argilla-io/argilla/issues/new/choose) or the [HF Discord](https://discord.com/invite/hugging-face-879548962464493619)!
