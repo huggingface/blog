@@ -30,7 +30,8 @@ You can select “Use Model” for some model categories to automatically paste 
 ![code_snippet_screenshot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pycharm-integration/code_snippet_screenshot.png)
 Your office cybersecurity person might complain about you copying a chunk of random text from the internet and running it without even reading all of it, but if that happens just call them a nerd and continue regardless. And behold: We now have a working model that can happily chat about images - in this case, it reads and comments on screenshots of a Microsoft slide deck. Feel free to play around with this example. Try your own chat, or your own images. Once you get it working, simply wrap this code into a class and it’s ready to go in your app. We just got state of the art open-source machine learning in ten minutes without even opening a web browser.
 
-(Tip: These models can be large! If you’re getting memory errors, try using a GPU with more memory, or try reducing the 20 in the sample code. You can also remove device_map="cuda" to put the model in CPU memory instead, at the cost of speed)
+> [!TIP]
+> These models can be large! If you’re getting memory errors, try using a GPU with more memory, or try reducing the 20 in the sample code. You can also remove device_map="cuda" to put the model in CPU memory instead, at the cost of speed.
 
 ## Instant Model Cards
 
