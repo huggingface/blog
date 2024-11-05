@@ -34,7 +34,7 @@ Your office cybersecurity person might complain about you copying a chunk of ran
 
 ## Instant Model Cards
 
-Next, let’s change perspective in our little scenario. Now let’s say you’re not the author of this code \- you’re a coworker who has to review it. Maybe you’re the cybersecurity person from earlier, who’s still upset about the “nerd” comment. You look at this code snippet, and you have no idea what you’re seeing. Don’t panic \- just hover over the model name, and the entire model card instantly appears. You can quickly verify the origin of this model, and what its intended uses are. 
+Next, let’s change perspective in our little scenario. Now let’s say you’re not the author of this code - you’re a coworker who has to review it. Maybe you’re the cybersecurity person from earlier, who’s still upset about the “nerd” comment. You look at this code snippet, and you have no idea what you’re seeing. Don’t panic - just hover over the model name, and the entire model card instantly appears. You can quickly verify the origin of this model, and what its intended uses are. 
 
 (This is also extremely helpful if you work on something else and completely forget everything about the code you wrote two weeks ago)
 
