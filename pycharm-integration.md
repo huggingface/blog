@@ -19,7 +19,7 @@ Those user issues are definitely not getting responses today. Let’s talk about
 
 ## The Hugging Face Is Inside Your House
 
-I could introduce this integration by just listing features, but that’s boring and there’s [documentation](https://www.jetbrains.com/help/pycharm/hugging-face.html) for that. Instead, let’s walk through how we’d use it all in practice. Let’s say I’m writing a Python app, and I decide I want the app to be able to chat with users. Not just text chat, though \- we want the users to be able to paste in images too, and for the app to naturally chat about them as well. 
+I could introduce this integration by just listing features, but that’s boring and there’s [documentation](https://www.jetbrains.com/help/pycharm/hugging-face.html) for that. Instead, let’s walk through how we’d use it all in practice. Let’s say I’m writing a Python app, and I decide I want the app to be able to chat with users. Not just text chat, though – we want the users to be able to paste in images too, and for the app to naturally chat about them as well. 
 
 If you’re not super-familiar with the current state-of-the-art in machine learning, this might seem like a terrifying demand, but don’t fear. Simply right click in your code, and select “Insert HF Model”. You’ll get a dialog box:
 ![dialog_box_screenshot](assets/pycharm_integration/dialog_box_screenshot.png)  
