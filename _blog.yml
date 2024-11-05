@@ -4969,7 +4969,7 @@
     - human feedback
 
 - local: pycharm-integration
-  title: "Hugging Face + Pycharm"
+  title: "Hugging Face + PyCharm"
   author: rocketknight1
   thumbnail: /blog/assets/pycharm-integration/thumbnail.png
   date: November 4, 2024
