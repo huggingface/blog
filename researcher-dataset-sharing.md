@@ -201,7 +201,7 @@ Now that you understand the benefits of hosting your dataset on the Hub, you mig
 - Guides for particular modalities:
   - Creating an [audio dataset](https://huggingface.co/docs/datasets/audio_dataset)
   - Creating an [image dataset](https://huggingface.co/docs/datasets/image_dataset)
-  - Creating a [video dataset](https://huggingface.co/docs/datasets/main/en/video_dataset)
+  - Creating a [video dataset](https://huggingface.co/docs/datasets/video_dataset)
 - Guidance on [structuring your repository](https://huggingface.co/docs/datasets/repository_structure) so a dataset can be automatically loaded from the Hub.
 
 The following pages will be useful if you want to share large datasets:
