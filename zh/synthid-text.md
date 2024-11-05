@@ -22,7 +22,7 @@ translators:
 
 你是否难以分辨一段文本是由人类撰写的，还是 AI 生成的？识别 AI 生成内容对于提升信息可信度、解决归因错误以及抑制错误信息至关重要。
 
-今天，[Google DeepMind](https://deepmind.google/) 和 Hugging Face 很共同宣布，在 [Transformers v4.46.0](https://huggingface.co/docs/transformers/v4.46.0) 版本中，我们正式推出了 [SynthID Text](https://deepmind.google/technologies/synthid/) 技术。这项技术能够通过使用 [logits 处理器](https://huggingface.co/docs/transformers/v4.46.0/en/internal/generation_utils#transformers.SynthIDTextWatermarkLogitsProcessor) 为生成任务添加水印，并利用 [分类器](https://huggingface.co/docs/transformers/v4.46.0/en/internal/generation_utils#transformers.SynthIDTextWatermarkDetector) 检测这些水印。
+今天，[Google DeepMind](https://deepmind.google/) 和 Hugging Face 共同宣布，在 [Transformers v4.46.0](https://huggingface.co/docs/transformers/v4.46.0) 版本中，我们正式推出了 [SynthID Text](https://deepmind.google/technologies/synthid/) 技术。这项技术能够通过使用 [logits 处理器](https://huggingface.co/docs/transformers/v4.46.0/en/internal/generation_utils#transformers.SynthIDTextWatermarkLogitsProcessor) 为生成任务添加水印，并利用 [分类器](https://huggingface.co/docs/transformers/v4.46.0/en/internal/generation_utils#transformers.SynthIDTextWatermarkDetector) 检测这些水印。
 
 详细的技术实现请参考发表在《自然》（_Nature_）上的 [SynthID Text 论文](https://www.nature.com/articles/s41586-024-08025-4)，以及 Google 的 [负责任生成式 AI 工具包](https://ai.google.dev/responsible/docs/safeguards/synthid)，了解如何将 SynthID Text 应用到你的产品中。
 
