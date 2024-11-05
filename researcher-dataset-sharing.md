@@ -93,7 +93,7 @@ Here are some of the libraries Hugging Face supports out of the box:
 
  Most of these libraries enable you to load or stream a dataset in 1 single line of code. 
  
- Here's pandas as an example:
+ Here are some examples with Pandas, Polars and DuckDB:
 
 ```python
 # Pandas example
