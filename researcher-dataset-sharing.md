@@ -10,7 +10,7 @@ authors:
 
 If you're working on data-intensive research or machine learning projects, you need a reliable way to share and host your datasets. Public datasets such as Common Crawl, ImageNet, Common Voice and more are critical to the open ML ecosystem, yet they can be challenging to host and share.
 
-Hugging Face Hub makes it seamless to host and share datasets, trusted by many leading research institutions, companies, and government agencies, including [Meta](https://huggingface.co/meta-llama), [Google](https://huggingface.co/google), [Stanford](https://huggingface.co/stanfordnlp), NASA(https://huggingface.co/ibm-nasa-geospatial) and [THUDM](https://huggingface.co/THUDM).
+Hugging Face Hub makes it seamless to host and share datasets, trusted by many leading research institutions, companies, and government agencies, including [Meta](https://huggingface.co/meta-llama), [Google](https://huggingface.co/google), [Stanford](https://huggingface.co/stanfordnlp), [NASA](https://huggingface.co/ibm-nasa-geospatial) and [THUDM](https://huggingface.co/THUDM).
  
 By hosting a dataset on the Hugging Face Hub, you get instant access to features that can maximize your work's impact:
 
