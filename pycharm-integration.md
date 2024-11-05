@@ -45,7 +45,7 @@ Next, let’s change perspective in our little scenario. Now let’s say you’r
 You might notice that the model has to be downloaded the first time you run this code, but after that, it’s loaded much more quickly. The model has been stored in your local cache. Remember the mysterious little 🤗 icon from earlier? Simply click it, and you’ll get a listing of everything in your cache:
 ![model_cache_screenshot](assets/pycharm_integration/model_cache_screenshot.png)
 
-This is a neat way to find the models you’re working with right now, and also to clear them out and save some disk space once you don’t need them anymore. It’s also very helpful for the two-week amnesia scenario \- if you can’t remember the model you were using back then, it’s probably in here. Remember, though \- most useful, production-ready models in 2024 are going to be \>1GB, so your cache can fill up fast\!
+This is a neat way to find the models you’re working with right now, and also to clear them out and save some disk space once you don’t need them anymore. It’s also very helpful for the two-week amnesia scenario - if you can’t remember the model you were using back then, it’s probably in here. Remember, though, that most useful, production-ready models in 2024 are going to be >1GB, so your cache can fill up fast!
 
 ## Python in the age of AI
 
