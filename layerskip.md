@@ -200,8 +200,8 @@ given by a summation of normalized loss from each exit.
 
 $$ J(X, Y, t) = \sum_{l=0}^{L-1} \tilde{e}(t, l) J_{\text{CE}}(g(x_{l+1}), Y) $$
 
-Where \\( g() \\) is the unembedding operation, \\( x\_{l+1} \\) is the output of transformer layer
-\\( l \\), \\( Y \\) is the index of the next token ground truth,\\( tilde{e}(t, l) \\) is a
+Where \\( g() \\) is the unembedding operation, \\( x_{l+1} \\) is the output of transformer layer
+\\( l \\), \\( Y \\) is the index of the next token ground truth, \\( \tilde{e}(t, l) \\) is a
 normalized per-layer loss scale at layer \\( l \\), which we can keep constant throughout training
 or create a schedule to make it dependent on iteration \\( t \\), ensuring that the early exit
 layers are properly supervised during training. This technique enables efficient training by
@@ -263,39 +263,53 @@ Llama models for both LayerSkip and baseline checkpoints (you can view the full 
 
 <hfoptions id="ablation">
 <hfoption id="Llama3 8B">
+
 | Normal | LayerSkip |
 | :--: | :--: |
 | ![llama 3 8b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-3-8B.png) | ![layer skip llama 3 8b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama3-8B.png) |
+
 </hfoption>
 <hfoption id="Llama3.2 1B">
+
 | Normal | LayerSkip |
 | :--: | :--: |
 | ![llama 3.2 1b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-3.2-1B.png) | ![layer skip llama 3.2 1b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama3.2-1B.png) |
+
 </hfoption>
 <hfoption id="Llama2 7B">
+
 | Normal | LayerSkip |
 | :--: | :--: |
 | ![llama 2 7b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-2-7B.png) | ![layer skip llama 2 7b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama2-7B.png) |
+
 </hfoption>
 <hfoption id="Llama2 13B">
+
 | Normal | LayerSkip |
 | :--: | :--: |
 | ![llama 2 13b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-2-13B.png) | ![layer skip llama 2 13b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama2-13B.png) |
+
 </hfoption>
 <hfoption id="Llama2 70B">
+
 | Normal | LayerSkip |
 | :--: | :--: |
 | ![llama 2 70b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-2-70B.png) | ![layer skip llama 2 70b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama2-70B.png) |
+
 </hfoption>
 <hfoption id="Code Llama3 7B">
+
 | Normal | LayerSkip |
 | :--: | :--: |
 | ![code llama 3 7b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/CodeLlama-7B.png) | ![code layer skip llama 3 7b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-CodeLlama-7B.png) |
+
 </hfoption>
 <hfoption id="Code Llama3 34B">
+
 | Normal | LayerSkip |
 | :--: | :--: |
 | ![code llama 3 34b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/CodeLlama-34B.png) | ![code layer skip llama 3 34b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-CodeLlama-34B.png) |
+
 </hfoption>
 </hfoptions>
 

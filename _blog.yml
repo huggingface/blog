@@ -4967,3 +4967,14 @@
     - datasets
     - argilla
     - human feedback
+
+- local: layerskip
+  title: "Faster Text Generation with Self-Speculative Decoding"
+  author: ariG23498
+  thumbnail: /blog/assets/layerskip/thumbnail.png
+  date: November 5, 2024
+  tags:
+    - research
+    - nlp
+    - open-source
+    - collaboration
