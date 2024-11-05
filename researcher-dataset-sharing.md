@@ -81,7 +81,7 @@ Hugging Face is fortunate to have third party integrations with the leading open
 
 Here are some of the libraries Hugging Face supports out of the box:
 
-| Library | Description | Monthly PyPi Downloads |
+| Library | Description | Monthly PyPi Downloads (2024) |
 | :---- | :---- | :---- |
 | [Pandas](https://huggingface.co/docs/hub/datasets-pandas) | Python data analysis toolkit. | **258M** |
 | [Datasets](https://huggingface.co/docs/hub/datasets-usage) | 🤗 Datasets is a library for accessing and sharing datasets for Audio, Computer Vision, and Natural Language Processing (NLP). | **17M** |
