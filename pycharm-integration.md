@@ -52,7 +52,7 @@ This is a neat way to find the models you’re working with right now, and also 
 
 At Hugging Face, we tend to think of open-source AI as being a natural extension of the open-source philosophy: Open software solves problems for developers and users, creating new abilities for them to integrate into their code, and open models do the same. There is a tendency to be blinded by complexity, and to focus too much on the implementation details because they’re all so novel and exciting, but models exist to **do stuff for you.** If you abstract away the details of architecture and training, they’re fundamentally **functions** - tools in your code that will transform a certain kind of input into a certain kind of output.
 
-These features are then a natural fit. Just as IDEs already pull up function signatures and docstrings for you, they can also pull up sample code and model cards about trained models. Integrations like these make it easy to reach over and import a chat or image recognition model as conveniently as you would import any other library. We think it’s obvious that this is what the future of code will look like, and we hope that you find these features useful!
+These features are thus a natural fit. Just as IDEs already pull up function signatures and docstrings for you, they can also pull up sample code and model cards for trained models. Integrations like these make it easy to reach over and import a chat or image recognition model as conveniently as you would import any other library. We think it’s obvious that this is what the future of code will look like, and we hope that you find these features useful!
 
 **[Download PyCharm](https://jb.gg/get-pycharm-hf) to give the Hugging Face integration a try.**  
 
