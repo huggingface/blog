@@ -1,5 +1,5 @@
 ---
-title: "Hugging Face + Pycharm" 
+title: "Hugging Face + PyCharm"
 thumbnail: /blog/assets/pycharm-integration/thumbnail.png
 authors:
 - user: rocketknight1
