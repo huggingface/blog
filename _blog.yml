@@ -4341,8 +4341,8 @@
     - datasets
     - pii
 
-- local: keras-nlp-integration
-  title: "Announcing New Hugging Face and Keras NLP integration"
+- local: keras-hub-integration
+  title: "Announcing New Hugging Face and KerasHub integration"
   thumbnail: /blog/assets/keras-nlp-integration/thumbnail.png
   author: ariG23498
   date: Jul 10, 2024
@@ -4943,7 +4943,6 @@
     - expert-support-program
     - expert-support
     - case-studies
-
 - local: universal_assisted_generation
   title: "Universal Assisted Generation: Faster Decoding with Any Assistant Model"
   author: danielkorat
