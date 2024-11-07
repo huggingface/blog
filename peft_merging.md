@@ -39,7 +39,7 @@ $$B_{merged} = concat(B_1, B_2, dim=1)$$
 
 where \\( shape(A_{merged}) = (rank_1+rank_2,\ d) )\\ and \\( shape(B_{merged}) = (d,\ rank_1+rank_2) \\). 
 
-Now, the output of this new merged LoRA layer would be as if the original 2 LoRAs were active with weights $$weight_1$$ and $$weight_2$$ for applied to the first and second adapters, respectively.
+Now, the output of this new merged LoRA layer would be as if the original 2 LoRAs were active with weights \\(weight_1\\) and \\(weight_2\\) for applied to the first and second adapters, respectively.
 
 $$h = W_0x + B_{merged}A_{merged}x$$
 
