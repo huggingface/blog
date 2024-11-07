@@ -4943,3 +4943,37 @@
     - expert-support-program
     - expert-support
     - case-studies
+- local: universal_assisted_generation
+  title: "Universal Assisted Generation: Faster Decoding with Any Assistant Model"
+  author: danielkorat
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: October 29, 2024
+  tags:
+    - research
+    - nlp
+    - open-source
+    - collaboration
+
+- local: argilla-ui-hub
+  title: "Argilla 2.4: Easily Build Fine-Tuning and Evaluation datasets on the Hub — No Code Required"
+  author: nataliaElv
+  thumbnail: /blog/assets/argilla-ui-hub/thumbnail.png
+  date: November 4, 2024
+  tags:
+    - hub
+    - spaces
+    - datasets
+    - argilla
+    - human feedback
+
+- local: pycharm-integration
+  title: "Hugging Face + PyCharm"
+  author: rocketknight1
+  thumbnail: /blog/assets/pycharm-integration/thumbnail.png
+  date: November 5, 2024
+  tags:
+    - announcement
+    - open-source
+    - community
+    - collaboration
