@@ -170,11 +170,11 @@ Some observations we can make from the results:
   the draft stage.  
 * For all model sizes and generations except Llama2 70B, the early-exit self-speculative decoding
   is faster than the regular two-model speculative decoding.  
-* There could be different reasons for the relatively limited speedups of self-speculative decoding
-  on Llama2 70B compared to other models, e.g., the LayerSkip checkpoint of Llama2 70B was continually
-  pretrained with fewer tokens (328 M tokens for Llama2 70B compared to 52B tokens for Llama2 7B).
-  But this is an area of improvement to investigate for future research. Nevertheless,
-  self-speculative decoding for 70B is significantly faster than autoregressive decoding.
+  * There could be different reasons for the relatively limited speedups of self-speculative decoding
+    on Llama2 70B compared to other models, e.g., the LayerSkip checkpoint of Llama2 70B was continually
+    pretrained with fewer tokens (328 M tokens for Llama2 70B compared to 52B tokens for Llama2 7B).
+    But this is an area of improvement to investigate for future research. Nevertheless,
+    self-speculative decoding for 70B is significantly faster than autoregressive decoding.
 
 ## Early Exit and Unembedding
 
