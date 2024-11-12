@@ -84,8 +84,7 @@ Here are some of the libraries Hugging Face supports out of the box:
 | Library | Description | Monthly PyPi Downloads (2024) |
 | :---- | :---- | :---- |
 | [Pandas](https://huggingface.co/docs/hub/datasets-pandas) | Python data analysis toolkit. | **258M** |
-| [Spark](https://huggingface.co/docs/hub/datasets-spark) | 
-Real-time, large-scale data processing tool in a distributed environment. | **29M** |
+| [Spark](https://huggingface.co/docs/hub/datasets-spark) | Real-time, large-scale data processing tool in a distributed environment. | **29M** |
 | [Datasets](https://huggingface.co/docs/hub/datasets-usage) | 🤗 Datasets is a library for accessing and sharing datasets for Audio, Computer Vision, and Natural Language Processing (NLP). | **17M** |
 | [Dask](https://huggingface.co/docs/hub/datasets-dask) | Parallel and distributed computing library that scales the existing Python and PyData ecosystem. | **12M** |
 | [Polars](https://huggingface.co/docs/hub/datasets-polars) | A DataFrame library on top of an OLAP query engine. | **8.5M** |
