@@ -4944,17 +4944,6 @@
     - nlp
     - open-source
     - collaboration
-    
-- local: researcher-dataset-sharing
-  title: "Share your open ML datasets on Hugging Face Hub!"
-  author: davanstrien
-  thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
-  date: October 30, 2024
-  tags:
-    - community
-    - research
-    - datasets
-    - guide
 
 - local: argilla-ui-hub
   title: "Argilla 2.4: Easily Build Fine-Tuning and Evaluation datasets on the Hub — No Code Required"
@@ -4967,3 +4956,14 @@
     - datasets
     - argilla
     - human feedback
+
+- local: researcher-dataset-sharing
+  title: "Share your open ML datasets on Hugging Face Hub!"
+  author: davanstrien
+  thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
+  date: October 30, 2024
+  tags:
+    - community
+    - research
+    - datasets
+    - guide
