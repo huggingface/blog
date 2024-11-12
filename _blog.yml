@@ -4341,8 +4341,8 @@
     - datasets
     - pii
 
-- local: keras-nlp-integration
-  title: "Announcing New Hugging Face and Keras NLP integration"
+- local: keras-hub-integration
+  title: "Announcing New Hugging Face and KerasHub integration"
   thumbnail: /blog/assets/keras-nlp-integration/thumbnail.png
   author: ariG23498
   date: Jul 10, 2024
@@ -4921,3 +4921,59 @@
     - llm
     - aya
     - open-source
+
+- local: protectai
+  title: "Hugging Face Teams Up with Protect AI: Enhancing Model Security for the Community"
+  author: mcpotato
+  thumbnail: /blog/assets/protectai/thumbnail.png
+  date: October 22, 2024
+  tags:
+    - hub
+    - partnerships
+    - security
+
+- local: digital-green-llm-judge
+  title: "Expert Support case study: Bolstering a RAG app with LLM-as-a-Judge"
+  author: m-ric
+  thumbnail: /blog/assets/digital-green-llm-judge/thumbnail.png
+  date: October 28, 2024
+  tags:
+    - RAG
+    - llm
+    - expert-support-program
+    - expert-support
+    - case-studies
+- local: universal_assisted_generation
+  title: "Universal Assisted Generation: Faster Decoding with Any Assistant Model"
+  author: danielkorat
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: October 29, 2024
+  tags:
+    - research
+    - nlp
+    - open-source
+    - collaboration
+
+- local: argilla-ui-hub
+  title: "Argilla 2.4: Easily Build Fine-Tuning and Evaluation datasets on the Hub — No Code Required"
+  author: nataliaElv
+  thumbnail: /blog/assets/argilla-ui-hub/thumbnail.png
+  date: November 4, 2024
+  tags:
+    - hub
+    - spaces
+    - datasets
+    - argilla
+    - human feedback
+
+- local: pycharm-integration
+  title: "Hugging Face + PyCharm"
+  author: rocketknight1
+  thumbnail: /blog/assets/pycharm-integration/thumbnail.png
+  date: November 5, 2024
+  tags:
+    - announcement
+    - open-source
+    - community
+    - collaboration
