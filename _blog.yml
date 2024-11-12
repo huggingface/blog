@@ -4330,8 +4330,8 @@
     - datasets
     - pii
 
-- local: keras-nlp-integration
-  title: "Announcing New Hugging Face and Keras NLP integration"
+- local: keras-hub-integration
+  title: "Announcing New Hugging Face and KerasHub integration"
   thumbnail: /blog/assets/keras-nlp-integration/thumbnail.png
   author: ariG23498
   date: Jul 10, 2024
@@ -4932,7 +4932,6 @@
     - expert-support-program
     - expert-support
     - case-studies
-
 - local: universal_assisted_generation
   title: "Universal Assisted Generation: Faster Decoding with Any Assistant Model"
   author: danielkorat
@@ -4957,11 +4956,22 @@
     - argilla
     - human feedback
 
+- local: pycharm-integration
+  title: "Hugging Face + PyCharm"
+  author: rocketknight1
+  thumbnail: /blog/assets/pycharm-integration/thumbnail.png
+  date: November 5, 2024
+  tags:
+    - announcement
+    - open-source
+    - community
+    - collaboration
+
 - local: researcher-dataset-sharing
   title: "Share your open ML datasets on Hugging Face Hub!"
   author: davanstrien
   thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
-  date: October 30, 2024
+  date: November 12, 2024
   tags:
     - community
     - research
