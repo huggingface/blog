@@ -14,7 +14,7 @@ authors:
 
 # Benchmarking language model performance on 5th Gen Intel Xeon powered GCP C4
 
-**TL;DR**: We benchmark 2 representative workloads of agentic AI, text embedding and text generation, on Google Cloud Compute Engine Xeon-based CPU instances N2 and C4. The results consistently shows, C4 has 10x to 25x higher throughput of N2 in text embedding scenario, and 2.3x to 3.8x higher throughput of N2 in text generation scenario. The results make it possible to deploy light-weight Agentic AI solutions wholly on CPU.
+**TL;DR**: We benchmark 2 representative workloads of agentic AI, text embedding and text generation, on Google Cloud Compute Engine Xeon-based CPU instances N2 and C4. The results consistently shows, C4 has 10x to 25x higher throughput of N2 in text embedding scenario, and 2.3x to 3.8x higher throughput of N2 in text generation scenario. Take price into consideration, C4's hourly price is about 1.3x of N2, in this sense, C4 keeps 7x ~ 19x TCO(Total Cost of Ownership) advantage over N2 in text embedding scenario, and 1.7x ~ 2.9x TCO advantage in text generation scenario. The results demonstrate the potential to deploy light-weight Agentic AI solutions wholly on CPU.
 
 ## Introduction
 
@@ -26,13 +26,13 @@ People believe the next frontier of artificial intelligence lies in agentic AI. 
 
 People are bringing more and more tools into agentic AI system, and most of these tools are now working on CPU, this brings a concern that there will be innegligible host-accelerator traffic overheads in this paradigm. At the same time, model leaders are building more small yet powerful languange models, the latest example is Meta released 1B and 3B llama3.2 models which are claimed to be highly capable with multilingual text generation and tool calling. Also, CPU's AI capability is fast evolving, Intel integrates Advanced Matrix Extensions (AMX), a new AI tensor accelerator, since 4th generation of Xeon CPUs, which greatly boosted AI performance on CPU. Putting these 3 threads together, it would be interesting to see the potential of CPU to host the whole agentic AI system, especially when it uses SLMs.
 
-In this post, we will benchmark 2 representative components of agentic AI: text embedding and text generation, and compare the gen-on-gen performance boost of CPU on these 2 components. We picked Google Cloud Compute Engine C4 instance and N2 instance for comparison. The logic behind is: C4 is powered by [5th generation Intel Xeon processors](https://www.intel.com/content/www/us/en/products/docs/processors/xeon/5th-gen-xeon-scalable-processors.html) (code-named Emerald Rapids) , the latest generaiton of Xeon CPU available on Google Cloud which integrates Intel AMX to boost AI performance; and N2 is powered by [3rd generation Intel Xeon processors](https://www.intel.com/content/www/us/en/products/docs/processors/xeon-accelerated/3rd-gen-xeon-scalable-processors.html) (code-named Ice Lake), the previous generation of Xeon CPU on Google Cloud which only has AVX-512 and no AMX. We'll demostrate the benefits AMX brings.
+In this post, we will benchmark 2 representative components of agentic AI: text embedding and text generation, and compare the gen-on-gen performance boost of CPU on these 2 components. We picked Google Cloud Compute Engine C4 instance and N2 instance for comparison. The logic behind is: C4 is powered by [5th generation Intel Xeon processors](https://www.intel.com/content/www/us/en/products/docs/processors/xeon/5th-gen-xeon-scalable-processors.html) (code-named Emerald Rapids) , the latest generatiton of Xeon CPU available on Google Cloud which integrates Intel AMX to boost AI performance; and N2 is powered by [3rd generation Intel Xeon processors](https://www.intel.com/content/www/us/en/products/docs/processors/xeon-accelerated/3rd-gen-xeon-scalable-processors.html) (code-named Ice Lake), the previous generation of Xeon CPU on Google Cloud which only has AVX-512 and no AMX. We'll demonstrate the benefits AMX brings.
 
-We will use `optimum-benchmark` to measure the performance:
-- for text embedding, we use `WhereIsAI/UAE-Large-V1` model with input sequence length 128, and we sweep batch size from 1 to 128
-- for text generation, we use `meta-llama/Llama-3.2-3` model with input sequence length 256 and output sequence length 32, and we sweep batch size from 1 to 64
+We will use [`optimum-benchmark`](https://github.com/huggingface/optimum-benchmark), Hugging Face's unified benchmark library for multi-backends and multi-devices, to measure the performance. The benchmark runs on [`optimum-intel`](https://github.com/huggingface/optimum-intel) backend. `optimum-intel` is an Hugging Face acceleration library to accelerate end-to-end pipelines on Intel architectures (CPU, GPU). Our benchmark cases are as below:
+- for text embedding, we use [`WhereIsAI/UAE-Large-V1`](https://huggingface.co/WhereIsAI/UAE-Large-V1) model with input sequence length 128, and we sweep batch size from 1 to 128
+- for text generation, we use [`meta-llama/Llama-3.2-3`](https://huggingface.co/meta-llama/Llama-3.2-3B) model with input sequence length 256 and output sequence length 32, and we sweep batch size from 1 to 64
 
-The benchmark runs on [`optimum-intel`](https://github.com/huggingface/optimum-intel) backend. `optimum-intel` is an Hugging Face acceleration library to accelerate end-to-end pipelines on Intel architectures(CPU, XPU).
+
 
 ## Create instance
 ### N2
