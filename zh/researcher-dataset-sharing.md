@@ -1,5 +1,5 @@
 ---
-title: "在 Hugging Face Hub 分享你的开源数据集"
+title: "如何在 Hugging Face Hub 分享你的开源数据集"
 thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
 authors:
 - user: davanstrien
@@ -10,7 +10,7 @@ translators:
 - user: AdinaY
 ---
 
-### 在 Hugging Face Hub 上分享你的开源数据集！
+### 如何在 Hugging Face Hub 上分享你的开源数据集！
 
 如果您正在从事数据密集型研究或机器学习项目，您需要一种可靠的方法来分享和托管数据集。像 Common Crawl、ImageNet 和 Common Voice 这样的公共数据集是开源机器学习生态系统的关键，但它们的托管和共享却充满挑战。
 
