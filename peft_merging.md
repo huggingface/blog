@@ -39,7 +39,7 @@ $$B_{merged} = concat(B_1, B_2, dim=1)$$
 
 where \\( shape(A_{merged}) = (rank_1+rank_2,\ d) )\\ and \\( shape(B_{merged}) = (d,\ rank_1+rank_2) \\). 
 
-Now, the output of this new merged LoRA layer would be as if the original 2 LoRAs were active with weights $weight_1$ and $weight_2$ for applied to the first and second adapters, respectively.
+Now, the output of this new merged LoRA layer would be as if the original 2 LoRAs were active with weights \\(weight_1\\) and \\(weight_2\\) for applied to the first and second adapters, respectively.
 
 $$h = W_0x + B_{merged}A_{merged}x$$
 
@@ -53,7 +53,7 @@ $$B_{merged}A_{merged} = weight_1 * scaling_1 * B_1A_1 + weight_2 * scaling_2 * 
 
 ### Linear/Task Arithmetic (`linear`)
 
-In this method, the LoRA matrices are involved in weighted sum. This is what the Task arithmetic paper implements on task weights. In task arithmetic, one first computes the task weights which is difference between finetuned weights and base model weights, then does a weighted sum of these task weights. Here, the delta weights considered are the individual matrices $A$ and $B$ instead of their product $BA$. This method can be applied only when all the participating LoRA adapters have same rank.
+In this method, the LoRA matrices are involved in weighted sum. This is what the Task arithmetic paper implements on task weights. In task arithmetic, one first computes the task weights which is difference between finetuned weights and base model weights, then does a weighted sum of these task weights. Here, the delta weights considered are the individual matrices \\(A\\) and \\(B\\) instead of their product \\(BA\\). This method can be applied only when all the participating LoRA adapters have same rank.
 
 Let’s go through an example. Consider 2 LoRA adapters \\( (A_1, B_1) \\) & \\( (A_2, B_2) \\) along with weights \\( weight_1 \\) and \\( weight_2 \\) for weighted merging of these two adapters, then the merging happens as follows:
 

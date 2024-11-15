@@ -66,7 +66,7 @@ You must define two parameters in every watermarking configuration:
 
 - The `keys` parameter is a list integers that are used to compute _g_-function
   scores across the model's vocabulary. Using 20 to 30 unique, randomly
-  generated numbers is recommended to balance detectability agianst generation
+  generated numbers is recommended to balance detectability against generation
   quality.
 
 - The `ngram_len` parameter is used to balance robustness and detectability; the
@@ -164,3 +164,8 @@ SynthID Text is not built to directly stop motivated adversaries from causing
 harm. However, it can make it harder to use AI-generated content for malicious
 purposes, and it can be combined with other approaches to give better coverage
 across content types and platforms.
+
+## Acknowledgements
+
+The authors would like to thank Robert Stanforth and Tatiana Matejovicova for
+their contributions to this work.
