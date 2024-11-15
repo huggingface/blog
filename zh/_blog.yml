@@ -2120,7 +2120,7 @@
     - collaboration
 
 - local: researcher-dataset-sharing
-  title: "如何在 Hugging Face Hub 上分享你的开源数据集"
+  title: "在 Hugging Face Hub 上分享你的开源数据集"
   author: davanstrien
   thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
   date: November 12, 2024
