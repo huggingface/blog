@@ -54,6 +54,8 @@ At Hugging Face, we tend to think of open-source AI as being a natural extension
 
 These features are thus a natural fit. Just as IDEs already pull up function signatures and docstrings for you, they can also pull up sample code and model cards for trained models. Integrations like these make it easy to reach over and import a chat or image recognition model as conveniently as you would import any other library. We think it’s obvious that this is what the future of code will look like, and we hope that you find these features useful!
 
+
 **[Download PyCharm](https://jb.gg/get-pycharm-hf) to give the Hugging Face integration a try.**  
+*[HF integration is a [Pycharm Professional](https://blog.jetbrains.com/pycharm/2024/08/pycharm-2024-2/#hugging-face-integration-pro) feature.]* 
 
 **Get a free 3-month PyCharm subscription using the PyCharm4HF code [here](http://jetbrains.com/store/redeem/).**
