@@ -4722,7 +4722,6 @@
     - leaderboard
     - LLM
 
-
 - local: chinese-ai-expansion
   title: "A Short Summary of Chinese AI Global Expansion"
   author: AdinaY
@@ -4960,7 +4959,7 @@
   title: "From Files to Chunks: Improving Hugging Face Storage Efficiency"
   author: jsulz
   thumbnail: /blog/assets/from-files-to-chunks/thumbnail.png
-  date: November 5, 2024
+  date: November 20, 2024
   tags:
     - dedupe
     - storage

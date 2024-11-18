@@ -1,8 +1,9 @@
 ---
-title: "From Files to Chunks: Improving Hugging Face Storage Efficiency" 
+title: "From Files to Chunks: Improving Hugging Face Storage Efficiency"
 thumbnail: /blog/assets/from-files-to-chunks/thumbnail.png
 authors:
-- user: jsulz
+  - user: jsulz
+  - user: erinys
 ---
 
 # From Files to Chunks: Improving HF Storage Efficiency
@@ -73,7 +74,7 @@ How would CDC work on the types of files stored on Hugging Face Hub? We threw to
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/from-files-to-chunks/safetensors_dedupe_image.png" alt="Parquet Layout" width=40%>
 </p>
 
-The greenness reflects significant overlap between the two files, and thus an opportunity to deduplicate both within each file and across the versions. 
+The greenness reflects significant overlap between the two files, and thus an opportunity to deduplicate both within each file and across the versions.
 
 |           | Git LFS Storage Required | Xet-backed Storage Required |
 | --------- | ------------------------ | --------------------------- |
@@ -81,10 +82,10 @@ The greenness reflects significant overlap between the two files, and thus an op
 | Version 2 | 548 MB                   | 136 MB                      |
 | Total     | 1.2 GB                   | 645 MB                      |
 
-In this case, using our Xet-based storage backend would save considerable upload/download time for the second version, as well as reduce the total storage footprint by 53%. With compression, we estimate an additional 10% of savings. 
+In this case, using our Xet-based storage backend would save considerable upload/download time for the second version, as well as reduce the total storage footprint by 53%. With compression, we estimate an additional 10% of savings.
 
 Our initial research into repositories across the Hub shows similar results for fine-tuned models (particularly Stable Diffusion fine-tunes) and model checkpoints. Fine-tuned models modify only a subset of parameters, so most of the model remains unchanged across versions, making them a great candidate for deduplication. Model checkpoints, which capture incremental training states, are also good targets as changes between checkpoints are often minimal. Both show deduplication ratios in the range of 55-85%. PyTorch model checkpoints make up around 200 TB of total storage on the Hub. At 60% deduplication, we would save up to 120 TB of storage immediately and roughly 8 TB monthly going forward.
 
 Beyond reducing storage costs, chunk-level deduplication also improves upload/download speeds, as only the modified chunks are transferred. This is a great benefit to teams working with multiple versions of models or datasets as it minimizes user and machine waiting time.
 
-Our team is currently working through our POC of Xet-backed storage for the Hub and hope to roll out some Xet-backed repositories in early 2025. [Follow us](https://huggingface.co/xet-team) to learn more as we share our learnings on future topics like scaling CDC across globally distributed repositories, balancing network performance, privacy boundaries, and parallelizing our chunking algorithm. 
+Our team is currently working through our POC of Xet-backed storage for the Hub and hope to roll out some Xet-backed repositories in early 2025. [Follow us](https://huggingface.co/xet-team) to learn more as we share our learnings on future topics like scaling CDC across globally distributed repositories, balancing network performance, privacy boundaries, and parallelizing our chunking algorithm.
