@@ -2970,17 +2970,6 @@
     - inference
     - guide
 
-- local: researcher-dataset-sharing
-  title: "Creating open machine learning datasets? Share them on the Hugging Face Hub!"
-  author: davanstrien
-  thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
-  date: October 30, 2023
-  tags:
-    - community
-    - research
-    - datasets
-    - guide
-
 - local: regions
   title: "Introducing Storage Regions on the HF Hub"
   author: julien-c
@@ -4341,8 +4330,8 @@
     - datasets
     - pii
 
-- local: keras-nlp-integration
-  title: "Announcing New Hugging Face and Keras NLP integration"
+- local: keras-hub-integration
+  title: "Announcing New Hugging Face and KerasHub integration"
   thumbnail: /blog/assets/keras-nlp-integration/thumbnail.png
   author: ariG23498
   date: Jul 10, 2024
@@ -4942,7 +4931,6 @@
     - expert-support-program
     - expert-support
     - case-studies
-
 - local: universal_assisted_generation
   title: "Universal Assisted Generation: Faster Decoding with Any Assistant Model"
   author: danielkorat
@@ -4954,6 +4942,40 @@
     - nlp
     - open-source
     - collaboration
+
+- local: argilla-ui-hub
+  title: "Argilla 2.4: Easily Build Fine-Tuning and Evaluation datasets on the Hub — No Code Required"
+  author: nataliaElv
+  thumbnail: /blog/assets/argilla-ui-hub/thumbnail.png
+  date: November 4, 2024
+  tags:
+    - hub
+    - spaces
+    - datasets
+    - argilla
+    - human feedback
+
+- local: pycharm-integration
+  title: "Hugging Face + PyCharm"
+  author: rocketknight1
+  thumbnail: /blog/assets/pycharm-integration/thumbnail.png
+  date: November 5, 2024
+  tags:
+    - announcement
+    - open-source
+    - community
+    - collaboration
+
+- local: researcher-dataset-sharing
+  title: "Share your open ML datasets on Hugging Face Hub!"
+  author: davanstrien
+  thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
+  date: November 12, 2024
+  tags:
+    - community
+    - research
+    - datasets
+    - guide
 
 - local: from-files-to-chunks
   title: "From Files to Chunks: Improving Hugging Face Storage Efficiency"

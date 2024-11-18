@@ -1992,8 +1992,8 @@
     - datasets
     - sql
     - duckdb
-    - community 
-    
+    - community
+
 - local: 1_58_llm_extreme_quantization
   title: 1.58 万亿参数的极端量化
   author: medmekk
@@ -2032,7 +2032,7 @@
   tags:
     - video
     - datasets
-    - multimodal 
+    - multimodal
 
 - local: llama32
   title: 现在 Llama 具备视觉能力并可以在你的设备上运行 - 欢迎使用 Llama 3.2
@@ -2047,7 +2047,7 @@
     - vision
 
 - local: vertex-colored-to-textured-mesh
-  title: "顶点着色网格转换为 UV 映射的纹理化网格"
+  title: 顶点着色网格转换为 UV 映射的纹理化网格
   author: dylanebert
   thumbnail: /blog/assets/vertex-colored-to-textured-mesh/thumbnail.png
   date: September 30, 2024
@@ -2058,7 +2058,7 @@
     - tutorial
 
 - local: chinese-ai-expansion
-  title: "中国 AI 出海现状概述"
+  title: 中国 AI 出海现状概述
   author: AdinaY
   thumbnail: /blog/assets/chinese-ai-expansion/thumbnail.png
   date: October 3, 2024
@@ -2067,7 +2067,7 @@
     - community
 
 - local: dynamic_speculation_lookahead
-  title: "更快的辅助生成: 动态推测"
+  title: '更快的辅助生成: 动态推测'
   author: jmamou
   guest: true
   thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
@@ -2085,3 +2085,59 @@
     - gradio
     - spaces
     - open-source
+
+- local: sd3-5
+  title: "欢迎 Stable Diffusion 3.5 Large 加入 🧨 Diffusers"
+  author: diffusers
+  thumbnail: /blog/assets/sd3-5/thumbnail.png
+  date: October 22, 2024
+  tags:
+    - diffusers
+    - guide
+    - sd3-5
+
+- local: synthid-text
+  title: SynthID Text：在 AI 生成文本中应用不可见水印的新技术
+  author: sumedhghaisas
+  thumbnail: /blog/assets/synthid-text/thumbnail.png
+  date: October 23, 2024
+  tags:
+    - announcement
+    - synthid
+    - llm
+    - watermarking
+    - open-source
+
+- local: universal_assisted_generation
+  title: 通用辅助生成：使用任意辅助模型加速解码
+  author: danielkorat
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: October 29, 2024
+  tags:
+    - research
+    - nlp
+    - open-source
+    - collaboration
+
+- local: pycharm-integration
+  title: Hugging Face 与 PyCharm 深度集成：轻松引入丰富的 AI 模型
+  author: rocketknight1
+  thumbnail: /blog/assets/pycharm-integration/thumbnail.png
+  date: November 5, 2024
+  tags:
+    - announcement
+    - open-source
+    - community
+    - collaboration
+
+- local: researcher-dataset-sharing
+  title: "在 Hugging Face Hub 上分享你的开源数据集"
+  author: davanstrien
+  thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
+  date: November 12, 2024
+  tags:
+    - community
+    - research
+    - datasets
+    - guide
