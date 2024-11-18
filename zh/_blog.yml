@@ -2118,3 +2118,14 @@
     - open-source
     - community
     - collaboration
+
+- local: researcher-dataset-sharing
+  title: "在 Hugging Face Hub 上分享你的开源数据集"
+  author: davanstrien
+  thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
+  date: November 12, 2024
+  tags:
+    - community
+    - research
+    - datasets
+    - guide
