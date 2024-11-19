@@ -68,7 +68,7 @@ By only transferring and saving modified chunks, the Xet-backed repository using
 
 ## What CDC means for the Hub
 
-How would CDC work on the types of files stored on Hugging Face Hub? We threw together a simple [deduplication estimator](https://github.com/huggingface/dedupe_estimator) to visualize the potential storage savings of applying CDC to a collection of files. Running this tool on two versions of `model.safetensors` file in [openai-community/gpt2](https://huggingface.co/openai-community/gpt2) uploaded over the course of the repository's commit history returned the following result:
+How would CDC work on the types of files stored on Hugging Face Hub? We threw together a simple [deduplication estimator](https://github.com/huggingface/dedupe_estimator) to visualize the potential storage savings of applying CDC to a collection of files. Running this tool on two versions of the `model.safetensors` file in [openai-community/gpt2](https://huggingface.co/openai-community/gpt2) uploaded over the course of the repository's commit history returned the following result:
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/from-files-to-chunks/safetensors_dedupe_image.png" alt="Parquet Layout" width=40%>
