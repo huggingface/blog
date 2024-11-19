@@ -35,8 +35,7 @@ We’re excited to launch [Judge Arena](https://huggingface.co/spaces/AtlaAI/jud
 
 <script
 	type="module"
-	src="https://gradio.s3-us-west-2.amazonaws.com/5.5.0/gradio.js"
-></script>
+	src="https://gradio.s3-us-west-2.amazonaws.com/5.5.0/gradio.js"></script>
 
 <gradio-app src="https://atlaai-judge-arena.hf.space"></gradio-app>
 
