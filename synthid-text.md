@@ -164,3 +164,8 @@ SynthID Text is not built to directly stop motivated adversaries from causing
 harm. However, it can make it harder to use AI-generated content for malicious
 purposes, and it can be combined with other approaches to give better coverage
 across content types and platforms.
+
+## Acknowledgements
+
+The authors would like to thank Robert Stanforth and Tatiana Matejovicova for
+their contributions to this work.

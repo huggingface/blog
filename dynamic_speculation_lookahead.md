@@ -134,3 +134,13 @@ In an upcoming blog post, we'll show a new method for assisted generation: combi
 In this paper, we introduced DISCO, a dynamic speculation lookahead optimization method that utilizes a classifier to decide whether the draft model should proceed with generating the next token or pause, and switch to the target model for validation instead of using a simple threshold on the prediction probability.
 - [Assisted Generation: a new direction toward low-latency text generation](https://huggingface.co/blog/assisted-generation)
 - [Fast Inference from Transformers via Speculative Decoding](https://arxiv.org/pdf/2211.17192)
+
+## Citation
+```bibtex
+@article{mamou2024accelerating,
+  title={Accelerating Speculative Decoding using Dynamic Speculation Length},
+  author={Mamou, Jonathan and Pereg, Oren and Korat, Daniel and Berchansky, Moshe and Timor, Nadav and Wasserblat, Moshe and Schwartz, Roy},
+  journal={arXiv preprint arXiv:2405.04304},
+  year={2024}
+}
+```

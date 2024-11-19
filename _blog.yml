@@ -2970,17 +2970,6 @@
     - inference
     - guide
 
-- local: researcher-dataset-sharing
-  title: "Creating open machine learning datasets? Share them on the Hugging Face Hub!"
-  author: davanstrien
-  thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
-  date: October 30, 2023
-  tags:
-    - community
-    - research
-    - datasets
-    - guide
-
 - local: regions
   title: "Introducing Storage Regions on the HF Hub"
   author: julien-c
@@ -4977,6 +4966,17 @@
     - open-source
     - community
     - collaboration
+
+- local: researcher-dataset-sharing
+  title: "Share your open ML datasets on Hugging Face Hub!"
+  author: davanstrien
+  thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
+  date: November 12, 2024
+  tags:
+    - community
+    - research
+    - datasets
+    - guide
 
 - local: layerskip
   title: "Faster Text Generation with Self-Speculative Decoding"
