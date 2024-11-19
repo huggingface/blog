@@ -32,10 +32,8 @@ authors:
   guest: true
   org: BAAI
 - user: xianbaoqian
-  guest: true
   org: Huggingface
 - user: clefourrier
-  guest: true
   org: Huggingface
 ---
 
