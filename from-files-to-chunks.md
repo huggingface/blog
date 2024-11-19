@@ -74,7 +74,7 @@ How would CDC work on the types of files stored on Hugging Face Hub? We threw to
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/from-files-to-chunks/safetensors_dedupe_image.png" alt="Parquet Layout" width=40%>
 </p>
 
-The greenness reflects significant overlap between the two files, and thus an opportunity to deduplicate both within each file and across the versions.
+The greenness reflects significant overlap between the two versions, and thus an opportunity to deduplicate both within each file and across the versions.
 
 |           | Git LFS Storage Required | Xet-backed Storage Required |
 | --------- | ------------------------ | --------------------------- |
