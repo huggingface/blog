@@ -12,25 +12,32 @@ authors:
 
 # Faster Text Generation with Self-Speculative Decoding
 
-Self-speculative decoding proposed in
+Self-speculative decoding, proposed in
 [LayerSkip: Enabling Early Exit Inference and Self-Speculative Decoding](https://arxiv.org/abs/2404.16710)
-is a novel approach to text generation, combining the strengths of speculative decoding and early
-exit techniques within a large language model (LLM). This method allows for efficient generation
-by using the *same model's* early layers for drafting tokens and later layers for verification.
+is a novel approach to text generation. It combines the strengths of speculative decoding with early
+exiting from a large language model (LLM). This method allows for efficient generation
+by using the *same model's* early layers for drafting tokens, and later layers for verification.
 
-By leveraging this technique, we not only speed up text generation but also achieve significant
-memory savings and reduce computational latency. In order to obtain an end-to-end speedup, the
+This technique not only speeds up text generation, but it also achieves significant
+memory savings and reduces computational latency. In order to obtain an end-to-end speedup, the
 output of the earlier layers need to be close enough to the last layer. This is achieved by a
-training recipe as described in the paper that could be applied as continual pretraining,
-pretraining from scratch, or finetuning on a specific domain. This makes self-speculative decoding
+training recipe which, as described in the paper, can be applied during pretraining,
+and also while fine-tuning on a specific domain. Self-speculative decoding is
 especially efficient for real-world applications, enabling deployment on smaller GPUs and lowering
 the overall hardware footprint needed for **large-scale inference**.
 
-Dive straight into the Hugging Face artifacts to know more:
+In this blog post, we explore the concept of self-speculative decoding, its implementation,
+and practical applications using the 🤗 transformers library. You’ll learn about the
+technical underpinnings, including **early exit layers**, **unembedding**, and **training modifications**.
+To ground these concepts in practice, we offer code examples, benchmark comparisons with traditional
+speculative decoding, and insights into performance trade-offs.
+
+Dive straight into the following Hugging Face artifacts to know more about the method
+and try it out yourself:
 
 1. [Hugging Face Paper Discussion Forum](https://huggingface.co/papers/2404.16710)
 2. [LayerSkip Model Collections](https://huggingface.co/collections/facebook/layerskip-666b25c50c8ae90e1965727a)
-3. LayerSkip Space
+3. [Colab Notebook showcasing the in-depth working of self-speculative decoding](https://colab.research.google.com/drive/1V21LaHaZk_zjhvMLvsWgVSFm6-cn9XAl?usp=sharing)
 
 ## Speculative Decoding and Self-Speculative Decoding
 
@@ -46,16 +53,16 @@ generation speed since the larger model verifies full sequences at once, instead
 one draft at a time.
 
 In self-speculative decoding, the authors build on this concept but use the early layers of a
-large model to generate draft tokens. The early exit logits are used to predict tokens, which are
-then verified by the model’s deeper layers. This "self" aspect of speculative decoding, which
-requires specific training as explained later, allows the model to perform both drafting and verification.
-This, in turn, improves speed and reduces computational costs compared to the traditional speculative decoding.
+large model to generate draft tokens that are then verified by the model's deeper layers.
+This "self" aspect of speculative decoding, which requires specific training,
+allows the model to perform both drafting and verification. This, in turn, improves speed and
+reduces computational costs compared to the traditional speculative decoding.
 
 ## Usage with `transformers`
  
-In order to enable the early-exit self-speculative decoding in
+In order to enable early-exit self-speculative decoding in the
 [🤗 transformers library](https://github.com/huggingface/transformers), we
-just need to add `early_exit` argument to a model’s `generate()` function.
+just need to add the `assistant_early_exit` argument to the `generate()` function.
 
 Here is a simple code snippet showcasing the functionality.
 
@@ -70,25 +77,26 @@ tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
 
 model = AutoModelForCausalLM.from_pretrained(checkpoint).to("cuda")
-outputs = model.generate(**inputs, early_exit=early_exit_layer)
+outputs = model.generate(**inputs, assistant_early_exit=early_exit_layer)
 ```
 
-> **Note:** While the `early_exit` argument can potentially enable early-exit self-speculative decoding for any
-decoder-only transformer, you will **only obtain speedups** for a checkpoint that was trained in such a
-way to increase the accuracy of earlier layers. The [LayerSkip paper](https://arxiv.org/abs/2404.16710)
-proposes a training recipe to achieve that (namely, applying early exit loss, and progressively
-increasing layer dropout rates). A collection of Llama2, Llama3, and Code Llama checkpoints that
-have been continually pretrained with the LayerSkip training recipe are provided
-[here](https://huggingface.co/collections/facebook/layerskip-666b25c50c8ae90e1965727a).
+> **Note:** While the `assistant_early_exit` argument can potentially enable early-exit
+self-speculative decoding for any decoder-only transformer, the logits from the intermediate layers
+cannot be **unembedded** (process of decoding through LM Head, described later in the blog post)
+unless the model is specifically trained for that. You will also **only obtain speedups** for
+a checkpoint that was trained in such a way to increase the accuracy of earlier layers.
+The [LayerSkip paper](https://arxiv.org/abs/2404.16710) proposes a training recipe to achieve that
+(namely, applying early exit loss, and progressively increasing layer dropout rates). A collection
+of Llama2, Llama3, and Code Llama checkpoints that have been continually pretrained with the
+LayerSkip training recipe are provided [here](https://huggingface.co/collections/facebook/layerskip-666b25c50c8ae90e1965727a).
 
 ### Benchmarking
 
 We ran an extensive list of benchmarks to measure the speedup of LayerSkip’s self-speculative
 decoding with respect to autoregressive decoding on various models. We also compare self-speculative
-decoding, i.e., using early exit generation as the draft stage, with speculative decoding, i.e.,
-using a separate assistant model as the draft stage. To reproduce the results, you may find the
-code [here](https://github.com/gante/huggingface-demos/pull/1) and the command to run each experiment
-in this
+decoding (based on early exiting) with standrad speculative decoding techniques. To reproduce the
+results, you may find the code [here](https://github.com/gante/huggingface-demos/pull/1)
+and the command to run each experiment in this
 [spreadsheet](https://docs.google.com/spreadsheets/d/1YASFEJl5WPmiXbtW-5-PA5nVqtXlZM9YifaAuv49hhI/edit?usp=sharing).
 All the experiments were ran on a single 80GB A100 GPU, except for Llama2 70B experiments that
 ran on a node of 8 A100 GPUs.
@@ -166,8 +174,7 @@ ran on a node of 8 A100 GPUs.
 Some observations we can make from the results:
 
 * As seen in the **Total Number of Parameters** column, self-speculative decoding consumes less memory
-  as it does not require a separate draft model and re-uses the weights of a subset of its layers for
-  the draft stage.  
+  because it does not require a separate draft model and weights for the draft stage layers are re-used.  
 * For all model sizes and generations except Llama2 70B, the early-exit self-speculative decoding
   is faster than the regular two-model speculative decoding.  
   * There could be different reasons for the relatively limited speedups of self-speculative decoding
@@ -190,30 +197,23 @@ is where the training modifications come into play.
 
 ## Training Modifications: *Layer Dropout* and *Early Exit Loss*
 
-In the training phase, the authors introduce **layer dropout**, also known as stochastic depth,
+In the training phase, we introduce **layer dropout**,
 which allows the model to skip certain layers during training. The dropout rate increases
-progressively across layers, making the model less reliant on its later layers as well as
+progressively in deeper layers, making the model less reliant on its later layers, as well as
 enhancing the model's generalization and speeding up training.
 
 In addition to layer dropout, **early exit loss** is applied to ensure the LM head learns to
 unembed different layers. The total loss function for training the model with early exits is
-given by a summation of normalized loss from each exit.
-
-$$ J(X, Y, t) = \sum_{l=0}^{L-1} \tilde{e}(t, l) J_{\text{CE}}(g(x_{l+1}), Y) $$
-
-Where \\( g() \\) is the unembedding operation, \\( x_{l+1} \\) is the output of transformer layer
-\\( l \\), \\( Y \\) denotes the indices of the next tokens ground truth, \\( \tilde{e}(t, l) \\) is a
-normalized per-layer loss scale at layer \\( l \\), which we can keep constant throughout training
-or create a schedule to make it dependent on iteration \\( t \\), ensuring that the early exit
-layers are properly supervised during training. This technique enables efficient training by
-distributing the learning task across all layers.
+given by a summation of normalized loss from each exit (intermediate layers). This technique enables
+efficient training by distributing the learning task across all layers.
 
 ## Self-Drafting and Self-Verification
 
-Once training is complete, we can apply self-speculative decoding during inference. The process
+Once training is complete, we can apply self-speculative decoding during inference.
+[The process](https://huggingface.co/docs/transformers/v4.46.3/en/llm_optims#speculative-decoding)
 begins with **self-drafting**, where tokens are generated by exiting early from some intermediate
-layer. The number of speculative tokens \\( d \\) defines how many draft tokens are produced during
-this stage, and the layer we exit at \\( E \\) defines how large and accurate is the draft stage.
+layer. The number of speculative tokens defines how many draft tokens are produced during
+this stage, and the layer we exit at defines how large and accurate is the draft stage.
 Both parameters can be specified at inference  based on a
 [trade-off between speed and accuracy of the draft stage](https://huggingface.co/blog/assisted-generation).
 
@@ -223,8 +223,8 @@ with the verified tokens, they are added to the final output, resulting in a bet
 memory bandwidth in our system, because it’s much more expensive to generate a sequence of tokens
 with the full model than verifying a draft, as long as several of the tokens match.
 
-In the self-verification stage, the remaining layers \\( L - E \\) are computed for verification,
-with \\( E \\) being the exit layer depth used during drafting.
+In the self-verification stage, only the remaining layers are computed for verification, because
+the results from the early layers are cached during the drafting phase.
 
 ## Optimizations: Shared Weights, Shared KV Cache, and Shared Compute
 
@@ -246,17 +246,19 @@ benefit from the following savings:
 The combination of KV and exit query caches, known as the **KVQ cache**, reduces memory
 overhead and improves inference latency.
 
-So far, the transformers library has implemented the first optimization (Shared Weights) in this
-[pull request](https://github.com/huggingface/transformers/pull/34240).
+So far, the 🤗 transformers library has implemented the first optimization (Shared Weights) in this
+[pull request](https://github.com/huggingface/transformers/pull/34240). As the number of models
+that use this method increases, we'll consider the additional optimizations.
+Feel free to open a PR if you're interested!
 
-## Ablation Studies
+## How Early Can We Exit?
 
 The early exit layer of the draft stage is a hyperparameter that we can tune or modify during inference:
 
 * The earlier we exit, the faster the generation of draft tokens are but the less accurate they will be.  
 * The later we exit, the more accurate the draft tokens generated are but the slower their generation will be.
 
-Hence, we wrote up a script [here](https://gist.github.com/mostafaelhoushi/1dd2781b896504bf0569a3ae4b8f9ecf)
+We wrote [a script](https://gist.github.com/mostafaelhoushi/1dd2781b896504bf0569a3ae4b8f9ecf)
 to sweep across different early exit layers and measure the tokens per second on A100 GPUs.
 In the Tables below we plot the tokens per second versus the early exit layer for different
 Llama models for both LayerSkip and baseline checkpoints (you can view the full logs
@@ -332,7 +334,7 @@ We can observe the following:
 
 ## Conclusion
 
-LayerSkip leverages the synergy between early exits, layer dropout, and cache reuse to create a fast
+LayerSkip leverages the synergy between early exit, layer dropout, and cache reuse to create a fast
 and efficient text generation pipeline. By training the model to unembed outputs from different
 layers and optimizing the verification process with caches, this approach strikes a balance between
 speed and accuracy. As a result, it significantly improves inference times in large language models
