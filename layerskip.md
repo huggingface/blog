@@ -102,73 +102,62 @@ All the experiments were ran on a single 80GB A100 GPU, except for Llama2 70B ex
 ran on a node of 8 A100 GPUs.
 
 <hfoptions id="benchmarking">
-<hfoption id="Llama3.2 1B">
 
-| Model | Target Checkpoint | Assistant | Total Number of Parameters | Speedup | | |
-| :---- | :---- | :---- | :---- | ----- | :---- | :---- |
-|  |  |  |  | **summarization** | **open-ended generation** | **code generation** |
-| Llama3.2 1B | `facebook/layerskip-llama3.2-1B` | Early Exit @ Layer 4 | **1B** | **1.80x** | **1.35x** | **1.15x** |
+Here are the markdown tables organized by the variants of the models:
 
-</hfoption>
-<hfoption id="Llama3 8B">
-
-| Model | Target Checkpoint | Assistant | Total Number of Parameters | Speedup | | |
-| :---- | :---- | :---- | :---- | ----- | :---- | :---- |
-|  |  |  |  | **summarization** | **open-ended generation** | **code generation** |
-| Llama3 8B | `meta-llama/Meta-Llama-3-8B` | `meta-llama/Llama-3.2-1B` | 9B | 1.53x | 1.11x | 1.11x |
-|  | `meta-llama/Meta-Llama-3-8B` | `meta-llama/Llama-3.2-3B` | 11B | 1.00x | 0.80x | 0.83x |
-|  | `facebook/layerskip-llama3-8B` | Early Exit @ Layer 4 | **8B** | **1.83x** | **1.36x** | **1.51x** |
-
-</hfoption>
 <hfoption id="Llama2 7B">
 
-| Model | Target Checkpoint | Assistant | Total Number of Parameters | Speedup | | |
-| :---- | :---- | :---- | :---- | ----- | :---- | :---- |
-|  |  |  |  | **summarization** | **open-ended generation** | **code generation** |
-| Llama2 7B | `meta-llama/Llama-2-7b-hf` | `TinyLlama/TinyLlama_v1.1` | 8B | 1.22x | 1.18x | 0.85x |
-|  | `facebook/layerskip-llama2-7B` | Early Exit @ Layer 4 | **7B** | **1.30x** | **1.47x** | **1.41x** |
+| Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
+| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+| meta-llama/Llama-2-7b-hf         | 7     | TinyLlama/TinyLlama_v1.1 | 1    | summarization     | 8     | 2771.54    | 21.65     | 3368.48     | 26.32     | 1.22 |
+| meta-llama/Llama-2-7b-hf         | 7     | apple/OpenELM-270M       | 0.27 | summarization     | 7.27  | 2607.82    | 20.37     | 4221.14     | 32.98     | 1.62 |
+| meta-llama/Llama-2-7b-hf         | 7     | apple/OpenELM-450M       | 0.45 | summarization     | 7.45  | 3324.68    | 25.97     | 4178.66     | 32.65     | 1.26 |
+| **facebook/layerskip-llama2-7B** | **7** | **Early Exit @ Layer 4** |      | **summarization** | **7** | **2548.4** | **19.91** | **3306.73** | **25.83** | **1.297** |
 
 </hfoption>
+
 <hfoption id="Llama2 13B">
 
-| Model | Target Checkpoint | Assistant | Total Number of Parameters | Speedup | | |
-| :---- | :---- | :---- | :---- | ----- | :---- | :---- |
-|  |  |  |  | **summarization** | **open-ended generation** | **code generation** |
-| Llama2 13B | `meta-llama/Llama-2-13b-hf` | `meta-llama/Llama-2-7b-hf` | 20B | 1.15x | 0.93x | 0.92x |
-|  | `meta-llama/Llama-2-13b-hf` | `TinyLlama/TinyLlama_v1.1` | 14B | 1.44x | 1.04x | 1.30x |
-|  | `facebook/layerskip-llama2-13B` | Early Exit @ Layer 8 | **13B** | **1.75x** | **1.35x** | **1.49x** |
+| Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
+| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+| meta-llama/Llama-2-13b-hf         | 13     | meta-llama/Llama-2-7b-hf | 7    | summarization     | 20     | 3557.07     | 27.79     | 4088.48     | 31.94     | 1.15 |
+| meta-llama/Llama-2-13b-hf         | 13     | TinyLlama/TinyLlama_v1.1 | 1    | summarization     | 14     | 2901.92     | 22.67     | 4190.42     | 32.74     | 1.44 |
+| meta-llama/Llama-2-13b-hf         | 13     | apple/OpenELM-270M       | 0.27 | summarization     | 13.27  | 2883.33     | 22.53     | 4521.12     | 35.32     | 1.57 |
+| meta-llama/Llama-2-13b-hf         | 13     | apple/OpenELM-450M       | 0.45 | summarization     | 13.45  | 3267.69     | 25.53     | 4321.75     | 33.76     | 1.32 |
+| **facebook/layerskip-llama2-13B** | **13** | **Early Exit @ Layer 4** |      | **summarization** | **13** | **4238.45** | **33.11** | **4217.78** | **32.95** | **0.995** |
+| **facebook/layerskip-llama2-13B** | **13** | **Early Exit @ Layer 8** |      | **summarization** | **13** | **2459.61** | **19.22** | **4294.98** | **33.55** | **1.746** |
 
 </hfoption>
+
+<hfoption id="Llama3 8B">
+
+| Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
+| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+| meta-llama/Meta-Llama-3-8B       | 8     | meta-llama/Llama-3.2-1B  | 1 | summarization     | 9     | 1872.46     | 19.04     | 2859.35     | 29.08     | 1.53 |
+| meta-llama/Meta-Llama-3-8B       | 8     | meta-llama/Llama-3.2-3B  | 3 | summarization     | 11    | 2814.82     | 28.63     | 2825.36     | 28.73     | 1.00 |
+| **facebook/layerskip-llama3-8B** | **8** | **Early Exit @ Layer 4** |   | **summarization** | **8** | **1949.02** | **15.75** | **3571.81** | **28.87** | **1.83** |
+
+</hfoption>
+
+<hfoption id="Llama3.2 1B">
+
+| Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
+| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+| **facebook/layerskip-llama3.2-1B** | **1** | **Early Exit @ Layer 4** | | **summarization** | **1** | **1195.28** | **9.96** | **2147.7** | **17.9** | **1.80** |
+
+</hfoption>
+
 <hfoption id="Llama2 70B">
 
-| Model | Target Checkpoint | Assistant | Total Number of Parameters | Speedup | | |
-| :---- | :---- | :---- | :---- | ----- | :---- | :---- |
-|  |  |  |  | **summarization** | **open-ended generation** | **code generation** |
-| Llama2 70B | `meta-llama/Llama-2-70b-hf` | `meta-llama/Llama-2-13b-hf` | 83B | 2.44x | 1.75x | 2.02x |
-|  | `meta-llama/Llama-2-70b-hf` | `meta-llama/Llama-2-7b-hf` | 77B | 2.83x | 1.94x | **2.22x** |
-|  | `meta-llama/Llama-2-70b-hf` | `TinyLlama/TinyLlama_v1.1` | 71B | **2.84x** | **2.16x** | 2.07x |
-|  | `facebook/layerskip-llama2-70B` | Early Exit @ Layer 10 | **70B** | 2.06x | 1.83x | 1.52x |
+| Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
+| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+| meta-llama/Llama-2-70b-hf         | 70     | meta-llama/Llama-2-13b-hf | 13 | summarization     | 83     | 5036.54     | 46.3      | 12289.01    | 112.97    | 2.44 |
+| meta-llama/Llama-2-70b-hf         | 70     | meta-llama/Llama-2-7b-hf  | 7  | summarization     | 77     | 4357.55     | 40.06     | 12324.19    | 113.3     | 2.83 |
+| meta-llama/Llama-2-70b-hf         | 70     | TinyLlama/TinyLlama_v1.1  | 1  | summarization     | 71     | 4356.21     | 40.05     | 12363.22    | 113.66    | 2.84 |
+| **facebook/layerskip-llama2-70B** | **70** | **Early Exit @ Layer 10** |    | **summarization** | **70** | **6012.04** | **54.96** | **1283.34** | **113.2** | **2.06** |
 
 </hfoption>
-<hfoption id="Colde Llama 7B">
 
-| Model | Target Checkpoint | Assistant | Total Number of Parameters | Speedup | | |
-| :---- | :---- | :---- | :---- | ----- | :---- | :---- |
-|  |  |  |  | **summarization** | **open-ended generation** | **code generation** |
-| Code Llama 7B | `codellama/CodeLlama-7b-hf` | `TinyLlama/TinyLlama_v1.1_math_code` | 8B | n/a | n/a | 0.30x |
-|  | `facebook/layerskip-codellama-7B` | Early Exit @ Layer 4 | **7B** | n/a | n/a | **1.39x** |
-
-</hfoption>
-<hfoption id="Colde Llama 34B">
-
-| Model | Target Checkpoint | Assistant | Total Number of Parameters | Speedup | | |
-| :---- | :---- | :---- | :---- | ----- | :---- | :---- |
-|  |  |  |  | **summarization** | **open-ended generation** | **code generation** |
-| Code Llama 34B | `codellama/CodeLlama-34b-hf` | `codellama/CodeLlama-7b-hf` | 41B | n/a | n/a | 0.11x |
-|  | `codellama/CodeLlama-34b-hf` | `TinyLlama/TinyLlama_v1.1_math_code` | 35B | n/a | n/a | 1.33x |
-|  | `facebook/layerskip-codellama-34B` | Early Exit @ Layer 8 | **34B** | n/a | n/a | **1.54x** |
-
-</hfoption>
 </hfoptions>
 
 Some observations we can make from the results:
