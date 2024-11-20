@@ -129,6 +129,17 @@ Here are the markdown tables organized by the variants of the models:
 
 </hfoption>
 
+<hfoption id="Llama2 70B">
+
+| Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
+| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+| meta-llama/Llama-2-70b-hf         | 70     | meta-llama/Llama-2-13b-hf | 13 | summarization     | 83     | 5036.54     | 46.3      | 12289.01    | 112.97    | 2.44 |
+| meta-llama/Llama-2-70b-hf         | 70     | meta-llama/Llama-2-7b-hf  | 7  | summarization     | 77     | 4357.55     | 40.06     | 12324.19    | 113.3     | 2.83 |
+| meta-llama/Llama-2-70b-hf         | 70     | TinyLlama/TinyLlama_v1.1  | 1  | summarization     | 71     | 4356.21     | 40.05     | 12363.22    | 113.66    | 2.84 |
+| **facebook/layerskip-llama2-70B** | **70** | **Early Exit @ Layer 10** |    | **summarization** | **70** | **6012.04** | **54.96** | **1283.34** | **113.2** | **2.06** |
+
+</hfoption>
+
 <hfoption id="Llama3 8B">
 
 | Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
@@ -144,17 +155,6 @@ Here are the markdown tables organized by the variants of the models:
 | Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
 | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
 | **facebook/layerskip-llama3.2-1B** | **1** | **Early Exit @ Layer 4** | | **summarization** | **1** | **1195.28** | **9.96** | **2147.7** | **17.9** | **1.80** |
-
-</hfoption>
-
-<hfoption id="Llama2 70B">
-
-| Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
-| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
-| meta-llama/Llama-2-70b-hf         | 70     | meta-llama/Llama-2-13b-hf | 13 | summarization     | 83     | 5036.54     | 46.3      | 12289.01    | 112.97    | 2.44 |
-| meta-llama/Llama-2-70b-hf         | 70     | meta-llama/Llama-2-7b-hf  | 7  | summarization     | 77     | 4357.55     | 40.06     | 12324.19    | 113.3     | 2.83 |
-| meta-llama/Llama-2-70b-hf         | 70     | TinyLlama/TinyLlama_v1.1  | 1  | summarization     | 71     | 4356.21     | 40.05     | 12363.22    | 113.66    | 2.84 |
-| **facebook/layerskip-llama2-70B** | **70** | **Early Exit @ Layer 10** |    | **summarization** | **70** | **6012.04** | **54.96** | **1283.34** | **113.2** | **2.06** |
 
 </hfoption>
 
