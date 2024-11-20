@@ -4978,6 +4978,19 @@
     - datasets
     - guide
 
+- local: arena-atla
+  title: "Judge Arena: Benchmarking LLMs as Evaluators"
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail_atla.png
+  author: kaikaidai
+  guest: true
+  date: Nov 19, 2024
+  tags:
+    - leaderboard
+    - arena
+    - collaboration
+    - announcement
+    - atla
+
 - local: layerskip
   title: "Faster Text Generation with Self-Speculative Decoding"
   author: ariG23498
