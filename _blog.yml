@@ -4931,6 +4931,7 @@
     - expert-support-program
     - expert-support
     - case-studies
+
 - local: universal_assisted_generation
   title: "Universal Assisted Generation: Faster Decoding with Any Assistant Model"
   author: danielkorat
@@ -4989,6 +4990,30 @@
     - collaboration
     - announcement
     - atla
+
+- local: leaderboard-japanese
+  title: "Introduction to the Open Leaderboard for Japanese LLMs"
+  author: akimfromparis
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_japanese.png
+  date: November 20, 2024
+  tags:
+    - community
+    - research
+    - nlp
+    - evaluation
+    - leaderboard
+
+- local: layerskip
+  title: "Faster Text Generation with Self-Speculative Decoding"
+  author: ariG23498
+  thumbnail: /blog/assets/layerskip/thumbnail.png
+  date: November 20, 2024
+  tags:
+    - research
+    - nlp
+    - open-source
+    - collaboration
 
 - local: from-files-to-chunks
   title: "From Files to Chunks: Improving Hugging Face Storage Efficiency"
