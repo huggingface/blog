@@ -37,7 +37,7 @@ and try it out yourself:
 
 1. [Hugging Face Paper Discussion Forum](https://huggingface.co/papers/2404.16710)
 2. [LayerSkip Model Collections](https://huggingface.co/collections/facebook/layerskip-666b25c50c8ae90e1965727a)
-3. [Colab Notebook showcasing the in-depth working of self-speculative decoding](https://colab.research.google.com/drive/1V21LaHaZk_zjhvMLvsWgVSFm6-cn9XAl?usp=sharing)
+3. [Colab Notebook showcasing the in-depth working of self-speculative decoding](https://huggingface.co/datasets/ariG23498/layer-skip-assets/blob/main/early_exit_self_speculative_decoding.ipynb)
 
 ## Speculative Decoding and Self-Speculative Decoding
 
@@ -65,6 +65,10 @@ In order to enable early-exit self-speculative decoding in the
 just need to add the `assistant_early_exit` argument to the `generate()` function.
 
 Here is a simple code snippet showcasing the functionality.
+
+```sh
+pip install transformers
+```
 
 ```py
 from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -97,19 +101,32 @@ decoding with respect to autoregressive decoding on various models. We also comp
 decoding (based on early exiting) with standrad speculative decoding techniques. To reproduce the
 results, you may find the code [here](https://github.com/gante/huggingface-demos/pull/1)
 and the command to run each experiment in this
-[spreadsheet](https://docs.google.com/spreadsheets/d/1YASFEJl5WPmiXbtW-5-PA5nVqtXlZM9YifaAuv49hhI/edit?usp=sharing).
+[spreadsheet](https://huggingface.co/datasets/ariG23498/layer-skip-assets/blob/main/LayerSkip%20HuggingFace%20Benchmarking%20-%20summarization.csv).
 All the experiments were ran on a single 80GB A100 GPU, except for Llama2 70B experiments that
 ran on a node of 8 A100 GPUs.
 
-
-#### Llama2 7B
+#### Llama3.2 1B
 
 | Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
 | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
-| meta-llama/Llama-2-7b-hf         | 7     | TinyLlama/TinyLlama_v1.1 | 1    | summarization     | 8     | 2771.54    | 21.65     | 3368.48     | 26.32     | 1.22 |
-| meta-llama/Llama-2-7b-hf         | 7     | apple/OpenELM-270M       | 0.27 | summarization     | 7.27  | 2607.82    | 20.37     | 4221.14     | 32.98     | 1.62 |
-| meta-llama/Llama-2-7b-hf         | 7     | apple/OpenELM-450M       | 0.45 | summarization     | 7.45  | 3324.68    | 25.97     | 4178.66     | 32.65     | 1.26 |
-| **facebook/layerskip-llama2-7B** | **7** | **Early Exit @ Layer 4** |      | **summarization** | **7** | **2548.4** | **19.91** | **3306.73** | **25.83** | **1.297** |
+| **facebook/layerskip-llama3.2-1B** | **1** | **Early Exit @ Layer 4** | | **summarization** | **1** | **1195.28** | **9.96** | **2147.7** | **17.9** | **1.80** |
+
+#### Llama3 8B
+
+| Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
+| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+| meta-llama/Meta-Llama-3-8B       | 8     | meta-llama/Llama-3.2-1B  | 1 | summarization     | 9     | 1872.46     | 19.04     | 2859.35     | 29.08     | 1.53 |
+| meta-llama/Meta-Llama-3-8B       | 8     | meta-llama/Llama-3.2-3B  | 3 | summarization     | 11    | 2814.82     | 28.63     | 2825.36     | 28.73     | 1.00 |
+| **facebook/layerskip-llama3-8B** | **8** | **Early Exit @ Layer 4** |   | **summarization** | **8** | **1949.02** | **15.75** | **3571.81** | **28.87** | **1.83** |
+
+#### Llama2 70B
+
+| Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
+| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+| meta-llama/Llama-2-70b-hf         | 70     | meta-llama/Llama-2-13b-hf | 13 | summarization     | 83     | 5036.54     | 46.3      | 12289.01    | 112.97    | 2.44 |
+| meta-llama/Llama-2-70b-hf         | 70     | meta-llama/Llama-2-7b-hf  | 7  | summarization     | 77     | 4357.55     | 40.06     | 12324.19    | 113.3     | 2.83 |
+| meta-llama/Llama-2-70b-hf         | 70     | TinyLlama/TinyLlama_v1.1  | 1  | summarization     | 71     | 4356.21     | 40.05     | 12363.22    | 113.66    | 2.84 |
+| **facebook/layerskip-llama2-70B** | **70** | **Early Exit @ Layer 10** |    | **summarization** | **70** | **6012.04** | **54.96** | **1283.34** | **113.2** | **2.06** |
 
 #### Llama2 13B
 
@@ -122,28 +139,14 @@ ran on a node of 8 A100 GPUs.
 | **facebook/layerskip-llama2-13B** | **13** | **Early Exit @ Layer 4** |      | **summarization** | **13** | **4238.45** | **33.11** | **4217.78** | **32.95** | **0.995** |
 | **facebook/layerskip-llama2-13B** | **13** | **Early Exit @ Layer 8** |      | **summarization** | **13** | **2459.61** | **19.22** | **4294.98** | **33.55** | **1.746** |
 
-#### Llama2 70B
+#### Llama2 7B
 
 | Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
 | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
-| meta-llama/Llama-2-70b-hf         | 70     | meta-llama/Llama-2-13b-hf | 13 | summarization     | 83     | 5036.54     | 46.3      | 12289.01    | 112.97    | 2.44 |
-| meta-llama/Llama-2-70b-hf         | 70     | meta-llama/Llama-2-7b-hf  | 7  | summarization     | 77     | 4357.55     | 40.06     | 12324.19    | 113.3     | 2.83 |
-| meta-llama/Llama-2-70b-hf         | 70     | TinyLlama/TinyLlama_v1.1  | 1  | summarization     | 71     | 4356.21     | 40.05     | 12363.22    | 113.66    | 2.84 |
-| **facebook/layerskip-llama2-70B** | **70** | **Early Exit @ Layer 10** |    | **summarization** | **70** | **6012.04** | **54.96** | **1283.34** | **113.2** | **2.06** |
-
-#### Llama3 8B
-
-| Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
-| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
-| meta-llama/Meta-Llama-3-8B       | 8     | meta-llama/Llama-3.2-1B  | 1 | summarization     | 9     | 1872.46     | 19.04     | 2859.35     | 29.08     | 1.53 |
-| meta-llama/Meta-Llama-3-8B       | 8     | meta-llama/Llama-3.2-3B  | 3 | summarization     | 11    | 2814.82     | 28.63     | 2825.36     | 28.73     | 1.00 |
-| **facebook/layerskip-llama3-8B** | **8** | **Early Exit @ Layer 4** |   | **summarization** | **8** | **1949.02** | **15.75** | **3571.81** | **28.87** | **1.83** |
-
-#### Llama3.2 1B
-
-| Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
-| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
-| **facebook/layerskip-llama3.2-1B** | **1** | **Early Exit @ Layer 4** | | **summarization** | **1** | **1195.28** | **9.96** | **2147.7** | **17.9** | **1.80** |
+| meta-llama/Llama-2-7b-hf         | 7     | TinyLlama/TinyLlama_v1.1 | 1    | summarization     | 8     | 2771.54    | 21.65     | 3368.48     | 26.32     | 1.22 |
+| meta-llama/Llama-2-7b-hf         | 7     | apple/OpenELM-270M       | 0.27 | summarization     | 7.27  | 2607.82    | 20.37     | 4221.14     | 32.98     | 1.62 |
+| meta-llama/Llama-2-7b-hf         | 7     | apple/OpenELM-450M       | 0.45 | summarization     | 7.45  | 3324.68    | 25.97     | 4178.66     | 32.65     | 1.26 |
+| **facebook/layerskip-llama2-7B** | **7** | **Early Exit @ Layer 4** |      | **summarization** | **7** | **2548.4** | **19.91** | **3306.73** | **25.83** | **1.297** |
 
 Some observations we can make from the results:
 
@@ -238,57 +241,47 @@ In the Tables below we plot the tokens per second versus the early exit layer fo
 Llama models for both LayerSkip and baseline checkpoints (you can view the full logs
 [here](https://drive.google.com/drive/folders/145CUq-P_6tbPkmArL7qsjxUihjDgLnzX?usp=sharing)).
 
-<hfoptions id="ablation">
-<hfoption id="Llama3 8B">
-
-| Normal | LayerSkip |
-| :--: | :--: |
-| ![llama 3 8b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-3-8B.png) | ![layer skip llama 3 8b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama3-8B.png) |
-
-</hfoption>
-<hfoption id="Llama3.2 1B">
+#### Llama3.2 1B
 
 | Normal | LayerSkip |
 | :--: | :--: |
 | ![llama 3.2 1b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-3.2-1B.png) | ![layer skip llama 3.2 1b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama3.2-1B.png) |
 
-</hfoption>
-<hfoption id="Llama2 7B">
+#### Llama3 8B
 
 | Normal | LayerSkip |
 | :--: | :--: |
-| ![llama 2 7b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-2-7B.png) | ![layer skip llama 2 7b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama2-7B.png) |
+| ![llama 3 8b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-3-8B.png) | ![layer skip llama 3 8b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama3-8B.png) |
 
-</hfoption>
-<hfoption id="Llama2 13B">
-
-| Normal | LayerSkip |
-| :--: | :--: |
-| ![llama 2 13b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-2-13B.png) | ![layer skip llama 2 13b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama2-13B.png) |
-
-</hfoption>
-<hfoption id="Llama2 70B">
-
-| Normal | LayerSkip |
-| :--: | :--: |
-| ![llama 2 70b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-2-70B.png) | ![layer skip llama 2 70b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama2-70B.png) |
-
-</hfoption>
-<hfoption id="Code Llama3 7B">
-
-| Normal | LayerSkip |
-| :--: | :--: |
-| ![code llama 3 7b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/CodeLlama-7B.png) | ![code layer skip llama 3 7b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-CodeLlama-7B.png) |
-
-</hfoption>
-<hfoption id="Code Llama3 34B">
+#### Code Llama3 34B
 
 | Normal | LayerSkip |
 | :--: | :--: |
 | ![code llama 3 34b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/CodeLlama-34B.png) | ![code layer skip llama 3 34b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-CodeLlama-34B.png) |
 
-</hfoption>
-</hfoptions>
+#### Code Llama3 7B
+
+| Normal | LayerSkip |
+| :--: | :--: |
+| ![code llama 3 7b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/CodeLlama-7B.png) | ![code layer skip llama 3 7b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-CodeLlama-7B.png) |
+
+#### Llama2 70B
+
+| Normal | LayerSkip |
+| :--: | :--: |
+| ![llama 2 70b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-2-70B.png) | ![layer skip llama 2 70b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama2-70B.png) |
+
+#### Llama2 13B
+
+| Normal | LayerSkip |
+| :--: | :--: |
+| ![llama 2 13b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-2-13B.png) | ![layer skip llama 2 13b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama2-13B.png) |
+
+#### Llama2 7B
+
+| Normal | LayerSkip |
+| :--: | :--: |
+| ![llama 2 7b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/Llama-2-7B.png) | ![layer skip llama 2 7b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/layerskip-assets/LS-Llama2-7B.png) |
 
 We can observe the following:
 
@@ -305,6 +298,10 @@ We can observe the following:
   * The early exit layer sweet spot is when we have the optimal tradeoff between high accuracy of
     predictions and low overhead of generating tokens. This sweet spot depends on each model,
     and may also depend on the prompt or domain of the prompt.
+
+These observations present intriguing opportunities for further experimentation and exploration.
+We encourage readers to build upon these ideas, test variations, and pursue their own research.
+Such efforts can lead to valuable insights and contribute meaningfully to the field.
 
 ## Conclusion
 
