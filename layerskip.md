@@ -101,11 +101,8 @@ and the command to run each experiment in this
 All the experiments were ran on a single 80GB A100 GPU, except for Llama2 70B experiments that
 ran on a node of 8 A100 GPUs.
 
-<hfoptions id="benchmarking">
 
-Here are the markdown tables organized by the variants of the models:
-
-<hfoption id="Llama2 7B">
+#### Llama2 7B
 
 | Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
 | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
@@ -114,9 +111,7 @@ Here are the markdown tables organized by the variants of the models:
 | meta-llama/Llama-2-7b-hf         | 7     | apple/OpenELM-450M       | 0.45 | summarization     | 7.45  | 3324.68    | 25.97     | 4178.66     | 32.65     | 1.26 |
 | **facebook/layerskip-llama2-7B** | **7** | **Early Exit @ Layer 4** |      | **summarization** | **7** | **2548.4** | **19.91** | **3306.73** | **25.83** | **1.297** |
 
-</hfoption>
-
-<hfoption id="Llama2 13B">
+#### Llama2 13B
 
 | Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
 | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
@@ -127,9 +122,7 @@ Here are the markdown tables organized by the variants of the models:
 | **facebook/layerskip-llama2-13B** | **13** | **Early Exit @ Layer 4** |      | **summarization** | **13** | **4238.45** | **33.11** | **4217.78** | **32.95** | **0.995** |
 | **facebook/layerskip-llama2-13B** | **13** | **Early Exit @ Layer 8** |      | **summarization** | **13** | **2459.61** | **19.22** | **4294.98** | **33.55** | **1.746** |
 
-</hfoption>
-
-<hfoption id="Llama2 70B">
+#### Llama2 70B
 
 | Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
 | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
@@ -138,9 +131,7 @@ Here are the markdown tables organized by the variants of the models:
 | meta-llama/Llama-2-70b-hf         | 70     | TinyLlama/TinyLlama_v1.1  | 1  | summarization     | 71     | 4356.21     | 40.05     | 12363.22    | 113.66    | 2.84 |
 | **facebook/layerskip-llama2-70B** | **70** | **Early Exit @ Layer 10** |    | **summarization** | **70** | **6012.04** | **54.96** | **1283.34** | **113.2** | **2.06** |
 
-</hfoption>
-
-<hfoption id="Llama3 8B">
+#### Llama3 8B
 
 | Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
 | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
@@ -148,17 +139,11 @@ Here are the markdown tables organized by the variants of the models:
 | meta-llama/Meta-Llama-3-8B       | 8     | meta-llama/Llama-3.2-3B  | 3 | summarization     | 11    | 2814.82     | 28.63     | 2825.36     | 28.73     | 1.00 |
 | **facebook/layerskip-llama3-8B** | **8** | **Early Exit @ Layer 4** |   | **summarization** | **8** | **1949.02** | **15.75** | **3571.81** | **28.87** | **1.83** |
 
-</hfoption>
-
-<hfoption id="Llama3.2 1B">
+#### Llama3.2 1B
 
 | Model Variant | Layers | Assistant Model | Assistant Layers | Task | Total Layers | FLOPs/Input (G) | Time/Input (s) | FLOPs/Output (G) | Time/Output (s) | Efficiency |
 | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
 | **facebook/layerskip-llama3.2-1B** | **1** | **Early Exit @ Layer 4** | | **summarization** | **1** | **1195.28** | **9.96** | **2147.7** | **17.9** | **1.80** |
-
-</hfoption>
-
-</hfoptions>
 
 Some observations we can make from the results:
 
@@ -166,7 +151,7 @@ Some observations we can make from the results:
   because it does not require a separate draft model and weights for the draft stage layers are re-used.  
 * For all model sizes and generations except Llama2 70B, the early-exit self-speculative decoding
   is faster than the regular two-model speculative decoding.  
-  * There could be different reasons for the relatively limited speedups of self-speculative decoding
+    There could be different reasons for the relatively limited speedups of self-speculative decoding
     on Llama2 70B compared to other models, e.g., the LayerSkip checkpoint of Llama2 70B was continually
     pretrained with fewer tokens (328 M tokens for Llama2 70B compared to 52B tokens for Llama2 7B).
     But this is an area of improvement to investigate for future research. Nevertheless,
