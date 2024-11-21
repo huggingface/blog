@@ -4988,8 +4988,8 @@
     - leaderboard
     - arena
     - collaboration
-    - announcement
-    - atla
+    - nlp
+    - evaluation
 
 - local: leaderboard-japanese
   title: "Introduction to the Open Leaderboard for Japanese LLMs"
@@ -5003,6 +5003,7 @@
     - nlp
     - evaluation
     - leaderboard
+    - collaboration
 
 - local: layerskip
   title: "Faster Text Generation with Self-Speculative Decoding"
@@ -5024,3 +5025,19 @@
     - dedupe
     - storage
     - content defined chunking
+
+- local: debate
+  title: "Letting Large Models Debate: The First Multilingual LLM Debate Competition"
+  author: xuanricheng
+  guest: true
+  thumbnail: blog/assets/leaderboards-on-the-hub/thumbnail_flageval.png
+  date: November 20, 2024
+  tags:
+    - community
+    - research
+    - nlp
+    - evaluation
+    - leaderboard
+    - collaboration
+
+
