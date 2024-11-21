@@ -9,7 +9,7 @@ authors:
   guest: true
   org: Intel
 - user: sandye51
-- user: echarlaix
+- user: IlyasMoutawwakil
 ---
 
 # Benchmarking Language Model Performance on 5th Gen Xeon at GCP
