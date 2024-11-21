@@ -5030,7 +5030,7 @@
   title: "Letting Large Models Debate: The First Multilingual LLM Debate Competition"
   author: xuanricheng
   guest: true
-  thumbnail: blog/assets/leaderboards-on-the-hub/thumbnail_flageval.png
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_flageval.png
   date: November 20, 2024
   tags:
     - community
