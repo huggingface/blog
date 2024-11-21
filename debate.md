@@ -31,7 +31,7 @@ authors:
 - user: Lyfly2024
   guest: true
   org: BAAI
-- user: xianbaoqian
+- user: xianbao
   org: Huggingface
 - user: clefourrier
   org: Huggingface
