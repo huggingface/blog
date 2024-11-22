@@ -44,8 +44,7 @@ Debate is an excellent way to showcase reasoning strength and language abilities
 Do today's large language models exhibit debate skills similar to humans? Which model is currently the best at debating? What can we learn from models when they debate against one another?
 To answer this question, BAAI has created a ["Debate Arena"](https://debate.flageval.net/index.html#/debate), allowing large models to compete against each other. Currently, it supports debate competitions in English, Chinese, Arabic and Korean.
 
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/5.5.0/gradio.js"></script>
-<gradio-app theme_mode="light" space="FlagEval/FlagEval-Arena-Leaderboard"></gradio-app>
+<iframe src="https://debate.flageval.net/index.html#/debate?l=en" frameborder="0" style="width:100%;height:100%;"></iframe>
 
 ## Background: The Need to Redefine LLM Evaluation Protocols
 
