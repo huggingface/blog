@@ -116,7 +116,7 @@ length of our current sequence.
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
   <video alt="IntegerEncoding.mp4" autoplay loop autobuffer muted playsinline>
-    <source src="https://fleetwood.dev/positional-encoding/IntegerEncoding.mp4" type="video/mp4">
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/you-could-have-designed-SOTA-positional-encoding/IntegerEncoding.mp4" type="video/mp4">
   </video>
   <figcaption></figcaption>
 </figure>
@@ -143,7 +143,7 @@ representation and *s t r e t c h* our value out to match our embedding dimensio
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
   <video alt="BinaryEncoding.mp4" autoplay loop autobuffer muted playsinline>
-    <source src="https://fleetwood.dev/positional-encoding/BinaryEncoding.mp4" type="video/mp4">
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/you-could-have-designed-SOTA-positional-encoding/BinaryEncoding.mp4" type="video/mp4">
   </video>
   <figcaption></figcaption>
 </figure>
@@ -158,7 +158,7 @@ You can see the positional encoding vector for different indices in the animatio
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
   <video alt="BinaryPositionalEncodingPlot.mp4" autoplay loop autobuffer muted playsinline>
-    <source src="https://fleetwood.dev/positional-encoding/BinaryPositionalEncodingPlot.mp4" type="video/mp4">
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/you-could-have-designed-SOTA-positional-encoding/BinaryPositionalEncodingPlot.mp4" type="video/mp4">
   </video>
   <figcaption></figcaption>
 </figure>
@@ -168,7 +168,7 @@ consistent across different sequence lengths. What happens if we plot a low dime
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
   <video alt="BinaryVector3D.mp4" autoplay loop autobuffer muted playsinline>
-    <source src="https://fleetwood.dev/positional-encoding/BinaryVector3D.mp4" type="video/mp4">
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/you-could-have-designed-SOTA-positional-encoding/BinaryVector3D.mp4" type="video/mp4">
   </video>
   <figcaption></figcaption>
 </figure>
@@ -345,7 +345,7 @@ $$
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
   <video alt="RopeEncoding.mp4" autoplay loop autobuffer muted playsinline>
-    <source src="https://fleetwood.dev/positional-encoding/RopeEncoding.mp4" type="video/mp4">
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/you-could-have-designed-SOTA-positional-encoding/RopeEncoding.mp4" type="video/mp4">
   </video>
   <figcaption></figcaption>
 </figure>
