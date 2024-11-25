@@ -14,7 +14,7 @@ authors:
 
 # Benchmarking Language Model Performance on 5th Gen Xeon at GCP
 
-**TL;DR**: We benchmark 2 representative agentic AI workload components, text embedding and text generation, on two Google Cloud Compute Engine Xeon-based CPU instances, namely N2 and C4. The results consistently shows that C4 has 10x to 25x higher throughput over N2 in text embedding and 2.3x to 3.8x higher throughput over N2 in text generation. Taking price into consideration, C4's hourly price is about 1.3x of N2, in this sense, C4 keeps 7x ~ 19x TCO(Total Cost of Ownership) advantage over N2 in text embedding and 1.7x ~ 2.9x TCO advantage in text generation. The results indicate that it is possible to deploy light-weight Agentic AI solutions wholly on CPUs.
+**TL;DR**: We benchmark 2 representative agentic AI workload components, text embedding and text generation, on two Google Cloud Compute Engine Xeon-based CPU instances, namely N2 and C4. The results consistently shows that C4 has 10x to 24x higher throughput over N2 in text embedding and 2.3x to 3.6x higher throughput over N2 in text generation. Taking price into consideration, C4's hourly price is about 1.3x of N2, in this sense, C4 keeps 7x ~ 19x TCO(Total Cost of Ownership) advantage over N2 in text embedding and 1.7x ~ 2.9x TCO advantage in text generation. The results indicate that it is possible to deploy light-weight Agentic AI solutions wholly on CPUs.
 
 ## Introduction
 
@@ -127,11 +127,11 @@ Then, run benchmark:
 
 ## Results and Conclusion
 ### Text Embedding Results
-The GCP C4 instance delivers approximately 10x to 25x higher throughput over N2 in the text embedding benchmark cases.
+The GCP C4 instance delivers approximately 10x to 24x higher throughput over N2 in the text embedding benchmark cases.
 ![alt text](assets/intel-gcp-c4/embedding_throughput.png)
 
 ### Text Generation Results
-Consistently, the C4 instance shows approximately 2.3x to 3.8x higher throughput over N2 in the text generation benchmark. Across batch sizes of 1 to 16, throughput is 13x better without significantly compromising latency. It enables concurrent query serving without needing to sacrifice user experience.
+Consistently, the C4 instance shows approximately 2.3x to 3.6x higher throughput over N2 in the text generation benchmark. Across batch sizes of 1 to 16, throughput is 13x better without significantly compromising latency. It enables concurrent query serving without needing to sacrifice user experience.
 ![alt text](assets/intel-gcp-c4/text_generation_perf.png)
 
 ### Conclusion
