@@ -8,7 +8,6 @@ authors:
 - user: kding1
   guest: true
   org: Intel
-- user: sandye51
 - user: IlyasMoutawwakil
 ---
 
