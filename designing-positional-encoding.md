@@ -1,5 +1,6 @@
 ---
 title: "You could have designed state of the art positional encoding"
+thumbnail: /blog/assets/designing-positional-encoding/thumbnail_posenc.png
 authors:
 - user: FL33TW00D-HF 
 ---
