@@ -70,7 +70,7 @@ headed) self attention operation is **identical for the same token in
 different positions**, despite the tokens clearly representing distinct entities. Let's begin designing a method of enhancing self attention with positional information, such that it can determine relationships between words encoded by
 their positions.
 
-To understand and design an optimal encoding scheme, let's explore some desirable properties such a scheme should have.
+How should an ideal positional encoding scheme behave?
 
 ## Desirable Properties
 
