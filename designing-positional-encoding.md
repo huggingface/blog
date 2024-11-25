@@ -2,7 +2,6 @@
 title: "You could have designed state of the art positional encoding"
 authors:
 - user: FL33TW00D-HF 
-  org: Huggingface
 ---
 
 > **Gall's Law** \
