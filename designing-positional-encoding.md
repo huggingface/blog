@@ -182,7 +182,7 @@ If we looked around a little, we might notice that both \\(\sin\\) and \\(\cos\\
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
   <video alt="SteppedPositionalEncodingPlot.mp4" autoplay loop autobuffer muted playsinline>
-    <source src="https://fleetwood.dev/positional-encoding/SteppedPositionalEncodingPlot.mp4" type="video/mp4">
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/you-could-have-designed-SOTA-positional-encoding/SteppedPositionalEncodingPlot.mp4" type="video/mp4">
   </video>
   <figcaption></figcaption>
 </figure>
@@ -405,7 +405,7 @@ of values from our input vector. For \\(2D\\) data, we need to encode both horiz
 
 ## The future of positional encoding
 
-Is RoPE the final incarnation of positional encoding? This [recent paper](https://arxiv.org/pdf/2410.06205) from DeepMind deeply analyses RoPE and highlights some fundamental problems. 
+Is RoPE the final incarnation of positional encoding? This [recent paper](https://arxiv.org/pdf/2410.06205) from DeepMind deeply analyses RoPE and highlights some fundamental problems. TLDR: RoPE isn't a perfect solution, and the models mostly focus on the lower frequencies and the rotation for a certain percent of low frequencies improves performance on Gemma 2B! 
 
 I anticipate some future breakthroughs, perhaps taking inspiration from
 signal processing with ideas like wavelets or hierarchical implementations. As models
@@ -423,17 +423,14 @@ art positional encoding, despite it being unintuitive at first. In a follow up
 post I'd love to explore practical implementation details for RoPE in order to
 maximise performance.
 
-Thanks to Madeline Ephgrave for proof reading this.
-
-
 ## References
 
-- https://kazemnejad.com/blog/transformer_architecture_positional_encoding/
-- https://blog.eleuther.ai/rotary-embeddings/ 
-- https://www.youtube.com/watch?v=T3OT8kqoqjc
-- https://arxiv.org/pdf/1706.03762
-- https://arxiv.org/pdf/2410.06205
-- https://arxiv.org/pdf/2104.09864
+- [Transformer Architecture: The Positional Encoding](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/)
+- [Rotary Embeddings: A Relative Revolution](https://blog.eleuther.ai/rotary-embeddings/) 
+- [How positional encoding works in transformers?](https://www.youtube.com/watch?v=T3OT8kqoqjc)
+- [Attention Is All You Need](https://arxiv.org/pdf/1706.03762)
+- [Round and round we go! What makes Rotary Positional Encodings useful?](https://arxiv.org/pdf/2410.06205)
+- [RoFormer: Enhanced Transformer with Rotary Position Embedding](https://arxiv.org/pdf/2104.09864)
 
 
 [^1]: Binary and Sinusoidal animations are reproductions of animations contained
