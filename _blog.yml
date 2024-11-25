@@ -5040,10 +5040,10 @@
     - leaderboard
     - collaboration
 
-- local: rearchitecting-hugging-face-uploads
-  title: "Rearchitecting Hugging Face Uploads"
+- local: rearchitecting-uploads-and-downloads
+  title: "Rearchitecting Hugging Face Uploads and Downloads"
   author: jsulz
-  thumbnail: /blog/assets/rearchitecting-hugging-face-uploads/thumbnail.png
+  thumbnail: /blog/assets/rearchitecting-uploads-and-downloads/thumbnail.png
   date: November 26, 2024
   tags:
     - dedupe

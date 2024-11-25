@@ -1,13 +1,13 @@
 ---
-title: "Rearchitecting Hugging Face Uploads"
-thumbnail: /blog/assets/rearchitecting-hugging-face-uploads/thumbnail.png
+title: "Rearchitecting Hugging Face Uploads and Downloads"
+thumbnail: /blog/assets/rearchitecting-uploads-and-downloads/thumbnail.png
 authors:
   - user: jsulz
   - user: port8080
   - user: erinys
 ---
 
-# Rearchitecting Hugging Face Uploads
+# Rearchitecting Hugging Face Uploads and Downloads
 
 As part of Hugging Face's Xet team’s work to [improve Hugging Face Hub’s storage backend](https://huggingface.co/blog/xethub-joins-hf), we analyzed a 24 hour window of Hugging Face upload requests to better understand access patterns. On October 11th, 2024, we saw:
 
@@ -18,7 +18,7 @@ As part of Hugging Face's Xet team’s work to [improve Hugging Face Hub’s sto
 The map below visualizes this activity, with countries colored by bytes uploaded per hour.
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rearchitecting-hugging-face-uploads/animated-uploads-choropleth.gif" alt="Parquet Layout" width=100%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rearchitecting-uploads-and-downloads/animated-uploads-choropleth.gif" alt="Parquet Layout" width=100%>
 </p>
 
 Currently, uploads are stored in an [S3 bucket](https://aws.amazon.com/s3/) in **`us-east-1`** and optimized using [S3 Transfer Acceleration](https://aws.amazon.com/s3/transfer-acceleration/). Downloads are cached and served using [AWS Cloudfront](https://aws.amazon.com/cloudfront/) as a CDN. Cloudfront’s [400+ convenient edge locations](https://aws.amazon.com/blogs/networking-and-content-delivery/400-amazon-cloudfront-points-of-presence/) provide global coverage and low-latency data transfers. However, like most CDNs, it is optimized for web content and has a file size limit of 50GB.
@@ -50,7 +50,7 @@ To support this custom protocol, we need to determine the optimal geographic dis
 Taking a closer look at our 24-hour window of S3 PUT requests, we identified global traffic patterns that reveal the distribution of data uploads to the Hub. As expected, the majority of activity comes from North America and Europe, with continuous, high-volume uploads throughout the day. The data also highlights a strong and growing presence in Asia. By focusing on these core regions, we can place our CAS [points of presence](https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/points-of-presence.html) to balance storage and network resources while minimizing latency.
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rearchitecting-hugging-face-uploads/pareto-chart.png" alt="Parquet Layout" width=100%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rearchitecting-uploads-and-downloads/pareto-chart.png" alt="Parquet Layout" width=100%>
 </p>
 
 While AWS offers 34 regions, our goal is to keep infrastructure costs reasonable while maintaining a high user experience. Out of the 88 countries represented in this snapshot, the Pareto chart above shows that the top 7 countries account for 80% of uploaded bytes, while the top 20 countries contribute 95% of the total upload volume and requests.
@@ -66,7 +66,7 @@ If we use a simple heuristic to distribute traffic, we can divide our CAS covera
 This ends up being quite effective. The US and Europe account for 78.4% of uploaded bytes, while Asia accounts for 21.6%.
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rearchitecting-hugging-face-uploads/aws-regions.png" alt="Parquet Layout" width=100%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rearchitecting-uploads-and-downloads/aws-regions.png" alt="Parquet Layout" width=100%>
 </p>
 
 This regional breakdown results in a well-balanced load across our three CAS PoPs, with additional capacity for growth in **`ap-southeast-1`** and flexibility to scale up in **`us-east-1`** and **`eu-west-3`** as needed.
