@@ -5060,3 +5060,16 @@
     - storage
     - content addressed store
     - infrastructure
+
+- local: smolvlm
+  title: "SmolVLM - small yet mighty Vision Language Model"
+  author: andito
+  thumbnail: /blog/assets/smolvlm/banner.png
+  date: November 26, 2024
+  tags:
+    - multimodal
+    - on-device
+    - llm
+    - nlp
+    - vision
+    - trl
