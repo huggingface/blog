@@ -246,7 +246,7 @@ print(generated_texts[0])
 
 ### Dataset
 
-First, we had to train SmolLM2 to extend it context, but we will discuss that in the next subsection. Once we had a long context SmolLM2, we trained SmolVLM using the same data that we used for Idefics3. Mainly, we used The Cauldron and Docmatix. The full list of datasets we used can be consulted here (link to the datasets) 
+First, we had to train SmolLM2 to extend it context, but we will discuss that in the next subsection. Once we had a long context SmolLM2, we trained SmolVLM using the same data that we used for Idefics3. Mainly, we used The Cauldron and Docmatix. The full list of datasets we used [can be consulted here](https://huggingface.co/HuggingFaceTB/SmolVLM-Instruct/blob/main/smolvlm-data.pdf). 
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/mixture_the_cauldron.png" width="1100" height="auto" alt="Image description">
 
