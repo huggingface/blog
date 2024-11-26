@@ -5,9 +5,9 @@ authors:
 - user: FL33TW00D-HF 
 ---
 
-> **Gall's Law**
+> **Gall's Law** \
 > A complex system that works is invariably found to have evolved from a simple
-> system that worked
+> system that worked \
 > John Gall
 
 This post walks you through the step-by-step discovery of state-of-the-art positional encoding in transformer models. We will achieve
