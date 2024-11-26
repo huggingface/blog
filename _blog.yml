@@ -5040,6 +5040,16 @@
     - leaderboard
     - collaboration
 
+- local: designing-positional-encoding
+  title: "You could have designed state of the art positional encoding"
+  author: FL33TW00D-HF
+  thumbnail: /blog/assets/designing-positional-encoding/thumbnail_posenc.png
+  date: November 25, 2024
+  tags:
+    - research
+    - multimodal
+    - tutorial
+
 - local: rearchitecting-uploads-and-downloads
   title: "Rearchitecting Hugging Face Uploads and Downloads"
   author: jsulz
