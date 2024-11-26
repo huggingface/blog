@@ -20,11 +20,13 @@ This blog post introduces SmolVLM, a 2B VLM, SOTA for its memory footprint. Smol
 
 This year has seen a boom in multimodal AI with many large vision language models released. The trends were to initially scale up compute, later scale up the data diversity by generating synthetic data with large models, and, recently, scale down to make these models more efficient. Small open models allow local deployment to browser or edge devices, cut inference costs, and enable user customization. Some notable examples of these models include PaliGemma 3B, moondream2, and Qwen2VL.
 
-In this blog post, we introduce SmolVLM, a new family of 2B small vision language models that can be used commercially and deployed to smaller local setups, with completely open training pipelines. 
+In this blog post, we introduce [SmolVLM](https://huggingface.co/HuggingFaceTB/SmolVLM-Instruct), a new family of 2B small vision language models that can be used commercially and deployed to smaller local setups, with completely open training pipelines. 
 
-We release three models: SmolVLM-Base, which can be used for downstream fine-tuning; SmolVLM-Synthetic, the fine-tuned variant on synthetic data; and SmolVLM Instruct, the fine-tuned instruction variant, which can be used out of the box for interactive end-user applications. 
+We release three models: [SmolVLM-Base](https://huggingface.co/HuggingFaceTB/SmolVLM-Base), which can be used for downstream fine-tuning, [SmolVLM-Synthetic](https://huggingface.co/HuggingFaceTB/SmolVLM-Synthetic), the fine-tuned variant on synthetic data, and [SmolVLM Instruct](https://huggingface.co/HuggingFaceTB/SmolVLM-Instruct), the fine-tuned instruction variant, which can be used out of the box for interactive end-user applications. 
 
-This release comes with open-source models integrated into transformers, [a demo built on SmolVLM Instruct](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM), and a supervised fine-tuning script. We have used the datasets previously used for Idefics3: [the Cauldron](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron) and [Docmatix](https://huggingface.co/datasets/HuggingFaceM4/Docmatix), which are also fully open-source. [TODO: give links to all before release]
+This release comes with open-source models integrated into transformers, [a demo built on SmolVLM Instruct](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM), and a supervised fine-tuning script. We have used the datasets previously used for Idefics3: [the Cauldron](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron) and [Docmatix](https://huggingface.co/datasets/HuggingFaceM4/Docmatix), which are also fully open-source.
+
+
 
 ## Table of Contents
 - [TLDR](#TLDR)
@@ -108,11 +110,6 @@ For SmolVLM, we closely followed the architecture from Idefics3, to the point th
  - We more aggressively compress the patched visual information by reducing the information 9x using the pixel shuffle strategy, compared to 4x with idefics3.
  - We use patches of 384*384, instead of 364x364, because 384 is divisible by 3, which is necessary for our pixel shuffle strategy to work.
  - For this, we change the vision backbone to use shape-optimized SigLIP with patches of 384x384 pixels and inner patches of 14x14.
-
-
-```
-All the models in this release are built on the shape-optimized SigLIP as image encoder and SmolLM2 for text decoder part, trained on datasets with Apache 2.0 license. We release the SmolVLM checkpoints under the Apache 2.0 license.
-```
 
 ## Performance
 
@@ -205,7 +202,7 @@ Start generating with preprocessed input and decode the generated output.
 
 ### Dataset
 
-We trained SmolVLM using the same data that we used for Idefics3. Mainly, we used The Cauldron and Docmatix. The full list of datasets we used can be consulted here (link to the datasets) 
+First, we had to train SmolLM2 to extend it context, but we will discuss that in the next subsection. Once we had a long context SmolLM2, we trained SmolVLM using the same data that we used for Idefics3. Mainly, we used The Cauldron and Docmatix. The full list of datasets we used can be consulted here (link to the datasets) 
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/mixture_the_cauldron.png" width="1100" height="auto" alt="Image description">
 
@@ -234,7 +231,7 @@ To select the optimal checkpoint, we created a single metric by combining these 
 
 You can fine-tune SmolVLM using transformers and apply alignment techniques using TRL 🚀
 
-We provide a notebook to fine-tune it on the VQAv2 dataset, optionally using  LoRA, QLoRA or full fine-tuning. In the notebook, you can find some tricks to save up even more memory and have a larger batch size to fit SmolVLM inside consumer GPUs, like L4, for training. With batch sizes of 4, 8-bit loading with QLoRA and gradient checkpointing we can fine-tune in L4, and it consumes around ~16 GBs of VRAM. This makes it possible to fine-tune your SmolVLM using Colab! You can play around with the parameters to get a nice point in training duration-memory trade-off. 
+We provide a [notebook](https://github.com/huggingface/smollm/blob/main/finetuning/Smol_VLM_FT.ipynb) to fine-tune it on the VQAv2 dataset, optionally using  LoRA, QLoRA or full fine-tuning. In the notebook, you can find some tricks to save up even more memory and have a larger batch size to fit SmolVLM inside consumer GPUs, like L4, for training. With batch sizes of 4, 8-bit loading with QLoRA and gradient checkpointing we can fine-tune in L4, and it consumes around ~16 GBs of VRAM. This makes it possible to fine-tune your SmolVLM using Colab! You can play around with the parameters to get a nice point in training duration-memory trade-off. 
 
 SmolVLM also comes with TRL integration so you can apply Direct Preference Optimization (DPO) easily through the CLI. Get started by running `pip install trl accelerate peft` and then run the following command to fine-tune on [RLAIF-V] (https://huggingface.co/datasets/HuggingFaceH4/rlaif-v_formatted) dataset: 
 
