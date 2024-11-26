@@ -11,7 +11,7 @@ authors:
 
 ## TLDR
 
-This blog post introduces SmolVLM a 2B SOTA VLM given its memory footprint. SmolVLM is small, fast, memory-efficient, and fully open-source. All model checkpoints, VLM datasets, training recipes and tools are released under the Apache 2.0 license.
+This blog post introduces SmolVLM, a 2B VLM, SOTA for its memory footprint. SmolVLM is small, fast, memory-efficient, and fully open-source. All model checkpoints, VLM datasets, training recipes and tools are released under the Apache 2.0 license.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smolvlm_ecosystem.png" width="800" height="auto" alt="Image description">
 
@@ -22,11 +22,11 @@ This year has seen a boom in multimodal AI with many large vision language model
 
 In this blog post, we introduce SmolVLM, a new family of 2B small vision language models that can be used commercially and deployed to smaller local setups, with completely open training pipelines. 
 
-We release three models: SmolVLM-Base, which can be used for downstream fine-tuning, SmolVLM-Synthetic, the fine-tuned variant on synthetic data, and SmolVLM Instruct, the fine-tuned instruction variant, which can be used out of the box for interactive end-user applications. 
+We release three models: SmolVLM-Base, which can be used for downstream fine-tuning; SmolVLM-Synthetic, the fine-tuned variant on synthetic data; and SmolVLM Instruct, the fine-tuned instruction variant, which can be used out of the box for interactive end-user applications. 
 
 This release comes with open-source models integrated into transformers, [a demo built on SmolVLM Instruct](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM), and a supervised fine-tuning script. We have used the datasets previously used for Idefics3: [the Cauldron](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron) and [Docmatix](https://huggingface.co/datasets/HuggingFaceM4/Docmatix), which are also fully open-source. [TODO: give links to all before release]
 
-# Table of Contents
+## Table of Contents
 - [TLDR](#TLDR)
 - [What is SmolVLM?](#what-is-smolvlm)
   * [Model capabilities](#model-capabilities)
@@ -105,7 +105,7 @@ By following these guidelines, your trip will undoubtedly enhance both your unde
 
 For SmolVLM, we closely followed the architecture from Idefics3, to the point that we use the same implementation in transformers. There are, however a few key differences:
  - We replaced Llama 3.1 8B with SmolLM2 1.7B as the language backbone.
- - We more aggressively compress the patched information by reducing the information 9x using the pixel shuffle strategy, compared to 4x with idefics3.
+ - We more aggressively compress the patched visual information by reducing the information 9x using the pixel shuffle strategy, compared to 4x with idefics3.
  - We use patches of 384*384, instead of 364x364, because 384 is divisible by 3, which is necessary for our pixel shuffle strategy to work.
  - For this, we change the vision backbone to use shape-optimized SigLIP with patches of 384x384 pixels and inner patches of 14x14.
 
@@ -132,9 +132,9 @@ We present benchmarks for the tasks we mention in training details.
 
 ### Memory
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/ram_smolvlm.png" width="900" height="auto" alt="Image description">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/ram_smolvlm.png" width="900" height="auto" alt="Inference GPU memory use for SmolVLM and other models">
 
-SmolVLM provides the best memory usage among the existing suite of vision language models in transformers. This allows it to be efficiently run on-device, such as a laptop! Below, you can find the GPU memory usage in GBs for each model, running inference with one or two input images, and using the same images and text prompts in all tests. SmolVLM's efficiency in image encoding is built into the model. SmolVLM encodes each 384x384 image patch to 81 tokens. This results in SmolVLM encoding our test prompt and a single image in 1.2k tokens, whereas Qwen2-VL uses 16k tokens. This also explains why the memory consumption increases so much for 2 images with Qwen and InternVL. In contrast, the increase is much more moderate for SmolVLM and PaliGemma, which use a similar approach.
+SmolVLM provides the best memory usage among the existing suite of vision language models in transformers. This allows it to run efficiently on-device, such as a laptop! You can see above the GPU memory usage in GBs for each model, running inference with one or two input images, and using the same images and text prompts in all tests. SmolVLM's efficiency in image encoding is built into the model. SmolVLM encodes each 384x384 image patch to 81 tokens. This results in SmolVLM encoding our test prompt and a single image in 1.2k tokens, whereas Qwen2-VL uses 16k tokens. This also explains why the memory consumption increases so much for 2 images with Qwen and InternVL. In contrast, the increase is much more moderate for SmolVLM and PaliGemma, which use a similar approach.
 
 ### Throughput
 
@@ -239,12 +239,18 @@ We provide a notebook to fine-tune it on the VQAv2 dataset, optionally using  Lo
 SmolVLM also comes with TRL integration so you can apply Direct Preference Optimization (DPO) easily through the CLI. Get started by running `pip install trl accelerate peft` and then run the following command to fine-tune on [RLAIF-V] (https://huggingface.co/datasets/HuggingFaceH4/rlaif-v_formatted) dataset: 
 
 ``` bash
-accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml examples/scripts/dpo_vlm.py  \\
-  --dataset_name HuggingFaceH4/rlaif-v_formatted --model_name_or_path HuggingFaceTB/SmolVLM-Instruct \\
-  --per_device_train_batch_size 8 --gradient_accumulation_steps 32 --dataset_num_proc 32 \\
-  --output_dir dpo_smolvlm_rlaif-v --bf16 --torch_dtype bfloat16 --use_peft --lora_target_modules=all-linear 
+accelerate launch \
+  --config_file examples/accelerate_configs/multi_gpu.yaml examples/scripts/dpo_vlm.py  \
+  --dataset_name HuggingFaceH4/rlaif-v_formatted \
+  --model_name_or_path HuggingFaceTB/SmolVLM-Instruct \
+  --per_device_train_batch_size 8 \
+  --gradient_accumulation_steps 32 \
+  --dataset_num_proc 32 \
+  --output_dir dpo_smolvlm_rlaif-v \
+  --bf16 --torch_dtype bfloat16 \
+  --use_peft --lora_target_modules=all-linear 
 ```
-A detailed tutorial on preference tuning vision-based LLM can be found here: [dpo_vlm](https://huggingface.co/blog/dpo_vlm).
+The resulting LoRA adapter weights are [SmolVLM-Instruct-DPO](https://huggingface.co/HuggingFaceTB/SmolVLM-Instruct-DPO). A detailed tutorial on preference tuning vision-based LLM can be found here: [dpo_vlm](https://huggingface.co/blog/dpo_vlm).
 
 ## Wrapping Up
 
@@ -252,6 +258,6 @@ We introduced SmolVLM, a fully open, small, and mighty VLM for the community! We
 
 Below are some resources if you would like to read more about all things related to SmolVLM.
 
-Start playing with SmolVLM using [this demo](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM).
-Learn how to fine-tune SmolVLM on VQAv2 using [this notebook](https://github.com/merveenoyan/smol-vision/blob/main/Idefics_FT.ipynb ) 
-Learn more about [vision language models](https://huggingface.co/blog/vlms)
+- Start playing with SmolVLM using [this demo](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM).
+- Learn how to fine-tune SmolVLM on VQAv2 using [this notebook](https://github.com/merveenoyan/smol-vision/blob/main/Idefics_FT.ipynb ) 
+- Learn more about [vision language models](https://huggingface.co/blog/vlms)
