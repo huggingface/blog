@@ -98,3 +98,14 @@ StarCoder2-15B-Instruct-v0.1 showcases for the first time that we can create pow
 - [StarCoder2-15B-Instruct-v0.1](https://huggingface.co/bigcode/starcoder2-15b-instruct-v0.1): the instruction-tuned model
 - [starcoder2-self-align](https://github.com/bigcode-project/starcoder2-self-align): the self-alignment pipeline
 - [StarCoder2-Self-OSS-Instruct](https://huggingface.co/datasets/bigcode/self-oss-instruct-sc2-exec-filter-50k/): the self-generated, instruction-tuning dataset
+
+### Citation
+
+```bibtex
+@article{wei2024selfcodealign,
+  title={SelfCodeAlign: Self-Alignment for Code Generation}, 
+  author={Yuxiang Wei and Federico Cassano and Jiawei Liu and Yifeng Ding and Naman Jain and Zachary Mueller and Harm de Vries and Leandro von Werra and Arjun Guha and Lingming Zhang},
+  year={2024},
+  journal={arXiv preprint arXiv:2410.24198}
+}
+```
