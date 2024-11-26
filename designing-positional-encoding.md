@@ -424,6 +424,8 @@ art positional encoding, despite it being unintuitive at first. In a follow up
 post I'd love to explore practical implementation details for RoPE in order to
 maximise performance.
 
+This post was originally published [here](https://fleetwood.dev/posts/you-could-have-designed-SOTA-positional-encoding).
+
 ## References
 
 - [Transformer Architecture: The Positional Encoding](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/)
