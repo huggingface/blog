@@ -13,6 +13,9 @@ authors:
 
 This blog post introduces SmolVLM a 2B SOTA VLM given its memory footprint. SmolVLM is small, fast, memory-efficient, and fully open-source. All model checkpoints, VLM datasets, training recipes and tools are released under the Apache 2.0 license.
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smolvlm_ecosystem.png" width="800" height="auto" alt="Image description">
+
+
 ## What is SmolVLM?
 
 This year has seen a boom in multimodal AI with many large vision language models released. The trends were to initially scale up compute, later scale up the data diversity by generating synthetic data with large models, and, recently, scale down to make these models more efficient. Small open models allow local deployment to browser or edge devices, cut inference costs, and enable user customization. Some notable examples of these models include PaliGemma 3B, moondream2, and Qwen2VL.
