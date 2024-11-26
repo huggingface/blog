@@ -5004,3 +5004,14 @@
     - nlp
     - evaluation
     - leaderboard
+
+- local: cfm-case-study
+  title: "Investing in Performance: Fine-tune small models with LLM insights  - a CFM case study"
+  author: florentgbelidji
+  thumbnail: /blog/assets/cfm-case-study/thumbnail.png
+  date: November 28, 2024
+  tags:
+    - llm
+    - expert-support-program
+    - expert-support
+    - case-studies
