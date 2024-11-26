@@ -2,8 +2,8 @@
 title: "Rearchitecting Hugging Face Uploads and Downloads"
 thumbnail: /blog/assets/rearchitecting-uploads-and-downloads/thumbnail.png
 authors:
-  - user: jsulz
   - user: port8080
+  - user: jsulz
   - user: erinys
 ---
 
