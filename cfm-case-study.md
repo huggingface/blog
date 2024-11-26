@@ -1,14 +1,14 @@
 ---
-title: "Investing in Performance: Fine-tune small models with LLM insights  - a CFM success story "
+title: "Investing in Performance: Fine-tune small models with LLM insights  - a CFM case study"
 thumbnail: /blog/assets/cfm-case-study/blogpost_cfm.png
 authors:
 - user: oahouzi
 - user: sylvainc
-- user: florentgbelidji
 - user: jlhour
+- user: florentgbelidji
 ---
 
-# Investing in Performance: Fine-tune small models with LLM insights  - a CFM success story 
+# Investing in Performance: Fine-tune small models with LLM insights  - a CFM case study 
 
 **_Overview:_** _This article presents a deep dive into Capital Fund Management’s (CFM) use of open-source large language models (LLMs) and the Hugging Face (HF) ecosystem to optimize Named Entity Recognition (NER) for financial data. By leveraging_ **_LLM-assisted labeling_** _with_ **_HF Inference Endpoints_** _and refining data with_ **_Argilla_**_, the team improved accuracy by up to_ **_6.4%_** _and reduced operational costs, achieving solutions up to_ **_80x cheaper_** _than large LLMs alone._
 
