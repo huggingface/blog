@@ -236,7 +236,7 @@ You can fine-tune SmolVLM using transformers and apply alignment techniques usin
 
 We provide a notebook to fine-tune it on the VQAv2 dataset, optionally using  LoRA, QLoRA or full fine-tuning. In the notebook, you can find some tricks to save up even more memory and have a larger batch size to fit SmolVLM inside consumer GPUs, like L4, for training. With batch sizes of 4, 8-bit loading with QLoRA and gradient checkpointing we can fine-tune in L4, and it consumes around ~16 GBs of VRAM. This makes it possible to fine-tune your SmolVLM using Colab! You can play around with the parameters to get a nice point in training duration-memory trade-off. 
 
-SmolVLM also comes with TRL integration so you can apply Direct Preference Optimization (DPO) easily through the CLI. Get started by running pip install trl accelerate and then run the following command to fine-tune on [RLAIF-V] (https://huggingface.co/datasets/HuggingFaceH4/rlaif-v_formatted) dataset.
+SmolVLM also comes with TRL integration so you can apply Direct Preference Optimization (DPO) easily through the CLI. Get started by running `pip install trl accelerate peft` and then run the following command to fine-tune on [RLAIF-V] (https://huggingface.co/datasets/HuggingFaceH4/rlaif-v_formatted) dataset: 
 
 ``` bash
 accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml examples/scripts/dpo_vlm.py  \\
@@ -244,7 +244,7 @@ accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml examp
   --per_device_train_batch_size 8 --gradient_accumulation_steps 32 --dataset_num_proc 32 \\
   --output_dir dpo_smolvlm_rlaif-v --bf16 --torch_dtype bfloat16 --use_peft --lora_target_modules=all-linear 
 ```
-
+A detailed tutorial on preference tuning vision-based LLM can be found here: [dpo_vlm](https://huggingface.co/blog/dpo_vlm).
 
 ## Wrapping Up
 
