@@ -146,7 +146,7 @@ SmolVLM's tiny memory footprint also implies that it requires far fewer computat
 
 Given SmolVLM's long context and the possibility of tweaking the internal frame resizing of the model, we explored its suitability as an accessible option for basic video analysis tasks, particularly when computational resources are limited.
 
-In our evaluation of SmolVLM's video understanding capabilities, we implemented a straightforward video processing pipeline [code], extracting up to 50 evenly sampled frames from each video while avoiding internal frame resizing.
+In our evaluation of SmolVLM's video understanding capabilities, we implemented a straightforward [video processing pipeline code](https://github.com/huggingface/smollm/blob/main/inference/smolvlm/SmolVLM_video_inference.py), extracting up to 50 evenly sampled frames from each video while avoiding internal frame resizing.
 This simple approach yielded surprisingly competitive results on the CinePile benchmark, with a score of 27.14%, a performance that positions the model between InterVL2 (2B) and Video LlaVa (7B).
 
 
