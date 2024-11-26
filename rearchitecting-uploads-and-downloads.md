@@ -33,7 +33,7 @@ The read path prioritizes simplicity and speed to ensure high throughput with mi
 
 The write path is more complex to optimize upload speeds and provide additional security guarantees. Like reads, upload requests are routed to a CAS server, but instead of querying at the file level [we operate on chunks](https://huggingface.co/blog/from-files-to-chunks). As matches are found, the CAS server instructs the client (e.g., [huggingface_hub](https://github.com/huggingface/huggingface_hub)) to transfer only the necessary (new) chunks. The chunks are validated by CAS before uploading them to S3.
 
-There are many implementation details to address, such as network constraints or storage overhead, which we’ll cover in future posts. For now, let's look at how reads currently look. The first diagram below shows the read and write paths as they currently look today:
+There are many implementation details to address such as network constraints and storage overhead which we’ll cover in future posts. For now, let's look at how reads currently look. The first diagram below show the read and write path as they currently look today:
 
 <figure class="image text-center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rearchitecting-uploads-and-downloads/old-read-write-path.png" alt="Old read and write sequence diagram" width=100%>
