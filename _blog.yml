@@ -5050,17 +5050,6 @@
     - multimodal
     - tutorial
 
-- local: rearchitecting-uploads-and-downloads
-  title: "Rearchitecting Hugging Face Uploads and Downloads"
-  author: jsulz
-  thumbnail: /blog/assets/rearchitecting-uploads-and-downloads/thumbnail.png
-  date: November 26, 2024
-  tags:
-    - dedupe
-    - storage
-    - content addressed store
-    - infrastructure
-
 - local: smolvlm
   title: "SmolVLM - small yet mighty Vision Language Model"
   author: andito
@@ -5073,3 +5062,14 @@
     - nlp
     - vision
     - trl
+
+- local: rearchitecting-uploads-and-downloads
+  title: "Rearchitecting Hugging Face Uploads and Downloads"
+  author: jsulz
+  thumbnail: /blog/assets/rearchitecting-uploads-and-downloads/thumbnail.png
+  date: November 26, 2024
+  tags:
+    - dedupe
+    - storage
+    - content addressed store
+    - infrastructure
