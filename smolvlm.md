@@ -144,7 +144,7 @@ SmolVLM's tiny memory footprint also implies that it requires far fewer computat
 Given SmolVLM's long context and the possibility of tweaking the internal frame resizing of the model, we explored its suitability as an accessible option for basic video analysis tasks, particularly when computational resources are limited.
 
 In our evaluation of SmolVLM's video understanding capabilities, we implemented a straightforward [video processing pipeline code](https://github.com/huggingface/smollm/blob/main/inference/smolvlm/SmolVLM_video_inference.py), extracting up to 50 evenly sampled frames from each video while avoiding internal frame resizing.
-This simple approach yielded surprisingly competitive results on the CinePile benchmark, with a score of 27.14%, a performance that positions the model between InterVL2 (2B) and Video LlaVa (7B).
+This simple approach yielded surprisingly competitive results on the [CinePile benchmark](https://arxiv.org/abs/2405.08813), with a score of **27.14%**, a performance that positions the model between InterVL2 (2B) and Video LlaVa (7B).
 
 
 The quantitative results align with our qualitative testing, looking at an example from the FineVideo dataset:
@@ -190,21 +190,25 @@ You can easily load SmolVLM using the `Auto` classes in transformers. Under the 
 
 
 ```python
-from transformers import AutoProcessor, AutoModelForVision2Seq
+from transformers import (
+    AutoProcessor,
+    AutoModelForVision2Seq,
+)
 import torch
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 processor = AutoProcessor.from_pretrained("HuggingFaceTB/SmolVLM-Instruct")
-model = AutoModelForVision2Seq.from_pretrained("HuggingFaceTB/SmolVLM-Instruct",
-                                                torch_dtype=torch.bfloat16,
-                                                _attn_implementation="flash_attention_2" if DEVICE == "cuda" else "eager").to(DEVICE)
+model = AutoModelForVision2Seq.from_pretrained(
+    "HuggingFaceTB/SmolVLM-Instruct",
+    torch_dtype=torch.bfloat16,
+    _attn_implementation="flash_attention_2" if DEVICE == "cuda" else "eager"
+).to(DEVICE)
 ```
 Image and text can be interleaved arbitrarily, and you can pass in multiple images. Here’s how you can use the chat template and pass in the formatted input to the processor.
 
 ```python
 from PIL import Image
 from transformers.image_utils import load_image
-
 
 # Load images
 image1 = load_image("https://huggingface.co/spaces/HuggingFaceTB/SmolVLM/resolve/main/example_images/rococo.jpg")
@@ -246,7 +250,7 @@ print(generated_texts[0])
 
 ### Dataset
 
-First, we had to train SmolLM2 to extend it context, but we will discuss that in the next subsection. Once we had a long context SmolLM2, we trained SmolVLM using the same data that we used for Idefics3. Mainly, we used The Cauldron and Docmatix. The full list of datasets we used can be consulted here (link to the datasets) 
+First, we had to train SmolLM2 to extend its context, but we will discuss that in the next subsection. Once we had a long context SmolLM2, we trained SmolVLM using the same data that we used for Idefics3. Mainly, we used The Cauldron and Docmatix. The full list of datasets we used can be consulted here (link to the [datasets](https://huggingface.co/HuggingFaceTB/SmolVLM-Base#training-data)) 
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/mixture_the_cauldron.png" width="1100" height="auto" alt="Image description">
 
