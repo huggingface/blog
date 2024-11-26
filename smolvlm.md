@@ -4,7 +4,7 @@ thumbnail: /blog/assets/smolvlm/banner.png
 authors:
 - user: andito
 - user: merve
-- user: miquel
+- user: mfarre
 - user: eliebak
 - user: pcuenq
 ---
