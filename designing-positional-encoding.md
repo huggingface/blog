@@ -5,9 +5,9 @@ authors:
 - user: FL33TW00D-HF 
 ---
 
-> **Gall's Law** \
+> **Gall's Law**
 > A complex system that works is invariably found to have evolved from a simple
-> system that worked \
+> system that worked
 > John Gall
 
 This post walks you through the step-by-step discovery of state-of-the-art positional encoding in transformer models. We will achieve
@@ -210,7 +210,7 @@ There's a few parts of this equation that are confusing at first glance. How did
 authors choose \\(10,000\\)? Why are we using \\(\sin\\) **and** \\(\cos\\) for even and odd positions respectively?
 
 It seems that using \\(10,000\\) for the base wavelength was determined experimentally \\([^2]\\). Deciphering the usage of both \\(\sin\\) and \\(\cos\\) is more involved, but crucial
-for our iterative approach to understanding. The key here is our desire for a linear relation between two encoded positions (\\(Pr_2\\)). To understand how using \\(\sin\\) and \\(\cos\\) in tandem produce this linear relation, we will have to dive into some trigonometry.
+for our iterative approach to understanding. The key here is our desire for a linear relation between two encoded positions \\(Pr_2\\). To understand how using \\(\sin\\) and \\(\cos\\) in tandem produce this linear relation, we will have to dive into some trigonometry.
 
 Consider a sequence of sine and cosine pairs, each associated with a frequency \\(\omega_i\\). Our goal is to find a linear transformation matrix \\(\mathbf{M}\\) that can shift these sinusoidal functions by a fixed offset \\(k\\):
 
@@ -327,7 +327,7 @@ While it may seem like voodoo if you skip to the end result, by thinking about S
 context of self attention (and more specifically dot products), we can see how
 it all comes together.
 
-Much like in Sinusoidal Encoding, we decompose our vectors (\\(\mathbf{q}\\) or \\(\mathbf{k}\\), instead of pre-projection \\(\mathbf{x}\\)) into 2D pairs/chunks. Rather than encoding _absolute_ position directly by adding a vector we drew from sinusoidal functions of slowly decreasing frequencies, we cut to the chase and encode _relative_ position by **multiplying each pair with the rotation matrix**.
+Much like in Sinusoidal Encoding, we decompose our vectors \\(\mathbf{q}\\) or \\(\mathbf{k}\\), instead of pre-projection \\(\mathbf{x}\\)) into 2D pairs/chunks. Rather than encoding _absolute_ position directly by adding a vector we drew from sinusoidal functions of slowly decreasing frequencies, we cut to the chase and encode _relative_ position by **multiplying each pair with the rotation matrix**.
 
 Let \\(\mathbf{q}\\) or \\(\mathbf{k}\\) be our input vector at position \\(p\\). We create a block diagonal matrix
 where \\(\mathbf{M_i}\\) is the corresponding rotation matrix for that component
@@ -436,6 +436,7 @@ maximise performance.
 
 [^1]: Binary and Sinusoidal animations are reproductions of animations contained
 in [this](https://www.youtube.com/watch?v=T3OT8kqoqjc0) video.
+
 [^2]: Using \\(\theta = 10000\\) gives us \\( 2 \pi \cdot 10000\\) unique positions, or a
 theoretical upper bound on the context length at ~63,000.
 
