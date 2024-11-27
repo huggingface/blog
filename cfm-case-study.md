@@ -5,6 +5,7 @@ authors:
 - user: oahouzi
   guest: true
 - user: sylvainc
+  guest: true
 - user: jlhour
 - user: florentgbelidji
 ---
