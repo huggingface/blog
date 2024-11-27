@@ -3,6 +3,7 @@ title: "Investing in Performance: Fine-tune small models with LLM insights  - a 
 thumbnail: /blog/assets/cfm-case-study/blogpost_cfm.png
 authors:
 - user: oahouzi
+  guest: true
 - user: sylvainc
 - user: jlhour
 - user: florentgbelidji
