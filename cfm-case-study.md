@@ -7,6 +7,7 @@ authors:
 - user: sylvainc
   guest: true
 - user: jlhour
+  guest: true
 - user: florentgbelidji
 ---
 
