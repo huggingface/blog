@@ -642,7 +642,7 @@ We tested 2 variants of the Llama3.1 model including the 70b that we use to cura
 
 **Fine-tuning**
 
- Using our train/validation/test subsets created earlier, we fine-tuned GLiNER and SpanMarker on an AWS instance with a single Nvidia A10 GPU. A fine-tuning example for GLiNER is accessible [here](https://github.com/urchade/GLiNER/blob/main/examples/finetune.ipynb) and for SpanMarker[ here](https://github.com/tomaarsen/SpanMarkerNER/blob/main/notebooks/model_training.ipynb). Fine-tuning those models is as easy as running this with `train_dataset`and `valid_dataset`created as [Hugging Face dataset](https://huggingface.co/docs/datasets/en/load_hub).
+ Using our train/validation/test subsets created earlier, we fine-tuned GLiNER and SpanMarker on an AWS instance with a single Nvidia A10 GPU. A fine-tuning example for GLiNER is accessible [here](https://github.com/urchade/GLiNER/blob/main/examples/finetune.ipynb) and for SpanMarker [here](https://github.com/tomaarsen/SpanMarkerNER/blob/main/notebooks/model_training.ipynb). Fine-tuning those models is as easy as running this with `train_dataset`and `valid_dataset`created as [Hugging Face dataset](https://huggingface.co/docs/datasets/en/load_hub).
 
 
 ```python
