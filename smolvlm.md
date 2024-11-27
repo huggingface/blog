@@ -300,5 +300,5 @@ We introduced SmolVLM, a fully open, small, and mighty VLM for the community! We
 Below are some resources if you would like to read more about all things related to SmolVLM.
 
 - Start playing with SmolVLM using [this demo](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM).
-- Learn how to fine-tune SmolVLM on VQAv2 using [this notebook](https://github.com/merveenoyan/smol-vision/blob/main/Idefics_FT.ipynb ) 
+- Learn how to fine-tune SmolVLM on VQAv2 using [this notebook](https://github.com/huggingface/smollm/blob/main/finetuning/Smol_VLM_FT.ipynb) 
 - Learn more about [vision language models](https://huggingface.co/blog/vlms)
