@@ -119,7 +119,7 @@ We present benchmarks for the tasks we mention in training details.
 | Model             | MMMU (val) | MathVista (testmini) | MMStar (val) | DocVQA (test) | TextVQA (val) | Min GPU RAM required (GB) |
 |-------------------|------------|----------------------|--------------|---------------|---------------|---------------------------|
 | SmolVLM           | 38.8       | 44.6                | 42.1         | 81.6          | 72.7          | 5.02                      |
-| Qwen-VL 2B        | 41.1       | 47.8                | 47.5         | 90.1          | 79.7          | 13.70                     |
+| Qwen2-VL 2B        | 41.1       | 47.8                | 47.5         | 90.1          | 79.7          | 13.70                     |
 | InternVL2 2B      | 34.3       | 46.3                | 49.8         | 86.9          | 73.4          | 10.52                     |
 | PaliGemma 3B 448px| 34.9       | 28.7                | 48.3         | 32.2          | 56.0          | 6.72                      |
 | moondream2        | 32.4       | 24.3                | 40.3         | 70.5          | 65.2          | 3.87                      |
