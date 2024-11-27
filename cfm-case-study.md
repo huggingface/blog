@@ -37,7 +37,7 @@ Employing a scientific approach to finance, CFM leverages quantitative and syste
 
 CFM has been working with [Hugging Face's Expert Support](https://huggingface.co/support) to stay updated on the latest advancements in machine learning and harness the power of open-source technology for their wide range of financial applications. One of the collaboration's main goals has been to explore how CFM can benefit from efficiently using open-source Large Language Models (LLMs) to enhance their existing machine learning use cases. Quantitative hedge funds rely on massive amounts of data to inform decisions about whether to buy or sell specific financial products. In addition to standard data sources from financial markets (e.g., prices), hedge funds are increasingly extracting insights from alternative data, such as textual information from news articles. One major challenge in incorporating news into fully automated trading strategies is accurately identifying the products or entities (e.g., companies, stocks, currencies) mentioned in the articles. While CFM’s data providers supply these tags, they can be incomplete and require further validation.
 
-CFM explored several approaches to improve financial entity recognition, including zero-shot Named Entity Recognition (NER) using LLMs and smaller models, LLM-assisted data labeling with Hugging Face Inference Endpoints and Argilla, and fine-tuning smaller models on curated datasets. These approaches not only leverage the versatility of large models but also address the challenges of cost and scalability in real-world financial applications.
+CFM explored several approaches to improve financial entity recognition, including zero-shot NER using LLMs and smaller models, LLM-assisted data labeling with Hugging Face Inference Endpoints and Argilla, and fine-tuning smaller models on curated datasets. These approaches not only leverage the versatility of large models but also address the challenges of cost and scalability in real-world financial applications.
 
 Among open-source models, the Llama 3.1 series by Meta stood out due to its strong performance across benchmarks, making it a top choice for generating synthetic annotations. These LLMs were pivotal in creating high-quality labeled datasets, combining automation and human expertise to streamline the labeling process and enhance model performance in financial NER tasks.
 
@@ -87,7 +87,7 @@ To securely and quickly get access to a [Llama3.1-70-Instruct](http://meta-llama
 
 Hugging Face Inference Endpoints provide a straightforward and secure solution for deploying machine learning models in production environments. They enable developers and data scientists to build AI applications without the need to manage infrastructure, simplifying deployment to just a few clicks.
 
-To access Inference Endpoints we logged in as a member of the [`CapitalFundManagement`](https://huggingface.co/CapitalFundManagement)organization on the Hugging Face Hub, then accessed the service at <https://ui.endpoints.huggingface.co> . To start a new deployment we create on `New` then select `meta-llama/Llama-3.1-70B-Instruct`
+To access Inference Endpoints we logged in as a member of the [`CapitalFundManagement`](https://huggingface.co/CapitalFundManagement) organization on the Hugging Face Hub, then accessed the service at <https://ui.endpoints.huggingface.co> . To start a new deployment we create on `New` then select `meta-llama/Llama-3.1-70B-Instruct`
 
 <div style="text-align: center;">
   <figure>
@@ -507,7 +507,7 @@ Using pre-computed Llama labels significantly accelerates the annotation process
 <a name="zero-shot"></a>
 ## Performance of zero-shot approaches for financial NER 
 
-With a high-quality, reviewed dataset in place, we can now experiment with different approaches for zero-shot NER (Named Entity Recognition). We tested four models:
+With a high-quality, reviewed dataset in place, we can now experiment with different approaches for zero-shot NER. We tested four models:
 
 **Small Language Models:**
 - GLINER
@@ -519,7 +519,7 @@ With a high-quality, reviewed dataset in place, we can now experiment with diffe
 1. **GLiNER**
 
 \
-[GLiNER](https://arxiv.org/abs/2311.08526) is a compact, versatile Named Entity Recognition (NER) model that leverages bidirectional transformers like BERT to identify a wide range of entity types overcoming the limitations of traditional models that are restricted to predefined entities. Unlike large autoregressive models, GLiNER treats NER as a task of matching entity types with spans in text, using parallel processing for efficiency.  It offers a practical and resource-efficient alternative to large language models (LLMs), delivering strong performance in zero-shot scenarios without the high computational costs associated with larger models.
+[GLiNER](https://arxiv.org/abs/2311.08526) is a compact, versatile NER model that leverages bidirectional transformers like BERT to identify a wide range of entity types overcoming the limitations of traditional models that are restricted to predefined entities. Unlike large autoregressive models, GLiNER treats NER as a task of matching entity types with spans in text, using parallel processing for efficiency. It offers a practical and resource-efficient alternative to LLMs, delivering strong performance in zero-shot scenarios without the high computational costs associated with larger models.
 
 <div style="text-align: center;">
   <figure>
@@ -595,11 +595,11 @@ Output:
 
 The zero-shot results, in terms of F1-score on the annotated dataset of 2714 samples curated earlier is **87%**.
 
-The GLiNER model performs well in extracting company names from text but struggles with certain cases, such as when companies are mentioned as stock symbols. It also misclassifies general references to stock industries, like "Healthcare stocks" or "Industrial stocks," as company names. While effective in many cases, these errors highlight areas where further refinement is needed to improve accuracy in distinguishing between companies and broader industry terms
+The GLiNER model performs well in extracting company names from text but struggles with certain cases, such as when companies are mentioned as stock symbols. It also misclassifies general references to stock industries, like "Healthcare stocks" or "Industrial stocks," as company names. While effective in many cases, these errors highlight areas where further refinement is needed to improve accuracy in distinguishing between companies and broader industry terms.
 
 2. **SpanMarker** 
 
-[SpanMarker](https://github.com/tomaarsen/SpanMarkerNER) is a framework for training powerful Named Entity Recognition models using familiar encoders such as BERT, RoBERTa and DeBERTa. Tightly implemented on top of the 🤗 Transformers library, SpanMarker can take good advantage of it. As a result, SpanMarker will be intuitive to use for anyone familiar with Transformers. We chose this variant [tomaarsen/span-marker-bert-base-orgs](https://huggingface.co/tomaarsen/span-marker-bert-base-orgs) trained on trained on the [FewNERD, CoNLL2003, and OntoNotes v5](https://huggingface.co/datasets/tomaarsen/ner-orgs) dataset that can be used for Named Entity Recognition. This SpanMarker model uses [bert-base-cased](https://huggingface.co/bert-base-cased) as the underlying encoder. It’s trained specifically to recognize organizations.It can be used for inference to predict an `ORG`(organization) label as follows: 
+[SpanMarker](https://github.com/tomaarsen/SpanMarkerNER) is a framework for training powerful NER models using familiar encoders such as BERT, RoBERTa and DeBERTa. Tightly implemented on top of the 🤗 Transformers library, SpanMarker can take good advantage of it. As a result, SpanMarker will be intuitive to use for anyone familiar with Transformers. We chose this variant [tomaarsen/span-marker-bert-base-orgs](https://huggingface.co/tomaarsen/span-marker-bert-base-orgs) trained on trained on the [FewNERD, CoNLL2003, and OntoNotes v5](https://huggingface.co/datasets/tomaarsen/ner-orgs) dataset that can be used for NERn. This SpanMarker model uses [bert-base-cased](https://huggingface.co/bert-base-cased) as the underlying encoder. It’s trained specifically to recognize organizations. It can be used for inference to predict an `ORG`(organization) label as follows: 
 
 ```python
 from span_marker import SpanMarkerModel
@@ -623,7 +623,7 @@ The zero-shot results, in terms of F1-score on the annotated dataset of 2714 sam
 
 3. **Llama3.1-8b and Llama3.1-70b**
 
-We tested 2 variants of the Llama3.1 model including the 70b that we use to curate ground truth examples. We used the prompt that is presented above. On our annotated subset we have the following results :
+We tested 2 variants of the Llama3.1 model including the 70b that we used to curate ground truth examples. We used the prompt that is presented above. On our annotated subset we have the following results :
 
 |           |                                                                          |                                                                            |
 | --------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
@@ -636,7 +636,7 @@ We tested 2 variants of the Llama3.1 model including the 70b that we use to cura
 | Model     | GLiNER | SpanMarker | [Llama 3.1 8b](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)  | [Llama 3.1 70b](https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct)  |
 | F1-Score  | 87%    | 47%        | 88%                                                                      | **95%**                                                                    |
 
- In this experiment, we compared the performance of small models like **GLiNER** and **SpanMarker** against large language models (LLMs) such as **Llama 3.1-8b** and **Llama 3.1-70b**. Small models like GLiNER (87% F1) provide a good balance between accuracy and computational efficiency, making them ideal for resource-constrained scenarios. In contrast, LLMs, while more resource-intensive, deliver higher accuracy, with Llama 3.1-70b achieving a 95% F1-score. This highlights the trade-off between performance and efficiency when choosing between small models and LLMs for NER tasks. Let’s now see how the performance differs when we fine-tune compact models.
+ In this experiment, we compared the performance of small models like **GLiNER** and **SpanMarker** against LLMs such as **Llama 3.1-8b** and **Llama 3.1-70b**. Small models like GLiNER (87% F1) provide a good balance between accuracy and computational efficiency, making them ideal for resource-constrained scenarios. In contrast, LLMs, while more resource-intensive, deliver higher accuracy, with Llama 3.1-70b achieving a 95% F1-score. This highlights the trade-off between performance and efficiency when choosing between small models and LLMs for NER tasks. Let’s now see how the performance differs when we fine-tune compact models.
 
 ## Improving the performance of compact models with fine-tuning on LLM-assisted labeled dataset   
 
@@ -706,7 +706,7 @@ _The_ **_Llama 3.1-70b_** _model costs at least $8 per hour for inference, makin
 
 ## Weak Supervision vs. LLM-assisted labeling: who’s the winner? <a name="comparison"></a>
 
-In this experiment, we explored two key approaches to data labeling for Named Entity Recognition (NER): **Weak Supervision** and **LLM-assisted labeling**. While weak supervision enables scalable training on synthetic data, our findings suggest that it cannot achieve the same level of accuracy as models trained on manually annotated data. For 1,000 samples, manual annotation took 3 hours with an F1 score of **0.915**, while Llama 3.1-70b inference only took 2 minutes but resulted in a slightly lower F1 score of **0.895**. The trade-off between speed and accuracy depends on the task's requirements.
+In this experiment, we explored two key approaches to data labeling for NER: **Weak Supervision** and **LLM-assisted labeling**. While weak supervision enables scalable training on synthetic data, our findings suggest that it cannot achieve the same level of accuracy as models trained on manually annotated data. For 1,000 samples, manual annotation took 3 hours with an F1 score of **0.915**, while Llama 3.1-70b inference only took 2 minutes but resulted in a slightly lower F1 score of **0.895**. The trade-off between speed and accuracy depends on the task's requirements.
 
 <div style="text-align: center;">
   <figure>
