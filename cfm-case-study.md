@@ -48,7 +48,7 @@ Among open-source models, the Llama 3.1 series by Meta stood out due to its stro
     - [Deploy Llama3.1-70b-Instruct with Hugging Face Inference Endpoints ](#deploy-ie)
     - [Prompting Llama for NER](#prompt)
     - [Get predictions from the endpoint ](#infer-ie)
-    - [Review predictions with Argilla ](#argilla)
+    - [Review predictions with Argilla](#argilla)
 4. [Performance of zero-shot approaches for financial NER](#zero-shot)
 5. [Improving performance of compact models with fine-tuning on LLM-assisted labeled dataset](#fine-tuning)
 6. [Weak Supervision vs. LLM-assisted labeling: who’s the winner?](#comparison)
