@@ -46,7 +46,7 @@ Among open-source models, the Llama 3.1 series by Meta stood out due to its stro
 1. [NER on the Financial News and Stock Price Integration Dataset](#fnspid)
 2. [LLM-Assisted data labeling with Llama](#label-llama)
     - [Deploy Llama3.1-70b-Instruct with Hugging Face Inference Endpoints ](#deploy-ie)
-    - [Prompting Llama for NER ](#prompt)
+    - [Prompting Llama for NER](#prompt)
     - [Get predictions from the endpoint ](#infer-ie)
     - [Review predictions with Argilla ](#argilla)
 4. [Performance of zero-shot approaches for financial NER](#zero-shot)
