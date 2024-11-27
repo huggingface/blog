@@ -56,7 +56,7 @@ Among open-source models, the Llama 3.1 series by Meta stood out due to its stro
 <a name="fnspid"></a>
 ## NER on the Financial News and Stock Price Integration Dataset 
 
-Our focus on this use case was to extract company names from news headlines from the Financial News and Stock Price Integration Dataset[ (FNSPID](https://arxiv.org/abs/2402.06698)). It is composed of news headlines and articles associated with corresponding stock symbols coming from several sources such as Bloomberg, Reuters, Benzinga and others. After analyzing the various news sources, we found that news from Benzinga had no missing stock symbol values. This subset of the dataset contains \~900k samples. As a result, we decided to reduce our dataset to Benzinga headlines for a more consistent and reliable analysis. 
+Our focus on this use case was to extract company names from news headlines from the Financial News and Stock Price Integration Dataset [(FNSPID)](https://arxiv.org/abs/2402.06698). It is composed of news headlines and articles associated with corresponding stock symbols coming from several sources such as Bloomberg, Reuters, Benzinga and others. After analyzing the various news sources, we found that news from Benzinga had no missing stock symbol values. This subset of the dataset contains \~900k samples. As a result, we decided to reduce our dataset to Benzinga headlines for a more consistent and reliable analysis. 
 
 <div style="text-align: center;">
   <figure>
