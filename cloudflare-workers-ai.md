@@ -12,6 +12,10 @@ authors:
 
 # Bringing serverless GPU inference to Hugging Face users
 
+<div class="alert alert-warning">
+Update (November 2024): The integration is no longer available. Please switch to the Hugging Face Inference API, Inference Endpoints, or other deployment options for your AI model needs.
+</div>
+
 Today, we are thrilled to announce the launch of **Deploy on Cloudflare Workers AI**, a new integration on the Hugging Face Hub. Deploy on Cloudflare Workers AI makes using open models as a serverless API easy, powered by state-of-the-art GPUs deployed in Cloudflare edge data centers. Starting today, we are integrating some of the most popular open models on Hugging Face into Cloudflare Workers AI, powered by our production solutions, like [Text Generation Inference](https://github.com/huggingface/text-generation-inference/). 
 
 With Deploy on Cloudflare Workers AI, developers can build robust Generative AI applications without managing GPU infrastructure and servers and at a very low operating cost: only pay for the compute you use, not for idle capacity.
