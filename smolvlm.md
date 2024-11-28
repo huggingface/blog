@@ -119,7 +119,7 @@ We present benchmarks for the tasks we mention in training details.
 | Model             | MMMU (val) | MathVista (testmini) | MMStar (val) | DocVQA (test) | TextVQA (val) | Min GPU RAM required (GB) |
 |-------------------|------------|----------------------|--------------|---------------|---------------|---------------------------|
 | SmolVLM           | 38.8       | 44.6                | 42.1         | 81.6          | 72.7          | 5.02                      |
-| Qwen-VL 2B        | 41.1       | 47.8                | 47.5         | 90.1          | 79.7          | 13.70                     |
+| Qwen2-VL 2B        | 41.1       | 47.8                | 47.5         | 90.1          | 79.7          | 13.70                     |
 | InternVL2 2B      | 34.3       | 46.3                | 49.8         | 86.9          | 73.4          | 10.52                     |
 | PaliGemma 3B 448px| 34.9       | 28.7                | 48.3         | 32.2          | 56.0          | 6.72                      |
 | moondream2        | 32.4       | 24.3                | 40.3         | 70.5          | 65.2          | 3.87                      |
@@ -187,22 +187,66 @@ python run.py --data MMMU_DEV_VAL MathVista_MINI --model SmolVLM --work-dir smol
 
 You can easily load SmolVLM using the `Auto` classes in transformers. Under the hood, the model and processor are mapped to the same implementations used for Idefics3. 
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smol_vlm_code_1.png" width="1100" height="auto" alt="Image description">
 
+
+```python
+from transformers import AutoProcessor, AutoModelForVision2Seq
+import torch
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
+processor = AutoProcessor.from_pretrained("HuggingFaceTB/SmolVLM-Instruct")
+model = AutoModelForVision2Seq.from_pretrained("HuggingFaceTB/SmolVLM-Instruct",
+                                                torch_dtype=torch.bfloat16,
+                                                _attn_implementation="flash_attention_2" if DEVICE == "cuda" else "eager").to(DEVICE)
+```
 Image and text can be interleaved arbitrarily, and you can pass in multiple images. Here’s how you can use the chat template and pass in the formatted input to the processor.
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smol_vlm_code_2.png" width="1100" height="auto" alt="Image description">
+```python
+from PIL import Image
+from transformers.image_utils import load_image
+
+
+# Load images
+image1 = load_image("https://huggingface.co/spaces/HuggingFaceTB/SmolVLM/resolve/main/example_images/rococo.jpg")
+image2 = load_image("https://huggingface.co/spaces/HuggingFaceTB/SmolVLM/blob/main/example_images/rococo_1.jpg")
+
+# Create input messages
+messages = [
+    {
+        "role": "user",
+        "content": [
+            {"type": "image"},
+            {"type": "image"},
+            {"type": "text", "text": "Can you describe the two images?"}
+        ]
+    },
+]
+
+# Prepare inputs
+prompt = processor.apply_chat_template(messages, add_generation_prompt=True)
+inputs = processor(text=prompt, images=[image1, image2], return_tensors="pt")
+inputs = inputs.to(DEVICE)
+```
 
 Start generating with preprocessed input and decode the generated output.
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smol_vlm_code_3.png" width="1100" height="auto" alt="Image description">
+```python
+# Generate outputs
+generated_ids = model.generate(**inputs, max_new_tokens=500)
+generated_texts = processor.batch_decode(
+    generated_ids,
+    skip_special_tokens=True,
+)
+
+print(generated_texts[0])
+```
 
 
 ## Training Details
 
 ### Dataset
 
-First, we had to train SmolLM2 to extend it context, but we will discuss that in the next subsection. Once we had a long context SmolLM2, we trained SmolVLM using the same data that we used for Idefics3. Mainly, we used The Cauldron and Docmatix. The full list of datasets we used can be consulted here (link to the datasets) 
+First, we had to train SmolLM2 to extend it context, but we will discuss that in the next subsection. Once we had a long context SmolLM2, we trained SmolVLM using the same data that we used for Idefics3. Mainly, we used The Cauldron and Docmatix. The full list of datasets we used [can be consulted here](https://huggingface.co/HuggingFaceTB/SmolVLM-Instruct/blob/main/smolvlm-data.pdf). 
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/mixture_the_cauldron.png" width="1100" height="auto" alt="Image description">
 
@@ -233,7 +277,7 @@ You can fine-tune SmolVLM using transformers and apply alignment techniques usin
 
 We provide a [notebook](https://github.com/huggingface/smollm/blob/main/finetuning/Smol_VLM_FT.ipynb) to fine-tune it on the VQAv2 dataset, optionally using  LoRA, QLoRA or full fine-tuning. In the notebook, you can find some tricks to save up even more memory and have a larger batch size to fit SmolVLM inside consumer GPUs, like L4, for training. With batch sizes of 4, 8-bit loading with QLoRA and gradient checkpointing we can fine-tune in L4, and it consumes around ~16 GBs of VRAM. This makes it possible to fine-tune your SmolVLM using Colab! You can play around with the parameters to get a nice point in training duration-memory trade-off. 
 
-SmolVLM also comes with TRL integration so you can apply Direct Preference Optimization (DPO) easily through the CLI. Get started by running `pip install trl accelerate peft` and then run the following command to fine-tune on [RLAIF-V] (https://huggingface.co/datasets/HuggingFaceH4/rlaif-v_formatted) dataset: 
+SmolVLM also comes with TRL integration so you can apply Direct Preference Optimization (DPO) easily through the CLI. Get started by running `pip install trl accelerate peft` and then run the following command to fine-tune on [RLAIF-V](https://huggingface.co/datasets/HuggingFaceH4/rlaif-v_formatted) dataset: 
 
 ``` bash
 accelerate launch \
@@ -256,5 +300,5 @@ We introduced SmolVLM, a fully open, small, and mighty VLM for the community! We
 Below are some resources if you would like to read more about all things related to SmolVLM.
 
 - Start playing with SmolVLM using [this demo](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM).
-- Learn how to fine-tune SmolVLM on VQAv2 using [this notebook](https://github.com/merveenoyan/smol-vision/blob/main/Idefics_FT.ipynb ) 
+- Learn how to fine-tune SmolVLM on VQAv2 using [this notebook](https://github.com/huggingface/smollm/blob/main/finetuning/Smol_VLM_FT.ipynb) 
 - Learn more about [vision language models](https://huggingface.co/blog/vlms)
