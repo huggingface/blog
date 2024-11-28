@@ -130,6 +130,7 @@ Edit `examples/demo/demo.c` with the content below:
 
 ```c
 #include "ggml.h"
+#include "ggml-cpu.h"
 #include <string.h>
 #include <stdio.h>
 

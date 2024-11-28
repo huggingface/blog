@@ -134,6 +134,7 @@ touch examples/demo/CMakeLists.txt
 
 ```c
 #include "ggml.h"
+#include "ggml-cpu.h"
 #include <string.h>
 #include <stdio.h>
 
