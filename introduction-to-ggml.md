@@ -155,8 +155,7 @@ int main(void) {
     ctx_size += rows_A * cols_A * ggml_type_size(GGML_TYPE_F32); // tensor a
     ctx_size += rows_B * cols_B * ggml_type_size(GGML_TYPE_F32); // tensor b
     ctx_size += rows_A * rows_B * ggml_type_size(GGML_TYPE_F32); // result
-    ctx_size += 3 * ggml_tensor_overhead(); // metadata for 3 tensors
-    ctx_size += ggml_graph_overhead(); // compute graph
+    ctx_size += 3 * 256; // metadata for 3 tensors
     ctx_size += 1024; // some overhead (exact calculation omitted for simplicity)
 
     // Allocate `ggml_context` to store tensor data
@@ -175,19 +174,18 @@ int main(void) {
 
 
     // 3. Create a `ggml_cgraph` for mul_mat operation
-    struct ggml_cgraph * gf = ggml_new_graph(ctx);
-
+    struct ggml_cgraph gf = { .n_threads = 1 };
     // result = a*b^T
     // Pay attention: ggml_mul_mat(A, B) ==> B will be transposed internally
     // the result is transposed
     struct ggml_tensor * result = ggml_mul_mat(ctx, tensor_a, tensor_b);
 
     // Mark the "result" tensor to be computed
-    ggml_build_forward_expand(gf, result);
+    ggml_build_forward_expand(&gf, result);
 
     // 4. Run the computation
     int n_threads = 1; // Optional: number of threads to perform some operations with multi-threading
-    ggml_graph_compute_with_ctx(ctx, gf, n_threads);
+    ggml_graph_compute(ctx, &gf);
 
     // 5. Retrieve results (output tensors)
     float * result_data = (float *) result->data;
