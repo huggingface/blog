@@ -4,11 +4,16 @@ thumbnail: /blog/assets/cfm-case-study/blogpost_cfm.png
 authors:
 - user: oahouzi
   guest: true
+- user: florentgbelidji
 - user: sylvainc
   guest: true
 - user: jlhour
   guest: true
-- user: florentgbelidji
+- user: Pirash
+  guest: true
+- user: MGoibert
+  guest: true
+
 ---
 
 # Investing in Performance: Fine-tune small models with LLM insights  - a CFM case study 
