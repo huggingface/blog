@@ -26,7 +26,7 @@ The EU AI Act is a binding regulation that aims to foster responsible AI. To tha
 The regulation takes effect over the next two years and applies broadly, not just to those within the EU. If you’re an open source developer outside the EU but your AI systems or models are offered or impact people within the EU, they are included in the Act. 
 
 
-## Scope
+## 🤗 Scope
 The regulation works at different levels of the AI stack, meaning it has different obligations if you are a provider (which includes the developers), deployer, distributor etc. and if you are working on an AI model or system.
 
 | **Model**: only **general purpose AI** (GPAI) models are directly regulated. GPAI models are models trained on large amounts of data, that show significant generality, can perform a wide range of tasks and can be used in systems and applications. One example is a large language model (LLM). Modifications or fine-tuning of models also need to comply with obligations. | **System**: a system that is able to infer from inputs. This could typically take the form of a traditional software stack that leverages or connects one or several AI models to a digital representation of the inputs. One example is a chatbot interacting with end users, leveraging an LLM or Gradio apps hosted on Hugging Face Spaces. |
@@ -41,7 +41,7 @@ In the AI Act, rules scale with the level of risk the AI system or model might p
 
 For **general purpose AI** (GPAI) **models**, there is another risk category called **[systemic risk](https://artificialintelligenceact.eu/article/51/)**: GPAI models using substantial computing power, today defined as over 10^25 FLOPs for training, or that have high-impact capabilities. Obligations vary if they are open source or not.
 
-## How to prepare for compliance
+## 🤗 How to prepare for compliance
 
 Our **focus** in this short guide is on **limited risk AI systems and open source non-systemic risk GPAI models**, which should encompass most of what is publicly available on the Hub. For other risk categories, make sure to check out further obligations that may apply.
 
@@ -84,7 +84,7 @@ Also, note that if a given GPAI model meets the conditions to pose systemic risk
 
 Obligations for GPAI models will be enforced starting August 2025. 
 
-## Get involved
+## 🤗 Get involved
 
 Much of the EU AI Act’s practical application is still in development through public consultations and working groups, whose outcome will determine how the Act’s provisions aimed at smoother compliance for SMEs and researchers are operationalized. If you’re interested in shaping how this plays out, now is a great time to get involved!
 
@@ -101,3 +101,5 @@ Much of the EU AI Act’s practical application is still in development through 
   doi       = {}
 }
 ```
+
+*The authors would like to thank Anna Tordjmann, Brigitte Tousignant, Irene Solaiman, Clémentine Fourrier, Ann Huang, Benjamin Burtenshaw, Florent Daudens for their feedback on the article.*
