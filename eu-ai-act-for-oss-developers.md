@@ -102,4 +102,4 @@ Much of the EU AI Act’s practical application is still in development through 
 }
 ```
 
-*Thank you, Anna Tordjmann, Brigitte Tousignant, Irene Solaiman, Clémentine Fourrier, Ann Huang, Benjamin Burtenshaw, Florent Daudens for your feedback, comments, and suggestions.*
+*Thank you, Anna Tordjmann, Brigitte Tousignant, Chun Te Lee, Irene Solaiman, Clémentine Fourrier, Ann Huang, Benjamin Burtenshaw, Florent Daudens for your feedback, comments, and suggestions.*
