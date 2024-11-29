@@ -47,7 +47,7 @@ Our **focus** in this short guide is on **limited risk AI systems and open sourc
 
 ### For limited risk AI systems
 
-Limited-risk AI systems interact directly with people (end users) and may create risks of impersonation, manipulation, or deception. For example, a chatbot producing text or a text-to-image generator – tools that can also facilitate the creation of misinformation materials or of deepfakes. The AI Act aims to tackle these risks by helping the general end user understand that they are interacting with an AI system.[^1] In the case of limited-risk AI systems, the obligations below apply whether or not they are open source.
+Limited-risk AI systems interact directly with people (end users) and may create risks of impersonation, manipulation, or deception. For example, a chatbot producing text or a text-to-image generator – tools that can also facilitate the creation of misinformation materials or of deepfakes. The AI Act aims to tackle these risks by helping the general end user understand that they are interacting with an AI system. Today, most GPAI models are not considered to present systemic risk. According to a [study by Stanford](https://crfm.stanford.edu/2024/08/01/eu-ai-act.html), in August 2024, based on estimates from Epoch, only eight models (Gemini 1.0 Ultra, Llama 3.1-405B, GPT-4, Mistral Large, Nemotron-4 340B, MegaScale, Inflection-2, Inflection-2.5) from seven developers (Google, Meta, OpenAI, Mistral, NVIDIA, ByteDance, Inflection) would meet the default systemic risk criterion of being trained using at least 10^25 FLOPs. In the case of limited-risk AI systems, the obligations below apply whether or not they are open source.
 
 Developers of limited-risk AI systems need to:
 * Disclose to the user that they are interacting with an AI system unless this is obvious, keeping in mind that end users might not have the same technical understanding as experts, so you should provide this information in a clear and thorough way.
@@ -87,9 +87,6 @@ Obligations for GPAI models will be enforced starting August 2025. 
 ## 🤗 Get involved
 
 Much of the EU AI Act’s practical application is still in development through public consultations and working groups, whose outcome will determine how the Act’s provisions aimed at smoother compliance for SMEs and researchers are operationalized. If you’re interested in shaping how this plays out, now is a great time to get involved!
-
-
-[^1]: Today, most GPAI models are not considered to present systemic risk. According to a [study by Stanford](https://crfm.stanford.edu/2024/08/01/eu-ai-act.html), in August 2024, based on estimates from Epoch, only eight models (Gemini 1.0 Ultra, Llama 3.1-405B, GPT-4, Mistral Large, Nemotron-4 340B, MegaScale, Inflection-2, Inflection-2.5) from seven developers (Google, Meta, OpenAI, Mistral, NVIDIA, ByteDance, Inflection) would meet the default systemic risk criterion of being trained using at least 10^25 FLOPs.
 
 ```
 @misc{eu_ai_act_for_oss_developers,
