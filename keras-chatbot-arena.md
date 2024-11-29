@@ -16,7 +16,7 @@ I'm not interested in having LLMs solve big problems, quite the opposite. I want
 on the first try, a short English sentence should be enough to fix it. In short, I want an assistant, like the
 [computers](https://en.wikipedia.org/wiki/HAL_9000) in old sci-fi movies, minus the "[I'm sorry Dave, I'm afraid I can't do that](https://youtu.be/ARJ8cAGm6JE?si=LnI39hH7EhiXunw6)" bit 😅.
 
-[This paper](https://arxiv.org/abs/2411.03562) explores such a tool for coding. Setting aside the creative name and claim (No, [AI is not
+[This paper](https://arxiv.org/abs/2411.03562) explores such a tool for coding. Setting aside the creative title claim (No, [AI is not
 beating Kaggle gandmasters](https://x.com/martin_gorner/status/1857042235524632894) yet), what the paper authors did was to
 manually break various Kaggle problems into micro-tasks, have an LLM generate code for them and iterate until unit tests pass. An example micro-task could be,
 for an image classification problem, to "figure out the format of the input data and reformat it into a CSV with columns 'id', 'image_filename' and 'class'".
