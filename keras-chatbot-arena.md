@@ -54,7 +54,7 @@ To experiment with this scenario, I wanted to be able to conduct two conversatio
 and pause one side while asking another to fix a mistake in its output. Here is what it looks like.
 It is built with Gradio on Spaces and uses Keras, JAX and TPUs:
 
-**[TODO] insert screenshot**
+![screenshot](assets/keras-chatbot-arena/screenshot.png)
 
 A couple of notes on how this was built before we go back to the serious matter of chit-chatting with LLMs.
 
