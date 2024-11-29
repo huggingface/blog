@@ -13,7 +13,7 @@ authors:
 ## 1. Introduction
 
 I'm not interested in having LLMs solve big problems, quite the opposite. I want them to dispatch drudgery, and if they don't get it right
-on the first try, a short English sentence should be enough to fix it. In short, I want an asistant, like the
+on the first try, a short English sentence should be enough to fix it. In short, I want an assistant, like the
 [computers](https://en.wikipedia.org/wiki/HAL_9000) in old sci-fi movies, minus the "[I'm sorry Dave, I'm afraid I can't do that](https://youtu.be/ARJ8cAGm6JE?si=LnI39hH7EhiXunw6)" bit 😅.
 
 [This paper](https://arxiv.org/abs/2411.03562) explores such a tool for coding. Setting aside the creative name and claim (No, [AI is not
@@ -67,8 +67,9 @@ A couple of notes on how this was built before we go back to the serious matter 
 
 ### 3.1 Why TPUs?
 
-For their fast inference and large memory. A TPU v5e 2x4 has 8 cores and 48GB of RAM per core for an aggregate 384GB of memory. With this
-much memory, we can load multiple LLMs at once, provided we shard them across all cores, and switch between them at will in the UI.
+For their fast inference and large memory. A [TPU v5e 2x4](https://cloud.google.com/tpu/docs/v5e) has 8 cores and 16GB of
+RAM per core for an aggregate 128GB of memory. With this much memory, we can load multiple LLMs at once, provided we shard
+them across all cores, and switch between them at will in the UI.
 
 ### 3.2 Why JAX and Keras?
 
@@ -237,7 +238,7 @@ Llama 3.1 8B is a close second but has difficulties fixing a wrong API call reli
 
 ## 5. Recap
 
-I did not know what to expect before starting this test. The API the models were plaing with is unrealistically simple. Just 2 API calls 'add_calendar_entry'
+I did not know what to expect before starting this test. The API the models were playing with is unrealistically simple. Just 2 API calls 'add_calendar_entry'
 and 'remove_calendar_entry'. So I thought this might be super easy for the models, and with a little bit of corrective prompting, all of them would ace through
 every time. On the other hand, I knew that LLMs are probabilistic inference machines that do not really listen to what you say. Prompts merely change the
 probability distribution of the output and some outputs are just hard to get.
