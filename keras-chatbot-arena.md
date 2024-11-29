@@ -1,3 +1,10 @@
+---
+title: “Can LLMs fix their mistakes? A chatbot arena experiment with Keras and TPUs” 
+thumbnail: /blog/assets/keras-chatbot-arena/thumbnail.png
+authors: 
+- user: martin-gorner
+---
+
 # Can LLMs fix their mistakes?
 # A chatbot arena experiment with Keras and TPUs
 
