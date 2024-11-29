@@ -5073,3 +5073,15 @@
     - storage
     - content addressed store
     - infrastructure
+
+- local: keras-chatbot-arena
+  title: "Can LLMs fix their mistakes? A chatbot arena experiment with Keras and TPUs"
+  author: martin-gorner
+  thumbnail: /blog/assets/keras-chatbot-arena/thumbnail.png
+  date: December 4, 2024
+  tags:
+    - keras
+    - TPU
+    - Spaces
+    - llm
+    - open-source
