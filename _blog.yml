@@ -4978,7 +4978,7 @@
     - datasets
     - guide
 
-- local: eu-ai-act-for-oss-developers.md
+- local: eu-ai-act-for-oss-developers
   title: "Open Source Developers Guide to the EU AI Act"
   author: brunatrevelin
   thumbnail: /blog/assets/189_eu-ai-act-for-oss-developers/thumbnail.png
