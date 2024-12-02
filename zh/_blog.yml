@@ -2108,6 +2108,18 @@
     - watermarking
     - open-source
 
+- local: universal_assisted_generation
+  title: 通用辅助生成：使用任意辅助模型加速解码
+  author: danielkorat
+  guest: true
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: October 29, 2024
+  tags:
+    - research
+    - nlp
+    - open-source
+    - collaboration
+
 - local: pycharm-integration
   title: Hugging Face 与 PyCharm 深度集成：轻松引入丰富的 AI 模型
   author: rocketknight1
@@ -2118,3 +2130,14 @@
     - open-source
     - community
     - collaboration
+
+- local: researcher-dataset-sharing
+  title: "在 Hugging Face Hub 上分享你的开源数据集"
+  author: davanstrien
+  thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
+  date: November 12, 2024
+  tags:
+    - community
+    - research
+    - datasets
+    - guide
