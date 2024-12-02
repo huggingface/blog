@@ -2143,7 +2143,7 @@
     - guide
 
 - local: designing-positional-encoding
-  title: "设计最先进的位置编码"
+  title: "设计位置编码"
   author: FL33TW00D-HF
   thumbnail: /blog/assets/designing-positional-encoding/thumbnail_posenc.png
   date: November 25, 2024
