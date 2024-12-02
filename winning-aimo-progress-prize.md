@@ -108,7 +108,7 @@ We performed “full fine-tuning” in both stages, where all model weights were
 | block size       | 2048    | 1024    |
 | num epochs       | 3       | 4       |
 | lr scheduler     | cosine  | cosine  |
-| warmup ratio     | 0.1     | 0.1     |
+| warmup ratio     | 0.0     | 0.1     |
 
 Our initial submissions used DeepSeek 7B models that were only fine-tuned on Stage 1, but we found the performance was quite limited, with 8/50 being our best score on the public leaderboard using maj@32. It was [**Abdur Rafae**](https://www.kaggle.com/abdurrafae)’s [**public prize notebook**](https://www.kaggle.com/code/abdurrafae/improved-code-interpretation) that prompted us to take a look at integrating code execution in the training recipe. Initially, we focused on the [**Mix of Minimal Optimal Sets (MMOS)**](https://github.com/cyzhh/MMOS) dataset, as described in the notebook's title. We found that using MMOS improved performance but was still capped at 16/50 on the public leaderboard with maj@32, likely due to the fact that MMOS only consists of single-turn solutions (i.e., the model only generates a single Python program, which is insufficient for hard problems). We later realized that MMOS was a misnomer and that Kaggle notebooks were actually running the [**DeepSeekMath 7B RL**](https://huggingface.co/deepseek-ai/deepseek-math-7b-rl) model, which is capable of multi-step reasoning and code execution.
 
