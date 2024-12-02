@@ -30,9 +30,8 @@ _In this post, you will learn:_
 
 _This structured approach combines accuracy and cost-effectiveness, making it ideal for real-world financial applications._ 
 
-|                     |                            |                             |                                 |                       |
-| :-----------------: | :------------------------: | :-------------------------: | :-----------------------------: | :-------------------: |
 |     **_Model_**     | **_F1-Score (Zero-Shot)_** | **_F1-Score (Fine-Tuned)_** | **_Inference Cost (per hour)_** | **_Cost Efficiency_** |
+| :-----------------: | :------------------------: | :-------------------------: | :-----------------------------: | :-------------------: |
 |     **_GLiNER_**    |           _87.0%_          |           _93.4%_           |   _$0.50 (GPU) / $0.10 (CPU)_   |  _Up to 80x cheaper_  |
 |   **_SpanMarker_**  |           _47.0%_          |           _90.1%_           |   _$0.50 (GPU) / $0.10 (CPU)_   |  _Up to 80x cheaper_  |
 |  **_Llama 3.1-8b_** |           _88.0%_          |            _N/A_            |             _$4.00_             |       _Moderate_      |
@@ -58,7 +57,7 @@ Among open-source models, the Llama 3.1 series by Meta stood out due to its stro
     - [Review predictions with Argilla](#argilla)
 4. [Performance of zero-shot approaches for financial NER](#zero-shot)
 5. [Improving performance of compact models with fine-tuning on LLM-assisted labeled dataset](#fine-tuning)
-6. [Weak Supervision vs. LLM-assisted labeling: who’s the winner?](#comparison)
+6. [Weak Supervision vs. LLM-assisted labeling](#comparison)
 
 <a name="fnspid"></a>
 ## NER on the Financial News and Stock Price Integration Dataset 
@@ -68,7 +67,7 @@ Our focus on this use case was to extract company names from news headlines from
 <div style="text-align: center;">
   <figure>
     <img src="assets/cfm-case-study/fnspid-prev.png" alt="FNSPID" width="700">
-    <figcaption>Dataset preview of FNSPID</a>.</figcaption>
+    <figcaption>Dataset preview of FNSPID</figcaption>
   </figure>
 </div>
 
@@ -99,7 +98,7 @@ To access Inference Endpoints we logged in as a member of the [`CapitalFundManag
 <div style="text-align: center;">
   <figure>
     <img src="assets/cfm-case-study/create-endpoint.png" alt="FNSPID" width="700">
-    <figcaption>Endpoint creation/a>.</figcaption>
+    <figcaption>Endpoint creation on the Inference Endpoints UI</figcaption>
   </figure>
 </div>
 
@@ -111,7 +110,7 @@ When clicking on the “Create Endpoint” the deployment is created and the end
 <div style="text-align: center;">
   <figure>
     <img src="assets/cfm-case-study/running-endpoint.png" alt="IE" width="700">
-    <figcaption>Endpoint Running</a>.</figcaption>
+    <figcaption>Endpoint running on the Inference Endpoints UI</figcaption>
   </figure>
 </div>
 
@@ -372,7 +371,7 @@ When the inference is running we can monitor the traffic directly from the UI
 <div style="text-align: center;">
   <figure>
     <img src="assets/cfm-case-study/analytics-ie.png" alt="Analytics" width="700">
-    <figcaption>Endpoint analytics </a></figcaption>
+    <figcaption>Endpoint analytics </figcaption>
   </figure>
 </div>
 
@@ -411,14 +410,14 @@ An Argilla interface can be set up directly through Hugging Face Spaces and this
 <div style="text-align: center;">
   <figure>
     <img src="assets/cfm-case-study/argilla-home.png" alt="Create Argilla Space" width="700">
-    <figcaption> </a></figcaption>
+    <figcaption> Argilla homepage on Spaces</figcaption>
   </figure>
 </div>
 
 <div style="text-align: center;">
   <figure>
     <img src="assets/cfm-case-study/argilla-dsets.png" alt="Create Argilla Space" width="700">
-    <figcaption> </a></figcaption>
+    <figcaption> Argilla datasets view</figcaption>
   </figure>
 </div>
 
@@ -500,7 +499,7 @@ test_dataset.records.log(records=test_data, batch_size = 1024)
 <div style="text-align: center;">
   <figure>
     <img src="assets/cfm-case-study/annotation-argilla.png" alt="Create Argilla Space" width="700">
-    <figcaption> </a></figcaption>
+    <figcaption> Argilla annotation view</figcaption>
   </figure>
 </div>
 
@@ -531,7 +530,7 @@ With a high-quality, reviewed dataset in place, we can now experiment with diffe
 <div style="text-align: center;">
   <figure>
     <img src="assets/cfm-case-study/gliner.png" alt="Create Argilla Space" width="700">
-    <figcaption> GLiNER architecture from the paper </figcaption>
+    <figcaption> GLiNER architecture from the  <a href="https://arxiv.org/abs/2311.08526" target="_blank">original paper</a></figcaption>
   </figure>
 </div>
 
@@ -605,7 +604,6 @@ The zero-shot results, in terms of F1-score on the annotated dataset of 2714 sam
 The GLiNER model performs well in extracting company names from text but struggles with certain cases, such as when companies are mentioned as stock symbols. It also misclassifies general references to stock industries, like "Healthcare stocks" or "Industrial stocks," as company names. While effective in many cases, these errors highlight areas where further refinement is needed to improve accuracy in distinguishing between companies and broader industry terms.
 
 2. **SpanMarker** 
-
 [SpanMarker](https://github.com/tomaarsen/SpanMarkerNER) is a framework for training powerful NER models using familiar encoders such as BERT, RoBERTa and DeBERTa. Tightly implemented on top of the 🤗 Transformers library, SpanMarker can take good advantage of it. As a result, SpanMarker will be intuitive to use for anyone familiar with Transformers. We chose this variant [tomaarsen/span-marker-bert-base-orgs](https://huggingface.co/tomaarsen/span-marker-bert-base-orgs) trained on trained on the [FewNERD, CoNLL2003, and OntoNotes v5](https://huggingface.co/datasets/tomaarsen/ner-orgs) dataset that can be used for NERn. This SpanMarker model uses [bert-base-cased](https://huggingface.co/bert-base-cased) as the underlying encoder. It’s trained specifically to recognize organizations. It can be used for inference to predict an `ORG`(organization) label as follows: 
 
 ```python
@@ -632,16 +630,16 @@ The zero-shot results, in terms of F1-score on the annotated dataset of 2714 sam
 
 We tested 2 variants of the Llama3.1 model including the 70b that we used to curate ground truth examples. We used the prompt that is presented above. On our annotated subset we have the following results :
 
-|           |                                                                          |                                                                            |
-| --------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
-| Model     | [Llama 3.1 8b](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)  | [Llama 3.1 70b](https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct)  |
-| F1-Score  | 88%                                                                      | 95%                                                                        | 
 
-**Recap**
-|           |        |            |                                                                          |                                                                            |
-| --------- | ------ | ---------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
-| Model     | GLiNER | SpanMarker | [Llama 3.1 8b](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)  | [Llama 3.1 70b](https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct)  |
-| F1-Score  | 87%    | 47%        | 88%                                                                      | **95%**                                                                    |
+| *Model*     | *[Llama 3.1 8b](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)*  | *[Llama 3.1 70b](https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct)* |
+| ----------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| *F1-Score*  |                                 88%                                        |                                      95%                                    | 
+
+**Performance Recap**
+
+| *Model*     | *GLiNER* | *SpanMarker* | *[Llama 3.1 8b](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)* | *[Llama 3.1 70b](https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct)* |
+| ----------- | -------- | ----------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| *F1-Score*  |    87%   |     47%     |                                   88%                                      |                                   **95%**                                   |
 
  In this experiment, we compared the performance of small models like **GLiNER** and **SpanMarker** against LLMs such as **Llama 3.1-8b** and **Llama 3.1-70b**. Small models like GLiNER (87% F1) provide a good balance between accuracy and computational efficiency, making them ideal for resource-constrained scenarios. In contrast, LLMs, while more resource-intensive, deliver higher accuracy, with Llama 3.1-70b achieving a 95% F1-score. This highlights the trade-off between performance and efficiency when choosing between small models and LLMs for NER tasks. Let’s now see how the performance differs when we fine-tune compact models.
 
@@ -702,30 +700,27 @@ The training ran for 20 epochs, we save the checkpoint with the highest F1 score
 
 **Performance comparison**
 
-|                    |                                                                                      |                                                                                                |            |                       |                                                                          |                                                                            |
-| ------------------ | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- | ---------- | --------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
-| Model              | [gliner-medium-news](https://huggingface.co/EmergentMethods/gliner_medium_news-v2.1) | [Gliner-medium-news](https://huggingface.co/EmergentMethods/gliner_medium_news-v2.1) finetuned | SpanMarker | SpanMarker fine-tuned | [Llama 3.1 8b](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)  | [Llama 3.1 70b](https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct)  |
-| Test set F1-Score  | 87.0%                                                                                | **93.4%**                                                                                      | 47.0%      | 90.1%                 | 80.0%                                                                    | 92.7%                                                                      |
+| *Model*             | *[gliner-medium-news](https://huggingface.co/EmergentMethods/gliner_medium_news-v2.1)* | *[Gliner-medium-news](https://huggingface.co/EmergentMethods/gliner_medium_news-v2.1) finetuned* | *SpanMarker* | *SpanMarker fine-tuned* | *[Llama 3.1 8b](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)* | *[Llama 3.1 70b](https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct)*  |
+| ------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------ | ----------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------|
+| *Test set F1-Score* | 87.0%                                                                                  | **93.4%**                                                                                         | 47.0%       | 90.1%                   | 80.0%                                                                     | 92.7%                                                           |
 
 In this updated comparison, we evaluated models based on their F1-scores after fine-tuning. The **GLiNER-medium-news** model improved from 87.0% to 93.4% after fine-tuning, showing significant gains in accuracy. Similarly, **SpanMarker** went from 47.0% to 90.1% with fine-tuning, making it far more competitive. Meanwhile, **Llama 3.1-8b** and **Llama 3.1-70b** performed well out of the box, scoring 80.0% and 92.7%, respectively, without fine-tuning. This comparison emphasizes that fine-tuning smaller models like GLiNER and SpanMarker can dramatically enhance performance, rivaling larger LLMs at a lower computational cost.
 
-_The_ **_Llama 3.1-70b_** _model costs at least $8 per hour for inference, making it significantly more expensive than compact models, which can run on a GPU instance costing around $0.50 per hour—16 times cheaper. Furthermore, compact models can even be deployed on CPU instances, costing as little as \~$0.10 per hour, which is 80 times less expensive. This highlights the substantial cost advantage of smaller models, especially in resource-constrained environments, without sacrificing competitive performance when fine-tuned for specific tasks.___
+_The_  **_llama 3.1-70b_** _model costs at least $8 per hour for inference, making it significantly more expensive than compact models, which can run on a GPU instance costing around $0.50 per hour—16 times cheaper. Furthermore, compact models can even be deployed on CPU instances, costing as little as \~$0.10 per hour, which is 80 times less expensive. This highlights the substantial cost advantage of smaller models, especially in resource-constrained environments, without sacrificing competitive performance when fine-tuned for specific tasks._
 
-## Weak Supervision vs. LLM-assisted labeling: who’s the winner? <a name="comparison"></a>
+## Weak Supervision vs. LLM-assisted labeling <a name="comparison"></a>
 
 In this experiment, we explored two key approaches to data labeling for NER: **Weak Supervision** and **LLM-assisted labeling**. While weak supervision enables scalable training on synthetic data, our findings suggest that it cannot achieve the same level of accuracy as models trained on manually annotated data. For 1,000 samples, manual annotation took 3 hours with an F1 score of **0.915**, while Llama 3.1-70b inference only took 2 minutes but resulted in a slightly lower F1 score of **0.895**. The trade-off between speed and accuracy depends on the task's requirements.
 
 <div style="text-align: center;">
   <figure>
     <img src="assets/cfm-case-study/comparison-graph.png" alt="Create Argilla Space" width="700">
-    <figcaption> GLiNER architecture from the paper </figcaption>
+    <figcaption> Weak Supervision vs. LLM-assisted labeling </figcaption>
   </figure>
 </div>
 
-The graph compares the performance of **GLiNER** fine-tuned on human-annotated data versus synthetic data inferred by **Llama-3.1 70b** across varying dataset sizes. The blue dots represent F1-scores of models trained on human-annotated data, while the red dots represent those inferred by Llama-3.1 70b. As dataset size increases, models fine-tuned on human annotations consistently outperform those using synthetic data, achieving higher F1-scores.  
-
-_The graph illustrates that while models fine-tuned on human annotations yield higher accuracy,_ **_LLM-assisted labeling_** _using Llama-3.1 70b can still provide considerable value, especially when resources for manual annotation are limited. Even though the F1-scores from LLM-inferred data are slightly lower, they remain competitive across various dataset sizes. LLMs can rapidly generate large volumes of annotations, offering a practical solution for scaling dataset creation efficiently, making them beneficial in scenarios where time and cost constraints are critical._
+The graph compares the performance of **GLiNER** fine-tuned on human-annotated data versus synthetic data inferred by **Llama-3.1 70b** across varying dataset sizes. The blue dots represent F1-scores of models trained on human-annotated data, while the red dots represent those inferred by Llama-3.1 70b. As dataset size increases, models fine-tuned on human annotations consistently outperform those using synthetic data, achieving higher F1-scores. It illustrates that while models fine-tuned on human annotations yield higher accuracy,_ **LLM-assisted labeling** using Llama-3.1 70b can still provide considerable value, especially when resources for manual annotation are limited. Even though the F1-scores from LLM-inferred data are slightly lower, they remain competitive across various dataset sizes. LLMs can rapidly generate large volumes of annotations, offering a practical solution for scaling dataset creation efficiently, making them beneficial in scenarios where time and cost constraints are critical.
 
 ## Conclusion
 
-**_Our experiment demonstrated that while large models like Llama 3.1 provide superior performance out of the box, fine-tuning smaller models like GLiNER and SpanMarker with LLM-assisted labeling can significantly enhance accuracy, rivaling the LLMs at a fraction of the cost. This approach highlights how investing in fine-tuning small models using LLM insights provides a cost-effective, scalable solution for financial NER tasks, making it ideal for real-world applications where both accuracy and resource efficiency are crucial._**
+**Our experiment demonstrated that while large models like Llama 3.1 provide superior performance out of the box, fine-tuning smaller models like GLiNER and SpanMarker with LLM-assisted labeling can significantly enhance accuracy, rivaling the LLMs at a fraction of the cost. This approach highlights how investing in fine-tuning small models using LLM insights provides a cost-effective, scalable solution for financial NER tasks, making it ideal for real-world applications where both accuracy and resource efficiency are crucial.**
