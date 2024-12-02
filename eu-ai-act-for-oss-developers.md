@@ -26,7 +26,7 @@ The EU AI Act is a binding regulation that aims to foster responsible AI. To tha
 The regulation takes effect over the next two years and applies broadly, not just to those within the EU. If you’re an open source developer outside the EU but your AI systems or models are offered or impact people within the EU, they are included in the Act. 
 
 
-## Scope
+## 🤗 Scope
 The regulation works at different levels of the AI stack, meaning it has different obligations if you are a provider (which includes the developers), deployer, distributor etc. and if you are working on an AI model or system.
 
 | **Model**: only **general purpose AI** (GPAI) models are directly regulated. GPAI models are models trained on large amounts of data, that show significant generality, can perform a wide range of tasks and can be used in systems and applications. One example is a large language model (LLM). Modifications or fine-tuning of models also need to comply with obligations. | **System**: a system that is able to infer from inputs. This could typically take the form of a traditional software stack that leverages or connects one or several AI models to a digital representation of the inputs. One example is a chatbot interacting with end users, leveraging an LLM or Gradio apps hosted on Hugging Face Spaces. |
@@ -39,15 +39,15 @@ In the AI Act, rules scale with the level of risk the AI system or model might p
 * **[Limited](https://artificialintelligenceact.eu/article/50/)**: systems that interact directly with people and have the potential to create risks of impersonation, manipulation, or deception. These systems need to meet transparency requirements. Most generative AI models can be integrated into systems that fall into this category. As a model developer, your models will be easier and more likely to be integrated into AI systems if you already follow the requirements, such as by providing sufficient documentation.
 * **Minimal**: the majority of the systems - that don’t pose the risks above. They need only comply with existing laws and regulations, no obligation is added with the AI Act.
 
-For **general purpose AI** (GPAI) **models**, there is another risk category called **[systemic risk](https://artificialintelligenceact.eu/article/51/)**: GPAI models using substantial computing power, today defined as over 10^25 FLOPs for training, or that have high-impact capabilities. Obligations vary if they are open source or not.
+For **general purpose AI** (GPAI) **models**, there is another risk category called **[systemic risk](https://artificialintelligenceact.eu/article/51/)**: GPAI models using substantial computing power, today defined as over 10^25 FLOPs for training, or that have high-impact capabilities. According to a [study by Stanford](https://crfm.stanford.edu/2024/08/01/eu-ai-act.html), in August 2024, based on estimates from Epoch, only eight models (Gemini 1.0 Ultra, Llama 3.1-405B, GPT-4, Mistral Large, Nemotron-4 340B, MegaScale, Inflection-2, Inflection-2.5) from seven developers (Google, Meta, OpenAI, Mistral, NVIDIA, ByteDance, Inflection) would meet the default systemic risk criterion of being trained using at least 10^25 FLOPs. Obligations vary if they are open source or not.
 
-## How to prepare for compliance
+## 🤗 How to prepare for compliance
 
 Our **focus** in this short guide is on **limited risk AI systems and open source non-systemic risk GPAI models**, which should encompass most of what is publicly available on the Hub. For other risk categories, make sure to check out further obligations that may apply.
 
 ### For limited risk AI systems
 
-Limited-risk AI systems interact directly with people (end users) and may create risks of impersonation, manipulation, or deception. For example, a chatbot producing text or a text-to-image generator – tools that can also facilitate the creation of misinformation materials or of deepfakes. The AI Act aims to tackle these risks by helping the general end user understand that they are interacting with an AI system.[^1] In the case of limited-risk AI systems, the obligations below apply whether or not they are open source.
+Limited-risk AI systems interact directly with people (end users) and may create risks of impersonation, manipulation, or deception. For example, a chatbot producing text or a text-to-image generator – tools that can also facilitate the creation of misinformation materials or of deepfakes. The AI Act aims to tackle these risks by helping the general end user understand that they are interacting with an AI system. Today, most GPAI models are not considered to present systemic risk. In the case of limited-risk AI systems, the obligations below apply whether or not they are open source.
 
 Developers of limited-risk AI systems need to:
 * Disclose to the user that they are interacting with an AI system unless this is obvious, keeping in mind that end users might not have the same technical understanding as experts, so you should provide this information in a clear and thorough way.
@@ -84,12 +84,9 @@ Also, note that if a given GPAI model meets the conditions to pose systemic risk
 
 Obligations for GPAI models will be enforced starting August 2025. 
 
-## Get involved
+## 🤗 Get involved
 
 Much of the EU AI Act’s practical application is still in development through public consultations and working groups, whose outcome will determine how the Act’s provisions aimed at smoother compliance for SMEs and researchers are operationalized. If you’re interested in shaping how this plays out, now is a great time to get involved!
-
-
-[^1]: Today, most GPAI models are not considered to present systemic risk. According to a [study by Stanford](https://crfm.stanford.edu/2024/08/01/eu-ai-act.html), in August 2024, based on estimates from Epoch, only eight models (Gemini 1.0 Ultra, Llama 3.1-405B, GPT-4, Mistral Large, Nemotron-4 340B, MegaScale, Inflection-2, Inflection-2.5) from seven developers (Google, Meta, OpenAI, Mistral, NVIDIA, ByteDance, Inflection) would meet the default systemic risk criterion of being trained using at least 10^25 FLOPs.
 
 ```
 @misc{eu_ai_act_for_oss_developers,
@@ -101,3 +98,5 @@ Much of the EU AI Act’s practical application is still in development through 
   doi       = {}
 }
 ```
+
+*Thank you, Anna Tordjmann, Brigitte Tousignant, Chun Te Lee, Irene Solaiman, Clémentine Fourrier, Ann Huang, Benjamin Burtenshaw, Florent Daudens for your feedback, comments, and suggestions.*
