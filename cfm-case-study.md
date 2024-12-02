@@ -11,6 +11,8 @@ authors:
   guest: true
 - user: Pirash
   guest: true
+- user: bpatault
+  guest: true
 - user: MGoibert
   guest: true
 
