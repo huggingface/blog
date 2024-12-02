@@ -4977,3 +4977,13 @@
     - research
     - datasets
     - guide
+
+- local: eu-ai-act-for-oss-developers.md
+  title: "Open Source Developers Guide to the EU AI Act"
+  author: brunatrevelin
+  thumbnail: /blog/assets/189_eu-ai-act-for-oss-developers/thumbnail.png
+  date: December 2, 2024
+  tags:
+    - policy
+    - guide
+    - ethics
