@@ -5083,3 +5083,14 @@
     - storage
     - content addressed store
     - infrastructure
+
+- local: cfm-case-study
+  title: "Investing in Performance: Fine-tune small models with LLM insights  - a CFM case study"
+  author: florentgbelidji
+  thumbnail: /blog/assets/cfm-case-study/blogpost_cfm.png
+  date: December 3, 2024
+  tags:
+    - llm
+    - expert-support-program
+    - expert-support
+    - case-studies
