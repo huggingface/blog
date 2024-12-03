@@ -1,28 +1,28 @@
 ---
-title: “How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs” 
+title: How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs
 thumbnail: /blog/assets/keras-chatbot-arena/thumbnail.png
 authors: 
 - user: martin-gorner
 ---
 
-# “How good are LLMs at fixing their mistakes?
+# How good are LLMs at fixing their mistakes?
 ## A chatbot arena experiment with Keras and TPUs
 
 **<center>👉 You can play with the Keras chatbot arena<br/>while you read. [Click here](https://huggingface.co/spaces/huggingface/keras-chatbot-arena) to open it in a new tab. 👈</center>**
 
-## Table of contents
-## [1. Introduction](#1-introduction)
-## [2. The experiment](#2-the-experiment)
-## [3. Keras chatbot arena tech: Spaces, Gradio, TPUs, JAX and Keras](#3-keras-chatbot-arena-tech-spaces-gradio-tpus-jax-and-keras)
-### [3.1 Why TPUs?](#31-why-tpus)
-### [3.2 Why JAX and Keras?](#32-why-jax-and-keras)
-### [3.3 Sharding Models?](#33-sharding-models)
-### [3.4 Which models?](#34-which-models)
-## [4. Results](#4-results)
-### [4.1 Reliability](#41-reliability)
-### [4.2 The complete chat - fixing mistakes](#42-the-complete-chat---fixing-mistakes)
-### [4.3 More mistake fixing](#43-more-mistake-fixing)
-## [5. Recap](#5-recap)
+**Table of contents**<br/>
+&nbsp;&nbsp;&nbsp;[1. Introduction](#1-introduction)<br/>
+&nbsp;&nbsp;&nbsp;[2. The experiment](#2-the-experiment)<br/>
+&nbsp;&nbsp;&nbsp;[3. Keras chatbot arena tech: Spaces, Gradio, TPUs, JAX and Keras](#3-keras-chatbot-arena-tech-spaces-gradio-tpus-jax-and-keras)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.1 Why TPUs?](#31-why-tpus)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.2 Why JAX and Keras?](#32-why-jax-and-keras)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3 Sharding Models?](#33-sharding-models)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.4 Which models?](#34-which-models)<br/>
+&nbsp;&nbsp;&nbsp;[4. Results](#4-results)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.1 Reliability](#41-reliability)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2 The complete chat - fixing mistakes](#42-the-complete-chat---fixing-mistakes)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.3 More mistake fixing](#43-more-mistake-fixing)<br/>
+&nbsp;&nbsp;&nbsp;[5. Recap](#5-recap)<br/>
 
 
 ## 1. Introduction
