@@ -64,12 +64,8 @@ Among open-source models, the Llama 3.1 series by Meta stood out due to its stro
 
 Our focus on this use case was to extract company names from news headlines from the Financial News and Stock Price Integration Dataset [(FNSPID)](https://arxiv.org/abs/2402.06698). It is composed of news headlines and articles associated with corresponding stock symbols coming from several sources such as Bloomberg, Reuters, Benzinga and others. After analyzing the various news sources, we found that news from Benzinga had no missing stock symbol values. This subset of the dataset contains \~900k samples. As a result, we decided to reduce our dataset to Benzinga headlines for a more consistent and reliable analysis. 
 
-<div style="text-align: center;">
-  <figure>
-    <img src="assets/cfm-case-study/fnspid-prev.png" alt="FNSPID" width="700">
-    <figcaption>Dataset preview of FNSPID</figcaption>
-  </figure>
-</div>
+![FNSPID](assets/cfm-case-study/fnspid-prev.png)
+<p align="center"><em>Dataset preview of FNSPID</em></p>
 
 ```python
     {"example 1": "Black Diamond Stock Falling After Tweet"} -> Black Diamond
@@ -95,24 +91,16 @@ Hugging Face Inference Endpoints provide a straightforward and secure solution f
 
 To access Inference Endpoints we logged in as a member of the [`CapitalFundManagement`](https://huggingface.co/CapitalFundManagement) organization on the Hugging Face Hub, then accessed the service at <https://ui.endpoints.huggingface.co> . To start a new deployment we create on `New` then select `meta-llama/Llama-3.1-70B-Instruct`
 
-<div style="text-align: center;">
-  <figure>
-    <img src="assets/cfm-case-study/create-endpoint.png" alt="FNSPID" width="700">
-    <figcaption>Endpoint creation on the Inference Endpoints UI</figcaption>
-  </figure>
-</div>
-
+![Create endpoint](assets/cfm-case-study/create-endpoint.png)
+<p align="center"><em>Endpoint creation on the Inference Endpoints UI</em></p>
 
 You can select on which cloud provider the hardware will be hosted,  the region, and the type of instance. Inference Endpoints suggest an instance type based on the model size, which should be big enough to run the model. Here an instance with 4 Nvidia L40S is selected. When LLM is selected, an automated container is selected running [Text Generation Inference](https://github.com/huggingface/text-generation-inference) for optimized inference.
 
 
 When clicking on the “Create Endpoint” the deployment is created and the endpoint will be ready in a few minutes. To get more information about Inference Endpoints setup, visit <https://huggingface.co/docs/inference-endpoints>.
-<div style="text-align: center;">
-  <figure>
-    <img src="assets/cfm-case-study/running-endpoint.png" alt="IE" width="700">
-    <figcaption>Endpoint running on the Inference Endpoints UI</figcaption>
-  </figure>
-</div>
+
+![Endpoint running](assets/cfm-case-study/running-endpoint.png)
+<p align="center"><em>Endpoint running on the Inference Endpoints UI</em></p>
 
 Once our endpoint is running, we will use the endpoint URL provided to send requests to it.
 
@@ -368,12 +356,8 @@ while True:
 
 When the inference is running we can monitor the traffic directly from the UI
 
-<div style="text-align: center;">
-  <figure>
-    <img src="assets/cfm-case-study/analytics-ie.png" alt="Analytics" width="700">
-    <figcaption>Endpoint analytics </figcaption>
-  </figure>
-</div>
+![Analytics](assets/cfm-case-study/analytics-ie.png)
+<p align="center"><em>Endpoint analytics</em></p>
 
 **It took about 8 hours to process the whole dataset with 900k samples which costs  ~$70.**
 
@@ -400,27 +384,14 @@ Argilla is an open-source tool, integrated into the Hugging Face ecosystem that 
 \
 An Argilla interface can be set up directly through Hugging Face Spaces and this is what we opted for. Check out [the documentation](https://docs.argilla.io/latest/getting_started/quickstart/) to start your own interface and go to <https://huggingface.co/new-space> .
 
-<div style="text-align: center;">
-  <figure>
-    <img src="assets/cfm-case-study/argilla-space.png" alt="Create Argilla Space" width="700">
-    <figcaption>Create Argilla Space on the Hub </a></figcaption>
-  </figure>
-</div>
+![Create Argilla Space](assets/cfm-case-study/argilla-space.png)
+<p align="center"><em>Create Argilla Space on the Hub </em></p>
 
-<div style="text-align: center;">
-  <figure>
-    <img src="assets/cfm-case-study/argilla-home.png" alt="Create Argilla Space" width="700">
-    <figcaption> Argilla homepage on Spaces</figcaption>
-  </figure>
-</div>
+![Argilla Home](assets/cfm-case-study/argilla-home.png)
+<p align="center"><em>Argilla homepage on Spaces</em></p>
 
-<div style="text-align: center;">
-  <figure>
-    <img src="assets/cfm-case-study/argilla-dsets.png" alt="Create Argilla Space" width="700">
-    <figcaption> Argilla datasets view</figcaption>
-  </figure>
-</div>
-
+![Argilla Datasets](assets/cfm-case-study/argilla-dsets.png)
+<p align="center"><em>Argilla datasets view</em></p>
 
 Once the interface is created, we can connect programmatically to it using the Argilla python SDK. To get ready to annotate we followed the following steps:
 
@@ -496,13 +467,9 @@ train_dataset.records.log(records=train_data, batch_size = 1024)
 valid_dataset.records.log(records=valid_data, batch_size = 1024) 
 test_dataset.records.log(records=test_data, batch_size = 1024) 
 ``` 
-<div style="text-align: center;">
-  <figure>
-    <img src="assets/cfm-case-study/annotation-argilla.png" alt="Create Argilla Space" width="700">
-    <figcaption> Argilla annotation view</figcaption>
-  </figure>
-</div>
 
+![Create Argilla Space](assets/cfm-case-study/annotation-argilla.png)
+<p align="center"><em>Argilla annotation view</em></p>
 
 The annotation interface displays the text to be annotated, along with its status (either pending or submitted). Annotation guidelines are presented on the right side of the screen. In this case, we have one label, _'Company._' To annotate, we first select the label, then highlight the relevant text in the sentence. Once all entities are selected, we click 'submit' to finalize the annotation.
 
@@ -527,12 +494,8 @@ With a high-quality, reviewed dataset in place, we can now experiment with diffe
 \
 [GLiNER](https://arxiv.org/abs/2311.08526) is a compact, versatile NER model that leverages bidirectional transformers like BERT to identify a wide range of entity types overcoming the limitations of traditional models that are restricted to predefined entities. Unlike large autoregressive models, GLiNER treats NER as a task of matching entity types with spans in text, using parallel processing for efficiency. It offers a practical and resource-efficient alternative to LLMs, delivering strong performance in zero-shot scenarios without the high computational costs associated with larger models.
 
-<div style="text-align: center;">
-  <figure>
-    <img src="assets/cfm-case-study/gliner.png" alt="Create Argilla Space" width="700">
-    <figcaption> GLiNER architecture from the  <a href="https://arxiv.org/abs/2311.08526" target="_blank">original paper</a></figcaption>
-  </figure>
-</div>
+![GliNER](assets/cfm-case-study/gliner.png)
+<p align="center"><em>GLiNER architecture from the  <a href="https://arxiv.org/abs/2311.08526" target="_blank">original paper</a><</em></p>
 
 GLiNER offers three model variants:
 
@@ -712,12 +675,8 @@ _The_  **_llama 3.1-70b_** _model costs at least $8 per hour for inference, maki
 
 In this experiment, we explored two key approaches to data labeling for NER: **Weak Supervision** and **LLM-assisted labeling**. While weak supervision enables scalable training on synthetic data, our findings suggest that it cannot achieve the same level of accuracy as models trained on manually annotated data. For 1,000 samples, manual annotation took 3 hours with an F1 score of **0.915**, while Llama 3.1-70b inference only took 2 minutes but resulted in a slightly lower F1 score of **0.895**. The trade-off between speed and accuracy depends on the task's requirements.
 
-<div style="text-align: center;">
-  <figure>
-    <img src="assets/cfm-case-study/comparison-graph.png" alt="Create Argilla Space" width="700">
-    <figcaption> Weak Supervision vs. LLM-assisted labeling </figcaption>
-  </figure>
-</div>
+![Comparison](assets/cfm-case-study/comparison-graph.png)
+<p align="center"><em>Weak Supervision vs. LLM-assisted labeling</em></p>
 
 The graph compares the performance of **GLiNER** fine-tuned on human-annotated data versus synthetic data inferred by **Llama-3.1 70b** across varying dataset sizes. The blue dots represent F1-scores of models trained on human-annotated data, while the red dots represent those inferred by Llama-3.1 70b. As dataset size increases, models fine-tuned on human annotations consistently outperform those using synthetic data, achieving higher F1-scores. It illustrates that while models fine-tuned on human annotations yield higher accuracy,_ **LLM-assisted labeling** using Llama-3.1 70b can still provide considerable value, especially when resources for manual annotation are limited. Even though the F1-scores from LLM-inferred data are slightly lower, they remain competitive across various dataset sizes. LLMs can rapidly generate large volumes of annotations, offering a practical solution for scaling dataset creation efficiently, making them beneficial in scenarios where time and cost constraints are critical.
 
