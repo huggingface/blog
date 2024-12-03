@@ -76,7 +76,7 @@ To experiment with this scenario, I wanted to be able to conduct two conversatio
 and pause one side while asking another to fix a mistake in its output. Here is what it looks like.
 It is built with Gradio on Spaces and uses Keras, JAX and TPUs:
 
-[![screenshot](assets/keras-chatbot-arena/screenshot.png)](https://huggingface.co/spaces/huggingface/keras-chatbot-arena)
+[![screenshot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/keras-chatbot-arena/screenshot.png)](https://huggingface.co/spaces/huggingface/keras-chatbot-arena)
 
 A couple of notes on how this was built before we go back to the serious matter of chit-chatting with LLMs.
 
