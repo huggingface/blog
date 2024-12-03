@@ -1,14 +1,29 @@
 ---
-title: “Can LLMs fix their mistakes? A chatbot arena experiment with Keras and TPUs” 
+title: “How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs” 
 thumbnail: /blog/assets/keras-chatbot-arena/thumbnail.png
 authors: 
 - user: martin-gorner
 ---
 
-# Can LLMs fix their mistakes?
-# A chatbot arena experiment with Keras and TPUs
+# “How good are LLMs at fixing their mistakes?
+## A chatbot arena experiment with Keras and TPUs
 
-**<center>👉 You can play with the Keras chatbot arena<br/>while you read. [Click here](https://huggingface.co/spaces/huggingface/keras-chatbot-battle) to open it in a new tab. 👈</center>**
+**<center>👉 You can play with the Keras chatbot arena<br/>while you read. [Click here](https://huggingface.co/spaces/huggingface/keras-chatbot-arena) to open it in a new tab. 👈</center>**
+
+## Table of contents
+## [1. Introduction](#1-introduction)
+## [2. The experiment](#2-the-experiment)
+## [3. Keras chatbot arena tech: Spaces, Gradio, TPUs, JAX and Keras](#3-keras-chatbot-arena-tech-spaces-gradio-tpus-jax-and-keras)
+### [3.1 Why TPUs?](#31-why-tpus)
+### [3.2 Why JAX and Keras?](#32-why-jax-and-keras)
+### [3.3 Sharding Models?](#33-sharding-models)
+### [3.4 Which models?](#34-which-models)
+## [4. Results](#4-results)
+### [4.1 Reliability](#41-reliability)
+### [4.2 The complete chat - fixing mistakes](#42-the-complete-chat---fixing-mistakes)
+### [4.3 More mistake fixing](#43-more-mistake-fixing)
+## [5. Recap](#5-recap)
+
 
 ## 1. Introduction
 
@@ -55,13 +70,13 @@ That's it. Very simple, but can LLMs handle this? And when they make a mistake, 
 
 To test this, I needed an environment to quickly interact with multiple chatbots at once, here is how I set it up.
 
-## 3. Keras chatbot arena: the tech
+## 3. Keras chatbot arena tech: Spaces, Gradio, TPUs, JAX and Keras
 
 To experiment with this scenario, I wanted to be able to conduct two conversations at once, with different LLMs,
 and pause one side while asking another to fix a mistake in its output. Here is what it looks like.
 It is built with Gradio on Spaces and uses Keras, JAX and TPUs:
 
-[![screenshot](assets/keras-chatbot-arena/screenshot.png)](https://huggingface.co/spaces/huggingface/keras-chatbot-battle)
+[![screenshot](assets/keras-chatbot-arena/screenshot.png)](https://huggingface.co/spaces/huggingface/keras-chatbot-arena)
 
 A couple of notes on how this was built before we go back to the serious matter of chit-chatting with LLMs.
 
@@ -69,7 +84,7 @@ A couple of notes on how this was built before we go back to the serious matter 
 
 For their fast inference and large memory. A [TPU v5e 2x4](https://cloud.google.com/tpu/docs/v5e) has 8 cores and 16GB of
 RAM per core for an aggregate 128GB of memory. With this much memory, we can load multiple LLMs at once, provided we shard
-them across all cores, and switch between them at will in the UI.
+them across all cores, and switch between them at will in the UI. In this experiment, I have been able to load five ∼8B params models (one more would OOM) and three ∼2B models for a total of 7 LLMs in memory at once, in bfloat16 format.
 
 ### 3.2 Why JAX and Keras?
 
@@ -88,14 +103,14 @@ layout_map = keras_hub.models.Llama3Backbone.get_layout_map(device_mesh)
 For the full loading code, and more background info on model parallelism, see my
 [earlier post here](https://developers.googleblog.com/en/fine-tuning-gemma-2-with-keras-hugging-face-update/).
 You will also find in that post a code snippet for visualizing the shardings actually applied once the model is loaded. Very useful for debugging.
-And yes, debugging and a few layout map adjustments [were necessary](https://huggingface.co/spaces/huggingface/keras-chatbot-battle/blob/c16851db4f6aaac90c2d06d8bdb06890a86e24e7/models.py#L34).
+And yes, debugging and a few layout map adjustments [were necessary](https://huggingface.co/spaces/huggingface/keras-chatbot-arena/blob/c16851db4f6aaac90c2d06d8bdb06890a86e24e7/models.py#L34).
 
 ### 3.4 Which models?
 
 For this experiment, I chose sub-10B param LLMs, mostly for their practicality as many of them could be loaded
 at the same time. But also, what the experiment is testing is fairly simple and should be within reach of these smaller models.
 All the models are instruction-tuned so that a dialog is possible. You can see their
-[chat templates in the demo's implementation](https://huggingface.co/spaces/huggingface/keras-chatbot-battle/blob/main/chatstate.py).
+[chat templates in the demo's implementation](https://huggingface.co/spaces/huggingface/keras-chatbot-arena/blob/main/chatstate.py).
 Feel free to copy-paste the code for your own Keras chatbot needs.
 The models are from the Gemma, Llama3, Mistral and Vicuna families. See the result tabes below for a full list.
 
@@ -138,7 +153,7 @@ Shortened prompts are used in the table to save screen space.
 The first question is voluntarily imprecise: a month, day and time are given for the meeting, but not the year.
 This is to make sure that all models make at least one mistake and get tested on their capacity to fix it.
 
-|| <a href="http://huggingface.co/google/gemma-2-instruct-9b-keras">Gemma 2<br/>9B-instr</a> ||| <a href="http://huggingface.co/meta-llama/Llama-3.1-8B-Instruct">Llama-3.1<br/>8B-instr</a> ||| <a href="https://gemini.google.com">Gemini<br/>online</a> |
+|Conversation <span style="font-weight:normal">([full transcript](https://docs.google.com/document/d/1Gt9JeFI8B311fN2DVw11KvcczfdSlvr86oHQ7b3lFII/edit?usp=sharing))</span>| <a href="http://huggingface.co/google/gemma-2-instruct-9b-keras">Gemma 2<br/>9B-instr</a> ||Conversation <span style="font-weight:normal">([full transcript](https://docs.google.com/document/d/1yfM_wDBAVnGeCZ0OoKWCUmGAuhXBoklPNgmIOxpAK1U/edit?usp=sharing))</span>| <a href="http://huggingface.co/meta-llama/Llama-3.1-8B-Instruct">Llama-3.1<br/>8B-instr</a> ||Conversation <span style="font-weight:normal">([full transcript](https://docs.google.com/document/d/1NdpG0jj7p-FVWxoYdAUVh7_ji899UlfERQHr3MmXlzQ/edit?usp=sharing))</span>| <a href="https://gemini.google.com">Gemini<br/>online</a> |
 | :---                                                          | :----:        |:----:|:---                                                  | :----:        |:---:|:---| :----: |
 | **Add a meeting with Fred…**                                  |<big>✔︎ 🍄</big>||**Add a meeting with Fred…**                                |<big>✔︎ 🍄</big>||**Add a meeting with Fred…**                                 |<big>✔︎ 🍄</big>|
 | <div style="text-align:right">Current year is 2024</div>      |<big>🥦</big>  ||<div style="text-align:right">Current year is 2024</div>    |<big>🍄</big>  ||<div style="text-align:right">Current year is 2024</div>     |<big>🍄</big>|
@@ -150,8 +165,6 @@ This is to make sure that all models make at least one mistake and get tested on
 |                                                               |               ||                                                            |               ||**Add meeting with Paul on next day…**                       |<big>✔︎ 🍄</big>|
 |                                                               |               ||                                                            |               ||<div style="text-align:right">Wrong next day…                |<big>🥦</big>|
 |                                                               |               ||                                                            |               ||**Cancel meeting with Fred**                                 |<big>✔︎</big>|
-
-**[TODO] insert links to full conversation transcripts**
 
 Gemma2 9B and Llama 3.1 8B both succeed. Llama needed one extra "fix it" prompt but managed to get its broccoli <big>🥦</big>.
 
@@ -168,7 +181,7 @@ This exercise seems to be overwhelmingly difficult for these models. New symbols
 
 And remember that these are the best runs. As seen in the "reliability" section above, some models were able to get past the first questions only once out of five attempts.
 
-|| <a href="http://huggingface.co/meta-llama/Llama-3.2-3B-Instruct">Llama 3.2<br/>3b-instr</a></div> ||| <a href="http://huggingface.co/meta-llama/Llama-3.2-1B-Instruct">Llama 3.2<br/>1B-instr</a></div>|||<a href="http://huggingface.co/google/gemma-2b-it-keras">Gemma<br/>2B-instr</a></div>|
+|Conversation <span style="font-weight:normal">([full transcript](https://docs.google.com/document/d/1dwl2N8E38b390n9GQctAd7eSenEDPOvawPx0LTGw49A/edit?usp=sharing))</span>| <a href="http://huggingface.co/meta-llama/Llama-3.2-3B-Instruct">Llama 3.2<br/>3b-instr</a></div> ||Conversation <span style="font-weight:normal">([full transcript](https://docs.google.com/document/d/1zZcTVyQ4cwv_ovwif9VEm9ELEf119etv7mKoMwcEgBA/edit?usp=sharing))</span>| <a href="http://huggingface.co/meta-llama/Llama-3.2-1B-Instruct">Llama 3.2<br/>1B-instr</a></div>||Conversation <span style="font-weight:normal">([full transcript](https://docs.google.com/document/d/1WGIgG6XEnd7rigW3qKzyDUhb7Krfgv7PII7SYX4LinI/edit?usp=sharing))</span>|<a href="http://huggingface.co/google/gemma-2b-it-keras">Gemma<br/>2B-instr</a></div>|
 | :---                                                         | :----:         | :----: | :----                                           | :----:         |:----:| :----                                                  | :----: |
 | **Add a meeting with Fred…**                                 |<big>✔︎ 🍄</big> ||**Add a meeting with Fred…**                             |<big>✔︎ 🍄</big> ||**Add a meeting with Fred…**                                  |<big>✔︎ 🍄</big>|
 | <div style="text-align:right">current year is 2024</div> |<big>🥦</big>   ||<div style="text-align:right">Just the API call…</div>   |<big>🥦 🍄</big>||<div style="text-align:right">The time is wrong…</div>        |<big>🥦</big> (🍄)|
@@ -181,8 +194,6 @@ And remember that these are the best runs. As seen in the "reliability" section 
 |                                                              |                ||<div style="text-align:right">--giving up--</div>        |                 ||**Cancel meeting with Fred**                              |<big>✔︎ 🍄</big>|
 |                                                              |                ||                                                         |                 ||<div style="text-align:right">API requires three params…</div>|<big>🥦</big> (🍄)|
 
-**[TODO] insert links to full conversation transcripts**
-
 Among the small models, only Gemma 2B manages to finish the dialog albeit with a recurrent mistake (🍄): it could not refrain from being chatty and adding
 stuff on top of the requested API calls. Stuff like "Sure, here's the updated code…". It also kept mixing up dates and times. However, it was able to fix the mistakes,
 when asked <big>🥦</big>. 
@@ -190,7 +201,7 @@ when asked <big>🥦</big>.
 Finally, let's try some older models like Vicuna 1.5 7B and Mistral 7B. They are pitted against Codegemma 7B which should be the ideal model for this task but as you can see, all three models struggle.
 
 
-|| <a href="http://huggingface.co/google/codegemma-7b-it-keras">Codegemma<br/>7B-instr</a></div> ||| <a href="http://huggingface.co/keras/vicuna_1.5_7b_en">vicuna 1.5<br/>7b-instr</a></div>|||<a href="http://huggingface.co/keras/mistral_instruct_7b_en">Mistral<br/>7B-instr</a></div>|
+|Conversation <span style="font-weight:normal">([full transcript](https://docs.google.com/document/d/16u6RmT3qYdI5BGLSo_2f_OTYFnIyBltErlTQtW-pjzQ/edit?usp=sharing))</span>| <a href="http://huggingface.co/google/codegemma-7b-it-keras">Codegemma<br/>7B-instr</a></div> ||Conversation <span style="font-weight:normal">([full transcript](https://docs.google.com/document/d/1HT99Eg5nPTgBD38yBAC7BXHSBuNukYMYa4iImhSbq0g/edit?usp=sharing))</span>| <a href="http://huggingface.co/keras/vicuna_1.5_7b_en">vicuna 1.5<br/>7b-instr</a></div>||Conversation <span style="font-weight:normal">([full transcript](https://docs.google.com/document/d/1OO5obX_Q-8v2DUIlA6dx2Qx190D5o1zwkxWR1r1JU2s/edit?usp=sharing))</span>|<a href="http://huggingface.co/keras/mistral_instruct_7b_en">Mistral<br/>7B-instr</a></div>|
 | :---                                                         | :----:              | :----: | :----                                           | :----:          |:----:| :----                                                | :----: |
 |**Add a meeting with Fred…**                                  |<big>✔︎ 🍄</big>      ||**Add a meeting with Fred…**                             |<big>✔︎ 🍄</big> ||**Add a meeting with Fred…**                                 |<big>✔︎ 🍄</big>|
 |<div style="text-align:right">current year is 2024</div>      |<big>🥦</big> (🍄)   ||<div style="text-align:right">current year is 2024</div> |<big>🥦</big>   ||<div style="text-align:right">Respect the date format…</div> |<big>🥦 🍄</big>|
@@ -201,10 +212,8 @@ Finally, let's try some older models like Vicuna 1.5 7B and Mistral 7B. They are
 |**Cancel meeting with Fred**                                  |<big>✔︎ 🍄</big> (🍄) ||<div style="text-align:right">Just one API call…</div>   |<big>🍄</big>   ||<div style="text-align:right">You don't ned that info…</div> |<big>✔︎ 🥦</big>|
 |<div style="text-align:right">API requires three params…</div>|<big>🥦 🍄</big> (🍄)||**Cancel meeting with Fred**                             |<big>✔︎ 🍄</big> ||**Set the duration to 3 hours**                              |<big>✔︎</big>|
 |<div style="text-align:right">It's the wrong event now…</div> |<big>🥦</big> (🍄)   ||                                                         |                ||**Add a meeting with Paul…**                                 |<big>✔︎ 🍄</big>|
-|                                                              |                     ||                                                         |                ||<div style="text-align:right">Mistake in the year…</div>     |<big>🥦</big>|
+|                                                              |                     ||                                                         |                ||<div style="text-align:right">Mistake in the year…</div>     |<big>🥦🍄</big>|
 |                                                              |                     ||                                                         |                ||**Cancel meeting with Fred**                                 |<big>✔︎</big>|
-
-**[TODO] insert links to full conversation transcripts**
 
 Codegemma got affected by a sticky recurrent mistake (🍄): it would start spelling the year as "20 24" with a space and would not fix it.
 Vicuna 1.5 7B is probably too old. At one point it starts repeating itself <big>🔥🔥</big>, outputting multiple duplicate API calls and other junk.
@@ -212,11 +221,11 @@ It gets back on track to some extent but with remaining mistakes. Finally, Mistr
 
 ### 4.3 More mistake fixing
 
-Some of these models cruised through the exercise with few mistakes and therefore few chances to fix them and earn a broccoli <big>🥦</big>. Using the [Keras chatbot arena](https://huggingface.co/spaces/huggingface/keras-chatbot-battle) UI, we can run them
+Some of these models cruised through the exercise with few mistakes and therefore few chances to fix them and earn a broccoli <big>🥦</big>. Using the [Keras chatbot arena](https://huggingface.co/spaces/huggingface/keras-chatbot-arena) UI, we can run them
 on mistakes <big>🍄</big> made by other LLMs and see if they can fix them.
 
 Same color coding as before: green broccoli <big>🥦</big> for correctly fixing the error, red poisonous mushroom <big>🍄</big> if the error is still there,
-dumpster fire <big>🔥</big> for multiple errors.
+dumpster fire <big>🔥</big> for multiple errors. The full transcript of the conversations is [here](https://docs.google.com/document/d/1CCOB1NuVXnqN2ofhIGPldGG5MGeznzKebVqwKKB9vk4/edit?usp=sharing).
 
 |Model|Wrong time…<br/>3 attempts|API only…<br/>3 attempts|Wrong API…<br/>3 attempts|
 |:---|:---:|:---:|:---:|
@@ -230,8 +239,6 @@ dumpster fire <big>🔥</big> for multiple errors.
 |<a href="http://huggingface.co/keras/mistral_instruct_7b_en">Mistral 7B-instr</a>      |<big>🥦 🔥 🥦</big>|<big>🥦 🥦 🍄</big>|<big>🍄 🔥 🍄(1)</big>|
 
 (1) recurrent mistake: outputs apology next to correct API call. For Gemma this is reliably fixed by asking for “API call only please”. It works for Llama too but not reliably.
-
-**[TODO] insert links to full conversation transcripts**
 
 This was a good reality check for the models. Gemma 2 9B and Codegemma 7B get it almost right but keep apologizing for some mistakes instead of outputting a clean API call.
 Llama 3.1 8B is a close second but has difficulties fixing a wrong API call reliably. And all the others are a <big>🔥</big> dumpster fire.
@@ -252,12 +259,12 @@ across all tests. This is not the most scientific way of summarizing the results
 |#1|<a href="http://huggingface.co/google/gemma-2-instruct-9b-keras">Gemma 2 9B-instr</a>  |<big>✔︎✔︎✔︎✔︎✔︎✔︎✔︎✔︎✔︎✔︎🥦🥦🥦🥦🥦🥦🥦🍄🍄🍄🍄</big>|
 |#2|<a href="http://huggingface.co/meta-llama/Llama-3.1-8B-Instruct">Llama-3.1 8B-instr</a>|<big>✔︎✔︎✔︎✔︎✔︎✔︎✔︎✔︎✔︎✔︎🥦🥦🥦🥦🥦🥦🥦🥦🍄🍄🍄🔥</big>|
 |#3|<a href="http://huggingface.co/google/codegemma-7b-it-keras">Codegemma7B-instr</a>     |<big>✔︎✔︎✔︎✔︎✔︎✔︎✔︎✔︎✔︎✔︎🥦🥦🥦🥦🥦🥦🥦🥦🥦🍄🍄🍄🍄🍄🍄🍄🍄🍄🍄🍄🍄🍄🍄</big>|
-|#4|<a href="http://huggingface.co/keras/mistral_instruct_7b_en">Mistral 7B-instr</a>      |<big>✔︎✔︎✔︎✔︎✔︎✔︎✔︎✔︎🥦🥦🥦🥦🥦🥦🥦🥦🥦🥦🍄🍄🍄🍄🍄🍄🍄🍄🍄🍄🔥🔥</big>|
+|#4|<a href="http://huggingface.co/keras/mistral_instruct_7b_en">Mistral 7B-instr</a>      |<big>✔︎✔︎✔︎✔︎✔︎✔︎✔︎✔︎🥦🥦🥦🥦🥦🥦🥦🥦🥦🥦🍄🍄🍄🍄🍄🍄🍄🍄🍄🍄🍄🔥🔥</big>|
 |#5|<a href="http://huggingface.co/google/gemma-2b-it-keras">Gemma2B-instr</a>             |<big>✔︎✔︎✔︎✔︎✔︎✔︎🥦🥦🥦🥦🥦🥦🥦🥦🥦🥦🥦🍄🍄🍄🍄🍄🍄🍄🍄🍄🍄🍄🍄🔥🔥🔥</big>|
 |#6|<a href="http://huggingface.co/meta-llama/Llama-3.2-3B-Instruct">Llama 3.2 3B-instr</a>|<big>✔︎✔︎✔︎✔︎✔︎✔︎✔︎✔︎✔︎🥦🥦🥦🥦🥦🍄🍄🍄🍄🍄🍄🍄🍄🔥🔥🔥🔥🔥</big>|
 |#7|<a href="http://huggingface.co/keras/vicuna_1.5_7b_en">vicuna 1.5 7b-instr</a>         |<big>✔︎✔︎✔︎✔︎✔︎✔︎🥦🥦🥦🍄🍄🍄🍄🍄🍄🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥</big>|
 |#8|<a href="http://huggingface.co/meta-llama/Llama-3.2-1B-Instruct">Llama 3.2 1B-instr</a>|<big>✔︎✔︎🥦🥦🥦🥦🍄🍄🍄🍄🍄🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥</big>|
 
 I have no doubt that some fine-tuning could greatly improve those results. This is left for readers to explore. There is more information on Keras,
-including a Keras LLM fine-tuning example in [this blog post](https://huggingface.co/blog/keras-llama-32). Also feel free to clone the [Keras Chatbot Arena](https://huggingface.co/spaces/huggingface/keras-chatbot-battle)
+including a Keras LLM fine-tuning example in [this blog post](https://huggingface.co/blog/keras-llama-32). Also feel free to clone the [Keras Chatbot Arena](https://huggingface.co/spaces/huggingface/keras-chatbot-arena)
 to test your fine-tuned models. Happy 🥦!
