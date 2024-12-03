@@ -4978,6 +4978,16 @@
     - datasets
     - guide
 
+- local: eu-ai-act-for-oss-developers
+  title: "Open Source Developers Guide to the EU AI Act"
+  author: brunatrevelin
+  thumbnail: /blog/assets/189_eu-ai-act-for-oss-developers/thumbnail.png
+  date: December 2, 2024
+  tags:
+    - policy
+    - guide
+    - ethics
+
 - local: arena-atla
   title: "Judge Arena: Benchmarking LLMs as Evaluators"
   thumbnail: /blog/assets/arenas-on-the-hub/thumbnail_atla.png
@@ -5073,3 +5083,14 @@
     - storage
     - content addressed store
     - infrastructure
+
+- local: cfm-case-study
+  title: "Investing in Performance: Fine-tune small models with LLM insights  - a CFM case study"
+  author: florentgbelidji
+  thumbnail: /blog/assets/cfm-case-study/blogpost_cfm.png
+  date: December 3, 2024
+  tags:
+    - llm
+    - expert-support-program
+    - expert-support
+    - case-studies
