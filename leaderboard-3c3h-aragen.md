@@ -24,7 +24,7 @@ In the rapidly evolving landscape of large language models (LLMs), comprehensive
 The AraGen leaderboard makes three key contributions:
 - **3C3H Measure**: The 3C3H measure scores a model's response and is central to this framework. It is a holistic approach assessing model responses across multiple dimensions -**C**orrectness, **C**ompleteness, **C**onciseness, **H**elpfulness, **H**onesty, and **H**armlessness- based on LLM-as-judge.
   
-- **Dynamic Evaluations**: AraGen Leaderboard implements a dynamic evaluation strategy, which includes three-month blind testing cycles, where the datasets and the evaluation code remain private before being publicly released at the end of the cycle, and replaced by a new benchmark, where these are private again.
+- **Dynamic Evaluations**: AraGen Leaderboard implements a dynamic evaluation strategy, which includes three-month blind testing cycles, where the datasets and the evaluation code remain private before being publicly released at the end of the cycle, and replaced by a new private benchmark.
 
 - **Arabic Evaluation Dataset**: AraGen Benchmark offers a meticulously constructed evaluation dataset for Arabic LLM evaluation, combining multi-turn and single-turn scenarios, which tests the model capability across multiple domains and tasks.
 
