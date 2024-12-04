@@ -67,8 +67,8 @@ The AraGen evaluation pipeline aims to ensure robust, reproducible, and scalable
 2. **Response Generation**: We use the model to generate responses for a fixed set of human-verified questions (AraGen Benchmark). 
 3. **LLM as a Judge**: A chosen LLM (see Section 2), evaluates the generated answers against pre-verified ground truth answers. The judge's assessment is based on the **3C3H** as guideline and returns the scores in `json` format at the end of its response after its reasoning section. 
 4. **Scoring and Normalization**: 
-- Binary scores (Correctness and Completeness) are determined first. Only correct answers are further evaluated for other dimensions. 
-- Scaled scores (e.g., Helpfulness, Honesty), orginally scored within [1, 5], are normalized to a range within [0, 1]. 
+   - Binary scores (Correctness and Completeness) are determined first. Only correct answers are further evaluated for other dimensions. 
+   - Scaled scores (e.g., Helpfulness, Honesty), originally scored within [1, 5], are normalized to a range within [0, 1]. 
 5. **Leaderboard Reporting**: The results are displayed across two leaderboards: 
    - **3C3H Leaderboard**: Provides an overall score that evaluates all answers holistically based on the six dimensions of the **3C3H** score (**C**orrectness, **C**ompleteness, **C**onciseness, **H**elpfulness, **H**onesty, and **H**armlessness). It further reports the scores for each one of them.
    - **Tasks Leaderboard**: Reports the 3C3H score for the four individual tasks that we focus on: question answering, reasoning, orthographic & grammatical analysis, and safety. 
