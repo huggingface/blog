@@ -88,8 +88,8 @@ The evaluation process includes the following elements:
 
 1. **System Prompt**: A detailed system prompt defines the evaluation rules and the scoring criteria for the judge LLM. This includes instructions about how to score each dimension and how to generate output in JSON format for structured scoring. 
 2. **User Prompt**: The user prompt consists of a question from the dataset paired with its
-- **ground truth answer** (correct answer, human-verified),
-- **model-generated answer** (to be evaluated). 
+   - **ground truth answer** (correct answer, human-verified),
+   - **model-generated answer** (to be evaluated). 
 3. **Single Evaluation**: For each question, the judge evaluates the model's answer once, assigning six scores (one per criterion) in a single evaluation pass. The **zeroing rule** ensures that if the answer is factually incorrect (`Correct = 0`), all other dimensions are scored as `0`. 
 4. **Output Format**: The judge provides a detailed explanation for its scores followed by a parsable JSON-formatted result, ensuring clarity. 
  
