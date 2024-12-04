@@ -23,8 +23,10 @@ In the rapidly evolving landscape of large language models (LLMs), comprehensive
 
 The AraGen leaderboard makes three key contributions:
 - **3C3H Measure**: The 3C3H measure scores a model's response and is central to this framework. It is a holistic approach assessing model responses across multiple dimensions -**C**orrectness, **C**ompleteness, **C**onciseness, **H**elpfulness, **H**onesty, and **H**armlessness- based on LLM-as-judge.
-- **Dynamic Evaluations**: AraGen implements a dynamic evaluation strategy, which includes three-month blind testing cycles, where the datasets and the evaluation code remain private before being publicly released at the end of the cycle, and replaced by a new benchmark, where these are private again.
-- **Arabic Evaluation Dataset**: A meticulously constructed evaluation dataset for Arabic LLM evaluation, combining multi-turn and single-turn scenarios, which tests the model capability across multiple domains and tasks.
+  
+- **Dynamic Evaluations**: AraGen Leaderboard implements a dynamic evaluation strategy, which includes three-month blind testing cycles, where the datasets and the evaluation code remain private before being publicly released at the end of the cycle, and replaced by a new benchmark, where these are private again.
+
+- **Arabic Evaluation Dataset**: AraGen Benchmark offers a meticulously constructed evaluation dataset for Arabic LLM evaluation, combining multi-turn and single-turn scenarios, which tests the model capability across multiple domains and tasks.
 
 We believe that AraGen addresses persistent issues of data contamination with its dynamic evaluation approach, preserving the benchmark's integrity. It also serves as the first application of a scalable, language-agnostic framework for a nuanced and fair model assessment, which represents an important effort in understanding LLM performance across diverse linguistic contexts and sets a new standard for comprehensive model benchmarking.
 
@@ -51,7 +53,8 @@ This is done through the introduction of an LLM as a judge approach [see here fo
 
 The **AraGen Leaderboard** ranks both open and proprietary models, evaluated on the **AraGen Benchmark** using the new **3C3H** measure, which we introduce below. 3C3H provides a comprehensive framework for assessing both the factual accuracy and usability of large language models. Arabic was chosen as the first application of this framework, aligning with the mission of Inception to democratize AI for Arabic and the Global South in general, while addressing the lack of robust generative benchmarks for these languages and regions, and we hope to see extensions of this work in many other languages.
 
-The leaderboard is dynamic, with evaluation datasets remaining private (blind testing) for three months to ensure fair and unbiased assessments. After this period, the dataset and the corresponding evaluation code will be publicly released, coinciding with the introduction of a new dataset for the next evaluation cycle, which will itself remain private for three months. This iterative process ensures that evaluations stay current and models are consistently tested on fresh, unseen data.  
+The leaderboard is dynamic, with evaluation datasets remaining private (blind testing) for three months to ensure fair and unbiased assessments. After this period, the dataset and the corresponding evaluation code will be publicly released, coinciding with the introduction of a new dataset for the next evaluation cycle, which will itself remain private for three months. This iterative process ensures that evaluations stay current and models are consistently tested on fresh, unseen data.
+
 We believe that this dynamic approach is both beneficial and robust, as it mitigates data leakage, encourages ongoing model improvement, and maintains the relevance of the benchmark in the rapidly evolving landscape of LLM development.
 
 ## The AraGen Leaderboard
@@ -96,7 +99,7 @@ The evaluation process includes the following elements:
  
 - Scaled scores (e.g., Conciseness, Helpfulness, ...). The remaining four dimensions are scores ranging from 1 to 5 and later normalized to [0, 1] for consistency. For example, a score of 3 for **Honesty** would be normalized to $\frac{3 - 1}{4} = 0.5$.
  
-#### 3C3H Formula
+#### Calculate the 3C3H Score
 
 Given the individual scores for each dimension, the 3C3H measure is computed as follows:
  
