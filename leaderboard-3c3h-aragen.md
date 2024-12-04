@@ -17,7 +17,7 @@ authors:
 - user: clefourrier
 ---
 
-# **Rethinking LLM Evaluation with 3C3H: AraGen Benchmark and Leaderboard** 
+# Rethinking LLM Evaluation with 3C3H: AraGen Benchmark and Leaderboard
 
 In the rapidly evolving landscape of large language models (LLMs), comprehensive and robust evaluation methodologies remain a critical challenge, particularly for low-resource languages. In this blog, we introduce AraGen, a generative tasks benchmark and leaderboard for Arabic LLMs, which we hope will inspire work for other languages as well.
 
@@ -31,7 +31,7 @@ We believe that AraGen addresses persistent issues of data contamination with it
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.4.0/gradio.js"> </script>
 <gradio-app theme_mode="light" space="inceptionai/AraGen-Leaderboard"></gradio-app>
 
-## **Summary**
+## Summary
 
 Evaluating large language models (LLMs) is a key challenge in AI research. While existing methodologies have improved our understanding of LLM capabilities, they often fail to comprehensively address both **factuality**—assessing a model's core knowledge—and **usability**—its alignment with human (end user) expectations. Current evaluation approaches can broadly be categorized into knowledge or factuality-based benchmarks and preference-based benchmarks.
 
@@ -54,9 +54,9 @@ The **AraGen Leaderboard** ranks both open and proprietary models, evaluated on 
 The leaderboard is dynamic, with evaluation datasets remaining private (blind testing) for three months to ensure fair and unbiased assessments. After this period, the dataset and the corresponding evaluation code will be publicly released, coinciding with the introduction of a new dataset for the next evaluation cycle, which will itself remain private for three months. This iterative process ensures that evaluations stay current and models are consistently tested on fresh, unseen data.  
 We believe that this dynamic approach is both beneficial and robust, as it mitigates data leakage, encourages ongoing model improvement, and maintains the relevance of the benchmark in the rapidly evolving landscape of LLM development.
 
-## **1. The AraGen Leaderboard** 
+## The AraGen Leaderboard
 
-### **1.1 Overall Pipeline** 
+### Evaluation Pipeline
  
 The AraGen evaluation pipeline aims to ensure robust, reproducible, and scalable assessments. The process includes the following steps: 
  
@@ -70,7 +70,7 @@ The AraGen evaluation pipeline aims to ensure robust, reproducible, and scalable
 - **3C3H Leaderboard**: Provides an overall score that evaluates all answers holistically based on the six dimensions of the **3C3H** score (**C**orrectness, **C**ompleteness, **C**onciseness, **H**elpfulness, **H**onesty, and **H**armlessness). It further reports the scores for each one of them.
 - **Tasks Leaderboard**: Reports the 3C3H score for the four individual tasks that we focus on: question answering, reasoning, orthographic & grammatical analysis, and safety. 
 
-### **1.2 3C3H: Our new evaluation measure for LLMs**
+### 3C3H: Our new evaluation measure for LLMs
  
 Our main contribution, the **3C3H** measure, evaluates model performance across six dimensions, using an LLM-judge
  
@@ -90,13 +90,13 @@ The evaluation process includes the following elements:
 3. **Single Evaluation**: For each question, the judge evaluates the model's answer once, assigning six scores (one per criterion) in a single evaluation pass. The **zeroing rule** ensures that if the answer is factually incorrect (`Correct = 0`), all other dimensions are scored as `0`. 
 4. **Output Format**: The judge provides a detailed explanation for its scores followed by a parsable JSON-formatted result, ensuring clarity. 
  
-#### **Scoring and Normalization** 
+#### Scoring and Normalization
  
 - Binary scores (Correctness and Completeness) are computed first. If a response is **Incorrect (0)**, all other dimensions are automatically set to zero to avoid rewarding flawed outputs. 
  
 - Scaled scores (e.g., Conciseness, Helpfulness, ...). The remaining four dimensions are scores ranging from 1 to 5 and later normalized to [0, 1] for consistency. For example, a score of 3 for **Honesty** would be normalized to $\frac{3 - 1}{4} = 0.5$.
  
-#### **3C3H Formula** 
+#### 3C3H Formula
 
 Given the individual scores for each dimension, the 3C3H measure is computed as follows:
  
@@ -112,8 +112,8 @@ Where:
 - $c_{3i}, h_{1i}, h_{2i}, h_{3i}$: Conciseness, Helpfulness, Honesty, and Harmlessness scores respectively for example $i$. 
  
 
-### **1.3 Dynamic Leaderboard for Robustness** 
- 
+### Dynamic Leaderboard for Robustness
+
 To ensure a reliable and fair evaluation process, the **AraGen Leaderboard** incorporates a **dynamic** evaluation strategy designed to address data contamination risks while prioritizing transparency, reproducibility, and continuous relevance. This is ensured as follows:
  
 1. **Blind Test Sets**:   
@@ -130,8 +130,8 @@ To ensure a reliable and fair evaluation process, the **AraGen Leaderboard** inc
    - **Independent Verification**: Researchers can reproduce results and validate the benchmark's integrity.
    - **Open Source**: Open access fosters discussion and improvements within the research community. 
  
-### **1.4 Dataset Design** 
- 
+### Dataset Design
+
 The AraGen Benchmark includes 279 custom, mainly human-verified questions designed to rigorously test model capabilities across four diverse tasks: 
  
 1. **Question Answering**: Tests factual accuracy and core knowledge regarding different themes related to Arabic and the Arab world. 
@@ -149,8 +149,8 @@ The AraGen Benchmark includes 279 custom, mainly human-verified questions design
 For the "Orthographic and Grammatical Analysis" task, the data is evenly distributed between two sub-categories: "Arabic grammar" and "Arabic dictation grammar," each constituting 50% of the examples. In the "Safety" task, all the data belongs exclusively to the "Safety" category/sub-category.
 
  
-#### **Interaction Categories** 
- 
+#### Interaction Categories
+
 The dataset examples are structured into three interaction types: 
  
 1. **Single Interaction**: A simple question-answer format where the model must provide a single, complete response.  
@@ -167,8 +167,8 @@ The dataset examples are structured into three interaction types:
    - **Assistant**: "The population of Berlin is about 3.7 million."  
    If the first response were incorrect (e.g., "Munich"), the second response would cascade into error unless it self-corrected, which is rare. This interaction tests the model’s ability to maintain factual continuity and build logically on its prior responses.
 
-#### **Weighting System for Follow-Up Interactions** 
- 
+#### Weighting System for Follow-Up Interactions
+
 In scoring models' perforamnce involving follow-up interactions, the score for the first response in the conversation is weighted more heavily due to its higher potential to steer the conversation. Incorrect initial answers can lead to cascading errors.
 - The **first answer** is assigned a coefficient of 2. 
 - The **second answer** is assigned a coefficient of 1. 
@@ -176,12 +176,11 @@ In scoring models' perforamnce involving follow-up interactions, the score for t
 For example, even if the first response is incorrect while the second response is correct (unexpected, given the design of our questions and also the way these systems usually work), the average score for the interaction would be $\frac{0 \times 2 + 1 \times 1}{3} = 0.333$, reflecting the criticality of the initial answer. 
 
 
- 
-## **2. Judge Evaluation and Selection** 
- 
+## Judge Evaluation and Selection
+
 Selecting the optimal judge for the **AraGen Leaderboard** is a critical step to ensure reliable, unbiased, and consistent evaluations. This section details the experiments conducted to evaluate potential judges, including single models and a jury system, and justifies the final choice based on rigorous empirical analysis. 
  
-#### **Judges Considered**: 
+#### Judges Considered:
  
 The following judge candidates were evaluated: 
  
@@ -195,7 +194,7 @@ We also explored adopting a **[Jury](https://arxiv.org/abs/2404.18796)**, which 
  
 Note that at the time we were running our experiments, Claude-3.5-haiku was not available through the Anthropic API yet. 
  
-#### **Evaluation Objectives** 
+#### Evaluation Objectives
  
 To evaluate and select the best judge, we assessed candidates across four dimensions: 
  
@@ -204,26 +203,26 @@ To evaluate and select the best judge, we assessed candidates across four dimens
 3. **Self Bias Analysis**: Measure the degree of self-preferential scoring exhibited by the judge. 
 4. **Hallucination Analysis**: Verify if the Judges tend to hallucinate and not follow the guidelines of the evaluation. 
  
-### **2.1. Correlation with Human as a Judge** 
+### Correlation with Human as a Judge
  
 We measured the agreement of the judges' evaluations (scores) with respect to each other using **Cohen’s Kappa (κ) Coefficient**. The results are visualized in the heatmap below: 
 
 ![Cohen's Kappa Heatmap Representing the Agreement between the Judges on 3C3H Score](https://huggingface.co/spaces/inceptionai/AraGen-Leaderboard/raw/main/assets/pictures/blog_figure_4.png)
 
 
-#### **Key Observations** 
+#### Key Observations
  
 - **GPT-4o-mini** achieved the highest correlation with human judge, with a κ score of **0.46**, closely followed by **Claude-3.5-sonnet**;
 - **GPT-4o** demonstrated reasonable alignment, with slightly lower agreement than GPT-4o-mini and Claude-3.5-sonnet;
 - **Claude-3-haiku** exhibited minimal agreement with human evaluations (kappa score: **0.06**), rendering it unsuitable as a judge. Therefore we decided to eliminate it from the remaining experiments;
 - **Llama 3.1-405b** showed moderate correlation, but lagged behind proprietary models. 
 
-### **2.2. Score Consistency Analysis** 
+### Score Consistency Analysis
  
 To assess the consistency of the scores, we calculated the **standard deviation of the scores** across three evaluation runs for each judge over the same models' answers. Lower standard deviation indicates greater stability.
 
-#### **Results** 
- 
+#### Results
+
 | Judge               | Average Standard Deviation | 
 |---------------------|--------------------| 
 | Jury                | **0.0049**         | 
@@ -232,8 +231,8 @@ To assess the consistency of the scores, we calculated the **standard deviation 
 | GPT-4o              | 0.0287             | 
 | GPT-4o-mini         | 0.0436             | 
 
-#### **Key Observations** 
- 
+#### Key Observations
+
 - The **Jury system** was the most stable overall, with an average standard deviation of (**0.0049**) in its scores. 
 - **Claude-3.5-sonnet** was the most consistent among single judges, with a standard deviation of **0.0063**. 
 - **GPT-4o-mini**, while cost-efficient, exhibited higher variability (**0.0436**), limiting its suitability for scenarios requiring extreme consistency compared to Claude-3.5-sonnet. 
@@ -305,20 +304,20 @@ To assess the consistency of the scores, we calculated the **standard deviation 
 </details>
 
 
-### **2.3. Self Bias Analysis** 
- 
+### Self Bias Analysis
+
 Self Bias was analyzed by comparing how judges scored their own responses versus other models. The table below summarizes the results, sorted by Jury scored performance (descending): 
  
 | Model Name                            | GPT-4o-mini | Claude-3.5-sonnet  | Llama 3.1-405b | GPT-4o  |
 |---------------------------------------|-------------|--------------------|----------------|---------| 
 | Claude-3.5-sonnet-20241022            | 0.8532      | 0.8432             | 0.8244         | 0.8442  | 
-| Meta-Llama 3.1-405B-Instruct-8bit*    | 0.7856      | 0.7943             | 0.8100         | 0.7928  | 
+| Meta-Llama 3.1-405B-Instruct-8bit[^1] | 0.7856      | 0.7943             | 0.8100         | 0.7928  | 
 | GPT-4o                                | 0.7810      | 0.7995             | 0.7921         | 0.8025  | 
 | GPT-4o-mini                           | 0.7093      | 0.6290             | 0.6403         | 0.7222  |
  
-###### *: Inception's internal deployment of a bnb 8bit quantization of "meta-llama/Llama-3.1-405B-Instruct"
+[^1]: Inception's internal deployment of a bnb 8bit quantization of "meta-llama/Llama-3.1-405B-Instruct".
 
-#### **Key Observations** 
+#### Key Observations
 
 The rows correspond to the models that are being evaluated, and the columns show the scores assigned by the different judges, including the model's self-assigned score. For example:
 - **GPT-4o scores itself as 0.8025**, its highest score across all models, suggesting a notable self-bias.  
@@ -331,27 +330,28 @@ The rows correspond to the models that are being evaluated, and the columns show
 By observing the discrepancies in self-scoring relative to external scoring, we quantify the degree of self-bias, which can influence the reliability of a model as a judge.  
 
  
-### **2.4. Hallucination Analysis**
+### Hallucination Analysis
 
 To assess the reliability of the judges in adhering to evaluation guidelines, we conducted hallucination analysis. This experiment focused on determining whether the judges provided accurate, guideline-compliant comments and avoided generating hallucinated or nonsensical feedback regardless of agreement with human annotators. The analysis was performed on two judges: 
 
 - **Claude-3.5-sonnet**: selected as the top-performing judge based on the previous 3 experiments;
 - **GPT-4o-mini**: chosen for its strong balance between cost-efficiency and performance. 
 
-#### **Quality Validation** 
+#### Quality Validation
 
 We randomly selected 10% of the responses from each evaluated model in our pool. Human annotators were tasked with reviewing the judges' comments to determine: 
 
 1. Whether the comments adhered to the evaluation guidelines. 
 2. Whether the comments were logically consistent with the model's response and the ground truth, or if they displayed any signs of hallucination. 
 
-#### **Results** 
+#### Results
+
 | Judge             | Percentage of Agreement | 
 |-------------------|-------------------------| 
 | GPT-4o-mini       | **100.0%**              |
 | Claude-3.5-sonnet | **96.3%**               |
 
-#### **Key Observations** 
+#### Key Observations
 
 The results indicated a high level of agreement between the judges' comments and human evaluations, which aligns with expectations given the simplicity of the task. The task required judges to assess the factual correctness and the alignment with straightforward guidelines, minimizing the likelihood of hallucination.
 
@@ -359,7 +359,7 @@ However, an unexpected discrepancy is observed with **Claude-3.5-sonnet**, which
 
 When analyzing only the valid responses from Claude-3.5-sonnet (i.e., excluding those affected by errors), the agreement rate increased to **100.0%**, matching that of GPT-4o-mini. This confirms our hypothesis that the task design was sufficiently constrained to leave (almost) no room for hallucination, ensuring high reliability across both judges. 
  
-### **2.5. Jury: Limitations and Insights** 
+### Jury: Limitations and Insights
 
 The **Jury** aggregates scores from multiple judges following a "vote then average" strategy, theoretically leveraging the "wisdom of the crowd." However, this approach is constrained by 
 
@@ -369,7 +369,7 @@ The **Jury** aggregates scores from multiple judges following a "vote then avera
 
 **Potential Improvements**: The Jury concept could be more effective if it included smaller, fine-tuned models trained on diverse datasets reflecting different perspectives and cultures. Another potential approach we intend to explore is the variation of system prompts to describe the same task but with linguistic, cultural and perspective variations. This would introduce greater variability in judgement and mitigate the uniformity of biases observed in proprietary, English-first, general-purpose models. 
 
-### **2.6. Judge Selection** 
+### Judge Selection
 All the experiments above favor the selection of **Claude-3.5-sonnet** as the **primary judge** for the AraGen Leaderboard, due to its
 
 - high consistency (lowest standard deviation);
@@ -382,8 +382,8 @@ Note that the Cohen Kappa coefficient is relatively low to base a decision on. H
 
 According to the experiments we conducted so far, Claude-3.5-sonnet represents the most reliable choice for this version of AraGen, balancing consistency and fairness.
 
-## **3. Conclusion** 
- 
+## Conclusion
+
 We believe that the **AraGen Leaderboard** represents an important step in LLM evaluation, combining rigorous factual and alignment-based assessments through the **3C3H** evaluation measure. Designed to address challenges such as data leakage, reproducibility, and scalability, AraGen offers a robust framework, which we believe would be useful for many other languages.
  
 Looking ahead, we plan to expand the AraGen leaderboard in the next three months by introducing new tasks, while semi-automating dataset creation to enhance scalability without compromising quality through human verification. Additionally, we are exploring more complex questions and tasks to continually challenge and refine model performance, ensuring that the leaderboard remains dynamic and adaptive. Finally, we aim to extend this framework to other languages that are under-resourced or under-represented in this space. We are committed to the success of these initiatives and invite collaboration from the community. 
