@@ -172,7 +172,7 @@ The dataset examples are structured into three interaction types:
 
 #### Weighting System for Follow-Up Interactions
 
-In scoring models' perforamnce involving follow-up interactions, the score for the first response in the conversation is weighted more heavily due to its higher potential to steer the conversation. Incorrect initial answers can lead to cascading errors.
+In scoring models' performance involving follow-up interactions, the score for the first response in the conversation is weighted more heavily due to its higher potential to steer the conversation. Incorrect initial answers can lead to cascading errors.
 - The **first answer** is assigned a coefficient of 2. 
 - The **second answer** is assigned a coefficient of 1. 
  
