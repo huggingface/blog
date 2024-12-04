@@ -47,7 +47,7 @@ To address these limitations, we propose a new evaluation measure that aims to *
 - **Factuality**: The accuracy and the correctness of the model's output, reflecting its core knowledge. 
 - **Usability**: The degree to which the model's outputs align with human preferences, ensuring user-centric assessment. 
 
-This is done through the introduction of an LLM as a judge approach [see here for more on this approach](https://github.com/huggingface/evaluation-guidebook/blob/main/contents/model-as-a-judge/basics.md), which evaluates the model performance across six dimensions modeling factuality and usability. By adopting a balanced perspective, we ensure that usability does not come at the expense of factual accuracy or vice-versa. 
+This is done through the introduction of an LLM as a judge approach ([see here for more on this approach](https://github.com/huggingface/evaluation-guidebook/blob/main/contents/model-as-a-judge/basics.md)), which evaluates the model performance across six dimensions modeling factuality and usability. By adopting a balanced perspective, we ensure that usability does not come at the expense of factual accuracy or vice versa. 
  
 ## AraGen: A Generative Benchmark and Leaderboard for Arabic LLMs 
 
