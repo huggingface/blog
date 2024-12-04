@@ -72,7 +72,7 @@ The AraGen evaluation pipeline aims to ensure robust, reproducible, and scalable
 
 ### **1.2 3C3H: Our new evaluation measure for LLMs**
  
-Our main contribution, the **3C3H** measure, evaluates model performance across six dimensions: 
+Our main contribution, the **3C3H** measure, evaluates model performance across six dimensions, using an LLM-judge
  
 1. **Correctness (0 or 1)**: Is the answer factually accurate *with respect to* the ground truth? 
 2. **Completeness (0 or 1)**: Does the answer address all parts of the question? 
