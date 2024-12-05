@@ -200,12 +200,12 @@ Note that at the time we were running our experiments, Claude-3.5-haiku was not 
  
 To evaluate and select the best judge, we assessed candidates across four dimensions: 
  
-1. **Correlation with Human as a Judge**: Measuring the **Cohen's Kappa Score** to assess the agreement with human evaluations. 
+1. **Agreement with Human as a Judge**: Measuring the **Cohen's Kappa Score** to assess the agreement with human evaluations. 
 2. **Scores Consistency Analysis**: How stable the Judge scores are across multiple evaluation runs. 
 3. **Self Bias Analysis**: Measure the degree of self-preferential scoring exhibited by the judge. 
 4. **Hallucination Analysis**: Verify if the Judges tend to hallucinate and not follow the guidelines of the evaluation. 
  
-### Correlation with Human as a Judge
+### Agreement with Human as a Judge
  
 We measured the agreement of the judges' evaluations (scores) with respect to each other using **Cohen’s Kappa (κ) Coefficient**. The results are visualized in the heatmap below: 
 
@@ -214,10 +214,10 @@ We measured the agreement of the judges' evaluations (scores) with respect to ea
 
 #### Key Observations
  
-- **GPT-4o-mini** achieved the highest correlation with human judge, with a κ score of **0.46**, closely followed by **Claude-3.5-sonnet**;
+- **GPT-4o-mini** achieved the highest agreement with human judge, with a κ score of **0.46**, closely followed by **Claude-3.5-sonnet**;
 - **GPT-4o** demonstrated reasonable alignment, with slightly lower agreement than GPT-4o-mini and Claude-3.5-sonnet;
 - **Claude-3-haiku** exhibited minimal agreement with human evaluations (kappa score: **0.06**), rendering it unsuitable as a judge. Therefore we decided to eliminate it from the remaining experiments;
-- **Llama 3.1-405b** showed moderate correlation, but lagged behind proprietary models. 
+- **Llama 3.1-405b** showed moderate agreement, but lagged behind proprietary models. 
 
 ### Score Consistency Analysis
  
@@ -376,7 +376,7 @@ All the experiments above favor the selection of **Claude-3.5-sonnet** as the **
 
 - high consistency (lowest standard deviation);
 - minimal self-bias, ensuring fairness;
-- relatively high correlation with human annotators, comparable to GPT-4o-mini.
+- relatively high agreement with human annotators, comparable to GPT-4o-mini.
 
 Note that the Cohen Kappa coefficient is relatively low to base a decision on. However, aligning with a single human judge is inherently difficult due to different human biases. Despite this, we consider it a meaningful signal of potential alignment with a larger and more diverse pool of human judges. We plan to conduct further experiments in this regard in the upcoming releases (March and June).
 
