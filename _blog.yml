@@ -3955,7 +3955,7 @@
 - local: leaderboard-arabic
   title: "Introducing the Open Arabic LLM Leaderboard"
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_arabic.png
-  author: Ali-C137
+  author: alielfilali01
   guest: true
   date: May 14, 2024
   tags:
@@ -5095,14 +5095,28 @@
     - expert-support
     - case-studies
 
+- local: leaderboard-3c3h-aragen
+  title: "Rethinking LLM Evaluation with 3C3H: AraGen Benchmark and Leaderboard"
+  author: alielfilali01
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_3c3h_aragen.png
+  date: December 04, 2024
+  tags:
+    - leaderboard
+    - evaluation
+    - nlp
+    - LLM
+    - research
+
 - local: keras-chatbot-arena
   title: "“How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs"
   author: martin-gorner
   thumbnail: /blog/assets/keras-chatbot-arena/thumbnail.png
-  date: December 4, 2024
+  date: December 5, 2024
   tags:
     - keras
     - TPU
     - Spaces
     - llm
     - open-source
+

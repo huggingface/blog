@@ -2142,6 +2142,16 @@
     - datasets
     - guide
 
+- local: designing-positional-encoding
+  title: "设计位置编码"
+  author: FL33TW00D-HF
+  thumbnail: /blog/assets/designing-positional-encoding/thumbnail_posenc.png
+  date: November 25, 2024
+  tags:
+    - research
+    - multimodal
+    - tutorial
+
 - local: eu-ai-act-for-oss-developers
   title: "开源开发者指南：欧盟《人工智能法案》解读"
   author: brunatrevelin
