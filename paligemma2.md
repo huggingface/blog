@@ -1,6 +1,6 @@
 ---
 title: "Welcome PaliGemma 2 – New vision language models by Google"
-thumbnail: /blog/assets/paligemma/paligemma2.png
+thumbnail: /blog/assets/paligemma/Paligemma2.png
 authors:
 - user: merve
 - user: andsteing
