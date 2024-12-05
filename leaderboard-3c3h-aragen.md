@@ -19,7 +19,7 @@ authors:
 
 # Rethinking LLM Evaluation with 3C3H: AraGen Benchmark and Leaderboard
 
-In the rapidly evolving landscape of large language models (LLMs), comprehensive and robust evaluation methodologies remain a critical challenge, particularly for low-resource languages. In this blog, we introduce AraGen, a generative tasks benchmark and leaderboard for Arabic LLMs, which we hope will inspire work for other languages as well.
+In the rapidly evolving landscape of large language models (LLMs), comprehensive and robust evaluation methodologies remain a critical challenge, particularly for low-resource languages. In this blog, we introduce AraGen, a generative tasks benchmark and leaderboard for Arabic LLMs, based on 3C3H, a new evaluation measure for NLG which we hope will inspire work for other languages as well.
 
 The AraGen leaderboard makes three key contributions:
 - **3C3H Measure**: The 3C3H measure scores a model's response and is central to this framework. It is a holistic approach assessing model responses across multiple dimensions -**C**orrectness, **C**ompleteness, **C**onciseness, **H**elpfulness, **H**onesty, and **H**armlessness- based on LLM-as-judge.
@@ -309,7 +309,7 @@ To assess the consistency of the scores, we calculated the **standard deviation 
 
 ### Self Bias Analysis
 
-Self Bias was analyzed by comparing how judges scored their own responses versus other models. The table below summarizes the results, sorted by Jury scored performance (descending): 
+As reported in [this study](https://arxiv.org/pdf/2404.13076) and several other studies as well, usually some biases get introduced when a Large Language Model acts as both the evaluator and the evaluatee. To analyze self-bias, we compared how judges scored their own responses versus others. The table below summarizes the results:
  
 | Model Name                            | GPT-4o-mini | Claude-3.5-sonnet  | Llama 3.1-405b | GPT-4o  |
 |---------------------------------------|-------------|--------------------|----------------|---------| 
