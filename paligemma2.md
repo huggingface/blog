@@ -60,7 +60,7 @@ PaliGemma 2 is distributed under the Gemma license, which allows for redistribut
 
 This release comes with the following checkpoints in `bfloat16` precision:
 
-- 9 pre-trained models: Pre-trained models in 3B, 10B, and 28B with resolutions of `224x224`, `448x448`, and `896x896`.
+- 9 pre-trained models: 3B, 10B, and 28B with resolutions of `224x224`, `448x448`, and `896x896`.
   
 - 2 models fine-tuned on DOCCI: Two models fine-tuned on the [DOCCI](https://huggingface.co/datasets/google/docci) dataset (image-text caption pairs), supporting the 3B and 10B PaliGemma 2 variants and input resolution of `448x448`.
   
