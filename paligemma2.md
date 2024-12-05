@@ -180,7 +180,7 @@ print(processor.decode(output[0], skip_special_tokens=True)[len(prompt):])
 ```
 
 
-You can also use bitsandbytes to load the models with quantization. The following example uses 4-bit `nf4`:
+You can also use the transformers `bitsandbytes` integration to load the models with quantization. The following example uses 4-bit `nf4`:
 
 ```python
 from transformers import BitsAndBytesConfig
