@@ -83,7 +83,7 @@ The PaliGemma 2 team internally fine-tuned the PT models on a wide variety of vi
 
 PaliGemma 2 fine-tuned on the DOCCI dataset, can accomplish a wide range of captioning tasks, including text rendering, capturing spatial relations, and including world knowledge in captions.
 
-You can find the performance of the DOCCI fine-tuned PaliGemma 2 checkpoints, compared with other models (taken from Table 6 in [the technical report](https://huggingface.co/papers/2412.03555)).
+You can find below the performance of the DOCCI fine-tuned PaliGemma 2 checkpoints, compared with other models (taken from Table 6 in [the technical report](https://huggingface.co/papers/2412.03555)).
 
 |                 | #par    | #char   | #sent   | NES↓     |
 |-----------------|---------|---------|---------|----------|
