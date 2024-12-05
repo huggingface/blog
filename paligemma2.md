@@ -152,6 +152,7 @@ For demonstration purposes, we in the Hugging Face team fine-tuned [PaliGemma 2 
 </figure>
 
 ## How to Use with Transformers
+
 You can run inference on the PaliGemma 2 models with 🤗 transformers, using the PaliGemmaForConditionalGeneration and AutoProcessor APIs. Until a PyPi version of transformers is released, you need to install it from the main branch as follows:
 
 ```bash
