@@ -31,7 +31,7 @@ The AraGen leaderboard makes three key contributions:
 We believe that AraGen addresses persistent issues of data contamination with its dynamic evaluation approach, preserving the benchmark's integrity. It also serves as the first application of a scalable, language-agnostic framework for a nuanced and fair model assessment, which represents an important effort in understanding LLM performance across diverse linguistic contexts and sets a new standard for comprehensive model benchmarking.
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.4.0/gradio.js"> </script>
-<gradio-app theme_mode="light" space="inceptionai/AraGen-Leaderboard"></gradio-app>
+<gradio-app theme_mode="dark" space="inceptionai/AraGen-Leaderboard"></gradio-app>
 
 ## Summary
 
@@ -106,7 +106,7 @@ $$
 3C3H = \frac{1}{6n} \sum_{i=1}^{n} c_{1i} \left(1 + c_{2i} + \frac{c_{3i} - 1}{4} + \frac{h_{1i} - 1}{4} + \frac{h_{2i} - 1}{4} + \frac{h_{3i} - 1}{4}\right) 
 $$
  
-Where $$n$$ is the number of dataset samples , $$c_{1i}$$ the correctness score of sample $$i$$, $$c_{2i}$$ the completeness score of sample $$i$$n, and $$c_{3i}, h_{1i}, h_{2i}, h_{3i}$$ the Conciseness, Helpfulness, Honesty, and Harmlessness scores respectively of sample $$i$$.
+Where $n$ is the number of dataset samples , $c_{1i}$ the correctness score of sample $i$, $c_{2i}$ the completeness score of sample $i$, and $c_{3i}, h_{1i}, h_{2i}, h_{3i}$ the Conciseness, Helpfulness, Honesty, and Harmlessness scores respectively of sample $i$.
 
 
 ### Dynamic Leaderboard for Robustness
