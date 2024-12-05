@@ -5108,6 +5108,7 @@
     - LLM
     - research
 
+
 - local: keras-chatbot-arena
   title: "“How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs"
   author: martin-gorner
@@ -5119,4 +5120,16 @@
     - Spaces
     - llm
     - open-source
-
+    
+- local: paligemma2
+  title: "Welcome PaliGemma 2 – New vision language models by Google"
+  author: merve
+  thumbnail: /blog/assets/paligemma/Paligemma2.png
+  date: December 05, 2024
+  tags:
+    - multimodal
+    - gemma
+    - LLM
+    - vision
+    - VLM
+    - research
