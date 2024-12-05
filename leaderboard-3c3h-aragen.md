@@ -37,18 +37,17 @@ We believe that AraGen addresses persistent issues of data contamination with it
 
 Evaluating large language models (LLMs) is a key challenge in AI research. While existing methodologies have improved our understanding of LLM capabilities, they often fail to comprehensively address both **factuality**—assessing a model's core knowledge—and **usability**—its alignment with human (end user) expectations. Current evaluation approaches can broadly be categorized into knowledge or factuality-based benchmarks and preference-based benchmarks.
 
-**Knowledge-based benchmarks** focus on evaluating foundational knowledge and factual correctness. For instance, initiatives like the [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) by Hugging Face assess the likelihood of the choices for a given prompt (question) and compare the most likely output with a golden reference choice. While effective in testing core knowledge, these benchmarks provide limited insight into how models perform in practical, user-facing contexts, leaving critical aspects of usability unaddressed. 
+**Automatic benchmarks** focus on evaluating foundational knowledge and factual correctness. For instance, initiatives like the [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) by Hugging Face assess the likelihood of the choices for a given prompt (question) and compare the most likely output with a golden reference choice. While effective in testing core knowledge, these benchmarks provide limited insight into how models perform in practical, user-facing contexts, leaving critical aspects of usability unaddressed. 
 
-In contrast, **preference-based benchmarks** aim to capture alignment with human or user preferences. Examples include LMSYS's [Chatbot Arena](https://arena.lmsys.org/) and AtlaAI's [Judge Arena](https://huggingface.co/spaces/AtlaAI/judge-arena), which mostly rely on subjective assessments of outputs based on style, tone, and overall utility. However, these approaches risk prioritizing stylistic alignment over factual accuracy, potentially skewing evaluations toward stylistically preferred yet less accurate responses. Additionally, crowdsourced arenas can reflect the biases of their annotators, who may lack strong voting guidelines, further impacting the consistency and reliability of evaluations. 
-
+In contrast, **preference-based benchmarks** aim to capture alignment with the user preferences. Examples include LMSYS's [Chatbot Arena](https://arena.lmsys.org/) and AtlaAI's [Judge Arena](https://huggingface.co/spaces/AtlaAI/judge-arena), which mostly rely on subjective assessments of outputs based on style, tone, and overall utility. However, these approaches risk prioritizing stylistic alignment over factual accuracy, potentially skewing evaluations toward stylistically preferred yet less accurate responses. Additionally, crowdsourced arenas can reflect the biases of their annotators, who may lack strong voting guidelines, further impacting the consistency and reliability of evaluations. 
 
 To address these limitations, we propose a new evaluation measure that aims to **combine both approaches**, offering a comprehensive mechanism to evaluate language models. It assesses two key aspects of model outputs: 
 
 - **Factuality**: The accuracy and the correctness of the model's output, reflecting its core knowledge. 
 - **Usability**: The degree to which the model's outputs align with human preferences, ensuring user-centric assessment. 
 
-This is done through the introduction of an LLM as a judge approach ([see here for more on this approach](https://github.com/huggingface/evaluation-guidebook/blob/main/contents/model-as-a-judge/basics.md)), which evaluates the model performance across six dimensions modeling factuality and usability. By adopting a balanced perspective, we ensure that usability does not come at the expense of factual accuracy or vice versa. 
- 
+This is done through the introduction of a new evaluation measure based on LLM-as-a-Judge approach ([see here for more on this approach](https://github.com/huggingface/evaluation-guidebook/blob/main/contents/model-as-a-judge/basics.md)), which evaluates the model performance across six dimensions modeling factuality and usability. By adopting a balanced perspective, we ensure that usability does not come at the expense of factual accuracy or vice versa.
+
 ## AraGen: A Generative Benchmark and Leaderboard for Arabic LLMs 
 
 The **AraGen Leaderboard** ranks both open and proprietary models, evaluated on the **AraGen Benchmark** using the new **3C3H** measure, which we introduce below. 3C3H provides a comprehensive framework for assessing both the factual accuracy and usability of large language models. Arabic was chosen as the first application of this framework, aligning with the mission of Inception to democratize AI for Arabic and the Global South in general, while addressing the lack of robust generative benchmarks for these languages and regions, and we hope to see extensions of this work in many other languages.
@@ -60,9 +59,9 @@ We believe that this dynamic approach is both beneficial and robust, as it mitig
 ## The AraGen Leaderboard
 
 ### Evaluation Pipeline
- 
+
 The AraGen evaluation pipeline aims to ensure robust, reproducible, and scalable assessments. The process includes the following steps: 
- 
+
 1. **Model Submission**: Users submit a model for evaluation. 
 2. **Response Generation**: We use the model to generate responses for a fixed set of human-verified questions (AraGen Benchmark). 
 3. **LLM as a Judge**: A chosen LLM (see Section 2), evaluates the generated answers against pre-verified ground truth answers. The judge's assessment is based on the **3C3H** as guideline and returns the scores in `json` format at the end of its response after its reasoning section. 
@@ -112,8 +111,8 @@ Where:
 - $n$: number of dataset samples 
 - $c_{1i}$: correctness score of sample $i$
 - $c_{2i}$: completeness score of sample $i$
-- $c_{3i}, h_{1i}, h_{2i}, h_{3i}$: Conciseness, Helpfulness, Honesty, and Harmlessness scores respectively for example $i$. 
- 
+- $c_{3i}, h_{1i}, h_{2i}, h_{3i}$: Conciseness, Helpfulness, Honesty, and Harmlessness scores respectively of sample $i$
+
 
 ### Dynamic Leaderboard for Robustness
 
