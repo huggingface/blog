@@ -15,7 +15,7 @@ authors:
 
 We are excited to welcome Google's all-new vision language models, PaliGemma 2, a new iteration of PaliGemma. Like its predecessor, PaliGemma 2 uses the same powerful [SigLIP](https://huggingface.co/collections/google/siglip-659d5e62f0ae1a57ae0e83ba) for vision, but it upgrades to the latest Gemma 2 for the text decoder part.
 
-PaliGemma 2 comes with new pre-trained (pt) models in sizes 3B, 10B, and 28B, all of them supporting various input resolutions: 224x224, 448x448, and 896x896. These combinations provide a lot of flexibility for different use cases, so practitioners can choose the balance they need in the quality / efficiency space. In contrast, the previous PaliGemma was only available in the 3B variant.
+PaliGemma 2 comes with new pre-trained (pt) models, in sizes of `3B`, `10B`, and `28B` parameters. All of them support various input resolutions: `224x224`, `448x448`, and `896x896`. These combinations provide a lot of flexibility for different use cases, so practitioners can choose the balance they need in the quality / efficiency space. In contrast, the previous PaliGemma was only available in the 3B variant.
 
 The pre-trained models have been designed for easy fine-tuning to downstream tasks. The first PaliGemma was widely adopted by the community for multiple purposes. With the increased flexibility from the additional variants, combined with better pre-trained quality, we can’t wait to see what the community can do this time.
 
