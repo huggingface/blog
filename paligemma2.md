@@ -72,7 +72,7 @@ The pt models are pre-trained on the following data mixture. The diversity of th
 
 - **WebLI**: A web-scale multilingual image-text dataset built from the public web. A wide range of WebLI splits is used to acquire versatile model capabilities, such as visual semantic understanding, object localization, visually-situated text understanding, and multilinguality.
   
-- **CC3M-35L:** Curated English image-alt_text pairs from webpages [Sharma et al., 2018](https://aclanthology.org/P18-1238/). To label this dataset, the authors used [Google Cloud Translation API](https://cloud.google.com/translate) to translate into 34 additional languages.
+- **CC3M-35L:** Curated English image-alt_text pairs from webpages ([Sharma et al., 2018](https://aclanthology.org/P18-1238/)). To label this dataset, the authors used [Google Cloud Translation API](https://cloud.google.com/translate) to translate into 34 additional languages.
   
 - **Visual Question Generation with Question Answering Validation (VQ2A):** An improved dataset for question answering. The dataset is translated into the same additional 34 languages, using the Google Cloud Translation API.
   
