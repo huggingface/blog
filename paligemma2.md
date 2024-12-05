@@ -36,7 +36,7 @@ This release includes all the open model repositories, transformers integration,
 
 ## Table of Content
 
-* [Intro PaliGemma 2](#introducing-paligemma-2)
+* [Introducing PaliGemma 2](#introducing-paligemma-2)
 
 * [Model Capabilities](#model-capabilities)
 
