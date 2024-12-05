@@ -163,16 +163,19 @@ After that, you can run inference like this:
 
 ```python
 from transformers import AutoProcessor, PaliGemmaForConditionalGeneration
+from PIL import Image
+import requests
 
 model_id = "google/paligemma2-10b-ft-docci-448"
 model = PaliGemmaForConditionalGeneration.from_pretrained(model_id)
 model = model.to("cuda")
 processor = AutoProcessor.from_pretrained(model_id)
 
-prompt = "caption en"
+prompt = "<image>caption en"
 image_file = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/cats.png"
-raw_image = Image.open(requests.get(image_file, stream=True).raw)
-inputs = processor(prompt, raw_image, return_tensors="pt").to(“cuda”)
+raw_image = Image.open(requests.get(image_file, stream=True).raw).convert("RGB")
+
+inputs = processor(prompt, raw_image, return_tensors="pt").to("cuda")
 output = model.generate(**inputs, max_new_tokens=20)
 
 print(processor.decode(output[0], skip_special_tokens=True)[len(prompt):])
