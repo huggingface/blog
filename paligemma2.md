@@ -209,7 +209,7 @@ These are very encouraging figures! Of course, quantization is most interesting 
 
 If you have previously fine-tuned PaliGemma, the API to fine-tune PaliGemma 2 is the same, you can use your code out of the box. We provide a [fine-tuning script](https://github.com/merveenoyan/smol-vision/blob/main/paligemma.py) and [a notebook](https://github.com/merveenoyan/smol-vision/blob/main/Fine_tune_PaliGemma.ipynb) for you to fine-tune the model, freeze parts of the model, or apply memory efficient fine-tuning techniques like LoRA or QLoRA.
 
-We have LoRA fine-tuned model on half of the VQAv2 validation split for demonstration purposes. This took half an hour on 3 A100s with 80GB VRAM. The model can be found [here](https://huggingface.co/merve/paligemma2-3b-vqav2) and the demo can be found [here](https://huggingface.co/spaces/merve/paligemma2-vqav2).
+We have LoRA-fine-tuned a PaliGemma 2 model on half of the VQAv2 validation split for demonstration purposes. This took half an hour on 3 A100s with 80GB VRAM. The model can be found [here](https://huggingface.co/merve/paligemma2-3b-vqav2), and [this is a Gradio demo that showcases it](https://huggingface.co/spaces/merve/paligemma2-vqav2).
 
 
 ## Conclusion
