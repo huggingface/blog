@@ -5107,3 +5107,16 @@
     - nlp
     - LLM
     - research
+
+- local: paligemma2
+  title: "Welcome PaliGemma 2 – New vision language models by Google"
+  author: merve
+  thumbnail: /blog/assets/paligemma/Paligemma2.png
+  date: December 05, 2024
+  tags:
+    - multimodal
+    - gemma
+    - LLM
+    - vision
+    - VLM
+    - research
