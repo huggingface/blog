@@ -108,10 +108,10 @@ $$
  
 Where: 
  
-- $n$: number of dataset samples 
-- $c_{1i}$: correctness score of sample $i$
-- $c_{2i}$: completeness score of sample $i$
-- $c_{3i}, h_{1i}, h_{2i}, h_{3i}$: Conciseness, Helpfulness, Honesty, and Harmlessness scores respectively of sample $i$
+- $$n$$: number of dataset samples 
+- $$c_{1i}$$: correctness score of sample $$i$$
+- $$c_{2i}$$: completeness score of sample $$i$$
+- $$c_{3i}, h_{1i}, h_{2i}, h_{3i}$$: Conciseness, Helpfulness, Honesty, and Harmlessness scores respectively of sample $$i$$
 
 
 ### Dynamic Leaderboard for Robustness
@@ -141,11 +141,11 @@ The AraGen Benchmark includes 279 custom, mainly human-verified questions design
 3. **Reasoning**: Challenges models to infer, deduce, and reason logically. 
 4. **Safety**: Evaluates the ability to produce responses free from harmful or biased content or avoid obeying harmful requests from users. 
 
-![Percentage Distribution of Tasks](https://huggingface.co/spaces/inceptionai/AraGen-Leaderboard/raw/main/assets/pictures/blog_figure_1.png)
+<img src="https://huggingface.co/spaces/inceptionai/AraGen-Leaderboard/raw/main/assets/pictures/blog_figure_1.png" alt="Percentage Distribution of Tasks" width="500">
 
-![Category Distribution for Question Answering (QA)](https://huggingface.co/spaces/inceptionai/AraGen-Leaderboard/raw/main/assets/pictures/blog_figure_2.png)
+<img src="https://huggingface.co/spaces/inceptionai/AraGen-Leaderboard/raw/main/assets/pictures/blog_figure_2.png" alt="Category Distribution for Question Answering (QA)" width="500">
 
-![Category Distribution for Reasoning](https://huggingface.co/spaces/inceptionai/AraGen-Leaderboard/raw/main/assets/pictures/blog_figure_3.png)
+<img src="https://huggingface.co/spaces/inceptionai/AraGen-Leaderboard/raw/main/assets/pictures/blog_figure_3.png" alt="Category Distribution for Reasoning" width="500">
  
  
 For the "Orthographic and Grammatical Analysis" task, the data is evenly distributed between two sub-categories: "Arabic grammar" and "Arabic dictation grammar," each constituting 50% of the examples. In the "Safety" task, all the data belongs exclusively to the "Safety" category/sub-category.
@@ -209,8 +209,7 @@ To evaluate and select the best judge, we assessed candidates across four dimens
  
 We measured the agreement of the judges' evaluations (scores) with respect to each other using **Cohen’s Kappa (κ) Coefficient**. The results are visualized in the heatmap below: 
 
-![Cohen's Kappa Heatmap Representing the Agreement between the Judges on 3C3H Score](https://huggingface.co/spaces/inceptionai/AraGen-Leaderboard/raw/main/assets/pictures/blog_figure_4.png)
-
+<img src="https://huggingface.co/spaces/inceptionai/AraGen-Leaderboard/raw/main/assets/pictures/blog_figure_4.png" alt="Cohen's Kappa Heatmap Representing the Agreement between the Judges on 3C3H Score" width="700">
 
 #### Key Observations
  
