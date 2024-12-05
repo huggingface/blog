@@ -5107,3 +5107,16 @@
     - nlp
     - LLM
     - research
+
+- local: keras-chatbot-arena
+  title: "“How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs"
+  author: martin-gorner
+  thumbnail: /blog/assets/keras-chatbot-arena/thumbnail.png
+  date: December 5, 2024
+  tags:
+    - keras
+    - TPU
+    - Spaces
+    - llm
+    - open-source
+
