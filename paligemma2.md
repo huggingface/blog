@@ -214,7 +214,7 @@ We have LoRA-fine-tuned a PaliGemma 2 model on half of the VQAv2 validation spli
 
 ## Conclusion
 
-The new PaliGemma 2 release is even more exciting than the previous one with various sizes fitting everyone’s needs. We are looking forward to see what the community is going to build off of the even more powerful PaliGemma 2 pre-trained models.
+The new PaliGemma 2 release is even more exciting than the previous one, with various sizes fitting everyone’s needs and stronger pre-trained models. We are looking forward to seeing what the community will build!
 
 We thank Google team for releasing this amazing model family. Big thanks to [Pablo Montalvo](https://huggingface.co/Molbap) for integrating the model to transformers.
 
