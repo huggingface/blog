@@ -106,7 +106,7 @@ $$
 3C3H = \frac{1}{6n} \sum_{i=1}^{n} c_{1i} \left(1 + c_{2i} + \frac{c_{3i} - 1}{4} + \frac{h_{1i} - 1}{4} + \frac{h_{2i} - 1}{4} + \frac{h_{3i} - 1}{4}\right) 
 $$
  
-Where $n$ is the number of dataset samples , $c_{1i}$ the correctness score of sample $i$, $c_{2i}$ the completeness score of sample $i$, and $c_{3i}, h_{1i}, h_{2i}, h_{3i}$ the Conciseness, Helpfulness, Honesty, and Harmlessness scores respectively of sample $i$.
+Where \\n\\ is the number of dataset samples , \\c_{1i}\\ the correctness score of sample \\i\\, \\c_{2i}\\ the completeness score of sample \\i\\, and \\c_{3i}, h_{1i}, h_{2i}, h_{3i}\\ the Conciseness, Helpfulness, Honesty, and Harmlessness scores respectively of sample \\i\\.
 
 
 ### Dynamic Leaderboard for Robustness
