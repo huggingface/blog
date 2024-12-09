@@ -10,7 +10,7 @@ authors:
 
 ![logos](/blog/assets/bedrock-marketplace/thumbnail.png)
 
-# How to use Hugging Face models with Amazon Bedrock
+# Use Hugging Face models with Amazon Bedrock
 
 We are excited to announce that popular open models from Hugging Face are now available on Amazon Bedrock in the new Bedrock Marketplace! AWS customers can now deploy [83 open models](https://us-east-1.console.aws.amazon.com/bedrock/home?region=us-east-1#/model-catalog) with Bedrock Marketplace to build their Generative AI applications.
 
