@@ -1,6 +1,6 @@
 
 ---
-title: "Hugging Face Community Releases an Open Preference Dataset for Text-to-Image Generation"
+title: "The Hugging Face Community Releases an Open Preference Dataset for Text-to-Image Generation"
 thumbnail: /blog/assets/image_preferences/thumbnail.png
 authors:
 - user: davidberenstein1957
@@ -8,24 +8,25 @@ authors:
 - user: dvilasuero
 - user: davanstrien
 - user: sayakpaul
+- user: Ameeeee
 - user: linoyts
 ---
 # Hugging Face Community Releases an Open Preference Dataset for Text-to-Image Generation
 
+The Data is Better Together community releases yet another important dataset for open source development. Due to the lack of open preference datasets for text-to-image generation, we set out to release an Apache 2.0 licensed dataset for text-to-image generation. This dataset is focused on text-to-image preference pairs across common image generation categories, while using different model families and varying prompt complexities.
+
+Want to see the results? All results can be found in [this collection on the Hugging Face Hub](https://huggingface.co/collections/data-is-better-together/image-preferences-675135cc9c31de7f912ce278) and code for pre- and post-processing can be found in [this GitHub repository](https://github.com/huggingface/data-is-better-together). Most importantly, there is a [ready-to-go preference dataset](https://huggingface.co/datasets/data-is-better-together/image-preferences-results-binarized) and a [flux-dev-lora-finetune](https://huggingface.co/data-is-better-together/image-preferences-flux-dev-lora). If you want to show your support already, don’t forget to like, subscribe and follow us before you continue reading further.
+
 <details>
   <summary>Unfamiliar with the Data is Better Together community?</summary>
   <p>
-    Data is Better Together is a collaboration between 🤗 Hugging Face, 🏓 Argilla, and the Open-Source AI community. We aim to empower the open-source community to build impactful datasets collectively.
+    [Data is Better Together](https://huggingface.co/data-is-better-together) is a collaboration between 🤗 Hugging Face and the Open-Source AI community. We aim to empower the open-source community to build impactful datasets collectively. You can follow the organization to stay up to date with the latest datasets, models, and community sprints.
   </p>
 </details>
 
-The Data is Better Together community releases yet another important dataset for open source development. Due to the lack of open source datasets for text-to-image generation, we set out to release an Apache 2.0 licensed dataset for text-to-image generation. This dataset should contain 10K text-to-image preference pairs across common image generation categories, while using different model families and varying prompt complexities.
-
-Impatient? All results can be found in [this collection on the Hugging Face Hub](https://huggingface.co/collections/data-is-better-together/image-preferences-675135cc9c31de7f912ce278) and code for pre- and post-processing can be found in [this GitHub repository](https://github.com/huggingface/data-is-better-together). Most importantly, there is a [ready-to-go preference dataset](https://huggingface.co/datasets/data-is-better-together/image-preferences-results-binarized) and a [flux-dev-lora-finetune](https://huggingface.co/data-is-better-together/image-preferences-flux-dev-lora). If you want to show your support already, don’t forget to like, subscribe and follow us before you continue reading further.
-
 ## The input dataset
 
-To get a proper input dataset for this sprint, we started with some base prompts, which we cleaned, filtered for toxicity and injected with categories and complexities using synthetic data generation. Lastly, we used Flux and Stable Diffusion models to generate the images. This resulted in the following dataset:
+To get a proper input dataset for this sprint, we started with some base prompts, which we cleaned, filtered for toxicity and injected with categories and complexities using synthetic data generation with [distilabel](https://github.com/argilla-io/distilabel). Lastly, we used Flux and Stable Diffusion models to generate the images. This resulted in the following dataset:
 
 <iframe
 src="https://huggingface.co/datasets/data-is-better-together/image-preferences/embed/viewer/default/train"
