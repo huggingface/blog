@@ -55,19 +55,27 @@ Follow the below steps to create a 96-vcpu instance which corresponds to one Int
 Now, you have one C4 instance.
 
 ## Set up environment
-Follow below steps to set up the environment easily.
+Follow below steps to set up the environment easily. For reproducibility, we list the version and commit we are using in the commands.
 
 1. SSH connect to instance
-2. `$ git clone https://github.com/huggingface/optimum-benchmark.git`
-3. `$ cd ./optimum-benchmark/docker/cpu`
-4. `$ sudo docker build . -t <your_docker_image_tag>`
-5. `$ sudo docker run -it --rm --privileged -v /home/<your_home_folder>:/workspace <your_docker_image_tag> /bin/bash`
-6. `$ pip install huggingface-hub`
-7. `$ cd /workspace/optimum-benchmark`
-8. `$ pip install -e .[ipex]`
-9.  `export OMP_NUM_THREADS=48`
-10. `export KMP_AFFINITY=granularity=fine,compact,1,0`
-11. `export KMP_BLOCKTIME=1`
+2. `$ pip install "optimum-intel[ipex]"@git+https://github.com/huggingface/optimum-intel.git@6a3b1ba5924b0b017b0b0f5de5b10adb77095b`
+3. `$ pip install torch==2.3.1 torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu`
+4. `$ python -m pip install intel-extension-for-pytorch==2.3.10`
+5. `$ git clone https://github.com/huggingface/optimum-benchmark.git`
+6. `$ cd ./optimum-benchmark`
+7. `$ git checkout d58bb2582b872c25ab476fece19d4fa78e190673`
+8. `$ cd ./docker/cpu`
+9. `$ sudo docker build . -t <your_docker_image_tag>`
+10. `$ sudo docker run -it --rm --privileged -v /home/<your_home_folder>:/workspace <your_docker_image_tag> /bin/bash`
+
+We are in container now, do following steps:
+
+1. `$ pip install huggingface-hub`
+2. `$ cd /workspace/optimum-benchmark`
+3. `$ pip install .[ipex]`
+4. `export OMP_NUM_THREADS=48`
+5. `export KMP_AFFINITY=granularity=fine,compact,1,0`
+6. `export KMP_BLOCKTIME=1`
 
 ## Benchmark
 ### text embedding
@@ -119,7 +127,7 @@ You can update `examples/ipex_llama.yaml` as below to benchmark `meta-llama/Llam
    no_weights: false
    torch_dtype: bfloat16
 -  model: TinyLlama/TinyLlama-1.1B-Chat-v1.0
-+  model: meta-llama/Meta-Llama-3-8B
++  model: meta-llama/Llama-3.2-3B
 ```
 Then, run benchmark:
 `$ optimum-benchmark --config-dir examples/ --config-name ipex_llama`
