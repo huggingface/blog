@@ -96,7 +96,7 @@ The evaluation process includes the following elements:
  
 - Binary scores (Correctness and Completeness) are computed first. If a response is **Incorrect (0)**, all other dimensions are automatically set to zero to avoid rewarding flawed outputs. 
  
-- Scaled scores (e.g., Conciseness, Helpfulness, ...). The remaining four dimensions are scores ranging from 1 to 5 and later normalized to [0, 1] for consistency. For example, a score of 3 for **Honesty** would be normalized to (3 - 1)/4 = 0.5$.
+- Scaled scores (e.g., Conciseness, Helpfulness, ...). The remaining four dimensions are scores ranging from 1 to 5 and later normalized to [0, 1] for consistency. For example, a score of 3 for **Honesty** would be normalized to \\( \frac{3 - 1}{4} = 0.5 \\).
  
 #### Calculate the 3C3H Score
 
@@ -106,7 +106,7 @@ $$
 3C3H = \frac{1}{6n} \sum_{i=1}^{n} c_{1i} \left(1 + c_{2i} + \frac{c_{3i} - 1}{4} + \frac{h_{1i} - 1}{4} + \frac{h_{2i} - 1}{4} + \frac{h_{3i} - 1}{4}\right) 
 $$
  
-Where \\n\\ is the number of dataset samples , \\c_{1i}\\ the correctness score of sample \\i\\, \\c_{2i}\\ the completeness score of sample \\i\\, and \\c_{3i}, h_{1i}, h_{2i}, h_{3i}\\ the Conciseness, Helpfulness, Honesty, and Harmlessness scores respectively of sample \\i\\.
+Where \\( n \\) is the number of dataset samples, \\( c_{1i} \\) the correctness score of sample \\( i \\), \\( c_{2i} \\) the completeness score of sample \\( i \\), and \\( c_{3i} \\), \\( h_{1i} \\), \\( h_{2i} \\), \\( h_{3i} \\) the Conciseness, Helpfulness, Honesty, and Harmlessness scores respectively of sample \\( i \\).
 
 
 ### Dynamic Leaderboard for Robustness
@@ -179,7 +179,7 @@ In scoring models' performance involving follow-up interactions, the score for t
 - The **first answer** is assigned a coefficient of 2. 
 - The **second answer** is assigned a coefficient of 1. 
  
-For example, even if the first response is incorrect while the second response is correct (unexpected, given the design of our questions and also the way these systems usually work), the average score for the interaction would be $\frac{0 \times 2 + 1 \times 1}{3} = 0.333$, reflecting the criticality of the initial answer. 
+For example, even if the first response is incorrect while the second response is correct (unexpected, given the design of our questions and also the way these systems usually work), the average score for the interaction would be \\( \frac{0 \times 2 + 1 \times 1}{3} = 0.333 \\), reflecting the criticality of the initial answer. 
 
 
 ## Judge Evaluation and Selection
