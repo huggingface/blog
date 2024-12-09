@@ -24,6 +24,15 @@ TL;DR? All results can be found in [this collection on the Hugging Face Hub](htt
   </p>
 </details>
 
+<details>
+  <summary>Similar efforts</summary>
+  <p>
+    Similar efforts include [the ImgSys dataset](https://huggingface.co/datasets/fal/imgsys-results) and [the Text-to-Image Leaderboard](https://huggingface.co/spaces/ArtificialAnalysis/Text-to-Image-Leaderboard).
+  </p>
+</details>
+
+
+
 ## The input dataset
 
 To get a proper input dataset for this sprint, we started with some base prompts, which we cleaned, filtered for toxicity and injected with categories and complexities using synthetic data generation with [distilabel](https://github.com/argilla-io/distilabel). Lastly, we used Flux and Stable Diffusion models to generate the images. This resulted in the following dataset:
@@ -42,6 +51,7 @@ src="https://huggingface.co/datasets/data-is-better-together/image-preferences/e
 ### Reducing toxicity
 
 We aimed to remove all NSFW prompts and images from the dataset before starting the community. We settled on a multi-model approach where we used two text-based and two image-based classifiers as filters. Post-filtering, we decided to do a manual check of each one of the images to make sure no toxic content was left, luckily we found our approach had worked.
+
 We used the following pipeline:
 - Classify images as NSFW
 - Remove all positive samples
