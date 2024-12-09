@@ -67,6 +67,33 @@ We used the following pipeline:
 
 Data diversity is important for data quality, which is why we decided to enhance our dataset by synthetically rewriting prompts based on various categories and complexities. This was done using a [distilabel pipeline](https://github.com/huggingface/data-is-better-together/blob/main/community-efforts/image_preferences/01_synthetic_data_generation_total.py).
 
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Prompt</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default</td>
+      <td>a harp without any strings</td>
+      <td><img src="/blog/assets/image_preferences/basic.jpeg" alt="Default Harp Image" width="100"></td>
+    </tr>
+    <tr>
+      <td>Stylized</td>
+      <td>a harp without strings, in an anime style, with intricate details and flowing lines, set against a dreamy, pastel background</td>
+      <td><img src="/blog/assets/image_preferences/stylized.jpeg" alt="Stylized Harp Image" width="100"></td>
+    </tr>
+    <tr>
+      <td>Quality</td>
+      <td>a harp without strings, in an anime style, with intricate details and flowing lines, set against a dreamy, pastel background, bathed in soft golden hour light, with a serene mood and rich textures, high resolution, photorealistic</td>
+      <td><img src="/blog/assets/image_preferences/quality.jpeg" alt="Quality Harp Image" width="100"></td>
+    </tr>
+  </tbody>
+</table>
+
 #### Prompt categories
 
 [InstructGPT](https://arxiv.org/pdf/2203.02155) describes foundational task categories for text-to-text generation but there is no clear equivalent of this for text-to-image generation. To alleviate this, we used two main sources as input for our categories: [google/sdxl](https://huggingface.co/spaces/google/sdxl/blob/main/app.py) and [Microsoft](https://www.microsoft.com/en-us/bing/do-more-with-ai/ai-art-prompting-guide/ai-genres-and-styles?form=MA13KP). This led to the following main categories:  ["Cinematic", "Photographic", "Anime", "Manga", "Digital art", "Pixel art", "Fantasy art", "Neonpunk", "3D Model", “Painting”, “Animation” “Illustration”]. On top of that we also chose some mutually exclusive, sub-categories to allow us to further diversify the prompts. These categories and sub-categories have been randomly sampled and are therefore roughly equally distributed across the dataset.
@@ -106,7 +133,7 @@ Given the annotator alignment, both models proved to perform better within their
 
 ### Model-finetune
 
-To verify the quality of the dataset, while not spending too much time and resources we decided to do a [Dreambooth](https://dreambooth.github.io/) fine-tune of the [black-forest-labs/FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) model. We did a supervised fine-tuning, where we only included the chosen sample as expected completions. Interestingly, the chosen fine-tuned models perform much better in art and cinematic scenarios where it was initially lacking! You can [test the fine-tuned adapter here](https://huggingface.co/data-is-better-together/image-preferences-flux-dev-lora).
+To verify the quality of the dataset, while not spending too much time and resources we decided to do a LoRA fine-tune of the [black-forest-labs/FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) model based on [the diffusers example on GitHub](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/train_dreambooth_lora_flux.py). During this process, we included the chosen sample as expected completions for the FLUX-dev model and left out the rejected samples. Interestingly, the chosen fine-tuned models perform much better in art and cinematic scenarios where it was initially lacking! You can [test the fine-tuned adapter here](https://huggingface.co/data-is-better-together/image-preferences-flux-dev-lora).
 
 ![model-finetune](/blog/assets/image_preferences/model_finetune.png)
 
