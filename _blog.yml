@@ -5147,3 +5147,14 @@
     - flux
     - stable-diffusion
     - distilabel
+
+- local: bedrock-marketplace
+  title: "Hugging Face models in Amazon Bedrock"
+  author: pagezyhf
+  thumbnail: /blog/assets/bedrock-marketplace/thumbnail.png
+  date: December 09, 2024
+  tags:
+    - aws
+    - partnerships
+    - cloud
+    - bedrock
