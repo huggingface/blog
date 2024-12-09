@@ -5120,7 +5120,7 @@
     - Spaces
     - llm
     - open-source
-    
+
 - local: paligemma2
   title: "Welcome PaliGemma 2 – New vision language models by Google"
   author: merve
@@ -5133,3 +5133,17 @@
     - vision
     - VLM
     - research
+
+- local: image-preferences
+  title: "Hugging Face Community Releases an Open Preference Dataset for Text-to-Image Generation"
+  author: davidberenstein1957
+  thumbnail: /blog/assets/image_preferences/thumbnail.png
+  date: December 09, 2024
+  tags:
+    - text-to-image
+    - datasets
+    - argilla
+    - data-is-better-together
+    - flux
+    - stable-diffusion
+    - distilabel
