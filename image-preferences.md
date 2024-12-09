@@ -36,18 +36,9 @@ TL;DR? All results can be found in [this collection on the Hugging Face Hub](htt
   </p>
 </details>
 
-
-
 ## The input dataset
 
-To get a proper input dataset for this sprint, we started with some base prompts, which we cleaned, filtered for toxicity and injected with categories and complexities using synthetic data generation with [distilabel](https://github.com/argilla-io/distilabel). Lastly, we used Flux and Stable Diffusion models to generate the images. This resulted in the following dataset:
-
-<iframe
-  src="https://huggingface.co/datasets/data-is-better-together/open-image-preferences-v1/embed/viewer/default/cleaned"
-  frameborder="0"
-  width="100%"
-  height="560px"
-></iframe>
+To get a proper input dataset for this sprint, we started with some base prompts, which we cleaned, filtered for toxicity and injected with categories and complexities using synthetic data generation with [distilabel](https://github.com/argilla-io/distilabel). Lastly, we used Flux and Stable Diffusion models to generate the images. This resulted in the [open-image-preferences-v1](https://huggingface.co/datasets/data-is-better-together/open-image-preferences-v1).
 
 ### Input prompts
 
@@ -68,30 +59,30 @@ We used the following pipeline:
 Data diversity is important for data quality, which is why we decided to enhance our dataset by synthetically rewriting prompts based on various categories and complexities. This was done using a [distilabel pipeline](https://github.com/huggingface/data-is-better-together/blob/main/community-efforts/image_preferences/01_synthetic_data_generation_total.py).
 
 <table>
-  <thead>
+<thead>
     <tr>
-      <th>Type</th>
-      <th>Prompt</th>
-      <th>Image</th>
+    <th>Type</th>
+    <th>Prompt</th>
+    <th style="width: 30%;">Image</th>
     </tr>
-  </thead>
-  <tbody>
+</thead>
+<tbody>
     <tr>
-      <td>Default</td>
-      <td>a harp without any strings</td>
-      <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/basic.jpeg" alt="Default Harp Image" width="100"></td>
-    </tr>
-    <tr>
-      <td>Stylized</td>
-      <td>a harp without strings, in an anime style, with intricate details and flowing lines, set against a dreamy, pastel background</td>
-      <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/stylized.jpeg" alt="Stylized Harp Image" width="100"></td>
+    <td>Default</td>
+    <td>a harp without any strings</td>
+    <td style="width: 30%;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/basic.jpeg" alt="Default Harp Image" style="width: 100%;"></td>
     </tr>
     <tr>
-      <td>Quality</td>
-      <td>a harp without strings, in an anime style, with intricate details and flowing lines, set against a dreamy, pastel background, bathed in soft golden hour light, with a serene mood and rich textures, high resolution, photorealistic</td>
-      <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/quality.jpeg" alt="Quality Harp Image" width="100"></td>
+    <td>Stylized</td>
+    <td>a harp without strings, in an anime style, with intricate details and flowing lines, set against a dreamy, pastel background</td>
+    <td style="width: 30%;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/stylized.jpeg" alt="Stylized Harp Image" style="width: 100%;"></td>
     </tr>
-  </tbody>
+    <tr>
+    <td>Quality</td>
+    <td>a harp without strings, in an anime style, with intricate details and flowing lines, set against a dreamy, pastel background, bathed in soft golden hour light, with a serene mood and rich textures, high resolution, photorealistic</td>
+    <td style="width: 30%;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/quality.jpeg" alt="Quality Harp Image" style="width: 100%;"></td>
+    </tr>
+</tbody>
 </table>
 
 #### Prompt categories
@@ -136,29 +127,29 @@ Given the annotator alignment, both models proved to perform better within their
 To verify the quality of the dataset, while not spending too much time and resources we decided to do a LoRA fine-tune of the [black-forest-labs/FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) model based on [the diffusers example on GitHub](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/train_dreambooth_lora_flux.py). During this process, we included the chosen sample as expected completions for the FLUX-dev model and left out the rejected samples. Interestingly, the chosen fine-tuned models perform much better in art and cinematic scenarios where it was initially lacking! You can [test the fine-tuned adapter here](https://huggingface.co/data-is-better-together/open-image-preferences-v1-flux-dev-lora).
 
 <table><thead>
-  <tr>
-    <th>Prompt</th>
-    <th>Original</th>
-    <th>Fine-tune</th>
-  </tr></thead>
-<tbody>
-  <tr>
-    <td>a boat in the canals of Venice, painted in gouache with soft, flowing brushstrokes and vibrant, translucent colors, capturing the serene reflection on the water under a misty ambiance, with rich textures and a dynamic perspective</td>
-    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/venice_original.jpeg" alt="Original Venice" width="100"></td>
-    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/venice_finetune.jpg" alt="Finetune Venice" width="100"></td>
-  </tr>
-  <tr>
-    <td>A vibrant orange poppy flower, enclosed in an ornate golden frame, against a black backdrop, rendered in anime style with bold outlines, exaggerated details, and a dramatic chiaroscuro lighting.</td>
-    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/flower_original.jpeg" alt="Original Flower" width="100"></td>
-    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/flower_finetune.jpg" alt="Finetune Flower" width="100"></td>
-  </tr>
-  <tr>
-    <td>Grainy shot of a robot cooking in the kitchen, with soft shadows and nostalgic film texture.</td>
-    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/robot_original.jpeg" alt="Original Robot" width="100"></td>
-    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/robot_finetune.jpg" alt="Finetune Robot" width="100"></td>
-  </tr>
-</tbody>
-</table>
+    <tr>
+      <th style="width: 30%;">Prompt</th>
+      <th style="width: 30%;">Original</th>
+      <th style="width: 30%;">Fine-tune</th>
+    </tr></thead>
+  <tbody>
+    <tr>
+      <td style="width: 30%;">a boat in the canals of Venice, painted in gouache with soft, flowing brushstrokes and vibrant, translucent colors, capturing the serene reflection on the water under a misty ambiance, with rich textures and a dynamic perspective</td>
+      <td style="width: 30%;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/venice_original.jpeg" alt="Original Venice" width="100%"></td>
+      <td style="width: 30%;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/venice_finetune.jpg" alt="Finetune Venice" width="100%"></td>
+    </tr>
+    <tr>
+      <td style="width: 30%;">A vibrant orange poppy flower, enclosed in an ornate golden frame, against a black backdrop, rendered in anime style with bold outlines, exaggerated details, and a dramatic chiaroscuro lighting.</td>
+      <td style="width: 30%;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/flower_original.jpeg" alt="Original Flower" width="100%"></td>
+      <td style="width: 30%;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/flower_finetune.jpg" alt="Finetune Flower" width="100%"></td>
+    </tr>
+    <tr>
+      <td style="width: 30%;">Grainy shot of a robot cooking in the kitchen, with soft shadows and nostalgic film texture.</td>
+      <td style="width: 30%;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/robot_original.jpeg" alt="Original Robot" width="100%"></td>
+      <td style="width: 30%;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/robot_finetune.jpg" alt="Finetune Robot" width="100%"></td>
+    </tr>
+  </tbody>
+  </table>
 
 ## The community
 
