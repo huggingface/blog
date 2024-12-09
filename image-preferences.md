@@ -1,6 +1,6 @@
 
 ---
-title: "The Hugging Face Community Releases an Open Preference Dataset for Text-to-Image Generation"
+title: "Open Preference Dataset for Text-to-Image Generation by the 🤗 Community"
 thumbnail: /blog/assets/image_preferences/thumbnail.png
 authors:
 - user: davidberenstein1957
@@ -11,9 +11,9 @@ authors:
 - user: Ameeeee
 - user: linoyts
 ---
-# Hugging Face Community Releases an Open Preference Dataset for Text-to-Image Generation
+# Open Preference Dataset for Text-to-Image Generation by the 🤗 Community
 
-The Data is Better Together community releases yet another important dataset for open source development. Due to the lack of open preference datasets for text-to-image generation, we set out to release an Apache 2.0 licensed dataset for text-to-image generation. This dataset is focused on text-to-image preference pairs across common image generation categories, while using different model families and varying prompt complexities.
+The Data is Better Together community releases yet another important dataset for open source development. Due to the lack of open preference datasets for text-to-image generation, we set out to release an Apache 2.0 licensed dataset for text-to-image generation. This dataset is focused on text-to-image preference pairs across common image generation categories, while mixing different model families and varying prompt complexities.
 
 Want to see the results? All results can be found in [this collection on the Hugging Face Hub](https://huggingface.co/collections/data-is-better-together/image-preferences-675135cc9c31de7f912ce278) and code for pre- and post-processing can be found in [this GitHub repository](https://github.com/huggingface/data-is-better-together). Most importantly, there is a [ready-to-go preference dataset](https://huggingface.co/datasets/data-is-better-together/image-preferences-results-binarized) and a [flux-dev-lora-finetune](https://huggingface.co/data-is-better-together/image-preferences-flux-dev-lora). If you want to show your support already, don’t forget to like, subscribe and follow us before you continue reading further.
 
@@ -103,7 +103,8 @@ In short, we annotated 10K preference pairs with an annotator overlap of 2 / 3, 
 
 ## What is next?
 
-After another successful community sprint, we will continue organising them on the Hugging Face Hub. Make sure to follow [the Data Is Better Together organisation](https://huggingface.co/data-is-better-together) to stay updated. We also encourage community members to take action themselves and are happy to guide and reshare on socials and within the organisation on the Hub. Anyone can contribute in several ways:
+After another successful community sprint, we will continue organising them on the Hugging Face Hub. Make sure to follow [the Data Is Better Together organisation](https://huggingface.co/data-is-better-together) to stay updated. We also encourage community members to take action themselves and are happy to guide and reshare on socials and within the organisation on the Hub. You can contribute in several ways:
+
 - Join and participate in other sprints.
 - Propose your own sprints or requests for high quality datasets.
 - Fine-tune models on top of [the preference dataset](https://huggingface.co/datasets/data-is-better-together/image-preferences-results-binarized). One idea would be to do a full SFT fine-tune of SDXL or FLUX-schnell. Another idea would be to do a DPO/ORPO fine-tune.
