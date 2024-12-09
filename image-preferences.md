@@ -13,7 +13,7 @@ authors:
 # Hugging Face Community Releases an Open Preference Dataset for Text-to-Image Generation
 
 <details>
-  <summary>Click to expand the accordion</summary>
+  <summary>Unfamiliar with the Data is Better Together community?</summary>
   <p>
     Data is Better Together is a collaboration between 🤗 Hugging Face, 🏓 Argilla, and the Open-Source AI community. We aim to empower the open-source community to build impactful datasets collectively.
   </p>
