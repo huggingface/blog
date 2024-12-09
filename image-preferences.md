@@ -10,6 +10,8 @@ authors:
 - user: sayakpaul
 - user: linoyts
 ---
+# Hugging Face Community Releases an Open Preference Dataset for Text-to-Image Generation
+
 <details>
   <summary>Click to expand the accordion</summary>
   <p>
