@@ -352,7 +352,7 @@ mapping.
 
 Similar to RNN-based encoder-decoder models, the transformer-based
 encoder-decoder models define a conditional distribution of target
-vectors \\(\mathbf{Y}_{1:n}\\) given an input sequence \\(\mathbf{X}_{1:n}\\):
+vectors \\(\mathbf{Y}_{1:m}\\) given an input sequence \\(\mathbf{X}_{1:n}\\):
 
 $$
 p_{\theta_{\text{enc}}, \theta_{\text{dec}}}(\mathbf{Y}_{1:m} | \mathbf{X}_{1:n}).
