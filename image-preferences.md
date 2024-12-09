@@ -79,17 +79,17 @@ Data diversity is important for data quality, which is why we decided to enhance
     <tr>
       <td>Default</td>
       <td>a harp without any strings</td>
-      <td><img src="/blog/assets/image_preferences/basic.jpeg" alt="Default Harp Image" width="100"></td>
+      <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/basic.jpeg" alt="Default Harp Image" width="100"></td>
     </tr>
     <tr>
       <td>Stylized</td>
       <td>a harp without strings, in an anime style, with intricate details and flowing lines, set against a dreamy, pastel background</td>
-      <td><img src="/blog/assets/image_preferences/stylized.jpeg" alt="Stylized Harp Image" width="100"></td>
+      <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/stylized.jpeg" alt="Stylized Harp Image" width="100"></td>
     </tr>
     <tr>
       <td>Quality</td>
       <td>a harp without strings, in an anime style, with intricate details and flowing lines, set against a dreamy, pastel background, bathed in soft golden hour light, with a serene mood and rich textures, high resolution, photorealistic</td>
-      <td><img src="/blog/assets/image_preferences/quality.jpeg" alt="Quality Harp Image" width="100"></td>
+      <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/quality.jpeg" alt="Quality Harp Image" width="100"></td>
     </tr>
   </tbody>
 </table>
@@ -106,7 +106,7 @@ Data diversity is important for data quality, which is why we decided to enhance
 
 The [ArtificialAnalysis/Text-to-Image-Leaderboard](https://huggingface.co/spaces/ArtificialAnalysis/Text-to-Image-Leaderboard) shows an overview of the best performing image models. We choose two of the best performing models based on their license and their availability on the Hub. Additionally, we made sure that the model would belong to different model families in order to not highlight generations across different categories. Therefore, we chose [stabilityai/stable-diffusion-3.5-large](https://huggingface.co/stabilityai/stable-diffusion-3.5-large) and [black-forest-labs/FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev). Each of these models was then used to generate an image for both the simplified and complex prompt within the same stylistic categories.
 
-![image-generation](/blog/assets/image_preferences/example_generation.png)
+![image-generation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/example_generation.png)
 
 ## The results
 
@@ -135,13 +135,36 @@ Given the annotator alignment, both models proved to perform better within their
 
 To verify the quality of the dataset, while not spending too much time and resources we decided to do a LoRA fine-tune of the [black-forest-labs/FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) model based on [the diffusers example on GitHub](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/train_dreambooth_lora_flux.py). During this process, we included the chosen sample as expected completions for the FLUX-dev model and left out the rejected samples. Interestingly, the chosen fine-tuned models perform much better in art and cinematic scenarios where it was initially lacking! You can [test the fine-tuned adapter here](https://huggingface.co/data-is-better-together/image-preferences-flux-dev-lora).
 
-![model-finetune](/blog/assets/image_preferences/model_finetune.png)
+<table><thead>
+  <tr>
+    <th>Prompt</th>
+    <th>Original</th>
+    <th>Fine-tune</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td>a boat in the canals of Venice, painted in gouache with soft, flowing brushstrokes and vibrant, translucent colors, capturing the serene reflection on the water under a misty ambiance, with rich textures and a dynamic perspective</td>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/venice_original.jpeg" alt="Original Venice" width="100"></td>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/venice_finetune.jpg" alt="Finetune Venice" width="100"></td>
+  </tr>
+  <tr>
+    <td>A vibrant orange poppy flower, enclosed in an ornate golden frame, against a black backdrop, rendered in anime style with bold outlines, exaggerated details, and a dramatic chiaroscuro lighting.</td>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/flower_original.jpeg" alt="Original Flower" width="100"></td>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/flower_finetune.jpg" alt="Finetune Flower" width="100"></td>
+  </tr>
+  <tr>
+    <td>Grainy shot of a robot cooking in the kitchen, with soft shadows and nostalgic film texture.</td>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/robot_original.jpeg" alt="Original Robot" width="100"></td>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/robot_finetune.jpg" alt="Finetune Robot" width="100"></td>
+  </tr>
+</tbody>
+</table>
 
 ## The community
 
 In short, we annotated 10K preference pairs with an annotator overlap of 2 / 3, which resulted in over 30K responses in less than 2 weeks with over 250 community members! The image leaderboard shows some community members even giving more than 5K preferences. We want to thank everyone that participated in this sprint with a special thanks to the top 3 users, who will all get a month of Hugging Face Pro membership. Make sure to follow them on the Hub: [aashish1904](https://huggingface.co/aashish1904), [prithivMLmods](https://huggingface.co/prithivMLmods), [Malalatiana](https://huggingface.co/Malalatiana).
 
-![leaderboard](/blog/assets/image_preferences/leaderboard.png)
+![leaderboard](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/image-preferences/leaderboard.png)
 
 ## What is next?
 
