@@ -2,7 +2,19 @@
 title: "LeMaterial: an open source initiative to accelate materials discovery and research" 
 thumbnail: /blog/assets/lematerial/thumbnail_lematerial.png
 authors:
-- user: TODO add entalpic folks
+- user: AlexDuvalinho
+  guest: true
+- user: lritchie
+  guest: true
+- user: msiron
+  guest: true
+- user: inelgnu
+  guest: true
+- user: etiennedufayet
+  guest: true
+- user: amandinerossello
+  guest: true
+- user: Ramlaoui
   guest: true
 - user: IAMJB
 - user: lvwerra
