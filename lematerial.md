@@ -58,7 +58,7 @@ This fragmented landscape makes it challenging for researchers in AI4Science and
 `LeMat-Bulk` is more than a large-scale merged dataset with a permissive license (CC-BY-4.0). With its 6.7M entries with consistent properties, it represents a foundational step towards creating a curated and standardized open ecosystem for material science, designed to simplify research workflows and improve data quality. Below is a closer view of what is looks like. To interactively browse through our materials, check out the [Materials Explorer space.](https://huggingface.co/spaces/LeMaterial/materials_explorer)
 
 <iframe
-  src=["https://huggingface.co/datasets/LeMaterial/LeMat-Bulk/embed/viewer/compatible_pbe/train"](https://huggingface.co/datasets/LeMaterial/LeMat-Bulk/embed/viewer/compatible_pbe/train)
+  src="https://huggingface.co/datasets/LeMaterial/LeMat-Bulk/embed/viewer/compatible_pbe/train"
   frameborder="0"
   width="100%"
   height="560px"
