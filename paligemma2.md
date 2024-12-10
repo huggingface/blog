@@ -153,10 +153,10 @@ For demonstration purposes, we in the Hugging Face team fine-tuned [PaliGemma 2 
 
 ## How to Use with Transformers
 
-You can run inference on the PaliGemma 2 models with 🤗 transformers, using the PaliGemmaForConditionalGeneration and AutoProcessor APIs. Until a PyPi version of transformers is released, you need to install it from the main branch as follows:
+You can run inference on the PaliGemma 2 models with 🤗 transformers, using the PaliGemmaForConditionalGeneration and AutoProcessor APIs. Please, make sure you install transformers version 4.47 or later:
 
 ```bash
-pip install git+https://github.com/huggingface/transformers
+pip install --upgrade transformers
 ```
 
 After that, you can run inference like this:
