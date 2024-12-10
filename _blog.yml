@@ -5161,7 +5161,8 @@
 
 - local: lematerial
   title: "LeMaterial: an open source initiative to accelate materials discovery and research"
-  author: TODO
+  author: AlexDuvalinho
+  guest: true
   thumbnail: /blog/assets/lematerial/thumbnail_lematerial.png
   date: December 10, 2024
   tags:

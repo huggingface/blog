@@ -31,7 +31,7 @@ As a first step, we are releasing a dataset called `LeMat-Bulk`, which unifies, 
 
 The world of materials science, at the intersection of quantum chemistry and machine learning, is brimming with opportunity — from brighter LEDs, to electro-chemical batteries, more efficient photovoltaic cells and recyclable plastics, the applications are endless. By leveraging machine learning (ML) on large, structured datasets, researchers can perform high-throughput screening and testing of new materials at unprecedented scales, significantly accelerating the discovery cycle of novel compounds with desired properties. In this paradigm, **data becomes the essential fuel powering ML models** that can guide experiments, reduce costs, and unlock breakthroughs faster than ever before.
 
-However, **this field is hampered by** **fragmented datasets** **that vary in format, parameters, and scope, presenting the following challenges:**
+However, **this field is hampered by fragmented datasets that vary in format, parameters, and scope, presenting the following challenges:**
 
 - Dataset integration issues (eg. inconsistent formats or field definitions, incompatible calculations)
 - Biases in dataset composition (for eg. Material Project's focus on oxides and battery materials)
