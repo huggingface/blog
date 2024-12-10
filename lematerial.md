@@ -23,7 +23,7 @@ authors:
 
 # LeMaterial: an open source initiative to accelerate materials discovery and research
 
-Today, we are thrilled to announce the launch of **LeMaterial**, an open-source collaborative project led by [*Entalpic*](https://entalpic.ai/) and [*Hugging Face*](https://huggingface.co/). LeMaterial aims to simplify and accelerate materials research, making it easier to train ML models, to identify novel materials and to explore chemical spaces. ⚛️🤗
+Today, we are thrilled to announce the launch of **LeMaterial**, an open-source collaborative project led by [*Entalpic*](https://entalpic.ai/) and [*Hugging Face*](https://huggingface.co/). LeMaterial aims to simplify and accelerate materials research, making it easier to train ML models, identify novel materials and explore chemical spaces. ⚛️🤗
 
 As a first step, we are releasing a dataset called `LeMat-Bulk`, which unifies, cleans and standardizes the most prominent material datasets, including [Materials Project](https://next-gen.materialsproject.org/), [Alexandria](https://alexandria.icams.rub.de/) and [OQMD](https://oqmd.org/) — giving rise to a single harmonized data format with **6.7M entries** and **7 materials properties.**
 
@@ -53,9 +53,14 @@ This fragmented landscape makes it challenging for researchers in AI4Science and
 
 ## Achieving a clean, unified and standardized dataset
 
-`LeMat-Bulk` is more than a large-scale merged dataset with a permissive license (CC-BY-4.0). With its 6.7M entries with consistent properties, it represents a foundational step towards creating a curated and standardized open ecosystem for material science, designed to simplify research workflows and improve data quality. Here's a closer view of what is looks like and how it was constructed.
+`LeMat-Bulk` is more than a large-scale merged dataset with a permissive license (CC-BY-4.0). With its 6.7M entries with consistent properties, it represents a foundational step towards creating a curated and standardized open ecosystem for material science, designed to simplify research workflows and improve data quality. Below is a closer view of what is looks like. To interactively browse through our materials, check out the [Materials Explorer space.](https://huggingface.co/spaces/LeMaterial/materials_explorer)
 
-![image.png](https://huggingface.co/datasets/LeMaterial/admin/resolve/main/Dataset-viewer-screenshot.png)
+<iframe
+  src=["https://huggingface.co/datasets/LeMaterial/LeMat-Bulk/embed/viewer/compatible_pbe/train"](https://huggingface.co/datasets/LeMaterial/LeMat-Bulk/embed/viewer/compatible_pbe/train)
+  frameborder="0"
+  width="100%"
+  height="560px"
+></iframe>
 
 *[View the complete Datacard](https://huggingface.co/datasets/LeMaterial/LeMat-Bulk#download-and-use-within-python)*
 
@@ -65,12 +70,16 @@ This fragmented landscape makes it challenging for researchers in AI4Science and
 | v.1.0 | <ul><li><strong>Data collection and merging</strong> from various sources: Materials Project, Alexandria and OQMD datasets, including multiple fields and DFT functionals (PBE, PBESol, SCAN). </li><li><strong>Data cleaning</strong>: identify and remove datapoints not conforming to the set standard (e.g. with non-compatible calculations). </li><li><strong>Standardization</strong>: uniformly format the set of fields across databases, using Optimade standard </li><li><strong>Material fingerprint</strong>: attribute a unique identifier to each material with a well benchmarked hashing function, enabling to remove duplicates</li><li><strong>Accessibility and visualization</strong>: propose several tools to easily explore and visualize the proposed new dataset (spits, phase diagrams, material explorer, property explorer)</li></ul>  | Dec. 10, 2024 |
 | v.1.1 | <ul><li><strong>New data</strong>: calculate charge data for many materials in Materials Project database (additional 53k data </li>points), band gaps information, unified energy correction scheme<li><strong>Evaluation</strong>: Code hashing function benchmarks</li><li><strong>New functions</strong>: Material similarity metric and retriever tool of similar structures</li><li><strong>New models</strong>: Equiformerv2 and FAENet trained on the data</li><li><strong>Data validation</strong>: check for compatibility of fields, formatting, etc.</li></ul> | Q1 2025 |
 | Future releases | <li><strong>New data</strong>: release of r2SCAN data from Materials Project </li><li><strong>New surface datasets</strong>: OC20 & OC22 datasets and ability to cover other models than bulk (surface and slab+ads and molecule structures)</li><li><strong>Further harmonisation</strong>: include trajectories across MPTrj, OMat24 in similar format, include relational data in our DB </li> | Q2 2025 |
+**We offer different datasets and subsets,** enabling tailored workflows for researchers depending on their needs (consistent calculations, deduplicating materials, or comprehensive exploration):
 
+- **Compatibility:** these subsets only provides calculations which are compatible to mix. This is available in 3 functionals today (PBE, PBESol and SCAN)
+- **Non-compatible:** this subset provides all materials not included in the compatibility subsets.
+- [**LeMat-BulkUnique**](https://huggingface.co/datasets/LeMaterial/LeMat-BulkUnique) : this dataset split provides de-duplicated material using our structure fingerprint algorithm. It is available in 3 subsets, for PBE, PBESol, and SCAN functionals. More Details on the dataset can be found on [🤗Hugging Face](https://huggingface.co/datasets/LeMaterial/LeMat-BulkUnique)
 ## Integrating a well-benchmarked materials fingerprint
 
 Beside building this standardized dataset, one of the key contribution of LeMaterial is to propose a definition of a material fingerprint through a **hashing function** that assigns a unique identifier to each material.
 
-Current approaches to identifying a material as novel relative to a database have predominantly relied on similarity metrics, which necessitate a combinatorial effort to screen the existing database for novelty. **To provide for faster detection of novelty in a dataset, Entalpic proposes a hashing method to compute the fingerprint of a material. 
+Current approaches to identifying a material as novel relative to a database have predominantly relied on similarity metrics, which necessitate a combinatorial effort to screen the existing database for novelty. To provide faster novelty detection in a dataset, Entalpic introduces a hashing method to compute the fingerprint of a material.
 
 
 ![image.png](https://huggingface.co/datasets/LeMaterial/admin/resolve/main/Hash%20Function.jpeg)
@@ -79,14 +88,14 @@ Current approaches to identifying a material as novel relative to a database hav
 
 **Our fingerprinting approach offers several benefits**: 
 
-- Quickly identifying whether a material is novel or already cataloged.
+- Quickly identifying whether a material is novel or already catalogued.
 - Ensuring the dataset is free from duplicates and inconsistencies.
 - Allowing to connect materials between datasets.
 - Supporting more efficient calculations for thermodynamic properties, such as energy above the hull.
 
 Below lies a comparison of our hash function with the [StructureMatcher](https://pymatgen.org/pymatgen.analysis.html#pymatgen.analysis.structure_matcher.StructureMatcher:~:text=%3D%20True%2C-,attempt_supercell,-%3A%20bool%20%3D) of Pymatgen, to find all duplicates of a dataset. The experiment was run on two datasets having very different  structures.
 
-For the hash function task, **almost all of the task time was dedicated to calculating the hashes**. Their comparison time is negligible. For StructureMatcher, the vast majority of the task time was spent **comparing pairs of structures**. Their building time is negligible. 
+When using our method, **almost all of the task time was dedicated to calculating material hashes**; the follow-up comparison step is negligible time-wise. When using `StructureMatcher`, the vast majority of the task time was spent **comparing pairs of structures**; building said structures is negligible time-wise.
 
 | **Dataset** | **Number of structures** | Task time for the hash function (parallelized on 12 CPUs) | Task time for StructureMatcher (parallelized on 64 CPUs) |
 | --- | --- | --- | --- |
@@ -101,13 +110,13 @@ Additionally, we are planning on releasing **a set of well-curated benchmarks** 
 - How fast and accurate our hash is compared to Pymatgen's StructureMatcher on existing databases
 
 <blockquote>
-  <strong> 🤗 Call to the community:</strong> the aim is not to position our fingerprint method as the single solution to de-duplicate materials databases and find novel materials, but rather to foster discussion around this question. One current limitation of our hash, is that it does not address disordered structures. Hence, we would like to push the community towards achieving a consensus, while proposing a relatively simple and efficient fingerprint method in the meantime.</blockquote>
+<strong> 🤗 Call to the community:</strong> our aim is not to position this fingerprint method as the single solution to de-duplicate materials databases and find novel materials, but rather to foster discussion around this question. One current limitation of this hashing technique is that it does not cover disordered structures; we would like to push the community towards finding a consensus, while proposing a relatively simple and efficient fingerprint method in the meantime.</blockquote>
 
 ## LeMaterial in Action: applications and impact
 
 LeMaterial aims to be a community-driven initiative that gathers machine learning models, visualization tools, large & curated datasets, handy toolkits, etc. It is designed to be practical and flexible, enabling a wide range of applications, such as:
 
-- **Exploring extended phase diagrams** ([link to Hugging Face](https://huggingface.co/spaces/LeMaterial/phase_diagram)), constructed with a broader dataset, to analyze chemical spaces in greater detail. Combining larger datasets means that we can provide a finer resolution of material stability in a given compositional space:
+- **Exploring extended phase diagrams** ([link to our explorer](https://huggingface.co/spaces/LeMaterial/phase_diagram)), constructed with a broader dataset, to analyze chemical spaces in greater detail. Combining larger datasets means that we can provide a finer resolution of material stability in a given compositional space:
 
 <p align="center">
     <img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/experimental%20phase%20diagram%20Ti%3Abb%3ASn%20(research%20paper).png" alt="drawing" width="350"/>
