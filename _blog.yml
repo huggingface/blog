@@ -5158,3 +5158,12 @@
     - partnerships
     - cloud
     - bedrock
+
+- local: logits-processor-zoo
+  title: "Logit Processing in Language Models: Supercharge Your LLMs with NVIDIA's LogitsProcessorZoo"
+  author: ariG23498
+  thumbnail: /blog/assets/logits-processor-zoo/thumbnail.png
+  date: December 10, 2024
+  tags:
+    - LLM
+    - research
