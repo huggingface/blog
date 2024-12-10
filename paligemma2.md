@@ -159,7 +159,7 @@ You can run inference on the PaliGemma 2 models with 🤗 transformers, using th
 pip install --upgrade transformers
 ```
 
-After that, you can run inference like this:
+After that, you can run inference like follows. As usual, please make sure to follow the prompt format that was used to train the model for the task you are using:
 
 ```python
 from transformers import AutoProcessor, PaliGemmaForConditionalGeneration
