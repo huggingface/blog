@@ -21,6 +21,8 @@ authors:
 - user: thomwolf
 ---
 
+![logos](/blog/assets/lematerial/thumbnail_lematerial.png)
+
 # LeMaterial: an open source initiative to accelerate materials discovery and research
 
 Today, we are thrilled to announce the launch of **LeMaterial**, an open-source collaborative project led by [*Entalpic*](https://entalpic.ai/) and [*Hugging Face*](https://huggingface.co/). LeMaterial aims to simplify and accelerate materials research, making it easier to train ML models, identify novel materials and explore chemical spaces. ⚛️🤗
