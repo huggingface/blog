@@ -34,11 +34,11 @@ The world of materials science, at the intersection of quantum chemistry and mac
 However, **this field is hampered by** **fragmented datasets** **that vary in format, parameters, and scope, presenting the following challenges:**
 
 - Dataset integration issues (eg. inconsistent formats or field definitions, incompatible calculations)
-- Biases in dataset composition (for eg. Material Project’s focus on oxides and battery materials)
-- Limited scope (eg. NOMAD’s focus on quantum chemistry calculations rather than material properties)
+- Biases in dataset composition (for eg. Material Project's focus on oxides and battery materials)
+- Limited scope (eg. NOMADs focus on quantum chemistry calculations rather than material properties)
 - Lack of clear connections or identifiers between similar materials across different databases
 
-This fragmented landscape makes it challenging for researchers in AI4Science and materials informatics to leverage existing data effectively. Whether the application involves training foundational ML models, constructing accurate phase diagrams, identifying novel materials or exploring the chemical space effectively, there is no simple solution. While efforts like [Optimade](https://optimade.org/) standardize structural data, they don’t address discrepancies in material properties or biases in dataset scopes.
+This fragmented landscape makes it challenging for researchers in AI4Science and materials informatics to leverage existing data effectively. Whether the application involves training foundational ML models, constructing accurate phase diagrams, identifying novel materials or exploring the chemical space effectively, there is no simple solution. While efforts like [Optimade](https://optimade.org/) standardize structural data, they don't address discrepancies in material properties or biases in dataset scopes.
 
 **LeMaterial** addresses these challenges by unifying and standardizing data from three major databases—Materials Project, Alexandria, and OQMD—into a high-quality resource with consistent and systematic properties. The elemental composition treemap below highlights the value of this integration, showcasing how we increase the scope of existing datasets, like Materials Project, which are biased toward specific material types, such as battery materials (Li, O, P) or oxides.
 
@@ -98,7 +98,7 @@ Additionally, we are planning on releasing **a set of well-curated benchmarks** 
 - If distinct materials lead to different hashes based on material identification tags across existing databases
 - Whether adding small noises or applying symmetry operations to a material leads to the same hash
 - If materials sharing the same hash, across or within databases, could indeed be the same material — with manual and DFT checks
-- How fast and accurate our hash is compared to Pymatgen’s StructureMatcher on existing databases
+- How fast and accurate our hash is compared to Pymatgen's StructureMatcher on existing databases
 
 <blockquote>
   <strong> 🤗 Call to the community:</strong> the aim is not to position our fingerprint method as the single solution to de-duplicate materials databases and find novel materials, but rather to foster discussion around this question. One current limitation of our hash, is that it does not address disordered structures. Hence, we would like to push the community towards achieving a consensus, while proposing a relatively simple and efficient fingerprint method in the meantime.</blockquote>
@@ -180,8 +180,7 @@ LeMaterial aims to be a community-driven initiative that gathers machine learnin
         </table>
 
 
-    
-        From an untrained eyes these visually appear like very different materials. However when we replicate the lattice we quickly identify that they are quite similar:
+        To an untrained eye these visually appear like very different materials. However when we replicate the lattice we quickly identify that they are quite similar:
             <table border="0" class="ck-table-resized">
             <colgroup>
                 <col style="width:50%;">
@@ -203,7 +202,7 @@ LeMaterial aims to be a community-driven initiative that gathers machine learnin
               </caption>
             </table>
         
-        Its important to note here that Pymatgen’s StructureMatcher failed on this example, identifying these two unit cells as different materials, when they are indeed the exact same structures. Here our hashing algorithm was able to identify them as indeed the same.
+        Its important to note here that Pymatgen's StructureMatcher failed on this example, identifying these two unit cells as different materials, when they are indeed the exact same structures. Here our hashing algorithm was able to identify them as indeed the same.
 
 - **Training predictive ML models.** We can also train machine learning interatomic potentials like EquiformerV2 on `LeMat-Bulk`. These models should benefits from its scale and data quality and the removal of bias across compositional space, and it would be interesting to assess the benefits of this new dataset. An example of how to incorporate LeMaterial with fairchem can be found in [Colab](https://colab.research.google.com/drive/1y8_CzKM5Rgsiv9JoPmi9mXphi-kf6Lec?usp=sharing). We are currently in process of training an EquiformerV2 model using this dataset — stay tuned 💫
 
