@@ -2,18 +2,30 @@
 title: "LeMaterial: an open source initiative to accelate materials discovery and research" 
 thumbnail: /blog/assets/lematerial/thumbnail_lematerial.png
 authors:
-- user: TODO add entalpic folks
+- user: AlexDuvalinho
+  guest: true
+- user: lritchie
+  guest: true
+- user: msiron
+  guest: true
+- user: inelgnu
+  guest: true
+- user: etiennedufayet
+  guest: true
+- user: amandinerossello
+  guest: true
+- user: Ramlaoui
   guest: true
 - user: IAMJB
 - user: lvwerra
 - user: thomwolf
 ---
 
-# LeMaterial: an open source initiative to accelate materials discovery and research
+# LeMaterial: an open source initiative to accelerate materials discovery and research
 
-> Today, we are thrilled to announce the launch of **LeMaterial**, an open-source collaborative project led by [*Entalpic*](https://entalpic.ai/) and [*Hugging Face*](https://huggingface.co/) ⚛️🤗. 
-LeMaterial aims to simplify and accelerate materials research, making it easier to train ML models, to identify novel materials and to explore chemical spaces. **As a first step, we are releasing a dataset called `LeMat-Bulk`, which unifies, cleans and standardizes the most prominent material datasets, including [Materials Project](https://next-gen.materialsproject.org/), [Alexandria](https://alexandria.icams.rub.de/) and [OQMD](https://oqmd.org/) — giving rise to a single harmonized data format with **6.7M entries** and **7 materials properties.**
-> 
+Today, we are thrilled to announce the launch of **LeMaterial**, an open-source collaborative project led by [*Entalpic*](https://entalpic.ai/) and [*Hugging Face*](https://huggingface.co/). LeMaterial aims to simplify and accelerate materials research, making it easier to train ML models, to identify novel materials and to explore chemical spaces. ⚛️🤗
+
+As a first step, we are releasing a dataset called `LeMat-Bulk`, which unifies, cleans and standardizes the most prominent material datasets, including [Materials Project](https://next-gen.materialsproject.org/), [Alexandria](https://alexandria.icams.rub.de/) and [OQMD](https://oqmd.org/) — giving rise to a single harmonized data format with **6.7M entries** and **7 materials properties.**
 
 ## Why LeMaterial?
 
@@ -22,72 +34,37 @@ The world of materials science, at the intersection of quantum chemistry and mac
 However, **this field is hampered by** **fragmented datasets** **that vary in format, parameters, and scope, presenting the following challenges:**
 
 - Dataset integration issues (eg. inconsistent formats or field definitions, incompatible calculations)
-- Biases in dataset composition (for eg. Material Project’s focus on oxides and battery materials)
-- Limited scope (eg. NOMAD’s focus on quantum chemistry calculations rather than material properties)
+- Biases in dataset composition (for eg. Material Project's focus on oxides and battery materials)
+- Limited scope (eg. NOMADs focus on quantum chemistry calculations rather than material properties)
 - Lack of clear connections or identifiers between similar materials across different databases
 
-This fragmented landscape makes it challenging for researchers in AI4Science and materials informatics to leverage existing data effectively. Whether the application involves training foundational ML models, constructing accurate phase diagrams, identifying novel materials or exploring the chemical space effectively, there is no simple solution. While efforts like [Optimade](https://optimade.org/) standardize structural data, they don’t address discrepancies in material properties or biases in dataset scopes.
+This fragmented landscape makes it challenging for researchers in AI4Science and materials informatics to leverage existing data effectively. Whether the application involves training foundational ML models, constructing accurate phase diagrams, identifying novel materials or exploring the chemical space effectively, there is no simple solution. While efforts like [Optimade](https://optimade.org/) standardize structural data, they don't address discrepancies in material properties or biases in dataset scopes.
 
 **LeMaterial** addresses these challenges by unifying and standardizing data from three major databases—Materials Project, Alexandria, and OQMD—into a high-quality resource with consistent and systematic properties. The elemental composition treemap below highlights the value of this integration, showcasing how we increase the scope of existing datasets, like Materials Project, which are biased toward specific material types, such as battery materials (Li, O, P) or oxides.
 
-![LeMat_Bulk_unique_materials.png](TODO LINK)
+<p align="center">
+    <img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/MP_LeMatBulk_Combined_Treemap.png" alt="drawing" width="1000"/>
+</p>
 
-*LeMat-BulkUnique treemap*
+<p align="center">
+  <em>Materials Project and LeMat-BulkUnique treemap</em>
+</p>
 
-![mp_treemap.png](TODO LINK)
-
-*MaterialProject treemap*
-
-> Add a quote from Meta commenting on this dataset
-> 
 
 ## Achieving a clean, unified and standardized dataset
 
-`LeMat-Bulk` is more than a large-scale merged dataset with a permissive license (CC-4-BY). With its 6.7M entries with consistent properties, it represents a foundational step towards creating a curated and standardized open ecosystem for material science, designed to simplify research workflows and improve data quality. Here's a closer view of what is looks like and how it was constructed.
+`LeMat-Bulk` is more than a large-scale merged dataset with a permissive license (CC-BY-4.0). With its 6.7M entries with consistent properties, it represents a foundational step towards creating a curated and standardized open ecosystem for material science, designed to simplify research workflows and improve data quality. Here's a closer view of what is looks like and how it was constructed.
 
-![Screenshot 2024-12-09 at 06.45.32.png](TODO LINK)
+![image.png](https://huggingface.co/datasets/LeMaterial/admin/resolve/main/Dataset-viewer-screenshot.png)
 
-DataCard: [https://huggingface.co/datasets/LeMaterial/LeMat-Bulk#download-and-use-within-python](https://huggingface.co/datasets/LeMaterial/LeMat-Bulk#download-and-use-within-python)
+*[View the complete Datacard](https://huggingface.co/datasets/LeMaterial/LeMat-Bulk#download-and-use-within-python)*
 
-
-TODO: REMOVE
-<aside>
-
-Vizu → Insert a the dataset viewer + the link to the datacard @Inel Djafar 
-
-can we use this perhaps?? @Lucile Ritchie @Inel Djafar  (its essentially a snapshot of the data):
-
-![image.png](TODO LINK)
-
-</aside>
-
-**New releases** will come in the next months and quarters, bringing again more value to this dataset:
-
-TODO: we need to reformat that table - markdown doesn't support lists in tables
-(https://stackoverflow.com/questions/19950648/how-to-write-lists-inside-a-markdown-table)
-maybe multiple rows per version where each row is an element would work?
 
 | **Release** | **Description & Value** | **Date** |
 | --- | --- | --- |
-| v.1.0 | - **Data collection and merging** from various sources: Materials Project, Alexandria and OQMD datasets, including multiple fields and DFT functionals (PBE, PBESol, SCan). 
-- **Data cleaning**: identify and remove datapoints not conforming to the set standard (e.g. with non-compatible calculations). 
-- **Standardization**: uniformly format the set of fields across databases, using Optimade standard 
-- **Material fingerprint**: attribute a unique identifier to each material with a well benchmarked hashing function, enabling to remove duplicates
-- **Accessibility and visualization**: propose several tools to easily explore and visualize the proposed new dataset (spits, phase diagrams, material explorer, property explorer)  | Dec. 10, 2024 |
-| v.1.1 | - **New data**: calculate charge data for many materials in Materials Project database (additional 53k data points), band gaps information, unified energy correction scheme
-- **Evaluation**: Code hashing function benchmarks
-- **New functions**: Material similarity metric and retriever tool of similar structures
-- **New models**: Equiformerv2 and FAENet trained on the data
-- **Data validation**: check for compatibility of fields, formatting, etc. | Q1 2025 |
-| Future releases | - **New data:** release of R2SCAN data from MaterialsProject 
-- **New surface datasets**: OC20 & OC22 datasets and ability to cover other models than bulk (surface and slab+ads and molecule structures)
-- **Further harmonisation:** include trajectories across MPTrj, OMat24 in similar format, include relational data in our DB | Q2 2025 |
-
-**We offer different dataset and subsets,** enabling tailored workflows for researchers depending on their needs (consistent calculations, deduplicating materials, or comprehensive exploration)
-
-- **Compatibility:** these subsets only provides calculations which are compatible to mix. This is available in 3 functionals today (PBE, PBESol and SCAN)
-- **Non-compatible:** this subset provides all materials not included in the compatibility subsets.
-- `LeMat-BulkUnique**:**` this dataset split provides de-duplicated material using our structure fingerprint algorithm. It is available in 3 subsets, for each functional available.
+| v.1.0 | <ul><li><strong>Data collection and merging</strong> from various sources: Materials Project, Alexandria and OQMD datasets, including multiple fields and DFT functionals (PBE, PBESol, SCAN). </li><li><strong>Data cleaning</strong>: identify and remove datapoints not conforming to the set standard (e.g. with non-compatible calculations). </li><li><strong>Standardization</strong>: uniformly format the set of fields across databases, using Optimade standard </li><li><strong>Material fingerprint</strong>: attribute a unique identifier to each material with a well benchmarked hashing function, enabling to remove duplicates</li><li><strong>Accessibility and visualization</strong>: propose several tools to easily explore and visualize the proposed new dataset (spits, phase diagrams, material explorer, property explorer)</li></ul>  | Dec. 10, 2024 |
+| v.1.1 | <ul><li><strong>New data</strong>: calculate charge data for many materials in Materials Project database (additional 53k data </li>points), band gaps information, unified energy correction scheme<li><strong>Evaluation</strong>: Code hashing function benchmarks</li><li><strong>New functions</strong>: Material similarity metric and retriever tool of similar structures</li><li><strong>New models</strong>: Equiformerv2 and FAENet trained on the data</li><li><strong>Data validation</strong>: check for compatibility of fields, formatting, etc.</li></ul> | Q1 2025 |
+| Future releases | <li><strong>New data</strong>: release of r2SCAN data from Materials Project </li><li><strong>New surface datasets</strong>: OC20 & OC22 datasets and ability to cover other models than bulk (surface and slab+ads and molecule structures)</li><li><strong>Further harmonisation</strong>: include trajectories across MPTrj, OMat24 in similar format, include relational data in our DB </li> | Q2 2025 |
 
 ## Integrating a well-benchmarked materials fingerprint
 
@@ -95,10 +72,10 @@ Beside building this standardized dataset, one of the key contribution of LeMate
 
 Current approaches to identifying a material as novel relative to a database have predominantly relied on similarity metrics, which necessitate a combinatorial effort to screen the existing database for novelty. **To provide for faster detection of novelty in a dataset, Entalpic proposes a hashing method to compute the fingerprint of a material. 
 
-![Platform Team Charts - Hash Function (5).jpeg](TODO LINK)
 
-> **Caption**: above is a breakdown of the fingerprint processing. We use a bonding algorithm (e.g. EconNN) on the crystal structure to extract the graph, on which we then compute the WL algorithm to get a hash. This hash is combined with composition and space group information to create the material fingerprint.
-> 
+![image.png](https://huggingface.co/datasets/LeMaterial/admin/resolve/main/Hash%20Function.jpeg)
+<blockquote>Above is a breakdown of the fingerprinting. We use a bonding algorithm (e.g. EconNN) on the crystal structure to extract a graph, on which we then compute the Weisfeiler-Lehman algorithm to get a hash. This hash is combined with composition and space group information to create the material fingerprint.</blockquote>
+
 
 **Our fingerprinting approach offers several benefits**: 
 
@@ -107,75 +84,145 @@ Current approaches to identifying a material as novel relative to a database hav
 - Allowing to connect materials between datasets.
 - Supporting more efficient calculations for thermodynamic properties, such as energy above the hull.
 
-Below lies a comparison of our hash function with the [StructureMatcher](https://pymatgen.org/pymatgen.analysis.html#pymatgen.analysis.structure_matcher.StructureMatcher:~:text=%3D%20True%2C-,attempt_supercell,-%3A%20bool%20%3D) of Pymatgen, to find all duplicates of a dataset. The experiment was run on two datasets having very different  structures. Hashes were pre-computed (as they are released in LeMaterial), so we do not take into account their compute time. 
+Below lies a comparison of our hash function with the [StructureMatcher](https://pymatgen.org/pymatgen.analysis.html#pymatgen.analysis.structure_matcher.StructureMatcher:~:text=%3D%20True%2C-,attempt_supercell,-%3A%20bool%20%3D) of Pymatgen, to find all duplicates of a dataset. The experiment was run on two datasets having very different  structures.
 
-| **Dataset** | **Number of structures** | Task time for our Hash function | Task time for StructureMatcher |
+For the hash function task, **almost all of the task time was dedicated to calculating the hashes**. Their comparison time is negligible. For StructureMatcher, the vast majority of the task time was spent **comparing pairs of structures**. Their building time is negligible. 
+
+| **Dataset** | **Number of structures** | Task time for the hash function (parallelized on 12 CPUs) | Task time for StructureMatcher (parallelized on 64 CPUs) |
 | --- | --- | --- | --- |
-| Carbon-24 | 10,153 | 0.15 s | 17 hours |
-| MPTS-52 | 40,476 | 0.053 s | 4.9 hours |
+| Carbon-24 | 10,153 | 100 seconds | 17 hours |
+| MPTS-52 | 40,476 | 330 seconds | 4.9 hours |
 
 Additionally, we are planning on releasing **a set of well-curated benchmarks** to evaluate the validity of our hashing function. For instance, we investigated:
 
 - If distinct materials lead to different hashes based on material identification tags across existing databases
 - Whether adding small noises or applying symmetry operations to a material leads to the same hash
 - If materials sharing the same hash, across or within databases, could indeed be the same material — with manual and DFT checks
-- How fast and accurate our hash is compared to Pymatgen’s StructureMatcher on existing databases
+- How fast and accurate our hash is compared to Pymatgen's StructureMatcher on existing databases
 
-> **Call to the community**: the aim is not to position our fingerprint method as the single solution to de-duplicate materials databases and find novel materials, but rather to foster discussion around this question. We would like to push the community towards achieving a consensus, while proposing a relatively simple and efficient fingerprint method in the meantime.
-> 
+<blockquote>
+  <strong> 🤗 Call to the community:</strong> the aim is not to position our fingerprint method as the single solution to de-duplicate materials databases and find novel materials, but rather to foster discussion around this question. One current limitation of our hash, is that it does not address disordered structures. Hence, we would like to push the community towards achieving a consensus, while proposing a relatively simple and efficient fingerprint method in the meantime.</blockquote>
 
 ## LeMaterial in Action: applications and impact
 
 LeMaterial aims to be a community-driven initiative that gathers machine learning models, visualization tools, large & curated datasets, handy toolkits, etc. It is designed to be practical and flexible, enabling a wide range of applications, such as:
 
-- **Exploring extended phase diagrams** ([link to Hugging Face](https://huggingface.co/spaces/LeMaterial/phase_diagram)), ****constructed with a broader dataset, to analyze chemical spaces in greater detail. Combining larger datasets means that we can provide a finer resolution of material stability in a given compositional space:
+- **Exploring extended phase diagrams** ([link to Hugging Face](https://huggingface.co/spaces/LeMaterial/phase_diagram)), constructed with a broader dataset, to analyze chemical spaces in greater detail. Combining larger datasets means that we can provide a finer resolution of material stability in a given compositional space:
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/experimental%20phase%20diagram%20Ti%3Abb%3ASn%20(research%20paper).png" alt="drawing" width="350"/>
+</p>
+
+<p align="center">
+  <em>Experimental phase diagram of Ti, Bb, Sn from
+  <a href="https://www.mdpi.com/2075-4701/6/3/60">this research paper</a>
+  </em>
+</p>
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/Ti_Nb_Sn_LeMat110_PD.png" alt="drawing" width="400"/>
+</p>
+
+<p align="center">
+  <em>LeMat-Bulk phase diagram for Sn, Ti, Nb
+  </em>
+</p>
     
-    
-    ![Screenshot 2024-12-09 at 20.14.05.png](TODO LINK)
-    
-    Materials Project phase diagram for Mg, Sc, Zn
-    
-    ![newplot (5).png](TODO LINK)
-    
-    LeMat-Bulk phase diagram for Mg, Sc, Zn
-    
-- **Compare materials properties across databases and functionals** ([Link to Hugging Face](https://huggingface.co/spaces/LeMaterial/PropertyExplorer))**:** by providing researchers with data across DFT functionals, and by linking materials via our materials fingerprint algorithm we are able to establish and connect materials properties calculated via different parameters. This gives researchers insight into how functionals might behave and differ across compositional space.
-- **Determining if a material is novel** . Using the hashing function allows a researcher to quickly assess whether materials are unique or duplicates, which is particularly useful in the discovery phases.
+- **Compare materials properties across databases and functionals:** by providing researchers with data across DFT functionals, and by linking materials via our materials fingerprint algorithm we are able to establish and connect materials properties calculated via different parameters. This gives researchers insight into how functionals might behave and differ across compositional space.
+- **Determining if a material is novel**. Our hashing function allows researchers to quickly assess whether a material is unique or a duplicate, streamlining the discovery process and avoiding redundant calculations.
     - Example 1: Our fingerprint method identified the following Alexandria entries (`agm002153972`, `agm002153975`) as *potentially* being the same material — having the same hash. When we did a relaxation on the higher energy entry, the material relaxed to the lower energy configuration.
-    
-    ![1.gif](TODO LINK)
-    
-    ![image.png](TODO LINK)
-    
-    ![image.png](TODO LINK)
+ 
+      <table border="0" class="ck-table-resized">
+          <colgroup>
+              <col style="width:50%;">
+              <col style="width:50%;">
+          </colgroup>
+          <tbody>
+              <tr>
+                  <td>
+                      <p style="text-align:center;"><figure class="image image_resized"><img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/lower%20energy%20structure.png"></figure></p>
+                  </td>
+                  <td>
+                      <p style="text-align:center;"><figure class="image image_resized"><img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/higher%20energy%20structure.png"></figure></p>
+                  </td>
+              </tr>
+              <tr>
+                  <td>
+                      <p style="text-align:center;"><em>Lower energy structure</em></p>
+                  </td>
+                  <td>
+                      <p style="text-align:center;"><em>Higher energy structure</em></p>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
     
     - Example 2: applying our hash to another dataset ([AIRSS](https://archive.materialscloud.org/record/2020.0026/v1)) that is often used in training generative models, we found the following materials with the same hash.
-    
-    ![image.png](TODO LINK)
-    
-    ![image.png](TODO LINK)
-    
-    From an untrained eyes these visually appear like very different materials. However when we replicate the lattice we quickly identify that they are quite similar:
-    
+        <table border="0" class="ck-table-resized">
+        <colgroup>
+            <col style="width:50%;">
+            <col style="width:50%;">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:center;"><img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/unit%20cells%20%3Asame%20materials%201%3A2.png">
+                  </p>
+                </td>
+                <td>
+                    <p style="text-align:center;"><img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/unit%20cells%20%3A%20same%20materials%202%3A2.png"></p>
+                </td>
+            </tr>
+        </tbody>
+          <caption>
+            <p><em>Unit cells of materials sharing the same fingerprint</em></p>
+          </caption>
+        </table>
 
-![image.png](TODO LINK)
 
-![image.png](TODO LINK)
+        To an untrained eye these visually appear like very different materials. However when we replicate the lattice we quickly identify that they are quite similar:
+            <table border="0" class="ck-table-resized">
+            <colgroup>
+                <col style="width:50%;">
+                <col style="width:50%;">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>
+                        <p style="text-align:center;"><img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/supercells%201%3A2.png">
+                      </p>
+                    </td>
+                    <td>
+                        <p style="text-align:center;"><img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/unit%20cells%20%3A%20same%20materials%202%3A2.png"></p>
+                    </td>
+                </tr>
+            </tbody>
+              <caption>
+                <p><em>Supercells of materials sharing the same fingerprint</em></p>
+              </caption>
+            </table>
+        
+        Its important to note here that Pymatgen's StructureMatcher failed on this example, identifying these two unit cells as different materials, when they are indeed the exact same structures. Here our hashing algorithm was able to identify them as indeed the same.
 
-Its important to note here that Pymatgen’s StructureMatcher failed on this example, identifying these two unit cells as different materials, when they are indeed the exact same structures. Here our hashing algorithm was able to identify them as indeed the same.
-
-- **Training predictive ML models.** We can also train machine learning interatomic potentials like EquiformerV2 on `LeMat-Bulk`. These models should benefits from its scale and data quality and the removal of bias across compositional space, and it would be interesting to assess the benefits of this new dataset. An example of how to incorporate LeMaterial with fairchem can be found in [Colab](https://colab.research.google.com/drive/1y8_CzKM5Rgsiv9JoPmi9mXphi-kf6Lec?usp=sharing).
-    
-    > This is ongoing work — stay tuned 💫
-    > 
+- **Training predictive ML models.** We can also train machine learning interatomic potentials like EquiformerV2 on `LeMat-Bulk`. These models should benefits from its scale and data quality and the removal of bias across compositional space, and it would be interesting to assess the benefits of this new dataset. An example of how to incorporate LeMaterial with fairchem can be found in [Colab](https://colab.research.google.com/drive/1y8_CzKM5Rgsiv9JoPmi9mXphi-kf6Lec?usp=sharing). We are currently in process of training an EquiformerV2 model using this dataset — stay tuned 💫
 
 ## Take-aways
 
-As a community, we often place a lot of value in the **quality** of these large-scale open-source databases. However the lack of standardization makes utilizing multiple dataset a huge challenge. **LeMaterial** offers a solution that unifies, standardizes, performs extra cleaning and validation efforts on existing major data sources. This new open-science project is designed to accelerate research, improve the quality of ML models in the space, and make materials discovery more efficient and accessible.
+As a community, we often place a lot of value in the **quality** of these large-scale open-source databases. However the lack of standardization makes utilizing multiple dataset a huge challenge. **LeMaterial** offers a solution that unifies, standardizes, performs extra cleaning and validation efforts on existing major data sources. This new open-science project is designed to accelerate research, improve quality of ML models, and make materials discovery more efficient and accessible.
 
-**We are just getting started** — we know there are still flaws and improvements to be made — and would thus love to hear your feedback ! So please reach out if you are interested to contribute to this open-source initiative ⚛️🤗. We would be excited to continue expanding LeMaterial with new datasets, tools, and applications — alongside the community !
+**We are just getting started** — we know there are still flaws and improvements to be made — and would thus love to hear your feedback! So please reach out if you are interested to contribute to this open-source initiative. We would be excited to continue expanding LeMaterial with new datasets, tools, and applications — alongside the community! ⚛️🤗
 
-> To learn more about LeMaterial and get involved: 
-👉🏻 [Form](https://docs.google.com/forms/d/1BDGaUusCis9XiIi6VaNlix9EcGyU8uZ1XixWEQRr-34/prefill) to join the community
-https://huggingface.co/LeMaterial
-https://lematerial.github.io/lematerial-website/
+
+> We extend our heartfelt thanks to [Zachary Ulissi](https://zulissi.github.io/) and [Luis Barroso-Luque](https://www.linkedin.com/in/luis-barroso-luque-9742598a/) (Meta), and [Matt McDermott](https://github.com/mattmcdermott) (Newfound Materials, Inc.) for their valuable feedback regarding is initiative.
+>
+> We also acknowledge the incredible contributions of the creators of Optimade, Alexandria, Materials Project, and OQMD. Their foundational work has been instrumental in enabling the development of LeMaterial, and we are proud to build upon their legacy as part of the collaborative effort to advance materials science.
+
+---
+
+To learn more about LeMaterial and get involved: 
+
+- 👉🏻 [Form](https://forms.gle/KvZLmo12Ps7252gi9) to join the community
+
+- 🤗 [Hugging Face Space](https://huggingface.co/LeMaterial)
+
+- 💻 [Github](https://github.com/lematerial)
