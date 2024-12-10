@@ -58,24 +58,25 @@ Now, you have one C4 instance.
 Follow below steps to set up the environment easily. For reproducibility, we list the version and commit we are using in the commands.
 
 1. SSH connect to instance
-2. `$ pip install "optimum-intel[ipex]"@git+https://github.com/huggingface/optimum-intel.git@6a3b1ba5924b0b017b0b0f5de5b10adb77095b`
-3. `$ pip install torch==2.3.1 torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu`
-4. `$ python -m pip install intel-extension-for-pytorch==2.3.10`
-5. `$ git clone https://github.com/huggingface/optimum-benchmark.git`
-6. `$ cd ./optimum-benchmark`
-7. `$ git checkout d58bb2582b872c25ab476fece19d4fa78e190673`
-8. `$ cd ./docker/cpu`
-9. `$ sudo docker build . -t <your_docker_image_tag>`
-10. `$ sudo docker run -it --rm --privileged -v /home/<your_home_folder>:/workspace <your_docker_image_tag> /bin/bash`
+2. `$ git clone https://github.com/huggingface/optimum-benchmark.git`
+3. `$ cd ./optimum-benchmark`
+4. `$ git checkout d58bb2582b872c25ab476fece19d4fa78e190673`
+5. `$ cd ./docker/cpu`
+6. `$ sudo docker build . -t <your_docker_image_tag>`
+7. `$ sudo docker run -it --rm --privileged -v /home/<your_home_folder>:/workspace <your_docker_image_tag> /bin/bash`
 
 We are in container now, do following steps:
 
-1. `$ pip install huggingface-hub`
-2. `$ cd /workspace/optimum-benchmark`
-3. `$ pip install .[ipex]`
-4. `export OMP_NUM_THREADS=48`
-5. `export KMP_AFFINITY=granularity=fine,compact,1,0`
-6. `export KMP_BLOCKTIME=1`
+1. `$ pip install "optimum-intel[ipex]"@git+https://github.com/huggingface/optimum-intel.git@6a3b1ba5924b0b017b0b0f5de5b10adb77095b`
+2. `$ pip install torch==2.3.1 torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu`
+3. `$ python -m pip install intel-extension-for-pytorch==2.3.10`
+4. `$ cd /workspace/optimum-benchmark`
+5. `$ pip install .[ipex]`
+6. `$ export OMP_NUM_THREADS=48`
+7. `$ export KMP_AFFINITY=granularity=fine,compact,1,0`
+8. `$ export KMP_BLOCKTIME=1`
+9. `$ pip install huggingface-hub`
+10. `$ huggingface-cli login`, then input your Hugging Face token to access llama model
 
 ## Benchmark
 ### text embedding
