@@ -5169,3 +5169,12 @@
     - community
     - chemistry
     - science
+
+- local: logits-processor-zoo
+  title: "Controlling Language Model Generation with NVIDIA's LogitsProcessorZoo"
+  author: ariG23498
+  thumbnail: /blog/assets/logits-processor-zoo/thumbnail.png
+  date: December 11, 2024
+  tags:
+    - LLM
+    - research
