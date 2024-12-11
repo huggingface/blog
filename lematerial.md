@@ -4,18 +4,25 @@ thumbnail: /blog/assets/lematerial/thumbnail_lematerial.png
 authors:
 - user: AlexDuvalinho
   guest: true
+  org: Entalpic
 - user: lritchie
   guest: true
+  org: Entalpic
 - user: msiron
   guest: true
+  org: Entalpic
 - user: inelgnu
   guest: true
+  org: LeMaterial
 - user: etiennedufayet
   guest: true
+  org: LeMaterial
 - user: amandinerossello
   guest: true
+  org: LeMaterial
 - user: Ramlaoui
   guest: true
+  org: LeMaterial
 - user: IAMJB
 - user: lvwerra
 - user: thomwolf
