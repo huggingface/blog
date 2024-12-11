@@ -1,5 +1,5 @@
 ---
-title: "Logit Processing in Language Models: Supercharge Your LLMs with NVIDIA's LogitsProcessorZoo"
+title: "Controlling Language Model Generation with NVIDIA's LogitsProcessorZoo"
 thumbnail: /blog/assets/logits-processor-zoo/thumbnail.png
 authors:
 - user: ariG23498
@@ -8,7 +8,7 @@ authors:
   org: nvidia
 ---
 
-# Logit Processing in Language Models: Supercharge Your LLMs with NVIDIA's LogitsProcessorZoo
+# Controlling Language Model Generation with NVIDIA's LogitsProcessorZoo
 
 > **Struggling to get language models to follow your instructions?**
 
@@ -70,8 +70,6 @@ Raw logits often fall short when controlling output behavior. For example:
 - **Task misalignment:** Sequences may end too early, be overly verbose, or miss critical details.
 
 Logit processing enables us to tweak the model's behavior by modifying these raw scores before generation.
-
----
 
 ## NVIDIA's LogitsProcessorZoo
 
@@ -206,8 +204,8 @@ Max returned home, forever changed by his experience in the forest. He never for
 From that day on, Max became known as the forest explorer, and his love for the outdoors was only matched by his love for the people he met along the way. And whenever he looked up at the stars, he remembered the wise words of the old woman: "The forest is full of magic, but it's also full of kindness. Always look for it."
 ```
 
-In the examples above, we have used the `GenLengthLogitsProcessor` to both shorten our generated response
-and also lengthen it.
+In the examples above, we have used the `GenLengthLogitsProcessor` to both shorten and lengthen the 
+our generated response from the model.
 
 ### 2. **CiteFromPromptLogitsProcessor**
 
@@ -244,6 +242,8 @@ print(runner.generate_response(
 LLM response:
 Based on the user review, the user's opinion about the product's price is: the user is very satisfied, but the price is expensive, but the product is stylish, soft, and colorful, which is the price the user is willing to pay
 ```
+
+Notice how the generation cites the input prompt.
 
 ### 3. **ForceLastPhraseLogitsProcessor**
 
@@ -327,6 +327,8 @@ Bulbasaur is a fictional Pokémon species in the Pokémon franchise. It is a Gra
 Thanks for trying our RAG application! If you have more questions about Bulbasaur, feel free to ask.
 ```
 
+With each generation we were able to add the `phrase` string right at the end of the generation.
+
 ### 4. **MultipleChoiceLogitsProcessor**
 
 Guide the model to answer multiple-choice questions by selecting one of the given options.
@@ -368,6 +370,9 @@ Answer:
 LLM response:
 1
 ```
+
+Here our model does not generate anything other than the choice. This is an immensely helpful attribute while
+working with agnets or using models for multiple choice questions.
 
 ## Hugging Face's LogitsProcessor API
 
