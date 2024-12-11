@@ -5159,6 +5159,17 @@
     - cloud
     - bedrock
 
+- local: lematerial
+  title: "LeMaterial: an open source initiative to accelerate materials discovery and research"
+  author: AlexDuvalinho
+  guest: true
+  thumbnail: /blog/assets/lematerial/thumbnail_lematerial.png
+  date: December 10, 2024
+  tags:
+    - community
+    - chemistry
+    - science
+
 - local: logits-processor-zoo
   title: "Logit Processing in Language Models: Supercharge Your LLMs with NVIDIA's LogitsProcessorZoo"
   author: ariG23498

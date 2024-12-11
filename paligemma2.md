@@ -153,13 +153,13 @@ For demonstration purposes, we in the Hugging Face team fine-tuned [PaliGemma 2 
 
 ## How to Use with Transformers
 
-You can run inference on the PaliGemma 2 models with 🤗 transformers, using the PaliGemmaForConditionalGeneration and AutoProcessor APIs. Until a PyPi version of transformers is released, you need to install it from the main branch as follows:
+You can run inference on the PaliGemma 2 models with 🤗 transformers, using the PaliGemmaForConditionalGeneration and AutoProcessor APIs. Please, make sure you install transformers version 4.47 or later:
 
 ```bash
-pip install git+https://github.com/huggingface/transformers
+pip install --upgrade transformers
 ```
 
-After that, you can run inference like this:
+After that, you can run inference like follows. As usual, please make sure to follow the prompt format that was used to train the model for the task you are using:
 
 ```python
 from transformers import AutoProcessor, PaliGemmaForConditionalGeneration
@@ -176,10 +176,11 @@ image_file = "https://huggingface.co/datasets/huggingface/documentation-images/r
 raw_image = Image.open(requests.get(image_file, stream=True).raw).convert("RGB")
 
 inputs = processor(prompt, raw_image, return_tensors="pt").to("cuda")
-output = model.generate(**inputs, max_new_tokens=20)
+output = model.generate(**inputs, max_new_tokens=200)
 
-print(processor.decode(output[0], skip_special_tokens=True)[len(prompt):])
-# A medium shot of two cats laying on a pile of brown fishing nets. The cat in the foreground is a gray tabby cat with white on its chest and paws. The cat is laying on its side with its head facing the bottom right corner of the image. The cat in the background is laying on its side with its head facing the top left corner of the image. The cat's body is
+input_len = inputs["input_ids"].shape[-1]
+print(processor.decode(output[0][input_len:], skip_special_tokens=True))
+# A medium shot of two cats laying on a pile of brown fishing nets. The cat in the foreground is a gray tabby cat with white on its chest and paws. The cat is laying on its side with its head facing the bottom right corner of the image. The cat in the background is laying on its side with its head facing the top left corner of the image. The cat's body is curled up, its head is slightly turned to the right, and its front paws are tucked underneath its body. There is a teal rope hanging from the fishing net in the top right corner of the image.
 ```
 
 
