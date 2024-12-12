@@ -57,7 +57,7 @@ This fragmented landscape makes it challenging for researchers in AI4Science and
 
 ## Achieving a clean, unified and standardized dataset
 
-`LeMat-Bulk` is more than a large-scale merged dataset with a permissive license (CC-BY-4.0). With its 6.7M entries with consistent properties, it represents a foundational step towards creating a curated and standardized open ecosystem for material science, designed to simplify research workflows and improve data quality. Below is a closer view of what is looks like. To interactively browse through our materials, check out the [Materials Explorer space.](https://huggingface.co/spaces/LeMaterial/materials_explorer)
+`LeMat-Bulk` is more than a large-scale merged dataset with a permissive license (CC-BY-4.0). With its 6.7M entries with consistent properties, it represents a foundational step towards creating a curated and standardized open ecosystem for material science, designed to simplify research workflows and improve data quality. Below is a closer view of what is looks like. To interactively browse through our materials, check out the [Materials Explorer space, built using MP Dash components.](https://huggingface.co/spaces/LeMaterial/materials_explorer)
 
 <iframe
   src="https://huggingface.co/datasets/LeMaterial/LeMat-Bulk/embed/viewer/compatible_pbe/train"
@@ -207,7 +207,7 @@ In the longer term, LeMaterial aims to be a community-driven initiative that gat
                       </p>
                     </td>
                     <td>
-                        <p style="text-align:center;"><img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/unit%20cells%20%3A%20same%20materials%202%3A2.png"></p>
+                        <p style="text-align:center;"><img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/supercells%202%3A2.png"></p>
                     </td>
                 </tr>
             </tbody>
@@ -218,7 +218,7 @@ In the longer term, LeMaterial aims to be a community-driven initiative that gat
         
         It is important to note here that Pymatgen's StructureMatcher identified these two unit cells as different materials, when they are indeed the exact same structures. Here, our hashing algorithm was able to identify them as indeed the same.
 
-- **Training predictive ML models.** We can also train machine learning interatomic potentials like EquiformerV2 on `LeMat-Bulk`. These models should benefits from its scale and data quality and the removal of bias across compositional space, and it would be interesting to assess the benefits of this new dataset. An example of how to incorporate LeMaterial with fairchem can be found in [Colab](https://colab.research.google.com/drive/1y8_CzKM5Rgsiv9JoPmi9mXphi-kf6Lec?usp=sharing). We are currently in process of training an EquiformerV2 model using this dataset — stay tuned 💫
+- **Training predictive ML models.** We can also train machine learning interatomic potentials like EquiformerV2 on `LeMat-Bulk`. These models should benefits from its scale and data quality and the removal of bias across compositional space, and it would be interesting to assess the benefits of this new dataset. An example of how to incorporate LeMaterial with [Fairchem](https://fair-chem.github.io/) can be found in [Colab](https://colab.research.google.com/drive/1y8_CzKM5Rgsiv9JoPmi9mXphi-kf6Lec?usp=sharing). We are currently in process of training an EquiformerV2 model using this dataset — stay tuned 💫
 
 ## Take-aways
 
