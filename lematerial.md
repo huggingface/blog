@@ -29,7 +29,7 @@ Today, we are thrilled to announce the launch of **LeMaterial**, an open-source 
 
 As a first step, we are releasing a dataset called `LeMat-Bulk`, which unifies, cleans and standardizes the most prominent material datasets, including [Materials Project](https://next-gen.materialsproject.org/), [Alexandria](https://alexandria.icams.rub.de/) and [OQMD](https://oqmd.org/) — giving rise to a single harmonized data format with **6.7M entries** and **7 materials properties.**
 
-> LeMaterial is standing on the shoulders of giants and we are building upon incredible initiatives which have been instrumental in the development of this initiative: [Optimade](https://www.optimade.org/), [Materials Project](https://next-gen.materialsproject.org/), [Alexandria](https://alexandria.icams.rub.de/) and [OQMD](https://oqmd.org/), and more to come. Please credit them accordingly when using LeMaterial. 
+> LeMaterial is standing on the shoulders of giants and we are building upon incredible projects which have been instrumental in the development of this initiative: [Optimade](https://www.optimade.org/), [Materials Project](https://next-gen.materialsproject.org/), [Alexandria](https://alexandria.icams.rub.de/) and [OQMD](https://oqmd.org/), and more to come. Please credit them accordingly when using LeMaterial. 
 
 ## Why LeMaterial?
 
