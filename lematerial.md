@@ -216,7 +216,7 @@ In the longer term, LeMaterial aims to be a community-driven initiative that gat
               </caption>
             </table>
         
-        It is important to note here that Pymatgen's StructureMatche identified these two unit cells as different materials, when they are indeed the exact same structures. Here, our hashing algorithm was able to identify them as indeed the same.
+        It is important to note here that Pymatgen's StructureMatcher identified these two unit cells as different materials, when they are indeed the exact same structures. Here, our hashing algorithm was able to identify them as indeed the same.
 
 - **Training predictive ML models.** We can also train machine learning interatomic potentials like EquiformerV2 on `LeMat-Bulk`. These models should benefits from its scale and data quality and the removal of bias across compositional space, and it would be interesting to assess the benefits of this new dataset. An example of how to incorporate LeMaterial with fairchem can be found in [Colab](https://colab.research.google.com/drive/1y8_CzKM5Rgsiv9JoPmi9mXphi-kf6Lec?usp=sharing). We are currently in process of training an EquiformerV2 model using this dataset — stay tuned 💫
 
