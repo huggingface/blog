@@ -5135,7 +5135,7 @@
     - research
 
 - local: image-preferences
-  title: "Hugging Face Community Releases an Open Preference Dataset for Text-to-Image Generation"
+  title: "Open Preference Dataset for Text-to-Image Generation by the 🤗 Community"
   author: davidberenstein1957
   thumbnail: /blog/assets/image_preferences/thumbnail.png
   date: December 09, 2024
