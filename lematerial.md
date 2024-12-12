@@ -225,7 +225,7 @@ In the longer term, LeMaterial aims to be a community-driven initiative that gat
 As a community, we often place a lot of value in the **quality** of these large-scale open-source databases. However the lack of standardization makes utilizing multiple dataset a huge challenge. **LeMaterial** offers a solution that unifies, standardizes, performs extra cleaning and validation efforts on existing major data sources. This new open-science project is designed to accelerate research, improve quality of ML models, and make materials discovery more efficient and accessible.
 
 **We are just getting started** — we know there are still flaws and improvements to be made — and would thus love to hear your feedback! So please reach out if you are interested to contribute to this open-source initiative. We would be excited to continue expanding LeMaterial with new datasets, tools, and applications — alongside the community! ⚛️🤗
-
+> We extend our heartfelt thanks to [Zachary Ulissi](https://zulissi.github.io/) and [Luis Barroso-Luque](https://www.linkedin.com/in/luis-barroso-luque-9742598a/) (Meta), and [Matt McDermott](https://github.com/mattmcdermott) (Newfound Materials, Inc.) for their valuable feedback regarding is initiative.
 ## Citations
 
 By downloading content from LeMaterial, you agree to accept the [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) license implying that content may be copied, distributed, transmitted, and adapted, without obtaining specific permission from LeMaterial, provided proper attribution is given to LeMaterial.
