@@ -3,6 +3,11 @@ title: "Introducing the Synthetic Data Generator - build Datasets with Natural L
 thumbnail: /blog/assets/synthetic-data-generator/thumbnail.png
 authors:
 - user: davidberenstein1957
+- user: sdiazlor
+- user: Leiyre
+- user: dvilasuero
+- user: Ameeeee
+- user: burtenshaw
 ---
 
 # Synthetic Data Generator - a No-code Approach to Building Datasets with Natural Language
