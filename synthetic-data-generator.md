@@ -1,5 +1,5 @@
 ---
-title: "Synthetic Data Generator - a No-code Approach to Building Datasets with Natural Language"
+title: "Introducing the Synthetic Data Generator - build Datasets with Natural Language"
 thumbnail: /blog/assets/synthetic-data-generator/thumbnail.png
 authors:
 - user: davidberenstein1957
