@@ -236,7 +236,6 @@ CC-BY-4.0 (license used for Materials Project, Alexandria, OQMD) requires proper
 Thus, if you use materials data which include (”mp-”) in the immutable_id, please cite the [Materials Project](https://pubs.aip.org/aip/apm/article/1/1/011002/119685/Commentary-The-Materials-Project-A-materials). If you use materials data which include (”agm-”) in the immutable_id, please cite [Alexandria, PBE](https://www.science.org/doi/10.1126/sciadv.abi7948) or [Alexandria PBESol, SCAN](https://www.nature.com/articles/s41597-022-01177-w). If you use materials data which include (”oqmd-”) in the immutable_id, please cite [OQMD](https://link.springer.com/article/10.1007/s11837-013-0755-4). Finally, if you make use of the Phase Diagram for visualization purposes, or the crystal viewer in the Materials Explorer, please acknowledge [Crystal Toolkit](https://github.com/materialsproject/crystaltoolkit).
 
 
-> We extend our heartfelt thanks to [Zachary Ulissi](https://zulissi.github.io/) and [Luis Barroso-Luque](https://www.linkedin.com/in/luis-barroso-luque-9742598a/) (Meta), and [Matt McDermott](https://github.com/mattmcdermott) (Newfound Materials, Inc.) for their valuable feedback regarding is initiative.
 
 ---
 
