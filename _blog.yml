@@ -5147,3 +5147,14 @@
     - flux
     - stable-diffusion
     - distilabel
+
+- local: synthetic-data-generator
+  title: "Synthetic Data Generator - a No-code Approach to Building Datasets with Natural Language"
+  author: davidberenstein1957
+  thumbnail: /blog/assets/image_preferences/thumbnail.png
+  date: December 16, 2024
+  tags:
+    - synthetic
+    - datasets
+    - argilla
+    - distilabel
