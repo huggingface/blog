@@ -104,9 +104,9 @@ Even though you can go from prompts to dedicated models without knowing anything
 
 You can improve speed and accuracy by creating the own deployment of the tool and configuring it to use different parameters or models. First, you must [duplicate the synthetic data generator](https://huggingface.co/spaces/argilla/synthetic-data-generator?duplicate=true). Make sure you create is as a private Space to ensure nobody else can access it. Next, you can [change the default values of some environment variables](https://github.com/argilla-io/synthetic-data-generator?tab=readme-ov-file#environment-variables). Let's go over some scenarios:
 
-1. Increase the batch size, which will generate more samples per minute. You can do so by changing the `BATCH_SIZE` from the default value of `5` to a higher value, like `10`.
-2. Use a different free Hugging Face model. You can do so by changing the `MODEL` from the default value of `meta-llama/Llama-3.1-8B-Instruct` to a different model, like `meta-llama/Llama-3.1-70B-Instruct`.
-3. Use an OpenAI model. You can do so by setting the `BASE_URL` to `https://api.openai.com/v1/` and `MODEL` to `gpt-4o`.
+1. Use a different free Hugging Face model. You can do so by changing the `MODEL` from the default value of `meta-llama/Llama-3.1-8B-Instruct` to a different model, like `meta-llama/Llama-3.1-70B-Instruct`.
+2. Use an OpenAI model. You can do so by setting the `BASE_URL` to `https://api.openai.com/v1/` and `MODEL` to `gpt-4o`.
+3. Increase the batch size, which will generate more samples per minute. You can do so by changing the `BATCH_SIZE` from the default value of `5` to a higher value, like `10`. Take into account that your API providers might have limits on the number of requests per minute.
 4. Private Argilla instance. You can do so by setting the `ARGILLA_URL` and `ARGILLA_API_KEY` to the URL and API key of [your free Argilla instance](https://docs.argilla.io/dev/getting_started/quickstart/).
 
 ### Local Deployment
