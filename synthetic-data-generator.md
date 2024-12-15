@@ -10,7 +10,7 @@ authors:
 - user: burtenshaw
 ---
 
-# Synthetic Data Generator - a No-code Approach to Building Datasets with Natural Language
+# Introducing the Synthetic Data Generator - build Datasets with Natural Language
 
 Introducing the Synthetic Data Generator, a user-friendly application that takes a no-code approach to creating custom datasets with Large Language Models (LLMs). The best part: A simple step-by-step process, making dataset creation a non-technical breeze, allowing anyone to create datasets and models in minutes and without any code.
 
@@ -21,13 +21,13 @@ Introducing the Synthetic Data Generator, a user-friendly application that takes
   </p>
 </details>
 
-## From Prompt to Model
+## From Prompt to dataset to model
 
 The synthetic data generator takes a description of the data you want (your custom prompt) and returns a dataset for your use case, using a synthetic data pipeline. In the background, this is powered by [distilabel](https://distilabel.argilla.io/latest/) and the [free Hugging Face text-generation API](https://huggingface.co/docs/api-inference/en/index) but we don’t need to worry about these complexities and we can focus on using the UI.
 
 ### Supported Tasks
 
-The tool currently supports text classification and chat datasets. Based on demand, we will add tasks like evaluation and RAG over time.
+The tool currently supports text classification and chat datasets. These tasks will determine the type of dataset you will generate, classification requires categories, while chat data requires a conversation. Based on demand, we will add tasks like evaluation and RAG over time.
 
 #### Text Classification
 
@@ -67,7 +67,7 @@ Start by providing a description of the dataset you want to create, including ex
 
 #### 2. Configure and Refine
 
-Refine your generated sample dataset by adjusting the system prompt and task-specific settings to get the results you're after. You can iterate on these configurations by hitting the “Save” button and regenerating your sample dataset. When you are satisfied with the config, continue to step 3.
+Refine your generated sample dataset by adjusting the `system prompt`, which has been generated based on your description and by adjusting the task-specific settings. This will help you get to the specific results you're after. You can iterate on these configurations by hitting the “Save” button and regenerating your sample dataset. When you are satisfied with the config, continue to step 3.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/synthetic-data-generator/step2.png" style="width: 100%;">
 
@@ -90,15 +90,15 @@ Even when dealing with synthetic data, it is important to understand and look at
 
 Don’t worry; even creating powerful AI models can be done without code nowadays using [AutoTrain](https://huggingface.co/autotrain). To understand AutoTrain, you can look at its [documentation](https://huggingface.co/docs/autotrain/en/index). Here, we will [create our own AutoTrain deployment](https://huggingface.co/spaces/autotrain-projects/autotrain-advanced?duplicate=true) and log in as we’ve done before for the synthetic data generator.
 
-Remember the [argilla/synthetic-text-classification-news dataset](https://huggingface.co/datasets/argilla/synthetic-text-classification-news) from the beginning? Let’s train a model that can correctly classify these examples. We need to select the task “Text Classification” and provide the correct “Dataset source”. Then, choose a nice project name and press play! The pop-up that warns about costs can be ignored because we are still working on the free Hugging Face offering.
+Remember the [argilla/synthetic-text-classification-news dataset](https://huggingface.co/datasets/argilla/synthetic-text-classification-news) from the beginning? Let’s train a model that can correctly classify these examples. We need to select the task “Text Classification” and provide the correct “Dataset source”. Then, choose a nice project name and press play! The pop-up that warns about costs can be ignored because we are still working on the free Hugging Face CPU hardware, which is more than enough hardware for this text classification example.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/synthetic-data-generator/autotrain.png" style="width: 100%;">
 
-Et voilà, after a couple of minutes, we’ve got [our very own model](https://huggingface.co/argilla/synthetic-text-classification-news-autotrain-model)! All that remains is to [deploy it as a live service](https://ui.endpoints.huggingface.co/davidberenstein1957/new?repository=argilla%2Fsynthetic-text-classification-news-autotrain-model) or to [use it as a text-classification pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.TextClassificationPipeline) with some minimal Python code.
+Et voilà, after a couple of minutes, we’ve got [our very own model](https://huggingface.co/argilla/synthetic-text-classification-news-autotrain-model)! All that remains is to [deploy it as a live service](https://www.youtube.com/watch?v=J15u1Y2b4sw) or to [use it as a text-classification pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.TextClassificationPipeline) with some minimal Python code.
 
-## Additional Features
+## Advanced Features
 
-Even though you can go from prompts to dedicated models without knowing anything about coding, some people might like the option to customize and scale their deployment with additional technical features.
+Even though you can go from prompts to dedicated models without knowing anything about coding, some people might like the option to customize and scale their deployment with some more advanced technical features.
 
 ### Improving Speed and Accuracy
 
