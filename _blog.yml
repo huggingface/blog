@@ -5173,7 +5173,7 @@
 - local: synthetic-data-generator
   title: "Introducing the Synthetic Data Generator - build Datasets with Natural Language"
   author: davidberenstein1957
-  thumbnail: /blog/assets/image_preferences/thumbnail.png
+  thumbnail: /blog/assets/synthetic-data-generator/thumbnail.png
   date: December 16, 2024
   tags:
     - synthetic

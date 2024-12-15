@@ -23,7 +23,7 @@ Introducing the Synthetic Data Generator, a user-friendly application that takes
 
 ## From Prompt to Model
 
-The synthetic data generator takes your custom prompt and returns a dataset for your use case, using a synthetic data pipeline. In the background, this is powered by [distilabel](https://distilabel.argilla.io/latest/) and the [free Hugging Face text-generation API](https://huggingface.co/docs/api-inference/en/index) but we don’t need to worry about these complexities and we can focus on using the UI.
+The synthetic data generator takes a description of the data you want (your custom prompt) and returns a dataset for your use case, using a synthetic data pipeline. In the background, this is powered by [distilabel](https://distilabel.argilla.io/latest/) and the [free Hugging Face text-generation API](https://huggingface.co/docs/api-inference/en/index) but we don’t need to worry about these complexities and we can focus on using the UI.
 
 ### Supported Tasks
 
@@ -31,7 +31,7 @@ The tool currently supports text classification and chat datasets. Based on dema
 
 #### Text Classification
 
-Text classification is common for categorizing text like customer reviews, social media posts, or news articles. Generating a dataset relies on two different steps that use LLMs. We first generate diverse texts and then add labels to them. A good example of a synthetic text classification dataset is [argilla/synthetic-text-classification-news](https://huggingface.co/datasets/argilla/synthetic-text-classification-news), which classifies synthetic news articles into 8 different classes.
+Text classification is common for categorizing text like customer reviews, social media posts, or news articles. Generating a classification dataset relies on two different steps that we address with LLMs. We first generate diverse texts, and then we add labels to them. A good example of a synthetic text classification dataset is [argilla/synthetic-text-classification-news](https://huggingface.co/datasets/argilla/synthetic-text-classification-news), which classifies synthetic news articles into 8 different classes.
 
 <iframe
   src="https://huggingface.co/datasets/argilla/synthetic-text-classification-news/embed/viewer/default/train"
@@ -42,7 +42,7 @@ Text classification is common for categorizing text like customer reviews, socia
 
 #### Chat datasets
 
-This type of dataset can be used for supervised fine-tuning (SFT) LLMs with conversational data. SFT is a generative task for interactions with LLMs in chatbot-like scenarios. A good example of a synthetic chat dataset is [argilla/synthetic-sft-customer-support-single-turn](https://huggingface.co/datasets/argilla/synthetic-sft-customer-support-single-turn), which highlights an example of an LLM that handles customer support for the synthetic data generator.
+This type of dataset can be used for supervised fine-tuning (SFT), which is the technique that allows LLMs to work with conversational data, allowing the user to interact with LLMs via a chat interface. A good example of a synthetic chat dataset is [argilla/synthetic-sft-customer-support-single-turn](https://huggingface.co/datasets/argilla/synthetic-sft-customer-support-single-turn), which highlights an example of an LLM designed to handle customer support. In this example, the customer support topic is the synthetic data generator itself.
 
 <iframe
   src="https://huggingface.co/datasets/argilla/synthetic-sft-customer-support-single-turn/embed/viewer/default/train"
@@ -51,17 +51,17 @@ This type of dataset can be used for supervised fine-tuning (SFT) LLMs with conv
   height="560px"
 ></iframe>
 
-Generally, we can generate 50 and 20 samples per minute for text classification and chat, respectively. However, you can scale this up by using your own account. We will get back to this later but let’s first dive into the UI.
+Generally, we can generate 50 and 20 samples per minute for text classification and chat, respectively. You can scale this up by using your own account and assigning custom hardware or selecting cloud models. We will get back to this later. Let's dive into the UI first.
 
 ### Let’s generate our first dataset
 
-We will create a basic chat dataset. We start with a login that redirects us to the page where we configure the tool’s access to your users and organisations. Make sure to include the organisations for which you want to generate datasets. In case of a failed authentication, you can always [reset the connection](https://huggingface.co/settings/connected-applications).
+We will create a basic chat dataset. [When you visit the generator](https://huggingface.co/spaces/argilla/synthetic-data-generator), you have to login to allow the tool access to the organisations for which you want to generate datasets. This will allow the tool to upload the generated datasets. In case of a failed authentication, you can always [reset the connection](https://huggingface.co/settings/connected-applications).
 
 After the login, the UI guides you through a straightforward three-step process:
 
 #### 1. Describe Your Dataset
 
-Start by providing a description of the dataset you want to create, including example use cases to help the generator understand your needs. Make sure to describe the goal and type of assistant in a much detail as possible. When you hit the “Create” button, a sample dataset will be created, and you can continue with step 2.
+Start by providing a description of the dataset you want to create, including example use cases to help the generator understand your needs. Make sure to describe the goal and type of assistant in as much detail as possible. When you hit the “Create” button, a sample dataset will be created, and you can continue with step 2.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/synthetic-data-generator/step1.png" style="width: 100%;">
 
@@ -72,17 +72,17 @@ Refine your generated sample dataset by adjusting the system prompt and task-spe
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/synthetic-data-generator/step2.png" style="width: 100%;">
 
 
-#### 4. Generate and Push
+#### 3. Generate and Push
 
 Fill out general information about the dataset name and organisation. Additionally, you can define the number of samples to generate and the temperature to use for the generation. This temperature represents the creativity of the generations. Let’s hit the “Generate” button to start a full generation. The output will be saved directly to Argilla and the Hugging Face Hub.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/synthetic-data-generator/step3.png" style="width: 100%;">
 
-We can now press the “Open in Argilla” button and directly dive into our generated dataset.
+We can now click the “Open in Argilla” button and directly dive into our generated dataset.
 
 ### Reviewing the Dataset
 
-Even when dealing with synthetic data, it is important to understand and look at your data, which is why we created a direct integration with [Argilla](https://argilla.io/), a collaboration tool for AI engineers and domain experts to build high-quality datasets. This allows you to effectively explore and evaluate the synthetic dataset through powerful features like semantic search and composable filters. You can learn more about them in [this guide](https://docs.argilla.io/latest/how_to_guides/annotate/). Afterwards, we can export the curated dataset to the Hugging Face Hub, and continue to fine-tune the model.
+Even when dealing with synthetic data, it is important to understand and look at your data, which is why we created a direct integration with [Argilla](https://argilla.io/), a collaboration tool for AI engineers and domain experts to build high-quality datasets. This allows you to effectively explore and evaluate the synthetic dataset through powerful features like semantic search and composable filters. You can learn more about them in [this guide](https://docs.argilla.io/latest/how_to_guides/annotate/). Afterwards, we can export the curated dataset to the Hugging Face Hub, and continue to fine-tune a model with it.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/synthetic-data-generator/argilla.png" style="width: 100%;">
 
