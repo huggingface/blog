@@ -12,7 +12,7 @@ authors:
 
 # Introducing the Synthetic Data Generator - Build Datasets with Natural Language
 
-Introducing the Synthetic Data Generator, a user-friendly application that takes a no-code approach to creating custom datasets with Large Language Models (LLMs). The best part: A simple step-by-step process, making dataset creation a non-technical breeze, allowing anyone to create datasets and models in minutes and without any code.
+Introducing the [Synthetic Data Generator](https://huggingface.co/spaces/argilla/synthetic-data-generator), a user-friendly application that takes a no-code approach to creating custom datasets with Large Language Models (LLMs). The best part: A simple step-by-step process, making dataset creation a non-technical breeze, allowing anyone to create datasets and models in minutes and without any code.
 
 <details>
   <summary>A short demo video</summary>
