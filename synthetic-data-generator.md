@@ -16,7 +16,7 @@ Introducing the Synthetic Data Generator, a user-friendly application that takes
 
 <details>
   <summary>A short demo video</summary>
-  <iframe width="100%" height="560px" src="https://www.youtube.com/embed/EUIIUulDOaw?si=Rm3pRs6a4gyGrVIP&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <iframe width="100%" height="560px" src="https://www.youtube.com/embed/nXjVtnGeEss?si=xWeYREURoCJEPFIr&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </details>
 
 <details>
