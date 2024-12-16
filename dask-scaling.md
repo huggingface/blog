@@ -146,7 +146,7 @@ from huggingface_hub import HfApi
 HfApi().super_squash_history(repo_id=repo_id, repo_type="dataset")
 ```
 
-Alternatively can use [this custom function](https://gist.github.com/lhoestq/8f73187a4e4b97b9bb40b561e35f6ccb) which uploads multiple files per commit.
+Alternatively you can use [this custom function](https://gist.github.com/lhoestq/8f73187a4e4b97b9bb40b561e35f6ccb) which uploads multiple files per commit.
 
 
 ### Multi-GPU Parallel Model Inference 
