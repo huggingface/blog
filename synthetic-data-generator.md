@@ -1,6 +1,6 @@
 ---
 title: "Introducing the Synthetic Data Generator - Build Datasets with Natural Language"
-thumbnail: /blog/assets/synthetic-data-generator/thumbnail.png
+thumbnail: /blog/assets/synthetic-data-generator/_thumbnail.png
 authors:
 - user: davidberenstein1957
 - user: sdiazlor
