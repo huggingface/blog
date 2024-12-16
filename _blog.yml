@@ -5170,10 +5170,10 @@
     - chemistry
     - science
 
-- local: synthetic-data-generator
-  title: "Introducing the Synthetic Data Generator - build Datasets with Natural Language"
+- local: synthetic-dataset-generator
+  title: "Introducing the Synthetic Data Generator - Build Datasets with Natural Language"
   author: davidberenstein1957
-  thumbnail: /blog/assets/synthetic-data-generator/thumbnail.png
+  thumbnail: /blog/assets/synthetic-dataset-generator/thumbnail.png
   date: December 16, 2024
   tags:
     - synthetic
