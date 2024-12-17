@@ -5170,7 +5170,6 @@
     - chemistry
     - science
 
-
 - local: intel-gcp-c4
   title: "Benchmarking Language Model Performance on 5th Gen Xeon at GCP"
   author: MatrixYao
