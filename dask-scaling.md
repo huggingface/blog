@@ -167,7 +167,7 @@ client = cluster.get_client()
 Under the hood Coiled handles:
 * Provisioning cloud VMs with GPU hardware. In this case, `g5.xlarge` [instances on AWS](https://aws.amazon.com/ec2/instance-types/g5/).
 * Setting up the appropriate NVIDIA drivers, CUDA runtime, etc.
-* Automatically installing the same packages you have locally on the cloud VM with [package sync](https://docs.coiled.io/user_guide/software/sync.html?utm_source=hf-blog). This includes Python files in your working directory, so we can import directly from `dask_hf.py` on the remote cluster. 
+* Automatically installing the same packages you have locally on the cloud VM with [package sync](https://docs.coiled.io/user_guide/software/sync.html?utm_source=hf-blog). This includes Python files in your working directory.
 
 The workflow took ~5 hours to complete and we had good GPU hardware utilization.
 
@@ -181,7 +181,7 @@ Putting it all together, here is the complete workflow:
 ```python
 import dask.dataframe as dd
 from transformers import pipeline
-from dask_hf import to_parquet
+from huggingface_hub import HfApi
 import os
 import coiled
 
@@ -231,10 +231,10 @@ min_edu_score = 3
 df["edu-classifier-score"] = df.text.map_partitions(compute_scores, meta=pd.Series([0]))
 df = df[df["edu-classifier-score"] >= min_edu_score]
 
-to_parquet(
-    df,
-    "hf://datasets/<your-hf-user>/<data-dir>"               # Replace with your HF user and directory
-)
+repo_id = "<your-hf-user>/<your-dataset-name>"  # Replace with your dataset location
+df.to_parquet(f"hf://datasets/{repo_id}")
+
+HfApi().super_squash_history(repo_id=repo_id, repo_type="dataset")  # optional: squash commit history
 ```
 
 ## Conclusion
