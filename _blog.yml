@@ -1,5 +1,16 @@
 # "thumbnail" attribute can be GIFs while in the blogpost itself it's better if it's a simple bitmap (because it will be used as a social thumbnail)
 # make sure to optimize your "thumbnail" img with tinypng.com
+- local: bamba
+  title: Bamba: Inference Efficient Hybrid Mamba2 Model
+  author: rganti
+  thumbnail: /blog/assets/bamba/bamba_thumbnail.png
+  date: Dec 18, 2024
+  tags:
+    - research
+    - nlp
+    - community
+    - model
+
 - local: how-to-train
   title: How to train a new language model from scratch using Transformers and Tokenizers
   thumbnail: /blog/assets/01_how-to-train/how-to-train_blogpost.png
