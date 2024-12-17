@@ -143,11 +143,11 @@ and accessible large foundation models.
 Falcon3 represents a natural evolution from previous releases, emphasizing expanding the models' science, math, and code capabilities.
 
 This iteration includes five base models:
-1. Falcon3-1B-Base
-2. Falcon3-3B-Base
-3. Falcon3-Mamba-7B-Base
-4. Falcon3-7B-Base
-5. Falcon3-10B-Base
+1. [Falcon3-1B-Base](https://huggingface.co/tiiuae/Falcon3-1B-Base)
+2. [Falcon3-3B-Base](https://huggingface.co/tiiuae/Falcon3-3B-Base)
+3. [Falcon3-Mamba-7B-Base](https://huggingface.co/tiiuae/Falcon3-Mamba-7B-Base)
+4. [Falcon3-7B-Base](https://huggingface.co/tiiuae/Falcon3-7B-Base)
+5. [Falcon3-10B-Base](https://huggingface.co/tiiuae/Falcon3-10B-Base)
 
 In developing these models, we incorporated several key innovations aimed at improving the models' performances while reducing training costs:
 - **One pre-training for transformer-based models:** We conducted a single large-scale pretraining run on the 7B model, using 1024 H100 GPU chips, leveraging 14 trillion tokens featuring web, code, STEM, and curated high-quality and multilingual data.
