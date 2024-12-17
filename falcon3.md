@@ -5,6 +5,18 @@ authors:
 - user: Abdalgader
   guest: true
   org: tiiuae
+- user: abdulmuneertii
+  guest: true
+  org: tiiuae
+- user: alice-tii
+  guest: true
+  org: tiiuae
+- user: Almansoorialikhalifa
+  guest: true
+  org: tiiuae
+- user: amztheory
+  guest: true
+  org: tiiuae
 - user: billelmokeddem
   guest: true
   org: tiiuae
@@ -14,10 +26,22 @@ authors:
 - user: DhiyaEddine
   guest: true
   org: tiiuae
+- user: dunghuynh
+  guest: true
+  org: tiiuae
 - user: fedyanin
   guest: true
   org: tiiuae
 - user: gcamp
+  guest: true
+  org: tiiuae
+- user: Gkunsch
+  guest: true
+  org: tiiuae
+- user: gokulkarthik
+  guest: true
+  org: tiiuae
+- user: griffintaur
   guest: true
   org: tiiuae
 - user: HakimHacid
@@ -50,7 +74,19 @@ authors:
 - user: kasper-piskorski
   guest: true
   org: tiiuae
+- user: IChahed
+  guest: true
+  org: tiiuae
+- user: lkhphuc
+  guest: true
+  org: tiiuae
+- user: Ludovick
+  guest: true
+  org: tiiuae
 - user: melaseddik
+  guest: true
+  org: tiiuae
+- user: mersinvald
   guest: true
   org: tiiuae
 - user: Mughaira
@@ -68,13 +104,25 @@ authors:
 - user: RedaAlami
   guest: true
   org: tiiuae
+- user: rishabh-saraf
+  guest: true
+  org: tiiuae
+- user: SanathNarayan
+  guest: true
+  org: tiiuae
 - user: shihux
   guest: true
   org: tiiuae
 - user: slimfrikha-tii
   guest: true
   org: tiiuae
+- user: wamreyaz
+  guest: true
+  org: tiiuae
 - user: wdevazelhes
+  guest: true
+  org: tiiuae
+- user: yellowvm
   guest: true
   org: tiiuae
 - user: ybelkada
@@ -95,17 +143,17 @@ and accessible large foundation models.
 Falcon3 represents a natural evolution from previous releases, emphasizing expanding the models' science, math, and code capabilities.
 
 This iteration includes five base models:
-1. Falcon3-1B-Base
-2. Falcon3-3B-Base
-3. Falcon3-Mamba-7B-Base
-4. Falcon3-7B-Base
-5. Falcon3-10B-Base
+1. [Falcon3-1B-Base](https://huggingface.co/tiiuae/Falcon3-1B-Base)
+2. [Falcon3-3B-Base](https://huggingface.co/tiiuae/Falcon3-3B-Base)
+3. [Falcon3-Mamba-7B-Base](https://huggingface.co/tiiuae/Falcon3-Mamba-7B-Base)
+4. [Falcon3-7B-Base](https://huggingface.co/tiiuae/Falcon3-7B-Base)
+5. [Falcon3-10B-Base](https://huggingface.co/tiiuae/Falcon3-10B-Base)
 
 In developing these models, we incorporated several key innovations aimed at improving the models' performances while reducing training costs:
 - **One pre-training for transformer-based models:** We conducted a single large-scale pretraining run on the 7B model, using 1024 H100 GPU chips, leveraging 14 trillion tokens featuring web, code, STEM, and curated high-quality and multilingual data.
 - **Depth up-scaling for improved reasoning:** Building on recent studies on the effects of model depth, we upscaled the 7B model to a 10B parameters model by duplicating the redundant layers and continuing pre-training with 2 trillion tokens of high-quality data. This yielded Falcon3-10B-Base which achieves state-of-the-art zero-shot and few-shot performance for models under 13B parameters.
 - **Knowledge distillation for better tiny models:** To provide compact and efficient alternatives, we developed Falcon3-1B-Base and Falcon3-3B-Base by leveraging pruning and knowledge distillation techniques, using less than 100GT of curated high-quality data, thereby redefining pre-training efficiency.
-- **Pure SSM:** We have further enhanced [Falcon Mamba 7B](https://huggingface.co/tiiuae/falcon-mamba-7b) by training on an additional 2 trillion tokens of high-quality data, resulting in Falcon3-Mamba-7B-Base. Notably, the updated model offers significantly improved reasoning and mathematical capabilities.
+- **Pure SSM:** We have further enhanced [Falcon Mamba 7B](https://huggingface.co/tiiuae/falcon-mamba-7b) by training on an additional 1.5 trillion tokens of high-quality data, resulting in Falcon3-Mamba-7B-Base. Notably, the updated model offers significantly improved reasoning and mathematical capabilities.
 - **Other variants:** All models in the Falcon3 family are available in variants such as Instruct, GGUF, GPTQ-Int4, GPTQ-Int8, AWQ, and 1.58-bit, offering flexibility for a wide range of applications.
 
 ## Key Highlights
@@ -122,7 +170,7 @@ Falcon3 featured the limits within the small and medium scales of large language
 ## Enhanced Capabilities
 
 Our evaluations highlight key areas where the Falcon3 family of models excel, reflecting the emphasis on enhancing performance in scientific domains, reasoning, and general knowledge capabilities:
-- **Math Capabilities:** Falcon3-10B-Base achieves 24.77 on MATH-Lvl5 and 83.0 on GSM8K, showcasing enhanced reasoning in complex math-focused tasks.
+- **Math Capabilities:** Falcon3-10B-Base achieves 22.9 on MATH-Lvl5 and 83.0 on GSM8K, showcasing enhanced reasoning in complex math-focused tasks.
 - **Coding Capabilities:** Falcon3-10B-Base achieves 73.8 on MBPP, while Falcon3-10B-Instruct scores 45.8 on Multipl-E, reflecting their abilities to generalize across programming-related tasks.
 - **Extended Context Length**: Models in the Falcon3 family support up to 32k tokens (except the 1B supporting up to 8k context), with functional improvements such as scoring 86.3 on BFCL (Falcon3-10B-Instruct).
 - **Improved Reasoning:** Falcon3-7B-Base and Falcon3-10B-Base achieve 51.0 and 59.7 on BBH, reflecting enhanced reasoning capabilities, with the 10B model showing improved reasoning performance over the 7B.
@@ -169,7 +217,7 @@ Furthermore, Falcon3-7B and Falcon3-10B show robust performance across the evalu
 
 
 ## Open Source Commitment
-In line with our mission to foster AI accessibility and collaboration, all models in the Falcon3 family are released under the **Apache 2.0 license**. We hope the AI community finds these models valuable for research, application development, and further experimentation. Falcon3 is not a culmination but a continuation of our efforts to create more capable, efficient, specialized foundation models. In January 2025, we will further release other models of the Falcon3 family featuring enhanced multi-modal capabilities including image, video, and audio support, as well as a full technical report covering our methodologies. We welcome feedback and collaboration from the community as we continue to refine and advance these technologies.
+In line with our mission to foster AI accessibility and collaboration, all models in the Falcon3 family are released under the [**Falcon LLM license**](https://falconllm.tii.ae/falcon-terms-and-conditions.html). We hope the AI community finds these models valuable for research, application development, and further experimentation. Falcon3 is not a culmination but a continuation of our efforts to create more capable, efficient, specialized foundation models. In January 2025, we will further release other models of the Falcon3 family featuring enhanced multi-modal capabilities including image, video, and audio support, as well as a full technical report covering our methodologies. We welcome feedback and collaboration from the community as we continue to refine and advance these technologies.
 
 ## Useful links
 
