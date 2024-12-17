@@ -8,6 +8,9 @@ authors:
 - user: abdulmuneertii
   guest: true
   org: tiiuae
+- user: AdamWma
+  guest: true
+  org: tiiuae
 - user: alice-tii
   guest: true
   org: tiiuae
