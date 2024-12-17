@@ -83,9 +83,6 @@ authors:
 - user: kasper-piskorski
   guest: true
   org: tiiuae
-- user: LeenAlQadi
-  guest: true
-  org: tiiuae
 - user: IChahed
   guest: true
   org: tiiuae
