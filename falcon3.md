@@ -1,5 +1,5 @@
 ---
-title: "Welcome the Falcon 3 Family of Open Models!" 
+title: "Welcome to the Falcon 3 Family of Open Models!" 
 thumbnail: /blog/assets/falcon3/thumbnail.png
 authors:
 - user: Abdalgader
@@ -136,7 +136,7 @@ authors:
   org: tiiuae
 ---
 
-# Welcome the Falcon 3 Family of Open Models!
+# Welcome to the Falcon 3 Family of Open Models!
 
 We introduce Falcon3, a family of decoder-only large language models under 10 billion parameters, developed by
 [Technology Innovation Institute (TII)](https://www.tii.ae/ai-and-digital-science) in Abu Dhabi. By pushing the
