@@ -2,85 +2,85 @@
 title: "Welcome the Falcon 3 Family of Open Models!" 
 thumbnail: /blog/assets/falcon3/thumbnail.png
 authors:
-- Abdalgader
+- user: Abdalgader
   guest: true
   org: tiiuae
-- billelmokeddem
+- user: billelmokeddem
   guest: true
   org: tiiuae
-- Dhia-GB
+- user: Dhia-GB
   guest: true
   org: tiiuae
-- DhiyaEddine
+- user: DhiyaEddine
   guest: true
   org: tiiuae
-- fedyanin
+- user: fedyanin
   guest: true
   org: tiiuae
-- gcamp
+- user: gcamp
   guest: true
   org: tiiuae
-- HakimHacid
+- user: HakimHacid
   guest: true
   org: tiiuae
-- HamzaYous89
+- user: HamzaYous89
   guest: true
   org: tiiuae
-- hangzou
+- user: hangzou
   guest: true
   org: tiiuae
-- i-Chahed
+- user: i-Chahed
   guest: true
   org: tiiuae
-- ibrahim-khadraoui-TII
+- user: ibrahim-khadraoui-TII
   guest: true
   org: tiiuae
-- ifarhat1993
+- user: ifarhat1993
   guest: true
   org: tiiuae
-- Iheb-Chaabane
+- user: Iheb-Chaabane
   guest: true
   org: tiiuae
-- JingweiZuo
+- user: JingweiZuo
   guest: true
   org: tiiuae
-- karnakar
+- user: karnakar
   guest: true
   org: tiiuae
 - kasper-piskorski
   guest: true
   org: tiiuae
-- melaseddik
+- user: melaseddik
   guest: true
   org: tiiuae
-- Mughaira
+- user: Mughaira
   guest: true
   org: tiiuae
-- puneeshkhanna
+- user: puneeshkhanna
   guest: true
   org: tiiuae
-- qiyang-zhao
+- user: qiyang-zhao
   guest: true
   org: tiiuae
-- rcojocaru
+- user: rcojocaru
   guest: true
   org: tiiuae
-- RedaAlami
+- user: RedaAlami
   guest: true
   org: tiiuae
-- shihux
+- user: shihux
   guest: true
   org: tiiuae
-- slimfrikha-tii
+- user: slimfrikha-tii
   guest: true
   org: tiiuae
-- wdevazelhes
+- user: wdevazelhes
   guest: true
   org: tiiuae
-- ybelkada
+- user: ybelkada
   guest: true
   org: tiiuae
-- yasserTII
+- user: yasserTII
   guest: true
   org: tiiuae
 ---
