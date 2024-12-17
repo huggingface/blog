@@ -14,7 +14,7 @@ We are very excited to announce that you can now run SQL queries on your dataset
 
 ## Introducing the SQL Console for Datasets
 
-On every public dataset you should see a new **SQL Console** badge. With just one click you can open a SQL Console to query that dataset.
+On every dataset you should see a new **SQL Console** badge. With just one click you can open a SQL Console to query that dataset.
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
    <video

@@ -2970,17 +2970,6 @@
     - inference
     - guide
 
-- local: researcher-dataset-sharing
-  title: "Creating open machine learning datasets? Share them on the Hugging Face Hub!"
-  author: davanstrien
-  thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
-  date: October 30, 2023
-  tags:
-    - community
-    - research
-    - datasets
-    - guide
-
 - local: regions
   title: "Introducing Storage Regions on the HF Hub"
   author: julien-c
@@ -3966,7 +3955,7 @@
 - local: leaderboard-arabic
   title: "Introducing the Open Arabic LLM Leaderboard"
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_arabic.png
-  author: Ali-C137
+  author: alielfilali01
   guest: true
   date: May 14, 2024
   tags:
@@ -4722,7 +4711,6 @@
     - leaderboard
     - LLM
 
-
 - local: chinese-ai-expansion
   title: "A Short Summary of Chinese AI Global Expansion"
   author: AdinaY
@@ -4943,6 +4931,7 @@
     - expert-support-program
     - expert-support
     - case-studies
+
 - local: universal_assisted_generation
   title: "Universal Assisted Generation: Faster Decoding with Any Assistant Model"
   author: danielkorat
@@ -4977,3 +4966,206 @@
     - open-source
     - community
     - collaboration
+
+- local: researcher-dataset-sharing
+  title: "Share your open ML datasets on Hugging Face Hub!"
+  author: davanstrien
+  thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
+  date: November 12, 2024
+  tags:
+    - community
+    - research
+    - datasets
+    - guide
+
+- local: eu-ai-act-for-oss-developers
+  title: "Open Source Developers Guide to the EU AI Act"
+  author: brunatrevelin
+  thumbnail: /blog/assets/189_eu-ai-act-for-oss-developers/thumbnail.png
+  date: December 2, 2024
+  tags:
+    - policy
+    - guide
+    - ethics
+
+- local: arena-atla
+  title: "Judge Arena: Benchmarking LLMs as Evaluators"
+  thumbnail: /blog/assets/arenas-on-the-hub/thumbnail_atla.png
+  author: kaikaidai
+  guest: true
+  date: Nov 19, 2024
+  tags:
+    - leaderboard
+    - arena
+    - collaboration
+    - nlp
+    - evaluation
+
+- local: leaderboard-japanese
+  title: "Introduction to the Open Leaderboard for Japanese LLMs"
+  author: akimfromparis
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_japanese.png
+  date: November 20, 2024
+  tags:
+    - community
+    - research
+    - nlp
+    - evaluation
+    - leaderboard
+    - collaboration
+
+- local: layerskip
+  title: "Faster Text Generation with Self-Speculative Decoding"
+  author: ariG23498
+  thumbnail: /blog/assets/layerskip/thumbnail.png
+  date: November 20, 2024
+  tags:
+    - research
+    - nlp
+    - open-source
+    - collaboration
+
+- local: from-files-to-chunks
+  title: "From Files to Chunks: Improving Hugging Face Storage Efficiency"
+  author: jsulz
+  thumbnail: /blog/assets/from-files-to-chunks/thumbnail.png
+  date: November 20, 2024
+  tags:
+    - dedupe
+    - storage
+    - content defined chunking
+
+- local: debate
+  title: "Letting Large Models Debate: The First Multilingual LLM Debate Competition"
+  author: xuanricheng
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_flageval.png
+  date: November 20, 2024
+  tags:
+    - community
+    - research
+    - nlp
+    - evaluation
+    - leaderboard
+    - collaboration
+
+- local: designing-positional-encoding
+  title: "You could have designed state of the art positional encoding"
+  author: FL33TW00D-HF
+  thumbnail: /blog/assets/designing-positional-encoding/thumbnail_posenc.png
+  date: November 25, 2024
+  tags:
+    - research
+    - multimodal
+    - tutorial
+
+- local: smolvlm
+  title: "SmolVLM - small yet mighty Vision Language Model"
+  author: andito
+  thumbnail: /blog/assets/smolvlm/banner.png
+  date: November 26, 2024
+  tags:
+    - multimodal
+    - on-device
+    - llm
+    - nlp
+    - vision
+    - trl
+
+- local: rearchitecting-uploads-and-downloads
+  title: "Rearchitecting Hugging Face Uploads and Downloads"
+  author: jsulz
+  thumbnail: /blog/assets/rearchitecting-uploads-and-downloads/thumbnail.png
+  date: November 26, 2024
+  tags:
+    - dedupe
+    - storage
+    - content addressed store
+    - infrastructure
+
+- local: cfm-case-study
+  title: "Investing in Performance: Fine-tune small models with LLM insights  - a CFM case study"
+  author: florentgbelidji
+  thumbnail: /blog/assets/cfm-case-study/blogpost_cfm.png
+  date: December 3, 2024
+  tags:
+    - llm
+    - expert-support-program
+    - expert-support
+    - case-studies
+
+- local: leaderboard-3c3h-aragen
+  title: "Rethinking LLM Evaluation with 3C3H: AraGen Benchmark and Leaderboard"
+  author: alielfilali01
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_3c3h_aragen.png
+  date: December 04, 2024
+  tags:
+    - leaderboard
+    - evaluation
+    - nlp
+    - LLM
+    - research
+
+
+- local: keras-chatbot-arena
+  title: "“How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs"
+  author: martin-gorner
+  thumbnail: /blog/assets/keras-chatbot-arena/thumbnail.png
+  date: December 5, 2024
+  tags:
+    - keras
+    - TPU
+    - Spaces
+    - llm
+    - open-source
+
+- local: paligemma2
+  title: "Welcome PaliGemma 2 – New vision language models by Google"
+  author: merve
+  thumbnail: /blog/assets/paligemma/Paligemma2.png
+  date: December 05, 2024
+  tags:
+    - multimodal
+    - gemma
+    - LLM
+    - vision
+    - VLM
+    - research
+
+- local: image-preferences
+  title: "Hugging Face Community Releases an Open Preference Dataset for Text-to-Image Generation"
+  author: davidberenstein1957
+  thumbnail: /blog/assets/image_preferences/thumbnail.png
+  date: December 09, 2024
+  tags:
+    - text-to-image
+    - datasets
+    - argilla
+    - data-is-better-together
+    - flux
+    - stable-diffusion
+    - distilabel
+
+- local: bedrock-marketplace
+  title: "Hugging Face models in Amazon Bedrock"
+  author: pagezyhf
+  thumbnail: /blog/assets/bedrock-marketplace/thumbnail.png
+  date: December 09, 2024
+  tags:
+    - aws
+    - partnerships
+    - cloud
+    - bedrock
+
+- local: lematerial
+  title: "LeMaterial: an open source initiative to accelerate materials discovery and research"
+  author: AlexDuvalinho
+  guest: true
+  thumbnail: /blog/assets/lematerial/thumbnail_lematerial.png
+  date: December 10, 2024
+  tags:
+    - community
+    - chemistry
+    - science
