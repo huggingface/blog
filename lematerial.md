@@ -1,21 +1,28 @@
 ---
-title: "LeMaterial: an open source initiative to accelate materials discovery and research" 
+title: "LeMaterial: an open source initiative to accelerate materials discovery and research" 
 thumbnail: /blog/assets/lematerial/thumbnail_lematerial.png
 authors:
 - user: AlexDuvalinho
   guest: true
+  org: Entalpic
 - user: lritchie
   guest: true
+  org: Entalpic
 - user: msiron
   guest: true
+  org: Entalpic
 - user: inelgnu
   guest: true
+  org: LeMaterial
 - user: etiennedufayet
   guest: true
+  org: LeMaterial
 - user: amandinerossello
   guest: true
+  org: LeMaterial
 - user: Ramlaoui
   guest: true
+  org: LeMaterial
 - user: IAMJB
 - user: lvwerra
 - user: thomwolf
@@ -29,20 +36,22 @@ Today, we are thrilled to announce the launch of **LeMaterial**, an open-source 
 
 As a first step, we are releasing a dataset called `LeMat-Bulk`, which unifies, cleans and standardizes the most prominent material datasets, including [Materials Project](https://next-gen.materialsproject.org/), [Alexandria](https://alexandria.icams.rub.de/) and [OQMD](https://oqmd.org/) — giving rise to a single harmonized data format with **6.7M entries** and **7 materials properties.**
 
+> LeMaterial is standing on the shoulders of giants and we are building upon incredible projects which have been instrumental in the development of this initiative: [Optimade](https://www.optimade.org/), [Materials Project](https://next-gen.materialsproject.org/), [Alexandria](https://alexandria.icams.rub.de/) and [OQMD](https://oqmd.org/), and more to come. Please credit them accordingly when using LeMaterial. 
+
 ## Why LeMaterial?
 
 The world of materials science, at the intersection of quantum chemistry and machine learning, is brimming with opportunity — from brighter LEDs, to electro-chemical batteries, more efficient photovoltaic cells and recyclable plastics, the applications are endless. By leveraging machine learning (ML) on large, structured datasets, researchers can perform high-throughput screening and testing of new materials at unprecedented scales, significantly accelerating the discovery cycle of novel compounds with desired properties. In this paradigm, **data becomes the essential fuel powering ML models** that can guide experiments, reduce costs, and unlock breakthroughs faster than ever before.
 
-However, **this field is hampered by fragmented datasets that vary in format, parameters, and scope, presenting the following challenges:**
+This field is fueled by very complete datasets such as [Materials Project](https://next-gen.materialsproject.org/), [Alexandria](https://alexandria.icams.rub.de/) and [OQMD](https://oqmd.org/), all open-source and under a CC-BY-4.0 license. **However, those datasets vary in format, parameters, and scope, presenting the following challenges:**  
 
 - Dataset integration issues (eg. inconsistent formats or field definitions, incompatible calculations)
-- Biases in dataset composition (for eg. Material Project's focus on oxides and battery materials)
+- Biases in dataset composition (for eg. Materials Project's focus on oxides and battery materials)
 - Limited scope (eg. NOMADs focus on quantum chemistry calculations rather than material properties)
 - Lack of clear connections or identifiers between similar materials across different databases
 
 This fragmented landscape makes it challenging for researchers in AI4Science and materials informatics to leverage existing data effectively. Whether the application involves training foundational ML models, constructing accurate phase diagrams, identifying novel materials or exploring the chemical space effectively, there is no simple solution. While efforts like [Optimade](https://optimade.org/) standardize structural data, they don't address discrepancies in material properties or biases in dataset scopes.
 
-**LeMaterial** addresses these challenges by unifying and standardizing data from three major databases—Materials Project, Alexandria, and OQMD—into a high-quality resource with consistent and systematic properties. The elemental composition treemap below highlights the value of this integration, showcasing how we increase the scope of existing datasets, like Materials Project, which are biased toward specific material types, such as battery materials (Li, O, P) or oxides.
+**LeMaterial** addresses these challenges by unifying and standardizing data from three major databases — [Materials Project](https://next-gen.materialsproject.org/), [Alexandria](https://alexandria.icams.rub.de/) and [OQMD](https://oqmd.org/) — into a high-quality resource with consistent and systematic properties. The elemental composition treemap below highlights the value of this integration, showcasing how we increase the scope of existing datasets, like Materials Project, which are focused on specific material types, such as battery materials (Li, O, P) or oxides.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/MP_LeMatBulk_Combined_Treemap.png" alt="drawing" width="1000"/>
@@ -55,7 +64,7 @@ This fragmented landscape makes it challenging for researchers in AI4Science and
 
 ## Achieving a clean, unified and standardized dataset
 
-`LeMat-Bulk` is more than a large-scale merged dataset with a permissive license (CC-BY-4.0). With its 6.7M entries with consistent properties, it represents a foundational step towards creating a curated and standardized open ecosystem for material science, designed to simplify research workflows and improve data quality. Below is a closer view of what is looks like. To interactively browse through our materials, check out the [Materials Explorer space.](https://huggingface.co/spaces/LeMaterial/materials_explorer)
+`LeMat-Bulk` is more than a large-scale merged dataset with a permissive license (CC-BY-4.0). With its 6.7M entries with consistent properties, it represents a foundational step towards creating a curated and standardized open ecosystem for material science, designed to simplify research workflows and improve data quality. Below is a closer view of what is looks like. To interactively browse through our materials, check out the [Materials Explorer space, built using MP Dash components.](https://huggingface.co/spaces/LeMaterial/materials_explorer)
 
 <iframe
   src="https://huggingface.co/datasets/LeMaterial/LeMat-Bulk/embed/viewer/compatible_pbe/train"
@@ -69,8 +78,8 @@ This fragmented landscape makes it challenging for researchers in AI4Science and
 
 | **Release** | **Description & Value** | **Date** |
 | --- | --- | --- |
-| v.1.0 | <ul><li><strong>Data collection and merging</strong> from various sources: Materials Project, Alexandria and OQMD datasets, including multiple fields and DFT functionals (PBE, PBESol, SCAN). </li><li><strong>Data cleaning</strong>: identify and remove datapoints not conforming to the set standard (e.g. with non-compatible calculations). </li><li><strong>Standardization</strong>: uniformly format the set of fields across databases, using Optimade standard </li><li><strong>Material fingerprint</strong>: attribute a unique identifier to each material with a well benchmarked hashing function, enabling to remove duplicates</li><li><strong>Accessibility and visualization</strong>: propose several tools to easily explore and visualize the proposed new dataset (spits, phase diagrams, material explorer, property explorer)</li></ul>  | Dec. 10, 2024 |
-| v.1.1 | <ul><li><strong>New data</strong>: calculate charge data for many materials in Materials Project database (additional 53k data </li>points), band gaps information, unified energy correction scheme<li><strong>Evaluation</strong>: Code hashing function benchmarks</li><li><strong>New functions</strong>: Material similarity metric and retriever tool of similar structures</li><li><strong>New models</strong>: Equiformerv2 and FAENet trained on the data</li><li><strong>Data validation</strong>: check for compatibility of fields, formatting, etc.</li></ul> | Q1 2025 |
+| v.1.0 | <ul><li><strong>Data collection and merging</strong> from various sources: Materials Project, Alexandria and OQMD datasets, including multiple fields and DFT functionals (PBE, PBESol, SCAN). </li><li><strong>Data cleaning</strong>: identify and remove datapoints not conforming to the set standard (e.g. with non-compatible calculations). </li><li><strong>Standardization</strong>: uniformly format the set of fields across databases, using Optimade standard </li><li><strong>Material fingerprint</strong>: attribute a unique identifier to each material with a well benchmarked hashing function, enabling to remove duplicates</li><li><strong>Accessibility and visualization</strong>: the proposed new datasets can be visualized thanks to open source tools (phase diagrams, material explorer) based on Crystal Toolkit, Pymatgen, and Dash components developed by Materials Project </li></ul>  | Dec. 10, 2024 |
+| v.1.1 | <ul><li><strong>New data</strong>: calculate charge data for many materials in Materials Project database (additional 53k data points, band gaps information, unified energy correction scheme)<li><strong>Evaluation</strong>: Code hashing function benchmarks</li><li><strong>New functions</strong>: Material similarity metric and retriever tool of similar structures</li><li><strong>New models</strong>: Equiformerv2 and FAENet trained on the data</li><li><strong>Data validation</strong>: check for compatibility of fields, formatting, etc.</li></ul> | Q1 2025 |
 | Future releases | <li><strong>New data</strong>: release of r2SCAN data from Materials Project </li><li><strong>New surface datasets</strong>: OC20 & OC22 datasets and ability to cover other models than bulk (surface and slab+ads and molecule structures)</li><li><strong>Further harmonisation</strong>: include trajectories across MPTrj, OMat24 in similar format, include relational data in our DB </li> | Q2 2025 |
 
 **We offer different datasets and subsets,** enabling tailored workflows for researchers depending on their needs (consistent calculations, deduplicating materials, or comprehensive exploration):
@@ -117,9 +126,9 @@ Additionally, we are planning on releasing **a set of well-curated benchmarks** 
 
 ## LeMaterial in Action: applications and impact
 
-LeMaterial aims to be a community-driven initiative that gathers machine learning models, visualization tools, large & curated datasets, handy toolkits, etc. It is designed to be practical and flexible, enabling a wide range of applications, such as:
+In the longer term, LeMaterial aims to be a community-driven initiative that gathers large & curated datasets, machine learning models, handy toolkits, etc. It is designed to be practical and flexible, enabling a wide range of applications, such as:
 
-- **Exploring extended phase diagrams** ([link to our explorer](https://huggingface.co/spaces/LeMaterial/phase_diagram)), constructed with a broader dataset, to analyze chemical spaces in greater detail. Combining larger datasets means that we can provide a finer resolution of material stability in a given compositional space:
+- **Exploring extended phase diagrams** ([Link to our phase diagram explorer](https://huggingface.co/spaces/LeMaterial/phase_diagram), built thanks to various open-source tools from Materials Project), constructed with a broader dataset, to analyze chemical spaces in greater detail. Combining larger datasets means that we can provide a finer resolution of material stability in a given compositional space:
 
 <p align="center">
     <img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/experimental%20phase%20diagram%20Ti%3Abb%3ASn%20(research%20paper).png" alt="drawing" width="350"/>
@@ -136,7 +145,7 @@ LeMaterial aims to be a community-driven initiative that gathers machine learnin
 </p>
 
 <p align="center">
-  <em>LeMat-Bulk phase diagram for Sn, Ti, Nb
+  <em>LeMat-Bulk phase diagram for Sn, Ti, Nb, built thanks to Pymatgen, Crystal Toolkit (Materials Project tools)
   </em>
 </p>
     
@@ -205,7 +214,7 @@ LeMaterial aims to be a community-driven initiative that gathers machine learnin
                       </p>
                     </td>
                     <td>
-                        <p style="text-align:center;"><img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/unit%20cells%20%3A%20same%20materials%202%3A2.png"></p>
+                        <p style="text-align:center;"><img src="https://huggingface.co/datasets/LeMaterial/admin/resolve/main/supercells%202%3A2.png"></p>
                     </td>
                 </tr>
             </tbody>
@@ -214,20 +223,26 @@ LeMaterial aims to be a community-driven initiative that gathers machine learnin
               </caption>
             </table>
         
-        Its important to note here that Pymatgen's StructureMatcher failed on this example, identifying these two unit cells as different materials, when they are indeed the exact same structures. Here our hashing algorithm was able to identify them as indeed the same.
+        It is important to note here that Pymatgen's StructureMatcher identified these two unit cells as different materials, when they are indeed the exact same structures. Here, our hashing algorithm was able to identify them as indeed the same.
 
-- **Training predictive ML models.** We can also train machine learning interatomic potentials like EquiformerV2 on `LeMat-Bulk`. These models should benefits from its scale and data quality and the removal of bias across compositional space, and it would be interesting to assess the benefits of this new dataset. An example of how to incorporate LeMaterial with fairchem can be found in [Colab](https://colab.research.google.com/drive/1y8_CzKM5Rgsiv9JoPmi9mXphi-kf6Lec?usp=sharing). We are currently in process of training an EquiformerV2 model using this dataset — stay tuned 💫
+- **Training predictive ML models.** We can also train machine learning interatomic potentials like EquiformerV2 on `LeMat-Bulk`. These models should benefits from its scale and data quality and the removal of bias across compositional space, and it would be interesting to assess the benefits of this new dataset. An example of how to incorporate LeMaterial with [Fairchem](https://fair-chem.github.io/) can be found in [Colab](https://colab.research.google.com/drive/1y8_CzKM5Rgsiv9JoPmi9mXphi-kf6Lec?usp=sharing). We are currently in process of training an EquiformerV2 model using this dataset — stay tuned 💫
 
 ## Take-aways
 
 As a community, we often place a lot of value in the **quality** of these large-scale open-source databases. However the lack of standardization makes utilizing multiple dataset a huge challenge. **LeMaterial** offers a solution that unifies, standardizes, performs extra cleaning and validation efforts on existing major data sources. This new open-science project is designed to accelerate research, improve quality of ML models, and make materials discovery more efficient and accessible.
 
 **We are just getting started** — we know there are still flaws and improvements to be made — and would thus love to hear your feedback! So please reach out if you are interested to contribute to this open-source initiative. We would be excited to continue expanding LeMaterial with new datasets, tools, and applications — alongside the community! ⚛️🤗
-
-
 > We extend our heartfelt thanks to [Zachary Ulissi](https://zulissi.github.io/) and [Luis Barroso-Luque](https://www.linkedin.com/in/luis-barroso-luque-9742598a/) (Meta), and [Matt McDermott](https://github.com/mattmcdermott) (Newfound Materials, Inc.) for their valuable feedback regarding is initiative.
->
-> We also acknowledge the incredible contributions of the creators of Optimade, Alexandria, Materials Project, and OQMD. Their foundational work has been instrumental in enabling the development of LeMaterial, and we are proud to build upon their legacy as part of the collaborative effort to advance materials science.
+## Citations
+
+By downloading content from LeMaterial, you agree to accept the [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) license implying that content may be copied, distributed, transmitted, and adapted, without obtaining specific permission from LeMaterial, provided proper attribution is given to LeMaterial.
+
+If you use the LeMaterial as a resource in your research, please cite the citation section from our [data-card](https://huggingface.co/datasets/LeMaterial/LeMat-Bulk#citation-information) (paper to come). 
+
+CC-BY-4.0 (license used for Materials Project, Alexandria, OQMD) requires proper acknowledgement. 
+Thus, if you use materials data which include (”mp-”) in the immutable_id, please cite the [Materials Project](https://pubs.aip.org/aip/apm/article/1/1/011002/119685/Commentary-The-Materials-Project-A-materials). If you use materials data which include (”agm-”) in the immutable_id, please cite [Alexandria, PBE](https://www.science.org/doi/10.1126/sciadv.abi7948) or [Alexandria PBESol, SCAN](https://www.nature.com/articles/s41597-022-01177-w). If you use materials data which include (”oqmd-”) in the immutable_id, please cite [OQMD](https://link.springer.com/article/10.1007/s11837-013-0755-4). Finally, if you make use of the Phase Diagram for visualization purposes, or the crystal viewer in the Materials Explorer, please acknowledge [Crystal Toolkit](https://github.com/materialsproject/crystaltoolkit).
+
+
 
 ---
 
