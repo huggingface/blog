@@ -5192,3 +5192,15 @@
     - cpu
     - LLM
     - benchmark
+
+- local: falcon3
+  title: "Welcome the Falcon 3 Family of Open Models!"
+  author: ariG23498
+  thumbnail: /blog/assets/falcon3/thumbnail.png
+  date: December 17, 2024
+  tags:
+    - nlp
+    - llm
+    - ssm
+    - community
+    - research
