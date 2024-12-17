@@ -47,7 +47,7 @@ authors:
 - karnakar
   guest: true
   org: tiiuae
-- kpiskorski
+- kasper-piskorski
   guest: true
   org: tiiuae
 - melaseddik
