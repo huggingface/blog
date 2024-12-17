@@ -132,8 +132,6 @@ Note that we’ve picked a `batch_size` that works well for this example, but yo
 Now that we’ve identified the rows of the dataset we’re interested in, we can save the result for other downstream analyses. Dask DataFrame automatically supports [distributed writing to Parquet](https://docs.dask.org/en/stable/dataframe-parquet.html?utm_source=hf-blog). Hugging Face uses commits to track dataset changes and allows writing a Dask DataFrame in parallel.
 
 ```python
-from dask_hf import to_parquet
-
 repo_id = "<your-hf-user>/<your-dataset-name>"  # Update with your dataset location
 df.to_parquet(f"hf://datasets/{repo_id}")
 ```
