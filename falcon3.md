@@ -11,6 +11,9 @@ authors:
 - user: AdamWma
   guest: true
   org: tiiuae
+- user: AbdulazizAlshamsi
+  guest: true
+  org: tiiuae
 - user: alice-tii
   guest: true
   org: tiiuae
@@ -68,6 +71,9 @@ authors:
 - user: Iheb-Chaabane
   guest: true
   org: tiiuae
+- user: jaadariF
+  guest: true
+  org: tiiuae
 - user: JingweiZuo
   guest: true
   org: tiiuae
@@ -81,6 +87,9 @@ authors:
   guest: true
   org: tiiuae
 - user: lkhphuc
+  guest: true
+  org: tiiuae
+- user: LeenAlQadi
   guest: true
   org: tiiuae
 - user: Ludovick
