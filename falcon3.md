@@ -169,7 +169,7 @@ Falcon3 featured the limits within the small and medium scales of large language
 
 ## Enhanced Capabilities
 
-We evaluated models with our internal evaluation pipeline and we report raw scores. 
+We evaluated models with our internal evaluation pipeline (based on [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness)) and we report raw scores. 
 Our evaluations highlight key areas where the Falcon3 family of models excel, reflecting the emphasis on enhancing performance in scientific domains, reasoning, and general knowledge capabilities:
 - **Math Capabilities:** Falcon3-10B-Base achieves 22.9 on MATH-Lvl5 and 83.0 on GSM8K, showcasing enhanced reasoning in complex math-focused tasks.
 - **Coding Capabilities:** Falcon3-10B-Base achieves 73.8 on MBPP, while Falcon3-10B-Instruct scores 45.8 on Multipl-E, reflecting their abilities to generalize across programming-related tasks.
