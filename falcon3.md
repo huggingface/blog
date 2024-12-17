@@ -192,7 +192,8 @@ is characterized by a head dimension of 256 which yields high throughput when us
 </div>
 <br/><br/>
 
-The table below highlights the performances of Falcon3-7B-Base and Falcon3-10B-Base on key benchmarks showing competitive performances in general, math, reasoning, and common sense understanding domains. 
+The table below highlights the performances of Falcon3-7B-Base and Falcon3-10B-Base on key benchmarks showing competitive performances in general, math, reasoning, and common sense understanding domains.
+Feel free to take a look at models' cards where we provide additional evaluation results (e.g. MT-Bench, Alpaca, etc). 
  <br/><br/>
 <!-- ![medium base models' performances](medium-base-models.png)  -->
 <div style="text-align: center;" align="center">
