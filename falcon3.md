@@ -11,6 +11,9 @@ authors:
 - user: AdamWma
   guest: true
   org: tiiuae
+- user: AbdulazizAlshamsi
+  guest: true
+  org: tiiuae
 - user: alice-tii
   guest: true
   org: tiiuae
