@@ -2,6 +2,26 @@
 title: "Bamba: Latest Inference Efficient Hybrid Mamba2 Model"
 thumbnail: assets/bamba/bamba_thumbnail.jpeg
 authors:
+- user: Linsong-C
+- user: divykum
+- user: tridao
+- user: albertgu
+- user: rganti
+- user: mudhakar
+- user: daviswer
+- user: mirinflim
+- user: aviros
+- user: tmhoangt
+- user: OfirArviv
+- user: per
+- user: michalshmu
+- user: HaochenShen
+- user: gabegoodhart
+- user: Naigang
+- user: nickhugs
+- user: JRosenkranz
+- user: cliuawesome
+- user: adhoq26
 - user: 
 ---
 
@@ -264,7 +284,7 @@ There are several directions that we intend to explore and further inference-eff
 * **Model architecture**: The model architecture design was jointly done by Princeton, CMU, IBM, and UIUC and involved the following folks: Tri Dao (Princeton), Albert Gu (CMU), Linsong Chu (IBM), Davis Wertheimer (IBM), Minjia Zhang (UIUC), Mudhakar Srivatsa (IBM), and Raghu Ganti (IBM).  
 * **Model training**: Model training was performed primarily by the IBM team using the Mamba2 kernels and layer implementation from Tri Dao and Albert Gu. The following folks from IBM were primarily involved: Linsong Chu, Divya Kumari, Davis Wertheimer, Raghu Ganti, and Dakshi Agrawal.  
 * **Model tuning**: Tuning of the model was enabled and verified in [TRL](https://github.com/huggingface/trl) by the IBM team, involving Sukriti Sharma and Anh Uong.  
-* **Model inference**: Model inference in `transformers`, `vLLM`, and `llama.cpp` builds on the kernels written by Princeton and CMU. The IBM team is working with the community to enable it in various ecosystems, the team includes Fabian Lim, Antoni viros i Martin, Adnan Hoque, Jamie Yang, Nelson Nimura Gomez, Joshua Rosenkranz, Nick Hill, and Gabe Goodhart.  
+* **Model inference**: Model inference in `transformers`, `vLLM`, and `llama.cpp` builds on the kernels written by Princeton and CMU. The IBM team is working with the community to enable it in various ecosystems, the team includes Fabian Lim, Antoni viros i Martin, Adnan Hoque, Jamie Yang, Nelson Nimura Gonzalez, Joshua Rosenkranz, Nick Hill, and Gabe Goodhart.  
 * **Quantization**: Quantization is led by the IBM team \- Naigang Wang and Charlie Liu.  
 * **Evaluations**: Evaluations are led by a team in IBM with long context evaluations being performed by UIUC, involving the following folks: Yotam Perlitz, Ofir Arviv, Michal Shmueli-Scheuer (IBM), Haoechen Shen, and Minjia Zhang (UIUC).
 
