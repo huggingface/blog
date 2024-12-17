@@ -217,7 +217,7 @@ Furthermore, Falcon3-7B and Falcon3-10B show robust performance across the evalu
 
 
 ## Open Source Commitment
-In line with our mission to foster AI accessibility and collaboration, all models in the Falcon3 family are released under the **Apache 2.0 license**. We hope the AI community finds these models valuable for research, application development, and further experimentation. Falcon3 is not a culmination but a continuation of our efforts to create more capable, efficient, specialized foundation models. In January 2025, we will further release other models of the Falcon3 family featuring enhanced multi-modal capabilities including image, video, and audio support, as well as a full technical report covering our methodologies. We welcome feedback and collaboration from the community as we continue to refine and advance these technologies.
+In line with our mission to foster AI accessibility and collaboration, all models in the Falcon3 family are released under the [**Falcon LLM license**](https://falconllm.tii.ae/falcon-terms-and-conditions.html). We hope the AI community finds these models valuable for research, application development, and further experimentation. Falcon3 is not a culmination but a continuation of our efforts to create more capable, efficient, specialized foundation models. In January 2025, we will further release other models of the Falcon3 family featuring enhanced multi-modal capabilities including image, video, and audio support, as well as a full technical report covering our methodologies. We welcome feedback and collaboration from the community as we continue to refine and advance these technologies.
 
 ## Useful links
 
