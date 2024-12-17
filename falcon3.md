@@ -192,7 +192,8 @@ is characterized by a head dimension of 256 which yields high throughput when us
 </div>
 <br/><br/>
 
-The table below highlights the performances of Falcon3-7B-Base and Falcon3-10B-Base on key benchmarks showing competitive performances in general, math, reasoning, and common sense understanding domains. 
+The table below highlights the performances of Falcon3-7B-Base and Falcon3-10B-Base on key benchmarks showing competitive performances in general, math, reasoning, and common sense understanding domains.
+Feel free to take a look at models' cards where we provide additional evaluation results (e.g. MT-Bench, Alpaca, etc). 
  <br/><br/>
 <!-- ![medium base models' performances](medium-base-models.png)  -->
 <div style="text-align: center;" align="center">
@@ -205,6 +206,10 @@ The instruct models also demonstrate competitive and super performances with equ
 ### Instruct models
 
 Falcon3-1B-Instruct and Falcon3-3B-Instruct achieve robust performance across the evaluated benchmarks. Specifically, Falcon3-1B attains competitive results in IFEval (54.4), MUSR (40.7), and SciQ (86.8), while Falcon3-3B exhibits further gains—particularly in MMLU-PRO (29.7) and MATH (19.9)—demonstrating clear scaling effects. Although they do not surpass all competing models on every metric, Falcon models show strong performances in reasoning and common-sense understanding relative to both Qwen and Llama.
+In our internal evaluation pipeline:
+ - We use [lm-evaluation harness](https://github.com/EleutherAI/lm-evaluation-harness).
+ - We report **raw scores** obtained by applying chat template **without fewshot_as_multiturn** (unlike Llama3.1).
+ - We use same batch-size across all models.
 
 <br/><br/>
 <!-- ![medium base models' performances](small-instruct-models.png) -->
