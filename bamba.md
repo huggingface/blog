@@ -275,13 +275,16 @@ We use Dolma v1.7 for the first phase of training, and the chosen data mixes are
 
 Pre-training Bamba was done in a phased manner, we performed several ablation experiments at 1.8B model size and 100B tokens to determine the right learning rates and built on the previous community efforts. Based on the promising results from this study, we scaled the model to 3B and 2T tokens using Dolma mix. We also trained a 3B transformer model following Meta Llama architecture with the same data mix and observed similar or better performance from the Bamba model reaching a conclusion similar to the NVIDIA study performed concurrently. Finally, we designed a 9B model architecture and retrained on the same mix. PyTorch FSDP was used to train all our models.
 
+<details>
+<summary>Training details</summary>
 We used a cosine learning rate schedule, with a peak learning rate of `3e−4`, a quadratic warmup over 2000 steps, decay factor of 0.033, and an ending learning rate of `1e−5` over 2T tokens. We used the AdamW optimizer with `β1` of 0.9 and `β2` of 0.95. We used a weight decay of 0.1, sequence length of 4096, and a global batch size of 1.5M tokens/batch. We used 192 A100 GPUs from the [IBM Cloud Vela](https://research.ibm.com/blog/AI-supercomputer-Vela-GPU-cluster) production cluster to train this model over a period of 2 months. This cluster is managed by Red Hat Open Shift. We experienced 3 job interruptions, which were attributed to an incorrect deployment of jobs and hardware failures. The hardware-related job failures were detected automatically using [autopilot](https://github.com/IBM/autopilot).
 
 We also performed a second phase training with high quality data from Hugging Face FineWeb-edu and Cosmopedia for an additional 200B tokens. We used a learning rate of 2e−5 and a cosine schedule to anneal the model, which helped improve our scores. We are currently experimenting with additional high quality data and will release any future checkpoints as part of our commitment to open source.
+</details>
 
 ## Data loader
 
-There are several aspects to train a high quality language model, one of them being a data loader. We have been working over the past 18 months on creating a data loader that satisfies the demands of a large scale distributed training and trading that off with model quality. We open source this data loader to enable others to use it in conjunction with their framework of choice, we have used it in the Bamba model training as well as integrated with Torch Titan. To date, we believe this is the only open source data loader that provides a rich set of features.
+There are several aspects to training a high-quality language model, data loader is an important one. Over the past 18 months we have been working on a data loader that satisfies the demands of large scale distributed training. We open source this data loader to enable others to use it in conjunction with their framework of choice. We have used it in the Bamba model training, and integrated it with [Torch Titan](https://github.com/pytorch/torchtitan/). To date, we believe this is the only open source data loader that provides a rich set of features.
 
 The data loader provides the following key features:
 
