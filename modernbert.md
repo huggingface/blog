@@ -1,3 +1,48 @@
+---
+title: "Finally, a Replacement for BERT: Introducing ModernBERT" 
+thumbnail: /blog/assets/modernbert/thumbnail.png
+authors:
+- user: bclavie
+  guest: true
+  org: answerdotai
+- user: Nohtow
+  guest: true
+  org: lightonai
+- user: bwarner 
+  guest: true
+  org: answerdotai
+- user: orionweller
+  guest: true
+- user: ohallstrom
+  guest: true
+  org: lightonai
+- user: staghado
+  guest: true
+  org: lightonai
+- user: alexisgallagher
+  guest: true
+  org: answerdotai
+- user: rbiswasfc
+  guest: true
+- user: fladhak
+  guest: true
+- user: tomaarsen
+- user: ncoop57
+  guest: true
+  org: answerdotai
+- user: griffin
+  guest: true
+- user: jph00
+  guest: true
+  org: answerdotai
+- user: johnowhitaker
+  guest: true
+  org: answerdotai
+- user: iacolippo
+  guest: true
+  org: lightonai
+---
+
 # Finally, a Replacement for BERT
 
 ## TL;DR
