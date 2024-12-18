@@ -78,7 +78,7 @@ authors:
   org: ibm-fms
 ---
 
-# Bamba: Inference Efficient Hybrid Mamba2 Model :snake:
+# Bamba: Inference-Efficient Hybrid Mamba2 Model :snake:
 
 <p align="center">
   <img src="assets/bamba/bamba.jpeg" alt="Bamba" width="400" height="400">
