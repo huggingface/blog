@@ -10,9 +10,24 @@ authors:
 
 # Controlling Language Model Generation with NVIDIA's LogitsProcessorZoo
 
-> **Struggling to get language models to follow your instructions?**
+Generating text with language models often involves selecting the next token based on a distribution of probabilities.
+A straightforward approach like **greedy search** selects the most probable token, but this can result in generic or repetitive outputs.
+To add diversity and control, more advanced **decoding strategies**, such as beam search, nucleus sampling, and top-k sampling, are widely used.
+These strategies, supported by the [🤗 Transformers library](https://huggingface.co/docs/transformers/en/generation_strategies),
+give us flexibility in shaping the model's outputs.
 
-NVIDIA's [LogitsProcessorZoo](https://github.com/NVIDIA/logits-processor-zoo/tree/main) provides powerful tools for controlling the behavior of language models during text generation. Whether you want to control sequence lengths, enforce specific phrases, or guide multiple-choice answers, this library offers precise control over model outputs. In this post, we'll dive into its features and show how you can use it to refine your AI workflows.
+But what if we wanted to go a step further and **control the text generation process itself** by directly modifying the probability distribution?
+That’s where **logit processing** comes into play. Hugging Face's [LogitsProcessor API](https://huggingface.co/docs/transformers/en/internal/generation_utils#logitsprocessor)
+lets you customize the prediction scores of the language model head, providing granular control over model behavior.
+The 🤗 Transformers library not only offers a rich set of built-in logits processors but also empowers the community
+to create and share custom processors tailored to unique use cases.
+
+Enter NVIDIA's [LogitsProcessorZoo](https://github.com/NVIDIA/logits-processor-zoo/tree/main) — a collection of powerful, modular logits processors
+designed for specific tasks such as controlling sequence lengths, enforcing key phrases, or guiding multiple-choice answers.
+Fully compatible with Hugging Face's [`generate`](https://huggingface.co/docs/transformers/v4.47.1/en/main_classes/text_generation#transformers.GenerationMixin.generate)
+method, NVIDIA’s library serves as an excellent example of community-driven innovation in logits processing.
+
+In this post, we’ll explore how NVIDIA’s LogitsProcessorZoo enhances and expands on existing capabilities, diving deep into its features and demonstrating how it can refine your AI workflows.
 
 ## What Are Logits in Language Models?
 
@@ -59,7 +74,13 @@ print("Generated Text:", generated_text[0])
 >>> Generated Text: Paris
 ```
 
-While this pipeline works for general text generation, **raw logits are not optimized for task-specific constraints or custom behaviors**. This is where logit processing becomes indispensable.
+While this pipeline demonstrates how raw logits can be transformed into text, it's worth noting that 🤗 Transformers streamline this process.
+For instance, the [`generate()`](https://huggingface.co/docs/transformers/en/main_classes/text_generation) method automatically handles these
+transformations, including applying the softmax function and sampling from the probability distribution.
+
+However, raw logits may be undesirable for common tasks like sampling or imposing task-specific constraints. For more details on handling logits
+effectively during generation, refer to Hugging Face's [generation blog post](https://huggingface.co/blog/how-to-generate).
+This is where **logit processing** becomes indispensable to tailor the output to specific needs. 
 
 ## Why Process Logits?
 
@@ -83,17 +104,18 @@ Install the library using:
 pip install logits-processor-zoo
 ```
 
-To demonstrate the processors, we'll create a simple `LLMRunner` class that initializes a model and tokenizer, exposing a `generate_response` method.
+To demonstrate the processors, we'll create a simple `LLMRunner` class that initializes a model and tokenizer,
+exposing a `generate_response` method. We will then provide different processors to the `generate_response` method and see them in action.
 
 ```python
-# Adapted from: https://github.com/ariG23498/logits-processor-zoo/blob/main/example_notebooks/transformers/utils.py
+# Adapted from: https://github.com/NVIDIA/logits-processor-zoo/blob/main/example_notebooks/transformers/utils.py
 class LLMRunner:
     def __init__(self, model_name="meta-llama/Llama-3.2-1B-Instruct"):
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
 
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            torch_dtype=torch.float16,
+            torch_dtype=torch.bfloat16,
             device_map="auto",
         )
 
@@ -114,13 +136,12 @@ class LLMRunner:
                 return_dict=True,
             ).to(self.model.device)
 
-            with torch.inference_mode():
-                outputs = self.model.generate(
-                    **inputs,
-                    max_new_tokens=max_tokens,
-                    min_new_tokens=1,
-                    logits_processor=LogitsProcessorList(logits_processor_list),
-                )
+            outputs = self.model.generate(
+                **inputs,
+                max_new_tokens=max_tokens,
+                min_new_tokens=1,
+                logits_processor=LogitsProcessorList(logits_processor_list),
+            )
 
             gen_output = self.tokenizer.batch_decode(
                 outputs, skip_special_tokens=True, clean_up_tokenization_spaces=False
@@ -160,16 +181,11 @@ print(runner.generate_response(
     example_prompts,
     [GenLengthLogitsProcessor(runner.tokenizer, boost_factor=0.1, p=2, complete_sentences=True)]
 ))
-
->>> Prompt: Tell me a story about a kid lost in forest.
-
-LLM response:
-Once upon a time, in a dense forest, there lived a young boy named Timmy. Timmy was on a family camping trip with his parents and little sister, Emma. They had been walking for hours, and the dense trees seemed to close in around them. As the sun began to set, Timmy realized he had wandered away from his family.
-
-At first, Timmy didn't panic. He thought about calling out for his parents and Emma, but his voice was hoarse from singing campfire songs. He looked around, but the trees seemed to stretch on forever, making it impossible to see any familiar landmarks.
-
-As the darkness grew thicker, Timmy's fear began to creep in.
 ```
+
+> LLM response:
+Once upon a time, in a dense forest, there lived a young boy named Timmy. Timmy was on a family camping trip with his parents and little sister, Emma. They had been walking for hours, and the dense trees seemed to close in around them. As the sun began to set, Timmy realized he had wandered away from his family.
+At first, Timmy didn't panic. He thought about calling out for his parents and Emma, but his voice was hoarse from singing campfire songs. He looked around, but the trees seemed to stretch on forever, making it impossible to see any familiar landmarks. As the darkness grew thicker, Timmy's fear began to creep in.
 
 ```py
 # generate long response
@@ -177,32 +193,14 @@ print(runner.generate_response(
     example_prompts,
     [GenLengthLogitsProcessor(runner.tokenizer, boost_factor=-10.0, p=0, complete_sentences=False)]
 ))
-
->>> Prompt: Tell me a story about a kid lost in forest.
-
-LLM response:
-Once upon a time, in a dense and vibrant forest, there lived a young boy named Max. Max was an adventurous and curious 8-year-old who loved exploring the outdoors. One sunny afternoon, while wandering through the forest, he stumbled upon a narrow path he had never seen before.
-
-Excited by the discovery, Max decided to follow the path and see where it would lead. The forest was teeming with life, and the sunlight filtering through the trees created a magical atmosphere. Max walked for about 20 minutes, his eyes scanning the surroundings for any signs of civilization.
-
-As the sun began to set, casting a warm orange glow over the forest, Max realized he was lost. He had no phone, no wallet, and no way to communicate with his family. Panic started to set in, and Max began to feel scared and alone.
-
-Panicked, Max started to run through the forest, his heart racing and his legs trembling. He stumbled upon a clearing and saw a faint light in the distance. As he approached, he saw a small cabin in the center of the clearing. Smoke was rising from the chimney, and Max could hear the sound of someone singing a gentle tune.
-
-Without hesitation, Max rushed towards the cabin and knocked on the door. A kindly old woman answered, and when she saw Max, she welcomed him with a warm smile. "Hello, young traveler," she said. "What are you doing out here all alone?"
-
-Max explained his situation, and the old woman listened carefully. She then offered Max a warm cup of tea and a comfortable place to rest. As they talked, Max learned that the old woman was a forest guide, and she had been searching for him all along.
-
-The old woman took Max on a journey through the forest, teaching him about the different plants, animals, and secrets of the forest. Max learned about the importance of taking care of the environment and respecting the creatures that lived there.
-
-As the night fell, the old woman invited Max to stay with her for the night. Max was grateful for the kindness and warmth of the old woman, and he drifted off to sleep with a heart full of joy and a mind full of wonder.
-
-The next morning, the old woman helped Max find his way back to the path he had taken. As they said their goodbyes, the old woman handed Max a small gift – a small wooden acorn with a note that read, "Remember, the forest is full of magic, but it's also full of kindness. Always look for it."
-
-Max returned home, forever changed by his experience in the forest. He never forgot the kindness of the old woman and the magic of the forest, and he always carried the lessons he learned with him.
-
-From that day on, Max became known as the forest explorer, and his love for the outdoors was only matched by his love for the people he met along the way. And whenever he looked up at the stars, he remembered the wise words of the old woman: "The forest is full of magic, but it's also full of kindness. Always look for it."
 ```
+
+> LLM response:
+Once upon a time, in a dense and vibrant forest, there lived a young boy named Max. Max was an adventurous and curious 8-year-old who loved exploring the outdoors. One sunny afternoon, while wandering through the forest, he stumbled upon a narrow path he had never seen before.
+Excited by the discovery, Max decided to follow the path and see where it would lead. The forest was teeming with life, and the sunlight filtering through the trees created a magical atmosphere. Max walked for about 20 minutes, his eyes scanning the surroundings for any signs of civilization.
+As the sun began to set, casting a warm orange glow over the forest, Max realized he was lost. He had no phone, no wallet, and no way to communicate with his family. Panic started to set in, and Max began to feel scared and alone.
+Panicked, Max started to run through the forest, his heart racing and his legs trembling. He stumbled upon a clearing and saw a faint light in the distance. As he approached, he saw a small cabin in the center of the clearing. Smoke was rising from the chimney, and Max could hear the sound of someone singing a gentle tune.
+...
 
 In the examples above, we have used the `GenLengthLogitsProcessor` to both shorten and lengthen the 
 response generated by the model.
@@ -232,16 +230,10 @@ print(runner.generate_response(
     [CiteFromPromptLogitsProcessor(runner.tokenizer, example_prompts, boost_factor=5.0)],
     max_tokens=50,
 ))
-
->>> Prompt: 
-    A user review: very soft, colorful, expensive but deserves its price, stylish.
-    
-    What is the user's opinion about the product's price?
-    
-
-LLM response:
-Based on the user review, the user's opinion about the product's price is: the user is very satisfied, but the price is expensive, but the product is stylish, soft, and colorful, which is the price the user is willing to pay
 ```
+
+> LLM response:
+Based on the user review, the user's opinion about the product's price is: the user is very satisfied, but the price is expensive, but the product is stylish, soft, and colorful, which is the price the user is willing to pay
 
 Notice how the generation cites the input prompt.
 
@@ -275,33 +267,18 @@ print(runner.generate_response(
     example_prompts,
     [ForceLastPhraseLogitsProcessor(phrase, runner.tokenizer, batch_size)]
 ))
-
-
->>> Prompt: 
-    Retrieved information from: https://en.wikipedia.org/wiki/Bulbasaur
-    Bulbasaur is a fictional Pokémon species in Nintendo and Game Freak's Pokémon franchise. 
-    Designed by Atsuko Nishida, Bulbasaur is a Grass and Poison-type, first appearing in Pocket Monsters: Red and Green (Pokémon Red and Blue outside Japan) as a starter Pokémon. 
-    Since then, it has reappeared in sequels, spin-off games, related merchandise, and animated and printed adaptations of the franchise. 
-    It is a central character in the Pokémon anime, being one of Ash Ketchum's main Pokémon for the first season, with a different one later being obtained by supporting character May. 
-    It is featured in various manga and is owned by protagonist Red in Pokémon Adventures.
-    
-    What is Bulbasaur?
-    
-
-LLM response:
-According to the information retrieved from the Wikipedia article, Bulbasaur is a fictional Pokémon species in the Pokémon franchise. It is a Grass and Poison-type Pokémon, and it has been featured in various forms of media, including:
-
-- As a starter Pokémon in the first generation of Pokémon games, including Pokémon Red and Blue.
-- As a main character in the Pokémon anime, where it is one of Ash Ketchum's first Pokémon.
-- As a character in the Pokémon manga, where it is owned by protagonist Red.
-- As a character in various other Pokémon media, such as spin-off games and related merchandise.
-
-Bulbasaur is also a central character in the Pokémon franchise, often appearing alongside other Pokémon and being a key part of the Pokémon world.
-
-References: 
-- https://en.wikipedia.org/wiki/Bulbasaur
-
 ```
+
+> LLM response:
+    According to the information retrieved from the Wikipedia article, Bulbasaur is a fictional Pokémon species in the Pokémon franchise. It is a Grass and Poison-type Pokémon, and it has been featured in various forms of media, including:
+    - As a starter Pokémon in the first generation of Pokémon games, including Pokémon Red and Blue.
+    - As a main character in the Pokémon anime, where it is one of Ash Ketchum's first Pokémon.
+    - As a character in the Pokémon manga, where it is owned by protagonist Red.
+    - As a character in various other Pokémon media, such as spin-off games and related merchandise.
+    Bulbasaur is also a central character in the Pokémon franchise, often appearing alongside other Pokémon and being a key part of the Pokémon world.
+    References: 
+    - https://en.wikipedia.org/wiki/Bulbasaur
+
 
 ```py
 phrase = "\n\nThanks for trying our RAG application! If you have more questions about"
@@ -309,23 +286,11 @@ phrase = "\n\nThanks for trying our RAG application! If you have more questions 
 print(runner.generate_response(example_prompts,
     [ForceLastPhraseLogitsProcessor(phrase, runner.tokenizer, batch_size)]
 ))
-
->>> Prompt: 
-    Retrieved information from: https://en.wikipedia.org/wiki/Bulbasaur
-    Bulbasaur is a fictional Pokémon species in Nintendo and Game Freak's Pokémon franchise. 
-    Designed by Atsuko Nishida, Bulbasaur is a Grass and Poison-type, first appearing in Pocket Monsters: Red and Green (Pokémon Red and Blue outside Japan) as a starter Pokémon. 
-    Since then, it has reappeared in sequels, spin-off games, related merchandise, and animated and printed adaptations of the franchise. 
-    It is a central character in the Pokémon anime, being one of Ash Ketchum's main Pokémon for the first season, with a different one later being obtained by supporting character May. 
-    It is featured in various manga and is owned by protagonist Red in Pokémon Adventures.
-    
-    What is Bulbasaur?
-    
-
-LLM response:
-Bulbasaur is a fictional Pokémon species in the Pokémon franchise. It is a Grass and Poison-type Pokémon, characterized by its distinctive appearance.
-
-Thanks for trying our RAG application! If you have more questions about Bulbasaur, feel free to ask.
 ```
+
+> LLM response:
+Bulbasaur is a fictional Pokémon species in the Pokémon franchise. It is a Grass and Poison-type Pokémon, characterized by its distinctive appearance.
+Thanks for trying our RAG application! If you have more questions about Bulbasaur, feel free to ask.
 
 With each generation we were able to add the `phrase` string right before the end of the generation.
 
@@ -356,28 +321,29 @@ mclp = MultipleChoiceLogitsProcessor(
 )
 
 print(runner.generate_response(example_prompts, [mclp], max_tokens=1))
-
->>> Prompt: 
-I am getting a lot of calls during the day. What is more important for me to consider when I buy a new phone?
-0. Camera
-1. Battery
-2. Operating System
-3. Screen Resolution
-
-Answer:
-
-
-LLM response:
-1
 ```
+
+> LLM response:
+1
 
 Here our model does not generate anything other than the choice. This is an immensely helpful attribute while
 working with agents or using models for multiple choice questions.
 
-## Hugging Face's LogitsProcessor API
+## Wrapping Up
 
-While NVIDIA's LogitsProcessorZoo is powerful, it's worth mentioning Hugging Face's [LogitsProcessor API](https://huggingface.co/docs/transformers/en/internal/generation_utils#logitsprocessor). Explore the `transformers` documentation for more details and examples.
+Here's an updated and more verbose "Wrapping Up" section with links to resources for structured outputs and related concepts:
+
+---
 
 ## Wrapping Up
 
-Logit processing is a powerful tool to refine and customize language model outputs. With NVIDIA's **LogitsProcessorZoo** and Hugging Face's `transformers` processors, you can tailor your model's behavior to meet specific requirements. Ready to take your LLMs to the next level? Install these tools and start experimenting today!
+Whether you are generating concise summaries, crafting chatbot responses, or solving structured tasks like multiple-choice questions, logit processors provide the flexibility to control outputs effectively. This makes them invaluable for scenarios where precision, adherence to constraints, or task-specific behavior is critical.
+
+If you're interested in exploring more about how to control generation with logit processors, here are some resources to get started:
+
+- [How to Generate Text with Transformers](https://huggingface.co/blog/how-to-generate) – A beginner-friendly guide to understanding text generation in 🤗 Transformers.
+- [Hugging Face: Generation Strategies](https://huggingface.co/docs/transformers/en/generation_strategies) – Learn about decoding strategies like greedy search, beam search, and top-k sampling.
+- [Hugging Face: LogitsProcessor API](https://huggingface.co/docs/transformers/en/internal/generation_utils#logitsprocessor) – Dive deeper into how logits processing works in 🤗 Transformers and how to create custom logits processors.
+- [NVIDIA's LogitsProcessorZoo](https://github.com/NVIDIA/logits-processor-zoo) – Explore the full range of logits processors available in NVIDIA’s library with examples and use cases.
+
+With NVIDIA's LogitsProcessorZoo and Hugging Face's tools, you have a robust ecosystem to take your language model applications to the next level. Experiment with these libraries, build custom solutions, and share your creations with the community to push the boundaries of what's possible with generative AI.
