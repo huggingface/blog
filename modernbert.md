@@ -61,7 +61,7 @@ Finally, 6 years later, we have a replacement! Today, we at [Answer.AI](http://A
 
 We expect to see ModernBERT become the new standard in the numerous applications where encoder-only models are now deployed, such as in RAG pipelines (Retrieval Augmented Generation) and recommendation systems.
 
-In addition to being faster and more accurate, ModernBERT also increases context length to 8k tokens (compared to just 512 for most models), and is the first encoder-only model that includes a large amount of code in its training data. These features open up new application areas that were previously inaccessible through open models, such as large-scale code search, new IDE features, and new types of retrieval pipelines based on full document retrieval rather than small chunks.
+In addition to being faster and more accurate, ModernBERT also increases context length to 8k tokens (compared to just 512 for most encoders), and is the first encoder-only model that includes a large amount of code in its training data. These features open up new application areas that were previously inaccessible through open models, such as large-scale code search, new IDE features, and new types of retrieval pipelines based on full document retrieval rather than small chunks.
 
 But in order to explain just what we did, let’s first take a step back and look at where we’ve come from.
 
