@@ -139,7 +139,7 @@ Furthermore, thanks to ModernBERT’s efficiency, it can use a larger batch size
 
 ## Why is ModernBERT, well, Modern?
 
-Now, we’ve made our case to why we **should** give some more love to encoder models. As trusted, under-appreciated workhorses, they’ve had surprisingly few updates since BERT, which was released in 2018 \- ancient history in AI terms\!
+Now, we’ve made our case to why we **should** give some more love to encoder models. As trusted, under-appreciated workhorses, they’ve had surprisingly few updates since 2018's BERT!
 
 Even more surprising: since RoBERTa, there has been no encoder providing overall improvements without tradeoffs (fancily known as “***Pareto improvements***”): DeBERTaV3 had better GLUE and classification performance, but sacrificed both efficiency and retrieval. Other models, such as [AlBERT](https://huggingface.co/albert/albert-base-v2), or newer ones, like GTE-en-MLM, all improved over the original BERT and RoBERTa in some ways but regressed in others.
 
