@@ -107,7 +107,7 @@ In short, whenever you see a decoder-only model in deployment, there’s a reaso
 
 Here’s a snapshot of the accuracy of ModernBERT and other models across a range of tasks, as measured by standard academic benchmarks – as you can see, ModernBERT is the only model which is a **top scorer across every category**, which makes it the one model you can use for all your encoder-based tasks:  
 
-![][modernbert_accuracy_table]  
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/modernbert/modernbert_accuracy_table.png)  
 
 If you’ve ever done an NLP competition on [Kaggle](https://www.kaggle.com/), then you’ll know that [DeBERTaV3](https://huggingface.co/microsoft/deberta-v3-base) has been the choice of champions for years. But no longer: not only is ModernBERT the first base-size model to beat DeBERTaV3 on GLUE, it also uses less than **1/5th** of Deberta’s memory.
 
