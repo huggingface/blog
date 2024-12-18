@@ -5203,7 +5203,7 @@
     - llm
     - community
     - research
-    
+
 - local: bamba
   title: Bamba Inference Efficient Hybrid Mamba2 Model
   author: rganti
