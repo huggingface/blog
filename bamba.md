@@ -1,5 +1,5 @@
 ---
-title: "Bamba: Inference Efficient Hybrid Mamba2 Model"
+title: "Bamba: Inference-Efficient Hybrid Mamba2 Model"
 thumbnail: assets/bamba/bamba_thumbnail.jpeg
 authors:
 - user: Linsong-C
@@ -76,6 +76,12 @@ authors:
 - user: anhuong
   guest: true
   org: ibm-fms
+- user: jaygala
+  guest: true
+- user: szawad
+  guest: true
+- user: RTGordon
+  guest: true
 ---
 
 # Bamba: Inference-Efficient Hybrid Mamba2 Model :snake:
