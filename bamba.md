@@ -109,7 +109,7 @@ To foster community experimentation, we are also releasing a distributed statele
 
 ### Use in transformers 🤗
 
-Follow instructions outlined in [Bamba GitHub](https://github.com/foundation-model-stack/bamba/).
+To use Bamba with transformers, you can use the familiar `AutoModel` classes and the `generate` API. For more details, please follow the instructions outlined in [Bamba GitHub](https://github.com/foundation-model-stack/bamba/).
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
