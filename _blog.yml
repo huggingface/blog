@@ -5203,3 +5203,16 @@
     - llm
     - community
     - research
+
+- local: modernbert
+  title: "Finally, a Replacement for BERT: Introducing ModernBERT"
+  author: bclavie
+  guest: true
+  thumbnail: /blog/assets/modernbert/thumbnail.png
+  date: December 19, 2024
+  tags:
+    - nlp
+    - llm
+    - community
+    - research
+    - bert
