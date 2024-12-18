@@ -79,7 +79,7 @@ The popular buzz around GenAI has obscured the role of *encoder-only models*. Th
 
 ## Encoder-only models
 
-The output of an encoder-only model is a list of numerical values (an *embedding vector*). You might say that instead of answering with text, an encoder model literally *encodes* its “answer” into this compressed, numerical form. That vector is a compressed representation of the model's input, which is why encoder-only are sometimes referred to as *representational models*. 
+The output of an encoder-only model is a list of numerical values (an *embedding vector*). You might say that instead of answering with text, an encoder model literally *encodes* its “answer” into this compressed, numerical form. That vector is a compressed representation of the model's input, which is why encoder-only models are sometimes referred to as *representational models*. 
 
 While decoder-only models (like a GPT) can do the work of an encoder-only model (like a BERT), they are hamstrung by a key constraint: since they are *generative models*, they are mathematically “not allowed” to “peek” at later tokens. They can only ever *look backwards*. This is in contrast to encoder-only models, which are **trained so each token can look forwards *and* backwards (bi-directionally)**. They are built for this, and it makes them very efficient at what they do.
 
