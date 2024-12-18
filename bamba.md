@@ -146,7 +146,7 @@ We compare Bamba-9B and Falcon Mamba with SoTA transformer models of similar siz
 <details>
 <summary>HF OpenLLM v1 leaderboard</summary>
 
-[HF LLM- V1](https://huggingface.co/docs/leaderboards/en/open_llm_leaderboard/archive) \+ OpenbookQA and PIQA :
+[HF LLM-V1](https://huggingface.co/docs/leaderboards/en/open_llm_leaderboard/archive) \+ OpenbookQA and PIQA:
 
 | Model | Average | MMLU | ARC-C | GSM8K | Hellaswag | OpenbookQA | Piqa | TruthfulQA | Winogrande |
 | :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- |
