@@ -2161,3 +2161,16 @@
     - policy
     - guide
     - ethics
+
+- local: paligemma2
+  title: "欢迎 PaliGemma 2 – 来自 Google 的新视觉语言模型"
+  author: merve
+  thumbnail: /blog/assets/paligemma/Paligemma2.png
+  date: December 05, 2024
+  tags:
+    - multimodal
+    - gemma
+    - LLM
+    - vision
+    - VLM
+    - research
