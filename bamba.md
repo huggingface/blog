@@ -96,7 +96,7 @@ We introduce **Bamba-9B**, an inference-efficient Hybrid Mamba2 model trained by
 4. [Quantization](https://github.com/foundation-model-stack/fms-model-optimizer)  
 5. [Auto-pilot for cluster monitoring](https://github.com/IBM/autopilot)
 
-## What motivated us :star2:
+## Motivation :star2:
 
 Transformer models are increasingly used in real-world applications but face GPU memory bandwidth bottlenecks during inference, particularly in per-token decoding, which worsens with longer context length models. Techniques like lower precision, layer pruning, and compression can alleviate the problem, but do not address the root cause.
 
