@@ -1,6 +1,6 @@
 ---
 title: "Bamba: Inference-Efficient Hybrid Mamba2 Model"
-thumbnail: assets/bamba/bamba_thumbnail.jpeg
+thumbnail: /blog/assets/bamba/bamba_thumbnail.png
 authors:
 - user: Linsong-C
   guest: true
@@ -102,7 +102,7 @@ We introduce **Bamba-9B**, an inference-efficient Hybrid Mamba2 model trained by
 4. [Quantization](https://github.com/foundation-model-stack/fms-model-optimizer)  
 5. [Auto-pilot for cluster monitoring](https://github.com/IBM/autopilot)
 
-## Motivation :star2:
+## Motivation 🌟
 
 Transformer models are increasingly used in real-world applications, but they face GPU memory bandwidth bottlenecks during inference, particularly during per-token decoding, and aggravated in longer context length models. Techniques like lower precision, layer pruning, and compression can alleviate the problem, but do not address the root cause, which is the increasing amount of memory required by the KV-cache as generated sequences get longer. [KV-Cache](https://huggingface.co/docs/transformers/en/kv_cache#best-practices-for-generation-with-cache) is the standard optimization method for autoregressive transformer models.
 
@@ -129,14 +129,14 @@ response = model.generate(**inputs, max_new_tokens=64)
 print(tokenizer.batch_decode(response, skip_special_tokens=True)[0])
 ```
 
-## Evaluations :bar_chart:
+## Evaluations 📊
 
 We divide our evaluations into three parts: 
 1. Comparison with SoTA transformer models
 2. Comparison with transformer models with similar token budget
 3. Comparison with other Mamba variants.
 
-> **Evaluation setup :gear: :desktop_computer::**
+> **Evaluation setup ⚙️ 🖥️:**
 We rerun all the benchmarks following the setup and scripts [here](https://github.com/foundation-model-stack/bamba/blob/main/evaluation/README.md) for all models except the NVIDIA Mamba2 Hybrid model. We could not run benchmarking for the NVIDIA Mamba2 Hybrid model as the model weights are not in Hugging Face transformers compatible format. Therefore, we report the numbers from the original paper. For the v2 leaderboard results, we perform [normalization](https://huggingface.co/docs/leaderboards/open_llm_leaderboard/normalization) and report the normalized results. In all the evaluations, higher is better except where indicated.
 
 ### TL;DR Evals
@@ -228,7 +228,7 @@ Multiple mamba/mamba2 architecture based models have started emerging in the las
 
 </details>
 
-## Inference efficiency :zap: :racing_car: 
+## Inference efficiency ⚡🏎️ 
 
 The KV-cache bottleneck is a major challenge for large language models, prompting solutions like quantization, pruning, and novel architectures such as Mamba2, Linear Transformers, and RetNets. Realizing inference gains at scale, even with standard transformers, often requires custom kernels. Mamba2 builds on the community momentum of kernel availability, with further improvements made through integration with the vLLM model-serving framework.
 
@@ -315,7 +315,7 @@ We use PhoneBook retrieval as the task to measure our performance. We extend the
 
 We observe that the context-extended Bamba model performs exceptionally well up to a 16K context length without any tuning, outperforming the original Bamba 9B model, Llama2-7B, and llama3-8B by a large margin and obtaining comparable performance as Llama3.1-8B. At sequence length 32K, LLama3.1 achieves the best performing result. However, note that LLama3.1-8B was trained with 128K context length, which incurs a much higher pre-training cost than Bamba. As a next step, we plan to pursue various other approaches to context length extensions and study the performance on more tasks. These long context length extended models will be released as well.
 
-## Summary :dart: 
+## Summary 🎯
 Bamba-9B is a hybrid Mamba2 model developed collaboratively by IBM, Princeton, CMU, and UIUC. Trained entirely on open datasets, it achieves significant inference efficiency, demonstrating a 2.5x increase in throughput and a 2x reduction in latency compared to standard transformer based models when benchmarked in the vLLM framework.
 
 Key Takeaways:
