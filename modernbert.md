@@ -176,7 +176,7 @@ One of ModernBERT’s most impactful features is **Alternating** **Attention**, 
 As attention’s computational complexity balloons up with every additional token, this means ModernBERT can process long input sequences considerably faster than any other model.
 
 In practice, it looks like this:  
-![][modernbert_alternating_attention]
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/modernbert/modernbert_alternating_attention.png)
 
 Conceptually, the reason this works is pretty simple: Picture yourself reading a book. For every sentence you read, do you need to be fully aware of the entire plot to understand most of it (**full global attention**)? Or is awareness of the current chapter enough (**local attention**), as long as you occasionally think back on its significance to the main plot (**global attention**)? In the vast majority of cases, it’s the latter.
 
