@@ -57,7 +57,7 @@ ModernBERT is available as a *slot-in* replacement for any BERT-like models, wit
 
 Finally, 6 years later, we have a replacement! Today, we at [Answer.AI](http://Answer.AI) and [LightOn](https://www.lighton.ai/) (and friends!) are releasing ModernBERT. ModernBERT is a new model series that is a Pareto improvement over BERT and its younger siblings across both **speed** and **accuracy**. This model takes dozens of advances from recent years of work on large language models (LLMs), and applies them to a BERT-style model, including updates to the architecture and the training process.
 
-![][modernbert_pareto_curve]
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/modernbert/modernbert_pareto_curve.png)
 
 We expect to see ModernBERT become the new standard in the numerous applications where encoder-only models are now deployed, such as in RAG pipelines (Retrieval Augmented Generation) and recommendation systems.
 
