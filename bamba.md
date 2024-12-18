@@ -159,7 +159,7 @@ We compare Bamba-9B and Falcon Mamba with SoTA transformer models of similar siz
 | [Qwen2.5 7B](https://huggingface.co/Qwen/Qwen2.5-7B) | **70.58** | **75.41** | 63.82 | **83.24** | 80.23 | 48.40 | 81.28 | **56.34** | 75.93 |
 </details>
 
-[HF LLM- V2](https://huggingface.co/docs/leaderboards/open_llm_leaderboard/about)\*\* :
+[HF LLM-V2](https://huggingface.co/docs/leaderboards/open_llm_leaderboard/about)\*\* :
 
 | Model | Average | MMLU-PRO | BBH | GPQA | IFEval | MATH Lvl 5 | MuSR |
 | :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- |
