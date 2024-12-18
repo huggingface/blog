@@ -81,7 +81,7 @@ authors:
 # Bamba: Inference-Efficient Hybrid Mamba2 Model :snake:
 
 <p align="center">
-  <img src="assets/bamba/bamba.jpeg" alt="Bamba" width="400" height="400">
+  <img src="/blog/assets/bamba/bamba.jpeg" alt="Bamba" width="400" height="400">
 </p>
 
 ## TL;DR
