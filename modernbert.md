@@ -119,7 +119,7 @@ For code retrieval, ModernBERT is unique. There’s nothing to really compare it
 
 This means whole new applications are likely to be built on this capability. For instance, imagine an AI-connected IDE which had an entire enterprise codebase indexed with ModernBERT embeddings, providing fast long context retrieval of the relevant code across all repositories. Or a code chat service which described how an application feature worked that integrated dozens of separate projects.
 
-Compared to the mainstream models, ModernBERT performs better across nearly all three broad task categories of retrieval, natural language understanding, and code retrieval. Whilst it slightly lags [DeBERTaV3](https://huggingface.co/microsoft/deberta-v3-base) in one area (natural language understanding), it is many times faster.
+Compared to the mainstream models, ModernBERT performs better across nearly all three broad task categories of retrieval, natural language understanding, and code retrieval. Whilst it slightly lags [DeBERTaV3](https://huggingface.co/microsoft/deberta-v3-base) in one area (natural language understanding), it is many times faster. Please note that ModernBERT, as any other base model, can only do masked word prediction out-of-the-box. To be able to perform other tasks, the base model should be fine-tuned as done in these [boilerplates](https://github.com/AnswerDotAI/ModernBERT/tree/main/examples).
 
 Compared to the specialized models, ModernBERT is comparable or superior in most tasks. In addition, ModernBERT is faster than most models across most tasks, and can handle inputs up to 8,192 tokens, 16x longer than the mainstream models. 
 
@@ -264,3 +264,5 @@ More than anything, we’re really looking forward to seeing what creative ways 
 - [🤗ModernBERT-Large](https://huggingface.co/answerdotai/ModernBERT-large)  
 - **arXiv**: TBD  
 - 🤗ModernBERT documentation page TBD
+
+_LightOn sponsored the compute for this project on Orange Business Cloud Avenue._
