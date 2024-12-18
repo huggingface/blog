@@ -94,7 +94,7 @@ authors:
 
 We introduce **Bamba-9B**, an inference-efficient Hybrid Mamba2 model trained by IBM, Princeton, CMU, and UIUC on **completely open data**. At inference time, the model demonstrates 2.5x throughput improvement and 2x latency speedup compared to standard transformers in vLLM. To foster community experimentation, the model is immediately available to use in `transformers`, `vLLM`, `TRL`, and `llama.cpp`. We also release tuning, training, and extended pretraining recipes with a stateful data loader, and invite the community to further improve this model. Let's overcome the KV-cache bottleneck together!
 
-## Artifacts :package:
+## Artifacts 📦
 
 1. [Hugging Face Bamba collection](https://huggingface.co/collections/ibm-fms/bamba-674f1388b9bbc98b413c7bab) 
 2. [GitHub repo with inference, training, and tuning scripts](https://github.com/foundation-model-stack/bamba)   
