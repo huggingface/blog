@@ -1,6 +1,6 @@
 ---
 title: "Bamba: Inference-Efficient Hybrid Mamba2 Model"
-thumbnail: /blog/assets/bamba/bamba_thumbnail.png
+thumbnail: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bamba/bamba_thumbnail.png
 authors:
 - user: Linsong-C
   guest: true
@@ -89,7 +89,7 @@ authors:
 # Bamba: Inference-Efficient Hybrid Mamba2 Model 🐍
 
 <p align="center">
-  <img src="/blog/assets/bamba/bamba.jpeg" alt="Bamba" width="400" height="400">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bamba/bamba.jpeg" alt="Bamba" width="400" height="400">
 </p>
 
 ## TL;DR
@@ -106,13 +106,11 @@ We introduce **Bamba-9B**, an inference-efficient Hybrid Mamba2 model trained by
 
 ## Motivation 🌟
 
-Transformer models are increasingly used in real-world applications, but they face GPU memory bandwidth bottlenecks during inference, particularly during per-token decoding, and aggravated in longer context length models. Techniques like lower precision, layer pruning, and compression can alleviate the problem, but do not address the root cause, which is the increasing amount of memory required by the KV-cache as generated sequences get longer. [KV-Cache](https://huggingface.co/docs/transformers/en/kv_cache#best-practices-for-generation-with-cache) is the standard optimization method for autoregressive transformer models.
+Transformer models are increasingly used in real-world applications, but they face memory-bandwidth bottlenecks during inference, particularly during per-token decoding in longer context-length models. Techniques like lower precision, layer pruning, and compression can alleviate the problem, but do not address the root cause, which is the increasing amount of memory required by the KV-cache as the context length increases. Emerging architectures such as [Mamba](https://huggingface.co/papers/2312.00752), [Griffin](https://huggingface.co/papers/2402.19427), and [DeltaNet](https://huggingface.co/papers/2406.06484) eliminate this bottleneck by making the KV-cache size constant. The Mamba architecture has gained significant traction in the community in the recent past. For example, [Jamba](https://huggingface.co/papers/2403.19887) and [Samba](https://huggingface.co/papers/2406.07522) interleave Mamba layers with transformer layers and explore the resulting hybrid Mamba models. [Codestral Mamba](https://mistral.ai/news/codestral-mamba/), a pure Mamba2 model, demonstrates state-of-the-art (SOTA) results on coding tasks, while NVIDIA's hybrid Mamba2 model achieves competitive performance across long-context and traditional LLM benchmarks. Recent innovations, like [Falcon Mamba](https://huggingface.co/collections/tiiuae/falconmamba-7b-66b9a580324dd1598b0f6d4a) and [Falcon 3 Mamba](https://huggingface.co/tiiuae/Falcon3-Mamba-7B-Base) achieve SOTA rankings on [Hugging Face leaderboards](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) at the time of their releases.
 
-Emerging architectures such as [Mamba](https://huggingface.co/papers/2312.00752), [Griffin](https://huggingface.co/papers/2402.19427), and [DeltaNet](https://huggingface.co/papers/2406.06484) eliminate this bottleneck by making the KV-cache size constant. The Mamba architecture has gained significant traction in the recent past. For example, [Jamba](https://huggingface.co/papers/2403.19887) and [Samba](https://huggingface.co/papers/2406.07522) interleave Mamba layers with transformer layers. Pure Mamba2 models like [Codestral Mamba](https://mistral.ai/news/codestral-mamba/) demonstrate state-of-the-art (SOTA) results on coding tasks, while NVIDIA’s Mamba2 hybrid achieves competitive performance across long-context and traditional LLM benchmarks. Recent innovations, like [Falcon Mamba](https://huggingface.co/collections/tiiuae/falconmamba-7b-66b9a580324dd1598b0f6d4a), achieve SOTA rankings on [Hugging Face leaderboards](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard).
+We introduce Bamba-9B, a hybrid Mamba2 model trained on 2.2T tokens, further validating these emerging architectures. This collaboration between IBM, Princeton, CMU, and UIUC provides full training lineage, model checkpoints, and pretraining code to support reproducibility and experimentation. The training dataset of the released checkpoints does not contain any benchmark-aligned instruction data (except FLAN) to preserve extended pretraining and fine-tuning flexibility. Our aim is to showcase the hybrid Mamba2 architecture's potential by demonstrating strong performance at lower-mid size model scale (7B-10B) and to provide the community with checkpoints that are fully reproducible and trained with open datasets. 
 
-We introduce Bamba-9B, a Mamba2 hybrid model trained on 2.2T tokens, further validating these emerging architectures. This collaboration between IBM, Princeton, CMU, and UIUC provides full training lineage, model checkpoints, and pretraining code to support reproducibility and experimentation. The released checkpoints exclude benchmark-aligned instruction data (except FLAN) to preserve fine-tuning flexibility. Our aim is to showcase the Mamba2 hybrid architecture’s potential by demonstrating strong performance at lower-mid size model scale (7B-10B) and providing the community with checkpoints that are fully reproducible and trained with open datasets. 
-
-To foster community experimentation, we are also releasing a distributed stateless shuffle data loader and enabling Mamba2 hybrid architecture in open-source libraries like `transformers`, `TRL`, `vLLM`, and `llama.cpp`. We hope these efforts advance the adoption of Mamba architectures, alleviate KV-cache bottlenecks, and close the gap with SOTA open-source models.
+To foster community experimentation, we are also releasing a distributed stateless shuffle data loader and enabling hybrid Mamba2 architecture in open-source libraries like `transformers`, `TRL`, `vLLM`, and `llama.cpp`. We hope these efforts advance the adoption of Mamba architectures, alleviate KV-cache bottlenecks, and close the gap with SOTA open-source models.
 
 
 ### Use in transformers 🤗
@@ -150,6 +148,7 @@ Bamba-9B’s results also alleviate concerns raised by the relatively low scores
 
 We compare Bamba-9B and Falcon Mamba with SoTA transformer models of similar size ([Meta Llama 3.1 8B](https://huggingface.co/meta-llama/Llama-3.1-8B), [IBM Granite v3 8B](https://huggingface.co/ibm-granite/granite-3.0-8b-base), [Olmo2 7B](https://huggingface.co/allenai/OLMo-2-1124-7B), and [Gemma 2 9B](https://huggingface.co/google/gemma-2-9b)). We observe that while there are obvious benchmark gaps, it is not clear that these gaps point to deficiencies in the mamba/mamba2 based models. In fact, a careful analysis shows that gaps are largely due to the amount of data used for training models and the inclusion of benchmark-aligned instruction datasets during the annealing phase. For example, we had one small scale run that added `metamath` and improved our `GSM8k` score from `36.77` to `60.0`. We will publish detailed analysis and our findings in an upcoming paper.
 
+> **Note**: As of writing this blog, [Falcon3 Mamba 7B](https://huggingface.co/blog/falcon3) has landed with even better results than Falcon Mamba. We plan to follow up and learn from these for improving the next Bamba.
 
 <details>
 <summary>HF OpenLLM v1 leaderboard</summary>
@@ -237,10 +236,10 @@ The KV-cache bottleneck is a major challenge for large language models, promptin
 Our progress in vLLM integration, tracked via [this PR](https://github.com/vllm-project/vllm/pull/10909), benchmarks Mamba2 against Meta Llama 3.1 8B on an NVIDIA H100 80GB GPU. Using input sizes of 1K tokens and output sizes ranging from 2K to 64K across various batch sizes, we measured throughput (tokens/second) and latency. Results show that as batch size and sequence length increase, Mamba2 achieves up to 2-2.5x better throughput and latency compared to transformer models. These gains enhance real-time applications and GPU utilization, with higher throughput ratios (>1) and lower latency ratios (<1) being beneficial.
 
 
-| ![Figure 1](assets/bamba/bamba_llama_txput_ratios.png "Figure 1") |
+| ![Figure 1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bamba/bamba_llama_txput_ratios.png "Figure 1") |
 | :---: |
 | **Figure 1:** Throughput improvements of Bamba | 
- ![Figure 2](assets/bamba/bamba_llama_latencies_ratios.png "Figure 2") |
+ ![Figure 2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bamba/bamba_llama_latencies_ratios.png "Figure 2") |
 **Figure 2:** Latency improvements of Bamba |
 
 Our analysis indicates that on a H100 NVIDIA GPU, we expect 5x speedup when inference shifts to a memory bottleneck (which typically happens in production settings) \- see the appendix on **Arithmetic Intensity**. However, we have not realized this speedup in vLLM yet because of three primary reasons: (i) chunked pre-fill is not supported for Bamba and any Mamba2 based architectures, (ii) memory allocation assumes standard transformer KV-cache, and (iii) kernels are not optimized for inference. These issues are being tracked [here](https://github.com/foundation-model-stack/bamba/issues/3).
@@ -269,7 +268,7 @@ Open-source data has come a long way since the inception of The Pile dataset. Wh
 We use Dolma v1.7 for the first phase of training, and the chosen data mixes are illustrated below. For the second phase of training, we use [Fineweb-edu](https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu) and [Cosmopedia](https://huggingface.co/datasets/HuggingFaceTB/cosmopedia). These datasets are downloaded in their raw form and we tokenize them using the [Ray framework](https://github.com/ray-project/ray) running on an internal large scale [Red Hat Open Shift](https://www.redhat.com/en/technologies/cloud-computing/openshift) cluster. We plan to release the tokenized and formatted parquet data soon for reproducibility.
 
 <p align="center">
-<img src="assets/bamba/datamix.png" alt="Datamix" width="600" height="400">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bamba/datamix.png" alt="Datamix" width="600" height="400">
 </p>
 <p align="center"><strong>Data mix for pretraining phase one</strong></p>
 
@@ -312,7 +311,7 @@ We are currently exploring various approaches to long context length extensions 
 We use PhoneBook retrieval as the task to measure our performance. We extend the Bamba context length by 4x and 8x and compare the context-extended Bamba against three variations of Meta Llama \- LLama2, Llama3, LLama3.1, with training context lengths of 4K, 8K, and 128K. The results are plotted below.
 
 <p align="center">
-<img src="assets/bamba/phonebook.png" alt="Datamix" width="450" height="300">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bamba/phonebook.png" alt="Datamix" width="450" height="300">
 </p>
 
 We observe that the context-extended Bamba model performs exceptionally well up to a 16K context length without any tuning, outperforming the original Bamba 9B model, Llama2-7B, and llama3-8B by a large margin and obtaining comparable performance as Llama3.1-8B. At sequence length 32K, LLama3.1 achieves the best performing result. However, note that LLama3.1-8B was trained with 128K context length, which incurs a much higher pre-training cost than Bamba. As a next step, we plan to pursue various other approaches to context length extensions and study the performance on more tasks. These long context length extended models will be released as well.
@@ -354,7 +353,7 @@ There are several directions that we intend to explore and further inference-eff
 * **Quantization**: Quantization is led by the IBM team \- Naigang Wang and Charlie Liu.  
 * **Evaluations**: Evaluations are led by a team in IBM with long context evaluations being performed by UIUC, involving the following folks: Yotam Perlitz, Ofir Arviv, Michal Shmueli-Scheuer (IBM), Haoechen Shen, and Minjia Zhang (UIUC).
 
-Finally, we would like to thank our leadership for their support in this effort \- Priya Nagpurkar, David Cox, Sriram Raghavan, Aya Soffer, and Mukesh Khare.
+Finally, we would like to thank our leadership for their support in this effort \- Priya Nagpurkar, David Cox, Sriram Raghavan, Aya Soffer, Ruchir Puri, and Mukesh Khare.
 
 We would also like to thank the community, in particular Pablo Montalvo-Leroux, Aritra Roy Gosthipaty, and Vaibhav Srivastav from Hugging Face and Stas Bekman from Contextual AI who provided valuable feedback to this blog and the PRs into transformers. Further, we would like to thank Tyler Michael Smith from Neural Magic, who is shepherding the integration with vLLM.
 
@@ -390,5 +389,5 @@ At decode stage the compute and memory (read + write) requirements imposed by th
 
 A comparison of compute flops during prefill stage and memory (read+write) sizes during decode stage between Bamba and LLaMa models is shown below. Note that ratios lesser than 1 are beneficial. With inference throughput primarily bottlenecked by decode stage, the potential speedup for Bamba (over LLaMa) is 5x for large sequence lengths (> 16K). Current measurements (on vLLM) hover at 2.5x, which we expect to improve in the near future. 
 <p align="center">
-  <img src="assets/bamba/ArithmeticIntensity.png" alt="ArithmeticIntensity" width="524" height="336">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bamba/ArithmeticIntensity.png" alt="ArithmeticIntensity" width="524" height="336">
 </p>
