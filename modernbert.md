@@ -129,7 +129,7 @@ Here’s the memory (max batch size, BS) and Inference (in thousands of tokens p
 
 ![][modernbert_efficiency_table]  
 
-The first thing you might notice is that we’re analysing the efficiency on an affordable consumer GPU, rather than the latest unobtainable hyped hardware. **ModernBERT is focused on, first and foremost, practicality, not hype.**
+The first thing you might notice is that we’re analysing the efficiency on an affordable consumer GPU, rather than the latest unobtainable hyped hardware. **First and foremost, ModernBERT is focused on practicality, not hype.**
 
 As part of this focus, it also means we’ve made sure ModernBERT works well for real-world applications, rather than just benchmarks. Models of this kind are normally tested on just the one exact size they’re best at – their maximum context length. That’s what the “fixed” column in the table shows. But input sizes vary in the real world, so that’s the performance we worked hard to optimise – the “variable” column. As you can see, for variable length inputs, ModernBERT is much faster than all other models.
 
