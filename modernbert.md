@@ -127,7 +127,7 @@ Compared to the specialized models, ModernBERT is comparable or superior in most
 
 Here’s the memory (max batch size, BS) and Inference (in thousands of tokens per second) efficiency results on an NVIDIA RTX 4090 for ModernBERT and other decoder models:  
 
-![][modernbert_efficiency_table]  
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/modernbert/modernbert_efficiency_table.png)
 
 The first thing you might notice is that we’re analysing the efficiency on an affordable consumer GPU, rather than the latest unobtainable hyped hardware. **First and foremost, ModernBERT is focused on practicality, not hype.**
 
