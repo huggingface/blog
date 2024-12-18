@@ -3,6 +3,7 @@
 - local: bamba
   title: Bamba Inference Efficient Hybrid Mamba2 Model
   author: rganti
+  guest: true
   thumbnail: /blog/assets/bamba/bamba_thumbnail.png
   date: Dec 18, 2024
   tags:
