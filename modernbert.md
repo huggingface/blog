@@ -232,7 +232,7 @@ The impact of this is immediately noticeable: out of all the existing open sourc
 
 We stick to the original BERT’s training recipe, with some slight upgrades inspired by subsequent work: we remove the Next-Sentence Prediction objective, since then shown to add overhead for no clear gains, and increase the masking rate from 15% to 30%.
 
-Both models are trained with a **three-phase process**. First, we train on 1.7T tokens at a sequence length of 1024\. We then adopt a long-context adaptation phase, training on 250B tokens at a sequence length of 8192, while keeping the total tokens seen per batch more or less consistent by lowering the batch size. Finally, we perform annealing on 50 billion tokens sampled differently, following the long-context extension ideal mix highlighted by [ProLong](https://arxiv.org/abs/2410.02660).
+Both models are trained with a **three-phase process**. First, we train on 1.7T tokens at a sequence length of 1024. We then adopt a long-context adaptation phase, training on 250B tokens at a sequence length of 8192, while keeping the total tokens seen per batch more or less consistent by lowering the batch size. Finally, we perform annealing on 50 billion tokens sampled differently, following the long-context extension ideal mix highlighted by [ProLong](https://arxiv.org/abs/2410.02660).
 
 Training in three phases is our way of ensuring our model is good across the board, which is reflected in its results: it is competitive on long-context tasks, at no cost to its ability to process short context…
 
