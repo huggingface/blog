@@ -5181,6 +5181,29 @@
     - argilla
     - distilabel
 
+- local: intel-gcp-c4
+  title: "Benchmarking Language Model Performance on 5th Gen Xeon at GCP"
+  author: MatrixYao
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: December 17, 2024
+  tags:
+    - hardware
+    - intel
+    - cpu
+    - LLM
+    - benchmark
+
+- local: falcon3
+  title: "Welcome the Falcon 3 Family of Open Models!"
+  author: ariG23498
+  thumbnail: /blog/assets/falcon3/thumbnail.png
+  date: December 17, 2024
+  tags:
+    - nlp
+    - llm
+    - community
+    - research
+    
 - local: bamba
   title: Bamba Inference Efficient Hybrid Mamba2 Model
   author: rganti
