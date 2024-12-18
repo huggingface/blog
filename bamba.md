@@ -1,5 +1,5 @@
 ---
-title: "Bamba: Latest Inference Efficient Hybrid Mamba2 Model"
+title: "Bamba: Inference Efficient Hybrid Mamba2 Model"
 thumbnail: assets/bamba/bamba_thumbnail.jpeg
 authors:
 - user: Linsong-C
