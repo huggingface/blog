@@ -188,8 +188,10 @@ In order to be able to process multiple sequences within the same batch, encoder
 
 While padding solves the problem, it doesn’t do so elegantly: a lot of compute ends up being spent and wasted on padding tokens, which do not contribute any semantic information.
 
-![][modernbert_unpadding]  
-*Comparing padding with sequence packing. Sequence packing (‘unpadding’) avoids wasting compute on padding tokens and has more consistent non-padding token counts per batch. Samples are still processed individually through careful masking.*
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/modernbert/modernbert_unpadding.png" alt="Padding vs sequence packing">
+  <figcaption>Comparing padding with sequence packing. Sequence packing (‘unpadding’) avoids wasting compute on padding tokens and has more consistent non-padding token counts per batch. Samples are still processed individually through careful masking.</figcaption>
+</figure>
 
 **Unpadding** solves this issue: rather than keeping these padding tokens, we remove them all, and concatenate them into mini-batches with a batch size of one, avoiding all unnecessary computations. If you’re using Flash Attention, our implementation of unpadding is even faster than previous methods, which heavily relied on unpadding and repadding sequences as they went through the model: we go one step further by introducing our own implementation of unpadding, relying heavily on recent developments in Flash Attention’s RoPE support. This allows ModernBERT to only have to unpad once, and optionally repad sequences after processing, resulting in a 10-20% speedup over previous methods.
 
