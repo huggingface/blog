@@ -331,12 +331,6 @@ working with agents or using models for multiple choice questions.
 
 ## Wrapping Up
 
-Here's an updated and more verbose "Wrapping Up" section with links to resources for structured outputs and related concepts:
-
----
-
-## Wrapping Up
-
 Whether you are generating concise summaries, crafting chatbot responses, or solving structured tasks like multiple-choice questions, logit processors provide the flexibility to control outputs effectively. This makes them invaluable for scenarios where precision, adherence to constraints, or task-specific behavior is critical.
 
 If you're interested in exploring more about how to control generation with logit processors, here are some resources to get started:
