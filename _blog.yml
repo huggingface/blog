@@ -5215,3 +5215,15 @@
     - nlp
     - community
     - model
+
+- local: modernbert
+  title: "Finally, a Replacement for BERT: Introducing ModernBERT"
+  author: bclavie
+  guest: true
+  thumbnail: /blog/assets/modernbert/thumbnail.png
+  date: December 19, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - open-source-collab
