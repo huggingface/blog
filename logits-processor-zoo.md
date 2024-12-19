@@ -74,7 +74,7 @@ print("Generated Text:", generated_text[0])
 >>> Generated Text: Paris
 ```
 
-While this pipeline demonstrates how raw logits can be transformed into text, it's worth noting that 🤗 Transformers streamline this process.
+While this pipeline demonstrates how raw logits can be transformed into text, it's worth noting that 🤗 Transformers streamlines this process.
 For instance, the [`generate()`](https://huggingface.co/docs/transformers/en/main_classes/text_generation) method automatically handles these
 transformations, including applying the softmax function and sampling from the probability distribution.
 
