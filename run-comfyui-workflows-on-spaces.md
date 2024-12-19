@@ -3,6 +3,7 @@ title: "Run ComfyUI workflows for free with Gradio on Hugging Face Spaces"
 thumbnail: /blog/assets/comfyui-to-gradio/cover.png
 authors:
 - user: multimodalart
+- user: cbensimon
 ---
 
 # Run ComfyUI workflows for free with Gradio on Hugging Face Spaces
