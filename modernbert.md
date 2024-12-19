@@ -219,7 +219,7 @@ Afterwards, we experimented with multiple model designs via a constrained grid s
 
 #### def data(): return \[‘text’, ‘bad\_text’, ‘math’, ‘code’\]
 
-[https://media1.tenor.com/m/xJSM2Ky3WpgAAAAd/steve-ballmer-microsoft.gif](https://media1.tenor.com/m/xJSM2Ky3WpgAAAAd/steve-ballmer-microsoft.gif)  
+![https://media1.tenor.com/m/xJSM2Ky3WpgAAAAd/steve-ballmer-microsoft.gif](https://media1.tenor.com/m/xJSM2Ky3WpgAAAAd/steve-ballmer-microsoft.gif)  
 *Picture this exact scene, but replace Developers with Data*
 
 Another big aspect in which encoders have been trailing behind is training data. This is often understood to mean solely training data **scale**, but this is not actually the case: previous encoders, such as DeBERTaV3, were trained for long enough that they might have even breached the trillion tokens scale\!
