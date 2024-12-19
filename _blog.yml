@@ -5228,7 +5228,7 @@
     - research
     - open-source-collab
 
-- local: comfyui-with-gradio-on-spaces
+- local: run-comfyui-workflows-on-spaces
   title: "Run ComfyUI workflows for free with Gradio on Spaces"
   author: multimodalart
   thumbnail: /blog/assets/comfyui-to-gradio/cover.png
