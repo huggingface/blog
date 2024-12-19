@@ -256,7 +256,7 @@ In this blog post we introduced the ModernBERT models, a new state-of-the-art fa
 
 ModernBERT demonstrates that encoder-only models can be improved by modern methods. They continue to offer very strong performance on some tasks, providing an extremely attractive size/performance ratio.
 
-More than anything, we’re really looking forward to seeing what creative ways to use these models the community will come up with! To encourage this, we’re opening a call for demos until January 10th, 2025: the 5 best ones will get added to this post in its own section and win a $100 (or local currency equivalent) Amazon gift card, as well as a 6-month HuggingFace Pro subscription! (If you need a hint to get started, here’s a demo we thought about: code similarity HF space)
+More than anything, we’re really looking forward to seeing what creative ways to use these models the community will come up with! To encourage this, we’re opening a call for demos until January 10th, 2025: the 5 best ones will get added to this post in a showcase section and win a $100 (or local currency equivalent) Amazon gift card, as well as a 6-month HuggingFace Pro subscription! (If you need a hint to get started, here’s a demo we thought about: code similarity HF space)
 
 ## Links
 
