@@ -262,7 +262,7 @@ More than anything, we’re really looking forward to seeing what creative ways 
 
 - [🤗ModernBERT-Base](https://huggingface.co/answerdotai/ModernBERT-base)  
 - [🤗ModernBERT-Large](https://huggingface.co/answerdotai/ModernBERT-large)  
-- **arXiv**: TBD  
-- 🤗ModernBERT documentation page TBD
+- [📝**arXiv**](https://arxiv.org/abs/2412.09588)  
+- [🤗ModernBERT documentation page](https://huggingface.co/docs/transformers/en/model_doc/modernbert)
 
 _LightOn sponsored the compute for this project on Orange Business Cloud Avenue._
