@@ -51,6 +51,65 @@ This blog post introduces [ModernBERT](https://huggingface.co/collections/answer
 
 ModernBERT is available as a *slot-in* replacement for any BERT-like models, with both a **base** (139M params) and **large** (395M params) model size.
 
+<details><summary>Click to see how to use these models with <code>transformers</code></summary>
+
+ModernBERT will be included in v4.48.0 of `transformers`. Until then, it requires installing transformers from main:
+
+```sh
+pip install git+https://github.com/huggingface/transformers.git
+```
+
+Since ModernBERT is a Masked Language Model (MLM), you can use the `fill-mask` pipeline or load it via `AutoModelForMaskedLM`. To use ModernBERT for downstream tasks like classification, retrieval, or QA, fine-tune it following standard BERT fine-tuning recipes.
+
+**⚠️ If your GPU supports it, we recommend using ModernBERT with Flash Attention 2 to reach the highest efficiency. To do so, install Flash Attention as follows, then use the model as normal:**
+
+```bash
+pip install flash-attn
+```
+
+Using `AutoModelForMaskedLM`:
+
+```python
+from transformers import AutoTokenizer, AutoModelForMaskedLM
+
+model_id = "answerdotai/ModernBERT-base"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForMaskedLM.from_pretrained(model_id)
+
+text = "The capital of France is [MASK]."
+inputs = tokenizer(text, return_tensors="pt")
+outputs = model(**inputs)
+
+# To get predictions for the mask:
+masked_index = inputs["input_ids"][0].tolist().index(tokenizer.mask_token_id)
+predicted_token_id = outputs.logits[0, masked_index].argmax(axis=-1)
+predicted_token = tokenizer.decode(predicted_token_id)
+print("Predicted token:", predicted_token)
+# Predicted token:  Paris
+```
+
+Using a pipeline:
+
+```python
+import torch
+from transformers import pipeline
+from pprint import pprint
+
+pipe = pipeline(
+    "fill-mask",
+    model="answerdotai/ModernBERT-base",
+    torch_dtype=torch.bfloat16,
+)
+
+input_text = "He walked to the [MASK]."
+results = pipe(input_text)
+pprint(results)
+```
+
+**Note:** ModernBERT does not use token type IDs, unlike some earlier BERT models. Most downstream usage is identical to standard BERT models on the Hugging Face Hub, except you can omit the `token_type_ids` parameter.
+
+</details>
+
 ## Introduction
 
 [BERT](https://huggingface.co/papers/1810.04805) was released in 2018 (millennia ago in AI-years!) and yet it’s still widely used today: in fact, it’s currently the second most downloaded model on the [HuggingFace hub](https://huggingface.co/models?sort=downloads), with more than 68 million monthly downloads, only second to [another encoder model fine-tuned for retrieval](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). That’s because its *encoder-only architecture* makes it ideal for the kinds of real-world problems that come up every day, like retrieval (such as for RAG), classification (such as content moderation), and entity extraction (such as for privacy and regulatory compliance).
