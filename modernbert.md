@@ -5,7 +5,7 @@ authors:
 - user: bwarner 
   guest: true
   org: answerdotai
-- user: Nohtow
+- user: NohTow
   guest: true
   org: lightonai
 - user: bclavie
