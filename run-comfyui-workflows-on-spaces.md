@@ -230,7 +230,7 @@ Now we are ready!
 
 ![create-space](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/create_space.png)
 
-1. Get to [https://huggingface.co](https://huggingface.co) and (1) create a new Space.
+1. Get to [https://huggingface.co](https://huggingface.co) and create a new Space.
 2. Set its hardware to ZeroGPU (if you are a Hugging Face PRO subscriber) or set it to CPU basic if you are not a PRO user (you'll need an extra step at the end if you are not PRO).
 3. Click the Files tab, Add `File > Upload Files`. Drag all your ComfyUI folder files **except** the `models` folder (if you attempt to upload the `models` folder, your upload will fail), that's why we need part 3.
 4. Click the `Commit changes to main` button on the bottom of the page and wait for everything to upload
@@ -244,7 +244,7 @@ If are not a Hugging Face PRO subscriber, you need to apply for a ZeroGPU grant,
 
 ### The demo is running
 
-The demo we have built with this tutorial is live on Hugging Face Spaces. Go play with it here:  [https://huggingface.co/spaces/multimodalart/flux-style-shaping](https://huggingface.co/spaces/multimodalart/flux-style-shaping)
+The demo we have built with this tutorial is live on Hugging Face Spaces. Come play with it here:  [https://huggingface.co/spaces/multimodalart/flux-style-shaping](https://huggingface.co/spaces/multimodalart/flux-style-shaping)
 
 ## 5. Conclusion
 
