@@ -181,7 +181,7 @@ And just like that, you should be able to run your Gradio app on http://0.0.0.0:
 
 <video controls src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/comfy_local_running.mp4" title="Title"></video>
 
-To debug this process, check [here](https://gist.github.com/apolinario/47a8503c007c5ae8494324bed9e158ce/revisions) the diff between the original python file exported by `ComfyUI-to-Python-Extension` and the Gradio app. You can download both at that URL as well to check and compare with your own workflow.
+To debug this process, check [here](https://gist.github.com/apolinario/47a8503c007c5ae8494324bed9e158ce/revisions?diff=unified&w=47a8503c007c5ae8494324bed9e158ce#diff-faf377dc15b3371a15d2c4a03b4d012825533bd2fb2297852cb2244d07fe36eeL1) the diff between the original python file exported by `ComfyUI-to-Python-Extension` and the Gradio app. You can download both at that URL as well to check and compare with your own workflow.
 
 That's it, congratulations! You managed to convert your ComfyUI workflow to a Gradio app. You can run it locally or even send the URL to a customer or friend, however, if you turn off your computer or if 72h pass, the temporary Gradio link will die. For a persistent structure for hosting the app - including allowing people to run it for free in a serverless manner, you can use Hugging Face Spaces. 
 
@@ -217,6 +217,8 @@ from huggingface_hub import hf_hub_download
 def generate_image(prompt, structure_image, style_image, depth_strength, style_strength):
 ```
 
+Check here the [diff](https://gist.github.com/apolinario/47a8503c007c5ae8494324bed9e158ce/revisions?diff=unified&w=47a8503c007c5ae8494324bed9e158ce#diff-faf377dc15b3371a15d2c4a03b4d012825533bd2fb2297852cb2244d07fe36eeL4) from the previous Gradio demo with the Spaces prepared changes.
+
 ## 4. Exporting to Spaces and running on ZeroGPU
 
 Now that you have your code ready for Hugging Face Spaces, it's time to export your demo to run there.
@@ -244,7 +246,7 @@ If are not a Hugging Face PRO subscriber, you need to apply for a ZeroGPU grant,
 
 ### The demo is running
 
-The demo we have built with this tutorial is live on Hugging Face Spaces. Come play with it here:  [https://huggingface.co/spaces/multimodalart/flux-style-shaping](https://huggingface.co/spaces/multimodalart/flux-style-shaping)
+The demo we have built with this tutorial is live on Hugging Face Spaces. Come play with it here: [https://huggingface.co/spaces/multimodalart/flux-style-shaping](https://huggingface.co/spaces/multimodalart/flux-style-shaping)
 
 ## 5. Conclusion
 
