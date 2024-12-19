@@ -226,7 +226,7 @@ Another big aspect in which encoders have been trailing behind is training data.
 
 The issue, rather, has been training data **diversity**: many of the older models train on limited corpora, generally consisting of Wikipedia and Wikibooks. These data mixtures are very noticeably **single text modality**: they contain nothing but high-quality natural text.
 
-In contrast, ModernBERT is trained on data from a variety of English data, including web documents, code, and scientific articles. It is trained on **2 trillion tokens**, of which most are unique, rather than the standard 20-to-40 repetitions common in previous encoders.
+In contrast, ModernBERT is trained on data from a variety of English sources, including web documents, code, and scientific articles. It is trained on **2 trillion tokens**, of which most are unique, rather than the standard 20-to-40 repetitions common in previous encoders.
 
 The impact of this is immediately noticeable: out of all the existing open source encoders, ModernBERT is in a class of its own on programming-related tasks. We’re particularly interested in what downstream uses this will lead to, in terms of improving programming assistants.
 
