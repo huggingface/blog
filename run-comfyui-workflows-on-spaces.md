@@ -20,7 +20,7 @@ Index:
 
 In this tutorial I will present a step-by-step guide on how I have converted a complex ComfyUI workflow to a simple Gradio application, and how I have deployed this application on Hugging Face Spaces ZeroGPU serverless structure, which allows for it to be deployed and ran for free on a serverless manner. In this tutorial, we are going to work with [Nathan Shipley's Flux[dev] Redux + Flux[dev] Depth ComfyUI workflow](https://gist.github.com/nathanshipley/7a9ac1901adde76feebe58d558026f68), but you can follow the tutorial with any workflow that you would like.
 
-![comfy-to-gradio](assets/comfyui-to-gradio/main_ui_conversion.png)
+![comfy-to-gradio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/main_ui_conversion.png)
 
 The tl;dr summary of what we will cover in this tutorial is: 
 
@@ -43,7 +43,7 @@ ComfyUI is awesome, but as the name indicates, it contains a UI. But Comfy is wa
 
 Thankfully, [Peyton DeNiro](https://github.com/pydn) has created this incredible [ComfyUI-to-Python-Extension](https://github.com/pydn/ComfyUI-to-Python-Extension) for ComfyUI that will export any Comfy workflow to a python script that can run any workflow of ComfyUI with Python, not firing up the UI.
 
-![comfy-to-gradio](assets/comfyui-to-gradio/export_as_python_steps.png)
+![comfy-to-gradio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/export_as_python_steps.png)
 
 The easiest way to install the extension is to (1) search for `ComfyUI to Python Extension` in the Custom Nodes Manager Menu of the ComfyUI Manager extension and (2) install it, then, for the option to appear, you have to go on the (3) settings on the bottom right of the UI, (4) disable the new menu and hit (5) `Save as Script`. With that, you will end up with a Python script.
 
@@ -68,7 +68,7 @@ import torch
 
 Now, we need to think of the UI - from the complex ComfyUI workflow, which parameters we would like to expose in our UI. For the `Flux[dev] Redux + Flux[dev] Depth ComfyUI workflow`, I would like to expose: the prompt, the structure image, the style image, the depth strength (for the structure) and the style strength.
 
-<video controls src="assets/comfyui-to-gradio/inputs_list.mp4" title="Title"></video>
+<video controls src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/inputs_list.mp4" title="Title"></video>
 _Video illustrating what nodes will be exposed to the final user_
 
 For that, a minimal Gradio app would be: 
@@ -165,7 +165,7 @@ saveimage_327 = saveimage.save_images(
 ```
 
 Check out a video rundown of this modifications: 
-<video controls src="assets/comfyui-to-gradio/video_code_change.mp4" title="Title"></video>
+<video controls src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/video_code_change.mp4" title="Title"></video>
 
 Now, we should be ready to run the code! Save your python file as `app.py`, add it to the root of your ComfyUI folder and run it as
 
@@ -179,7 +179,7 @@ And just like that, you should be able to run your Gradio app on http://0.0.0.0:
 * Running on public URL: https://366fdd17b8a9072899.gradio.live
 ```
 
-<video controls src="assets/comfyui-to-gradio/comfy_local_running.mp4" title="Title"></video>
+<video controls src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/comfy_local_running.mp4" title="Title"></video>
 
 To debug this process, check [here](https://gist.github.com/apolinario/47a8503c007c5ae8494324bed9e158ce/revisions) the diff between the original python file exported by `ComfyUI-to-Python-Extension` and the Gradio app. You can download both at that URL as well to check and compare with your own workflow.
 
@@ -224,11 +224,11 @@ Now that you have your code ready for Hugging Face Spaces, it's time to export y
 Firstly, you need to modify your `requirements.txt` to include the requirements in the `custom_nodes` folder, to add append the requirements of the nodes you want to work for this workflow to the `requirements.txt` on the root folder, as Hugging Face Spaces can only deal with a single `requirements.txt` file.
 
 You can see the illustration below. You need to do the same process for all `custom_nodes`: 
-<video controls src="assets/comfyui-to-gradio/illustrative_video.mp4" title="Title"></video>
+<video controls src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/illustrative_video.mp4" title="Title"></video>
 
 Now we are ready! 
 
-![create-space](assets/comfyui-to-gradio/create_space.png)
+![create-space](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/create_space.png)
 
 1. Get to [https://huggingface.co](https://huggingface.co) and (1) create a new Space.
 2. Set its hardware to ZeroGPU (if you are a Hugging Face PRO subscriber) or set it to CPU basic if you are not a PRO user (you'll need an extra step at the end if you are not PRO).
@@ -236,7 +236,7 @@ Now we are ready!
 4. Click the `Commit changes to main` button on the bottom of the page and wait for everything to upload
 5. If you are using gated models, like FLUX, you need to include a Hugging Face token to the settings. First, create a token with `read` access to all the gated models you need [here](https://huggingface.co/settings/tokens), then go to the `Settings` page of your Space and create a new secret named `HF_TOKEN` with the value of the token you have just created.
 
-![variables-and-secrets](assets/comfyui-to-gradio/variables_and_secrets.png)
+![variables-and-secrets](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/variables_and_secrets.png)
 
 ### If you are not a PRO subscriber (skip this step if you are)
 
