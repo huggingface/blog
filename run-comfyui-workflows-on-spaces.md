@@ -223,6 +223,8 @@ Check here the [diff](https://gist.github.com/apolinario/47a8503c007c5ae8494324b
 
 Now that you have your code ready for Hugging Face Spaces, it's time to export your demo to run there.
 
+### Fix requirements
+
 Firstly, you need to modify your `requirements.txt` to include the requirements in the `custom_nodes` folder, to add append the requirements of the nodes you want to work for this workflow to the `requirements.txt` on the root folder, as Hugging Face Spaces can only deal with a single `requirements.txt` file.
 
 You can see the illustration below. You need to do the same process for all `custom_nodes`: 
@@ -234,11 +236,252 @@ Now we are ready!
 
 1. Get to [https://huggingface.co](https://huggingface.co) and create a new Space.
 2. Set its hardware to ZeroGPU (if you are a Hugging Face PRO subscriber) or set it to CPU basic if you are not a PRO user (you'll need an extra step at the end if you are not PRO).
+    2.1 (If you prefer a dedicated GPU that you pay for, pick L4, L40S, A100 instead of ZeroGPU, that's a paid option)
 3. Click the Files tab, Add `File > Upload Files`. Drag all your ComfyUI folder files **except** the `models` folder (if you attempt to upload the `models` folder, your upload will fail), that's why we need part 3.
 4. Click the `Commit changes to main` button on the bottom of the page and wait for everything to upload
 5. If you are using gated models, like FLUX, you need to include a Hugging Face token to the settings. First, create a token with `read` access to all the gated models you need [here](https://huggingface.co/settings/tokens), then go to the `Settings` page of your Space and create a new secret named `HF_TOKEN` with the value of the token you have just created.
 
 ![variables-and-secrets](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/variables_and_secrets.png)
+
+### Move models outside the decorated function (ZeroGPU only)
+
+Your demo should already be working, however, in the current setup, the models will be fully loaded from disk to GPU every time you run it. To make use of the serverless ZeroGPU efficiency, we will need to move all model declarations outside the decorated function to the global context of Python. Let's edit the `app.py` function to do that.
+
+```diff
+@@ -4,6 +4,7 @@
+from typing import Sequence, Mapping, Any, Union
+import torch
+import gradio as gr
+from huggingface_hub import hf_hub_download
++from comfy import model_management
+import spaces
+
+hf_hub_download(repo_id="black-forest-labs/FLUX.1-Redux-dev", filename="flux1-redux-dev.safetensors", local_dir="models/style_models")
+@@ -109,6 +110,62 @@
+
+from nodes import NODE_CLASS_MAPPINGS
+
++intconstant = NODE_CLASS_MAPPINGS["INTConstant"]()
++dualcliploader = NODE_CLASS_MAPPINGS["DualCLIPLoader"]()
++dualcliploader_357 = dualcliploader.load_clip(
++    clip_name1="t5/t5xxl_fp16.safetensors",
++    clip_name2="clip_l.safetensors",
++    type="flux",
++)
++cr_clip_input_switch = NODE_CLASS_MAPPINGS["CR Clip Input Switch"]()
++cliptextencode = NODE_CLASS_MAPPINGS["CLIPTextEncode"]()
++loadimage = NODE_CLASS_MAPPINGS["LoadImage"]()
++imageresize = NODE_CLASS_MAPPINGS["ImageResize+"]()
++getimagesizeandcount = NODE_CLASS_MAPPINGS["GetImageSizeAndCount"]()
++vaeloader = NODE_CLASS_MAPPINGS["VAELoader"]()
++vaeloader_359 = vaeloader.load_vae(vae_name="FLUX1/ae.safetensors")
++vaeencode = NODE_CLASS_MAPPINGS["VAEEncode"]()
++unetloader = NODE_CLASS_MAPPINGS["UNETLoader"]()
++unetloader_358 = unetloader.load_unet(
++    unet_name="flux1-depth-dev.safetensors", weight_dtype="default"
++)
++ksamplerselect = NODE_CLASS_MAPPINGS["KSamplerSelect"]()
++randomnoise = NODE_CLASS_MAPPINGS["RandomNoise"]()
++fluxguidance = NODE_CLASS_MAPPINGS["FluxGuidance"]()
++depthanything_v2 = NODE_CLASS_MAPPINGS["DepthAnything_V2"]()
++downloadandloaddepthanythingv2model = NODE_CLASS_MAPPINGS[
++    "DownloadAndLoadDepthAnythingV2Model"
++]()
++downloadandloaddepthanythingv2model_437 = (
++    downloadandloaddepthanythingv2model.loadmodel(
++        model="depth_anything_v2_vitl_fp32.safetensors"
++    )
++)
++instructpixtopixconditioning = NODE_CLASS_MAPPINGS[
++    "InstructPixToPixConditioning"
++]()
++text_multiline_454 = text_multiline.text_multiline(text="FLUX_Redux")
++clipvisionloader = NODE_CLASS_MAPPINGS["CLIPVisionLoader"]()
++clipvisionloader_438 = clipvisionloader.load_clip(
++    clip_name="sigclip_vision_patch14_384.safetensors"
++)
++clipvisionencode = NODE_CLASS_MAPPINGS["CLIPVisionEncode"]()
++stylemodelloader = NODE_CLASS_MAPPINGS["StyleModelLoader"]()
++stylemodelloader_441 = stylemodelloader.load_style_model(
++    style_model_name="flux1-redux-dev.safetensors"
++)
++text_multiline = NODE_CLASS_MAPPINGS["Text Multiline"]()
++emptylatentimage = NODE_CLASS_MAPPINGS["EmptyLatentImage"]()
++cr_conditioning_input_switch = NODE_CLASS_MAPPINGS[
++    "CR Conditioning Input Switch"
++]()
++cr_model_input_switch = NODE_CLASS_MAPPINGS["CR Model Input Switch"]()
++stylemodelapplyadvanced = NODE_CLASS_MAPPINGS["StyleModelApplyAdvanced"]()
++basicguider = NODE_CLASS_MAPPINGS["BasicGuider"]()
++basicscheduler = NODE_CLASS_MAPPINGS["BasicScheduler"]()
++samplercustomadvanced = NODE_CLASS_MAPPINGS["SamplerCustomAdvanced"]()
++vaedecode = NODE_CLASS_MAPPINGS["VAEDecode"]()
++saveimage = NODE_CLASS_MAPPINGS["SaveImage"]()
++imagecrop = NODE_CLASS_MAPPINGS["ImageCrop+"]()
+
+@@ -117,75 +174,6 @@
+def generate_image(prompt, structure_image, style_image, depth_strength, style_strength):
+    import_custom_nodes()
+    with torch.inference_mode():
+-        intconstant = NODE_CLASS_MAPPINGS["INTConstant"]()
+         intconstant_83 = intconstant.get_value(value=1024)
+
+         intconstant_84 = intconstant.get_value(value=1024)
+
+-        dualcliploader = NODE_CLASS_MAPPINGS["DualCLIPLoader"]()
+-        dualcliploader_357 = dualcliploader.load_clip(
+-            clip_name1="t5/t5xxl_fp16.safetensors",
+-            clip_name2="clip_l.safetensors",
+-            type="flux",
+-        )
+-
+-        cr_clip_input_switch = NODE_CLASS_MAPPINGS["CR Clip Input Switch"]()
+         cr_clip_input_switch_319 = cr_clip_input_switch.switch(
+             Input=1,
+             clip1=get_value_at_index(dualcliploader_357, 0),
+             clip2=get_value_at_index(dualcliploader_357, 0),
+         )
+
+-        cliptextencode = NODE_CLASS_MAPPINGS["CLIPTextEncode"]()
+         cliptextencode_174 = cliptextencode.encode(
+             text=prompt,
+             clip=get_value_at_index(cr_clip_input_switch_319, 0),
+         )
+
+         cliptextencode_175 = cliptextencode.encode(
+             text="purple", clip=get_value_at_index(cr_clip_input_switch_319, 0)
+         )
+
+-        loadimage = NODE_CLASS_MAPPINGS["LoadImage"]()
+         loadimage_429 = loadimage.load_image(image=structure_image)
+
+-        imageresize = NODE_CLASS_MAPPINGS["ImageResize+"]()
+         imageresize_72 = imageresize.execute(
+             width=get_value_at_index(intconstant_83, 0),
+             height=get_value_at_index(intconstant_84, 0),
+             interpolation="bicubic",
+             method="keep proportion",
+             condition="always",
+             multiple_of=16,
+             image=get_value_at_index(loadimage_429, 0),
+         )
+
+-        getimagesizeandcount = NODE_CLASS_MAPPINGS["GetImageSizeAndCount"]()
+         getimagesizeandcount_360 = getimagesizeandcount.getsize(
+             image=get_value_at_index(imageresize_72, 0)
+         )
+
+-        vaeloader = NODE_CLASS_MAPPINGS["VAELoader"]()
+-        vaeloader_359 = vaeloader.load_vae(vae_name="FLUX1/ae.safetensors")
+
+-        vaeencode = NODE_CLASS_MAPPINGS["VAEEncode"]()
+         vaeencode_197 = vaeencode.encode(
+             pixels=get_value_at_index(getimagesizeandcount_360, 0),
+             vae=get_value_at_index(vaeloader_359, 0),
+         )
+
+-        unetloader = NODE_CLASS_MAPPINGS["UNETLoader"]()
+-        unetloader_358 = unetloader.load_unet(
+-            unet_name="flux1-depth-dev.safetensors", weight_dtype="default"
+-        )
+
+-        ksamplerselect = NODE_CLASS_MAPPINGS["KSamplerSelect"]()
+         ksamplerselect_363 = ksamplerselect.get_sampler(sampler_name="euler")
+
+-        randomnoise = NODE_CLASS_MAPPINGS["RandomNoise"]()
+         randomnoise_365 = randomnoise.get_noise(noise_seed=random.randint(1, 2**64))
+
+-        fluxguidance = NODE_CLASS_MAPPINGS["FluxGuidance"]()
+         fluxguidance_430 = fluxguidance.append(
+             guidance=15, conditioning=get_value_at_index(cliptextencode_174, 0)
+         )
+
+-        downloadandloaddepthanythingv2model = NODE_CLASS_MAPPINGS[
+-            "DownloadAndLoadDepthAnythingV2Model"
+-        ]()
+-        downloadandloaddepthanythingv2model_437 = (
+-            downloadandloaddepthanythingv2model.loadmodel(
+-                model="depth_anything_v2_vitl_fp32.safetensors"
+-            )
+-        )
+
+-        depthanything_v2 = NODE_CLASS_MAPPINGS["DepthAnything_V2"]()
+         depthanything_v2_436 = depthanything_v2.process(
+             da_model=get_value_at_index(downloadandloaddepthanythingv2model_437, 0),
+             images=get_value_at_index(getimagesizeandcount_360, 0),
+         )
+
+-        instructpixtopixconditioning = NODE_CLASS_MAPPINGS[
+-            "InstructPixToPixConditioning"
+-        ]()
+         instructpixtopixconditioning_431 = instructpixtopixconditioning.encode(
+             positive=get_value_at_index(fluxguidance_430, 0),
+             negative=get_value_at_index(cliptextencode_175, 0),
+             vae=get_value_at_index(vaeloader_359, 0),
+             pixels=get_value_at_index(depthanything_v2_436, 0),
+         )
+
+-        clipvisionloader = NODE_CLASS_MAPPINGS["CLIPVisionLoader"]()
+-        clipvisionloader_438 = clipvisionloader.load_clip(
+-            clip_name="sigclip_vision_patch14_384.safetensors"
+-        )
+
+         loadimage_440 = loadimage.load_image(image=style_image)
+
+-        clipvisionencode = NODE_CLASS_MAPPINGS["CLIPVisionEncode"]()
+         clipvisionencode_439 = clipvisionencode.encode(
+             crop="center",
+             clip_vision=get_value_at_index(clipvisionloader_438, 0),
+             image=get_value_at_index(loadimage_440, 0),
+         )
+
+-        stylemodelloader = NODE_CLASS_MAPPINGS["StyleModelLoader"]()
+-        stylemodelloader_441 = stylemodelloader.load_style_model(
+-            style_model_name="flux1-redux-dev.safetensors"
+-        )
+-
+-        text_multiline = NODE_CLASS_MAPPINGS["Text Multiline"]()
+         text_multiline_454 = text_multiline.text_multiline(text="FLUX_Redux")
+
+-        emptylatentimage = NODE_CLASS_MAPPINGS["EmptyLatentImage"]()
+-        cr_conditioning_input_switch = NODE_CLASS_MAPPINGS[
+-            "CR Conditioning Input Switch"
+-        ]()
+-        cr_model_input_switch = NODE_CLASS_MAPPINGS["CR Model Input Switch"]()
+-        stylemodelapplyadvanced = NODE_CLASS_MAPPINGS["StyleModelApplyAdvanced"]()
+-        basicguider = NODE_CLASS_MAPPINGS["BasicGuider"]()
+-        basicscheduler = NODE_CLASS_MAPPINGS["BasicScheduler"]()
+-        samplercustomadvanced = NODE_CLASS_MAPPINGS["SamplerCustomAdvanced"]()
+-        vaedecode = NODE_CLASS_MAPPINGS["VAEDecode"]()
+-        saveimage = NODE_CLASS_MAPPINGS["SaveImage"]()
+-        imagecrop = NODE_CLASS_MAPPINGS["ImageCrop+"]()
+
+         emptylatentimage_10 = emptylatentimage.generate(
+             width=get_value_at_index(imageresize_72, 1),
+             height=get_value_at_index(imageresize_72, 2),
+             batch_size=1,
+         )
+```
+
+Additionally, in order to pre-load the models we need to use the ComfyUI `load_models_gpu` function, which will include, from the above pre-loaded model, all the models that were loaded (a good rule of thumb, is checking which from the above load a `*.safetensors` file)
+```py
+from comfy import model_management
+
+#Add all the models that load a safetensors file
+model_loaders = [dualcliploader_357, vaeloader_359, unetloader_358, clipvisionloader_438, stylemodelloader_441, downloadandloaddepthanythingv2model_437]
+
+# Check which models are valid and how to best load them
+valid_models = [
+    getattr(loader[0], 'patcher', loader[0]) 
+    for loader in model_loaders
+    if not isinstance(loader[0], dict) and not isinstance(getattr(loader[0], 'patcher', None), dict)
+]
+
+#Finally loads the models
+model_management.load_models_gpu(valid_models)
+```
+
+[Check the diff](https://gist.github.com/apolinario/47a8503c007c5ae8494324bed9e158ce/revisions#diff-faf377dc15b3371a15d2c4a03b4d012825533bd2fb2297852cb2244d07fe36eeL6) to understand precisely what changes
 
 ### If you are not a PRO subscriber (skip this step if you are)
 
