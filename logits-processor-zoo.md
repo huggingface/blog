@@ -3,7 +3,7 @@ title: "Controlling Language Model Generation with NVIDIA's LogitsProcessorZoo"
 thumbnail: /blog/assets/logits-processor-zoo/thumbnail.png
 authors:
 - user: ariG23498
-- user: aerdem
+- user: aerdem4
   guest: true
   org: nvidia
 ---

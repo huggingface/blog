@@ -1,8 +1,26 @@
 ---
-title: "Welcome the Falcon 3 Family of Open Models!" 
+title: "Welcome to the Falcon 3 Family of Open Models!" 
 thumbnail: /blog/assets/falcon3/thumbnail.png
 authors:
 - user: Abdalgader
+  guest: true
+  org: tiiuae
+- user: abdulmuneertii
+  guest: true
+  org: tiiuae
+- user: AdamWma
+  guest: true
+  org: tiiuae
+- user: AbdulazizAlshamsi
+  guest: true
+  org: tiiuae
+- user: alice-tii
+  guest: true
+  org: tiiuae
+- user: Almansoorialikhalifa
+  guest: true
+  org: tiiuae
+- user: amztheory
   guest: true
   org: tiiuae
 - user: billelmokeddem
@@ -14,10 +32,22 @@ authors:
 - user: DhiyaEddine
   guest: true
   org: tiiuae
+- user: dunghuynh
+  guest: true
+  org: tiiuae
 - user: fedyanin
   guest: true
   org: tiiuae
 - user: gcamp
+  guest: true
+  org: tiiuae
+- user: Gkunsch
+  guest: true
+  org: tiiuae
+- user: gokulkarthik
+  guest: true
+  org: tiiuae
+- user: griffintaur
   guest: true
   org: tiiuae
 - user: HakimHacid
@@ -41,6 +71,9 @@ authors:
 - user: Iheb-Chaabane
   guest: true
   org: tiiuae
+- user: jaadariF
+  guest: true
+  org: tiiuae
 - user: JingweiZuo
   guest: true
   org: tiiuae
@@ -50,7 +83,22 @@ authors:
 - user: kasper-piskorski
   guest: true
   org: tiiuae
+- user: IChahed
+  guest: true
+  org: tiiuae
+- user: lkhphuc
+  guest: true
+  org: tiiuae
+- user: LeenAlQadi
+  guest: true
+  org: tiiuae
+- user: Ludovick
+  guest: true
+  org: tiiuae
 - user: melaseddik
+  guest: true
+  org: tiiuae
+- user: mersinvald
   guest: true
   org: tiiuae
 - user: Mughaira
@@ -68,13 +116,25 @@ authors:
 - user: RedaAlami
   guest: true
   org: tiiuae
+- user: rishabh-saraf
+  guest: true
+  org: tiiuae
+- user: SanathNarayan
+  guest: true
+  org: tiiuae
 - user: shihux
   guest: true
   org: tiiuae
 - user: slimfrikha-tii
   guest: true
   org: tiiuae
+- user: wamreyaz
+  guest: true
+  org: tiiuae
 - user: wdevazelhes
+  guest: true
+  org: tiiuae
+- user: yellowvm
   guest: true
   org: tiiuae
 - user: ybelkada
@@ -85,7 +145,7 @@ authors:
   org: tiiuae
 ---
 
-# Welcome the Falcon 3 Family of Open Models!
+# Welcome to the Falcon 3 Family of Open Models!
 
 We introduce Falcon3, a family of decoder-only large language models under 10 billion parameters, developed by
 [Technology Innovation Institute (TII)](https://www.tii.ae/ai-and-digital-science) in Abu Dhabi. By pushing the
@@ -95,17 +155,17 @@ and accessible large foundation models.
 Falcon3 represents a natural evolution from previous releases, emphasizing expanding the models' science, math, and code capabilities.
 
 This iteration includes five base models:
-1. Falcon3-1B-Base
-2. Falcon3-3B-Base
-3. Falcon3-Mamba-7B-Base
-4. Falcon3-7B-Base
-5. Falcon3-10B-Base
+1. [Falcon3-1B-Base](https://huggingface.co/tiiuae/Falcon3-1B-Base)
+2. [Falcon3-3B-Base](https://huggingface.co/tiiuae/Falcon3-3B-Base)
+3. [Falcon3-Mamba-7B-Base](https://huggingface.co/tiiuae/Falcon3-Mamba-7B-Base)
+4. [Falcon3-7B-Base](https://huggingface.co/tiiuae/Falcon3-7B-Base)
+5. [Falcon3-10B-Base](https://huggingface.co/tiiuae/Falcon3-10B-Base)
 
 In developing these models, we incorporated several key innovations aimed at improving the models' performances while reducing training costs:
 - **One pre-training for transformer-based models:** We conducted a single large-scale pretraining run on the 7B model, using 1024 H100 GPU chips, leveraging 14 trillion tokens featuring web, code, STEM, and curated high-quality and multilingual data.
 - **Depth up-scaling for improved reasoning:** Building on recent studies on the effects of model depth, we upscaled the 7B model to a 10B parameters model by duplicating the redundant layers and continuing pre-training with 2 trillion tokens of high-quality data. This yielded Falcon3-10B-Base which achieves state-of-the-art zero-shot and few-shot performance for models under 13B parameters.
 - **Knowledge distillation for better tiny models:** To provide compact and efficient alternatives, we developed Falcon3-1B-Base and Falcon3-3B-Base by leveraging pruning and knowledge distillation techniques, using less than 100GT of curated high-quality data, thereby redefining pre-training efficiency.
-- **Pure SSM:** We have further enhanced [Falcon Mamba 7B](https://huggingface.co/tiiuae/falcon-mamba-7b) by training on an additional 2 trillion tokens of high-quality data, resulting in Falcon3-Mamba-7B-Base. Notably, the updated model offers significantly improved reasoning and mathematical capabilities.
+- **Pure SSM:** We have further enhanced [Falcon Mamba 7B](https://huggingface.co/tiiuae/falcon-mamba-7b) by training on an additional 1.5 trillion tokens of high-quality data, resulting in Falcon3-Mamba-7B-Base. Notably, the updated model offers significantly improved reasoning and mathematical capabilities.
 - **Other variants:** All models in the Falcon3 family are available in variants such as Instruct, GGUF, GPTQ-Int4, GPTQ-Int8, AWQ, and 1.58-bit, offering flexibility for a wide range of applications.
 
 ## Key Highlights
@@ -121,8 +181,9 @@ Falcon3 featured the limits within the small and medium scales of large language
 
 ## Enhanced Capabilities
 
+We evaluated models with our internal evaluation pipeline (based on [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness)) and we report raw scores. 
 Our evaluations highlight key areas where the Falcon3 family of models excel, reflecting the emphasis on enhancing performance in scientific domains, reasoning, and general knowledge capabilities:
-- **Math Capabilities:** Falcon3-10B-Base achieves 24.77 on MATH-Lvl5 and 83.0 on GSM8K, showcasing enhanced reasoning in complex math-focused tasks.
+- **Math Capabilities:** Falcon3-10B-Base achieves 22.9 on MATH-Lvl5 and 83.0 on GSM8K, showcasing enhanced reasoning in complex math-focused tasks.
 - **Coding Capabilities:** Falcon3-10B-Base achieves 73.8 on MBPP, while Falcon3-10B-Instruct scores 45.8 on Multipl-E, reflecting their abilities to generalize across programming-related tasks.
 - **Extended Context Length**: Models in the Falcon3 family support up to 32k tokens (except the 1B supporting up to 8k context), with functional improvements such as scoring 86.3 on BFCL (Falcon3-10B-Instruct).
 - **Improved Reasoning:** Falcon3-7B-Base and Falcon3-10B-Base achieve 51.0 and 59.7 on BBH, reflecting enhanced reasoning capabilities, with the 10B model showing improved reasoning performance over the 7B.
@@ -131,7 +192,8 @@ Our evaluations highlight key areas where the Falcon3 family of models excel, re
 ## Models' Specs and Benchmark Results
 
 Detailed specifications of the Falcon3 family of models are summarized in the following table. The architecture of [Falcon3-7B-Base](https://huggingface.co/tiiuae/Falcon3-7B-Base)
-is characterized by a head dimension of 256 which yields high throughput when using [FlashAttention-3](https://arxiv.org/abs/2407.08608) as it is optimized for this dimension. These decoder-only models span 18 to 40 layers for the transformer-based ones, and 64 layers for the mamba one, all  models share the SwiGLU activation function, with vocabulary size of 131K tokens (65Kfor Mamba-7B). The Falcon3-7B-Base is trained on the largest amount of data ensuring comprehensive coverage of concepts and knowledge, the other variants require way less data.
+is characterized by a head dimension of 256 which yields high throughput when using [FlashAttention-3](https://arxiv.org/abs/2407.08608) as it is optimized for this dimension. These decoder-only models span 18 to 40 layers for the transformer-based ones, and 64 layers for the mamba one, all  models share the SwiGLU activation function, with vocabulary size of 131K tokens (65Kfor Mamba-7B). The Falcon3-7B-Base is trained on the largest amount of data ensuring comprehensive coverage of concepts and knowledge, the other variants require way less data. 
+
 <br/><br/>
 <!-- ![Falcon 3 Specs](Falcon3-specs.png) -->
 <div style="text-align: center;" align="center">
@@ -139,7 +201,8 @@ is characterized by a head dimension of 256 which yields high throughput when us
 </div>
 <br/><br/>
 
-The table below highlights the performances of Falcon3-7B-Base and Falcon3-10B-Base on key benchmarks showing competitive performances in general, math, reasoning, and common sense understanding domains. 
+The table below highlights the performances of Falcon3-7B-Base and Falcon3-10B-Base on key benchmarks showing competitive performances in general, math, reasoning, and common sense understanding domains.
+Feel free to take a look at models' cards where we provide additional evaluation results (e.g. MT-Bench, Alpaca, etc). 
  <br/><br/>
 <!-- ![medium base models' performances](medium-base-models.png)  -->
 <div style="text-align: center;" align="center">
@@ -152,6 +215,10 @@ The instruct models also demonstrate competitive and super performances with equ
 ### Instruct models
 
 Falcon3-1B-Instruct and Falcon3-3B-Instruct achieve robust performance across the evaluated benchmarks. Specifically, Falcon3-1B attains competitive results in IFEval (54.4), MUSR (40.7), and SciQ (86.8), while Falcon3-3B exhibits further gains—particularly in MMLU-PRO (29.7) and MATH (19.9)—demonstrating clear scaling effects. Although they do not surpass all competing models on every metric, Falcon models show strong performances in reasoning and common-sense understanding relative to both Qwen and Llama.
+In our internal evaluation pipeline:
+ - We use [lm-evaluation harness](https://github.com/EleutherAI/lm-evaluation-harness).
+ - We report **raw scores** obtained by applying chat template **without fewshot_as_multiturn** (unlike Llama3.1).
+ - We use same batch-size across all models.
 
 <br/><br/>
 <!-- ![medium base models' performances](small-instruct-models.png) -->
@@ -169,7 +236,7 @@ Furthermore, Falcon3-7B and Falcon3-10B show robust performance across the evalu
 
 
 ## Open Source Commitment
-In line with our mission to foster AI accessibility and collaboration, all models in the Falcon3 family are released under the **Apache 2.0 license**. We hope the AI community finds these models valuable for research, application development, and further experimentation. Falcon3 is not a culmination but a continuation of our efforts to create more capable, efficient, specialized foundation models. In January 2025, we will further release other models of the Falcon3 family featuring enhanced multi-modal capabilities including image, video, and audio support, as well as a full technical report covering our methodologies. We welcome feedback and collaboration from the community as we continue to refine and advance these technologies.
+In line with our mission to foster AI accessibility and collaboration, all models in the Falcon3 family are released under the [**Falcon LLM license**](https://falconllm.tii.ae/falcon-terms-and-conditions.html). We hope the AI community finds these models valuable for research, application development, and further experimentation. Falcon3 is not a culmination but a continuation of our efforts to create more capable, efficient, specialized foundation models. In January 2025, we will further release other models of the Falcon3 family featuring enhanced multi-modal capabilities including image, video, and audio support, as well as a full technical report covering our methodologies. We welcome feedback and collaboration from the community as we continue to refine and advance these technologies.
 
 ## Useful links
 
