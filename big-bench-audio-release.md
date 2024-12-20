@@ -8,7 +8,7 @@ authors:
 
 # Evaluating Audio Reasoning with Big Bench Audio
 
-The emergence of native audio-to-audio models offers exciting opportunities to increase voice agent capabilities and simplify workflows. However, it's crucial to evaluate whether this simplification comes at the cost of model performance or introduces other trade-offs.
+The emergence of native Speech to Speech models offers exciting opportunities to increase voice agent capabilities and simplify speech-enabled workflows. However, it's crucial to evaluate whether this simplification comes at the cost of model performance or introduces other trade-offs.
 
 To help answer this question, we're releasing **Big Bench Audio**, a new evaluation dataset for assessing the reasoning capabilities of audio language models. This dataset adapts questions from **[Big Bench Hard](https://arxiv.org/pdf/2210.09261)** - chosen for its rigorous testing of advanced reasoning - into the audio domain.
 
