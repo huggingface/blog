@@ -49,24 +49,10 @@ The audio files were generated using **23 synthetic voices** from top-ranked Tex
 
 To assess the impact of audio on model's reasoning performance, we tested **four different configurations** on Big Bench Audio:
 
-1. **Speech to Speech**
-2. **Speech to Text**
-3. **Text to Speech**
-4. **Text to Text**
-
-### Configuration Descriptions
-
-**Speech to Speech**
-- An input audio file is provided and the model generates an output audio file containing the answer.
-
-**Speech to Text**
-- An input audio file is provided and the model generates a text answer.
-
-**Text to Speech**
-- A text version of the question is provided and the model generates an output audio file containing the answer.
-
-**Text to Text**
-- A text version of the question is provided and the model generates a text answer.
+1. **Speech to Speech**: An input audio file is provided and the model generates an output audio file containing the answer.
+2. **Speech to Text**: An input audio file is provided and the model generates a text answer.
+3. **Text to Speech**: A text version of the question is provided and the model generates an output audio file containing the answer.
+4. **Text to Text**: A text version of the question is provided and the model generates a text answer.
 
 Based on these configurations we conducted **eighteen experiments**:
 
