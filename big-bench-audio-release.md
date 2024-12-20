@@ -237,10 +237,6 @@ Our analysis reveals a substantial performance gap between text reasoning and au
 
 ### Speech to Speech Pipelines Currently Outperform Native Audio for Reasoning
 
-<center>
-
-</center>
-
 Traditional pipeline approaches (using Whisper for transcription, GPT-4o (Aug '24) for reasoning, and TTS-1 for voice generation) show minimal performance degradation compared to pure text processing. This suggests that for applications where reasoning accuracy is critical, pipeline approaches currently offer the optimal balance of performance and audio capability.
 
 We anticipate that this gap may narrow over time and will continue to test new Speech to Speech models with Big Bench Audio. Look out for an update with Speech to Speech mode for Google's Gemini 2.0 Flash soon!
