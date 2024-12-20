@@ -180,11 +180,12 @@ Below are some expamples responses.
 - **Output:**
   
   ```
-  The argument is deductively valid.\n\nThe premise states: Every close friend of Myra is neither a cousin of Sue nor a daughter of Tommy.  This is a
-  universal statement.  The conclusion correctly reverses this statement using
- contraposition: No cousin of Sue and no daughter of Tommy is a close friend of
- Myra.\n\nThis is a valid application of contraposition.  If A implies not (B
-or C), then (B or C) implies not A.  The argument is structured correctly and the conclusion follows logically from the premise.
+  The argument is deductively valid.
+  
+  The premise states: Every close friend of Myra is neither a cousin of Sue nor a daughter of Tommy.  This is a
+  universal statement.  The conclusion correctly reverses this statement using contraposition: No cousin of Sue and no daughter of Tommy is a close friend of Myra.
+  
+  This is a valid application of contraposition.  If A implies not (Bor C), then (B or C) implies not A.  The argument is structured correctly and the conclusion follows logically from the premise.
   ```
 
 - **Is correct:** `True`
@@ -198,8 +199,8 @@ or C), then (B or C) implies not A.  The argument is structured correctly and th
   If you follow these instructions, do you return to the starting point? Turn right. Take 10 steps. Turn around. Take 10 steps.
   Options:
   - Yes
-  - No.
- Answer the question
+  - No
+  Answer the question
   ```
 
 - **Output:**
@@ -264,4 +265,4 @@ Traditional pipeline approaches (using Whisper for transcription, GPT-4o for rea
 
 For further analysis of Speech to Speech models, check out the new Speech to Speech page on the **Artificial Analysis** website: [**https://artificialanalysis.ai/speech-to-speech**](https://artificialanalysis.ai/speech-to-speech).
 
-For updates, follow us on [**Twitter**](https://x.com/ArtificialAnlys) and [**LinkedIn**](https://linkedin.com/company/artificial-analysis). We welcome all feedback and are available via message on Twitter, as well as through the contact form on [**our website**](https://artificialanalysis.ai/contact).https://huggingface.co/datasets/ArtificialAnalysis/hf-assets/resolve/main/big_bench_audio_results_19_dec_2024.jpg?download=true
+For updates, follow us on [**Twitter**](https://x.com/ArtificialAnlys) and [**LinkedIn**](https://linkedin.com/company/artificial-analysis). We welcome all feedback and are available via message on Twitter, as well as through the contact form on [**our website**](https://artificialanalysis.ai/contact).
