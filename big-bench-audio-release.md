@@ -1,6 +1,6 @@
 ---
 title: "Evaluating Audio Reasoning with Big Bench Audio" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+thumbnail: /blog/assets/big_bench_audio_release/big-bench-audio-thumbnail.png
 authors:
 - user: mhillsmith
   guest: true
