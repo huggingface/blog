@@ -232,11 +232,6 @@ All results presented represent averages across three independent evaluation run
 
 ### The Audio Reasoning Gap
 
-<center>
-
-
-</center>
-
 Our analysis reveals a substantial performance gap between text reasoning and audio reasoning. GPT-4o (Aug '24) achieves 92% accuracy in the Text to Text version of the dataset, while its Speech to Speech counterpart (GPT-4o Realtime Preview Oct '24) reaches a score of 66%. The Text to Speech configuration achieves intermediate performance at 74%, indicating that both speech input and speech output are contributing to the performance gap.
 
 
