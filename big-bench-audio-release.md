@@ -6,6 +6,8 @@ authors:
   guest: true
   org: ArtificialAnalysis
 - user: georgewritescode
+  guest: true
+  org: ArtificialAnalysis
 ---
 
 # Evaluating Audio Reasoning with Big Bench Audio
