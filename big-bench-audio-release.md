@@ -120,7 +120,7 @@ Reply only with CORRECT or INCORRECT.
 
 ## Examples
 
-Below are some expamples responses.
+Below are some example responses.
 
 ### Speech to Speech
 
