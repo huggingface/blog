@@ -20,7 +20,7 @@ This post introduces the Big Bench Audio dataset alongside initial benchmark res
 
 ## The Big Bench Audio Dataset
 
-Big Bench Audio comprises **1,000 audio questions** selected from four categories of Big Bench Hard, each chosen for their suitability for audio evaluation:
+[Big Bench Audio](https://huggingface.co/datasets/ArtificialAnalysis/big_bench_audio) comprises **1,000 audio questions** selected from four categories of Big Bench Hard, each chosen for their suitability for audio evaluation:
 
 - **Formal Fallacies**: Evaluating logical deduction from given statements
 - **Navigate**: Determining if navigation steps return to a starting point
