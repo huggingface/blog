@@ -47,7 +47,7 @@ The audio files were generated using **23 synthetic voices** from top-ranked Tex
 
 ## Evaluating Audio Reasoning
 
-To assess the impact of audio on model's reasoning performance, we tested **four different configurations** on Big Bench Audio:
+To assess the impact of audio on each model's reasoning performance, we tested **four different configurations** on Big Bench Audio:
 
 1. **Speech to Speech**: An input audio file is provided and the model generates an output audio file containing the answer.
 2. **Speech to Text**: An input audio file is provided and the model generates a text answer.
