@@ -10,9 +10,9 @@ authors:
 
 The emergence of native Speech to Speech models offers exciting opportunities to increase voice agent capabilities and simplify speech-enabled workflows. However, it's crucial to evaluate whether this simplification comes at the cost of model performance or introduces other trade-offs.
 
-To support analysis of this, we're releasing **[Big Bench Audio](https://huggingface.co/datasets/ArtificialAnalysis/big_bench_audio)**, a new evaluation dataset for assessing the reasoning capabilities of audio language models. This dataset adapts questions from **[Big Bench Hard](https://arxiv.org/pdf/2210.09261)** - chosen for its rigorous testing of advanced reasoning - into the audio domain.
+To support analysis of this, Artificial Analysis is releasing **[Big Bench Audio](https://huggingface.co/datasets/ArtificialAnalysis/big_bench_audio)**, a new evaluation dataset for assessing the reasoning capabilities of audio language models. This dataset adapts questions from **[Big Bench Hard](https://arxiv.org/pdf/2210.09261)** - chosen for its rigorous testing of advanced reasoning - into the audio domain.
 
-This post introduces the Big Bench Audio dataset alongside initial benchmark results for GPT-4o and Gemini 1.5 series models. Our analysis examines these models across multiple modalities: native Speech to Speech, Speech to Text, Text to Speech and Text to Text. 
+This post introduces the Big Bench Audio dataset alongside initial benchmark results for GPT-4o and Gemini 1.5 series models. Our analysis examines these models across multiple modalities: native Speech to Speech, Speech to Text, Text to Speech and Text to Text. We present a summary of results below, and on the new Speech to Speech page on the **Artificial Analysis** website: [**https://artificialanalysis.ai/models/speech-to-speech**](https://artificialanalysis.ai/models/speech-to-speech).
 
 ## The Big Bench Audio Dataset
 
@@ -38,7 +38,7 @@ Each question in the dataset is structured as:
 ```
 
 
-The audio files were generated using **23 synthetic voices** from top-ranked text-to-speech models in the **[Artifical Analysis Speech Arena](https://artificialanalysis.ai/text-to-speech/arena?tab=Leaderboard)**. Each audio generation was rigorously verified using Levenshtein distance against transcriptions and manual review of edge cases. To find out more about how the dataset was created, check out the **[dataset card](https://huggingface.co/datasets/ArtificialAnalysis/big_bench_audio)**.
+The audio files were generated using **23 synthetic voices** from top-ranked Text to Speech models in the **[Artifical Analysis Speech Arena](https://artificialanalysis.ai/text-to-speech/arena?tab=Leaderboard)**. Each audio generation was rigorously verified using Levenshtein distance against transcriptions and manual review of edge cases. To find out more about how the dataset was created, check out the **[dataset card](https://huggingface.co/datasets/ArtificialAnalysis/big_bench_audio)**.
 
 
 ## Evaluating Audio Reasoning
@@ -64,7 +64,7 @@ To assess the impact of audio on model's reasoning performance, we tested **four
 **Text to Text**
 - A text version of the question is provided and the model generates a text answer.
 
-Based on these configurations we conducted **seventeen experiments**:
+Based on these configurations we conducted **eighteen experiments**:
 
 <center>
 
@@ -102,7 +102,7 @@ To ensure consistent and scalable evaluation across all configurations, we devel
    - The official answer
    - The original question (for context)
 
-The LLM Evaluator is provided with the candidate answer, official answer, and original question as context and is prompted to label the candidate answer as either **correct or incorrect**. We use Claude 3.5 Sonnet (Sep '24) as the LLM evaluator for the Big Bench Audio scores listed on Artificial Analysis.
+The LLM Evaluator is provided with the candidate answer, official answer, and original question as context and is prompted to label the candidate answer as either **correct or incorrect**. We use Anthropic's Claude 3.5 Sonnet (Oct '24) as the LLM evaluator for the Big Bench Audio scores listed on Artificial Analysis.
 
 **LLM Evaluator Prompt:**
 
@@ -247,7 +247,7 @@ All results presented represent averages across three independent evaluation run
 
 </center>
 
-Our analysis reveals a substantial performance gap between text reasoning and audio reasoning. GPT-4o achieves 87% accuracy in the text-to-text version of the dataset, while its speech-to-speech counterpart (GPT-4o Realtime Preview) reaches 66%. The text-to-speech configuration achieves intermediate performance at 75%, indicating that both speech input and speech output are contributing to the performance gap.
+Our analysis reveals a substantial performance gap between text reasoning and audio reasoning. GPT-4o (Aug '24) achieves 92% accuracy in the Text to Text version of the dataset, while its Speech to Speech counterpart (GPT-4o Realtime Preview Oct '24) reaches a score of 66%. The Text to Speech configuration achieves intermediate performance at 74%, indicating that both speech input and speech output are contributing to the performance gap.
 
 
 ### Speech to Speech Pipelines Currently Outperform Native Audio for Reasoning
@@ -256,13 +256,13 @@ Our analysis reveals a substantial performance gap between text reasoning and au
 
 </center>
 
-Traditional pipeline approaches (using Whisper for transcription, GPT-4o for reasoning, and TTS-1 for voice generation) show minimal performance degradation compared to pure text processing. This suggests that for applications where reasoning accuracy is critical, pipeline approaches currently offer the optimal balance of performance and audio capability.
+Traditional pipeline approaches (using Whisper for transcription, GPT-4o (Aug '24) for reasoning, and TTS-1 for voice generation) show minimal performance degradation compared to pure text processing. This suggests that for applications where reasoning accuracy is critical, pipeline approaches currently offer the optimal balance of performance and audio capability.
 
 We anticipate that this gap may narrow over time and will continue to test new Speech to Speech models with Big Bench Audio. Look out for an update with Speech to Speech mode for Google's Gemini 2.0 Flash soon!
 
 
 ## How to Contribute or Get in Touch
 
-For further analysis of Speech to Speech models, check out the new Speech to Speech page on the **Artificial Analysis** website: [**https://artificialanalysis.ai/speech-to-speech**](https://artificialanalysis.ai/speech-to-speech).
+For further analysis of Speech to Speech models, check out the new Speech to Speech page on the **Artificial Analysis** website: [**https://artificialanalysis.ai/speech-to-speech**](https://artificialanalysis.ai/models/speech-to-speech).
 
 For updates, follow us on [**Twitter**](https://x.com/ArtificialAnlys) and [**LinkedIn**](https://linkedin.com/company/artificial-analysis). We welcome all feedback and are available via message on Twitter, as well as through the contact form on [**our website**](https://artificialanalysis.ai/contact).
