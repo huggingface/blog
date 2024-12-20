@@ -12,12 +12,12 @@ The emergence of native audio-to-audio models offers exciting opportunities to i
 
 To help answer this question, we're releasing **Big Bench Audio**, a new evaluation dataset for assessing the reasoning capabilities of audio language models. This dataset adapts questions from **[Big Bench Hard](https://arxiv.org/pdf/2210.09261)** - chosen for its rigorous testing of advanced reasoning - into the audio domain.
 
-This post introduces the Big Bench Audio dataset alongside initial benchmark results for GPT-4o and Gemini 1.5 series models. Our analysis examines these models across multiple modalities: native speech-to-speech, text-to-text, speech-to-text and text-to-speech configurations. 
+This post introduces the Big Bench Audio dataset alongside initial benchmark results for GPT-4o and Gemini 1.5 series models. Our analysis examines these models across multiple modalities: native Speech to Speech, Text to Text, Speech to Text and Text to Speech configurations. 
 
 
 ## The Big Bench Audio Dataset
 
-Big Bench Audio comprises **1,000 audio questions** selected from four categories of Big Bench Hard, each chosen for their suitability in audio evaluation:
+Big Bench Audio comprises **1,000 audio questions** selected from four categories of Big Bench Hard, each chosen for their suitability for audio evaluation:
 
 - **Formal Fallacies**: Evaluating logical deduction from given statements
 - **Navigate**: Determining if navigation steps return to a starting point
@@ -230,17 +230,17 @@ Below are some expamples responses.
 
 - **Is correct:** `True`
 
-## Results<sup>1</sup>
+## Results
 
 <center>
 
 ![Analysis Results](https://huggingface.co/datasets/ArtificialAnalysis/hf-assets/resolve/main/big_bench_audio_results_19_dec_2024.jpg?download=true)
 
-(Figure 1 - Summary of results)
+(Figure 1 - Summary of Results)
 
 </center>
 
-1. All reported results represent the average of three independent runs.
+All results presented represent averages across three independent evaluation runs on each dataset. 
 
 ### The Audio Reasoning Gap
 
@@ -249,16 +249,18 @@ Below are some expamples responses.
 
 </center>
 
-At the aggregate level, **GPT-4o** performs **25 percentage points** better than GPT-4o, Realtime Preview (speech to speech). The pattern of performance between the models closely mirrors one another, suggesting a performance tax rather than fundamentally different profiles. The performance of GPT-4o, Realtime Preview (text to speech) suggests it is the audio output that is potentially driving this degradation.
+Our analysis reveals a substantial performance gap between text reasoning and audio reasoning. GPT-4o achieves 87% accuracy in the text-to-text version of the dataset, while its speech-to-speech counterpart (GPT-4o Realtime Preview) reaches 66%. The text-to-speech configuration achieves intermediate performance at 75%, indicating that both speech input and speech output are contributing to the performance gap.
 
 
-### Speech to Speech Pipelines Currently Outperform Native Audio
+### Speech to Speech Pipelines Currently Outperform Native Audio for Reasoning
 
 <center>
 
 </center>
 
 Traditional pipeline approaches (using Whisper for transcription, GPT-4o for reasoning, and TTS-1 for voice generation) show minimal performance degradation compared to pure text processing. This suggests that for applications where reasoning accuracy is critical, pipeline approaches currently offer the optimal balance of performance and audio capability.
+
+We anticipate that this gap may narrow over time and will continue to test new Speech to Speech models with Big Bench Audio. Look out for an update with Speech to Speech mode for Google's Gemini 2.0 Flash soon!
 
 
 ## How to Contribute or Get in Touch

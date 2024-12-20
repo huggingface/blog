@@ -5227,3 +5227,16 @@
     - community
     - research
     - open-source-collab
+
+
+- local: big-bench-audio-release
+  title: "Evaluating Audio Reasoning with Big Bench Audio"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_artificialanalysis.png
+  author: mhillsmith
+  guest: true
+  date: Dec 20, 2024
+  tags:
+    - leaderboard
+    - research
+    - collaboration
+    - community
