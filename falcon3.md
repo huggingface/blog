@@ -113,7 +113,7 @@ We warmly thank the following people for their smooth support and integration wi
 
 - [Alina Lozovskaya](https://huggingface.co/alozowski) and [Clementine Fourrier](https://huggingface.co/clefourrier) for helping us evaluate the model on the HF leaderboard.
 - [Cyril Vallez](https://huggingface.co/cyrilvallez) and [Arthur Zucker](https://huggingface.co/ArthurZ) for the transformers documentation integration.
-- [Vaibhav Srivastav](https://huggingface.co/reach-vb) for his help reviewing this blogpost.
+- [Vaibhav Srivastav](https://huggingface.co/reach-vb) and [Aritra Roy Gosthipaty](https://huggingface.co/ariG23498) for his help reviewing this blogpost.
 - [Georgi Gerganov](https://github.com/ggerganov) for his help in integrating an important fix to make Falcon3 series models work in [llama.cpp](https://github.com/ggerganov/llama.cpp).
 - [Awni Hannun](https://github.com/awni) for helping us review necessary changes in order to integrate Falcon3 series into MLX ecosystem.
 - [BitNet.cpp team](https://github.com/microsoft/BitNet) for helping us integrating 1.58bit variants of Falcon3 models into BitNet.
