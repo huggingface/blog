@@ -42,7 +42,7 @@ Each question in the dataset is structured as:
 ```
 
 
-The audio files were generated using **23 synthetic voices** from top-ranked Text to Speech models in the **[Artifical Analysis Speech Arena](https://artificialanalysis.ai/text-to-speech/arena?tab=Leaderboard)**. Each audio generation was rigorously verified using Levenshtein distance against transcriptions, as well as manual review of edge cases. To find out more about how the dataset was created, check out the **[dataset card](https://huggingface.co/datasets/ArtificialAnalysis/big_bench_audio)**.
+The audio files were generated using **23 synthetic voices** from top-ranked Text to Speech models in the **[Artifical Analysis Speech Arena](https://artificialanalysis.ai/text-to-speech/arena?tab=Leaderboard)**. Each audio generation was rigorously verified using Levenshtein distance against transcriptions, and edge cases were reviewed manually. To find out more about how the dataset was created, check out the **[dataset card](https://huggingface.co/datasets/ArtificialAnalysis/big_bench_audio)**.
 
 
 ## Evaluating Audio Reasoning
