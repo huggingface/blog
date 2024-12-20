@@ -10,10 +10,9 @@ authors:
 
 The emergence of native Speech to Speech models offers exciting opportunities to increase voice agent capabilities and simplify speech-enabled workflows. However, it's crucial to evaluate whether this simplification comes at the cost of model performance or introduces other trade-offs.
 
-To help answer this question, we're releasing **Big Bench Audio**, a new evaluation dataset for assessing the reasoning capabilities of audio language models. This dataset adapts questions from **[Big Bench Hard](https://arxiv.org/pdf/2210.09261)** - chosen for its rigorous testing of advanced reasoning - into the audio domain.
+To support analysis of this, we're releasing **[Big Bench Audio](https://huggingface.co/datasets/ArtificialAnalysis/big_bench_audio)**, a new evaluation dataset for assessing the reasoning capabilities of audio language models. This dataset adapts questions from **[Big Bench Hard](https://arxiv.org/pdf/2210.09261)** - chosen for its rigorous testing of advanced reasoning - into the audio domain.
 
-This post introduces the Big Bench Audio dataset alongside initial benchmark results for GPT-4o and Gemini 1.5 series models. Our analysis examines these models across multiple modalities: native Speech to Speech, Text to Text, Speech to Text and Text to Speech configurations. 
-
+This post introduces the Big Bench Audio dataset alongside initial benchmark results for GPT-4o and Gemini 1.5 series models. Our analysis examines these models across multiple modalities: native Speech to Speech, Speech to Text, Text to Speech and Text to Text. 
 
 ## The Big Bench Audio Dataset
 
@@ -103,8 +102,7 @@ To ensure consistent and scalable evaluation across all configurations, we devel
    - The official answer
    - The original question (for context)
 
-
-The LLM Evaluator is provided with the candidate answer, official answer, and original question as context and is prompted to label the candidate answer as either **correct or incorrect**.
+The LLM Evaluator is provided with the candidate answer, official answer, and original question as context and is prompted to label the candidate answer as either **correct or incorrect**. We use Claude 3.5 Sonnet (Sep '24) as the LLM evaluator for the Big Bench Audio scores listed on Artificial Analysis.
 
 **LLM Evaluator Prompt:**
 
