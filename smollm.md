@@ -136,7 +136,7 @@ The plot below compares Python-Edu to the unfiltered Python code and to using a 
 SmolLM models are available in three sizes and were trained on the data mixture below:
 
 - 135M and 360M models, each trained on 600B tokens from [Smollm-Corpus](https://huggingface.co/datasets/HuggingFaceTB/smollm-corpus)
-- 1.7B model, trained on 1T tokens from Smollm-Corpus
+- 1.7B model, trained on 11T tokens from Smollm-Corpus
 
 <p align="center">
  <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/Untitled%209.png" alt=""  style="width: 60%; height: auto;"><br>
