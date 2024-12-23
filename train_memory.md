@@ -156,7 +156,7 @@ To generalize the memory estimation, we need to account for all possible peaks, 
 
 \\( \text{Model Parameters} + \text{Optimizer State} + \max(\text{Gradients} + {\text{Optimizer Intermediates}, \text{Activations}}) \\)
 
-Now that we've the equation, let's see how to estimate each component.
+Now that we have the equation, let's see how to estimate each component.
 
 ### Model parameters
 
