@@ -48,21 +48,19 @@ Let's break down this graph into key parts:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train_memory/simple_profile_partitioned.png" width="1100" height="auto" alt="Simple profile partitioned">
 
-1. **Model Creation**: Memory increases by 4 GB, corresponding to the model's size:  
-   \[
-   10{,}000 \times 50{,}000 \text{ weights} + 50{,}000 \text{ biases in } \texttt{float32 }\text{(4 bytes)} \implies (5 \times 10^8) \times 4 \, \text{bytes} = 4 \, \text{GB}.
-   \]  
+1. **Model Creation**: Memory increases by 4 GB, corresponding to the model's size:
+
+   \\( 10{,}000 \times 50{,}000 \text{ weights} + 50{,}000 \text{ biases in } \texttt{float32 }\text{(4 bytes)} \implies (5 \times 10^8) \times 4 \, \text{bytes} = 4 \, \text{GB}. \\)
+
    This memory (in blue) persists throughout execution.
 
-2. **Input Tensor Creation (1st Loop)**: Memory increases by 200 MB matching the input tensor size:  
-   \[
-   5{,}000 \times 10{,}000 \text{ elements in } \texttt{float32 }\text{(4 bytes)} \implies (5 \times 10^7) \times 4 \, \text{bytes} = 0.2 \, \text{GB}.
-   \]
+2. **Input Tensor Creation (1st Loop)**: Memory increases by 200 MB matching the input tensor size:
+
+   \\( 5{,}000 \times 10{,}000 \text{ elements in } \texttt{float32 }\text{(4 bytes)} \implies (5 \times 10^7) \times 4 \, \text{bytes} = 0.2 \, \text{GB}.\\)
 
 3. **Forward Pass (1st Loop)**: Memory increases by 2 GB for the output tensor:  
-   \[
-   10{,}000 \times 50{,}000 \text{ elements in } \texttt{float32 }\text{(4 bytes)} \implies (5 \times 10^8) \times 4 \, \text{bytes} = 2 \, \text{GB}.
-   \]
+
+   \\( 10{,}000 \times 50{,}000 \text{ elements in } \texttt{float32 }\text{(4 bytes)} \implies (5 \times 10^8) \times 4 \, \text{bytes} = 2 \, \text{GB}.\\)
 
 4. **Input Tensor Creation (2nd Loop)**: Memory increases by 200 MB for a new input tensor. At this point, you might expect the input tensor from step 2 to be freed, but it isn't: the model retains its activation, so even if the tensor is no longer assigned to the variable `inputs`, it remains referenced by the model's forward pass computation. The model retains its activations because these tensors are required for the backpropagation process in neural networks. Try with `torch.no_grad()` to see the difference.
 
@@ -139,9 +137,7 @@ Training profiles like this typically follow a consistent pattern, which makes t
 
 From the above section, estimating GPU memory requirements seems simple. The total memory needed should correspond to the highest peak in the memory profile, which occurs during the **forward pass**. In that case, the memory requirement is (blue + greeen + orange):
 
-\[
-\text{Model Parameters} + \text{Optimizer State} + \text{Activations}
-\]
+\\( \text{Model Parameters} + \text{Optimizer State} + \text{Activations} \\)
 
 Is it that simple? Actually there is a trap. The profile can look different depending on the training setup. For example, reducing the batch size from 16 to 2 changes the picture:
 
@@ -154,15 +150,11 @@ Is it that simple? Actually there is a trap. The profile can look different depe
 
 Now, the highest peaks occur during the **optimizer step** rather than the forward pass. In this case, the memory requirement becomes (blue + green + yellow + red):
 
-\[
-\text{Model Parameters} + \text{Optimizer State} + \text{Gradients} + \text{Optimizer Intermediates}
-\]
+\\( \text{Model Parameters} + \text{Optimizer State} + \text{Gradients} + \text{Optimizer Intermediates} \\)
 
 To generalize the memory estimation, we need to account for all possible peaks, regardless of whether they occur during the forward pass or optimizer step.
 
-\[
-\text{Model Parameters} + \text{Optimizer State} + \max(\text{Gradients} + {\text{Optimizer Intermediates}, \text{Activations}})
-\]
+\\( \text{Model Parameters} + \text{Optimizer State} + \max(\text{Gradients} + {\text{Optimizer Intermediates}, \text{Activations}}) \\)
 
 Now that we've the equation, let's see how to estimate each component.
 
@@ -170,30 +162,24 @@ Now that we've the equation, let's see how to estimate each component.
 
 The model parameters are the easiest to estimate.
 
-\[
-\text{Model Memory} = N \times P
-\]
+\\( \text{Model Memory} = N \times P \\)
 
 Where:
 
-- \(N\) is the number of parameters.
-- \(P\) is the precision (in bytes, e.g., 4 for `float32`).  
+- \\( N \\) is the number of parameters.
+- \\( P \\) is the precision (in bytes, e.g., 4 for `float32`).  
 
 For example, a model with 1.5 billion parameters and a precision of 4 bytes requires:
 
 In the above example, the model size is:
 
-\[
-\text{Model Memory} = 1.5 \times 10^9 \times 4 \, \text{bytes} = 6 \, \text{GB}
-\]
+\\( \text{Model Memory} = 1.5 \times 10^9 \times 4 \, \text{bytes} = 6 \, \text{GB} \\)
 
 ### Optimizer State
 
 The memory required for the optimizer state depends on the optimizer type and the model parameters. For instance, the `AdamW` optimizer stores two moments (first and second) per parameter. This makes the optimizer state size:
 
-\[
-\text{Optimizer State Size} = 2 \times N \times P
-\]
+\\( \text{Optimizer State Size} = 2 \times N \times P \\)
 
 ### Activations
 
@@ -238,15 +224,13 @@ print(sum(activation_sizes))  # Output: 5065216
 
 For the Qwen2.5-1.5B model, this gives **5,065,216 activations per input token**. To estimate the total activation memory for an input tensor, use:
 
-\[
-\text{Activation Memory} = A \times B \times L \times P
-\]
+\\( \text{Activation Memory} = A \times B \times L \times P \\)
 
 Where:
 
-- \(A\) is the number of activations per token.
-- \(B\) is the batch size.
-- \(L\) is the sequence length.
+- \\( A \\) is the number of activations per token.
+- \\( B \\) is the batch size.
+- \\( L \\) is the sequence length.
 
 However, using this method directly isn't always practical. Ideally, we would like a heuristic to estimate activation memory without running the model. Plus, we can intuitively see that larger models have more activations. This leads to the question: **Is there a connection between the number of model parameters and the number of activations?**
 
@@ -256,9 +240,7 @@ Not directly, as the number of activations per token depends on the model archit
 
 This linear relationship allows us to estimate activations using the heuristic:
 
-\[
-A = 4.6894 \times 10^{4} \times N + 1.8494 \times 10^{6}
-\]
+\\( A = 4.6894 \times 10^{4} \times N + 1.8494 \times 10^{6} \\)
 
 Though this is an approximation, it provides a practical way to estimate activation memory without needing to perform complex calculations for each model.
 
@@ -266,33 +248,27 @@ Though this is an approximation, it provides a practical way to estimate activat
 
 Gradients are easier to estimate. The memory required for gradients is the same as the model parameters:
 
-\[
-\text{Gradients Memory} = N \times P
-\]
+\\( \text{Gradients Memory} = N \times P \\)
 
 ### Optimizer Intermediates
 
 When updating the model parameters, the optimizer stores intermediate values. The memory required for these values is the same as the model parameters:
 
-\[
-\text{Optimizer Intermediates Memory} = N \times P
-\]
+\\( \text{Optimizer Intermediates Memory} = N \times P \\)
 
 ### Total Memory
 
 To summarize, the total memory required to train a model is:
 
-\[
-\text{Total Memory} = \text{Model Memory} + \text{Optimizer State} + \max(\text{Gradients}, \text{Optimizer Intermediates}, \text{Activations})
-\]
+\\( \text{Total Memory} = \text{Model Memory} + \text{Optimizer State} + \max(\text{Gradients}, \text{Optimizer Intermediates}, \text{Activations}) \\)
 
 with the following components:
 
-- **Model Memory**: \(N \times P\)
-- **Optimizer State**: \(2 \times N \times P\)
-- **Gradients**: \(N \times P\)
-- **Optimizer Intermediates**: \(N \times P\)
-- **Activations**: \(A \times B \times L \times P\), estimated using the heuristic \(A = 4.6894 \times 10^{4} \times N + 1.8494 \times 10^{6}\)
+- **Model Memory**: \\( N \times P \\)
+- **Optimizer State**: \\( 2 \times N \times P \\)
+- **Gradients**: \\( N \times P \\)
+- **Optimizer Intermediates**: \\( N \times P \\)
+- **Activations**: \\( A \times B \times L \times P \\), estimated using the heuristic \\( A = 4.6894 \times 10^{4} \times N + 1.8494 \times 10^{6} \\)
 
 To make this calculation easier, I created a small tool for you:
 
@@ -300,6 +276,6 @@ To make this calculation easier, I created a small tool for you:
 
 ## 🚀 Next steps
 
-Your initial motivation to understand memory usage was probably driven by the fact that one day, you ran out of memory. Did this blog give you a direct solution to fix that? Probably not. However, now that you have a better understanding of how memory usage works and how to profile it, you're better equipped to find ways to reduce it. 
+Your initial motivation to understand memory usage was probably driven by the fact that one day, you ran out of memory. Did this blog give you a direct solution to fix that? Probably not. However, now that you have a better understanding of how memory usage works and how to profile it, you're better equipped to find ways to reduce it.
 
 For a specific list of tips on optimizing memory usage in TRL, you can check the [Reducing Memory Usage](https://huggingface.co/docs/trl/main/en/reducing_memory_usage) section of the documentation. These tips, though, are not limited to TRL and can be applied to any PyTorch-based training process.
