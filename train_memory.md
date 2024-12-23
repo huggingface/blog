@@ -139,7 +139,7 @@ From the above section, estimating GPU memory requirements seems simple. The tot
 
 \\( \text{Model Parameters} + \text{Optimizer State} + \text{Activations} \\)
 
-Is it that simple? Actually there is a trap. The profile can look different depending on the training setup. For example, reducing the batch size from 16 to 2 changes the picture:
+Is it that simple? Actually, there is a trap. The profile can look different depending on the training setup. For example, reducing the batch size from 16 to 2 changes the picture:
 
 ```diff
 - inputs = torch.randint(0, 100, (16, 256), device="cuda")  # Dummy input
