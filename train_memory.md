@@ -7,7 +7,7 @@ authors:
 
 # Visualize and understand GPU memory in PyTorch
 
-You must be familiar with this message:
+You must be familiar with this message 🤬:
 
 ```log
 RuntimeError: CUDA out of memory. Tried to allocate 20.00 MiB (GPU 0; 7.93 GiB total capacity; 6.00 GiB already allocated; 14.88 MiB free; 6.00 GiB reserved in total by PyTorch)
@@ -15,7 +15,9 @@ RuntimeError: CUDA out of memory. Tried to allocate 20.00 MiB (GPU 0; 7.93 GiB t
 
 While it's easy to see that GPU memory is full, understanding why and how to fix it can be more challenging. In this tutorial, we'll go step by step on how to visualize and understand GPU memory usage in PyTorch during training. We’ll also see how to estimate memory requirements and optimize GPU memory usage.
 
-## The PyTorch visualizer
+<iframe src="https://qgallouedec-train-memory.hf.space" frameborder="0" width="850" height="450"></iframe>
+
+## 🔎 The PyTorch visualizer
 
 PyTorch provides a handy tool for visualizing GPU memory usage:
 
@@ -80,7 +82,7 @@ Let's break down this graph into key parts:
 
 12. **End of Code Execution**: All memory is released.
 
-## Visualizing Memory During Training
+## 📊 Visualizing Memory During Training
 
 The previous example was simplified. In real scenarios, we often train complex models rather than a single linear layer. Additionally, the earlier example did not include the training process. Here, we will examine how GPU memory behaves during a complete training loop for a real large language model (LLM).
 
@@ -133,7 +135,7 @@ At this point, one training iteration is complete. The process repeats for the r
 
 Training profiles like this typically follow a consistent pattern, which makes them useful for estimating GPU memory requirements for a given model and training loop.
 
-## Estimating Memory Requirements
+## 📐 Estimating Memory Requirements
 
 From the above section, estimating GPU memory requirements seems simple. The total memory needed should correspond to the highest peak in the memory profile, which occurs during the **forward pass**. In that case, the memory requirement is (blue + greeen + orange):
 
@@ -149,7 +151,6 @@ Is it that simple? Actually there is a trap. The profile can look different depe
 ```
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train_memory/colorized_training_profile_2.png" width="1100" height="auto" alt="Colorized training profile 2">
-
 
 Now, the highest peaks occur during the **optimizer step** rather than the forward pass. In this case, the memory requirement becomes (blue + green + yellow + red):
 
@@ -296,3 +297,9 @@ with the following components:
 To make this calculation easier, I created a small tool for you:
 
 <iframe src="https://qgallouedec-train-memory.hf.space" frameborder="0" width="850" height="450"></iframe>
+
+## 🚀 Next steps
+
+Your initial motivation to understand memory usage was probably driven by the fact that one day, you ran out of memory. Did this blog give you a direct solution to fix that? Probably not. However, now that you have a better understanding of how memory usage works and how to profile it, you're better equipped to find ways to reduce it. 
+
+For a specific list of tips on optimizing memory usage in TRL, you can check the [Reducing Memory Usage](https://huggingface.co/docs/trl/main/en/reducing_memory_usage) section of the documentation. These tips, though, are not limited to TRL and can be applied to any PyTorch-based training process.
