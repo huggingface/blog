@@ -5228,7 +5228,6 @@
     - research
     - open-source-collab
 
-
 - local: big-bench-audio-release
   title: "Evaluating Audio Reasoning with Big Bench Audio"
   thumbnail: /blog/assets/big_bench_audio_release/big-bench-audio-thumbnail.png
@@ -5240,3 +5239,13 @@
     - research
     - collaboration
     - community
+
+- local: logits-processor-zoo
+  title: "Controlling Language Model Generation with NVIDIA's LogitsProcessorZoo"
+  author: ariG23498
+  thumbnail: /blog/assets/logits-processor-zoo/thumbnail.png
+  date: December 23, 2024
+  tags:
+    - llm
+    - research
+    - open-source
