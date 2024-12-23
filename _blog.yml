@@ -5249,3 +5249,14 @@
     - llm
     - research
     - open-source
+
+- local: train_memory
+  title: "Visualize and understand GPU memory in PyTorch"
+  author: qgallouedec
+  thumbnail: /blog/assets/train_memory/thumbnail.png
+  date: December 24, 2024
+  tags:
+    - pytorch
+    - train
+    - memory
+    - gpu
