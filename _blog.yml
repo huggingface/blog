@@ -5244,7 +5244,8 @@
   title: "Controlling Language Model Generation with NVIDIA's LogitsProcessorZoo"
   author: ariG23498
   thumbnail: /blog/assets/logits-processor-zoo/thumbnail.png
-  date: December 19, 2024
+  date: December 23, 2024
   tags:
-    - LLM
+    - llm
     - research
+    - open-source
