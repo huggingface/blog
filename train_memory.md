@@ -106,8 +106,7 @@ torch.cuda.memory._dump_snapshot("profile.pkl")
 torch.cuda.memory._record_memory_history(enabled=None)
 ```
 
-> **Tip:**  
-> When profiling, limit the number of steps. Every GPU memory event is recorded, and the file can become very large. For example, the above code generates an 8 MB file.
+**💡 Tip:** When profiling, limit the number of steps. Every GPU memory event is recorded, and the file can become very large. For example, the above code generates an 8 MB file.
 
 Here’s the memory profile for this example:
 
