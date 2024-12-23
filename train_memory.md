@@ -279,3 +279,7 @@ To make this calculation easier, I created a small tool for you:
 Your initial motivation to understand memory usage was probably driven by the fact that one day, you ran out of memory. Did this blog give you a direct solution to fix that? Probably not. However, now that you have a better understanding of how memory usage works and how to profile it, you're better equipped to find ways to reduce it.
 
 For a specific list of tips on optimizing memory usage in TRL, you can check the [Reducing Memory Usage](https://huggingface.co/docs/trl/main/en/reducing_memory_usage) section of the documentation. These tips, though, are not limited to TRL and can be applied to any PyTorch-based training process.
+
+## 🤝 Acknowledgements
+
+Thanks to [Kashif Rasul](https://huggingface.co/kashif) for his valuable feedback and suggestions on this blog post.
