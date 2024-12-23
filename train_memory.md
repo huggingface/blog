@@ -40,11 +40,11 @@ Running this code generates a `profile.pkl` file that contains a history of GPU 
 
 By dragging and dropping your `profile.pkl` file, you will see a graph like this:
 
-![Simple profile](simple_profile.png)
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train_memory/simple_profile.png" width="1100" height="auto" alt="Simple profile">
 
 Let's break down this graph into key parts:
 
-![Simple profile partitioned](simple_profile_partitioned.png)
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train_memory/simple_profile_partitioned.png" width="1100" height="auto" alt="Simple profile partitioned">
 
 1. **Model Creation**: Memory increases by 4 GB, corresponding to the model's size:  
    \[
@@ -80,51 +80,6 @@ Let's break down this graph into key parts:
 
 12. **End of Code Execution**: All memory is released.
 
-## Vizualize the memory for a training process
-
-L'exemple précédent est un peu simplifié. En pratique, on utilise des modèles plus complexe qu'une unique couche linéaire. Aussi, l'exemple précédent n'impliquait pas d'apprentissage. Nous allons maiuntenat voir à quoi ressemble la mémoire pour un processus d'entrainement complet sur un vrai LLM.
-
-```python
-import torch
-from transformers import AutoModelForCausalLM
-
-# Start recording memory snapshot history
-torch.cuda.memory._record_memory_history(max_entries=100000)
-
-model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-1.5B").to("cuda")
-optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
-
-for _ in range(3):
-    inputs = torch.randint(0, 100, (16, 256), device="cuda") # dummy input
-    loss = torch.mean(model(inputs).logits) # dummy loss
-    loss.backward()
-    optimizer.step()
-    optimizer.zero_grad()
-
-# Dump memory snapshot history to a file and stop recording
-torch.cuda.memory._dump_snapshot("profile.pkl")
-torch.cuda.memory._record_memory_history(enabled=None)
-```
-
-> [!TIP]
-> When running a profiler, set a low value for the max steps. Everything that happend in the GPU memory is recodered, and the file can become very large. As an example, the profile for the above code is 8 MB.
-
-Voici à quoi ressemble le profile pour cet exemple:
-
-![profile](5.png)
-
-Ok, c'est bien plus complexe. Difficile de voir ce qu'il se passe d'un coup d'oeil. mais déjà on voit 3 pics, correspondant donc bien aux trois itérations de la loop d'apprentissage. Heuresemement, en y allant étape par étape, on peut comprendre ce qui se passe. Simplifions un peu le graphique:
-
-![profile](6.png)
-
-1. La première étape est la création du modèle, et comme avant, les paramètre du réseau (en bleu) vont demeurer en mémoire jusqu'à la fin.
-
-2. Ensuite vient la pass forward. Les valeurs à la sortie de chaque couche sont conservées en mémoire pour le backpropagation et le calcul des gradients. C'est ce qu'on appelle les activations. Elle sont représenttées en orange. La loss est calculée après le dernier forward pass, donc au sommet du pic orange.
-
-3. Ensuite vient le backward pass (`loss.backward()`). Les gradients (représentés en jaune) sont calculés et stockés en mémoire. Aussi, à chaque étapes, les activations sont discardées (c'est pour cette raison que l'on voit la zone orange dminuer), car elles ne sont plus nécessaires. Les gradients sont représentés en jaune.
-
-4. Enfin, les gradients sont utilisés pour mettre à jour les paramètres du modèle (`optimizer.step()`). D'abord, l'optimizer s'initialize, c'est la zone verte. Une fois qu'il est initialisé, les gradients sont utilisés pour mettre à jour les paramètres du modèle. Lors de cette étape, l'optimizer a besoin de stocker des valeurs intermédiaires pour les paramètres, représentées en rouge. Une fois que les paramètres sont mis à jour, les gradients et les valeurs intermédiaires sont discardées: les zones jaunes et rouges disparraissent.
-
 ## Visualizing Memory During Training
 
 The previous example was simplified. In real scenarios, we often train complex models rather than a single linear layer. Additionally, the earlier example did not include the training process. Here, we will examine how GPU memory behaves during a complete training loop for a real large language model (LLM).
@@ -156,11 +111,11 @@ torch.cuda.memory._record_memory_history(enabled=None)
 
 Here’s the memory profile for this example:
 
-![Raw training profile](raw_training_profile.png)
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train_memory/raw_training_profile.png" width="1100" height="auto" alt="Raw training profile">
 
 This graph is more complex than the previous example, but we can still break it down step by step. Notice the three spikes, each corresponding to an iteration of the training loop. Let’s simplify the graph to make it easier to interpret:
 
-![Colorized training profile](colorized_training_profile.png)
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train_memory/colorized_training_profile.png" width="1100" height="auto" alt="Colorized training profile">
 
 1. **Model Initialization** (`model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-1.5B").to("cuda")`):  
    The first step involves loading the model onto the GPU. The model parameters (in blue) occupy memory and remain there until the training ends.
@@ -193,7 +148,8 @@ Is it that simple? Actually there is a trap. The profile can look different depe
 + inputs = torch.randint(0, 100, (2, 256), device="cuda")  # Dummy input
 ```
 
-![Colorized training profile 2](colorized_training_profile_2.png)
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train_memory/colorized_training_profile_2.png" width="1100" height="auto" alt="Colorized training profile 2">
+
 
 Now, the highest peaks occur during the **optimizer step** rather than the forward pass. In this case, the memory requirement becomes (blue + green + yellow + red):
 
@@ -295,7 +251,7 @@ However, using this method directly isn't always practical. Ideally, we would li
 
 Not directly, as the number of activations per token depends on the model architecture. However, LLMs tend to have similar structures. By analyzing different models, we observe a rough linear relationship between the number of parameters and the number of activations:
 
-![Activations vs. Parameters](activation_memory_with_global_regression.png)
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train_memory/activation_memory_with_global_regression.png" width="600" height="auto" alt="Activations vs. Parameters">
 
 This linear relationship allows us to estimate activations using the heuristic:
 
