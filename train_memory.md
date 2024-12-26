@@ -48,7 +48,7 @@ Let's break down this graph into key parts:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train_memory/simple_profile_partitioned.png" width="1100" height="auto" alt="Simple profile partitioned">
 
-1. **Model Creation**: Memory increases by 4 GB, corresponding to the model's size:
+1. **Model Creation**: Memory increases by 2 GB, corresponding to the model's size:
 
    \\( 10{,}000 \times 50{,}000 \text{ weights} + 50{,}000 \text{ biases in } \texttt{float32 }\text{(4 bytes)} \implies (5 \times 10^8) \times 4 \, \text{bytes} = 2 \, \text{GB}. \\)
 
