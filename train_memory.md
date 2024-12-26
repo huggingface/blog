@@ -50,7 +50,7 @@ Let's break down this graph into key parts:
 
 1. **Model Creation**: Memory increases by 4 GB, corresponding to the model's size:
 
-   \\( 10{,}000 \times 50{,}000 \text{ weights} + 50{,}000 \text{ biases in } \texttt{float32 }\text{(4 bytes)} \implies (5 \times 10^8) \times 4 \, \text{bytes} = 4 \, \text{GB}. \\)
+   \\( 10{,}000 \times 50{,}000 \text{ weights} + 50{,}000 \text{ biases in } \texttt{float32 }\text{(4 bytes)} \implies (5 \times 10^8) \times 4 \, \text{bytes} = 2 \, \text{GB}. \\)
 
    This memory (in blue) persists throughout execution.
 
