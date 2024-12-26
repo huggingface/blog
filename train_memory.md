@@ -58,7 +58,7 @@ Let's break down this graph into key parts:
 
    \\( 5{,}000 \times 10{,}000 \text{ elements in } \texttt{float32 }\text{(4 bytes)} \implies (5 \times 10^7) \times 4 \, \text{bytes} = 0.2 \, \text{GB}.\\)
 
-3. **Forward Pass (1st Loop)**: Memory increases by 2 GB for the output tensor:  
+3. **Forward Pass (1st Loop)**: Memory increases by 1 GB for the output tensor:  
 
    \\( 5{,}000 \times 50{,}000 \text{ elements in } \texttt{float32 }\text{(4 bytes)} \implies (25 \times 10^7) \times 4 \, \text{bytes} = 1 \, \text{GB}.\\)
 
