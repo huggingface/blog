@@ -64,7 +64,7 @@ Let's break down this graph into key parts:
 
 4. **Input Tensor Creation (2nd Loop)**: Memory increases by 200 MB for a new input tensor. At this point, you might expect the input tensor from step 2 to be freed. Still, it isn't: the model retains its activation, so even if the tensor is no longer assigned to the variable `inputs`, it remains referenced by the model's forward pass computation. The model retains its activations because these tensors are required for the backpropagation process in neural networks. Try with `torch.no_grad()` to see the difference.
 
-5. **Forward Pass (2nd Loop)**: Memory increases by 2 GB for the new output tensor, calculated as in step 3.
+5. **Forward Pass (2nd Loop)**: Memory increases by 1 GB for the new output tensor, calculated as in step 3.
 
 6. **Release 1st Loop Activation**: After the second loop’s forward pass, the input tensor from the first loop (step 2) can be freed. The model's activations, which hold the first input tensor, are overwritten by the second loop's input. Once the second loop completes, the first tensor is no longer referenced and its memory can be released
 
