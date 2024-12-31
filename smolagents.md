@@ -7,7 +7,7 @@ authors:
 ---
 # Introducing *smolagents*, a simple library to build agents
 
-Today we are launching `smolagents`, a very simple library that unlocks agentic capabilities for language models. Here’s a glimpse:
+Today we are launching [smolagents](https://github.com/huggingface/smolagents), a very simple library that unlocks agentic capabilities for language models. Here’s a glimpse:
 
 ```python
 from smolagents import CodeAgent, DuckDuckGoSearchTool, HfApiModel
