@@ -5,7 +5,7 @@ authors:
   - user: m-ric
   - user: merve
 ---
-# Introducing `smolagents`, a simple library to build agents
+# Introducing *smolagents*, a simple library to build agents
 
 Today we are launching `smolagents`, a very simple library that unlocks agentic capabilities for language models. Here’s a glimpse:
 
@@ -101,7 +101,7 @@ Writing actions in code rather than JSON-like snippets provides better:
 - **Generality:** code is built to express simply anything you can have a computer do.
 - **Representation in LLM training data:** plenty of quality code actions is already included in LLMs’ training data which means they’re already trained for this!
 
-### Introducing `smolagents`: making agents simple 🥳
+### Introducing *smolagents*: making agents simple 🥳
 
 We built `smolagents` with these objectives:
 
