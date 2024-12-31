@@ -7,7 +7,7 @@ authors:
 ---
 # Introducing *smolagents*, a simple library to build agents
 
-Today we are launching [smolagents](https://github.com/huggingface/smolagents), a very simple library that unlocks agentic capabilities for language models. Here’s a glimpse:
+Today we are launching [`smolagents`](https://github.com/huggingface/smolagents), a very simple library that unlocks agentic capabilities for language models. Here’s a glimpse:
 
 ```python
 from smolagents import CodeAgent, DuckDuckGoSearchTool, HfApiModel
@@ -103,7 +103,7 @@ Writing actions in code rather than JSON-like snippets provides better:
 
 ### Introducing *smolagents*: making agents simple 🥳
 
-We built `smolagents` with these objectives:
+We built [`smolagents`](https://github.com/huggingface/smolagents) with these objectives:
 
 ✨ **Simplicity**: the logic for agents fits in ~thousand lines of code (see [this file](https://github.com/huggingface/smolagents/blob/main/src/smolagents/agents.py)). We kept abstractions to their minimal shape above raw code!
 
@@ -113,9 +113,9 @@ We built `smolagents` with these objectives:
 
 🤗 **Hub integrations**: you can share and load tools to/from the Hub, and more is to come!
 
-🌐 **Support for any LLM**: it supports models hosted on the Hub loaded in their `transformers` version or through our inference API, but also models from OpenAI, Anthropic... it's really easy to power an agent with any LLM.
+🌐 **Support for any LLM**: it supports models hosted on the Hub loaded in their `transformers` version or through our inference API, but also supports models from OpenAI, Anthropic and many others via our [LiteLLM](https://www.litellm.ai/) integration.
 
-`smolagents` is the successor to [`transformers.agents`](https://huggingface.co/blog/agents), and will be replacing it as `transformers.agents` will be deprecated in the future.
+[`smolagents`](https://github.com/huggingface/smolagents) is the successor to [`transformers.agents`](https://huggingface.co/blog/agents), and will be replacing it as [`transformers.agents`](https://huggingface.co/blog/agents) gets deprecated in the future.
 
 ### Building an agent
 
