@@ -5260,3 +5260,15 @@
     - train
     - memory
     - gpu
+
+- local: smolagents
+  title: "Introducing smolagents: simple agents that write actions in code."
+  author: m-ric
+  thumbnail: /blog/assets/smolagents/thumbnail.png
+  date: December 31, 2024
+  tags:
+    - agents
+    - open-source
+    - nlp
+    - tools
+    - community
