@@ -4,6 +4,7 @@ thumbnail: /blog/assets/beating-gaia/thumbnail.jpeg
 authors:
   - user: m-ric
   - user: merve
+  - user: thomwolf
 ---
 # Introducing *smolagents*, a simple library to build agents
 
