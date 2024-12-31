@@ -21,7 +21,21 @@ agent.run("How many seconds would it take for a leopard at full speed to run thr
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smolagents/smolagents.gif" />
 </div>
 
-### 🤔 What are agents?
+
+## Table of Contents
+
+- [Introducing *smolagents*, a simple library to build agents](#introducing-smolagents-a-simple-library-to-build-agents)
+  - [Table of Contents](#table-of-contents)
+  - [🤔 What are agents?](#what-are-agents)
+  - [✅ When to use agents / ⛔ when to avoid them](#when-to-use-agents--when-to-avoid-them)
+  - [Code agents](#code-agents)
+  - [Introducing *smolagents*: making agents simple 🥳](#introducing-smolagents-making-agents-simple-)
+    - [Building an agent](#building-an-agent)
+    - [How strong are open models for agentic workflows?](#how-strong-are-open-models-for-agentic-workflows)
+  - [Next steps 🚀](#next-steps-)
+
+
+## 🤔 What are agents?
 
 Any efficient system using AI will need to provide LLMs some kind of access to the real world: for instance the possibility to call a search tool to get external information, or to act on certain programs in order to solve a task. In other words, LLMs should have ***agency***. Agentic programs are the gateway to the outside world for LLMs.
 
@@ -57,10 +71,10 @@ So this system runs in a loop, executing a new action at each step (the action c
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/Agent_ManimCE.gif" />
 </div>
 
-### ✅ When to use agents / ⛔ when to avoid them
+## ✅ When to use agents / ⛔ when to avoid them
 
 Agents are useful when you need an LLM to determine the workflow of an app. But they’re often overkill. The question is: do I really need flexibility in the workflow to efficiently solve the task at hand?
-
+If the pre-determined workflow falls short too often, that means you need more flexibility.
 Let's take an example: say you're making an app that handles customer requests on a surfing trip website.
 
 You could know in advance that the requests will can belong to either of 2 buckets (based on user choice), and you have a predefined workflow for each of these 2 cases.
@@ -74,7 +88,7 @@ But what if the workflow can't be determined that well in advance?
 
 For instance, a user wants to ask : `"I can come on Monday, but I forgot my passport so risk being delayed to Wednesday, is it possible to take me and my stuff to surf on Tuesday morning, with a cancellation insurance?"` This question hinges on many factors, and probably none of the predetermined criteria above will suffice for this request.
 
-If the pre-determined workflow falls short too often, that means you need more flexibility,.
+If the pre-determined workflow falls short too often, that means you need more flexibility.
 
 That is where an agentic setup helps.
 
@@ -82,7 +96,7 @@ In the above example, you could just make a multi-step agent that has access to 
 
 Until recently, computer programs were restricted to pre-determined workflows, trying to handle complexity by piling up  if/else switches. They focused on extremely narrow tasks, like "compute the sum of these numbers" or "find the shortest path in this graph". But actually, most real-life tasks, like our trip example above, do not fit in pre-determined workflows. Agentic systems open up the vast world of real-world tasks to programs!
 
-### Code agents
+## Code agents
 
 In a multi-step agent, at each step, the LLM can write an action, in the form of some calls to external tools. A common format (used by Anthropic, OpenAI, and many others) for writing these actions is generally different shades of "writing actions as a JSON of tools names and arguments to use, which you then parse to know which tool to execute and with which arguments".
 
@@ -101,7 +115,7 @@ Writing actions in code rather than JSON-like snippets provides better:
 - **Generality:** code is built to express simply anything you can have a computer do.
 - **Representation in LLM training data:** plenty of quality code actions is already included in LLMs’ training data which means they’re already trained for this!
 
-### Introducing *smolagents*: making agents simple 🥳
+## Introducing *smolagents*: making agents simple 🥳
 
 We built [`smolagents`](https://github.com/huggingface/smolagents) with these objectives:
 
@@ -165,7 +179,7 @@ agent = CodeAgent(tools=[get_travel_duration], model=HfApiModel(), additional_au
 agent.run("Can you give me a nice one-day trip around Paris with a few locations and the times? Could be in the city or outside, but should fit in one day. I'm travelling only via public transportation.")
 ```
 
-After thoroughly calculating travel times, the agent returns this final report:
+After a few steps of gathering travel times and running calculations, the agent returns this final proposition:
 
 ```
 Out - Final answer: Here's a suggested one-day itinerary for Paris:
@@ -183,9 +197,21 @@ After building a tool, sharing it to the Hub is as simple as:
 get_travel_duration.push_to_hub("{your_username}/get-travel-duration-tool")
 ```
 
-You can see the result under [this space](https://huggingface.co/spaces/m-ric/get-travel-duration-tool). CLicking “submit” won’t work, since the tool needs an API key that’s not on the space. You can check the logic for the tool under the file [tool.py in the space](https://huggingface.co/spaces/m-ric/get-travel-duration-tool/blob/main/tool.py). As you can see, the tool was actually exported to a class inheriting from class [`Tool`](https://huggingface.co/docs/smolagents/reference/tools#smolagents.Tool), which is the underlying structure for all our tools.
+You can see the result under [this space](https://huggingface.co/spaces/m-ric/get-travel-duration-tool). 
+You can check the logic for the tool under the file [tool.py in the space](https://huggingface.co/spaces/m-ric/get-travel-duration-tool/blob/main/tool.py). As you can see, the tool was actually exported to a class inheriting from class [`Tool`](https://huggingface.co/docs/smolagents/reference/tools#smolagents.Tool), which is the underlying structure for all our tools.
 
-### Next steps 🚀
+### How strong are open models for agentic workflows?
+
+We've created [`CodeAgent`](https://huggingface.co/docs/smolagents/reference/agents#smolagents.CodeAgent) instances with some leading models, and compared them on [this benchmark](https://huggingface.co/datasets/m-ric/agents_medium_benchmark_2) that gathers questions from a few different benchmarks to propose a varied blend of challenges.
+[Find the benchmark here](https://github.com/huggingface/smolagents/blob/main/examples/benchmark.ipynb) for more detail on the agentic setup used, and see a comparison of code agents versus tool calling agents (spoilers: code works better).
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/smolagents/benchmark_code_agents.png" alt="benchmark of different models on agentic workflows" width=70%>
+</p>
+
+This comparison shows that open source models can now take on the best closed models!
+
+## Next steps 🚀
 
 - Start with the [guided tour](https://huggingface.co/docs/smolagents/guided_tour) to familiarize yourself with the library.
 - Study more in-depth tutorials to learn more on [tools](https://huggingface.co/docs/smolagents/tutorials/tools) or [general best practices](https://huggingface.co/docs/smolagents/tutorials/building_good_agents).
