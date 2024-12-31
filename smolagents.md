@@ -5,8 +5,7 @@ authors:
   - user: m-ric
   - user: merve
 ---
-
-# Introducing `smolagents`, a simple library to build  agents
+# Introducing `smolagents`, a simple library to build agents
 
 Today we are launching `smolagents`, a very simple library that unlocks agentic capabilities for language models. Here’s a glimpse:
 
@@ -18,13 +17,15 @@ agent = CodeAgent(tools=[DuckDuckGoSearchTool()], model=HfApiModel())
 agent.run("How many seconds would it take for a leopard at full speed to run through Pont des Arts?")
 ```
 
-[smolagents.mp4](Blog%20post%2016c1384ebcac801b9ffef753951f4d8b/smolagents.mp4)
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smolagents/smolagents.gif" />
+</div>
 
 ### 🤔 What are agents?
 
 Any efficient system using AI will need to provide LLMs some kind of access to the real world: for instance the possibility to call a search tool to get external information, or to act on certain programs in order to solve a task. In other words, LLMs should have ***agency***. Agentic programs are the gateway to the outside world for LLMs.
 
-AI Agents are *“programs where LLM outputs control the workflow”*.
+AI Agents are **programs where LLM outputs control the workflow**.
 
 Any system leveraging LLMs will integrate the LLM outputs into code. The influence of the LLM's input on the code workflow is the level of agency of LLMs in the system.
 
@@ -34,9 +35,9 @@ The table below illustrates how agency varies across systems:
 
 | Agency Level | Description | How that's called | Example Pattern |
 | --- | --- | --- | --- |
-| ☆☆☆ | LLM output has no impact on program flow | Simple Processor | `process_llm_output(llm_response)` |
+| ☆☆☆ | LLM output has no impact on program flow | Simple processor | `process_llm_output(llm_response)` |
 | ★☆☆ | LLM output determines basic control flow | Router | `if llm_decision(): path_a() else: path_b()` |
-| ★★☆ | LLM output determines function execution | Tool Caller | `run_function(llm_chosen_tool, llm_chosen_args)` |
+| ★★☆ | LLM output determines function execution | Tool call | `run_function(llm_chosen_tool, llm_chosen_args)` |
 | ★★★ | LLM output controls iteration and program continuation | Multi-step Agent | `while llm_should_continue(): execute_next_step()` |
 | ★★★ | One agentic workflow can start another agentic workflow | Multi-Agent | `if llm_trigger(): execute_agent()` |
 
@@ -45,18 +46,16 @@ The multi-step agent has this code structure:
 ```python
 memory = [user_defined_task]
 while llm_should_continue(memory): # this loop is the multi-step part
-		action = llm_get_next_action(memory) # this is the tool-calling part
-		observations = execute_action(action)
-		memory += [action, observations]
+    action = llm_get_next_action(memory) # this is the tool-calling part
+    observations = execute_action(action)
+    memory += [action, observations]
 ```
 
 So this system runs in a loop, executing a new action at each step (the action can involve calling some pre-determined *tools* that are just functions), until its observations make it apparent that a satisfactory state has been reached to solve the given task. Here’s an example of how a multi-step agent can solve a simple math question:
 
 <div class="flex justify-center">
-<img src="[https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/Agent_ManimCE.gif](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/Agent_ManimCE.gif)" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/Agent_ManimCE.gif" />
 </div>
-
-![image.png](Blog%20post%2016c1384ebcac801b9ffef753951f4d8b/image.png)
 
 ### ✅ When to use agents / ⛔ when to avoid them
 
@@ -93,9 +92,7 @@ The reason for this simply that *we crafted our code languages specifically to b
 
 The figure below, taken from [Executable Code Actions Elicit Better LLM Agents](https://huggingface.co/papers/2402.01030), illustrate some advantages of writing actions in code:
 
-<img src="[https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/code_vs_json_actions.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/code_vs_json_actions.png)">
-
-![image.png](Blog%20post%2016c1384ebcac801b9ffef753951f4d8b/image%201.png)
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/code_vs_json_actions.png">
 
 Writing actions in code rather than JSON-like snippets provides better:
 
