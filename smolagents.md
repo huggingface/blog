@@ -107,9 +107,9 @@ We built [`smolagents`](https://github.com/huggingface/smolagents) with these ob
 
 ✨ **Simplicity**: the logic for agents fits in ~thousand lines of code (see [this file](https://github.com/huggingface/smolagents/blob/main/src/smolagents/agents.py)). We kept abstractions to their minimal shape above raw code!
 
-🧑‍💻 **First-class support for Code Agents**, i.e. agents that write their actions in code (as opposed to "agents being used to write code"), [a](https://www.notion.so/huggingface2/tutorials/secure_code_execution)s explained above. To make it secure, we support executing in sandboxed environments via [E2B](https://e2b.dev/).
+🧑‍💻 **First-class support for Code Agents**, i.e. agents that write their actions in code (as opposed to "agents being used to write code"). To make it secure, we support executing in sandboxed environments via [E2B](https://e2b.dev/).
 
-- On top of this `CodeAgent` class, we still support the standard `ToolCallingAgent`  that writes actions as JSON/text blobs.
+- On top of this [`CodeAgent`](https://huggingface.co/docs/smolagents/reference/agents#smolagents.CodeAgent) class, we still support the standard [`ToolCallingAgent`](https://huggingface.co/docs/smolagents/reference/agents#smolagents.ToolCallingAgent) that writes actions as JSON/text blobs.
 
 🤗 **Hub integrations**: you can share and load tools to/from the Hub, and more is to come!
 
@@ -143,7 +143,7 @@ def get_travel_duration(start_location: str, destination_location: str, departur
         destination_location: the place of arrival
         departure_time: the departure time, provide only a `datetime.datetime` if you want to specify this
     """
-    import googlemaps
+    import googlemaps # All imports are placed within the function, to allow for sharing to Hub.
     import os
 
     gmaps = googlemaps.Client(os.getenv("GMAPS_API_KEY"))
@@ -183,7 +183,7 @@ After building a tool, sharing it to the Hub is as simple as:
 get_travel_duration.push_to_hub("{your_username}/get-travel-duration-tool")
 ```
 
-You can see the result under [this space](https://huggingface.co/spaces/m-ric/get-travel-duration-tool) on my account. Running “submit” won’t work, since the tool needs an API key that’s not on the space. You can check the logic for the tool under the file [tool.py in the space](https://huggingface.co/spaces/m-ric/get-travel-duration-tool/blob/main/tool.py). As you can see, the tool was actually exported to a class inheriting from class `Tool`, which is the underlying structure for all our tools.
+You can see the result under [this space](https://huggingface.co/spaces/m-ric/get-travel-duration-tool). CLicking “submit” won’t work, since the tool needs an API key that’s not on the space. You can check the logic for the tool under the file [tool.py in the space](https://huggingface.co/spaces/m-ric/get-travel-duration-tool/blob/main/tool.py). As you can see, the tool was actually exported to a class inheriting from class [`Tool`](https://huggingface.co/docs/smolagents/reference/tools#smolagents.Tool), which is the underlying structure for all our tools.
 
 ### Next steps 🚀
 
