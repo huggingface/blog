@@ -9,7 +9,7 @@ authors:
 
 Today we are launching `smolagents`, a very simple library that unlocks agentic capabilities for language models. Here’s a glimpse:
 
-```swift
+```python
 from smolagents import CodeAgent, DuckDuckGoSearchTool, HfApiModel
 
 agent = CodeAgent(tools=[DuckDuckGoSearchTool()], model=HfApiModel())
