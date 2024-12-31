@@ -24,15 +24,13 @@ agent.run("How many seconds would it take for a leopard at full speed to run thr
 
 ## Table of Contents
 
-- [Introducing *smolagents*, a simple library to build agents](#introducing-smolagents-a-simple-library-to-build-agents)
-  - [Table of Contents](#table-of-contents)
-  - [🤔 What are agents?](#what-are-agents)
-  - [✅ When to use agents / ⛔ when to avoid them](#when-to-use-agents--when-to-avoid-them)
-  - [Code agents](#code-agents)
-  - [Introducing *smolagents*: making agents simple 🥳](#introducing-smolagents-making-agents-simple-)
-    - [Building an agent](#building-an-agent)
-    - [How strong are open models for agentic workflows?](#how-strong-are-open-models-for-agentic-workflows)
-  - [Next steps 🚀](#next-steps-)
+- [🤔 What are agents?](#🤔-what-are-agents)
+- [✅ When to use agents / ⛔ when to avoid them](#✅-when-to-use-agents--⛔-when-to-avoid-them)
+- [Code agents](#code-agents)
+- [Introducing *smolagents*: making agents simple 🥳](#introducing-smolagents-making-agents-simple-🥳)
+  - [Building an agent](#building-an-agent)
+  - [How strong are open models for agentic workflows?](#how-strong-are-open-models-for-agentic-workflows)
+- [Next steps 🚀](#next-steps-🚀)
 
 
 ## 🤔 What are agents?
@@ -203,6 +201,7 @@ You can check the logic for the tool under the file [tool.py in the space](https
 ### How strong are open models for agentic workflows?
 
 We've created [`CodeAgent`](https://huggingface.co/docs/smolagents/reference/agents#smolagents.CodeAgent) instances with some leading models, and compared them on [this benchmark](https://huggingface.co/datasets/m-ric/agents_medium_benchmark_2) that gathers questions from a few different benchmarks to propose a varied blend of challenges.
+
 [Find the benchmark here](https://github.com/huggingface/smolagents/blob/main/examples/benchmark.ipynb) for more detail on the agentic setup used, and see a comparison of code agents versus tool calling agents (spoilers: code works better).
 
 <p align="center">
