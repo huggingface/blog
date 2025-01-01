@@ -267,8 +267,7 @@ We evaluated the performance across multiple vision-language benchmarks, each we
 - Document and text-based visual question answering (DocVQA and TextVQA)
 - Mathematical Reasoning (MathVista)
 - Diagram understanding (AI2D)
-- General multimodal understanding (MMMU and MMStar). 
-
+  
 To select the optimal checkpoint, we created a single metric by combining these benchmarks with different manually assigned weights to reflect their relative importance in assessing the model's capabilities. We used this single metric to select the best checkpoint. Generally, the models tended to do great on most benchmarks with more training, but their relative performance on DocVQA would decrease considerably. 
 
 ## Fine-tuning
