@@ -1,6 +1,6 @@
 ---
 title: "Introducing smolagents: simple agents that write actions in code."
-thumbnail: /blog/assets/smolagents/thumbnail.jpeg
+thumbnail: /blog/assets/smolagents/thumbnail.png
 authors:
   - user: m-ric
   - user: merve
