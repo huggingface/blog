@@ -49,7 +49,7 @@ authors:
 
 This blog post introduces [ModernBERT](https://huggingface.co/collections/answerdotai/modernbert-67627ad707a4acbf33c41deb), a family of state-of-the-art encoder-only models representing improvements over older generation encoders across the board, with a **8192** sequence length, better downstream performance and much faster processing. 
 
-ModernBERT is available as a *slot-in* replacement for any BERT-like models, with both a **base** (139M params) and **large** (395M params) model size.
+ModernBERT is available as a *slot-in* replacement for any BERT-like models, with both a **base** (149M params) and **large** (395M params) model size.
 
 <details><summary>Click to see how to use these models with <code>transformers</code></summary>
 
