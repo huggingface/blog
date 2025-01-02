@@ -163,7 +163,7 @@ def get_travel_duration(start_location: str, destination_location: str, departur
 
     if departure_time is None:
         from datetime import datetime
-        monday = datetime(2025, 1, 6, 11, 0)
+        departure_time = datetime(2025, 1, 6, 11, 0)
 
     directions_result = gmaps.directions(
         start_location,
