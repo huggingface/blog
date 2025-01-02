@@ -134,14 +134,14 @@ We built [`smolagents`](https://github.com/huggingface/smolagents) with these ob
 
 To build an agent, you need at least two elements:
 
-- `tools`: a list of  that the agent has access to
-- `model`: a LLM that will be the engine of your agent.
+- `tools`: a list of tools the agent has access to
+- `model`: an LLM that will be the engine of your agent.
 
-For the `model`, you can use any LLM, either open models with our `HfApiModel` class shown in the leopard example above that leverages Hugging Face’s free inference API, or use `LiteLLMModel` leveraging [litellm](https://github.com/BerriAI/litellm) to pick from a list of 100+ different LLMs .
+For the `model`, you can use any LLM, either open models using our `HfApiModel` class, that leverages Hugging Face's free inference API (as shown in the leopard example above), or you can use `LiteLLMModel` to leverage [litellm](https://github.com/BerriAI/litellm) and pick from a list of 100+ different cloud LLMs.
 
 For the tool, you can just make a function with type hints on inputs and outputs, and docstrings giving descriptions for inputs, and use the `@tool` decorator to make it a tool.
 
-Here’s how to make a custom tool that gets travel times Google Maps, and uses it into a travel planner agent:
+Here’s how to make a custom tool that gets travel times from Google Maps, and how to use it into a travel planner agent:
 
 ```python
 from typing import Optional
@@ -196,7 +196,7 @@ After building a tool, sharing it to the Hub is as simple as:
 get_travel_duration.push_to_hub("{your_username}/get-travel-duration-tool")
 ```
 
-You can see the result under [this space](https://huggingface.co/spaces/m-ric/get-travel-duration-tool). 
+You can see the result under [this space](https://huggingface.co/spaces/m-ric/get-travel-duration-tool).
 You can check the logic for the tool under the file [tool.py in the space](https://huggingface.co/spaces/m-ric/get-travel-duration-tool/blob/main/tool.py). As you can see, the tool was actually exported to a class inheriting from class [`Tool`](https://huggingface.co/docs/smolagents/reference/tools#smolagents.Tool), which is the underlying structure for all our tools.
 
 ### How strong are open models for agentic workflows?
