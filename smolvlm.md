@@ -51,55 +51,58 @@ This release comes with open-source models integrated into transformers, [a demo
 ## Model capabilities
 
 <table><thead><tr><th>Input Image</th><th>Input Prompt</th><th>Answer</th></tr></thead><tbody><tr> 
-  <tr>
-    <td style="vertical-align: middle;"><img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/wat_arun.jpg" width="300"/></td>
-    <td style="vertical-align: middle;">
-    <strong>I'm planning a visit to this temple, give me travel tips.</strong>
-    </td>
-    <td style="vertical-align: middle;">
-      The Grand Palace is the most famous landmark in Bangkok and it's worth visiting for its stunning architecture and history. Here are some of our favorite things about the palace: 
-
-**The Main Building:** 
-Located at the center of the complex, the main building features intricate tile work with traditional Thai motifs that cover every inch of the structure. This includes patterns such as dragons, mythical creatures, flowers, and geometric shapes. The roofline has an elaborate design featuring multiple layers of tiles adorned with gold accents. 
-
-**Towers & Spires:** 
-There are several towers within the Grand Palace including the Phra Nakhon Si Ayutthaya National Museum Tower which houses exhibits on Thai culture and heritage. Another notable tower is the Wat Yai Chai Mongkol Tower where you can find beautiful murals depicting scenes from Buddhist mythology.
-
-**Architecture Style:** 
-The architectural style combines elements of Hindu and Khmer styles seen commonly throughout Southeast Asia. You'll notice influences like stupas (dome-shaped structures), lotus flower carvings, and ornate details typical of these regions' religious buildings.
-
-**Visitor Experience:** 
-While exploring the Grand Palace, visitors should be aware of certain rules due to security measures taken by authorities. These include no photography inside certain areas or using flashbulbs outside. Additionally, there may be queues during peak tourist seasons so plan accordingly if you're traveling here.
-
-### Travel Tips For Visiting The Grand Palace:
-* **Best Time To Visit**: The best time to visit would likely be early morning before sunrise when temperatures drop significantly making walking around easier.
-* **Transportation**: Public transportation options exist but they might not provide direct access to the Grand Palace itself; consider taking a taxi instead.
-* **Food Options**: There aren't many dining facilities available near the Grand Palace yet local street food vendors do offer delicious meals nearby.
-* **Clothing Guidelines**: While not mandatory, wearing traditional Thai clothing (sarongs) could add cultural immersion experience. However, shorts/trousers are allowed provided they don't go below knee level.
-* **Safety Measures**: Visitors must follow signs indicating restricted zones marked "No Photography" among others. Always carry identification documents just in case.
-
-By following these guidelines, your trip will undoubtedly enhance both your understanding of Thailand’s rich historical tapestry and personal enjoyment!
-    </td>
-  </tr>
-  <tr>
-    <td style="vertical-align: middle;"><img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/weather_events.png" width="300"/></td>
-    <td style="vertical-align: middle;">
-    <strong>Where do the severe droughts happen according to this diagram?</strong>
-    </td>
-    <td style="vertical-align: middle;">
-      The severe droughts are happening in eastern and southern Africa.
-    </td>
-  </tr>
-  <tr>
-    <td style="vertical-align: middle;"><img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/invoice.png" width="300"/></td>
-    <td style="vertical-align: middle;">
-    <strong>What is the due date and the invoice date?</strong>
-    </td>
-    <td style="vertical-align: middle;">
- The due date is 26/02/2019, and the invoice date is 11/02/2019.
-    </td>
-  </tr>
-</table>
+    <tr>
+      <td width="50%" style="vertical-align: top;">
+       <img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/wat_arun.jpg"/></td>
+      <td width="15%" style="vertical-align: top;">
+      <strong>I'm planning a visit to this temple, give me travel tips.</strong>
+      </td>
+      <td style="vertical-align: middle;">
+        The Grand Palace is the most famous landmark in Bangkok and it's worth visiting for its stunning architecture and history. Here are some of our favorite things about the palace: 
+  
+  **The Main Building:** 
+  Located at the center of the complex, the main building features intricate tile work with traditional Thai motifs that cover every inch of the structure. This includes patterns such as dragons, mythical creatures, flowers, and geometric shapes. The roofline has an elaborate design featuring multiple layers of tiles adorned with gold accents. 
+  
+  **Towers & Spires:** 
+  There are several towers within the Grand Palace including the Phra Nakhon Si Ayutthaya National Museum Tower which houses exhibits on Thai culture and heritage. Another notable tower is the Wat Yai Chai Mongkol Tower where you can find beautiful murals depicting scenes from Buddhist mythology.
+  
+  **Architecture Style:** 
+  The architectural style combines elements of Hindu and Khmer styles seen commonly throughout Southeast Asia. You'll notice influences like stupas (dome-shaped structures), lotus flower carvings, and ornate details typical of these regions' religious buildings.
+  
+  **Visitor Experience:** 
+  While exploring the Grand Palace, visitors should be aware of certain rules due to security measures taken by authorities. These include no photography inside certain areas or using flashbulbs outside. Additionally, there may be queues during peak tourist seasons so plan accordingly if you're traveling here.
+  
+  ### Travel Tips For Visiting The Grand Palace:
+  * **Best Time To Visit**: The best time to visit would likely be early morning before sunrise when temperatures drop significantly making walking around easier.
+  * **Transportation**: Public transportation options exist but they might not provide direct access to the Grand Palace itself; consider taking a taxi instead.
+  * **Food Options**: There aren't many dining facilities available near the Grand Palace yet local street food vendors do offer delicious meals nearby.
+  * **Clothing Guidelines**: While not mandatory, wearing traditional Thai clothing (sarongs) could add cultural immersion experience. However, shorts/trousers are allowed provided they don't go below knee level.
+  * **Safety Measures**: Visitors must follow signs indicating restricted zones marked "No Photography" among others. Always carry identification documents just in case.
+  
+  By following these guidelines, your trip will undoubtedly enhance both your understanding of Thailand’s rich historical tapestry and personal enjoyment!
+      </td>
+    </tr>
+    <tr>
+      <td width="50%" style="vertical-align: middle;">
+       <img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/weather_events.png"/></td>
+      <td width="15%" style="vertical-align: middle;">
+      <strong>Where do the severe droughts happen according to this diagram?</strong>
+      </td>
+      <td style="vertical-align: middle;">
+        The severe droughts are happening in eastern and southern Africa.
+      </td>
+    </tr>
+    <tr>
+      <td width="50%" style="vertical-align: middle;">
+       <img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/invoice.png"/></td>
+      <td width="15%" style="vertical-align: middle;">
+      <strong>What is the due date and the invoice date?</strong>
+      </td>
+      <td style="vertical-align: middle;">
+   The due date is 26/02/2019, and the invoice date is 11/02/2019.
+      </td>
+    </tr>
+  </table>
 
 ## Architecture
 
