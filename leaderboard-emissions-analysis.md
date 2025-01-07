@@ -6,9 +6,6 @@ authors:
 - user: SaylorTwift
 - user: albertvillanova
 - user: clefourrier
-- user: alozowski
-- user: SaylorTwift
-- user: albertvillanova
 ---
 
 # CO₂ Emissions and Models Performance: Insights from the Open LLM Leaderboard
