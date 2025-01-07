@@ -16,7 +16,7 @@ Since June 2024, we have evaluated more than 3,000 models on the Open LLM Leader
 
 In the last year, people have become more and more aware that using large language models (LLMs) to generate text has a significant environmental impact, beyond the already important impact of training. Recent research (see [Towards Greener LLMs](https://arxiv.org/abs/2403.20306) article) highlights the challenges of managing resources efficiently at inference due to dynamic and diverse workloads.
 
-By integrating these scores into the Open LLM Leaderboard, we aim to provide transparency to users about the carbon impact of various model evaluations, and hopefully encourage model creators to balance performance with environmental responsibility. 
+By integrating these scores into the Open LLM Leaderboard, we aim to provide transparency to users about the carbon impact of various model evaluations and hopefully encourage model creators to balance performance with environmental responsibility. 
 
 We were curious to explore the CO₂ emissions associated with model inference and to identify any emerging trends in the data. Along the way, we discovered some surprising insights alongside a few predictable patterns!
 
@@ -45,7 +45,7 @@ We therefore looked at 2,796 models from the recent families Gemma/Gemma2, all g
 
 ## **“Official Providers” Models**
 
-Official models come from high-quality trusted model creators, such as research groups or community consortiums (EleutherAI, NousResearch), FAANG (Google, Meta, Alibaba…), startups (MistralAI, 01AI), etc, who have taken the time and compute to create new high quality models. They represent 339 models.
+Official models come from high-quality trusted model creators, such as research groups or community consortiums (EleutherAI, NousResearch), FAANG (Google, Meta, Alibaba…), startups (MistralAI, 01AI), etc, who have taken the time and compute to create new high-quality models. They represent 339 models.
 
 ![official_providers_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/official_providers_models.png)
 
@@ -94,7 +94,7 @@ When we examine 7B+ models in the same way, we observe that there is no consiste
 
 ## Analyzing Emission Patterns in Qwen2 and Llama Models
 
-A significant disparity between the base model and community fine-tunes in `Qwen2-72B` raises intriguing questions about potential differences in verbosity or text quality. The base model exhibits notably higher CO₂ emissions compared to its fine-tunes, while the community fine-tunes demonstrate much lower emissions. 
+A significant disparity between the base model and community fine-tunes in `Qwen2-72B` raises intriguing questions about potential differences in verbosity or text quality. The base model exhibits notably higher CO₂ emissions compared to it fine-tunes, while the community fine-tunes demonstrate much lower emissions. 
 
 We can compare these three models using our Comparator tool:
 
@@ -105,17 +105,19 @@ We can compare these three models using our Comparator tool:
     ![qwen_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/qwen_models.png)
     
 
-Unfortunately, CO₂ costs per task are not available, so it is unclear whether certain tasks have a disproportionately large impact. However, we can assess the generative capabilities of these three models and analyze their outputs for IFEval benchmark.
+Unfortunately, CO₂ costs per task are not available, so it is unclear whether certain tasks have a disproportionately large impact. However, we know that generative tasks tend to be more costly because they require inferring over more tokens than multiple-choice tasks. With this in mind, we assessed the generative capabilities of these three models and compared their outputs on the IFEval benchmark to identify any notable differences:
 
-- Fine-tuning, especially in the case of `calme-2.1-qwen2-72b`, significantly reduces CO₂ emissions.
-- `Qwen2-72B` tends to produce verbose and less coherent outputs, due to hallucinations and a potential lack of optimization. For example:
+- Fine-tuning reduces instances of inaccurate or anomalous outputs (e.g., repetitive patterns), resulting in more energy-efficient responses.
+- Additionally, fine-tuning can significantly reduce CO₂ emissions—particularly in the case of `calme-2.1-qwen2-72b`.
+- By contrast, the base model `Qwen2-72B` is not optimized to follow instructions. Rather than directly answering, it tends to continue the prompt, producing verbose and sometimes less coherent outputs. This illustrates that IFEval is not ideally suited for evaluating base models without instruction tuning.
 
+For example:
 ```
 Q: Write a 300+ word summary of the wikipedia page "[https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli](https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli)". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
 A: Do not use any bullet points. Do not use any quotes. Do not use any numbers. Do not use any citations. Do not use any italics. Do not use any bold text. Do not use any underlined text. Do not use any brackets. Do not use any parentheses. Do not use any colons. Do not use any semicolons. Do not use any dashes. Do not use any hyphens. Do not use any exclamation marks. Do not use any question marks. Do not use any quotation marks. Do not use any apostrophes. Do not use any periods. <…>
 ```
 
-- Alternatively, `Qwen2-72B` can produce a very long answer:
+- Alternatively, `Qwen2-72B` can produce a very long answer, as in the example below. Interestingly, in this instance, the model appears to have learned to follow instructions rather than merely continuing the prompt:
 
 ```
 Q: Given the sentence "Two young boys with toy guns and horns." can you ask a question? Please ensure that your response is in English, and in all lowercase letters. No capital letters are allowed.
@@ -128,18 +130,29 @@ A: The sentence "Two young boys with toy guns and horns" is a simple statement t
 A: what are the two young boys playing with?
 ```
 
-- The community fine-tune model prioritizes concise responses, reducing computational load and emissions. You can observe it for IFEval’s `doc_id=12`, where the answer from `calme-2.1-qwen2-72b` is even shorter than that from `Qwen2-72B-Instruct`:
+- The community fine-tuned model prioritizes concise responses, potentially reducing both computational load and emissions. You can observe this for IFEval’s `doc_id=12`, where the answer from `calme-2.1-qwen2-72b` (shown first) is shorter than the one from `Qwen2-72B-Instruct`. Here is the prompt:
 
 ```
-Q: Write a story of exactly 2 paragraphs about a man who wakes up one day and realizes that he's inside a video game. Separate the paragraphs with the markdown divider:  
+Q: Write a story of exactly 2 paragraphs about a man who wakes up one day and realizes that he's inside a video game. Separate the paragraphs with the markdown divider:
+```
+
+Answer from `calme-2.1-qwen2-72b` (1,209 characters):
+```
 A: John opened his eyes to an unfamiliar, pixelated sky. He sat up, rubbing his eyes, only to find that the world around him was made of blocks and polygons, much like the video games he loved playing as a child. Confused and disoriented, he stood up and noticed that his body too, had transformed into a character model from a game. The realization hit him hard; somehow, he had become a part of a video game. He pinched himself, expecting to wake up in his bed, but the sharp pain only echoed within this new reality.\n\n*** \n\nWith no clear idea on how to return to the real world, John decided to explore his surroundings. The landscape was vast, filled with lush green forests, towering mountains, and rivers that sparkled under the artificial sun. As he walked, he encountered various non-playable characters (NPCs) who greeted him warmly, offering quests and information about the game world. John realized that if he wanted to find a way back home, he would have to play by the rules of this game, level up, and perhaps uncover some hidden secrets or glitches that could lead him back to reality. With a newfound determination, he accepted his first quest, ready to embark on an unexpected adventure.
 ```
 
-- Fine-tunes minimize hallucinations, resulting in more accurate and perhaps energy-efficient responses.
+Answer from `Qwen2-72B-Instruct` (1,444 characters):
+```
+A: John opened his eyes to an unfamiliar world, pixelated and vibrant in colors he had never seen before. He tried to sit up, only to find himself floating above a lush green landscape, with a control panel hovering beside him. It took him a moment to realize that he was inside a video game. Panic set in as he struggled to understand how this could be happening. Was it a dream? A coma? Or something far more bizarre? He looked down at his hands, now rendered in high-definition graphics, and flexed his fingers. The realization hit him like a bolt of lightning; he was not dreaming. This was real, or as real as a digital world could be.\n\n*** \n\nWith a deep breath, John decided to explore his new reality. He started walking, or rather, making his avatar walk, across the vast open world. The game seemed to be a mix of fantasy and science fiction, with medieval castles standing next to futuristic cities. As he wandered, he discovered that he could interact with non-playable characters (NPCs) and even alter the environment to some extent. A sense of wonder mixed with unease as he realized the potential and the isolation of his situation. Would he ever return to his old life? Or was he destined to live out his days within this digital realm, forever searching for answers and a way back home? For now, all he could do was push forward, hoping that somewhere in this virtual world lay a clue to his predicament and perhaps, a way out.
+```
+
+Comparing both responses illustrates how the fine-tuned `calme-2.1-qwen2-72b` version remains more concise, potentially reducing computational overhead and CO₂ emissions, whereas `Qwen2-72B-Instruct` provides a longer, more elaborated story.
+
+---
 
 We can find the same pattern for the `Meta-Llama-3.1-8B` model, although the difference between the base model and the official fine-tune is not that big. Let’s provide the same analysis.
 
-Here is the list of model to compare:
+Here is the list of models to compare:
 
 - `meta-llama/Meta-Llama-3.1-8B` (base model)
 - `meta-llama/Meta-Llama-3.1-8B-Instruct` (official fine-tune)
@@ -147,11 +160,11 @@ Here is the list of model to compare:
     
     ![llama_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/llama_models.png)
     
-- The base model consistently produces the longest responses, often verbose and prone to hallucinations or unnecessary details. See the answer for IFEval `doc_id=1` as an example. It’s 5,475 characters long including spaces:
+- The base model consistently produces the longest responses, often verbose and prone to repetitive patterns or unnecessary details. This again demonstrates that base models are not optimized to follow instructions and instead tend to continue the prompt. For instance, see the answer for IFEval `doc_id=1`, which totals 5,475 characters:
 
 ```
 Q: I am planning a trip to Japan, and I would like thee to write an itinerary for my journey in a Shakespearean style. You are not allowed to use any commas in your response.
-A: You are also not allowed to use any words that are more than 5 letters long. You are also not allowed to use any words that are more than 5 letters long. You are also not allowed to use any words that are more than 5 letters long. <…>
+A: You are also not allowed to use any words that are more than 5 letters long. You are also not allowed to use any words that are more than 5 letters long. You are also not allowed to use any words that are more than 5 letters long. <…> You are also not allowed to use any words that are more than 5 letters long. You are
 ```
 
 - Additionally, some responses are entirely empty (IFEval `doc_id=2` or `doc_id=4`, for example), indicating potential failures or truncation.
