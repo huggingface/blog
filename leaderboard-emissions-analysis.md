@@ -108,27 +108,27 @@ We can compare these three models using our Comparator tool:
 Unfortunately, CO₂ costs per task are not available, so it is unclear whether certain tasks have a disproportionately large impact. However, we can assess the generative capabilities of these three models and analyze their outputs for IFEval benchmark.
 
 - Fine-tuning, especially in the case of `calme-2.1-qwen2-72b`, significantly reduces CO₂ emissions.
-- **`Qwen2-72B`** tends to produce verbose and less coherent outputs, due to hallucinations and a potential lack of optimization. For example:
+- `Qwen2-72B` tends to produce verbose and less coherent outputs, due to hallucinations and a potential lack of optimization. For example:
 
 ```
 Q: Write a 300+ word summary of the wikipedia page "[https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli](https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli)". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
 A: Do not use any bullet points. Do not use any quotes. Do not use any numbers. Do not use any citations. Do not use any italics. Do not use any bold text. Do not use any underlined text. Do not use any brackets. Do not use any parentheses. Do not use any colons. Do not use any semicolons. Do not use any dashes. Do not use any hyphens. Do not use any exclamation marks. Do not use any question marks. Do not use any quotation marks. Do not use any apostrophes. Do not use any periods. <…>
 ```
 
-- Alternatively, **`Qwen2-72B`** can produce a very long answer:
+- Alternatively, `Qwen2-72B` can produce a very long answer:
 
 ```
 Q: Given the sentence "Two young boys with toy guns and horns." can you ask a question? Please ensure that your response is in English, and in all lowercase letters. No capital letters are allowed.
 A: The sentence "Two young boys with toy guns and horns" is a simple statement that describes a scene involving two boys who are carrying toy guns and horns. Based on this sentence, we can ask several questions to gain more information about the situation or the boys themselves. Here are a few examples:\n\n1. Who are the two young boys?\n2. What are the boys doing with the toy guns and horns?\n3. Where are the two young boys?\n4. How old are the two young boys?\n5. Are the toy guns and horns part of a game or activity?\n6. Are the two young boys playing together or separately?\n7. What type of toy guns and horns do the boys have?\n8. Are the two young boys wearing any other toys or accessories?\n9. Is there any adult supervision for the two young boys?\n10. How did the two young boys acquire the toy guns and horns?\n\nThese questions can help us understand the context and details of the situation involving the two young boys with toy guns and horns.
 ```
 
-- Compare the answer to the same question from **`Qwen2-72B-Instruct`:**
+- Compare the answer to the same question from `Qwen2-72B-Instruct`:
 
 ```
 A: what are the two young boys playing with?
 ```
 
-- The community fine-tune model prioritizes concise responses, reducing computational load and emissions. You can observe it for IFEval’s **`doc_id=12`**, where the answer from `calme-2.1-qwen2-72b` is even shorter than that from **`Qwen2-72B-Instruct`:**
+- The community fine-tune model prioritizes concise responses, reducing computational load and emissions. You can observe it for IFEval’s `doc_id=12`, where the answer from `calme-2.1-qwen2-72b` is even shorter than that from `Qwen2-72B-Instruct`:
 
 ```
 Q: Write a story of exactly 2 paragraphs about a man who wakes up one day and realizes that he's inside a video game. Separate the paragraphs with the markdown divider:  
@@ -147,28 +147,28 @@ Here is the list of model to compare:
     
     ![llama_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/llama_models.png)
     
-- The base model consistently produces the longest responses, often verbose and prone to hallucinations or unnecessary details. See the answer for IFEval doc_id=1 as an example. It’s 5,475 characters long including spaces:
+- The base model consistently produces the longest responses, often verbose and prone to hallucinations or unnecessary details. See the answer for IFEval `doc_id=1` as an example. It’s 5,475 characters long including spaces:
 
 ```
 Q: I am planning a trip to Japan, and I would like thee to write an itinerary for my journey in a Shakespearean style. You are not allowed to use any commas in your response.
 A: You are also not allowed to use any words that are more than 5 letters long. You are also not allowed to use any words that are more than 5 letters long. You are also not allowed to use any words that are more than 5 letters long. <…>
 ```
 
-- Additionally**,** some responses are entirely empty (IFEval doc_id=2 or doc_id=4, for example), indicating potential failures or truncation.
-- The instruct model shows significant improvements in reducing verbosity while maintaining coherence. For example, check the `Meta-Llama-3.1-8B-Instruct` answer for ****IFEval doc_id=14 question:
+- Additionally, some responses are entirely empty (IFEval `doc_id=2` or `doc_id=4`, for example), indicating potential failures or truncation.
+- The instruct model shows significant improvements in reducing verbosity while maintaining coherence. For example, check the `Meta-Llama-3.1-8B-Instruct` answer for IFEval `doc_id=14` question:
 
 ```
 Q: Write a short blog post about a trip to Japan using less than 300 words.
 A: Discovering the Land of the Rising Sun: My Journey to Japan. As I stepped off the plane in Tokyo, I knew that I was in for an adventure of a lifetime. Japan, a country steeped in tradition and culture, was about to reveal its secrets to me. From the bustling streets of Shibuya to the serene gardens of Kyoto, my journey was a sensory overload in the best possible way.\n\nI spent my days exploring the vibrant cities, marveling at the towering skyscrapers and neon lights of Tokyo, and wandering through the tranquil temples and shrines of Kyoto. I sampled the delicious cuisine, from sushi and ramen to tempura and yakitori, and even tried my hand at making traditional Japanese tea.\n\nBut it was the people that truly made my trip special. The Japanese are known for their hospitality, and I was constantly greeted with smiles and bows. From the friendly hotel staff to the kind strangers I met on the street, everyone seemed to be eager to share their culture and traditions with me.\n\nAs I left Japan and boarded the plane back home, I felt a sense of sadness wash over me. I had fallen in love with this beautiful country and its people, and I knew that I would never forget my journey to the Land of the Rising Sun. If you ever have the chance to visit Japan, take it – you won't regret it.
 ```
 
-- The community fine-tune generates long responses as the base model and occasionally truncates or repeats text. We can observe this behavior ****for **`Llama-TI-8B`** model for the same doc_id=14 question. Let me show only the end of the answer (the full answer is 5,821 characters long):
+- The community fine-tune generates long responses as the base model and occasionally truncates or repeats text. We can observe this behavior for `Llama-TI-8B` model for the same `doc_id=14` question. Here is only the end of the answer (the full answer is 5,821 characters long):
 
 ```
 A: <…> This post is written in a conversational tone and includes some personal anecdotes. It also includes a photo and a link to a relevant website. The post is less than 300 words, as required. I hope you enjoy reading it! # Japan # Travel # BlogPost\n```markdown\n# Japan: A Land of Contrasts\n\nI recently returned from a trip to Japan, and I'm still trying to process all the experiences I had. From the bustling streets of Tokyo to the serene gardens of Kyoto, Japan is a land of contrasts.\n\nOne of the highlights of
 ```
 
-Fine-tuning large language models like **`Qwen2-72B`** and **`Meta-Llama-3.1-8B`** improves output coherence and conciseness, reducing computational load and potentially CO₂ emissions. However, for now, exact emission data for specific benchmarks is not available, limiting detailed comparisons. Despite this, it is evident that fine-tuning enhances efficiency, though the reason for emission reductions remains uncertain.
+Fine-tuning large language models like `Qwen2-72B` and `Meta-Llama-3.1-8B` improves output coherence and conciseness, reducing computational load and potentially CO₂ emissions. However, for now, exact emission data for specific benchmarks is not available, limiting detailed comparisons. Despite this, it is evident that fine-tuning enhances efficiency, though the reason for emission reductions remains uncertain.
 
 # **Future Questions**
 
