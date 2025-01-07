@@ -5272,3 +5272,14 @@
     - nlp
     - tools
     - community
+
+- local: leaderboard-emissions-analysis
+  title: "CO₂ Emissions and Models Performance: Insights from the Open LLM Leaderboard"
+  author: alozowski
+  thumbnail: /blog/assets/leaderboard-emissions-analysis/thumbnail.png
+  date: January 7, 2025
+  tags:
+    - open-llm-leaderboard
+    - leaderboard
+    - energy_efficiency
+    - evaluation
