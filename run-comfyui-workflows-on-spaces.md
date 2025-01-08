@@ -208,7 +208,7 @@ This will map all local models on ComfyUI to a Hugging Face version of them. Unf
 
 If you are running models that are not on Hugging Face, you need find a way to programmatically download them to the correct folder via Python code. This will run only once when the Hugging Face Space starts.
 
-Now, we will do one last modification to the `app.py` file, which is to include the function decoration for ZeroGPU
+Now, we will do one last modification to the `app.py` file, which is to include the function decoration for ZeroGPU, which will let us do inference for free!
 ```diff
 import gradio as gr
 from huggingface_hub import hf_hub_download
