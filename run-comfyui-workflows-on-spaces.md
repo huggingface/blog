@@ -40,21 +40,21 @@ The tl;dr summary of what we will cover in this tutorial is:
 
 ## 1. Exporting your ComfyUI workflow to run on pure Python
 
-ComfyUI is awesome, but as the name indicates, it contains a UI. But Comfy is way more than a UI, it contains it's own backend that runs on Python. As we don't want to use Comfy's node-based UI for the purposes of this tutorial, we want to export the code to be ran on pure python.
+ComfyUI is awesome, and as the name indicates, it contains a UI. But Comfy is way more than a UI, it contains it's own backend that runs on Python. As we don't want to use Comfy's node-based UI for the purposes of this tutorial, we need to export the code to be ran on pure python.
 
 Thankfully, [Peyton DeNiro](https://github.com/pydn) has created this incredible [ComfyUI-to-Python-Extension](https://github.com/pydn/ComfyUI-to-Python-Extension) that exports any Comfy workflow to a python script, enabling you to run a workflow without firing up the UI.
 
 ![comfy-to-gradio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/export_as_python_steps.png)
 
-The easiest way to install the extension is to (1) search for `ComfyUI to Python Extension` in the Custom Nodes Manager Menu of the ComfyUI Manager extension and (2) install it, then, for the option to appear, you have to go on the (3) settings on the bottom right of the UI, (4) disable the new menu and hit (5) `Save as Script`. With that, you will end up with a Python script.
+The easiest way to install the extension is to (1) search for `ComfyUI to Python Extension` in the Custom Nodes Manager Menu of the ComfyUI Manager extension and (2) install it. Then, for the option to appear, you have to (3) go on the settings on the bottom right of the UI, (4) disable the new menu and (5) hit `Save as Script`. With that, you will end up with a Python script.
 
 ## 2. Create a Gradio app for the exported Python
 
 Now that we have our Python script, it is time to create our Gradio app that will orchestrate it. Gradio is a python-native web-UI builder that allows us to create streamline applications. If you don't have it already, you can install it on your Python environment with `pip install gradio`
 
-Now, we will have to re-arrange our python script a bit to create a UI for it.
+Next, we will have to re-arrange our python script a bit to create a UI for it.
 
-> Tip: LLMs like ChatGPT, Claude, Qwen, Gemni, LLama 3, etc. know how to create Gradio apps. Pasting your exported Python script to it and asking it to create a Gradio app should work on a basic level, but you'd probably need to correct somethings with the knowledge you'll get in this tutorial, but here we are going to create the application ourselves.
+> Tip: LLMs like ChatGPT, Claude, Qwen, Gemni, LLama 3, etc. know how to create Gradio apps. Pasting your exported Python script to it and asking it to create a Gradio app should work on a basic level, but you'd probably need to correct somethings with the knowledge you'll get in this tutorial. For the purpose of this tutorial, we'll create the application ourselves. 
 
 Open the exported Python script and add an import for Gradio
 
@@ -67,7 +67,7 @@ import torch
 + import gradio as gr
 ```
 
-Now, we need to think of the UI - from the complex ComfyUI workflow, which parameters we would like to expose in our UI. For the `Flux[dev] Redux + Flux[dev] Depth ComfyUI workflow`, I would like to expose: the prompt, the structure image, the style image, the depth strength (for the structure) and the style strength.
+Now, we need to think of the UI- which parameters from the complex ComfyUI workflow do we want to expose in our UI? For the `Flux[dev] Redux + Flux[dev] Depth ComfyUI workflow`, I would like to expose: the prompt, the structure image, the style image, the depth strength (for the structure) and the style strength.
 
 <video controls src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/inputs_list.mp4" title="Title"></video>
 _Video illustrating what nodes will be exposed to the final user_
@@ -188,9 +188,9 @@ That's it, congratulations! You managed to convert your ComfyUI workflow to a Gr
 
 ## 3. Preparing it to run Hugging Face Spaces
 
-Now with our Gradio demo working, we may feel tempted to just hit an export button and get it working on Hugging Face Spaces, however, as we have all models loaded locally, if we just exported all our folder to Spaces, we would upload dozens of GB of models on Hugging Face, which is not supported, specially as all this models should have a mirror on Hugging Face. 
+Now with our Gradio demo working, we may feel tempted to just upload everything to Hugging Face Spaces. However, this would require uploading dozens of GB of models to Hugging Face, which is not only only slow but also unnecessary, as all of these models already exist on Hugging Face!
 
-So, we need to first install `pip install huggingface_hub` if we don't have it already, and then we need to do the following on the top of our `app.py` file:
+Instead, we will first install `pip install huggingface_hub` if we don't have it already, and then we need to do the following on the top of our `app.py` file:
 
 ```py
 from huggingface_hub import hf_hub_download
@@ -204,7 +204,7 @@ hf_hub_download(repo_id="comfyanonymous/flux_text_encoders", filename="clip_l.sa
 hf_hub_download(repo_id="comfyanonymous/flux_text_encoders", filename="t5xxl_fp16.safetensors", local_dir="models/text_encoders/t5")
 ```
 
-This will map all local models on ComfyUI to a Hugging Face version of them. Unfortunately, currently there is no way to automate this process, you gotta find the models of your workflow on Hugging Face and map it to the same ComfyUI folders that.
+This will map all local models on ComfyUI to their Hugging Face versions. Unfortunately, currently there is no way to automate this process, you need to find the models of your workflow on Hugging Face and map it to the same ComfyUI folders that.
 
 If you are running models that are not on Hugging Face, you need find a way to programmatically download them to the correct folder via Python code. This will run only once when the Hugging Face Space starts.
 
@@ -222,13 +222,13 @@ Check here the [diff](https://gist.github.com/apolinario/47a8503c007c5ae8494324b
 
 ## 4. Exporting to Spaces and running on ZeroGPU
 
-Now that you have your code ready for Hugging Face Spaces, it's time to export your demo to run there.
+The code is ready - it's time to export our demo to run on Hugging Face Spaces.
 
 ### Fix requirements
 
-Firstly, you need to modify your `requirements.txt` to include the requirements in the `custom_nodes` folder, to add append the requirements of the nodes you want to work for this workflow to the `requirements.txt` on the root folder, as Hugging Face Spaces can only deal with a single `requirements.txt` file.
+Firstly, you need to modify your `requirements.txt` to include the requirements in the `custom_nodes` folder. As Hugging Face Spaces require a single `requirements.txt` file, make sure to add the requirements of the nodes for this workflow to the `requirements.txt` on the root folder.
 
-You can see the illustration below. You need to do the same process for all `custom_nodes`: 
+See the illustration below, the same process needs to be repeated for all `custom_nodes`: 
 <video controls src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/illustrative_video.mp4" title="Title"></video>
 
 Now we are ready! 
@@ -486,7 +486,7 @@ model_management.load_models_gpu(valid_models)
 
 ### If you are not a PRO subscriber (skip this step if you are)
 
-If are not a Hugging Face PRO subscriber, you need to apply for a ZeroGPU grant, visit the Settings page of your Space and apply for a grant. Request ZeroGPU. I will grant everybody that requests a ZeroGPU grant for ComfyUI backends. 
+In case you aren't a Hugging Face PRO subscriber, you need to apply for a ZeroGPU grant. You can do so easily by going on the Settings page of your Space and submitting a grant request for ZeroGPU. All ZeroGPU grant requests for Spaces with ComfyUI backends will be granted 🎉. 
 
 ### The demo is running
 
