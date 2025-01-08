@@ -42,7 +42,7 @@ The tl;dr summary of what we will cover in this tutorial is:
 
 ComfyUI is awesome, but as the name indicates, it contains a UI. But Comfy is way more than a UI, it contains it's own backend that runs on Python. As we don't want to use Comfy's node-based UI for the purposes of this tutorial, we want to export the code to be ran on pure python.
 
-Thankfully, [Peyton DeNiro](https://github.com/pydn) has created this incredible [ComfyUI-to-Python-Extension](https://github.com/pydn/ComfyUI-to-Python-Extension) for ComfyUI that will export any Comfy workflow to a python script that can run any workflow of ComfyUI with Python, not firing up the UI.
+Thankfully, [Peyton DeNiro](https://github.com/pydn) has created this incredible [ComfyUI-to-Python-Extension](https://github.com/pydn/ComfyUI-to-Python-Extension) that exports any Comfy workflow to a python script, enabling you to run a workflow without firing up the UI.
 
 ![comfy-to-gradio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/export_as_python_steps.png)
 
