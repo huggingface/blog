@@ -19,7 +19,7 @@ Index:
 
 ## Intro
 
-In this tutorial I will present a step-by-step guide on how I have converted a complex ComfyUI workflow to a simple Gradio application, and how I have deployed this application on Hugging Face Spaces ZeroGPU serverless structure, which allows for it to be deployed and ran for free on a serverless manner. In this tutorial, we are going to work with [Nathan Shipley's Flux[dev] Redux + Flux[dev] Depth ComfyUI workflow](https://gist.github.com/nathanshipley/7a9ac1901adde76feebe58d558026f68), but you can follow the tutorial with any workflow that you would like.
+In this tutorial I will present a step-by-step guide on how to convert a complex ComfyUI workflow to a simple Gradio application, and how to deploy this application on Hugging Face Spaces ZeroGPU serverless structure, which allows for it to be deployed and run for free in a serverless manner. In this tutorial, we are going to work with [Nathan Shipley's Flux[dev] Redux + Flux[dev] Depth ComfyUI workflow](https://gist.github.com/nathanshipley/7a9ac1901adde76feebe58d558026f68), but you can follow the tutorial with any workflow that you would like.
 
 ![comfy-to-gradio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/main_ui_conversion.png)
 
