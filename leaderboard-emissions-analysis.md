@@ -49,7 +49,7 @@ Official models come from high-quality trusted model creators, such as research 
 
 ![official_providers_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/official_providers_models.png)
 
-- As expected, overall, the bigger the model size, the higher the CO₂ cost. However, the increase in performance is not always proportional, leading to diminishing returns on investment (ROI).
+- As expected, overall, the bigger the model size, the higher the CO₂ cost. However, the increase in performance is not always proportional, leading to diminishing returns.
     - Models from AbacusAI, Qwen, and AllenAI, around 70B parameters, achieve an average performance score above 40 across multiple evaluation benchmarks.
     - On the other hand, the lowest-ranked models in the top-right quadrant are older models: `Qwen-1.5-100B` models, with `Mixtral8x22B` showing the weakest performance.
     - Overall, MoEs seem to have a relatively poor ROI. Although these models aim to reduce computational overhead by activating only a subset of their parameters for a given task, some exhibit higher-than-expected CO₂ emissions due to extremely long inference times.
