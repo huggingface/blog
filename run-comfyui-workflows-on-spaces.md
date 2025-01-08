@@ -34,7 +34,7 @@ The tl;dr summary of what we will cover in this tutorial is:
 
 - Knowing how to run ComfyUI: this tutorial requires you to be able to grab a ComfyUI workflow and run it on your machine, installing missing nodes and finding the missing models (we do plan to automate this step soon though);
 - Getting the workflow you would like to export up and running (if you want to learn without a workflow in mind, feel free to get [Nathan Shipley's Flux[dev] Redux + Flux[dev] Depth ComfyUI workflow](https://gist.github.com/nathanshipley/7a9ac1901adde76feebe58d558026f68) up and running);
-- A little bit of coding knowledge: but I would encourage beginners to attempt to follow it, as it can be a really nice introduction to Python, Gradio and Spaces without too much prior coding knowledge needed. 
+- A little bit of coding knowledge: but I would encourage beginners to attempt to follow it, as it can be a really nice introduction to Python, Gradio and Spaces without too much prior programming knowledge needed. 
 
 (If you are looking for an end-to-end "workflow-to-app" structure, without needing to setup and run Comfy or knowing coding, stay tuned on my profile on [Hugging Face](https://huggingface.co/multimodalart/) or [Twitter/X](https://twitter.com/multimodalart) as we plan to do this in early 2025!).
 
