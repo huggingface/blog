@@ -28,7 +28,7 @@ The tl;dr summary of what we will cover in this tutorial is:
 1. Export your ComfyUI workflow using [`ComfyUI-to-Python-Extension`](https://github.com/pydn/ComfyUI-to-Python-Extension);
 2. Create a Gradio app for the exported Python;
 3. Deploy it on Hugging Face Spaces with ZeroGPU;
-4. Soon we'll automate this entire process;
+4. Soon: this entire process will be automated;
 
 ### Prerequisites
 
