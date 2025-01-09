@@ -169,7 +169,7 @@ def get_travel_duration(start_location: str, destination_location: str, transpor
             start_location,
             destination_location,
             mode=transportation_mode,
-            departure_time=datetime(2025, 12, 6, 11, 0), # At 11, date far in the future
+            departure_time=datetime(2025, 6, 6, 11, 0), # At 11, date far in the future
         )
         if len(directions_result) == 0:
             return "No way found between these places with the required transportation mode."
@@ -180,19 +180,25 @@ def get_travel_duration(start_location: str, destination_location: str, transpor
 
 agent = CodeAgent(tools=[get_travel_duration], model=HfApiModel(), additional_authorized_imports=["datetime"])
 
-agent.run("Can you give me a nice one-day trip around Paris with a few locations and the times? Could be in the city or outside, but should fit in one day. I'm travelling only via public transportation.")
+agent.run("Can you give me a nice one-day trip around Paris with a few locations and the times? Could be in the city or outside, but should fit in one day. I'm travelling only with a rented bicycle.")
 ```
 
 After a few steps of gathering travel times and running calculations, the agent returns this final proposition:
 
 ```
-Out - Final answer: Here's a suggested one-day itinerary for Paris:
-Visit Eiffel Tower at 9:00 AM - 10:30 AM
-Visit Louvre Museum at 11:00 AM - 12:30 PM
-Visit Notre-Dame Cathedral at 1:00 PM - 2:30 PM
-Visit Palace of Versailles at 3:30 PM - 5:00 PM
-Note: The travel time to the Palace of Versailles is approximately 59
-minutes from Notre-Dame Cathedral, so be sure to plan your day accordingly.
+One-day Paris bike trip itinerary:
+1. Start at Eiffel Tower at 9:00 AM.
+2. Sightseeing at Eiffel Tower until 10:30 AM.
+3. Travel to Notre-Dame Cathedral at 10:46 AM.
+4. Sightseeing at Notre-Dame Cathedral until 12:16 PM.
+5. Travel to Montmartre at 12:41 PM.
+6. Sightseeing at Montmartre until 2:11 PM.
+7. Travel to Jardin du Luxembourg at 2:33 PM.
+8. Sightseeing at Jardin du Luxembourg until 4:03 PM.
+9. Travel to Louvre Museum at 4:12 PM.
+10. Sightseeing at Louvre Museum until 5:42 PM.
+11. Lunch break until 6:12 PM.
+12. Planned end time: 6:12 PM.
 ```
 
 After building a tool, sharing it to the Hub is as simple as:
