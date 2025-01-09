@@ -16,7 +16,7 @@ In the last year, people have become more and more aware that using large langua
 
 By integrating carbon emission estimates into the Open LLM Leaderboard, we aim to provide transparency to users about the carbon impact of various model evaluations and hopefully encourage model creators to balance performance with environmental responsibility.
 
-We were curious to explore the CO₂ emissions associated with model inference and to identify any emerging trends in the data. Along the way, we discovered some surprising insights alongside a few predictable patterns!
+We were curious to explore the CO₂ emissions associated with model inference and to identify any emerging trends in the data. Along the way, we saw a few predictable patterns but also discovered some surprising insights, like community fine-tunes being more carbon-efficient in general!
 
 💡  **Note:** We’ve created a [Colab notebook](https://colab.research.google.com/drive/1gaXUywH9fB5rINM8Ocg_U26u5voDmLUi?usp=sharing) containing all the data and findings discussed here. This notebook allows you to explore the results, run the analyses yourself, and even adapt the code to investigate further questions
 
