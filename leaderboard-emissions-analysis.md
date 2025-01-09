@@ -110,7 +110,7 @@ Unfortunately, CO₂ costs per task are not available, so it is unclear whether 
 - Additionally, fine-tuning can significantly reduce CO₂ emissions—particularly in the case of `calme-2.1-qwen2-72b`.
 - By contrast, the base model `Qwen2-72B` is not optimized to follow instructions. Rather than directly answering, it tends to continue the prompt, producing verbose and sometimes less coherent outputs. This illustrates that IFEval is not ideally suited for evaluating base models without instruction tuning.
 
-### Example 1: Base Model Behavior
+#### Example 1: Base Model Behavior
 Here's an example showing how the base model can produce responses with repetivie patterns:
 ```
 Q: Write a 300+ word summary of the wikipedia page "[https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli](https://en.wikipedia.org/wiki/Raymond_III,_Count_of_Tripoli)". Do not use any commas and highlight at least 3 sections that has titles in markdown format, for example *highlighted section part 1*, *highlighted section part 2*, *highlighted section part 3*.
