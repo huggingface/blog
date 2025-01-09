@@ -66,7 +66,7 @@ However, interestingly, the trend of CO₂ emissions to model size, even at high
 
 Let’s dive deeper into this finding!
 
-# Detailed Insights
+## Detailed Insights
 
 Let’s take a close look at high-parameter and compact (> 7B parameters) base models, focusing on three for each category. We will investigate the emissions for each base model itself, for other official fine-tunes, including the official instruct versions, and community fine-tunes.
 
