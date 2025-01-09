@@ -54,7 +54,7 @@ Official models come from high-quality trusted model creators, such as research 
 - Smaller models occupy the lower-cost quadrants, making them appealing for use cases where energy efficiency is paramount. Among these, `Qwen-2.5-14B` and `Phi-3-Medium` models seem to have the best leaderboard score-to-emission ratio.
 - Instruction-tuned models often outperform their bases on the leaderboard. However, certain instruct-tuned models can be exceedingly verbose, which inflates both inference time and energy consumption during our generative evaluations (MATH and IFEval). Some instruct-tuned models exhibit another issue: much lower scores than expected for their cost. This occurs when they overfit specific prompt formats, becoming unable to follow the formats expected on the leaderboard, leading mostly to lower scores on MATH evaluations.
 
-## Community Models
+### Community Models
 
 As the community focuses largely on small models, it manages to reach up to 35 in average score (best scores are around 45) for models below 10B parameters, for less than 5kg CO₂! 
 
