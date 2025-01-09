@@ -149,25 +149,27 @@ from smolagents import CodeAgent, HfApiModel, tool
 
 @tool
 def get_travel_duration(start_location: str, destination_location: str, transportation_mode: Optional[str] = None) -> str:
-    """Gets the travel time in car between two places.
+    """Gets the travel time between two places.
 
     Args:
         start_location: the place from which you start your ride
         destination_location: the place of arrival
-        transportation_mode: The transportation mode, in 'driving', 'walking', 'bicycling', or 'transit'.
+        transportation_mode: The transportation mode, in 'driving', 'walking', 'bicycling', or 'transit'. Defaults to 'driving'.
     """
+    import os   # All imports are placed within the function, to allow for sharing to Hub.
     import googlemaps
-    import os
     from datetime import datetime
+
     gmaps = googlemaps.Client(os.getenv("GMAPS_API_KEY"))
+
     if transportation_mode is None:
-        transportation_mode = "transit"
+        transportation_mode = "driving"
     try:
         directions_result = gmaps.directions(
             start_location,
             destination_location,
             mode=transportation_mode,
-            departure_time=datetime(2025, 1, 6, 11, 0), # Start on a Monday morning
+            departure_time=datetime(2025, 12, 6, 11, 0), # At 11, date far in the future
         )
         return directions_result[0]["legs"][0]["duration"]["text"]
     except Exception as e:
