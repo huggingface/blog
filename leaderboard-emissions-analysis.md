@@ -39,7 +39,7 @@ Instead, what this means is that model X emitted Y CO₂ on our very specific in
 
 Since we wanted to look at general trends, we only considered the most frequent model architectures, and models for which we had the parameter count. 
 
-We therefore looked at 2,742 models from the recent families Gemma/Gemma2, all generations of Llama, Mistral, Mixtral, as well as Phi/Phi3, Qwen2 and above. We also included older model families such as GPT, GPT-NeoX, and T5.
+We therefore looked at 2,742 models from some recent families: Gemma/Gemma2, all generations of Llama, Mistral, Mixtral, as well as Phi/Phi3, Qwen2 and above. We also included older model families such as GPT, GPT-NeoX, and T5.
 
 ## "Official Providers" Models
 
