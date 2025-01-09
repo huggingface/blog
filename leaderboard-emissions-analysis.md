@@ -169,7 +169,7 @@ Comparing both responses illustrates how the fine-tuned `calme-2.1-qwen2-72b` ve
 
 We can find the same pattern for the `Meta-Llama-3.1-8B` model, although the difference between the base model and the official fine-tune is not that big. Let’s provide the same analysis.
 
-### Model Comparison
+#### Model Comparison
 Here is the list of models to compare:
 
 - `meta-llama/Meta-Llama-3.1-8B` (base model)
