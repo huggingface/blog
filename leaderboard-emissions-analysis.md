@@ -43,7 +43,7 @@ Instead, what this means is that model X emitted Y CO₂ on our very specific in
 
 We therefore looked at 2,742 models from the recent families Gemma/Gemma2, all generations of Llama, Mistral, Mixtral, as well as Phi/Phi3, Qwen2 and above. We also included older model families such as GPT, GPT-NeoX, and T5.
 
-## "Official Providers" Model
+## "Official Providers" Models
 
 Official models come from high-quality trusted model creators, such as research groups or community consortiums (EleutherAI, NousResearch), FAANG (Google, Meta, Alibaba…), startups (MistralAI, 01AI), etc, who have taken the time and compute to create new high-quality models. They represent 341 models.
 
