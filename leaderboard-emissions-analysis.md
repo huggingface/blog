@@ -127,7 +127,19 @@ Q: Given the sentence "Two young boys with toy guns and horns." can you ask a qu
 A: The sentence "Two young boys with toy guns and horns" is a simple statement that describes a scene involving two boys who are carrying toy guns and horns. Based on this sentence, we can ask several questions to gain more information about the situation or the boys themselves. Here are a few examples:\n\n1. Who are the two young boys?\n2. What are the boys doing with the toy guns and horns?\n3. Where are the two young boys?\n4. How old are the two young boys?\n5. Are the toy guns and horns part of a game or activity?\n6. Are the two young boys playing together or separately?\n7. What type of toy guns and horns do the boys have?\n8. Are the two young boys wearing any other toys or accessories?\n9. Is there any adult supervision for the two young boys?\n10. How did the two young boys acquire the toy guns and horns?\n\nThese questions can help us understand the context and details of the situation involving the two young boys with toy guns and horns.
 ```
 
-One possible explanation is that, for IFEval, we do not use a stop token, and the base model does not have an end-of-sequence (EOS) token. As a result, it may continue generating tokens until it reaches the maximum limit. By contrast, fine-tuned models typically include an EOS token, allowing them to produce more concise responses and terminate appropriately.
+One possible explanation is that, for IFEval, we do not use a stop token. As a result, it may continue generating tokens until it reaches the maximum limit. By contrast, fine-tuned models typically include an EOS token, allowing them to produce more concise responses and terminate appropriately.
+
+Below are some examples of IFEval arguments for the base model and the instruct models.
+
+- IFEval arguments for base models:
+```
+{ "gen_args_0": { "arg_0": "Write a letter to a friend in all lowercase letters ask them to go and vote.", "arg_1": { "until": [], "do_sample": false, "temperature": 0, "max_gen_toks": 1280 } } }
+```
+
+- IFEval arguments for instruct models:
+```
+{ "gen_args_0": { "arg_0": "<|begin_of_text|><|start_header_id|>user<|end_header_id|>\n\nWrite a letter to a friend in all lowercase letters ask them to go and vote.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n", "arg_1": { "until": [], "do_sample": false, "temperature": 0, "max_gen_toks": 1280 } } }
+```
 
 ### Example 3: Comparing Model Responses
 For contrast, here's how the fine-tuned model responds to the same question:
