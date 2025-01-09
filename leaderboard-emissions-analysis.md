@@ -1,6 +1,6 @@
 ---
 title: "CO₂ Emissions and Models Performance: Insights from the Open LLM Leaderboard" 
-thumbnail: /blog/assets/leaderboard-emissions-analysis/thumbnail.png
+thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
 authors:
 - user: alozowski
 - user: SaylorTwift
