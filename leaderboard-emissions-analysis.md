@@ -165,7 +165,7 @@ A: John opened his eyes to an unfamiliar world, pixelated and vibrant in colors 
 
 Comparing both responses illustrates how the fine-tuned `calme-2.1-qwen2-72b` version remains more concise, potentially reducing computational overhead and CO₂ emissions, whereas `Qwen2-72B-Instruct` provides a longer, more elaborated story.
 
-## Analyzing Emission Patterns in Llama Models
+### Analyzing Emission Patterns in Llama Models
 
 We can find the same pattern for the `Meta-Llama-3.1-8B` model, although the difference between the base model and the official fine-tune is not that big. Let’s provide the same analysis.
 
