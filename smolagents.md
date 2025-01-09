@@ -171,6 +171,8 @@ def get_travel_duration(start_location: str, destination_location: str, transpor
             mode=transportation_mode,
             departure_time=datetime(2025, 12, 6, 11, 0), # At 11, date far in the future
         )
+        if len(directions_result) == 0:
+            return "No way found between these places with the required transportation mode."
         return directions_result[0]["legs"][0]["duration"]["text"]
     except Exception as e:
         print(e)
