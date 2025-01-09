@@ -54,13 +54,13 @@ Official models come from high-quality trusted model creators, such as research 
 - Smaller models occupy the lower-cost quadrants, making them appealing for use cases where energy efficiency is paramount. Among these, `Qwen-2.5-14B` and `Phi-3-Medium` models seem to have the best leaderboard score-to-emission ratio.
 - Instruction-tuned models often outperform their bases on the leaderboard. However, certain instruct-tuned models can be exceedingly verbose, which inflates both inference time and energy consumption during our generative evaluations (MATH and IFEval). Some instruct-tuned models exhibit another issue: much lower scores than expected for their cost. This occurs when they overfit specific prompt formats, becoming unable to follow the formats expected on the leaderboard, leading mostly to lower scores on MATH evaluations.
 
-### Community Models
+## Community Releases
 
 As the community focuses largely on small models, it manages to reach up to 35 in average score (best scores are around 45) for models below 10B parameters, for less than 5kg CO₂! 
 
 ![community_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/community_models.png)
 
-However, interestingly, the trend of CO₂ emissions to model size, even at higher values, is not the same between community models and official releases: community fine-tunes or merges tend to be more CO₂ efficient than the official models they start from!
+However, interestingly, the trend of CO₂ emissions to model size, even at higher values, is not the same between community releases and official releases: community fine-tunes or merges tend to be more CO₂ efficient than the official models they start from!
 
 ![all_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/all_models.png)
 
@@ -211,7 +211,7 @@ Fine-tuning large language models like `Qwen2-72B` and `Meta-Llama-3.1-8B` impro
 
 Several open questions remain, for interested individuals in the community to explore!
 
-- What underlying factors contribute to the lower emissions of fine-tuned community models compared to pre-trained models?
+- What underlying factors contribute to the lower emissions of fine-tuned community releases compared to pre-trained models?
     - Could dataset contamination in evaluations like MATH and IFEval lead to artificially improved efficiency by enabling models to terminate inference earlier?
 - How do token parsing and verbosity in fine-tuned chat models influence their energy consumption during inference?
 - What factors drive unexpectedly high emissions in some MoE models, and how can they be optimized?
