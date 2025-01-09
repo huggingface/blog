@@ -43,7 +43,7 @@ We therefore looked at 2,742 models from some recent families: Gemma/Gemma2, all
 
 ## "Official Providers" Models
 
-Official models come from high-quality trusted model creators, such as research groups or community consortiums (EleutherAI, NousResearch), FAANG (Google, Meta, Alibaba…), startups (MistralAI, 01AI), etc, who have taken the time and compute to create new high-quality models. They represent 341 models.
+Official models come from high-quality trusted model creators, such as research groups or community consortiums (EleutherAI, NousResearch), FAANG (Google, Meta, Alibaba…), startups (MistralAI, 01.AI), etc, who have taken the time and compute to create new high-quality models. They represent 341 models.
 
 ![official_providers_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/official_providers_models.png)
 
