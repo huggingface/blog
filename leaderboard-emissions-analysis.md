@@ -16,7 +16,7 @@ Since June 2024, we have evaluated more than 3,000 models on the Open LLM Leader
 
 In the last year, people have become more and more aware that using large language models (LLMs) to generate text has a significant environmental impact, beyond the already important impact of training. Recent research (see the [Towards Greener LLMs](https://arxiv.org/abs/2403.20306) article) highlights the challenges of managing resources efficiently at inference due to dynamic and diverse workloads.
 
-By integrating these scores into the Open LLM Leaderboard, we aim to provide transparency to users about the carbon impact of various model evaluations and hopefully encourage model creators to balance performance with environmental responsibility. 
+By integrating carbon emission estimates into the Open LLM Leaderboard, we aim to provide transparency to users about the carbon impact of various model evaluations and hopefully encourage model creators to balance performance with environmental responsibility.
 
 We were curious to explore the CO₂ emissions associated with model inference and to identify any emerging trends in the data. Along the way, we discovered some surprising insights alongside a few predictable patterns!
 
