@@ -90,7 +90,7 @@ When we examine 7B+ models in the same way, we observe that there is no consiste
     
     ![7b_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/7b_models.png)
 
-## Analyzing Emission Patterns in Qwen2 Models
+### Analyzing Emission Patterns in Qwen2 Models
 
 A significant disparity between the base model and community fine-tunes in `Qwen2-72B` raises intriguing questions about potential differences in verbosity or text quality. The base model exhibits notably higher CO₂ emissions compared to it fine-tunes, while the community fine-tunes demonstrate much lower emissions. 
 
