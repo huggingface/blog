@@ -139,7 +139,7 @@ Below are some examples of IFEval arguments for the base model and the instruct 
 { "gen_args_0": { "arg_0": "<|begin_of_text|><|start_header_id|>user<|end_header_id|>\n\nWrite a letter to a friend in all lowercase letters ask them to go and vote.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n", "arg_1": { "until": [], "do_sample": false, "temperature": 0, "max_gen_toks": 1280 } } }
 ```
 
-### Example 3: Comparing Model Responses
+#### Example 3: Comparing Model Responses
 For contrast, here's how the fine-tuned model responds to the same question:
 
 ```
