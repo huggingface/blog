@@ -178,7 +178,7 @@ Here is the list of models to compare:
     
     ![llama_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/llama_models.png)
 
-### Example 1: Base Model Verbosity
+#### Example 1: Base Model Verbosity
 The base model consistently produces the longest responses, often verbose and prone to repetitive patterns or unnecessary details. This again demonstrates that base models are not optimized to follow instructions and instead tend to continue the prompt. For instance, see the answer for IFEval `doc_id=1`, which totals 5,475 characters:
 
 ```
