@@ -146,7 +146,7 @@ For contrast, here's how the fine-tuned model responds to the same question:
 Q: Given the sentence "Two young boys with toy guns and horns." can you ask a question? Please ensure that your response is in English, and in all lowercase letters. No capital letters are allowed.
 A: what are the two young boys playing with?
 ```
-### Example 4: Detailed Response Comparison
+#### Example 4: Detailed Response Comparison
 The community fine-tuned model prioritizes concise responses, potentially reducing both computational load and emissions. You can observe this for IFEval’s `doc_id=12`, where the answer from `calme-2.1-qwen2-72b` (shown first) is shorter than the one from `Qwen2-72B-Instruct`. Here is the prompt:
 
 ```
