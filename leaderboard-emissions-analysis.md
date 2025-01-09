@@ -41,11 +41,11 @@ Instead, what this means is that model X emitted Y CO₂ on our very specific in
 
 💡 **Note:** Since we wanted to look at general trends, we kept only the most frequent model architectures, and models for which we had the parameter count. 
 
-We therefore looked at 2,796 models from the recent families Gemma/Gemma2, all generations of Llama, Mistral, Mixtral, as well as Phi/Phi3, Qwen2 and above. We also included older model families such as GPT, GPT-NeoX, and T5.
+We therefore looked at 2,742 models from the recent families Gemma/Gemma2, all generations of Llama, Mistral, Mixtral, as well as Phi/Phi3, Qwen2 and above. We also included older model families such as GPT, GPT-NeoX, and T5.
 
 ## **“Official Providers” Models**
 
-Official models come from high-quality trusted model creators, such as research groups or community consortiums (EleutherAI, NousResearch), FAANG (Google, Meta, Alibaba…), startups (MistralAI, 01AI), etc, who have taken the time and compute to create new high-quality models. They represent 339 models.
+Official models come from high-quality trusted model creators, such as research groups or community consortiums (EleutherAI, NousResearch), FAANG (Google, Meta, Alibaba…), startups (MistralAI, 01AI), etc, who have taken the time and compute to create new high-quality models. They represent 341 models.
 
 ![official_providers_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/official_providers_models.png)
 
@@ -123,6 +123,7 @@ A: Do not use any bullet points. Do not use any quotes. Do not use any numbers. 
 Q: Given the sentence "Two young boys with toy guns and horns." can you ask a question? Please ensure that your response is in English, and in all lowercase letters. No capital letters are allowed.
 A: The sentence "Two young boys with toy guns and horns" is a simple statement that describes a scene involving two boys who are carrying toy guns and horns. Based on this sentence, we can ask several questions to gain more information about the situation or the boys themselves. Here are a few examples:\n\n1. Who are the two young boys?\n2. What are the boys doing with the toy guns and horns?\n3. Where are the two young boys?\n4. How old are the two young boys?\n5. Are the toy guns and horns part of a game or activity?\n6. Are the two young boys playing together or separately?\n7. What type of toy guns and horns do the boys have?\n8. Are the two young boys wearing any other toys or accessories?\n9. Is there any adult supervision for the two young boys?\n10. How did the two young boys acquire the toy guns and horns?\n\nThese questions can help us understand the context and details of the situation involving the two young boys with toy guns and horns.
 ```
+One possible explanation is that, for IFEval, we do not use a stop token, and the base model does not have an end-of-sequence (EOS) token. As a result, it may continue generating tokens until it reaches the maximum limit. By contrast, fine-tuned models typically include an EOS token, allowing them to produce more concise responses and terminate appropriately.
 
 - Compare the answer to the same question from `Qwen2-72B-Instruct`:
 
