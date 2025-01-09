@@ -35,7 +35,7 @@ A detailed explanation and formula can be found in [our documentation](https://h
 **Caveat:** This does not mean that model X emits Y CO₂ at inference in general!
 Instead, what this means is that model X emitted Y CO₂ on our very specific inference setup, and you can still learn a lot from that 😀
 
-# General Trends
+## General Trends
 
 💡 **Note:** Since we wanted to look at general trends, we kept only the most frequent model architectures, and models for which we had the parameter count. 
 
