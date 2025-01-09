@@ -20,7 +20,7 @@ We were curious to explore the CO₂ emissions associated with model inference a
 
 💡  **Note:** We’ve created a [Colab notebook](https://colab.research.google.com/drive/1gaXUywH9fB5rINM8Ocg_U26u5voDmLUi?usp=sharing) containing all the data and findings discussed here. This notebook allows you to explore the results, run the analyses yourself, and even adapt the code to investigate further questions
 
-# Computing CO₂ cost
+## Computing CO₂ cost
 
 Let's take a closer look at how we calculate the CO₂ emissions generated during model inference.
 
