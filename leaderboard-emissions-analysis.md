@@ -187,7 +187,7 @@ A: You are also not allowed to use any words that are more than 5 letters long. 
 ```
 Additionally, some responses are entirely empty (IFEval `doc_id=2` or `doc_id=4`, for example), indicating potential failures or truncation.
 
-### Example 2: Instruct Model Improvements
+#### Example 2: Instruct Model Improvements
 The instruct model shows significant improvements in reducing verbosity while maintaining coherence. For example, check the `Meta-Llama-3.1-8B-Instruct` answer for IFEval `doc_id=14` question:
 
 ```
