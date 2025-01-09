@@ -103,7 +103,7 @@ We can compare these three models using our [Comparator tool](https://huggingfac
     
     ![qwen_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/qwen_models.png)
     
-### Analysis of Model Behavior
+#### Analysis of Model Behavior
 Unfortunately, CO₂ costs per task are not available, so it is unclear whether certain tasks have a disproportionately large impact. However, we know that generative tasks tend to be more costly because they require inferring over more tokens than multiple-choice tasks. With this in mind, we assessed the generative capabilities of these three models and compared their outputs on the IFEval benchmark to identify any notable differences:
 
 - Fine-tuning reduces instances of inaccurate or anomalous outputs (e.g., repetitive patterns), resulting in more energy-efficient responses.
