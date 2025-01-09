@@ -74,7 +74,7 @@ Let’s take a close look at high-parameter and compact (> 7B parameters) base m
 
 First, let’s look at three 70B models, comparing the average CO₂ consumption of the base, its official fine-tunes, and community fine-tunes.
 
-- Overall, for `Qwen2.5` and `Llama3.1`, the base models and user fine-tunes tend to exhibit similar CO₂ emissions, but the official fine-tunes consume twice as much energy.
+- Overall, for `Qwen2.5` and `Llama3.1`, the base models and community fine-tunes tend to exhibit similar CO₂ emissions, but the official fine-tunes consume twice as much energy.
 - Curiously, for `Qwen2`, the base model is significantly more energy-intensive than its fine-tunes.
 - The strong performance of community fine-tunes might be attributed to their benchmark-specific adaptations, leading to shorter outputs and reduced energy consumption.
     
