@@ -12,7 +12,7 @@ authors:
 
 # Introduction
 
-Since June 2024, we have evaluated more than 3,000 models on the Open LLM Leaderboard v2, a worldwide ranking of open language models performance. Even though we’re trying to run evaluations without wasting resources (we use the spare cycles of our cluster, in other words the GPUs which are active but waiting between jobs), this still represents quite a big amount of energy spent for model inference!
+Since June 2024, we have evaluated more than 3,000 models on the Open LLM Leaderboard, a worldwide ranking of open language models performance. Even though we’re trying to run evaluations without wasting resources (we use the spare cycles of our cluster, in other words the GPUs which are active but waiting between jobs), this still represents quite a big amount of energy spent for model inference!
 
 In the last year, people have become more and more aware that using large language models (LLMs) to generate text has a significant environmental impact, beyond the already important impact of training. Recent research (see [Towards Greener LLMs](https://arxiv.org/abs/2403.20306) article) highlights the challenges of managing resources efficiently at inference due to dynamic and diverse workloads.
 
