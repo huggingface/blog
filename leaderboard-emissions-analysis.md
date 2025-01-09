@@ -47,11 +47,11 @@ Official models come from high-quality trusted model creators, such as research 
 
 ![official_providers_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/official_providers_models.png)
 
-- As expected, overall, the bigger the model size, the higher the CO₂ cost. However, the increase in performance is not always proportional, leading to diminishing returns.
-    - Models from AbacusAI, Qwen, and AllenAI, around 70B parameters, achieve an average performance score above 40 across multiple evaluation benchmarks.
+- As expected, overall, the bigger the model size, the higher the CO₂ cost. However, the increase in leaderboard score is not always proportional, leading to diminishing returns.
+    - Models from AbacusAI, Qwen, and AllenAI, around 70B parameters, achieve an average leaderboard score above 40 across multiple evaluation benchmarks.
     - On the other hand, the lowest-ranked models in the top-right quadrant are older models: `Qwen-1.5-100B` models, with `Mixtral8x22B` showing the weakest performance.
-    - Overall, MoEs seem to have a relatively poor score-to-emission ratio. Although these models aim to reduce computational overhead by activating only a subset of their parameters for a given task, some exhibit higher-than-expected CO₂ emissions due to extremely long inference times.
-- Smaller models occupy the lower-cost quadrants, making them appealing for use cases where energy efficiency is paramount. Among these, `Qwen-2.5-14B` and `Phi-3-Medium` models seem to have the best score-to-emission ratio.
+    - Overall, MoEs seem to have a relatively poor leaderboard score-to-emission ratio. Although these models aim to reduce computational overhead by activating only a subset of their parameters for a given task, some exhibit higher-than-expected CO₂ emissions due to extremely long inference times.
+- Smaller models occupy the lower-cost quadrants, making them appealing for use cases where energy efficiency is paramount. Among these, `Qwen-2.5-14B` and `Phi-3-Medium` models seem to have the best leaderboard score-to-emission ratio.
 - Instruction-tuned models often outperform their bases on the leaderboard. However, certain instruct-tuned models can be exceedingly verbose, which inflates both inference time and energy consumption during our generative evaluations (MATH and IFEval). Some instruct-tuned models exhibit another issue: much lower scores than expected for their cost. This occurs when they overfit specific prompt formats, becoming unable to follow the formats expected on the leaderboard, leading mostly to lower scores on MATH evaluations.
 
 ## Community Models
