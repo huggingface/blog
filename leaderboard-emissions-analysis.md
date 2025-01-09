@@ -207,7 +207,7 @@ Here is only the end of the answer (the full answer is 5,821 characters long). I
 ## Conclusion
 Fine-tuning large language models like `Qwen2-72B` and `Meta-Llama-3.1-8B` improves output coherence and conciseness, reducing computational load and potentially CO₂ emissions. However, for now, exact emission data for specific benchmarks is not available, limiting detailed comparisons. Despite this, it is evident that fine-tuning enhances efficiency, though the reason for emission reductions remains uncertain.
 
-# Future Questions
+## Open Questions
 
 Several open questions remain, for interested individuals in the community to explore!
 
