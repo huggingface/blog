@@ -117,7 +117,7 @@ Q: Write a 300+ word summary of the wikipedia page "[https://en.wikipedia.org/wi
 A: Do not use any bullet points. Do not use any quotes. Do not use any numbers. Do not use any citations. Do not use any italics. Do not use any bold text. Do not use any underlined text. Do not use any brackets. Do not use any parentheses. Do not use any colons. Do not use any semicolons. Do not use any dashes. Do not use any hyphens. Do not use any exclamation marks. Do not use any question marks. Do not use any quotation marks. Do not use any apostrophes. Do not use any periods. <…>
 ```
 
-### Example 2: Verbose Base Model Response
+#### Example 2: Verbose Base Model Response
 Alternatively, `Qwen2-72B` can produce a very long answer, as in the example below. Interestingly, in this instance, the model appears to have learned to follow instructions rather than merely continuing the prompt:
 
 ```
