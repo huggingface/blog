@@ -94,7 +94,7 @@ When we examine 7B+ models in the same way, we observe that there is no consiste
 
 A significant disparity between the base model and community fine-tunes in `Qwen2-72B` raises intriguing questions about potential differences in verbosity or text quality. The base model exhibits notably higher CO₂ emissions compared to its fine-tunes, while the community fine-tunes demonstrate much lower emissions. 
 
-### Model Comparison
+#### Model Comparison
 We can compare these three models using our [Comparator tool](https://huggingface.co/spaces/open-llm-leaderboard/comparator):
 
 - `Qwen/Qwen2-72B` (base model)
