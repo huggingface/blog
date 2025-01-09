@@ -81,7 +81,7 @@ First, let’s look at three 70B models, comparing the average CO₂ consumption
     ![70b_models.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboard-emissions-analysis/70b_models.png)
     
 
-## Compact Language Models
+### Compact Language Models
 
 When we examine 7B+ models in the same way, we observe that there is no consistent trend.
 
