@@ -118,7 +118,7 @@ A: Do not use any bullet points. Do not use any quotes. Do not use any numbers. 
 ```
 
 #### Example 2: Verbose Base Model Response
-Alternatively, `Qwen2-72B` can produce a very long answer, as in the example below. Interestingly, in this instance, the model appears to have learned to follow instructions rather than merely continuing the prompt:
+In other cases, `Qwen2-72B` can produce a very long answer, as in the example below. Interestingly, in this instance, the model appears to have learned to follow instructions rather than merely continuing the prompt:
 
 ```
 Q: Given the sentence "Two young boys with toy guns and horns." can you ask a question? Please ensure that your response is in English, and in all lowercase letters. No capital letters are allowed.
