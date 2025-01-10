@@ -5283,3 +5283,16 @@
     - leaderboard
     - energy_efficiency
     - evaluation
+
+- local: vdr-2b-multilingual
+  title: "Visual Document Retrieval Goes Multilingual"
+  author: marco
+  guest: true
+  thumbnail: /blog/assets/vdr-2b-multilingual/thumbnail.png
+  date: January 10, 2025
+  tags:
+    - multimodal
+    - llamaindex
+    - open-source-collab
+    - nlp
+    - cv
