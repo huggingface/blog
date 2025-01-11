@@ -87,7 +87,7 @@ embeddings = model.encode("image.png")
 ## Training Dataset
 Training good single-vector models for visual document retrieval requires high-quality data, but the current multimodal off-the-shelf datasets are very scarce and not multilingual.
 
-So, we've spent a lot of time building it from scratch. The raw dataset consists of 500k multilingual query-image samples, collected and generated from scratch using public internet PDFs. The queries associated with each image are synthetic and generated using VLMs. For comparison, our dataset has 10x more samples than the prior largest open source synthetic dataset for multimodal visual document retrieval, i.e. the scrapped documents generated for the [ColPali training dataset](https://huggingface.co/datasets/vidore/colpali_train_set).
+So, we've spent a lot of time building it from scratch. The raw dataset consists of 500k multilingual query-image samples, collected and generated from scratch using public internet PDFs. The queries associated with each image are synthetic and generated using VLMs. For comparison, our dataset has 10x more samples than the prior largest open source synthetic dataset for multimodal visual document retrieval, i.e. the scraped documents generated for the [ColPali training dataset](https://huggingface.co/datasets/vidore/colpali_train_set).
 
 ![image/png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/vdr-2b-multilingual/datapipeline.png)
 
@@ -280,7 +280,7 @@ To test the model retrieval capabilities with different vector dimensions, evalu
 ## Conclusions and Next Steps
 We believe that [`vdr-2b-multi-v1`](https://huggingface.co/llamaindex/vdr-2b-multi-v1) and [`vdr-2b-v1`](https://huggingface.co/llamaindex/vdr-2b-v1) will prove useful to many users. 
  
-Our multilingual model is the first of it's kind, it significantly improves performance in multilingual and cross-lingual scenarios, and thanks to MRL and Binary Quantization, retrieval is more efficient and faster than ever. We believe this will unlock new use-cases and opportunities, especially in linguistically fragmented continents such as Europe.
+Our multilingual model is the first of its kind, it significantly improves performance in multilingual and cross-lingual scenarios, and thanks to MRL and Binary Quantization, retrieval is more efficient and faster than ever. We believe this will unlock new use-cases and opportunities, especially in linguistically fragmented continents such as Europe.
 
 Its English-only twin represents a considerable improvement over the base model, now being able to embed documents 3x faster, with much less VRAM and with the same (or better) retrieval quality.
 
