@@ -239,7 +239,7 @@ Not directly, as the number of activations per token depends on the model archit
 
 This linear relationship allows us to estimate activations using the heuristic:
 
-\\( A = 4.6894 \times 10^{4} \times N + 1.8494 \times 10^{6} \\)
+\\( A = 4.6894 \times 10^{-4} \times N + 1.8494 \times 10^{6} \\)
 
 Though this is an approximation, it provides a practical way to estimate activation memory without needing to perform complex calculations for each model.
 
@@ -267,7 +267,7 @@ with the following components:
 - **Optimizer State**: \\( 2 \times N \times P \\)
 - **Gradients**: \\( N \times P \\)
 - **Optimizer Intermediates**: \\( N \times P \\)
-- **Activations**: \\( A \times B \times L \times P \\), estimated using the heuristic \\( A = 4.6894 \times 10^{4} \times N + 1.8494 \times 10^{6} \\)
+- **Activations**: \\( A \times B \times L \times P \\), estimated using the heuristic \\( A = 4.6894 \times 10^{-4} \times N + 1.8494 \times 10^{6} \\)
 
 To make this calculation easier, I created a small tool for you:
 
