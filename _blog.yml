@@ -5299,9 +5299,7 @@
 
 - local: tgi-multi-backend
   title: Introducing multi-backend (TRT-LLM, vLLM) support for Text-Generation-Inference
-  author:
-    - mfuntowicz
-    - hlarcher
+  author: mfuntowicz
   thumbnail: TODO
   date: January 15, 2025
   tags:
