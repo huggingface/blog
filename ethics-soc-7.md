@@ -3,7 +3,7 @@ title: "AI Agents Are Here. What Now?"
 thumbnail: /blog/assets/190_ethics-soc-7/thumbnail.png
 authors:
   - user: meg
-  - user: avijit
+  - user: evijit
   - user: sasha
   - user: giadap
 ---
