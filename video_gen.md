@@ -144,7 +144,9 @@ We used the same settings as above to obtain these numbers. Quantization was per
 
 ## Video Generation with Diffusers
 
-[hunyuan-output.mp4](State%20of%20open%20video%20generation%20models%20in%20Diffusers%201611384ebcac80898876c93bcfed670e/hunyuan-output.mp4)
+<div align="center">
+<iframe src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video_gen/hunyuan-output.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 There are three broad categories of generation possible when working with video models:
 
