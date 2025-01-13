@@ -28,7 +28,7 @@ Long story short: Rust allows us to improve the overall robustness of the servin
 	Speaking about Rust… Surprise, that's the TGI starting point to integrate a new backend \- 🤗
 
 Earlier this year, the TGI team worked on exposing the foundational knobs to disentangle how the actual HTTP server and the scheduler were coupled together. 
-This work introduced the new Rust  `trait Backend`, to interface existing, original inference solution and the one to come.
+This work introduced the new Rust `trait Backend` to interface existing, original inference solution and the one to come.
 
 Having this new `Backend` interface (or trait in Rusty terms) paves the way for modularity and makes it possible to actually route the incoming requests towards different modeling and execution engines.
 
