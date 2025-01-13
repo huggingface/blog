@@ -8,9 +8,11 @@ authors:
   - user: giadap
 ---
 
+# AI Agents Are Here. What Now?
+
 ![Huggy the Pooh](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/190_ethics-soc-7/huggy_the_pooh.png)
 
-# Introduction
+## Introduction
 The sudden, rapid advancement of LLM capabilities – such as writing fluent sentences and achieving increasingly high scores on benchmarks – has led AI developers and businesses alike to look towards what comes next: What game-changing technology is just on the horizon? One technology very recently taking off is “AI agents”, systems that can take actions in the digital world aligned with a deployer’s goals. Most of today’s AI agents are built by incorporating large language models (LLMs) into larger systems that can perform multiple functions. A fundamental idea underlying this new wave of technology is that computer programs no longer need to function as human-controlled tools, confined to specialized tasks: They can now combine multiple tasks without human input. 
 
 This transition marks a fundamental shift to systems capable of creating context-specific plans in non-deterministic environments. Many modern AI agents do not merely perform pre-defined actions, but are designed to analyze novel situations, develop relevant goals, and take previously undefined actions to achieve objectives. 
@@ -19,9 +21,9 @@ In this piece, we briefly overview what AI agents are and detail the ethical val
 
 Our analysis reveals that risks to people increase with a system’s level of autonomy: The more control a user cedes, the more risks arise from the system. Particularly concerning are risks for the **safety** of individuals that arise from the same benefits that motivate AI agent development, such as freeing developers from having to predict all actions a system may take. Further compounding the issue, some safety harms open the door for other types of harm – such as harms of privacy and security – and inappropriate trust in unsafe systems enables a snowball effect of yet further harms. As such, we recommend that fully autonomous AI agents are not developed. For example, AI agents that can write and execute their own code, beyond constrained code options controlled by the developer, will be endowed with the ability to override all human control. In contrast, semi-autonomous AI agents may have benefits that outweigh risks, depending on the level of autonomy, the tasks available to the system, and the nature of individuals’ control over it. We now turn to these topics in-depth.
 
-# What is an AI agent?
+## What is an AI agent?
 
-## Overview
+### Overview
 There is no clear consensus on what an “AI agent” is, but a commonality across recently introduced AI agents is that they are “agentic”, that is, they act with some level of **autonomy**: given the specification of a goal, they can decompose it into subtasks and execute each without direct human intervention. For example, an ideal AI agent could respond to a high-level request such as “help me write better blogposts” by independently breaking this task down into retrieving writing on the web that is similar to your previous blog topics; creating documents with outlines for new blog posts; and providing initial writing within each. Recent work on AI agents has made possible software with a broader range of functionality and more flexibility in how it can be used than in the past, with recent systems deployed for everything from organizing meetings ([example1](https://www.lindy.ai/template-categories/meetings), [example2](https://zapier.com/agents/templates/meeting-prep-assistant), [example3]( https://www.ninjatech.ai/product/ai-scheduling-agent), [example4](https://attri.ai/ai-agents/scheduling-agent)) to creating personalized social media posts ([example]( https://www.hubspot.com/products/marketing/social-media-ai-agent)) without explicit instructions on how to do so.
 
 All recently introduced AI agents we’ve surveyed for this newsletter are built on machine learning models, and most specifically use **large language models** (LLMs) to drive their actions, which is a new, novel approach for computer software. Aside from being built on machine learning, today’s AI agents share similarities with those in the past, and in some cases realize [previous theoretical ideas of what agents might be like](https://core.ac.uk/download/pdf/1498750.pdf): acting with autonomy, demonstrating (perceived) social ability, and appropriately balancing reactive and proactive actions. 
@@ -43,7 +45,7 @@ From an ethics perspective, it is also useful to understand the continuum of aut
 
 Throughout this piece, we use some anthropomorphising language to describe AI agents, consistent with the language that is currently used to describe them. [As was also noted in historic scholarship](https://core.ac.uk/download/pdf/1498750.pdf), describing AI agents using mentalistic language ordinarily applied to humans – such as having knowledge, beliefs, and intentions – can be an issue for appropriately informing users about system abilities. For better or worse, such language serves as an abstraction tool to gloss over more precise details of the technology. Understanding this is critical when grappling with the implications of what these systems are and the role they may play in peoples’ lives: The use of mentalistic language describing AI agents does not entail that these systems have a mind. 
 
-## The Spectra of AI Agents
+### The Spectra of AI Agents
 AI agents vary on a number of interrelated dimensions:
 - **Autonomy:** Recent “agents” can take at least one step without user input. The term “agent” is currently used to describe everything from single-step prompt-and-response systems ([citation](https://blogs.microsoft.com/blog/2024/10/21/new-autonomous-agents-scale-your-team-like-never-before/)) to multi-step customer support systems ([example](https://www.lindy.ai/solutions/customer-support)).
 - **Proactivity:** Related to autonomy is proactivity, which refers to the amount of goal-directed behavior that a system can take without a user directly specifying the goal ([citation](https://core.ac.uk/download/pdf/1498750.pdf)). An example of a particularly “proactive” AI agent is a system that monitors your refrigerator to determine what food you are running out of, and then purchases what you need for you, without your knowledge. [Smart thermostats](https://en.wikipedia.org/wiki/Smart_thermostat) are proactive AI agents that are being increasingly adopted in peoples’ homes, automatically adjusting temperature based on changes in the environment and patterns that they learn about their users’ behavior ([example](https://www.ecobee.com/en-us/smart-thermostats/)).
@@ -61,82 +63,82 @@ AI agents vary on a number of interrelated dimensions:
 - **Reactivity:** This characteristic refers to how long it takes an AI agent to complete its action sequence: Mere moments, or a much longer span of time. A forerunner to this effect can be seen with modern chatbots. For example, ChatGPT responds in mere milliseconds, while Qwen QwQ takes several minutes, iterating through different steps labelled as “Reasoning”. 
 - **Number:** Systems can be single-agent or multi-agent, meeting needs of users by working together, in sequence, or in parallel.
 
-# Risks, Benefits, and Uses: A Values-Based Analysis
+## Risks, Benefits, and Uses: A Values-Based Analysis
 To examine AI agents through an ethical lens, we break down their risks and benefits according to the different values espoused in recent AI agent research and marketing. These are not exhaustive, and are in addition to the risks, harms, and benefits that have been documented for the technology that AI agents are based on – [such as LLMs](https://dl.acm.org/doi/10.1145/3442188.3445922). We intend this section to contribute to the understanding of how to develop AI agents, providing information on the benefits and risks in different development priorities. These values might also inform evaluation protocols (such as red-teaming).
 
-## Value: Accuracy 
+### Value: Accuracy 
 - 🙂 **Potential Benefits:** By grounding in trusted data, agents can be more accurate than when operating from pure model output alone. This may be done via rule-based approaches or machine learning approaches such as RAG, and time is ripe for novel contributions for ensuring accuracy.
 - 😟 **Risks:** The backbone of modern AI agents is generative AI, which does not distinguish between real and unreal, fact and fiction. For example, large language models are designed to construct text that looks like fluent language – meaning they often produce content that sounds right, but is very wrong. Applied within an AI agent, LLM output could lead to incorrect social media posts, investment decisions, meeting summaries, etc.
 
-## Value: Assistiveness
+### Value: Assistiveness
 - 🙂 **Potential Benefits:** Agents are ideally assistive for user needs, supplementing (not supplanting) people. Ideally, they can help increase a user’s [speed](#value-speed) in completing tasks and their [efficiency](#value-efficiency) in finishing multiple tasks simultaneously. Assistive agents may also augment capabilities to minimize negative outcomes, such as an AI agent that helps a blind user navigate busy staircases. AI agents that are well-developed to be assistive could offer their users more freedom and opportunity; help to improve their users’ positive impact within their organizations; or help users to increase their reach on public platforms.
 - 😟 **Risks:** When agents replace people – such as when AI agents are used instead of people at work – this creates job loss and economic impacts that drives a further divide between the people creating technology and the people who have provided data for the technology (often without consent). Further, assistiveness that is poorly designed could lead to harms from overreliance or inappropriate [trust](#value-trust).
 
-## Value: Consistency
+### Value: Consistency
 One idea discussed for AI agents is that they can help with consistency, as they can be less affected than people by their surrounding environment. This can be good or bad. We are not aware of rigorous work on the nature of AI agent consistency, although related work has shown that the LLMs many AI agents are based on is highly inconsistent ([citation1](https://www.medrxiv.org/content/10.1101/2023.08.03.23293401v2), [citation2](https://arxiv.org/abs/2405.01724)). Measuring AI agent consistency will require the development of new evaluation protocols, especially in sensitive domains
 - 🙂 **Potential Benefits:** AI agents are not “affected” by the world in a way that humans are, with inconsistencies caused by mood, hunger, sleep level, or biases in the perception of people (although AI agents perpetuate biases based on the human content they were trained on). Multiple companies have highlighted consistency as a key benefit of AI agents ([example1](https://www.salesforce.com/agentforce/what-are-ai-agents), [example2](https://www.oracle.com/artificial-intelligence/ai-agents/)). 
 - 😟 **Risks:** The generative component of many AI agents introduces inherent variability in outcomes, even across similar situations. This might affect [speed](#value-speed) and [efficiency](#value-efficiency), as people must uncover and address an AI agent’s inappropriate inconsistencies. Inconsistencies that go unnoticed may create [safety](#value-safety) issues. Consistency may also not always be desirable, as it can come in tension with [equity](#value-equity). Maintaining consistency across different deployments and chains of actions will likely require an AI agent to record and compare its different interactions – which brings with it risks of surveillance and [privacy](#value-privacy).
 
-## Value: Efficiency
+### Value: Efficiency
 - 🙂 **Potential Benefits:** A selling point of AI agents is that they can help people to be more efficient – e.g., they’ll organize your documents for you, so you can focus on spending more time with your family or pursuing work you find rewarding.
 - 😟 **Risks:** A potential drawback is that they may make people less efficient, as trying to identify and fix errors that agents introduce – which may be a complex cascade of issues due to agents’ ability to take multiple sequential steps – can be time-consuming, difficult, and stressful.
 
-## Value: Equity
+### Value: Equity
 AI agents may affect how equitable, fair, and inclusive situations are.
 - 🙂 **Potential Benefits:** AI agents can potentially help “level the playing field”. For example, a meeting assistant might display how much time each person has had to speak. This could be used to promote more equal participation or highlight imbalances across gender or location ([example](https://equaltime.io)).
 - 😟 **Risks:** The machine learned models underlying modern AI agents are trained on human data; humans data can be inequitable, unfair, exclusionary and worse. Inequitable system outcomes may also emerge due to sample bias in data collection (for example, overrepresenting some countries).
 
-## Value: Humanlikeness
+### Value: Humanlikeness
 - 🙂 **Potential Benefits:** Systems capable of generating human-like behavior offer the opportunity to run simulations on how different subpopulations might respond to different stimuli. This can be particularly useful in situations where direct human experimentation might cause harm, or when a large volume of simulations help to better solve the experimental question at hand. For example, synthesizing human behavior could be used to predict dating compatibility, or forecast economic changes and political shifts. Another potential benefit currently being researched is that humanlikeness can be useful for ease of communication and even companionship ((example)[https://dl.acm.org/doi/abs/10.1145/3213050]).
 - 😟 **Risks:** This benefit can be a double-edged sword: Humanlikeness can lead users to **anthropomorphise** the system, which may have negative psychological effects such as overreliance ([citation](https://www.vox.com/future-perfect/367188/love-addicted-ai-voice-human-gpt4-emotion)), [inappropriate trust](#value-trust), dependence, and emotional entanglement, leading to anti-social behavior or self-harm ([example](https://www.npr.org/2024/12/10/nx-s1-5222574/kids-character-ai-lawsuit)). There is concern that AI agent social interaction may contribute to loneliness, but see [citation1](https://www.sciencedirect.com/science/article/abs/pii/S0747563203000402), [citation2](https://www.sciencedirect.com/science/article/pii/S245195882100018X) for nuances that may be gleaned from social media use). The phenomenon of uncanny valley adds another layer of complexity - as agents become more humanlike but fall short of perfect human simulation, they can trigger feelings of unease, revulsion, or cognitive dissonance in users.
 
-## Value: Interoperability
+### Value: Interoperability
 - 🙂 **Potential Benefits:** Systems that can operate with others can provide more flexibility and options in what an AI agent can do. 
 - 😟 **Risks:** However, this can compromise [safety](#value-safety) and [security](#value-security), as the more an agent is able to affect and be affected by systems outside of its more limited testing environment brings with it increased risk of malicious code and unintended problematic actions. For example, an agent that is connected to a bank account so that it can easily purchase items on behalf of someone would be in a position to drain the bank account. Because of this concern, tech companies have refrained from releasing AI agents that can make purchases autonomously ([citation](https://www.wired.com/story/amazon-ai-agents-shopping-guides-rufus/)).
 
-## Value: Privacy
+### Value: Privacy
 - 🙂 **Potential Benefits:** AI agents may offer some privacy in keeping transactions and tasks wholly confidential, aside from what is monitorable by the AI agent provider. 
 - 😟 **Risks:** For agents to work according to the user's expectations, the user may have to provide detailed personal information, such as where they are going, who they are meeting with, and what they are doing. Further, for the agent to be able to act on behalf of the user in a personalized way, it may have access to applications and information sources that can be used to isolate further privacy information (for example, from contact lists, calendars, etc.). Users can easily give up control of their data for [efficiency](#value-efficiency) (and even more if there is [trust](#value-trust) in the agent); if there is a privacy breach, the interconnectivity of different content brought by the AI agent can make things worse. For example, an AI agent with access to phone conversations and social media posting could share highly intimate information to the world. 
 
-## Value: Relevance 
+### Value: Relevance 
 - 🙂 **Potential Benefits:** One motivation for creating systems that are personalized to individual users is to help ensure that their output is particularly relevant and coherent for the users. 
 - 😟 **Risks:** However, this personalization can amplify existing biases and create new ones: As systems adapt to individual users, they risk reinforcing and deepening existing prejudices, creating confirmation bias through selective information retrieval, and establishing echo-chambers that reify problematic viewpoints. The very mechanisms that make agents more relevant to users - their ability to learn from and adapt to user preferences - can inadvertently perpetuate and strengthen societal biases, making the challenge of balancing personalization with responsible AI development particularly difficult.
 
-## Value: Safety
+### Value: Safety
 - 🙂 **Potential Benefits:** Robotic AI agents may help save people from bodily harm, such as agents that are capable of diffusing bombs, removing poisons, or operating in manufacturing or industrial settings that are hazardous environments for humans.
 - 😟 **Risks:** The unpredictable nature of agent actions means that seemingly safe individual operations could combine in potentially harmful ways, creating new risks that are difficult to prevent. (This is similar to [Instrumental Convergence and the paperclip maximizer problem](https://en.wikipedia.org/w/index.php?title=Instrumental_convergence&section=3#Paperclip_maximizer).) It can also be unclear whether an AI agent might design a process that overrides a given guardrail, or if the way a guardrail is specified inadvertently creates further problems. Therefore, the drive to make agents more capable and efficient - through broader system access, more sophisticated action chains, and reduced human oversight - might conflict with safety considerations. Further, access to broad interfaces (for example, GUIs, as discussed in [“Action Surfaces” above](#the-spectra-of-ai-agents)) and [humanlike](#value-humanlikeness) behavior gives agents the ability to perform actions similar to a human user with their same level of control without setting off any warning systems – such as manipulating or deleting files, impersonating users on social media, or using stored credit card information to make purchases for whatever ads pop up. Still further safety risks emerge from AI agents’ ability to interact with multiple systems and the by-design lack of human oversight for each action they may take. AI agents may collectively create unsafe outcomes.
 
-## Value: Scientific Progress
+### Value: Scientific Progress
 There is currently debate about whether AI agents are a fundamental step forward in AI development at all, or a “rebranding” of technology that we have had for years – deep learning, heuristics, and pipeline systems. Re-introducing the term “agent” as an umbrella term for modern AI systems that share common traits of producing operations with minimal user input is a useful way to succinctly refer to recent AI applications. However, the term carries with it connotations of freedom and agency that suggest a more fundamental change in AI technology has occurred.
 
 All of the listed values in this section are relevant for scientific progress; most of them are provided with details of potential benefits as well as risks.
 
-## Value: Security
+### Value: Security
 - 🙂 **Potential Benefits:** Potential benefits are similar to those for [Privacy](#value-privacy).
 - 😟 **Risks:** AI agents present serious security challenges due to their handling of often sensitive data (customer and user information) combined with their [safety](#value-safety) risks, such as ability to interact with multiple systems and the by-design lack of human oversight for each action they may take. They might share confidential information, even when their goals were set by users acting in good faith. Malicious actors could also potentially hijack or manipulate agents to gain unauthorized access to connected systems, steal sensitive information, or conduct automated attacks at scale. For instance, an agent with access to email systems could be exploited to share confidential data, or an agent integrated with home automation could be compromised to breach physical security. 
 
-## Value: Speed
+### Value: Speed
 - On speed for users:
   - 🙂 **Potential Benefits:** AI agents may help users to get more tasks done more quickly, acting as an additional helping hand for tasks that must be done. 
   - 😟 **Risks:** Yet they may also cause more work due to issues in their actions (see [Efficiency](#value-efficiency)).
 - On speed of systems:
   - As with most systems, getting a result quickly can come at the expense of other desirable properties (such as [accuracy](#value-accuracy), quality, low cost, etc.). If history sheds light on what will happen next, it may be the case in the future that slower systems will provide better results overall.
     
-## Value: Sustainability​​
+### Value: Sustainability​​
 - 🙂 **Potential Benefits:** AI agents may theoretically help address issues relevant to climate change, such as forecasting the growth of wildfires or flooding in urban areas alongside the analysis of traffic patterns, then suggesting optimal routes and methods of transportation in real-time. A future self-driving AI agent may make such routing decisions directly, and could coordinate with other systems for relevant updates.
 - 😟 **Risks:** Currently, the machine learning models AI agents are based on bring with them negative environmental impacts, such as carbon emissions ((citation)[https://dl.acm.org/doi/pdf/10.1145/3630106.3658542]) and the usage of drinking water ((citation)[https://www.theatlantic.com/technology/archive/2024/03/ai-water-climate-microsoft/677602/]). Bigger is not always better ([example)(https://huggingface.co/blog/smollm)), and efficient hardware and low-carbon data centers can help reduce this.
 
 
 
-## Value: Trust
+### Value: Trust
 - 🙂 **Potential Benefits:** We are not aware of any benefits of AI agents relevant to trust. Systems should be constructed to be worthy of our trust, meaning that they are shown to be safe, secure, reliable, etc. 
 - 😟 **Risks:** Inappropriate trust leads people to be manipulated, and other risks detailed for [Efficiency](#value-efficiency), [Humanlikeness](#value-humanlikeness), and [Truthfulness](#value-truthfulness). A further risk stems from LLMs’ tendency to create false information (called “hallucinations” or “confabulations”): A system that is right the majority of the time is more likely to be inappropriately trusted when it’s wrong.
 
-## Value: Truthfulness
+### Value: Truthfulness
 - 🙂 **Potential Benefits:** We are not aware of any benefits of AI agents relevant to truthfulness.
 - 😟 **Risks:** The deep learning technology AI agents are based off of is well-known to be a source of false information ([citation](https://www.sciencedirect.com/science/article/abs/pii/S1364661324002213])), which can take shape in forms such as as deepfakes or misinformation. AI agents can be used to further entrench such false information, such as by gathering up-to-date information and posting on several platforms. This means that AI agents can be used to provide a false sense of what’s true and what’s false, manipulate people’s beliefs, and widen the impact of non-consensual intimate content. False information propagated by AI agents, personalized for specific people, can also be used to scam them.
 
-# AI Agents at HF
+## AI Agents at HF
 At Hugging Face, we have begun introducing the ability for people to build and use AI agents in a number of ways. This includes:
 
 - Our recent release of [smolagents](https://huggingface.co/docs/smolagents/index), which provides tools, tutorials, guided tours, and conceptual guides;
@@ -152,7 +154,7 @@ At Hugging Face, we have begun introducing the ability for people to build and u
 - Our [gradio code-writing agent](https://www.gradio.app/playground), which allows you to try out code ideas in real-time in a coding playground.
 - Jupyter Agent, [an agent to write and execute code inside a Jupyter notebook](https://huggingface.co/spaces/data-agents/jupyter-agent).
 
-# Recommendations & What Comes Next
+## Recommendations & What Comes Next
 The current state of the art of AI “agents” point forward in several clear directions:
 1. Rigorous evaluation protocols for agents must be designed. An automated benchmark may be informed by the [dimensions listed above](#the-spectra-of-ai-agents). A sociotechnical evaluation may be informed by the [values](#risks-benefits-and-uses-a-values-based-analysis).
 2. Effects of AI agents must be better understood. Individual, organizational, economic, and environmental effects of AI agents ought to be tracked and analyzed in order to inform how they should be further developed (or not). This should include analyses of the effects of AI agents on well-being, social cohesion, job opportunity, access to resources, and contributions to climate change.
