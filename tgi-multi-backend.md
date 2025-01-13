@@ -36,7 +36,7 @@ Having the new `Backend` interface (or trait in Rusty terms) paves the way for m
 
 The new multi-backend capabilities of TGI open up many impactful roadmap opportunities. As we look ahead to 2025 we are excited to share some of the TGI developments we are most excited about:
 
-* **NVIDIA TensorRT-LLM backend**: We are collaborating with the NVIDIA TensorRT-LLM team to bring all the astonishing NVIDIA GPUs \+ TensorRT performances to the community. This work will be covered more extensively in an upcoming blog post. It closely relates to our mission to empower AI builders with the open-source availability of both `optimum-nvidia` quantize/build/evaluate TensorRT compatible artifacts alongside TGI+TRTLLM to easily deploy, execute, and scale deployments.
+* **NVIDIA TensorRT-LLM backend**: We are collaborating with the NVIDIA TensorRT-LLM team to bring all the optimized NVIDIA GPUs \+ TensorRT performances to the community. This work will be covered more extensively in an upcoming blog post. It closely relates to our mission to empower AI builders with the open-source availability of both `optimum-nvidia` quantize/build/evaluate TensorRT compatible artifacts alongside TGI+TRTLLM to easily deploy, execute, and scale deployments on NVIDIA GPUs.
 * **Llama.cpp backend**: we are collaborating with the llama.cpp team to extend the support for server production use cases. The llama.cpp backend for TGI will provide a strong CPU-based option for anyone willing to deploy on Intel, AMD, or ARM CPU servers.
 * **vLLM backend**: we have been contributing to the vLLM project and are looking to integrate vLLM as a TGI backend in Q1 '25.
 * **Neuron backend**: we are working with the Neuron teams at AWS to enable Inferentia 2 and Trainium 2 support natively in TGI
