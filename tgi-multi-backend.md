@@ -30,7 +30,7 @@ Leveraging Rust’s strong type system for the HTTP layer and the scheduler make
 Earlier this year, the TGI team worked on exposing the foundational knobs to disentangle how the actual HTTP server and the scheduler were coupled together. 
 This work introduced the new Rust  `trait Backend`, to interface existing, original inference solution and the one to come.
 
-Having the new `Backend` interface (or trait in Rusty terms) paves the way for modularity and makes it possible to actually route the incoming requests towards different modeling and execution engines.
+Having this new `Backend` interface (or trait in Rusty terms) paves the way for modularity and makes it possible to actually route the incoming requests towards different modeling and execution engines.
 
 ## Looking into 2025
 
