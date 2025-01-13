@@ -5296,3 +5296,13 @@
     - open-source-collab
     - nlp
     - cv
+
+- local: video_gen
+  title: "State of open video generation models in Diffusers"
+  author: sayakpaul
+  thumbnail: /blog/assets/video_gen/thumbnail.png
+  date: Jan 23, 2025
+  tags:
+    - diffusers
+    - guide
+    - video_gen
