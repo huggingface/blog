@@ -8,6 +8,7 @@ authors:
   - user: giadap
 ---
 
+![Huggy the Pooh](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/190_ethics-soc-7/huggy_the_pooh.png)
 
 # Introduction
 The sudden, rapid advancement of LLM capabilities – such as writing fluent sentences and achieving increasingly high scores on benchmarks – has led AI developers and businesses alike to look towards what comes next: What game-changing technology is just on the horizon? One technology very recently taking off is “AI agents”, systems that can take actions in the digital world aligned with a deployer’s goals. Most of today’s AI agents are built by incorporating large language models (LLMs) into larger systems that can perform multiple functions. A fundamental idea underlying this new wave of technology is that computer programs no longer need to function as human-controlled tools, confined to specialized tasks: They can now combine multiple tasks without human input. 
