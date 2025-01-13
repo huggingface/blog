@@ -23,7 +23,7 @@ To address this, we are excited to introduce the concept of TGI backends. This n
 
 	TGI is made of multiple components, primarily written in Rust and  Python. Rust powers the HTTP and scheduling layers, and Python remains the go-to for the modeling.
 
-Leveraging Rust’s strong type system for the HTTP layer and the scheduler makes it possible to avoid memory issues while maximizing the concurrency, bypassing Global Interpreter Lock (GIL) in Python-based environments. Long story short: Rust allowed us to improve the overall robustness of the serving layer with static analysis, compiler-based memory safety enforcement, along with the ability to scale more easily to multiple cores with the same safety guarantee.
+Long story short: Rust allows us to improve the overall robustness of the serving layer with static analysis, compiler-based memory safety enforcement, alongside the ability to scale to multiple cores with the same safety guarantee more easily. Leveraging Rust’s strong type system for the HTTP layer and scheduler makes it possible to avoid memory issues while maximizing the concurrency, bypassing Global Interpreter Lock (GIL) in Python-based environments. 
 
 	Speaking about Rust… Surprise, that's the TGI starting point to integrate a new backend \- 🤗
 
