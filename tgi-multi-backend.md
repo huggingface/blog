@@ -42,7 +42,7 @@ The new multi-backend capabilities of TGI open up many impactful roadmap opportu
 * **Neuron backend**: we are working with the Neuron teams at AWS to enable Inferentia 2 and Trainium 2 support natively in TGI
 
 We are confident TGI Backends will help simplify the deployments of LLMs, bringing versatility and performance to all TGI users.
-You will soon be able to benefit from it directly within [Inference Endpoints](https://huggingface.co/inference-endpoints/), our managed deployment service, as we integrate TGI Backends into the product. As we add support for new TGI Backends, customers will be able to easily deploy models on various hardware with top-tier performance and reliability out of the box.
+You'll soon be able to use TGI Backends directly within [Inference Endpoints](https://huggingface.co/inference-endpoints/). Customers will be able to easily deploy models with TGI Backends on various hardware with top-tier performance and reliability out of the box.
 
 Stay tuned for the next blog post where we'll dig into technical details and performance benchmarks of upcoming backends\!
 
