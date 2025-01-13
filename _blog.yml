@@ -5296,3 +5296,17 @@
     - open-source-collab
     - nlp
     - cv
+
+- local: tgi-multi-backend
+  title: Introducing multi-backend (TRT-LLM, vLLM) support for Text-Generation-Inference
+  author:
+    - mfuntowicz
+    - hlarcher
+  thumbnail: TODO
+  date: January 15, 2025
+  tags:
+    - tgi
+    - backends
+    - vllm
+    - tensorrt-llm
+    - community

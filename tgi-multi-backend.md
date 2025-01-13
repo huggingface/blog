@@ -1,13 +1,12 @@
 ---
-title: "Text-Generation-Inference empowering all the AI Builders Community" 
+title: "Introducing multi-backend (TRT-LLM, vLLM) support for Text-Generation-Inference" 
 thumbnail: TODO
 authors:
 - user: mfuntowicz
 - user: hlarcher
 ---
 
-# Text-Generation-Inference empowering all the AI Builders Community
-
+# Introducing multi-backend (TRT-LLM, vLLM) support for Text-Generation-Inference
 ## Introducing multi-backends support for TGI
 
 ## Introduction
@@ -15,7 +14,7 @@ authors:
 Since its initial release in 2022, Text-Generation-Inference (TGI) has provided Hugging Face and the AI Community with a performance-focused solution to easily deploy large-language models (LLMs). TGI initially offered an almost no-code solution to load models from the Hugging Face Hub and deploy them in production on NVIDIA GPUs. Over time, support expanded to include AMD Instinct GPUs, Intel GPUs, AWS Trainium/Inferentia, Google TPU, and Intel Gaudi.  
 Over the years, multiple inferencing solutions have emerged, including vLLM, SGLang, llama.cpp, TensorRT-LLM, etc., splitting up the overall ecosystem. Different models, hardware, and use cases may require a specific backend to achieve optimal performance. However, configuring each backend correctly, managing licenses, and integrating them into existing infrastructure can be challenging for users.
 
-To address this, we are excited to introduce the concept of TGI Backends. This new feature gives the flexibility to integrate with any of the solutions above through a single unified frontend layer: TGI. This change makes it easier for the community to get the best performance for their production workloads, switching backends according to their modeling, hardware, and performance requirements. 
+To address this, we are excited to introduce the concept of TGI Backends. This new architecture gives the flexibility to integrate with any of the solutions above through TGI as a single unified frontend layer. This change makes it easier for the community to get the best performance for their production workloads, switching backends according to their modeling, hardware, and performance requirements. 
 
 The Hugging Face team is excited to contribute to and collaborate with the teams that build vLLM, llama.cpp, TensorRT-LLM, and the teams at AWS, Google, NVIDIA, AMD and Intel to offer a robust and consistent user experience for TGI users whichever backend and hardware they want to use.
 
