@@ -12,7 +12,7 @@ authors:
 
 ## Introduction
 
-Since its inception in 2022, text-generation-inference (TGI) has provided Hugging Face and the AI Community with a performance-focused tool to easily deploy large-language models (LLMs). TGI initially offered an almost no-code solution to load models from the Hugging Face Hub and deploy them in production on NVIDIA GPUs. Over time, support expanded to include AMD Instinct, Intel GPUs, AWS Trainium/Inferentia, Google TPU, and Intel Gaudi.  
+Since its initial release in 2022, Text-Generation-Inference (TGI) has provided Hugging Face and the AI Community with a performance-focused solution to easily deploy large-language models (LLMs). TGI initially offered an almost no-code solution to load models from the Hugging Face Hub and deploy them in production on NVIDIA GPUs. Over time, support expanded to include AMD Instinct GPUs, Intel GPUs, AWS Trainium/Inferentia, Google TPU, and Intel Gaudi.  
 Over the years, multiple inferencing solutions have emerged, including vLLM, SGLang, llama.cpp, TensorRT-LLM, etc., splitting up the overall ecosystem. Different models, hardware, and scenarios often require distinct backends to achieve optimal performance. However, configuring these backends correctly, managing licenses, and integrating them into existing infrastructure can be challenging for users.
 
 To address this, we are excited to introduce the concept of TGI backends. This new feature gives the flexibility to integrate with any of the solutions above through a single unified frontend layer: TGI. This change makes it easier for the community to get the best performance for their production workloads, switching backends according to their modeling, hardware, and performance requirements.
