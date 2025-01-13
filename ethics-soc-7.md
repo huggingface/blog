@@ -126,7 +126,7 @@ All of the listed values in this section are relevant for scientific progress; m
     
 ### Value: Sustainability​​
 - 🙂 **Potential Benefits:** AI agents may theoretically help address issues relevant to climate change, such as forecasting the growth of wildfires or flooding in urban areas alongside the analysis of traffic patterns, then suggesting optimal routes and methods of transportation in real-time. A future self-driving AI agent may make such routing decisions directly, and could coordinate with other systems for relevant updates.
-- 😟 **Risks:** Currently, the machine learning models AI agents are based on bring with them negative environmental impacts, such as carbon emissions ((citation)[https://dl.acm.org/doi/pdf/10.1145/3630106.3658542]) and the usage of drinking water ((citation)[https://www.theatlantic.com/technology/archive/2024/03/ai-water-climate-microsoft/677602/]). Bigger is not always better ([example)(https://huggingface.co/blog/smollm)), and efficient hardware and low-carbon data centers can help reduce this.
+- 😟 **Risks:** Currently, the machine learning models AI agents are based on bring with them negative environmental impacts, such as carbon emissions ([citation](https://dl.acm.org/doi/pdf/10.1145/3630106.3658542)) and the usage of drinking water ([citation](https://www.theatlantic.com/technology/archive/2024/03/ai-water-climate-microsoft/677602/)). Bigger is not always better ([example](https://huggingface.co/blog/smollm)), and efficient hardware and low-carbon data centers can help reduce this.
 
 
 
