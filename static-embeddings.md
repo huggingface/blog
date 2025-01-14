@@ -266,13 +266,13 @@ For the Multilingual Similarity datasets, we aimed for datasets with:
 
 We selected the following datasets as they contain parallel sentences:
 - [wikititles](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-wikititles)
-- [tatoeba](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-tatoeba) - the "all" subset
-- [talks](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-talks) - the "all" subset
-- [europarl](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-europarl) - the "all" subset
-- [global_voices](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-global-voices) - the "all" subset
+- [tatoeba](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-tatoeba)
+- [talks](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-talks)
+- [europarl](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-europarl)
+- [global_voices](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-global-voices)
 - [muse](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-muse)
-- [wikimatrix](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-wikimatrix) - the "all" subset
-- [opensubtitles](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-opensubtitles) - the "all" subset
+- [wikimatrix](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-wikimatrix)
+- [opensubtitles](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-opensubtitles)
 
 And these datasets as they contain positive pairs of some kind:
 - [stackexchange](https://huggingface.co/datasets/sentence-transformers/stackexchange-duplicates) - the "post-post-pair" subset
@@ -283,7 +283,7 @@ And these datasets as they contain positive pairs of some kind:
 - [altlex](https://huggingface.co/datasets/sentence-transformers/altlex)
 - [flickr30k_captions](https://huggingface.co/datasets/sentence-transformers/flickr30k-captions)
 - [coco_captions](https://huggingface.co/datasets/sentence-transformers/coco-captions)
-- [nli_for_simcse](https://huggingface.co/datasets/sentence-transformers/nli-for-simcse) - the "all" subset
+- [nli_for_simcse](https://huggingface.co/datasets/sentence-transformers/nli-for-simcse)
 - [negation](https://huggingface.co/datasets/jinaai/negation-dataset)
 
 #### Code
