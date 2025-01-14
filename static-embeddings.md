@@ -9,7 +9,7 @@ authors:
 
 ## TL;DR
 
-This blogpost introduces 2 extremely efficient embedding models,  [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) for English Retrieval and [sentence-transformers/static-similarity-mrl-multilingual-v1](https://huggingface.co/sentence-transformers/static-similarity-mrl-multilingual-v1) for Multilingual Similarity tasks. These models are **100x to 400x faster on CPU** than common counterparts like [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) and [multilingual-e5-small](https://huggingface.co/intfloat/multilingual-e5-small), while reaching at least **85%** of their performance on various benchmarks.
+This blogpost introduces 2 extremely efficient embedding models, [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) for English Retrieval and [sentence-transformers/static-similarity-mrl-multilingual-v1](https://huggingface.co/sentence-transformers/static-similarity-mrl-multilingual-v1) for Multilingual Similarity tasks. These models are **100x to 400x faster on CPU** than common counterparts like [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) and [multilingual-e5-small](https://huggingface.co/intfloat/multilingual-e5-small), while reaching at least **85%** of their performance on various benchmarks.
 
 Additionally, we detail the training approach from inspiration all the way to the training scripts. The 2 model weights, 30 training & 13 evaluation datasets, 2 training scripts, and the training library are all public. Lastly, we propose potential enhancements for model authors to build upon this work.
 
@@ -49,6 +49,7 @@ Additionally, we detail the training approach from inspiration all the way to th
     - [LangChain](#langchain)
     - [LlamaIndex](#llamaindex)
     - [Haystack](#haystack)
+    - [txtai](#txtai)
 * [Performance](#performance)
   + [English Retrieval](#english-retrieval-3)
     - [NanoBEIR](#nanobeir)
