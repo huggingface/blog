@@ -75,7 +75,7 @@ _Video illustrating what nodes will be exposed to the final user_
 For that, a minimal Gradio app would be: 
 ```py
 if __name__ == "__main__":
-    # Comment out the main() call
+    # Comment out the main() call in the exported Python code
     
     # Start your Gradio app
     with gr.Blocks() as app:
@@ -113,6 +113,10 @@ if __name__ == "__main__":
             )
         app.launch(share=True)
 ```
+
+This is how the app looks once it's rendered
+
+![Comfy-UI-to-Gradio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/gradio_ui_rendered.png)
 
 But if you try to run it, it won't work yet, as now we need to set up this `generate_image` function by altering the `def main()` function of our exported python 
 
@@ -222,7 +226,7 @@ Check here the [diff](https://gist.github.com/apolinario/47a8503c007c5ae8494324b
 
 ## 4. Exporting to Spaces and running on ZeroGPU
 
-The code is ready - it's time to export our demo to run on Hugging Face Spaces.
+The code is ready - you can run it locally or in any cloud service of your preference - including a dedicated Hugging Face Spaces GPU. But to run it on a serverless ZeroGPU, follow along below.
 
 ### Fix requirements
 
