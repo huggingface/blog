@@ -184,13 +184,13 @@ In the following sections, we'll go through our thought processes for each of th
 
 ### Model Inspiration
 
-In my experience, embedding models are either used 1) exclusively for retrieval or 2) for every task under the sun (classification, clustering, semantic textual similarity, etc.). We set out to train one of each.
+In our experience, embedding models are either used 1) exclusively for retrieval or 2) for every task under the sun (classification, clustering, semantic textual similarity, etc.). We set out to train one of each.
 
 For the retrieval model, there is only a limited amount of multilingual retrieval training data available, and hence we chose to opt for an English-only model. In contrast, we decided to train a multilingual general similarity model because multilingual data was much easier to acquire for this task.
 
 For these models, we would like to use the [`StaticEmbedding` module](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.StaticEmbedding), which implements an efficient `tokenize` method that avoids padding, and an efficient `forward` method that takes care of computing and pooling embeddings. We can initialize it in a few ways: [`StaticEmbedding.from_model2vec`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.StaticEmbedding.from_model2vec) to load a [Model2Vec model](https://huggingface.co/blog/Pringled/model2vec), [`StaticEmbedding.from_distillation`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.StaticEmbedding.from_distillation) to perform Model2Vec-style distillation, or initializing it with a `Tokenizer` and an embedding dimension to get random weights.
 
-Based on my findings, the last option works best when fully training with a large amount of data. Matching common models like [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) or [bge-large-en-v1.5](https://huggingface.co/BAAI/bge-large-en-v1.5), we are choosing an embedding dimensionality of 1024, i.e. our embedding vectors consist of 1024 values each.
+Based on our findings, the last option works best when fully training with a large amount of data. Matching common models like [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) or [bge-large-en-v1.5](https://huggingface.co/BAAI/bge-large-en-v1.5), we are choosing an embedding dimensionality of 1024, i.e. our embedding vectors consist of 1024 values each.
 
 #### English Retrieval
 
@@ -388,7 +388,7 @@ Both models used the same core training parameters:
 * `num_train_epochs`: 1
     * We have sufficient data, should we want to train for more, then we can add more data instead of training with the same data multiple times.
 * `per_device_train_batch_size`/`per_device_eval_batch_size`: 2048
-    * 2048 dimensions fit comfortably on my RTX 3090. Various papers ([Xiao et al.](https://arxiv.org/pdf/2309.07597), [Li et al.](https://arxiv.org/pdf/2308.03281)) show that even larger batch sizes still improve performance. For future versions, we will apply `CachedMultipleNegativesRankingLoss` with a larger batch size, e.g. 16384.
+    * 2048 dimensions fit comfortably on our RTX 3090. Various papers ([Xiao et al.](https://arxiv.org/pdf/2309.07597), [Li et al.](https://arxiv.org/pdf/2308.03281)) show that even larger batch sizes still improve performance. For future versions, we will apply `CachedMultipleNegativesRankingLoss` with a larger batch size, e.g. 16384.
 * `learning_rate`: 2e-1
     * Note! This is *much* larger than with normal embedding model training, which often uses a loss around 2e-5.
 * `warmup_ratio`: 0.1
@@ -1178,7 +1178,7 @@ embeddings = Embeddings(path=model_name)
 After training, we've evaluated the final model [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) on NanoBEIR (normal dimensionality and with Matryoshka dimensions) as well as on BEIR.
 
 #### NanoBEIR
-We've evaluated [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) on NanoBEIR and plotted it against the inference speed computed on my [hardware](#hardware-details). For the inference speed tests, we calculated the number of computed query embeddings of the [GooAQ dataset](https://huggingface.co/datasets/sentence-transformers/gooaq) per second, either on CPU or GPU.
+We've evaluated [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) on NanoBEIR and plotted it against the inference speed computed on our [hardware](#hardware-details). For the inference speed tests, we calculated the number of computed query embeddings of the [GooAQ dataset](https://huggingface.co/datasets/sentence-transformers/gooaq) per second, either on CPU or GPU.
 
 We evaluate against 3 types of models:
 1. Attention-based dense embedding models, e.g. traditional Sentence Transformer models like [`all-mpnet-base-v2`](https://huggingface.co/sentence-transformers/all-mpnet-base-v2), [`bge-base-en-v1.5`](https://huggingface.co/BAAI/bge-base-en-v1.5), and [`gte-large-en-v1.5`](https://huggingface.co/Alibaba-NLP/gte-large-en-v1.5).
