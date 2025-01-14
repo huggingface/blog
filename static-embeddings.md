@@ -21,6 +21,60 @@ Today, we are releasing:
 
 We also discuss potential enhancements, and encourage the community to explore them and build on this work!
 
+<details><summary>Click to see Usage Snippets for the released models</summary>
+
+The usage of these models is very straightforward, identical to the normal Sentence Transformers flow:
+
+<b>English Retrieval</b>
+
+```python
+from sentence_transformers import SentenceTransformer
+
+# Download from the 🤗 Hub
+model = SentenceTransformer("sentence-transformers/static-retrieval-mrl-en-v1", device="cpu")
+# Run inference
+sentences = [
+    'Gadofosveset-enhanced MR angiography of carotid arteries: does steady-state imaging improve accuracy of first-pass imaging?',
+    'To evaluate the diagnostic accuracy of gadofosveset-enhanced magnetic resonance (MR) angiography in the assessment of carotid artery stenosis, with digital subtraction angiography (DSA) as the reference standard, and to determine the value of reading first-pass, steady-state, and "combined" (first-pass plus steady-state) MR angiograms.',
+    'In a longitudinal study we investigated in vivo alterations of CVO during neuroinflammation, applying Gadofluorine M- (Gf) enhanced magnetic resonance imaging (MRI) in experimental autoimmune encephalomyelitis, an animal model of multiple sclerosis. SJL/J mice were monitored by Gadopentate dimeglumine- (Gd-DTPA) and Gf-enhanced MRI after adoptive transfer of proteolipid-protein-specific T cells. Mean Gf intensity ratios were calculated individually for different CVO and correlated to the clinical disease course. Subsequently, the tissue distribution of fluorescence-labeled Gf as well as the extent of cellular inflammation was assessed in corresponding histological slices.',
+]
+embeddings = model.encode(sentences)
+print(embeddings.shape)
+# [3, 1024]
+
+# Get the similarity scores for the embeddings
+similarities = model.similarity(embeddings[0], embeddings[1:])
+print(similarities)
+# tensor([[0.7649, 0.3279]])
+```
+
+<b>Multilingual Similarity</b>
+
+```python
+from sentence_transformers import SentenceTransformer
+
+# Download from the 🤗 Hub
+model = SentenceTransformer("sentence-transformers/static-similarity-mrl-multilingual-v1", device="cpu")
+# Run inference
+sentences = [
+    'It is known for its dry red chili powder.',
+    'It is popular for dried red chili powder.',
+    'These monsters will move in large groups.',
+]
+embeddings = model.encode(sentences)
+print(embeddings.shape)
+# [3, 1024]
+
+# Get the similarity scores for the embeddings
+similarities = model.similarity(embeddings, embeddings)
+print(similarities)
+# tensor([[ 1.0000,  0.8388, -0.0012],
+#         [ 0.8388,  1.0000,  0.0445],
+#         [-0.0012,  0.0445,  1.0000]])
+```
+
+</details>
+
 ![NanoBEIR performance vs inference speed](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/static-embeddings/nano_beir_vs_speed_gpu.png)
 
 ## Table of Contents
