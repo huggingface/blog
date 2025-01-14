@@ -5319,7 +5319,7 @@
     - serverless
 
 - local: static-embeddings
-  title: "Static Embedding Models Reimagined for Near-Instant CPU Inference"
+  title: "Train 400x faster Static Embedding Models with Sentence Transformers"
   author: tomaarsen
   thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
   date: January 15, 2025

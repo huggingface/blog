@@ -1,11 +1,11 @@
 ---
-title: "Static Embedding Models Reimagined for Near-Instant CPU Inference" 
+title: "Train 400x faster Static Embedding Models with Sentence Transformers" 
 thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
 authors:
 - user: tomaarsen
 ---
 
-# Static Embedding Models Reimagined for Near-Instant CPU Inference
+# Train 400x faster Static Embedding Models with Sentence Transformers
 
 ## TL;DR
 
