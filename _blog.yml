@@ -5305,3 +5305,14 @@
   tags:
     - ethics
     - agents
+
+- local: static-embeddings
+  title: "Static Embedding Models Reimagined for Near-Instant CPU Inference"
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: January 15, 2025
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
