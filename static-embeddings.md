@@ -353,8 +353,10 @@ The usage is rather simple:
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.losses import MultipleNegativesRankingLoss
 
-# Load an example pre-trained model to finetune further
-model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+# Prepare a model to train
+tokenizer = Tokenizer.from_pretrained("google-bert/bert-base-uncased")
+static_embedding = StaticEmbedding(tokenizer, embedding_dim=1024)
+model = SentenceTransformer(modules=[static_embedding])
 
 # Initialize the MNRL loss given the model
 loss = MultipleNegativesRankingLoss(model)
@@ -374,12 +376,14 @@ The `MatryoshkaLoss` is applied on top of a normal loss. It's recommended to als
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.losses import MultipleNegativesRankingLoss, MatryoshkaLoss
 
-# Load an example pre-trained model to finetune further
-model = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+# Prepare a model to train
+tokenizer = Tokenizer.from_pretrained("google-bert/bert-base-uncased")
+static_embedding = StaticEmbedding(tokenizer, embedding_dim=1024)
+model = SentenceTransformer(modules=[static_embedding])
 
 # Initialize the MNRL loss given the model
 base_loss = MultipleNegativesRankingLoss(model)
-loss = MatryoshkaLoss(model, base_loss, matryoshka_dims=[768, 512, 256, 128, 64, 32])
+loss = MatryoshkaLoss(model, base_loss, matryoshka_dims=[1024, 768, 512, 256, 128, 64, 32])
 ```
 
 ### Training Arguments Selection
