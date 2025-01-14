@@ -328,9 +328,9 @@ In particular, we currently have the following formats in our data:
 For these formats, we have some excellent choices:
 1. [`MultipleNegativesRankingLoss` (MNRL)](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#multiplenegativesrankingloss): Also known as in-batch negatives loss or InfoNCE loss, this loss has been used to train modern embedding models for a handful of years. In short, the loss optimizes the following:
 
-    > Given an anchor (e.g. a question), find the sample with the highest similarity out of all positives (e.g. all answers) in the batch.
+    > Given an anchor (e.g. a question), assign the highest similarity to the corresponding positive (i.e. answer) out of all positives and negatives (e.g. all answers) in the batch.
 
-    Optionally, you can also provide this loss with negatives, and these will be included as options from which the model must pick the correct positive. Within reason, the harder this "picking" is, the stronger the model will become. Because of this, higher batch sizes increase performance (to a point).
+    If you provide the optional negatives, they will only be used as extra options (also known as in-batch negatives) from which the model must pick the correct positive. Within reason, the harder this "picking" is, the stronger the model will become. Because of this, higher batch sizes result in more in-batch negatives, which then increase performance (to a point).
 
 2. [`CachedMultipleNegativesRankingLoss` (CMNRL)](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#cachedmultiplenegativesrankingloss): This is an extension of MNRL that implements [GradCache](https://arxiv.org/pdf/2101.06983), an approach that allows for arbitrarily increasing the batch size without increasing the memory.
 
@@ -338,7 +338,7 @@ For these formats, we have some excellent choices:
 
 3. [`GISTEmbedLoss` (GIST)](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#gistembedloss): This is also an extension of MNRL, it uses a `guide` Sentence Transformer model to remove potential false negatives from the list of options that the model must "pick" the correct positive from. 
 
-    False negatives can hurt performance, but hard true negatives can help performance, so this filtering is a fine line to walk. 
+    False negatives can hurt performance, but hard true negatives (texts that are close to correct, but not quite) can help performance, so this filtering is a fine line to walk. 
 
 Because these static embedding models are extremely small, it is possible to fit our desired batch size of 2048 samples on our hardware: a single RTX 3090 with 24GB, so we don't need to use CMNRL.
 
