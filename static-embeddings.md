@@ -1305,7 +1305,7 @@ Try it out! If you already use a Sentence Transformer model somewhere, feel free
 Furthermore, some questions remain about the trained models:
 1. Because Static Embedding-based models aren't bottlenecked by positional embeddings or superlinear time complexity, they can have arbitrarily high maximum sequence lengths. However, at some point the law of large numbers is likely to "normalize" all embeddings for really long documents, such that they aren't useful anymore.
 
-    More research is required to determine what a good cutoff point is. For now, we leave the maximum sequence length, chunking, etc. to the user.
+    More experiments are required to determine what a good cutoff point is. For now, we leave the maximum sequence length, chunking, etc. to the user.
 
 Additionally, there are quite a few possible extensions that are likely to improve the performance of this model, which we happily leave to other model authors. We are also open to collaborations:
 1. [Hard Negatives Mining](https://sbert.net/docs/package_reference/util.html#sentence_transformers.util.mine_hard_negatives): Search for similar, but not quite relevant, texts to improve training data difficulty.
