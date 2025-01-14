@@ -5298,9 +5298,9 @@
     - cv
 
 - local: tgi-multi-backend
-  title: Introducing multi-backend (TRT-LLM, vLLM) support for Text-Generation-Inference
+  title: Introducing multi-backends (TRT-LLM, vLLM) support for Text Generation Inference
   author: mfuntowicz
-  thumbnail: TODO
+  thumbnail: /blog/assets/tgi-multi-backend/thumbnail.png
   date: January 15, 2025
   tags:
     - tgi
