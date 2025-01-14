@@ -388,9 +388,9 @@ loss = MatryoshkaLoss(model, base_loss, matryoshka_dims=[1024, 768, 512, 256, 12
 
 ### Training Arguments Selection
 
-Sentence Transformers supports a lot of valuable training arguments, the most valuable of which have been listed in the [Training Overview > Training Arguments](https://sbert.net/docs/sentence_transformer/training_overview.html#training-arguments) documentation.
+Sentence Transformers supports a lot of training arguments, the most valuable of which have been listed in the [Training Overview > Training Arguments](https://sbert.net/docs/sentence_transformer/training_overview.html#training-arguments) documentation.
 
-Both models used the same core training parameters:
+We used the same core training parameters to train both models:
 * `num_train_epochs`: 1
     * We have sufficient data, should we want to train for more, then we can add more data instead of training with the same data multiple times.
 * `per_device_train_batch_size`/`per_device_eval_batch_size`: 2048
