@@ -5297,6 +5297,15 @@
     - nlp
     - cv
 
+- local: ethics-soc-7
+  title: "AI Agents Are Here. What Now?"
+  author: meg
+  thumbnail: /blog/assets/190_ethics-soc-7/thumbnail.png
+  date: January 13, 2025
+  tags:
+    - ethics
+    - agents
+
 - local: tgi-multi-backend
   title: Introducing multi-backends (TRT-LLM, vLLM) support for Text Generation Inference
   author: mfuntowicz
