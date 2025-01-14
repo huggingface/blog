@@ -1187,7 +1187,7 @@ We evaluate against 3 types of models:
 ![NanoBEIR performance vs inference speed](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/static-embeddings/nano_beir_vs_speed_cpu.png)
 
 We can draw some notable conclusions from these figures:
-1. [`static-retrieval-mrl-en-v1`](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) outperforms all other Static Embedding models.
+1. [`static-retrieval-mrl-en-v1`](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) outperforms all other Static Embedding models, like GloVe or Model2Vec.
 2. [`static-retrieval-mrl-en-v1`](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) is the only Static Embedding model to outperform BM25.
 3. [`static-retrieval-mrl-en-v1`](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) is
     * **87.4%** as performant as the commonly used [`all-mpnet-base-v2`](https://huggingface.co/sentence-transformers/all-mpnet-base-v2),
@@ -1205,7 +1205,7 @@ These findings show that reducing the dimensionality by e.g. 2x only has a 1.47%
 
 ### Multilingual Similarity
 
-We've additionally evaluated the final model [sentence-transformers/static-similarity-mrl-multilingual-v1](https://huggingface.co/sentence-transformers/static-similarity-mrl-multilingual-v1) on 5 languages which have a lot of benchmarks across various tasks on [MTEB](https://huggingface.co/spaces/mteb/leaderboard).
+We've additionally evaluated the final [sentence-transformers/static-similarity-mrl-multilingual-v1](https://huggingface.co/sentence-transformers/static-similarity-mrl-multilingual-v1) model on 5 languages which have a lot of benchmarks across various tasks on [MTEB](https://huggingface.co/spaces/mteb/leaderboard).
 
 We want to reiterate that this model is not intended for retrieval use cases. Instead, we evaluate on Semantic Textual Similarity (STS), Classification, and Pair Classification. We compare against the excellent and small [multilingual-e5-small](https://huggingface.co/intfloat/multilingual-e5-small) model.
 
@@ -1240,7 +1240,7 @@ Should you need an efficient CPU-only dense embedding model for your retrieval o
 
 ## Next Steps
 
-Try it out! If you already use a Sentence Transformer model somewhere, feel free to swap it out for [static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) or [static-similarity-mrl-multilingual-v1](https://huggingface.co/sentence-transformers/static-similarity-mrl-multilingual-v1).
+Try it out! If you already use a Sentence Transformer model somewhere, feel free to swap it out for [static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) or [static-similarity-mrl-multilingual-v1](https://huggingface.co/sentence-transformers/static-similarity-mrl-multilingual-v1). Or, better yet: train your own models on data that is representative for the task and language of your interest.
 
 Furthermore, some questions remain about the trained models:
 1. Because Static Embedding-based models aren't bottlenecked by positional embeddings or superlinear time complexity, they can have arbitrarily high maximum sequence lengths. However, at some point the law of large numbers is likely to "normalize" all embeddings for really long documents, such that they aren't useful anymore.
