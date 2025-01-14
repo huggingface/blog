@@ -9,9 +9,17 @@ authors:
 
 ## TL;DR
 
-This blogpost introduces 2 extremely efficient embedding models, [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) for English Retrieval and [sentence-transformers/static-similarity-mrl-multilingual-v1](https://huggingface.co/sentence-transformers/static-similarity-mrl-multilingual-v1) for Multilingual Similarity tasks. These models are **100x to 400x faster on CPU** than common counterparts like [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) and [multilingual-e5-small](https://huggingface.co/intfloat/multilingual-e5-small), while reaching at least **85%** of their performance on various benchmarks.
+This blog post introduces a method to train static embedding models that run 100x to 400x faster on CPU than state-of-the-art embedding models, while retaining most of the quality. This unlocks a lot of exciting use cases, including on-device and in-browser execution, edge computing, low power and embedded applications.
 
-Additionally, we detail the training approach from inspiration all the way to the training scripts. The 2 model weights, 30 training & 13 evaluation datasets, 2 training scripts, and the training library are all public. Lastly, we propose potential enhancements for model authors to build upon this work.
+We apply this recipe to train two extremely efficient embedding models: [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) for English Retrieval, and [sentence-transformers/static-similarity-mrl-multilingual-v1](https://huggingface.co/sentence-transformers/static-similarity-mrl-multilingual-v1) for Multilingual Similarity tasks. These models are **100x to 400x faster on CPU** than common counterparts like [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) and [multilingual-e5-small](https://huggingface.co/intfloat/multilingual-e5-small), while reaching at least **85%** of their performance on various benchmarks.
+
+Today, we are releasing:
+- The two models (for English retrieval and for multilingual similarity) mentioned above.
+- The detailed training strategy we followed, from ideation to dataset selection to implementation and evaluation.
+- The two training scripts, based on the open-source sentence transformers library.
+- The detailed list of datasets we used: 30 for training and 13 for evaluation.
+
+We also discuss potential enhancements, and encourage the community to explore them and build on this work!
 
 ![NanoBEIR performance vs inference speed](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/static-embeddings/nano_beir_vs_speed_gpu.png)
 
@@ -87,19 +95,23 @@ Large encoder models with a lot of attention layers will be effective at using t
 
 ### Static Embeddings
 
-Static Embeddings refers to a group of `Encoder` models that don't use large and slow attention-based models, but instead rely on pre-computed token embeddings. Common examples from the last decade include [GLoVe](https://nlp.stanford.edu/projects/glove/) and [word2vec](https://en.wikipedia.org/wiki/Word2vec).
+Static Embeddings refers to a group of `Encoder` models that don't use large and slow attention-based models, but instead rely on pre-computed token embeddings. Static embeddings were used years before the transformer architecture was developed. Common examples include [GLoVe](https://nlp.stanford.edu/projects/glove/) and [word2vec](https://en.wikipedia.org/wiki/Word2vec).
 
-For Static Embeddings, the `Encoder` step is as simple as a dictionary lookup: given the token, return the pre-computed token embedding. Consequently, inference is suddenly no longer bottlenecked by the `Encoder` phase, resulting in **speedups of several orders of magnitude**. This blogpost will show that the resulting benchmark performance hit is rather small.
+For Static Embeddings, the `Encoder` step is as simple as a dictionary lookup: given the token, return the pre-computed token embedding. Consequently, inference is suddenly no longer bottlenecked by the `Encoder` phase, resulting in **speedups of several orders of magnitude**. This blogpost shows that the hit on quality can be quite small!
+
+## Our Method
+
+We set out to revisit Static Embeddings models, using modern techniques to train them. Most of our gains come from the use of a contrastive learning loss function, as we'll explain shortly. Optionally, we can get additional speed improvements by using Matryoshka representation learning, which makes it possible to use truncated versions of the embedding vectors.
 
 ## Training Details
 
 The objective with these reimagined Static Embeddings is to experiment with modern embedding model finetuning techniques on these highly efficient embedding models. In particular, unlike GLoVe and word2vec, we will be using:
 
-1. **Contrastive Learning**: With most machine learning, you take input $X$ and expected output $Y$, and then train a model such that $X$ fed through the model produces $Y$. For embedding models, we don't have $Y$: we don't know what a good embedding would be beforehand.
+1. **Contrastive Learning**: With most machine learning, you take input $X$ and expect output $Y$, and then train a model such that $X$ fed through the model produces something close to $Y$. For embedding models, we don't have $Y$: we don't know what a good embedding would be beforehand.
   
    Instead, with Contrastive Learning, we have multiple inputs $X_1$ and $X_2$, and a similarity. We feed both inputs through the model, after which we can *contrast* the two embeddings resulting in a predicted similarity. We can then push the embeddings further apart if the true similarity is low, or pull the embeddings closer together if the true similarity is high.
 
-2. **Matryoshka Representation Learning (MRL)**: Matryoshka Embedding Models ([blogpost](https://huggingface.co/blog/matryoshka)) is a clever training approach that allows users to truncate embedding models to smaller dimensions at a minimal performance hit by training. It involves using the contrastive loss function not just with the normal-sized embedding, but also with truncated versions. Consequently, the model trains to store information primarily at the start of the embeddings.
+2. **Matryoshka Representation Learning (MRL)**: Matryoshka Embedding Models ([blogpost](https://huggingface.co/blog/matryoshka)) is a clever training approach that allows users to truncate embedding models to smaller dimensions at a minimal performance hit. It involves using the contrastive loss function not just with the normal-sized embedding, but also with truncated versions of them. Consequently, the model learns to store information primarily at the start of the embeddings.
 
     Truncated embeddings will be faster with downstream applications, such as retrieval, classification, and clustering.
 
@@ -107,7 +119,7 @@ For future research, we leave various other modern training approaches for impro
 
 ### Training Requirements
 
-As shown in the [Training Overview](https://sbert.net/docs/sentence_transformer/training_overview.html) documentation in Sentence Transformers, training consists of 3 to 5 components:
+As shown in the [Training Overview documentation](https://sbert.net/docs/sentence_transformer/training_overview.html) in Sentence Transformers, training consists of 3 to 5 components:
 1. Dataset
 2. Loss Function
 3. Training Arguments (Optional)
@@ -118,13 +130,13 @@ In the following sections, we'll go through our thought processes for each of th
 
 ### Model Inspiration
 
-In my experience, embedding models are either used 1) exclusively for retrieval or 2) for every task under the sun (classification, clustering, semantic textual similarity, etc.). And such, we set out to train one of each.
+In my experience, embedding models are either used 1) exclusively for retrieval or 2) for every task under the sun (classification, clustering, semantic textual similarity, etc.). We set out to train one of each.
 
-For the retrieval model, there is only a limited amount of multilingual retrieval training data available, and hence we chose to opt for an English-only model. For the general similarity model, such multilingual data was much easier to acquire, and so our general similarity model is multilingual.
+For the retrieval model, there is only a limited amount of multilingual retrieval training data available, and hence we chose to opt for an English-only model. In contrast, we decided to train a multilingual general similarity model because multilingual data was much easier to acquire for this task.
 
-For these models, we would like to use the [`StaticEmbedding` module](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.StaticEmbedding), which implements an efficient `tokenize` method that avoids padding and an efficient `forward` method that takes care of computing and pooling embeddings. We can initialize it in a few ways: [`StaticEmbedding.from_model2vec`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.StaticEmbedding.from_model2vec) to load a [Model2Vec model](https://huggingface.co/blog/Pringled/model2vec), [`StaticEmbedding.from_distillation`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.StaticEmbedding.from_distillation) to perform Model2Vec-style distillation, or initializing it with a `Tokenizer` and an embedding dimension to get random weights.
+For these models, we would like to use the [`StaticEmbedding` module](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.StaticEmbedding), which implements an efficient `tokenize` method that avoids padding, and an efficient `forward` method that takes care of computing and pooling embeddings. We can initialize it in a few ways: [`StaticEmbedding.from_model2vec`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.StaticEmbedding.from_model2vec) to load a [Model2Vec model](https://huggingface.co/blog/Pringled/model2vec), [`StaticEmbedding.from_distillation`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.StaticEmbedding.from_distillation) to perform Model2Vec-style distillation, or initializing it with a `Tokenizer` and an embedding dimension to get random weights.
 
-Based on my findings, the last option works best when fully training with a large amount of data. Matching common models like [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) or [bge-large-en-v1.5](https://huggingface.co/BAAI/bge-large-en-v1.5), we are choosing an embedding dimensionality of 1024, i.e. our embeddings consist of 1024 values.
+Based on my findings, the last option works best when fully training with a large amount of data. Matching common models like [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) or [bge-large-en-v1.5](https://huggingface.co/BAAI/bge-large-en-v1.5), we are choosing an embedding dimensionality of 1024, i.e. our embedding vectors consist of 1024 values each.
 
 #### English Retrieval
 
@@ -144,7 +156,7 @@ The first entry in the `modules` list must implement `tokenize`, and the last on
 
 #### Multilingual Similarity
 
-For the Multilingual Similarity model, we instead rely on the [`google-bert/bert-base-multilingual-uncased`](https://huggingface.co/google-bert/bert-base-multilingual-uncased) tokenizer:
+For the Multilingual Similarity model, we instead rely on the [`google-bert/bert-base-multilingual-uncased`](https://huggingface.co/google-bert/bert-base-multilingual-uncased) tokenizer, and that's the only thing we change in our initialization code:
 
 ```python
 from sentence_transformers import SentenceTransformer
@@ -159,7 +171,7 @@ model = SentenceTransformer(modules=[static_embedding])
 
 ### Training Dataset Selection
 
-Alongside dozens of Sentence Transformer models, the [Sentence Transformers organization](https://huggingface.co/sentence-transformers) on Hugging Face (at the time of writing) also hosts 70+ datasets: 
+Alongside dozens of Sentence Transformer models, the [Sentence Transformers organization](https://huggingface.co/sentence-transformers) on Hugging Face also hosts 70+ datasets (at the time of writing): 
 
 * [Embedding Model Datasets](https://huggingface.co/collections/sentence-transformers/embedding-model-datasets-6644d7a3673a511914aa7552)
 
@@ -276,7 +288,7 @@ Because these static embedding models are extremely small, it is possible to fit
 
 Additionally, because we're training such fast models, the `guide` from the `GISTEmbedLoss` would make the training much slower. Because of this, we've opted to use [`MultipleNegativesRankingLoss`](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#multiplenegativesrankingloss) for our models.
 
-If we were to try these experiments again, we would pick a larger batch size, e.g. 16384 with CMNRL.
+If we were to try these experiments again, we would pick a larger batch size, e.g. 16384 with CMNRL. If you try, please let us know how it goes!
 
 #### Code
 The usage is rather simple:
