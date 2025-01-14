@@ -5227,12 +5227,90 @@
     - community
     - research
     - open-source-collab
+    
+- local: big-bench-audio-release
+  title: "Evaluating Audio Reasoning with Big Bench Audio"
+  thumbnail: /blog/assets/big_bench_audio_release/big-bench-audio-thumbnail.png
+  author: mhillsmith
+  guest: true
+  date: December 20, 2024
+  tags:
+    - leaderboard
+    - research
+    - collaboration
+    - community
+
+- local: logits-processor-zoo
+  title: "Controlling Language Model Generation with NVIDIA's LogitsProcessorZoo"
+  author: ariG23498
+  thumbnail: /blog/assets/logits-processor-zoo/thumbnail.png
+  date: December 23, 2024
+  tags:
+    - llm
+    - research
+    - open-source
+
+- local: train_memory
+  title: "Visualize and understand GPU memory in PyTorch"
+  author: qgallouedec
+  thumbnail: /blog/assets/train_memory/thumbnail.png
+  date: December 24, 2024
+  tags:
+    - pytorch
+    - train
+    - memory
+    - gpu
+
+- local: smolagents
+  title: "Introducing smolagents: simple agents that write actions in code."
+  author: m-ric
+  thumbnail: /blog/assets/smolagents/thumbnail.png
+  date: December 31, 2024
+  tags:
+    - agents
+    - open-source
+    - nlp
+    - tools
+    - community
+
+- local: leaderboard-emissions-analysis
+  title: "CO₂ Emissions and Models Performance: Insights from the Open LLM Leaderboard"
+  author: alozowski
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: January 9, 2025
+  tags:
+    - open-llm-leaderboard
+    - leaderboard
+    - energy_efficiency
+    - evaluation
+
+- local: vdr-2b-multilingual
+  title: "Visual Document Retrieval Goes Multilingual"
+  author: marco
+  guest: true
+  thumbnail: /blog/assets/vdr-2b-multilingual/thumbnail.png
+  date: January 10, 2025
+  tags:
+    - multimodal
+    - llamaindex
+    - open-source-collab
+    - nlp
+    - cv
+
+- local: ethics-soc-7
+  title: "AI Agents Are Here. What Now?"
+  author: meg
+  thumbnail: /blog/assets/190_ethics-soc-7/thumbnail.png
+  date: January 13, 2025
+  tags:
+    - ethics
+    - agents
 
 - local: run-comfyui-workflows-on-spaces
   title: "Run ComfyUI workflows for free on Spaces"
   author: multimodalart
   thumbnail: /blog/assets/comfyui-to-gradio/cover.png
-  date: December 19, 2024
+  date: January 14, 2024
   tags:
     - comfyui
     - gradio
