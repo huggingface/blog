@@ -1129,6 +1129,43 @@ We evaluate against 3 types of models:
 >
 > [static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) is purposefully not trained on any of these datasets.
 
+<details><summary>Click to see a table with all values from the next 2 Figures</summary>
+
+| Model                                            | NanoBEIR NDCG@10 | CPU (sentences per second) | GPU (sentences per second) |
+|--------------------------------------------------|------------------|----------------------------|----------------------------|
+| zeta-alpha-ai/Zeta-Alpha-E5-Mistral              | 0.6860           | 0.00*                      | 0.00*                      |
+| Alibaba-NLP/gte-large-en-v1.5                    | 0.6808           | 56.01                      | 965.95                     |
+| Salesforce/SFR-Embedding-Mistral                 | 0.6800           | 0.00*                      | 0.00*                      |
+| mixedbread-ai/mxbai-embed-large-v1               | 0.6567           | 79.83                      | 1376.80                    |
+| BAAI/bge-large-en-v1.5                           | 0.6592           | 80.94                      | 1315.03                    |
+| intfloat/e5-mistral-7b-instruct                  | 0.6530           | 0.00*                      | 0.00*                      |
+| Alibaba-NLP/gte-base-en-v1.5                     | 0.6411           | 197.85                     | 3142.94                    |
+| BAAI/bge-base-en-v1.5                            | 0.6376           | 264.83                     | 4363.04                    |
+| BAAI/bge-small-en-v1.5                           | 0.6267           | 888.46                     | 10159.97                   |
+| nomic-ai/nomic-embed-text-v1.5                   | 0.6179           | 86.86                      | 2843.03                    |
+| jinaai/jina-embeddings-v3                        | 0.6174           | 0.55                       | 3377.56                    |
+| BAAI/bge-m3                                      | 0.6054           | 80.63                      | 1434.82                    |
+| sentence-transformers/all-mpnet-base-v2          | 0.5757           | 270.40                     | 4043.13                    |
+| TaylorAI/gte-tiny                                | 0.5692           | 1752.26                    | 17215.15                   |
+| sentence-transformers/all-MiniLM-L6-v2           | 0.5623           | 1739.31                    | 16942.46                   |
+| mixedbread-ai/mxbai-embed-xsmall-v1              | 0.5557           | 1749.42                    | 16773.76                   |
+| sentence-transformers/all-MiniLM-L12-v2          | 0.5533           | 909.72                     | 9915.69                    |
+| sentence-transformers/static-retrieval-mrl-en-v1 | 0.5032           | 107419.51                  | 97171.47                   |
+| bm25                                             | 0.4518           | 49706.77                   | 49706.77                   |
+| minishlab/potion-base-8M                         | 0.4421           | 124029.91                  | 122384.10                  |
+| minishlab/potion-base-4M                         | 0.4225           | 123082.88                  | 123612.54                  |
+| minishlab/M2V_base_glove                         | 0.4077           | 142173.77                  | 146154.73                  |
+| minishlab/M2V_base_glove_subword                 | 0.3914           | 127426.83                  | 131412.56                  |
+| minishlab/M2V_base_output                        | 0.3851           | 84191.93                   | 85738.36                   |
+| minishlab/potion-base-2M                         | 0.3666           | 128994.27                  | 122358.16                  |
+| sentence-transformers/glove.6B.300d              | 0.3293           | 76519.74                   | 62782.23                   |
+| sentence-transformers/glove.840B.300d            | 0.2899           | 86348.98                   | 75350.36                   |
+
+* `*`: For the 7B LLMs, we did not do inference experiments as their inference speed would be indistinguishable from 0 in the Figures.
+* We performed experiments to determine the optimal batch size for each model.
+
+</details>
+
 ##### GPU
 
 ![NanoBEIR performance vs inference speed](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/static-embeddings/nano_beir_vs_speed_gpu.png)
