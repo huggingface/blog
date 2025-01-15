@@ -341,11 +341,11 @@ processed_input = image_processor(image, return_tensors="pt").to(device)
 def run_benchmark(model, input_data, runs=300):
     model.eval()
     with torch.no_grad():
-        times = [time.time() - time.time() for _ in range(runs)]
+        times = []
         for i in range(runs):
             start = time.time()
             _ = model(**input_data)
-            times[i] = time.time() - start
+            times.append(time.time() - start)
     return sum(times) / runs
 
 # Run benchmarks
