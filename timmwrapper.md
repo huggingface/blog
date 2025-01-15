@@ -1,60 +1,68 @@
 ---
-title: "Timm is Now a First-Class Citizen in the 🤗 Transformers Library"
+title: "Timm ❤️ Transformers: Use any timm model with transformers"
 thumbnail: /blog/assets/timmwrapper/thumbnail.png
 authors:
 - user: ariG23498
+- user: rwightman
+- user: pcuenq
+- user: reach-vb
+- user: qubvel-hf
 ---
 
-# Timm is Now a First-Class Citizen in the 🤗 Transformers Library
+# Timm ❤️ Transformers: Use any timm model with transformers
 
-Ever wanted to leverage the vast collection of state-of-the-art models from the `timm` library using
-the familiar 🤗 `transformers` ecosystem? Enter the `TimmWrapper`—a simple, yet powerful tool that unlocks this potential.
+Ever wanted to leverage the vast collection of state-of-the-art models from the
+[`timm` library](https://huggingface.co/models?library=timm&sort=trending) using
+the familiar 🤗 `transformers` ecosystem?
+
+Enter the [`TimmWrapper`](https://huggingface.co/docs/transformers/main/en/model_doc/timm_wrapper)—a simple,
+yet powerful tool that unlocks this potential.
 
 In this post, we’ll cover:
-- How the `TimmWrapper` works and why it’s a game-changer.
+- How the timm integration works and why it’s a game-changer.
 - How to integrate `timm` models with 🤗 `transformers`.
 - Practical examples: pipelines, quantization, fine-tuning, and more.
 
 > [!NOTE]
-> To follow along with this blog post, install the latest version of `transformers` by running:
+> To follow along with this blog post, install the latest version of `transformers` and `timm` by running:
 > ```bash
-> pip install -Uq transformers
+> pip install -Uq transformers timm
 > ```
 
 > [!NOTE]  
-> **Check out the full repository for all code examples and notebooks:**  
-> 🔗 [TimmWrapper Examples](https://github.com/your-username/timmwrapper-examples)  
+> Check out the full repository for all code examples and notebooks:
+> 🔗 [TimmWrapper Examples](https://github.com/ariG23498/timmwrapper-examples)  
 
+## What is timm?
 
-## What is `timm`?
-
-The PyTorch Image Models (`timm`) library offers a rich collection of state-of-the-art computer vision models,
-along with useful layers, utilities, optimizers, and data augmentations. It’s a go-to resource for
-image classification, object detection, segmentation, and more.
+The [PyTorch Image Models (`timm`) library](https://huggingface.co/docs/timm/en/index)
+offers a rich collection of state-of-the-art computer vision models,
+along with useful layers, utilities, optimizers, and data augmentations.
+With more than 32K GitHub stars, more than 200K daily downloads at the time of writing,
+it’s a go-to resource for image classification, object detection, segmentation, and more.
 
 With pre-trained models covering a wide range of architectures, `timm` simplifies the workflow for
 computer vision practitioners.
 
-## Why Use the `TimmWrapper`?
+## Why Use the TimmWrapper?
 
 While 🤗 `transformers` supports several vision models, `timm` offers an even broader collection,
-including many mobile-friendly and efficient models not natively supported.
+including many mobile-friendly and efficient models not available in transformers.
 
-The `TimmWrapper` bridges this gap, bringing the best of both worlds:
-- ✅ **Pipeline API Support**: Easily plug any `timm` model into the `transformers` pipeline for streamlined inference.
-- 🧩 **Compatibility with Auto Classes**: While `timm` models aren’t natively compatible with `transformers` Auto classes, the `TimmWrapper` makes them work seamlessly.
-- ⚡ **Quick Quantization**: With just ~5 lines of code, you can quantize `timm` models for efficient inference.
-- 🎯 **Fine-Tuning with Trainer API**: Fine-tune `timm` models using the `Trainer` API and even integrate with adapters like LoRA.
+The `timm` integration bridges this gap, bringing the best of both worlds:
+- ✅ **Pipeline API Support**: Easily plug any `timm` model into the high-level `transformers` pipeline for streamlined inference.
+- 🧩 **Compatibility with Auto Classes**: While `timm` models aren’t natively compatible with `transformers`, the integration makes them work seamlessly with the `Auto` classes API.
+- ⚡ **Quick Quantization**: With just ~5 lines of code, you can quantize **any** `timm` model for efficient inference.
+- 🎯 **Fine-Tuning with Trainer API**: Fine-tune `timm` models using the `Trainer` API and even integrate with adapters like low rank adaptation (LoRA).
 - 🚀 **Torch Compile for Speed**: Leverage `torch.compile` to optimize inference time.
-
 
 ## Pipeline API: Using timm Models for Image Classification
 
-One of the standout features of the `TimmWrapper` is that it allows you to leverage the 🤗 **`pipeline` API**
-to perform image classification with any `timm` model. The **`pipeline` API** abstracts away a lot of
-complexity, making it easy to load a pre-trained model, perform inference, and view results with minimal lines of code.
+One of the standout features of the `timm` integration is that it allows you to leverage the 🤗 **`pipeline` API**.
+The **`pipeline` API** abstracts away a lot of complexity, making it easy to load a pre-trained model,
+perform inference, and view results with a few lines of code.
 
-Let’s see how to use the `TimmWrapper` with the **MobileNetV4** model from `timm`.
+Let’s see how to use a transformers pipeline with the *MobileNetV4* (not available in `transformers`) model from `timm`:
 
 ```python
 from transformers import pipeline
@@ -87,25 +95,25 @@ Label: marmoset             Score: 0.00
 
 ## Gradio Integration: Building a Food Classifier Demo 🍣  
 
-Want to quickly create an interactive web app for image classification? **Gradio** makes it simple to build a user-friendly interface with minimal code. Let's combine **Gradio** with the `pipeline` API to classify food images using a fine-tuned timm ViT model (we will cover fine tuning in a later section).
+Want to quickly create an interactive web app for image classification? **Gradio** makes it simple
+to build a user-friendly interface with minimal code. Let's combine **Gradio** with the `pipeline` API
+to classify food images using a fine-tuned timm ViT model (we will cover fine tuning in a later section).
 
-Here’s how you can set up a quick demo:
+Here’s how you can set up a quick demo with a `timm` model:
 
 ```python
 import gradio as gr
 from transformers import pipeline
 
-# Load the image classification pipeline
+# Load the image classification pipeline using a timm model
 pipe = pipeline(
     "image-classification",
     model="ariG23498/vit_base_patch16_224.augreg2_in21k_ft_in1k.ft_food101"
 )
 
-# Define a simple function for Gradio
 def classify(image):
     return pipe(image)[0]["label"]
 
-# Build the Gradio interface
 demo = gr.Interface(
     fn=classify,
     inputs=gr.Image(type="pil"),
@@ -113,7 +121,6 @@ demo = gr.Interface(
     examples=[["./sushi.png", "sushi"]]
 )
 
-# Launch the app
 demo.launch()
 ```
 
@@ -126,10 +133,11 @@ Here’s a live example hosted on Hugging Face Spaces. You can test it directly 
   height="560px"  
 ></iframe>  
 
+## Auto Classes: Simplifying Model Loading 
 
-## Auto Classes: Simplifying Model Loading 🧩  
-
-The 🤗 `transformers` library provides **Auto Classes** to abstract away the complexity of loading models and processors. With the **`TimmWrapper`**, you can use **`AutoModelForImageClassification`** and **`AutoImageProcessor`** to load any `timm` model effortlessly.
+The 🤗 `transformers` library provides **Auto Classes** to abstract away the complexity of loading
+models and processors. With the **`TimmWrapper`**, you can use **`AutoModelForImageClassification`**
+and **`AutoImageProcessor`** to load any `timm` model effortlessly.
 
 Here’s a quick example:
 
@@ -140,7 +148,6 @@ from transformers import (
 )
 from transformers.image_utils import load_image
 
-# Load an image
 image_url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/timm/cat.jpg"
 image = load_image(image_url)
 
@@ -154,27 +161,27 @@ print(type(image_processor))  # TimmWrapperImageProcessor
 print(type(model))            # TimmWrapperForImageClassification
 ```
 
-## Quantizing timm Models with TimmWrapper ⚡️
+## Running quantized timm models
 
-Quantization is a powerful technique to **reduce model size and speed up inference**, especially for deployment on resource-constrained devices. With the **`TimmWrapper`** in 🤗 `transformers`, you can quantize any `timm` model to **8-bit precision** with just a few lines of code using **`BitsAndBytesConfig`** from `bitsandbytes`.
+Quantization is a powerful technique to **reduce model size and speed up inference**,
+especially for deployment on resource-constrained devices. With the `timm` integration,
+you can quantize any `timm` model on the fly with just a few lines of code using
+**`BitsAndBytesConfig`** from [`bitsandbytes`](https://github.com/bitsandbytes-foundation/bitsandbytes).
 
-Here’s how simple it is to quantize a model using `TimmWrapper`:
+Here’s how simple it is to quantize a `timm` model:
 
 ```python
 from transformers import TimmWrapperForImageClassification, BitsAndBytesConfig
 
-# Load the model
+quantization_config = BitsAndBytesConfig(load_in_8bit=True)
 checkpoint = "timm/vit_base_patch16_224.augreg2_in21k_ft_in1k"
 
-# Define 8-bit quantization configuration
-quantization_config = BitsAndBytesConfig(load_in_8bit=True)
-
-# Load the quantized model
+model = TimmWrapperForImageClassification.from_pretrained(checkpoint).to("cuda")
 model_8bit = TimmWrapperForImageClassification.from_pretrained(
     checkpoint,
     quantization_config=quantization_config,
     low_cpu_mem_usage=True,
-).eval()
+)
 ```
 
 ```python
@@ -197,21 +204,20 @@ Quantized models perform **almost identically** to full-precision models during 
 
 | **Model**         | **Label**                | **Accuracy** |
 |-------------------|-------------------------|-----------|
-| Original Model    | Remote Control, Remote   | 0.35%     |
-| Quantized Model   | Remote Control, Remote   | 0.33%     |
+| Original Model    | remote control, remote   | 0.35%     |
+| Quantized Model   | remote control, remote   | 0.33%     |
 
-## Supervised Fine-Tuning with `TimmWrapper` 🏋️‍♂️
+## Supervised Fine-Tuning with `TimmWrapper`
 
-Fine-tuning a `timm` model with the **`Trainer` API** from 🤗 `transformers` is **straightforward and highly flexible**. You can fine-tune your model on custom datasets using the `Trainer` class, which handles the training loop, logging, and evaluation. Additionally, you can enhance your fine-tuning process using **LoRA (Low-Rank Adaptation)** to train efficiently with fewer parameters.
+Fine-tuning a `timm` model with the **`Trainer` API** from 🤗 `transformers` is **straightforward and highly flexible**.
+You can fine-tune your model on custom datasets using the `Trainer` class, which handles the training loop,
+logging, and evaluation. Additionally, you can fine-tune using **LoRA (Low-Rank Adaptation)** to train efficiently with fewer parameters.
 
 This section gives a **quick overview** of both standard fine-tuning and LoRA fine-tuning, with links to the complete code.
 
+### Standard Fine-Tuning with the `Trainer` API 
 
-### Standard Fine-Tuning with `Trainer` API 
-
-The `Trainer` API makes it easy to set up training with minimal code. For an end to end example for fine tuning, one can visit [TimmWrapper Examples](https://github.com/your-username/timmwrapper-examples).
-
-Here's an outline of what a fine-tuning setup looks like:
+The `Trainer` API makes it easy to set up training with minimal code. Here's an outline of what a fine-tuning setup looks like:
 
 ```python
 from transformers import TrainingArguments, Trainer
@@ -242,23 +248,31 @@ trainer = Trainer(
 trainer.train()
 ```
 
-💡 **Model Example:**  
+What's remarkable about this approach is that it mirrors the exact workflow used for native `transformers` models,
+maintaining consistency across different model types. 
+
+This means you can use the familiar `Trainer` API to fine-tune not just Transformers models, but
+also **any `timm` model**—bringing powerful models from the `timm` library into the Hugging Face
+ecosystem with minimal adjustments. This significantly broadens the scope of models you can fine-tune
+using the same trusted tools and workflows.
+
+**Model Example:**  
 Fine-tuned ViT on **Food-101**: [**`vit_base_patch16_224.augreg2_in21k_ft_in1k.ft_food101`**](https://huggingface.co/ariG23498/vit_base_patch16_224.augreg2_in21k_ft_in1k.ft_food101)
 
 
-### LoRA Fine-Tuning for Efficient Training 💡 
+## LoRA Fine-Tuning for Efficient Training
 
-LoRA (Low-Rank Adaptation) allows you to **fine-tune large models efficiently** by training only a few additional parameters. You can fine-tune a `timm` model using LoRA with the **PEFT** library. For an end to end example for LoRA fine tuning, one can visit [TimmWrapper Examples](https://github.com/your-username/timmwrapper-examples).
+LoRA (Low-Rank Adaptation) allows you to **fine-tune large models efficiently** by training only a
+few additional parameters, rather than the full set of model weights. This makes fine-tuning faster,
+and allows the use of consumer hardware. You can fine-tune a `timm` model using
+[LoRA with the **PEFT** library](https://huggingface.co/docs/peft/main/en/conceptual_guides/lora).
 
 Here’s how you can set it up:
 
 ```python
 from peft import LoraConfig, get_peft_model
 
-# Load the model
 model = AutoModelForImageClassification.from_pretrained(checkpoint, num_labels=num_labels)
-
-# Define the LoRA configuration
 lora_config = LoraConfig(
     r=16,
     lora_alpha=16,
@@ -271,50 +285,52 @@ lora_config = LoraConfig(
 # Wrap the model with PEFT
 lora_model = get_peft_model(model, lora_config)
 
-# Print trainable parameters
 lora_model.print_trainable_parameters()
 ```
 
-🧪 **Trainable Parameters with LoRA:**  
+**Trainable Parameters with LoRA:**  
 ```bash
 trainable params: 667,493 || all params: 86,543,818 || trainable%: 0.77%
 ```
 
-💾 **Model Example:**  
+**Model Example:**  
 LoRA Fine-Tuned ViT on **Food-101**: [**`vit_base_patch16_224.augreg2_in21k_ft_in1k.lora_ft_food101`**](https://huggingface.co/ariG23498/vit_base_patch16_224.augreg2_in21k_ft_in1k.lora_ft_food101)
 
-### Inference with LoRA Fine-Tuned Model 🎯  
 
-Once the model is fine-tuned, you can use it for inference as shown below:
+LoRA is just one example of efficient adapter-based fine-tuning methods you can apply to `timm` models.
+The integration of `timm` with the 🤗 ecosystem opens up a wide variety of **parameter-efficient fine-tuning (PEFT)** techniques,
+allowing you to choose the method that best fits your use case.
+
+### Inference with LoRA Fine-Tuned Model 
+
+Once the model is LoRA fine-tuned, we only push the adapter weights to the Hugging Face Hub. This section helps
+you to download the adapter weights, merge the adapter weights with the base model, and then perform inference.
 
 ```python
-from transformers import AutoImageProcessor
-from peft import PeftModel
+from peft import PeftModel, PeftConfig
 
-# Load the LoRA fine-tuned model
-inference_model = PeftModel.from_pretrained(model, "ariG23498/vit_base_patch16_224.augreg2_in21k_ft_in1k.lora_ft_food101")
+repo_name = "ariG23498/vit_base_patch16_224.augreg2_in21k_ft_in1k.lora_ft_food101"
+config = PeftConfig.from_pretrained(repo_name)
 
-# Process the input image
-image_processor = AutoImageProcessor.from_pretrained("ariG23498/vit_base_patch16_224.augreg2_in21k_ft_in1k")
-inputs = image_processor(image, return_tensors="pt")
+model = AutoModelForImageClassification.from_pretrained(
+    config.base_model_name_or_path,
+    label2id=label2id,
+    num_labels=num_labels,
+    id2label=id2label,
+    ignore_mismatched_sizes=True,
+)
+inference_model = PeftModel.from_pretrained(model, repo_name)
 
-# Make predictions
-with torch.no_grad():
-    logits = inference_model(**inputs).logits
-    prediction = logits.argmax(-1).item()
-
-# Display the result
-plt.imshow(image)
-plt.axis("off")
-plt.title(f"Prediction: {model.config.id2label[prediction]}")
-plt.show()
+# Make prediction with the model
 ```
 
 ![image of sushi with prediction from a fine tuned model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/timmwrapper/prediction-food.png)
 
 ## Torch Compile: Instant Speedup 🚀  
 
-With **`torch.compile`** in PyTorch 2.0, you can achieve **faster inference** by compiling your model with just one line of code. Here's a quick benchmark to compare inference time with and without `torch.compile` using the `TimmWrapper`.
+With **`torch.compile`** in PyTorch 2.0, you can achieve **faster inference** by compiling your model
+with just one line of code. The `timm` integration is fully compatible with `torch.compile`.
+Here's a quick benchmark to compare inference time with and without `torch.compile` using the `TimmWrapper`.
 
 ```python
 # Load the model and input
@@ -346,6 +362,9 @@ print(f"With torch.compile: {time_compile:.4f} s")
 
 ## Wrapping Up
 
-The TimmWrapper in 🤗 transformers library opens new doors for leveraging state-of-the-art vision models with minimal effort. Whether you're looking to fine-tune, quantize, or simply run inference, this integration provides a unified API to streamline your workflow.
+`timm` integrated into the Hugging Face ecosystem opens new doors for leveraging state-of-the-art vision models
+with minimal effort. Whether you're looking to fine-tune, quantize, or simply run inference, this
+integration provides a unified API to streamline your workflow.
 
-By combining timm's model repository with the extensive ecosystem of transformers, you get the best of both worlds. Start exploring today and unlock new possibilities in computer vision!
+By combining timm's model repository with the extensive ecosystem of transformers, you get the best
+of both worlds. Start exploring today and unlock new possibilities in computer vision!

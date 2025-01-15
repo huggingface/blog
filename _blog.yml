@@ -5319,10 +5319,10 @@
     - serverless
 
 - local: timmwrapper
-  title: "Timm is Now a First-Class Citizen in the 🤗 Transformers Library"
+  title: "Timm ❤️ Transformers: Use any timm model with transformers"
   author: ariG23498
   thumbnail: /blog/assets/timmwrapper/thumbnail.png
-  date: January 13, 2025
+  date: January 15, 2025
   tags:
     - timm
     - cv
