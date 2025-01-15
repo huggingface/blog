@@ -5296,3 +5296,12 @@
     - open-source-collab
     - nlp
     - cv
+
+- local: timmwrapper
+  title: "Timm is Now a First-Class Citizen in the 🤗 Transformers Library"
+  author: ariG23498
+  thumbnail: /blog/assets/timmwrapper/thumbnail.png
+  date: January 13, 2025
+  tags:
+    - timm
+    - cv
