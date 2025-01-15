@@ -443,7 +443,7 @@
     - nlp
 
 - local: gptj-sagemaker
-  title: "Deploy GPT-J 6B for inference using  Hugging Face Transformers and Amazon SageMaker"
+  title: "Deploy GPT-J 6B for inference using Hugging Face Transformers and Amazon SageMaker"
   author: philschmid
   thumbnail: /blog/assets/45_gptj_sagemaker/thumbnail.png
   date: January 11, 2022
@@ -3330,7 +3330,7 @@
   title: "Constitutional AI with Open LLMs"
   author: vwxyzjn
   thumbnail: /blog/assets/175_constitutional_ai/thumbnail.png
-  date: Feburary 1, 2024
+  date: February 1, 2024
   tags:
     - research
     - rl
@@ -5110,7 +5110,7 @@
 
 
 - local: keras-chatbot-arena
-  title: "“How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs"
+  title: "How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs"
   author: martin-gorner
   thumbnail: /blog/assets/keras-chatbot-arena/thumbnail.png
   date: December 5, 2024
