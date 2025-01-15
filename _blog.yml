@@ -5317,3 +5317,14 @@
     - spaces
     - zerogpu
     - serverless
+
+- local: static-embeddings
+  title: "Train 400x faster Static Embedding Models with Sentence Transformers"
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: January 15, 2025
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
