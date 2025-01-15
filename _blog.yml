@@ -5227,7 +5227,7 @@
     - community
     - research
     - open-source-collab
-
+    
 - local: big-bench-audio-release
   title: "Evaluating Audio Reasoning with Big Bench Audio"
   thumbnail: /blog/assets/big_bench_audio_release/big-bench-audio-thumbnail.png
@@ -5296,6 +5296,27 @@
     - open-source-collab
     - nlp
     - cv
+
+- local: ethics-soc-7
+  title: "AI Agents Are Here. What Now?"
+  author: meg
+  thumbnail: /blog/assets/190_ethics-soc-7/thumbnail.png
+  date: January 13, 2025
+  tags:
+    - ethics
+    - agents
+
+- local: run-comfyui-workflows-on-spaces
+  title: "Run ComfyUI workflows for free on Spaces"
+  author: multimodalart
+  thumbnail: /blog/assets/comfyui-to-gradio/cover.png
+  date: January 14, 2024
+  tags:
+    - comfyui
+    - gradio
+    - spaces
+    - zerogpu
+    - serverless
 
 - local: timmwrapper
   title: "Timm is Now a First-Class Citizen in the 🤗 Transformers Library"
