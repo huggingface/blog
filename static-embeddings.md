@@ -155,7 +155,9 @@ For Static Embeddings, the `Encoder` step is as simple as a dictionary lookup: g
 
 ## Our Method
 
-We set out to revisit Static Embeddings models, using modern techniques to train them. Most of our gains come from the use of a contrastive learning loss function, as we'll explain shortly. Optionally, we can get additional speed improvements by using Matryoshka representation learning, which makes it possible to use truncated versions of the embedding vectors.
+We set out to revisit Static Embeddings models, using modern techniques to train them. Most of our gains come from the use of a contrastive learning loss function, as we'll explain shortly. Optionally, we can get additional speed improvements by using [Matryoshka Representation Learning](https://huggingface.co/blog/matryoshka), which makes it possible to use truncated versions of the embedding vectors.
+
+We'll be using the Sentence Transformers library for training. For a more general overview on how this library can be used to train embedding models, consider reading the [Training and Finetuning Embedding Models with Sentence Transformers v3](https://huggingface.co/blog/train-sentence-transformers) blogpost or the [Sentence Transformers Training Overview documentation](https://sbert.net/docs/sentence_transformer/training_overview.html).
 
 ## Training Details
 
