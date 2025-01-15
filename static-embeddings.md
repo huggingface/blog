@@ -81,7 +81,7 @@ print(similarities)
 
 * [TL;DR](#tl-dr)
 * [Table of Contents](#table-of-contents)
-* [What are Embeddings?](#what-are-embeddings-)
+* [What are Embeddings?](#what-are-embeddings)
   + [Modern Embeddings](#modern-embeddings)
   + [Static Embeddings](#static-embeddings)
 * [Training Details](#training-details)
@@ -1040,6 +1040,8 @@ print(similarities)
 # tensor([[0.7649, 0.3279]])
 ```
 
+The upcoming [Performance > English Retrieval](#english-retrieval-4) section will show that these results are quite solid, within 15% of commonly used Transformer-based encoder models like [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2).
+
 * [`SentenceTransformer` API Reference](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer).
 * [`SentenceTransformer.encode` API Reference](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode).
 * [`SentenceTransformer.similarity` API Reference](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer.similarity).
@@ -1068,6 +1070,9 @@ print(similarities)
 #         [ 0.8388,  1.0000,  0.0445],
 #         [-0.0012,  0.0445,  1.0000]])
 ```
+
+This model only loses about 8% of performance compared to the popular but much slower [multilingual-e5-small](https://huggingface.co/intfloat/multilingual-e5-small), as shown in the upcoming [Performance > Multilingual Similarity](#multilingual-similarity-4) section.
+
 * [`SentenceTransformer` API Reference](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer).
 * [`SentenceTransformer.encode` API Reference](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode).
 * [`SentenceTransformer.similarity` API Reference](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer.similarity).
