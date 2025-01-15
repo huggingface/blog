@@ -153,7 +153,7 @@ Large encoder models with a lot of attention layers will be effective at using t
 
 ### Static Embeddings
 
-Static Embeddings refers to a group of `Encoder` models that don't use large and slow attention-based models, but instead rely on pre-computed token embeddings. Static embeddings were used years before the transformer architecture was developed. Common examples include [GLoVe](https://nlp.stanford.edu/projects/glove/) and [word2vec](https://en.wikipedia.org/wiki/Word2vec).
+Static Embeddings refers to a group of `Encoder` models that don't use large and slow attention-based models, but instead rely on pre-computed token embeddings. Static embeddings were used years before the transformer architecture was developed. Common examples include [GLoVe](https://nlp.stanford.edu/projects/glove/) and [word2vec](https://en.wikipedia.org/wiki/Word2vec). Recently, [Model2Vec](https://huggingface.co/blog/Pringled/model2vec) has been used to convert pre-trained embedding models into Static Embedding models.
 
 For Static Embeddings, the `Encoder` step is as simple as a dictionary lookup: given the token, return the pre-computed token embedding. Consequently, inference is suddenly no longer bottlenecked by the `Encoder` phase, resulting in **speedups of several orders of magnitude**. This blogpost shows that the hit on quality can be quite small!
 
@@ -1331,3 +1331,9 @@ Additionally, there are quite a few possible extensions that are likely to impro
 6. Tokenizer Retraining: Retrain a tokenizer with modern texts and learnings.
 7. Gradient Caching: Applying GradCache via [`CachedMultipleNegativesRankingLoss`](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#sentence_transformers.losses.CachedMultipleNegativesRankingLoss) allows for larger batches, which often result in superior performance.
 8. [Model Distillation](https://sbert.net/examples/training/distillation/README.html): Rather than training exclusively using supervised training data, we can also feed unsupervised data through a larger embedding model and distil those embeddings into the static embedding-based student model. 
+
+## Acknowledgements
+
+I would like to thank [Stéphan Tulkens](https://huggingface.co/stephantulkens) and [Thomas van Dongen](https://huggingface.co/Pringled) of [The Minish Lab](https://huggingface.co/minishlab) for bringing Static Embedding models to my attention via their [Model2Vec](https://huggingface.co/blog/Pringled/model2vec) work. Additionally, I would like to thank [Vaibhav Srivastav](https://huggingface.co/reach-vb) and [Pedro Cuenca](https://huggingface.co/pcuenq) for their assistance with this blogpost, and [Antoine Chaffin](https://huggingface.co/NohTow) for brainstorming the release checkpoints.
+
+Lastly, a big thanks to all researchers working on embedding models, datasets, and open source Python packages. You strengthen the industry, and I build on your shoulders. One day, I hope you build on mine.
