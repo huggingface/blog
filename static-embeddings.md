@@ -115,7 +115,7 @@ print(similarities)
     + [LangChain](#langchain)
     + [LlamaIndex](#llamaindex)
     + [Haystack](#haystack)
-      - [txtai](#txtai)
+    + [txtai](#txtai)
 - [Performance](#performance)
   * [English Retrieval](#english-retrieval-4)
     + [NanoBEIR](#nanobeir)
@@ -1180,7 +1180,7 @@ text_embedder = SentenceTransformersTextEmbedder(
 * [`SentenceTransformersDocumentEmbedder` documentation](https://docs.haystack.deepset.ai/docs/sentencetransformersdocumentembedder).
 * [`SentenceTransformersTextEmbedder` documentation](https://docs.haystack.deepset.ai/docs/sentencetransformerstextembedder).
 
-##### txtai
+#### txtai
 
 ```python
 # pip install txtai sentence-transformers
