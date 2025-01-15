@@ -16,7 +16,8 @@ We apply this recipe to train two extremely efficient embedding models: [sentenc
 Today, we are releasing:
 - The two models (for English retrieval and for multilingual similarity) mentioned above.
 - The detailed training strategy we followed, from ideation to dataset selection to implementation and evaluation.
-- The two training scripts, based on the open-source sentence transformers library.
+- Two training scripts, based on the open-source sentence transformers library.
+- Two Weights and Biases reports with training and evaluation metrics collected during training.
 - The detailed list of datasets we used: 30 for training and 13 for evaluation.
 
 We also discuss potential enhancements, and encourage the community to explore them and build on this work!
@@ -732,6 +733,8 @@ if __name__ == "__main__":
 
 This script produced [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) after 17.8 hours of training. In total, it consumed 2.6 kWh of energy and emitted 1kg of CO2. That is roughly equivalent to the amount of CO2 an average person exhales per day.
 
+See our [Weights and Biases report](https://api.wandb.ai/links/tomaarsen/b399d6ol) for the training and evaluation metrics collected during training.
+
 #### Multilingual Similarity
 
 <details><summary>Click to expand</summary>
@@ -1017,6 +1020,8 @@ if __name__ == "__main__":
 </details>
 
 This script produced [sentence-transformers/static-similarity-mrl-multilingual-v1](https://huggingface.co/sentence-transformers/static-similarity-mrl-multilingual-v1) after 3.1 hours of training. In total, it consumed 0.5 kWh of energy and emitted 0.2kg of CO2. That is roughly 20% of the CO2 that an average person exhales per day.
+
+See our [Weights and Biases report](https://api.wandb.ai/links/tomaarsen/9it77pl0) for the training and evaluation losses collected during training.
 
 ## Usage
 
