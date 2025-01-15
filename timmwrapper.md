@@ -62,7 +62,8 @@ One of the standout features of the `timm` integration is that it allows you to 
 The **`pipeline` API** abstracts away a lot of complexity, making it easy to load a pre-trained model,
 perform inference, and view results with a few lines of code.
 
-Let’s see how to use a transformers pipeline with the *MobileNetV4* (not available in `transformers`) model from `timm`:
+Let's see how to use a transformers pipeline with the *MobileNetV4* (does not have a `transformers` implementation,
+but now has became available in `transformers` with `timm`) model from `timm`:
 
 ```python
 from transformers import pipeline
