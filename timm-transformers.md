@@ -1,6 +1,6 @@
 ---
 title: "Timm ❤️ Transformers: Use any timm model with transformers"
-thumbnail: /blog/assets/timmwrapper/thumbnail.png
+thumbnail: /blog/assets/timm-transformers/thumbnail.png
 authors:
 - user: ariG23498
 - user: rwightman

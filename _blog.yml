@@ -5329,10 +5329,10 @@
     - community
     - open-source
 
-- local: timmwrapper
+- local: timm-transformers
   title: "Timm ❤️ Transformers: Use any timm model with transformers"
   author: ariG23498
-  thumbnail: /blog/assets/timmwrapper/thumbnail.png
+  thumbnail: /blog/assets/timm-transformers/thumbnail.png
   date: January 16, 2025
   tags:
     - timm
