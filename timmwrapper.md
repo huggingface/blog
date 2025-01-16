@@ -33,13 +33,19 @@ In this post, we’ll cover:
 > Check out the full repository for all code examples and notebooks:
 > 🔗 [TimmWrapper Examples](https://github.com/ariG23498/timmwrapper-examples)  
 
+Also, worth mentioning, and one of Ross' (creator of `timm`) favourite features, this integration maintains
+full 'round-trip' compatibility. Namely, using the wrapper one can fine-tune a timm model on a new
+dataset using `transformer`'s `Trainer`, publish the resulting model to the Hugging Face hub,
+and then load the fine-tuned model in `timm` again using `timm.create_model('hf-hub:my_org/my_fine_tuned_model', pretrained=True)`.
+
 ## What is timm?
 
 The [PyTorch Image Models (`timm`) library](https://huggingface.co/docs/timm/en/index)
 offers a rich collection of state-of-the-art computer vision models,
 along with useful layers, utilities, optimizers, and data augmentations.
 With more than 32K GitHub stars, more than 200K daily downloads at the time of writing,
-it’s a go-to resource for image classification, object detection, segmentation, and more.
+it's a go-to resource for image classification and feature extraction for object detection,
+segmentation, image search, and other downstream tasks.
 
 With pre-trained models covering a wide range of architectures, `timm` simplifies the workflow for
 computer vision practitioners.
