@@ -31,12 +31,7 @@ In this post, we’ll cover:
 
 > [!NOTE]  
 > Check out the full repository for all code examples and notebooks:
-> 🔗 [TimmWrapper Examples](https://github.com/ariG23498/timmwrapper-examples)  
-
-Also, worth mentioning, and one of Ross' (creator of `timm`) favourite features, this integration maintains
-full 'round-trip' compatibility. Namely, using the wrapper one can fine-tune a timm model on a new
-dataset using `transformer`'s `Trainer`, publish the resulting model to the Hugging Face hub,
-and then load the fine-tuned model in `timm` again using `timm.create_model('hf-hub:my_org/my_fine_tuned_model', pretrained=True)`.
+> 🔗 [TimmWrapper Examples](https://github.com/ariG23498/timmwrapper-examples)
 
 ## What is timm?
 
@@ -266,7 +261,6 @@ using the same trusted tools and workflows.
 **Model Example:**  
 Fine-tuned ViT on **Food-101**: [**`vit_base_patch16_224.augreg2_in21k_ft_in1k.ft_food101`**](https://huggingface.co/ariG23498/vit_base_patch16_224.augreg2_in21k_ft_in1k.ft_food101)
 
-
 ## LoRA Fine-Tuning for Efficient Training
 
 LoRA (Low-Rank Adaptation) allows you to **fine-tune large models efficiently** by training only a
@@ -333,7 +327,45 @@ inference_model = PeftModel.from_pretrained(model, repo_name)
 
 ![image of sushi with prediction from a fine tuned model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/timmwrapper/prediction-food.png)
 
-## Torch Compile: Instant Speedup 🚀  
+## Round trip integration
+
+One of Ross' (creator of `timm`) favourite features is that this integration maintains
+full 'round-trip' compatibility. Namely, using the wrapper one can fine-tune a timm model on a new dataset using `transformer`'s `Trainer`, publish the resulting model to the Hugging Face hub, and then load the fine-tuned model in `timm` again using `timm.create_model('hf-hub:my_org/my_fine_tuned_model', pretrained=True)`.
+
+Let us see how we can load our fine tuned model `ariG23498/vit_base_patch16_224.augreg2_in21k_ft_in1k.ft_food101` with `timm`
+
+```python
+checkpoint = "ariG23498/vit_base_patch16_224.augreg2_in21k_ft_in1k.ft_food101"
+
+config = AutoConfig.from_pretrained(checkpoint)
+
+model = timm.create_model(f"hf_hub:{checkpoint}", pretrained=True) # Load the model with timm
+model = model.eval()
+
+image = load_image("https://cdn.britannica.com/52/128652-050-14AD19CA/Maki-zushi.jpg")
+
+data_config = timm.data.resolve_model_data_config(model)
+transforms = timm.data.create_transform(**data_config, is_training=False)
+
+output = model(transforms(image).unsqueeze(0))
+
+top5_probabilities, top5_class_indices = torch.topk(output.softmax(dim=1) * 100, k=5)
+
+for prob, idx in zip(top5_probabilities[0], top5_class_indices[0]):
+    print(f"Label: {config.id2label[idx.item()] :20} Score: {prob/100 :0.2f}%")
+```
+
+**Outputs**
+
+```bash
+Label: sushi                Score: 0.98%
+Label: spring_rolls         Score: 0.01%
+Label: sashimi              Score: 0.00%
+Label: club_sandwich        Score: 0.00%
+Label: cannoli              Score: 0.00%
+```
+
+## Torch Compile: Instant Speedup
 
 With **`torch.compile`** in PyTorch 2.0, you can achieve **faster inference** by compiling your model
 with just one line of code. The `timm` integration is fully compatible with `torch.compile`.
