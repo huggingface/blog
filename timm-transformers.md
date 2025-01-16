@@ -4,9 +4,9 @@ thumbnail: /blog/assets/timm-transformers/thumbnail.png
 authors:
 - user: ariG23498
 - user: rwightman
+- user: qubvel-hf
 - user: pcuenq
 - user: reach-vb
-- user: qubvel-hf
 ---
 
 # Timm ❤️ Transformers: Use any timm model with transformers
@@ -415,3 +415,11 @@ with minimal effort. Whether you're looking to fine-tune, quantize, or simply ru
 integration provides a unified API to streamline your workflow.
 
 Start exploring today and unlock new possibilities in computer vision!
+
+## Acknowledgments
+
+We want to give a huge shout-out to the folks who made this integration happen in
+[Transformers PR #34564](https://github.com/huggingface/transformers/pull/34564).
+In no particular order, a big thanks to Pavel Iakubovskii, Ross Wightman, Lysandre Debut,
+Pablo Montalvo, Arthur Zucker, and Amy Roberts for all your incredible work. Your combined efforts took
+this feature from an idea to something everyone can now enjoy!
