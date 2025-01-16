@@ -5306,6 +5306,29 @@
     - ethics
     - agents
 
+- local: run-comfyui-workflows-on-spaces
+  title: "Run ComfyUI workflows for free on Spaces"
+  author: multimodalart
+  thumbnail: /blog/assets/comfyui-to-gradio/cover.png
+  date: January 14, 2024
+  tags:
+    - comfyui
+    - gradio
+    - spaces
+    - zerogpu
+    - serverless
+
+- local: static-embeddings
+  title: "Train 400x faster Static Embedding Models with Sentence Transformers"
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: January 15, 2025
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+
 - local: tgi-multi-backend
   title: Introducing multi-backends (TRT-LLM, vLLM) support for Text Generation Inference
   author: mfuntowicz
