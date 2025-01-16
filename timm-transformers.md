@@ -30,7 +30,7 @@ In this post, we’ll cover:
 
 > [!NOTE]  
 > Check out the full repository for all code examples and notebooks:
-> 🔗 [TimmWrapper Examples](https://github.com/ariG23498/timmwrapper-examples)
+> 🔗 [TimmWrapper Examples](https://github.com/ariG23498/timm-wrapper-examples)
 
 ## What is timm?
 
