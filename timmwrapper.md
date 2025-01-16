@@ -345,15 +345,25 @@ model = TimmWrapperForImageClassification.from_pretrained(checkpoint).to(device)
 processed_input = image_processor(image, return_tensors="pt").to(device)
 
 # Benchmark function
-def run_benchmark(model, input_data, runs=300):
+def run_benchmark(model, input_data, warmup_runs=5, benchmark_runs=300):
+    # Warm-up phase
     model.eval()
     with torch.no_grad():
-        times = []
-        for i in range(runs):
-            start = time.time()
+        for _ in range(warmup_runs):
             _ = model(**input_data)
-            times.append(time.time() - start)
-    return sum(times) / runs
+
+    # Benchmark phase
+    times = []
+    with torch.no_grad():
+        for _ in range(benchmark_runs):
+            start_time = time.perf_counter()
+            _ = model(**input_data)
+            if device.type == "cuda":
+                torch.cuda.synchronize(device=device)  # Ensure synchronization for CUDA
+            times.append(time.perf_counter() - start_time)
+
+    avg_time = sum(times) / benchmark_runs
+    return avg_time
 
 # Run benchmarks
 time_no_compile = run_benchmark(model, processed_input)
