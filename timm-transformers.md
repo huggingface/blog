@@ -11,11 +11,10 @@ authors:
 
 # Timm ❤️ Transformers: Use any timm model with transformers
 
-Ever wanted to leverage the vast collection of state-of-the-art models from the
-[`timm` library](https://huggingface.co/models?library=timm&sort=trending) using
-the familiar 🤗 `transformers` ecosystem?
+Get lightning-fast inference, quick quantization, `torch.compile` boosts, and effortless fine-tuning
+for **any** `timm` model—all within the friendly 🤗 `transformers` ecosystem.
 
-Enter the [`TimmWrapper`](https://huggingface.co/docs/transformers/main/en/model_doc/timm_wrapper)—a simple,
+Enter [`TimmWrapper`](https://huggingface.co/docs/transformers/main/en/model_doc/timm_wrapper)—a simple,
 yet powerful tool that unlocks this potential.
 
 In this post, we’ll cover:
