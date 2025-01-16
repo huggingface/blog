@@ -5342,3 +5342,13 @@
     - jetstream
     - tensorrt-llm
     - community
+
+- local: timm-transformers
+  title: "Timm ❤️ Transformers: Use any timm model with transformers"
+  author: ariG23498
+  thumbnail: /blog/assets/timm-transformers/thumbnail.png
+  date: January 16, 2025
+  tags:
+    - timm
+    - cv
+    - community
