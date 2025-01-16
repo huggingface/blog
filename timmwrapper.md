@@ -43,14 +43,14 @@ and then load the fine-tuned model in `timm` again using `timm.create_model('hf-
 The [PyTorch Image Models (`timm`) library](https://huggingface.co/docs/timm/en/index)
 offers a rich collection of state-of-the-art computer vision models,
 along with useful layers, utilities, optimizers, and data augmentations.
-With more than 32K GitHub stars, more than 200K daily downloads at the time of writing,
+With more than 32K GitHub stars and more than 200K daily downloads at the time of writing,
 it's a go-to resource for image classification and feature extraction for object detection,
 segmentation, image search, and other downstream tasks.
 
 With pre-trained models covering a wide range of architectures, `timm` simplifies the workflow for
 computer vision practitioners.
 
-## Why Use the TimmWrapper?
+## Why Use the timm integration?
 
 While 🤗 `transformers` supports several vision models, `timm` offers an even broader collection,
 including many mobile-friendly and efficient models not available in transformers.
@@ -60,6 +60,7 @@ The `timm` integration bridges this gap, bringing the best of both worlds:
 - 🧩 **Compatibility with Auto Classes**: While `timm` models aren’t natively compatible with `transformers`, the integration makes them work seamlessly with the `Auto` classes API.
 - ⚡ **Quick Quantization**: With just ~5 lines of code, you can quantize **any** `timm` model for efficient inference.
 - 🎯 **Fine-Tuning with Trainer API**: Fine-tune `timm` models using the `Trainer` API and even integrate with adapters like low rank adaptation (LoRA).
+- 🔁 **Round trip to timm**: Use fine-tuned models back in `timm`.
 - 🚀 **Torch Compile for Speed**: Leverage `torch.compile` to optimize inference time.
 
 ## Pipeline API: Using timm Models for Image Classification
@@ -68,8 +69,7 @@ One of the standout features of the `timm` integration is that it allows you to 
 The **`pipeline` API** abstracts away a lot of complexity, making it easy to load a pre-trained model,
 perform inference, and view results with a few lines of code.
 
-Let's see how to use a transformers pipeline with the *MobileNetV4* (does not have a `transformers` implementation,
-but now has became available in `transformers` with `timm`) model from `timm`:
+Let's see how to use a transformers pipeline with the *MobileNetV4*. This architecture does not have a native `transformers` implementation, but can be easily used from `timm`:
 
 ```python
 from transformers import pipeline
@@ -214,7 +214,7 @@ Quantized models perform **almost identically** to full-precision models during 
 | Original Model    | remote control, remote   | 0.35%     |
 | Quantized Model   | remote control, remote   | 0.33%     |
 
-## Supervised Fine-Tuning with `TimmWrapper`
+## Supervised Fine-Tuning of `timm` models
 
 Fine-tuning a `timm` model with the **`Trainer` API** from 🤗 `transformers` is **straightforward and highly flexible**.
 You can fine-tune your model on custom datasets using the `Trainer` class, which handles the training loop,
@@ -379,9 +379,8 @@ print(f"With torch.compile: {time_compile:.4f} s")
 
 ## Wrapping Up
 
-`timm` integrated into the Hugging Face ecosystem opens new doors for leveraging state-of-the-art vision models
+`timm`'s integration with transformers opens new doors for leveraging state-of-the-art vision models
 with minimal effort. Whether you're looking to fine-tune, quantize, or simply run inference, this
 integration provides a unified API to streamline your workflow.
 
-By combining timm's model repository with the extensive ecosystem of transformers, you get the best
-of both worlds. Start exploring today and unlock new possibilities in computer vision!
+Start exploring today and unlock new possibilities in computer vision!
