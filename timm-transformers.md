@@ -128,7 +128,7 @@ demo.launch()
 Here’s a live example hosted on Hugging Face Spaces. You can test it directly in your browser!  
 
 <iframe  
-  src="https://huggingface.co/spaces/ariG23498/food-classification"  
+  src="https://ariG23498-food-classification.hf.space"  
   frameborder="0"  
   width="100%"  
   height="560px"  
