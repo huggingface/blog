@@ -5227,7 +5227,7 @@
     - community
     - research
     - open-source-collab
-    
+
 - local: big-bench-audio-release
   title: "Evaluating Audio Reasoning with Big Bench Audio"
   thumbnail: /blog/assets/big_bench_audio_release/big-bench-audio-thumbnail.png
@@ -5329,6 +5329,20 @@
     - community
     - open-source
 
+- local: tgi-multi-backend
+  title: Introducing multi-backends (TRT-LLM, vLLM) support for Text Generation Inference
+  author: mfuntowicz
+  thumbnail: /blog/assets/tgi-multi-backend/thumbnail.png
+  date: January 16, 2025
+  tags:
+    - tgi
+    - backends
+    - vllm
+    - neuron
+    - jetstream
+    - tensorrt-llm
+    - community
+
 - local: timm-transformers
   title: "Timm ❤️ Transformers: Use any timm model with transformers"
   author: ariG23498
@@ -5337,3 +5351,4 @@
   tags:
     - timm
     - cv
+    - community
