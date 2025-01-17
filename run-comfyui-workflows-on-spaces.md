@@ -210,7 +210,7 @@ hf_hub_download(repo_id="comfyanonymous/flux_text_encoders", filename="t5xxl_fp1
 
 This will map all local models on ComfyUI to their Hugging Face versions. Unfortunately, currently there is no way to automate this process, you need to find the models of your workflow on Hugging Face and map it to the same ComfyUI folders that.
 
-If you are running models that are not on Hugging Face, you to need find a way to programmatically download them to the correct folder via Python code. This will run only once when the Hugging Face Space starts.
+If you are running models that are not on Hugging Face, you need to find a way to programmatically download them to the correct folder via Python code. This will run only once when the Hugging Face Space starts.
 
 Now, we will do one last modification to the `app.py` file, which is to include the function decoration for ZeroGPU, which will let us do inference for free!
 ```diff
