@@ -40,7 +40,7 @@ The tl;dr summary of what we will cover in this tutorial is:
 
 ## 1. Exporting your ComfyUI workflow to run on pure Python
 
-ComfyUI is awesome, and as the name indicates, it contains a UI. But Comfy is way more than a UI, it contains it's own backend that runs on Python. As we don't want to use Comfy's node-based UI for the purposes of this tutorial, we need to export the code to be ran on pure python.
+ComfyUI is awesome, and as the name indicates, it contains a UI. But Comfy is way more than a UI, it contains its own backend that runs on Python. As we don't want to use Comfy's node-based UI for the purposes of this tutorial, we need to export the code to be run on pure python.
 
 Thankfully, [Peyton DeNiro](https://github.com/pydn) has created this incredible [ComfyUI-to-Python-Extension](https://github.com/pydn/ComfyUI-to-Python-Extension) that exports any Comfy workflow to a python script, enabling you to run a workflow without firing up the UI.
 
@@ -54,7 +54,7 @@ Now that we have our Python script, it is time to create our Gradio app that wil
 
 Next, we will have to re-arrange our python script a bit to create a UI for it.
 
-> Tip: LLMs like ChatGPT, Claude, Qwen, Gemni, LLama 3, etc. know how to create Gradio apps. Pasting your exported Python script to it and asking it to create a Gradio app should work on a basic level, but you'd probably need to correct somethings with the knowledge you'll get in this tutorial. For the purpose of this tutorial, we'll create the application ourselves. 
+> Tip: LLMs like ChatGPT, Claude, Qwen, Gemini, LLama 3, etc. know how to create Gradio apps. Pasting your exported Python script to it and asking it to create a Gradio app should work on a basic level, but you'd probably need to correct something with the knowledge you'll get in this tutorial. For the purpose of this tutorial, we'll create the application ourselves. 
 
 Open the exported Python script and add an import for Gradio
 
@@ -146,7 +146,7 @@ fluxguidance_430 = fluxguidance.append(
 # ...
 stylemodelapplyadvanced_442 = stylemodelapplyadvanced.apply_stylemodel(
 -   strength=0.5,
-+   strength=style_strenght,
++   strength=style_strength,
     conditioning=get_value_at_index(instructpixtopixconditioning_431, 0),
     style_model=get_value_at_index(stylemodelloader_441, 0),
     clip_vision_output=get_value_at_index(clipvisionencode_439, 0),
@@ -169,7 +169,7 @@ saveimage_327 = saveimage.save_images(
 + return saved_path
 ```
 
-Check out a video rundown of this modifications: 
+Check out a video rundown of these modifications: 
 <video controls src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/comfyu-to-gradio/video_code_change.mp4" title="Title"></video>
 
 Now, we should be ready to run the code! Save your python file as `app.py`, add it to the root of your ComfyUI folder and run it as
@@ -192,7 +192,7 @@ That's it, congratulations! You managed to convert your ComfyUI workflow to a Gr
 
 ## 3. Preparing it to run Hugging Face Spaces
 
-Now with our Gradio demo working, we may feel tempted to just upload everything to Hugging Face Spaces. However, this would require uploading dozens of GB of models to Hugging Face, which is not only only slow but also unnecessary, as all of these models already exist on Hugging Face!
+Now with our Gradio demo working, we may feel tempted to just upload everything to Hugging Face Spaces. However, this would require uploading dozens of GB of models to Hugging Face, which is not only slow but also unnecessary, as all of these models already exist on Hugging Face!
 
 Instead, we will first install `pip install huggingface_hub` if we don't have it already, and then we need to do the following on the top of our `app.py` file:
 
@@ -210,7 +210,7 @@ hf_hub_download(repo_id="comfyanonymous/flux_text_encoders", filename="t5xxl_fp1
 
 This will map all local models on ComfyUI to their Hugging Face versions. Unfortunately, currently there is no way to automate this process, you need to find the models of your workflow on Hugging Face and map it to the same ComfyUI folders that.
 
-If you are running models that are not on Hugging Face, you need find a way to programmatically download them to the correct folder via Python code. This will run only once when the Hugging Face Space starts.
+If you are running models that are not on Hugging Face, you need to find a way to programmatically download them to the correct folder via Python code. This will run only once when the Hugging Face Space starts.
 
 Now, we will do one last modification to the `app.py` file, which is to include the function decoration for ZeroGPU, which will let us do inference for free!
 ```diff
