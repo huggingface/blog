@@ -121,7 +121,7 @@ These numbers were obtained with the following settings on an 80GB A100 machine 
 - `torch.bfloat16` dtype
 - `num_frames`: 121, `height`: 512, `width`: 768
 - `max_sequence_length`: 128
-- `num_inference_dtype`: 50
+- `num_inference_steps`: 50
 
 These requirements are quite staggering, making these models difficult to run on consumer hardware. As mentioned above, with Diffusers, users can enable different optimizations to suit their needs. The following table provides memory requirements for widely used models with sensible optimizations enabled (that do not compromise on quality or time required for inference). We studied this with the HunyuanVideo model as it’s sufficiently large to show the benefits of the optimizations in a progressive manner.
 
