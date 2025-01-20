@@ -15,7 +15,6 @@ authors:
   guest: true
   org: AtlaAI
 - user: clefourrier
-  org: huggingface
 - user: tobydrane
   guest: true
   org: AtlaAI
