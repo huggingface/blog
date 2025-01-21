@@ -31,20 +31,20 @@ Specifically, we will discuss:
 
 As of today, the below models are amongst the most popular ones. 
 
-| **Provider** | **Model** | **Open/Closed** |
-| --- | --- | --- |
-| Meta | [MovieGen](https://ai.meta.com/research/movie-gen/) | Closed (with a detailed [technical report](https://ai.meta.com/research/publications/movie-gen-a-cast-of-media-foundation-models/)) |
-| OpenAI | [Sora](https://sora.com/) | Closed |
-| Google | [Veo 2](https://deepmind.google/technologies/veo/veo-2/) | Closed |
-| RunwayML | [Gen 3 Alpha](https://runwayml.com/research/introducing-gen-3-alpha) | Closed |
-| Pika Labs | [Pika 2.0](https://pika.art/login) | Closed |
-| KlingAI | [Kling](https://www.klingai.com/) | Closed |
-| Haliluo | [MiniMax](https://hailuoai.video/) | Closed |
-| THUDM | [CogVideoX](https://huggingface.co/docs/diffusers/main/en/api/pipelines/cogvideox) | Open |
-| Genmo | [Mochi-1](https://huggingface.co/docs/diffusers/main/en/api/pipelines/cogvideox) | Open |
-| RhymesAI | [Allegro](https://huggingface.co/docs/diffusers/main/en/api/pipelines/allegro) | Open |
-| Lightricks | [LTX Video](https://huggingface.co/docs/diffusers/main/en/api/pipelines/ltx_video) | Open |
-| Tencent | [Hunyuan Video](https://huggingface.co/docs/diffusers/main/api/pipelines/hunyuan_video) | Open |
+| **Provider** | **Model**         | **Open/Closed** | **License** |
+|--------------|-------------------|-----------------|-------------|
+| Meta         | [MovieGen](https://ai.meta.com/research/movie-gen/) | Closed (with a detailed [technical report](https://ai.meta.com/research/publications/movie-gen-a-cast-of-media-foundation-models/)) | Proprietary |
+| OpenAI       | [Sora](https://sora.com/) | Closed         | Proprietary |
+| Google       | [Veo 2](https://deepmind.google/technologies/veo/veo-2/) | Closed         | Proprietary |
+| RunwayML     | [Gen 3 Alpha](https://runwayml.com/research/introducing-gen-3-alpha) | Closed         | Proprietary |
+| Pika Labs    | [Pika 2.0](https://pika.art/login) | Closed         | Proprietary |
+| KlingAI      | [Kling](https://www.klingai.com/) | Closed         | Proprietary |
+| Haliluo      | [MiniMax](https://hailuoai.video/) | Closed         | Proprietary |
+| THUDM        | [CogVideoX](https://huggingface.co/docs/diffusers/main/en/api/pipelines/cogvideox) | Open           | [Custom](https://huggingface.co/THUDM/CogVideoX-5b/blob/main/LICENSE) |
+| Genmo        | [Mochi-1](https://huggingface.co/docs/diffusers/main/en/api/pipelines/cogvideox) | Open           | Apache 2.0 |
+| RhymesAI     | [Allegro](https://huggingface.co/docs/diffusers/main/en/api/pipelines/allegro) | Open           | Apache 2.0 |
+| Lightricks   | [LTX Video](https://huggingface.co/docs/diffusers/main/en/api/pipelines/ltx_video) | Open           | [Custom](https://huggingface.co/Lightricks/LTX-Video/blob/main/License.txt) |
+| Tencent      | [Hunyuan Video](https://huggingface.co/docs/diffusers/main/api/pipelines/hunyuan_video) | Open           | [Custom](https://huggingface.co/tencent/HunyuanVideo/blob/main/LICENSE) |
 
 **Limitations**: Despite the continually increasing number of video generation models, their limitations are also manifold:
 
@@ -81,21 +81,6 @@ Text conditioning is incorporated through either joint attention (introduced in 
 
 The denoising network itself builds on the DiT architecture developed by [William Peebles and Saining Xie](https://arxiv.org/abs/2212.09748), while incorporating various design elements from [PixArt](https://arxiv.org/abs/2310.00426).
 
-### Licensing
-
-The table below provides a list of the checkpoints of the most popular open video generation models, along with their licenses. Mochi-1, despite being a large and high-quality model, comes with an Apache 2.0 license! 
-
-| **Model Name** | **License** |
-| --- | --- |
-| [`THUDM/CogVideoX1.5-5B`](https://huggingface.co/THUDM/CogVideoX1.5-5B) | [Link](https://huggingface.co/THUDM/CogVideoX-5b/blob/main/LICENSE) |
-| [`THUDM/CogVideoX1.5-5B-I2V`](https://huggingface.co/THUDM/CogVideoX1.5-5B-I2V) | [Link](https://huggingface.co/THUDM/CogVideoX-5b/blob/main/LICENSE) |
-| [`THUDM/CogVideoX-5b`](https://huggingface.co/THUDM/CogVideoX-5b) | [Link](https://huggingface.co/THUDM/CogVideoX-5b/blob/main/LICENSE) |
-| [`THUDM/CogVideoX-5b-I2V`](https://huggingface.co/THUDM/CogVideoX-5b-I2V) | [Link](https://huggingface.co/THUDM/CogVideoX-5b/blob/main/LICENSE) |
-| [`THUDM/CogVideoX-2b`](https://huggingface.co/THUDM/CogVideoX-2b) | Apache 2.0 |
-| [`genmo/mochi-1-preview`](https://huggingface.co/genmo/mochi-1-preview) | Apache 2.0 |
-| [`rhymes-ai/Allegro`](https://huggingface.co/rhymes-ai/Allegro) | Apache 2.0 |
-| [`tencent/HunyuanVideo`](https://huggingface.co/tencent/HunyuanVideo) | [Link](https://huggingface.co/tencent/HunyuanVideo/blob/main/LICENSE) |
-| [`Lightricks/LTX-Video`](https://huggingface.co/Lightricks/LTX-Video) | [Link](https://huggingface.co/Lightricks/LTX-Video/blob/main/License.txt) |
 
 ### **Memory requirements**
 
