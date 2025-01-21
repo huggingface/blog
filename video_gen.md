@@ -66,6 +66,8 @@ With image generation models, we usually only care about the first three aspects
 
 ## Open Video Generation Models
 
+![diagram](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video_gen/diagram.jpg)
+
 Text-to-video generation models have similar components as their text-to-image counterparts:
 
 - Text encoders for providing rich representations of the input text prompt
