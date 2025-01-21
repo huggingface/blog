@@ -20,8 +20,6 @@ Specifically, we will discuss:
 - Capabilities and limitations of video generation models
 - Why video generation is hard
 - Open video generation models
-    - Licensing
-    - Memory requirements
 - Video generation with Diffusers
     - Inference and optimizations
     - Fine-tuning
@@ -82,7 +80,42 @@ Text conditioning is incorporated through either joint attention (introduced in 
 The denoising network itself builds on the DiT architecture developed by [William Peebles and Saining Xie](https://arxiv.org/abs/2212.09748), while incorporating various design elements from [PixArt](https://arxiv.org/abs/2310.00426).
 
 
-### **Memory requirements**
+## Video Generation with Diffusers
+
+<div align="center">
+<iframe src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video_gen/hunyuan-output.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+There are three broad categories of generation possible when working with video models:
+
+1. Text to Video
+2. Image or Image Control condition + Text to Video
+3. Video or Video Control condition + Text to Video
+
+Going from a text (and other conditions) to a video is just a few lines of code. Below we show how to do text-to-video generation with the [LTX-Video model from Lighricks](https://huggingface.co/Lightricks/LTX-Video).
+
+```py
+import torch
+from diffusers import LTXPipeline
+from diffusers.utils import export_to_video
+
+pipe = LTXPipeline.from_pretrained("Lightricks/LTX-Video", torch_dtype=torch.bfloat16).to("cuda")
+
+prompt = "A woman with long brown hair and light skin smiles at another woman with long blonde hair. The woman with brown hair wears a black jacket and has a small, barely noticeable mole on her right cheek. The camera angle is a close-up, focused on the woman with brown hair's face. The lighting is warm and natural, likely from the setting sun, casting a soft glow on the scene. The scene appears to be real-life footage"
+negative_prompt = "worst quality, inconsistent motion, blurry, jittery, distorted"
+
+video = pipe(
+    prompt=prompt,
+    negative_prompt=negative_prompt,
+    width=704,
+    height=480,
+    num_frames=161,
+    num_inference_steps=50,
+).frames[0]
+export_to_video(video, "output.mp4", fps=24)
+```
+
+### Memory requirements
 
 The memory requirements for any model can be computed by adding the following:
 
@@ -125,36 +158,24 @@ These requirements are quite staggering, making these models difficult to run on
 
 *8Bit models in `bitsandbytes` cannot be moved to CPU from GPU, unlike the 4Bit ones.
 
-We used the same settings as above to obtain these numbers. Quantization was performed with the [`bitsandbytes` library](https://huggingface.co/docs/bitsandbytes/main/en/index) (Diffusers [supports three different quantization backends](https://huggingface.co/docs/diffusers/main/en/quantization/overview) as of now). Also note that due to numerical precision loss, quantization can impact the quality of the outputs, effects of which are more prominent in videos than images.
+We used the same settings as above to obtain these numbers. Also note that due to numerical precision loss, quantization can impact the quality of the outputs, effects of which are more prominent in videos than images.
 
 We provide more details about these optimizations in the sections below along with some code snippets to go. But if you're already feeling excited,
 we encourage you to check out [our guide](https://huggingface.co/docs/diffusers/main/en/using-diffusers/text-img2vid).
-
-## Video Generation with Diffusers
-
-<div align="center">
-<iframe src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video_gen/hunyuan-output.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
-There are three broad categories of generation possible when working with video models:
-
-1. Text to Video
-2. Image or Image Control condition + Text to Video
-3. Video or Video Control condition + Text to Video
 
 ### Suite of optimizations
 
 Video generation can be quite difficult on resource-constrained devices and time-consuming even on beefier GPUs. Diffusers provides a suite of utilities that help to optimize both the runtime and memory consumption of these models. These optimizations fall under the following categories:
 
-- **Quantization**: The model weights are quantized to lower precision data types, which lowers the VRAM requirements of models.
-- **Offloading**: Different layers of a model can be loaded on the GPU when required for computation on-the-fly and then offloaded back to CPU. This saves a significant amount of memory during inference.
-- **Chunked Inference**: By splitting inference across non-embedding dimensions of input latent tensors, the memory overheads from intermediate activation states can be reduced. Common use of this technique is often seen in encoder/decoder slicing/tiling.
+- **Quantization**: The model weights are quantized to lower precision data types, which lowers the VRAM requirements of models. Diffusers supports three different quantization backends as of today: [bitsandbytes](https://huggingface.co/docs/diffusers/main/en/quantization/bitsandbytes), [torchao](https://huggingface.co/docs/diffusers/main/en/quantization/torchao), and [GGUF](https://huggingface.co/docs/diffusers/main/en/quantization/gguf).
+- **Offloading**: Different layers of a model can be loaded on the GPU when required for computation on-the-fly and then offloaded back to CPU. This saves a significant amount of memory during inference. Offloading is supported through `enable_model_cpu_offload()` and `enable_sequential_cpu_offload()`. Refer [here](https://huggingface.co/docs/diffusers/main/en/optimization/memory#model-offloading) for more details.
+- **Chunked Inference**: By splitting inference across non-embedding dimensions of input latent tensors, the memory overheads from intermediate activation states can be reduced. Common use of this technique is often seen in encoder/decoder slicing/tiling. Chunked inference in Diffusers is supported through [feed-forward chunking](https://huggingface.co/docs/diffusers/main/en/api/pipelines/text_to_video#tips), decoder tiling and slicing, and [split attention inference](https://huggingface.co/docs/diffusers/main/en/api/pipelines/animatediff#freenoise-memory-savings).
 - **Re-use of Attention & MLP states**: Computation of certain denoising steps can be skipped and past states can be re-used, if certain conditions are satisfied for particular algorithms, to speed up the generation process with minimal quality loss.
 
-Note that in the above four options, as of now, we only support the first two. Support for the rest of the two will be merged in soon. If you’re interested to follow along the progress, here are the PRs:
+Below, we provide a list of some advanced optimization techniques that are currently work-in-progress and will be merged soon:
 
-- TODO:
-- TODO:
+* [Layerwise upcasting](https://github.com/huggingface/diffusers/pull/10347): Lets users store the params and layer outputs in a lower-precision such as `torch.float8_e4m3fn` and run computations in a higher precision such as `torch.bfloat16`. 
+* [Overlapped offloading](https://github.com/huggingface/diffusers/pull/10503): Lets users overlap data transfer with computation using CUDA streams.
 
 The list of memory optimizations discussed here will soon become non-exhaustive, so, we suggest you to always keep an eye on the Diffusers repository to stay updated. 
 
