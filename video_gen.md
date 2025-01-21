@@ -142,6 +142,9 @@ These requirements are quite staggering, making these models difficult to run on
 
 We used the same settings as above to obtain these numbers. Quantization was performed with the [`bitsandbytes` library](https://huggingface.co/docs/bitsandbytes/main/en/index) (Diffusers [supports three different quantization backends](https://huggingface.co/docs/diffusers/main/en/quantization/overview) as of now). Also note that due to numerical precision loss, quantization can impact the quality of the outputs, effects of which are more prominent in videos than images.
 
+We provide more details about these optimizations in the sections below along with some code snippets to go. But if you're already feeling excited,
+we encourage you to check out [our guide](https://huggingface.co/docs/diffusers/main/en/using-diffusers/text-img2vid).
+
 ## Video Generation with Diffusers
 
 <div align="center">
@@ -223,7 +226,18 @@ accelerate launch train.py \
 # (Full training command removed for brevity)
 ```
 
-For more details, check out the repository [here](https://github.com/a-r-r-o-w/finetrainers).
+For more details, check out the repository [here](https://github.com/a-r-r-o-w/finetrainers). We used `finetrainers` to emulate the "dissolve" effect and obtained
+promising results. Check out [the model](https://huggingface.co/sayakpaul/pika-dissolve-v0) for additional details.
+
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+   <video
+      alt="demo4.mp4"
+      autoplay loop autobuffer muted playsinline
+    >
+    <source src="https://huggingface.co/sayakpaul/pika-dissolve-v0/resolve/main/assets/output_vase.mp4" type="video/mp4">
+  </video>
+  <figcaption>Prompt: <i>PIKA_DISSOLVE A slender glass vase, brimming with tiny white pebbles, stands centered on a polished ebony dais. Without warning, the glass begins to dissolve from the edges inward. Wisps of translucent dust swirl upward in an elegant spiral, illuminating each pebble as they drop onto the dais. The gently drifting dust eventually settles, leaving only the scattered stones and faint traces of shimmering powder on the stage.</i></figcaption>
+</figure>
 
 ## Looking ahead
 
