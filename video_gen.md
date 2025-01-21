@@ -30,7 +30,7 @@ Specifically, we will discuss:
 As of today, the below models are amongst the most popular ones. 
 
 | **Provider** | **Model**         | **Open/Closed** | **License** |
-|--------------|-------------------|-----------------|-------------|
+|:--------------:|:-------------------:|:-----------------:|:-------------:|
 | Meta         | [MovieGen](https://ai.meta.com/research/movie-gen/) | Closed (with a detailed [technical report](https://ai.meta.com/research/publications/movie-gen-a-cast-of-media-foundation-models/)) | Proprietary |
 | OpenAI       | [Sora](https://sora.com/) | Closed         | Proprietary |
 | Google       | [Veo 2](https://deepmind.google/technologies/veo/veo-2/) | Closed         | Proprietary |
@@ -47,8 +47,8 @@ As of today, the below models are amongst the most popular ones.
 **Limitations**: Despite the continually increasing number of video generation models, their limitations are also manifold:
 
 - **High Resource Requirements:** Producing high-quality videos requires large pretrained models, which are computationally expensive to develop and deploy. These costs arise from dataset collection, hardware requirements, extensive training iterations and experimentation. These costs make it hard to justify producing open-source and freely available models. Even though we don’t have a detailed technical report that shed light into the training resources used, [this post](https://www.factorialfunds.com/blog/under-the-hood-how-openai-s-sora-model-works) provides some reasonable estimates.
-- Several open models suffer from limited generalization capabilities and underperform expectations of users. Models may require prompting in a certain way, or LLM-like prompts, or fail to generalize to out-of-distribution data, which are hurdles for widespread user adoption. For example, models like LTX-Video often need to be prompted in a very detailed and specific way for obtaining good quality generations.
-- The high computational and memory demands of video generation result in significant generation latency. For local usage, this is often a roadblock. Most new open video models are inaccessible to community hardware without extensive memory optimizations and quantization approaches that affect both inference latency and quality of the generated videos.
+- **Generalization**: Several open models suffer from limited generalization capabilities and underperform expectations of users. Models may require prompting in a certain way, or LLM-like prompts, or fail to generalize to out-of-distribution data, which are hurdles for widespread user adoption. For example, models like LTX-Video often need to be prompted in a very detailed and specific way for obtaining good quality generations.
+- **Latency**: The high computational and memory demands of video generation result in significant generation latency. For local usage, this is often a roadblock. Most new open video models are inaccessible to community hardware without extensive memory optimizations and quantization approaches that affect both inference latency and quality of the generated videos.
 
 ## Why is Video Generation Hard?
 
@@ -84,9 +84,14 @@ The denoising network itself builds on the DiT architecture developed by [Willia
 
 ## Video Generation with Diffusers
 
-<div align="center">
-<iframe src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video_gen/hunyuan-output.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+   <video
+      alt="demo4.mp4"
+      autoplay loop autobuffer muted playsinline
+    >
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video_gen/hunyuan-output.mp4" type="video/mp4">
+  </video>
+</figure>
 
 There are three broad categories of generation possible when working with video models:
 
@@ -131,7 +136,7 @@ It is possible to run any video model with extremely low memory, but it comes at
 In the table below, we provide the memory requirements for three popular video generation models with reasonable defaults:
 
 | **Model Name** | **Memory (GB)** |
-| --- | --- |
+|:---:|: ---:|
 | HunyuanVideo | 60.09 |
 | LTX-Video | 17.75 |
 | CogVideoX (1.5 5B) | 36.51 |
@@ -145,8 +150,9 @@ These numbers were obtained with the following settings on an 80GB A100 machine 
 
 These requirements are quite staggering, making these models difficult to run on consumer hardware. As mentioned above, with Diffusers, users can enable different optimizations to suit their needs. The following table provides memory requirements for widely used models with sensible optimizations enabled (that do not compromise on quality or time required for inference). We studied this with the HunyuanVideo model as it’s sufficiently large to show the benefits of the optimizations in a progressive manner.
 
+|**Setting**|**Memory**|
+|:---:|: ---:|
 | Base | 60.10 GB |
-| --- | --- |
 | VAE tiling | 43.58 GB |
 | CPU offloading | 28.87 GB |
 | 8Bit | 49.9 GB |
