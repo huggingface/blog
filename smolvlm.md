@@ -211,7 +211,7 @@ from transformers.image_utils import load_image
 
 # Load images
 image1 = load_image("https://huggingface.co/spaces/HuggingFaceTB/SmolVLM/resolve/main/example_images/rococo.jpg")
-image2 = load_image("https://huggingface.co/spaces/HuggingFaceTB/SmolVLM/blob/main/example_images/rococo_1.jpg")
+image2 = load_image("https://huggingface.co/spaces/HuggingFaceTB/SmolVLM/resolve/main/example_images/rococo_1.jpg")
 
 # Create input messages
 messages = [
