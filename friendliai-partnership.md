@@ -5,7 +5,7 @@ authors:
 - user: ajshinfai
   guest: true
   org: FriendliAI
-- user: soomic
+- user: soominc
   guest: true
   org: FriendliAI
 - user: bgchun
