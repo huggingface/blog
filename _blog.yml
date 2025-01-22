@@ -5108,7 +5108,6 @@
     - LLM
     - research
 
-
 - local: keras-chatbot-arena
   title: "How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs"
   author: martin-gorner
@@ -5352,3 +5351,13 @@
     - timm
     - cv
     - community
+
+- local: friendliai-partnership
+  title: "Hugging Face and FriendliAI partner to supercharge model deployment on the Hub"
+  author: ajshinfai
+  thumbnail: /blog/assets/friendliai-partnership/thumbnail.png
+  date: January 22, 2025
+  tags:
+    - partnerships
+    - friendliai
+    - model-deployment
