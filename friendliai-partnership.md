@@ -3,8 +3,14 @@ title: "Hugging Face and FriendliAI partner to supercharge model deployment on t
 thumbnail: /blog/assets/friendliai-partnership/thumbnail.png
 authors:
 - user: ajshinfai
+  guest: true
+  org: FriendliAI
 - user: soomic
+  guest: true
+  org: FriendliAI
 - user: bgchun
+  guest: true
+  org: FriendliAI
 - user: julien-c
 ---
 
