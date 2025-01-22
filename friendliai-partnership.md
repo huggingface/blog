@@ -51,3 +51,5 @@ Friendli Serverless Endpoints is the perfect solution for developers who want to
 
 ## What’s Next
 We’re thrilled to deepen the FriendliAI<>HF collaboration, enhancing accessibility to open-source AI for developers worldwide. FriendliAI’s high-speed, cost-efficient inference solution eliminates the complexities of infrastructure management, empowering users to focus on innovation. Together with FriendliAI, we remain committed to transforming how AI is developed, driving groundbreaking innovation that shapes the next era of AI.
+
+You can also give us a Follow on our [organization page](https://huggingface.co/FriendliAI) to be updated about future news 🔥
