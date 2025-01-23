@@ -92,7 +92,7 @@ With this update the model is built on a strong document understanding basis and
 
 We increased the pixel shuffle even more! Our new models encode images at a rate of 4096 pixels per token, compared to 1820 pixels per token in the 2B model.
 
-To optimize the tokenization even more, we added special tokens to represent our sub-image separators in a more efficient way. This means that now instead of a string like `<row_1_col_1>` being mapped to 7 tokens, it is mapped to a single token. As any strings up to `<row_6_col_6>`. This led to a sizeable improvement in the model's stability during training and quality of the results. More detailes were documented in this [LinkedIn post](https://www.linkedin.com/posts/andimarafioti_when-worse-training-losses-lead-to-better-activity-7284521064934592513-yBZe?utm_source=share&utm_medium=member_desktop).
+To optimize the tokenization even more, we added special tokens to represent our sub-image separators in a more efficient way. This means that now instead of a string like `<row_1_col_1>` being mapped to 7 tokens, it is mapped to a single token. We did the same for strings up to `<row_6_col_6>`. This led to a sizeable improvement in the model's stability during training and quality of the results. More details were documented in this [LinkedIn post](https://www.linkedin.com/posts/andimarafioti_when-worse-training-losses-lead-to-better-activity-7284521064934592513-yBZe?utm_source=share&utm_medium=member_desktop).
 
 **4. Completing the SmolLM2-SmolVLM family**
 
