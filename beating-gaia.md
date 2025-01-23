@@ -10,6 +10,9 @@ authors:
 
 After some experiments, we were impressed by the performance of Transformers Agents to build agentic systems, so we wanted to see how good it was! We tested using a [Code Agent built with the library](https://github.com/aymeric-roucher/GAIA) on the GAIA benchmark, arguably the most difficult and comprehensive agent benchmark… and ended up on top!
 
+> [!WARNING]
+> The framework `transformers.agents` used in this blog post has now been upgraded to the stand-alone library [smolagents](https://github.com/huggingface/smolagents)! The two libraries have very similar APIs, so switching is easy.
+> Go checkout the `smolagents` introduction blog [here](https://huggingface.co/blog/smolagents).
 
 ## GAIA: a tough benchmark for Agents
 
