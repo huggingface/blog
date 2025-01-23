@@ -59,8 +59,9 @@ With just 256 million parameters, this model stands as the tiniest VLM ever. Des
 - **Basic Visual Reasoning:** Answering questions about charts or diagrams.
 
 
-#### ColiPali integration
-We also found that it's surprisingly easy to fine-tune. Our models are integrated into ColiPali, delivering SOTA retrieval speeds with performance rivaling models 10x their size. SmolVLM makes it faster and cheaper to build searchable databases. We think the 256M model can become a great specialized model for many tasks.
+#### Smaller Multimodal Retrieval: ColSmolVLM 256M & 500M
+
+We also found that it's surprisingly easy to fine-tune and experiment. The team behind the ColBERT-like retrieval models have trained ColSmolVLM, delivering SOTA multimodal retrieval speeds with performance rivaling models 10x their size. SmolVLM makes it faster and cheaper to build searchable databases. We think the 256M model can become a great specialized model for many tasks. Find the link on how to use the new ColSmolVLM with the new SmolVLM models in [Next Steps](#next-steps).
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/colsmol_tiny.png" alt="Benchmarks" style="width:90%;" />
 
@@ -155,7 +156,7 @@ python3 -m mlx_vlm.generate --model HuggingfaceTB/SmolVLM-500M-Instruct --max-to
 
 You can play with the WebGPU demos for the [SmolVLM-256M-Instruct](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM-256M-Instruct-WebGPU) and [SmolVLM-500M-Instruct](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM-500M-Instruct-WebGPU).
 
-Find links to fine-tuning and multimodal RAG with ColSmolVLM on the next section.
+Find links to fine-tuning and multimodal RAG with ColSmolVLM on the [Next Steps](#next-steps).
 
 ## Next Steps
 
