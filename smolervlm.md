@@ -58,7 +58,9 @@ With just 256 million parameters, this model stands as the tiniest VLM ever. Des
 - **Document Q&A:** Answering questions about PDFs or scanned text.
 - **Basic Visual Reasoning:** Answering questions about charts or diagrams.
 
-We also found that it's surprisingly easy to fine-tune. We've been collaborating with IBM's Docling and Illuin Technology's ColiPali to showcase how even this tiny model can become a specialized model with incredible performance on real-world tasks. We think the 256M model can become a great specialized model for many tasks.
+
+#### ColiPali integration
+We also found that it's surprisingly easy to fine-tune. Our models are integrated into ColiPali, delivering SOTA retrieval speeds with performance rivaling models 10x their size. SmolVLM makes it faster and cheaper to build searchable databases. We think the 256M model can become a great specialized model for many tasks.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/colsmol_tiny.png" alt="Benchmarks" style="width:90%;" />
 
