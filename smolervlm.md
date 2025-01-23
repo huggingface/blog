@@ -35,7 +35,7 @@ This release comes with four checkpoints: two base models and two instruction fi
 - **SmolVLM-256M** – The world’s smallest VLM!
 - **SmolVLM-500M** – A half-billion-parameter sibling that offers a significant performance bump while still remaining super lightweight.
 - **New Vision Encoder Choices** – We compared SigLIP 400M SO (used in SmolVLM 2B and many other large VLMs) against a smaller SigLIP base patch-16/512. Surprisingly, the bigger encoder offered only marginally better results, so we opted for the 93M-parameter SigLIP base patch-16/512 in these new releases.
-- **Larger Image Resolution** – Our smaller vision encoder processes images at a larger resolution (inspired by Apple’s VLM research and Google’s PaLiGemma). This yields sharper image understanding with minimal overhead.
+- **Larger Image Resolution** – Our smaller vision encoder processes images at a larger resolution (inspired by Apple’s VLM research and Google’s PaliGemma). This yields sharper image understanding with minimal overhead.
 - **Training Optimization** – A new tokenization trick significantly boosted real-world benchmarks, even though it made the training loss look worse on paper.
 
 We're now reaching model parity with the SmolLM2 family (135M, 360M, 1.7B), so you have a complete set of smaller LLM + VLM combos to play with. 
@@ -152,6 +152,8 @@ python3 -m mlx_vlm.generate --model HuggingfaceTB/SmolVLM-500M-Instruct --max-to
 ```
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smolvlm-mlx.gif" alt="MLX" style="width:90%;" />
+
+You can play with the WebGPU demos for the [SmolVLM-256M-Instruct](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM-256M-Instruct-WebGPU) and [SmolVLM-500M-Instruct](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM-500M-Instruct-WebGPU).
 
 Find links to fine-tuning and multimodal RAG with ColSmolVLM on the next section.
 
