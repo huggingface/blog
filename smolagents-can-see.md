@@ -14,7 +14,8 @@ authors:
 
 We have added vision support to smolagents, which unlocks the use of vision language models in agentic pipelines natively. 
 
-## Table of Contents
+## Table of Contents
+
 - [Overview](#overview)
 - [How we gave sight to smolagents](#how-we-gave-sight-to-smolagents)
 - [Building a vision-enabled web browser agent](#building-a-vision-enabled-web-browser-agent)
