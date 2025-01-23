@@ -4,6 +4,7 @@ thumbnail: /blog/assets/smolervlm/banner.png
 authors:
 - user: andito
 - user: mfarre
+- user: merve
 ---
 
 ## TLDR
