@@ -10,6 +10,18 @@ authors:
 
 > You hypocrite, first take the log out of your own eye, and then you will see clearly to take the speck out of your brother's eye. *Matthew 7, 3-5*
 
+## TL;DR
+
+We have added vision support to smolagents, which unlocks the use of vision language models in agentic pipelines natively. 
+
+## Table of Contents
+- [Overview](#overview)
+- [How we gave sight to smolagents](#how-we-gave-sight-to-smolagents)
+- [Building a vision-enabled web browser agent](#building-a-vision-enabled-web-browser-agent)
+- [How to create a Web browsing agent with vision](#how-to-create-a-web-browsing-agent-with-vision)
+- [Next Steps](#next-steps)
+
+## Overview
 
 In the agentic world, many capabilities are hidden behind a vision wall. A common example is web browsing: web pages feature rich visual content that you never fully recover by simply extracting their text, be it the relative position of objects, messages transmitted through color, specific icons… In this case, vision is a real superpower for agents. So we just added this capability to our [smolagents](https://github.com/huggingface/smolagents)!
 
@@ -17,14 +29,14 @@ Teaser of what this gives: an agentic browser that navigates the web in complete
 
 ### VIDEO EXTRACT
 
-### How we gave sight to smolagents
+## How we gave sight to smolagents
 
 🤔 How do we want to pass images to agents? Passing an image can be done in two ways:
 
 1. You can have images directly available to the agent at start. This is often the case for Document AI.
 2. Sometimes,images  need to be added dynamically. A good example iswhen a web browser just performed an action, and needs to see the impact on its viewports. 
 
-### 1. Pass images once at agent start
+#### 1. Pass images once at agent start
 
 For the case where we want to pass images at once, we added the possibility to pass a list of images to the agent in the `run` method: `agent.run("Describe these images:", images=[image_1, image_2])` .
 
@@ -32,7 +44,7 @@ These image inputs are then stored in the `task_images` attribute of `TaskStep` 
 
 When running the agent, they will be passed to the model. This comes in handy with cases like taking actions based on long PDFs that include visual elements.
 
-### 2. Pass images at each step ⇒ use a callback
+#### 2. Pass images at each step ⇒ use a callback
 
 How to dynamically add images into the agent’s memory?
 
@@ -87,7 +99,7 @@ The most important line here is when we add the image in our observations images
 
 This callback accepts both the `step_log`, and the `agent` itself as arguments. Having `agent` as an input allows to perform deeper operations than just modifying the last logs.
 
-### How to create an Web browsing agent with vision
+### How to create a Web browsing agent with vision
 
 We’re going to use [helium](https://github.com/helium).It provides browser automations based on `selenium` : this will be an easier way for our agent to manipulate webpages.
 
@@ -155,7 +167,6 @@ def close_popups() -> str:
 Now let’s move on to defining our agent. We set the highest `verbosity_level` to display the LLM’s full output messages to view its thoughts, and we increased `max_steps` to 20 to give the agent more steps to explore the web.
 
 ```python
-
 agent = CodeAgent(
     tools=[go_back, close_popups],
     model=model,
@@ -236,7 +247,7 @@ Can you navigate to the profile for the top author of the top trending repo, and
 """ + helium_instructions)
 ```
 
-### VIDEO DEMO
+## Next Steps
 
 This will give you the glimpse of the capabilities of a vision-enabled `CodeAgent`, but there’s much more to do! Go try it out for yourself, we’re looking forward to seeing what you can build.
 
