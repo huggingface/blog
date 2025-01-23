@@ -35,7 +35,7 @@ Teaser of what this gives: an agentic browser that navigates the web in complete
 🤔 How do we want to pass images to agents? Passing an image can be done in two ways:
 
 1. You can have images directly available to the agent at start. This is often the case for Document AI.
-2. Sometimes,images  need to be added dynamically. A good example iswhen a web browser just performed an action, and needs to see the impact on its viewports. 
+2. Sometimes, images  need to be added dynamically. A good example is when a web browser just performed an action, and needs to see the impact on its viewports. 
 
 #### 1. Pass images once at agent start
 
