@@ -74,10 +74,15 @@ Previously, we used the standard SigLIP 400M SO vision backbone, the same one fo
 
 We found the performance gap wasn’t big enough to justify the heavier encoder for our 256M and 500M models. So, we decided to go small on the vision encoder, too. As a bonus, the smaller encoder processes images at a larger resolution, which (per research from [Apple](https://arxiv.org/pdf/2403.09611) and [Google](https://arxiv.org/pdf/2412.03555)) can often yield better visual understanding without ballooning parameter counts.
 
-**2. Tokenization Trick: “Sometimes Worse Loss is Better”**
-During training, we discovered a fascinating effect (documented in this [LinkedIn post](https://www.linkedin.com/posts/andimarafioti_when-worse-training-losses-lead-to-better-activity-7284521064934592513-yBZe?utm_source=share&utm_medium=member_desktop)). We added special tokens to represent our sub-image separators in a more efficient way. This means that now instead of a string like `<row_1_col_1>` being mapped to 7 tokens, it is mapped to a single token. As any strings up to `<row_6_col_6>`. This lead to a sizeable improvement in the model's stability during training and quality of the results.
+**2. Data mixtures**
 
-**3. Completing the SmolLM2-SmolVLM family**
+**3. Tokenization optimizations**
+
+We increased the pixel shuffle even more! Our new models encode images at a rate of 4096 pixels per token, compared to 1820 pixels per token in the 2B model.
+
+To optimizate the tokenizaiton even more, we added special tokens to represent our sub-image separators in a more efficient way. This means that now instead of a string like `<row_1_col_1>` being mapped to 7 tokens, it is mapped to a single token. As any strings up to `<row_6_col_6>`. This lead to a sizeable improvement in the model's stability during training and quality of the results. More detailes were documented in this [LinkedIn post](https://www.linkedin.com/posts/andimarafioti_when-worse-training-losses-lead-to-better-activity-7284521064934592513-yBZe?utm_source=share&utm_medium=member_desktop).
+
+**4. Completing the SmolLM2-SmolVLM family**
 
 SmolLM2 came in three sizes: 135M, 360M, and 1.7B. With the two models we are releasing today, we now have a complete set of smaller LLM + VLM combos to play with.
 
