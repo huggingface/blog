@@ -9,11 +9,11 @@ authors:
 
 # State of open video generation models in Diffusers
 
-OpenAI’s Sora demo marked a striking advance in AI-generated video last year and gave us a glimpse of the potential capabilities of video generation models. The impact was immediate and since that demo, the video generation space has become increasingly competitive with major players and startups producing their own highly capable models such as Google’s Veo2, Haliluo’s Minimax, Runway’s Gen3, Alpha Kling, Pika, and Luma Lab’s Dream Machine.   
+OpenAI’s Sora demo marked a striking advance in AI-generated video last year and gave us a glimpse of the potential capabilities of video generation models. The impact was immediate and since that demo, the video generation space has become increasingly competitive with major players and startups producing their own highly capable models such as Google’s Veo2, Haliluo’s Minimax, Runway’s Gen3, Alpha Kling, Pika, and Luma Lab’s Dream Machine.
 
-Open-source has also had its own surge of video generation models with CogVideoX, Mochi-1, Hunyuan, Allegro, and LTX Video. Is the video community having its “Stable Diffusion moment”?  
+Open-source has also had its own surge of video generation models with CogVideoX, Mochi-1, Hunyuan, Allegro, and LTX Video. Is the video community having its “Stable Diffusion moment”?
 
-This post will provide a brief overview of the state of video generation models, where we are with respect to open video generation models, and how the Diffusers team is planning to support their adoption at scale. 
+This post will provide a brief overview of the state of video generation models, where we are with respect to open video generation models, and how the Diffusers team is planning to support their adoption at scale.
 
 Specifically, we will discuss:
 
@@ -27,7 +27,7 @@ Specifically, we will discuss:
 
 ## Today’s Video Generation Models and their Limitations
 
-As of today, the below models are amongst the most popular ones. 
+These are today's most popular video models for AI-generated content creation
 
 | **Provider** | **Model**         | **Open/Closed** | **License** |
 |:--------------:|:-------------------:|:-----------------:|:-------------:|
@@ -44,7 +44,7 @@ As of today, the below models are amongst the most popular ones.
 | Lightricks   | [LTX Video](https://huggingface.co/docs/diffusers/main/en/api/pipelines/ltx_video) | Open           | [Custom](https://huggingface.co/Lightricks/LTX-Video/blob/main/License.txt) |
 | Tencent      | [Hunyuan Video](https://huggingface.co/docs/diffusers/main/api/pipelines/hunyuan_video) | Open           | [Custom](https://huggingface.co/tencent/HunyuanVideo/blob/main/LICENSE) |
 
-**Limitations**: Despite the continually increasing number of video generation models, their limitations are also manifold:
+**Limitations**:
 
 - **High Resource Requirements:** Producing high-quality videos requires large pretrained models, which are computationally expensive to develop and deploy. These costs arise from dataset collection, hardware requirements, extensive training iterations and experimentation. These costs make it hard to justify producing open-source and freely available models. Even though we don’t have a detailed technical report that shed light into the training resources used, [this post](https://www.factorialfunds.com/blog/under-the-hood-how-openai-s-sora-model-works) provides some reasonable estimates.
 - **Generalization**: Several open models suffer from limited generalization capabilities and underperform expectations of users. Models may require prompting in a certain way, or LLM-like prompts, or fail to generalize to out-of-distribution data, which are hurdles for widespread user adoption. For example, models like LTX-Video often need to be prompted in a very detailed and specific way for obtaining good quality generations.
@@ -62,7 +62,7 @@ There are several factors we’d like to see and control in videos:
 - FPS
 - Duration
 
-With image generation models, we usually only care about the first three aspects. However, for video generation we now have to consider motion quality, coherence and consistency over time, potentially with multiple subjects. Finding the right balance between good data, right inductive priors, and training methodologies to suit these additional requirements has proved to be more challenging than other modalities. 
+With image generation models, we usually only care about the first three aspects. However, for video generation we now have to consider motion quality, coherence and consistency over time, potentially with multiple subjects. Finding the right balance between good data, right inductive priors, and training methodologies to suit these additional requirements has proved to be more challenging than other modalities.
 
 ## Open Video Generation Models
 
@@ -129,7 +129,7 @@ The memory requirements for any model can be computed by adding the following:
 - Memory required for weights
 - Maximum memory required for storing intermediate activation states
 
-Memory required by weights can be lowered via - quantization, downcasting to lower dtypes, or offloading to CPU. Memory required for activations states can also be lowered but is usually a more involved process, which is out of the scope of this blog. 
+Memory required by weights can be lowered via - quantization, downcasting to lower dtypes, or by offloading to CPU. Memory required for activations states can also be lowered but that is a more involved process, which is out of the scope of this blog.
 
 It is possible to run any video model with extremely low memory, but it comes at the cost of time required for inference. If the time required by an optimization technique is more than what a user considers reasonable, it is not feasible to run inference. Diffusers provides many such optimizations that are opt-in and can be chained together.
 
@@ -138,8 +138,8 @@ In the table below, we provide the memory requirements for three popular video g
 | **Model Name** | **Memory (GB)** |
 |:---:|: ---:|
 | HunyuanVideo | 60.09 |
-| LTX-Video | 17.75 |
 | CogVideoX (1.5 5B) | 36.51 |
+| LTX-Video | 17.75 |
 
 These numbers were obtained with the following settings on an 80GB A100 machine (full script [here](https://gist.github.com/sayakpaul/2bc49a30cf76cea07914104d28b1fb86)):
 
@@ -148,7 +148,10 @@ These numbers were obtained with the following settings on an 80GB A100 machine 
 - `max_sequence_length`: 128
 - `num_inference_steps`: 50
 
-These requirements are quite staggering, making these models difficult to run on consumer hardware. As mentioned above, with Diffusers, users can enable different optimizations to suit their needs. The following table provides memory requirements for widely used models with sensible optimizations enabled (that do not compromise on quality or time required for inference). We studied this with the HunyuanVideo model as it’s sufficiently large to show the benefits of the optimizations in a progressive manner.
+These requirements are quite staggering, and make these models difficult to run on consumer hardware. With Diffusers, users can enable different optimizations to reduce memory usage.
+The following table provides the memory requirements for HunyuanVideo with various optimizations enabled that make minimal compromises on quality and time required for inference.
+
+We used HunyuanVideo for this study as it’s sufficiently large enough to show the benefits of the optimizations in a progressive manner.
 
 |**Setting**|**Memory**|
 |:---:|: ---:|
@@ -163,6 +166,7 @@ These requirements are quite staggering, making these models difficult to run on
 | 4Bit + CPU offloading | 21.99 GB |
 | 4Bit + VAE tiling | 26.42 GB |
 | 4Bit + CPU offloading + VAE tiling | 14.15 GB |
+| 4Bit + CPU offloading + VAE tiling + Layerwise Casting | 7.89 GB |
 
 *8Bit models in `bitsandbytes` cannot be moved to CPU from GPU, unlike the 4Bit ones.
 
@@ -182,10 +186,62 @@ Video generation can be quite difficult on resource-constrained devices and time
 
 Below, we provide a list of some advanced optimization techniques that are currently work-in-progress and will be merged soon:
 
-* [Layerwise upcasting](https://github.com/huggingface/diffusers/pull/10347): Lets users store the params and layer outputs in a lower-precision such as `torch.float8_e4m3fn` and run computations in a higher precision such as `torch.bfloat16`. 
+* [Layerwise Casting](https://github.com/huggingface/diffusers/pull/10347): Lets users store the params and layer outputs in a lower-precision such as `torch.float8_e4m3fn` and run computations in a higher precision such as `torch.bfloat16`.
 * [Overlapped offloading](https://github.com/huggingface/diffusers/pull/10503): Lets users overlap data transfer with computation using CUDA streams.
 
-The list of memory optimizations discussed here will soon become non-exhaustive, so, we suggest you to always keep an eye on the Diffusers repository to stay updated. 
+Below is an example of applying 4bit quantization, vae tiling, cpu offloading, and layerwise casting to HunyuanVideo to reduce
+the required VRAM to just 7.89GB.
+
+You will have to install Diffusers from source to try out these features
+
+```shell
+pip install git+https://github.com/huggingface/diffusers.git
+```
+
+```python
+import torch
+from diffusers import (
+    BitsAndBytesConfig,
+    HunyuanVideoTransformer3DModel,
+    HunyuanVideoPipeline,
+)
+from diffusers.utils import export_to_video
+from diffusers.hooks import apply_layerwise_casting
+from transformers import LlamaModel
+
+model_id = "hunyuanvideo-community/HunyuanVideo"
+quantization_config = BitsAndBytesConfig(
+    load_in_4bit=True, bnb_4bit_compute_dtype=torch.bfloat16
+)
+
+text_encoder = LlamaModel.from_pretrained(model_id, subfolder="text_encoder", torch_dtype=torch.float16)
+apply_layerwise_casting(text_encoder, storage_dtype=torch.float8_e4m3fn, compute_dtype=torch.float16)
+
+# Apply 4-bit bitsandbytes quantization to Hunyuan DiT model
+transformer = HunyuanVideoTransformer3DModel.from_pretrained(
+    model_id,
+    subfolder="transformer",
+    quantization_config=quantization_config,
+    torch_dtype=torch.bfloat16,
+)
+
+pipe = HunyuanVideoPipeline.from_pretrained(
+    model_id, transformer=transformer, text_encoder=text_encoder, torch_dtype=torch.float16
+)
+
+# Enable memory saving
+pipe.vae.enable_tiling()
+pipe.enable_model_cpu_offload()
+
+output = pipe(
+    prompt="A cat walks on the grass, realistic",
+    height=320,
+    width=512,
+    num_frames=61,
+    num_inference_steps=30,
+).frames[0]
+export_to_video(output, "output.mp4", fps=15)
+```
 
 We can also apply optimizations during training. The two most well-known techniques applied to video models include:
 
@@ -235,13 +291,12 @@ accelerate launch train.py \
   --weight_decay 1e-4 \
   --epsilon 1e-8 \
   --max_grad_norm 1.0
- 
+
 # ...
 # (Full training command removed for brevity)
 ```
 
-For more details, check out the repository [here](https://github.com/a-r-r-o-w/finetrainers). We used `finetrainers` to emulate the "dissolve" effect and obtained
-promising results. Check out [the model](https://huggingface.co/sayakpaul/pika-dissolve-v0) for additional details.
+We used `finetrainers` to emulate the "dissolve" effect and obtained promising results. Check out [the model](https://huggingface.co/sayakpaul/pika-dissolve-v0) for additional details.
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
@@ -255,9 +310,10 @@ promising results. Check out [the model](https://huggingface.co/sayakpaul/pika-d
 
 ## Looking ahead
 
-As it has become quite apparent that video generation models will continue to grow in 2025, Diffusers users can expect more optimization-related goodies. Our goal is to also make it easy and accessible to do video model fine-tuning which is why we will continue to grow the `finetrainers` library. LoRA training is just the beginning, but there’s more to come - Control LoRAs, Distillation algorithms, ControlNets, Adapters, and more. We would love to welcome contributions from the community as we go 🤗 
+We anticipate significant advancements in video generation models throughout 2025, with major improvements in both output quality and model capabilities.
+Our goal is to make using these models easy and accessible. We will continue to grow the `finetrainers` library, and we are planning on adding many more featueres: Control LoRAs, Distillation Algorithms, ControlNets, Adapters, and more. As always, community contributions are welcome 🤗
 
-We will also continue to collaborate with model publishers, fine-tuners, and anyone from the community willing to help us take the state of video generation to the next level and bring you the latest and the greatest in the domain. 
+Our commitment remains strong to partnering with model publishers, researchers, and community members to ensure the latest innovations in video generation are within reach to everyone.
 
 ## Resources
 
