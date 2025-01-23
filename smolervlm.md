@@ -38,14 +38,14 @@ This release comes with four checkpoints: two base models and two instruction fi
 - **Larger Image Resolution** – Our smaller vision encoder processes images at a larger resolution (inspired by Apple’s VLM research and Google’s PaLiGemma). This yields sharper image understanding with minimal overhead.
 - **Training Optimization** – A new tokenization trick significantly boosted real-world benchmarks, even though it made the training loss look worse on paper.
 
-We're now reaching model parith with the SmolLM2 family (135M, 360M, 1.7B), so you have a complete set of smaller LLM + VLM combos to play with. 
+We're now reaching model parity with the SmolLM2 family (135M, 360M, 1.7B), so you have a complete set of smaller LLM + VLM combos to play with. 
 
 
 ## Why Go Smaller?
 
 When we released SmolVLM 2B, the community response was fantastic: The model is very light weight, open-source and permissive, and easy to integrate into existing workflows. But we wanted to push this approach even further for people working with constrained devices, consumer laptops, or even potentially browser-based inference. That’s where our new 256M and 500M models come in. On the other side, for people trying to process huge amounts of data, these models can can run at a fraction of the cost of the 2B model.
 
-In the last year, we trained two 80B VLMs and reduced them to 8B. Then for SmolVLM we took the challenge or reducing that 2B. And what we learned was that we could push the frontier way further! We are excited to show that at 256M and 500M we can still get great performance. Our new 256M model is the smallest VLM ever released, yet it surpasses the performance of our Idefics 80B model from just 17 months ago.
+In the last year, we trained two 80B VLMs and reduced them to 8B. Then for SmolVLM we took the challenge of reducing that 2B. And what we learned was that we could push the frontier way further! We are excited to show that at 256M and 500M we can still get great performance. Our new 256M model is the smallest VLM ever released, yet it surpasses the performance of our Idefics 80B model from just 17 months ago.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smoller_vlm_benchmarks.png" alt="Benchmarks" style="width:90%;" />
 
@@ -92,8 +92,6 @@ Similarly to our previous release, we rely on [The Cauldron](https://huggingface
 
 The proportions of the datasets was adjusted to place a stronger emphasis on document understanding (41%) and image captioning (14%), while still maintaining a balanced focus on other essential areas such as visual reasoning, chart comprehension, and general instruction following.
 With this update the model is built on a strong document understanding basis and lets the door open to fine-tunes that will adjust its understanding of specific tasks.
-
-
 
 
 **3. Tokenization optimizations**
@@ -165,4 +163,4 @@ Find links to fine-tuning and multimodal RAG with ColSmolVLM on the next section
 - [Direct Preference Optimization on SmolVLM using TRL](Fine-tuning SmolVLM using direct preference optimization (DPO) with TRL on a consumer GPU)
 - [Smol Multimodal RAG: Building with ColSmolVLM and SmolVLM on Colab’s Free-Tier GPU](https://huggingface.co/learn/cookbook/multimodal_rag_using_document_retrieval_and_smol_vlm)
 
-We would like to thank [Joshua Lochner](https://huggingface.co/Xenova) for the ONNX conversion and WebGPU demo and [Vaibhav Srivastav](https://huggingface.co/reach-vb) for his help on this release. 
+We would like to thank [Joshua Lochner](https://huggingface.co/Xenova) for the ONNX conversion and WebGPU demo and [Vaibhav Srivastav](https://huggingface.co/reach-vb) for his help on this release.
