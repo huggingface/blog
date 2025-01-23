@@ -11,7 +11,9 @@ authors:
 
 We’re excited to announce two new additions to the SmolVLM family: SmolVLM-256M and SmolVLM-500M. That’s right—256M parameters, making it the smallest Vision Language Model in the world!
 
-We built on everything we learned from SmolVLM 2B while focusing on efficiency, data mixtures, and new design trade-offs. We are excited to introduce a pair of models that preserve strong multimodal performance in a fraction of the footprint. You can find all the models and the demo for this release [here](https://huggingface.co/collections/HuggingFaceTB/smolvlm-256m-and-500m-6791fafc5bb0ab8acc960fb0).
+We built on everything we learned from SmolVLM 2B while focusing on efficiency, data mixtures, and new design trade-offs. We are excited to introduce a pair of models that preserve strong multimodal performance in a fraction of the footprint. 
+
+This release comes with four checkpoints: two base models and two instruction fine-tuned models with sizes 256M and 500M parameters. These models can be loadable directly to transformers, MLX and ONNX, and we have demos for transformers and WebGPU (with ONNX). You can find all the models and the demo for this release [here](https://huggingface.co/collections/HuggingFaceTB/smolvlm-256m-and-500m-6791fafc5bb0ab8acc960fb0).
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smoller_vlm_benchmarks.png" alt="Benchmarks" style="width:90%;" />
 
@@ -35,7 +37,8 @@ We built on everything we learned from SmolVLM 2B while focusing on efficiency, 
 - **New Vision Encoder Choices** – We compared SigLIP 400M SO (used in SmolVLM 2B and many other large VLMs) against a smaller SigLIP base patch-16/512. Surprisingly, the bigger encoder offered only marginally better results, so we opted for the 93M-parameter SigLIP base patch-16/512 in these new releases.
 - **Larger Image Resolution** – Our smaller vision encoder processes images at a larger resolution (inspired by Apple’s VLM research and Google’s PaLiGemma). This yields sharper image understanding with minimal overhead.
 - **Training Optimization** – A new tokenization trick significantly boosted real-world benchmarks, even though it made the training loss look worse on paper.
-- We're now reaching model parith with the SmolLM2 family (135M, 360M, 1.7B), so you have a complete set of smaller LLM + VLM combos to play with.
+
+We're now reaching model parith with the SmolLM2 family (135M, 360M, 1.7B), so you have a complete set of smaller LLM + VLM combos to play with. 
 
 
 ## Why Go Smaller?
@@ -63,6 +66,11 @@ We also found that it's surprisingly easy to fine-tune. We've been collaborating
 ### A Step Up: 500M
 
 If you need more performance headroom while still keeping the memory usage low, SmolVLM-500M is our half-billion-parameter compromise. It’s significantly smaller than the previous 2B release yet manages to push scores on tasks like DocVQA and MMMU closer to the bigger models. We also found this model to be more robust to prompting, which makes it out-of-the-box better fitted for production. But both models do great when fine-tuned.
+
+We have visualized the throughput gains across different batch sizes in below graph. Below numbers are throughput benchmarks ran on A100. 
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smolvlm-throughput.png
+" alt="Benchmarks" style="width:90%;" />
 
 ## What Changed Since SmolVLM 2B?
 

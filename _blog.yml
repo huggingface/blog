@@ -5361,3 +5361,16 @@
     - partnerships
     - friendliai
     - model-deployment
+
+- local: smolervlm
+  title: "SmolVLM Grows Smaller – Introducing the 250M & 500M Models!"
+  author: andito
+  thumbnail: /blog/assets/smolervlm/banner.png
+  date: January 23, 2025
+  tags:
+    - multimodal
+    - vlm
+    - vision
+    - on-device
+    - smolvlm
+    - community
