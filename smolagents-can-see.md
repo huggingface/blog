@@ -250,7 +250,7 @@ Can you navigate to the profile for the top author of the top trending repo, and
 
 ## Next Steps
 
-This will give you the glimpse of the capabilities of a vision-enabled `CodeAgent`, but there’s much more to do! Go try it out for yourself, we’re looking forward to seeing what you can build.
+This will give you the glimpse of the capabilities of a vision-enabled `CodeAgent`, but there’s much more to do! Get started with the example below.
 
 - You can get started with the agentic web browser [here](https://github.com/huggingface/smolagents/blob/main/examples/vlm_web_browser.py).
 - Read more about smolagents [in our announcement blog post](https://huggingface.co/blog/smolagents).
