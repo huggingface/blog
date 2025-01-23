@@ -105,6 +105,14 @@ We also found that it's surprisingly easy to fine-tune and experiment. The team 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/colsmol_tiny.png" alt="Benchmarks" style="width:90%;" />
 
 
+## SmolDocling
+
+We partnered with IBM to build models for [Docling](https://github.com/DS4SD/docling). Their early results with the 256M model are impressive. Below are some early examples they shared with us. Stay tuned for more updates on this!
+
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smoldocling_layout_table_image.png" alt="Benchmarks" style="width:90%;" />
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smoldocling_code.png" alt="Benchmarks" style="width:90%;" />
+
 ## Using Smaller SmolVLM
 
 Newer SmolVLMs are working out-of-the-box with the old SmolVLM code, so you can use transformers and MLX for inference and fine-tuning, and TRL for alignment 🚀 Moreover, this release also comes with ONNX checkpoints.
