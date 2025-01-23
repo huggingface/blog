@@ -86,13 +86,63 @@ To optimizate the tokenizaiton even more, we added special tokens to represent o
 
 SmolLM2 came in three sizes: 135M, 360M, and 1.7B. With the two models we are releasing today, we now have a complete set of smaller LLM + VLM combos to play with.
 
+## Using Smaller SmolVLM
 
- todo: mention transformers, fine-tuning, mlx working out of the box and add snippets
+Newer SmolVLMs are working out-of-the-box with the old SmolVLM code, so you can use transformers and MLX for inference and fine-tuning, and TRL for alignment 🚀 Moreover, this release also comes with ONNX checkpoints.
+
+Get started with SmolVLM using transformers like below.
+
+```python
+import torch
+from transformers import AutoProcessor, AutoModelForVision2Seq
+
+# Initialize processor and model
+processor = AutoProcessor.from_pretrained("HuggingFaceTB/SmolVLM-500M-Instruct")
+model = AutoModelForVision2Seq.from_pretrained(
+    "HuggingFaceTB/SmolVLM-500M-Instruct",
+    torch_dtype=torch.bfloat16,
+    _attn_implementation="flash_attention_2" if DEVICE == "cuda" else "eager",
+)
+
+# Create input messages
+messages = [
+    {
+        "role": "user",
+        "content": [
+            {"type": "image"},
+            {"type": "text", "text": "Can you describe this image?"}
+        ]
+    },
+]
+
+# Preprocess
+prompt = processor.apply_chat_template(messages, add_generation_prompt=True)
+inputs = processor(text=prompt, images=[image], return_tensors="pt")
+
+# Generate
+generated_ids = model.generate(**inputs, max_new_tokens=500)
+generated_texts = processor.batch_decode(
+    generated_ids,
+    skip_special_tokens=True,
+)
+```
+
+Use SmolVLM with MLX by running the following CLI command:
+
+```bash
+python3 -m mlx_vlm.generate --model HuggingfaceTB/SmolVLM-500M-Instruct --max-tokens 400 --temp 0.0 --image https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/vlm_example.jpg --prompt "What is in this image?"
+```
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smolvlm-mlx.gif" alt="MLX" style="width:90%;" />
+
+Find links to fine-tuning and multimodal RAG with ColSmolVLM on the next section.
 
 ## Next Steps
 
 - We are looking forward to ways you will be using SmollerVLMs! Get started [here](https://huggingface.co/collections/HuggingFaceTB/smolvlm-256m-and-500m-6791fafc5bb0ab8acc960fb0).
 - Learn more in-depth about SmolVLM [here](https://huggingface.co/blog/smolvlm).
+- [Fine-tuning and QLoRA SmolVLM using transformers](https://github.com/merveenoyan/smol-vision/blob/main/Smol_VLM_FT.ipynb)
+- [Direct Preference Optimization on SmolVLM using TRL](Fine-tuning SmolVLM using direct preference optimization (DPO) with TRL on a consumer GPU)
+- [Smol Multimodal RAG: Building with ColSmolVLM and SmolVLM on Colab’s Free-Tier GPU](https://huggingface.co/learn/cookbook/multimodal_rag_using_document_retrieval_and_smol_vlm)
 
->> todo: add special thanks
-
+We would like to thank [Joshua Lochner](https://huggingface.co/Xenova) for the ONNX conversion and WebGPU demo and [Vaibhav Srivastav](https://huggingface.co/reach-vb) for his help on this release. 
