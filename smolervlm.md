@@ -84,9 +84,16 @@ Previously, we used the standard SigLIP 400M SO vision backbone, the same one fo
 
 We found the performance gap wasn’t big enough to justify the heavier encoder for our 256M and 500M models. So, we decided to go small on the vision encoder, too. As a bonus, the smaller encoder processes images at a larger resolution, which (per research from [Apple](https://arxiv.org/pdf/2403.09611) and [Google](https://arxiv.org/pdf/2412.03555)) can often yield better visual understanding without ballooning parameter counts.
 
-**2. Data mixtures**
+**2. Data mixture update**
+
+Similarly to our previous release, we rely on [The Cauldron](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron) and [Docmatix](https://huggingface.co/datasets/HuggingFaceM4/Docmatix) with the addition of [MathWriting](https://huggingface.co/datasets/andito/mathwriting-google) to the mix.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smolvlm_datamixture.gif" alt="Data mixture" style="width:90%;" />
+
+The proportions of the datasets was adjusted to place a stronger emphasis on document understanding (41%) and image captioning (14%), while still maintaining a balanced focus on other essential areas such as visual reasoning, chart comprehension, and general instruction following.
+With this update the model is built on a strong document understanding basis and lets the door open to fine-tunes that will adjust its understanding of specific tasks.
+
+
 
 
 **3. Tokenization optimizations**
