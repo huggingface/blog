@@ -68,10 +68,7 @@ SmolLM2 came in three sizes: 135M, 360M, and 1.7B. With the two models we are re
 
 Performance & Benchmarks
 
-These tiny models pack a punch. The 256M model is the smallest VLM ever released, yet it surpasses the 
+These tiny models pack a punch. The 256M model is the smallest VLM ever released, yet it surpasses the performance of our Idefics 80B model from just 17 months ago.
 
-| Size  | Mathvista | MMMU | OCRBench | MMStar | AI2D  | ChartQA_Test | Science_QA | TextVQA Val | DocVQA Val |
-|-------|-----------|------|----------|--------|-------|--------------|------------|-------------|------------|
-| 256M  | 35.9      | 28.3 | 52.6     | 34.6   | 47    | 55.8         | 73.6       | 49.9        | 58.3       |
-| 500M  | 40.1      | 33.7 | 61       | 38.3   | 59.5  | 63.2         | 79.7       | 60.5        | 70.5       |
-| 2.2B  | 43.9      | 38.3 | 65.5     | 41.8   | 64    | 71.6         | 84.5       | 72.1        | 79.7       |
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smoller_vlm_benchmarks.png" alt="Benchmarks" style="width:90%;" />
