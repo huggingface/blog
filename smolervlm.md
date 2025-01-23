@@ -86,6 +86,9 @@ We found the performance gap wasn’t big enough to justify the heavier encoder 
 
 **2. Data mixtures**
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smolvlm_datamixture.gif" alt="Data mixture" style="width:90%;" />
+
+
 **3. Tokenization optimizations**
 
 We increased the pixel shuffle even more! Our new models encode images at a rate of 4096 pixels per token, compared to 1820 pixels per token in the 2B model.
