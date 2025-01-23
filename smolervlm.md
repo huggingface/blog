@@ -66,6 +66,14 @@ We also found that it's surprisingly easy to fine-tune and experiment. The team 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/colsmol_tiny.png" alt="Benchmarks" style="width:90%;" />
 
 
+#### SmolDocling
+
+We have been partnering with IBM to build a model for [Docling](https://github.com/DS4SD/docling). They have been obtaining extremely good results with the 256M model already. Below are some early examples they shared with us. Stay tuned for more updates on this!
+
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smoldocling_layout_table_image.png" alt="Benchmarks" style="width:90%;" />
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smoldocling_code.png" alt="Benchmarks" style="width:90%;" />
+
 ### A Step Up: 500M
 
 If you need more performance headroom while still keeping the memory usage low, SmolVLM-500M is our half-billion-parameter compromise. It’s significantly smaller than the previous 2B release yet manages to push scores on tasks like DocVQA and MMMU closer to the bigger models. We also found this model to be more robust to prompting, which makes it out-of-the-box better fitted for production. But both models do great when fine-tuned.
