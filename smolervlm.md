@@ -59,21 +59,6 @@ With just 256 million parameters, this model stands as the tiniest VLM ever. Des
 - **Basic Visual Reasoning:** Answering questions about charts or diagrams.
 
 
-#### Smaller Multimodal Retrieval: ColSmolVLM 256M & 500M
-
-We also found that it's surprisingly easy to fine-tune and experiment. The team behind the ColBERT-like retrieval models have trained ColSmolVLM, delivering SOTA multimodal retrieval speeds with performance rivaling models 10x their size. SmolVLM makes it faster and cheaper to build searchable databases. We think the 256M model can become a great specialized model for many tasks. Find the link on how to use the new ColSmolVLM with the new SmolVLM models in [Next Steps](#next-steps).
-
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/colsmol_tiny.png" alt="Benchmarks" style="width:90%;" />
-
-
-#### SmolDocling
-
-We have been partnering with IBM to build a model for [Docling](https://github.com/DS4SD/docling). They have been obtaining extremely good results with the 256M model already. Below are some early examples they shared with us. Stay tuned for more updates on this!
-
-
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smoldocling_layout_table_image.png" alt="Benchmarks" style="width:90%;" />
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smoldocling_code.png" alt="Benchmarks" style="width:90%;" />
-
 ### A Step Up: 500M
 
 If you need more performance headroom while still keeping the memory usage low, SmolVLM-500M is our half-billion-parameter compromise. It’s significantly smaller than the previous 2B release yet manages to push scores on tasks like DocVQA and MMMU closer to the bigger models. We also found this model to be more robust to prompting, which makes it out-of-the-box better fitted for production. But both models do great when fine-tuned.
@@ -112,6 +97,13 @@ To optimizate the tokenizaiton even more, we added special tokens to represent o
 **4. Completing the SmolLM2-SmolVLM family**
 
 SmolLM2 came in three sizes: 135M, 360M, and 1.7B. With the two models we are releasing today, we now have a complete set of smaller LLM + VLM combos to play with.
+
+## Smaller Multimodal Retrieval: ColSmolVLM 256M & 500M
+
+We also found that it's surprisingly easy to fine-tune and experiment. The team behind the ColBERT-like retrieval models have trained ColSmolVLM, delivering SOTA multimodal retrieval speeds with performance rivaling models 10x their size. SmolVLM makes it faster and cheaper to build searchable databases. We think the 256M model can become a great specialized model for many tasks. Find the link on how to use the new ColSmolVLM with the new SmolVLM models in [Next Steps](#next-steps).
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/colsmol_tiny.png" alt="Benchmarks" style="width:90%;" />
+
 
 ## Using Smaller SmolVLM
 
@@ -172,6 +164,6 @@ Find links to fine-tuning and multimodal RAG with ColSmolVLM on the [Next Steps]
 - Learn more in-depth about SmolVLM [here](https://huggingface.co/blog/smolvlm).
 - [Fine-tuning and QLoRA SmolVLM using transformers](https://github.com/merveenoyan/smol-vision/blob/main/Smol_VLM_FT.ipynb)
 - [Direct Preference Optimization on SmolVLM using TRL](Fine-tuning SmolVLM using direct preference optimization (DPO) with TRL on a consumer GPU)
-- [Smol Multimodal RAG: Building with ColSmolVLM and SmolVLM on Colab’s Free-Tier GPU](https://huggingface.co/learn/cookbook/multimodal_rag_using_document_retrieval_and_smol_vlm)
+- [Smol Multimodal RAG: Building with ColSmolVLM and SmolVLM on Colab’s Free-Tier GPU](https://huggingface.co/learn/cookbook/fine_tuning_vlm_dpo_smolvlm_instruct)
 
-We would like to thank [Joshua Lochner](https://huggingface.co/Xenova) for the ONNX conversion and WebGPU demo and [Vaibhav Srivastav](https://huggingface.co/reach-vb) for his help on this release.
+We would like to thank ViDoRe team for training ColSmolVLM: [Tony Wu](https://huggingface.co/tonywu71), [Manuel Faysse](https://huggingface.co/manu), and [Joshua Lochner](https://huggingface.co/Xenova) for the ONNX conversion and WebGPU demo and [Vaibhav Srivastav](https://huggingface.co/reach-vb) for his help on this release.
