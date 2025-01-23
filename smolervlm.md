@@ -65,8 +65,7 @@ If you need more performance headroom while still keeping the memory usage low, 
 
 We have visualized the throughput gains across different batch sizes in below graph. Below numbers are throughput benchmarks ran on A100. 
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/throughput.png
-" alt="Benchmarks" style="width:90%;" />
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/throughput.png" alt="Benchmarks" style="width:90%;" />
 
 ## What Changed Since SmolVLM 2B?
 
