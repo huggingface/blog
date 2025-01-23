@@ -1,5 +1,5 @@
 ---
-title: SmolVLM Grows Smaller – Introducing the 250M & 500M Models!
+title: SmolVLM Grows Smaller – Introducing the 256M & 500M Models!
 thumbnail: /blog/assets/smolervlm/banner.png
 authors:
 - user: andito
@@ -40,7 +40,7 @@ We built on everything we learned from SmolVLM 2B while focusing on efficiency, 
 
 ## Why Go Smaller?
 
-When we released SmolVLM 2B, the community response was fantastic: The model is very light weight, open-source and permissive, and easy to integrate into existing workflows. But we wanted to push this approach even further for people working with constrained devices, consumer laptops, or even potentially browser-based inference. That’s where our new 250M and 500M models come in. On the other side, for people trying to process huge amounts of data, these models can can run at a fraction of the cost of the 2B model.
+When we released SmolVLM 2B, the community response was fantastic: The model is very light weight, open-source and permissive, and easy to integrate into existing workflows. But we wanted to push this approach even further for people working with constrained devices, consumer laptops, or even potentially browser-based inference. That’s where our new 256M and 500M models come in. On the other side, for people trying to process huge amounts of data, these models can can run at a fraction of the cost of the 2B model.
 
 In the last year, we trained two 80B VLMs and reduced them to 8B. Then for SmolVLM we took the challenge or reducing that 2B. And what we learned was that we could push the frontier way further! We are excited to show that at 256M and 500M we can still get great performance. Our new 256M model is the smallest VLM ever released, yet it surpasses the performance of our Idefics 80B model from just 17 months ago.
 
