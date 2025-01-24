@@ -85,7 +85,7 @@ pip install "smolagents[all]" helium selenium python-dotenv
 ```
 
 The agent itself can use helium directly, so no need for specific tools: it can directly use helium to perform actions, such as `click("top 10")` to click the button named "top 10" visible on the page.
-We still have to make two more tools to help the agent navigate the web: a tool to go back to the previous page, and another tool to close pop-ups, because these are quite hard to grab for `helium` since they don’t have any text on their close buttons.
+We still have to make some tools to help the agent navigate the web: a tool to go back to the previous page, and another tool to close pop-ups, because these are quite hard to grab for `helium` since they don’t have any text on their close buttons.
 
 ```python
 from io import BytesIO
@@ -106,6 +106,23 @@ from smolagents.agents import ActionStep
 
 load_dotenv()
 import os
+
+@tool
+def search_item_ctrl_f(text: str, nth_result: int = 1) -> str:
+    """
+    Searches for text on the current page via Ctrl + F and jumps to the nth occurrence.
+    Args:
+        text: The text to search for
+        nth_result: Which occurrence to jump to (default: 1)
+    """
+    elements = driver.find_elements(By.XPATH, f"//*[contains(text(), '{text}')]")
+    if nth_result > len(elements):
+        raise Exception(f"Match n°{nth_result} not found (only {len(elements)} matches found)")
+    result = f"Found {len(elements)} matches for '{text}'."
+    elem = elements[nth_result - 1]
+    driver.execute_script("arguments[0].scrollIntoView(true);", elem)
+    result += f"Focused on element {nth_result} of {len(elements)}"
+    return result
 
 @tool
 def go_back() -> None:
@@ -187,11 +204,12 @@ This callback accepts both the `step_log`, and the `agent` itself as arguments. 
 
 Let's make a model. We've added support for images in all models.
 Just one precision: when using TransformersModel with a VLM, for it to work properly you need to pass
-flatten_messages_as_text as False upon initialization, like:
+`flatten_messages_as_text` as `False` upon initialization, like:
 ```py
 model = TransformersModel(model_id="HuggingFaceTB/SmolVLM-Instruct", device_map="auto", flatten_messages_as_text=False)
 ```
-For this demo, let's use a bigger Qwen2VL via API:
+
+For this demo, let's use a bigger Qwen2VL via Fireworks API:
 ```py
 model = OpenAIServerModel(
     api_key=os.getenv("FIREWORKS_API_KEY"),
@@ -205,7 +223,7 @@ We also provide it with our callback `save_screenshot` define above.
 
 ```python
 agent = CodeAgent(
-    tools=[go_back, close_popups],
+    tools=[go_back, close_popups, search_item_ctrl_f],
     model=model,
     additional_authorized_imports=["helium"],
     step_callbacks = [save_screenshot],
@@ -283,10 +301,11 @@ Don't kill the browser.
 Now everything's ready: Let’s run our agent!
 
 ```python
-agent.run("""
-I'm trying to find how hard I have to work to get a repo in github.com/trending.
-Can you navigate to the profile for the top author of the top trending repo, and give me their total number of commits over the last year?
-""" + helium_instructions)
+search_request = """
+Please navigate to https://en.wikipedia.org/wiki/Chicago and give me a sentence containing the word "1992" that mentions a construction accident.
+"""
+
+agent.run(search_request + helium_instructions)
 ```
 
 ## Next Steps
