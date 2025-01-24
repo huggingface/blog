@@ -60,7 +60,6 @@ All agents in `smolagents` are based on singular `MultiStepAgent` class, which i
     3. Execute the action and logs result into memory (an `ActionStep`).
     4. At the end of each step, run all callback functions defined in `agent.step_callbacks`.
         ⇒ This is where we added support to images: make a callback that logs images into memory!
-        
 
 The figure below details this process:
 
