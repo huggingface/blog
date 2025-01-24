@@ -12,6 +12,10 @@ authors:
 
 Open-source LLMs have now reached a performance level that makes them suitable reasoning engines for powering agent workflows: [Mixtral](https://huggingface.co/blog/mixtral) even [surpasses GPT-3.5](#results) on our benchmark, and its performance could easily be further enhanced with fine-tuning.
 
+> [!NOTE]
+> We've released the simplest agentic library out there: [smolagents](https://github.com/huggingface/smolagents)!
+> Go checkout the `smolagents` introduction blog [here](https://huggingface.co/blog/smolagents).
+
 ## Introduction
 
 Large Language Models (LLMs) trained for [causal language modeling](https://huggingface.co/docs/transformers/tasks/language_modeling) can tackle a wide range of tasks, but they often struggle with basic tasks like logic, calculation, and search. The worst scenario is when they perform poorly in a domain, such as math, yet still attempt to handle all the calculations themselves.

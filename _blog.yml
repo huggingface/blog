@@ -3945,6 +3945,7 @@
     - nlp
     - LLM
     - agents
+    - smolagents
     - transformers
     - gpt
     - mixtral
@@ -4266,6 +4267,7 @@
   date: July 1, 2024
   tags:
     - agents
+    - smolagents
     - nlp
     - community
     - research
@@ -5267,6 +5269,7 @@
   date: December 31, 2024
   tags:
     - agents
+    - smolagents
     - open-source
     - nlp
     - tools
@@ -5374,3 +5377,15 @@
     - on-device
     - smolvlm
     - community
+
+- local: smolagents-can-see
+  title: "We now support VLMs in smolagents!"
+  author: m-ric
+  thumbnail: /blog/assets/smolagents-can-see/thumbnail.png
+  date: January 24, 2025
+  tags:
+    - agents
+    - smolagents
+    - multimodal
+    - vlm
+    - vision
