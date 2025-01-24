@@ -66,7 +66,9 @@ All agents in `smolagents` are based on singular `MultiStepAgent` class, which i
 
 The figure below details this process:
 
-![image.png](Blog%20post%20Agents%20can%20see%201811384ebcac804a879cd3d81eb6b0e5/image.png)
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/smolagents-can-see/diagram_adding_vlms_smolagents.png"/>
+</div>
 
 As you can see, for use cases where images are dynamically retrieved (e.g. web browser agent), we support adding images to the model’s `ActionStep`, in attribute `step_log.observation_images`.
 
