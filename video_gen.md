@@ -136,7 +136,7 @@ It is possible to run any video model with extremely low memory, but it comes at
 In the table below, we provide the memory requirements for three popular video generation models with reasonable defaults:
 
 | **Model Name** | **Memory (GB)** |
-|:---:|: ---:|
+|:---:|:---:|
 | HunyuanVideo | 60.09 |
 | CogVideoX (1.5 5B) | 36.51 |
 | LTX-Video | 17.75 |
@@ -148,27 +148,35 @@ These numbers were obtained with the following settings on an 80GB A100 machine 
 - `max_sequence_length`: 128
 - `num_inference_steps`: 50
 
-These requirements are quite staggering, and make these models difficult to run on consumer hardware. With Diffusers, users can enable different optimizations to reduce memory usage.
+These requirements are quite staggering, and make these models difficult to run on consumer hardware. With Diffusers, users can opt-in to different optimizations to reduce memory usage.
 The following table provides the memory requirements for HunyuanVideo with various optimizations enabled that make minimal compromises on quality and time required for inference.
 
-We used HunyuanVideo for this study as it’s sufficiently large enough to show the benefits of the optimizations in a progressive manner.
+We used HunyuanVideo for this study, as it is sufficiently large enough, to show the benefits of the optimizations in a progressive manner.
 
-|**Setting**|**Memory**|
-|:---:|: ---:|
-| Base | 60.10 GB |
-| VAE tiling | 43.58 GB |
-| CPU offloading | 28.87 GB |
-| 8Bit | 49.9 GB |
-| 8Bit + CPU offloading* | 35.66 GB |
-| 8Bit + VAE tiling | 36.92 GB |
-| 8Bit + CPU offloading + VAE tiling | 26.18 GB |
-| 4Bit | 42.96 GB |
-| 4Bit + CPU offloading | 21.99 GB |
-| 4Bit + VAE tiling | 26.42 GB |
-| 4Bit + CPU offloading + VAE tiling | 14.15 GB |
-| 4Bit + CPU offloading + VAE tiling + Layerwise Casting | 7.89 GB |
+| **Setting**                                        | **Memory**    | **Time** |
+|:--------------------------------------------------:|:-------------:|:--------:|
+| BF16 Base                                          | 60.10 GB      |  863s    |
+| BF16 + CPU offloading                              | 28.87 GB      |  917s    |
+| BF16 + VAE tiling                                  | 43.58 GB      |  870s    |
+| 8-bit BnB                                          | 49.90 GB      |  983s    |
+| 8-bit BnB + CPU offloading*                        | 35.66 GB      | 1041s    |
+| 8-bit BnB + VAE tiling                             | 36.92 GB      |  997s    |
+| 8-bit BnB + CPU offloading + VAE tiling            | 26.18 GB      | 1260s    |
+| 4-bit BnB                                          | 42.96 GB      |  867s    |
+| 4-bit BnB + CPU offloading                         | 21.99 GB      |  953s    |
+| 4-bit BnB + VAE tiling                             | 26.42 GB      |  889s    |
+| 4-bit BnB + CPU offloading + VAE tiling            | 14.15 GB      |  995s    |
+| FP8 Upcasting                                      | 51.70 GB      |  856s    |
+| FP8 Upcasting + CPU offloading                     | 21.99 GB      |  983s    |
+| FP8 Upcasting + VAE tiling                         | 35.17 GB      |  867s    |
+| FP8 Upcasting + CPU offloading + VAE tiling        | 20.44 GB      | 1013s    |
+| BF16 + Group offload (blocks=8) + VAE tiling       | 15.67 GB      |  925s    |
+| BF16 + Group offload (blocks=1) + VAE tiling       |  7.72 GB      |  881s    |
+| BF16 + Group offload (leaf) + VAE tiling           |  6.66 GB      |  887s    |
+| FP8 Upcasting + Group offload (leaf) + VAE tiling  |  6.56 GB^     |  885s    |
 
-*8Bit models in `bitsandbytes` cannot be moved to CPU from GPU, unlike the 4Bit ones.
+<sub><sup>*</sup>8Bit models in `bitsandbytes` cannot be moved to CPU from GPU, unlike the 4Bit ones.<sub>
+<sub><sup>^</sup>The memory usage does not reduce further because the peak utilizations comes from computing attention and feed-forward. Using [Flash Attention](https://github.com/Dao-AILab/flash-attention) and [Optimized Feed-Forward](https://github.com/huggingface/diffusers/pull/10623) can help lower this requirement to ~5 GB.<sub>
 
 We used the same settings as above to obtain these numbers. Also note that due to numerical precision loss, quantization can impact the quality of the outputs, effects of which are more prominent in videos than images.
 
@@ -186,13 +194,12 @@ Video generation can be quite difficult on resource-constrained devices and time
 
 Below, we provide a list of some advanced optimization techniques that are currently work-in-progress and will be merged soon:
 
-* [Layerwise Casting](https://github.com/huggingface/diffusers/pull/10347): Lets users store the params and layer outputs in a lower-precision such as `torch.float8_e4m3fn` and run computations in a higher precision such as `torch.bfloat16`.
-* [Overlapped offloading](https://github.com/huggingface/diffusers/pull/10503): Lets users overlap data transfer with computation using CUDA streams.
+* [Layerwise Casting](https://github.com/huggingface/diffusers/pull/10347): Lets users store the parameters in lower-precision, such as `torch.float8_e4m3fn`, and run computation in a higher precision, such as `torch.bfloat16`.
+* [Group offloading](https://github.com/huggingface/diffusers/pull/10503): Lets users group internal block-level or leaf-level modules to perform offloading. This is beneficial because only parts of the model required for computation are loaded onto the GPU. Additionally, we provide support for overlapping data transfer with computation using CUDA streams, which reduce most of the additional overhead that comes from multiple onloading/offloading of layers.
 
-Below is an example of applying 4bit quantization, vae tiling, cpu offloading, and layerwise casting to HunyuanVideo to reduce
-the required VRAM to just 7.89GB.
+Below is an example of applying 4bit quantization, vae tiling, cpu offloading, and layerwise casting to HunyuanVideo to reduce the required VRAM to just ~6.5 GB for `121 x 512 x 768` resolution videos. To the best of our knowledge, this is the lowest memory requirement to run HunyuanVideo among all available implementations without compromising speed.
 
-You will have to install Diffusers from source to try out these features
+Install Diffusers from source to try out these features! Some implementations are agnostic to the model being used, and can be applied in other backends easily - be sure to check it out!
 
 ```shell
 pip install git+https://github.com/huggingface/diffusers.git
@@ -246,8 +253,7 @@ export_to_video(output, "output.mp4", fps=15)
 We can also apply optimizations during training. The two most well-known techniques applied to video models include:
 
 - **Timestep distillation**: This involves teaching the model to denoise the noisy latents faster in lesser amount of inference steps, in a recursive fashion. For example, if a model takes 32 steps to generate good videos, it can be augmented to try and predict the final outputs in only 16-steps, or 8-steps, or even 2-steps! This may be accompanied by loss in quality depending on how fewer steps are used. Some examples of timestep-distilled models include [Flux.1-Schnell](https://huggingface.co/black-forest-labs/FLUX.1-schnell/) and [FastHunyuan](https://huggingface.co/FastVideo/FastHunyuan).
-- **Guidance distillation**: [Classifier-Free Guidance](https://arxiv.org/abs/2207.12598) is a technique widely used in diffusion models that enhances generation quality. This, however, doubles the generation time because it involves two full forward passes through the models per inference step, followed by an interpolation step. By teaching models to predict the output of both forward passes and interpolation at the cost of one forward pass, this method can enable much faster generation. Some examples of guidance-distilled models include [Flux.1-Dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) and [HunyuanVideo](https://huggingface.co/docs/diffusers/main/api/pipelines/hunyuan_video).
-- Architectural compression through distillation as done in [SSD1B](https://huggingface.co/segmind/SSD-1B).
+- **Guidance distillation**: [Classifier-Free Guidance](https://arxiv.org/abs/2207.12598) is a technique widely used in diffusion models that enhances generation quality. This, however, doubles the generation time because it involves two full forward passes through the models per inference step, followed by an interpolation step. By teaching models to predict the output of both forward passes and interpolation at the cost of one forward pass, this method can enable much faster generation. Some examples of guidance-distilled models include [HunyuanVideo](https://huggingface.co/docs/diffusers/main/api/pipelines/hunyuan_video) and [Flux.1-Dev](https://huggingface.co/black-forest-labs/FLUX.1-dev).
 
 We refer the readers to [this guide](https://huggingface.co/docs/diffusers/main/en/using-diffusers/text-img2vid) for a detailed take on video generation and the current possibilities in Diffusers.
 
