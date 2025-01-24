@@ -71,34 +71,6 @@ This can be done via a callback, which will be run at the end of each step.
 
 Let's demonstrate how to make such a callback, and using it to build a web browser agent.👇👇
 
-### Building a vision-enabled web browser agent
-
-Let’s see how to perform the dynamic image logging using a callback, to make a vision-enabled web browser agent. `save_screenshot` is our callback here that will be run at the end of each step.
-
-```python
-def save_screenshot(step_log: ActionStep, agent: CodeAgent) -> None:
-    sleep(1.0) # Let JavaScript animations happen before taking the screenshots
-    driver = helium.get_driver()
-    current_step = step_log.step_number
-    if driver is not None:
-        for step_logs in agent.logs: # Remove previous screenshots from logs for lean processing
-            if isinstance(step_log, ActionStep) and step_log.step_number <= current_step - 2:
-                step_logs.observations_images = None
-        png_bytes = driver.get_screenshot_as_png()
-        image = Image.open(BytesIO(png_bytes))
-        print(f"Captured a browser screenshot: {image.size} pixels")
-        step_log.observations_images = [image.copy()]  # Create a copy to ensure it persists, important!
-
-    # Update observations with current URL
-    url_info = f"Current url: {driver.current_url}"
-    step_log.observations = url_info if step_logs.observations is None else step_log.observations + "\n" + url_info
-    return
-```
-
-The most important line here is when we add the image in our observations images: `step_log.observations_images = [image.copy()]`.
-
-This callback accepts both the `step_log`, and the `agent` itself as arguments. Having `agent` as an input allows to perform deeper operations than just modifying the last logs.
-
 ### How to create a Web browsing agent with vision
 
 We’re going to use [helium](https://github.com/mherrmann/helium). It provides browser automations based on `selenium`: this will be an easier way for our agent to manipulate webpages.
@@ -108,7 +80,6 @@ pip install "smolagents[all]" helium selenium python-dotenv
 ```
 
 The agent itself can use helium directly, so no need for specific tools: it can directly use helium to perform actions, such as `click("top 10")` to click the button named "top 10" visible on the page.
-
 We still have to make two more tools to help the agent navigate the web: a tool to go back to the previous page, and another tool to close pop-ups, because these are quite hard to grab for `helium` since they don’t have any text on their close buttons.
 
 ```python
@@ -164,7 +135,36 @@ def close_popups() -> str:
     return "Modals closed"
 ```
 
+For now, the agent has no visual input.
+So let us demonstrate how to dynamically feed it images in its step logs by using a callback.
+We make a callback `save_screenshot` that will be run at the end of each step.
+
+```python
+def save_screenshot(step_log: ActionStep, agent: CodeAgent) -> None:
+    sleep(1.0) # Let JavaScript animations happen before taking the screenshots
+    driver = helium.get_driver()
+    current_step = step_log.step_number
+    if driver is not None:
+        for step_logs in agent.logs: # Remove previous screenshots from logs for lean processing
+            if isinstance(step_log, ActionStep) and step_log.step_number <= current_step - 2:
+                step_logs.observations_images = None
+        png_bytes = driver.get_screenshot_as_png()
+        image = Image.open(BytesIO(png_bytes))
+        print(f"Captured a browser screenshot: {image.size} pixels")
+        step_log.observations_images = [image.copy()]  # Create a copy to ensure it persists, important!
+
+    # Update observations with current URL
+    url_info = f"Current url: {driver.current_url}"
+    step_log.observations = url_info if step_logs.observations is None else step_log.observations + "\n" + url_info
+    return
+```
+
+The most important line here is when we add the image in our observations images: `step_log.observations_images = [image.copy()]`.
+
+This callback accepts both the `step_log`, and the `agent` itself as arguments. Having `agent` as an input allows to perform deeper operations than just modifying the last logs.
+
 Now let’s move on to defining our agent. We set the highest `verbosity_level` to display the LLM’s full output messages to view its thoughts, and we increased `max_steps` to 20 to give the agent more steps to explore the web.
+We also provide it with our callback `save_screenshot` define above.
 
 ```python
 agent = CodeAgent(
@@ -206,7 +206,7 @@ In general stop your action after each button click to see what happens on your 
 Never try to login in a page.
 
 To scroll up or down, use scroll_down or scrol_up with as an argument the number of pixels to scroll from.
-Code:
+To scroll up or down, use scroll_down or scroll_up with as an argument the number of pixels to scroll from.
 ```py
 scroll_down(num_pixels=100000) # This will probably scroll all the way down
 ```<end_code>
@@ -239,7 +239,9 @@ After each code blob you write, you will be automatically provided with an updat
 """
 ```
 
-And finally, let’s run it!
+### Running the agent
+
+Now everything's ready: Let’s run our agent!
 
 ```python
 agent.run("""
