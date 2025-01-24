@@ -74,7 +74,7 @@ Let's demonstrate how to make such a callback, and using it to build a web brows
 
 ### Building a vision-enabled web browser agent
 
-Let’s see how to perform the dynamic image logging using a callback, to make a vision-enabled web browser agent. `save_screenshot` is our callback here that will be ran at the end of each step.
+Let’s see how to perform the dynamic image logging using a callback, to make a vision-enabled web browser agent. `save_screenshot` is our callback here that will be run at the end of each step.
 
 ```python
 def save_screenshot(step_log: ActionStep, agent: CodeAgent) -> None:
