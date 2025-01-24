@@ -205,7 +205,6 @@ If you try to interact with an element and it's not found, you'll get a LookupEr
 In general stop your action after each button click to see what happens on your screenshot.
 Never try to login in a page.
 
-To scroll up or down, use scroll_down or scrol_up with as an argument the number of pixels to scroll from.
 To scroll up or down, use scroll_down or scroll_up with as an argument the number of pixels to scroll from.
 ```py
 scroll_down(num_pixels=100000) # This will probably scroll all the way down
