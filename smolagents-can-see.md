@@ -95,7 +95,7 @@ def save_screenshot(step_log: ActionStep, agent: CodeAgent) -> None:
     return
 ```
 
-The most important line here is when we add the image in our observations images: `step_log.observations_images = [image.copy()]` 
+The most important line here is when we add the image in our observations images: `step_log.observations_images = [image.copy()]`.
 
 This callback accepts both the `step_log`, and the `agent` itself as arguments. Having `agent` as an input allows to perform deeper operations than just modifying the last logs.
 
