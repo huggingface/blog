@@ -108,7 +108,7 @@ We’re going to use [helium](https://github.com/mherrmann/helium). It provides 
 pip install "smolagents[all]" helium selenium python-dotenv
 ```
 
-The agent itself can use helium directly, so no need for specific tools: it can directly use helium to perform actions, such as `click(”top 10”)`  to click the button named “top 10” visible on the page. 
+The agent itself can use helium directly, so no need for specific tools: it can directly use helium to perform actions, such as `click("top 10")` to click the button named "top 10" visible on the page.
 
 We still have to make two more tools to help the agent navigate the web: a tool to go back to the previous page, and another tool to close pop-ups, because these are quite hard to grab for `helium` since they don’t have any text on their close buttons.
 
