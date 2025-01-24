@@ -15,7 +15,6 @@ authors:
   guest: true
   org: AtlaAI
 - user: clefourrier
-  org: huggingface
 - user: tobydrane
   guest: true
   org: AtlaAI
@@ -103,7 +102,7 @@ As the leaderboard shapes out over the coming weeks, we look forward to sharing 
 
 We hope the [Judge Arena](https://huggingface.co/spaces/AtlaAI/judge-arena) is a helpful resource for the community. By contributing to this leaderboard, you’ll help developers determine which models to use in their evaluation pipeline. We’re committed to sharing 20% of the anonymized voting data in the coming months as we hope developers, researchers and users will leverage our findings to build more aligned evaluators. 
 
-We’d love to hear your feedback! For general feature requests or to submit / suggest new models to add to the arena, please open up a discussion in the [community](https://huggingface.co/spaces/AtlaAI/judge-arena/discussions) tab or talk to us on [Discord](https://discord.gg/yNpUAMqs). Don’t hesitate to let us know if you have questions or suggestions by messaging us on [X/Twitter](https://x.com/Atla_AI).
+We’d love to hear your feedback! For general feature requests or to submit / suggest new models to add to the arena, please open up a discussion in the [community](https://huggingface.co/spaces/AtlaAI/judge-arena/discussions) tab or talk to us on [Discord](https://discord.com/invite/qFCMgkGwUK). Don’t hesitate to let us know if you have questions or suggestions by messaging us on [X/Twitter](https://x.com/Atla_AI).
 
 [Atla](https://www.atla-ai.com/) currently funds this out of our own pocket. We are looking for API credits (with no strings attached) to support this community effort - please get in touch at [support@atla-ai.com](mailto:support@atla-ai.com) if you are interested in collaborating 🤗
 

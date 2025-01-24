@@ -443,7 +443,7 @@
     - nlp
 
 - local: gptj-sagemaker
-  title: "Deploy GPT-J 6B for inference using  Hugging Face Transformers and Amazon SageMaker"
+  title: "Deploy GPT-J 6B for inference using Hugging Face Transformers and Amazon SageMaker"
   author: philschmid
   thumbnail: /blog/assets/45_gptj_sagemaker/thumbnail.png
   date: January 11, 2022
@@ -3330,7 +3330,7 @@
   title: "Constitutional AI with Open LLMs"
   author: vwxyzjn
   thumbnail: /blog/assets/175_constitutional_ai/thumbnail.png
-  date: Feburary 1, 2024
+  date: February 1, 2024
   tags:
     - research
     - rl
@@ -5108,9 +5108,8 @@
     - LLM
     - research
 
-
 - local: keras-chatbot-arena
-  title: "“How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs"
+  title: "How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs"
   author: martin-gorner
   thumbnail: /blog/assets/keras-chatbot-arena/thumbnail.png
   date: December 5, 2024
@@ -5297,11 +5296,90 @@
     - nlp
     - cv
 
+- local: ethics-soc-7
+  title: "AI Agents Are Here. What Now?"
+  author: meg
+  thumbnail: /blog/assets/190_ethics-soc-7/thumbnail.png
+  date: January 13, 2025
+  tags:
+    - ethics
+    - agents
+
+- local: run-comfyui-workflows-on-spaces
+  title: "Run ComfyUI workflows for free on Spaces"
+  author: multimodalart
+  thumbnail: /blog/assets/comfyui-to-gradio/cover.png
+  date: January 14, 2024
+  tags:
+    - comfyui
+    - gradio
+    - spaces
+    - zerogpu
+    - serverless
+
+- local: static-embeddings
+  title: "Train 400x faster Static Embedding Models with Sentence Transformers"
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: January 15, 2025
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+
+- local: tgi-multi-backend
+  title: Introducing multi-backends (TRT-LLM, vLLM) support for Text Generation Inference
+  author: mfuntowicz
+  thumbnail: /blog/assets/tgi-multi-backend/thumbnail.png
+  date: January 16, 2025
+  tags:
+    - tgi
+    - backends
+    - vllm
+    - neuron
+    - jetstream
+    - tensorrt-llm
+    - community
+
+- local: timm-transformers
+  title: "Timm ❤️ Transformers: Use any timm model with transformers"
+  author: ariG23498
+  thumbnail: /blog/assets/timm-transformers/thumbnail.png
+  date: January 16, 2025
+  tags:
+    - timm
+    - cv
+    - community
+
+- local: friendliai-partnership
+  title: "Hugging Face and FriendliAI partner to supercharge model deployment on the Hub"
+  author: ajshinfai
+  thumbnail: /blog/assets/friendliai-partnership/thumbnail.png
+  date: January 22, 2025
+  tags:
+    - partnerships
+    - friendliai
+    - model-deployment
+
+- local: smolervlm
+  title: "SmolVLM Grows Smaller – Introducing the 250M & 500M Models!"
+  author: andito
+  thumbnail: /blog/assets/smolervlm/banner.png
+  date: January 23, 2025
+  tags:
+    - multimodal
+    - vlm
+    - vision
+    - on-device
+    - smolvlm
+    - community
+
 - local: video_gen
   title: "State of open video generation models in Diffusers"
   author: sayakpaul
   thumbnail: /blog/assets/video_gen/thumbnail.png
-  date: Jan 23, 2025
+  date: Jan 24, 2025
   tags:
     - diffusers
     - guide

@@ -330,3 +330,5 @@ We cited a number of links throughout the post. To make sure you don’t miss ou
 - [General LoRA guide in Diffusers](https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference)
 - [Memory optimization guide for CogVideoX](https://huggingface.co/docs/diffusers/main/en/api/pipelines/cogvideox#memory-optimization) (it applies to other video models, too)
 - [`finetrainers`](https://github.com/a-r-r-o-w/finetrainers) for fine-tuning
+
+*Acknowledgements: Thanks to [Chunte](https://huggingface.co/Chunte) for creating the beautiful thumbnail for this post. Thanks to [Vaibhav](https://huggingface.co/reach-vb) and [Pedro](https://huggingface.co/pcuenq) for their helpful feedback.*
