@@ -88,7 +88,24 @@ The agent itself can use helium directly, so no need for specific tools: it can 
 We still have to make two more tools to help the agent navigate the web: a tool to go back to the previous page, and another tool to close pop-ups, because these are quite hard to grab for `helium` since they don’t have any text on their close buttons.
 
 ```python
-from smolagents import tool
+from io import BytesIO
+from time import sleep
+
+import helium
+from dotenv import load_dotenv
+from PIL import Image
+from selenium import webdriver
+from selenium.common.exceptions import ElementNotInteractableException, TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+from smolagents import CodeAgent, LiteLLMModel, OpenAIServerModel, TransformersModel, tool
+from smolagents.agents import ActionStep
+
+
+load_dotenv()
+import os
 
 @tool
 def go_back() -> None:
@@ -146,11 +163,11 @@ We make a callback `save_screenshot` that will be run at the end of each step.
 
 ```python
 def save_screenshot(step_log: ActionStep, agent: CodeAgent) -> None:
-    sleep(1.0) # Let JavaScript animations happen before taking the screenshots
+    sleep(1.0)  # Let JavaScript animations happen before taking the screenshot
     driver = helium.get_driver()
     current_step = step_log.step_number
     if driver is not None:
-        for step_logs in agent.logs: # Remove previous screenshots from logs for lean processing
+        for step_logs in agent.logs:  # Remove previous screenshots from logs for lean processing
             if isinstance(step_log, ActionStep) and step_log.step_number <= current_step - 2:
                 step_logs.observations_images = None
         png_bytes = driver.get_screenshot_as_png()
@@ -167,6 +184,21 @@ def save_screenshot(step_log: ActionStep, agent: CodeAgent) -> None:
 The most important line here is when we add the image in our observations images: `step_log.observations_images = [image.copy()]`.
 
 This callback accepts both the `step_log`, and the `agent` itself as arguments. Having `agent` as an input allows to perform deeper operations than just modifying the last logs.
+
+Let's make a model. We've added support for images in all models.
+Just one precision: when using TransformersModel with a VLM, for it to work properly you need to pass
+flatten_messages_as_text as False upon initialization, like:
+```py
+model = TransformersModel(model_id="HuggingFaceTB/SmolVLM-Instruct", device_map="auto", flatten_messages_as_text=False)
+```
+For this demo, let's use a bigger Qwen2VL via API:
+```py
+model = OpenAIServerModel(
+    api_key=os.getenv("FIREWORKS_API_KEY"),
+    api_base="https://api.fireworks.ai/inference/v1",
+    model_id="accounts/fireworks/models/qwen2-vl-72b-instruct",
+)
+```
 
 Now let’s move on to defining our agent. We set the highest `verbosity_level` to display the LLM’s full output messages to view its thoughts, and we increased `max_steps` to 20 to give the agent more steps to explore the web.
 We also provide it with our callback `save_screenshot` define above.
@@ -211,8 +243,9 @@ In general stop your action after each button click to see what happens on your 
 Never try to login in a page.
 
 To scroll up or down, use scroll_down or scroll_up with as an argument the number of pixels to scroll from.
+Code:
 ```py
-scroll_down(num_pixels=100000) # This will probably scroll all the way down
+scroll_down(num_pixels=1200) # This will scroll one viewport down
 ```<end_code>
 
 When you have pop-ups with a cross icon to close, don't try to click the close icon by finding its element or targeting an 'X' element (this most often fails).
@@ -237,9 +270,11 @@ final_answer("YOUR_ANSWER_HERE")
 ```<end_code>
 
 If pages seem stuck on loading, you might have to wait, for instance `import time` and run `time.sleep(5.0)`. But don't overuse this!
-To find elements on page, DO NOT try code-based element searches like 'contributors = find_all(S("ol > li"))': just look at the latest screenshot you have and read it visually!
-Of course you can act on buttons like a user would do when navigating.
-After each code blob you write, you will be automatically provided with an updated screenshot of the browser and the current browser url. Don't kill the browser.
+To list elements on page, DO NOT try code-based element searches like 'contributors = find_all(S("ol > li"))': just look at the latest screenshot you have and read it visually, or use your tool search_item_ctrl_f.
+Of course, you can act on buttons like a user would do when navigating.
+After each code blob you write, you will be automatically provided with an updated screenshot of the browser and the current browser url.
+But beware that the screenshot will only be taken at the end of the whole action, it won't see intermediate states.
+Don't kill the browser.
 """
 ```
 
