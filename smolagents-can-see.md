@@ -301,16 +301,19 @@ Don't kill the browser.
 Now everything's ready: Let’s run our agent!
 
 ```python
-search_request = """
-Please navigate to https://en.wikipedia.org/wiki/Chicago and give me a sentence containing the word "1992" that mentions a construction accident.
+github_request = """
+I'm trying to find how hard I have to work to get a repo in github.com/trending.
+Can you navigate to the profile for the top author of the top trending repo, and give me their total number of commits over the last year?
 """
 
-agent.run(search_request + helium_instructions)
+agent.run(github_request + helium_instructions)
 ```
+
+Note, however, that this task is really hard: depending on the VLM that you use, this might not always work. Strong VLMs like Qwen2VL-72B or GPT-4o succeed more often.
 
 ## Next Steps
 
-This will give you the glimpse of the capabilities of a vision-enabled `CodeAgent`, but there’s much more to do! Get started with the example below.
+This will give you the glimpse of the capabilities of a vision-enabled `CodeAgent`, but there’s much more to do!
 
 - You can get started with the agentic web browser [here](https://github.com/huggingface/smolagents/blob/main/examples/vlm_web_browser.py).
 - Read more about smolagents [in our announcement blog post](https://huggingface.co/blog/smolagents).
