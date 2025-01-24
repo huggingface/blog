@@ -6,7 +6,7 @@ authors:
   - user: merve
   - user: albertvillanova
 ---
-# Our smolagents can now see!
+# We just gave sight to smolagents
 
 > You hypocrite, first take the log out of your own eye, and then you will see clearly to take the speck out of your brother's eye. *Matthew 7, 3-5*
 
@@ -18,7 +18,6 @@ We have added vision support to smolagents, which unlocks the use of vision lang
 
 - [Overview](#overview)
 - [How we gave sight to smolagents](#how-we-gave-sight-to-smolagents)
-- [Building a vision-enabled web browser agent](#building-a-vision-enabled-web-browser-agent)
 - [How to create a Web browsing agent with vision](#how-to-create-a-web-browsing-agent-with-vision)
 - [Next Steps](#next-steps)
 
@@ -28,7 +27,11 @@ In the agentic world, many capabilities are hidden behind a vision wall. A commo
 
 Teaser of what this gives: an agentic browser that navigates the web in complete autonomy!
 
-### VIDEO EXTRACT
+Here's an example of what it looks like:
+
+<video controls>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/smolagents-can-see/demo_webbrowser_longer.mp4" type="video/mp4">
+</video>
 
 ## How we gave sight to smolagents
 
