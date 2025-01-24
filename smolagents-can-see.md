@@ -211,6 +211,7 @@ Code:
 ```py
 scroll_down(num_pixels=100000) # This will probably scroll all the way down
 ```<end_code>
+
 When you have pop-ups with a cross icon to close, don't try to click the close icon by finding its element or targeting an 'X' element (this most often fails).
 Just use your built-in tool `close_popups` to close them:
 Code:
