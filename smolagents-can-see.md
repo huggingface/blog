@@ -102,7 +102,7 @@ This callback accepts both the `step_log`, and the `agent` itself as arguments. 
 
 ### How to create a Web browsing agent with vision
 
-We’re going to use [helium](https://github.com/helium).It provides browser automations based on `selenium` : this will be an easier way for our agent to manipulate webpages.
+We’re going to use [helium](https://github.com/mherrmann/helium). It provides browser automations based on `selenium`: this will be an easier way for our agent to manipulate webpages.
 
 ```bash
 pip install "smolagents[all]" helium selenium python-dotenv
