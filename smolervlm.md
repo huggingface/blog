@@ -43,7 +43,7 @@ We're now reaching model parity with the SmolLM2 family (135M, 360M, 1.7B), so y
 
 ## Why Go Smaller?
 
-When we released SmolVLM 2B, the community response was fantastic: The model is very light weight, open-source and permissive, and easy to integrate into existing workflows. But we wanted to push this approach even further for people working with constrained devices, consumer laptops, or even potentially browser-based inference. That’s where our new 256M and 500M models come in. On the other side, for people trying to process huge amounts of data, these models can can run at a fraction of the cost of the 2B model.
+When we released SmolVLM 2B, the community response was fantastic: The model is very light weight, open-source and permissive, and easy to integrate into existing workflows. But we wanted to push this approach even further for people working with constrained devices, consumer laptops, or even potentially browser-based inference. That’s where our new 256M and 500M models come in. On the other side, for people trying to process huge amounts of data, these models can run at a fraction of the cost of the 2B model.
 
 In the last year, we trained two 80B VLMs and reduced them to 8B. Then for SmolVLM we took the challenge of reducing that 2B. And what we learned was that we could push the frontier way further! We are excited to show that at 256M and 500M we can still get great performance. Our new 256M model is the smallest VLM ever released, yet it surpasses the performance of our Idefics 80B model from just 17 months ago.
 
@@ -84,7 +84,7 @@ Similarly to our previous release, we rely on [The Cauldron](https://huggingface
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smolvlm_datamixture.gif" alt="Data mixture" style="width:90%;" />
 
-The proportions of the datasets was adjusted to place a stronger emphasis on document understanding (41%) and image captioning (14%), while still maintaining a balanced focus on other essential areas such as visual reasoning, chart comprehension, and general instruction following.
+The proportions of the datasets were adjusted to place a stronger emphasis on document understanding (41%) and image captioning (14%), while still maintaining a balanced focus on other essential areas such as visual reasoning, chart comprehension, and general instruction following.
 With this update the model is built on a strong document understanding basis and lets the door open to fine-tunes that will adjust its understanding of specific tasks.
 
 
@@ -92,7 +92,7 @@ With this update the model is built on a strong document understanding basis and
 
 We increased the pixel shuffle even more! Our new models encode images at a rate of 4096 pixels per token, compared to 1820 pixels per token in the 2B model.
 
-To optimizate the tokenizaiton even more, we added special tokens to represent our sub-image separators in a more efficient way. This means that now instead of a string like `<row_1_col_1>` being mapped to 7 tokens, it is mapped to a single token. As any strings up to `<row_6_col_6>`. This lead to a sizeable improvement in the model's stability during training and quality of the results. More detailes were documented in this [LinkedIn post](https://www.linkedin.com/posts/andimarafioti_when-worse-training-losses-lead-to-better-activity-7284521064934592513-yBZe?utm_source=share&utm_medium=member_desktop).
+To optimize the tokenization even more, we added special tokens to represent our sub-image separators in a more efficient way. This means that now instead of a string like `<row_1_col_1>` being mapped to 7 tokens, it is mapped to a single token. We did the same for strings up to `<row_6_col_6>`. This led to a sizeable improvement in the model's stability during training and quality of the results. More details were documented in this [LinkedIn post](https://www.linkedin.com/posts/andimarafioti_when-worse-training-losses-lead-to-better-activity-7284521064934592513-yBZe?utm_source=share&utm_medium=member_desktop).
 
 **4. Completing the SmolLM2-SmolVLM family**
 
