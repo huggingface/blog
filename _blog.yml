@@ -5403,7 +5403,7 @@
 - local: open-r1
   title: "Open-R1: a fully open reproduction of DeepSeek-R1"
   author: eliebak
-  thumbnail: /blog/assets/open-r1/thumbnail.png
+  thumbnail: /blog/assets/open-r1/thumbnails.png
   date: Jan 28, 2025
   tags:
     - llms

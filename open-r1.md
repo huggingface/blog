@@ -1,6 +1,6 @@
 ---
 title: "Open-R1: a fully open reproduction of DeepSeek-R1"
-thumbnail: /blog/assets/open-r1/thumbnail.png
+thumbnail: /blog/assets/open-r1/thumbnails.png
 authors:
   - user: eliebak
   - user: lvwerra
