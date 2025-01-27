@@ -277,7 +277,7 @@ To select the optimal checkpoint, we created a single metric by combining these 
 
 You can fine-tune SmolVLM using transformers and apply alignment techniques using TRL 🚀
 
-We provide a [notebook](https://github.com/huggingface/smollm/blob/main/finetuning/Smol_VLM_FT.ipynb) to fine-tune it on the VQAv2 dataset, optionally using  LoRA, QLoRA or full fine-tuning. In the notebook, you can find some tricks to save up even more memory and have a larger batch size to fit SmolVLM inside consumer GPUs, like L4, for training. With batch sizes of 4, 8-bit loading with QLoRA and gradient checkpointing we can fine-tune in L4, and it consumes around ~16 GBs of VRAM. This makes it possible to fine-tune your SmolVLM using Colab! You can play around with the parameters to get a nice point in training duration-memory trade-off. 
+We provide a [notebook](https://github.com/huggingface/smollm/blob/main/vision/finetuning/Smol_VLM_FT.ipynb) to fine-tune it on the VQAv2 dataset, optionally using  LoRA, QLoRA or full fine-tuning. In the notebook, you can find some tricks to save up even more memory and have a larger batch size to fit SmolVLM inside consumer GPUs, like L4, for training. With batch sizes of 4, 8-bit loading with QLoRA and gradient checkpointing we can fine-tune in L4, and it consumes around ~16 GBs of VRAM. This makes it possible to fine-tune your SmolVLM using Colab! You can play around with the parameters to get a nice point in training duration-memory trade-off. 
 
 SmolVLM also comes with TRL integration so you can apply Direct Preference Optimization (DPO) easily through the CLI. Get started by running `pip install trl accelerate peft` and then run the following command to fine-tune on [RLAIF-V](https://huggingface.co/datasets/HuggingFaceH4/rlaif-v_formatted) dataset: 
 
@@ -302,5 +302,5 @@ We introduced SmolVLM, a fully open, small, and mighty VLM for the community! We
 Below are some resources if you would like to read more about all things related to SmolVLM.
 
 - Start playing with SmolVLM using [this demo](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM).
-- Learn how to fine-tune SmolVLM on VQAv2 using [this notebook](https://github.com/huggingface/smollm/blob/main/finetuning/Smol_VLM_FT.ipynb) 
+- Learn how to fine-tune SmolVLM on VQAv2 using [this notebook](https://github.com/huggingface/smollm/blob/main/vision/finetuning/Smol_VLM_FT.ipynb) 
 - Learn more about [vision language models](https://huggingface.co/blog/vlms)
