@@ -7,7 +7,9 @@ authors:
   - user: lewtun
 ---
 
-# What is DeepSeek-R1?
+# Open-R1: a fully open reproduction of DeepSeek-R1
+
+## What is DeepSeek-R1?
 
 If you’ve ever struggled with a tough math problem, you know how useful it is to think a little longer and work through it carefully. [OpenAI’s o1 model](https://x.com/polynoamial/status/1834280155730043108) showed that when LLMs are trained to do the same—by using more compute during inference—they get significantly better at solving reasoning tasks like mathematics, coding, and logic.
 
@@ -29,7 +31,7 @@ In this blog post we take a look at key ingredients behind DeepSeek-R1, which pa
 
 Let’s dive in 🚀!
 
-# How did they do it?
+## How did they do it?
 
 DeepSeek-R1 is a reasoning model built on the foundation of [DeepSeek-V3](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base). Like any good reasoning model, it starts with a strong base model, and DeepSeek-V3 is exactly that. This 671B Mixture of Experts (MoE) model performs on par with heavyweights like Sonnet 3.5 and GPT-4o. What’s especially impressive is how cost-efficient it was to train—just $5.5M—thanks to architectural changes like Multi Token Prediction (MTP), Multi-Head Latent Attention (MLA) and a LOT (seriously, a lot) of hardware optimization.
 
@@ -41,7 +43,7 @@ That’s where DeepSeek-R1 comes in. It started with a "cold start" phase, fine-
 
 This all sounds great, but what's actually missing? Let's have a look at the missing pieces of the puzzle.
 
-# Open-R1: the missing pieces
+## Open-R1: the missing pieces
 
 The release of DeepSeek-R1 is an amazing boon for the community, but they didn’t release *everything—*although the model weights are open, the datasets and code used to train the model are not 😢.
 
