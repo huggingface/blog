@@ -54,7 +54,7 @@ How to dynamically add images into the agent’s memory?
 
 To find out, we first need to understand how our agents work.
 
-All agents in `smolagents` are based on singular `MultiStepAgent` class, which is an abstraction of ReAct framework. On a basic level, this class performs actions on a cycle of following steps, where existing variables and knowledge is incorporated into the agent logs as follows: 
+All agents in `smolagents` are based on the singular `MultiStepAgent` class, which is an abstraction of the ReAct framework. On a basic level, this class performs actions on a cycle of following steps, where existing variables and knowledge are incorporated into the agent logs as follows: 
 
 - **Initialization:** the system prompt is stored in a `SystemPromptStep`, and the user query is logged into a `TaskStep`.
 - **ReAct Loop (While):**
@@ -219,7 +219,7 @@ model = OpenAIServerModel(
 ```
 
 Now let’s move on to defining our agent. We set the highest `verbosity_level` to display the LLM’s full output messages to view its thoughts, and we increased `max_steps` to 20 to give the agent more steps to explore the web.
-We also provide it with our callback `save_screenshot` define above.
+We also provide it with our callback `save_screenshot` defined above.
 
 ```python
 agent = CodeAgent(
@@ -313,10 +313,10 @@ Note, however, that this task is really hard: depending on the VLM that you use,
 
 ## Next Steps
 
-This will give you the glimpse of the capabilities of a vision-enabled `CodeAgent`, but there’s much more to do!
+This will give you a glimpse of the capabilities of a vision-enabled `CodeAgent`, but there’s much more to do!
 
 - You can get started with the agentic web browser [here](https://github.com/huggingface/smolagents/blob/main/examples/vlm_web_browser.py).
 - Read more about smolagents [in our announcement blog post](https://huggingface.co/blog/smolagents).
 - Read [the smolagents documentation](https://huggingface.co/docs/smolagents/index).
 
-We are looking forward to see what you will build with vision language models and smolagents!
+We are looking forward to seeing what you will build with vision language models and smolagents!
