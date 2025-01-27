@@ -12,3 +12,4 @@ leaderboards-on-the-hub-hallucinations: leaderboard-hallucinations
 llm-leaderboard: open-llm-leaderboard-rlhf
 evaluating-mmlu-leaderboard: open-llm-leaderboard-mmlu
 leaderboard-drop-dive: open-llm-leaderboard-drop
+keras-nlp-integration: keras-hub-integration

@@ -155,9 +155,9 @@ def train(model, rank, world_size):
     ddp_model = DDP(model, device_ids=[rank])
     optimizer = optim.AdamW(ddp_model.parameters(), lr=1e-3)
     # Train for one epoch
-    model.train()
+    ddp_model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
-        data, target = data.to(device), target.to(device)
+        data, target = data.to(rank), target.to(rank)
         output = model(data)
         loss = F.nll_loss(output, target)
         loss.backward()
@@ -207,10 +207,10 @@ def train_ddp(rank, world_size):
     optimizer = optim.AdamW(ddp_model.parameters(), lr=1e-3)
 
     # Train for a single epoch
-    model.train()
+    ddp_model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
-        data, target = data.to(device), target.to(device)
-        output = model(data)
+        data, target = data.to(rank), target.to(rank)
+        output = ddp_model(data)
         loss = F.nll_loss(output, target)
         loss.backward()
         optimizer.step()
@@ -221,8 +221,8 @@ def train_ddp(rank, world_size):
     correct = 0
     with torch.no_grad():
         for data, target in test_loader:
-            data, target = data.to(device), target.to(device)
-            output = model(data)
+            data, target = data.to(rank), target.to(rank)
+            output = ddp_model(data)
             pred = output.argmax(dim=1, keepdim=True)
             correct += pred.eq(target.view_as(pred)).sum().item()
     print(f'Accuracy: {100. * correct / len(test_loader.dataset)}')

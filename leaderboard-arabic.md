@@ -2,7 +2,7 @@
 title: "Introducing the Open Arabic LLM Leaderboard"
 thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_arabic.png
 authors:
-- user: Ali-C137
+- user: alielfilali01
   guest: true
   org: 2A2I
 - user: Hamza-Alobeidli

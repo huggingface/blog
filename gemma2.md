@@ -207,7 +207,7 @@ pipeline = pipeline(
 )
 ```
 
-For more details on using the models with `transformers`, please check [the model cards](https://huggingface.co/gg-hf/gemma-2-9b).
+For more details on using the models with `transformers`, please check [the model cards](https://huggingface.co/google/gemma-2-9b).
 
 ## Integration with Google Cloud
 

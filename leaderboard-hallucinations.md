@@ -22,6 +22,8 @@ In the rapidly evolving field of Natural Language Processing (NLP), Large Langua
 
 The **[Hallucinations Leaderboard](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard)** aims to address this problem: it is a comprehensive platform that evaluates a wide array of LLMs against benchmarks specifically designed to assess hallucination-related issues via in-context learning.
 
+**UPDATE** -- We released a paper on this project; you can find it in arxiv: [The Hallucinations Leaderboard -- An Open Effort to Measure Hallucinations in Large Language Models](https://arxiv.org/abs/2404.05904). Here's also the [Hugging Face paper page](https://huggingface.co/papers/2404.05904) for community discussions.
+
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="hallucinations-leaderboard/leaderboard"></gradio-app>
 
@@ -132,3 +134,33 @@ The [Hallucinations Leaderboard](https://huggingface.co/spaces/hallucinations-le
 
 This initiative wants to aid researchers and engineers in identifying the most reliable models, and potentially drive the development of LLMs towards more accurate and faithful language generation. The [Hallucinations Leaderboard](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard) is an evolving project, and we welcome contributions (fixes, new datasets and metrics, computational resources, ideas, ...) and feedback: if you would like 
 to work with us on this project, remember to [reach out](https://huggingface.co/spaces/hallucinations-leaderboard/leaderboard/discussions)!
+
+### Citing
+
+```
+@article{hallucinations-leaderboard,
+  author       = {Giwon Hong and
+                  Aryo Pradipta Gema and
+                  Rohit Saxena and
+                  Xiaotang Du and
+                  Ping Nie and
+                  Yu Zhao and
+                  Laura Perez{-}Beltrachini and
+                  Max Ryabinin and
+                  Xuanli He and
+                  Cl{\'{e}}mentine Fourrier and
+                  Pasquale Minervini},
+  title        = {The Hallucinations Leaderboard - An Open Effort to Measure Hallucinations
+                  in Large Language Models},
+  journal      = {CoRR},
+  volume       = {abs/2404.05904},
+  year         = {2024},
+  url          = {https://doi.org/10.48550/arXiv.2404.05904},
+  doi          = {10.48550/ARXIV.2404.05904},
+  eprinttype    = {arXiv},
+  eprint       = {2404.05904},
+  timestamp    = {Wed, 15 May 2024 08:47:08 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2404-05904.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+```

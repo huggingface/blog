@@ -86,16 +86,17 @@ Now, if we knew the conditional distribution \\(p(\mathbf{x}_{t-1} | \mathbf{x}_
 However, we don't know \\(p(\mathbf{x}_{t-1} | \mathbf{x}_t)\\). It's intractable since it requires knowing the distribution of all possible images in order to calculate this conditional probability. Hence, we're going to leverage a neural network to **approximate (learn) this conditional probability distribution**, let's call it \\(p_\theta (\mathbf{x}_{t-1} | \mathbf{x}_t)\\), with \\(\theta\\) being the parameters of the neural network, updated by gradient descent. 
 
 Ok, so we need a neural network to represent a (conditional) probability distribution of the backward process. If we assume this reverse process is Gaussian as well, then recall that any Gaussian distribution is defined by 2 parameters:
+
 * a mean parametrized by \\(\mu_\theta\\);
 * a variance parametrized by \\(\Sigma_\theta\\);
 
-so we can parametrize the process as 
+so we can parametrize the process as
 $$ p_\theta (\mathbf{x}_{t-1} | \mathbf{x}_t) = \mathcal{N}(\mathbf{x}_{t-1}; \mu_\theta(\mathbf{x}_{t},t), \Sigma_\theta (\mathbf{x}_{t},t))$$
 where the mean and variance are also conditioned on the noise level \\(t\\).
 
 Hence, our neural network needs to learn/represent the mean and variance. However, the DDPM authors decided to **keep the variance fixed, and let the neural network only learn (represent) the mean \\(\mu_\theta\\) of this conditional probability distribution**. From the paper:
 
-> First, we set \\(\Sigma_\theta ( \mathbf{x}_t, t) = \sigma^2_t \mathbf{I}\\) to untrained time dependent constants. Experimentally, both \\(\sigma^2_t = \beta_t\\) and \\(\sigma^2_t  = \tilde{\beta}_t\\) (see paper) had similar results. 
+> First, we set \\(\Sigma_\theta ( \mathbf{x}_t, t) = \sigma^2_t \mathbf{I}\\) to untrained time dependent constants. Experimentally, both \\(\sigma^2_t = \beta_t\\) and \\(\sigma^2_t  = \tilde{\beta}_t\\) (see paper) had similar results.
 
 This was then later improved in the [Improved diffusion models](https://openreview.net/pdf?id=-NEXDKk8gZ) paper, where a neural network also learns the variance of this backwards process, besides the mean.
 
@@ -109,7 +110,7 @@ A direct consequence of the constructed forward process \\(q\\), as shown by Soh
 We have that 
 $$q(\mathbf{x}_t | \mathbf{x}_0) = \cal{N}(\mathbf{x}_t; \sqrt{\bar{\alpha}_t} \mathbf{x}_0, (1- \bar{\alpha}_t) \mathbf{I})$$
 
-with \\(\alpha_t := 1 - \beta_t\\) and \\(\bar{\alpha}_t := \Pi_{s=1}^{t} \alpha_s\\). Let's refer to this equation as the "nice property". This means we can sample Gaussian noise and scale it appropriatly and add it to \\(\mathbf{x}_0\\) to get \\(\mathbf{x}_t\\) directly. Note that the \\(\bar{\alpha}_t\\) are functions of the known \\(\beta_t\\) variance schedule and thus are also known and can be precomputed. This then allows us, during training, to **optimize random terms of the loss function \\(L\\)** (or in other words, to randomly sample \\(t\\) during training and optimize \\(L_t\\)).
+with \\(\alpha_t := 1 - \beta_t\\) and \\(\bar{\alpha}_t := \Pi_{s=1}^{t} \alpha_s\\). Let's refer to this equation as the "nice property". This means we can sample Gaussian noise and scale it appropriately and add it to \\(\mathbf{x}_0\\) to get \\(\mathbf{x}_t\\) directly. Note that the \\(\bar{\alpha}_t\\) are functions of the known \\(\beta_t\\) variance schedule and thus are also known and can be precomputed. This then allows us, during training, to **optimize random terms of the loss function \\(L\\)** (or in other words, to randomly sample \\(t\\) during training and optimize \\(L_t\\)).
 
 Another beauty of this property, as shown in Ho et al. is that one can (after some math, for which we refer the reader to [this excellent blog post](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)) instead **reparametrize the mean to make the neural network learn (predict) the added noise (via a network \\(\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)\\)) for noise level \\(t\\)** in the KL terms which constitute the losses. This means that our neural network becomes a noise predictor, rather than a (direct) mean predictor. The mean can be computed as follows:
 
@@ -128,8 +129,9 @@ The training algorithm now looks as follows:
 </p>
 
 In other words:
+
 * we take a random sample \\(\mathbf{x}_0\\) from the real unknown and possibily complex data distribution \\(q(\mathbf{x}_0)\\)
-* we sample a noise level \\(t\\) uniformally between \\(1\\) and \\(T\\) (i.e., a random time step)
+* we sample a noise level \\(t\\) uniformly between \\(1\\) and \\(T\\) (i.e., a random time step)
 * we sample some noise from a Gaussian distribution and corrupt the input by this noise at level \\(t\\) (using the nice property defined above)
 * the neural network is trained to predict this noise based on the corrupted image \\(\mathbf{x}_t\\) (i.e. noise applied on \\(\mathbf{x}_0\\) based on known schedule \\(\beta_t\\))
 
@@ -137,7 +139,7 @@ In reality, all of this is done on batches of data, as one uses stochastic gradi
 
 ## The neural network
 
-The neural network needs to take in a noised image at a particular time step and return the predicted noise. Note that the predicted noise is a tensor that has the same size/resolution as the input image. So technically, the network takes in and outputs tensors of the same shape. What type of neural network can we use for this? 
+The neural network needs to take in a noised image at a particular time step and return the predicted noise. Note that the predicted noise is a tensor that has the same size/resolution as the input image. So technically, the network takes in and outputs tensors of the same shape. What type of neural network can we use for this?
 
 What is typically used here is very similar to that of an [Autoencoder](https://en.wikipedia.org/wiki/Autoencoder), which you may remember from typical "intro to deep learning" tutorials. Autoencoders have a so-called "bottleneck" layer in between the encoder and decoder. The encoder first encodes an image into a smaller hidden representation called the "bottleneck", and the decoder then decodes that hidden representation back into an actual image. This forces the network to only keep the most important information in the bottleneck layer.
 
@@ -240,7 +242,7 @@ class WeightStandardizedConv2d(nn.Conv2d):
         weight = self.weight
         mean = reduce(weight, "o ... -> o 1 1 1", "mean")
         var = reduce(weight, "o ... -> o 1 1 1", partial(torch.var, unbiased=False))
-        normalized_weight = (weight - mean) / (var + eps).rsqrt()
+        normalized_weight = (weight - mean) * (var + eps).rsqrt()
 
         return F.conv2d(
             x,
@@ -383,6 +385,7 @@ Now that we've defined all building blocks (position embeddings, ResNet blocks, 
 - the network takes a batch of noisy images of shape `(batch_size, num_channels, height, width)` and a batch of noise levels of shape `(batch_size, 1)` as input, and returns a tensor of shape `(batch_size, num_channels, height, width)`
 
 The network is built up as follows:
+
 * first, a convolutional layer is applied on the batch of noisy images, and position embeddings are computed for the noise levels
 * next, a sequence of downsampling stages are applied. Each downsampling stage consists of 2 ResNet blocks + groupnorm + attention + residual connection + a downsample operation
 * at the middle of the network, again ResNet blocks are applied, interleaved with attention
@@ -526,7 +529,7 @@ The forward diffusion process gradually adds noise to an image from the real dis
 increasing linearly from \\(\beta_1 = 10^{−4}\\)
 to \\(\beta_T = 0.02\\).
 
-However, it was shown in ([Nichol et al., 2021](https://arxiv.org/abs/2102.09672)) that better results can be achieved when employing a cosine schedule. 
+However, it was shown in ([Nichol et al., 2021](https://arxiv.org/abs/2102.09672)) that better results can be achieved when employing a cosine schedule.
 
 Below, we define various schedules for the \\(T\\) timesteps (we'll choose one later on).
 
@@ -604,7 +607,7 @@ These transformations are fairly simple: we first normalize images by dividing b
 
 > We assume that image data consists of integers in \\(\{0, 1, ... , 255\}\\) scaled linearly to \\([−1, 1]\\). This
 ensures that the neural network reverse process operates on consistently scaled inputs starting from
-the standard normal prior \\(p(\mathbf{x}_T )\\). 
+the standard normal prior \\(p(\mathbf{x}_T )\\).
 
 
 ```python

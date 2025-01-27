@@ -12,6 +12,10 @@ authors:
 
 Open-source LLMs have now reached a performance level that makes them suitable reasoning engines for powering agent workflows: [Mixtral](https://huggingface.co/blog/mixtral) even [surpasses GPT-3.5](#results) on our benchmark, and its performance could easily be further enhanced with fine-tuning.
 
+> [!NOTE]
+> We've released the simplest agentic library out there: [smolagents](https://github.com/huggingface/smolagents)!
+> Go checkout the `smolagents` introduction blog [here](https://huggingface.co/blog/smolagents).
+
 ## Introduction
 
 Large Language Models (LLMs) trained for [causal language modeling](https://huggingface.co/docs/transformers/tasks/language_modeling) can tackle a wide range of tasks, but they often struggle with basic tasks like logic, calculation, and search. The worst scenario is when they perform poorly in a domain, such as math, yet still attempt to handle all the calculations themselves.
@@ -116,7 +120,7 @@ And the task is solved!
 
 Generally, the difficult parts of running an agent system for the LLM engine are:
 
-1. From supplied tools, choose the one that will help advance to a desired goal: e.g. when asked `"What is the smallest prime number greater than 30,000?"`, the agent could call the `Search` tool with `"What is he height of K2"` but it won't help.
+1. From supplied tools, choose the one that will help advance to a desired goal: e.g. when asked `"What is the smallest prime number greater than 30,000?"`, the agent could call the `Search` tool with `"What is the height of K2"` but it won't help.
 2. Call tools with a rigorous argument formatting: for instance when trying to calculate the speed of a car that went 3 km in 10 minutes, you have to call tool `Calculator` to divide `distance` by `time` : even if your Calculator tool accepts calls in the JSON format: `{”tool”: “Calculator”, “args”: “3km/10min”}` , there are many pitfalls, for instance:
     - Misspelling the tool name: `“calculator”` or `“Compute”` wouldn’t work
     - Giving the name of the arguments instead of their values: `“args”: “distance/time”`
