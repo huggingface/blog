@@ -5389,3 +5389,13 @@
     - multimodal
     - vlm
     - vision
+
+- local: video_gen
+  title: "State of open video generation models in Diffusers"
+  author: sayakpaul
+  thumbnail: /blog/assets/video_gen/thumbnail.png
+  date: Jan 27, 2025
+  tags:
+    - diffusers
+    - guide
+    - video_gen
