@@ -13,7 +13,7 @@ If you’ve ever struggled with a tough math problem, you know how useful it is 
 
 However, the recipe behind OpenAI’s reasoning models has been a well kept secret. That is, until last week, when DeepSeek released their [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) model and promptly broke the internet (and the [stock market!](https://x.com/KobeissiLetter/status/1883831022149927352)).
 
-Besides performing as well or better than o1, the DeepSeek-R1 release was accompanied by a detailed [tech report](https://github.com/deepseek-ai/DeepSeek-R1/tree/main) that outlined the key steps of their training recipe. This recipe involved several innovations, most notably the application of pure reinforcement learning to teach a base language model how to reason without ***any*** human supervision. As shown in the figure below, making a powerful reasoning model is now very simple if you have access to a capable base model and a high-quality data mixture:
+Besides performing as well or better than o1, the [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) release was accompanied by a detailed [tech report](https://github.com/deepseek-ai/DeepSeek-R1/tree/main) that outlined the key steps of their training recipe. This recipe involved several innovations, most notably the application of pure reinforcement learning to teach a base language model how to reason without ***any*** human supervision. As shown in the figure below, making a powerful reasoning model is now very simple if you have access to a capable base model and a high-quality data mixture:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-r1/rl.png" alt="DeepSeek-R1 training pipeline"/>
 
@@ -39,6 +39,8 @@ That’s where DeepSeek-R1 comes in. It started with a "cold start" phase, fine-
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-r1/arch.png" alt="DeepSeek-V3 architecture"/>
 
+This all sounds great, but what's actually missing? Let's have a look at the missing pieces of the puzzle.
+
 # Open-R1: the missing pieces
 
 The release of DeepSeek-R1 is an amazing boon for the community, but they didn’t release *everything—*although the model weights are open, the datasets and code used to train the model are not 😢.
@@ -52,6 +54,7 @@ As shown in the figure below, here’s our plan of attack:
 - **Step 3:** Show we can go from base model → SFT → RL via multi-stage training.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-r1/steps.png" alt="Open-R1 steps"/>
+The synthetic datasets will allow everybody to fine-tune existing or new LLMs into reasoning models by simply fine-tuning on them. The training recipes involving RL will serve as a starting point for anybody to build similar models from scratch and will allow researchers to build even more advanced methods on top.
 
 Note that we don’t want to stop at math datasets. There’s a lot of potential in exploring other areas, obvious one like code but also scientific fields such as medicine, where reasoning models could have significant impact.
 
