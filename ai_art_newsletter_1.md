@@ -75,7 +75,7 @@ While this implies that most community members are still unable to experiment an
 
 ## Creative Tools that Shined in 2024
 
-The beauty of open source is that it allows the community to experiment, find new usages for existing models / pipelines, improve on and build new tools together. Many of the creative AI tools that were popular this year are the fruit of joint community effort.  \
+The beauty of open source is that it allows the community to experiment, find new usages for existing models / pipelines, improve on and build new tools together. Many of the creative AI tools that were popular this year are the fruit of joint community effort.  
 
 
 
@@ -83,7 +83,7 @@ The beauty of open source is that it allows the community to experiment, find ne
 
 Many of the amazing [Flux fine-tunes](https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer) created in the last year were trained thanks to the [AI-toolkit ](https://github.com/ostris/ai-toolkit)by [ostris](https://huggingface.co/ostris).
 
-Face to all \
+#### Face to all 
 Inspired by fofr's [face-to-many](https://github.com/fofr/cog-face-to-many),[Face to All](https://huggingface.co/spaces/multimodalart/face-to-all) combines the viral Instant ID model with added Controlnet depth constraints and community fine-tuned SDXL LoRAs to create training free high quality portraits in creative stylizations.  
 
 
@@ -117,8 +117,8 @@ Adding mimics to a static portrait was never easier with [Live Portrait](https:/
 2025 is the year for open-source to catch up on video, movement, and audio models, making room for more modalities. With advancements in efficient computing and quantization, we can expect significant leaps in open-source video models. As we approach a (natural) plateau in image generation models, we can shift our focus to other tasks and modalities.
 
 
-## Starting off with a bang - Open source releases of January 25
-
+## Starting off strong - Open source releases of January 25
+[wip]
 
 
 1. Hunyuan 3D , SD 3D
