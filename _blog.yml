@@ -5399,3 +5399,13 @@
     - diffusers
     - guide
     - video_gen
+
+- local: ai_art_newsletter_1
+  title: "The AI tools for Art Newsletter - Issue 1"
+  author: linoyts
+  thumbnail: /blog/assets/ai_art_newsletter_1/thumbnail.png
+  date: Jan 31, 2025
+  tags:
+    - diffusers
+    - ai art
+    - community
