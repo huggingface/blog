@@ -19,9 +19,10 @@ and forward for what’s to come in 2025 (spoiler 👀: we’re starting a new w
 
 ## Major Releases of 2024 
 
-What were the standout releases of creative AI tools in 2024? We'll highlight the major releases across creative and artistic fields, with a particular focus on open-source developments in popular tasks like image and video generation.  \
+What were the standout releases of creative AI tools in 2024? We'll highlight the major releases across creative and 
+artistic fields, with a particular focus on open-source developments in popular tasks like image and video generation. 
 
-
+**[timeline figure]**
 
 ## Image Generation 
 
@@ -74,51 +75,41 @@ While this implies that most community members are still unable to experiment an
 
 ## Creative Tools that Shined in 2024
 
-The beauty of open source is that it allows the community to experiment, 
-find new usages for existing models / pipelines, improve on and build new tools together.
-Many of the creative AI tools that were popular this year are the fruit of joint 
-community effort.  
+The beauty of open source is that it allows the community to experiment, find new usages for existing models / pipelines, improve on and build new tools together. Many of the creative AI tools that were popular this year are the fruit of joint community effort.  \
 
 
 
-#### Flux fine-tuning
+#### Flux finetuning
 
-AI - toolkit by ostris
+Many of the amazing [Flux fine-tunes](https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer) created in the last year were trained thanks to the [AI-toolkit ](https://github.com/ostris/ai-toolkit)by [ostris](https://huggingface.co/ostris).
 
-
-#### Face to all
-
-[https://huggingface.co/spaces/multimodalart/face-to-all](https://huggingface.co/spaces/multimodalart/face-to-all)
-
-when instantID is combined with added control and community LoRA finetunes 
-
-
-#### TRELLIS
-
-[https://huggingface.co/spaces/JeffreyXiang/TRELLIS](https://huggingface.co/spaces/JeffreyXiang/TRELLIS)
+Face to all \
+Inspired by fofr's [face-to-many](https://github.com/fofr/cog-face-to-many),[Face to All](https://huggingface.co/spaces/multimodalart/face-to-all) combines the viral Instant ID model with added Controlnet depth constraints and community fine-tuned SDXL LoRAs to create training free high quality portraits in creative stylizations.  
 
 
 #### Flux style shaping 
 
-when flux dev is combined with Flux redux and depth 
-
-[https://huggingface.co/spaces/multimodalart/flux-style-shaping](https://huggingface.co/spaces/multimodalart/flux-style-shaping)
+Based on a ComfyUI workflow by [Nathan Shipley](https://x.com/CitizenPlain), [Flux style shaping](https://huggingface.co/spaces/multimodalart/flux-style-shaping) combines Flux [dev] Redux and Flux [dev] Depth for style transfer and optical illusion creation.
 
 
 #### Outpainting with diffusers
 
-[https://huggingface.co/spaces/fffiloni/diffusers-image-outpaint](https://huggingface.co/spaces/fffiloni/diffusers-image-outpaint)
+[Diffusers Image Outpaint](https://huggingface.co/spaces/fffiloni/diffusers-image-outpaint) makes use of the diffusers StableDiffusionXL Fill Pipeline together with an SDXL union controlnet to seamlessly expand an input image.  
 
 
 #### Live portrait, Face Poke
 
-[https://huggingface.co/spaces/KwaiVGI/LivePortrait](https://huggingface.co/spaces/KwaiVGI/LivePortrait) \
-[https://huggingface.co/spaces/jbilcke-hf/FacePoke](https://huggingface.co/spaces/jbilcke-hf/FacePoke)
+Adding mimics to a static portrait was never easier with [Live Portrait](https://huggingface.co/spaces/KwaiVGI/LivePortrait) and [Face Poke](https://huggingface.co/spaces/jbilcke-hf/FacePoke).
+
+
+#### TRELLIS
+
+[TRELLIS](https://huggingface.co/spaces/JeffreyXiang/TRELLIS) is a 3D generation model for versatile and high-quality 3D asset creation that took over the 3D landscape with a bang. 
 
 
 #### IC Light 
 
-[https://huggingface.co/spaces/lllyasviel/IC-Light](https://huggingface.co/spaces/lllyasviel/IC-Light)
+[IC-Light](https://huggingface.co/spaces/lllyasviel/IC-Light), which stands for "Imposing Consistent Light", is a tool for relighting with foreground condition.
 
 
 ## What should we expect for AI & Art in 2025?
