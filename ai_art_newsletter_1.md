@@ -1,26 +1,29 @@
 ---
-title: "The AI tools for Art newsletter - Issue 1"
+title: "The AI tools for Art Newsletter - Issue 1"
 thumbnail: /blog/assets/ai_art_newsletter_1/thumbnail.png
 authors:
 - user: linoyts
 - user: multimodalart
 ---
 
-# The AI tools for Art newsletter
+# The AI tools for Art Newsletter
 
-### First issue
+### First issue 🎉
 
-The AI space is moving so fast it’s hard to believe that a year ago we still struggled to generate people with the correct amount of fingers.   \
-The last couple of years have been pivotal for open source models and tools for artistic usage. AI tools for creative expression have never been more accessible, and we’re only scratching the surface. Join us as we look back at the key milestones, tools, and breakthroughs in AI & Arts from 2024, and forward for what’s to come in 2025 (spoiler: we’re starting a new weekly roundup).
+The AI space is moving so fast it’s hard to believe that a year ago we still struggled to generate people with the correct amount of fingers.   
+The last couple of years have been pivotal for open source models and tools for artistic usage. 
+AI tools for creative expression have never been more accessible, and we’re only scratching the surface. 
+Join us as we look back at the key milestones, tools, and breakthroughs in AI & Arts from 2024, 
+and forward for what’s to come in 2025 (spoiler 👀: we’re starting a new weekly roundup).
 
 
-## Major Releases of 2024
+## Major Releases of 2024 
 
 What were the standout releases of creative AI tools in 2024? We'll highlight the major releases across creative and artistic fields, with a particular focus on open-source developments in popular tasks like image and video generation.  \
 
 
 
-## Image Generation
+## Image Generation 
 
 Over 2 years since the OG stable diffusion was released and made waves in image generation with open source models, it’s now safe to say that when it comes to image generation from text, image editing and controlled image generation - open source models are giving closed source models a run for their money.   
 
@@ -29,17 +32,15 @@ Over 2 years since the OG stable diffusion was released and made waves in image 
 
 2024 was the year we shifted paradigms of diffusion models - from the traditional Unet based architecture to Diffusion Transformer (DiT), as well as an objective switch to flow matching. 
 
-**TD;LR** - diffusion models and **Gaussian** flow matching are equivalent.Flow matching proposes a vector field parametrization of the network output that is different compared to the ones commonly used in diffusion models previously. 
-
-
+**TD;LR** - diffusion models and **Gaussian** flow matching are equivalent.Flow matching proposes a vector field parametrization of the network output that is different compared to the ones commonly used in diffusion models previously.
 
 * We recommend this [great blog ](https://diffusionflow.github.io)if you’re interested in learning more about flow matching and the connection with diffusion models
 
- \
+ 
 **Back to practice**: First to announce the shift was Stability AI with Stable Diffusion 3, however it was HunyuanDiT that became the first open source model with DiT architecture.  \
 This trend continued with the releases of AuraFlow, Flux.1 and Stable Diffusion 3.5. 
 
- \
+ 
 Among many pivotal moments in the (not so long) history of open source image generation models, it’s safe to say that the release of Flux.1 was one of them. Flux [dev] achieved a new state-of-the-art, surpassing popular closed source models like Midjourney v6.0, DALL·E 3 (HD) on various benchmarks. 
 
 
@@ -73,7 +74,10 @@ While this implies that most community members are still unable to experiment an
 
 ## Creative Tools that Shined in 2024
 
-The beauty of open source is that it allows the community to experiment, find new usages for existing models / pipelines, improve on and build new tools together. Many of the creative AI tools that were popular this year are the fruit of joint community effort.  \
+The beauty of open source is that it allows the community to experiment, 
+find new usages for existing models / pipelines, improve on and build new tools together.
+Many of the creative AI tools that were popular this year are the fruit of joint 
+community effort.  
 
 
 
@@ -94,8 +98,7 @@ when instantID is combined with added control and community LoRA finetunes
 [https://huggingface.co/spaces/JeffreyXiang/TRELLIS](https://huggingface.co/spaces/JeffreyXiang/TRELLIS)
 
 
-####  \
-Flux style shaping 
+#### Flux style shaping 
 
 when flux dev is combined with Flux redux and depth 
 
@@ -141,6 +144,8 @@ when flux dev is combined with Flux redux and depth
 
 
 
-## Announcing Our Weekly Newsletter
+## Announcing Our Weekly Newsletter 🗞️
 
-Kicking off with this blog, we (Poli & Linoy) will be bringing you a weekly roundup of the latest in the creative AI world. In such a fast-evolving space, it’s tough to stay on top of all the new developments, let alone sift through them. That’s where we come in & hopefully this way we can make creative AI tools more accessible 
+Kicking off with this blog, we (Poli & Linoy) will be bringing you a weekly roundup of the latest in the creative 
+AI world. In such a fast-evolving space, it’s tough to stay on top of all the new developments, 
+let alone sift through them. That’s where we come in & hopefully this way we can make creative AI tools more accessible 
