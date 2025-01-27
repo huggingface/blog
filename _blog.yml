@@ -5399,3 +5399,13 @@
     - diffusers
     - guide
     - video_gen
+
+- local: open-r1
+  title: "Open-R1: a fully open reproduction of DeepSeek-R1"
+  author: eliebak
+  thumbnail: /blog/assets/open-r1/thumbnail.png
+  date: Jan 28, 2025
+  tags:
+    - llms
+    - reasoning
+    - research
