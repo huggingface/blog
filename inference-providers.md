@@ -2,15 +2,18 @@
 title: "Welcome to Inference Providers on the Hub 🔥"
 thumbnail: /blog/assets/inference-providers/thumbnail.png
 authors:
-# - user: ajshinfai
-#   guest: true
-#   org: FriendliAI
-# - user: soominc
-#   guest: true
-#   org: FriendliAI
-# - user: bgchun
-#   guest: true
-#   org: FriendliAI
+- user: burkaygur
+  guest: true
+  org: fal
+- user: zeke
+  guest: true
+  org: replicate
+- user: aton2006
+  guest: true
+  org: sambanovasystems
+- user: hassanelmghari
+  guest: true
+  org: togethercomputer
 - user: julien-c
 ---
 
