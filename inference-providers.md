@@ -102,16 +102,15 @@ And here's how to generate an image from a text prompt using [FLUX.1-dev](black-
 from huggingface_hub import InferenceClient
 
 client = InferenceClient(
-	provider="fal-ai",
-	api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
+    provider="fal-ai",
+    api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
 )
 
 # output is a PIL.Image object
 image = client.text_to_image(
-	"Labrador in the style of Vermeer",
-	model="black-forest-labs/FLUX.1-dev"
+    "Labrador in the style of Vermeer",
+    model="black-forest-labs/FLUX.1-dev"
 )
-```
 
 To move to a different provider, you can simply change the provider name, everything else stays the same:
 
