@@ -121,18 +121,20 @@ Adding mimics to a static portrait was never easier with [Live Portrait](https:/
 [wip]
 
 
-1. Hunyuan 3D , SD 3D
+1. YuE
+   https://huggingface.co/m-a-p/YuE-s1-7B-anneal-en-cot
+
+2. Hunyuan 3D , SD 3D
 
     [https://huggingface.co/tencent/Hunyuan3D-2](https://huggingface.co/tencent/Hunyuan3D-2), [https://huggingface.co/stabilityai/stable-point-aware-3d](https://huggingface.co/stabilityai/stable-point-aware-3d)
 
-2. Moondreamv2
+2. Moondreamv2, Qwen2.5-VL
 
     [https://huggingface.co/vikhyatk/moondream2](https://huggingface.co/vikhyatk/moondream2)
 
 3. comfy-to-gradio tool
 
     [https://huggingface.co/blog/run-comfyui-workflows-on-spaces](https://huggingface.co/blog/run-comfyui-workflows-on-spaces)
-
 
 
 ## Announcing Our Weekly Newsletter 🗞️
