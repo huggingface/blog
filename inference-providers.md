@@ -143,6 +143,8 @@ console.log(chatCompletion.choices[0].message);
 
 ### From HTTP calls
 
+We expose the Routing proxy directly under the huggingface.co domain so you can call it directly, it's very useful for OpenAI-compatible APIs for instance. You can just swap the URL as a base URL: `https://huggingface.co/api/inference-proxy/{:provider}`.
+
 Here's how you can call Llama-3.3-70B-Instruct using Sambanova as the inference provider via cURL.
 
 ```bash
