@@ -27,7 +27,7 @@ We’ve been hosting a serverless Inference API on the Hub for a long time (we l
 
 Just as we work with great partners like AWS, Nvidia and others for dedicated deployment options via the model pages’ Deploy button, it was natural to partner with the next generation of serverless inference providers for model-centric, serverless inference.
 
-Here’s what this enables, taking the timely example of DeepSeek/DeepSeek-R1, a model which has achieved mainstream fame over the past few days 🔥:
+Here’s what this enables, taking the timely example of DeepSeek-ai/DeepSeek-R1, a model which has achieved mainstream fame over the past few days 🔥:
 
 <video controls>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/inference-providers.mp4" type="video/mp4">
