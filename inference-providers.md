@@ -129,7 +129,6 @@ const chatCompletion = await client.chatCompletion({
 console.log(chatCompletion.choices[0].message);
 ```
 
-
 ### From HTTP calls
 
 ```bash
