@@ -26,6 +26,9 @@ Here’s what this enables, taking the timely example of DeepSeek/DeepSeek-R1, a
 
 <insert screenshot or GIF of DeepSeek-R1 model page showcasing fast Inference>
 
-[Quote from a few partners]
+Rodrigo Liang, Co-Founder & CEO at [SambaNova](https://huggingface.co/sambanovasystems): "We are excited to be partnering with Hugging Face to accelerate its Inference API. Hugging Face developers now have access to much faster inference speeds on a wide range of the best open source models."
 
-This is just the start, and we’ll build on top of this with the community in the coming weeks!
+Zeke Sikelianos, Founding Designer at [Replicate](https://huggingface.co/replicate): "Hugging Face is the de facto home of open-source model weights, and has been a key player in making AI more accessible to the world. We use Hugging Face internally at Replicate as our weights registry of choice, and we're honored to be among the first inference providers to be featured in this launch."
+
+**This is just the start, and we’ll build on top of this with the community in the [coming weeks](https://huggingface.co/spaces/huggingface/HuggingDiscussions/discussions/49)!**
+
