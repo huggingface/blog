@@ -69,6 +69,24 @@ todo
 #### from JS using @huggingface/inference
 
 todo
+```js
+import { HfInference } from "@huggingface/inference";
+
+const client = new HfInference("hf_xxxxxxxxxxxxxxxxxxxxxxxx");
+
+const chatCompletion = await client.chatCompletion({
+	model: "deepseek-ai/DeepSeek-R1",
+	messages: [
+		{
+			role: "user",
+			content: "What is the capital of France?"
+		}
+	],
+	provider: "together",
+	max_tokens: 500
+});
+
+console.log(chatCompletion.choices[0].message);
 
 
 ### From HTTP calls
