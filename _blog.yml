@@ -5409,3 +5409,12 @@
     - llms
     - reasoning
     - research
+
+- local: inference-providers
+  title: "Welcome to Inference Providers on the Hub 🔥"
+  author: julien-c
+  thumbnail: /blog/assets/inference-providers/thumbnail.png
+  date: Jan 28, 2025
+  tags:
+    - announcement
+    - hub
