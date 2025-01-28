@@ -91,7 +91,21 @@ console.log(chatCompletion.choices[0].message);
 
 ### From HTTP calls
 
-
+```bash
+curl 'https://huggingface.co/api/inference-proxy/together/v1/chat/completions' \
+-H 'Authorization: Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxx' \
+-H 'Content-Type: application/json' \
+--data '{
+    "model": "deepseek-ai/DeepSeek-R1",
+    "messages": [
+		{
+			"role": "user",
+			"content": "What is the capital of France?"
+		}
+	],
+    "max_tokens": 500,
+    "stream": false
+}'
 todo
 
 ## Feedback and next steps
