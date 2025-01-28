@@ -5399,6 +5399,16 @@
     - diffusers
     - guide
     - video_gen
+    
+- local: open-r1
+  title: "Open-R1: a fully open reproduction of DeepSeek-R1"
+  author: eliebak
+  thumbnail: /blog/assets/open-r1/thumbnails.png
+  date: Jan 28, 2025
+  tags:
+    - llms
+    - reasoning
+    - research
 
 - local: ai_art_newsletter_1
   title: "The AI tools for Art Newsletter - Issue 1"
