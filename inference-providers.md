@@ -63,6 +63,9 @@ model pages showcase third-party inference providers (the ones that are compatib
 ### From the client SDKs
 
 #### from Python, using huggingface_hub
+
+The following example shows how to use DeepSeek-R1 using Together AI as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Together AI API key if you have one.
+
 ```python
 from huggingface_hub import InferenceClient
 
@@ -85,11 +88,27 @@ completion = client.chat.completions.create(
 )
 
 print(completion.choices[0].message)
-todo
+```
+
+And here's how to generate an image from a text prompt using [FLUX.1-dev](black-forest-labs/FLUX.1-dev) running on [fal.ai](https://fal.ai/models/fal-ai/flux/dev):
+
+```python
+from huggingface_hub import InferenceClient
+
+client = InferenceClient(
+	provider="fal-ai",
+	api_key="hf_xxxxxxxxxxxxxxxxxxxxxxxx"
+)
+
+# output is a PIL.Image object
+image = client.text_to_image(
+	"Labrador in the style of Vermeer",
+	model="black-forest-labs/FLUX.1-dev"
+)
+```
 
 #### from JS using @huggingface/inference
 
-todo
 ```js
 import { HfInference } from "@huggingface/inference";
 
@@ -108,6 +127,7 @@ const chatCompletion = await client.chatCompletion({
 });
 
 console.log(chatCompletion.choices[0].message);
+```
 
 
 ### From HTTP calls
@@ -127,7 +147,7 @@ curl 'https://huggingface.co/api/inference-proxy/together/v1/chat/completions' \
     "max_tokens": 500,
     "stream": false
 }'
-todo
+```
 
 ## Feedback and next steps
 
