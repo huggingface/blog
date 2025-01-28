@@ -44,7 +44,7 @@ Zeke Sikelianos, Founding Designer at [Replicate](https://huggingface.co/replica
 
 1. In your user account settings, you are able to:
 - set your own API keys for the providers you’ve signed up with. Otherwise, you can still use them – your requests will be routed through HF.
-- order providers by preference. This applies to the widget and code snippets in the model pages. They will use the first provider in your list where the model you’re browsing is “Warm”, or already loaded.
+- order providers by preference. This applies to the widget and code snippets in the model pages.
 
 
 
