@@ -148,6 +148,14 @@ curl 'https://huggingface.co/api/inference-proxy/together/v1/chat/completions' \
 }'
 ```
 
+## Billing
+
+In the direct calls mode, i.e. when you use a custom key, you are billed by the corresponding Provider directly, for instance you're billed on your Together AI account when calling Together.
+
+In the Routing mode, our intent is to charge for routed requests the same amount you would pay if you called the API directly. That is, we don't charge anything on top of Provider requests. (If this feature is successful, we might get revenue share from our partners).
+
+Important Note ‼️ PRO users get $2 included Inference credits every month. You can use them accross providers. 🔥
+
 ## Feedback and next steps
 
 We would love to get your feedback! Here’s a Hub discussion you can use: https://huggingface.co/spaces/huggingface/HuggingDiscussions/discussions/49
