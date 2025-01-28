@@ -170,11 +170,11 @@ curl 'https://huggingface.co/api/inference-proxy/sambanova/v1/chat/completions' 
 
 ## Billing
 
-In the direct calls mode, i.e. when you use a custom key, you are billed by the corresponding Provider directly, for instance you're billed on your Together AI account when calling Together.
+For direct requests, i.e. when you use the key from an inference provider, you are billed by the corresponding provider. For instance, if you use a Together AI key you're billed on your Together AI account.
 
 For routed requests, i.e. when you authenticate via the hub, you'll only pay the standard provider API rates. There's no additional markup from us, we just pass through the provider costs directly. (In the future, we may establish revenue-sharing agreements with our provider partners.)
 
-**Important Note** ‼️ PRO users get $2 included Inference credits every month. You can use them across providers. 🔥
+**Important Note** ‼️ PRO users get $2 worth of Inference credits every month. You can use them across providers. 🔥
 
 Subscribe to the [Hugging Face PRO plan](https://hf.co/subscribe/pro) to get access to Inference credits, ZeroGPU, Spaces Dev Mode, 20x higher limits, and more.
 
