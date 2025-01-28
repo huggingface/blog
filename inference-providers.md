@@ -143,12 +143,14 @@ console.log(chatCompletion.choices[0].message);
 
 ### From HTTP calls
 
+Here's how you can call Llama-3.3-70B-Instruct using Sambanova as the inference provider via cURL.
+
 ```bash
-curl 'https://huggingface.co/api/inference-proxy/together/v1/chat/completions' \
+curl 'https://huggingface.co/api/inference-proxy/sambanova/v1/chat/completions' \
 -H 'Authorization: Bearer xxxxxxxxxxxxxxxxxxxxxxxx' \
 -H 'Content-Type: application/json' \
 --data '{
-    "model": "deepseek-ai/DeepSeek-R1",
+    "model": "meta-llama/Llama-3.3-70B-Instruct",
     "messages": [
 		{
 			"role": "user",
