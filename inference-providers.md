@@ -168,6 +168,8 @@ In the Routing mode, our intent is to charge for routed requests the same amount
 
 Important Note ‼️ PRO users get $2 included Inference credits every month. You can use them accross providers. 🔥
 
+Subscribe to the [Hugging Face PRO plan](https://hf.co/subscribe/pro) to get access to Inference credits, ZeroGPU, Spaces Dev Mode, 20x higher limits, and more.
+
 ## Feedback and next steps
 
 We would love to get your feedback! Here’s a Hub discussion you can use: https://huggingface.co/spaces/huggingface/HuggingDiscussions/discussions/49
