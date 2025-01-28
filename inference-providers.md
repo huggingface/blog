@@ -57,7 +57,7 @@ Zeke Sikelianos, Founding Designer at [Replicate](https://huggingface.co/replica
 
 
 
-3. model pages showcase third-party inference providers (the ones that are compatible + Warm with the current model, sorted by user preference)
+3. Model pages showcase third-party inference providers (the ones that are compatible + Warm with the current model, sorted by user preference)
 
 
 
