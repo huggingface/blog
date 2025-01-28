@@ -71,7 +71,7 @@ Zeke Sikelianos, Founding Designer at [Replicate](https://huggingface.co/replica
 
 The following example shows how to use DeepSeek-R1 using Together AI as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Together AI API key if you have one.
 
-Install `huggingface_hub` version v0.28.0 or later ([release notes](https://github.com/huggingface/huggingface_hub/releases/tag/v0.28.0.rc0)).
+Install `huggingface_hub` version v0.28.0 or later ([release notes](https://github.com/huggingface/huggingface_hub/releases/tag/v0.28.0)).
 
 ```python
 from huggingface_hub import InferenceClient
