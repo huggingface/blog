@@ -30,6 +30,9 @@ Just as we work with great partners like AWS, Nvidia and others for dedicated de
 Here’s what this enables, taking the timely example of DeepSeek/DeepSeek-R1, a model which has achieved mainstream fame over the past few days 🔥:
 
 <!-- <insert screenshot or GIF of DeepSeek-R1 model page showcasing fast Inference> -->
+<video controls>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/inference-providers.mp4" type="video/mp4">
+</video>
 
 Rodrigo Liang, Co-Founder & CEO at [SambaNova](https://huggingface.co/sambanovasystems): "We are excited to be partnering with Hugging Face to accelerate its Inference API. Hugging Face developers now have access to much faster inference speeds on a wide range of the best open source models."
 
