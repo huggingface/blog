@@ -59,7 +59,7 @@ Zeke Sikelianos, Founding Designer at [Replicate](https://huggingface.co/replica
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/explainer.png" alt="Inference Providers"/>
 
 
-3. Model pages showcase third-party inference providers (the ones that are compatible + Warm with the current model, sorted by user preference)
+3. Model pages showcase third-party inference providers (the ones that are compatible with the current model, sorted by user preference)
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/model-widget.png" alt="Inference Providers"/>
 
