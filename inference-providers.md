@@ -179,8 +179,8 @@ For direct requests, i.e. when you use the key from an inference provider, you a
 For routed requests, i.e. when you authenticate via the hub, you'll only pay the standard provider API rates. There's no additional markup from us, we just pass through the provider costs directly. (In the future, we may establish revenue-sharing agreements with our provider partners.)
 
 **Important Note** ‼️ PRO users get $2 worth of Inference credits every month. You can use them across providers. 🔥
-We also provide free inference with a small quota for our signed-in free users, but please upgrade to PRO if you can!
-Subscribe to the [Hugging Face PRO plan](https://hf.co/subscribe/pro) to get access to Inference credits, ZeroGPU, Spaces Dev Mode, 20x higher limits, and more.
+We also provide free inference with a small quota for our signed-in free users.
+If you subscribe to the [Hugging Face PRO plan](https://hf.co/subscribe/pro), you'll get access to Inference credits, ZeroGPU, Spaces Dev Mode, 20x higher limits, and more.
 
 ## Feedback and next steps
 
