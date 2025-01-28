@@ -63,7 +63,28 @@ model pages showcase third-party inference providers (the ones that are compatib
 ### From the client SDKs
 
 #### from Python, using huggingface_hub
+```python
+from huggingface_hub import InferenceClient
 
+client = InferenceClient(
+	provider="together",
+	api_key="hf_xxxxxxxxxxxxxxxxxxxxxxxx"
+)
+
+messages = [
+	{
+		"role": "user",
+		"content": "What is the capital of France?"
+	}
+]
+
+completion = client.chat.completions.create(
+    model="deepseek-ai/DeepSeek-R1", 
+	messages=messages, 
+	max_tokens=500
+)
+
+print(completion.choices[0].message)
 todo
 
 #### from JS using @huggingface/inference
