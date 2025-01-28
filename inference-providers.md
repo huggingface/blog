@@ -90,6 +90,8 @@ completion = client.chat.completions.create(
 print(completion.choices[0].message)
 ```
 
+Note: You can also use OpenAI client library to call the Inference Providers too, see [here for more details](https://huggingface.co/deepseek-ai/DeepSeek-R1?inference_provider=together&language=python&inference_api=true).
+
 And here's how to generate an image from a text prompt using [FLUX.1-dev](black-forest-labs/FLUX.1-dev) running on [fal.ai](https://fal.ai/models/fal-ai/flux/dev):
 
 ```python
@@ -143,8 +145,6 @@ console.log(chatCompletion.choices[0].message);
 
 ### From HTTP calls
 
-We expose the Routing proxy directly under the huggingface.co domain so you can call it directly, it's very useful for OpenAI-compatible APIs for instance. You can just swap the URL as a base URL: `https://huggingface.co/api/inference-proxy/{:provider}`.
-
 Here's how you can call Llama-3.3-70B-Instruct using Sambanova as the inference provider via cURL.
 
 ```bash
@@ -170,7 +170,7 @@ In the direct calls mode, i.e. when you use a custom key, you are billed by the 
 
 In the Routing mode, our intent is to charge for routed requests the same amount you would pay if you called the API directly. That is, we don't charge anything on top of Provider requests. (If this feature is successful, we might get revenue share from our partners).
 
-**Important Note** ‼️ PRO users get $2 included Inference credits every month. You can use them across providers. 🔥
+Important Note ‼️ PRO users get $2 included Inference credits every month. You can use them accross providers. 🔥
 
 Subscribe to the [Hugging Face PRO plan](https://hf.co/subscribe/pro) to get access to Inference credits, ZeroGPU, Spaces Dev Mode, 20x higher limits, and more.
 
