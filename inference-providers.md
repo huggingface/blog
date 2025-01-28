@@ -85,11 +85,10 @@ completion = client.chat.completions.create(
 )
 
 print(completion.choices[0].message)
-todo
+```
 
 #### from JS using @huggingface/inference
 
-todo
 ```js
 import { HfInference } from "@huggingface/inference";
 
@@ -108,7 +107,7 @@ const chatCompletion = await client.chatCompletion({
 });
 
 console.log(chatCompletion.choices[0].message);
-
+```
 
 ### From HTTP calls
 
@@ -127,7 +126,7 @@ curl 'https://huggingface.co/api/inference-proxy/together/v1/chat/completions' \
     "max_tokens": 500,
     "stream": false
 }'
-todo
+```
 
 ## Feedback and next steps
 
