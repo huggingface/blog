@@ -48,6 +48,7 @@ Zeke Sikelianos, Founding Designer at [Replicate](https://huggingface.co/replica
 - set your own API keys for the providers you’ve signed up with. Otherwise, you can still use them – your requests will be routed through HF.
 - order providers by preference. This applies to the widget and code snippets in the model pages.
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/user-settings.png" alt="Inference Providers"/>
 
 
 2. As we mentioned, there are two modes when calling Inference APIs: 
@@ -55,10 +56,12 @@ Zeke Sikelianos, Founding Designer at [Replicate](https://huggingface.co/replica
 - Routed by HF (in that case, you don't need a token from the provider, and the charges are applied directly to your HF account rather than the provider's account)
 
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/explainer.png" alt="Inference Providers"/>
 
 
 3. Model pages showcase third-party inference providers (the ones that are compatible + Warm with the current model, sorted by user preference)
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/model-widget.png" alt="Inference Providers"/>
 
 
 
