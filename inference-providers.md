@@ -71,7 +71,7 @@ from huggingface_hub import InferenceClient
 
 client = InferenceClient(
 	provider="together",
-	api_key="hf_xxxxxxxxxxxxxxxxxxxxxxxx"
+	api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
 )
 
 messages = [
@@ -97,7 +97,7 @@ from huggingface_hub import InferenceClient
 
 client = InferenceClient(
 	provider="fal-ai",
-	api_key="hf_xxxxxxxxxxxxxxxxxxxxxxxx"
+	api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
 )
 
 # output is a PIL.Image object
@@ -112,7 +112,7 @@ image = client.text_to_image(
 ```js
 import { HfInference } from "@huggingface/inference";
 
-const client = new HfInference("hf_xxxxxxxxxxxxxxxxxxxxxxxx");
+const client = new HfInference("xxxxxxxxxxxxxxxxxxxxxxxx");
 
 const chatCompletion = await client.chatCompletion({
 	model: "deepseek-ai/DeepSeek-R1",
@@ -133,7 +133,7 @@ console.log(chatCompletion.choices[0].message);
 
 ```bash
 curl 'https://huggingface.co/api/inference-proxy/together/v1/chat/completions' \
--H 'Authorization: Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxx' \
+-H 'Authorization: Bearer xxxxxxxxxxxxxxxxxxxxxxxx' \
 -H 'Content-Type: application/json' \
 --data '{
     "model": "deepseek-ai/DeepSeek-R1",
