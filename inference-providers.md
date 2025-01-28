@@ -107,6 +107,18 @@ image = client.text_to_image(
 )
 ```
 
+To move to a different provider, you can simply change the provider name, everything else stays the same:
+
+```diff
+from huggingface_hub import InferenceClient
+
+client = InferenceClient(
+-	provider="fal-ai",
++	provider="replicate",
+	api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
+)
+```
+
 #### from JS using @huggingface/inference
 
 ```js
