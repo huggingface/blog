@@ -172,7 +172,7 @@ In the direct calls mode, i.e. when you use a custom key, you are billed by the 
 
 In the Routing mode, our intent is to charge for routed requests the same amount you would pay if you called the API directly. That is, we don't charge anything on top of Provider requests. (If this feature is successful, we might get revenue share from our partners).
 
-Important Note ‼️ PRO users get $2 included Inference credits every month. You can use them accross providers. 🔥
+**Important Note** ‼️ PRO users get $2 included Inference credits every month. You can use them across providers. 🔥
 
 Subscribe to the [Hugging Face PRO plan](https://hf.co/subscribe/pro) to get access to Inference credits, ZeroGPU, Spaces Dev Mode, 20x higher limits, and more.
 
