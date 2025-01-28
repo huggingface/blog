@@ -114,6 +114,7 @@ image = client.text_to_image(
     "Labrador in the style of Vermeer",
     model="black-forest-labs/FLUX.1-dev"
 )
+```
 
 To move to a different provider, you can simply change the provider name, everything else stays the same:
 
