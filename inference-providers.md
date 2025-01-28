@@ -49,7 +49,7 @@ Zeke Sikelianos, Founding Designer at [Replicate](https://huggingface.co/replica
 
 
 2. As we mentioned, there are two modes when calling Inference APIs: 
-- custom key (calls go out to the inference provider directly, using your own API key); or
+- custom key (calls go directly to the inference provider, using your own API key of the corresponding inference provider); or
 - Routed by HF (in that case, you don't need a token from the provider, and the charges are applied directly to your HF account rather than the provider's account)
 
 
