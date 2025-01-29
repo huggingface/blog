@@ -139,20 +139,18 @@ Adding mimics to a static portrait was never easier with [Live Portrait](https:/
 ## Starting off strong - Open source releases of January 25
 
 
-1. YuE
-   https://huggingface.co/m-a-p/YuE-s1-7B-anneal-en-cot
+1. **YuE - series of open-source music foundation models** for full song generation.
+read more [here]( https://huggingface.co/m-a-p/YuE-s1-7B-anneal-en-cot)
 
-2. Hunyuan 3D , SD 3D
+2. **Hunyuan 3D-2 , SPAR3D - 3D generation models**. SPAR3D is a state-of-the-art method for 3D mesh reconstruction from a single image. Hunyuan 3D-2 is a High Resolution Textured 3D Assets Generation
+read more here: [Hunyuan3D-2](https://huggingface.co/tencent/Hunyuan3D-2), [SPAR3D](https://huggingface.co/stabilityai/stable-point-aware-3d)
 
-    [https://huggingface.co/tencent/Hunyuan3D-2](https://huggingface.co/tencent/Hunyuan3D-2), [https://huggingface.co/stabilityai/stable-point-aware-3d](https://huggingface.co/stabilityai/stable-point-aware-3d)
+2. Moondreamv2, SmolVLM-500M, Qwen2.5-VL - 
+[https://huggingface.co/vikhyatk/moondream2](https://huggingface.co/vikhyatk/moondream2)
 
-2. Moondreamv2, Qwen2.5-VL
-
-    [https://huggingface.co/vikhyatk/moondream2](https://huggingface.co/vikhyatk/moondream2)
-
-3. comfy-to-gradio tool
-
-    [https://huggingface.co/blog/run-comfyui-workflows-on-spaces](https://huggingface.co/blog/run-comfyui-workflows-on-spaces)
+3. **ComfyUI-to-Gradio** - 
+a step-by-step guide on how to convert a complex ComfyUI workflow to a simple Gradio application, and how to deploy this application on Hugging Face Spaces ZeroGPU serverless structure, which allows for it to be deployed and run for free in a serverless manner
+read more [here](https://huggingface.co/blog/run-comfyui-workflows-on-spaces)
 
 
 ## Announcing Our Weekly Newsletter 🗞️
