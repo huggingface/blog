@@ -51,7 +51,7 @@ We create a script `Video to Scenes` to split long videos into short clips.
 
 ### Stage 3 (Processing)
 
-Florence-2 [`microsoft/Florence-2-large`](http://hf.co/microsoft/Florence-2-large) to run <CAPTION>, <DETAILED_CAPTION>, <DENSE_REGION_CAPTION> and <OCR_WITH_REGION>
+Florence-2 [`microsoft/Florence-2-large`](http://hf.co/microsoft/Florence-2-large) to run `<CAPTION>`, `<DETAILED_CAPTION>`, `<DENSE_REGION_CAPTION>` and `<OCR_WITH_REGION>`.
 
 We can bring in any other captioner in this regard. We can also caption the entire video (e.g., with a model like [Qwen2.5](https://huggingface.co/docs/transformers/main/en/model_doc/qwen2_5_vl)) as opposed to captioning individual frames.
 
