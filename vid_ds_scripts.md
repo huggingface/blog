@@ -71,22 +71,22 @@ We provide some visual examples for each filters as well as the captions from Fl
 
 | **`pwatermark`** | **Image** |
 |:----------:|:-----:|
-| 0.69       | ![19s8CRUVf3E-Scene-022_0.jpg](Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/19s8CRUVf3E-Scene-022_0.jpg) |
-| 0.61       | ![19s8CRUVf3E-Scene-010_0.jpg](Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/19s8CRUVf3E-Scene-010_0.jpg) |
-| 0.60       | ![-IvRtqwaetM-Scene-003_0.jpg](Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/-IvRtqwaetM-Scene-003_0.jpg) |
-| 0.17       | ![-IvRtqwaetM-Scene-003_1.jpg](Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/-IvRtqwaetM-Scene-003_1.jpg) |
+| 0.69       | ![19s8CRUVf3E-Scene-022_0.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/19s8CRUVf3E-Scene-022_0.jpg) |
+| 0.61       | ![19s8CRUVf3E-Scene-010_0.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/19s8CRUVf3E-Scene-010_0.jpg) |
+| 0.60       | ![-IvRtqwaetM-Scene-003_0.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-003_0.jpg) |
+| 0.17       | ![-IvRtqwaetM-Scene-003_1.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-003_1.jpg) |
 
 
 ### Aesthetics
 
 | **Aesthetic** | **Image** |
 |:---------:|:-----:|
-| 5.50      | ![-IvRtqwaetM-Scene-036_0.jpg](Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/-IvRtqwaetM-Scene-036_0.jpg) |
-| 4.44      | ![-IvRtqwaetM-Scene-036_1.jpg](Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/-IvRtqwaetM-Scene-036_1.jpg) |
-| 4.99      | ![-IvRtqwaetM-Scene-046_0.jpg](Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/-IvRtqwaetM-Scene-046_0.jpg) |
-| 4.87      | ![-IvRtqwaetM-Scene-046_1.jpg](Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/-IvRtqwaetM-Scene-046_1.jpg) |
-| 4.84      | ![-IvRtqwaetM-Scene-046_2.jpg](Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/-IvRtqwaetM-Scene-046_2.jpg) |
-| 4.04      | ![19s8CRUVf3E-Scene-015_1.jpg](Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/19s8CRUVf3E-Scene-015_1.jpg) |
+| 5.50      | ![-IvRtqwaetM-Scene-036_0.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-036_0.jpg) |
+| 4.44      | ![-IvRtqwaetM-Scene-036_1.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-036_1.jpg) |
+| 4.99      | ![-IvRtqwaetM-Scene-046_0.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-046_0.jpg) |
+| 4.87      | ![-IvRtqwaetM-Scene-046_1.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-046_1.jpg) |
+| 4.84      | ![-IvRtqwaetM-Scene-046_2.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-046_2.jpg) |
+| 4.04      | ![19s8CRUVf3E-Scene-015_1.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/19s8CRUVf3E-Scene-015_1.jpg) |
 
 ### OCR/Caption
 
@@ -98,7 +98,7 @@ We provide some visual examples for each filters as well as the captions from Fl
     </tr>
     <tr>
         <td>
-            <img src="Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/-IvRtqwaetM-Scene-003_0%201.jpg" 
+            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-003_0%201.jpg" 
                  alt="Toy Car with Mice">
         </td>
         <td>A toy car with a bunch of mice in it.</td>
@@ -113,11 +113,11 @@ We provide some visual examples for each filters as well as the captions from Fl
     </tr>
     <tr>
         <td>
-            <img src="Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/image_with_ocr_labels.jpg" 
+            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/image_with_ocr_labels.jpg" 
                  alt="OCR labels">
         </td>
         <td>
-            <img src="Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/image_with_ocr_and_region_labels.jpg" 
+            <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/image_with_ocr_and_region_labels.jpg" 
                  alt="OCR and region labels">
         </td>
     </tr>
@@ -139,7 +139,7 @@ We then used these datasets to fine-tune the [CogVideoX-5B](https://huggingface.
       alt="demo4.mp4"
       autoplay loop autobuffer muted playsinline
     >
-    <source src="Video%20dataset%20scripts%201881384ebcac804cb2f2cba5736f085a/assets_output_0.mp4" type="video/mp4">
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/assets_output_0.mp4" type="video/mp4">
   </video>
   <figcaption>Prompt: <i>DIFF_crush A red candle is placed on a metal platform, and a large metal cylinder descends from above, flattening the candle as if it were under a hydraulic press. The candle is crushed into a flat, round shape, leaving a pile of debris around it.</i></figcaption>
 </figure>
