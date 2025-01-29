@@ -17,17 +17,28 @@ Join us as we look back at the key milestones, tools, and breakthroughs in AI & 
 and forward for what’s to come in 2025 (spoiler 👀: we’re starting a new weekly roundup).
 
 
-## Major Releases of 2024 
+ ## Table of Contents
+ - [Major Releases of 2024](#Major-Releases-of-2024)
+ - [Image Generation](#Image-Generation)
+   * [Text-to-image generation](#Text-to-image generation)
+   * [Personalization & stylization ](#Personalization-&-stylization)
+ - [Video Generation](#Video-Generation)
+ - [Creative Tools that Shined in 2024](#Creative-Tools-that-Shined-in-2024)
+ - [What should we expect for AI & Art in 2025?](#What-should-we-expect-for-AI-&-Art-in-2025?)
+ - [Starting off strong - Open source releases of January 25](#Starting-off-strong---Open-source-releases-of-January-25)
+
+
+## Major Releases of 2024
 
 What were the standout releases of creative AI tools in 2024? We'll highlight the major releases across creative and 
 artistic fields, with a particular focus on open-source developments in popular tasks like image and video generation. 
 
-**[timeline figure]**
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/timeline.png" width="424" height="auto" alt="2024 highlights">
 
-## Image Generation 
+## Image Generation
 
 Over 2 years since the OG stable diffusion was released and made waves in image generation with open source models, it’s now safe to say that when it comes to image generation from text, image editing and controlled image generation - open source models are giving closed source models a run for their money.   
-
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/flux_grid.png" width="424" height="auto" alt="2024 highlights">
 
 ### Text-to-image generation
 
@@ -45,7 +56,7 @@ This trend continued with the releases of AuraFlow, Flux.1 and Stable Diffusion 
 Among many pivotal moments in the (not so long) history of open source image generation models, it’s safe to say that the release of Flux.1 was one of them. Flux [dev] achieved a new state-of-the-art, surpassing popular closed source models like Midjourney v6.0, DALL·E 3 (HD) on various benchmarks. 
 
 
-### Personalization & stylization 
+### Personalization & stylization
 
 A positive side effect of advancements in image models is the significant improvement in personalization techniques for text-to-image models and controlled generation.
 
@@ -64,6 +75,15 @@ Similar models came out trying to utilize DiT based models like Flux and SD3.5 f
 
 ## Video Generation
 
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+    <video
+       alt="demo4.mp4"
+       autoplay loop autobuffer muted playsinline
+     >
+     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video_gen/hunyuan-output.mp4" type="video/mp4">
+   </video>
+ </figure>
+
 As opposed to image generation, with video we still have a way to go. But, it’s safe to say that we’re very far away from where we were a year ago. While we’re all about open-source, the credit for (some) of the significant leap in AI video generation goes to OpenAI’s sora for changing our expectations of video model capabilities quite radically. And as fofr put nicely in *[AI video is having its Stable Diffusion moment](https://replicate.com/blog/ai-video-is-having-its-stable-diffusion-moment)* (which we recommend reading 🙂) - it  \
 made everyone realize what is possible. 
 
@@ -75,11 +95,10 @@ While this implies that most community members are still unable to experiment an
 
 ## Creative Tools that Shined in 2024
 
-The beauty of open source is that it allows the community to experiment, find new usages for existing models / pipelines, improve on and build new tools together. Many of the creative AI tools that were popular this year are the fruit of joint community effort.  
+The beauty of open source is that it allows the community to experiment, find new usages for existing models / pipelines, improve on and build new tools together. Many of the creative AI tools that were popular this year are the fruit of joint community effort.
 
 
-
-#### Flux finetuning
+#### Flux fine-tuning
 
 Many of the amazing [Flux fine-tunes](https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer) created in the last year were trained thanks to the [AI-toolkit ](https://github.com/ostris/ai-toolkit)by [ostris](https://huggingface.co/ostris).
 
@@ -118,7 +137,6 @@ Adding mimics to a static portrait was never easier with [Live Portrait](https:/
 
 
 ## Starting off strong - Open source releases of January 25
-[wip]
 
 
 1. YuE
