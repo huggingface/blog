@@ -1,3 +1,11 @@
+---
+title: "Build awesome datasets for video generation"
+thumbnail: /blog/assets/vid_ds_scripts/thumbnail.png
+authors:
+- user: hlky
+- user: sayakpaul
+---
+
 # Build awesome datasets for video generation
 
 Tooling for image generation datasets is well established, with [`img2dataset`](https://github.com/rom1504/img2dataset) covering large scale and various community guides, scripts and UIs covering the small scale.
