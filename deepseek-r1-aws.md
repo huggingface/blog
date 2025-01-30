@@ -23,15 +23,15 @@ We collaborate with Amazon Web Services to make it easier for developers to depl
 
 Let’s review how you can deploy and fine-tune DeepSeek R1 models with Hugging Face on AWS.
 - [Deploy DeepSeek R1 models](#deploy-deepseek-r1-models)
-    - [Deploy on Hugging Face Inference Endpoints on AWS](#deploy-on-hugging-face-inference-endpoints-on-aws)
+    - [Deploy on AWS with Hugging Face Inference Endpoints](#deploy-on-aws-with-hugging-face-inference-endpoints)
     - [Deploy on Amazon Sagemaker AI with Hugging Face LLM DLCs](#deploy-on-amazon-sagemaker-ai-with-hugging-face-llm-dlcs)
         - [DeepSeek R1 on GPUs](#deepseek-r1-on-gpus)
         - [Distilled models on GPUs](#distilled-models-on-gpus)
         - [Distilled models on Neuron](#distilled-models-on-neuron)
     - [Deploy on EC2 Neuron with the Hugging Face Neuron Deep Learning AMI](#deploy-on-ec2-neuron-with-the-hugging-face-neuron-deep-learning-ami)
-- [Fine-tune DeepSeek R1 models](#fine-tuning-deepseek-r1-models)
-    - [Fine tune on Amazon Sagemaker AI with Hugging Face Training DLCs](#fine-tuning-on-amazon-sagemaker-ai-with-hugging-face-training-dlcs)
-    - [Fine tune on EC2  Neuron with the Hugging Face Neuron Deep Learning AMI](#fine-tuning-on-ec2--neuron-with-the-hugging-face-neuron-deep-learning-ami)
+- [Fine-tune DeepSeek R1 models](#fine-tune-deepseek-r1-models)
+    - [Fine tune on Amazon Sagemaker AI with Hugging Face Training DLCs](#fine-tune-on-amazon-sagemaker-ai-with-hugging-face-training-dlcs)
+    - [Fine tune on EC2  Neuron with the Hugging Face Neuron Deep Learning AMI](#fine-tune-on-ec2--neuron-with-the-hugging-face-neuron-deep-learning-ami)
 
 ## Deploy DeepSeek R1 models
 
