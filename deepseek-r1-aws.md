@@ -11,7 +11,7 @@ authors:
 
 A running document to showcase how to deploy and fine-tune DeepSeek R1 models with Hugging Face on AWS.
 
-## **What is DeepSeek-R1?**
+## What is DeepSeek-R1?
 
 If you’ve ever struggled with a tough math problem, you know how useful it is to think a little longer and work through it carefully. [**OpenAI’s o1 model**](https://x.com/polynoamial/status/1834280155730043108) showed that when LLMs are trained to do the same—by using more compute during inference—they get significantly better at solving reasoning tasks like mathematics, coding, and logic.
 
