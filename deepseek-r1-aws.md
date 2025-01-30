@@ -1,8 +1,10 @@
 ---
 title: "How to deploy and fine-tune DeepSeek models on AWS" 
-thumbnail: TBD
+thumbnail: /blog/assets/deepseek-r1-aws/thumbnail.png
 authors:
 - user: pagezyhf
+- user: jeffboudier
+- user: dacorvo
 ---
 
 # How to deploy and fine-tune DeepSeek models on AWS
@@ -274,7 +276,7 @@ Then, you can test the endpoint:
 
 Make sure you pause the EC2 instance once you are done testing it.
 
-| **Note:** The team is working on enabling all DeepSeek models deployment on Trainium & Inferentia with the Hugging Face Neuron Deep Learning AMI. Stay tuned! 
+| **Note:** The team is working on enabling DeepSeek R1 deployment on Trainium & Inferentia with the Hugging Face Neuron Deep Learning AMI. Stay tuned! 
 
 ## Fine-tune DeepSeek R1 models
 
