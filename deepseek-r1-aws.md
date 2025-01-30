@@ -35,12 +35,14 @@ Let’s review how you can deploy and fine-tune DeepSeek R1 models with Hugging 
 
 ## Deploy DeepSeek R1 models
 
-### Deploy on Hugging Face Inference Endpoints on AWS
+### Deploy on AWS with Hugging Face Inference Endpoints
 
-[**Hugging Face Inference Endpoints**](https://ui.endpoints.huggingface.co/) offers an easy and secure way to deploy Machine Learning models for use in production on AWS. Inference Endpoints empower developers and data scientists alike to create AI applications without managing infrastructure: simplifying the deployment process to a few clicks, including handling large volumes of requests with autoscaling, reducing infrastructure costs with scale-to-zero, and offering advanced security.
+[**Hugging Face Inference Endpoints**](https://ui.endpoints.huggingface.co/) offers an easy and secure way to deploy Machine Learning models on dedicated compute for use in production on AWS. Inference Endpoints empower developers and data scientists alike to create AI applications without managing infrastructure: simplifying the deployment process to a few clicks, including handling large volumes of requests with autoscaling, reducing infrastructure costs with scale-to-zero, and offering advanced security.
 
 With Inference Endpoints, you can deploy any of the 6 distilled models from DeepSeek-R1 and also a quantized version of DeepSeek R1 made by Unsloth: https://huggingface.co/unsloth/DeepSeek-R1-GGUF.
-On the model page, click on Deploy, then on HF Inference Endpoints. You will be redirect to the Inference Endpoint page, where we selected for you an optimized inference container, and the recommended hardware to run the model. Once you created your endpoint, you can send your queries to DeepSeek R1 for 8.3$ per hour with AWS 🤯.
+On the model page, click on Deploy, then on HF Inference Endpoints. You will be redirected to the Inference Endpoint page, where we selected for you an optimized inference container, and the recommended hardware to run the model. Once you created your endpoint, you can send your queries to DeepSeek R1 for 8.3$ per hour with AWS 🤯.
+
+You can find DeepSeek R1 and distilled models, as well as other popular open LLMs, ready to deploy on optimized configurations in the [Inference Endpoints Model Catalog](https://endpoints.huggingface.co/catalog?task=text-generation).
 
 ![deepseek_r1_ie.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/deepseek-aws/deepseek_r1_ie.png)
 
@@ -144,7 +146,7 @@ predictor.delete_endpoint()
 
 #### Distilled models on Neuron
 
-Let’s walk through the deployment of DeepSeek-R1-Distill-Llama-70B on a Neuron instance.
+Let’s walk through the deployment of DeepSeek-R1-Distill-Llama-70B on a Neuron instance, like AWS Trainium 2 and AWS Inferentia 2.
 
 Code snippets are available on the model page under the Deploy button! 
 
