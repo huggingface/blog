@@ -5418,3 +5418,12 @@
   tags:
     - announcement
     - hub
+
+- local: deepseek-aws
+  title: "How to deploy and fine-tune DeepSeek models on AWS"
+  author: pagezyhf
+  thumbnail: TBD
+  date: Jan 30, 2025
+  tags:
+    - aws
+    - partnerships
