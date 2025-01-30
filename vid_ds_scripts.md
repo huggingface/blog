@@ -22,11 +22,12 @@ TODO
 
 ## Tooling
 
-Typically, video generation is conditioned on natural language text prompts such as: "A cat walks on the grass, realistic style". Then in a video, there are a number of qualitative aspects for controllability, like so:
+Typically, video generation is conditioned on natural language text prompts such as: "A cat walks on the grass, realistic style". Then in a video, there are a number of qualitative aspects for controllability and filtering, like so:
 
 * Motion
 * Aesthetics
 * Presence of watermarks
+* Presence of NSFW content
 
 Video generation models are only as good as the data they are trained on. Therefore, these aspects become crucial when curating the datasets for training/fine-tuning.
 
@@ -44,6 +45,7 @@ We create a script `Video to Scenes` to split long videos into short clips.
 
 - detect watermarks with [LAION-5B-WatermarkDetection](https://github.com/LAION-AI/LAION-5B-WatermarkDetection)
 - predict an aesthetic score with [improved-aesthetic-predictor](https://github.com/christophschuhmann/improved-aesthetic-predictor)
+- detect presence of NSFW content with [Falconsai/nsfw_image_detection](https://huggingface.co/Falconsai/nsfw_image_detection)
 
 #### Entire video
 
