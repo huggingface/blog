@@ -144,7 +144,7 @@ predictor.delete_endpoint()
 
 #### Distilled models on Neuron
 
-Let’s walk through the deployment of DeepSeek-R1-Distill-Llama-70B on a Neuron instance.
+Let’s walk through the deployment of DeepSeek-R1-Distill-Llama-70B on a Neuron instance, like AWS Trainium 2 and AWS Inferentia 2.
 
 Code snippets are available on the model page under the Deploy button! 
 
