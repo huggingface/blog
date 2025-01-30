@@ -33,7 +33,7 @@ Let’s review how you can deploy and fine-tune DeepSeek R1 models with Hugging 
 
 ## Deploy DeepSeek R1 models
 
-### Deploy on Hugging Face Inference Endpoints on AWS
+### Deploy on AWS with Hugging Face Inference Endpoints
 
 [**Hugging Face Inference Endpoints**](https://ui.endpoints.huggingface.co/) offers an easy and secure way to deploy Machine Learning models for use in production on AWS. Inference Endpoints empower developers and data scientists alike to create AI applications without managing infrastructure: simplifying the deployment process to a few clicks, including handling large volumes of requests with autoscaling, reducing infrastructure costs with scale-to-zero, and offering advanced security.
 
