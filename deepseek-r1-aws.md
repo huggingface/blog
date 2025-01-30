@@ -24,13 +24,13 @@ We collaborate with Amazon Web Services to make it easier for developers to depl
 Let’s review how you can deploy and fine-tune DeepSeek R1 models with Hugging Face on AWS.
 - [Deploy DeepSeek R1 models](#deploy-deepseek-r1-models)
     - [Deploy on Hugging Face Inference Endpoints on AWS](#deploy-on-hugging-face-inference-endpoints-on-aws)
-    - [Deploy on Amazon Sagemaker AI with Hugging Face LLM DLCs](#deploy-on-amazon-sagemaker-ai-with-hugging-face-llm-dlcs)
+    - [Deploy on Amazon SageMaker AI with Hugging Face LLM DLCs](#deploy-on-amazon-sagemaker-ai-with-hugging-face-llm-dlcs)
         - [DeepSeek R1 on GPUs](#deepseek-r1-on-gpus)
         - [Distilled models on GPUs](#distilled-models-on-gpus)
         - [Distilled models on Neuron](#distilled-models-on-neuron)
     - [Deploy on EC2 Neuron with the Hugging Face Neuron Deep Learning AMI](#deploy-on-ec2-neuron-with-the-hugging-face-neuron-deep-learning-ami)
 - [Fine-tune DeepSeek R1 models](#fine-tuning-deepseek-r1-models)
-    - [Fine tune on Amazon Sagemaker AI with Hugging Face Training DLCs](#fine-tuning-on-amazon-sagemaker-ai-with-hugging-face-training-dlcs)
+    - [Fine tune on Amazon SageMaker AI with Hugging Face Training DLCs](#fine-tuning-on-amazon-sagemaker-ai-with-hugging-face-training-dlcs)
     - [Fine tune on EC2  Neuron with the Hugging Face Neuron Deep Learning AMI](#fine-tuning-on-ec2--neuron-with-the-hugging-face-neuron-deep-learning-ami)
 
 ## Deploy DeepSeek R1 models
@@ -90,44 +90,44 @@ import boto3
 from sagemaker.huggingface import HuggingFaceModel, get_huggingface_llm_image_uri
 
 try:
-	role = sagemaker.get_execution_role()
+    role = sagemaker.get_execution_role()
 except ValueError:
-	iam = boto3.client('iam')
-	role = iam.get_role(RoleName='sagemaker_execution_role')['Role']['Arn']
+    iam = boto3.client("iam")
+    role = iam.get_role(RoleName="sagemaker_execution_role")["Role"]["Arn"]
 ```
 
 Create the SageMaker Model object with the Python SDK:
 
 ```python
-model_id = 'deepseek-ai/DeepSeek-R1-Distill-Llama-70B'
+model_id = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B"
 model_name = hf_model_id.split("/")[-1].lower()
 
 # Hub Model configuration. https://huggingface.co/models
 hub = {
-	'HF_MODEL_ID': model_id,
-	'SM_NUM_GPUS': json.dumps(8)
+    "HF_MODEL_ID": model_id,
+    "SM_NUM_GPUS": json.dumps(8)
 }
 
 # create Hugging Face Model Class
 huggingface_model = HuggingFaceModel(
-	image_uri=get_huggingface_llm_image_uri("huggingface",version="3.0.1"),
-	env=hub,
-	role=role, 
+    image_uri=get_huggingface_llm_image_uri("huggingface", version="3.0.1"),
+    env=hub,
+    role=role,
 )
 ```
 
-Deploy the model to a Sagemaker endpoint and test the endpoint:
+Deploy the model to a SageMaker endpoint and test the endpoint:
 
 ```python
 endpoint_name = f"{model_name}-ep"
 
 # deploy model to SageMaker Inference
 predictor = huggingface_model.deploy(
-  endpoint_name=endpoint_name,
-	initial_instance_count=1,
-	instance_type="ml.g6.48xlarge",
-	container_startup_health_check_timeout=2400,
-  )
+    endpoint_name=endpoint_name,
+    initial_instance_count=1,
+    instance_type="ml.g6.48xlarge",
+    container_startup_health_check_timeout=2400,
+)
   
 # send request
 predictor.predict({"inputs": "What is the meaning of life?"})
@@ -152,9 +152,9 @@ Code snippets are available on the model page under the Deploy button!
 
 ![deploy_neuron.gif](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/deepseek-aws/deploy_neuron.gif)
 
-The pre-requisites to deploy to a Neuron instance are the same. Make sur you have a Sagemaker Domain [configured](https://docs.aws.amazon.com/sagemaker/latest/dg/onboard-quick-start.html), sufficient [quota](https://docs.aws.amazon.com/general/latest/gr/sagemaker.html) in Sagemaker, and a JupyterLab [space](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated-jl-user-guide-create-space.html). For DeepSeek-R1-Distill-Llama-70B, you should raise the default quota for ml.inf2.48xlarge for endpoint usage to 1. 
+The pre-requisites to deploy to a Neuron instance are the same. Make sure you have a SageMaker Domain [configured](https://docs.aws.amazon.com/sagemaker/latest/dg/onboard-quick-start.html), sufficient [quota](https://docs.aws.amazon.com/general/latest/gr/sagemaker.html) in SageMaker, and a JupyterLab [space](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated-jl-user-guide-create-space.html). For DeepSeek-R1-Distill-Llama-70B, you should raise the default quota for `ml.inf2.48xlarge` for endpoint usage to 1.
 
-Then, instantiate a sagemaker_session which is used to determine the current region and execution role.
+Then, instantiate a `sagemaker_session` which is used to determine the current region and execution role.
 
 ```python
 import json
@@ -163,27 +163,27 @@ import boto3
 from sagemaker.huggingface import HuggingFaceModel, get_huggingface_llm_image_uri
 
 try:
-	role = sagemaker.get_execution_role()
+    role = sagemaker.get_execution_role()
 except ValueError:
-	iam = boto3.client('iam')
-	role = iam.get_role(RoleName='sagemaker_execution_role')['Role']['Arn']
+    iam = boto3.client("iam")
+    role = iam.get_role(RoleName="sagemaker_execution_role")["Role"]["Arn"]
 ```
 
 Create the SageMaker Model object with the Python SDK:
 
 ```python
 image_uri = get_huggingface_llm_image_uri("huggingface-neuronx", version="0.0.25")
-model_id = 'deepseek-ai/DeepSeek-R1-Distill-Llama-70B'
+model_id = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B"
 model_name = hf_model_id.split("/")[-1].lower()
 
 # Hub Model configuration
 hub = {
-	"HF_MODEL_ID": model_id,
-  "HF_NUM_CORES": "24",
-  "HF_AUTO_CAST_TYPE": "bf16",
-  "MAX_BATCH_SIZE": "4",
-  "MAX_INPUT_TOKENS": "3686",
-  "MAX_TOTAL_TOKENS": "4096",
+    "HF_MODEL_ID": model_id,
+    "HF_NUM_CORES": "24",
+    "HF_AUTO_CAST_TYPE": "bf16",
+    "MAX_BATCH_SIZE": "4",
+    "MAX_INPUT_TOKENS": "3686",
+    "MAX_TOTAL_TOKENS": "4096",
 }
 
 # create Hugging Face Model Class
@@ -194,19 +194,19 @@ huggingface_model = HuggingFaceModel(
 )
 ```
 
-Deploy the model to a Sagemaker endpoint and test the endpoint:
+Deploy the model to a SageMaker endpoint and test the endpoint:
 
 ```python
 endpoint_name = f"{model_name}-ep"
 
 # deploy model to SageMaker Inference
 predictor = huggingface_model.deploy(
-  endpoint_name=endpoint_name,
-	initial_instance_count=1,
-	instance_type="ml.inf2.48xlarge",
-	container_startup_health_check_timeout=3600,
-  volume_size=512,
-  )
+    endpoint_name=endpoint_name,
+    initial_instance_count=1,
+    instance_type="ml.inf2.48xlarge",
+    container_startup_health_check_timeout=3600,
+    volume_size=512,
+)
   
 # send request
 predictor.predict(
@@ -234,35 +234,35 @@ predictor.delete_endpoint()
 
 ### Deploy on EC2 Neuron with the Hugging Face Neuron Deep Learning AMI
 
-This guide will detail how to export, deploy and run DeepSeek-R1-Distill-Llama-70B on a inf2.48xlarge AWS EC2 Instance.
+This guide will detail how to export, deploy and run DeepSeek-R1-Distill-Llama-70B on a `inf2.48xlarge` AWS EC2 Instance.
 
-Before, let’s start with a few pre-requisites. Make sur you have subscribed to the Hugging Face Neuron Deep Learning AMI on the [Marketplace](https://aws.amazon.com/marketplace/pp/prodview-gr3e6yiscria2). It provides you all the necessary dependencies to train and deploy Hugging Face models on Trainium & Inferentia. Then, launch an inf2.48xlarge instance in EC2 with the AMI and connect through SSH. You can check our step-by-step [guide](https://huggingface.co/docs/optimum-neuron/en/guides/setup_aws_instance) if you have never done it.
+Before, let’s start with a few pre-requisites. Make sure you have subscribed to the Hugging Face Neuron Deep Learning AMI on the [Marketplace](https://aws.amazon.com/marketplace/pp/prodview-gr3e6yiscria2). It provides you all the necessary dependencies to train and deploy Hugging Face models on Trainium & Inferentia. Then, launch an inf2.48xlarge instance in EC2 with the AMI and connect through SSH. You can check our step-by-step [guide](https://huggingface.co/docs/optimum-neuron/en/guides/setup_aws_instance) if you have never done it.
 
 Once connected through the instance, you can deploy the model on an endpoint with this command:
 
 ```bash
 docker run -p 8080:80 \
-       -v $(pwd)/data:/data \
-       --device=/dev/neuron0 \
-       --device=/dev/neuron1 \
-       --device=/dev/neuron2 \
-       --device=/dev/neuron3 \
-       --device=/dev/neuron4 \
-       --device=/dev/neuron5 \
-       --device=/dev/neuron6 \
-       --device=/dev/neuron7 \
-       --device=/dev/neuron8 \
-       --device=/dev/neuron9 \
-       --device=/dev/neuron10 \
-       --device=/dev/neuron11 \
-       -e HF_BATCH_SIZE=4 \
-       -e HF_SEQUENCE_LENGTH=4096 \
-       -e HF_AUTO_CAST_TYPE="bf16" \
-       -e HF_NUM_CORES=24 \
-       ghcr.io/huggingface/neuronx-tgi:latest \
-       --model-id deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
-       --max-batch-size 4 \
-       --max-total-tokens 4096
+    -v $(pwd)/data:/data \
+    --device=/dev/neuron0 \
+    --device=/dev/neuron1 \
+    --device=/dev/neuron2 \
+    --device=/dev/neuron3 \
+    --device=/dev/neuron4 \
+    --device=/dev/neuron5 \
+    --device=/dev/neuron6 \
+    --device=/dev/neuron7 \
+    --device=/dev/neuron8 \
+    --device=/dev/neuron9 \
+    --device=/dev/neuron10 \
+    --device=/dev/neuron11 \
+    -e HF_BATCH_SIZE=4 \
+    -e HF_SEQUENCE_LENGTH=4096 \
+    -e HF_AUTO_CAST_TYPE="bf16" \
+    -e HF_NUM_CORES=24 \
+    ghcr.io/huggingface/neuronx-tgi:latest \
+    --model-id deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
+    --max-batch-size 4 \
+    --max-total-tokens 4096
 ```
 
 It will take a few minutes to download the compiled model from the Hugging Face cache and launch a TGI endpoint.
@@ -270,10 +270,10 @@ It will take a few minutes to download the compiled model from the Hugging Face 
 Then, you can test the endpoint: 
 
 ```bash
-       curl localhost:8080/generate \
-       -X POST \
-       -d '{"inputs":"Why is the sky dark at night?"}' \
-       -H 'Content-Type: application/json'
+curl localhost:8080/generate \
+    -X POST \
+    -d '{"inputs":"Why is the sky dark at night?"}' \
+    -H 'Content-Type: application/json'
 ```
 
 Make sure you pause the EC2 instance once you are done testing it.
@@ -282,7 +282,7 @@ Make sure you pause the EC2 instance once you are done testing it.
 
 ## Fine-tune DeepSeek R1 models
 
-### Fine tune on Amazon Sagemaker AI with Hugging Face Training DLCs
+### Fine tune on Amazon SageMaker AI with Hugging Face Training DLCs
 
 | **Note:** The team is working on enabling all DeepSeek models fine tuning with the Hugging Face Training DLCs. Stay tuned!
 
