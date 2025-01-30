@@ -5421,8 +5421,8 @@
 
 - local: deepseek-r1-aws
   title: "How to deploy and fine-tune DeepSeek models on AWS"
-  author: /blog/assets/deepseek-r1-aws/thumbnail.png
-  thumbnail: TBD
+  author: pagezyhf
+  thumbnail: /blog/assets/deepseek-r1-aws/thumbnail.png
   date: Jan 30, 2025
   tags:
     - aws
