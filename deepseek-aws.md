@@ -35,7 +35,7 @@ Let’s review how you can deploy and fine-tune DeepSeek R1 models with Hugging 
 
 ### Deploy on AWS with Hugging Face Inference Endpoints
 
-[**Hugging Face Inference Endpoints**](https://ui.endpoints.huggingface.co/) offers an easy and secure way to deploy Machine Learning models for use in production on AWS. Inference Endpoints empower developers and data scientists alike to create AI applications without managing infrastructure: simplifying the deployment process to a few clicks, including handling large volumes of requests with autoscaling, reducing infrastructure costs with scale-to-zero, and offering advanced security.
+[**Hugging Face Inference Endpoints**](https://ui.endpoints.huggingface.co/) offers an easy and secure way to deploy Machine Learning models on dedicated compute for use in production on AWS. Inference Endpoints empower developers and data scientists alike to create AI applications without managing infrastructure: simplifying the deployment process to a few clicks, including handling large volumes of requests with autoscaling, reducing infrastructure costs with scale-to-zero, and offering advanced security.
 
 With Inference Endpoints, you can deploy any of the 6 distilled models from DeepSeek-R1 and also a quantized version of DeepSeek R1 made by Unsloth: https://huggingface.co/unsloth/DeepSeek-R1-GGUF.
 On the model page, click on Deploy, then on HF Inference Endpoints. You will be redirect to the Inference Endpoint page, where we selected for you an optimized inference container, and the recommended hardware to run the model. Once you created your endpoint, you can send your queries to DeepSeek R1 for 8.3$ per hour with AWS 🤯.
