@@ -35,7 +35,7 @@ and forward for what’s to come in 2025 (spoiler 👀: we’re starting a new m
 What were the standout releases of creative AI tools in 2024? We'll highlight the major releases across creative and 
 artistic fields, with a particular focus on open-source developments in popular tasks like image and video generation. 
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/timeline_2.png" width="424" height="auto" alt="2024 highlights">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/timeline_2.png" width="700" height="auto" alt="2024 highlights">
 
 ## Image Generation
 
@@ -43,7 +43,7 @@ Over 2 years since the OG stable diffusion was released and made waves in image 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/finger_meme.png" width="424" height="auto" alt="2024 highlights">
 
 ### Text-to-image generation
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/flux_grid.png" width="424" height="auto" alt="2024 highlights">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/flux_grid.png" width="600" height="auto" alt="flux">
 2024 was the year we shifted paradigms of diffusion models - from the traditional Unet based architecture to Diffusion Transformer (DiT), as well as an objective switch to flow matching. 
 
 **TD;LR** - diffusion models and **Gaussian** flow matching are equivalent. Flow matching proposes a vector field parametrization of the network output that is different compared to the ones commonly used in diffusion models previously.
