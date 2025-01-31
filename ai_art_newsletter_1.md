@@ -159,13 +159,17 @@ Adding mimics to a static portrait was never easier with [Live Portrait](https:/
 
 
 1. **YuE - series of open-source music foundation models** for full song generation.
-try it out & read more: [demo](https://huggingface.co/spaces/fffiloni/YuE), [model weights]( https://huggingface.co/m-a-p/YuE-s1-7B-anneal-en-cot).
+YuE is possibly the best open source model for music generation, achieving competitive results to closed source models like Suno.
+**try it out & read more**: [demo](https://huggingface.co/spaces/fffiloni/YuE), [model weights]( https://huggingface.co/m-a-p/YuE-s1-7B-anneal-en-cot).
 
-2. **Hunyuan 3D-2 , SPAR3D - 3D generation models**. SPAR3D is a state-of-the-art method for 3D mesh reconstruction from a single image. Hunyuan 3D-2 is a High Resolution Textured 3D Assets Generation
-read more here: [Hunyuan3D-2](https://huggingface.co/tencent/Hunyuan3D-2), [SPAR3D](https://huggingface.co/stabilityai/stable-point-aware-3d)
+2. **Hunyuan 3D-2 , SPAR3D, DiffSplat - 3D generation models**. 
+3D models are coming in hot - not long after the release of TRELLIS, Hunyuan 3D-2, SPAR3D and DiffSplat are here to 
+take over the 3D landscape. 
 
-2. Moondreamv2, SmolVLM-500M, Qwen2.5-VL - 
-[https://huggingface.co/vikhyatk/moondream2](https://huggingface.co/vikhyatk/moondream2)
+   **try it out & read more:**
+   - [Hunyuan3D-2](https://huggingface.co/tencent/Hunyuan3D-2) 
+   - [SPAR3D](https://huggingface.co/stabilityai/stable-point-aware-3d)
+   - [DiffSplat](https://huggingface.co/chenguolin/DiffSplat)
 
 3. **ComfyUI-to-Gradio** - 
 a step-by-step guide on how to convert a complex ComfyUI workflow to a simple Gradio application, and how to deploy this application on Hugging Face Spaces ZeroGPU serverless structure, which allows for it to be deployed and run for free in a serverless manner
