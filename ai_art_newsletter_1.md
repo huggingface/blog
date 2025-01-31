@@ -45,7 +45,7 @@ Over 2 years since the OG stable diffusion was released and made waves in image 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/flux_grid.png" width="424" height="auto" alt="2024 highlights">
 2024 was the year we shifted paradigms of diffusion models - from the traditional Unet based architecture to Diffusion Transformer (DiT), as well as an objective switch to flow matching. 
 
-**TD;LR** - diffusion models and **Gaussian** flow matching are equivalent.Flow matching proposes a vector field parametrization of the network output that is different compared to the ones commonly used in diffusion models previously.
+**TD;LR** - diffusion models and **Gaussian** flow matching are equivalent. Flow matching proposes a vector field parametrization of the network output that is different compared to the ones commonly used in diffusion models previously.
 
 * We recommend this [great blog ](https://diffusionflow.github.io)if you’re interested in learning more about flow matching and the connection with diffusion models
 
