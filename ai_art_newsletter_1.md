@@ -186,9 +186,9 @@ a step-by-step guide on how to convert a complex ComfyUI workflow to a simple Gr
 read more [here](https://huggingface.co/blog/run-comfyui-workflows-on-spaces)
 
 
-## Announcing Our Weekly Newsletter 🗞️
+## Announcing Our Newsletter 🗞️
 
-Kicking off with this blog, we (Poli & Linoy) will be bringing you a weekly roundup of the latest in the creative 
+Kicking off with this blog, we (Poli & Linoy) will be bringing you a monthly roundup of the latest in the creative 
 AI world. In such a fast-evolving space, it’s tough to stay on top of all the new developments, 
 let alone sift through them. That’s where we come in & hopefully this way we can make creative AI tools more accessible 
 
