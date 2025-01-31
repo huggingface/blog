@@ -99,7 +99,7 @@ print(completion.choices[0].message)
 
 **Note:** You can also use the OpenAI client library to call the Inference Providers too; see [here an example for DeepSeek model](https://huggingface.co/deepseek-ai/DeepSeek-R1?inference_provider=together&language=python&inference_api=true).
 
-And here's how to generate an image from a text prompt using [FLUX.1-dev](black-forest-labs/FLUX.1-dev) running on [fal.ai](https://fal.ai/models/fal-ai/flux/dev):
+And here's how to generate an image from a text prompt using [FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) running on [fal.ai](https://fal.ai/models/fal-ai/flux/dev):
 
 ```python
 from huggingface_hub import InferenceClient
