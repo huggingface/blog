@@ -76,7 +76,7 @@ not even superior abilities to those of fine-tuned models.
 Similarly, image editing and controlled generation - such as image generation with canny / depth / pose constraints made progress too - both thanks to the growing quality of the base models and the community’s growing understanding of the semantic roles different components have ([Instant Style](https://huggingface.co/spaces/InstantX/InstantStyle), [B-LoRA](https://huggingface.co/spaces/Yardenfren/B-LoRA))
 
 **So what’s next?** since the shift of paradigms to DiT and flow matching objectives, 
-Similar models came out trying to utilize DiT based models like Flux and SD3.5 for similar purposes, but so far not quite beating the quality of the SDXL based ones despite the superior quality of the underlying base model. This could be attributed to the relative lack of understanding of semantic roles of different components of the DiT for example, compared to the Unet. 2025 could be the year we identify those roles in DiTs as well, unlocking more possibilities with the next generation of image generation models. 
+additional models came out trying to utilize DiT-based models like Flux and SD3.5 for similar purposes, but so far not quite beating the quality of the SDXL-based ones despite the superior quality of the underlying base model. This could be attributed to the relative lack of understanding of semantic roles of different components of the DiT compared to the Unet. 2025 could be the year when we identify those roles in DiTs as well, unlocking more possibilities with the next generation of image generation models. 
 
 
 ## Video Generation
