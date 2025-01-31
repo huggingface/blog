@@ -5427,3 +5427,15 @@
   tags:
     - aws
     - partnerships
+
+- local: edgellm
+  title: "Create Your Own LLM Chatbot App: A Fun and Easy Guide to React Native Development!"
+  author: medmekk
+  thumbnail: /blog/assets/deepseek-r1-aws/thumbnail.png
+  date: Jan 31, 2025
+  tags:
+    - community
+    - hub
+    - llms
+    - on-device
+    - guide
