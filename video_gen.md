@@ -175,8 +175,8 @@ We used HunyuanVideo for this study, as it is sufficiently large enough, to show
 | BF16 + Group offload (leaf) + VAE tiling           |  6.66 GB      |  887s    |
 | FP8 Upcasting + Group offload (leaf) + VAE tiling  |  6.56 GB^     |  885s    |
 
-<sub><sup>*</sup>8Bit models in `bitsandbytes` cannot be moved to CPU from GPU, unlike the 4Bit ones.<sub>
-<sub><sup>^</sup>The memory usage does not reduce further because the peak utilizations comes from computing attention and feed-forward. Using [Flash Attention](https://github.com/Dao-AILab/flash-attention) and [Optimized Feed-Forward](https://github.com/huggingface/diffusers/pull/10623) can help lower this requirement to ~5 GB.<sub>
+<sub><sup>*</sup>8Bit models in `bitsandbytes` cannot be moved to CPU from GPU, unlike the 4Bit ones.</sub>
+<br><sub><sup>^</sup>The memory usage does not reduce further because the peak utilizations comes from computing attention and feed-forward. Using [Flash Attention](https://github.com/Dao-AILab/flash-attention) and [Optimized Feed-Forward](https://github.com/huggingface/diffusers/pull/10623) can help lower this requirement to ~5 GB.</sub>
 
 We used the same settings as above to obtain these numbers. Also note that due to numerical precision loss, quantization can impact the quality of the outputs, effects of which are more prominent in videos than images.
 
