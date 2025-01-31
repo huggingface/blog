@@ -21,7 +21,7 @@ and forward for what’s to come in 2025 (spoiler 👀: we’re starting a new m
  ## Table of Contents
  - [Major Releases of 2024](#Major-Releases-of-2024)
  - [Image Generation](#Image-Generation)
-   * [Text-to-image generation](#Text-to-image generation)
+   * [Text-to-image generation](#Text-to-image-generation)
    * [Personalization & stylization ](#Personalization-&-stylization)
  - [Video Generation](#Video-Generation)
  - [Creative Tools that Shined in 2024](#Creative-Tools-that-Shined-in-2024)
