@@ -160,7 +160,7 @@ Adding mimics to a static portrait was never easier with [Live Portrait](https:/
        alt="face_poke.mp4"
        autoplay loop autobuffer muted playsinline
      >
-     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video_gen/issac_1.mp4" type="video/mp4">
+     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/isaac_1.mp4" type="video/mp4">
    </video>
  </figure>
 
@@ -174,7 +174,7 @@ Adding mimics to a static portrait was never easier with [Live Portrait](https:/
        alt="trellis.mp4"
        autoplay loop autobuffer muted playsinline
      >
-     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video_gen/trellis.mp4" type="video/mp4">
+     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/ai_art_newsletter_1/video_gen/trellis.mp4" type="video/mp4">
    </video>
  </figure>
 
