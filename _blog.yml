@@ -5399,7 +5399,6 @@
     - diffusers
     - guide
     - video_gen
-    
 - local: open-r1
   title: "Open-R1: a fully open reproduction of DeepSeek-R1"
   author: eliebak
