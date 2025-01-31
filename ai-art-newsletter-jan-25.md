@@ -63,6 +63,7 @@ Among many pivotal moments in the (not so long) history of open source image gen
 A positive side effect of advancements in image models is the significant improvement in personalization techniques for text-to-image models and controlled generation.
 
 Back in August 2022, transformative works like [Textual Inversion](https://textual-inversion.github.io) and [DreamBooth](https://dreambooth.github.io) enhanced our ability to **teach and introduce new concepts to text-to-image models**, drastically expanding what could be done with them. These opened the door to a stream of improvements and enhancements building on top of these techniques (such as LoRA for diffusion models).
+
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/personalization_1.png" width="424" height="auto" alt="textual inversion - dreambooth">
 
 However, an **upper bound to the quality of the fine-tuned models is naturally the base model** from which it was fine-tuned. In that sense, we can’t neglect Stable Diffusion XL, which was also a significant marker in personalization for open source image generation models. A testimony to that is that even now, many of the popular techniques and models for personalization and controlled generation are based on SDXL.  The advanced abilities of SDXL (and models that were released after with similar quality) together with the growing understanding of the semantic roles of different components in the diffusion model architecture raises the question -  \
