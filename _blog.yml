@@ -5427,7 +5427,7 @@
     - aws
     - partnerships
   
-- local: ai_art_newsletter_1
+- local: aiart-newsletter-1
   title: "The AI tools for Art Newsletter - Issue 1"
   author: linoyts
   thumbnail: /blog/assets/ai_art_newsletter_1/thumbnail.png
