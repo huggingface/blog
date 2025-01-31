@@ -33,15 +33,15 @@ and forward for what’s to come in 2025 (spoiler 👀: we’re starting a new w
 What were the standout releases of creative AI tools in 2024? We'll highlight the major releases across creative and 
 artistic fields, with a particular focus on open-source developments in popular tasks like image and video generation. 
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/timeline.png" width="424" height="auto" alt="2024 highlights">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/timeline_2.png" width="424" height="auto" alt="2024 highlights">
 
 ## Image Generation
 
 Over 2 years since the OG stable diffusion was released and made waves in image generation with open source models, it’s now safe to say that when it comes to image generation from text, image editing and controlled image generation - open source models are giving closed source models a run for their money.   
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/flux_grid.png" width="424" height="auto" alt="2024 highlights">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/finger_meme.png" width="424" height="auto" alt="2024 highlights">
 
 ### Text-to-image generation
-
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/flux_grid.png" width="424" height="auto" alt="2024 highlights">
 2024 was the year we shifted paradigms of diffusion models - from the traditional Unet based architecture to Diffusion Transformer (DiT), as well as an objective switch to flow matching. 
 
 **TD;LR** - diffusion models and **Gaussian** flow matching are equivalent.Flow matching proposes a vector field parametrization of the network output that is different compared to the ones commonly used in diffusion models previously.
@@ -49,8 +49,8 @@ Over 2 years since the OG stable diffusion was released and made waves in image 
 * We recommend this [great blog ](https://diffusionflow.github.io)if you’re interested in learning more about flow matching and the connection with diffusion models
 
  
-**Back to practice**: First to announce the shift was Stability AI with Stable Diffusion 3, however it was HunyuanDiT that became the first open source model with DiT architecture.  \
-This trend continued with the releases of AuraFlow, Flux.1 and Stable Diffusion 3.5. 
+**Back to practice**: First to announce the shift was Stability AI with [Stable Diffusion 3](https://huggingface.co/stabilityai/stable-diffusion-3-medium), however it was [HunyuanDiT](https://huggingface.co/Tencent-Hunyuan/HunyuanDiT) that became the first open source model with DiT architecture.  \
+This trend continued with the releases of [AuraFlow](https://huggingface.co/fal/AuraFlow), [Flux.1](https://huggingface.co/black-forest-labs/FLUX.1-dev) and [Stable Diffusion 3.5](https://huggingface.co/stabilityai/stable-diffusion-3.5-large). 
 
  
 Among many pivotal moments in the (not so long) history of open source image generation models, it’s safe to say that the release of Flux.1 was one of them. Flux [dev] achieved a new state-of-the-art, surpassing popular closed source models like Midjourney v6.0, DALL·E 3 (HD) on various benchmarks. 
@@ -60,12 +60,15 @@ Among many pivotal moments in the (not so long) history of open source image gen
 
 A positive side effect of advancements in image models is the significant improvement in personalization techniques for text-to-image models and controlled generation.
 
-Back in August 2022, transformative works like Textual Inversion and DreamBooth enhanced our ability to teach and introduce new concepts to text-to-image models, drastically expanding what could be done with them.These opened the door to a stream of improvements and enhancements building on top of these techniques (such as LoRA for diffusion models).
-
-However, an upper bound to the quality of the fine-tuned models is naturally the base model from which it was finetuned. In that sense, we can’t neglect Stable Diffusion XL, which was also a significant marker in personalization for open source image generation models. A testimony to that is that even now, many of the popular techniques and models for personalization and controlled generation are based on SDXL.  The advanced abilities of SDXL (and models that were released after with similar quality) together with the growing understanding of the semantic roles of different components in the diffusion model architecture raises the question -  \
+Back in August 2022, transformative works like [Textual Inversion](https://textual-inversion.github.io) and [DreamBooth](https://dreambooth.github.io) enhanced our ability to **teach and introduce new concepts to text-to-image models**, drastically expanding what could be done with them.These opened the door to a stream of improvements and enhancements building on top of these techniques (such as LoRA for diffusion models).
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/personalization_1.png" width="424" height="auto" alt="textual inversion - dreambooth">
+However, an **upper bound to the quality of the fine-tuned models is naturally the base model** from which it was fine-tuned. In that sense, we can’t neglect Stable Diffusion XL, which was also a significant marker in personalization for open source image generation models. A testimony to that is that even now, many of the popular techniques and models for personalization and controlled generation are based on SDXL.  The advanced abilities of SDXL (and models that were released after with similar quality) together with the growing understanding of the semantic roles of different components in the diffusion model architecture raises the question -  \
 what can we achieve without further optimization?
 
-*cue in the rain of zero shot techniques* - 2024 was definitely the year when generating high quality portraits from reference photos was made possible with as little as a single reference image & without any optimization. Training free techniques like IP adapter FaceID, InstantID, photomaker and more came out and demonstrated competitive if not even superior abilities to those of fine tuned models. 
+*cue in the rain of zero shot techniques* - 2024 was definitely the year when generating high quality portraits from 
+reference photos was made possible with as little as a single reference image & without any optimization. Training free 
+techniques like [IP adapter FaceID](https://huggingface.co/spaces/multimodalart/Ip-Adapter-FaceID), [InstantID](https://huggingface.co/spaces/InstantX/InstantID), [Photomaker](https://huggingface.co/spaces/TencentARC/PhotoMaker-V2) and more came out and demonstrated competitive if 
+not even superior abilities to those of fine-tuned models. 
 
 Similarly, image editing and controlled generation - such as image generation with canny / depth / pose constraints made progress too - both thanks to the growing quality of the base models and the community’s growing understanding of the semantic roles different components have ([Instant Style](https://huggingface.co/spaces/InstantX/InstantStyle), [B-LoRA](https://huggingface.co/spaces/Yardenfren/B-LoRA))
 
@@ -100,11 +103,12 @@ The beauty of open source is that it allows the community to experiment, find ne
 
 #### Flux fine-tuning
 
-Many of the amazing [Flux fine-tunes](https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer) created in the last year were trained thanks to the [AI-toolkit ](https://github.com/ostris/ai-toolkit)by [ostris](https://huggingface.co/ostris).
+Many of the amazing [Flux fine-tunes](https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer) created in the last year were trained thanks to the [AI-toolkit ](https://github.com/ostris/ai-toolkit) by [ostris](https://huggingface.co/ostris).
 
 #### Face to all 
-Inspired by fofr's [face-to-many](https://github.com/fofr/cog-face-to-many),[Face to All](https://huggingface.co/spaces/multimodalart/face-to-all) combines the viral Instant ID model with added Controlnet depth constraints and community fine-tuned SDXL LoRAs to create training free high quality portraits in creative stylizations.  
+Inspired by fofr's [face-to-many](https://github.com/fofr/cog-face-to-many),[Face to All](https://huggingface.co/spaces/multimodalart/face-to-all) combines the viral [Instant ID model](https://huggingface.co/spaces/InstantX/InstantID) with added Controlnet depth constraints and community fine-tuned SDXL LoRAs to create training free high quality portraits in creative stylizations.  
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/face-to-all.png" width="424" height="auto" alt="face to all">
 
 #### Flux style shaping 
 
@@ -113,7 +117,7 @@ Based on a ComfyUI workflow by [Nathan Shipley](https://x.com/CitizenPlain), [Fl
 
 #### Outpainting with diffusers
 
-[Diffusers Image Outpaint](https://huggingface.co/spaces/fffiloni/diffusers-image-outpaint) makes use of the diffusers StableDiffusionXL Fill Pipeline together with an SDXL union controlnet to seamlessly expand an input image.  
+[Diffusers Image Outpaint](https://huggingface.co/spaces/fffiloni/diffusers-image-outpaint) makes use of the diffusers Stable Diffusion XL Fill Pipeline together with an SDXL union controlnet to seamlessly expand an input image.  
 
 
 #### Live portrait, Face Poke
@@ -140,7 +144,7 @@ Adding mimics to a static portrait was never easier with [Live Portrait](https:/
 
 
 1. **YuE - series of open-source music foundation models** for full song generation.
-read more [here]( https://huggingface.co/m-a-p/YuE-s1-7B-anneal-en-cot)
+try it out & read more: [demo](https://huggingface.co/spaces/fffiloni/YuE), [model weights]( https://huggingface.co/m-a-p/YuE-s1-7B-anneal-en-cot).
 
 2. **Hunyuan 3D-2 , SPAR3D - 3D generation models**. SPAR3D is a state-of-the-art method for 3D mesh reconstruction from a single image. Hunyuan 3D-2 is a High Resolution Textured 3D Assets Generation
 read more here: [Hunyuan3D-2](https://huggingface.co/tencent/Hunyuan3D-2), [SPAR3D](https://huggingface.co/stabilityai/stable-point-aware-3d)
@@ -158,3 +162,5 @@ read more [here](https://huggingface.co/blog/run-comfyui-workflows-on-spaces)
 Kicking off with this blog, we (Poli & Linoy) will be bringing you a weekly roundup of the latest in the creative 
 AI world. In such a fast-evolving space, it’s tough to stay on top of all the new developments, 
 let alone sift through them. That’s where we come in & hopefully this way we can make creative AI tools more accessible 
+
+<iframe src="https://aitoolsforart.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
