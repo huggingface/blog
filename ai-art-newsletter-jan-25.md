@@ -48,7 +48,7 @@ Over 2 years since the OG stable diffusion was released and made waves in image 
 
 **TD;LR** - diffusion models and **Gaussian** flow matching are equivalent. Flow matching proposes a vector field parametrization of the network output that is different compared to the ones commonly used in diffusion models previously.
 
-* We recommend this [great blog ](https://diffusionflow.github.io)if you’re interested in learning more about flow matching and the connection with diffusion models
+* We recommend this [great blog by Google DeepMind](https://diffusionflow.github.io)if you’re interested in learning more about flow matching and the connection with diffusion models
 
  
 **Back to practice**: First to announce the shift was Stability AI with [Stable Diffusion 3](https://huggingface.co/stabilityai/stable-diffusion-3-medium), however it was [HunyuanDiT](https://huggingface.co/Tencent-Hunyuan/HunyuanDiT) that became the first open source model with DiT architecture.  \
