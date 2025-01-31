@@ -5418,6 +5418,15 @@
   tags:
     - announcement
     - hub
+
+- local: deepseek-r1-aws
+  title: "How to deploy and fine-tune DeepSeek models on AWS"
+  author: pagezyhf
+  thumbnail: /blog/assets/deepseek-r1-aws/thumbnail.png
+  date: Jan 30, 2025
+  tags:
+    - aws
+    - partnerships
   
 - local: ai_art_newsletter_1
   title: "The AI tools for Art Newsletter - Issue 1"
