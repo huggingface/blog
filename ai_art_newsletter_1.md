@@ -66,9 +66,11 @@ However, an **upper bound to the quality of the fine-tuned models is naturally t
 what can we achieve without further optimization?
 
 *cue in the rain of zero shot techniques* - 2024 was definitely the year when generating high quality portraits from 
-reference photos was made possible with as little as a single reference image & without any optimization. Training free 
+reference photos was made possible with as little as **a single reference image & without any optimization**. Training free 
 techniques like [IP adapter FaceID](https://huggingface.co/spaces/multimodalart/Ip-Adapter-FaceID), [InstantID](https://huggingface.co/spaces/InstantX/InstantID), [Photomaker](https://huggingface.co/spaces/TencentARC/PhotoMaker-V2) and more came out and demonstrated competitive if 
 not even superior abilities to those of fine-tuned models. 
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/instantid.png" width="424" height="auto" alt="2024 highlights">
 
 Similarly, image editing and controlled generation - such as image generation with canny / depth / pose constraints made progress too - both thanks to the growing quality of the base models and the community’s growing understanding of the semantic roles different components have ([Instant Style](https://huggingface.co/spaces/InstantX/InstantStyle), [B-LoRA](https://huggingface.co/spaces/Yardenfren/B-LoRA))
 
@@ -87,11 +89,15 @@ Similar models came out trying to utilize DiT based models like Flux and SD3.5 f
    </video>
  </figure>
 
-As opposed to image generation, with video we still have a way to go. But, it’s safe to say that we’re very far away from where we were a year ago. While we’re all about open-source, the credit for (some) of the significant leap in AI video generation goes to OpenAI’s sora for changing our expectations of video model capabilities quite radically. And as fofr put nicely in *[AI video is having its Stable Diffusion moment](https://replicate.com/blog/ai-video-is-having-its-stable-diffusion-moment)* (which we recommend reading 🙂) - it  \
+As opposed to image generation, with video we still have a way to go. 
+But, it’s safe to say that we’re very far away from where we were a year ago. While we’re all about open-source, 
+the credit for (some) of the significant leap in AI video generation goes to OpenAI’s sora for changing our 
+expectations of video model capabilities quite radically. And as fofr put nicely in *[AI video is having its Stable Diffusion moment](https://replicate.com/blog/ai-video-is-having-its-stable-diffusion-moment)* (which we recommend reading 🙂) - it  \
 made everyone realize what is possible. 
 
 
-The recent surge of open-source video generation models, including CogVideoX, Mochi, Allegro, LTX Video, and HunyuanVideo, has also been noteworthy. Video generation is inherently more challenging than image generation due to the need for motion quality, coherence, and consistency. Additionally, video generation requires substantial computational and memory resources, leading to significant generation latency. This often hinders local usage, making many new open video models inaccessible to community hardware without extensive memory optimizations and quantization approaches that impact both inference latency and the quality of generated videos. Nevertheless the open source community has made remarkable progress - which was recently covered in this blog on [the state of open video generation models](https://huggingface.co/blog/video_gen).
+The recent surge of open-source video generation models, including [CogVideoX](https://huggingface.co/THUDM/CogVideoX-5b), [Mochi](https://huggingface.co/genmo/mochi-1-preview), [Allegro](https://huggingface.co/rhymes-ai/Allegro), [LTX Video](https://huggingface.co/Lightricks/LTX-Video), 
+and [HunyuanVideo](https://huggingface.co/tencent/HunyuanVideo), has also been noteworthy. Video generation is inherently more challenging than image generation due to the need for motion quality, coherence, and consistency. Additionally, video generation requires substantial computational and memory resources, leading to significant generation latency. This often hinders local usage, making many new open video models inaccessible to community hardware without extensive memory optimizations and quantization approaches that impact both inference latency and the quality of generated videos. Nevertheless the open source community has made remarkable progress - which was recently covered in this blog on [the state of open video generation models](https://huggingface.co/blog/video_gen).
 
 While this implies that most community members are still unable to experiment and develop with open-source video models, it also suggests that we can expect significant advancements in 2025.
 
@@ -99,7 +105,7 @@ While this implies that most community members are still unable to experiment an
 ## Creative Tools that Shined in 2024
 
 The beauty of open source is that it allows the community to experiment, find new usages for existing models / pipelines, improve on and build new tools together. Many of the creative AI tools that were popular this year are the fruit of joint community effort.
-
+Here are some of our favorites:
 
 #### Flux fine-tuning
 
@@ -114,6 +120,7 @@ Inspired by fofr's [face-to-many](https://github.com/fofr/cog-face-to-many),[Fac
 
 Based on a ComfyUI workflow by [Nathan Shipley](https://x.com/CitizenPlain), [Flux style shaping](https://huggingface.co/spaces/multimodalart/flux-style-shaping) combines Flux [dev] Redux and Flux [dev] Depth for style transfer and optical illusion creation.
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/styleshaping.jpeg" width="424" height="auto" alt="style shaping">
 
 #### Outpainting with diffusers
 
@@ -129,6 +136,14 @@ Adding mimics to a static portrait was never easier with [Live Portrait](https:/
 
 [TRELLIS](https://huggingface.co/spaces/JeffreyXiang/TRELLIS) is a 3D generation model for versatile and high-quality 3D asset creation that took over the 3D landscape with a bang. 
 
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+    <video
+       alt="trellis.mp4"
+       autoplay loop autobuffer muted playsinline
+     >
+     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video_gen/trellis.mp4" type="video/mp4">
+   </video>
+ </figure>
 
 #### IC Light 
 
