@@ -51,7 +51,7 @@ Over 2 years since the OG stable diffusion was released and made waves in image 
 * We recommend this [great blog by Google DeepMind](https://diffusionflow.github.io)if you’re interested in learning more about flow matching and the connection with diffusion models
 
  
-**Back to practice**: First to announce the shift was Stability AI with [Stable Diffusion 3](https://huggingface.co/stabilityai/stable-diffusion-3-medium), however it was [HunyuanDiT](https://huggingface.co/Tencent-Hunyuan/HunyuanDiT) that became the first open source model with DiT architecture.  \
+**Back to practice**: First to announce the shift was Stability AI with [Stable Diffusion 3](https://huggingface.co/stabilityai/stable-diffusion-3-medium), however it was [HunyuanDiT](https://huggingface.co/Tencent-Hunyuan/HunyuanDiT) that became the first open source model with DiT architecture.  
 This trend continued with the releases of [AuraFlow](https://huggingface.co/fal/AuraFlow), [Flux.1](https://huggingface.co/black-forest-labs/FLUX.1-dev) and [Stable Diffusion 3.5](https://huggingface.co/stabilityai/stable-diffusion-3.5-large). 
 
  
