@@ -64,6 +64,7 @@ A positive side effect of advancements in image models is the significant improv
 
 Back in August 2022, transformative works like [Textual Inversion](https://textual-inversion.github.io) and [DreamBooth](https://dreambooth.github.io) enhanced our ability to **teach and introduce new concepts to text-to-image models**, drastically expanding what could be done with them. These opened the door to a stream of improvements and enhancements building on top of these techniques (such as LoRA for diffusion models).
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/personalization_1.png" width="424" height="auto" alt="textual inversion - dreambooth">
+
 However, an **upper bound to the quality of the fine-tuned models is naturally the base model** from which it was fine-tuned. In that sense, we can’t neglect Stable Diffusion XL, which was also a significant marker in personalization for open source image generation models. A testimony to that is that even now, many of the popular techniques and models for personalization and controlled generation are based on SDXL.  The advanced abilities of SDXL (and models that were released after with similar quality) together with the growing understanding of the semantic roles of different components in the diffusion model architecture raises the question -  \
 what can we achieve without further optimization?
 
@@ -72,7 +73,7 @@ reference photos was made possible with as little as **a single reference image 
 techniques like [IP adapter FaceID](https://huggingface.co/spaces/multimodalart/Ip-Adapter-FaceID), [InstantID](https://huggingface.co/spaces/InstantX/InstantID), [Photomaker](https://huggingface.co/spaces/TencentARC/PhotoMaker-V2) and more came out and demonstrated competitive if 
 not even superior abilities to those of fine-tuned models. 
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/instantid.png" width="512" height="auto" alt="2024 highlights">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/instantid.png" width="600" height="auto" alt="instantid">
 
 Similarly, image editing and controlled generation - such as image generation with canny / depth / pose constraints made progress too - both thanks to the growing quality of the base models and the community’s growing understanding of the semantic roles different components have ([Instant Style](https://huggingface.co/spaces/InstantX/InstantStyle), [B-LoRA](https://huggingface.co/spaces/Yardenfren/B-LoRA))
 
@@ -137,13 +138,13 @@ Many of the amazing [Flux fine-tunes](https://huggingface.co/spaces/multimodalar
 #### Face to all 
 Inspired by fofr's [face-to-many](https://github.com/fofr/cog-face-to-many),[Face to All](https://huggingface.co/spaces/multimodalart/face-to-all) combines the viral [Instant ID model](https://huggingface.co/spaces/InstantX/InstantID) with added ControlNet depth constraints and community fine-tuned SDXL LoRAs to create training-free and high-quality portraits in creative stylizations.  
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/face-to-all.png" width="424" height="auto" alt="face to all">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/face-to-all.png" width="512" height="auto" alt="face to all">
 
 #### Flux style shaping 
 
 Based on a ComfyUI workflow by [Nathan Shipley](https://x.com/CitizenPlain), [Flux style shaping](https://huggingface.co/spaces/multimodalart/flux-style-shaping) combines Flux [dev] Redux and Flux [dev] Depth for style transfer and optical illusion creation.
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/styleshaping.jpeg" width="424" height="auto" alt="style shaping">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/styleshaping.jpeg" width="512" height="auto" alt="style shaping">
 
 #### Outpainting with diffusers
 
