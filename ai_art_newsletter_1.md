@@ -10,7 +10,8 @@ authors:
 
 ### First issue 🎉
 
-The AI space is moving so fast it’s hard to believe that a year ago we still struggled to generate people with the correct amount of fingers.   
+The AI space is moving so fast it’s hard to believe that a year ago we still struggled to generate people with the correct amount of fingers 😂.
+
 The last couple of years have been pivotal for open source models and tools for artistic usage. 
 AI tools for creative expression have never been more accessible, and we’re only scratching the surface. 
 Join us as we look back at the key milestones, tools, and breakthroughs in AI & Arts from 2024, 
@@ -20,7 +21,7 @@ and forward for what’s to come in 2025 (spoiler 👀: we’re starting a new m
  ## Table of Contents
  - [Major Releases of 2024](#Major-Releases-of-2024)
  - [Image Generation](#Image-Generation)
-   * [Text-to-image generation](#Text-to-image generation)
+   * [Text-to-image generation](#Text-to-image-generation)
    * [Personalization & stylization ](#Personalization-&-stylization)
  - [Video Generation](#Video-Generation)
  - [Creative Tools that Shined in 2024](#Creative-Tools-that-Shined-in-2024)
@@ -44,7 +45,7 @@ Over 2 years since the OG stable diffusion was released and made waves in image 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/flux_grid.png" width="424" height="auto" alt="2024 highlights">
 2024 was the year we shifted paradigms of diffusion models - from the traditional Unet based architecture to Diffusion Transformer (DiT), as well as an objective switch to flow matching. 
 
-**TD;LR** - diffusion models and **Gaussian** flow matching are equivalent.Flow matching proposes a vector field parametrization of the network output that is different compared to the ones commonly used in diffusion models previously.
+**TD;LR** - diffusion models and **Gaussian** flow matching are equivalent. Flow matching proposes a vector field parametrization of the network output that is different compared to the ones commonly used in diffusion models previously.
 
 * We recommend this [great blog ](https://diffusionflow.github.io)if you’re interested in learning more about flow matching and the connection with diffusion models
 
@@ -75,7 +76,7 @@ not even superior abilities to those of fine-tuned models.
 Similarly, image editing and controlled generation - such as image generation with canny / depth / pose constraints made progress too - both thanks to the growing quality of the base models and the community’s growing understanding of the semantic roles different components have ([Instant Style](https://huggingface.co/spaces/InstantX/InstantStyle), [B-LoRA](https://huggingface.co/spaces/Yardenfren/B-LoRA))
 
 **So what’s next?** since the shift of paradigms to DiT and flow matching objectives, 
-Similar models came out trying to utilize DiT based models like Flux and SD3.5 for similar purposes, but so far not quite beating the quality of the SDXL based ones despite the superior quality of the underlying base model. This could be attributed to the relative lack of understanding of semantic roles of different components of the DiT for example, compared to the Unet. 2025 could be the year we identify those roles in DiTs as well, unlocking more possibilities with the next generation of image generation models. 
+additional models came out trying to utilize DiT-based models like Flux and SD3.5 for similar purposes, but so far not quite beating the quality of the SDXL-based ones despite the superior quality of the underlying base model. This could be attributed to the relative lack of understanding of semantic roles of different components of the DiT compared to the Unet. 2025 could be the year when we identify those roles in DiTs as well, unlocking more possibilities with the next generation of image generation models. 
 
 
 ## Video Generation
@@ -105,14 +106,15 @@ While this implies that most community members are still unable to experiment an
 ## Creative Tools that Shined in 2024
 
 The beauty of open source is that it allows the community to experiment, find new usages for existing models / pipelines, improve on and build new tools together. Many of the creative AI tools that were popular this year are the fruit of joint community effort.
+
 Here are some of our favorites:
 
 #### Flux fine-tuning
 
-Many of the amazing [Flux fine-tunes](https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer) created in the last year were trained thanks to the [AI-toolkit ](https://github.com/ostris/ai-toolkit) by [ostris](https://huggingface.co/ostris).
+Many of the amazing [Flux fine-tunes](https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer) created in the last year were trained thanks to the [AI-toolkit](https://github.com/ostris/ai-toolkit) by [ostris](https://huggingface.co/ostris).
 
 #### Face to all 
-Inspired by fofr's [face-to-many](https://github.com/fofr/cog-face-to-many),[Face to All](https://huggingface.co/spaces/multimodalart/face-to-all) combines the viral [Instant ID model](https://huggingface.co/spaces/InstantX/InstantID) with added Controlnet depth constraints and community fine-tuned SDXL LoRAs to create training free high quality portraits in creative stylizations.  
+Inspired by fofr's [face-to-many](https://github.com/fofr/cog-face-to-many),[Face to All](https://huggingface.co/spaces/multimodalart/face-to-all) combines the viral [Instant ID model](https://huggingface.co/spaces/InstantX/InstantID) with added ControlNet depth constraints and community fine-tuned SDXL LoRAs to create training-free and high-quality portraits in creative stylizations.  
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/face-to-all.png" width="424" height="auto" alt="face to all">
 
