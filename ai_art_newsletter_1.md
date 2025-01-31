@@ -162,6 +162,16 @@ Adding mimics to a static portrait was never easier with [Live Portrait](https:/
 YuE is possibly the best open source model for music generation, achieving competitive results to closed source models like Suno.
 **try it out & read more**: [demo](https://huggingface.co/spaces/fffiloni/YuE), [model weights]( https://huggingface.co/m-a-p/YuE-s1-7B-anneal-en-cot).
 
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+    <video
+       alt="yue.mp4"
+       autobuffer playsinline
+     >
+     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/My first YuE (open source Suno) AI generated full song.mp4" type="video/mp4">
+   </video>
+ </figure>
+
+
 2. **Hunyuan 3D-2 , SPAR3D, DiffSplat - 3D generation models**. 
 3D models are coming in hot - not long after the release of TRELLIS, Hunyuan 3D-2, SPAR3D and DiffSplat are here to 
 take over the 3D landscape. 
