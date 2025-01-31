@@ -10,7 +10,8 @@ authors:
 
 ### First issue 🎉
 
-The AI space is moving so fast it’s hard to believe that a year ago we still struggled to generate people with the correct amount of fingers.   
+The AI space is moving so fast it’s hard to believe that a year ago we still struggled to generate people with the correct amount of fingers 😂.
+
 The last couple of years have been pivotal for open source models and tools for artistic usage. 
 AI tools for creative expression have never been more accessible, and we’re only scratching the surface. 
 Join us as we look back at the key milestones, tools, and breakthroughs in AI & Arts from 2024, 
