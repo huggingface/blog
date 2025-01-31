@@ -113,6 +113,17 @@ in January alone.  We've seen the release of three new text-to-speech models:  [
 as well as two new music models: [JASCO](https://huggingface.co/models?search=jasco) and [YuE](https://huggingface.co/m-a-p/YuE-s1-7B-anneal-en-cot). With this pace, we can expect even more exciting developments in 
 the audio space throughout the year.
 
+This song👇 was generated with YuE 🤯
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+    <audio
+       alt="yue.mp3"
+       controls
+     >
+     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/I_wont_back_down.pop.mp3" type="audio/mp3">
+   </audio>
+ </figure>
+
+
 ## Creative Tools that Shined in 2024
 
 The beauty of open source is that it allows the community to experiment, find new usages for existing models / pipelines, improve on and build new tools together. Many of the creative AI tools that were popular this year are the fruit of joint community effort.
