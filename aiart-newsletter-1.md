@@ -15,8 +15,9 @@ The AI space is moving so fast it’s hard to believe that a year ago we still s
 The last couple of years have been pivotal for open source models and tools for artistic usage. 
 AI tools for creative expression have never been more accessible, and we’re only scratching the surface. 
 Join us as we look back at the key milestones, tools, and breakthroughs in AI & Arts from 2024, 
-and forward for what’s to come in 2025 (spoiler 👀: we’re starting a new monthly roundup).
+and forward for what’s to come in 2025 (spoiler 👀: we’re starting a new monthly roundup 👇).
 
+ <iframe src="https://multimodalaiart.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
 
  ## Table of Contents
  - [Major Releases of 2024](#Major-Releases-of-2024)
