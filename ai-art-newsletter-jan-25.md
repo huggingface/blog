@@ -170,8 +170,9 @@ Adding mimics to a static portrait was never easier with [Live Portrait](https:/
 
 
 1. **YuE - series of open-source music foundation models** for full song generation.
-YuE is possibly the best open source model for music generation, achieving competitive results to closed source models like Suno.
-**try it out & read more**: [demo](https://huggingface.co/spaces/fffiloni/YuE), [model weights]( https://huggingface.co/m-a-p/YuE-s1-7B-anneal-en-cot).
+YuE is possibly the best open source model for music generation (with an Apache 2.0 license!), achieving competitive results to closed source models like Suno.
+
+   **try it out & read more**: [demo](https://huggingface.co/spaces/fffiloni/YuE), [model weights](https://huggingface.co/m-a-p/YuE-s1-7B-anneal-en-cot).
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
     <video
@@ -192,9 +193,14 @@ take over the 3D landscape.
    - [SPAR3D](https://huggingface.co/stabilityai/stable-point-aware-3d)
    - [DiffSplat](https://huggingface.co/chenguolin/DiffSplat)
 
-3. **ComfyUI-to-Gradio** - 
+3. **Lumina-Image 2.0** - text to image model. 
+Lumina is a 2B parameter model competitive with the 8B Flux.1[dev](!) and with an Apache 2.0 license(!!).
+
+   **try it out & read more**: [demo](https://huggingface.co/spaces/benjamin-paine/Lumina-Image-2.0), [model weights](https://huggingface.co/Alpha-VLLM/Lumina-Image-2.0).
+
+4. **ComfyUI-to-Gradio** - 
 a step-by-step guide on how to convert a complex ComfyUI workflow to a simple Gradio application, and how to deploy this application on Hugging Face Spaces ZeroGPU serverless structure, which allows for it to be deployed and run for free in a serverless manner
-read more [here](https://huggingface.co/blog/run-comfyui-workflows-on-spaces)
+**read more** [**here**](https://huggingface.co/blog/run-comfyui-workflows-on-spaces).
 
 
 ## Announcing Our Newsletter 🗞️
