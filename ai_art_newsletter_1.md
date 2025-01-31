@@ -70,7 +70,7 @@ reference photos was made possible with as little as **a single reference image 
 techniques like [IP adapter FaceID](https://huggingface.co/spaces/multimodalart/Ip-Adapter-FaceID), [InstantID](https://huggingface.co/spaces/InstantX/InstantID), [Photomaker](https://huggingface.co/spaces/TencentARC/PhotoMaker-V2) and more came out and demonstrated competitive if 
 not even superior abilities to those of fine-tuned models. 
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/instantid.png" width="424" height="auto" alt="2024 highlights">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/instantid.png" width="512" height="auto" alt="2024 highlights">
 
 Similarly, image editing and controlled generation - such as image generation with canny / depth / pose constraints made progress too - both thanks to the growing quality of the base models and the community’s growing understanding of the semantic roles different components have ([Instant Style](https://huggingface.co/spaces/InstantX/InstantStyle), [B-LoRA](https://huggingface.co/spaces/Yardenfren/B-LoRA))
 
@@ -196,7 +196,7 @@ read more [here](https://huggingface.co/blog/run-comfyui-workflows-on-spaces)
 
 ## Announcing Our Newsletter 🗞️
 
-Kicking off with this blog, we (Poli & Linoy) will be bringing you a monthly roundup of the latest in the creative 
+Kicking off with this blog, we ([Poli](https://huggingface.co/multimodalart) & [Linoy](https://huggingface.co/linoyts)) will be bringing you a monthly roundup of the latest in the creative 
 AI world. In such a fast-evolving space, it’s tough to stay on top of all the new developments, 
 let alone sift through them. That’s where we come in & hopefully this way we can make creative AI tools more accessible 
 
