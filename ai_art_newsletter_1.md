@@ -130,6 +130,14 @@ Based on a ComfyUI workflow by [Nathan Shipley](https://x.com/CitizenPlain), [Fl
 #### Live portrait, Face Poke
 
 Adding mimics to a static portrait was never easier with [Live Portrait](https://huggingface.co/spaces/KwaiVGI/LivePortrait) and [Face Poke](https://huggingface.co/spaces/jbilcke-hf/FacePoke).
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+    <video
+       alt="face_poke.mp4"
+       autoplay loop autobuffer muted playsinline
+     >
+     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video_gen/issac_1.mp4" type="video/mp4">
+   </video>
+ </figure>
 
 
 #### TRELLIS
@@ -192,4 +200,4 @@ Kicking off with this blog, we (Poli & Linoy) will be bringing you a monthly rou
 AI world. In such a fast-evolving space, it’s tough to stay on top of all the new developments, 
 let alone sift through them. That’s where we come in & hopefully this way we can make creative AI tools more accessible 
 
-<iframe src="https://aitoolsforart.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
+<iframe src="https://multimodalaiart.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
