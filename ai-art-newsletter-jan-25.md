@@ -95,14 +95,23 @@ As opposed to image generation, with video we still have a way to go.
 But, it’s safe to say that we’re very far away from where we were a year ago. While we’re all about open-source, 
 the credit for (some) of the significant leap in AI video generation goes to OpenAI’s sora for changing our 
 expectations of video model capabilities quite radically. And as fofr put nicely in *[AI video is having its Stable Diffusion moment](https://replicate.com/blog/ai-video-is-having-its-stable-diffusion-moment)* (which we recommend reading 🙂) - it  \
-made everyone realize what is possible. 
-
+made everyone realize what is possible.
 
 The recent surge of open-source video generation models, including [CogVideoX](https://huggingface.co/THUDM/CogVideoX-5b), [Mochi](https://huggingface.co/genmo/mochi-1-preview), [Allegro](https://huggingface.co/rhymes-ai/Allegro), [LTX Video](https://huggingface.co/Lightricks/LTX-Video), 
 and [HunyuanVideo](https://huggingface.co/tencent/HunyuanVideo), has also been noteworthy. Video generation is inherently more challenging than image generation due to the need for motion quality, coherence, and consistency. Additionally, video generation requires substantial computational and memory resources, leading to significant generation latency. This often hinders local usage, making many new open video models inaccessible to community hardware without extensive memory optimizations and quantization approaches that impact both inference latency and the quality of generated videos. Nevertheless the open source community has made remarkable progress - which was recently covered in this blog on [the state of open video generation models](https://huggingface.co/blog/video_gen).
 
 While this implies that most community members are still unable to experiment and develop with open-source video models, it also suggests that we can expect significant advancements in 2025.
 
+## Audio Generation
+
+Audio generation has progressed significantly in the past year going from simple sounds to complete songs with lyrics. 
+Despite challenges - Audio signals are complex and multifaceted, require more sophisticated mathematical models than 
+models that generate text or images and training data quite scarce - 2024 saw open source releases like [OuteTTS](https://huggingface.co/OuteAI/OuteTTS-0.2-500M) and 
+[IndicParlerTTS](https://huggingface.co/ai4bharat/indic-parler-tts) for text to speech and openai’s [Whisper large v3 turbo](https://huggingface.co/openai/whisper-large-v3-turbo) for audio speech recognition. 
+The year 2025 is already shaping up to be a breakthrough year for audio models, with a remarkable number of releases 
+in January alone.  We've seen the release of three new text-to-speech models:  [Kokoro](https://huggingface.co/hexgrad/Kokoro-82M), [LLasa TTS](https://huggingface.co/HKUSTAudio/Llasa-3B) and [OuteTTS 0.3](https://huggingface.co/OuteAI/OuteTTS-0.3-1B), 
+as well as two new music models: [JASCO](https://huggingface.co/models?search=jasco) and [YuE](https://huggingface.co/m-a-p/YuE-s1-7B-anneal-en-cot). With this pace, we can expect even more exciting developments in 
+the audio space throughout the year.
 
 ## Creative Tools that Shined in 2024
 
