@@ -106,6 +106,7 @@ While this implies that most community members are still unable to experiment an
 ## Creative Tools that Shined in 2024
 
 The beauty of open source is that it allows the community to experiment, find new usages for existing models / pipelines, improve on and build new tools together. Many of the creative AI tools that were popular this year are the fruit of joint community effort.
+
 Here are some of our favorites:
 
 #### Flux fine-tuning
