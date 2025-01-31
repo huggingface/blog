@@ -5428,7 +5428,7 @@
     - aws
     - partnerships
 
-- local: edgellm
+- local: edgellm-reactnative-guide
   title: "Create Your Own LLM Chatbot App: A Fun and Easy Guide to React Native Development!"
   author: medmekk
   thumbnail: /blog/assets/deepseek-r1-aws/thumbnail.png
