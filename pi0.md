@@ -167,17 +167,22 @@ With this, we present **π0-FAST**, faster and autoregressive version of **π0**
 🔗 The **π0-FAST tokenizer** can be accessed here: [FAST Tokenizer](https://huggingface.co/physical-intelligence/fast)
 
 ---
-FAST uses Discrete Cosine Transform (DCT) to compress continuous action sequences into discrete tokens. The process shown in the Figure 2 begins with normalizing raw robot actions, mapping the 1st and 99th quantiles of each action dimension to the range [-1,1], making the data more consistent across different robotic systems and robust to outliers. Each action dimension is then independently transformed using DCT, which converts the time-domain signal into the frequency domain. To reduce redundancy, insignificant coefficients are omitted through a scale-and-round operation, where a hyperparameter controls the trade-off between compression rate and reconstruction accuracy. The resulting DCT coefficient matrix, which is often sparse, is then flattened into a one-dimensional sequence of integers, interleaving low-frequency components across dimensions to preserve crucial information. To further compress the sequence, Byte Pair Encoding (BPE) is applied, merging frequently occurring patterns across dimensions while ensuring a fixed-size vocabulary that integrates seamlessly with vision-language models used in robotics. 
+FAST uses the Discrete Cosine Transform (DCT) to compress continuous action sequences into discrete tokens. The process, illustrated in Figure 2, begins with **normalizing raw robot actions**, mapping the **1st and 99th quantiles** of each action dimension to the range **[-1,1]**. This normalization ensures consistency across different robotic systems and improves robustness against outliers. 
+
+Each action dimension is then **transformed independently** using DCT, converting the time-domain signal into the frequency domain. To reduce redundancy, **insignificant coefficients** are removed through a **scale-and-round operation**, where a hyperparameter balances **compression rate and reconstruction accuracy**. The resulting **DCT coefficient matrix**, often sparse, is flattened into a **one-dimensional sequence of integers**, interleaving **low-frequency components first** across dimensions to preserve critical information.
+
+To further compress the sequence, **Byte Pair Encoding (BPE)** is applied. BPE merges frequently occurring patterns across dimensions while maintaining a **fixed-size vocabulary**, ensuring seamless integration with **vision-language models** used in robotics.
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/w3p752hK9lyXH1HHYQfde.png)
 <p align="center">
   <em> Figure 2: The FAST action tokenization pipeline </em>
 </p> 
 
-Since all operations are invertible, actions can be efficiently reconstructed from tokens, allowing lossless decoding. The tokenization pipeline has only two hyperparameters: the scaling coefficient applied before rounding and the BPE (byte-pair encoding) vocabulary size, both of which remain robust across different datasets. Compared to Vector Quantization (VQ)-based approaches, FAST provides higher policy performance, is simpler to tune, and avoids dataset-specific hyperparameter selection. 
+Since all operations are **invertible**, actions can be **reconstructed efficiently and losslessly** from tokens. The tokenization pipeline has only **two hyperparameters**: the **scaling coefficient** applied before rounding and the **BPE vocabulary size**. Both parameters remain **robust across different datasets**.
 
-Additionally, a universal version of FAST, called FAST+, has been trained on one million action sequences from single-arm, bimanual, and mobile manipulation robots, making it applicable across diverse robotic setups. FAST+ is available as a Hugging Face AutoProcessor, allowing users to tokenize action sequences with just a few lines of code. To achieve optimal compression, input actions should be quantile-normalized to [-1,1] before tokenization. The AutoProcessor module also enables users to train a custom FAST tokenizer on their own datasets with minimal effort.
+Additionally, a **universal version of FAST**, called **FAST+**, has been trained on **one million action sequences** from **single-arm, bimanual, and mobile manipulation robots**, making it applicable across diverse robotic setups. FAST+ is available as a **Hugging Face AutoProcessor**, allowing users to tokenize action sequences with just **a few lines of code**. 
 
+For **optimal compression**, input actions should be **quantile-normalized to [-1,1]** before tokenization. The **AutoProcessor module** also enables users to **train a custom FAST tokenizer** on their own datasets with minimal effort.
 ---
 ## How to use FAST tokenizer? 
 
