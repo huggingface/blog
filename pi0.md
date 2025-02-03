@@ -1,11 +1,11 @@
 ---
 title: "π0 and π0-FAST: Vision-Language-Action Models for General Robot Control" 
-thumbnail: /blog/assets/184_zero_shot_docmatix/thumb.001.jpeg
+thumbnail: /blog/assets/192_pi0/thumbnail_pi0.001.png
 authors:
 - user: danaaubakirova
 - user: Molbap
-- user: cadene
 - user: mshukor
+- user: cadene
 
 ---
 
