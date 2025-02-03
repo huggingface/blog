@@ -11,6 +11,8 @@ authors:
 
 We have ported the first **robot foundation models** to **Hugging Face LeRobot**! Both **π0 and π0-FAST** developed by Physical Intelligence, which are now available in the **LeRobot repository**, bringing generalist robotic intelligence to the Hugging Face ecosystem. If you are curious about how Vision-Language-Action (VLA) models differ from Vision-Language Models (VLMs) and how actions are represented, dive into this blog post to find out! 
 
+[Huggingface collection of Pi0 models](https://huggingface.co/collections/lerobot/pi0-models-67a0f92dc62e52ace7220eba) | [LeRobot] (link)
+
 ---
 
 ## Introduction
@@ -25,7 +27,7 @@ Developing generalist robot policies, or robot foundation models, presents three
    - **Combining multimodal datasets** from different robotic platforms to enhance generalization.
    - **Using shared representations** to bridge the gap between distinct robot morphologies, such as single-arm, dual-arm, and mobile manipulators.
 
-3. **Crafting an effective training recipe**, as recent advances in NLP and vision have heavily relied on careful pre-training and post-training strategies. Incorporating methods like **action chunking** and **efficient tokenization** ensures that models can handle long-horizon and high-frequency robotic tasks effectively.
+3. **Crafting an effective training recipe**, as recent advances in NLP and vision have heavily relied on careful pre-training and post-training strategies. 
 
 In this post, we introduce **π0 and π0-FAST**, prototype models and learning frameworks developed by **Physical Intelligence**, designed to overcome these challenges.
 
@@ -40,10 +42,6 @@ In this post, we introduce **π0 and π0-FAST**, prototype models and learning f
 π0 is trained on data from **7 robotic platforms** and **68 unique tasks**, demonstrating strong **zero-shot** and **fine-tuned performance** on complex, real-world tasks such as **laundry folding, table bussing, grocery bagging, box assembly, and object retrieval**.
 
 Unlike standard robotic policies, **π0 employs flow matching** to produce **smooth, real-time action trajectories at 50Hz**, making it highly **efficient, precise, and adaptable** for real-world deployment.
-
-### Main Features:
-- **Trained on:** 7 robotic platforms, 68 unique tasks  
-- **Real-time execution:** Generates smooth action trajectories at 50Hz   
 
 ## How to Use π0 in LeRobot?
 
@@ -107,30 +105,13 @@ They are **appended after** the prefix portion (images + text), so the **prefix 
 
 ## ⚡ Towards Faster attention in π0 
 
-We’ve made some optimizations, and the version we are porting runs a bit **faster** than the original model. 🚀
-This means we can process data more efficiently, but it also brings some **interesting challenges** in how attention is computed.
+The particular shape of the attention mask in pi0 brings some interesting challenges in how attention is computed. Let's jump into the details!
 
 ### **Handling 2D Attention Masks**
-The resulting **2D attention mask** exhibits **block sparsity**, but defining the boundaries of each block—especially in a batch of samples—is tricky. 
+The resulting **2D causal mask** exhibits strong **block sparsity**, but defining the boundaries of each block—especially in a batch of samples—is a bit tricky. We are used to causal masks with triangular structures for autoregressive modeling, but this is not one of these cases. 
 
-### **FlashAttention2 Challenges**
-- FlashAttention2 provides a **varlen interface**, but the `cu_seqlens` (cumulative prefix lengths) **must be computed manually**.
-- Varlen FlashAttention is designed for **contiguous (or strictly causal) attention patterns** with uniform query and key lengths.
-- It does not **naturally handle irregular block masks** or arbitrary per-token “allowed” positions, which is exactly what we need.
+As you can see in this example below: the image (first element) has some padding tokens, representing empty cameras. Then, text tokens are added, with text tokens as well. This "prefix" part forms a fully noncausal attention, as in PaliGemma. Then, the suffix (state + action/time tokens) has a causal-block structure. The eager naive implementation matmuls and softmaxes over all of this, which is quite inefficient.
 
-### **Using FlexAttention in PyTorch**
-For **FlexAttention** and its PyTorch interface, we explored two options:
-1. **Adding a `score_mod`** to our causal mask in positions where attention is tuned out. However, even a scalar addition **significantly decreases FlexAttention’s performance**.
-2. **Indexing our causal mask and passing the resulting boolean to `mask_mod`**—this works!
-
-Here’s an example of how we applied it:
-
-```python
-# Example of indexing the causal mask and using mask_mod
-causal_mask = generate_causal_mask(batch_size, seq_len)
-mask_mod = causal_mask.bool()  # Convert to boolean mask
-flex_attention_output = flex_attention(query, key, value, mask_mod=mask_mod)
-```
 <div align="center">
     <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/QXPQXYQFQbM_zada-VSw0.png" alt="VLA Attention Mask" style="width: 55%; border: none;">
 </div>
@@ -139,6 +120,44 @@ flex_attention_output = flex_attention(query, key, value, mask_mod=mask_mod)
   <em> Figure 2: The visualization of the VLA attention mask </em>
 </p> 
 
+### ** Can we use FlashAttention2?**
+- FlashAttention2 provides a **varlen interface**, but the `cu_seqlens` (cumulative prefix lengths) **must be computed manually**. It is designed for **contiguous (or strictly causal) attention patterns** with uniform query and key lengths.
+- It does not **naturally handle irregular block masks** or arbitrary per-token “allowed” positions, which is exactly what we need. 
+- So, while it's possible to use it at some cost of implementation, we decided to turn to...
+
+### **Using FlexAttention in PyTorch**
+This looks like a [FlexAttention](https://pytorch.org/blog/flexattention/) job!  It has a pure PyTorch interface, in which explored two options:
+1. **Adding a `score_mod`** to our causal mask in positions where attention is tuned out. However, even a scalar addition **significantly decreases FlexAttention’s performance**. This is because the score_mod in our case is added outside of the optimized cuda kernel. 
+2. The correct option is **indexing our causal mask and passing the resulting signature to create a block mask.** This block mask efficiently indicates where the attention has to be computed and where it can be skipped entirely.
+
+```python
+# Example of indexing the causal mask and using mask_mod
+causal_mask = generate_causal_mask(your_samples) # should be[batch, head, q_len, kv_len]
+# Now we need to wrap this mask 
+def precomputed_mask_factory(precomputed_mask: torch.Tensor) -> _mask_mod_signature:
+	def mask_mod(b, h, q_idx, kv_idx):
+		return precomputed_mask[b][h][q_idx][kv_idx]
+	return mask_mod
+flex_attention_output = flex_attention(query, key, value, mask_mod=mask_mod)
+
+mask_mod = precomputed_mask_factory(causal_mask)
+# create a block mask with that signature
+block_mask = create_block_mask(
+	mask_mod=mask_mod,
+	# ...
+)
+
+# Call flex attention now!
+attn_output, attention_weights = flex_attention(
+	query,
+	key,
+	value,
+	block_mask=block_mask,
+)
+
+```
+
+The current implementation runs, and a WIP is to have it support `torch.compile` and leverage it to the fullest!
 
 ##  How to effectively represent Actions?
 
