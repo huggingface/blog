@@ -133,7 +133,7 @@ As you can see in this example below: the image (first element) has some padding
 </div>
 
 <p align="center">
-  <em> Figure 2: The visualization of the VLA attention mask </em>
+  <em> Figure 1: The visualization of the VLA attention mask </em>
 </p> 
 
 ### ** Can we use FlashAttention2? **
