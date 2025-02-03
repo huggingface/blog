@@ -45,6 +45,22 @@ Unlike standard robotic policies, **π0 employs flow matching** to produce **smo
 
 ## How to Use π0 in LeRobot?
 
+First of all, you need to upgrade your lerobot install, which leverages `transformers` as a dependency now! Simply do after a git clone
+
+```python
+pip install -e ".[pi0]"
+```
+π0 models are foundational models that, much like PaliGemma, are made to be adapted to a variety of frameworks, environments, and scene inputs. The base models here are usable as-is, in particular π0.
+
+### Inference on π0 pretrained model
+
+```python
+python lerobot/scripts/eval.py \
+--pretrained_policy.path=/path/to/pretrained/pi0
+```
+
+However, the performances are reduced as it's a conversion from jax to torch and from a specific environment. We recommend fine-tuning your own π0 to your own environment, like below.
+
 ### Fine-tuning the π0 Pretrained Model
 
 To fine-tune the **π0** model using the `pi0_base` checkpoint from `openpi`, run the following command:
