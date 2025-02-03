@@ -33,7 +33,7 @@ In this post, we introduce **π0 and π0-FAST**, prototype models and learning f
 
 ## 🔍 What is π0?
 
-[GitHub Repository](#) | [Hugging Face Collection](#)
+[Paper](https://www.physicalintelligence.company/download/pi0.pdf) | [Jax Code](https://github.com/Physical-Intelligence/openpi)
 
 π0 (**Pi-Zero**) is a **Vision-Language-Action (VLA) model**, developed by the [Physical Intelligence team](https://www.physicalintelligence.company) designed for **generalist robot control**. It builds upon **large-scale pretraining** and **flow matching-based action generation**, enabling robots to perform **dexterous manipulation tasks** across different embodiments.
 
@@ -44,6 +44,32 @@ Unlike standard robotic policies, **π0 employs flow matching** to produce **smo
 ### Main Features:
 - **Trained on:** 7 robotic platforms, 68 unique tasks  
 - **Real-time execution:** Generates smooth action trajectories at 50Hz   
+
+## How to Use π0 in LeRobot?
+
+### Fine-tuning the π0 Pretrained Model
+
+To fine-tune the **π0** model using the `pi0_base` checkpoint from `openpi`, run the following command:
+
+```python
+python lerobot/scripts/train.py \
+--policy.path=lerobot/pi0 \
+--dataset.repo_id=danaaubakirova/koch_test
+```
+
+To fine-tune the π0 neural network with PaliGemma and Expert Gemma, which were pretrained using VLM default parameters before π0 fine-tuning, execute:
+
+```python
+python lerobot/scripts/train.py \
+--policy.type=pi0 \
+--dataset.repo_id=danaaubakirova/koch_test
+```
+
+You can also use the pretrained π0 model independently from the LeRobot training framework with the following code:
+
+```python
+policy = Pi0Policy.from_pretrained("lerobot/pi0")
+```
 
 ## What is the difference between VLMs and VLAs?
 
@@ -116,14 +142,20 @@ flex_attention_output = flex_attention(query, key, value, mask_mod=mask_mod)
 
 ##  How to effectively represent Actions?
 
-Now that we know that actions are nothing less just a n-dimensional vector that can be tokenized, we can dive deeper into the issues with action representation. Action representation in training **Vision-Language-Action (VLA) models** directly affects model efficiency, generalization, and execution fidelity. Various approaches have been explored to parameterize robot actions. One strategy involves **semantic action representations**, where actions are described as high-level concepts such as **language sub-tasks or keypoints**. While these methods allow for **few-shot or zero-shot learning**, they often rely on **hand-designed low-level controllers**, limiting their applicability to diverse robotic platforms. Alternatively, **low-level control representations** map robot actions directly to motor commands, enabling **fine-grained dexterity** but introducing challenges in scalability and training stability. 
+Now that we know actions are simply **n-dimensional vectors** that can be **tokenized**, we can explore the challenges of **action representation** in Vision-Language-Action (VLA) models. The way actions are represented directly impacts **efficiency, generalization, and execution fidelity**.
 
-Most existing VLAs use **discrete action tokenization**, where continuous robot actions are mapped into discrete tokens that can be generated autoregressively. The dominant approach is **per-dimension, per-timestep binning**, but this method struggles with **high-frequency control tasks**, leading to **lossy representations and inefficient training**. To overcome this, **compression-based tokenization** methods, such as **vector quantization (VQ) and time-series compression**, have been proposed. While VQ-based approaches provide structured representations, they can be **sensitive to hyperparameter choices**, making them less robust for diverse robotic embodiments. 
+One approach is **semantic action representation**, where actions are described as **high-level concepts** like sub-tasks or keypoints. While this allows for **few-shot and zero-shot learning**, it often relies on **hand-designed low-level controllers**, limiting its flexibility across different robots. In contrast, **low-level control representations** map actions directly to **motor commands**, enabling precise movements but making training **less stable and harder to scale**.
 
-To address these limitations, Frequency-space Action Sequence Tokenization (FAST) introduces a novel time-series compression approach based on the Discrete Cosine Transform (DCT). FAST reduces redundancy in action sequences, improves training efficiency, and enhances action fidelity. Hence, along with π0, we want to present π0-FAST which extends upon the previous work and introduces the new tokenizer to effectively deal with action representation.
+Most **existing VLAs** use **discrete action tokenization**, converting continuous actions into **discrete tokens** generated **autoregressively**. The most common method—**per-dimension, per-timestep binning**—struggles with **high-frequency control tasks**, leading to **lossy representations** and **inefficient training**. Alternatives like **vector quantization (VQ)** and **time-series compression** help, but **VQ is sensitive to hyperparameters**, making it **less reliable for diverse robot designs**.
+
+To address these issues, **Frequency-space Action Sequence Tokenization (FAST)** introduces a **novel time-series compression approach** using the **Discrete Cosine Transform (DCT)**. FAST **reduces redundancy**, **improves efficiency**, and **enhances action fidelity**. 
+
+With this, we present **π0-FAST**, faster and autoregressive version of **π0** also available in Lerobot repo, an extension of **π0**, which leverages this **new tokenizer** for **better action representation**.
+
 
 ---
 ## 🚀 What is π0-FAST?
+[Paper](https://arxiv.org/pdf/2501.09747) | [Jax Code](https://github.com/Physical-Intelligence/openpi)
 
 π0-FAST is an **autoregressive version** of π0, introducing **FAST (Frequency-space Action Sequence Tokenization)**—a new tokenization scheme that enhances efficiency and performance.
 
@@ -153,3 +185,6 @@ Additionally, a universal version of FAST, called FAST+, has been trained on one
 
 FAST is integrated into **Hugging Face Transformers** and can be easily used for encoding and decoding robot action sequences.
 
+## What’s Next for Generalist Robot Intelligence?
+
+With π0 and π0-FAST, we take a significant step towards **generalist robot intelligence**, bringing **scalable, efficient, and versatile** Vision-Language-Action (VLA) models to LeRobot. By leveraging **FAST tokenization**, we enhance action representation, enabling robots to perform a diverse range of tasks with **higher efficiency and adaptability**. These steps open the door for future **multi-embodiment, real-time robotic policies**, pushing the boundaries of what robots can achieve in the real world. 🚀
