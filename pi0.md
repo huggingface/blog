@@ -183,6 +183,7 @@ Since all operations are **invertible**, actions can be **reconstructed efficien
 Additionally, a **universal version of FAST**, called **FAST+**, has been trained on **one million action sequences** from **single-arm, bimanual, and mobile manipulation robots**, making it applicable across diverse robotic setups. FAST+ is available as a **Hugging Face AutoProcessor**, allowing users to tokenize action sequences with just **a few lines of code**. 
 
 For **optimal compression**, input actions should be **quantile-normalized to [-1,1]** before tokenization. The **AutoProcessor module** also enables users to **train a custom FAST tokenizer** on their own datasets with minimal effort.
+
 ---
 ## How to use FAST tokenizer? 
 
