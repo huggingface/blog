@@ -177,15 +177,15 @@ The current implementation runs, and a WIP is to have it support `torch.compile`
 
 ##  How to effectively represent Actions?
 
-Now that we know actions are simply **n-dimensional vectors** that can be **tokenized**, we can explore the challenges of **action representation** in Vision-Language-Action (VLA) models. The way actions are represented directly impacts **efficiency, generalization, and execution fidelity**.
+Now that we know actions are simply n-dimensional vectors that can be tokenized, we can explore the challenges of action representation in Vision-Language-Action (VLA) models. The way actions are represented directly impacts **efficiency, generalization, and execution fidelity**.
 
-One approach is **semantic action representation**, where actions are described as **high-level concepts** like sub-tasks or keypoints. While this allows for **few-shot and zero-shot learning**, it often relies on **hand-designed low-level controllers**, limiting its flexibility across different robots. In contrast, **low-level control representations** map actions directly to **motor commands**, enabling precise movements but making training **less stable and harder to scale**.
+One approach is **semantic action representation**, where actions are described as **high-level concepts** like sub-tasks or keypoints. While this allows for few-shot and zero-shot learning, it often relies on hand-designed low-level controllers, limiting flexibility across different robots. In contrast, low-level control representations map actions directly to motor commands, enabling precise movements but making training **less stable and harder to scale**.
 
-Most **existing VLAs** use **discrete action tokenization**, converting continuous actions into **discrete tokens** generated **autoregressively**. The most common method—**per-dimension, per-timestep binning**—struggles with **high-frequency control tasks**, leading to **lossy representations** and **inefficient training**. Alternatives like **vector quantization (VQ)** and **time-series compression** help, but **VQ is sensitive to hyperparameters**, making it **less reliable for diverse robot designs**.
+Most existing VLAs use **discrete action tokenization**, converting continuous actions into discrete tokens generated autoregressively. The most common method—per-dimension, per-timestep binning—struggles with high-frequency control tasks, leading to lossy representations and **inefficient training**. Alternatives like vector quantization (VQ) and time-series compression help, but **VQ is sensitive to hyperparameters**, making it less reliable for diverse robot designs.
 
-To address these issues, **Frequency-space Action Sequence Tokenization (FAST)** introduces a **novel time-series compression approach** using the **Discrete Cosine Transform (DCT)**. FAST **reduces redundancy**, **improves efficiency**, and **enhances action fidelity**. 
+To address these issues, **Frequency-space Action Sequence Tokenization (FAST)** introduces a **novel time-series compression approach** using the Discrete Cosine Transform (DCT). FAST reduces redundancy, improves efficiency, and enhances action fidelity. 
 
-With this, we present **π0-FAST**, faster and autoregressive version of **π0** also available in Lerobot repo, an extension of **π0**, which leverages this **new tokenizer** for **better action representation**.
+With this, we present **π0-FAST**, faster and autoregressive version of **π0** also available in Lerobot repo, an extension of **π0**, which leverages this **new tokenizer** for better action representation.
 
 
 ---
