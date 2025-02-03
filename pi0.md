@@ -110,7 +110,7 @@ The particular shape of the attention mask in pi0 brings some interesting challe
 ### **Handling 2D Attention Masks**
 The resulting **2D causal mask** exhibits strong **block sparsity**, but defining the boundaries of each block—especially in a batch of samples—is a bit tricky. We are used to causal masks with triangular structures for autoregressive modeling, but this is not one of these cases. 
 
-As you can see in this example below: the image (first element) has some padding tokens, representing empty cameras. Then, text tokens are added, with text tokens as well. This "prefix" part forms a fully noncausal attention, as in PaliGemma. Then, the suffix (state + action/time tokens) has a causal-block structure. The eager naive implementation matmuls and softmaxes over all of this, which is quite inefficient.
+As you can see in this example below: the image (first element) has some padding tokens, representing empty cameras. Then, text tokens are added, with state tokens as well. This "prefix" part forms a fully noncausal attention, as in PaliGemma. Then, the suffix (state + action/time tokens) has a causal-block structure. The eager naive implementation matmuls and softmaxes over all of this, which is quite inefficient.
 
 <div align="center">
     <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/QXPQXYQFQbM_zada-VSw0.png" alt="VLA Attention Mask" style="width: 55%; border: none;">
