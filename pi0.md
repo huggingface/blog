@@ -103,7 +103,7 @@ They are **appended after** the prefix portion (images + text), so the **prefix 
 
 ---
 
-## ⚡ Towards Faster attention in π0 
+## ⚡ Towards the Faster Attention in π0 
 
 The particular shape of the attention mask in pi0 brings some interesting challenges in how attention is computed. Let's jump into the details!
 
