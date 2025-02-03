@@ -93,7 +93,7 @@ Vision-Language Models (VLMs) and Vision-Language-Action Models (VLAs) share a c
 
 Let’s expand our vocabulary and introduce key terms:
 
-#### **State Tokens**
+#### **State Token**
 - It is a single token that represents the robot’s **current environment state** (e.g., joint angles, sensor values, or other relevant observations).
 - The masking rules allow this token to **attend to the prefix’s image and text**, meaning the state token can “see” any visual or textual cues necessary for decision-making.
 - It also attends to **previous states in a triangular manner**. If multiple state tokens are used, each new state token can see older ones but not vice versa.
