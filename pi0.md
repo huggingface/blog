@@ -120,7 +120,7 @@ As you can see in this example below: the image (first element) has some padding
   <em> Figure 2: The visualization of the VLA attention mask </em>
 </p> 
 
-### ** Can we use FlashAttention2?**
+### ** Can we use FlashAttention2? **
 - FlashAttention2 provides a **varlen interface**, but the `cu_seqlens` (cumulative prefix lengths) **must be computed manually**. It is designed for **contiguous (or strictly causal) attention patterns** with uniform query and key lengths.
 - It does not **naturally handle irregular block masks** or arbitrary per-token “allowed” positions, which is exactly what we need. 
 - So, while it's possible to use it at some cost of implementation, we decided to turn to...
