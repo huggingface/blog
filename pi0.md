@@ -79,7 +79,7 @@ They are **appended after** the prefix portion (images + text), so the **prefix 
 
 ---
 
-## (Fast) Attention Is All You Want
+## ⚡ Towards Faster attention in π0 
 
 We’ve made some optimizations, and the version we are porting runs a bit **faster** than the original model. 🚀
 This means we can process data more efficiently, but it also brings some **interesting challenges** in how attention is computed.
