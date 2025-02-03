@@ -9,7 +9,7 @@ authors:
 
 ---
 
-We have ported the first **robot foundation models** to **Hugging Face LeRobot**! Both **π0 and π0-FAST**, developed by Physical Intelligence, are now available in the **LeRobot repository**, bringing generalist robotic intelligence to the Hugging Face ecosystem. If you are curious about how Vision-Language-Action (VLA) models differ from Vision-Language Models (VLMs) and how actions are represented, dive into this blog post to find out! 
+We have ported the first **robotics foundation models** to **Hugging Face LeRobot**! Both **π0 and π0-FAST**, developed by Physical Intelligence, are now available in the **LeRobot repository**, bringing generalist robotic intelligence to the Hugging Face ecosystem. If you are curious about how Vision-Language-Action (VLA) models differ from Vision-Language Models (VLMs) and how actions are represented, dive into this blog post to find out! 
 
 [Huggingface collection of Pi0 models](https://huggingface.co/collections/lerobot/pi0-models-67a0f92dc62e52ace7220eba) | [LeRobot repo](https://github.com/huggingface/lerobot/tree/main)
 
