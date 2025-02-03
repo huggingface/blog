@@ -41,7 +41,7 @@ In this post, we introduce **π0 and π0-FAST**, prototype models and learning f
 
 π0 is trained on data from **7 robotic platforms** and **68 unique tasks**, demonstrating strong **zero-shot** and **fine-tuned performance** on complex, real-world tasks such as **laundry folding, table bussing, grocery bagging, box assembly, and object retrieval**.
 
-Unlike standard robotic policies, **π0 employs flow matching** to produce **smooth, real-time action trajectories at 50Hz**, making it highly **efficient, precise, and adaptable** for real-world deployment.
+Unlike standard robotic policies, **π0 employs flow matching** to produce **smooth, real-time action trajectories at 50Hz**, making it highly **efficient, precise, and adaptable** for real-world deployment. Flow matching was used in continuous normalizing flows and improved generation quality in diffusion models. The denoising process π0 used works in the same way, starting with a random noise that progressively converges towards a sequence of motor actions that make sense. 
 
 ## How to Use π0 in LeRobot?
 
