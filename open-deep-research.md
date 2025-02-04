@@ -100,7 +100,7 @@ This highlights several advantages of using code:
     - More intuitive way to express actions
     - Extensive exposure of LLMs to code in training
 
-The advantages above were confirmed by our experiments on [agent_reasoning_benchmark](https://github.com/aymeric-roucher/agent_reasoning_benchmark).
+The advantages above were confirmed by our experiments on the [agent_reasoning_benchmark](https://github.com/aymeric-roucher/agent_reasoning_benchmark).
 
 From building `smolagents` we can also cite a notable additional advantage, which is a better handling of state: this is very useful for multimodal tasks in particular. Need to store this image/audio/other for later use? No problem, just assign it as a variable in your state and you can re-use it 4 steps later if needed. In JSON you would have to let the LLM name it in a dictionary key and trust the LLM will later understand that it can still use it.
 
@@ -108,7 +108,7 @@ From building `smolagents` we can also cite a notable additional advantage, whic
 
 Now we need to provide the agent with the right set of tools. 
 
-**1.** A web browser. While a fully fledged web browser interaction like [Operator](https://openai.com/index/introducing-operator/) will be needed to reach full performance, we started with an extremely simple text-based web browser for now for our first PoC. You can find the code [here](https://github.com/huggingface/smolagents/blob/gaia-submission-r1/examples/open_deep_research/scripts/text_web_browser.py)
+**1.** A web browser. While a fully fledged web browser interaction like [Operator](https://openai.com/index/introducing-operator/) will be needed to reach full performance, we started with an extremely simple text-based web browser for now for our first proof-of-concept. You can find the code [here](https://github.com/huggingface/smolagents/blob/gaia-submission-r1/examples/open_deep_research/scripts/text_web_browser.py)
 
 **2.** A simple text inspector, to be able to **read a bunch of text file format**, find it [here](https://github.com/huggingface/smolagents/blob/gaia-submission-r1/examples/open_deep_research/scripts/text_inspector_tool.py).
 
@@ -116,7 +116,7 @@ These tools were taken from the excellent [Magentic-One](https://www.microsoft.c
 
 Here is a short roadmap of improvements which we feel would really improve these tools’ performance (feel free to open a PR and contribute!):
 
-- extending the number of file-formats which can be read.
+- extending the number of file formats which can be read.
 - proposing a more fine-grained handling of files.
 - replacing the web browser with a vision-based one, which we’ve started doing [here](https://github.com/huggingface/smolagents/blob/gaia-submission-r1/src/smolagents/vision_web_browser.py).
 
@@ -126,7 +126,7 @@ In our 24h+ reproduction sprint, we’ve already seen steady improvements in the
 
 We’ve quickly gone up from the previous SoTA with an open framework, around 46% for Magentic-One, to our current performances of 54% on the validation set.
 
-This bump in performance is due mostly to letting our agents write their actions in code! Indeed, when switching to a standard agent that writes actions in Json instead of code, performance of the same setup is instantly degraded to 33% average on the validation set.
+This bump in performance is due mostly to letting our agents write their actions in code! Indeed, when switching to a standard agent that writes actions in JSON instead of code, performance of the same setup is instantly degraded to 33% average on the validation set.
 
 [Here is the final agentic system.](https://github.com/huggingface/smolagents/tree/gaia-submission-r1/examples/open_deep_research)
 
