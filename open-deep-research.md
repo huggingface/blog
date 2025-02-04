@@ -130,7 +130,7 @@ This bump in performance is due mostly to letting our agents write their actions
 
 [Here is the final agentic system.](https://github.com/huggingface/smolagents/tree/gaia-submission-r1/examples/open_deep_research)
 
-We’ve setup this live demo here for you to try it out! 👇
+We’ve set up [a live demo here](https://m-ric-open-deep-research.hf.space) for you to try it out!
 
 <iframe
 	src="https://m-ric-open-deep-research.hf.space"
