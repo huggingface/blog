@@ -1,5 +1,5 @@
 ---
-title: "DABStep: Data Analysis Benchmark for Multi-step Reasoning" 
+title: "DABStep: Data Agent Benchmark for Multi-step Reasoning" 
 thumbnail: /blog/assets/thumbnail.png
 authors:
 - user: eggie5
@@ -14,7 +14,7 @@ authors:
 - user: thomwolf
 ---
 
-# DABStep: Data Analysis Benchmark for Multi-step Reasoning
+# DABStep: Data Agent Benchmark for Multi-step Reasoning
 
 Language models are becoming increasingly capable and can solve tasks autonomously as agents. There are many exciting use cases, especially at the intersection of reasoning, code, and data. However, proper evaluation benchmarks on real-world problems are lacking and hinder progress in the field. 
 
