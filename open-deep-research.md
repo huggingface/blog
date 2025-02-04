@@ -49,7 +49,7 @@ Here is a recent example comparing the performance of a few frontier LLMs with a
 
 In fact, OpenAI also highlighted in [its release blogpost](https://openai.com/index/introducing-deep-research/) how Deep Research performed dramatically better than standalone LLMs on the knowledge-intensive "[Humanity’s Last Exam](https://huggingface.co/datasets/cais/hle)" benchmark.
 
-Then, what happens when we integrate our current top LLM in an agentic framework, to work toward an `open-DeepResearch` ?
+So, what happens when we integrate our current top LLM in an agentic framework, to work toward an `open-DeepResearch` ?
 
 **A quick note:** We’ll benchmark our results on the same GAIA challenge but keep in mind that this is a work in progress. DeepResearch is a massive achievement and its open reproduction will take time. In particular, full parity will require improved browser use and interaction like OpenAI Operator is providing, i.e. beyond the current text-only web interaction we explore in this first step.
 
