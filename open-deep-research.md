@@ -36,12 +36,10 @@ The clock is ticking, let’s go! ⏱️
 
 ### What are Agent frameworks and why they matter?
 
-- [!Note]
-    
-    An Agent framework is a layer on top of an LLM to make said LLM execute actions (like browse the web or read pdf documents), and organize its operations in a series of steps.
-    
-    For a quick intro to agents, check [this great interview by Andrew Ng](https://youtu.be/sal78ACtGTc?feature=shared&t=52) and our [introduction blog post](https://huggingface.co/blog/smolagents) to the smolagents library. For a more detailed dive in agents you can subscribe to our agents course that starts in just a few days: [link here](https://huggingface.us17.list-manage.com/subscribe?u=7f57e683fa28b51bfc493d048&id=9ed45a3ef6).
-    
+> [!TIP]
+>    An Agent framework is a layer on top of an LLM to make said LLM execute actions (like browse the web or read pdf documents), and organize its operations in a series of steps.
+>    For a quick intro to agents, check [this great interview by Andrew Ng](https://youtu.be/sal78ACtGTc?feature=shared&t=52) and our [introduction blog post](https://huggingface.co/blog/smolagents) to the smolagents library. For a more detailed dive in agents you can subscribe to our agents course that starts in just a few days: [link here](https://huggingface.us17.list-manage.com/subscribe?u=7f57e683fa28b51bfc493d048&id=9ed45a3ef6).
+
 
 Almost everyone has already experienced how powerful LLMs can be simply by playing with chatbots.. However, what not everyone is aware of yet is that integrating these LLMs into agentic systems can give them real superpowers! 
 
