@@ -30,7 +30,7 @@ The clock is ticking, let’s go! ⏱️
   - [Using a CodeAgent](#using-a-codeagent)
   - [Making the right tools 🛠️](#making-the-right-tools-🛠️)
 - [Results 🏅](#results-🏅)
-- [Other community reproductions](#other-community-reproductions)
+- [Community reproductions](#community-reproductions)
 - [Most important next steps](#most-important-next-steps)
 
 
