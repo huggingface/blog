@@ -130,7 +130,15 @@ This bump in performance is due mostly to letting our agents write their actions
 
 [Here is the final agentic system.](https://github.com/huggingface/smolagents/tree/gaia-submission-r1/examples/open_deep_research)
 
-We’ve setup a live demo here for you to try it out!
+We’ve setup this live demo here for you to try it out! 👇
+
+<iframe
+	src="https://m-ric-open-deep-research.hf.space"
+	frameborder="0"
+	width="850"
+	height="450"
+></iframe>
+
 
 
 However, this is only the beginning, and there are a lot of things to improve! Our open tools can be made better, the smolagents framework can also be tuned, and we’d love to explore the performance of better open models to support the agent.
