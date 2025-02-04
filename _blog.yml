@@ -5450,6 +5450,17 @@
     - research
     - evaluation
 
+
+- local: pi0
+  title: "π0 and π0-FAST: Vision-Language-Action Models for General Robot Control"
+  author: danaaubakirova
+  thumbnail: /blog/assets/192_pi0/new_thumbnail_pi0.001.png
+  date: Feb 4, 2025
+  tags:
+    - robotics
+    - ai
+    - community
+
 - local: open-deep-research
   title: "DOpen-source DeepResearch – Freeing our search agents" 
   thumbnail: /blog/assets/open-deep-research/thumbnail.png
@@ -5460,4 +5471,3 @@
     - agents
     - research
     - smolagents
-
