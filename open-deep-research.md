@@ -9,7 +9,7 @@ authors:
 
 ## TLDR
 
-Yesterday, OpenAI released [Deep Research](https://openai.com/index/introducing-deep-research/), a system that browses the web to summarize content and answer questions based on the summary. The system is impressive and blew our mind when we tried it for the first time.
+Yesterday, OpenAI released [Deep Research](https://openai.com/index/introducing-deep-research/), a system that browses the web to summarize content and answer questions based on the summary. The system is impressive and blew our minds when we tried it for the first time.
 
 One of the main results in the blog post is a strong improvement of performances on the [General AI Assistants benchmark (GAIA)](https://huggingface.co/gaia-benchmark), a benchmark we’ve been playing with recently as well, where they successfully reached near 67% correct answers on 1-shot on average, and 47.6% on especially challenging “level 3” questions that involve multiple steps of reasoning and tool usage (see below for a presentation of GAIA).
 
