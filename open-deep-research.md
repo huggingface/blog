@@ -14,9 +14,9 @@ Yesterday, OpenAI released [Deep Research](https://openai.com/index/introducing-
 One of the main results in the blog post is a strong improvement of performances on the [General AI Assistants benchmark (GAIA)](https://huggingface.co/gaia-benchmark), a benchmark we’ve been playing with recently as well, where they successfully reached near 67% correct answers on 1-shot on average, and 47.6% on especially challenging “level 3” questions that involve multiple steps of reasoning and tool usage (see below for a presentation of GAIA).
 
 
-DeepResearch is composed of an LLM (which can be selected from the current list of LLM provided by OpenAI, 4o, o1, o3, etc) and an internal “agentic framework” which guide the LLM to use tools like web search and organize its actions in steps. 
+DeepResearch is composed of an LLM (which can be selected from the current list of LLMs provided by OpenAI, 4o, o1, o3, etc) and an internal “agentic framework” which guide the LLM to use tools like web search and organize its actions in steps. 
 
-While powerful LLM are now freely available in open-source (see e.g. [the recent DeepSeek R1 model](https://huggingface.co/deepseek-ai/DeepSeek-R1)), OpenAI didn’t disclose much about the agentic framework underlying Deep Research…
+While powerful LLMs are now freely available in open-source (see e.g. [the recent DeepSeek R1 model](https://huggingface.co/deepseek-ai/DeepSeek-R1)), OpenAI didn’t disclose much about the agentic framework underlying Deep Research…
 
 So we decided to embark on a mission to reproduce their results and open-source the needed framework along the way!
 
@@ -37,13 +37,13 @@ The clock is ticking, let’s go! ⏱️
 ## What are Agent frameworks and why they matter?
 
 > [!TIP]
->    An Agent framework is a layer on top of an LLM to make said LLM execute actions (like browse the web or read pdf documents), and organize its operations in a series of steps.
+>    An Agent framework is a layer on top of an LLM to make said LLM execute actions (like browse the web or read PDF documents), and organize its operations in a series of steps.
 >    For a quick intro to agents, check [this great interview by Andrew Ng](https://youtu.be/sal78ACtGTc?feature=shared&t=52) and our [introduction blog post](https://huggingface.co/blog/smolagents) to the smolagents library. For a more detailed dive in agents you can subscribe to our agents course that starts in just a few days: [link here](https://huggingface.us17.list-manage.com/subscribe?u=7f57e683fa28b51bfc493d048&id=9ed45a3ef6).
 
 
 Almost everyone has already experienced how powerful LLMs can be simply by playing with chatbots.. However, what not everyone is aware of yet is that integrating these LLMs into agentic systems can give them real superpowers! 
 
-Here is a recent example comparing the performances of a few frontier LLMs with and without an agentic framework (in this case the simple [smolagents](https://github.com/huggingface/smolagents) library) - using an agentic framework bumps performance by up to 60 points!
+Here is a recent example comparing the performance of a few frontier LLMs with and without an agentic framework (in this case the simple [smolagents](https://github.com/huggingface/smolagents) library) - using an agentic framework bumps performance by up to 60 points!
 
 ![Benchmarks](https://huggingface.co/datasets/huggingface/documentation-images/resolve/6c7ed2035810565043c92b472d5564c3f1fa4d7e/blog/open-deep-research/benchmarks.png)
 
@@ -51,7 +51,7 @@ In fact, OpenAI also highlighted in [its release blogpost](https://openai.com/in
 
 Then, what happens when we integrate our current top LLM in an agentic framework, to work toward an `open-DeepResearch` ?
 
-**A quick note:** We’ll benchmark our results on the same GAIA challenge but keep in mind that this is a work in progress. DeepResearch is a massive achievement and its open reproduction will take time. In particular, full parity will require improved browser use and interaction like OpenAI Operator is providing, i.e. beyond the current text only web interaction we explore in this first step.
+**A quick note:** We’ll benchmark our results on the same GAIA challenge but keep in mind that this is a work in progress. DeepResearch is a massive achievement and its open reproduction will take time. In particular, full parity will require improved browser use and interaction like OpenAI Operator is providing, i.e. beyond the current text-only web interaction we explore in this first step.
 
 Let’s first understand the scope of the challenge: GAIA.
 
@@ -122,9 +122,9 @@ Here is a short roadmap of improvements which we feel would really improve these
 
 ## Results 🏅
 
-In our 24h+ reproduction sprint, we’ve already seen steady improvements in the performances of our agent on GAIA!
+In our 24h+ reproduction sprint, we’ve already seen steady improvements in the performance of our agent on GAIA!
 
-We’ve quickly gone up from the previous SOTA with an open framework, around 46% for Magentic-One, to our current performances of 54% on the validation set.
+We’ve quickly gone up from the previous SoTA with an open framework, around 46% for Magentic-One, to our current performances of 54% on the validation set.
 
 This bump in performance is due mostly to letting our agents write their actions in code! Indeed, when switching to a standard agent that writes actions in Json instead of code, performance of the same setup is instantly degraded to 33% average on the validation set.
 
