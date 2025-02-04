@@ -156,3 +156,7 @@ OpenAI’s Deep Research is probably boosted by the excellent web browser that t
 So we’re tackling that next! In a more general problem: we’re going to build GUI agents, i.e. “agents that view your screen and can act directly with mouse & keyboard”. If you’re excited about this project, and want to help everyone get access to such cool capabilities through open source, we’d love to get your contribution!
 
 We’re also [hiring a full time engineer](https://apply.workable.com/huggingface/j/AF1D4E3FEB/) to help us work on this and more, apply if you’re interested 🙂
+
+- To get started with Open Deep Research, get started [here](https://github.com/huggingface/smolagents/tree/gaia-submission-r1/examples/open_deep_research).
+- Get started with [smolagents](https://github.com/huggingface/smolagents/tree/main).
+- Read more about smolagents [docs](https://huggingface.co/docs/smolagents/index), [introduction blog post](https://huggingface.co/blog/smolagents).
