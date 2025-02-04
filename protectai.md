@@ -3,6 +3,9 @@ title: "Hugging Face Teams Up with Protect AI: Enhancing Model Security for the 
 thumbnail: /blog/assets/protectai/thumbnail.png
 authors:
 - user: mcpotato
+- user: sean-pai
+  guest: true
+  org: protectai
 ---
 
 
