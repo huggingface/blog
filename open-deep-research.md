@@ -80,7 +80,7 @@ On GAIA’s [public leaderboard](https://huggingface.co/spaces/gaia-benchmark/le
 
 Let’s see if we can do better with open source tools!
 
-# Building an open Deep Research
+## Building an open Deep Research
 
 ### Using a CodeAgent
 
