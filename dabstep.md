@@ -1,6 +1,6 @@
 ---
 title: "DABStep: Data Agent Benchmark for Multi-step Reasoning" 
-thumbnail: /blog/assets/thumbnail.png
+thumbnail: /blog/assets/dabstep/thumbnail.png
 authors:
 - user: eggie5
   guest: True
