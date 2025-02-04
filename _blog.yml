@@ -5418,3 +5418,15 @@
   tags:
     - announcement
     - hub
+
+- local: dabstep
+  title: "DABStep: Data Analysis Benchmark for Multi-step Reasoning" 
+  thumbnail: /blog/assets/thumbnail.png
+  authors: eggie5
+  guest: True
+  date: Feb 4, 2025
+  tags:
+    - llms
+    - reasoning
+    - research
+    - evaluation
