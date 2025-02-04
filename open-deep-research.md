@@ -34,7 +34,7 @@ The clock is ticking, let’s go! ⏱️
 - [Most important next steps](#most-important-next-steps)
 
 
-### What are Agent frameworks and why they matter?
+## What are Agent frameworks and why they matter?
 
 > [!TIP]
 >    An Agent framework is a layer on top of an LLM to make said LLM execute actions (like browse the web or read pdf documents), and organize its operations in a series of steps.
