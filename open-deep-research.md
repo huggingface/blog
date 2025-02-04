@@ -3,6 +3,10 @@ title: "Open-source DeepResearch – Freeing our search agents"
 thumbnail: /blog/assets/open-deep-research/thumbnail.png
 authors:
 - user: m-ric
+- user: albertvillanova
+- user: merve
+- user: thomwolf
+- user: clefourrier
 ---
 
 # Open-source DeepResearch – Freeing our search agents
