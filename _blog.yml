@@ -5441,7 +5441,7 @@
 - local: dabstep
   title: "DABStep: Data Agent Benchmark for Multi-step Reasoning" 
   thumbnail: /blog/assets/thumbnail.png
-  authors: eggie5
+  author: eggie5
   guest: True
   date: Feb 4, 2025
   tags:
