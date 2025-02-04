@@ -11,6 +11,7 @@ authors:
 
 We have ported the first **robotics foundation models** to **Hugging Face LeRobot**! Both **π0 and π0-FAST**, developed by Physical Intelligence, are now available in the **LeRobot repository**, bringing generalist robotic intelligence to the Hugging Face ecosystem. If you are curious about how Vision-Language-Action (VLA) models differ from Vision-Language Models (VLMs) and how actions are represented, dive into this blog post to find out! 
 
+Explore the collection and the PyTorch Version of the model in our repository:
 [Huggingface collection of Pi0 models](https://huggingface.co/collections/lerobot/pi0-models-67a0f92dc62e52ace7220eba) | [LeRobot repo](https://github.com/huggingface/lerobot/tree/main)
 
 ---
@@ -18,7 +19,7 @@ We have ported the first **robotics foundation models** to **Hugging Face LeRobo
 ## Introduction
 
 
-Heinlein suggests that a well-rounded person should be capable of handling a wide range of tasks—both intellectual and physical—rather than being narrowly specialized in one field. Drawing a parallel between a well-rounded person and machine intelligence: AI systems vary widely, but human intelligence excels in versatility—adapting to tasks, environments, and surprises. While large language and vision-language models (LLMs, VLMs) show promise, they lack interaction with the physical world. To bridge this gap, we need models trained on robotic data. Generalist robot models can enhance adaptability, using diverse data to improve generalization and robustness. Instead of training on isolated tasks, pre-training on varied robotic data—similar to LLMs—boosts efficiency and performance.
+Robert Heinlein suggests that a well-rounded person should be capable of handling a wide range of tasks—both intellectual and physical—rather than being narrowly specialized in one field. Drawing a parallel between a well-rounded person and machine intelligence: AI systems vary widely, but human intelligence excels in versatility—adapting to tasks, environments, and surprises. While large language and vision-language models (LLMs, VLMs) show promise, they lack interaction with the physical world. To bridge this gap, we need models trained on robotic data. Generalist robot models can enhance adaptability, using diverse data to improve generalization and robustness. Instead of training on isolated tasks, pre-training on varied robotic data—similar to LLMs—boosts efficiency and performance.
 
 Developing generalist robot policies, or robot foundation models, presents three key challenges:
 
@@ -115,18 +116,19 @@ These tokens encapsulate:
 - The **commands or controls** the robot issues (**action**),
 - An encoding of **time or step index** (**time embedding**).
 
-They are **appended after** the prefix portion (images + text), so the **prefix serves as context** (e.g., a scene image, language instructions like *"be a good robot"* or *"transfer the cube"*), while the **suffix captures policy‐specific features**.
+They are appended after the prefix portion (images + text), so the prefix serves as context (e.g., a scene image, language instructions like *"be a good robot"* or *"transfer the cube"*), while the suffix captures policy‐specific features.
 
 ---
 
 ## ⚡ Towards the Faster Attention in π0 
 
-The particular shape of the attention mask in pi0 brings some interesting challenges in how attention is computed. Let's jump into the details!
+However, efficiently handling attention in π0 comes with its own set of challenges. The unique shape of its attention mask influences how attention is computed—let’s dive into the details!
 
 ### **Handling 2D Attention Masks**
-The resulting **2D causal mask** exhibits strong **block sparsity**, but defining the boundaries of each block—especially in a batch of samples—is a bit tricky. We are used to causal masks with triangular structures for autoregressive modeling, but this is not one of these cases. 
 
-As you can see in this example below: the image (first element) has some padding tokens, representing empty cameras. Then, text tokens are added, with state tokens as well. This "prefix" part forms a fully noncausal attention, as in PaliGemma. Then, the suffix (state + action/time tokens) has a causal-block structure. The eager naive implementation matmuls and softmaxes over all of this, which is quite inefficient.
+The resulting **2D causal mask** exhibits strong **block sparsity**, but defining the boundaries of each block—especially in a batch of samples—is a bit tricky. We are used to causal masks with triangular structures for autoregressive modeling, but this is not one of those cases. 
+
+As you can see in this example below: the image (first element) has some padding tokens, representing empty cameras. Then, text tokens and state tokens are added. This "prefix" part forms a fully noncausal attention, as in PaliGemma. Then, the "suffix" (state + action/time tokens) has a causal-block structure. The eager naive implementation performs matrix multiplications and applies softmax across the entire input, making it highly inefficient.
 
 <div align="center">
     <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/QXPQXYQFQbM_zada-VSw0.png" alt="VLA Attention Mask" style="width: 55%; border: none;">
@@ -143,7 +145,7 @@ As you can see in this example below: the image (first element) has some padding
 
 ### **Using FlexAttention in PyTorch**
 This looks like a [FlexAttention](https://pytorch.org/blog/flexattention/) job!  It has a pure PyTorch interface, in which explored two options:
-1. **Adding a `score_mod`** to our causal mask in positions where attention is tuned out. However, even a scalar addition **significantly decreases FlexAttention’s performance**. This is because the score_mod in our case is added outside of the optimized cuda kernel. 
+1. **Adding a `score_mod`** to our causal mask in positions where attention is tuned out. However, even a scalar addition **significantly decreases FlexAttention’s performance**. This is because the ``score_mod`` in our case is added outside of the optimized cuda kernel. 
 2. The correct option is **indexing our causal mask and passing the resulting signature to create a block mask.** This block mask efficiently indicates where the attention has to be computed and where it can be skipped entirely.
 
 ```python
@@ -177,19 +179,20 @@ The current implementation runs, and a WIP is to have it support `torch.compile`
 
 ##  How to effectively represent Actions?
 
-Now that we know actions are simply n-dimensional vectors that can be tokenized, we can explore the challenges of action representation in Vision-Language-Action (VLA) models. The way actions are represented directly impacts **efficiency, generalization, and execution fidelity**.
+Now that we know actions are simply **n-dimensional** vectors that can be tokenized, we can explore the challenges of action representation in Vision-Language-Action (VLA) models. The way actions are represented directly impacts efficiency, generalization, and execution fidelity.
 
-One approach is **semantic action representation**, where actions are described as **high-level concepts** like sub-tasks or keypoints. While this allows for few-shot and zero-shot learning, it often relies on hand-designed low-level controllers, limiting flexibility across different robots. In contrast, low-level control representations map actions directly to motor commands, enabling precise movements but making training **less stable and harder to scale**.
+One approach is **semantic action representation**, where actions are described as high-level concepts like sub-tasks or keypoints. While this allows for few-shot and zero-shot learning, it often relies on hand-designed low-level controllers, limiting flexibility across different robots. In contrast, low-level control representations map actions directly to motor commands, enabling precise movements but making training less stable and harder to scale.
 
-Most existing VLAs use **discrete action tokenization**, converting continuous actions into discrete tokens generated autoregressively. The most common method—per-dimension, per-timestep binning—struggles with high-frequency control tasks, leading to lossy representations and **inefficient training**. Alternatives like vector quantization (VQ) and time-series compression help, but **VQ is sensitive to hyperparameters**, making it less reliable for diverse robot designs.
+Most existing VLAs use **discrete action tokenization**, converting continuous actions into discrete tokens generated autoregressively. The most common method—per-dimension, per-timestep binning—struggles with high-frequency control tasks, leading to lossy representations and inefficient training. Alternatives like vector quantization (VQ) and time-series compression help, but **VQ is sensitive to hyperparameters**, making it less reliable for diverse robot designs.
 
-To address these issues, **Frequency-space Action Sequence Tokenization (FAST)** introduces a **novel time-series compression approach** using the Discrete Cosine Transform (DCT). FAST reduces redundancy, improves efficiency, and enhances action fidelity. 
+To address these issues, **Frequency-space Action Sequence Tokenization (FAST)** introduces a novel time-series compression approach using the Discrete Cosine Transform (DCT). FAST reduces redundancy, improves efficiency, and enhances action fidelity. 
 
-With this, we present **π0-FAST**, faster and autoregressive version of **π0** also available in Lerobot repo, an extension of **π0**, which leverages this **new tokenizer** for better action representation.
+With this, we present **π0-FAST**, faster and autoregressive version of **π0** also available in Lerobot repo, an extension of **π0**, which leverages this new tokenizer for better action representation.
 
 
 ---
 ## 🚀 What is π0-FAST?
+
 [Paper](https://arxiv.org/pdf/2501.09747) | [Jax Code](https://github.com/Physical-Intelligence/openpi)
 
 π0-FAST is an **autoregressive version** of π0, introducing **FAST (Frequency-space Action Sequence Tokenization)**—a new tokenization scheme that enhances efficiency and performance.
@@ -202,7 +205,10 @@ With this, we present **π0-FAST**, faster and autoregressive version of **π0**
 🔗 The **π0-FAST tokenizer** can be accessed here: [FAST Tokenizer](https://huggingface.co/physical-intelligence/fast)
 
 ---
-**FAST** uses the Discrete Cosine Transform (DCT) to compress continuous action sequences into discrete tokens. The process, illustrated in Figure 2, begins with normalizing raw robot actions, mapping the 1st and 99th quantiles of each action dimension to the range [-1,1]. This normalization ensures consistency across different robotic systems and improves robustness against outliers. 
+
+## How does FAST work?
+
+**FAST** uses the Discrete Cosine Transform (DCT) to compress continuous action sequences into discrete tokens. The process, illustrated in Figure 2, begins with normalizing raw robot actions, mapping the 1st and 99th quantiles of each action dimension to the range [-1,1]. This normalization is used to ensure consistency across different robotic systems and improve robustness against outliers. 
 
 Each action dimension is then transformed independently using DCT, converting the time-domain signal into the frequency domain. To reduce redundancy, insignificant coefficients are removed through a scale-and-round operation, where a hyperparameter balances compression rate and reconstruction accuracy. The resulting DCT coefficient matrix, often sparse, is flattened into a one-dimensional sequence of integers, interleaving low-frequency components first across dimensions to preserve critical information.
 
@@ -217,15 +223,48 @@ Since all operations are invertible, actions can be reconstructed efficiently an
 
 Additionally, a universal version of FAST, called **FAST+**, has been trained on one million action sequences from single-arm, bimanual, and mobile manipulation robots, making it applicable across diverse robotic setups. FAST+ is available as a **Hugging Face AutoProcessor**, allowing users to tokenize action sequences with just a few lines of code. 
 
-For optimal compression, input actions should be quantile-normalized to [-1,1] before tokenization. The AutoProcessor module also enables users to train a custom FAST tokenizer on their own datasets with minimal effort.
+For optimal compression, input actions should be quantile-normalized to [-1,1] before tokenization. With the ``AutoProcessor`` module, the users can train a custom FAST tokenizer on their own datasets.
 
 ---
 ## How to use FAST tokenizer? 
 
-🔗 Code for the usage and training custom action tokenizers in the official: [FAST Repo](https://huggingface.co/physical-intelligence/fast)
+🔗 Code for the usage and training custom action tokenizers in the official [FAST Repo](https://huggingface.co/physical-intelligence/fast)
 
 FAST is integrated into **Hugging Face Transformers** and can be easily used for encoding and decoding robot action sequences.
 
 ## What’s Next for Generalist Robot Intelligence?
 
-With π0 and π0-FAST, we take a significant step towards **generalist robot intelligence**, bringing **scalable, efficient, and versatile** Vision-Language-Action (VLA) models to LeRobot. By leveraging **FAST tokenization**, we enhance action representation, enabling robots to perform a diverse range of tasks with **higher efficiency and adaptability**. These steps open the door for future **multi-embodiment, real-time robotic policies**, pushing the boundaries of what robots can achieve in the real world. 🚀
+With π0 and π0-FAST, we take a significant step towards generalist robot intelligence, bringing scalable, efficient, and versatile Vision-Language-Action (VLA) models to LeRobot. By leveraging **FAST tokenization**, we enhance action representation, enabling robots to perform a diverse range of tasks with higher efficiency and adaptability. These steps open the door for future multi-embodiment, real-time robotic policies, pushing the boundaries of what robots can achieve in the real world. 🚀
+
+## Additional Resources
+
+- [LeRobot](https://huggingface.co/lerobot)
+- [Paligemma Blogpost](https://huggingface.co/blog/paligemma)
+- [Original Pi0 Blogpost](https://www.physicalintelligence.company/blog/pi0)
+- [FAST: Efficient Robot Action Tokenization](https://www.physicalintelligence.company/research/fast)
+
+## References
+
+```bash
+@book{heinlein2021time,
+  title={Time enough for love},
+  author={Heinlein, Robert A},
+  year={2021},
+  publisher={Penguin}
+}
+
+@article{black2024pi_0,
+  title={$$\backslash$pi\_0 $: A Vision-Language-Action Flow Model for General Robot Control},
+  author={Black, Kevin and Brown, Noah and Driess, Danny and Esmail, Adnan and Equi, Michael and Finn, Chelsea and Fusai, Niccolo and Groom, Lachy and Hausman, Karol and Ichter, Brian and others},
+  journal={arXiv preprint arXiv:2410.24164},
+  year={2024}
+}
+
+@article{pertsch2025fast,
+  title={FAST: Efficient Action Tokenization for Vision-Language-Action Models},
+  author={Pertsch, Karl and Stachowicz, Kyle and Ichter, Brian and Driess, Danny and Nair, Suraj and Vuong, Quan and Mees, Oier and Finn, Chelse|a and Levine, Sergey},
+  journal={arXiv preprint arXiv:2501.09747},
+  year={2025}
+}
+
+```
