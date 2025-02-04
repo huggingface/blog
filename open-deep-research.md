@@ -157,6 +157,6 @@ So we’re tackling that next! In a more general problem: we’re going to build
 
 We’re also [hiring a full time engineer](https://apply.workable.com/huggingface/j/AF1D4E3FEB/) to help us work on this and more, apply if you’re interested 🙂
 
-- To get started with Open Deep Research, get started [here](https://github.com/huggingface/smolagents/tree/gaia-submission-r1/examples/open_deep_research).
+- To get started with Open Deep Research, try the examples [here](https://github.com/huggingface/smolagents/tree/gaia-submission-r1/examples/open_deep_research).
 - Get started with [smolagents](https://github.com/huggingface/smolagents/tree/main).
 - Read more about smolagents [docs](https://huggingface.co/docs/smolagents/index), [introduction blog post](https://huggingface.co/blog/smolagents).
