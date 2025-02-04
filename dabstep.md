@@ -131,7 +131,7 @@ Some quick comments on how we are hoping to encourage generalization with the be
 
 **Dev Set:** Given this hard generalization setting, the scale of the benchmark (450 questions), and in the spirit of developer friendliness, we have also released a dev set, which is a representative subset of the full test set, including answers. The spirit of this dev set is to allow researchers to configure their E2E submission pipeline locally, including evaluation and fast feedback loops, and then submit to the leaderboard proper.
 
-To test worldwide generalization, DABstep should not be benchmarked alone, and it should be seen in combination with other benchmarks that test overall generalization and problem-solving (e.g. MMLU, SuperGlue, GPQA).
+To test broad generalization, DABstep should not be benchmarked alone, and it should be seen in combination with other benchmarks that test overall generalization and problem-solving (e.g. MMLU, SuperGlue, GPQA).
 
 ### Evaluations
 
