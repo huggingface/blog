@@ -28,8 +28,8 @@ The clock is ticking, let’s go! ⏱️
 - [The GAIA benchmark](#the-gaia-benchmark)
 - [Building an open Deep Research](#building-an-open-deep-research)
   - [Using a CodeAgent](#using-a-codeagent)
-  - [Making the right tools 🛠️](#making-the-right-tools-️)
-- [Results 🏅](#results-)
+  - [Making the right tools 🛠️](#making-the-right-tools-🛠️)
+- [Results 🏅](#results-🏅)
 - [Other community reproductions](#other-community-reproductions)
 - [Most important next steps](#most-important-next-steps)
 
