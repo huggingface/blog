@@ -55,7 +55,7 @@ Then, what happens when we integrate our current top LLM in an agentic framework
 
 Let’s first understand the scope of the challenge: GAIA.
 
-### The GAIA benchmark
+## The GAIA benchmark
 
 [GAIA](https://huggingface.co/datasets/gaia-benchmark/GAIA) is arguably the most comprehensive benchmark for agents. Its questions are very difficult and hit on many challenges of LLM-based systems. Here is an example of a hard question:
 
