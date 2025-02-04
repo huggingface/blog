@@ -149,7 +149,7 @@ While we were working on this and focusing on GAIA, other great open implementat
 
 Each of these implementations use different libraries for indexing data, browsing the web and querying LLMs. In this project, we would like to **reproduce the benchmarks presented by OpenAI (pass@1 average score), benchmark and document our findings with switching to open LLMs (like DeepSeek R1), using vision LMs,  benchmark traditional tool calling against code-native agents.**
 
-### Most important next steps
+## Most important next steps
 
 OpenAI’s Deep Research is probably boosted by the excellent web browser that they introduced with [Operator](https://openai.com/index/introducing-operator/).
 
