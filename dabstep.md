@@ -6,7 +6,7 @@ authors:
   guest: True
 - user: martinigoyanes
   guest: True
-- user: Friso Kingma
+- user: frisokingma
   guest: True
 - user: andreu-adyen
   guest: True
