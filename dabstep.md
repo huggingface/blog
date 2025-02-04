@@ -41,7 +41,7 @@ Data analysis is both an art and a science that requires technical skill, domain
 
 At companies like Adyen, analysts tackle a spectrum of problems, from routine queries to complex workflows requiring creativity, precision, and iterative reasoning. Access to a capable data analysis agent that can automate simple and repetitive tasks and assist with complex tasks would allow analysts to work faster, reduce mental strain, and focus on solving more impactful problems. That would be a pivotal moment for many industries that need data analysis and insights, such as finance.
 
-Recent advancements in *agentic workflows* — where LLMs equipped with tools independently execute multi-step tasks — have shown tremendous promise across domains like coding, open QA, software engineering, and even Kaggle competitions. These systems aren’t just theoretical; they've been driving real-world productivity gains.
+Recent advancements in *agentic workflows* — where LLMs equipped with tools independently execute multi-step tasks — have shown tremendous promise across domains like coding, [open QA](https://openai.com/index/introducing-deep-research/), [software engineering](https://www.swebench.com), and even [Kaggle competitions](https://openai.com/index/mle-bench/). These systems aren’t just theoretical; they've been driving real-world productivity gains.
 
 So, the question becomes: **Can agentic workflows reshape the way we approach data analysis?**
 
@@ -125,7 +125,7 @@ As an example of a multi-step reasoning problem, The following code shows a snip
 
 Some quick comments on how we are hoping to encourage generalization with the benchmark.
 
-**Symbolic Reasoning:** In the spirit of GSM-Symbolic, tasks have been exploded in cardinality using permutations of time ranges, merchant names, etc. The rationale is to remove the chance of “lucky guesses” and validate core reasoning (repeatability of reasoning) and generalization.
+**Symbolic Reasoning:** In the spirit of [GSM-Symbolic](https://arxiv.org/abs/2410.05229), tasks have been exploded in cardinality using permutations of time ranges, merchant names, etc. The rationale is to remove the chance of “lucky guesses” and validate core reasoning (repeatability of reasoning) and generalization.
 
 **Hidden Test Set:** We have opted not to divide the dataset into validation and test sets and are only releasing a heldout test set. This is because a data analyst agent should be able to generalize across various analysis tasks not per se captured in this benchmark version. 
 
