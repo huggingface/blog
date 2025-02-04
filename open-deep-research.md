@@ -18,7 +18,7 @@ DeepResearch is composed of an LLM (which can be selected from the current list 
 
 While powerful LLMs are now freely available in open-source (see e.g. [the recent DeepSeek R1 model](https://huggingface.co/deepseek-ai/DeepSeek-R1)), OpenAI didn’t disclose much about the agentic framework underlying Deep Research…
 
-So we decided to embark on a mission to reproduce their results and open-source the needed framework along the way!
+So we decided to embark on a 24-hour mission to reproduce their results and open-source the needed framework along the way!
 
 The clock is ticking, let’s go! ⏱️
 
