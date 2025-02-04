@@ -182,7 +182,7 @@ Additionally, we tracked the cost to run the full benchmark for each commercial 
 | Claude 3.5 Sonnet | $90 | $0.200 |
 | o3-mini | $85 | $0.198 |
 | GPT 4o | $50 | $0.111 |
-| Claude 3.5 Haiku | $35 | c |
+| Claude 3.5 Haiku | $35 | $0.078 |
 | GPT 4o-mini | $3 | $0.007 |
 | Deepseek R1 | $3 | $0.007 |
 | Deepseek V3 | $2 | $0.004 |
