@@ -161,7 +161,7 @@ curl 'https://router.huggingface.co/sambanova/v1/chat/completions' \
 -H 'Authorization: Bearer xxxxxxxxxxxxxxxxxxxxxxxx' \
 -H 'Content-Type: application/json' \
 --data '{
-    "model": "meta-llama/Llama-3.3-70B-Instruct",
+    "model": "Llama-3.3-70B-Instruct",
     "messages": [
 		{
 			"role": "user",
