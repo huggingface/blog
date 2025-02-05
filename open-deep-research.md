@@ -128,7 +128,7 @@ Here is a short roadmap of improvements which we feel would really improve these
 
 In our 24h+ reproduction sprint, we’ve already seen steady improvements in the performance of our agent on GAIA!
 
-We’ve quickly gone up from the previous SoTA with an open framework, around 46% for Magentic-One, to our current performances of 54% on the validation set.
+We’ve quickly gone up from the previous SoTA with an open framework, around 46% for Magentic-One, to our [current performance of 55.15% on the validation set](https://huggingface.co/spaces/gaia-benchmark/leaderboard).
 
 This bump in performance is due mostly to letting our agents write their actions in code! Indeed, when switching to a standard agent that writes actions in JSON instead of code, performance of the same setup is instantly degraded to 33% average on the validation set.
 
