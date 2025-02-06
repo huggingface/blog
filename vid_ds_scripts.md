@@ -53,44 +53,62 @@ We create a script `Video to Scenes` to split long videos into short clips.
 
 ### Stage 3 (Processing)
 
-Florence-2 [`microsoft/Florence-2-large`](http://hf.co/microsoft/Florence-2-large) to run `<CAPTION>`, `<DETAILED_CAPTION>`, `<DENSE_REGION_CAPTION>` and `<OCR_WITH_REGION>`.
+Florence-2 [`microsoft/Florence-2-large`](http://hf.co/microsoft/Florence-2-large) to run Florence-2 tasks `<CAPTION>`, `<DETAILED_CAPTION>`, `<DENSE_REGION_CAPTION>` and `<OCR_WITH_REGION>` on extracted frames. This provides different captions, object recognition and OCR that can be used for filtering in various ways.
 
 We can bring in any other captioner in this regard. We can also caption the entire video (e.g., with a model like [Qwen2.5](https://huggingface.co/docs/transformers/main/en/model_doc/qwen2_5_vl)) as opposed to captioning individual frames.
 
 ## Filtering examples
 
-In the [dataset](https://huggingface.co/datasets/finetrainers/crush-smol) for the model [`finetrainers/crush-smol-v0`](https://hf.co/finetrainers/crush-smol-v0) we filtered on `pwatermark < 0.1` and `aesthetic > 5.5`. This highly restrictive filtering resulted in 47 videos out of 1493 total. 
+In the [dataset](https://huggingface.co/datasets/finetrainers/crush-smol) for the model [`finetrainers/crush-smol-v0`](https://hf.co/finetrainers/crush-smol-v0), we opted for captions from Qwen2VL and we filtered on `pwatermark < 0.1` and `aesthetic > 5.5`. This highly restrictive filtering resulted in 47 videos out of 1493 total.
 
-Let's review the example frames from `pwatermark` - two with text have scores of 0.69 and 0.61, the "toy car with a bunch of mice in it" scores 0.60 then 0.17 as the toy car is crushed. All example frames were filtered by `pwatermark < 0.1`. `pwatermark` is effective at detecting text/watermarks however the score gives no indication whether it is a text overlay or a toy car's license plate. Our filtering required all scores to be below the threshold, an average across frames would be a more effective strategy for `pwatermark` with a threshold of around 0.2 - 0.3.
+Let's review the example frames from `pwatermark` - 
 
-Let's review the example frames from aesthetic scores - the pink castle initially scores 5.5 then 4.44 as it is crushed, the action figure scores lower at 4.99 dropping to 4.84 as it is crushed and the shard of glass scores low at 4.04. Again fitlering required all scores to be below the threshold, in this case using the aesthetic score from the first frame only would be a more effective strategy. 
-
-If we review [`finetrainers/crush-smol`](https://huggingface.co/datasets/finetrainers/crush-smol) we can notice that many of the objects being crushed are round or rectangular and colorful which is similar to our findings in the example frames. Aesthetic scores can be useful yet have a bias that will potentially filter out good data when used with extreme thresholds like > 5.5. It may be more effective as a filter for bad content than good with a minimum threshold of around 4.25 - 4.5.
-
-We provide some visual examples for each filters as well as the captions from Florence-2.
-
-### Watermarks
+Two with text have scores of 0.69 and 0.61
 
 | **`pwatermark`** | **Image** |
 |:----------:|:-----:|
 | 0.69       | ![19s8CRUVf3E-Scene-022_0.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/19s8CRUVf3E-Scene-022_0.jpg) |
 | 0.61       | ![19s8CRUVf3E-Scene-010_0.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/19s8CRUVf3E-Scene-010_0.jpg) |
+
+The "toy car with a bunch of mice in it" scores 0.60 then 0.17 as the toy car is crushed.
+
+| **`pwatermark`** | **Image** |
+|:----------:|:-----:|
 | 0.60       | ![-IvRtqwaetM-Scene-003_0.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-003_0.jpg) |
 | 0.17       | ![-IvRtqwaetM-Scene-003_1.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-003_1.jpg) |
 
+All example frames were filtered by `pwatermark < 0.1`. `pwatermark` is effective at detecting text/watermarks however the score gives no indication whether it is a text overlay or a toy car's license plate. Our filtering required all scores to be below the threshold, an average across frames would be a more effective strategy for `pwatermark` with a threshold of around 0.2 - 0.3.
 
-### Aesthetics
+Let's review the example frames from aesthetic scores - 
+
+The pink castle initially scores 5.5 then 4.44 as it is crushed
 
 | **Aesthetic** | **Image** |
 |:---------:|:-----:|
 | 5.50      | ![-IvRtqwaetM-Scene-036_0.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-036_0.jpg) |
 | 4.44      | ![-IvRtqwaetM-Scene-036_1.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-036_1.jpg) |
+
+The action figure scores lower at 4.99 dropping to 4.84 as it is crushed.
+
+| **Aesthetic** | **Image** |
+|:---------:|:-----:|
 | 4.99      | ![-IvRtqwaetM-Scene-046_0.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-046_0.jpg) |
 | 4.87      | ![-IvRtqwaetM-Scene-046_1.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-046_1.jpg) |
 | 4.84      | ![-IvRtqwaetM-Scene-046_2.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/-IvRtqwaetM-Scene-046_2.jpg) |
+
+The shard of glass scores low at 4.04
+
+| **Aesthetic** | **Image** |
+|:---------:|:-----:|
 | 4.04      | ![19s8CRUVf3E-Scene-015_1.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/19s8CRUVf3E-Scene-015_1.jpg) |
 
+In our we filtering we required all scores to be below the threshold, in this case using the aesthetic score from the first frame only would be a more effective strategy. 
+
+If we review [`finetrainers/crush-smol`](https://huggingface.co/datasets/finetrainers/crush-smol) we can notice that many of the objects being crushed are round or rectangular and colorful which is similar to our findings in the example frames. Aesthetic scores can be useful yet have a bias that will potentially filter out good data when used with extreme thresholds like > 5.5. It may be more effective as a filter for bad content than good with a minimum threshold of around 4.25 - 4.5.
+
 ### OCR/Caption
+
+Here we provide some visual examples for each filters as well as the captions from Florence-2.
 
 <table>
     <tr>
@@ -146,6 +164,6 @@ We then used these datasets to fine-tune the [CogVideoX-5B](https://huggingface.
   <figcaption>Prompt: <i>DIFF_crush A red candle is placed on a metal platform, and a large metal cylinder descends from above, flattening the candle as if it were under a hydraulic press. The candle is crushed into a flat, round shape, leaving a pile of debris around it.</i></figcaption>
 </figure>
 
-## Call to action
+## Your Turn
 
 We hope this tooling gives you a headstart to create small and high-quality video datasets for your own custom applications. We will continue to add more useful filters to the repository, so, please keep an eye out. Your contributions are also more than welcome 🤗
