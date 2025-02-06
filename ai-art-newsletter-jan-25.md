@@ -48,7 +48,7 @@ Over 2 years since the OG stable diffusion was released and made waves in image 
 
 **TD;LR** - diffusion models and **Gaussian** flow matching are equivalent. Flow matching proposes a vector field parametrization of the network output that is different compared to the ones commonly used in diffusion models previously.
 
-* We recommend this [great blog by Google DeepMind](https://diffusionflow.github.io)if you’re interested in learning more about flow matching and the connection with diffusion models
+* We recommend this [great blog by Google DeepMind](https://diffusionflow.github.io) if you’re interested in learning more about flow matching and the connection with diffusion models
 
  
 **Back to practice**: First to announce the shift was Stability AI with [Stable Diffusion 3](https://huggingface.co/stabilityai/stable-diffusion-3-medium), however it was [HunyuanDiT](https://huggingface.co/Tencent-Hunyuan/HunyuanDiT) that became the first open source model with DiT architecture.  
@@ -137,7 +137,7 @@ Here are some of our favorites:
 Many of the amazing [Flux fine-tunes](https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer) created in the last year were trained thanks to the [AI-toolkit](https://github.com/ostris/ai-toolkit) by [ostris](https://huggingface.co/ostris).
 
 #### Face to all 
-Inspired by fofr's [face-to-many](https://github.com/fofr/cog-face-to-many),[Face to All](https://huggingface.co/spaces/multimodalart/face-to-all) combines the viral [Instant ID model](https://huggingface.co/spaces/InstantX/InstantID) with added ControlNet depth constraints and community fine-tuned SDXL LoRAs to create training-free and high-quality portraits in creative stylizations.  
+Inspired by fofr's [face-to-many](https://github.com/fofr/cog-face-to-many), [Face to All](https://huggingface.co/spaces/multimodalart/face-to-all) combines the viral [Instant ID model](https://huggingface.co/spaces/InstantX/InstantID) with added ControlNet depth constraints and community fine-tuned SDXL LoRAs to create training-free and high-quality portraits in creative stylizations.  
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/face-to-all.png" width="512" height="auto" alt="face to all">
 
@@ -216,7 +216,7 @@ take over the 3D landscape.
    - [DiffSplat](https://huggingface.co/chenguolin/DiffSplat)
 
 3. **Lumina-Image 2.0** - text to image model. 
-Lumina is a 2B parameter model competitive with the 8B Flux.1[dev](!) and with an Apache 2.0 license(!!).
+Lumina is a 2B parameter model competitive with the 12B Flux.1 [dev] and with an Apache 2.0 license(!!).
 
    **try it out & read more**: [demo](https://huggingface.co/spaces/benjamin-paine/Lumina-Image-2.0), [model weights](https://huggingface.co/Alpha-VLLM/Lumina-Image-2.0).
 
