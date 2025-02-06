@@ -8,13 +8,13 @@ authors:
 
 # Build awesome datasets for video generation
 
-Tooling for image generation datasets is well established, with [`img2dataset`](https://github.com/rom1504/img2dataset) covering large scale and various community guides, scripts and UIs covering the small scale.
+Tooling for image generation datasets is well established, with [`img2dataset`](https://github.com/rom1504/img2dataset) being a fundamental tool used for large scale dataset preparation, and complemented with various community guides, scripts and UIs that cover smaller scale initiatives.
 
-Our goal is to make tooling for video generation datasets as established by creating open video dataset scripts suited for small scale, with [`video2dataset`](https://github.com/iejMac/video2dataset) covering large scale.
+Our ambition is to make tooling for video generation datasets equally established, by creating open video dataset scripts suited for small scale, and leveraging [`video2dataset`](https://github.com/iejMac/video2dataset) for large scale use cases.
 
 *“If I have seen further it is by standing on the shoulders of giants”*
 
-In this post, we will provide a overview of the tooling we are developing to make it easy for the community to build their own datasets for fine-tuning video generation models. If you cannot wait to get started already, we welcome you to check out the codebase [here](https://github.com/huggingface/video-dataset-scripts/tree/main/video_processing). 
+In this post, we provide an overview of the tooling we are developing to make it easy for the community to build their own datasets for fine-tuning video generation models. If you cannot wait to get started already, we welcome you to check out the codebase [here](https://github.com/huggingface/video-dataset-scripts/tree/main/video_processing).
 
 **Table of contents**
 
