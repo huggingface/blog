@@ -121,7 +121,7 @@ This song👇 was generated with YuE 🤯
        alt="yue.mp3"
        controls
      >
-     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/I_wont_back_down.pop.mp3" type="audio/mp3">
+     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/I_wont_back_down_pop.mp3" type="audio/mp3">
    </audio>
  </figure>
 
