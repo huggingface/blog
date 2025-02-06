@@ -2187,3 +2187,11 @@
     - on-device
     - smolvlm
     - community
+    
+- local: ai-art-newsletter-jan-25
+  title: AI艺术工具通讯 - 第1期
+  author: linoyts
+  thumbnail: /blog/assets/ai_art_newsletter_1/thumbnail.png
+  date: Jan 31, 2025
+  tags:
+    - community
