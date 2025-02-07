@@ -5471,3 +5471,15 @@
     - agents
     - research
     - smolagents
+
+- local: scaling-secrets-management
+  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"  
+  thumbnail: /blog/assets/infisical/thumbnail.png
+  author: guest
+  date: Feb 7, 2025
+  tags:
+    - secrets
+    - security
+    - shift-left
+    - infrastructure
+    - open-source
