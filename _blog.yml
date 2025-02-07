@@ -5426,7 +5426,7 @@
   tags:
     - aws
     - partnerships
-  
+
 - local: ai-art-newsletter-jan-25
   title: "The AI tools for Art Newsletter - Issue 1"
   author: linoyts
@@ -5439,7 +5439,7 @@
     - community
 
 - local: dabstep
-  title: "DABStep: Data Agent Benchmark for Multi-step Reasoning" 
+  title: "DABStep: Data Agent Benchmark for Multi-step Reasoning"
   thumbnail: /blog/assets/dabstep/thumbnail.png
   author: eggie5
   guest: True
@@ -5449,7 +5449,6 @@
     - reasoning
     - research
     - evaluation
-
 
 - local: pi0
   title: "π0 and π0-FAST: Vision-Language-Action Models for General Robot Control"
@@ -5462,7 +5461,7 @@
     - community
 
 - local: open-deep-research
-  title: "Open-source DeepResearch – Freeing our search agents" 
+  title: "Open-source DeepResearch – Freeing our search agents"
   thumbnail: /blog/assets/open-deep-research/thumbnail.png
   author: m-ric
   date: Feb 4, 2025
@@ -5471,3 +5470,14 @@
     - agents
     - research
     - smolagents
+
+- local: from-chunks-to-blocks
+  title: "From Chunks to Blocks: Scaling Deduplication for the Hugging Face Hub"
+  author: jsulz
+  thumbnail: /blog/assets/from-chunks-to-blocks/thumbnail.png
+  date: February 10, 2025
+  tags:
+    - dedupe
+    - storage
+    - content defined chunking
+    - quantization
