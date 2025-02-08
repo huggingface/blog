@@ -20,7 +20,7 @@ If maximizing deduplication were the only objective, the system design would cal
 
 ### The Realities of Scaling Deduplication
 
-Imagine uploading a 200GB repository to the Hub. Today, [there are a number of ways to do this](https://huggingface.co/docs/huggingface_hub/en/guides/upload), but all use a file-centric approach. On Hugging Face’s Xet team, we’ve opened sourced [xet-core](https://github.com/huggingface/xet-core) and `hf_xet`, an integration with `[huggingface_hub]`(https://github.com/huggingface/huggingface_hub), to enable chunk-based uploads and downloads.
+Imagine uploading a 200GB repository to the Hub. Today, [there are a number of ways to do this](https://huggingface.co/docs/huggingface_hub/en/guides/upload), but all use a file-centric approach. On Hugging Face’s Xet team, we’ve opened sourced [xet-core](https://github.com/huggingface/xet-core) and `hf_xet`, an integration with [`huggingface_hub`](https://github.com/huggingface/huggingface_hub), to enable chunk-based uploads and downloads.
 
 However, chunk-based deduplication comes with its own set of challenges. Assuming all unique chunks, a 200GB repository would contain ~3 million chunks. If a new version of a model is uploaded or a branch in the repository is created with different data, more unique chunks are added, potentially driving the total beyond 100 million.
 
@@ -60,14 +60,9 @@ The solution is **key chunks** which are a 0.1% subset of all chunks. We provide
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/from-chunks-to-blocks/key-chunks.png" alt="Key chunks" width=90%>
 </p>
 
-### **Bottom-Line Benefits of Aggregation**
-
-So what does aggregation practically provide compared to the naive strategy of managing everything at the level of chunks?
-
-1. **Reduced network and infrastructure overhead:** The number of CAS entries/queries and network requests have been cut by several orders of magnitude. This keeps CAS operationally manageable and much more cost-effective.
-2. **Faster Uploads and Downloads:** Blocks are designed to group related chunks, minimizing the number of range requests required during file reconstruction (downloads). Taken together with shards, we provide “hints” (key chunks) for global deduplication. This reduces redundant uploads, without forcing us to communicate at the chunk level.
-
 ### **Aggregated Deduplication in Practice**
+
+Aggregation reduces network and infrastructure overhead while providing faster upload and download speeds, but what does this look like in practice?
 
 The Hub currently stores over 3.5PB of `.gguf` files, many of which are quantized versions of other models on the Hub. Quantized models represent an interesting opportunity due to the [nature of quantization](https://huggingface.co/docs/hub/en/gguf) where values are restricted to a smaller integer range and scaled. This restricts the range of values in the weight matrices, naturally leading to more repetition and deduplication. Additionally, many repositories of quantized models store multiple different variants (e.g., [Q4_K, Q3_K, Q5_K](https://huggingface.co/docs/hub/en/gguf#quantization-types)). These variants share many identical sub-blocks (repeated embeddings, shared zero vectors, identical scaling info, etc) with considerable structural similarities aiding in deduplication.
 
@@ -94,4 +89,4 @@ Taken together, this demonstrates how local chunk-level deduplication paired wit
 
 We’re fast at work, rolling out the first Xet-backed repositories in the coming weeks and months! As we do that, we will be releasing more updates to bring these speeds to every builder on the Hub to make file transfers feel invisible.
 
-[Follow us](https://huggingface.co/xet-team) on the Hub to learn more about our progress.
+[Follow us](https://huggingface.co/xet-team) on the Hub to learn more about our progress!
