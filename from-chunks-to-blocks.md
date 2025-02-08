@@ -3,9 +3,13 @@ title: "From Chunks to Blocks: Scaling Deduplication for the Hugging Face Hub"
 thumbnail: /blog/assets/from-chunks-to-blocks/thumbnail.png
 authors:
   - user: jsulz
+    org: xet-team
   - user: yuchenglow
+    org: xet-team
   - user: znation
+    org: xet-team
   - user: saba9
+    org: xet-team
 ---
 
 # From Chunks to Blocks: Scaling Deduplication for the Hugging Face Hub
@@ -69,7 +73,7 @@ The Hub currently stores over 3.5PB of `.gguf` files, many of which are quantize
 
 A good example of this in practice is [bartowski/gemma-2-9b-it-GGUF](https://huggingface.co/bartowski/gemma-2-9b-it-GGUF) which contains 29 quantizations of [google/gemma-2-9b-it](https://huggingface.co/google/gemma-2-9b-it) totalling 191GB. To upload, we use hf_xet integrated with huggingface_hub to perform chunk-level deduplication locally then aggregate and store data at the block level.
 
-Once uploaded, we can start to see some cool patterns! We’ve included a visualization that shows the deduplication ratio for each block. The darker the block, the more frequently parts of it are referenced across model versions. If you go to the [Space hosting this visualization](https://huggingface.co/xet-team), hovering over any heatmap cell highlights all references to the block in orange across all models:
+Once uploaded, we can start to see some cool patterns! We’ve included a visualization that shows the deduplication ratio for each block. The darker the block, the more frequently parts of it are referenced across model versions. If you go to the [Space hosting this visualization](https://huggingface.co/spaces/xet-team/quantization-dedup), hovering over any heatmap cell highlights all references to the block in orange across all models:
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/from-chunks-to-blocks/quantization-dedupe-viz.png" alt="Quantization deduplication visualization" width=90%>
