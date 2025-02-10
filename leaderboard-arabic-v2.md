@@ -30,7 +30,7 @@ authors:
 # The Open Arabic LLM Leaderboard 2
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.4.0/gradio.js"> </script>
-<gradio-app theme_mode="dark" space="OALL/Open-Arabic-LLM-Leaderboard"></gradio-app>
+<gradio-app theme_mode="dark" space="OALL-Open-Arabic-LLM-Leaderboard.hf.space"></gradio-app>
 
 ## Current status of Arabic LLMs leaderboards 
 
