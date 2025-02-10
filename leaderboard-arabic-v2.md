@@ -29,6 +29,9 @@ authors:
 
 # The Open Arabic LLM Leaderboard 2
 
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.4.0/gradio.js"> </script>
+<gradio-app theme_mode="dark" space="OALL/Open-Arabic-LLM-Leaderboard"></gradio-app>
+
 ## Current status of Arabic LLMs leaderboards 
 
 The growing availability of LLMs supporting Arabic, both as monolingual and multilingual models, prompted the community to create dedicated Arabic language leaderboards. Previously, Arabic-focused leaderboards were typically confined to narrow benchmarks introduced by specific authors, often as demos for their work. In these cases, the authors would set up leaderboards to demonstrate how models performed on a particular task or dataset. Alternatively, other leaderboards required users to run evaluations on their own computing resources and then submit a JSON file containing their results for display.
@@ -46,9 +49,6 @@ Later that year, on December 5th, Inception and MBZUAI announced the [AraGen Lea
 
 And to end the year strong, on 19th of December 2024, Scale's Safety, Evaluations, and Alignment Lab (SEAL) published an [Arabic leaderboard](https://scale.com/leaderboard/arabic) as part of their multilingual leaderboards. The benchmark empowering this leaderboard remains always private like all the other languages within their family of leaderboards, and relies on human-preference evaluation, using a dataset of 1,000 Arabic prompts designed to enhance chatbot interaction capabilities across complex and culturally nuanced conversations.
 
-
-
-
 ## Impact of the previous leaderboard
 
 In less than 7 months after its launch, the first version of the Open Arabic LLM Leaderboard quickly became a vital platform for the Arabic AI community, attracting over 46,000 visitors and more than 2,000 visits in the past month (January 2025). The HuggingFace space received over 100 likes and 8 citations on Google Scholar. The community submitted more than 700 models, ranging from 1B to over 70B parameters. The submitted models originate from more than 180 unique organizations making it one of the most active LLM evaluation leaderboards. Since its launch, the leaderboard sparked numerous engaging discussions across social media, HuggingFace, Reddit, making it the most prominent Arabic leaderboard to date.
@@ -59,51 +59,12 @@ As depicted in Figure 1, among the ~700 models submitted to the initial version 
     <img src="https://raw.githubusercontent.com/alielfilali01/OALL-assets/refs/heads/main/v2-blog-plots/piechart_requests.png" width="80%"/>
 <figcaption align="center"><b>Figure 1: Distribution of model types and size.</b> We omit the count for unknown model type ('?') as this represented only 0.12% of total requests.</b></figcaption></p>
 
-<!-- <table border="1" style="width: 100%; text-align: center; border-collapse: collapse;">
-    <colgroup>
-        <col style="width: 30%;">
-        <col style="width: 15%;">
-        <col style="background-color: rgba(80, 15, 213, 0.5); width: 7%;">
-    </colgroup>
-    <tbody>
-        <tr>
-            <td>Total visits</td>
-            <td>46,000+</td>
-        </tr>
-        <tr>
-            <td>Total likes</td>
-            <td>119</td>
-        </tr>
-        <tr>
-            <td>Models evaluated </td>
-            <td>713</td>
-        </tr>
-        <tr>
-            <td>Model organizations</td>
-            <td>184</td>
-        </tr>
-        <tr>
-            <td>Academic citations</td>
-            <td>8</td>
-        </tr>
-    </tbody>
-</table> -->
-
-<!---
-|:--------------------|:-------:|
-| Total visits        |  45,135 |
-| Total likes         |     119 |
-| Models evaluated    |     713 |
-| Model organizations |     184 |
-| Academic citations  |       8 |
---->
 
 Compared to leaderboards for other languages and as shown in Figure 2, the Open Arabic LLM leaderboard stands out as one of the most active, following closely behind the [Korean](https://huggingface.co/spaces/upstage/open-ko-llm-Leaderboard), [Polish](https://huggingface.co/spaces/speakleash/open_pl_llm_Leaderboard), and [Portuguese](https://huggingface.co/spaces/eduagarcia/open_pt_llm_Leaderboard) leaderboards, all within less than a year of its launch. Considering that Arabic is one of the most spoken languages globally, yet has relatively limited content available on the internet, these figures carry even greater significance compared to other languages.
 <p align="center">
     <img src="https://raw.githubusercontent.com/alielfilali01/OALL-assets/refs/heads/main/v2-blog-plots/leaderboard_comparison_sort_uptime.png" width="700"/>
     <figcaption align="center"><b>Figure 2: Number of evaluated models versus uptime in months for different MCQ leaderboards hosted on huggingface.</b> Data collected prior to January 13, 2025. Languages covered: <a href="https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard">Arabic</a>, <a href="https://huggingface.co/spaces/BAAI/open_cn_llm_Leaderboard">Chinese-China</a>, <a href="https://huggingface.co/spaces/yentinglin/open-tw-llm-Leaderboard">Chinese-Taiwan</a>, <a href="https://huggingface.co/spaces/CZLC/BenCzechMark">Czech</a>, <a href="https://huggingface.co/spaces/BramVanroy/open_dutch_llm_Leaderboard">Dutch</a>, <a href="https://huggingface.co/spaces/le-leadboard/OpenLLMFrenchLeaderboard">French</a>, <a href="https://huggingface.co/spaces/hebrew-llm-Leaderboard/Leaderboard">Hebrew</a>, <a href="https://huggingface.co/spaces/mideind/icelandic-llm-Leaderboard">Icelandic</a>, <a href="https://huggingface.co/spaces/mii-llm/open_ita_llm_Leaderboard">Italian</a>, <a href="https://huggingface.co/spaces/llm-jp/open-japanese-llm-Leaderboard">Japanese</a>, <a href="https://huggingface.co/spaces/upstage/open-ko-llm-Leaderboard">Korean (v2)</a>, <a href="https://huggingface.co/spaces/mesolitica/malay-llm-Leaderboard">Malay</a>, <a href="https://huggingface.co/spaces/PartAI/open-persian-llm-Leaderboard">Persian</a>, <a href="https://huggingface.co/spaces/speakleash/open_pl_llm_Leaderboard">Polish</a>, <a href="https://huggingface.co/spaces/eduagarcia/open_pt_llm_Leaderboard">Portuguese</a>, <a href="https://huggingface.co/spaces/la-Leaderboard/la-Leaderboard">Spanish</a>, <a href="https://huggingface.co/spaces/malhajar/OpenLLMTurkishLeaderboard">Turkish</a>.</figcaption>
 </p>
-
 
 ## Why do we need a new leaderboard?
 
@@ -218,7 +179,7 @@ Looking ahead, we hope to see the release of additional Arabic benchmarks, parti
 
 ## Acknowledgments
 
-The authors would like to thank Mohamed bin Zayed University of Artificial Intelligence (MBZUAI) for providing some of the new native benchmarks we are using in this version, including the new MMLU-HT dataset. We also extend our gratitude to TII for their generous sponsorship of the inference hardware needed for the evaluation backend. We also thank our friends at HuggingFace for their continous support and being always 🤗 whenever needed. Thanks to all people focusing on evaluation and leaderboards for their languages and tasks. Lastly, we thank the community for their engagement and valuable feedback on the first version of the OALL. Looking forward to seeing many models on the leaderboard :rocket:.
+The authors would like to thank Mohamed bin Zayed University of Artificial Intelligence (MBZUAI) for providing some of the new native benchmarks we are using in this version, including the new MMLU-HT dataset. We also extend our gratitude to TII for their generous sponsorship of the inference hardware needed for the evaluation backend. We also thank our friends at Hugging Face for their continous support and being always 🤗 whenever needed. Thanks to all people focusing on evaluation and leaderboards for their languages and tasks. Lastly, we thank the community for their engagement and valuable feedback on the first version of the OALL. Looking forward to seeing many models on the leaderboard :rocket:.
 
 ## Citations
 ```
@@ -230,6 +191,7 @@ The authors would like to thank Mohamed bin Zayed University of Artificial Intel
   howpublished = "\url{https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard-2}"
 }
 ```
+
 ## References
 - [1] [Open Arabic LLM Leaderboard](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard) (El Filali et al., 2024)
 - [2] [CamelEval: Advancing Culturally Aligned Arabic Language Models and Benchmarks](https://arxiv.org/abs/2409.12623v2) (Qian et al., 2024)
