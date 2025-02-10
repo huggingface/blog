@@ -2,7 +2,8 @@
 title: "How Hugging Face Scaled Secrets Management for AI Infrastructure" 
 thumbnail: /blog/assets/infisical/thumbnail.png
 authors:
-- user: guest
+- user: segudev
+  org: Infisical
 ---
 
 # How Hugging Face Scaled Secrets Management for AI Infrastructure
