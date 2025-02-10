@@ -56,7 +56,7 @@ In less than 7 months after its launch, the first version of the Open Arabic LLM
 As depicted in Figure 1, among the ~700 models submitted to the initial version of the leaderboard, the majority are chat and finetuned models, comprising over 70%, whereas pretrained models constitute only 11%. In terms of model size, more than 50% of the models are smaller than 7B parameters.
 
 <p align="center">
-    <img src="assets/leaderboard-arabic-v2/piechart_requests.png" width="80%"/>
+    <img src="https://raw.githubusercontent.com/alielfilali01/OALL-assets/refs/heads/main/v2-blog-plots/piechart_requests.png" width="80%"/>
 <figcaption align="center"><b>Figure 1: Distribution of model types and size.</b> We omit the count for unknown model type ('?') as this represented only 0.12% of total requests.</b></figcaption></p>
 
 <!-- <table border="1" style="width: 100%; text-align: center; border-collapse: collapse;">
@@ -100,7 +100,7 @@ As depicted in Figure 1, among the ~700 models submitted to the initial version 
 
 Compared to leaderboards for other languages and as shown in Figure 2, the Open Arabic LLM leaderboard stands out as one of the most active, following closely behind the [Korean](https://huggingface.co/spaces/upstage/open-ko-llm-Leaderboard), [Polish](https://huggingface.co/spaces/speakleash/open_pl_llm_Leaderboard), and [Portuguese](https://huggingface.co/spaces/eduagarcia/open_pt_llm_Leaderboard) leaderboards, all within less than a year of its launch. Considering that Arabic is one of the most spoken languages globally, yet has relatively limited content available on the internet, these figures carry even greater significance compared to other languages.
 <p align="center">
-    <img src="assets/leaderboard-arabic-v2/leaderboard_comparison_sort_uptime.png" width="700"/>
+    <img src="https://raw.githubusercontent.com/alielfilali01/OALL-assets/refs/heads/main/v2-blog-plots/leaderboard_comparison_sort_uptime.png" width="700"/>
     <figcaption align="center"><b>Figure 2: Number of evaluated models versus uptime in months for different MCQ leaderboards hosted on huggingface.</b> Data collected prior to January 13, 2025. Languages covered: <a href="https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard">Arabic</a>, <a href="https://huggingface.co/spaces/BAAI/open_cn_llm_Leaderboard">Chinese-China</a>, <a href="https://huggingface.co/spaces/yentinglin/open-tw-llm-Leaderboard">Chinese-Taiwan</a>, <a href="https://huggingface.co/spaces/CZLC/BenCzechMark">Czech</a>, <a href="https://huggingface.co/spaces/BramVanroy/open_dutch_llm_Leaderboard">Dutch</a>, <a href="https://huggingface.co/spaces/le-leadboard/OpenLLMFrenchLeaderboard">French</a>, <a href="https://huggingface.co/spaces/hebrew-llm-Leaderboard/Leaderboard">Hebrew</a>, <a href="https://huggingface.co/spaces/mideind/icelandic-llm-Leaderboard">Icelandic</a>, <a href="https://huggingface.co/spaces/mii-llm/open_ita_llm_Leaderboard">Italian</a>, <a href="https://huggingface.co/spaces/llm-jp/open-japanese-llm-Leaderboard">Japanese</a>, <a href="https://huggingface.co/spaces/upstage/open-ko-llm-Leaderboard">Korean (v2)</a>, <a href="https://huggingface.co/spaces/mesolitica/malay-llm-Leaderboard">Malay</a>, <a href="https://huggingface.co/spaces/PartAI/open-persian-llm-Leaderboard">Persian</a>, <a href="https://huggingface.co/spaces/speakleash/open_pl_llm_Leaderboard">Polish</a>, <a href="https://huggingface.co/spaces/eduagarcia/open_pt_llm_Leaderboard">Portuguese</a>, <a href="https://huggingface.co/spaces/la-Leaderboard/la-Leaderboard">Spanish</a>, <a href="https://huggingface.co/spaces/malhajar/OpenLLMTurkishLeaderboard">Turkish</a>.</figcaption>
 </p>
 
@@ -183,7 +183,7 @@ To assess the impact of the second iteration of the Open Arabic LLM Leaderboard,
 Figure 3 displays the performance scores across six benchmarks for Versions 1 and 2. Notably, ACVA and Toxigen demonstrate saturation effects at various model sizes. Alghafa in Version 1 exhibits lower saturation, which we hypothesize is due to the inclusion of both native and translated Arabic benchmarks. In contrast, the models' performance for AraTrust, ALRAGE, and Alghafa form v2 is more dispersed with respect to model size. 
 
 <p align="center">
-    <img src="assets/leaderboard-arabic-v2/task_comparison_pretrained_only.png" width = 100%/>
+    <img src="https://raw.githubusercontent.com/alielfilali01/OALL-assets/refs/heads/main/v2-blog-plots/task_comparison_pretrained_only.png" width = 100%/>
     <figcaption align="center"><b>Figure 3: Comparing the behavior of removed/kept/added tasks between the two version of the Open Arabic LLM Leaderboard.</b></figcaption>
 </p>
 
@@ -191,22 +191,22 @@ Figure 3 displays the performance scores across six benchmarks for Versions 1 an
 To examine the correlation between OALL and other Arabic LLM leaderboards, we compared the relative rankings of five open Arabic LLMs: [google/gemma-2-27b-it](https://huggingface.co/google/gemma-2-27b-it), [CohereForAI/aya-23-35B](https://huggingface.co/CohereForAI/aya-23-35B), [CohereForAI/aya-expanse-32b](https://huggingface.co/CohereForAI/aya-expanse-32b), [inceptionai/jais-adapted-70b-chat](https://huggingface.co/inceptionai/jais-adapted-70b-chat), and [meta-llama/Llama-3.3-70B-Instruct](https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct), across three leaderboards: OALL v2, SEAL Arabic, and AraGen. As illustrated in Figure 4, a correlation between the leaderboards is notable, with the Llama3.3-70-instruct model ranking first on both OALL v2 and AraGen, and third on SEAL. *As a clarification, AraGen currently only features the scores for [inceptionai/jais-adapted-70b-chat](https://huggingface.co/inceptionai/jais-adapted-70b-chat), and the Arabic SEAL leaderboard only includes Jais Adapted 70B, so presumably the pretrained model. As we could not fully solve this discrepancy, we decided to evaluate [inceptionai/jais-adapted-70b-chat](https://huggingface.co/inceptionai/jais-adapted-70b-chat) on OALL v2 for this comparison.
 
 <p align="center">
-    <img src="assets/leaderboard-arabic-v2/different_leaderboards_comparison_public_models_by_rank.png" width=80%/>
+    <img src="https://raw.githubusercontent.com/alielfilali01/OALL-assets/refs/heads/main/v2-blog-plots/different_leaderboards_comparison_public_models_by_rank.png" width=80%/>
     <figcaption align="center"><b>Figure 4: Comparing the relative ranking of five open models on the second edition of the Open Arabic LLM Leaderboard with the AraGen and SEAL-Arabic leaderboads. Data retrieved on 29 January 2025.</b></figcaption>
 </p>
 
 To further explore the differences between the two versions of OALL, we present in Figure 5 the top models across two categories: pretrained and chat. For models submitted to OALL v1, Qwen2.5 establishes itself as a strong baseline for Arabic in all categories, particularly for pretrained models. In OALL v2, Qwen models also dominate the pretrained models category, however the Qwen/Qwen2-72B model surpasses Qwen/Qwen2.5-72B as the best pretrained/continually pretrained model, and Llama3.3-70B-instruct emerges as the leader in all categories, surpassing calme-2.1-qwen2.5-72b in performance. Overall, some model rankings have shifted in v2, while others have remained consistent. We attribute these changes to two key factors: first, the robustness of models with respect to Arabic-native benchmarks, safety, and trustworthiness; and second, the evaluation of over 700 models in OALL v1 compared to 80 models in v2, including a few recent models that might not be present in v1. We anticipate that the community will contribute to expanding the leaderboard following its release.
 
 <p align="center">
-    <img src="assets/leaderboard-arabic-v2/best_pretrained_by_range.png" width=70%/>
-    <img src="assets/leaderboard-arabic-v2/best_chat_by_range.png" width=70%/>
+    <img src="https://raw.githubusercontent.com/alielfilali01/OALL-assets/refs/heads/main/v2-blog-plots/best_pretrained_by_range.png" width=70%/>
+    <img src="https://raw.githubusercontent.com/alielfilali01/OALL-assets/refs/heads/main/v2-blog-plots/best_chat_by_range.png" width=70%/>
     <figcaption align="center"><b>Figure 5: Comparison between best pretrained/continuously pretrained model for each model size range.</b></figcaption>
 </p>
 
 Finally, we analyzed the average scores on OALL v1 and v2 for two model families: AceGPT and Jais. As depicted in Figure 6, the trend is consistent across both versions: larger models tend to achieve higher average scores, with the exception of inceptionai/jais-family-30b-8k, that surpasses the larger inceptionai/jais-adapted-70b model on OALL v2. Overall, the average scores in v2 are higher than in v1, except for the 7B models in both families. We hypothesize that this discrepancy is due to the lower performance of smaller models on ALRAGE, as it is a generative task, which typically favors larger models.
 
 <p align="center">
-    <img src="assets/leaderboard-arabic-v2/reference_models_pretrained_by_range.png" width=80%/>
+    <img src="https://raw.githubusercontent.com/alielfilali01/OALL-assets/refs/heads/main/v2-blog-plots/reference_models_pretrained_by_range.png" width=80%/>
     <figcaption align="center"><b>Figure 6: Comparison for the AceGPT and Jais families of models.</b></figcaption>
 </p>
 
