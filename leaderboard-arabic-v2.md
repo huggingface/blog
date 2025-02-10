@@ -100,11 +100,10 @@ The innovative aspect of ALRAGE lies in its evaluation methodology, which implem
 
 Table 1 summarizes the datasets kept from the first version of the leaderboard as well as the new datasets introduced in this second version.
 
-<table align="center" border="1" style="width: 100%; text-align: center; border-collapse: collapse;">
-    <colgroup>
+<table>
+      <colgroup>
         <col style="width: 50%;">
         <col style="width: 50%;">
-        <col style="background-color: rgba(80, 15, 213, 0.5); width: 7%;">
     </colgroup>
     <tbody>
         <tr>
@@ -132,7 +131,7 @@ Table 1 summarizes the datasets kept from the first version of the leaderboard a
             <td>ALRAGE</td>
         </tr>
     </tbody>
-    <caption align="center"><b>Table 1: Overview of the datasets used in the second version of the Open Arabic LLLM Leaderboard (OALL v2)</b></caption>
+  <caption align="center"><b>Table 1: Overview of the datasets used in the second version of the Open Arabic LLLM Leaderboard (OALL v2)</b></caption>
 </table>
 
 Besides adding and removing datasets, we fixed multiple issues related to the UI and its filters, and we also introduced chat templates. In terms of user submissions, now the number of submissions is limited to 5 per organization per week. This limitation is meant to limit the usage of the leaderboard and give the chance to varied organizations to have their models evaluated. NOTE that for the models submitted by OALL's team to v2, if chat template is found in the config, it is used for the evaluation. Otherwise, chat template is disabled.
