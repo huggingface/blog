@@ -20,7 +20,7 @@ In practice, it's more complex. If we focused solely on maximizing deduplication
 
 On Hugging Face's [Xet team](https://huggingface.co/xet-team), we're bringing CDC from theory to production to deliver faster uploads and downloads to AI builders (by a factor of 2-3x in some cases). Our guiding principle is simple: enable rapid experimentation and collaboration for teams building and iterating on models and datasets. This means focusing on more than just deduplication; we’re optimizing how data moves across the network, how it’s stored, and the entire development experience.
 
-### The Realities of Scaling Deduplication
+## The Realities of Scaling Deduplication
 
 Imagine uploading a 200GB repository to the Hub. Today, [there are a number of ways to do this](https://huggingface.co/docs/huggingface_hub/en/guides/upload), but all use a file-centric approach. To bring faster file transfers to the Hub, we've open-sourced [xet-core](https://github.com/huggingface/xet-core) and `hf_xet`, an integration with [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) which uses a chunk-based approach written in Rust.
 
@@ -33,7 +33,7 @@ With nearly 45PB across 2 million model, dataset, and space repositories on the 
 
 In short, network requests balloon, databases struggle to manage the metadata, and the cost of orchestrating each chunk skyrockets all while you wait for your files to transfer.
 
-### Design Principles for Deduplication at Scale
+## Design Principles for Deduplication at Scale
 
 These challenges lead to a key realization:
 
@@ -47,7 +47,7 @@ By loosening the deduplication constraint, we naturally arrive at a second desig
 
 What does this mean? We scale with **aggregation.**
 
-### Scaling Deduplication with Aggregation
+## Scaling Deduplication with Aggregation
 
 Aggregation takes chunks and groups them, referencing them intelligently in ways that provide clever (and practical) benefits:
 
@@ -62,7 +62,7 @@ The solution is **key chunks** which are a 0.1% subset of all chunks. We provide
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/from-chunks-to-blocks/key-chunks.png" alt="Key chunks" width=90%>
 </p>
 
-### Aggregated Deduplication in Practice
+## Aggregated Deduplication in Practice
 
 The Hub currently stores over 3.5PB of `.gguf` files, most of which are quantized versions of other models on the Hub. Quantized models represent an interesting opportunity for deduplication due to the [nature of quantization](https://huggingface.co/docs/hub/en/gguf) where values are restricted to a smaller integer range and scaled. This restricts the range of values in the weight matrices, naturally leading to more repetition. Additionally, many repositories of quantized models store multiple different variants (e.g., [Q4_K, Q3_K, Q5_K](https://huggingface.co/docs/hub/en/gguf#quantization-types)) with a great deal of overlap.
 
@@ -76,7 +76,7 @@ Once uploaded, we can start to see some cool patterns! We’ve included a visual
 
 A single block of deduplication might only represent a few MB of savings, but as you can see there are many overlapping blocks! With this many blocks that quickly adds up. Instead of uploading 191GB, the Xet-backed version of the `gemma-2-9b-it-GGUF` repository stores 1515 unique blocks for a total of approximately 97GB to our test CAS environment (a savings of ~94GB).
 
-While the storage improvements are significant, the real benefit is what this means for contributors to the Hub. At 50MB/s, the deduplication optimizations amounts to a four hour difference in upload time; a speedup of nearly 2x:
+While the storage improvements are significant, the real benefit is what this means for contributors to the Hub. At 50MB/s, the deduplication optimizations amount to a four hour difference in upload time; a speedup of nearly 2x:
 
 | Repo       | Stored Size | Upload Time @ 50MB/s |
 | ---------- | ----------- | -------------------- |
