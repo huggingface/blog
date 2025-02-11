@@ -30,7 +30,7 @@ authors:
 # The Open Arabic LLM Leaderboard 2
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.4.0/gradio.js"> </script>
-<gradio-app theme_mode="dark" space="OALL-Open-Arabic-LLM-Leaderboard.hf.space"></gradio-app>
+<gradio-app theme_mode="dark" space="OALL/Open-Arabic-LLM-Leaderboard"></gradio-app>
 
 ## Current status of Arabic LLMs leaderboards 
 
@@ -178,7 +178,7 @@ Looking ahead, we hope to see the release of additional Arabic benchmarks, parti
 
 ## Acknowledgments
 
-The authors would like to thank Mohamed bin Zayed University of Artificial Intelligence (MBZUAI) for providing some of the new native benchmarks we are using in this version, including the new MMLU-HT dataset. We also extend our gratitude to TII for their generous sponsorship of the inference hardware needed for the evaluation backend. We also thank our friends at Hugging Face for their continous support and being always 🤗 whenever needed. Thanks to all people focusing on evaluation and leaderboards for their languages and tasks. Lastly, we thank the community for their engagement and valuable feedback on the first version of the OALL. Looking forward to seeing many models on the leaderboard :rocket:.
+The authors would like to thank Mohamed bin Zayed University of Artificial Intelligence (MBZUAI) for providing some of the new native benchmarks we are using in this version, including the new MMLU-HT dataset. We also extend our gratitude to TII for their generous sponsorship of the inference hardware needed for the evaluation backend. We also thank our friends at Hugging Face for their continous support and being always 🤗 whenever needed. Thanks to all people focusing on evaluation and leaderboards for their languages and tasks. Lastly, we thank the community for their engagement and valuable feedback on the first version of the OALL. Looking forward to seeing many models on the leaderboard 🚀.
 
 ## Citations
 ```
@@ -187,12 +187,12 @@ The authors would like to thank Mohamed bin Zayed University of Artificial Intel
   title = {The Open Arabic LLM Leaderboard 2},
   year = {2025},
   publisher = {OALL},
-  howpublished = "\url{https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard-2}"
+  howpublished = {https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard}
 }
 ```
 
 ## References
-- [1] [Open Arabic LLM Leaderboard](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard) (El Filali et al., 2024)
+- [1] [Introducing the Open Arabic LLM Leaderboard](https://https://huggingface.co/blog/leaderboard-arabic) (El Filali et al., 2024)
 - [2] [CamelEval: Advancing Culturally Aligned Arabic Language Models and Benchmarks](https://arxiv.org/abs/2409.12623v2) (Qian et al., 2024)
 - [3] [AlGhafa Evaluation Benchmark for Arabic Language Models](https://aclanthology.org/2023.arabicnlp-1.21/) (Almazrouei et al., ArabicNLP 2023)
 - [4] [The Belebele Benchmark: a Parallel Reading Comprehension Dataset in 122 Language Variants](https://aclanthology.org/2024.acl-long.44/) (Bandarkar et al., ACL, 2023)
