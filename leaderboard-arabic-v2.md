@@ -192,7 +192,7 @@ The authors would like to thank Mohamed bin Zayed University of Artificial Intel
 ```
 
 ## References
-- [1] [Introducing the Open Arabic LLM Leaderboard](https://https://huggingface.co/blog/leaderboard-arabic) (El Filali et al., 2024)
+- [1] [Introducing the Open Arabic LLM Leaderboard](https://huggingface.co/blog/leaderboard-arabic) (El Filali et al., 2024)
 - [2] [CamelEval: Advancing Culturally Aligned Arabic Language Models and Benchmarks](https://arxiv.org/abs/2409.12623v2) (Qian et al., 2024)
 - [3] [AlGhafa Evaluation Benchmark for Arabic Language Models](https://aclanthology.org/2023.arabicnlp-1.21/) (Almazrouei et al., ArabicNLP 2023)
 - [4] [The Belebele Benchmark: a Parallel Reading Comprehension Dataset in 122 Language Variants](https://aclanthology.org/2024.acl-long.44/) (Bandarkar et al., ACL, 2023)
