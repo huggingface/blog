@@ -22,7 +22,7 @@ On Hugging Face's [Xet team](https://huggingface.co/xet-team), we're bringing CD
 
 ### The Realities of Scaling Deduplication
 
-Imagine uploading a 200GB repository to the Hub. Today, [there are a number of ways to do this](https://huggingface.co/docs/huggingface_hub/en/guides/upload), but all use a file-centric approach. To bring faster file transfers to the Hub, we've opened sourced [xet-core](https://github.com/huggingface/xet-core) and `hf_xet`, an integration with [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) which uses a chunk-based approach written in Rust.
+Imagine uploading a 200GB repository to the Hub. Today, [there are a number of ways to do this](https://huggingface.co/docs/huggingface_hub/en/guides/upload), but all use a file-centric approach. To bring faster file transfers to the Hub, we've open-sourced [xet-core](https://github.com/huggingface/xet-core) and `hf_xet`, an integration with [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) which uses a chunk-based approach written in Rust.
 
 If you consider a 200GB repository with unique chunks, that's 3 million entries (at [~64KB per chunk](https://github.com/huggingface/xet-core/blob/main/merkledb/src/constants.rs#L5)) in the content-addressed store (CAS) backing all repositories. If a new version of a model is uploaded or a branch in the repository is created with different data, more unique chunks are added, driving up the entries in the CAS.
 
