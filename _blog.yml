@@ -5472,10 +5472,10 @@
     - smolagents
 
 - local: from-chunks-to-blocks
-  title: "From Chunks to Blocks: Scaling Deduplication for the Hugging Face Hub"
+  title: "From Chunks to Blocks: Accelerating Uploads and Downloads on the Hub"
   author: jsulz
   thumbnail: /blog/assets/from-chunks-to-blocks/thumbnail.png
-  date: February 10, 2025
+  date: February 12, 2025
   tags:
     - dedupe
     - storage
