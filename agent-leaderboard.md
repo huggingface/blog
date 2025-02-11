@@ -9,9 +9,9 @@ authors:
 
 <div align="center">
 
-[![Leaderboard](https://img.shields.io/badge/🤗%20View-Leaderboard-blue)](https://huggingface.co/spaces/galileo-ai/agent-leaderboard)
-[![Blog](https://img.shields.io/badge/📖%20Read-Blog-green)](https://galileo.ai/blog/agent-leaderboard)
-[![Dataset](https://img.shields.io/badge/🔍%20Explore-Dataset-orange)](https://huggingface.co/datasets/galileo-ai/agent-leaderboard)
+[![Leaderboard](https://img.shields.io/badge/🤗%20View-Leaderboard-red)](https://huggingface.co/spaces/galileo-ai/agent-leaderboard)
+[![GitHub](https://img.shields.io/badge/📂%20GitHub-Repository-blue)](https://github.com/rungalileo/agent-leaderboard)
+[![Dataset](https://img.shields.io/badge/🔍%20Explore-Dataset-purple)](https://huggingface.co/datasets/galileo-ai/agent-leaderboard)
 
 </div>
 
