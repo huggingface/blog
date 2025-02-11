@@ -5474,9 +5474,9 @@
 
 - local: vid_ds_scripts
   title: "Build awesome datasets for video generation"
-  author: sayakpaul
+  author: hlky
   thumbnail: /blog/assets/vid_ds_scripts/thumbnail.png
-  date: Feb 06, 2025
+  date: Feb 11, 2025
   tags:
     - guide
     - video

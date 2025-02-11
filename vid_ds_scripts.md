@@ -167,3 +167,5 @@ We then used these datasets to fine-tune the [CogVideoX-5B](https://huggingface.
 ## Your Turn
 
 We hope this tooling gives you a headstart to create small and high-quality video datasets for your own custom applications. We will continue to add more useful filters to the repository, so, please keep an eye out. Your contributions are also more than welcome 🤗
+
+Thanks to [Pedro Cuenca](https://github.com/pcuenca) for his extensive reviews on the post.
