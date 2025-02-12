@@ -68,10 +68,10 @@ The Hub currently stores over 3.5PB of `.gguf` files, most of which are quantize
 
 A good example of this in practice is [bartowski/gemma-2-9b-it-GGUF](https://huggingface.co/bartowski/gemma-2-9b-it-GGUF) which contains 29 quantizations of [google/gemma-2-9b-it](https://huggingface.co/google/gemma-2-9b-it) totalling 191GB. To upload, we use `hf_xet` integrated with `huggingface_hub` to perform chunk-level deduplication locally then aggregate and store data at the block level.
 
-Once uploaded, we can start to see some cool patterns! We’ve included a visualization that shows the deduplication ratio for each block. The darker the block, the more frequently parts of it are referenced across model versions. If you go to the [Space hosting this visualization](https://huggingface.co/spaces/xet-team/quantization-dedup), hovering over any heatmap cell highlights all references to the block in orange across all models:
+Once uploaded, we can start to see some cool patterns! We’ve included a visualization that shows the deduplication ratio for each block. The darker the block, the more frequently parts of it are referenced across model versions. If you go to the [Space hosting this visualization](https://huggingface.co/spaces/xet-team/quantization-dedup), hovering over any heatmap cell highlights all references to the block in orange across all models while clicking on a cell will select all other files that share blocks:
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/from-chunks-to-blocks/quantization-dedupe-viz.png" alt="Quantization deduplication visualization" width=90%>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/from-chunks-to-blocks/dedupe_viz.gif" alt="Quantization deduplication visualization" width=90%>
 </p>
 
 A single block of deduplication might only represent a few MB of savings, but as you can see there are many overlapping blocks! With this many blocks that quickly adds up. Instead of uploading 191GB, the Xet-backed version of the `gemma-2-9b-it-GGUF` repository stores 1515 unique blocks for a total of approximately 97GB to our test CAS environment (a savings of ~94GB).
