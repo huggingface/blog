@@ -18,7 +18,10 @@ In this post, we provide an overview of the tooling we are developing to make it
 
 **Table of contents**
 
-TODO
+1. Tooling
+2. Filtering examples
+3. Putting this tooling to use 👨‍🍳
+4. Your Turn
 
 ## Tooling
 
