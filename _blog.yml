@@ -5484,3 +5484,13 @@
     - leaderboard
     - LLM
     - arabic
+
+- local: vid_ds_scripts
+  title: "Build awesome datasets for video generation"
+  author: hlky
+  thumbnail: /blog/assets/vid_ds_scripts/thumbnail.png
+  date: Feb 12, 2025
+  tags:
+    - guide
+    - video
+    - datasets
