@@ -131,7 +131,7 @@ Table 1 summarizes the datasets kept from the first version of the leaderboard a
             <td>ALRAGE</td>
         </tr>
     </tbody>
-  <caption align="center"><b>Table 1: Overview of the datasets used in the second version of the Open Arabic LLLM Leaderboard (OALL v2)</b></caption>
+  <caption align="center"><b>Table 1: Overview of the datasets used in the second version of the Open Arabic LLM Leaderboard (OALL v2)</b></caption>
 </table>
 
 Besides adding and removing datasets, we fixed multiple issues related to the UI and its filters, and we also introduced chat templates. In terms of user submissions, now the number of submissions is limited to 5 per organization per week. This limitation is meant to limit the usage of the leaderboard and give the chance to varied organizations to have their models evaluated. NOTE that for the models submitted by OALL's team to v2, if chat template is found in the config, it is used for the evaluation. Otherwise, chat template is disabled.
@@ -152,7 +152,7 @@ To examine the correlation between OALL and other Arabic LLM leaderboards, we co
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/alielfilali01/OALL-assets/refs/heads/main/v2-blog-plots/different_leaderboards_comparison_public_models_by_rank.png" width=80%/>
-    <figcaption align="center"><b>Figure 4: Comparing the relative ranking of five open models on the second edition of the Open Arabic LLM Leaderboard with the AraGen and SEAL-Arabic leaderboads. Data retrieved on 29 January 2025.</b></figcaption>
+    <figcaption align="center"><b>Figure 4: Comparing the relative ranking of five open models on the second edition of the Open Arabic LLM Leaderboard with the AraGen and SEAL-Arabic leaderboards. Data retrieved on 29 January 2025.</b></figcaption>
 </p>
 
 To further explore the differences between the two versions of OALL, we present in Figure 5 the top models across two categories: pretrained and chat. For models submitted to OALL v1, Qwen2.5 establishes itself as a strong baseline for Arabic in all categories, particularly for pretrained models. In OALL v2, Qwen models also dominate the pretrained models category, however the Qwen/Qwen2-72B model surpasses Qwen/Qwen2.5-72B as the best pretrained/continually pretrained model, and Llama3.3-70B-instruct emerges as the leader in all categories, surpassing calme-2.1-qwen2.5-72b in performance. Overall, some model rankings have shifted in v2, while others have remained consistent. We attribute these changes to two key factors: first, the robustness of models with respect to Arabic-native benchmarks, safety, and trustworthiness; and second, the evaluation of over 700 models in OALL v1 compared to 80 models in v2, including a few recent models that might not be present in v1. We anticipate that the community will contribute to expanding the leaderboard following its release.
@@ -178,7 +178,7 @@ Looking ahead, we hope to see the release of additional Arabic benchmarks, parti
 
 ## Acknowledgments
 
-The authors would like to thank Mohamed bin Zayed University of Artificial Intelligence (MBZUAI) for providing some of the new native benchmarks we are using in this version, including the new MMLU-HT dataset. We also extend our gratitude to TII for their generous sponsorship of the inference hardware needed for the evaluation backend. We also thank our friends at Hugging Face for their continous support and being always 🤗 whenever needed. Thanks to all people focusing on evaluation and leaderboards for their languages and tasks. Lastly, we thank the community for their engagement and valuable feedback on the first version of the OALL. Looking forward to seeing many models on the leaderboard 🚀.
+The authors would like to thank Mohamed bin Zayed University of Artificial Intelligence (MBZUAI) for providing some of the new native benchmarks we are using in this version, including the new MMLU-HT dataset. We also extend our gratitude to TII for their generous sponsorship of the inference hardware needed for the evaluation backend. We also thank our friends at Hugging Face for their continuous support and being always 🤗 whenever needed. Thanks to all people focusing on evaluation and leaderboards for their languages and tasks. Lastly, we thank the community for their engagement and valuable feedback on the first version of the OALL. Looking forward to seeing many models on the leaderboard 🚀.
 
 ## Citations
 ```
