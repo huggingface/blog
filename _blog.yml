@@ -5494,3 +5494,19 @@
     - guide
     - video
     - datasets
+
+- local: billion-classifications
+  title: "1 Billion Classifications"
+  author: derek-thomas
+  thumbnail: /blog/assets/billion-classifications/billion-classifications-thumbnail.png
+  guest: true
+  date: Feb 12, 2025
+  tags:
+    - inference-endpoints
+    - classification
+    - embedding
+    - embeddings
+    - nlp
+    - python
+    - cost
+    - enterprise
