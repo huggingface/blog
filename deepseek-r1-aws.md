@@ -66,7 +66,7 @@ You can deploy the Deepseek distilled models on Amazon Bedrock via the marketpla
 You can deploy the Deepseek distilled models on Amazon Sagemaker AI with Hugging Face LLM DLCs using Jumpstart directly or using the Python Sagemaker SDK.
 Here is a video of how you can navigate through the AWS console:
 
-![bedrock-deployment.gif](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/deepseek-aws/jumpstart-deployment.gif)
+![jumpstart-deployment.gif](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/deepseek-aws/jumpstart-deployment.gif)
 
 Now we have seen how to deploy usig Jumpstart, let’s walk through the Python Sagemaker SDK deployment of DeepSeek-R1-Distill-Llama-70B. 
 
