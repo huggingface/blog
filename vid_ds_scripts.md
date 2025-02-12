@@ -105,13 +105,13 @@ The shard of glass scores low at 4.04
 |:---------:|:-----:|
 | 4.04      | ![19s8CRUVf3E-Scene-015_1.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vid_ds_scripts/19s8CRUVf3E-Scene-015_1.jpg) |
 
-In our we filtering we required all scores to be below the threshold, in this case using the aesthetic score from the first frame only would be a more effective strategy. 
+In our filtering we required all scores to be below the threshold, in this case using the aesthetic score from the first frame only would be a more effective strategy. 
 
 If we review [`finetrainers/crush-smol`](https://huggingface.co/datasets/finetrainers/crush-smol) we can notice that many of the objects being crushed are round or rectangular and colorful which is similar to our findings in the example frames. Aesthetic scores can be useful yet have a bias that will potentially filter out good data when used with extreme thresholds like > 5.5. It may be more effective as a filter for bad content than good with a minimum threshold of around 4.25 - 4.5.
 
 ### OCR/Caption
 
-Here we provide some visual examples for each filters as well as the captions from Florence-2.
+Here we provide some visual examples for each filter as well as the captions from Florence-2.
 
 <table>
     <tr>
