@@ -18,10 +18,10 @@ In this post, we provide an overview of the tooling we are developing to make it
 
 **Table of contents**
 
-1. Tooling
-2. Filtering examples
-3. Putting this tooling to use 👨‍🍳
-4. Your Turn
+1. [Tooling](#tooling)
+2. [Filtering examples](#filtering-examples)
+3. [Putting this tooling to use 👨‍🍳](#putting-this-tooling-to-use-)
+4. [Your Turn](#your-turn)
 
 ## Tooling
 
@@ -169,6 +169,6 @@ We then used these datasets to fine-tune the [CogVideoX-5B](https://huggingface.
 
 ## Your Turn
 
-We hope this tooling gives you a headstart to create small and high-quality video datasets for your own custom applications. We will continue to add more useful filters to the repository, so, please keep an eye out. Your contributions are also more than welcome 🤗
+We hope this tooling gives you a headstart to create small and high-quality video datasets for your own custom applications. We will continue to add more useful filters to [the repository](https://github.com/huggingface/video-dataset-scripts), so, please keep an eye out. Your contributions are also more than welcome 🤗
 
-Thanks to [Pedro Cuenca](https://github.com/pcuenca) for his extensive reviews on the post.
+_Thanks to [Pedro Cuenca](https://github.com/pcuenca) for his extensive reviews on the post._
