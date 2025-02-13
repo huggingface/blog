@@ -285,7 +285,7 @@ You can see the results in an interactive format [here](https://nbviewer.org/git
 
 ## Analysis
 
-Do check out the detailed analysis in this space ([derek-thomas/classification-analysis](https://huggingface.co/spaces/derek-thomas/classification-analysis)) for the classification use-case:
+Do check out the detailed analysis in this space ([derek-thomas/classification-analysis](https://huggingface.co/spaces/derek-thomas/classification-analysis)) for the classification use-case (**hide** side-bar and **scroll down** for the charts):
 
 <iframe space="derek-thomas/classification-analysis" src="https://derek-thomas-classification-analysis.hf.space" width="100%" height="1200px" frameborder="0"></iframe>
 
