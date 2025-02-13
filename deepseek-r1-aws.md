@@ -24,6 +24,7 @@ We collaborate with Amazon Web Services to make it easier for developers to depl
 Let’s review how you can deploy and fine-tune DeepSeek R1 models with Hugging Face on AWS.
 - [Deploy DeepSeek R1 models](#deploy-deepseek-r1-models)
     - [Deploy on AWS with Hugging Face Inference Endpoints](#deploy-on-aws-with-hugging-face-inference-endpoints)
+    - [Deploy on Amazon Bedrock Marketplace]
     - [Deploy on Amazon SageMaker AI with Hugging Face LLM DLCs](#deploy-on-amazon-sagemaker-ai-with-hugging-face-llm-dlcs)
         - [DeepSeek R1 on GPUs](#deepseek-r1-on-gpus)
         - [Distilled models on GPUs](#distilled-models-on-gpus)
@@ -48,6 +49,12 @@ You can find DeepSeek R1 and distilled models, as well as other popular open LLM
 
 | **Note:** The team is working on enabling DeepSeek models deployment on Inferentia instances. Stay tuned!
 
+### Deploy on Amazon Bedrock Marketplace
+
+You can deploy the Deepseek distilled models on Amazon Bedrock via the marketplace, which will deploy an endpoint in Amazon SageMaker AI under the hood. Here is a video of how you can navigate through the AWS console:
+
+![bedrock-deployment.gif](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/deepseek-aws/bedrock-deployment.gif)
+
 ### Deploy on Amazon Sagemaker AI with Hugging Face LLM DLCs
 
 #### DeepSeek R1 on GPUs
@@ -56,7 +63,12 @@ You can find DeepSeek R1 and distilled models, as well as other popular open LLM
 
 #### Distilled models on GPUs
 
-Let’s walk through the deployment of DeepSeek-R1-Distill-Llama-70B. 
+You can deploy the Deepseek distilled models on Amazon Sagemaker AI with Hugging Face LLM DLCs using Jumpstart directly or using the Python Sagemaker SDK.
+Here is a video of how you can navigate through the AWS console:
+
+![jumpstart-deployment.gif](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/deepseek-aws/jumpstart-deployment.gif)
+
+Now we have seen how to deploy usig Jumpstart, let’s walk through the Python Sagemaker SDK deployment of DeepSeek-R1-Distill-Llama-70B. 
 
 Code snippets are available on the model page under the Deploy button! 
 
