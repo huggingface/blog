@@ -209,7 +209,7 @@ There are a large number of architectures which are compatible, and you can see 
 
 ModernBERT is the most exciting encoder release since DeBERTa back in 2020. It has all the *ahem* modern tricks built into an old and familiar architecture. It makes for an attractive model to experiment with as its much less explored than other architectures and has a lot more potential. There are a number of improvements in speed and performance, but the most notable for a user is likely the 8k context window. Do check out this [blog](https://huggingface.co/blog/modernbert) for a more thorough understanding.
 
-It's important to note that Flash Attention 2 will only work with more modern GPUs due to the compute cap requirement, so I opted to skip the T4 in favor of the L4. An H100 would also work really well here for the heavy hitters category.
+It's important to note that Flash Attention 2 will only work with more modern GPUs due to the compute capability requirement, so I opted to skip the T4 in favor of the L4. An H100 would also work really well here for the heavy hitters category.
 
 | Category               | Values                                                                                                                                               |
 | :---- | :---- |
