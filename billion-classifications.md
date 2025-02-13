@@ -299,7 +299,7 @@ Scaling to 1B+ classifications or embeddings per day is a non-trivial challenge,
 
 Your data, hardware, models, etc might differ, but I hope you find some use in the approach and [code](https://github.com/datavistics/encoder-analysis) provided. The best way to get an estimate is to run this on your own task with your own configurations. Let's get exploring!
 
-Special thanks to [andrewrreed/auto-bench](https://github.com/andrewrreed/auto-bench) for some inspiration, Michael Feil for creating [Infinity](https://github.com/michaelfeil/infinity/). Also thanks to Pedro Cuenca, Erik Kaunismaki, and Tom Aarsen for helping me review 
+Special thanks to [andrewrreed/auto-bench](https://github.com/andrewrreed/auto-bench) for some inspiration, Michael Feil for creating [Infinity](https://github.com/michaelfeil/infinity/). Also thanks to Pedro Cuenca, Erik Kaunismaki, and Tom Aarsen for helping me review.
 
 ## References
 
