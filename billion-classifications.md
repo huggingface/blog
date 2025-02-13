@@ -249,7 +249,7 @@ ColBERT style is different than our previous embedding use-case since it breaks 
 I'm excited for this experiment as it explores 2 lesser known concepts, vision embeddings and ColBERT style embeddings†. There are a few things to note about ColQwen2/VLMs:
 
 * 2B is ~15x bigger than the other models we looked at in this blog  
-* ColQwen2 has complex architecture with multiple models including a decoder which is slower than an encoder  
+* ColQwen2 has a complex architecture with multiple models including a decoder which is slower than an encoder  
 * Images can easily consume a lot of tokens  
 * API Costs:  
   * Sending images over an API is slower than sending text.  
