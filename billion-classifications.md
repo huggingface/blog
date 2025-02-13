@@ -3,6 +3,7 @@ title: "1 Billion Classifications"
 thumbnail: /blog/assets/billion-classifications/billion-classifications-thumbnail.png
 authors:
 - user: derek-thomas
+  guest: true
 ---
 
 # 1 Billion Classifications
