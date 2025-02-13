@@ -93,7 +93,7 @@ Depending on your model you might want to consider:
 
 * Which Docker image you are using. [`'michaelf34/infinity:0.0.75-trt-onnx'`, `'michaelf34/infinity:0.0.75'`]  
   * There are a number of [Infinity Images](https://github.com/michaelfeil/infinity?tab=readme-ov-file#specialized-docker-images) that can support different backends. You should consider which ones are most applicable to your hardware/model/configuration.  
-* `INFINITY_COMPILE` whether or not you want use `torch.compile()` [docs](https://pytorch.org/tutorials/intermediate/torch_compile_tutorial.html)  
+* `INFINITY_COMPILE` whether or not you want to use `torch.compile()` [docs](https://pytorch.org/tutorials/intermediate/torch_compile_tutorial.html)  
 * `INFINITY_BETTERTRANSFORMER` whether or not you want torch to use [Better Transformer](https://huggingface.co/docs/optimum/en/bettertransformer/overview)
 
 ### K6 
@@ -163,13 +163,13 @@ I made a couple design choices which you may want to think through to see if the
   * It made some architectural changes from OG Bert and is not compatible for classification with TEI  
 * [DeBERTa-v3](https://huggingface.co/microsoft/deberta-v3-base)  
   * Great task performance  
-  * Very slow engineering performance†† as it's unique attention mechanism is hard to optimize  
+  * Very slow engineering performance†† as its unique attention mechanism is hard to optimize  
 * [ModernBERT](https://huggingface.co/blog/modernbert)  
   * Uses Sequence Packing and Flash-Attention-2  
   * Great task performance and great engineering performance††
 
 † Do note that for these models, you *typically* need to fine-tune this on your data to perform well  
-†† Im using “Engineering performance” to denote anticipated latency/throughput 
+†† I'm using “Engineering performance” to denote anticipated latency/throughput 
 
 ### Experiment
 
@@ -208,7 +208,7 @@ There are a large number of architectures which are compatible, and you can see 
 
 ### Experiment
 
-ModernBERT is the most exciting encoder release since DeBERTa back in 2020. It has all the *ahem* modern tricks built into an old and familiar architecture. It makes for an attractive model to experiment with as its much less explored than other architectures and has a lot more potential. There are a number of improvements in speed and performance, but the most notable for a user is likely the 8k context window. Do check out this [blog](https://huggingface.co/blog/modernbert) for a more thorough understanding.
+ModernBERT is the most exciting encoder release since DeBERTa back in 2020. It has all the *ahem* modern tricks built into an old and familiar architecture. It makes for an attractive model to experiment with as it's much less explored than other architectures and has a lot more potential. There are a number of improvements in speed and performance, but the most notable for a user is likely the 8k context window. Do check out this [blog](https://huggingface.co/blog/modernbert) for a more thorough understanding.
 
 It's important to note that Flash Attention 2 will only work with more modern GPUs due to the compute capability requirement, so I opted to skip the T4 in favor of the L4. An H100 would also work really well here for the heavy hitters category.
 
@@ -248,8 +248,8 @@ ColBERT style is different than our previous embedding use-case since it breaks 
 
 I'm excited for this experiment as it explores 2 lesser known concepts, vision embeddings and ColBERT style embeddings†. There are a few things to note about ColQwen2/VLMs:
 
-* 2B is is ~15x bigger than the other models we looked at in this blog  
-* ColQwen2 has an complex architecture with multiple models including a decoder which is slower than an encoder  
+* 2B is ~15x bigger than the other models we looked at in this blog  
+* ColQwen2 has complex architecture with multiple models including a decoder which is slower than an encoder  
 * Images can easily consume a lot of tokens  
 * API Costs:  
   * Sending images over an API is slower than sending text.  
@@ -395,7 +395,7 @@ But here is a much cleaner one from the vision-embedding task:
 
 ### Infinity Client
 
-For actual usage, do consider using the [infinity client](https://github.com/michaelfeil/infinity/blob/main/libs/client_infinity/infinity_client/infinity_client/vision_client.py). When we are benchmarking its good practice to use k6 to know what’s possible. For actual usage, use the official lib, or something close for a few benefits:
+For actual usage, do consider using the [infinity client](https://github.com/michaelfeil/infinity/blob/main/libs/client_infinity/infinity_client/infinity_client/vision_client.py). When we are benchmarking it's good practice to use k6 to know what’s possible. For actual usage, use the official lib, or something close for a few benefits:
 
 * Base64 means smaller payloads (faster and cheaper)  
 * The maintained library should make development cleaner and easier  
