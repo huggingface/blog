@@ -25,7 +25,7 @@ Light up your projects with Fireworks.ai today!
 
 ### In the website UI
 
-TODO(screenshot)
+![Fireworks.ai inference provider UI](https://huggingface.co/datasets/huggingface/documentation-images/raw/main/inference-providers/fireworks.png)
 
 Search for all models supported by Fireworks on HF [here](https://huggingface.co/models?inference_provider=fireworks-ai)
 
