@@ -15,6 +15,8 @@ Following our recent announcement on [Inference Providers on the Hub](https://hu
 
 [Fireworks.ai](https://fireworks.ai) delivers blazing-fast serverless inference directly on model pages—making it easier than ever to deploy and experiment with your favorite models.
 
+<img src="https://huggingface.co/blog/assets/inference-providers/welcome-fireworks-2.jpg" alt="Fireworks.ai supported as Inference Provider on Hugging Face"/>
+
 Among others, starting now, you can run serverless inference to the following models via Fireworks.ai:
 
 - [deepseek-ai/DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1)
@@ -26,8 +28,6 @@ Among others, starting now, you can run serverless inference to the following mo
 and many more, you can find the full list [here](https://huggingface.co/models?inference_provider=fireworks-ai).
 
 Light up your projects with Fireworks.ai today!
-
-<img src="https://huggingface.co/blog/assets/inference-providers/welcome-fireworks-2.jpg" alt="Fireworks.ai supported as Inference Provider on Hugging Face"/>
 
 ## How it works
 
