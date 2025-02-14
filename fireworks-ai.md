@@ -34,19 +34,29 @@ See all models supported by Fireworks on HF here: https://huggingface.co/models?
 Install `huggingface_hub` from source: 
 ```bash
 pip install git+https://github.com/huggingface/huggingface_hub
+
 ```python
 from huggingface_hub import InferenceClient
 
 client = InferenceClient(
-	provider="fireworks-ai",
-	api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
+    provider="fireworks-ai",
+    api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
 )
 
-result = client.text_to_image(
-	"A vibrant fireworks display",
-	model=""
+messages = [
+    {
+        "role": "user",
+        "content": "What is the capital of France?"
+    }
+]
+
+completion = client.chat.completions.create(
+    model="deepseek-ai/DeepSeek-R1", 
+    messages=messages, 
+    max_tokens=500
 )
-print(result)
+
+print(completion.choices[0].message)
 
 ```
 
@@ -58,17 +68,39 @@ import { HfInference } from "@huggingface/inference";
 
 const client = new HfInference("xxxxxxxxxxxxxxxxxxxxxxxx");
 
-const result = await client.textToImage({
-  prompt: "A vibrant fireworks display",
-  provider: "fireworks-ai"
+const chatCompletion = await client.chatCompletion({
+    model: "deepseek-ai/DeepSeek-R1",
+    messages: [
+        {
+            role: "user",
+            content: "How to make extremely spicy Mayonnaise?"
+        }
+    ],
+    provider: "fireworks-ai",
+    max_tokens: 500
 });
 
-console.log(result);
+console.log(chatCompletion.choices[0].message);
 ```
 
 ### From HTTP calls
 
-TODO
+```
+curl 'https://router.huggingface.co/fireworks-ai/v1/chat/completions' \
+-H 'Authorization: Bearer xxxxxxxxxxxxxxxxxxxxxxxx' \
+-H 'Content-Type: application/json' \
+--data '{
+    "model": "Llama-3.3-70B-Instruct",
+    "messages": [
+        {
+            "role": "user",
+            "content": "What is the meaning of life if you were a dog?"
+        }
+    ],
+    "max_tokens": 500,
+    "stream": false
+}'
+```
 
 ## Billing
 
