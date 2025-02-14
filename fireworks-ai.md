@@ -31,7 +31,9 @@ See all models supported by Fireworks on HF here: https://huggingface.co/models?
 
 
 #### from Python, using huggingface_hub
-
+Install `huggingface_hub` from source: 
+```bash
+pip install git+https://github.com/huggingface/huggingface_hub
 ```python
 from huggingface_hub import InferenceClient
 
