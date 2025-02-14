@@ -21,13 +21,15 @@ and many more, you can find the full list [here](https://huggingface.co/models?i
 
 Light up your projects with Fireworks.ai today!
 
+<img src="https://huggingface.co/blog/inference-providers/welcome-fireworks-2.jpg" alt="Fireworks.ai supported as Inference Provider on Hugging Face"/>
+
 ## How it works
 
 ### In the website UI
 
 ![Fireworks.ai inference provider UI](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/fireworks.png)
 
-Search for all models supported by Fireworks on HF [here](https://huggingface.co/models?inference_provider=fireworks-ai)
+Search for all models supported by Fireworks on HF **[here](https://huggingface.co/models?inference_provider=fireworks-ai)**.
 
 ### From the client SDKs
 
