@@ -1,5 +1,5 @@
 ---
-title: "Fixing OpenLLM Leaderboard with Math-Verify"
+title: "Fixing Open LLM Leaderboard with Math-Verify"
 thumbnail: /blog/assets/math_verify_leaderboard/thumbnail.png
 authors:
 - user: hynky
@@ -9,7 +9,7 @@ authors:
 ---
 
 
-# Fixing OpenLLM Leaderboard with Math-Verify
+# Fixing Open LLM Leaderboard with Math-Verify
 
 3 weeks ago, we showed how hard it is to correctly evaluate LLM performance on math problems, and introduced [Math-Verify](https://github.com/huggingface/Math-Verify), a better solution to math evaluations (read more in the [announcement](https://x.com/HKydlicek/status/1881734376696041659))!
 
