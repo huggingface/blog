@@ -29,16 +29,19 @@ TODO(screenshot)
 
 Search for all models supported by Fireworks on HF [here](https://huggingface.co/models?inference_provider=fireworks-ai)
 
+### From the client SDKs
 
-#### From your code
+#### from Python, using huggingface_hub
 
-Use the `huggingface_hub` python library to call Fireworks.ai endpoints by defining the `provider` parameter.
+The following example shows how to use DeepSeek-R1 using Fireworks.ai as your inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Fireworks.ai API key if you have one.
 
 Install `huggingface_hub` from source: 
 
 ```bash
 pip install git+https://github.com/huggingface/huggingface_hub
 ```
+
+Use the `huggingface_hub` python library to call Fireworks.ai endpoints by defining the `provider` parameter.
 
 ```python
 from huggingface_hub import InferenceClient
@@ -64,8 +67,7 @@ completion = client.chat.completions.create(
 print(completion.choices[0].message)
 ```
 
-Also, from JS using the `@huggingface/inference` library and the `provider` parameter set to `"fireworks-ai"`.
-
+#### from JS using @huggingface/inference
 
 ```js
 import { HfInference } from "@huggingface/inference";
@@ -87,7 +89,9 @@ const chatCompletion = await client.chatCompletion({
 console.log(chatCompletion.choices[0].message);
 ```
 
-Or just through any HTTP request.
+### From HTTP calls
+
+Here's how you can call Llama-3.3-70B-Instruct using Fireworks.ai as the inference provider via cURL.
 
 ```
 curl 'https://router.huggingface.co/fireworks-ai/v1/chat/completions' \
