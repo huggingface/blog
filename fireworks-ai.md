@@ -27,10 +27,12 @@ Light up your projects with Fireworks.ai today!
 
 TODO(screenshot)
 
-See all models supported by Fireworks on HF here: https://huggingface.co/models?inference_provider=fireworks-ai
+Search for all models supported by Fireworks on HF [here](https://huggingface.co/models?inference_provider=fireworks-ai)
 
 
-#### from Python, using huggingface_hub
+#### From your code
+
+Use the `huggingface_hub` python library to call Fireworks.ai endpoints by defining the `provider` parameter.
 
 Install `huggingface_hub` from source: 
 
@@ -62,7 +64,7 @@ completion = client.chat.completions.create(
 print(completion.choices[0].message)
 ```
 
-#### from JS using @huggingface/inference
+Also, from JS using the `@huggingface/inference` library and the `provider` parameter set to `"fireworks-ai"`.
 
 
 ```js
@@ -85,7 +87,7 @@ const chatCompletion = await client.chatCompletion({
 console.log(chatCompletion.choices[0].message);
 ```
 
-### From HTTP calls
+Or just through any HTTP request.
 
 ```
 curl 'https://router.huggingface.co/fireworks-ai/v1/chat/completions' \
@@ -109,3 +111,7 @@ curl 'https://router.huggingface.co/fireworks-ai/v1/chat/completions' \
 For direct requests, i.e. when you use a Fireworks key, you are billed directly on your Fireworks account.
 
 For routed requests, i.e. when you authenticate via the hub, you'll only pay the standard Fireworks API rates. There's no additional markup from us, we just pass through the provider costs directly. (In the future, we may establish revenue-sharing agreements with our provider partners.)
+
+Important Note ‼️ PRO users get $2 worth of Inference credits every month. You can use them across providers. 🔥
+
+Subscribe to the [Hugging Face PRO plan](https://hf.co/subscribe/pro) to get access to Inference credits, ZeroGPU, Spaces Dev Mode, 20x higher limits, and more.
