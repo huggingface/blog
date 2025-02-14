@@ -2,7 +2,13 @@
 title: "Welcome Fireworks.ai on the Hub 🎆"
 thumbnail: /blog/assets/inference-providers/welcome-fireworks-2.jpg
 authors:
-- user: your_username
+- user: teofeliu
+  guest: true
+  org: fireworks-ai
+- user: shaunak-fireworks
+  guest: true
+  org: fireworks-ai
+- user: julien-c
 ---
 
 Following our recent announcement on [Inference Providers on the Hub](https://huggingface.co/blog/inference-providers), we're thrilled to share that **Fireworks.ai** is now a supported Inference Provider on HF Hub!
