@@ -1,6 +1,6 @@
 ---
 title: "Welcome Fireworks.ai on the Hub 🎆"
-thumbnail: /blog/assets/inference-providers/fireworks-ai.png
+thumbnail: /blog/assets/inference-providers/welcome-fireworks-2.jpg
 authors:
 - user: your_username
 ---
