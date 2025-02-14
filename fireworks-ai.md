@@ -13,7 +13,7 @@ authors:
 
 Following our recent announcement on [Inference Providers on the Hub](https://huggingface.co/blog/inference-providers), we're thrilled to share that **Fireworks.ai** is now a supported Inference Provider on HF Hub!
 
-[Fireworks.ai](https://fireworks.ai) delivers blazing-fast serverless inference directly on model pages—making it easier than ever to deploy and experiment with your favorite models.
+[Fireworks.ai](https://fireworks.ai) delivers blazing-fast serverless inference directly on model pages, as well as throughout the whole HF ecosystem of libraries and tools, making it easier than ever to run inference on your favorite models.
 
 <img src="https://huggingface.co/blog/assets/inference-providers/welcome-fireworks.jpg" alt="Fireworks.ai supported as Inference Provider on Hugging Face"/>
 
