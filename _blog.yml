@@ -5523,6 +5523,7 @@
 
 - local: math_verify_leaderboard
   title: "Fixing OpenLLM Leaderboard with Math-Verify"
+  author: hynky
   thumbnail: /blog/assets/math_verify_leaderboard/thumbnail.png
   date: Feb 14, 2025
   tags:
