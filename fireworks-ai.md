@@ -106,7 +106,7 @@ curl 'https://router.huggingface.co/fireworks-ai/v1/chat/completions' \
 -H 'Authorization: Bearer xxxxxxxxxxxxxxxxxxxxxxxx' \
 -H 'Content-Type: application/json' \
 --data '{
-    "model": "Llama-3.3-70B-Instruct",
+    "model": "accounts/fireworks/models/llama-v3p3-70b-instruct",
     "messages": [
         {
             "role": "user",
