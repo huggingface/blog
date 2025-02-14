@@ -11,11 +11,13 @@ Following our recent announcement on [Inference Providers on the Hub](https://hu
 
 Among others, starting now, you can run serverless inference to the following models via Fireworks.ai:
 
-- deepseek-ai/DeepSeek-R1
-- deepseek-ai/DeepSeek-V3
-- mistralai/Mistral-Small-24B-Instruct-2501
+- [deepseek-ai/DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1)
+- [deepseek-ai/DeepSeek-V3](https://huggingface.co/deepseek-ai/DeepSeek-V3)
+- [mistralai/Mistral-Small-24B-Instruct-2501](https://huggingface.co/mistralai/Mistral-Small-24B-Instruct-2501)
+- [Qwen/Qwen2.5-Coder-32B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct)
+- [meta-llama/Llama-3.2-90B-Vision-Instruct](https://huggingface.co/meta-llama/Llama-3.2-90B-Vision-Instruct)
 
-
+and many more, you can find the full list [here](https://huggingface.co/models?inference_provider=fireworks-ai).
 
 Light up your projects with Fireworks.ai today!
 
