@@ -5520,3 +5520,13 @@
     - python
     - cost
     - enterprise
+
+- local: math_verify_leaderboard
+  title: "Fixing OpenLLM Leaderboard with Math-Verify"
+  thumbnail: /blog/assets/math_verify_leaderboard/thumbnail.png
+  date: Feb 14, 2025
+  tags:
+    - math-verify
+    - open-llm-leaderboard
+    - leaderboard
+    - evaluation
