@@ -5535,7 +5535,7 @@
 - local: fireworks-ai
   title: "Welcome Fireworks.ai on the Hub 🎆"
   author: julien-c
-  thumbnail: /blog/assets/inference-providers/welcome-fireworks-2.jpg
+  thumbnail: /blog/assets/inference-providers/welcome-fireworks.jpg
   date: Feb 14, 2025
   tags:
     - announcement

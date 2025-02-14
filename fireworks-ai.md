@@ -1,6 +1,6 @@
 ---
 title: "Welcome Fireworks.ai on the Hub 🎆"
-thumbnail: /blog/assets/inference-providers/welcome-fireworks-2.jpg
+thumbnail: /blog/assets/inference-providers/welcome-fireworks.jpg
 authors:
 - user: teofeliu
   guest: true
@@ -15,7 +15,7 @@ Following our recent announcement on [Inference Providers on the Hub](https://hu
 
 [Fireworks.ai](https://fireworks.ai) delivers blazing-fast serverless inference directly on model pages—making it easier than ever to deploy and experiment with your favorite models.
 
-<img src="https://huggingface.co/blog/assets/inference-providers/welcome-fireworks-2.jpg" alt="Fireworks.ai supported as Inference Provider on Hugging Face"/>
+<img src="https://huggingface.co/blog/assets/inference-providers/welcome-fireworks.jpg" alt="Fireworks.ai supported as Inference Provider on Hugging Face"/>
 
 Among others, starting now, you can run serverless inference to the following models via Fireworks.ai:
 
