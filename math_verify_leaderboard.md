@@ -17,7 +17,7 @@ authors:
 Today, we’re thrilled to share that we’ve used Math-Verify to thoroughly re-evaluate all 3,751 models ever submitted to the Open LLM Leaderboard, for even fairer and more robust model comparisons!
 
 ## Why math evaluation on the Open LLM Leaderboard was broken
-The [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) is the most used leaderboard on the Hugging Face Hub: it compares open Large Language Models (LLM) performance across various tasks. One of these tasks, called MATH-Hard, is specifically about math problems: it evaluates how well LLMs solve high-school and university-level math problems. It is using 1,324 highest difficulty problems (Level 5) from the [Hendrycks MATH](https://github.com/hendrycks/math) dataset spread across 7 topics (precalculus, prealgebra, algebra, intermediate algebra, counting/probability and number theory), using a 5-shot approach (the model is provided with 5 examples in the prompt to showcase how it should answer).
+The [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) is the most used leaderboard on the Hugging Face Hub: it compares open Large Language Models (LLM) performance across various tasks. One of these tasks, called MATH-Hard, is specifically about math problems: it evaluates how well LLMs solve high-school and university-level math problems. It uses 1,324 highest difficulty problems (Level 5) from the [Hendrycks MATH](https://github.com/hendrycks/math) dataset spread across 7 topics (precalculus, prealgebra, algebra, intermediate algebra, counting/probability and number theory), using a 5-shot approach (the model is provided with 5 examples in the prompt to showcase how it should answer).
 
 A typical question looks like this:
 ```
@@ -31,7 +31,7 @@ To which the answer would be:
 
 In the leaderboard, models would have to end their answers with a very specific string (following the [Minerva-Math paper](https://arxiv.org/abs/2206.14858)):
 ```
-“Final answer is [ANSWER]. I hope it is correct.”.
+“Final answer is [ANSWER]. I hope it is correct.”
 ```
 
 The leaderboard would then try to parse `[ANSWER]` with [SymPy](https://docs.sympy.org/latest/index.html) to convert it to a symbolic representation (and simplify the values if needed), before finally comparing it to the gold target.
@@ -98,7 +98,7 @@ But Qwen models aren’t alone. Another major family affected is **DeepSeek**. A
 
 ### Changes in the MATH-Hard Leaderboard
 As mentioned at the beginning, the Top 20 rankings have undergone a significant shift, with **Nvidia’s AceMath** models now dominating the MATH-Hard leaderboard.
-Another major beneficiary of this change are the **Qwen** derivatives, which are now almost exclusively the only models ranking right below AceMath.
+Other major beneficiaries of this change are the **Qwen** derivatives, which are now almost exclusively the only models ranking right below AceMath.
 Following is the complete table comparing the old and new Top 20 leaderboard rankings:
 
 ![math_hard_leaderboard_change](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/math_verify_leaderboard/math-hard-change.png)
