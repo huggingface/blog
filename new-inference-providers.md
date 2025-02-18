@@ -77,7 +77,7 @@ completion = client.chat.completions.create(
 print(completion.choices[0].message)
 ```
 
-**Note:** You can also use the OpenAI client library to call the Inference Providers too; see [here an example for DeepSeek model](https://huggingface.co/deepseek-ai/DeepSeek-R1?inference_provider=together&language=python&inference_api=true).
+**Note:** You can also use the OpenAI client library to call the Inference Providers too; see [here an example for DeepSeek model](https://huggingface.co/deepseek-ai/DeepSeek-R1?inference_provider=hyperbolic&language=python&inference_api=true).
 
 And here's how to generate an image from a text prompt using [FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) running on [Nebius AI Studio](https://nebius.com):
 
@@ -91,7 +91,7 @@ client = InferenceClient(
 
 # output is a PIL.Image object
 image = client.text_to_image(
-    "Labrador in the style of Vermeer",
+    "Bob Marley in the style of a painting by Johannes Vermeer",
     model="black-forest-labs/FLUX.1-schnell"
 )
 ```
