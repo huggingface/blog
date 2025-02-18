@@ -106,7 +106,7 @@ from huggingface_hub import InferenceClient
 
 client = InferenceClient(
 -	provider="nebius",
-+	provider="replicate",
++   provider="hyperbolic",
 	api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
 )
 ```
