@@ -1,5 +1,5 @@
 ---
-title: "Introducing Three New Serverless Inference Providers: Nebius, Novita, and Hyperbolic 🔥"
+title: "Introducing Three New Serverless Inference Providers: Nebius AI Studio, Novita, and Hyperbolic 🔥"
 thumbnail: /blog/assets/inference-providers/thumbnail.png
 authors:
 - user: sbrandeis
