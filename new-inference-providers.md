@@ -102,8 +102,8 @@ To move to a different provider, you can simply change the provider name, everyt
 from huggingface_hub import InferenceClient
 
 client = InferenceClient(
--	provider="fal-ai",
-+	provider="replicate",
+-	provider="nebius",
++	provider="hyperbolic",
 	api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
 )
 ```
@@ -128,29 +128,6 @@ const chatCompletion = await client.chatCompletion({
 });
 
 console.log(chatCompletion.choices[0].message);
-```
-
-### From HTTP calls
-
-We expose the Routing proxy directly under the huggingface.co domain so you can call it directly, it's very useful for OpenAI-compatible APIs for instance. You can just swap the URL as a base URL: `https://router.huggingface.co/{:provider}`.
-
-Here's how you can call Llama-3.3-70B-Instruct using Sambanova as the inference provider via cURL.
-
-```bash
-curl 'https://router.huggingface.co/sambanova/v1/chat/completions' \
--H 'Authorization: Bearer xxxxxxxxxxxxxxxxxxxxxxxx' \
--H 'Content-Type: application/json' \
---data '{
-    "model": "Llama-3.3-70B-Instruct",
-    "messages": [
-		{
-			"role": "user",
-			"content": "What is the capital of France?"
-		}
-	],
-    "max_tokens": 500,
-    "stream": false
-}'
 ```
 
 ## Billing
