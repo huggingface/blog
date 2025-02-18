@@ -25,13 +25,13 @@ We're quite excited to see what you'll build with these new providers!
 
 
 1. In your user account settings, you are able to:
-- set your own API keys for the providers you’ve signed up with. Otherwise, you can still use them – your requests will be routed through HF.
-- order providers by preference. This applies to the widget and code snippets in the model pages.
+- Set your own API keys for the providers you’ve signed up with. If no custom key is set, your requests will be routed through HF.
+- Order providers by preference. This applies to the widget and code snippets in the model pages.
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/user-settings.png" alt="Inference Providers"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/user-settings-updated.png" alt="Inference Providers"/>
 
 
-2. As we mentioned, there are two modes when calling Inference APIs: 
+2. As mentioned, there are two modes when calling Inference APIs: 
 - Custom key (calls go directly to the inference provider, using your own API key of the corresponding inference provider)
 - Routed by HF (in that case, you don't need a token from the provider, and the charges are applied directly to your HF account rather than the provider's account)
 
@@ -41,7 +41,7 @@ We're quite excited to see what you'll build with these new providers!
 
 3. Model pages showcase third-party inference providers (the ones that are compatible with the current model, sorted by user preference)
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/model-widget.png" alt="Inference Providers"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/model-widget-updated.png" alt="Inference Providers"/>
 
 
 
@@ -51,7 +51,7 @@ We're quite excited to see what you'll build with these new providers!
 
 The following example shows how to use DeepSeek-R1 using Hyperbolic as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Hyperbolic API key if you have one.
 
-Install `huggingface_hub` version v0.28.0 or later ([release notes](https://github.com/huggingface/huggingface_hub/releases/tag/v0.28.0)).
+Install `huggingface_hub` from source (see [instructions](https://huggingface.co/docs/huggingface_hub/installation#install-from-source)). Official support will be released soon in version v0.29.0.
 
 ```python
 from huggingface_hub import InferenceClient
