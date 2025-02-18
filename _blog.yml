@@ -5540,3 +5540,15 @@
   tags:
     - announcement
     - hub
+
+- local: smolagents-phoenix
+  title: "Instrumenting your smolagent with Arize AI Phoenix"
+  author: m-ric
+  guest: true
+  thumbnail: /blog/assets/smolagents-phoenix/welcome-fireworks.jpg
+  date: Feb 18, 2025
+  tags:
+    - agents
+    - smolagents
+    - agent
+    - langchain
