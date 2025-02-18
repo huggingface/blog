@@ -1,5 +1,5 @@
 ---
-title: "Introducing Four New Serverless Inference Providers: Nebius, Novita, and Hyperbolic 🔥"
+title: "Introducing Three New Serverless Inference Providers: Nebius, Novita, and Hyperbolic 🔥"
 thumbnail: /blog/assets/inference-providers/thumbnail.png
 authors:
 - user: sbrandeis
@@ -7,13 +7,13 @@ authors:
 - user: julien-c
 ---
 
-We’re thrilled to announce the addition of four more outstanding serverless Inference Providers to the Hugging Face Hub: Nebius, Novita, and Hyperbolic. These providers join our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub’s model pages. They’re also seamlessly integrated into our client SDKs (for JS and Python), making it even easier to explore a wide variety of models with your preferred providers.
+We’re thrilled to announce the addition of three more outstanding serverless Inference Providers to the Hugging Face Hub: [Nebius AI Studio](https://nebius.com/), [Novita](https://novita.ai/), and [Hyperbolic](https://hyperbolic.xyz/). These providers join our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub’s model pages. They’re also seamlessly integrated into our client SDKs (for JS and Python), making it even easier to explore a wide variety of models with your preferred providers.
 
 These partners join the ranks of our existing providers, including Together AI, Sambanova, Replicate and Fireworks.ai.
 
 The new partners enable a swath of new models, find them out here:
 
-- [Nebius](https://huggingface.co/models?inference_provider=nebius&sort=trending)
+- [Nebius AI Studio](https://huggingface.co/models?inference_provider=nebius&sort=trending)
 - [Novita](https://huggingface.co/models?inference_provider=novita&sort=trending)
 - [Hyperbolic](https://huggingface.co/models?inference_provider=hyperbolic&sort=trending)
 
@@ -32,7 +32,7 @@ We're quite excited to see what you'll build with these new providers!
 
 
 2. As we mentioned, there are two modes when calling Inference APIs: 
-- custom key (calls go directly to the inference provider, using your own API key of the corresponding inference provider); or
+- Custom key (calls go directly to the inference provider, using your own API key of the corresponding inference provider)
 - Routed by HF (in that case, you don't need a token from the provider, and the charges are applied directly to your HF account rather than the provider's account)
 
 
@@ -49,7 +49,7 @@ We're quite excited to see what you'll build with these new providers!
 
 #### from Python, using huggingface_hub
 
-The following example shows how to use DeepSeek-R1 using Together AI as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Together AI API key if you have one.
+The following example shows how to use DeepSeek-R1 using Hyperbolic as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Hyperbolic API key if you have one.
 
 Install `huggingface_hub` version v0.28.0 or later ([release notes](https://github.com/huggingface/huggingface_hub/releases/tag/v0.28.0)).
 
@@ -79,7 +79,7 @@ print(completion.choices[0].message)
 
 **Note:** You can also use the OpenAI client library to call the Inference Providers too; see [here an example for DeepSeek model](https://huggingface.co/deepseek-ai/DeepSeek-R1?inference_provider=together&language=python&inference_api=true).
 
-And here's how to generate an image from a text prompt using [FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) running on [fal.ai](https://fal.ai/models/fal-ai/flux/dev):
+And here's how to generate an image from a text prompt using [FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) running on [Nebius AI Studio](https://nebius.com):
 
 ```python
 from huggingface_hub import InferenceClient
@@ -123,7 +123,7 @@ const chatCompletion = await client.chatCompletion({
 			content: "What is the capital of France?"
 		}
 	],
-	provider: "together",
+	provider: "novita",
 	max_tokens: 500
 });
 
@@ -132,7 +132,7 @@ console.log(chatCompletion.choices[0].message);
 
 ## Billing
 
-For direct requests, i.e. when you use the key from an inference provider, you are billed by the corresponding provider. For instance, if you use a Together AI key you're billed on your Together AI account.
+For direct requests, i.e. when you use the key from an inference provider, you are billed by the corresponding provider. For instance, if you use a Nebius AI Studio key you're billed on your Nebius AI Studio account.
 
 For routed requests, i.e. when you authenticate via the hub, you'll only pay the standard provider API rates. There's no additional markup from us, we just pass through the provider costs directly. (In the future, we may establish revenue-sharing agreements with our provider partners.)
 
