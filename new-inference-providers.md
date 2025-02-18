@@ -9,7 +9,7 @@ authors:
 
 We’re thrilled to announce the addition of three more outstanding serverless Inference Providers to the Hugging Face Hub: [Nebius AI Studio](https://nebius.com/), [Novita](https://novita.ai/), and [Hyperbolic](https://hyperbolic.xyz/). These providers join our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub’s model pages. They’re also seamlessly integrated into our client SDKs (for JS and Python), making it even easier to explore a wide variety of models with your preferred providers.
 
-These partners join the ranks of our existing providers, including Together AI, Sambanova, Replicate and Fireworks.ai.
+These partners join the ranks of our existing providers, including Together AI, Sambanova, Replicate, fal and Fireworks.ai.
 
 The new partners enable a swath of new models, find them out here:
 
@@ -77,7 +77,6 @@ completion = client.chat.completions.create(
 print(completion.choices[0].message)
 ```
 
-**Note:** You can also use the OpenAI client library to call the Inference Providers too; see [here an example for DeepSeek model](https://huggingface.co/deepseek-ai/DeepSeek-R1?inference_provider=hyperbolic&language=python&inference_api=true).
 
 And here's how to generate an image from a text prompt using [FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) running on [Nebius AI Studio](https://nebius.com):
 
@@ -103,7 +102,7 @@ from huggingface_hub import InferenceClient
 
 client = InferenceClient(
 -	provider="nebius",
-+	provider="hyperbolic",
++	provider="replicate",
 	api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
 )
 ```
