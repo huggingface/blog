@@ -57,7 +57,7 @@ Install `huggingface_hub` version v0.28.0 or later ([release notes](https://gith
 from huggingface_hub import InferenceClient
 
 client = InferenceClient(
-    provider="together",
+    provider="hyperbolic",
     api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
 )
 
@@ -85,14 +85,14 @@ And here's how to generate an image from a text prompt using [FLUX.1-dev](https:
 from huggingface_hub import InferenceClient
 
 client = InferenceClient(
-    provider="fal-ai",
+    provider="nebius",
     api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
 )
 
 # output is a PIL.Image object
 image = client.text_to_image(
     "Labrador in the style of Vermeer",
-    model="black-forest-labs/FLUX.1-dev"
+    model="black-forest-labs/FLUX.1-schnell"
 )
 ```
 
