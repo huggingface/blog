@@ -5540,3 +5540,12 @@
   tags:
     - announcement
     - hub
+
+- local: new-inference-providers
+  title: "Introducing Three New Serverless Inference Providers: Hyperbolic, Nebius AI Studio, and Novita 🔥"
+  author: reach-vb
+  thumbnail: /blog/assets/inference-providers/second-batch-thumbnail.webp
+  date: Feb 18, 2025
+  tags:
+    - announcement
+    - hub
