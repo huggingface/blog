@@ -12,7 +12,7 @@ We’re thrilled to announce the addition of three more outstanding serverless I
 
 These partners join the ranks of our existing providers, including Together AI, Sambanova, Replicate, fal and Fireworks.ai.
 
-The new partners enable a swath of new models, find them out here:
+The new partners enable a swath of new models: DeepSeek-R1, Flux.1, and many others. Find them out here:
 
 - [Nebius AI Studio](https://huggingface.co/models?inference_provider=nebius&sort=trending)
 - [Novita](https://huggingface.co/models?inference_provider=novita&sort=trending)
