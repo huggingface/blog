@@ -13,9 +13,9 @@ These partners join the ranks of our existing providers, including Together AI, 
 
 The new partners enable a swath of new models, find them out here:
 
-- [Nebius](https://huggingface.co/models?inference_provider=nebius)
-- [Novita](https://huggingface.co/models?inference_provider=novita)
-- [Hyperbolic](https://huggingface.co/models?inference_provider=hyperbolic)
+- [Nebius](https://huggingface.co/models?inference_provider=nebius&sort=trending)
+- [Novita](https://huggingface.co/models?inference_provider=novita&sort=trending)
+- [Hyperbolic](https://huggingface.co/models?inference_provider=hyperbolic&sort=trending)
 
 We're quite excited to see what you'll build with these new providers!
 
