@@ -5,6 +5,7 @@ authors:
 - user: sbrandeis
 - user: kramp
 - user: julien-c
+- user: reach-vb
 ---
 
 We’re thrilled to announce the addition of three more outstanding serverless Inference Providers to the Hugging Face Hub: [Hyperbolic](https://hyperbolic.xyz/), [Nebius AI Studio](https://nebius.com/), and [Novita](https://novita.ai/). These providers join our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub’s model pages. They’re also seamlessly integrated into our client SDKs (for JS and Python), making it even easier to explore a wide variety of models with your preferred providers.
