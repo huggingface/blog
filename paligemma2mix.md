@@ -65,7 +65,7 @@ PaliGemma 2 mix models can accomplish a variety of tasks. We can categorize them
 > [!TIP]
 >  Note that this list of subtasks is non-exhaustive, and you can get more information on the full list of tasks in the [PaliGemma 2 paper](https://huggingface.co/papers/2412.03555).
 
-When prompting PaliGemma 2 mix models, we can use **open-ended prompts**. In the pretrainedprevious iteration of PaliGemma models, we needed to add a task prefix to the prompt depending on the task we’d like to accomplish in a given language. This still works, but open-ended prompts yield better performance. Prompts with task prefix look like following:
+When prompting PaliGemma 2 mix models, we can use **open-ended prompts**. In the pretrained previous iteration of PaliGemma models, we needed to add a task prefix to the prompt depending on the task we’d like to accomplish in a given language. This still works, but open-ended prompts yield better performance. Prompts with task prefix look like the following:
 
 * "caption {lang}": Nice, COCO-like short captions  
 * "describe {lang}": Longer, more descriptive captions  
