@@ -275,6 +275,7 @@ Read and learn more about PaliGemma models below.
 - [PaliGemma Fine-tuning Tutorial](https://github.com/merveenoyan/smol-vision/blob/main/Fine_tune_PaliGemma.ipynb)
 - [ Release Collection for PaliGemma 2 Mix Models](https://huggingface.co/collections/google/paligemma-2-mix-67ac6a251aaf3ee73679dcc4)
 - [Release Collection for PaliGemma 2](https://huggingface.co/collections/google/paligemma-2-release-67500e1e1dbfdd4dee27ba48)
+- [Try the demo](https://huggingface.co/spaces/google/paligemma2-10b-mix)
 
 ## Acknowledgments
 
