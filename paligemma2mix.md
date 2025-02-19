@@ -263,6 +263,7 @@ We have an [in-depth tutorial on fine tuning PaliGemma 2](https://github.com/mer
 
 We are releasing a demo for a 10B model with 448x448 resolution. You can play with it below or head to app [in this link](https://huggingface.co/spaces/google/paligemma2-10b-mix).
 
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.4.0/gradio.js"> </script>
 <gradio-app src="https://google-paligemma2-10b-mix.hf.space"></gradio-app>
 
 ## Read More
