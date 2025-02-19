@@ -5549,3 +5549,13 @@
   tags:
     - announcement
     - hub
+
+- local: paligemma2mix
+  title: "PaliGemma 2 Mix - New Instruction Vision Language Models by Google"
+  thumbnail: /blog/assets/paligemma2/thumbnail.png
+  author: ariG23498
+  date: Feb 19, 2024
+  tags:
+    - multimodal
+    - LLM
+    - vision
