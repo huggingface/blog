@@ -43,7 +43,7 @@ You can find all the mix models and the demo [in this collection](https://huggin
 |  | JAX | [224](https://huggingface.co/google/paligemma2-28b-mix-224-jax) |
 |  |  | [448](https://huggingface.co/google/paligemma2-28b-mix-448-jax) |
 
-Table of Contents
+## Table of Contents
 
 - [PaliGemma 2 Mix Models](#paligemma-2-mix-models)   
 - [Comparing PaliGemma 2 Mix Variants](#comparing-paligemma-2-mix-variants)   
@@ -78,7 +78,7 @@ Only two tasks that work solely with task prefixes are object detection and imag
 * "detect {object description}": Locate listed objects in an image and return the bounding boxes for those objects  
 * "segment {object description}; {object description}": Locate the area occupied by the object in an image to create an image segmentation for that object
 
-If you want to immediately get started, feel free to jump to [this section](#inference-and-fine-tuning-using-transformers) of the blog, or try [the demo]([https://huggingface.co/spaces/google/paligemma2-10b-mix](https://huggingface.co/spaces/google/paligemma2-10b-mix)).
+If you want to immediately get started, feel free to jump to [this section](#inference-and-fine-tuning-using-transformers) of the blog, or try [the demo](https://huggingface.co/spaces/google/paligemma2-10b-mix).
 
 ## Comparing PaliGemma 2 Mix Variants
 
