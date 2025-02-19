@@ -148,7 +148,7 @@ You can see this by looking at it a number of ways.
 
 ***Supporting generative models***: One way to understand the prevalence of representational models (encoder-only) is to note how frequently they are used in concert with a decoder-only model to make a system which is safe and efficient.
 
-The obvious example is RAG. Instead of relying on the LLM’s knowledge trained into the model’s parameters, the system uses a document store to furnish the LLM with information relevant to the query. But of course this only defers the problem. If the LLM doesn’t know which documents are relevant to the query, then the system will need some other process to select those documents? It’s going to need a model which is fast and cheap enough that it can be used to encode the large quantities of information needed to make the LLM useful. That model is often a BERT-like encoder-only model.
+The obvious example is RAG. Instead of relying on the LLM’s knowledge trained into the model’s parameters, the system uses a document store to furnish the LLM with information relevant to the query. But of course, this only defers the problem. If the LLM doesn’t know which documents are relevant to the query, then the system will need some other process to select those documents. It’s going to need a model which is fast and cheap enough that it can be used to encode the large quantities of information needed to make the LLM useful. That model is often a BERT-like encoder-only model.
 
 Another example is supervision architectures, where a cheap classifier might be used to ensure that generated text does not violate content safety requirements.
 
@@ -206,7 +206,7 @@ However, since the duo’s original release, we've learned an enormous amount ab
 
 The goal of the (hopefully aptly named) ModernBERT project was thus fairly simple: bring this modern engineering to encoder models. We did so in three core ways:
 
-1. a **modernized transformer architecture**  
+1. **a modernized transformer architecture**  
 2. **particular attention to efficiency**  
 3. **modern data scales & sources**
 
@@ -218,8 +218,8 @@ ModernBERT takes huge inspiration from the Transformer++ (as coined by [Mamba](h
 
 - Replace the old positional encoding with ["rotary positional embeddings"](https://huggingface.co/blog/designing-positional-encoding) (RoPE): this makes the model much better at understanding where words are in relation to each other, and allows us to scale to longer sequence lengths.  
   - Switch out the old MLP layers for GeGLU layers, improving on the original BERT’s GeLU activation function.  
-  - Streamline the architecture by removing unnecessary bias terms, letting us spend our parameter budget more effectively  
-  - Add an extra normalization layer after embeddings, which helps stabilize training
+  - Streamline the architecture by removing unnecessary bias terms, letting us spend our parameter budget more effectively. 
+  - Add an extra normalization layer after embeddings, which helps stabilize training.
 
 ### Upgrading a Honda Civic for the Race Track
 
