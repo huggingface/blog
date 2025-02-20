@@ -70,7 +70,7 @@ Compared with the previous SmolVLM family, our new 2.2B model got better at solv
 
 
 
-When it comes to video tasks, 2.2B is a good bang for the buck. Across the different scientific benchmarks where we evaluated it we want to highlight its performance on Video-MME, where it outperforms all existing 2B models.
+When it comes to video tasks, 2.2B is a good bang for the buck. Across the various scientific benchmarks we evaluated it on, we want to highlight its performance on Video-MME where it outperforms all existing 2B models.
 
 We were able to achieve a good balance on video/image performance thanks to the data mixture learnings published in [Apollo: An Exploration of Video Understanding in Large Multimodal Models](https://apollo-lmms.github.io/)
 
@@ -331,6 +331,8 @@ If you integrate SmolVLM2 in your apps using MLX and Swift, we'd love to know ab
 
 
 ## Read More
+
+We would like to thank Raushan Turganbay, Arthur Zucker and Pablo Montalvo Leroux for their contribution of the model to transformers.
 
 We are looking forward to see all the things you'll build with SmolVLM2!
 If you'd like to learn more about SmolVLM family of models, feel free to read the following:
