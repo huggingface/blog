@@ -5554,8 +5554,21 @@
   title: "PaliGemma 2 Mix - New Instruction Vision Language Models by Google"
   thumbnail: /blog/assets/paligemma2/thumbnail.png
   author: ariG23498
-  date: Feb 19, 2024
+  date: Feb 19, 2025
   tags:
     - multimodal
     - LLM
+    - vision
+
+- local: smolvlm2
+  title: "SmolVLM2 Family: Bringing Video Understanding to Every Device"
+  author: mfarre
+  thumbnail: /blog/assets/smolvlm2/banner.png
+  date: Feb 20, 2025
+  tags:
+    - multimodal
+    - video
+    - on-device
+    - llm
+    - nlp
     - vision
