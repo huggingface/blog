@@ -22,7 +22,7 @@ SmolVLM2 represents a fundamental shift in how we think about video understandin
 We are releasing models in three sizes (2.2B, 500M and 256M), MLX ready (Python _and_ Swift APIs) from day zero.
 We've made all models and demos available [in this collection](https://huggingface.co/collections/HuggingFaceTB/smolvlm2-smallest-video-lm-ever-67ab6b5e84bf8aaa60cb17c7). 
 
-Want to try SmolVLM2 right away? Check out our [interactive chat interface](huggingface.co/spaces/HuggingFaceTB/SmolVLM2) where you can test visual and video understanding capabilities of SmolVLM2 2.2B through a simple, intuitive interface.
+Want to try SmolVLM2 right away? Check out our [interactive chat interface](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM2) where you can test visual and video understanding capabilities of SmolVLM2 2.2B through a simple, intuitive interface.
 <br>
 
 ## Table of Contents
