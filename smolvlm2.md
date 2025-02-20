@@ -80,6 +80,9 @@ It’s so memory efficient, that you can run it even in a free Google Colab.
 <summary>Python Code</summary>
 
 ```python
+# Make sure we are running the latest version of Transformers
+!pip install git+https://github.com/huggingface/transformers.git
+
 from transformers import AutoProcessor, AutoModelForImageTextToText
 
 model_path = "HuggingFaceTB/SmolVLM2-2.2B-Instruct"
@@ -189,6 +192,9 @@ The easiest way to run inference with the SmolVLM2 models is through the convers
 You can load the model as follows.
 
 ```python
+
+# Make sure we are running the latest version of Transformers
+!pip install git+https://github.com/huggingface/transformers.git
 
 from transformers import AutoProcessor, AutoModelForImageTextToText
 
