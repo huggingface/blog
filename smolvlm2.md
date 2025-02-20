@@ -139,7 +139,7 @@ To demonstrate our vision in small video models, we've built three practical app
 #### iPhone Video Understanding
 <table style="border-collapse: collapse;">
 <tr>
-<td width="600" style="border: none;">
+<td width="300" style="border: none;">
 <center>
 <iframe width="300" height="533" src="https://www.youtube.com/embed/G1yQlHTk_Ig" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
