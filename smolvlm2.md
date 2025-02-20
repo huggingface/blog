@@ -355,4 +355,3 @@ We are looking forward to see all the things you'll build with SmolVLM2!
 If you'd like to learn more about SmolVLM family of models, feel free to read the following:
 
 [SmolVLM2 - Collection with Models and Demos](https://huggingface.co/collections/HuggingFaceTB/smolvlm2-smallest-video-lm-ever-67ab6b5e84bf8aaa60cb17c7)
-[SmolVLM - small yet mighty Vision Language Model](https://huggingface.co/blog/smolvlm)
