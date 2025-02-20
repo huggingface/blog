@@ -85,7 +85,7 @@ Want to try SmolVLM2 right away? Check out our [interactive chat interface](hugg
   - [Technical Details](#technical-details)
     - [SmolVLM2 2.2B: Our New Star Player for Vision and Video](#smolvlm2-22b-our-new-star-player-for-vision-and-video)
     - [Going Even Smaller: Meet the 500M and 256M Video Models](#going-even-smaller-meet-the-500m-and-256m-video-models)
-  - [Using SomlVLM2 and Fine-tuning it with Transformers and MLX](#using-somlvlm2-and-fine-tuning-it-with-transformers-and-mlx)
+  - [Using SmolVLM2 and Fine-tuning it with Transformers and MLX](#using-smolvlm2-and-fine-tuning-it-with-transformers-and-mlx)
     - [Transformers](#transformers)
       - [Video Inference](#video-inference)
       - [Multiple Image Inference](#multiple-image-inference)
