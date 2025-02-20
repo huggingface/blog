@@ -20,54 +20,6 @@ authors:
 SmolVLM2 represents a fundamental shift in how we think about video understanding - moving from massive models that require substantial computing resources to efficient models that can run anywhere. Our goal is simple: make video understanding accessible across all devices and use cases, from phones to servers.
 
 We are releasing models in three sizes (2.2B, 500M and 256M), MLX ready (Python _and_ Swift APIs) from day zero.
-
-
-To demonstrate our vision in small video models, we've built three practical applications that showcase the versatility of these models.
-
-### iPhone Video Understanding
-<table style="border-collapse: collapse;">
-<tr>
-<td width="600" style="border: none;">
-<center>
-<iframe width="300" height="533" src="https://www.youtube.com/embed/G1yQlHTk_Ig" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center>
-</td>
-<td valign="top" style="border: none;">
-We've created an iPhone app running SmolVLM2 completely locally. Using our 500M model, users can analyze and understand video content directly on their device - no cloud required. Interested in building iPhone video processing apps with AI models running locally? We're releasing it very soon - <a href="https://huggingface.co/datasets/HuggingFaceTB/smolvlm2-iphone-waitlist" target="_blank">fill this form to test and build with us!</a>
-</td>
-</tr>
-</table>
-
-### Video Highlight Generator
-<table style="border-collapse: collapse;">
-<tr>
-<td width="500" style="border: none;">
-<center>
-<iframe width="500" height="281" src="https://www.youtube.com/embed/ZT2oS8EqnKI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center>
-</td>
-<td valign="top" style="border: none;">
-Available as a Hugging Face Space, this application takes long-form videos (1+ hours) and automatically extracts the most significant moments. We've tested it extensively with soccer matches and other lengthy events, making it a powerful tool for content summarization. <a href="https://huggingface.co/spaces/HuggingFaceTB/SmolVLM2-HighlightGenerator" target="_blank">Try it yourself in our demo space.</a>
-</td>
-</tr>
-</table>
-
-### VLC media player integration
-<table style="border-collapse: collapse;">
-<tr>
-<td width="500" style="border: none;">
-<center>
-<iframe width="500" height="281" src="https://www.youtube.com/embed/NGHCFEW7DCg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center>
-</td>
-<td valign="top" style="border: none;">
-Working in collaboration with VLC media player, we're integrating SmolVLM2 to provide intelligent video segment descriptions and navigation. This integration allows users to search through video content semantically, jumping directly to relevant sections based on natural language descriptions. While this is work in progress, you can experiment with the current playlist builder prototype <a href="https://huggingface.co/spaces/HuggingFaceTB/SmolVLM2-XSPFGenerator" target="_blank">in this space.</a>
-</td>
-</tr>
-</table>
-
-### SmolVLM2 Collection
-
 We've made all models and demos available [in this collection](https://huggingface.co/collections/HuggingFaceTB/smolvlm2-smallest-video-lm-ever-67ab6b5e84bf8aaa60cb17c7). 
 
 Want to try SmolVLM2 right away? Check out our [interactive chat interface](huggingface.co/spaces/HuggingFaceTB/SmolVLM2) where you can test visual and video understanding capabilities of SmolVLM2 2.2B through a simple, intuitive interface.
@@ -77,14 +29,14 @@ Want to try SmolVLM2 right away? Check out our [interactive chat interface](hugg
 
 - [SmolVLM2: Bringing Video Understanding to Every Device](#smolvlm2-bringing-video-understanding-to-every-device)
   - [TL;DR: SmolVLM can now watch 📺 with even better visual understanding](#tldr-smolvlm-can-now-watch--with-even-better-visual-understanding)
-    - [iPhone Video Understanding](#iphone-video-understanding)
-    - [Video Highlight Generator](#video-highlight-generator)
-    - [VLC media player integration](#vlc-media-player-integration)
-    - [SmolVLM2 Collection](#smolvlm2-collection)
   - [Table of Contents](#table-of-contents)
   - [Technical Details](#technical-details)
     - [SmolVLM2 2.2B: Our New Star Player for Vision and Video](#smolvlm2-22b-our-new-star-player-for-vision-and-video)
     - [Going Even Smaller: Meet the 500M and 256M Video Models](#going-even-smaller-meet-the-500m-and-256m-video-models)
+    - [Suite of SmolVLM2 Demo applications](#suite-of-smolvlm2-demo-applications)
+      - [iPhone Video Understanding](#iphone-video-understanding)
+      - [VLC media player integration](#vlc-media-player-integration)
+      - [Video Highlight Generator](#video-highlight-generator)
   - [Using SmolVLM2 and Fine-tuning it with Transformers and MLX](#using-smolvlm2-and-fine-tuning-it-with-transformers-and-mlx)
     - [Transformers](#transformers)
       - [Video Inference](#video-inference)
@@ -113,7 +65,7 @@ While they're small in size, they outperform any existing models per memory cons
 ### SmolVLM2 2.2B: Our New Star Player for Vision and Video
 
 
-The new 2.2B model got better at solving math problems with images, reading text in photos, understanding complex diagrams, and tackling scientific visual questions, we see this reflected in the model performance across different benchmarks:
+Compared with the previous SmolVLM family, our new 2.2B model got better at solving math problems with images, reading text in photos, understanding complex diagrams, and tackling scientific visual questions. This shows in the model performance across different benchmarks:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/smolvlm2-score-gains.png" width="50%" alt="SmolVLM2 Vision Score Gains">
 
@@ -175,6 +127,54 @@ Nobody dared to release such small video models until today.
 Our new [SmolVLM2-500M-Video-Instruct](https://huggingface.co/HuggingFaceTB/SmolVLM2-500M-Video-Instruct) model has very close video capabilities than the original SmolVLM 2.2B, but at a fraction of the size: we're getting the same video understanding capabilities with less than a quarter of the parameters.
 
 And then there's our little experiment, the SmolVLM2-256M-Video-Instruct. Think of it as our "what if" project - what if we could push the boundaries of small models even further? Taking inspiration from what [IBM achieved](https://ds4sd.github.io/docling/examples/pictures_description/) with our base [SmolVLM-256M-Instruct](https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct) a few weeks ago, we wanted to see how far we could go with video understanding. While it's more of an experimental release, we're hoping it'll inspire some creative applications and specialized fine-tuning projects.
+
+
+### Suite of SmolVLM2 Demo applications
+
+To demonstrate our vision in small video models, we've built three practical applications that showcase the versatility of these models.
+
+#### iPhone Video Understanding
+<table style="border-collapse: collapse;">
+<tr>
+<td width="600" style="border: none;">
+<center>
+<iframe width="300" height="533" src="https://www.youtube.com/embed/G1yQlHTk_Ig" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+</td>
+<td valign="top" style="border: none;">
+We've created an iPhone app running SmolVLM2 completely locally. Using our 500M model, users can analyze and understand video content directly on their device - no cloud required. Interested in building iPhone video processing apps with AI models running locally? We're releasing it very soon - <a href="https://huggingface.co/spaces/HuggingFaceTB/SmolVLM2-iPhone-waitlist" target="_blank">fill this form to test and build with us!</a>
+</td>
+</tr>
+</table>
+
+#### VLC media player integration
+<table style="border-collapse: collapse;">
+<tr>
+<td width="500" style="border: none;">
+<center>
+<iframe width="500" height="281" src="https://www.youtube.com/embed/NGHCFEW7DCg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+</td>
+<td valign="top" style="border: none;">
+Working in collaboration with VLC media player, we're integrating SmolVLM2 to provide intelligent video segment descriptions and navigation. This integration allows users to search through video content semantically, jumping directly to relevant sections based on natural language descriptions. While this is work in progress, you can experiment with the current playlist builder prototype <a href="https://huggingface.co/spaces/HuggingFaceTB/SmolVLM2-XSPFGenerator" target="_blank">in this space.</a>
+</td>
+</tr>
+</table>
+
+#### Video Highlight Generator
+<table style="border-collapse: collapse;">
+<tr>
+<td width="500" style="border: none;">
+<center>
+<iframe width="500" height="281" src="https://www.youtube.com/embed/ZT2oS8EqnKI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+</td>
+<td valign="top" style="border: none;">
+Available as a Hugging Face Space, this application takes long-form videos (1+ hours) and automatically extracts the most significant moments. We've tested it extensively with soccer matches and other lengthy events, making it a powerful tool for content summarization. <a href="https://huggingface.co/spaces/HuggingFaceTB/SmolVLM2-HighlightGenerator" target="_blank">Try it yourself in our demo space.</a>
+</td>
+</tr>
+</table>
+
 
 
 
