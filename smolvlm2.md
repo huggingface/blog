@@ -298,6 +298,21 @@ python -m mlx_vlm.generate \
   --prompt "Can you describe this image?"
 ```
 
+We also created a simple script for video understanding. You can use it like follows:
+
+```bash
+python -m mlx_vlm.smolvlm_video_generate \
+  --model mlx-community/SmolVLM2-500M-Video-Instruct-mlx \
+  --system "Focus only on describing the key dramatic action or notable event occurring in this video segment. Skip general context or scene-setting details unless they are crucial to understanding the main action." \
+  --prompt "What is happening in this video?" \
+  --video /Users/pedro/Downloads/IMG_2855.mov \
+  --prompt "Can you describe this image?"
+```
+
+Note that the system prompt is important to bend the model to the desired behaviour. You can use it to, for example, describe all scenes and transitions, or to provide a one-sentence summary of what's going on.
+
+#### Swift MLX
+
 The Swift language is also supported through the [mlx-swift-examples repo](https://github.com/ml-explore/mlx-swift-examples), which is what we used to build our iPhone app.
 
 Until [our in-progress PR](https://github.com/ml-explore/mlx-swift-examples/pull/206) is finalized and merged, you have to compile the project [from this fork](https://github.com/cyrilzakka/mlx-swift-examples), and then you can use the `llm-tool` CLI on your Mac like follows.
