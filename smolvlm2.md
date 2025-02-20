@@ -41,7 +41,6 @@ Want to try SmolVLM2 right away? Check out our [interactive chat interface](hugg
     - [Transformers](#transformers)
       - [Video Inference](#video-inference)
       - [Multiple Image Inference](#multiple-image-inference)
-      - [Interleaving Image, Text and Video](#interleaving-image-text-and-video)
     - [Inference with MLX](#inference-with-mlx)
     - [Fine-tuning SmolVLM2](#fine-tuning-smolvlm2)
   - [Read More](#read-more)
@@ -203,7 +202,7 @@ model = AutoModelForImageTextToText.from_pretrained(
 
 #### Video Inference
 
-You can pass videos through a chat template by passing in {“type”: “video”, “path”:{video_path}”. See below complete example. 
+You can pass videos through a chat template by passing in `{"type": "video", "path": {video_path}`. See below for a complete example. 
 
 ```python
 import torch
@@ -274,44 +273,7 @@ generated_texts = processor.batch_decode(
 print(generated_texts[0])
 ```
 
-#### Interleaving Image, Text and Video
 
-You can interleave image, video and text together by passing in `<image>` and `<video>` tokens inside text, cutting text through and inserting image lines in between.
-
-```python
-import torch
-
-
-messages = [
-    {
-        "role": "user",
-        "content": [
-{"type": "text", "text": "What is the similarity between this image <image>"},
-
-            {"type": "image", "path": "image_1.png"},
-{"type": "text", "text": "and this image <image>"},
-{"type": "image", "path": "image_2.png"},
-            
-        ]
-    },
-]
-
-inputs = processor.apply_chat_template(
-    messages,
-    add_generation_prompt=True,
-    tokenize=True,
-    return_dict=True,
-    return_tensors="pt",
-).to(model.device)
-
-generated_ids = model.generate(**inputs, do_sample=False, max_new_tokens=64)
-generated_texts = processor.batch_decode(
-    generated_ids,
-    skip_special_tokens=True,
-)
-
-print(generated_texts[0])
-```
 ### Inference with MLX 
 
 To run SmolVLM2 with MLX on Apple Silicon devices using Python, you can use the excellent [mlx-vlm library](https://github.com/Blaizzy/mlx-vlm).
