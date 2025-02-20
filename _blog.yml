@@ -5561,11 +5561,13 @@
     - vision
 
 - local: smolvlm2
-  title: "SmolVLM2 Family: Bringing Video Understanding to Every Device"
-  author: mfarre
+  title: "SmolVLM2: Bringing Video Understanding to Every Device"
+  author: orrzohar
+  guest: true
   thumbnail: /blog/assets/smolvlm2/banner.png
   date: Feb 20, 2025
   tags:
+    - vlm
     - multimodal
     - video
     - on-device

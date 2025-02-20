@@ -1,5 +1,5 @@
 ---
-title: "SmolVLM2 Family: Bringing Video Understanding to Every Device" 
+title: "SmolVLM2: Bringing Video Understanding to Every Device" 
 thumbnail: /blog/assets/smolvlm2/banner.png
 authors:
 - user: orrzohar
@@ -13,13 +13,13 @@ authors:
 - user: xenova
 ---
 
-# SmolVLM2 Family: Bringing Video Understanding to Every Device
+# SmolVLM2: Bringing Video Understanding to Every Device
 
 ## TL;DR: SmolVLM can now watch 📺 with even better visual understanding
 
 SmolVLM2 represents a fundamental shift in how we think about video understanding - moving from massive models that require substantial computing resources to efficient models that can run anywhere. Our goal is simple: make video understanding accessible across all devices and use cases, from phones to servers.
 
-We are releasing models in three sizes (2.2B, 500M and 256M), MLX ready from day zero.
+We are releasing models in three sizes (2.2B, 500M and 256M), MLX ready (Python _and_ Swift APIs) from day zero.
 
 
 To demonstrate our vision in small video models, we've built three practical applications that showcase the versatility of these models.
@@ -29,7 +29,7 @@ To demonstrate our vision in small video models, we've built three practical app
 <tr>
 <td width="600" style="border: none;">
 <center>
-<iframe width="300" height="533" src="https://www.youtube.com/embed/hOj0U0cKapY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="300" height="533" src="https://www.youtube.com/embed/G1yQlHTk_Ig" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
 </td>
 <td valign="top" style="border: none;">
@@ -75,7 +75,7 @@ Want to try SmolVLM2 right away? Check out our [interactive chat interface](hugg
 
 ## Table of Contents
 
-- [SmolVLM2 Family: Bringing Video Understanding to Every Device](#smolvlm2-family-bringing-video-understanding-to-every-device)
+- [SmolVLM2: Bringing Video Understanding to Every Device](#smolvlm2-bringing-video-understanding-to-every-device)
   - [TL;DR: SmolVLM can now watch 📺 with even better visual understanding](#tldr-smolvlm-can-now-watch--with-even-better-visual-understanding)
     - [iPhone Video Understanding](#iphone-video-understanding)
     - [Video Highlight Generator](#video-highlight-generator)
@@ -179,7 +179,7 @@ And then there's our little experiment, the SmolVLM2-256M-Video-Instruct. Think 
 
 
 
-## Using SomlVLM2 and Fine-tuning it with Transformers and MLX
+## Using SmolVLM2 and Fine-tuning it with Transformers and MLX
 
 We make SmolVLM2 available to use with transformers and MLX from day zero. In this section, you can find different inference alternatives and tutorials for video and multiple images.
 
@@ -296,7 +296,21 @@ messages = [
     },
 ]
 
-# infer like above
+inputs = processor.apply_chat_template(
+    messages,
+    add_generation_prompt=True,
+    tokenize=True,
+    return_dict=True,
+    return_tensors="pt",
+).to(model.device)
+
+generated_ids = model.generate(**inputs, do_sample=False, max_new_tokens=64)
+generated_texts = processor.batch_decode(
+    generated_ids,
+    skip_special_tokens=True,
+)
+
+print(generated_texts[0])
 ```
 ### Inference with MLX 
 
@@ -311,5 +325,9 @@ python3 -m mlx_vlm.generate –model HuggingFaceTB/SmolVLM-256M-Instruct –max-
 
 
 ## Read More
+
+We are looking forward to see all the things you'll build with SmolVLM2!
+If you'd like to learn more about SmolVLM family of models, feel free to read the following:
+
 [SmolVLM2 - Collection with Models and Demos](https://huggingface.co/collections/HuggingFaceTB/smolvlm2-smallest-video-lm-ever-67ab6b5e84bf8aaa60cb17c7)
 [SmolVLM - small yet mighty Vision Language Model](https://huggingface.co/blog/smolvlm)
