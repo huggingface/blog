@@ -42,6 +42,7 @@ Want to try SmolVLM2 right away? Check out our [interactive chat interface](hugg
       - [Video Inference](#video-inference)
       - [Multiple Image Inference](#multiple-image-inference)
     - [Inference with MLX](#inference-with-mlx)
+      - [Swift MLX](#swift-mlx)
     - [Fine-tuning SmolVLM2](#fine-tuning-smolvlm2)
   - [Read More](#read-more)
 
@@ -342,7 +343,8 @@ If you integrate SmolVLM2 in your apps using MLX and Swift, we'd love to know ab
 
 ### Fine-tuning SmolVLM2
 
-
+You can fine-tune SmolVLM2 on videos using transformers 🤗
+We have fine-tuned 500M variant in Colab on video-caption pairs in [VideoFeedback](https://huggingface.co/datasets/TIGER-Lab/VideoFeedback) dataset for demonstration purposes. Since 500M variant is small, it's better to apply full fine-tuning instead of QLoRA or LoRA, meanwhile you can try to apply QLoRA on 2.2B variant. You can find the fine-tuning notebook [here](https://github.com/huggingface/smollm/blob/main/vision/finetuning/SmolVLM2_Video_FT.ipynb).
 
 
 ## Read More
