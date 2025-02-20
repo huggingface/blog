@@ -37,7 +37,7 @@ Want to try SmolVLM2 right away? Check out our [interactive chat interface](hugg
       - [iPhone Video Understanding](#iphone-video-understanding)
       - [VLC media player integration](#vlc-media-player-integration)
       - [Video Highlight Generator](#video-highlight-generator)
-  - [Using SmolVLM2 and Fine-tuning it with Transformers and MLX](#using-smolvlm2-and-fine-tuning-it-with-transformers-and-mlx)
+  - [Using SmolVLM2 with Transformers and MLX](#using-smolvlm2-with-transformers-and-mlx)
     - [Transformers](#transformers)
       - [Video Inference](#video-inference)
       - [Multiple Image Inference](#multiple-image-inference)
@@ -71,9 +71,9 @@ Compared with the previous SmolVLM family, our new 2.2B model got better at solv
 
 
 
-When it comes to video tasks, 2.2B is a good bang for the buck. Across the different scientific benchmarks where we evaluated it we want to highlight its performance on Video-MME where it outperforms all existing 2B models. 
+When it comes to video tasks, 2.2B is a good bang for the buck. Across the different scientific benchmarks where we evaluated it we want to highlight its performance on Video-MME, where it outperforms all existing 2B models.
 
-We were able to achieve a good balance on video/vision performance thanks to the data mixture learnings published in [Apollo: An Exploration of Video Understanding in Large Multimodal Models](https://apollo-lmms.github.io/)
+We were able to achieve a good balance on video/image performance thanks to the data mixture learnings published in [Apollo: An Exploration of Video Understanding in Large Multimodal Models](https://apollo-lmms.github.io/)
 
 It’s so memory efficient, that you can run it even in a free Google Colab.
 
@@ -124,7 +124,7 @@ print(generated_texts[0])
 
 Nobody dared to release such small video models until today.
 
-Our new [SmolVLM2-500M-Video-Instruct](https://huggingface.co/HuggingFaceTB/SmolVLM2-500M-Video-Instruct) model has very close video capabilities than the original SmolVLM 2.2B, but at a fraction of the size: we're getting the same video understanding capabilities with less than a quarter of the parameters.
+Our new [SmolVLM2-500M-Video-Instruct](https://huggingface.co/HuggingFaceTB/SmolVLM2-500M-Video-Instruct) model has video capabilities very close to SmolVLM 2.2B, but at a fraction of the size: we're getting the same video understanding capabilities with less than a quarter of the parameters 🤯.
 
 And then there's our little experiment, the SmolVLM2-256M-Video-Instruct. Think of it as our "what if" project - what if we could push the boundaries of small models even further? Taking inspiration from what [IBM achieved](https://ds4sd.github.io/docling/examples/pictures_description/) with our base [SmolVLM-256M-Instruct](https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct) a few weeks ago, we wanted to see how far we could go with video understanding. While it's more of an experimental release, we're hoping it'll inspire some creative applications and specialized fine-tuning projects.
 
@@ -179,13 +179,13 @@ Available as a Hugging Face Space, this application takes long-form videos (1+ h
 
 
 
-## Using SmolVLM2 and Fine-tuning it with Transformers and MLX
+## Using SmolVLM2 with Transformers and MLX
 
 We make SmolVLM2 available to use with transformers and MLX from day zero. In this section, you can find different inference alternatives and tutorials for video and multiple images.
 
 ### Transformers
 
-There are two ways to infer SmolVLM2 models, one is through a chat template and the other one gives you more control by passing in media through the processor.
+The easiest way to run inference with the SmolVLM2 models is through the conversational API – applying the chat template takes care of preparing all inputs automatically.
 
 You can load the model as follows.
 
@@ -239,7 +239,7 @@ print(generated_texts[0])
 
 #### Multiple Image Inference
 
-You can infer multiple images through a chat template as well. 
+In addition to video, SmolVLM2 supports multi-image conversations. You can use the same API through the chat template.
 
 ```python
 import torch
