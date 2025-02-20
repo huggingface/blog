@@ -314,10 +314,36 @@ print(generated_texts[0])
 ```
 ### Inference with MLX 
 
-You can run SmolVLM2 on MLX with following one-liner: 
-```bash
-python3 -m mlx_vlm.generate –model HuggingFaceTB/SmolVLM-256M-Instruct –max-tokens 400 –temp 0.0 -image {YOUR_IMAGE_PATH}
+To run SmolVLM2 with MLX on Apple Silicon devices using Python, you can use the excellent [mlx-vlm library](https://github.com/Blaizzy/mlx-vlm).
+First, you need to install `mlx-vlm` from [this branch](https://github.com/Blaizzy/mlx-vlm/pull/208) using the following command:
+ 
+ ```bash
+pip install git+https://github.com/pcuenca/mlx-vlm.git@smolvlm
 ```
+
+Then you can run inference on a single image using the following one-liner, which uses [the unquantized 500M version of SmolVLM2](https://huggingface.co/HuggingFaceTB/SmolVLM2-500M-Video-Instruct-mlx):
+
+```bash
+python -m mlx_vlm.generate --model mlx-community/SmolVLM2-500M-Video-Instruct-mlx --image https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg --prompt "Can you describe this image?"
+```
+
+The Swift language is also supported through the [mlx-swift-examples repo](https://github.com/ml-explore/mlx-swift-examples), which is what we used to build our iPhone app.
+
+Until [our in-progress PR](https://github.com/ml-explore/mlx-swift-examples/pull/206) is finalized and merged, you have to compile the project [from this fork](https://github.com/cyrilzakka/mlx-swift-examples), and then you can use the `llm-tool` CLI on your Mac like follows.
+
+For image inference:
+
+```bash
+./mlx-run --debug llm-tool --model mlx-community/SmolVLM2-500M-Video-Instruct-mlx --prompt "Can you describe this image?" --image https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg  --temperature 0.7 --top-p 0.9 --max-tokens 100
+```
+
+Video analysis is also supported, as well as providing a system prompt. We found system prompts to be particularly helpful for video understanding, to drive the model to the desired level of detail we are interested in. This is a video inference example:
+
+```bash
+./mlx-run --debug llm-tool --model mlx-community/SmolVLM2-500M-Video-Instruct-mlx --system "Focus only on describing the key dramatic action or notable event occurring in this video segment. Skip general context or scene-setting details unless they are crucial to understanding the main action." --prompt "What is happening in this video?" --video /Users/pedro/Downloads/IMG_2855.mov  --temperature 0.7 --top-p 0.9 --max-tokens 100
+```
+
+If you integrate SmolVLM2 in your apps using MLX and Swift, we'd love to know about it! Please, feel free to drop us a note in the comments section below!
 
 ### Fine-tuning SmolVLM2
 
