@@ -298,7 +298,7 @@ python -m mlx_vlm.generate \
   --prompt "Can you describe this image?"
 ```
 
-We also created a simple script for video understanding. You can use it like follows:
+We also created a simple script for video understanding. You can use it as follows:
 
 ```bash
 python -m mlx_vlm.smolvlm_video_generate \
@@ -315,7 +315,7 @@ Note that the system prompt is important to bend the model to the desired behavi
 
 The Swift language is also supported through the [mlx-swift-examples repo](https://github.com/ml-explore/mlx-swift-examples), which is what we used to build our iPhone app.
 
-Until [our in-progress PR](https://github.com/ml-explore/mlx-swift-examples/pull/206) is finalized and merged, you have to compile the project [from this fork](https://github.com/cyrilzakka/mlx-swift-examples), and then you can use the `llm-tool` CLI on your Mac like follows.
+Until [our in-progress PR](https://github.com/ml-explore/mlx-swift-examples/pull/206) is finalized and merged, you have to compile the project [from this fork](https://github.com/cyrilzakka/mlx-swift-examples), and then you can use the `llm-tool` CLI on your Mac as follows.
 
 For image inference:
 
@@ -343,14 +343,14 @@ If you integrate SmolVLM2 in your apps using MLX and Swift, we'd love to know ab
 ### Fine-tuning SmolVLM2
 
 You can fine-tune SmolVLM2 on videos using transformers 🤗
-We have fine-tuned 500M variant in Colab on video-caption pairs in [VideoFeedback](https://huggingface.co/datasets/TIGER-Lab/VideoFeedback) dataset for demonstration purposes. Since 500M variant is small, it's better to apply full fine-tuning instead of QLoRA or LoRA, meanwhile you can try to apply QLoRA on cB variant. You can find the fine-tuning notebook [here](https://github.com/huggingface/smollm/blob/main/vision/finetuning/SmolVLM2_Video_FT.ipynb).
+We have fine-tuned the 500M variant in Colab on video-caption pairs in [VideoFeedback](https://huggingface.co/datasets/TIGER-Lab/VideoFeedback) dataset for demonstration purposes. Since the 500M variant is small, it's better to apply full fine-tuning instead of QLoRA or LoRA, meanwhile you can try to apply QLoRA on cB variant. You can find the fine-tuning notebook [here](https://github.com/huggingface/smollm/blob/main/vision/finetuning/SmolVLM2_Video_FT.ipynb).
 
 
 ## Read More
 
 We would like to thank Raushan Turganbay, Arthur Zucker and Pablo Montalvo Leroux for their contribution of the model to transformers.
 
-We are looking forward to see all the things you'll build with SmolVLM2!
-If you'd like to learn more about SmolVLM family of models, feel free to read the following:
+We are looking forward to seeing all the things you'll build with SmolVLM2!
+If you'd like to learn more about the SmolVLM family of models, feel free to read the following:
 
 [SmolVLM2 - Collection with Models and Demos](https://huggingface.co/collections/HuggingFaceTB/smolvlm2-smallest-video-lm-ever-67ab6b5e84bf8aaa60cb17c7)
