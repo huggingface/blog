@@ -21,7 +21,7 @@ SigLIP 2 models **outperform** the older SigLIP ones *at all model scales* in co
 
 A cherry on top is the dynamic resolution (`naflex`) variant. This is useful for downstream tasks sensitive to aspect ratio and resolution.
 
-Here is list of all the models released:
+Here is a list of all the models released:
 
 | Size | Patch Size | Resolution | Transformers | JAX |  
 | :--: | :--: | :--: | --: |  --: |
@@ -133,7 +133,7 @@ Let’s visualize the outputs.
 
 | ![output of zero shot classification](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/sg2-blog/zero-shot.png) |
 | :--: |
-| *Zero Shot Classification Scores Visulaized* |
+| *Zero Shot Classification Scores Visualized* |
 
 ### Encode images for downstream tasks
 
