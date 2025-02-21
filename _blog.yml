@@ -5593,3 +5593,14 @@
     - diffusers
     - vae
     - inference endpoints
+  
+- local: fastrtc
+  title: "FastRTC: The Real-Time Communication Library for Python"
+  author: freddyaboulton
+  thumbnail: /blog/assets/fastrtc/thumbnail.png
+  date: Feb 24, 2025
+  tags:
+    - real-time
+    - audio
+    - video
+    - llm
