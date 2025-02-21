@@ -315,7 +315,7 @@ Note, however, that this task is really hard: depending on the VLM that you use,
 
 This will give you a glimpse of the capabilities of a vision-enabled `CodeAgent`, but there’s much more to do!
 
-- You can get started with the agentic web browser [here](https://github.com/huggingface/smolagents/blob/main/examples/vlm_web_browser.py).
+- You can get started with the agentic web browser [here](https://huggingface.co/docs/smolagents/examples/web_browser).
 - Read more about smolagents [in our announcement blog post](https://huggingface.co/blog/smolagents).
 - Read [the smolagents documentation](https://huggingface.co/docs/smolagents/index).
 

@@ -30,7 +30,7 @@ authors:
 # The Open Arabic LLM Leaderboard 2
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.4.0/gradio.js"> </script>
-<gradio-app theme_mode="dark" space="OALL-Open-Arabic-LLM-Leaderboard.hf.space"></gradio-app>
+<gradio-app theme_mode="dark" space="OALL/Open-Arabic-LLM-Leaderboard"></gradio-app>
 
 ## Current status of Arabic LLMs leaderboards 
 
@@ -131,7 +131,7 @@ Table 1 summarizes the datasets kept from the first version of the leaderboard a
             <td>ALRAGE</td>
         </tr>
     </tbody>
-  <caption align="center"><b>Table 1: Overview of the datasets used in the second version of the Open Arabic LLLM Leaderboard (OALL v2)</b></caption>
+  <caption align="center"><b>Table 1: Overview of the datasets used in the second version of the Open Arabic LLM Leaderboard (OALL v2)</b></caption>
 </table>
 
 Besides adding and removing datasets, we fixed multiple issues related to the UI and its filters, and we also introduced chat templates. In terms of user submissions, now the number of submissions is limited to 5 per organization per week. This limitation is meant to limit the usage of the leaderboard and give the chance to varied organizations to have their models evaluated. NOTE that for the models submitted by OALL's team to v2, if chat template is found in the config, it is used for the evaluation. Otherwise, chat template is disabled.
@@ -152,7 +152,7 @@ To examine the correlation between OALL and other Arabic LLM leaderboards, we co
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/alielfilali01/OALL-assets/refs/heads/main/v2-blog-plots/different_leaderboards_comparison_public_models_by_rank.png" width=80%/>
-    <figcaption align="center"><b>Figure 4: Comparing the relative ranking of five open models on the second edition of the Open Arabic LLM Leaderboard with the AraGen and SEAL-Arabic leaderboads. Data retrieved on 29 January 2025.</b></figcaption>
+    <figcaption align="center"><b>Figure 4: Comparing the relative ranking of five open models on the second edition of the Open Arabic LLM Leaderboard with the AraGen and SEAL-Arabic leaderboards. Data retrieved on 29 January 2025.</b></figcaption>
 </p>
 
 To further explore the differences between the two versions of OALL, we present in Figure 5 the top models across two categories: pretrained and chat. For models submitted to OALL v1, Qwen2.5 establishes itself as a strong baseline for Arabic in all categories, particularly for pretrained models. In OALL v2, Qwen models also dominate the pretrained models category, however the Qwen/Qwen2-72B model surpasses Qwen/Qwen2.5-72B as the best pretrained/continually pretrained model, and Llama3.3-70B-instruct emerges as the leader in all categories, surpassing calme-2.1-qwen2.5-72b in performance. Overall, some model rankings have shifted in v2, while others have remained consistent. We attribute these changes to two key factors: first, the robustness of models with respect to Arabic-native benchmarks, safety, and trustworthiness; and second, the evaluation of over 700 models in OALL v1 compared to 80 models in v2, including a few recent models that might not be present in v1. We anticipate that the community will contribute to expanding the leaderboard following its release.
@@ -178,7 +178,7 @@ Looking ahead, we hope to see the release of additional Arabic benchmarks, parti
 
 ## Acknowledgments
 
-The authors would like to thank Mohamed bin Zayed University of Artificial Intelligence (MBZUAI) for providing some of the new native benchmarks we are using in this version, including the new MMLU-HT dataset. We also extend our gratitude to TII for their generous sponsorship of the inference hardware needed for the evaluation backend. We also thank our friends at Hugging Face for their continous support and being always 🤗 whenever needed. Thanks to all people focusing on evaluation and leaderboards for their languages and tasks. Lastly, we thank the community for their engagement and valuable feedback on the first version of the OALL. Looking forward to seeing many models on the leaderboard :rocket:.
+The authors would like to thank Mohamed bin Zayed University of Artificial Intelligence (MBZUAI) for providing some of the new native benchmarks we are using in this version, including the new MMLU-HT dataset. We also extend our gratitude to TII for their generous sponsorship of the inference hardware needed for the evaluation backend. We also thank our friends at Hugging Face for their continuous support and being always 🤗 whenever needed. Thanks to all people focusing on evaluation and leaderboards for their languages and tasks. Lastly, we thank the community for their engagement and valuable feedback on the first version of the OALL. Looking forward to seeing many models on the leaderboard 🚀.
 
 ## Citations
 ```
@@ -187,12 +187,12 @@ The authors would like to thank Mohamed bin Zayed University of Artificial Intel
   title = {The Open Arabic LLM Leaderboard 2},
   year = {2025},
   publisher = {OALL},
-  howpublished = "\url{https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard-2}"
+  howpublished = {https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard}
 }
 ```
 
 ## References
-- [1] [Open Arabic LLM Leaderboard](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard) (El Filali et al., 2024)
+- [1] [Introducing the Open Arabic LLM Leaderboard](https://huggingface.co/blog/leaderboard-arabic) (El Filali et al., 2024)
 - [2] [CamelEval: Advancing Culturally Aligned Arabic Language Models and Benchmarks](https://arxiv.org/abs/2409.12623v2) (Qian et al., 2024)
 - [3] [AlGhafa Evaluation Benchmark for Arabic Language Models](https://aclanthology.org/2023.arabicnlp-1.21/) (Almazrouei et al., ArabicNLP 2023)
 - [4] [The Belebele Benchmark: a Parallel Reading Comprehension Dataset in 122 Language Variants](https://aclanthology.org/2024.acl-long.44/) (Bandarkar et al., ACL, 2023)
