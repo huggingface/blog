@@ -5574,3 +5574,12 @@
     - llm
     - nlp
     - vision
+
+- local: siglip2
+  title: "SigLIP 2: A better multilingual vision language encoder"
+  author: ariG23498
+  thumbnail: /blog/assets/siglip2/thumbnail.png
+  date: Feb 21, 2025
+  tags:
+    - multimodal
+    - vision
