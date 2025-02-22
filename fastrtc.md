@@ -92,7 +92,7 @@ We're using the SambaNova API since it's fast. But you can use any LLM/text-to-s
 
 ## Bonus: Call via Phone
 
-If instead of `ui.launch()`, you call `stream.fastphone()`, you'll get a free phone number to call into your stream. Note, a HF token is required. Increased limits for PRO accounts.
+If instead of `stream.ui.launch()`, you call `stream.fastphone()`, you'll get a free phone number to call into your stream. Note, a HF token is required. Increased limits for PRO accounts.
 
 You'll see something like this in your terminal:
 
