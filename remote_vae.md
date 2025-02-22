@@ -347,7 +347,7 @@ These tables demonstrate the VRAM requirements with different GPUs. Memory usage
 </p>
 </details>
 
-<details><summary>Details</summary>
+<details><summary>XL</summary>
 <p>
 
 | GPU | Resolution | Time (seconds) | Memory Consumed (%) | Tiled Time (seconds) | Tiled Memory (%) |
