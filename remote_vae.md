@@ -107,6 +107,50 @@ image = remote_decode(torch.randn([1, 4096, 64]), height=1024, width=1024)
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/flux_random_latent.png"/>
 </figure>
 
+Finally, an example for HunyuanVideo.
+
+<details><summary>Code</summary>
+<p>
+    
+```python
+import requests
+import torch
+from base64 import b64decode, b64encode
+from PIL import Image
+from safetensors.torch import _tobytes
+
+ENDPOINT = "https://s30wz9oqnal4v4sq.us-east-1.aws.endpoints.huggingface.cloud"
+
+def remote_decode(latent: torch.Tensor) -> Image.Image:
+    shape = list(latent.shape)
+    dtype = str(latent.dtype).split(".")[-1]
+    tensor_data = b64encode(_tobytes(latent, "inputs")).decode("utf-8")
+    parameters = {"shape": shape, "dtype": dtype}
+    data = {"inputs": tensor_data, "parameters": parameters}
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+    response = requests.post(ENDPOINT, json=data, headers=headers)
+    if not response.ok:
+        raise RuntimeError(response.json())
+    video = b64decode(response.json()["bytes"])
+    return video
+
+video = remote_decode(torch.randn([1, 16, 3, 40, 64]))
+with open("video.mp4", "wb") as f:
+    f.write(video)
+```
+
+</p>
+</details>
+
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+   <video
+      alt="queue.mp4"
+      autoplay loop autobuffer muted playsinline
+    >
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/video_1.mp4" type="video/mp4">
+  </video>
+</figure>
+
 ### Generation
 
 But we want to use the VAE on an actual pipeline to get an actual image, not random noise. The example below shows how to do it with SD v1.5. 
@@ -217,6 +261,68 @@ image.save("test.jpg")
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/test_1.jpg"/>
 </figure>
 
+Here’s an example with HunyuanVideo.
+
+<details><summary>Code</summary>
+<p>
+
+```python
+import requests
+import torch
+from base64 import b64decode, b64encode
+from diffusers import HunyuanVideoPipeline, HunyuanVideoTransformer3DModel
+from PIL import Image
+from safetensors.torch import _tobytes
+
+ENDPOINT = "https://s30wz9oqnal4v4sq.us-east-1.aws.endpoints.huggingface.cloud"
+
+model_id = "hunyuanvideo-community/HunyuanVideo"
+transformer = HunyuanVideoTransformer3DModel.from_pretrained(
+    model_id, subfolder="transformer", torch_dtype=torch.bfloat16
+)
+pipe = HunyuanVideoPipeline.from_pretrained(
+    model_id, transformer=transformer, vae=None, torch_dtype=torch.float16
+).to("cuda")
+
+latent = pipe(
+    prompt="A cat walks on the grass, realistic",
+    height=320,
+    width=512,
+    num_frames=61,
+    num_inference_steps=30,
+    output_type="latent",
+).frames
+
+def remote_decode(latent: torch.Tensor) -> Image.Image:
+    shape = list(latent.shape)
+    dtype = str(latent.dtype).split(".")[-1]
+    tensor_data = b64encode(_tobytes(latent, "inputs")).decode("utf-8")
+    parameters = {"shape": shape, "dtype": dtype}
+    data = {"inputs": tensor_data, "parameters": parameters}
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+    response = requests.post(ENDPOINT, json=data, headers=headers)
+    if not response.ok:
+        raise RuntimeError(response.json())
+    video = b64decode(response.json()["bytes"])
+    return video
+
+video = remote_decode(latent)
+with open("video.mp4", "wb") as f:
+    f.write(video)
+```
+
+</p>
+</details>
+
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+   <video
+      alt="queue.mp4"
+      autoplay loop autobuffer muted playsinline
+    >
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/video.mp4" type="video/mp4">
+  </video>
+</figure>
+
 ### Queueing
 
 One of the great benefits of using a remote VAE is that we can queue multiple generation requests. While the current latent is being processed for decoding, we can already queue another one. This helps improve concurrency. 
@@ -320,6 +426,7 @@ thread.join()
 | **Stable Diffusion v1** | [https://lqmfdhmzmy4dw51z.us-east-1.aws.endpoints.huggingface.cloud](https://lqmfdhmzmy4dw51z.us-east-1.aws.endpoints.huggingface.cloud) | [`stabilityai/sd-vae-ft-mse`](https://hf.co/stabilityai/sd-vae-ft-mse) |
 | **Stable Diffusion XL** | [https://m5fxqwyk0r3uu79o.us-east-1.aws.endpoints.huggingface.cloud](https://m5fxqwyk0r3uu79o.us-east-1.aws.endpoints.huggingface.cloud) | [`madebyollin/sdxl-vae-fp16-fix`](https://hf.co/madebyollin/sdxl-vae-fp16-fix) |
 | **Flux** | [https://zy1z7fzxpgtltg06.us-east-1.aws.endpoints.huggingface.cloud](https://zy1z7fzxpgtltg06.us-east-1.aws.endpoints.huggingface.cloud) | [`black-forest-labs/FLUX.1-schnell`](https://hf.co/black-forest-labs/FLUX.1-schnell) |
+| **HunyuanVideo** | [https://s30wz9oqnal4v4sq.us-east-1.aws.endpoints.huggingface.cloud](https://s30wz9oqnal4v4sq.us-east-1.aws.endpoints.huggingface.cloud) | [`hunyuanvideo-community/HunyuanVideo`](https://hf.co/hunyuanvideo-community/HunyuanVideo) |
 
 
 ## Advantages of using a remote VAE
