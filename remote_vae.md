@@ -326,7 +326,8 @@ thread.join()
 
 These tables demonstrate the VRAM requirements with different GPUs. Memory usage % determines whether users of a certain GPU will need to offload. Offload times vary with CPU, RAM and HDD/NVMe. Tiled decoding increases inference time.
 
-<details><summary>v1</summary>
+<details><summary>SD v1.5</summary>
+
 <p>
 
 | GPU | Resolution | Time (seconds) | Memory (%) | Tiled Time (secs) | Tiled Memory (%) |
@@ -347,7 +348,8 @@ These tables demonstrate the VRAM requirements with different GPUs. Memory usage
 </p>
 </details>
 
-<details><summary>XL</summary>
+<details><summary>SDXL</summary>
+
 <p>
 
 | GPU | Resolution | Time (seconds) | Memory Consumed (%) | Tiled Time (seconds) | Tiled Memory (%) |
