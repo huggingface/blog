@@ -5585,10 +5585,10 @@
     - vision
 
 - local: remote_vae
-  title: "Remote VAEs to run decoding seamlessly with HF endpoints 🤗"
+  title: "Remote VAEs for decoding with HF endpoints 🤗"
   author: hlky
   thumbnail: /blog/assets/remote_vae/thumbnail.png
-  date: Feb 12, 2025
+  date: Feb 24, 2025
   tags:
     - diffusers
     - vae

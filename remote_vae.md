@@ -1,4 +1,12 @@
-# Remote VAEs to run decoding seamlessly with HF endpoints 🤗
+---
+title: "Remote VAEs for decoding with HF endpoints 🤗"
+thumbnail: /blog/assets/remote_vae/thumbnail.png
+authors:
+- user: hlky
+- user: sayakpaul
+---
+
+# Remote VAEs for decoding with HF endpoints 🤗
 
 When operating with latent-space diffusion models for high-resolution image and video synthesis, the VAE decoder can consume quite a bit more memory. This makes it hard for the users to run these models on consumer GPUs without going through latency sacrifices and others alike. 
 
@@ -8,13 +16,13 @@ Therefore, we want to pilot an idea with the community — delegating the decodi
 
 **Table of contents**:
 
-- Getting started
+- [Getting started](#getting-started)
     - Basic example
     - Generation
     - Queueing
-- Available VAEs
-- Advantages of using a remote VAE
-- Provide feedback
+- [Available VAEs](#available-vaes)
+- [Advantages of using a remote VAE](#advantages-of-using-a-remote-vae)
+- [Provide feedback](#provide-feedback)
 
 ## Getting started
 
@@ -56,8 +64,9 @@ image = remote_decode(torch.randn([1, 4, 64, 64]))
 </p>
 </details>
 
-
-![output.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/output.png)
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/output.png"/>
+</figure>
 
 Usage for Flux is slightly different. Flux latents are packed so we need to send the `height` and `width`.
 
@@ -94,9 +103,9 @@ image = remote_decode(torch.randn([1, 4096, 64]), height=1024, width=1024)
 </p>
 </details>
 
-
-
-![flux_random_latent.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/flux_random_latent.png)
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/flux_random_latent.png"/>
+</figure>
 
 ### Generation
 
@@ -150,7 +159,9 @@ image.save("test.jpg")
 </p>
 </details>
 
-![test.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/test.jpg)
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/test.jpg"/>
+</figure>
 
 Here’s another example with Flux.
 
@@ -202,7 +213,9 @@ image.save("test.jpg")
 </p>
 </details>
 
-![test.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/test_1.jpg)
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/test_1.jpg"/>
+</figure>
 
 ### Queueing
 
@@ -290,15 +303,24 @@ thread.join()
 </details>
 
 
-[queue.mp4](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/queue.mp4)
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+   <video
+      alt="queue.mp4"
+      autoplay loop autobuffer muted playsinline
+    >
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/remote_vae/queue.mp4" type="video/mp4">
+  </video>
+</figure>
+
 
 ## Available VAEs
 
-|  | Endpoint | Model |
-| --- | --- | --- |
-| Stable Diffusion v1 | `https://lqmfdhmzmy4dw51z.us-east-1.aws.endpoints.huggingface.cloud` | `stabilityai/sd-vae-ft-mse` |
-| Stable Diffusion XL | `https://m5fxqwyk0r3uu79o.us-east-1.aws.endpoints.huggingface.cloud` | `madebyollin/sdxl-vae-fp16-fix` |
-| Flux | `https://zy1z7fzxpgtltg06.us-east-1.aws.endpoints.huggingface.cloud` | `black-forest-labs/FLUX.1-schnell` |
+|   | **Endpoint** | **Model** |
+|:-:|:-----------:|:--------:|
+| **Stable Diffusion v1** | [https://lqmfdhmzmy4dw51z.us-east-1.aws.endpoints.huggingface.cloud](https://lqmfdhmzmy4dw51z.us-east-1.aws.endpoints.huggingface.cloud) | [`stabilityai/sd-vae-ft-mse`](https://hf.co/stabilityai/sd-vae-ft-mse) |
+| **Stable Diffusion XL** | [https://m5fxqwyk0r3uu79o.us-east-1.aws.endpoints.huggingface.cloud](https://m5fxqwyk0r3uu79o.us-east-1.aws.endpoints.huggingface.cloud) | [`madebyollin/sdxl-vae-fp16-fix`](https://hf.co/madebyollin/sdxl-vae-fp16-fix) |
+| **Flux** | [https://zy1z7fzxpgtltg06.us-east-1.aws.endpoints.huggingface.cloud](https://zy1z7fzxpgtltg06.us-east-1.aws.endpoints.huggingface.cloud) | [`black-forest-labs/FLUX.1-schnell`](https://hf.co/black-forest-labs/FLUX.1-schnell) |
+
 
 ## Advantages of using a remote VAE
 
