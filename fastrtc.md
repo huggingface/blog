@@ -38,7 +38,7 @@ Let's start into the "hello word" of real-time audio: echoing back what the user
 
 ```python
 from fastrtc import Stream, ReplyOnPause
-from numpy import np
+import numpy as np
 
 def echo(audio: tuple[int, np.ndarray]) -> tuple[int, np.ndarray]:
     yield audio
