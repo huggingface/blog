@@ -147,9 +147,7 @@ def remote_decode(
                 if isinstance(processor, VideoProcessor):
                     output = cast(
                         List[Image.Image],
-                        processor.postprocess_video(output_tensor, output_type="pil")[
-                            0
-                        ],
+                        processor.postprocess_video(output_tensor, output_type="pil")[0],
                     )
                 else:
                     output = cast(
@@ -311,7 +309,7 @@ Required for packed latents in Flux. Not required with `do_scaling=False` as `un
 
 But we want to use the VAE on an actual pipeline to get an actual image, not random noise. The example below shows how to do it with SD v1.5. 
 
-<details><summary>Details</summary>
+<details><summary>Code</summary>
 <p>
 
 ```python
@@ -335,7 +333,6 @@ image = remote_decode(
     tensor=latent,
 )
 image.save("test.jpg")
-
 ```
 
 </p>
