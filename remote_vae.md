@@ -12,7 +12,9 @@ When operating with latent-space diffusion models for high-resolution image and 
 
 For example, with offloading, there is a device transfer overhead, causing delays in the overall inference latency. Tiling is another solution that lets us operate on so-called “tiles” of inputs. However, it can have a negative impact on the quality of the final image. 
 
-Therefore, we want to pilot an idea with the community — delegating the decoding process to a remote endpoint. 
+Therefore, we want to pilot an idea with the community — delegating the decoding process to a remote endpoint.
+
+No data is stored or tracked, and code is open source. We made some changes to [huggingface-inference-toolkit](https://github.com/hlky/huggingface-inference-toolkit/tree/fix-text-support-binary) and use [custom handlers](https://huggingface.co/hlky/sd-vae-ft-mse/blob/main/handler.py).
 
 **Table of contents**:
 
