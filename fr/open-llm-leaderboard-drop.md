@@ -70,8 +70,9 @@ Nous avons émis l'hypothèse que ces deux problèmes pourraient être résolus 
 ## Modification du *token* de fin de génération
 Nous avons essayé d'utiliser `\n` comme *token* de fin de génération sur les résultats disponibles. Nous avons découpé la réponse générée sur le premier `\n` qu'elle contenait, s'il y en avait un, et nous avons recalculé les scores. 
 
-**Notez que ce n'est qu'une approximation du bon résultat car cela ne corrigera pas les réponses qui ont été coupées trop tôt sur `.` (par exemple les réponses en virgule flottante) mais cela ne donnera pas non plus un avantage injuste à un modèle, car ils ont tous été affectés par ce problème. 
-C'est le mieux que nous puissions faire sans réexécuter les modèles (car nous voulions tenir la communauté informée le plus tôt possible).**
+> [!NOTE]
+> Notez que ce n'est qu'une approximation du bon résultat car cela ne corrigera pas les réponses qui ont été coupées trop tôt sur `.` (par exemple les réponses en virgule flottante) mais cela ne donnera pas non plus un avantage injuste à un modèle, car ils ont tous été affectés par ce problème. 
+C'est le mieux que nous puissions faire sans réexécuter les modèles (car nous voulions tenir la communauté informée le plus tôt possible).
 
 Nous observons alors que le découpage sur `\n` s'avère très bien corrélé avec les autres scores et donc avec la performance globale.
 
