@@ -3,19 +3,20 @@ title: "FastRTC: The Real-Time Communication Library for Python"
 thumbnail: /blog/assets/fastrtc/fastrtc_logo.png
 authors:
 - user: freddyaboulton
+- user: abidlabs
 ---
 
 # FastRTC: The Real-Time Communication Library for Python
 
-In the last six months, the AI audio space has exploded with model releases (for both open and closed source models) and investor and developer interest. To name a few milestones:
+In the last few months, many new real-time speech models have been released and entire companies have been founded around both open and closed source models. To name a few milestones:
 
 - OpenAI and Google released their live multimodal APIs for ChatGPT and Gemini. OpenAI even went so far as to release a 1-800-ChatGPT phone number!
-- Kyutai released Moshi, a fully open-source audio-to-audio LLM. Alibaba released Qwen2-Audio and Fixie.ai released Ultravox - two open-source LLMs that natively understand audio.
-- EleveLabs raised $180m in their Series C.
+- Kyutai released [Moshi](https://huggingface.co/kyutai), a fully open-source audio-to-audio LLM. Alibaba released [Qwen2-Audio](https://huggingface.co/Qwen/Qwen2-Audio-7B-Instruct) and Fixie.ai released [Ultravox](https://huggingface.co/fixie-ai/ultravox-v0_5-llama-3_3-70b) - two open-source LLMs that natively understand audio.
+- EleveLabs [raised $180m](https://elevenlabs.io/blog/series-c) in their Series C.
 
-Despite the explosion in the model and funding side, it's still difficult to build real-time AI applications, especially in Python.
+Despite the explosion in the model and funding side, it's still difficult to build real-time AI applications that stream audio and video, especially in Python.
 
-- ML engineers may not have experience with the technologies needed to build real-time applications.
+- ML engineers may not have experience with the technologies needed to build real-time applications, such as WebRTC.
 - Even code assistant tools like Cursor and Copilot struggle to write python code that supports real-time audio/video applications. I know from experience!
 
 That's why we're excited to announce `FastRTC`, the real-time communication library for Python. The library is designed to make it super easy to build real-time audio and video AI applications entirely in Python! Let's dive in.
@@ -49,7 +50,7 @@ stream.ui.launch()
 
 Let's break it down:
 - The `ReplyOnPause` will handle the voice detection and turn taking for you. You just have to worry about the logic for responding to the user. Any generator that returns a tuple of audio, (represented as `(sample_rate, audio_data)`) will work.
-- The `Stream` class will build a production-ready Gradio UI for you to quickly test out your stream (or deploy to prod!).
+- The `Stream` class will build a Gradio UI for you to quickly test out your stream. Once you have finished prototyping, you can deploy your Stream as a production-ready FastAPI app in a single line of code
 
 Here it is in action:
 
@@ -86,7 +87,7 @@ stream = Stream(ReplyOnPause(echo), modality="audio", mode="send-receive")
 stream.ui.launch()
 ```
 
-We're using the SambaNova API since it's fast. But you can use any LLM/text-to-speech/speech-to-text API. Bring the tools you love - `FastRTC` just handles the real-time communication layer.
+We're using the SambaNova API since it's fast. The `get_stt_model()` will fetch [Moonshine Base](https://huggingface.co/UsefulSensors/moonshine-base) and `get_tts_model()` will fetch [Kokoro](https://huggingface.co/hexgrad/Kokoro-82M) from the Hub, both of which have been further optimized for on-device CPU inference. But you can use any LLM/text-to-speech/speech-to-text API or even a speech-to-speech model. Bring the tools you love - `FastRTC` just handles the real-time communication layer.
 
 <video src="https://github.com/user-attachments/assets/85dfbd52-b3f9-4354-b8fe-7ab9abb04bfd" controls /></video>
 
