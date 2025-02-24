@@ -12,9 +12,9 @@ In the last few months, many new real-time speech models have been released and 
 
 - OpenAI and Google released their live multimodal APIs for ChatGPT and Gemini. OpenAI even went so far as to release a 1-800-ChatGPT phone number!
 - Kyutai released [Moshi](https://huggingface.co/kyutai), a fully open-source audio-to-audio LLM. Alibaba released [Qwen2-Audio](https://huggingface.co/Qwen/Qwen2-Audio-7B-Instruct) and Fixie.ai released [Ultravox](https://huggingface.co/fixie-ai/ultravox-v0_5-llama-3_3-70b) - two open-source LLMs that natively understand audio.
-- EleveLabs [raised $180m](https://elevenlabs.io/blog/series-c) in their Series C.
+- ElevenLabs [raised $180m](https://elevenlabs.io/blog/series-c) in their Series C.
 
-Despite the explosion in the model and funding side, it's still difficult to build real-time AI applications that stream audio and video, especially in Python.
+Despite the explosion on the model and funding side, it's still difficult to build real-time AI applications that stream audio and video, especially in Python.
 
 - ML engineers may not have experience with the technologies needed to build real-time applications, such as WebRTC.
 - Even code assistant tools like Cursor and Copilot struggle to write python code that supports real-time audio/video applications. I know from experience!
@@ -23,18 +23,18 @@ That's why we're excited to announce `FastRTC`, the real-time communication libr
 
 In this blog post, we'll walk through the basics of `FastRTC` by building real-time audio applications. At the end, you'll understand the core features of `FastRTC`:
 
-- 🗣️ Automatic Voice Detection and Turn Taking built-in, only worry about the logic for responding to the user.
-- 💻 Automatic UI - Built-in webRTC-enabled [Gradio](https://www.gradio.app/) UI for testing (or deploying to prod!).
+- 🗣️ Automatic Voice Detection and Turn Taking built-in, so you only need to worry about the logic for responding to the user.
+- 💻 Automatic UI - Built-in WebRTC-enabled Gradio UI for testing (or deploying to production!).
 - 📞 Call via Phone - Use fastphone() to get a FREE phone number to call into your audio stream (HF Token required. Increased limits for PRO accounts).
-- ⚡️ WebRTC and Websocket support
-- 💪 Customizable - You can mount the stream to any FastAPI app so you can serve a custom UI or deploy beyond Gradio
-- 🧰 Lots of utils for text-to-speech, speech-to-text, stop word detection to get you started
+- ⚡️ WebRTC and Websocket support.
+- 💪 Customizable - You can mount the stream to any FastAPI app so you can serve a custom UI or deploy beyond Gradio.
+- 🧰 Lots of utilities for text-to-speech, speech-to-text, stop word detection to get you started.
 
 Let's dive in.
 
 ## Getting Started
 
-We'll start by building the "hello word" of real-time audio: echoing back what the user says. In `FastRTC`, this is as simple as:
+We'll start by building the "hello world" of real-time audio: echoing back what the user says. In `FastRTC`, this is as simple as:
 
 ```python
 from fastrtc import Stream, ReplyOnPause
@@ -57,7 +57,7 @@ Here it is in action:
 
 ## Leveling-Up: LLM Voice Chat
 
-The next level is to use an LLM to respond to the user. `FastRTC` comes with built-in speech-to-text and text-to-speech capabilities so working with LLMs is really easy. Let's change our `echo` function accordingly:
+The next level is to use an LLM to respond to the user. `FastRTC` comes with built-in speech-to-text and text-to-speech capabilities, so working with LLMs is really easy. Let's change our `echo` function accordingly:
 
 ```python
 import os
@@ -92,7 +92,7 @@ We're using the SambaNova API since it's fast. The `get_stt_model()` will fetch 
 
 ## Bonus: Call via Phone
 
-If instead of `stream.ui.launch()`, you call `stream.fastphone()`, you'll get a free phone number to call into your stream. Note, a HF token is required. Increased limits for PRO accounts.
+If instead of `stream.ui.launch()`, you call `stream.fastphone()`, you'll get a free phone number to call into your stream. Note, a Hugging Face token is required. Increased limits for PRO accounts.
 
 You'll see something like this in your terminal:
 
@@ -108,8 +108,8 @@ You can then call the number and it will connect you to your stream!
 
 ## Next Steps
 
-- Read the [docs](https://fastrtc.org/pr-preview/pr-60/) to learn more about the basics of `FastRTC`
-- The best way to start building is by checking out the [cookbook](https://fastrtc.org/pr-preview/pr-60/cookbook). Find out how to intergrate with popular LLM providers (including OpenAI and Gemini's real-time APIs), integrate your stream with a FastAPI app and do a custom deployment, return additional data from your handler, do video processing, and more!
+- Read the [docs](https://fastrtc.org/pr-preview/pr-60/) to learn more about the basics of `FastRTC`.
+- The best way to start building is by checking out the [cookbook](https://fastrtc.org/pr-preview/pr-60/cookbook). Find out how to integrate with popular LLM providers (including OpenAI and Gemini's real-time APIs), integrate your stream with a FastAPI app and do a custom deployment, return additional data from your handler, do video processing, and more!
 - ⭐️ Star the [repo](https://github.com/freddyaboulton/gradio-webrtc) and file bug and issue requests!
 - Follow the [FastRTC Org](https://huggingface.co/fastrtc) on HuggingFace for updates and check out deployed examples!
 
