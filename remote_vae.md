@@ -1,12 +1,12 @@
 ---
-title: "Remote VAEs for decoding with HF endpoints 🤗"
+title: "Remote VAEs for decoding with Inference Endpoints 🤗"
 thumbnail: /blog/assets/remote_vae/thumbnail.png
 authors:
 - user: hlky
 - user: sayakpaul
 ---
 
-# Remote VAEs for decoding with HF endpoints 🤗
+# Remote VAEs for decoding with Inference Endpoints 🤗
 
 When operating with latent-space diffusion models for high-resolution image and video synthesis, the VAE decoder can consume quite a bit more memory. This makes it hard for the users to run these models on consumer GPUs without going through latency sacrifices and others alike. 
 
