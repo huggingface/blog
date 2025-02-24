@@ -19,11 +19,9 @@ Despite the explosion in the model and funding side, it's still difficult to bui
 - ML engineers may not have experience with the technologies needed to build real-time applications, such as WebRTC.
 - Even code assistant tools like Cursor and Copilot struggle to write python code that supports real-time audio/video applications. I know from experience!
 
-That's why we're excited to announce `FastRTC`, the real-time communication library for Python. The library is designed to make it super easy to build real-time audio and video AI applications entirely in Python! Let's dive in.
+That's why we're excited to announce `FastRTC`, the real-time communication library for Python. The library is designed to make it super easy to build real-time audio and video AI applications entirely in Python!
 
-## Core Features
-
-At the heart of `FastRTC` is the `Stream` class. A powerful abstraction that wraps any python function with a real-time communication layer with the following core features:
+In this blog post, we'll walk through the basics of `FastRTC` by building real-time audio applications. At the end, you'll understand the core features of `FastRTC`:
 
 - 🗣️ Automatic Voice Detection and Turn Taking built-in, only worry about the logic for responding to the user.
 - 💻 Automatic UI - Built-in webRTC-enabled [Gradio](https://www.gradio.app/) UI for testing (or deploying to prod!).
@@ -32,10 +30,11 @@ At the heart of `FastRTC` is the `Stream` class. A powerful abstraction that wra
 - 💪 Customizable - You can mount the stream to any FastAPI app so you can serve a custom UI or deploy beyond Gradio
 - 🧰 Lots of utils for text-to-speech, speech-to-text, stop word detection to get you started
 
+Let's dive in.
 
 ## Getting Started
 
-Let's start into the "hello word" of real-time audio: echoing back what the user says. In `FastRTC`, this is as simple as:
+We'll start by building the "hello word" of real-time audio: echoing back what the user says. In `FastRTC`, this is as simple as:
 
 ```python
 from fastrtc import Stream, ReplyOnPause
@@ -50,7 +49,7 @@ stream.ui.launch()
 
 Let's break it down:
 - The `ReplyOnPause` will handle the voice detection and turn taking for you. You just have to worry about the logic for responding to the user. Any generator that returns a tuple of audio, (represented as `(sample_rate, audio_data)`) will work.
-- The `Stream` class will build a Gradio UI for you to quickly test out your stream. Once you have finished prototyping, you can deploy your Stream as a production-ready FastAPI app in a single line of code
+- The `Stream` class will build a Gradio UI for you to quickly test out your stream. Once you have finished prototyping, you can deploy your Stream as a production-ready FastAPI app in a single line of code - `stream.mount(app)`. Where `app` is a FastAPI app.
 
 Here it is in action:
 
