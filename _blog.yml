@@ -5583,3 +5583,16 @@
   tags:
     - multimodal
     - vision
+
+- local: scaling-secrets-management
+  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"  
+  thumbnail: /blog/assets/infisical/thumbnail.png
+  author: segudev
+  guest: true
+  date: Feb 21, 2025
+  tags:
+    - secrets
+    - security
+    - shift-left
+    - infrastructure
+    - open-source    
