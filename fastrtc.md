@@ -17,7 +17,7 @@ In the last few months, many new real-time speech models have been released and 
 Despite the explosion on the model and funding side, it's still difficult to build real-time AI applications that stream audio and video, especially in Python.
 
 - ML engineers may not have experience with the technologies needed to build real-time applications, such as WebRTC.
-- Even code assistant tools like Cursor and Copilot struggle to write python code that supports real-time audio/video applications. I know from experience!
+- Even code assistant tools like Cursor and Copilot struggle to write Python code that supports real-time audio/video applications. I know from experience!
 
 That's why we're excited to announce `FastRTC`, the real-time communication library for Python. The library is designed to make it super easy to build real-time audio and video AI applications entirely in Python!
 
