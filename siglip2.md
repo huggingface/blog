@@ -103,9 +103,7 @@ This brings us to the end of the evolution from SigLIP to SigLIP 2. In the next 
 Running inference on the models is pretty straightforward. You can copy paste the code below and run inference on a free tier Colab notebook 🚀
 
 > [!NOTE]
-> To run inference on SigLIP 2, please install `transformers` from GitHub. (It will soon be in the latest `transformers` release)
-> `pip install git+https://github.com/huggingface/transformers@main`
-> OR
+> To run inference on SigLIP 2, please install `transformers` from `main` or from this stable branch:
 > `pip install git+https://github.com/huggingface/transformers@v4.49.0-SigLIP-2`
 
 ### Zero-shot Classification
