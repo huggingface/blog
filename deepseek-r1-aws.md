@@ -191,9 +191,9 @@ model_name = hf_model_id.split("/")[-1].lower()
 # Hub Model configuration
 hub = {
     "HF_MODEL_ID": model_id,
-    "HF_NUM_CORES": "24",
+    "HF_NUM_CORES": "16",
     "HF_AUTO_CAST_TYPE": "bf16",
-    "MAX_BATCH_SIZE": "4",
+    "MAX_BATCH_SIZE": "8",
     "MAX_INPUT_TOKENS": "3686",
     "MAX_TOTAL_TOKENS": "4096",
 }
@@ -270,10 +270,10 @@ docker run -p 8080:80 \
     -e HF_BATCH_SIZE=4 \
     -e HF_SEQUENCE_LENGTH=4096 \
     -e HF_AUTO_CAST_TYPE="bf16" \
-    -e HF_NUM_CORES=24 \
+    -e HF_NUM_CORES=16 \
     ghcr.io/huggingface/neuronx-tgi:latest \
     --model-id deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
-    --max-batch-size 4 \
+    --max-batch-size 8 \
     --max-total-tokens 4096
 ```
 
