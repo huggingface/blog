@@ -1,6 +1,6 @@
 ---
 title: HuggingFace, IISc partner to supercharge model building on India's diverse languages
-thumbnail: /assets/HFxIISc-collab/thumbnail.png
+thumbnail: /assets/iisc-huggingface-collab/thumbnail.png
 authors:
 - user: prasantgiisc
 - user: nihar-artpark
