@@ -1,6 +1,6 @@
 ---
 title: "FastRTC: The Real-Time Communication Library for Python" 
-thumbnail: /blog/assets/fastrtc/fastrtc_logo.png
+thumbnail: /blog/assets/fastrtc/fastrtc_logo.jpg
 authors:
 - user: freddyaboulton
 - user: abidlabs
