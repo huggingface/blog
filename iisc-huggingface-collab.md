@@ -23,7 +23,7 @@ Vaani targets the collection of over 150,000 hours of speech and 15,000 hours of
 
 The dataset is being built in phases, with Phase 1 covering 80 districts, which has already been open-sourced. Phase 2 is currently underway, expanding the dataset to 100 more districts, further strengthening Vaani's reach and impact across India's diverse linguistic landscape.
 
-![Key Highlights](https://huggingface.co/datasets/huggingface/documentation-images/tree/main/blog/iisc-huggingface-collab/Vaani_Dataset_summary.png)
+![Key Highlights](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/iisc-huggingface-collab/Vaani_Dataset_summary.png)
 *Key Highlights of the Vaani data set, open sourced so far: (as of 15-02-2025)*
 ### District wise language distribution
 
