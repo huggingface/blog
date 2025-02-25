@@ -82,7 +82,7 @@ def remote_decode(
         raise ValueError("`height` and `width` required for packed latents.")
     if output_type == "pt" and partial_postprocess is False and processor is None:
         raise ValueError(
-            "`processor` is required with `output_type='pt' and `partial_postprocess=False`."
+            "`processor` is required with `output_type='pt'` and `partial_postprocess=False`."
         )
     headers = {}
     parameters = {
@@ -371,7 +371,7 @@ latent = pipe(
     output_type="latent",
 ).images
 image = remote_decode(
-    endpoint="https://whhx50ex1aryqvw6.us-east-1.aws.endpoints.huggingface.cloud/"
+    endpoint="https://whhx50ex1aryqvw6.us-east-1.aws.endpoints.huggingface.cloud/",
     tensor=latent,
     height=1024,
     width=1024,
@@ -469,10 +469,10 @@ def decode(latent: torch.Tensor):
 
 prompts = [
     "Blueberry ice cream, in a stylish modern glass , ice cubes, nuts, mint leaves, splashing milk cream, in a gradient purple background, fluid motion, dynamic movement, cinematic lighting, Mysterious",
-    "Lemonade in a glass, mint leaves, in an aqua and white background, flowers, ice cubes, halo, fluid motion, dynamic movement, soft lighting, digital painting, rule of third's composition, Art by Greg rutkowski, Coby whitmore",
+    "Lemonade in a glass, mint leaves, in an aqua and white background, flowers, ice cubes, halo, fluid motion, dynamic movement, soft lighting, digital painting, rule of thirds composition, Art by Greg rutkowski, Coby whitmore",
     "Comic book art, beautiful, vintage, pastel neon colors, extremely detailed pupils, delicate features, light on face, slight smile, Artgerm, Mary Blair, Edmund Dulac, long dark locks, bangs, glowing, fashionable style, fairytale ambience, hot pink.",
     "Masterpiece, vanilla cone ice cream garnished with chocolate syrup, crushed nuts, choco flakes, in a brown background, gold, cinematic lighting, Art by WLOP",
-    "A bowl of milk, falling cornflakes, berries, blueberries, in a white background, soft lighting, intricate details, rule of third's, octane render, volumetric lighting",
+    "A bowl of milk, falling cornflakes, berries, blueberries, in a white background, soft lighting, intricate details, rule of thirds, octane render, volumetric lighting",
     "Cold Coffee with cream, crushed almonds, in a glass, choco flakes, ice cubes, wet, in a wooden background, cinematic lighting, hyper realistic painting, art by Carne Griffiths, octane render, volumetric lighting, fluid motion, dynamic movement, muted colors,",
 ]
 
