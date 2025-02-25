@@ -9,7 +9,7 @@ authors:
 ---
 # HuggingFace, IISc partner to supercharge model building on India's diverse languages
 
-The Indian Institute of Science [IISc](https://iisc.ac.in/) and [ARTPARK](https://artpark.in/)  partner with HuggingFace to enable developers across the globe to access [Vaani](https://vaani.iisc.ac.in/), India's most diverse open-source, multi-modal, multi-lingual dataset. Both organisations share a commitment to building inclusive, accessible, and state-of-the-art AI technologies that honor linguistic and cultural diversity.
+The Indian Institute of Science [IISc](https://iisc.ac.in/) and [ARTPARK](https://artpark.in/)  partner with Hugging Face to enable developers across the globe to access [Vaani](https://vaani.iisc.ac.in/), India's most diverse open-source, multi-modal, multi-lingual dataset. Both organisations share a commitment to building inclusive, accessible, and state-of-the-art AI technologies that honor linguistic and cultural diversity.
 
 ## Partnership
 
