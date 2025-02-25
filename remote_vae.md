@@ -416,6 +416,10 @@ video = remote_decode(
     tensor=latent,
     output_type="mp4",
 )
+
+if isinstance(video, bytes):
+    with open("video.mp4", "wb") as f:
+        f.write(video)
 ```
 
 </p>
