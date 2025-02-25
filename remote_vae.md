@@ -36,6 +36,10 @@ Below, we cover three use cases where we think this remote VAE inference would b
 
 First, we have created a helper method for interacting with Remote VAEs.
 
+> [!NOTE]
+> We recommend installing `diffusers` from `main` to run the code.
+> `pip install git+https://github.com/huggingface/diffusers@main`
+
 <details><summary>Code</summary>
 <p>
 
