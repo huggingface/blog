@@ -13,7 +13,7 @@ The Indian Institute of Science [IISc](https://iisc.ac.in/) and [ARTPARK](https:
 
 ## Partnership
 
-The partnership between HuggingFace and IISc/ARTPARK aims to increase the accessibility and improve usability of the Vaani dataset, encouraging the development of AI systems that better understand India's diverse languages and cater to the digital needs of its people.
+The partnership between Hugging Face and IISc/ARTPARK aims to increase the accessibility and improve usability of the Vaani dataset, encouraging the development of AI systems that better understand India's diverse languages and cater to the digital needs of its people.
 
 ## About Vaani Dataset
 
