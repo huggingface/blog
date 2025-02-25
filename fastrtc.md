@@ -108,9 +108,9 @@ You can then call the number and it will connect you to your stream!
 
 ## Next Steps
 
-- Read the [docs](https://fastrtc.org/pr-preview/pr-60/) to learn more about the basics of `FastRTC`.
-- The best way to start building is by checking out the [cookbook](https://fastrtc.org/pr-preview/pr-60/cookbook). Find out how to integrate with popular LLM providers (including OpenAI and Gemini's real-time APIs), integrate your stream with a FastAPI app and do a custom deployment, return additional data from your handler, do video processing, and more!
-- ⭐️ Star the [repo](https://github.com/freddyaboulton/gradio-webrtc) and file bug and issue requests!
+- Read the [docs](https://fastrtc.org/) to learn more about the basics of `FastRTC`.
+- The best way to start building is by checking out the [cookbook](https://fastrtc.org/). Find out how to integrate with popular LLM providers (including OpenAI and Gemini's real-time APIs), integrate your stream with a FastAPI app and do a custom deployment, return additional data from your handler, do video processing, and more!
+- ⭐️ Star the [repo](https://github.com/freddyaboulton/fastrtc) and file bug and issue requests!
 - Follow the [FastRTC Org](https://huggingface.co/fastrtc) on HuggingFace for updates and check out deployed examples!
 
 Thank you for checking out `FastRTC`!
