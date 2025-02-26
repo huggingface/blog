@@ -2,10 +2,18 @@
 title: HuggingFace, IISc partner to supercharge model building on India's diverse languages
 thumbnail: /assets/iisc-huggingface-collab/thumbnail.png
 authors:
-- user: prasantgiisc
+- user: prasantg
+  guest: true
+  org: iisc_org_on_huggingface
 - user: nihar-artpark
-- user: visruth_rf
-- user: Sujith-artpark
+  guest: true
+  org: iisc_org_on_huggingface
+- user: Visruth-sanka
+  guest: true
+  org: iisc_org_on_huggingface
+- user: SujithPulikodan
+  guest: true
+  org: iisc_org_on_huggingface
 ---
 # HuggingFace, IISc partner to supercharge model building on India's diverse languages
 
@@ -65,8 +73,6 @@ IISc/ARTPARK and Google have extended the partnership to Phase 2 (additional 100
 The most meaningful contribution you can make is to use the Vaani dataset. Whether building new AI applications, conducting research, or exploring innovative use cases, your engagement helps improve and expand the project.
 
 We would be delighted to hear from you if you have feedback or insights from using the dataset. Please reach out to vaanicontact@gmail.com to share your experiences/inquire about collaboration opportunities or please do fill out this [feedback form](https://docs.google.com/forms/d/e/1FAIpQLSdJ_oMoafkVabj0vgfbTsmECyFFQmbVy3b18NOsxUhYVJKeDQ/viewform).
-
----
 
 <p align="center">
 Made with ❤️ for India's linguistic diversity
