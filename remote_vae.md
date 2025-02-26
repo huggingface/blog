@@ -1,12 +1,12 @@
 ---
-title: "Remote VAEs for decoding with HF endpoints 🤗"
+title: "Remote VAEs for decoding with Inference Endpoints 🤗"
 thumbnail: /blog/assets/remote_vae/thumbnail.png
 authors:
 - user: hlky
 - user: sayakpaul
 ---
 
-# Remote VAEs for decoding with HF endpoints 🤗
+# Remote VAEs for decoding with Inference Endpoints 🤗
 
 When operating with latent-space diffusion models for high-resolution image and video synthesis, the VAE decoder can consume quite a bit more memory. This makes it hard for the users to run these models on consumer GPUs without going through latency sacrifices and others alike. 
 
@@ -35,6 +35,10 @@ Below, we cover three use cases where we think this remote VAE inference would b
 ### Code
 
 First, we have created a helper method for interacting with Remote VAEs.
+
+> [!NOTE]
+> We recommend installing `diffusers` from `main` to run the code.
+> `pip install git+https://github.com/huggingface/diffusers@main`
 
 <details><summary>Code</summary>
 <p>
@@ -412,6 +416,10 @@ video = remote_decode(
     tensor=latent,
     output_type="mp4",
 )
+
+if isinstance(video, bytes):
+    with open("video.mp4", "wb") as f:
+        f.write(video)
 ```
 
 </p>
