@@ -2162,6 +2162,18 @@
     - guide
     - ethics
 
+
+- local: layerskip
+  title: 自推测解码实现更快文本生成
+  author: ariG23498
+  thumbnail: /blog/assets/layerskip/thumbnail.png
+  date: November 20, 2024
+  tags:
+    - research
+    - nlp
+    - open-source
+    - collaboration
+
 - local: paligemma2
   title: 欢迎 PaliGemma 2 – 来自 Google 的新视觉语言模型
   author: merve
