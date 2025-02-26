@@ -1,5 +1,6 @@
 ---
 title: "为数据集而生的 SQL 控制台"
+
 thumbnail: /blog/assets/sql_console/thumbnail.png
 authors:
 - user: cfahlgren1
@@ -21,6 +22,7 @@ _每个月在 Hugging Face Hub 创建的数据集_
 
 在每个公共数据集中，您应该会看到一个新的 SQL 控制台标签。只需单击即可打开 SQL 控制台以查询该数据集。
 
+
 <figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="SQL Console Demo"
@@ -28,6 +30,7 @@ _每个月在 Hugging Face Hub 创建的数据集_
     >
     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/Magpie-Ultra-Demo-SQL-Console.mp4" type="video/mp4">
   </video>
+
   <figcaption class="text-center text-sm italic">查询 Magpie-Ultra 数据集来获取优秀的高质量推理指令。</figcaption>
 </figure>
 
@@ -43,6 +46,7 @@ _每个月在 Hugging Face Hub 创建的数据集_
 ### Parquet 格式转换
 
 大多数在 Hugging Face 上的数据集都存储为 Parquet 格式，这是一种优化了性能和存储效率的列式数据格式。Hugging Face 的  数据集视图 和 SQL 控制台会直接从数据集的 Parquet 文件中加载数据。如果数据集是以其他格式存储的，则前 5GB 自动转换为 Parquet 格式。您可以在 [Dataset Viewer Parquet API 文档](https://huggingface.co/docs/dataset-viewer/en/parquet) 中找到更多关于 Parquet 转换过程的信息。
+
 
 使用这些 Parquet 文件，SQL 控制台会为您创建视图，基于数据集的划分和配置供您进行查询。
 
@@ -86,6 +90,7 @@ _每个月在 Hugging Face Hub 创建的数据集_
 
 ```sql
 -- Convert Alpaca format to Conversation format
+
 WITH
 source_view AS (
   SELECT * FROM train -- Change 'train' to your desired view name here
@@ -106,7 +111,9 @@ SELECT
     )
   ] AS conversation
 FROM source_view
+
 WHERE instruction IS NOT NULL
+
 AND output IS NOT NULL;
 ```
 
