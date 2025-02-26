@@ -81,10 +81,11 @@ It’s so memory efficient, that you can run it even in a free Google Colab.
 <summary>Python Code</summary>
 
 ```python
-# Make sure we are running the latest version of Transformers
-!pip install git+https://github.com/huggingface/transformers.git
+# Install transformers from `main` or from this stable branch:
+!pip install git+https://github.com/huggingface/transformers@v4.49.0-SmolVLM-2
 
 from transformers import AutoProcessor, AutoModelForImageTextToText
+import torch
 
 model_path = "HuggingFaceTB/SmolVLM2-2.2B-Instruct"
 processor = AutoProcessor.from_pretrained(model_path)
@@ -110,7 +111,7 @@ inputs = processor.apply_chat_template(
     tokenize=True,
     return_dict=True,
     return_tensors="pt",
-).to(model.device)
+).to(model.device, dtype=torch.bfloat16)
 
 generated_ids = model.generate(**inputs, do_sample=False, max_new_tokens=64)
 generated_texts = processor.batch_decode(
@@ -193,18 +194,18 @@ The easiest way to run inference with the SmolVLM2 models is through the convers
 You can load the model as follows.
 
 ```python
-
-# Make sure we are running the latest version of Transformers
-!pip install git+https://github.com/huggingface/transformers.git
+# Install transformers from `main` or from this stable branch:
+!pip install git+https://github.com/huggingface/transformers@v4.49.0-SmolVLM-2
 
 from transformers import AutoProcessor, AutoModelForImageTextToText
+import torch
 
 processor = AutoProcessor.from_pretrained(model_path)
 model = AutoModelForImageTextToText.from_pretrained(
     model_path,
     torch_dtype=torch.bfloat16,
     _attn_implementation="flash_attention_2"
-).to(DEVICE)
+).to("cuda")
 ```
 
 #### Video Inference
@@ -212,8 +213,6 @@ model = AutoModelForImageTextToText.from_pretrained(
 You can pass videos through a chat template by passing in `{"type": "video", "path": {video_path}`. See below for a complete example. 
 
 ```python
-import torch
-
 messages = [
     {
         "role": "user",
@@ -230,7 +229,7 @@ inputs = processor.apply_chat_template(
     tokenize=True,
     return_dict=True,
     return_tensors="pt",
-).to(model.device)
+).to(model.device, dtype=torch.bfloat16)
 
 generated_ids = model.generate(**inputs, do_sample=False, max_new_tokens=64)
 generated_texts = processor.batch_decode(
@@ -245,19 +244,16 @@ print(generated_texts[0])
 
 #### Multiple Image Inference
 
-In addition to video, SmolVLM2 supports multi-image conversations. You can use the same API through the chat template.
+In addition to video, SmolVLM2 supports multi-image conversations. You can use the same API through the chat template, providing each image using a filesystem path, an URL, or a `PIL.Image` object:
 
 ```python
-import torch
-
-
 messages = [
     {
         "role": "user",
         "content": [
             {"type": "text", "text": "What are the differences between these two images?"},
-            {"type": "image", "path": "image_1.png"},
-            {"type": "image", "path": "image_2.png"} 
+          {"type": "image", "url": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg"},
+          {"type": "image", "url": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/0052a70beed5bf71b92610a43a52df6d286cd5f3/diffusers/rabbit.jpg"},            
         ]
     },
 ]
@@ -268,7 +264,7 @@ inputs = processor.apply_chat_template(
     tokenize=True,
     return_dict=True,
     return_tensors="pt",
-).to(model.device)
+).to(model.device, dtype=torch.bfloat16)
 
 generated_ids = model.generate(**inputs, do_sample=False, max_new_tokens=64)
 generated_texts = processor.batch_decode(
