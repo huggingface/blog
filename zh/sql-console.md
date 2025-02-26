@@ -1,5 +1,4 @@
 ---
-
 title: "为数据集而生的 SQL 控制台"
 
 thumbnail: /blog/assets/sql_console/thumbnail.png
@@ -53,7 +52,6 @@ _每个月在 Hugging Face Hub 创建的数据集_
 
 ### DuckDB WASM 🦆引擎
 
-
 [DuckDB WASM](https://duckdb.org/docs/api/wasm/overview.html) 是驱动 SQL 控制台的引擎。它是一个在浏览器中运行于 Web Assembly 的进程内数据库引擎，无需服务器或后端。
 
 仅在浏览器中运行，它为用户提供最大程度的灵活性，可以自由查询数据而不需要任何依赖项。这也使得通过简单的链接分享可复现的结果变得非常简单。
@@ -86,9 +84,7 @@ _每个月在 Hugging Face Hub 创建的数据集_
   height="800px"
 ></iframe>
 
-
 在上方的数据集中，点击 **SQL 控制台** 标签以打开 SQL 控制台。您应该会看到下方的查询已自动填充。
-
 
 ### SQL
 
@@ -123,13 +119,11 @@ AND output IS NOT NULL;
 
 我们在查询中使用 `struct_pack` 函数为每个对话创建一个新的 STRUCT 行
 
-
 DuckDB 对结构化的数据类型和函数有很好的文档说明，你可以参考 [数据类型](https://duckdb.org/docs/sql/data_types/struct.html) 和 [函数](https://duckdb.org/docs/sql/functions/struct.html)。你会发现许多数据集包含带有 JSON 数据的列。DuckDB 提供了易于解析和查询这些列的功能。
 
 ![Alpaca to Conversation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/sql_console/alpaca-to-conversation.png)
 
 一旦我们得到结果，就可以将其下载为一个 Parquet 文件。你可以在下面看到最终输出的样子。
-
 
 <iframe
   src="https://huggingface.co/datasets/cfahlgren1/alpaca-conversational/embed/viewer/default/train"
@@ -139,7 +133,6 @@ DuckDB 对结构化的数据类型和函数有很好的文档说明，你可以�
 ></iframe>
 
 **试一下！**
-
 
 作为另一个例子，你可以尝试对 [SkunkworksAI/reasoning-0.01](https://huggingface.co/datasets/SkunkworksAI/reasoning-0.01?sql_console=true&sql=--+Find+instructions+with+more+than+10+reasoning+steps%0Aselect+*+from+train%0Awhere+len%28reasoning_chains%29+%3E+10%0Alimit+100&sql_row=43) 运行一个 SQL 控制台查询，以查看包含超过 10 个推理步骤的指令。
 
@@ -158,7 +151,6 @@ DuckDB 有许多我们仍在探索的应用场景。我们创建了一个 [SQL �
 请记住，只需点击一下即可下载您的 SQL 结果作为 Parquet 文件并用于数据集！
 
 我们非常希望听听您对 SQL 控制台的看法，如果您有任何反馈，请在以下 [帖子中留言！](https://huggingface.co/posts/cfahlgren1/845769119345136)
-
 
 ## 资源
 
