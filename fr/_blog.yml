@@ -27,7 +27,7 @@
     - leaderboard
 
 - local: evaluation-structured-outputs
-  title: "Améliorer la constance des prompts avec les générations structurées"
+  title: "Améliorer la stabilité des instructions grâce à la génération structurée"
   author: willkurt
   guest: true
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
