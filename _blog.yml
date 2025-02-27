@@ -5614,8 +5614,5 @@
     - multimodal
     - multilingual
     - llm
-    - genai
-    - nlp
-    - indic speech
     - dataset
-    - collab
+    - indic speech
