@@ -5608,8 +5608,8 @@
 - local: iisc-huggingface-collab
   title: "HuggingFace, IISc partner to supercharge model building on India's diverse languages"
   author: visruth-rf
-  thumbnail: /assets/iisc-huggingface-collab/thumbnail.png
-  date: Feb 25, 2025
+  thumbnail: /blog/assets/iisc-huggingface-collab/thumbnail.png
+  date: Feb 27, 2025
   tags:
     - open-source-collab
     - audio
