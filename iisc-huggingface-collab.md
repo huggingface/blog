@@ -33,6 +33,7 @@ The dataset is being built in phases, with Phase 1 covering 80 districts, which 
 
 ![Key Highlights](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/iisc-huggingface-collab/Vaani_Dataset_summary.png)
 *Key Highlights of the Vaani data set, open sourced so far: (as of 15-02-2025)*
+
 ### District wise language distribution
 
 The Vaani dataset shows a rich distribution of languages across India's districts, highlighting linguistic diversity at a local level. This information is valuable for researchers, AI developers, and language technology innovators looking to build speech models tailored to specific regions and dialects. To explore the detailed district-wise language distribution, visit: [Vaani Dataset on HuggingFace](https://huggingface.co/datasets/ARTPARK-IISc/Vaani)
