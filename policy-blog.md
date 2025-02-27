@@ -45,6 +45,7 @@ The following materials reflect what we have found urgent to stress to policymak
     - July 2023: Comments on the [Proposed AI Act](https://huggingface.co/blog/assets/eu_ai_act_oss/supporting_OS_in_the_AIAct.pdf)
 
 - United Kingdom
+    - February 2025: Response to [UK Intellectual Property Office Consulation on Copyright and AI](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_UK_Govt_Consultation_Copyright_and_Artificial_Intelligence.pdf)    
     - November 2023: Irene Solaiman (Head of Global Policy) [oral evidence to UK Parliament House of Lords transcript](https://committees.parliament.uk/oralevidence/13802/default/)
     - September 2023: Response to [UK Parliament: UK Parliament RFI: LLMs](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2023_UK%20Parliament%20RFI%20LLMs.pdf)
     - June 2023: Response to [No 10: UK RFI: AI Regulatory Innovation White Paper](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2023_UK_RFI_AI_Regulatory_Innovation_White_Paper.pdf)
