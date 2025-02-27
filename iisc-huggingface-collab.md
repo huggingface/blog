@@ -4,16 +4,16 @@ thumbnail: /assets/iisc-huggingface-collab/thumbnail.png
 authors:
 - user: prasantg
   guest: true
-  org: ARTPARK
+  org: ARTPARK-IISc
 - user: nihar-artpark
   guest: true
-  org: ARTPARK
+  org: ARTPARK-IISc
 - user: Visruth-sanka
   guest: true
-  org: ARTPARK
+  org: ARTPARK-IISc
 - user: SujithPulikodan
   guest: true
-  org: ARTPARK
+  org: ARTPARK-IISc
 ---
 # HuggingFace, IISc partner to supercharge model building on India's diverse languages
 
