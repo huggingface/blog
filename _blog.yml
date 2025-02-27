@@ -5611,8 +5611,6 @@
   thumbnail: /assets/iisc-huggingface-collab/thumbnail.png
   date: Feb 25, 2025
   tags:
-    - multimodal
-    - multilingual
-    - llm
-    - dataset
-    - indic speech
+    - open-source-collab
+    - audio
+    - community
