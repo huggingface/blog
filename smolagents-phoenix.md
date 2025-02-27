@@ -1,6 +1,6 @@
 ---
 title: "Tracing & Evaluating your Agent with Arize Phoenix"
-thumbnail: /blog/assets/smolagents-phoenix/thumbnail.png
+thumbnail: /blog/assets/smolagents-phoenix/thumbnail.jpg
 authors:
 - user: ray-project
 guest: true
@@ -115,7 +115,11 @@ agent.run("What time is it in Tokyo right now?")
 ```
 
 Once OpenInference is set up with SmolAgents, every agent invocation will be automatically traced in Phoenix.  
-![][image1]
+
+
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/smolagents-phoenix/smolagentsBlogTracing.gif" />
+</div>
 
 ## 
 
@@ -242,4 +246,6 @@ Any evaluation is easy to set up using this tutorial—just swap out the RAG\_RE
 | SQL Generation Evaluation | Database query agents SQL automation tools |
 | Agent Function Calling Evaluation | Multi-step reasoning agents API-calling AI Task automation bots |
 
-![][image2]
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/smolagents-phoenix/smolagentEvals.gif" />
+</div>
