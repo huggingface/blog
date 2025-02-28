@@ -1,5 +1,5 @@
 ---
-title: "Tracing & Evaluating your Agent with Arize Phoenix"
+title: "Trace & Evaluate your Agent with Arize Phoenix"
 thumbnail: /blog/assets/smolagents-phoenix/thumbnail.jpg
 authors:
 - user: schavalii
@@ -11,7 +11,7 @@ authors:
 - user: m-ric
 ---
 
-# Tracing & Evaluating your Agent with Arize Phoenix
+# Trace & Evaluate your Agent with Arize Phoenix
 
 So, you’ve built your agent. It takes in inputs and tools, processes them, and generates responses. Maybe it’s making decisions, retrieving information, executing tasks autonomously, or all three. But now comes the big question – how effectively is it performing? And more importantly, how do you know? 
 

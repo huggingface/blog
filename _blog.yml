@@ -5616,10 +5616,10 @@
     - community
 
 - local: smolagents-phoenix
-  title: "Instrumenting your smolagent with Arize AI Phoenix"
+  title: "Trace & Evaluate your Agent with Arize Phoenix"
   author: m-ric
   guest: true
-  thumbnail: /blog/assets/smolagents-phoenix/welcome-fireworks.jpg
+  thumbnail: /blog/assets/smolagents-phoenix/thumbnail.jpg
   date: Feb 28, 2025
   tags:
     - phoenix
