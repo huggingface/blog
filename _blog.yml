@@ -5541,14 +5541,89 @@
     - announcement
     - hub
 
+- local: inference-providers-nebius-novita-hyperbolic
+  title: "Introducing Three New Serverless Inference Providers: Hyperbolic, Nebius AI Studio, and Novita 🔥"
+  author: reach-vb
+  thumbnail: /blog/assets/inference-providers/second-batch-thumbnail.webp
+  date: Feb 18, 2025
+  tags:
+    - announcement
+    - hub
+
+- local: paligemma2mix
+  title: "PaliGemma 2 Mix - New Instruction Vision Language Models by Google"
+  thumbnail: /blog/assets/paligemma2/thumbnail.png
+  author: ariG23498
+  date: Feb 19, 2025
+  tags:
+    - multimodal
+    - LLM
+    - vision
+
+- local: smolvlm2
+  title: "SmolVLM2: Bringing Video Understanding to Every Device"
+  author: orrzohar
+  guest: true
+  thumbnail: /blog/assets/smolvlm2/banner.png
+  date: Feb 20, 2025
+  tags:
+    - vlm
+    - multimodal
+    - video
+    - on-device
+    - llm
+    - nlp
+    - vision
+
+- local: siglip2
+  title: "SigLIP 2: A better multilingual vision language encoder"
+  author: ariG23498
+  thumbnail: /blog/assets/siglip2/thumbnail.png
+  date: Feb 21, 2025
+  tags:
+    - multimodal
+    - vision
+
+- local: remote_vae
+  title: "Remote VAEs for decoding with HF endpoints 🤗"
+  author: hlky
+  thumbnail: /blog/assets/remote_vae/thumbnail.png
+  date: Feb 24, 2025
+  tags:
+    - diffusers
+    - vae
+    - inference endpoints
+  
+- local: fastrtc
+  title: "FastRTC: The Real-Time Communication Library for Python"
+  author: freddyaboulton
+  thumbnail: /blog/assets/fastrtc/fastrtc_logo.jpg
+  date: Feb 25, 2025
+  tags:
+    - real-time
+    - audio
+    - video
+    - llm
+   
+- local: iisc-huggingface-collab
+  title: "HuggingFace, IISc partner to supercharge model building on India's diverse languages"
+  author: visruth-rf
+  thumbnail: /blog/assets/iisc-huggingface-collab/thumbnail.png
+  date: Feb 27, 2025
+  tags:
+    - open-source-collab
+    - audio
+    - community
+
 - local: smolagents-phoenix
   title: "Instrumenting your smolagent with Arize AI Phoenix"
   author: m-ric
   guest: true
   thumbnail: /blog/assets/smolagents-phoenix/welcome-fireworks.jpg
-  date: Feb 18, 2025
+  date: Feb 28, 2025
   tags:
+    - phoenix
     - agents
     - smolagents
     - agent
-    - langchain
+    - instrumentation
