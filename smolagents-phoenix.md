@@ -93,7 +93,7 @@ You can run Phoenix in a bunch of different ways. This command will run a local 
 python -m phoenix.server.main serve
 ```
 
-For other hosting options of Phoenix, you can [create a free online instance of Phoenix](https://app.phoenix.arize.com/login/sign-up), or [self-host the application locally](https://docs.arize.com/phoenix/deployment).
+For other hosting options of Phoenix, you can [create a free online instance of Phoenix](https://app.phoenix.arize.com/login/sign-up), [self-host the application locally](https://docs.arize.com/phoenix/deployment), or [host the application on Hugging Face Spaces](https://huggingface.co/learn/cookbook/en/phoenix_observability_on_hf_spaces).
 
 After launching, we register a tracer provider, pointing to our Phoenix instance.
 
