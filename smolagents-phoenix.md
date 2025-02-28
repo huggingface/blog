@@ -107,7 +107,7 @@ SmolagentsInstrumentor().instrument(tracer_provider=tracer_provider) # automatic
 
 Now any calls made to smolagents will be sent through to our Phoenix instance.
 
-#### Step 4: Run the Agent
+Run the Agent
 
 Now that tracing is enabled, let’s test it with a simple query:
 
