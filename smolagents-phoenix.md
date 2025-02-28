@@ -44,7 +44,7 @@ from smolagents import (
 
 ### Step 3: Set Up Our Base Models 
 
-We’ll create two model instances—one for a local or custom model, and one for the Hugging Face Hub:
+We’ll create a model instance powered by the Hugging Face Hub Serverless API:
 
 ```py
 hf_model = HfApiModel()
