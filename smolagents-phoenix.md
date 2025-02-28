@@ -2,10 +2,15 @@
 title: "Tracing & Evaluating your Agent with Arize Phoenix"
 thumbnail: /blog/assets/smolagents-phoenix/thumbnail.jpg
 authors:
-- user: ray-project
-guest: true
+- user: schavalii
+  guest: true
+  org: arize-ai
+- user: jgilhuly16
+  guest: true
+  org: arize-ai
 - user: m-ric
 ---
+
 # Tracing & Evaluating your Agent with Arize Phoenix
 
 So, you’ve built your agent. It takes in inputs and tools, processes them, and generates responses. Maybe it’s making decisions, retrieving information, executing tasks autonomously, or all three. But now comes the big question – how effectively is it performing? And more importantly, how do you know? 
@@ -18,13 +23,13 @@ For this, let’s make sure that we have an Agent setup\! You can follow along w
 
 ## Make An Agent
 
-#### Step 1: Install the Required Libraries 
+### Step 1: Install the Required Libraries 
 
 ```py
 pip install -q smolagents
 ```
 
-#### Step 2: Import all the Essential Building Blocks 
+### Step 2: Import all the Essential Building Blocks 
 
 Now let’s bring in the classes and tools we’ll be using:
 
@@ -37,7 +42,7 @@ from smolagents import (
 )
 ```
 
-#### Step 3: Set Up Our Base Models 
+### Step 3: Set Up Our Base Models 
 
 We’ll create two model instances—one for a local or custom model, and one for the Hugging Face Hub:
 
@@ -45,7 +50,7 @@ We’ll create two model instances—one for a local or custom model, and one fo
 hf_model = HfApiModel()
 ```
 
-#### Step 4: Create the Tool-Calling Agent
+### Step 4: Create the Tool-Calling Agent
 
 ```py
 agent = CodeAgent(
@@ -55,9 +60,7 @@ agent = CodeAgent(
 )
 ```
 
-#### 
-
-#### Step 5: Run the Agent
+### Step 5: Run the Agent
 
 Now for the magic moment—let’s see our agent in action. The question we’re asking our agent is:  
 *“Fetch the share price of Google from 2020 to 2024, and create a line graph from it?”*
@@ -81,7 +84,7 @@ To enable tracing, we’ll use Arize Phoenix for visualization, and OpenTelemetr
 Install the telemetry module from smolagents:
 
 ```py
-pip install -q smolagents[telemetry]
+pip install -q 'smolagents[telemetry]'
 ```
 
 You can run Phoenix in a bunch of different ways. This command will run a local instance of Phoenix on your machine:
@@ -104,8 +107,6 @@ SmolagentsInstrumentor().instrument(tracer_provider=tracer_provider) # automatic
 
 Now any calls made to smolagents will be sent through to our Phoenix instance.
 
-#### 
-
 #### Step 4: Run the Agent
 
 Now that tracing is enabled, let’s test it with a simple query:
@@ -121,9 +122,6 @@ Once OpenInference is set up with SmolAgents, every agent invocation will be aut
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/smolagents-phoenix/smolagentsBlogTracing.gif" />
 </div>
 
-## 
-
-## 
 
 ## Evaluate Your Agent
 
@@ -133,7 +131,7 @@ There are many types of evals you can run, such as response relevance, factual a
 
 In this example, we’ll focus on evaluating the DuckDuckGo search tool used by our agent. We’ll measure the relevance of its search results using a Large Language Model (LLM) as a judge—specifically, OpenAI's GPT-4o.
 
-#### Step 1: Install OpenAI  
+### Step 1: Install OpenAI  
 
 First, install the necessary packages:
 
@@ -144,7 +142,7 @@ pip install -q openai
 We’ll be using GPT-4o to evaluate whether the search tool’s responses are relevant.   
 This method, known as LLM-as-a-judge, leverages language models to classify and score responses.
 
-#### Step 2: Retrieve Tool Execution Spans 
+### Step 2: Retrieve Tool Execution Spans 
 
 To evaluate how well DuckDuckGo is retrieving information, we first need to extract the execution traces where the tool was called.
 
@@ -167,7 +165,7 @@ tool_spans["input"] = tool_spans["input"].apply(lambda x: json.loads(x).get("kwa
 tool_spans.head()
 ```
 
-#### Step 3: Import Prompt Template  
+### Step 3: Import Prompt Template  
 
 Next, we load the RAG Relevancy Prompt Template, which will help the LLM classify whether the search results are relevant or not.
 
@@ -184,9 +182,7 @@ nest_asyncio.apply()
 print(RAG_RELEVANCY_PROMPT_TEMPLATE)
 ```
 
-#### 
-
-#### Step 4: Run the Evaluation  
+### Step 4: Run the Evaluation  
 
 Now, we run the evaluation using **GPT-4o** as the judge:
 
@@ -222,7 +218,7 @@ To see your results:
 eval_results.head()
 ```
 
-#### Step 5: Send Evaluation Results to Phoenix
+### Step 5: Send Evaluation Results to Phoenix
 
 ```py
 from phoenix.trace import SpanEvaluations
