@@ -16,6 +16,8 @@ Therefore, we want to pilot an idea with the community — delegating the decodi
 
 No data is stored or tracked, and code is open source. We made some changes to [huggingface-inference-toolkit](https://github.com/hlky/huggingface-inference-toolkit/tree/fix-text-support-binary) and use [custom handlers](https://huggingface.co/hlky/sd-vae-ft-mse/blob/main/handler.py).
 
+This experimental feature is developed by [Diffusers 🧨](https://huggingface.co/docs/diffusers/hybrid_inference/overview)
+
 **Table of contents**:
 
 - [Getting started](#getting-started)
