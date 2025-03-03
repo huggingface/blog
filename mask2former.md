@@ -3,7 +3,7 @@ title: Universal Image Segmentation with Mask2Former and OneFormer
 thumbnail: /blog/assets/127_mask2former/thumbnail.png
 authors:
 - user: nielsr
-- user: shivi
+- user: shivalikasingh
 - user: adirik
 ---
 
