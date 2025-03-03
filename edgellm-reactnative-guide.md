@@ -5,7 +5,7 @@ authors:
   - user: medmekk
 ---
 
-Did you ever wonder how you can create a mobile app to chat with LLMs locally? Have you tried to understand the code in some open source projects but found it too complex? Well, this blog is for you! Inspired by the great [Pocket Pal](https://github.com/a-ghorbani/pocketpal-ai) app, We will help you build a simple React Native app to chat with LLMs downloaded from the [**Hugging Face**](https://huggingface.co/) hub, everything is private and runs on device !
+Did you ever wonder how you can create a mobile app to chat with LLMs locally? Have you tried to understand the code in some open source projects but found it too complex? Well, this blog is for you! Inspired by the great [Pocket Pal](https://github.com/a-ghorbani/pocketpal-ai) app, we will help you build a simple React Native app to chat with LLMs downloaded from the [**Hugging Face**](https://huggingface.co/) hub, everything is private and runs on device !
 
 ---
 
