@@ -23,16 +23,21 @@ By the end of this guide, you'll have a working app to chat with your favorite m
 
 ## **1. Setting Up Your Environment**
 
-React Native requires some setup before you can start coding.
+React Native is a popular framework for building mobile applications using JavaScript and React. It allows developers to create apps that run on both Android and iOS platforms while sharing a significant amount of code, which speeds up the development process and reduces maintenance efforts.
+
+Before you can start coding with React Native, you need to set up your environment properly.
 
 ### **Tools You Need**
 
-1. **Node.js:** Install from [Node.js downloads](https://nodejs.org/en/download)
-2. **react-native-community/cli:** Run the following command to install:
+1. **Node.js:** Node.js is a JavaScript runtime that allows you to run JavaScript code. It is essential for managing packages and dependencies in your React Native project. You can install it from [Node.js downloads](https://nodejs.org/en/download).
+
+2. **react-native-community/cli:** This command installs the React Native command line interface (CLI), which provides tools to create, build, and manage your React Native projects. Run the following command to install it:
 
 ```bash
 npm i @react-native-community/cli
 ```
+> **Note:** If you are prompted to install CocoaPods, it's not necessary if you are using a virtual device, as we are not going to be using Xcode.
+
 
 ### **Virtual Device Setup**
 
