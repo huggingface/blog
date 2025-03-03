@@ -17,7 +17,7 @@ This blog is for anyone who:
 - Wants to build a conversational app that works on both Android and iOS
 - Is interested in privacy-focused AI applications that run completely offline
 
-By the end of this guide, you'll have a working app to chat with your favorite small hub models.
+By the end of this guide, you'll have a working app to chat with your favorite models.
 
 ---
 
