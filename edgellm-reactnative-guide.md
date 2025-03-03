@@ -43,7 +43,7 @@ To run your app during development, you will need an emulator or a simulator:
   - For iOS: Install Xcode -> Open Developer Tools -> Simulator
   - For Android: Install Java Runtime and Android Studio -> Go to Device Manager and Create an emulator
 
-- **For PC Users:**
+- **If you are on Windows or Linux:**
   - Install Java Runtime and Android Studio for Android development
   - For iOS testing options:
     - Cloud-based simulators like [LambdaTest](https://www.lambdatest.com/test-on-iphone-simulator) and [BrowserStack](https://www.browserstack.com/test-on-ios-simulator)
