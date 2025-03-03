@@ -27,7 +27,7 @@ React Native is a popular framework for building mobile applications using JavaS
 
 Before you can start coding with React Native, you need to set up your environment properly.
 
-### **Tools You Need**
+### Tools You Need
 
 1. **Node.js:** Node.js is a JavaScript runtime that allows you to run JavaScript code. It is essential for managing packages and dependencies in your React Native project. You can install it from [Node.js downloads](https://nodejs.org/en/download).
 
