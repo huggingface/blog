@@ -21,7 +21,7 @@ By the end of this guide, you'll have a working app to chat with your favorite m
 
 ---
 
-## **1. Setting Up Your Environment**
+## 1. Setting Up Your Environment
 
 React Native is a popular framework for building mobile applications using JavaScript and React. It allows developers to create apps that run on both Android and iOS platforms while sharing a significant amount of code, which speeds up the development process and reduces maintenance efforts.
 
