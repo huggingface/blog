@@ -39,7 +39,6 @@ npm i @react-native-community/cli
 To run your app during development, you will need an emulator or a simulator:
 
 - **If you are on macOS:**
-  - Can run both Android emulators and iOS simulators
   - For iOS: Install Xcode -> Open Developer Tools -> Simulator
   - For Android: Install Java Runtime and Android Studio -> Go to Device Manager and Create an emulator
 
