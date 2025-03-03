@@ -44,6 +44,7 @@ Want to try SmolVLM2 right away? Check out our [interactive chat interface](http
     - [Inference with MLX](#inference-with-mlx)
       - [Swift MLX](#swift-mlx)
     - [Fine-tuning SmolVLM2](#fine-tuning-smolvlm2)
+  - [Citation Information](#citation-information)
   - [Read More](#read-more)
 
 
@@ -340,6 +341,18 @@ If you integrate SmolVLM2 in your apps using MLX and Swift, we'd love to know ab
 
 You can fine-tune SmolVLM2 on videos using transformers 🤗
 We have fine-tuned the 500M variant in Colab on video-caption pairs in [VideoFeedback](https://huggingface.co/datasets/TIGER-Lab/VideoFeedback) dataset for demonstration purposes. Since the 500M variant is small, it's better to apply full fine-tuning instead of QLoRA or LoRA, meanwhile you can try to apply QLoRA on cB variant. You can find the fine-tuning notebook [here](https://github.com/huggingface/smollm/blob/main/vision/finetuning/SmolVLM2_Video_FT.ipynb).
+
+## Citation information
+
+You can cite us in the following way:
+```bibtex
+@misc{smolvlm2,
+  title = {SmolVLM2: Bringing Video Understanding to Every Device},
+  author = {Orr Zohar and Miquel Farré and Andi Marafioti and Merve Noyan and Pedro Cuenca and Cyril Zakka and Joshua Lochner},
+  year = {2025},
+  url = {https://huggingface.co/blog/smolvlm2}
+}
+```
 
 
 ## Read More
