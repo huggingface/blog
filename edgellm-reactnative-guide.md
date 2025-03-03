@@ -39,7 +39,7 @@ npm i @react-native-community/cli
 > **Note:** If you are prompted to install CocoaPods, it's not necessary if you are using a virtual device, as we are not going to be using Xcode.
 
 
-### **Virtual Device Setup**
+### Virtual Device Setup
 
 To run your app during development, you will need an emulator or a simulator:
 
@@ -55,7 +55,7 @@ If you are curious about the difference between simulators and emulators, you ca
 
 For setting up Android Studio, follow this excellent tutorial by Expo : [Android Studio Emulator Guide](https://docs.expo.dev/workflow/android-studio-emulator/)
 
-## **2. Create the App**
+## 2. Create the App
 
 Let's start this project! 
 
@@ -70,11 +70,11 @@ First, we need to initiate the app using @react-native-community/cli:
 npx @react-native-community/cli@latest init <ProjectName>
 ```
 
-### **Project Structure**
+### Project Structure 
 
 The app folder architecture for a new project includes:
 
-#### **Default Files/Folders**
+#### Default Files/Folders
 
 1. `android/`
 
@@ -99,7 +99,7 @@ The app folder architecture for a new project includes:
    - Registers the root component (`App`)
    - **Purpose**: Entry point for React Native runtime
 
-#### **Additional Configuration Files**
+#### Additional Configuration Files
 
 - `tsconfig.json`: Configures TypeScript settings
 - `babel.config.js`: Configures Babel for transpiling modern JavaScript/TypeScript, which means it will convert modern JS/TS code to older JS/TS code that is compatible with older browsers or devices.
@@ -107,9 +107,9 @@ The app folder architecture for a new project includes:
 - `metro.config.js`: Customizes the Metro bundler for the project. It's a JavaScript bundler specifically designed for React Native. It takes your project’s JavaScript and assets, bundles them into a single file (or multiple files for efficient loading), and serves them to the app during development. Metro is optimized for fast incremental builds, supports hot reloading, and handles React Native’s platform-specific files (.ios.js or .android.js).
 - `.watchmanconfig`: Configures Watchman, a file-watching service used by React Native for hot reloading.
 
-## **3. How to Debug**
+## 3. How to Debug
 
-### **Running the App**
+### Running the App
 
 Debugging a React Native application requires either an emulator/simulator or a physical device. We'll focus on using an emulator since it provides a more streamlined development experience with your code editor and debugging tools side by side.
 
@@ -135,7 +135,7 @@ npm run android
 
 This should build and launch the app on your emulator/simulator.
 
-### **Chrome DevTools Debugging**
+### Chrome DevTools Debugging
 
 For debugging we will use Chrome DevTools as in web development :
 
@@ -151,7 +151,7 @@ For debugging we will use Chrome DevTools as in web development :
    - Step Out - Exit current function
    - Continue - Run until next breakpoint
 
-### **Common Debugging Tips**
+### Common Debugging Tips
 
 1. **Console Logging**
 
@@ -177,7 +177,7 @@ cd android && ./gradlew clean
 cd ios && pod install
 ```
 
-## **4. How to Run the Demo**
+## 4. How to Run the Demo
 
 To run the project, and see how it looks like on your own virtual device, follow these steps:
 
@@ -222,9 +222,9 @@ To run the project, and see how it looks like on your own virtual device, follow
 
 This will build and launch the app on your emulator/simulator to test the project before we start coding.
 
-## **5. App Implementation**
+## 5. App Implementation  
 
-### **Installing Dependencies**
+### Installing Dependencies
 
 First, let's install the required packages. We aim to load models from the [Hugging Face Hub](https://huggingface.co/) and run them locally. To achieve this, we need to install :
 
@@ -238,7 +238,7 @@ npm install axios react-native-fs llama.rn
 
 Let's run the app on our emulator/simulator as we showed before so we can start the development
 
-### **State Management**
+### State Management
 
 We will start by deleting everyting from the `App.tsx` file, and creating an empty code structure like the following :
 
@@ -407,7 +407,7 @@ This should look something like this :
 
 > **Note:** For the whole code until now you can check the `first_checkpoint` branch in the `EdgeLLMBasic` folder [here](https://github.com/MekkCyber/EdgeLLM/blob/first_checkpoint/EdgeLLMBasic/App.tsx)
 
-### **Model Download Implementation**
+### Model Download Implementation
 
 Now let's implement the model download functionality in the `handleDownloadModel` function which should be called when the user clicks on the download button. This will download the selected GGUF file from Hugging Face and store it in the app's Documents directory:
 
@@ -480,7 +480,7 @@ In the UI we show a list of the supported model formats and a button to download
 > **Note:** For the whole code until now you can check the `second_checkpoint` branch in the `EdgeLLMBasic` folder [here](https://github.com/MekkCyber/EdgeLLM/blob/second_checkpoint/EdgeLLMBasic/App.tsx)
 
 
-### **Model Loading and Initialization**
+### Model Loading and Initialization
 
 Next, we will implement a function to load the downloaded model into a Llama context, as detailed in the `llama.rn` documentation available [here](https://github.com/mybigday/llama.rn). If a context is already present, we will release it, set the context to `null`, and reset the conversation to its initial state. Subsequently, we will utilize the `initLlama` function to load the model into a new context and update our state with the newly initialized context.
 
@@ -533,7 +533,7 @@ To test the model loading let's add a `console.log` inside the `loadModel` funct
 
 > **Note:** For the whole code until now you can check the `third_checkpoint` branch in the `EdgeLLMBasic` folder [here](https://github.com/MekkCyber/EdgeLLM/blob/third_checkpoint/EdgeLLMBasic/App.tsx)
 
-### **Chat Implementation**
+### Chat Implementation
 
 With the model now loaded into our context, we can proceed to implement the conversation logic. We'll define a function called `handleSendMessage`, which will be triggered when the user submits their input. This function will update the conversation state and send the updated conversation to the model via `context.completion`. The response from the model will then be used to further update the conversation, which means that the conversation will be updated twice in this function.
 
@@ -636,7 +636,7 @@ The result should look like this:
 
 > **Note:** For the whole code until now you can check the `fourth_checkpoint` branch in the `EdgeLLMBasic` folder [here](https://github.com/MekkCyber/EdgeLLM/blob/fourth_checkpoint/EdgeLLMBasic/App.tsx)
 
-### **The UI & Logic**
+### The UI & Logic
 
 Now that we have the core functionality implemented, we can focus on the UI. The UI is straightforward, consisting of a model selection screen with a list of models and a chat interface that includes a conversation history and a user input field. During the model download phase, a progress bar is displayed. We intentionally avoid adding many screens to keep the app simple and focused on its core functionality. To keep track of which part of the app is being used, we will use a an other state variable called `currentPage`, it will be a string that can be either `modelSelection` or `conversation`. We add it to the `App.tsx` file.
 
@@ -855,33 +855,33 @@ The conversation page should now look like this:
 
 Congratulations you've just built the core functionality of your first AI chatbot, the code is available [here](https://github.com/MekkCyber/EdgeLLM/blob/main/EdgeLLMBasic/App.tsx) ! You can now start adding more features to the app to make it more user friendly and efficient.
 
-### **The other Functionnalities**
+### The other Functionnalities
 
 The app is now fully functional, you can download a model, select a GGUF file, and chat with the model, but the user experience is not the best. In the [`EdgeLLMPlus`](https://github.com/MekkCyber/EdgeLLM/tree/main/EdgeLLMPlus) repo, I've added some other features, like on the fly generation, automatic scrolling, the inference speed tracking, the thought process of the model like deepseek-qwen-1.5B,... we will not go into details here as it will make the blog too long, we will go through some of the ideas and how to implement them but the whole code is available in the repo
 
-#### **Generation on the fly**
+#### Generation on the fly
 The app generates responses incrementally, producing one token at a time rather than delivering the entire response in a single batch. This approach enhances the user experience, allowing users to begin reading the response as it is being formed. We achieve this by utilizing a `callback` function within `context.completion`, which is triggered after each token is generated, enabling us to update the `conversation` state accordingly.
 
-#### **Auto Scrolling**
+#### Auto Scrolling
 Auto Scrolling ensures that the latest messages or tokens are always visible to the user by automatically scrolling the chat view to the bottom as new content is added. To implement that we need we use a reference to the `ScrollView` to allow programatic control over the scroll position, and we use the `scrollToEnd` method to scroll to the bottom of the `ScrollView` when a new message is added to the `conversation` state. We also define a `autoScrollEnabled` state variable that will be set to false when the user scrolls up more than 100px from the bottom of the `ScrollView`.
 
-#### **Inference Speed Tracking**
+#### Inference Speed Tracking
 Inference Speed Tracking is a feature that tracks the time taken to generate each token and displays under each message generated by the model. This feature is easy to implement because the `CompletionResult` object returned by the `context.completion` function contains a `timings` property which is a dictionary containing many metrics about the inference process. We can use the `predicted_per_second` metric to track the speed of the model.
 
-#### **Thought Process**
+#### Thought Process
 The thought process is a feature that displays the thought process of the model like deepseek-qwen-1.5B. The app identifies special tokens like <think> and </think> to handle the model's internal reasoning or "thoughts." When a <think> token is encountered, the app enters a "thought block" where it accumulates tokens that represent the model's reasoning. Once the closing </think> token is detected, the accumulated thought is extracted and associated with the message, allowing users to toggle the visibility of the model's reasoning. To implement this we need to add a `thought` and `showThought` property to the `Message` type. `message.thought` will store the reasoning of the model and `message.showThought` will be a boolean that will be set to true when the user clicks on the message to toggle the visibility of the thought.
 
-#### **Markdown Rendering**
+#### Markdown Rendering
 The app uses the `react-native-markdown-display` package to render markdown in the conversation. This package allows us to render code in a better format.
 
-#### **Model Management**
+#### Model Management
 We added a `checkDownloadedModels` function to the `App.tsx` file that will check if the model is already downloaded on the device, if it's not we will download it, if it is we will load it into the context directly, and we added some elements in the UI to show if a model is already downloaded or not.
 
-#### **Stop/Back Buttons**
+#### Stop/Back Buttons
 We added two important buttons in the UI, the stop button and the back button. The stop button will stop the generation of the response and the back button will navigate to the model selection screen. For that, We added a `handleStopGeneration` function to the `App.tsx` file that will stop the generation of the response by calling `context.stop` and set the `isGenerating` state to false. We also added a `handleBack` function to the `App.tsx` file that will navigate to the model selection screen by setting the `currentPage` state to `modelSelection`.
 
 
-## **5. Additional Features we can add**
+## 6. Additional Features we can add
 
 To enhance the user experience, we can add some features like:
 
@@ -902,7 +902,7 @@ To enhance the user experience, we can add some features like:
 
 I'm sure you can think of some really cool features to add to the app, feel free to implement them and share them with the community 🤗
 
-## **6. Conclusion**
+## 7. Conclusion
 
 You now have a working React Native app that can:
 
