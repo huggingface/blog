@@ -14,7 +14,7 @@ Did you ever wonder how you can create a mobile app to chat with LLMs locally? H
 This blog is for anyone who:
 
 - Is curious about integrating AI into mobile apps
-- Wants to build a conversational app that works on both Android and iOS
+- Wants to build a conversational app that works on both Android and iOS using React Native
 - Is interested in privacy-focused AI applications that run completely offline
 
 By the end of this guide, you'll have a working app to chat with your favorite models.
