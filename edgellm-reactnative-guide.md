@@ -110,7 +110,7 @@ The app folder architecture for a new project includes:
 
 Debugging a React Native application requires either an emulator/simulator or a physical device. We'll focus on using an emulator since it provides a more streamlined development experience with your code editor and debugging tools side by side.
 
-We start by ensuring our development environment is ready:
+We start by ensuring our development environment is ready, we need to be in the project folder and run the following commands:
 
 ```bash
 # Install dependencies
@@ -174,13 +174,58 @@ cd android && ./gradlew clean
 cd ios && pod install
 ```
 
-## **4. App Implementation**
+## **4. How to Run the Demo**
+
+To run the project, follow these steps:
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/MekkCyber/EdgeLLM.git
+   ```
+
+2. **Navigate to the Project Directory**:
+   ```bash
+   cd EdgeLLMPlus 
+   #or 
+   cd EdgeLLMBasic
+   ```
+
+3. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+4. **Navigate to the iOS Folder and Install**:
+   ```bash
+   cd ios
+   pod install
+   ```
+
+5. **Start the Metro Bundler**:
+   Run the following command in the project folder (EdgeLLMPlus or EdgeLLMBasic):
+   ```bash
+   npm start
+   ```
+
+6. **Launch the App on iOS or Android Simulator**:
+   Open another terminal and run:
+   ```bash
+   # For iOS
+   npm run ios
+
+   # For Android
+   npm run android
+   ```
+
+This will build and launch the app on your emulator/simulator to test the project before we start coding.
+
+## **5. App Implementation**
 
 ### **Installing Dependencies**
 
 First, let's install the required packages. We aim to load models from the [Hugging Face Hub](https://huggingface.co/) and run them locally. To achieve this, we need to install :
 
-- [`llama.rn`](https://github.com/mybigday/llama.rn): a binding for [`llama.cpp`](https://github.com/ggerganov/llama.cpp) tailored for React Native apps.
+- [`llama.rn`](https://github.com/mybigday/llama.rn): a binding for [`llama.cpp`](https://github.com/ggerganov/llama.cpp) for React Native apps.
 - `react-native-fs`: allows us to manage the device's file system in a React Native environment.
 - `axios`: a library for sending requests to the Hugging Face Hub API.
 
@@ -208,12 +253,12 @@ export default App;
 
 Let's think about what our app needs to track for now:
 
-1. **Chat-related State**:
+1. **Chat-related**:
 
    - The conversation history (messages between user and AI)
    - Current user input
 
-2. **Model-related State**:
+2. **Model-related**:
    - Selected model format (like Llama 1B or Qwen 1.5B)
    - Available GGUF files list for each model format
    - Selected GGUF file to download
