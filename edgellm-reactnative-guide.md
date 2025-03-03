@@ -34,7 +34,7 @@ React Native requires some setup before you can start coding.
 npm i @react-native-community/cli
 ```
 
-### **Emulator Setup**
+### **Virtual Device Setup**
 
 To run your app during development, you will need an emulator or a simulator:
 
