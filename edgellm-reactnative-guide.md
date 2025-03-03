@@ -237,6 +237,7 @@ const INITIAL_CONVERSATION: Message[] = [
       content:
         'This is a conversation between user and assistant, a friendly chatbot.',
     },
+];
 
 const [conversation, setConversation] = useState<Message[]>(INITIAL_CONVERSATION);
 const [selectedModelFormat, setSelectedModelFormat] = useState<string>('');
