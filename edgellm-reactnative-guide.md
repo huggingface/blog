@@ -261,7 +261,7 @@ Now that we have our basic state management set up, we need to think about how t
 
 Let's tackle these one by one in the next sections...
 
-### **Fetching available GGUF models from the Hub**
+### Fetching available GGUF models from the Hub
 
 Let's start by defining the model formats our app is going to support and their corresponding GGUF repositories:
 
