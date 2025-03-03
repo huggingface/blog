@@ -36,7 +36,7 @@ npm i @react-native-community/cli
 
 ### **Emulator Setup**
 
-To run your app during development you will need an emulator/simulator:
+To run your app during development, you will need an emulator or a simulator:
 
 - **For Mac Users:**
 
