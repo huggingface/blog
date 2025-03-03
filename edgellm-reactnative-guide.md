@@ -9,7 +9,7 @@ Did you ever wonder how you can create a mobile app to chat with LLMs locally? H
 
 ---
 
-## **Why This Tutorial?**
+## Why This Tutorial?
 
 This blog is for anyone who:
 
