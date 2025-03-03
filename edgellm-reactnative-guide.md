@@ -44,10 +44,8 @@ To run your app during development, you will need an emulator or a simulator:
   - For Android: Install Java Runtime and Android Studio -> Go to Device Manager and Create an emulator
 
 - **If you are on Windows or Linux:**
-  - Install Java Runtime and Android Studio for Android development
-  - For iOS testing options:
-    - Cloud-based simulators like [LambdaTest](https://www.lambdatest.com/test-on-iphone-simulator) and [BrowserStack](https://www.browserstack.com/test-on-ios-simulator)
-    - Third party emulators that try to mimic iOS behavior but we didn't test them.
+  - For iOS: We need to rely on cloud-based simulators like [LambdaTest](https://www.lambdatest.com/test-on-iphone-simulator) and [BrowserStack](https://www.browserstack.com/test-on-ios-simulator)
+  - For Android: Install Java Runtime and Android Studio -> Go to Device Manager and Create an emulator
 
 If you are curious about the difference between simulators and emulators, you can read this article: [Difference between Emulator and Simulator](https://www.browserstack.com/guide/difference-between-emulator-and-simulator), but to put it simply, emulators replicate both hardware and software, while simulators only replicate software.
 
