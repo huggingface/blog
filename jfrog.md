@@ -3,6 +3,9 @@ title: "Hugging Face and JFrog join forces: Enhancing Model Security for the ML 
 thumbnail: /blog/assets/jfrog/thumbnail.png
 authors:
 - user: mcpotato
+- user: srmish-jfrog
+  guest: true
+  org: jfrog
 ---
 
 
@@ -13,6 +16,8 @@ JFrog goes a step deeper and will parse and analyze code it finds in models weig
 
 > [!TIP]
 > Interested in joining our security partnership / providing scanning information on the Hub? Please get in touch with us over at security@huggingface.co.
+
+<img class="block" src="https://speedmedia.jfrog.com/08612fe1-9391-4cf3-ac1a-6dd49c36b276/media.jfrog.com/wp-content/uploads/2025/03/03154424/JFrog-and-Hugging-Face-join-forces_863x300.png"/>
 
 ## Model security refresher
 
@@ -28,6 +33,9 @@ Pickle is not the only exploitable format out there, [see for reference](https:/
 ## Integration
 
 There's nothing you have to do to benefit from this! All public model repositories will be scanned by JFrog automatically as soon as you push your files to the Hub. Here is an example repository you can check out to see the feature in action: [mcpotato/42-eicar-street](https://huggingface.co/mcpotato/42-eicar-street).
+
+<img class="block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/third-party-scans-list-with-jfrog.png"/>
+<em>`mcpotato/42-eicar-street`'s' `danger.dat` scan results</em>
 
 Note that you might not see a scan for your model as of today, as we have millions of model repos. It may take us some time to catch up 😅.
 
