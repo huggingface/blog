@@ -5640,3 +5640,14 @@
     - shift-left
     - infrastructure
     - open-source    
+
+- local: aya-vision
+  title: "A Deepdive into Aya Vision: Advancing the Frontier of Multilingual Multimodality"
+  author: saurabhdash
+  guest: true
+  thumbnail: /blog/assets/aya-vision/thumbnail.png
+  date: March 4, 2025
+  tags:
+    - multimodal
+    - vision
+    - vlm
