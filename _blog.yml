@@ -5638,3 +5638,13 @@
     - multimodal
     - vision
     - vlm
+
+- local: jfrog
+  title: "Hugging Face and JFrog partner to make AI Security more transparent"
+  author: mcpotato
+  thumbnail: /blog/assets/jfrog/thumbnail.png
+  date: March 4, 2025
+  tags:
+    - hub
+    - partnerships
+    - security

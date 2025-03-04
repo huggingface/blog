@@ -1,5 +1,5 @@
 ---
-title: "Hugging Face and JFrog join forces: Enhancing Model Security for the ML Community (sic)"
+title: "Hugging Face and JFrog partner to make AI Security more transparent"
 thumbnail: /blog/assets/jfrog/thumbnail.png
 authors:
 - user: mcpotato
