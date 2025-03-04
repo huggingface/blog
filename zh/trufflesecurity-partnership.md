@@ -1,5 +1,7 @@
 ---
+
 title: "Hugging Face 与 TruffleHog 成为合作伙伴，实现风险信息预警"
+
 thumbnail: /blog/assets/trufflesecurity-partnership/thumbnail.png
 authors:
 - user: mcpotato
@@ -39,13 +41,16 @@ We will eventually migrate to the `trufflehog huggingface` command, the native H
 
 ## TruffleHog 原生 Hugging Face 扫描器
 
+
 创建原生 Hugging Face 扫描器的目标是积极的帮助我们的用户 (以及保护他们的安全团队) 扫描他们自己的账户数据，以发现泄露的风险。
 
 TruffleHog 的新的开源 Hugging Face 集成可以扫描模型、数据集和 Spaces，以及任何相关的 PRs 或 Discussions。
 
 唯一的限制是 TruffleHog 目前不会扫描任何存储在 LFS 格式中的文件。他们的团队正在努力解决这个问题，以便尽快支持所有的 `git` 源。
 
+
 要使用 TruffleHog 扫描你或你组织的 Hugging Face 模型、数据集和 Spaces 中的秘密，请运行以下命令:
+
 
 ```sh
 # For your user
@@ -58,7 +63,9 @@ trufflehog huggingface --org <orgname>
 trufflehog huggingface --user <username> --org <orgname>
 ```
 
+
 你可以使用 ( `--include-discussions` ) 和 PRs ( `--include-prs` ) 的可选命令来扫描 Hugging Face 讨论和 PR 评论。
+
 
 如果你想要仅扫描一个模型、数据集或 Space，TruffleHog 有针对每一个的特定命令。
 
@@ -73,6 +80,7 @@ trufflehog huggingface --dataset <dataset_id>
 trufflehog huggingface --space <space_id>
 ```
 
+
 如果你需要传入认证令牌，你可以使用 –token 命令，或者设置 HUGGINGFACE_TOKEN 环境变量。
 
 这里是 TruffleHog 在 [mcpotato/42-eicar-street](https://huggingface.co/mcpotato/42-eicar-street) 上运行时的输出示例:
@@ -80,6 +88,7 @@ trufflehog huggingface --space <space_id>
 ```
 trufflehog huggingface --model mcpotato/42-eicar-street
 🐷🔑🐷 TruffleHog. Unearth your secrets. 🐷🔑🐷
+
 
 2024-09-02T16:39:30+02:00	info-0	trufflehog	running source	{"source_manager_worker_id": "3KRwu", "with_units": false, "target_count": 0, "source_manager_units_configurable": true}
 2024-09-02T16:39:30+02:00	info-0	trufflehog	Completed enumeration	{"num_models": 1, "num_spaces": 0, "num_datasets": 0}
@@ -99,4 +108,6 @@ Timestamp: 2024-06-17 13:11:50 +0000
 2024-09-02T16:39:32+02:00	info-0	trufflehog	finished scanning	{"chunks": 19, "bytes": 2933, "verified_secrets": 0, "unverified_secrets": 1, "scan_duration": "2.176551292s", "trufflehog_version": "3.81.10"}
 ```
 
+
 致敬 TruffleHog 团队，感谢他们提供了这样一个优秀的工具，使我们的社区更安全！随着我们继续合作，敬请期待更多功能，通过 Hugging Face Hub 平台为所有人提供更加安全的服务。
+

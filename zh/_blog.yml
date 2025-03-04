@@ -2096,6 +2096,17 @@
     - guide
     - sd3-5
 
+- local: s2s_endpoint
+  title: "在 Hugging Face 上部署语音转语音模型"
+  author: andito
+  thumbnail: /blog/assets/s2s_endpoint/thumbnail.png
+  date: October 22, 2024
+  tags:
+    - audio
+    - speech-to-speech
+    - inference
+    - inference-endpoints
+
 - local: synthid-text
   title: SynthID Text：在 AI 生成文本中应用不可见水印的新技术
   author: sumedhghaisas
@@ -2142,6 +2153,16 @@
     - datasets
     - guide
 
+- local: from-files-to-chunks
+  title: "从文件到块: 提高 Hugging Face 存储效率"
+  author: jsulz
+  thumbnail: /blog/assets/from-files-to-chunks/thumbnail.png
+  date: November 20, 2024
+  tags:
+    - dedupe
+    - storage
+    - content defined chunking
+
 - local: designing-positional-encoding
   title: 设计位置编码
   author: FL33TW00D-HF
@@ -2162,6 +2183,18 @@
     - guide
     - ethics
 
+
+- local: layerskip
+  title: 自推测解码实现更快文本生成
+  author: ariG23498
+  thumbnail: /blog/assets/layerskip/thumbnail.png
+  date: November 20, 2024
+  tags:
+    - research
+    - nlp
+    - open-source
+    - collaboration
+
 - local: paligemma2
   title: 欢迎 PaliGemma 2 – 来自 Google 的新视觉语言模型
   author: merve
@@ -2174,6 +2207,15 @@
     - vision
     - VLM
     - research
+
+- local: ethics-soc-7
+  title: "人工智能代理已经到来，接下来呢？"
+  author: meg
+  thumbnail: /blog/assets/190_ethics-soc-7/thumbnail.png
+  date: January 13, 2025
+  tags:
+    - ethics
+    - agents
 
 - local: smolervlm
   title: SmolVLM 越变越小 —— 全新 250 M 和 500 M 模型正式发布！

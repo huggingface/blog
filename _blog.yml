@@ -5583,13 +5583,57 @@
   tags:
     - multimodal
     - vision
+    
+- local: remote_vae
+  title: "Remote VAEs for decoding with HF endpoints 🤗"
+  author: hlky
+  thumbnail: /blog/assets/remote_vae/thumbnail.png
+  date: Feb 24, 2025
+  tags:
+    - diffusers
+    - vae
+    - inference endpoints
+  
+- local: fastrtc
+  title: "FastRTC: The Real-Time Communication Library for Python"
+  author: freddyaboulton
+  thumbnail: /blog/assets/fastrtc/fastrtc_logo.jpg
+  date: Feb 25, 2025
+  tags:
+    - real-time
+    - audio
+    - video
+    - llm
+   
+- local: iisc-huggingface-collab
+  title: "HuggingFace, IISc partner to supercharge model building on India's diverse languages"
+  author: visruth-rf
+  thumbnail: /blog/assets/iisc-huggingface-collab/thumbnail.png
+  date: Feb 27, 2025
+  tags:
+    - open-source-collab
+    - audio
+    - community
+
+- local: smolagents-phoenix
+  title: "Trace & Evaluate your Agent with Arize Phoenix"
+  author: m-ric
+  guest: true
+  thumbnail: /blog/assets/smolagents-phoenix/thumbnail.jpg
+  date: Feb 28, 2025
+  tags:
+    - phoenix
+    - agents
+    - smolagents
+    - agent
+    - instrumentation
 
 - local: scaling-secrets-management
   title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"  
   thumbnail: /blog/assets/infisical/thumbnail.png
   author: segudev
   guest: true
-  date: Feb 21, 2025
+  date: Mar 4, 2025
   tags:
     - secrets
     - security

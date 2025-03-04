@@ -77,7 +77,7 @@ _Zero-shot 技术风暴来袭_ ——2024 年见证了仅需 **单张参考图**
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
     <video
-       alt=" 混元视频演示 "
+       alt="混元视频演示"
        autoplay loop autobuffer muted playsinline
      >
      <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video_gen/hunyuan-output.mp4" type="video/mp4">
@@ -135,7 +135,7 @@ _Zero-shot 技术风暴来袭_ ——2024 年见证了仅需 **单张参考图**
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
     <video
-       alt=" 面部动画演示 "
+       alt="面部动画演示"
        autoplay loop autobuffer muted playsinline
      >
      <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/isaac_1.mp4" type="video/mp4">
@@ -148,7 +148,7 @@ _Zero-shot 技术风暴来袭_ ——2024 年见证了仅需 **单张参考图**
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
     <video
-       alt="TRELLIS 演示 "
+       alt="TRELLIS 演示"
        autoplay loop autobuffer muted playsinline
      >
      <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/trellis.mp4" type="video/mp4">
@@ -171,7 +171,7 @@ Apache 2.0 协议开源的 [YuE](https://huggingface.co/m-a-p/YuE-s1-7B-anneal-e
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
     <video
-       alt="YuE 歌曲演示 "
+       alt="YuE 歌曲演示"
        autobuffer playsinline
      >
      <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ai_art_newsletter_1/My first YuE (open source Suno) AI generated full song.mp4" type="video/mp4">

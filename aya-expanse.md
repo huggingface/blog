@@ -5,7 +5,7 @@ authors:
 - user: johndang-cohere
   guest: true
   org: CohereForAI
-- user: shivi
+- user: shivalikasingh
   guest: true
   org: CohereForAI
 - user: dsouzadaniel

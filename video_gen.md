@@ -39,7 +39,7 @@ These are today's most popular video models for AI-generated content creation
 | KlingAI      | [Kling](https://www.klingai.com/) | Closed         | Proprietary |
 | Haliluo      | [MiniMax](https://hailuoai.video/) | Closed         | Proprietary |
 | THUDM        | [CogVideoX](https://huggingface.co/docs/diffusers/main/en/api/pipelines/cogvideox) | Open           | [Custom](https://huggingface.co/THUDM/CogVideoX-5b/blob/main/LICENSE) |
-| Genmo        | [Mochi-1](https://huggingface.co/docs/diffusers/main/en/api/pipelines/cogvideox) | Open           | Apache 2.0 |
+| Genmo        | [Mochi-1](https://huggingface.co/docs/diffusers/main/en/api/pipelines/mochi) | Open           | Apache 2.0 |
 | RhymesAI     | [Allegro](https://huggingface.co/docs/diffusers/main/en/api/pipelines/allegro) | Open           | Apache 2.0 |
 | Lightricks   | [LTX Video](https://huggingface.co/docs/diffusers/main/en/api/pipelines/ltx_video) | Open           | [Custom](https://huggingface.co/Lightricks/LTX-Video/blob/main/License.txt) |
 | Tencent      | [Hunyuan Video](https://huggingface.co/docs/diffusers/main/api/pipelines/hunyuan_video) | Open           | [Custom](https://huggingface.co/tencent/HunyuanVideo/blob/main/LICENSE) |

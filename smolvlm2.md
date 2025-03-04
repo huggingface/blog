@@ -44,6 +44,7 @@ Want to try SmolVLM2 right away? Check out our [interactive chat interface](http
     - [Inference with MLX](#inference-with-mlx)
       - [Swift MLX](#swift-mlx)
     - [Fine-tuning SmolVLM2](#fine-tuning-smolvlm2)
+  - [Citation Information](#citation-information)
   - [Read More](#read-more)
 
 
@@ -81,10 +82,11 @@ It’s so memory efficient, that you can run it even in a free Google Colab.
 <summary>Python Code</summary>
 
 ```python
-# Make sure we are running the latest version of Transformers
-!pip install git+https://github.com/huggingface/transformers.git
+# Install transformers from `main` or from this stable branch:
+!pip install git+https://github.com/huggingface/transformers@v4.49.0-SmolVLM-2
 
 from transformers import AutoProcessor, AutoModelForImageTextToText
+import torch
 
 model_path = "HuggingFaceTB/SmolVLM2-2.2B-Instruct"
 processor = AutoProcessor.from_pretrained(model_path)
@@ -110,7 +112,7 @@ inputs = processor.apply_chat_template(
     tokenize=True,
     return_dict=True,
     return_tensors="pt",
-).to(model.device)
+).to(model.device, dtype=torch.bfloat16)
 
 generated_ids = model.generate(**inputs, do_sample=False, max_new_tokens=64)
 generated_texts = processor.batch_decode(
@@ -193,18 +195,18 @@ The easiest way to run inference with the SmolVLM2 models is through the convers
 You can load the model as follows.
 
 ```python
-
-# Make sure we are running the latest version of Transformers
-!pip install git+https://github.com/huggingface/transformers.git
+# Install transformers from `main` or from this stable branch:
+!pip install git+https://github.com/huggingface/transformers@v4.49.0-SmolVLM-2
 
 from transformers import AutoProcessor, AutoModelForImageTextToText
+import torch
 
 processor = AutoProcessor.from_pretrained(model_path)
 model = AutoModelForImageTextToText.from_pretrained(
     model_path,
     torch_dtype=torch.bfloat16,
     _attn_implementation="flash_attention_2"
-).to(DEVICE)
+).to("cuda")
 ```
 
 #### Video Inference
@@ -212,8 +214,6 @@ model = AutoModelForImageTextToText.from_pretrained(
 You can pass videos through a chat template by passing in `{"type": "video", "path": {video_path}`. See below for a complete example. 
 
 ```python
-import torch
-
 messages = [
     {
         "role": "user",
@@ -230,7 +230,7 @@ inputs = processor.apply_chat_template(
     tokenize=True,
     return_dict=True,
     return_tensors="pt",
-).to(model.device)
+).to(model.device, dtype=torch.bfloat16)
 
 generated_ids = model.generate(**inputs, do_sample=False, max_new_tokens=64)
 generated_texts = processor.batch_decode(
@@ -245,19 +245,16 @@ print(generated_texts[0])
 
 #### Multiple Image Inference
 
-In addition to video, SmolVLM2 supports multi-image conversations. You can use the same API through the chat template.
+In addition to video, SmolVLM2 supports multi-image conversations. You can use the same API through the chat template, providing each image using a filesystem path, an URL, or a `PIL.Image` object:
 
 ```python
-import torch
-
-
 messages = [
     {
         "role": "user",
         "content": [
             {"type": "text", "text": "What are the differences between these two images?"},
-            {"type": "image", "path": "image_1.png"},
-            {"type": "image", "path": "image_2.png"} 
+          {"type": "image", "url": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg"},
+          {"type": "image", "url": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/0052a70beed5bf71b92610a43a52df6d286cd5f3/diffusers/rabbit.jpg"},            
         ]
     },
 ]
@@ -268,7 +265,7 @@ inputs = processor.apply_chat_template(
     tokenize=True,
     return_dict=True,
     return_tensors="pt",
-).to(model.device)
+).to(model.device, dtype=torch.bfloat16)
 
 generated_ids = model.generate(**inputs, do_sample=False, max_new_tokens=64)
 generated_texts = processor.batch_decode(
@@ -298,7 +295,7 @@ python -m mlx_vlm.generate \
   --prompt "Can you describe this image?"
 ```
 
-We also created a simple script for video understanding. You can use it like follows:
+We also created a simple script for video understanding. You can use it as follows:
 
 ```bash
 python -m mlx_vlm.smolvlm_video_generate \
@@ -315,7 +312,7 @@ Note that the system prompt is important to bend the model to the desired behavi
 
 The Swift language is also supported through the [mlx-swift-examples repo](https://github.com/ml-explore/mlx-swift-examples), which is what we used to build our iPhone app.
 
-Until [our in-progress PR](https://github.com/ml-explore/mlx-swift-examples/pull/206) is finalized and merged, you have to compile the project [from this fork](https://github.com/cyrilzakka/mlx-swift-examples), and then you can use the `llm-tool` CLI on your Mac like follows.
+Until [our in-progress PR](https://github.com/ml-explore/mlx-swift-examples/pull/206) is finalized and merged, you have to compile the project [from this fork](https://github.com/cyrilzakka/mlx-swift-examples), and then you can use the `llm-tool` CLI on your Mac as follows.
 
 For image inference:
 
@@ -343,14 +340,26 @@ If you integrate SmolVLM2 in your apps using MLX and Swift, we'd love to know ab
 ### Fine-tuning SmolVLM2
 
 You can fine-tune SmolVLM2 on videos using transformers 🤗
-We have fine-tuned 500M variant in Colab on video-caption pairs in [VideoFeedback](https://huggingface.co/datasets/TIGER-Lab/VideoFeedback) dataset for demonstration purposes. Since 500M variant is small, it's better to apply full fine-tuning instead of QLoRA or LoRA, meanwhile you can try to apply QLoRA on cB variant. You can find the fine-tuning notebook [here](https://github.com/huggingface/smollm/blob/main/vision/finetuning/SmolVLM2_Video_FT.ipynb).
+We have fine-tuned the 500M variant in Colab on video-caption pairs in [VideoFeedback](https://huggingface.co/datasets/TIGER-Lab/VideoFeedback) dataset for demonstration purposes. Since the 500M variant is small, it's better to apply full fine-tuning instead of QLoRA or LoRA, meanwhile you can try to apply QLoRA on cB variant. You can find the fine-tuning notebook [here](https://github.com/huggingface/smollm/blob/main/vision/finetuning/SmolVLM2_Video_FT.ipynb).
+
+## Citation information
+
+You can cite us in the following way:
+```bibtex
+@misc{smolvlm2,
+  title = {SmolVLM2: Bringing Video Understanding to Every Device},
+  author = {Orr Zohar and Miquel Farré and Andi Marafioti and Merve Noyan and Pedro Cuenca and Cyril Zakka and Joshua Lochner},
+  year = {2025},
+  url = {https://huggingface.co/blog/smolvlm2}
+}
+```
 
 
 ## Read More
 
 We would like to thank Raushan Turganbay, Arthur Zucker and Pablo Montalvo Leroux for their contribution of the model to transformers.
 
-We are looking forward to see all the things you'll build with SmolVLM2!
-If you'd like to learn more about SmolVLM family of models, feel free to read the following:
+We are looking forward to seeing all the things you'll build with SmolVLM2!
+If you'd like to learn more about the SmolVLM family of models, feel free to read the following:
 
 [SmolVLM2 - Collection with Models and Demos](https://huggingface.co/collections/HuggingFaceTB/smolvlm2-smallest-video-lm-ever-67ab6b5e84bf8aaa60cb17c7)
