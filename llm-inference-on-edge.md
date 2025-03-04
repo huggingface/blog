@@ -17,6 +17,10 @@ This tutorial is designed for anyone who:
 
 By the end of this guide, you will have a fully functional app that allows you to interact with your favorite models.
 
+<div style="display: flex; justify-content: center;">
+  <video src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/EdgeLLM_demo.mp4" width="960" height="720" controls ></video>
+</div>
+
 ---
 ## 0. Choosing the Right Models
 
