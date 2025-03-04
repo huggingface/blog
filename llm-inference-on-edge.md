@@ -5,7 +5,8 @@ authors:
   - user: medmekk
 ---
 
-As LLMs continue to evolve, they are becoming smaller and smarter, enabling them to run directly on your phone. Take, for instance, the DeepSeek R1 Distil Qwen 2.5 with 1.5 billion parameters, this model showcases how advanced AI can now fit into the palm of your hand. In this blog, we will guide you through creating a mobile app that allows you to chat with these powerful models locally. If you've ever felt overwhelmed by the complexity of open-source projects, fear not! Inspired by the innovative [Pocket Pal](https://github.com/a-ghorbani/pocketpal-ai) app, we will help you build a straightforward React Native application that downloads LLMs from the [**Hugging Face**](https://huggingface.co/) hub, ensuring everything remains private and runs on your device. We will utilize `llama.rn`, a binding for `llama.cpp`, to load GGUF files efficiently!
+As LLMs continue to evolve, they are becoming smaller and smarter, enabling them to run directly on your phone. Take, for instance, the DeepSeek R1 Distil Qwen 2.5 with 1.5 billion parameters, this model showcases how advanced AI can now fit into the palm of your hand! 
+In this blog, we will guide you through creating a mobile app that allows you to chat with these powerful models locally. If you've ever felt overwhelmed by the complexity of open-source projects, fear not! Inspired by the innovative [Pocket Pal](https://github.com/a-ghorbani/pocketpal-ai) app, we will help you build a straightforward React Native application that downloads LLMs from the [**Hugging Face**](https://huggingface.co/) hub, ensuring everything remains private and runs on your device. We will utilize `llama.rn`, a binding for `llama.cpp`, to load GGUF files efficiently!
 
 ## Why You Should Follow This Tutorial?
 
@@ -36,7 +37,7 @@ When running LLMs on mobile devices, size matters significantly:
 
 ### GGUF Quantization Formats
 
-When downloading models, you'll encounter various quantization formats. Understanding these can help you choose the right balance between model size and performance:
+When downloading GGUF models, you'll encounter various quantization formats. Understanding these can help you choose the right balance between model size and performance:
 
 #### Legacy Quants (Q4_0, Q4_1, Q8_0)
 - Basic, straightforward quantization methods
@@ -49,15 +50,13 @@ When downloading models, you'll encounter various quantization formats. Understa
 - Introduced in this [PR](https://github.com/ggml-org/llama.cpp/pull/1684)
 - Smarter bit allocation than legacy quants
 - The K in “K-quants” refers to a mixed quantization format, meaning some layers get more bits for better accuracy.
-- Suffixes like _XS, _S, or _M refer to specific mixes of quantization (smaller = more compression), for example :
-  - Q3_K_S uses Q3_K for all tensors
-  •	Q3_K_M uses Q4_K for the attention.wv, attention.wo, and feed_forward.w2 tensors, and Q3_K for the rest.
-  •	Q3_K_L uses Q5_K for the attention.wv, attention.wo, and feed_forward.w2 tensors, and Q5_K for the rest.
+- Suffixes like _XS, _S, or _M refer to specific mixes of quantization (smaller = more compression), for example :  
+  • Q3_K_S uses Q3_K for all tensors  
+  •	Q3_K_M uses Q4_K for the attention.wv, attention.wo, and feed_forward.w2 tensors, and Q3_K for the rest.  
+  •	Q3_K_L uses Q5_K for the attention.wv, attention.wo, and feed_forward.w2 tensors, and Q5_K for the rest.  
 
 #### I-Quants (IQ2_XXS, IQ3_S, ...)
-- Introduced in this [PR](https://github.com/ggml-org/llama.cpp/pull/4773)
-- Newest quantization methods with advanced techniques
-- Use lookup tables during decoding
+- It still uses the block-based quantization, but with some new features inspired by QuIP
 - Smaller file sizes but may be slower on some hardware
 - Best for devices with strong compute power but limited memory
 
@@ -266,6 +265,9 @@ Let's run the app on our emulator/simulator as we showed before so we can start 
 
 We will start by deleting everyting from the `App.tsx` file, and creating an empty code structure like the following :
 
+<details>
+<summary><b>App.tsx</b></summary>
+
 ```typescript
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
@@ -277,6 +279,10 @@ const styles = StyleSheet.create({});
 
 export default App;
 ```
+
+</details>
+<br>
+
 Inside the `return` statement of the `App` function we define the UI rendered, and outside we define the logic, but all code will be inside the `App` function.
 
 We will have a screen that looks like this:
@@ -729,6 +735,9 @@ For the css we will use the same styles as in the [EdgeLLMBasic](https://github.
 
 We will start by working on the model selection screen in the App.tsx file, we will add a list of model formats (you need to do the necessary imports and delete the previous code in the `SafeAreaView` component we used for testing):
 
+<details>
+<summary><b>Model Selection UI</b></summary>
+
 ```typescript
 <SafeAreaView style={styles.container}>
   <ScrollView contentContainerStyle={styles.scrollView}>
@@ -753,6 +762,9 @@ We will start by working on the model selection screen in the App.tsx file, we w
   </ScrollView>
 </SafeAreaView>
 ```
+
+</details>
+<br>
 
 We use `SafeAreaView` to ensure that the app is displayed correctly on devices with different screen sizes and orientations as we did in the previous section, and we use `ScrollView` to allow the user to scroll through the model formats. We also use `modelFormats.map` to map over the `modelFormats` array and display each model format as a button with a style that changes when the model format is selected. We also use the `currentPage` state to display the model selection screen only when the `currentPage` state is set to `modelSelection`, this is done by using the `&&` operator. The `TouchableOpacity` component is used to allow the user to select a model format by pressing on it.
 
