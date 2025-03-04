@@ -5,9 +5,7 @@ authors:
   - user: medmekk
 ---
 
-Did you ever wonder how you can create a mobile app to chat with LLMs locally? Have you tried to understand the code in some open source projects but found it too complex? Well, this blog is for you! Inspired by the great [Pocket Pal](https://github.com/a-ghorbani/pocketpal-ai) app, we will help you build a simple React Native app to chat with LLMs downloaded from the [**Hugging Face**](https://huggingface.co/) hub, everything is private and runs on device !
-
----
+Did you ever wonder how you can create a mobile app to chat with LLMs locally? Have you tried to understand the code in some open source projects but found it too complex? Well, this blog is for you! Inspired by the great [Pocket Pal](https://github.com/a-ghorbani/pocketpal-ai) app, we will help you build a simple React Native app to chat with LLMs downloaded from the [**Hugging Face**](https://huggingface.co/) hub, everything is private and runs on device ! We will use `llama.rn` a binding for `llama.cpp` to load GGUF files !
 
 ## Why This Tutorial?
 
@@ -20,6 +18,68 @@ This blog is for anyone who:
 By the end of this guide, you'll have a working app to chat with your favorite models.
 
 ---
+## 0. Choosing the Right Models
+
+Before we dive into building our app, let's talk about which models work well on mobile devices and what to consider when selecting them.
+
+### Model Size Considerations
+
+When running LLMs on mobile devices, size matters significantly:
+
+- **Small models (1-3B parameters)**: Ideal for most mobile devices, offering good performance with minimal latency
+- **Medium models (4-7B parameters)**: Work well on newer high-end devices but may cause slowdowns on older phones
+- **Large models (8B+ parameters)**: Generally too resource-intensive for most mobile devices, but can be used if quantized to low precision formats like Q2_K or Q4_K_M
+
+### GGUF Quantization Formats
+
+When downloading models, you'll encounter various quantization formats. Understanding these can help you choose the right balance between model size and performance:
+
+#### Legacy Quants (Q4_0, Q4_1, Q8_0)
+- Basic, straightforward quantization methods
+- Each block is stored with:
+	•	Quantized values (the compressed weights).
+	•	One (_0) or two (_1) scaling constants.
+- Fast but less efficient than newer methods => not used widely anymore
+
+#### K-Quants (Q3_K_S, Q5_K_M, ...)
+- Introduced in this [PR](https://github.com/ggml-org/llama.cpp/pull/1684)
+- Smarter bit allocation than legacy quants
+- The K in “K-quants” refers to a mixed quantization format, meaning some layers get more bits for better accuracy.
+- Suffixes like _XS, _S, or _M refer to specific mixes of quantization (smaller = more compression), for example :
+  - Q3_K_S uses Q3_K for all tensors
+  •	Q3_K_M uses Q4_K for the attention.wv, attention.wo, and feed_forward.w2 tensors, and Q3_K for the rest.
+  •	Q3_K_L uses Q5_K for the attention.wv, attention.wo, and feed_forward.w2 tensors, and Q5_K for the rest.
+
+#### I-Quants (IQ2_XXS, IQ3_S, ...)
+- Introduced in this [PR](https://github.com/ggml-org/llama.cpp/pull/4773)
+- Newest quantization methods with advanced techniques
+- Use lookup tables during decoding
+- Smaller file sizes but may be slower on some hardware
+- Best for devices with strong compute power but limited memory
+
+### Recommended Models to Try
+
+Here are some models that perform well on mobile devices:
+
+1. **[SmolLM2-1.7B-Instruct](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct)**
+2. **[Qwen2-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2-0.5B-Instruct)**
+3. **[Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct)**
+4. **[DeepSeek-R1-Distill-Qwen-1.5B](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B)**
+
+### Finding More Models
+
+To find additional GGUF models on Hugging Face:
+
+1. Visit [huggingface.co/models](https://huggingface.co/models)
+2. Use the search filters:
+   - Select "GGUF" under "Libraries"
+   - Specify the size of the model in the search bar
+   - Look for "chat" or "instruct" in the name for conversational models
+
+![Hugging Face search filters](assets/hf_search_filters.png)
+
+When selecting a model, consider both the parameter count and the quantization level. For example, a 7B model with Q2_K quantization might run better than a 2B model with Q8_0 quantization. So if you can fit a small model comfortably on your device try to use a bigger quantized model instead, it might have a better performance.
+
 
 ## 1. Setting Up Your Environment
 
@@ -74,7 +134,7 @@ npx @react-native-community/cli@latest init <ProjectName>
 
 ### Project Structure 
 
-The app folder architecture for a new project includes:
+App folders are organized as follows:
 
 #### Default Files/Folders
 
@@ -94,93 +154,26 @@ The app folder architecture for a new project includes:
 
 4. `App.tsx`
 
-   - The main root component of your app (we are using typescript here)
+   - The main root component of your app, written in TypeScript
    - **Purpose**: Entry point to the app's UI and logic
 
 5. `index.js`
    - Registers the root component (`App`)
-   - **Purpose**: Entry point for React Native runtime
+   - **Purpose**: Entry point for the React Native runtime. You don't need to modify this file.
 
-#### Additional Configuration Files
+<details>
+<summary><b>Additional Configuration Files</b></summary>
 
 - `tsconfig.json`: Configures TypeScript settings
 - `babel.config.js`: Configures Babel for transpiling modern JavaScript/TypeScript, which means it will convert modern JS/TS code to older JS/TS code that is compatible with older browsers or devices.
 - `jest.config.js`: Configures Jest for testing React Native components and logic.
-- `metro.config.js`: Customizes the Metro bundler for the project. It's a JavaScript bundler specifically designed for React Native. It takes your project’s JavaScript and assets, bundles them into a single file (or multiple files for efficient loading), and serves them to the app during development. Metro is optimized for fast incremental builds, supports hot reloading, and handles React Native’s platform-specific files (.ios.js or .android.js).
+- `metro.config.js`: Customizes the Metro bundler for the project. It's a JavaScript bundler specifically designed for React Native. It takes your project's JavaScript and assets, bundles them into a single file (or multiple files for efficient loading), and serves them to the app during development. Metro is optimized for fast incremental builds, supports hot reloading, and handles React Native's platform-specific files (.ios.js or .android.js).
 - `.watchmanconfig`: Configures Watchman, a file-watching service used by React Native for hot reloading.
+</details>
 
-## 3. How to Debug
+## 3. Running the Demo & App
 
-### Running the App
-
-Debugging a React Native application requires either an emulator/simulator or a physical device. We'll focus on using an emulator since it provides a more streamlined development experience with your code editor and debugging tools side by side.
-
-We start by ensuring our development environment is ready, we need to be in the project folder and run the following commands:
-
-```bash
-# Install dependencies
-npm install
-
-# Start the Metro bundler
-npm start
-```
-
-In a new terminal, we will launch the app on our chosen platform:
-
-```bash
-# For iOS
-npm run ios
-
-# For Android
-npm run android
-```
-
-This should build and launch the app on your emulator/simulator.
-
-### Chrome DevTools Debugging
-
-For debugging we will use Chrome DevTools as in web development :
-
-1. Press `j` in the Metro bundler terminal to launch Chrome DevTools
-2. Navigate to the "Sources" tab
-
-![alt text](assets/dev_tools.png)
-3. Find your source files  
-4. Set breakpoints by clicking on line numbers  
-5. Use debugging controls (top right corner):  
-   - Step Over - Execute current line
-   - Step Into - Enter function call
-   - Step Out - Exit current function
-   - Continue - Run until next breakpoint
-
-### Common Debugging Tips
-
-1. **Console Logging**
-
-```javascript
-console.log('Debug value:', someValue);
-console.warn('Warning message');
-console.error('Error details');
-```
-This will log the output in the console of Chrome DevTools
-
-2. **Metro Bundler Issues**
-If you encounter issues with the Metro bundler, you can try clearing the cache first:
-```bash
-# Clear Metro bundler cache
-npm start --reset-cache
-```
-
-3. **Build Errors**
-
-```bash
-# Clean and rebuild
-cd android && ./gradlew clean
-cd ios && pod install
-```
-
-## 4. How to Run the Demo
-
+### Running the Demo
 To run the project, and see how it looks like on your own virtual device, follow these steps:
 
 1. **Clone the Repository**:
@@ -224,7 +217,33 @@ To run the project, and see how it looks like on your own virtual device, follow
 
 This will build and launch the app on your emulator/simulator to test the project before we start coding.
 
-## 5. App Implementation  
+### Running the App
+
+Running a React Native application requires either an emulator/simulator or a physical device. We'll focus on using an emulator since it provides a more streamlined development experience with your code editor and debugging tools side by side.
+
+We start by ensuring our development environment is ready, we need to be in the project folder and run the following commands:
+
+```bash
+# Install dependencies
+npm install
+
+# Start the Metro bundler
+npm start
+```
+
+In a new terminal, we will launch the app on our chosen platform:
+
+```bash
+# For iOS
+npm run ios
+
+# For Android
+npm run android
+```
+
+This should build and launch the app on your emulator/simulator.
+
+## 4. App Implementation  
 
 ### Installing Dependencies
 
@@ -882,6 +901,49 @@ We added a `checkDownloadedModels` function to the `App.tsx` file that will chec
 #### Stop/Back Buttons
 We added two important buttons in the UI, the stop button and the back button. The stop button will stop the generation of the response and the back button will navigate to the model selection screen. For that, We added a `handleStopGeneration` function to the `App.tsx` file that will stop the generation of the response by calling `context.stop` and set the `isGenerating` state to false. We also added a `handleBack` function to the `App.tsx` file that will navigate to the model selection screen by setting the `currentPage` state to `modelSelection`.
 
+## 5. How to Debug
+
+### Chrome DevTools Debugging
+
+For debugging we will use Chrome DevTools as in web development :
+
+1. Press `j` in the Metro bundler terminal to launch Chrome DevTools
+2. Navigate to the "Sources" tab
+
+![alt text](assets/dev_tools.png)
+3. Find your source files  
+4. Set breakpoints by clicking on line numbers  
+5. Use debugging controls (top right corner):  
+   - Step Over - Execute current line
+   - Step Into - Enter function call
+   - Step Out - Exit current function
+   - Continue - Run until next breakpoint
+
+### Common Debugging Tips
+
+1. **Console Logging**
+
+```javascript
+console.log('Debug value:', someValue);
+console.warn('Warning message');
+console.error('Error details');
+```
+This will log the output in the console of Chrome DevTools
+
+2. **Metro Bundler Issues**
+If you encounter issues with the Metro bundler, you can try clearing the cache first:
+```bash
+# Clear Metro bundler cache
+npm start --reset-cache
+```
+
+3. **Build Errors**
+
+```bash
+# Clean and rebuild
+cd android && ./gradlew clean
+cd ios && pod install
+```
 
 ## 6. Additional Features we can add
 
