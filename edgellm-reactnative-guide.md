@@ -76,10 +76,9 @@ To find additional GGUF models on Hugging Face:
    - Specify the size of the model in the search bar
    - Look for "chat" or "instruct" in the name for conversational models
 
-![Hugging Face search filters](assets/hf_search_filters.png)
+![Hugging Face search filters](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/find_gguf_models.png)
 
 When selecting a model, consider both the parameter count and the quantization level. For example, a 7B model with Q2_K quantization might run better than a 2B model with Q8_0 quantization. So if you can fit a small model comfortably on your device try to use a bigger quantized model instead, it might have a better performance.
-
 
 ## 1. Setting Up Your Environment
 
@@ -105,9 +104,9 @@ To run your app during development, you will need an emulator or a simulator:
 
 - **If you are on macOS:**
   - For iOS: Install Xcode -> Open Developer Tools -> Simulator
-  ![alt text](assets/xcode_simulator.png)
+  ![alt text](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/xcode_simulator.png)
   - For Android: Install Java Runtime and Android Studio -> Go to Device Manager and Create an emulator
-  ![alt text](assets/android.png)
+  ![alt text](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/android.png)
 
 - **If you are on Windows or Linux:**
   - For iOS: We need to rely on cloud-based simulators like [LambdaTest](https://www.lambdatest.com/test-on-iphone-simulator) and [BrowserStack](https://www.browserstack.com/test-on-ios-simulator)
@@ -278,7 +277,9 @@ Inside the `return` statement of the `App` function we define the UI rendered, a
 
 We will have a screen that looks like this:
 
-![alt text](assets/hello_world.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/hello_world.png" alt="Hello World app" width="300" />
+</div>
 
 The text "Hello World" is not displayed properly because we are using a simple `View` component, we need to use a `SafeAreaView` component to display the text correctly, we will deal with that in the next sections.
 
@@ -299,6 +300,9 @@ Now let's think about what our app needs to track for now:
    - A boolean to check if the model is generating a response
 
 Here's how we implement these states using React's useState hook (we will need to import it from react)
+
+<details>
+<summary><b>State Management Code</b></summary>
 
 ```typescript
 import { useState } from 'react';
@@ -326,6 +330,11 @@ const [context, setContext] = useState<any>(null);
 const [isDownloading, setIsDownloading] = useState<boolean>(false);
 const [isGenerating, setIsGenerating] = useState<boolean>(false);
 ```
+
+</details>
+
+<br>
+
 This will be added to the `App.tsx` file inside the `App` function but outside the `return` statement as it's part of the logic.
 
 The Message type defines the structure of chat messages, specifying that each message must have a role (either 'user' or 'assistant' or 'system') and content (the actual message text).
@@ -372,6 +381,9 @@ When a user selects a model format, we make an API call to Hugging Face using th
 
 Once we receive the response, we extract just the filenames of these GGUF files and store them in our `availableGGUFs` state using `setAvailableGGUFs`. This allows us to show users a list of available GGUF model variants they can download.
 
+<details>
+<summary><b>Fetching Available GGUF Files</b></summary>
+
 ```typescript
 const fetchAvailableGGUFs = async (modelFormat: string) => {
   if (!modelFormat) {
@@ -408,6 +420,10 @@ const fetchAvailableGGUFs = async (modelFormat: string) => {
   }
 };
 ```
+
+</details>
+<br>
+
 > **Note:** Ensure to import axios and Alert at the top of your file if not already imported.
 
 We need to test that the function is working correclty, let's add a button to the UI to trigger the function, instead of `View` we will use a `SafeAreaView` (more on that later) component, and we will display the available GGUF files in a `ScrollView` component. the `onPress` function is triggered when the button is pressed:
@@ -424,13 +440,18 @@ We need to test that the function is working correclty, let's add a button to th
 ```
 This should look something like this : 
 
-![alt text](assets/available_gguf_files_test.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/available_gguf_files_test.png" alt="Available GGUF Files" width="300" />
+</div>
 
 > **Note:** For the whole code until now you can check the `first_checkpoint` branch in the `EdgeLLMBasic` folder [here](https://github.com/MekkCyber/EdgeLLM/blob/first_checkpoint/EdgeLLMBasic/App.tsx)
 
 ### Model Download Implementation
 
 Now let's implement the model download functionality in the `handleDownloadModel` function which should be called when the user clicks on the download button. This will download the selected GGUF file from Hugging Face and store it in the app's Documents directory:
+
+<details>
+<summary><b>Model Download Function</b></summary>
 
 ```typescript
 const handleDownloadModel = async (file: string) => {
@@ -458,6 +479,9 @@ const handleDownloadModel = async (file: string) => {
 };
 ```
 
+</details>
+<br>
+
 We could have implemented the `api` requests inside the `handleDownloadModel` function, but we will keep it in a separate file to keep the code clean and readable. `handleDownloadModel` calls the `downloadModel` function, located in `src/api`, which accepts three parameters: `modelName`, `downloadUrl`, and a `progress` callback function. This callback is triggered during the download process to update the progress. Before downloading we need to have the `selectedModelFormat` state set to the model format we want to download.
 
 Inside the `downloadModel` function we use the `RNFS` module, part of the `react-native-fs` library, to access the device's file system. It allows developers to read, write, and manage files on the device's storage. In this case, the model is stored in the app's Documents folder using `RNFS.DocumentDirectoryPath`, ensuring that the downloaded file is accessible to the app. The progress bar is updated accordingly to reflect the current download status and the progress bar component is defined in the `components` folder.
@@ -465,6 +489,9 @@ Inside the `downloadModel` function we use the `RNFS` module, part of the `react
 Let's create `src/api/model.ts` and copy the code from the [`src/api/model.ts`](https://github.com/MekkCyber/EdgeLLM/blob/main/EdgeLLMBasic/src/api/model.ts) file in the repo. The logic should be simple to understand. The same goes for the progress bar component in the [`src/components`](https://github.com/MekkCyber/EdgeLLM/blob/main/EdgeLLMBasic/src/components/ProgressBar.tsx) folder, it's a simple colored `View` where the width is the progress of the download.
 
 Now we need to test the `handleDownloadModel` function, let's add a button to the UI to trigger the function, and we will display the progress bar. This will be added under the `ScrollView` we added before.
+
+<details>
+<summary><b>Download Model Button</b></summary>
 
 ```typescript
 <View style={{ marginTop: 30, marginBottom: 15 }}>
@@ -494,9 +521,14 @@ Now we need to test the `handleDownloadModel` function, let's add a button to th
 {isDownloading && <ProgressBar progress={progress} />}
 ```
 
-In the UI we show a list of the supported model formats and a button to download the model, when the user chooses the model format and clicks on the button the progress bar should be displayed and the download should start. In the test we hardcoded the model to download `Llama-3.2-1B-Instruct-Q2_K.gguf`, so we need to select `Llama-3.2-1B-Instruct` as a model format for the function to work, it should look like this:
+</details>
+<br>
 
-![alt text](assets/download_image.png)
+In the UI we show a list of the supported model formats and a button to download the model, when the user chooses the model format and clicks on the button the progress bar should be displayed and the download should start. In the test we hardcoded the model to download `Llama-3.2-1B-Instruct-Q2_K.gguf`, so we need to select `Llama-3.2-1B-Instruct` as a model format for the function to work, we should have something like:
+
+<div align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/download_image.png" alt="Download Model" width="300" />
+</div>
 
 > **Note:** For the whole code until now you can check the `second_checkpoint` branch in the `EdgeLLMBasic` folder [here](https://github.com/MekkCyber/EdgeLLM/blob/second_checkpoint/EdgeLLMBasic/App.tsx)
 
@@ -504,6 +536,9 @@ In the UI we show a list of the supported model formats and a button to download
 ### Model Loading and Initialization
 
 Next, we will implement a function to load the downloaded model into a Llama context, as detailed in the `llama.rn` documentation available [here](https://github.com/mybigday/llama.rn). If a context is already present, we will release it, set the context to `null`, and reset the conversation to its initial state. Subsequently, we will utilize the `initLlama` function to load the model into a new context and update our state with the newly initialized context.
+
+<details>
+<summary><b>Model Loading Function</b></summary>
 
 ```typescript
 import {initLlama, releaseAllLlama} from 'llama.rn';
@@ -541,6 +576,10 @@ const loadModel = async (modelName: string) => {
   }
 };
 ```
+
+</details>
+<br>
+
 We need to call the `loadModel` function when the user clicks on the download button, so we need to add it inside the `handleDownloadModel` function right after the download is complete if it's successful.
 
 ```typescript
@@ -550,13 +589,16 @@ if (destPath) {
 }
 ```
 To test the model loading let's add a `console.log` inside the `loadModel` function to print the context, so we can see if the model is loaded correctly. We keep the UI the same as before, because clicking on the download button will trigger the `handleDownloadModel` function, and the `loadModel` function will be called inside it. To see the `console.log` output we need to open the Developer Tools, for that we press `j` in the terminal where we ran `npm start`. If everything is working correctly we should see the context printed in the console.
-![alt text](assets/llama_context.png)
+![alt text](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/llama_context.png)
 
 > **Note:** For the whole code until now you can check the `third_checkpoint` branch in the `EdgeLLMBasic` folder [here](https://github.com/MekkCyber/EdgeLLM/blob/third_checkpoint/EdgeLLMBasic/App.tsx)
 
 ### Chat Implementation
 
 With the model now loaded into our context, we can proceed to implement the conversation logic. We'll define a function called `handleSendMessage`, which will be triggered when the user submits their input. This function will update the conversation state and send the updated conversation to the model via `context.completion`. The response from the model will then be used to further update the conversation, which means that the conversation will be updated twice in this function.
+
+<details>
+<summary><b>Chat Function</b></summary>
 
 ```typescript
 const handleSendMessage = async () => {
@@ -620,7 +662,14 @@ const handleSendMessage = async () => {
   }
 };
 ```
+
+</details>
+<br>
+
 To test the `handleSendMessage` function we need to add an input text field and a button to the UI to trigger the function, and we will display the conversation in the `ScrollView` component.
+
+<details>
+<summary><b>Simple Chat UI</b></summary>
 
 ```typescript
 <View
@@ -650,10 +699,16 @@ To test the `handleSendMessage` function we need to add an input text field and 
   ))}
 </ScrollView>
 ```
+
+</details>
+<br>
+
 If everything is implemented correctly, we should be able to send messages to the model and see the conversation in the `ScrollView` component, it's not beautiful of course but it's a good start, we will improve the UI later.
 The result should look like this:
 
-![alt text](assets/chat.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/chat.png" alt="Chat" width="300" />
+</div>
 
 > **Note:** For the whole code until now you can check the `fourth_checkpoint` branch in the `EdgeLLMBasic` folder [here](https://github.com/MekkCyber/EdgeLLM/blob/fourth_checkpoint/EdgeLLMBasic/App.tsx)
 
@@ -710,9 +765,14 @@ const handleFormatSelection = (format: string) => {
 We store the selected model format in the state and clear the previous list of GGUF files from other selections, and then we fetch the new list of GGUF files for the selected format.
 The screen should look like this on your device:
 
-![alt text](assets/model_selection_start.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/model_selection_start.png" alt="Model Selection Start" width="300" />
+</div>
 
 Next, let's add the view to show the list of GGUF files already available for the selected model format, we will add it below the model format selection section.
+
+<details>
+<summary><b>Available GGUF Files UI</b></summary>
 
 ```typescript
 {
@@ -734,11 +794,20 @@ Next, let's add the view to show the list of GGUF files already available for th
   )
 }
 ```
+
+</details>
+<br>
+
 We need to only show the list of GGUF files if the `selectedModelFormat` state is not null, which means a model format is selected by the user.
 
-![alt text](assets/available_ggufs.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/available_ggufs.png" alt="Available GGUF Files" width="300" />
+</div>
 
 We need to define `handleGGUFSelection` in the App.tsx file as a function that will trigger an alert to confirm the download of the selected GGUF file. If the user clicks on `Yes`, the download will start, else the selected GGUF file will be cleared.
+
+<details>
+<summary><b>Confirm Download Alert</b></summary>
 
 ```typescript
 const handleGGUFSelection = (file: string) => {
@@ -763,11 +832,16 @@ const handleDownloadAndNavigate = async (file: string) => {
 };
 ```
 
+</details>
+<br>
+
 `handleDownloadAndNavigate` is a simple function that will download the selected GGUF file by calling `handleDownloadModel` (implemented in the previous sections) and navigate to the conversation screen after the download is complete.
 
 Now after clicking on a GGUF file, we should have an alert to confirm or cancel the download :
 
-![alt text](assets/confirm_download.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/confirm_download.png" alt="Confirm Download" width="300" />
+</div>
 
 We can add a simple `ActivityIndicator` to the view to display a loading state when the available GGUF files are being fetched. For that we will need to import `ActivityIndicator` from `react-native` and define `isFetching` as a boolean state variable that will be set to true in the start of the `fetchAvailableGGUFs` function and false when the function is finished as you can see here in the [code](https://github.com/MekkCyber/EdgeLLM/blob/main/EdgeLLMBasic/App.tsx#L199), and add the `ActivityIndicator` to the view just before the `{availableGGUFs.map((file, index) => (...))} ` to display a loading state when the available GGUF files are being fetched.
 
@@ -778,10 +852,15 @@ We can add a simple `ActivityIndicator` to the view to display a loading state w
 ```
 The app should look like this for a brief moment when the GGUF files are being fetched:
 
-![alt text](assets/download_indicator.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/download_indicator.png" alt="Download Indicator" width="300" />
+</div>
 
 Now we should be able to see the different GGUF files available for each model format when we click on it, and we should see the alert when clicking on a GGUF confirming if we want to download the model.
 Next we need to add the progress bar to the model selection screen, we can do it by importing the `ProgressBar` component from `src/components/ProgressBar.tsx` in the `App.tsx` file as we did before, and we will add it to the view just after the `{availableGGUFs.map((file, index) => (...))} ` to display the progress bar when the model is being downloaded.
+
+<details>
+<summary><b>Download Progress Bar</b></summary>
 
 ```typescript
 {
@@ -794,6 +873,10 @@ Next we need to add the progress bar to the model selection screen, we can do it
   );
 }
 ```
+
+</details>
+<br>
+
 The download progress bar will now be positioned at the bottom of the model selection screen. However, this means that users may need to scroll down to view it. To address this, we will modify the display logic so that the model selection screen is only shown when the `currentPage` state is set to 'modelSelection' and the added condition that there is no ongoing model download.
 
 ```typescript
@@ -804,13 +887,19 @@ The download progress bar will now be positioned at the bottom of the model sele
 ```
 After confirming a model download we should have a screen like this :
 
-![alt text](assets/download_progress_bar.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/download_progress_bar.png" alt="Download Progress Bar" width="300" />
+</div>
 
 > **Note:** For the whole code until now you can check the `fifth_checkpoint` branch in the `EdgeLLMBasic` folder [here](https://github.com/MekkCyber/EdgeLLM/blob/fifth_checkpoint/EdgeLLMBasic/App.tsx)
 
 Now that we have the model selection screen, we can start working on the conversation screen with the chat interface. This screen will be displayed when `currentPage` is set to `conversation`. We will add a conversation history and a user input field to the screen. The conversation history will be displayed in a scrollable view, and the user input field will be displayed at the bottom of the screen out of the scrollable view to stay visible. Each message will be displayed in a different color depending on the role of the message (user or assistant).
 
-We need to add just under the model selection screen the view for the conversation screen: 
+We need to add just under the model selection screen the view for the conversation screen:
+
+<details>
+<summary><b>Conversation UI</b></summary>
+
 ```typescript
 {currentPage == 'conversation' && !isDownloading && (
   <View style={styles.chatContainer}>
@@ -839,9 +928,16 @@ We need to add just under the model selection screen the view for the conversati
   </View>
 )}
 ```
+
+</details>
+<br>
+
 We use different styles for the user messages and the model messages, and we use the `conversation.slice(1)` to remove the first message from the conversation, which is the system message.
 
 We can now add the user input field at the bottom of the screen and the send button (they should not be inside the `ScrollView`). As I mentioned before, we will use the `handleSendMessage` function to send the user message to the model and update the conversation state with the model response.
+
+<details>
+<summary><b>Send Button & Input Field</b></summary>
 
 ```typescript
 {currentPage === 'conversation' && (
@@ -866,13 +962,19 @@ We can now add the user input field at the bottom of the screen and the send but
   </View>
 )}
 ```
+
+</details>
+<br>
+
 When the user clicks on the send button, the `handleSendMessage` function will be called and the `isGenerating` state will be set to true. The send button will then be disabled and the text will change to 'Generating...'. When the model finishes generating the response, the `isGenerating` state will be set to false and the text will change back to 'Send'.
 
 > **Note:** For the whole code until now you can check the `main` branch in the `EdgeLLMBasic` folder [here](https://github.com/MekkCyber/EdgeLLM/blob/main/EdgeLLMBasic/App.tsx)
 
 The conversation page should now look like this:
 
-![alt text](assets/whole_basic_app.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/whole_basic_app.png" alt="Whole Basic App" width="300" />
+</div>
 
 Congratulations you've just built the core functionality of your first AI chatbot, the code is available [here](https://github.com/MekkCyber/EdgeLLM/blob/main/EdgeLLMBasic/App.tsx) ! You can now start adding more features to the app to make it more user friendly and efficient.
 
@@ -910,7 +1012,7 @@ For debugging we will use Chrome DevTools as in web development :
 1. Press `j` in the Metro bundler terminal to launch Chrome DevTools
 2. Navigate to the "Sources" tab
 
-![alt text](assets/dev_tools.png)
+![alt text](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-inferencen-on-edge/dev_tools.png)
 3. Find your source files  
 4. Set breakpoints by clicking on line numbers  
 5. Use debugging controls (top right corner):  
