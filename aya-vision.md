@@ -18,7 +18,7 @@ authors:
 
 # A Deepdive into Aya Vision: Advancing the Frontier of Multilingual Multimodality
 
-With the release of [Aya Vision family](https://huggingface.co/collections/CohereForAI/c4ai-aya-vision-67c4ccd395ca064308ee1484), our new **8B** and **32B** parameter vision-language models, we are addressing one of the biggest challenges in AI: *bringing multilingual performance to multimodal models*. 
+With the release of the [Aya Vision family](https://huggingface.co/collections/CohereForAI/c4ai-aya-vision-67c4ccd395ca064308ee1484), our new **8B** and **32B** parameter vision-language models (VLMs), we are addressing one of the biggest challenges in AI: *bringing multilingual performance to multimodal models*. 
 
 Aya Vision is [Cohere For AI](https://cohere.com/research)'s latest open-weight multilingual and multimodal model family, designed to be a strong foundation for language and vision understanding across **23 languages**. It builds on the success of [Aya Expanse](https://huggingface.co/collections/CohereForAI/c4ai-aya-expanse-671a83d6b2c07c692beab3c3), state-of-the-art multilingual language models, and extends it using a combination of advanced techniques. These include synthetic annotations, scaling up multilingual data through translation and rephrasing, and multimodal model merging – key methods that improve both language and vision understanding in a multilingual setting. 
 
