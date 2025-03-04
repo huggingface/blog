@@ -1,21 +1,21 @@
 ---
-title: "Create Your Own LLM Chatbot App: A Fun and Easy Guide to React Native Development!"
+title: "LLM Inference on Edge: A Fun and Easy Guide to run LLMs via React Native on an iPhone!"
 thumbnail: /blog/assets/deepseek-r1-aws/thumbnail.png
 authors:
   - user: medmekk
 ---
 
-Did you ever wonder how you can create a mobile app to chat with LLMs locally? Have you tried to understand the code in some open source projects but found it too complex? Well, this blog is for you! Inspired by the great [Pocket Pal](https://github.com/a-ghorbani/pocketpal-ai) app, we will help you build a simple React Native app to chat with LLMs downloaded from the [**Hugging Face**](https://huggingface.co/) hub, everything is private and runs on device ! We will use `llama.rn` a binding for `llama.cpp` to load GGUF files !
+As LLMs continue to evolve, they are becoming smaller and smarter, enabling them to run directly on your phone. Take, for instance, the DeepSeek R1 Distil Qwen 2.5 with 1.5 billion parameters, this model showcases how advanced AI can now fit into the palm of your hand. In this blog, we will guide you through creating a mobile app that allows you to chat with these powerful models locally. If you've ever felt overwhelmed by the complexity of open-source projects, fear not! Inspired by the innovative [Pocket Pal](https://github.com/a-ghorbani/pocketpal-ai) app, we will help you build a straightforward React Native application that downloads LLMs from the [**Hugging Face**](https://huggingface.co/) hub, ensuring everything remains private and runs on your device. We will utilize `llama.rn`, a binding for `llama.cpp`, to load GGUF files efficiently!
 
-## Why This Tutorial?
+## Why You Should Follow This Tutorial?
 
-This blog is for anyone who:
+This tutorial is designed for anyone who:
 
-- Is curious about integrating AI into mobile apps
-- Wants to build a conversational app that works on both Android and iOS using React Native
-- Is interested in privacy-focused AI applications that run completely offline
+- Is interested in integrating AI into mobile applications
+- Wants to create a conversational app compatible with both Android and iOS using React Native
+- Seeks to develop privacy-focused AI applications that operate entirely offline
 
-By the end of this guide, you'll have a working app to chat with your favorite models.
+By the end of this guide, you will have a fully functional app that allows you to interact with your favorite models.
 
 ---
 ## 0. Choosing the Right Models

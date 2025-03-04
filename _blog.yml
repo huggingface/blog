@@ -5428,8 +5428,8 @@
     - aws
     - partnerships
 
-- local: edgellm-reactnative-guide
-  title: "Create Your Own LLM Chatbot App: A Fun and Easy Guide to React Native Development!"
+- local: llm-inference-on-edge
+  title: "LLM Inference on Edge: A Fun and Easy Guide to run LLMs via React Native on an iPhone!"
   author: medmekk
   thumbnail: /blog/assets/deepseek-r1-aws/thumbnail.png
   date: Jan 31, 2025
