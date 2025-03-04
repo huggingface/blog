@@ -83,7 +83,7 @@ Seamless integration with CI/CD pipelines further enhanced the overall security 
 
 Centralizing secrets management with Infisical brought tangible improvements:
 
-- ngineers no longer need to spend valuable time manually configuring environment secrets. Self-serve workflows accelerated onboarding and daily development cycles. 
+- Engineers no longer need to spend valuable time manually configuring environment secrets. Self-serve workflows accelerated onboarding and daily development cycles. 
 - Automated audits and fine-grained access controls enabled rapid incident response and promoted a “shift left” approach to security.  
 - Consistent integration across cloud providers, Kubernetes clusters, and CI/CD pipelines eliminated discrepancies in secret management, thus reinforcing the infrastructure's security and reliability.
 
