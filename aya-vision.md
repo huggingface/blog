@@ -73,7 +73,7 @@ Overview of the training pipeline for Aya Vision
 
 Scaling up to 32B
 
-Finally, we scale our recipe from 8B to 32B, esulting in the state-of-the-art open-weight multilingual vision-language model – Aya Vision 32B which shows significant improvements in win rates due to the stronger initialization of the text-backbone, and outperforms models more than 2x of its size, such as Llama-3.2 90B Vision, Molmo 72B, and Qwen2.5-VL 72B by win rates ranging from 49% to 63% on AyaVisionBench and 52% to 72% on mWildVision average across 23 languages.
+Finally, we scale our recipe from 8B to 32B, resulting in the state-of-the-art open-weight multilingual vision-language model – Aya Vision 32B which shows significant improvements in win rates due to the stronger initialization of the text-backbone, and outperforms models more than 2x of its size, such as Llama-3.2 90B Vision, Molmo 72B, and Qwen2.5-VL 72B by win rates ranging from 49% to 63% on AyaVisionBench and 52% to 72% on mWildVision average across 23 languages.
 
 ![aya vision benchmark](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/aya-vision/aya-vision-bench.png)
 
