@@ -48,6 +48,12 @@ If you need to access only transcribed data and you would like to skip untranscr
 
 This additional dataset complements the main Vaani dataset, making it possible to develop end-to-end speech recognition systems and more targeted AI solutions.
 
+## Accessing the Dataset  
+Developers and researchers can access the Vaani dataset directly on Hugging Face:  
+
+**Main Dataset**: [Hugging Face - Vaani](https://huggingface.co/datasets/ARTPARK-IISc/Vaani)  
+**Transcribed Subset**: [Hugging Face - Vaani Transcription Part](https://huggingface.co/datasets/ARTPARK-IISc/Vaani-transcription-part)  
+
 ## Utility of Vaani in the Age of LLMs
 
 The Vaani dataset offers several key advantages, including extensive language coverage (54  languages), representation across diverse geographical regions, diverse educational and socio economic background, very large speaker coverage, spontaneous speech data, and real-life data collection environments. These features can enable inclusive AI models for:
