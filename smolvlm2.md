@@ -346,11 +346,10 @@ We have fine-tuned the 500M variant in Colab on video-caption pairs in [VideoFee
 
 You can cite us in the following way:
 ```bibtex
-@misc{smolvlm2,
-  title = {SmolVLM2: Bringing Video Understanding to Every Device},
-  author = {Orr Zohar and Miquel Farré and Andi Marafioti and Merve Noyan and Pedro Cuenca and Cyril Zakka and Joshua Lochner},
+@unpublished{marafioti2025smolvlm,
+  title = {SmolVLM: Redefining small and efficient multimodal models},
+  author = {Marafioti, Andr\'{e}s and Zohar, Orr and Farr\'{e}, Miquel and Noyan, Merve and Bakouch, Elie and Cuenca, Pedro and Zakka, Cyril and Ben Allal, Loubna and Lozhkov, Anton and Tazi, Nouamane and Srivastav, Vaibhav and Lochner, Joshua and Larcher, Hugo and Morlon, Mathieu and Tunstall, Lewis and von Werra, Leandro and Wolf, Thomas},
   year = {2025},
-  url = {https://huggingface.co/blog/smolvlm2}
 }
 ```
 
