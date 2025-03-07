@@ -1,8 +1,9 @@
 ---
-title: "LLM Inference on Edge: A Fun and Easy Guide to run LLMs via React Native on an iPhone!"
-thumbnail: /blog/assets/deepseek-r1-aws/thumbnail.png
+title: "LLM Inference on Edge: A Fun and Easy Guide to run LLMs via React Native on your Phone!"
+thumbnail: /blog/assets/llm_inference_on_edge/thumbnail.png
 authors:
   - user: medmekk
+  - user: marcsun13
 ---
 
 As LLMs continue to evolve, they are becoming smaller and smarter, enabling them to run directly on your phone. Take, for instance, the DeepSeek R1 Distil Qwen 2.5 with 1.5 billion parameters, this model really shows how advanced AI can now fit into the palm of your hand!
@@ -99,7 +100,6 @@ Before you can start coding with React Native, you need to set up your environme
 ```bash
 npm i @react-native-community/cli
 ```
-> **Note:** If you are prompted to install CocoaPods, it's not necessary if you are using a virtual device, as we are not going to be using Xcode.
 
 
 ### Virtual Device Setup
@@ -361,7 +361,7 @@ Let's tackle these one by one in the next sections...
 
 ### Fetching available GGUF models from the Hub
 
-Let's start by defining the model formats our app is going to support and their repositories. Of course `llama.rn` is a binding for `llama.cpp` so we need to load `GGUF` files. To find GGUF repositories for the models we want to support, we can use the search bar on [Hugging Face](https://huggingface.co/) and search for `GGUF` files for a specific model, or use the script provided in this project `quantize_gguf.py` to quantize the model ourselves and upload the files to our hub repository.
+Let's start by defining the model formats our app is going to support and their repositories. Of course `llama.rn` is a binding for `llama.cpp` so we need to load `GGUF` files. To find GGUF repositories for the models we want to support, we can use the search bar on [Hugging Face](https://huggingface.co/) and search for `GGUF` files for a specific model, or use the script `quantize_gguf.py` provided [here](https://github.com/MekkCyber/EdgeLLM/blob/main/quantize_gguf.py) to quantize the model ourselves and upload the files to our hub repository.
 
 ```typescript
 const modelFormats = [
@@ -1090,13 +1090,11 @@ I'm sure you can think of some really cool features to add to the app, feel free
 
 I would like to thank the following people for reviewing this blog post and providing valuable feedback:
 
-- [Marc Sun](https://huggingface.co/marcsun13)
 - [Pedro Cuenca](https://huggingface.co/pcuenq)
 - [Vaibhav Srivastav](https://huggingface.co/reach-vb)
 - [Xuan-Son NGUYEN](https://huggingface.co/ngxson)
 
 Their expertise and suggestions helped improve the quality and accuracy of this guide.
-
 
 ## 8. Conclusion
 
