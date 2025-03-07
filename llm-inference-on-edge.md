@@ -5,8 +5,9 @@ authors:
   - user: medmekk
 ---
 
-As LLMs continue to evolve, they are becoming smaller and smarter, enabling them to run directly on your phone. Take, for instance, the DeepSeek R1 Distil Qwen 2.5 with 1.5 billion parameters, this model showcases how advanced AI can now fit into the palm of your hand! 
-In this blog, we will guide you through creating a mobile app that allows you to chat with these powerful models locally. If you've ever felt overwhelmed by the complexity of open-source projects, fear not! Inspired by the innovative [Pocket Pal](https://github.com/a-ghorbani/pocketpal-ai) app, we will help you build a straightforward React Native application that downloads LLMs from the [**Hugging Face**](https://huggingface.co/) hub, ensuring everything remains private and runs on your device. We will utilize `llama.rn`, a binding for `llama.cpp`, to load GGUF files efficiently!
+As LLMs continue to evolve, they are becoming smaller and smarter, enabling them to run directly on your phone. Take, for instance, the DeepSeek R1 Distil Qwen 2.5 with 1.5 billion parameters, this model really shows how advanced AI can now fit into the palm of your hand!
+
+In this blog, we will guide you through creating a mobile app that allows you to chat with these powerful models locally. The complete code for this tutorial is available in our [EdgeLLM repository](https://github.com/MekkCyber/EdgeLLM). If you've ever felt overwhelmed by the complexity of open-source projects, fear not! Inspired by the [Pocket Pal](https://github.com/a-ghorbani/pocketpal-ai) app, we will help you build a straightforward React Native application that downloads LLMs from the [**Hugging Face**](https://huggingface.co/) hub, ensuring everything remains private and runs on your device. We will utilize `llama.rn`, a binding for `llama.cpp`, to load GGUF files efficiently!
 
 ## Why You Should Follow This Tutorial?
 
@@ -41,9 +42,9 @@ When downloading GGUF models, you'll encounter various quantization formats. Und
 
 #### Legacy Quants (Q4_0, Q4_1, Q8_0)
 - Basic, straightforward quantization methods
-- Each block is stored with:
-	•	Quantized values (the compressed weights).
-	•	One (_0) or two (_1) scaling constants.
+- Each block is stored with:  
+	•	Quantized values (the compressed weights).  
+	•	One (_0) or two (_1) scaling constants.  
 - Fast but less efficient than newer methods => not used widely anymore
 
 #### K-Quants (Q3_K_S, Q5_K_M, ...)
@@ -75,7 +76,7 @@ To find additional GGUF models on Hugging Face:
 
 1. Visit [huggingface.co/models](https://huggingface.co/models)
 2. Use the search filters:
-   - Select "GGUF" under "Libraries"
+   - Visit the [GGUF models page](https://huggingface.co/models?library=gguf)
    - Specify the size of the model in the search bar
    - Look for "chat" or "instruct" in the name for conversational models
 
@@ -173,7 +174,7 @@ App folders are organized as follows:
 - `.watchmanconfig`: Configures Watchman, a file-watching service used by React Native for hot reloading.
 </details>
 
-## 3. Running the Demo & App
+## 3. Running the Demo & Project
 
 ### Running the Demo
 To run the project, and see how it looks like on your own virtual device, follow these steps:
@@ -219,7 +220,7 @@ To run the project, and see how it looks like on your own virtual device, follow
 
 This will build and launch the app on your emulator/simulator to test the project before we start coding.
 
-### Running the App
+### Running the Project
 
 Running a React Native application requires either an emulator/simulator or a physical device. We'll focus on using an emulator since it provides a more streamlined development experience with your code editor and debugging tools side by side.
 
@@ -1023,7 +1024,7 @@ We added two important buttons in the UI, the stop button and the back button. T
 
 ### Chrome DevTools Debugging
 
-For debugging we will use Chrome DevTools as in web development :
+For debugging we use Chrome DevTools as in web development :
 
 1. Press `j` in the Metro bundler terminal to launch Chrome DevTools
 2. Navigate to the "Sources" tab
@@ -1084,7 +1085,20 @@ To enhance the user experience, we can add some features like:
 
 I'm sure you can think of some really cool features to add to the app, feel free to implement them and share them with the community 🤗
 
-## 7. Conclusion
+
+## 7. Acknowledgments
+
+I would like to thank the following people for reviewing this blog post and providing valuable feedback:
+
+- [Marc Sun](https://huggingface.co/marcsun13)
+- [Pedro Cuenca](https://huggingface.co/pcuenq)
+- [Vaibhav Srivastav](https://huggingface.co/reach-vb)
+- [Xuan-Son NGUYEN](https://huggingface.co/ngxson)
+
+Their expertise and suggestions helped improve the quality and accuracy of this guide.
+
+
+## 8. Conclusion
 
 You now have a working React Native app that can:
 
