@@ -98,7 +98,7 @@ We would also like to express our thanks to Upstage for their work on the Open K
 ## Citations and References
 ```
 @misc{OALL,
-  author = {Elfilali, Ali and Alobeidli, Hamza and Fourrier, Clémentine and Boussaha, Basma El Amel and Cojocaru, Ruxandra and Habib, Nathan and Hacid, Hakim},
+  author = {El Filali, Ali and Alobeidli, Hamza and Fourrier, Clémentine and Boussaha, Basma El Amel and Cojocaru, Ruxandra and Habib, Nathan and Hacid, Hakim},
   title = {Open Arabic LLM Leaderboard},
   year = {2024},
   publisher = {OALL},

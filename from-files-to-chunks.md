@@ -3,7 +3,9 @@ title: "From Files to Chunks: Improving HF Storage Efficiency"
 thumbnail: /blog/assets/from-files-to-chunks/thumbnail.png
 authors:
   - user: jsulz
+    org: xet-team
   - user: erinys
+    org: xet-team
 ---
 
 # From Files to Chunks: Improving HF Storage Efficiency

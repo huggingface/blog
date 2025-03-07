@@ -9,7 +9,7 @@ authors:
 
 # State of open video generation models in Diffusers
 
-OpenAI’s Sora demo marked a striking advance in AI-generated video last year and gave us a glimpse of the potential capabilities of video generation models. The impact was immediate and since that demo, the video generation space has become increasingly competitive with major players and startups producing their own highly capable models such as Google’s Veo2, Haliluo’s Minimax, Runway’s Gen3, Alpha Kling, Pika, and Luma Lab’s Dream Machine.
+OpenAI’s Sora demo marked a striking advance in AI-generated video last year and gave us a glimpse of the potential capabilities of video generation models. The impact was immediate and since that demo, the video generation space has become increasingly competitive with major players and startups producing their own highly capable models such as Google’s Veo2, Haliluo’s Minimax, Runway’s Gen3 Alpha, Kling, Pika, and Luma Lab’s Dream Machine.
 
 Open-source has also had its own surge of video generation models with CogVideoX, Mochi-1, Hunyuan, Allegro, and LTX Video. Is the video community having its “Stable Diffusion moment”?
 
@@ -39,14 +39,14 @@ These are today's most popular video models for AI-generated content creation
 | KlingAI      | [Kling](https://www.klingai.com/) | Closed         | Proprietary |
 | Haliluo      | [MiniMax](https://hailuoai.video/) | Closed         | Proprietary |
 | THUDM        | [CogVideoX](https://huggingface.co/docs/diffusers/main/en/api/pipelines/cogvideox) | Open           | [Custom](https://huggingface.co/THUDM/CogVideoX-5b/blob/main/LICENSE) |
-| Genmo        | [Mochi-1](https://huggingface.co/docs/diffusers/main/en/api/pipelines/cogvideox) | Open           | Apache 2.0 |
+| Genmo        | [Mochi-1](https://huggingface.co/docs/diffusers/main/en/api/pipelines/mochi) | Open           | Apache 2.0 |
 | RhymesAI     | [Allegro](https://huggingface.co/docs/diffusers/main/en/api/pipelines/allegro) | Open           | Apache 2.0 |
 | Lightricks   | [LTX Video](https://huggingface.co/docs/diffusers/main/en/api/pipelines/ltx_video) | Open           | [Custom](https://huggingface.co/Lightricks/LTX-Video/blob/main/License.txt) |
 | Tencent      | [Hunyuan Video](https://huggingface.co/docs/diffusers/main/api/pipelines/hunyuan_video) | Open           | [Custom](https://huggingface.co/tencent/HunyuanVideo/blob/main/LICENSE) |
 
 **Limitations**:
 
-- **High Resource Requirements:** Producing high-quality videos requires large pretrained models, which are computationally expensive to develop and deploy. These costs arise from dataset collection, hardware requirements, extensive training iterations and experimentation. These costs make it hard to justify producing open-source and freely available models. Even though we don’t have a detailed technical report that shed light into the training resources used, [this post](https://www.factorialfunds.com/blog/under-the-hood-how-openai-s-sora-model-works) provides some reasonable estimates.
+- **High Resource Requirements:** Producing high-quality videos requires large pretrained models, which are computationally expensive to develop and deploy. These costs arise from dataset collection, hardware requirements, extensive training iterations and experimentation. These costs make it hard to justify producing open-source and freely available models. Even though we don’t have a detailed technical report that sheds light on the training resources used, [this post](https://www.factorialfunds.com/blog/under-the-hood-how-openai-s-sora-model-works) provides some reasonable estimates.
 - **Generalization**: Several open models suffer from limited generalization capabilities and underperform expectations of users. Models may require prompting in a certain way, or LLM-like prompts, or fail to generalize to out-of-distribution data, which are hurdles for widespread user adoption. For example, models like LTX-Video often need to be prompted in a very detailed and specific way for obtaining good quality generations.
 - **Latency**: The high computational and memory demands of video generation result in significant generation latency. For local usage, this is often a roadblock. Most new open video models are inaccessible to community hardware without extensive memory optimizations and quantization approaches that affect both inference latency and quality of the generated videos.
 
@@ -75,7 +75,7 @@ Text-to-video generation models have similar components as their text-to-image c
 - An encoder and decoder to convert between pixel and latent space
 - A non-parametric scheduler responsible for managing all the timestep-related calculations and the denoising step
 
-The latest generation of video models share a core feature where the denoising network processes 3D video tokens that capture both spatial and temporal information. The video encoder-decoder system, responsible for producing and decoding these tokens, employs both spatial and temporal compression. While decoding the latents typically demands the most memory, these models offer frame-by-frame decoding options to reduce memory usage.
+The latest generation of video models shares a core feature where the denoising network processes 3D video tokens that capture both spatial and temporal information. The video encoder-decoder system, responsible for producing and decoding these tokens, employs both spatial and temporal compression. While decoding the latents typically demands the most memory, these models offer frame-by-frame decoding options to reduce memory usage.
 
 Text conditioning is incorporated through either joint attention (introduced in [Stable Diffusion 3](https://arxiv.org/abs/2403.03206)) or cross-attention. T5 has emerged as the preferred text encoder across most models, with HunYuan being an exception in its use of both CLIP-L and LLaMa 3.
 
@@ -99,7 +99,7 @@ There are three broad categories of generation possible when working with video 
 2. Image or Image Control condition + Text to Video
 3. Video or Video Control condition + Text to Video
 
-Going from a text (and other conditions) to a video is just a few lines of code. Below we show how to do text-to-video generation with the [LTX-Video model from Lighricks](https://huggingface.co/Lightricks/LTX-Video).
+Going from a text (and other conditions) to a video is just a few lines of code. Below we show how to do text-to-video generation with the [LTX-Video model from Lightricks](https://huggingface.co/Lightricks/LTX-Video).
 
 ```py
 import torch
@@ -176,7 +176,7 @@ We used HunyuanVideo for this study, as it is sufficiently large enough, to show
 | FP8 Upcasting + Group offload (leaf) + VAE tiling  |  6.56 GB^     |  885s    |
 
 <sub><sup>*</sup>8Bit models in `bitsandbytes` cannot be moved to CPU from GPU, unlike the 4Bit ones.</sub>
-<br><sub><sup>^</sup>The memory usage does not reduce further because the peak utilizations comes from computing attention and feed-forward. Using [Flash Attention](https://github.com/Dao-AILab/flash-attention) and [Optimized Feed-Forward](https://github.com/huggingface/diffusers/pull/10623) can help lower this requirement to ~5 GB.</sub>
+<br><sub><sup>^</sup>The memory usage does not reduce further because the peak utilizations come from computing attention and feed-forward. Using [Flash Attention](https://github.com/Dao-AILab/flash-attention) and [Optimized Feed-Forward](https://github.com/huggingface/diffusers/pull/10623) can help lower this requirement to ~5 GB.</sub>
 
 We used the same settings as above to obtain these numbers. Also note that due to numerical precision loss, quantization can impact the quality of the outputs, effects of which are more prominent in videos than images.
 
@@ -317,7 +317,7 @@ We used `finetrainers` to emulate the "dissolve" effect and obtained promising r
 ## Looking ahead
 
 We anticipate significant advancements in video generation models throughout 2025, with major improvements in both output quality and model capabilities.
-Our goal is to make using these models easy and accessible. We will continue to grow the `finetrainers` library, and we are planning on adding many more featueres: Control LoRAs, Distillation Algorithms, ControlNets, Adapters, and more. As always, community contributions are welcome 🤗
+Our goal is to make using these models easy and accessible. We will continue to grow the `finetrainers` library, and we are planning on adding many more features: Control LoRAs, Distillation Algorithms, ControlNets, Adapters, and more. As always, community contributions are welcome 🤗
 
 Our commitment remains strong to partnering with model publishers, researchers, and community members to ensure the latest innovations in video generation are within reach to everyone.
 

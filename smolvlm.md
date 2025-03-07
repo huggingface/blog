@@ -45,6 +45,7 @@ This release comes with open-source models integrated into transformers, [a demo
   * [Context extension](#context-extension)
   * [Checkpoint selection](#checkpoint-selection)
 - [Fine-Tuning](#fine-tuning)
+- [Citation information](#citation-information)
 - [Wrapping up](#wrapping-up) 
 
 
@@ -146,7 +147,7 @@ SmolVLM's tiny memory footprint also implies that it requires far fewer computat
 
 Given SmolVLM's long context and the possibility of tweaking the internal frame resizing of the model, we explored its suitability as an accessible option for basic video analysis tasks, particularly when computational resources are limited.
 
-In our evaluation of SmolVLM's video understanding capabilities, we implemented a straightforward [video processing pipeline code](https://github.com/huggingface/smollm/blob/main/inference/smolvlm/SmolVLM_video_inference.py), extracting up to 50 evenly sampled frames from each video while avoiding internal frame resizing.
+In our evaluation of SmolVLM's video understanding capabilities, we implemented a straightforward [video processing pipeline code](https://github.com/huggingface/smollm/blob/7dfcd81c046a946031291c11451e9398609a0aeb/tools/smolvlm_local_inference/SmolVLM_video_inference.py), extracting up to 50 evenly sampled frames from each video while avoiding internal frame resizing.
 This simple approach yielded surprisingly competitive results on the CinePile benchmark, with a score of 27.14%, a performance that positions the model between InternVL2 (2B) and Video LlaVa (7B).
 
 
@@ -294,6 +295,17 @@ accelerate launch \
   --use_peft --lora_target_modules=all-linear 
 ```
 The resulting LoRA adapter weights are [SmolVLM-Instruct-DPO](https://huggingface.co/HuggingFaceTB/SmolVLM-Instruct-DPO). A detailed tutorial on preference tuning vision-based LLM can be found here: [dpo_vlm](https://huggingface.co/blog/dpo_vlm).
+
+## Citation information
+
+You can cite us in the following way:
+```bibtex
+@unpublished{marafioti2025smolvlm,
+  title = {SmolVLM: Redefining small and efficient multimodal models},
+  author = {Marafioti, Andr\'{e}s and Zohar, Orr and Farr\'{e}, Miquel and Noyan, Merve and Bakouch, Elie and Cuenca, Pedro and Zakka, Cyril and Ben Allal, Loubna and Lozhkov, Anton and Tazi, Nouamane and Srivastav, Vaibhav and Lochner, Joshua and Larcher, Hugo and Morlon, Mathieu and Tunstall, Lewis and von Werra, Leandro and Wolf, Thomas},
+  year = {2025},
+}
+```
 
 ## Wrapping Up
 

@@ -99,7 +99,7 @@ print(completion.choices[0].message)
 
 **Note:** You can also use the OpenAI client library to call the Inference Providers too; see [here an example for DeepSeek model](https://huggingface.co/deepseek-ai/DeepSeek-R1?inference_provider=together&language=python&inference_api=true).
 
-And here's how to generate an image from a text prompt using [FLUX.1-dev](black-forest-labs/FLUX.1-dev) running on [fal.ai](https://fal.ai/models/fal-ai/flux/dev):
+And here's how to generate an image from a text prompt using [FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) running on [fal.ai](https://fal.ai/models/fal-ai/flux/dev):
 
 ```python
 from huggingface_hub import InferenceClient
@@ -152,16 +152,16 @@ console.log(chatCompletion.choices[0].message);
 
 ### From HTTP calls
 
-We expose the Routing proxy directly under the huggingface.co domain so you can call it directly, it's very useful for OpenAI-compatible APIs for instance. You can just swap the URL as a base URL: `https://huggingface.co/api/inference-proxy/{:provider}`.
+We expose the Routing proxy directly under the huggingface.co domain so you can call it directly, it's very useful for OpenAI-compatible APIs for instance. You can just swap the URL as a base URL: `https://router.huggingface.co/{:provider}`.
 
 Here's how you can call Llama-3.3-70B-Instruct using Sambanova as the inference provider via cURL.
 
 ```bash
-curl 'https://huggingface.co/api/inference-proxy/sambanova/v1/chat/completions' \
+curl 'https://router.huggingface.co/sambanova/v1/chat/completions' \
 -H 'Authorization: Bearer xxxxxxxxxxxxxxxxxxxxxxxx' \
 -H 'Content-Type: application/json' \
 --data '{
-    "model": "meta-llama/Llama-3.3-70B-Instruct",
+    "model": "Llama-3.3-70B-Instruct",
     "messages": [
 		{
 			"role": "user",
