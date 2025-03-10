@@ -5651,3 +5651,25 @@
     - multimodal
     - vision
     - vlm
+    
+- local: jfrog
+  title: "Hugging Face and JFrog partner to make AI Security more transparent"
+  author: mcpotato
+  thumbnail: /blog/assets/jfrog/thumbnail.png
+  date: March 4, 2025
+  tags:
+    - hub
+    - partnerships
+    - security
+
+- local: llm-inference-on-edge
+  title: "LLM Inference on Edge: A Fun and Easy Guide to run LLMs via React Native on your Phone!"
+  author: medmekk
+  thumbnail: /blog/assets/llm_inference_on_edge/thumbnail.png
+  date: March 7, 2025
+  tags:
+    - community
+    - hub
+    - llms
+    - on-device
+    - guide

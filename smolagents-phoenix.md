@@ -124,7 +124,7 @@ Once OpenInference is set up with SmolAgents, every agent invocation will be aut
 
 ## Evaluate Your Agent
 
-Once your agent is up and its run it monitored, the next step is to assess its performance. Evaluations (evals) help determine how well your agent is retrieving, processing, and presenting information.
+Once your agent is up and its run is monitored, the next step is to assess its performance. Evaluations (evals) help determine how well your agent is retrieving, processing, and presenting information.
 
 There are many types of evals you can run, such as response relevance, factual accuracy, latency, and more. Check out the [Phoenix documentation](https://docs.arize.com/phoenix/evaluation/llm-evals) for a deeper dive into different evaluation techniques.
 

@@ -26,6 +26,7 @@ This release comes with four checkpoints: two base models and two instruction fi
 - [What Changed Since SmolVLM 2B?](#what-changed-since-smolvlm-2b)
 - [Smaller Multimodal Retrieval: ColSmolVLM 256M & 500M](#meet-smoller-colsmolvlm)
 - [Using Smaller SmolVLM](#using-smaller-smolvlm)
+- [Citation information](#citation-information)
 - [Next Steps](#next-steps)
 
 
@@ -164,6 +165,17 @@ python3 -m mlx_vlm.generate --model HuggingfaceTB/SmolVLM-500M-Instruct --max-to
 You can play with the WebGPU demos for the [SmolVLM-256M-Instruct](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM-256M-Instruct-WebGPU) and [SmolVLM-500M-Instruct](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM-500M-Instruct-WebGPU).
 
 Find links to fine-tuning and multimodal RAG with ColSmolVLM on the [Next Steps](#next-steps).
+
+## Citation information
+
+You can cite us in the following way:
+```bibtex
+@unpublished{marafioti2025smolvlm,
+  title = {SmolVLM: Redefining small and efficient multimodal models},
+  author = {Marafioti, Andr\'{e}s and Zohar, Orr and Farr\'{e}, Miquel and Noyan, Merve and Bakouch, Elie and Cuenca, Pedro and Zakka, Cyril and Ben Allal, Loubna and Lozhkov, Anton and Tazi, Nouamane and Srivastav, Vaibhav and Lochner, Joshua and Larcher, Hugo and Morlon, Mathieu and Tunstall, Lewis and von Werra, Leandro and Wolf, Thomas},
+  year = {2025},
+}
+```
 
 ## Next Steps
 
