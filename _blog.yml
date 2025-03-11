@@ -5593,7 +5593,7 @@
     - diffusers
     - vae
     - inference endpoints
-  
+
 - local: fastrtc
   title: "FastRTC: The Real-Time Communication Library for Python"
   author: freddyaboulton
@@ -5604,7 +5604,7 @@
     - audio
     - video
     - llm
-   
+
 - local: iisc-huggingface-collab
   title: "HuggingFace, IISc partner to supercharge model building on India's diverse languages"
   author: visruth-rf
@@ -5659,8 +5659,20 @@
     - hub
     - llms
     - on-device
-    - guide
-    
+    - guide 
+
+- local: lerobot-goes-to-driving-school
+  title: "LeRobot goes to driving school: World’s largest open-source self-driving dataset"
+  author: sandhawalia
+  thumbnail: /blog/assets/193_l2d/lerobot-driver.gif
+  date: March 11, 2025
+  tags:
+    - robotics
+    - ai
+    - community
+    - datasets
+    - lerobot
+
 - local: scaling-secrets-management
   title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"  
   thumbnail: /blog/assets/infisical/thumbnail.png
@@ -5672,4 +5684,4 @@
     - security
     - shift-left
     - infrastructure
-    - open-source    
+    - open-source
