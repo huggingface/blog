@@ -5627,7 +5627,6 @@
     - smolagents
     - agent
     - instrumentation
-    
 - local: aya-vision
   title: "A Deepdive into Aya Vision: Advancing the Frontier of Multilingual Multimodality"
   author: saurabhdash
