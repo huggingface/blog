@@ -5637,7 +5637,6 @@
     - multimodal
     - vision
     - vlm
-    
 - local: jfrog
   title: "Hugging Face and JFrog partner to make AI Security more transparent"
   author: mcpotato
@@ -5679,8 +5678,5 @@
   guest: true
   date: Mar 11, 2025
   tags:
-    - secrets
     - security
-    - shift-left
-    - infrastructure
-    - open-source
+    - infra
