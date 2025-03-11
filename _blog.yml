@@ -5658,7 +5658,7 @@
     - hub
     - llms
     - on-device
-    - guide 
+    - guide
 
 - local: lerobot-goes-to-driving-school
   title: "LeRobot goes to driving school: World’s largest open-source self-driving dataset"
