@@ -5583,7 +5583,7 @@
   tags:
     - multimodal
     - vision
-    
+
 - local: remote_vae
   title: "Remote VAEs for decoding with HF endpoints 🤗"
   author: hlky
