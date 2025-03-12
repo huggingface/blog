@@ -73,7 +73,7 @@ One can see in the figure below that the image tokens `<img>` are provided with 
 
 | ![attention visualization](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gemma3/attention-ascii.png) |
 | :---- |
-| Attention Visualization (with and without sliding) (Source: https://github.com/huggingface/transformers/pull/36630)|
+| Attention Visualization (with and without sliding) (Source: [Transformers PR](https://github.com/huggingface/transformers/pull/36630))|
 
 ### Multilinguality
 
