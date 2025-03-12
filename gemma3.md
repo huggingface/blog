@@ -111,7 +111,7 @@ $ pip install git+https://github.com/huggingface/transformers@v4.49.0-Gemma-3
 The *easiest* way to get started with Gemma 3 is using the `pipeline` abstraction in transformers.
 
 > [!NOTE]  
-> The models should be loaded in `bfloat16` datatype. We have seen the quality of generations take a hit otherwise.
+> The models work best using the `bfloat16` datatype. Quality may degrade otherwise.
 
 ```py
 import torch
