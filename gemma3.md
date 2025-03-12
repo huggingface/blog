@@ -29,7 +29,7 @@ All the [models are on the Hub](https://huggingface.co/collections/google/gemma-
 
 | ![pareto graph](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gemma3/lmsys.png) |
 | :---- |
-| Gemma 3 27B is in the pareto sweet spot (Source: https://goo.gle/Gemma3Report) |
+| Gemma 3 27B is in the pareto sweet spot (Source: [Gemma3 Tech Report](https://goo.gle/Gemma3Report)) |
 
 ## What is Gemma 3?
 
