@@ -271,7 +271,7 @@ pip install git+https://github.com/Blaizzy/mlx-vlm.git
 Once `mlx-vlm` is installed, you can start inference with the following:
 
 ```
-python -m mlx_vlm.generate --model mlx-community/Gemma3-4B-Instruct-4bit --max-tokens 100 --temp 0.0 --prompt "What is the code on this vehicle??"
+python -m mlx_vlm.generate --model mlx-community/gemma-3-4b-it-4bit --max-tokens 100 --temp 0.0 --prompt "What is the code on this vehicle??"
  --image https://farm8.staticflickr.com/7212/6896667434_2605d9e181_z.jpg
 ```
 
