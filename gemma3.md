@@ -86,7 +86,7 @@ For the curious mind, here is the [technical report on Gemma 3](https://goo.gle/
 
 ## Gemma 3 evaluation
 
-The LMSys Elo score is a number that ranks language models based on how well they perform in head-to-head competitions, judged by human preferences. On LMSys Chatbot Arena, Gemma 3 27B IT reports an Elo score of **1334**, and ranks among the top 10 best models, including leading closed ones. The Elo is comparable to o1-preview and is above other *non-thinking* open models. This score is achieved with Gemma 3 working on text-only inputs, like the other LLMs in the table.
+The LMSys Elo score is a number that ranks language models based on how well they perform in head-to-head competitions, judged by human preferences. On LMSys Chatbot Arena, Gemma 3 27B IT reports an Elo score of **1339**, and ranks among the top 10 best models, including leading closed ones. The Elo is comparable to o1-preview and is above other *non-thinking* open models. This score is achieved with Gemma 3 working on text-only inputs, like the other LLMs in the table.
 
 | ![chat bot arena](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gemma3/chatbot-arena.png) |
 | :---- |
