@@ -18,18 +18,18 @@ Try out Gemma 3 now 👉🏻 [Gemma 3 Space](https://huggingface.co/spaces/huggi
 
 |  | Gemma 2 | Gemma 3 |
 | :---- | :---- | :---- |
-| Size Variants | 2B 9B 27B | 1B 4B 12B 27B |
-| Context Window Length | 8k | 32k (1B) 128k (4B, 12B, 27B) |
-| Multimodality (Images and Text) | ❌ | ❌ (1B) ✅ (4B, 12B, 27B) |
+| Size Variants | <li>2B <li>9B <li>27B | <li>1B <li>4B <li>12B <li>27B |
+| Context Window Length | 8k | <li>32k (1B) <li>128k (4B, 12B, 27B) |
+| Multimodality (Images and Text) | ❌ | <li>❌ (1B) <li>✅ (4B, 12B, 27B) |
 | Multilingual Support | – | English (1B) +140 languages (4B, 12B, 27B) |
 
 All the [models are on the Hub](https://huggingface.co/collections/google/gemma-3-release-67c6c6f89c4f76621268bb6d) and tightly integrated with the Hugging Face ecosystem.
 
-*Both pre-trained and instruction tuned models are released. Gemma-3-4B-IT beats Gemma-2-27B IT, while Gemma-3-27B-IT beats Gemini 1.5-Pro across benchmarks*.
+> *Both pre-trained and instruction tuned models are released. Gemma-3-4B-IT beats Gemma-2-27B IT, while Gemma-3-27B-IT beats Gemini 1.5-Pro across benchmarks*.
 
 | ![pareto graph](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gemma3/lmsys.png) |
 | :---- |
-| Gemma 3 27B is in the pareto sweet spot |
+| Gemma 3 27B is in the pareto sweet spot (Source: https://goo.gle/Gemma3Report) |
 
 ## What is Gemma 3?
 
@@ -73,7 +73,7 @@ One can see in the figure below that the image tokens `<img>` are provided with 
 
 | ![attention visualization](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gemma3/attention-ascii.png) |
 | :---- |
-| Attention Visualization (with and without sliding) |
+| Attention Visualization (with and without sliding) (Source: https://github.com/huggingface/transformers/pull/36630)|
 
 ### Multilinguality
 
