@@ -1,6 +1,6 @@
 ---
 title: "Welcome Gemma 3: Google's all new multimodal, multilingual, long context open LLM" 
-thumbnail: /blog/assets/gemma3/thumbnail.jpg
+thumbnail: /blog/assets/gemma3/thumbnail.png
 authors:
 - user: ariG23498
 - user: merve
