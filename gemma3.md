@@ -298,6 +298,11 @@ It should output:
 I'm Gemma, a large language model created by the Gemma team at Google DeepMind. I’m an open-weights model, which means I’m widely available for public use!
 ```
 
+### Deploy on Hugging Face Endpoints
+
+You can deploy `gemma-3-27b-it` and `gemma-3-12b-it` with [just one click](https://endpoints.huggingface.co/huggingface/catalog?query=gemma-3-it) from our Inference Catalog. The catalog configurations have the right hardware, optimized TGI configurations and sensible defaults for trying out a model. Deploying any GGUF/llama.cpp variant is also supported (for example the ones mentioned in the collection above) and you'll find a guide on creating an Endpoint [here](https://huggingface.co/docs/inference-endpoints/guides/create_endpoint).
+
+
 ## Acknowledgements
 
 It takes a village to raise a gemma! We’d like to thank (in no particular order), Raushan, Joao, Lysandre, Kashif, Matthew, Marc, David, Mohit, Yih Dah for their efforts integrating Gemma into various parts of our open source stack from Transformers to TGI.  
