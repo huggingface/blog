@@ -5676,7 +5676,7 @@
 - local: gemma3
   title: "Welcome Gemma 3: Google's all new multimodal, multilingual, long context open LLM"
   author: ariG23498
-  thumbnail: /blog/assets/gemma3/thumbnail.jpg
+  thumbnail: /blog/assets/gemma3/thumbnail.png
   date: March 12, 2025
   tags:
     - nlp
