@@ -5684,3 +5684,15 @@
     - vlm
     - community
     - research
+
+- local: helmet
+  title: "Introducing HELMET"
+  author: hyen
+  thumbnail: /blog/assets/helmet/thumbnail.png
+  date: March 12, 2025
+  tags:
+    - long-context
+    - benchmark
+    - nlp
+    - community
+    - research
