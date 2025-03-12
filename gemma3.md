@@ -12,7 +12,7 @@ authors:
 
 ## TL;DR
 
-Today Google releases [**Gemma 3**](https://huggingface.co/collections/google/gemma-3-release-67c6c6f89c4f76621268bb6d), an addition to their Gemma family of models. The models range from 1B to 27B parameters, have a context window up to 128k tokens, can accept images and text, and support 140 languages.
+Today Google releases [**Gemma 3**](https://huggingface.co/collections/google/gemma-3-release-67c6c6f89c4f76621268bb6d), a new iteration of their Gemma family of models. The models range from 1B to 27B parameters, have a context window up to 128k tokens, can accept images and text, and support 140+ languages.
 
 Try out Gemma 3 now 👉🏻 [Gemma 3 Space](https://huggingface.co/spaces/huggingface-projects/gemma-3-12b-it)
 
@@ -25,7 +25,7 @@ Try out Gemma 3 now 👉🏻 [Gemma 3 Space](https://huggingface.co/spaces/huggi
 
 All the [models are on the Hub](https://huggingface.co/collections/google/gemma-3-release-67c6c6f89c4f76621268bb6d) and tightly integrated with the Hugging Face ecosystem.
 
-*Both pre-trained and instruction tuned models are released. Gemma 3 4B IT beats Gemma 2 27B IT, while Gemma 3 27B IT beats Gemini 1.5-Pro across benchmarks*.
+*Both pre-trained and instruction tuned models are released. Gemma-3-4B-IT beats Gemma-2-27B IT, while Gemma-3-27B-IT beats Gemini 1.5-Pro across benchmarks*.
 
 | ![pareto graph](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gemma3/lmsys.png) |
 | :---- |
@@ -65,7 +65,7 @@ KV Cache management is optimized using Gemma 2’s sliding window interleaved at
 
 ### Multimodality
 
-Gemma-3 models use [SigLIP](https://huggingface.co/collections/google/siglip-659d5e62f0ae1a57ae0e83ba) as an image encoder, which encodes images into tokens that are ingested into the language model. The vision encoder takes as input square images resized to `896x896`. Fixed input resolution makes it more difficult to process non-square aspect ratios and high-resolution images. To address these limitations **during inference**, the images can be adaptively cropped, and each crop is then resized to `896x896` and encoded by the image encoder. This algorithm, called **pan and scan**, effectively enables the model to zoom in on smaller details in the image.
+Gemma 3 models use [SigLIP](https://huggingface.co/collections/google/siglip-659d5e62f0ae1a57ae0e83ba) as an image encoder, which encodes images into tokens that are ingested into the language model. The vision encoder takes as input square images resized to `896x896`. Fixed input resolution makes it more difficult to process non-square aspect ratios and high-resolution images. To address these limitations **during inference**, the images can be adaptively cropped, and each crop is then resized to `896x896` and encoded by the image encoder. This algorithm, called **pan and scan**, effectively enables the model to zoom in on smaller details in the image.
 
 Similar to PaliGemma, attention in Gemma 3 works differently for text and image inputs. Text is handled with one-way attention, where the model focuses only on previous words in a sequence. Images, on the other hand, get full attention with no masks, allowing the model to look at every part of the image in a **bidirectional** manner, giving it a complete, unrestricted understanding of the visual input.
 
@@ -211,7 +211,7 @@ print(decoded)
 | Prompt | What is the password? |
 | Generation | Based on the image, the password is **aaeu** |
 
-For LLM-only model inference, we can use the Gemma3ForCausalLM class. Gemma3ForCausalLM should be paired with AutoTokenizer for processing. We need to use a chat template to preprocess our inputs. Gemma-3 uses very short system prompts followed by user prompts like below.
+For LLM-only model inference, we can use the `Gemma3ForCausalLM` class. `Gemma3ForCausalLM` should be paired with AutoTokenizer for processing. We need to use a chat template to preprocess our inputs. Gemma 3 uses very short system prompts followed by user prompts like below.
 
 ```py
 import torch
@@ -260,7 +260,7 @@ Gemma 3 is released with sizes perfect for on-device use. This is how to quickly
 
 ### MLX
 
-Gemma3 ships with day zero support in `mlx-vlm`, an open source library for running vision language models on Apple Silicon devices, including Macs and iPhones
+Gemma 3 ships with day zero support in `mlx-vlm`, an open source library for running vision language models on Apple Silicon devices, including Macs and iPhones
 
 To get started, first install `mlx-vlm` with the following:
 
