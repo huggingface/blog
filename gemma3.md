@@ -82,7 +82,7 @@ To make a LLM multilingual, the pretraining dataset incorporates more languages.
 To account for the changes, the tokenizer is the same as that of Gemini 2.0. It is a SentencePiece tokenizer with 262K entries. The new tokenizer significantly improves the encoding of *Chinese*, *Japanese* and *Korean* text, to the expense of a slight increase of the token counts for English and Code.
 
 
-For the curiour mind, here is the [technical report on Gemma 3](https://goo.gle/Gemma3Report), to dive deep into the enhancements.
+For the curious mind, here is the [technical report on Gemma 3](https://goo.gle/Gemma3Report), to dive deep into the enhancements.
 
 ## Gemma 3 evaluation
 
