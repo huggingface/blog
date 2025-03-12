@@ -12,7 +12,7 @@ authors:
 
 ## TL;DR
 
-Today Google releases [**Gemma 3**](https://huggingface.co/collections/google/gemma-3-release-67c6c6f89c4f76621268bb6d), an iteration of their Gemma family of models. The models range from 1B to 27B parameters, have a context window up to 128k tokens, can accept images and text, and support 140+ languages.
+Today Google releases [**Gemma 3**](https://huggingface.co/collections/google/gemma-3-release-67c6c6f89c4f76621268bb6d), a new iteration of their Gemma family of models. The models range from 1B to 27B parameters, have a context window up to 128k tokens, can accept images and text, and support 140+ languages.
 
 Try out Gemma 3 now 👉🏻 [Gemma 3 Space](https://huggingface.co/spaces/huggingface-projects/gemma-3-12b-it)
 
