@@ -5638,7 +5638,6 @@
     - multimodal
     - vision
     - vlm
-
 - local: jfrog
   title: "Hugging Face and JFrog partner to make AI Security more transparent"
   author: mcpotato
@@ -5683,4 +5682,15 @@
     - llm
     - vlm
     - community
+    - research
+
+- local: scaling-secrets-management
+  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"  
+  thumbnail: /blog/assets/infisical/thumbnail.png
+  author: segudev
+  guest: true
+  date: Mar 13, 2025
+  tags:
+    - security
+    - infra
     - research
