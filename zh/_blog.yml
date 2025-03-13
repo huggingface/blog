@@ -2237,3 +2237,18 @@
   date: Jan 31, 2025
   tags:
     - community
+
+- local: smolvlm2
+  title: SmolVLM2: 让视频理解能力触手可及
+  author: orrzohar
+  guest: true
+  thumbnail: /blog/assets/smolvlm2/banner.png
+  date: Feb 20, 2025
+  tags:
+    - vlm
+    - multimodal
+    - video
+    - on-device
+    - llm
+    - nlp
+    - vision
