@@ -5672,12 +5672,24 @@
     - datasets
     - lerobot
 
+- local: gemma3
+  title: "Welcome Gemma 3: Google's all new multimodal, multilingual, long context open LLM"
+  author: ariG23498
+  thumbnail: /blog/assets/gemma3/thumbnail.png
+  date: March 12, 2025
+  tags:
+    - nlp
+    - llm
+    - vlm
+    - community
+    - research
+
 - local: scaling-secrets-management
   title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"  
   thumbnail: /blog/assets/infisical/thumbnail.png
   author: segudev
   guest: true
-  date: Mar 11, 2025
+  date: Mar 13, 2025
   tags:
     - security
     - infra
