@@ -154,13 +154,13 @@ To keep a pod from getting in this state, we put a limit to the number of concur
 
 ### Migration Takeaways
 
-These two issues led to important architectural improvements, but they weren’t the only challenges the team tackled in the weeks following the migration. We also addressed other performance issues, a memory leak (which we fixed but still can't root cause), and on advise from AWS to migrate the LFS Bridge from an [Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) (ALB) to a [Network Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) (NLB) to improve scalability during bursts of traffic.
+These two issues led to important architectural improvements, but they weren’t the only challenges the team tackled in the weeks following the migration. We also addressed other performance issues, a memory leak (which we fixed but still can't definitively root cause), and on advice from AWS to migrate the LFS Bridge from an [Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) (ALB) to a [Network Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) (NLB) to improve scalability during bursts of traffic.
 
-Looking back, these issues underscore a set of critical lessons: 
+### Lessons learned
 
-* No test environment can simulate user behavior at scale. Even after careful integration work and Hugging Face team members testing the infrastructure for months, corner cases only surfaced once we funneled real usage through the system.  
-* By staging migrations incrementally and uncovering these issues before more traffic was on the infrastructure, we avoided downtime and disruption. Managing a fraction of traffic and storage made it relatively easy in comparison to if all the Hub was on Xet from day one.   
-* The infrastructure and system design was hardened iteratively over weeks. Every future byte and network request on Xet will receive the benefits of these lessons. 
+* **There is nothing like PROD**: No test environment can simulate user behavior at scale. Even after careful integration work and Hugging Face team members testing the infrastructure for months, corner cases only surfaced once we funneled real usage through the system.  
+* **Migrations simulate real traffic**: By staging migrations incrementally and uncovering these issues before more traffic was on the infrastructure, we avoided downtime and disruption. Managing a fraction of traffic and storage made it relatively easy in comparison to if all the Hub was on Xet from day one.   
+* **Compound the learning**: The infrastructure and system design was hardened iteratively over weeks. Every future byte and network request on Xet will receive the benefits of these lessons. 
 
 In short, real-world load was essential for exposing these challenges, and incremental migrations let us tackle them safely. That’s how we’re ensuring Xet-backed repositories scale reliably for the entire Hugging Face community with faster uploads, fewer bottlenecks, and minimal disruption all the way.
 
