@@ -2217,6 +2217,18 @@
     - ethics
     - agents
 
+- local: run-comfyui-workflows-on-spaces
+  title: "在 Hugging Face Spaces 上使用 Gradio 免费运行 ComfyUI 工作流"
+  author: multimodalart
+  thumbnail: /blog/assets/comfyui-to-gradio/cover.png
+  date: January 14, 2024
+  tags:
+    - comfyui
+    - gradio
+    - spaces
+    - zerogpu
+    - serverless
+
 - local: smolervlm
   title: SmolVLM 越变越小 —— 全新 250 M 和 500 M 模型正式发布！
   author: andito
@@ -2239,7 +2251,7 @@
     - community
 
 - local: smolvlm2
-  title: SmolVLM2: 让视频理解能力触手可及
+  title: "SmolVLM2: 让视频理解能力触手可及"
   author: orrzohar
   guest: true
   thumbnail: /blog/assets/smolvlm2/banner.png
