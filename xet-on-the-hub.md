@@ -82,7 +82,7 @@ Before moving to production, the system was launched into an ephemeral environme
     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/xet-on-the-hub/steel-thread.mp4" type="video/mp4">
 </video>
 
-After the heady highs of a quick proof-of-concept, the team settled into battling gnarly integration points (privacy, backward compatibility, fragmentation, etc) with the complex ecosystem that is the Hub. Eventually, the infrastructure moved into production for Hugging Face employees. With real usage now rolling in, we moved forward with the first large-scale migration.
+After the heady highs of a quick proof-of-concept, the team settled into battling gnarly integration points (privacy, backward compatibility, fragmentation, etc) with the complex ecosystem that is the Hub. Eventually, the infrastructure moved into production for Hugging Face team members. With real usage now rolling in, we moved forward with the first large-scale migration.
 
 ## Migration Day
 
@@ -164,7 +164,7 @@ These two issues led to important architectural improvements, but they weren’t
 
 Looking back, these issues underscore a set of critical lessons: 
 
-* No test environment can simulate user behavior at scale. Even after careful integration work and Hugging Face employees testing the infrastructure for months, corner cases only surfaced once we funneled real usage through the system.  
+* No test environment can simulate user behavior at scale. Even after careful integration work and Hugging Face team members testing the infrastructure for months, corner cases only surfaced once we funneled real usage through the system.  
 * By staging migrations incrementally and uncovering these issues before more traffic was on the infrastructure, we avoided downtime and disruption. Managing a fraction of traffic and storage made it relatively easy in comparison to if all the Hub was on Xet from day one.   
 * The infrastructure and system design was hardened iteratively over weeks. Every future byte and network request on Xet will receive the benefits of these lessons. 
 
