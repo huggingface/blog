@@ -35,16 +35,14 @@ authors:
 
 Over the past few weeks, Hugging Face’s [Xet Team](https://huggingface.co/xet-team) took a major step forward by [migrating the first Model and Dataset repositories off LFS and to Xet storage](https://huggingface.co/posts/jsulz/911431940353906).
 
-This marks one of many steps to [fulfill Hugging Face’s vision for the Hub](https://huggingface.co/blog/xethub-joins-hf) by empowering AI builders to build, iterate, and collaborate more effectively on massive models and datasets.
-
-We've covered a lot of the background technology in a series of posts - check them out if you're interested in deeper dives:
+This marks one of many steps to [fulfill Hugging Face’s vision for the Hub](https://huggingface.co/blog/xethub-joins-hf) by empowering AI builders to build, iterate, and collaborate more effectively on massive models and datasets. If you're interested in deeper dives on the technology itself, check out the following posts:
 * [From Files to Chunks: Improving Hugging Face Storage Efficiency](https://huggingface.co/blog/from-files-to-chunks)
 * [Rearchitecting Hugging Face Uploads and Downloads](https://huggingface.co/blog/rearchitecting-uploads-and-downloads)
 * [From Chunks to Blocks: Accelerating Uploads and Downloads on the Hub](https://huggingface.co/blog/from-chunks-to-blocks)
 
-This migration shifted \~6% of the Hub’s download traffic onto Xet infrastructure, validating several integral components and testing integrations with the myriad of ways repositories are accessed (e.g., via local development environments, different libraries, CI systems, cloud platforms, etc.). With nearly two million developers working on over two million public repositories, it’s real-world usage that’s the ultimate proving ground.
+But this post isn't about the core technology. It's a a behind-the-scenes view of getting Xet on the Hub; taking you through our proof-of-concept to the first migration of repositories. 
 
-Engineering a complex system like Xet storage is a balancing act. You plan for scale, performance, and reliability, but once bytes start moving, challenges emerge. The trick is knowing when to move from design and theory to practice. This is a behind-the-scenes view of the migration, taking you through our proof-of-concept to launching on the Hub. 
+The migration shifted \~6% of the Hub’s download traffic onto Xet infrastructure, validating several integral components and testing integrations with the myriad of ways repositories are accessed (e.g., via local development environments, different libraries, CI systems, cloud platforms, etc.). With nearly two million developers working on over two million public repositories, it’s real-world usage that’s the ultimate proving ground. Engineering a complex system like Xet storage is a balancing act. You plan for scale, performance, and reliability, but once bytes start moving, challenges emerge. The trick is knowing when to move from design and theory to practice. 
 
 ## The Xet Difference
 
@@ -130,7 +128,7 @@ To fix this, we updated the block format to store chunk-length metadata, enablin
 
 * CAS APIs  
 * Block metadata format  
-* All 65,000+ blocks in S3
+* `2^16 + 1` blocks on S3 (this is a coincidence I swear)
 
 All of which were undertaken without downtime. Not only did this result in a balanced ratio in CAS downloads to returned data, but also reduced GET latency by \~35% across the board. 
 
@@ -154,13 +152,9 @@ As the OS tries to flush the page cache to disk, the pod experiences throughput 
 
 To keep a pod from getting in this state, we put a limit to the number of concurrent uploads each machine accepts before rejecting requests that, when reached, pushes requests on to other pods in the cluster. If all pods in the cluster get in this state, then our autoscaling policies kick in. Longer-term solutions might include forcing disk syncs, removing the on-disk buffering, or switching to ephemeral storage with better throughput. 
 
-## Takeaways
+### Migration Takeaways
 
-These two issues led to important architectural improvements, but they weren’t the only challenges the team tackled in the weeks following the migration:
-
-* **Memory Leak** \- In the first few days after the migration, we noticed CAS memory usage increasing in a stepwise pattern, hinting at a leak which was fixed after investigation.
-* **Slow LFS Bridge Downloads** \- While investigating prolonged download times (a reminder to always keep an eye on tail latencies), we uncovered particularly troublesome cases. Interestingly, fixing the memory leak also resolved these slow downloads.  
-* **Switch from ALB to NLB** \- We eventually migrated the LFS Bridge from an [Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) (ALB) to a [Network Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) (NLB), improving scalability during bursts of traffic. The DNS cutover to the NLB was performed with zero downtime.
+These two issues led to important architectural improvements, but they weren’t the only challenges the team tackled in the weeks following the migration. We also addressed other performance issues, a memory leak (which we fixed but still can't root cause), and on advise from AWS to migrate the LFS Bridge from an [Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) (ALB) to a [Network Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) (NLB) to improve scalability during bursts of traffic.
 
 Looking back, these issues underscore a set of critical lessons: 
 
@@ -170,9 +164,9 @@ Looking back, these issues underscore a set of critical lessons:
 
 In short, real-world load was essential for exposing these challenges, and incremental migrations let us tackle them safely. That’s how we’re ensuring Xet-backed repositories scale reliably for the entire Hugging Face community with faster uploads, fewer bottlenecks, and minimal disruption all the way.
 
-### Ready. Xet. Go.
+## Ready. Xet. Go.
 
-With the initial migration complete, Xet is now on the Hugging Face Hub. We want to open up access more broadly, so you can feel the ease and speed of Xet storage.
+With the initial migration complete, Xet is now on the Hugging Face Hub.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/xet-on-the-hub/migration.gif" alt="Xet speed" width=40%>

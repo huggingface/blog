@@ -5691,8 +5691,6 @@
   thumbnail: /blog/assets/xet-on-the-hub/thumbnail.png
   date: March 17, 2025
   tags:
-    - dedupe
     - storage
-    - content defined chunking
     - infrastructure
     - content addressed store
