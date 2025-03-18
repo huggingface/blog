@@ -3,6 +3,8 @@ title: "NVIDIA's GTC 2025 Announcement for Physical AI Developers: New Open Mode
 thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 authors:
 - user: mingyuliutw
+  guest: true
+  org: nvidia
 - user: hannamao
 - user: jwgu
 - user: PranjaliJoshi
