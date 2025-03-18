@@ -15,6 +15,8 @@ authors:
   guest: true
   org: nvidia
 - user: asawareeb
+  guest: true
+  org: nvidia
 ---
 
 | ![Humanoid pick and place](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/physical-ai/humanoid.gif) |
