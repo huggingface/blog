@@ -111,7 +111,7 @@ Isaac GR00T N1 features a dual-system architecture inspired by human cognition, 
 
 Post-training is the path forward to advancing autonomous systems, creating specialized models for downstream physical AI tasks.
 
-Check out GitHub for [Cosmos Predict](https://github.com/nvidia-cosmos/cosmos-predict1) and [Cosmos Transfer](https://github.com/nvidia-cosmos/cosmos-transfer1) inference scripts. Explore the Cosmos Transfer [research paper](https://research.nvidia.com/publication/2025-03_cosmos-transfer-1-world-world-transfer-adaptive-multi-control-physical-ai) for more details.
+Check out GitHub for [Cosmos Predict](https://github.com/nvidia-cosmos/cosmos-predict1) and [Cosmos Transfer](https://github.com/nvidia-cosmos/cosmos-transfer1) inference scripts. Explore the Cosmos Transfer [research paper](https://research.nvidia.com/labs/dir/cosmos-transfer1/) for more details.
 
 The NVIDIA Isaac GR00T-N1-2B model is available on [Hugging Face](https://huggingface.co/nvidia/GR00T-N1-2B). Sample datasets and PyTorch scripts for post-training using custom user datasets, which is compatible with the Hugging Face LeRobot format are available on [GitHub](http://github.com/NVIDIA/Isaac-GR00T). For more information about the Isaac GR00T N1 model, see the [research paper](https://research.nvidia.com/publication/2025-03_nvidia-isaac-gr00t-n1-open-foundation-model-humanoid-robots).
 
