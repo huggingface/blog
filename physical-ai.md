@@ -6,6 +6,8 @@ authors:
   guest: true
   org: nvidia
 - user: hannamao
+  guest: true
+  org: nvidia
 - user: jwgu
 - user: PranjaliJoshi
 - user: asawareeb
