@@ -43,23 +43,6 @@ The model is built by training individual ControlNets separately for each sensor
 </div>
 <p style="text-align: center; font-style: italic;">Input types include 3D bounding box map, Trajectory map, Depth map, Segmentation map.</p>
 
-| ![Cosmos Transfer input types](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/physical-ai/3D_bounding_box_map.gif) |
-| :--: |
-| *Input types include 3D bounding box map, Trajectory map, Depth map, Segmentation map.* |
-
-| ![Cosmos Transfer input types](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/physical-ai/trajectory_map.gif) |
-| :--: |
-| *Input types include 3D bounding box map, Trajectory map, Depth map, Segmentation map.* |
-
-| ![Cosmos Transfer input types](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/physical-ai/depth_map.gif) |
-| :--: |
-| *Input types include 3D bounding box map, Trajectory map, Depth map, Segmentation map.* |
-
-| ![Cosmos Transfer input types](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/physical-ai/segmentation_map.gif) |
-| :--: |
-| *Input types include 3D bounding box map, Trajectory map, Depth map, Segmentation map.* |
-
-
 - At inference time, developers can use various input types, including structured visual or geometric data such as segmentation maps, depth maps, edge maps, human motion keypoints, LiDAR scans, trajectories, HD maps, and 3D bounding boxes to guide the output.
 - The control signals from each control branch are multiplied by their corresponding adaptive spatiotemporal control maps and then summed before being added to the transformer blocks of the base model. 
 - The generated output is photorealistic video sequences with controlled layout, object placement, and motion. Developers can control the output in multiple ways, such as preserving structure and appearance or allowing appearance variations while maintaining structure.
@@ -70,19 +53,6 @@ The model is built by training individual ControlNets separately for each sensor
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/physical-ai/output_3.gif" alt="Output 3" style="width: 30%;">
 </div>
 <p style="text-align: center; font-style: italic;">Outputs from Cosmos Transfer varying environments and weather conditions.</p>
-
-| ![Cosmos Transfer output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/physical-ai/output_1.gif) |
-| :--: |
-| *Outputs from Cosmos Transfer varying environments and weather conditions.* |
-
-| ![Cosmos Transfer output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/physical-ai/output_2.gif) |
-| :--: |
-| *Outputs from Cosmos Transfer varying environments and weather conditions.* |
-
-| ![Cosmos Transfer output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/physical-ai/output_3.gif) |
-| :--: |
-| *Outputs from Cosmos Transfer varying environments and weather conditions.* |
-
 
 Cosmos Transfer coupled with the NVIDIA Omniverse platform is driving controllable synthetic data generation for robotics and autonomous vehicle development at scale. Find more Cosmos Transfer [Examples](https://github.com/nvidia-cosmos/cosmos-transfer1#examples) on GitHub.
 
