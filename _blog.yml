@@ -5684,3 +5684,13 @@
     - vlm
     - community
     - research
+
+- local: xet-on-the-hub
+  title: "Xet is on the Hub"
+  author: jsulz
+  thumbnail: /blog/assets/xet-on-the-hub/thumbnail.png
+  date: March 18, 2025
+  tags:
+    - storage
+    - infrastructure
+    - content addressed store
