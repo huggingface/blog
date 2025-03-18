@@ -5685,12 +5685,14 @@
     - community
     - research
 
-- local: xet-on-the-hub
-  title: "Xet is on the Hub"
-  author: jsulz
-  thumbnail: /blog/assets/xet-on-the-hub/thumbnail.png
+- local: physical-ai
+  title: "NVIDIA's GTC 2025 Announcement for Physical AI Developers: New Open Models and Datasets"
+  author: mingyuliutw
+  thumbnail: /blog/assets/physical-ai/thumbnail.gif
   date: March 18, 2025
   tags:
-    - storage
-    - infrastructure
-    - content addressed store
+    - robotics
+    - ai
+    - datasets
+    - community
+    - research
