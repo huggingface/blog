@@ -175,7 +175,7 @@ With the initial migration complete, Xet is now on the Hugging Face Hub.
 We’re finalizing an official integration with the `huggingface_hub` that will mean you get the benefits of Xet without any significant changes to your current workflow. To get going:
 
 1. **Join the Waitlist**  
-   * [Sign up here](https://huggingface.co/join-xet) with your user or organization account (if you have admin/write permissions).  
+   * [Sign up here](https://huggingface.co/join/xet) with your user or organization account (if you have admin/write permissions).  
    * Once accepted, your new repositories will automatically leverage Xet-backed storage.  
    * We’ll also migrate existing repositories, so you don’t miss out on faster transfers.  
 2. **Use Your Usual Tools**  
