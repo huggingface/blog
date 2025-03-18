@@ -40,7 +40,7 @@ This marks one of many steps to [fulfill Hugging Face’s vision for the Hub](ht
 * [Rearchitecting Hugging Face Uploads and Downloads](https://huggingface.co/blog/rearchitecting-uploads-and-downloads)
 * [From Chunks to Blocks: Accelerating Uploads and Downloads on the Hub](https://huggingface.co/blog/from-chunks-to-blocks)
 
-But this post isn't about the core technology. It's a a behind-the-scenes view of getting Xet on the Hub; taking you through our proof-of-concept to the first migration of repositories. 
+But this post isn't about the core technology. It's a behind-the-scenes view of getting Xet on the Hub; taking you through our proof-of-concept to the first migration of repositories. 
 
 The migration shifted \~6% of the Hub’s download traffic onto Xet infrastructure, validating several integral components and testing integrations with the myriad of ways repositories are accessed (e.g., via local development environments, different libraries, CI systems, cloud platforms, etc.). With nearly two million developers working on over two million public repositories, it’s real-world usage that’s the ultimate proving ground. Engineering a complex system like Xet storage is a balancing act. You plan for scale, performance, and reliability, but once bytes start moving, challenges emerge. The trick is knowing when to move from design and theory to practice. 
 
