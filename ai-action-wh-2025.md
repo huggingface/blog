@@ -9,7 +9,7 @@ authors:
 
 # AI Policy @🤗: Response to the White House AI Action Plan RFI
 
-On March 14th, we submitted Hugging Face's response to the White House Office of Science and Technology Policy's request for information on the White House AI Action Plan. We took this opportunity to (re-)assert the fundamental role that open AI systems and open science play in enabling the technology to be more performant and efficient, broadly and reliably adopted, and meets the highest standards of security. This blog post provides a summary of our response, the full text is available [here](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_Hugging_Face_Response_to_AI_Action_Plan.pdf).
+On March 14, we submitted Hugging Face's response to the White House Office of Science and Technology Policy's request for information on the [White House AI Action Plan](https://www.whitehouse.gov/briefings-statements/2025/02/public-comment-invited-on-artificial-intelligence-action-plan/). We took this opportunity to (re-)assert the fundamental role that open AI systems and open science play in enabling the technology to be more performant and efficient, broadly and reliably adopted, and meets the highest standards of security. This blog post provides a summary of our response, the full text is available [here](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_Hugging_Face_Response_to_AI_Action_Plan.pdf).
 
 #### Context: Don't Sleep on (Strongly) Open Models' Capabilities
 
