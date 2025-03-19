@@ -29,6 +29,7 @@ The following materials reflect what we have found urgent to stress to policymak
             - View [recorded testimony](https://science.house.gov/2023/6/artificial-intelligence-advancing-innovation-towards-the-national-interest)
         - November 2023: [Dr. Margaret Mitchell (Chief Ethics Scientist) Senate Insight Forum Statement](https://www.schumer.senate.gov/imo/media/doc/Margaret%20Mitchell%20-%20Statement.pdf)
     - Executive
+        - March 2025: [RFI on the Development of an Artificial Intelligence Action Plan](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_Hugging_Face_Response_to_AI_Action_Plan.pdf)
         - October 2024: [Hugging Face Comments on BIS-2024-0047 / RIN 0694-AJ55: Establishment of Reporting Requirements for the Development of Advanced Artificial Intelligence Models and Computing Clusters](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2024_BIS-2024-0047_Response.pdf)
         - September 2024: Response to NIST [RFC on AI 800-1: Managing Misuse Risk for Dual-Use Foundational Models](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2024_AISI_Dual_Use_Foundational_Models_Response.pdf)
         - June 2024: Response to NIST [RFC on AI 600-1: Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2024_NIST_GENAI_Response.pdf)
