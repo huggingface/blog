@@ -5,6 +5,7 @@ authors:
 - user: burtenshaw
 - user: reach-vb
 - user: lewtun
+- user: edbeeching
 - user: yagilb
   guest: true
   org: lmstudio-ai
