@@ -42,7 +42,7 @@ In short, it lets you download and run them without any complicated setup.
 
 The GGUF files that we need are hosted on the hub. We can open the model from the hub in LMStudio, using the ‘Use this model’ button:
 
-![model_page][https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/model_page.png]
+![model_page](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/model_page.png)
 
 This will link to the LMStudio application and open it on your machine. You’ll just need to Choose a Quantization. I went for `Q4_K_M` because it will perform well on most devices. If you have more compute, you might want to try out one of the options with `Q8_*`.
 
