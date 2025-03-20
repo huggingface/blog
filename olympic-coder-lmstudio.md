@@ -1,5 +1,5 @@
 ---
-title: "Open R1: How to use a OlympicCoder locally for coding"
+title: "Open R1: How to use OlympicCoder locally for coding"
 thumbnail: /blog/assets/olympic-coder-lmstudio/banner.png
 authors:
 - user: burtenshaw
@@ -11,9 +11,9 @@ authors:
   org: lmstudio-ai
 ---
 
-# How to use a OlympicCoder locally for coding
+# Open R1: How to use OlympicCoder locally for coding
 
-Everyone’s been using Claude and OpenAI as coding assistants for the last few years, but there’s appeal if you look at the developments coming out of open source projects like [Open R1](https://huggingface.co/open-r1). If we look at the evaluation on [LiveCodeBench](https://livecodebench.github.io) below, we can see that the 7B parameter variant outperforms Claude 3.7 Sonnet and GPT-4o. These models are the daily driver of many engineers in applications like Cursor and VSCode.
+Everyone’s been using Claude and OpenAI as coding assistants for the last few years, but there’s less appeal if you look at the developments coming out of open source projects like [Open R1](https://huggingface.co/open-r1). If we look at the evaluation on [LiveCodeBench](https://livecodebench.github.io) below, we can see that the 7B parameter variant outperforms Claude 3.7 Sonnet and GPT-4o. These models are the daily driver of many engineers in applications like Cursor and VSCode.
 
 ![evals](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/lcb-evals.png)
 
@@ -42,7 +42,7 @@ In short, it lets you download and run them without any complicated setup.
 
 The GGUF files that we need are hosted on the hub. We can open the model from the hub in LMStudio, using the ‘Use this model’ button:
 
-![model_page][https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/model_page.png]
+![model_page](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/model_page.png)
 
 This will link to the LMStudio application and open it on your machine. You’ll just need to Choose a Quantization. I went for `Q4_K_M` because it will perform well on most devices. If you have more compute, you might want to try out one of the options with `Q8_*`.
 
