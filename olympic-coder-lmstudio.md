@@ -13,7 +13,7 @@ authors:
 
 # How to use a OlympicCoder locally for coding
 
-Everyone’s been using Claude and OpenAI as coding assistants for the last few years, but there’s appeal if you look at the developments coming out of open source projects like [Open R1](https://huggingface.co/open-r1). If we look at the evaluation on Live Code Bench below, we can see that the 7B parameter variant outperforms Claude 3.7 Sonnet and GPT-4o. These models are the daily driver of many engineers in applications like Cursor and VSCode.
+Everyone’s been using Claude and OpenAI as coding assistants for the last few years, but there’s appeal if you look at the developments coming out of open source projects like [Open R1](https://huggingface.co/open-r1). If we look at the evaluation on [LiveCodeBench](https://livecodebench.github.io) below, we can see that the 7B parameter variant outperforms Claude 3.7 Sonnet and GPT-4o. These models are the daily driver of many engineers in applications like Cursor and VSCode.
 
 ![evals](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/lcb-evals.png)
 
@@ -24,7 +24,7 @@ Evals are great and all, but I want to get my hands dirty and feel the commits\!
 * Visual Studio Code (VS Code)  
 * [Continue](https://www.continue.dev/) a VS Code extension for local models
 
-It’s important to say that I chose this stack purely for simplicity. You might want to experiment with the larger model and/ or different GGUF files. Or even alternative inference engines like [llama.cpp](https://github.com/ggml-org/llama.cpp). 
+It’s important to say that we chose this stack purely for simplicity. You might want to experiment with the larger model and/ or different GGUF files. Or even alternative inference engines like [llama.cpp](https://github.com/ggml-org/llama.cpp). 
 
 ![generation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/generation.gif)
 
@@ -83,7 +83,7 @@ Most of the core AI features in vscode are available via this setup, for example
 
 # 🏋️‍♀️ What’s the vibe of OlympicCoder?
 
-OlympicCoder is not Claude. It’s optimised on the codeforces-cot dataset which is based on a competitive coding challenge. That means that you should not expect it to be super friendly and explanatory. Instead, roll up your sleeves and expect a no-holds barred competitive coder ready to deal with tough problems. 
+OlympicCoder is not Claude. It’s optimised on the [CodeForces-CoTs](https://huggingface.co/datasets/open-r1/codeforces-cots) dataset which is based on competitive coding challenges. That means that you should not expect it to be super friendly and explanatory. Instead, roll up your sleeves and expect a no-holds barred competitive coder ready to deal with tough problems. 
 
 You might want to mix up OlympicCoder with other models to get a rounded coding experience. For example, if you’re trying to squeeze milliseconds out of a binary search, try OlympicCoder. If you want to design a user facing API, go for Claude-3.7-sonnet or [Qwen-2.5-Coder](https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct).
 
