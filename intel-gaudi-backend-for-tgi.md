@@ -11,7 +11,8 @@ We're excited to announce the native integration of Intel Gaudi hardware support
 
 ## ✨ What's New? 
 
-We've fully integrated Gaudi support into TGI's main codebase. Previously, we maintained a separate fork for Gaudi devices at [tgi-gaudi](https://github.com/huggingface/tgi-gaudi). This was cumbersome for users and prevented us from supporting the latest TGI features at launch. Now using the new [TGI multi-backend architecture](https://huggingface.co/blog/tgi-multi-backend), we support Gaudi directly on TGI no more finicking on a custom repository 🙌
+We've fully integrated Gaudi support into TGI's main codebase in PR [#3091](https://github.com/huggingface/text-generation-inference/pull/3091). Previously, we maintained a separate fork for Gaudi devices at [tgi-gaudi](https://github.com/huggingface/tgi-gaudi). This was cumbersome for users and prevented us from supporting the latest TGI features at launch. Now using the new [TGI multi-backend architecture](https://huggingface.co/blog/tgi-multi-backend), we support Gaudi directly on TGI – no more finicking on a custom repository 🙌
+
 This integration supports Intel's full line of Gaudi hardware:
 - Gaudi1 💻: Available on [AWS EC2 DL1 instances](https://aws.amazon.com/ec2/instance-types/dl1/)
 - Gaudi2 💻💻: Available on [Intel Dev Cloud](https://ai.cloud.intel.com/)
@@ -34,11 +35,13 @@ The easiest way to run TGI on Gaudi is to use our official Docker image. You nee
 model=meta-llama/Meta-Llama-3.1-8B-Instruct 
 volume=$PWD/data # share a volume with the Docker container to avoid downloading weights every run 
 hf_token=YOUR_HF_ACCESS_TOKEN
-docker run --runtime=habana --cap-add=sys_nice --ipc=host
- -p 8080:80 -v $volume:/data 
--e HF_TOKEN=$hf_token 
--e HABANA_VISIBLE_DEVICES=all
-ghcr.io/huggingface/text-generation-inference:3.2.1-gaudi
+
+docker run --runtime=habana --cap-add=sys_nice --ipc=host \
+ -p 8080:80 \
+ -v $volume:/data \
+ -e HF_TOKEN=$hf_token \
+ -e HABANA_VISIBLE_DEVICES=all \
+ ghcr.io/huggingface/text-generation-inference:3.2.1-gaudi \
  --model-id $model 
 ```
 
@@ -50,6 +53,8 @@ curl 127.0.0.1:8080/generate
  -d '{"inputs":"What is Deep Learning?","parameters":{"max_new_tokens":32}}'
  -H 'Content-Type: application/json'
 ```
+
+For comprehensive documentation on using TGI with Gaudi, including how-to guides and advanced configurations, refer to the new dedicated [Gaudi backend documentation](https://huggingface.co/docs/text-generation-inference/backends/gaudi).
 
 ## 🎉 Top features
 
@@ -65,10 +70,10 @@ We have optimized the following models for both single and multi-card configurat
 - Gemma (7B) 
 - Llava-v1.6-Mistral-7B 
 
-Furthermore, we also support all models implemented in Transformers library, providing a [fallback mechanism](https://huggingface.co/docs/text-generation-inference/basic_tutorials/non_core_models) that ensures you can still run any model on Gaudi hardware even if it's not yet specifically optimized.
+Furthermore, we also support all models implemented in the [Transformers library](https://huggingface.co/docs/transformers/index), providing a [fallback mechanism](https://huggingface.co/docs/text-generation-inference/basic_tutorials/non_core_models) that ensures you can still run any model on Gaudi hardware even if it's not yet specifically optimized.
 
 🏃‍♂️ We also offer many advanced features on Gaudi hardware, such as FP8 quantization thanks to [Intel Neural Compressor (INC)](https://docs.habana.ai/en/latest/PyTorch/Inference_on_PyTorch/Quantization/Inference_Using_FP8.html), enabling even greater performance optimizations.
 
 ## 💪 Getting Involved 
 
-We invite the community to try out TGI on Gaudi hardware and provide feedback. The full documentation is available in the TGI repository. 📚 If you're interested in contributing, check out our contribution guidelines or open an issue with your feedback on GitHub. 🤝 By bringing Intel Gaudi support directly into TGI, we're continuing our mission to provide flexible, efficient, and production-ready tools for deploying LLMs. We're excited to see what you'll build with this new capability! 🎉
+We invite the community to try out TGI on Gaudi hardware and provide feedback. The full documentation is available in the [TGI Gaudi backend documentation](https://huggingface.co/docs/text-generation-inference/backends/gaudi). 📚 If you're interested in contributing, check out our contribution guidelines or open an issue with your feedback on GitHub. 🤝 By bringing Intel Gaudi support directly into TGI, we're continuing our mission to provide flexible, efficient, and production-ready tools for deploying LLMs. We're excited to see what you'll build with this new capability! 🎉
