@@ -34,7 +34,7 @@ We realized that our analytics dashboard needed a refresh. Since we debug a lot 
 🔄 Replica Lifecycle View: Understanding what’s happening with your replicas is crucial, so we’ve introduced a detailed view of each replica’s lifecycle. You can now track replicas from initialization to termination, observing every state transition in between. This helps understand what's going on with your endpoint even if you have several moving parts.
 
 <p align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/endpoint-analytics/blog/replica_status.png"><br>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/endpoint-analytics/replica_status.png"><br>
 </p>
 
 Even though we’ve rolled out these updates, we’re actively iterating on them. Things will continue to improve, and we welcome all feedback.
