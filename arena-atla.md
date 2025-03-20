@@ -13,7 +13,7 @@ authors:
   org: AtlaAI
 - user: mbartolo
   guest: true
-  org: AtlaAI
+  org: Cohere
 - user: clefourrier
 - user: tobydrane
   guest: true
