@@ -24,7 +24,7 @@ Evals are great and all, but I want to get my hands dirty and feel the commits\!
 * Visual Studio Code (VS Code)  
 * [Continue](https://www.continue.dev/) a VS Code extension for local models
 
-It’s important to say that I chose this stack purely for simplicity. You might want to experiment with the larger model and/ or different GGUF files. Or even alternative inference engines like [llama.cpp](https://github.com/ggml-org/llama.cpp). 
+It’s important to say that we chose this stack purely for simplicity. You might want to experiment with the larger model and/ or different GGUF files. Or even alternative inference engines like [llama.cpp](https://github.com/ggml-org/llama.cpp). 
 
 ![generation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/generation.gif)
 
