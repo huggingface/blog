@@ -83,7 +83,7 @@ Most of the core AI features in vscode are available via this setup, for example
 
 # 🏋️‍♀️ What’s the vibe of OlympicCoder?
 
-OlympicCoder is not Claude. It’s optimised on the codeforces-cot dataset which is based on a competitive coding challenge. That means that you should not expect it to be super friendly and explanatory. Instead, roll up your sleeves and expect a no-holds barred competitive coder ready to deal with tough problems. 
+OlympicCoder is not Claude. It’s optimised on the [CodeForces-CoTs](https://huggingface.co/datasets/open-r1/codeforces-cots) dataset which is based on competitive coding challenges. That means that you should not expect it to be super friendly and explanatory. Instead, roll up your sleeves and expect a no-holds barred competitive coder ready to deal with tough problems. 
 
 You might want to mix up OlympicCoder with other models to get a rounded coding experience. For example, if you’re trying to squeeze milliseconds out of a binary search, try OlympicCoder. If you want to design a user facing API, go for Claude-3.7-sonnet or [Qwen-2.5-Coder](https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct).
 
