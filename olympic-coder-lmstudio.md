@@ -13,7 +13,7 @@ authors:
 
 # How to use a OlympicCoder locally for coding
 
-Everyone’s been using Claude and OpenAI as coding assistants for the last few years, but there’s appeal if you look at the developments coming out of open source projects like [Open R1](https://huggingface.co/open-r1). If we look at the evaluation on Live Code Bench below, we can see that the 7B parameter variant outperforms Claude 3.7 Sonnet and GPT-4o. These models are the daily driver of many engineers in applications like Cursor and VSCode.
+Everyone’s been using Claude and OpenAI as coding assistants for the last few years, but there’s appeal if you look at the developments coming out of open source projects like [Open R1](https://huggingface.co/open-r1). If we look at the evaluation on [LiveCodeBench](https://livecodebench.github.io) below, we can see that the 7B parameter variant outperforms Claude 3.7 Sonnet and GPT-4o. These models are the daily driver of many engineers in applications like Cursor and VSCode.
 
 ![evals](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/lcb-evals.png)
 
