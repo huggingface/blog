@@ -14,7 +14,7 @@ authors:
 
 Everyone’s been using Claude and OpenAI as coding assistants for the last few years, but there’s appeal if you look at the developments coming out of open source projects like [Open R1](https://huggingface.co/open-r1). If we look at the evaluation on Live Code Bench below, we can see that the 7B parameter variant outperforms Claude 3.7 Sonnet and GPT-4o. These models are the daily driver of many engineers in applications like Cursor and VSCode.
 
-![evals](https://huggingface.co/datasets/huggingface/documentation-images/resolve/e51614a045d15551ecfb573ffaaaf2a3c866ad27/blog/olympic-coder-lmstudio/lcb-evals.png)
+![evals](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/lcb-evals.png)
 
 Evals are great and all, but I want to get my hands dirty and feel the commits\! This blog post focuses on how you can integrate these models in your IDE now. We will set up OlympicCoder 7B, the smaller of the two OlympicCoder variants, and we’ll use a quantized variant for optimum local inference. Here’s the stack we’re going to use:
 
@@ -25,7 +25,7 @@ Evals are great and all, but I want to get my hands dirty and feel the commits\!
 
 It’s important to say that I chose this stack purely for simplicity. You might want to experiment with the larger model and/ or different GGUF files. Or even alternative inference engines like [llama.cpp](https://github.com/ggml-org/llama.cpp). 
 
-![generation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/e51614a045d15551ecfb573ffaaaf2a3c866ad27/blog/olympic-coder-lmstudio/generation.gif)
+![generation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/generation.gif)
 
 # 1\. Install LM Studio
 
@@ -41,7 +41,7 @@ In short, it lets you download and run them without any complicated setup.
 
 The GGUF files that we need are hosted on the hub. We can open the model from the hub in LMStudio, using the ‘Use this model’ button:
 
-![model_page][https://huggingface.co/datasets/huggingface/documentation-images/resolve/e51614a045d15551ecfb573ffaaaf2a3c866ad27/blog/olympic-coder-lmstudio/model_page.png]
+![model_page][https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/model_page.png]
 
 This will link to the LMStudio application and open it on your machine. You’ll just need to Choose a Quantization. I went for `Q4_K_M` because it will perform well on most devices. If you have more compute, you might want to try out one of the options with `Q8_*`.
 
@@ -59,7 +59,7 @@ This is the important part. We now need to integrate VScode with the model serve
 
 1. In LM Studio, activate the server on the ‘Developer’ tab. This will expose the endpoints at `http://localhost:1234/v1`.
 
-![lmstudio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/e51614a045d15551ecfb573ffaaaf2a3c866ad27/blog/olympic-coder-lmstudio/lm-studio.png)
+![lmstudio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/lm-studio.png)
 
 2. **Install the VS Code Extension** to connect to our local server. I went for Continue.dev, but there are other options too.  
    * In VSCode, go to the Extensions view (click the square icon on the left sidebar, or press Ctrl+Shift+X / Cmd+Shift+X).  
@@ -68,7 +68,7 @@ This is the important part. We now need to integrate VScode with the model serve
    * Open the Continue tab and in the models dropdown, select ‘add new chat model’.  
    * This will open a json configuration file. You’ll need to specify the model name. I.e. olympiccoder-7b
 
-![continue](https://huggingface.co/datasets/huggingface/documentation-images/resolve/e51614a045d15551ecfb573ffaaaf2a3c866ad27/blog/olympic-coder-lmstudio/continue_png.png)
+![continue](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/continue_dev.png)
 
 # 🚀 You’ve got a local coding assistant\!
 
