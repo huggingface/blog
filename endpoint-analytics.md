@@ -3,6 +3,10 @@ title: "The New and Fresh analytics in Hugging Face Endpoints"
 thumbnail: /blog/assets/endpoint-analytics/thumbnail.png
 authors:
 - user: erikkaum
+- user: beurkinger
+- user: rtrm
+- user: co42
+- user: michellehbn
 ---
 
 # Analytics is important
