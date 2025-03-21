@@ -1,5 +1,5 @@
 ---
-title: "The New and Fresh analytics in Hugging Face Endpoints" 
+title: "The New and Fresh analytics in Inference Endpoints"
 thumbnail: /blog/assets/endpoint-analytics/thumbnail.png
 authors:
 - user: erikkaum
@@ -11,7 +11,7 @@ authors:
 
 # Analytics is important
 
-Analytics and metrics are the cornerstone of understanding what's happening with your deployment. Are your endpoints overloaded? How many requests are they handling? Having well-visualized, relevant metrics displayed in real-time is crucial for monitoring and debugging.
+Analytics and metrics are the cornerstone of understanding what's happening with your deployment. Are your [Inference Endpoints](https://endpoints.huggingface.co) overloaded? How many requests are they handling? Having well-visualized, relevant metrics displayed in real-time is crucial for monitoring and debugging.
 
 We realized that our analytics dashboard needed a refresh. Since we debug a lot of endpoints ourselves, we’ve felt the same pain as our users. That’s why we sat down to plan and make several improvements to provide a better experience for you.
 
@@ -45,4 +45,4 @@ Even though we’ve rolled out these updates, we’re actively iterating on them
 
 Let us know what works, what doesn’t, and what you’d like to see next! 🙌
 
-Head to [endpoints](https://endpoints.huggingface.co) to check out the changes!
+Head to [Inference Endpoints](https://endpoints.huggingface.co) to check out the changes!
