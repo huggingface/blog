@@ -70,8 +70,6 @@ We have optimized the following models for both single and multi-card configurat
 - Gemma (7B) 
 - Llava-v1.6-Mistral-7B 
 
-Furthermore, we also support all models implemented in the [Transformers library](https://huggingface.co/docs/transformers/index), providing a [fallback mechanism](https://huggingface.co/docs/text-generation-inference/basic_tutorials/non_core_models) that ensures you can still run any model on Gaudi hardware even if it's not yet specifically optimized.
-
 🏃‍♂️ We also offer many advanced features on Gaudi hardware, such as FP8 quantization thanks to [Intel Neural Compressor (INC)](https://docs.habana.ai/en/latest/PyTorch/Inference_on_PyTorch/Quantization/Inference_Using_FP8.html), enabling even greater performance optimizations.
 
 ## 💪 Getting Involved 
