@@ -5721,7 +5721,7 @@
 - local: olympic-coder-lmstudio
   title: "Open R1: How to use OlympicCoder locally for coding?"
   author: burtenshaw
-  thumbnail: /blog/assets/olympic-coder-lmstudio/banner.png
+  thumbnail: /blog/assets/olympic-coder-lmstudio/banner_correct.png
   date: March 20, 2025
   tags:
     - open-source
