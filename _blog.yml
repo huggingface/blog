@@ -5729,3 +5729,13 @@
     - research
     - reasoning
     - local
+
+- local: endpoint-analytics 
+  title: "The New and Fresh analytics in Hugging Face Endpoints"
+  author: erikkaum
+  thumbnail: /blog/assets/endpoint-analytics/thumbnail.png  
+  date: March 21, 2025
+  tags:
+    - guide
+    - cloud
+    - inference
