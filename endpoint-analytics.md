@@ -44,3 +44,5 @@ We realized that our analytics dashboard needed a refresh. Since we debug a lot 
 Even though we’ve rolled out these updates, we’re actively iterating on them. Things will continue to improve, and we welcome all feedback.
 
 Let us know what works, what doesn’t, and what you’d like to see next! 🙌
+
+Head to [endpoints](https://endpoints.huggingface.co) to check out the changes!
