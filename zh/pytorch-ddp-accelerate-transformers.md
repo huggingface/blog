@@ -429,6 +429,6 @@ notebook_launcher(train_trainer_ddp, args=(), num_processes=2)
 
 要了解有关 PyTorch 分布式数据并行性的更多信息，请查看 [文档](https://pytorch.org/docs/stable/distributed.html)
 
-要了解有关 🤗 Accelerate 的更多信息，请查看 [🤗 Accelerat 文档](https://huggingface.co/docs/accelerate)
+要了解有关 🤗 Accelerate 的更多信息，请查看 [🤗 Accelerate 文档](https://huggingface.co/docs/accelerate)
 
 要了解有关 🤗 Transformer 的更多信息，请查看 [🤗 Transformer 文档](https://huggingface.co/docs/transformers)

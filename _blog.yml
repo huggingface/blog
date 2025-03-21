@@ -5720,3 +5720,24 @@
     - guide
     - cloud
     - inference
+
+- local: ai-action-wh-2025
+  title: "AI Policy: 🤗 Response to the White House AI Action Plan RFI"
+  author: yjernite
+  thumbnail: /blog/assets/151_policy_ntia_rfc/us_policy_thumbnail.png
+  date: March 19, 2025
+  tags:
+    - ethics
+    - policy
+
+- local: olympic-coder-lmstudio
+  title: "Open R1: How to use OlympicCoder locally for coding?"
+  author: burtenshaw
+  thumbnail: /blog/assets/olympic-coder-lmstudio/banner_correct.png
+  date: March 20, 2025
+  tags:
+    - open-source
+    - llm
+    - research
+    - reasoning
+    - local
