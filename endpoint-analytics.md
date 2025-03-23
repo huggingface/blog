@@ -17,7 +17,7 @@ We realized that our analytics dashboard needed a refresh. Since we debug a lot 
 
 # What’s New?
 
-⏰ Real-Time Metrics: Data now updates in real-time, ensuring you get an accurate and up-to-the-second view of your endpoint’s performance. Whether you’re monitoring request latency, response times, or error rates, you can now see the events as the happen. We’ve also reworked the backend of our analytics dashboard to ensure that data loads swiftly, especially for high-traffic endpoints. No more waiting around for metrics to populate. Just open the dashboard and get instant insights.
+⏰ Real-Time Metrics: Data now updates in real-time, ensuring you get an accurate and up-to-the-second view of your endpoint’s performance. Whether you’re monitoring request latency, response times, or error rates, you can now see the events as they happen. We’ve also reworked the backend of our analytics dashboard to ensure that data loads swiftly, especially for high-traffic endpoints. No more waiting around for metrics to populate. Just open the dashboard and get instant insights.
 
 <p align="center">
   <video width="100%" autoplay loop muted playsinline>
