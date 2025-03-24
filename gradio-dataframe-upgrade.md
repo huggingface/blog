@@ -8,7 +8,7 @@ authors:
 
 # Gradio’s dataframe has been upgraded!
 
-If you’ve already used Gradio’s dataframe, I think you’ll agree that it did a good job. Customisation, virtualisation, accessibility, clean UI. We also saw it being used in a variety of awesome apps, like leaderboards, dashboards and interactive visualisations. We weren't complaining too much about it, though our backlog of issues had been growing, and some improvements had been in demand for a while. 
+If you’ve already used Gradio’s dataframe, I think you’ll agree that it did a good job. Customisation, virtualisation, accessibility, clean UI. We've seen it used in a variety of awesome apps, like leaderboards, dashboards and interactive visualisations. We weren't complaining too much about it, though our backlog of issues had been growing, and some improvements had been in demand for a while. 
 
 Well — we’re now super excited to release a host of new updates to Gradio’s dataframe component. Over the last 6 weeks, we’ve closed over 70 dataframe issues - including bugs, improvements and enhancements. 
 
