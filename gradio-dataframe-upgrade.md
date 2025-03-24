@@ -1,3 +1,11 @@
+---
+title: "Gradio’s Dataframe has been upgraded! 🎨" 
+thumbnail: /blog/assets/gradio-dataframe-upgrade/thumbnail.png
+authors:
+- user: hmb
+- user: your_coauthor
+---
+
 # Gradio’s Dataframe has been upgraded! 🎨
 
 If you’ve already used Gradio’s dataframe, I think you’ll agree that it did a good job. Customisation, virtualisation, accessibility, clean UI. We also saw it being used in a variety of awesome apps, like leaderboards, dashboards and interactive visualisations. We weren't complaining too much about it, though our backlog of issues had been growing, and some improvements had been in demand for a while. 
