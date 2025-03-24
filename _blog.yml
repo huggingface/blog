@@ -5741,7 +5741,7 @@
     - inference
     
 - local: gradio-dataframe-upgrade 
-  title: "Gradio’s Dataframe has been upgraded!" 
+  title: "Gradio’s dataframe has been upgraded!" 
   author: hmb
   thumbnail: /blog/assets/gradio-dataframe-upgrade/thumbnail.png  
   date: March 24, 2025
