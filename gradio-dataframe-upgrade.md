@@ -16,63 +16,86 @@ Well — we’re now super excited to release a host of new updates to Gradio’
 
 Finally, you can select multiple cells at once! Copy or delete values across your selection with ease.
 
-https://cdn-uploads.huggingface.co/production/uploads/63c3490c6e6561b339e3bbec/Emj4UXIMJzLbXWE4-x93A.mp4
+<video width="600" playsinline>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/multicell.mp4">
+</video>
 
 ### 2. Row Numbers & **Column Pinning**
 
 Add row number columns and keep critical columns in view while navigating wide datasets using the `pinned_columns` parameter. No more losing track of what you're looking at!
 
-https://cdn-uploads.huggingface.co/production/uploads/63c3490c6e6561b339e3bbec/OhDr5N9mEaobrrV3nJ2Go.mp4
+<video width="600" playsinline>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/rownumbers.mp4">
+</video>
 
 ### **3. Copy Button and Full Screen Button**
 
 Easily copy cell values into a comma-separated format with our new copy button. Need a better view? The full screen button gives you interactivity without distractions and can be enabled with the `show_full_screen` parameter. 
 
-https://cdn-uploads.huggingface.co/production/uploads/63c3490c6e6561b339e3bbec/Xpnh3NfHhBIuhI_DuvFAf.mp4
+<video width="600" playsinline>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/buttons.mp4">
+</video>
 
-https://cdn-uploads.huggingface.co/production/uploads/63c3490c6e6561b339e3bbec/2HZjZoGs7DvZql-JzX80D.mp4
+<video width="600" playsinline>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/buttons2.mp4">
+</video>
+
 
 ### 4. Scroll to Top Button
 
 Look at all that data! Now we can just scroll to the top. 
 
-https://cdn-uploads.huggingface.co/production/uploads/63c3490c6e6561b339e3bbec/-AtHRI4jUUPicLARlz1MH.mp4
+<video width="600" playsinline>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/scrolltop.mp4">
+</video>
 
 ### **5. Accessibility Upgrade and Enhanced Styling**
 
 Improved keyboard navigation makes gr.Dataframe more accessible than ever. You can also take control of your Dataframe’s look with a dedicated styler parameter and enhance the user experience of your app. 
 
-https://cdn-uploads.huggingface.co/production/uploads/63c3490c6e6561b339e3bbec/Ks8kwjePJPmcdWhF8uUeQ.mp4
+<video width="600" playsinline>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/a11y.mp4">
+</video>
 
 ### **6. Row and Column Selection**
 
 Access entire row data in select events for more intuitive interactivity and data manipulation.
 
-https://cdn-uploads.huggingface.co/production/uploads/63c3490c6e6561b339e3bbec/DetjCkno9LQkVwn6iNC-C.mp4
+<video width="600" playsinline>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/rowcol.mp4">
+</video>
 
 ### 7. Static Columns
 
 Customise the interactivity of your dataframe by specifying non-editable columns using the `static_columns` parameter. 
 
-https://cdn-uploads.huggingface.co/production/uploads/63c3490c6e6561b339e3bbec/80as8L0bD1a3u9Hq7dEC0.mp4
+<video width="600" playsinline>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/static.mp4">
+</video>
 
 ### **8. Search functionality**
 
 Quickly find the data you need with our powerful search feature.
 
-https://cdn-uploads.huggingface.co/production/uploads/63c3490c6e6561b339e3bbec/lBRWhkjeW-zeP0b7-RTSS.mp4
+<video width="600" playsinline>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/searchfun.mp4">
+</video>
 
 ### **9. Filter functionality**
 
 Narrow down your dataset to focus on exactly what you need with flexible filtering options.
 
-https://cdn-uploads.huggingface.co/production/uploads/63c3490c6e6561b339e3bbec/sozKmdJJsxvpT59PdaWGQ.mp4
+<video width="600" playsinline>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/filter.mp4">
+</video>
 
 ### **10. Improved cell selection**
 
 Experience smoother, more intuitive cell selection that behaves the way you expect.
 
-https://cdn-uploads.huggingface.co/production/uploads/63c3490c6e6561b339e3bbec/amczxgJmIvuQ8eSxACmVX.mp4
+<video width="600" playsinline>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/cellselect.mp4">
+</video>
 
 ## What’s next?
 
