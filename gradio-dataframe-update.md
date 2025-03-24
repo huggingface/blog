@@ -74,12 +74,12 @@ With over 70 issues closed, we’ve made huge improvements, but there’s always
 
 The updated dataframe is live in the latest Gradio release. Update your installation with `pip install --upgrade gradio`. 
 
- <iframe
-	src="https://hmb-basic-dataframe.hf.space"
-	frameborder="0"
-	width="850"
-	height="450"
-></iframe>
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/5.22.0/gradio.js"
+></script>
+
+<gradio-app src="https://hmb-basic-dataframe.hf.space"></gradio-app>
 
 ```python
 import gradio as gr
