@@ -51,7 +51,7 @@ Look at all that data! Now we can just scroll to the top.
 
 ### **5. Accessibility Upgrade and Enhanced Styling**
 
-Improved keyboard navigation makes gr.Dataframe more accessible than ever. You can also take control of your Dataframe’s look with a dedicated styler parameter and enhance the user experience of your app. 
+Improved keyboard navigation makes gr.Dataframe more accessible than ever. You can also take control of your dataframe’s look with a dedicated styler parameter and enhance the user experience of your app. 
 
 <video width="600" controls autoplay loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/a11y.mp4">
@@ -75,7 +75,7 @@ Customise the interactivity of your dataframe by specifying non-editable columns
 
 ### **8. Search functionality**
 
-Quickly find the data you need with our powerful search feature.
+Quickly find the data you need with our powerful search feature by setting the `show_search` parameter to `search`. 
 
 <video width="600" controls autoplay loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/searchfun.mp4">
@@ -83,7 +83,7 @@ Quickly find the data you need with our powerful search feature.
 
 ### **9. Filter functionality**
 
-Narrow down your dataset to focus on exactly what you need with flexible filtering options.
+Narrow down your dataset to focus on exactly what you need with flexible filtering options with `show_search` set to `filter`. 
 
 <video width="600" controls autoplay loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/filter.mp4">
