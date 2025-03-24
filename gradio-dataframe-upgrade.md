@@ -110,7 +110,7 @@ The updated dataframe is live in the latest Gradio release. Update your installa
 	src="https://gradio.s3-us-west-2.amazonaws.com/5.22.0/gradio.js"
 ></script>
 
-<gradio-app src="https://hmb-basic-dataframe.hf.space"></gradio-app>
+<gradio-app theme_mode="light" space="hmb/basic-dataframe"></gradio-app>
 
 ```python
 import gradio as gr
