@@ -5739,3 +5739,14 @@
     - guide
     - cloud
     - inference
+    
+- local: gradio-dataframe-upgrade 
+  title: "Gradio’s Dataframe has been upgraded! 🎨" 
+  author: hmb
+  thumbnail: /blog/assets/gradio-dataframe-upgrade/thumbnail.png  
+  date: March 24, 2025
+  tags:
+    - gradio
+    - open-source
+    - guide
+
