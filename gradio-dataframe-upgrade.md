@@ -8,13 +8,13 @@ authors:
 
 # Gradio’s dataframe has been upgraded!
 
-If you’ve already used Gradio’s dataframe, I think you’ll agree that it did a good job. Customisation, virtualisation, accessibility, clean UI. We've seen it used in a variety of awesome apps, like leaderboards, dashboards and interactive visualisations. We weren't complaining too much about it, though our backlog of issues had been growing, and some improvements had been in demand for a while. 
+Gradio’s `gr.Dataframe` component is one of our most popular components, we've seen it used in a variety of awesome apps, like leaderboards, dashboards, and interactive visualisations. Although we hadn't made any changes to the dataframe in quite some time, our backlog of issues had been growing, and some improvements had been in demand for a while. 
 
 Well — we’re now super excited to release a host of new updates to Gradio’s dataframe component. Over the last 6 weeks, we’ve closed over 70 dataframe issues - including bugs, improvements and enhancements. 
 
 ### **1. Multi-Cell Selection**
 
-Finally, you can select multiple cells at once! Copy or delete values across your selection with ease.
+You can select multiple cells at once! Copy or delete values across your selection with ease.
 
 <video width="600" controls autoplay loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/multicell.mp4">
@@ -75,7 +75,7 @@ Customise the interactivity of your dataframe by specifying non-editable columns
 
 ### **8. Search functionality**
 
-Quickly find the data you need with our powerful search feature by setting the `show_search` parameter to `search`. 
+Quickly find the data you need with our powerful search feature by setting the `show_search` parameter to `"search"`. 
 
 <video width="600" controls autoplay loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/searchfun.mp4">
