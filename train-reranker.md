@@ -699,10 +699,10 @@ As a reminder, I used the extremely efficient [`sentence-transformers/static-ret
 | [mixedbread-ai/mxbai-rerank-xsmall-v1](https://huggingface.co/mixedbread-ai/mxbai-rerank-xsmall-v1)                     | 70.8M            | 66.63                                | 69.41                                                |
 | [mixedbread-ai/mxbai-rerank-base-v1](https://huggingface.co/mixedbread-ai/mxbai-rerank-base-v1)                         | 184M             | 70.43                                | 74.39                                                |
 | [mixedbread-ai/mxbai-rerank-large-v1](https://huggingface.co/mixedbread-ai/mxbai-rerank-large-v1)                       | 435M             | 74.03                                | 78.66                                                |
+| [mixedbread-ai/mxbai-rerank-base-v2](https://huggingface.co/mixedbread-ai/mxbai-rerank-base-v2)                         | 494M             | 73.03                                | 76.76                                                |
+| [mixedbread-ai/mxbai-rerank-large-v2](https://huggingface.co/mixedbread-ai/mxbai-rerank-large-v2)                       | 1.54B            | 75.40                                | 80.04                                                |
 | [Alibaba-NLP/gte-reranker-modernbert-base](https://huggingface.co/Alibaba-NLP/gte-reranker-modernbert-base)             | 150M             | 73.18                                | 77.49                                                |
 | [**tomaarsen/reranker-ModernBERT-base-gooaq-bce**](https://huggingface.co/tomaarsen/reranker-ModernBERT-base-gooaq-bce) | **150M**         | **77.14**                            | **83.51**                                            |
-
-<!-- mixedbread-ai/mxbai-rerank-base-v2 is not integrated with CrossEncoder or the Reranker. After messing around with the evaluator to try and get it working, I got a score of 11.01, so I'll leave it be -->
 
 ![Model size vs NDCG for Rerankers on GooAQ](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-reranker/reranker_gooaq_model_size_ndcg.png)
 
