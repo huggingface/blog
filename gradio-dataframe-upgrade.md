@@ -1,12 +1,12 @@
 ---
-title: "Gradio’s dataframe has been upgraded!" 
+title: "Introducing Gradio's new Dataframe!" 
 thumbnail: /blog/assets/gradio-dataframe-upgrade/thumbnail.png
 authors:
 - user: hmb
 - user: abidlabs
 ---
 
-# Gradio’s dataframe has been upgraded!
+# Introducing Gradio's new Dataframe!
 
 Gradio’s `gr.Dataframe` component is one of our most popular components, we've seen it used in a variety of awesome apps, like leaderboards, dashboards, and interactive visualisations. Although we hadn't made any changes to the dataframe in quite some time, our backlog of issues had been growing, and some improvements had been in demand for a while. 
 
