@@ -5739,3 +5739,14 @@
     - guide
     - cloud
     - inference
+
+- local: train-reranker
+  title: "Training and Finetuning Reranker Models with Sentence Transformers v4"
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: March 27, 2024
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
