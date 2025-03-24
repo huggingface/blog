@@ -16,7 +16,7 @@ Well — we’re now super excited to release a host of new updates to Gradio’
 
 Finally, you can select multiple cells at once! Copy or delete values across your selection with ease.
 
-<video width="600" playsinline>
+<video width="600" controls autoplay>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/multicell.mp4">
 </video>
 
@@ -24,7 +24,7 @@ Finally, you can select multiple cells at once! Copy or delete values across you
 
 Add row number columns and keep critical columns in view while navigating wide datasets using the `pinned_columns` parameter. No more losing track of what you're looking at!
 
-<video width="600" playsinline>
+<video width="600" controls autoplay>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/rownumbers.mp4">
 </video>
 
@@ -32,11 +32,11 @@ Add row number columns and keep critical columns in view while navigating wide d
 
 Easily copy cell values into a comma-separated format with our new copy button. Need a better view? The full screen button gives you interactivity without distractions and can be enabled with the `show_full_screen` parameter. 
 
-<video width="600" playsinline>
+<video width="600" controls autoplay>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/buttons.mp4">
 </video>
 
-<video width="600" playsinline>
+<video width="600" controls autoplay>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/buttons2.mp4">
 </video>
 
@@ -45,7 +45,7 @@ Easily copy cell values into a comma-separated format with our new copy button. 
 
 Look at all that data! Now we can just scroll to the top. 
 
-<video width="600" playsinline>
+<video width="600" controls autoplay>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/scrolltop.mp4">
 </video>
 
@@ -53,7 +53,7 @@ Look at all that data! Now we can just scroll to the top.
 
 Improved keyboard navigation makes gr.Dataframe more accessible than ever. You can also take control of your Dataframe’s look with a dedicated styler parameter and enhance the user experience of your app. 
 
-<video width="600" playsinline>
+<video width="600" controls autoplay>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/a11y.mp4">
 </video>
 
@@ -61,7 +61,7 @@ Improved keyboard navigation makes gr.Dataframe more accessible than ever. You c
 
 Access entire row data in select events for more intuitive interactivity and data manipulation.
 
-<video width="600" playsinline>
+<video width="600" controls autoplay>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/rowcol.mp4">
 </video>
 
@@ -69,7 +69,7 @@ Access entire row data in select events for more intuitive interactivity and dat
 
 Customise the interactivity of your dataframe by specifying non-editable columns using the `static_columns` parameter. 
 
-<video width="600" playsinline>
+<video width="600" controls autoplay>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/static.mp4">
 </video>
 
@@ -77,7 +77,7 @@ Customise the interactivity of your dataframe by specifying non-editable columns
 
 Quickly find the data you need with our powerful search feature.
 
-<video width="600" playsinline>
+<video width="600" controls autoplay>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/searchfun.mp4">
 </video>
 
@@ -85,7 +85,7 @@ Quickly find the data you need with our powerful search feature.
 
 Narrow down your dataset to focus on exactly what you need with flexible filtering options.
 
-<video width="600" playsinline>
+<video width="600" controls autoplay>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/filter.mp4">
 </video>
 
@@ -93,7 +93,7 @@ Narrow down your dataset to focus on exactly what you need with flexible filteri
 
 Experience smoother, more intuitive cell selection that behaves the way you expect.
 
-<video width="600" playsinline>
+<video width="600" controls autoplay>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/cellselect.mp4">
 </video>
 
