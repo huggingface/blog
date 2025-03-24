@@ -83,7 +83,7 @@ Quickly find the data you need with our powerful search feature by setting the `
 
 ### **9. Filter functionality**
 
-Narrow down your dataset to focus on exactly what you need with flexible filtering options with `show_search` set to `filter`. 
+Narrow down your dataset to focus on exactly what you need with flexible filtering options with `show_search` set to `"filter"`. 
 
 <video width="600" controls autoplay loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-dataframe-upgrade/filter.mp4">
