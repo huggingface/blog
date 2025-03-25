@@ -639,7 +639,7 @@ if __name__ == "__main__":
     main()
 ```
 
-In this example I'm finetuning from [`answerdotai/ModernBERT-base`](https://huggingface.co/answerdotai/ModernBERT-base), a base model that is not yet a Cross Encoder model. This generally requires more training data than finetuning an existing reranker model like [`Alibaba-NLP/gte-multilingual-reranker-base`](https://huggingface.co/Alibaba-NLP/gte-multilingual-reranker-base). I'm using 100k query-answer pairs from the [GooAQ dataset](https://huggingface.co/datasets/sentence-transformers/gooaq), after which I mine hard negatives using the [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) embedding model. This results in 578k labeled pairs, i.e. 100k positive pairs (i.e. label=1) and 478k negative pairs (i.e. label=0).
+In this example I'm finetuning from [`answerdotai/ModernBERT-base`](https://huggingface.co/answerdotai/ModernBERT-base), a base model that is not yet a Cross Encoder model. This generally requires more training data than finetuning an existing reranker model like [`Alibaba-NLP/gte-multilingual-reranker-base`](https://huggingface.co/Alibaba-NLP/gte-multilingual-reranker-base). I'm using 99k query-answer pairs from the [GooAQ dataset](https://huggingface.co/datasets/sentence-transformers/gooaq), after which I mine hard negatives using the [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) embedding model. This results in 578k labeled pairs, i.e. 99k positive pairs (i.e. label=1) and 479k negative pairs (i.e. label=0).
 
 I use the `BinaryCrossEntropyLoss`, which is well suited for these labeled pairs. I also set up 2 forms of evaluation: `CrossEncoderNanoBEIREvaluator` which evaluates against the NanoBEIR benchmark and `CrossEncoderRerankingEvaluator` which evaluates the performance of reranking the top 30 results from the aforementioned static embedding model. Afterwards, I defined a fairly standard set of hyperparameters, including learning rates, warmup ratios, bf16, loading the best model at the end, and some debugging parameters. Lastly, I run the trainer, perform post-training evaluation, and save the model both locally and on the Hugging Face Hub.
 
@@ -712,9 +712,77 @@ As a reminder, I used the extremely efficient [`sentence-transformers/static-ret
 | [**tomaarsen/reranker-ModernBERT-base-gooaq-bce**](https://huggingface.co/tomaarsen/reranker-ModernBERT-base-gooaq-bce)   | **150M**         | **77.14**                            | **83.51**                                            |
 | [**tomaarsen/reranker-ModernBERT-large-gooaq-bce**](https://huggingface.co/tomaarsen/reranker-ModernBERT-large-gooaq-bce) | **396M**         | **79.42**                            | **85.81**                                            |
 
+<details><summary>Click to see the Evaluation Script & datasets</summary>
+
+Here is the evaluation script:
+```python
+import logging
+from pprint import pprint
+from datasets import load_dataset
+
+from sentence_transformers.cross_encoder import CrossEncoder
+from sentence_transformers.cross_encoder.evaluation import CrossEncoderRerankingEvaluator
+
+# Set the log level to INFO to get more information
+logging.basicConfig(format="%(asctime)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S", level=logging.INFO)
+
+
+def main():
+    model_name = "tomaarsen/reranker-ModernBERT-base-gooaq-bce"
+    eval_batch_size = 64
+
+    # 1. Load a model to evaluate
+    model = CrossEncoder(model_name)
+
+    # 2. Load the GooAQ dataset: https://huggingface.co/datasets/tomaarsen/gooaq-reranker-blogpost-datasets
+    logging.info("Read the gooaq reranking dataset")
+    hard_eval_dataset = load_dataset("tomaarsen/gooaq-reranker-blogpost-datasets", "rerank", split="eval")
+
+    # 4. Create reranking evaluators. We use `always_rerank_positives=False` for a realistic evaluation
+    # where only all top 30 documents are reranked, and `always_rerank_positives=True` for an evaluation
+    # where the positive answer is always reranked as well.
+    samples = [
+        {
+            "query": sample["question"],
+            "positive": [sample["answer"]],
+            "documents": [sample[column_name] for column_name in hard_eval_dataset.column_names[2:]],
+        }
+        for sample in hard_eval_dataset
+    ]
+    reranking_evaluator = CrossEncoderRerankingEvaluator(
+        samples=samples,
+        batch_size=eval_batch_size,
+        name="gooaq-dev-realistic",
+        always_rerank_positives=False,
+    )
+    realistic_results = reranking_evaluator(model)
+    pprint(realistic_results)
+
+    reranking_evaluator = CrossEncoderRerankingEvaluator(
+        samples=samples,
+        batch_size=eval_batch_size,
+        name="gooaq-dev-evaluation",
+        always_rerank_positives=True,
+    )
+    evaluation_results = reranking_evaluator(model)
+    pprint(evaluation_results)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+Which uses the `rerank` subset from my [`tomaarsen/gooaq-reranker-blogpost-datasets`](https://huggingface.co/datasets/tomaarsen/gooaq-reranker-blogpost-datasets) dataset. This dataset contains:
+* `pair` subset, `train` split: 99k training samples taken directly from [GooAQ](https://huggingface.co/datasets/sentence-transformers/gooaq). This is not directly used for training, but for preparing the `hard-labeled-pair` subset, which is used in training.
+* `pair` subset, `eval` split: 1k training samples taken directly from [GooAQ](https://huggingface.co/datasets/sentence-transformers/gooaq), no overlap with the previous 99k. This is not directly used for evaluation, but used to prepare the `rerank` subset, which is used in evaluation.
+* `hard-labeled-pair` subset, `train` split: 578k labeled pairs used for training, by mining with [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) using the 99k samples from the `pair` subset & `train` split. This dataset is used in training.
+* `rerank` subset, `eval` split: 1k samples with question, answer, and exactly 30 documents as retrieved by [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) using the full 100k train and evaluation answers from my subset of [GooAQ](https://huggingface.co/datasets/sentence-transformers/gooaq). This ranking already has an NDCG@10 of 59.12.
+
+</detais>
+
 ![Model size vs NDCG for Rerankers on GooAQ](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-reranker/reranker_gooaq_model_size_ndcg.png)
 
-With just 100k out of 3 million training pairs from the [gooaq dataset](https://huggingface.co/datasets/sentence-transformers/gooaq) and just 30 minutes of training on my RTX 3090, my small 150M [tomaarsen/reranker-ModernBERT-base-gooaq-bce](https://huggingface.co/tomaarsen/reranker-ModernBERT-base-gooaq-bce) was able to handily outperform every single <1B parameter general-purpose reranker. The larger [tomaarsen/reranker-ModernBERT-large-gooaq-bce](https://huggingface.co/tomaarsen/reranker-ModernBERT-large-gooaq-bce) took less than an hour to train, and is in a league of its own with a massive 79.42 NDCG@10 in the realistic setting. The GooAQ training and evaluation dataset aligns very well with what these baselines were trained for, so the difference should be even larger when training for a more niche domain.
+With just 99k out of 3 million training pairs from the [gooaq dataset](https://huggingface.co/datasets/sentence-transformers/gooaq) and just 30 minutes of training on my RTX 3090, my small 150M [tomaarsen/reranker-ModernBERT-base-gooaq-bce](https://huggingface.co/tomaarsen/reranker-ModernBERT-base-gooaq-bce) was able to handily outperform every single <1B parameter general-purpose reranker. The larger [tomaarsen/reranker-ModernBERT-large-gooaq-bce](https://huggingface.co/tomaarsen/reranker-ModernBERT-large-gooaq-bce) took less than an hour to train, and is in a league of its own with a massive 79.42 NDCG@10 in the realistic setting. The GooAQ training and evaluation dataset aligns very well with what these baselines were trained for, so the difference should be even larger when training for a more niche domain.
 
 Note that this does not mean that [tomaarsen/reranker-ModernBERT-large-gooaq-bce](https://huggingface.co/tomaarsen/reranker-ModernBERT-large-gooaq-bce) is the strongest model here on _all_ domains: It's simply the strongest in _our_ domain. This is totally fine, as we just need this reranker to work well on our data.
 
