@@ -5765,7 +5765,7 @@
   title: "Accelerating LLM Inference with TGI on Intel Gaudi"
   author: baptistecolle
   thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
-  date: March 19, 2025
+  date: March 25, 2025
   tags:
     - tgi
     - intel
