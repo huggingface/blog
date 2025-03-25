@@ -11,7 +11,7 @@ authors:
 
 Finetuning reranker models involves several components: datasets, loss functions, training arguments, evaluators, and the trainer class itself. I'll have a look at each of these components, accompanied by practical examples of they can be used for finetuning strong reranker models. 
 
-Lastly, in the [Evaluation](#evaluation) section, I'll show you that my small finetuned [tomaarsen/reranker-ModernBERT-base-gooaq-bce](https://huggingface.co/tomaarsen/reranker-ModernBERT-base-gooaq-bce) reranker model that I trained alongside this blogpost easily outperforms the 11 most commonly used public reranker models on my evaluation dataset. It even beats models that are 4x bigger.
+Lastly, in the [Evaluation](#evaluation) section, I'll show you that my small finetuned [tomaarsen/reranker-ModernBERT-base-gooaq-bce](https://huggingface.co/tomaarsen/reranker-ModernBERT-base-gooaq-bce) reranker model that I trained alongside this blogpost easily outperforms the 13 most commonly used public reranker models on my evaluation dataset. It even beats models that are 4x bigger.
 
 ![Model size vs NDCG for Rerankers on GooAQ](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-reranker/reranker_gooaq_model_size_ndcg.png)
 
@@ -636,7 +636,7 @@ In this example I'm finetuning from [`answerdotai/ModernBERT-base`](https://hugg
 
 I use the `BinaryCrossEntropyLoss`, which is well suited for these labeled pairs. I also set up 2 forms of evaluation: `CrossEncoderNanoBEIREvaluator` which evaluates against the NanoBEIR benchmark and `CrossEncoderRerankingEvaluator` which evaluates the performance of reranking the top 30 results from the aforementioned static embedding model. Afterwards, I defined a fairly standard set of hyperparameters, including learning rates, warmup ratios, bf16, loading the best model at the end, and some debugging parameters. Lastly, I run the trainer, perform post-training evaluation, and save the model both locally and on the Hugging Face Hub.
 
-After running this script, the [tomaarsen/reranker-ModernBERT-base-gooaq-bce](https://huggingface.co/tomaarsen/reranker-ModernBERT-base-gooaq-bce) model was uploaded for me. See the upcoming [Evaluation](#evaluation) section with evidence that this model outperformed 11 commonly used open-source alternatives, including much bigger models.
+After running this script, the [tomaarsen/reranker-ModernBERT-base-gooaq-bce](https://huggingface.co/tomaarsen/reranker-ModernBERT-base-gooaq-bce) model was uploaded for me. See the upcoming [Evaluation](#evaluation) section with evidence that this model outperformed 13 commonly used open-source alternatives, including much bigger models.
 
 Evaluation results are automatically stored in the generated model card upon saving a model, alongside the base model, language, license, evaluation results, training & evaluation dataset info, hyperparameters, training logs, and more. Without any effort, your uploaded models should contain all the information that your potential users would need to determine whether your model is suitable for them.
 
