@@ -778,7 +778,7 @@ Which uses the `rerank` subset from my [`tomaarsen/gooaq-reranker-blogpost-datas
 * `hard-labeled-pair` subset, `train` split: 578k labeled pairs used for training, by mining with [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) using the 99k samples from the `pair` subset & `train` split. This dataset is used in training.
 * `rerank` subset, `eval` split: 1k samples with question, answer, and exactly 30 documents as retrieved by [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) using the full 100k train and evaluation answers from my subset of [GooAQ](https://huggingface.co/datasets/sentence-transformers/gooaq). This ranking already has an NDCG@10 of 59.12.
 
-</detais>
+</details>
 
 ![Model size vs NDCG for Rerankers on GooAQ](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-reranker/reranker_gooaq_model_size_ndcg.png)
 
