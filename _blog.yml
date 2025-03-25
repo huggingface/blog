@@ -5739,6 +5739,16 @@
     - guide
     - cloud
     - inference
+    
+- local: gradio-dataframe-upgrade 
+  title: "Introducing Gradio's new Dataframe!"
+  author: hmb
+  thumbnail: /blog/assets/gradio-dataframe-update/thumbnail.png  
+  date: March 24, 2025
+  tags:
+    - gradio
+    - open-source
+    - guide
 
 - local: train-reranker
   title: "Training and Finetuning Reranker Models with Sentence Transformers v4"
