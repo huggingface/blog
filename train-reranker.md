@@ -7,7 +7,7 @@ authors:
 
 # Training and Finetuning Reranker Models with Sentence Transformers v4
 
-[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding and reranker models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more. Its v4.0 update introducing a new training approach for rerankers, also known as cross-encoder models, similar to what the v3.0 update introduced for embedding models. In this blogpost, I'll show you how to use it to finetune a reranker model that beats all existing options on exactly your data. This method can also be used to train extremely strong new reranker models from scratch.
+[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding and reranker models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more. Its v4.0 update introduces a new training approach for rerankers, also known as cross-encoder models, similar to what the v3.0 update introduced for embedding models. In this blogpost, I'll show you how to use it to finetune a reranker model that beats all existing options on exactly your data. This method can also train extremely strong new reranker models from scratch.
 
 Finetuning reranker models involves several components: datasets, loss functions, training arguments, evaluators, and the trainer class itself. I'll have a look at each of these components, accompanied by practical examples of they can be used for finetuning strong reranker models. 
 
@@ -47,7 +47,7 @@ If you're interested in finetuning embedding models instead, then consider readi
 
 Reranker models, often implemented using Cross Encoder architectures, are designed to evaluate the relevance between pairs of texts (e.g., a query and a document, or two sentences). Unlike Sentence Transformer (a.k.a. bi-encoders, embedding models), which independently embed each text into vectors and compute similarity via a distance metric, Cross Encoder process the paired texts together through a shared neural network, resulting in one output score. By letting the two texts attend to each other, Cross Encoder models can reach stronger performance than embedding models.
 
-However, this strength comes with a trade-off: Cross Encoder models are slower as they process every possible pair of texts (e.g., 10 queries with 500 candidate documents requires 5,000 computations instead of 510 for embedding models). This makes them less efficient for large-scale initial retrieval but ideal for reranking: refining the top-k results first identified by faster Sentence Transformer models. This 2-stage "retrieve and rerank" approach is commonly used in the strongest search systems.
+However, this strength comes with a trade-off: Cross Encoder models are slower as they process every possible pair of texts (e.g., 10 queries with 500 candidate documents requires 5,000 computations instead of 510 for embedding models). This makes them less efficient for large-scale initial retrieval but ideal for reranking: refining the top-k results first identified by faster Sentence Transformer models. The strongest search systems commonly use this 2-stage "retrieve and rerank" approach.
 
 ```mermaid
 graph TD
@@ -76,7 +76,7 @@ Throughout this blogpost, I'll use "reranker model" and "Cross Encoder model" in
 Reranker models are often tasked with a challenging problem: 
 > Which of these $k$ highly-related documents answers the query the best?
 
-General-purpose reranker models are trained to perform adequately on this exact question in a wide range of domains and topics, preventing it from reaching its maximum potential on your specific domain. Through finetuning, the model can learn to focus exclusively on the domain and/or language that matters for you.
+General-purpose reranker models are trained to perform adequately on this exact question in a wide range of domains and topics, preventing it from reaching its maximum potential in your specific domain. Through finetuning, the model can learn to focus exclusively on the domain and/or language that matters to you.
 
 In the [Evaluation](#evaluation) section end of this blogpost, I'll show that training a model on your domain can outperform any general-purpose reranker model, even if those baselines are much bigger. Don't underestimate the power of finetuning on your domain!
 
