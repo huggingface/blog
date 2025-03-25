@@ -49,25 +49,30 @@ Reranker models, often implemented using Cross Encoder architectures, are design
 
 However, this strength comes with a trade-off: Cross Encoder models are slower as they process every possible pair of texts (e.g., 10 queries with 500 candidate documents requires 5,000 computations instead of 510 for embedding models). This makes them less efficient for large-scale initial retrieval but ideal for reranking: refining the top-k results first identified by faster Sentence Transformer models. The strongest search systems commonly use this 2-stage "retrieve and rerank" approach.
 
+<!--
+Note, -\-> is just to allow the comment
 ```mermaid
 graph TD
     subgraph RM[Reranker Model]
     direction TB
-    C["Input Pair: <br>(Text A, Text B)"] -->|predict| D["Similarity Score<br>(e.g., 0–1 relevance)"]
+    C["Input Pair: <br>(Text A, Text B)"] -\->|predict| D["Similarity Score<br>(e.g., 0–1 relevance)"]
     end
 
     subgraph EM[Embedding Model]
     direction TB
-    A[Input: Text A] -->|encode| E[Embedding A]
-    B[Input: Text B] -->|encode| F[Embedding B]
-    G[Calculate Similarity] -->|e.g. cosine similarity| H["Similarity Score <br>(e.g., 0–1 relevance)"]
-    E --> G
-    F --> G
+    A[Input: Text A] -\->|encode| E[Embedding A]
+    B[Input: Text B] -\->|encode| F[Embedding B]
+    G[Calculate Similarity] -\->|e.g. cosine similarity| H["Similarity Score <br>(e.g., 0–1 relevance)"]
+    E -\-> G
+    F -\-> G
     end
 
     style EM fill:#cce5ff,stroke:#555,stroke-width:2px
     style RM fill:#ffe6cc,stroke:#555,stroke-width:2px
 ```
+-->
+
+![Embedding vs Reranker Models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-reranker/embedding_vs_reranker_model.png)
 
 Throughout this blogpost, I'll use "reranker model" and "Cross Encoder model" interchangeably.
 
