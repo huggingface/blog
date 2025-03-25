@@ -1,6 +1,6 @@
 ---
 title: "🚀 Accelerating LLM Inference with TGI on Intel Gaudi"
-thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+thumbnail: /blog/assets/intel-gaudi-backend-for-tgi/tgi-gaudi-thumbnail.png
 authors:
 - user: baptistecolle
 ---
@@ -15,8 +15,8 @@ We've fully integrated Gaudi support into TGI's main codebase in PR [#3091](http
 
 This integration supports Intel's full line of Gaudi hardware:
 - Gaudi1 💻: Available on [AWS EC2 DL1 instances](https://aws.amazon.com/ec2/instance-types/dl1/)
-- Gaudi2 💻💻: Available on [Intel Dev Cloud](https://ai.cloud.intel.com/)
-- Gaudi3 💻💻💻: Available on [Intel Dev Cloud](https://ai.cloud.intel.com/) and [IBM Cloud](https://www.ibm.com/cloud)
+- Gaudi2 💻💻: Available on [Intel Tiber AI Cloud](https://ai.cloud.intel.com/)
+- Gaudi3 💻💻💻: Available on [Intel Tiber AI Cloud](https://ai.cloud.intel.com/) and [IBM Cloud](https://www.ibm.com/cloud)
 
 ## 🌟 Why This Matters 
 
