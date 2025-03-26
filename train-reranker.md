@@ -9,7 +9,7 @@ authors:
 
 [Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding and reranker models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more. Its v4.0 update introduces a new training approach for rerankers, also known as cross-encoder models, similar to what the v3.0 update introduced for embedding models. In this blogpost, I'll show you how to use it to finetune a reranker model that beats all existing options on exactly your data. This method can also train extremely strong new reranker models from scratch.
 
-Finetuning reranker models involves several components: datasets, loss functions, training arguments, evaluators, and the trainer class itself. I'll have a look at each of these components, accompanied by practical examples of they can be used for finetuning strong reranker models. 
+Finetuning reranker models involves several components: datasets, loss functions, training arguments, evaluators, and the trainer class itself. I'll have a look at each of these components, accompanied by practical examples of how they can be used for finetuning strong reranker models. 
 
 Lastly, in the [Evaluation](#evaluation) section, I'll show you that my small finetuned [tomaarsen/reranker-ModernBERT-base-gooaq-bce](https://huggingface.co/tomaarsen/reranker-ModernBERT-base-gooaq-bce) reranker model that I trained alongside this blogpost easily outperforms the 13 most commonly used public reranker models on my evaluation dataset. It even beats models that are 4x bigger. 
 
@@ -47,7 +47,7 @@ If you're interested in finetuning embedding models instead, then consider readi
 
 ## What are Reranker models?
 
-Reranker models, often implemented using Cross Encoder architectures, are designed to evaluate the relevance between pairs of texts (e.g., a query and a document, or two sentences). Unlike Sentence Transformer (a.k.a. bi-encoders, embedding models), which independently embed each text into vectors and compute similarity via a distance metric, Cross Encoder process the paired texts together through a shared neural network, resulting in one output score. By letting the two texts attend to each other, Cross Encoder models can outperform embedding models.
+Reranker models, often implemented using Cross Encoder architectures, are designed to evaluate the relevance between pairs of texts (e.g., a query and a document, or two sentences). Unlike Sentence Transformers (a.k.a. bi-encoders, embedding models), which independently embed each text into vectors and compute similarity via a distance metric, Cross Encoder process the paired texts together through a shared neural network, resulting in one output score. By letting the two texts attend to each other, Cross Encoder models can outperform embedding models.
 
 However, this strength comes with a trade-off: Cross Encoder models are slower as they process every possible pair of texts (e.g., 10 queries with 500 candidate documents requires 5,000 computations instead of 510 for embedding models). This makes them less efficient for large-scale initial retrieval but ideal for reranking: refining the top-k results first identified by faster Sentence Transformer models. The strongest search systems commonly use this 2-stage "retrieve and rerank" approach.
 
@@ -81,9 +81,9 @@ Throughout this blogpost, I'll use "reranker model" and "Cross Encoder model" in
 ## Why Finetune?
 
 Reranker models are often tasked with a challenging problem: 
-> Which of these $k$ highly-related documents answers the query the best?
+> Which of these \\(k\\) highly-related documents answers the query the best?
 
-General-purpose reranker models are trained to perform adequately on this exact question in a wide range of domains and topics, preventing it from reaching its maximum potential in your specific domain. Through finetuning, the model can learn to focus exclusively on the domain and/or language that matters to you.
+General-purpose reranker models are trained to perform adequately on this exact question in a wide range of domains and topics, preventing them from reaching their maximum potential in your specific domain. Through finetuning, the model can learn to focus exclusively on the domain and/or language that matters to you.
 
 In the [Evaluation](#evaluation) section end of this blogpost, I'll show that training a model on your domain can outperform any general-purpose reranker model, even if those baselines are much bigger. Don't underestimate the power of finetuning on your domain!
 
@@ -187,7 +187,7 @@ A concise example is:
 * **Soft Negative**: The Cache River Bridge is a Parker pony truss that spans the Cache River between Walnut Ridge and Paragould, Arkansas.
 * **Hard Negative**: The Fuji apple is an apple cultivar developed in the late 1930s, and brought to market in 1962.
 
-The strongest CrossEncoder models are generally trained to recognize hard negatives, and so it's valuable to be able to "mine" hard negatives. Sentence Transformers supports a strong [`mine_hard_negatives`](https://sbert.net/docs/package_reference/util.html#sentence_transformers.util.mine_hard_negatives) function that can assist, given a dataset of query-answer pairs:
+The strongest CrossEncoder models are generally trained to recognize hard negatives, and so it's valuable to be able to "mine" hard negatives to train the with. Sentence Transformers supports a strong [`mine_hard_negatives`](https://sbert.net/docs/package_reference/util.html#sentence_transformers.util.mine_hard_negatives) function that can assist, given a dataset of query-answer pairs:
 
 ```python
 from datasets import load_dataset
@@ -195,7 +195,7 @@ from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import mine_hard_negatives
 
 # Load the GooAQ dataset: https://huggingface.co/datasets/sentence-transformers/gooaq
-train_dataset = load_dataset("sentence-transformers/gooaq", split=f"train").select(range(100_000))
+train_dataset = load_dataset("sentence-transformers/gooaq", split="train").select(range(100_000))
 print(train_dataset)
 
 # Mine hard negatives using a very efficient embedding model
@@ -639,9 +639,9 @@ if __name__ == "__main__":
     main()
 ```
 
-In this example I'm finetuning from [`answerdotai/ModernBERT-base`](https://huggingface.co/answerdotai/ModernBERT-base), a base model that is not yet a Cross Encoder model. This generally requires more training data than finetuning an existing reranker model like [`Alibaba-NLP/gte-multilingual-reranker-base`](https://huggingface.co/Alibaba-NLP/gte-multilingual-reranker-base). I'm using 99k query-answer pairs from the [GooAQ dataset](https://huggingface.co/datasets/sentence-transformers/gooaq), after which I mine hard negatives using the [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) embedding model. This results in 578k labeled pairs, i.e. 99k positive pairs (i.e. label=1) and 479k negative pairs (i.e. label=0).
+In this example I'm finetuning from [`answerdotai/ModernBERT-base`](https://huggingface.co/answerdotai/ModernBERT-base), a base model that is not yet a Cross Encoder model. This generally requires more training data than finetuning an existing reranker model like [`Alibaba-NLP/gte-multilingual-reranker-base`](https://huggingface.co/Alibaba-NLP/gte-multilingual-reranker-base). I'm using 99k query-answer pairs from the [GooAQ dataset](https://huggingface.co/datasets/sentence-transformers/gooaq), after which I mine hard negatives using the [sentence-transformers/static-retrieval-mrl-en-v1](https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1) embedding model. This results in 578k labeled pairs: 99k positive pairs (i.e. label=1) and 479k negative pairs (i.e. label=0).
 
-I use the `BinaryCrossEntropyLoss`, which is well suited for these labeled pairs. I also set up 2 forms of evaluation: `CrossEncoderNanoBEIREvaluator` which evaluates against the NanoBEIR benchmark and `CrossEncoderRerankingEvaluator` which evaluates the performance of reranking the top 30 results from the aforementioned static embedding model. Afterwards, I defined a fairly standard set of hyperparameters, including learning rates, warmup ratios, bf16, loading the best model at the end, and some debugging parameters. Lastly, I run the trainer, perform post-training evaluation, and save the model both locally and on the Hugging Face Hub.
+I use the `BinaryCrossEntropyLoss`, which is well suited for these labeled pairs. I also set up 2 forms of evaluation: `CrossEncoderNanoBEIREvaluator` which evaluates against the NanoBEIR benchmark and `CrossEncoderRerankingEvaluator` which evaluates the performance of reranking the top 30 results from the aforementioned static embedding model. Afterwards, I define a fairly standard set of hyperparameters, including learning rates, warmup ratios, bf16, loading the best model at the end, and some debugging parameters. Lastly, I run the trainer, perform post-training evaluation, and save the model both locally and on the Hugging Face Hub.
 
 After running this script, the [tomaarsen/reranker-ModernBERT-base-gooaq-bce](https://huggingface.co/tomaarsen/reranker-ModernBERT-base-gooaq-bce) model was uploaded for me. See the upcoming [Evaluation](#evaluation) section with evidence that this model outperformed 13 commonly used open-source alternatives, including much bigger models. I also ran the model with [`answerdotai/ModernBERT-large`](https://huggingface.co/answerdotai/ModernBERT-large) as the base model, resulting in [tomaarsen/reranker-ModernBERT-large-gooaq-bce](https://huggingface.co/tomaarsen/reranker-ModernBERT-large-gooaq-bce).
 
