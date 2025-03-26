@@ -474,14 +474,17 @@ import torch
 from datasets import load_dataset
 
 from sentence_transformers import SentenceTransformer
-from sentence_transformers.cross_encoder import CrossEncoder, CrossEncoderModelCardData
+from sentence_transformers.cross_encoder import (
+    CrossEncoder,
+    CrossEncoderModelCardData,
+    CrossEncoderTrainer,
+    CrossEncoderTrainingArguments,
+)
 from sentence_transformers.cross_encoder.evaluation import (
     CrossEncoderNanoBEIREvaluator,
     CrossEncoderRerankingEvaluator,
 )
 from sentence_transformers.cross_encoder.losses.BinaryCrossEntropyLoss import BinaryCrossEntropyLoss
-from sentence_transformers.cross_encoder.trainer import CrossEncoderTrainer
-from sentence_transformers.cross_encoder.training_args import CrossEncoderTrainingArguments
 from sentence_transformers.evaluation.SequentialEvaluator import SequentialEvaluator
 from sentence_transformers.util import mine_hard_negatives
 
