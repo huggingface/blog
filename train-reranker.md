@@ -33,7 +33,7 @@ If you're interested in finetuning embedding models instead, then consider readi
 - [Loss Function](#loss-function)
 - [Training Arguments](#training-arguments)
 - [Evaluator](#evaluator)
-  * [EmbeddingSimilarityEvaluator with STSb](#embeddingsimilarityevaluator-with-stsb)
+  * [CrossEncoderCorrelationEvaluator with STSb](#crossencodercorrelationevaluator-with-stsb)
   * [CrossEncoderRerankingEvaluator with GooAQ mined negatives](#crossencoderrerankingevaluator-with-gooaq-mined-negatives)
 - [Trainer](#trainer)
   * [Callbacks](#callbacks)
