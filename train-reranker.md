@@ -334,7 +334,7 @@ You can also use [`SequentialEvaluator`](https://sbert.net/docs/package_referenc
 
 Sometimes you don't have the required evaluation data to prepare one of these evaluators on your own, but you still want to track how well the model performs on some common benchmarks. In that case, you can use these evaluators with data from Hugging Face.
 
-### EmbeddingSimilarityEvaluator with STSb
+### CrossEncoderCorrelationEvaluator with STSb
 
 The STS Benchmark (a.k.a. STSb) is a commonly used benchmarking dataset to measure the model's understanding of semantic textual similarity of short texts like "A man is feeding a mouse to a snake.".
 
@@ -342,21 +342,24 @@ Feel free to browse the [sentence-transformers/stsb](https://huggingface.co/data
 
 ```python
 from datasets import load_dataset
-from sentence_transformers.evaluation import EmbeddingSimilarityEvaluator, SimilarityFunction
+from sentence_transformers import CrossEncoder
+from sentence_transformers.cross_encoder.evaluation import CrossEncoderCorrelationEvaluator
 
-# Load the STSB dataset
+# Load a model
+model = CrossEncoder("cross-encoder/stsb-TinyBERT-L4")
+
+# Load the STSB dataset (https://huggingface.co/datasets/sentence-transformers/stsb)
 eval_dataset = load_dataset("sentence-transformers/stsb", split="validation")
+pairs = list(zip(eval_dataset["sentence1"], eval_dataset["sentence2"]))
 
 # Initialize the evaluator
-dev_evaluator = EmbeddingSimilarityEvaluator(
-    sentences1=eval_dataset["sentence1"],
-    sentences2=eval_dataset["sentence2"],
+dev_evaluator = CrossEncoderCorrelationEvaluator(
+    sentence_pairs=pairs,
     scores=eval_dataset["score"],
-    main_similarity=SimilarityFunction.COSINE,
-    name="sts-dev",
+    name="sts_dev",
 )
-# Run evaluation manually:
-# print(dev_evaluator(model))
+# You can run evaluation like so:
+# results = dev_evaluator(model)
 
 # Later, you can provide this evaluator to the trainer to get results during training
 ```
