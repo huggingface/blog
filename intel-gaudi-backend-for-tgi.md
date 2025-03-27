@@ -13,7 +13,7 @@ We're excited to announce the native integration of Intel Gaudi hardware support
 
 We've fully integrated Gaudi support into TGI's main codebase in PR [#3091](https://github.com/huggingface/text-generation-inference/pull/3091). Previously, we maintained a separate fork for Gaudi devices at [tgi-gaudi](https://github.com/huggingface/tgi-gaudi). This was cumbersome for users and prevented us from supporting the latest TGI features at launch. Now using the new [TGI multi-backend architecture](https://huggingface.co/blog/tgi-multi-backend), we support Gaudi directly on TGI – no more finicking on a custom repository 🙌
 
-This integration supports Intel's full line of Gaudi hardware:
+This integration supports Intel's full line of [Gaudi hardware](https://www.intel.com/content/www/us/en/developer/platform/gaudi/develop/overview.html):
 - Gaudi1 💻: Available on [AWS EC2 DL1 instances](https://aws.amazon.com/ec2/instance-types/dl1/)
 - Gaudi2 💻💻: Available on [Intel Tiber AI Cloud](https://ai.cloud.intel.com/) and [Denvr Dataworks](https://www.denvrdata.com/guadi2)
 - Gaudi3 💻💻💻: Available on [Intel Tiber AI Cloud](https://ai.cloud.intel.com/), [IBM Cloud](https://www.ibm.com/cloud) and from OEM such as [Dell](https://www.dell.com/en-us/lp/intel-gaudi), [HP](https://www.hpe.com/us/en/compute/proliant-xd680.html) and [Supermicro](https://www.supermicro.com/en/accelerators/intel)
