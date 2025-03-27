@@ -3,6 +3,12 @@ title: "🚀 Accelerating LLM Inference with TGI on Intel Gaudi"
 thumbnail: /blog/assets/intel-gaudi-backend-for-tgi/tgi-gaudi-thumbnail.png
 authors:
 - user: baptistecolle
+- user: regisss
+- user: IlyasMoutawwakil
+- user: echarlaix
+- user: kding1
+  guest: true
+  org: intel
 ---
 
 # 🚀 Accelerating LLM Inference with TGI on Intel Gaudi
