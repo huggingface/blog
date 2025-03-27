@@ -15,8 +15,10 @@ We've fully integrated Gaudi support into TGI's main codebase in PR [#3091](http
 
 This integration supports Intel's full line of Gaudi hardware:
 - Gaudi1 💻: Available on [AWS EC2 DL1 instances](https://aws.amazon.com/ec2/instance-types/dl1/)
-- Gaudi2 💻💻: Available on [Intel Tiber AI Cloud](https://ai.cloud.intel.com/)
-- Gaudi3 💻💻💻: Available on [Intel Tiber AI Cloud](https://ai.cloud.intel.com/) and [IBM Cloud](https://www.ibm.com/cloud)
+- Gaudi2 💻💻: Available on [Intel Tiber AI Cloud](https://ai.cloud.intel.com/) and [Denvr Dataworks](https://www.denvrdata.com/guadi2)
+- Gaudi3 💻💻💻: Available on [Intel Tiber AI Cloud](https://ai.cloud.intel.com/), [IBM Cloud](https://www.ibm.com/cloud) and from OEM such as [Dell](https://www.dell.com/en-us/lp/intel-gaudi), [HP](https://www.hpe.com/us/en/compute/proliant-xd680.html) and [Supermicro](https://www.supermicro.com/en/accelerators/intel)
+
+You can also find more information on Gaudi hardware on the [Intel's Gaudi product page](https://www.intel.com/content/www/us/en/developer/platform/gaudi/develop/overview.html)
 
 ## 🌟 Why This Matters 
 
@@ -61,6 +63,8 @@ For comprehensive documentation on using TGI with Gaudi, including how-to guides
 We have optimized the following models for both single and multi-card configurations. This means these models run as fast as possible on Intel Gaudi. We've specifically optimized the modeling code to target Intel Gaudi hardware, ensuring we offer the best performance and fully utilize Gaudi's capabilities:
 
 - Llama 3.1 (8B and 70B)
+- Llama 3.3 (70B)
+- Llama 3.2 Vision (11B)
 - Mistral (7B)
 - Mixtral (8x7B)
 - CodeLlama (13B)
@@ -69,8 +73,11 @@ We have optimized the following models for both single and multi-card configurat
 - Starcoder and Starcoder2 
 - Gemma (7B) 
 - Llava-v1.6-Mistral-7B 
+- Phi-2
 
 🏃‍♂️ We also offer many advanced features on Gaudi hardware, such as FP8 quantization thanks to [Intel Neural Compressor (INC)](https://docs.habana.ai/en/latest/PyTorch/Inference_on_PyTorch/Quantization/Inference_Using_FP8.html), enabling even greater performance optimizations.
+
+✨ Coming soon! We're excited to expand our model lineup with cutting-edge additions including DeepSeek-r1/v3, QWen-VL, and more powerful models to power your AI applications! 🚀
 
 ## 💪 Getting Involved 
 
