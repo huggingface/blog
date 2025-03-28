@@ -24,7 +24,7 @@ This integration supports Intel's full line of [Gaudi hardware](https://www.inte
 - Gaudi2 💻💻: Available on [Intel Tiber AI Cloud](https://ai.cloud.intel.com/) and [Denvr Dataworks](https://www.denvrdata.com/guadi2)
 - Gaudi3 💻💻💻: Available on [Intel Tiber AI Cloud](https://ai.cloud.intel.com/), [IBM Cloud](https://www.ibm.com/cloud) and from OEM such as [Dell](https://www.dell.com/en-us/lp/intel-gaudi), [HP](https://www.hpe.com/us/en/compute/proliant-xd680.html) and [Supermicro](https://www.supermicro.com/en/accelerators/intel)
 
-You can also find more information on Gaudi hardware on the [Intel's Gaudi product page](https://www.intel.com/content/www/us/en/developer/platform/gaudi/develop/overview.html)
+You can also find more information on Gaudi hardware on [Intel's Gaudi product page](https://www.intel.com/content/www/us/en/developer/platform/gaudi/develop/overview.html)
 
 ## 🌟 Why This Matters 
 
