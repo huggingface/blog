@@ -5764,7 +5764,7 @@
 - local: intel-gaudi-backend-for-tgi
   title: "Accelerating LLM Inference with TGI on Intel Gaudi"
   author: baptistecolle
-  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  thumbnail: /blog/assets/intel-gaudi-backend-for-tgi/tgi-gaudi-thumbnail.png
   date: March 28, 2025
   tags:
     - tgi
