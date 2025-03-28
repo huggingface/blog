@@ -8,7 +8,7 @@ authors:
 - user: echarlaix
 - user: kding1
   guest: true
-  org: intel
+  org: Intel
 ---
 
 # 🚀 Accelerating LLM Inference with TGI on Intel Gaudi
