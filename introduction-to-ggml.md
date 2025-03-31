@@ -367,7 +367,7 @@ int main(void) {
 
     // 10. Retrieve results (output tensors)
     // in this example, output tensor is always the last tensor in the graph
-    struct ggml_tensor * result = gf->nodes[gf->n_nodes - 1];
+    struct ggml_tensor * result = ggml_graph_node(gf, -1);
     float * result_data = malloc(ggml_nbytes(result));
     // because the tensor data is stored in device buffer, we need to copy it back to RAM
     ggml_backend_tensor_get(result, result_data, 0, ggml_nbytes(result));
