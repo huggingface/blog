@@ -9,7 +9,7 @@ authors:
 
 # How Hugging Face Scaled Secrets Management for AI Infrastructure
 
-Hugging Face has become synonymous with advancing AI at scale. With over 4 million builders deploying models on the Hub, the rapid growth of the platform necessitated a rethinking of how sensitive configuration data—secrets—are managed.
+Hugging Face has become synonymous with advancing AI at scale. With over 4 million builders deploying models on the Hub, the rapid growth of the platform necessitated a rethinking of how sensitive configuration data —secrets— are managed.
 
 Last year, the engineering teams set out to improve the handling of their secrets and credentials. After evaluating tools like HashiCorp Vault, they ultimately chose [Infisical](https://infisical.com/).
 
@@ -17,14 +17,14 @@ This case study details their migration to Infisical, explains how they integrat
 
 ## Background
 
-As Hugging Face's infrastructure evolved from an AWS-only setup to a multi-cloud environment that includes Azure and GCP, the engineering team needed a more agile, secure, and centralized way to manage secrets. Instead of reworking legacy systems or paying for heavyweight solutions like HashiCorp Vault, they turned to Infisical due to its developer-friendly workflows, multi-cloud abstraction, and robust security capabilities.
+As Hugging Face's infrastructure evolved from an AWS-only setup to a multi-cloud environment that includes Azure and GCP, the engineering team needed a more agile, secure, and centralized way to manage secrets. Instead of reworking legacy systems or adopting heavyweight solutions like HashiCorp Vault, they turned to Infisical due to its developer-friendly workflows, multi-cloud abstraction, and robust security capabilities.
 
 The key challenges they faced were:
 
 - An increased risk of “[secret sprawl](https://infisical.com/blog/what-is-secret-sprawl)” due to inconsistent management across environments.
 - Complex permission management as the team scaled, requiring tight, role-based access controls (RBAC) integrated with the organization’s SSO (Okta).
 - Difficulties with local development where traditional [.env files](https://infisical.com/blog/stop-using-env-files) compromised both security and developer productivity.
-- The burden of manual secret rotation, which became painfully evident after a security incident involving exposed credentials.
+- The burden of manual secret rotation, which became painfully evident after a security incident that involved exposed credentials.
 
 In addition, the team needed a solution that adhered to infrastructure-as-code practices, supported project-by-project secret management, and provided a smooth balance between automation and manual control during deployments.
 
@@ -54,16 +54,14 @@ spec:
 ```
 Once the CRD is applied, the Infisical Operator continuously watches for updates. When changes are detected in Infisical, the Operator automatically updates the Kubernetes secret (`my-app-k8s-secret`).
 
-```mermaid
-graph TD
-    A[Infisical Platform] -->|Push Update| B[Infisical Operator]
-    B -->|Sync Secret| C[Kubernetes Secret (my-app-k8s-secret)]
-    C -->|Mounted in| D[Application Pod]
-    D -->|Reads| E[Environment Variables / Volumes]
-```
-Better yet, since the application's Deployment references `my-app-k8s-secret` as an environment variable source or mounted volume, the operator can automatically trigger a container reload when the the secret changes.
+<figure class="image text-center">
+    <img class="mx-auto" src="/blog/assets/infisical/infisical-operator.png" alt=" Infisical secrets management flow in Kubernetes">
+    <figcaption>Secrets management flow with Infisical: When a secret is updated in the Infisical Platform, the Infisical Operator automatically syncs the changes to the referenced Kubernetes secret, which is then made available to the application.</figcaption>
+</figure>
 
-In practice, Hugging Face engineers favor waiting for manual redeployments despite the operator’s ability to trigger container restarts automatically. This decision was driven by the need for precise control over deployments, particularly when high traffic (over 10 million requests per minute) and numerous replicas are involved.
+Better yet, since the application's Deployment references `my-app-k8s-secret` as an environment variable source or mounted volume, the Operator can automatically trigger a container reload when the secret changes.
+
+In practice, Hugging Face engineers favor waiting for manual redeployments despite the Operator’s ability to automatically trigger container restarts. This decision was driven by the need for precise control over deployments, particularly when high traffic (over 10 million requests per minute) and numerous replicas are involved.
 
 ### Local Development
 
@@ -93,9 +91,9 @@ As noted by Adrien Carreira, Head of Infrastructure at Hugging Face,
 
 ## Conclusion
 
-Hugging Face's migration to Infisical demonstrates how a technically driven, engineering-centric approach to managing secrets across multiple cloud platforms delivers significants benefits. For tackling similar challenges, using Infisical is a practical way to work more efficiently while keeping security strong.
+Hugging Face's migration to Infisical demonstrates how a technically driven, engineering-centric approach to managing secrets across multiple cloud platforms delivers significant benefits. For tackling similar challenges, using Infisical is a practical way to work more efficiently while keeping security strong.
 
-When the secure path is made the easiest path, teams can focus on building innovative products instead of of worrying about managing secrets.
+When the secure path is made the easiest path, teams can focus on building innovative products instead of worrying about managing secrets.
 
 ## Resources
 

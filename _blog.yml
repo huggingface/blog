@@ -5638,6 +5638,7 @@
     - multimodal
     - vision
     - vlm
+
 - local: jfrog
   title: "Hugging Face and JFrog partner to make AI Security more transparent"
   author: mcpotato
@@ -5684,17 +5685,6 @@
     - community
     - research
 
-- local: scaling-secrets-management
-  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"  
-  thumbnail: /blog/assets/infisical/thumbnail.png
-  author: segudev
-  guest: true
-  date: Mar 18, 2025
-  tags:
-    - security
-    - infra
-    - research
-
 - local: xet-on-the-hub
   title: "Xet is on the Hub"
   author: jsulz
@@ -5704,3 +5694,14 @@
     - storage
     - infrastructure
     - content addressed store
+
+- local: scaling-secrets-management
+  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"  
+  thumbnail: /blog/assets/infisical/thumbnail.png
+  author: segudev
+  guest: true
+  date: Mar 31, 2025
+  tags:
+    - security
+    - infra
+    - research
