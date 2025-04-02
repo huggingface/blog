@@ -41,7 +41,7 @@ We will also collaborate with the community to make courses open to users of oth
 - [Marimo](https://huggingface.co/marimo-team)  
 - [Maxime Labonne](https://huggingface.co/mlabonne)
 
-Over the coming months we want to collaborate with more authors, maintainers, and companies so we can build material in the tools you’re using.
+Over the coming months, we want to collaborate with more authors, maintainers, and companies so we can prepare material about the tools you’re using.
 
 ## Will there be interactive exercises and live sessions?
 
