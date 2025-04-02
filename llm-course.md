@@ -12,7 +12,7 @@ authors:
 
 ![image/gif](https://cdn-uploads.huggingface.co/production/uploads/62d648291fa3e4e7ae3fa6e8/I6Pq5TftMqjLOqZzKNplg.gif)
 
-Hugging Face is (re-)committing to education by expanding and updating its material on [hf.co/learn](http://hf.co/learn). The NLP course has been a cornerstone of Hugging Face and the open source AI community over the last 3 years, but it needs updating and expanding to meet the current needs of the community. 
+Education has always been at the heart of Hugging Face’s mission to democratize AI and we’re doubling down on that by giving hf.co/learn a big upgrade! Our NLP course has been a go-to resource for the Hugging Face and open-source AI community for the past 3 years, but it’s time for a refresh. We’re updating and expanding it to keep up with all the exciting stuff happening in AI (which is not easy when there are breakthroughs every week!)
 
 We felt this during the successful [agents course](https://huggingface.co/agents-course), where 100k students registered to learn about AI agents in a new, fun, and interactive way! 
 
