@@ -1,3 +1,13 @@
+---
+title: "The NLP Course is becoming the LLM Course"
+thumbnail: /blog/assets/llm-course/llm-course-rename-thumbnail.png
+authors:
+- user: burtenshaw
+- user: reach-vb
+- user: lewtun
+- user: fdaudens
+---
+
 # The NLP Course is becoming the LLM Course!
 
 ![image/gif](https://cdn-uploads.huggingface.co/production/uploads/62d648291fa3e4e7ae3fa6e8/I6Pq5TftMqjLOqZzKNplg.gif)
@@ -25,11 +35,11 @@ Yes. We will add new chapters that focus on making state-of-the-art research acc
 
 We will also collaborate with the community to make courses open to users of other libraries. In chapters 11 and 12 we collaborated with libraries and tools to make material and exercises using third party libraries. So far, we’ve worked with:  
 
-- LlamaIndex  
-- LangChain  
-- Unsloth  
-- Marimo  
-- Maxime Labonne
+- [LlamaIndex](https://huggingface.co/llamaindex)  
+- [LangChain](https://huggingface.co/langchain-ai)  
+- [Unsloth](https://huggingface.co/unsloth)  
+- [Marimo](https://huggingface.co/marimo-team)  
+- [Maxime Labonne](https://huggingface.co/mlabonne)
 
 Over the coming months we want to collaborate with more authors, maintainers, and companies so we can build material in the tools you’re using.
 

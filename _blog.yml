@@ -5773,3 +5773,14 @@
     - llm
     - inference
     - partnerships
+
+- local: llm-course
+  title: "The NLP Course is becoming the LLM Course!"
+  author: burtenshaw
+  thumbnail: /blog/assets/llm-course/llm-course-rename-thumbnail.png
+  date: April 2, 2025
+  tags:
+    - education
+    - nlp-course
+    - llm-course
+    - open-source
