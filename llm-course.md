@@ -14,7 +14,7 @@ authors:
 
 Education has always been at the heart of Hugging Face’s mission to democratize AI and we’re doubling down on that by giving hf.co/learn a big upgrade! Our NLP course has been a go-to resource for the Hugging Face and open-source AI community for the past 3 years, but it’s time for a refresh. We’re updating and expanding it to keep up with all the exciting stuff happening in AI (which is not easy when there are breakthroughs every week!)
 
-We felt this during the successful [agents course](https://huggingface.co/agents-course), where 100k students registered to learn about AI agents in a new, fun, and interactive way! 
+We felt this during the experimental [smol-course](https://github.com/huggingface/smol-course) and the massive [agents course](https://huggingface.co/agents-course), where 100k students registered to learn about AI agents in a new, fun, and interactive way! 
 
 Over the last few months we’ve expanded the LLM course with new chapters, including fine-tuning LLMs and building reasoning models like Deepseek R1. These newer chapters don’t fit under the banner of ‘NLP’ so we’ve searched for a more relevant and modern title and landed on **The LLM course.**
 
