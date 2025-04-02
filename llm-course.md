@@ -31,7 +31,7 @@ In fact, over the coming months we will update and modernise these classic chapt
 
 ## Will there be new chapters?
 
-Yes. We will add new chapters that focus on making state-of-the-art research accessible to a broader audience and compatible with tools like transformers, spaces, and the Hugging Face Hub. For example, we’ll add chapters on fine-tuning, inference, and retrieval. 
+Yes. We will add new chapters that focus on making state-of-the-art research accessible to a broader audience and compatible with tools like transformers, Spaces, and the Hugging Face Hub. For example, we’ll add chapters on fine-tuning, inference, and retrieval. 
 
 We will also collaborate with the community to make courses open to users of other libraries. In chapters 11 and 12 we collaborated with libraries and tools to make material and exercises using third party libraries. So far, we’ve worked with:  
 
