@@ -45,7 +45,7 @@ Over the coming months, we want to collaborate with more authors, maintainers, a
 
 ## Will there be interactive exercises and live sessions?
 
-Yes, when they’re useful to students. We will focus on reliable written material and coding exercises that can be relied on for years to come. But for the popular topics where students are engaging synchronously, we’ll build interactive exercises and host live sessions.
+Yes, when they’re useful to students. We will focus on reliable written material and coding exercises that will remain useful for years to come. But for the popular topics where students are engaging synchronously, we’ll build interactive exercises and host live sessions.
 
 ## What’s next?
 
