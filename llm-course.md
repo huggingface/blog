@@ -49,4 +49,4 @@ Yes, when they’re useful to students. We will focus on reliable written materi
 
 ## What’s next?
 
-If you want to get join the course or think a chapter in the course should be updated with interactive units or host a live session, then follow the [organization on the hub](https://huggingface.co/huggingface-course) and start a discussion item.
+To get involved with the course, follow the [organization on the hub](https://huggingface.co/huggingface-course) and start a discussion if you'd like to join, suggest interactive units, or propose a live session.
