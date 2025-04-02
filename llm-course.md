@@ -33,7 +33,7 @@ In fact, over the coming months we will update and modernise these classic chapt
 
 Yes. We will add new chapters that focus on making state-of-the-art research accessible to a broader audience and compatible with tools like transformers, Spaces, and the Hugging Face Hub. For example, we’ll add chapters on fine-tuning, inference, and retrieval. 
 
-We will also collaborate with the community to make courses open to users of other libraries. In chapters 11 and 12, we collaborated with libraries and tools to make materials and exercises using third-party libraries. So far, we’ve worked with:  
+We will also collaborate with the community to make courses open to users of other libraries. In [Chapter 11 on fine-tuning LLMs](https://huggingface.co/learn/nlp-course/en/chapter11/1) and [Chapter 12 on reasoning models](https://huggingface.co/learn/nlp-course/en/chapter12/1), we collaborated with libraries and tools from beyond the Hugging Face ecosystem. So far, we’ve worked with:  
 
 - [LlamaIndex](https://huggingface.co/llamaindex)  
 - [LangChain](https://huggingface.co/langchain-ai)  
