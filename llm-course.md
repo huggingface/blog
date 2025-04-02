@@ -16,7 +16,7 @@ Education has always been at the heart of Hugging Face’s mission to democratiz
 
 We felt the excitement during the experimental [smol-course](https://github.com/huggingface/smol-course) and the massive [agents course](https://huggingface.co/agents-course), where 100k students registered to learn about AI agents in a new, fun, and interactive way! 
 
-Over the last few months we’ve expanded the LLM course with new chapters, including fine-tuning LLMs and building reasoning models like Deepseek R1. These newer chapters don’t fit under the banner of ‘NLP’ so we’ve searched for a more relevant and modern title and landed on **The LLM course.**
+Over the last few months we’ve expanded the "NLP" course with new chapters, including fine-tuning LLMs and building reasoning models like Deepseek R1. These newer chapters don’t fit under the banner of ‘NLP’ so we’ve searched for a more relevant and modern title and landed on **The LLM course.**
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/62d648291fa3e4e7ae3fa6e8/an9U4x7L7rhUEFH_qgYc4.png)
 
