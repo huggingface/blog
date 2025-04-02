@@ -41,7 +41,7 @@ We want new chapters to be even more open source and closer to the community, in
 - [Marimo](https://huggingface.co/marimo-team)  
 - [Maxime Labonne](https://huggingface.co/mlabonne)
 
-Over the coming months, we want to collaborate with more authors, maintainers, and companies so we can prepare material about the tools you’re using.
+Over the coming months, we plan to expand our collaboration to include more authors, maintainers, and companies. We want our materials to cover the best tools you’re using!
 
 ## Will there be interactive exercises and live sessions?
 
