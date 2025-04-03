@@ -5773,3 +5773,14 @@
     - llm
     - inference
     - partnerships
+
+- local: scaling-secrets-management
+  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"  
+  thumbnail: /blog/assets/infisical/thumbnail.png
+  author: segudev
+  guest: true
+  date: Mar 31, 2025
+  tags:
+    - security
+    - infra
+    - partnerships
