@@ -6,6 +6,12 @@ authors:
 - user: reach-vb
 - user: lewtun
 - user: fdaudens
+- user: pcuenq
+- user: tomaarsen
+- user: coyotte508
+- user: mishig
+- user: sergiopaniego
+- user: julien-c
 ---
 
 # The NLP Course is becoming the LLM Course!
