@@ -35,7 +35,7 @@ As part of our ongoing efforts, we are excited to share the following updates:
 
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.4.0/gradio.js"> </script>
-<gradio-app theme_mode="dark" space="inceptionai/AraGen-Leaderboard"></gradio-app>
+<gradio-app theme_mode="dark" space="inceptionai/Arabic-Leaderboards"></gradio-app>
 
 The following sections provide details about each of these updates.
 
