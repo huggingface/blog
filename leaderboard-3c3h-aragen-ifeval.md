@@ -179,7 +179,7 @@ One emergent trend is that the various dimensions are almost perfectly correlate
 
 A model that stood out in this analysis is “silma-ai/SILMA-9B-Instruct-v1.0”, which exhibited a higher conciseness score compared to other open-weight models—even those with larger sizes. However, this gain in conciseness came at the cost of helpfulness and other dimensions when compared to its base model, “google/gemma-2-9b-it”. We believe that this analysis, along with optimizing for 3C3H, will enable the community to develop better models through curated datasets while maintaining the correlation across all dimensions.
 
-![SILMA-9B-Instruct-v1.0 VS Gemma-2-9b-it HeatMaps](https://huggingface.co/spaces/inceptionai/Arabic-Leaderboards/raw/main/assets/pictures/03-25/silma-vs-gemma-heatmap.png)
+![SILMA-9B-Instruct-v1.0 VS Gemma-2-9b-it HeatMaps](https://huggingface.co/spaces/inceptionai/Arabic-Leaderboards/raw/main/assets/pictures/03-25/silma-vs-gemma-heatmap.jpeg)
 
 
 This is an ongoing effort to better understand how these dimensions are interconnected and how various scenarios and training recipes affect this relationship. Below, we provide a space where you can generate heatmaps for any combination of models of your choice. We hope the community finds it helpful in spotting additional trends that we may not have noticed. Ultimately, we aim for this tool to foster more discussion about evaluation and 3C3H, serving as a resource for others’ work.
