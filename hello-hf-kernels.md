@@ -3,14 +3,17 @@ title: "Learn the Hugging Face Kernel Hub in 5 Minutes"
 thumbnail: /blog/assets/hello-hf-kernels/kernel-hub-five-mins-short.png
 authors:
 - user: drbh
+- user: danieldk
+- user: pcuenca
+- user: pagezyhf
 date: 2025-03-28 
 ---
 
 # 🏎️ Learn the Hugging Face Kernel Hub in 5 Minutes
 
-**Unlock performance boosts for your models with pre-optimized compute kernels, easily loaded from the Hub.**
+**Boost your model performance with pre-optimized kernels, easily loaded from the Hub.**
 
-Today, we'll explore an exciting development from Hugging Face: the **Kernel Hub**! As ML practitioners, we know that maximizing performance often involves diving deep into optimized code, custom CUDA kernels, or complex build systems. The Kernel Hub aims to simplify this dramatically.
+Today, we'll explore an exciting development from Hugging Face: the **Kernel Hub**! As ML practitioners, we know that maximizing performance often involves diving deep into optimized code, custom CUDA kernels, or complex build systems. The Kernel Hub simplifies this process dramatically!
 
 We'll cover the following topics:
 
@@ -19,22 +22,26 @@ We'll cover the following topics:
 3.  **Adding a Kernel to a Simple Model** - A practical integration using RMSNorm.
 4.  **Reviewing Performance Impact** - Benchmarking the RMSNorm difference.
 
-And we'll introduce these concepts quickly – the core idea can be grasped in about 5 minutes (though experimenting and benchmarking might take a bit longer!).
+We'll introduce these concepts quickly – the core idea can be grasped in about 5 minutes (though experimenting and benchmarking might take a bit longer!).
 
 ## 1. What is the Kernel Hub?
 
-The [Kernel Hub](https://huggingface.co/kernels) (👈 Check it out!) allows Python libraries and applications to **load optimized compute kernels directly from the Hugging Face Hub**. Think of it like the Model Hub, but for low-level, high-performance code snippets (kernels) that accelerate specific operations, often on GPUs. Examples include optimized attention mechanisms (like FlashAttention), activation functions, and normalization layers (like LayerNorm or RMSNorm).
+
+The [Kernel Hub](https://huggingface.co/kernels-community) (👈 Check it out!) allows Python libraries and applications to **load optimized compute kernels directly from the Hugging Face Hub**. Think of it like the Model Hub, but for low-level, high-performance code snippets (kernels) that accelerate specific operations, often on GPUs. 
+
+Examples include advanced attention mechanisms (like [FlashAttention](https://huggingface.co/kernels-community/flash-attn) for dramatic speedups and memory savings). Custom [quantization kernels](https://huggingface.co/kernels-community/quantization) (enabling efficient computation with lower-precision data types like INT8 or INT4). Specialized kernels required for complex architectures like [Mixture of Experts (MoE) layers](https://huggingface.co/kernels-community/moe), which involve intricate routing and computation patterns. As well as [activation functions](https://huggingface.co/kernels-community/activation), and [normalization layers (like LayerNorm or RMSNorm)](https://huggingface.co/kernels-community/triton-layer-norm).
 
 Instead of manually managing complex dependencies, wrestling with compilation flags, or building libraries like Triton or CUTLASS from source, you can use the `kernels` library to instantly fetch and run pre-compiled, optimized kernels.
 
 ### Benefits of the Kernel Hub:
 
-* **Instant Access to Optimized Kernels**: Load and run kernels optimized for various hardware (like NVIDIA GPUs) without local compilation hassles.
+* **Instant Access to Optimized Kernels**: Load and run kernels optimized for various hardware starting with NVIDIA and AMD GPUs, without local compilation hassles.
 * **Share and Reuse**: Discover, share, and reuse kernels across different projects and the community.
 * **Easy Updates**: Stay up-to-date with the latest kernel improvements simply by pulling the latest version from the Hub.
 * **Accelerate Development**: Focus on your model architecture and logic, not on the intricacies of kernel compilation and deployment.
 * **Improve Performance**: Leverage kernels optimized by experts to potentially speed up training and inference.
 * **Simplify Deployment**: Reduce the complexity of your deployment environment by fetching kernels on demand.
+* **Develop and Share Your Own Kernels**: If you create optimized kernels, you can easily share them on the Hub for others to use. This encourages collaboration and knowledge sharing within the community.
 
 > As many machine learning developers know, managing dependencies and building low-level code from source can be a time-consuming and error-prone process. The Kernel Hub aims to simplify this by providing a centralized repository of optimized compute kernels that can be easily loaded and run.
 
@@ -42,7 +49,9 @@ Spend more time building great models and less time fighting build systems!
 
 ## 2. How to Use the Kernel Hub (Basic Example)
 
-Using the Kernel Hub is designed to be straightforward. The `kernels` library provides the main interface. Here's a quick example loading an optimized GELU activation function kernel (we'll use a different kernel for the main example later).
+Using the Kernel Hub is designed to be straightforward. The `kernels` library provides the main interface. Here's a quick example that loads an optimized GELU activation function kernel. (Later on, we'll see another example about how to integrate a kernel in our model).
+
+File: `activation_validation_example.py`
 
 ~~~python
 # /// script
@@ -54,11 +63,8 @@ Using the Kernel Hub is designed to be straightforward. The `kernels` library pr
 # ///
 
 import torch
+import torch.nn.functional as F
 from kernels import get_kernel
-
-# Ensure you have a CUDA-enabled device
-if not torch.cuda.is_available():
-    raise RuntimeError("This example requires a CUDA-enabled GPU")
 
 DEVICE = "cuda"
 
@@ -66,7 +72,6 @@ DEVICE = "cuda"
 torch.manual_seed(42)
 
 # Download optimized activation kernels from the Hub
-# This fetches the kernel code if not already cached
 activation_kernels = get_kernel("kernels-community/activation")
 
 # Create a random tensor on the GPU
@@ -75,26 +80,26 @@ x = torch.randn((4, 4), dtype=torch.float16, device=DEVICE)
 # Prepare an output tensor
 y = torch.empty_like(x)
 
-# Run the specific kernel function (e.g., fast GELU)
-# The `activation_kernels` object holds multiple functions
+# Run the fast GELU kernel
 activation_kernels.gelu_fast(y, x)
 
-# Check the output against expected values
-expected = torch.tensor(
-    [
-        [0.1100, 2.1309, -0.0700, 0.6802],
-        [-0.0500, 0.4800, -0.1700, -0.1700],
-        [0.3701, -0.1300, -0.0800, -0.1200],
-        [-0.0400, 0.1200, -0.1500, 1.7998],
-    ],
-    dtype=torch.float16,
-    device=DEVICE,
-)
+# Get expected output using PyTorch's built-in GELU
+expected = F.gelu(x)
+
+# Compare the kernel output with PyTorch's result
 torch.testing.assert_close(y, expected, rtol=1e-2, atol=1e-2)
 
-print("Kernel executed successfully and output matches expected values!")
+print("✅ Kernel output matches PyTorch GELU!")
 
-# You can list available functions in the loaded kernel module
+# Optional: print both tensors for inspection
+print("\nInput tensor:")
+print(x)
+print("\nFast GELU kernel output:")
+print(y)
+print("\nPyTorch GELU output:")
+print(expected)
+
+# List available functions in the loaded kernel module
 print("\nAvailable functions in 'kernels-community/activation':")
 print(dir(activation_kernels))
 ~~~
@@ -117,6 +122,9 @@ Let's integrate an optimized **RMS Normalization** kernel into a basic model. We
 
 First, define a simple RMSNorm module in PyTorch and a baseline model using it:
 
+
+File: `rmsnorm_baseline.py`
+
 ~~~python
 # /// script
 # dependencies = [
@@ -129,17 +137,16 @@ import torch
 import torch.nn as nn
 
 DEVICE = "cuda"
-if not torch.cuda.is_available():
-    raise RuntimeError("This example requires a CUDA-enabled GPU")
+
 DTYPE = torch.float16  # Use float16 for better kernel performance potential
 
 
 # Simple PyTorch implementation of RMSNorm for baseline comparison
 class RMSNorm(nn.Module):
-    def __init__(self, hidden_size, eps=1e-5):
+    def __init__(self, hidden_size, variance_epsilon=1e-5):
         super().__init__()
         self.weight = nn.Parameter(torch.ones(hidden_size))
-        self.eps = eps
+        self.eps = variance_epsilon
         self.hidden_size = hidden_size
 
     def forward(self, x):
@@ -157,7 +164,7 @@ class BaselineModel(nn.Module):
     def __init__(self, input_size, hidden_size, output_size, eps=1e-5):
         super().__init__()
         self.linear1 = nn.Linear(input_size, hidden_size)
-        self.norm = RMSNorm(hidden_size, eps=eps)
+        self.norm = RMSNorm(hidden_size, variance_epsilon=eps)
         self.activation = nn.GELU()
         self.linear2 = nn.Linear(hidden_size, output_size)
 
@@ -195,6 +202,8 @@ print("Baseline RMSNorm model output shape:", output.shape)
 
 Now, let's create a version using the `LlamaRMSNorm` kernel loaded via `kernels`.
 
+File: `rmsnorm_kernel.py`
+
 ~~~python
 # /// script
 # dependencies = [
@@ -205,26 +214,53 @@ Now, let's create a version using the `LlamaRMSNorm` kernel loaded via `kernels`
 # ///
 import torch
 import torch.nn as nn
-from kernels import get_kernel
+from kernels import get_kernel, use_kernel_forward_from_hub
 
 # reuse the model from the previous snippet or copy the class
 # definition here to run this script independently
-from snippet2 import BaselineModel
+from rmsnorm_baseline import BaselineModel
 
 DEVICE = "cuda"
-if not torch.cuda.is_available():
-    raise RuntimeError("This example requires a CUDA-enabled GPU")
 DTYPE = torch.float16  # Use float16 for better kernel performance potential
 
 
 layer_norm_kernel_module = get_kernel("kernels-community/triton-layer-norm")
 
-
-class KernelRMSNorm(layer_norm_kernel_module.layers.LlamaRMSNorm):
+# Simply add the decorator to the LlamaRMSNorm class to automatically replace the forward function
+# with the optimized kernel version
+# 
+# Note: note all kernels ship with layers already mapped, and would require calling the function directly
+# Howeber in this case, the LlamaRMSNorm class is already mapped to the kernel function. Otherwise we'd need to
+# call the function directly like this:
+# ```python
+# layer_norm_kernel_module.rms_norm_fn(
+#     hidden_states,
+#     self.weight,
+#     bias=None,
+#     residual=None,
+#     eps=self.variance_epsilon,
+#     dropout_p=0.0,
+#     prenorm=False,
+#     residual_in_fp32=False,
+# )
+# ```
+@use_kernel_forward_from_hub("LlamaRMSNorm")
+class OriginalRMSNorm(nn.Module):
     def __init__(self, hidden_size, variance_epsilon=1e-5):
         super().__init__()
         self.weight = nn.Parameter(torch.ones(hidden_size))
-        self.variance_epsilon = variance_epsilon
+        self.eps = variance_epsilon
+        self.hidden_size = hidden_size
+
+    def forward(self, x):
+        # Assumes x is (batch_size, ..., hidden_size)
+        input_dtype = x.dtype
+        # Calculate variance in float32 for stability
+        variance = x.to(torch.float32).pow(2).mean(-1, keepdim=True)
+        x = x * torch.rsqrt(variance + self.eps)
+
+        # Apply weight and convert back to original dtype
+        return (self.weight * x).to(input_dtype)
 
 
 class KernelModel(nn.Module):
@@ -239,7 +275,9 @@ class KernelModel(nn.Module):
     ):
         super().__init__()
         self.linear1 = nn.Linear(input_size, hidden_size)
-        self.norm = KernelRMSNorm(hidden_size, variance_epsilon=eps)
+        # OriginalRMSNorm will be replaced with the optimized kernel layer
+        # when the model is loaded
+        self.norm = OriginalRMSNorm(hidden_size, variance_epsilon=eps)
         self.activation = nn.GELU()
         self.linear2 = nn.Linear(hidden_size, output_size)
 
@@ -299,6 +337,7 @@ except NameError:
 ~~~
 
 **Important Notes on the `KernelModel`:**
+
 * **Kernel Inheritance:** The `KernelRMSNorm` class inherits from `layer_norm_kernel_module.layers.LlamaRMSNorm`, which is the RMSNorm implementation in the kernel. This allows us to use the optimized kernel directly.
 * **Accessing the Function:** The exact way to access the RMSNorm function (`layer_norm_kernel_module.layers.LlamaRMSNorm.forward`, `layer_norm_kernel_module.rms_norm_forward`, or something else) **depends entirely on how the kernel creator structured the repository on the Hub.** You may need to inspect the loaded `layer_norm_kernel_module` object (e.g., using `dir()`) or check the kernel's documentation on the Hub to find the correct function/method and its signature. I've used `rms_norm_forward` as a plausible placeholder and added error handling.
 * **Parameters:** We now only define `rms_norm_weight` (no bias), consistent with RMSNorm.
@@ -306,6 +345,9 @@ except NameError:
 ## 4. Review Performance Impact
 
 Does using the optimized Triton RMSNorm kernel provide a speedup compared to the basic PyTorch version? Let's benchmark the forward pass again.
+
+
+File: `rmsnorm_benchmark.py`
 
 ~~~python
 # /// script
@@ -319,12 +361,10 @@ import torch
 
 # reuse the models from the previous snippets or copy the class
 # definitions here to run this script independently
-from snippet2 import BaselineModel
-from snippet3 import KernelModel
+from rmsnorm_baseline import BaselineModel
+from rmsnorm_kernel import KernelModel
 
 DEVICE = "cuda"
-if not torch.cuda.is_available():
-    raise RuntimeError("This example requires a CUDA-enabled GPU")
 DTYPE = torch.float16  # Use float16 for better kernel performance potential
 
 
@@ -462,7 +502,7 @@ You've seen how easy it is to fetch and use optimized kernels with the Hugging F
     ~~~bash
     pip install kernels torch numpy
     ~~~
-    Ensure you have a compatible PyTorch version and CUDA installed if using GPU kernels.
+    Ensure you have a compatible PyTorch version and gpu driver installed.
 
 2.  **Browse the Hub:** Explore available kernels on the Hugging Face Hub under the [`kernels` tag](https://huggingface.co/kernels) or within organizations like [`kernels-community`](https://huggingface.co/kernels-community). Look for kernels relevant to your operations (activations, attention, normalization like LayerNorm/RMSNorm, etc.).
 
