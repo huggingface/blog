@@ -5796,3 +5796,13 @@
     - llm-course
     - open-source
 
+- local: gradio-1m
+  title: "Journey to 1 Million Gradio Users!"
+  author: abidlabs
+  thumbnail: /blog/assets/gradio-1m/thumbnail.png
+  date: April 4, 2025
+  tags:
+    - gradio
+    - open-source
+    - community
+
