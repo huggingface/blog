@@ -5773,3 +5773,16 @@
     - llm
     - inference
     - partnerships
+
+
+- local: hello-hf-kernels
+  title: "Learn the Hugging Face Kernel Hub in 5 Minutes"
+  author: drbh
+  thumbnail: /blog/assets/hello-hf-kernels/kernel-hub-five-mins-short-21.png
+  date: April 4, 2025
+  tags:
+    - guide
+    - hub
+    - optimization
+    - open-source
+    - performance
