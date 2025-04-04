@@ -53,17 +53,17 @@ In the crowded ecosystem of Python web libraries, we are frequently asked, "How 
 
 Of course, we benefited tremendously from choosing a niche that itself was growing. The recent headwinds that have propelled all things AI-related benefited us tremendously and we likely would not have experienced the same kind of growth if we had focused on data science or dashboards for example.
 
-Your only roadmap should be rapid iteration
+**4. Your only roadmap should be rapid iteration**
 
-Unlike some other libraries, Gradio doesn’t publish roadmaps. Instead, we track emerging trends in machine learning and ship accordingly. In open-source software generally, and AI specifically, shipping features based on the needs of the community (and deprecating features that are no longer needed) is key to continuous growth. As a concrete example, in the early versions of Gradio we built specific functionality to allow developers to show the “interpretation” of their machine learning models—as this was a very use case around 2020-21. As interest in interpretation waned, we deprecated this and instead poured our efforts into audio/video streaming and chat-related features. 
+Unlike some other libraries, Gradio doesn’t publish roadmaps. Instead, we track emerging trends in machine learning and ship accordingly. In open-source software generally, and AI specifically, shipping features based on the needs of the community (and deprecating features that are no longer needed) is key to continuous growth. As a concrete example, in the early versions of Gradio we built specific functionality to allow developers to show the “interpretation” of their machine learning models—as this was a very popular use case around 2020-21. As interest in interpretation waned, we deprecated this and instead poured our efforts into audio/video streaming and chat-related features. 
 
 Our internal process is decentralized as well. Each of the 11 engineers and developer advocates on the Gradio team is encouraged to identify impactful ideas, prototype quickly, engage directly with the open-source community via GitHub, Hugging Face, and social media. Each team member brings these ideas back to the team and we continuously build and rebuild consensus around what ideas are likely to be impactful as we keep growing the most impactful directions. 
 
-Maximize ways users can consume your library's outputs
+**5. Maximize ways users can consume your library's outputs**
 
-When you create a Gradio app and “launch()” it, you get a web application running in your browser. But that’s not all -- you also get an API endpoint for each Python function, as well as automatically generated documentation for each endpoint. These endpoints can be consumed via Python or JavaScript Clients that our team has built, or directly using cURL.
+When you create a Gradio app and “launch()” it, you get a web application running in your browser. But that’s not all -- you also get an API endpoint for each Python function, as well as automatically-generated documentation for each endpoint. These endpoints can be consumed via Python or JavaScript Clients that our team has built, or directly using cURL.
 
 The reason that we do this is because we want each minute that a developer spends with Gradio to be maximally useful. A single Gradio app should run locally or be deployed without any code changes on Hugging Face Spaces or on your server, or integrate into larger applications programmatically, or even be harnessed by AI agents through MCPs (more on that soon!). By focusing on maximum usability, we hope that developers can continue to get more and more out of the Gradio library. 
 
-Now, onwards to 10 million!
+**Onwards to 10 million!**
 
