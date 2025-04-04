@@ -19,7 +19,7 @@ How did we get here? How did Gradio keep growing in the very crowded field of op
 2. Embed virality directly into your library
 3. Focus on a (growing) niche
 4. Your only roadmap should be rapid iteration
-5. Maximize ways users can consume your library's outputs**
+5. Maximize ways users can consume your library's outputs
 
 -----
 
