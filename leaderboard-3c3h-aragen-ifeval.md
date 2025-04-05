@@ -42,7 +42,7 @@ The following sections provide details about each of these updates.
 ## Arabic-Leaderboards Space
 **Arabic-Leaderboards** is a comprehensive and unified space for all Arabic evaluations and tasks. It is meant to serve as a central hub covering a broad spectrum of evaluations, for models across modalities. Currently, it has AraGen 2 and Arabic Instruction Following as live leaderboards. We plan to expand this space with more leaderboards and tasks for Arabic AI models across various modalities. 
 
-We invite interested contributors to reach out to us through the community tab or directly in order to discuss how to integrate their work/leaderboards as additional tabs into this space.
+We invite interested contributors to reach out to us through the [community tab](https://huggingface.co/spaces/inceptionai/Arabic-Leaderboards/discussions?status=open&type=discussion) or directly in order to discuss how to integrate their work/leaderboards as additional tabs into this space.
 
 ## Latest Updates in AraGen Leaderboard
 
