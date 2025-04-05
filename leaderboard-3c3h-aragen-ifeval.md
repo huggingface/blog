@@ -339,4 +339,4 @@ We evaluated a broad range of LLMs on both the English IFEval benchmark and our 
 ## Upcoming Work
 
 As part of our work we will be adding and updating more leaderboards to the Arabic-Leaderboards Space as our internal work progresses.
-In the upcoming releases, we expect to put online a leaderbaord for visual question-answering across multiple tasks powered by camel-bench and kitab from our collaborators at MBZUAI.
+In upcoming releases, we expect to publish a leaderboard for visual question-answering across multiple tasks, powered by camel-bench and kitab from our collaborators at MBZUAI.
