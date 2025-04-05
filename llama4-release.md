@@ -139,9 +139,9 @@ Evaluation results confirm the strength of these models, showing state-of-the-ar
 
 ## Acknowledgments
 
-Releasing a giant like Llama 4 takes a colossal effort across teams, geographies and a lot of VMs. In no particular order we’d like to thank Arthur, Lysandre, Cyril, Pablo, Marc, Mohammed from the Transformers team. With larger optimisation needs, we’d like to thank Mohit for single handedly adding support to Llama 4 in TGI. These chonky models require some serious engineering at the storage level. This took a lot of effort from Ajit, Rajat, Jared, Di, Yucheng and the rest of the [Xet team](http://hf.co/xet-team) too.
+Releasing a giant like Llama 4 takes a colossal effort across teams, geographies and a lot of VMs. In no particular order we’d like to thank Arthur, Lysandre, Cyril, Pablo, Marc, Mohammed from the Transformers team. We are grateful to the full vLLM team for richful discussions, insights, shared testing and debugging during this intense integration with many challenges. With larger optimisation needs, we’d like to thank Mohit for single-handedly adding support to Llama 4 in TGI. These chonky models require some serious engineering at the storage level. This took a lot of effort from Ajit, Rajat, Jared, Di, Yucheng and the rest of the [Xet team](http://hf.co/xet-team) too.
 
-There’s a lot of people involved in this effort, thanks a lot to the rest of the Hugging Face, vLLM and Meta Llama team for the brilliant synergy\!
+There’s a lot of people involved in this effort, thanks a lot to the rest of the Hugging Face, vLLM and Meta Llama teams for the brilliant synergy\!
 
 ## References
 
