@@ -5,6 +5,14 @@ authors:
 - user: burtenshaw
 - user: reach-vb
 - user: pcuenq
+- user: clem
+- user: rajatarya
+  guest: true
+  org: xet-team
+- user: jsulz
+  guest: true
+  org: xet-team
+- user: lysandre
 ---
 
 # Welcome Llama 4 Maverick & Scout on Hugging Face
