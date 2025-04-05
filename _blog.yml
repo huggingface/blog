@@ -5796,12 +5796,22 @@
     - llm-course
     - open-source
 
+- local: gradio-1m
+  title: "Journey to 1 Million Gradio Users!"
+  author: abidlabs
+  thumbnail: /blog/assets/gradio-1m/thumbnail.png
+  date: April 4, 2025
+  tags:
+    - gradio
+    - open-source
+    - community
+
 - local: leaderboard-3c3h-aragen-ifeval
   title: "Arabic Leaderboards: Introducing Arabic Instruction Following, Updating AraGen, and More"
   author: alielfilali01
   guest: true
   thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_3c3h_aragen.png
-  date: April 5, 2025
+  date: April 6, 2025
   tags:
     - leaderboard
     - evaluation
