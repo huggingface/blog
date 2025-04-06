@@ -5806,6 +5806,15 @@
     - open-source
     - community
 
+- local: llama4-release
+  title: "Welcome Llama 4 Maverick & Scout on Hugging Face!"
+  author: burtenshaw
+  thumbnail: /blog/assets/llama_4.png
+  date: April 5, 2025
+  tags:
+    - llama
+    - meta
+
 - local: leaderboard-3c3h-aragen-ifeval
   title: "Arabic Leaderboards: Introducing Arabic Instruction Following, Updating AraGen, and More"
   author: alielfilali01
