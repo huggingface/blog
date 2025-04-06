@@ -62,7 +62,9 @@ These large context lengths come with a few very interesting architecture choice
 
 NoPE (cute name, +1 charisma points), which was explored as far back as 2022, just forgoes the traditional positional encoding schemes, such as RoPE, that are most times applied in transformers models. In the case of Llama 4, NoPE layers are used every 4 layers. These layers are crucial for long context, as they use the full causal mask over the context.
 
-For RoPE layers (three out of 4), _chunked attention_ is used, as described below.
+For RoPE layers (three out of 4), _chunked attention_ is used.
+
+Meta refers to the _interleaved_ use of NoPE layers, together with temperature scaling (as explained below), as the `iRoPE` architecture.
 
 _If you want to learn more about positional encodings, we recommend [Chris' recent post](https://huggingface.co/blog/designing-positional-encoding)._
 
@@ -84,6 +86,8 @@ This diagram shows the attention mask that would be used if the chunked attentio
 * **Attention Temperature Tuning**
 
 Attention blocks applied to long contexts have a problem: the attention probability scores _fade_ closer to zero as the sequence length increases. This is a known consequence of applying the _softmax_ function to very long sequences. To address this problem, Llama 4 uses a scaled softmax, which the model refers to as temperature tuning. This is applied in the NoPE layers, but not in the RoPE ones as these attend to shorter sub-sequences.
+
+This method is a way to improve generalization for arbitrary context lengths, and probably one of the key factors to achieve 10M context length in Llama 4 Scout.
 
 * **QK Normalization**
 
