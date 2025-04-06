@@ -87,7 +87,7 @@ Attention blocks applied to long contexts have a problem: the attention probabil
 
 * **QK Normalization**
 
-Llama Scout (the 16 experts version) uses an additional L2 normalization of the Query and Key states in RoPE layers, after RoPE embeddings have been applied.
+Llama Scout (the 16 experts version) uses an additional L2 normalization of the Query and Key states in RoPE layers, after RoPE embeddings have been applied. Remember that Llama Scout Instruct is the model that supports the largest 10M context length.
 
 * **MoE interleaving**
 
