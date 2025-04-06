@@ -58,10 +58,6 @@ The Llama 4 models were pre-trained with a context length of 256K. The Instruct 
 
 These large context lengths come with a few very interesting architecture choices. Until an official technical report is published, this is what we know so far.
 
-
-        self.use_chunked_attention = int((layer_idx + 1) % 4 != 0)  # <=> use rope
-        self.use_rope = int((layer_idx + 1) % 4 != 0)  # rope unused for dense layers
-
 * **No RoPE (NoPE) layers**
 
 NoPE (cute name, +1 charisma points), which was explored as far back as 2022, just forgoes the traditional positional encoding schemes, such as RoPE, that are most times applied in transformers models. In the case of Llama 4, NoPE layers are used every 4 layers. These layers are crucial for long context, as they use the full causal mask over the context.
