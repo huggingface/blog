@@ -34,18 +34,71 @@ Both models leverage early fusion for native multimodality, enabling them to pro
 
 For deployment, Llama 4 Scout is designed for accessibility, fitting on a single server-grade GPU via on-the-fly 4-bit or 8-bit quantization, while Maverick is available in BF16 and FP8 formats. These models are released under the custom Llama 4 Community License Agreement, available on the model repositories.
 
-# Features and Integrations on Hugging Face
+## Features and Integrations on Hugging Face
 
 To help the community leverage these state-of-the-art models immediately, we're thrilled to announce the following integrations:
 
 * **Model Checkpoints on the Hub:** Both Llama 4 Maverick and Llama 4 Scout model weights are available directly on the Hugging Face Hub under the `meta-llama` organization. This includes both base and instruction tuned variants. This allows for easy access, exploration, and download. You need to accept the license terms on the model card before accessing the weights.  
 * **Hugging Face `transformers` integration**: Get building now\! Llama 4 models are fully integrated with `transformers` (version `v4.51.0`). This allows for easy loading, inference, and fine-tuning using familiar APIs, including support for their native multimodal capabilities, and downstream libraries like TRL.  
-* Automatic support for tensor-parallel and automatic device mapping in transformers.  
+* **Automatic support for tensor-parallel** and automatic device mapping in transformers.
 * **Text Generation Inference (TGI) Support:** For optimized and scalable deployment, both models are supported by TGI. This allows for high-throughput text generation, making it easier to integrate Llama 4 into production applications.  
 * **Quantization Support:** Code for on-the-fly int4 quantization is provided for Scout, minimizing performance degradation while enabling deployment on smaller hardware footprints. Maverick includes FP8 quantized weights for efficient deployment on compatible hardware.  
 * **Xet Storage:** To improve uploads, downloads, and support faster iteration on community finetuned models we’ve launched all Llama 4 models using the [Xet storage backend](https://huggingface.co/blog/xet-on-the-hub). This storage system was designed for faster uploads & downloads and with Llama 4 it achieves \~25% deduplication. All derivative (finetune, quantizations, etc.) models should have higher deduplication (\~40%) saving the community even more time & bandwidth.
 
-## Using Hugging Face Transformers
+## Context Length and Architecture Choices
+
+The Llama 4 models were pre-trained with a context length of 256K. The Instruct models were fine-tuned to support much larger context lengths: 1M in the large 128 experts version (Maverick), and 10M (!) for the 16 experts version (Scout).
+
+| Model           | Instruct | Context Length |
+|-----------------|:--------:|:--------------:|
+| Scout (16E)     |     ✅    |       10M      |
+| Maverick (128E) |     ✅    |       1M       |
+| Scout (16E)     |          |      256K      |
+| Maverick (128E) |          |      256K      |
+
+These large context lengths come with a few very interesting architecture choices. Until an official technical report is published, this is what we know so far.
+
+* **No RoPE (NoPE) layers**
+
+NoPE (cute name, +1 charisma points), which was explored as far back as 2022, just forgoes the traditional positional encoding schemes, such as RoPE, that are most times applied in transformers models. In the case of Llama 4, NoPE layers are used every 4 layers. These layers are crucial for long context, as they use the full causal mask over the context.
+
+For RoPE layers (three out of 4), _chunked attention_ is used.
+
+Meta refers to the _interleaved_ use of NoPE layers, together with temperature scaling (as explained below), as the `iRoPE` architecture.
+
+_If you want to learn more about positional encodings, we recommend [Chris' recent post](https://huggingface.co/blog/designing-positional-encoding)._
+
+* **Chunked attention** (in RoPE layers)
+
+As a way to reduce memory requirements, Llama 4 uses chunked attention in the layers that work with traditional RoPE positional encodings (three out of 4 decoder layers). The best way to visualize how chunked attention works is through this ASCII representation that was extracted from the [transformers source code](https://github.com/huggingface/transformers/blob/main/src/transformers/models/llama4/modeling_llama4.py#L848-L857):
+
+```
+'What'      :  0 ■ ⬚ ⬚ ⬚ ⬚ ⬚ 
+'▁is'       :  1 ■ ■ ⬚ ⬚ ⬚ ⬚ 
+'▁ch'       :  2 ■ ■ ■ ⬚ ⬚ ⬚ 
+'unked'     :  3 ⬚ ⬚ ⬚ ■ ⬚ ⬚ 
+'▁attention':  4 ⬚ ⬚ ⬚ ■ ■ ⬚ 
+'?'         :  5 ⬚ ⬚ ⬚ ■ ■ ■ 
+```
+
+This diagram shows the attention mask that would be used if the chunked attention length was 3. In the case of Llama 4, chunked attention length is `8192`. This means that RoPE layers can only keep track of context in 8K blocks, while NoPE layers have access to the full context.
+
+* **Attention Temperature Tuning**
+
+Attention blocks applied to long contexts have a problem: the attention probability scores _fade_ closer to zero as the sequence length increases. This is a known consequence of applying the _softmax_ function to very long sequences. To address this problem, Llama 4 uses a scaled softmax, which the model refers to as temperature tuning. This is applied in the NoPE layers, but not in the RoPE ones as these attend to shorter sub-sequences.
+
+This method is a way to improve generalization for arbitrary context lengths, and probably one of the key factors to achieve 10M context length in Llama 4 Scout.
+
+* **QK Normalization**
+
+Llama Scout (the 16 experts version) uses an additional L2 normalization of the Query and Key states in RoPE layers, after RoPE embeddings have been applied. Remember that Llama Scout Instruct is the model that supports the largest 10M context length.
+
+* **MoE interleaving**
+
+Llama Scout is a full MoE consisting of 16 experts. Llama Maverick uses 128 experts, but MoE and dense layers alternate. Therefore, experts are applied in half of the layers.
+
+
+## How to Use with Transformers
 
 Getting started with Llama 4 using `transformers` is straightforward. Make sure you have `transformers v4.51.0` or later installed (`pip install -U transformers huggingface_hub[hf_xet]`). Here's a quick example using the instruction-tuned Maverick model responding about two images, using tensor parallel for maximum speed. You need to run this script on an instance with 8 GPUs, using a command like:  
 `torchrun –nproc-per-instance=8 script.py`
@@ -97,7 +150,7 @@ print(outputs[0])
 
 Make sure to check the model cards on the repos ([Llama 4 Maverick (\~400B)](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Original) and [Llama 4 Scout (\~109B)](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Original)) for detailed usage instructions, including multimodal examples, specific prompt formats (like system prompts), quantization details, and advanced configuration options\!
 
-# Evaluation Scores
+## Evaluation Scores
 
 Evaluation results confirm the strength of these models, showing state-of-the-art performance that significantly outperforms predecessors like Llama 3.1 405B. For instance, on reasoning and knowledge tasks, the instruction-tuned Maverick achieves 80.5% on MMLU Pro and 69.8% on GPQA Diamond, while Scout scores 74.3% and 57.2% respectively.
 
