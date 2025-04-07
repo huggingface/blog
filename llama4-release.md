@@ -17,7 +17,7 @@ authors:
 
 # Welcome Llama 4 Maverick & Scout on Hugging Face
 
-We are incredibly excited to welcome the next generation of large language models from Meta to the Hugging Face Hub: [Llama 4 Maverick (\~400B)](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Original) and [Llama 4 Scout (\~109B)\!](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Original) 🤗 Both are Mixture of Experts (MoE) models with 17B active parameters.
+We are incredibly excited to welcome the next generation of large language models from Meta to the Hugging Face Hub: [Llama 4 Maverick (\~400B)](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) and [Llama 4 Scout (\~109B)\!](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct) 🤗 Both are Mixture of Experts (MoE) models with 17B active parameters.
 
 Released today, these powerful, natively multimodal models represent a significant leap forward. We've worked closely with Meta to ensure seamless integration into the Hugging Face ecosystem, including both transformers and TGI from day one. 
 
@@ -81,7 +81,7 @@ As a way to reduce memory requirements, Llama 4 uses chunked attention in the la
 '?'         :  5 ⬚ ⬚ ⬚ ■ ■ ■ 
 ```
 
-This diagram shows the attention mask that would be used if the chunked attention length was 3. In the case of Llama 4, chunked attention length is `8192`. This means that RoPE layers can only keep track of context in 8K blocks, while NoPE layers have access to the full context.
+This diagram shows the attention mask that would be used if the chunked attention length was 3. In the case of Llama 4, chunked attention length is `8192`. This means that RoPE layers can only keep track of context in 8K blocks, while NoPE layers have access to the full context. You can see it as a more memory and compute efficient version of Sliding Window Attention.
 
 * **Attention Temperature Tuning**
 
@@ -91,11 +91,19 @@ This method is a way to improve generalization for arbitrary context lengths, an
 
 * **QK Normalization**
 
-Llama Scout (the 16 experts version) uses an additional L2 normalization of the Query and Key states in RoPE layers, after RoPE embeddings have been applied. Remember that Llama Scout Instruct is the model that supports the largest 10M context length.
+Llama Scout (the 16 experts version) uses an additional RMS normalization without learnable parameter of the Query and Key states in RoPE layers, after RoPE embeddings have been applied.
 
 * **MoE interleaving**
 
 Llama Scout is a full MoE consisting of 16 experts. Llama Maverick uses 128 experts, but MoE and dense layers alternate. Therefore, experts are applied in half of the layers.
+
+* **Co-distillation**
+
+Llama Maverick was co-distilled from a larger model, Llama Behemoth, using a novel loss function that weight dynamically the student and teacher logit.
+
+* **MetaP** 
+
+The models leverage MetaP, a methodology likely inspired by [MuP](https://huggingface.co/papers/2203.03466), to optimally tune hyperparameters across different dimensions including training budget and model size.
 
 
 ## How to Use with Transformers
