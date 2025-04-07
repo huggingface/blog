@@ -158,35 +158,218 @@ Evaluation results confirm the strength of these models, showing state-of-the-ar
 <details>
 
 <summary>Click to expand Evaluation Results</summary>
+
 ### Pre-trained models
 
-| Pre-trained models |  |  |  |  |  |  |  |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Category | Benchmark | \# Shots | Metric | Llama 3.1 70B | Llama 3.1 405B | **Llama 4 Scout** | **Llama 4 Maverick** |
-| Reasoning & Knowledge | MMLU | 5 | macro\_avg/acc\_char	 | 79.3 | 85.2 | 79.6 | 85.5 |
-|  | MMLU-Pro | 5 | macro\_avg/em | 53.8 | 61.6 | 58.2 | 62.9 |
-|  | MATH | 4 | em\_maj1@1 | 41.6 | 53.5 | 50.3 | 61.2 |
-| Code | MBPP | 3 | pass@1 | 66.4 | 74.4 | 67.8 | 77.6 |
-| Multilingual | TydiQA | 1 | average/f1 | 29.9 | 34.3 | 31.5 | 31.7 |
-| Image | ChartQA | 0 | relaxed\_accuracy | No multimodal support |  | 83.4 | 85.3 |
-|  | DocVQA | 0 | anls |  |  | 89.4 | 91.6 |
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Benchmark</th>
+      <th># Shots</th>
+      <th>Metric</th>
+      <th>Llama 3.1 70B</th>
+      <th>Llama 3.1 405B</th>
+      <th><strong>Llama 4 Scout</strong></th>
+      <th><strong>Llama 4 Maverick</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="3">Reasoning &amp; Knowledge</td>
+      <td>MMLU</td>
+      <td>5</td>
+      <td>macro_avg/acc_char</td>
+      <td>79.3</td>
+      <td>85.2</td>
+      <td>79.6</td>
+      <td>85.5</td>
+    </tr>
+    <tr>
+      <td>MMLU-Pro</td>
+      <td>5</td>
+      <td>macro_avg/em</td>
+      <td>53.8</td>
+      <td>61.6</td>
+      <td>58.2</td>
+      <td>62.9</td>
+    </tr>
+    <tr>
+      <td>MATH</td>
+      <td>4</td>
+      <td>em_maj1@1</td>
+      <td>41.6</td>
+      <td>53.5</td>
+      <td>50.3</td>
+      <td>61.2</td>
+    </tr>
+    <tr>
+      <td>Code</td>
+      <td>MBPP</td>
+      <td>3</td>
+      <td>pass@1</td>
+      <td>66.4</td>
+      <td>74.4</td>
+      <td>67.8</td>
+      <td>77.6</td>
+    </tr>
+    <tr>
+      <td>Multilingual</td>
+      <td>TydiQA</td>
+      <td>1</td>
+      <td>average/f1</td>
+      <td>29.9</td>
+      <td>34.3</td>
+      <td>31.5</td>
+      <td>31.7</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Image</td>
+      <td>ChartQA</td>
+      <td>0</td>
+      <td>relaxed_accuracy</td>
+      <td>No multimodal support</td>
+      <td></td>
+      <td>83.4</td>
+      <td>85.3</td>
+    </tr>
+    <tr>
+      <td>DocVQA</td>
+      <td>0</td>
+      <td>anls</td>
+      <td></td>
+      <td></td>
+      <td>89.4</td>
+      <td>91.6</td>
+    </tr>
+  </tbody>
+</table>
+
 
 ### Instruction tuned models	
 
-| Instruction tuned models |  |  |  |  |  |  |  |
-| :---: | :---: | :---: | :---: | :---: | ----- | :---: | :---: |
-| Category | Benchmark | \# Shots | Metric | Llama 3.3 70B | Llama 3.1 405B | **Llama 4 Scout** | **Llama 4 Maverick** |
-| Image Reasoning | MMMU | 0 | accuracy | No multimodal support |  | 69.4 | 73.4 |
-|  | MMMU Pro^ | 0 | accuracy |  |  | 52.2 | 59.6 |
-|  | MathVista | 0 | accuracy |  |  | 70.7 | 73.7 |
-| Image Understanding | ChartQA | 0 | relaxed\_accuracy |  |  | 88.8 | 90.0 |
-|  | DocVQA (test) | 0 | anls |  |  | 94.4 | 94.4 |
-| Coding | LiveCodeBench (10/01/2024-02/01/2025) | 0 | pass@1 | 33.3 | 27.7 | 32.8 | 43.4 |
-| Reasoning & Knowledge | MMLU Pro | 0 | macro\_avg/em | 68.9 | 73.4 | 74.3 | 80.5 |
-|  | GPQA Diamond | 0 | accuracy | 50.5 | 49.0 | 57.2 | 69.8 |
-| Multilingual | MGSM | 0 | average/em | 91.1 | 91.6 | 90.6 | 92.3 |
-| Long context | MTOB (half book) eng-\>kgv/kgv-\>eng | \- | chrF | Context window is 128K |  | 42.2/36.6 | 54.0/46.4 |
-|  | MTOB (full book) eng-\>kgv/kgv-\>eng | \- | chrF |  |  | 39.7/36.3 | 50.8/46.7 |
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Benchmark</th>
+      <th># Shots</th>
+      <th>Metric</th>
+      <th>Llama 3.3 70B</th>
+      <th>Llama 3.1 405B</th>
+      <th><strong>Llama 4 Scout</strong></th>
+      <th><strong>Llama 4 Maverick</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="3">Image Reasoning</td>
+      <td>MMMU</td>
+      <td>0</td>
+      <td>accuracy</td>
+      <td>No multimodal support</td>
+      <td></td>
+      <td>69.4</td>
+      <td>73.4</td>
+    </tr>
+    <tr>
+      <td>MMMU Pro<sup>^</sup></td>
+      <td>0</td>
+      <td>accuracy</td>
+      <td></td>
+      <td></td>
+      <td>52.2</td>
+      <td>59.6</td>
+    </tr>
+    <tr>
+      <td>MathVista</td>
+      <td>0</td>
+      <td>accuracy</td>
+      <td></td>
+      <td></td>
+      <td>70.7</td>
+      <td>73.7</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Image Understanding</td>
+      <td>ChartQA</td>
+      <td>0</td>
+      <td>relaxed_accuracy</td>
+      <td></td>
+      <td></td>
+      <td>88.8</td>
+      <td>90.0</td>
+    </tr>
+    <tr>
+      <td>DocVQA (test)</td>
+      <td>0</td>
+      <td>anls</td>
+      <td></td>
+      <td></td>
+      <td>94.4</td>
+      <td>94.4</td>
+    </tr>
+    <tr>
+      <td>Coding</td>
+      <td>LiveCodeBench (10/01/2024–02/01/2025)</td>
+      <td>0</td>
+      <td>pass@1</td>
+      <td>33.3</td>
+      <td>27.7</td>
+      <td>32.8</td>
+      <td>43.4</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Reasoning &amp; Knowledge</td>
+      <td>MMLU Pro</td>
+      <td>0</td>
+      <td>macro_avg/em</td>
+      <td>68.9</td>
+      <td>73.4</td>
+      <td>74.3</td>
+      <td>80.5</td>
+    </tr>
+    <tr>
+      <td>GPQA Diamond</td>
+      <td>0</td>
+      <td>accuracy</td>
+      <td>50.5</td>
+      <td>49.0</td>
+      <td>57.2</td>
+      <td>69.8</td>
+    </tr>
+    <tr>
+      <td>Multilingual</td>
+      <td>MGSM</td>
+      <td>0</td>
+      <td>average/em</td>
+      <td>91.1</td>
+      <td>91.6</td>
+      <td>90.6</td>
+      <td>92.3</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Long context</td>
+      <td>MTOB (half book) eng→kgv/kgv→eng</td>
+      <td>-</td>
+      <td>chrF</td>
+      <td>Context window is 128K</td>
+      <td></td>
+      <td>42.2/36.6</td>
+      <td>54.0/46.4</td>
+    </tr>
+    <tr>
+      <td>MTOB (full book) eng→kgv/kgv→eng</td>
+      <td>-</td>
+      <td>chrF</td>
+      <td></td>
+      <td></td>
+      <td>39.7/36.3</td>
+      <td>50.8/46.7</td>
+    </tr>
+  </tbody>
+</table>
+
 
 </details>
 
