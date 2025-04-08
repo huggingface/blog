@@ -28,20 +28,63 @@ The mix models give a quick idea of the performance one would get when fine-tuni
 
 You can find all the mix models and the demo [in this collection](https://huggingface.co/collections/google/paligemma-2-mix-67ac6a251aaf3ee73679dcc4).
 
-| Parameter Count | Framework | Resolution |
-| :---: | :---: | :---: |
-| 3B | HF Transformers | [224](https://huggingface.co/google/paligemma2-3b-mix-448) |
-|  |  | [448](https://huggingface.co/google/paligemma2-3b-mix-448) |
-|  | JAX | [224](https://huggingface.co/google/paligemma2-3b-mix-224-jax) |
-|  |  | [448](https://huggingface.co/google/paligemma2-3b-mix-448-jax) |
-| 10B | HF Transformers | [224](https://huggingface.co/google/paligemma2-10b-mix-224) |
-|  |  | [448](https://huggingface.co/google/paligemma2-10b-mix-448) |
-|  | JAX | [224](https://huggingface.co/google/paligemma2-10b-mix-224-jax) |
-|  |  | [448](https://huggingface.co/google/paligemma2-10b-mix-448-jax) |
-| 28B | HF Transformers | [224](https://huggingface.co/google/paligemma2-28b-mix-224) |
-|  |  | [448](https://huggingface.co/google/paligemma2-28b-mix-448) |
-|  | JAX | [224](https://huggingface.co/google/paligemma2-28b-mix-224-jax) |
-|  |  | [448](https://huggingface.co/google/paligemma2-28b-mix-448-jax) |
+<table>
+  <thead>
+    <tr>
+      <th>Parameter Count</th>
+      <th>Framework</th>
+      <th>Resolution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="4">3B</td>
+      <td rowspan="2">HF Transformers</td>
+      <td><a href="https://huggingface.co/google/paligemma2-3b-mix-448">224</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://huggingface.co/google/paligemma2-3b-mix-448">448</a></td>
+    </tr>
+    <tr>
+      <td rowspan="2">JAX</td>
+      <td><a href="https://huggingface.co/google/paligemma2-3b-mix-224-jax">224</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://huggingface.co/google/paligemma2-3b-mix-448-jax">448</a></td>
+    </tr>
+    <tr>
+      <td rowspan="4">10B</td>
+      <td rowspan="2">HF Transformers</td>
+      <td><a href="https://huggingface.co/google/paligemma2-10b-mix-224">224</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://huggingface.co/google/paligemma2-10b-mix-448">448</a></td>
+    </tr>
+    <tr>
+      <td rowspan="2">JAX</td>
+      <td><a href="https://huggingface.co/google/paligemma2-10b-mix-224-jax">224</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://huggingface.co/google/paligemma2-10b-mix-448-jax">448</a></td>
+    </tr>
+    <tr>
+      <td rowspan="4">28B</td>
+      <td rowspan="2">HF Transformers</td>
+      <td><a href="https://huggingface.co/google/paligemma2-28b-mix-224">224</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://huggingface.co/google/paligemma2-28b-mix-448">448</a></td>
+    </tr>
+    <tr>
+      <td rowspan="2">JAX</td>
+      <td><a href="https://huggingface.co/google/paligemma2-28b-mix-224-jax">224</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://huggingface.co/google/paligemma2-28b-mix-448-jax">448</a></td>
+    </tr>
+  </tbody>
+</table>
+
 
 ## Table of Contents
 
