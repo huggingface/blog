@@ -25,10 +25,10 @@ This is just the start of our journey with Llama 4\. Over the coming days we’l
 
 ## What is Llama 4?
 
-Llama 4, developed by Meta, introduces a new auto-regressive Mixture-of-Experts (MoE) architecture.This generation includes two models:
+Llama 4, developed by Meta, introduces a new auto-regressive Mixture-of-Experts (MoE) architecture. This generation includes two models:
 
 - The highly capable **Llama 4 Maverick** with 17B active parameters out of \~400B total, with 128 experts.  
-- The efficient **Llama 4 Scout** also  has 17B active parameters out of \~109B total, using just 16 experts. 
+- The efficient **Llama 4 Scout** also has 17B active parameters out of \~109B total, using just 16 experts. 
 
 Both models leverage early fusion for native multimodality, enabling them to process text and image inputs. Maverick and Scout are both trained on up to 40 trillion tokens on data encompassing 200 languages (with specific fine-tuning support for 12 languages including Arabic, Spanish, German, and Hindi). 
 
@@ -375,9 +375,9 @@ Evaluation results confirm the strength of these models, showing state-of-the-ar
 
 ## Acknowledgments
 
-Releasing a giant like Llama 4 takes a colossal effort across teams, geographies and a lot of VMs. In no particular order we’d like to thank Arthur, Lysandre, Cyril, Pablo, Marc, Mohammed from the Transformers team. We are grateful to the full vLLM team for richful discussions, insights, shared testing and debugging during this intense integration with many challenges. With larger optimisation needs, we’d like to thank Mohit for single-handedly adding support to Llama 4 in TGI. These chonky models require some serious engineering at the storage level. This took a lot of effort from Ajit, Rajat, Jared, Di, Yucheng and the rest of the [Xet team](http://hf.co/xet-team) too.
+Releasing a giant like Llama 4 takes a colossal effort across teams, geographies and a lot of VMs. In no particular order we’d like to thank Arthur, Lysandre, Cyril, Pablo, Marc, Mohammed from the Transformers team. We are grateful to the full vLLM team for rich discussions, insights, shared testing and debugging during this intense integration with many challenges. With larger optimisation needs, we’d like to thank Mohit for single-handedly adding support to Llama 4 in TGI. These chonky models require some serious engineering at the storage level. This took a lot of effort from Ajit, Rajat, Jared, Di, Yucheng and the rest of the [Xet team](http://hf.co/xet-team) too.
 
-There’s a lot of people involved in this effort, thanks a lot to the rest of the Hugging Face, vLLM and Meta Llama teams for the brilliant synergy\!
+There are a lot of people involved in this effort, thanks a lot to the rest of the Hugging Face, vLLM and Meta Llama teams for the brilliant synergy\!
 
 ## References
 
