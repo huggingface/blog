@@ -170,10 +170,11 @@ Find links to fine-tuning and multimodal RAG with ColSmolVLM on the [Next Steps]
 
 You can cite us in the following way:
 ```bibtex
-@unpublished{marafioti2025smolvlm,
-  title = {SmolVLM: Redefining small and efficient multimodal models},
-  author = {Marafioti, Andr\'{e}s and Zohar, Orr and Farr\'{e}, Miquel and Noyan, Merve and Bakouch, Elie and Cuenca, Pedro and Zakka, Cyril and Ben Allal, Loubna and Lozhkov, Anton and Tazi, Nouamane and Srivastav, Vaibhav and Lochner, Joshua and Larcher, Hugo and Morlon, Mathieu and Tunstall, Lewis and von Werra, Leandro and Wolf, Thomas},
-  year = {2025},
+@article{marafioti2025smolvlm,
+  title={SmolVLM: Redefining small and efficient multimodal models}, 
+  author={Andrés Marafioti and Orr Zohar and Miquel Farré and Merve Noyan and Elie Bakouch and Pedro Cuenca and Cyril Zakka and Loubna Ben Allal and Anton Lozhkov and Nouamane Tazi and Vaibhav Srivastav and Joshua Lochner and Hugo Larcher and Mathieu Morlon and Lewis Tunstall and Leandro von Werra and Thomas Wolf},
+  journal={arXiv preprint arXiv:2504.05299},
+  year={2025}
 }
 ```
 
