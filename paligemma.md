@@ -32,7 +32,7 @@ The PaliGemma release comes with three types of models:
 - Mix checkpoints: PT models fine-tuned to a mixture of tasks. They are suitable for general-purpose inference with free-text prompts, and can be used for research purposes only.
 - FT checkpoints: A set of fine-tuned models, each one specialized on a different academic benchmark. They are available in various resolutions and are intended for research purposes only.
 
-The models come in three different resolutions (`224x224`, `448x448`, `896x896`) and three different precisions (`bfloat16`, `float16`, and `float32`). Each repository contains the checkpoints for a given resolution and task, with three revisions for each of the available precisions. The `main` branch of each repository contains `float32` checkpoints, where as the `bfloat16` and `float16` revisions contain the corresponding precisions. There are separate repositories for models compatible with 🤗 transformers, and with the original JAX implementation.
+The models come in three different resolutions (`224x224`, `448x448`, `896x896`) and three different precisions (`bfloat16`, `float16`, and `float32`). Each repository contains the checkpoints for a given resolution and task, with three revisions for each of the available precisions. The `main` branch of each repository contains `float32` checkpoints, whereas the `bfloat16` and `float16` revisions contain the corresponding precisions. There are separate repositories for models compatible with 🤗 transformers, and with the original JAX implementation.
 
 As explained in detail further down, the high-resolution models require a lot more memory to run, because the input sequences are much longer. They may help with fine-grained tasks such as OCR, but the quality increase is small for most tasks. The 224 versions are perfectly fine for most purposes.
 
@@ -148,7 +148,7 @@ bnb_config = BitsAndBytesConfig(
     bnb_4bit_quant_type="nf4",
     bnb_4bit_compute_dtype=torch.bfloat16
 )
-model = PaligemmaForConditionalGeneration.from_pretrained(
+model = PaliGemmaForConditionalGeneration.from_pretrained(
     model_id,
     quantization_config=bnb_config,
     device_map={"":0}
