@@ -9,7 +9,7 @@ authors:
 
 We're excited to announce a new partnership between Cloudflare and Hugging Face that gives FastRTC developers instant access to enterprise-grade WebRTC infrastructure with a Hugging Face token.
 
-As a preview of what you can build with FastRTC and Cloudflare, check out this voice chat app built with Meta's new Llama 4 model!
+As a preview of what you can build with FastRTC and Cloudflare, check out this voice chat [app](https://huggingface.co/spaces/fastrtc/talk-to-llama4) built with Meta's new Llama 4 model!
 
 <video src="https://github.com/user-attachments/assets/f6d09e47-5e40-4296-b6cd-11d7f68baee2" controls /></video>
 
