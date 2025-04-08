@@ -11,7 +11,7 @@ We're excited to announce a new partnership between Cloudflare and Hugging Face 
 
 As a preview of what you can build with FastRTC and Cloudflare, check out this voice chat app built with Meta's new Llama 4 model!
 
-<video src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/FastRTCCloudFlarePostVideo.mp4" controls /></video>
+<video src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/FastRTCCloudFlareShort.mp4" controls /></video>
 
 ## Meeting a Gap in the Toolbox of AI Developers
 
