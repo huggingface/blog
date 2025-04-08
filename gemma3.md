@@ -33,7 +33,7 @@ All the [models are on the Hub](https://huggingface.co/collections/google/gemma-
 
 ## What is Gemma 3?
 
-[Gemma 3](https://huggingface.co/collections/google/gemma-3-release-67c6c6f89c4f76621268bb6d) is Google's latest iteration of open weight LLMs. It comes in four sizes, **1 billion**, **4 billion**, **12 billion**, and **27 billion** parameters with *base (pre-trained)* and *instruction-tuned* versions. Gemma 3 goes **multimodal** ! The 4, 12, and 27 billion parameter models can process both **images** and **text**, while the 1B variant is *text only*.
+[Gemma 3](https://huggingface.co/collections/google/gemma-3-release-67c6c6f89c4f76621268bb6d) is Google's latest iteration of open weight LLMs. It comes in four sizes, **1 billion**, **4 billion**, **12 billion**, and **27 billion** parameters with *base (pre-trained)* and *instruction-tuned* versions. Gemma 3 goes **multimodal**! The 4, 12, and 27 billion parameter models can process both **images** and **text**, while the 1B variant is *text only*.
 
 The input context window length has been increased from Gemma 2’s 8k to **32k** for the 1B variants, and **128k** for all others. As is the case with other VLMs (vision-language models), Gemma 3 generates text in response to the user inputs, which may consist of text and, optionally, images. Example uses include question answering, analyzing image content, summarizing documents, etc.
 
@@ -79,7 +79,7 @@ One can see in the figure below that the image tokens `<img>` are provided with 
 
 To make a LLM multilingual, the pretraining dataset incorporates more languages. The dataset of Gemma 3 has **double** the amount of multilingual data to improve language coverage.
 
-To account for the changes, the tokenizer is the same as that of Gemini 2.0. It is a SentencePiece tokenizer with 262K entries. The new tokenizer significantly improves the encoding of *Chinese*, *Japanese* and *Korean* text, to the expense of a slight increase of the token counts for English and Code.
+To account for the changes, the tokenizer is the same as that of Gemini 2.0. It is a SentencePiece tokenizer with 262K entries. The new tokenizer significantly improves the encoding of *Chinese*, *Japanese* and *Korean* text, at the expense of a slight increase of the token counts for English and Code.
 
 
 For the curious mind, here is the [technical report on Gemma 3](https://goo.gle/Gemma3Report), to dive deep into the enhancements.
@@ -149,7 +149,8 @@ You can **interleave** images with text. To do so, just cut off the input text w
 messages = [
         {
             "role": "system",
-            "content": [{"type": "text", "text": "You are a helpful assistant."}]},
+            "content": [{"type": "text", "text": "You are a helpful assistant."}]
+        },
         {
             "role": "user",
             "content": [
