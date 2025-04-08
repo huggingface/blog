@@ -11,7 +11,7 @@ We're excited to announce a new partnership between Cloudflare and Hugging Face 
 
 As a preview of what you can build with FastRTC and Cloudflare, check out this voice chat app built with Meta's new Llama 4 model!
 
-<video src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/FastRTCCloudFlareShort.mp4" controls /></video>
+<video src="https://github.com/user-attachments/assets/f6d09e47-5e40-4296-b6cd-11d7f68baee2" controls /></video>
 
 ## Meeting a Gap in the Toolbox of AI Developers
 
@@ -37,11 +37,10 @@ This partnership lets developers focus on their core application logic with Fast
 
 ## Getting Started
 
-The integration will be available in the FastRTC version 0.0.20. To get started:
-- Ensure you have a Hugging Face token (get one [here](https://huggingface.co/settings/tokens))
+The integration will be available in the FastRTC version `0.0.20` and above. To get started:
+- Ensure you have a Hugging Face token with read access(get one [here](https://huggingface.co/settings/tokens))
 - Install or upgrade FastRTC: `pip install --upgrade 'fastrtc[vad]'`
-- Configure your Stream to use the Cloudflare TURN network
-- Launch your script with python
+- Configure your Stream to use the Cloudflare TURN network as shown below:
 
 ```python
 from fastrtc import ReplyOnPause, Stream, get_cloudflare_turn_credentials
@@ -56,6 +55,9 @@ stream = Stream(ReplyOnPause(echo),
                 rtc_config=get_cloudflare_turn_credentials)
 stream.ui.launch()
 ```
+
+Launch your script with python, `python <name of your script>.py`  
+
 
 See this [Collection](https://huggingface.co/collections/fastrtc/cloudflare-partnership-67f437e0dfd19818d62ccb81) on Hugging Face as well as the [FastRTC Cookbook](https://fastrtc.org/cookbook/) for more examples.
 
