@@ -7,13 +7,13 @@ authors:
 
 # Hugging Face and Cloudflare Partner to Make Real-Time Speech and Video Seamless with FastRTC
 
-We're excited to announce a new partnership between Cloudflare and Hugging Face that gives developers instant access to enterprise-grade WebRTC infrastructure for FastRTC developers with a Hugging Face token.
+We're excited to announce a new partnership between Cloudflare and Hugging Face that gives FastRTC developers instant access to enterprise-grade WebRTC infrastructure with a Hugging Face token.
 
 As a preview of what you can build with FastRTC and Cloudflare, check out this voice chat app built with Meta's new Llama 4 model!
 
 <video src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/FastRTCCloudFlarePostVideo.mp4" controls /></video>
 
-## Meeting a Gap in the toolbox of AI developers
+## Meeting a Gap in the Toolbox of AI Developers
 
 As conversational AI becomes a core interface for tools, products, and services, real-time communication infrastructure is increasingly essential to support natural, multimodal interactions.
 Hugging Face built [FastRTC](https://fastrtc.org/) to let AI developers build low-latency AI-powered audio and video streams with minimal Python code by abstracting away the complexities of WebRTC – the gold standard technology for real-time communication.
@@ -53,7 +53,7 @@ def echo(audio):
     yield audio
 
 stream = Stream(ReplyOnPause(echo),
-                rtc_config=get_cloudflare_turn_crendentials)
+                rtc_config=get_cloudflare_turn_credentials)
 stream.ui.launch()
 ```
 
