@@ -5827,3 +5827,16 @@
     - nlp
     - LLM
     - research
+
+- local: fastrtc-cloudflare
+  title: "Hugging Face and Cloudflare Partner to Make Real-Time Speech and Video Seamless with FastRTC"
+  author: freddyaboulton
+  thumbnail: /blog/assets/fastrtc-cloudflare/fastrtc_cloudflare.png
+  date: April 9, 2025
+  tags:
+    - real-time
+    - audio
+    - video
+    - llm
+    - cloudflare
+    - partnerships
