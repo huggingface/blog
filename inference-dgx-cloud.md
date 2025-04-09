@@ -8,6 +8,8 @@ authors:
 
 # Serverless Inference with Hugging Face and NVIDIA NIM
 
+> **Note:** This article is deprecated and the service described is no longer available. For an alternative, you should consider [Inference Providers](https://huggingface.co/docs/inference-providers/en/index)
+
 Today, we are thrilled to announce the launch of **Hugging Face** **NVIDIA NIM API (serverless)**, a new service on the Hugging Face Hub, available to Enterprise Hub organizations. This new service makes it easy to use open models with the accelerated compute platform, of [NVIDIA DGX Cloud](https://www.nvidia.com/en-us/data-center/dgx-cloud) accelerated compute platform for inference serving. We built this solution so that Enterprise Hub users can easily access the latest NVIDIA AI technology in a serverless way to run inference on popular Generative AI models including Llama and Mistral, using standardized APIs and a few lines of code within the[ Hugging Face Hub](https://huggingface.co/models).
 
 
@@ -25,7 +27,7 @@ NVIDIA NIM API (serverless) complements [Train on DGX Cloud](https://huggingface
 
 ## How it works
 
-Running serverless inference with Hugging Face models has never been easier. Here’s a step-by-step guide to get you started:
+Running serverless inference with Hugging Face models has never been easier. Here's a step-by-step guide to get you started:
 
 _Note: You need access to an Organization with a [Hugging Face Enterprise Hub](https://huggingface.co/enterprise) subscription to run Inference._
 
@@ -36,7 +38,7 @@ Before you begin, ensure you meet the following requirements:
 
 ### Create a Fine-Grained Token
 
-Fine-grained tokens allow users to create tokens with specific permissions for precise access control to resources and namespaces. First, go to[ Hugging Face Access Tokens](https://huggingface.co/settings/tokens) and click on “Create new Token” and select “fine-grained”.
+Fine-grained tokens allow users to create tokens with specific permissions for precise access control to resources and namespaces. First, go to[ Hugging Face Access Tokens](https://huggingface.co/settings/tokens) and click on "Create new Token" and select "fine-grained".
 
 <div align="center"> 
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-dgx-cloud/fine-grained-token-1.png" alt="Create Token"> 
@@ -44,7 +46,7 @@ Fine-grained tokens allow users to create tokens with specific permissions for p
 
 
 
-Enter a “Token name” and select your Enterprise organization in “org permissions” as scope and then click “Create token”. You don’t need to select any additional scopes. 
+Enter a "Token name" and select your Enterprise organization in "org permissions" as scope and then click "Create token". You don't need to select any additional scopes. 
 
 
 <div align="center"> 
@@ -57,9 +59,9 @@ Now, make sure to save this token value to authenticate your requests later.
 
 ### **Find your NIM**
 
-You can find “NVIDIA NIM API (serverless)” on the model page of supported Generative AI models. You can find all supported models in this [NVIDIA NIM Collection](https://huggingface.co/collections/nvidia/nim-66a3c6fcdcb5bbc6e975b508), and in the Pricing section. 
+You can find "NVIDIA NIM API (serverless)" on the model page of supported Generative AI models. You can find all supported models in this [NVIDIA NIM Collection](https://huggingface.co/collections/nvidia/nim-66a3c6fcdcb5bbc6e975b508), and in the Pricing section. 
 
-We will use the `meta-llama/Meta-Llama-3-8B-Instruct`. Go the [meta-llama/Meta-Llama-3-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) model card open “Deploy” menu, and select “NVIDIA NIM API (serverless)” - this will open an interface with pre-generated code snippets for Python, Javascript or Curl. 
+We will use the `meta-llama/Meta-Llama-3-8B-Instruct`. Go the [meta-llama/Meta-Llama-3-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) model card open "Deploy" menu, and select "NVIDIA NIM API (serverless)" - this will open an interface with pre-generated code snippets for Python, Javascript or Curl. 
 
 
 
@@ -70,7 +72,7 @@ We will use the `meta-llama/Meta-Llama-3-8B-Instruct`. Go the [meta-llama/Meta-L
 
 ### **Send your requests**
 
-NVIDIA NIM API (serverless) is standardized on the OpenAI API. This allows you to use the `openai’` sdk for inference. Replace the `YOUR_FINE_GRAINED_TOKEN_HERE` with your fine-grained token and you are ready to run inference. 
+NVIDIA NIM API (serverless) is standardized on the OpenAI API. This allows you to use the `openai'` sdk for inference. Replace the `YOUR_FINE_GRAINED_TOKEN_HERE` with your fine-grained token and you are ready to run inference. 
 
 ```python
 from openai import OpenAI
@@ -159,7 +161,7 @@ The total cost for a request will depend on the model size, the number of GPUs r
 </table>
 
 
-Usage fees accrue to your Enterprise Hub Organizations’ current monthly billing cycle. You can check your current and past usage at any time within the billing settings of your Enterprise Hub Organization.
+Usage fees accrue to your Enterprise Hub Organizations' current monthly billing cycle. You can check your current and past usage at any time within the billing settings of your Enterprise Hub Organization.
 
 **Supported Models**
 
