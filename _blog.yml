@@ -5844,7 +5844,7 @@
 - local: pai-6-month
   title: "4M Models Scanned: Protect AI + Hugging Face 6 Months In"
   author: sean-pai
-  thumbnail: /blog/assets/protectai/thumbnail.png
+  thumbnail: /blog/assets/pai-6-month/thumbnail.png
   date: April 14, 2025
   tags:
     - hub

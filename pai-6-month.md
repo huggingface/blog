@@ -1,6 +1,6 @@
 ---
 title: "4M Models Scanned: Protect AI + Hugging Face 6 Months In"
-thumbnail: /blog/assets/pai-6-months/thumbnail.png
+thumbnail: /blog/assets/pai-6-month/thumbnail.png
 authors:
 - user: sean-pai
   guest: true
