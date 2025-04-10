@@ -33,6 +33,7 @@ Since we first released HELMET last October, there has been more development on 
 After the initial release, we have added more models to our evaluation suite and conducted additional analyses. We are excited to share our new results and present HELMET at ICLR 2025!
 
 In this blog, we will describe the construction of HELMET, our key findings, and how practitioners can use HELMET to differentiate between various LCLMs in future research and applications.
+Finally, we will conclude with a quickstart guide for using HELMET with HuggingFace.
 
 ## Evaluating long-context language models is challenging but important
 
@@ -181,8 +182,29 @@ You can easily run these evaluations with just
 python eval.py --config configs/rag.yaml --model <model_name>
 ```
 
-<!-- ### Diverse domains
-With HELMET, practitioners can easily choose the right model for their applications by comparing models across diverse tasks. Given the increasing interest in LCLMs for both applications and other research fields, we hope that HELMET will be a useful tool for the community. -->
+In our code, we leverage HuggingFace's `transformers` and `datasets` libraries to both load models and datasets.
+For example, when evaluating `meta-llama/Llama-3.2-1B-Instruct` for summarization, the underlying logic is as follows:
+```python
+from datasets import load_dataset
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+# Load the dataset, Multi-LexSum is one of the summarization datasets in HELMET
+all_data = load_dataset("allenai/multi_lexsum", name="v20230518", trust_remote_code=True)
+all_data = all_data.filter(lambda x: x["summary/short"] is not None)['validation']
+
+# Load the model
+model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3.2-1B-Instruct")
+tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.2-1B-Instruct")
+
+...
+# preprocessing the data (applying chat template, tokenizing, etc.)
+...
+
+# evaluate the model
+for sample in all_data:
+  response = model.generate(sample)
+```
+
 
 ### Quick comparison with existing models
 
