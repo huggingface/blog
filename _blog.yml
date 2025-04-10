@@ -5840,3 +5840,13 @@
     - llm
     - cloudflare
     - partnerships
+
+- local: pai-6-month
+  title: "4M Models Scanned: Protect AI + Hugging Face 6 Months In"
+  author: sean-pai
+  thumbnail: /blog/assets/protectai/thumbnail.png
+  date: April 16, 2025
+  tags:
+    - hub
+    - partnerships
+    - security
