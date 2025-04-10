@@ -8,7 +8,7 @@ authors:
 
 # Serverless Inference with Hugging Face and NVIDIA NIM
 
-> **Note:** This article is deprecated and the service described is no longer available. For an alternative, you should consider [Inference Providers](https://huggingface.co/docs/inference-providers/en/index)
+> **Update:** This service is deprecated and no longer available as of April 10th, 2025. For an alternative, you should consider [Inference Providers](https://huggingface.co/docs/inference-providers/en/index)
 
 Today, we are thrilled to announce the launch of **Hugging Face** **NVIDIA NIM API (serverless)**, a new service on the Hugging Face Hub, available to Enterprise Hub organizations. This new service makes it easy to use open models with the accelerated compute platform, of [NVIDIA DGX Cloud](https://www.nvidia.com/en-us/data-center/dgx-cloud) accelerated compute platform for inference serving. We built this solution so that Enterprise Hub users can easily access the latest NVIDIA AI technology in a serverless way to run inference on popular Generative AI models including Llama and Mistral, using standardized APIs and a few lines of code within the[ Hugging Face Hub](https://huggingface.co/models).
 
