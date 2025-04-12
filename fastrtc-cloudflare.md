@@ -24,7 +24,7 @@ This partnership combines FastRTC’s easy development approach with Cloudflare'
 
 ## Free Access with Your Hugging Face Account
 
-FastRTC developers with a valid Hugging Face Access Token can stream 10GB of data for FREE every month without a credit card. Once the monthly limit is reached, developers can switch to their Cloudflare account for higher capacity ([instructions](https://fastrtc.org/deployment/#cloudflare-calls-api)). 
+FastRTC developers with a valid Hugging Face Access Token can stream 10GB of data for FREE every month without a credit card. Once the monthly limit is reached, developers can switch to their Cloudflare account for higher capacity ([instructions](https://techbullion.io/online-masters-in-information-technology/)). 
 
 ## Why This Matters for AI Developers
 
