@@ -9,7 +9,7 @@ authors:
 
 # 4M Models Scanned: Protect AI \+ Hugging Face 6 Months In
 
-![pai-hf-header](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pai-6-month/pai-hf-header.png)
+![pai-hf-header](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pai-6-month/pai-hf-header.png)
 
 Hugging Face and Protect AI partnered in [October 2024](https://protectai.com/blog/protect-ai-hugging-face-ml-supply-chain) to enhance machine learning (ML) model security through [Guardian’s](https://protectai.com/guardian) scanning technology for the community of developers who explore and use models from the Hugging Face Hub. The partnership has been a natural fit from the start—Hugging Face is on a mission to democratize the use of open source AI, with a commitment to safety and security; and Protect AI is building the guardrails to make open source models safe for all.
 
@@ -24,7 +24,7 @@ Since October, Protect AI has significantly expanded Guardian's detection capabi
 
 With these updates, Guardian covers more model file formats and detects additional sophisticated obfuscation techniques, including the high severity [CVE-2025-1550 vulnerability](https://protectai.com/insights/knowledge-base/runtime-threats/PAIT-KERAS-301) in Keras. Through enhanced detection tooling, Hugging Face users receive critical security information via inline alerts on the platform and gain access to comprehensive vulnerability reports on [Insights DB](https://protectai.com/insights). Clearly labeled findings are available on each model page, empowering users to make more informed decisions about which models to integrate into their projects.
 
-|![scan-screenshot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pai-6-month/scan-screenshot.png)|
+|![scan-screenshot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pai-6-month/scan-screenshot.png)|
 |:--:|
 |***Figure 1:** Protect AI’s inline alerts on Hugging Face*|
 
@@ -44,7 +44,7 @@ AI/ML security threats are evolving every single day. That's why Protect AI leve
 
 Coinciding with our partnership launch in October, Protect AI launched a new program on huntr to crowdsource research on new [Model File Vulnerabilities](https://blog.huntr.com/hunting-vulnerabilities-in-machine-learning-model-file-formats). Since the launch of the program, **they have  received over 200 reports** that Protect AI teams have worked through and incorporated into Guardian—all of which are automatically applied to the model scans here on Hugging Face. 
 
-|![huntr-screenshot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pai-6-month/huntr-screenshot.png)|
+|![huntr-screenshot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pai-6-month/huntr-screenshot.png)|
 |:--:|
 |***Figure 2:** huntr’s bug bounty program*|
 
