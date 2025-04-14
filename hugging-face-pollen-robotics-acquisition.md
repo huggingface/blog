@@ -44,7 +44,7 @@ The first robot we’re offering is [Reachy 2](https://www.pollen-robotics.com/w
 
 2025
 
-* **March**: NVIDIA announced GR00T N1, released on Hugging Face— the world’s first open foundation model for humanoid robots — and [fine-tuned it](https://x.com/DrJimFan/status/1902117478496616642) to run on the LeRobot SO-100 robotic arm.  
+* **March**: NVIDIA [announced GR00T N1, released on Hugging Face](https://huggingface.co/blog/nvidia-physical-ai) — the world’s first open foundation model for humanoid robots — and [fine-tuned it](https://x.com/DrJimFan/status/1902117478496616642) to run on the LeRobot SO-100 robotic arm.  
 * **March**: LeRobot teamed up with Yaak [to release Learning to Drive (L2D)](https://huggingface.co/blog/lerobot-goes-to-driving-school) to the robotics AI community. L2D is the world’s largest multimodal dataset aimed at building an open-sourced spatial intelligence
 
 ## About Hugging Face
