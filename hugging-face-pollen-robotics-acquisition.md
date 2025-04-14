@@ -11,7 +11,7 @@ authors:
 # Hugging Face to sell open-source robots thanks to Pollen Robotics acquisition 🤖
 
 ![HFxReachy2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hugging-face-pollen-robotics-acquisition/simon-remi.jpg)
-*Simon Alibert and Rémi Cadène from the LeRobot team with Reach 2 — Photo: Léa Crespi*
+*Simon Alibert and Rémi Cadène from the LeRobot team with Reachy 2 — Photo: Léa Crespi*
 
 Since Hugging Face started the LeRobot library in 2024 when ex-Tesla lead Remi Cadene joined to create a new robotic effort, the Hugging Face Hub has quickly become the most widely used hub and software platform for open robotics with models, datasets, spaces and libraries.
 
