@@ -15,7 +15,7 @@ authors:
 
 Since Hugging Face started the LeRobot library in 2024, led by ex-Tesla lead Remi Cadene, the Hugging Face Hub has quickly become the most widely used hub and software platform for open robotics with models, datasets, spaces and libraries.
 
-Today, we’re excited to take it a step further by welcoming Pollen Robotics at Hugging Face, a team who’s spent the last 9 years building open-source robots and hardware.
+Today, we’re excited to take it a step further by welcoming Pollen Robotics to Hugging Face, a team that's spent the last 9 years building open-source robots and hardware.
 
 > "We believe robotics could be the next frontier unlocked by AI — and it should be open, affordable, and private. Our vision: a future where everyone in the community, from hobbyists to enterprises, can build or use robot assistants or games, starting from open solutions instead of closed, remote controlled, hardware." — Thomas Wolf, co-founder and chief scientist at Hugging Face
 
