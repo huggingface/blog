@@ -170,45 +170,83 @@ Finally, **there is no clear winner across all categories**, thereby calling for
 
 ## Using HELMET for future developments
 
+### How to run HELMET
 Using HELMET is easy! Simply clone our [GitHub repository](https://github.com/princeton-nlp/HELMET), and everything is ready to go after setting up the environment! 
-There are many practical reasons to use HELMET as well:
+
+We provide many different ways for loading models, which can be configured in the config file:
+1. using HuggingFace's `transformers` library
+2. using HuggingFace's TGI to launch a model endpoint in your machine
+3. using HuggingFace's Inference Endpoints to launch a remote model endpoint
+4. using vllm to launch a model endpoint in your machine. Note: You can launch vllm endpoint on Intel Gaudi accelerators. 
+5. using model provider's APIs
+
+#### Option 1. Using HuggingFace's `transformers` library
+Just use the config yamls in our repo and run these evaluations with
+```
+python eval.py --config configs/rag.yaml --model_name_or_path <model_name>
+```
+Behind the scene, HuggingFace's `transformers` library is used, and both local and remote models are automatically supported.
+
+#### Option 2. Using HuggingFace's TGI
+First, follow the instructions on [TGI github](https://github.com/huggingface/text-generation-inference) to launch a model endpoint. Then in your config file, specify the endpoint url. For example, you can have a config.yaml like below
+```
+input_max_length: 131072
+datasets: kilt_nq
+generation_max_length: 20
+test_files: data/kilt/nq-dev-multikilt_1000_k1000_dep6.jsonl
+demo_files: data/kilt/nq-train-multikilt_1000_k3_dep6.jsonl
+use_chat_template: true
+max_test_samples: 100
+shots: 2
+stop_new_line: true
+model_name_or_path: tgi:meta-llama/Llama-3.1-8B-Instruct # need to add "tgi:" prefix
+use_tgi_serving: true # add this line in your config
+```
+Then use the command below to run the benchmark
+```bash
+export LLM_ENPOINT=<your-tgi-endpoint> # example: "https://10.10.10.1:8080/v1"
+python eval.py --config configs/config.yaml --endpoint_url $LLM_ENDPOINT
+```
+
+#### Option 3. Using HuggingFace's Inference Endpoints
+First set up an endpoint by following the instructions [here](https://huggingface.co/inference-endpoints/dedicated). Get the endpoint url and your API key. Then use the same config yaml shown in Option 2 above, and run the command below.
+```bash
+export LLM_ENPOINT=<your-hf-inference-endpoint> # example: "https://XXXX.us-east-1.aws.endpoints.huggingface.cloud/v1"
+export API_KEY=<your-hf-api-key>
+python eval.py --config configs/config.yaml --endpoint_url $LLM_ENDPOINT --api_key $API_KEY
+```
+
+#### Option 4. Using VLLM
+You can launch a model endpoint with vllm on your system, including Intel Gaudi2 and Gaudi3 accelerators. See the instructions [here](https://github.com/princeton-nlp/HELMET/tree/main#run-on-intel-gaudi) on how to run HELMET using vllm on Intel Gaudi accelerators.
+
+You can use the same example config.yaml as in Option 2, except for two lines of change as below:
+```
+model_name_or_path: meta-llama/Llama-3.1-8B-Instruct # no prefix needed
+use_vllm_serving: true # use vllm instead of tgi
+```
+Then use the command below to run the benchmark
+```bash
+export LLM_ENPOINT=<your-vllm-endpoint>
+python eval.py --config configs/config.yaml --endpoint_url $LLM_ENDPOINT
+```
+
+#### Option 5. Using Model Provider's APIs
+We support APIs from OpenAI, Anthropic, Google, and TogetherAI.
+Please refer to the instructions in our [repo](https://github.com/princeton-nlp/HELMET/tree/main).
+
 
 ### Faster development
 
 We recommend using the Recall and RAG tasks for fast iterations during model development.
 These tasks achieves a good balance between fast evaluation and correlation with other realistic tasks.
 You can easily run these evaluations with just
+```bash
+python eval.py --config configs/rag.yaml --model_name_or_path <model_name>
 ```
-python eval.py --config configs/rag.yaml --model <model_name>
-```
-
-In our code, we leverage HuggingFace's `transformers` and `datasets` libraries to both load models and datasets.
-For example, when evaluating `meta-llama/Llama-3.2-1B-Instruct` for summarization, the underlying logic is as follows:
-```python
-from datasets import load_dataset
-from transformers import AutoTokenizer, AutoModelForCausalLM
-
-# Load the dataset, Multi-LexSum is one of the summarization datasets in HELMET
-all_data = load_dataset("allenai/multi_lexsum", name="v20230518", trust_remote_code=True)
-all_data = all_data.filter(lambda x: x["summary/short"] is not None)['validation']
-
-# Load the model
-model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3.2-1B-Instruct")
-tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.2-1B-Instruct")
-
-...
-# preprocessing the data (applying chat template, tokenizing, etc.)
-...
-
-# evaluate the model
-for sample in all_data:
-  response = model.generate(sample)
-```
-
 
 ### Quick comparison with existing models
 
-It is often expensive to run all the baselines for evaluating LCLMs, especially at long contexts given their computational and memory costs. 
+It is often expensive to run all the baselines for evaluating LCLMs, especially at long contexts given their computational and memory costs.
 For example, running HELMET at all lengths on a 70B model requires a node with 8 * 80GB GPUs for hundreds of GPU hours, which can be costly. 
 By evaluating on HELMET, researchers can directly compare their models to existing ones simply by referencing our results, which cover 59 models of different sizes and architectures.
 You can find the leaderboard on our [website](https://princeton-nlp.github.io/HELMET).
