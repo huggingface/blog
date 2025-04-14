@@ -49,7 +49,7 @@ The first robot we’re offering is [Reachy 2](https://www.pollen-robotics.com/w
 
 ## About Hugging Face
 
-Hugging Face is the most used platform for AI builders, with over 7 million users and a thriving community of researchers, developers, and organizations. Founded by Clément Delangue (CEO), Julien Chaumond (CTO), and Thomas Wolf (CSO), the company has become a central hub for AI, hosting the most popular open-source models and datasets, including Meta’s LLaMA 4, DeepSeek R1, Stable Diffusion, Black Forrest Flux, Mistral, OpenAI Whisper and millions of others. Its AI app store features over 500,000 ready-to-use applications called spaces, making state-of-the-art AI accessible to all. Hugging Face has raised over $395 million to date from leading investors including Google, Amazon, Nvidia, Salesforce, Sequoia, Coatue, Lux Capital, and Addition.
+Hugging Face is the most used platform for AI builders, with over 7 million users and a thriving community of researchers, developers, and organizations. Founded by Clément Delangue (CEO), Julien Chaumond (CTO), and Thomas Wolf (CSO), the company has become a central hub for AI, hosting the most popular open-source models and datasets, including Meta’s LLaMA 4, DeepSeek R1, Stable Diffusion, Black Forest Flux, Mistral, OpenAI Whisper and millions of others. Its AI app store features over 500,000 ready-to-use applications called spaces, making state-of-the-art AI accessible to all. Hugging Face has raised over $395 million to date from leading investors including Google, Amazon, Nvidia, Salesforce, Sequoia, Coatue, Lux Capital, and Addition.
 
 ## About Pollen Robotics
 
