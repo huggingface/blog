@@ -21,7 +21,7 @@ Today, we’re excited to take it a step further by welcoming Pollen Robotics to
 
 > "From the start, we built Pollen Robotics with open source at its core, driven by our belief that robots will play a profound role in our lives — serving as the interface between AI and the physical world. Hugging Face is a natural home for us to grow, as we share a common goal: putting AI and robotics in the hands of everyone." — Matthieu Lapeyre, Pollen co-founder
 
-This marks the fifth acquisition for Hugging Face, after notable additions like [Gradio](https://x.com/Gradio) and [Xethub](https://www.forbes.com/sites/richardnieva/2024/08/08/hugging-face-xethub-acquisition/). 
+This marks the fifth acquisition for Hugging Face, after notable additions like [Gradio](https://x.com/Gradio) and [XetHub](https://www.forbes.com/sites/richardnieva/2024/08/08/hugging-face-xethub-acquisition/). 
 
 According to Clem's 2025 [prediction about robots](https://www.linkedin.com/posts/clementdelangue_six-predictions-for-ai-in-2025-and-a-review-activity-7269341028799725568-X79a?utm_source=share&utm_medium=member_desktop&rcm=ACoAABNkWx4Bd1TXiJWc89LoPl7Bwii_7tkyFd4), "at least 100k personal robots will be pre-ordered" this year, signaling massive growth in the space.
 
