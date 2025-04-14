@@ -5,6 +5,7 @@ authors:
 - user: thomwolf
 - user: clem
 - user: matthieu-lapeyre
+  org: pollen-robotics
 ---
 
 # Hugging Face to sell open-source robots thanks to Pollen Robotics acquisition 🤖
