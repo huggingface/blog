@@ -5850,3 +5850,13 @@
     - hub
     - partnerships
     - security
+
+- local: hugging-face-pollen-robotics-acquisition
+  title: "Hugging Face to sell open-source robots thanks to Pollen Robotics acquisition 🤖"
+  author: thomwolf
+  thumbnail: /blog/assets/hugging-face-pollen-robotics-acquisition/hf-pollen.png
+  date: April 14, 2025
+  tags:
+    - robotics
+    - acquisition
+    - announcement
