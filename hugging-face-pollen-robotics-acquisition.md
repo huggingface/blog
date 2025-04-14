@@ -36,7 +36,7 @@ The first robot we’re offering is [Reachy 2](https://www.pollen-robotics.com/w
 2024
 
 * **March:** [Remi Cadene](https://x.com/RemiCadene), ex-scientist on Tesla’s Optimus, [joins Hugging Face](https://x.com/RemiCadene/status/1765715921388056904) to lead new open-source robotics project.  
-* **May:** Remi & HF Robotics team announce LeRobot open source robotics code library. Becomes largest and most comprehensive open-source library for robotics, with [over 12k stars on GH](https://github.com/huggingface/lerobot) and [over 100 repos on the HF Hub](https://huggingface.co/lerobot).  
+* **May:** Remi & HF Robotics team announce LeRobot open source robotics code library. Becomes largest and most comprehensive open-source library for robotics, with [over 12k stars on GH](https://github.com/huggingface/lerobot) and [over 100 repositories on the HF Hub](https://huggingface.co/lerobot).  
 * **June:** Hugging Face and Pollen Robotics collaborate on Reachy 2, [the first open-source robot powered by LeRobot](https://venturebeat.com/ai/hugging-face-and-pollen-robotics-show-off-first-project-an-open-source-robot-that-does-chores/)  
 * **August:** Robotics team releases [in-depth tutorial](https://github.com/huggingface/lerobot/blob/main/examples/7_get_started_with_real_robot.md) for developers to build and train their own AI-powered robots at low cost  
 * **October:** LeRobot [partnered with @therobotstudio to release the SO-100 arm](https://github.com/TheRobotStudio/SO-ARM100) — a high-performance robotic arm for around $100. It’s the most accessible option out there, and one of the easiest DIY builds you can do at home\!  
