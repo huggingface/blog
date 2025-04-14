@@ -20,8 +20,8 @@ Today, we’re excited to take it a step further by welcoming Pollen Robotics to
 > We believe robotics could be the next frontier unlocked by AI — and it should be open, affordable, and private. Our vision: a future where everyone in the community, from hobbyists to enterprises, can build or use robot assistants or games, starting from open solutions instead of closed, remote controlled, hardware.
 > <cite>Thomas Wolf, co-founder and chief scientist at Hugging Face</cite>
 
-> From the start, we built Pollen Robotics with open source at its core, driven by our belief that robots will play a profound role in our lives — serving as the interface between AI and the physical world. Hugging Face is a natural home for us to grow, as we share a common goal: putting AI and robotics in the hands of everyone.
-> <cite>Matthieu Lapeyre, Pollen co-founder</cite>
+<blockquote><p>From the start, we built Pollen Robotics with open source at its core, driven by our belief that robots will play a profound role in our lives — serving as the interface between AI and the physical world. Hugging Face is a natural home for us to grow, as we share a common goal: putting AI and robotics in the hands of everyone.</p>
+— Matthieu Lapeyre, Pollen co-founder</blockquote>
 
 This marks the fifth acquisition for Hugging Face, after notable additions like [Gradio](https://x.com/Gradio) and [XetHub](https://www.forbes.com/sites/richardnieva/2024/08/08/hugging-face-xethub-acquisition/). 
 
