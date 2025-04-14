@@ -29,7 +29,7 @@ According to Clem's 2025 [prediction about robots](https://www.linkedin.com/post
 
 This month also celebrates one year since Hugging Face created LeRobot. The community of LeRobot-native DIY robot builders has flourished on [YouTube](https://www.youtube.com/results?search_query=lerobot) and [Discord](https://discord.com/channels/1216765309076115607/1216765309558722622), truly democratizing access to robotics technology. In just twelve months, the GitHub repository has grown from zero to over 12,000 stars, with dramatic growth continuing into 2025.
 
-![LeRobot GitHub Star History](https://pbs.twimg.com/media/GoK1l7Va8AAMeXo?format=jpg&name=medium))
+![LeRobot GitHub Star History](https://pbs.twimg.com/media/GoK1l7Va8AAMeXo?format=jpg&name=medium)
 
 The first robot we’re offering is [Reachy 2](https://www.pollen-robotics.com/wp-content/uploads/2025/02/Reachy2-Dual-arms-with-mobile-base-Datasheet-1.pdf) — your friendly little lab partner for the AI era that is already in use in labs like Cornell or Carnegie Mellon. It’s a state-of-the-art humanoid robot that is open-source & VR-compatible, built for research, education, and embodied AI experiments. You can already order one for $70,000 by emailing sales@pollen-robotics.com.
 
