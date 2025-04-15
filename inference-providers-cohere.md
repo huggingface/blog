@@ -5,9 +5,6 @@ authors:
 - user: reach-vb
 - user: burtenshaw
 - user: merve
-- user: sarahooker
-  guest: true
-  org: CohereLabs
 - user: alexrs
   guest: true
   org: CohereLabs
@@ -21,8 +18,6 @@ authors:
 We're thrilled to share that **Cohere** is now a supported Inference Provider on HF Hub! This also marks the first model creator to share and serve their models directly on the Hub. 
 
 [Cohere](https://cohere.com) is committed to building and serving models purpose-built for enterprise use-cases. Their comprehensive suite of secure AI solutions, from cutting-edge Generative AI to powerful Embeddings and Ranking models, are designed to tackle real-world business challenges. Additionally, [Cohere Labs](https://cohere.com/research), Cohere’s in house research lab, supports fundamental research and seeks to change the spaces where research happens.
-
-<!-- TODO: @burtenshaw @Vaibhavs10 < Image here> -->
 
 Starting now, you can run serverless inference to the following models via Cohere and Inference Providers:
 
