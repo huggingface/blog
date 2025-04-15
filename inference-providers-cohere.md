@@ -1,6 +1,6 @@
 ---
 title: "Cohere on Hugging Face Inference Providers 🔥"
-thumbnail: /blog/assets/inference-providers-cohere/banner.png
+thumbnail: /blog/assets/inference-providers-cohere/thumbnail.png
 authors:
 - user: reach-vb
 - user: burtenshaw
@@ -13,7 +13,7 @@ authors:
 - user: sbrandeis
 ---
 
-![banner image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-cohere/banner.png)
+![banner image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/cohere-banner.png)
 <!-- TODO: this banner is by @burtenshaw and a bit shit canva link is https://www.canva.com/design/DAGkt1fdFb0/m13S0f1UuyJOHs-wC-LQSA/edit?utm_content=DAGkt1fdFb0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton cohere assets are at https://cohere.com/newsroom -->
 
 # Cohere on Hugging Face Inference Providers 🔥
