@@ -10,6 +10,7 @@ authors:
   guest: true
   org: CohereLabs
 - user: julien-c
+- user: sbrandeis
 ---
 
 ![banner image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-cohere/banner.png)
