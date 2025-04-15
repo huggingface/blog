@@ -12,7 +12,8 @@ authors:
 - user: julien-c
 ---
 
-<!-- TODO: @burtenshaw @Vaibhavs10 add banner image -->
+![banner image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-cohere/banner.png)
+<!-- TODO: this banner is by @burtenshaw and a bit shit canva link is https://www.canva.com/design/DAGkt1fdFb0/m13S0f1UuyJOHs-wC-LQSA/edit?utm_content=DAGkt1fdFb0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton cohere assets are at https://cohere.com/newsroom -->
 
 # Cohere on Hugging Face Inference Providers 🔥
 
