@@ -5,6 +5,7 @@ authors:
 - user: reach-vb
 - user: burtenshaw
 - user: merve
+- user: hanouticelina
 - user: alexrs
   guest: true
   org: CohereLabs
@@ -58,6 +59,8 @@ Ideal for low-cost or low-latency use cases, bringing state-of-the-art performan
 ### In the website UI
 
  <!-- TODO: @Vaibhavs10 @burtenshaw < Cohere.ai inference provider UI Image here >  -->
+
+ ![gif screenshot of Cohere inference provider in the UI](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/cohere-inference-provider-screenshot.gif)
 
 Explore all Cohere-powered models on Hugging Face [here](https://huggingface.co/models?inference_provider=cohere).
 
