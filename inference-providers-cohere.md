@@ -60,7 +60,7 @@ Ideal for low-cost or low-latency use cases, bringing state-of-the-art performan
 
 ### In the website UI
 
- <!-- TODO: @Vaibhavs10 @burtenshaw < Cohere.ai inference provider UI Image here >  -->
+![Cohere provider UI](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/models-inference-provider-cohere.png)
 
  ![gif screenshot of Cohere inference provider in the UI](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/cohere-inference-provider-screenshot.gif)
 
