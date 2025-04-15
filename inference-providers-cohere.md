@@ -5,7 +5,7 @@ authors:
 - user: reach-vb
 - user: burtenshaw
 - user: merve
-- user: hanouticelina
+- user: celinah
 - user: alexrs
   guest: true
   org: CohereLabs
