@@ -62,7 +62,7 @@ Ideal for low-cost or low-latency use cases, bringing state-of-the-art performan
 
 ![Cohere provider UI](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/models-inference-provider-cohere.png)
 
- ![gif screenshot of Cohere inference provider in the UI](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/cohere-inference-provider-screenshot.gif)
+ ![gif screenshot of Cohere inference provider in the UI](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/inference-providers/cohere-screenshot.gif)
 
 Explore all Cohere-powered models on Hugging Face [here](https://huggingface.co/models?inference_provider=cohere).
 
