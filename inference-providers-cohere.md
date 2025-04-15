@@ -178,7 +178,7 @@ from openai import OpenAI
 
 client = OpenAI(
     base_url="https://router.huggingface.co/cohere/compatibility/v1",
-    api_key=HF_TOKEN,
+    api_key="xxxxxxxxxxxxxxxxxxxxxxxx",
 )
 
 messages = [
