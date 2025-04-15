@@ -117,7 +117,7 @@ from huggingface_hub import InferenceClient
 
 client = InferenceClient(
     provider="cohere",
-    api_key=HF_TOKEN,
+    api_key="xxxxxxxxxxxxxxxxxxxxxxxx",
 )
 
 messages = [
