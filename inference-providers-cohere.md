@@ -5,7 +5,7 @@ authors:
 - user: reach-vb
 - user: burtenshaw
 - user: merve
-- user: hanouticelina
+- user: celinah
 - user: alexrs
   guest: true
   org: CohereLabs
@@ -86,7 +86,7 @@ from huggingface_hub import InferenceClient
 
 client = InferenceClient(
     provider="cohere",
-    api_key=HF_TOKEN,
+    api_key="xxxxxxxxxxxxxxxxxxxxxxxx",
 )
 
 messages = [
@@ -118,7 +118,7 @@ from huggingface_hub import InferenceClient
 
 client = InferenceClient(
     provider="cohere",
-    api_key=HF_TOKEN,
+    api_key="xxxxxxxxxxxxxxxxxxxxxxxx",
 )
 
 messages = [
@@ -179,7 +179,7 @@ from openai import OpenAI
 
 client = OpenAI(
     base_url="https://router.huggingface.co/cohere/compatibility/v1",
-    api_key=HF_TOKEN,
+    api_key="xxxxxxxxxxxxxxxxxxxxxxxx",
 )
 
 messages = [
@@ -270,7 +270,7 @@ from huggingface_hub import InferenceClient
 
 client = InferenceClient(
     provider="cohere",
-    api_key=HF_TOKEN,
+    api_key="xxxxxxxxxxxxxxxxxxxxxxxx",
 )
 
 completion = client.chat.completions.create(
