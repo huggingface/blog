@@ -5860,3 +5860,16 @@
     - robotics
     - acquisition
     - announcement
+
+- local: inference-providers-cohere
+  title: "Cohere on Hugging Face Inference Providers 🔥"
+  author: burtenshaw
+  thumbnail: /blog/assets/inference-providers-cohere/thumbnail.png
+  date: April 15, 2025
+  tags:
+   - llms
+   - inference
+   - cohere
+   - enterprise
+   - partnerships
+   - hub
