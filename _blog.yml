@@ -5873,3 +5873,16 @@
     - community
     - research
     - intel
+
+- local: inference-providers-cohere
+  title: "Cohere on Hugging Face Inference Providers 🔥"
+  author: burtenshaw
+  thumbnail: /blog/assets/inference-providers-cohere/thumbnail.png
+  date: April 16, 2025
+  tags:
+   - llms
+   - inference
+   - cohere
+   - enterprise
+   - partnerships
+   - hub
