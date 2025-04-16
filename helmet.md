@@ -1,5 +1,5 @@
 ---
-title: "Introducting HELMET: Holistically Evaluating Long-context Language Models" 
+title: "Introducing HELMET: Holistically Evaluating Long-context Language Models" 
 thumbnail: /blog/assets/helmet/thumbnail.png
 authors:
 - user: hyen
@@ -79,12 +79,12 @@ With the development of LCLMs across both industry and the open-source community
 
 A common practice for evaluating long-context language models is to use perplexity or synthetic tasks, such as needle-in-a-haystack (NIAH). 
 However, recent works have shown that perplexity does not correlate well with downstream performance ([Fang et al., 2024](https://arxiv.org/abs/2410.23771)). 
-In Figure 2, we show that synthetic tasks like NIAH do not correlate with real-world performance , but the more complex synthetic tasks achieve higher correlation with real-world tasks.
+In Figure 2, we show that synthetic tasks like NIAH do not correlate with real-world performance, but the more complex synthetic tasks achieve higher correlation with real-world tasks.
 
 <figure>
   <img src="./assets/helmet/correlation_syn.png" alt="syn" width="500"/>
   <figcaption>
-    Figure 2: Simple synthetic tasks, such as NIAH, do not correlate well with downstream tasks, such as summarization or generation with citations. More complex variants (e.g., RULER MV) achieves higher correlation. 
+    Figure 2: Simple synthetic tasks, such as NIAH, do not correlate well with downstream tasks, such as summarization or generation with citations. More complex variants (e.g., RULER MV) achieve higher correlation. 
   </figcaption>
 </figure>
 
@@ -139,7 +139,7 @@ In our experiments, we evaluate on input length from 8K to 128K tokens, but HELM
 
 Our experiments and analyses include a comprehensive set of 59 LCLMs. To our knowledge, this is the most thorough and controlled comparison of long-context models on diverse applications. These models cover both leading proprietary and open-source models, and we also consider models with different architectures (e.g., full-attention transformers, hybrid architectures) and positional extrapolation techniques. In this section, we will highlight a few key findings from our experiments.
 
-### Diverse evaluation is needed for assess long-context abilities
+### Diverse evaluation is needed for assessing long-context abilities
 
 Long-context benchmarks are often constructed with specific applications in mind, such as summarization or question answering, which limits the understanding of LCLMs in a broader context. We examine model performance over a wide range of real tasks and find that different categories do not always correlate with each other (Figure 4).
 
@@ -183,7 +183,7 @@ Just use the config yamls in our repo and run these evaluations with
 ```
 python eval.py --config configs/rag.yaml --model_name_or_path <model_name>
 ```
-Behind the scene, HuggingFace's `transformers` library is used, and both local and remote models are automatically supported.
+Behind the scenes, HuggingFace's `transformers` library is used, and both local and remote models are automatically supported.
 
 #### Option 2. Using HuggingFace's TGI
 First, follow the instructions on [TGI github](https://github.com/huggingface/text-generation-inference) to launch a model endpoint. Then in your config file, specify the endpoint url. For example, you can have a config.yaml like below
@@ -236,7 +236,7 @@ Please refer to the instructions in our [repo](https://github.com/princeton-nlp/
 ### Faster development
 
 We recommend using the Recall and RAG tasks for fast iterations during model development.
-These tasks achieves a good balance between fast evaluation and correlation with other realistic tasks.
+These tasks achieve a good balance between fast evaluation and correlation with other realistic tasks.
 You can easily run these evaluations with just
 ```bash
 python eval.py --config configs/rag.yaml --model_name_or_path <model_name>
@@ -252,7 +252,7 @@ You can find the leaderboard on our [website](https://princeton-nlp.github.io/HE
 ### Looking ahead
 
 HELMET is a step towards a more comprehensive evaluation of long-context language models, but there are still many more exciting applications of LCLMs. 
-For example, we recently released [LongProc](https://arxiv.org/abs/2501.05414), a benchmark for evaluating LCLMs on *long-form generation* and *following procedures*, which are critical for developing reasoning models that generates tens of thousands of tokens in thinking steps.
+For example, we recently released [LongProc](https://arxiv.org/abs/2501.05414), a benchmark for evaluating LCLMs on *long-form generation* and *following procedures*, which are critical for developing reasoning models that generate tens of thousands of tokens in thinking steps.
 Although summarization tasks have long outputs (up to 1K tokens), LongProc focuses on even longer outputs, up to 8K tokens. 
 Similar to HELMET, LongProc is also designed with reliable evaluation settings and diverse tasks. 
 We are working on integrating LongProc into HELMET's evaluation suite, and we hope that this will provide a more comprehensive evaluation of LCLMs on long-form tasks.
