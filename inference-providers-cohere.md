@@ -60,6 +60,9 @@ Ideal for low-cost or low-latency use cases, bringing state-of-the-art performan
 
 You can use Cohere models directly on the Hub either on the website UI or via the client SDKs.
 
+> [!TIP]
+> You can find all the examples mentioned in this section on the [Cohere documentation page](https://huggingface.co/docs/inference-providers/providers/cohere). 
+
 ### In the website UI
 
 You can search for Cohere models by filtering by the inference provider in the [model hub](https://huggingface.co/models?inference_provider=cohere).
