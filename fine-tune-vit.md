@@ -325,14 +325,14 @@ def collate_fn(batch):
 
 ### Define an evaluation metric
 
-The [accuracy](https://huggingface.co/metrics/accuracy) metric from `datasets` can easily be used to compare the predictions with the labels. Below, you can see how to use it within a `compute_metrics` function that will be used by the `Trainer`.
+The [accuracy](https://huggingface.co/metrics/accuracy) metric from `evaluate` can easily be used to compare the predictions with the labels. Below, you can see how to use it within a `compute_metrics` function that will be used by the `Trainer`.
 
 
 ```python
 import numpy as np
-from datasets import load_metric
+from evaluate import load
 
-metric = load_metric("accuracy")
+metric = load("accuracy")
 def compute_metrics(p):
     return metric.compute(predictions=np.argmax(p.predictions, axis=1), references=p.label_ids)
 ```

@@ -13,7 +13,7 @@ authors:
 
 Hugging Face and Protect AI partnered in [October 2024](https://protectai.com/blog/protect-ai-hugging-face-ml-supply-chain) to enhance machine learning (ML) model security through [Guardian’s](https://protectai.com/guardian) scanning technology for the community of developers who explore and use models from the Hugging Face Hub. The partnership has been a natural fit from the start—Hugging Face is on a mission to democratize the use of open source AI, with a commitment to safety and security; and Protect AI is building the guardrails to make open source models safe for all.
 
-## 4 new threat detection modules launched
+### 4 new threat detection modules launched
 
 Since October, Protect AI has significantly expanded Guardian's detection capabilities, improving existing threat detection capabilities and launching four new detection modules:
 
@@ -28,17 +28,17 @@ With these updates, Guardian covers more model file formats and detects addition
 |:--:|
 |***Figure 1:** Protect AI’s inline alerts on Hugging Face*|
 
-## By the numbers
+### By the numbers
 
 **As of April 1, 2025, Protect AI has successfully scanned 4.47 million unique model versions in 1.41 million repositories on the Hugging Face Hub.**
 
 To date, Protect AI has identified a total of **352,000 unsafe/suspicious issues across 51,700 models**. In just the last 30 days, Protect AI has served **226 million requests** from Hugging Face at a **7.94 ms response time**.
 
-# **Maintaining a Zero Trust Approach to Model Security**
+## **Maintaining a Zero Trust Approach to Model Security**
 
 Protect AI’s Guardian applies a zero trust approach to AI/ML security. This especially comes into play when treating arbitrary code execution as inherently unsafe, regardless of intent. Rather than just classifying overtly malicious threats, Guardian flags execution risks as suspicious on InsightsDB, recognizing that even harmful code can look innocuous through obfuscation techniques (see more on payload obfuscation below). Attackers can disguise payloads within seemingly benign scripts or extensibility components of a framework, making payload inspection alone insufficient for ensuring security. By maintaining this cautious approach, Guardian helps mitigate risks posed by hidden threats in machine learning models.
 
-# **Evolving Guardian’s Model Vulnerability Detection Capabilities** 
+## **Evolving Guardian’s Model Vulnerability Detection Capabilities** 
 
 AI/ML security threats are evolving every single day. That's why Protect AI leverages both in-house [threat research teams](https://protectai.com/threat-research) and [huntr](https://huntr.com)—the world's first and largest AI/ML bug bounty program powered by our community of over 17,000 security researchers.
 
@@ -48,7 +48,7 @@ Coinciding with our partnership launch in October, Protect AI launched a new pro
 |:--:|
 |***Figure 2:** huntr’s bug bounty program*|
 
-## Common attack themes
+### Common attack themes
 
 As more huntr reports come in and more independent threat research is conducted, certain trends have emerged.
 
@@ -60,7 +60,7 @@ As more huntr reports come in and more independent threat research is conducted,
 
 **Attack vector chaining**: Recent reports demonstrate how multiple vulnerabilities can be combined to create sophisticated attack chains that can bypass detection. By sequentially exploiting vulnerabilities like obfuscated payloads and extension mechanisms, researchers have shown complex pathways for compromise that appear benign when examined individually. This approach significantly complicates detection and mitigation efforts, as security tools focused on single-vector threats often miss these compound attacks. Effective defense requires identifying and addressing all links in the attack chain rather than treating each vulnerability in isolation.
 
-# **Delivering Comprehensive Threat Detection for Hugging Face Users**
+## **Delivering Comprehensive Threat Detection for Hugging Face Users**
 
 The industry-leading Protect AI threat research team, with help from the huntr community, is continuously gathering data and insights in order to develop new and more robust model scans as well as automatic threat blocking (available to Guardian customers). In the last few months, Guardian has:
 
@@ -76,7 +76,7 @@ The industry-leading Protect AI threat research team, with help from the huntr c
 
 **Provided deeper model analysis:** Actively research on additional ways to augment current detection capabilities for better analysis and detection of unsafe models. Expect to see significant enhancements in reducing both false positives and false negatives in the near future. 
 
-# **It Only Gets Better from Here**
+## **It Only Gets Better from Here**
 
 Through the partnership with Protect AI and Hugging Face, we’ve made third-party ML models safer and more accessible. We believe that having more eyes on model security can only be a good thing. We’re increasingly seeing the security world pay attention and lean in, making threats more discoverable and AI usage safer for all.
 
