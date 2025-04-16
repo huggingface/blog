@@ -1,31 +1,39 @@
 ---
-title: "Introducing HELMET: Holistically Evaluating Long-context Language Models" 
+title: "Introducting HELMET: Holistically Evaluating Long-context Language Models"
 thumbnail: /blog/assets/helmet/thumbnail.png
 authors:
 - user: hyen
   guest: true
   org: princeton-nlp
+- user: gaotianyu1350
+  guest: true
+  org: princeton-nlp
+- user: houminmin
+  guest: true
+  org: Intel
+- user: kding1
+  guest: true
+  org: Intel
+- user: danf
+  guest: true
+  org: Intel
+- user: moshew
+  guest: true
+  org: Intel
+- user: cdq10131
+  guest: true
+  org: princeton-nlp
 
 ---
 
-# Introducing  <img src="./assets/helmet/logo.jpeg" alt="logo" width="30"/><span style="color: #E77500"><b>HELMET</b></span>: Holistically Evaluating Long-context Language Models
-
-By Howard Yen<sup><span style="color: #E77500">&spades;</span></sup>, 
-Tianyu Gao<sup><span style="color: #E77500">&spades;</span></sup>, 
-Minmin Hou<sup><span style="color: #00C7FD">&clubs;</span></sup>, 
-Ke Ding<sup><span style="color: #00C7FD">&clubs;</span></sup>, 
-Daniel Fleischer<sup><span style="color: #00C7FD">&clubs;</span></sup>, 
-Peter Izsak<sup><span style="color: #00C7FD">&clubs;</span></sup>, 
-Moshe Wasserblat<sup><span style="color: #00C7FD">&clubs;</span></sup>, 
-and Danqi Chen<sup><span style="color: #E77500">&spades;</span></sup>\
-<sup><span style="color: #E77500">&spades;</span></sup>Princeton Language and Intelligence (PLI), Princeton University\
-<sup><span style="color: #00C7FD">&clubs;</span></sup>Intel\
-2025-02-29
+<h1 class="subtitle is-3 publication-subtitle">
+  <span>Introducing <span style="color: #E77500"><b>HELMET</b></span>: Holistically Evaluating Long-context Language Models</span>
+</h1>
 
 Contact: hyen@cs.princeton.edu \
 Paper: https://arxiv.org/abs/2410.02694 \
-Code & Data: https://github.com/princeton-nlp/HELMET \
-Website: https://princeton-nlp.github.io/HELMET 
+Website: https://princeton-nlp.github.io/HELMET \
+Code & Data: https://github.com/princeton-nlp/HELMET
 
 Since we first released HELMET last October, there has been more development on long-context language models than ever before, and we are thrilled to see the adoption of HELMET by the community, such as [Microsoft's Phi-4](https://arxiv.org/abs/2412.08905) and [AI21's Jamba 1.6](https://www.ai21.com/blog/introducing-jamba-1-6/).
 After the initial release, we have added more models to our evaluation suite and conducted additional analyses. We are excited to share our new results and present HELMET at ICLR 2025!
