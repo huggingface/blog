@@ -187,7 +187,7 @@ route restrictions and route maneuvers, collectively referred to as route tasks,
   <em> Fig 5: Driving tasks assigned to raw GPS trace <a href="https://api.mapbox.com/styles/v1/yaak-driving-curriculum/cm6z3pjsh01df01qr6mhs636z.html?title=view&access_token=pk.eyJ1IjoieWFhay1kcml2aW5nLWN1cnJpY3VsdW0iLCJhIjoiY2txYzJqb3FwMWZweDJwbXY0M3R5cDAzYyJ9.vfIvUIpyVbBXqPjOjM7hEg&zoomwheel=true&fresh=true#15.75/48.770781/9.129999">(View map)</a> </em>
 </p>
 
-The route tasks which get assigned to the map-matched route, are assigned the beginning and end timestamps (unix epoc),
+The route tasks which get assigned to the map-matched route, are assigned the beginning and end timestamps (unix epoch),
 which equates to the time when the vehicle enters and exits the geospatial linestring or point defined by the task (Fig 6).
 
 | Begin: Driving task (Best viewed in a separate tab)  | End: Driving task (Best viewed in a separate tab) |
@@ -284,7 +284,7 @@ we invite the AI community to submit models for closed loop testing with a safet
 The AI community will be able to queue their models for closed loop testing, on our fleet and choose the tasks
 they’d like the model to be evaluated on and, for example, navigating roundabouts or parking.
 The model would run in inference mode (Jetson AGX or similar) on-board the vehicle.
-The models will be drive the vehicle with LeRobot driver in two modes
+The models will drive the vehicle with LeRobot driver in two modes
 
 1. drive-by-waypoints: “*Follow the waypoints adhering to driving rules and regulations*” given [observation.state.vehicle.waypoints](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L196)
 2. drive-by-language: “*Drive straight and turn right at the pedestrian crossing*”
@@ -299,7 +299,7 @@ The models will be drive the vehicle with LeRobot driver in two modes
 ```bibtex
 @article{yaak2023novel,
     author = {Yaak team},
-    title ={A novel test for autonomoy},
+    title ={A novel test for autonomy},
     journal = {https://www.yaak.ai/blog/a-novel-test-for-autonomy},
     year = {2023},
 }

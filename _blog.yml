@@ -5685,14 +5685,191 @@
     - community
     - research
 
+- local: xet-on-the-hub
+  title: "Xet is on the Hub"
+  author: jsulz
+  thumbnail: /blog/assets/xet-on-the-hub/thumbnail.png
+  date: March 18, 2025
+  tags:
+    - storage
+    - infrastructure
+    - content addressed store
+
+- local: nvidia-physical-ai
+  title: "NVIDIA's GTC 2025 Announcement for Physical AI Developers: New Open Models and Datasets"
+  author: mingyuliutw
+  guest: true
+  org: nvidia
+  thumbnail: /blog/assets/nvidia-physical-ai/thumbnail.png  
+  date: March 18, 2025
+  tags:
+    - robotics
+    - ai
+    - datasets
+    - community
+    - research
+
+- local: ai-action-wh-2025
+  title: "AI Policy: 🤗 Response to the White House AI Action Plan RFI"
+  author: yjernite
+  thumbnail: /blog/assets/151_policy_ntia_rfc/us_policy_thumbnail.png
+  date: March 19, 2025
+  tags:
+    - ethics
+    - policy
+
+- local: olympic-coder-lmstudio
+  title: "Open R1: How to use OlympicCoder locally for coding?"
+  author: burtenshaw
+  thumbnail: /blog/assets/olympic-coder-lmstudio/banner_correct.png
+  date: March 20, 2025
+  tags:
+    - open-source
+    - llm
+    - research
+    - reasoning
+    - local
+
+- local: endpoint-analytics 
+  title: "The New and Fresh analytics in Inference Endpoints"
+  author: erikkaum
+  thumbnail: /blog/assets/endpoint-analytics/thumbnail.png  
+  date: March 21, 2025
+  tags:
+    - guide
+    - cloud
+    - inference
+    
+- local: gradio-dataframe-upgrade 
+  title: "Introducing Gradio's new Dataframe!"
+  author: hmb
+  thumbnail: /blog/assets/gradio-dataframe-update/thumbnail.png  
+  date: March 24, 2025
+  tags:
+    - gradio
+    - open-source
+    - guide
+
+- local: train-reranker
+  title: "Training and Finetuning Reranker Models with Sentence Transformers v4"
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: March 26, 2025
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+
+- local: intel-gaudi-backend-for-tgi
+  title: "Accelerating LLM Inference with TGI on Intel Gaudi"
+  author: baptistecolle
+  thumbnail: /blog/assets/intel-gaudi-backend-for-tgi/tgi-gaudi-thumbnail.png
+  date: March 28, 2025
+  tags:
+    - tgi
+    - intel
+    - gaudi
+    - llm
+    - inference
+    - partnerships
+
+- local: scaling-secrets-management
+  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"  
+  thumbnail: /blog/assets/infisical/thumbnail.png
+  author: segudev
+  guest: true
+  date: Mar 31, 2025
+  tags:
+    - security
+    - infra
+    - partnerships
+
+- local: llm-course
+  title: "The NLP Course is becoming the LLM Course!"
+  author: burtenshaw
+  thumbnail: /blog/assets/llm-course/llm-course-rename-thumbnail.png
+  date: April 3, 2025
+  tags:
+    - education
+    - nlp-course
+    - llm-course
+    - open-source
+
+- local: gradio-1m
+  title: "Journey to 1 Million Gradio Users!"
+  author: abidlabs
+  thumbnail: /blog/assets/gradio-1m/thumbnail.png
+  date: April 4, 2025
+  tags:
+    - gradio
+    - open-source
+    - community
+
+- local: llama4-release
+  title: "Welcome Llama 4 Maverick & Scout on Hugging Face!"
+  author: burtenshaw
+  thumbnail: /blog/assets/llama_4.png
+  date: April 5, 2025
+  tags:
+    - llama
+    - meta
+
+- local: leaderboard-3c3h-aragen-ifeval
+  title: "Arabic Leaderboards: Introducing Arabic Instruction Following, Updating AraGen, and More"
+  author: alielfilali01
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_3c3h_aragen.png
+  date: April 8, 2025
+  tags:
+    - leaderboard
+    - evaluation
+    - nlp
+    - LLM
+    - research
+
+- local: fastrtc-cloudflare
+  title: "Hugging Face and Cloudflare Partner to Make Real-Time Speech and Video Seamless with FastRTC"
+  author: freddyaboulton
+  thumbnail: /blog/assets/fastrtc-cloudflare/fastrtc_cloudflare.png
+  date: April 9, 2025
+  tags:
+    - real-time
+    - audio
+    - video
+    - llm
+    - cloudflare
+    - partnerships
+
+- local: pai-6-month
+  title: "4M Models Scanned: Protect AI + Hugging Face 6 Months In"
+  author: sean-pai
+  thumbnail: /blog/assets/pai-6-month/thumbnail.png
+  date: April 14, 2025
+  tags:
+    - hub
+    - partnerships
+    - security
+
+- local: hugging-face-pollen-robotics-acquisition
+  title: "Hugging Face to sell open-source robots thanks to Pollen Robotics acquisition 🤖"
+  author: thomwolf
+  thumbnail: /blog/assets/hugging-face-pollen-robotics-acquisition/hf-pollen.png
+  date: April 14, 2025
+  tags:
+    - robotics
+    - acquisition
+    - announcement
+
 - local: helmet
   title: "Introducing HELMET"
   author: hyen
   thumbnail: /blog/assets/helmet/thumbnail.png
-  date: March 12, 2025
+  date: April 16, 2025
   tags:
     - long-context
     - benchmark
     - nlp
     - community
     - research
+    - intel

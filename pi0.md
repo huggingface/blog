@@ -12,7 +12,7 @@ authors:
 We have ported the first **robotics foundation models** to **Hugging Face LeRobot**! Both **π0 and π0-FAST**, developed by Physical Intelligence, are now available in the **LeRobot repository**, bringing generalist robotic intelligence to the Hugging Face ecosystem. If you are curious about how Vision-Language-Action (VLA) models differ from Vision-Language Models (VLMs) and how actions are represented, dive into this blog post to find out! 
 
 Explore the model collection and the PyTorch Version of the model in our repository:
-[Huggingface collection of Pi0 models](https://huggingface.co/collections/lerobot/pi0-models-67a0f92dc62e52ace7220eba) | [LeRobot repo](https://github.com/huggingface/lerobot/tree/main)
+[Huggingface collection of Pi0 models](https://huggingface.co/collections/lerobot/pi0-models-67a0f92dc62e52ace7220eba) | [Huggingface collection of Pi0+FAST models](https://huggingface.co/collections/lerobot/pi0fast-models-67eab97cc139d6f20513ff4a) | [LeRobot repo](https://github.com/huggingface/lerobot/tree/main)
 
 ---
 
@@ -193,7 +193,7 @@ With this, we present **π0-FAST**, faster and autoregressive version of **π0**
 ---
 ## 🚀 What is π0-FAST?
 
-[Paper](https://arxiv.org/pdf/2501.09747) | [Jax Code](https://github.com/Physical-Intelligence/openpi)
+[Paper](https://arxiv.org/pdf/2501.09747) | [Jax Code](https://github.com/Physical-Intelligence/openpi) | [Our implementation in Lerobot](https://github.com/huggingface/lerobot/pull/921)
 
 π0-FAST is an **autoregressive version** of π0, introducing **FAST (Frequency-space Action Sequence Tokenization)**—a new tokenization scheme that enhances efficiency and performance.
 
@@ -203,6 +203,8 @@ With this, we present **π0-FAST**, faster and autoregressive version of **π0**
 - **Stronger generalization** across unseen environments and robot morphologies.
 
 🔗 The **π0-FAST tokenizer** can be accessed here: [FAST Tokenizer](https://huggingface.co/physical-intelligence/fast)
+
+🔗 Pretrained weights can be accessed here: [Pi0+FAST](https://huggingface.co/collections/lerobot/pi0fast-models-67eab97cc139d6f20513ff4a)
 
 ---
 
