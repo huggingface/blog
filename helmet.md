@@ -1,5 +1,5 @@
 ---
-title: "Introducting HELMET: Holistically Evaluating Long-context Language Models"
+title: "Introducing HELMET: Holistically Evaluating Long-context Language Models"
 thumbnail: /blog/assets/helmet/thumbnail.png
 authors:
 - user: hyen
