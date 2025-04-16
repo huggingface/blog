@@ -8,9 +8,7 @@ authors:
 
 ---
 
-<h1 class="subtitle is-3 publication-subtitle">
-  <span>Introducing  <img src="./assets/helmet/logo.jpeg" alt="logo" width="30"/><span style="color: #E77500"><b>HELMET</b></span>: Holistically Evaluating Long-context Language Models</span>
-</h1>
+# Introducing  <img src="./assets/helmet/logo.jpeg" alt="logo" width="30"/><span style="color: #E77500"><b>HELMET</b></span>: Holistically Evaluating Long-context Language Models
 
 By Howard Yen<sup><span style="color: #E77500">&spades;</span></sup>, 
 Tianyu Gao<sup><span style="color: #E77500">&spades;</span></sup>, 
