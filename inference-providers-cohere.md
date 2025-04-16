@@ -52,7 +52,7 @@ Focuses on state-of-art multilingual support beyond in lesser resource languages
 
 Ideal for low-cost or low-latency use cases, bringing state-of-the-art performance in its class of open-weight models across real-world tasks. This model offers a context length of 128k. It delivers a powerful combination of multilingual support, citation-verified retrieval-augmented generation (RAG), reasoning, tool use, and agentic behavior. multilingual model trained on 23 languages
 
-### [`CohereLabs/aya-vision-32b`](https://huggingface.co/CohereLabs/aya-vision-32b)
+### CohereLabs/aya-vision-32b [🔗](https://huggingface.co/CohereLabs/aya-vision-32b)
 
 32-billion parameter model with advanced capabilities optimized for a variety of vision-language use cases, including OCR, captioning, visual reasoning, summarization, question answering, code, and more. It expands multimodal capabilities to 23 languages spoken by over half the world's population.
 
