@@ -46,7 +46,7 @@ Optimized for demanding enterprises that require fast, secure, and high-quality 
 
 ### CohereLabs/aya-expanse-32b [🔗](https://huggingface.co/CohereLabs/aya-expanse-32b)
 
-Focuses on state-of-art multilingual support beyond in lesser resource languages. Supports Arabic, Chinese (simplified & traditional), Czech, Dutch, English, French, German, Greek, Hebrew, Hebrew, Hindi, Indonesian, Italian, Japanese, Korean, Persian, Polish, Portuguese, Romanian, Russian, Spanish, Turkish, Ukrainian, and Vietnamese with 128K context length.
+Focuses on state-of-the-art multilingual support beyond in lesser resource languages. Supports Arabic, Chinese (simplified & traditional), Czech, Dutch, English, French, German, Greek, Hebrew, Hindi, Indonesian, Italian, Japanese, Korean, Persian, Polish, Portuguese, Romanian, Russian, Spanish, Turkish, Ukrainian, and Vietnamese with 128K context length.
 
 ### CohereLabs/c4ai-command-r7b-12-2024 [🔗](https://huggingface.co/CohereLabs/c4ai-command-r7b-12-2024)
 
