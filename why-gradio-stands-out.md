@@ -16,9 +16,8 @@ We hear this a lot, and while Gradio does let you create interactive UIs with mi
 
 In this article, we'll introduce features that are unique to Gradio and explain how they are essential for building powerful AI applications. We'll share links to Gradio's official documentation and release notes, so you can explore further if you're curious.
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/why-gradio-stands-out/gradio-comparison-chart.png" alt="Comparison of Gradio with other frameworks" />
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/why-gradio-stands-out/gradio-comparison-chart.png" alt="Comparison of Gradio with other frameworks" />
 
-## **Key Features**
 
 ### **1.  Universal API Access**
 
@@ -41,14 +40,14 @@ All Gradio apps are also APIs! When you build a Gradio app, you can also use Gra
 Gradio's "API Recorder" was introduced in version 4.26. This powerful development tool enables developers to capture their UI interactions in real time and automatically generate corresponding API calls in Python or JavaScript.
 
 - "API Recorder" can be found on the "View API" page discussed above.
-- It helps in documenting API usage of gradio applications through your own real examples
+- It helps in documenting API usage of Gradio applications through your own real examples
 
 **Further Reading:** [Explore API Recorder](https://www.gradio.app/guides/getting-started-with-the-python-client#:~:text=The%20View%20API%20page%20also,run%20with%20the%20Python%20Client)
 
 **What Sets Gradio Apart:**
 
 - You cannot easily script UI interactions in this manner in most other Python and Web frameworks. This is a capability unique to Gradio in the ML tooling landscape.
-- The combination of API Recorder with gradio Client libraries creates a smooth transition from UI exploration to development using API endpoints.
+- The combination of API Recorder with Gradio Client libraries creates a smooth transition from UI exploration to development using API endpoints.
 
 ### **3. Fast ML Apps with Server-Side Rendering**
 
@@ -68,7 +67,7 @@ Gradio 5.0 introduced server-side rendering (SSR), changing how ML applications 
 
 ### **4. Automatic Queue Management for ML Tasks**
 
-Gradio provides a sophisticated queuing system tailored for ML applications that handle both GPU-intensive computations and high-volume user access.
+Gradio provides a sophisticated queuing system tailored for ML applications that handles both GPU-intensive computations and high-volume user access.
 
 - Gradio's queue automatically handles different kinds of tasks defined in your application, whether they are long predictions that run on a GPU, audio/video streaming, or non-ML tasks.
 - Your applications can scale to thousands of concurrent users without resource contention and system overwhelming
@@ -149,10 +148,10 @@ Gradio offers a sophisticated theming system that can transform your ML applicat
 
 ### **9. Gradio's Dynamic Interfaces**
 
-The components and event listeners you define in gradio Blocks earlier were fixed—once the demo was launched, new components and listeners could not be added, and existing one could not be removed. But with `@gr.render` decorator, Gradio introduced the ability to change your UI dynamically.
+With the introduction of the `@gr.render()` decorator, the components and event listeners you define in your Gradio application are no longer fixed—you can add new components and listeners dynamically based on user interaction and state.
 
 - You can now render UI modifications on-the-fly based on model outputs or your workflow.
-- Any Gradio Blocks can be imported and rendered inside another Blocks using the .render() method
+- Please note that Gradio also provides a `.render()` method, which is distinct from the decorator. It allows rendering any Gradio Block within another Block. 
 
 **Further Reading:** [Explore the Render Decorator](https://www.gradio.app/guides/dynamic-apps-with-render-decorator), [See Example of Dynamic Apps](https://www.gradio.app/guides/multipage-apps)
 
@@ -163,7 +162,7 @@ The components and event listeners you define in gradio Blocks earlier were fixe
 
 ### **10. Visual Interface Development with Gradio Sketch**
 
-Gradio Sketch introduces a visual development environment that brings to you a no-code ML application design interface. It is basically a WYSIWYG editor that helps you build your interface layout with gradio components, define events, and attach functions to these events.
+Gradio Sketch introduces a visual development environment that brings to you a no-code ML application design interface. It is basically a WYSIWYG editor that helps you build your interface layout with Gradio components, define events, and attach functions to these events.
 
 - You can select and add components to your interface while getting a real-time preview of interface changes.
 - You can even visually add event listeners to your components. The entire app code gets generated automatically from your visual interface designs.
@@ -227,9 +226,9 @@ Once your Gradio app is ready, you can share it without worrying about deploymen
 
 - You can generate an instant public URL by simply setting one parameter: `demo.launch(share=True)`. The application is accessible on a unique domain in the format `xxxxx.gradio.live` while keeping your code and model running in your local environment
 - These share links have a 168-hour (1-week) timeout on Gradio's official share server
-- You can generate an instant public URL by simply setting one parameter: `demo.launch(share=True)` . The application is accessible on `*.gradio.live` domain for 72 hours
+- You can generate an instant public URL by simply setting one parameter: `demo.launch(share=True)` . The application is accessible on `*.gradio.live` domain for 1 week.
 - The share link creates a secure TLS tunnel to your locally-running app through Gradio's share server using Fast Reverse Proxy (FRP)
-- For enterprise deployments or situations requiring custom domains or additional security measures, you can host your own FRP server to avoid the 72-hour timeout
+- For enterprise deployments or situations requiring custom domains or additional security measures, you can host your own FRP server to avoid the 1-week timeout
 
 **Further Reading:** [Learn about Quick Sharing](https://www.gradio.app/guides/quickstart#sharing-your-demo), [Share Links and Share Servers](https://www.gradio.app/guides/understanding-gradio-share-links)
 
@@ -243,7 +242,7 @@ Once your Gradio app is ready, you can share it without worrying about deploymen
 
 Gradio has evolved from a prototyping tool to a production-ready framework with comprehensive security measures. Our recent enhancements include:
 
-- Third-party security audits from Trail of Bits and vulnerability assessments of gradio build applications.
+- Third-party security audits from Trail of Bits and vulnerability assessments of Gradio build applications.
 - Based on the feedback received from our security auditors, we have hardened file handling and upload controls. We now have configurable security settings via intuitive environment variables. For example, you can control file path access via GRADIO_ALLOWED_PATHS, and Server-side rendering through GRADIO_SSR_MODE
 
 **Further Reading:** [Read about Security Improvements](https://huggingface.co/blog/gradio-5-security), [Explore Environment Variables](https://www.gradio.app/guides/environment-variables#:~:text=10.%20)
