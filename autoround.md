@@ -4,7 +4,9 @@ title: "Introducing AutoRound: Intel’s Advanced Quantization for LLMs and VLMs
 authors:
   - user: wenhuach21
   - user: hshen14
-  - user: kding1
+  - user: n1ck-guo
+  - user: wenhuach21
+  - user: weiweiz1
 
 ---
 
