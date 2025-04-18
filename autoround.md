@@ -5,8 +5,8 @@ authors:
   - user: wenhuach21
   - user: hshen14
   - user: n1ck-guo
-  - user: wenhuach21
   - user: weiweiz1
+  - user: kding1
 
 ---
 
