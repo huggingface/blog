@@ -1,9 +1,11 @@
 ---
-title: "Introducing AutoRound: Intel’s High-Accuracy Quantization for LLMs and VLMs"
+title: "Introducing AutoRound: Intel’s Advanced Quantization for LLMs and VLMs"
 #thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 authors:
   - user: wenhuach21
-#- user: haihaoshen
+  - user: hshen14
+  - user: kding1
+
 ---
 
 As large language models (LLMs) and vision-language models (VLMs) continue to grow in size and complexity, deploying
@@ -76,10 +78,11 @@ loss is expected.
 - **Mixed bits Weight only**
 
 ### Export Formats
+
 - **AutoRound**
 - **GPTQ**
 - **AWQ**
-- **Some GGUF**
+- **Some GGUFs**
 
 ### 3. Flexible/Efficient Quantization
 
@@ -87,11 +90,11 @@ AutoRound requires only 200 tuning steps and a small calibration dataset (as few
 accuracy. This efficiency translates to faster quantization times and reduced resource consumption compared to other
 int2 methods , which are more computationally intensive.
 
-|             | AutoAWQ<br/> samples=128<br/>seqlen=512<br/>dataset='pile' | AutoAWQ<br/> samples=512<br/>seqlen=2048<br/>dataset='pile' | GPTQ in Transfomers<br/> samples=?<br/>seqlen=?<br/>dataset='c4' | AutoRound<br/> samples=128<br/>seqlen=2048<br/>dataset='pile-10k' |AutoRound<br/> samples=128<br/>seqlen=2048<br/>dataset='pile-10k   |   |   |   |   |
-|-------------|------------------------------------------------------------|-------------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------|---|---|---|---|---|
-| Qwen2.5 3B  |                                                            |                                                             |                                                                  |                                                                  |   |   |   |   |   |
-| Llama3.1-8B |                                                            |                                                             |                                                                  |                                                                  |   |   |   |   |   |
-| Qwen2.5 72B |                                                            |                                                             |                                                                  |                                                                  |   |   |   |   |   |
+|             | AutoAWQ<br/> samples=128<br/>seqlen=512<br/>dataset='pile' | AutoAWQ<br/> samples=512<br/>seqlen=2048<br/>dataset='pile' | GPTQ in Transfomers<br/> samples=?<br/>seqlen=?<br/>dataset='c4' | AutoRoundLight<br/> samples=128<br/>seqlen=2048<br/>dataset='pile-10k' | AutoRound<br/> samples=128<br/>seqlen=2048<br/>dataset='pile-10k' | AutoRound<br/> samples=512<br/>seqlen=2048<br/>dataset='pile-10k |
+|-------------|------------------------------------------------------------|-------------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------------|-------------------------------------------------------------------|------------------------------------------------------------------|
+| Qwen2.5 3B  | 7min                                                       | 17min                                                       | 13min                                                            | 3min                                                                   | 8min                                                              | 9min                                                             |
+| Llama3.1-8B | 13min                                                      | 27min                                                       | 22min                                                            | 6min                                                                   | 13min                                                             | 17min                                                            |
+| Qwen2.5 72B | 105min                                                     | 230min                                                      | OOM                                                              | 37min                                                                  | 120min                                                            | 149min                                                           |
 
 # Get Start with AutoRound
 
@@ -104,9 +107,6 @@ pip install auto-round
 ## Quantization and Serialization (offline)
 
 Currently, only offline mode is supported to generate quantized models.
-
-<hfoptions id="quantization">
-<hfoption id="quantization cmd">
 
 ### Command Line Usage
 
@@ -121,9 +121,6 @@ auto-round \
 AutoRound also offer another two recipes, `auto-round-best` and `auto-round-light`, designed for optimal accuracy and
 improved speed, respectively.
 For 2 bits, we recommend using `auto-round-best` or `auto-round`.
-</hfoption>
-
-<hfoption id="quantization auto-round api">
 
 ### AutoRound API Usage
 
@@ -160,7 +157,7 @@ Nvidia A100 80G using the version of PyTorch 2.6.0 with enable_torch_compile):
 | Model   | Qwen2.5-0.5B-Instruct | Falcon3-3B      | Qwen2.5-7B-Instruct | Meta-Llama-3.1-8B-Instruct | Falcon3-10B     | Qwen2.5-72B-Instruct |
 |---------|-----------------------|-----------------|---------------------|----------------------------|-----------------|----------------------|
 | 16bits  | 0.4192                | 0.5203          | 0.6470              | 0.6212                     | 0.6151          | 0.7229               |
-| Best    | **0.4137**(7m)        | **0.5142**(23m) | 0.6426(58m)         | **0.6116**(81m)            | **0.6092**(81m) | 0.7242(575m)         |
+| Best    | **0.4137**(7m)        | **0.5142**(23m) | 0.6426(58m)         | **0.6116**(65m)            | **0.6092**(81m) | 0.7242(575m)         |
 | Default | 0.4129(2m)            | 0.5133(6m)      | 0.6441(13m)         | 0.6106(13m)                | 0.6080(18m)     | **0.7252**(118m)     |
 | Light   | 0.4052(2m)            | 0.5108(3m)      | **0.6453**(5m)      | 0.6104(6m)                 | 0.6063(6m)      | 0.7243(37m)          |
 
@@ -168,8 +165,6 @@ Nvidia A100 80G using the version of PyTorch 2.6.0 with enable_torch_compile):
 
 AutoRound automatically selects the best available backend based on the installed libraries and prompts the user to
 install additional libraries when a better backend is found.
-<hfoptions id="inference">
-<hfoption id="inference cpu">
 
 ### CPU
 
@@ -179,7 +174,7 @@ Supports 2, 4, and 8 bits. We recommend using intel-extension-for-pytorch (IPEX)
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "OPEA/Qwen2.5-1.5B-Instruct-int4-sym-inc"
-model = AutoModelForCausalLM.from_pretrained(model_name, device_map="cpu")
+model = AutoModelForCausalLM.from_pretrained(model_name, device_map="cpu", torch_dtype="auto")
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 text = "There is a girl who likes adventure,"
 inputs = tokenizer(text, return_tensors="pt").to(model.device)
@@ -194,7 +189,7 @@ Supports 4 bits only. We recommend using intel-extension-for-pytorch (IPEX) for 
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "OPEA/Qwen2.5-1.5B-Instruct-int4-sym-inc"
-model = AutoModelForCausalLM.from_pretrained(model_name, device_map="xpu")
+model = AutoModelForCausalLM.from_pretrained(model_name, device_map="xpu", torch_dtype="auto")
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 text = "There is a girl who likes adventure,"
 inputs = tokenizer(text, return_tensors="pt").to(model.device)
@@ -209,7 +204,7 @@ Supports 2, 3, 4, and 8 bits. We recommend using GPTQModel for 4 and 8 bits infe
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "OPEA/Qwen2.5-1.5B-Instruct-int4-sym-inc"
-model = AutoModelForCausalLM.from_pretrained(model_name, device_map="cuda")
+model = AutoModelForCausalLM.from_pretrained(model_name, device_map="cuda", torch_dtype="auto")
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 text = "There is a girl who likes adventure,"
 inputs = tokenizer(text, return_tensors="pt").to(model.device)
@@ -227,7 +222,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, AutoRoundConfig
 
 model_name = "OPEA/Qwen2.5-1.5B-Instruct-int4-sym-inc"
 quantization_config = AutoRoundConfig(backend="ipex")
-model = AutoModelForCausalLM.from_pretrained(model_name, device_map="cpu", quantization_config=quantization_config)
+model = AutoModelForCausalLM.from_pretrained(model_name, device_map="cpu", torch_dtype="auto",
+                                             quantization_config=quantization_config)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 text = "There is a girl who likes adventure,"
 inputs = tokenizer(text, return_tensors="pt").to(model.device)
@@ -244,9 +240,31 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, AutoRoundConfig
 
 model_name = "ybelkada/opt-125m-gptq-4bit"
 quantization_config = AutoRoundConfig()
-model = AutoModelForCausalLM.from_pretrained(model_name, device_map="cpu", quantization_config=quantization_config)
+model = AutoModelForCausalLM.from_pretrained(model_name, device_map="cpu", torch_dtype="auto",
+                                             quantization_config=quantization_config)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 text = "There is a girl who likes adventure,"
 inputs = tokenizer(text, return_tensors="pt").to(model.device)
 print(tokenizer.decode(model.generate(**inputs, max_new_tokens=50, do_sample=False)[0]))
 ```
+
+# Conclusion
+
+AutoRound offers a meaningful improvement step forward in post-training quantization for large language and
+vision-language models. By combining high accuracy, exceptional efficiency, and broad compatibility with popular models,
+devices, and export formats, AutoRound makes low-bit quantization both practical and powerful. Whether you're deploying
+LLMs at scale or experimenting with edge inference on VLMs, AutoRound provides the tools and flexibility you need to
+achieve optimal performance with minimal overhead. We invite you to try it out and join the growing community pushing
+the boundaries of efficient AI deployment.
+
+Contributions to [AutoRound](https://github.com/intel/auto-round/pulls) are welcome and greatly appreciated!
+Whether it's fixing bugs, improving documentation, adding new features, or suggesting improvements, your help is always
+valued.
+
+If you encounter any issues with auto-round, please open an issue on
+the [AutoRound](https://github.com/intel/auto-round/issues) repository.
+
+# Acknowledgement
+
+We would like to thank the open-source low-precision libraries including AutoGPTQ, AutoAWQ, GPTQModel, Triton, Marlin
+and ExLLaMAV2, whose CUDA kernels are used in AutoRound.
