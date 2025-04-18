@@ -28,14 +28,17 @@ The clock is ticking, let’s go! ⏱️
 
 ## Table of Contents
 
-- [What are Agent frameworks and why they matter?](#what-are-agent-frameworks-and-why-they-matter)
-- [The GAIA benchmark](#the-gaia-benchmark)
-- [Building an open Deep Research](#building-an-open-deep-research)
-  - [Using a CodeAgent](#using-a-codeagent)
-  - [Making the right tools 🛠️](#making-the-right-tools-🛠️)
-- [Results 🏅](#results-🏅)
-- [Community reproductions](#community-reproductions)
-- [Most important next steps](#most-important-next-steps)
+- [Open-source DeepResearch – Freeing our search agents](#open-source-deepresearch--freeing-our-search-agents)
+  - [TLDR](#tldr)
+  - [Table of Contents](#table-of-contents)
+  - [What are Agent frameworks and why they matter?](#what-are-agent-frameworks-and-why-they-matter)
+  - [The GAIA benchmark](#the-gaia-benchmark)
+  - [Building an open Deep Research](#building-an-open-deep-research)
+    - [Using a CodeAgent](#using-a-codeagent)
+    - [Making the right tools 🛠️](#making-the-right-tools-️)
+  - [Results 🏅](#results-)
+  - [Community Reproductions](#community-reproductions)
+  - [Most important next steps](#most-important-next-steps)
 
 
 ## What are Agent frameworks and why they matter?
@@ -112,9 +115,10 @@ From building `smolagents` we can also cite a notable additional advantage, whic
 
 Now we need to provide the agent with the right set of tools. 
 
-**1.** A web browser. While a fully fledged web browser interaction like [Operator](https://openai.com/index/introducing-operator/) will be needed to reach full performance, we started with an extremely simple text-based web browser for now for our first proof-of-concept. You can find the code [here](https://github.com/huggingface/smolagents/blob/gaia-submission-r1/examples/open_deep_research/scripts/text_web_browser.py)
+**1.** A web browser. While a fully fledged web browser interaction like [Operator](https://openai.com/index/introducing-operator/) will be needed to reach full performance, we started with an extremely simple text-based web browser for now for our first proof-of-concept. You can find the code [here](https://github.com/huggingface/smolagents/tree/main/examples/open_deep_research/scripts/text_web_browser.py)
 
-**2.** A simple text inspector, to be able to **read a bunch of text file format**, find it [here](https://github.com/huggingface/smolagents/blob/gaia-submission-r1/examples/open_deep_research/scripts/text_inspector_tool.py).
+
+**2.** A simple text inspector, to be able to **read a bunch of text file format**, find it [here](https://github.com/huggingface/smolagents/tree/main/examples/open_deep_research/scripts/text_inspector_tool.py).
 
 These tools were taken from the excellent [Magentic-One](https://www.microsoft.com/en-us/research/articles/magentic-one-a-generalist-multi-agent-system-for-solving-complex-tasks/) agent by Microsoft Research, kudos to them! We didn’t change them much, as our goal was to get as high a performance as we can with the lowest complexity possible.
 
@@ -122,7 +126,7 @@ Here is a short roadmap of improvements which we feel would really improve these
 
 - extending the number of file formats which can be read.
 - proposing a more fine-grained handling of files.
-- replacing the web browser with a vision-based one, which we’ve started doing [here](https://github.com/huggingface/smolagents/blob/gaia-submission-r1/src/smolagents/vision_web_browser.py).
+- replacing the web browser with a vision-based one, which we’ve started doing [here](https://github.com/huggingface/smolagents/tree/main/src/smolagents/vision_web_browser.py).
 
 ## Results 🏅
 
@@ -132,7 +136,7 @@ We’ve quickly gone up from the previous SoTA with an open framework, around 46
 
 This bump in performance is due mostly to letting our agents write their actions in code! Indeed, when switching to a standard agent that writes actions in JSON instead of code, performance of the same setup is instantly degraded to 33% average on the validation set.
 
-[Here is the final agentic system.](https://github.com/huggingface/smolagents/tree/gaia-submission-r1/examples/open_deep_research)
+[Here is the final agentic system.](https://github.com/huggingface/smolagents/tree/main/examples/open_deep_research)
 
 We’ve set up [a live demo here](https://m-ric-open-deep-research.hf.space) for you to try it out!
 
@@ -169,6 +173,6 @@ So we’re tackling that next! In a more general problem: we’re going to build
 
 We’re also [hiring a full time engineer](https://apply.workable.com/huggingface/j/AF1D4E3FEB/) to help us work on this and more, apply if you’re interested 🙂
 
-- To get started with Open Deep Research, try the examples [here](https://github.com/huggingface/smolagents/tree/gaia-submission-r1/examples/open_deep_research).
+- To get started with Open Deep Research, try the examples [here](https://github.com/huggingface/smolagents/tree/main/examples/open_deep_research).
 - Check the [smolagents](https://github.com/huggingface/smolagents) repo.
 - Read more about smolagents [docs](https://huggingface.co/docs/smolagents/index), [introduction blog post](https://huggingface.co/blog/smolagents).
