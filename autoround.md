@@ -19,12 +19,10 @@ balances accuracy, efficiency, and compatibility.
 
 **AutoRound** is a weight-only post-training quantization (PTQ) method developed by Intel. It uses signed gradient
 descent to jointly optimize weight rounding and clipping ranges, enabling accurate low-bit quantization (e.g.,
-INT2–INT8) with minimal accuracy loss in most scenarios. For example, at INT2, it outperforms popular baselines by up to
-**20% absolute accuracy**.
+INT2 - INT8) with minimal accuracy loss in most scenarios. For example, at INT2, it outperforms popular baselines by up to **2.1x higher in relative accuracy**.
 
-Despite its strong performance, AutoRound is fast and lightweight—quantizing a 72B model takes just **37 minutes on an
-A100 GPU** with light mode. It also supports mixed-bit tuning, lm-head quantization, export to GPTQ/AWQ/GGUF formats,
-and flexible tuning recipes.
+Despite its strong performance, AutoRound is fast and lightweight — quantizing a 72B model takes just **37 minutes on an
+A100 GPU** under light mode. It also supports mixed-bit tuning, lm-head quantization, GPTQ/AWQ/GGUF format exporter, and flexible tuning recipes.
 
 # Key Advantages
 
@@ -44,7 +42,7 @@ the [Low-Bit Open LLM Leaderboard](https://huggingface.co/spaces/Intel/low_bit_o
 
 
 <p align="center">
-  <img src="\assets\autoround\int4.png" alt="Average of 110 tasks at W4<" width="60%"/>
+  <img src="\assets\autoround\int4.png" alt="Average of 10 tasks at W4<" width="60%"/>
   <br>
   <i>Average of 10 tasks at W4</i>
 </p>
