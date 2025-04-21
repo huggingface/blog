@@ -35,16 +35,16 @@ most cases, as demonstrated on
 the [Low-Bit Open LLM Leaderboard](https://huggingface.co/spaces/Intel/low_bit_open_llm_leaderboard).
 
 <p align="center">
-  <img src="\assets\autoround\int2.png" alt="Average of 11 tasks at W2g128<" width="60%"/>
+  <img src="\assets\autoround\int2.png" alt="Average of 10+ tasks at W2g128<" width="60%"/>
   <br>
-  <i>Average of 11 tasks at W2g128</i>
+  <i>Average of 10+ tasks at W2g128</i>
 </p>
 
 
 <p align="center">
-  <img src="\assets\autoround\int4.png" alt="Average of 10 tasks at W4<" width="60%"/>
+  <img src="\assets\autoround\int4.png" alt="Average of 10+ tasks at W4<" width="60%"/>
   <br>
-  <i>Average of 10 tasks at W4</i>
+  <i>Average of 10+ tasks at W4</i>
 </p>
 
 ## 2. Broad Compatibility
