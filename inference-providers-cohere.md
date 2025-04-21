@@ -42,15 +42,15 @@ Cohere and Cohere Labs bring a swathe of their models to Inference Providers tha
 
 ### CohereLabs/c4ai-command-a-03-2025 [🔗](https://huggingface.co/CohereLabs/c4ai-command-a-03-2025)
 
-Optimized for demanding enterprises that require fast, secure, and high-quality AI. Its 256k context length (2x most leading models) can handle much longer enterprise documents. Other key features include Cohere’s advanced retrieval-augmented generation (RAG) with verifiable citations, agentic tool use, enterprise-grade security, and strong multilingual performance (support for the 23 languages).
+Optimized for demanding enterprises that require fast, secure, and high-quality AI. Its 256k context length (2x most leading models) can handle much longer enterprise documents. Other key features include Cohere’s advanced retrieval-augmented generation (RAG) with verifiable citations, agentic tool use, enterprise-grade security, and strong multilingual performance (support for 23 languages).
 
 ### CohereLabs/aya-expanse-32b [🔗](https://huggingface.co/CohereLabs/aya-expanse-32b)
 
-Focuses on state-of-the-art multilingual support beyond in lesser resource languages. Supports Arabic, Chinese (simplified & traditional), Czech, Dutch, English, French, German, Greek, Hebrew, Hindi, Indonesian, Italian, Japanese, Korean, Persian, Polish, Portuguese, Romanian, Russian, Spanish, Turkish, Ukrainian, and Vietnamese with 128K context length.
+Focuses on state-of-the-art multilingual support, applying the latest research on multilingual pre-training. Supports Arabic, Chinese (simplified & traditional), Czech, Dutch, English, French, German, Greek, Hebrew, Hindi, Indonesian, Italian, Japanese, Korean, Persian, Polish, Portuguese, Romanian, Russian, Spanish, Turkish, Ukrainian, and Vietnamese with 128K context length.
 
 ### CohereLabs/c4ai-command-r7b-12-2024 [🔗](https://huggingface.co/CohereLabs/c4ai-command-r7b-12-2024)
 
-Ideal for low-cost or low-latency use cases, bringing state-of-the-art performance in its class of open-weight models across real-world tasks. This model offers a context length of 128k. It delivers a powerful combination of multilingual support, citation-verified retrieval-augmented generation (RAG), reasoning, tool use, and agentic behavior. multilingual model trained on 23 languages
+Ideal for low-cost or low-latency use cases, bringing state-of-the-art performance in its class of open-weight models across real-world tasks. This model offers a context length of 128k. It delivers a powerful combination of multilingual support, citation-verified retrieval-augmented generation (RAG), reasoning, tool use, and agentic behavior. Also supports 23 languages.
 
 ### CohereLabs/aya-vision-32b [🔗](https://huggingface.co/CohereLabs/aya-vision-32b)
 
@@ -296,7 +296,7 @@ print(completion.choices[0].message)
 
 For direct requests, i.e. when you use a Cohere key, you are billed directly on your Cohere account.
 
-For routed requests, i.e. when you authenticate via the hub, you'll only pay the standard Cohere API rates. There's no additional markup from us, we just pass through the provider costs directly. (In the future, we may establish revenue-sharing agreements with our provider partners.)
+For routed requests, i.e. when you authenticate via the Hub, you'll only pay the standard Cohere API rates. There's no additional markup from us, we just pass through the provider costs directly. (In the future, we may establish revenue-sharing agreements with our provider partners.)
 
 Important Note ‼️ PRO users get $2 worth of Inference credits every month. You can use them across providers. 🔥
 
