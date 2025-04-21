@@ -156,7 +156,7 @@ print(response)
 print(outputs[0])
 ```
 
-Make sure to check the model cards on the repos ([Llama 4 Maverick (\~400B)](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Original) and [Llama 4 Scout (\~109B)](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Original)) for detailed usage instructions, including multimodal examples, specific prompt formats (like system prompts), quantization details, and advanced configuration options\!
+Make sure to check the model cards on the repos ([Llama 4 Maverick (\~400B)](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) and [Llama 4 Scout (\~109B)](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct)) for detailed usage instructions, including multimodal examples, specific prompt formats (like system prompts), quantization details, and advanced configuration options\!
 
 ## Evaluation Scores
 
