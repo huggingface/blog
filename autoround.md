@@ -22,7 +22,7 @@ descent to jointly optimize weight rounding and clipping ranges, enabling accura
 INT2 - INT8) with minimal accuracy loss in most scenarios. For example, at INT2, it outperforms popular baselines by up to **2.1x higher in relative accuracy**.
 
 Despite its strong performance, AutoRound is fast and lightweight — quantizing a 72B model takes just **37 minutes on an
-A100 GPU** under light mode. It also supports mixed-bit tuning, lm-head quantization, GPTQ/AWQ/GGUF format exporter, and flexible tuning recipes.
+A100 GPU** under light mode. It also supports mixed-bit tuning, lm-head quantization, GPTQ/AWQ/GGUF format exporting, and flexible tuning recipes.
 
 # Key Advantages
 
@@ -118,7 +118,7 @@ auto-round \
     --output_dir ./tmp_autoround
 ```
 
-AutoRound also offer another two recipes, `auto-round-best` and `auto-round-light`, designed for optimal accuracy and
+AutoRound also offers another two recipes, `auto-round-best` and `auto-round-light`, designed for optimal accuracy and
 improved speed, respectively.
 For 2 bits, we recommend using `auto-round-best` or `auto-round`.
 
@@ -168,7 +168,7 @@ install additional libraries when a better backend is found.
 
 ### CPU
 
-Supports 2, 4, and 8 bits. We recommend using intel-extension-for-pytorch (IPEX) for 4 bits inference.
+2, 4, and 8 bits are supported on CPU device, and intel-extension-for-pytorch (IPEX) is recommended for 4 bits inference.
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -183,7 +183,7 @@ print(tokenizer.decode(model.generate(**inputs, max_new_tokens=50, do_sample=Fal
 
 ### XPU
 
-Supports 4 bits only. We recommend using intel-extension-for-pytorch (IPEX) for inference.
+Only 4 bits is supported on XPU device, and intel-extension-for-pytorch (IPEX) is recommended for inference.
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -198,7 +198,7 @@ print(tokenizer.decode(model.generate(**inputs, max_new_tokens=50, do_sample=Fal
 
 ### CUDA
 
-Supports 2, 3, 4, and 8 bits. We recommend using GPTQModel for 4 and 8 bits inference.
+2, 3, 4, and 8 bits are supported on CUDA device. GPTQModel is recommended for 4 and 8 bits inference.
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
