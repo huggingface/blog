@@ -132,7 +132,7 @@ We’ve quickly gone up from the previous SoTA with an open framework, around 46
 
 This bump in performance is due mostly to letting our agents write their actions in code! Indeed, when switching to a standard agent that writes actions in JSON instead of code, performance of the same setup is instantly degraded to 33% average on the validation set.
 
-[Here is the final agentic system.](https://github.com/huggingface/smolagents/tree/gaia-submission-r1/examples/open_deep_research)
+[Here is the final agentic system.](https://github.com/huggingface/smolagents/tree/main/examples/open_deep_research)
 
 We’ve set up [a live demo here](https://m-ric-open-deep-research.hf.space) for you to try it out!
 
