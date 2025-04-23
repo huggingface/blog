@@ -5903,6 +5903,7 @@
 - local: autoround
   title: "Introducing AutoRound: Intel’s Advanced Quantization for LLMs and VLMs"
   author: wenhuach
+  thumbnail: /blog/assets/autoround/thumbnail.png
   date: April 23, 2025
   tags:
    - llms
