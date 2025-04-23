@@ -2,11 +2,15 @@
 title: "Introducing AutoRound: Intel’s Advanced Quantization for LLMs and VLMs"
 #thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 authors:
-  - user: wenhuach21
-  - user: hshen14
-  - user: n1ck-guo
+  - user: wenhuach
+  - user: Haihao
   - user: weiweiz1
+  - user: n1ck-guo
+  - user: isaacmac
   - user: kding1
+  - user: IlyasMoutawwakil
+  - user: marcsun13
+  - user: medmekk
 
 ---
 
