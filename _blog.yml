@@ -5899,3 +5899,18 @@
     - api
     - development
     - production
+
+- local: autoround
+  title: "Introducing AutoRound: Intel’s Advanced Quantization for LLMs and VLMs"
+  author: wenhuach
+  date: April 23, 2025
+  tags:
+   - llms
+   - inference
+   - quantization
+   - intel
+
+
+
+
+
