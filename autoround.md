@@ -14,19 +14,13 @@ authors:
 
 ---
 
-As large language models (LLMs) and vision-language models (VLMs) continue to grow in size and complexity, deploying
-them efficiently becomes increasingly challenging. Quantization offers a solution by reducing model size and inference
-latency. Intel's [AutoRound](https://github.com/intel/auto-round) emerges as a cutting-edge quantization tool that
-balances accuracy, efficiency, and compatibility.
+As large language models (LLMs) and vision-language models (VLMs) continue to grow in size and complexity, deploying them efficiently becomes increasingly challenging. Quantization offers a solution by reducing model size and inference latency. Intel's [AutoRound](https://github.com/intel/auto-round) emerges as a cutting-edge quantization tool that balances accuracy, efficiency, and compatibility.
 
 # What is AutoRound?
 
-**AutoRound** is a weight-only post-training quantization (PTQ) method developed by Intel. It uses signed gradient
-descent to jointly optimize weight rounding and clipping ranges, enabling accurate low-bit quantization (e.g.,
-INT2 - INT8) with minimal accuracy loss in most scenarios. For example, at INT2, it outperforms popular baselines by up to **2.1x higher in relative accuracy**.
+**AutoRound** is a weight-only post-training quantization (PTQ) method developed by Intel. It uses signed gradient descent to jointly optimize weight rounding and clipping ranges, enabling accurate low-bit quantization (e.g., INT2 - INT8) with minimal accuracy loss in most scenarios. For example, at INT2, it outperforms popular baselines by up to **2.1x higher in relative accuracy**.
 
-Despite its strong performance, AutoRound is fast and lightweight — quantizing a 72B model takes just **37 minutes on an
-A100 GPU** under light mode. It also supports mixed-bit tuning, lm-head quantization, GPTQ/AWQ/GGUF format exporting, and flexible tuning recipes.
+Despite its strong performance, AutoRound is fast and lightweight — quantizing a 72B model takes just **37 minutes on an A100 GPU** under light mode. It also supports mixed-bit tuning, lm-head quantization, GPTQ/AWQ/GGUF format exporting, and flexible tuning recipes.
 
 # Key Advantages
 
