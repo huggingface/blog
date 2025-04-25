@@ -112,11 +112,6 @@ auto-round-best \
     --output_dir ./tmp_autoround
 ```
 
-```bash
-auto-round-light \
-    --model facebook/opt-125m \
-    --output_dir ./tmp_autoround
-```
 
 W4G128 Average Accuracy of 13 tasks (mmlu-pro, if_eval, gsm8k, etc) and Time Cost Results (Testing was conducted on the Nvidia A100 80G using the version of PyTorch 2.6.0 with enable_torch_compile):
 
@@ -149,7 +144,6 @@ autoround = AutoRound(
 )
 
 output_dir = "./tmp_autoround"
-
 autoround.quantize_and_save(output_dir, format='auto_round,auto_awq,auto_gptq') 
 
 ```
@@ -183,64 +177,14 @@ autoround.quantize_and_save(output_dir, format='auto_round')
 
 ## Inference
 
-AutoRound automatically selects the best available backend based on the installed libraries and prompts the user to install additional libraries when a better backend is found.
-
-### CPU
-
-2, 4, and 8 bits are supported on CPU device, and intel-extension-for-pytorch (IPEX) is recommended for 4 bits inference.
+AutoRound automatically selects the best available backend based on the installed libraries and prompts the user to install additional libraries when a better backend is found. For more details, please refer to [HF README](https://github.com/huggingface/transformers/blob/main/docs/source/en/quantization/auto_round.md#inference) or AutoRound repo(https://github.com/intel/auto-round).
+### CPU/XPU/CUDA
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "OPEA/Qwen2.5-1.5B-Instruct-int4-sym-inc"
-model = AutoModelForCausalLM.from_pretrained(model_name, device_map="cpu", torch_dtype="auto")
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-text = "There is a girl who likes adventure,"
-inputs = tokenizer(text, return_tensors="pt").to(model.device)
-print(tokenizer.decode(model.generate(**inputs, max_new_tokens=50, do_sample=False)[0]))
-```
-
-### XPU
-
-Only 4 bits is supported on XPU device, and intel-extension-for-pytorch (IPEX) is recommended for inference.
-
-```python
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-model_name = "OPEA/Qwen2.5-1.5B-Instruct-int4-sym-inc"
-model = AutoModelForCausalLM.from_pretrained(model_name, device_map="xpu", torch_dtype="auto")
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-text = "There is a girl who likes adventure,"
-inputs = tokenizer(text, return_tensors="pt").to(model.device)
-print(tokenizer.decode(model.generate(**inputs, max_new_tokens=50, do_sample=False)[0]))
-```
-
-### CUDA
-
-2, 3, 4, and 8 bits are supported on CUDA device. GPTQModel is recommended for 4 and 8 bits inference.
-
-```python
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-model_name = "OPEA/Qwen2.5-1.5B-Instruct-int4-sym-inc"
-model = AutoModelForCausalLM.from_pretrained(model_name, device_map="cuda", torch_dtype="auto")
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-text = "There is a girl who likes adventure,"
-inputs = tokenizer(text, return_tensors="pt").to(model.device)
-print(tokenizer.decode(model.generate(**inputs, max_new_tokens=50, do_sample=False)[0]))
-```
-
-### Specify Inference Backend
-
-The automatically selected backend may not always be the most suitable for certain devices. You can specify your preferred backend such as "ipex" for CPU and XPU, "marlin/exllamav2/triton" for CUDA, according to your needs or hardware compatibility. Please note that additional corresponding libraries may be required.
-
-```python
-from transformers import AutoModelForCausalLM, AutoTokenizer, AutoRoundConfig
-
-model_name = "OPEA/Qwen2.5-1.5B-Instruct-int4-sym-inc"
-quantization_config = AutoRoundConfig(backend="ipex")
-model = AutoModelForCausalLM.from_pretrained(model_name, device_map="cpu", torch_dtype="auto",
-                                             quantization_config=quantization_config)
+model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype="auto")
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 text = "There is a girl who likes adventure,"
 inputs = tokenizer(text, return_tensors="pt").to(model.device)
