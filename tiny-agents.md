@@ -1,4 +1,9 @@
-
+---
+title: "Tiny Agents: a MCP-powered agent in 50 lines of code"
+thumbnail: /blog/assets/tiny-agents/thumbnail.jpg
+authors:
+- user: julien-c
+---
 
 # Tiny Agents: a MCP-powered agent in 50 lines of code
 
@@ -6,17 +11,20 @@ Over the past few weeks, I've been diving into MCP ([Model Context Protocol](htt
 
 My TL;DR is that it's fairly simple, but still quite powerful: **MCP is a standard API to expose sets of Tools that can be hooked to LLMs.**
 
-It is fairly simple to extend an Inference Client – at HF, we have two official client SDKs: `@huggingface/inference` in JS, and `huggingface_hub` in Python – to also act as a MCP client and hook the available tools from MCP servers into the LLM inference. 
+It is fairly simple to extend an Inference Client – at HF, we have two official client SDKs: [`@huggingface/inference`](https://github.com/huggingface/huggingface.js) in JS, and [`huggingface_hub`](https://github.com/huggingface/huggingface_hub/) in Python – to also act as a MCP client and hook the available tools from MCP servers into the LLM inference. 
 
 But while doing that, came my second realization:
 
+> [!TIP]
 > **Once you have a MCP Client, an Agent is literally just a while loop on top of it.**
 
-In this short post, I will walk you through how I implemented it in JavaScript, how you can adopt MCP too and how it's going to make Agentic AI way simpler going forward.
+In this short article, I will walk you through how I implemented it in Typescript (JS), how you can adopt MCP too and how it's going to make Agentic AI way simpler going forward.
+
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tiny-agents/thumbnail.jpg)
 
 ## How to run the complete demo
 
-Once you have NodeJS (with `pnpm` or `npm`), just run this in a terminal:
+If you have NodeJS (with `pnpm` or `npm`), just run this in a terminal:
 
 ```bash
 npx @huggingface/mcp-client
@@ -28,16 +36,42 @@ or if using `pnpm`:
 pnpx @huggingface/mcp-client
 ```
 
-You'll see my simple agent connect to two distinct MCP servers (running locally), loading their tools, then prompting you for a conversation.
+This installs my package into a temporary folder then executes its command.
+
+You'll see your simple Agent connect to two distinct MCP servers (running locally), loading their tools, then prompting you for a conversation.
 
 (video)
 
+> [!NOTE]
+> Note: this is a bit counter-intuitive but currently, all MCP servers are actually local processes (though remote servers are coming soon).
+
+By default our example Agent connects to the following two MCP servers:
+
+- the "canonical" [file system server](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem), which gets access to your Desktop,
+- and the [Playwright MCP](https://github.com/microsoft/playwright-mcp) server, which knows how to use a sandboxed Chromium browser for you.
+
+
+Finally, in terms of model/provider pair, our example Agent uses:
+- ["Qwen/Qwen2.5-72B-Instruct"](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct)
+- running on [Nebius](https://huggingface.co/docs/inference-providers/providers/nebius)
+
+This is all configurable through env variables!
+
+```ts
+const agent = new Agent({
+	provider: process.env.PROVIDER ?? "nebius",
+	model: process.env.MODEL_ID ?? "Qwen/Qwen2.5-72B-Instruct",
+	apiKey: process.env.HF_TOKEN,
+	servers: SERVERS,
+});
+```
+
 ## The foundation for this: tool calling native suport in LLMs.
 
-What is going to make this whole blogpost very easy is that LLMs have been trained for function calling, aka. tool use.
+What is going to make this whole blogpost very easy is that the recent crop of LLMs (both closed and open) have been trained for function calling, aka. tool use.
 
 A tool is defined by its name, a description, and a JSONSchema representation of its parameters.
-In some sense, it is an opaque representation of any function's interface, as seen from the outside.
+In some sense, it is an opaque representation of any function's interface, as seen from the outside (meaning, the LLM does not care how the function is actually implemented).
 
 ```ts
 const weatherTool = {
@@ -58,25 +92,29 @@ const weatherTool = {
 };
 ```
 
-The canonical documentation I will link to here is [OpenAI's function calling doc](https://platform.openai.com/docs/guides/function-calling?api-mode=chat).
+The canonical documentation I will link to here is [OpenAI's function calling doc](https://platform.openai.com/docs/guides/function-calling?api-mode=chat). (Yes... OpenAI pretty much defines the LLM standards for the whole community 😅).
 
 Inference engines let you pass a list of tools when calling the LLM, and the LLM is free to call zero, one or more of those tools.
 As a developer, you run the tools and feed their result back into the LLM to continue the generation.
 
-Note that in the backend (at the inference engine level), the tools are simply passed to the model in a specially-formatted chat_template and then parsed out of the response (using model-specific special tokens) to expose them as tool calls.
+> [!NOTE]
+> Note that in the backend (at the inference engine level), the tools are simply passed to the model in a specially-formatted `chat_template`, like any other message, and then parsed out of the response (using model-specific special tokens) to expose them as tool calls.
 
 ## Implementing a MCP client on top of InferenceClient
 
 Now that we know what a tool is in recent LLMs, let us implement the actual MCP client.
 
-The official doc at https://modelcontextprotocol.io/quickstart/client is fairly well-written. You only have to replace any mention of the Anthropic client SDK by any other OpenAI-compatible client SDK. (There is also a llms.txt you can feed into your LLM of choice to help you code along). As a reminder, we use HF's `InferenceClient`.
+The official doc at https://modelcontextprotocol.io/quickstart/client is fairly well-written. You only have to replace any mention of the Anthropic client SDK by any other OpenAI-compatible client SDK. (There is also a [llms.txt](https://modelcontextprotocol.io/llms-full.txt) you can feed into your LLM of choice to help you code along). 
 
-> The complete code file is [here] if you want to follow along
+As a reminder, we use HF's `InferenceClient` for our inference client.
 
-My `McpClient` class has:
-- an Inference Client (works with any Inference Provider, and HfJS supports remote and local endpoints)
-- a set of MCP client sessions, one for each connected MCP server
-- and a list of available tools that is going to be filled from the connected servers and just lightly formatted.
+> [!TIP]
+> The complete code file is [here](https://github.com/huggingface/huggingface.js/blob/main/packages/mcp-client/src/McpClient.ts) if you want to follow along using the actual code 🤓
+
+Our `McpClient` class has:
+- an Inference Client (works with any Inference Provider, and `huggingface/inference` supports both remote and local endpoints)
+- a set of MCP client sessions, one for each connected MCP server (yes, we want to support multiple servers)
+- and a list of available tools that is going to be filled from the connected servers and just slightly re-formatted.
 
 ```ts
 export class McpClient {
@@ -132,13 +170,13 @@ async addMcpServer(server: StdioServerParameters): Promise<void> {
 }
 ```
 
-`StdioServerParameters` is an interface from the MCP SDK that will let you easily spawn a local process: currently, all MCP servers are actually local processes (though remote servers are coming soon).
+`StdioServerParameters` is an interface from the MCP SDK that will let you easily spawn a local process: as we mentioned earlier, currently, all MCP servers are actually local processes.
 
-For each MCP server we connect to, we slightly reformat its list of tools and add them to `this.availableTools`.
+For each MCP server we connect to, we slightly re-format its list of tools and add them to `this.availableTools`.
 
 ### How to use the tools
 
-Easy, you just pass `this.availableTools` to your LLM chat-completion (in addition to your typical array of messages):
+Easy, you just pass `this.availableTools` to your LLM chat-completion, in addition to your usual array of messages:
 
 ```ts
 const stream = this.client.chatCompletionStream({
@@ -150,7 +188,9 @@ const stream = this.client.chatCompletionStream({
 });
 ```
 
-When parsing or streaming the output, the LLM will generate some tool calls (a function name, and some JSON-encoded arguments), which you (as a developer) need to compute. The MCP client SDK onces again makes that very easy, it has a `client.callTool()` method:
+`tool_choice: "auto"` is the parameter you pass for the LLM to generate zero, one, or multiple tool calls.
+
+When parsing or streaming the output, the LLM will generate some tool calls (i.e. a function name, and some JSON-encoded arguments), which you (as a developer) need to compute. The MCP client SDK onces again makes that very easy ; it has a `client.callTool()` method:
 
 ```ts
 const toolName = toolCall.function.name;
@@ -162,6 +202,7 @@ const toolMessage: ChatCompletionInputMessageTool = {
 	content: "",
 	name: toolName,
 };
+
 /// Get the appropriate session for this tool
 const client = this.clients.get(toolName);
 if (client) {
@@ -174,12 +215,19 @@ if (client) {
 
 Finally you will add the resulting tool message to your `messages` array and back into the LLM.
 
-## What is an agent anyway
+## Our 50-lines-of-code Agent 🤯
 
 Now that we have a MCP client capable of connecting to arbitrary MCP servers to get lists of tools and capable of injecting them and parsing them from the LLM inference, well... what is an Agent?
 
 > Once you have an inference client with a set of tools, then a Agent is just a while loop on top of it.
 
+In more detail, an Agent is simply a combination of:
+- a system prompt
+- a LLM Inference client
+- a MCP client to hook a set of Tools into it from a bunch of MCP servers
+- some basic control flow (see below for the while loop)
+
+Our Agent class simply extends McpClient:
 
 ```ts
 export class Agent extends McpClient {
@@ -211,13 +259,15 @@ export class Agent extends McpClient {
 }
 ```
 
-By default, we use a very simple system prompt inspired by the one shared in the [GPT-4.1 prompting guide](https://cookbook.openai.com/examples/gpt4-1_prompting_guide)
+By default, we use a very simple system prompt inspired by the one shared in the [GPT-4.1 prompting guide](https://cookbook.openai.com/examples/gpt4-1_prompting_guide).
 
-Even though this comes from OpenAI, this sentence in particular applies to more and more models – open models too:
+Even though this comes from OpenAI 😈, this sentence in particular applies to more and more models, both closed and open:
 
 > We encourage developers to exclusively use the tools field to pass tools, rather than manually injecting tool descriptions into your prompt and writing a separate parser for tool calls, as some have reported doing in the past.
 
-Then loading the tools is literally just connecting to the MCP servers we want, in parallel:
+Which is to say, we don't need to provide painstakingly formatted lists of tool use examples in the prompt. The `tools: this.availableTools` param is enough.
+
+Loading the tools on the Agent is literally just connecting to the MCP servers we want (in parallel because it's so easy to do in JS):
 
 ```ts
 async loadTools(): Promise<void> {
@@ -225,7 +275,7 @@ async loadTools(): Promise<void> {
 }
 ```
 
-We add two extra tools that can be used by the LLM for our Agent's control flow:
+We add two extra tools (outside of MCP) that can be used by the LLM for our Agent's control flow:
 
 ```ts
 const taskCompletionTool: ChatCompletionInputTool = {
@@ -257,7 +307,9 @@ When calling any of these tools, the Agent will break its loop and give control 
 
 ### The complete while loop
 
-The gist of the Agent's main while loop is that we simply recurse and iterate with the LLM alternating between tool calling and feeding it the tool results, and we do this **until the LLM starts to respond with two non-tool messages in a row**.
+Behold our complete while loop.🎉
+
+The gist of our Agent's main while loop is that we simply iterate with the LLM alternating between tool calling and feeding it the tool results, and we do so **until the LLM starts to respond with two non-tool messages in a row**.
 
 This is the complete while loop:
 
@@ -278,9 +330,7 @@ while (true) {
 		throw err;
 	}
 	numOfTurns++;
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const currentLast = this.messages.at(-1)!;
-	debug("current role", currentLast.role);
 	if (
 		currentLast.role === "tool" &&
 		currentLast.name &&
@@ -306,6 +356,15 @@ while (true) {
 
 There are many cool potential next steps once you have a running MCP Client and a simple way to build Agents 🔥
 
+- experiment with other models
+  - 
+- experiment with all the [Inference Providers](https://huggingface.co/docs/inference-providers/index):
+  - Cerebras, Cohere, Fal, Fireworks, Hyperbolic, Nebius, Novita, Replicate, SambaNova, Together, etc.
+  - each of them has different optimizations for function calling (also depending on the model) so performance may vary!
+- hook local LLM using llama.cpp or LM Studio
+
+
+[Pull requests](https://github.com/huggingface/huggingface.js) and contributions are welcome!
 
 
 

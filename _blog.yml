@@ -5899,3 +5899,12 @@
     - api
     - development
     - production
+
+- local: tiny-agents 
+  title: "Tiny Agents: a MCP-powered agent in 50 lines of code"
+  author: julien-c
+  thumbnail: /blog/assets/tiny-agents/thumbnail.jpg
+  date: April 25, 2025
+  tags:
+    - agents
+    - inference
