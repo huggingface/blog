@@ -26,11 +26,7 @@ Despite its strong performance, AutoRound is fast and lightweight — quantizing
 
 ## Superior Accuracy at Low Bit Widths
 
-**AutoRound** delivers highly promising results, particularly in low-bit quantization scenarios. Evaluations across a
-variety of tasks show that it outperforms popular methods by a wide margin at 2-bit
-precision [(source)](https://arxiv.org/abs/2309.05516). At 4 bits, AutoRound continues to hold a competitive edge in
-most cases, as demonstrated on
-the [Low-Bit Open LLM Leaderboard](https://huggingface.co/spaces/Intel/low_bit_open_llm_leaderboard).
+**AutoRound** delivers highly promising results, particularly in low-bit quantization scenarios. Evaluations across a variety of tasks show that it outperforms popular methods by a wide margin at 2-bit precision [(source)](https://arxiv.org/abs/2309.05516). At 4 bits, AutoRound continues to hold a competitive edge in most cases, as demonstrated on the [Low-Bit Open LLM Leaderboard](https://huggingface.co/spaces/Intel/low_bit_open_llm_leaderboard).
 
 <p align="center">
   <img src="\assets\autoround\int2.png" alt="Average of 10+ tasks at W2g128<" width="60%"/>
@@ -168,7 +164,7 @@ model_name = "facebook/opt-125m"
 model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype="auto")
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 bits, group_size, sym = 4, 128, True
-layer_config = {#  Supports both full layer names and fuzzy (partial) matching
+layer_config = {#  Supports both full layer names and regex  matching
   "model.decoder.layers.6.self_attn.out_proj": {"bits": 8, "group_size": 32}, 
   "model.decoder.layers.*k_proj": {"bits": 2, "group_size": 32}
   }
@@ -236,7 +232,6 @@ print(tokenizer.decode(model.generate(**inputs, max_new_tokens=50, do_sample=Fal
 
 ### Specify Inference Backend
 
-<<<<<<< HEAD
 The automatically selected backend may not always be the most suitable for certain devices. You can specify your preferred backend such as "ipex" for CPU and XPU, "marlin/exllamav2/triton" for CUDA, according to your needs or hardware compatibility. Please note that additional corresponding libraries may be required.
 
 ```python
