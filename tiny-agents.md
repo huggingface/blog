@@ -20,7 +20,8 @@ But while doing that, came my second realization:
 
 In this short article, I will walk you through how I implemented it in Typescript (JS), how you can adopt MCP too and how it's going to make Agentic AI way simpler going forward.
 
-![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tiny-agents/thumbnail.jpg)
+![meme](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tiny-agents/thumbnail.jpg)
+<figcaption>Image credit https://x.com/adamdotdev</figcaption>
 
 ## How to run the complete demo
 
@@ -40,22 +41,37 @@ This installs my package into a temporary folder then executes its command.
 
 You'll see your simple Agent connect to two distinct MCP servers (running locally), loading their tools, then prompting you for a conversation.
 
-(video)
-
-> [!NOTE]
-> Note: this is a bit counter-intuitive but currently, all MCP servers are actually local processes (though remote servers are coming soon).
+<video controls autoplay loop>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tiny-agents/use-filesystem.mp4" type="video/mp4">
+</video>
 
 By default our example Agent connects to the following two MCP servers:
 
 - the "canonical" [file system server](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem), which gets access to your Desktop,
 - and the [Playwright MCP](https://github.com/microsoft/playwright-mcp) server, which knows how to use a sandboxed Chromium browser for you.
 
+> [!NOTE]
+> Note: this is a bit counter-intuitive but currently, all MCP servers are actually local processes (though remote servers are coming soon).
 
-Finally, in terms of model/provider pair, our example Agent uses:
+Our input for this first video was:
+
+> write a haiku about the Hugging Face community and write it to a file named "hf.txt" on my Desktop
+
+Now let us try this prompt that involves some Web browsing:
+
+> do a Web Search for HF inference providers on Brave Search and open the first 3 results
+
+<video controls autoplay loop>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tiny-agents/brave-search.mp4" type="video/mp4">
+</video>
+
+### Default model and provider
+
+In terms of model/provider pair, our example Agent uses by default:
 - ["Qwen/Qwen2.5-72B-Instruct"](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct)
 - running on [Nebius](https://huggingface.co/docs/inference-providers/providers/nebius)
 
-This is all configurable through env variables!
+This is all configurable through env variables! See:
 
 ```ts
 const agent = new Agent({
@@ -109,7 +125,7 @@ The official doc at https://modelcontextprotocol.io/quickstart/client is fairly 
 As a reminder, we use HF's `InferenceClient` for our inference client.
 
 > [!TIP]
-> The complete code file is [here](https://github.com/huggingface/huggingface.js/blob/main/packages/mcp-client/src/McpClient.ts) if you want to follow along using the actual code 🤓
+> The complete `McpClient.ts` code file is [here](https://github.com/huggingface/huggingface.js/blob/main/packages/mcp-client/src/McpClient.ts) if you want to follow along using the actual code 🤓
 
 Our `McpClient` class has:
 - an Inference Client (works with any Inference Provider, and `huggingface/inference` supports both remote and local endpoints)
@@ -226,6 +242,9 @@ In more detail, an Agent is simply a combination of:
 - a LLM Inference client
 - a MCP client to hook a set of Tools into it from a bunch of MCP servers
 - some basic control flow (see below for the while loop)
+
+> [!TIP]
+> The complete `Agent.ts` code file is [here](https://github.com/huggingface/huggingface.js/blob/main/packages/mcp-client/src/Agent.ts).
 
 Our Agent class simply extends McpClient:
 
@@ -356,15 +375,17 @@ while (true) {
 
 There are many cool potential next steps once you have a running MCP Client and a simple way to build Agents 🔥
 
-- experiment with other models
-  - 
-- experiment with all the [Inference Providers](https://huggingface.co/docs/inference-providers/index):
+- Experiment with **other models**
+  - [mistralai/Mistral-Small-3.1-24B-Instruct-2503](https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503) is optimized for function calling
+  - Gemma 3 27B, the [Gemma 3 QAT](https://huggingface.co/collections/google/gemma-3-qat-67ee61ccacbf2be4195c265b) models are a popular choice for function calling though it would require us to implement tool parsing as it's not using native `tools` (a PR would be welcome!)
+- Experiment with all the **[Inference Providers](https://huggingface.co/docs/inference-providers/index)**:
   - Cerebras, Cohere, Fal, Fireworks, Hyperbolic, Nebius, Novita, Replicate, SambaNova, Together, etc.
   - each of them has different optimizations for function calling (also depending on the model) so performance may vary!
-- hook local LLM using llama.cpp or LM Studio
+- Hook **local LLMs** using llama.cpp or LM Studio
 
 
-[Pull requests](https://github.com/huggingface/huggingface.js) and contributions are welcome!
+Pull requests and contributions are welcome! 
+Again, everything here is [open source](https://github.com/huggingface/huggingface.js)! 💎❤️
 
 
 
