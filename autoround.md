@@ -21,7 +21,7 @@ As large language models (LLMs) and vision-language models (VLMs) continue to gr
 **AutoRound** is a weight-only post-training quantization (PTQ) method developed by Intel. It uses signed gradient descent to jointly optimize weight rounding and clipping ranges, enabling accurate low-bit quantization (e.g., INT2 - INT8) with minimal accuracy loss in most scenarios. For example, at INT2, it outperforms popular baselines by up to **2.1x higher in relative accuracy**. The image below provides an overview of the core algorithm in AutoRound. For more details, please refer to [our paper](https://arxiv.org/abs/2309.05516).
 
 <p align="center">
-  <img src="\assets\autoround\autoround_overview.png" alt="algorithm overview<" width="80%"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/auto-round/autoround_overview.png" alt="algorithm overview<" width="100%"/>
   <br>
   <i></i>
 </p>
@@ -35,14 +35,14 @@ Despite its strong performance, AutoRound is fast and lightweight — quantizing
 **AutoRound** delivers highly promising results, particularly in low-bit quantization scenarios. Evaluations across a variety of tasks show that it outperforms popular methods by a wide margin at 2-bit precision [(source)](https://arxiv.org/abs/2309.05516). At 4 bits, AutoRound continues to hold a competitive edge in most cases, as demonstrated on the [Low-Bit Open LLM Leaderboard](https://huggingface.co/spaces/Intel/low_bit_open_llm_leaderboard).
 
 <p align="center">
-  <img src="\assets\autoround\int2.png" alt="Average of 10+ tasks at W2g128<" width="60%"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/auto-round/int2.png" alt="Average of 10+ tasks at W2g128<" width="100%"/>
   <br>
   <i>Average of 10+ tasks at W2g128</i>
 </p>
 
 
 <p align="center">
-  <img src="\assets\autoround\int4.png" alt="Average of 10+ tasks at W4<" width="60%"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/auto-round/int4.png" alt="Average of 10+ tasks at W4<" width="100%"/>
   <br>
   <i>Average of 10+ tasks at W4</i>
 </p>
