@@ -82,6 +82,17 @@ const agent = new Agent({
 });
 ```
 
+## Where does the code live
+
+The Tiny Agent code lives in the `mcp-client` sub-package of the `huggingface.js` mono-repo, which is the GitHub mono-repo in which all our JS libraries reside.
+
+https://github.com/huggingface/huggingface.js/tree/main/packages/mcp-client
+
+> [!TIP]
+> The codebase uses modern JS features (notably, async generators) which make things way easier to implement, especially asynchronous events like the LLM responses. 
+> You might need to ask a LLM about those JS features if you're not yet familiar with them.
+
+
 ## The foundation for this: tool calling native support in LLMs.
 
 What is going to make this whole blogpost very easy is that the recent crop of LLMs (both closed and open) have been trained for function calling, aka. tool use.
