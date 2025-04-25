@@ -110,7 +110,6 @@ auto-round \
 ```
 
 AutoRound also offers another two recipes, `auto-round-best` and `auto-round-light`, designed for optimal accuracy and improved speed, respectively.
-For 2 bits, we recommend using `auto-round-best` or `auto-round`. For a comparison of the three recipes, please refer to the table below.
 
 ```bash
 auto-round-best \
@@ -118,6 +117,7 @@ auto-round-best \
     --output_dir ./tmp_autoround
 ```
 
+For 2 bits, we recommend using `auto-round-best` or `auto-round`. For a comparison of the three recipes, please refer to the table below.
 
 W4G128 Average Accuracy of 13 tasks (mmlu-pro, if_eval, gsm8k, etc) and Time Cost Results (Testing was conducted on the Nvidia A100 80G using the version of PyTorch 2.6.0 with enable_torch_compile):
 
@@ -154,12 +154,12 @@ autoround.quantize_and_save(output_dir, format='auto_round,auto_awq,auto_gptq')
 
 ```
 
-For the best/light settings of AutoRound for API usage or mixed-bit configurations, please refer to [AutoRound readme](https://github.com/intel/auto-round/blob/main/docs/step_by_step.md#api-usage)
+For the best/light settings of AutoRound for API usage or mixed-bit configurations, please refer to [AutoRound README](https://github.com/intel/auto-round/blob/main/docs/step_by_step.md#api-usage)
 
 
 ## Inference
 
-AutoRound automatically selects the best available backend based on the installed libraries and prompts the user to install additional libraries when a better backend is found. For more details, please refer to [HF README](https://github.com/huggingface/transformers/blob/main/docs/source/en/quantization/auto_round.md#inference) or [AutoRound repo](https://github.com/intel/auto-round/blob/main/docs/step_by_step.md#4-inference).
+AutoRound automatically selects the best available backend based on the installed libraries and prompts the user to install additional libraries when a better backend is found. For more details, please refer to [HF README](https://github.com/huggingface/transformers/blob/main/docs/source/en/quantization/auto_round.md#inference) or [AutoRound README](https://github.com/intel/auto-round/blob/main/docs/step_by_step.md#4-inference).
 ### CPU/XPU/CUDA
 
 ```python
