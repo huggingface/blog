@@ -18,7 +18,13 @@ As large language models (LLMs) and vision-language models (VLMs) continue to gr
 
 # What is AutoRound?
 
-**AutoRound** is a weight-only post-training quantization (PTQ) method developed by Intel. It uses signed gradient descent to jointly optimize weight rounding and clipping ranges, enabling accurate low-bit quantization (e.g., INT2 - INT8) with minimal accuracy loss in most scenarios. For example, at INT2, it outperforms popular baselines by up to **2.1x higher in relative accuracy**.
+**AutoRound** is a weight-only post-training quantization (PTQ) method developed by Intel. It uses signed gradient descent to jointly optimize weight rounding and clipping ranges, enabling accurate low-bit quantization (e.g., INT2 - INT8) with minimal accuracy loss in most scenarios. For example, at INT2, it outperforms popular baselines by up to **2.1x higher in relative accuracy**. The image below provides an overview of the core algorithm in AutoRound. For more details, please refer to [our paper](https://arxiv.org/abs/2309.05516).
+
+<p align="center">
+  <img src="\assets\autoround\autoround_overview.png" alt="algorithm overview<" width="80%"/>
+  <br>
+  <i></i>
+</p>
 
 Despite its strong performance, AutoRound is fast and lightweight — quantizing a 72B model takes just **37 minutes on an A100 GPU** under light mode. It also supports mixed-bit tuning, lm-head quantization, GPTQ/AWQ/GGUF format exporting, and flexible tuning recipes.
 
@@ -177,7 +183,7 @@ autoround.quantize_and_save(output_dir, format='auto_round')
 
 ## Inference
 
-AutoRound automatically selects the best available backend based on the installed libraries and prompts the user to install additional libraries when a better backend is found. For more details, please refer to [HF README](https://github.com/huggingface/transformers/blob/main/docs/source/en/quantization/auto_round.md#inference) or AutoRound repo(https://github.com/intel/auto-round).
+AutoRound automatically selects the best available backend based on the installed libraries and prompts the user to install additional libraries when a better backend is found. For more details, please refer to [HF README](https://github.com/huggingface/transformers/blob/main/docs/source/en/quantization/auto_round.md#inference) or [AutoRound repo](https://github.com/intel/auto-round/blob/main/docs/step_by_step.md#4-inference).
 ### CPU/XPU/CUDA
 
 ```python
