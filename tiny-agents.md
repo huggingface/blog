@@ -90,10 +90,10 @@ https://github.com/huggingface/huggingface.js/tree/main/packages/mcp-client
 
 > [!TIP]
 > The codebase uses modern JS features (notably, async generators) which make things way easier to implement, especially asynchronous events like the LLM responses. 
-> You might need to ask a LLM about those JS feature if you're not yet familiar with them.
+> You might need to ask a LLM about those JS features if you're not yet familiar with them.
 
 
-## The foundation for this: tool calling native suport in LLMs.
+## The foundation for this: tool calling native support in LLMs.
 
 What is going to make this whole blogpost very easy is that the recent crop of LLMs (both closed and open) have been trained for function calling, aka. tool use.
 
@@ -217,7 +217,7 @@ const stream = this.client.chatCompletionStream({
 
 `tool_choice: "auto"` is the parameter you pass for the LLM to generate zero, one, or multiple tool calls.
 
-When parsing or streaming the output, the LLM will generate some tool calls (i.e. a function name, and some JSON-encoded arguments), which you (as a developer) need to compute. The MCP client SDK onces again makes that very easy ; it has a `client.callTool()` method:
+When parsing or streaming the output, the LLM will generate some tool calls (i.e. a function name, and some JSON-encoded arguments), which you (as a developer) need to compute. The MCP client SDK once again makes that very easy; it has a `client.callTool()` method:
 
 ```ts
 const toolName = toolCall.function.name;
@@ -246,7 +246,7 @@ Finally you will add the resulting tool message to your `messages` array and bac
 
 Now that we have a MCP client capable of connecting to arbitrary MCP servers to get lists of tools and capable of injecting them and parsing them from the LLM inference, well... what is an Agent?
 
-> Once you have an inference client with a set of tools, then a Agent is just a while loop on top of it.
+> Once you have an inference client with a set of tools, then an Agent is just a while loop on top of it.
 
 In more detail, an Agent is simply a combination of:
 - a system prompt
