@@ -35,14 +35,14 @@ Despite its strong performance, AutoRound is fast and lightweight — quantizing
 **AutoRound** delivers highly promising results, particularly in low-bit quantization scenarios. Evaluations across a variety of tasks show that it outperforms popular methods by a wide margin at 2-bit precision [(source)](https://arxiv.org/abs/2309.05516). At 4 bits, AutoRound continues to hold a competitive edge in most cases, as demonstrated on the [Low-Bit Open LLM Leaderboard](https://huggingface.co/spaces/Intel/low_bit_open_llm_leaderboard).
 
 <p align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/auto-round/int2.png" alt="Average of 10+ tasks at W2g128<" width="100%"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/auto-round/int2.png" alt="Average of 10+ tasks at W2g128<" width="60%"/>
   <br>
   <i>Average of 10+ tasks at W2g128</i>
 </p>
 
 
 <p align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/auto-round/int4.png" alt="Average of 10+ tasks at W4<" width="100%"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/auto-round/int4.png" alt="Average of 10+ tasks at W4<" width="60%"/>
   <br>
   <i>Average of 10+ tasks at W4</i>
 </p>
