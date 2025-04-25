@@ -242,7 +242,8 @@ print(tokenizer.decode(model.generate(**inputs, max_new_tokens=50, do_sample=Fal
 
 ### Specify Inference Backend
 
-The automatically selected backend may not always be the most suitable for certain devices. You can specify your preferred backend such as "ipex" for CPU and CPU, "marlin/exllamav2/triton" for CUDA, according to your needs or hardware compatibility. Please note that additional corresponding libraries may be required.
+<<<<<<< HEAD
+The automatically selected backend may not always be the most suitable for certain devices. You can specify your preferred backend such as "ipex" for CPU and XPU, "marlin/exllamav2/triton" for CUDA, according to your needs or hardware compatibility. Please note that additional corresponding libraries may be required.
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer, AutoRoundConfig
