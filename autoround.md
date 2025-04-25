@@ -86,7 +86,7 @@ AutoRound requires only 200 tuning steps and a small calibration dataset (as few
 | Llama3.1-8B | 13min                                                      | 27min                                                       | 22min                                                            | 6min                                                                   | 13min                                                             | 17min                                                            |
 | Qwen2.5 72B | 105min                                                     | 230min                                                      | OOM                                                              | 37min                                                                  | 120min                                                            | 149min                                                           |
 
-# Get Start with AutoRound
+# Get Started with AutoRound
 
 ## Installation
 
@@ -153,33 +153,9 @@ output_dir = "./tmp_autoround"
 autoround.quantize_and_save(output_dir, format='auto_round,auto_awq,auto_gptq') 
 
 ```
-### AutoRound API Usage for Mixed Bits
-AWQ and GPTQ formats only support a subset of mixed settings. If you're unsure about the details, we recommend using the AutoRound format.
 
-```python
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from auto_round import AutoRound
+For the best/light settings of AutoRound for API usage or mixed-bit configurations, please refer to [AutoRound readme](https://github.com/intel/auto-round/blob/main/docs/step_by_step.md#api-usage)
 
-model_name = "facebook/opt-125m"
-model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype="auto")
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-bits, group_size, sym = 4, 128, True
-layer_config = {#  Supports both full layer names and regex  matching
-  "model.decoder.layers.6.self_attn.out_proj": {"bits": 8, "group_size": 32}, 
-  "model.decoder.layers.*k_proj": {"bits": 2, "group_size": 32}
-  }
-autoround = AutoRound(
-    model,
-    tokenizer,
-    bits=bits,
-    group_size=group_size,
-    sym=sym,
-    layer_config=layer_config,
-)
-
-output_dir = "./tmp_autoround"
-autoround.quantize_and_save(output_dir, format='auto_round') 
-```
 
 ## Inference
 
