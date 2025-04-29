@@ -8,7 +8,7 @@ authors:
 - user: pcuenq
 ---
 
-TLDR; Today, Meta releases Llama Guard 4, a 12B dense (not a MoE!) multimodal safety model, and two new Llama Prompt Guard 2 models. This release comes with multiple open model checkpoints, along with an interactive notebook and a demo for you to get started easily 🤗. Model checkpoints can be found in [Llama 4 Collection](https://huggingface.co/collections/meta-llama/llama-4-67f0c30d9fe03840bc9d0164).
+TLDR; Today, Meta releases Llama Guard 4, a 12B dense (not a MoE!) multimodal safety model, and two new Llama Prompt Guard 2 models. This release comes with multiple open model checkpoints, along with [an interactive notebook](https://github.com/huggingface/huggingface-llama-recipes/blob/main/llama_guard/llama-guard-4.ipynb) for you to get started easily 🤗. Model checkpoints can be found in [Llama 4 Collection](https://huggingface.co/collections/meta-llama/llama-4-67f0c30d9fe03840bc9d0164).
 
 ## Table-of-Contents
 
@@ -249,3 +249,4 @@ print(model.config.id2label[predicted_class_id])
 
 ## Useful Resources
 - [Model collection](https://huggingface.co/collections/meta-llama/llama-4-67f0c30d9fe03840bc9d0164)
+- [Llama Guard 4 notebook](https://github.com/huggingface/huggingface-llama-recipes/blob/main/llama_guard/llama-guard-4.ipynb)
