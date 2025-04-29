@@ -58,7 +58,7 @@ Despite its strong performance, AutoRound is fast and lightweight — quantizing
 ### Devices
 
 - **CPU**
-- **XPU**
+- **Intel GPU**
 - **CUDA**
 
 ### Quantization Configurations
@@ -160,7 +160,7 @@ For the best/light settings of AutoRound for API usage or mixed-bit configuratio
 ## Inference
 
 AutoRound automatically selects the best available backend based on the installed libraries and prompts the user to install additional libraries when a better backend is found. For more details, please refer to [HF README](https://github.com/huggingface/transformers/blob/main/docs/source/en/quantization/auto_round.md#inference) or [AutoRound README](https://github.com/intel/auto-round/blob/main/docs/step_by_step.md#4-inference).
-### CPU/XPU/CUDA
+### CPU/Intel GPU/CUDA
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
