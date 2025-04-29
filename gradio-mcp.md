@@ -132,5 +132,7 @@ And that's it! By using Gradio to build your MCP server, you can easily add many
 
 ### Further Reading
 
-If you want to dive deeper, here are some articles
+If you want to dive deeper, here are some articles that we recommend:
 
+* [What Is MCP, and Why Is Everyone – Suddenly!– Talking About It?](https://huggingface.co/blog/Kseniase/mcp)
+* [An Introduction to the MCP Protocol](https://modelcontextprotocol.io/introduction)
