@@ -76,7 +76,7 @@ Before, every `tool_call.arguments` field was piped through ` | tojson`, even if
 {%- endif %}
 ```
 
-## 4. Default Prompts Should be Optional
+## 4. Default System Prompts Are Unnecessary
 
 Qwen‑2.5 automatically inserted a default Alibaba system prompt:
 
