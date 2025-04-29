@@ -5921,4 +5921,12 @@
     - hub
     - inference
 
-
+- local: qwen-3-chat-template-deep-dive
+  title: "The 4 Things Qwen-3's Chat Template Teaches Us"
+  author: cfahlgren1
+  thumbnail: /blog/assets/qwen-3-chat-template-deep-dive/thumbnail.png
+  date: April 29, 2025
+  tags:
+    - qwen
+    - chat-template
+    - llms
