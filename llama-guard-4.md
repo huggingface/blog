@@ -72,7 +72,7 @@ The Llama Prompt Guard 2 series introduces two new classifiers with 86M and 22M 
 
 ## Getting Started using 🤗transformers
 
-To use Llama Guard 4 and Prompt Guard 2, make sure you have hf_xet and transformers Llama Guard preview installed.
+To use Llama Guard 4 and Prompt Guard 2, make sure you have `hf_xet` and the preview release of transformers for Llama Guard installed.
 
 ```bash
 pip install git+https://github.com/huggingface/transformers@v4.51.3-LlamaGuard-preview hf_xet
