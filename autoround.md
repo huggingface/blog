@@ -102,7 +102,7 @@ Currently, only offline mode is supported to generate quantized models.
 
 ```bash
 auto-round \
-    --model facebook/opt-125m \
+    --model Qwen/Qwen3-0.6B \
     --bits 4 \
     --group_size 128 \
     --format "auto_round,auto_awq,auto_gptq" \
@@ -113,7 +113,7 @@ AutoRound also offers another two recipes, `auto-round-best` and `auto-round-lig
 
 ```bash
 auto-round-best \
-    --model facebook/opt-125m \
+    --model Qwen/Qwen3-0.6B \
     --output_dir ./tmp_autoround
 ```
 
@@ -136,7 +136,7 @@ This setting offers a better trade-off between accuracy and tuning cost, and is 
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from auto_round import AutoRound
 
-model_name = "facebook/opt-125m"
+model_name = "Qwen/Qwen3-0.6B"
 model = AutoModelForCausalLM.from_pretrained(model_name)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 bits, group_size, sym = 4, 128, True
