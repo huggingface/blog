@@ -20,7 +20,7 @@ The new Qwen-3 model by [Qwen](https://huggingface.co/qwen) ships with a much mo
 
 ## 1. Reasoning doesn't have to be forced
 
-_**and you can do it via a simple prefill...**_
+_**and you can make it optional via a simple prefill...**_
 
 Qwen-3 is unique in it's ability to toggle reasoning via the `enable_thinking` flag. When set to false, the template inserts an empty <think></think> pair, telling the model to skip step‑by‑step thoughts. Earlier models baked the <think> tag into every generation, forcing chain‑of‑thought whether you wanted it or not.
 
@@ -82,7 +82,7 @@ Qwen‑2.5 automatically inserted a default Alibaba system prompt:
 
 > You are Qwen, created by Alibaba Cloud. You are a helpful assistant.
 
-Unlike Qwen-2.5, which automatically inserted a default Alibaba system prompt, Qwen-3 (alongside QwQ) omits any default prompts, allowing developers full control over the model's persona.
+Unlike Qwen-2.5, Qwen-3 (alongside QwQ) omits any default prompts, allowing developers full control over the model's persona.
 
 ## Conclusion
 
