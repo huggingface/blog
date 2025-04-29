@@ -71,7 +71,7 @@ Below you can find the performance of Llama Guard 4 compared against Llama Guard
 
 The Llama Prompt Guard 2 series introduces two new classifiers with 86M and 22M parameters, focused on detecting prompt injections and jailbreaks. Compared to its predecessor, Llama Prompt Guard 1, this new version offers improved performance, a faster and more compact 22M model, tokenization resistant to adversarial attacks, and simplified binary classification (benign vs. malicious).
 
-## Getting Started using 🤗transformers
+## Getting Started using 🤗 transformers
 
 To use Llama Guard 4 and Prompt Guard 2, make sure you have `hf_xet` and the preview release of transformers for Llama Guard installed.
 
