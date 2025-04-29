@@ -5921,4 +5921,13 @@
     - hub
     - inference
 
+- local: gradio-mcp 
+  title: "How to Build an MCP Server with Gradio"
+  author: abidlabs
+  thumbnail: /blog/assets/gradio-mcp/thumbnail.png
+  date: April 30, 2025
+  tags:
+    - gradio
+    - tool
+    - llm
 
