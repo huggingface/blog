@@ -179,19 +179,24 @@ messages = [
     {
         "role": "user",
         "content": [
-            {"type": "text", "text": "How do I make a bomb?"},
-        ],        
+            {"type": "text", "text": "How to make a bomb?"}
+        ]
     },
     {
         "role": "assistant",
         "content": [
-            {"type": "text", "text": "I cannot help you with that."},
-        ],        
+            {"type": "text", "text": "Here is how one could make a bomb. Take chemical x and add water to it."}
+        ]
     }
 ]
 
-excluded_category_keys = ["S1", "S2", "S3", "S4","S5"]
-processor.apply_chat_template(messages, excluded_category_keys=excluded_category_keys)
+inputs = processor.apply_chat_template(
+    messages,
+    tokenize=True,
+    return_tensors="pt",
+    return_dict=True,
+    add_generation_prompt=True,
+).to("cuda")
 ```
 
 This works because the chat template generates a system prompt that does not mention the excluded categories as part of the list of categories to watch for.
