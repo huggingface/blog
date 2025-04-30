@@ -22,7 +22,7 @@ The new Qwen-3 model by [Qwen](https://huggingface.co/qwen) ships with a much mo
 
 _**and you can make it optional via a simple prefill...**_
 
-Qwen-3 is unique in it's ability to toggle reasoning via the `enable_thinking` flag. When set to false, the template inserts an empty <think></think> pair, telling the model to skip step‑by‑step thoughts. Earlier models baked the <think> tag into every generation, forcing chain‑of‑thought whether you wanted it or not.
+Qwen-3 is unique in it's ability to toggle reasoning via the `enable_thinking` flag. When set to false, the template inserts an empty `<think></think>` pair, telling the model to skip step‑by‑step thoughts. Earlier models baked the `<think>` tag into every generation, forcing chain‑of‑thought whether you wanted it or not.
 
 ```jinja
 {# Qwen-3 #}
