@@ -112,7 +112,7 @@ All you need to do is add this URL endpoint to your MCP Client (e.g., Claude Des
 
     Recent Gradio updates have improved its image handling capabilities with features like Photoshop-style zoom and pan and full transparency control.
 
-    It is **strongly** recommended that input images and files be passed as full URLs ("http://..." or "https:/...") as MCP Clients do not always handle local files correctly.
+    It is **strongly** recommended that input images and files be passed as full URLs ("http://..." or "https://...") as MCP Clients do not always handle local files correctly.
 
 4. **Hosted MCP Servers on 󠀠🤗 Spaces**: You can publish your Gradio application for free on Hugging Face Spaces, which will allow you to have a free hosted MCP server. Gradio is part of a broader ecosystem that includes Python and JavaScript libraries for building or querying machine learning applications programmatically.
 
