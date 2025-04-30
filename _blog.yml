@@ -5921,4 +5921,14 @@
     - hub
     - inference
 
+- local: llama-guard-4
+  title: "Welcoming Llama Guard 4 on Hugging Face Hub"
+  author: merve
+  thumbnail: /blog/assets/llama-guard-4/thumbnail.png
+  date: April 29, 2025
+  tags:
+   - llama
+   - llm
+   - vision
+   - vlm
 
