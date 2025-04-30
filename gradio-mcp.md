@@ -71,7 +71,7 @@ http://your-server:port/gradio_api/mcp/sse
 
 Gradio automatically converts the `letter_counter` function into an MCP tool that can be used by LLMs. **The docstring of the function is used to generate the description of the tool and its parameters.**
 
-All you need to do is add this URL endpoint to your MCP Client (e.g., Claude Desktop, Cursor, or Cline), which typically means pasting this config in the settings:
+All you need to do is add this URL endpoint to your MCP Client (e.g., Claude Desktop, Cursor, Cline, or [Tiny Agents](https://huggingface.co/blog/tiny-agents)), which typically means pasting this config in the settings:
 
 ```
 {
