@@ -138,3 +138,5 @@ If you want to dive deeper, here are some articles that we recommend:
 
 * [What Is MCP, and Why Is Everyone – Suddenly!– Talking About It?](https://huggingface.co/blog/Kseniase/mcp)
 * [An Introduction to the MCP Protocol](https://modelcontextprotocol.io/introduction)
+* [Guide: Building an MCP Server with Gradio](https://www.gradio.app/guides/building-mcp-server-with-gradio)
+* [Bonus Guide: Building an MCP Client with Gradio](https://www.gradio.app/guides/building-an-mcp-client-with-gradio)
