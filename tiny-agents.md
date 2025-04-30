@@ -1,11 +1,11 @@
 ---
-title: "Tiny Agents: a MCP-powered agent in 50 lines of code"
+title: "Tiny Agents: an MCP-powered agent in 50 lines of code"
 thumbnail: /blog/assets/tiny-agents/thumbnail.jpg
 authors:
 - user: julien-c
 ---
 
-# Tiny Agents: a MCP-powered agent in 50 lines of code
+# Tiny Agents: an MCP-powered agent in 50 lines of code
 
 Over the past few weeks, I've been diving into MCP ([Model Context Protocol](https://modelcontextprotocol.io/)) to understand what the hype around it was all about.
 
@@ -16,7 +16,7 @@ It is fairly simple to extend an Inference Client – at HF, we have two officia
 But while doing that, came my second realization:
 
 > [!TIP]
-> **Once you have a MCP Client, an Agent is literally just a while loop on top of it.**
+> **Once you have an MCP Client, an Agent is literally just a while loop on top of it.**
 
 In this short article, I will walk you through how I implemented it in Typescript (JS), how you can adopt MCP too and how it's going to make Agentic AI way simpler going forward.
 
@@ -127,7 +127,7 @@ As a developer, you run the tools and feed their result back into the LLM to con
 > [!NOTE]
 > Note that in the backend (at the inference engine level), the tools are simply passed to the model in a specially-formatted `chat_template`, like any other message, and then parsed out of the response (using model-specific special tokens) to expose them as tool calls.
 
-## Implementing a MCP client on top of InferenceClient
+## Implementing an MCP client on top of InferenceClient
 
 Now that we know what a tool is in recent LLMs, let us implement the actual MCP client.
 
@@ -244,14 +244,14 @@ Finally you will add the resulting tool message to your `messages` array and bac
 
 ## Our 50-lines-of-code Agent 🤯
 
-Now that we have a MCP client capable of connecting to arbitrary MCP servers to get lists of tools and capable of injecting them and parsing them from the LLM inference, well... what is an Agent?
+Now that we have an MCP client capable of connecting to arbitrary MCP servers to get lists of tools and capable of injecting them and parsing them from the LLM inference, well... what is an Agent?
 
 > Once you have an inference client with a set of tools, then an Agent is just a while loop on top of it.
 
 In more detail, an Agent is simply a combination of:
 - a system prompt
-- a LLM Inference client
-- a MCP client to hook a set of Tools into it from a bunch of MCP servers
+- an LLM Inference client
+- an MCP client to hook a set of Tools into it from a bunch of MCP servers
 - some basic control flow (see below for the while loop)
 
 > [!TIP]
