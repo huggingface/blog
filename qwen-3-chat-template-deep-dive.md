@@ -1,6 +1,6 @@
 ---
 title: "The 4 Things Qwen-3’s Chat Template Teaches Us"
-thumbnail: /blog/assets/qwen-3-chat-template-deep-dive/thumbnail.jpg
+thumbnail: /blog/assets/qwen-3-chat-template-deep-dive/thumbnail.png
 authors:
 - user: cfahlgren1
 ---
@@ -18,6 +18,42 @@ The new Qwen-3 model by [Qwen](https://huggingface.co/qwen) ships with a much mo
   <li><a href="https://huggingface.co/Qwen/QwQ-32B?chat_template=default">Qwen-QwQ Chat Template</a></li>
 </ul>
 
+
+## What is a Chat Template?
+
+A [chat template](https://huggingface.co/docs/transformers/main/en/chat_templating) defines how conversations between users and models are structured and formatted. The template acts as a translator, converting a human-readable conversation: 
+
+```js
+  [
+    { role: "user", content: "Hi there!" },
+    { role: "assistant", content: "Hi there, how can I help you today?" },
+    { role: "user", content: "I'm looking for a new pair of shoes." },
+  ]
+```
+
+into a model friendly format:
+
+```xml
+<|im_start|>user
+Hi there!<|im_end|>
+<|im_start|>assistant
+Hi there, how can I help you today?<|im_end|>
+<|im_start|>user
+I'm looking for a new pair of shoes.<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+```
+
+You can easily view the chat template for a given model on the Hugging Face model page.
+
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/qwen-3-chat-template/qwen-3-chat-template.png)
+<p style="text-align:center; font-style:italic; font-size:medium;">
+  Chat Template for <a href="https://huggingface.co/Qwen/Qwen3-235B-A22B?chat_template=default" target="_blank"> Qwen/Qwen3-235B-A22B </a>
+</p>
+
+Let's dive into the Qwen-3 chat template and see what we can learn!
 ## 1. Reasoning doesn't have to be forced
 
 _**and you can make it optional via a simple prefill...**_
@@ -41,7 +77,31 @@ QwQ for example, forces reasoning in every conversation.
 ```
 
 If the `enable_thinking` is true, the model is able to decide whether to think or not. 
-_More often than not it will think._
+
+You can test test out the template with the following code:
+
+```js
+import { Template } from "@huggingface/jinja";
+import { downloadFile } from "@huggingface/hub";
+
+const HF_TOKEN = process.env.HF_TOKEN;
+
+const file = await downloadFile({
+  repo: "Qwen/Qwen3-235B-A22B",
+  path: "tokenizer_config.json",
+  accessToken: HF_TOKEN,
+});
+const config = await file!.json();
+
+const template = new Template(config.chat_template);
+const result = template.render({
+  messages,
+  add_generation_prompt: true,
+  enable_thinking: false,  
+  bos_token: config.bos_token,
+  eos_token: config.eos_token,
+});
+```
 
 ## 2. Context Management Should be Dynamic
 
@@ -58,7 +118,7 @@ Qwen-3 introduces a "**_rolling checkpoint_**" by traversing the message list in
 ### Example
 
 Here's an example of chain-of-thought preservation through tool calls with Qwen-3 and QwQ.
-![image/png](https://cdn-uploads.huggingface.co/production/uploads/648a374f00f7a3374ee64b99/7OWKkRuO9Qc2L48LYjxVf.png)
+![image/png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/qwen-3-chat-template/qwen-chat-output.png)
 <p style="text-align:center; font-style:italic; font-size:medium;">
   Check out <a href="https://www.npmjs.com/package/@huggingface/jinja">@huggingface/jinja</a> for testing out the chat templates
 </p>
