@@ -17,7 +17,7 @@ This guide will show you how to use Gradio to build an MCP server in just a few 
 If not already installed, please install Gradio with the MCP extra:
 
 ```bash
-pip install gradio[mcp]
+pip install "gradio[mcp]"
 ```
 
 This will install the necessary dependencies, including the `mcp` package. You'll also need an LLM application that supports tool calling using the MCP protocol, such as Claude Desktop, Cursor, or Cline (these are known as "MCP Clients").
