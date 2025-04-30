@@ -24,7 +24,7 @@ This will install the necessary dependencies, including the `mcp` package. You'l
 
 ## Why Build an MCP Server?
 
-An MCP server is a standardized way to expose tools so that they can be used by LLMs. An MCP server kind provide LLMs with all kinds of additional capabilities, such as the ability to generate or edit images, synthesize audio, or perform specific caulcations such as prime factorize numbers.
+An MCP server is a standardized way to expose tools so that they can be used by LLMs. An MCP server can provide LLMs with all kinds of additional capabilities, such as the ability to generate or edit images, synthesize audio, or perform specific calculations such as prime factorize numbers.
 
 Gradio makes it easy to build these MCP servers, turning any Python function into a tool that LLMs can use.
 
