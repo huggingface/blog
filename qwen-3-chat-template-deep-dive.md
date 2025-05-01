@@ -136,13 +136,15 @@ Before, every `tool_call.arguments` field was piped through ` | tojson`, even if
 {%- endif %}
 ```
 
-## 4. Default System Prompts Are Unnecessary
+## 4. No Need for a Default System Prompt
 
-Qwen‑2.5 automatically inserted a default Alibaba system prompt:
+Like many models, the Qwen‑2.5 series had a default Alibaba system prompt:
 
 > You are Qwen, created by Alibaba Cloud. You are a helpful assistant.
 
-Unlike Qwen-2.5, Qwen-3 (alongside QwQ) omits any default prompts, allowing developers full control over the model's persona.
+This is pretty common to help models to respond to user questions like "Who are you?".
+
+Qwen-3 (alongside QwQ) ships without a default system prompt, but still answers the "Who are you?" question correctly without it.
 
 ## Conclusion
 
