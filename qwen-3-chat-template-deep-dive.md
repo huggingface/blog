@@ -107,7 +107,7 @@ const result = template.render({
 
 _Qwen-3 utilizes a rolling checkpoint system, intelligently preserving or pruning reasoning blocks to maintain relevant context. Older models discarded reasoning prematurely to save tokens._ 
 
-Qwen-3 introduces a "**_rolling checkpoint_**" by traversing the message list in reverse to find the latest user turn that wasn’t a tool echo. For any assistant replies after that index it keeps the full `<think>` blocks; everything earlier is stripped out.
+Qwen-3 introduces a "**_rolling checkpoint_**" by traversing the message list in reverse to find the latest user turn that wasn’t a tool call. For any assistant replies after that index it keeps the full `<think>` blocks; everything earlier is stripped out.
 
 **Why this matters**:
 - Keeps the active plan visible during a multi‑step tool call.
