@@ -136,7 +136,7 @@ Before, every `tool_call.arguments` field was piped through ` | tojson`, even if
 {%- endif %}
 ```
 
-## 4. No Need for a Default System Prompt
+## 4. There's No Need for a Default System Prompt
 
 Like many models, the Qwen‑2.5 series has a default system prompt.
 
