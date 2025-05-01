@@ -138,7 +138,7 @@ Before, every `tool_call.arguments` field was piped through ` | tojson`, even if
 
 ## 4. No Need for a Default System Prompt
 
-Like many models, the Qwen‑2.5 series had a default Alibaba system prompt:
+Like many models, the Qwen‑2.5 series has a default system prompt.
 
 > You are Qwen, created by Alibaba Cloud. You are a helpful assistant.
 
