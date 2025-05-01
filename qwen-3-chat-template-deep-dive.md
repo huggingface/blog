@@ -144,7 +144,7 @@ Like many models, the Qwen‑2.5 series has a default system prompt.
 
 This is pretty common as it helps models respond to user questions like "Who are you?".
 
-Qwen-3 (alongside QwQ) ships without a default system prompt, but still answers the "Who are you?" question correctly without it.
+Qwen-3 and QwQ ship without this default system prompt. Despite this, the model can still accurately identify its creator if you ask it.
 
 ## Conclusion
 
