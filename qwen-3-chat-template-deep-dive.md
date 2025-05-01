@@ -142,7 +142,7 @@ Like many models, the Qwen‑2.5 series had a default Alibaba system prompt:
 
 > You are Qwen, created by Alibaba Cloud. You are a helpful assistant.
 
-This is pretty common to help models to respond to user questions like "Who are you?".
+This is pretty common as it helps models respond to user questions like "Who are you?".
 
 Qwen-3 (alongside QwQ) ships without a default system prompt, but still answers the "Who are you?" question correctly without it.
 
