@@ -33,5 +33,104 @@ While these datasets are still collected in constrained setups, they represent a
 The goal of this blogpost is to recognize the growing impact of community-contributed LeRobot datasets, identify current challenges, outline practical steps to maximize the value of this collective effort. 
 
 ---
+# Challenges with Current Community Datasets
+
+At LeRobot, we’ve started developing an automatic curation pipeline to support and enhance community datasets. During the post-processing phase, we’ve identified several areas where improvements can further boost dataset quality and facilitate more effective curation going forward:
+
+### 1. Incomplete or Inconsistent Task Annotations
+
+Many datasets lack task descriptions, lack details or are ambiguous in the task to be done. Semantics is currently at the core of cognition, meaning that understanding the context and specifics of a task is crucial for robotic performance. Detailed expressions ensure that robots understand exactly what is expected, but also provide a broader knowledge and vocabulary to the cognition system. Ambiguity can lead to incorrect interpretation and, consequently, incorrect actions.
+
+Task instructions can be:
+- Empty
+- Too short (e.g. “Hold”, “Up”)
+- Without any specific meaning (e.g. “task desc”, “desc”)
+
+Subtask-level annotations are often missing, making it difficult to model complex task hierarchies.  
+While this can be handled with nice VLM, it is still better to have a task annotation provided by the author of the dataset at hand.
+
+
+### 2. Feature Mapping Inconsistencies
+
+Features like `images.laptop` are ambiguously labeled:
+- Sometimes it's a third-person view
+- Other times it's more like a gripper (wrist) camera
+
+Manual mapping of dataset features to standardized names is time-consuming and error-prone.  
+We can possibly automate feature type inference using VLMs or computer vision models to classify camera perspectives. However, keeping this in mind helps to have a cleaner dataset.
+
+### 3. Low-Quality or Incomplete Episodes
+
+Some datasets contain:
+- Episodes with only 1 or very few frames
+- Manually deleted data files (e.g., deleted `.parquet` files without reindexing), breaking the sequential consistency.
+
+
+### 4. Inconsistent Action/State Dimensions
+
+Different datasets use different action or state dimensions, even for the same robot (e.g., `so100`).  
+Some datasets show inconsistencies in action/state format.
+
+---
+
+# What Makes a Good Dataset?
+
+Now that we know that creating a high-quality dataset is essential for training reliable and generalizable robot policies. To assist you in collecting effective data, we’ve outlined a checklist of best practices across four key areas:
+
+## Image Quality
+
+- ✅ Use **at least two camera views**
+- ✅ Ensure **steady video capture** (no shaking)
+- ✅ Maintain **neutral, stable lighting** (avoid overly yellow or blue tones)
+- ✅ Ensure **consistent exposure** and **sharp focus**
+- ✅ **Leader arm should not appear** in the frame
+- ✅ The **only moving objects** should be the follower arm and the manipulated items (avoid human limbs/bodies)
+- ✅ Use a **static, non-distracting background**, or apply controlled variations
+- ✅ Record in **high resolution** (at least 720p)
+
+## Metadata & Recording Protocol
+
+- ✅ Select the **correct robot type** in the metadata
+- ✅ Record videos at approximately **30 frames per second (FPS)**
+- ✅ If **deleting episodes**, make sure to **update the metadata files accordingly**
+
+## Feature Naming Conventions
+
+Use a consistent and interpretable naming scheme for all camera views and observations:
+
+**Format:**
+```bash
+<modality>.<location>
+```
+
+**Examples:**
+
+- `images.top`
+- `images.front`
+- `images.left`
+- `images.right`
+
+**Avoid device-specific names:**
+
+- ❌ `images.laptop`
+- ❌ `images.phone`
+
+**For wrist-mounted cameras, specify orientation:**
+
+- `images.wrist.left`
+- `images.wrist.right`
+- `images.wrist.top`
+- `images.wrist.bottom`
+
+> Consistent naming improves clarity and helps downstream models better interpret spatial configurations and multi-view inputs.
+
+## Task Annotation
+
+- ✅ Use the `task` field to **clearly describe the robot’s objective**
+  - *Example:* `Pick the yellow lego block and put it in the box`
+- ✅ Keep task descriptions **concise** (between **25–50 characters**)
+- ✅ Avoid vague or generic names like `task1`, `demo2`, etc.
+
+---
 
 
