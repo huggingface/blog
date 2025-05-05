@@ -2,7 +2,7 @@
 title: "LeRobot Community Datasets: The “ImageNet” of Robotics — When and How?" 
 thumbnail: /blog/assets/
 authors:
-- user: your_hf_user
+- user: danaaubakirova
 - user: your_coauthor
 ---
 
@@ -25,13 +25,42 @@ Can a robot meaningfully respond to a completely novel prompt—say, "set up a s
 In this blogpost, we frame generalization within a data-centric view: treating it as the process of abstracting broader patterns from data—essentially “zooming out” to reveal task-agnostic structures and principles. This shift in perspective emphasizes the role of dataset diversity, rather than model architecture alone, in driving generalization.
 So far, the majority of robotics datasets come from structured academic environments. Even if we scale up to millions of demonstrations, one dataset will often dominate, limiting diversity. Unlike ImageNet—which aggregated internet-scale data and captured the real world more holistically—robotics lacks a comparably diverse, community-driven benchmark. This is because collecting data for robotics requires physical hardware and significant effort.
 
-That’s why, at LeRobot, among other things, we’re working to make robotics data collection more accessible to everyone—at home, at school, or anywhere. We’re simplifying the recording pipeline, software, streamlining uploading to the Hugging Face Hub, and even reducing hardware costs.
-We're already seeing the results: the number of community-contributed datasets on the Hub is growing rapidly. This momentum brings us closer to a future where datasets are not limited by the perspective of a single group of people (no matter how wild the creativity level might go xD) but reflect contributions from across the world.
+<div align="center">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/9E7qfkq1sxMJcxecSrJDN.webp" alt="Growth of lerobot datasets" width="500"/>
+  <p><b>Figure 1:</b> Growth of <i>lerobot</i> datasets on the Hugging Face Hub over time.</p>
+</div>
 
-While these datasets are still collected in constrained setups, they represent a critical step toward affordable, general-purpose robotic policies—because not everyone has access to the expensive setups. But with shared infrastructure and open collaboration, we can build something even more powerful—together. 
+
+That’s why, at LeRobot, among other things, we’re working to make robotics data collection more accessible to everyone—at home, at school, or anywhere. We’re simplifying the recording pipeline, software, streamlining uploading to the Hugging Face Hub, and even reducing hardware costs.
+We're already seeing the results: the number of community-contributed datasets on the Hub is growing rapidly. Figure 1 illustrates the growth of the lerobot datasets uploaded to the Hugging Face Hub over the past months, which shows the increasing community effort to contribute real-world robotic data.
+Figure 2 breaks down these datasets by robot type, showing the distribution across different embodiments and shedding light on which robot types are currently most represented (so100 and koch). This momentum brings us closer to a future where datasets are not limited by the perspective of a single group of people but reflect contributions from across the world.
+
+<div align="center">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/rhfdwybDuIu2ULGs7Nb7E.webp" alt="Distribution of lerobot datasets" width="500"/>
+  <p><b>Figure 2:</b> Distribution of <i>lerobot</i> datasets by robot type.</p>
+</div>
+
+As robotics data collection becomes more democratized, more and more data gets pushed to the hub. But as the quantity of data grows, it becomes increasingly complex to curate this massive influx in a way that makes it truly usable for training models. While these datasets are still collected in constrained setups, they represent a critical step toward affordable, general-purpose robotic policies—because not everyone has access to the expensive setups. But with shared infrastructure and open collaboration, we can build something even more powerful—together. 
 
 The goal of this blogpost is to recognize the growing impact of community-contributed LeRobot datasets, identify current challenges, outline practical steps to maximize the value of this collective effort. 
 
+---
+
+# Better data = Better models
+
+Why does data quality matter? Poor-quality data results in poor downstream performance, biased outputs, and models that fail to generalize. Hence, efficient and high-quality data collection plays a critical role in advancing generalist robotic policies. While foundation models in vision and language have thrived on massive, web-scale datasets, robotics lacks an "Internet of robots"—a vast, diverse corpus of real-world interactions. Instead, robotic data is fragmented across different embodiments, sensor setups, and control modes, forming isolated "data islands.".
+
+To overcome this, recent approaches like Gr00t organize training data as a pyramid, where large-scale web and video data form the foundation, synthetic data provides simulated diversity, and real-world robot interactions at the top ground the model in physical execution. Within this framework, efficient real-world data collection is indispensable—it anchors learned behaviors in actual robotic hardware and closes the sim-to-real gap, ultimately improving the generalization, adaptability, and performance of robotics foundation models. 
+
+By expanding the volume and diversity of real-world datasets, we reduce the fragmentation between heterogeneous data sources. When datasets are disjoint in terms of environment, embodiment, or task distribution, models struggle to transfer knowledge across domains. Real-world data acts as a connective tissue that aligns abstract, large-scale priors with grounded, embodied action, enabling the model to build more coherent and transferable representations. As a result, increasing the proportion of real robot interactions does not merely enhance realism—it structurally reinforces the links between all layers of the pyramid, leading to more robust and capable policies.
+
+Figure 3 illustrates the data pyramid structure for robot foundation model training. As we move up the pyramid, the amount of data decreases while embodiment specificity increases—from broad web-scale priors to grounded, robot-specific interactions. 
+(Yang et al., 2025)
+
+<div align="center">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/eBmRnO1MsJ5SLxo1pMStf.png" alt="Data Pyramid for Robot Foundation Model Training" width="500"/>
+  <p><b>Figure 3:</b> Data Pyramid for Robot Foundation Model Training. Adapted from <a href="https://arxiv.org/pdf/2503.14734">Gr00t</a>. Data quantity decreases while embodiment specificity increases from bottom to top.</p>
+</div>
 ---
 # Challenges with Current Community Datasets
 
@@ -133,4 +162,10 @@ Use a consistent and interpretable naming scheme for all camera views and observ
 
 ---
 
+Below, we provide a checklist that serves as a guideline for recording datasets, outlining key points to keep in mind during the data collection process.
+
+<div align="center">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/ioUy5DxjbFjiSKiCLe18_.png" alt="Dataset Recording Checklist" width="600"/>
+  <p><b>Figure 4:</b> Dataset Recording Checklist – a step-by-step guide to ensure consistent and high-quality real-world data collection.</p>
+</div>
 
