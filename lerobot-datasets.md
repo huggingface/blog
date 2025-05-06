@@ -112,7 +112,7 @@ As a result, increasing the proportion of real robot interactions does not merel
 ---
 # Challenges with Current Community Datasets
 
-At LeRobot, we’ve started developing an automatic curation pipeline to support and enhance community datasets. During the post-processing phase, we’ve identified several areas where improvements can further boost dataset quality and facilitate more effective curation going forward:
+At LeRobot, we’ve started developing an automatic curation pipeline to post-process community datasets. During the post-processing phase, we’ve identified several areas where improvements can further boost dataset quality and facilitate more effective curation going forward:
 
 ### 1. Incomplete or Inconsistent Task Annotations
 
