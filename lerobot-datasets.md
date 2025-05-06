@@ -13,8 +13,6 @@ authors:
 
 ---
 
-# From Generalist Robots to Generalist Datasets: Why Community-Driven Data is the Key
-
 Recent advances in Vision-Language-Action (VLA) models have enabled robots to perform a wide range of tasks—from simple commands like “grasp the cube” to more complex activities like folding laundry or cleaning a table. These models aim to achieve **generalization**: the ability to perform tasks in novel settings, with unseen objects, and in varying conditions.
 
 > **“The biggest challenge in robotics isn’t dexterity, but generalization—across physical, visual, and semantic levels.”**  
