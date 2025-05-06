@@ -124,7 +124,7 @@ Task instructions can be:
 - Without any specific meaning (e.g. “task desc”, “desc”)
 
 Subtask-level annotations are often missing, making it difficult to model complex task hierarchies.  
-While this can be handled with nice VLM, it is still better to have a task annotation provided by the author of the dataset at hand.
+While this can be handled with VLM, it is still better to have a task annotation provided by the author of the dataset at hand.
 
 
 ### 2. Feature Mapping Inconsistencies
