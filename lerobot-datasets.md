@@ -5,11 +5,12 @@ authors:
 - user: danaaubakirova
 - user: Beegbrain
   guest: true
+- user: mshukor
 - user: your_coauthor
   guest: true
 - user: villekuosmanen
   guest: true
-- user: mshukor
+
 ---
 
 # From Generalist Robots to Generalist Datasets: Why Community-Driven Data is the Key
