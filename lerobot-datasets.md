@@ -209,7 +209,8 @@ Use a consistent and interpretable naming scheme for all camera views and observ
 Below, we provide a checklist that serves as a guideline for recording datasets, outlining key points to keep in mind during the data collection process.
 
 <div align="center">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/ioUy5DxjbFjiSKiCLe18_.png" alt="Dataset Recording Checklist" width="600"/>
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/6bZ8VEU-kgpDjLCokHj5J.png" alt="Dataset Recording Checklist" width="600"/>
   <p><b>Figure 4:</b> Dataset Recording Checklist – a step-by-step guide to ensure consistent and high-quality real-world data collection.</p>
 </div>
+
 
