@@ -217,4 +217,12 @@ Below, we provide a checklist that serves as a guideline for recording datasets,
   <p><b>Figure 4:</b> Dataset Recording Checklist – a step-by-step guide to ensure consistent and high-quality real-world data collection.</p>
 </div>
 
+> Start recording, start contributing—because the future of generalist robots depends on the data we build today.
+
+## Additional Resources
+
+- [LeRobot](https://huggingface.co/lerobot)
+- [Pi0 and Pi0-FAST in PyTorch](https://huggingface.co/blog/pi0)
+- [Pi0 Blogpost](https://www.physicalintelligence.company/blog/pi0)
+- [FAST: Efficient Robot Action Tokenization](https://www.physicalintelligence.company/research/fast)
 
