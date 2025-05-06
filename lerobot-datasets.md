@@ -70,7 +70,7 @@ Figure 2 breaks them down by robot type—highlighting contributions from So100 
 
 ## Scaling Responsibly
 
-As robotics data collection becomes more democratized, **curation becomes the next frontier**. While these datasets are still collected in constrained setups, they are a crucial step toward affordable, general-purpose robotic policies. Not everyone has access to expensive hardware—but with **shared infrastructure and open collaboration**, we can build something far greater.
+As robotics data collection becomes more democratized, **curation becomes the next challenge**. While these datasets are still collected in constrained setups, they are a crucial step toward affordable, general-purpose robotic policies. Not everyone has access to expensive hardware—but with **shared infrastructure and open collaboration**, we can build something far greater.
 
 > 🧠 **“Generalization isn’t solved in a lab—it’s taught by the world.”**  
 > The more diverse our data, the more capable our models will be.
