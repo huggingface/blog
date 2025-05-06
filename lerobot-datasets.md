@@ -3,7 +3,13 @@ title: "LeRobot Community Datasets: The “ImageNet” of Robotics — When and 
 thumbnail: /blog/assets/195_lerobot_datasets/1.png
 authors:
 - user: danaaubakirova
+- user: Beegbrain
+  guest: true
 - user: your_coauthor
+  guest: true
+- user: villekuosmanen
+  guest: true
+- user: mshukor
 ---
 
 # From Generalist Robots to Generalist Datasets: Why Community-Driven Data is the Key
