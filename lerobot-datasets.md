@@ -6,7 +6,7 @@ authors:
 - user: Beegbrain
   guest: true
 - user: mshukor
-- user: your_coauthor
+- user: m1b
   guest: true
 - user: villekuosmanen
   guest: true
