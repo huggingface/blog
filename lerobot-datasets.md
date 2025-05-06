@@ -48,11 +48,6 @@ This is largely because collecting data for robotics requires **physical hardwar
 
 ## Building a LeRobot Community
 
-<div align="center">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/9E7qfkq1sxMJcxecSrJDN.webp" alt="Growth of lerobot datasets" width="500"/>
-  <p><b>Figure 1:</b> Growth of <i>lerobot</i> datasets on the Hugging Face Hub over time.</p>
-</div>
-
 That’s why, at **LeRobot**, we’re working to make robotics data collection more accessible—at home, at school, or anywhere. We're:
 
 - Simplifying the recording pipeline  
@@ -60,14 +55,18 @@ That’s why, at **LeRobot**, we’re working to make robotics data collection m
 - Reducing hardware costs  
 
 We're already seeing the results: the number of community-contributed datasets on the Hub is growing rapidly.
+<div align="center">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/9E7qfkq1sxMJcxecSrJDN.webp" alt="Growth of lerobot datasets" width="500"/>
+  <p><b>Figure 1:</b> Growth of <i>lerobot</i> datasets on the Hugging Face Hub over time.</p>
+</div>
+
+Figure 1 shows the steady growth of the *lerobot* datasets on the Hub.  
+Figure 2 breaks them down by robot type—highlighting contributions from So100 and Koch as dominant platforms. This momentum brings us closer to a future where datasets reflect a **global effort**, not just one lab or institution.
 
 <div align="center">
   <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/rhfdwybDuIu2ULGs7Nb7E.webp" alt="Distribution of lerobot datasets" width="500"/>
   <p><b>Figure 2:</b> Distribution of <i>lerobot</i> datasets by robot type.</p>
 </div>
-
-Figure 1 shows the steady growth of the *lerobot* datasets on the Hub.  
-Figure 2 breaks them down by robot type—highlighting contributions from So100 and Koch as dominant platforms. This momentum brings us closer to a future where datasets reflect a **global effort**, not just one lab or institution.
 
 ## Scaling Responsibly
 
