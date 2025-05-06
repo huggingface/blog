@@ -13,7 +13,7 @@ authors:
 
 # Open R1: How to use OlympicCoder locally for coding
 
-Everyone’s been using Claude and OpenAI as coding assistants for the last few years, but there’s less appeal if you look at the developments coming out of open source projects like [Open R1](https://huggingface.co/open-r1). If we look at the evaluation on [LiveCodeBench](https://livecodebench.github.io) below, we can see that the 7B parameter variant outperforms Claude 3.7 Sonnet and GPT-4o. These models are the daily driver of many engineers in applications like Cursor and VSCode.
+Everyone’s been using Claude and OpenAI as coding assistants for the last few years, but there’s less appeal if you look at the developments coming out of open source projects like [Open R1](https://huggingface.co/open-r1). If we look at the evaluation on [LiveCodeBench](https://livecodebench.github.io) below, we can see that the 7B parameter variant outperforms Claude 3.7 Sonnet and GPT-4o. These models are the daily drivers of many engineers in applications like Cursor and VSCode.
 
 ![evals](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/lcb-evals.png)
 
@@ -24,7 +24,7 @@ Evals are great and all, but I want to get my hands dirty and feel the commits\!
 * Visual Studio Code (VS Code)  
 * [Continue](https://www.continue.dev/) a VS Code extension for local models
 
-It’s important to say that we chose this stack purely for simplicity. You might want to experiment with the larger model and/ or different GGUF files. Or even alternative inference engines like [llama.cpp](https://github.com/ggml-org/llama.cpp). 
+It’s important to say that we chose this stack purely for simplicity. You might want to experiment with the larger model and/or different GGUF files. Or even alternative inference engines like [llama.cpp](https://github.com/ggml-org/llama.cpp). 
 
 ![generation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/olympic-coder-lmstudio/generation.gif)
 
