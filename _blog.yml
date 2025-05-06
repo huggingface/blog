@@ -5899,7 +5899,59 @@
     - api
     - development
     - production
+    
+- local: autoround
+  title: "Introducing AutoRound: Intel’s Advanced Quantization for LLMs and VLMs"
+  author: wenhuach
+  thumbnail: /blog/assets/autoround/thumbnail.png
+  date: April 29, 2025
+  tags:
+   - llms
+   - inference
+   - quantization
+   - intel
 
+- local: tiny-agents 
+  title: "Tiny Agents: a MCP-powered agent in 50 lines of code"
+  author: julien-c
+  thumbnail: /blog/assets/tiny-agents/thumbnail.jpg
+  date: April 25, 2025
+  tags:
+    - agents
+    - hub
+    - inference
+
+- local: qwen-3-chat-template-deep-dive
+  title: "The 4 Things Qwen-3's Chat Template Teaches Us"
+  author: cfahlgren1
+  thumbnail: /blog/assets/qwen-3-chat-template-deep-dive/thumbnail.png
+  date: April 30, 2025
+  tags:
+    - qwen
+    - chat-template
+    - llms
+    
+- local: llama-guard-4
+  title: "Welcoming Llama Guard 4 on Hugging Face Hub"
+  author: merve
+  thumbnail: /blog/assets/llama-guard-4/thumbnail.png
+  date: April 29, 2025
+  tags:
+   - llama
+   - llm
+   - vision
+   - vlm
+
+- local: gradio-mcp 
+  title: "How to Build an MCP Server with Gradio"
+  author: abidlabs
+  thumbnail: /blog/assets/gradio-mcp/thumbnail.png
+  date: April 30, 2025
+  tags:
+    - gradio
+    - tool
+    - llm
+    
 - local: lerobot-datasets
   title: "LeRobot Community Datasets: The “ImageNet” of Robotics — When and How?"
   author: danaaubakirova
