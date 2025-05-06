@@ -83,8 +83,6 @@ The goal of this blogpost is to:
 - Identify current challenges  
 - Outline practical steps to maximize the value of this collective effort  
 
-Together, we can push toward general-purpose robotic intelligence—one dataset at a time.
-
 ---
 # Better data = Better models
 
