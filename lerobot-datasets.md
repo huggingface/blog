@@ -1,6 +1,6 @@
 ---
 title: "LeRobot Community Datasets: The “ImageNet” of Robotics — When and How?" 
-thumbnail: /blog/assets/
+thumbnail: /blog/assets/195_lerobot_datasets/1.png
 authors:
 - user: danaaubakirova
 - user: your_coauthor
