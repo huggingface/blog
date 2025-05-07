@@ -42,7 +42,7 @@ XXX image
 
 # How to deploy
 
-You can deploy your own ASR inference pipeline via Hugging Face Endpoints. Endpoints allows anyone willing to deploy AI models into production ready environments to do so by filling in a few parameters. It also features the most complete fleet of AI hardware available on the market to suit your need for cost and performances. All of this directly from where the AI community is being built.To get started, nothing easier, simply choose the model you want to deploy: 
+You can deploy your own ASR inference pipeline via [Hugging Face Endpoints](https://endpoints.huggingface.co/catalog?task=automatic-speech-recognition). Endpoints allows anyone willing to deploy AI models into production ready environments to do so by filling in a few parameters. It also features the most complete fleet of AI hardware available on the market to suit your need for cost and performances. All of this directly from where the AI community is being built.To get started, nothing easier, simply choose the model you want to deploy: 
 XXX image 
 
 You can see the correct and new container URL under Container Configuration: mfuntowicz/endpoints-whisper-vllm:v1.0.2-py312.
@@ -75,6 +75,14 @@ print("Transcript:", response.json()["text"])
 ```
 # FastRTC Demo
 
-With this blazing fast endpoint, it’s possible to build real-time transcription apps. Try out this example built with FastRTC. Simply speak into your microphone and see your speech transcribed in real time!
+With this blazing fast endpoint, it’s possible to build real-time transcription apps. Try out this [example](https://huggingface.co/spaces/freddyaboulton/really-fast-whisper) built with FastRTC. Simply speak into your microphone and see your speech transcribed in real time!
 
-Spaces can easily be duplicated so please feel free to duplicate away. All of the above is made available for community use on the Hugging Face Hub in our dedicated HF Endpoints organization. Open issues, suggest uses-cases and contribute here: hfendpoints-images (Inference Endpoints Images) 🚀
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"
+></script>
+
+<gradio-app theme_mode="light" space="derek-thomas/hugging-face-blog-assistant"></gradio-app>
+
+
+Spaces can easily be duplicated so please feel free to duplicate away. All of the above is made available for community use on the Hugging Face Hub in our dedicated HF Endpoints organization. Open issues, suggest uses-cases and contribute here:  [hfendpoints-images (Inference Endpoints Images)](https://huggingface.co/hfendpoints-images) 🚀
