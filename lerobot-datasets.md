@@ -76,6 +76,12 @@ Not only is the growth of datasets significant over the past few months, but if 
   <p>Distribution of <i>lerobot</i> datasets by robot type.</p>
 </div>
 
+Here are just a few standout community-contributed datasets that show how diverse and imaginative robotics can be:
+
+- lirislab/close_top_drawer_teabox: precise manipulation with a household drawer
+- Chojins/chess_game_001_blue_stereo: a full chess match captured from a stereo camera setup
+- pierfabre/chicken: yes — a robot interacting with colorful animal figures, including a chicken 🐔
+
 ## Scaling Responsibly
 
 As robotics data collection becomes more democratized, **curation becomes the next challenge**. While these datasets are still collected in constrained setups, they are a crucial step toward affordable, general-purpose robotic policies. Not everyone has access to expensive hardware—but with **shared infrastructure and open collaboration**, we can build something far greater.
