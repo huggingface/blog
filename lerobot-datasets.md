@@ -13,6 +13,17 @@ authors:
 - user: cadene
 ---
 
+🧭 **TL;DR — Why This Blogpost?**  
+
+In this post, we:
+  - Recognize the growing impact of community-contributed **LeRobot** datasets  
+  - Highlight the current challenges in robotic data collection and curation
+  - Share practical steps and best practices to maximize the impact of this collective effort     
+Our goal is to frame generalization as a *data problem*, and to show how building an open, diverse “ImageNet of robotics” is not just possible—but already happening.
+
+---
+## Introduction
+
 Recent advances in Vision-Language-Action (VLA) models have enabled robots to perform a wide range of tasks—from simple commands like “grasp the cube” to more complex activities like folding laundry or cleaning a table. These models aim to achieve **generalization**: the ability to perform tasks in novel settings, with unseen objects, and in varying conditions.
 
 > **“The biggest challenge in robotics isn’t dexterity, but generalization—across physical, visual, and semantic levels.”**  
@@ -54,7 +65,7 @@ That’s why, at **LeRobot**, we’re working to make robotics data collection m
 
 We're already seeing the results: the number of community-contributed datasets on the Hub is growing rapidly.
 <div align="center">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/9E7qfkq1sxMJcxecSrJDN.webp" alt="Growth of lerobot datasets" width="500"/>
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/9E7qfkq1sxMJcxecSrJDN.webp" alt="Growth of <i>lerobot</i> datasets on the Hugging Face Hub over time" width="500"/>
   <p><b>Figure 1:</b> Growth of <i>lerobot</i> datasets on the Hugging Face Hub over time.</p>
 </div>
 
@@ -62,7 +73,7 @@ Figure 1 shows the steady growth of the *lerobot* datasets on the Hub.
 Figure 2 breaks them down by robot type—highlighting contributions from So100 and Koch as dominant platforms. This momentum brings us closer to a future where datasets reflect a **global effort**, not just one lab or institution.
 
 <div align="center">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/rhfdwybDuIu2ULGs7Nb7E.webp" alt="Distribution of lerobot datasets" width="500"/>
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/rhfdwybDuIu2ULGs7Nb7E.webp" alt="Distribution of lerobot datasets by robot type" width="500"/>
   <p><b>Figure 2:</b> Distribution of <i>lerobot</i> datasets by robot type.</p>
 </div>
 
@@ -73,16 +84,8 @@ As robotics data collection becomes more democratized, **curation becomes the ne
 > 🧠 **“Generalization isn’t solved in a lab—it’s taught by the world.”**  
 > The more diverse our data, the more capable our models will be.
 
-## Why This Blogpost?
-
-The goal of this blogpost is to:
-
-- Recognize the growing impact of community-contributed LeRobot datasets  
-- Identify current challenges  
-- Outline practical steps to maximize the value of this collective effort  
-
 ---
-# Better data = Better models
+## Better data = Better models
 
 Why does data quality matter? Poor-quality data results in poor downstream performance, biased outputs, and models that fail to generalize. Hence, **efficient and high-quality data collection** plays a critical role in advancing generalist robotic policies.
 
@@ -108,7 +111,7 @@ As a result, increasing the proportion of real robot interactions does not merel
 </div>
 
 ---
-# Challenges with Current Community Datasets
+## Challenges with Current Community Datasets
 
 At LeRobot, we’ve started developing an automatic curation pipeline to post-process community datasets. During the post-processing phase, we’ve identified several areas where improvements can further boost dataset quality and facilitate more effective curation going forward:
 
@@ -166,6 +169,8 @@ Now that we know that creating a high-quality dataset is essential for training 
 ## Metadata & Recording Protocol
 
 - ✅ Select the **correct robot type** in the metadata
+  If you're using a custom robot that's not listed in the official [LeRobot config registry](https://github.com/huggingface/lerobot/blob/main/lerobot/common/robot_devices/robots/configs.py),  
+  we recommend checking how similar robots are named in existing datasets on the [LeRobot Hub](https://huggingface.co/datasets?search=lerobot) to ensure consistency.   
 - ✅ Record videos at approximately **30 frames per second (FPS)**
 - ✅ If **deleting episodes**, make sure to **update the metadata files accordingly** (we will provide proper tools to edit datasets)
 
@@ -215,12 +220,17 @@ Below, we provide a checklist that serves as a guideline for recording datasets,
   <p><b>Figure 4:</b> Dataset Recording Checklist – a step-by-step guide to ensure consistent and high-quality real-world data collection.</p>
 </div>
 
+## How Can You Help?
+
+The next generation of generalist robots won't be built by a single person or lab — they'll be built by all of us. Whether you're a student, a researcher, or just robot-curious, here’s how you can jump in:
+
+🎥 Record your own datasets — Use LeRobot tools to capture and upload good quality datasets from your robots.
+🧠 Improve dataset quality — Follow our checklist, clean up your recordings, and help set new standards for robotics data.
+📦 Contribute to the Hub — Upload datasets, share examples, and explore what others are building.
+💬 Join the conversation — Give feedback, request features, or help shape the roadmap by engaging in our LeRobot Discord Channel.
+🌍 Grow the movement — Introduce LeRobot to your club, classroom, or lab. More contributors = better generalization.
+
 > Start recording, start contributing—because the future of generalist robots depends on the data we build today.
 
-## Additional Resources
-
 - [LeRobot](https://huggingface.co/lerobot)
-- [Pi0 and Pi0-FAST in PyTorch](https://huggingface.co/blog/pi0)
-- [Pi0 Blogpost](https://www.physicalintelligence.company/blog/pi0)
-- [FAST: Efficient Robot Action Tokenization](https://www.physicalintelligence.company/research/fast)
 
