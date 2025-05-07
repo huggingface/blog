@@ -223,11 +223,11 @@ Below, we provide a checklist that serves as a guideline for recording datasets,
 
 The next generation of generalist robots won't be built by a single person or lab — they'll be built by all of us. Whether you're a student, a researcher, or just robot-curious, here’s how you can jump in:
 
-🎥 Record your own datasets — Use LeRobot tools to capture and upload good quality datasets from your robots.
-🧠 Improve dataset quality — Follow our checklist, clean up your recordings, and help set new standards for robotics data.
-📦 Contribute to the Hub — Upload datasets, share examples, and explore what others are building.
-💬 Join the conversation — Give feedback, request features, or help shape the roadmap by engaging in our LeRobot [Discord Server](https://discord.gg/ttk5CV6tUw).
-🌍 Grow the movement — Introduce LeRobot to your club, classroom, or lab. More contributors = better generalization.
+- 🎥 Record your own datasets — Use LeRobot tools to capture and upload good quality datasets from your robots.
+- 🧠 Improve dataset quality — Follow our checklist, clean up your recordings, and help set new standards for robotics data.
+- 📦 Contribute to the Hub — Upload datasets, share examples, and explore what others are building.
+- 💬 Join the conversation — Give feedback, request features, or help shape the roadmap by engaging in our LeRobot [Discord Server](https://discord.gg/ttk5CV6tUw).
+- 🌍 Grow the movement — Introduce LeRobot to your club, classroom, or lab. More contributors = better generalization.
 
 > Start recording, start contributing—because the future of generalist robots depends on the data we build today.
 
