@@ -167,7 +167,7 @@ Now that we know that creating a high-quality dataset is essential for training 
 
 - ✅ Select the **correct robot type** in the metadata
 - ✅ Record videos at approximately **30 frames per second (FPS)**
-- ✅ If **deleting episodes**, make sure to **update the metadata files accordingly**
+- ✅ If **deleting episodes**, make sure to **update the metadata files accordingly** (we will provide proper tools to edit datasets)
 
 ## Feature Naming Conventions
 
