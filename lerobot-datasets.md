@@ -38,7 +38,7 @@ Can a robot meaningfully respond to a completely novel prompt—say, *"set up a 
 
 We frame generalization as a **data-centric view**: treating it as the process of abstracting broader patterns from data—essentially *“zooming out”* to reveal task-agnostic structures and principles. This shift in perspective emphasizes the role of **dataset diversity**, rather than model architecture alone, in driving generalization.
 
-## Why Robotics Lacks Its ImageNet Moment?
+## Why does Robotics lack its ImageNet Moment?
 
 So far, the majority of robotics datasets come from structured academic environments. Even if we scale up to millions of demonstrations, one dataset will often dominate, limiting diversity. Unlike ImageNet—which aggregated internet-scale data and captured the real world more holistically—robotics lacks a comparably diverse, community-driven benchmark.
 
