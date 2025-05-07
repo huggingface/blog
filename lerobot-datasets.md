@@ -49,7 +49,7 @@ This is largely because collecting data for robotics requires **physical hardwar
 That’s why, at **LeRobot**, we’re working to make robotics data collection more accessible—at home, at school, or anywhere. We're:
 
 - Simplifying the recording pipeline  
-- Streamlining uploading to the Hugging Face Hub  
+- Streamlining uploading to the Hugging Face Hub, to foster community sharing
 - Reducing hardware costs  
 
 We're already seeing the results: the number of community-contributed datasets on the Hub is growing rapidly.
