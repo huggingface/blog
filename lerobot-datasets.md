@@ -36,7 +36,7 @@ This brings us to a fundamental question:
 
 Can a robot meaningfully respond to a completely novel prompt—say, *"set up a surprise birthday party"*—if it has never encountered anything remotely similar during training? Especially when most datasets are collected in academic labs, by a limited number of people, under well-controlled setups?
 
-In this blogpost, we frame generalization within a **data-centric view**: treating it as the process of abstracting broader patterns from data—essentially *“zooming out”* to reveal task-agnostic structures and principles. This shift in perspective emphasizes the role of **dataset diversity**, rather than model architecture alone, in driving generalization.
+We frame generalization as a **data-centric view**: treating it as the process of abstracting broader patterns from data—essentially *“zooming out”* to reveal task-agnostic structures and principles. This shift in perspective emphasizes the role of **dataset diversity**, rather than model architecture alone, in driving generalization.
 
 ## Why Robotics Lacks Its ImageNet Moment?
 
