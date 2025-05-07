@@ -66,15 +66,14 @@ That’s why, at **LeRobot**, we’re working to make robotics data collection m
 We're already seeing the results: the number of community-contributed datasets on the Hub is growing rapidly.
 <div align="center">
   <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/9E7qfkq1sxMJcxecSrJDN.webp" alt="Growth of <i>lerobot</i> datasets on the Hugging Face Hub over time" width="500"/>
-  <p><b>Figure 1:</b> Growth of <i>lerobot</i> datasets on the Hugging Face Hub over time.</p>
+  <p> Growth of <i>lerobot</i> datasets on the Hugging Face Hub over time.</p>
 </div>
 
-Figure 1 shows the steady growth of the *lerobot* datasets on the Hub.  
-Figure 2 breaks them down by robot type—highlighting contributions from So100 and Koch as dominant platforms. This momentum brings us closer to a future where datasets reflect a **global effort**, not just one lab or institution.
+Not only is the growth of datasets significant over the past few months, but if we break them down by robot type we also notice that most contributions are to So100 and Koch as the dominant embodiments. This momentum brings us closer to a future where datasets reflect a **global effort**, not just one lab or institution. 
 
 <div align="center">
   <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/rhfdwybDuIu2ULGs7Nb7E.webp" alt="Distribution of lerobot datasets by robot type" width="500"/>
-  <p><b>Figure 2:</b> Distribution of <i>lerobot</i> datasets by robot type.</p>
+  <p>Distribution of <i>lerobot</i> datasets by robot type.</p>
 </div>
 
 ## Scaling Responsibly
@@ -107,7 +106,7 @@ As a result, increasing the proportion of real robot interactions does not merel
 
 <div align="center">
   <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/eBmRnO1MsJ5SLxo1pMStf.png" alt="Data Pyramid for Robot Foundation Model Training" width="500"/>
-  <p><b>Figure 3:</b> Data Pyramid for Robot Foundation Model Training. Adapted from <a href="https://arxiv.org/pdf/2503.14734">Gr00t</a> (Yang et al., 2025). Data quantity decreases while embodiment specificity increases from bottom to top.</p>
+  <p>Data Pyramid for Robot Foundation Model Training. Adapted from <a href="https://arxiv.org/pdf/2503.14734">Gr00t</a> (Yang et al., 2025). Data quantity decreases while embodiment specificity increases from bottom to top.</p>
 </div>
 
 ---
@@ -153,7 +152,7 @@ Some datasets show inconsistencies in action/state format.
 
 # What Makes a Good Dataset?
 
-Now that we know that creating a high-quality dataset is essential for training reliable and generalizable robot policies. To assist you in collecting effective data, we’ve outlined a checklist of best practices across four key areas:
+Now that we know that creating a high-quality dataset is essential for training reliable and generalizable robot policies, we have outlined a checklist of best practices to assist you in collecting effective data.
 
 ## Image Quality
 
@@ -227,7 +226,7 @@ The next generation of generalist robots won't be built by a single person or la
 🎥 Record your own datasets — Use LeRobot tools to capture and upload good quality datasets from your robots.
 🧠 Improve dataset quality — Follow our checklist, clean up your recordings, and help set new standards for robotics data.
 📦 Contribute to the Hub — Upload datasets, share examples, and explore what others are building.
-💬 Join the conversation — Give feedback, request features, or help shape the roadmap by engaging in our LeRobot Discord Channel.
+💬 Join the conversation — Give feedback, request features, or help shape the roadmap by engaging in our LeRobot [Discord Server](https://discord.gg/ttk5CV6tUw).
 🌍 Grow the movement — Introduce LeRobot to your club, classroom, or lab. More contributors = better generalization.
 
 > Start recording, start contributing—because the future of generalist robots depends on the data we build today.
