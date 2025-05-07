@@ -25,7 +25,7 @@ A robot must *"figure out how to correctly perform even a simple task in a new s
 
 ## From Models to Data: Shifting the Perspective
 
-To simplify, the core of generalist policies lies in a simple idea: **co-training on heterogeneous datasets**. By exposing VLA models to a variety of environments, tasks, and robot embodiments, we can teach not only how to act, but *why*—how to interpret a scene, understand a goal, and adapt skills across contexts.
+To simplify, the core of generalist policies lies in a simple idea: **co-training on heterogeneous datasets**. By exposing VLA models to a variety of environments, tasks, and robot embodiments, we can teach models not only how to act, but *why*—how to interpret a scene, understand a goal, and adapt skills across contexts.
 
 > 💡 **“Generalization is not just a model property—it’s a data phenomenon.”**  
 > It emerges from the diversity, quality, and abstraction level of the training data.
