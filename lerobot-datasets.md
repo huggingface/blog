@@ -11,6 +11,7 @@ authors:
 - user: villekuosmanen
   guest: true
 - user: cadene
+- user: pcuenq
 ---
 
 🧭 **TL;DR — Why This Blogpost?**  
@@ -21,7 +22,6 @@ In this post, we:
   - Share practical steps and best practices to maximize the impact of this collective effort     
 Our goal is to frame generalization as a *data problem*, and to show how building an open, diverse “ImageNet of robotics” is not just possible—but already happening.
 
----
 ## Introduction
 
 Recent advances in Vision-Language-Action (VLA) models have enabled robots to perform a wide range of tasks—from simple commands like “grasp the cube” to more complex activities like folding laundry or cleaning a table. These models aim to achieve **generalization**: the ability to perform tasks in novel settings, with unseen objects, and in varying conditions.
