@@ -154,7 +154,7 @@ Now that we know that creating a high-quality dataset is essential for training 
 
 ## Image Quality
 
-- ✅ Use **at least two camera views**
+- ✅ Use preferably **two camera views**
 - ✅ Ensure **steady video capture** (no shaking)
 - ✅ Maintain **neutral, stable lighting** (avoid overly yellow or blue tones)
 - ✅ Ensure **consistent exposure** and **sharp focus**
