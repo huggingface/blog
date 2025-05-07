@@ -161,7 +161,7 @@ Now that we know that creating a high-quality dataset is essential for training 
 - ✅ **Leader arm should not appear** in the frame
 - ✅ The **only moving objects** should be the follower arm and the manipulated items (avoid human limbs/bodies)
 - ✅ Use a **static, non-distracting background**, or apply controlled variations
-- ✅ Record in **high resolution** (at least 720p)
+- ✅ Record in **high resolution** (at least 480x640 / 720p)
 
 ## Metadata & Recording Protocol
 
