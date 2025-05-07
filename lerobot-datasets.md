@@ -78,9 +78,11 @@ Not only is the growth of datasets significant over the past few months, but if 
 
 Here are just a few standout community-contributed datasets that show how diverse and imaginative robotics can be:
 
-- lirislab/close_top_drawer_teabox: precise manipulation with a household drawer
-- Chojins/chess_game_001_blue_stereo: a full chess match captured from a stereo camera setup
-- pierfabre/chicken: yes — a robot interacting with colorful animal figures, including a chicken 🐔
+- [`lirislab/close_top_drawer_teabox`](https://huggingface.co/spaces/lerobot/visualize_dataset?path=%2Flirislab%2Fclose_top_drawer_teabox%2Fepisode_1):: precise manipulation with a household drawer
+- [`Chojins/chess_game_001_blue_stereo`](https://huggingface.co/spaces/lerobot/visualize_dataset?path=%2FChojins%2Fchess_game_001_blue_stereo%2Fepisode_1): a full chess match captured from a stereo camera setup
+- [`pierfabre/chicken`](https://huggingface.co/spaces/lerobot/visualize_dataset?path=%2Fpierfabre%2Fchicken%2Fepisode_6): yes — a robot interacting with colorful animal figures, including a chicken 🐔
+
+Explore additional creative datasets under the [`LeRobot` tag](https://huggingface.co/datasets?other=LeRobot) on the Hugging Face Hub, and interactively view them in the [LeRobot Dataset Visualizer](https://huggingface.co/spaces/lerobot/visualize_dataset).
 
 ## Scaling Responsibly
 
@@ -237,5 +239,4 @@ The next generation of generalist robots won't be built by a single person or la
 
 > Start recording, start contributing—because the future of generalist robots depends on the data we build today.
 
-- [LeRobot](https://huggingface.co/lerobot)
 
