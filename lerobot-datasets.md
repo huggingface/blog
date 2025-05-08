@@ -69,7 +69,7 @@ We're already seeing the results: the number of community-contributed datasets o
   <p> Growth of <i>lerobot</i> datasets on the Hugging Face Hub over time.</p>
 </div>
 
-Not only is the growth of datasets significant over the past few months, but if we break them down by robot type we also notice that most contributions are to So100 and Koch as the dominant embodiments. This momentum brings us closer to a future where datasets reflect a **global effort**, not just one lab or institution. While the current landscape of lerobot robotics datasets is focused largely on robotic arms and manipulation tasks (both So100 and Koch are robotics arms for manipulation tasks), the potential extends far beyond. Domains like autonomous vehicles, assistive robots, and mobile navigation stand to benefit just as much.
+If we break down the uploaded datasets by robot type, we see that most contributions are to So100 and Koch, making robotic arms and manipulation tasks the primary focus of the current LeRobot dataset landscape. However, it’s important to remember that the potential reaches far beyond. Domains like autonomous vehicles, assistive robots, and mobile navigation stand to benefit just as much from shared data. This momentum brings us closer to a future where datasets reflect a global effort, not just the contributions of a single lab or institution.
 
 <div align="center">
   <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/rhfdwybDuIu2ULGs7Nb7E.webp" alt="Distribution of lerobot datasets by robot type" width="500"/>
