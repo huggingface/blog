@@ -98,7 +98,7 @@ Why does data quality matter? Poor-quality data results in poor downstream perfo
 
 While foundation models in vision and language have thrived on massive, web-scale datasets, robotics lacks an “Internet of robots”—a vast, diverse corpus of real-world interactions. Instead, robotic data is fragmented across different embodiments, sensor setups, and control modes, forming isolated *data islands*.
 
-To overcome this, recent approaches like [Gr00t](https://arxiv.org/pdf/2503.14734) organize training data as a **pyramid**, where:
+To overcome this, recent approaches like [Gr00t](https://huggingface.co/papers/2503.14734) organize training data as a **pyramid**, where:
 
 - Large-scale web and video data form the **foundation**  
 - Synthetic data adds **simulated diversity**  
