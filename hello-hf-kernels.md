@@ -4,8 +4,10 @@ thumbnail: /blog/assets/hello-hf-kernels/kernel-hub-five-mins-short.png
 authors:
 - user: drbh
 - user: danieldk
+- user: narsil
 - user: pcuenca
 - user: pagezyhf
+- user: merve
 date: 2025-03-28 
 ---
 
@@ -51,9 +53,9 @@ Spend more time building great models and less time fighting build systems!
 
 Using the Kernel Hub is designed to be straightforward. The `kernels` library provides the main interface. Here's a quick example that loads an optimized GELU activation function kernel. (Later on, we'll see another example about how to integrate a kernel in our model).
 
-File: `activation_validation_example.py`
+File: [`activation_validation_example.py`](https://gist.github.com/drbh/aa4b8cfb79597e98be6cf0108644ce16)
 
-~~~python
+```python
 # /// script
 # dependencies = [
 #  "numpy",
@@ -102,7 +104,7 @@ print(expected)
 # List available functions in the loaded kernel module
 print("\nAvailable functions in 'kernels-community/activation':")
 print(dir(activation_kernels))
-~~~
+```
 
 **(Note:** If you have [`uv`](https://github.com/astral-sh/uv) installed, you can save this script as `script.py` and run `uv run script.py` to automatically handle dependencies.)
 
@@ -123,9 +125,9 @@ Let's integrate an optimized **RMS Normalization** kernel into a basic model. We
 First, define a simple RMSNorm module in PyTorch and a baseline model using it:
 
 
-File: `rmsnorm_baseline.py`
+File: [`rmsnorm_baseline.py`](https://gist.github.com/drbh/96621d9eafec5dfa0ca9ca59f6fc1991)
 
-~~~python
+```python
 # /// script
 # dependencies = [
 #  "numpy",
@@ -198,13 +200,13 @@ baseline_model = (
 dummy_input = torch.randn(32, input_size, device=DEVICE, dtype=DTYPE)  # Batch of 32
 output = baseline_model(dummy_input)
 print("Baseline RMSNorm model output shape:", output.shape)
-~~~
+```
 
 Now, let's create a version using the `LlamaRMSNorm` kernel loaded via `kernels`.
 
-File: `rmsnorm_kernel.py`
+File: [`rmsnorm_kernel.py`](https://gist.github.com/drbh/141373363e83ea0345807d6525e1fb64)
 
-~~~python
+```python
 # /// script
 # dependencies = [
 #  "numpy",
@@ -334,7 +336,7 @@ except NameError:
     print("\nSkipping output comparison as kernel model output was not generated.")
 
 
-~~~
+```
 
 **Important Notes on the `KernelModel`:**
 
@@ -342,14 +344,13 @@ except NameError:
 * **Accessing the Function:** The exact way to access the RMSNorm function (`layer_norm_kernel_module.layers.LlamaRMSNorm.forward`, `layer_norm_kernel_module.rms_norm_forward`, or something else) **depends entirely on how the kernel creator structured the repository on the Hub.** You may need to inspect the loaded `layer_norm_kernel_module` object (e.g., using `dir()`) or check the kernel's documentation on the Hub to find the correct function/method and its signature. I've used `rms_norm_forward` as a plausible placeholder and added error handling.
 * **Parameters:** We now only define `rms_norm_weight` (no bias), consistent with RMSNorm.
 
-## 4. Review Performance Impact
+## 4. Benchmarking the Performance Impact
 
-Does using the optimized Triton RMSNorm kernel provide a speedup compared to the basic PyTorch version? Let's benchmark the forward pass again.
+How much faster is the optimized Triton RMSNorm kernel compared to the standard PyTorch version? Let’s benchmark the forward pass to find out.
 
+File: [`rmsnorm_benchmark.py`](https://gist.github.com/drbh/c754a4ba52bcc46190ae4a45516fb190)
 
-File: `rmsnorm_benchmark.py`
-
-~~~python
+```python
 # /// script
 # dependencies = [
 #  "numpy",
@@ -467,42 +468,42 @@ for batch_size in batch_sizes:
         speedup = f"{kernel_time / baseline_time:.2f}x slower"
     print(f"{batch_size:<12} | {baseline_time:<18} | {kernel_time:<18} | {speedup}")
 
-~~~
+```
 
 **Expected Outcome:**
-Similar to LayerNorm, optimized RMSNorm kernels (especially those using Triton) implemented for specific hardware can offer significant speedups over basic PyTorch implementations, particularly for memory-bound operations on suitable hardware (e.g., NVIDIA Ampere/Hopper GPUs) and data types (`float16`/`bfloat16`).
+As with LayerNorm, a well-tuned RMSNorm implementation using Triton can deliver substantial speedups over PyTorch’s default version—especially for memory-bound workloads on compatible hardware (e.g., NVIDIA Ampere or Hopper GPUs) and with low-precision types like `float16` or `bfloat16`.
 
-**Important Caveats (Remain Applicable):**
-* Microbenchmark limitations.
-* Dependence on Hardware, Input Size, Dtype.
-* Quality of the specific kernel implementation.
-* Potential overhead for small inputs.
+
+**Keep in Mind:**
+* Results may vary depending on your GPU, input size, and data type.
+* Microbenchmarks can misrepresent real-world performance.
+* Performance hinges on the quality of the kernel implementation.
+* Optimized kernels might not benefit small batch sizes due to overhead.
 
 
 Actual results will depend on your hardware and the specific kernel implementation. Here's an example of what you might see (on a L4 GPU):
 
-```txt
-Batch Size   | Baseline Time (ms) | Kernel Time (ms)   | Speedup
---------------------------------------------------------------------------
-256          | 0.2122             | 0.2911             | 1.37x slower
-512          | 0.4748             | 0.3312             | 1.43x
-1024         | 0.8946             | 0.6864             | 1.30x
-2048         | 2.0289             | 1.3889             | 1.46x
-4096         | 4.4318             | 2.2467             | 1.97x
-8192         | 9.2438             | 4.8497             | 1.91x
-16384        | 18.6992            | 9.8805             | 1.89x
-32768        | 37.079             | 19.9461            | 1.86x
-65536        | 73.588             | 39.593             | 1.86x
-```
+
+| Batch Size | Baseline Time (ms) | Kernel Time (ms) | Speedup |
+| ---------- | ------------------ | ---------------- | ------- |
+| 256        | 0.2122             | 0.2911           | 0.72x   |
+| 512        | 0.4748             | 0.3312           | 1.43x   |
+| 1024       | 0.8946             | 0.6864           | 1.30x   |
+| 2048       | 2.0289             | 1.3889           | 1.46x   |
+| 4096       | 4.4318             | 2.2467           | 1.97x   |
+| 8192       | 9.2438             | 4.8497           | 1.91x   |
+| 16384      | 18.6992            | 9.8805           | 1.89x   |
+| 32768      | 37.079             | 19.9461          | 1.86x   |
+| 65536      | 73.588             | 39.593           | 1.86x   |
 
 ## Get Started and Next Steps!
 
 You've seen how easy it is to fetch and use optimized kernels with the Hugging Face Kernel Hub. Ready to try it yourself?
 
 1.  **Install the library:**
-    ~~~bash
+    ```bash
     pip install kernels torch numpy
-    ~~~
+    ```
     Ensure you have a compatible PyTorch version and gpu driver installed.
 
 2.  **Browse the Hub:** Explore available kernels on the Hugging Face Hub under the [`kernels` tag](https://huggingface.co/kernels) or within organizations like [`kernels-community`](https://huggingface.co/kernels-community). Look for kernels relevant to your operations (activations, attention, normalization like LayerNorm/RMSNorm, etc.).
