@@ -480,6 +480,7 @@ Similar to LayerNorm, optimized RMSNorm kernels (especially those using Triton) 
 
 
 Actual results will depend on your hardware and the specific kernel implementation. Here's an example of what you might see (on a L4 GPU):
+
 ```txt
 Batch Size   | Baseline Time (ms) | Kernel Time (ms)   | Speedup
 --------------------------------------------------------------------------
