@@ -114,7 +114,7 @@ As a result, increasing the proportion of real robot interactions does not merel
 
 <div align="center">
   <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/eBmRnO1MsJ5SLxo1pMStf.png" alt="Data Pyramid for Robot Foundation Model Training" width="500"/>
-  <p>Data Pyramid for Robot Foundation Model Training. Adapted from <a href="https://arxiv.org/pdf/2503.14734">Gr00t</a> (Yang et al., 2025). Data quantity decreases while embodiment specificity increases from bottom to top.</p>
+  <p>Data Pyramid for Robot Foundation Model Training. Adapted from <a href="https://huggingface.co/papers/2503.14734">Gr00t</a> (Yang et al., 2025). Data quantity decreases while embodiment specificity increases from bottom to top.</p>
 </div>
 
 ---
