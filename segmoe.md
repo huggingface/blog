@@ -240,7 +240,7 @@ repo_id = create_repo(repo_id=model_id, exist_ok=True).repo_id
 upload_folder(
     repo_id=repo_id,
     folder_path="segmoe_v0",
-    commit_message="Inital Commit",
+    commit_message="Initial Commit",
     ignore_patterns=["step_*", "epoch_*"],
 )
 ```

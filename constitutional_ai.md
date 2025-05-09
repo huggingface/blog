@@ -229,7 +229,7 @@ The `harmless-base` subset of the `Anthropic/hh-rlhf` has about 42.6k training e
 
 ### Training a Constitutional AI chat model
 
-We can now perform the first stage of the CAI training: the SFT step. We start with the `mistralai/Mistral-7B-v0.1` base model and fine-tune on the the Ultrachat dataset and our CAI dataset
+We can now perform the first stage of the CAI training: the SFT step. We start with the `mistralai/Mistral-7B-v0.1` base model and fine-tune on the Ultrachat dataset and our CAI dataset
 
 - [https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k](https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k)
 - [https://huggingface.co/datasets/HuggingFaceH4/cai-conversation-harmless](https://huggingface.co/datasets/HuggingFaceH4/cai-conversation-harmless)
