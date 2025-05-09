@@ -10,17 +10,18 @@ authors:
 - user: michellehbn
 ---
 
-Today we are happy to introduce a new blazing fast OpenAI Whisper deployment option targeting [Hugging Face Inference Endpoints](https://endpoints.huggingface.co). This new addition to the Inference Endpoints catalog provides up to 8x performance improvements compared to the previous entry and makes everyone one click away from deploying dedicated powerful transcription models in a cost-effective way, leveraging the amazingon work done by the AI community.
+Today we are happy to introduce a new blazing fast OpenAI Whisper deployment option on [Inference Endpoints](https://endpoints.huggingface.co). It provides up to 8x performance improvements compared to the previous version, and makes everyone one click away from deploying dedicated, powerful transcription models in a cost-effective way, leveraging the amazing work done by the AI community.
+
 
 Through this release, we would like to make Inference Endpoints more community-centric and allow anyone to come and contribute to create incredible inference deployments on the Hugging Face Platform. Along with the community, we would like to propose optimized deployments for a wide range of tasks through the use of awesome and available open-source technologies.
 
 The unique position of Hugging Face, at the heart of the Open-Source AI Community, working hand-in-hand with individuals, institutions and industrial partners, makes it the most heterogeneous platform when it comes to deploying AI models for inference on a wide variety of hardware and software.
 
-# Inference Stack
+## Inference Stack
 
-This endpoint is made available leveraging amazing open-source community projects. The inference is powered by the vLLM project, which provides efficient ways of running AI models on various hardwares, especially, but not limited to, NVIDIA GPUs. To get technical, we are using the vLLM implementation of OpenAI Whisper model, allowing us to enable further, lower-level, optimizations down the software stack. 
+The new Whisper endpoint leverages amazing open-source community projects. Inference is powered by [the vLLM project](https://github.com/vllm-project/vllm), which provides efficient ways of running AI models on various hardware families – especially, but not limited to, NVIDIA GPUs. We use the vLLM implementation of OpenAI's Whisper model, allowing us to enable further, lower-level optimizations down the software stack. 
 
-In this initial release, we are targeting NVIDIA GPUs with compute capabilities greater than 8.9 (Ada Lovelace) like L4 & L40s, giving us a wide range of software optimizations:
+In this initial release, we are targeting NVIDIA GPUs with compute capabilities 8.9 or better (Ada Lovelace), like L4 & L40s, which unlocks a wide range of software optimizations:
 - PyTorch compilation (torch.compile)
 - CUDA graphs
 - float8 KV cache
@@ -32,27 +33,27 @@ Last but not least, we are dynamically quantizing activations to reduce the memo
 
 There are many ways to continue pushing this and we are gearing up to work hand in hand with the community to improve it!
 
-# Benchmarks
+## Benchmarks
 
 Whisper Large V3 shows a nearly 8x improvement in RTFx, enabling much faster inference with no loss in transcription quality.
 
 We evaluated the transcription quality and runtime efficiency of several Whisper-based models—Whisper Large V3, Whisper Large V3-Turbo, and Distil-Whisper Large V3.5—and compared them against their implementations on the Transformers library to assess both accuracy and decoding speed under identical conditions.
 We computed Word Error Rate (WER) across 8 standard datasets from the Open ASR Leaderboard, including AMI, GigaSpeech, LibriSpeech (Clean and Other), SPGISpeech, Tedlium, VoxPopuli, and Earnings22. These datasets span diverse domains and recording conditions, ensuring a robust evaluation of generalization and real-world transcription quality. WER measures transcription accuracy by calculating the percentage of words that are incorrectly predicted (via insertions, deletions, or substitutions); lower WER indicates better performance. All three Whisper variants maintain WER performance comparable to their Transformer baselines.
 To assess inference efficiency, we sampled from the rev16 long-form dataset, which contains audio segments over 45 minutes in length—representative of real transcription workloads such as meetings, podcasts, or interviews. We measured the Real-Time Factor (RTFx), defined as the ratio of audio duration to transcription time, and averaged it across samples. All models were evaluated in float16 on a single L4 GPU, using consistent decoding settings (language, beam size, and batch size).
-XXX image <img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/construct_pipeline.svg?raw=true" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
+<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/construct_pipeline.svg?raw=true" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
 
-# How to deploy
+## How to deploy
 
 You can deploy your own ASR inference pipeline via [Hugging Face Endpoints](https://endpoints.huggingface.co/catalog?task=automatic-speech-recognition). Endpoints allows anyone willing to deploy AI models into production ready environments to do so by filling in a few parameters. It also features the most complete fleet of AI hardware available on the market to suit your need for cost and performances. All of this directly from where the AI community is being built.To get started, nothing easier, simply choose the model you want to deploy: 
-XXX image <img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/construct_pipeline.svg?raw=true" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
+<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/construct_pipeline.svg?raw=true" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
 
-You can see the correct and new container URL under Container Configuration: mfuntowicz/endpoints-whisper-vllm:v1.0.2-py312.
-XXX image <img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/construct_pipeline.svg?raw=true" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
+When you click on any of the Whisper ASR models, you'll see the new container URL when you click on Container Configuration: `mfuntowicz/endpoints-whisper-vllm:v1.0.2-py312`:
+<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/construct_pipeline.svg?raw=true" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
 
 Once the container is launched you can have access to the model with the Endpoint URL:
-XXX image <img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/construct_pipeline.svg?raw=true" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
+<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/construct_pipeline.svg?raw=true" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
 
-# Inference
+## Inference
 
 Here is how you can easily access your deployed checkpoint in python:
 
@@ -73,9 +74,9 @@ response.raise_for_status()
 
 print("Transcript:", response.json()["text"])
 ```
-# FastRTC Demo
+## FastRTC Demo
 
-With this blazing fast endpoint, it’s possible to build real-time transcription apps. Try out this [example](https://huggingface.co/spaces/freddyaboulton/really-fast-whisper) built with FastRTC. Simply speak into your microphone and see your speech transcribed in real time!
+With this blazing fast endpoint, it’s possible to build real-time transcription apps. Try out this [example](https://huggingface.co/spaces/freddyaboulton/really-fast-whisper) built with [FastRTC](https://fastrtc.org). Simply speak into your microphone and see your speech transcribed in real time!
 
 <script
 	type="module"
