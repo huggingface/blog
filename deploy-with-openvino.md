@@ -127,15 +127,15 @@ config.max_new_tokens = 100
 print(pipe.generate(args.prompt, config))
 ```
 
-To run this example you need minimum dependencies to be installed into the Python enviroment as OpenVINO GenAI is designed to provide a lightweight deployment. You can install OpenVINO GenAI package to the same Python environment or create a separate one to compare the application footprint:
+To run this example you need minimum dependencies to be installed into the Python environment as OpenVINO GenAI is designed to provide a lightweight deployment. You can install OpenVINO GenAI package to the same Python environment or create a separate one to compare the application footprint:
 ```sh
 pip install openvino-genai==24.3
 ```
 
 ### C++ API Example
-Let's see how to run the same pipilene with OpenVINO GenAI C++ API. The GenAI API is designed to be intuitive and provides a seamless migration from 🤗 Transformers API. 
+Let's see how to run the same pipeline with OpenVINO GenAI C++ API. The GenAI API is designed to be intuitive and provides a seamless migration from 🤗 Transformers API. 
 
->**Note**: In the below example, any other available device in your environment can be specified for "device" variable. For example, if you are using an Intel CPU with integrated graphics, "GPU" is be a good option to try with. To check the available devices, you can use ov::Core::get_available_devices method (refer to [query-device-properties](https://docs.openvino.ai/2024/openvino-workflow/running-inference/inference-devices-and-modes/query-device-properties.html)).
+>**Note**: In the below example, any other available device in your environment can be specified for "device" variable. For example, if you are using an Intel CPU with integrated graphics, "GPU" is a good option to try with. To check the available devices, you can use ov::Core::get_available_devices method (refer to [query-device-properties](https://docs.openvino.ai/2024/openvino-workflow/running-inference/inference-devices-and-modes/query-device-properties.html)).
 
 ```cpp
 #include "openvino/genai/llm_pipeline.hpp"

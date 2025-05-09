@@ -20,13 +20,13 @@ This blog will introduce the new [COYO](https://github.com/kakaobrain/coyo-datas
 
 * First open-source ALIGN model ever! 
 * First open ViT and ALIGN models that have been trained on an open-source dataset [COYO](https://github.com/kakaobrain/coyo-dataset)
-* Kakao Brain's ViT and ALIGN models perform on-par with the Google versions
+* Kakao Brain's ViT and ALIGN models perform on par with the Google versions
 * ViT and ALIGN demos are available on HF! You can play with the ViT and ALIGN demos online with image samples of your own choice!
 
 
 ## Performance Comparison
 
-Kakao Brain's released ViT and ALIGN models perform on par and sometimes better than what Google has reported about their implementation. Kakao Brain's `ALIGN-B7-Base` model, while trained on a much fewer pairs (700 million pairs vs 1.8 billion), performs on par with Google's `ALIGN-B7-Base` on the Image KNN classification task and better on MS-COCO retrieval image-to-text, text-to-image tasks. Kakao Brain's `ViT-L/16` performs similarly to Google's `ViT-L/16` when evaluated on ImageNet and ImageNet-ReaL at model resolutions 384 and 512. This means the community can use Kakao Brain's ViT and ALIGN models to replicate Google's ViT and ALIGN releases especially when users require access to the training data. We are excited to see open-source and transparent releases of these model that perform on par with the state of the art!
+Kakao Brain's released ViT and ALIGN models perform on par and sometimes better than what Google has reported about their implementation. Kakao Brain's `ALIGN-B7-Base` model, while trained on much fewer pairs (700 million pairs vs 1.8 billion), performs on par with Google's `ALIGN-B7-Base` on the Image KNN classification task and better on MS-COCO retrieval image-to-text, text-to-image tasks. Kakao Brain's `ViT-L/16` performs similarly to Google's `ViT-L/16` when evaluated on ImageNet and ImageNet-ReaL at model resolutions 384 and 512. This means the community can use Kakao Brain's ViT and ALIGN models to replicate Google's ViT and ALIGN releases especially when users require access to the training data. We are excited to see open-source and transparent releases of these models that perform on par with the state of the art!
 
 <p>
 <center>
@@ -60,7 +60,7 @@ What's special about these model releases is that the models are trained on the 
 
 ## How ViT and ALIGN work
 
-So what do these models do? Let's breifly discuss how the ViT and ALIGN models work.
+So what do these models do? Let's briefly discuss how the ViT and ALIGN models work.
 
 ViT -- Vision Transformer -- is a vision model [proposed by Google in 2020](https://ai.googleblog.com/2020/12/transformers-for-image-recognition-at.html) that resembles the text Transformer architecture. 
 It is a new approach to vision, distinct from convolutional neural nets (CNNs) that have dominated vision tasks since 2012's AlexNet. It is upto four times more computationally efficient than similarly performing CNNs and domain agnostic. ViT takes as input an image which is broken up into a sequence of image patches - just as the text Transformer takes as input a sequence of text -  and given position embeddings to each patch to learn the image structure. ViT performance is notable in particular for having an excellent performance-compute trade-off. While some of Google's ViT models are open-source, the JFT-300 million image-label pair dataset they were trained on has not been released publicly. While Kakao Brain's trained on [COYO-Labeled-300M](https://github.com/kakaobrain/coyo-dataset/tree/main/subset/COYO-Labeled-300M), which has been released publicly, and released ViT model performs similarly on various tasks, its code, model, and training data(COYO-Labeled-300M) are made entirely public for reproducibility and open science.
@@ -131,7 +131,7 @@ processor = ViTImageProcessor.from_pretrained('kakaobrain/vit-large-patch16-384'
 model = ViTForImageClassification.from_pretrained('kakaobrain/vit-large-patch16-384')
 ```
 
-The rest is simple, we will forward preprocess the image and use it as input to the model to retrive the class logits. The Kakao Brain ViT image classification models are trained on ImageNet labels and output logits of shape (batch_size, 1000).
+The rest is simple, we will forward preprocess the image and use it as input to the model to retrieve the class logits. The Kakao Brain ViT image classification models are trained on ImageNet labels and output logits of shape (batch_size, 1000).
 ```py
 # preprocess image or list of images
 inputs = processor(images=image, return_tensors="pt")
@@ -181,7 +181,7 @@ processor = AlignProcessor.from_pretrained('kakaobrain/align-base')
 model = AlignModel.from_pretrained('kakaobrain/align-base')
 ```
 
-We will start with zero-shot image classification first. To do this, we will suppy candidate labels (free-form text) and use AlignModel to find out which description better describes the image. We will first preprocess both the image and text inputs and feed the preprocessed input to the AlignModel.
+We will start with zero-shot image classification first. To do this, we will supply candidate labels (free-form text) and use AlignModel to find out which description better describes the image. We will first preprocess both the image and text inputs and feed the preprocessed input to the AlignModel.
 
 ```py
 candidate_labels = ['an image of a cat', 'an image of a dog']
