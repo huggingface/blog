@@ -158,11 +158,11 @@ Some datasets show inconsistencies in action/state format.
 
 ---
 
-# What Makes a Good Dataset?
+## What Makes a Good Dataset?
 
 Now that we know that creating a high-quality dataset is essential for training reliable and generalizable robot policies, we have outlined a checklist of best practices to assist you in collecting effective data.
 
-## Image Quality
+### Image Quality
 
 - ✅ Use preferably **two camera views**
 - ✅ Ensure **steady video capture** (no shaking)
@@ -173,7 +173,7 @@ Now that we know that creating a high-quality dataset is essential for training 
 - ✅ Use a **static, non-distracting background**, or apply controlled variations
 - ✅ Record in **high resolution** (at least 480x640 / 720p)
 
-## Metadata & Recording Protocol
+### Metadata & Recording Protocol
 
 - ✅ Select the **correct robot type** in the metadata
   If you're using a custom robot that's not listed in the official [LeRobot config registry](https://github.com/huggingface/lerobot/blob/main/lerobot/common/robot_devices/robots/configs.py),  
@@ -181,7 +181,7 @@ Now that we know that creating a high-quality dataset is essential for training 
 - ✅ Record videos at approximately **30 frames per second (FPS)**
 - ✅ If **deleting episodes**, make sure to **update the metadata files accordingly** (we will provide proper tools to edit datasets)
 
-## Feature Naming Conventions
+### Feature Naming Conventions
 
 Use a consistent and interpretable naming scheme for all camera views and observations:
 
