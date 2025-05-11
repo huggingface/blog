@@ -47,12 +47,12 @@ The `FaceSynthetics` dataset sounded like a great start: it contains ground trut
 
 ![Face synthetics descriptions](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/136_train-your-controlnet/segmentation_sequence.png "Face synthetics descriptions")
 
-Perfect. Right? Unfortunately, not really. Remember the second question in the "planning your condition" step - that we should have models that convert regular images to the conditioning? Turns out there was is no known model that can turn faces into the annotated landmark format of this dataset.
+Perfect. Right? Unfortunately, not really. Remember the second question in the "planning your condition" step - that we should have models that convert regular images to the conditioning? Turns out there is no known model that can turn faces into the annotated landmark format of this dataset.
 
 ![No known segmentation model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/136_train-your-controlnet/segmentation_no_known.png "No known segmentation model")
 
 So we decided to follow another path:
-- Use the ground truths `image` of faces of the `FaceSynthetics` datase
+- Use the ground truths `image` of faces of the `FaceSynthetics` dataset
 - Use a known model that can convert any image of a face into the 68-facial landmarks format of iBUG (in our case we used the SOTA model [SPIGA](https://github.com/andresprados/SPIGA))
 - Use custom code that converts the facial landmarks into a nice illustrated mask to be used as the `conditioning_image`
 - Save that as a [Hugging Face Dataset](https://huggingface.co/docs/datasets/indexx)
@@ -115,7 +115,7 @@ Let's break down some of the settings, and also let's go over some optimisation 
 - `dataset_name`: The dataset that will be used for training. In our case [Face Synthetics SPIGA with captions](https://huggingface.co/datasets/multimodalart/facesyntheticsspigacaptioned)
 - `conditioning_image_column`: The name of the column in your dataset that contains the conditioning image (in our case `spiga_seg`)
 - `image_column`: The name of the colunn in your dataset that contains the ground truth image (in our case `image`)
-- `caption_column`: The name of the column in your dataset that contains the caption of tha image (in our case `image_caption`)
+- `caption_column`: The name of the column in your dataset that contains the caption of that image (in our case `image_caption`)
 - `resolution`: The resolution of both the conditioning and ground truth images (in our case `512x512`)
 - `learning_rate`: The learing rate. We found out that `1e-5` worked well for these examples, but you may experiment with different values ranging between `1e-4` and `2e-6`, for example.
 - `validation_image`: This is for you to take a sneak peak during training! The validation images will be ran for every amount of `validation_steps` so you can see how your training is going. Insert here a local path to an arbitrary number of conditioning images
@@ -152,7 +152,7 @@ The combination of a batch size of 1 with 4 gradient accumulation steps is equiv
 Please follow [our guide here](https://github.com/huggingface/diffusers/tree/main/examples/controlnet#training-on-an-8-gb-gpu)
 
 ## 4. Conclusion!
-This experience of training a ControlNet was a lot of fun. We succesfully trained a model that can follow real face poses - however it learned to make uncanny 3D faces instead of real 3D faces because this was the dataset it was trained on, which has its own charm and flare. 
+This experience of training a ControlNet was a lot of fun. We successfully trained a model that can follow real face poses - however it learned to make uncanny 3D faces instead of real 3D faces because this was the dataset it was trained on, which has its own charm and flare. 
 
 Try out our [Hugging Face Space](https://huggingface.co/spaces/pcuenq/uncanny-faces): 
 <iframe
@@ -163,6 +163,6 @@ Try out our [Hugging Face Space](https://huggingface.co/spaces/pcuenq/uncanny-fa
 	style="border:0"
 ></iframe>
 
-As for next steps for us - in order to create realistically looking faces, while still not using a real face dataset, one idea is running the entire `FaceSynthetics` dataset through Stable Diffusion Image2Imaage, converting the 3D-looking faces into realistically looking ones, and then trainign another ControlNet.
+As for next steps for us - in order to create realistically looking faces, while still not using a real face dataset, one idea is running the entire `FaceSynthetics` dataset through Stable Diffusion Image2Imaage, converting the 3D-looking faces into realistically looking ones, and then training another ControlNet.
 
 And stay tuned, as we will have a ControlNet Training event soon! Follow Hugging Face on [Twitter](https://twitter.com/huggingface) or join our [Discord]( http://hf.co/join/discord) to stay up to date on that.

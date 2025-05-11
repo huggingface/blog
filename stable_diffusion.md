@@ -138,7 +138,7 @@ The result would look as follows
 You can change the number of inference steps using the `num_inference_steps` argument. 
 
 In general, results are better the more steps you use, however the more steps, the longer the generation takes.
-Stable Diffusion works quite well with a relatively small number of steps, so we recommend to use the default number of inference steps of `50`. 
+Stable Diffusion works quite well with a relatively small number of steps, so we recommend using the default number of inference steps of `50`. 
 If you want faster results you can use a smaller number. If you want potentially higher quality results, 
 you can use larger numbers.
 
@@ -363,7 +363,7 @@ num_inference_steps = 100           # Number of denoising steps
 
 guidance_scale = 7.5                # Scale for classifier-free guidance
 
-generator = torch.manual_seed(0)    # Seed generator to create the inital latent noise
+generator = torch.manual_seed(0)    # Seed generator to create the initial latent noise
 
 batch_size = len(prompt)
 ```

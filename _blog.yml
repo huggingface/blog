@@ -5899,7 +5899,6 @@
     - api
     - development
     - production
-
 - local: autoround
   title: "Introducing AutoRound: Intel’s Advanced Quantization for LLMs and VLMs"
   author: wenhuach
@@ -5951,3 +5950,14 @@
     - gradio
     - tool
     - llm
+    
+- local: lerobot-datasets
+  title: "LeRobot Community Datasets: The “ImageNet” of Robotics — When and How?"
+  author: danaaubakirova
+  thumbnail: /blog/assets/195_lerobot_datasets/1.png
+  date: May 7, 2025
+  tags:
+    - lerobot
+    - community
+    - datasets
+    - hub
