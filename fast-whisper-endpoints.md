@@ -47,14 +47,16 @@ To assess inference efficiency, we sampled from the rev16 long-form dataset, whi
 
 ## How to deploy
 
-You can deploy your own ASR inference pipeline via [Hugging Face Endpoints](https://endpoints.huggingface.co/catalog?task=automatic-speech-recognition). Endpoints allows anyone willing to deploy AI models into production ready environments to do so by filling in a few parameters. It also features the most complete fleet of AI hardware available on the market to suit your need for cost and performances. All of this directly from where the AI community is being built.To get started, nothing easier, simply choose the model you want to deploy: 
-<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/construct_pipeline.svg?raw=true" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
+You can deploy your own ASR inference pipeline via [Hugging Face Endpoints](https://endpoints.huggingface.co/catalog?task=automatic-speech-recognition). Endpoints allows anyone willing to deploy AI models into production ready environments to do so by filling in a few parameters.
+It also features the most complete fleet of AI hardware available on the market to suit your need for cost and performances. 
+All of this directly from where the AI community is being built.
+To get started, nothing easier, simply choose the model you want to deploy: 
 
-When you click on any of the Whisper ASR models, you'll see the new container URL when you click on Container Configuration: `mfuntowicz/endpoints-whisper-vllm:v1.0.2-py312`:
-<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/construct_pipeline.svg?raw=true" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
 
-Once the container is launched you can have access to the model with the Endpoint URL:
-<img src="https://github.com/bigcode-bench/bigcode-bench.github.io/blob/main/asset/construct_pipeline.svg?raw=true" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
+<video width="768" controls>
+<source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/endpoints/fast-whisper-endpoints-deploy-flow.mp4" type="video/mp4">
+</video>
+
 
 ## Inference
 
