@@ -52,8 +52,7 @@ It also features the most complete fleet of AI hardware available on the market 
 All of this directly from where the AI community is being built.
 To get started, nothing easier, simply choose the model you want to deploy: 
 
-<video src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/endpoints/fast-whisper-endpoints-deploy-flow.mp4" autoplay controls /></video>
-
+<video src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/endpoints/fast-whisper-endpoints-deploy-flow.mp4" controls /></video>
 
 ## Inference
 
