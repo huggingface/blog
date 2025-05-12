@@ -5962,7 +5962,7 @@
     - datasets
     - hub
 
-- local: vlms-2025.md
+- local: vlms-2025
   title: "Vision Language Models (Better, faster, stronger)"
   author: merve
   thumbnail: /blog/assets/vlms2/vlms2.png
