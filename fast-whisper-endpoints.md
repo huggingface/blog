@@ -1,6 +1,6 @@
 ---
 title: "Blazingly fast whisper transcriptions with Inference Endpoints" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif XXX to change
+thumbnail: /blog/assets/fast-whisper-endpoints/thumbnail.png
 authors:
 - user: mfuntowicz
 - user: freddyaboulton
