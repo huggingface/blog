@@ -5973,3 +5973,16 @@
     - multimodal
     - community
     - research
+
+- local: fast-whisper-endpoints
+  title: "Blazingly fast whisper transcriptions with Inference Endpoints"
+  author: merve
+  thumbnail: /blog/assets/fast-whisper-endpoints/thumbnail.png
+  date: May 13, 2025
+  tags:
+    - guide
+    - cloud
+    - inference
+    - audio
+    - transcription
+    - whisper
