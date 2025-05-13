@@ -43,7 +43,7 @@ We computed Word Error Rate (WER) across 8 standard datasets from the Open ASR L
 
 To assess inference efficiency, we sampled from the rev16 long-form dataset, which contains audio segments over 45 minutes in length—representative of real transcription workloads such as meetings, podcasts, or interviews. We measured the Real-Time Factor (RTFx), defined as the ratio of audio duration to transcription time, and averaged it across samples. All models were evaluated in `bfloat16` on a single L4 GPU, using consistent decoding settings (language, beam size, and batch size).
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/endpoints/fast-whisper-endpoints-bench-2.png" alt="png" style="display: block; margin-left: auto; margin-right: auto;">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/endpoints/fast-whisper-endpoints-bench-2.png" alt="Real-Time Factor comparison" style="display: block; margin-left: auto; margin-right: auto;">
 
 ## How to deploy
 
