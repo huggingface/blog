@@ -8,6 +8,9 @@ authors:
 
 # Vision Language Models Explained
 
+> [!TIP]
+> This blog post was written on April 2024 and provides a great introduction to internals of vision language models, an overview of existing suite of vision language models and how to fine-tune them. We have written an [April 2025 update](https://huggingface.co/blog/vlms-2025), with more capabilities and more models. Make sure to check it out after reading this one!
+
 Vision language models are models that can learn simultaneously from images and texts to tackle many tasks, from visual question answering to image captioning. In this post, we go through the main building blocks of vision language models: have an overview, grasp how they work, figure out how to find the right model, how to use them for inference and how to easily fine-tune them with the new version of [trl](https://github.com/huggingface/trl) released today!
 
 ## What is a Vision Language Model?
