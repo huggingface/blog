@@ -5976,7 +5976,7 @@
 
 - local: fast-whisper-endpoints
   title: "Blazingly fast whisper transcriptions with Inference Endpoints"
-  author: merve
+  author: mfuntowicz
   thumbnail: /blog/assets/fast-whisper-endpoints/thumbnail.png
   date: May 13, 2025
   tags:
