@@ -27,7 +27,7 @@ In this initial release, we are targeting NVIDIA GPUs with compute capabilities 
 - float8 KV cache
 Compilation with `torch.compile` generates optimized kernels in a Just-In-Time (JIT) fashion, which can modify the computational graph, reorder operations, call specialized methods, and more. 
 
-The CUDA graphs record the flow of sequential operations, or kernels, happening on the GPU and will attempt to group them as bigger chunks of work units to execute on the GPU. This grouping operation reduces data movements, synchronizations, and GPU scheduling over-head by executing a single, much larger work unit, rather than multiple smaller ones.
+CUDA graphs record the flow of sequential operations, or kernels, happening on the GPU, and attempts to group them as bigger chunks of work units to execute on the GPU. This grouping operation reduces data movements, synchronizations, and GPU scheduling overhead by executing a single, much larger work unit, rather than multiple smaller ones.
 
 Last but not least, we are dynamically quantizing activations to reduce the memory requirement incurred by the KV cache(s). The computations are done in half precision, bfloat16 in this case, and the outputs are being stored in reduced precision (1 byte for float8 vs 2 bytes for bfloat16) which allows us to store more elements in the KV cache, increasing the cache hit rate.
 
