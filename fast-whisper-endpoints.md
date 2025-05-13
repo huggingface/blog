@@ -25,7 +25,7 @@ In this initial release, we are targeting NVIDIA GPUs with compute capabilities 
 - PyTorch compilation (torch.compile)
 - CUDA graphs
 - float8 KV cache
-The torch.compile generates optimized kernels in a Just-In-Time (JIT) fashion, which can modify the computational graph, reorder operations, and call specialized methods, etc. 
+Compilation with `torch.compile` generates optimized kernels in a Just-In-Time (JIT) fashion, which can modify the computational graph, reorder operations, call specialized methods, and more. 
 
 The CUDA graphs record the flow of sequential operations, or kernels, happening on the GPU and will attempt to group them as bigger chunks of work units to execute on the GPU. This grouping operation reduces data movements, synchronizations, and GPU scheduling over-head by executing a single, much larger work unit, rather than multiple smaller ones.
 
