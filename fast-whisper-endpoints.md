@@ -58,7 +58,9 @@ To get started, nothing easier, simply choose the model you want to deploy:
 
 ## Inference
 
-Here is how you can easily access your deployed checkpoint in python:
+Running inference on the deployed model endpoint can be done in just a few lines of code in Python, you can also use the same structure in Javascript or any other language you're comfortable with.
+
+Here's a small snippet to test the deployed checkpoint quickly.
 
 ``` python
 import requests
