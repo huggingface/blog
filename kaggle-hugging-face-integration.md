@@ -1,5 +1,5 @@
 ---
-title: "Kaggle and Hugging Face Partner & Integrate to Improve Model Access" 
+title: "Improving Hugging Face Model Access for Kaggle Users" 
 thumbnail: /blog/assets/kaggle-hugging-face-integration/thumbnail.png
 authors:
 - user: roseberryv

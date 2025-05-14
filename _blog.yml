@@ -5988,7 +5988,7 @@
     - whisper
 
 - local: kaggle-hugging-face-integration
-  title: "Kaggle and Hugging Face Partner & Integrate to Improve Model Access"
+  title: "Improving Hugging Face Model Access for Kaggle Users"
   author: roseberryv
   thumbnail: /blog/assets/kaggle-hugging-face-integration/thumbnail.png
   date: May 14, 2025
