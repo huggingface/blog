@@ -3,7 +3,11 @@ title: "Kaggle and Hugging Face Partner & Integrate to Improve Model Access"
 thumbnail: /blog/assets/kaggle-hugging-face-integration/thumbnail.png
 authors:
 - user: roseberryv
+  guest: true
+  org: kaggle
 - user: megrisdal
+  guest: true
+  org: kaggle
 - user: julien-c
 - user: pcuenq
 - user: reach-vb
