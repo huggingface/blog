@@ -1,6 +1,6 @@
 ---
 title: "Improving Hugging Face Model Access for Kaggle Users" 
-thumbnail: /blog/assets/kaggle-hugging-face-integration/thumbnail.png
+thumbnail: /blog/assets/kaggle-integration/thumbnail.png
 authors:
 - user: roseberryv
   guest: true
@@ -21,13 +21,13 @@ Beginning today, Kaggle is launching an integration that enhances visibility and
 
 You can navigate from Hugging Face models to Kaggle and vice versa. Start by visiting a Hugging Face model page like [Qwen/Qwen3-1.7B](https://huggingface.co/Qwen/Qwen3-1.7B). To use it in a Kaggle Notebook, you can click on “Use this model” and select “Kaggle” to open up a Kaggle notebook with a pre-populated code snippet to load the model. You can do the same from a Hugging Face model page on Kaggle by clicking the “Code” button.
 
-![Creating a new notebook using a Hugging Face model on Kaggle](assets/kaggle-hugging-face-integration/new-notebook.gif)
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/kaggle-integration/new-notebook.gif" alt="Creating a new notebook using a Hugging Face model on Kaggle">
 
 When you run a notebook on Kaggle that references a model hosted on Hugging Face Hub, we will automatically generate a Hugging Face model page if one doesn’t exist already. You don’t need to make any special changes to your code.  Additionally, when you make your notebook public, it will automatically show on the “Code” tab of the Kaggle model page.
 
 Discover Hugging Face models and explore all the community examples in public notebooks in one place on Kaggle at [https://www.kaggle.com/models](https://www.kaggle.com/models). As more Hugging Face models are used on Kaggle, the number of models and associated code examples you can explore for inspiration will grow.
 
-![Browsing Hugging Face models on Kaggle](assets/kaggle-hugging-face-integration/browsing-hugging-face-models-on-kaggle.gif)
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/kaggle-integration/browsing-hugging-face-models-on-kaggle.gif" alt="Browsing Hugging Face models on Kaggle">
 
 When browsing Hugging Face models on Kaggle, we want to make it easy for you to navigate back to Hugging Face to explore additional details, metadata, community usage in Hugging Face Spaces, discussion, and more. Simply click “Open in Hugging Face” on the Kaggle model page.
 
