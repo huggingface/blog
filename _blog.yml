@@ -5986,3 +5986,12 @@
     - audio
     - transcription
     - whisper
+
+- local: kaggle-integration
+  title: "Improving Hugging Face Model Access for Kaggle Users"
+  author: roseberryv
+  thumbnail: /blog/assets/kaggle-integration/thumbnail.png
+  date: May 14, 2025
+  tags:
+    - community
+    - announcement
