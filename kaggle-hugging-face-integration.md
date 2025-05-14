@@ -41,6 +41,6 @@ We’re actively working on a solution to seamlessly use Hugging Face models in 
 
 You can read Kaggle’s position on [“AI Competitions as the gold standard for empirical rigor for GenAI evaluation”](https://huggingface.co/papers/2505.00612) to understand why it’s so important for us to get this part of the integration right! But tl;dr – Kaggle is highly sensitive to data leakage and its impact on model contamination.  Our goal is to design this integration to preserve the integrity of our competitions and their vital role in the industry, while enabling seamless access for Kaggle competitors to build with the best models from Hugging Face!
 
-We’d love to hear your feedback in the meantime - [share your thoughts and ideas here](https://huggingface.co/spaces/kaggle/hf-integration-feedback/discussions)!
+We’d love to hear your feedback in the meantime - [share your thoughts and ideas here](https://huggingface.co/spaces/kaggle/hf-integration-feedback/discussions/1)!
 
 Happy Kaggling! 
