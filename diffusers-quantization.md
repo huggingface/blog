@@ -10,6 +10,10 @@ authors:
 # Exploring Quantization Backends in Diffusers
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"
+></script>
 
 Building on our previous post, "[Memory-efficient Diffusion Transformers with Quanto and Diffusers](https://huggingface.co/blog/quanto-diffusers)", this post explores the diverse quantization backends integrated directly into Hugging Face Diffusers. We'll examine how bitsandbytes, GGUF, torchao, and native FP8 support make large and powerful models more accessible, demonstrating their use with the Flux (a flow-based text-to-image generation model).
 
@@ -25,19 +29,21 @@ prompts = [
 
 ### bitsandbytes (BnB)
 
+[`bitsandbytes`](https://github.com/bitsandbytes-foundation/bitsandbytes) is a popular and user-friendly library for 8-bit and 4-bit quantization, widely used for LLMs and QLoRA fine-tuning. We can use it for transformer-based diffusion and flow models, too.
+
 <table>
   <tr>
     <td style="text-align: center;">
       BF16<br>
-      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bf16_combined.png" alt="Flux-dev output with BF16: Baroque, Futurist, Noir styles"></medium-zoom>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bf16_combined.png" alt="Flux-dev output with BF16: Baroque, Futurist, Noir styles"></medium-zoom>
     </td>
     <td style="text-align: center;">
       BnB 4-bit<br>
-      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bnb_4bit_combined.png" alt="Flux-dev output with BnB 4-bit: Baroque, Futurist, Noir styles"></medium-zoom>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bnb_4bit_combined.png" alt="Flux-dev output with BnB 4-bit: Baroque, Futurist, Noir styles"></medium-zoom>
     </td>
     <td style="text-align: center;">
       BnB 8-bit<br>
-      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bnb_8bit_combined.png" alt="Flux-dev output with BnB 8-bit: Baroque, Futurist, Noir styles"></medium-zoom>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bnb_8bit_combined.png" alt="Flux-dev output with BnB 8-bit: Baroque, Futurist, Noir styles"></medium-zoom>
     </td>
   </tr>
   <tr>
@@ -45,15 +51,14 @@ prompts = [
   </tr>
 </table>
 
-[`bitsandbytes`](https://github.com/bitsandbytes-foundation/bitsandbytes) is a popular and user-friendly library for 8-bit and 4-bit quantization, widely used for LLMs and QLoRA fine-tuning. We can use it for transformer-based diffusion and flow models, too.
-
-**BnB 4-bit:**
-
 | Precision     | Memory after loading | Peak memory | Inference time |
 |---------------|----------------------|-------------|----------------|
 | BF16          | ~31.447 GB           | 36.166 GB   | 12 seconds     |
 | 4-bit         | 12.584 GB            | 17.281 GB   | 12 seconds     |
 | 8-bit         | 19.273 GB            | 24.432 GB   | 27 seconds     |
+<sub>All benchmarks performed on NVIDIA H100 GPUs</sub>
+
+<details>
 
 **Example (Flux-dev with BnB 4-bit):**
 
@@ -104,26 +109,27 @@ print(f"Pipeline memory usage: {torch.cuda.max_memory_reserved() / 1024**3:.3f} 
 image.save("flux-dev_bnb_4bit.png")
 ```
 
+</details>
 
 For more information check out the [bitsandbytes docs](https://huggingface.co/docs/diffusers/quantization/bitsandbytes).
 
 ### `torchao`
 
-[`torchao`](https://github.com/pytorch/ao) is a PyTorch-native library for architecture optimization, offering quantization, sparsity, and custom data types, designed for compatibility with `torch.compile` and FSDP.
+[`torchao`](https://github.com/pytorch/ao) is a PyTorch-native library for architecture optimization, offering quantization, sparsity, and custom data types, designed for compatibility with `torch.compile` and FSDP. Diffusers supports a wide range of `torchao`'s exotic data types, enabling fine-grained control over model optimization.
 
 <table>
   <tr>
     <td style="text-align: center;">
       int4_weight_only<br>
-      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_4bit_combined.png" alt="torchao int4_weight_only Output"></medium-zoom>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_4bit_combined.png" alt="torchao int4_weight_only Output"></medium-zoom>
     </td>
     <td style="text-align: center;">
       int8_weight_only<br>
-      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_8bit_combined.png" alt="torchao int8_weight_only Output"></medium-zoom>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_8bit_combined.png" alt="torchao int8_weight_only Output"></medium-zoom>
     </td>
     <td style="text-align: center;">
       float8_weight_only<br>
-      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_fp8_combined.png" alt="torchao float8_weight_only Output"></medium-zoom>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_fp8_combined.png" alt="torchao float8_weight_only Output"></medium-zoom>
     </td>
   </tr>
   <tr>
@@ -167,11 +173,11 @@ For more information check out the [torchao docs](https://huggingface.co/docs/di
   <tr>
     <td style="text-align: center;">
       int4<br>
-      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int4_combined.png" alt="Quanto int4 Output"></medium-zoom>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int4_combined.png" alt="Quanto int4 Output"></medium-zoom>
     </td>
     <td style="text-align: center;">
       int8<br>
-      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int8_combined.png" alt="Quanto int8 Output"></medium-zoom>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int8_combined.png" alt="Quanto int8 Output"></medium-zoom>
     </td>
   </tr>
   <tr>
@@ -204,6 +210,8 @@ pipeline_quant_config = PipelineQuantizationConfig(
 )
 ```
 
+> **Note:** At the time of writing, for float8 support with Quanto, you'll need `optimum-quanto<0.2.5` and use quanto directly.
+
 
 For more information check out the [Quanto docs](https://huggingface.co/docs/diffusers/quantization/quanto).
 
@@ -215,15 +223,15 @@ GGUF is a file format popular in the llama.cpp community for storing quantized m
   <tr>
     <td style="text-align: center;">
       Q2_k<br>
-      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q2_k_combined.png" alt="GGUF Q2_k Output"></medium-zoom>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q2_k_combined.png" alt="GGUF Q2_k Output"></medium-zoom>
     </td>
     <td style="text-align: center;">
       Q4_1<br>
-      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q4_1_combined.png" alt="GGUF Q4_1 Output"></medium-zoom>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q4_1_combined.png" alt="GGUF Q4_1 Output"></medium-zoom>
     </td>
     <td style="text-align: center;">
       Q8_0<br>
-      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q8_0_combined.png" alt="GGUF Q8_0 Output"></medium-zoom>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q8_0_combined.png" alt="GGUF Q8_0 Output"></medium-zoom>
     </td>
   </tr>
   <tr>
@@ -231,14 +239,6 @@ GGUF is a file format popular in the llama.cpp community for storing quantized m
   </tr>
 </table>
 
-**GGUF w/ `.enable_model_cpu_offload()`**
-| GGUF Precision | Memory after loading | Peak memory | Inference time |
-|----------------|----------------------|-------------|----------------|
-| Q4_1           | 0 GB                 | 9.164 GB    | 28 seconds     |
-| Q8_0           | 0 GB                 | 12.965 GB   | 22 seconds     |
-| Q2_k           | 0 GB                 | 9.164 GB    | 31 seconds     |
-
-**GGUF w/ `.to("cuda")`**
 | GGUF Precision | Memory after loading | Peak memory | Inference time |
 |----------------|----------------------|-------------|----------------|
 | Q4_1           | 16.838 GB            | 21.326 GB   | 23 seconds     |
@@ -268,27 +268,6 @@ pipe = FluxPipeline.from_pretrained(
     torch_dtype=torch.bfloat16,
 )
 pipe.to("cuda")
-
-prompt = "Baroque style, a lavish palace interior with ornate gilded ceilings, intricate tapestries, and dramatic lighting over a grand staircase."
-pipe_kwargs = {
-    "prompt": prompt,
-    "height": 1024,
-    "width": 1024,
-    "guidance_scale": 3.5,
-    "num_inference_steps": 50,
-    "max_sequence_length": 512,
-}
-
-
-print(f"Pipeline memory usage: {torch.cuda.max_memory_reserved() / 1024**3:.3f} GB")
-
-image = pipe(
-    **pipe_kwargs, generator=torch.manual_seed(0),
-).images[0]
-
-print(f"Pipeline memory usage: {torch.cuda.max_memory_reserved() / 1024**3:.3f} GB")
-
-image.save("flux-dev_gguf_Q4_1.png")
 ```
 
 For more information check out the [GGUF docs](https://huggingface.co/docs/diffusers/quantization/gguf).
@@ -296,13 +275,13 @@ For more information check out the [GGUF docs](https://huggingface.co/docs/diffu
 ### FP8 Layerwise Casting (`enable_layerwise_casting`)
 
 FP8 Layerwise Casting is a memory optimization technique. It works by storing the model's weights in the compact FP8 (8-bit floating point) format, which uses roughly half the memory of standard FP16 or BF16 precision.
-Just before a layer performs its calculations, its weights are dynamically cast up to a higher compute precision (like FP16/BF16). Immediately afterward, the weights are cast back down to FP8 for efficient storage. This approach works because the core computations retain high precision, and layers particularly sensitive to quantization (like normalization) are typically skipped.
+Just before a layer performs its calculations, its weights are dynamically cast up to a higher compute precision (like FP16/BF16). Immediately afterward, the weights are cast back down to FP8 for efficient storage. This approach works because the core computations retain high precision, and layers particularly sensitive to quantization (like normalization) are typically skipped. This technique can also be combined with [group offloading](https://huggingface.co/docs/diffusers/en/optimization/memory#group-offloading) for further memory savings.
 
 <table>
   <tr>
     <td style="text-align: center;">
       FP8 (e4m3)<br>
-      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_fp8_layerwise_casting_combined.png" alt="FP8 Layerwise Casting Output"></medium-zoom>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_fp8_layerwise_casting_combined.png" alt="FP8 Layerwise Casting Output"></medium-zoom>
     </td>
   </tr>
   <tr>
@@ -329,30 +308,14 @@ transformer.enable_layerwise_casting(storage_dtype=torch.float8_e4m3fn, compute_
 
 pipe = FluxPipeline.from_pretrained(model_id, transformer=transformer, torch_dtype=torch.bfloat16)
 pipe.to("cuda")
-
-prompt = "Baroque style, a lavish palace interior with ornate gilded ceilings, intricate tapestries, and dramatic lighting over a grand staircase."
-pipe_kwargs = {
-    "prompt": prompt,
-    "height": 1024,
-    "width": 1024,
-    "guidance_scale": 3.5,
-    "num_inference_steps": 50,
-    "max_sequence_length": 512,
-}
-
-
-print(f"Pipeline memory usage: {torch.cuda.max_memory_reserved() / 1024**3:.3f} GB")
-
-image = pipe(
-    **pipe_kwargs, generator=torch.manual_seed(0),
-).images[0]
-
-print(f"Pipeline memory usage: {torch.cuda.max_memory_reserved() / 1024**3:.3f} GB")
-
-image.save("flux-dev_fp8_layerwise_casting.png")
 ```
 
+
 For more information check out the [Layerwise casting docs](https://huggingface.co/docs/diffusers/main/en/optimization/memory#layerwise-casting).
+
+## Combining with Memory Optimizations
+
+Most of these quantization backends can be combined with the memory optimization techniques offered in Diffusers. For example, using `enable_model_cpu_offload()` with `bitsandbytes` cuts the memory further, giving a reasonable trade-off between memory and latency. You can learn more about these techniques in the [Diffusers documentation](https://huggingface.co/docs/diffusers/main/en/optimization/memory).
 
 ## Spot The Quantized Model
 
@@ -360,7 +323,9 @@ Quantization sounds great for saving memory, but how much does it *really* affec
 
 We created a setup where you can provide a prompt, and we generate results using both the original, high-precision model (e.g., Flux-dev in BF16) and several quantized versions (BnB 4-bit, BnB 8-bit). The generated images are then presented to you and your challenge is to identify which ones came from the quantized models.
 
-Try it out [here](https://huggingface.co/spaces/derekl35/flux-quant)!
+Try it out here!
+
+<gradio-app theme_mode="light" space="derekl35/flux-quant"></gradio-app>
 
 Often, especially with 8-bit quantization, the differences are subtle and may not be noticeable without close inspection. More aggressive quantization like 4-bit or lower might be more noticeable, but the results can still be good, especially considering the massive memory savings.
 
@@ -368,10 +333,11 @@ Often, especially with 8-bit quantization, the differences are subtle and may no
 
 Here's a quick guide to choosing a quantization backend:
 
-*   **Easiest Memory Savings (NVIDIA):** Start with `bitsandbytes` 4/8-bit.
-*   **Prioritize Inference Speed:** `torchao` + `torch.compile` offers the best performance potential.
+*   **Easiest Memory Savings (NVIDIA):** Start with `bitsandbytes` 4/8-bit. This can also be combined with `torch.compile()` for faster inference.
+*   **Prioritize Inference Speed:** `torchao`, `GGUF`, and `bitsandbytes` can all be used with `torch.compile()` to potentially boost inference speed.
 *   **For Hardware Flexibility (CPU/MPS), FP8 Precision:** `Quanto` can be a good option.
 *   **Simplicity (Hopper/Ada):** Explore FP8 Layerwise Casting (`enable_layerwise_casting`).
 *   **For Using Existing GGUF Models:** Use GGUF loading (`from_single_file`).
+*   **Curious about training with quantization?** Stay tuned for a follow-up blog post on that topic!
 
 Quantization significantly lowers the barrier to entry for using large diffusion models. Experiment with these backends to find the best balance of memory, speed, and quality for your needs.
