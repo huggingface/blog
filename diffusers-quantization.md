@@ -9,7 +9,7 @@ authors:
 
 # Exploring Quantization Backends in Diffusers
 
-Building on our previous post, "[Memory-efficient Diffusion Transformers with Quanto and Diffusers](https://huggingface.co/blog/quanto-diffusers)", this post explores the diverse quantization backends integrated directly into Hugging Face Diffusers. We'll examine how bitsandbytes, GGUF, torchao, and native FP8 support make these powerful models more accessible, demonstrating their use with the Flux image model.
+Building on our previous post, "[Memory-efficient Diffusion Transformers with Quanto and Diffusers](https://huggingface.co/blog/quanto-diffusers)", this post explores the diverse quantization backends integrated directly into Hugging Face Diffusers. We'll examine how bitsandbytes, GGUF, torchao, and native FP8 support make large and powerful models more accessible, demonstrating their use with the Flux (a flow-based text-to-image generation model).
 
 ## Quantization Backends in Diffusers
 
@@ -32,7 +32,7 @@ prompts = [
 
 ### bitsandbytes (BnB)
 
-`bitsandbytes` is a popular and user-friendly library for 8-bit and 4-bit quantization, widely used for LLMs and QLoRA fine-tuning.
+[`bitsandbytes`](https://github.com/bitsandbytes-foundation/bitsandbytes) is a popular and user-friendly library for 8-bit and 4-bit quantization, widely used for LLMs and QLoRA fine-tuning. We can use it for transformer-based diffusion and flow models, too.
 
 **BnB 4-bit:**
 
@@ -98,7 +98,7 @@ For more information check out the [bitsandbytes docs](https://huggingface.co/do
 
 ### `torchao`
 
-`torchao` is a PyTorch-native library for architecture optimization, offering quantization, sparsity, and custom data types, designed for composability with `torch.compile` and FSDP.
+[`torchao`](https://github.com/pytorch/ao) is a PyTorch-native library for architecture optimization, offering quantization, sparsity, and custom data types, designed for compatibility with `torch.compile` and FSDP.
 
 `int4_weight_only`:
 ![torchao int4_weight_only Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_4bit_combined.png)
@@ -138,7 +138,7 @@ For more information check out the [torchao docs](https://huggingface.co/docs/di
 
 ### Quanto
 
-Quanto is a quantization library integrated with the Hugging Face ecosystem via the [`optimum`](https://huggingface.co/docs/optimum/index) library.
+[Quanto](https://github.com/huggingface/optimum-quanto) is a quantization library integrated with the Hugging Face ecosystem via the [`optimum`](https://huggingface.co/docs/optimum/index) library.
 
 `int4`:
 ![Quanto int4 Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int4_combined.png)
