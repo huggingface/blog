@@ -89,7 +89,10 @@ production, to efficiently work together.
 
 As a model creator, this means that a single contribution will get your model available in all downstream libraries that
 have integrated that modeling implementation. We have seen this many times over the years: releasing a model
-is stressful and time-bound
+is stressful and integrating in all important libraries is often a significant time-sink.
+
+By standardizing the model implementation in a community-driven manner, we hope to lower the barrier of contributions
+to the field across libraries.
 
 ---
 
