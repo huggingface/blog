@@ -4,6 +4,8 @@ thumbnail: /blog/assets/transformers-model-definition/transformers-thumbnail.png
 authors:
 - user: lysandre
 - user: ArthurZ
+- user: pcuenq
+- user: julien-c
 ---
 
 # The Transformers Library: standardizing model definitions
@@ -47,17 +49,24 @@ Read more about it in the [vllm documentation](https://blog.vllm.ai/2025/04/11/t
 
 ---
 
-We've also been working very closely with llama.cpp and MLX so that the implementations between `transformers`
-and these modeling libraries have great interoperability. For example, it's now very easy to load GGUF files in `transformers` for further fine-tuning. Conversely, transformers models can be easily converted to GGUF files for use with llama.cpp.
+We've also been working very closely with [llama.cpp](https://github.com/ggml-org/llama.cpp) and [MLX](https://github.com/ml-explore/mlx) so that the implementations between `transformers`
+and these modeling libraries have great interoperability. For example, thanks to a significant community effort,
+it's now very easy to [load GGUF files in `transformers`](https://huggingface.co/docs/transformers/en/gguf) for 
+further fine-tuning. Conversely, transformers models can be easily 
+[converted to GGUF files](https://github.com/ggml-org/llama.cpp/blob/master/convert_hf_to_gguf.py) for use with 
+llama.cpp.
 
 The same is true for MLX, where the transformers' safetensors files are directly compatible with MLX's models.
 
-We are super proud that the `transformers` format is being adopted by the community, bringing a lot of interoperability we all benefit from. Train a model with Unsloth, deploy it with SGLang, and export it to llama.cpp to run locally! We aim to keep supporting the community going forward.
+We are super proud that the `transformers` format is being adopted by the community, bringing a lot of interoperability 
+we all benefit from. Train a model with Unsloth, deploy it with SGLang, and export it to llama.cpp to run locally! We 
+aim to keep supporting the community going forward.
 
 ## Striving for even simpler model contributions
 
 To make it easier for the community to use transformers as a reference for model definitions, we strive to
-significantly reduce the barrier to model contributions. We have been doing this effort for a few years, but we'll accelerate significantly over the next few weeks:
+significantly reduce the barrier to model contributions. We have been doing this effort for a few years, but we'll 
+accelerate significantly over the next few weeks:
 - The modeling code of each model will be further simplified; with clear, concise APIs for the most important
   components (KV cache, different Attention functions, kernel optimization)
 - We'll deprecate redundant components in favour of having a simple, single way to use our APIs: encouraging 
@@ -86,4 +95,5 @@ is stressful and time-bound
 
 We firmly believe this renewed direction will help standardize an ecosystem which is often at risk of fragmentation.
 We'd love to hear your feedback on the direction the team has decided to take; and of changes we could do to get
-there.
+there. Please come and see us over at the 
+[transformers-community support tab](https://huggingface.co/spaces/transformers-community/support) on the Hub!
