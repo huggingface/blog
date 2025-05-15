@@ -9,6 +9,8 @@ authors:
 
 # Exploring Quantization Backends in Diffusers
 
+<script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+
 Building on our previous post, "[Memory-efficient Diffusion Transformers with Quanto and Diffusers](https://huggingface.co/blog/quanto-diffusers)", this post explores the diverse quantization backends integrated directly into Hugging Face Diffusers. We'll examine how bitsandbytes, GGUF, torchao, and native FP8 support make large and powerful models more accessible, demonstrating their use with the Flux (a flow-based text-to-image generation model).
 
 ## Quantization Backends in Diffusers
@@ -21,32 +23,40 @@ prompts = [
 ]
 ```
 
-**BF16:**
-
-![Baroque, Futurist, and Noir style images generated with BF16 precision](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bf16_combined.png)
-
-| Precision | Memory after loading | Peak memory | Inference time |
-|-----------|----------------------|-------------|----------------|
-| BF16      | ~31.447 GB           | 36.166 GB   | 12 seconds     |
-
-
 ### bitsandbytes (BnB)
+
+<table>
+  <tr>
+    <td style="text-align: center;">
+      BF16<br>
+      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bf16_combined.png" alt="Flux-dev output with BF16: Baroque, Futurist, Noir styles"></medium-zoom>
+    </td>
+    <td style="text-align: center;">
+      BnB 4-bit<br>
+      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bnb_4bit_combined.png" alt="Flux-dev output with BnB 4-bit: Baroque, Futurist, Noir styles"></medium-zoom>
+    </td>
+    <td style="text-align: center;">
+      BnB 8-bit<br>
+      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bnb_8bit_combined.png" alt="Flux-dev output with BnB 8-bit: Baroque, Futurist, Noir styles"></medium-zoom>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" style="text-align: center;"><em>Visual comparison of Flux-dev model outputs using BF16 (left), BnB 4-bit (center), and BnB 8-bit (right) quantization. (Click on an image to zoom) </em></td>
+  </tr>
+</table>
 
 [`bitsandbytes`](https://github.com/bitsandbytes-foundation/bitsandbytes) is a popular and user-friendly library for 8-bit and 4-bit quantization, widely used for LLMs and QLoRA fine-tuning. We can use it for transformer-based diffusion and flow models, too.
 
 **BnB 4-bit:**
 
-![Baroque, Futurist, and Noir style images generated with BnB 4-bit](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bnb_4bit_combined.png)
-
-**BnB 8-bit:**
-![Baroque, Futurist, and Noir style images generated with BnB 8-bit](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bnb_8bit_combined.png)
-
-| BnB Precision | Memory after loading | Peak memory | Inference time |
+| Precision     | Memory after loading | Peak memory | Inference time |
 |---------------|----------------------|-------------|----------------|
+| BF16          | ~31.447 GB           | 36.166 GB   | 12 seconds     |
 | 4-bit         | 12.584 GB            | 17.281 GB   | 12 seconds     |
 | 8-bit         | 19.273 GB            | 24.432 GB   | 27 seconds     |
 
 **Example (Flux-dev with BnB 4-bit):**
+
 
 ```python
 import torch
@@ -94,19 +104,32 @@ print(f"Pipeline memory usage: {torch.cuda.max_memory_reserved() / 1024**3:.3f} 
 image.save("flux-dev_bnb_4bit.png")
 ```
 
+
 For more information check out the [bitsandbytes docs](https://huggingface.co/docs/diffusers/quantization/bitsandbytes).
 
 ### `torchao`
 
 [`torchao`](https://github.com/pytorch/ao) is a PyTorch-native library for architecture optimization, offering quantization, sparsity, and custom data types, designed for compatibility with `torch.compile` and FSDP.
 
-`int4_weight_only`:
-![torchao int4_weight_only Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_4bit_combined.png)
-`int8_weight_only`:
-![torchao int8_weight_only Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_8bit_combined.png)
-
-`float8_weight_only`:
-![torchao float8_weight_only Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_fp8_combined.png)
+<table>
+  <tr>
+    <td style="text-align: center;">
+      int4_weight_only<br>
+      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_4bit_combined.png" alt="torchao int4_weight_only Output"></medium-zoom>
+    </td>
+    <td style="text-align: center;">
+      int8_weight_only<br>
+      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_8bit_combined.png" alt="torchao int8_weight_only Output"></medium-zoom>
+    </td>
+    <td style="text-align: center;">
+      float8_weight_only<br>
+      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_fp8_combined.png" alt="torchao float8_weight_only Output"></medium-zoom>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" style="text-align: center;"><em>Visual comparison of Flux-dev model outputs using torchao int4_weight_only (left), int8_weight_only (center), and float8_weight_only (right) quantization. (Click on an image to zoom)</em></td>
+  </tr>
+</table>
 
 | torchao Precision             | Memory after loading | Peak memory | Inference time |
 |-------------------------------|----------------------|-------------|----------------|
@@ -140,11 +163,21 @@ For more information check out the [torchao docs](https://huggingface.co/docs/di
 
 [Quanto](https://github.com/huggingface/optimum-quanto) is a quantization library integrated with the Hugging Face ecosystem via the [`optimum`](https://huggingface.co/docs/optimum/index) library.
 
-`int4`:
-![Quanto int4 Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int4_combined.png)
-
-`int8`:
-![Quanto int8 Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int8_combined.png)
+<table>
+  <tr>
+    <td style="text-align: center;">
+      int4<br>
+      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int4_combined.png" alt="Quanto int4 Output"></medium-zoom>
+    </td>
+    <td style="text-align: center;">
+      int8<br>
+      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int8_combined.png" alt="Quanto int8 Output"></medium-zoom>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="text-align: center;"><em>Visual comparison of Flux-dev model outputs using Quanto int4 (left) and int8 (right) quantization. (Click on an image to zoom)</em></td>
+  </tr>
+</table>
 
 | quanto Precision | Memory after loading | Peak memory | Inference time |
 |------------------|----------------------|-------------|----------------|
@@ -178,14 +211,25 @@ For more information check out the [Quanto docs](https://huggingface.co/docs/dif
 
 GGUF is a file format popular in the llama.cpp community for storing quantized models.
 
-**GGUF Q2_k:**
-![GGUF Q2_k Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q2_k_combined.png)
-**GGUF Q4_1:**
-![GGUF Q4_1 Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q4_1_combined.png)
-**GGUF Q8_0:**
-![GGUF Q8_0 Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q8_0_combined.png)
-
-
+<table>
+  <tr>
+    <td style="text-align: center;">
+      Q2_k<br>
+      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q2_k_combined.png" alt="GGUF Q2_k Output"></medium-zoom>
+    </td>
+    <td style="text-align: center;">
+      Q4_1<br>
+      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q4_1_combined.png" alt="GGUF Q4_1 Output"></medium-zoom>
+    </td>
+    <td style="text-align: center;">
+      Q8_0<br>
+      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q8_0_combined.png" alt="GGUF Q8_0 Output"></medium-zoom>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" style="text-align: center;"><em>Visual comparison of Flux-dev model outputs using GGUF Q2_k (left), Q4_1 (center), and Q8_0 (right) quantization. (Click on an image to zoom)</em></td>
+  </tr>
+</table>
 
 **GGUF w/ `.enable_model_cpu_offload()`**
 | GGUF Precision | Memory after loading | Peak memory | Inference time |
@@ -254,7 +298,17 @@ For more information check out the [GGUF docs](https://huggingface.co/docs/diffu
 FP8 Layerwise Casting is a memory optimization technique. It works by storing the model's weights in the compact FP8 (8-bit floating point) format, which uses roughly half the memory of standard FP16 or BF16 precision.
 Just before a layer performs its calculations, its weights are dynamically cast up to a higher compute precision (like FP16/BF16). Immediately afterward, the weights are cast back down to FP8 for efficient storage. This approach works because the core computations retain high precision, and layers particularly sensitive to quantization (like normalization) are typically skipped.
 
-![FP8 Layerwise Casting Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_fp8_layerwise_casting_combined.png)
+<table>
+  <tr>
+    <td style="text-align: center;">
+      FP8 (e4m3)<br>
+      <medium-zoom><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_fp8_layerwise_casting_combined.png" alt="FP8 Layerwise Casting Output"></medium-zoom>
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align: center;"><em>Visual output of Flux-dev model using FP8 Layerwise Casting (e4m3) quantization.</em></td>
+  </tr>
+</table>
 
 | precision | Memory after loading | Peak memory | Inference time |
 |-----------|----------------------|-------------|----------------|
