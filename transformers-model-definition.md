@@ -35,7 +35,7 @@ Recently, we've been working hand in hand with the most popular inference engine
 to use `transformers` as a backend. The value added is significant: as soon as a model is added to `transformers`,
 it becomes available in these inference engines, _while taking advantage of the strengths each engine provides_: inference optimizations, specialized kernels, dynamic batching, etc.
 
-As an example, here is how you would work with the `transformers` backend in vllm: 
+As an example, here is how you would work with the `transformers` backend in vLLM: 
 
 ```python
 from vllm import LLM
@@ -45,7 +45,7 @@ llm = LLM(model="new-transformers-model", model_impl="transformers")
 
 That's all it takes for a new model to enjoy super-fast and production-grade serving with vLLM!
 
-Read more about it in the [vllm documentation](https://blog.vllm.ai/2025/04/11/transformers-backend.html).
+Read more about it in the [vLLM documentation](https://blog.vllm.ai/2025/04/11/transformers-backend.html).
 
 ---
 
@@ -70,9 +70,8 @@ significantly reduce the barrier to model contributions. We have been doing this
 accelerate significantly over the next few weeks:
 - The modeling code of each model will be further simplified; with clear, concise APIs for the most important
   components (KV cache, different Attention functions, kernel optimization)
-- We'll deprecate redundant components in favour of having a simple, single way to use our APIs: encouraging 
-  efficient tokenization by deprecating slow tokenizers, and similarly using the fast vectorized vision processors
-  fast counterparts.
+- We'll deprecate redundant components in favor of having a simple, single way to use our APIs: encouraging 
+  efficient tokenization by deprecating slow tokenizers, and similarly using the fast vectorized vision processors.
 - We'll continue to reinforce the work around _modular_ model definitions, with the goal for new models to require absolute
   minimal code changes. 6000 line contributions, 20 files changes for new models are a thing of the past.
 
