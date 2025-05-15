@@ -5995,3 +5995,13 @@
   tags:
     - community
     - announcement
+
+- local: transformers-model-definition
+  title: "The Transformers Library: standardizing model definitions"
+  author: lysandre
+  thumbnail: /blog/assets/transformers-model-definition/transformers-thumbnail.png
+  date: May 15, 2025
+  tags:
+    - community
+    - announcement
+    - transformers
