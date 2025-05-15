@@ -49,7 +49,7 @@ To assess inference efficiency, we sampled from the rev16 long-form dataset, whi
 ## How to deploy
 
 You can deploy your own ASR inference pipeline via [Hugging Face Endpoints](https://endpoints.huggingface.co/catalog?task=automatic-speech-recognition). Endpoints allows anyone willing to deploy AI models into production ready environments to do so by filling in a few parameters.
-It also features the most complete fleet of AI hardware available on the market to suit your need for cost and performances. 
+It also features the most complete fleet of AI hardware available on the market to suit your need for cost and performance. 
 All of this directly from where the AI community is being built.
 To get started, nothing easier, simply choose the model you want to deploy: 
 
@@ -92,4 +92,4 @@ With this blazing fast endpoint, it’s possible to build real-time transcriptio
 <gradio-app theme_mode="light" space="freddyaboulton/really-fast-whisper"></gradio-app>
 
 
-Spaces can easily be duplicated so please feel free to duplicate away. All of the above is made available for community use on the Hugging Face Hub in our dedicated HF Endpoints organization. Open issues, suggest uses-cases and contribute here:  [hfendpoints-images (Inference Endpoints Images)](https://huggingface.co/spaces/hfendpoints-images/README/discussions/2) 🚀
+Spaces can easily be duplicated so please feel free to duplicate away. All of the above is made available for community use on the Hugging Face Hub in our dedicated HF Endpoints organization. Open issues, suggest use-cases and contribute here:  [hfendpoints-images (Inference Endpoints Images)](https://huggingface.co/spaces/hfendpoints-images/README/discussions/2) 🚀
