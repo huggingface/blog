@@ -19,7 +19,7 @@ Transformers was created in 2019, shortly following the release of the BERT Tran
 continuously aimed to add state-of-the-art architectures, initially focused on NLP, then growing to Audio and
 computer vision. Today, transformers is the default library for LLMs and VLMs in the Python ecosystem.
 
-Transformers now supports 350+ model architectures, with an average of ~3 new architectures added every week. 
+Transformers now supports 300+ model architectures, with an average of ~3 new architectures added every week. 
 We have aimed for these architectures to be released in a timely manner; having day-0 support for the most
 sought-after architectures (Llamas, Qwens, GLMs, etc.).
 
@@ -49,7 +49,8 @@ Read more about it in the [vllm documentation](https://blog.vllm.ai/2025/04/11/t
 
 ---
 
-We've also been working very closely with [llama.cpp](https://github.com/ggml-org/llama.cpp) and [MLX](https://github.com/ml-explore/mlx) so that the implementations between `transformers`
+We've also been working very closely with [llama.cpp](https://github.com/ggml-org/llama.cpp) and 
+[MLX](https://github.com/ml-explore/mlx) so that the implementations between `transformers`
 and these modeling libraries have great interoperability. For example, thanks to a significant community effort,
 it's now very easy to [load GGUF files in `transformers`](https://huggingface.co/docs/transformers/en/gguf) for 
 further fine-tuning. Conversely, transformers models can be easily 
