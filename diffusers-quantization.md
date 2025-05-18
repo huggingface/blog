@@ -15,7 +15,7 @@ authors:
 	src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"
 ></script>
 
-Building on our previous post, "[Memory-efficient Diffusion Transformers with Quanto and Diffusers](https://huggingface.co/blog/quanto-diffusers)", this post explores the diverse quantization backends integrated directly into Hugging Face Diffusers. We'll examine how bitsandbytes, GGUF, torchao, and native FP8 support make large and powerful models more accessible, demonstrating their use with the Flux (a flow-based text-to-image generation model).
+Building on our previous post, "[Memory-efficient Diffusion Transformers with Quanto and Diffusers](https://huggingface.co/blog/quanto-diffusers)", this post explores the diverse quantization backends integrated directly into Hugging Face Diffusers. We'll examine how bitsandbytes, GGUF, torchao, and native FP8 support make large and powerful models more accessible, demonstrating their use with Flux (a flow-based text-to-image generation model).
 
 ## Quantization Backends in Diffusers
 
@@ -56,7 +56,8 @@ prompts = [
 | BF16          | ~31.447 GB           | 36.166 GB   | 12 seconds     |
 | 4-bit         | 12.584 GB            | 17.281 GB   | 12 seconds     |
 | 8-bit         | 19.273 GB            | 24.432 GB   | 27 seconds     |
-<sub>All benchmarks performed on NVIDIA H100 GPUs</sub>
+
+<sub>All benchmarks performed on 1x NVIDIA H100 80GB GPU</sub>
 
 <details>
 
@@ -113,7 +114,7 @@ image.save("flux-dev_bnb_4bit.png")
 
 For more information check out the [bitsandbytes docs](https://huggingface.co/docs/diffusers/quantization/bitsandbytes).
 
-### `torchao`
+### torchao
 
 [`torchao`](https://github.com/pytorch/ao) is a PyTorch-native library for architecture optimization, offering quantization, sparsity, and custom data types, designed for compatibility with `torch.compile` and FSDP. Diffusers supports a wide range of `torchao`'s exotic data types, enabling fine-grained control over model optimization.
 
