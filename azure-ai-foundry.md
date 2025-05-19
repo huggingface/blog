@@ -7,23 +7,23 @@ authors:
 - user: alvarobartt
 ---
 
-# Microsoft and Hugging Face expand partnership to make open models easy to use on Azure
+# Microsoft and Hugging Face expand collaboration to make open models easy to use on Azure
 
-Today at the Microsoft Build conference, Satya Nadella announced an expanded partnership and collaboration with Hugging Face, to make its wide diversity of open models easy to deploy on Azure secure infrastructure.
+Today at the Microsoft Build conference, Satya Nadella announced an expanded collaboration with Hugging Face, to make its wide diversity of open models easy to deploy on Azure secure infrastructure.
 
 If you head over to [Azure AI Foundry](https://ai.azure.com) today, you will find a vastly expanded collection of 10,000+ Hugging Face models you can deploy in a couple clicks to power AI applications working with text, audio and images. And we’re just getting started!
 
-## It’s time to build - an expanded partnership
+## It’s time to build - an expanded collaboration
 
 2 years ago, Microsoft and Hugging Face [started a collaboration](https://huggingface.co/blog/hugging-face-endpoints-on-azure) to make open models more easily accessible on Azure - back then the Hub was home to 200,000 open models.
 
-With now close to 2 million open models on Hugging Face, covering a wide diversity of tasks, modalities, domains and languages, it was time to take our partnership to the next level. The new partnership announced today creates a commercial framework for mutual success to vastly expand how Azure customers can use Hugging Face, and drive usage.
+With now close to 2 million open models on Hugging Face, covering a wide diversity of tasks, modalities, domains and languages, it was time to take our collaboration to the next level. The new collaboration announced today creates a framework for mutual success to vastly expand how Azure customers can benefit from Hugging Face.
 
-> This partnership is a reflection of our deep commitment to open-source AI. Hugging Face has emerged as the “GitHub of AI,” hosting millions of open models and serving as the default launchpad for open-source AI innovation. By combining Hugging Face’s vibrant developer ecosystem with Azure’s enterprise-grade infrastructure, we’re enabling customers to innovate faster and more securely with the best models the community has to offer.”
+> "Open source is how AI moves faster—with transparency, choice, and community at its core. This collaboration represents our commitment to that momentum. By combining Hugging Face’s vibrant model ecosystem with Azure’s secure, enterprise-grade infrastructure, we’re giving developers the freedom to pick the best model for the job—and helping organizations innovate safely and at scale.”
 
 -- _Asha Sharma, Corporate Vice President at Microsoft_
 
-Making more open models easily accessible to Azure customers, for secure deployment alongside companies private data, will enable enterprises to build AI applications and agents while being fully in control of their technology and data.
+Making more open models easily accessible to Azure customers, for secure deployment alongside company private data, will enable enterprises to build AI applications and agents while being fully in control of their technology and data.
 
 > We’re enabling companies to take control of their AI destiny, deploying the best open models securely within their Azure account, to build AI applications they can trust and verify.
 
@@ -35,14 +35,14 @@ Let’s head over to Azure AI Foundry, and select the Model Catalog. Here you ca
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/azure-ai-foundry/azure-ai-foundry-collection.png" alt="The Hugging Face Collection in the Model Catalog within Azure AI Foundry">
 
-These are the most popular, trending models on Hugging Face for a wide range of tasks to work with text, audio and images - including text generation, feature extraction, fill-mask, translation, identifying sentence similarity, image classification, image segmentation, text to image generation, image to text conversion, automatic speech recognition and audio-classification.
+Models in the Collection include the most popular, trending models on Hugging Face for a wide range of tasks to work with text, audio and images - including text generation, feature extraction, fill-mask, translation, identifying sentence similarity, image classification, image segmentation, text to image generation, image to text conversion, automatic speech recognition and audio-classification.
 
 To make the Hugging Face Collection on Azure AI Foundry enterprise-ready, we are only featuring models:
-- passing Hugging Face security tests security without any vulnerability, including [ProtectAI Guardian](https://huggingface.co/docs/hub/en/security-protectai) and [JFrog security scanner](https://huggingface.co/docs/hub/en/security-jfrog)
+- having successfully passed Hugging Face security tests to screen for any vulnerability, including with [ProtectAI Guardian](https://huggingface.co/docs/hub/en/security-protectai) and [JFrog security scanner](https://huggingface.co/docs/hub/en/security-jfrog)
 - with model weights stored in [safetensors](https://huggingface.co/docs/safetensors/main/en/index) format, avoiding potential Pickle vulnerabilities
 - without [remote code](https://huggingface.co/docs/transformers/main/en/models#custom-models), to avoid any arbitrary code insertion at runtime.
 
-In addition, Microsoft and Hugging Face will continuously inference containers for vulnerabilities to maintain and patch as needed.
+In addition, Microsoft and Hugging Face will continuously test inference containers for vulnerabilities to maintain and patch them as needed.
 
 Now let’s say you want to deploy for instance the popular [Microsoft Phi-4 Reasoning Plus](https://huggingface.co/microsoft/Phi-4-reasoning-plus) open model. 
 
