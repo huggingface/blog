@@ -15,9 +15,38 @@ authors:
 	src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"
 ></script>
 
-Building on our previous post, "[Memory-efficient Diffusion Transformers with Quanto and Diffusers](https://huggingface.co/blog/quanto-diffusers)", this post explores the diverse quantization backends integrated directly into Hugging Face Diffusers. We'll examine how bitsandbytes, GGUF, torchao, and native FP8 support make large and powerful models more accessible, demonstrating their use with Flux (a flow-based text-to-image generation model).
+Large diffusion models like Flux can create stunning images, but their size can be a hurdle, demanding significant memory and compute resources. Quantization offers a powerful solution, shrinking these models to make them more accessible without drastically compromising performance. But the big question always is: can you actually tell the difference in the final image?
+
+Before we dive into the technical details of how various quantization backends in Hugging Face Diffusers work, why not test your own perception?
+
+## Spot The Quantized Model
+
+We created a setup where you can provide a prompt, and we generate results using both the original, high-precision model (e.g., Flux-dev in BF16) and several quantized versions (BnB 4-bit, BnB 8-bit). The generated images are then presented to you and your challenge is to identify which ones came from the quantized models.
+
+Try it out here!
+
+<gradio-app theme_mode="light" space="derekl35/flux-quant"></gradio-app>
+
+Often, especially with 8-bit quantization, the differences are subtle and may not be noticeable without close inspection. More aggressive quantization like 4-bit or lower might be more noticeable, but the results can still be good, especially considering the massive memory savings. NF4 often gives the best trade-off though.
+
+Now, let's dive deeper.
 
 ## Quantization Backends in Diffusers
+
+Building on our previous post, "[Memory-efficient Diffusion Transformers with Quanto and Diffusers](https://huggingface.co/blog/quanto-diffusers)", this post explores the diverse quantization backends integrated directly into Hugging Face Diffusers. We'll examine how bitsandbytes, GGUF, torchao, and native FP8 support make large and powerful models more accessible, demonstrating their use with Flux (a flow-based text-to-image generation model).
+
+Before diving into the quantization backends, let's introduce the FluxPipeline and its components, which we'll be quantizing:
+
+*   **Text Encoders (CLIP and T5):**
+    *   **Function:** Process input text prompts. FLUX.1-dev uses CLIP for initial understanding and a larger T5 for nuanced comprehension and better text rendering.
+    *   **Memory:** T5 - 9.52 GB; CLIP - 246 MB (in BF16)
+*   **Transformer (Main Model - MMDiT):**
+    *   **Function:** Core generative part (Multimodal Diffusion Transformer). Generates images in latent space from text embeddings. 
+    *   **Memory:** 23.8 GB (in BF16)
+*   **Variational Auto-Encoder (VAE):**
+    *   **Function:** Translates images between pixel and latent space. Decodes generated latent representation to a pixel-based image.
+    *   **Memory:** 168 MB (in BF16)
+*   **Focus of Quantization:** Examples will primarily focus on the `transformer` and `text_encoder_2` (T5) for the most substantial memory savings.
 
 ```python
 prompts = [
@@ -59,9 +88,9 @@ prompts = [
 
 <sub>All benchmarks performed on 1x NVIDIA H100 80GB GPU</sub>
 
-<details>
 
-**Example (Flux-dev with BnB 4-bit):**
+<details>
+<summary>Example (Flux-dev with BnB 4-bit):</summary>
 
 
 ```python
@@ -109,6 +138,8 @@ print(f"Pipeline memory usage: {torch.cuda.max_memory_reserved() / 1024**3:.3f} 
 
 image.save("flux-dev_bnb_4bit.png")
 ```
+
+> **Note:** When using `PipelineQuantizationConfig` with `bitsandbytes`, you need to import `DiffusersBitsAndBytesConfig` from `diffusers` and `TransformersBitsAndBytesConfig` from `transformers` separately. This is because these components originate from different libraries. If you prefer a simpler setup without managing these distinct imports, you can use an alternative approach for pipeline-level quantization, an example of this method is in the [Diffusers documentation on Pipeline-level quantization](https://huggingface.co/docs/diffusers/main/en/quantization/overview#pipeline-level-quantization:~:text=The%20config%20below%20will%20work%20for%20most%20diffusion%20pipelines%20that%20have%20a%20transformer%20component%20present.%20In%20most%20case%2C%20you%20will%20want%20to%20quantize%20the%20transformer%20component%20as%20that%20is%20often%20the%20most%20compute%2D%20intensive%20part%20of%20a%20diffusion%20pipeline).
 
 </details>
 
@@ -173,23 +204,28 @@ For more information check out the [torchao docs](https://huggingface.co/docs/di
 <table>
   <tr>
     <td style="text-align: center;">
-      int4<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int4_combined.png" alt="Quanto int4 Output"></medium-zoom>
+      INT4<br>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int4_combined.png" alt="Quanto INT4 Output"></medium-zoom>
     </td>
     <td style="text-align: center;">
-      int8<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int8_combined.png" alt="Quanto int8 Output"></medium-zoom>
+      INT8<br>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int8_combined.png" alt="Quanto INT8 Output"></medium-zoom>
+    </td>
+    <td style="text-align: center;">
+      FP8<br>
+      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_fp8_combined.png" alt="Quanto fp8 Output"></medium-zoom>
     </td>
   </tr>
   <tr>
-    <td colspan="2" style="text-align: center;"><em>Visual comparison of Flux-dev model outputs using Quanto int4 (left) and int8 (right) quantization. (Click on an image to zoom)</em></td>
+    <td colspan="3" style="text-align: center;"><em>Visual comparison of Flux-dev model outputs using Quanto INT4 (left), INT8 (center), and FP8 (right) quantization. (Click on an image to zoom)</em></td>
   </tr>
 </table>
 
 | quanto Precision | Memory after loading | Peak memory | Inference time |
 |------------------|----------------------|-------------|----------------|
-| int4             | 12.254 GB            | 16.139 GB   | 109 seconds    |
-| int8             | 17.330 GB            | 21.814 GB   | 15 seconds     |
+| INT4             | 12.254 GB            | 16.139 GB   | 109 seconds    |
+| INT8             | 17.330 GB            | 21.814 GB   | 15 seconds     |
+| FP8           | 16.395 GB            | 20.898 GB   | 16 seconds     |
 
 **Example (Flux-dev with `quanto` INT8 weight-only):**
 
@@ -212,7 +248,44 @@ pipeline_quant_config = PipelineQuantizationConfig(
 ```
 
 > **Note:** At the time of writing, for float8 support with Quanto, you'll need `optimum-quanto<0.2.5` and use quanto directly.
+<details>
+<summary>Example (Flux-dev with quanto FP8 weight-only)</summary>
 
+```python
+import torch
+from diffusers import AutoModel, FluxPipeline
+from transformers import T5EncoderModel
+from optimum.quanto import freeze, qfloat8, quantize
+
+model_id = "black-forest-labs/FLUX.1-dev"
+
+text_encoder_2 = T5EncoderModel.from_pretrained(
+    model_id,
+    subfolder="text_encoder_2",
+    torch_dtype=torch.bfloat16,
+)
+
+quantize(text_encoder_2, weights=qfloat8)
+freeze(text_encoder_2)
+
+transformer = AutoModel.from_pretrained(
+      model_id,
+      subfolder="transformer",
+      torch_dtype=torch.bfloat16,
+)
+
+quantize(transformer, weights=qfloat8)
+freeze(transformer)
+
+pipe = FluxPipeline.from_pretrained(
+    model_id,
+    transformer=transformer,
+    text_encoder_2=text_encoder_2,
+    torch_dtype=torch.bfloat16
+).to("cuda")
+```
+
+</details>
 
 For more information check out the [Quanto docs](https://huggingface.co/docs/diffusers/quantization/quanto).
 
@@ -318,18 +391,6 @@ For more information check out the [Layerwise casting docs](https://huggingface.
 
 Most of these quantization backends can be combined with the memory optimization techniques offered in Diffusers. For example, using `enable_model_cpu_offload()` with `bitsandbytes` cuts the memory further, giving a reasonable trade-off between memory and latency. You can learn more about these techniques in the [Diffusers documentation](https://huggingface.co/docs/diffusers/main/en/optimization/memory).
 
-## Spot The Quantized Model
-
-Quantization sounds great for saving memory, but how much does it *really* affect the final image? Can you even spot the difference? We invite you to test your perception!
-
-We created a setup where you can provide a prompt, and we generate results using both the original, high-precision model (e.g., Flux-dev in BF16) and several quantized versions (BnB 4-bit, BnB 8-bit). The generated images are then presented to you and your challenge is to identify which ones came from the quantized models.
-
-Try it out here!
-
-<gradio-app theme_mode="light" space="derekl35/flux-quant"></gradio-app>
-
-Often, especially with 8-bit quantization, the differences are subtle and may not be noticeable without close inspection. More aggressive quantization like 4-bit or lower might be more noticeable, but the results can still be good, especially considering the massive memory savings.
-
 ## Conclusion
 
 Here's a quick guide to choosing a quantization backend:
@@ -342,3 +403,5 @@ Here's a quick guide to choosing a quantization backend:
 *   **Curious about training with quantization?** Stay tuned for a follow-up blog post on that topic!
 
 Quantization significantly lowers the barrier to entry for using large diffusion models. Experiment with these backends to find the best balance of memory, speed, and quality for your needs.
+
+*Acknowledgements: Thanks to [Chunte](https://huggingface.co/Chunte) for providing the thumbnail for this post.*
