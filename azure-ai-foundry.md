@@ -1,6 +1,6 @@
 ---
 title: "Microsoft and Hugging Face expand collaboration" 
-thumbnail: /blog/assets/azure-ai-foundry/azure-ai-foundry.png
+thumbnail: /blog/assets/azure-ai-foundry/satya-hf-build.png
 authors:
 - user: jeffboudier
 - user: pagezyhf
