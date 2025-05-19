@@ -6005,3 +6005,13 @@
     - community
     - announcement
     - transformers
+
+- local: azure-ai-foundry
+  title: "Microsoft and Hugging Face expand collaboration"
+  author: jeffboudier
+  thumbnail: /blog/assets/azure-ai-foundry/satya-hf-build.png
+  date: May 19, 2025
+  tags:
+    - partnership
+    - announcement
+    - azure
