@@ -6005,3 +6005,20 @@
     - community
     - announcement
     - transformers
+
+- local: fine-tune-csm
+  title: "Fine-Tune CSM For Conversational Speech LLMs with 🤗 Transformers"
+  thumbnail: /blog/assets/112_fine_tune_csm/thumbnail.jpg
+  authors:
+    - user: eustlb
+    - user: reach-vb
+    - user: Steveeeeeeen
+  date: TBD
+  tags:
+    - csm
+    - conversational
+    - audio
+    - speech
+    - text-to-speech
+    - llm
+    - fine-tuning
