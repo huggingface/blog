@@ -20,11 +20,13 @@ If you head over to [Azure AI Foundry](https://ai.azure.com) today, you will fin
 With now close to 2 million open models on Hugging Face, covering a wide diversity of tasks, modalities, domains and languages, it was time to take our partnership to the next level. The new partnership announced today creates a commercial framework for mutual success to vastly expand how Azure customers can use Hugging Face, and drive usage.
 
 > This partnership is a reflection of our deep commitment to open-source AI. Hugging Face has emerged as the “GitHub of AI,” hosting millions of open models and serving as the default launchpad for open-source AI innovation. By combining Hugging Face’s vibrant developer ecosystem with Azure’s enterprise-grade infrastructure, we’re enabling customers to innovate faster and more securely with the best models the community has to offer.”
+
 -- _Asha Sharma, Corporate Vice President at Microsoft_
 
 Making more open models easily accessible to Azure customers, for secure deployment alongside companies private data, will enable enterprises to build AI applications and agents while being fully in control of their technology and data.
 
 > We’re enabling companies to take control of their AI destiny, deploying the best open models securely within their Azure account, to build AI applications they can trust and verify.
+
 -- _Clement Delangue, CEO and cofounder at Hugging Face_
 
 ## How to use Hugging Face in Azure AI Foundry
