@@ -1,6 +1,6 @@
 ---
 title: "Microsoft and Hugging Face expand collaboration" 
-thumbnail: /blog/assets/azure-ai-foundry/satya-hf-build.png
+thumbnail: /blog/assets/azure-ai-foundry/satya-hf-build-compressed.png
 authors:
 - user: jeffboudier
 - user: pagezyhf
@@ -10,6 +10,8 @@ authors:
 # Microsoft and Hugging Face expand collaboration to make open models easy to use on Azure
 
 Today at the Microsoft Build conference, Satya Nadella announced an expanded collaboration with Hugging Face, to make its wide diversity of open models easy to deploy on Azure secure infrastructure.
+
+<img src="https://huggingface.co/blog/assets/azure-ai-foundry/satya-hf-build-compressed.png" alt="Satya Nadella announcing an expanded collaboration with Hugging Face at Microsoft Build">
 
 If you head over to [Azure AI Foundry](https://ai.azure.com) today, you will find a vastly expanded collection of 10,000+ Hugging Face models you can deploy in a couple clicks to power AI applications working with text, audio and images. And we’re just getting started!
 
