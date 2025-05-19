@@ -1,6 +1,6 @@
 ---
 title: "Microsoft and Hugging Face expand partnership to make open models easy to use on Azure" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+thumbnail: /blog/assets/azure-ai-foundry/azure-ai-foundry.png
 authors:
 - user: jeffboudier
 - user: pagezyhf
