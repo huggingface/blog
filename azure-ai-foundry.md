@@ -1,5 +1,5 @@
 ---
-title: "Microsoft and Hugging Face expand partnership to make open models easy to use on Azure" 
+title: "Microsoft and Hugging Face expand collaboration" 
 thumbnail: /blog/assets/azure-ai-foundry/azure-ai-foundry.png
 authors:
 - user: jeffboudier
