@@ -8,21 +8,42 @@ authors:
 - user: pcuenca
 - user: pagezyhf
 - user: merve
+- user: reach-vb
 date: 2025-03-28 
 ---
 
-# 🏎️ Learn the Hugging Face Kernel Hub in 5 Minutes
+# 🏎️ Enhance Your Models in 5 Minutes with the Hugging Face Kernel Hub
 
 **Boost your model performance with pre-optimized kernels, easily loaded from the Hub.**
 
 Today, we'll explore an exciting development from Hugging Face: the **Kernel Hub**! As ML practitioners, we know that maximizing performance often involves diving deep into optimized code, custom CUDA kernels, or complex build systems. The Kernel Hub simplifies this process dramatically!
 
-We'll cover the following topics:
+Below is a short example of how to use a kernel in your code.
+```python
+import torch
+
+from kernels import get_kernel
+
+# Download optimized kernels from the Hugging Face hub
+activation = get_kernel("kernels-community/activation")
+
+# Random tensor
+x = torch.randn((10, 10), dtype=torch.float16, device="cuda")
+
+# Run the kernel
+y = torch.empty_like(x)
+activation.gelu_fast(y, x)
+
+print(y)
+```
+
+In the next sections we'll cover the following topics:
 
 1.  **What is the Kernel Hub?** - Understanding the core concept.
 2.  **How to use the Kernel Hub** - A quick code example.
 3.  **Adding a Kernel to a Simple Model** - A practical integration using RMSNorm.
 4.  **Reviewing Performance Impact** - Benchmarking the RMSNorm difference.
+5.  **Real world use cases** - Examples of how the kernels library is being used in other projects.
 
 We'll introduce these concepts quickly – the core idea can be grasped in about 5 minutes (though experimenting and benchmarking might take a bit longer!).
 
@@ -34,6 +55,26 @@ The [Kernel Hub](https://huggingface.co/kernels-community) (👈 Check it out!) 
 Examples include advanced attention mechanisms (like [FlashAttention](https://huggingface.co/kernels-community/flash-attn) for dramatic speedups and memory savings). Custom [quantization kernels](https://huggingface.co/kernels-community/quantization) (enabling efficient computation with lower-precision data types like INT8 or INT4). Specialized kernels required for complex architectures like [Mixture of Experts (MoE) layers](https://huggingface.co/kernels-community/moe), which involve intricate routing and computation patterns. As well as [activation functions](https://huggingface.co/kernels-community/activation), and [normalization layers (like LayerNorm or RMSNorm)](https://huggingface.co/kernels-community/triton-layer-norm).
 
 Instead of manually managing complex dependencies, wrestling with compilation flags, or building libraries like Triton or CUTLASS from source, you can use the `kernels` library to instantly fetch and run pre-compiled, optimized kernels.
+
+For example, to enable **FlashAttention** you need just one line—no builds, no flags:
+
+```python
+from kernels import get_kernel
+
+flash_attention = get_kernel("kernels-community/flash-attn")
+```
+
+`kernels` detects your exact Python, PyTorch, and CUDA versions, then downloads the matching pre‑compiled binary—typically in seconds (or a minute or two on a slow connection).
+
+By contrast, compiling FlashAttention yourself requires:
+
+* Cloning the repository and installing every dependency.
+* Configuring build flags and environment variables.
+* Reserving **\~96 GB of RAM** and plenty of CPU cores.
+* Waiting **10 minutes to several hours**, depending on your hardware.
+  (See the project’s own [installation guide](https://github.com/Dao-AILab/flash-attention#installation) for details.)
+
+Kernel Hub erases all that friction: one function call, instant acceleration.
 
 ### Benefits of the Kernel Hub:
 
@@ -495,6 +536,14 @@ Actual results will depend on your hardware and the specific kernel implementati
 | 16384      | 18.6992            | 9.8805           | 1.89x   |
 | 32768      | 37.079             | 19.9461          | 1.86x   |
 | 65536      | 73.588             | 39.593           | 1.86x   |
+
+
+## 5. Real World Use Cases
+
+The `kernels` library is still growing but is already being used in various real work projects, including:
+- [Text Generation Inference](https://github.com/huggingface/text-generation-inference/blob/d658b5def3fe6c32b09b4ffe36f770ba2aa959b4/server/text_generation_server/layers/marlin/fp8.py#L15): The TGI project uses the `kernels` library to load optimized kernels for text generation tasks, improving performance and efficiency.
+- [Transformers](https://github.com/huggingface/transformers/blob/6f9da7649f2b23b22543424140ce2421fccff8af/src/transformers/integrations/hub_kernels.py#L32): The Transformers library has integrated the `kernels` library to use drop in optimized layers without requiring any changes to the model code. This allows users to easily switch between standard and optimized implementations.
+
 
 ## Get Started and Next Steps!
 
