@@ -33,7 +33,7 @@ Making more open models easily accessible to Azure customers, for secure deploym
 
 Let’s head over to Azure AI Foundry, and select the Model Catalog. Here you can now find over 10,000 models under the Hugging Face Collection.
 
-
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/azure-ai-foundry/azure-ai-foundry-collection.png" alt="The Hugging Face Collection in the Model Catalog within Azure AI Foundry">
 
 These are the most popular, trending models on Hugging Face for a wide range of tasks to work with text, audio and images - including text generation, feature extraction, fill-mask, translation, identifying sentence similarity, image classification, image segmentation, text to image generation, image to text conversion, automatic speech recognition and audio-classification.
 
@@ -48,10 +48,11 @@ Now let’s say you want to deploy for instance the popular [Microsoft Phi-4 Rea
 
 First, let’s select the model in the Hugging Face Collection in Azure AI Foundry, and click the “Deploy button”. The form allows you to select a VM, instance count and deployment parameters, and start the deployment process with just another click!
 
-
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/azure-ai-foundry/azure-ai-foundry-deploy.png" alt="A form to deploy a Hugging Face model in Azure AI Foundry">
 
 Now, if you prefer browsing models on the Hub, you can also start from the model page - the “Deploy on Azure ML” option will take you to the same deployment option within Azure AI Machine Learning Studio. 
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/azure-ai-foundry/huggingface-hub-deploy-azure.png" alt="A menu to deploy a model to Azure ML from a Hugging Face model page">
 
 ## More Hugging Face to come in Azure AI Foundry
 
