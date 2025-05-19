@@ -15,7 +15,7 @@ authors:
 	src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"
 ></script>
 
-Large diffusion models like Flux can create stunning images, but their size can be a hurdle, demanding significant memory and compute resources. Quantization offers a powerful solution, shrinking these models to make them more accessible without drastically compromising performance. But the big question always is: can you actually tell the difference in the final image?
+Large diffusion models like Flux (a flow-based text-to-image generation model) can create stunning images, but their size can be a hurdle, demanding significant memory and compute resources. Quantization offers a powerful solution, shrinking these models to make them more accessible without drastically compromising performance. But the big question always is: can you actually tell the difference in the final image?
 
 Before we dive into the technical details of how various quantization backends in Hugging Face Diffusers work, why not test your own perception?
 
@@ -33,12 +33,12 @@ Now, let's dive deeper.
 
 ## Quantization Backends in Diffusers
 
-Building on our previous post, "[Memory-efficient Diffusion Transformers with Quanto and Diffusers](https://huggingface.co/blog/quanto-diffusers)", this post explores the diverse quantization backends integrated directly into Hugging Face Diffusers. We'll examine how bitsandbytes, GGUF, torchao, and native FP8 support make large and powerful models more accessible, demonstrating their use with Flux (a flow-based text-to-image generation model).
+Building on our previous post, "[Memory-efficient Diffusion Transformers with Quanto and Diffusers](https://huggingface.co/blog/quanto-diffusers)", this post explores the diverse quantization backends integrated directly into Hugging Face Diffusers. We'll examine how bitsandbytes, GGUF, torchao, and native FP8 support make large and powerful models more accessible, demonstrating their use with Flux.
 
 Before diving into the quantization backends, let's introduce the FluxPipeline and its components, which we'll be quantizing:
 
 *   **Text Encoders (CLIP and T5):**
-    *   **Function:** Process input text prompts. FLUX.1-dev uses CLIP for initial understanding and a larger T5 for nuanced comprehension and better text rendering.
+    *   **Function:** Process input text prompts. FLUX-dev uses CLIP for initial understanding and a larger T5 for nuanced comprehension and better text rendering.
     *   **Memory:** T5 - 9.52 GB; CLIP - 246 MB (in BF16)
 *   **Transformer (Main Model - MMDiT):**
     *   **Function:** Core generative part (Multimodal Diffusion Transformer). Generates images in latent space from text embeddings. 
@@ -247,7 +247,7 @@ pipeline_quant_config = PipelineQuantizationConfig(
 )
 ```
 
-> **Note:** At the time of writing, for float8 support with Quanto, you'll need `optimum-quanto<0.2.5` and use quanto directly.
+> **Note:** At the time of writing, for float8 support with Quanto, you'll need `optimum-quanto<0.2.5` and use quanto directly. We will be working on fixing this.
 <details>
 <summary>Example (Flux-dev with quanto FP8 weight-only)</summary>
 
