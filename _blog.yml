@@ -6005,3 +6005,13 @@
     - community
     - announcement
     - transformers
+
+- local: azure-ai-foundry
+  title: "Microsoft and Hugging Face expand partnership"
+  author: jeffboudier
+  thumbnail: /blog/assets/azure-ai-foundry/azure-ai-foundry.png
+  date: May 19, 2025
+  tags:
+    - partnership
+    - announcement
+    - azure
