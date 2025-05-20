@@ -18,9 +18,13 @@ TL; DR
 
 ## Introduction & Motivation
 
-RLHF (Reinforcement Learning from Human Feedback) has been an effective way to get models to behave the way we want them to in real-world scenarios. Traditionally, though, doing RLHF has meant juggling a bunch of different models, i.e., an actor, critic, reward model, and reference model, all working together to “teach” the main model how to act. But this setup comes with the overhead of building and maintaining a pretty complex infrastructure to keep everything running smoothly and make sure all the data flows between them properly.
+Fine-tuning language models using reinforcement learning (RL) is a crucial step in a model's training lifecycle for steering models towards desirable behaviours which are more complex than can be achieved through typical supervised fine-tuning. Traditional RL applications have used Reinforcement Learning from Human Feedback (RLHF) with the Proximal Policy Optimization (PPO) algorithm, which uses a separately trained reward model to steer the behaviour of our model which is being fine-tuned. 
 
-More recently, DeepSeek’s R1 helped popularize GRPO, which simplifies things quite a bit without losing performance. GRPO gets rid of the critic model and instead uses the average reward of sampled outputs produced in response to the same prompt as the baseline. The following diagram shows GRPO vs PPO training pipeline (ref: [DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models](https://huggingface.co/papers/2402.03300)):
+However, RLHF with PPO is a very resource-hungry approach - PPO requires loading multiple models in memory (policy, value, reward, and reference models), and also requires several iterations of fine-tuning reward and base models to achieve the desired results. The success of RLHF also depends on the capability of the reward model to effectively discriminate between desired and un-desired behaviour from our model.
+
+Group Relative Policy Optimization (GRPO) has seen significant recent popularity alongside DeepSeek's R1 model. GRPO eschews the pre-trained reward model and value models used in RLHF and instead relies on *verifiable reward functions* which can check the correctness of a model's output in a closed-form manner without needing an external reward model. This has resulted in massive improvements when using GRPO instead of PPO for fine-tuning on domains which are easily verifiable, such as teaching a model to reason, and perform well on math and coding tasks. 
+
+The following diagram shows GRPO vs PPO training pipeline (ref: [DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models](https://huggingface.co/papers/2402.03300)):
 
 ![PPO-vs-GRPO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image5.png)
 
