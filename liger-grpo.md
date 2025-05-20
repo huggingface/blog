@@ -40,7 +40,7 @@ That said, RL training still eats up a ton of GPU memory, so there's still plent
 
 We extended the Liger Chunked Loss approach to the GRPO Loss, which lets us avoid having to store the full logits in memory for every training step. The calculation of logits, which involves the model's output head, is a significant contributor to peak memory usage, especially when dealing with large vocabularies, long sequence lengths, or large batch sizes. We address this by chunking the input to the `lm_head` across the batch and running the forward pass one chunk at a time.
 
-But if you just implement it in a straightforward way, you won't actually be able to reduce the peak memory since you'd still need to keep all the logits in GPU memory for the backward pass. To get around that, we calculate the gradients for each loss chunk (with respect to the `input` chunk and the `lm_head` weight`) during the forward pass, and then accumulate them as we go through each chunk.
+But if you just implement it in a straightforward way, you won't actually be able to reduce the peak memory since you'd still need to keep all the logits in GPU memory for the backward pass. To get around that, we calculate the gradients for each loss chunk (with respect to the `input` chunk and the `lm_head` weight) during the forward pass, and then accumulate them as we go through each chunk.
 
 Here's the visualization of the optimization (ref: [Byron Hsu](https://x.com/hsu_byron/status/1866577403918917655)):
 
