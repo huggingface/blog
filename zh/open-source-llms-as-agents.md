@@ -294,4 +294,4 @@ agent_executor.invoke(
 **结语:**
 
 - 虽然 GAIA 基准测试仅在一小部分问题和少数工具上进行了尝试，但它似乎是智能体工作流程整体模型性能的一个非常强大的指标，因为它通常涉及多个推理步骤和严格的逻辑。
-- 智能体工作流程使 LLMs 能够提升性能: 例如，在 GSM8K 上，[GPT-4 的技术报告](https://arxiv.org/pdf/2303.08774.pdf) 显示，使用 5 次 CoT 提示的情况下得分为 92%: 通过提供一个计算器，我们能够在零次提示的情况下达到 95%。对于 Mixtral-8x7B，[LLM 排行榜](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) 报告了使用 5 次提示的情况下为 57.6%，而我们在零次提示的情况下达到了 73%。 _(记住，我们仅测试了 GSM8K 的 20 个问题)_
+- 智能体工作流程使 LLMs 能够提升性能: 例如，在 GSM8K 上，[GPT-4 的技术报告](https://huggingface.co/papers/2303.08774) 显示，使用 5 次 CoT 提示的情况下得分为 92%: 通过提供一个计算器，我们能够在零次提示的情况下达到 95%。对于 Mixtral-8x7B，[LLM 排行榜](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) 报告了使用 5 次提示的情况下为 57.6%，而我们在零次提示的情况下达到了 73%。 _(记住，我们仅测试了 GSM8K 的 20 个问题)_

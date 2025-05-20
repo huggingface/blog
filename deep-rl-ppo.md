@@ -116,7 +116,7 @@ So this probability ratio is an **easy way to estimate the divergence between ol
 This ratio **can replace the log probability we use in the policy objective function**. This gives us the left part of the new objective function: multiplying the ratio by the advantage.
 <figure class="image table text-center m-0 w-full">
   <img src="assets/93_deep_rl_ppo/unclipped2.jpg" alt="PPO"/>
-  <figcaption><a href="https://arxiv.org/pdf/1707.06347.pdf">Proximal Policy Optimization Algorithms</a></figcaption>
+  <figcaption><a href="https://huggingface.co/papers/1707.06347">Proximal Policy Optimization Algorithms</a></figcaption>
 </figure>
 
 However, without a constraint, if the action taken is much more probable in our current policy than in our former, **this would lead to a significant policy gradient step** and, therefore, an **excessive policy update.**

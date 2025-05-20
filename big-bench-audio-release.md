@@ -14,7 +14,7 @@ authors:
 
 The emergence of native Speech to Speech models offers exciting opportunities to increase voice agent capabilities and simplify speech-enabled workflows. However, it's crucial to evaluate whether this simplification comes at the cost of model performance or introduces other trade-offs.
 
-To support analysis of this, Artificial Analysis is releasing **[Big Bench Audio](https://huggingface.co/datasets/ArtificialAnalysis/big_bench_audio)**, a new evaluation dataset for assessing the reasoning capabilities of audio language models. This dataset adapts questions from **[Big Bench Hard](https://arxiv.org/pdf/2210.09261)** - chosen for its rigorous testing of advanced reasoning - into the audio domain.
+To support analysis of this, Artificial Analysis is releasing **[Big Bench Audio](https://huggingface.co/datasets/ArtificialAnalysis/big_bench_audio)**, a new evaluation dataset for assessing the reasoning capabilities of audio language models. This dataset adapts questions from **[Big Bench Hard](https://huggingface.co/papers/2210.09261)** - chosen for its rigorous testing of advanced reasoning - into the audio domain.
 
 This post introduces the Big Bench Audio dataset alongside initial benchmark results for GPT-4o and Gemini 1.5 series models. Our analysis examines these models across multiple modalities: native Speech to Speech, Speech to Text, Text to Speech and Text to Text. We present a summary of results below, and on the new Speech to Speech page on the [**Artificial Analysis** website](https://artificialanalysis.ai/models/speech-to-speech). Our initial results show a significant "speech reasoning gap": while GPT-4o achieves 92% accuracy on a text-only version of the dataset, its Speech to Speech performance drops to 66%.
 

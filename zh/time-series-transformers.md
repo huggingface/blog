@@ -35,7 +35,7 @@ translators:
 
 正如人们所想象的那样，在对本来就连续的时间序列数据建模方面，研究人员提出了使用循环神经网络 (RNN) (如 LSTM 或 GRU) 或卷积网络 (CNN) 的模型，或利用最近兴起的基于 Transformer 的训练方法，都很自然地适合时间序列预测场景。
 
-在这篇博文中，我们将利用传统 vanilla Transformer (参考 [(Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762)) 进行单变量概率预测 (**univariate** probabilistic forecasting) 任务 (即预测每个时间序列的一维分布)。由于 Encoder-Decoder Transformer 很好地封装了几个归纳偏差，所以它成为了我们预测的自然选择。
+在这篇博文中，我们将利用传统 vanilla Transformer (参考 [(Vaswani et al., 2017)](https://huggingface.co/papers/1706.03762)) 进行单变量概率预测 (**univariate** probabilistic forecasting) 任务 (即预测每个时间序列的一维分布)。由于 Encoder-Decoder Transformer 很好地封装了几个归纳偏差，所以它成为了我们预测的自然选择。
 
 首先，使用 Encoder-Decoder 架构在推理时很有帮助。通常对于一些记录的数据，我们希望提前预知未来的一些预测步骤。可以认为这个过程类似于文本生成任务，即给定上下文，采样下一个词元 (token) 并将其传回解码器 (也称为“自回归生成”) 。类似地，我们也可以在给定某种分布类型的情况下，从中抽样以提供预测，直到我们期望的预测范围。这被称为贪婪采样 (Greedy Sampling)/搜索，[此处](https://huggingface.co/blog/zh/how-to-generate) 有一篇关于 NLP 场景预测的精彩博文。
 
@@ -43,7 +43,7 @@ translators:
 
 Transformers 相对于其他架构的另一个好处是，我们可以将缺失值 (这在时间序列场景中很常见) 作为编码器或解码器的额外掩蔽值 (mask)，并且仍然可以在不诉诸于填充或插补的情况下进行训练。这相当于 Transformers 库中 BERT 和 GPT-2 等模型的 `attention_mask`，在注意力矩阵 (attention matrix) 的计算中不包括填充词元。
 
-由于传统 vanilla Transformer 的平方运算和内存要求，Transformer 架构的一个缺点是上下文和预测窗口的大小受到限制。关于这一点，可以参阅 [Tay et al., 2020](https://arxiv.org/abs/2009.06732)。此外，由于 Transformer 是一种强大的架构，与 [其他方法](https://openreview.net/pdf?id=D7YBmfX_VQy) 相比，它可能会过拟合或更容易学习虚假相关性。
+由于传统 vanilla Transformer 的平方运算和内存要求，Transformer 架构的一个缺点是上下文和预测窗口的大小受到限制。关于这一点，可以参阅 [Tay et al., 2020](https://huggingface.co/papers/2009.06732)。此外，由于 Transformer 是一种强大的架构，与 [其他方法](https://openreview.net/pdf?id=D7YBmfX_VQy) 相比，它可能会过拟合或更容易学习虚假相关性。
 
 🤗 Transformers 库带有一个普通的概率时间序列 Transformer 模型，简称为 [Time Series Transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer)。在这篇文章后面的内容中，我们将展示如何在自定义数据集上训练此类模型。
 
@@ -858,4 +858,4 @@ plot(334)
 
 当前的模型会假设日期时间和时间序列值都存在，但在现实中这可能不能完全满足。例如 [WOODS](https://woods-benchmarks.github.io/) 给出的神经科学数据集。因此，我们还需要对当前模型进行泛化，使某些输入在整个流水线中可选。
 
-最后，NLP/CV 领域从 [大型预训练模型](https://arxiv.org/abs/1810.04805) 中获益匪浅，但据我们所知，时间序列领域并非如此。基于 Transformer 的模型似乎是这一研究方向的必然之选，我们迫不及待地想看看研究人员和从业者会发现哪些突破！
+最后，NLP/CV 领域从 [大型预训练模型](https://huggingface.co/papers/1810.04805) 中获益匪浅，但据我们所知，时间序列领域并非如此。基于 Transformer 的模型似乎是这一研究方向的必然之选，我们迫不及待地想看看研究人员和从业者会发现哪些突破！

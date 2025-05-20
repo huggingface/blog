@@ -45,7 +45,7 @@ MoEs:
 - Are **pretrained much faster** vs. dense models
 - Have **faster inference** compared to a model with the same number of parameters
 - Require **high VRAM** as all experts are loaded in memory
-- Face many **challenges in fine-tuning**, but [recent work](https://arxiv.org/pdf/2305.14705.pdf) with MoE **instruction-tuning is promising**
+- Face many **challenges in fine-tuning**, but [recent work](https://huggingface.co/papers/2305.14705) with MoE **instruction-tuning is promising**
 
 
 Let’s dive in!
@@ -64,7 +64,7 @@ So, what exactly is a MoE? In the context of transformer models, a MoE consists 
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/00_switch_transformer.png" alt="Switch Layer">
-  <figcaption>MoE layer from the [Switch Transformers paper](https://arxiv.org/abs/2101.03961)</figcaption>
+  <figcaption>MoE layer from the [Switch Transformers paper](https://huggingface.co/papers/2101.03961)</figcaption>
 </figure>
 
 So, to recap, in MoEs we replace every FFN layer of the transformer model with an MoE layer, which is composed of a gate network and a certain number of experts.
@@ -82,10 +82,10 @@ The roots of MoEs come from the 1991 paper [Adaptive Mixture of Local Experts](h
 
 Between 2010-2015, two different research areas contributed to later MoE advancement:
 
-- **Experts as components**: In the traditional MoE setup, the whole system comprises a gating network and multiple experts. MoEs as the whole model have been explored in SVMs, Gaussian Processes, and other methods. The work by [Eigen, Ranzato, and Ilya](https://arxiv.org/abs/1312.4314) explored MoEs as components of deeper networks. This allows having MoEs as layers in a multilayer network, making it possible for the model to be both large and efficient simultaneously.
+- **Experts as components**: In the traditional MoE setup, the whole system comprises a gating network and multiple experts. MoEs as the whole model have been explored in SVMs, Gaussian Processes, and other methods. The work by [Eigen, Ranzato, and Ilya](https://huggingface.co/papers/1312.4314) explored MoEs as components of deeper networks. This allows having MoEs as layers in a multilayer network, making it possible for the model to be both large and efficient simultaneously.
 - **Conditional Computation**: Traditional networks process all input data through every layer. In this period, Yoshua Bengio researched approaches to dynamically activate or deactivate components based on the input token.
 
-These works led to exploring a mixture of experts in the context of NLP. Concretely, [Shazeer et al.](https://arxiv.org/abs/1701.06538) (2017, with “et al.” including Geoffrey Hinton and Jeff Dean, [Google’s Chuck Norris](https://www.informatika.bg/jeffdean)) scaled this idea to a 137B LSTM (the de-facto NLP architecture back then, created by Schmidhuber) by introducing sparsity, allowing to keep very fast inference even at high scale. This work focused on translation but faced many challenges, such as high communication costs and training instabilities.
+These works led to exploring a mixture of experts in the context of NLP. Concretely, [Shazeer et al.](https://huggingface.co/papers/1701.06538) (2017, with “et al.” including Geoffrey Hinton and Jeff Dean, [Google’s Chuck Norris](https://www.informatika.bg/jeffdean)) scaled this idea to a 137B LSTM (the de-facto NLP architecture back then, created by Schmidhuber) by introducing sparsity, allowing to keep very fast inference even at high scale. This work focused on translation but faced many challenges, such as high communication costs and training instabilities.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/01_moe_layer.png" alt="MoE layer in LSTM">
@@ -148,7 +148,7 @@ As discussed before, if all our tokens are sent to just a few popular experts, t
 
 ## MoEs and Transformers
 
-Transformers are a very clear case that scaling up the number of parameters improves the performance, so it’s not surprising that Google explored this with [GShard](https://arxiv.org/abs/2006.16668), which explores scaling up transformers beyond 600 billion parameters.
+Transformers are a very clear case that scaling up the number of parameters improves the performance, so it’s not surprising that Google explored this with [GShard](https://huggingface.co/papers/2006.16668), which explores scaling up transformers beyond 600 billion parameters.
 
 GShard replaces every other FFN layer with an MoE layer using top-2 gating in both the encoder and the decoder. The next image shows how this looks like for the encoder part. This setup is quite beneficial for large-scale computing: when we scale to multiple devices, the MoE layer is shared across devices while all the other layers are replicated. This is further discussed in the [“Making MoEs go brrr”](#making-moes-go-brrr) section.
 
@@ -168,7 +168,7 @@ The GShard paper has contributions by expressing parallel computation patterns t
 
 ## Switch Transformers
 
-Although MoEs showed a lot of promise, they struggle with training and fine-tuning instabilities. [Switch Transformers](https://arxiv.org/abs/2101.03961) is a very exciting work that deep dives into these topics. The authors even released a [1.6 trillion parameters MoE on Hugging Face](https://huggingface.co/google/switch-c-2048) with 2048 experts, which you can run with transformers. Switch Transformers achieved a 4x pre-train speed-up over T5-XXL.
+Although MoEs showed a lot of promise, they struggle with training and fine-tuning instabilities. [Switch Transformers](https://huggingface.co/papers/2101.03961) is a very exciting work that deep dives into these topics. The authors even released a [1.6 trillion parameters MoE on Hugging Face](https://huggingface.co/google/switch-c-2048) with 2048 experts, which you can run with transformers. Switch Transformers achieved a 4x pre-train speed-up over T5-XXL.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/03_switch_layer.png" alt="Switch Transformer Layer">
@@ -204,13 +204,13 @@ The authors also experiment with selective precision, such as training the exper
 
 This [notebook](https://colab.research.google.com/drive/1aGGVHZmtKmcNBbAwa9hbu58DDpIuB5O4?usp=sharing) showcases fine-tuning Switch Transformers for summarization, but we suggest first reviewing the [fine-tuning section](#fine-tuning-moes).
 
-Switch Transformers uses an encoder-decoder setup in which they did a MoE counterpart of T5. The [GLaM](https://arxiv.org/abs/2112.06905) paper explores pushing up the scale of these models by training a model matching GPT-3 quality using 1/3 of the energy (yes, thanks to the lower amount of computing needed to train a MoE, they can reduce the carbon footprint by up to an order of magnitude). The authors focused on decoder-only models and few-shot and one-shot evaluation rather than fine-tuning. They used Top-2 routing and much larger capacity factors. In addition, they explored the capacity factor as a metric one can change during training and evaluation depending on how much computing one wants to use. 
+Switch Transformers uses an encoder-decoder setup in which they did a MoE counterpart of T5. The [GLaM](https://huggingface.co/papers/2112.06905) paper explores pushing up the scale of these models by training a model matching GPT-3 quality using 1/3 of the energy (yes, thanks to the lower amount of computing needed to train a MoE, they can reduce the carbon footprint by up to an order of magnitude). The authors focused on decoder-only models and few-shot and one-shot evaluation rather than fine-tuning. They used Top-2 routing and much larger capacity factors. In addition, they explored the capacity factor as a metric one can change during training and evaluation depending on how much computing one wants to use. 
 
 ## Stabilizing training with router Z-loss
 
 The balancing loss previously discussed can lead to instability issues. We can use many methods to stabilize sparse models at the expense of quality. For example, introducing dropout improves stability but leads to loss of model quality. On the other hand, adding more multiplicative components improves quality but decreases stability.
 
-Router z-loss, introduced in [ST-MoE](https://arxiv.org/abs/2202.08906), significantly improves training stability without quality degradation by penalizing large logits entering the gating network. Since this loss encourages absolute magnitude of values to be smaller, roundoff errors are reduced, which can be quite impactful for exponential functions such as the gating. We recommend reviewing the paper for details.
+Router z-loss, introduced in [ST-MoE](https://huggingface.co/papers/2202.08906), significantly improves training stability without quality degradation by penalizing large logits entering the gating network. Since this loss encourages absolute magnitude of values to be smaller, roundoff errors are reduced, which can be quite impactful for exponential functions such as the gating. We recommend reviewing the paper for details.
 
 ## What does an expert learn?
 
@@ -255,7 +255,7 @@ One last part to consider when fine-tuning sparse MoEs is that they have differe
   <figcaption>Sparse models fine-tuned quality improves with higher learning rates and smaller batch sizes. This image is from the ST-MoE paper.</figcaption>
 </figure>
 
-At this point, you might be a bit sad that people have struggled to fine-tune MoEs. Excitingly, a recent paper, [MoEs Meets Instruction Tuning](https://arxiv.org/pdf/2305.14705.pdf) (July 2023), performs experiments doing:
+At this point, you might be a bit sad that people have struggled to fine-tune MoEs. Excitingly, a recent paper, [MoEs Meets Instruction Tuning](https://huggingface.co/papers/2305.14705) (July 2023), performs experiments doing:
 
 - Single task fine-tuning
 - Multi-task instruction-tuning
@@ -316,7 +316,7 @@ Megablocks (Nov 2022) explores efficient sparse pretraining by providing new GPU
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/11_expert_matmuls.png" alt="Matrix multiplication optimized for block-sparse operations.">
-  <figcaption>Block-sparse matrix multiplication for differently sized experts and number of tokens (from [MegaBlocks](https://arxiv.org/abs/2211.15841)).</figcaption>
+  <figcaption>Block-sparse matrix multiplication for differently sized experts and number of tokens (from [MegaBlocks](https://huggingface.co/papers/2211.15841)).</figcaption>
 </figure>
 
 ## Open Source MoEs
@@ -338,7 +338,7 @@ In the realm of released open access MoEs, you can check:
 
 Further experiments on **distilling** a sparse MoE back to a dense model with less parameters but similar number of parameters.
 
-Another area will be quantization of MoEs. [QMoE](https://arxiv.org/abs/2310.16795) (Oct. 2023) is a good step in this direction by quantizing the MoEs to less than 1 bit per parameter, hence compressing the 1.6T Switch Transformer which uses 3.2TB accelerator to just 160GB. 
+Another area will be quantization of MoEs. [QMoE](https://huggingface.co/papers/2310.16795) (Oct. 2023) is a good step in this direction by quantizing the MoEs to less than 1 bit per parameter, hence compressing the 1.6T Switch Transformer which uses 3.2TB accelerator to just 160GB. 
 
 So, TL;DR, some interesting areas to explore:
 
@@ -349,15 +349,15 @@ So, TL;DR, some interesting areas to explore:
 ## Some resources
 
 - [Adaptive Mixture of Local Experts (1991)](https://www.cs.toronto.edu/~hinton/absps/jjnh91.pdf)
-- [Learning Factored Representations in a Deep Mixture of Experts (2013)](https://arxiv.org/abs/1312.4314)
-- [Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer (2017)](https://arxiv.org/abs/1701.06538)
-- [GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding (Jun 2020)](https://arxiv.org/abs/2006.16668)
-- [GLaM: Efficient Scaling of Language Models with Mixture-of-Experts (Dec 2021)](https://arxiv.org/abs/2112.06905)
-- [Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity (Jan 2022)](https://arxiv.org/abs/2101.03961)
-- [ST-MoE: Designing Stable and Transferable Sparse Expert Models (Feb 2022)](https://arxiv.org/abs/2202.08906)
+- [Learning Factored Representations in a Deep Mixture of Experts (2013)](https://huggingface.co/papers/1312.4314)
+- [Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer (2017)](https://huggingface.co/papers/1701.06538)
+- [GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding (Jun 2020)](https://huggingface.co/papers/2006.16668)
+- [GLaM: Efficient Scaling of Language Models with Mixture-of-Experts (Dec 2021)](https://huggingface.co/papers/2112.06905)
+- [Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity (Jan 2022)](https://huggingface.co/papers/2101.03961)
+- [ST-MoE: Designing Stable and Transferable Sparse Expert Models (Feb 2022)](https://huggingface.co/papers/2202.08906)
 - [FasterMoE: modeling and optimizing training of large-scale dynamic pre-trained models(April 2022)](https://dl.acm.org/doi/10.1145/3503221.3508418)
-- [MegaBlocks: Efficient Sparse Training with Mixture-of-Experts (Nov 2022)](https://arxiv.org/abs/2211.15841)
-- [Mixture-of-Experts Meets Instruction Tuning:A Winning Combination for Large Language Models (May 2023)](https://arxiv.org/abs/2305.14705)
+- [MegaBlocks: Efficient Sparse Training with Mixture-of-Experts (Nov 2022)](https://huggingface.co/papers/2211.15841)
+- [Mixture-of-Experts Meets Instruction Tuning:A Winning Combination for Large Language Models (May 2023)](https://huggingface.co/papers/2305.14705)
 - [Mixtral-8x7B-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-v0.1), [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1).
 
 

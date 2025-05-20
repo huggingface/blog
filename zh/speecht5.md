@@ -12,7 +12,7 @@ translators:
 
 我们很高兴地宣布，SpeechT5 现在可用于 🤗 Transformers (一个开源库，提供最前沿的机器学习模型实现的开源库)。
 
-SpeechT5 最初见于微软亚洲研究院的这篇论文 [SpeechT5: Unified-Modal Encoder-Decoder Pre-Training for Spoken Language Processing](https://arxiv.org/abs/2110.07205)。论文作者发布的 [官方检查点](https://github.com/microsoft/SpeechT5) 可在 Hugging Face Hub 上找到。
+SpeechT5 最初见于微软亚洲研究院的这篇论文 [SpeechT5: Unified-Modal Encoder-Decoder Pre-Training for Spoken Language Processing](https://huggingface.co/papers/2110.07205)。论文作者发布的 [官方检查点](https://github.com/microsoft/SpeechT5) 可在 Hugging Face Hub 上找到。
 
 如果您想直接尝试，这里有一些在 Spaces 上的演示:
 
@@ -36,7 +36,7 @@ SpeechT5 的核心是一个常规的 **Transformer 编码器 - 解码器** 模�
 
 为了使同一个 Transformer 可以同时处理文本和语音数据，添加了所谓的 **pre-nets** 和 **post-nets**。per-nets 的工作是将输入文本或语音转换为 Transformer 使用的隐藏表示。post-nets 从 Transformer 获取输出并将它们再次转换为文本或语音。
 
-下图展示了 SpeechT5 的架构 (摘自 [原始论文](https://arxiv.org/abs/2110.07205))。
+下图展示了 SpeechT5 的架构 (摘自 [原始论文](https://huggingface.co/papers/2110.07205))。
 
 <div align="center">
     <img alt="SpeechT5 architecture diagram" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/architecture.jpg"/>

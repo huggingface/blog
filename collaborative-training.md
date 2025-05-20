@@ -16,7 +16,7 @@ With the additional help of Quentin Lhoest and Sylvain Lesage.
 
 Modern language models often require a significant amount of compute for pretraining, making it impossible to obtain them without access to tens and hundreds of GPUs or TPUs. Though in theory it might be possible to combine the resources of multiple individuals, in practice, such distributed training methods have previously seen limited success because connection speeds over the Internet are way slower than in high-performance GPU supercomputers.
 
-In this blog post, we describe [DeDLOC](https://arxiv.org/abs/2106.10207) — a new method for collaborative distributed training that can adapt itself to the network and hardware constraints of participants. We show that it can be successfully applied in real-world scenarios by pretraining [sahajBERT](https://huggingface.co/neuropark/sahajBERT), a model for the Bengali language, with 40 volunteers. On downstream tasks in Bengali, this model achieves nearly state-of-the-art quality with results comparable to much larger models that used hundreds of high-tier accelerators.
+In this blog post, we describe [DeDLOC](https://huggingface.co/papers/2106.10207) — a new method for collaborative distributed training that can adapt itself to the network and hardware constraints of participants. We show that it can be successfully applied in real-world scenarios by pretraining [sahajBERT](https://huggingface.co/neuropark/sahajBERT), a model for the Bengali language, with 40 volunteers. On downstream tasks in Bengali, this model achieves nearly state-of-the-art quality with results comparable to much larger models that used hundreds of high-tier accelerators.
 
 <div class="aspect-w-16 aspect-h-9">
 <iframe 
@@ -38,7 +38,7 @@ However, there might be a way out of this situation: to come up with a solution,
 
 To a skeptical mind, it might seem that we're missing a key factor here: data transfer in distributed DL is often a bottleneck, since we need to aggregate the gradients from multiple workers. Indeed, any naïve approach to distributed training over the Internet is bound to fail, as most participants don't have gigabit connections and might disconnect from the network at any time. So how on Earth can you train anything with a household data plan? :)
 
-As a solution to this problem, we propose a new training algorithm, called Distributed Deep Learning in Open Collaborations (or **DeDLOC**), which is described in detail in our recently released [preprint](https://arxiv.org/abs/2106.10207). Now, let’s find out what are the core ideas behind this algorithm!
+As a solution to this problem, we propose a new training algorithm, called Distributed Deep Learning in Open Collaborations (or **DeDLOC**), which is described in detail in our recently released [preprint](https://huggingface.co/papers/2106.10207). Now, let’s find out what are the core ideas behind this algorithm!
 
 ### Training with volunteers
 
@@ -97,7 +97,7 @@ For our experiment, we chose ALBERT _(A Lite BERT)_ — a model for language rep
 <div style="line-height:105%;border:1px solid #F5F5F5;background-color:#F5F5F5;color: black">
 <p align="center">
 💡 Want to know more about ALBERT?<br>
-<a href="https://arxiv.org/abs/1909.11942">Paper</a><br>
+<a href="https://huggingface.co/papers/1909.11942">Paper</a><br>
 <a href="https://huggingface.co/transformers/model_doc/albert.html#albert"
 	>Transformers doc</a
 >
@@ -201,7 +201,7 @@ Evaluation metrics of fine-tuned models on the NER task from different checkpoin
 </p>
 </div>
 
-At the end of training, we compared sahajBERT with three other pretrained language models: [XLM-R Large](https://arxiv.org/abs/1911.02116), [IndicBert](https://aclanthology.org/2020.findings-emnlp.445/), and [bnRoBERTa](https://huggingface.co/neuralspace-reverie/indic-transformers-bn-roberta). In the table below, you can see that our model has results comparable to the best Bengali language models available on HF Hub, even though our model has only ~18M trained parameters, while, for instance, XLM-R (a strong multilingual baseline), has ~559M parameters and was trained on several hundred V100 GPUs.
+At the end of training, we compared sahajBERT with three other pretrained language models: [XLM-R Large](https://huggingface.co/papers/1911.02116), [IndicBert](https://aclanthology.org/2020.findings-emnlp.445/), and [bnRoBERTa](https://huggingface.co/neuralspace-reverie/indic-transformers-bn-roberta). In the table below, you can see that our model has results comparable to the best Bengali language models available on HF Hub, even though our model has only ~18M trained parameters, while, for instance, XLM-R (a strong multilingual baseline), has ~559M parameters and was trained on several hundred V100 GPUs.
 
 | Model       | NER F1 (mean ± std) | NCC Accuracy (mean ± std)           |
 |:-------------:|:-------------:|:-------------:|
@@ -276,6 +276,6 @@ Below, you can see all participants of the collaborative experiment:
 
 ## References
 
-"Distributed Deep Learning in Open Collaborations", [ArXiv](https://arxiv.org/abs/2106.10207)
+"Distributed Deep Learning in Open Collaborations", [ArXiv](https://huggingface.co/papers/2106.10207)
 
 Code for [sahajBERT experiments](https://github.com/yandex-research/DeDLOC/tree/main/sahajbert) in the DeDLOC repository.

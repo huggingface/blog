@@ -77,9 +77,9 @@ Text-to-video generation models have similar components as their text-to-image c
 
 The latest generation of video models shares a core feature where the denoising network processes 3D video tokens that capture both spatial and temporal information. The video encoder-decoder system, responsible for producing and decoding these tokens, employs both spatial and temporal compression. While decoding the latents typically demands the most memory, these models offer frame-by-frame decoding options to reduce memory usage.
 
-Text conditioning is incorporated through either joint attention (introduced in [Stable Diffusion 3](https://arxiv.org/abs/2403.03206)) or cross-attention. T5 has emerged as the preferred text encoder across most models, with HunYuan being an exception in its use of both CLIP-L and LLaMa 3.
+Text conditioning is incorporated through either joint attention (introduced in [Stable Diffusion 3](https://huggingface.co/papers/2403.03206)) or cross-attention. T5 has emerged as the preferred text encoder across most models, with HunYuan being an exception in its use of both CLIP-L and LLaMa 3.
 
-The denoising network itself builds on the DiT architecture developed by [William Peebles and Saining Xie](https://arxiv.org/abs/2212.09748), while incorporating various design elements from [PixArt](https://arxiv.org/abs/2310.00426).
+The denoising network itself builds on the DiT architecture developed by [William Peebles and Saining Xie](https://huggingface.co/papers/2212.09748), while incorporating various design elements from [PixArt](https://huggingface.co/papers/2310.00426).
 
 
 ## Video Generation with Diffusers
@@ -253,7 +253,7 @@ export_to_video(output, "output.mp4", fps=15)
 We can also apply optimizations during training. The two most well-known techniques applied to video models include:
 
 - **Timestep distillation**: This involves teaching the model to denoise the noisy latents faster in lesser amount of inference steps, in a recursive fashion. For example, if a model takes 32 steps to generate good videos, it can be augmented to try and predict the final outputs in only 16-steps, or 8-steps, or even 2-steps! This may be accompanied by loss in quality depending on how fewer steps are used. Some examples of timestep-distilled models include [Flux.1-Schnell](https://huggingface.co/black-forest-labs/FLUX.1-schnell/) and [FastHunyuan](https://huggingface.co/FastVideo/FastHunyuan).
-- **Guidance distillation**: [Classifier-Free Guidance](https://arxiv.org/abs/2207.12598) is a technique widely used in diffusion models that enhances generation quality. This, however, doubles the generation time because it involves two full forward passes through the models per inference step, followed by an interpolation step. By teaching models to predict the output of both forward passes and interpolation at the cost of one forward pass, this method can enable much faster generation. Some examples of guidance-distilled models include [HunyuanVideo](https://huggingface.co/docs/diffusers/main/api/pipelines/hunyuan_video) and [Flux.1-Dev](https://huggingface.co/black-forest-labs/FLUX.1-dev).
+- **Guidance distillation**: [Classifier-Free Guidance](https://huggingface.co/papers/2207.12598) is a technique widely used in diffusion models that enhances generation quality. This, however, doubles the generation time because it involves two full forward passes through the models per inference step, followed by an interpolation step. By teaching models to predict the output of both forward passes and interpolation at the cost of one forward pass, this method can enable much faster generation. Some examples of guidance-distilled models include [HunyuanVideo](https://huggingface.co/docs/diffusers/main/api/pipelines/hunyuan_video) and [Flux.1-Dev](https://huggingface.co/black-forest-labs/FLUX.1-dev).
 
 We refer the readers to [this guide](https://huggingface.co/docs/diffusers/main/en/using-diffusers/text-img2vid) for a detailed take on video generation and the current possibilities in Diffusers.
 

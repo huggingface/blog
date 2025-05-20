@@ -192,7 +192,7 @@ ShieldGemma 旨在检测对LLM的有害请求（根据指示的类别）以及 L
 ### 如何提示 ShieldGemma
 提示模式包含以下组件，按顺序排列：
 
-1. 前言，确立模型为政策专家，基于 [LLM-as-a-judge](https://arxiv.org/abs/2306.05685) 技术。  
+1. 前言，确立模型为政策专家，基于 [LLM-as-a-judge](https://huggingface.co/papers/2306.05685) 技术。  
 1. 用户提示，用 `<start_of_turn>` 和 `<end_of_turn>` 控制标记包裹。  
 1. 安全政策的枚举和描述。  
 1. 可选的模型响应，也用 `<start_of_turn>` 和 `<end_of_turn>` 控制标记包裹。  
@@ -289,7 +289,7 @@ print(score)  # 0.7310585379600525
 
 这些模型基于内部和外部数据集进行评估。内部数据集，简称 SG，分为提示和响应分类。评估结果基于 Optimal F1（左）/AU-PRC（右），分数越高越好。
 
-| 模型 | SG Prompt | [OpenAI Mod](https://github.com/openai/moderation-api-release) | [ToxicChat](https://arxiv.org/abs/2310.17389) | SG Response |
+| 模型 | SG Prompt | [OpenAI Mod](https://github.com/openai/moderation-api-release) | [ToxicChat](https://huggingface.co/papers/2310.17389) | SG Response |
 | :---- | :---- | :---- | :---- | :---- |
 | ShieldGemma (2B) | 0.825/0.887 | 0.812/0.887 | 0.704/0.778 | 0.743/0.802 |
 | ShieldGemma (9B) | 0.828/0.894 | 0.821/0.907 | 0.694/0.782 | 0.753/0.817 |

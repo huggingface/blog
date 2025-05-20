@@ -15,9 +15,9 @@ translators:
 
 # 开源医疗大模型排行榜: 健康领域大模型基准测试
 
-![Image source: https://arxiv.org/pdf/2311.05112.pdf](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/medical_llms.png?raw=true)
+![Image source: https://huggingface.co/papers/2311.05112](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/medical_llms.png?raw=true)
 
-多年来，大型语言模型 (LLMs) 已经发展成为一项具有巨大潜力，能够彻底改变医疗行业各个方面的开创性技术。这些模型，如 [GPT-3](https://arxiv.org/abs/2005.14165)，[GPT-4](https://arxiv.org/abs/2303.08774) 和 [Med-PaLM 2](https://arxiv.org/abs/2305.09617)，在理解和生成类人文本方面表现出了卓越的能力，使它们成为处理复杂医疗任务和改善病人护理的宝贵工具。它们在多种医疗应用中显示出巨大的前景，如医疗问答 (QA) 、对话系统和文本生成。此外，随着电子健康记录 (EHRs) 、医学文献和病人生成数据的指数级增长，LLMs 可以帮助医疗专业人员提取宝贵见解并做出明智的决策。
+多年来，大型语言模型 (LLMs) 已经发展成为一项具有巨大潜力，能够彻底改变医疗行业各个方面的开创性技术。这些模型，如 [GPT-3](https://huggingface.co/papers/2005.14165)，[GPT-4](https://huggingface.co/papers/2303.08774) 和 [Med-PaLM 2](https://huggingface.co/papers/2305.09617)，在理解和生成类人文本方面表现出了卓越的能力，使它们成为处理复杂医疗任务和改善病人护理的宝贵工具。它们在多种医疗应用中显示出巨大的前景，如医疗问答 (QA) 、对话系统和文本生成。此外，随着电子健康记录 (EHRs) 、医学文献和病人生成数据的指数级增长，LLMs 可以帮助医疗专业人员提取宝贵见解并做出明智的决策。
 
 然而，尽管大型语言模型 (LLMs) 在医疗领域具有巨大的潜力，但仍存在一些重要且具体的挑战需要解决。
 
@@ -25,7 +25,7 @@ translators:
 
 例如，当有人问 GPT-3 关于孕妇可以用什么药的问题时，GPT-3 错误地建议使用四环素，尽管它也正确地说明了四环素对胎儿有害，孕妇不应该用。如果真按照这个错误的建议去给孕妇用药，可能会害得孩子将来骨头长不好。
 
-![Image source: [https://arxiv.org/pdf/2311.05112.pdf](https://arxiv.org/abs/2307.15343)](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/gpt_medicaltest.png?raw=true)
+![Image source: [https://huggingface.co/papers/2311.05112](https://huggingface.co/papers/2307.15343)](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/gpt_medicaltest.png?raw=true)
 
 要想在医疗领域用好这种大型语言模型，就得根据医疗行业的特点来设计和基准测试这些模型。因为医疗数据和应用有其特殊的地方，得考虑到这些。而且，开发方法来评估这些用于医疗的模型不只是为了研究，而是因为它们在现实医疗工作中用错了可能会带来风险，所以这事儿实际上很重要。
 
@@ -42,7 +42,7 @@ translators:
 
 ### MedQA
 
-[MedQA](https://arxiv.org/abs/2009.13081) 数据集包含来自美国医学执照考试 (USMLE) 的多项选择题。它覆盖了广泛的医学知识，并包括 11,450 个训练集问题和 1,273 个测试集问题。每个问题有 4 或 5 个答案选项，该数据集旨在评估在美国获得医学执照所需的医学知识和推理技能。
+[MedQA](https://huggingface.co/papers/2009.13081) 数据集包含来自美国医学执照考试 (USMLE) 的多项选择题。它覆盖了广泛的医学知识，并包括 11,450 个训练集问题和 1,273 个测试集问题。每个问题有 4 或 5 个答案选项，该数据集旨在评估在美国获得医学执照所需的医学知识和推理技能。
 
 ![MedQA 问题](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/medqa.png?raw=true)
 
@@ -60,7 +60,7 @@ translators:
 
 ### MMLU 子集 (医学和生物学)
 
-[MMLU 基准](https://arxiv.org/abs/2009.03300) (测量大规模多任务语言理解) 包含来自各个领域多项选择题。对于开源医疗大模型排行榜，我们关注与医学知识最相关的子集:
+[MMLU 基准](https://huggingface.co/papers/2009.03300) (测量大规模多任务语言理解) 包含来自各个领域多项选择题。对于开源医疗大模型排行榜，我们关注与医学知识最相关的子集:
 
 - 临床知识: 265 个问题，评估临床知识和决策技能。
 - 医学遗传学: 100 个问题，涵盖医学遗传学相关主题。
@@ -82,11 +82,11 @@ translators:
 - 开源模型，如 [Starling-LM-7B](https://huggingface.co/Nexusflow/Starling-LM-7B-beta)，[gemma-7b](https://huggingface.co/google/gemma-7b)，Mistral-7B-v0.1 和 [Hermes-2-Pro-Mistral-7B](https://huggingface.co/NousResearch/Hermes-2-Pro-Mistral-7B)，尽管参数量大约只有 70 亿，但在某些数据集和任务上展现出了有竞争力的性能。
 - 商业和开源模型在理解和推理科学生物医学文献 (PubMedQA) 以及应用临床知识和决策技能 (MMLU 临床知识子集) 等任务上表现良好。
 
-![图片来源: [https://arxiv.org/abs/2402.07023](https://arxiv.org/abs/2402.07023)](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/model_evals.png?raw=true)
+![图片来源: [https://huggingface.co/papers/2402.07023](https://huggingface.co/papers/2402.07023)](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/model_evals.png?raw=true)
 
-谷歌的模型 [Gemini Pro](https://arxiv.org/abs/2312.11805) 在多个医疗领域展现了强大的性能，特别是在生物统计学、细胞生物学和妇产科等数据密集型和程序性任务中表现尤为出色。然而，它在解剖学、心脏病学和皮肤病学等关键领域表现出中等至较低的性能，揭示了需要进一步改进以应用于更全面的医学的差距。
+谷歌的模型 [Gemini Pro](https://huggingface.co/papers/2312.11805) 在多个医疗领域展现了强大的性能，特别是在生物统计学、细胞生物学和妇产科等数据密集型和程序性任务中表现尤为出色。然而，它在解剖学、心脏病学和皮肤病学等关键领域表现出中等至较低的性能，揭示了需要进一步改进以应用于更全面的医学的差距。
 
-![Image source : [https://arxiv.org/abs/2402.07023](https://arxiv.org/abs/2402.07023)](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/subjectwise_eval.png?raw=true)
+![Image source : [https://huggingface.co/papers/2402.07023](https://huggingface.co/papers/2402.07023)](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/subjectwise_eval.png?raw=true)
 
 ## 提交你的模型以供评估
 

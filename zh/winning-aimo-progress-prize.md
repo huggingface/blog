@@ -92,14 +92,14 @@ translators:
 
 ## 训练攻略
 
-    我们采用的微调方法主要基于 [**MuMath-Code 论文**](https://arxiv.org/abs/2405.07551)，其模型训练过程分为两个阶段:
+    我们采用的微调方法主要基于 [**MuMath-Code 论文**](https://huggingface.co/papers/2405.07551)，其模型训练过程分为两个阶段:
 
     ![mumath.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/mumath.png)
 
     _MuMath-Code 论文中的两阶段训练方法_
 
 - **第 1 阶段:** 在自然语言“数学题 + 解答”的大规模、多样化数据集上微调基础模型，其中每个解答都需套用思维链 (CoT) 模板以促使 LLM 进行推理。
-- **第 2 阶段:** 在工具整合推理的合成数据集上微调第 1 阶段得到的模型，其中每个数学题都分解为一系列推理、Python 程序及其输出。此时，我们遵循微软的 [**ToRA 论文**](https://arxiv.org/abs/2309.17452) 的做法，提示 GPT-4 以 ToRA 格式生成带有代码执行反馈的解答。对这些数据进行微调会产生一个推理代理，它可以通过将自然语言推理和使用 Python REPL 来计算中间结果结合起来以解决数学问题 (请参见下图)。
+- **第 2 阶段:** 在工具整合推理的合成数据集上微调第 1 阶段得到的模型，其中每个数学题都分解为一系列推理、Python 程序及其输出。此时，我们遵循微软的 [**ToRA 论文**](https://huggingface.co/papers/2309.17452) 的做法，提示 GPT-4 以 ToRA 格式生成带有代码执行反馈的解答。对这些数据进行微调会产生一个推理代理，它可以通过将自然语言推理和使用 Python REPL 来计算中间结果结合起来以解决数学问题 (请参见下图)。
 
     ![tora.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/tora.png)
 
@@ -146,7 +146,7 @@ translators:
 
 然后，我们利用 GPT-4 的流水线生成类似 TORA 的推理路径，执行代码并生成结果，直到生成完整解答。我们筛选出最终答案与参考答案不匹配的解答，并重复此过程三次，以确保准确性和一致性。这种迭代方法使我们能够高效地生成高质量的 TORA 数据。
 
-作为参考，以下是我们训得的第 1 阶段模型 **NuminaMath-7B-CoT** 和第 2 阶段模型 **NuminaMath-7B-TIR**  [在 **MATH 基准**](https://arxiv.org/abs/2103.03874) 上与其他开放及私有模型的跑分对比:
+作为参考，以下是我们训得的第 1 阶段模型 **NuminaMath-7B-CoT** 和第 2 阶段模型 **NuminaMath-7B-TIR**  [在 **MATH 基准**](https://huggingface.co/papers/2103.03874) 上与其他开放及私有模型的跑分对比:
 
 | 模型                    | MATH (%)                       |
 |--------------------------|--------------------------------|
@@ -181,7 +181,7 @@ _各模型在 MATH 基准上的表现。除非明确说明，所有跑分均由�
 4. 重复 M 次以生成 N 个、深度为 M 的生成，允许模型使用栈回溯自纠正代码错误。如果某个样本无法生成合理的输出 (如，生成了不完整的代码块)，就删除之。
 5. 对候选解答进行后处理，并使用多数投票来选择最终答案。
 
-我们获胜的提交使用的 `N=48，M=4` 。因为增加任一参数的数值并不会提高性能，所以我们就选择了这两个最小值以保证满足时间限制。实际上，该算法通过工具整合推理增强了  [**CoT 的自一致性**](https://arxiv.org/abs/2305.10601) (如下所示)。
+我们获胜的提交使用的 `N=48，M=4` 。因为增加任一参数的数值并不会提高性能，所以我们就选择了这两个最小值以保证满足时间限制。实际上，该算法通过工具整合推理增强了  [**CoT 的自一致性**](https://huggingface.co/papers/2305.10601) (如下所示)。
 
 ![imo-problem.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/tot.png)
 
@@ -218,7 +218,7 @@ _各模型在 MATH 基准上的表现。除非明确说明，所有跑分均由�
 - 训练纯 CoT 模型并使用多数投票进行评估
 - 训练 MMOS 模型以通过 Python 一步解决问题
 
-我们还试过对 SFT 模型生成的补全应用 [**Kahneman-Tversky Optimization (KTO)**](https://arxiv.org/abs/2402.01306)，具体想法有点类似于 [**OrcaMath**](https://arxiv.org/abs/2402.14830)，即:
+我们还试过对 SFT 模型生成的补全应用 [**Kahneman-Tversky Optimization (KTO)**](https://huggingface.co/papers/2402.01306)，具体想法有点类似于 [**OrcaMath**](https://huggingface.co/papers/2402.14830)，即:
 
 - 交织使用推理和代码执行，每道题用 SFT 模型采样出 4 个补全。我们使用第 2 阶段的 SFT 数据集作为提示。
 - 提取答案并将其与标注答案进行比较。如果正确，则将样本标记为正，否则标记为负。
@@ -234,7 +234,7 @@ KTO 的一个很好的功能是，你可以在训练期间跟踪隐式奖励，�
 
 我们还尝试将我们的 SFT 攻略应用于 InternLM-20B、CodeLama-33B 和 Mixtral-8x7B 等更大的模型，但发现 (a) DeepSeek 7B 模型由于已在数学上进行过增量预训练而很难被击败，且 (b) 在 2xT4 GPU 上推理速度非常慢，并且我们遇到了许多神秘的超时，但我们无法分析到其根因。
 
-还有一个失败的实验是尝试将强化学习 (特别是 PPO 算法及 [**Reinforce-Leave-One-Out (RLOO) 算法**](https://arxiv.org/abs/2402.14740)) 和代码执行反馈结合起来以生成对编写代码及获得正确/错误解答的奖励。我们将其应用于 `DeepSeekMath 7B RL` 模型。虽然我们看到了一些很不错的奖励曲线，但我们没有看到性能有任何显著的提升。鉴于像 RLOO 这样的在线方法受限于文本生成的性能并且迭代缓慢，我们放弃了强化学习，转而尝试 KTO。
+还有一个失败的实验是尝试将强化学习 (特别是 PPO 算法及 [**Reinforce-Leave-One-Out (RLOO) 算法**](https://huggingface.co/papers/2402.14740)) 和代码执行反馈结合起来以生成对编写代码及获得正确/错误解答的奖励。我们将其应用于 `DeepSeekMath 7B RL` 模型。虽然我们看到了一些很不错的奖励曲线，但我们没有看到性能有任何显著的提升。鉴于像 RLOO 这样的在线方法受限于文本生成的性能并且迭代缓慢，我们放弃了强化学习，转而尝试 KTO。
 
 ![rloo.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/rloo.png)
 
@@ -242,7 +242,7 @@ KTO 的一个很好的功能是，你可以在训练期间跟踪隐式奖励，�
 
 - 使用静态 KV 缓存和 torch 编译。我们发现我们能够在 H100 上将原生 `transformers` 代码的生成速度加快 2-3 倍，但在 Kaggle T4 上会遇到各种神秘错误，主要是由于 `accelerate` 中的 torch 编译缺乏对模型分片的支持。
 
-各种模型合并技术，例如 [**DARE**](https://arxiv.org/abs/2311.03099)、 [**TIES**](https://arxiv.org/abs/2306.01708) 以及 [**WARP**](https://arxiv.org/abs/2406.16768v1)。这里我们使用 [**mergekit**](https://github.com/arcee-ai/mergekit) 来合并 SFT 和 KTO 模型，或者将 SFT 模型与公开的 `DeepSeekMath` 模型合并。总的来说，我们发现这些合并导致我们的内部评估出现重大倒退，并且我们没有时间对此进行更深入探索。
+各种模型合并技术，例如 [**DARE**](https://huggingface.co/papers/2311.03099)、 [**TIES**](https://huggingface.co/papers/2306.01708) 以及 [**WARP**](https://arxiv.org/abs/2406.16768v1)。这里我们使用 [**mergekit**](https://github.com/arcee-ai/mergekit) 来合并 SFT 和 KTO 模型，或者将 SFT 模型与公开的 `DeepSeekMath` 模型合并。总的来说，我们发现这些合并导致我们的内部评估出现重大倒退，并且我们没有时间对此进行更深入探索。
 
 ## Numina 的未来 - 寻求贡献者和合作伙伴！
 

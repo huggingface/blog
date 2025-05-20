@@ -85,14 +85,14 @@ We used a mix of open-source libraries to train our models, notably [**TRL**](ht
 
 ## The training recipe
 
-Our fine-tuning recipe was largely based on the [**MuMath-Code paper**](https://arxiv.org/abs/2405.07551), which involves training the model in two stages:
+Our fine-tuning recipe was largely based on the [**MuMath-Code paper**](https://huggingface.co/papers/2405.07551), which involves training the model in two stages:
 
 ![mumath.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/mumath.png)
 
   _Two-stage training method from the MuMath-Code paper_
 
 - **Stage 1:** Fine-tune the base model on a large, diverse dataset of natural language math problems and solutions, where each solution is templated with Chain of Thought (CoT) to facilitate reasoning.
-- **Stage 2:** Fine-tune the model from Stage 1 on a synthetic dataset of tool-integrated reasoning, where each math problem is decomposed into a sequence of rationales, Python programs, and their outputs. Here, we followed Microsoft’s [**ToRA paper**](https://arxiv.org/abs/2309.17452) and prompted GPT-4 to produce solutions in the ToRA format with code execution feedback. Fine-tuning on this data produces a reasoning agent that can solve mathematical problems via a mix of natural language reasoning and the use of the Python REPL to compute intermediate results (see screenshot below).
+- **Stage 2:** Fine-tune the model from Stage 1 on a synthetic dataset of tool-integrated reasoning, where each math problem is decomposed into a sequence of rationales, Python programs, and their outputs. Here, we followed Microsoft’s [**ToRA paper**](https://huggingface.co/papers/2309.17452) and prompted GPT-4 to produce solutions in the ToRA format with code execution feedback. Fine-tuning on this data produces a reasoning agent that can solve mathematical problems via a mix of natural language reasoning and the use of the Python REPL to compute intermediate results (see screenshot below).
 
     ![tora.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/tora.png)
 
@@ -140,7 +140,7 @@ The processing steps include:
   We then utilized a pipeline leveraging GPT-4 to generate TORA-like reasoning paths, executing the code and producing results until the solution was complete. We filtered out solutions where the final answer did not match the reference and repeated this process three times to ensure accuracy and consistency. This iterative approach allowed us to generate high-quality TORA data efficiently.
 
 
-As a point of reference, here is the performance of our Stage 1 model **NuminaMath-7B-CoT** and final Stage 2 model **NuminaMath-7B-TIR** on the [**MATH benchmark**](https://arxiv.org/abs/2103.03874) compared to other open and proprietary models:
+As a point of reference, here is the performance of our Stage 1 model **NuminaMath-7B-CoT** and final Stage 2 model **NuminaMath-7B-TIR** on the [**MATH benchmark**](https://huggingface.co/papers/2103.03874) compared to other open and proprietary models:
 
 | Model                    | MATH (%)                       |
 |--------------------------|--------------------------------|
@@ -176,7 +176,7 @@ Initially, we used [**Abdur Rafae**](https://www.kaggle.com/abdurrafae)’s [**p
 4. Repeat M times to produce a batch of generations of size N and depth M, allowing the model to self-correct code errors using the traceback. If a sample fails to produce sensible outputs (e.g., incomplete code blocks), prune that result.
 5. Postprocess the solution candidates and then apply majority voting to select the final answer
 
-For our winning submission, we generated N=48 candidates with a depth of M=4. Increasing either parameter did not improve performance, so we took a conservative approach to stay within the time limit. In effect, this algorithm augments [**Self Consistency with CoT**](https://arxiv.org/abs/2305.10601) (shown below) with Tool-Integrated Reasoning.
+For our winning submission, we generated N=48 candidates with a depth of M=4. Increasing either parameter did not improve performance, so we took a conservative approach to stay within the time limit. In effect, this algorithm augments [**Self Consistency with CoT**](https://huggingface.co/papers/2305.10601) (shown below) with Tool-Integrated Reasoning.
 
 ![imo-problem.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/tot.png)
 
@@ -213,7 +213,7 @@ As mentioned above, we tried a few approaches that were ultimately discarded in 
 - Training a pure CoT model and using majority voting for evaluation
 - Training an MMOS model to solve problems with Python in a single step
 
-Another technique we tried was applying [**Kahneman-Tversky Optimisation (KTO)**](https://arxiv.org/abs/2402.01306) to new completions sampled from the SFT model. Here the approach was similar to [**OrcaMath**](https://arxiv.org/abs/2402.14830), namely:
+Another technique we tried was applying [**Kahneman-Tversky Optimisation (KTO)**](https://huggingface.co/papers/2402.01306) to new completions sampled from the SFT model. Here the approach was similar to [**OrcaMath**](https://huggingface.co/papers/2402.14830), namely:
 
 - Sample 4 completions per problem with the SFT model, using interleaved rationales and code execution. We used the SFT dataset from Stage 2 as the source of prompts.
 - Extract the answer and compare it with the ground truth. If correct, label the sample as positive, else negative.
@@ -229,7 +229,7 @@ Unfortunately, we ran out of time to apply this method to our final SFT model, s
 
 We also experimented with applying our SFT recipe to larger models like InternLM-20B, CodeLama-33B, and Mixtral-8x7B but found that (a) the DeepSeek 7B model is very hard to beat due to its continued pretraining on math, and (b) inference is very slow on 2xT4 GPUs, and we experienced a number of mysterious timeouts that we couldn’t trace the root cause of.
 
-Another failed experiment includes trying to use reinforcement learning (specifically the Proximal Policy Optimization algorithm and [**REINFORCE-leave-one-out (RLOO) algorithm**](https://arxiv.org/abs/2402.14740)) with code execution feedback and shaped rewards for writing code and getting correct/incorrect solutions. We applied this to the DeepSeekMath 7B RL model. While we saw some promising reward curves, we did not see any significant gains in performance. Given that online methods like RLOO are bottlenecked by text generation and slow to iterate with, we abandoned reinforcement learning in favor of experimenting with KTO.
+Another failed experiment includes trying to use reinforcement learning (specifically the Proximal Policy Optimization algorithm and [**REINFORCE-leave-one-out (RLOO) algorithm**](https://huggingface.co/papers/2402.14740)) with code execution feedback and shaped rewards for writing code and getting correct/incorrect solutions. We applied this to the DeepSeekMath 7B RL model. While we saw some promising reward curves, we did not see any significant gains in performance. Given that online methods like RLOO are bottlenecked by text generation and slow to iterate with, we abandoned reinforcement learning in favor of experimenting with KTO.
 
 ![rloo.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/winning-aimo-progress-prize/rloo.png)
 
@@ -237,7 +237,7 @@ On the inference side, we also experimented with:
 
 - Using a static KV cache and torch compilation. We found we were able to speed up generation in native transformers code by 2-3x on a H100, but hit a variety of cryptic errors on the Kaggle T4s, mostly due to the lack of support for model sharding with torch compilation in accelerate.
 
-A variety of model merging techniques like [**DARE**](https://arxiv.org/abs/2311.03099), [**TIES**](https://arxiv.org/abs/2306.01708), and [**WARP**](https://arxiv.org/abs/2406.16768v1). Here we used [**mergekit**](https://github.com/arcee-ai/mergekit) to merge the SFT and KTO models, or the SFT models with the public DeepSeekMath ones. Overall we found these merges led to either significant regressions on our internal evaluations and we ran out of time to explore this more deeply.
+A variety of model merging techniques like [**DARE**](https://huggingface.co/papers/2311.03099), [**TIES**](https://huggingface.co/papers/2306.01708), and [**WARP**](https://arxiv.org/abs/2406.16768v1). Here we used [**mergekit**](https://github.com/arcee-ai/mergekit) to merge the SFT and KTO models, or the SFT models with the public DeepSeekMath ones. Overall we found these merges led to either significant regressions on our internal evaluations and we ran out of time to explore this more deeply.
 
 ## Numina’s future - looking for contributors and partners!
 

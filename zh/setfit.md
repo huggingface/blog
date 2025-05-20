@@ -36,7 +36,7 @@ translators:
 
 <p>🌎 <strong>支持多语言</strong>: SetFit 可与 Hub 上的任一 Sentence Tranformer 一起使用，这意味着如果你想让它支持多语言文本分类，你只要简单地微调一个多语言的 checkpoint 就好了。</p>
 
-如果你想知道更多细节，可以在下方链接获取我们的 [论文](https://arxiv.org/abs/2209.11055)、[数据](https://huggingface.co/SetFit) 及 [代码](https://github.com/huggingface/setfit)。在本文中，我们主要解释 SetFit 是如何工作的以及如何使用 SetFit 训练一个你自己的模型。让我们开始吧！
+如果你想知道更多细节，可以在下方链接获取我们的 [论文](https://huggingface.co/papers/2209.11055)、[数据](https://huggingface.co/SetFit) 及 [代码](https://github.com/huggingface/setfit)。在本文中，我们主要解释 SetFit 是如何工作的以及如何使用 SetFit 训练一个你自己的模型。让我们开始吧！
 
 ## SetFit 如何工作？
 
@@ -51,7 +51,7 @@ translators:
 
 SetFit 利用 Sentence Transformer 的能力去生成基于句对 (paired sentences) 的稠密嵌入。在第一步微调阶段，它使用对比训练 (contrastive training) 来最大化利用有限的标注数据。首先，通过选择类内 (in-class) 和类外 (out-class) 句子来构造正句对和负句对，然后在这些句对 (或三元组 (triplets) ) 上训练 Sentence Transformer 模型并生成每个样本的稠密向量。第二步，根据每个样本的嵌入向量和各自的类标签，训练分类头。推理时，未见过的样本通过微调后的 Sentence Transformer 并生成嵌入，生成的嵌入随后被送入分类头并输出类标签的预测。
 
-只需要把基础 Sentence Transformer 模型换成多语言版的，SetFit 就可以无缝地在多语言环境下运行。在我们的 [实验](https://arxiv.org/abs/2209.11055) 中，SetFit 在德语、日语、中文、法语以及西班牙语中，在单语言和跨语言的条件下，都取得了不错的分类性能。
+只需要把基础 Sentence Transformer 模型换成多语言版的，SetFit 就可以无缝地在多语言环境下运行。在我们的 [实验](https://huggingface.co/papers/2209.11055) 中，SetFit 在德语、日语、中文、法语以及西班牙语中，在单语言和跨语言的条件下，都取得了不错的分类性能。
 
 
 ## 测试 SetFit
@@ -87,7 +87,7 @@ SetFit 利用 Sentence Transformer 的能力去生成基于句对 (paired senten
 </p>
 <p align="center">在每类 8 个标注样本的条件下，比较 T-Few 3B 和 SetFit (MPNet) 的训练成本和平均性能。</p>
 
-因为 SetFit 可以用相对较小的模型取得高准确率，所以它训练起来可以非常快，而且成本也低不少。举个例子，在每类 8 个标注样本的数据集上使用 NVIDIA V100 训练 SetFit 只需要 30 秒，共花费 0.025 美金；相比较而言，相同的实验下，训练 T-Few 3B 需要一张 NVIDIA A100，时间上要 11 分钟，需花费 0.7 美金，成本高 28 倍以上。事实上，SetFit 不仅可以运行在那种你在 Google Colab 找到的 GPU 单卡上，甚至在 CPU 上你也仅需几分钟即可以训练一个模型。如上图所示，SetFit 的加速与模型大小相当，因此 [推理](https://arxiv.org/abs/2209.11055) 时，我们也可以获得相似的性能提升，进一步地，对 SetFit 模型进行蒸馏可以获得 123 倍的加速 🤯。
+因为 SetFit 可以用相对较小的模型取得高准确率，所以它训练起来可以非常快，而且成本也低不少。举个例子，在每类 8 个标注样本的数据集上使用 NVIDIA V100 训练 SetFit 只需要 30 秒，共花费 0.025 美金；相比较而言，相同的实验下，训练 T-Few 3B 需要一张 NVIDIA A100，时间上要 11 分钟，需花费 0.7 美金，成本高 28 倍以上。事实上，SetFit 不仅可以运行在那种你在 Google Colab 找到的 GPU 单卡上，甚至在 CPU 上你也仅需几分钟即可以训练一个模型。如上图所示，SetFit 的加速与模型大小相当，因此 [推理](https://huggingface.co/papers/2209.11055) 时，我们也可以获得相似的性能提升，进一步地，对 SetFit 模型进行蒸馏可以获得 123 倍的加速 🤯。
 
 ## 训练你自己的模型
 

@@ -78,7 +78,7 @@ print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
 
 </div>
 
-好，我们已经用 GPT2 生成了第一个短文本😊。根据上文生成的单词是合理的，但模型很快开始输出重复的文本！这在语言生成中是一个非常普遍的问题，在贪心搜索和波束搜索中似乎更是如此 - 详见 [Vijayakumar 等人，2016](https://arxiv.org/abs/1610.02424) 和 [Shao 等人，2017](https://arxiv.org/abs/1701.03185) 的论文。
+好，我们已经用 GPT2 生成了第一个短文本😊。根据上文生成的单词是合理的，但模型很快开始输出重复的文本！这在语言生成中是一个非常普遍的问题，在贪心搜索和波束搜索中似乎更是如此 - 详见 [Vijayakumar 等人，2016](https://huggingface.co/papers/1610.02424) 和 [Shao 等人，2017](https://huggingface.co/papers/1701.03185) 的论文。
 
 贪心搜索的主要缺点是它错过了隐藏在低概率词后面的高概率词，如上图所示:
 
@@ -121,7 +121,7 @@ print(tokenizer.decode(beam_output[0], skip_special_tokens=True))
 
 </div>
 
-虽然结果比贪心搜索更流畅，但输出中仍然包含重复。一个简单的补救措施是引入 *n-grams* (即连续 n 个词的词序列) 惩罚，该方法是由 [Paulus 等人 (2017)](https://arxiv.org/abs/1705.04304) 和 [Klein 等人 (2017)](https://arxiv.org/abs/1701.02810) 引入的。最常见的 *n-grams* 惩罚是确保每个 *n-gram* 都只出现一次，方法是如果看到当前候选词与其上文所组成的 *n-gram* 已经出现过了，就将该候选词的概率设置为 0。
+虽然结果比贪心搜索更流畅，但输出中仍然包含重复。一个简单的补救措施是引入 *n-grams* (即连续 n 个词的词序列) 惩罚，该方法是由 [Paulus 等人 (2017)](https://huggingface.co/papers/1705.04304) 和 [Klein 等人 (2017)](https://huggingface.co/papers/1701.02810) 引入的。最常见的 *n-grams* 惩罚是确保每个 *n-gram* 都只出现一次，方法是如果看到当前候选词与其上文所组成的 *n-gram* 已经出现过了，就将该候选词的概率设置为 0。
 
 我们可以通过设置 `no_repeat_ngram_size=2` 来试试，这样任意 *2-gram* 不会出现两次:
 
@@ -198,11 +198,11 @@ for i, beam_output in enumerate(beam_outputs):
 
 开放域文本生成的研究人员最近提出了几个理由来说明对该领域而言波束搜索可能不是最佳方案:
 
-- 在机器翻译或摘要等任务中，因为所需生成的长度或多或少都是可预测的，所以波束搜索效果比较好 - 参见 [Murray 等人 (2018)](https://arxiv.org/abs/1808.10006) 和 [Yang 等人 (2018)](https://arxiv.org/abs/1808.09582) 的工作。但开放域文本生成情况有所不同，其输出文本长度可能会有很大差异，如对话和故事生成的输出文本长度就有很大不同。
+- 在机器翻译或摘要等任务中，因为所需生成的长度或多或少都是可预测的，所以波束搜索效果比较好 - 参见 [Murray 等人 (2018)](https://huggingface.co/papers/1808.10006) 和 [Yang 等人 (2018)](https://huggingface.co/papers/1808.09582) 的工作。但开放域文本生成情况有所不同，其输出文本长度可能会有很大差异，如对话和故事生成的输出文本长度就有很大不同。
 
 - 我们已经看到波束搜索已被证明存在重复生成的问题。在故事生成这样的场景中，很难用 *n-gram* 或其他惩罚来控制，因为在“不重复”和最大可重复 *n-grams* 之间找到一个好的折衷需要大量的微调。
 
-- 正如 [Ari Holtzman 等人 (2019)](https://arxiv.org/abs/1904.09751) 所论证的那样，高质量的人类语言并不遵循最大概率法则。换句话说，作为人类，我们希望生成的文本能让我们感到惊喜，而可预测的文本使人感觉无聊。论文作者画了一个概率图，很好地展示了这一点，从图中可以看出人类文本带来的惊喜度比波束搜索好不少。
+- 正如 [Ari Holtzman 等人 (2019)](https://huggingface.co/papers/1904.09751) 所论证的那样，高质量的人类语言并不遵循最大概率法则。换句话说，作为人类，我们希望生成的文本能让我们感到惊喜，而可预测的文本使人感觉无聊。论文作者画了一个概率图，很好地展示了这一点，从图中可以看出人类文本带来的惊喜度比波束搜索好不少。
 
 ![alt text](https://blog.fastforwardlabs.com/images/2019/05/Screen_Shot_2019_05_08_at_3_06_36_PM-1557342561886.png)
 
@@ -250,7 +250,7 @@ print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 
 </div>
 
-有意思！生成的文本看起来不错 - 但仔细观察会发现它不是很连贯。*3-grams* *new hand sense* 和 *local batte harness* 非常奇怪，看起来不像是人写的。这就是对单词序列进行采样时的大问题: 模型通常会产生不连贯的乱码，*参见* [Ari Holtzman 等人 (2019)](https://arxiv.org/abs/1904.09751) 的论文。
+有意思！生成的文本看起来不错 - 但仔细观察会发现它不是很连贯。*3-grams* *new hand sense* 和 *local batte harness* 非常奇怪，看起来不像是人写的。这就是对单词序列进行采样时的大问题: 模型通常会产生不连贯的乱码，*参见* [Ari Holtzman 等人 (2019)](https://huggingface.co/papers/1904.09751) 的论文。
 
 缓解这一问题的一个技巧是通过降低所谓的 [softmax](https://en.wikipedia.org/wiki/Softmax_function#Smooth_arg_max) 的“温度”使分布 $P(w|w_{1:t-1})$ 更陡峭。而降低“温度”，本质上是增加高概率单词的似然并降低低概率单词的似然。
 
@@ -291,7 +291,7 @@ print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 
 ### Top-K 采样
 
-[Fan 等人 (2018)](https://arxiv.org/pdf/1805.04833.pdf) 的论文介绍了一种简单但非常强大的采样方案，称为 ***Top-K*** 采样。在 *Top-K* 采样中，概率最大的 *K* 个词会被选出，然后这 *K* 个词的概率会被重新归一化，最后就在这重新被归一化概率后的 *K* 个词中采样。 GPT2 采用了这种采样方案，这也是它在故事生成这样的任务上取得成功的原因之一。
+[Fan 等人 (2018)](https://huggingface.co/papers/1805.04833) 的论文介绍了一种简单但非常强大的采样方案，称为 ***Top-K*** 采样。在 *Top-K* 采样中，概率最大的 *K* 个词会被选出，然后这 *K* 个词的概率会被重新归一化，最后就在这重新被归一化概率后的 *K* 个词中采样。 GPT2 采用了这种采样方案，这也是它在故事生成这样的任务上取得成功的原因之一。
 
 我们将上文例子中的候选单词数从 3 个单词扩展到 10 个单词，以更好地说明 *Top-K* 采样。
 
@@ -331,7 +331,7 @@ print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 
 相当不错！该文本可以说是迄今为止生成的最 "*像人*" 的文本。现在还有一个问题，*Top-K* 采样不会动态调整从需要概率分布 $P(w|w_{1:t-1})$ 中选出的单词数。这可能会有问题，因为某些分布可能是非常尖锐 (上图中右侧的分布)，而另一些可能更平坦 (上图中左侧的分布)，所以对不同的分布使用同一个绝对数 *K* 可能并不普适。
 
-在 $t=1$ 时，*Top-K* 将 $(\text{“people”}, \text{“big”}, \text{“house”}, \text{“cat”})$ 排出了采样池，而这些词似乎是合理的候选词。另一方面，在$t=2$ 时，该方法却又把不太合适的 $(\text{“down”}, \text{“a”})$ 纳入了采样池。因此，将采样池限制为固定大小 *K* 可能会在分布比较尖锐的时候产生胡言乱语，而在分布比较平坦的时候限制模型的创造力。这一发现促使 [Ari Holtzman 等人 (2019)](https://arxiv.org/abs/1904.09751) 发明了 **Top-p**- 或 **核**- 采样。
+在 $t=1$ 时，*Top-K* 将 $(\text{“people”}, \text{“big”}, \text{“house”}, \text{“cat”})$ 排出了采样池，而这些词似乎是合理的候选词。另一方面，在$t=2$ 时，该方法却又把不太合适的 $(\text{“down”}, \text{“a”})$ 纳入了采样池。因此，将采样池限制为固定大小 *K* 可能会在分布比较尖锐的时候产生胡言乱语，而在分布比较平坦的时候限制模型的创造力。这一发现促使 [Ari Holtzman 等人 (2019)](https://huggingface.co/papers/1904.09751) 发明了 **Top-p**- 或 **核**- 采样。
 
 ### Top-p (核) 采样
 
@@ -413,9 +413,9 @@ Output:
 
 ### 总结
 
-在开放域语言生成场景中，作为最新的解码方法， *top-p* 和 *top-K* 采样于传统的 *贪心* 和 *波束* 搜索相比，似乎能产生更流畅的文本。但，最近有更多的证据表明 *贪心* 和 *波束* 搜索的明显缺陷 - 主要是生成重复的单词序列 - 是由模型 (特别是模型的训练方式) 引起的，而不是解码方法， *参见* [Welleck 等人 (2019)](https://arxiv.org/pdf/1908.04319.pdf) 的论文。此外，如 [Welleck 等人 (2020)](https://arxiv.org/abs/2002.02492) 的论文所述，看起来 *top-K* 和 *top-p* 采样也会产生重复的单词序列。
+在开放域语言生成场景中，作为最新的解码方法， *top-p* 和 *top-K* 采样于传统的 *贪心* 和 *波束* 搜索相比，似乎能产生更流畅的文本。但，最近有更多的证据表明 *贪心* 和 *波束* 搜索的明显缺陷 - 主要是生成重复的单词序列 - 是由模型 (特别是模型的训练方式) 引起的，而不是解码方法， *参见* [Welleck 等人 (2019)](https://huggingface.co/papers/1908.04319) 的论文。此外，如 [Welleck 等人 (2020)](https://huggingface.co/papers/2002.02492) 的论文所述，看起来 *top-K* 和 *top-p* 采样也会产生重复的单词序列。
 
-在 [Welleck 等人 (2019)](https://arxiv.org/pdf/1908.04319.pdf) 的论文中，作者表明，根据人类评估，在调整训练目标后，波束搜索相比 *Top-p* 采样能产生更流畅的文本。
+在 [Welleck 等人 (2019)](https://huggingface.co/papers/1908.04319) 的论文中，作者表明，根据人类评估，在调整训练目标后，波束搜索相比 *Top-p* 采样能产生更流畅的文本。
 
 开放域语言生成是一个快速发展的研究领域，而且通常情况下这里没有放之四海而皆准的方法，因此必须了解哪种方法最适合自己的特定场景。
 
@@ -435,7 +435,7 @@ Output:
 
 - `min_length` 用于强制模型在达到 `min_length` 之前不生成 EOS。这在摘要场景中使用得比较多，但如果用户想要更长的文本输出，也会很有用。
 
-- `repetition_penalty` 可用于对生成重复的单词这一行为进行惩罚。它首先由 [Keskar 等人 (2019)](https://arxiv.org/abs/1909.05858) 引入，在 [Welleck 等人 (2019)](https://arxiv.org/pdf/1908.04319.pdf) 的工作中，它是训练目标的一部分。它可以非常有效地防止重复，但似乎对模型和用户场景非常敏感，其中一个例子见 Github 上的 [讨论](https://github.com/huggingface/transformers/pull/2303)。 
+- `repetition_penalty` 可用于对生成重复的单词这一行为进行惩罚。它首先由 [Keskar 等人 (2019)](https://huggingface.co/papers/1909.05858) 引入，在 [Welleck 等人 (2019)](https://huggingface.co/papers/1908.04319) 的工作中，它是训练目标的一部分。它可以非常有效地防止重复，但似乎对模型和用户场景非常敏感，其中一个例子见 Github 上的 [讨论](https://github.com/huggingface/transformers/pull/2303)。 
 
 - `attention_mask` 可用于屏蔽填充符。 
 

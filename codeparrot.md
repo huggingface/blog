@@ -20,7 +20,7 @@ The first thing we need is a large training dataset. With the goal to train a Py
 - 1% of the unique files make up 35% of all files
 - 10% of the unique files make up 66% of all files
 
-You can learn more about our findings in [this Twitter thread](https://twitter.com/lvwerra/status/1458470994146996225). We removed the duplicates and applied the same cleaning heuristics found in the [Codex paper](https://arxiv.org/abs/2107.03374). Codex is the model behind CoPilot and is a GPT-3 model fine-tuned on GitHub code. 
+You can learn more about our findings in [this Twitter thread](https://twitter.com/lvwerra/status/1458470994146996225). We removed the duplicates and applied the same cleaning heuristics found in the [Codex paper](https://huggingface.co/papers/2107.03374). Codex is the model behind CoPilot and is a GPT-3 model fine-tuned on GitHub code. 
 
 The cleaned dataset is still 50GB big and available on the Hugging Face Hub: [codeparrot-clean](http://hf.co/datasets/lvwerra/codeparrot-clean). With that we can setup a new tokenizer and train a model.
 

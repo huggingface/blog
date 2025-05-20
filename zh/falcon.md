@@ -40,15 +40,15 @@ Falcon 家族有两个基础模型: [Falcon-40B](https://huggingface.co/tiiuae/f
 
 TII 还提供了经过指令微调的模型: [Falcon-7B-Instruct](https://huggingface.co/tiiuae/falcon-7b-instruct) 以及 [Falcon-40B-Instruct](https://huggingface.co/tiiuae/falcon-40b-instruct)。这两个实验性的模型变体经由指令和对话数据微调而得，因此更适合当前流行的助理式任务。 **如果你只是想把 Falcon 模型快速用起来，这两个模型是最佳选择。** 当然你也可以基于社区构建的大量数据集微调一个自己的模型 —— 后文会给出微调步骤！
 
-Falcon-7B 和 Falcon-40B 分别基于 1.5 万亿和 1 万亿词元数据训练而得，其架构在设计时就充分考虑了推理优化。 **Falcon 模型质量较高的关键在于训练数据，其 80% 以上的训练数据来自于 [RefinedWeb](https://arxiv.org/abs/2306.01116) —— 一个新的基于 CommonCrawl 的网络数据集**。 TII 选择不去收集分散的精选数据，而是专注于扩展并提高 Web 数据的质量，通过大量的去重和严格过滤使所得语料库与其他精选的语料库质量相当。 在训练 Falcon 模型时，虽然仍然包含了一些精选数据 (例如来自 Reddit 的对话数据)，但与 GPT-3 或 PaLM 等最先进的 LLM 相比，精选数据的使用量要少得多。你知道最妙的是什么吗？ TII 公布了从 [RefinedWeb](https://huggingface.co/datasets/tiiuae/falcon-refinedweb) 中提取出的含有 6000 亿词元的数据集，以供社区在自己的 LLM 中使用！
+Falcon-7B 和 Falcon-40B 分别基于 1.5 万亿和 1 万亿词元数据训练而得，其架构在设计时就充分考虑了推理优化。 **Falcon 模型质量较高的关键在于训练数据，其 80% 以上的训练数据来自于 [RefinedWeb](https://huggingface.co/papers/2306.01116) —— 一个新的基于 CommonCrawl 的网络数据集**。 TII 选择不去收集分散的精选数据，而是专注于扩展并提高 Web 数据的质量，通过大量的去重和严格过滤使所得语料库与其他精选的语料库质量相当。 在训练 Falcon 模型时，虽然仍然包含了一些精选数据 (例如来自 Reddit 的对话数据)，但与 GPT-3 或 PaLM 等最先进的 LLM 相比，精选数据的使用量要少得多。你知道最妙的是什么吗？ TII 公布了从 [RefinedWeb](https://huggingface.co/datasets/tiiuae/falcon-refinedweb) 中提取出的含有 6000 亿词元的数据集，以供社区在自己的 LLM 中使用！
 
-Falcon 模型的另一个有趣的特性是其使用了 [**多查询注意力 (multiquery attention)**](https://arxiv.org/abs/1911.02150)。原始多头 (head) 注意力方案每个头都分别有一个查询 (query) 、键 (key) 以及值 (value)，而多查询注意力方案改为在所有头上共享同一个键和值。
+Falcon 模型的另一个有趣的特性是其使用了 [**多查询注意力 (multiquery attention)**](https://huggingface.co/papers/1911.02150)。原始多头 (head) 注意力方案每个头都分别有一个查询 (query) 、键 (key) 以及值 (value)，而多查询注意力方案改为在所有头上共享同一个键和值。
 
 | ![mqa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/147_falcon/multi-query-attention.png) |
 |:--:|
 | <b>多查询注意力机制在注意力头之间共享同一个键嵌入和值嵌入。图片由 Harm de Vries 提供。</b>|
 
-这个技巧对预训练影响不大，但它极大地 [提高了推理的可扩展性](https://arxiv.org/abs/2211.05102): 事实上， **该技巧大大减少了自回归解码期间 K,V 缓存的内存占用，将其减少了 10-100 倍** (具体数值取决于模型架构的配置)，这大大降低了模型推理的内存开销。而内存开销的减少为解锁新的优化带来了可能，如省下来的内存可以用来存储历史对话，从而使得有状态推理成为可能。
+这个技巧对预训练影响不大，但它极大地 [提高了推理的可扩展性](https://huggingface.co/papers/2211.05102): 事实上， **该技巧大大减少了自回归解码期间 K,V 缓存的内存占用，将其减少了 10-100 倍** (具体数值取决于模型架构的配置)，这大大降低了模型推理的内存开销。而内存开销的减少为解锁新的优化带来了可能，如省下来的内存可以用来存储历史对话，从而使得有状态推理成为可能。
 
 | 模型 | 许可 | 能否商用？ | 预训练词元数 | 预训练算力 [PF-天] | 排行榜得分 | K,V 缓存大小 (上下文长度为 2048) |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -201,9 +201,9 @@ _注意: 在此过程中，如果你需要升级配额，可直接发电子邮�
 那么 Falcon 模型究竟效果如何？ Falcon 的作者们马上将会发布一个深入的评估数据。这里，我们仅在我们的 [Open LLM 排行榜](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) 上对 Falcon 基础模型和指令模型进行一个初步评估。 `Open LLM 排行榜`主要衡量 LLM 的推理能力及其回答以下几个领域的问题的能力:
 
 - [AI2 推理挑战](https://allenai.org/data/arc) (ARC): 小学程度有关科学的选择题。
-- [HellaSwag](https://arxiv.org/abs/1905.07830): 围绕日常事件的常识性问题。
+- [HellaSwag](https://huggingface.co/papers/1905.07830): 围绕日常事件的常识性问题。
 - [MMLU](https://github.com/hendrycks/test): 57 个科目 (包含职业科目及学术科目) 的选择题。
-- [TruthfulQA](https://arxiv.org/abs/2109.07958): 测试模型从一组错误陈述中找出事实性陈述的能力。
+- [TruthfulQA](https://huggingface.co/papers/2109.07958): 测试模型从一组错误陈述中找出事实性陈述的能力。
 
 结果显示，40B 基础模型和指令模型都非常强，目前在 [Open LLM 排行榜](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) 上分列第一和第二🏆！
 
@@ -235,7 +235,7 @@ _注意: 在此过程中，如果你需要升级配额，可直接发电子邮�
 
 训练 10B+ 大小的模型在技术和计算上都颇具挑战。在本节中，我们将了解如何使用 Hugging Face 生态中软件工具在简单的硬件上高效地微调超大模型，并展示如何在单张英伟达 T4 卡 (16GB - Google Colab) 上微调 `falcon-7b`。
 
-我们以在 [Guanaco 数据集](https://huggingface.co/datasets/timdettmers/openassistant-guanaco) 上微调 Falcon 为例。Guanaco 数据集是 [Open Assistant 数据集](https://huggingface.co/datasets/OpenAssistant/oasst1) 的一个高质量子集，其中包含大约 1 万个对话。通过 [PEFT 库](https://github.com/huggingface/peft)，我们可以使用最新的 [QLoRA](https://arxiv.org/abs/2305.14314) 方法用 4 比特来表示模型，并冻结它，再在其上加一个适配子模型 (adapter)，并微调该适配子模型。你可以 [从这篇博文中](https://huggingface.co/blog/4bit-transformers-bitsandbytes) 了解有关 4 比特量化模型的更多信息。
+我们以在 [Guanaco 数据集](https://huggingface.co/datasets/timdettmers/openassistant-guanaco) 上微调 Falcon 为例。Guanaco 数据集是 [Open Assistant 数据集](https://huggingface.co/datasets/OpenAssistant/oasst1) 的一个高质量子集，其中包含大约 1 万个对话。通过 [PEFT 库](https://github.com/huggingface/peft)，我们可以使用最新的 [QLoRA](https://huggingface.co/papers/2305.14314) 方法用 4 比特来表示模型，并冻结它，再在其上加一个适配子模型 (adapter)，并微调该适配子模型。你可以 [从这篇博文中](https://huggingface.co/blog/4bit-transformers-bitsandbytes) 了解有关 4 比特量化模型的更多信息。
 
 因为在使用低阶适配器 (Low Rank Adapters，LoRA) 时只有一小部分模型权重是可训练的，所以可训练参数的数量和训得模型的尺寸都会显著减小。如下图所示，最终的训练产物 (trained artifact) 与原始的 7B 模型 (数据类型为 bfloat16 时占 15GB 存储空间) 相比，只占 65MB 存储空间。
 

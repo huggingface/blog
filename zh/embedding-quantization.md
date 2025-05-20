@@ -66,7 +66,7 @@ translators:
 ## 提高可扩展性
 
 有几种方法可以应对嵌入扩展的挑战。最常见的方法是降维，比如使用 [主成分分析 (PCA)](https://en.wikipedia.org/wiki/Principal_component_analysis)。然而，传统的降维方法——比如 PCA ——在处理嵌入时往往效果不佳。
-最近，有关于 [ Matryoshka 表征学习](https://arxiv.org/abs/2205.13147) (MRL) 的新闻 ([博客](https://huggingface.co/blog/matryoshka))，这种方法由 [OpenAI](https://openai.com/blog/new-embedding-models-and-api-updates) 使用，允许更经济的嵌入。使用 MRL 时，只使用前 `n` 个嵌入维度。这种方法已经被一些开源模型采用，比如 [nomic-ai/nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) 和 [mixedbread-ai/mxbai-embed-2d-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-2d-large-v1)。对于 OpenAI 的 `text-embedding-3-large` 模型，我们看到在 12 倍压缩下性能保留了 93.1 %，而对于 nomic 的模型，在 3 倍压缩下保留了 95.8% 的性能，在 6 倍压缩下保留了 90% 的性能。
+最近，有关于 [ Matryoshka 表征学习](https://huggingface.co/papers/2205.13147) (MRL) 的新闻 ([博客](https://huggingface.co/blog/matryoshka))，这种方法由 [OpenAI](https://openai.com/blog/new-embedding-models-and-api-updates) 使用，允许更经济的嵌入。使用 MRL 时，只使用前 `n` 个嵌入维度。这种方法已经被一些开源模型采用，比如 [nomic-ai/nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) 和 [mixedbread-ai/mxbai-embed-2d-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-2d-large-v1)。对于 OpenAI 的 `text-embedding-3-large` 模型，我们看到在 12 倍压缩下性能保留了 93.1 %，而对于 nomic 的模型，在 3 倍压缩下保留了 95.8% 的性能，在 6 倍压缩下保留了 90% 的性能。
 
 然而，还有一种新的方法可以在这个挑战上取得进展; 它不涉及降维，而是减少嵌入中每个个体值的尺寸大小: **量化**。我们的量化实验将展示，我们可以在显著加快计算速度并节省内存、存储和成本的同时，保持大量的性能。让我们进一步了解一下吧！
 
@@ -86,7 +86,7 @@ $$
 
 我们可以使用汉明距离来高效地检索这些二进制嵌入。汉明距离是指两个二进制嵌入在位上不同的位置数量。汉明距离越低，嵌入越接近; 因此，文档的相关性越高。汉明距离的一个巨大优势是它可以用 2 个 CPU 周期轻松计算，允许极快的性能。
 
-[Yamada 等人 (2021)](https://arxiv.org/abs/2106.00882) 引入了一个重打分步骤，他们称之为 _rerank_ ，以提高性能。他们提议可以使用点积将 `float32` 查询嵌入与二进制文档嵌入进行比较。在实践中，我们首先使用二进制查询嵌入和二进制文档嵌入检索 `rescore_multiplier * top_k` 的结果——即双二进制检索的前 k 个结果的列表——然后使用 `float32` 查询嵌入对这个二进制文档嵌入列表进行重打分。
+[Yamada 等人 (2021)](https://huggingface.co/papers/2106.00882) 引入了一个重打分步骤，他们称之为 _rerank_ ，以提高性能。他们提议可以使用点积将 `float32` 查询嵌入与二进制文档嵌入进行比较。在实践中，我们首先使用二进制查询嵌入和二进制文档嵌入检索 `rescore_multiplier * top_k` 的结果——即双二进制检索的前 k 个结果的列表——然后使用 `float32` 查询嵌入对这个二进制文档嵌入列表进行重打分。
 
 通过应用这种新颖的重打分步骤，我们能够在减少内存和磁盘空间使用 32 倍的同时，保留高达 ~96% 的总检索性能，并使检索速度提高多达 32 倍。如果没有重打分，我们能够保留大约 ~92.5% 的总检索性能。
 
@@ -278,7 +278,7 @@ int8
 
 量化好处的显现，在查看二进制模型的结果时更为明显。在这种情况下，1024 维度的模型仍然优于现在存储需求高 10 倍的基模型，而 `mxbai-embed-large-v1` 在资源需求减少 32 倍后仍能保持超过 96% 的性能。从 `int8` 进一步量化到二进制的性能损失几乎可以忽略不计。
 
-有趣的是，我们还可以看到 `all-MiniLM-L6-v2` 在二进制量化上的性能比 `int8` 量化更强。这可能的原因是校准数据的选择。在 `e5-base-v2` 上，我们观察到了 [维度坍缩](https://arxiv.org/abs/2110.09348) 效应，导致模型只使用潜在空间的子空间; 当进行量化时，整个空间进一步坍缩，导致性能损失很大。
+有趣的是，我们还可以看到 `all-MiniLM-L6-v2` 在二进制量化上的性能比 `int8` 量化更强。这可能的原因是校准数据的选择。在 `e5-base-v2` 上，我们观察到了 [维度坍缩](https://huggingface.co/papers/2110.09348) 效应，导致模型只使用潜在空间的子空间; 当进行量化时，整个空间进一步坍缩，导致性能损失很大。
 
 这表明量化并不适用于所有嵌入模型。考虑现有基准测试结果并开展实验以确定给定模型与量化的兼容性仍然至关重要。
 

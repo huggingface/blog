@@ -118,13 +118,13 @@ trainer.save_model(script_args.output_dir) # 或者 , 如果整个模型小于 5
 
 为了加快训练速度并减少显存占用，我们可以使用 flash 注意力并开启梯度检查点优化，从而在微调的同时节省计算成本。当前，我们用了一个热补丁来实现 flash 注意力，具体代码可见 [这儿](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/chat_assistant/training/llama_flash_attn_monkey_patch.py)。
 
-[FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://arxiv.org/pdf/2205.14135.pdf) 一文基于对底层硬件 (即 GPU) 的内存层次结构的深刻理解而引入了一种更快、更节省内存的无损注意力加速算法。底层硬件在设计内存层次结构时，遵循的实践原则是: 带宽/速度越高的内存，其容量越小，因为它更贵。
+[FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://huggingface.co/papers/2205.14135) 一文基于对底层硬件 (即 GPU) 的内存层次结构的深刻理解而引入了一种更快、更节省内存的无损注意力加速算法。底层硬件在设计内存层次结构时，遵循的实践原则是: 带宽/速度越高的内存，其容量越小，因为它更贵。
 
 根据博文 [根据第一性原理让深度学习性能起飞](https://horace.io/brrr_intro.html)，我们可以发现，当前硬件上的注意力模块是 `内存带宽受限` 的。原因是注意力机制 **主要由逐元素操作** 组成，如下左图所示。我们可以观察到，掩码、softmax 和 dropout 操作占用了大部分时间，而非需要大量 FLOP 的矩阵乘法。
 
 ![注意力机制的性能瓶颈](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/160_ram_efficient_fsdp/attention_bottleneck.png)
 
-(图源: [链接](https://arxiv.org/pdf/2205.14135.pdf))
+(图源: [链接](https://huggingface.co/papers/2205.14135))
 
 这正是 flash 注意力解决的问题，其想法是 **去除冗余的 HBM 读/写操作**。该算法通过将所有内容保留在 SRAM 中，待执行完所有中间步骤后再将最终结果写回到 HBM，即 **算子融合** 来实现这一目的。下图简要描述了算子融合是如何克服内存瓶颈的。
 
@@ -134,7 +134,7 @@ trainer.save_model(script_args.output_dir) # 或者 , 如果整个模型小于 5
 
 在前向和反向传播过程中我们还使用了 **平铺 (Tiling)** 优化技巧，将 NxN 大小的 softmax 分数计算切成块，以克服 SRAM 内存大小的限制。在使用平铺技巧时，我们会使用在线 softmax 算法。同时，我们还在反向传播中使用了 **重计算** 技巧，以大大降低在前向传播过程中存储整个 NxN softmax 分数矩阵所带来的内存消耗。
 
-如欲深入理解 flash 注意力，请参考博文 [ELI5: FlashAttention](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad)、[根据第一性原理让深度学习性能起飞](https://horace.io/brrr_intro.html) 以及原始论文 [FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://arxiv.org/pdf/2205.14135.pdf)。
+如欲深入理解 flash 注意力，请参考博文 [ELI5: FlashAttention](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad)、[根据第一性原理让深度学习性能起飞](https://horace.io/brrr_intro.html) 以及原始论文 [FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://huggingface.co/papers/2205.14135)。
 
 ## 综合运用所有手段
 

@@ -16,7 +16,7 @@ translators:
 
 # LayerSkip: 使用自推测解码加速大模型推理
 
-自推测解码是一种新颖的文本生成方法，它结合了推测解码 (Speculative Decoding) 的优势和大语言模型 (LLM) 的提前退出 (Early Exit) 机制。该方法出自论文 [LayerSkip: Enabling Early-Exit Inference and Self-Speculative Decoding](https://arxiv.org/abs/2404.16710)。它通过使用 _同一个模型_ 的早期层来生成候选词元 (token)，并使用后期层进行验证，从而实现高效生成。
+自推测解码是一种新颖的文本生成方法，它结合了推测解码 (Speculative Decoding) 的优势和大语言模型 (LLM) 的提前退出 (Early Exit) 机制。该方法出自论文 [LayerSkip: Enabling Early-Exit Inference and Self-Speculative Decoding](https://huggingface.co/papers/2404.16710)。它通过使用 _同一个模型_ 的早期层来生成候选词元 (token)，并使用后期层进行验证，从而实现高效生成。
 
 这项技术不仅加快了文本生成速度，还显著节省了内存并降低了计算延迟。为了实现端到端的加速，早期层的输出需要与最终层的输出足够接近。正如论文中所述，这可以通过一种训练方法来实现，该方法可以在预训练期间应用，也可以在特定领域进行微调时应用。自推测解码对于实际应用特别高效，它可以在较小的 GPU 上部署，并降低 **大规模推理** 所需的整体硬件资源。
 
@@ -216,5 +216,5 @@ LayerSkip 利用提前退出、层丢弃和缓存重用之间的协同作用，�
 自推测是一个令人兴奋的领域，同一个 LLM 可以创建草稿词元并自我修正。其他自推测方法包括:
 
 - [Draft & Verify](https://aclanthology.org/2024.acl-long.607/): 其中草稿阶段涉及跳过预定的注意力和前馈层。
-- [MagicDec](https://arxiv.org/abs/2408.11049): 其中草稿阶段使用 KV 缓存的子集，这对长上下文输入很有用。
-- [Jacobi Decoding](https://arxiv.org/abs/2305.10427) 和 [Lookahead Decoding](https://arxiv.org/abs/2402.02057): 其中草稿阶段是一系列“猜测词元”，可以是随机的或从 n-gram 查找表中获得的。
+- [MagicDec](https://huggingface.co/papers/2408.11049): 其中草稿阶段使用 KV 缓存的子集，这对长上下文输入很有用。
+- [Jacobi Decoding](https://huggingface.co/papers/2305.10427) 和 [Lookahead Decoding](https://huggingface.co/papers/2402.02057): 其中草稿阶段是一系列“猜测词元”，可以是随机的或从 n-gram 查找表中获得的。

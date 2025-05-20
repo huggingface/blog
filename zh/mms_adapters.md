@@ -18,7 +18,7 @@ translators:
 
 **新内容 (06/2023)**: 这篇博文受到 [“在多语言 ASR 上微调 XLS-R”](https://huggingface.co/blog/zh/fine-tune-xlsr-wav2vec2) 的强烈启发，可以看作是它的改进版本。
 
-**Wav2Vec2** 是自动语音识别 (ASR) 的预训练模型，由 _Alexei Baevski、Michael Auli_ 和 _Alex Conneau_ 于 [2020 年 9 月](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) 发布。其在最流行的 ASR 英语数据集之一 [LibriSpeech](https://huggingface.co/datasets/librispeech_asr) 上展示了 Wav2Vec2 的强大性能后不久， _Facebook AI_ 就推出了 Wav2Vec2 的两个多语言版本，称为 [XLSR](https://arxiv.org/abs/2006.13979) 和 [XLM-R](https://ai.facebook.com/blog/-xlm-r-state-of-the-art-cross-lingual-understanding-through-self-supervision/)，能够识别多达 128 种语言的语音。XLSR 代表 _跨语言语音表示_ ，指的是模型学习跨多种语言有用的语音表示的能力。
+**Wav2Vec2** 是自动语音识别 (ASR) 的预训练模型，由 _Alexei Baevski、Michael Auli_ 和 _Alex Conneau_ 于 [2020 年 9 月](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) 发布。其在最流行的 ASR 英语数据集之一 [LibriSpeech](https://huggingface.co/datasets/librispeech_asr) 上展示了 Wav2Vec2 的强大性能后不久， _Facebook AI_ 就推出了 Wav2Vec2 的两个多语言版本，称为 [XLSR](https://huggingface.co/papers/2006.13979) 和 [XLM-R](https://ai.facebook.com/blog/-xlm-r-state-of-the-art-cross-lingual-understanding-through-self-supervision/)，能够识别多达 128 种语言的语音。XLSR 代表 _跨语言语音表示_ ，指的是模型学习跨多种语言有用的语音表示的能力。
 
 Meta AI 的最新版本，[**大规模多语言语音 (MMS)**](https://ai.facebook.com/blog/multilingual-model-speech-recognition/)，由 _Vineel Pratap、Andros Tjandra、Bowen Shi_ 等人编写。将多语言语音表示提升到一个新的水平。通过发布的各种 [语言识别、语音识别和文本转语音检查点](https://huggingface.co/models?other=mms)，可以识别、转录和生成超过 1,100 多种口语。
 
@@ -67,7 +67,7 @@ Hugging Face 文档很好地 [解释了如何使用此类检查点进行推理](
 
 ## 训练自适应权重
 
-在机器学习中，适配器是一种用于微调预训练模型同时保持原始模型参数不变的方法。他们通过在模型的现有层之间插入小型可训练模块 (称为 [适配器层](https://arxiv.org/pdf/1902.00751.pdf)) 来实现此目的，然后使模型适应特定任务，而无需进行大量的重新训练。
+在机器学习中，适配器是一种用于微调预训练模型同时保持原始模型参数不变的方法。他们通过在模型的现有层之间插入小型可训练模块 (称为 [适配器层](https://huggingface.co/papers/1902.00751)) 来实现此目的，然后使模型适应特定任务，而无需进行大量的重新训练。
 
 适配器在语音识别，尤其是 **说话人识别** 方面有着悠久的历史。在说话人识别中，适配器已被有效地用于调整预先存在的模型，以识别单个说话人的特质，正如 [Gales 和 Woodland (1996)](https://www.isca-speech.org/archive_v0/archive_papers/icslp_1996/i96_1832.pdf) 以及 [Miao 等人 (2014)](https://www.cs.cmu.edu/~ymiao/pub/tasl_sat.pdf) 的工作中所强调的那样。与训练完整模型相比，这种方法不仅大大降低了计算要求，而且使得特定于说话者的调整更好、更灵活。
 

@@ -45,7 +45,7 @@ You can read about the project on our [project page](https://github.com/arampach
 
 #### Dataset
 
-We fine-tuned the CLIP model primarily with the [RSICD dataset](https://github.com/201528014227051/RSICD_optimal). This dataset consists of about 10,000 images collected from Google Earth, Baidu Map, MapABC, and Tianditu. It is provided freely to the research community to advance remote sensing captioning via [Exploring Models and Data for Remote Sensing Image Caption Generation](https://arxiv.org/abs/1712.0783) (Lu et al, 2017). The images are (224, 224) RGB images at various resolutions, and each image has up to 5 captions associated with it.
+We fine-tuned the CLIP model primarily with the [RSICD dataset](https://github.com/201528014227051/RSICD_optimal). This dataset consists of about 10,000 images collected from Google Earth, Baidu Map, MapABC, and Tianditu. It is provided freely to the research community to advance remote sensing captioning via [Exploring Models and Data for Remote Sensing Image Caption Generation](https://huggingface.co/papers/1712.0783) (Lu et al, 2017). The images are (224, 224) RGB images at various resolutions, and each image has up to 5 captions associated with it.
 
 <img src="/blog/assets/30_clip_rsicd/rsicd-images-sampling.png"/>
 <center><i>Some examples of images from the RSICD dataset</i></center>

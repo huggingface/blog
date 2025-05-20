@@ -53,7 +53,7 @@ AI 生成内容的水印主要有两种方法：第一种是在内容创作过�
 
 ### 图像水印
 
-可能最为人熟知的水印类型（无论是人类创作还是 AI 生成的内容）是对图像的水印。已经提出了不同的方法来标记训练数据，以影响基于它训练的模型的输出：这种“图像隐身”方法最著名的是 [“Nightshade”](https://arxiv.org/abs/2310.13828)，它对图像进行微小的修改，这些修改对人眼来说几乎不可察觉，但会影响基于被污染数据训练的模型的质量。Hub 上也有类似的图像隐身工具——例如，由开发 Nightshade 的相同实验室开发的 [Fawkes](https://huggingface.co/spaces/derek-thomas/fawkes)，专门针对人物图像，目的是阻挠面部识别系统。同样，还有 [Photoguard](https://huggingface.co/spaces/hadisalman/photoguard)，旨在保护图像不被用于生成 AI 工具（例如，基于它们创建深度伪造）的操纵。
+可能最为人熟知的水印类型（无论是人类创作还是 AI 生成的内容）是对图像的水印。已经提出了不同的方法来标记训练数据，以影响基于它训练的模型的输出：这种“图像隐身”方法最著名的是 [“Nightshade”](https://huggingface.co/papers/2310.13828)，它对图像进行微小的修改，这些修改对人眼来说几乎不可察觉，但会影响基于被污染数据训练的模型的质量。Hub 上也有类似的图像隐身工具——例如，由开发 Nightshade 的相同实验室开发的 [Fawkes](https://huggingface.co/spaces/derek-thomas/fawkes)，专门针对人物图像，目的是阻挠面部识别系统。同样，还有 [Photoguard](https://huggingface.co/spaces/hadisalman/photoguard)，旨在保护图像不被用于生成 AI 工具（例如，基于它们创建深度伪造）的操纵。
 
 关于水印输出图像，Hub 上提供了两种互补的方法：[IMATAG](https://huggingface.co/spaces/imatag/stable-signature-bzh)（见图 2），它通过利用修改过的流行模型（如 [Stable Diffusion XL Turbo](https://huggingface.co/stabilityai/sdxl-turbo)）在内容生成过程中实施水印；以及 [Truepic](https://huggingface.co/spaces/Truepic/watermarked-content-credentials)，它在图像生成后添加不可见的内容凭证。
 
@@ -82,7 +82,7 @@ TruePic 还将 C2PA 内容凭证嵌入图像中，允许在图像本身中存储
 
 从个人声音中提取的数据（声纹）通常被用作生物安全认证机制来识别个体。虽然通常与 PIN 或密码等其他安全因素结合使用，但这种生物识别数据的泄露仍然存在风险，可以被用来获得访问权限，例如银行账户，鉴于许多银行使用声音识别技术通过电话验证客户。随着声音变得更容易用 AI 复制，我们也必须改进验证声音音频真实性的技术。水印音频内容类似于水印图像，因为它有一个多维输出空间，可以用来注入有关来源的元数据。在音频的情况下，水印通常在人耳无法察觉的频率上进行（低于约 20 或高于约 20,000 Hz），然后可以使用 AI 驱动的方法进行检测。
 
-鉴于音频输出的高风险性质，水印音频内容是一个活跃的研究领域，过去几年提出了多种方法（例如，[WaveFuzz](https://arxiv.org/abs/2203.13497)，[Venomave](https://ieeexplore.ieee.org/abstract/document/10136135)）。
+鉴于音频输出的高风险性质，水印音频内容是一个活跃的研究领域，过去几年提出了多种方法（例如，[WaveFuzz](https://huggingface.co/papers/2203.13497)，[Venomave](https://ieeexplore.ieee.org/abstract/document/10136135)）。
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/watermarking/fig4.png" alt="AudioSeal watermarking approach.">

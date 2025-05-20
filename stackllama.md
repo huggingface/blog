@@ -35,14 +35,14 @@ By combining these approaches, we are releasing the StackLLaMA model. This model
 
 ## The LLaMA model
 
-When doing RLHF, it is important to start with a capable model: the RLHF step is only a fine-tuning step to align the model with how we want to interact with it and how we expect it to respond.  Therefore, we choose to use the recently introduced and performant [LLaMA models](https://arxiv.org/abs/2302.13971). The LLaMA models are the latest large language models developed by Meta AI. They come in sizes ranging from 7B to 65B parameters and were trained on between 1T and 1.4T tokens, making them very capable. We use the 7B model as the base for all the following steps!
+When doing RLHF, it is important to start with a capable model: the RLHF step is only a fine-tuning step to align the model with how we want to interact with it and how we expect it to respond.  Therefore, we choose to use the recently introduced and performant [LLaMA models](https://huggingface.co/papers/2302.13971). The LLaMA models are the latest large language models developed by Meta AI. They come in sizes ranging from 7B to 65B parameters and were trained on between 1T and 1.4T tokens, making them very capable. We use the 7B model as the base for all the following steps!
 To access the model, use the [form](https://docs.google.com/forms/d/e/1FAIpQLSfqNECQnMkycAp2jP4Z9TFX0cGR4uf7b_fBxjY_OjhJILlKGA/viewform) from Meta AI.
 
 ## Stack Exchange dataset
 
 Gathering human feedback is a complex and expensive endeavor. In order to bootstrap the process for this example while still building a useful model, we make use of the [StackExchange dataset](https://huggingface.co/datasets/HuggingFaceH4/stack-exchange-preferences). The dataset includes questions and their corresponding answers from the StackExchange platform (including StackOverflow for code and many other topics). It is attractive for this use case because the answers come together with the number of upvotes and a label for the accepted answer.
 
-We follow the approach described in [Askell et al. 2021](https://arxiv.org/abs/2112.00861) and assign each answer a score:
+We follow the approach described in [Askell et al. 2021](https://huggingface.co/papers/2112.00861) and assign each answer a score:
 
 `score = log2 (1 + upvotes) rounded to the nearest integer, plus 1 if the questioner accepted the answer (we assign a score of −1 if the number of upvotes is negative).`
 

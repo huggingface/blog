@@ -384,7 +384,7 @@ Instead, you have to iterate over the dataset, using a `for` loop for example.
 Streaming mode can take your research to the next level: not only are the biggest datasets accessible to you, but you 
 can easily evaluate systems over multiple datasets in one go without worrying about your disk space. Compared 
 to evaluating on a single dataset, multi-dataset evaluation gives a better metric for the generalisation 
-abilities of a speech recognition system (_c.f._ [End-to-end Speech Benchmark (ESB)](https://arxiv.org/abs/2210.13352)). 
+abilities of a speech recognition system (_c.f._ [End-to-end Speech Benchmark (ESB)](https://huggingface.co/papers/2210.13352)). 
 The accompanying [Google Colab](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/audio_datasets_colab.ipynb) 
 provides an example for evaluating the Whisper model on eight English speech recognition datasets in one script using 
 streaming mode.
@@ -419,7 +419,7 @@ and text are in the same language. We provide a summary of the most popular Engl
 Refer to the [Google Colab](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/audio_datasets_colab.ipynb) 
 for a guide on evaluating a system on all eight English speech recognition datasets in one script.
 
-The following dataset descriptions are largely taken from the [ESB Benchmark](https://arxiv.org/abs/2210.13352) paper.
+The following dataset descriptions are largely taken from the [ESB Benchmark](https://huggingface.co/papers/2210.13352) paper.
 
 #### [LibriSpeech ASR](https://huggingface.co/datasets/librispeech_asr)
 LibriSpeech is a standard large-scale dataset for evaluating ASR systems. It consists of approximately 1,000 
@@ -529,7 +529,7 @@ non-native speakers. It contains labelled audio-transcription data for 15 Europe
 
 #### [FLEURS](https://huggingface.co/datasets/google/fleurs)
 FLEURS (Few-shot Learning Evaluation of Universal Representations of Speech) is a dataset for evaluating speech recognition 
-systems in 102 languages, including many that are classified as 'low-resource'. The data is derived from the [FLoRes-101](https://arxiv.org/abs/2106.03193) 
+systems in 102 languages, including many that are classified as 'low-resource'. The data is derived from the [FLoRes-101](https://huggingface.co/papers/2106.03193) 
 dataset, a machine translation corpus with 3001 sentence translations from English to 101 other languages. Native speakers 
 are recorded narrating the sentence transcriptions in their native language. The recorded audio data is paired with the 
 sentence transcriptions to yield multilingual speech recognition over all 101 languages. The training sets contain 
@@ -547,7 +547,7 @@ crowd-sourced voice recordings. There are 2,900 hours of speech represented in t
 
 #### [FLEURS](https://huggingface.co/datasets/google/fleurs)
 FLEURS (Few-shot Learning Evaluation of Universal Representations of Speech) is a dataset for evaluating speech recognition 
-systems in 102 languages, including many that are classified as 'low-resource'. The data is derived from the [FLoRes-101](https://arxiv.org/abs/2106.03193) 
+systems in 102 languages, including many that are classified as 'low-resource'. The data is derived from the [FLoRes-101](https://huggingface.co/papers/2106.03193) 
 dataset, a machine translation corpus with 3001 sentence translations from English to 101 other languages. Native 
 speakers are recorded narrating the sentence transcriptions in their native languages. An \\(n\\)-way parallel corpus of 
 speech translation data is constructed by pairing the recorded audio data with the sentence transcriptions for each of the 
@@ -574,7 +574,7 @@ commercial applications in multilingual keyword spotting and spoken term search.
 
 #### [FLEURS](https://huggingface.co/datasets/google/fleurs)
 FLEURS (Few-shot Learning Evaluation of Universal Representations of Speech) is a dataset for evaluating speech recognition 
-systems in 102 languages, including many that are classified as 'low-resource'. The data is derived from the [FLoRes-101](https://arxiv.org/abs/2106.03193) 
+systems in 102 languages, including many that are classified as 'low-resource'. The data is derived from the [FLoRes-101](https://huggingface.co/papers/2106.03193) 
 dataset, a machine translation corpus with 3001 sentence translations from English to 101 other languages. Native 
 speakers are recorded narrating the sentence transcriptions in their native languages. The recorded audio data is paired 
 with a label for the language in which it is spoken. The dataset can be used as an audio classification dataset for 

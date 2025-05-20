@@ -25,7 +25,7 @@ authors:
 ⭐ In this blog post, we’ll explore *dynamic speculative decoding* —a novel method developed by Intel labs and Hugging Face that accelerates text generation by up to 2.7x, depending on the task. This method is the default operational mode for assisted generation starting from [Transformers🤗](https://github.com/huggingface/transformers) release [4.45.0](https://github.com/huggingface/transformers/releases/tag/v4.45.0) ⭐
 
 ## Speculative Decoding
-[Speculative decoding](https://arxiv.org/abs/2211.17192) is a popular technique to accelerate the inference of large language models, while preserving their accuracy. As shown in the figure below, speculative decoding works by splitting the generative process into two stages. In the first stage, a fast, but less accurate *draft* model (AKA assistant) autoregressively generates a sequence of tokens. In the second stage, a large, but more accurate *target* model conducts parallelized verification over the generated draft tokens. This process allows the target model to produce multiple tokens in a single forward pass and thus accelerate autoregressive decoding. The success of speculative decoding largely hinges on the _speculation lookahead_ (SL), i.e. the number of tokens produced by the draft model in each iteration. In practice, the SL is either a static value or based on heuristics, neither of which is optimal for squeezing out maximium performance during inference.
+[Speculative decoding](https://huggingface.co/papers/2211.17192) is a popular technique to accelerate the inference of large language models, while preserving their accuracy. As shown in the figure below, speculative decoding works by splitting the generative process into two stages. In the first stage, a fast, but less accurate *draft* model (AKA assistant) autoregressively generates a sequence of tokens. In the second stage, a large, but more accurate *target* model conducts parallelized verification over the generated draft tokens. This process allows the target model to produce multiple tokens in a single forward pass and thus accelerate autoregressive decoding. The success of speculative decoding largely hinges on the _speculation lookahead_ (SL), i.e. the number of tokens produced by the draft model in each iteration. In practice, the SL is either a static value or based on heuristics, neither of which is optimal for squeezing out maximium performance during inference.
 
 
 <p align="center">
@@ -35,7 +35,7 @@ authors:
 
 ## Dynamic Speculative Decoding
 
-[Transformers🤗](https://github.com/huggingface/transformers) offers two distinct methods to determine the schedule for adjusting the number of draft (assistant) tokens during inference. The straightforward method, based on [Leviathan et al.](https://arxiv.org/pdf/2211.17192), uses a static value of the speculation lookahead and involves generating a constant number of candidate tokens at each speculative iteration. Alternatively, a [heuristic-based approach](https://huggingface.co/blog/assisted-generation) adjusts the number of candidate tokens for the next iteration based on the acceptance rate of the current iteration. If all speculative tokens are correct, the number of candidate tokens increases; otherwise, it decreases.
+[Transformers🤗](https://github.com/huggingface/transformers) offers two distinct methods to determine the schedule for adjusting the number of draft (assistant) tokens during inference. The straightforward method, based on [Leviathan et al.](https://huggingface.co/papers/2211.17192), uses a static value of the speculation lookahead and involves generating a constant number of candidate tokens at each speculative iteration. Alternatively, a [heuristic-based approach](https://huggingface.co/blog/assisted-generation) adjusts the number of candidate tokens for the next iteration based on the acceptance rate of the current iteration. If all speculative tokens are correct, the number of candidate tokens increases; otherwise, it decreases.
 
 We anticipate that an enhanced optimization strategy for managing the number of generated draft tokens could squeeze out further latency reductions. For testing this thesis we utilize an oracle that determines the optimal speculation lookahead value for each speculative iteration. The oracle employs the draft model to autoregressively generate tokens until a discrepancy arises between the predicted tokens of the draft and target models. This process is repeated for each speculative iteration, ultimately identifying the optimal (maximum) number of draft tokens accepted per iteration. The draft/target token mismatch is identified using the rejection sampling algorithm, introduced by Leviathan et al., with zero temperature. This oracle realizes the full potential of speculative decoding by generating the maximum number of valid draft tokens at each step and minimizing the number of calls to both the draft and target models.
 
@@ -115,7 +115,7 @@ assistant_model.generation_config.num_assistant_tokens_schedule='constant'
 assistant_model.generation_config.num_assistant_tokens=20
 ```
 
-To revert to the **heuristic** or **constant** (as in [Leviathan et al.](https://arxiv.org/pdf/2211.17192)) approaches, simply set `num_assistant_tokens_schedule` to `'heuristic'` or `'constant'`, respectively, set `assistant_confidence_threshold=0` and `num_assistant_tokens=5` as follows:
+To revert to the **heuristic** or **constant** (as in [Leviathan et al.](https://huggingface.co/papers/2211.17192)) approaches, simply set `num_assistant_tokens_schedule` to `'heuristic'` or `'constant'`, respectively, set `assistant_confidence_threshold=0` and `num_assistant_tokens=5` as follows:
 ```python
 # Use 'heuristic' or 'constant' or 'dynamic'
 assistant_model.generation_config.num_assistant_tokens_schedule='heuristic'
@@ -130,10 +130,10 @@ We introduced a faster strategy for assisted generation called _dynamic speculat
 In an upcoming blog post, we'll show a new method for assisted generation: combine any target model with any assistant model! This will open the door for accelerating countless models on the Hugging Face Hub that do not have small enough assistant variants. For example, `Phi 3`, `Gemma 2`, `CodeLlama` and many more will be eligible for speculative decoding. Stay tuned!
 
 ## References
-- [Dynamic Speculation Lookahead Accelerates Speculative Decoding of Large Language Models](https://arxiv.org/abs/2405.04304).
+- [Dynamic Speculation Lookahead Accelerates Speculative Decoding of Large Language Models](https://huggingface.co/papers/2405.04304).
 In this paper, we introduced DISCO, a dynamic speculation lookahead optimization method that utilizes a classifier to decide whether the draft model should proceed with generating the next token or pause, and switch to the target model for validation instead of using a simple threshold on the prediction probability.
 - [Assisted Generation: a new direction toward low-latency text generation](https://huggingface.co/blog/assisted-generation)
-- [Fast Inference from Transformers via Speculative Decoding](https://arxiv.org/pdf/2211.17192)
+- [Fast Inference from Transformers via Speculative Decoding](https://huggingface.co/papers/2211.17192)
 
 ## Citation
 ```bibtex

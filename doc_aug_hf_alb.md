@@ -39,7 +39,7 @@ After modifying the text, we black out parts of the image where the text is inse
 
 The library can be used for two main purposes:
 
-1. **Inserting any text on the image**: This feature allows you to overlay text on document images, effectively generating synthetic data. By using any random image as a background and rendering completely new text, you can create diverse training samples. A similar technique, called SynthDOG, was introduced in the [OCR-free document understanding transformer](https://arxiv.org/pdf/2111.15664).
+1. **Inserting any text on the image**: This feature allows you to overlay text on document images, effectively generating synthetic data. By using any random image as a background and rendering completely new text, you can create diverse training samples. A similar technique, called SynthDOG, was introduced in the [OCR-free document understanding transformer](https://huggingface.co/papers/2111.15664).
 
 2. **Inserting augmented text on the image**: This includes the following text augmentations:
    - **Random deletion**: Randomly removes words from the text.

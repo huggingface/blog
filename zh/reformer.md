@@ -15,9 +15,9 @@ translators:
 
 ## Reformer 如何在不到 8GB 的​​内存上训练 50 万个词元
 
-[Kitaev、Kaiser 等人于 20202 年引入的 Reformer 模型](https://arxiv.org/pdf/2001.04451.pdf) 是迄今为止长序列建模领域内存效率最高的 transformer 模型之一。
+[Kitaev、Kaiser 等人于 20202 年引入的 Reformer 模型](https://huggingface.co/papers/2001.04451) 是迄今为止长序列建模领域内存效率最高的 transformer 模型之一。
 
-最近，人们对长序列建模的兴趣激增，仅今年一年，就涌现出了大量的工作，如 [Beltagy 等人的工作 (2020) ](https://arxiv.org/abs/2004.05150)、[Roy 等人的工作 (2020) ](https://arxiv.org/abs/2003.05997)、[Tay 等人的工作](https://arxiv.org/abs/2002.11296) 以及 [Wang 等人的工作](https://arxiv.org/abs/2006.04768) 等等。长序列建模背后的动机是，N​​LP 中的许多任务 (例如 _摘要、问答_ ) 要求模型处理更长的序列，这些序列长度超出了 BERT 等模型的处理能力。在需要模型处理长输入序列的任务中，长序列模型无需对输入序列进行裁剪以避免内存溢出，因此已被证明优于标准的 **BERT 类模型** ( _见_ [Beltagy 等人 2020 年的工作](https://arxiv.org/abs/2004.05150))。
+最近，人们对长序列建模的兴趣激增，仅今年一年，就涌现出了大量的工作，如 [Beltagy 等人的工作 (2020) ](https://huggingface.co/papers/2004.05150)、[Roy 等人的工作 (2020) ](https://huggingface.co/papers/2003.05997)、[Tay 等人的工作](https://huggingface.co/papers/2002.11296) 以及 [Wang 等人的工作](https://huggingface.co/papers/2006.04768) 等等。长序列建模背后的动机是，N​​LP 中的许多任务 (例如 _摘要、问答_ ) 要求模型处理更长的序列，这些序列长度超出了 BERT 等模型的处理能力。在需要模型处理长输入序列的任务中，长序列模型无需对输入序列进行裁剪以避免内存溢出，因此已被证明优于标准的 **BERT 类模型** ( _见_ [Beltagy 等人 2020 年的工作](https://huggingface.co/papers/2004.05150))。
 
 Reformer 能够一次处理多达 50 万个词元，从而突破了长序列建模的极限 (具体可参见本 [笔记本](https://github.com/patrickvonplaten/notebooks/blob/master/PyTorch_Reformer.ipynb))。相形之下，传统的 `bert-base-uncased` 模型最长仅支持 512 个词元。在 Reformer 中，标准 transformer 架构的每个部分都经过重新设计，以最小化内存需求，并避免显著降低性能。
 
@@ -40,7 +40,7 @@ Reformer 已集成入 🤗Transformers 库。对于想使用 Reformer 的用户�
 
 Reformer 使用了两种特殊的自注意力层: _局部_ 自注意力层和 LSH (Locality Sensitive Hashing，局部敏感哈希， _LSH_ ) 自注意力层。
 
-在介绍新的自注意力层之前，我们先简要回顾一下传统的自注意力，其由 Vaswani 等人在其 [2017 年的论文](https://arxiv.org/abs/1706.03762) 中引入。
+在介绍新的自注意力层之前，我们先简要回顾一下传统的自注意力，其由 Vaswani 等人在其 [2017 年的论文](https://huggingface.co/papers/1706.03762) 中引入。
 
 本文的符号及配色与 [《图解 transformer》](https://jalammar.github.io/illustrated-transformer/) 一文一致，因此强烈建议读者在阅读本文之前，先阅读《图解 transformer》一文。
 
@@ -122,7 +122,7 @@ $$\mathbf{Z}_{1:l_{c}}^{\text{loc}} = \text{SelfAttn}(\mathbf{X}_{-l_{c} + 1: l_
 
 LSH 自注意力的设计目标是在效果上接近全局自注意力，而在速度与资源消耗上与局部自注意力一样高效。
 
-LSH 自注意力因依赖于 Andoni 等人于 2015 年提出的 [LSH 算法](https://arxiv.org/abs/1509.02897) 而得名。
+LSH 自注意力因依赖于 Andoni 等人于 2015 年提出的 [LSH 算法](https://huggingface.co/papers/1509.02897) 而得名。
 
 LSH 自注意力源于以下洞见: 如果 $n$ 很大，则对每个查询向量而言，其对应的输出向量 $\mathbf{z}_{i}$ 作为所有 $\mathbf{V}$ 的线性组合，其中应只有极少数几个 $\mathbf{v}_{i}$ 的权重比其他大得多。也就是说对 $\mathbf{Q}\mathbf{K}^T$ 注意力点积作 softmax 产生的权重矩阵的每一行应仅有极少数的值远大于 0。
 
@@ -168,7 +168,7 @@ $$ \mathbf{Z’}_{l_ {c} * k + 1:l_{c} *(k + 1)}^{\text{LSH}} = \text{SelfAttn}_
 
 ![](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/lsh_attention_3.png)
 
-这里还要提到的一个重要特征是，可以通过并行运行 LSH 自注意力 `config.num_hashes` (即 $n_{h}$) 次来提高 LSH 自注意力的准确性，其中每次使用不同的随机 LSH 哈希。通过设置 `config.num_hashes > 1` ，对于每个 $i$，会计算多个输出向量 $\mathbf{z}^{\text{LSH}, 1}_{i}, \ldots , \mathbf{z}^{\text{LSH}, n_{h}}_{i}$。随后，可以对它们进行加权求和: $\mathbf{z}^{\text{LSH}}_{i} = \sum_k^{n_{h}} \mathbf{Z}^{\text{LSH}, k}_{i} * \text{weight}^k_i$，这里 $\text{weight}^k_i$ 表示第 $k$ 轮哈希的输出向量 $\mathbf{z}^{\text{LSH}, k}_{i}$ 与其他哈希轮次相比的重要度，其应与其对应输出的 softmax 归一化系数呈指数正比关系。这一设计背后的直觉是，如果查询向量 $\mathbf{q}_{i}^{k}$ 与其对应块中的所有其他查询向量具有较高的余弦相似度，则该块的 softmax 归一化系数往往很大，因此相应的输出向量 $\mathbf{q}_{i}^{k}$ 应该能更好地近似全局注意力，因此其理应比 softmax 归一化系数较小的哈希轮次所产生的输出向量获得更高的权重。更多详细信息，请参阅 [该论文](https://arxiv.org/pdf/2001.04451.pdf) 的附录 A。在我们的例子中，多轮 LSH 自注意力示意图如下。
+这里还要提到的一个重要特征是，可以通过并行运行 LSH 自注意力 `config.num_hashes` (即 $n_{h}$) 次来提高 LSH 自注意力的准确性，其中每次使用不同的随机 LSH 哈希。通过设置 `config.num_hashes > 1` ，对于每个 $i$，会计算多个输出向量 $\mathbf{z}^{\text{LSH}, 1}_{i}, \ldots , \mathbf{z}^{\text{LSH}, n_{h}}_{i}$。随后，可以对它们进行加权求和: $\mathbf{z}^{\text{LSH}}_{i} = \sum_k^{n_{h}} \mathbf{Z}^{\text{LSH}, k}_{i} * \text{weight}^k_i$，这里 $\text{weight}^k_i$ 表示第 $k$ 轮哈希的输出向量 $\mathbf{z}^{\text{LSH}, k}_{i}$ 与其他哈希轮次相比的重要度，其应与其对应输出的 softmax 归一化系数呈指数正比关系。这一设计背后的直觉是，如果查询向量 $\mathbf{q}_{i}^{k}$ 与其对应块中的所有其他查询向量具有较高的余弦相似度，则该块的 softmax 归一化系数往往很大，因此相应的输出向量 $\mathbf{q}_{i}^{k}$ 应该能更好地近似全局注意力，因此其理应比 softmax 归一化系数较小的哈希轮次所产生的输出向量获得更高的权重。更多详细信息，请参阅 [该论文](https://huggingface.co/papers/2001.04451) 的附录 A。在我们的例子中，多轮 LSH 自注意力示意图如下。
 
 ![](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/lsh_attention_4.png)
 
@@ -394,7 +394,7 @@ result = benchmark.run()
 
 ## 3. 可逆残差层
 
-可逆残差层由 [N. Gomez 等人](https://arxiv.org/abs/1707.04585) 首先提出并应用在 _ResNet_ 模型的训练上以减少内存消耗。从数学上讲，可逆残差层与 _真正的_ 残差层略有不同，其不需要在前向传播期间保存激活，因此可以大大减少训练的内存消耗。
+可逆残差层由 [N. Gomez 等人](https://huggingface.co/papers/1707.04585) 首先提出并应用在 _ResNet_ 模型的训练上以减少内存消耗。从数学上讲，可逆残差层与 _真正的_ 残差层略有不同，其不需要在前向传播期间保存激活，因此可以大大减少训练的内存消耗。
 
 ### Reformer 中的可逆残差层
 

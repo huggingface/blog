@@ -111,4 +111,4 @@ This integration is possible thanks to the [`huggingface_hub`](https://github.co
 
 ## References
 
-1. Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks. [https://arxiv.org/abs/1908.10084](https://arxiv.org/abs/1908.10084)
+1. Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks. [https://huggingface.co/papers/1908.10084](https://huggingface.co/papers/1908.10084)

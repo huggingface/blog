@@ -71,7 +71,7 @@ In this section, we will go over the pros and cons of bitsandbytes and gptq quan
 **4-bit weights are not serializable**: Currently, 4-bit models cannot be serialized. This is a frequent community request, and we believe it should be addressed very soon by the bitsandbytes maintainers as it's in their roadmap! 
 
 ### What are the potential rooms of improvements of autoGPTQ?
-**calibration dataset**: The need of a calibration dataset might discourage some users to go for GPTQ. Furthermore, it can take several hours to quantize the model (e.g. 4 GPU hours for a 175B scale model [according to the paper](https://arxiv.org/pdf/2210.17323.pdf) - section 2)
+**calibration dataset**: The need of a calibration dataset might discourage some users to go for GPTQ. Furthermore, it can take several hours to quantize the model (e.g. 4 GPU hours for a 175B scale model [according to the paper](https://huggingface.co/papers/2210.17323) - section 2)
 
 **works only for language models (for now)**: As of today, the API for quantizing a model with auto-GPTQ has been designed to support only language models. It should be possible to quantize non-text (or multimodal) models using the GPTQ algorithm, but the process has not been elaborated in the original paper or in the auto-gptq repository. If the community is excited about this topic this might be considered in the future.
 

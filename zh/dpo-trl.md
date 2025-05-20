@@ -18,7 +18,7 @@ translators:
 
 基于人类反馈的强化学习 (Reinforcement Learning from Human Feedback，RLHF) 事实上已成为 GPT-4 或 Claude 等 LLM 训练的最后一步，它可以确保语言模型的输出符合人类在闲聊或安全性等方面的期望。然而，它也给 NLP 引入了一些 RL 相关的复杂性: 既要构建一个好的奖励函数，并训练一个模型用以估计每个状态的价值 (value) ; 又要注意最终生成的 LLM 不能与原始模型相差太远，如果太远的话会使得模型容易产生乱码而非有意义的文本。该过程非常复杂，涉及到许多复杂的组件，而这些组件本身在训练过程中又是动态变化的，因此把它们料理好并不容易。
 
-Rafailov、Sharma、Mitchell 等人最近发表了一篇论文 [Direct Preference Optimization](https://arxiv.org/abs/2305.18290)，论文提出将现有方法使用的基于强化学习的目标转换为可以通过简单的二元交叉熵损失直接优化的目标，这一做法大大简化了 LLM 的提纯过程。
+Rafailov、Sharma、Mitchell 等人最近发表了一篇论文 [Direct Preference Optimization](https://huggingface.co/papers/2305.18290)，论文提出将现有方法使用的基于强化学习的目标转换为可以通过简单的二元交叉熵损失直接优化的目标，这一做法大大简化了 LLM 的提纯过程。
 
 本文介绍了直接偏好优化 (Direct Preference Optimization，DPO) 法，该方法现已集成至 [TRL 库](https://github.com/lvwerra/trl) 中。同时，我们还展示了如何在 [stack-exchange preference](https://huggingface.co/datasets/lvwerra/stack-exchange-paired) 数据集上微调最新的 Llama v2 7B 模型， `stack-exchange preference` 数据集中包含了各个 `stack-exchange` 门户上的各种问题及其排序后的回答。
 
@@ -99,7 +99,7 @@ dpo_trainer.train()
 
 ### 有监督微调
 
-如上文所述，我们先用 TRL 的 `SFTTrainer` 在 SFT 数据子集上使用 [QLoRA](https://arxiv.org/abs/2305.14314) 对 7B Llama v2 模型进行有监督微调:
+如上文所述，我们先用 TRL 的 `SFTTrainer` 在 SFT 数据子集上使用 [QLoRA](https://huggingface.co/papers/2305.14314) 对 7B Llama v2 模型进行有监督微调:
 
 ```python
 # load the base model in 4-bit quantization

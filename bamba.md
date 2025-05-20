@@ -177,7 +177,7 @@ We compare Bamba-9B with SoTA transformer models of similar size ([Meta Llama 3.
 <details>
 <summary> Safety evals </summary>
 
-Safety benchmarks are crucial for ensuring AI models generate content that is ethical, inclusive, and non-harmful. We evaluate our model on well known safety benchmarks such as [Toxigen](https://arxiv.org/pdf/2203.09509) (5-shot, logits) (focused on detecting toxic language), [BBQ](https://arxiv.org/pdf/2110.08193) (5-shot, generation), [PopQA](https://arxiv.org/pdf/2212.10511) (5-shot, generation), and [CrowS-Pairs](https://aclanthology.org/2020.emnlp-main.154.pdf) (5-shot, logits) (measure bias and fairness). We intend to address these gaps in safety through comprehensive SFT and DPO approaches.
+Safety benchmarks are crucial for ensuring AI models generate content that is ethical, inclusive, and non-harmful. We evaluate our model on well known safety benchmarks such as [Toxigen](https://huggingface.co/papers/2203.09509) (5-shot, logits) (focused on detecting toxic language), [BBQ](https://huggingface.co/papers/2110.08193) (5-shot, generation), [PopQA](https://huggingface.co/papers/2212.10511) (5-shot, generation), and [CrowS-Pairs](https://aclanthology.org/2020.emnlp-main.154.pdf) (5-shot, logits) (measure bias and fairness). We intend to address these gaps in safety through comprehensive SFT and DPO approaches.
 
 | Model | PopQA | Toxigen | BBQ  | Crow-SPairs* |
 | :---- | :---- | :---- | :---- | :---- |
@@ -226,7 +226,7 @@ Falcon Mamba is a pure Mamba model, Zamba has shared attention layer for every 6
 | [Falcon Mamba 7B](https://huggingface.co/tiiuae/falcon-mamba-7b) | **65.31** | **63.19** | **63.4** | **52.08** | 80.82 | **47.8** | **83.62** | **53.46** | **78.14** |
 
 
-\* Results are taken from [NVIDIA paper](https://arxiv.org/pdf/2406.07887).
+\* Results are taken from [NVIDIA paper](https://huggingface.co/papers/2406.07887).
 
 > **💡 Note:** The differences in training datasets and the number of tokens seen during training make a direct comparison of these models difficult. The key takeaway from this table is that hybrid Mamba2 architectures can deliver competitive results while being nearly as efficient to train as transformer models. Furthermore, they can deliver significant improvement (theoretically up to 5x) in inference efficiency despite having full attention layers interspersed with Mamba2 layers. We are continuing to pretrain the Bamba-9B model with the latest datasets and plan to release future checkpoints as the model improves.
 

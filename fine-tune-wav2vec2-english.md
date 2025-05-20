@@ -32,7 +32,7 @@ results to state-of-the-art ASR systems. Using as little as 10 minutes
 of labeled data, Wav2Vec2 yields a word error rate (WER) of less than 5%
 on the clean test set of
 [LibriSpeech](https://huggingface.co/datasets/librispeech_asr) - *cf.*
-with Table 9 of the [paper](https://arxiv.org/pdf/2006.11477.pdf).
+with Table 9 of the [paper](https://huggingface.co/papers/2006.11477).
 
 In this notebook, we will give an in-detail explanation of how
 Wav2Vec2\'s pretrained checkpoints can be fine-tuned on any English ASR
@@ -756,7 +756,7 @@ The first component of Wav2Vec2 consists of a stack of CNN layers that
 are used to extract acoustically meaningful - but contextually
 independent - features from the raw speech signal. This part of the
 model has already been sufficiently trained during pretrainind and as
-stated in the [paper](https://arxiv.org/abs/2006.11477) does not need to
+stated in the [paper](https://huggingface.co/papers/2006.11477) does not need to
 be fine-tuned anymore. Thus, we can set the `requires_grad` to `False`
 for all parameters of the *feature extraction* part.
 

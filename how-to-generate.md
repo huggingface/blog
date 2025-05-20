@@ -117,8 +117,8 @@ generated words following the context are reasonable, but the model
 quickly starts repeating itself\! This is a very common problem in
 language generation in general and seems to be even more so in greedy
 and beam search - check out [Vijayakumar et
-al., 2016](https://arxiv.org/abs/1610.02424) and [Shao et
-al., 2017](https://arxiv.org/abs/1701.03185).
+al., 2016](https://huggingface.co/papers/1610.02424) and [Shao et
+al., 2017](https://huggingface.co/papers/1701.03185).
 
 The major drawback of greedy search though is that it misses high
 probability words hidden behind a low probability word as can be seen in
@@ -188,8 +188,8 @@ While the result is arguably more fluent, the output still includes
 repetitions of the same word sequences.
 One of the available remedies is to introduce *n-grams* (*a.k.a* word sequences of
 n words) penalties as introduced by [Paulus et al.
-(2017)](https://arxiv.org/abs/1705.04304) and [Klein et al.
-(2017)](https://arxiv.org/abs/1701.02810). The most common *n-grams*
+(2017)](https://huggingface.co/papers/1705.04304) and [Klein et al.
+(2017)](https://huggingface.co/papers/1701.02810). The most common *n-grams*
 penalty makes sure that no *n-gram* appears twice by manually setting
 the probability of next words that could create an already seen *n-gram*
 to 0.
@@ -286,8 +286,8 @@ forward why beam search might not be the best possible option:
   - Beam search can work very well in tasks where the length of the
     desired generation is more or less predictable as in machine
     translation or summarization - see [Murray et al.
-    (2018)](https://arxiv.org/abs/1808.10006) and [Yang et al.
-    (2018)](https://arxiv.org/abs/1808.09582). But this is not the case
+    (2018)](https://huggingface.co/papers/1808.10006) and [Yang et al.
+    (2018)](https://huggingface.co/papers/1808.09582). But this is not the case
     for open-ended generation where the desired output length can vary
     greatly, e.g. dialog and story generation.
 
@@ -298,7 +298,7 @@ forward why beam search might not be the best possible option:
     *n-grams* requires a lot of finetuning.
 
   - As argued in [Ari Holtzman et al.
-    (2019)](https://arxiv.org/abs/1904.09751), high quality human
+    (2019)](https://huggingface.co/papers/1904.09751), high quality human
     language does not follow a distribution of high probability next
     words. In other words, as humans, we want generated text to surprise
     us and not to be boring/predictable. The authors show this nicely by
@@ -365,7 +365,7 @@ Interesting\! The text seems alright - but when taking a closer look, it
 is not very coherent and doesn't sound like it was written by a
 human. That is the big problem when sampling word sequences: The models
 often generate incoherent gibberish, *cf.* [Ari Holtzman et al.
-(2019)](https://arxiv.org/abs/1904.09751).
+(2019)](https://huggingface.co/papers/1904.09751).
 
 A trick is to make the distribution \\(P(w|w_{1:t-1})\\) sharper
 (increasing the likelihood of high probability words and decreasing the
@@ -424,7 +424,7 @@ problems as before.
 
 ### Top-K Sampling
 
-[Fan et. al (2018)](https://arxiv.org/pdf/1805.04833.pdf) introduced a
+[Fan et. al (2018)](https://huggingface.co/papers/1805.04833) introduced a
 simple, but very powerful sampling scheme, called ***Top-K*** sampling.
 In *Top-K* sampling, the *K* most likely next words are filtered and the
 probability mass is redistributed among only those *K* next words. GPT2
@@ -487,7 +487,7 @@ arguably ill-fitted words \\((\text{"down"}, \text{"a"})\\) in the sample pool o
 words. Thus, limiting the sample pool to a fixed size *K* could endanger
 the model to produce gibberish for sharp distributions and limit the
 model's creativity for flat distribution. This intuition led [Ari
-Holtzman et al. (2019)](https://arxiv.org/abs/1904.09751) to create
+Holtzman et al. (2019)](https://huggingface.co/papers/1904.09751) to create
 ***Top-p***- or ***nucleus***-sampling.
 
 
@@ -600,12 +600,12 @@ evidence that the apparent flaws of *greedy* and *beam* search -
 mainly generating repetitive word sequences - are caused by the model
 (especially the way the model is trained), rather than the decoding
 method, *cf.* [Welleck et al.
-(2019)](https://arxiv.org/pdf/1908.04319.pdf). Also, as demonstrated in
-[Welleck et al. (2020)](https://arxiv.org/abs/2002.02492), it looks as
+(2019)](https://huggingface.co/papers/1908.04319). Also, as demonstrated in
+[Welleck et al. (2020)](https://huggingface.co/papers/2002.02492), it looks as
 *top-K* and *top-p* sampling also suffer from generating repetitive word
 sequences.
 
-In [Welleck et al. (2019)](https://arxiv.org/pdf/1908.04319.pdf), the
+In [Welleck et al. (2019)](https://huggingface.co/papers/1908.04319), the
 authors show that according to human evaluations, *beam* search can
 generate more fluent text than *Top-p* sampling, when adapting the
 model's training objective.

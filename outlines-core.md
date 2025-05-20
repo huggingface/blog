@@ -41,7 +41,7 @@ Let’s take an extremely simple example. The LLM should generate a boolean, “
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/outlines-core/graph.png"><br>
 </p>
 
-After that, regardless of the path we take, there is only one valid next character. If the LLM chose `t` as the first character, then it has to follow with `r`, `u` and `e`. And similarly if it chose `f` it follows with `a`, `l`, `s`, `e`. And will choose the last `"` as the final character regardless of the path. There is of course more under the hood, for more in-depth coverage we recommend this [dottxt blog](https://blog.dottxt.co/coalescence.html) and the [associated paper on arxiv](https://arxiv.org/abs/2307.09702).
+After that, regardless of the path we take, there is only one valid next character. If the LLM chose `t` as the first character, then it has to follow with `r`, `u` and `e`. And similarly if it chose `f` it follows with `a`, `l`, `s`, `e`. And will choose the last `"` as the final character regardless of the path. There is of course more under the hood, for more in-depth coverage we recommend this [dottxt blog](https://blog.dottxt.co/coalescence.html) and the [associated paper on arxiv](https://huggingface.co/papers/2307.09702).
 
 ### Why it’s important
 

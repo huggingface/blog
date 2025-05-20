@@ -198,7 +198,7 @@ The authors would like to thank Mohamed bin Zayed University of Artificial Intel
 - [4] [The Belebele Benchmark: a Parallel Reading Comprehension Dataset in 122 Language Variants](https://aclanthology.org/2024.acl-long.44/) (Bandarkar et al., ACL, 2023)
 - [5] [{EXAMS}: A Multi-subject High School Examinations Dataset for Cross-lingual and Multilingual Question Answering"](https://aclanthology.org/2020.emnlp-main.438/) (Hardalov et al., EMNLP, 2023)
 - [6] [ArabicMMLU: Assessing Massive Multitask Language Understanding in Arabic](https://aclanthology.org/2024.findings-acl.334/)(Koto et al., ACL, 2024)
-- [7] [Jais and jais-chat: Arabic-centric foundation and instruction-tuned open generative large language models](https://arxiv.org/abs/2308.16149) (Sengupta et al., 2023)
-- [8] [AraTrust: An Evaluation of Trustworthiness for LLMs in Arabic](https://arxiv.org/abs/2403.09017) (Alghamdi et al., 2024)
+- [7] [Jais and jais-chat: Arabic-centric foundation and instruction-tuned open generative large language models](https://huggingface.co/papers/2308.16149) (Sengupta et al., 2023)
+- [8] [AraTrust: An Evaluation of Trustworthiness for LLMs in Arabic](https://huggingface.co/papers/2403.09017) (Alghamdi et al., 2024)
 - [9] [LightEval: A lightweight framework for LLM evaluation](https://github.com/huggingface/lighteval) (Fourrier et al., 2023)
  

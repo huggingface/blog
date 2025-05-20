@@ -89,7 +89,7 @@ translators:
 
 #### 只使用手工设计特征
 
-在神经网络出现之前，图以及图中的感兴趣项可以被表示成特征的组合，这些特征组合是针对特定任务的。尽管现在存在 [更复杂的特征生成方法](https://arxiv.org/abs/2208.11973)，这些特征仍然被用于数据增强和 [半监督学习](https://arxiv.org/abs/2202.08871)。这时，你主要的工作是根据目标任务，找到最佳的用于后续网络训练的特征。
+在神经网络出现之前，图以及图中的感兴趣项可以被表示成特征的组合，这些特征组合是针对特定任务的。尽管现在存在 [更复杂的特征生成方法](https://huggingface.co/papers/2208.11973)，这些特征仍然被用于数据增强和 [半监督学习](https://huggingface.co/papers/2202.08871)。这时，你主要的工作是根据目标任务，找到最佳的用于后续网络训练的特征。
 
 **节点层面特征** 可以提供关于其重要性 (该节点对于图有多重要？) 以及 / 或结构性 (节点周围的图的形状如何？) 信息，两者可以结合。
 
@@ -108,7 +108,7 @@ translators:
 
 ### 基于游走的方法
 
-[**基于游走的方法**](https://en.wikipedia.org/wiki/Random_walk) 使用在随机游走时从节点j访问节点i的可能性来定义相似矩阵；这些方法结合了局部和全局的信息。举个例子，[**Node2Vec**](https://snap.stanford.edu/node2vec/)模拟图中节点间的随机游走，把这些游走路径建模成跳字 (skip-gram) ，这 [与我们处理句子中的词很相似](https://arxiv.org/abs/1301.3781)，然后计算嵌入。基于随机游走的方法也可被用于 [加速](https://arxiv.org/abs/1208.3071) [**Page Rank 方法**](http://infolab.stanford.edu/pub/papers/google.pdf)，帮助计算每个节点的重要性得分 (举个例子：如果重要性得分是基于每个节点与其他节点的连通度的话，我们可以用随机游走访问到每个节点的频率来模拟这个连通度) 。
+[**基于游走的方法**](https://en.wikipedia.org/wiki/Random_walk) 使用在随机游走时从节点j访问节点i的可能性来定义相似矩阵；这些方法结合了局部和全局的信息。举个例子，[**Node2Vec**](https://snap.stanford.edu/node2vec/)模拟图中节点间的随机游走，把这些游走路径建模成跳字 (skip-gram) ，这 [与我们处理句子中的词很相似](https://huggingface.co/papers/1301.3781)，然后计算嵌入。基于随机游走的方法也可被用于 [加速](https://huggingface.co/papers/1208.3071) [**Page Rank 方法**](http://infolab.stanford.edu/pub/papers/google.pdf)，帮助计算每个节点的重要性得分 (举个例子：如果重要性得分是基于每个节点与其他节点的连通度的话，我们可以用随机游走访问到每个节点的频率来模拟这个连通度) 。
 
 然而，这些方法也有限制：它们不能得到新的节点的嵌入向量，不能很好地捕获节点间的结构相似性，也使用不了新加入的特征。
 
@@ -131,7 +131,7 @@ translators:
 
 一个 GNN 由连续的层组成。一个 GNN 层通过 **消息传递 (message passing)** 过程把一个节点表示成其邻节点及其自身表示的组合 (**聚合 (aggregation)**) ，然后通常我们还会使用一个激活函数去增加一些非线性。
 
-**与其他模型相比**：CNN 可以看作一个邻域 (即滑动窗口) 大小和顺序固定的 GNN，也就是说 CNN 不是置换等价的。一个没有位置嵌入 (positional embedding) 的 [Transformer](https://arxiv.org/abs/1706.03762v3) 模型可以被看作一个工作在全连接的输入图上的 GNN。
+**与其他模型相比**：CNN 可以看作一个邻域 (即滑动窗口) 大小和顺序固定的 GNN，也就是说 CNN 不是置换等价的。一个没有位置嵌入 (positional embedding) 的 [Transformer](https://huggingface.co/papers/1706.0376706.03762v3) 模型可以被看作一个工作在全连接的输入图上的 GNN。
 
 ### 聚合与消息传递
 
@@ -140,7 +140,7 @@ translators:
 - [图卷积网络](https://tkipf.github.io/graph-convolutional-networks/) 对目标节点的所有邻节点的归一化表示取平均来做聚合 (大多数 GNN 其实是 GCN) ；
 - [图注意力网络](https://petar-v.com/GAT/) 会学习如何根据邻节点的重要性不同来加权聚合邻节点 (与 transformer 模型想法相似) ；
 - [GraphSAGE](https://snap.stanford.edu/graphsage/) 先在不同的跳数上进行邻节点采样，然后基于采样的子图分多步用最大池化 (max pooling) 方法聚合信息；
-- [图同构网络](https://arxiv.org/pdf/1810.00826v3.pdf) 先计算对邻节点的表示求和，然后再送入一个 MLP 来计算最终的聚合信息。
+- [图同构网络](https://arxiv.org/abs/1810.00826v3) 先计算对邻节点的表示求和，然后再送入一个 MLP 来计算最终的聚合信息。
 
 **选择聚合方法**：一些聚合技术 (尤其是均值池化和最大池化) 在遇到在邻节点上仅有些微差别的相似节点的情况下可能会失败 (举个例子：采用均值池化，一个节点有 4 个邻节点，分别表示为 1，1，-1，-1，取均值后变成 0；而另一个节点有 3 个邻节点，分别表示为 - 1，0，1，取均值后也是 0。两者就无法区分了。) 。
 
@@ -167,15 +167,15 @@ translators:
 
 这里我们收集了一些有意思的工作，截至本文写作时为止，这些工作在现有的最难的测试基准之一 [斯坦福开放图测试基准 (Open Graph Benchmark, OGB)](https://ogb.stanford.edu/) 上取得了最高水平或接近最高水平的结果：
 
-- [*Graph Transformer for Graph-to-Sequence Learning*](https://arxiv.org/abs/1911.07470) (Cai and Lam, 2020) 介绍了一个图编码器，它把节点表示为它本身的嵌入和位置嵌入的级联，节点间关系表示为它们间的最短路径，然后用一个关系增强的自注意力机制把两者结合起来。
-- [*Rethinking Graph Transformers with Spectral Attention*](https://arxiv.org/abs/2106.03893) (Kreuzer et al, 2021) 介绍了谱注意力网络 (Spectral Attention Networks, SANs) 。它把节点特征和学习到的位置编码 (从拉普拉斯特征值和特征向量中计算得到) 结合起来，把这些作为注意力的键 (keys) 和查询 (queries) ，然后把边特征作为注意力的值 (values) 。
-- [*GRPE: Relative Positional Encoding for Graph Transformer*](https://arxiv.org/abs/2201.12787) (Park et al, 2021) 介绍了图相对位置编码 Transformer。它先在图层面的位置编码中结合节点信息，在边层面的位置编码中也结合节点信息，然后在注意力机制中进一步把两者结合起来。
-- [*Global Self-Attention as a Replacement for Graph Convolution*](https://arxiv.org/abs/2108.03348) (Hussain et al, 2021) 介绍了边增强 Transformer。该架构分别对节点和边进行嵌入，并通过一个修改过的注意力机制聚合它们。
-- [*Do Transformers Really Perform Badly for Graph Representation*](https://arxiv.org/abs/2106.05234) (Ying et al, 2021) 介绍了微软的 [**Graphormer**](https://www.microsoft.com/en-us/research/project/graphormer/), 该模型在面世时赢得了 OGB 第一名。这个架构使用节点特征作为注意力的查询 / 键 / 值 (Q/K/V) ，然后在注意力机制中把这些表示与中心性，空间和边编码信息通过求和的方式结合起来。
+- [*Graph Transformer for Graph-to-Sequence Learning*](https://huggingface.co/papers/1911.07470) (Cai and Lam, 2020) 介绍了一个图编码器，它把节点表示为它本身的嵌入和位置嵌入的级联，节点间关系表示为它们间的最短路径，然后用一个关系增强的自注意力机制把两者结合起来。
+- [*Rethinking Graph Transformers with Spectral Attention*](https://huggingface.co/papers/2106.03893) (Kreuzer et al, 2021) 介绍了谱注意力网络 (Spectral Attention Networks, SANs) 。它把节点特征和学习到的位置编码 (从拉普拉斯特征值和特征向量中计算得到) 结合起来，把这些作为注意力的键 (keys) 和查询 (queries) ，然后把边特征作为注意力的值 (values) 。
+- [*GRPE: Relative Positional Encoding for Graph Transformer*](https://huggingface.co/papers/2201.12787) (Park et al, 2021) 介绍了图相对位置编码 Transformer。它先在图层面的位置编码中结合节点信息，在边层面的位置编码中也结合节点信息，然后在注意力机制中进一步把两者结合起来。
+- [*Global Self-Attention as a Replacement for Graph Convolution*](https://huggingface.co/papers/2108.03348) (Hussain et al, 2021) 介绍了边增强 Transformer。该架构分别对节点和边进行嵌入，并通过一个修改过的注意力机制聚合它们。
+- [*Do Transformers Really Perform Badly for Graph Representation*](https://huggingface.co/papers/2106.05234) (Ying et al, 2021) 介绍了微软的 [**Graphormer**](https://www.microsoft.com/en-us/research/project/graphormer/), 该模型在面世时赢得了 OGB 第一名。这个架构使用节点特征作为注意力的查询 / 键 / 值 (Q/K/V) ，然后在注意力机制中把这些表示与中心性，空间和边编码信息通过求和的方式结合起来。
 
-最新的工作是 [*Pure Transformers are Powerful Graph Learners*](https://arxiv.org/abs/2207.02505) (Kim et al, 2022)，它引入了 **TokenGT**。这一方法把输入图表示为一个节点和边嵌入的序列 (并用正交节点标识 (orthonormal node identifiers) 和可训练的类型标识 (type identifiers) 增强它) ，而不使用位置嵌入，最后把这个序列输入给 Tranformer 模型。超级简单，但很聪明！
+最新的工作是 [*Pure Transformers are Powerful Graph Learners*](https://huggingface.co/papers/2207.02505) (Kim et al, 2022)，它引入了 **TokenGT**。这一方法把输入图表示为一个节点和边嵌入的序列 (并用正交节点标识 (orthonormal node identifiers) 和可训练的类型标识 (type identifiers) 增强它) ，而不使用位置嵌入，最后把这个序列输入给 Tranformer 模型。超级简单，但很聪明！
 
-稍有不同的是，[*Recipe for a General, Powerful, Scalable Graph Transformer*](https://arxiv.org/abs/2205.12454) (Rampášek et al, 2022) 引入的不是某个模型，而是一个框架，称为 **GraphGPS**。它允许把消息传递网络和线性 (长程的) transformer 模型结合起来轻松地创建一个混合网络。这个框架还包含了不少工具，用于计算位置编码和结构编码 (节点、图、边层面的) 、特征增强、随机游走等等。
+稍有不同的是，[*Recipe for a General, Powerful, Scalable Graph Transformer*](https://huggingface.co/papers/2205.12454) (Rampášek et al, 2022) 引入的不是某个模型，而是一个框架，称为 **GraphGPS**。它允许把消息传递网络和线性 (长程的) transformer 模型结合起来轻松地创建一个混合网络。这个框架还包含了不少工具，用于计算位置编码和结构编码 (节点、图、边层面的) 、特征增强、随机游走等等。
 
 在图数据上使用 transformer 模型还是一个非常初生的领域，但是它看上去很有前途，因为它可以减轻 GNN 的一些限制，如扩展到更大 / 更稠密的图，抑或是增加模型尺寸而不必担心过平滑问题。
 

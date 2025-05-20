@@ -105,7 +105,7 @@ print(f"user id '{user_id}' will be used during the example")
 ```
 
 
-The [original BERT](https://arxiv.org/abs/1810.04805) was pretrained on [Wikipedia](https://huggingface.co/datasets/wikipedia) and [BookCorpus](https://huggingface.co/datasets/bookcorpus) datasets. Both datasets are available on the [Hugging Face Hub](https://huggingface.co/datasets) and can be loaded with `datasets`.
+The [original BERT](https://huggingface.co/papers/1810.04805) was pretrained on [Wikipedia](https://huggingface.co/datasets/wikipedia) and [BookCorpus](https://huggingface.co/datasets/bookcorpus) datasets. Both datasets are available on the [Hugging Face Hub](https://huggingface.co/datasets) and can be loaded with `datasets`.
 
 _Note: For wikipedia we will use the `20220301`, which is different from the original split._
 
@@ -318,7 +318,7 @@ _This [experiment](https://huggingface.co/philschmid/bert-base-uncased-2022-haba
 
 In our `hyperparameters` we defined a `max_steps` property, which limited the pre-training to only `100_000` steps. The `100_000` steps with a global batch size of `256` took around 12,5 hours.
 
-BERT was originally pre-trained on [1 Million Steps](https://arxiv.org/pdf/1810.04805.pdf) with a global batch size of `256`:
+BERT was originally pre-trained on [1 Million Steps](https://huggingface.co/papers/1810.04805) with a global batch size of `256`:
 > We train with batch size of 256 sequences (256 sequences * 512 tokens = 128,000 tokens/batch) for 1,000,000 steps, which is approximately 40 epochs over the 3.3 billion word corpus.
 
 Meaning if we want to do a full pre-training it would take around 125h hours (12,5 hours * 10) and would cost us around ~$1,650 using  Habana Gaudi on AWS, which is extremely cheap.

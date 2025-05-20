@@ -35,7 +35,7 @@ In addition, we provide a non-exhaustive - and hopefully continuously expanding!
 * **Bias exploration and evaluation**: the Hugging Face team provides a [Space](https://huggingface.co/spaces/society-ethics/DiffusionBiasExplorer) to demonstrate the biases in Stable Diffusion and DALL-E interactively. In this sense, we support and encourage bias explorers and evaluations.
 
 * **Encouraging safety in deployment**
-    * **[Safe Stable Diffusion](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion_safe)**: It mitigates the well-known issue that models, like Stable Diffusion, that are trained on unfiltered, web-crawled datasets tend to suffer from inappropriate degeneration. Related paper: [Safe Latent Diffusion: Mitigating Inappropriate Degeneration in Diffusion Models](https://arxiv.org/abs/2211.05105).
+    * **[Safe Stable Diffusion](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion_safe)**: It mitigates the well-known issue that models, like Stable Diffusion, that are trained on unfiltered, web-crawled datasets tend to suffer from inappropriate degeneration. Related paper: [Safe Latent Diffusion: Mitigating Inappropriate Degeneration in Diffusion Models](https://huggingface.co/papers/2211.05105).
 
     * **Staged released on the Hub**: in particularly sensitive situations, access to some repositories should be restricted. This staged release is an intermediary step that allows the repository’s authors to have more control over its use.
 

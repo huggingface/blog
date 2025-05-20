@@ -13,7 +13,7 @@ authors:
 
 # NPHardEval Leaderboard: Unveiling the Reasoning Abilities of Large Language Models through Complexity Classes and Dynamic Updates
 
-We're happy to introduce the [NPHardEval leaderboard](https://huggingface.co/spaces/NPHardEval/NPHardEval-leaderboard), using [NPHardEval](https://arxiv.org/abs/2312.14890), a cutting-edge benchmark developed by researchers from the University of Michigan and Rutgers University. 
+We're happy to introduce the [NPHardEval leaderboard](https://huggingface.co/spaces/NPHardEval/NPHardEval-leaderboard), using [NPHardEval](https://huggingface.co/papers/2312.14890), a cutting-edge benchmark developed by researchers from the University of Michigan and Rutgers University. 
 
 NPHardEval introduces a dynamic, complexity-based framework for assessing Large Language Models' (LLMs) reasoning abilities. It poses 900 algorithmic questions spanning the NP-Hard complexity class and lower, designed to rigorously test LLMs, and is updated on a monthly basis to prevent overfitting!
 
@@ -22,7 +22,7 @@ NPHardEval introduces a dynamic, complexity-based framework for assessing Large 
 
 ## A Unique Approach to LLM Evaluation
 
-[NPHardEval](https://arxiv.org/abs/2312.14890) stands apart by employing computational complexity classes, offering a quantifiable and robust measure of LLM reasoning skills. The benchmark's tasks mirror real-world decision-making challenges, enhancing its relevance and applicability. Regular monthly updates of the benchmark data points mitigate the risk of model overfitting, ensuring a reliable evaluation. 
+[NPHardEval](https://huggingface.co/papers/2312.14890) stands apart by employing computational complexity classes, offering a quantifiable and robust measure of LLM reasoning skills. The benchmark's tasks mirror real-world decision-making challenges, enhancing its relevance and applicability. Regular monthly updates of the benchmark data points mitigate the risk of model overfitting, ensuring a reliable evaluation. 
 
 The major contributions of NPHardEval are new using new benchmarking strategies (proposing an automatic and dynamic benchmark), and introducing a new way to evaluate LLM reasoning.
 

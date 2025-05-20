@@ -17,7 +17,7 @@ translators:
 
 # 用 bitsandbytes、4 比特量化和 QLoRA 打造亲民的 LLM
 
-众所周知，LLM 规模庞大，如果在也能消费类硬件中运行或训练它们将是其亲民化的巨大进步。我们之前撰写的 [LLM.int8 博文](https://huggingface.co/blog/zh/hf-bitsandbytes-integration) 展示了我们是如何将 [LLM.int8 论文](https://arxiv.org/abs/2208.07339) 中的技术通过 `bitsandbytes` 库集成到 `transformers` 中的。在此基础上，我们不断努力以不断降低大模型的准入门槛。在此过程中，我们决定再次与 `bitsandbytes` 联手，支持用户以 4 比特精度运行任何模态 (文本、视觉、多模态等) 上的绝大多数 HF 模型。用户还可以利用 Hugging Face 生态系统中的工具在 4 比特模型之上训练适配器。这一工作基于 Dettmers 等人最近在 QLoRA 这篇论文中介绍的一种新方法，其论文摘要如下:
+众所周知，LLM 规模庞大，如果在也能消费类硬件中运行或训练它们将是其亲民化的巨大进步。我们之前撰写的 [LLM.int8 博文](https://huggingface.co/blog/zh/hf-bitsandbytes-integration) 展示了我们是如何将 [LLM.int8 论文](https://huggingface.co/papers/2208.07339) 中的技术通过 `bitsandbytes` 库集成到 `transformers` 中的。在此基础上，我们不断努力以不断降低大模型的准入门槛。在此过程中，我们决定再次与 `bitsandbytes` 联手，支持用户以 4 比特精度运行任何模态 (文本、视觉、多模态等) 上的绝大多数 HF 模型。用户还可以利用 Hugging Face 生态系统中的工具在 4 比特模型之上训练适配器。这一工作基于 Dettmers 等人最近在 QLoRA 这篇论文中介绍的一种新方法，其论文摘要如下:
 
 > 我们提出了 QLoRA，这是一种高效的微调方法，可减少内存使用量，使得在单个 48GB GPU 上就可以微调 65B 的模型，而且所得模型的性能与全 16 比特微调相当。QLoRA 通过冻结 4 比特量化的预训练语言模型将梯度反向传播到低秩适配器 (LoRA) 中。我们最好的模型 (我们将其命名为 Guanaco) 仅需在单个 GPU 上进行 24 小时微调，就能在 Vicuna 基准测试中优于所有之前公开发布的模型，且达到了 ChatGPT 性能水平的 99.3%。QLoRA 引入了多项创新技术，在不牺牲性能的情况下节省内存:(a) 4 位 NormalFloat (NF4)，一种新的数据类型，在信息论意义上是正态分布权重的最佳表示 (b) 双量化，通过对量化系数进行二次量化来减少平均内存占用，以及 (c) 用于降低峰值内存占用的分页优化器。我们使用 QLoRA 微调了 1000 多个模型，并给出了它们在指令依从、聊天等任务上的详细性能分析，其中涵盖了 8 个指令数据集、多种模型架构 (LLaMA、T5)，还包括了无法用常规方法微调的大模型 (例如 33B 和 65B 模型)。结果表明，在小型高质量数据集的进行 QLoRA 微调能带来最先进的性能，且所需的模型尺寸更小。我们使用人类和 GPT-4 对聊天机器人的性能进行了详细评估分析，结果表明 GPT-4 评估是替代人类评估的廉价且合理的方案。此外，我们发现当前的聊天机器人基准测试在准确评估聊天机器人的性能水平这一方面并不十分可信。我们还挑选了一些样本，对 Guanaco 比 ChatGPT 做得不好的案例进行了分析。我们发布了所有模型和代码，包括用于 4 比特训练的 CUDA 核函数。
 
@@ -25,7 +25,7 @@ translators:
 
 下面是一些 4 比特模型和 QLoRA 的入门资源:
 
-- [原始论文](https://arxiv.org/abs/2305.14314)
+- [原始论文](https://huggingface.co/papers/2305.14314)
 - [有关 bitsandbytes 基础用法的 Google Colab 笔记本](https://colab.research.google.com/drive/1ge2F1QSK8Q7h0hn3YKuBCOAS0bK8E0wf?usp=sharing) - 该笔记本展示了如何对 4 比特模型进行推理，以及如何在免费的 Google Colab 实例上运行 GPT-neo-X 模型 (20B) 🤯。
 - [微调的 Google Colab 笔记本](https://colab.research.google.com/drive/1VoYNfYDKcKRQRor98Zbf2-9VQTtGJ24k?usp=sharing) - 该笔记本展示了如何使用 Hugging Face 生态系统在下游任务上微调 4 比特模型。我们证明了可以在 Google Colab 实例上微调 GPT-neo-X 20B！
 - [用于复现论文结果的原始代码库](https://github.com/artidoro/qlora)
@@ -47,7 +47,7 @@ FP8 和 FP4 分别代表浮点 8 比特和 4 比特精度。它们属于 miniflo
 
 正如之前的博文中所讨论的，n 比特的浮点数中每个比特都属于一个特定类别，负责表示数字的各个组成部分 (符号、尾数和指数)。
 
-[FP8 for Deep Learning](https://arxiv.org/pdf/2209.05433.pdf) 这篇论文首次引入了 FP8 (浮点 8) 格式，其有两种不同的编码方式: E4M3 (4 位指数，3 位尾数) 和 E5M2 (5 位指数，2 位尾数)。
+[FP8 for Deep Learning](https://huggingface.co/papers/2209.05433) 这篇论文首次引入了 FP8 (浮点 8) 格式，其有两种不同的编码方式: E4M3 (4 位指数，3 位尾数) 和 E5M2 (5 位指数，2 位尾数)。
 
 | ![fp8 编码方案](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bitsandbytes/FP8-scheme.png) |
 |:--:|
@@ -69,7 +69,7 @@ FP4 没有固定的格式，因此可以尝试不同尾数/指数的组合。一
 
 简而言之，与标准 16 比特模型微调相比，QLoRA 在不牺牲性能的前提下减少了 LLM 微调的内存使用量。使用该方法，我们可在单个 24GB GPU 上微调 33B 模型，还可以在单个 46GB GPU 上微调 65B 模型。
 
-更具体地说，QLoRA 使用 4 比特量化来压缩预训练的语言模型。然后冻结基础模型的参数，并将相对少量的可训练参数以低秩适配器的形式添加到模型中。在微调过程中，QLoRA 通过冻结的 4 比特量化预训练语言模型将梯度反向传播到低秩适配器中。LoRA 层的权重是训练期间唯一可更新的参数。你可阅读 [原始 LoRA 论文](https://arxiv.org/abs/2106.09685) 以了解更多有关 LoRA 的信息。
+更具体地说，QLoRA 使用 4 比特量化来压缩预训练的语言模型。然后冻结基础模型的参数，并将相对少量的可训练参数以低秩适配器的形式添加到模型中。在微调过程中，QLoRA 通过冻结的 4 比特量化预训练语言模型将梯度反向传播到低秩适配器中。LoRA 层的权重是训练期间唯一可更新的参数。你可阅读 [原始 LoRA 论文](https://huggingface.co/papers/2106.09685) 以了解更多有关 LoRA 的信息。
 
 QLoRA 有一个用于存储基础模型权重的数据类型 (通常为 4 比特 NormalFloat) 和一个用于执行计算的数据类型 (16 比特 BrainFloat)。QLoRA 将权重从存储数据类型反量化为计算数据类型，以执行前向和后向传播，但仅计算 bfloat16 的 LoRA 参数的权重梯度。权重仅在需要时才解压缩，因此在训练和推理期间内存使用率都能保持较低水平。
 

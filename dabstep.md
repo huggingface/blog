@@ -125,7 +125,7 @@ As an example of a multi-step reasoning problem, The following code shows a snip
 
 Some quick comments on how we are hoping to encourage generalization with the benchmark.
 
-**Symbolic Reasoning:** In the spirit of [GSM-Symbolic](https://arxiv.org/abs/2410.05229), tasks have been exploded in cardinality using permutations of time ranges, merchant names, etc. The rationale is to remove the chance of “lucky guesses” and validate core reasoning (repeatability of reasoning) and generalization.
+**Symbolic Reasoning:** In the spirit of [GSM-Symbolic](https://huggingface.co/papers/2410.05229), tasks have been exploded in cardinality using permutations of time ranges, merchant names, etc. The rationale is to remove the chance of “lucky guesses” and validate core reasoning (repeatability of reasoning) and generalization.
 
 **Hidden Test Set:** We have opted not to divide the dataset into validation and test sets and are only releasing a heldout test set. This is because a data analyst agent should be able to generalize across various analysis tasks not per se captured in this benchmark version. 
 

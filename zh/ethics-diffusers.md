@@ -38,7 +38,7 @@ translators:
 - **偏差探索和评估**: Hugging Face 团队提供了一个 [Space](https://huggingface.co/spaces/society-ethics/DiffusionBiasExplorer) 以交互方式演示 Stable Diffusion 和 DALL-E 中的偏差。从这个意义上说，我们支持和鼓励有偏差的探索和评估。
 - **鼓励安全部署**
 
-  - **[Safe Stable Diffusion](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion_safe)**: 它缓解了众所周知的问题，像 Stable Diffusion，在未经过滤的，网络抓取的数据集上训练的模型往往会遭受不当的退化。相关论文: [Safe Latent Diffusion: Mitigating Inappropriate Degeneration in Diffusion Models](https://arxiv.org/abs/2211.05105).
+  - **[Safe Stable Diffusion](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion_safe)**: 它缓解了众所周知的问题，像 Stable Diffusion，在未经过滤的，网络抓取的数据集上训练的模型往往会遭受不当的退化。相关论文: [Safe Latent Diffusion: Mitigating Inappropriate Degeneration in Diffusion Models](https://huggingface.co/papers/2211.05105).
   - **在 Hub 上分阶段发布**: 特别在敏感的情况下，应限制对某些仓库的访问。这是发布阶段的一个中间步骤，允许仓库的作者对其使用有更多的控制权限。
 
 - **许可**: [OpenRAILs](https://huggingface.co/blog/open_rail), 是一种新型许可，可让我们确保自由访问，同时拥有一组限制，以确保更多负责任的用途。

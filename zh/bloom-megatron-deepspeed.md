@@ -130,7 +130,7 @@ Megatron-DeepSpeed 实现了 3D 并行以允许大模型以非常有效的方式
 
 在张量并行 (TP) 中，每个 GPU 仅处理张量的一部分，并且仅当某些算子需要完整的张量时才触发聚合操作。
 
-在本节中，我们使用 [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) 论文: [Efficient Large-Scale Language Model Training on GPU Clusters](https://arxiv.org/abs/2104.04473)。
+在本节中，我们使用 [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) 论文: [Efficient Large-Scale Language Model Training on GPU Clusters](https://huggingface.co/papers/2104.04473)。
 
 Transformer 类模型的主要模块为: 一个全连接层 `nn.Linear`，后面跟一个非线性激活层 `GeLU`。
 
@@ -158,7 +158,7 @@ Transformer 类模型的主要模块为: 一个全连接层 `nn.Linear`，后面
 
 需要特别考虑的是: 由于前向和后向传播中每层都有两个 all reduce，因此 TP 需要设备间有非常快速的互联。因此，除非你有一个非常快的网络，否则不建议跨多个节点进行 TP。我们训练 BLOOM 的硬件配置中，节点间的速度比 PCIe 慢很多。实际上，如果节点有 4 个 GPU，则最高 TP 度设为 4 比较好。如果需要 TP 度为 8，则需要使用至少有 8 个 GPU 的节点。
 
-该组件由 Megatron-LM 实现。Megatron-LM 最近扩展了张量并行能力，新增了序列并行的能力，用于难以使用前述切分算法的算子，如 LayerNorm。[Reducing Activation Recomputation in Large Transformer Models](https://arxiv.org/abs/2205.05198) 论文提供了此技术的详细信息。序列并行是在训练 BLOOM 之后开发的，所以 BLOOM 训练时并未采用此技术。
+该组件由 Megatron-LM 实现。Megatron-LM 最近扩展了张量并行能力，新增了序列并行的能力，用于难以使用前述切分算法的算子，如 LayerNorm。[Reducing Activation Recomputation in Large Transformer Models](https://huggingface.co/papers/2205.05198) 论文提供了此技术的详细信息。序列并行是在训练 BLOOM 之后开发的，所以 BLOOM 训练时并未采用此技术。
 
 ## 流水线并行
 
@@ -206,7 +206,7 @@ PP 引入了一个新的超参数来调整，称为 `块 (chunks)`。它定义�
 
 该图显示存在无法并行化的 “死” 时间气泡，因为最后一个 `forward` 阶段必须等待 `backward` 完成流水。那么，找到最佳的 `块` 数，从而使所有参与的 GPU 达到高的并发利用率，这一问题其实就转化为最小化气泡数了。
 
-这种调度机制被称为 `全前全后`。其他一些可选方案有 [一前一后](https://www.microsoft.com/en-us/research/publication/pipedream-generalized-pipeline-parallelism-for-dnn-training/) 和 [交错一前一后](https://arxiv.org/abs/2104.04473)。
+这种调度机制被称为 `全前全后`。其他一些可选方案有 [一前一后](https://www.microsoft.com/en-us/research/publication/pipedream-generalized-pipeline-parallelism-for-dnn-training/) 和 [交错一前一后](https://huggingface.co/papers/2104.04473)。
 
 虽然 Megatron-LM 和 DeepSpeed 都有自己的 PP 协议实现，但 Megatron-DeepSpeed 使用的是 DeepSpeed 实现，因为它与 DeepSpeed 的其他功能集成在一起。
 
@@ -252,7 +252,7 @@ ZeRO 阶段 3 也可用于训练这种规模的模型，但是，它需要的通
 
 ![104B-fail](https://huggingface.co/blog/assets/86_bloom_megatron_deepspeed/104b-lm-loss.png)
 
-我们也从 Megatron-LM 和 DeepSpeed 团队那里得到了相同的建议，在他们训得 [530B 模型](https://arxiv.org/abs/2201.11990) 后。最近发布的 [OPT-175B](https://arxiv.org/abs/2205.01068) 也报告说他们在 FP16 上训练得非常艰难。
+我们也从 Megatron-LM 和 DeepSpeed 团队那里得到了相同的建议，在他们训得 [530B 模型](https://huggingface.co/papers/2201.11990) 后。最近发布的 [OPT-175B](https://huggingface.co/papers/2205.01068) 也报告说他们在 FP16 上训练得非常艰难。
 
 所以早在一月份，我们就知道我们要在支持 BF16 格式的 A100 上进行训练。Olatunji Ruwase 开发了一个用来训练 BLOOM 的 `BF16Optimizer`。
 
@@ -298,7 +298,7 @@ Megatron-LM 的另一个重要特性是高效的数据加载器。在首次训�
 
 ## 位置编码
 
-基于论文 [Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation](https://arxiv.org/abs/2108.12409)，我们还用 AliBi 替换了普通的位置嵌入，它允许外推比训练模型的输入序列更长的输入序列。因此，即使我们训练时使用长度为 2048 的序列，模型也可以在推理过程中处理更长的序列。
+基于论文 [Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation](https://huggingface.co/papers/2108.12409)，我们还用 AliBi 替换了普通的位置嵌入，它允许外推比训练模型的输入序列更长的输入序列。因此，即使我们训练时使用长度为 2048 的序列，模型也可以在推理过程中处理更长的序列。
 
 ## 训练中的困难
 
@@ -341,28 +341,28 @@ Megatron-LM 的另一个重要特性是高效的数据加载器。在首次训�
 
 Megatron-LM:
 
-- [Efficient Large-Scale Language Model Training on GPU Clusters](https://arxiv.org/abs/2104.04473).
-- [Reducing Activation Recomputation in Large Transformer Models](https://arxiv.org/abs/2205.05198)
+- [Efficient Large-Scale Language Model Training on GPU Clusters](https://huggingface.co/papers/2104.04473).
+- [Reducing Activation Recomputation in Large Transformer Models](https://huggingface.co/papers/2205.05198)
 
 DeepSpeed:
 
-- [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054)
-- [ZeRO-Offload: Democratizing Billion-Scale Model Training](https://arxiv.org/abs/2101.06840)
-- [ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep Learning](https://arxiv.org/abs/2104.07857)
+- [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://huggingface.co/papers/1910.02054)
+- [ZeRO-Offload: Democratizing Billion-Scale Model Training](https://huggingface.co/papers/2101.06840)
+- [ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep Learning](https://huggingface.co/papers/2104.07857)
 - [DeepSpeed: Extreme-scale model training for everyone](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/)
 
 Megatron-LM 和 Deepspeeed 联合:
 
-- [Using DeepSpeed and Megatron to Train Megatron-Turing NLG 530B, A Large-Scale Generative Language Model](https://arxiv.org/abs/2201.11990).
+- [Using DeepSpeed and Megatron to Train Megatron-Turing NLG 530B, A Large-Scale Generative Language Model](https://huggingface.co/papers/2201.11990).
 
 ALiBi:
 
--  [Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation](https://arxiv.org/abs/2108.12409)
+-  [Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation](https://huggingface.co/papers/2108.12409)
 - [What Language Model to Train if You Have One Million GPU Hours?](https://openreview.net/forum?id=rI7BL3fHIZq) - 你会在那里找到最终使得我们选择 ALiBi 的实验。
 
 BitsNBytes:
 
-- [8-bit Optimizers via Block-wise Quantization](https://arxiv.org/abs/2110.02861) (我们使用了该论文中的嵌入 LaynerNorm，但是论文的其他部分及其技术也很妙，我们没用 8 位优化器的唯一原因是我们已经使用 DeepSpeed-ZeRO 节省了优化器内存)。
+- [8-bit Optimizers via Block-wise Quantization](https://huggingface.co/papers/2110.02861) (我们使用了该论文中的嵌入 LaynerNorm，但是论文的其他部分及其技术也很妙，我们没用 8 位优化器的唯一原因是我们已经使用 DeepSpeed-ZeRO 节省了优化器内存)。
 
 ## 博文致谢
 

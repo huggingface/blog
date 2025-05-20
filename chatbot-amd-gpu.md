@@ -68,7 +68,7 @@ effect on GPT latency because GPT token generation is more limited by
 memory bandwidth (GB/s) than computation (TFLOPs or TOPs) itself. For this
 reason, a quantized model does not degrade
 token generation latency when the GPU is under a memory bound situation.
-Refer to [the GPTQ quantization papers](<https://arxiv.org/abs/2210.17323>) and [github repo](<https://github.com/IST-DASLab/gptq>).
+Refer to [the GPTQ quantization papers](<https://huggingface.co/papers/2210.17323>) and [github repo](<https://github.com/IST-DASLab/gptq>).
 
 By leveraging this technique, several 4-bit quantized Vicuna models are
 available from Hugging Face as follows,

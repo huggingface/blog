@@ -88,13 +88,13 @@ wandb
 
 ## 预训练模型
 
-### [RoBERTa](https://arxiv.org/abs/1907.11692)
+### [RoBERTa](https://huggingface.co/papers/1907.11692)
 
 RoBERTa (Robustly Optimized BERT Approach) 是 Meta AI 研究团队提出的改进版 BERT 模型。BERT 是一种基于 transformer 的语言模型，其基于自注意力机制对单词进行上下文感知的表征，并基于掩码语言模型目标进行训练。请注意，BERT 作为编码器模型，仅可用于自然语言理解任务 (例如序列分类和词元分类)。
 
 RoBERTa 是一种流行的可微调模型，很适合作为我们实验的基线。欲了解更多信息，你可以查阅其 Hugging Face [模型卡](https://huggingface.co/docs/transformers/model_doc/roberta)。
 
-### [Llama 2](https://arxiv.org/abs/2307.09288)
+### [Llama 2](https://huggingface.co/papers/2307.09288)
 
 Llama 2 (Large Language Model Meta AI) 是 Meta AI 推出的一系列大语言模型 (LLM)，其模型大小各异，参数量从 70 亿到 650 亿不等。
 
@@ -104,7 +104,7 @@ Llama 2 的架构与 GPT-3 等模型略有不同。举几个例子，Llama 2 采
 
 最近发布的 Llama 2 还对架构进行了改进，其将支持的最大上下文长度扩展到 4096 个词元，并使用分组查询注意 (grouped-query attention，GQA) 解码机制来更好地利用长序列。
 
-### [Mistral 7B](https://arxiv.org/abs/2310.06825)
+### [Mistral 7B](https://huggingface.co/papers/2310.06825)
 
 Mistral 7B v0.1 有 73 亿个参数，是 Mistral AI 推出的第一个 LLM。
 
@@ -113,7 +113,7 @@ Mistral 7B 架构使用的新技术主要有:
 - 滑窗注意力: 用基于滑动窗口的注意力替换完整注意力 (平方级计算成本)，其中每个词元最多可以关注上一层的 4096 个词元 (线性计算成本)。这样，多层以后，Mistral 7B 的实际关注词元数会叠加，因此更高层的注意力实际关注的总历史词元数会超过 4096。
 - 分组查询注意力: Llama 2 也使用了该技术，其通过缓存先前解码的词元的键向量和值向量来优化推理过程 (减少处理时间)。
 
-## [LoRA](https://arxiv.org/abs/2106.09685)
+## [LoRA](https://huggingface.co/papers/2106.09685)
 
 PEFT (Parameter Efficient Fine-Tuning，参数高效微调) 包含 p-tuning、前缀微调 (prefix-tuning) 、IA3、适配器微调以及 LoRA 等一系列技术，其旨在通过仅微调大模型的一个小参数集，就能达到全模型微调的性能水平。
 
@@ -405,7 +405,7 @@ roberta_model = AutoModelForSequenceClassification.from_pretrained(roberta_check
 - lora_dropout: LoRA 层的 Dropout 概率
 - bias: 是否向 LoRA 层添加偏置
 
-以下代码使用了 [LoRA 论文](https://arxiv.org/abs/2106.09685) 的推荐设置。[后文](#超参调优) 我们还将用 `wandb` 对这些超参进行调优。
+以下代码使用了 [LoRA 论文](https://huggingface.co/papers/2106.09685) 的推荐设置。[后文](#超参调优) 我们还将用 `wandb` 对这些超参进行调优。
 
 ```python
 from peft import get_peft_model, LoraConfig, TaskType

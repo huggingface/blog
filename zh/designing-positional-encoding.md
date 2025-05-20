@@ -159,7 +159,7 @@ print(f"Dog output identical?: {torch.allclose(dog1_out, dog2_out, atol=1e-6)}")
 
 上面的动画展示了位置嵌入的可视化，其中每个分量交替来自 \\(\sin\\) 和 \\(\cos\\)，并逐步增加其波长。如果将其与前一个动画对比，你会注意到惊人的相似性！
 
-我们现在得到了 **正弦嵌入**，其最初在 [Attention is all you need](https://arxiv.org/abs/1706.03762) 论文中被提出。以下是相关公式:
+我们现在得到了 **正弦嵌入**，其最初在 [Attention is all you need](https://huggingface.co/papers/1706.03762) 论文中被提出。以下是相关公式:
 
 $$
 PE_{(pos,2i)} = \color{#58C4DD}\sin\left(\color{black}\frac{pos}{10000^{2i/d}}\color{#58C4DD}\right)\color{black} \\ 
@@ -223,7 +223,7 @@ $$
 
 如果你曾从事过游戏编程，可能会觉得这个结果似曾相识。没错，这就是 [旋转矩阵！](https://en.wikipedia.org/wiki/Rotation_matrix) \\([^3]\\)。
 
-因此，[Noam Shazeer](https://en.wikipedia.org/wiki/Noam_Shazeer) 在 [Attention is all you need](https://arxiv.org/abs/1706.03762) 一文中设计的编码方案早在 2017 年就已经通过旋转来编码相对位置了！但从正弦位置编码到 RoPE (旋转位置编码) 却花了整整 **4 年**，尽管旋转的概念早已被提出……
+因此，[Noam Shazeer](https://en.wikipedia.org/wiki/Noam_Shazeer) 在 [Attention is all you need](https://huggingface.co/papers/1706.03762) 一文中设计的编码方案早在 2017 年就已经通过旋转来编码相对位置了！但从正弦位置编码到 RoPE (旋转位置编码) 却花了整整 **4 年**，尽管旋转的概念早已被提出……
 
 ### 绝对位置编码 vs 相对位置编码
 
@@ -265,7 +265,7 @@ $$
 
 ## **旋转位置编码 (RoPE)**
 
-**旋转位置编码** (Rotary Positional Encoding，简称 **RoPE** ) 是在 [RoFormer 论文](https://arxiv.org/pdf/2104.09864) 中定义的 ([Jianlin Su](https://x.com/bojone1993) 在他的博客 [这里](https://kexue.fm/archives/8130) 和 [这里](https://kexue.fm/archives/8265) 中独立设计了这一方法)。
+**旋转位置编码** (Rotary Positional Encoding，简称 **RoPE** ) 是在 [RoFormer 论文](https://huggingface.co/papers/2104.09864) 中定义的 ([Jianlin Su](https://x.com/bojone1993) 在他的博客 [这里](https://kexue.fm/archives/8130) 和 [这里](https://kexue.fm/archives/8265) 中独立设计了这一方法)。
 
 如果直接跳到最终结果，可能会觉得它像是某种“魔法”。但通过将正弦位置编码放在自注意力 (尤其是点积) 的背景下思考，我们可以看出它的核心逻辑。
 
@@ -339,7 +339,7 @@ $$
 
 ## 位置编码的未来
 
-RoPE 是位置编码的最终形式吗？DeepMind 的 [这篇论文](https://arxiv.org/pdf/2410.06205) 深入分析了 RoPE 并指出了一些根本性问题。总结: RoPE 并非完美解决方案，模型主要专注于低频分量，而对某些低频分量的旋转能够提升 Gemma 2B 的性能！
+RoPE 是位置编码的最终形式吗？DeepMind 的 [这篇论文](https://huggingface.co/papers/2410.06205) 深入分析了 RoPE 并指出了一些根本性问题。总结: RoPE 并非完美解决方案，模型主要专注于低频分量，而对某些低频分量的旋转能够提升 Gemma 2B 的性能！
 
 未来可能会有一些突破，或许从信号处理中汲取灵感，例如小波或分层实现。随着模型越来越多地被量化以便于部署，我也期待在低精度计算下仍然保持鲁棒性的编码方案出现。
 
@@ -356,6 +356,6 @@ RoPE 是位置编码的最终形式吗？DeepMind 的 [这篇论文](https://arx
 - [Transformer Architecture: The Positional Encoding](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/)
 - [Rotary Embeddings: A Relative Revolution](https://blog.eleuther.ai/rotary-embeddings/)
 - [How positional encoding works in transformers?](https://www.youtube.com/watch?v=T3OT8kqoqjc)
-- [Attention Is All You Need](https://arxiv.org/pdf/1706.03762)
-- [Round and round we go! What makes Rotary Positional Encodings useful?](https://arxiv.org/pdf/2410.06205)
-- [RoFormer: Enhanced Transformer with Rotary Position Embedding](https://arxiv.org/pdf/2104.09864)[^1]: 正弦和二进制动画来源于 [视频](https://www.youtube.com/watch?v=T3OT8kqoqjc0)。[^2]: 使用 \(\theta = 10000\) 可生成 \( 2 \pi \cdot 10000\) 个唯一位置，理论上下文长度上限约为 63,000。[^3]: 本文部分内容参考自 [这篇精彩的文章](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/) (作者: [Amirhossein Kazemnejad](https://kazemnejad.com/))。 [^4]: 相关实验数据请参见 [EleutherAI 的这篇文章](https://blog.eleuther.ai/rotary-embeddings/)。
+- [Attention Is All You Need](https://huggingface.co/papers/1706.03762)
+- [Round and round we go! What makes Rotary Positional Encodings useful?](https://huggingface.co/papers/2410.06205)
+- [RoFormer: Enhanced Transformer with Rotary Position Embedding](https://huggingface.co/papers/2104.09864)[^1]: 正弦和二进制动画来源于 [视频](https://www.youtube.com/watch?v=T3OT8kqoqjc0)。[^2]: 使用 \(\theta = 10000\) 可生成 \( 2 \pi \cdot 10000\) 个唯一位置，理论上下文长度上限约为 63,000。[^3]: 本文部分内容参考自 [这篇精彩的文章](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/) (作者: [Amirhossein Kazemnejad](https://kazemnejad.com/))。 [^4]: 相关实验数据请参见 [EleutherAI 的这篇文章](https://blog.eleuther.ai/rotary-embeddings/)。

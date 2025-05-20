@@ -806,7 +806,7 @@ _Note: We are currently working with our partners at AWS, Google Cloud, Microsof
 
 ## Fine-tuning with Hugging Face TRL
 
-In this section, we’ll look at the tools available in the Hugging Face ecosystem to efficiently train Llama 3.1 on consumer-size GPUs. An example command to fine-tune Llama 3.1 8B on OpenAssistant’s [chat dataset](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) can be found below. We use 4-bit quantization and [QLoRA](https://arxiv.org/abs/2305.14314) to conserve memory to target all the attention blocks' linear layers. 
+In this section, we’ll look at the tools available in the Hugging Face ecosystem to efficiently train Llama 3.1 on consumer-size GPUs. An example command to fine-tune Llama 3.1 8B on OpenAssistant’s [chat dataset](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) can be found below. We use 4-bit quantization and [QLoRA](https://huggingface.co/papers/2305.14314) to conserve memory to target all the attention blocks' linear layers. 
 
 <details close>
 <summary>Fine-Tuning Example with Hugging Face TRL</summary>

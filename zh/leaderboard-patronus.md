@@ -34,7 +34,7 @@ translators:
 
 ## 排行榜中的任务
 
-1. **[FinanceBench](https://arxiv.org/abs/2311.11944)**: 我们使用 150 个提示来度量模型根据检索到的上下文回答财务问题的能力。为了评估回答的准确度，我们通过对 gpt-3.5 使用少样本提示的方式来评估生成的答案是否与标准答案相匹配。
+1. **[FinanceBench](https://huggingface.co/papers/2311.11944)**: 我们使用 150 个提示来度量模型根据检索到的上下文回答财务问题的能力。为了评估回答的准确度，我们通过对 gpt-3.5 使用少样本提示的方式来评估生成的答案是否与标准答案相匹配。
 
 测例:
 
@@ -52,7 +52,7 @@ Answer: No, it has been relatively volatile based on a percentage basis
 
 **评价指标: 正确性**
 
-2. **法律保密**: 我们从 [LegalBench](https://arxiv.org/abs/2308.11462) 中选了 100 个已标注的提示，用于度量 LLM 对法律条款进行因果推理的能力。我们使用少样本提示并要求模型回答是或否，最后我们度量模型输出与标签之间的精确匹配准确率。
+2. **法律保密**: 我们从 [LegalBench](https://huggingface.co/papers/2308.11462) 中选了 100 个已标注的提示，用于度量 LLM 对法律条款进行因果推理的能力。我们使用少样本提示并要求模型回答是或否，最后我们度量模型输出与标签之间的精确匹配准确率。
 
 测例:
 
@@ -98,7 +98,7 @@ Apple Customer Service Agent: Of course! To enable Night mode on your iPhone 13,
 Customer: How can I increase the exposure time?
 ```
 
-**评价指标: 参与度，一致性，[对话深度](https://arxiv.org/abs/1801.03625)**
+**评价指标: 参与度，一致性，[对话深度](https://huggingface.co/papers/1801.03625)**
 
 5. **毒性**: 我们使用 100 个提示来评估模型的安全性，这 100 个提示都试图引诱 LLM 生成有害信息。这些提示都是由红队技术生成的。我们使用 Perspective API 来度量模型是否生成了粗鲁、不尊重或不合理的文本。
 

@@ -193,7 +193,7 @@ With this, we present **π0-FAST**, faster and autoregressive version of **π0**
 ---
 ## 🚀 What is π0-FAST?
 
-[Paper](https://arxiv.org/pdf/2501.09747) | [Jax Code](https://github.com/Physical-Intelligence/openpi) | [Our implementation in Lerobot](https://github.com/huggingface/lerobot/pull/921)
+[Paper](https://huggingface.co/papers/2501.09747) | [Jax Code](https://github.com/Physical-Intelligence/openpi) | [Our implementation in Lerobot](https://github.com/huggingface/lerobot/pull/921)
 
 π0-FAST is an **autoregressive version** of π0, introducing **FAST (Frequency-space Action Sequence Tokenization)**—a new tokenization scheme that enhances efficiency and performance.
 

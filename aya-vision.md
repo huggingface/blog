@@ -40,7 +40,7 @@ We release both [8B](https://huggingface.co/CohereForAI/aya-vision-8b) and [32B]
 
 For a high-performance vision-language model, it is important to process images with a*rbitrary resolutions*, especially high-resolution images. To enable this capability in Aya Vision, we dynamically resize and split any higher-resolution images into multiple tiles to generate rich image features from the image encoder. In Aya Vision models, we use the recently released [SigLIP2-patch14-384](https://huggingface.co/blog/siglip2) model as the initialization for the vision encoder. 
 
-While dynamic resizing enables processing high-resolution images, it also leads to a larger number of image tokens passing through the vision-language connector and LLM decoder. To improve latency and throughput, we use a downsampling method called [Pixel Shuffle](https://arxiv.org/pdf/2404.16821), to compress the number of image tokens by 4x. After downsampling, image tokens are aligned to the language model input embeddings through a vision-language connector and passed to an LLM decoder.
+While dynamic resizing enables processing high-resolution images, it also leads to a larger number of image tokens passing through the vision-language connector and LLM decoder. To improve latency and throughput, we use a downsampling method called [Pixel Shuffle](https://huggingface.co/papers/2404.16821), to compress the number of image tokens by 4x. After downsampling, image tokens are aligned to the language model input embeddings through a vision-language connector and passed to an LLM decoder.
 
 For the text decoder, we use our multilingual language models. For Aya Vision 8B, we use an LLM that is initialized from [Cohere Command  R7B](https://huggingface.co/CohereForAI/c4ai-command-r7b-12-2024) for improved instruction following and world knowledge and further post-trained using the [Aya Expanse recipe](https://huggingface.co/blog/aya-expanse) consisting of diverse multilingual data, model merging, and preference training. For Aya Vision 32B, we initialize the language model from [Aya Expanse 32B](https://huggingface.co/CohereForAI/aya-expanse-32b) based on its state-of-the-art multilingual performance.
 
@@ -113,10 +113,10 @@ Special thank you to Hugging Face for helping make this come together: Yoni Gozl
 
 ## References
 
-[1] [*Aya Expanse: Combining Research Breakthroughs for a New Multilingual Frontier*](https://arxiv.org/abs/2412.04261)  
-[2] [Pangea: A Fully Open Multilingual Multimodal LLM for 39 Languages](https://arxiv.org/abs/2410.16153)  
-[3] [WildVision: Evaluating Vision-Language Models in the Wild with Human Preferences](https://arxiv.org/abs/2406.11069)  
-[4] [SigLIP 2: Multilingual Vision-Language Encoders with Improved Semantic Understanding, Localization, and Dense Features](https://arxiv.org/abs/2502.14786)  
-[5] [What matters when building vision-language models?](https://arxiv.org/abs/2405.02246)  
-[6] [Molmo and PixMo: Open Weights and Open Data for State-of-the-Art Vision-Language Models](https://arxiv.org/abs/2409.17146)  
-[7] [How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites](https://arxiv.org/pdf/2404.16821)
+[1] [*Aya Expanse: Combining Research Breakthroughs for a New Multilingual Frontier*](https://huggingface.co/papers/2412.04261)  
+[2] [Pangea: A Fully Open Multilingual Multimodal LLM for 39 Languages](https://huggingface.co/papers/2410.16153)  
+[3] [WildVision: Evaluating Vision-Language Models in the Wild with Human Preferences](https://huggingface.co/papers/2406.11069)  
+[4] [SigLIP 2: Multilingual Vision-Language Encoders with Improved Semantic Understanding, Localization, and Dense Features](https://huggingface.co/papers/2502.14786)  
+[5] [What matters when building vision-language models?](https://huggingface.co/papers/2405.02246)  
+[6] [Molmo and PixMo: Open Weights and Open Data for State-of-the-Art Vision-Language Models](https://huggingface.co/papers/2409.17146)  
+[7] [How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites](https://huggingface.co/papers/2404.16821)

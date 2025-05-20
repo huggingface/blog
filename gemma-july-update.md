@@ -192,7 +192,7 @@ ShieldGemma is intended to detect harmful requests (according to the indicated c
 ### How to prompt ShieldGemma
 The prompt pattern contains the following components, in order:
 
-1. Preamble, establishing the model as a policy expert, based on the [LLM-as-a-judge](https://arxiv.org/abs/2306.05685) technique.  
+1. Preamble, establishing the model as a policy expert, based on the [LLM-as-a-judge](https://huggingface.co/papers/2306.05685) technique.  
 1. User prompt, wrapped with `<start_of_turn>` and `<end_of_turn>` control tokens.  
 1. Enumeration and description of the safety policies.  
 1. Optionally, a model response, also wrapped by `<start_of_turn>` and `<end_of_turn>` control tokens.  
@@ -294,7 +294,7 @@ print(score)  # 0.7310585379600525
 
 These models were evaluated against both internal and external datasets. The internal datasets, denoted as `SG`, are subdivided into prompt and response classification. Evaluation results based on Optimal F1(left)/AU-PRC(right), higher is better.
 
-| Model | SG Prompt | [OpenAI Mod](https://github.com/openai/moderation-api-release) | [ToxicChat](https://arxiv.org/abs/2310.17389) | SG Response |
+| Model | SG Prompt | [OpenAI Mod](https://github.com/openai/moderation-api-release) | [ToxicChat](https://huggingface.co/papers/2310.17389) | SG Response |
 | :---- | :---- | :---- | :---- | :---- |
 | ShieldGemma (2B) | 0.825/0.887 | 0.812/0.887 | 0.704/0.778 | 0.743/0.802 |
 | ShieldGemma (9B) | 0.828/0.894 | 0.821/0.907 | 0.694/0.782 | 0.753/0.817 |

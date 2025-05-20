@@ -21,7 +21,7 @@ translators:
 
 在大语言模型 (LLM) 领域，强化学习 (RL) 已被证明是能让目标模型符合人类偏好的非常有效的工具。这是 ChatGPT 等系统卓越性能背后的主要秘诀之一。更准确地说，强化学习是人类反馈强化学习 (RLHF) 的关键要素，它使 ChatGPT 能像人类一样聊天。
 
-在 [Training Diffusion Models with Reinforcement Learning](https://arxiv.org/abs/2305.13301) 一文中，Black 等人展示了如何利用 RL 来对扩散模型进行强化，他们通过名为去噪扩散策略优化 (Denoising Diffusion Policy Optimization，DDPO) 的方法针对模型的目标函数实施微调。
+在 [Training Diffusion Models with Reinforcement Learning](https://huggingface.co/papers/2305.13301) 一文中，Black 等人展示了如何利用 RL 来对扩散模型进行强化，他们通过名为去噪扩散策略优化 (Denoising Diffusion Policy Optimization，DDPO) 的方法针对模型的目标函数实施微调。
 
 在本文中，我们讨论了 DDPO 的诞生、简要描述了其工作原理，并介绍了如何将 DDPO 加入 RLHF 工作流中以实现更符合人类审美的模型输出。然后，我们切换到实战，讨论如何使用 `trl` 库中新集成的 `DDPOTrainer` 将 DDPO 应用到模型中，并讨论我们在 Stable Diffusion 上运行 DDPO 的发现。
 
@@ -43,7 +43,7 @@ DDPO 并非解决 `如何使用 RL 微调扩散模型` 这一问题的唯一有�
 
 DDPO 始于此方法，但 DDPO 没有将去噪过程视为仅关注最终样本的单个步骤，而是将整个去噪过程构建为多步马尔可夫决策过程 (MDP)，只是在最后收到奖励而已。这样做的好处除了可以使用固定的采样器之外，还为让代理策略成为各向同性高斯分布 (而不是任意复杂的分布) 铺平了道路。因此，该方法不使用最终样本的近似似然 (即 RWR 的做法)，而是使用易于计算的每个去噪步骤的确切似然 ( $\ell(\mu, \sigma^2; x ) = -\frac{n}{2} \log(2\pi) - \frac{n}{2} \log(\sigma^2) - \frac{1}{2\sigma^2} \sum_ {i=1}^n (x_i - \mu)^2$ )。
 
-如果你有兴趣了解有关 DDPO 的更多详细信息，我们鼓励你阅读 [原论文](https://arxiv.org/abs/2305.13301) 及其 [附带的博文](https://bair.berkeley.edu/blog/2023/07/14/ddpo/)。
+如果你有兴趣了解有关 DDPO 的更多详细信息，我们鼓励你阅读 [原论文](https://huggingface.co/papers/2305.13301) 及其 [附带的博文](https://bair.berkeley.edu/blog/2023/07/14/ddpo/)。
 
 ## DDPO 算法简述
 

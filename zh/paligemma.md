@@ -21,7 +21,7 @@ Google 团队已推出三种类型的模型：预训练（PT）模型、混合�
 
 ## PaliGemma 是什么?
 
-PaliGemma（[Github](https://github.com/google-research/big_vision/blob/main/big_vision/configs/proj/paligemma/README.md)）是一系列具有视觉和语言处理能力的模型，由 [SigLIP-So400m](https://huggingface.co/google/siglip-so400m-patch14-384) 作为图像编码器和 [Gemma-2B](https://huggingface.co/google/gemma-2b) 作为文本解码器构成。SigLIP 是一个顶尖的模型，可以同时解析图像和文本。它的工作方式类似于 CLIP，包括图像和文本编码器的联合训练。与 [PaLI-3](https://arxiv.org/abs/2310.09199)相似，PaliGemma 模型在图像-文本数据上进行预训练后，可轻松针对下游任务（如图像标题生成或指代分割）进行微调。[Gemma](https://huggingface.co/blog/gemma)是一个专为文本生成设计的解码器模型。通过线性适配器将 SigLIP 的图像编码功能与 Gemma 结合，使 PaliGemma 成为一个功能强大的视觉语言模型。
+PaliGemma（[Github](https://github.com/google-research/big_vision/blob/main/big_vision/configs/proj/paligemma/README.md)）是一系列具有视觉和语言处理能力的模型，由 [SigLIP-So400m](https://huggingface.co/google/siglip-so400m-patch14-384) 作为图像编码器和 [Gemma-2B](https://huggingface.co/google/gemma-2b) 作为文本解码器构成。SigLIP 是一个顶尖的模型，可以同时解析图像和文本。它的工作方式类似于 CLIP，包括图像和文本编码器的联合训练。与 [PaLI-3](https://huggingface.co/papers/2310.09199)相似，PaliGemma 模型在图像-文本数据上进行预训练后，可轻松针对下游任务（如图像标题生成或指代分割）进行微调。[Gemma](https://huggingface.co/blog/gemma)是一个专为文本生成设计的解码器模型。通过线性适配器将 SigLIP 的图像编码功能与 Gemma 结合，使 PaliGemma 成为一个功能强大的视觉语言模型。
 
 ![Architecture](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/paligemma/paligemma_arch.png)
 

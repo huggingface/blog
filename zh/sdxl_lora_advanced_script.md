@@ -41,11 +41,11 @@ translators:
 
 **致谢** ❤️:
 
-本文展示的各种技术 (包括算法、训练脚本、实验以及各种探索) 是站在很多前人工作的基础上的，包括: [Nataniel Ruiz](https://twitter.com/natanielruizg) 的 [Dreambooth](https://dreambooth.github.io)、 [Rinon Gal](https://twitter.com/RinonGal) 的 [文本逆化 (textual inversion) ](https://textual-inversion.github.io)、[Ron Mokady](https://twitter.com/MokadyRon) 的 [枢轴微调](https://arxiv.org/abs/2106.05744)、[Simo Ryu](https://twitter.com/cloneofsimo) 的 [cog-sdxl](https://github.com/replicate/cog-sdxl)、[Kohya](https://twitter.com/kohya_tech/) 的 [sd-scripts](https://github.com/kohya-ss/sd-scripts) 以及 [The Last Ben](https://twitter.com/__TheBen) 的 [fast-stable-diffusion](https://github.com/TheLastBen/fast-stable-diffusion)。在此，我们向他们和社区表示最诚挚的谢意！ 🙌
+本文展示的各种技术 (包括算法、训练脚本、实验以及各种探索) 是站在很多前人工作的基础上的，包括: [Nataniel Ruiz](https://twitter.com/natanielruizg) 的 [Dreambooth](https://dreambooth.github.io)、 [Rinon Gal](https://twitter.com/RinonGal) 的 [文本逆化 (textual inversion) ](https://textual-inversion.github.io)、[Ron Mokady](https://twitter.com/MokadyRon) 的 [枢轴微调](https://huggingface.co/papers/2106.05744)、[Simo Ryu](https://twitter.com/cloneofsimo) 的 [cog-sdxl](https://github.com/replicate/cog-sdxl)、[Kohya](https://twitter.com/kohya_tech/) 的 [sd-scripts](https://github.com/kohya-ss/sd-scripts) 以及 [The Last Ben](https://twitter.com/__TheBen) 的 [fast-stable-diffusion](https://github.com/TheLastBen/fast-stable-diffusion)。在此，我们向他们和社区表示最诚挚的谢意！ 🙌
 
 ## 枢轴微调
 
-[枢轴微调](https://arxiv.org/abs/2106.05744) 技术巧妙地将 [文本逆化](https://arxiv.org/abs/2208.01618) 与常规的扩散模型微调相结合。以 Dreambooth 为例，进行常规 Dreambooth 微调时，你需要选择一个稀有词元作为触发词，例如“一只 sks 狗” 中的 `sks` 。但是，因为这些词元原本就来自于词表，所以它们通常有自己的原义，这就有可能会影响你的结果。举个例子，社区之前经常使用 `sks` 作为触发词，但实际上其原义是一个武器品牌。
+[枢轴微调](https://huggingface.co/papers/2106.05744) 技术巧妙地将 [文本逆化](https://huggingface.co/papers/2208.01618) 与常规的扩散模型微调相结合。以 Dreambooth 为例，进行常规 Dreambooth 微调时，你需要选择一个稀有词元作为触发词，例如“一只 sks 狗” 中的 `sks` 。但是，因为这些词元原本就来自于词表，所以它们通常有自己的原义，这就有可能会影响你的结果。举个例子，社区之前经常使用 `sks` 作为触发词，但实际上其原义是一个武器品牌。
 
 为了解决这个问题，我们插入一个新词元到模型的文本编码器中，而非重用词表中现有的词元。然后，我们优化新插入词元的嵌入向量来表示新概念，这种想法就是文本逆化，即我们对嵌入空间中的新词元进行学习来达到学习新概念的目的。一旦我们获得了新词元及其对应的嵌入向量，我们就可以用这些词元嵌入向量来训练我们的 Dreambooth LoRA，以获得两全其美的效果。
 
@@ -164,7 +164,7 @@ translators:
 
 ### 最小信噪比 Gamma 加权
 
-训练扩散模型通常会遇到收敛缓慢的问题，部分是由于各时间步之间的优化方向相互冲突。[Hang 等人](https://arxiv.org/abs/2303.09556) 通过引入简单的最小信噪比 Gamma 法来缓解此问题。该方法根据钳位信噪比调整每个时间步的损失权重，以有效平衡各时间步之间的冲突。
+训练扩散模型通常会遇到收敛缓慢的问题，部分是由于各时间步之间的优化方向相互冲突。[Hang 等人](https://huggingface.co/papers/2303.09556) 通过引入简单的最小信噪比 Gamma 法来缓解此问题。该方法根据钳位信噪比调整每个时间步的损失权重，以有效平衡各时间步之间的冲突。
 
 - 做小信噪比加权策略在小数据集上效果可能并不明显; 其对较大的数据集效果会更明显。
 - 不同 $\gamma$ 值的效果比较: _你可在 [这个 wandb 项目页面](https://wandb.ai/sayakpaul/text2image-finetune-minsnr) 上比较不同的 `snr_gamma` 值 (5.0、1.0 及 None) 下的训练损失曲线。_

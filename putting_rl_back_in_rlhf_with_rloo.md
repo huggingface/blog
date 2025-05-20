@@ -17,7 +17,7 @@ We are excited to introduce the RLOO (REINFORCE Leave One-Out) Trainer in TRL. A
 2. 🚀RLOO runs **2x faster** than PPO with 1B models and up to **3x faster** than PPO with 6.9B models.
 3. 🔥RLOO performs **competitively to PPO** in terms of the response win rate (judged by GPT4) and consistently outperforms popular offline methods like DPO.
 
-With RLOO, we bring Reinforcement Learning back into RLHF, enabling the community to explore online RL methods more easily. This is exciting because more and more studies have shown that online RL is more effective than offline methods such as DPO ([https://arxiv.org/abs/2402.04792](https://arxiv.org/abs/2402.04792), [https://arxiv.org/abs/2405.08448](https://arxiv.org/abs/2405.08448)). 
+With RLOO, we bring Reinforcement Learning back into RLHF, enabling the community to explore online RL methods more easily. This is exciting because more and more studies have shown that online RL is more effective than offline methods such as DPO ([https://huggingface.co/papers/2402.04792](https://huggingface.co/papers/2402.04792), [https://huggingface.co/papers/2405.08448](https://huggingface.co/papers/2405.08448)). 
 
 
 <p align="center">
@@ -90,7 +90,7 @@ print(f"action='entire completion', reward={entire_generation_reward}")
 # action='entire completion', reward=-0.2000 (-1 + 0.1 + 0.7)
 ```
 
-Second, RLOO uses the REINFORCE loss, which basically multiplies the (reward - baseline) by the logprob of actions. Here, we highlight the differences between per-token REINFORCE loss and the entire completion REINFORCE loss. Note that for PPO's loss, we would need to calculate the advantage additionally based on the value model with [Generalized Advantage Estimation (GAE)](https://arxiv.org/abs/1506.02438).
+Second, RLOO uses the REINFORCE loss, which basically multiplies the (reward - baseline) by the logprob of actions. Here, we highlight the differences between per-token REINFORCE loss and the entire completion REINFORCE loss. Note that for PPO's loss, we would need to calculate the advantage additionally based on the value model with [Generalized Advantage Estimation (GAE)](https://huggingface.co/papers/1506.02438).
 
 ```python
 from torch import Tensor
@@ -247,7 +247,7 @@ To help visualize the training progress,, we periodically log some sample comple
 
 # How we implemented RLOO Trainer in TRL
 
-We implemented RLOO trainer based on our new experimental `PPOv2Trainer`, which is itself based on https://arxiv.org/abs/2403.17031. Interestingly, our implementation of the RLOO trainer still uses the PPO loss. This is because the loss of REINFORCE is a special case of PPO (https://arxiv.org/abs/2205.09123). Note that even though the logprob is explicitly in the REINFORCE loss, it is also implicitly in the PPO loss. Seeing is believing, so let's demonstrate this with a simple example.
+We implemented RLOO trainer based on our new experimental `PPOv2Trainer`, which is itself based on https://huggingface.co/papers/2403.17031. Interestingly, our implementation of the RLOO trainer still uses the PPO loss. This is because the loss of REINFORCE is a special case of PPO (https://huggingface.co/papers/2205.09123). Note that even though the logprob is explicitly in the REINFORCE loss, it is also implicitly in the PPO loss. Seeing is believing, so let's demonstrate this with a simple example.
 
 ```python
 import torch.nn.functional as F
@@ -284,7 +284,7 @@ To validate the RLOO implementation works, we ran experiments on the Pythia 1B a
 
 * [https://huggingface.co/collections/vwxyzjn/rloo-ppov2-tl-dr-summarize-checkpoints-66679a3bfd95ddf66c97420d](https://huggingface.co/collections/vwxyzjn/rloo-ppov2-tl-dr-summarize-checkpoints-66679a3bfd95ddf66c97420d)  
 
-We take the SFT / RM models directly from [Huang et al., 2024](https://arxiv.org/abs/2403.17031). To evaluate, we use vLLM to load the checkpoints and GPT4 as a judge model to assess the generated TL;DR against the reference TL;DR. We also look at the GPU memory usage and runtime, as shown in the figures at the beginning of the blog post. To reproduce our work, feel free to check out the commands in our docs:
+We take the SFT / RM models directly from [Huang et al., 2024](https://huggingface.co/papers/2403.17031). To evaluate, we use vLLM to load the checkpoints and GPT4 as a judge model to assess the generated TL;DR against the reference TL;DR. We also look at the GPU memory usage and runtime, as shown in the figures at the beginning of the blog post. To reproduce our work, feel free to check out the commands in our docs:
 
 
 
@@ -295,7 +295,7 @@ The key results are as follows:
 
 
 
-* **🚀Highly performant RLOO checkpoint: **The 6.9B checkpoint gets a 78.7% (k=2) preferred rate using GPT4 as a judge, which even exceeds the best-reported performance of 77.9% (k=4) and 74.2 (k=2) in the original [paper](https://arxiv.org/abs/2402.14740). This is a good sign that our RLOO training is working as intended.
+* **🚀Highly performant RLOO checkpoint: **The 6.9B checkpoint gets a 78.7% (k=2) preferred rate using GPT4 as a judge, which even exceeds the best-reported performance of 77.9% (k=4) and 74.2 (k=2) in the original [paper](https://huggingface.co/papers/2402.14740). This is a good sign that our RLOO training is working as intended.
     * The RLOO 1B checkpoint has a 40.1% win rate compared to the SFT checkpoint's 21.3% win rate. This is a good sign that the RLOO training is working as intended.
 * 🤑**Less GPU memory and runs faster**: RLOO training uses less memory and runs faster, making it a highly useful algorithm for online RL training.
 

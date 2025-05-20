@@ -74,7 +74,7 @@ As you can see above, a simple difference in pronoun can result in a higher toxi
 
 The toxicity measurement can be used to evaluate any kind of text, be it machine-generated or human-written text scraped from the Internet, to give you a better understanding of its toxicity level. You can also use it to rank different texts to determine which ones have the highest toxicity.
 
-***CW: Keep in mind that texts with high toxicity may contain [triggering terms](https://arxiv.org/pdf/2204.14256.pdf) related to violence, and/or hate speech.***
+***CW: Keep in mind that texts with high toxicity may contain [triggering terms](https://huggingface.co/papers/2204.14256) related to violence, and/or hate speech.***
 
 ## Language Polarity
 

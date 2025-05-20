@@ -13,7 +13,7 @@ authors:
 
 **Addendum**
 
-After consulting with the authors of the [IPO paper](https://arxiv.org/abs/2310.12036), we discovered that the implementation of IPO in TRL was incorrect; in particular, the loss over the log-likelihoods of the completions needs to be _averaged_ instead of _summed_. We have added a fix in [this PR](https://github.com/huggingface/trl/pull/1265) and re-run the experiments. The results are now consistent with the paper, with IPO on par with DPO and performing better than KTO in the paired preference setting. We have updated the post to reflect these new results.
+After consulting with the authors of the [IPO paper](https://huggingface.co/papers/2310.12036), we discovered that the implementation of IPO in TRL was incorrect; in particular, the loss over the log-likelihoods of the completions needs to be _averaged_ instead of _summed_. We have added a fix in [this PR](https://github.com/huggingface/trl/pull/1265) and re-run the experiments. The results are now consistent with the paper, with IPO on par with DPO and performing better than KTO in the paired preference setting. We have updated the post to reflect these new results.
 
 **TL;DR**
 
@@ -28,9 +28,9 @@ In this post, we perform an empirical evaluation of three promising LLM alignmen
 
 ## Alignment without Reinforcement Learning 
 
-|![Image from the DPO paper ([https://arxiv.org/abs/2305.18290](https://arxiv.org/pdf/2305.18290.pdf))](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pref_tuning/dpo.png)|
+|![Image from the DPO paper ([https://huggingface.co/papers/2305.18290](https://huggingface.co/papers/2305.18290))](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/pref_tuning/dpo.png)|
 |:--:|
-|Image from the DPO paper ([https://arxiv.org/abs/2305.18290](https://arxiv.org/pdf/2305.18290.pdf))|
+|Image from the DPO paper ([https://huggingface.co/papers/2305.18290](https://huggingface.co/papers/2305.18290))|
 
 [Direct Preference Optimization (DPO)](https://huggingface.co/papers/2305.18290) has emerged as a promising alternative for aligning Large Language Models (LLMs) to human or AI preferences. Unlike [traditional alignment methods](https://huggingface.co/blog/rlhf), which are based on reinforcement learning, DPO recasts the alignment formulation as a simple loss function that can be optimised directly on a dataset of preferences \\( \{(x, y_w, y_l)\} \\), where \\(x\\) is a prompt and \\(y_w,y_l\\) are the preferred and dispreferred responses. 
 

@@ -691,7 +691,7 @@ _注意: 我们目前正在与我们的合作伙伴 AWS、Google Cloud、Microso
 
 ## 使用 Hugging Face TRL 进行微调
 
-在本节中，我们将查看 Hugging Face 生态系统中可用的工具，以便在消费者级 GPU 上高效训练 Llama 3.1。下面是一个示例命令，用于在 OpenAssistant 的 [chat 数据集](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) 上微调 Llama 3.1 8B。我们使用 4 位量化和 [QLoRA](https://arxiv.org/abs/2305.14314) 来节省内存，以针对所有注意力块的线性层。
+在本节中，我们将查看 Hugging Face 生态系统中可用的工具，以便在消费者级 GPU 上高效训练 Llama 3.1。下面是一个示例命令，用于在 OpenAssistant 的 [chat 数据集](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) 上微调 Llama 3.1 8B。我们使用 4 位量化和 [QLoRA](https://huggingface.co/papers/2305.14314) 来节省内存，以针对所有注意力块的线性层。
 
 <details close>
 <summary>使用 Hugging Face TRL 的微调示例</summary>

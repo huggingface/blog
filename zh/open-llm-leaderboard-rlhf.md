@@ -57,7 +57,7 @@ translators:
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/model-logos.png)
 
-我们从 [Self-Instruct](https://arxiv.org/abs/2212.10560) 评测集中收集了一系列高质量、由人编写的提示语，同时也从数据商那里收集了一些早期的讨论类对话数据，涵盖了生成、头脑风暴、问答、总结、常识、编程等各种任务类别。总共有 327 条覆盖这些任务类型的提示语，其中 25 条是编程相关的。
+我们从 [Self-Instruct](https://huggingface.co/papers/2212.10560) 评测集中收集了一系列高质量、由人编写的提示语，同时也从数据商那里收集了一些早期的讨论类对话数据，涵盖了生成、头脑风暴、问答、总结、常识、编程等各种任务类别。总共有 327 条覆盖这些任务类型的提示语，其中 25 条是编程相关的。
 
 这里我们列出一些提示语相关的数据统计，包括其句子长度。
 
@@ -186,13 +186,13 @@ In the subsequent line, please provide a brief explanation of your evaluation, a
 
 ## 相关工作
 
-我们不是唯一指出 GPT-4 不一定是个完美的训练和测评 LLM 的工具的。两篇最近的论文也调研了通过 OpenAI 的模型输出进行指令调校 (instruction tuning) 的影响，以及这样做为什么会影响模型对比性评估 (即你训练的模型输出拿来和 ChatGPT 或 GPT-4 的输出做对比)。最引人注目的一篇论文 _[How Far Can Camels Go?](https://arxiv.org/abs/2306.04751)_ (来自 Allen AI) 展示了导致 GPT-4 过高打分的潜在迹象: 多样性和回答的长度。这些关联是令人吃惊的，因为它在鼓励模型去说更多的话，即使这个任务并没有希望它这么做。下图中，作者们就展示了胜率和分词数量的关联关系。
+我们不是唯一指出 GPT-4 不一定是个完美的训练和测评 LLM 的工具的。两篇最近的论文也调研了通过 OpenAI 的模型输出进行指令调校 (instruction tuning) 的影响，以及这样做为什么会影响模型对比性评估 (即你训练的模型输出拿来和 ChatGPT 或 GPT-4 的输出做对比)。最引人注目的一篇论文 _[How Far Can Camels Go?](https://huggingface.co/papers/2306.04751)_ (来自 Allen AI) 展示了导致 GPT-4 过高打分的潜在迹象: 多样性和回答的长度。这些关联是令人吃惊的，因为它在鼓励模型去说更多的话，即使这个任务并没有希望它这么做。下图中，作者们就展示了胜率和分词数量的关联关系。
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/camel-fig.png" width="600" />
 </p>
 
-另一篇伯克利的论文 *[The False Promise of Imitating Proprietary LLMs](https://arxiv.org/abs/2305.15717)* 展示了使用更多数据训练反而降低了对比结果的情况。针对本文作者实验时用的模型规模，看起来还是需要更多的研究才能更全面地了解这些结果。但这篇文章指向了一个很清晰的方向: 使用其它 LLM 训练和评测时需要格外谨慎。下图就是论文中演示这一现象的图表:
+另一篇伯克利的论文 *[The False Promise of Imitating Proprietary LLMs](https://huggingface.co/papers/2305.15717)* 展示了使用更多数据训练反而降低了对比结果的情况。针对本文作者实验时用的模型规模，看起来还是需要更多的研究才能更全面地了解这些结果。但这篇文章指向了一个很清晰的方向: 使用其它 LLM 训练和评测时需要格外谨慎。下图就是论文中演示这一现象的图表:
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/false-promise-fig.png" width="600" />

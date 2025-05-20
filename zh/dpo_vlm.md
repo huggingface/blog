@@ -158,7 +158,7 @@ training_args = TrainingArguments(..., bf16=True)
 
 ### LoRA
 
-[LoRA](https://arxiv.org/abs/2106.09685) 对参数矩阵进行低秩分解; 在训练时，固定住原参数矩阵，仅训练分解出的两个矩阵。是一种大规模减少 LLM 训练参数的方法。LoRA 已被集成在了 [PEFT](https://github.com/huggingface/peft) 库里，使用非常方便:
+[LoRA](https://huggingface.co/papers/2106.09685) 对参数矩阵进行低秩分解; 在训练时，固定住原参数矩阵，仅训练分解出的两个矩阵。是一种大规模减少 LLM 训练参数的方法。LoRA 已被集成在了 [PEFT](https://github.com/huggingface/peft) 库里，使用非常方便:
 
 ```diff
   from transformers import AutoModelForVision2Seq
@@ -290,7 +290,7 @@ In DPO, we focus on several metrics to assess the quality of the training:
 在 DPO 中，为了评估训练，我们关注这几个指标:
 
 - **精度 (Accuracy)**: 在训练样本中，模型更愿意输出被选中的回答而不是被淘汰的回答，这个比率有多少。我们可以看到随着训练，精度在提升，这是个好的信号。
-- **奖励 (Rewards)**: 这一指标与一个回答 (选中或淘汰) 被选中的概率呈正相关，读者可以参考 [DPO 论文 , 第 5 部分](https://arxiv.org/abs/2305.18290)。我们希望被选中的回答对应的奖励高于被淘汰的回答。我们可以通过两者奖励的差值 ( _reward margin_ ) 来看: 图中这一差值逐渐变大， 这也是个好的信号。
+- **奖励 (Rewards)**: 这一指标与一个回答 (选中或淘汰) 被选中的概率呈正相关，读者可以参考 [DPO 论文 , 第 5 部分](https://huggingface.co/papers/2305.18290)。我们希望被选中的回答对应的奖励高于被淘汰的回答。我们可以通过两者奖励的差值 ( _reward margin_ ) 来看: 图中这一差值逐渐变大， 这也是个好的信号。
 
 ## 评测
 
@@ -321,7 +321,7 @@ response_text = processor.batch_decode(generated_ids, skip_special_tokens=True)[
 print(response_text)
 ```
 
-前面提到的 [openbmb/RLAIF-V-Dataset](https://huggingface.co/datasets/openbmb/RLAIF-V-Dataset) 这个数据集是用来减少大模型幻觉的。但真实训练效果如何呢？我们可以使用 [AMBER benchmark](https://arxiv.org/abs/2311.07397) 这个评测基准，该数据集专门被用来评估 VLM 的幻觉情况。我们列出 Idefics2 和 Idefics2+DPO 的结果，并和其它模型对比。
+前面提到的 [openbmb/RLAIF-V-Dataset](https://huggingface.co/datasets/openbmb/RLAIF-V-Dataset) 这个数据集是用来减少大模型幻觉的。但真实训练效果如何呢？我们可以使用 [AMBER benchmark](https://huggingface.co/papers/2311.07397) 这个评测基准，该数据集专门被用来评估 VLM 的幻觉情况。我们列出 Idefics2 和 Idefics2+DPO 的结果，并和其它模型对比。
 
 |                  | Accuracy | F1       |
 | ---------------- | -------- | -------- |

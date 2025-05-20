@@ -108,7 +108,7 @@ Dans d'autres expériences, nous avons comparé les résultats obtenus par les m
 
 Si nous voulons être en mesure d'évaluer et de comparer correctement les différents modèles, nous devons trouver un moyen de surmonter cette difficulté.
 
-L'article de Sclar et al. *[Quantifying Language Model's Sensitivity to Spurious Features in Prompt Design](https://arxiv.org/abs/2310.11324)* donne également un bon aperçu de cette question, et les auteurs présentent [*FormatSpread*](https://github.com/msclar/formatspread), un outil logiciel qui évalue chaque modèle avec de multiples variations de formats puis calcule la variance des performances de ce modèle. De telles solutions nous permettent de déterminer avec plus d'assurance quels modèles sont meilleurs que d'autres, mais elles ont un coût de calcul élevé.
+L'article de Sclar et al. *[Quantifying Language Model's Sensitivity to Spurious Features in Prompt Design](https://huggingface.co/papers/2310.11324)* donne également un bon aperçu de cette question, et les auteurs présentent [*FormatSpread*](https://github.com/msclar/formatspread), un outil logiciel qui évalue chaque modèle avec de multiples variations de formats puis calcule la variance des performances de ce modèle. De telles solutions nous permettent de déterminer avec plus d'assurance quels modèles sont meilleurs que d'autres, mais elles ont un coût de calcul élevé.
 
 ## Et si nous nous concentrions sur la sortie, et non sur l'entrée, pour rendre les résultats plus cohérents à travers ces petits changements de format ?
 
@@ -169,7 +169,7 @@ Pour l'expérience suivante, nous avons voulu faire varier à la fois les *n-exe
 | 1992 | 0-3-1-2 |
 | 12345 | 1-0-2-3 |
 
-En outre, afin d'explorer le degré de transférabilité de ces résultats, nous avons modifié la tâche en [*Graduate-Level Google-Proof Q&A Benchmark* (GPQA)](https://arxiv.org/abs/2311.12022). GPQA est une tâche d'évaluation difficile de connaissances à choix multiples. Le format de l'instruction et la structure mise en évidence sont présentés ci-dessous.
+En outre, afin d'explorer le degré de transférabilité de ces résultats, nous avons modifié la tâche en [*Graduate-Level Google-Proof Q&A Benchmark* (GPQA)](https://huggingface.co/papers/2311.12022). GPQA est une tâche d'évaluation difficile de connaissances à choix multiples. Le format de l'instruction et la structure mise en évidence sont présentés ci-dessous.
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-7.png)
 

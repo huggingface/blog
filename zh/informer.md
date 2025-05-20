@@ -19,7 +19,7 @@ translators:
 </a>
 
 ## 介绍
-几个月前，我们介绍了 [Time Series Transformer](https://huggingface.co/blog/time-series-transformers)，它是 Vanilla Transformer ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)) 应用于预测的模型，并展示了**单变量**概率预测任务的示例（即单独预测每个时间序列的 1-d 分布）。在这篇文章中，我们介绍了 _Informer_ 模型 ([Zhou, Haoyi, et al., 2021](https://arxiv.org/abs/2012.07436))，AAAI21最佳论文，现在在🤗 Transformers 中 [可用](https://huggingface.co/docs/transformers/main/en/model_doc/informer)。我们将展示如何使用 Informer 模型进行 **多元** 概率时间序列预测任务，即预测未来时间序列目标值的 **向量** 的分布。请注意，这也适用于原始时间序列 Transformer 模型。
+几个月前，我们介绍了 [Time Series Transformer](https://huggingface.co/blog/time-series-transformers)，它是 Vanilla Transformer ([Vaswani et al., 2017](https://huggingface.co/papers/1706.03762)) 应用于预测的模型，并展示了**单变量**概率预测任务的示例（即单独预测每个时间序列的 1-d 分布）。在这篇文章中，我们介绍了 _Informer_ 模型 ([Zhou, Haoyi, et al., 2021](https://huggingface.co/papers/2012.07436))，AAAI21最佳论文，现在在🤗 Transformers 中 [可用](https://huggingface.co/docs/transformers/main/en/model_doc/informer)。我们将展示如何使用 Informer 模型进行 **多元** 概率时间序列预测任务，即预测未来时间序列目标值的 **向量** 的分布。请注意，这也适用于原始时间序列 Transformer 模型。
 
 ##  多元概率时间序列预测
 
@@ -29,12 +29,12 @@ translators:
 
 ## Informer - 原理
 
-基于原始 Transformer（[Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)），Informer 采用了两个主要改进。为了理解这些改进，让我们回顾一下原始 Transformer 的缺点：
+基于原始 Transformer（[Vaswani et al., 2017](https://huggingface.co/papers/1706.03762)），Informer 采用了两个主要改进。为了理解这些改进，让我们回顾一下原始 Transformer 的缺点：
 
 1. **规范自注意力机制的二次计算：** 原始 Transformer 的计算复杂度为 \\(O(T^2 D)\\) ，其中 \\(T\\) 是时间序列长度，\\(D\\) 是隐藏状态的维度。对于长序列时间序列预测（也称为 _LSTF 问题_ ），可能非常耗费计算资源。为了解决这个问题，Informer 采用了一种新的自注意力机制，称为 _稀疏概率_ 自注意力机制，其时间和空间复杂度为 \\(O(T \log T)\\)。
 2. **堆叠层时的内存瓶颈：**当堆叠 \\(N\\) 个编码器/解码器层时，原始 Transformer 的内存使用量为 \\(O(N T^2)\\)，这限制了模型对长序列的容量。Informer 使用了一种称为 _蒸馏_ 操作的方法，将层之间的输入大小缩小到其一半切片。通过这样做，它将整个内存使用量减少到 \\(O(N\cdot T \log T)\\)。
 
-正如您所看到的，Informer 模型的原理类似于 Longformer（[Beltagy et el., 2020](https://arxiv.org/abs/2004.05150)），Sparse Transformer（[Child et al., 2019](https://arxiv.org/abs/1904.10509)）和其他 NLP 论文，**当输入序列很长时**用于减少自注意力机制的二次复杂度。现在，让我们深入了解 _稀疏概率_ 自注意力机制 和 _蒸馏_ 操作，并提供代码示例。
+正如您所看到的，Informer 模型的原理类似于 Longformer（[Beltagy et el., 2020](https://huggingface.co/papers/2004.05150)），Sparse Transformer（[Child et al., 2019](https://huggingface.co/papers/1904.10509)）和其他 NLP 论文，**当输入序列很长时**用于减少自注意力机制的二次复杂度。现在，让我们深入了解 _稀疏概率_ 自注意力机制 和 _蒸馏_ 操作，并提供代码示例。
 
 ###  稀疏概率自注意力机制（ProbSparse attention）
 
@@ -184,7 +184,7 @@ Informer 模型在 🤗 Transformers 库中 [现已可用](https://huggingface.c
 
 ## 加载数据集
 
-在这篇博文中，我们将使用 [Hugging Face Hub](https://huggingface.co/datasets/monash_tsf) 上提供的 `traffic_hourly` 数据集。该数据集包含 [Lai 等人使用的旧金山交通数据集。 (2017)](https://arxiv.org/abs/1703.07015)。它包含 862 个小时的时间序列，显示 2015 年至 2016 年旧金山湾区高速公路 \\([0, 1]\\) 范围内的道路占用率。
+在这篇博文中，我们将使用 [Hugging Face Hub](https://huggingface.co/datasets/monash_tsf) 上提供的 `traffic_hourly` 数据集。该数据集包含 [Lai 等人使用的旧金山交通数据集。 (2017)](https://huggingface.co/papers/1703.07015)。它包含 862 个小时的时间序列，显示 2015 年至 2016 年旧金山湾区高速公路 \\([0, 1]\\) 范围内的道路占用率。
 
 此数据集是 [Monash Time Series Forecasting](https://forecastingdata.org/) 仓库的一部分，该仓库是来自多个领域的时间序列数据集的集合。它可以被视为时间序列预测的 [GLUE 基准](https://gluebenchmark.com/)。
 

@@ -30,7 +30,7 @@ with fewer explanations but all the code, see the accompanying [Google Colab](ht
 
 ## Speculative Decoding
 
-Speculative Decoding was proposed in [Fast Inference from Transformers via Speculative Decoding](https://arxiv.org/abs/2211.17192) 
+Speculative Decoding was proposed in [Fast Inference from Transformers via Speculative Decoding](https://huggingface.co/papers/2211.17192) 
 by Yaniv Leviathan et. al. from Google. It works on the premise that a faster, **assistant model** very often generates the same tokens as a larger **main model**.
 
 First, the assistant model auto-regressively generates a sequence of \\( N \\) *candidate tokens*, \\( \hat{\boldsymbol{y}}_{1:N} \\). 
@@ -463,7 +463,7 @@ speculative decoding, all candidate tokens **across the batch** must match the v
 to be accepted. If a token in the batch at a given position does not agree, all candidate tokens that proceed the position 
 are discarded. Consequently, speculative decoding favours lower batch sizes. In practice, we find that speculative decoding 
 provides a speed-up until a batch size of 4. Above batch size 4, speculative decoding returns slower inference than the 
-main model alone. For full results, refer to Section D.3 of the [Distil-Whisper paper](https://arxiv.org/pdf/2311.00430.pdf).
+main model alone. For full results, refer to Section D.3 of the [Distil-Whisper paper](https://huggingface.co/papers/2311.00430).
 
 ## Conclusion
 

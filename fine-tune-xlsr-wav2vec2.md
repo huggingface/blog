@@ -24,7 +24,7 @@ superior performance of Wav2Vec2 was demonstrated on one of the most
 popular English datasets for ASR, called
 [LibriSpeech](https://huggingface.co/datasets/librispeech_asr),
 *Facebook AI* presented a multi-lingual version of Wav2Vec2, called
-[XLSR](https://arxiv.org/abs/2006.13979). XLSR stands for *cross-lingual
+[XLSR](https://huggingface.co/papers/2006.13979). XLSR stands for *cross-lingual
 speech representations* and refers to model\'s ability to learn speech
 representations that are useful across multiple languages.
 
@@ -122,7 +122,7 @@ apt install git-lfs
 
 ------------------------------------------------------------------------
 
-\\( {}^1 \\) In the [paper](https://arxiv.org/pdf/2006.13979.pdf), the model
+\\( {}^1 \\) In the [paper](https://huggingface.co/papers/2006.13979), the model
 was evaluated using the phoneme error rate (PER), but by far the most
 common metric in ASR is the word error rate (WER). To keep this notebook
 as general as possible we decided to evaluate the model using WER.
@@ -512,8 +512,8 @@ XLS-R was pretrained on audio data of
 [Multilingual LibriSpeech
 (MLS)](https://huggingface.co/datasets/multilingual_librispeech),
 [Common Voice](https://huggingface.co/datasets/common_voice),
-[VoxPopuli](https://arxiv.org/abs/2101.00390), and
-[VoxLingua107](https://arxiv.org/abs/2011.12998) at a sampling rate of
+[VoxPopuli](https://huggingface.co/papers/2101.00390), and
+[VoxLingua107](https://huggingface.co/papers/2011.12998) at a sampling rate of
 16kHz. Common Voice, in its original form, has a sampling rate of 48kHz,
 thus we will have to downsample the fine-tuning data to 16kHz in the
 following.
@@ -881,7 +881,7 @@ Common Voice is quite noisy, fine-tuning Facebook\'s
 [wav2vec2-xls-r-300m checkpoint](FILL%20ME) seems to require some
 hyper-parameter tuning. Therefore, I had to play around a bit with
 different values for dropout,
-[SpecAugment](https://arxiv.org/abs/1904.08779)\'s masking dropout rate,
+[SpecAugment](https://huggingface.co/papers/1904.08779)\'s masking dropout rate,
 layer dropout, and the learning rate until training seemed to be stable
 enough.
 
@@ -909,7 +909,7 @@ The first component of XLS-R consists of a stack of CNN layers that are
 used to extract acoustically meaningful - but contextually independent -
 features from the raw speech signal. This part of the model has already
 been sufficiently trained during pretraining and as stated in the
-[paper](https://arxiv.org/pdf/2006.13979.pdf) does not need to be
+[paper](https://huggingface.co/papers/2006.13979) does not need to be
 fine-tuned anymore. Thus, we can set the `requires_grad` to `False` for
 all parameters of the *feature extraction* part.
 

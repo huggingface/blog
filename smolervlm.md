@@ -76,7 +76,7 @@ Previously, we used the standard SigLIP 400M SO vision backbone, the same one fo
 - **SigLIP 400M SO:** Higher capacity, great performance.
 - **SigLIP base patch-16/512 (93M):** Much smaller, surprisingly close performance.
 
-We found the performance gap wasn’t big enough to justify the heavier encoder for our 256M and 500M models. So, we decided to go small on the vision encoder, too. As a bonus, the smaller encoder processes images at a larger resolution, which (per research from [Apple](https://arxiv.org/pdf/2403.09611) and [Google](https://arxiv.org/pdf/2412.03555)) can often yield better visual understanding without ballooning parameter counts.
+We found the performance gap wasn’t big enough to justify the heavier encoder for our 256M and 500M models. So, we decided to go small on the vision encoder, too. As a bonus, the smaller encoder processes images at a larger resolution, which (per research from [Apple](https://huggingface.co/papers/2403.09611) and [Google](https://huggingface.co/papers/2412.03555)) can often yield better visual understanding without ballooning parameter counts.
 
 **2. Data mixture update**
 

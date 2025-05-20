@@ -30,7 +30,7 @@ authors:
 
 ## Introduction
 
-Nowadays, the strongest open weight LLMs typically have billions to hundreds of billions parameters (hello Llama-3.1-405B 👋), and deploying these beasts in production environments poses a range of engineering challenges. One such challenge is that generating text from these large models is _slow_, which has prompted the community to develop a wide range of techniques to accelerate the decoding process. Assisted generation, also known as [speculative decoding](https://arxiv.org/abs/2211.17192), is a very popular and practical approach for accelerating LLM inference without accuracy loss. In this blog post, we take a look at how assisted generation works and share our   research to extend it towards _any_ of the [140,000 language models](https://huggingface.co/models?pipeline_tag=text-generation&sort=trending) on the Hugging Face Hub 🚀! 
+Nowadays, the strongest open weight LLMs typically have billions to hundreds of billions parameters (hello Llama-3.1-405B 👋), and deploying these beasts in production environments poses a range of engineering challenges. One such challenge is that generating text from these large models is _slow_, which has prompted the community to develop a wide range of techniques to accelerate the decoding process. Assisted generation, also known as [speculative decoding](https://huggingface.co/papers/2211.17192), is a very popular and practical approach for accelerating LLM inference without accuracy loss. In this blog post, we take a look at how assisted generation works and share our   research to extend it towards _any_ of the [140,000 language models](https://huggingface.co/models?pipeline_tag=text-generation&sort=trending) on the Hugging Face Hub 🚀! 
 
 ## Assisted Generation
 
@@ -104,11 +104,11 @@ To use, pass `tokenizer` and `assistant_tokenizer` to `generate()`:
 
 ## Future Directions
 
-While passing `do_sample=True` with standard assisted generation uses the speculative sampling algorithm ([Algorithm 1 from the paper](https://arxiv.org/pdf/2211.17192.pdf)), UAG 
+While passing `do_sample=True` with standard assisted generation uses the speculative sampling algorithm ([Algorithm 1 from the paper](https://huggingface.co/papers/2211.17192)), UAG 
 currently supports multinomial sampling only. In multinomial sampling, if the target model doesn't sample the same token as the assistant, the token is automatically rejected, which is not the case with speculative sampling. In practice, this means that UAG with `do_sample=True` will have a lower throughput compared to the case where the assistant has the same tokenizer. In the future, we plan to add support for speculative sampling with UAG.
 In addition, we intend to integrate UAG into 🤗 Transformers pipelines, for a more concise and streamlined usage.
 
 
 ## References
-- [Fast Inference from Transformers via Speculative Decoding](https://arxiv.org/pdf/2211.17192)
+- [Fast Inference from Transformers via Speculative Decoding](https://huggingface.co/papers/2211.17192)
 - [Assisted Generation: a new direction toward low-latency text generation](https://huggingface.co/blog/assisted-generation)

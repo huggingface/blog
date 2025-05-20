@@ -19,7 +19,7 @@ authors:
 
 ## Introduction
 
-A few months ago we introduced the [Time Series Transformer](https://huggingface.co/blog/time-series-transformers), which is the vanilla Transformer ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)) applied to forecasting, and showed an example for the **univariate** probabilistic forecasting task (i.e. predicting each time series' 1-d distribution individually). In this post we introduce the _Informer_ model ([Zhou, Haoyi, et al., 2021](https://arxiv.org/abs/2012.07436)), AAAI21 best paper which is [now available](https://huggingface.co/docs/transformers/main/en/model_doc/informer) in 🤗 Transformers. We will show how to use the Informer model for the **multivariate** probabilistic forecasting task, i.e., predicting the distribution of a future **vector** of time-series target values. Note that this will also work for the vanilla Time Series Transformer model.
+A few months ago we introduced the [Time Series Transformer](https://huggingface.co/blog/time-series-transformers), which is the vanilla Transformer ([Vaswani et al., 2017](https://huggingface.co/papers/1706.03762)) applied to forecasting, and showed an example for the **univariate** probabilistic forecasting task (i.e. predicting each time series' 1-d distribution individually). In this post we introduce the _Informer_ model ([Zhou, Haoyi, et al., 2021](https://huggingface.co/papers/2012.07436)), AAAI21 best paper which is [now available](https://huggingface.co/docs/transformers/main/en/model_doc/informer) in 🤗 Transformers. We will show how to use the Informer model for the **multivariate** probabilistic forecasting task, i.e., predicting the distribution of a future **vector** of time-series target values. Note that this will also work for the vanilla Time Series Transformer model.
 
 ##  Multivariate Probabilistic Time Series Forecasting
 
@@ -29,12 +29,12 @@ Modeling the full joint conditional distribution of high dimensional data can ge
 
 ## Informer - Under The Hood
 
-Based on the vanilla Transformer ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)), Informer employs two major improvements. To understand these improvements, let's recall the drawbacks of the vanilla Transformer:
+Based on the vanilla Transformer ([Vaswani et al., 2017](https://huggingface.co/papers/1706.03762)), Informer employs two major improvements. To understand these improvements, let's recall the drawbacks of the vanilla Transformer:
 
 1. **Quadratic computation of canonical self-attention:** The vanilla Transformer has a computational complexity of \\(O(T^2 D)\\) where \\(T\\) is the time series length and \\(D\\) is the dimension of the hidden states. For long sequence time-series forecasting (also known as the _LSTF problem_), this might be really computationally expensive. To solve this problem, Informer employs a new self-attention mechanism called _ProbSparse_ attention, which has \\(O(T \log T)\\) time and space complexity.
 1. **Memory bottleneck when stacking layers:** When stacking \\(N\\) encoder/decoder layers, the vanilla Transformer has a memory usage of \\(O(N T^2)\\), which limits the model's capacity for long sequences. Informer uses a _Distilling_ operation, for reducing the input size between layers into its half slice. By doing so, it reduces the whole memory usage to be \\(O(N\cdot T \log T)\\).
 
-As you can see, the motivation for the Informer model is similar to Longformer ([Beltagy et el., 2020](https://arxiv.org/abs/2004.05150)), Sparse Transformer ([Child et al., 2019](https://arxiv.org/abs/1904.10509)) and other NLP papers for reducing the quadratic complexity of the self-attention mechanism **when the input sequence is long**. Now, let's dive into _ProbSparse_ attention and the _Distilling_ operation with code examples. 
+As you can see, the motivation for the Informer model is similar to Longformer ([Beltagy et el., 2020](https://huggingface.co/papers/2004.05150)), Sparse Transformer ([Child et al., 2019](https://huggingface.co/papers/1904.10509)) and other NLP papers for reducing the quadratic complexity of the self-attention mechanism **when the input sequence is long**. Now, let's dive into _ProbSparse_ attention and the _Distilling_ operation with code examples. 
 
 ### ProbSparse Attention
 
@@ -185,7 +185,7 @@ As we will show, GluonTS will be used for transforming the data to create featur
 
 ## Load Dataset
 
-In this blog post, we'll use the `traffic_hourly` dataset, which is available on the [Hugging Face Hub](https://huggingface.co/datasets/monash_tsf). This dataset contains the San Francisco Traffic dataset used by [Lai et al. (2017)](https://arxiv.org/abs/1703.07015). It contains 862 hourly time series showing the road occupancy rates in the range \\([0, 1]\\) on the San Francisco Bay area freeways from 2015 to 2016.
+In this blog post, we'll use the `traffic_hourly` dataset, which is available on the [Hugging Face Hub](https://huggingface.co/datasets/monash_tsf). This dataset contains the San Francisco Traffic dataset used by [Lai et al. (2017)](https://huggingface.co/papers/1703.07015). It contains 862 hourly time series showing the road occupancy rates in the range \\([0, 1]\\) on the San Francisco Bay area freeways from 2015 to 2016.
 
 This dataset is part of the [Monash Time Series Forecasting](https://forecastingdata.org/) repository, a collection of time series datasets from a number of domains. It can be viewed as the [GLUE benchmark](https://gluebenchmark.com/) of time series forecasting.
 

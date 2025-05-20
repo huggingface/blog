@@ -34,7 +34,7 @@ As part of this release, we have provided:
 
 ### Model
 
-SD3 is a latent diffusion model that consists of three different text encoders ([CLIP L/14](https://huggingface.co/openai/clip-vit-large-patch14), [OpenCLIP bigG/14](https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k), and [T5-v1.1-XXL](https://huggingface.co/google/t5-v1_1-xxl)), a novel Multimodal Diffusion Transformer (MMDiT) model, and a 16 channel AutoEncoder model that is similar to the one used in [Stable Diffusion XL](https://arxiv.org/abs/2307.01952).
+SD3 is a latent diffusion model that consists of three different text encoders ([CLIP L/14](https://huggingface.co/openai/clip-vit-large-patch14), [OpenCLIP bigG/14](https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k), and [T5-v1.1-XXL](https://huggingface.co/google/t5-v1_1-xxl)), a novel Multimodal Diffusion Transformer (MMDiT) model, and a 16 channel AutoEncoder model that is similar to the one used in [Stable Diffusion XL](https://huggingface.co/papers/2307.01952).
 
 SD3 processes text inputs and pixel latents as a sequence of embeddings. Positional encodings are added to 2x2 patches of the latents which are then flattened into a patch encoding sequence. This sequence, along with the text encoding sequence are fed into the MMDiT blocks, where they are embedded to a common dimensionality, concatenated, and passed through a sequence of modulated attentions and MLPs.
 

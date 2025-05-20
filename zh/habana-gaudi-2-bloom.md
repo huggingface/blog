@@ -16,7 +16,7 @@ translators:
 
 ## BLOOMZ
 
-[BLOOM](https://arxiv.org/abs/2211.05100) 是一个 1760 亿参数的自回归模型，经训练后可用于文本生成。它可以处理 46 种不同的语言以及 13 种编程语言。作为 [BigScience](https://bigscience.huggingface.co/) 计划的一部分，BLOOM 作为一个开放科学项目，来自全球的大量的研究人员和工程师参与了模型的设计和训练。最近，我们又发布了架构与 BLOOM 完全相同的模型：[BLOOMZ](https://arxiv.org/abs/2211.01786)，它是 BLOOM 在多个任务上的微调版本，具有更好的泛化和零样本[^1] 能力。
+[BLOOM](https://huggingface.co/papers/2211.05100) 是一个 1760 亿参数的自回归模型，经训练后可用于文本生成。它可以处理 46 种不同的语言以及 13 种编程语言。作为 [BigScience](https://bigscience.huggingface.co/) 计划的一部分，BLOOM 作为一个开放科学项目，来自全球的大量的研究人员和工程师参与了模型的设计和训练。最近，我们又发布了架构与 BLOOM 完全相同的模型：[BLOOMZ](https://huggingface.co/papers/2211.01786)，它是 BLOOM 在多个任务上的微调版本，具有更好的泛化和零样本[^1] 能力。
 
 如此大的模型在 [训练](https://huggingface.co/blog/bloom-megatron-deepspeed) 和 [推理](https://huggingface.co/blog/bloom-inference-optimization) 两个场景下都对内存和速度提出了新的挑战。即使是使用 16 位精度，一个模型也需要 352 GB 的内存！目前你可能很难找到一个具有如此大内存的设备，但像 Habana Gaudi2 这样先进的硬件已能让低延迟 BLOOM 和 BLOOMZ 模型推理变得可能。
 
@@ -34,7 +34,7 @@ Habana 的 SDK SynapseAI™ 支持 PyTorch 和 DeepSpeed 以加速 LLM 训练和
 
 ## 测试基准
 
-在本节中，我们将提供 BLOOMZ 在 Gaudi2、第一代 Gaudi 和 Nvidia A100 80GB 上的早期基准测试。虽然这些设备内存都不小，但由于模型太大，单个设备还是放不下整个 BLOOMZ 模型。为了解决这个问题，我们要使用 [DeepSpeed](https://www.deepspeed.ai/)，这是一个深度学习优化库，它实现了很多内存优化和速度优化以加速模型推理。特别地，我们在这里依赖 [DeepSpeed-inference](https://arxiv.org/abs/2207.00032)，它引入了几个特性，如[模型（或管道）并行](https://huggingface.co/blog/bloom-megatron-deepspeed#pipeline-parallelism)以充分利用可用设备。对 Gaudi2，我们使用 [Habana 的 DeepSpeed 分支](https://github.com/HabanaAI/deepspeed) ，其添加了对 HPU 的支持。
+在本节中，我们将提供 BLOOMZ 在 Gaudi2、第一代 Gaudi 和 Nvidia A100 80GB 上的早期基准测试。虽然这些设备内存都不小，但由于模型太大，单个设备还是放不下整个 BLOOMZ 模型。为了解决这个问题，我们要使用 [DeepSpeed](https://www.deepspeed.ai/)，这是一个深度学习优化库，它实现了很多内存优化和速度优化以加速模型推理。特别地，我们在这里依赖 [DeepSpeed-inference](https://huggingface.co/papers/2207.00032)，它引入了几个特性，如[模型（或管道）并行](https://huggingface.co/blog/bloom-megatron-deepspeed#pipeline-parallelism)以充分利用可用设备。对 Gaudi2，我们使用 [Habana 的 DeepSpeed 分支](https://github.com/HabanaAI/deepspeed) ，其添加了对 HPU 的支持。
 
 ### 延迟
 

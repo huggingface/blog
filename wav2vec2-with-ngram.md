@@ -16,10 +16,10 @@ authors:
 Released in [September 2020](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/)
 by Meta AI Research, the novel architecture catalyzed progress in
 self-supervised pretraining for speech recognition, *e.g.* [*G. Ng et
-al.*, 2021](https://arxiv.org/pdf/2104.03416.pdf), [*Chen et al*,
-2021](https://arxiv.org/abs/2110.13900), [*Hsu et al.*,
-2021](https://arxiv.org/abs/2106.07447) and [*Babu et al.*,
-2021](https://arxiv.org/abs/2111.09296). On the Hugging Face Hub,
+al.*, 2021](https://huggingface.co/papers/2104.03416), [*Chen et al*,
+2021](https://huggingface.co/papers/2110.13900), [*Hsu et al.*,
+2021](https://huggingface.co/papers/2106.07447) and [*Babu et al.*,
+2021](https://huggingface.co/papers/2111.09296). On the Hugging Face Hub,
 Wav2Vec2's most popular pre-trained checkpoint currently amounts to
 over [**250,000** monthly
 downloads](https://huggingface.co/facebook/wav2vec2-base-960h).
@@ -54,7 +54,7 @@ Wav2Vec2 does not require an external language model or dictionary to
 yield acceptable audio transcriptions.
 
 As can be seen in Appendix C of the [official
-paper](https://arxiv.org/abs/2006.11477), Wav2Vec2 gives impressive
+paper](https://huggingface.co/papers/2006.11477), Wav2Vec2 gives impressive
 downstream performances on [LibriSpeech](https://huggingface.co/datasets/librispeech_asr) without using a language model at
 all. However, from the appendix, it also becomes clear that using Wav2Vec2
 in combination with a language model can yield a significant
@@ -83,7 +83,7 @@ this blog post - the reader is advised to consult the following
 material:
 
 -   [wav2vec 2.0: A Framework for Self-Supervised Learning of Speech
-    Representations](https://arxiv.org/abs/2006.11477)
+    Representations](https://huggingface.co/papers/2006.11477)
 -   [Fine-Tune Wav2Vec2 for English ASR with 🤗
     Transformers](https://huggingface.co/blog/fine-tune-wav2vec2-english)
 -   [An Illustrated Tour of Wav2vec
@@ -450,7 +450,7 @@ Next, let's use the data to build a language model.
 
 While large language models based on the [Transformer architecture](https://jalammar.github.io/illustrated-transformer/) have become the standard in NLP, it is still very common to use an ***n-gram*** LM to boost speech recognition systems - as shown in Section 1.
 
-Looking again at Table 9 of Appendix C of the [official Wav2Vec2 paper](https://arxiv.org/abs/2006.11477), it can be noticed that using a *Transformer*-based LM for decoding clearly yields better results than using an *n-gram* model, but the difference between *n-gram* and *Transformer*-based LM is much less significant than the difference between *n-gram* and no LM. 
+Looking again at Table 9 of Appendix C of the [official Wav2Vec2 paper](https://huggingface.co/papers/2006.11477), it can be noticed that using a *Transformer*-based LM for decoding clearly yields better results than using an *n-gram* model, but the difference between *n-gram* and *Transformer*-based LM is much less significant than the difference between *n-gram* and no LM. 
 
 *E.g.*, for the large Wav2Vec2 checkpoint that was fine-tuned on 10min only, an *n-gram* reduces the word error rate (WER) compared to no LM by *ca.* 80% while a *Transformer*-based LM *only* reduces the WER by another 23% compared to the *n-gram*. This relative WER reduction becomes less, the more data the acoustic model has been trained on. *E.g.*, for the large checkpoint a *Transformer*-based LM reduces the WER by merely 8% compared to an *n-gram* LM whereas the *n-gram* still yields a 21% WER reduction compared to no language model.
 

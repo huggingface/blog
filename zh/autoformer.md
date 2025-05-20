@@ -23,15 +23,15 @@ translators:
 
 ## 简介
 
-几个月前，我们介绍了 [Informer](https://huggingface.co/blog/informer) 这个模型，相关论文 ([Zhou, Haoyi, et al., 2021](https://arxiv.org/abs/2012.07436)) 是一篇获得了 AAAI 2021 最佳论文奖的时间序列论文。我们也展示了一个使用 Informer 进行多变量概率预测的例子。在本文中，我们讨论以下问题: [Transformer 模型对时间序列预测真的有效吗？](https://arxiv.org/abs/2012.07436)。我们给出的答案是，它们真的有效。
+几个月前，我们介绍了 [Informer](https://huggingface.co/blog/informer) 这个模型，相关论文 ([Zhou, Haoyi, et al., 2021](https://huggingface.co/papers/2012.07436)) 是一篇获得了 AAAI 2021 最佳论文奖的时间序列论文。我们也展示了一个使用 Informer 进行多变量概率预测的例子。在本文中，我们讨论以下问题: [Transformer 模型对时间序列预测真的有效吗？](https://huggingface.co/papers/2012.07436)。我们给出的答案是，它们真的有效。
 
-首先，我们将会提供一些实验证据，展示其真正的有效性。我们的对比实验将表明， _DLinear_ 这个简单线性模型并没有像说的那样比 transformer 好。当我们在同等模型大小和相同设定的情况下对比时，我们发现基于 transformer 的模型在我们关注的测试标准上表现得更好。其次，我们将会介绍 _Autoformer_ 模型，相关论文 ([Wu, Haixu, et al., 2021](https://arxiv.org/abs/2106.13008)) 在 Informer 模型问世后发表在 NeurIPS 2021 上。Autoformer 的模型现在已经可以在 🤗 Transformers 中 [使用](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer)。最后，我们还会讨论 _DLinear_ 模型，该模型是一个简单的前向网络，使用了 Autoformer 中的分解层 (decomposition layer)。DLinear 模型是在 [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504) 这篇论文中提出的，文中声称其性能在时间序列预测领域超越了 transformer 系列的算法。
+首先，我们将会提供一些实验证据，展示其真正的有效性。我们的对比实验将表明， _DLinear_ 这个简单线性模型并没有像说的那样比 transformer 好。当我们在同等模型大小和相同设定的情况下对比时，我们发现基于 transformer 的模型在我们关注的测试标准上表现得更好。其次，我们将会介绍 _Autoformer_ 模型，相关论文 ([Wu, Haixu, et al., 2021](https://huggingface.co/papers/2106.13008)) 在 Informer 模型问世后发表在 NeurIPS 2021 上。Autoformer 的模型现在已经可以在 🤗 Transformers 中 [使用](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer)。最后，我们还会讨论 _DLinear_ 模型，该模型是一个简单的前向网络，使用了 Autoformer 中的分解层 (decomposition layer)。DLinear 模型是在 [Are Transformers Effective for Time Series Forecasting?](https://huggingface.co/papers/2205.13504) 这篇论文中提出的，文中声称其性能在时间序列预测领域超越了 transformer 系列的算法。
 
 下面我们开始！
 
 ## 评估 Transformer 系列模型 和 DLinear 模型
 
-在 AAAI 2023 的论文 [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504) 中，作者声称 transformer 系列模型在时间序列预测方面并不有效。他们拿基于 transformer 的模型与一个简单的线性模型 _DLinear_ 作对比。DLinear 使用了 Autoformer 中的 decomposition layer 结构 (下文将会介绍)，作者声称其性能超越了基于 transformer 的模型。但事实真的是这样吗？我们接下来看看。
+在 AAAI 2023 的论文 [Are Transformers Effective for Time Series Forecasting?](https://huggingface.co/papers/2205.13504) 中，作者声称 transformer 系列模型在时间序列预测方面并不有效。他们拿基于 transformer 的模型与一个简单的线性模型 _DLinear_ 作对比。DLinear 使用了 Autoformer 中的 decomposition layer 结构 (下文将会介绍)，作者声称其性能超越了基于 transformer 的模型。但事实真的是这样吗？我们接下来看看。
 
 |      Dataset      | Autoformer (uni.) MASE | DLinear  MASE |
 |:-----------------:|:----------------------:|:-------------:|
@@ -67,9 +67,9 @@ Autoformer 基于传统的时间序列方法: 把时间序列分解为季节性 
 
 | ![autoformer_architecture](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/autoformer_architecture.png) |
 |:--:|
-| Autoformer 结构 (来自[论文](https://arxiv.org/abs/2106.13008)) |
+| Autoformer 结构 (来自[论文](https://huggingface.co/papers/2106.13008)) |
 
-Autoformer 把分解作为一个内部计算操作集成到模型中，如上图所示。可以看到，编码器和解码器都使用了分解模块来集合 trend-cyclical 信息，并从序列中渐进地提取 seasonal 信息。这种内部分解的概念已经从 Autoformer 中展示了其有效性。所以很多其它的时间序列论文也开始采用这一方法，例如 FEDformer ([Zhou, Tian, et al., ICML 2022](https://arxiv.org/abs/2201.12740)) 和 DLinear [(Zeng, Ailing, et al., AAAI 2023)](https://arxiv.org/abs/2205.13504)，这更说明了其在时间序列建模中的意义。
+Autoformer 把分解作为一个内部计算操作集成到模型中，如上图所示。可以看到，编码器和解码器都使用了分解模块来集合 trend-cyclical 信息，并从序列中渐进地提取 seasonal 信息。这种内部分解的概念已经从 Autoformer 中展示了其有效性。所以很多其它的时间序列论文也开始采用这一方法，例如 FEDformer ([Zhou, Tian, et al., ICML 2022](https://huggingface.co/papers/2201.12740)) 和 DLinear [(Zeng, Ailing, et al., AAAI 2023)](https://huggingface.co/papers/2205.13504)，这更说明了其在时间序列建模中的意义。
 
 现在，我们正式地给分解层做出定义:
 
@@ -116,7 +116,7 @@ class DecompositionLayer(nn.Module):
 
 | ![autoformer_autocorrelation_vs_full_attention](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/autoformer_autocorrelation_vs_full_attention.png) |
 |:--:|
-|  最原始的注意力机制和自相关机制 (图片来自[论文](https://arxiv.org/abs/2106.13008)) |
+|  最原始的注意力机制和自相关机制 (图片来自[论文](https://huggingface.co/papers/2106.13008)) |
 
 除了分解层之外，Autoformer 还使用了一个原创的自相关 (autocorrelation) 机制，可以完美替换自注意力 (self-attention) 机制。在 [最原始的时间序列 transformer 模型](https://huggingface.co/docs/transformers/model_doc/time_series_transformer) 中，注意力权重是在时域计算并逐点聚合的。而从上图中可以看出，Autoformer 不同的是它在频域计算这些 (使用 [快速傅立叶变换](https://en.wikipedia.org/wiki/Fast_Fourier_transform))，然后通过时延聚合它们。
 
@@ -126,7 +126,7 @@ class DecompositionLayer(nn.Module):
 
 | ![autoformer_autocorrelation_only_attention](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/autoformer_autocorrelation_only_attention.png) |
 |:--:|
-| 借助 FFT 在频域计算注意力权重 (图片来自[论文](https://arxiv.org/abs/2106.13008)) |
+| 借助 FFT 在频域计算注意力权重 (图片来自[论文](https://huggingface.co/papers/2106.13008)) |
 
 
 理论上讲，给定一个时间延迟 $\tau$，一个离散变量的 _自相关性_ $y$ 可以用来衡量这个变量当前时刻 $t$ 的值和过去时刻 $t-\tau$ 的值之间的“关系”(皮尔逊相关性，pearson correlation):
@@ -166,7 +166,7 @@ def autocorrelation(query_states, key_states):
 #### 时延聚合
 | ![autoformer_autocorrelation_only_aggregation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/autoformer_autocorrelation_only_aggregation.png) |
 |:--:|
-| 通过时延来聚合，图片来自 [Autoformer 论文](https://arxiv.org/abs/2106.13008) |
+| 通过时延来聚合，图片来自 [Autoformer 论文](https://huggingface.co/papers/2106.13008) |
 
 我们用 $\mathcal{R_{Q,K}}$ 来表示自相关 (即 `attn_weights` )。那么问题是: 我们应该如何聚合这些 $\mathcal{R_{Q,K}}(\tau_1), \mathcal{R_{Q,K}}(\tau_2), …, \mathcal{R_{Q,K}}(\tau_k)$ 到  $\mathcal{V}$ 上面？在标准的自注意力机制中，这种聚合通过点乘完成。但在 Autoformer 中，我们使用了一种不同的方法。首先我们在时延 $\tau_1, \tau_2, … \tau_k$ 上对齐 $\mathcal{V}$，计算在这些时延下它对应的值，这个操作叫作 _Rolling_ 。接下来，我们将对齐的 $\mathcal{V}$ 和自相关的值进行逐点的乘法运算。在上图中，你可以看到在左边是基于时延对 $\mathcal{V}$ 进行的 Rolling 操作; 而右边就展示了与自相关进行的逐点乘法。
 
@@ -274,7 +274,7 @@ d_model=16
 !pip install -q transformers datasets evaluate accelerate "gluonts[torch]" ujson tqdm
 ```
 
-`traffic` 数据集 ([Lai et al. (2017)](https://arxiv.org/abs/1703.07015)) 包含了旧金山的交通数据。它包含 862 条以小时为时间单位的时间序列，代表了道路占有率的数值，其数值范围为 $[0, 1]$，记录了旧金山湾区高速公路从 2015 年到 2016 年的数据。
+`traffic` 数据集 ([Lai et al. (2017)](https://huggingface.co/papers/1703.07015)) 包含了旧金山的交通数据。它包含 862 条以小时为时间单位的时间序列，代表了道路占有率的数值，其数值范围为 $[0, 1]$，记录了旧金山湾区高速公路从 2015 年到 2016 年的数据。
 
 ```python
 from gluonts.dataset.repository.datasets import get_dataset
@@ -815,7 +815,7 @@ plot_gluonts(4)
 |:--:|:--:| :--:| :--:| :--:|  :--:|:-------:| 
 |`Traffic` 	| **0.876** | 1.046 | 0.924 | 1.131  | 0.910 |  0.965  |
 
-可以看到，我们去年引入的 [最原始的 Transformer 模型](https://huggingface.co/docs/transformers/model_doc/time_series_transformer) 获得了最好的性能指标。其次，多变量模型一般都比对应的单变量模型更差，原因在于序列间的相关性关系一般都较难预测。额外添加的波动通常会损坏预测结果，或者模型可能会学到一些错误的相关性信息。最近的一些论文，如 [CrossFormer](https://openreview.net/forum?id=vSVLM2j9eie) (ICLR 23) 和 [CARD](https://arxiv.org/abs/2305.12095) 也在尝试解决这些 transformer 模型中的问题。
+可以看到，我们去年引入的 [最原始的 Transformer 模型](https://huggingface.co/docs/transformers/model_doc/time_series_transformer) 获得了最好的性能指标。其次，多变量模型一般都比对应的单变量模型更差，原因在于序列间的相关性关系一般都较难预测。额外添加的波动通常会损坏预测结果，或者模型可能会学到一些错误的相关性信息。最近的一些论文，如 [CrossFormer](https://openreview.net/forum?id=vSVLM2j9eie) (ICLR 23) 和 [CARD](https://huggingface.co/papers/2305.12095) 也在尝试解决这些 transformer 模型中的问题。
 多变量模型通常在训练数据足够大的时候才会表现得好。但当我们与单变量模型在小的公开数据集上对比时，通常单变量模型会表现得更好。相对于线性模型，通常其相应尺寸的单变量 transformer 模型或其它神经网络类模型会表现得更好。
 
 总结来讲，transformer 模型在时间序列预测领域，远没有达到要被淘汰的境地。

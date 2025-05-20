@@ -26,16 +26,16 @@ Few-Shot NLP examples consist of three main components:
 - **Prompt**: The beginning of a new example, which the model should complete by generating the missing text, e.g. "cheese => "
 
 ![few-shot-prompt](assets/22_few_shot_learning_gpt_neo_and_inference_api/few-shot-prompt.png)  
-<small>Image from <a href="https://arxiv.org/abs/2005.14165" target="_blank">Language Models are Few-Shot Learners</a></small>
+<small>Image from <a href="https://huggingface.co/papers/2005.14165" target="_blank">Language Models are Few-Shot Learners</a></small>
 
 Creating these few-shot examples can be tricky, since you need to articulate the “task” you want the model to perform through them. A common issue is that models, especially smaller ones, are very sensitive to the way the examples are written.
 
 An approach to optimize Few-Shot Learning in production is to learn a common representation for a task and then train task-specific classifiers on top of this representation.
 
-OpenAI showed in the [GPT-3 Paper](https://arxiv.org/abs/2005.14165) that the few-shot prompting ability improves with the number of language model parameters.
+OpenAI showed in the [GPT-3 Paper](https://huggingface.co/papers/2005.14165) that the few-shot prompting ability improves with the number of language model parameters.
 
 ![few-shot-performance](assets/22_few_shot_learning_gpt_neo_and_inference_api/few-shot-performance.png)  
-<small>Image from <a href="https://arxiv.org/abs/2005.14165" target="_blank">Language Models are Few-Shot Learners</a></small>
+<small>Image from <a href="https://huggingface.co/papers/2005.14165" target="_blank">Language Models are Few-Shot Learners</a></small>
 
 Let's now take a look at how at how GPT-Neo and the 🤗 Accelerated Inference API can be used to generate your own Few-Shot Learning predictions!
 
@@ -45,7 +45,7 @@ Let's now take a look at how at how GPT-Neo and the 🤗 Accelerated Inference A
 
 GPT⁠-⁠Neo is a family of transformer-based language models from [EleutherAI](https://www.eleuther.ai/projects/gpt-neo/) based on the GPT architecture. [EleutherAI](https://www.eleuther.ai)'s primary goal is to train a model that is equivalent in size to GPT⁠-⁠3 and make it available to the public under an open license.
 
-All of the currently available GPT-Neo checkpoints are trained with the Pile dataset, a large text corpus that is extensively documented in ([Gao et al., 2021](https://arxiv.org/abs/2101.00027)). As such, it is expected to function better on the text that matches the distribution of its training text; we recommend keeping this in mind when designing your examples.
+All of the currently available GPT-Neo checkpoints are trained with the Pile dataset, a large text corpus that is extensively documented in ([Gao et al., 2021](https://huggingface.co/papers/2101.00027)). As such, it is expected to function better on the text that matches the distribution of its training text; we recommend keeping this in mind when designing your examples.
 
 ---
 

@@ -36,7 +36,7 @@ Intuitively, the model should assign high similarity to the sentences « How ma
 
 ![snippet](assets/32_1b_sentence_embeddings/contrastive_2.png)
 
-In the loss equation, `sim` indicates a similarity function between \\( (a, p) \\). The similarity function could be either the Cosine-Similarity or the Dot-Product operator. Both methods have their pros and cons summarized below ([Thakur et al., 2021](https://arxiv.org/abs/2104.08663), [Bachrach et al., 2014](https://dl.acm.org/doi/10.1145/2645710.2645741)):
+In the loss equation, `sim` indicates a similarity function between \\( (a, p) \\). The similarity function could be either the Cosine-Similarity or the Dot-Product operator. Both methods have their pros and cons summarized below ([Thakur et al., 2021](https://huggingface.co/papers/2104.08663), [Bachrach et al., 2014](https://dl.acm.org/doi/10.1145/2645710.2645741)):
 
 | Cosine-similarity   | Dot-product |
 |---------------------|-------------|
@@ -72,7 +72,7 @@ Additionally, we trained models on a large corpus as we concatenated multiple da
 
 ## Conclusion
 
-You can find all models and datasets we created during the challenge in our [HuggingFace repository](https://huggingface.co/flax-sentence-embeddings). We trained 20 general-purpose Sentence Transformers models such as Mini-LM ([Wang and al., 2020](https://proceedings.neurips.cc/paper/2020/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)), RoBERTa ([liu and al., 2019](https://arxiv.org/abs/1907.11692 )), DistilBERT ([Sanh and al., 2020](http://arxiv.org/abs/1910.01108)) and MPNet ([Song and al., 2020](https://proceedings.neurips.cc/paper/2020/hash/c3a690be93aa602ee2dc0ccab5b7b67e-Abstract.html)). Our models achieve SOTA on multiple general-purpose Sentence Similarity evaluation tasks. We also shared [8 datasets](https://huggingface.co/flax-sentence-embeddings) specialized for Question Answering, Sentence-Similarity, and Gender Evaluation. 
+You can find all models and datasets we created during the challenge in our [HuggingFace repository](https://huggingface.co/flax-sentence-embeddings). We trained 20 general-purpose Sentence Transformers models such as Mini-LM ([Wang and al., 2020](https://proceedings.neurips.cc/paper/2020/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)), RoBERTa ([liu and al., 2019](https://huggingface.co/papers/1907.11692 )), DistilBERT ([Sanh and al., 2020](http://arxiv.org/abs/1910.01108)) and MPNet ([Song and al., 2020](https://proceedings.neurips.cc/paper/2020/hash/c3a690be93aa602ee2dc0ccab5b7b67e-Abstract.html)). Our models achieve SOTA on multiple general-purpose Sentence Similarity evaluation tasks. We also shared [8 datasets](https://huggingface.co/flax-sentence-embeddings) specialized for Question Answering, Sentence-Similarity, and Gender Evaluation. 
 
 General sentence embeddings might be used for many applications. We built a [Spaces demo](https://huggingface.co/spaces/flax-sentence-embeddings/sentence-embeddings) to showcase several applications:
 * The **sentence similarity** module compares the similarity of the main text with other texts of your choice. In the background, the demo extracts the embedding for each text and computes the similarity between the source sentence and the other using cosine similarity.

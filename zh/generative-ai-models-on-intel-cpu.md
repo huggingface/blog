@@ -12,7 +12,7 @@ translators:
 # 越小越好: Q8-Chat，在英特尔至强 CPU 上体验高效的生成式 AI
 
 
-大语言模型 (LLM) 正在席卷整个机器学习世界。得益于其 [transformer](https://arxiv.org/abs/1706.03762) 架构，LLM 拥有从大量非结构化数据 (如文本、图像、视频或音频) 中学习的不可思议的能力。它们在 [多种任务类型](https://huggingface.co/tasks) 上表现非常出色，无论是文本分类之类的抽取任务 (extractive task) 还是文本摘要和文生图像之类的生成任务 (generative task)。
+大语言模型 (LLM) 正在席卷整个机器学习世界。得益于其 [transformer](https://huggingface.co/papers/1706.03762) 架构，LLM 拥有从大量非结构化数据 (如文本、图像、视频或音频) 中学习的不可思议的能力。它们在 [多种任务类型](https://huggingface.co/tasks) 上表现非常出色，无论是文本分类之类的抽取任务 (extractive task) 还是文本摘要和文生图像之类的生成任务 (generative task)。
 
 顾名思义，LLM 是 _大_模型，其通常拥有超过 100 亿个参数，有些甚至拥有超过 1000 亿个参数，如 [BLOOM](https://huggingface.co/bigscience/bloom) 模型。 LLM 需要大量的算力才能满足某些场景 (如搜索、对话式应用等) 的低延迟需求。而大算力通常只有高端 GPU 才能提供，不幸的是，对于很多组织而言，相关成本可能高得令人望而却步，因此它们很难在其应用场景中用上最先进的 LLM。
 
@@ -26,13 +26,13 @@ LLM 通常使用 16 位浮点参数 (即 FP16 或 BF16) 进行训练。因此，
 
 简而言之，量化将模型参数缩放到一个更小的值域。一旦成功，它会将你的模型缩小至少 2 倍，而不会对模型精度产生任何影响。
 
-你可以进行训时量化，即量化感知训练 ([QAT](https://arxiv.org/abs/1910.06188))，这个方法通常精度更高。如果你需要对已经训成的模型进行量化，则可以使用训后量化 ([PTQ](https://www.tensorflow.org/lite/performance/post_training_quantization#:~:text=Post%2Dtraining%20quantization%20is%20a,little%20degradation%20in%20model%20accuracy.))，它会更快一些，需要的算力也更小。
+你可以进行训时量化，即量化感知训练 ([QAT](https://huggingface.co/papers/1910.06188))，这个方法通常精度更高。如果你需要对已经训成的模型进行量化，则可以使用训后量化 ([PTQ](https://www.tensorflow.org/lite/performance/post_training_quantization#:~:text=Post%2Dtraining%20quantization%20is%20a,little%20degradation%20in%20model%20accuracy.))，它会更快一些，需要的算力也更小。
 
 市面上有不少量化工具。例如，PyTorch 内置了对 [量化](https://pytorch.org/docs/stable/quantization.html) 的支持。你还可以使用 Hugging Face [Optimum-Intel](https://huggingface.co/docs/optimum/intel/index) 库，其中包含面向开发人员的 QAT 和 PTQ API。
 
 ## 量化 LLM
 
-最近，有研究 [[1]](https://arxiv.org/abs/2206.01861)[[2]](https://arxiv.org/abs/2211.10438) 表明目前的量化技术不适用于 LLM。LLM 中有一个特别的现象，即在每层及每个词向量中都能观察到某些特定的激活通道的幅度异常，即某些通道的激活值的幅度比其他通道更大。举个例子，下图来自于 OPT-13B 模型，你可以看到在所有词向量中，其中一个通道的激活值比其他所有通道的大得多。这种现象在每个 transformer 层中都存在。
+最近，有研究 [[1]](https://huggingface.co/papers/2206.01861)[[2]](https://huggingface.co/papers/2211.10438) 表明目前的量化技术不适用于 LLM。LLM 中有一个特别的现象，即在每层及每个词向量中都能观察到某些特定的激活通道的幅度异常，即某些通道的激活值的幅度比其他通道更大。举个例子，下图来自于 OPT-13B 模型，你可以看到在所有词向量中，其中一个通道的激活值比其他所有通道的大得多。这种现象在每个 transformer 层中都存在。
 
 <kbd>
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/143_q8chat/pic1.png">
@@ -41,7 +41,7 @@ LLM 通常使用 16 位浮点参数 (即 FP16 或 BF16) 进行训练。因此，
 
 迄今为止，最好的激活量化技术是逐词量化，而逐词量化会导致要么离群值 (outlier) 被截断或要么幅度小的激活值出现下溢，它们都会显著降低模​​型质量。而量化感知训练又需要额外的训练，由于缺乏计算资源和数据，这在大多数情况下是不切实际的。
 
-SmoothQuant [[3]](https://arxiv.org/abs/2211.10438)[[4]](https://github.com/mit-han-lab/smoothquant) 作为一种新的量化技术可以解决这个问题。其通过对权重和激活进行联合数学变换，以增加权重中离群值和非离群值之间的比率为代价降低激活中离群值和非离群值之间的比率，从而行平滑之实。该变换使 transformer 模型的各层变得“量化友好”，并在不损害模型质量的情况下使得 8 位量化重新成为可能。因此，SmoothQuant 可以帮助生成更小、更快的模型，而这些模型能够在英特尔 CPU 平台上运行良好。
+SmoothQuant [[3]](https://huggingface.co/papers/2211.10438)[[4]](https://github.com/mit-han-lab/smoothquant) 作为一种新的量化技术可以解决这个问题。其通过对权重和激活进行联合数学变换，以增加权重中离群值和非离群值之间的比率为代价降低激活中离群值和非离群值之间的比率，从而行平滑之实。该变换使 transformer 模型的各层变得“量化友好”，并在不损害模型质量的情况下使得 8 位量化重新成为可能。因此，SmoothQuant 可以帮助生成更小、更快的模型，而这些模型能够在英特尔 CPU 平台上运行良好。
 
 <kbd>
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/143_q8chat/pic2.png">
@@ -52,7 +52,7 @@ SmoothQuant [[3]](https://arxiv.org/abs/2211.10438)[[4]](https://github.com/mit-
 
 ## 使用 SmoothQuant 量化 LLM
 
-我们在英特尔的合作伙伴使用 SmoothQuant-O3 量化了几个 LLM，分别是: OPT [2.7B](https://huggingface.co/facebook/opt-2.7b)、[6.7B](https://huggingface.co/facebook/opt-6.7b) [[5]](https://arxiv.org/pdf/2205.01068.pdf)，LLaMA [7B](https://huggingface.co/decapoda-research/llama-7b-hf) [[6]](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/)，Alpaca [7B](https://huggingface.co/tatsu-lab/alpaca-7b-wdiff) [[7]](https://crfm.stanford.edu/2023/03/13/alpaca.html)，Vicuna [7B](https://huggingface.co/lmsys/vicuna-7b-delta-v1.1) [[8]](https://vicuna.lmsys.org/)，BloomZ [7.1B](https://huggingface.co/bigscience/bloomz-7b1) [[9]](https://huggingface.co/bigscience/bloomz) 以及 MPT-7B-chat [[10]](https://www.mosaicml.com/blog/mpt-7b)。他们还使用 [EleutherAI 的语言模型评估工具](https://github.com/EleutherAI/lm-evaluation-harness) 对量化模型的准确性进行了评估。
+我们在英特尔的合作伙伴使用 SmoothQuant-O3 量化了几个 LLM，分别是: OPT [2.7B](https://huggingface.co/facebook/opt-2.7b)、[6.7B](https://huggingface.co/facebook/opt-6.7b) [[5]](https://huggingface.co/papers/2205.01068)，LLaMA [7B](https://huggingface.co/decapoda-research/llama-7b-hf) [[6]](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/)，Alpaca [7B](https://huggingface.co/tatsu-lab/alpaca-7b-wdiff) [[7]](https://crfm.stanford.edu/2023/03/13/alpaca.html)，Vicuna [7B](https://huggingface.co/lmsys/vicuna-7b-delta-v1.1) [[8]](https://vicuna.lmsys.org/)，BloomZ [7.1B](https://huggingface.co/bigscience/bloomz-7b1) [[9]](https://huggingface.co/bigscience/bloomz) 以及 MPT-7B-chat [[10]](https://www.mosaicml.com/blog/mpt-7b)。他们还使用 [EleutherAI 的语言模型评估工具](https://github.com/EleutherAI/lm-evaluation-harness) 对量化模型的准确性进行了评估。
 
 下表总结了他们的发现。第二列展示了量化后性能反而得到提升的任务数。第三列展示了量化后各个任务平均性能退化的均值 (* _负值表示量化后模型的平均性能提高了_)。你可以在文末找到详细结果。
 

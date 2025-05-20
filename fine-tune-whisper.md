@@ -35,7 +35,7 @@ with fewer explanations but all the code, see the accompanying [Google Colab](ht
 Whisper is a pre-trained model for automatic speech recognition (ASR) 
 published in [September 2022](https://openai.com/blog/whisper/) by the authors 
 Alec Radford et al. from OpenAI. Unlike many of its predecessors, such as 
-[Wav2Vec 2.0](https://arxiv.org/abs/2006.11477), which are pre-trained 
+[Wav2Vec 2.0](https://huggingface.co/papers/2006.11477), which are pre-trained 
 on un-labelled audio data, Whisper is pre-trained on a vast quantity of 
 **labelled** audio-transcription data, 680,000 hours to be precise. 
 This is an order of magnitude more data than the un-labelled audio data used 
@@ -94,10 +94,10 @@ processing the hidden state representations and generating the corresponding
 text transcriptions. Incorporating a language model **internally** in the 
 system architecture is termed _deep fusion_. This is in contrast to 
 _shallow fusion_, where a language model is combined **externally** with 
-an encoder, such as with CTC + \\(n\\)-gram (_c.f._ [Internal Language Model Estimation](https://arxiv.org/pdf/2011.01991.pdf)).
+an encoder, such as with CTC + \\(n\\)-gram (_c.f._ [Internal Language Model Estimation](https://huggingface.co/papers/2011.01991)).
 With deep fusion, the entire system can be trained end-to-end with the 
 same training data and loss function, giving greater flexibility and generally 
-superior performance (_c.f._ [ESB Benchmark](https://arxiv.org/abs/2210.13352)).
+superior performance (_c.f._ [ESB Benchmark](https://huggingface.co/papers/2210.13352)).
 
 Whisper is pre-trained and fine-tuned using the cross-entropy objective function, 
 a standard objective function for training sequence-to-sequence systems on classification tasks. 

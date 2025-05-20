@@ -34,7 +34,7 @@ translator:
 
 目前，所有顶级大型语言模型都使用基于注意力机制的 Transformer 架构。然而，由于计算和内存成本随序列长度增加而增加，注意力机制在处理大序列时存在根本性的局限性。状态空间语言模型 (SSLMs) 等各种替代架构尝试解决序列扩展的限制，但在性能上仍不及最先进的 Transformer 架构模型。
 
-通过 Falcon Mamba，我们证明了序列扩展的限制确实可以在不损失性能的情况下克服。Falcon Mamba 基于原始的 Mamba 架构，该架构在 [_Mamba: Linear-Time Sequence Modeling with Selective State Spaces_](https://arxiv.org/abs/2312.00752) 中提出，并增加了额外的 RMS 标准化层以确保大规模稳定训练。这种架构选择确保 Falcon Mamba:
+通过 Falcon Mamba，我们证明了序列扩展的限制确实可以在不损失性能的情况下克服。Falcon Mamba 基于原始的 Mamba 架构，该架构在 [_Mamba: Linear-Time Sequence Modeling with Selective State Spaces_](https://huggingface.co/papers/2312.00752) 中提出，并增加了额外的 RMS 标准化层以确保大规模稳定训练。这种架构选择确保 Falcon Mamba:
 
 - 能够处理任意长度的序列，而不增加内存存储，特别是适用于单个 A10 24GB GPU。
 - 生成新令牌的时间是恒定的，不论上下文的大小 (参见此 [部分](#hardware-performance))。

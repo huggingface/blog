@@ -399,7 +399,7 @@ Sentence Transformers 训练器支持各种 [`transformers.TrainerCallback`](htt
 - `MultiDatasetBatchSamplers.ROUND_ROBIN` : 以轮询方式从每个数据集采样，直到一个数据集用尽。这种策略可能不会使用每个数据集中的所有样本，但它确保了每个数据集的平等采样。
 - `MultiDatasetBatchSamplers.PROPORTIONAL` (默认): 按比例从每个数据集采样。这种策略确保了每个数据集中的所有样本都被使用，并且较大的数据集被更频繁地采样。
 
-多任务训练已被证明是高度有效的。例如，[Huang et al. 2024](https://arxiv.org/pdf/2405.06932) 使用了 [`MultipleNegativesRankingLoss`](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#multiplenegativesrankingloss)、[`CoSENTLoss`](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#cosentloss) 和 [`MultipleNegativesRankingLoss`](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#multiplenegativesrankingloss) 的一个变体 (不包含批次内的负样本，仅包含硬负样本)，以在中国取得最先进的表现。他们还应用了 [`MatryoshkaLoss`](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#matryoshkaloss) 以使模型能够产生 [Matryoshka Embeddings](https://huggingface.co/blog/matryoshka)。
+多任务训练已被证明是高度有效的。例如，[Huang et al. 2024](https://huggingface.co/papers/2405.06932) 使用了 [`MultipleNegativesRankingLoss`](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#multiplenegativesrankingloss)、[`CoSENTLoss`](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#cosentloss) 和 [`MultipleNegativesRankingLoss`](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#multiplenegativesrankingloss) 的一个变体 (不包含批次内的负样本，仅包含硬负样本)，以在中国取得最先进的表现。他们还应用了 [`MatryoshkaLoss`](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#matryoshkaloss) 以使模型能够产生 [Matryoshka Embeddings](https://huggingface.co/blog/matryoshka)。
 
 以下是多数据集训练的一个示例:
 

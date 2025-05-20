@@ -48,13 +48,13 @@ Contents:
 
 **Acknowledgements** ❤️: 
 The techniques showcased in this guide – algorithms, training scripts, experiments and explorations – were inspired and built upon the 
-contributions by [Nataniel Ruiz](https://twitter.com/natanielruizg): [Dreambooth](https://dreambooth.github.io), [Rinon Gal](https://twitter.com/RinonGal): [Textual Inversion](https://textual-inversion.github.io), [Ron Mokady](https://twitter.com/MokadyRon): [Pivotal Tuning](https://arxiv.org/abs/2106.05744), [Simo Ryu](https://twitter.com/cloneofsimo): [cog-sdxl](https://github.com/replicate/cog-sdxl), 
+contributions by [Nataniel Ruiz](https://twitter.com/natanielruizg): [Dreambooth](https://dreambooth.github.io), [Rinon Gal](https://twitter.com/RinonGal): [Textual Inversion](https://textual-inversion.github.io), [Ron Mokady](https://twitter.com/MokadyRon): [Pivotal Tuning](https://huggingface.co/papers/2106.05744), [Simo Ryu](https://twitter.com/cloneofsimo): [cog-sdxl](https://github.com/replicate/cog-sdxl), 
 [Kohya](https://twitter.com/kohya_tech/): [sd-scripts](https://github.com/kohya-ss/sd-scripts), [The Last Ben](https://twitter.com/__TheBen): [fast-stable-diffusion](https://github.com/TheLastBen/fast-stable-diffusion). Our most sincere gratitude to them and the rest of the community! 🙌 
 
 
 ## Pivotal Tuning
 
-[Pivotal Tuning](https://arxiv.org/abs/2106.05744) is a method that combines [Textual Inversion](https://arxiv.org/abs/2208.01618) with regular diffusion fine-tuning. For Dreambooth, it is
+[Pivotal Tuning](https://huggingface.co/papers/2106.05744) is a method that combines [Textual Inversion](https://huggingface.co/papers/2208.01618) with regular diffusion fine-tuning. For Dreambooth, it is
 customary that you provide a rare token to be your trigger word, say "an sks dog". However, those tokens usually have
 other semantic meaning associated with them and can affect your results. The sks example, popular in the community, is
 actually associated with a weapons brand.
@@ -212,7 +212,7 @@ containing both the images and the corresponding caption for each image.
 
 ### Min-SNR Gamma weighting
   Training diffusion models often suffers from slow convergence, partly due to conflicting optimization directions
-  between timesteps. [Hang et al.](https://arxiv.org/abs/2303.09556) found a way to mitigate this issue by introducing
+  between timesteps. [Hang et al.](https://huggingface.co/papers/2303.09556) found a way to mitigate this issue by introducing
   the simple Min-SNR-gamma approach. This method adapts loss weights of timesteps based on clamped signal-to-noise
   ratios, which effectively balances the conflicts among timesteps.
     * For small datasets, the effects of Min-SNR weighting strategy might not appear to be pronounced, but for larger

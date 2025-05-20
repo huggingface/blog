@@ -132,6 +132,6 @@ For more references on the metadata format for `co2_eq_emissions ` see [the hub 
 
 ### Further readings
 
-- Rolnick et al. (2019) - [Tackling Climate Change with Machine Learning](https://arxiv.org/pdf/1906.05433.pdf) 
-- Strubell et al. (2019) - [Energy and Policy Considerations for Deep Learning in NLP](https://arxiv.org/pdf/1906.02243.pdf)
+- Rolnick et al. (2019) - [Tackling Climate Change with Machine Learning](https://huggingface.co/papers/1906.05433) 
+- Strubell et al. (2019) - [Energy and Policy Considerations for Deep Learning in NLP](https://huggingface.co/papers/1906.02243)
 - Schwartz et al. (2020) - [Green AI](https://dl.acm.org/doi/abs/10.1145/3381831)

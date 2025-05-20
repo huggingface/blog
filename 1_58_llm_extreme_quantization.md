@@ -14,7 +14,7 @@ authors:
 
 As Large Language Models (LLMs) grow in size and complexity, finding ways to reduce their computational and energy costs has become a critical challenge. One popular solution is quantization, where the precision of parameters is reduced from the standard 16-bit floating-point (FP16) or 32-bit floating-point (FP32) to lower-bit formats like 8-bit or 4-bit. While this approach significantly cuts down on memory usage and speeds up computation, it often comes at the expense of accuracy. Reducing the precision too much can cause models to lose crucial information, resulting in degraded performance. 
 
-[BitNet](https://arxiv.org/abs/2402.17764) is a special transformers architecture that represents each parameter with only three values: `(-1, 0, 1)`, offering a extreme quantization of just 1.58 ( \\( log_2(3) \\) ) bits per parameter. However, it requires to train a model from scratch. While the results are impressive, not everybody has the budget to pre-train an LLM. To overcome this limitation, we explored a few tricks that allow fine-tuning an existing model to 1.58 bits! Keep reading to find out how !
+[BitNet](https://huggingface.co/papers/2402.17764) is a special transformers architecture that represents each parameter with only three values: `(-1, 0, 1)`, offering a extreme quantization of just 1.58 ( \\( log_2(3) \\) ) bits per parameter. However, it requires to train a model from scratch. While the results are impressive, not everybody has the budget to pre-train an LLM. To overcome this limitation, we explored a few tricks that allow fine-tuning an existing model to 1.58 bits! Keep reading to find out how !
 
 ## Table of Contents
 - [TL;DR](#tldr)
@@ -28,19 +28,19 @@ As Large Language Models (LLMs) grow in size and complexity, finding ways to red
 
 ## TL;DR
 
-[BitNet](https://arxiv.org/abs/2402.17764) is an architecture introduced by Microsoft Research that uses extreme quantization, representing each parameter with only three values: -1, 0, and 1. This results in a model that uses just 1.58 bits per parameter, significantly reducing computational and memory requirements. 
+[BitNet](https://huggingface.co/papers/2402.17764) is an architecture introduced by Microsoft Research that uses extreme quantization, representing each parameter with only three values: -1, 0, and 1. This results in a model that uses just 1.58 bits per parameter, significantly reducing computational and memory requirements. 
 
 This architecture uses INT8 addition calculations when performing matrix multiplication, in contrast to LLaMA LLM's FP16 addition and multiplication operations. 
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/matmulfree.png" alt="The new computation paradigm of BitNet b1.58" style="width: 100%;"/>
-  <figcaption>The new computation paradigm of BitNet b1.58 (source: BitNet paper https://arxiv.org/abs/2402.17764)</figcaption>
+  <figcaption>The new computation paradigm of BitNet b1.58 (source: BitNet paper https://huggingface.co/papers/2402.17764)</figcaption>
 </figure>
 
 This results in a theoretically reduced energy consumption, with BitNet b1.58 saving 71.4 times the arithmetic operations energy for matrix multiplication compared to the Llama baseline.
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/energy_consumption.png" alt="Energy consumption of BitNet b1.58 compared to LLaMA" style="width: 100%;"/>
-  <figcaption>Energy consumption of BitNet b1.58 compared to LLama (source: BitNet paper https://arxiv.org/abs/2402.17764)</figcaption>
+  <figcaption>Energy consumption of BitNet b1.58 compared to LLama (source: BitNet paper https://huggingface.co/papers/2402.17764)</figcaption>
 </figure>
 
 We have successfully fine-tuned a [Llama3 8B model](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) using the BitNet architecture, achieving strong performance on downstream tasks. The 8B models we developed are released under the [HF1BitLLM](https://huggingface.co/HF1BitLLM) organization. Two of these models were fine-tuned on 10B tokens with different training setup, while the third was fine-tuned on 100B tokens. Notably, our models surpass the Llama 1 7B model in MMLU benchmarks.
@@ -73,14 +73,14 @@ For a quick test of the model, check out this [notebook](https://colab.research.
 
 ## What is BitNet In More Depth?
 
-[BitNet](https://arxiv.org/abs/2402.17764) replaces traditional Linear layers in Multi-Head Attention and Feed-Forward Networks with specialized layers called BitLinear that use ternary precision (or even binary, in the initial version). The BitLinear layers we use in this project quantize the weights using ternary precision (with values of -1, 0, and 1), and we quantize the activations to 8-bit precision. We use a different implementation of BitLinear for training than we do for inference, as we'll see in the next section.
+[BitNet](https://huggingface.co/papers/2402.17764) replaces traditional Linear layers in Multi-Head Attention and Feed-Forward Networks with specialized layers called BitLinear that use ternary precision (or even binary, in the initial version). The BitLinear layers we use in this project quantize the weights using ternary precision (with values of -1, 0, and 1), and we quantize the activations to 8-bit precision. We use a different implementation of BitLinear for training than we do for inference, as we'll see in the next section.
 
-The main obstacle to training in ternary precision is that the weight values are discretized (via the `round()` function) and thus non-differentiable. BitLinear solves this with a nice trick: [STE (Straight Through Estimator)](https://arxiv.org/abs/1903.05662). The STE allows gradients to flow through the non-differentiable rounding operation by approximating its gradient as 1 (treating `round()` as equivalent to the identity function). Another way to view it is that, instead of stopping the gradient at the rounding step, the STE lets the gradient pass through as if the rounding never occurred, enabling weight updates using standard gradient-based optimization techniques.
+The main obstacle to training in ternary precision is that the weight values are discretized (via the `round()` function) and thus non-differentiable. BitLinear solves this with a nice trick: [STE (Straight Through Estimator)](https://huggingface.co/papers/1903.05662). The STE allows gradients to flow through the non-differentiable rounding operation by approximating its gradient as 1 (treating `round()` as equivalent to the identity function). Another way to view it is that, instead of stopping the gradient at the rounding step, the STE lets the gradient pass through as if the rounding never occurred, enabling weight updates using standard gradient-based optimization techniques.
 
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/bitlinear.png" alt="The architecture of BitNet with BitLinear layers" style="width: 100%"/>
-  <figcaption>The architecture of BitNet with BitLinear layers (source: BitNet paper https://arxiv.org/pdf/2310.11453)</figcaption>
+  <figcaption>The architecture of BitNet with BitLinear layers (source: BitNet paper https://huggingface.co/papers/2310.11453)</figcaption>
 </figure>
 
 ### Training
@@ -805,8 +805,8 @@ We would like to express our sincere gratitude to Leandro von Werra, Thomas Wolf
 Furthermore, we want to acknowledge the GeneralAI team for their pioneering work on the BitNet project. Their research has been foundational to our efforts, and we are particularly grateful for the clear and precise figures provided in their paper.
 
 ## Additional Resources
-1. H. Wang et al., *BitNet: Scaling 1-bit Transformers for Large Language Models*. [arxiv paper](https://arxiv.org/pdf/2310.11453)
-2. S. Ma et al., *The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits*. [arxiv paper](https://arxiv.org/pdf/2402.17764)
+1. H. Wang et al., *BitNet: Scaling 1-bit Transformers for Large Language Models*. [arxiv paper](https://huggingface.co/papers/2310.11453)
+2. S. Ma et al., *The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits*. [arxiv paper](https://huggingface.co/papers/2402.17764)
 3. S. Ma et al., *The Era of 1-bit LLMs: Training Tips, Code and FAQ*. [link](https://github.com/microsoft/unilm/blob/master/bitnet/The-Era-of-1-bit-LLMs__Training_Tips_Code_FAQ.pdf)
 4. RJ. Honicky, *Are All Large Language Models Really in 1.58 Bits?*. [blogpost](https://learning-exhaust.hashnode.dev/are-all-large-language-models-really-in-158-bits)
 5. L. Mao, *CUDA Matrix Multiplication Optimization*. [blogpost](https://leimao.github.io/article/CUDA-Matrix-Multiplication-Optimization/)

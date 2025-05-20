@@ -25,20 +25,20 @@ In particular, one issue has been at the center of the efforts: the quadratic co
 
 This topic has been a key part of our research discussions from the start, and our own Patrick Von Platen has already dedicated [a 4-part series to Reformer](https://huggingface.co/blog/reformer). In this reading group, rather than trying to cover every approach (there are so many!), we’ll focus on four main ideas:
 
-* Custom attention patterns (with [Longformer](https://arxiv.org/abs/2004.05150))
-* Recurrence (with [Compressive Transformer](https://arxiv.org/abs/1911.05507))
-* Low-rank approximations (with [Linformer](https://arxiv.org/abs/2006.04768))
-* Kernel approximations (with [Performer](https://arxiv.org/abs/2009.14794))
+* Custom attention patterns (with [Longformer](https://huggingface.co/papers/2004.05150))
+* Recurrence (with [Compressive Transformer](https://huggingface.co/papers/1911.05507))
+* Low-rank approximations (with [Linformer](https://huggingface.co/papers/2006.04768))
+* Kernel approximations (with [Performer](https://huggingface.co/papers/2009.14794))
 
-For exhaustive views of the subject, check out [Efficient Transfomers: A Survey](https://arxiv.org/abs/2009.06732) and [Long Range Arena](https://arxiv.org/abs/2011.04006).
+For exhaustive views of the subject, check out [Efficient Transfomers: A Survey](https://huggingface.co/papers/2009.06732) and [Long Range Arena](https://huggingface.co/papers/2011.04006).
 
 ## Summaries
 
-### [Longformer - The Long-Document Transformer](https://arxiv.org/abs/2004.05150)
+### [Longformer - The Long-Document Transformer](https://huggingface.co/papers/2004.05150)
 
 Iz Beltagy, Matthew E. Peters, Arman Cohan
 
-Longformer addresses the memory bottleneck of transformers by replacing conventional self-attention with a combination of windowed/local/sparse (cf. [Sparse Transformers (2019)](https://arxiv.org/abs/1904.10509)) attention and global attention that scales linearly with the sequence length. As opposed to previous long-range transformer models (e.g. [Transformer-XL (2019)](https://arxiv.org/abs/1901.02860), [Reformer (2020)](https://arxiv.org/abs/2001.04451), [Adaptive Attention Span (2019)](https://arxiv.org/abs/1905.07799)), Longformer’s self-attention layer is designed as a drop-in replacement for the standard self-attention, thus making it possible to leverage pre-trained checkpoints for further pre-training and/or fine-tuning on long sequence tasks.
+Longformer addresses the memory bottleneck of transformers by replacing conventional self-attention with a combination of windowed/local/sparse (cf. [Sparse Transformers (2019)](https://huggingface.co/papers/1904.10509)) attention and global attention that scales linearly with the sequence length. As opposed to previous long-range transformer models (e.g. [Transformer-XL (2019)](https://huggingface.co/papers/1901.02860), [Reformer (2020)](https://huggingface.co/papers/2001.04451), [Adaptive Attention Span (2019)](https://huggingface.co/papers/1905.07799)), Longformer’s self-attention layer is designed as a drop-in replacement for the standard self-attention, thus making it possible to leverage pre-trained checkpoints for further pre-training and/or fine-tuning on long sequence tasks.
 
 The standard self-attention matrix (Figure a) scales quadratically with the input length:
 
@@ -64,11 +64,11 @@ Longformer uses different attention patterns for autoregressive language modelin
 * Longformer’s Encoder-Decoder architecture works well for tasks that do not require a long target length (e.g. summarization). However, how would it work for long-range seq2seq tasks which require a long target length (e.g. document translation, speech recognition, etc.) especially considering the cross-attention layer of encoder-decoder’s models?
 * In practice, the sliding window self-attention relies on many indexing operations to ensure a symmetric query-key weights matrix. Those operations are very slow on TPUs which highlights the question of the applicability of such patterns on other hardware.
 
-### [Compressive Transformers for Long-Range Sequence Modelling](https://arxiv.org/abs/1911.05507)
+### [Compressive Transformers for Long-Range Sequence Modelling](https://huggingface.co/papers/1911.05507)
 
 Jack W. Rae, Anna Potapenko, Siddhant M. Jayakumar, Timothy P. Lillicrap
 
-[Transformer-XL (2019)](https://arxiv.org/abs/1901.02860) showed that caching previously computed layer activations in a memory can boost performance on language modeling tasks (such as *enwik8*). Instead of just attending the current \\(n\\) input tokens, the model can also attend to the past \\(n_m\\) tokens, with \\(n_m\\) being the memory size of the model. Transformer-XL has a memory complexity of \\(O(n^2+ n n_m)\\), which shows that memory cost can increase significantly for very large \\(n_m\\). Hence, Transformer-XL has to eventually discard past activations from the memory when the number of cached activations gets larger than \\(n_m\\). Compressive Transformer addresses this problem by adding an additional compressed memory to efficiently cache past activations that would have otherwise eventually been discarded. This way the model can learn better long-range sequence dependencies having access to significantly more past activations.
+[Transformer-XL (2019)](https://huggingface.co/papers/1901.02860) showed that caching previously computed layer activations in a memory can boost performance on language modeling tasks (such as *enwik8*). Instead of just attending the current \\(n\\) input tokens, the model can also attend to the past \\(n_m\\) tokens, with \\(n_m\\) being the memory size of the model. Transformer-XL has a memory complexity of \\(O(n^2+ n n_m)\\), which shows that memory cost can increase significantly for very large \\(n_m\\). Hence, Transformer-XL has to eventually discard past activations from the memory when the number of cached activations gets larger than \\(n_m\\). Compressive Transformer addresses this problem by adding an additional compressed memory to efficiently cache past activations that would have otherwise eventually been discarded. This way the model can learn better long-range sequence dependencies having access to significantly more past activations.
 
 
 <figure>
@@ -88,9 +88,9 @@ A compression factor \\(c\\) (equal to 3 in the illustration) is chosen to decid
 
 * Compressive Transformer requires a special optimization schedule in which the effective batch size is progressively increased to avoid significant performance degradation for lower learning rates. This effect is not well understood and calls into more analysis.
 * The Compressive Transformer has many more hyperparameters compared to a simple model like BERT or GPT2: the compression rate, the compression function and loss, the regular and compressed memory sizes, etc.  It is not clear whether those parameters generalize well across different tasks (other than language modeling) or similar to the learning rate, make the training also very brittle.
-* It would be interesting to probe the regular memory and compressed memory to analyze what kind of information is memorized through the long sequences. Shedding light on the most salient pieces of information can inform methods such as [Funnel Transformer](https://arxiv.org/abs/2006.03236) which reduces the redundancy in maintaining a full-length token-level sequence.
+* It would be interesting to probe the regular memory and compressed memory to analyze what kind of information is memorized through the long sequences. Shedding light on the most salient pieces of information can inform methods such as [Funnel Transformer](https://huggingface.co/papers/2006.03236) which reduces the redundancy in maintaining a full-length token-level sequence.
 
-### [Linformer: Self-Attention with Linear Complexity](https://arxiv.org/abs/2006.04768)
+### [Linformer: Self-Attention with Linear Complexity](https://huggingface.co/papers/2006.04768)
 
 Sinong Wang, Belinda Z. Li, Madian Khabsa, Han Fang, Hao Ma
 
@@ -127,7 +127,7 @@ $$\text{LinAttention}(Q, K, V) = \text{softmax}(Q * K * W^K) * W^V * V$$
 
 * Even though the projections matrices are shared between layers, the approach presented here comes in contrast with the Johnson-Lindenstrauss that states that random orthogonal projections are sufficient (in polynomial time). Would random projections have worked here? This is reminiscent of Reformer which uses random projections in locally sensitive hashing to reduce the memory complexity of the self-attention.
 
-### [Rethinking Attention with Performers](https://arxiv.org/abs/2009.14794)
+### [Rethinking Attention with Performers](https://huggingface.co/papers/2009.14794)
 
 Krzysztof Choromanski, Valerii Likhosherstov, David Dohan, Xingyou Song, Andreea Gane, Tamas Sarlos, Peter Hawkins, Jared Davis, Afroz Mohiuddin, Lukasz Kaiser, David Belanger, Lucy Colwell, Adrian Weller
 
@@ -164,14 +164,14 @@ These different inductive biases have implications in terms of computational spe
 
 All these works highlight the importance of long-range inputs modeling in natural language. In the industry, it is common to encounter use-cases such as document translation, document classification or document summarization which require modeling very long sequences in an efficient and robust way. Recently, zero-shot examples priming (a la GPT3) has also emerged as a promising alternative to standard fine-tuning, and increasing the number of priming examples (and thus the context size) steadily increases the performance and robustness. Finally, it is common in other modalities such as speech or protein modeling to encounter long sequences beyond the standard 512 time steps.
 
-Modeling long inputs is not antithetical to modeling short inputs but instead should be thought from the perspective of a continuum from shorter to longer sequences. [Shortformer](https://arxiv.org/abs/2012.15832), Longformer and BERT provide evidence that training the model on short sequences and gradually increasing sequence lengths lead to an accelerated training and stronger downstream performance. This observation is coherent with the intuition that the long-range dependencies acquired when little data is available can rely on spurious correlations instead of robust language understanding. This echoes some experiments Teven Le Scao has run on language modeling: LSTMs are stronger learners in the low data regime compared to transformers and give better perplexities on small-scale language modeling benchmarks such as Penn Treebank.
+Modeling long inputs is not antithetical to modeling short inputs but instead should be thought from the perspective of a continuum from shorter to longer sequences. [Shortformer](https://huggingface.co/papers/2012.15832), Longformer and BERT provide evidence that training the model on short sequences and gradually increasing sequence lengths lead to an accelerated training and stronger downstream performance. This observation is coherent with the intuition that the long-range dependencies acquired when little data is available can rely on spurious correlations instead of robust language understanding. This echoes some experiments Teven Le Scao has run on language modeling: LSTMs are stronger learners in the low data regime compared to transformers and give better perplexities on small-scale language modeling benchmarks such as Penn Treebank.
 
-From a practical point of view, the question of positional embeddings is also a crucial methodological aspect with computational efficiency trade-offs. Relative positional embeddings (introduced in Transformer-XL and used in Compressive Transformers) are appealing because they can easily be extended to yet-unseen sequence lengths, but at the same time, relative positional embeddings are computationally expensive. On the other side, absolute positional embeddings (used in Longformer and Linformer) are less flexible for sequences longer than the ones seen during training, but are computationally more efficient. Interestingly, [Shortformer](https://arxiv.org/abs/2012.15832) introduces a simple alternative by adding the positional information to the queries and keys of the self-attention mechanism instead of adding it to the token embeddings. The method is called position-infused attention and is shown to be very efficient while producing strong results.
+From a practical point of view, the question of positional embeddings is also a crucial methodological aspect with computational efficiency trade-offs. Relative positional embeddings (introduced in Transformer-XL and used in Compressive Transformers) are appealing because they can easily be extended to yet-unseen sequence lengths, but at the same time, relative positional embeddings are computationally expensive. On the other side, absolute positional embeddings (used in Longformer and Linformer) are less flexible for sequences longer than the ones seen during training, but are computationally more efficient. Interestingly, [Shortformer](https://huggingface.co/papers/2012.15832) introduces a simple alternative by adding the positional information to the queries and keys of the self-attention mechanism instead of adding it to the token embeddings. The method is called position-infused attention and is shown to be very efficient while producing strong results.
 
 ## @Hugging Face 🤗: Long-range modeling
 
 The Longformer implementation and the associated open-source checkpoints are available through the Transformers library and the [model hub](https://huggingface.co/models?search=longformer). Performer and Big Bird, which is a long-range model based on sparse attention, are currently in the works as part of our [call for models](https://twitter.com/huggingface/status/1359903233976762368), an effort involving the community in order to promote open-source contributions. We would be pumped to hear from you if you’ve wondered how to contribute to `transformers` but did not know where to start!
 
-For further reading, we recommend checking Patrick Platen’s blog on [Reformer](https://arxiv.org/abs/2001.04451), Teven Le Scao’s post on [Johnson-Lindenstrauss approximation](https://tevenlescao.github.io/blog/fastpages/jupyter/2020/06/18/JL-Lemma-+-Linformer.html), [Efficient Transfomers: A Survey](https://arxiv.org/abs/2009.06732), and [Long Range Arena: A Benchmark for Efficient Transformers](https://arxiv.org/abs/2011.04006).
+For further reading, we recommend checking Patrick Platen’s blog on [Reformer](https://huggingface.co/papers/2001.04451), Teven Le Scao’s post on [Johnson-Lindenstrauss approximation](https://tevenlescao.github.io/blog/fastpages/jupyter/2020/06/18/JL-Lemma-+-Linformer.html), [Efficient Transfomers: A Survey](https://huggingface.co/papers/2009.06732), and [Long Range Arena: A Benchmark for Efficient Transformers](https://huggingface.co/papers/2011.04006).
 
 Next month, we'll cover self-training methods and applications. See you in March!

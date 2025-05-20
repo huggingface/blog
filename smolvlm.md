@@ -258,7 +258,7 @@ First, we had to train SmolLM2 to extend it context, but we will discuss that in
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/training_loss_smolvlm.png" width="1100" height="auto" alt="Image description">
 
-SmolLM2’s pre-training context window is insufficient for VLMs. Images are encoded into many tokens, and we wanted to support multiple images. To address this, we extended it to 16k tokens by increasing the RoPE base value from 10k to 273k, following the guidelines in [“Scaling Laws of RoPE-based Extrapolation”](https://arxiv.org/abs/2310.05209). We fine-tuned the model on a mixture of long- and short-context datasets.
+SmolLM2’s pre-training context window is insufficient for VLMs. Images are encoded into many tokens, and we wanted to support multiple images. To address this, we extended it to 16k tokens by increasing the RoPE base value from 10k to 273k, following the guidelines in [“Scaling Laws of RoPE-based Extrapolation”](https://huggingface.co/papers/2310.05209). We fine-tuned the model on a mixture of long- and short-context datasets.
 For long-context datasets, we used the “books” subset of Dolma (primarily Project Gutenberg) and code documents with 8k+ tokens from The Stack, each contributing 20% to the final mixture. For short-context datasets, we streamlined the original SmolLM2 pre-training mix to include 20% FineWeb-Edu, 20% DCLM, and 20% from our math dataset (to be released soon). The math dataset was upsampled to mitigate a performance drop observed on GSM8k during the context extension process.
 All experiments were implemented using the [EasyContext repository](https://github.com/jzhang38/EasyContext).
 

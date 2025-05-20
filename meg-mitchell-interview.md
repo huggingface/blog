@@ -114,7 +114,7 @@ So Timnit had this idea of datasheets for datasets. It struck me that by having 
 The way we came up with the name was that a comparable word to ‘data sheet’ that could be used for models was card (plus it was shorter). Also decided to call it ‘model cards’ because the name was very generic and would have longevity over time.
 
 
-Timnit’s paper was called [‘Data Sheets for Datasets’](https://arxiv.org/abs/1803.09010). So we called ours [‘Model Cards for Model Reporting’](https://arxiv.org/abs/1810.03993) and once we had the published paper people started taking us more seriously. Couldn’t have done this without Timnit Gebru’s brilliance suggesting “You need an artifact, a standardized thing that people will want to produce.”
+Timnit’s paper was called [‘Data Sheets for Datasets’](https://huggingface.co/papers/1803.09010). So we called ours [‘Model Cards for Model Reporting’](https://huggingface.co/papers/1810.03993) and once we had the published paper people started taking us more seriously. Couldn’t have done this without Timnit Gebru’s brilliance suggesting “You need an artifact, a standardized thing that people will want to produce.”
 
 
 ### Where are model cards headed?
@@ -184,7 +184,7 @@ Hopefully, we can focus on the things that are most beneficial and continue head
 
 ### Fav ML papers?
 
-**Meg:** Most recently I’ve really loved what [Abeba Birhane](https://abebabirhane.github.io) has been doing on [values that are encoded in machine learning](https://arxiv.org/abs/2106.15590). My own team at Google had been working on [data genealogies](https://journals.sagepub.com/doi/full/10.1177/20539517211035955), bringing critical analysis on how ML data is handled which they have a few papers on - for example, [Data and its (dis)contents: A survey of dataset development and use in machine learning research](https://arxiv.org/abs/2012.05345). Really love that work and might be biased because it included my team and direct reports, I’m very proud of them but it really is fundamentally good work.
+**Meg:** Most recently I’ve really loved what [Abeba Birhane](https://abebabirhane.github.io) has been doing on [values that are encoded in machine learning](https://huggingface.co/papers/2106.15590). My own team at Google had been working on [data genealogies](https://journals.sagepub.com/doi/full/10.1177/20539517211035955), bringing critical analysis on how ML data is handled which they have a few papers on - for example, [Data and its (dis)contents: A survey of dataset development and use in machine learning research](https://huggingface.co/papers/2012.05345). Really love that work and might be biased because it included my team and direct reports, I’m very proud of them but it really is fundamentally good work.
 
 Earlier papers that I’m interested in are more reflective of what I was doing at that time. Really love the work of [Herbert Clark](https://neurotree.org/beta/publications.php?pid=4636) who was a psycholinguistics/communications person and he did a lot of work that is easily ported to computational models about how humans communicate. Really love his work and cite him a lot throughout my thesis.
 
@@ -215,12 +215,12 @@ Thank you for listening to Machine Learning Experts!
 - [Ehud Reiter](https://mobile.twitter.com/ehudreiter)
 - [Abeba Birhane](https://abebabirhane.github.io/)
 - [Seeing AI](https://www.microsoft.com/en-us/ai/seeing-ai)
-- [Data Sheets for Datasets](https://arxiv.org/abs/1803.09010)
+- [Data Sheets for Datasets](https://huggingface.co/papers/1803.09010)
 - [Model Cards](https://modelcards.withgoogle.com/about)
-- [Model Cards Paper](https://arxiv.org/abs/1810.03993)
+- [Model Cards Paper](https://huggingface.co/papers/1810.03993)
 - [Abeba Birhane](https://arxiv.org/search/cs?searchtype=author&query=Birhane%2C+A)
-- [The Values Encoded in Machine Learning Research](https://arxiv.org/abs/2106.15590)
-- [Data and its (dis)contents:](https://arxiv.org/abs/2012.05345)
+- [The Values Encoded in Machine Learning Research](https://huggingface.co/papers/2106.15590)
+- [Data and its (dis)contents:](https://huggingface.co/papers/2012.05345)
 - [Herbert Clark](https://neurotree.org/beta/publications.php?pid=4636)
 
 **Follow Meg Online:**

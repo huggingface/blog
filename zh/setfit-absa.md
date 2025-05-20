@@ -121,7 +121,7 @@ SetFitABSA 主要分三步。第一步从文本中提取候选方面; 第二步�
 
 ## 基准测试
 
-我们将 SetFitABSA 与 [AWS AI 实验室](https://arxiv.org/pdf/2210.06629.pdf) 和 [Salesforce AI 研究院](https://arxiv.org/pdf/2204.05356.pdf) 的最新成果进行比较，这两项工作主要采用了对 T5 和 GPT2 进行提示微调的方法以实现方面级情感分析。为了对我们的工作进行全面测评，我们还将我们的模型与基于上下文学习的 Llama-2-chat 进行了比较。
+我们将 SetFitABSA 与 [AWS AI 实验室](https://huggingface.co/papers/2210.06629) 和 [Salesforce AI 研究院](https://huggingface.co/papers/2204.05356) 的最新成果进行比较，这两项工作主要采用了对 T5 和 GPT2 进行提示微调的方法以实现方面级情感分析。为了对我们的工作进行全面测评，我们还将我们的模型与基于上下文学习的 Llama-2-chat 进行了比较。
 
 我们采用的测评数据集是 2014 年语义评估挑战赛 ([SemEval14](https://aclanthology.org/S14-2004.pdf)) 中的 Laptop14 和 Restaurant14 ABSA [数据集](https://huggingface.co/datasets/alexcadillon/SemEval2014Task4)。测评任务选择的是术语提取中间任务 (SB1) 及完整 ABSA 任务 (包括方面提取及情感极性预测，即 SB1+SB2)。
 
@@ -258,6 +258,6 @@ print(preds)
 ## 参考文献
 
 - Maria Pontiki, Dimitris Galanis, John Pavlopoulos, Harris Papageorgiou, Ion Androutsopoulos, and Suresh Manandhar. 2014. SemEval-2014 task 4: Aspect based sentiment analysis. In Proceedings of the 8th International Workshop on Semantic Evaluation (SemEval 2014), pages 27–35.
-- Siddharth Varia, Shuai Wang, Kishaloy Halder, Robert Vacareanu, Miguel Ballesteros, Yassine Benajiba, Neha Anna John, Rishita Anubhai, Smaranda Muresan, Dan Roth, 2023 “Instruction Tuning for Few-Shot Aspect-Based Sentiment Analysis”. https://arxiv.org/abs/2210.06629
-- Ehsan Hosseini-Asl, Wenhao Liu, Caiming Xiong, 2022. “A Generative Language Model for Few-shot Aspect-Based Sentiment Analysis”. https://arxiv.org/abs/2204.05356
-- Lewis Tunstall, Nils Reimers, Unso Eun Seo Jo, Luke Bates, Daniel Korat, Moshe Wasserblat, Oren Pereg, 2022. “Efficient Few-Shot Learning Without Prompts”. https://arxiv.org/abs/2209.11055
+- Siddharth Varia, Shuai Wang, Kishaloy Halder, Robert Vacareanu, Miguel Ballesteros, Yassine Benajiba, Neha Anna John, Rishita Anubhai, Smaranda Muresan, Dan Roth, 2023 “Instruction Tuning for Few-Shot Aspect-Based Sentiment Analysis”. https://huggingface.co/papers/2210.06629
+- Ehsan Hosseini-Asl, Wenhao Liu, Caiming Xiong, 2022. “A Generative Language Model for Few-shot Aspect-Based Sentiment Analysis”. https://huggingface.co/papers/2204.05356
+- Lewis Tunstall, Nils Reimers, Unso Eun Seo Jo, Luke Bates, Daniel Korat, Moshe Wasserblat, Oren Pereg, 2022. “Efficient Few-Shot Learning Without Prompts”. https://huggingface.co/papers/2209.11055

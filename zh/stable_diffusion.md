@@ -144,7 +144,7 @@ image = pipe(prompt, guidance_scale=7.5, num_inference_steps=15, generator=gener
 
 注意图像的结构虽然相同，但宇航员的宇航服和马的整体形态出现了问题。这表明，仅使用15次去噪步骤显著降低了生成结果的质量。正如之前提到的，通常50次去噪步骤足以生成高质量图像。
 
-除了`num_inference_steps`参数之外，我们在之前的所有示例中还使用了另一个名为`guidance_scale`的函数参数。`guidance_scale`是一种增强生成结果与条件信号（在本例中为文本）的符合度以及整体样本质量的方法。它也被称为[无分类器指导](https://arxiv.org/abs/2207.12598)，简单来说，它强制生成结果更好地匹配提示词，可能会以图像质量或多样性为代价。对于稳定扩散，`7`到`8.5`之间的值通常是较好的选择。默认情况下，管道使用`guidance_scale`为7.5。
+除了`num_inference_steps`参数之外，我们在之前的所有示例中还使用了另一个名为`guidance_scale`的函数参数。`guidance_scale`是一种增强生成结果与条件信号（在本例中为文本）的符合度以及整体样本质量的方法。它也被称为[无分类器指导](https://huggingface.co/papers/2207.12598)，简单来说，它强制生成结果更好地匹配提示词，可能会以图像质量或多样性为代价。对于稳定扩散，`7`到`8.5`之间的值通常是较好的选择。默认情况下，管道使用`guidance_scale`为7.5。
 
 如果使用非常大的值，图像可能看起来很好，但多样性会减少。你可以在本文的[此部分](#writing-your-own-inference-pipeline)了解此参数的技术细节。
 
@@ -207,7 +207,7 @@ image = pipe(prompt, height=512, width=768).images[0]
 
 在看到Stable Diffusion可以生成的高质量图像后，让我们尝试更好地理解模型的工作原理。
 
-Stable Diffusion基于一种特殊类型的扩散模型，称为**潜在扩散(Latent Diffusion)**，该模型在[基于潜在扩散模型的高分辨率图像合成](https://arxiv.org/abs/2112.10752)中提出。
+Stable Diffusion基于一种特殊类型的扩散模型，称为**潜在扩散(Latent Diffusion)**，该模型在[基于潜在扩散模型的高分辨率图像合成](https://huggingface.co/papers/2112.10752)中提出。
 
 一般来说，扩散模型是通过一步步去噪高斯噪声，从而得到目标样本（例如*图像*）的机器学习系统。有关它们如何工作的更详细概述，请查看[此Colab](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb)。
 
@@ -266,7 +266,7 @@ U-Net的结构包括一个编码器部分和一个解码器部分，两者都由
 - [DDIM调度器](https://github.com/huggingface/diffusers/blob/main/src/diffusers/schedulers/scheduling_ddim.py)
 - [K-LMS调度器](https://github.com/huggingface/diffusers/blob/main/src/diffusers/schedulers/scheduling_lms_discrete.py)
 
-关于调度算法如何工作的理论超出了本笔记本的范围，但简而言之，应该记住它们是根据前一个噪声表示和预测的噪声残差来计算预测的去噪图像表示的。有关更多信息，我们建议参考[Elucidating the Design Space of Diffusion-Based Generative Models](https://arxiv.org/abs/2206.00364)。
+关于调度算法如何工作的理论超出了本笔记本的范围，但简而言之，应该记住它们是根据前一个噪声表示和预测的噪声残差来计算预测的去噪图像表示的。有关更多信息，我们建议参考[Elucidating the Design Space of Diffusion-Based Generative Models](https://huggingface.co/papers/2206.00364)。
 
 *去噪*过程重复*约*50次，以逐步获得更好的潜在图像表示。
 一旦完成，潜在图像表示将由变分自动编码器的解码器部分进行解码。
@@ -323,7 +323,7 @@ unet.to(torch_device)
 
 现在我们定义生成图像时要使用的参数。
 
-请注意，`guidance_scale`与[Imagen论文](https://arxiv.org/pdf/2205.11487.pdf)中的方程(2)中的指导权重`w`类似。`guidance_scale == 1`表示不进行分类器自由指导。这里我们将其设置为7.5，就像之前一样。
+请注意，`guidance_scale`与[Imagen论文](https://huggingface.co/papers/2205.11487)中的方程(2)中的指导权重`w`类似。`guidance_scale == 1`表示不进行分类器自由指导。这里我们将其设置为7.5，就像之前一样。
 
 与之前的例子相比，我们将`num_inference_steps`设置为100，以获得更清晰的图像。
 

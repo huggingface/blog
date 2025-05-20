@@ -82,7 +82,7 @@ specifically targeting transformers based models which makes it a strong candida
 performance.
 
 Last but not least, this new unified benchmarking environment will allow us to easily run inference for different scenarios
-such as [Quantized Models (Zafrir & al.) (9)](https://arxiv.org/abs/1910.06188) 
+such as [Quantized Models (Zafrir & al.) (9)](https://huggingface.co/papers/1910.06188) 
 using less precise number representations (`float16`, `int8`, `int4`).  
 This method known as **quantization** has seen an increased adoption among all major hardware providers. 
 In the near future, we would like to integrate additional methods we are actively working on at Hugging Face, namely Distillation, Pruning & Sparsificaton. 
@@ -481,7 +481,7 @@ In the follow-up blog post, more advanced settings and tuning techniques to decr
 6. [PyTorch - TorchScript](https://pytorch.org/docs/stable/jit.html)
 7. [Google Accelerated Linear Algebra (XLA)](https://www.tensorflow.org/xla)
 8. [ONNX Runtime - Optimize and Accelerate Machine Learning Inferencing and Training](https://www.onnxruntime.ai/)
-9. [Q8BERT - Quantized 8Bit BERT (Zafrir & al. 2019)](https://arxiv.org/abs/1910.06188)
+9. [Q8BERT - Quantized 8Bit BERT (Zafrir & al. 2019)](https://huggingface.co/papers/1910.06188)
 10. [OpenMP](https://www.openmp.org/)
 11. [Intel oneDNN](https://software.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top/api-based-programming/intel-oneapi-deep-neural-network-library-onednn.html)
 12. [Intel® Hyper-Threading Technology - Technical User Guide](http://www.cslab.ece.ntua.gr/courses/advcomparch/2007/material/readings/Intel%20Hyper-Threading%20Technology.pdf)

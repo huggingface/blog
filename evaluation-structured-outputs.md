@@ -103,7 +103,7 @@ In extended experiments, we compared evaluating the same models, with the same p
 
 If we want to be able to properly evaluate and compare different models we need a way to overcome this challenge. 
 
-Sclar, et al’s *[Quantifying Language Model’s Sensitivity to Spurious Features in Prompt Design](https://arxiv.org/abs/2310.11324)* also gives a good overview of this issue, and the authors introduce [FormatSpread](https://github.com/msclar/formatspread), a software tool that evaluates each model with multiple different variations of formats, then calculate the variance of that model's performance. Solutions such as this allow us to determine with more confidence which models are better than others, but they come at a high computation cost.
+Sclar, et al’s *[Quantifying Language Model’s Sensitivity to Spurious Features in Prompt Design](https://huggingface.co/papers/2310.11324)* also gives a good overview of this issue, and the authors introduce [FormatSpread](https://github.com/msclar/formatspread), a software tool that evaluates each model with multiple different variations of formats, then calculate the variance of that model's performance. Solutions such as this allow us to determine with more confidence which models are better than others, but they come at a high computation cost.
 
 ## What if we focused on the output, not the input, to make results more consistent across these small changes to format?
 
@@ -166,7 +166,7 @@ For the next experiment we wanted to look at varying both n-shots as well as the
 | 1992 | 0-3-1-2 |
 | 12345 | 1-0-2-3 |
 
-Additionally, to explore how transferable these results were, we changed the task to [Graduate-Level Google-Proof Q&A Benchmark (GPQA)](https://arxiv.org/abs/2311.12022). GPQA is a hard knowledge multi-choice evaluation task. Below is the prompt format and highlighted structure. 
+Additionally, to explore how transferable these results were, we changed the task to [Graduate-Level Google-Proof Q&A Benchmark (GPQA)](https://huggingface.co/papers/2311.12022). GPQA is a hard knowledge multi-choice evaluation task. Below is the prompt format and highlighted structure. 
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-evaluation/dottxt-structured_output-ex-7.png)
 

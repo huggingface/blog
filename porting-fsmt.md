@@ -16,7 +16,7 @@ This article is an attempt to document how [fairseq wmt19 translation system](ht
 
 I was looking for some interesting project to work on and [Sam Shleifer](https://github.com/sshleifer) suggested I work on [porting a high quality translator](https://github.com/huggingface/transformers/issues/5419).
 
-I read the short paper: [Facebook FAIR's WMT19 News Translation Task Submission](https://arxiv.org/abs/1907.06616) that describes the original system and decided to give it a try.
+I read the short paper: [Facebook FAIR's WMT19 News Translation Task Submission](https://huggingface.co/papers/1907.06616) that describes the original system and decided to give it a try.
 
 Initially, I had no idea how to approach this complex project and Sam helped me to [break it down to smaller tasks](https://github.com/huggingface/transformers/issues/5419), which was of a great help.
 
@@ -823,7 +823,7 @@ Remember, I couldn't use the model ensemble, so I next needed to find the best p
 
 I wasn't getting the same BLEU scores as the ones reported in the original paper, so I next needed to make sure that we were comparing the same data using the same tools. Through asking at the `fairseq` issue I was given the code that was used by `fairseq` developers to get their BLEU scores - you will find it [here](https://github.com/stas00/porting/tree/master/transformers/fairseq-wmt19/scripts/fseq-reproduce-bleu.sh). But, alas, their method was using a re-ranking approach which wasn't disclosed. Moreover, they evaled on outputs before detokenization and not the real output, which apparently scores better. Bottom line - we weren't scoring in the same way (*). 
 
-* footnote: the paper [A Call for Clarity in Reporting BLEU Scores](https://arxiv.org/abs/1804.08771) invites developers to start using the same method for calculating the metrics (tldr: use `sacrebleu`).
+* footnote: the paper [A Call for Clarity in Reporting BLEU Scores](https://huggingface.co/papers/1804.08771) invites developers to start using the same method for calculating the metrics (tldr: use `sacrebleu`).
 
 Currently, this ported model is slightly behind the original on the BLEU scores, because model ensemble is not used, but it's impossible to tell the exact difference until the same measuring method is used.
 

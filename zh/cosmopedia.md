@@ -13,9 +13,9 @@ translators:
 
 # Cosmopedia: 如何为预训练构建大规模合成数据集
 
-本文概述了我们在生成含数十亿词元的合成数据集以复现 [Phi-1.5](https://arxiv.org/abs/2309.05463) 过程中所遇到的挑战及其解决方案，由此最终创建了 [Cosmopedia](https://huggingface.co/datasets/HuggingFaceTB/cosmopedia) 合成数据集。合成数据已成为机器学习社区的 C 位话题，其题中之义是用人工 (如使用大语言模型 (LLM)) 生成的数据模拟真实数据。
+本文概述了我们在生成含数十亿词元的合成数据集以复现 [Phi-1.5](https://huggingface.co/papers/2309.05463) 过程中所遇到的挑战及其解决方案，由此最终创建了 [Cosmopedia](https://huggingface.co/datasets/HuggingFaceTB/cosmopedia) 合成数据集。合成数据已成为机器学习社区的 C 位话题，其题中之义是用人工 (如使用大语言模型 (LLM)) 生成的数据模拟真实数据。
 
-传统上，构建用于有监督微调和指令微调的数据集需要昂贵且耗时的人工标注。这种做法需要大量资源，因此注定只有少数玩家玩得起。然而，最近情况发生了变化。我们已经见证了数百个高质量的合成微调数据集，它们主要由 GPT-3.5 和 GPT-4 生成。大家还在社区发表了大量的材料以指导相关的各种流程并解决相应挑战 [[1](https://arxiv.org/abs/2305.14233)][[2](https://arxiv.org/abs/2312.02120)][[3](https://arxiv.org/abs/2402.10176)][[4](https://arxiv.org/abs/2304.12244)][[5](https://huggingface.co/blog/synthetic-data-save-costs)]。
+传统上，构建用于有监督微调和指令微调的数据集需要昂贵且耗时的人工标注。这种做法需要大量资源，因此注定只有少数玩家玩得起。然而，最近情况发生了变化。我们已经见证了数百个高质量的合成微调数据集，它们主要由 GPT-3.5 和 GPT-4 生成。大家还在社区发表了大量的材料以指导相关的各种流程并解决相应挑战 [[1](https://huggingface.co/papers/2305.14233)][[2](https://huggingface.co/papers/2312.02120)][[3](https://huggingface.co/papers/2402.10176)][[4](https://huggingface.co/papers/2304.12244)][[5](https://huggingface.co/blog/synthetic-data-save-costs)]。
 
 <p align="center">
  <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/cosmopedia/data.png" alt="number of datasets with synthetic tag" style="width: 90%; height: auto;"><br>
@@ -26,9 +26,9 @@ translators:
 
 ## 何以 Cosmopedia？
 
-微软通过 Phi 系列模型 [[6](https://arxiv.org/abs/2306.11644)][[7](https://arxiv.org/abs/2309.05463)][[8](https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/)] 推动了合成数据领域的发展，这些模型主要由合成数据的训练而得。Phi 系列模型的表现超越了基于网络数据集的、训练时长更长的大模型。[Phi-2](https://huggingface.co/microsoft/phi-2) 过去一个月的下载量超过 61.7 万次，是 Hugging Face Hub 上最受欢迎的 20 个模型之一。
+微软通过 Phi 系列模型 [[6](https://huggingface.co/papers/2306.11644)][[7](https://huggingface.co/papers/2309.05463)][[8](https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/)] 推动了合成数据领域的发展，这些模型主要由合成数据的训练而得。Phi 系列模型的表现超越了基于网络数据集的、训练时长更长的大模型。[Phi-2](https://huggingface.co/microsoft/phi-2) 过去一个月的下载量超过 61.7 万次，是 Hugging Face Hub 上最受欢迎的 20 个模型之一。
 
-虽然 Phi 模型的技术报告 (如 _Textbooks Are All You Need_ [](https://arxiv.org/abs/2306.11644)) 已详述了模型的卓越性能及训练过程，但其跳过了有关如何获得合成训练数据集的重要细节。此外，数据集本身也并未发布。这引发了狂热派和怀疑派之间的争论: 一些人给模型能力点赞，而批评者则认为它们可能只是过拟合了基准罢了; 甚至还有一些人认为在合成数据上预训练模型是 [“垃圾入，垃圾出”](https://x.com/Grady_Booch/status/1760042033761378431?s=20)。抛开这些不谈，完全控制数据生成过程并复现 Phi 模型的高性能的想法本身就很有趣且值得探索。
+虽然 Phi 模型的技术报告 (如 _Textbooks Are All You Need_ [](https://huggingface.co/papers/2306.11644)) 已详述了模型的卓越性能及训练过程，但其跳过了有关如何获得合成训练数据集的重要细节。此外，数据集本身也并未发布。这引发了狂热派和怀疑派之间的争论: 一些人给模型能力点赞，而批评者则认为它们可能只是过拟合了基准罢了; 甚至还有一些人认为在合成数据上预训练模型是 [“垃圾入，垃圾出”](https://x.com/Grady_Booch/status/1760042033761378431?s=20)。抛开这些不谈，完全控制数据生成过程并复现 Phi 模型的高性能的想法本身就很有趣且值得探索。
 
 以上就是开发 [Cosmopedia](https://huggingface.co/datasets/HuggingFaceTB/cosmopedia) 的动机，其目的是重现 Phi-1.5 所使用的训练数据。在本文中，我们会分享我们的初步发现，并讨论一些改进当前数据集的计划。我们深入研究了创建数据集的方法、提示整编的方法及相应的技术栈。 Cosmopedia 完全开放: 我们发布了端到端流水线 [代码](https://github.com/huggingface/cosmopedia)，[数据集](https://huggingface.co/datasets/HuggingFaceTB/cosmopedia)，以及一个在其上训练的 1B 模型，即 [cosmo-1b](https://huggingface.co/HuggingFaceTB/cosmo-1b)。因此，社区可以重现我们的结果并在此基础上继续研究。
 
@@ -42,7 +42,7 @@ translators:
 
 生成合成数据看起来可能很简单，但当要扩大数据规模时，保持多样性 (这对于获得最佳模型性能至关重要) 迅速成为一大挑战。因此，有必要策划主题广泛的多样化提示并最大程度地减少重复输出，因为我们不想花大量算力生成了数十亿本教科书，却因为它们彼此非常相似而需要丢弃掉大多数。在我们在数百个 GPU 上启动这一生成任务前，我们花了很多时间使用 [HuggingChat](https://huggingface.co/chat/) 等工具来对提示进行迭代。在本节中，我们将回顾为 Cosmopedia 创建超过 3000 万条提示的过程，这些提示涵盖数百个主题且重复率低于 1%。
 
-Cosmopedia 旨在生成大量主题广泛的高质量合成数据。据 Phi-1.5 [技术报告](https://arxiv.org/abs/2309.05463) 透露，他们策划了 2 万个主题，以生成总计 200 亿词元的合成教科书，同时他们还使用网络数据集中的样本来保证多样性，报告指出:
+Cosmopedia 旨在生成大量主题广泛的高质量合成数据。据 Phi-1.5 [技术报告](https://huggingface.co/papers/2309.05463) 透露，他们策划了 2 万个主题，以生成总计 200 亿词元的合成教科书，同时他们还使用网络数据集中的样本来保证多样性，报告指出:
 
 > 我们精心挑选了 2 万个主题来生成新的合成数据。在我们生成提示时，我们还使用了网络数据集中的样本来保证多样性。
 
@@ -200,26 +200,26 @@ python ./examples/textbooks/generate_synthetic_textbooks.py \
 
 本文，我们概述了创建 Cosmopedia 的方法，Cosmopedia 是一个专为模型预训练而设计的大型合成数据集，其目标对 Phi 模型进行复现。我们强调了精心制作提示以涵盖广泛主题、确保生成多样化内容的重要性。此外，我们还共享并开源了我们的技术栈，从而可将该生成过程扩展至数百个 GPU。
 
-然而，这只是 Cosmopedia 的初始版本，我们正在积极努力提高生成内容的质量。生成的准确性和可靠性很大程度上取决于生成时使用的模型。举个例子，Mixtral 有时可能会产生幻觉并产生不正确的信息，例如，当涉及 AutoMathText 和可汗学院数据集中的历史事实或数学推理相关主题时，Mixtral 就会产生幻觉。缓解幻觉的一种策略是使用检索增强生成 (RAG)，这包含检索与种子样本相关的信息 (如从维基百科)，并将其合并至上下文中。幻觉度量还可以帮助评估哪些主题或领域受幻觉的影响最大 [[9]](https://arxiv.org/abs/2303.08896)。将 Mixtral 的生成内容与其他开放模型进行比较也很有趣。
+然而，这只是 Cosmopedia 的初始版本，我们正在积极努力提高生成内容的质量。生成的准确性和可靠性很大程度上取决于生成时使用的模型。举个例子，Mixtral 有时可能会产生幻觉并产生不正确的信息，例如，当涉及 AutoMathText 和可汗学院数据集中的历史事实或数学推理相关主题时，Mixtral 就会产生幻觉。缓解幻觉的一种策略是使用检索增强生成 (RAG)，这包含检索与种子样本相关的信息 (如从维基百科)，并将其合并至上下文中。幻觉度量还可以帮助评估哪些主题或领域受幻觉的影响最大 [[9]](https://huggingface.co/papers/2303.08896)。将 Mixtral 的生成内容与其他开放模型进行比较也很有趣。
 
 合成数据潜力巨大，我们渴望看到社区在 Cosmopedia 之玩些花头出来。
 
 ## 参考文献
 
-[1] Ding et al. [Enhancing Chat Language Models by Scaling High-quality Instructional Conversations](https://arxiv.org/abs/2305.14233)
+[1] Ding et al. [Enhancing Chat Language Models by Scaling High-quality Instructional Conversations](https://huggingface.co/papers/2305.14233)
 
-[2] Wei et al. [Magicoder: Source Code Is All You Need](https://arxiv.org/abs/2312.02120)
+[2] Wei et al. [Magicoder: Source Code Is All You Need](https://huggingface.co/papers/2312.02120)
 
-[3] Toshniwal et al. [OpenMathInstruct-1: A 1.8 Million Math Instruction Tuning Dataset](https://arxiv.org/abs/2402.10176)
+[3] Toshniwal et al. [OpenMathInstruct-1: A 1.8 Million Math Instruction Tuning Dataset](https://huggingface.co/papers/2402.10176)
 
-[4] Xu et al. [WizardLM: Empowering Large Language Models to Follow Complex Instructions](https://arxiv.org/abs/2304.12244)
+[4] Xu et al. [WizardLM: Empowering Large Language Models to Follow Complex Instructions](https://huggingface.co/papers/2304.12244)
 
 [5] Moritz Laurer [Synthetic data: save money, time and carbon with open source](https://huggingface.co/blog/synthetic-data-save-cost)
 
-[6] Gunasekar et al. [Textbooks Are All You Need](https://arxiv.org/abs/2306.11644)
+[6] Gunasekar et al. [Textbooks Are All You Need](https://huggingface.co/papers/2306.11644)
 
-[7] Li et al. [Textbooks are all you need ii: phi-1.5 technical report](https://arxiv.org/abs/2309.05463)
+[7] Li et al. [Textbooks are all you need ii: phi-1.5 technical report](https://huggingface.co/papers/2309.05463)
 
 [8] [Phi-2 博文](https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/)
 
-[9] Manakul, Potsawee and Liusie, Adian and Gales, Mark JF [Selfcheckgpt: Zero-resource black-box hallucination detection for generative large language models](https://arxiv.org/abs/2303.08896)
+[9] Manakul, Potsawee and Liusie, Adian and Gales, Mark JF [Selfcheckgpt: Zero-resource black-box hallucination detection for generative large language models](https://huggingface.co/papers/2303.08896)

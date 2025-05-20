@@ -72,7 +72,7 @@ I'm happy with this result. So, should I use it directly? Maybe. Since this is a
 Some potential unintended ramifications of using outputs directly are as follows:
 - <u>Legal:</u> The legal landscape surrounding Generative AI is currently very unclear, with several ongoing lawsuits.
 - <u>Ethical:</u> Language models can produce plagiarized or biased outputs. For more information, check out the [Ethics and Society Newsletter](https://huggingface.co/blog/ethics-soc-2).
-- <u>Commercial:</u> [Some](https://www.searchenginejournal.com/google-says-ai-generated-content-is-against-guidelines/444916/) sources have stated that AI-generated content may be deprioritized by search engines. This [may not](https://seo.ai/blog/google-is-not-against-ai-content) be the case for most non-spam content, but is worth considering. Tools such as [AI Content Detector](https://writer.com/ai-content-detector/) can be used to check whether content may be detected as AI-generated. There is ongoing research on language model [watermarking](https://arxiv.org/abs/2301.10226) which may mark text as AI-generated.
+- <u>Commercial:</u> [Some](https://www.searchenginejournal.com/google-says-ai-generated-content-is-against-guidelines/444916/) sources have stated that AI-generated content may be deprioritized by search engines. This [may not](https://seo.ai/blog/google-is-not-against-ai-content) be the case for most non-spam content, but is worth considering. Tools such as [AI Content Detector](https://writer.com/ai-content-detector/) can be used to check whether content may be detected as AI-generated. There is ongoing research on language model [watermarking](https://huggingface.co/papers/2301.10226) which may mark text as AI-generated.
 
 Given these limitations, the safest approach may be to use language models like ChatGPT for brainstorming but write the final content by hand.
 
@@ -100,10 +100,10 @@ Despite the limitations I've discussed, dialog agents are an incredibly useful t
 My [process](#process) focused on how ChatGPT can be used for story. However, ChatGPT isn't the only solution available. [Character.AI](https://beta.character.ai/) provides access to dialog agents that are customized to characters with different personalities, including an [agent](https://beta.character.ai/chat?char=9ZSDyg3OuPbFgDqGwy3RpsXqJblE4S1fKA_oU3yvfTM) that is specialized for creative writing.
 
 There are many other models which are not yet publicly accessible. Check out [this](https://huggingface.co/blog/dialog-agents) recent blog post on dialog agents, including a comparison with other existing models. These include: 
-- [Google's LaMDA](https://arxiv.org/abs/2201.08239) and [Bard](https://blog.google/technology/ai/bard-google-ai-search-updates/)
-- [Meta's BlenderBot](https://arxiv.org/abs/2208.03188)
-- [DeepMind's Sparrow](https://arxiv.org/abs/2209.14375) 
-- [Anthropic's Assistant](https://arxiv.org/abs/2204.05862).
+- [Google's LaMDA](https://huggingface.co/papers/2201.08239) and [Bard](https://blog.google/technology/ai/bard-google-ai-search-updates/)
+- [Meta's BlenderBot](https://huggingface.co/papers/2208.03188)
+- [DeepMind's Sparrow](https://huggingface.co/papers/2209.14375) 
+- [Anthropic's Assistant](https://huggingface.co/papers/2204.05862).
 
 While many prevalent contenders are closed-source, there are also open-source dialog agent efforts, such as [LAION's OpenAssistant](https://github.com/LAION-AI/Open-Assistant), reported efforts from [CarperAI](https://carper.ai), and the open source release of [Google's FLAN-T5 XXL](https://huggingface.co/google/flan-t5-xxl). These can be combined with open-source tools like [LangChain](https://github.com/hwchase17/langchain), which allow language model inputs and outputs to be chained, helping to work toward open dialog agents.
 

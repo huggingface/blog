@@ -101,7 +101,7 @@ translators:
 
 为什么 3D 高斯点染受到如此多的关注？最直接的原因是其非凡的实力。有了它，对高画质场景的实时渲染成为了可能。有了这个能力，我们可以解锁更多可能的应用。
 
-比如说，可以用它来渲染动画吗？即将发表的论文 [Dynamic 3D Gaussians: tracking by Persistent Dynamic View Synthesis](https://arxiv.org/pdf/2308.09713) 似乎表明这有戏。还有更多其他问题有待研究。它能对反射进行建模吗？可以不经参考图像的训练就直接建模吗……
+比如说，可以用它来渲染动画吗？即将发表的论文 [Dynamic 3D Gaussians: tracking by Persistent Dynamic View Synthesis](https://huggingface.co/papers/2308.09713) 似乎表明这有戏。还有更多其他问题有待研究。它能对反射进行建模吗？可以不经参考图像的训练就直接建模吗……
 
 最后，当前人们对 [具身智能 (Embodied AI)](https://ieeexplore.ieee.org/iel7/7433297/9741092/09687596.pdf) 兴趣日隆。但作为人工智能的一个研究领域，当前最先进的具身智能的性能仍然比人类低好几个数量级，其中大部分的挑战在 3D 空间的表示上。鉴于 3D 高斯分布可以产生致密的 3D 空间表示，这对具身智能研究有何影响？
 

@@ -18,7 +18,7 @@ With the new TGI for AWS Inferentia2 on Amazon SageMaker, AWS customers can bene
 
 ## Deploy Zephyr 7B on AWS Inferentia2 using Amazon SageMaker
 
-This tutorial shows how easy it is to deploy a state-of-the-art LLM, such as Zephyr 7B, on AWS Inferentia2 using Amazon SageMaker. Zephyr is a 7B fine-tuned version of [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) that was trained on a mix of publicly available and synthetic datasets using [Direct Preference Optimization (DPO)](https://arxiv.org/abs/2305.18290), as described in detail in the [technical report](https://arxiv.org/abs/2310.16944). The model is released under the Apache 2.0 license, ensuring wide accessibility and use.
+This tutorial shows how easy it is to deploy a state-of-the-art LLM, such as Zephyr 7B, on AWS Inferentia2 using Amazon SageMaker. Zephyr is a 7B fine-tuned version of [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) that was trained on a mix of publicly available and synthetic datasets using [Direct Preference Optimization (DPO)](https://huggingface.co/papers/2305.18290), as described in detail in the [technical report](https://huggingface.co/papers/2310.16944). The model is released under the Apache 2.0 license, ensuring wide accessibility and use.
 
 We are going to show you how to:
 

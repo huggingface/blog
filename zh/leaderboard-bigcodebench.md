@@ -32,7 +32,7 @@ translators:
 
 # BigCodeBench: 继 HumanEval 之后的新一代代码生成基准测试
 
-[HumanEval](https://github.com/openai/human-eval) 是一个用于评估大型语言模型 (LLMs) 在代码生成任务中的参考基准测试，因为它使得对紧凑的函数级代码片段的评估变得容易。然而，关于其在评估 LLMs 编程能力方面的有效性越来越多的担忧，主要问题是HumanEval 中的任务太简单，可能不能代表真实世界的编程任务。相比于 HumanEval 中的算法导向任务，真实世界的软件开发通常涉及多样的库和函数调用。此外，LLMs 在 HumanEval 上的表现还受[污染和过拟合问题](https://arxiv.org/abs/2403.07974)的影响，这使得其在评估LLMs的泛化能力方面不够可靠。
+[HumanEval](https://github.com/openai/human-eval) 是一个用于评估大型语言模型 (LLMs) 在代码生成任务中的参考基准测试，因为它使得对紧凑的函数级代码片段的评估变得容易。然而，关于其在评估 LLMs 编程能力方面的有效性越来越多的担忧，主要问题是HumanEval 中的任务太简单，可能不能代表真实世界的编程任务。相比于 HumanEval 中的算法导向任务，真实世界的软件开发通常涉及多样的库和函数调用。此外，LLMs 在 HumanEval 上的表现还受[污染和过拟合问题](https://huggingface.co/papers/2403.07974)的影响，这使得其在评估LLMs的泛化能力方面不够可靠。
 
 虽然已经有一些努力来解决这些问题，但它们要么是特定领域的、确定性的，要么是以大模型代理为中心的（抱歉， [DS-1000](https://github.com/HKUNLP/DS-1000)、[ODEX](https://github.com/zorazrw/odex) 和 [SWE-bench](https://github.com/princeton-nlp/SWE-bench) 💔）。我们觉得社区仍然缺乏一个可以广泛评估 LLMs 编程能力的易用基准测试，这正是我们关注的重点。
 
@@ -214,7 +214,7 @@ bigcodebench.evaluate --subset [complete|instruct] --samples samples-sanitized-c
 
 - **演化**：库可能会变得过时或被更新，这意味着模型训练的数据会不断演变。模型可能不会记住过时库版本的函数调用，这对任何工具依赖的编程基准来说都是一个挑战，需要定期更新以正确评估模型能力。另一个相关问题是由于训练数据的演变导致的测试集污染。
 
-- **交互**：最近的兴趣集中在 LLMs 作为代理的概念上，这被视为通向人工通用智能的途径。具体来说，LLMs 将在一个不受限制的沙箱环境中运行，在那里它们可以与网页浏览器和终端等应用程序进行交互。这种环境可以帮助解锁诸如[自我调试](https://arxiv.org/pdf/2304.05128)和[自我反思](https://arxiv.org/abs/2303.11366)等能力。
+- **交互**：最近的兴趣集中在 LLMs 作为代理的概念上，这被视为通向人工通用智能的途径。具体来说，LLMs 将在一个不受限制的沙箱环境中运行，在那里它们可以与网页浏览器和终端等应用程序进行交互。这种环境可以帮助解锁诸如[自我调试](https://huggingface.co/papers/2304.05128)和[自我反思](https://huggingface.co/papers/2303.11366)等能力。
 
 我们很期待看到社区的反馈和对长期建设 BigCodeBench 的贡献🤗
 

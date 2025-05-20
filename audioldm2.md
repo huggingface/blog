@@ -12,7 +12,7 @@ authors:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-AudioLDM 2 was proposed in [AudioLDM 2: Learning Holistic Audio Generation with Self-supervised Pretraining](https://arxiv.org/abs/2308.05734)
+AudioLDM 2 was proposed in [AudioLDM 2: Learning Holistic Audio Generation with Self-supervised Pretraining](https://huggingface.co/papers/2308.05734)
 by Haohe Liu et al. AudioLDM 2 takes a text prompt as input and predicts the corresponding audio. It can generate realistic 
 sound effects, human speech and music.
 
@@ -87,7 +87,7 @@ The diagram below demonstrates how a text input is passed through the text condi
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/161_audioldm2/audioldm2.png?raw=true" width="600"/>
 </p>
 
-For full details on how the AudioLDM 2 model is trained, the reader is referred to the [AudioLDM 2 paper](https://arxiv.org/abs/2308.05734).
+For full details on how the AudioLDM 2 model is trained, the reader is referred to the [AudioLDM 2 paper](https://huggingface.co/papers/2308.05734).
 
 Hugging Face 🧨 Diffusers provides an end-to-end inference pipeline class [`AudioLDM2Pipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/audioldm2) that wraps this multi-stage generation process into a single callable object, enabling you to generate audio samples from text in just a few lines of code.
 
@@ -204,7 +204,7 @@ better benchmark for our actual inference time.
 ## Optimisation 1: Flash Attention
 
 PyTorch 2.0 and upwards includes an optimised and memory-efficient implementation of the attention operation through the 
-[`torch.nn.functional.scaled_dot_product_attention`](https://pytorch.org/docs/master/generated/torch.nn.functional.scaled_dot_product_attention) (SDPA) function. This function automatically applies several in-built optimisations depending on the inputs, and runs faster and more memory-efficient than the vanilla attention implementation. Overall, the SDPA function gives similar behaviour to *flash attention*, as proposed in the paper [Fast and Memory-Efficient Exact Attention with IO-Awareness](https://arxiv.org/abs/2205.14135) by Dao et. al.
+[`torch.nn.functional.scaled_dot_product_attention`](https://pytorch.org/docs/master/generated/torch.nn.functional.scaled_dot_product_attention) (SDPA) function. This function automatically applies several in-built optimisations depending on the inputs, and runs faster and more memory-efficient than the vanilla attention implementation. Overall, the SDPA function gives similar behaviour to *flash attention*, as proposed in the paper [Fast and Memory-Efficient Exact Attention with IO-Awareness](https://huggingface.co/papers/2205.14135) by Dao et. al.
 
 These optimisations will be enabled by default in Diffusers if PyTorch 2.0 is installed and if `torch.nn.functional.scaled_dot_product_attention` 
 is available. To use it, just install torch 2.0 or higher as per the [official instructions](https://pytorch.org/get-started/locally/), 

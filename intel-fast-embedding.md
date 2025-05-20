@@ -57,7 +57,7 @@ Optimizing pre-trained models can be done easily with Optimum Intel; many simple
 
 ## Example: Optimizing BGE Embedding Models
 
-In this blog, we focus on recently released embedding models by researchers at the [Beijing Academy of Artificial Intelligence](https://arxiv.org/pdf/2309.07597.pdf), as their models show competitive results on the widely adopted [MTEB](https://github.com/embeddings-benchmark/mteb) leaderboard.
+In this blog, we focus on recently released embedding models by researchers at the [Beijing Academy of Artificial Intelligence](https://huggingface.co/papers/2309.07597), as their models show competitive results on the widely adopted [MTEB](https://github.com/embeddings-benchmark/mteb) leaderboard.
 
 ### BGE Technical Details
 

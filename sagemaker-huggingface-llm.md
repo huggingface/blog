@@ -32,7 +32,7 @@ Text Generation Inference is already used by customers such as IBM, Grammarly, a
 - [Continuous batching of incoming requests](https://github.com/huggingface/text-generation-inference/tree/main/router) for increased total throughput
 - Accelerated weight loading (start-up time) with [safetensors](https://github.com/huggingface/safetensors)
 - Logits warpers (temperature scaling, topk, repetition penalty ...)
-- Watermarking with [A Watermark for Large Language Models](https://arxiv.org/abs/2301.10226)
+- Watermarking with [A Watermark for Large Language Models](https://huggingface.co/papers/2301.10226)
 - Stop sequences, Log probabilities
 - Token streaming using Server-Sent Events (SSE)
 

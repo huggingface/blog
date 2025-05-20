@@ -41,9 +41,9 @@ Over time, static "accuracy-based" benchmarks risk becoming less informative: do
 
 The Open CoT Leaderboard evaluates LLMs’ ability to generate effective chain-of-thought reasoning traces for the following tasks:
 - LogiQA (new translation of [original version](https://github.com/lgw863/LogiQA-dataset), and [version 2.0](https://github.com/csitfun/LogiQA2.0) with new examples)
-- LSAT [dataset](https://arxiv.org/abs/2108.00648) (including subsets on [analytical reasoning](https://huggingface.co/datasets/hails/agieval-lsat-ar), [logical reasoning](https://huggingface.co/datasets/hails/agieval-lsat-lr), and [reading comprehension](https://huggingface.co/datasets/hails/agieval-lsat-rc))
+- LSAT [dataset](https://huggingface.co/papers/2108.00648) (including subsets on [analytical reasoning](https://huggingface.co/datasets/hails/agieval-lsat-ar), [logical reasoning](https://huggingface.co/datasets/hails/agieval-lsat-lr), and [reading comprehension](https://huggingface.co/datasets/hails/agieval-lsat-rc))
 
-Except for the original version of LogiQA, all these tasks are part of the [AGIEval benchmark](https://arxiv.org/abs/2304.06364), and have been re-published as [logikon-bench](https://huggingface.co/datasets/logikon/logikon-bench).
+Except for the original version of LogiQA, all these tasks are part of the [AGIEval benchmark](https://huggingface.co/papers/2304.06364), and have been re-published as [logikon-bench](https://huggingface.co/datasets/logikon/logikon-bench).
 
 We’ve chosen these tasks because they
 1. are generic, i.e. can be solved through reasoning and just require commonsense knowledge;

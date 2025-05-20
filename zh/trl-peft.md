@@ -78,7 +78,7 @@ LLM 结合 RLHF (人类反馈强化学习) 似乎是构建非常强大的 AI 系
 
 | ![8bit-matmul](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/8bit-matmul.png) |
 |:--:|
-| <b>高效的 8 位矩阵乘法是论文 [LLM.int8()](https://arxiv.org/abs/2208.07339) 中首次引入的一种方法，旨在解决量化大规模模型时的性能下降问题。 所提出的方法将在线性层中应用的矩阵乘法分解为两个阶段: 在 float16 中被执行的异常值隐藏状态部分和在 int8 中被执行的“非异常值”部分。</b>|
+| <b>高效的 8 位矩阵乘法是论文 [LLM.int8()](https://huggingface.co/papers/2208.07339) 中首次引入的一种方法，旨在解决量化大规模模型时的性能下降问题。 所提出的方法将在线性层中应用的矩阵乘法分解为两个阶段: 在 float16 中被执行的异常值隐藏状态部分和在 int8 中被执行的“非异常值”部分。</b>|
 
 简而言之，如果使用 8 位矩阵乘法，则可以将全精度模型的大小减小到 4 分之一 (因此，对于半精度模型，可以减小 2 分之一)。
 
@@ -184,5 +184,5 @@ LLM 结合 RLHF (人类反馈强化学习) 似乎是构建非常强大的 AI 系
 
 - 并行范式: [https://hf.co/docs/transformers/v4.17.0/en/parallelism](https://hf.co/docs/transformers/v4.17.0/en/parallelism)
 - `transformers` 中的 8 位集成: [https://hf.co/blog/hf-bitsandbytes-integration](https://hf.co/blog/hf-bitsandbytes-integration)
-- LLM.int8 论文: [https://arxiv.org/abs/2208.07339](https://arxiv.org/abs/2208.07339)
+- LLM.int8 论文: [https://huggingface.co/papers/2208.07339](https://huggingface.co/papers/2208.07339)
 - 梯度检查点解释: [https://docs.aws.amazon.com/sagemaker/latest/dg/model-parallel-extended-features-pytorch-activation-checkpointing.html](https://docs.aws.amazon.com/sagemaker/latest/dg/model-parallel-extended-features-pytorch-activation-checkpointing.html)

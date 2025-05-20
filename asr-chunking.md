@@ -20,10 +20,10 @@ during live inference.
 Released in [September 2020](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/)
 by Meta AI Research, the novel architecture catalyzed progress in
 self-supervised pretraining for speech recognition, *e.g.* [*G. Ng et
-al.*, 2021](https://arxiv.org/pdf/2104.03416.pdf), [*Chen et al*,
-2021](https://arxiv.org/abs/2110.13900), [*Hsu et al.*,
-2021](https://arxiv.org/abs/2106.07447) and [*Babu et al.*,
-2021](https://arxiv.org/abs/2111.09296). On the Hugging Face Hub,
+al.*, 2021](https://huggingface.co/papers/2104.03416), [*Chen et al*,
+2021](https://huggingface.co/papers/2110.13900), [*Hsu et al.*,
+2021](https://huggingface.co/papers/2106.07447) and [*Babu et al.*,
+2021](https://huggingface.co/papers/2111.09296). On the Hugging Face Hub,
 Wav2Vec2's most popular pre-trained checkpoint currently amounts to
 over [**250,000** monthly
 downloads](https://huggingface.co/facebook/wav2vec2-base-960h).

@@ -87,11 +87,11 @@ Data diversity is important for data quality, which is why we decided to enhance
 
 #### Prompt categories
 
-[InstructGPT](https://arxiv.org/pdf/2203.02155) describes foundational task categories for text-to-text generation but there is no clear equivalent of this for text-to-image generation. To alleviate this, we used two main sources as input for our categories: [google/sdxl](https://huggingface.co/spaces/google/sdxl/blob/main/app.py) and [Microsoft](https://www.microsoft.com/en-us/bing/do-more-with-ai/ai-art-prompting-guide/ai-genres-and-styles?form=MA13KP). This led to the following main categories:  ["Cinematic", "Photographic", "Anime", "Manga", "Digital art", "Pixel art", "Fantasy art", "Neonpunk", "3D Model", “Painting”, “Animation” “Illustration”]. On top of that we also chose some mutually exclusive, sub-categories to allow us to further diversify the prompts. These categories and sub-categories have been randomly sampled and are therefore roughly equally distributed across the dataset.
+[InstructGPT](https://huggingface.co/papers/2203.02155) describes foundational task categories for text-to-text generation but there is no clear equivalent of this for text-to-image generation. To alleviate this, we used two main sources as input for our categories: [google/sdxl](https://huggingface.co/spaces/google/sdxl/blob/main/app.py) and [Microsoft](https://www.microsoft.com/en-us/bing/do-more-with-ai/ai-art-prompting-guide/ai-genres-and-styles?form=MA13KP). This led to the following main categories:  ["Cinematic", "Photographic", "Anime", "Manga", "Digital art", "Pixel art", "Fantasy art", "Neonpunk", "3D Model", “Painting”, “Animation” “Illustration”]. On top of that we also chose some mutually exclusive, sub-categories to allow us to further diversify the prompts. These categories and sub-categories have been randomly sampled and are therefore roughly equally distributed across the dataset.
 
 #### Prompt complexities
 
-[The Deita paper](https://arxiv.org/pdf/2312.15685) proved that evolving complexity and diversity of prompts leads to better model generations and fine-tunes, however, humans don’t always take time to write extensive prompts. Therefore we decided to use the same prompt in a complex and simplified manner as two datapoints for different preference generations.
+[The Deita paper](https://huggingface.co/papers/2312.15685) proved that evolving complexity and diversity of prompts leads to better model generations and fine-tunes, however, humans don’t always take time to write extensive prompts. Therefore we decided to use the same prompt in a complex and simplified manner as two datapoints for different preference generations.
 
 ### Image generation
 

@@ -50,7 +50,7 @@ future release ([R5+](#releases)).
 </div>
 
 <p align="center">
-  <em> Table 1: Open source self-driving datasets (*excluding lidar and radar). <a href="https://arxiv.org/pdf/2305.02008">Source</a> </em>
+  <em> Table 1: Open source self-driving datasets (*excluding lidar and radar). <a href="https://huggingface.co/papers/2305.02008">Source</a> </em>
 </p>
 
 L2D was collected with [identical sensor suites](#a2-data-collection-hardware) installed on 60 EVs operated by driving schools in 30 German

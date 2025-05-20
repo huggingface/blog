@@ -16,7 +16,7 @@ authors:
 As recent Machine Learning models have been growing much faster than the amount of GPU memory added to newly released cards, many users are unable to train or even just load some of those huge models onto their hardware. While there is an ongoing effort to distill some of those huge models to be of a more manageable size -- that effort isn't producing models small enough soon enough.
 
 In the fall of 2019 Samyam Rajbhandari, Jeff Rasley, Olatunji Ruwase and Yuxiong He published a paper:
-[ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054), which contains a plethora of ingenious new ideas on how one could make their hardware do much more than what it was thought possible before. A short time later [DeepSpeed](https://github.com/microsoft/deepspeed) has been released and it gave to the world the open source implementation of most of the ideas in that paper (a few ideas are still in works) and in parallel a team from Facebook released [FairScale](https://github.com/facebookresearch/fairscale/) which also implemented some of the core ideas from the ZeRO paper.
+[ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://huggingface.co/papers/1910.02054), which contains a plethora of ingenious new ideas on how one could make their hardware do much more than what it was thought possible before. A short time later [DeepSpeed](https://github.com/microsoft/deepspeed) has been released and it gave to the world the open source implementation of most of the ideas in that paper (a few ideas are still in works) and in parallel a team from Facebook released [FairScale](https://github.com/facebookresearch/fairscale/) which also implemented some of the core ideas from the ZeRO paper.
 
 If you use the Hugging Face Trainer, as of `transformers` v4.2.0 you have the experimental support for DeepSpeed's and FairScale's ZeRO features. The new `--sharded_ddp` and `--deepspeed` command line `Trainer` arguments provide FairScale and DeepSpeed integration respectively. Here is [the full documentation](https://huggingface.co/transformers/master/main_classes/trainer.html#trainer-integrations).
 
@@ -145,7 +145,7 @@ This idea could be difficult to grasp, and you will find my attempt at an explan
 
 As of this writing FairScale and DeepSpeed only perform Partitioning (Sharding) for the optimizer states and gradients. Model parameters sharding is supposedly coming soon in DeepSpeed and FairScale.
 
-The other powerful feature is ZeRO-Offload ([paper](https://arxiv.org/abs/2101.06840)). This feature offloads some of the processing and memory needs to the host's CPU, thus allowing more to be fit onto the GPU. You saw its dramatic impact in the success at running `t5-3b` on a 24GB GPU.
+The other powerful feature is ZeRO-Offload ([paper](https://huggingface.co/papers/2101.06840)). This feature offloads some of the processing and memory needs to the host's CPU, thus allowing more to be fit onto the GPU. You saw its dramatic impact in the success at running `t5-3b` on a 24GB GPU.
 
 One other problem that a lot of people complain about on pytorch forums is GPU memory fragmentation. One often gets an OOM error that may look like this:
 ```
@@ -187,9 +187,9 @@ While you don't really need to understand how any of these projects work and you
 * [FairScale GitHub](https://github.com/facebookresearch/fairscale)
 * [DeepSpeed GitHub](https://github.com/microsoft/DeepSpeed)
 
-* Paper: [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054). The paper is very interesting, but it's very terse.
+* Paper: [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://huggingface.co/papers/1910.02054). The paper is very interesting, but it's very terse.
 * Here is a good [video discussion](https://www.youtube.com/watch?v=tC01FRB0M7w) of the paper with visuals
-* Paper: [ZeRO-Offload: Democratizing Billion-Scale Model Training](https://arxiv.org/abs/2101.06840). Just published - this one goes into the details of ZeRO Offload feature.
+* Paper: [ZeRO-Offload: Democratizing Billion-Scale Model Training](https://huggingface.co/papers/2101.06840). Just published - this one goes into the details of ZeRO Offload feature.
 * DeepSpeed [configuration and tutorials](https://www.deepspeed.ai/getting-started/)
 * In addition to the paper, I highly recommend to read the following detailed blog posts with diagrams:
   - [DeepSpeed: Extreme-scale model training for everyone]( https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/)

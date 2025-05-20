@@ -41,7 +41,7 @@ RLHF 是一项涉及多个模型和不同训练阶段的复杂概念，这里我
 
 ### Step 1. 预训练语言模型
 
-首先，我们使用经典的预训练目标训练一个语言模型。对这一步的模型，OpenAI 在其第一个流行的 RLHF 模型 [InstructGPT](https://openai.com/blog/instruction-following/) 中使用了较小版本的 GPT-3; Anthropic 使用了 1000 万 ～ 520 亿参数的 Transformer 模型进行训练；DeepMind 使用了自家的 2800 亿参数模型 [Gopher](https://arxiv.org/abs/2112.11446)。
+首先，我们使用经典的预训练目标训练一个语言模型。对这一步的模型，OpenAI 在其第一个流行的 RLHF 模型 [InstructGPT](https://openai.com/blog/instruction-following/) 中使用了较小版本的 GPT-3; Anthropic 使用了 1000 万 ～ 520 亿参数的 Transformer 模型进行训练；DeepMind 使用了自家的 2800 亿参数模型 [Gopher](https://huggingface.co/papers/2112.11446)。
 
 这里可以用额外的文本或者条件对这个 LM 进行微调，例如 OpenAI 对 “更可取” (preferable) 的人工生成文本进行了微调，而 Anthropic 按 “有用、诚实和无害” 的标准在上下文线索上蒸馏了原始的 LM。这里或许使用了昂贵的增强数据，但并不是 RLHF 必须的一步。由于 RLHF 还是一个尚待探索的领域，对于” 哪种模型” 适合作为 RLHF 的起点并没有明确的答案。
 
@@ -73,7 +73,7 @@ RM 的训练是 RLHF 区别于旧范式的开端。这一模型接收一系列�
 
 ### Step 3. 用强化学习微调
 
-长期以来出于工程和算法原因，人们认为用强化学习训练 LM 是不可能的。而目前多个组织找到的可行方案是使用策略梯度强化学习 (Policy Gradient RL) 算法、近端策略优化 (Proximal Policy Optimization，PPO) 微调初始 LM 的部分或全部参数。因为微调整个 10B～100B+ 参数的成本过高 (相关工作参考低秩适应 [LoRA](https://arxiv.org/abs/2106.09685) 和 DeepMind 的 [Sparrow](https://arxiv.org/abs/2209.14375) LM) 。PPO 算法已经存在了相对较长的时间，有大量关于其原理的指南，因而成为 RLHF 中的有利选择。
+长期以来出于工程和算法原因，人们认为用强化学习训练 LM 是不可能的。而目前多个组织找到的可行方案是使用策略梯度强化学习 (Policy Gradient RL) 算法、近端策略优化 (Proximal Policy Optimization，PPO) 微调初始 LM 的部分或全部参数。因为微调整个 10B～100B+ 参数的成本过高 (相关工作参考低秩适应 [LoRA](https://huggingface.co/papers/2106.09685) 和 DeepMind 的 [Sparrow](https://huggingface.co/papers/2209.14375) LM) 。PPO 算法已经存在了相对较长的时间，有大量关于其原理的指南，因而成为 RLHF 中的有利选择。
 
 事实证明，RLHF 的许多核心 RL 进步一直在弄清楚如何将熟悉的 RL 算法应用到更新如此大的模型。
 
@@ -87,7 +87,7 @@ PPO 算法确定的奖励函数具体计算如下：将提示 *x* 输入初始 L
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rlhf/rlhf.png" width="650" />
 </p>
 
-作为一个可选项，RLHF 可以通过迭代 RM 和策略共同优化。随着策略模型更新，用户可以继续将输出和早期的输出进行合并排名。Anthropic 在他们的论文中讨论了 [迭代在线 RLHF](https://arxiv.org/abs/2204.05862)，其中策略的迭代包含在跨模型的 Elo 排名系统中。这样引入策略和 RM 演变的复杂动态，代表了一个复杂和开放的研究问题。
+作为一个可选项，RLHF 可以通过迭代 RM 和策略共同优化。随着策略模型更新，用户可以继续将输出和早期的输出进行合并排名。Anthropic 在他们的论文中讨论了 [迭代在线 RLHF](https://huggingface.co/papers/2204.05862)，其中策略的迭代包含在跨模型的 Elo 排名系统中。这样引入策略和 RM 演变的复杂动态，代表了一个复杂和开放的研究问题。
 
 # Open-source tools for RLHF
 
@@ -95,7 +95,7 @@ Today, there are already a few active repositories for RLHF in PyTorch that grew
 
 TRL is designed to fine-tune pretrained LMs in the Hugging Face ecosystem with PPO. TRLX is an expanded fork of TRL built by [CarperAI](https://carper.ai/) to handle larger models for online and offline training. At the moment, TRLX has an API capable of production-ready RLHF with PPO and Implicit Language Q-Learning [ILQL](https://sea-snell.github.io/ILQL_site/) at the scales required for LLM deployment (e.g. 33 billion parameters). Future versions of TRLX will allow for language models up to 200B parameters. As such, interfacing with TRLX is optimized for machine learning engineers with experience at this scale.
 
-[RL4LMs](https://github.com/allenai/RL4LMs) offers building blocks for fine-tuning and evaluating LLMs with a wide variety of RL algorithms (PPO, NLPO, A2C and TRPO), reward functions and metrics. Moreover, the library is easily customizable, which allows training of any encoder-decoder or encoder transformer-based LM on any arbitrary user-specified reward function. Notably, it is well-tested and benchmarked on a broad range of tasks in [recent work](https://arxiv.org/abs/2210.01241) amounting up to 2000 experiments highlighting several practical insights on data budget comparison (expert demonstrations vs. reward modeling), handling reward hacking and training instabilities, etc.
+[RL4LMs](https://github.com/allenai/RL4LMs) offers building blocks for fine-tuning and evaluating LLMs with a wide variety of RL algorithms (PPO, NLPO, A2C and TRPO), reward functions and metrics. Moreover, the library is easily customizable, which allows training of any encoder-decoder or encoder transformer-based LM on any arbitrary user-specified reward function. Notably, it is well-tested and benchmarked on a broad range of tasks in [recent work](https://huggingface.co/papers/2210.01241) amounting up to 2000 experiments highlighting several practical insights on data budget comparison (expert demonstrations vs. reward modeling), handling reward hacking and training instabilities, etc.
 RL4LMs current plans include distributed training of larger models and new RL algorithms. 
 
 Both TRLX and RL4LMs are under heavy further development, so expect more features beyond these soon. 
@@ -128,26 +128,26 @@ There is a large [dataset](https://huggingface.co/datasets/Anthropic/hh-rlhf) cr
 - [Interactive Learning from Policy-Dependent Human Feedback](http://proceedings.mlr.press/v70/macglashan17a/macglashan17a.pdf) (MacGlashan et al. 2017)
 - [Deep Reinforcement Learning from Human Preferences](https://proceedings.neurips.cc/paper/2017/hash/d5e2c0adad503c91f91df240d0cd4e49-Abstract.html) (Christiano et al. 2017)
 - [Deep TAMER: Interactive Agent Shaping in High-Dimensional State Spaces](https://ojs.aaai.org/index.php/AAAI/article/view/11485)
-- [Fine-Tuning Language Models from Human Preferences](https://arxiv.org/abs/1909.08593) (Zieglar et al. 2019)
+- [Fine-Tuning Language Models from Human Preferences](https://huggingface.co/papers/1909.08593) (Zieglar et al. 2019)
 - [Learning to summarize with human feedback](https://proceedings.neurips.cc/paper/2020/hash/1f89885d556929e98d3ef9b86448f951-Abstract.html) (Stiennon et al., 2020)
-- [Recursively Summarizing Books with Human Feedback](https://arxiv.org/abs/2109.10862) (OpenAI Alignment Team 2021)
-- [WebGPT: Browser-assisted question-answering with human feedback](https://arxiv.org/abs/2112.09332) (OpenAI, 2021)
-- InstructGPT: [Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155) (OpenAI Alignment Team 2022)
+- [Recursively Summarizing Books with Human Feedback](https://huggingface.co/papers/2109.10862) (OpenAI Alignment Team 2021)
+- [WebGPT: Browser-assisted question-answering with human feedback](https://huggingface.co/papers/2112.09332) (OpenAI, 2021)
+- InstructGPT: [Training language models to follow instructions with human feedback](https://huggingface.co/papers/2203.02155) (OpenAI Alignment Team 2022)
 - [InstructGPT: Training language models to follow instructions with human feedback (OpenAI Alignment Team 2022)](https://openai.com/blog/instruction-following/)
 - GopherCite: [Teaching language models to support answers with verified quotes](https://www.deepmind.com/publications/gophercite-teaching-language-models-to-support-answers-with-verified-quotes) (Menick et al. 2022)
-- Sparrow: [Improving alignment of dialogue agents via targeted human judgements](https://arxiv.org/abs/2209.14375) (Glaese et al. 2022)
+- Sparrow: [Improving alignment of dialogue agents via targeted human judgements](https://huggingface.co/papers/2209.14375) (Glaese et al. 2022)
 - [ChatGPT: Optimizing Language Models for Dialogue](https://openai.com/blog/chatgpt/) (OpenAI 2022)
-- [Scaling Laws for Reward Model Overoptimization](https://arxiv.org/abs/2210.10760) (Gao et al. 2022)
-- [Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback](https://arxiv.org/abs/2204.05862) (Anthropic, 2022)
-- [Red Teaming Language Models to Reduce Harms: Methods, Scaling Behaviors, and Lessons Learned](https://arxiv.org/abs/2209.07858) (Ganguli et al. 2022)
-- [Dynamic Planning in Open-Ended Dialogue using Reinforcement Learning](https://arxiv.org/abs/2208.02294) (Cohen at al. 2022)
-- [Is Reinforcement Learning (Not) for Natural Language Processing?: Benchmarks, Baselines, and Building Blocks for Natural Language Policy Optimization](https://arxiv.org/abs/2210.01241) (Ramamurthy and Ammanabrolu et al. 2022)
-- [Kojima et al. 2021](https://arxiv.org/abs/2108.04812)
-- [Suhr and Artzi 2022](https://arxiv.org/abs/2212.09710)
-- [Sokolov et al. 2016](https://arxiv.org/abs/1601.04468), [Gao et al. 2022](https://arxiv.org/abs/2203.10079)
-* [Ranzato et al. 2015](https://arxiv.org/abs/1511.06732)
-* [Bahdanau et al. 2016](https://arxiv.org/abs/1607.07086)
-* [Nguyen et al. 2017](https://arxiv.org/abs/1707.07402)
+- [Scaling Laws for Reward Model Overoptimization](https://huggingface.co/papers/2210.10760) (Gao et al. 2022)
+- [Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback](https://huggingface.co/papers/2204.05862) (Anthropic, 2022)
+- [Red Teaming Language Models to Reduce Harms: Methods, Scaling Behaviors, and Lessons Learned](https://huggingface.co/papers/2209.07858) (Ganguli et al. 2022)
+- [Dynamic Planning in Open-Ended Dialogue using Reinforcement Learning](https://huggingface.co/papers/2208.02294) (Cohen at al. 2022)
+- [Is Reinforcement Learning (Not) for Natural Language Processing?: Benchmarks, Baselines, and Building Blocks for Natural Language Policy Optimization](https://huggingface.co/papers/2210.01241) (Ramamurthy and Ammanabrolu et al. 2022)
+- [Kojima et al. 2021](https://huggingface.co/papers/2108.04812)
+- [Suhr and Artzi 2022](https://huggingface.co/papers/2212.09710)
+- [Sokolov et al. 2016](https://huggingface.co/papers/1601.04468), [Gao et al. 2022](https://huggingface.co/papers/2203.10079)
+* [Ranzato et al. 2015](https://huggingface.co/papers/1511.06732)
+* [Bahdanau et al. 2016](https://huggingface.co/papers/1607.07086)
+* [Nguyen et al. 2017](https://huggingface.co/papers/1707.07402)
 
 ## Citation
 

@@ -55,7 +55,7 @@ translators:
 
 ## 示例: 优化 BGE 嵌入模型
 
-本文，我们主要关注 [北京人工智能研究院](https://arxiv.org/pdf/2309.07597.pdf) 的研究人员最近发布的嵌入模型，它们在广为人知的 [MTEB](https://github.com/embeddings-benchmark/mteb) 排行榜上取得了亮眼的排名。
+本文，我们主要关注 [北京人工智能研究院](https://huggingface.co/papers/2309.07597) 的研究人员最近发布的嵌入模型，它们在广为人知的 [MTEB](https://github.com/embeddings-benchmark/mteb) 排行榜上取得了亮眼的排名。
 
 ### BGE 技术细节
 

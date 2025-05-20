@@ -20,7 +20,7 @@ If you’re a software developer, chances are that you’ve used GitHub Copilot 
 
 Fortunately, there are now several high-quality open-source alternatives! These include SalesForce’s [CodeGen Mono 16B](https://huggingface.co/Salesforce/codegen-16B-mono) for Python, or [Replit’s 3B parameter model](https://huggingface.co/replit/replit-code-v1-3b) trained on 20 programming languages.
 
-The new kid on the block is [BigCode’s StarCoder](https://huggingface.co/bigcode/starcoder), a 16B parameter model trained on one trillion tokens sourced from 80+ programming languages, GitHub issues, Git commits, and Jupyter notebooks (all permissively licensed). With an enterprise-friendly license, 8,192 token context length, and fast large-batch inference via [multi-query attention](https://arxiv.org/abs/1911.02150), StarCoder is currently the best open-source choice for code-based applications.
+The new kid on the block is [BigCode’s StarCoder](https://huggingface.co/bigcode/starcoder), a 16B parameter model trained on one trillion tokens sourced from 80+ programming languages, GitHub issues, Git commits, and Jupyter notebooks (all permissively licensed). With an enterprise-friendly license, 8,192 token context length, and fast large-batch inference via [multi-query attention](https://huggingface.co/papers/1911.02150), StarCoder is currently the best open-source choice for code-based applications.
 
 In this blog post, we’ll show how StarCoder can be fine-tuned for chat to create a personalised coding assistant! Dubbed StarChat, we’ll explore several technical details that arise when using large language models (LLMs) as coding assistants, including:
 
@@ -48,7 +48,7 @@ To get started, let’s take a look at how language models can be turned into co
 
 ## Prompting LLMs for dialogue
 
-As shown by [DeepMind](https://arxiv.org/abs/2209.14375) and [Anthropic](https://arxiv.org/abs/2112.00861), LLMs can be turned into conversational agents through a clever choice of prompt. These prompts typically involve a so-called “system” message that defines the character of the LLM, along with a series of dialogues between the assistant and a user.
+As shown by [DeepMind](https://huggingface.co/papers/2209.14375) and [Anthropic](https://huggingface.co/papers/2112.00861), LLMs can be turned into conversational agents through a clever choice of prompt. These prompts typically involve a so-called “system” message that defines the character of the LLM, along with a series of dialogues between the assistant and a user.
 
 For example, here’s an excerpt from [Anthropic’s HHH prompt](https://gist.github.com/jareddk/2509330f8ef3d787fc5aaac67aab5f11#file-hhh_prompt-txt) (a whopping 6k tokens in total!):
 
@@ -521,9 +521,9 @@ plt.show()
 Evaluating coding assistants (or chatbots more generally) is tricky because the user-facing metrics we care about are often not measured in conventional NLP benchmarks. For example, we ran the base and fine-tuned StarCoderBase models through EleutherAI’s [language model evaluation harness](https://github.com/EleutherAI/lm-evaluation-harness) to measure their performance on the following benchmarks:
 
 - [AI2 Reasoning Challenge](https://allenai.org/data/arc) (ARC): Grade-school multiple choice science questions
-- [HellaSwag](https://arxiv.org/abs/1905.07830): Commonsense reasoning around everyday events
+- [HellaSwag](https://huggingface.co/papers/1905.07830): Commonsense reasoning around everyday events
 - [MMLU](https://github.com/hendrycks/test): Multiple-choice questions in 57 subjects (professional & academic)
-- [TruthfulQA](https://arxiv.org/abs/2109.07958): Tests the model’s ability to separate fact from an adversarially-selected set of incorrect statements
+- [TruthfulQA](https://huggingface.co/papers/2109.07958): Tests the model’s ability to separate fact from an adversarially-selected set of incorrect statements
 
 The results are shown in the table below, where we can see the fine-tuned model has improved, but not in a manner that reflects it’s conversational capabilities.
 

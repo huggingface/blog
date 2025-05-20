@@ -59,7 +59,7 @@ That's where models like [LayoutLM](https://huggingface.co/docs/transformers/mod
 
 Document layout analysis is the task of determining the physical structure of a document, i.e., identifying the individual building blocks that make up a document, like text segments, headers, and tables. This task is often solved by framing it as an image segmentation/object detection problem. The model outputs a set of segmentation masks/bounding boxes, along with class names.
 
-Models that are currently state-of-the-art for document layout analysis are [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) and [DiT](https://huggingface.co/docs/transformers/model_doc/dit) (Document Image Transformer). Both models use the classic [Mask R-CNN](https://arxiv.org/abs/1703.06870) framework for object detection as a backbone. This [document layout analysis](https://huggingface.co/spaces/nielsr/dit-document-layout-analysis) Space illustrates how DiT can be used to identify text segments, titles, and tables in documents. An example using [DiT](https://github.com/microsoft/unilm/tree/master/dit) detecting different parts of a document is shown here.
+Models that are currently state-of-the-art for document layout analysis are [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) and [DiT](https://huggingface.co/docs/transformers/model_doc/dit) (Document Image Transformer). Both models use the classic [Mask R-CNN](https://huggingface.co/papers/1703.06870) framework for object detection as a backbone. This [document layout analysis](https://huggingface.co/spaces/nielsr/dit-document-layout-analysis) Space illustrates how DiT can be used to identify text segments, titles, and tables in documents. An example using [DiT](https://github.com/microsoft/unilm/tree/master/dit) detecting different parts of a document is shown here.
 </div>
     </div>
         </div>
@@ -80,7 +80,7 @@ A step beyond layout analysis is document parsing. Document parsing is identifyi
 
 The first version of LayoutLM (now known as LayoutLMv1) was released in 2020 and dramatically improved over existing benchmarks, and it's still one of the most popular models on the Hugging Face Hub for Document AI. [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) and [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) incorporate visual features during pre-training, which provides an improvement. The LayoutLM family produced a step change in Document AI performance. For example, on the [FUNSD](https://guillaumejaume.github.io/FUNSD/) benchmark dataset, a BERT model has an F1 score of 60%, but with LayoutLM, it is possible to get to 90%! 
 
-LayoutLMv1 now has many successors, including [ERNIE-Layout](https://arxiv.org/abs/2210.06155) which shows promising results as shown in this [Space](https://huggingface.co/spaces/PaddlePaddle/ERNIE-Layout). For multilingual use cases, there are multilingual variants of LayoutLM, like [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) and [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt). This figure from the LayoutLM paper shows LayoutLM analyzing some different documents.
+LayoutLMv1 now has many successors, including [ERNIE-Layout](https://huggingface.co/papers/2210.06155) which shows promising results as shown in this [Space](https://huggingface.co/spaces/PaddlePaddle/ERNIE-Layout). For multilingual use cases, there are multilingual variants of LayoutLM, like [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) and [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt). This figure from the LayoutLM paper shows LayoutLM analyzing some different documents.
 
 ![png](assets/112_document-ai/layoutlm.png)
 
@@ -89,7 +89,7 @@ Many successors of LayoutLM adopt a generative, end-to-end approach. This starte
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/112_document_ai/donut.png"
 alt="drawing" width="600"/>
 
-<small> Donut model consisting of an encoder-decoder Transformer. Taken from the <a href="https://arxiv.org/abs/2111.15664">Donut paper.</a> </small>
+<small> Donut model consisting of an encoder-decoder Transformer. Taken from the <a href="https://huggingface.co/papers/2111.15664">Donut paper.</a> </small>
 
 After Donut, various similar models were released, including [Pix2Struct](https://huggingface.co/docs/transformers/model_doc/pix2struct) by Google and [UDOP](https://huggingface.co/docs/transformers/model_doc/udop) by Microsoft. Nowadays, larger vision-language models such as [LLaVa-NeXT](https://huggingface.co/docs/transformers/model_doc/llava_next) and [Idefics2](https://huggingface.co/docs/transformers/model_doc/idefics2) can be fine-tuned to perform document parsing in an end-to-end manner. As a matter of fact, these models can be fine-tuned to perform any document AI task, from document image classification to document parsing, as long as the task can be defined as an image-text-to-text task. See, for instance, the [tutorial notebook](https://github.com/NielsRogge/Transformers-Tutorials/tree/master/PaliGemma) to fine-tune Google's [PaliGemma](https://huggingface.co/docs/transformers/model_doc/paligemma) (a smaller vision-language model) to return a JSON from receipt images.
 
@@ -115,7 +115,7 @@ Documents often contain tables, and most OCR tools don't work incredibly well ou
 
 The approach for table detection and structure recognition is similar to document layout analysis in using object detection models that output a set of bounding boxes and corresponding classes.
 
-The latest approaches, like [Table Transformer](https://huggingface.co/docs/transformers/main/en/model_doc/table-transformer), can enable table detection and table structure recognition with the same model. The Table Transformer is a [DETR](https://huggingface.co/docs/transformers/model_doc/detr)-like object detection model, trained on [PubTables-1M](https://arxiv.org/abs/2110.00061) (a dataset comprising one million tables). Evaluation for table detection and structure recognition typically uses the average precision (AP) metric. The Table Transformer performance is reported as having an AP of 0.966 for table detection and an AP of 0.912 for table structure recognition + functional analysis on PubTables-1M.
+The latest approaches, like [Table Transformer](https://huggingface.co/docs/transformers/main/en/model_doc/table-transformer), can enable table detection and table structure recognition with the same model. The Table Transformer is a [DETR](https://huggingface.co/docs/transformers/model_doc/detr)-like object detection model, trained on [PubTables-1M](https://huggingface.co/papers/2110.00061) (a dataset comprising one million tables). Evaluation for table detection and structure recognition typically uses the average precision (AP) metric. The Table Transformer performance is reported as having an AP of 0.966 for table detection and an AP of 0.912 for table structure recognition + functional analysis on PubTables-1M.
 
 Table detection and extraction is an exciting approach, but the results may be different on your data. In our experience, the quality and formatting of tables vary widely and can affect how well the models perform. Additional fine-tuning on some custom data will greatly improve the performance.
 
@@ -192,7 +192,7 @@ Should you use higher-resolution images? When using images with [LayoutLMv2](htt
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/112_document_ai/pix2struct.png"
 alt="drawing" width="600"/>
 
-<small> Effect of image resolution on downstream performance. Taken from the <a href="https://arxiv.org/abs/2210.03347">Pix2Struct paper.</a> </small>
+<small> Effect of image resolution on downstream performance. Taken from the <a href="https://huggingface.co/papers/2210.03347">Pix2Struct paper.</a> </small>
 
 How are you evaluating the model? Watch out for misaligned bounding boxes. You should ensure bounding boxes provided by the OCR engine of your choice align with the model processor. Verifying this can save you from unexpectedly poor results. Second, let your project requirements guide your evaluation metrics. For example, in some tasks like token classification or question answering, a 100% match may not be the best metric. A metric like partial match could allow for many more potential tokens to be considered, such as “Acme” and “inside Acme” as a match. Finally, consider ethical issues during your evaluation as these models may be working with biased data or provide unstable outcomes that could biased against certain groups of people.
 
@@ -227,18 +227,18 @@ This was last updated in June 2024.
 
 | model | paper | license | checkpoints |
 | --- | --- | --- | --- |
-| [LayoutLM](https://huggingface.co/docs/transformers/model_doc/layoutlm) | [arxiv](https://arxiv.org/abs/1912.13318) | [MIT](https://github.com/microsoft/unilm/blob/master/LICENSE) | [huggingface](https://huggingface.co/models?other=layoutlm) |
-| [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) | [arxiv](https://arxiv.org/abs/2104.08836) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutxlm) | [huggingface](https://huggingface.co/microsoft/layoutxlm-base) |
-| [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) | [arxiv](https://arxiv.org/abs/2012.14740) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutlmv2) | [huggingface](https://huggingface.co/models?other=layoutlmv2) |
-| [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) | [arxiv](https://arxiv.org/abs/2204.08387) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutlmv3) | [huggingface](https://huggingface.co/models?other=layoutlmv3) |
-| [DiT](https://huggingface.co/docs/transformers/model_doc/dit) | [arxiv](https://arxiv.org/abs/2203.02378) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/dit) | [huggingface](https://huggingface.co/models?other=dit) |
-| [TrOCR](https://huggingface.co/docs/transformers/main/en/model_doc/trocr) | [arxiv](https://arxiv.org/abs/2109.10282) | [MIT](https://github.com/microsoft/unilm/blob/master/LICENSE) | [huggingface](https://huggingface.co/models?search=trocr) |
-| [Table Transformer](https://huggingface.co/docs/transformers/main/en/model_doc/table-transformer) | [arxiv](https://arxiv.org/abs/2110.00061) | [MIT](https://github.com/microsoft/table-transformer/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=table-transformer) |
-| [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt) | [arxiv](https://arxiv.org/abs/2202.13669) | [MIT](https://github.com/jpWang/LiLT/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=lilt) |
-| [Donut](https://huggingface.co/docs/transformers/main/en/model_doc/donut#overview) | [arxiv](https://arxiv.org/abs/2111.15664) | [MIT](https://github.com/clovaai/donut#license) | [huggingface](https://huggingface.co/models?other=donut) |
-| [Pix2Struct](https://huggingface.co/docs/transformers/main/en/model_doc/pix2struct) | [arxiv](https://arxiv.org/abs/2210.03347) | [Apache 2.0](https://github.com/google-research/pix2struct/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=pix2struct) |
-| [UDOP](https://huggingface.co/docs/transformers/main/en/model_doc/udop) | [arxiv](https://arxiv.org/abs/2212.02623) | [MIT](https://github.com/microsoft/UDOP/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=udop) |
-| [Idefics2](https://huggingface.co/docs/transformers/main/en/model_doc/idefics2) | [arxiv](https://arxiv.org/abs/2405.02246) | [Apache 2.0](https://huggingface.co/HuggingFaceM4/idefics2-8b) | [huggingface](https://huggingface.co/collections/HuggingFaceM4/idefics2-661d1971b7c50831dd3ce0fe) |
+| [LayoutLM](https://huggingface.co/docs/transformers/model_doc/layoutlm) | [arxiv](https://huggingface.co/papers/1912.13318) | [MIT](https://github.com/microsoft/unilm/blob/master/LICENSE) | [huggingface](https://huggingface.co/models?other=layoutlm) |
+| [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) | [arxiv](https://huggingface.co/papers/2104.08836) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutxlm) | [huggingface](https://huggingface.co/microsoft/layoutxlm-base) |
+| [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) | [arxiv](https://huggingface.co/papers/2012.14740) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutlmv2) | [huggingface](https://huggingface.co/models?other=layoutlmv2) |
+| [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) | [arxiv](https://huggingface.co/papers/2204.08387) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutlmv3) | [huggingface](https://huggingface.co/models?other=layoutlmv3) |
+| [DiT](https://huggingface.co/docs/transformers/model_doc/dit) | [arxiv](https://huggingface.co/papers/2203.02378) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/dit) | [huggingface](https://huggingface.co/models?other=dit) |
+| [TrOCR](https://huggingface.co/docs/transformers/main/en/model_doc/trocr) | [arxiv](https://huggingface.co/papers/2109.10282) | [MIT](https://github.com/microsoft/unilm/blob/master/LICENSE) | [huggingface](https://huggingface.co/models?search=trocr) |
+| [Table Transformer](https://huggingface.co/docs/transformers/main/en/model_doc/table-transformer) | [arxiv](https://huggingface.co/papers/2110.00061) | [MIT](https://github.com/microsoft/table-transformer/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=table-transformer) |
+| [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt) | [arxiv](https://huggingface.co/papers/2202.13669) | [MIT](https://github.com/jpWang/LiLT/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=lilt) |
+| [Donut](https://huggingface.co/docs/transformers/main/en/model_doc/donut#overview) | [arxiv](https://huggingface.co/papers/2111.15664) | [MIT](https://github.com/clovaai/donut#license) | [huggingface](https://huggingface.co/models?other=donut) |
+| [Pix2Struct](https://huggingface.co/docs/transformers/main/en/model_doc/pix2struct) | [arxiv](https://huggingface.co/papers/2210.03347) | [Apache 2.0](https://github.com/google-research/pix2struct/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=pix2struct) |
+| [UDOP](https://huggingface.co/docs/transformers/main/en/model_doc/udop) | [arxiv](https://huggingface.co/papers/2212.02623) | [MIT](https://github.com/microsoft/UDOP/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=udop) |
+| [Idefics2](https://huggingface.co/docs/transformers/main/en/model_doc/idefics2) | [arxiv](https://huggingface.co/papers/2405.02246) | [Apache 2.0](https://huggingface.co/HuggingFaceM4/idefics2-8b) | [huggingface](https://huggingface.co/collections/HuggingFaceM4/idefics2-661d1971b7c50831dd3ce0fe) |
 | [PaliGemma](https://huggingface.co/docs/transformers/main/en/model_doc/paligemma) | [blog post](https://huggingface.co/blog/paligemma) | [PaliGemma](https://ai.google.dev/gemma/terms) | [huggingface](https://huggingface.co/collections/google/paligemma-release-6643a9ffbf57de2ae0448dda) |
 
 </div>
@@ -259,7 +259,7 @@ A table of the common metrics and datasets for command Document AI tasks. This w
 | Document Image Classification | Accuracy, F1 | [RVL-CDIP](https://huggingface.co/datasets/rvl_cdip) |
 | Document layout analysis | mAP (mean average precision) | [PubLayNet](https://github.com/ibm-aur-nlp/PubLayNet), [XFUND](https://github.com/doc-analysis/XFUND)(Forms) |
 | Document parsing | Accuracy, F1 | [FUNSD](https://guillaumejaume.github.io/FUNSD/), [SROIE](https://huggingface.co/datasets/darentang/sroie/), [CORD](https://github.com/clovaai/cord) |
-| Table Detection and Extraction | mAP (mean average precision) | [PubTables-1M](https://arxiv.org/abs/2110.00061) |
+| Table Detection and Extraction | mAP (mean average precision) | [PubTables-1M](https://huggingface.co/papers/2110.00061) |
 | Document visual question answering | Average Normalized Levenshtein Similarity (ANLS) | [DocVQA](https://rrc.cvc.uab.es/?ch=17) |
 
 </div>

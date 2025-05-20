@@ -232,12 +232,12 @@ FSDP 通过让各数据并行工作进程分片存储优化器状态、梯度和
 
 [1] [Train Large, Then Compress: Rethinking Model Size for Efficient Training and Inference of Transformers](http://nlp.cs.berkeley.edu/pubs/Li-Wallace-Shen-Lin-Keutzer-Klein-Gonzalez_2020_Transformers_paper.pdf)
 
-[2] [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/pdf/1910.02054v3.pdf)
+[2] [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054v3)
 
 [3] [DeepSpeed: Extreme-scale model training for everyone - Microsoft Research](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/)
 
 [4] [Megatron-LM: Training Multi-Billion Parameter Language Models Using
-Model Parallelism](https://arxiv.org/pdf/1909.08053.pdf)
+Model Parallelism](https://huggingface.co/papers/1909.08053)
 
 [5] [Introducing GPipe, an Open Source Library for Efficiently Training Large-scale Neural Network Models](https://ai.googleblog.com/2019/03/introducing-gpipe-open-source-library.html)
 

@@ -14,9 +14,9 @@ translators:
 
 Une discussion intéressante a récemment eu lieu sur Twitter suite à la publication de [**Falcon 🦅**](https://hf.co/tiiuae/falcon-40b) et à son ajout à l'[*Open LLM Leaderboard*](https://hf.co/spaces/HuggingFaceH4/open_llm_leaderboard), un classement public comparant les grands modèles de langage en libre accès.
 
-La discussion a porté sur l'une des quatre évaluations affichées dans le classement : un *benchmark* pour mesurer [*Massive Multitask Language Understanding*](https://arxiv.org/abs/2009.03300) (communément abrégé en MMLU).
+La discussion a porté sur l'une des quatre évaluations affichées dans le classement : un *benchmark* pour mesurer [*Massive Multitask Language Understanding*](https://huggingface.co/papers/2009.03300) (communément abrégé en MMLU).
 
-La communauté a été étonnée de constater que les résultats du modèle actuellement en tête du classement sur le jeu de données MMLU, le [**LLaMA 🦙**](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/), étaient nettement inférieurs à ceux indiqués par les auteurs dans le [papier](https://arxiv.org/abs/2302.13971).
+La communauté a été étonnée de constater que les résultats du modèle actuellement en tête du classement sur le jeu de données MMLU, le [**LLaMA 🦙**](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/), étaient nettement inférieurs à ceux indiqués par les auteurs dans le [papier](https://huggingface.co/papers/2302.13971).
 Nous avons donc décidé de nous plonger sur ce point pour comprendre ce qui se passait et comment y remédier 🕳🐇
 
 Dans notre quête, nous avons discuté avec l'excellent [@javier-m](https://hf.co/javier-m) qui a collaboré aux évaluations de LLaMA et l'incroyable [@slippylolo](https://hf.co/slippylolo) de l'équipe Falcon. Ceci étant dit, toutes les erreurs observées ci-dessous doivent nous être attribuées plutôt qu'à eux !

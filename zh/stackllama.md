@@ -33,13 +33,13 @@ translators:
 
 ## LLaMA 模型
 
-在实践 RLHF 时，选取一个合适的模型很重要: RLHF 只是一个让模型满足我们交互形式的需求的微调过程 。所以我们选取了最近上线的 [LLaMA](https://arxiv.org/abs/2302.13971) 模型。LLaMA 模型是 Meta AI 最近推出的大语言模型。其参数量大小涵盖 7B 到 65B，以及训练在 1T 和 1.4T 的 token 上，这让其很实用。我们这里采用 7B 的模型。(请填写 Meta AI 的这份 [表单](https://docs.google.com/forms/d/e/1FAIpQLSfqNECQnMkycAp2jP4Z9TFX0cGR4uf7b_fBxjY_OjhJILlKGA/viewform) 来下载模型)。
+在实践 RLHF 时，选取一个合适的模型很重要: RLHF 只是一个让模型满足我们交互形式的需求的微调过程 。所以我们选取了最近上线的 [LLaMA](https://huggingface.co/papers/2302.13971) 模型。LLaMA 模型是 Meta AI 最近推出的大语言模型。其参数量大小涵盖 7B 到 65B，以及训练在 1T 和 1.4T 的 token 上，这让其很实用。我们这里采用 7B 的模型。(请填写 Meta AI 的这份 [表单](https://docs.google.com/forms/d/e/1FAIpQLSfqNECQnMkycAp2jP4Z9TFX0cGR4uf7b_fBxjY_OjhJILlKGA/viewform) 来下载模型)。
 
 ## Stack Exchange 数据集
 
 收集人类的反馈数据集是很复杂且昂贵的劳动。为了做到这个，并且还能保证模型的有效性，我们使用 [StackExchange 数据集](https://huggingface.co/datasets/HuggingFaceH4/stack-exchange-preferences)。该数据集涵盖了 StackExchange 平台上的问题和答案 (包含 StackOverflow 的编程等话题下的)。这很适合我们的实践，因为其包含了每个答案的赞和踩的数量。
 
-我们按照 [Askell et al. 2021](https://arxiv.org/abs/2112.00861) 中的方法，给每个答案赋分:
+我们按照 [Askell et al. 2021](https://huggingface.co/papers/2112.00861) 中的方法，给每个答案赋分:
 
 ```
 score = log2 (1 + upvotes) rounded to the nearest integer, plus 1 if the questioner accepted the answer (we assign a score of −1 if the number of upvotes is negative).

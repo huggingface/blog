@@ -28,20 +28,20 @@ translators:
 
 长程注意力从一开始就是我们研究和讨论的关键话题之一，我们 Hugging Face 的 Patrick Von Platen 同学甚至还专门为 Reformer 撰写了一篇 [由 4 部分组成的博文](https://huggingface.co/blog/reformer)。本文，我们不会试图涵盖每种方法 (太多了，根本搞不完！)，而是重点关注四个主要思想:
 
-- 自定义注意力模式 (使用 [Longformer](https://arxiv.org/abs/2004.05150))
-- 循环 (使用 [Compressive Transformer](https://arxiv.org/abs/1911.05507))
-- 低秩逼近 (使用 [Linformer](https://arxiv.org/abs/2006.04768))
-- 核逼近 (使用 [Performer](https://arxiv.org/abs/2009.14794))
+- 自定义注意力模式 (使用 [Longformer](https://huggingface.co/papers/2004.05150))
+- 循环 (使用 [Compressive Transformer](https://huggingface.co/papers/1911.05507))
+- 低秩逼近 (使用 [Linformer](https://huggingface.co/papers/2006.04768))
+- 核逼近 (使用 [Performer](https://huggingface.co/papers/2009.14794))
 
-有关这一领域的详尽概述，可阅读 [Efficient Transformers: A Survey](https://arxiv.org/abs/2009.06732) 和 [Long Range Arena](https://arxiv.org/abs/2011.04006) 这两篇综述论文。
+有关这一领域的详尽概述，可阅读 [Efficient Transformers: A Survey](https://huggingface.co/papers/2009.06732) 和 [Long Range Arena](https://huggingface.co/papers/2011.04006) 这两篇综述论文。
 
 ## 总结
 
-### [Longformer - The Long-Document Transformer](https://arxiv.org/abs/2004.05150)
+### [Longformer - The Long-Document Transformer](https://huggingface.co/papers/2004.05150)
 
 作者: Iz Beltagy, Matthew E. Peters, Arman Cohan
 
-Longformer 通过将传统的自注意力替换为滑窗注意力 + 局部注意力 + 稀疏注意力 (参见 [Sparse Transformers (2019)](https://arxiv.org/abs/1904.10509)) 以及全局注意力的组合以解决 transformer 的内存瓶颈，使其随序列长度线性缩放。与之前的长程 transformer 模型相反 (如 [Transformer-XL (2019)](https://arxiv.org/abs/1901.02860)、[Reformer (2020)](https://arxiv.org/abs/2001.04451), [Adaptive Attention Span (2019)](https://arxiv.org/abs/1905.07799))，Longformer 的自注意力层可以即插即用直接替换标准的自注意力层，因此在长序列任务上，可以直接用它对预训练的标准注意力 checkpoint 进行进一步更新训练和/或微调。
+Longformer 通过将传统的自注意力替换为滑窗注意力 + 局部注意力 + 稀疏注意力 (参见 [Sparse Transformers (2019)](https://huggingface.co/papers/1904.10509)) 以及全局注意力的组合以解决 transformer 的内存瓶颈，使其随序列长度线性缩放。与之前的长程 transformer 模型相反 (如 [Transformer-XL (2019)](https://huggingface.co/papers/1901.02860)、[Reformer (2020)](https://huggingface.co/papers/2001.04451), [Adaptive Attention Span (2019)](https://huggingface.co/papers/1905.07799))，Longformer 的自注意力层可以即插即用直接替换标准的自注意力层，因此在长序列任务上，可以直接用它对预训练的标准注意力 checkpoint 进行进一步更新训练和/或微调。
 
 标准自注意力矩阵 (图 a) 与输入长度呈二次方关系:
 
@@ -68,11 +68,11 @@ Longformer 使用不同的注意力模式执行自回归语言建模、编码器
 - Longformer 的编码器 - 解码器架构非常适合不需要长目标序列的任务 (例如摘要)。然而，对于需要长目标序列的长程序列到序列任务 (例如文档翻译、语音识别等)，特别是考虑到编码器 - 解码器模型的交叉注意力层，它该如何工作？
 - 在实践中，滑动窗口自注意力依赖于许多索引操作来确保查询 - 键权重矩阵的对称性。这些操作在 TPU 上非常慢，这凸显了此类模式在其他硬件上的适用性问题。
 
-### [Compressive Transformers for Long-Range Sequence Modelling](https://arxiv.org/abs/1911.05507)
+### [Compressive Transformers for Long-Range Sequence Modelling](https://huggingface.co/papers/1911.05507)
 
 作者: Jack W. Rae, Anna Potapenko, Siddhant M. Jayakumar, Timothy P. Lillicrap
 
-[Transformer-XL (2019) ](https://arxiv.org/abs/1901.02860) 表明，在内存中缓存之前计算的层激活可以提高语言建模任务 (如 _enwik8_ ) 的性能。该模型不仅可以关注当前的 $n$ 个输入词元，还可以关注过去的 $n_m$ 个词元，其中 $n_m$ 是模型的记忆窗口长度。Transformer-XL 的内存复杂度为 $O(n^2+ n n_m)$，这表明对于非常大的 $n_m$，内存成本会显著增加。因此，当缓存的激活数量大于 $n_m$ 时，Transformer-XL 必须从内存中丢弃之前的激活。Compressive Transformer 通过添加额外的压缩记忆来有效缓存之前的激活 (否则其会被丢弃) 来解决这个问题。通过这种方式，模型可以更好地学习长程序列依赖性，从而可以访问更多的之前激活。
+[Transformer-XL (2019) ](https://huggingface.co/papers/1901.02860) 表明，在内存中缓存之前计算的层激活可以提高语言建模任务 (如 _enwik8_ ) 的性能。该模型不仅可以关注当前的 $n$ 个输入词元，还可以关注过去的 $n_m$ 个词元，其中 $n_m$ 是模型的记忆窗口长度。Transformer-XL 的内存复杂度为 $O(n^2+ n n_m)$，这表明对于非常大的 $n_m$，内存成本会显著增加。因此，当缓存的激活数量大于 $n_m$ 时，Transformer-XL 必须从内存中丢弃之前的激活。Compressive Transformer 通过添加额外的压缩记忆来有效缓存之前的激活 (否则其会被丢弃) 来解决这个问题。通过这种方式，模型可以更好地学习长程序列依赖性，从而可以访问更多的之前激活。
 
 <figure>
   <img src="https://huggingface.co/blog/assets/14_long_range_transformers/CompressiveTransformer.png" alt="Compressive Tranformer 示意图 "/>
@@ -91,9 +91,9 @@ Longformer 使用不同的注意力模式执行自回归语言建模、编码器
 
 - Compressive Transformer 需要一个特殊的优化调度器，在训练过程中逐渐增加有效 batch size，以避免较低学习率带来的显著性能下降。这种效应尚未得到很好的理解，需要进行更多分析。
 - 与 BERT 或 GPT2 等简单模型相比，Compressive Transformer 具有更多的超参数: 压缩率、压缩函数及损失、常规和压缩记忆大小等。目前尚不清楚这些参数是否可以很好地泛化到除语言建模之外的不同任务中。还是说我们会重演学习率的故事，参数的选择会使得训练非常脆弱。
-- 探测常规记忆和压缩记忆来分析在长序列中我们到底记忆了什么样的信息，这是个有意思地课题。揭示最显著的信息可以为诸如 [Funnel Transformer](https://arxiv.org/abs/2006.03236) 之类的方法提供信息，这些方法减少了维护全长词元序列所带来的冗余。
+- 探测常规记忆和压缩记忆来分析在长序列中我们到底记忆了什么样的信息，这是个有意思地课题。揭示最显著的信息可以为诸如 [Funnel Transformer](https://huggingface.co/papers/2006.03236) 之类的方法提供信息，这些方法减少了维护全长词元序列所带来的冗余。
 
-### [Linformer: Self-Attention with Linear Complexity](https://arxiv.org/abs/2006.04768)
+### [Linformer: Self-Attention with Linear Complexity](https://huggingface.co/papers/2006.04768)
 
 作者: Sinong Wang, Belinda Z. Li, Madian Khabsa, Han Fang, Hao Ma
 
@@ -130,7 +130,7 @@ $$\text{LinAttention}(Q, K, V) = \text{softmax}(Q * K * W^K) * W^V * V$$
 
 - 尽管我们在各层之间共享投影矩阵，但此处提出的方法与约翰逊 - 林登斯特劳斯引理还是有所不同，约翰逊 - 林登斯特劳斯引理指出随机正交投影就足够了 (在多项式时间内)。随机预测在这里有用吗？这让人想起 Reformer，它在局部敏感哈希中使用随机投影来降低自注意力的内存复杂度。
 
-### [Rethinking Attention with Performers](https://arxiv.org/abs/2009.14794)
+### [Rethinking Attention with Performers](https://huggingface.co/papers/2009.14794)
 
 作者: Krzysztof Choromanski, Valerii Likhosherstov, David Dohan, Xingyou Song, Andreea Gane, Tamas Sarlos, Peter Hawkins, Jared Davis, Afroz Mohiuddin, Lukasz Kaiser, David Belanger, Lucy Colwell, Adrian Weller
 
@@ -167,12 +167,12 @@ $$\text{Attention}(Q, K, V) \sim \phi(Q) _(\phi(K)_ V)$$
 
 所有这些工作都强调了自然语言中对长输入进行建模的重要性。在行业中，经常会遇到文档翻译、文档分类或文档摘要等用例，这些用例需要以高效且稳健的方式对很长的序列进行建模。最近，零样本潜觉 (如 GPT3) 也成为标准微调的一种有前途的替代方案，其可通过增加潜觉示例的数量 (即上下文大小) 稳步提高性能和鲁棒性。最后，在语音或蛋白质等其他模态数据的建模中，也经常会遇到长度超出 512 的长序列。
 
-对长输入进行建模与对短输入进行建模并不割裂，而应该从连续的角度来思考从较短序列到较长序列的过渡。 [Shortformer](https://arxiv.org/abs/2012.15832)、Longformer 和 BERT 提供的证据表明，在短序列上训练模型并逐渐增加序列长度可以加快训练速度并增强模型的下游性能。这一观察结果与直觉相一致，即当可用数据很少时，训得的长程依赖关系可能来自于幻觉式相关，而非来自真正的强大的语言理解。这与 Teven Le Scao 在语言建模方面进行的一些实验相呼应: 与 transformer 相比，LSTM 在小数据环境中学习效果更好，其在小规模语言建模基准 (例如 Penn Treebank) 上表现出更好的困惑度。
+对长输入进行建模与对短输入进行建模并不割裂，而应该从连续的角度来思考从较短序列到较长序列的过渡。 [Shortformer](https://huggingface.co/papers/2012.15832)、Longformer 和 BERT 提供的证据表明，在短序列上训练模型并逐渐增加序列长度可以加快训练速度并增强模型的下游性能。这一观察结果与直觉相一致，即当可用数据很少时，训得的长程依赖关系可能来自于幻觉式相关，而非来自真正的强大的语言理解。这与 Teven Le Scao 在语言建模方面进行的一些实验相呼应: 与 transformer 相比，LSTM 在小数据环境中学习效果更好，其在小规模语言建模基准 (例如 Penn Treebank) 上表现出更好的困惑度。
 
-从实践的角度来看，位置嵌入问题也是计算效率折衷的一个重要的方面。相对位置嵌入 (在 Transformer-XL 中引入 , Compressive Transformers 也使用了它) 很有吸引力，因为它们可以轻松扩展到尚未见过的序列长度，但与此同时，相对位置嵌入的计算成本很高。另一方面，绝对位置嵌入 (在 Longformer 和 Linformer 中使用) 在处理比训练期间看到的序列更长的序列不太灵活，但计算效率更高。有趣的是，[Shortformer](https://arxiv.org/abs/2012.15832) 引入了一种简单的替代方案，将位置信息添加到自注意力机制的查询和键中，而不是将其添加到词元嵌入中。该方法称为位置注入注意力，其被证明非常高效，且产生了很好的结果。
+从实践的角度来看，位置嵌入问题也是计算效率折衷的一个重要的方面。相对位置嵌入 (在 Transformer-XL 中引入 , Compressive Transformers 也使用了它) 很有吸引力，因为它们可以轻松扩展到尚未见过的序列长度，但与此同时，相对位置嵌入的计算成本很高。另一方面，绝对位置嵌入 (在 Longformer 和 Linformer 中使用) 在处理比训练期间看到的序列更长的序列不太灵活，但计算效率更高。有趣的是，[Shortformer](https://huggingface.co/papers/2012.15832) 引入了一种简单的替代方案，将位置信息添加到自注意力机制的查询和键中，而不是将其添加到词元嵌入中。该方法称为位置注入注意力，其被证明非常高效，且产生了很好的结果。
 
 ## @Hugging Face 🤗: 长程建模
 
 用户可在 transformers 库和 [模型 Hub](https://huggingface.co/models?search=longformer) 中找到 Longformer 的实现及其相应的开源 checkpoint。 Performer 和 Big Bird 是一种基于稀疏注意力的长程模型，目前也已支持。如果你想知道如何为 `transformers` 做贡献但不知道从哪里开始，可以通过论坛或 GitHub 告诉我们！
 
-如需进一步阅读，我们建议阅读 Patrick Platen 的 [Reformer 论文](https://arxiv.org/abs/2001.04451)、Teven Le Scao 关于 [约翰逊 - 林登斯特劳斯逼近的帖子](https://tevenlescao.github.io/blog/fastpages/jupyter/2020/06/18/JL-Lemma-+-Linformer.html) 以及 [Efficient Transfomers: A Survey](https://arxiv.org/abs/2009.06732)、[Long Range Arena: A Benchmark for Efficient Transformers](https://arxiv.org/abs/2011.04006) 这两篇论文。
+如需进一步阅读，我们建议阅读 Patrick Platen 的 [Reformer 论文](https://huggingface.co/papers/2001.04451)、Teven Le Scao 关于 [约翰逊 - 林登斯特劳斯逼近的帖子](https://tevenlescao.github.io/blog/fastpages/jupyter/2020/06/18/JL-Lemma-+-Linformer.html) 以及 [Efficient Transfomers: A Survey](https://huggingface.co/papers/2009.06732)、[Long Range Arena: A Benchmark for Efficient Transformers](https://huggingface.co/papers/2011.04006) 这两篇论文。

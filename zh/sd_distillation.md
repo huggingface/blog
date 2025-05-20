@@ -43,7 +43,7 @@ translators:
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/distill_sd/Picture3.png" width=500>
 </p>
 
-图片来自 Shinkook 等人的 [论文](https://arxiv.org/abs/2305.15798) “On Architectural Compression of Text-to-Image Diffusion Models”。
+图片来自 Shinkook 等人的 [论文](https://huggingface.co/papers/2305.15798) “On Architectural Compression of Text-to-Image Diffusion Models”。
 
 我们以 [Realistic-Vision 4.0](https://huggingface.co/SG161222/Realistic_Vision_V4.0_noVAE) 为基础老师模型，并在[LAION Art Aesthetic 数据集](https://huggingface.co/datasets/recastai/LAION-art-EN-improved-captions) 上训练，图像分数高于 7.5，因为它们具有高质量的图像描述。与论文不同，我们选择分别为 Small 和 Tiny 模式训练两个模型，分别在 1M 张图像上进行 100K 步和 125K 步的训练。蒸馏训练的代码可以在 [这里](https://github.com/segmind/distill-sd) 找到。
 

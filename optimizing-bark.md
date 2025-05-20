@@ -186,7 +186,7 @@ Better Transformer is an 🤗 Optimum feature that performs kernel fusion under 
 
 To be more specific, most models supported by 🤗 Transformers rely on attention, which allows them to selectively focus on certain parts of the input when generating output. This enables the models to effectively handle long-range dependencies and capture complex contextual relationships in the data.
 
-The naive attention technique can be greatly optimized via a technique called [Flash Attention](https://arxiv.org/abs/2205.14135), proposed by the authors Dao et. al. in 2022.
+The naive attention technique can be greatly optimized via a technique called [Flash Attention](https://huggingface.co/papers/2205.14135), proposed by the authors Dao et. al. in 2022.
 
 Flash Attention is a faster and more efficient algorithm for attention computations that combines traditional methods (such as tiling and recomputation) to minimize memory usage and increase speed. Unlike previous algorithms, Flash Attention reduces memory usage from quadratic to linear in sequence length, making it particularly useful for applications where memory efficiency is important.
 

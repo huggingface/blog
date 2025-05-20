@@ -8,7 +8,7 @@ authors:
 
 # Personal Copilot: Train Your Own Coding Assistant
 
-In the ever-evolving landscape of programming and software development, the quest for efficiency and productivity has led to remarkable innovations. One such innovation is the emergence of code generation models such as [Codex](https://openai.com/blog/openai-codex), [StarCoder](https://arxiv.org/abs/2305.06161) and [Code Llama](https://arxiv.org/abs/2308.12950). These models have demonstrated remarkable capabilities in generating human-like code snippets, thereby showing immense potential as coding assistants.
+In the ever-evolving landscape of programming and software development, the quest for efficiency and productivity has led to remarkable innovations. One such innovation is the emergence of code generation models such as [Codex](https://openai.com/blog/openai-codex), [StarCoder](https://huggingface.co/papers/2305.06161) and [Code Llama](https://huggingface.co/papers/2308.12950). These models have demonstrated remarkable capabilities in generating human-like code snippets, thereby showing immense potential as coding assistants.
 
 However, while these pre-trained models can perform impressively across a range of tasks, there's an exciting possibility lying just beyond the horizon: the ability to tailor a code generation model to your specific needs. Think of personalized coding assistants which could be leveraged at an enterprise scale. 
 
@@ -53,7 +53,7 @@ To reduce the project complexity, we didn’t consider deduplication of the data
 
 ## Finetuning your own Personal Co-Pilot 
 
-In this section, we show how to fine-tune the following models: [`bigcode/starcoder`](https://hf.co/bigcode/starcoder) (15.5B params), [`bigcode/starcoderbase-1b`](https://hf.co/bigcode/starcoderbase-1b) (1B params), [`Deci/DeciCoder-1b`](https://hf.co/Deci/DeciCoder-1b) (1B params). We'll use a single A100 40GB Colab Notebook using 🤗 PEFT (Parameter-Efficient Fine-Tuning) for all the experiments. Additionally, we'll show how to fully finetune the `bigcode/starcoder` (15.5B params) on a machine with 8 A100 80GB GPUs using 🤗 Accelerate's FSDP integration. The training objective is [fill in the middle (FIM)](https://arxiv.org/abs/2207.14255), wherein parts of a training sequence are moved to the end, and the reordered sequence is predicted auto-regressively.
+In this section, we show how to fine-tune the following models: [`bigcode/starcoder`](https://hf.co/bigcode/starcoder) (15.5B params), [`bigcode/starcoderbase-1b`](https://hf.co/bigcode/starcoderbase-1b) (1B params), [`Deci/DeciCoder-1b`](https://hf.co/Deci/DeciCoder-1b) (1B params). We'll use a single A100 40GB Colab Notebook using 🤗 PEFT (Parameter-Efficient Fine-Tuning) for all the experiments. Additionally, we'll show how to fully finetune the `bigcode/starcoder` (15.5B params) on a machine with 8 A100 80GB GPUs using 🤗 Accelerate's FSDP integration. The training objective is [fill in the middle (FIM)](https://huggingface.co/papers/2207.14255), wherein parts of a training sequence are moved to the end, and the reordered sequence is predicted auto-regressively.
 
 Why PEFT? Full fine-tuning is expensive. Let’s have some numbers to put things in perspective:
 
@@ -65,7 +65,7 @@ Minimum GPU memory required for full fine-tuning:
 4. Cost per parameter adding all of the above: 16 bytes per parameter 
 5. **15.5B model -> 248GB of GPU memory without even considering huge memory requirements for storing intermediate activations -> minimum 4X A100 80GB GPUs required**
 
-Since the hardware requirements are huge, we'll be using parameter-efficient fine-tuning using [QLoRA](https://arxiv.org/abs/2305.14314). Here are the minimal GPU memory requirements for fine-tuning StarCoder using QLoRA:
+Since the hardware requirements are huge, we'll be using parameter-efficient fine-tuning using [QLoRA](https://huggingface.co/papers/2305.14314). Here are the minimal GPU memory requirements for fine-tuning StarCoder using QLoRA:
 
 > trainable params: 110,428,160 || all params: 15,627,884,544 || trainable%: 0.7066097761926236
 

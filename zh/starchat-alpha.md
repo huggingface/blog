@@ -24,7 +24,7 @@ translators:
 
 幸运的是，现在我们有了很多高质量开源替代品！包括 SalesForce 为 Python 语言开发的 [CodeGen Mono 16B](https://huggingface.co/Salesforce/codegen-16B-mono)，以及 Replit 开发的、在 20 种编程语言上训练过的 [一个 3B 参数量的模型](https://huggingface.co/replit/replit-code-v1-3b)。
 
-而最近新出现的一个选择则是 BigCode 开发的 [StarCoder](https://huggingface.co/bigcode/starcoder)，这是一个在一万亿的 token、80 多种编程语言上训练过的 16B 参数量的模型。训练数据多来自 GitHub 上的 issues、使用 Git 提交的代码、Jupyter Notebook 等等 (相关使用都已经过许可)。得益于对企业友好的许可证、长度为 8192 的 token、借助 [multi-query attention](https://arxiv.org/abs/1911.02150) 的快速大批量推理，StarCoder 可以说是当前对代码相关的应用最合适的开源选择。
+而最近新出现的一个选择则是 BigCode 开发的 [StarCoder](https://huggingface.co/bigcode/starcoder)，这是一个在一万亿的 token、80 多种编程语言上训练过的 16B 参数量的模型。训练数据多来自 GitHub 上的 issues、使用 Git 提交的代码、Jupyter Notebook 等等 (相关使用都已经过许可)。得益于对企业友好的许可证、长度为 8192 的 token、借助 [multi-query attention](https://huggingface.co/papers/1911.02150) 的快速大批量推理，StarCoder 可以说是当前对代码相关的应用最合适的开源选择。
 
 本文将介绍如何对 StarCoder 进行微调，进而创建一个可以聊天的个人编程助手。这个编程助手我们将称之为 StarChat。借助 StarChat 的开发过程，我们将探索以下几个使用大语言模型 (LLM) 创建编程助手时可能遇到的几个技术细节:
 
@@ -51,7 +51,7 @@ translators:
 
 ## 针对对话任务对大语言模型合理提词
 
-[DeepMind](https://arxiv.org/abs/2209.14375) 和 [Anthropic](https://arxiv.org/abs/2112.00861) 的相关研究指出，大语言模型 (LLM) 可以通过选取合适的文本提示 (prompt) 来转化为对话代理。这些文本提示通常包含一种所谓的“系统”信息来定义 LLM 的角色，以及一系列人机对话的示例。
+[DeepMind](https://huggingface.co/papers/2209.14375) 和 [Anthropic](https://huggingface.co/papers/2112.00861) 的相关研究指出，大语言模型 (LLM) 可以通过选取合适的文本提示 (prompt) 来转化为对话代理。这些文本提示通常包含一种所谓的“系统”信息来定义 LLM 的角色，以及一系列人机对话的示例。
 
 比如这里，就是 [Anthropic’s HHH prompt](https://gist.github.com/jareddk/2509330f8ef3d787fc5aaac67aab5f11#file-hhh_prompt-txt) 这一文本提示的一些节选 (总计 6k 的 token 数量):
 
@@ -523,9 +523,9 @@ plt.show()
 评估编程助手 (或更广泛地讲，聊天机器人) 其实是一个比较棘手的任务，因为面向用户的评测标准通常难以被传统自然语言处理的基准上体现出来。比如，我们使用基础的和微调过的 StarCoderBase 模型在 EleutherAI 的 [language model evaluation harness](https://github.com/EleutherAI/lm-evaluation-harness) 做如下测试:
 
 - [AI2 Reasoning Challenge](https://allenai.org/data/arc) (ARC): 小学难度的科学学科多项选择题
-- [HellaSwag](https://arxiv.org/abs/1905.07830): 围绕日常生活的常识推理
+- [HellaSwag](https://huggingface.co/papers/1905.07830): 围绕日常生活的常识推理
 - [MMLU](https://github.com/hendrycks/test): 专业和学术领域 57 个学科的多项选择题
-- [TruthfulQA](https://arxiv.org/abs/2109.07958): 测试模型能否从一系列错误描述中选出一个事实描述
+- [TruthfulQA](https://huggingface.co/papers/2109.07958): 测试模型能否从一系列错误描述中选出一个事实描述
 
 测试结果在下表中统计了出来。我们可以看出微调过的模型多少有了点提升，但这并不能反映出对话相关的能力。
 

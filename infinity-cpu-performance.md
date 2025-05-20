@@ -165,6 +165,6 @@ If you are interested in trying out Hugging Face Infinity sign up for your trial
 * [Hugging Face Infinity Trial](https://huggingface.co/infinity-trial)
 * [Amazon EC2 C6i instances](https://aws.amazon.com/ec2/instance-types/c6i) 
 * [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert)
-* [DistilBERT paper](https://arxiv.org/abs/1910.01108)
+* [DistilBERT paper](https://huggingface.co/papers/1910.01108)
 * [DistilBERT model](https://huggingface.co/bhadresh-savani/distilbert-base-uncased-emotion)
 * [🤗 Infinity: CPU Ice-Lake Benchmark](https://docs.google.com/spreadsheets/d/1GWFb7L967vZtAS1yHhyTOZK1y-ZhdWUFqovv7-73Plg/edit?usp=sharing)

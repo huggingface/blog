@@ -212,4 +212,4 @@ LLM 规模庞大且昂贵，但有多种方法可以降低成本。像 TGI 这�
 
 ## 参考文献
 
-<a id="1">[1]</a> : Sara Hooker, [The Hardware Lottery](https://arxiv.org/abs/1911.05248), 2020<a id="2">[2]</a> : Pierre Lienhart, [LLM Inference Series: 2. The two-phase process behind LLMs’ responses](https://medium.com/@plienhar/llm-inference-series-2-the-two-phase-process-behind-llms-responses-1ff1ff021cd5), 2023
+<a id="1">[1]</a> : Sara Hooker, [The Hardware Lottery](https://huggingface.co/papers/1911.05248), 2020<a id="2">[2]</a> : Pierre Lienhart, [LLM Inference Series: 2. The two-phase process behind LLMs’ responses](https://medium.com/@plienhar/llm-inference-series-2-the-two-phase-process-behind-llms-responses-1ff1ff021cd5), 2023

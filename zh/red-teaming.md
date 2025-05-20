@@ -20,7 +20,7 @@ translators:
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/gpt3.png"/>
 </p>
 
-一旦我们在使用大语言模型时发现了这种不良结果，我们就可以制定一些策略来远离它们，像 [生成歧视者指导序列生成 (GEDI)](https://arxiv.org/pdf/2009.06367.pdf) 或 [即插即用语言模型 (PPLM)](https://arxiv.org/pdf/1912.02164.pdf) 都是用来指导 GPT3 生成的。以下是使用相同提示 (Prompt) 的示例，但使用 GEDI 控制 GPT3 生成。
+一旦我们在使用大语言模型时发现了这种不良结果，我们就可以制定一些策略来远离它们，像 [生成歧视者指导序列生成 (GEDI)](https://huggingface.co/papers/2009.06367) 或 [即插即用语言模型 (PPLM)](https://huggingface.co/papers/1912.02164) 都是用来指导 GPT3 生成的。以下是使用相同提示 (Prompt) 的示例，但使用 GEDI 控制 GPT3 生成。
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/gedi.png"/>
@@ -30,13 +30,13 @@ translators:
 
 **红队** _是一种用于引出模型不良行为漏洞的评估形式。_ 越狱是另一个红队术语，用来表示操控冲破大语言模型限制。在 2016 年发布的 [微软聊天机器人 Tay](https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/) 和最近的 [必应聊天机器人 Sydney](https://www.nytimes.com/2023/02/16/technology/bing-chatbot-transcript.html) 是真实世界中反应缺乏用红队攻击对基础 ML 模型进行评估而发生的灾难。红队攻击的最初想法起源于军队中对抗模拟和战争游戏。
 
-红队语言模型的目标是制作一个提示 (prompt)，该提示会触发模型生成有害内容。红队和同样知名的评估语言模型 _对抗攻击_ 有同也有异。相似之处在于红队和对抗攻击目标相同，即“攻击”或“欺骗”模型，以生成在现实世界中不想要的内容。但是对抗攻击很难让人理解，举例来说，通过将字符串 “aaabbbcc” 前缀到每个提示中，它会恶化模型性能。[Wallace 等人 2019 年的论文](https://arxiv.org/abs/1908.07125) 讨论了对各种 NLP 分类和生成任务的许多攻击的例子。在另一方面，红队的提示看起来更正常，像自然语言的提示。
+红队语言模型的目标是制作一个提示 (prompt)，该提示会触发模型生成有害内容。红队和同样知名的评估语言模型 _对抗攻击_ 有同也有异。相似之处在于红队和对抗攻击目标相同，即“攻击”或“欺骗”模型，以生成在现实世界中不想要的内容。但是对抗攻击很难让人理解，举例来说，通过将字符串 “aaabbbcc” 前缀到每个提示中，它会恶化模型性能。[Wallace 等人 2019 年的论文](https://huggingface.co/papers/1908.07125) 讨论了对各种 NLP 分类和生成任务的许多攻击的例子。在另一方面，红队的提示看起来更正常，像自然语言的提示。
 
 红队攻击可以揭露模型的局限性，包括引起用户不适或者暴力、不合法的恶意内容。红队 (就像对抗攻击) 的输出通常会被用来训练模型去减少有害内容或远离不想要的内容。
 
 由于红队需要创造性地思考可能的模型失败，巨大的搜索空间会导致资源紧张。这里的一个临时方法是对大语言模型增加一个分类器去预测输入的提示 (prompt) 中是否含导致生成恶意内容的话题或短语，如果含有则生成相关回应。这种策略过于谨慎，极大的限制了模型并且时常导致模型产生回避。所以在模型有帮助 (遵循指令) 与无害 (尽可能少的产生有害内容) 之间存在一个紧张关系。红队在这时就显得非常有用了。
 
-红队攻击可以是人力循环或者正在测试另一个语言模型有害输出的语言模型。提出针对安全和对齐方式进行微调的模型 (例如通过 RLHF 或 SFT) 的模型提示，需要以 _角色扮演攻击_ 的形式进行创造性的思考，其中大语言模型被指示表现为恶意角色在 [Ganguli 等 2022 年的论文](https://arxiv.org/pdf/2209.07858.pdf) 中。用代码而不是自然语言指示模型同样也可以揭露模型的学习的一些偏置。就像如下例子。
+红队攻击可以是人力循环或者正在测试另一个语言模型有害输出的语言模型。提出针对安全和对齐方式进行微调的模型 (例如通过 RLHF 或 SFT) 的模型提示，需要以 _角色扮演攻击_ 的形式进行创造性的思考，其中大语言模型被指示表现为恶意角色在 [Ganguli 等 2022 年的论文](https://huggingface.co/papers/2209.07858) 中。用代码而不是自然语言指示模型同样也可以揭露模型的学习的一些偏置。就像如下例子。
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/jb1.png"/>
@@ -71,7 +71,7 @@ translators:
 2. Anthropic 的 [红队尝试](https://huggingface.co/datasets/Anthropic/hh-rlhf/tree/main/red-team-attempts)
 3. AI2 的 [RealToxicityPrompts](https://huggingface.co/datasets/allenai/real-toxicity-prompts)
 
-**从过去的工作中寻找红队大语言模型相关的努力** (在 [Anthropic’s Ganguli et al. 2022](https://arxiv.org/abs/2209.07858) 和 [Perez et al. 2022](https://arxiv.org/abs/2202.03286) 两篇文章中)
+**从过去的工作中寻找红队大语言模型相关的努力** (在 [Anthropic’s Ganguli et al. 2022](https://huggingface.co/papers/2209.07858) 和 [Perez et al. 2022](https://huggingface.co/papers/2202.03286) 两篇文章中)
 
 1. 用有帮助的，忠实的，无害的行为在红队攻击中进行少量提示学习并 _不_ 比单纯的语言模型困难。
 2. 攻击成功率与缩放模型大小没有明确的关系，除了 RLHF 模型在缩放时更难进行红队攻击。

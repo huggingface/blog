@@ -16,7 +16,7 @@ authors:
 
 # A Hugging Face Accelerate Story of Multiple Backends: FSDP and DeepSpeed
 
-There are two popular implementations of the [ZeRO Redundancy Optimizer (Zero)](https://arxiv.org/abs/1910.02054) algorithm in the community, one from [DeepSpeed](https://github.com/microsoft/DeepSpeed) and the other from [PyTorch](https://pytorch.org/docs/stable/fsdp.html). Hugging Face [Accelerate](https://huggingface.co/docs/accelerate/en/index) exposes both these frameworks for the end users to train/tune their models. This blog highlights the differences between how these backends are exposed through Accelerate. To enable users to seamlessly switch between these backends, we [upstreamed a precision-related change](https://github.com/huggingface/accelerate/issues/2624) and a [concept guide](https://huggingface.co/docs/accelerate/concept_guides/fsdp_and_deepspeed).
+There are two popular implementations of the [ZeRO Redundancy Optimizer (Zero)](https://huggingface.co/papers/1910.02054) algorithm in the community, one from [DeepSpeed](https://github.com/microsoft/DeepSpeed) and the other from [PyTorch](https://pytorch.org/docs/stable/fsdp.html). Hugging Face [Accelerate](https://huggingface.co/docs/accelerate/en/index) exposes both these frameworks for the end users to train/tune their models. This blog highlights the differences between how these backends are exposed through Accelerate. To enable users to seamlessly switch between these backends, we [upstreamed a precision-related change](https://github.com/huggingface/accelerate/issues/2624) and a [concept guide](https://huggingface.co/docs/accelerate/concept_guides/fsdp_and_deepspeed).
 
 ## Are FSDP and DeepSpeed Interchangeable?
 
@@ -89,7 +89,7 @@ We used four A100 GPUs as before with the following hyperparameters:
 
 Table 3 shows that FSDP and DeepSpeed are expected to perform similarly. 
 
-> We intend to follow up with a comprehensive throughput comparison and approaches to improve throughput (e.g., 4D masks with packing, torch.compile, selective activation checkpointing) as large scale alignment techniques like [InstructLab](https://github.com/instructlab) and [GLAN](https://arxiv.org/abs/2402.13064) become popular.
+> We intend to follow up with a comprehensive throughput comparison and approaches to improve throughput (e.g., 4D masks with packing, torch.compile, selective activation checkpointing) as large scale alignment techniques like [InstructLab](https://github.com/instructlab) and [GLAN](https://huggingface.co/papers/2402.13064) become popular.
 
 | **Framework**       | **Tokens / sec / device** | **Step time (s)** | **Model Flops Utilization (MFU)** |
 | ------------------- | ------------------------- | ----------------- | --------------------------------- |

@@ -204,7 +204,7 @@ Thanks to Nicolas Patry and Olivier Dehaene for creating [TGI](https://github.co
 
 ## References
 
-<a id="1">[1]</a> : Sara Hooker, [The Hardware Lottery](https://arxiv.org/abs/1911.05248), 2020
+<a id="1">[1]</a> : Sara Hooker, [The Hardware Lottery](https://huggingface.co/papers/1911.05248), 2020
 
 <a id="2">[2]</a> : Pierre Lienhart, [LLM Inference Series: 2. The two-phase process behind LLMs’ responses](https://medium.com/@plienhar/llm-inference-series-2-the-two-phase-process-behind-llms-responses-1ff1ff021cd5), 2023
 

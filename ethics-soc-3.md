@@ -15,7 +15,7 @@ authors:
 
 
 ## Mission: Open and Good ML
-In our mission to democratize good machine learning (ML), we examine how supporting ML community work also empowers examining and preventing possible harms. Open development and science decentralizes power so that many people can collectively work on AI that reflects their needs and values. While [openness enables broader perspectives to contribute to research and AI overall, it faces the tension of less risk control](https://arxiv.org/abs/2302.04844).
+In our mission to democratize good machine learning (ML), we examine how supporting ML community work also empowers examining and preventing possible harms. Open development and science decentralizes power so that many people can collectively work on AI that reflects their needs and values. While [openness enables broader perspectives to contribute to research and AI overall, it faces the tension of less risk control](https://huggingface.co/papers/2302.04844).
 
 Moderating ML artifacts presents unique challenges due to the dynamic and rapidly evolving nature of these systems. In fact, as ML models become more advanced and capable of producing increasingly diverse content, the potential for harmful or unintended outputs grows, necessitating the development of robust moderation and evaluation strategies. Moreover, the complexity of ML models and the vast amounts of data they process exacerbate the challenge of identifying and addressing potential biases and ethical concerns. 
 
@@ -48,7 +48,7 @@ We engage directly with contributors and have addressed pressing issues. To brin
 - robustly document our most-downloaded models with model cards that detail social impacts, biases, and intended and out-of-scope use cases,
 - create audience-guiding tags, such as the “Not For All Audiences” tag that can be added to the repository’s card metadata to avoid un-requested violent and sexual content,
 - promote use of [Open Responsible AI Licenses (RAIL)](https://huggingface.co/blog/open_rail) for [models](https://www.licenses.ai/blog/2022/8/26/bigscience-open-rail-m-license), such as with LLMs ([BLOOM](https://huggingface.co/spaces/bigscience/license), [BigCode](https://huggingface.co/spaces/bigcode/license)),
-- conduct research that [analyzes](https://arxiv.org/abs/2302.04844) which models and datasets have the highest potential for, or track record of, misuse and malicious use.
+- conduct research that [analyzes](https://huggingface.co/papers/2302.04844) which models and datasets have the highest potential for, or track record of, misuse and malicious use.
 
 **How to use the flagging function:**
 Click on the flag icon on any Model, Dataset, Space, or Discussion:
@@ -110,7 +110,7 @@ Open science requires safeguards, and one of our goals is to create an environme
 The most important part of Hugging Face is our community. If you’re a researcher working on making ML safer to use, especially for open science, we want to support and showcase your work!
 
 Here are some recent demos and tools from researchers in the Hugging Face community:
-- [A Watermark for LLMs](https://huggingface.co/spaces/tomg-group-umd/lm-watermarking) by John Kirchenbauer, Jonas Geiping, Yuxin Wen, Jonathan Katz, Ian Miers, Tom Goldstein ([paper](https://arxiv.org/abs/2301.10226))
+- [A Watermark for LLMs](https://huggingface.co/spaces/tomg-group-umd/lm-watermarking) by John Kirchenbauer, Jonas Geiping, Yuxin Wen, Jonathan Katz, Ian Miers, Tom Goldstein ([paper](https://huggingface.co/papers/2301.10226))
 - [Generate Model Cards Tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) by the Hugging Face team
 - [Photoguard](https://huggingface.co/spaces/RamAnanth1/photoguard) to safeguard images against manipulation by Ram Ananth
 

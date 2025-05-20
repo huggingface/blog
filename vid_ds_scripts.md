@@ -34,7 +34,7 @@ Typically, video generation is conditioned on natural language text prompts such
 
 Video generation models are only as good as the data they are trained on. Therefore, these aspects become crucial when curating the datasets for training/fine-tuning.
 
-Our 3 stage pipeline draws inspiration from works like [Stable Video Diffusion](https://arxiv.org/abs/2311.15127), [LTX-Video](https://arxiv.org/abs/2501.00103), and their data pipelines.
+Our 3 stage pipeline draws inspiration from works like [Stable Video Diffusion](https://huggingface.co/papers/2311.15127), [LTX-Video](https://huggingface.co/papers/2501.00103), and their data pipelines.
 
 ### Stage 1 (Acquisition)
 

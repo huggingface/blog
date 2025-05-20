@@ -23,7 +23,7 @@ translators:
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/140_text-to-video/make-a-video.png" alt="samples"><br>
-    <em>根据各种文本描述输入生成的视频示例，图片来自论文 <a href=https://arxiv.org/abs/2209.14792>Make-a-Video</a>。</em>
+    <em>根据各种文本描述输入生成的视频示例，图片来自论文 <a href=https://huggingface.co/papers/2209.14792>Make-a-Video</a>。</em>
 </p>
 
 ## 文生视频与文生图
@@ -54,14 +54,14 @@ translators:
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/140_text-to-video/TGANs-C.png" alt="tgans-c"><br>
-    <em> 最初的文生视频模型在分辨率、上下文和长度方面极为有限，图像取自 <a href=https://arxiv.org/abs/1804.08264>TGANs-C</a>。</em>
+    <em> 最初的文生视频模型在分辨率、上下文和长度方面极为有限，图像取自 <a href=https://huggingface.co/papers/1804.08264>TGANs-C</a>。</em>
 </p>
 
 受文本 (GPT-3) 和图像 (DALL-E) 中大规模预训练 Transformer 模型的成功启发，文生视频研究的第二波浪潮采用了 Transformer 架构。[Phenaki](https://huggingface.co/papers/2210.02399)、[Make-A-Vide](https://huggingface.co/papers/2209.14792)、[NUWA](https://huggingface.co/papers/2111.12417)、[VideoGPT](https://huggingface.co/papers/2104.10157) 和 [CogVideo](https://huggingface.co/papers/2205.15868) 都提出了基于 transformer 的框架，而 [TATS](https://huggingface.co/papers/2204.03638) 提出了一种混合方法，从而将用于生成图像的 VQGAN 和用于顺序地生成帧的时间敏感 transformer 模块结合起来。在第二波浪潮的诸多框架中，Phenaki 尤其有意思，因为它能够根据一系列提示 (即一个故事情节) 生成任意长视频。同样，[NUWA-Infinity](https://huggingface.co/papers/2207.09814) 提出了一种双重自回归 (autoregressive over autoregressive) 生成机制，可以基于文本输入合成无限长度的图像和视频，从而使得生成高清的长视频成为可能。但是，Phenaki 或 NUWA 模型均无法从公开渠道获取。
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/140_text-to-video/phenaki.png" alt="phenaki"><br>
-    <em>Phenaki 的模型架构基于 transformer，图片来自 <a href=https://arxiv.org/abs/2210.02399>此处</a>。</em>
+    <em>Phenaki 的模型架构基于 transformer，图片来自 <a href=https://huggingface.co/papers/2210.02399>此处</a>。</em>
 </p>
 
 第三波也就是当前这一波文生视频模型浪潮主要以基于扩散的架构为特征。扩散模型在生成多样化、超现实和上下文丰富的图像方面取得了显著成功，这引起了人们对将扩散模型推广到其他领域 (如音频、3D ，最近又拓展到了视频) 的兴趣。这一波模型是由 [Video Diffusion Models](https://huggingface.co/papers/2204.03458) (VDM) 开创的，它首次将扩散模型推广至视频领域。然后是 [MagicVideo](https://huggingface.co/papers/2211.11018) 提出了一个在低维隐空间中生成视频剪辑的框架，据其报告，新框架与 VDM 相比在效率上有巨大的提升。另一个值得一提的是 [Tune-a-Video](https://huggingface.co/papers/2212.11565)，它使用 `单文本 - 视频对`微调预训练的文生图模型，并允许在保留运动的同时改变视频内容。随后涌现出了越来越多的文生视频扩散模型，包括 [Video LDM](https://huggingface.co/papers/2304.08818)、[Text2Video-Zero](https://huggingface.co/papers/2303.13439)、[Runway Gen1、Runway Gen2](https://huggingface.co/papers/2302.03011) 以及 [NUWA-XL](https://huggingface.co/papers/2303.12346)。

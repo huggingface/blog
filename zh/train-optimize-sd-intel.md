@@ -32,7 +32,7 @@ translators:
 
 在 Stable Diffusion 的 [管线](https://huggingface.co/docs/diffusers/api/pipelines/stable_diffusion/overview) 中，UNet 的运行是最计算昂贵的。因此，对模型的推理速度，针对 UNet 的优化能带来足够的效益。
 
-然而事实表明，传统的模型优化方法如 8-bit 的后训练量化，对此不奏效。主要原因有两点: 其一，面向像素预测的模型，比如语义分割、超分辨率等，是模型优化上最复杂的，因为任务复杂，参数和结构的改变会导致无数种变数; 其二，模型的参数不是很冗余，因为其压缩了其数以千万计的 [数据集](https://laion.ai/blog/laion-5b/) 中的信息。这也是研究者不得不用更复杂的量化方法来保证模型优化后的精度。举例而言，高通 (Qualcomm) 用分层知识蒸馏 (layer-wise Knowledge Distillation) 方法 ([AdaRound](https://arxiv.org/abs/2004.10568)) 来 [量化](https://www.qualcomm.com/news/onq/2023/02/worlds-first-on-device-demonstration-of-stable-diffusion-on-android) Stable Diffusion。这意味着，无论如何，模型量化后的微调是必要的。既然如此，为何不用 量化感知的训练 ([Quantization-Aware Trainning, QAT](https://arxiv.org/abs/1712.05877))，其对原模型的微调和参数量化是同时进行的？因此，我们在本工作中，用 token 合并 ([Token Merging](https://arxiv.org/abs/2210.09461)) 方法结合 [NNCF](https://github.com/openvinotoolkit/nncf), [OpenVINO](https://www.intel.com/content/www/us/en/developer/tools/openvino-toolkit/overview.html) 和 [Diffusers](https://github.com/huggingface/diffusers) 实践了该想法。
+然而事实表明，传统的模型优化方法如 8-bit 的后训练量化，对此不奏效。主要原因有两点: 其一，面向像素预测的模型，比如语义分割、超分辨率等，是模型优化上最复杂的，因为任务复杂，参数和结构的改变会导致无数种变数; 其二，模型的参数不是很冗余，因为其压缩了其数以千万计的 [数据集](https://laion.ai/blog/laion-5b/) 中的信息。这也是研究者不得不用更复杂的量化方法来保证模型优化后的精度。举例而言，高通 (Qualcomm) 用分层知识蒸馏 (layer-wise Knowledge Distillation) 方法 ([AdaRound](https://huggingface.co/papers/2004.10568)) 来 [量化](https://www.qualcomm.com/news/onq/2023/02/worlds-first-on-device-demonstration-of-stable-diffusion-on-android) Stable Diffusion。这意味着，无论如何，模型量化后的微调是必要的。既然如此，为何不用 量化感知的训练 ([Quantization-Aware Trainning, QAT](https://huggingface.co/papers/1712.05877))，其对原模型的微调和参数量化是同时进行的？因此，我们在本工作中，用 token 合并 ([Token Merging](https://huggingface.co/papers/2210.09461)) 方法结合 [NNCF](https://github.com/openvinotoolkit/nncf), [OpenVINO](https://www.intel.com/content/www/us/en/developer/tools/openvino-toolkit/overview.html) 和 [Diffusers](https://github.com/huggingface/diffusers) 实践了该想法。
 
 ## 优化流程
 
@@ -46,7 +46,7 @@ translators:
 
 量化模型本身就能带来模型消耗、加载、内存、推理速度上的显著提高。但量化模型蛮大的优势在能和其他模型优化方法一起，达到加速的增益效果。
 
-最近，Facebook Research 针对视觉 Transformer 模型，提出了一个 [Token Merging](https://arxiv.org/abs/2210.09461) 方法。该方法的本质是用现有的方法 (取平均、取最大值等) 把冗余的 token 和重要的 token 融合。这在 self-attention 块之前完成，后者是 Transformer 模型最消耗算力的部分。因此，减小 token 的跨度能减少 self-attention 块消耗的时间。该方法也已被 Stable Diffusion 模型 [采用](https://arxiv.org/pdf/2303.17604.pdf)，并在面向 GPU 的高分辨率优化上有可观的表现。
+最近，Facebook Research 针对视觉 Transformer 模型，提出了一个 [Token Merging](https://huggingface.co/papers/2210.09461) 方法。该方法的本质是用现有的方法 (取平均、取最大值等) 把冗余的 token 和重要的 token 融合。这在 self-attention 块之前完成，后者是 Transformer 模型最消耗算力的部分。因此，减小 token 的跨度能减少 self-attention 块消耗的时间。该方法也已被 Stable Diffusion 模型 [采用](https://huggingface.co/papers/2303.17604)，并在面向 GPU 的高分辨率优化上有可观的表现。
 
 我们改进了 Token Merging 方法，以便用 OpenVINO，并在注意力 UNet 模型上采用 8-bit 量化。这包含了上述含知识蒸馏等的所有技术。对量化而言，其需要微调，以保证数值精度。我们也从 [宝可梦数据集](https://huggingface.co/datasets/lambdalabs/pokemon-blip-captions) 上训练的 [模型](https://huggingface.co/svjack/Stable-Diffusion-Pokemon-en) 开始优化和微调。下图体现了总体的优化工作流程。
 

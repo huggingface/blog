@@ -30,7 +30,7 @@ In this blog, we will go through the design decisions behind the model, how the 
 
 Transformers, based on the attention mechanism, are the dominant architecture used in all the strongest large language models today. Yet, the attention mechanism is fundamentally limited in processing large sequences due to the increase in compute and memory costs with sequence length. Various alternative architectures, in particular State Space Language Models (SSLMs), tried to address the sequence scaling limitation but fell back in performance compared to SoTA transformers.
 
-With Falcon Mamba, we demonstrate that sequence scaling limitation can indeed be overcome without loss in performance. Falcon Mamba is based on the original Mamba architecture, proposed in [*Mamba: Linear-Time Sequence Modeling with Selective State Spaces*](https://arxiv.org/abs/2312.00752), with the addition of extra RMS normalization layers to ensure stable training at scale. This choice of architecture ensures that Falcon Mamba:
+With Falcon Mamba, we demonstrate that sequence scaling limitation can indeed be overcome without loss in performance. Falcon Mamba is based on the original Mamba architecture, proposed in [*Mamba: Linear-Time Sequence Modeling with Selective State Spaces*](https://huggingface.co/papers/2312.00752), with the addition of extra RMS normalization layers to ensure stable training at scale. This choice of architecture ensures that Falcon Mamba:
 * can process sequences of arbitrary length without any increase in memory storage, in particular, fitting on a single A10 24GB GPU.
 * takes a constant amount of time to generate a new token, regardless of the size of the context (see this [section](#hardware-performance))
 

@@ -338,7 +338,7 @@ For these formats, we have some excellent choices:
 
     If you provide the optional negatives, they will only be used as extra options (also known as in-batch negatives) from which the model must pick the correct positive. Within reason, the harder this "picking" is, the stronger the model will become. Because of this, higher batch sizes result in more in-batch negatives, which then increase performance (to a point).
 
-2. [`CachedMultipleNegativesRankingLoss` (CMNRL)](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#cachedmultiplenegativesrankingloss): This is an extension of MNRL that implements [GradCache](https://arxiv.org/pdf/2101.06983), an approach that allows for arbitrarily increasing the batch size without increasing the memory.
+2. [`CachedMultipleNegativesRankingLoss` (CMNRL)](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#cachedmultiplenegativesrankingloss): This is an extension of MNRL that implements [GradCache](https://huggingface.co/papers/2101.06983), an approach that allows for arbitrarily increasing the batch size without increasing the memory.
 
     This loss is recommended over MNRL *unless* you can already fit a large enough batch size in memory with just MNRL. In that case, you can use MNRL to save the 20% training speed cost that CMNRL adds.
 
@@ -400,7 +400,7 @@ We used the same core training parameters to train both models:
 * `num_train_epochs`: 1
     * We have sufficient data, should we want to train for more, then we can add more data instead of training with the same data multiple times.
 * `per_device_train_batch_size`/`per_device_eval_batch_size`: 2048
-    * 2048 dimensions fit comfortably on our RTX 3090. Various papers ([Xiao et al.](https://arxiv.org/pdf/2309.07597), [Li et al.](https://arxiv.org/pdf/2308.03281)) show that even larger batch sizes still improve performance. For future versions, we will apply `CachedMultipleNegativesRankingLoss` with a larger batch size, e.g. 16384.
+    * 2048 dimensions fit comfortably on our RTX 3090. Various papers ([Xiao et al.](https://huggingface.co/papers/2309.07597), [Li et al.](https://huggingface.co/papers/2308.03281)) show that even larger batch sizes still improve performance. For future versions, we will apply `CachedMultipleNegativesRankingLoss` with a larger batch size, e.g. 16384.
 * `learning_rate`: 2e-1
     * Note! This is *much* larger than with normal embedding model training, which often uses a loss around 2e-5.
 * `warmup_ratio`: 0.1

@@ -30,7 +30,7 @@ Gemma 模型系列同样非常适合利用 Colab 提供的免费 GPU 资源进�
 
 在 Hugging Face 的 `transformers` 中，Gemma 模型已针对 PyTorch 和 PyTorch/XLA 进行了优化，使得无论是 TPU 还是 GPU 用户都可以根据需要轻松地访问和试验 Gemma 模型。随着 Gemma 的发布，我们还改善了 PyTorch/XLA 在 Hugging Face 上的 [FSDP](https://engineering.fb.com/2021/07/15/open-source/fsdp/) 使用体验。这种 [FSDP 通过 SPMD](https://github.com/pytorch/xla/issues/6379) 的集成还让其他 Hugging Face 模型能够通过 PyTorch/XLA 利用 TPU 加速。本文将重点介绍 Gemma 模型的 PEFT 微调，特别是低秩适应（LoRA）。
 
-想要深入了解 LoRA 技术，我们推荐阅读 Lialin 等人的 ["Scaling Down to Scale Up"](https://arxiv.org/pdf/2303.15647.pdf) 以及 Belkada 等人的 [精彩文章](https://pytorch.org/blog/finetune-llms/)。
+想要深入了解 LoRA 技术，我们推荐阅读 Lialin 等人的 ["Scaling Down to Scale Up"](https://huggingface.co/papers/2303.15647) 以及 Belkada 等人的 [精彩文章](https://pytorch.org/blog/finetune-llms/)。
 
 ## 使用低秩适应技术 (LoRA) 对大语言模型进行微调
 
@@ -48,7 +48,7 @@ lora_config = LoraConfig(
 
 在这个代码片段中，我们将所有的 `nn.Linear` 层视为要适应的目标层。
 
-在以下示例中，我们将利用 [QLoRA](https://huggingface.co/blog/4bit-transformers-bitsandbytes)，出自 [Dettmers 等人](https://arxiv.org/abs/2305.14314)，通过 4 位精度量化基础模型，以实现更高的内存效率微调协议。通过首先在您的环境中安装 `bitsandbytes` 库，然后在加载模型时传递 `BitsAndBytesConfig` 对象，即可加载具有 QLoRA 的模型。
+在以下示例中，我们将利用 [QLoRA](https://huggingface.co/blog/4bit-transformers-bitsandbytes)，出自 [Dettmers 等人](https://huggingface.co/papers/2305.14314)，通过 4 位精度量化基础模型，以实现更高的内存效率微调协议。通过首先在您的环境中安装 `bitsandbytes` 库，然后在加载模型时传递 `BitsAndBytesConfig` 对象，即可加载具有 QLoRA 的模型。
 
 ## 开始之前
 

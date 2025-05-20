@@ -91,7 +91,7 @@ Transformers 为一切与训练相关的东西提供了[训练器 API](https://h
 - [Hugging Face 示例脚本](https://github.com/huggingface/transformers/tree/main/examples)
 - [任务页面](https://huggingface.co/tasks)
 
-[Hugging Face 示例脚本](https://github.com/huggingface/transformers/tree/main/examples)包括不同的[自监督预训练策略](https://github.com/huggingface/transformers/tree/main/examples/pytorch/image-pretraining)如 [MAE](https://arxiv.org/abs/2111.06377)，和[对比图像到文本预训练策略](https://github.com/huggingface/transformers/tree/main/examples/pytorch/contrastive-image-text)如 [CLIP](https://arxiv.org/abs/2103.00020)。这些脚本对于研究社区和愿意在预训练模型上从头训练自定义数据语料的从业者来说是非常宝贵的资源。
+[Hugging Face 示例脚本](https://github.com/huggingface/transformers/tree/main/examples)包括不同的[自监督预训练策略](https://github.com/huggingface/transformers/tree/main/examples/pytorch/image-pretraining)如 [MAE](https://huggingface.co/papers/2111.06377)，和[对比图像到文本预训练策略](https://github.com/huggingface/transformers/tree/main/examples/pytorch/contrastive-image-text)如 [CLIP](https://huggingface.co/papers/2103.00020)。这些脚本对于研究社区和愿意在预训练模型上从头训练自定义数据语料的从业者来说是非常宝贵的资源。
 
 不过有些任务本来就不适合微调。例子包括零样本图像分类（比如 [CLIP](https://huggingface.co/docs/transformers/main/en/model_doc/clip)），零样本目标检测（比如 [OWL-ViT](https://huggingface.co/docs/transformers/main/en/model_doc/owlvit)），和零样本分割（比如 [CLIPSeg](https://huggingface.co/docs/transformers/model_doc/clipseg)）。我们将在这篇文章中重新讨论这些模型。
 

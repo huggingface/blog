@@ -15,7 +15,7 @@ authors:
 
 然而，随着模型变得越来越大，在消费级硬件上对模型进行全部参数的微调变得不可行。此外，为每个下游任务独立存储和部署微调模型变得非常昂贵，因为微调模型与原始预训练模型的大小相同。参数高效微调(PEFT) 方法旨在解决这两个问题！
 
-PEFT 方法仅微调少量 (额外) 模型参数，同时冻结预训练 LLM 的大部分参数，从而大大降低了计算和存储成本。这也克服了[灾难性遗忘](https://arxiv.org/abs/1312.6211)的问题，这是在 LLM 的全参数微调期间观察到的一种现象。PEFT 方法也显示出在低数据状态下比微调更好，可以更好地泛化到域外场景。它可以应用于各种模态，例如[图像分类](https://github.com/huggingface/peft/tree/main/examples/image_classification)以及 [Stable diffusion dreambooth](https://github.com/huggingface/peft/tree/main/examples/lora_dreambooth)。
+PEFT 方法仅微调少量 (额外) 模型参数，同时冻结预训练 LLM 的大部分参数，从而大大降低了计算和存储成本。这也克服了[灾难性遗忘](https://huggingface.co/papers/1312.6211)的问题，这是在 LLM 的全参数微调期间观察到的一种现象。PEFT 方法也显示出在低数据状态下比微调更好，可以更好地泛化到域外场景。它可以应用于各种模态，例如[图像分类](https://github.com/huggingface/peft/tree/main/examples/image_classification)以及 [Stable diffusion dreambooth](https://github.com/huggingface/peft/tree/main/examples/lora_dreambooth)。
 
 PEFT 方法还有助于提高轻便性，其中用户可以使用 PEFT 方法调整模型，以获得与完全微调的大型检查点相比，大小仅几 MB 的微小检查点。例如， `bigscience/mt0-xxl` 占用 40GB 的存储空间，全参数微调将导致每个下游数据集有对应 40GB 检查点。而使用 PEFT 方法，每个下游数据集只占用几 MB 的存储空间，同时实现与全参数微调相当的性能。来自 PEFT 方法的少量训练权重被添加到预训练 LLM 顶层。因此，同一个 LLM 可以通过添加小的权重来用于多个任务，而无需替换整个模型。
 
@@ -23,10 +23,10 @@ PEFT 方法还有助于提高轻便性，其中用户可以使用 PEFT 方法调
 
 今天，我们很高兴地介绍 [🤗 PEFT](https://github.com/huggingface/peft) 库。它提供了最新的参数高效微调技术，与 🤗 Transformers 和 🤗 Accelerate 无缝集成。这使得能够使用来自 Transformers 的最流行和高性能的模型，以及 Accelerate 的简单性和可扩展性。以下是目前支持的 PEFT 方法，即将推出更多:
 
-1. LoRA: [LORA: LOW-RANK ADAPTATION OF LARGE LANGUAGE MODELS](https://arxiv.org/pdf/2106.09685.pdf)
-2. Prefix Tuning: [P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales and Tasks](https://arxiv.org/pdf/2110.07602.pdf)
-3. Prompt Tuning: [The Power of Scale for Parameter-Efficient Prompt Tuning](https://arxiv.org/pdf/2104.08691.pdf) 
-4. P-Tuning: [GPT Understands, Too](https://arxiv.org/pdf/2103.10385.pdf) 
+1. LoRA: [LORA: LOW-RANK ADAPTATION OF LARGE LANGUAGE MODELS](https://huggingface.co/papers/2106.09685)
+2. Prefix Tuning: [P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales and Tasks](https://huggingface.co/papers/2110.07602)
+3. Prompt Tuning: [The Power of Scale for Parameter-Efficient Prompt Tuning](https://huggingface.co/papers/2104.08691) 
+4. P-Tuning: [GPT Understands, Too](https://huggingface.co/papers/2103.10385) 
 
 ## 用例
 

@@ -13,17 +13,17 @@ translators:
 # 使用 LoRA 进行 Stable Diffusion 的高效参数微调
 
 
-[LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685) 是微软研究员引入的一项新技术，主要用于处理大模型微调的问题。目前超过数十亿以上参数的具有强能力的大模型 (例如 GPT-3) 通常在为了适应其下游任务的微调中会呈现出巨大开销。LoRA 建议冻结预训练模型的权重并在每个 Transformer 块中注入可训练层 (*秩-分解矩阵*)。因为不需要为大多数模型权重计算梯度，所以大大减少了需要训练参数的数量并且降低了 GPU 的内存要求。研究人员发现，通过聚焦大模型的 Transformer 注意力块，使用 LoRA 进行的微调质量与全模型微调相当，同时速度更快且需要更少的计算。
+[LoRA: Low-Rank Adaptation of Large Language Models](https://huggingface.co/papers/2106.09685) 是微软研究员引入的一项新技术，主要用于处理大模型微调的问题。目前超过数十亿以上参数的具有强能力的大模型 (例如 GPT-3) 通常在为了适应其下游任务的微调中会呈现出巨大开销。LoRA 建议冻结预训练模型的权重并在每个 Transformer 块中注入可训练层 (*秩-分解矩阵*)。因为不需要为大多数模型权重计算梯度，所以大大减少了需要训练参数的数量并且降低了 GPU 的内存要求。研究人员发现，通过聚焦大模型的 Transformer 注意力块，使用 LoRA 进行的微调质量与全模型微调相当，同时速度更快且需要更少的计算。
 
 ## 用于 Diffusers 的 LoRA 🧨
 
-尽管 LoRA 最初是为大模型提出的，并在 transformer 块上进行了演示，但该技术也可以应用于其他地方。在微调 Stable Diffusion 的情况下，LoRA 可以应用于将图像表示与描述它们的提示相关联的交叉注意层。下图的细节 (摘自 [Stable Diffusion 论文](https://arxiv.org/abs/2112.10752)) 并不重要，只需要注意黄色块是负责建立图文之间的关系表示就行。
+尽管 LoRA 最初是为大模型提出的，并在 transformer 块上进行了演示，但该技术也可以应用于其他地方。在微调 Stable Diffusion 的情况下，LoRA 可以应用于将图像表示与描述它们的提示相关联的交叉注意层。下图的细节 (摘自 [Stable Diffusion 论文](https://huggingface.co/papers/2112.10752)) 并不重要，只需要注意黄色块是负责建立图文之间的关系表示就行。
 
 ![Latent Diffusion Architecture](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/lora-assets/latent-diffusion.png)
 
 据我们所知，Simo Ryu ([`@cloneofsimo`](https://github.com/cloneofsimo)) 是第一个提出适用于 Stable Diffusion 的 LoRA 实现的人。如果想查看相关示例和许多其他有趣的讨论和见解。请一定要看看他们的 [GitHub 项目](https://github.com/cloneofsimo/lora)。
 
-为了将 LoRA 的可训练矩阵注入到与交叉注意力层一样深的模型中，过去人们需要以富有想象力 (但脆弱) 的方式破解 [diffusers](https://github.com/huggingface/diffusers) 的源代码。如果 Stable Diffusion 向我们展示了一件事，那就是社区总是会想出办法来改变和调整模型以达到创造性目的，我们喜欢这样！由于许多其他原因，提供操纵交叉注意力层的灵活性可能是有益的，例如更容易采用 [xFormers](https://github.com/facebookresearch/xformers) 等优化技术。[Prompt-to-Prompt](https://arxiv.org/abs/2208.01626) 等其他创意项目可以使用一些简单的方法来访问这些层，因此我们决定 [为用户提供一种通用的方法来做到这一点](https://github.com/huggingface/diffusers/pull/1639)。自 12 月下旬以来，我们一直在测试，并在我们的 diffusers 中 [正式发布](https://github.com/huggingface/diffusers/releases/tag/v0.12.0)。
+为了将 LoRA 的可训练矩阵注入到与交叉注意力层一样深的模型中，过去人们需要以富有想象力 (但脆弱) 的方式破解 [diffusers](https://github.com/huggingface/diffusers) 的源代码。如果 Stable Diffusion 向我们展示了一件事，那就是社区总是会想出办法来改变和调整模型以达到创造性目的，我们喜欢这样！由于许多其他原因，提供操纵交叉注意力层的灵活性可能是有益的，例如更容易采用 [xFormers](https://github.com/facebookresearch/xformers) 等优化技术。[Prompt-to-Prompt](https://huggingface.co/papers/2208.01626) 等其他创意项目可以使用一些简单的方法来访问这些层，因此我们决定 [为用户提供一种通用的方法来做到这一点](https://github.com/huggingface/diffusers/pull/1639)。自 12 月下旬以来，我们一直在测试，并在我们的 diffusers 中 [正式发布](https://github.com/huggingface/diffusers/releases/tag/v0.12.0)。
 
 我们一直在与 [`@cloneofsimo`](https://github.com/cloneofsimo) 合作，为 Dreambooth 和全微调方法提供 Diffusions 中的 LoRA 训练支持！这些技术提供了以下好处：
 
@@ -131,6 +131,6 @@ Dreambooth 允许您向 Stable Diffusion 模型“教授”新概念。LoRA 与 
 
 对轻松微调的追求并不新鲜。除了 Dreambooth 之外，[_textual inversion_](https://huggingface.co/docs/diffusers/main/en/training/text_inversion) 是另一种流行的方法，它试图向训练有素的稳定扩散模型教授新概念。使用 Textual Inversion 的主要原因之一是经过训练的权重也很小且易于共享。然而，它们只适用于单个主题 (或一小部分主题)，而 LoRA 可用于通用微调，这意味着它可以适应新的领域或数据集。
 
-[Pivotal Tuning](https://arxiv.org/abs/2106.05744) 是一种尝试将 Textual Inversion 与 LoRA 相结合的方法。首先，您使用 textual inversion 技术向模型教授一个新概念，获得一个新的标记嵌入来表示它。然后，您使用 LoRA 训练该 token 嵌入以获得两全其美。
+[Pivotal Tuning](https://huggingface.co/papers/2106.05744) 是一种尝试将 Textual Inversion 与 LoRA 相结合的方法。首先，您使用 textual inversion 技术向模型教授一个新概念，获得一个新的标记嵌入来表示它。然后，您使用 LoRA 训练该 token 嵌入以获得两全其美。
 
 我们还没有使用 LoRA 探索过 Pivotal Tuning。谁想来挑战？🤗

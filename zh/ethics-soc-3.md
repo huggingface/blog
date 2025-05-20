@@ -18,7 +18,7 @@ translators:
 
 
 ## 使命：开放和优秀的机器学习
-在我们的使命中，我们致力于推动机器学习（ML）的民主化，我们在研究如何支持 ML 社区工作并有助于检查危害和防止可能的危害发生。开放式的发展和科学可以分散力量，让许多人集体开展反映他们需求和价值的 AI 研究工作。虽然[开放性使得更广泛的观点能够为研究和整个 AI 贡献力量，但它也面对着较小风险控制的紧张](https://arxiv.org/abs/2302.04844)。
+在我们的使命中，我们致力于推动机器学习（ML）的民主化，我们在研究如何支持 ML 社区工作并有助于检查危害和防止可能的危害发生。开放式的发展和科学可以分散力量，让许多人集体开展反映他们需求和价值的 AI 研究工作。虽然[开放性使得更广泛的观点能够为研究和整个 AI 贡献力量，但它也面对着较小风险控制的紧张](https://huggingface.co/papers/2302.04844)。
 
 由于这些系统的动态和快速发展，对 ML 相关模型进行管控面临着独特的挑战。事实上，随着 ML 模型变得更加先进和能够生成越来越多样化的内容，使得潜在的有害或意外的输出的可能性增加，需要开发强大的调节和评估策略。此外，ML 模型的复杂性和它们处理的大量数据加剧了识别和解决潜在偏见和道德问题的挑战。
 
@@ -53,7 +53,7 @@ translators:
 - 使用详细说明社会影响、偏见以及预期和超出范围的用例的模型卡，有力地记录我们下载次数最多的模型，
 - 创建观众引导标签，例如可以添加到仓库的卡片元数据中的“不适合所有观众”标签，以避免未请求的暴力和色情内容，
 - 促进对[模型](https://www.licenses.ai/blog/2022/8/26/bigscience-open-rail-m-license)使用[开放式负责任人工智能许可证 (RAIL)](https://huggingface.co/blog/open_rail)，例如 LLM（[BLOOM](https://huggingface.co/spaces/bigscience/license)，[BigCode](https://huggingface.co/spaces/bigcode/license)）
-- 进行研究，[分析](https://arxiv.org/abs/2302.04844)哪些模型和数据集最有可能被滥用和恶意使用，或有记录显示滥用和恶意使用。
+- 进行研究，[分析](https://huggingface.co/papers/2302.04844)哪些模型和数据集最有可能被滥用和恶意使用，或有记录显示滥用和恶意使用。
 
 **如何使用标记功能：**
 单击任何模型、数据集、空间或讨论上的标记图标：
@@ -110,7 +110,7 @@ translators:
 Hugging Face 最重要的部分是我们的社区。如果你是一名研究人员，致力于使 ML 的使用更安全，尤其是对于开放科学，我们希望支持并展示你的工作！
 
 以下是 Hugging Face 社区研究人员最近的一些示例和工具：
-- John Kirchenbauer, Jonas Geiping, Yuxin Wen, Jonathan Katz, Ian Miers, Tom Goldstein ([论文](https://arxiv.org/abs/2301.10226)) 的 [大语言模型的水印](https://huggingface.co/spaces/tomg-group-umd/lm-watermarking)
+- John Kirchenbauer, Jonas Geiping, Yuxin Wen, Jonathan Katz, Ian Miers, Tom Goldstein ([论文](https://huggingface.co/papers/2301.10226)) 的 [大语言模型的水印](https://huggingface.co/spaces/tomg-group-umd/lm-watermarking)
 - Hugging Face 团队的[生成模型卡片的工具](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) 
 - Ram Ananth 的保护图像免受篡改的[ Photoguard](https://huggingface.co/spaces/RamAnanth1/photoguard)
 

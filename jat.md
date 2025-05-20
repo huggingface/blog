@@ -146,6 +146,6 @@ We believe that the JAT project has opened up a new direction for research in th
     author = {Gallouédec, Quentin and Beeching, Edward and Romac, Clément and Dellandréa, Emmanuel},
     journal = {arXiv preprint arXiv:2402.09844},
     year = {2024},
-    url = {https://arxiv.org/abs/2402.09844}
+    url = {https://huggingface.co/papers/2402.09844}
 }
 ```

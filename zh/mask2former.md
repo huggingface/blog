@@ -24,7 +24,7 @@ translators:
 
 - **实例分割** 任务旨在区分不同的“实例”，例如图像中不同的人物个体。实例分割从某种角度看和物体检测很像，不同的是在这里我们需要的是一个对应类别的二元的分割掩膜，而不是一个检测框。实例也可以称为“物体 (objects)”或“实物 (things)”。需要注意的是，不同的个体可能在图像中是相互重叠的。
 - **语义分割** 区分的是不同的“语义类别”，比如属于人物、天空等类别的各个像素点。与实例分割不同的是，这里我们不需要区分开同一类别下的不同个体，例如这里我们只需要得到“人物”类别的像素级掩膜即可，不需要区分开不同的人。有些类别根本不存在个体的区分，比如天空、草地，这种类别我们称之为“东西 (stuff)”，以此区分开其它类别，称之为“实物 (things)”。请注意这里不存在不同语义类别间的重叠，因为一个像素点只能属于一个类别。
-- **全景分割** 在 2018 年由 [Kirillov et al.](https://arxiv.org/abs/1801.00868) 提出，目的是为了统一实例分割和语义分割。模型单纯地鉴别出一系列的图像部分，每个部分既有对应的二元掩膜，也有对应的类别标签。这些区分出来的部分，既可以是“东西”也可以是“实物”。与实例分割不同的是，不同部分间不存在重叠。
+- **全景分割** 在 2018 年由 [Kirillov et al.](https://huggingface.co/papers/1801.00868) 提出，目的是为了统一实例分割和语义分割。模型单纯地鉴别出一系列的图像部分，每个部分既有对应的二元掩膜，也有对应的类别标签。这些区分出来的部分，既可以是“东西”也可以是“实物”。与实例分割不同的是，不同部分间不存在重叠。
 
 下图展示了三个子任务的不同: (图片来自 [这篇博客文章](https://www.v7labs.com/blog/panoptic-segmentation-guide))
 
@@ -38,7 +38,7 @@ translators:
 
 幸运的是，从大约 2020 年开始，人们开始研究能同时解决三个任务 (实例、语义和全景分割) 的统一模型。[DETR](https://huggingface.co/docs/transformers/model_doc/detr) 是开山之作，它通过“二元掩膜分类”的范式去解决全景分割问题，把“实物”和“东西”的类别用统一的方法对待。其核心点是使用一个 Transformer 的解码器 (decoder) 来并行地生成一系列的二元掩膜和类别。随后 [MaskFormer](https://huggingface.co/docs/transformers/model_doc/maskformer) 又在此基础上进行了改进，表明了“二元掩膜分类”的范式也可以用在语义分割上。
 
-[Mask2Former](https://huggingface.co/docs/transformers/main/model_doc/mask2former) 又将此方法扩展到了实例分割上，进一步改进了神经网络的结构。因此，各自分离的子任务框架现在已经进化到了“通用图像分割”的框架，可以解决任何图像分割任务。有趣的是，这些通用模型全都采取了“掩膜分类”的范式，彻底抛弃了“像素级分类”这一方法。下图就展示了 Mask2Former 的网络结构 (图像取自 [原始论文](https://arxiv.org/abs/2112.01527))。
+[Mask2Former](https://huggingface.co/docs/transformers/main/model_doc/mask2former) 又将此方法扩展到了实例分割上，进一步改进了神经网络的结构。因此，各自分离的子任务框架现在已经进化到了“通用图像分割”的框架，可以解决任何图像分割任务。有趣的是，这些通用模型全都采取了“掩膜分类”的范式，彻底抛弃了“像素级分类”这一方法。下图就展示了 Mask2Former 的网络结构 (图像取自 [原始论文](https://huggingface.co/papers/2112.01527))。
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/model_doc/mask2former_architecture.jpg" alt="drawing" width=500>
@@ -46,7 +46,7 @@ translators:
 
 简短来说，一张图片首先被送入骨干网络 (backbone) 里面来获取一系列，在论文中，骨干网络既可以是 [ResNet](https://huggingface.co/docs/transformers/model_doc/resnet) 也可以是 [Swin Transformer](https://huggingface.co/docs/transformers/model_doc/swin)。接下来，这些特征图会被一个叫做 Pixel Decoder 的模块增强成为高分辨率特征图。最终，一个 transformer 的解码器会接收一系列的 query，基于上一步得到的特征，把它们转换成一些列二元掩膜和分类预测。
 
-需要注意的是，MasksFormer 仍然需要在每个单独的任务上训练来获取领先的结果。这一点被 [OneFormer](https://arxiv.org/abs/2211.06220) 进行了改进，并通过在全景数据集上训练，达到了领先水平。OneFormer 增加了一个文本编码器 (text encoder)，使得模型有了一个基于文本条件 (实例、语义或全景) 的输入。该模型 [已经收录入 🤗 Transformers 之中](https://huggingface.co/docs/transformers/main/en/model_doc/oneformer)，比 Mask2Former 更准确，但由于文本编码器的引入，所以速度略慢。下图展示了 OneFormer 的基本结构，它使用 Swin Transformer 或 新的 [DiNAT](https://huggingface.co/docs/transformers/model_doc/dinat) 作为骨干网络。
+需要注意的是，MasksFormer 仍然需要在每个单独的任务上训练来获取领先的结果。这一点被 [OneFormer](https://huggingface.co/papers/2211.06220) 进行了改进，并通过在全景数据集上训练，达到了领先水平。OneFormer 增加了一个文本编码器 (text encoder)，使得模型有了一个基于文本条件 (实例、语义或全景) 的输入。该模型 [已经收录入 🤗 Transformers 之中](https://huggingface.co/docs/transformers/main/en/model_doc/oneformer)，比 Mask2Former 更准确，但由于文本编码器的引入，所以速度略慢。下图展示了 OneFormer 的基本结构，它使用 Swin Transformer 或 新的 [DiNAT](https://huggingface.co/docs/transformers/model_doc/dinat) 作为骨干网络。
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/model_doc/oneformer_architecture.png" alt="drawing" width=500>

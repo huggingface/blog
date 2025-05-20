@@ -20,7 +20,7 @@ translators:
 
 在缺少标注数据场景，SetFit 是解决的建模问题的一个有前途的解决方案，其由 Hugging Face 与 [Intel 实验室](https://www.intel.com/content/www/us/en/research/overview.html) 以及 [UKP Lab](https://www.informatik.tu-darmstadt.de/ukp/ukp_home/index.en.jsp) 合作共同开发。作为一个高效的框架，SetFit 可用于对 [Sentence Transformers](https://sbert.net/) 模型进行少样本微调。
 
-SetFit 仅需很少的标注数据就能达到较高的准确率，例如，在使用 3-示例提示时，SetFit [优于](https://arxiv.org/pdf/2311.06102.pdf) GPT-3.5；在使用 5-示例提示时，其在 Banking 77 金融意图数据集上的表现也优于使用 3-示例提示的 GPT-4。
+SetFit 仅需很少的标注数据就能达到较高的准确率，例如，在使用 3-示例提示时，SetFit [优于](https://huggingface.co/papers/2311.06102) GPT-3.5；在使用 5-示例提示时，其在 Banking 77 金融意图数据集上的表现也优于使用 3-示例提示的 GPT-4。
 
 与基于 LLM 的方法相比，SetFit 有两个独特的优势：
 
@@ -28,7 +28,7 @@ SetFit 仅需很少的标注数据就能达到较高的准确率，例如，在�
 
 <p>🏎 <strong>训练速度快</strong>：SetFit 不依赖 GPT-3.5 或 Llama2 等 LLM 来实现高准确率。因此，训练和推理速度通常要快一个数量级（或更多）。</p>
 
-有关 SetFit 的更多详情，请参阅：[论文](https://arxiv.org/abs/2209.11055)、[博客](https://huggingface.co/blog/setfit)、[代码](https://github.com/huggingface/setfit)及相关[数据](https://huggingface.co/SetFit)。
+有关 SetFit 的更多详情，请参阅：[论文](https://huggingface.co/papers/2209.11055)、[博客](https://huggingface.co/blog/setfit)、[代码](https://github.com/huggingface/setfit)及相关[数据](https://huggingface.co/SetFit)。
 
 Setfit 已被 AI 开发者社区广泛采用，每月下载量约为 10 万次，Hub 上的 SetFit 模型已有 [1600](https://huggingface.co/models?library=setfit) 个之多，且平均日增量约为 4 个左右。
 
@@ -189,4 +189,4 @@ batch size 为 1 时，我们的优化模型将延迟降低了 **3.45 倍**。�
 本文，我们展示了如何使用 🤗 Optimum Intel 中的量化功能来优化 SetFit 模型。在轻松快速地对模型完成训后量化后，我们观察到在准确度损失很小的情况下，推理吞吐量增加了 **7.8 倍**。用户可以使用这种优化方法在英特尔至强 CPU 上轻松部署任何现有 SetFit 模型。
 
 ## 参考文献
-* Lewis Tunstall, Nils Reimers, Unso Eun Seo Jo, Luke Bates, Daniel Korat, Moshe Wasserblat, Oren Pereg, 2022. "Efficient Few-Shot Learning Without Prompts". https://arxiv.org/abs/2209.11055
+* Lewis Tunstall, Nils Reimers, Unso Eun Seo Jo, Luke Bates, Daniel Korat, Moshe Wasserblat, Oren Pereg, 2022. "Efficient Few-Shot Learning Without Prompts". https://huggingface.co/papers/2209.11055

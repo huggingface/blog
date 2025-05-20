@@ -61,7 +61,7 @@ $$A_{merged} = sqrt(weight_1 * scaling_1) * A_1+ sqrt (weight_2 * scaling_2) * A
 
 $$B_{merged} = sqrt(weight_1 * scaling_1) * B_1+ sqrt (weight_2 * scaling_2) * B_2$$
 
-For more details, please refer to the paper: [Editing Models with Task Arithmetic](https://arxiv.org/abs/2212.04089).
+For more details, please refer to the paper: [Editing Models with Task Arithmetic](https://huggingface.co/papers/2212.04089).
 
 ### SVD (`svd`)
 
@@ -88,11 +88,11 @@ This builds upon the `linear` and `svd` methods by changing the way merged adapt
 1. `total` considers the magnitude as well as sign to get the majority sign, i.e., sum up all the corresponding weights;
 2. `frequency` only considers the weight sign to obtain the majority sign, i.e., sum up the sign of all the corresponding weights.
 
-For more details, refer to the paper: [TIES-Merging: Resolving Interference When Merging Models](https://arxiv.org/abs/2306.01708).
+For more details, refer to the paper: [TIES-Merging: Resolving Interference When Merging Models](https://huggingface.co/papers/2306.01708).
 
 ### DARE (`dare_linear` , `dare_ties` , `dare_linear_svd` , `dare_ties_svd` )
 
-This also builds upon the `linear` and `svd` methods wherein the task weights are LoRA adapters \\( A \\), \\( B \\) for non svd variant and their product \\( BA \\) for svd variant. `DARE` method proposed in [Language Models are Super Mario: Absorbing Abilities from Homologous Models as a Free Lunch](https://arxiv.org/abs/2311.03099) first randomly prunes the values of the task weight based on the specified fraction `1-density`, and then rescales the pruned task weights by `1/density`. `DARE` is a general plug-in and can be applied to any existing model merging methods. We have implemented `DARE` with Linear/Task Arithmetic (`*_linear*`) and TIES (`*_ties*`).
+This also builds upon the `linear` and `svd` methods wherein the task weights are LoRA adapters \\( A \\), \\( B \\) for non svd variant and their product \\( BA \\) for svd variant. `DARE` method proposed in [Language Models are Super Mario: Absorbing Abilities from Homologous Models as a Free Lunch](https://huggingface.co/papers/2311.03099) first randomly prunes the values of the task weight based on the specified fraction `1-density`, and then rescales the pruned task weights by `1/density`. `DARE` is a general plug-in and can be applied to any existing model merging methods. We have implemented `DARE` with Linear/Task Arithmetic (`*_linear*`) and TIES (`*_ties*`).
 
 For `*_linear*` variants of `DARE`, we first use `DARE` to randomly prune task weights and then perform weighted sum of task tensors based on user specified weightage for participating LoRA adapters.
 
@@ -308,9 +308,9 @@ We’re grateful to Le Yu and Prateek Yadav, authors of DARE and TIES, for their
 
 ## Useful links
 
-1. [Editing Models with Task Arithmetic](https://arxiv.org/abs/2212.04089)
-2. [TIES-Merging: Resolving Interference When Merging Models](https://arxiv.org/abs/2306.01708)
-3. [Language Models are Super Mario: Absorbing Abilities from Homologous Models as a Free Lunch](https://arxiv.org/abs/2311.03099)
+1. [Editing Models with Task Arithmetic](https://huggingface.co/papers/2212.04089)
+2. [TIES-Merging: Resolving Interference When Merging Models](https://huggingface.co/papers/2306.01708)
+3. [Language Models are Super Mario: Absorbing Abilities from Homologous Models as a Free Lunch](https://huggingface.co/papers/2311.03099)
 4. [mergekit](https://github.com/cg123/mergekit): Tools for merging pretrained large language models.
 5. [PEFT integration in Diffusers](https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference)
 6. [Model merging guide for PEFT users](https://huggingface.co/docs/peft/developer_guides/model_merging)

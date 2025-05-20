@@ -13,7 +13,7 @@ authors:
 
 notebook: [sagemaker/18_inferentia_inference](https://github.com/huggingface/notebooks/blob/master/sagemaker/18_inferentia_inference/sagemaker-notebook.ipynb)
 
-The adoption of [BERT](https://huggingface.co/blog/bert-101) and [Transformers](https://huggingface.co/docs/transformers/index) continues to grow. Transformer-based models are now not only achieving state-of-the-art performance in Natural Language Processing but also for [Computer Vision](https://arxiv.org/abs/2010.11929), [Speech](https://arxiv.org/abs/2006.11477), and [Time-Series](https://arxiv.org/abs/2002.06103). 💬 🖼 🎤 ⏳
+The adoption of [BERT](https://huggingface.co/blog/bert-101) and [Transformers](https://huggingface.co/docs/transformers/index) continues to grow. Transformer-based models are now not only achieving state-of-the-art performance in Natural Language Processing but also for [Computer Vision](https://huggingface.co/papers/2010.11929), [Speech](https://huggingface.co/papers/2006.11477), and [Time-Series](https://huggingface.co/papers/2002.06103). 💬 🖼 🎤 ⏳
 
 Companies are now slowly moving from the experimentation and research phase to the production phase in order to use transformer models for large-scale workloads. But by default BERT and its friends are relatively slow, big, and complex models compared to the traditional Machine Learning algorithms. Accelerating Transformers and BERT is and will become an interesting challenge to solve in the future.
 

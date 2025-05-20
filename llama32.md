@@ -136,7 +136,7 @@ There is also a new small version of Llama Guard, Llama Guard 3 1B, that can be 
 
 Bonus: Llama 3.2 has been exposed to a broader collection of languages than the 8 supported languages mentioned above. Developers are encouraged to fine-tune Llama 3.2 models for their specific language use cases.
 
-We ran the base models through the Open LLM Leaderboard evaluation suite, while the instruct models were evaluated across three popular benchmarks that measure instruction-following and correlate well with the LMSYS Chatbot Arena: [IFEval](https://arxiv.org/abs/2311.07911), [AlpacaEval](https://arxiv.org/abs/2404.04475), and [MixEval-Hard](https://arxiv.org/abs/2406.06565). These are the results for the base models, with Llama-3.1-8B included as a reference:
+We ran the base models through the Open LLM Leaderboard evaluation suite, while the instruct models were evaluated across three popular benchmarks that measure instruction-following and correlate well with the LMSYS Chatbot Arena: [IFEval](https://huggingface.co/papers/2311.07911), [AlpacaEval](https://huggingface.co/papers/2404.04475), and [MixEval-Hard](https://huggingface.co/papers/2406.06565). These are the results for the base models, with Llama-3.1-8B included as a reference:
 
 
 | Model                | BBH   | MATH Lvl 5 | GPQA  | MUSR  | MMLU-PRO | Average |

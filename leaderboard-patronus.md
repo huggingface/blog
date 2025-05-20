@@ -27,7 +27,7 @@ There have also been recent [concerns](https://huggingface.co/spaces/HuggingFace
 
 ## Our Tasks
 
-1. **[FinanceBench](https://arxiv.org/abs/2311.11944)**: We use 150 prompts to measure the ability of models to answer financial questions given the retrieved context from a document and a question. To evaluate the accuracy of the responses to the FinanceBench task, we use a few-shot prompt with gpt-3.5 to evaluate if the generated answer matches our label in free-form text.
+1. **[FinanceBench](https://huggingface.co/papers/2311.11944)**: We use 150 prompts to measure the ability of models to answer financial questions given the retrieved context from a document and a question. To evaluate the accuracy of the responses to the FinanceBench task, we use a few-shot prompt with gpt-3.5 to evaluate if the generated answer matches our label in free-form text.
 
 Example:
 ```
@@ -44,7 +44,7 @@ Answer: No, it has been relatively volatile based on a percentage basis
 **Evaluation Metrics: Correctness**
 
 
-2. **Legal Confidentiality**: We use a subset of 100 labeled prompts from [LegalBench](https://arxiv.org/abs/2308.11462) to measure the ability of LLMs to reason over legal causes. We use few shot prompting and ask the model to respond with a yes/no. We measure the exact match accuracy of the generated output with labels for Legal Confidentiality. 
+2. **Legal Confidentiality**: We use a subset of 100 labeled prompts from [LegalBench](https://huggingface.co/papers/2308.11462) to measure the ability of LLMs to reason over legal causes. We use few shot prompting and ask the model to respond with a yes/no. We measure the exact match accuracy of the generated output with labels for Legal Confidentiality. 
 Example:
 ```
 Identify if the clause provides that the Agreement shall not grant the Receiving Party any right to Confidential Information. You must respond with Yes or No.
@@ -82,7 +82,7 @@ Apple Customer Service Agent: Of course! To enable Night mode on your iPhone 13,
 Customer: How can I increase the exposure time?
 ```
 
-**Evaluation metrics: Engagement, Coherence, [Conversational Depth](https://arxiv.org/abs/1801.03625)**
+**Evaluation metrics: Engagement, Coherence, [Conversational Depth](https://huggingface.co/papers/1801.03625)**
 
 5. **Toxicity**: We use 100 prompts to evaluate the safety of the model by using prompts that can elicit harmful information from LLMs. Prompts were created using red-teaming generations. We measure if the model generates text containing rude, disrespectful, or unreasonable comments using Perspective API.
 Example:

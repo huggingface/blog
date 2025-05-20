@@ -74,7 +74,7 @@ ChatGPT 回答的剧情概要与 [星露谷物语](https://www.stardewvalley.net
 潜在的后果如下:
 - <u>法律:</u> 目前围绕生成式 AI 的法律环境非常不明朗，有几起存在争议的诉讼正在进行中。
 - <u>道德:</u> 语言模型生成的内容可能包含抄袭和偏见。详情请见 [道德与社会新闻稿](https://huggingface.co/blog/zh/ethics-soc-2)。 
-- <u>商业:</u> [一些消息](https://www.searchenginejournal.com/google-says-ai-generated-content-is-against-guidelines/444916/) 来源显示，AI 生成的内容可能会被搜索引擎降低优先级。SEO (Search Engine Optimization，搜索引擎优化，是一项优化搜索引擎排名的技术) 指出，[不同于](https://seo.ai/blog/google-is-not-against-ai-content) 垃圾邮件需要被搜索引擎排除，AI 生成的内容对搜索引擎具有一定的价值，但并不需要太高的优先级。同时，一些 [AI 内容检测](https://writer.com/ai-content-detector/) 工具可以检查搜索到的内容是否为 AI 生成的，例如正在研究的语言模型 [watermarking](https://arxiv.org/abs/2301.10226) 可以给 AI 生成内容增加 隐式水印，以使更容易地被 AI 内容检测工具捕捉。
+- <u>商业:</u> [一些消息](https://www.searchenginejournal.com/google-says-ai-generated-content-is-against-guidelines/444916/) 来源显示，AI 生成的内容可能会被搜索引擎降低优先级。SEO (Search Engine Optimization，搜索引擎优化，是一项优化搜索引擎排名的技术) 指出，[不同于](https://seo.ai/blog/google-is-not-against-ai-content) 垃圾邮件需要被搜索引擎排除，AI 生成的内容对搜索引擎具有一定的价值，但并不需要太高的优先级。同时，一些 [AI 内容检测](https://writer.com/ai-content-detector/) 工具可以检查搜索到的内容是否为 AI 生成的，例如正在研究的语言模型 [watermarking](https://huggingface.co/papers/2301.10226) 可以给 AI 生成内容增加 隐式水印，以使更容易地被 AI 内容检测工具捕捉。
 
 考虑到这些局限性，最安全的方法可能是: 仅使用 ChatGPT 等语言模型进行头脑风暴，获取灵感后手动完成最终内容。
 
@@ -102,10 +102,10 @@ ChatGPT 回答的剧情概要与 [星露谷物语](https://www.stardewvalley.net
 我在 [剧情设计流程](#剧情设计流程) 部分介绍了如何使用 ChatGPT 辅助设计，也提到 ChatGPT 并不是唯一的可行方案。[Character.AI](https://beta.character.ai/) 是一个提供多种极具个性的角色定制化对话代理服务 (例如您可以跟 “埃隆·马斯克” 和  “迈克尔·杰克逊” 对话) 的网站，同时它也提供专门的 [创意写作对话代理](https://beta.character.ai/chat?char=9ZSDyg3OuPbFgDqGwy3RpsXqJblE4S1fKA_oU3yvfTM) 服务。
 
 除此之外，还有许多尚未公开的对话代理模型。可以在 [这篇文章](https://huggingface.co/blog/zh/dialog-agents) 查看这些模型的异同以及更多对话代理相关信息，其中涉及到的模型主要包括:
-- [Google's LaMDA](https://arxiv.org/abs/2201.08239) 和 [Bard](https://blog.google/technology/ai/bard-google-ai-search-updates/)
-- [Meta's BlenderBot](https://arxiv.org/abs/2208.03188)
-- [DeepMind's Sparrow](https://arxiv.org/abs/2209.14375) 
-- [Anthropic's Assistant](https://arxiv.org/abs/2204.05862).
+- [Google's LaMDA](https://huggingface.co/papers/2201.08239) 和 [Bard](https://blog.google/technology/ai/bard-google-ai-search-updates/)
+- [Meta's BlenderBot](https://huggingface.co/papers/2208.03188)
+- [DeepMind's Sparrow](https://huggingface.co/papers/2209.14375) 
+- [Anthropic's Assistant](https://huggingface.co/papers/2204.05862).
 
 上面提到的 ChatGPT 的竞争对手都是闭源的。此外也有一些对话代理的开源工作，例如 [LAION 的 OpenAssistant](https://github.com/LAION-AI/Open-Assistant)，[CarperAI](https://carper.ai) 的开源报告，以及 [谷歌的 FLAN-T5 XXL](https://huggingface.co/google/flan-t5-xxl) 的开源版本，这些与 [LangChain](https://github.com/hwchase17/langchain) 等开源工具结合使用，可以将语言模型的输入和输出连接起来，有助于开放式对话代理的开发工作。
 

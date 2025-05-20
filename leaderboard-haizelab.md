@@ -46,12 +46,12 @@ We further measure the brittleness of models at a more granular level and in par
 
 We measure the robustness of LLMs against adversarial attacks from several adversarial prompt datasets, which contain similarly adversarial inputs (see next section for some examples):
 
-1. [AdvBench](https://arxiv.org/abs/2307.15043), a dataset of adversarial prompts (formulated as instructions) trying to elicit behaviors ranging from profanity, discrimination, to violence.
-2. [AART](https://arxiv.org/abs/2311.08592), a collection of generated adversarial prompts created through AI-assisted recipes with a wide range of cultural, geographic, and application settings.
-3. [Beavertails](https://arxiv.org/abs/2307.04657), prompts developed to support research on safety alignment in large language models.
-4. [Do Not Answer (DNA)](https://arxiv.org/abs/2308.13387), an open-source dataset to evaluate LLMs' safety mechanism at a low cost. The dataset consists only of prompts to which responsible language models should not answer.
-5. [RedEval-HarmfulQA](https://arxiv.org/abs/2308.09662), harmful questions covering 10 topics and ~10 subtopics each, ranging from cultural studies to ancient history.
-6. [RedEval-DangerousQA](https://arxiv.org/abs/2308.09662), harmful questions covering racist, stereotypical, sexist, illegal, toxic, and harmful content.
+1. [AdvBench](https://huggingface.co/papers/2307.15043), a dataset of adversarial prompts (formulated as instructions) trying to elicit behaviors ranging from profanity, discrimination, to violence.
+2. [AART](https://huggingface.co/papers/2311.08592), a collection of generated adversarial prompts created through AI-assisted recipes with a wide range of cultural, geographic, and application settings.
+3. [Beavertails](https://huggingface.co/papers/2307.04657), prompts developed to support research on safety alignment in large language models.
+4. [Do Not Answer (DNA)](https://huggingface.co/papers/2308.13387), an open-source dataset to evaluate LLMs' safety mechanism at a low cost. The dataset consists only of prompts to which responsible language models should not answer.
+5. [RedEval-HarmfulQA](https://huggingface.co/papers/2308.09662), harmful questions covering 10 topics and ~10 subtopics each, ranging from cultural studies to ancient history.
+6. [RedEval-DangerousQA](https://huggingface.co/papers/2308.09662), harmful questions covering racist, stereotypical, sexist, illegal, toxic, and harmful content.
 7. [Student-Teacher Prompting (STP)](https://haizelabs.com/benchmarks/space), harmful prompts that successfully broke Vicuna-13B.
 8. [SAP](https://aclanthology.org/2023.findings-emnlp.143/), adversarial prompts generated via in-context learning to mimic human speech.
 

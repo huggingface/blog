@@ -220,7 +220,7 @@ To deploy the Llama 3 model from Hugging Face, go to the [model page](https://h
 
 ## Fine-tuning with 🤗 TRL
 
-Training LLMs can be technically and computationally challenging. In this section, we’ll look at the tools available in the Hugging Face ecosystem to efficiently train Llama 3 on consumer-size GPUs. Below is an example command to fine-tune Llama 3 on the [No Robots dataset](https://huggingface.co/datasets/HuggingFaceH4/no_robots). We use 4-bit quantization, and [QLoRA](https://arxiv.org/abs/2305.14314) and TRL’s SFTTrainer will automatically format the dataset into `chatml` format. Let’s get started!
+Training LLMs can be technically and computationally challenging. In this section, we’ll look at the tools available in the Hugging Face ecosystem to efficiently train Llama 3 on consumer-size GPUs. Below is an example command to fine-tune Llama 3 on the [No Robots dataset](https://huggingface.co/datasets/HuggingFaceH4/no_robots). We use 4-bit quantization, and [QLoRA](https://huggingface.co/papers/2305.14314) and TRL’s SFTTrainer will automatically format the dataset into `chatml` format. Let’s get started!
 
 First, install the latest version of 🤗 TRL. 
 

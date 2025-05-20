@@ -29,7 +29,7 @@ translators:
 
 ## 推测解码
 
-[推测解码](https://arxiv.org/abs/2211.17192) 技术十分流行，其用于加速大型语言模型的推理过程，与此同时保持其准确性。如下图所示，推测解码通过将生成过程分为两个阶段来工作。在第一阶段，一个快速但准确性较低的 _草稿_ 模型 (Draft，也称为助手) 自回归地生成一系列标记。在第二阶段，一个大型但更准确的 _目标_ 模型 (Target) 对生成的草稿标记进行并行验证。这个过程允许目标模型在单个前向传递中生成多个标记，从而加速自回归解码。推测解码的成功在很大程度上取决于 _推测前瞻_ (Speculative Lookahead，下文用 SL 表示)，即草稿模型在每次迭代中生成的标记数量。在实践中，SL 要么是一个静态值，要么基于启发式方法，这两者都不是在推理过程中发挥最大性能的最优选择。
+[推测解码](https://huggingface.co/papers/2211.17192) 技术十分流行，其用于加速大型语言模型的推理过程，与此同时保持其准确性。如下图所示，推测解码通过将生成过程分为两个阶段来工作。在第一阶段，一个快速但准确性较低的 _草稿_ 模型 (Draft，也称为助手) 自回归地生成一系列标记。在第二阶段，一个大型但更准确的 _目标_ 模型 (Target) 对生成的草稿标记进行并行验证。这个过程允许目标模型在单个前向传递中生成多个标记，从而加速自回归解码。推测解码的成功在很大程度上取决于 _推测前瞻_ (Speculative Lookahead，下文用 SL 表示)，即草稿模型在每次迭代中生成的标记数量。在实践中，SL 要么是一个静态值，要么基于启发式方法，这两者都不是在推理过程中发挥最大性能的最优选择。
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dynamic_speculation_lookahead/spec_dec_diagram.png" width="250"><br>
@@ -38,7 +38,7 @@ translators:
 
 ## 动态推测解码
 
-[Transformers🤗](https://github.com/huggingface/transformers) 库提供了两种不同的方法来确定在推理过程中调整草稿 (助手) 标记数量的计划。基于 [Leviathan 等人](https://arxiv.org/pdf/2211.17192) 的直接方法使用推测前瞻的静态值，并涉及在每个推测迭代中生成恒定数量的候选标记。另一种 [基于启发式方法的方法](https://huggingface.co/blog/assisted-generation) 根据当前迭代的接受率调整下一次迭代的候选标记数量。如果所有推测标记都是正确的，则候选标记的数量增加; 否则，数量减少。
+[Transformers🤗](https://github.com/huggingface/transformers) 库提供了两种不同的方法来确定在推理过程中调整草稿 (助手) 标记数量的计划。基于 [Leviathan 等人](https://huggingface.co/papers/2211.17192) 的直接方法使用推测前瞻的静态值，并涉及在每个推测迭代中生成恒定数量的候选标记。另一种 [基于启发式方法的方法](https://huggingface.co/blog/assisted-generation) 根据当前迭代的接受率调整下一次迭代的候选标记数量。如果所有推测标记都是正确的，则候选标记的数量增加; 否则，数量减少。
 
 我们预计，通过增强优化策略来管理生成的草稿标记数量，可以进一步减少延迟。为了测试这个论点，我们利用一个预测器来确定每个推测迭代的最佳推测前瞻值 (SL)。该预测器利用草稿模型自回归的生成标记，直到草稿模型和目标模型之间的预测标记出现不一致。该过程在每个推测迭代中重复进行，最终确定每次迭代接受的草稿标记的最佳 (最大) 数量。草稿/目标标记不匹配是通过在零温度下 Leviathan 等人提出的拒绝抽样算法 (rejection sampling algorithm) 来识别的。该预测器通过在每一步生成最大数量的有效草稿标记，并最小化对草稿和目标模型的调用次数，实现了推测解码的全部潜力。我们称使用该预测器得到 SL 值的推测解码过程为预知 (orcale) 的推测解码。
 
@@ -112,7 +112,7 @@ assistant_model.generation_config.num_assistant_tokens_schedule='constant'
 assistant_model.generation_config.num_assistant_tokens=20
 ```
 
-要恢复到 **启发式** 或 **静态** 方法 (如 [Leviathan 等人](https://arxiv.org/pdf/2211.17192) 中所述)，只需分别将 `num_assistant_tokens_schedule` 设置为 `'heuristic'` 或 `'constant'` ，将 `assistant_confidence_threshold=0` 和 `num_assistant_tokens=5` 设置如下:
+要恢复到 **启发式** 或 **静态** 方法 (如 [Leviathan 等人](https://huggingface.co/papers/2211.17192) 中所述)，只需分别将 `num_assistant_tokens_schedule` 设置为 `'heuristic'` 或 `'constant'` ，将 `assistant_confidence_threshold=0` 和 `num_assistant_tokens=5` 设置如下:
 
 ```python
 # Use 'heuristic' or 'constant' or 'dynamic'
@@ -129,7 +129,7 @@ assistant_model.generation_config.num_assistant_tokens=5
 
 ## 参考资料
 
-- [Dynamic Speculation Lookahead Accelerates Speculative Decoding of Large Language Models](https://arxiv.org/abs/2405.04304)。
+- [Dynamic Speculation Lookahead Accelerates Speculative Decoding of Large Language Models](https://huggingface.co/papers/2405.04304)。
 > 在这篇论文中，我们介绍了 DISCO，一种动态推测前瞻优化方法，利用分类器决定草稿模型是否应该继续生成下一个标记，还是暂停，并切换到目标模型进行验证，而不是仅仅使用对预测概率的简单阈值。
 - [Assisted Generation: a new direction toward low-latency text generation](https://huggingface.co/blog/assisted-generation)
-- [Fast Inference from Transformers via Speculative Decoding](https://arxiv.org/pdf/2211.17192)
+- [Fast Inference from Transformers via Speculative Decoding](https://huggingface.co/papers/2211.17192)

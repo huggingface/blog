@@ -16,7 +16,7 @@ authors:
 
 ### 1. Introduction:
 
-Natural language generation (i.e. text generation) is one of the core tasks in natural language processing (NLP). In this blog, we introduce the current state-of-the-art decoding method, ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[Paper]](https://arxiv.org/abs/2202.06417)[[Official Implementation]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. Moreover, in this follow-up work,  _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[Paper]](https://arxiv.org/abs/2210.14140) [[Official Implementation]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search can generate human-level text using **off-the-shelf** language models across **16** languages.
+Natural language generation (i.e. text generation) is one of the core tasks in natural language processing (NLP). In this blog, we introduce the current state-of-the-art decoding method, ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[Paper]](https://huggingface.co/papers/2202.06417)[[Official Implementation]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. Moreover, in this follow-up work,  _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[Paper]](https://huggingface.co/papers/2210.14140) [[Official Implementation]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search can generate human-level text using **off-the-shelf** language models across **16** languages.
 
 **[Remark]** For users who are not familiar with text generation, please refer more details to [this blog post](https://huggingface.co/blog/how-to-generate).
 
@@ -612,8 +612,8 @@ performs better in two-dimensional (2D) and three-dimensional (3D) cases.
 ### 7. Resources:
 
 For more details of contrastive search, please check our papers and code as
-* **A Contrastive Framework for Neural Text Generation**: (1) [Paper](https://arxiv.org/abs/2202.06417) and (2) [Official Implementation](https://github.com/yxuansu/SimCTG).
-* **Contrastive Search Is What You Need For Neural Text Generation**: (1) [Paper](https://arxiv.org/abs/2210.14140) and (2) [Official Implementation](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need).
+* **A Contrastive Framework for Neural Text Generation**: (1) [Paper](https://huggingface.co/papers/2202.06417) and (2) [Official Implementation](https://github.com/yxuansu/SimCTG).
+* **Contrastive Search Is What You Need For Neural Text Generation**: (1) [Paper](https://huggingface.co/papers/2210.14140) and (2) [Official Implementation](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need).
 
 ****
 
@@ -646,17 +646,17 @@ For more details of contrastive search, please check our papers and code as
 <span id='references'/>
 
 ## Reference:
-> [1] Su et al., 2022 ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417), NeurIPS 2022
+> [1] Su et al., 2022 ["A Contrastive Framework for Neural Text Generation"](https://huggingface.co/papers/2202.06417), NeurIPS 2022
 
-> [2] Su and Collier, 2022 ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140), Arxiv 2022
+> [2] Su and Collier, 2022 ["Contrastive Search Is What You Need For Neural Text Generation"](https://huggingface.co/papers/2210.14140), Arxiv 2022
 
-> [3] Fan et al., 2018 ["Hierarchical Neural Story Generation"](https://arxiv.org/abs/1805.04833), ACL 2018
+> [3] Fan et al., 2018 ["Hierarchical Neural Story Generation"](https://huggingface.co/papers/1805.04833), ACL 2018
 
-> [4] Holtzman et al., 2020 ["The Curious Case of Neural Text Degeneration"](https://arxiv.org/abs/1904.09751), ICLR 2020
+> [4] Holtzman et al., 2020 ["The Curious Case of Neural Text Degeneration"](https://huggingface.co/papers/1904.09751), ICLR 2020
 
-> [5] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068), Arxiv 2022
+> [5] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://huggingface.co/papers/2205.01068), Arxiv 2022
 
-> [6] He et al., 2016 ["Deep Residual Learning for Image Recognition"](https://arxiv.org/abs/1512.03385), CVPR 2016
+> [6] He et al., 2016 ["Deep Residual Learning for Image Recognition"](https://huggingface.co/papers/1512.03385), CVPR 2016
 
 ****
 

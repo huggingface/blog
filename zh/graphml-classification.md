@@ -28,7 +28,7 @@ translators:
 
 在之前的[博文](https://huggingface.co/blog/intro-graphml)中，我们探讨了图机器学习的一些理论知识。这一篇我们将探索如何使用 Transformers 库进行图分类。（你也可以从[此处](https://github.com/huggingface/blog/blob/main/notebooks/graphml-classification.ipynb)下载演示 notebook，跟着一起做！）
 
-目前，Transformers 中唯一可用的图 transformer 模型是微软的 [Graphormer](https://arxiv.org/abs/2106.05234)，因此本文的例子将会基于该模型。我们期待看到大家会使用并集成哪些其他模型进 🤗。
+目前，Transformers 中唯一可用的图 transformer 模型是微软的 [Graphormer](https://huggingface.co/papers/2106.05234)，因此本文的例子将会基于该模型。我们期待看到大家会使用并集成哪些其他模型进 🤗。
 
 ## 软件
 要学习本教程，需要安装 `datasets` 和 `transformers`（版本号 >= 4.27.2），你可以使用 `pip install -U datasets transformers` 来安装。

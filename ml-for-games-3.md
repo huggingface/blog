@@ -32,7 +32,7 @@ In this part, we'll talk about how you can use AI to generate 3D Assets. The sho
 As discussed in [Part 1](https://huggingface.co/blog/ml-for-games-1), text-to-image tools such as Stable Diffusion are incredibly useful in the game development workflow. However, what about text-to-3D, or generating 3D models from text descriptions? There have been many very recent developments in this area:
 
 - [DreamFusion](https://dreamfusion3d.github.io/) uses 2D diffusion to generate 3D assets.
-- [CLIPMatrix](https://arxiv.org/abs/2109.12922) and [CLIP-Mesh-SMPLX](https://github.com/NasirKhalid24/CLIP-Mesh-SMPLX) generate textured meshes directly.
+- [CLIPMatrix](https://huggingface.co/papers/2109.12922) and [CLIP-Mesh-SMPLX](https://github.com/NasirKhalid24/CLIP-Mesh-SMPLX) generate textured meshes directly.
 - [CLIP-Forge](https://github.com/autodeskailab/clip-forge) uses language to generate voxel-based models.
 - [CLIP-NeRF](https://github.com/cassiePython/CLIPNeRF) drives NeRFs with text and images.
 - [Point-E](https://huggingface.co/spaces/openai/point-e) and [Pulsar+CLIP](https://colab.research.google.com/drive/1IvV3HGoNjRoyAKIX-aqSWa-t70PW3nPs) use language to generate 3D point clouds.

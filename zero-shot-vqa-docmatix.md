@@ -25,7 +25,7 @@ Although the generated answers semantically align with the reference answers, as
 
 Our community has recently focused on out-of-distribution (OOD) evaluation, utilizing methods like zero-shot transfer to unseen VQA tasks or fine-tuning on one VQA dataset and evaluating on another. This shift is increasingly relevant with the rise of synthetic datasets such as Docmatix, SciGraphQA, SimVQA used to fine-tune Vision Language Models (VLMs).
 
-Traditionally, VQA Accuracy has been the main metric for evaluating model performance. It relies on exact string matching between a model's predicted answer and a set of reference answers annotated by humans. This metric worked well because VQA evaluation followed an independent and identically distributed (IID) paradigm, where training and testing data distributions were similar, allowing models to adapt effectively [See details here](https://arxiv.org/pdf/2205.12191).
+Traditionally, VQA Accuracy has been the main metric for evaluating model performance. It relies on exact string matching between a model's predicted answer and a set of reference answers annotated by humans. This metric worked well because VQA evaluation followed an independent and identically distributed (IID) paradigm, where training and testing data distributions were similar, allowing models to adapt effectively [See details here](https://huggingface.co/papers/2205.12191).
 
 In OOD settings, generated answers might not match reference answers despite being correct due to differences in format, specificity, or interpretation. This paradigm is perfectly illustrated in the Figure 1, where we compare the zero-shot generated captions vs the reference captions from the synthetic dataset. This is particularly true for instruction-generated datasets and their human-curated counterparts.  Some [methods](https://proceedings.mlr.press/v202/li23q.html) have attempted to align answer formats with references, but this only addresses the symptom, not the root cause of flawed evaluation metrics. While human evaluation is reliable, it is costly and not scalable, highlighting the need for metrics that better align with human judgment. 
 
@@ -65,7 +65,7 @@ Although the content of the question and answer pairs in Docmatix and DocVQA is 
   <em> Figure 5: t-SNE visualization of Question, Answer and Image features from Docmatix and DocVQA datasets </em>
 </p>
 
-For our evaluation, we chose [MPLUGDocOwl1.5](https://arxiv.org/pdf/2403.12895) as a baseline model. This model achieves an 84% ANLS score on the test subset of the original DocVQA dataset. We then ran a zero-shot generation on a subset of Docmatix, consisting of 200 images. We used [Llama-2-Chat-7b](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) for rating the answers. 
+For our evaluation, we chose [MPLUGDocOwl1.5](https://huggingface.co/papers/2403.12895) as a baseline model. This model achieves an 84% ANLS score on the test subset of the original DocVQA dataset. We then ran a zero-shot generation on a subset of Docmatix, consisting of 200 images. We used [Llama-2-Chat-7b](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) for rating the answers. 
 
 ## About LAVE
 

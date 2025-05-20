@@ -23,7 +23,7 @@ Open AI 推出的 [Whisper](https://openai.com/research/whisper) 是一个通用
 
 ## 推测解码
 
-推测解码由 Yaniv Leviathan 等人在 [Fast Inference from Transformers via Speculative Decoding](https://arxiv.org/abs/2211.17192) 中提出。其思想是，一个更快的 **辅助模型** 通常会生成和更大的 **主模型** 相同的 token。
+推测解码由 Yaniv Leviathan 等人在 [Fast Inference from Transformers via Speculative Decoding](https://huggingface.co/papers/2211.17192) 中提出。其思想是，一个更快的 **辅助模型** 通常会生成和更大的 **主模型** 相同的 token。
 
 首先，辅助模型会通过自回归生成 $N$ 个 _候选 token_ 序列: $\hat{\boldsymbol{y}}_{1:N}$。在下图中，辅助模型生成了一个包含 5 个候选 token 的序列: `The quick brown sock jumps` 。
 
@@ -385,7 +385,7 @@ Nice！我们达到了 12.8％ 的 WER，但这次的推理时间只有 62 秒�
 
 #### 批次大小
 
-值得注意的是，使用推测解码获得的最大速度提升来自批次大小为 1。对于批处理推测解码，批处理中的所有候选 token 必须与验证 token 相匹配，才能被接受。如果批处理中给定位置的 token 不一致，则所有在该位置之前的候选 token 将被丢弃。因此，推测解码更倾向于较小的批次大小。在实践中，我们发现推测解码可以提供速度提升，直到批次大小达到 4 为止。当批次大小超过 4 时，推测解码的推理速度比仅用主模型还要慢。有关完整结果，请参阅 [Distil-Whisper 论文](https://arxiv.org/pdf/2311.00430.pdf) 的第 D.3 节。
+值得注意的是，使用推测解码获得的最大速度提升来自批次大小为 1。对于批处理推测解码，批处理中的所有候选 token 必须与验证 token 相匹配，才能被接受。如果批处理中给定位置的 token 不一致，则所有在该位置之前的候选 token 将被丢弃。因此，推测解码更倾向于较小的批次大小。在实践中，我们发现推测解码可以提供速度提升，直到批次大小达到 4 为止。当批次大小超过 4 时，推测解码的推理速度比仅用主模型还要慢。有关完整结果，请参阅 [Distil-Whisper 论文](https://huggingface.co/papers/2311.00430) 的第 D.3 节。
 
 ## 结论
 

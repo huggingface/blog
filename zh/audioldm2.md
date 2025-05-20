@@ -18,7 +18,7 @@ translators:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt=" 在 Colab 中打开 "/>
 </a>
 
-AudioLDM 2 由刘濠赫等人在 [AudioLDM 2: Learning Holistic Audio Generation with Self-supervised Pretraining](https://arxiv.org/abs/2308.05734) 一文中提出。 AudioLDM 2 接受文本提示作为输入并输出对应的音频，其可用于生成逼真的声效、人类语音以及音乐。
+AudioLDM 2 由刘濠赫等人在 [AudioLDM 2: Learning Holistic Audio Generation with Self-supervised Pretraining](https://huggingface.co/papers/2308.05734) 一文中提出。 AudioLDM 2 接受文本提示作为输入并输出对应的音频，其可用于生成逼真的声效、人类语音以及音乐。
 
 虽然生成的音频质量很高，但基于其原始实现进行推理的速度非常慢: 生成一个 10 秒的音频需要 30 秒以上的时间。慢的原因是多重的，包括其使用了多阶段建模、checkpoint 较大以及代码尚未优化等。
 
@@ -74,7 +74,7 @@ AudioLDM 2 由刘濠赫等人在 [AudioLDM 2: Learning Holistic Audio Generation
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/161_audioldm2/audioldm2.png?raw=true" width="600"/>
 </p>
 
-有关如何训练 AudioLDM 2 模型的完整的详细信息，读者可以参阅 [AudioLDM 2 论文](https://arxiv.org/abs/2308.05734)。
+有关如何训练 AudioLDM 2 模型的完整的详细信息，读者可以参阅 [AudioLDM 2 论文](https://huggingface.co/papers/2308.05734)。
 
 Hugging Face 🧨 Diffusers 提供了一个端到端的推理流水线类 [`AudioLDM2Pipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/audioldm2) 以将该模型的多阶段生成过程包装到单个可调用对象中，这样用户只需几行代码即可完成从文本生成音频的过程。
 
@@ -179,7 +179,7 @@ ${}^1$ 请注意，在实践中，我们通常会看到第二次生成比第一�
 
 ## 优化 1: Flash 注意力
 
-PyTorch 2.0 及更高版本包含了一个优化过的内存高效的注意力机制的实现，用户可通过 [`torch.nn.function.scaled_dot_product_attention`](https://pytorch.org/docs/master/generated/torch.nn.functional.scaled_dot_product_attention) (SDPA) 函数来调用该优化。该函数会根据输入自动使能多个内置优化，因此比普通的注意力实现运行得更快、更节省内存。总体而言，SDPA 函数的优化与 Dao 等人在论文 [Fast and Memory-Efficient Exact Attention with IO-Awareness](https://arxiv.org/abs/2205.14135) 中所提出的 _flash 注意力_ 类似。
+PyTorch 2.0 及更高版本包含了一个优化过的内存高效的注意力机制的实现，用户可通过 [`torch.nn.function.scaled_dot_product_attention`](https://pytorch.org/docs/master/generated/torch.nn.functional.scaled_dot_product_attention) (SDPA) 函数来调用该优化。该函数会根据输入自动使能多个内置优化，因此比普通的注意力实现运行得更快、更节省内存。总体而言，SDPA 函数的优化与 Dao 等人在论文 [Fast and Memory-Efficient Exact Attention with IO-Awareness](https://huggingface.co/papers/2205.14135) 中所提出的 _flash 注意力_ 类似。
 
 如果安装了 PyTorch 2.0 且 `torch.nn.function.scaled_dot_product_attention` 可用，Diffusers 将默认启用该函数。因此，仅需按照 [官方说明](https://pytorch.org/get-started/locally/) 安装 torch 2.0 或更高版本，不需对流水线🚀作任何改动，即能享受提速。
 

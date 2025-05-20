@@ -66,7 +66,7 @@ this problem by running **a lot** of tests (*ca.* 20,000 tests are run daily at 
 
 Second, there is a lot of research on just a single component of a Machine Learning model. *E.g.*, research
 teams investigate new forms of an attention mechanism that would apply to all existing pre-trained models as 
-has been done in the [Rethinking Attention with Performers](https://arxiv.org/abs/2009.14794). How should 
+has been done in the [Rethinking Attention with Performers](https://huggingface.co/papers/2009.14794). How should 
 we incorporate such research into the Transformers library? It is indeed problematic. Should we change 
 all existing models? This would go against points 3. and 4. as written above. Should we add 100+ new modeling 
 files each prefixed with `Performer...`? This seems absurd. In such a case there is sadly no good solution

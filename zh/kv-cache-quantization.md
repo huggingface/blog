@@ -39,7 +39,7 @@ KV 缓存量化到底是什么？如果你不熟悉这个术语，没关系！�
 
 ## 实现细节
 
-Transformers 中的键值缓存量化很大程度上受启发于 [KIVI: A Tuning-Free Asymmetric 2bit Quantization for kv Cache](https://arxiv.org/abs/2402.02750) 论文。该论文对大语言模型引入了 2 比特非对称量化，且不会降低质量。KIVI 采用按通道的量化键缓存以及按词元量化值缓存的方法，因为研究表明，就 LLM 而言，键在某些通道上容易出现高幅度的异常值，而值并无此表现。因此，采用按通道量化键和按词元量化值的方法，量化精度和原始精度之间的相对误差要小得多。
+Transformers 中的键值缓存量化很大程度上受启发于 [KIVI: A Tuning-Free Asymmetric 2bit Quantization for kv Cache](https://huggingface.co/papers/2402.02750) 论文。该论文对大语言模型引入了 2 比特非对称量化，且不会降低质量。KIVI 采用按通道的量化键缓存以及按词元量化值缓存的方法，因为研究表明，就 LLM 而言，键在某些通道上容易出现高幅度的异常值，而值并无此表现。因此，采用按通道量化键和按词元量化值的方法，量化精度和原始精度之间的相对误差要小得多。
 
 在我们集成至 transformers 时，键和值都是按通道量化的 [译者注: 原文为按词元量化，比照 [代码](https://github.com/huggingface/transformers/blob/main/src/transformers/cache_utils.py#L404) 后改为按通道量化]。量化的主要瓶颈是每次添加新词元 (即每个生成步骤) 时都需要对键和值进行量化和反量化，这可能会减慢生成速度。为了解决这个问题，我们决定保留固定大小的余留缓存 (residual cache)，以原始精度存储键和值。当余留缓存达到其最大容量时，存储在里面的键和值都会被量化，然后将其内容从余留缓存中清空。这个小技巧还有助于保持准确性，因为一些最新的键和值始终以其原始精度存储。设置余留缓存长度时主要需要考虑内存效率的权衡。虽然余留缓存以其原始精度存储键和值，但这可能会导致总体内存使用量增加。我们发现使用余留长度 128 作为基线效果不错。
 
@@ -93,7 +93,7 @@ Transformers 中的键值缓存量化很大程度上受启发于 [KIVI: A Tuning
 
 想知道再叠加权重量化会发生什么吗？当然，把这些技术结合使用可以进一步减少模型的内存占用，但也带来一个问题 - 它可能会进一步减慢速度。事实上，我们的实验表明，权重量化与 KV 缓存量化一起使用会导致速度降低三倍。但我们并未放弃，我们一直在努力寻找让这个组合无缝运行的方法。目前 `quanto` 库中缺少相应的优化算子，我们对社区任何有助于提高计算效率的贡献持开放态度。我们的目标是确保你的模型平稳运行，同时保持高水准的延迟和准确性。
 
-还需要注意的是，对输入提示的首次处理 (也称为预填充阶段) 仍然需要一次性计算整个输入的键值矩阵，这可能是长上下文的另一个内存瓶颈。这就是为什么生成第一个词元相关的延迟往往比后续词元更高的原因。还有一些其他策略可以通过优化注意力计算来减少预填充阶段的内存负担，如 [局部加窗注意力](https://arxiv.org/abs/2004.05150)、[Flash Attention](https://arxiv.org/abs/2307.08691) 等。如果预填充阶段内存不足，你可以使用 🤗 Transformers 中的 `FlashAttention` 以及 KV 缓存量化来进一步减少长输入提示的内存使用量。更多详情，请参阅 [文档](https://huggingface.co/docs/transformers/main/en/perf_infer_gpu_one#flashattention-2)。
+还需要注意的是，对输入提示的首次处理 (也称为预填充阶段) 仍然需要一次性计算整个输入的键值矩阵，这可能是长上下文的另一个内存瓶颈。这就是为什么生成第一个词元相关的延迟往往比后续词元更高的原因。还有一些其他策略可以通过优化注意力计算来减少预填充阶段的内存负担，如 [局部加窗注意力](https://huggingface.co/papers/2004.05150)、[Flash Attention](https://huggingface.co/papers/2307.08691) 等。如果预填充阶段内存不足，你可以使用 🤗 Transformers 中的 `FlashAttention` 以及 KV 缓存量化来进一步减少长输入提示的内存使用量。更多详情，请参阅 [文档](https://huggingface.co/docs/transformers/main/en/perf_infer_gpu_one#flashattention-2)。
 
 如果你想知道如果将内存使用量推至极限，我们最长可以支持多少个词元的上下文，那么在 80GB A100 中启用 Flash Attention 时，量化 KV 缓存可以支持多达 128k 个词元。而使用半精度缓存时，最长为 40k 个词元。
 
@@ -122,7 +122,7 @@ I like rock music because it's loud and energetic. I like to listen to it when I
 
 ## 总结
 
-还有很多可以减少键值缓存内存占用的方法，如 [MultiQueryAttention](https://arxiv.org/abs/1911.02150)、[GroupedQueryAttention](https://arxiv.org/abs/2305.13245) 以及最近的 [KV 缓存检索](https://arxiv.org/abs/2403.09054) 等等。虽然其中一些方法与模型架构相耦合，但还是有不少方法可以在训后阶段使用，量化只是此类训后优化技术其中一种。总结一下本文:
+还有很多可以减少键值缓存内存占用的方法，如 [MultiQueryAttention](https://huggingface.co/papers/1911.02150)、[GroupedQueryAttention](https://huggingface.co/papers/2305.13245) 以及最近的 [KV 缓存检索](https://huggingface.co/papers/2403.09054) 等等。虽然其中一些方法与模型架构相耦合，但还是有不少方法可以在训后阶段使用，量化只是此类训后优化技术其中一种。总结一下本文:
 
 1. **需要在内存与速度之间折衷**: 通过将 KV 缓存量化为较低精度的格式，内存使用量可以显著减少，从而支持更长的文本生成而不会遇到内存限制。但，用户必须根据实际用例决定能不能接受放弃一点点生成速度的代价。
 2. **保持准确性**: 尽管精度有所降低， `int4` KV 缓存量化仍可将模型准确性保持在令人满意的程度，确保生成的文本保持上下文相关性和一致性。
@@ -137,8 +137,8 @@ I like rock music because it's loud and energetic. I like to listen to it when I
 
 ## 更多资源
 
-1. Zirui Liu, Jiayi Yuan, Hongye Jin, Shaochen Zhong, Zhaozhuo Xu, Braverman, V., Beidi Chen, & Hu, X. (2023). [KIVI : Plug-and-play 2bit KV Cache Quantization with Streaming Asymmetric Quantization](https://arxiv.org/abs/2402.02750).
+1. Zirui Liu, Jiayi Yuan, Hongye Jin, Shaochen Zhong, Zhaozhuo Xu, Braverman, V., Beidi Chen, & Hu, X. (2023). [KIVI : Plug-and-play 2bit KV Cache Quantization with Streaming Asymmetric Quantization](https://huggingface.co/papers/2402.02750).
 2. Databricks 博文: [LLM Inference Performance Engineering: Best Practices](https://www.databricks.com/blog/llm-inference-performance-engineering-best-practices)
-3. Coleman Hooper, Sehoon Kim, Hiva Mohammadzadeh, Michael W. Mahoney, Yakun Sophia Shao, Kurt Keutzer, & Amir Gholami. (2024). [KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization](https://arxiv.org/abs/2401.18079).
-4. T. Dettmers, M. Lewis, Y. Belkada, and L. Zettlemoyer, (2022). [LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale](https://arxiv.org/abs/2208.07339).
+3. Coleman Hooper, Sehoon Kim, Hiva Mohammadzadeh, Michael W. Mahoney, Yakun Sophia Shao, Kurt Keutzer, & Amir Gholami. (2024). [KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization](https://huggingface.co/papers/2401.18079).
+4. T. Dettmers, M. Lewis, Y. Belkada, and L. Zettlemoyer, (2022). [LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale](https://huggingface.co/papers/2208.07339).
 5. A. Gholami, S. Kim, Z. Dong, Z. Yao, M. W. Mahoney, and K. Keutzer, (2021). A Survey of Quantization Methods for Efficient Neural Network Inference.

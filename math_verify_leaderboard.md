@@ -29,7 +29,7 @@ To which the answer would be:
 71
 ```
 
-In the leaderboard, models would have to end their answers with a very specific string (following the [Minerva-Math paper](https://arxiv.org/abs/2206.14858)):
+In the leaderboard, models would have to end their answers with a very specific string (following the [Minerva-Math paper](https://huggingface.co/papers/2206.14858)):
 ```
 “Final answer is [ANSWER]. I hope it is correct.”
 ```

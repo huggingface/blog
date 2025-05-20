@@ -19,7 +19,7 @@ In this blog post, we will discuss the past, present, and future of text-to-vide
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/140_text-to-video/make-a-video.png" alt="samples"><br>
-    <em>Examples of videos generated from various text description inputs, image taken from <a href=https://arxiv.org/abs/2209.14792>Make-a-Video</a>.</em>
+    <em>Examples of videos generated from various text description inputs, image taken from <a href=https://huggingface.co/papers/2209.14792>Make-a-Video</a>.</em>
 </p>
 
 ## Text-to-Video vs. Text-to-Image
@@ -47,14 +47,14 @@ Like the text-to-image task, early work on text-to-video generation dates back o
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/140_text-to-video/TGANs-C.png" alt="tgans-c"><br>
-    <em>Initial text-to-video models were extremely limited in resolution, context and length, image taken from <a href=https://arxiv.org/abs/1804.08264>TGANs-C</a>.</em>
+    <em>Initial text-to-video models were extremely limited in resolution, context and length, image taken from <a href=https://huggingface.co/papers/1804.08264>TGANs-C</a>.</em>
 </p>
 
 Taking inspiration from the success of large-scale pretrained transformer models in text (GPT-3) and image (DALL-E), the next surge of text-to-video generation research adopted transformer architectures. [Phenaki](https://huggingface.co/papers/2210.02399), [Make-A-Video](https://huggingface.co/papers/2209.14792), [NUWA](https://huggingface.co/papers/2111.12417), [VideoGPT](https://huggingface.co/papers/2104.10157) and [CogVideo](https://huggingface.co/papers/2205.15868) all propose transformer-based frameworks, while works such as [TATS](https://huggingface.co/papers/2204.03638) propose hybrid methods that combine VQGAN for image generation and a time-sensitive transformer module for sequential generation of frames. Out of this second wave of works, Phenaki is particularly interesting as it enables generating arbitrary long videos conditioned on a sequence of prompts, in other words, a story line. Similarly, [NUWA-Infinity](https://huggingface.co/papers/2207.09814) proposes an autoregressive over autoregressive generation mechanism for infinite image and video synthesis from text inputs, enabling the generation of long, HD quality videos. However, neither Phenaki or NUWA models are publicly available.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/140_text-to-video/phenaki.png" alt="phenaki"><br>
-    <em>Phenaki features a transformer-based architecture, image taken from <a href=https://arxiv.org/abs/2210.02399>here</a>.</em>
+    <em>Phenaki features a transformer-based architecture, image taken from <a href=https://huggingface.co/papers/2210.02399>here</a>.</em>
 </p>
 
 The third and current wave of text-to-video models features predominantly diffusion-based architectures. The remarkable success of diffusion models in diverse, hyper-realistic, and contextually rich image generation has led to an interest in generalizing diffusion models to other domains such as audio, 3D, and, more recently, video. This wave of models is pioneered by [Video Diffusion Models](https://huggingface.co/papers/2204.03458) (VDM), which extend diffusion models to the video domain, and [MagicVideo](https://huggingface.co/papers/2211.11018), which proposes a framework to generate video clips in a low-dimensional latent space and reports huge efficiency gains over VDM. Another notable mention is [Tune-a-Video](https://huggingface.co/papers/2212.11565), which fine-tunes a pretrained text-to-image model with a single text-video pair and enables changing the video content while preserving the motion. The continuously expanding list of text-to-video diffusion models that followed include [Video LDM](https://huggingface.co/papers/2304.08818), [Text2Video-Zero](https://huggingface.co/papers/2303.13439), [Runway Gen1 and Gen2](https://huggingface.co/papers/2302.03011), and [NUWA-XL](https://huggingface.co/papers/2303.12346).

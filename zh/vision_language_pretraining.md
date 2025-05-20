@@ -55,7 +55,7 @@ translators:
 
 ## 学习策略
 
-视觉语言模型通常由 3 个关键元素组成: 图像编码器、文本编码器以及融合两个编码器的信息的策略。这些关键元素紧密耦合在一起，因为损失函数是围绕模型架构和学习策略设计的。虽然视觉语言模型研究算不上是一个新的研究领域，但此类模型的设计随着时间的变迁发生了巨大变化。早期的研究采用手工设计的图像描述子、预训练词向量或基于频率的 TF-IDF 特征，而最新的研究主要采用 [Transformer](https://arxiv.org/abs/1706.03762) 架构的图像和文本编码器来单独或联合学习图像和文本特征。我们使用战略性的预训练目标来训练这些模型，从而使之可用于各种下游任务。
+视觉语言模型通常由 3 个关键元素组成: 图像编码器、文本编码器以及融合两个编码器的信息的策略。这些关键元素紧密耦合在一起，因为损失函数是围绕模型架构和学习策略设计的。虽然视觉语言模型研究算不上是一个新的研究领域，但此类模型的设计随着时间的变迁发生了巨大变化。早期的研究采用手工设计的图像描述子、预训练词向量或基于频率的 TF-IDF 特征，而最新的研究主要采用 [Transformer](https://huggingface.co/papers/1706.03762) 架构的图像和文本编码器来单独或联合学习图像和文本特征。我们使用战略性的预训练目标来训练这些模型，从而使之可用于各种下游任务。
 
 在本节中，我们将讨论视觉语言模型的一些典型预训练目标和策略，这些模型已被证明有良好的迁移性能。我们还将讨论其他有趣的东西，它们要么特定于某些预训练目标，要么可以用作预训练的通用组件。
 
@@ -66,7 +66,7 @@ translators:
 - **MLM / ITM**: 使用掩码语言建模 (Masked-Language Modeling，MLM) 和图像文本匹配 (Image-Text Matching，ITM) 目标将图像的各部分与文本对齐
 - **无训练**: 通过迭代优化来利用独立视觉和语言模型
 
-请注意，本节并未详尽陈述所有方法，还有各种其他方法以及混合策略，例如 [Unified-IO](https://arxiv.org/abs/2206.08916)。如需更全面地了解多模态模型，请参阅 [此项工作](https://arxiv.org/abs/2210.09263)。
+请注意，本节并未详尽陈述所有方法，还有各种其他方法以及混合策略，例如 [Unified-IO](https://huggingface.co/papers/2206.08916)。如需更全面地了解多模态模型，请参阅 [此项工作](https://huggingface.co/papers/2210.09263)。
 
 ### 1) 对比学习 
 
@@ -75,11 +75,11 @@ translators:
     <em>对比预训练和零样本图像分类有关内容参见 <a href=https://openai.com/blog/clip>这里</a></em>
 </p>
 
-对比学习是视觉模型常用的预训练目标，也已被证明同时是视觉语言模型的高效预训练目标。近期的工作如 [CLIP](https://arxiv.org/abs/2103.00020)、[CLOOB](https://arxiv.org/abs/2110.11316)、[ALIGN](https://arxiv.org/abs/2102.05918) 和 [DeCLIP](https://arxiv.org/abs/2110.05208) 在 {图像，标题} 对组成的大型数据集上，通过使用对比损失函数联合训练文本编码器和图像编码器，从而桥接视觉和语言两个模态。对比学习旨在将输入图像和文本映射到相同的特征空间，使得图像 - 文本对的嵌入之间的距离在两者匹配时最小化，而在不匹配时最大化。
+对比学习是视觉模型常用的预训练目标，也已被证明同时是视觉语言模型的高效预训练目标。近期的工作如 [CLIP](https://huggingface.co/papers/2103.00020)、[CLOOB](https://huggingface.co/papers/2110.11316)、[ALIGN](https://huggingface.co/papers/2102.05918) 和 [DeCLIP](https://huggingface.co/papers/2110.05208) 在 {图像，标题} 对组成的大型数据集上，通过使用对比损失函数联合训练文本编码器和图像编码器，从而桥接视觉和语言两个模态。对比学习旨在将输入图像和文本映射到相同的特征空间，使得图像 - 文本对的嵌入之间的距离在两者匹配时最小化，而在不匹配时最大化。
 
 CLIP 仅采用文本和图像嵌入之间的余弦距离作为距离度量。而 ALIGN 和 DeCLIP 等模型则设计了自己的距离度量，这些距离在设计时考虑了数据集是有噪声的。
 
-另一项工作 [LiT](https://arxiv.org/abs/2111.07991) 引入了一种冻结图像编码器而仅使用 CLIP 预训练目标来微调文本编码器的简单方法。作者将这个想法解释为 一种教文本编码器更好地读懂图像编码器生成的图像嵌入的方法。这种方法已被证明是有效的，并且比 CLIP 的样本效率更高。[FLAVA](https://arxiv.org/abs/2112.04482) 等其他工作将对比学习和其他预训练策略相结合来对齐视觉和语言嵌入。
+另一项工作 [LiT](https://huggingface.co/papers/2111.07991) 引入了一种冻结图像编码器而仅使用 CLIP 预训练目标来微调文本编码器的简单方法。作者将这个想法解释为 一种教文本编码器更好地读懂图像编码器生成的图像嵌入的方法。这种方法已被证明是有效的，并且比 CLIP 的样本效率更高。[FLAVA](https://huggingface.co/papers/2112.04482) 等其他工作将对比学习和其他预训练策略相结合来对齐视觉和语言嵌入。
 
 ### 2) PrefixLM
 
@@ -88,7 +88,7 @@ CLIP 仅采用文本和图像嵌入之间的余弦距离作为距离度量。而
     <em>展示 PrefixLM 预训练策略的图片 (<a ahref=https://ai.googleblog.com/2021/10/simvlm-simple-visual-language-model-pre.html>出处<a>)</em>
 </p>
 
-另一种训练视觉语言模型的方法是使用 PrefixLM 目标。[SimVLM](https://arxiv.org/abs/2108.10904) 和 [VirTex](https://arxiv.org/abs/2006.06666v3) 等模型使用该预训练目标并使用一个统一的由 transformer 编码器和 transformer 解码器组成的多模态架构，有点类似于自回归语言模型。
+另一种训练视觉语言模型的方法是使用 PrefixLM 目标。[SimVLM](https://huggingface.co/papers/2108.10904) 和 [VirTex](https://arxiv.org/abs/2006.06666v3) 等模型使用该预训练目标并使用一个统一的由 transformer 编码器和 transformer 解码器组成的多模态架构，有点类似于自回归语言模型。
 
 让我们拆解一下，看看它是如何工作的。具有前缀目标的语言模型在给定输入文本作为前缀的情况下预测下一个词。例如，给定序列 “一个男人站在墙角”，我们可以使用” 一个男人站在” 作为前缀并训练模型以预测下一个词: 可以是 “墙角” 或另一个合理的补全词。
 
@@ -105,9 +105,9 @@ Visual transformers (ViT) 通过将每个图像划分为多个块 (patch) 并将
 
 虽然将视觉信息融合到语言模型中非常有效，但能够使用预训练语言模型 (LM) 而无需微调会更有效。因此，视觉语言模型的另一个预训练目标是学习与冻结语言模型对齐的图像嵌入。
         
-[Frozen](https://arxiv.org/abs/2106.13884)、[MAPL](https://arxiv.org/abs/2210.07179) 和 [ClipCap](https://arxiv.org/abs/2111.09734) 使用了冻结 PrefixLM 预训练目标。它们在训练时仅更新图像编码器的参数以生成图像嵌入，这些图像嵌入可以用作预训练的冻结语言模型的前缀，其方式与上面讨论的 PrefixLM 目标类似。Frozen 和 ClipCap 都在对齐的图像文本 (标题) 数据集上进行训练，目的是在给定图像嵌入和前缀文本的情况下生成标题中的下一个词。
+[Frozen](https://huggingface.co/papers/2106.13884)、[MAPL](https://huggingface.co/papers/2210.07179) 和 [ClipCap](https://huggingface.co/papers/2111.09734) 使用了冻结 PrefixLM 预训练目标。它们在训练时仅更新图像编码器的参数以生成图像嵌入，这些图像嵌入可以用作预训练的冻结语言模型的前缀，其方式与上面讨论的 PrefixLM 目标类似。Frozen 和 ClipCap 都在对齐的图像文本 (标题) 数据集上进行训练，目的是在给定图像嵌入和前缀文本的情况下生成标题中的下一个词。
         
-最后，[Flamingo](https://arxiv.org/abs/2204.14198) 索性把预训练视觉编码器和语言模型都冻结了，并在一系列广泛的开放式视觉和语言任务上刷新了少样本学习的最高水平。Flamingo 通过在预训练的冻结视觉模型之上添加一个感知器重采样器 (Perceiver Resampler)  模块并在冻结的预训练 LM 层之间插入新的交叉注意层以根据视觉数据调节 LM 来达到这个性能。
+最后，[Flamingo](https://huggingface.co/papers/2204.14198) 索性把预训练视觉编码器和语言模型都冻结了，并在一系列广泛的开放式视觉和语言任务上刷新了少样本学习的最高水平。Flamingo 通过在预训练的冻结视觉模型之上添加一个感知器重采样器 (Perceiver Resampler)  模块并在冻结的预训练 LM 层之间插入新的交叉注意层以根据视觉数据调节 LM 来达到这个性能。
         
 冻结 PrefixLM 预训练目标的一个很好的优势是它可以使用有限的对齐图像文本数据进行训练，这对于那些没有对齐多模态数据集的领域特别有用。
         
@@ -118,22 +118,22 @@ Visual transformers (ViT) 通过将每个图像划分为多个块 (patch) 并将
     <em> 使用交叉注意力机制将视觉信息直接融合到语言模型中 (<a href=https://www.semanticscholar.org/paper/VisualGPT%3A-Data-efficient-Adaptation-of-Pretrained-Chen-Guo/616e0ed02ca024a8c1d4b86167f7486ea92a13d9>图片出处</a>)</em>
 </p>
         
-将预训练语言模型用于多模态任务的另一种方法是使用交叉注意机制将视觉信息直接融合到语言模型解码器的层中，而不是使用图像作为语言模型的附加前缀。[VisualGPT](https://arxiv.org/abs/2102.10407)、[VC-GPT](https://arxiv.org/abs/2201.12723) 和 [Flamingo](https://arxiv.org/abs/2204.14198) 使用此预训练策略并在图像标题任务和视觉问答任务上进行训练。此类模型的主要目标是在把视觉信息融入文本生成能力时在这两者间取得高效的平衡，这在没有大型多模态数据集的情况下非常重要。
+将预训练语言模型用于多模态任务的另一种方法是使用交叉注意机制将视觉信息直接融合到语言模型解码器的层中，而不是使用图像作为语言模型的附加前缀。[VisualGPT](https://huggingface.co/papers/2102.10407)、[VC-GPT](https://huggingface.co/papers/2201.12723) 和 [Flamingo](https://huggingface.co/papers/2204.14198) 使用此预训练策略并在图像标题任务和视觉问答任务上进行训练。此类模型的主要目标是在把视觉信息融入文本生成能力时在这两者间取得高效的平衡，这在没有大型多模态数据集的情况下非常重要。
 
 VisualGPT 等模型使用视觉编码器来生成图像嵌入，并将视觉嵌入提供给预训练语言解码器模块的交叉注意层，以生成合理的标题。最近的一项工作 [FIBER](http://arxiv.org/abs/2206.07643) 将具有门控机制的交叉注意力层插入到视觉和语言的主干模型中，以实现更高效的多模态融合，并使能各种其他下游任务，如图文互搜、开放域 (open-vocabulary) 目标检测等。
 
 ### 4) 掩膜语言建模及图文匹配
 
-另一派视觉语言模型把掩码语言建模 (MLM) 和图文匹配 (ITM) 目标组合起来使用，将图像的特定部分与文本对齐，并使能各种下游任务，例如视觉问答、视觉常识推理、文搜图以及文本引导的目标检测。遵循这种预训练设置的模型包括 [VisualBERT](https://arxiv.org/abs/1908.03557)、[FLAVA](https://arxiv.org/abs/2112.04482)、[ViLBERT](https://arxiv.org/abs/1908.02265)、[LXMERT](https://arxiv.org/abs/1908.07490) 和 [BridgeTower](https://arxiv.org/abs/2206.08657)。
+另一派视觉语言模型把掩码语言建模 (MLM) 和图文匹配 (ITM) 目标组合起来使用，将图像的特定部分与文本对齐，并使能各种下游任务，例如视觉问答、视觉常识推理、文搜图以及文本引导的目标检测。遵循这种预训练设置的模型包括 [VisualBERT](https://huggingface.co/papers/1908.03557)、[FLAVA](https://huggingface.co/papers/2112.04482)、[ViLBERT](https://huggingface.co/papers/1908.02265)、[LXMERT](https://huggingface.co/papers/1908.07490) 和 [BridgeTower](https://huggingface.co/papers/2206.08657)。
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/mlm_itm.png" alt="MLM / ITM"><br>
-    <em> 将图像与文本按部分相应对齐 (<a href=https://arxiv.org/abs/1908.02265>图片出处</a>)</em>
+    <em> 将图像与文本按部分相应对齐 (<a href=https://huggingface.co/papers/1908.02265>图片出处</a>)</em>
 </p>
 
 让我们解释一下 MLM 和 ITM 目标。给定一个部分遮盖的标题，MLM 的目标是根据相应的图像预测遮盖的单词。请注意，MLM 目标需要使用带有边界框的标注丰富的多模态数据集，或者使用目标检测模型为部分输入文本生成候选目标区域。
 
-对于 ITM 目标，给定图像和标题对，任务是预测标题是否与图像匹配。负样本通常是从数据集中随机抽取的。MLM 和 ITM 目标通常在多模态模型的预训练期间结合使用。例如，VisualBERT 提出了一种类似 BERT 的架构，它使用预训练的目标检测模型 [Faster-RCNN](https://arxiv.org/abs/1506.01497) 来检测目标。VisualBERT 在预训练期间结合了 MLM 和 ITM 目标，通过自注意力机制隐式对齐输入文本的元素和相应输入图像中的区域。
+对于 ITM 目标，给定图像和标题对，任务是预测标题是否与图像匹配。负样本通常是从数据集中随机抽取的。MLM 和 ITM 目标通常在多模态模型的预训练期间结合使用。例如，VisualBERT 提出了一种类似 BERT 的架构，它使用预训练的目标检测模型 [Faster-RCNN](https://huggingface.co/papers/1506.01497) 来检测目标。VisualBERT 在预训练期间结合了 MLM 和 ITM 目标，通过自注意力机制隐式对齐输入文本的元素和相应输入图像中的区域。
 
 另一项工作 FLAVA 由一个图像编码器、一个文本编码器和一个多模态编码器组成，用于融合和对齐图像和文本表示以进行多模态推理，所有这些都基于 transformers。为了实现这一点，FLAVA 使用了多种预训练目标: MLM、ITM，以及 掩膜图像建模 (Masked-Image Modeling，MIM) 和对比学习。
 
@@ -141,7 +141,7 @@ VisualGPT 等模型使用视觉编码器来生成图像嵌入，并将视觉嵌�
 
 最后，各种优化策略旨在使用预训练的图像和文本模型来桥接图像和文本表示，或者使预训练的多模态模型能够在无需额外训练的情况下适应新的下游任务。
 
-例如，[MaGiC](https://arxiv.org/abs/2205.02655) 提出通过预训练的自回归语言模型进行迭代优化，为输入图像生成标题。为此，MaGiC 使用生成的词的 CLIP 嵌入和输入图像的 CLIP 嵌入来计算基于 CLIP 的 “魔法分数 (magic score) ”。
+例如，[MaGiC](https://huggingface.co/papers/2205.02655) 提出通过预训练的自回归语言模型进行迭代优化，为输入图像生成标题。为此，MaGiC 使用生成的词的 CLIP 嵌入和输入图像的 CLIP 嵌入来计算基于 CLIP 的 “魔法分数 (magic score) ”。
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/asif.png" alt="ASIF" width=500><br>
@@ -149,7 +149,7 @@ VisualGPT 等模型使用视觉编码器来生成图像嵌入，并将视觉嵌�
 </p>
 
 
-[ASIF](https://arxiv.org/abs/2210.01738) 提出了一种简单的方法，可以使用相对较小的多模态数据集将预训练的单模态图像和文本模型转换为多模态模型来用于图像标题生成，无需附加训练。ASIF 背后的关键直觉是相似图像的标题也彼此相似。因此，我们可以通过使用小型数据集里的真实多模态对的来构建一个相对表示空间，然后在该空间执行基于相似性的搜索。
+[ASIF](https://huggingface.co/papers/2210.01738) 提出了一种简单的方法，可以使用相对较小的多模态数据集将预训练的单模态图像和文本模型转换为多模态模型来用于图像标题生成，无需附加训练。ASIF 背后的关键直觉是相似图像的标题也彼此相似。因此，我们可以通过使用小型数据集里的真实多模态对的来构建一个相对表示空间，然后在该空间执行基于相似性的搜索。
 
 ## 数据集
 
@@ -165,7 +165,7 @@ VisualGPT 等模型使用视觉编码器来生成图像嵌入，并将视觉嵌�
 
 预训练视觉语言模型通常还会针对各种下游任务进行训练，例如视觉问答、文本引导目标检测、文本引导图像修复、多模态分类以及各种独立的 NLP 和计算机视觉任务。
 
-针对问答类下游任务进行微调的模型，例如 [ViLT](https://arxiv.org/abs/2102.03334) 和 [GLIP](https://arxiv.org/abs/2112.03857)，一般使用 [VQA](https://visualqa.org/) (视觉问答) 、[VQA v2](https://visualqa.org/)、[NLVR2](https://lil.nlp.cornell.edu/nlvr/)、[OKVQA](https://okvqa.allenai.org/)、[TextVQA](https://huggingface.co/datasets/textvqa)、[TextCaps](https://textvqa.org/textcaps/) 和 [VizWiz](https://vizwiz.org/) 数据集。这些数据集的图像通常都配有多个开放式问题和答案。此外，VizWiz 和 TextCaps 等数据集也可用于图像分割和目标定位这些下游任务。其他一些有趣的多模态下游数据集有，用于多模态分类的 [Hateful Memes](https://huggingface.co/datasets/limjiayi/hateful_memes_expanded)，用于视觉蕴含预测的 [SNLI-VE](https://github.com/necla-ml/SNLI-VE) for visual entailment prediction, and [Winoground](https://huggingface.co/datasets/facebook/winoground)，以及用于视觉语言组合推理的 Winoground。
+针对问答类下游任务进行微调的模型，例如 [ViLT](https://huggingface.co/papers/2102.03334) 和 [GLIP](https://huggingface.co/papers/2112.03857)，一般使用 [VQA](https://visualqa.org/) (视觉问答) 、[VQA v2](https://visualqa.org/)、[NLVR2](https://lil.nlp.cornell.edu/nlvr/)、[OKVQA](https://okvqa.allenai.org/)、[TextVQA](https://huggingface.co/datasets/textvqa)、[TextCaps](https://textvqa.org/textcaps/) 和 [VizWiz](https://vizwiz.org/) 数据集。这些数据集的图像通常都配有多个开放式问题和答案。此外，VizWiz 和 TextCaps 等数据集也可用于图像分割和目标定位这些下游任务。其他一些有趣的多模态下游数据集有，用于多模态分类的 [Hateful Memes](https://huggingface.co/datasets/limjiayi/hateful_memes_expanded)，用于视觉蕴含预测的 [SNLI-VE](https://github.com/necla-ml/SNLI-VE) for visual entailment prediction, and [Winoground](https://huggingface.co/datasets/facebook/winoground)，以及用于视觉语言组合推理的 Winoground。
 
 请注意，视觉语言模型也可用于各种经典的 NLP 和计算机视觉任务，例如文本或图像分类。此时，通常使用单模态数据集如 [SST2](https://huggingface.co/datasets/sst2)、[ImageNet-1k](https://huggingface.co/datasets/imagenet-1k) 来完成此类下游任务。此外，[COCO](https://cocodataset.org/) 和 [Conceptual Captions](https://ai.google.com/research/ConceptualCaptions/) 等数据集也常用于预训练模型以及标题生成等下游任务。
 
@@ -224,7 +224,7 @@ text = "How many cats are there?"
 inputs = processor(image, text, return_tensors="pt")
 ```
 
-最后，我们可以使用预处理后的图像和问题作为输入进行推理，并打印出预测答案。但是，要牢记的重要一点是确保你的文本输入与训练时所用的问题模板相似。你可以参考 [论文和数据集](https://arxiv.org/abs/2102.03334) 来了解如何生成这些问题。
+最后，我们可以使用预处理后的图像和问题作为输入进行推理，并打印出预测答案。但是，要牢记的重要一点是确保你的文本输入与训练时所用的问题模板相似。你可以参考 [论文和数据集](https://huggingface.co/papers/2102.03334) 来了解如何生成这些问题。
 
 ```py
 import torch
@@ -264,7 +264,7 @@ texts = ["a cat", "a remote", "a blanket"]
 inputs = processor(text=texts, images=[image] * len(texts), padding=True, return_tensors="pt")
 ```
 
-与 ViLT 类似，重要的是要参考 [原作](https://arxiv.org/abs/2112.10003)，看看他们用什么样的文本提示来训练模型，以便在推理时获得最佳性能。虽然 CLIPSeg 在简单的对象描述 (例如 “汽车”) 上进行训练的，但其 CLIP 主干是在设计好的文本模板 (例如 “汽车图像”、“汽车照片”) 上预训练的，并在随后的训练中冻结。输入经过预处理后，我们可以执行推理以获得每个文本查询的二值分割图。
+与 ViLT 类似，重要的是要参考 [原作](https://huggingface.co/papers/2112.10003)，看看他们用什么样的文本提示来训练模型，以便在推理时获得最佳性能。虽然 CLIPSeg 在简单的对象描述 (例如 “汽车”) 上进行训练的，但其 CLIP 主干是在设计好的文本模板 (例如 “汽车图像”、“汽车照片”) 上预训练的，并在随后的训练中冻结。输入经过预处理后，我们可以执行推理以获得每个文本查询的二值分割图。
 
 ```py
 import torch
@@ -303,9 +303,9 @@ ax[0].imshow(image)
 
 伴随着视觉语言模型的巨大进步，我们看到了新的下游任务和应用领域的出现，例如医学和机器人技术。例如，视觉语言模型越来越多地被用于医疗，产生了诸如 [Clinical-BERT](https://ojs.aaai.org/index.php/AAAI/article/view/20204) 之类的工作来根据放射照片来进行医学诊断和报告生成，以及 [MedFuseNet](https://www.nature.com/articles/s41598-021-98390-1) 来用于医学领域的视觉问答。
 
-我们还看到大量将联合视觉语言表示应用于各种领域的工作，如用于图像处理 (例如，[StyleCLIP](https://arxiv.org/abs/2103.17249)、[StyleMC](https://arxiv.org/abs/2112.08493)，[DiffusionCLIP](https://arxiv.org/abs/2110.02711))、基于文本的视频检索 (例如，[X-CLIP](https://arxiv.org/abs/2207.07285)) 、基于文本的操作 (例如，[Text2Live](https://arxiv.org/abs/2204.02491) 以及 基于文本的 3D 形状和纹理操作 (例如，[AvatarCLIP](https://arxiv.org/abs/2205.08535)，[CLIP-NeRF](https://arxiv.org/abs/2112.05139), [Latent3D](https://arxiv.org/abs/2202.06079), [CLIPFace](https://arxiv.org/abs/2212.01406), [Text2Mesh](https://arxiv.org/abs/2112.03221))。在类似的工作中，[MVT](https://arxiv.org/abs/2204.02174) 提出了一种联合 3D 场景 - 文本表示模型，可用于各种下游任务，例如 3D 场景补全。
+我们还看到大量将联合视觉语言表示应用于各种领域的工作，如用于图像处理 (例如，[StyleCLIP](https://huggingface.co/papers/2103.17249)、[StyleMC](https://huggingface.co/papers/2112.08493)，[DiffusionCLIP](https://huggingface.co/papers/2110.02711))、基于文本的视频检索 (例如，[X-CLIP](https://huggingface.co/papers/2207.07285)) 、基于文本的操作 (例如，[Text2Live](https://huggingface.co/papers/2204.02491) 以及 基于文本的 3D 形状和纹理操作 (例如，[AvatarCLIP](https://huggingface.co/papers/2205.08535)，[CLIP-NeRF](https://huggingface.co/papers/2112.05139), [Latent3D](https://huggingface.co/papers/2202.06079), [CLIPFace](https://huggingface.co/papers/2212.01406), [Text2Mesh](https://huggingface.co/papers/2112.03221))。在类似的工作中，[MVT](https://huggingface.co/papers/2204.02174) 提出了一种联合 3D 场景 - 文本表示模型，可用于各种下游任务，例如 3D 场景补全。
 
-虽然机器人研究尚未大规模利用视觉语言模型，但我们看到 [CLIPort](https://arxiv.org/abs/2109.12098) 等工作利用联合视觉语言表示进行端到端模仿学习，并宣称比之前的 SOTA 有了很大的改进。我们还看到，大型语言模型越来越多地被用于机器人任务，例如常识推理、导航和任务规划。例如，[ProgPrompt](https://arxiv.org/abs/2209.11302) 提出了一个使用大语言模型 (Large Language Model，LLM) 生成情境机器人任务计划的框架。同样，[SayCan](https://say-can.github.io/assets/palm_saycan.pdf) 使用 LLM 根据给定的环境及环境中物体的视觉描述，选择最合理的动作。尽管这些进展令人印象深刻，但由于目标检测数据集的限制，机器人研究仍然局限在有限的环境和目标集中。随着 [OWL-ViT](https://arxiv.org/abs/2205.06230) 和 [GLIP](https://arxiv.org/abs/2112.03857) 等开放集目标检测模型的出现，我们可以期待多模态模型与机器人导航、推理、操作和任务规划框架的集成会更紧密。
+虽然机器人研究尚未大规模利用视觉语言模型，但我们看到 [CLIPort](https://huggingface.co/papers/2109.12098) 等工作利用联合视觉语言表示进行端到端模仿学习，并宣称比之前的 SOTA 有了很大的改进。我们还看到，大型语言模型越来越多地被用于机器人任务，例如常识推理、导航和任务规划。例如，[ProgPrompt](https://huggingface.co/papers/2209.11302) 提出了一个使用大语言模型 (Large Language Model，LLM) 生成情境机器人任务计划的框架。同样，[SayCan](https://say-can.github.io/assets/palm_saycan.pdf) 使用 LLM 根据给定的环境及环境中物体的视觉描述，选择最合理的动作。尽管这些进展令人印象深刻，但由于目标检测数据集的限制，机器人研究仍然局限在有限的环境和目标集中。随着 [OWL-ViT](https://huggingface.co/papers/2205.06230) 和 [GLIP](https://huggingface.co/papers/2112.03857) 等开放集目标检测模型的出现，我们可以期待多模态模型与机器人导航、推理、操作和任务规划框架的集成会更紧密。
         
 ## 结论
 

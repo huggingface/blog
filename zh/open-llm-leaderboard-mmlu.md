@@ -17,9 +17,9 @@ translators:
 
 Open LLM 排行榜是 Hugging Face 设立的一个用于评测开放大语言模型的公开榜单。最近，随着 [**Falcon 🦅**](https://huggingface.co/tiiuae/falcon-40b) 的发布并在 [Open LLM 排行榜](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) 上疯狂屠榜，围绕这个榜单在推特上掀起了一轮热烈的讨论。
 
-讨论主要围绕排行榜上的四个评测基准其中之一: [大规模多任务语言理解](https://arxiv.org/abs/2009.03300) (Massive Multitask Language Understanding，MMLU) 基准。
+讨论主要围绕排行榜上的四个评测基准其中之一: [大规模多任务语言理解](https://huggingface.co/papers/2009.03300) (Massive Multitask Language Understanding，MMLU) 基准。
 
-社区发现头部模型 [**LLaMA 🦙**](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/) 在 Open LLM 榜单上的 MMLU 得分比 [LLaMA 论文](https://arxiv.org/abs/2302.13971) 中宣称的数字要低很多，大家都感觉很奇怪。
+社区发现头部模型 [**LLaMA 🦙**](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/) 在 Open LLM 榜单上的 MMLU 得分比 [LLaMA 论文](https://huggingface.co/papers/2302.13971) 中宣称的数字要低很多，大家都感觉很奇怪。
 
 因此，我们决定深入分析一下这个现象🕳🐇，看看到底是什么原因，又应该如何解决。
 

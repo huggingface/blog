@@ -64,7 +64,7 @@ To do this, we curated a held-out set of instruction prompts and completions fro
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/model-logos.png)
 
-We collected a set of high-quality, human-written prompts from [Self-Instruct](https://arxiv.org/abs/2212.10560) evaluation set and early discussions with data vendors for diverse task categories, including generation, brainstorming, question answering, summarization, commonsense, and coding-related. 
+We collected a set of high-quality, human-written prompts from [Self-Instruct](https://huggingface.co/papers/2212.10560) evaluation set and early discussions with data vendors for diverse task categories, including generation, brainstorming, question answering, summarization, commonsense, and coding-related. 
 The dataset has 327 prompts across these categories, and 25 are coding-related.
 
 Here are the stats on the prompt and demonstration length. 
@@ -211,7 +211,7 @@ This could amount to *****unintentional doping***** between training and evaluat
 
 We are not the only ones to share the GPT-4 may not be a perfect tool for training and evaluating LLMs with. 
 Two recent papers have investigated the impacts of instruction tuning on outputs from OpenAI models and how doing so can impact “model comparison” evaluations (when the output of your trained model is compared to the outputs of ChatGPT or GPT-4). 
-The most striking paper in this regard *[How Far Can Camels Go?](https://arxiv.org/abs/2306.04751)* from Allen AI shows a potential indicator in what may be causing GPT-4 to rate an output highly: diversity and length of responses. 
+The most striking paper in this regard *[How Far Can Camels Go?](https://huggingface.co/papers/2306.04751)* from Allen AI shows a potential indicator in what may be causing GPT-4 to rate an output highly: diversity and length of responses. 
 These correlations are striking, as it rewards models to be verbose, even if the task may not call for it. 
 Below is the figure where the authors correlate the win-rate with the token quantity.
 
@@ -219,7 +219,7 @@ Below is the figure where the authors correlate the win-rate with the token quan
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/camel-fig.png" width="600" />
 </p>
 
-The other popular and recent paper is *[The False Promise of Imitating Proprietary LLMs](https://arxiv.org/abs/2305.15717)* from Berkeley, where the authors show that training on more data actually lowers comparison results. 
+The other popular and recent paper is *[The False Promise of Imitating Proprietary LLMs](https://huggingface.co/papers/2305.15717)* from Berkeley, where the authors show that training on more data actually lowers comparison results. 
 With the scale the authors were operating at, more investigation is needed to fully understand the results, but it points in a clear direction: be wary when training on and evaluating with another LLM. The figure from the paper showcasing this is below:
 
 <p align="center">

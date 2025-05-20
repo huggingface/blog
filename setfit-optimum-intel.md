@@ -22,7 +22,7 @@ authors:
 
 SetFit is a promising solution for a common modeling problem: how to deal with lack of labeled data for training. Developed with Hugging Face’s research partners at [Intel Labs](https://www.intel.com/content/www/us/en/research/overview.html) and the [UKP Lab](https://www.informatik.tu-darmstadt.de/ukp/ukp_home/index.en.jsp), SetFit is an efficient framework for few-shot fine-tuning of [Sentence Transformers](https://sbert.net/) models. 
 
-SetFit achieves high accuracy with little labeled data - for example, SetFit [outperforms](https://arxiv.org/pdf/2311.06102.pdf) GPT-3.5 in 3-shot prompting and with 5 shot it also outperforms 3-shot GPT-4 on the Banking 77 financial intent dataset.
+SetFit achieves high accuracy with little labeled data - for example, SetFit [outperforms](https://huggingface.co/papers/2311.06102) GPT-3.5 in 3-shot prompting and with 5 shot it also outperforms 3-shot GPT-4 on the Banking 77 financial intent dataset.
 
 Compared to LLM based methods, SetFit has two unique advantages:
 
@@ -30,7 +30,7 @@ Compared to LLM based methods, SetFit has two unique advantages:
 
 <p>🏎 <strong>Fast to train</strong>: SetFit doesn't rely on LLMs such as GPT-3.5 or Llama2 to achieve high accuracy. As a result, it is typically an order of magnitude (or more) faster to train and run inference with.</p>
 
-For more details on SetFit, check out our [paper](https://arxiv.org/abs/2209.11055), [blog](https://huggingface.co/blog/setfit), [code](https://github.com/huggingface/setfit), and [data](https://huggingface.co/SetFit).
+For more details on SetFit, check out our [paper](https://huggingface.co/papers/2209.11055), [blog](https://huggingface.co/blog/setfit), [code](https://github.com/huggingface/setfit), and [data](https://huggingface.co/SetFit).
 
 Setfit has been widely adopted by the AI developer community, with \~100k downloads per month and [\~1500](https://huggingface.co/models?library=setfit) SetFit models on the Hub, and growing with an average of ~4 models per day!
 
@@ -195,4 +195,4 @@ In this blog post, we have showed how to use quantization capabilities present i
 
 ## References
 
-* Lewis Tunstall, Nils Reimers, Unso Eun Seo Jo, Luke Bates, Daniel Korat, Moshe Wasserblat, Oren Pereg, 2022. "Efficient Few-Shot Learning Without Prompts". https://arxiv.org/abs/2209.11055
+* Lewis Tunstall, Nils Reimers, Unso Eun Seo Jo, Luke Bates, Daniel Korat, Moshe Wasserblat, Oren Pereg, 2022. "Efficient Few-Shot Learning Without Prompts". https://huggingface.co/papers/2209.11055

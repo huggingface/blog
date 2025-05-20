@@ -130,7 +130,7 @@ Llama 3.2 系列包括 1B 和 3B 文本模型。这些模型旨在用于设备�
 
 额外提示: Llama 3.2 接触了比上述 8 种语言更广泛的语言集合。鼓励开发者针对特定语言用例微调 Llama 3.2 模型。
 
-我们通过 Open LLM Leaderboard 评估套件对基础模型进行了测试，而指令模型则在三个流行的基准上进行了评估，这些基准衡量遵循指令的能力，并与 LMSYS Chatbot Arena 高度相关: [IFEval](https://arxiv.org/abs/2311.07911)、[AlpacaEval](https://arxiv.org/abs/2404.04475) 和 [MixEval-Hard](https://arxiv.org/abs/2406.06565)。以下是基础模型的结果，其中包括 Llama-3.1-8B 作为参考:
+我们通过 Open LLM Leaderboard 评估套件对基础模型进行了测试，而指令模型则在三个流行的基准上进行了评估，这些基准衡量遵循指令的能力，并与 LMSYS Chatbot Arena 高度相关: [IFEval](https://huggingface.co/papers/2311.07911)、[AlpacaEval](https://huggingface.co/papers/2404.04475) 和 [MixEval-Hard](https://huggingface.co/papers/2406.06565)。以下是基础模型的结果，其中包括 Llama-3.1-8B 作为参考:
 
 | 模型                | BBH   | MATH Lvl 5 | GPQA  | MUSR  | MMLU-PRO | 平均 |
 |----------------------|-------|------------|-------|-------|----------|---------|

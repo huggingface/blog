@@ -35,7 +35,7 @@ translators:
 我们在 [第 1 部分](https://huggingface.co/blog/zh/ml-for-games-1) 中介绍了使用 Stable Diffusion 帮助确立游戏美术风格，这类 文本-图像 的工具在游戏开发流程中表现非常震撼。同时游戏开发中也有 3D 建模需求，那么从文本生成 3D 模型的文本-3D 工具表现如何？下面总结了此领域的近期进展：
 
 - [DreamFusion](https://dreamfusion3d.github.io/) 使用 diffusion 技术从 2D 图像生成 3D 模型。
-- [CLIPMatrix](https://arxiv.org/abs/2109.12922) 和 [CLIP-Mesh-SMPLX](https://github.com/NasirKhalid24/CLIP-Mesh-SMPLX) 可以直接生成 3D 纹理网格。
+- [CLIPMatrix](https://huggingface.co/papers/2109.12922) 和 [CLIP-Mesh-SMPLX](https://github.com/NasirKhalid24/CLIP-Mesh-SMPLX) 可以直接生成 3D 纹理网格。
 - [CLIP-Forge](https://github.com/autodeskailab/clip-forge) 可以从文本生成体素 (体积像素，3 维空间最小分割单元，类似图片的像素) 3D 模型。
 - [CLIP-NeRF](https://github.com/cassiePython/CLIPNeRF) 可以输入文本或者图像来驱动 NeRF 生成新的 3D 模型。
 - [Point-E](https://huggingface.co/spaces/openai/point-e) 和 [Pulsar+CLIP](https://colab.research.google.com/drive/1IvV3HGoNjRoyAKIX-aqSWa-t70PW3nPs) 可以用文本生成 3D 点云。

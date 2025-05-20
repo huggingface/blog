@@ -203,7 +203,7 @@ for message in chat_completion:
 要从 Hugging Face 部署 Llama 3 模型，请转到[模型页面](https://huggingface.co/meta-llama/Meta-Llama-3-70B-instruct)并点击[部署 -> Amazon SageMaker.](https://huggingface.co/meta-llama/Meta-Llama-3-70B-instruct?sagemaker_deploy=true) 这将显示您可以复制并在您的环境中执行的代码片段。Amazon SageMaker 将创建一个专用的推理端点，您可以使用它发送请求。
 
 ## 使用 🤗 TRL 进行微调
-在技术和计算上训练大语言模型可能很有挑战性。在这一部分，我们将查看 Hugging Face 生态系统中可用的工具，以在消费级 GPU 上有效训练 Llama 3。以下是在 [No Robots 数据集](https://huggingface.co/datasets/HuggingFaceH4/no_robots) 上微调 Llama 3 的示例命令。我们使用 4 位量化，[QLoRA](https://arxiv.org/abs/2305.14314) 和 TRL 的 SFTTrainer 将自动将数据集格式化为 `chatml` 格式。让我们开始吧！
+在技术和计算上训练大语言模型可能很有挑战性。在这一部分，我们将查看 Hugging Face 生态系统中可用的工具，以在消费级 GPU 上有效训练 Llama 3。以下是在 [No Robots 数据集](https://huggingface.co/datasets/HuggingFaceH4/no_robots) 上微调 Llama 3 的示例命令。我们使用 4 位量化，[QLoRA](https://huggingface.co/papers/2305.14314) 和 TRL 的 SFTTrainer 将自动将数据集格式化为 `chatml` 格式。让我们开始吧！
 首先，安装最新版本的 🤗 TRL。
 ```bash
 pip install -U transformers trl accelerate

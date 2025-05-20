@@ -13,7 +13,7 @@ authors:
 # Faster Text Generation with Self-Speculative Decoding
 
 Self-speculative decoding, proposed in
-[LayerSkip: Enabling Early Exit Inference and Self-Speculative Decoding](https://arxiv.org/abs/2404.16710)
+[LayerSkip: Enabling Early Exit Inference and Self-Speculative Decoding](https://huggingface.co/papers/2404.16710)
 is a novel approach to text generation. It combines the strengths of speculative decoding with early
 exiting from a large language model (LLM). This method allows for efficient generation
 by using the *same model's* early layers for drafting tokens, and later layers for verification.
@@ -89,7 +89,7 @@ self-speculative decoding for any decoder-only transformer, the logits from the 
 cannot be **unembedded** (process of decoding through LM Head, described later in the blog post)
 unless the model is specifically trained for that. You will also **only obtain speedups** for
 a checkpoint that was trained in such a way to increase the accuracy of earlier layers.
-The [LayerSkip paper](https://arxiv.org/abs/2404.16710) proposes a training recipe to achieve that
+The [LayerSkip paper](https://huggingface.co/papers/2404.16710) proposes a training recipe to achieve that
 (namely, applying early exit loss, and progressively increasing layer dropout rates). A collection
 of Llama2, Llama3, and Code Llama checkpoints that have been continually pretrained with the
 LayerSkip training recipe are provided [here](https://huggingface.co/collections/facebook/layerskip-666b25c50c8ae90e1965727a).
@@ -317,7 +317,7 @@ self-speculation approaches include:
 
 * [Draft & Verify](https://aclanthology.org/2024.acl-long.607/): where the draft stage involves
   skipping pre-determined attention and feed forward layers.  
-* [MagicDec](https://arxiv.org/abs/2408.11049): where the draft stage uses a subset of the KV cache,
+* [MagicDec](https://huggingface.co/papers/2408.11049): where the draft stage uses a subset of the KV cache,
   which is useful for long context inputs.  
-* [Jacobi Decoding](https://arxiv.org/abs/2305.10427) and [Lookahead Decoding](https://arxiv.org/abs/2402.02057):
+* [Jacobi Decoding](https://huggingface.co/papers/2305.10427) and [Lookahead Decoding](https://huggingface.co/papers/2402.02057):
   Where the draft stage are a series of “guess tokens” that could be either random or obtained from a n-gram lookup table.

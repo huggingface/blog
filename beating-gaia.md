@@ -156,7 +156,7 @@ This embedding of an agent as a tool is a naive way to do multi-agent orchestrat
 
 ## Planning component 🗺️
 
-There is now [an entire zoo](https://arxiv.org/pdf/2402.02716) of planning strategies, so we opted for a relatively simple plan-ahead workflow. Every N steps we generate two things:
+There is now [an entire zoo](https://huggingface.co/papers/2402.02716) of planning strategies, so we opted for a relatively simple plan-ahead workflow. Every N steps we generate two things:
 
 - a summary of facts we know or we can derive from context and facts we need to discover
 - a step-by-step plan of how to solve the task given fresh observations and the factual summary above

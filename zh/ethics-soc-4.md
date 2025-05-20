@@ -39,7 +39,7 @@ translators:
 
 近年来，人们在单一模态的 AI 系统中进行了大量关于偏见检测的重要研究，包括自然语言处理 ([Abid et al., 2021](https://dl.acm.org/doi/abs/10.1145/3461702.3462624)) 和计算机视觉 ([Buolamwini and Gebru, 2018](http://proceedings.mlr.press/v81/buolamwini18a/buolamwini18a.pdf))。由于机器学习模型是由人类构建的，因此所有机器学习模型 (实际上，所有技术) 都存在偏见。这可能表现为图像中某些视觉特征的过度和不足 (例如，所有办公室工作人员都系着领带)，或者文化和地理刻板印象的存在 (例如，所有新娘都穿着白色礼服和面纱，而不是更具代表性的世界各地的新娘，如穿红色纱丽的新娘)。鉴于 AI 系统被部署在社会技术背景下，并且在不同行业和工具中广泛部署 (例如 [Firefly](https://www.adobe.com/sensei/generative-ai/firefly.html)，[Shutterstock](https://www.shutterstock.com/ai-image-generator))，它们特别容易放大现有的社会偏见和不平等。我们旨在提供一个非详尽的偏见来源列表:
 
-**训练数据中的偏见:** 一些流行的多模态数据集，如文本到图像的 [LAION-5B](https://laion.ai/blog/laion-5b/)，图像字幕的 [MS-COCO](https://cocodataset.org/) 和视觉问答的 [VQA v2.0](https://paperswithcode.com/dataset/visual-question-answering-v2-0)，已经被发现包含大量的偏见和有害关联 ([Zhao et al 2017](https://aclanthology.org/D17-1323/)，[Prabhu and Birhane, 2021](https://arxiv.org/abs/2110.01963)，[Hirota et al, 2022](https://facctconference.org/static/pdfs_2022/facct22-3533184.pdf))，这些偏见可能会渗透到在这些数据集上训练的模型中。例如，来自 [Hugging Face Stable Bias project](https://huggingface.co/spaces/society-ethics/StableBias) 的初步结果显示，图像生成缺乏多样性，并且延续了文化和身份群体的常见刻板印象。比较 Dall-E 2 生成的 CEO (右) 和经理 (左)，我们可以看到两者都缺乏多样性:
+**训练数据中的偏见:** 一些流行的多模态数据集，如文本到图像的 [LAION-5B](https://laion.ai/blog/laion-5b/)，图像字幕的 [MS-COCO](https://cocodataset.org/) 和视觉问答的 [VQA v2.0](https://paperswithcode.com/dataset/visual-question-answering-v2-0)，已经被发现包含大量的偏见和有害关联 ([Zhao et al 2017](https://aclanthology.org/D17-1323/)，[Prabhu and Birhane, 2021](https://huggingface.co/papers/2110.01963)，[Hirota et al, 2022](https://facctconference.org/static/pdfs_2022/facct22-3533184.pdf))，这些偏见可能会渗透到在这些数据集上训练的模型中。例如，来自 [Hugging Face Stable Bias project](https://huggingface.co/spaces/society-ethics/StableBias) 的初步结果显示，图像生成缺乏多样性，并且延续了文化和身份群体的常见刻板印象。比较 Dall-E 2 生成的 CEO (右) 和经理 (左)，我们可以看到两者都缺乏多样性:
 
 <p align="center">
  <br>
@@ -48,16 +48,16 @@ translators:
 
 **预训练数据过滤中的偏见:** 在将数据集用于训练模型之前，通常会对其进行某种形式的过滤; 这会引入不同的偏见。例如，在他们的 [博客文章](https://openai.com/research/dall-e-2-pre-training-mitigations) 中，Dall-E 2 的创建者发现过滤训练数据实际上会放大偏见 - 他们假设这可能是由于现有数据集偏向于在更性感化的背景下呈现女性，或者由于他们使用的过滤方法本身具有偏见。
 
-**推理中的偏见:** 用于指导 Stable Diffusion 和 Dall-E 2 等文本到图像模型的训练和推理的 [CLIP 模型](https://huggingface.co/openai/clip-vit-large-patch14) 有许多 [记录详细的偏见](https://arxiv.org/abs/2205.11378)，涉及年龄、性别和种族或族裔，例如将被标记为 `白人` 、 `中年` 和 `男性` 的图像视为默认。这可能会影响使用它进行提示编码的模型的生成，例如通过解释未指定或未明确指定的性别和身份群体来表示白人和男性。
+**推理中的偏见:** 用于指导 Stable Diffusion 和 Dall-E 2 等文本到图像模型的训练和推理的 [CLIP 模型](https://huggingface.co/openai/clip-vit-large-patch14) 有许多 [记录详细的偏见](https://huggingface.co/papers/2205.11378)，涉及年龄、性别和种族或族裔，例如将被标记为 `白人` 、 `中年` 和 `男性` 的图像视为默认。这可能会影响使用它进行提示编码的模型的生成，例如通过解释未指定或未明确指定的性别和身份群体来表示白人和男性。
 
-**模型潜在空间中的偏见:** 已经进行了一些 [初步工作](https://arxiv.org/abs/2302.10893)，探索模型的潜在空间并沿着不同轴 (如性别) 引导图像生成，使生成更具代表性 (参见下面的图像)。然而，还需要更多工作来更好地理解不同类型扩散模型的潜在空间结构以及影响生成图像中反映偏见的因素。
+**模型潜在空间中的偏见:** 已经进行了一些 [初步工作](https://huggingface.co/papers/2302.10893)，探索模型的潜在空间并沿着不同轴 (如性别) 引导图像生成，使生成更具代表性 (参见下面的图像)。然而，还需要更多工作来更好地理解不同类型扩散模型的潜在空间结构以及影响生成图像中反映偏见的因素。
 
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/152_ethics_soc_4/fair-diffusion.png" alt="Fair Diffusion generations of firefighters." />
 </p>
 
-**后期过滤中的偏见:** 许多图像生成模型都内置了旨在标记问题内容的安全过滤器。然而，这些过滤器的工作程度以及它们对不同类型内容的鲁棒性有待确定 - 例如，[对 Stable Diffusion 安全过滤器进行红队对抗测试](https://arxiv.org/abs/2210.04610) 表明，它主要识别性内容，并未能标记其他类型的暴力、血腥或令人不安的内容。
+**后期过滤中的偏见:** 许多图像生成模型都内置了旨在标记问题内容的安全过滤器。然而，这些过滤器的工作程度以及它们对不同类型内容的鲁棒性有待确定 - 例如，[对 Stable Diffusion 安全过滤器进行红队对抗测试](https://huggingface.co/papers/2210.04610) 表明，它主要识别性内容，并未能标记其他类型的暴力、血腥或令人不安的内容。
 
 ## 检测偏见
 
@@ -76,7 +76,7 @@ translators:
 
 **红队对抗测试:** [“红队对抗测试”](https://huggingface.co/blog/red-teaming) 包括通过提示和分析结果来对 AI 模型进行潜在漏洞、偏见和弱点的压力测试。虽然它已经在实践中用于评估语言模型 (包括即将到来的 [DEFCON 上的 Generative AI Red Teaming 活动](https://aivillage.org/generative%20red%20team/generative-red-team/)，我们也参加了)，但目前还没有建立起系统化的红队对抗测试 AI 模型的方法，它仍然相对临时性。事实上，AI 模型中有这么多潜在的故障模式和偏见，很难预见它们全部，而生成模型的 [随机性质](https://dl.acm.org/doi/10.1145/3442188.3445922) 使得难以复现故障案例。红队对抗测试提供了关于模型局限性的可行性见解，并可用于添加防护栏和记录模型局限性。目前没有红队对抗测试基准或排行榜，突显了需要更多开源红队对抗测试资源的工作。[Anthropic 的红队对抗测试数据集](https://github.com/anthropics/hh-rlhf/tree/master/red-team-attempts) 是唯一一个开源的红队对抗测试 prompts，但仅限于英语自然语言文本。
 
-**评估和记录偏见:** 在 Hugging Face，我们是 [模型卡片](https://huggingface.co/docs/hub/model-card-guidebook) 和其他形式的文档 (如 [数据表](https://arxiv.org/abs/1803.09010)、README 等) 的大力支持者。在文本到图像 (和其他多模态) 模型的情况下，使用探索工具和红队对抗测试等上述方法进行的探索结果可以与模型检查点和权重一起共享。其中一个问题是，我们目前没有用于测量多模态模型 (特别是文本到图像生成系统) 中偏见的标准基准或数据集，但随着社区在这个方向上进行更多 [工作](https://arxiv.org/abs/2306.05949)，不同的偏见指标可以在模型文档中并行报告。
+**评估和记录偏见:** 在 Hugging Face，我们是 [模型卡片](https://huggingface.co/docs/hub/model-card-guidebook) 和其他形式的文档 (如 [数据表](https://huggingface.co/papers/1803.09010)、README 等) 的大力支持者。在文本到图像 (和其他多模态) 模型的情况下，使用探索工具和红队对抗测试等上述方法进行的探索结果可以与模型检查点和权重一起共享。其中一个问题是，我们目前没有用于测量多模态模型 (特别是文本到图像生成系统) 中偏见的标准基准或数据集，但随着社区在这个方向上进行更多 [工作](https://huggingface.co/papers/2306.05949)，不同的偏见指标可以在模型文档中并行报告。
 
 ## 价值观和偏见
 
@@ -104,4 +104,4 @@ translators:
 
 ## 结语
 
-从上面的讨论中你可以看出，检测和应对多模态模型 (如文本到图像模型) 中的偏见和价值观仍然是一个悬而未决的问题。除了上面提到的工作，我们还在与社区广泛接触这些问题 - 我们最近在 FAccT 会议上共同主持了一个关于这个主题的 [CRAFT 会议](https://facctconference.org/2023/acceptedcraft.html)，并继续在这个主题上进行数据和模型为中心的研究。我们特别兴奋地探索一个更深入地探究文本到图像模型中所蕴含的 [价值](https://arxiv.org/abs/2203.07785) 及其所代表的方向 (敬请期待！)。
+从上面的讨论中你可以看出，检测和应对多模态模型 (如文本到图像模型) 中的偏见和价值观仍然是一个悬而未决的问题。除了上面提到的工作，我们还在与社区广泛接触这些问题 - 我们最近在 FAccT 会议上共同主持了一个关于这个主题的 [CRAFT 会议](https://facctconference.org/2023/acceptedcraft.html)，并继续在这个主题上进行数据和模型为中心的研究。我们特别兴奋地探索一个更深入地探究文本到图像模型中所蕴含的 [价值](https://huggingface.co/papers/2203.07785) 及其所代表的方向 (敬请期待！)。

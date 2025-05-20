@@ -98,7 +98,7 @@ LLM 中的文本生成是以自回归的方式进行的，因此在生成每个�
 <em>图 4：INT4 量化模型的计算流程</em>
 </p>
 
-张量级的非对称最近舍入 (Round To Nearest，RTN) 量化是一种基本的 WOQ 技术，但它经常会面临精度降低的挑战。[这篇论文](https://arxiv.org/pdf/2206.01861.pdf) (Zhewei Yao，2022) 表明对模型权重进行分组量化有助于保持精度。为了避免精度下降，我们沿输入通道将若干个连续值 (如 128 个) 分为一组，对分组后的数据执行 4 比特量化，并按组计算缩放因子。我们发现分组 4 比特 RTN 在 HumanEval 数据集上足以保持 StarCoder 的准确性。与 BF16 基线相比，4 比特模型的 TPOT 有 **3.35 倍** 的加速 (图 5)，但由于在计算之前需要将 4 比特反量化为 16 比特，该操作带来的额外开销使得其 TTFT 出现了 0.84 倍的减速 (表 1)，这也是符合预期的。
+张量级的非对称最近舍入 (Round To Nearest，RTN) 量化是一种基本的 WOQ 技术，但它经常会面临精度降低的挑战。[这篇论文](https://huggingface.co/papers/2206.01861) (Zhewei Yao，2022) 表明对模型权重进行分组量化有助于保持精度。为了避免精度下降，我们沿输入通道将若干个连续值 (如 128 个) 分为一组，对分组后的数据执行 4 比特量化，并按组计算缩放因子。我们发现分组 4 比特 RTN 在 HumanEval 数据集上足以保持 StarCoder 的准确性。与 BF16 基线相比，4 比特模型的 TPOT 有 **3.35 倍** 的加速 (图 5)，但由于在计算之前需要将 4 比特反量化为 16 比特，该操作带来的额外开销使得其 TTFT 出现了 0.84 倍的减速 (表 1)，这也是符合预期的。
 
 <p align="center">
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/174_intel_quantization_starcoder/latency_int4_model.png" alt="INT4 latency"><br>
@@ -111,7 +111,7 @@ LLM 中的文本生成是以自回归的方式进行的，因此在生成每个�
 
 ## 第 4 步: 辅助生成 (Assisted Generation，AG)
 
-另一种能提高推理延迟、缓解内存带宽瓶颈的方法是 [辅助生成](https://huggingface.co/blog/assisted-generation) (Assisted Generation，AG)，其实际上是 [投机解码](https://arxiv.org/pdf/2211.17192.pdf) 的一种实现。AG 通过更好地平衡内存和计算来缓解上述压力，其基于如下假设: 更小、更快的辅助草稿模型生成的词元与更大的目标模型生成的词元重合的概率比较高。
+另一种能提高推理延迟、缓解内存带宽瓶颈的方法是 [辅助生成](https://huggingface.co/blog/assisted-generation) (Assisted Generation，AG)，其实际上是 [投机解码](https://huggingface.co/papers/2211.17192) 的一种实现。AG 通过更好地平衡内存和计算来缓解上述压力，其基于如下假设: 更小、更快的辅助草稿模型生成的词元与更大的目标模型生成的词元重合的概率比较高。
 
 AG 先用小而快的草稿模型基于贪心算法生成 K 个候选词元。这些词元的生成速度更快，但其中一些可能与原始目标模型的输出词元不一致。因此，下一步，目标模型会通过一次前向传播并行检查所有 K 个候选词元的有效性。这种做法加快了解码速度，因为并行解码 K 个词元的延迟比自回归生成 K 个词元的延迟要小。
 

@@ -31,11 +31,11 @@ authors:
 </h1>
 
 Contact: hyen@cs.princeton.edu \
-Paper: https://arxiv.org/abs/2410.02694 \
+Paper: https://huggingface.co/papers/2410.02694 \
 Website: https://princeton-nlp.github.io/HELMET \
 Code & Data: https://github.com/princeton-nlp/HELMET
 
-Since we first released HELMET last October, there has been more development on long-context language models than ever before, and we are thrilled to see the adoption of HELMET by the community, such as [Microsoft's Phi-4](https://arxiv.org/abs/2412.08905) and [AI21's Jamba 1.6](https://www.ai21.com/blog/introducing-jamba-1-6/).
+Since we first released HELMET last October, there has been more development on long-context language models than ever before, and we are thrilled to see the adoption of HELMET by the community, such as [Microsoft's Phi-4](https://huggingface.co/papers/2412.08905) and [AI21's Jamba 1.6](https://www.ai21.com/blog/introducing-jamba-1-6/).
 After the initial release, we have added more models to our evaluation suite and conducted additional analyses. We are excited to share our new results and present HELMET at ICLR 2025!
 
 In this blog, we will describe the construction of HELMET, our key findings, and how practitioners can use HELMET to differentiate between various LCLMs in future research and applications.
@@ -44,7 +44,7 @@ Finally, we will conclude with a quickstart guide for using HELMET with HuggingF
 ## Evaluating long-context language models is challenging but important
 
 From summarizing numerous legal documents to learning new tasks on the fly, long-context language models (LCLMs) have immense potential to change the way we use and interact with language models.
-Language models have been limited by their context window, which is around 2K to 8K tokens (e.g., [ChatGPT](https://openai.com/index/chatgpt/), [Llama-2/3](https://arxiv.org/abs/2407.21783)).
+Language models have been limited by their context window, which is around 2K to 8K tokens (e.g., [ChatGPT](https://openai.com/index/chatgpt/), [Llama-2/3](https://huggingface.co/papers/2407.21783)).
 Recently, model developers have been constantly increasing the context window of their models, with recent models like [GPT-4o](https://openai.com/index/hello-gpt-4o/), [Claude-3](https://www.anthropic.com/news/claude-3-family), and [Gemini-1.5](https://blog.google/technology/ai/google-gemini-next-generation-model-february-2024/#ethics-safety) supporting context windows of up to millions of tokens.
 
 <figure>
@@ -52,7 +52,7 @@ Recently, model developers have been constantly increasing the context window of
   <figcaption>Figure 1: Existing benchmarks show counterintuitive trends, such as smaller models outperforming larger ones (e.g., Llama-3.1 8B > 70B).</figcaption>
 </figure>
 
-However, with longer context windows, previous natural language benchmarks (e.g., [Scrolls](https://arxiv.org/abs/2201.03533)) are no longer suitable for evaluating LCLMs.
+However, with longer context windows, previous natural language benchmarks (e.g., [Scrolls](https://huggingface.co/papers/2201.03533)) are no longer suitable for evaluating LCLMs.
 Consequently, perplexity and synthetic tasks (e.g., needle-in-a-haystack) emerged as the most popular evaluation metrics for recent LCLMs, but they often **do not reflect real-world performance**.
 Model developers may also evaluate on other arbitrary datasets, which complicates model comparisons.
 Furthermore, existing benchmarks for LCLMs may show confusing and counterintuitive results, making it difficult to understand the strengths and weaknesses of different models (Figure 1).
@@ -62,7 +62,7 @@ In this work, we propose HELMET (How to Evaluate Long-Context Models Effectively
 We evaluate 59 recent LCLMs and find that it is crucial to evaluate models across diverse applications to understand their capabilities and frontier LCLMs are still limited on complex tasks.
 
 
-<!-- Since the initial release, model developers have adopted HELMET for evaluating their models, such as [Microsoft's Phi-4](https://arxiv.org/abs/2412.08905), and we hope that HELMET will be useful for future development of LCLMs. -->
+<!-- Since the initial release, model developers have adopted HELMET for evaluating their models, such as [Microsoft's Phi-4](https://huggingface.co/papers/2412.08905), and we hope that HELMET will be useful for future development of LCLMs. -->
 
 <!-- We evaluate over 50 recent models on diverse, application-centric tasks, which enables researchers and practitioners to compare models across different axes. -->
 
@@ -86,7 +86,7 @@ With the development of LCLMs across both industry and the open-source community
 </figure>
 
 A common practice for evaluating long-context language models is to use perplexity or synthetic tasks, such as needle-in-a-haystack (NIAH). 
-However, recent works have shown that perplexity does not correlate well with downstream performance ([Fang et al., 2024](https://arxiv.org/abs/2410.23771)). 
+However, recent works have shown that perplexity does not correlate well with downstream performance ([Fang et al., 2024](https://huggingface.co/papers/2410.23771)). 
 In Figure 2, we show that synthetic tasks like NIAH do not correlate with real-world performance, but the more complex synthetic tasks achieve higher correlation with real-world tasks.
 
 <figure>
@@ -97,11 +97,11 @@ In Figure 2, we show that synthetic tasks like NIAH do not correlate with real-w
 </figure>
 
 \
-Among the existing benchmarks with realistic applications, such as ZeroScrolls ([Shaman et al., 2023](https://arxiv.org/abs/2308.14508)), LongBench ([Bai et al., 2024](https://arxiv.org/abs/2308.14508)), and InfiniteBench ([Zhang et al., 2024](https://arxiv.org/abs/2402.13718)), there are still crucial limitations:
+Among the existing benchmarks with realistic applications, such as ZeroScrolls ([Shaman et al., 2023](https://huggingface.co/papers/2308.14508)), LongBench ([Bai et al., 2024](https://huggingface.co/papers/2308.14508)), and InfiniteBench ([Zhang et al., 2024](https://huggingface.co/papers/2402.13718)), there are still crucial limitations:
 
 - Insufficient coverage of downstream tasks: often focused on specific domains
-- Inadequate lengths for testing frontier LCLMs: older QA datasets are often limited to <32K tokens (e.g., [QASPER](https://arxiv.org/abs/2105.03011), [QuALITY](https://arxiv.org/abs/2112.08608))
-- Unreliable metrics: N-gram matching metrics like ROUGE are noisy—they do not correlate with human judgments ([Goyal et al., 2023](https://arxiv.org/abs/2209.12356)) and do not distinguish between models
+- Inadequate lengths for testing frontier LCLMs: older QA datasets are often limited to <32K tokens (e.g., [QASPER](https://huggingface.co/papers/2105.03011), [QuALITY](https://huggingface.co/papers/2112.08608))
+- Unreliable metrics: N-gram matching metrics like ROUGE are noisy—they do not correlate with human judgments ([Goyal et al., 2023](https://huggingface.co/papers/2209.12356)) and do not distinguish between models
 - Incompatibility with base models: require instruction-tuning, which means they cannot be used for base model development
 
 Thus, we propose HELMET to address these limitations and provide a comprehensive evaluation of LCLMs.
@@ -130,7 +130,7 @@ In our experiments, we evaluate on input length from 8K to 128K tokens, but HELM
 ***Controllable length and difficulty***: An important dimension to consider when evaluating LCLMs is the input length, as longer inputs can provide more information while challenging the model's ability to process noisy contexts. In our tasks, we can control the input length by changing the number of retrieved passages (RAG, Cite, Re-rank), the number of demonstrations (ICL), or the length of the input document (LongQA, Summ). Although LongQA and Summ cannot be easily extended to longer contexts, we intentionally chose datasets with natural documents of length far greater than 100K tokens, such that they can still be used to evaluate frontier LCLMs.
 
 
-***Reliable evaluation***: Many existing benchmarks still use n-gram-based metrics, such as ROUGE, despite their poor correlation with human judgments ([Goyal et al., 2023](https://arxiv.org/abs/2209.12356)). We employ model-based evaluations that show better distinguishability between models and different input lengths (Figure 3). Furthermore, our human studies show that our metrics have a high agreement with human judgments.
+***Reliable evaluation***: Many existing benchmarks still use n-gram-based metrics, such as ROUGE, despite their poor correlation with human judgments ([Goyal et al., 2023](https://huggingface.co/papers/2209.12356)). We employ model-based evaluations that show better distinguishability between models and different input lengths (Figure 3). Furthermore, our human studies show that our metrics have a high agreement with human judgments.
 
 <figure>
   <img src="./assets/helmet/model_eval.png" alt="logo" width="800"/>
@@ -260,7 +260,7 @@ You can find the leaderboard on our [website](https://princeton-nlp.github.io/HE
 ### Looking ahead
 
 HELMET is a step towards a more comprehensive evaluation of long-context language models, but there are still many more exciting applications of LCLMs. 
-For example, we recently released [LongProc](https://arxiv.org/abs/2501.05414), a benchmark for evaluating LCLMs on *long-form generation* and *following procedures*, which are critical for developing reasoning models that generate tens of thousands of tokens in thinking steps.
+For example, we recently released [LongProc](https://huggingface.co/papers/2501.05414), a benchmark for evaluating LCLMs on *long-form generation* and *following procedures*, which are critical for developing reasoning models that generate tens of thousands of tokens in thinking steps.
 Although summarization tasks have long outputs (up to 1K tokens), LongProc focuses on even longer outputs, up to 8K tokens. 
 Similar to HELMET, LongProc is also designed with reliable evaluation settings and diverse tasks. 
 We are working on integrating LongProc into HELMET's evaluation suite, and we hope that this will provide a more comprehensive evaluation of LCLMs on long-form tasks.

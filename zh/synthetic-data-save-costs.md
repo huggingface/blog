@@ -41,7 +41,7 @@ translators:
 
 ## 2. 解决方案: 合成数据来高效蒸馏学生模型
 
-在 2023 年，一个东西根本的改变了机器学习的蓝图，LLM 开始达到和人类数据标注者相同的水平。现在有大量的证据表明，最好的 LLM 比众包工人更胜一筹，并且在创建高质量 (合成的) 数据中部分达到了专家水平 (例如 [Zheng et al. 2023](https://arxiv.org/pdf/2306.05685.pdf), [Gilardi et al. 2023](https://arxiv.org/pdf/2303.15056.pdf), [He et al. 2023](https://arxiv.org/pdf/2303.16854.pdf))。这一进展的重要性怎么强调都不为过。创建定制模型的关键瓶颈在于招募和协调人工工作者以创造定制训练数据的资金、时间和专业知识需求。随着大型语言模型 (LLMs) 开始达到人类水平，高质量的数据标注现在可以通过 API 获得; 可复制的注释指令可以作为提示 prompt 发送; 合成数据几乎可以立即返回，唯一的瓶颈就剩计算能力了。
+在 2023 年，一个东西根本的改变了机器学习的蓝图，LLM 开始达到和人类数据标注者相同的水平。现在有大量的证据表明，最好的 LLM 比众包工人更胜一筹，并且在创建高质量 (合成的) 数据中部分达到了专家水平 (例如 [Zheng et al. 2023](https://huggingface.co/papers/2306.05685), [Gilardi et al. 2023](https://huggingface.co/papers/2303.15056), [He et al. 2023](https://huggingface.co/papers/2303.16854))。这一进展的重要性怎么强调都不为过。创建定制模型的关键瓶颈在于招募和协调人工工作者以创造定制训练数据的资金、时间和专业知识需求。随着大型语言模型 (LLMs) 开始达到人类水平，高质量的数据标注现在可以通过 API 获得; 可复制的注释指令可以作为提示 prompt 发送; 合成数据几乎可以立即返回，唯一的瓶颈就剩计算能力了。
 
 在 2024 年，这种方法将变得具有商业可行性，并提升开源对大中小企业的重要性。在 2023 年的大部分时间里，由于 LLM API 提供商的限制性商业条款，LLMs 的商业用途在标注数据方面被阻止。随着像 [Mistral](https://mistral.ai/) 的 [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1) 这样的模型的推出，LLM 数据标注和合成数据现在对商业用途开放。[Mixtral 的表现与 GPT3.5 相当](https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard)，并且由于它的 Apache 2.0 许可证，其合成数据输出可以作为商业用例中较小、专业化的模型 (“学生”) 的训练数据。这篇博客提供了一个示例，这将显著加快你自己的定制模型的创建速度，同时大幅降低长期推理成本。
 
@@ -58,7 +58,7 @@ translators:
 
 ### 3.1 给 LLM 提示来标注你的数据
 
-我们使用 [financial_phrasebank](https://huggingface.co/datasets/financial_phrasebank) 情感数据集作为示例，但你可以将代码适配到任何其他用例。financial_phrasebank 任务是一个 3 类分类任务，其中 16 位专家从投资者视角对芬兰公司金融新闻中的句子进行“积极”/“消极”/“中性”标注 ( [Malo et al. 2013](https://arxiv.org/pdf/1307.5336.pdf) )。例如，数据集中包含这样一句话: “对于 2010 年最后一个季度，Componenta 的净销售额翻倍，达到 1.31 亿欧元，而去年同期为 7600 万欧元”，标注者从投资者视角将其归类为“积极”。
+我们使用 [financial_phrasebank](https://huggingface.co/datasets/financial_phrasebank) 情感数据集作为示例，但你可以将代码适配到任何其他用例。financial_phrasebank 任务是一个 3 类分类任务，其中 16 位专家从投资者视角对芬兰公司金融新闻中的句子进行“积极”/“消极”/“中性”标注 ( [Malo et al. 2013](https://huggingface.co/papers/1307.5336) )。例如，数据集中包含这样一句话: “对于 2010 年最后一个季度，Componenta 的净销售额翻倍，达到 1.31 亿欧元，而去年同期为 7600 万欧元”，标注者从投资者视角将其归类为“积极”。
 
 我们首先安装一些必需的库。
 
@@ -355,7 +355,7 @@ df_train.to_csv("df_train.csv")
 
 幸运的是，随着近年来开源工具的出现，数据验证变得更加简单: [Argilla](https://argilla.io/) 提供了一个免费的界面，用于验证和清理非结构化的 LLM 输出; [LabelStudio](https://labelstud.io/) 使你能够以多种方式标注数据; [CleanLab](https://cleanlab.ai/) 提供了一个用于标注和自动清理结构化数据的界面; 对于快速和简单的验证，仅在简单的 Excel 文件中标注也可能是可以的。
 
-花些时间标注文本，以了解数据和其模糊性，这是非常重要的。你会很快发现模型犯了一些错误，但也会有几个例子，正确的标签是不明确的，有些文本你更同意 LLM 的决定，而不是创建数据集的专家。这些错误和模糊性是数据集创建的正常部分。实际上，只有极少数现实世界的任务中，人类专家的基线是完全一致的。这是一个古老的见解，最近被机器学习文献“重新发现”，即人类数据是一个有缺陷的金标准 ([Krippendorf 2004](https://books.google.de/books/about/Content_Analysis.html?id=q657o3M3C8cC&redir_esc=y), [Hosking et al. 2024](https://arxiv.org/pdf/2309.16349.pdf))。
+花些时间标注文本，以了解数据和其模糊性，这是非常重要的。你会很快发现模型犯了一些错误，但也会有几个例子，正确的标签是不明确的，有些文本你更同意 LLM 的决定，而不是创建数据集的专家。这些错误和模糊性是数据集创建的正常部分。实际上，只有极少数现实世界的任务中，人类专家的基线是完全一致的。这是一个古老的见解，最近被机器学习文献“重新发现”，即人类数据是一个有缺陷的金标准 ([Krippendorf 2004](https://books.google.de/books/about/Content_Analysis.html?id=q657o3M3C8cC&redir_esc=y), [Hosking et al. 2024](https://huggingface.co/papers/2309.16349))。
 
 在标注界面不到一个小时的时间里，我们更好地了解了我们的数据并纠正了一些错误。然而，为了可复现性，以及展示纯粹合成数据的质量，我们在下一步继续使用未清理的 LLM 标注。
 

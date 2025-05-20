@@ -20,7 +20,7 @@ translators:
 
 ### 1. 引言
 
-自然语言生成 (即文本生成) 是自然语言处理 (NLP) 的核心任务之一。本文将介绍神经网络文本生成领域当前最先进的解码方法 **对比搜索 (Contrastive Search)**。提出该方法的论文 _“A Contrastive Framework for Neural Text Generation”_ 最初发表于 NeurIPS 2022 ([[论文]](https://arxiv.org/abs/2202.06417)、[[官方实现]](https://github.com/yxuansu/SimCTG))。此后， _“Contrastive Search Is What You Need For Neural Text Generation”_ 的作者又进一步证明了对比搜索可以用 **现有的** 语言模型在 **16** 种语言上生成可媲美人类水平的文本 ([[论文]](https://arxiv.org/abs/2210.14140)、[[官方实现]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need))。
+自然语言生成 (即文本生成) 是自然语言处理 (NLP) 的核心任务之一。本文将介绍神经网络文本生成领域当前最先进的解码方法 **对比搜索 (Contrastive Search)**。提出该方法的论文 _“A Contrastive Framework for Neural Text Generation”_ 最初发表于 NeurIPS 2022 ([[论文]](https://huggingface.co/papers/2202.06417)、[[官方实现]](https://github.com/yxuansu/SimCTG))。此后， _“Contrastive Search Is What You Need For Neural Text Generation”_ 的作者又进一步证明了对比搜索可以用 **现有的** 语言模型在 **16** 种语言上生成可媲美人类水平的文本 ([[论文]](https://huggingface.co/papers/2210.14140)、[[官方实现]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need))。
 
 **[备注]** 对于不熟悉文本生成的用户，请参阅 [此博文](https://huggingface.co/blog/how-to-generate) 了解更多详情。
 
@@ -523,8 +523,8 @@ We show that MBRL outperforms other methods for deep reinforcement learning (RL)
 
 有关对比搜索的更多详细信息，请查看我们的论文和代码，如下:
 
-- **A Contrastive Framework for Neural Text Generation**: [论文](https://arxiv.org/abs/2202.06417)、[官方实现](https://github.com/yxuansu/SimCTG)
-- **Contrastive Search Is What You Need For Neural Text Generation**: [论文](https://arxiv.org/abs/2210.14140)、[官方实现](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)
+- **A Contrastive Framework for Neural Text Generation**: [论文](https://huggingface.co/papers/2202.06417)、[官方实现](https://github.com/yxuansu/SimCTG)
+- **Contrastive Search Is What You Need For Neural Text Generation**: [论文](https://huggingface.co/papers/2210.14140)、[官方实现](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)
 
 ---
 
@@ -555,17 +555,17 @@ We show that MBRL outperforms other methods for deep reinforcement learning (RL)
 <span id='references'/>
 
 ## 参考文献
-> [1] Su et al., 2022 ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417), NeurIPS 2022
+> [1] Su et al., 2022 ["A Contrastive Framework for Neural Text Generation"](https://huggingface.co/papers/2202.06417), NeurIPS 2022
 
-> [2] Su and Collier, 2022 ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140), Arxiv 2022
+> [2] Su and Collier, 2022 ["Contrastive Search Is What You Need For Neural Text Generation"](https://huggingface.co/papers/2210.14140), Arxiv 2022
 
-> [3] Fan et al., 2018 ["Hierarchical Neural Story Generation"](https://arxiv.org/abs/1805.04833), ACL 2018
+> [3] Fan et al., 2018 ["Hierarchical Neural Story Generation"](https://huggingface.co/papers/1805.04833), ACL 2018
 
-> [4] Holtzman et al., 2020 ["The Curious Case of Neural Text Degeneration"](https://arxiv.org/abs/1904.09751), ICLR 2020
+> [4] Holtzman et al., 2020 ["The Curious Case of Neural Text Degeneration"](https://huggingface.co/papers/1904.09751), ICLR 2020
 
-> [5] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068), Arxiv 2022
+> [5] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://huggingface.co/papers/2205.01068), Arxiv 2022
 
-> [6] He et al., 2016 ["Deep Residual Learning for Image Recognition"](https://arxiv.org/abs/1512.03385), CVPR 2016
+> [6] He et al., 2016 ["Deep Residual Learning for Image Recognition"](https://huggingface.co/papers/1512.03385), CVPR 2016
 
 ---
 

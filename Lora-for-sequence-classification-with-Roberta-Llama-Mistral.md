@@ -89,14 +89,14 @@ Note: For reproducing the reported results, please check the pinned versions in 
 
 ## Pre-trained Models
 
-### [RoBERTa](https://arxiv.org/abs/1907.11692)
+### [RoBERTa](https://huggingface.co/papers/1907.11692)
 
 RoBERTa (Robustly Optimized BERT Approach) is an advanced variant of the BERT model proposed by Meta AI research team. BERT is a transformer-based language model using self-attention mechanisms for contextual word representations and trained with a masked language model objective. Note that BERT is an encoder only model used for natural language understanding tasks (such as sequence classification and token classification).
 
 RoBERTa is a popular model to fine-tune and appropriate as a baseline for our experiments. For more information, you can check the Hugging Face model [card](https://huggingface.co/docs/transformers/model_doc/roberta).
 
 
-### [Llama 2](https://arxiv.org/abs/2307.09288)
+### [Llama 2](https://huggingface.co/papers/2307.09288)
 
 Llama 2 models, which stands for Large Language Model Meta AI, belong to the family of large language models (LLMs) introduced by Meta AI. The Llama 2 models vary in size, with parameter counts ranging from 7 billion to 65 billion.
 
@@ -105,14 +105,14 @@ Llama 2 architecture is slightly different from models like GPT-3. For instance,
  
 The recently released Llama 2 introduced architectural refinements to better leverage very long sequences by extending the context length to up to 4096 tokens, and using grouped-query attention (GQA) decoding. 
 
-### [Mistral 7B](https://arxiv.org/abs/2310.06825)
+### [Mistral 7B](https://huggingface.co/papers/2310.06825)
 
 Mistral 7B v0.1, with 7.3 billion parameters, is the first LLM introduced by Mistral AI.
 The main novel techniques used in Mistral 7B's architecture are: 
 - Sliding Window Attention: Replace the full attention (square compute cost) with a sliding window based attention where each token can attend to at most 4,096 tokens from the previous layer (linear compute cost). This mechanism enables Mistral 7B to handle longer sequences, where higher layers can access historical information beyond the window size of 4,096 tokens. 
 - Grouped-query Attention: used in Llama 2 as well, the technique optimizes the inference process (reduce processing time) by caching the key and value vectors for previously decoded tokens in the sequence.  
 
-## [LoRA](https://arxiv.org/abs/2106.09685)
+## [LoRA](https://huggingface.co/papers/2106.09685)
 
 PEFT, Parameter Efficient Fine-Tuning, is a collection of techniques (p-tuning, prefix-tuning, IA3, Adapters, and LoRa) designed to fine-tune large models using a much smaller set of training parameters while preserving the performance levels typically achieved through full fine-tuning. 
 
@@ -395,7 +395,7 @@ We import LoRa configuration and set some parameters for RoBERTa classifier:
 - lora_dropout: Dropout probability of the LoRA layers
 - bias: Whether to add bias term to LoRa layers
 
-The code below uses the values recommended by the [Lora paper](https://arxiv.org/abs/2106.09685). [Later in this post](#hyperparameter-tuning) we will perform hyperparameter tuning of these parameters using `wandb`.
+The code below uses the values recommended by the [Lora paper](https://huggingface.co/papers/2106.09685). [Later in this post](#hyperparameter-tuning) we will perform hyperparameter tuning of these parameters using `wandb`.
 
 ```python
 from peft import get_peft_model, LoraConfig, TaskType

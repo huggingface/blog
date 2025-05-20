@@ -21,7 +21,7 @@ translators:
 !pip install sentencepiece==0.1.95
 ```
 
-Vaswani 等人在其名作 [Attention is all you need](https://arxiv.org/abs/1706.03762) 中首创了 _基于 transformer_ 的编码器-解码器模型，如今已成为自然语言处理 (natural language processing，NLP) 领域编码器-解码器架构的 _事实标准_ 。
+Vaswani 等人在其名作 [Attention is all you need](https://huggingface.co/papers/1706.03762) 中首创了 _基于 transformer_ 的编码器-解码器模型，如今已成为自然语言处理 (natural language processing，NLP) 领域编码器-解码器架构的 _事实标准_ 。
 
 最近基于 transformer 的编码器-解码器模型训练这一方向涌现出了大量关于 _预训练目标函数_ 的研究，_例如_ T5、Bart、Pegasus、ProphetNet、Marge 等，但它们所使用的网络结构并没有改变。
 
@@ -50,11 +50,11 @@ $$\mathbf{X}_{1:n} = {\mathbf{x}_1, \ldots, \mathbf{x}_n}$$
 
 $$ f: \mathbf{X}_{1:n} \to \mathbf{Y}_{1:m} $$
 
-[Sutskever 等 (2014) ](https://arxiv.org/abs/1409.3215) 的工作指出，深度神经网络 (deep neural networks，DNN)“_尽管灵活且强大，但只能用于拟合输入和输出维度均固定的映射。_” ${}^1$
+[Sutskever 等 (2014) ](https://huggingface.co/papers/1409.3215) 的工作指出，深度神经网络 (deep neural networks，DNN)“_尽管灵活且强大，但只能用于拟合输入和输出维度均固定的映射。_” ${}^1$
 
 因此，要用使用 DNN 模型 ${}^2$ 解决序列到序列问题就意味着目标向量数 $m$ 必须是先验已知的，且必须独立于输入 $\mathbf{X}_{1:n}$。这样设定肯定不是最优的。因为对 NLG 任务而言，目标词的数量通常取决于输入内容 $\mathbf{X}_{1:n}$，而不仅仅是输入长度 $n$。 _例如_ ，一篇 1000 字的文章，根据内容的不同，有可能可以概括为 200 字，也有可能可以概括为 100 字。
 
-2014 年，[Cho 等人](https://arxiv.org/pdf/1406.1078.pdf) 和 [Sutskever 等人](https://arxiv.org/abs/1409.3215) 提出使用完全基于递归神经网络 (recurrent neural networks，RNN) 的编码器-解码器模型来解决 _序列到序列_任务。与 DNN 相比，RNN 支持输出可变数量的目标向量。下面，我们深入了解一下基于 RNN 的编码器-解码器模型的功能。
+2014 年，[Cho 等人](https://huggingface.co/papers/1406.1078) 和 [Sutskever 等人](https://huggingface.co/papers/1409.3215) 提出使用完全基于递归神经网络 (recurrent neural networks，RNN) 的编码器-解码器模型来解决 _序列到序列_任务。与 DNN 相比，RNN 支持输出可变数量的目标向量。下面，我们深入了解一下基于 RNN 的编码器-解码器模型的功能。
 
 在推理过程中，RNN 编码器通过连续更新其 _隐含状态_ ${}^3$ 对输入序列 $\mathbf{X}_{1:n}$ 进行编码。我们定义处理完最后一个输入向量 $\mathbf{x}_n$ 后的编码器隐含状态为 $\mathbf{c}$。因此，编码器主要完成如下映射:
 
@@ -123,7 +123,7 @@ $$ p_{\theta_{\text{enc}}, \theta_{\text{dec}}}(\mathbf{Y}_{1:m} | \mathbf{X}_{1
 基于 RNN 的编码器-解码器模型席卷了 NLG 社区。2016 年，谷歌宣布用基于 RNN 的编码器-解码器单一模型完全取代其原先使用的的含有大量特征工程的翻译服务 (参见
 [此处](https://www.oreilly.com/radar/what-machine-learning-means-for-software-development/#:~:text=Machine%20learning%20is%20already%20making,of%20code%20in%20Google%20Translate))。
 
-然而，基于 RNN 的编码器-解码器模型存在两个主要缺陷。首先，RNN 存在梯度消失问题，因此很难捕获长程依赖性， _参见_ [Hochreiter 等 (2001) ](https://www.bioinf.jku.at/publications/older/ch7.pdf) 的工作。其次，RNN 固有的循环架构使得在编码时无法进行有效的并行化， _参见_ [Vaswani 等 (2017) ](https://arxiv.org/abs/1706.03762) 的工作。
+然而，基于 RNN 的编码器-解码器模型存在两个主要缺陷。首先，RNN 存在梯度消失问题，因此很难捕获长程依赖性， _参见_ [Hochreiter 等 (2001) ](https://www.bioinf.jku.at/publications/older/ch7.pdf) 的工作。其次，RNN 固有的循环架构使得在编码时无法进行有效的并行化， _参见_ [Vaswani 等 (2017) ](https://huggingface.co/papers/1706.03762) 的工作。
 
 ---
 
@@ -137,7 +137,7 @@ ${}^4$ 神经网络可以将所有单词的概率分布定义为 $p(\mathbf{y} |
 
 ${}^5$ 波束搜索 (beam search) 是其中一种解码方法。本文不会对不同的解码方法进行介绍，如对此感兴趣，建议读者参考 [此文](https://huggingface.co/blog/zh/how-to-generate)。
 
-${}^6$ [Sutskever 等 (2014) ](https://arxiv.org/abs/1409.3215) 的工作对输入顺序进行了逆序，对上面的例子而言，输入向量变成了 ($\mathbf{x}_1 = \text{car}$，$\mathbf{x}_2 = \text{a}$，$\mathbf{x}_3 = \text{buy}$，$\mathbf{x}_4 = \text{to}$，$\mathbf{x}_5 = \text{want}$，$\mathbf{x}_6 = \text{I}$，$\mathbf{x}_7 = \text{EOS}$)。其动机是让对应词对之间的连接更短，如可以使得 $\mathbf{x}_6 = \text{I}$ 和  $\mathbf{y}_1 = \text{Ich}$ 之间的连接更短。该研究小组强调，将输入序列进行逆序是他们的模型在机器翻译上的性能提高的一个关键原因。
+${}^6$ [Sutskever 等 (2014) ](https://huggingface.co/papers/1409.3215) 的工作对输入顺序进行了逆序，对上面的例子而言，输入向量变成了 ($\mathbf{x}_1 = \text{car}$，$\mathbf{x}_2 = \text{a}$，$\mathbf{x}_3 = \text{buy}$，$\mathbf{x}_4 = \text{to}$，$\mathbf{x}_5 = \text{want}$，$\mathbf{x}_6 = \text{I}$，$\mathbf{x}_7 = \text{EOS}$)。其动机是让对应词对之间的连接更短，如可以使得 $\mathbf{x}_6 = \text{I}$ 和  $\mathbf{y}_1 = \text{Ich}$ 之间的连接更短。该研究小组强调，将输入序列进行逆序是他们的模型在机器翻译上的性能提高的一个关键原因。
 
 ## **编码器-解码器**
 
@@ -257,7 +257,7 @@ $$ \mathbf{v}_i = \mathbf{W}_v \mathbf{x'}_i,$$
 $$ \mathbf{k}_i = \mathbf{W}_k \mathbf{x'}_i, $$
 $$ \forall i \in {1, \ldots n }$$
 
-请注意，对每个输入向量 $\mathbf{x}_i (\forall i \in {i, \ldots, n}$) 而言，其所使用的权重矩阵都是 **相同**的。将每个输入向量 $\mathbf{x}_i$ 投影到 `query` 、 `key` 和 `value` 向量后，将每个 `query` 向量 $\mathbf{q}_j (\forall j \in {1, \ldots, n}$) 与所有 `key` 向量 $\mathbf{k}_1, \ldots, \mathbf{k}_n$ 进行比较。哪个 `key` 向量与 `query` 向量 $\mathbf{q}_j$ 越相似，其对应的 `value` 向量 $\mathbf{v}_j$ 对输出向量 $\mathbf{x''}_j$ 的影响就越重要。更具体地说，输出向量 $\mathbf{x''}_j$ 被定义为所有 `value` 向量的加权和 $\mathbf{v}_1, \ldots, \mathbf{v}_n$ 加上输入向量 $\mathbf{x'}_j$。而各 `value` 向量的权重与 $\mathbf{q}_j$ 和各个 `key` 向量 $\mathbf{k}_1, \ldots, \mathbf{k}_n$ 之间的余弦相似度成正比，其数学公式为 $\textbf{Softmax}(\mathbf{K}_{1:n}^\intercal \mathbf{q}_j)$，如下文的公式所示。关于自注意力层的完整描述，建议读者阅读 [这篇](http://jalammar.github.io/illustrated-transformer/) 博文或 [原始论文](https://arxiv.org/abs/1706.03762)。
+请注意，对每个输入向量 $\mathbf{x}_i (\forall i \in {i, \ldots, n}$) 而言，其所使用的权重矩阵都是 **相同**的。将每个输入向量 $\mathbf{x}_i$ 投影到 `query` 、 `key` 和 `value` 向量后，将每个 `query` 向量 $\mathbf{q}_j (\forall j \in {1, \ldots, n}$) 与所有 `key` 向量 $\mathbf{k}_1, \ldots, \mathbf{k}_n$ 进行比较。哪个 `key` 向量与 `query` 向量 $\mathbf{q}_j$ 越相似，其对应的 `value` 向量 $\mathbf{v}_j$ 对输出向量 $\mathbf{x''}_j$ 的影响就越重要。更具体地说，输出向量 $\mathbf{x''}_j$ 被定义为所有 `value` 向量的加权和 $\mathbf{v}_1, \ldots, \mathbf{v}_n$ 加上输入向量 $\mathbf{x'}_j$。而各 `value` 向量的权重与 $\mathbf{q}_j$ 和各个 `key` 向量 $\mathbf{k}_1, \ldots, \mathbf{k}_n$ 之间的余弦相似度成正比，其数学公式为 $\textbf{Softmax}(\mathbf{K}_{1:n}^\intercal \mathbf{q}_j)$，如下文的公式所示。关于自注意力层的完整描述，建议读者阅读 [这篇](http://jalammar.github.io/illustrated-transformer/) 博文或 [原始论文](https://huggingface.co/papers/1706.03762)。
 
 好吧，又复杂起来了。我们以上例中的一个 `query` 向量为例图解一下双向自注意层。为简单起见，本例中假设我们的 _基于 transformer_ 的解码器只有一个注意力头 `config.num_heads = 1` 并且没有归一化层。
 
@@ -279,7 +279,7 @@ $$\mathbf{X''}_{1:n} = \mathbf{V}_{1:n} \text{Softmax}(\mathbf{Q}_{1:n}^\interca
 
 ---
 
-${}^1$ 关于前馈层在基于 transformer 的模型中所扮演的角色的详细解释超出了本文的范畴。[Yun 等人 (2017) ](https://arxiv.org/pdf/1912.10077.pdf) 的工作认为前馈层对于将每个上下文向量 $\mathbf{x'}_i$ 映射到目标输出空间至关重要，而单靠 _自注意力_ 层无法达成这一目的。这里请注意，每个输出词元 $\mathbf{x'}$ 都经由相同的前馈层处理。更多详细信息，建议读者阅读论文。
+${}^1$ 关于前馈层在基于 transformer 的模型中所扮演的角色的详细解释超出了本文的范畴。[Yun 等人 (2017) ](https://huggingface.co/papers/1912.10077) 的工作认为前馈层对于将每个上下文向量 $\mathbf{x'}_i$ 映射到目标输出空间至关重要，而单靠 _自注意力_ 层无法达成这一目的。这里请注意，每个输出词元 $\mathbf{x'}$ 都经由相同的前馈层处理。更多详细信息，建议读者阅读论文。
 
 ${}^2$ 我们无须将 EOS 附加到输入序列，虽然有工作表明，在很多情况下加入它可以提高性能。相反地，基于 transformer 的解码器必须把 $\text{BOS}$ 作为第 0 个目标向量，并以之为条件预测第 1 个目标向量。
 
@@ -319,7 +319,7 @@ print("Is encoding for `I` equal to its perturbed version?: ", torch.allclose(en
 
 不出意外，输入词嵌入和编码器输出编码的长度， _即_ $\textbf{len}(\mathbf{X}_{1:n})$ 和  $\textbf{len }(\mathbf{\overline{X}}_{1:n})$，是相等的。同时，可以注意到当最后一个单词从 “car” 改成 “house” 后，$\mathbf{\overline{x}}_1 = \text{“I”}$ 的编码输出向量的值也改变了。因为我们现在已经理解了双向自注意力机制，这就不足为奇了。
 
-顺带一提， _自编码_ 模型 (如 BERT) 的架构与 _基于 transformer_ 的编码器模型是完全一样的。 _自编码_模型利用这种架构对开放域文本数据进行大规模自监督预训练，以便它们可以将任何单词序列映射到深度双向表征。在 [Devlin 等 (2018) ](https://arxiv.org/abs/1810.04805) 的工作中，作者展示了一个预训练 BERT 模型，其顶部有一个任务相关的分类层，可以在 11 个 NLP 任务上获得 SOTA 结果。你可以从 [此处](https://huggingface.co/transformers/model_summary.html#autoencoding-models) 找到 🤗 transformers 支持的所有 _自编码_ 模型。
+顺带一提， _自编码_ 模型 (如 BERT) 的架构与 _基于 transformer_ 的编码器模型是完全一样的。 _自编码_模型利用这种架构对开放域文本数据进行大规模自监督预训练，以便它们可以将任何单词序列映射到深度双向表征。在 [Devlin 等 (2018) ](https://huggingface.co/papers/1810.04805) 的工作中，作者展示了一个预训练 BERT 模型，其顶部有一个任务相关的分类层，可以在 11 个 NLP 任务上获得 SOTA 结果。你可以从 [此处](https://huggingface.co/transformers/model_summary.html#autoencoding-models) 找到 🤗 transformers 支持的所有 _自编码_ 模型。
 
 ## **解码器**
 
@@ -417,7 +417,7 @@ $$
 
 ${}^1$ 词嵌入矩阵 $\mathbf{W}_{\text{emb}}$ 为每个输入词提供唯一的 _上下文无关_向量表示。这个矩阵通常也被用作 “LM 头”，此时 “LM 头”可以很好地完成“编码向量到 logit” 的映射。
 
-${}^2$ 与编码器部分一样，本文不会详细解释前馈层在基于 transformer 的模型中的作用。[Yun 等 (2017) ](https://arxiv.org/pdf/1912.10077.pdf) 的工作认为前馈层对于将每个上下文相关向量 $\mathbf{x'}_i$ 映射到所需的输出空间至关重要，仅靠自注意力层无法完成。这里应该注意，每个输出词元 $\mathbf{x'}$ 对应的前馈层是相同的。有关更多详细信息，建议读者阅读论文。
+${}^2$ 与编码器部分一样，本文不会详细解释前馈层在基于 transformer 的模型中的作用。[Yun 等 (2017) ](https://huggingface.co/papers/1912.10077) 的工作认为前馈层对于将每个上下文相关向量 $\mathbf{x'}_i$ 映射到所需的输出空间至关重要，仅靠自注意力层无法完成。这里应该注意，每个输出词元 $\mathbf{x'}$ 对应的前馈层是相同的。有关更多详细信息，建议读者阅读论文。
 
 ```python
 from transformers import MarianMTModel, MarianTokenizer

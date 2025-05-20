@@ -192,7 +192,7 @@ The above animation visualizes our position embedding if each component is
 alternatively drawn from \\(\sin\\) and \\(\cos\\) with gradually increasing
 wavelengths. If you compare it with the previous animation, you'll notice a striking similarity! 
 
-We've now arrived at Sinusoidal embeddings; originally defined in the [Attention is all you need](https://arxiv.org/abs/1706.03762) paper.
+We've now arrived at Sinusoidal embeddings; originally defined in the [Attention is all you need](https://huggingface.co/papers/1706.03762) paper.
 Let's look at the equations:
 
 $$
@@ -263,7 +263,7 @@ $$
 If you've done any game programming before, you might notice that the
 result of our derivation is oddly familiar. That's right, it's the [Rotation Matrix!](https://en.wikipedia.org/wiki/Rotation_matrix) \\([^3]\\). 
 
-So the encoding scheme designed by [Noam Shazeer](https://en.wikipedia.org/wiki/Noam_Shazeer) in [Attention is all you need](https://arxiv.org/abs/1706.03762) was already encoding relative position as a rotation back in 2017! It took another **4 years** to go from Sinusoidal Encoding to RoPE, despite rotations already being on the table...
+So the encoding scheme designed by [Noam Shazeer](https://en.wikipedia.org/wiki/Noam_Shazeer) in [Attention is all you need](https://huggingface.co/papers/1706.03762) was already encoding relative position as a rotation back in 2017! It took another **4 years** to go from Sinusoidal Encoding to RoPE, despite rotations already being on the table...
 
 ## Absolute vs Relative Position Encoding
 
@@ -322,7 +322,7 @@ information, let's put it all together!
 ## **Ro**tary **P**ostional **E**ncoding 
 
 **Ro**tary **P**ostional **E**ncoding or RoPE was defined in the
-[RoFormer paper](https://arxiv.org/pdf/2104.09864) ([Jianlin Su](https://x.com/bojone1993) designed it independently on his blog [here](https://kexue.fm/archives/8130) and [here](https://kexue.fm/archives/8265)).
+[RoFormer paper](https://huggingface.co/papers/2104.09864) ([Jianlin Su](https://x.com/bojone1993) designed it independently on his blog [here](https://kexue.fm/archives/8130) and [here](https://kexue.fm/archives/8265)).
 While it may seem like voodoo if you skip to the end result, by thinking about Sinusoidal Encoding in the
 context of self attention (and more specifically dot products), we can see how
 it all comes together.
@@ -406,7 +406,7 @@ of values from our input vector. For \\(2D\\) data, we need to encode both horiz
 
 ## The future of positional encoding
 
-Is RoPE the final incarnation of positional encoding? This [recent paper](https://arxiv.org/pdf/2410.06205) from DeepMind deeply analyses RoPE and highlights some fundamental problems. TLDR: RoPE isn't a perfect solution, and the models mostly focus on the lower frequencies and the rotation for a certain percent of low frequencies improves performance on Gemma 2B! 
+Is RoPE the final incarnation of positional encoding? This [recent paper](https://huggingface.co/papers/2410.06205) from DeepMind deeply analyses RoPE and highlights some fundamental problems. TLDR: RoPE isn't a perfect solution, and the models mostly focus on the lower frequencies and the rotation for a certain percent of low frequencies improves performance on Gemma 2B! 
 
 I anticipate some future breakthroughs, perhaps taking inspiration from
 signal processing with ideas like wavelets or hierarchical implementations. As models
@@ -431,9 +431,9 @@ This post was originally published [here](https://fleetwood.dev/posts/you-could-
 - [Transformer Architecture: The Positional Encoding](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/)
 - [Rotary Embeddings: A Relative Revolution](https://blog.eleuther.ai/rotary-embeddings/) 
 - [How positional encoding works in transformers?](https://www.youtube.com/watch?v=T3OT8kqoqjc)
-- [Attention Is All You Need](https://arxiv.org/pdf/1706.03762)
-- [Round and round we go! What makes Rotary Positional Encodings useful?](https://arxiv.org/pdf/2410.06205)
-- [RoFormer: Enhanced Transformer with Rotary Position Embedding](https://arxiv.org/pdf/2104.09864)
+- [Attention Is All You Need](https://huggingface.co/papers/1706.03762)
+- [Round and round we go! What makes Rotary Positional Encodings useful?](https://huggingface.co/papers/2410.06205)
+- [RoFormer: Enhanced Transformer with Rotary Position Embedding](https://huggingface.co/papers/2104.09864)
 
 
 [^1]: Binary and Sinusoidal animations are reproductions of animations contained

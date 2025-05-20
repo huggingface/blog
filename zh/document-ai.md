@@ -55,7 +55,7 @@ OCR 的相关指标是字符错误率 ( CER ) 和 word-level 精度、召回率�
 
 这项任务通常是通过将其作为一个图像分割 (image segmentation) 、物体检测 (object detection)  问题来解决，该模型的输出为一组分割掩码 / 边界框，以及类别名称。
 
-目前最先进的文档布局分析模型是 [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) 和 [DiT](https://huggingface.co/docs/transformers/model_doc/dit) (Document image Transformer) 。这两种模型都使用经典的 [Mask R-CNN](https://arxiv.org/abs/1703.06870) 框架作为对象检测的骨架。这个 [文档布局分析](https://huggingface.co/spaces/nielsr/dit-document-layout-analysis) 空间说明了 [DiT](https://github.com/microsoft/unilm/tree/master/dit) 模型如何被用来识别文档中的文本段、标题和表格。这里展示了一个使用 DiT 检测文档不同部分的例子：
+目前最先进的文档布局分析模型是 [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) 和 [DiT](https://huggingface.co/docs/transformers/model_doc/dit) (Document image Transformer) 。这两种模型都使用经典的 [Mask R-CNN](https://huggingface.co/papers/1703.06870) 框架作为对象检测的骨架。这个 [文档布局分析](https://huggingface.co/spaces/nielsr/dit-document-layout-analysis) 空间说明了 [DiT](https://github.com/microsoft/unilm/tree/master/dit) 模型如何被用来识别文档中的文本段、标题和表格。这里展示了一个使用 DiT 检测文档不同部分的例子：
 
 ![用 DiT 进行文档布局分析](../assets/112_document-ai/DIT.png)
 
@@ -70,7 +70,7 @@ LayoutLM 的第一个版本 (现在称为 LayoutLMv1) 于 2020 年发布，显�
 LayoutLMv1 现在有许多继承者：
 
 * Donut 建立在 LayoutLM 的基础上，但可以把图像作为输入，所以它不需要一个单独的 OCR 引擎；
-* [ERNIE-Layout](https://arxiv.org/abs/2210.06155) 最近被发布了，并取得了令人鼓舞的成果，请看 [Space](https://huggingface.co/spaces/PaddlePaddle/ERNIE-Layout)
+* [ERNIE-Layout](https://huggingface.co/papers/2210.06155) 最近被发布了，并取得了令人鼓舞的成果，请看 [Space](https://huggingface.co/spaces/PaddlePaddle/ERNIE-Layout)
 
 对于多语言的使用情况，LayoutLM 有一些多语言的变种，比如 [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) 和 [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt)，这张来自 LayoutLM 论文的图展示了 LayoutLM 对一些不同文档的分析：
 
@@ -88,7 +88,7 @@ LayoutLMv1 现在有许多继承者：
 
 表格检测和结构识别的方法与文档布局分析类似，使用对象检测模型，输出为一组边界框和相应的类。最新的方法，如 Table Transformer ，可以用同一个模型实现表的检测和表的结构识别。
 
-[Table Transformer](https://huggingface.co/docs/transformers/main/en/model_doc/table-transformer) 是一个类似 [DETR](https://huggingface.co/docs/transformers/model_doc/detr) 的对象检测模型，在 PubTables-1M  (由一百万张表组成的数据集) 上进行训练。表的检测和识别的评估通常采用平均精度 (AP) 指标。据报告，在 [PubTables-1M](https://arxiv.org/abs/2110.00061) 数据集上， Table Transformer 的性能在表检测方面的 AP 为 0.966，在表结构识别 + 功能分析方面的 AP 为 0.912。
+[Table Transformer](https://huggingface.co/docs/transformers/main/en/model_doc/table-transformer) 是一个类似 [DETR](https://huggingface.co/docs/transformers/model_doc/detr) 的对象检测模型，在 PubTables-1M  (由一百万张表组成的数据集) 上进行训练。表的检测和识别的评估通常采用平均精度 (AP) 指标。据报告，在 [PubTables-1M](https://huggingface.co/papers/2110.00061) 数据集上， Table Transformer 的性能在表检测方面的 AP 为 0.966，在表结构识别 + 功能分析方面的 AP 为 0.912。
 
 虽然表格检测和提取有了一个令人兴奋的方法，但在你的数据上，结果可能是不同的，根据我们的经验，不同表格的质量和格式差别很大，这会影响模型的表现，所以在一些自定义的数据上进行额外的微调将大大改善性能。
 
@@ -157,15 +157,15 @@ Document AI 的数据准备很关键，并具有一定挑战性，需要有正�
 
 | model | paper | license | checkpoints |
 | --- | --- | --- | --- |
-| [Donut](https://huggingface.co/docs/transformers/main/en/model_doc/donut#overview) | [arxiv](https://arxiv.org/abs/2111.15664) | [MIT](https://github.com/clovaai/donut#license) | [huggingface](https://huggingface.co/models?other=donut) |
-| [LayoutLM](https://huggingface.co/docs/transformers/model_doc/layoutlm) | [arxiv](https://arxiv.org/abs/1912.13318) | [MIT](https://github.com/microsoft/unilm/blob/master/LICENSE) | [huggingface](https://huggingface.co/models?other=layoutlm) |
-| [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) | [arxiv](https://arxiv.org/abs/2104.08836) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutxlm) | [huggingface](https://huggingface.co/microsoft/layoutxlm-base) |
-| [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) | [arxiv](https://arxiv.org/abs/2012.14740) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutlmv2) | [huggingface](https://huggingface.co/models?other=layoutlmv2) |
-| [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) | [arxiv](https://arxiv.org/abs/2204.08387) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutlmv3) | [huggingface](https://huggingface.co/models?other=layoutlmv3) |
-| [DiT](https://huggingface.co/docs/transformers/model_doc/dit) | [arxiv](https://arxiv.org/abs/2203.02378) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/dit) | [huggingface](https://huggingface.co/models?other=dit) |
-| [TrOCR](https://huggingface.co/docs/transformers/main/en/model_doc/trocr) | [arxiv](https://arxiv.org/abs/2109.10282) | [MIT](https://github.com/microsoft/unilm/blob/master/LICENSE) | [huggingface](https://huggingface.co/models?search=trocr) |
-| [Table Transformer](https://huggingface.co/docs/transformers/main/en/model_doc/table-transformer) | [arxiv](https://arxiv.org/abs/2110.00061) | [MIT](https://github.com/microsoft/table-transformer/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=table-transformer) |
-| [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt) | [arxiv](https://arxiv.org/abs/2202.13669) | [MIT](https://github.com/jpWang/LiLT/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=lilt) |
+| [Donut](https://huggingface.co/docs/transformers/main/en/model_doc/donut#overview) | [arxiv](https://huggingface.co/papers/2111.15664) | [MIT](https://github.com/clovaai/donut#license) | [huggingface](https://huggingface.co/models?other=donut) |
+| [LayoutLM](https://huggingface.co/docs/transformers/model_doc/layoutlm) | [arxiv](https://huggingface.co/papers/1912.13318) | [MIT](https://github.com/microsoft/unilm/blob/master/LICENSE) | [huggingface](https://huggingface.co/models?other=layoutlm) |
+| [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) | [arxiv](https://huggingface.co/papers/2104.08836) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutxlm) | [huggingface](https://huggingface.co/microsoft/layoutxlm-base) |
+| [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) | [arxiv](https://huggingface.co/papers/2012.14740) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutlmv2) | [huggingface](https://huggingface.co/models?other=layoutlmv2) |
+| [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) | [arxiv](https://huggingface.co/papers/2204.08387) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/layoutlmv3) | [huggingface](https://huggingface.co/models?other=layoutlmv3) |
+| [DiT](https://huggingface.co/docs/transformers/model_doc/dit) | [arxiv](https://huggingface.co/papers/2203.02378) | [CC BY-NC-SA 4.0](https://github.com/microsoft/unilm/tree/master/dit) | [huggingface](https://huggingface.co/models?other=dit) |
+| [TrOCR](https://huggingface.co/docs/transformers/main/en/model_doc/trocr) | [arxiv](https://huggingface.co/papers/2109.10282) | [MIT](https://github.com/microsoft/unilm/blob/master/LICENSE) | [huggingface](https://huggingface.co/models?search=trocr) |
+| [Table Transformer](https://huggingface.co/docs/transformers/main/en/model_doc/table-transformer) | [arxiv](https://huggingface.co/papers/2110.00061) | [MIT](https://github.com/microsoft/table-transformer/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=table-transformer) |
+| [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt) | [arxiv](https://huggingface.co/papers/2202.13669) | [MIT](https://github.com/jpWang/LiLT/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=lilt) |
 
 以及基准数据集：
 
@@ -175,5 +175,5 @@ Document AI 的数据准备很关键，并具有一定挑战性，需要有正�
 | Document Image Classification | Accuracy, F1 | [RVL-CDIP](https://huggingface.co/datasets/rvl_cdip) |
 | Document layout analysis | mAP (mean average precision) | [PubLayNet](https://github.com/ibm-aur-nlp/PubLayNet), [XFUND](https://github.com/doc-analysis/XFUND)(Forms) |
 | Document parsing | Accuracy, F1 | [FUNSD](https://guillaumejaume.github.io/FUNSD/), [SROIE](https://huggingface.co/datasets/darentang/sroie/), [CORD](https://github.com/clovaai/cord) |
-| Table Detection and Extraction | mAP (mean average precision) | [PubTables-1M](https://arxiv.org/abs/2110.00061) |
+| Table Detection and Extraction | mAP (mean average precision) | [PubTables-1M](https://huggingface.co/papers/2110.00061) |
 | Document visual question answering | Average Normalized Levenshtein Similarity (ANLS) | [DocVQA](https://rrc.cvc.uab.es/?ch=17) |

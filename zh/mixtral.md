@@ -193,7 +193,7 @@ docker run --gpus all --shm-size 1g -p 3000:80 -v /data:/data ghcr.io/huggingfac
 
 训练 LLM 在技术和算力上都有较大挑战。本节我们将了解在 Hugging Face 生态系统中如何在单张 A100 GPU 上高效训练 Mixtral。
 
-下面是在 OpenAssistant 的 [聊天数据集](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) 上微调 Mixtral 的示例命令。为了节省内存，我们对注意力块中的所有线性层执行 4 比特量化和 [QLoRA](https://arxiv.org/abs/2305.14314)。请注意，与稠密 transformer 模型不同，我们不对专家网络中的 MLP 层进行量化，因为它们很稀疏并且量化后 PEFT 效果不好。
+下面是在 OpenAssistant 的 [聊天数据集](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) 上微调 Mixtral 的示例命令。为了节省内存，我们对注意力块中的所有线性层执行 4 比特量化和 [QLoRA](https://huggingface.co/papers/2305.14314)。请注意，与稠密 transformer 模型不同，我们不对专家网络中的 MLP 层进行量化，因为它们很稀疏并且量化后 PEFT 效果不好。
 
 首先，安装 🤗 TRL 的每日构建版并下载代码库以获取 [训练脚本](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
 
@@ -293,7 +293,7 @@ print(tokenizer.decode(output[0], skip_special_tokens=True))
 
 ## 免责声明及正在做的工作
 
-- **量化**: 围绕 MoE 的量化还有许多研究正如火如荼地展开。上文展示了我们基于 TheBloke 所做的一些初步实验，但我们预计随着对该架构研究的深入，会涌现出更多进展！这一领域的进展将会是日新月异的，我们翘首以盼。此外，最近的工作，如 [QMoE](https://arxiv.org/abs/2310.16795)，实现了 MoE 的亚 1 比特量化，也是值得尝试的方案。
+- **量化**: 围绕 MoE 的量化还有许多研究正如火如荼地展开。上文展示了我们基于 TheBloke 所做的一些初步实验，但我们预计随着对该架构研究的深入，会涌现出更多进展！这一领域的进展将会是日新月异的，我们翘首以盼。此外，最近的工作，如 [QMoE](https://huggingface.co/papers/2310.16795)，实现了 MoE 的亚 1 比特量化，也是值得尝试的方案。
 - **高显存占用**: MoE 运行推理速度较快，但对显存的要求也相对较高 (因此需要昂贵的 GPU)。这对本地推理提出了挑战，因为本地推理所拥有的设备显存一般较小。MoE 非常适合多设备大显存的基础设施。对 Mixtral 进行半精度推理需要 90GB 显存 🤯。
 
 ## 更多资源

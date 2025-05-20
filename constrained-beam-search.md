@@ -334,10 +334,10 @@ Constrained beam search gives us a flexible means to inject external knowledge a
 
 This new feature is based mainly on the following papers:
 
- - [Guided Open Vocabulary Image Captioning with Constrained Beam Search](https://arxiv.org/pdf/1612.00576.pdf)
- - [Fast Lexically Constrained Decoding with Dynamic Beam Allocation for Neural Machine Translation](https://arxiv.org/abs/1804.06609)
+ - [Guided Open Vocabulary Image Captioning with Constrained Beam Search](https://huggingface.co/papers/1612.00576)
+ - [Fast Lexically Constrained Decoding with Dynamic Beam Allocation for Neural Machine Translation](https://huggingface.co/papers/1804.06609)
  - [Improved Lexically Constrained Decoding for Translation and Monolingual Rewriting](https://aclanthology.org/N19-1090/)
- - [Guided Generation of Cause and Effect](https://arxiv.org/pdf/2107.09846.pdf)
+ - [Guided Generation of Cause and Effect](https://huggingface.co/papers/2107.09846)
 
 Like the ones above, many new research papers are exploring ways of using external knowledge (e.g., KGs, KBs) to guide the outputs of large deep learning models. Hopefully, this constrained beam search feature becomes another effective way to achieve this purpose.
 

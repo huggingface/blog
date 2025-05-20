@@ -13,15 +13,15 @@ translators:
 
 # 一次失败的实验 - 无限注意力，我们为什么坚持实验
 
-总结: 随着我们增加内存压缩次数的次数，Infini-attention 的性能会变得越来越差。据我们所知，[ring attention](https://x.com/Haojun_Zhao14/status/1815419356408336738)、[YaRN](https://arxiv.org/abs/2309.00071) 和 [rope scaling](https://arxiv.org/abs/2309.16039) 这三种方法仍是将预训练模型拓展更长上下文的最佳方式。
+总结: 随着我们增加内存压缩次数的次数，Infini-attention 的性能会变得越来越差。据我们所知，[ring attention](https://x.com/Haojun_Zhao14/status/1815419356408336738)、[YaRN](https://huggingface.co/papers/2309.00071) 和 [rope scaling](https://huggingface.co/papers/2309.16039) 这三种方法仍是将预训练模型拓展更长上下文的最佳方式。
 
 ## 引言:
 
 语言模型的上下文长度也是除模型性能之外的重要属性之一。自 in-context learning (上下文学习) 出现以来，添加相关信息到模型的输入中日渐重要。因此，上下文长度迅速从段落 (BERT/GPT-1 的 512 个 tokens) 扩展到页面 (GPT-2 和 GPT-3 分别为 1024/2048 个 tokens), 再到书籍 (Claude 的 128k tokens), 甚至书籍集合 (Gemini 的 1-10M tokens)。然而，将 standard attention(标准注意力) 扩展到如此长度仍然面临挑战。
 
-> 关于 Ring Attention (一种注意力机制) 的简单介绍: 据我们所知，Ring Attention 最初是由加州大学伯克利分校的研究人员在 2024 年提到的 [Ring Attention with Blockwise Transformers for Near-Infinite Context](https://arxiv.org/abs/2310.01889)。这种工程技术通过以分块方式执行 self-attention 和 feedforward network 计算，并将序列维度分配到多个设备上，减轻了内存限制，实现并发计算和通信。
+> 关于 Ring Attention (一种注意力机制) 的简单介绍: 据我们所知，Ring Attention 最初是由加州大学伯克利分校的研究人员在 2024 年提到的 [Ring Attention with Blockwise Transformers for Near-Infinite Context](https://huggingface.co/papers/2310.01889)。这种工程技术通过以分块方式执行 self-attention 和 feedforward network 计算，并将序列维度分配到多个设备上，减轻了内存限制，实现并发计算和通信。
 
-即使使用 Ring Attention，要在 1 百万 token 的上下文长度上训练一个 [Llama 3 8B](https://arxiv.org/abs/2407.21783) 模型，batch size 为 1 时，仍然需要 512 个 GPU。正如 scaling laws (扩展定律) 提到 [Scaling Laws for Neural Language Models](https://arxiv.org/abs/2001.08361) 的那样，模型大小与其下游任务性能之间存在强相关性，这意味着模型越大越好 (当然，两种模型都应该被训练得很好)。因此，我们不仅需要 1 百万 token 的上下文长度，还希望在最大的模型上实现这一长度 (例如，Llama 3 8B 405B)。而目前只有少数几家公司拥有实现这一目标的资源。
+即使使用 Ring Attention，要在 1 百万 token 的上下文长度上训练一个 [Llama 3 8B](https://huggingface.co/papers/2407.21783) 模型，batch size 为 1 时，仍然需要 512 个 GPU。正如 scaling laws (扩展定律) 提到 [Scaling Laws for Neural Language Models](https://huggingface.co/papers/2001.08361) 的那样，模型大小与其下游任务性能之间存在强相关性，这意味着模型越大越好 (当然，两种模型都应该被训练得很好)。因此，我们不仅需要 1 百万 token 的上下文长度，还希望在最大的模型上实现这一长度 (例如，Llama 3 8B 405B)。而目前只有少数几家公司拥有实现这一目标的资源。
 
 > 回顾自注意力的内存复杂度
 >
@@ -29,7 +29,7 @@ translators:
 >
 > 即使是像 Flash Attention 这样的内存高效注意力方法，其内存需求仍会随上下文长度线性增长，并受限于单个 GPU 的内存容量。这导致在当今的 GPU 上，典型的最大上下文长度远低于 1M 个标记。
 
-受此启发，我们探索了一种替代标准注意力的方法:无限注意力 (infini-attention)。这篇论文由来自 Google 的研究人员于 2024 年 4 月发布 [Leave No Context Behind: Efficient Infinite Context Transformers with Infini-attention](https://arxiv.org/abs/2404.07143)。与计算每个词之间的注意力分数不同，无限注意力将序列划分为多个片段，将早期片段压缩到固定缓冲区，并允许下一个片段从早期片段中检索记忆，同时将注意力分数限制在当前片段内的词语之间。其关键优势在于固定的缓冲区大小为总内存使用设置了上限。它还在一个片段内使用相同的查询来访问该片段和压缩记忆中的信息，这使我们能够以低成本为预训练模型扩展上下文长度。理论上，我们可以实现无限长的上下文，因为它只为所有早期片段的记忆保留一个缓冲区。然而，实际上压缩限制了能有效存储的信息量，因此问题在于:这种压缩的记忆有多大的可用性 ?
+受此启发，我们探索了一种替代标准注意力的方法:无限注意力 (infini-attention)。这篇论文由来自 Google 的研究人员于 2024 年 4 月发布 [Leave No Context Behind: Efficient Infinite Context Transformers with Infini-attention](https://huggingface.co/papers/2404.07143)。与计算每个词之间的注意力分数不同，无限注意力将序列划分为多个片段，将早期片段压缩到固定缓冲区，并允许下一个片段从早期片段中检索记忆，同时将注意力分数限制在当前片段内的词语之间。其关键优势在于固定的缓冲区大小为总内存使用设置了上限。它还在一个片段内使用相同的查询来访问该片段和压缩记忆中的信息，这使我们能够以低成本为预训练模型扩展上下文长度。理论上，我们可以实现无限长的上下文，因为它只为所有早期片段的记忆保留一个缓冲区。然而，实际上压缩限制了能有效存储的信息量，因此问题在于:这种压缩的记忆有多大的可用性 ?
 
 虽然在理论上理解新方法相对容易，但实际使其运作往往是另一回事，而这个过程很少公开分享。出于这个原因，我们决定分享我们在复现无限注意力论文过程中的实验和记录，包括在调试过程中 (我们 90% 的时间都在调试一个收敛问题) 激励我们的因素，以及让这些方法正常工作可能有多困难。
 
@@ -201,7 +201,7 @@ Llama 3 8B 模型相当大，所以我们决定从 200M 的 Llama 开始，使�
 
 **使用密钥检索任务进行评估**
 
-密钥检索任务最初由 EPFL 的研究人员提出 [Landmark Attention: Random-Access Infinite Context Length for Transformers](https://arxiv.org/abs/2305.16300)。这是一个旨在评估模型从长上下文中检索信息的能力的任务，其中信息的位置是可控的。提示模型的输入格式结构如下:
+密钥检索任务最初由 EPFL 的研究人员提出 [Landmark Attention: Random-Access Infinite Context Length for Transformers](https://huggingface.co/papers/2305.16300)。这是一个旨在评估模型从长上下文中检索信息的能力的任务，其中信息的位置是可控的。提示模型的输入格式结构如下:
 
 ```
 在大量无关文本中隐藏着重要信息。找到并记住它们。我将就其中的重要信息对你进行测试。草是绿色的。天空是蓝色的。太阳是黄色的。我们开始吧。来回往复。(重复 x 次) 密钥是 9054。记住它。9054 是密钥。草是绿色的。天空是蓝色的。太阳是黄色的。我们开始吧。来回往复。(重复 y 次) 密钥是什么？密钥是
@@ -284,7 +284,7 @@ The Department of Physics and Astronomy offers a program leading to the Master o
 
 ## 第 6 节: 结论
 
-遗憾的是，尽管取得了这些进展，我们发现在我们的实验中，Infini-attention 并不够令人信服，特别是在可靠性方面还不够。在我们复现的这个阶段，我们仍然认为  [Ring Attention](https://x.com/Haojun_Zhao14/status/1815419356408336738)、[YaRN](https://arxiv.org/abs/2309.00071) 和 [rope scaling](https://arxiv.org/abs/2309.16039) 是将预训练模型扩展到更长上下文长度的更好选择。
+遗憾的是，尽管取得了这些进展，我们发现在我们的实验中，Infini-attention 并不够令人信服，特别是在可靠性方面还不够。在我们复现的这个阶段，我们仍然认为  [Ring Attention](https://x.com/Haojun_Zhao14/status/1815419356408336738)、[YaRN](https://huggingface.co/papers/2309.00071) 和 [rope scaling](https://huggingface.co/papers/2309.16039) 是将预训练模型扩展到更长上下文长度的更好选择。
 
 这些后来的技术对于非常大的模型 (例如，400B 及以上) 仍然需要大量资源。因此，我们仍然认为探索压缩技术或继续推进我们在这篇博文中描述的一系列实验对社区来说具有重大意义，我们也很兴奋能够跟进并尝试可能开发出的新技术，来克服当前工作的一些局限性。
 

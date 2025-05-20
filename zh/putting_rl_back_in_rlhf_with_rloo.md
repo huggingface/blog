@@ -20,7 +20,7 @@ translators:
 2. 🚀对于 1B 参数模型，RLOO 的运行速度比 PPO **快 2 倍**，对于 6.9B 参数模型，RLOO 的运行速度比 PPO **快 3 倍**。
 3. 🔥在响应胜率 (由 GPT4 判断) 方面，RLOO **与 PPO 相当**，并且始终优于 DPO 等流行的离线方法。
 
-通过 RLOO，我们将强化学习重新引入 RLHF，使社区能够更轻松地探索在线 RL 方法。这令人兴奋，因为越来越多的研究表明，在线 RL 比 DPO 等离线方法更有效 ([https://arxiv.org/abs/2402.04792](https://arxiv.org/abs/2402.04792), [https://arxiv.org/abs/2405.08448](https://arxiv.org/abs/2405.08448))。
+通过 RLOO，我们将强化学习重新引入 RLHF，使社区能够更轻松地探索在线 RL 方法。这令人兴奋，因为越来越多的研究表明，在线 RL 比 DPO 等离线方法更有效 ([https://huggingface.co/papers/2402.04792](https://huggingface.co/papers/2402.04792), [https://huggingface.co/papers/2405.08448](https://huggingface.co/papers/2405.08448))。
 
 <p align="center">
   <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/putting_rl_back_in_rlhf_with_rloo/win_rate_comparison.png?download=true" alt="alt_text" title="image_tooltip" />
@@ -83,7 +83,7 @@ print(f"action='entire completion', reward={entire_generation_reward}")
 # action='entire completion', reward=-0.2000 (-1 + 0.1 + 0.7)
 ```
 
-其次，RLOO 使用 REINFORCE 损失，它基本上将 (奖励 - 基线) 与动作的对数概率相乘。在这里，我们突出了每个 token 的 REINFORCE 损失与整个补全的 REINFORCE 损失之间的区别。请注意，对于 PPO 的损失，我们还需要基于价值模型和 [广义优势估计 (GAE)](https://arxiv.org/abs/1506.02438) 来计算优势。
+其次，RLOO 使用 REINFORCE 损失，它基本上将 (奖励 - 基线) 与动作的对数概率相乘。在这里，我们突出了每个 token 的 REINFORCE 损失与整个补全的 REINFORCE 损失之间的区别。请注意，对于 PPO 的损失，我们还需要基于价值模型和 [广义优势估计 (GAE)](https://huggingface.co/papers/1506.02438) 来计算优势。
 
 ```python
 from torch import Tensor
@@ -220,7 +220,7 @@ trainer.train()
 
 # 我们如何在 TRL 中实现 RLOO 训练器
 
-我们基于新的实验性 `PPOv2Trainer` 实现了 RLOO 训练器，后者又是基于 https://arxiv.org/abs/2403.17031。有趣的是，我们实现的 RLOO 训练器仍然使用 PPO 损失。这是因为 REINFORCE 的损失是 PPO 的一个特例 (https://arxiv.org/abs/2205.09123)。请注意，即使对数概率明确出现在 REINFORCE 损失中，它也隐含在 PPO 损失中。眼见为实，所以让我们用一个简单的例子来证明这一点。
+我们基于新的实验性 `PPOv2Trainer` 实现了 RLOO 训练器，后者又是基于 https://huggingface.co/papers/2403.17031。有趣的是，我们实现的 RLOO 训练器仍然使用 PPO 损失。这是因为 REINFORCE 的损失是 PPO 的一个特例 (https://huggingface.co/papers/2205.09123)。请注意，即使对数概率明确出现在 REINFORCE 损失中，它也隐含在 PPO 损失中。眼见为实，所以让我们用一个简单的例子来证明这一点。
 
 ```python
 import torch.nn.functional as F
@@ -254,14 +254,14 @@ print(f"{logits2.grad=}") # tensor([[-0.1749, 0.5246, -0.1749, -0.1749]])
 
 - [https://huggingface.co/collections/vwxyzjn/rloo-ppov2-tl-dr-summarize-checkpoints-66679a3bfd95ddf66c97420d](https://huggingface.co/collections/vwxyzjn/rloo-ppov2-tl-dr-summarize-checkpoints-66679a3bfd95ddf66c97420d)
 
-我们从 [Huang 等人，2024](https://arxiv.org/abs/2403.17031) 直接获取 SFT / RM 模型。为了评估，我们使用 vLLM 加载检查点，并使用 GPT4 作为评判模型来评估生成的 TL;DR 与参考 TL;DR 的对比。我们还查看了 GPU 内存使用情况和运行时间，正如博客开头所示的图表。要重现我们的工作，请随时查看我们文档中的命令:
+我们从 [Huang 等人，2024](https://huggingface.co/papers/2403.17031) 直接获取 SFT / RM 模型。为了评估，我们使用 vLLM 加载检查点，并使用 GPT4 作为评判模型来评估生成的 TL;DR 与参考 TL;DR 的对比。我们还查看了 GPU 内存使用情况和运行时间，正如博客开头所示的图表。要重现我们的工作，请随时查看我们文档中的命令:
 
 - [https://huggingface.co/docs/trl/main/en/rloo_trainer#benchmark-experiments](https://huggingface.co/docs/trl/main/en/rloo_trainer#benchmark-experiments)
 - [https://huggingface.co/docs/trl/main/en/rloo_trainer#benchmark-experiments](https://huggingface.co/docs/trl/main/en/rloo_trainer#benchmark-experiments)
 
 关键结果如下:
 
-- **🚀高性能 RLOO 检查点**: 使用 GPT4 作为评判模型，6.9B 检查点获得了 78.7% (k=2) 的偏好率，这甚至超过了原始 [paper](https://arxiv.org/abs/2402.14740) 中报告的最佳性能 77.9% (k=4) 和 74.2 (k=2)。这是一个很好的迹象，表明我们的 RLOO 训练按预期工作。
+- **🚀高性能 RLOO 检查点**: 使用 GPT4 作为评判模型，6.9B 检查点获得了 78.7% (k=2) 的偏好率，这甚至超过了原始 [paper](https://huggingface.co/papers/2402.14740) 中报告的最佳性能 77.9% (k=4) 和 74.2 (k=2)。这是一个很好的迹象，表明我们的 RLOO 训练按预期工作。
 
   - RLOO 1B 检查点的胜率为 40.1%，而 SFT 检查点的胜率为 21.3%。这是一个很好的迹象，表明 RLOO 训练按预期工作。
 

@@ -502,7 +502,7 @@ translators:
 ## **PyTorch Adam 优化器与 RLHF 相关的数值问题**
 
 - 这个实现细节非常有趣，值得专门一节来讨论。
-- PyTorch 的 Adam 优化器 ([torch.optim.Adam.html](https://pytorch.org/docs/stable/generated/torch.optim.Adam.html)) 与 TensorFlow 的 Adam 优化器 (TF1 Adam 在 [tensorflow/v1.15.2/adam.py](https://github.com/tensorflow/tensorflow/blob/v1.15.2/tensorflow/python/training/adam.py)，TF2 Adam 在 [keras/adam.py#L26-L220](https://github.com/keras-team/keras/blob/v2.13.1/keras/optimizers/adam.py#L26-L220)) 有不同的实现方式。具体来说， **PyTorch 遵循了 Kingma 和 Ba 的 Adam 论文中的算法 1** ([arxiv/1412.6980](https://arxiv.org/pdf/1412.6980.pdf))，而 **TensorFlow 使用了该论文第 2.1 节前的公式**，这里提到的 `epsilon` 在论文中称为 `epsilon hat` 。在伪代码比较中，我们有以下内容:
+- PyTorch 的 Adam 优化器 ([torch.optim.Adam.html](https://pytorch.org/docs/stable/generated/torch.optim.Adam.html)) 与 TensorFlow 的 Adam 优化器 (TF1 Adam 在 [tensorflow/v1.15.2/adam.py](https://github.com/tensorflow/tensorflow/blob/v1.15.2/tensorflow/python/training/adam.py)，TF2 Adam 在 [keras/adam.py#L26-L220](https://github.com/keras-team/keras/blob/v2.13.1/keras/optimizers/adam.py#L26-L220)) 有不同的实现方式。具体来说， **PyTorch 遵循了 Kingma 和 Ba 的 Adam 论文中的算法 1** ([arxiv/1412.6980](https://huggingface.co/papers/1412.6980))，而 **TensorFlow 使用了该论文第 2.1 节前的公式**，这里提到的 `epsilon` 在论文中称为 `epsilon hat` 。在伪代码比较中，我们有以下内容:
 
     ```python
     ### pytorch adam implementation:
@@ -519,7 +519,7 @@ translators:
     param.addcdiv_(exp_avg, denom, value=-lr_t)
     ```
 
-- 让我们比较一下 PyTorch 风格和 TensorFlow 风格 Adam 的更新方程。按照 Adam 论文 [(Kingma 和 Ba，2014)](https://arxiv.org/abs/1412.6980) 的符号表示，我们可以得到 PyTorch Adam (Kingma 和 Ba 论文的算法 1) 和 TensorFlow 风格 Adam (Kingma 和 Ba 论文第 2.1 节前的公式) 的梯度更新规则如下:
+- 让我们比较一下 PyTorch 风格和 TensorFlow 风格 Adam 的更新方程。按照 Adam 论文 [(Kingma 和 Ba，2014)](https://huggingface.co/papers/1412.6980) 的符号表示，我们可以得到 PyTorch Adam (Kingma 和 Ba 论文的算法 1) 和 TensorFlow 风格 Adam (Kingma 和 Ba 论文第 2.1 节前的公式) 的梯度更新规则如下:
 
     $$\begin{aligned}\text{pytorch adam :}\quad \theta_t & =\theta_{t-1}-\alpha \cdot \hat{m} _t /\left(\sqrt{\hat{v} _t}+\varepsilon\right) \& =\theta_ {t-1}- \alpha \underbrace{\left[m_t /\left(1-\beta_1^t\right)\right]}_ {=\hat{m} _t} /\left[\sqrt{\underbrace{v_t /\left(1-\beta_2^t\right)}_ {=\hat{v} _t} }+\varepsilon\right]\& =\theta_ {t-1}- \alpha\left[m_t /\left(1-\beta_1^t\right)\right]\frac{\sqrt{1-\beta_2^t}}{\sqrt{v_t}+\color{green}{\varepsilon \sqrt{1-\beta_2^t}}}\end{aligned}$$
 

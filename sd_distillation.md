@@ -42,7 +42,7 @@ Combining all of this makes up the Knowledge-Distillation training. Below is an 
 </p>
 
 
-  Image taken from the [paper](https://arxiv.org/abs/2305.15798)  “On Architectural Compression of Text-to-Image Diffusion Models” by Shinkook. et. al
+  Image taken from the [paper](https://huggingface.co/papers/2305.15798)  “On Architectural Compression of Text-to-Image Diffusion Models” by Shinkook. et. al
 
 
 We have taken [Realistic-Vision 4.0](https://huggingface.co/SG161222/Realistic_Vision_V4.0_noVAE) as our base teacher model and have trained on the [LAION Art Aesthetic dataset](https://huggingface.co/datasets/recastai/LAION-art-EN-improved-captions) with image scores above 7.5, because of their high quality image descriptions. Unlike the paper, we have chosen to train the two models on 1M images for 100K steps for the Small and 125K steps for the Tiny mode respectively. The code for the distillation training can be found [here](https://github.com/segmind/distill-sd).

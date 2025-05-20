@@ -18,7 +18,7 @@ authors:
 
 Large language models have demonstrated remarkable capabilities in understanding and generating human-like text, revolutionizing applications across various domains. However, the demands they place on consumer hardware for training and deployment have become increasingly challenging to meet. 
 
-🤗 Hugging Face's core mission is to _democratize good machine learning_, and this includes making large models as accessible as possible for everyone. In the same spirit as our [bitsandbytes collaboration](https://huggingface.co/blog/4bit-transformers-bitsandbytes), we have just integrated the [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) library in Transformers, making it possible for users to quantize and run models in 8, 4, 3, or even 2-bit precision using the GPTQ algorithm ([Frantar et al. 2023](https://arxiv.org/pdf/2210.17323.pdf)). There is negligible accuracy degradation with 4-bit quantization, with inference speed comparable to the `fp16` baseline for small batch sizes. Note that GPTQ method slightly differs from post-training quantization methods proposed by bitsandbytes as it requires to pass a calibration dataset.
+🤗 Hugging Face's core mission is to _democratize good machine learning_, and this includes making large models as accessible as possible for everyone. In the same spirit as our [bitsandbytes collaboration](https://huggingface.co/blog/4bit-transformers-bitsandbytes), we have just integrated the [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) library in Transformers, making it possible for users to quantize and run models in 8, 4, 3, or even 2-bit precision using the GPTQ algorithm ([Frantar et al. 2023](https://huggingface.co/papers/2210.17323)). There is negligible accuracy degradation with 4-bit quantization, with inference speed comparable to the `fp16` baseline for small batch sizes. Note that GPTQ method slightly differs from post-training quantization methods proposed by bitsandbytes as it requires to pass a calibration dataset.
 
 This integration is available both for Nvidia GPUs, and RoCm-powered AMD GPUs.
 
@@ -41,7 +41,7 @@ This integration is available both for Nvidia GPUs, and RoCm-powered AMD GPUs.
 
 This blogpost and release come with several resources to get started with GPTQ quantization:
 
-- [Original Paper](https://arxiv.org/pdf/2210.17323.pdf)
+- [Original Paper](https://huggingface.co/papers/2210.17323)
 - [Basic usage Google Colab notebook](https://colab.research.google.com/drive/1_TIrmuKOFhuRRiTWN94iLKUFu6ZX4ceb?usp=sharing) -  This notebook shows how to quantize your transformers model with GPTQ method, how to do inference, and how to do fine-tuning with the quantized model.
 - Transformers integration [documentation](https://huggingface.co/docs/transformers/main/en/main_classes/quantization)
 - Optimum integration [documentation](https://huggingface.co/docs/optimum/llm_quantization/usage_guides/quantization)
@@ -73,7 +73,7 @@ Given a layer \\(l\\) with weight matrix \\(W_{l}\\) and layer input \\(X_{l}\\)
 
 Once this is solved per layer, a solution to the global problem can be obtained by combining the layer-wise solutions. 
 
-In order to solve this layer-wise compression problem, the author uses the Optimal Brain Quantization framework ([Frantar et al 2022](https://arxiv.org/abs/2208.11580)). The OBQ method starts from the observation that the above equation can be written as the sum of the squared errors, over each row of \\(W_{l}\\).
+In order to solve this layer-wise compression problem, the author uses the Optimal Brain Quantization framework ([Frantar et al 2022](https://huggingface.co/papers/2208.11580)). The OBQ method starts from the observation that the above equation can be written as the sum of the squared errors, over each row of \\(W_{l}\\).
 
 
 \\( \sum_{i=0}^{d_{row}} \|W_{l[i,:]}X-\hat{W}_{l[i,:]}X\|^{2}_{2} \\)
@@ -84,7 +84,7 @@ The GPTQ paper improves this framework by introducing a set of optimizations tha
 
 Compared to OBQ, the quantization step itself is also faster with GPTQ: it takes 2 GPU-hours to quantize a BERT model (336M) with OBQ, whereas with GPTQ, a Bloom model (176B) can be quantized in less than 4 GPU-hours. 
 
-To learn more about the exact algorithm and the different benchmarks on perplexity and speedups, check out the original [paper](https://arxiv.org/pdf/2210.17323.pdf).
+To learn more about the exact algorithm and the different benchmarks on perplexity and speedups, check out the original [paper](https://huggingface.co/papers/2210.17323).
 
 ## AutoGPTQ library – the one-stop library for efficiently leveraging GPTQ for LLMs
 
@@ -161,9 +161,9 @@ You can not further train a quantized model using the regular methods. However, 
 
 Our AutoGPTQ integration already brings impressive benefits at a small cost in the quality of prediction. There is still room for improvement, both in the quantization techniques and the kernel implementations.
 
-First, while AutoGPTQ integrates (to the best of our knowledge) with the most performant W4A16 kernel (weights as int4, activations as fp16) from the [exllama implementation](https://github.com/turboderp/exllama), there is a good chance that the kernel can still be improved. There have been other promising implementations [from Kim et al.](https://arxiv.org/pdf/2211.10017.pdf) and from [MIT Han Lab](https://github.com/mit-han-lab/llm-awq) that appear to be promising. Moreover, from internal benchmarks, there appears to still be no open-source performant W4A16 kernel written in Triton, which could be a direction to explore.
+First, while AutoGPTQ integrates (to the best of our knowledge) with the most performant W4A16 kernel (weights as int4, activations as fp16) from the [exllama implementation](https://github.com/turboderp/exllama), there is a good chance that the kernel can still be improved. There have been other promising implementations [from Kim et al.](https://huggingface.co/papers/2211.10017) and from [MIT Han Lab](https://github.com/mit-han-lab/llm-awq) that appear to be promising. Moreover, from internal benchmarks, there appears to still be no open-source performant W4A16 kernel written in Triton, which could be a direction to explore.
 
-On the quantization side, let’s emphasize again that this method only quantizes the weights. There have been other approaches proposed for LLM quantization that can quantize both weights and activations at a small cost in prediction quality, such as [LLM-QAT](https://arxiv.org/pdf/2305.17888.pdf) where a mixed int4/int8 scheme can be used, as well as quantization of the key-value cache. One of the strong advantages of this technique is the ability to use actual integer arithmetic for the compute, with e.g. [Nvidia Tensor Cores supporting int8 compute](https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf). However, to the best of our knowledge, there are no open-source W4A8 quantization kernels available, but this may well be [an interesting direction to explore](https://www.qualcomm.com/news/onq/2023/04/floating-point-arithmetic-for-ai-inference-hit-or-miss).
+On the quantization side, let’s emphasize again that this method only quantizes the weights. There have been other approaches proposed for LLM quantization that can quantize both weights and activations at a small cost in prediction quality, such as [LLM-QAT](https://huggingface.co/papers/2305.17888) where a mixed int4/int8 scheme can be used, as well as quantization of the key-value cache. One of the strong advantages of this technique is the ability to use actual integer arithmetic for the compute, with e.g. [Nvidia Tensor Cores supporting int8 compute](https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf). However, to the best of our knowledge, there are no open-source W4A8 quantization kernels available, but this may well be [an interesting direction to explore](https://www.qualcomm.com/news/onq/2023/04/floating-point-arithmetic-for-ai-inference-hit-or-miss).
 
 On the kernel side as well, designing performant W4A16 kernels for larger batch sizes remains an open challenge.
 
@@ -185,7 +185,7 @@ We hope that this integration will make it easier for everyone to use LLMs in th
 
 Do not miss the useful resources shared above for better understanding the integration and how to quickly get started with GPTQ quantization.
 
-- [Original Paper](https://arxiv.org/pdf/2210.17323.pdf)
+- [Original Paper](https://huggingface.co/papers/2210.17323)
 - [Basic usage Google Colab notebook](https://colab.research.google.com/drive/1_TIrmuKOFhuRRiTWN94iLKUFu6ZX4ceb?usp=sharing) -  This notebook shows how to quantize your transformers model with GPTQ method, how to do inference, and how to do fine-tuning with the quantized model.
 - Transformers integration [documentation](https://huggingface.co/docs/transformers/main/en/main_classes/quantization)
 - Optimum integration [documentation](https://huggingface.co/docs/optimum/llm_quantization/usage_guides/quantization)

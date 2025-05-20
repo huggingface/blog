@@ -24,7 +24,7 @@ _**注意**_ : _本文同时也是 [Transformers](https://huggingface.co/docs/tr
 
 然而，在实际部署这些模型时，我们仍面临不少挑战:
 
-- 为了展现可媲美人类的文本理解和生成能力，LLM 的参数量一般需要达到数十亿 (参见 [Kaplan 等人](https://arxiv.org/abs/2001.08361)、[Wei 等人](https://arxiv.org/abs/2206.07682) 的论述)，随之而来的是对推理内存的巨大需求。
+- 为了展现可媲美人类的文本理解和生成能力，LLM 的参数量一般需要达到数十亿 (参见 [Kaplan 等人](https://huggingface.co/papers/2001.08361)、[Wei 等人](https://huggingface.co/papers/2206.07682) 的论述)，随之而来的是对推理内存的巨大需求。
 - 在许多实际任务中，LLM 需要广泛的上下文信息，这就要求模型在推理过程中能够处理很长的输入序列。
 
 这些挑战的关键在于增强 LLM 的计算和存储效能，特别是如何增强长输入序列的计算和存储效能。
@@ -33,7 +33,7 @@ _**注意**_ : _本文同时也是 [Transformers](https://huggingface.co/docs/tr
 
 1. **低精度**: 研究表明，低精度 (即 8 比特和 4 比特) 推理可提高计算效率，且对模型性能没有显著影响。
 2. **Flash 注意力**: Flash 注意力是注意力算法的一个变种，它不仅更节省内存，而且通过优化 GPU 内存利用率从而提升了计算效率。
-3. **架构创新**: 考虑到 LLM 推理的部署方式始终为: 输入序列为长文本的自回归文本生成，因此业界提出了专门的模型架构，以实现更高效的推理。这方面最重要的进展有 [Alibi](https://arxiv.org/abs/2108.12409)、[旋转式嵌入 (rotary embeddings) ](https://arxiv.org/abs/2104.09864)、[多查询注意力 (Multi-Query Attention，MQA) ](https://arxiv.org/abs/1911.02150) 以及 [分组查询注意 (Grouped Query Attention，GQA) ](https://arxiv.org/abs/2305.13245)。
+3. **架构创新**: 考虑到 LLM 推理的部署方式始终为: 输入序列为长文本的自回归文本生成，因此业界提出了专门的模型架构，以实现更高效的推理。这方面最重要的进展有 [Alibi](https://huggingface.co/papers/2108.12409)、[旋转式嵌入 (rotary embeddings) ](https://huggingface.co/papers/2104.09864)、[多查询注意力 (Multi-Query Attention，MQA) ](https://huggingface.co/papers/1911.02150) 以及 [分组查询注意 (Grouped Query Attention，GQA) ](https://huggingface.co/papers/2305.13245)。
 
 本文，我们将从张量的角度对自回归生成进行分析。我们深入研究了低精度的利弊，对最新的注意力算法进行了全面的探索，并讨论了改进的 LLM 架构。在此过程中，我们用实际的例子来展示每项技术所带来的改进。
 
@@ -168,9 +168,9 @@ from accelerate.utils import release_memory
 release_memory(model)
 ```
 
-那如果你的 GPU 没有 32GB 显存怎么办？研究发现，模型权重可以量化为 8 比特或 4 比特，而对模型输出没有明显影响 (参见 [Dettmers 等人的论文](https://arxiv.org/abs/2208.07339))。
+那如果你的 GPU 没有 32GB 显存怎么办？研究发现，模型权重可以量化为 8 比特或 4 比特，而对模型输出没有明显影响 (参见 [Dettmers 等人的论文](https://huggingface.co/papers/2208.07339))。
 
-甚至可以将模型量化为 3 或 2 比特，对输出的影响仍可接受，如最近的 [GPTQ 论文](https://arxiv.org/pdf/2210.17323.pdf) 🤯 所示。
+甚至可以将模型量化为 3 或 2 比特，对输出的影响仍可接受，如最近的 [GPTQ 论文](https://huggingface.co/papers/2210.17323) 🤯 所示。
 
 总的来讲，量化方案旨在降低权重的精度，同时尽量保持模型的推理结果尽可能准确 ( _即_ 尽可能接近 bfloat16)。
 
@@ -329,7 +329,7 @@ LLM 通常有多个注意力头，因此可以并行进行多个自注意力计�
 
 伴随着 LLM 在文本理解和生成方面的进展，它们正被应用于日益复杂的任务。之前，我们主要用模型来对几个句子进行翻译或摘要，但现在我们会用这些模型来管理整页的文本，这就要求它们具有处理长输入文本的能力。
 
-我们如何摆脱长输入文本对内存的过高要求？我们需要一种新的方法让我们在计算自注意力机制时能够摆脱 $QK^T$ 矩阵。 [Tri Dao 等人](https://arxiv.org/abs/2205.14135) 开发了这样一种新算法，并将其称为 **Flash 注意力**。
+我们如何摆脱长输入文本对内存的过高要求？我们需要一种新的方法让我们在计算自注意力机制时能够摆脱 $QK^T$ 矩阵。 [Tri Dao 等人](https://huggingface.co/papers/2205.14135) 开发了这样一种新算法，并将其称为 **Flash 注意力**。
 
 简而言之，Flash 注意力将 $\mathbf{V} \times \text{Softmax}(\mathbf{QK}^T)$ 的计算分解成若干步骤，通过迭代多个 softmax 计算步来将输出分成多个较小的块进行计算:
 
@@ -337,13 +337,13 @@ $$ \textbf{O} _i \leftarrow s^a_ {ij} \times \textbf{O} _i + s^b_ {ij} \times \m
 
 其中 $s^a_{ij}$ 和  $s^b_{ij}$ 是随着每个 $i$ 和  $j$ 迭代更新的 softmax 统计归一化值。
 
-请注意，整个 Flash 注意力有点复杂，这里已经大大简化了。如果想要深入理解，可以阅读 [Flash Attention 的论文](https://arxiv.org/pdf/2205.14135.pdf)。
+请注意，整个 Flash 注意力有点复杂，这里已经大大简化了。如果想要深入理解，可以阅读 [Flash Attention 的论文](https://huggingface.co/papers/2205.14135)。
 
 要点如下:
 
 > 通过跟踪 softmax 统计归一化值再加上一些聪明的数学技巧，与默认的自注意力层相比，Flash 注意力的计算结果 **完全相同**，而内存成本仅随着 $N$ 线性增加。
 
-仅看这个公式，直觉上来讲，Flash 注意力肯定比默认的自注意力公式要慢很多，因为需要进行更多的计算。确实，与普通注意力相比，Flash 注意力需要更多的 FLOP，因为需要不断重新计算 softmax 统计归一化值 (如果感兴趣，请参阅 [论文](https://arxiv.org/pdf/2205.14135.pdf) 以了解更多详细信息)。
+仅看这个公式，直觉上来讲，Flash 注意力肯定比默认的自注意力公式要慢很多，因为需要进行更多的计算。确实，与普通注意力相比，Flash 注意力需要更多的 FLOP，因为需要不断重新计算 softmax 统计归一化值 (如果感兴趣，请参阅 [论文](https://huggingface.co/papers/2205.14135) 以了解更多详细信息)。
 
 > 然而，与默认注意力相比，Flash 注意力的推理速度要快得多，这是因为它能够显著减少对较慢的高带宽显存的需求，而更多使用了更快的片上内存 (SRAM)。
 
@@ -546,20 +546,20 @@ flush()
 
 为了让能够 LLM 理解语序，需要额外的 _提示_ ，通常我们用 _位置编码_ (也称为 _位置嵌入_ ) 来注入这种提示。位置编码将每个词元的位置编码为数字，LLM 可以利用这些数字更好地理解语序。
 
-_Attention Is All You Need_ [](https://arxiv.org/abs/1706.03762) 论文引入了正弦位置嵌入 $\mathbf{P} = \mathbf{p}_1, \ldots, \mathbf{p}_N $。其中每个向量 $\mathbf{p}_i$ 为其位置 $i$ 的正弦函数。然后将位置编码与输入序列向量简单相加 $\mathbf{\hat{X}} = \mathbf{\hat{x}}_1, \ldots, \mathbf{\hat{x}}_N$ = $\mathbf{x}_1 + \mathbf{p}_1, \ldots, \mathbf{x}_N + \mathbf{p}_N$ 从而提示模型更好地学习语序。
+_Attention Is All You Need_ [](https://huggingface.co/papers/1706.03762) 论文引入了正弦位置嵌入 $\mathbf{P} = \mathbf{p}_1, \ldots, \mathbf{p}_N $。其中每个向量 $\mathbf{p}_i$ 为其位置 $i$ 的正弦函数。然后将位置编码与输入序列向量简单相加 $\mathbf{\hat{X}} = \mathbf{\hat{x}}_1, \ldots, \mathbf{\hat{x}}_N$ = $\mathbf{x}_1 + \mathbf{p}_1, \ldots, \mathbf{x}_N + \mathbf{p}_N$ 从而提示模型更好地学习语序。
 
-其他工作 (如 [Devlin 等人的工作](https://arxiv.org/abs/1810.04805)) 没有使用固定位置嵌入，而是使用可训练的位置编码，在训练期间学习位置嵌入 $\mathbf{P}$。
+其他工作 (如 [Devlin 等人的工作](https://huggingface.co/papers/1810.04805)) 没有使用固定位置嵌入，而是使用可训练的位置编码，在训练期间学习位置嵌入 $\mathbf{P}$。
 
 曾经，正弦位置嵌入以及可训练位置嵌入是将语序编码进 LLM 的主要方法，但这两个方法会有一些问题:
 
-1. 正弦位置嵌入以及可训练位置嵌入都是绝对位置嵌入， _即_ 为每个位置 id ($ 0, \ldots, N$) 生成一个唯一的嵌入。正如 [Huang et al.](https://arxiv.org/abs/2009.13658) 和 [Su et al.](https://arxiv.org/abs/2104.09864) 的工作所示，绝对位置嵌入会导致 LLM 在处理长文本输入时性能较差。对长文本输入而言，如果模型能够学习输入词元间的相对距离而不是它们的绝对位置，会比较好。
+1. 正弦位置嵌入以及可训练位置嵌入都是绝对位置嵌入， _即_ 为每个位置 id ($ 0, \ldots, N$) 生成一个唯一的嵌入。正如 [Huang et al.](https://huggingface.co/papers/2009.13658) 和 [Su et al.](https://huggingface.co/papers/2104.09864) 的工作所示，绝对位置嵌入会导致 LLM 在处理长文本输入时性能较差。对长文本输入而言，如果模型能够学习输入词元间的相对距离而不是它们的绝对位置，会比较好。
 
 2. 当使用训练位置嵌入时，LLM 必须在固定的输入长度 $N$上进行训练，因此如果推理时的输入长度比训练长度更长，外插会比较麻烦。
 
 最近，可以解决上述问题的相对位置嵌入变得越来越流行，其中应用最多的有两个:
 
-- [旋转位置嵌入 (Rotary Position Embedding， RoPE) ](https://arxiv.org/abs/2104.09864)
-- [ALiBi](https://arxiv.org/abs/2108.12409)
+- [旋转位置嵌入 (Rotary Position Embedding， RoPE) ](https://huggingface.co/papers/2104.09864)
+- [ALiBi](https://huggingface.co/papers/2108.12409)
 
 _RoPE_ 和 _ALiBi_ 都认为，最好直接在自注意力算法中向 LLM 提示语序，因为词元是通过自注意力机制互相关联的。更具体地说，应该通过修改 $\mathbf{QK}^T$ 的计算来提示语序。
 
@@ -574,21 +574,21 @@ $\mathbf{R}_{\theta, i - j}$ 表示旋转矩阵。 $ \theta$ 在不可训练的�
 如今，多个最重要的 LLM 使用了 _RoPE_ ，例如:
 
 - [**Falcon**](https://huggingface.co/tiiuae/falcon-40b)
-- [**Llama**](https://arxiv.org/abs/2302.13971)
-- [**PaLM**](https://arxiv.org/pdf/2204.02311.pdf)
+- [**Llama**](https://huggingface.co/papers/2302.13971)
+- [**PaLM**](https://huggingface.co/papers/2204.02311)
 
 另一个方案是 _ALiBi_ ， 它提出了一种更简单的相对位置编码方案。在计算 softmax 之前，$\mathbf{QK}^T$ 矩阵的每个元素会减去被一个预定义系数 `m` 缩放后的对应两个向量间的相对距离。
 
 ![](/blog/assets/163_optimize_llm/alibi.png)
 
-如 [ALiBi](https://arxiv.org/abs/2108.12409) 论文所示，这种简单的相对位置编码使得模型即使在很长的文本输入序列中也能保持高性能。
+如 [ALiBi](https://huggingface.co/papers/2108.12409) 论文所示，这种简单的相对位置编码使得模型即使在很长的文本输入序列中也能保持高性能。
 
 当前也有多个最重要的 LLM 使用了 _ALiBi_ ，如:
 
 - **MPT** [](https://huggingface.co/mosaicml/mpt-30b)
 - **BLOOM** [](https://huggingface.co/bigscience/bloom)
 
-_RoPE_ 和 _ALiBi_ 位置编码都可以外推到训练期间未见的输入长度，而事实证明，与 _RoPE_ 相比， _ALiBi_ 的外推效果要好得多。对于 ALiBi，只需简单地增加下三角位置矩阵的值以匹配输入序列的长度即可。而对于 _RoPE_ ，如果输入长度比训练期间的输入长得多，使用训练期间 $\theta$ 值的生成效果不好， _参见_ [Press et al.](https://arxiv.org/abs/2108.12409)。然而，社区已经找到了一些调整 $\theta$ 的有效技巧。从而允许 _RoPE_ 位置嵌入能够很好地应对输入序列外插的状况 (请参阅 [此处](https://github.com/huggingface/transformers/pull/24653))。
+_RoPE_ 和 _ALiBi_ 位置编码都可以外推到训练期间未见的输入长度，而事实证明，与 _RoPE_ 相比， _ALiBi_ 的外推效果要好得多。对于 ALiBi，只需简单地增加下三角位置矩阵的值以匹配输入序列的长度即可。而对于 _RoPE_ ，如果输入长度比训练期间的输入长得多，使用训练期间 $\theta$ 值的生成效果不好， _参见_ [Press et al.](https://huggingface.co/papers/2108.12409)。然而，社区已经找到了一些调整 $\theta$ 的有效技巧。从而允许 _RoPE_ 位置嵌入能够很好地应对输入序列外插的状况 (请参阅 [此处](https://github.com/huggingface/transformers/pull/24653))。
 
 > RoPE 和 ALiBi 都是相对位置嵌入，其嵌入参数是 _不可_ 训练的，而是基于以下直觉:
 
@@ -725,7 +725,7 @@ config = model.config
 研究人员提出了两种方法，用于显著降低键值缓存的内存成本:
 
 
-1. [多查询注意力 (Multi-Query-Attention，MQA) ](https://arxiv.org/abs/1911.02150)
+1. [多查询注意力 (Multi-Query-Attention，MQA) ](https://huggingface.co/papers/1911.02150)
 
     多查询注意力机制是 Noam Shazeer 在 _Fast Transformer Decoding: One Write-Head is All You Need_ 论文中提出的。正如标题所示，Noam 发现，可以在所有注意力头之间共享同一对键、值投影权重，而不是使用 `n_head` 对键值投影权重，这并不会显著降低模型的性能。
 
@@ -733,20 +733,20 @@ config = model.config
 
     由于大多数 LLM 有 20 到 100 个注意力头，MQA 显著减少了键值缓存的内存消耗。因此，对于本文中使用的 LLM，假设输入序列长度为 16000，其所需的内存消耗从 15 GB 减少到不到 400 MB。
 
-    除了节省内存之外，MQA 还可以提高计算效率。在自回归解码中，需要重新加载大的键值向量，与当前的键值向量对相串接，然后将其输入到每一步的 $\mathbf{q}_c\mathbf{K}^T$ 计算中。对于自回归解码，不断重新加载所需的内存带宽可能成为严重的性能瓶颈。通过减少键值向量的大小，需要访问的内存更少，从而减少内存带宽瓶颈。欲了解更多详细信息，请查看 [Noam 的论文](https://arxiv.org/abs/1911.02150)。
+    除了节省内存之外，MQA 还可以提高计算效率。在自回归解码中，需要重新加载大的键值向量，与当前的键值向量对相串接，然后将其输入到每一步的 $\mathbf{q}_c\mathbf{K}^T$ 计算中。对于自回归解码，不断重新加载所需的内存带宽可能成为严重的性能瓶颈。通过减少键值向量的大小，需要访问的内存更少，从而减少内存带宽瓶颈。欲了解更多详细信息，请查看 [Noam 的论文](https://huggingface.co/papers/1911.02150)。
 
     这里的重点是，只有使用键值缓存时，将键值注意力头的数量减少到 1 才有意义。没有键值缓存时，模型单次前向传播的峰值内存消耗保持不变，因为每个注意力头查询向量不同，因此每个注意力头的 $\mathbf{QK}^T$ 矩阵也不相同。
 
     MQA 已被社区广泛采用，现已被许多流行的 LLM 所采用:
 
     - [**Falcon**](https://huggingface.co/tiiuae/falcon-40b)
-    - [**PaLM**](https://arxiv.org/pdf/2204.02311.pdf)
+    - [**PaLM**](https://huggingface.co/papers/2204.02311)
     - [**MPT**](https://huggingface.co/mosaicml/mpt-30b)
     - [**BLOOM**](https://huggingface.co/bigscience/bloom)
 
     此外，本文所使用的检查点 - `bigcode/octocoder` - 也使用了 MQA。
 
-2. [分组查询注意力 (Grouped-Query-Attention，GQA) ](https://arxiv.org/abs/2305.13245)
+2. [分组查询注意力 (Grouped-Query-Attention，GQA) ](https://huggingface.co/papers/2305.13245)
 
     分组查询注意力由来自 Google 的 Ainslie 等人提出，它们发现，与原始的多头键值投影相比，使用 MQA 通常会导致生成质量下降。该论文认为，通过不太大幅度地减少查询头投影权重的数量可以获得更高的模型性能。不应仅使用单个键值投影权重，而应使用 `n < n_head` 个键值投影权重。通过将 `n` 设为比 `n_head` 小得多的值 (例如 2，4 或 8)，几乎可以保留 MQA 带来的所有内存和速度增益，同时更少地牺牲模型能力，或者说说仅略微牺牲模型性能。
 
@@ -758,6 +758,6 @@ config = model.config
 
 ## 总结
 
-研究界不断提出新的、巧妙的方法来加速更大的 LLM 的推理。举个例子，一个颇有前景的研究方向是 [投机解码](https://arxiv.org/abs/2211.17192)，其中“简单词元”是由更小、更快的语言模型生成的，而只有“难词元”是由 LLM 本身生成的。详细介绍超出了本文的范围，但可以阅读这篇 [不错的博文](https://huggingface.co/blog/cn/assisted-generation)。
+研究界不断提出新的、巧妙的方法来加速更大的 LLM 的推理。举个例子，一个颇有前景的研究方向是 [投机解码](https://huggingface.co/papers/2211.17192)，其中“简单词元”是由更小、更快的语言模型生成的，而只有“难词元”是由 LLM 本身生成的。详细介绍超出了本文的范围，但可以阅读这篇 [不错的博文](https://huggingface.co/blog/cn/assisted-generation)。
 
 GPT3/4、Llama-2-70b、Claude、PaLM 等海量 LLM 能够在 [Hugging Face Chat](https://huggingface.co/chat/) 或 ChatGPT 等聊天应用中快速运行的原因是很大一部分归功于上述精度、算法和架构方面的改进。展望未来，GPU、TPU 等加速器只会变得更快且内存更大，但人们仍然应该始终确保使用最好的可用算法和架构来获得最大的收益 🤗。

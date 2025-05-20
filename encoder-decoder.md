@@ -19,7 +19,7 @@ authors:
 
 The *transformer-based* encoder-decoder model was introduced by Vaswani
 et al. in the famous [Attention is all you need
-paper](https://arxiv.org/abs/1706.03762) and is today the *de-facto*
+paper](https://huggingface.co/papers/1706.03762) and is today the *de-facto*
 standard encoder-decoder architecture in natural language processing
 (NLP).
 
@@ -92,7 +92,7 @@ sequence:
 
 $$ f: \mathbf{X}_{1:n} \to \mathbf{Y}_{1:m}. $$
 
-[Sutskever et al. (2014)](https://arxiv.org/abs/1409.3215) noted that
+[Sutskever et al. (2014)](https://huggingface.co/papers/1409.3215) noted that
 deep neural networks (DNN)s, \"*despite their flexibility and power can
 only define a mapping whose inputs and targets can be sensibly encoded
 with vectors of fixed dimensionality.*\" \\({}^1\\)
@@ -106,8 +106,8 @@ and not just on the input length \\(n\\). *E.g.*, an article of 1000 words
 can be summarized to both 200 words and 100 words depending on its
 content.
 
-In 2014, [Cho et al.](https://arxiv.org/pdf/1406.1078.pdf) and
-[Sutskever et al.](https://arxiv.org/abs/1409.3215) proposed to use an
+In 2014, [Cho et al.](https://huggingface.co/papers/1406.1078) and
+[Sutskever et al.](https://huggingface.co/papers/1409.3215) proposed to use an
 encoder-decoder model purely based on recurrent neural networks (RNNs)
 for *sequence-to-sequence* tasks. In contrast to DNNS, RNNs are capable
 of modeling a mapping to a variable number of target vectors. Let\'s
@@ -271,7 +271,7 @@ difficult to capture long-range dependencies, *cf.* [Hochreiter et al.
 (2001)](https://www.bioinf.jku.at/publications/older/ch7.pdf). Second,
 the inherent recurrent architecture of RNNs prevents efficient
 parallelization when encoding, *cf.* [Vaswani et al.
-(2017)](https://arxiv.org/abs/1706.03762).
+(2017)](https://huggingface.co/papers/1706.03762).
 
 ------------------------------------------------------------------------
 
@@ -316,7 +316,7 @@ notebook](https://huggingface.co/blog/how-to-generate) on decoding
 methods.
 
 
-\\({}^6\\) [Sutskever et al. (2014)](https://arxiv.org/abs/1409.3215)
+\\({}^6\\) [Sutskever et al. (2014)](https://huggingface.co/papers/1409.3215)
 reverses the order of the input so that in the above example the input
 vectors would correspond to \\(\mathbf{x}_1 = \text{car}\\),
 \\(\mathbf{x}_2 = \text{a}\\), \\(\mathbf{x}_3 = \text{buy}\\),
@@ -622,7 +622,7 @@ mathematically expressed by
 illustrated in the equation below. For a complete description of the
 self-attention layer, the reader is advised to take a look at
 [this](http://jalammar.github.io/illustrated-transformer/) blog post or
-the original [paper](https://arxiv.org/abs/1706.03762).
+the original [paper](https://huggingface.co/papers/1706.03762).
 
 Alright, this sounds quite complicated. Let\'s illustrate the
 bi-directional self-attention layer for one of the query vectors of our
@@ -713,7 +713,7 @@ holds in practice.
 
 \\({}^1\\) An in-detail explanation of the role the feed-forward layers play
 in transformer-based models is out-of-scope for this notebook. It is
-argued in [Yun et. al, (2017)](https://arxiv.org/pdf/1912.10077.pdf)
+argued in [Yun et. al, (2017)](https://huggingface.co/papers/1912.10077)
 that feed-forward layers are crucial to map each contextual vector
 \\(\mathbf{x'}_i\\) individually to the desired output space, which the
 _self-attention_ layer does not manage to do on its own. It should be
@@ -782,7 +782,7 @@ architecture as _transformer-based_ encoder models. _Autoencoding_
 models leverage this architecture for massive self-supervised
 pre-training on open-domain text data so that they can map any word
 sequence to a deep bi-directional representation. In [Devlin et al.
-(2018)](https://arxiv.org/abs/1810.04805), the authors show that a
+(2018)](https://huggingface.co/papers/1810.04805), the authors show that a
 pre-trained BERT model with a single task-specific classification layer
 on top can achieve SOTA results on eleven NLP tasks. All *autoencoding*
 models of 🤗Transformers can be found
@@ -1070,7 +1070,7 @@ vector-to-logit\" weight mapping.
 \\({}^2\\) Again, an in-detail explanation of the role the feed-forward
 layers play in transformer-based models is out-of-scope for this
 notebook. It is argued in [Yun et. al,
-(2017)](https://arxiv.org/pdf/1912.10077.pdf) that feed-forward layers
+(2017)](https://huggingface.co/papers/1912.10077) that feed-forward layers
 are crucial to map each contextual vector \\(\mathbf{x'}_i\\) individually
 to the desired output space, which the *self-attention* layer does not
 manage to do on its own. It should be noted here, that each output token

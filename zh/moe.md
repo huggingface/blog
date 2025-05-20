@@ -49,7 +49,7 @@ translators:
 - 与稠密模型相比， **预训练速度更快**
 - 与具有相同参数数量的模型相比，具有更快的 **推理速度**
 - 需要 **大量显存**，因为所有专家系统都需要加载到内存中
-- 在 **微调方面存在诸多挑战**，但 [近期的研究](https://arxiv.org/pdf/2305.14705.pdf) 表明，对混合专家模型进行 **指令调优具有很大的潜力**。
+- 在 **微调方面存在诸多挑战**，但 [近期的研究](https://huggingface.co/papers/2305.14705) 表明，对混合专家模型进行 **指令调优具有很大的潜力**。
 
 让我们开始吧！
 
@@ -66,7 +66,7 @@ translators:
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/00_switch_transformer.png" alt="Switch Layer">
-  <figcaption>[Switch Transformers paper](https://arxiv.org/abs/2101.03961) 论文中的 MoE layer</figcaption>
+  <figcaption>[Switch Transformers paper](https://huggingface.co/papers/2101.03961) 论文中的 MoE layer</figcaption>
 </figure>
 
 总结来说，在混合专家模型 (MoE) 中，我们将传统 Transformer 模型中的每个前馈网络 (FFN) 层替换为 MoE 层，其中 MoE 层由两个核心部分组成: 一个门控网络和若干数量的专家。
@@ -84,10 +84,10 @@ translators:
 
 在 2010 至 2015 年间，两个独立的研究领域为混合专家模型 (MoE) 的后续发展做出了显著贡献:
 
-1. **组件专家**: 在传统的 MoE 设置中，整个系统由一个门控网络和多个专家组成。在支持向量机 (SVMs) 、高斯过程和其他方法的研究中，MoE 通常被视为整个模型的一部分。然而，[Eigen、Ranzato 和 Ilya 的研究](https://arxiv.org/abs/1312.4314) 探索了将 MoE 作为更深层网络的一个组件。这种方法允许将 MoE 嵌入到多层网络中的某一层，使得模型既大又高效。
+1. **组件专家**: 在传统的 MoE 设置中，整个系统由一个门控网络和多个专家组成。在支持向量机 (SVMs) 、高斯过程和其他方法的研究中，MoE 通常被视为整个模型的一部分。然而，[Eigen、Ranzato 和 Ilya 的研究](https://huggingface.co/papers/1312.4314) 探索了将 MoE 作为更深层网络的一个组件。这种方法允许将 MoE 嵌入到多层网络中的某一层，使得模型既大又高效。
 2. **条件计算**: 传统的神经网络通过每一层处理所有输入数据。在这一时期，Yoshua Bengio 等研究人员开始探索基于输入令牌动态激活或停用网络组件的方法。
 
-这些研究的融合促进了在自然语言处理 (NLP) 领域对混合专家模型的探索。特别是在 2017 年，[Shazeer 等人](https://arxiv.org/abs/1701.06538) (团队包括 Geoffrey Hinton 和 Jeff Dean，后者有时被戏称为 [“谷歌的 Chuck Norris”](https://www.informatika.bg/jeffdean)) 将这一概念应用于 137B 的 LSTM (当时被广泛应用于 NLP 的架构，由 Schmidhuber 提出)。通过引入稀疏性，这项工作在保持极高规模的同时实现了快速的推理速度。这项工作主要集中在翻译领域，但面临着如高通信成本和训练不稳定性等多种挑战。
+这些研究的融合促进了在自然语言处理 (NLP) 领域对混合专家模型的探索。特别是在 2017 年，[Shazeer 等人](https://huggingface.co/papers/1701.06538) (团队包括 Geoffrey Hinton 和 Jeff Dean，后者有时被戏称为 [“谷歌的 Chuck Norris”](https://www.informatika.bg/jeffdean)) 将这一概念应用于 137B 的 LSTM (当时被广泛应用于 NLP 的架构，由 Schmidhuber 提出)。通过引入稀疏性，这项工作在保持极高规模的同时实现了快速的推理速度。这项工作主要集中在翻译领域，但面临着如高通信成本和训练不稳定性等多种挑战。
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/01_moe_layer.png" alt="MoE layer in LSTM">
@@ -149,7 +149,7 @@ $$
 
 ## MoEs and Transformers
 
-Transformer 类模型明确表明，增加参数数量可以提高性能，因此谷歌使用 [GShard](https://arxiv.org/abs/2006.16668) 尝试将 Transformer 模型的参数量扩展到超过 6000 亿并不令人惊讶。
+Transformer 类模型明确表明，增加参数数量可以提高性能，因此谷歌使用 [GShard](https://huggingface.co/papers/2006.16668) 尝试将 Transformer 模型的参数量扩展到超过 6000 亿并不令人惊讶。
 
 GShard 将在编码器和解码器中的每个前馈网络 (FFN) 层中的替换为使用 Top-2 门控的混合专家模型 (MoE) 层。下图展示了编码器部分的结构。这种架构对于大规模计算非常有效: 当扩展到多个设备时，MoE 层在不同设备间共享，而其他所有层则在每个设备上复制。我们将在 [“让 MoE 起飞”](#让moe起飞) 部分对这一点进行更详细的讨论。
 
@@ -169,7 +169,7 @@ GShard 的工作对适用于 MoE 的并行计算模式也做出了重要贡献�
 
 ## Switch Transformers
 
-尽管混合专家模型 (MoE) 显示出了很大的潜力，但它们在训练和微调过程中存在稳定性问题。[Switch Transformers](https://arxiv.org/abs/2101.03961) 是一项非常激动人心的工作，它深入研究了这些话题。作者甚至在 Hugging Face 上发布了一个 [1.6 万亿参数的 MoE](https://huggingface.co/google/switch-c-2048)，拥有 2048 个专家，你可以使用 `transformers` 库来运行它。Switch Transformers 实现了与 T5-XXL 相比 4 倍的预训练速度提升。
+尽管混合专家模型 (MoE) 显示出了很大的潜力，但它们在训练和微调过程中存在稳定性问题。[Switch Transformers](https://huggingface.co/papers/2101.03961) 是一项非常激动人心的工作，它深入研究了这些话题。作者甚至在 Hugging Face 上发布了一个 [1.6 万亿参数的 MoE](https://huggingface.co/google/switch-c-2048)，拥有 2048 个专家，你可以使用 `transformers` 库来运行它。Switch Transformers 实现了与 T5-XXL 相比 4 倍的预训练速度提升。
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/03_switch_layer.png" alt="Switch Transformer Layer">
@@ -204,13 +204,13 @@ Switch Transformer 的作者还重新审视并简化了前面章节中提到的�
 
 这个 [Jupyter Notebook](https://colab.research.google.com/drive/1aGGVHZmtKmcNBbAwa9hbu58DDpIuB5O4?usp=sharing) 展示了如何对 Switch Transformers 进行微调以进行摘要生成的详细指南。然而，在开始微调 Switch Transformers 之前，强烈建议您先阅读关于 [微调混合专家模型](#微调混合专家模型) 部分的内容。
 
-Switch Transformers 采用了编码器 - 解码器的架构，实现了与 T5 类似的混合专家模型 (MoE) 版本。[GLaM](https://arxiv.org/abs/2112.06905) 这篇工作探索了如何使用仅为原来 1/3 的计算资源 (因为 MoE 模型在训练时需要的计算量较少，从而能够显著降低碳足迹) 来训练与 GPT-3 质量相匹配的模型来提高这些模型的规模。作者专注于仅解码器 (decoder-only) 的模型以及少样本和单样本评估，而不是微调。他们使用了 Top-2 路由和更大的容量因子。此外，他们探讨了将容量因子作为一个动态度量，根据训练和评估期间所使用的计算量进行调整。
+Switch Transformers 采用了编码器 - 解码器的架构，实现了与 T5 类似的混合专家模型 (MoE) 版本。[GLaM](https://huggingface.co/papers/2112.06905) 这篇工作探索了如何使用仅为原来 1/3 的计算资源 (因为 MoE 模型在训练时需要的计算量较少，从而能够显著降低碳足迹) 来训练与 GPT-3 质量相匹配的模型来提高这些模型的规模。作者专注于仅解码器 (decoder-only) 的模型以及少样本和单样本评估，而不是微调。他们使用了 Top-2 路由和更大的容量因子。此外，他们探讨了将容量因子作为一个动态度量，根据训练和评估期间所使用的计算量进行调整。
 
 ## 用 Router z-loss 稳定模型训练
 
 之前讨论的平衡损失可能会导致稳定性问题。我们可以使用许多方法来稳定稀疏模型的训练，但这可能会牺牲模型质量。例如，引入 dropout 可以提高稳定性，但会导致模型质量下降。另一方面，增加更多的乘法分量可以提高质量，但会降低模型稳定性。
 
-[ST-MoE](https://arxiv.org/abs/2202.08906) 引入的 `Router z-loss` 在保持了模型性能的同时显著提升了训练的稳定性。这种损失机制通过惩罚门控网络输入的较大 `logits` 来起作用，目的是促使数值的绝对大小保持较小，这样可以有效减少计算中的舍入误差。这一点对于那些依赖指数函数进行计算的门控网络尤其重要。为了深入了解这一机制，建议参考原始论文以获得更全面的细节。
+[ST-MoE](https://huggingface.co/papers/2202.08906) 引入的 `Router z-loss` 在保持了模型性能的同时显著提升了训练的稳定性。这种损失机制通过惩罚门控网络输入的较大 `logits` 来起作用，目的是促使数值的绝对大小保持较小，这样可以有效减少计算中的舍入误差。这一点对于那些依赖指数函数进行计算的门控网络尤其重要。为了深入了解这一机制，建议参考原始论文以获得更全面的细节。
 
 ## 专家如何学习？
 
@@ -254,7 +254,7 @@ Switch Transformers 的作者观察到，在相同的预训练困惑度下，稀
   <figcaption>提高学习率和调小批量可以提升稀疏模型微调质量。该图来自 ST-MoE 论文</figcaption>
 </figure>
 
-此时，您可能会对人们微调 MoE 中遇到的这些挑战而感到沮丧，但最近的一篇论文 [《MoEs Meets Instruction Tuning》](https://arxiv.org/pdf/2305.14705.pdf) (2023 年 7 月) 带来了令人兴奋的发现。这篇论文进行了以下实验:
+此时，您可能会对人们微调 MoE 中遇到的这些挑战而感到沮丧，但最近的一篇论文 [《MoEs Meets Instruction Tuning》](https://huggingface.co/papers/2305.14705) (2023 年 7 月) 带来了令人兴奋的发现。这篇论文进行了以下实验:
 
 - 单任务微调
 - 多任务指令微调
@@ -315,7 +315,7 @@ Megablocks (2022 年 11 月) 则专注于通过开发新的 GPU kernel 来处理
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/11_expert_matmuls.png" alt="Matrix multiplication optimized for block-sparse operations.">
-  <figcaption>针对不同规模的专家和令牌数量的块稀疏矩阵乘法。该图来自 [MegaBlocks](https://arxiv.org/abs/2211.15841) 论文</figcaption>
+  <figcaption>针对不同规模的专家和令牌数量的块稀疏矩阵乘法。该图来自 [MegaBlocks](https://huggingface.co/papers/2211.15841) 论文</figcaption>
 </figure>
 
 ## 开源混合专家模型
@@ -337,7 +337,7 @@ Megablocks (2022 年 11 月) 则专注于通过开发新的 GPU kernel 来处理
 
 首先是尝试将稀疏混合专家模型 (SMoE) **蒸馏** 回到具有更少实际参数但相似等价参数量的稠密模型。
 
-MoE 的 **量化** 也是一个有趣的研究领域。例如，[QMoE](https://arxiv.org/abs/2310.16795) (2023 年 10 月) 通过将 MoE 量化到每个参数不到 1 位，将 1.6 万亿参数的 Switch Transformer 所需的存储从 3.2TB 压缩到仅 160GB。
+MoE 的 **量化** 也是一个有趣的研究领域。例如，[QMoE](https://huggingface.co/papers/2310.16795) (2023 年 10 月) 通过将 MoE 量化到每个参数不到 1 位，将 1.6 万亿参数的 Switch Transformer 所需的存储从 3.2TB 压缩到仅 160GB。
 
 简而言之，一些值得探索的有趣领域包括:
 
@@ -348,15 +348,15 @@ MoE 的 **量化** 也是一个有趣的研究领域。例如，[QMoE](https://a
 ## 相关资源
 
 - [Adaptive Mixture of Local Experts (1991)](https://www.cs.toronto.edu/~hinton/absps/jjnh91.pdf)
-- [Learning Factored Representations in a Deep Mixture of Experts (2013)](https://arxiv.org/abs/1312.4314)
-- [Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer (2017)](https://arxiv.org/abs/1701.06538)
-- [GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding (Jun 2020)](https://arxiv.org/abs/2006.16668)
-- [GLaM: Efficient Scaling of Language Models with Mixture-of-Experts (Dec 2021)](https://arxiv.org/abs/2112.06905)
-- [Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity (Jan 2022)](https://arxiv.org/abs/2101.03961)
-- [ST-MoE: Designing Stable and Transferable Sparse Expert Models (Feb 2022)](https://arxiv.org/abs/2202.08906)
+- [Learning Factored Representations in a Deep Mixture of Experts (2013)](https://huggingface.co/papers/1312.4314)
+- [Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer (2017)](https://huggingface.co/papers/1701.06538)
+- [GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding (Jun 2020)](https://huggingface.co/papers/2006.16668)
+- [GLaM: Efficient Scaling of Language Models with Mixture-of-Experts (Dec 2021)](https://huggingface.co/papers/2112.06905)
+- [Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity (Jan 2022)](https://huggingface.co/papers/2101.03961)
+- [ST-MoE: Designing Stable and Transferable Sparse Expert Models (Feb 2022)](https://huggingface.co/papers/2202.08906)
 - [FasterMoE: modeling and optimizing training of large-scale dynamic pre-trained models(April 2022)](https://dl.acm.org/doi/10.1145/3503221.3508418)
-- [MegaBlocks: Efficient Sparse Training with Mixture-of-Experts (Nov 2022)](https://arxiv.org/abs/2211.15841)
-- [Mixture-of-Experts Meets Instruction Tuning:A Winning Combination for Large Language Models (May 2023)](https://arxiv.org/abs/2305.14705)
+- [MegaBlocks: Efficient Sparse Training with Mixture-of-Experts (Nov 2022)](https://huggingface.co/papers/2211.15841)
+- [Mixture-of-Experts Meets Instruction Tuning:A Winning Combination for Large Language Models (May 2023)](https://huggingface.co/papers/2305.14705)
 - [Mixtral-8x7B-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-v0.1), [Mixtral-8x7B-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1).
 
 ## Citation

@@ -36,7 +36,7 @@ translators:
 
 尽管训练大模型需要杰出的工程能力，但在 GPU 上训练深度学习模型本身却是一种蛮力技术。根据规格表，每台 DGX 服务器可消耗高达 6.5 千瓦的功率。同时，数据中心 (或服务器机柜) 至少需要同样多的冷却能力。除非你是史塔克家族的人 (Starks) ，需要在冬天让临冬城 (Winterfell) 保持温暖，否则你必须处理散热问题。
 
-此外，随着公众对气候和社会责任问题意识的增强，还需要考虑碳足迹问题。根据马萨诸塞大学 2019 年的一项 [研究](https://arxiv.org/pdf/1906.02243.pdf)，“*在 GPU 上训练一次 BERT 产生的碳足迹大致与一次跨美飞行相当*”。
+此外，随着公众对气候和社会责任问题意识的增强，还需要考虑碳足迹问题。根据马萨诸塞大学 2019 年的一项 [研究](https://huggingface.co/papers/1906.02243)，“*在 GPU 上训练一次 BERT 产生的碳足迹大致与一次跨美飞行相当*”。
 
 BERT-Large 有 3.4 亿个参数。我们可以通过此推断 Megatron-Turing 的碳足迹大致如何……认识我的人都知道，我并不是一个热血环保主义者。尽管如此，这些数字也不容忽视。
 
@@ -60,11 +60,11 @@ BERT-Large 有 3.4 亿个参数。我们可以通过此推断 Megatron-Turing �
 
 在评估模型时，你应该从那些精度满足要求的模型中选择尺寸最小的那个。它预测得更快，并且需要更少的硬件资源来进行训练和推理。节俭需要从一开始就做起。
 
-这其实也不算什么新招。计算机视觉从业者会记得 [SqueezeNet](https://arxiv.org/abs/1602.07360) 2017 年问世时，与 [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html) 相比，模型尺寸减少了 50 倍，而准确率却与 AlexNet 相当甚至更高。多聪明！
+这其实也不算什么新招。计算机视觉从业者会记得 [SqueezeNet](https://huggingface.co/papers/1602.07360) 2017 年问世时，与 [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html) 相比，模型尺寸减少了 50 倍，而准确率却与 AlexNet 相当甚至更高。多聪明！
 
-自然语言处理社区也在致力于使用迁移学习技术缩减模型尺寸，如使用 [知识蒸馏技术](https://en.wikipedia.org/wiki/Knowledge_distillation)。[DistilBERT](https://arxiv.org/abs/1910.01108)  也许是其中最广为人知的工作。与原始 BERT 模型相比，它保留了 97% 的语言理解能力，同时尺寸缩小了 40%，速度提高了 60%。你可以 [Hugging Face](https://huggingface.co/distilbert-base-uncased) 尝试一下 DistilBERT。同样的方法也已经应用于其他模型，例如 Facebook 的 [BART](https://arxiv.org/abs/1910.13461)，你可以 [在 Hugging Face 尝试 DistilBART](https://huggingface.co/models?search=distilbart)。
+自然语言处理社区也在致力于使用迁移学习技术缩减模型尺寸，如使用 [知识蒸馏技术](https://en.wikipedia.org/wiki/Knowledge_distillation)。[DistilBERT](https://huggingface.co/papers/1910.01108)  也许是其中最广为人知的工作。与原始 BERT 模型相比，它保留了 97% 的语言理解能力，同时尺寸缩小了 40%，速度提高了 60%。你可以 [Hugging Face](https://huggingface.co/distilbert-base-uncased) 尝试一下 DistilBERT。同样的方法也已经应用于其他模型，例如 Facebook 的 [BART](https://huggingface.co/papers/1910.13461)，你可以 [在 Hugging Face 尝试 DistilBART](https://huggingface.co/models?search=distilbart)。
 
-[Big Science](https://bigscience.huggingface.co/) 项目的最新模型也令人印象深刻。下面这张来自于 [论文](https://arxiv.org/abs/2110.08207) 的图表明，他们的 T0 模型在许多任务上都优于 GPT-3，同时尺寸小 16 倍。
+[Big Science](https://bigscience.huggingface.co/) 项目的最新模型也令人印象深刻。下面这张来自于 [论文](https://huggingface.co/papers/2110.08207) 的图表明，他们的 T0 模型在许多任务上都优于 GPT-3，同时尺寸小 16 倍。
 
 <kbd>
   <img src="../assets/33_large_language_models/02_t0.png">

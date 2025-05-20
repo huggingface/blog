@@ -144,6 +144,6 @@ JAT 的架构基于 Transformer，使用了 [EleutherAI 的 GPT-Neo 实现](http
     author = {Gallouédec, Quentin and Beeching, Edward and Romac, Clément and Dellandréa, Emmanuel},
     journal = {arXiv preprint arXiv:2402.09844},
     year = {2024},
-    url = {https://arxiv.org/abs/2402.09844}
+    url = {https://huggingface.co/papers/2402.09844}
 }
 ```

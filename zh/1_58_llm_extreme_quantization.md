@@ -16,7 +16,7 @@ translators:
 
 随着大语言模型（LLMs）规模和复杂性的增长，寻找减少它们的计算和能耗的方法已成为一个关键挑战。一种流行的解决方案是量化，其中参数的精度从标准的16位浮点（FP16）或32位浮点（FP32）降低到8位或4位等低位格式。虽然这种方法显著减少了内存使用量并加快了计算速度，但往往以准确性为代价。过度降低精度可能导致模型丢失关键信息，从而导致性能下降。
 
-[BitNet](https://arxiv.org/abs/2402.17764)是一种特殊的transformers架构，它用仅三个值：`(-1, 0, 1)`表示每个参数，提供了每个参数仅为1.58 ( \\( log_2(3) \\) )比特的极端量化。然而，这需要从头开始训练一个模型。虽然结果令人印象深刻，但并非每个人都有预算来进行大语言模型的预训练。为了克服这一限制，我们探索了一些技巧，允许将现有模型精调至 1.58 比特！继续阅读以了解更多！
+[BitNet](https://huggingface.co/papers/2402.17764)是一种特殊的transformers架构，它用仅三个值：`(-1, 0, 1)`表示每个参数，提供了每个参数仅为1.58 ( \\( log_2(3) \\) )比特的极端量化。然而，这需要从头开始训练一个模型。虽然结果令人印象深刻，但并非每个人都有预算来进行大语言模型的预训练。为了克服这一限制，我们探索了一些技巧，允许将现有模型精调至 1.58 比特！继续阅读以了解更多！
 
 ## 目录
 - [简介](#简介)
@@ -30,19 +30,19 @@ translators:
 
 ## 简介
 
-[BitNet](https://arxiv.org/abs/2402.17764)是由微软研究院提出的一种模型架构，其采用极端量化的方式，用仅三个值 -1、0 和 1 来表示每个参数。这导致模型每个参数仅使用1.58比特，显著降低了计算和内存需求。
+[BitNet](https://huggingface.co/papers/2402.17764)是由微软研究院提出的一种模型架构，其采用极端量化的方式，用仅三个值 -1、0 和 1 来表示每个参数。这导致模型每个参数仅使用1.58比特，显著降低了计算和内存需求。
 
 该架构在执行矩阵乘法时使用INT8加法计算，这与以Llama为例的传统LLM架构的FP16乘加操作完全不同。
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/matmulfree.png" alt="BitNet b1.58的新计算范式" style="width: 100%;"/>
-  <figcaption>BitNet b1.58的新计算范式 (出处: BitNet论文 https://arxiv.org/abs/2402.17764)</figcaption>
+  <figcaption>BitNet b1.58的新计算范式 (出处: BitNet论文 https://huggingface.co/papers/2402.17764)</figcaption>
 </figure>
 
 这种方法在理论上降低能耗，与 Llama 基准相比，BitNet b1.58 在矩阵乘法方面节省了 71.4 倍的计算能耗。
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/energy_consumption.png" alt="BitNet b1.58与Llama的能耗对比" style="width: 100%;"/>
-  <figcaption>BitNet b1.58与Llama的能耗对比 (出处: BitNet 论文 https://arxiv.org/abs/2402.17764)</figcaption>
+  <figcaption>BitNet b1.58与Llama的能耗对比 (出处: BitNet 论文 https://huggingface.co/papers/2402.17764)</figcaption>
 </figure>
 
 我们成功地使用BitNet架构对[Llama3 8B model](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)模型进行了精调，在下游任务中取得了良好的性能。我们开发的 8B 模型由 [HF1BitLLM](https://huggingface.co/HF1BitLLM)组织发布。其中两个模型在10B的token上进行了不同的训练设置的微调，而第三个模型在100B的token上进行了微调。值得注意的是，我们的模型在MMLU基准测试中超越了 Llama 1 7B 模型。
@@ -73,13 +73,13 @@ print(generated_text)
 
 ## 更深入地了解什么是BitNet
 
-[BitNet](https://arxiv.org/abs/2402.17764) 在多头注意力和前馈网络中替换了传统的 Linear 层，使用了称为 BitLinear 的特殊层，这些层使用三值精度（甚至在初始版本中使用二值精度）。在这个项目中，我们使用的 BitLinear 层对权重使用三值精度（取值为 -1、0 和 1），并将激活量化为 8 位精度。我们在训练和推理中使用不同的 BitLinear 实现，接下来的部分将会介绍。
+[BitNet](https://huggingface.co/papers/2402.17764) 在多头注意力和前馈网络中替换了传统的 Linear 层，使用了称为 BitLinear 的特殊层，这些层使用三值精度（甚至在初始版本中使用二值精度）。在这个项目中，我们使用的 BitLinear 层对权重使用三值精度（取值为 -1、0 和 1），并将激活量化为 8 位精度。我们在训练和推理中使用不同的 BitLinear 实现，接下来的部分将会介绍。
 
-在三值精度训练中的主要障碍是权重值被离散化（通过`round()`函数），因此不可微分。BitLinear 通过一个巧妙的技巧解决了这个问题：[STE (Straight Through Estimator)](https://arxiv.org/abs/1903.05662)。STE 允许梯度通过不可微分的取整操作，通过将其梯度近似为1（将`round()`视为等同于恒等函数）来实现。另一种观点是，STE 让梯度通过取整步骤，好像取整从未发生过一样，从而使用标准基于梯度的优化技术来更新权重。
+在三值精度训练中的主要障碍是权重值被离散化（通过`round()`函数），因此不可微分。BitLinear 通过一个巧妙的技巧解决了这个问题：[STE (Straight Through Estimator)](https://huggingface.co/papers/1903.05662)。STE 允许梯度通过不可微分的取整操作，通过将其梯度近似为1（将`round()`视为等同于恒等函数）来实现。另一种观点是，STE 让梯度通过取整步骤，好像取整从未发生过一样，从而使用标准基于梯度的优化技术来更新权重。
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/1.58llm_extreme_quantization/bitlinear.png" alt="使用BitLienar的BitNet模型架构" style="width: 100%"/>
-  <figcaption>使用 BitLienar 的 BitNet 模型架构 (出处: BitNet 论文 https://arxiv.org/pdf/2310.11453)</figcaption>
+  <figcaption>使用 BitLienar 的 BitNet 模型架构 (出处: BitNet 论文 https://huggingface.co/papers/2310.11453)</figcaption>
 </figure>
 
 ### 训练
@@ -780,8 +780,8 @@ def matmul(a, b):
 
 ## 更多资源
 
-1. H. Wang et al., *BitNet: Scaling 1-bit Transformers for Large Language Models*. [arxiv paper](https://arxiv.org/pdf/2310.11453)
-2. S. Ma et al., *The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits*. [arxiv paper](https://arxiv.org/pdf/2402.17764)
+1. H. Wang et al., *BitNet: Scaling 1-bit Transformers for Large Language Models*. [arxiv paper](https://huggingface.co/papers/2310.11453)
+2. S. Ma et al., *The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits*. [arxiv paper](https://huggingface.co/papers/2402.17764)
 3. S. Ma et al., *The Era of 1-bit LLMs: Training Tips, Code and FAQ*. [link](https://github.com/microsoft/unilm/blob/master/bitnet/The-Era-of-1-bit-LLMs__Training_Tips_Code_FAQ.pdf)
 4. RJ. Honicky, *Are All Large Language Models Really in 1.58 Bits?*. [blogpost](https://learning-exhaust.hashnode.dev/are-all-large-language-models-really-in-158-bits)
 5. L. Mao, *CUDA Matrix Multiplication Optimization*. [blogpost](https://leimao.github.io/article/CUDA-Matrix-Multiplication-Optimization/)

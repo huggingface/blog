@@ -13,9 +13,9 @@ authors:
 
 Recently an interesting discussion arose on Twitter following the release of [**Falcon 🦅**](https://huggingface.co/tiiuae/falcon-40b) and its addition to the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard), a public leaderboard comparing open access large language models.
 
-The discussion centered around one of the four evaluations displayed on the leaderboard: a benchmark for measuring [Massive Multitask Language Understanding](https://arxiv.org/abs/2009.03300) (shortname: MMLU).
+The discussion centered around one of the four evaluations displayed on the leaderboard: a benchmark for measuring [Massive Multitask Language Understanding](https://huggingface.co/papers/2009.03300) (shortname: MMLU).
 
-The community was surprised that MMLU evaluation numbers of the current top model on the leaderboard, the [**LLaMA model 🦙**](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/), were significantly lower than the numbers in the [published LLaMa paper](https://arxiv.org/abs/2302.13971).
+The community was surprised that MMLU evaluation numbers of the current top model on the leaderboard, the [**LLaMA model 🦙**](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/), were significantly lower than the numbers in the [published LLaMa paper](https://huggingface.co/papers/2302.13971).
 
 So we decided to dive in a rabbit hole to understand what was going on and how to fix it 🕳🐇
 

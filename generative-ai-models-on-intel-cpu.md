@@ -10,7 +10,7 @@ authors:
 
 
 
-Large language models (LLMs) are taking the machine learning world by storm. Thanks to their [Transformer](https://arxiv.org/abs/1706.03762) architecture, LLMs have an uncanny ability to learn from vast amounts of unstructured data, like text, images, video, or audio. They perform very well on many [task types](https://huggingface.co/tasks), either extractive like text classification or generative like text summarization and text-to-image generation. 
+Large language models (LLMs) are taking the machine learning world by storm. Thanks to their [Transformer](https://huggingface.co/papers/1706.03762) architecture, LLMs have an uncanny ability to learn from vast amounts of unstructured data, like text, images, video, or audio. They perform very well on many [task types](https://huggingface.co/tasks), either extractive like text classification or generative like text summarization and text-to-image generation. 
 
 As their name implies, LLMs are *large* models that often exceed the 10-billion parameter mark. Some have more than 100 billion parameters, like the [BLOOM](https://huggingface.co/bigscience/bloom) model. LLMs require lots of computing power, typically found in high-end GPUs, to predict fast enough for low-latency use cases like search or conversational applications. Unfortunately, for many organizations, the associated costs can be prohibitive and make it difficult to use state-of-the-art LLMs in their applications.
 
@@ -24,13 +24,13 @@ Quantization is a model compression technique that aims to solve both problems b
 
 In a nutshell, quantization rescales model parameters to smaller value ranges. When successful, it shrinks your model by at least 2x, without any impact on model accuracy.
 
-You can apply quantization during training, a.k.a quantization-aware training ([QAT](https://arxiv.org/abs/1910.06188)), which generally yields the best results. If you’d prefer to quantize an existing model, you can apply post-training quantization ([PTQ](https://www.tensorflow.org/lite/performance/post_training_quantization#:~:text=Post%2Dtraining%20quantization%20is%20a,little%20degradation%20in%20model%20accuracy.)), a much faster technique that requires very little computing power.
+You can apply quantization during training, a.k.a quantization-aware training ([QAT](https://huggingface.co/papers/1910.06188)), which generally yields the best results. If you’d prefer to quantize an existing model, you can apply post-training quantization ([PTQ](https://www.tensorflow.org/lite/performance/post_training_quantization#:~:text=Post%2Dtraining%20quantization%20is%20a,little%20degradation%20in%20model%20accuracy.)), a much faster technique that requires very little computing power.
 
 Different quantization tools are available. For example, PyTorch has built-in support for [quantization](https://pytorch.org/docs/stable/quantization.html). You can also use the Hugging Face [Optimum Intel](https://huggingface.co/docs/optimum/intel/index) library, which includes developer-friendly APIs for QAT and PTQ.
 
 ## Quantizing LLMs
 
-Recent studies [[1]](https://arxiv.org/abs/2206.01861)[[2]](https://arxiv.org/abs/2211.10438) show that current quantization techniques don’t work well with LLMs. In particular, LLMs exhibit large-magnitude outliers in specific activation channels across all layers and tokens. Here’s an example with the OPT-13B model. You can see that one of the activation channels has much larger values than all others across all tokens. This phenomenon is visible in all the Transformer layers of the model.
+Recent studies [[1]](https://huggingface.co/papers/2206.01861)[[2]](https://huggingface.co/papers/2211.10438) show that current quantization techniques don’t work well with LLMs. In particular, LLMs exhibit large-magnitude outliers in specific activation channels across all layers and tokens. Here’s an example with the OPT-13B model. You can see that one of the activation channels has much larger values than all others across all tokens. This phenomenon is visible in all the Transformer layers of the model.
 
 <kbd>
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/143_q8chat/pic1.png">
@@ -40,7 +40,7 @@ Recent studies [[1]](https://arxiv.org/abs/2206.01861)[[2]](https://arxiv.org/ab
 The best quantization techniques to date quantize activations token-wise, causing either truncated outliers or underflowing low-magnitude activations. Both solutions hurt model quality significantly. Moreover, quantization-aware training requires additional model training, which is not practical in most cases due to lack of compute resources and data.
 
 
-SmoothQuant [[3]](https://arxiv.org/abs/2211.10438)[[4]](https://github.com/mit-han-lab/smoothquant) is a new quantization technique that solves this problem. It applies a joint mathematical transformation to weights and activations, which reduces the ratio between outlier and non-outlier values for activations at the cost of increasing the ratio for weights. This transformation makes the layers of the Transformer "quantization-friendly" and enables 8-bit quantization without hurting model quality. As a consequence, SmoothQuant produces smaller, faster models that run well on Intel CPU platforms.
+SmoothQuant [[3]](https://huggingface.co/papers/2211.10438)[[4]](https://github.com/mit-han-lab/smoothquant) is a new quantization technique that solves this problem. It applies a joint mathematical transformation to weights and activations, which reduces the ratio between outlier and non-outlier values for activations at the cost of increasing the ratio for weights. This transformation makes the layers of the Transformer "quantization-friendly" and enables 8-bit quantization without hurting model quality. As a consequence, SmoothQuant produces smaller, faster models that run well on Intel CPU platforms.
 
 <kbd>
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/143_q8chat/pic2.png">
@@ -51,7 +51,7 @@ Now, let’s see how SmoothQuant works when applied to popular LLMs.
 
 ## Quantizing LLMs with SmoothQuant
 
-Our friends at Intel have quantized several LLMs with SmoothQuant-O3: OPT [2.7B](https://huggingface.co/facebook/opt-2.7b) and [6.7B](https://huggingface.co/facebook/opt-6.7b) [[5]](https://arxiv.org/pdf/2205.01068.pdf), LLaMA [7B](https://huggingface.co/decapoda-research/llama-7b-hf) [[6]](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/), Alpaca [7B](https://huggingface.co/tatsu-lab/alpaca-7b-wdiff) [[7]](https://crfm.stanford.edu/2023/03/13/alpaca.html), Vicuna [7B](https://huggingface.co/lmsys/vicuna-7b-delta-v1.1) [[8]](https://vicuna.lmsys.org/), BloomZ [7.1B](https://huggingface.co/bigscience/bloomz-7b1) [[9]](https://huggingface.co/bigscience/bloomz) MPT-7B-chat [[10]](https://www.mosaicml.com/blog/mpt-7b). They also evaluated the accuracy of the quantized models, using [Language Model Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness).
+Our friends at Intel have quantized several LLMs with SmoothQuant-O3: OPT [2.7B](https://huggingface.co/facebook/opt-2.7b) and [6.7B](https://huggingface.co/facebook/opt-6.7b) [[5]](https://huggingface.co/papers/2205.01068), LLaMA [7B](https://huggingface.co/decapoda-research/llama-7b-hf) [[6]](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/), Alpaca [7B](https://huggingface.co/tatsu-lab/alpaca-7b-wdiff) [[7]](https://crfm.stanford.edu/2023/03/13/alpaca.html), Vicuna [7B](https://huggingface.co/lmsys/vicuna-7b-delta-v1.1) [[8]](https://vicuna.lmsys.org/), BloomZ [7.1B](https://huggingface.co/bigscience/bloomz-7b1) [[9]](https://huggingface.co/bigscience/bloomz) MPT-7B-chat [[10]](https://www.mosaicml.com/blog/mpt-7b). They also evaluated the accuracy of the quantized models, using [Language Model Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness).
 
 The table below presents a summary of their findings. The second column shows the ratio of benchmarks that have improved post-quantization. The third column contains the mean average degradation (_* a negative value indicates that the benchmark has improved_). You can find the detailed results at the end of this post.
 

@@ -42,7 +42,7 @@ For each scenario, evaluation is performed using the Pass@1 metric. The metric c
 
 ## Preventing Benchmark Contamination
 
-Contamination is one of the major bottlenecks in current LLM evaluations. Even within LLM coding evaluations, there have been evidential reports of contamination and overfitting on standard benchmarks like HumanEval ([[1]](https://arxiv.org/abs/2403.05530) and [[2]](https://arxiv.org/abs/2311.04850)). 
+Contamination is one of the major bottlenecks in current LLM evaluations. Even within LLM coding evaluations, there have been evidential reports of contamination and overfitting on standard benchmarks like HumanEval ([[1]](https://huggingface.co/papers/2403.05530) and [[2]](https://huggingface.co/papers/2311.04850)). 
 
 For this reason, we annotate problems with release dates in LiveCodeBench: that way, for new models with a training-cutoff date D, we can compute scores on problems released after D to measure their generalization on unseen problems. 
 

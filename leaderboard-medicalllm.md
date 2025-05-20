@@ -11,9 +11,9 @@ authors:
 
 # The Open Medical-LLM Leaderboard: Benchmarking Large Language Models in Healthcare
 
-![Image source : https://arxiv.org/pdf/2311.05112.pdf](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/medical_llms.png?raw=true)
+![Image source : https://huggingface.co/papers/2311.05112](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/medical_llms.png?raw=true)
 
-Over the years, Large Language Models (LLMs) have emerged as a groundbreaking technology with immense potential to revolutionize various aspects of healthcare. These models, such as [GPT-3](https://arxiv.org/abs/2005.14165), [GPT-4](https://arxiv.org/abs/2303.08774) and [Med-PaLM 2](https://arxiv.org/abs/2305.09617) have demonstrated remarkable capabilities in understanding and generating human-like text, making them valuable tools for tackling complex medical tasks and improving patient care. They have notably shown promise in various medical applications, such as medical question-answering (QA), dialogue systems, and text generation. Moreover, with the exponential growth of electronic health records (EHRs), medical literature, and patient-generated data, LLMs could help healthcare professionals extract valuable insights and make informed decisions.
+Over the years, Large Language Models (LLMs) have emerged as a groundbreaking technology with immense potential to revolutionize various aspects of healthcare. These models, such as [GPT-3](https://huggingface.co/papers/2005.14165), [GPT-4](https://huggingface.co/papers/2303.08774) and [Med-PaLM 2](https://huggingface.co/papers/2305.09617) have demonstrated remarkable capabilities in understanding and generating human-like text, making them valuable tools for tackling complex medical tasks and improving patient care. They have notably shown promise in various medical applications, such as medical question-answering (QA), dialogue systems, and text generation. Moreover, with the exponential growth of electronic health records (EHRs), medical literature, and patient-generated data, LLMs could help healthcare professionals extract valuable insights and make informed decisions.
 
 However, despite the immense potential of Large Language Models (LLMs) in healthcare, there are significant and specific challenges that need to be addressed. 
 
@@ -21,7 +21,7 @@ When models are used for recreational conversational aspects, errors have little
 
 For example, when given a medical query (see below), GPT-3 incorrectly recommended tetracycline for a pregnant patient, despite correctly explaining its contraindication due to potential harm to the fetus. Acting on this incorrect recommendation could lead to bone growth problems in the baby.
 
-![Image source : [https://arxiv.org/pdf/2311.05112.pdf](https://arxiv.org/abs/2307.15343)](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/gpt_medicaltest.png?raw=true)
+![Image source : [https://huggingface.co/papers/2311.05112](https://huggingface.co/papers/2307.15343)](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/gpt_medicaltest.png?raw=true)
 
 
 To fully utilize the power of LLMs in healthcare, it is crucial to develop and benchmark models using a setup specifically designed for the medical domain. This setup should take into account the unique characteristics and requirements of healthcare data and applications. The development of methods to evaluate the Medical-LLM is not just of academic interest but of practical importance, given the real-life risks they pose in the healthcare sector.
@@ -40,7 +40,7 @@ The Medical-LLM Leaderboard includes a variety of tasks, and uses accuracy as it
 
 ### MedQA
 
-The [MedQA](https://arxiv.org/abs/2009.13081) dataset consists of multiple-choice questions from the United States Medical Licensing Examination (USMLE). It covers general medical knowledge and includes 11,450 questions in the development set and 1,273 questions in the test set. Each question has 4 or 5 answer choices, and the dataset is designed to assess the medical knowledge and reasoning skills required for medical licensure in the United States.
+The [MedQA](https://huggingface.co/papers/2009.13081) dataset consists of multiple-choice questions from the United States Medical Licensing Examination (USMLE). It covers general medical knowledge and includes 11,450 questions in the development set and 1,273 questions in the test set. Each question has 4 or 5 answer choices, and the dataset is designed to assess the medical knowledge and reasoning skills required for medical licensure in the United States.
 
 ![MedQA question](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/medqa.png?raw=true)
 
@@ -58,7 +58,7 @@ The [MedQA](https://arxiv.org/abs/2009.13081) dataset consists of multiple-choic
 
 ### MMLU Subsets (Medicine and Biology)
 
-The [MMLU benchmark](https://arxiv.org/abs/2009.03300) (Measuring Massive Multitask Language Understanding) includes multiple-choice questions from various domains. For the Open Medical-LLM Leaderboard, we focus on the subsets most relevant to medical knowledge:
+The [MMLU benchmark](https://huggingface.co/papers/2009.03300) (Measuring Massive Multitask Language Understanding) includes multiple-choice questions from various domains. For the Open Medical-LLM Leaderboard, we focus on the subsets most relevant to medical knowledge:
 
 - Clinical Knowledge: 265 questions assessing clinical knowledge and decision-making skills.
 - Medical Genetics: 100 questions covering topics related to medical genetics.
@@ -82,12 +82,12 @@ The Open Medical-LLM Leaderboard evaluates the performance of various large lang
 - Open-source models, such as [Starling-LM-7B](https://huggingface.co/Nexusflow/Starling-LM-7B-beta), [gemma-7b](https://huggingface.co/google/gemma-7b), Mistral-7B-v0.1, and [Hermes-2-Pro-Mistral-7B](https://huggingface.co/NousResearch/Hermes-2-Pro-Mistral-7B), show competitive performance on certain datasets and tasks, despite having smaller sizes of around 7 billion parameters.
 - Both commercial and open-source models perform well on tasks like comprehension and reasoning over scientific biomedical literature (PubMedQA) and applying clinical knowledge and decision-making skills (MMLU Clinical Knowledge subset).
 
-![Image source : [https://arxiv.org/abs/2402.07023](https://arxiv.org/abs/2402.07023)](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/model_evals.png?raw=true)
+![Image source : [https://huggingface.co/papers/2402.07023](https://huggingface.co/papers/2402.07023)](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/model_evals.png?raw=true)
 
 
-Google's model, [Gemini Pro](https://arxiv.org/abs/2312.11805) demonstrates strong performance in various medical domains, particularly excelling in data-intensive and procedural tasks like Biostatistics, Cell Biology, and Obstetrics & Gynecology. However, it shows moderate to low performance in critical areas such as Anatomy, Cardiology, and Dermatology, revealing gaps that require further refinement for comprehensive medical application.
+Google's model, [Gemini Pro](https://huggingface.co/papers/2312.11805) demonstrates strong performance in various medical domains, particularly excelling in data-intensive and procedural tasks like Biostatistics, Cell Biology, and Obstetrics & Gynecology. However, it shows moderate to low performance in critical areas such as Anatomy, Cardiology, and Dermatology, revealing gaps that require further refinement for comprehensive medical application.
 
-![Image source : [https://arxiv.org/abs/2402.07023](https://arxiv.org/abs/2402.07023)](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/subjectwise_eval.png?raw=true)
+![Image source : [https://huggingface.co/papers/2402.07023](https://huggingface.co/papers/2402.07023)](https://github.com/monk1337/research_assets/blob/main/huggingface_blog/subjectwise_eval.png?raw=true)
 
 
 ## Submitting Your Model for Evaluation

@@ -14,7 +14,7 @@ MTEB is a massive benchmark for measuring the performance of text embedding mode
 
 The 🥇 [leaderboard](https://huggingface.co/spaces/mteb/leaderboard) provides a holistic view of the best text embedding models out there on a variety of tasks. 
 
-The 📝 [paper](https://arxiv.org/abs/2210.07316) gives background on the tasks and datasets in MTEB and analyzes leaderboard results!
+The 📝 [paper](https://huggingface.co/papers/2210.07316) gives background on the tasks and datasets in MTEB and analyzes leaderboard results!
 
 The 💻 [Github repo](https://github.com/embeddings-benchmark/mteb) contains the code for benchmarking and submitting any model of your choice to the leaderboard.
 

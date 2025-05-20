@@ -209,7 +209,7 @@ print(tokenizer.batch_decode(outputs, skip_special_tokens=True))
 在这篇博文最初发布后，我注意到其他作品也探索了相同的核心原则 (使用前向传递来验证更长的连续性)。特别地，请看以下作品:
 
 - [分块并行解码](https://proceedings.neurips.cc/paper/2018/file/c4127b9194fe8562c64dc0f5bf2c93bc-Paper.pdf), 来自 Google Brain
-- [推测性采样](https://arxiv.org/abs/2302.01318), 来自 DeepMind
+- [推测性采样](https://huggingface.co/papers/2302.01318), 来自 DeepMind
 
 ## Citation
 

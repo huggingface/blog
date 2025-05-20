@@ -28,7 +28,7 @@ from transformers import TFAutoModel
 model = TFAutoModel.from_pretrained("bert-base-cased")
 ```
 
-This one line will instantiate the model architecture and load the weights, giving you an exact replica of the original, famous [BERT](https://arxiv.org/abs/1810.04805) model. This model won’t do much on its own, though - it lacks an output head or a loss function. In effect, it is the “stem” of a neural net that stops right after the last hidden layer. So how do you put an output head on it? Simple, just use a different `AutoModel` class. Here we load the [Vision Transformer (ViT)](https://arxiv.org/abs/2010.11929) model and add an image classification head:
+This one line will instantiate the model architecture and load the weights, giving you an exact replica of the original, famous [BERT](https://huggingface.co/papers/1810.04805) model. This model won’t do much on its own, though - it lacks an output head or a loss function. In effect, it is the “stem” of a neural net that stops right after the last hidden layer. So how do you put an output head on it? Simple, just use a different `AutoModel` class. Here we load the [Vision Transformer (ViT)](https://huggingface.co/papers/2010.11929) model and add an image classification head:
 
 ```py
 from transformers import TFAutoModelForImageClassification
@@ -79,7 +79,7 @@ And if you want to train that model instead, it's just:
 model.fit(my_data, my_labels)
 ```
 
-However, this convenience doesn’t mean you’re limited to tasks that we support out of the box. Keras models can be composed as layers in other models, so if you have a giant galactic brain idea that involves splicing together five different models then there’s nothing stopping you, except possibly your limited GPU memory. Maybe you want to merge a pretrained language model with a pretrained vision transformer to create a hybrid, like [Deepmind’s recent Flamingo](https://arxiv.org/abs/2204.14198), or you want to create the next viral text-to-image sensation like ~Dall-E Mini~ [Craiyon](https://www.craiyon.com/)? Here's an example of a hybrid model using Keras [subclassing](https://www.tensorflow.org/guide/keras/custom_layers_and_models):
+However, this convenience doesn’t mean you’re limited to tasks that we support out of the box. Keras models can be composed as layers in other models, so if you have a giant galactic brain idea that involves splicing together five different models then there’s nothing stopping you, except possibly your limited GPU memory. Maybe you want to merge a pretrained language model with a pretrained vision transformer to create a hybrid, like [Deepmind’s recent Flamingo](https://huggingface.co/papers/2204.14198), or you want to create the next viral text-to-image sensation like ~Dall-E Mini~ [Craiyon](https://www.craiyon.com/)? Here's an example of a hybrid model using Keras [subclassing](https://www.tensorflow.org/guide/keras/custom_layers_and_models):
 
 ```py
 class HybridVisionLanguageModel(tf.keras.Model):

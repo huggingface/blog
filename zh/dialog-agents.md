@@ -18,7 +18,7 @@ translators:
 
 近段时间，ChatGPT 横空出世并获得巨大成功，使得 RLHF、SFT、IFT、CoT 等这些晦涩的缩写开始出现在普罗大众的讨论中。这些晦涩的首字母缩略词究竟是什么意思？为什么它们如此重要？我们调查了相关的所有重要论文，以对这些工作进行分类，总结迄今为止的工作，并对后续工作进行展望。
 
-我们先来看看基于语言模型的会话代理的全景。ChatGPT 并非首创，事实上很多组织在 OpenAI 之前就发布了自己的语言模型对话代理 (dialog agents)，包括 Meta 的 [BlenderBot](https://arxiv.org/abs/2208.03188)，Google 的 [LaMDA](https://arxiv.org/abs/2201.08239)，DeepMind 的 [Sparrow](https://arxiv.org/abs/2209.14375)，以及 Anthropic 的 [Assistant](https://arxiv.org/abs/2204.05862) (*Anthropic 的 Claude 就是部分基于 Assistant 继续开发而得的*)。其中一些团队还公布了他们构建开源聊天机器人的计划，并公开分享了路线图 (比如 LAION 团队的 [Open Assistant](https://github.com/LAION-AI/Open-Assistant))，其他团队肯定也有类似的内容，但尚未宣布。
+我们先来看看基于语言模型的会话代理的全景。ChatGPT 并非首创，事实上很多组织在 OpenAI 之前就发布了自己的语言模型对话代理 (dialog agents)，包括 Meta 的 [BlenderBot](https://huggingface.co/papers/2208.03188)，Google 的 [LaMDA](https://huggingface.co/papers/2201.08239)，DeepMind 的 [Sparrow](https://huggingface.co/papers/2209.14375)，以及 Anthropic 的 [Assistant](https://huggingface.co/papers/2204.05862) (*Anthropic 的 Claude 就是部分基于 Assistant 继续开发而得的*)。其中一些团队还公布了他们构建开源聊天机器人的计划，并公开分享了路线图 (比如 LAION 团队的 [Open Assistant](https://github.com/LAION-AI/Open-Assistant))，其他团队肯定也有类似的内容，但尚未宣布。
 
 下表根据是否能公开访问、训练数据、模型架构和评估方向的详细信息对这些 AI 聊天机器人进行了比较。ChatGPT 没有这些信息的记录，因此我们改为使用 InstructGPT 的详细信息，这是一个来自 OpenAI 的指令微调模型，据信它是 ChatGPT 的基础。
 
@@ -51,7 +51,7 @@ IFT 的训练数据通常是人工编写的指令及用语言模型自举 (boots
 
 ![IFT spectrum](../assets/dialog-agents/ift-spectrum.png)
 
-谱图的一端是纯模型生成的 IFT 数据集，例如 Unnatural Instructions ([Honovich 等，'22](https://arxiv.org/abs/2212.09689))；另一端是经由社区的大量努力精心制作的指令如 Super-natural instructions ([Wang 等，'22](https://arxiv.org/abs/2204.07705))。在这两者之间的工作是使用一小组高质量的种子数据集，然后进行自举生成最终数据集，如 Self-Instruct ([Wang 等，'22](https://arxiv.org/pdf/2212.10560.pdf))。为 IFT 整理数据集的另一种方法是将现有的用于各种任务 (包括提示)的高质量众包 NLP 数据集使用统一模式或不同模板转换为指令。这一系列工作包括 T0 ([Sanh 等，'22](https://arxiv.org/pdf/2110.08207.pdf))、Natural instructions 数据集 ([Mishra 等，'22](https://arxiv.org/pdf/2104.08773.pdf))、FLAN LM ([Wei 等，'22](https://arxiv.org/pdf/2109.01652.pdf)) 和 OPT-IML ([Iyer 等，'22](https://arxiv.org/pdf/2212.12017.pdf))。
+谱图的一端是纯模型生成的 IFT 数据集，例如 Unnatural Instructions ([Honovich 等，'22](https://huggingface.co/papers/2212.09689))；另一端是经由社区的大量努力精心制作的指令如 Super-natural instructions ([Wang 等，'22](https://huggingface.co/papers/2204.07705))。在这两者之间的工作是使用一小组高质量的种子数据集，然后进行自举生成最终数据集，如 Self-Instruct ([Wang 等，'22](https://huggingface.co/papers/2212.10560))。为 IFT 整理数据集的另一种方法是将现有的用于各种任务 (包括提示)的高质量众包 NLP 数据集使用统一模式或不同模板转换为指令。这一系列工作包括 T0 ([Sanh 等，'22](https://huggingface.co/papers/2110.08207))、Natural instructions 数据集 ([Mishra 等，'22](https://huggingface.co/papers/2104.08773))、FLAN LM ([Wei 等，'22](https://huggingface.co/papers/2109.01652)) 和 OPT-IML ([Iyer 等，'22](https://huggingface.co/papers/2212.12017))。
 
 ### 安全地遵循指令
 
@@ -67,11 +67,11 @@ SFT 和 IFT 联系非常紧密。指令微调可以看作是有监督微调的�
 
 同时，OpenAI 的 InstructGPT、DeepMind 的 Sparrow 和 Anthropic 的 Constitutional AI 使用 **人类反馈强化学习 (Reinforcement Learning From Human Feedback，RLHF)** 来微调模型，该方法使用基于人类偏好的标注数据。在 RLHF 中，根据人类反馈来对模型的响应进行排序标注 (如，根据人类偏好选择文本简介)。然后，用这些带标注的响应来训练偏好模型，该模型用于返回 RL 优化器的标量奖励。最后，通过强化学习训练对话代理来模拟偏好模型。有关更多详细信息，请参阅我们之前关于 RLHF 的文章: [ChatGPT 背后的“功臣”——RLHF 技术详解](https://huggingface.co/blog/zh/rlhf)。
 
-思维链 **(Chain-of-thought，CoT)** 提示 ([Wei 等，'22](https://arxiv.org/abs/2201.11903) 是指令示范的一种特殊情况，它通过引发对话代理的逐步推理来生成输出。使用 CoT 微调的模型使用带有逐步推理的人工标注的指令数据集。这是 **[Let’s think step by step](https://arxiv.org/abs/2205.11916)** 这一著名提示的由来。下面的示例取自 [Chung 等，'22](https://arxiv.org/pdf/2210.11416.pdf)，橙色高亮的部分是指令，粉色是输入和输出，蓝色是 CoT 推理。
+思维链 **(Chain-of-thought，CoT)** 提示 ([Wei 等，'22](https://huggingface.co/papers/2201.11903) 是指令示范的一种特殊情况，它通过引发对话代理的逐步推理来生成输出。使用 CoT 微调的模型使用带有逐步推理的人工标注的指令数据集。这是 **[Let’s think step by step](https://huggingface.co/papers/2205.11916)** 这一著名提示的由来。下面的示例取自 [Chung 等，'22](https://huggingface.co/papers/2210.11416)，橙色高亮的部分是指令，粉色是输入和输出，蓝色是 CoT 推理。
 
 ![Illustration of CoT](../assets/dialog-agents/cot.png)
 
-如 [Chung 等，'22](https://arxiv.org/pdf/2210.11416.pdf) 中所述，使用 CoT 微调的模型在涉及常识、算术和符号推理的任务上表现得更好。
+如 [Chung 等，'22](https://huggingface.co/papers/2210.11416) 中所述，使用 CoT 微调的模型在涉及常识、算术和符号推理的任务上表现得更好。
 
 如 [Bai 等，'22](https://www.anthropic.com/constitutional.pdf) 的工作所示，CoT 微调也显示出对无害性非常有效 (有时比 RLHF 做得更好)，而且对敏感提示，模型不会回避并生成 “抱歉，我无法回答这个问题” 这样的回答。更多示例，请参见其论文的附录 D。
 
@@ -90,7 +90,7 @@ SFT 和 IFT 联系非常紧密。指令微调可以看作是有监督微调的�
 1. RL 在从人类反馈中学习有多重要？我们能否通过在 IFT 或 SFT 中使用更高质量的数据进行训练来获得 RLHF 的性能？
 2. 为了安全的角度看，Sparrow 中的 SFT+RLHF 与 LaMDA 中仅使用 SFT 相比如何？
 3. 鉴于我们有 IFT、SFT、CoT 和 RLHF，预训练有多大的必要性？如何折衷？人们应该使用的最佳基础模型是什么 (公开的和非公开的)？
-4. 本文中引用的许多模型都经过 [红蓝对抗 (red-teaming)](https://arxiv.org/abs/2209.07858) 的精心设计，工程师特地搜寻故障模式并基于已被揭示的问题改进后续的训练 (提示和方法)。我们如何系统地记录这些方法的效果并重现它们？
+4. 本文中引用的许多模型都经过 [红蓝对抗 (red-teaming)](https://huggingface.co/papers/2209.07858) 的精心设计，工程师特地搜寻故障模式并基于已被揭示的问题改进后续的训练 (提示和方法)。我们如何系统地记录这些方法的效果并重现它们？
 
 P.s. 如果您发现本博客中的任何信息缺失或不正确，请告知我们。
 

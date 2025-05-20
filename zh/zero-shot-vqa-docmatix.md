@@ -27,7 +27,7 @@ translators:
 
 社区最近很关注分布外 (out-of-distribution，OOD) 评估，即利用诸如零样本之类的方法将模型的能力迁移至未见过的 VQA 任务抑或是对一个 VQA 数据集进行微调并在另一个 VQA 数据集上进行评估。这一转变与用于微调视觉语言模型 (VLM) 的合成数据集 (例如 Docmatix、SciGraphQA、SimVQA) 的日渐兴起紧密相关。
 
-一直以来，VQA 准确度一直是评估模型性能的主要指标，其方法是计算模型预测答案与人工标注的一组参考答案之间的精确字符串匹配率。因为传统的 VQA 评估遵循独立同分布 (independent and identically distributed，IID) 范式，其训练数据和测试数据分布相似，而传统的模型训练是遵循此假设的，所以此时该指标的效果很好，详情请参阅 [此处](https://arxiv.org/pdf/2205.12191)。
+一直以来，VQA 准确度一直是评估模型性能的主要指标，其方法是计算模型预测答案与人工标注的一组参考答案之间的精确字符串匹配率。因为传统的 VQA 评估遵循独立同分布 (independent and identically distributed，IID) 范式，其训练数据和测试数据分布相似，而传统的模型训练是遵循此假设的，所以此时该指标的效果很好，详情请参阅 [此处](https://huggingface.co/papers/2205.12191)。
 
 但在 OOD 场景下，由于格式、专业度以及表达等方面的差异，生成的答案尽管正确，但可能与参考答案不尽匹配。图 1 完美地展示了这种情况，图中我们将零样本生成的文本描述与合成数据集中的参考文本描述进行了比较。指令生成的数据集与人工标注的数据集之间的差异尤甚。目前已有一些 [方法](https://proceedings.mlr.press/v202/li23q.html) 试图将生成的答案格式对齐至参考答案格式，但这只是治标之策，并未改变评估指标有缺陷的根本症结。虽然也可以采用人工评估的方式，结果会比较可靠，但其成本高昂且不可扩展，所以当务之急还是设计与人类判断更相符的新指标。
 
@@ -54,7 +54,7 @@ translators:
   <em>图 3: Docmatix 和 DocVQA 数据集中的问题、答案以及图像特征的 t-SNE 图</em>
 </p>
 
-评估时，我们选择 [MPLUGDocOwl1.5](https://arxiv.org/pdf/2403.12895) 作为基线模型。该模型在原始 DocVQA 数据集的测试子集上 ANLS 得分为 84%。然后，我们在 Docmatix 的一个子集 (含 200 张图像) 上运行零样本生成。我们使用 [Llama-2-Chat-7b](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) 对答案进行评分。
+评估时，我们选择 [MPLUGDocOwl1.5](https://huggingface.co/papers/2403.12895) 作为基线模型。该模型在原始 DocVQA 数据集的测试子集上 ANLS 得分为 84%。然后，我们在 Docmatix 的一个子集 (含 200 张图像) 上运行零样本生成。我们使用 [Llama-2-Chat-7b](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) 对答案进行评分。
 
 ## 关于 LAVE
 

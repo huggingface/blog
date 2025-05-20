@@ -11,7 +11,7 @@ authors:
 
 At Hugging Face, we are contributing to the ecosystem for Deep Reinforcement Learning researchers and enthusiasts. Recently, we have integrated Deep RL frameworks such as [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3). 
 
-And today we are happy to announce that we integrated the [Decision Transformer](https://arxiv.org/abs/2106.01345), an Offline Reinforcement Learning method, into the 🤗 transformers library and the Hugging Face Hub. We have some exciting plans for improving accessibility in the field of Deep RL and we are looking forward to sharing them with you over the coming weeks and months.
+And today we are happy to announce that we integrated the [Decision Transformer](https://huggingface.co/papers/2106.01345), an Offline Reinforcement Learning method, into the 🤗 transformers library and the Hugging Face Hub. We have some exciting plans for improving accessibility in the field of Deep RL and we are looking forward to sharing them with you over the coming weeks and months.
 
 - [What is Offline Reinforcement Learning?](#what-is-offline-reinforcement-learning?)
 - [Introducing Decision Transformers](#introducing-decision-transformers)
@@ -49,7 +49,7 @@ There’s already exists some solutions on this topic, but if you want to know m
 
 ## Introducing Decision Transformers
 
-The Decision Transformer model was introduced by [“Decision Transformer: Reinforcement Learning via Sequence Modeling” by Chen L. et al](https://arxiv.org/abs/2106.01345). It abstracts Reinforcement Learning as a **conditional-sequence modeling problem**.
+The Decision Transformer model was introduced by [“Decision Transformer: Reinforcement Learning via Sequence Modeling” by Chen L. et al](https://huggingface.co/papers/2106.01345). It abstracts Reinforcement Learning as a **conditional-sequence modeling problem**.
 
 The main idea is that instead of training a policy using RL methods, such as fitting a value function, that will tell us what action to take to maximize the return (cumulative reward), we use a sequence modeling algorithm (Transformer) that, given a desired return, past states, and actions, will generate future actions to achieve this desired return. It’s an autoregressive model conditioned on the desired return, past states, and actions to generate future actions that achieve the desired return.
 

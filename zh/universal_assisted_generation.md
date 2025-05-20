@@ -34,7 +34,7 @@ translators:
 
 ## 引言
 
-如今，风头最劲的开放权重 LLM 参数量一般都有数十亿到数千亿 (说你呢 Llama-3.1-405B 👋)，这给在生产环境中部署这些饿兽带来了一系列工程挑战。挑战之一就是: 大模型文本生成速度很慢。为此，社区开发了很多不同的技术来加速解码过程。辅助生成，也称为 [投机解码](https://arxiv.org/abs/2211.17192)，是其中一种非常常用且实用的方法，可在不损失准确性的情况下加速 LLM 推理。本文，我们将了解辅助生成的工作原理，并分享我们的最新研究成果，该成果使得对 Hugging Face Hub [14 万个语言模型](https://huggingface.co/models?pipeline_tag=text-generation&sort=trending) 中的 _任意一个_ 模型进行加速成为可能，🚀！
+如今，风头最劲的开放权重 LLM 参数量一般都有数十亿到数千亿 (说你呢 Llama-3.1-405B 👋)，这给在生产环境中部署这些饿兽带来了一系列工程挑战。挑战之一就是: 大模型文本生成速度很慢。为此，社区开发了很多不同的技术来加速解码过程。辅助生成，也称为 [投机解码](https://huggingface.co/papers/2211.17192)，是其中一种非常常用且实用的方法，可在不损失准确性的情况下加速 LLM 推理。本文，我们将了解辅助生成的工作原理，并分享我们的最新研究成果，该成果使得对 Hugging Face Hub [14 万个语言模型](https://huggingface.co/models?pipeline_tag=text-generation&sort=trending) 中的 _任意一个_ 模型进行加速成为可能，🚀！
 
 ## 辅助生成
 
@@ -109,12 +109,12 @@ tokenizer.batch_decode(outputs, skip_special_tokens=True)
 
 ## 下一步
 
-标准辅助生成方案在 `do_sample=True` 时，使用的投机采样算法为 [该论文的算法 1](https://arxiv.org/pdf/2211.17192.pdf)，但 UAG
+标准辅助生成方案在 `do_sample=True` 时，使用的投机采样算法为 [该论文的算法 1](https://huggingface.co/papers/2211.17192)，但 UAG
 目前仅实现了多项分布采样。在多项分布采样中，如果目标模型与辅助模型采样得的词元不相同时，会自动拒绝该词元，这与投机采样对此情况的处理不同。在实践中，这意味着与共享分词器的标准方案相比，UAG 方案在 `do_sample=True` 时吞吐量会较低。将来，我们计划增加对 UAG 投机采样的支持。
 
 此外，我们还打算将 UAG 集成到 🤗 Transformers 流水线中，以使用户能够更简单、轻松地利用它。
 
 ## 参考资源
 
-- [Fast Inference from Transformers via Speculative Decoding](https://arxiv.org/pdf/2211.17192)
+- [Fast Inference from Transformers via Speculative Decoding](https://huggingface.co/papers/2211.17192)
 - [辅助生成: 低延迟文本生成的新方向](https://huggingface.co/blog/zh/assisted-generation)

@@ -83,7 +83,7 @@ _TGI latency results for Meta Llama 3 70B, comparing AMD Instinct MI300X on an A
 Hugging Face libraries can as well be used to fine-tune models. 
 We use Transformers and [PEFT](https://github.com/huggingface/peft) libraries to finetune Llama 3 70B using low rank adapters (LoRA. To handle the parallelism over several devices, we leverage [DeepSpeed Zero3](https://deepspeed.readthedocs.io/en/latest/zero3.html) through [Accelerate library](https://huggingface.co/docs/accelerate/usage_guides/deepspeed).
 
-On Llama 3 70B, our workload consists of batches of 448 tokens, with a batch size of 2. Using low rank adapters, the model’s original 70,570,090,496 parameters are frozen, and we instead train an additional subset of 16,384,000 parameters thanks to [low rank adapters](https://arxiv.org/abs/2106.09685).
+On Llama 3 70B, our workload consists of batches of 448 tokens, with a batch size of 2. Using low rank adapters, the model’s original 70,570,090,496 parameters are frozen, and we instead train an additional subset of 16,384,000 parameters thanks to [low rank adapters](https://huggingface.co/papers/2106.09685).
 
 From our comparison on Llama 3 70B, we are able to train about 2x times faster on an Azure VM powered by MI300X, compared to an HPC server using the previous generation AMD Instinct MI250.
 

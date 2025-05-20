@@ -24,7 +24,7 @@ In this post, we'll compare SafeCoder to closed-source services and highlight th
 
 SafeCoder is currently built on top of the [StarCoder](https://huggingface.co/blog/starcoder) models, a family of open-source models designed and trained within the [BigCode](https://huggingface.co/bigcode) collaborative project.
 
-StarCoder is a 15.5 billion parameter model trained for code generation in over 80 programming languages. It uses innovative architectural concepts, like [Multi-Query Attention](https://arxiv.org/abs/1911.02150) (MQA), to improve throughput and reduce latency, a technique also present in the [Falcon](https://huggingface.co/blog/falcon) and adapted for [LLaMa 2](https://huggingface.co/blog/llama2) models.
+StarCoder is a 15.5 billion parameter model trained for code generation in over 80 programming languages. It uses innovative architectural concepts, like [Multi-Query Attention](https://huggingface.co/papers/1911.02150) (MQA), to improve throughput and reduce latency, a technique also present in the [Falcon](https://huggingface.co/blog/falcon) and adapted for [LLaMa 2](https://huggingface.co/blog/llama2) models.
 
 StarCoder has an 8192-token context window, helping it take into account more of your code to generate new code. It can also do fill-in-the-middle, i.e., insert within your code, instead of just appending new code at the end.
 
@@ -37,7 +37,7 @@ Unfortunately, closed-source code assistant services don't share information abo
 In line with the [Chinchilla Scaling Law](https://arxiv.org/abs/2203.15556v1), SafeCoder is a compute-optimal model trained on 1 trillion (1,000 billion) code tokens. These tokens are extracted from [The Stack](https://huggingface.co/datasets/bigcode/the-stack), a 2.7 terabyte dataset built from permissively licensed open-source repositories. 
 All efforts are made to honor opt-out requests, and we built a [tool](https://huggingface.co/spaces/bigcode/in-the-stack) that lets repository owners check if their code is part of the dataset.
 
-In the spirit of transparency, our [research paper](https://arxiv.org/abs/2305.06161) discloses the model architecture, the training process, and detailed metrics.
+In the spirit of transparency, our [research paper](https://huggingface.co/papers/2305.06161) discloses the model architecture, the training process, and detailed metrics.
 
 Unfortunately, closed-source services stick to vague information, such as "[the model was trained on] billions of lines of code." To the best of our knowledge, no metrics are available.
 

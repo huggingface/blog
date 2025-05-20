@@ -92,7 +92,7 @@ Gemma 2 对最终层和每个注意力层都采用了软上限。注意力 logit
 
 尽管有效，但这种方法存在缺点，因为学生和教师之间的模型容量不匹配可能导致 **训练-推理不匹配**，即学生在推理期间生成的文本与训练期间看到的文本不同。
 
-为解决这个问题，Gemma 2 团队采用了[“在线蒸馏”](https://arxiv.org/pdf/2306.13649)，其中学生从 SFT 提示生成补全。这些补全用于计算教师和学生 logits 之间的 KL 散度。通过在整个训练过程中最小化 KL 散度，学生能够准确地模拟教师的行为，同时最小化训练-推理不匹配。
+为解决这个问题，Gemma 2 团队采用了[“在线蒸馏”](https://huggingface.co/papers/2306.13649)，其中学生从 SFT 提示生成补全。这些补全用于计算教师和学生 logits 之间的 KL 散度。通过在整个训练过程中最小化 KL 散度，学生能够准确地模拟教师的行为，同时最小化训练-推理不匹配。
 
 这种方法非常有趣，正如我们在社区中看到的那样，在线 DPO 等在线方法会产生更强的模型，而在线蒸馏的一个优势在于只需要教师的 logits，因此无需依赖奖励模型或大语言模型作为评审员来改进模型。我们期待看到这种方法在未来几个月中是否会在微调人员中变得更受欢迎！
 
@@ -100,7 +100,7 @@ Gemma 2 对最终层和每个注意力层都采用了软上限。注意力 logit
 
 [模型合并](https://huggingface.co/blog/mlabonne/merge-models) 是一种将两个或多个大语言模型合并成一个新模型的技术。这是相对较新和实验性的，可以不使用加速器进行。[Mergekit](https://github.com/arcee-ai/mergekit) 是一个流行的开源工具包，用于合并大语言模型。它实现了线性、SLERP、TIES、DARE 和其他合并技术。
 
-根据技术报告，Gemma 2 使用了 [Warp](https://arxiv.org/abs/2406.16768)，这是一种新型合并技术，分三个独特阶段进行合并：
+根据技术报告，Gemma 2 使用了 [Warp](https://huggingface.co/papers/2406.16768)，这是一种新型合并技术，分三个独特阶段进行合并：
 
 1. 指数移动平均 (EMA)：在强化学习 (RL) 微调过程中应用。
 2. 球形线性插值 (SLERP)：在多个策略的 RL 微调后应用。
@@ -220,7 +220,7 @@ pipeline = pipeline(
 
 训练大型语言模型在技术和计算上都具有挑战性。在本节中,我们将了解 Hugging Face 生态系统中可用的工具,以便在消费级 GPU 上高效训练 Gemma。
 
-下面是在 OpenAssistant 的[聊天数据集](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25)上微调 Gemma 的示例命令。我们使用 4 位量化和 [QLoRA](https://arxiv.org/abs/2305.14314) 来节省内存,以针对所有注意力块的线性层。请注意,与密集变换器不同,不应针对 MLP 层,因为它们是稀疏的,与 PEFT 不太兼容。
+下面是在 OpenAssistant 的[聊天数据集](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25)上微调 Gemma 的示例命令。我们使用 4 位量化和 [QLoRA](https://huggingface.co/papers/2305.14314) 来节省内存,以针对所有注意力块的线性层。请注意,与密集变换器不同,不应针对 MLP 层,因为它们是稀疏的,与 PEFT 不太兼容。
 
 首先,安装 🤗 TRL 的每日版本并克隆仓库以访问[训练脚本](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
 

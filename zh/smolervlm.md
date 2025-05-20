@@ -73,7 +73,7 @@ translators:
    - **SigLIP 400M SO**：更高容量，性能更好。  
    - **SigLIP base patch-16/512 (93 M)**：规模更小，但性能竟然十分接近。  
 
-   结果显示，两者在性能差距并不大，所以我们在 256M 和 500M 两个版本中都选择了更小的视觉编码器。此外，更小的编码器还能处理更高分辨率的图像，参考 [Apple](https://arxiv.org/pdf/2403.09611) 和 [Google](https://arxiv.org/pdf/2412.03555) 的研究，这常常能在无需大幅增加参数的前提下，显著提升对图像内容的理解。
+   结果显示，两者在性能差距并不大，所以我们在 256M 和 500M 两个版本中都选择了更小的视觉编码器。此外，更小的编码器还能处理更高分辨率的图像，参考 [Apple](https://huggingface.co/papers/2403.09611) 和 [Google](https://huggingface.co/papers/2412.03555) 的研究，这常常能在无需大幅增加参数的前提下，显著提升对图像内容的理解。
 
 2. **数据混合更新**  
    同上一版一样，我们继续使用 [The Cauldron](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron) 和 [Docmatix](https://huggingface.co/datasets/HuggingFaceM4/Docmatix)，并新增了 [MathWriting](https://huggingface.co/datasets/andito/mathwriting-google)。

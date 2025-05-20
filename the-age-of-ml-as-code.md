@@ -19,7 +19,7 @@ There's no denying that Machine Learning-powered applications are reaching into 
 
 > "Transformers have emerged as a general purpose architecture for ML. Not just for Natural Language Processing, but also Speech, Computer Vision or even protein structure prediction."
 
-Old timers have learned the hard way that there is [no silver bullet](https://en.wikipedia.org/wiki/No_Silver_Bullet) in IT. Yet, the [Transformer](https://arxiv.org/abs/1706.03762) architecture is indeed very efficient on a wide variety of Machine Learning tasks. But how can we all keep up with the frantic pace of innovation in Machine Learning? Do we really need expert skills to leverage these state of the art models? Or is there a shorter path to creating business value in less time?
+Old timers have learned the hard way that there is [no silver bullet](https://en.wikipedia.org/wiki/No_Silver_Bullet) in IT. Yet, the [Transformer](https://huggingface.co/papers/1706.03762) architecture is indeed very efficient on a wide variety of Machine Learning tasks. But how can we all keep up with the frantic pace of innovation in Machine Learning? Do we really need expert skills to leverage these state of the art models? Or is there a shorter path to creating business value in less time?
 
 Well, here's what I think.
 

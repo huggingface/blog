@@ -40,7 +40,7 @@ Modern computer vision and natural language models have become more capable; how
 grown in size compared to their predecessors. While pre-training a single-modality model is resource-consuming and expensive, 
 the cost of end-to-end vision-and-language pre-training has become increasingly prohibitive. 
 		 	 	 		
-[BLIP-2](https://arxiv.org/pdf/2301.12597.pdf) tackles this challenge by introducing a new visual-language pre-training paradigm that can potentially leverage 
+[BLIP-2](https://huggingface.co/papers/2301.12597) tackles this challenge by introducing a new visual-language pre-training paradigm that can potentially leverage 
 any combination of pre-trained vision encoder and LLM without having to pre-train the whole architecture end to end. 
 This enables achieving state-of-the-art results on multiple visual-language tasks while significantly reducing the number 
 of trainable parameters and pre-training costs. Moreover, this approach paves the way for a multimodal ChatGPT-like model.  

@@ -214,7 +214,7 @@ The goal of the (hopefully aptly named) ModernBERT project was thus fairly simpl
 
 The Transformer architecture has become dominant, and is used by the vast majority of models nowadays. However, it’s important to remember that there isn’t one but many *Transformers*. The main thing they share in common is their deep belief that attention is indeed all you need, and as such, build various improvements centered around the attention mechanism.
 
-ModernBERT takes huge inspiration from the Transformer++ (as coined by [Mamba](https://arxiv.org/abs/2312.00752)), first used by the [Llama2 family of models](https://arxiv.org/abs/2307.09288). Namely, we replace older BERT-like building blocks with their improved equivalent, namely, we:
+ModernBERT takes huge inspiration from the Transformer++ (as coined by [Mamba](https://huggingface.co/papers/2312.00752)), first used by the [Llama2 family of models](https://huggingface.co/papers/2307.09288). Namely, we replace older BERT-like building blocks with their improved equivalent, namely, we:
 
 - Replace the old positional encoding with ["rotary positional embeddings"](https://huggingface.co/blog/designing-positional-encoding) (RoPE): this makes the model much better at understanding where words are in relation to each other, and allows us to scale to longer sequence lengths.  
   - Switch out the old MLP layers for GeGLU layers, improving on the original BERT’s GeLU activation function.  
@@ -262,10 +262,10 @@ Finally, the third facet of ModernBERT’s efficiency is hardware design.
 
 We attempted to balance two insights that have been highlighted by previous research:
 
-1. *Deep & Narrow vs Wide & Shallow*: [Research shows](https://arxiv.org/abs/2109.10686) that deeper models with narrower layers, often perform better than shallow models with fewer, wider layers. However, this is a double-edged sword: the deeper the model, the less parallelizable it becomes, and thus, the slower it runs at identical parameter counts.  
+1. *Deep & Narrow vs Wide & Shallow*: [Research shows](https://huggingface.co/papers/2109.10686) that deeper models with narrower layers, often perform better than shallow models with fewer, wider layers. However, this is a double-edged sword: the deeper the model, the less parallelizable it becomes, and thus, the slower it runs at identical parameter counts.  
 2. *Hardware Efficiency*: Model dimensions need to align well with GPU hardware for maximum performance, and different target GPUs result in different constraints.
 
-Sadly, there is no magic recipe to make a model run similarly well on a wide range of GPUs, but there is an excellent cookbook: [*The Case for Co-Designing Model Architectures with Hardware*](https://arxiv.org/abs/2401.14489), in which the ways to optimize a model architecture for a given GPU are carefully laid out. We came up with a heuristic to extend their method to a basket of GPUs, while respecting a given set of constraints. Logically, the first step is to define said constraints, in our case:
+Sadly, there is no magic recipe to make a model run similarly well on a wide range of GPUs, but there is an excellent cookbook: [*The Case for Co-Designing Model Architectures with Hardware*](https://huggingface.co/papers/2401.14489), in which the ways to optimize a model architecture for a given GPU are carefully laid out. We came up with a heuristic to extend their method to a basket of GPUs, while respecting a given set of constraints. Logically, the first step is to define said constraints, in our case:
 
 - Defining our target GPUs as common inference ones (RTX 3090/4090, A10, T4, L4)  
 - Roughly defining our target model sizes at 130-to-150 million parameters for ModernBERT-Base, and 350-to-420 for ModernBERT-Large.  
@@ -293,11 +293,11 @@ The impact of this is immediately noticeable: out of all the existing open sourc
 
 We stick to the original BERT’s training recipe, with some slight upgrades inspired by subsequent work: we remove the Next-Sentence Prediction objective, since then shown to add overhead for no clear gains, and increase the masking rate from 15% to 30%.
 
-Both models are trained with a **three-phase process**. First, we train on 1.7T tokens at a sequence length of 1024. We then adopt a long-context adaptation phase, training on 250B tokens at a sequence length of 8192, while keeping the total tokens seen per batch more or less consistent by lowering the batch size. Finally, we perform annealing on 50 billion tokens sampled differently, following the long-context extension ideal mix highlighted by [ProLong](https://arxiv.org/abs/2410.02660).
+Both models are trained with a **three-phase process**. First, we train on 1.7T tokens at a sequence length of 1024. We then adopt a long-context adaptation phase, training on 250B tokens at a sequence length of 8192, while keeping the total tokens seen per batch more or less consistent by lowering the batch size. Finally, we perform annealing on 50 billion tokens sampled differently, following the long-context extension ideal mix highlighted by [ProLong](https://huggingface.co/papers/2410.02660).
 
 Training in three phases is our way of ensuring our model is good across the board, which is reflected in its results: it is competitive on long-context tasks, at no cost to its ability to process short context…
 
-… But it has another benefit: for the first two-phases, we train using a constant learning rate once the warmup phase is complete, and only perform learning rate decay on the final 50 billion tokens, following the Trapezoidal (or Warmup-Stable-Decay) learning rate. And what’s more: we will release every single immediate intermediate checkpoints from these stable phases, inspired by [Pythia](https://arxiv.org/abs/2304.01373). Our main reason for doing so was supporting future research and applications: **anyone is free to restart training from any of our pre-decay checkpoints, and perform annealing on domain-appropriate data for their intended use**\!
+… But it has another benefit: for the first two-phases, we train using a constant learning rate once the warmup phase is complete, and only perform learning rate decay on the final 50 billion tokens, following the Trapezoidal (or Warmup-Stable-Decay) learning rate. And what’s more: we will release every single immediate intermediate checkpoints from these stable phases, inspired by [Pythia](https://huggingface.co/papers/2304.01373). Our main reason for doing so was supporting future research and applications: **anyone is free to restart training from any of our pre-decay checkpoints, and perform annealing on domain-appropriate data for their intended use**\!
 
 #### The tricks, it’s all about the tricks\!
 
@@ -321,7 +321,7 @@ More than anything, we’re really looking forward to seeing what creative ways 
 
 - [🤗ModernBERT-Base](https://huggingface.co/answerdotai/ModernBERT-base)  
 - [🤗ModernBERT-Large](https://huggingface.co/answerdotai/ModernBERT-large)  
-- [📝**arXiv**](https://arxiv.org/abs/2412.13663)  
+- [📝**arXiv**](https://huggingface.co/papers/2412.13663)  
 - [🤗ModernBERT documentation page](https://huggingface.co/docs/transformers/main/en/model_doc/modernbert)
 
 _LightOn sponsored the compute for this project on Orange Business Cloud Avenue._

@@ -23,7 +23,7 @@ translators:
 
 大语言模型在理解和生成人类水平的文字方面所展现出的非凡能力，正在许多领域带来应用上的革新。然而，在消费级硬件上训练和部署大语言模型的需求也变得越来越难以满足。
 
-🤗 Hugging Face 的核心使命是 _让优秀的机器学习普惠化_ ，而这正包括了尽可能地让所有人都能够使用上大模型。本着 [与 bitsandbytes 合作](https://huggingface.co/blog/4bit-transformers-bitsandbytes) 一样的精神，我们将 [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) 代码库集成到了 Transformers 中，让用户使用 GPTQ 算法 ([Frantar et al. 2023](https://arxiv.org/pdf/2210.17323.pdf)) 在 8 位、4 位、3 位，甚至是 2 位精度下量化和运行模型成为可能。当使用 int4 量化时，精度的下降可以忽略不计，同时在小批量推理上保持着与 `fp16` 基线相当的速度。 需要注意的是，GPTQ 方法与 bitsandbytes 提出的训练后量化方法有所不同：它需要在量化阶段提供一个校准数据集。
+🤗 Hugging Face 的核心使命是 _让优秀的机器学习普惠化_ ，而这正包括了尽可能地让所有人都能够使用上大模型。本着 [与 bitsandbytes 合作](https://huggingface.co/blog/4bit-transformers-bitsandbytes) 一样的精神，我们将 [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) 代码库集成到了 Transformers 中，让用户使用 GPTQ 算法 ([Frantar et al. 2023](https://huggingface.co/papers/2210.17323)) 在 8 位、4 位、3 位，甚至是 2 位精度下量化和运行模型成为可能。当使用 int4 量化时，精度的下降可以忽略不计，同时在小批量推理上保持着与 `fp16` 基线相当的速度。 需要注意的是，GPTQ 方法与 bitsandbytes 提出的训练后量化方法有所不同：它需要在量化阶段提供一个校准数据集。
 
 本次集成支持英伟达 GPU 和基于 RoCm 的 AMD GPU。
 
@@ -46,7 +46,7 @@ translators:
 
 本文及相关版本发布提供了一些资源来帮助用户开启 GPTQ 量化的旅程：
 
-- [原始论文](https://arxiv.org/pdf/2210.17323.pdf)
+- [原始论文](https://huggingface.co/papers/2210.17323)
 - [运行于 Google Colab 笔记本上的基础用例](https://colab.research.google.com/drive/1_TIrmuKOFhuRRiTWN94iLKUFu6ZX4ceb?usp=sharing) —— 该笔记本上的用例展示了如何使用 GPTQ 方法量化你的 transformers 模型、如何进行量化模型的推理，以及如何使用量化后的模型进行微调。
 - Transformers 中集成 GPTQ 的 [说明文档](https://huggingface.co/docs/transformers/main/en/main_classes/quantization)
 - Optimum 中集成 GPTQ 的 [说明文档](https://huggingface.co/docs/optimum/llm_quantization/usage_guides/quantization)
@@ -77,7 +77,7 @@ GPTQ 论文解决了分层压缩的问题：
 
 一旦每层都实现了上述目标，就可以通过组合各网络层量化结果的方式来获得一个完整的量化模型。
 
-为解决这一分层压缩问题，论文作者采用了最优脑量化 (Optimal Brain Quantization, OBQ) 框架 ([Frantar et al 2022](https://arxiv.org/abs/2208.11580)) 。OBQ 方法的出发点在于其观察到：以上等式可以改写成权重矩阵 \\(W_{l}\\) 每一行的平方误差之和
+为解决这一分层压缩问题，论文作者采用了最优脑量化 (Optimal Brain Quantization, OBQ) 框架 ([Frantar et al 2022](https://huggingface.co/papers/2208.11580)) 。OBQ 方法的出发点在于其观察到：以上等式可以改写成权重矩阵 \\(W_{l}\\) 每一行的平方误差之和
 
 \\( \sum_{i=0}^{d_{row}} \|W_{l[i,:]}X-\hat{W}_{l[i,:]}X\|^{2}_{2} \\)
 
@@ -87,7 +87,7 @@ GPTQ 论文通过引入一系列优化措施来改进上述量化框架，在降
 
 相较于 OBQ，GPTQ 的量化步骤本身也更快：OBQ 需要花费 2 个 GPU 时来完成 BERT 模型 (336M) 的量化，而使用 GPTQ，量化一个 Bloom 模型 (176B) 则只需不到 4 个 GPU 时。
 
-为了解算法的更多细节以及在困惑度 (perplexity, PPL) 指标和推理速度上的不同测评数据，可查阅原始 [论文](https://arxiv.org/pdf/2210.17323.pdf) 。
+为了解算法的更多细节以及在困惑度 (perplexity, PPL) 指标和推理速度上的不同测评数据，可查阅原始 [论文](https://huggingface.co/papers/2210.17323) 。
 
 ## AutoGPTQ 代码库——一站式地将 GPTQ 方法应用于大语言模型
 
@@ -165,9 +165,9 @@ model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto", quanti
 
 虽然我们的 AutoGPTQ 集成在极小的预测质量损失代价下，带来了引人瞩目的优势。但在量化技术应用和算子实现方面仍有提升的空间。
 
-首先，尽管 AutoGPTQ （在我们的认知范围内）已经集成了 [exllama](https://github.com/turboderp/exllama) 中所实现的最佳性能的 W4A16 算子（权重为 int4 数值类型，激活值为 fp16 数值类型），其仍有很大的改进空间。来自 [Kim 等人](https://arxiv.org/pdf/2211.10017.pdf) 的实现和 [MIT Han Lab](https://github.com/mit-han-lab/llm-awq) 的方法似乎十分可靠。此外，根据我们的内部测评，似乎暂未有开源的高性能的 Triton 版本的 W4A16 算子实现，这也是一个值得探索的方向。
+首先，尽管 AutoGPTQ （在我们的认知范围内）已经集成了 [exllama](https://github.com/turboderp/exllama) 中所实现的最佳性能的 W4A16 算子（权重为 int4 数值类型，激活值为 fp16 数值类型），其仍有很大的改进空间。来自 [Kim 等人](https://huggingface.co/papers/2211.10017) 的实现和 [MIT Han Lab](https://github.com/mit-han-lab/llm-awq) 的方法似乎十分可靠。此外，根据我们的内部测评，似乎暂未有开源的高性能的 Triton 版本的 W4A16 算子实现，这也是一个值得探索的方向。
 
-在量化层面，我们需要再次强调 GPTQ 方法只对模型权重进行量化。而针对大语言模型的量化，存在其他的方法，提供了以较小的预测质量损失为代价，同时量化权重和激活值的方案。如 [LLM-QAT](https://arxiv.org/pdf/2305.17888.pdf) 采用 int4/int8 的混合精度方案，同时还对 KV Cache 施行量化。这一技术的强大优点是能实际使用整数运算算法来进行计算，一个例子是 [英伟达的张量核心支持 int8 计算](https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf) 。然而，据我们所知，目前暂无开源的 W4A8 量化算子，但这可能是一个 [值得探索的方向](https://www.qualcomm.com/news/onq/2023/04/floating-point-arithmetic-for-ai-inference-hit-or-miss) 。
+在量化层面，我们需要再次强调 GPTQ 方法只对模型权重进行量化。而针对大语言模型的量化，存在其他的方法，提供了以较小的预测质量损失为代价，同时量化权重和激活值的方案。如 [LLM-QAT](https://huggingface.co/papers/2305.17888) 采用 int4/int8 的混合精度方案，同时还对 KV Cache 施行量化。这一技术的强大优点是能实际使用整数运算算法来进行计算，一个例子是 [英伟达的张量核心支持 int8 计算](https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf) 。然而，据我们所知，目前暂无开源的 W4A8 量化算子，但这可能是一个 [值得探索的方向](https://www.qualcomm.com/news/onq/2023/04/floating-point-arithmetic-for-ai-inference-hit-or-miss) 。
 
 在算子层面，为更大的批处理大小设计高性能的 W4A16 算子仍然是一大挑战。
 
@@ -189,7 +189,7 @@ model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto", quanti
 
 再次提醒不要错过文章开头分享的有用资源，以便更好地理解本次集成的特性以及如何快速开始使用 GPTQ 量化。
 
-- [原始论文](https://arxiv.org/pdf/2210.17323.pdf)
+- [原始论文](https://huggingface.co/papers/2210.17323)
 - [运行于 Google Colab 笔记本上的基础用例](https://colab.research.google.com/drive/1_TIrmuKOFhuRRiTWN94iLKUFu6ZX4ceb?usp=sharing) —— 该笔记本上的用例展示了如何使用 GPTQ 方法量化你的 transformers 模型、如何进行量化模型的推理，以及如何使用量化后的模型进行微调。
 - Transformers 中集成 GPTQ 的 [说明文档](https://huggingface.co/docs/transformers/main/en/main_classes/quantization)
 - Optimum 中集成 GPTQ 的 [说明文档](https://huggingface.co/docs/optimum/llm_quantization/usage_guides/quantization)

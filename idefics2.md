@@ -135,7 +135,7 @@ If you wish to deep dive further, here is the compilation of all resources for I
 * [Idefics2 fine-tuning colab](https://colab.research.google.com/drive/1rm3AGquGEYXfeeizE40bbDtcWh5S4Nlq?usp=sharing)
 * [Idefics2-8B model demo (not the chatty model)](https://huggingface.co/spaces/HuggingFaceM4/idefics-8b)
 * [Idefics2 demo](https://huggingface.co/spaces/HuggingFaceM4/idefics2_playground)
-* [Idefics2 paper](https://arxiv.org/abs/2405.02246)
+* [Idefics2 paper](https://huggingface.co/papers/2405.02246)
 
 
 ## License

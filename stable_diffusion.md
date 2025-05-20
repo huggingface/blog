@@ -161,7 +161,7 @@ This shows that using only 15 denoising steps has significantly degraded the qua
 
 Besides `num_inference_steps`, we've been using another function argument, called `guidance_scale` in all 
 previous examples. `guidance_scale` is a way to increase the adherence to the conditional signal that guides the generation (text, in this case) as well as overall sample quality. 
-It is also known as [classifier-free guidance](https://arxiv.org/abs/2207.12598), which in simple terms forces the generation to better match the prompt potentially at the cost of image quality or diversity. 
+It is also known as [classifier-free guidance](https://huggingface.co/papers/2207.12598), which in simple terms forces the generation to better match the prompt potentially at the cost of image quality or diversity. 
 Values between `7` and `8.5` are usually good choices for Stable Diffusion.  By default the pipeline
 uses a `guidance_scale` of 7.5.
 
@@ -229,7 +229,7 @@ image = pipe(prompt, height=512, width=768).images[0]
 Having seen the high-quality images that stable diffusion can produce, let's try to understand 
 a bit better how the model functions.
 
-Stable Diffusion is based on a particular type of diffusion model called **Latent Diffusion**, proposed in [High-Resolution Image Synthesis with Latent Diffusion Models](https://arxiv.org/abs/2112.10752).
+Stable Diffusion is based on a particular type of diffusion model called **Latent Diffusion**, proposed in [High-Resolution Image Synthesis with Latent Diffusion Models](https://huggingface.co/papers/2112.10752).
 
 Generally speaking, diffusion models are machine learning systems that are trained to *denoise* random Gaussian noise step by step, to get to a sample of interest, such as an *image*. For a more detailed overview of how they work, check [this colab](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb).
 
@@ -290,7 +290,7 @@ Next the U-Net iteratively *denoises* the random latent image representations wh
 - [K-LMS scheduler](https://github.com/huggingface/diffusers/blob/main/src/diffusers/schedulers/scheduling_lms_discrete.py)
 
 Theory on how the scheduler algorithm function is out-of-scope for this notebook, but in short one should remember that they compute the predicted denoised image representation from the previous noise representation and the predicted noise residual.
-For more information, we recommend looking into [Elucidating the Design Space of Diffusion-Based Generative Models](https://arxiv.org/abs/2206.00364)
+For more information, we recommend looking into [Elucidating the Design Space of Diffusion-Based Generative Models](https://huggingface.co/papers/2206.00364)
 
 The *denoising* process is repeated *ca.* 50 times to step-by-step retrieve better latent image representations.
 Once complete, the latent image representation is decoded by the decoder part of the variational auto encoder.
@@ -349,7 +349,7 @@ unet.to(torch_device)
 
 We now define the parameters we'll use to generate images.
 
-Note that `guidance_scale` is defined analog to the guidance weight `w` of equation (2) in the [Imagen paper](https://arxiv.org/pdf/2205.11487.pdf). `guidance_scale == 1` corresponds to doing no classifier-free guidance. Here we set it to 7.5 as also done previously.
+Note that `guidance_scale` is defined analog to the guidance weight `w` of equation (2) in the [Imagen paper](https://huggingface.co/papers/2205.11487). `guidance_scale == 1` corresponds to doing no classifier-free guidance. Here we set it to 7.5 as also done previously.
 
 In contrast to the previous examples, we set `num_inference_steps` to 100 to get an even more defined image.
 

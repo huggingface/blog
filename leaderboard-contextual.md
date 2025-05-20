@@ -26,7 +26,7 @@ That’s why we (researchers from University of California Los Angeles) created 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.45.1/gradio.js"> </script>
 <gradio-app theme_mode="light" space="ucla-contextual/contextual_leaderboard"></gradio-app>
 
-For an in-depth dive, you can also check these additional resources: [paper](https://arxiv.org/abs/2401.13311), [code](https://github.com/rohan598/ConTextual), [dataset](https://huggingface.co/datasets/ucla-contextual/contextual_all), [validation dataset](https://huggingface.co/datasets/ucla-contextual/contextual_val), and [leaderboard](https://huggingface.co/spaces/ucla-contextual/contextual_leaderboard). 
+For an in-depth dive, you can also check these additional resources: [paper](https://huggingface.co/papers/2401.13311), [code](https://github.com/rohan598/ConTextual), [dataset](https://huggingface.co/datasets/ucla-contextual/contextual_all), [validation dataset](https://huggingface.co/datasets/ucla-contextual/contextual_val), and [leaderboard](https://huggingface.co/spaces/ucla-contextual/contextual_leaderboard). 
 
 
 ## What is ConTextual
@@ -65,7 +65,7 @@ In this instance, GPT-4V provides an incorrect response to the instruction, desp
 [Example 2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/leaderboards-on-the-hub/contextual-qualitative-ex-2.png)
 In this example, GPT-4V correctly responds to the instruction. However, ShareGPT-4V-7B (best performing open-source LMM) and GPT-4 w/ Layout-aware OCR + Caption (Augmented LLM) produce a wrong response, due to lack of joint reasoning over text and image.
 
-You’ll find more examples like this in the Appendix section of our [paper](https://arxiv.org/abs/2401.13311)!
+You’ll find more examples like this in the Appendix section of our [paper](https://huggingface.co/papers/2401.13311)!
 
 ## Key Takeaways!
 

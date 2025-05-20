@@ -196,7 +196,7 @@ The following judge candidates were evaluated:
 - **Claude-3-haiku**: a weaker but cost-efficient variant of Claude-3.5-sonnet;
 - **Llama 3.1-405b**: a state-of-the-art open model offering full transparency and control. 
 
-We also explored adopting a **[Jury](https://arxiv.org/abs/2404.18796)**, which aggregates evaluations from multiple LLM judges, to examine whether collective scoring improves reliability. 
+We also explored adopting a **[Jury](https://huggingface.co/papers/2404.18796)**, which aggregates evaluations from multiple LLM judges, to examine whether collective scoring improves reliability. 
  
 Note that at the time we were running our experiments, Claude-3.5-haiku was not available through the Anthropic API yet. 
  
@@ -314,7 +314,7 @@ To assess the consistency of the scores, we calculated the **standard deviation 
 
 ### Self Bias Analysis
 
-As reported in [this study](https://arxiv.org/pdf/2404.13076) and several other studies as well, usually some biases get introduced when a Large Language Model acts as both the evaluator and the evaluatee. To analyze self-bias, we compared how judges scored their own responses versus others. The table below summarizes the results:
+As reported in [this study](https://huggingface.co/papers/2404.13076) and several other studies as well, usually some biases get introduced when a Large Language Model acts as both the evaluator and the evaluatee. To analyze self-bias, we compared how judges scored their own responses versus others. The table below summarizes the results:
  
 | Model Name                            | GPT-4o-mini | Claude-3.5-sonnet  | Llama 3.1-405b | GPT-4o  |
 |---------------------------------------|-------------|--------------------|----------------|---------| 

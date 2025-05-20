@@ -16,9 +16,9 @@ authors:
 
 We’re excited to present an efficient non-diffusion text-to-image model named **aMUSEd**. It’s called so because it’s a open reproduction of [Google's MUSE](https://muse-model.github.io/). aMUSEd’s generation quality is not the best and we’re releasing a research preview with a permissive license. 
 
-In contrast to the commonly used latent diffusion approach [(Rombach et al. (2022))](https://arxiv.org/abs/2112.10752), aMUSEd employs a Masked Image Model (MIM) methodology. This not only requires fewer inference steps, as noted by [Chang et al. (2023)](https://arxiv.org/abs/2301.00704), but also enhances the model's interpretability.
+In contrast to the commonly used latent diffusion approach [(Rombach et al. (2022))](https://huggingface.co/papers/2112.10752), aMUSEd employs a Masked Image Model (MIM) methodology. This not only requires fewer inference steps, as noted by [Chang et al. (2023)](https://huggingface.co/papers/2301.00704), but also enhances the model's interpretability.
 
-Just as MUSE, aMUSEd demonstrates an exceptional ability for style transfer using a single image, a feature explored in depth by [Sohn et al. (2023)](https://arxiv.org/abs/2306.00983). This aspect could potentially open new avenues in personalized and style-specific image generation.
+Just as MUSE, aMUSEd demonstrates an exceptional ability for style transfer using a single image, a feature explored in depth by [Sohn et al. (2023)](https://huggingface.co/papers/2306.00983). This aspect could potentially open new avenues in personalized and style-specific image generation.
 
 In this blog post, we will give you some internals of aMUSEd, show how you can use it for different tasks, including text-to-image, and show how to fine-tune it. Along the way, we will provide all the important resources related to aMUSEd, including its training code. Let’s get started 🚀
 
@@ -48,7 +48,7 @@ During ***training***:
 
 - input images are tokenized using a VQGAN to obtain image tokens
 - the image tokens are then masked according to a cosine masking schedule.
-- the masked tokens (conditioned on the prompt embeddings computed using a [CLIP-L/14 text encoder](https://huggingface.co/openai/clip-vit-large-patch14) are passed to a [U-ViT](https://arxiv.org/abs/2301.11093) model that predicts the masked patches
+- the masked tokens (conditioned on the prompt embeddings computed using a [CLIP-L/14 text encoder](https://huggingface.co/openai/clip-vit-large-patch14) are passed to a [U-ViT](https://huggingface.co/papers/2301.11093) model that predicts the masked patches
 
 During ***inference***:
 
@@ -188,11 +188,11 @@ We hope that the community will find the resources useful and feel motivated to 
 
 - [*Muse:* Text-To-Image Generation via Masked Generative Transformers](https://muse-model.github.io/)
 - [aMUSEd: An Open MUSE Reproduction](https://huggingface.co/papers/2401.01808)
-- [Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer](https://arxiv.org/abs/1910.10683) (T5)
-- [Learning Transferable Visual Models From Natural Language Supervision](https://arxiv.org/abs/2103.00020) (CLIP)
-- [SDXL: Improving Latent Diffusion Models for High-Resolution Image Synthesis](https://arxiv.org/abs/2307.01952)
-- [Simple diffusion: End-to-end diffusion for high resolution images](https://arxiv.org/abs/2301.11093) (U-ViT)
-- [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)
+- [Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer](https://huggingface.co/papers/1910.10683) (T5)
+- [Learning Transferable Visual Models From Natural Language Supervision](https://huggingface.co/papers/2103.00020) (CLIP)
+- [SDXL: Improving Latent Diffusion Models for High-Resolution Image Synthesis](https://huggingface.co/papers/2307.01952)
+- [Simple diffusion: End-to-end diffusion for high resolution images](https://huggingface.co/papers/2301.11093) (U-ViT)
+- [LoRA: Low-Rank Adaptation of Large Language Models](https://huggingface.co/papers/2106.09685)
 
 **Code + misc**:
 

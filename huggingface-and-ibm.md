@@ -22,7 +22,7 @@ As AI finds its way into every department and business unit, customers also real
 All of this will only happen with standardization and automation. Organizations can't afford to build models, tools, and infrastructure from scratch for new projects. Fortunately, the last few years have seen some very positive developments:
 
 
-1. **Model standardization**: the [Transformer](https://arxiv.org/abs/1706.03762) architecture is now the de facto standard for Deep Learning applications like Natural Language Processing, Computer Vision, Audio, Speech, and more. It’s now easier to build tools and workflows that perform well across many use cases.
+1. **Model standardization**: the [Transformer](https://huggingface.co/papers/1706.03762) architecture is now the de facto standard for Deep Learning applications like Natural Language Processing, Computer Vision, Audio, Speech, and more. It’s now easier to build tools and workflows that perform well across many use cases.
 2. **Pre-trained models**: [hundreds of thousands](https://huggingface.co/models) of pre-trained models are just a click away. You can discover and test them directly on [Hugging Face](https://huggingface.co) and quickly shortlist the promising ones for your projects.
 3. **Open-source libraries**: the Hugging Face [libraries](https://huggingface.co/docs) let you download pre-trained models with a single line of code, and you can start experimenting with your data in minutes. From training to deployment to hardware optimization, customers can rely on a consistent set of community-driven tools that work the same everywhere, from their laptops to their production environment.
 

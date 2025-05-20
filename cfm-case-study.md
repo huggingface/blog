@@ -62,7 +62,7 @@ Among open-source models, the Llama 3.1 series by Meta stood out due to its stro
 <a name="fnspid"></a>
 ## NER on the Financial News and Stock Price Integration Dataset 
 
-Our focus on this use case was to extract company names from news headlines from the Financial News and Stock Price Integration Dataset [(FNSPID)](https://arxiv.org/abs/2402.06698). It is composed of news headlines and articles associated with corresponding stock symbols coming from several sources such as Bloomberg, Reuters, Benzinga and others. After analyzing the various news sources, we found that news from Benzinga had no missing stock symbol values. This subset of the dataset contains \~900k samples. As a result, we decided to reduce our dataset to Benzinga headlines for a more consistent and reliable analysis. 
+Our focus on this use case was to extract company names from news headlines from the Financial News and Stock Price Integration Dataset [(FNSPID)](https://huggingface.co/papers/2402.06698). It is composed of news headlines and articles associated with corresponding stock symbols coming from several sources such as Bloomberg, Reuters, Benzinga and others. After analyzing the various news sources, we found that news from Benzinga had no missing stock symbol values. This subset of the dataset contains \~900k samples. As a result, we decided to reduce our dataset to Benzinga headlines for a more consistent and reliable analysis. 
 
 ![FNSPID](assets/cfm-case-study/fnspid-prev.png)
 <p align="center"><em>Dataset preview of FNSPID</em></p>
@@ -492,10 +492,10 @@ With a high-quality, reviewed dataset in place, we can now experiment with diffe
 1. **GLiNER**
 
 \
-[GLiNER](https://arxiv.org/abs/2311.08526) is a compact, versatile NER model that leverages bidirectional transformers like BERT to identify a wide range of entity types overcoming the limitations of traditional models that are restricted to predefined entities. Unlike large autoregressive models, GLiNER treats NER as a task of matching entity types with spans in text, using parallel processing for efficiency. It offers a practical and resource-efficient alternative to LLMs, delivering strong performance in zero-shot scenarios without the high computational costs associated with larger models.
+[GLiNER](https://huggingface.co/papers/2311.08526) is a compact, versatile NER model that leverages bidirectional transformers like BERT to identify a wide range of entity types overcoming the limitations of traditional models that are restricted to predefined entities. Unlike large autoregressive models, GLiNER treats NER as a task of matching entity types with spans in text, using parallel processing for efficiency. It offers a practical and resource-efficient alternative to LLMs, delivering strong performance in zero-shot scenarios without the high computational costs associated with larger models.
 
 ![GliNER](assets/cfm-case-study/gliner.png)
-<p align="center"><em>GLiNER architecture from the  <a href="https://arxiv.org/abs/2311.08526" target="_blank">original paper</a><</em></p>
+<p align="center"><em>GLiNER architecture from the  <a href="https://huggingface.co/papers/2311.08526" target="_blank">original paper</a><</em></p>
 
 GLiNER offers three model variants:
 

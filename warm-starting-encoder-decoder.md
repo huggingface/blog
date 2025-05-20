@@ -14,37 +14,37 @@ authors:
 
 
 Transformer-based encoder-decoder models were proposed in [Vaswani et
-al. (2017)](https://arxiv.org/pdf/1706.03762.pdf) and have recently
+al. (2017)](https://huggingface.co/papers/1706.03762) and have recently
 experienced a surge of interest, *e.g.* [Lewis et al.
-(2019)](https://arxiv.org/abs/1910.13461), [Raffel et al.
-(2019)](https://arxiv.org/abs/1910.10683), [Zhang et al.
-(2020)](https://arxiv.org/abs/1912.08777), [Zaheer et al.
-(2020)](https://arxiv.org/abs/2007.14062), [Yan et al.
-(2020)](https://arxiv.org/pdf/2001.04063.pdf).
+(2019)](https://huggingface.co/papers/1910.13461), [Raffel et al.
+(2019)](https://huggingface.co/papers/1910.10683), [Zhang et al.
+(2020)](https://huggingface.co/papers/1912.08777), [Zaheer et al.
+(2020)](https://huggingface.co/papers/2007.14062), [Yan et al.
+(2020)](https://huggingface.co/papers/2001.04063).
 
 Similar to BERT and GPT2, massive pre-trained encoder-decoder models
 have shown to significantly boost performance on a variety of
 *sequence-to-sequence* tasks [Lewis et al.
-(2019)](https://arxiv.org/abs/1910.13461), [Raffel et al.
-(2019)](https://arxiv.org/abs/1910.10683). However, due to the enormous
+(2019)](https://huggingface.co/papers/1910.13461), [Raffel et al.
+(2019)](https://huggingface.co/papers/1910.10683). However, due to the enormous
 computational cost attached to pre-training encoder-decoder models, the
 development of such models is mainly limited to large companies and
 institutes.
 
 In [Leveraging Pre-trained Checkpoints for Sequence Generation Tasks
-(2020)](https://arxiv.org/pdf/1907.12461.pdf), Sascha Rothe, Shashi
+(2020)](https://huggingface.co/papers/1907.12461), Sascha Rothe, Shashi
 Narayan and Aliaksei Severyn initialize encoder-decoder model with
 pre-trained *encoder and/or decoder-only* checkpoints (*e.g.* BERT,
 GPT2) to skip the costly pre-training. The authors show that such
 *warm-started* encoder-decoder models yield competitive results to large
 pre-trained encoder-decoder models, such as
-[*T5*](https://arxiv.org/abs/1910.10683), and
-[*Pegasus*](https://arxiv.org/abs/1912.08777) on multiple
+[*T5*](https://huggingface.co/papers/1910.10683), and
+[*Pegasus*](https://huggingface.co/papers/1912.08777) on multiple
 *sequence-to-sequence* tasks at a fraction of the training cost.
 
 In this notebook, we will explain in detail how encoder-decoder models
 can be warm-started, give practical tips based on [Rothe et al.
-(2020)](https://arxiv.org/pdf/1907.12461.pdf), and finally go over a
+(2020)](https://huggingface.co/papers/1907.12461), and finally go over a
 complete code example showing how to warm-start encoder-decoder models
 with 🤗Transformers.
 
@@ -56,7 +56,7 @@ This notebook is divided into 4 parts:
     explanation on how encoder-decoder models are warm-started?*
 -   **Warm-starting encoder-decoder models (Analysis)** - *Summary of
     [Leveraging Pre-trained Checkpoints for Sequence Generation
-    Tasks (2020)](https://arxiv.org/pdf/1907.12461.pdf) - What model
+    Tasks (2020)](https://huggingface.co/papers/1907.12461) - What model
     combinations are effective to warm-start encoder-decoder models; How
     does it differ from task to task?*
 -   **Warm-starting encoder-decoder models with 🤗Transformers
@@ -79,20 +79,20 @@ field of natural language processing (NLP).
 
 The first pre-trained language models were based on recurrent neural
 networks (RNN) as proposed [Dai et al.
-(2015)](https://arxiv.org/pdf/1511.01432.pdf). *Dai et. al* showed that
+(2015)](https://huggingface.co/papers/1511.01432). *Dai et. al* showed that
 pre-training an RNN-based model on unlabelled data and subsequently
 fine-tuning \\({}^2\\) it on a specific task yields better results than
 training a randomly initialized model directly on such a task. However,
 it was only in 2018, when pre-trained language models become widely
 accepted in NLP. [ELMO by Peters et
-al.](https://arxiv.org/abs/1802.05365) and [ULMFit by Howard et
-al.](https://arxiv.org/pdf/1801.06146.pdf) were the first pre-trained
+al.](https://huggingface.co/papers/1802.05365) and [ULMFit by Howard et
+al.](https://huggingface.co/papers/1801.06146) were the first pre-trained
 language model to significantly improve the state-of-the-art on an array
 of natural language understanding (NLU) tasks. Just a couple of months
 later, OpenAI and Google published *transformer-based* pre-trained
 language models, called [GPT by Radford et
 al.](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf)
-and [BERT by Devlin et al.](https://arxiv.org/abs/1810.04805)
+and [BERT by Devlin et al.](https://huggingface.co/papers/1810.04805)
 respectively. The improved efficiency of *transformer-based* language
 models over RNNs allowed GPT2 and BERT to be pre-trained on massive
 amounts of unlabeled text data. Once pre-trained, BERT and GPT were
@@ -157,7 +157,7 @@ defined as \\(\theta_{\text{p,c}}\\), on top of a pre-trained BERT model
 \\(\theta_{\text{BERT}}\\) and subsequently fine-tuning the complete model
 \\(\{\theta_{\text{p,c}}, \theta_{\text{BERT}}\}\\) can yield
 state-of-the-art performances on a variety of NLU tasks, *cf.* to [BERT
-by Devlin et al.](https://arxiv.org/abs/1810.04805).
+by Devlin et al.](https://huggingface.co/papers/1810.04805).
 
 Let\'s visualize BERT.
 
@@ -253,7 +253,7 @@ GPT2 is therefore well-suited for *language generation*, but less so for
 GPT2 can very well be used for conditional generation. However, the
 model architecture has a fundamental drawback compared to the
 encoder-decoder architecture as explained in [Raffel et al.
-(2019)](https://arxiv.org/abs/1910.10683) on page 17. In short,
+(2019)](https://huggingface.co/papers/1910.10683) on page 17. In short,
 uni-directional self-attention forces the model\'s representation of the
 sequence input \\(\mathbf{X}_{1:n}\\) to be unnecessarily limited since
 \\(\mathbf{x}_i\\) cannot depend on
@@ -269,10 +269,10 @@ certain architectural limitations as explained above.
 The current predominant approach to tackle *sequence-to-sequence* tasks
 are *transformer-based* **encoder-decoder** models - often also called
 *seq2seq transformer* models. Encoder-decoder models were introduced in
-[Vaswani et al. (2017)](https://arxiv.org/abs/1706.03762) and since then
+[Vaswani et al. (2017)](https://huggingface.co/papers/1706.03762) and since then
 have been shown to perform better on *sequence-to-sequence* tasks than
 stand-alone language models (*i.e.* decoder-only models), *e.g.* [Raffel
-et al. (2020)](https://arxiv.org/pdf/1910.10683.pdf). In essence, an
+et al. (2020)](https://huggingface.co/papers/1910.10683). In essence, an
 encoder-decoder model is the combination of a *stand-alone* encoder,
 such as BERT, and a *stand-alone* decoder model, such as GPT2. For more
 details on the exact architecture of transformer-based encoder-decoder
@@ -291,7 +291,7 @@ on certain *sequence-to-sequence* tasks.
 In 2020, Sascha Rothe, Shashi Narayan, and Aliaksei Severyn investigated
 exactly this question in their paper [**Leveraging Pre-trained
 Checkpoints for Sequence Generation
-Tasks**](https://arxiv.org/abs/1907.12461). The paper offers a great
+Tasks**](https://huggingface.co/papers/1907.12461). The paper offers a great
 analysis of different encoder-decoder model combinations and fine-tuning
 techniques, which we will study in more detail later.
 
@@ -309,7 +309,7 @@ and also gives practical tips for better performance.
     task-agnostic, unsupervised fashion, and
 -   that processes a sequence of input words into a *context-dependent*
     embedding. *E.g.* the *continuous bag-of-words* and *skip-gram*
-    model from [Mikolov et al. (2013)](https://arxiv.org/abs/1301.3781)
+    model from [Mikolov et al. (2013)](https://huggingface.co/papers/1301.3781)
     is not considered a pre-trained language model because the
     embeddings are context-agnostic.
 
@@ -541,7 +541,7 @@ better results or can be fine-tuned more efficiently.
 
 ### **Encoder-Decoder Weight Sharing**
 
-In [Raffel et al. (2020)](https://arxiv.org/pdf/1910.10683.pdf), the
+In [Raffel et al. (2020)](https://huggingface.co/papers/1910.10683), the
 authors show that a randomly-initialized encoder-decoder model that
 shares the encoder\'s weights with the decoder, and therefore reduces
 the memory footprint by half, performs only slightly worse than its
@@ -595,7 +595,7 @@ for the decoder part respectively).
 In this section, we will summarize the findings on warm-starting
 encoder-decoder models as presented in [Leveraging Pre-trained
 Checkpoints for Sequence Generation
-Tasks](https://arxiv.org/abs/1907.12461) by Sascha Rothe, Shashi
+Tasks](https://huggingface.co/papers/1907.12461) by Sascha Rothe, Shashi
 Narayan, and Aliaksei Severyn. The authors compared the performance of
 warm-started encoder-decoder models to randomly initialized
 encoder-decoder models on multiple *sequence-to-sequence* tasks, notably
@@ -663,12 +663,12 @@ table shows which datasets were used for each task.
 
   |Seq2Seq Task               |Datasets                                                               |Paper                                                                   |🤗datasets |
   |-------------------------- |-----------------------------------------------------------------------|----------------------------------------------------------------------- |----------------------------------------------------------------------------------------- |
-  |Sentence Fusion            |DiscoFuse                                                              |[Geva et al. (2019)](https://arxiv.org/abs/1902.10526)                  |[link](https://huggingface.co/nlp/viewer/?dataset=discofuse&config=discofuse-wikipedia) |
-  |Sentence Splitting         |WikiSplit                                                              |[Botha et al. (2018)](https://arxiv.org/abs/1808.09468)                 |\-|
+  |Sentence Fusion            |DiscoFuse                                                              |[Geva et al. (2019)](https://huggingface.co/papers/1902.10526)                  |[link](https://huggingface.co/nlp/viewer/?dataset=discofuse&config=discofuse-wikipedia) |
+  |Sentence Splitting         |WikiSplit                                                              |[Botha et al. (2018)](https://huggingface.co/papers/1808.09468)                 |\-|
   |Translation                |WMT14 EN =\> DE                                                        |[Bojar et al. (2014)](http://www.aclweb.org/anthology/W/W14/W14-3302)   |[link](https://huggingface.co/nlp/viewer/?dataset=wmt14&config=de-en)|
   |WMT14 DE =\> EN            |[Bojar et al. (2014)](http://www.aclweb.org/anthology/W/W14/W14-3302)  |																																				 |[link](https://huggingface.co/nlp/viewer/?dataset=wmt14&config=de-en)   |
   |Abstractive Summarizaion   |CNN/Dailymail                                                          | [Hermann et al. (2015)](http://arxiv.org/abs/1704.04368)               |[link](https://huggingface.co/nlp/viewer/?dataset=cnn_dailymail&config=3.0.0)|
-  |BBC XSum                   |[Narayan et al. (2018a)](https://arxiv.org/abs/1808.08745)             |																																				 |[link](https://huggingface.co/nlp/viewer/?dataset=xsum)                 |
+  |BBC XSum                   |[Narayan et al. (2018a)](https://huggingface.co/papers/1808.08745)             |																																				 |[link](https://huggingface.co/nlp/viewer/?dataset=xsum)                 |
   |Gigaword                   |[Napoles et al. (2012)](http://dx.doi.org/10.18653/v1/D15-1044)        |																																				 |[link](https://huggingface.co/nlp/viewer/?dataset=gigaword)              |
 
 Depending on the task, a slightly different training regime was used.
@@ -680,7 +680,7 @@ that within each task, all models were trained and evaluated using the
 same hyperparameters to ensure a fair comparison. For more information
 on the task-specific hyperparameter settings, the reader is advised to
 see the *Experiments* section in the
-[paper](https://arxiv.org/pdf/1907.12461.pdf).
+[paper](https://huggingface.co/papers/1907.12461).
 
 We will now give a condensed overview of the results for each task.
 
@@ -706,7 +706,7 @@ The inverse task is called **Sentence splitting** and consists of
 splitting a single complex sentence into multiple simpler ones that
 together retain the same meaning. Sentence splitting is considered as an
 important task in text simplification, *cf.* to [Botha et al.
-(2018)](https://arxiv.org/pdf/1808.09468.pdf).
+(2018)](https://huggingface.co/papers/1808.09468).
 
 As an example, the sentence:
 
@@ -1162,7 +1162,7 @@ important information is often found at the beginning of articles and
 because we want to be computationally efficient, we decide to stick to
 `bert-base-cased` with a `max_length` of 512 in this notebook. This
 choice is not optimal but has shown to yield [good
-results](https://arxiv.org/abs/1907.12461) on CNN/Dailymail.
+results](https://huggingface.co/papers/1907.12461) on CNN/Dailymail.
 Alternatively, one could leverage long-range sequence models, such as
 [Longformer](https://huggingface.co/allenai/longformer-large-4096) to be
 used as the encoder.

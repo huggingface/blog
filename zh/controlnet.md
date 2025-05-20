@@ -78,7 +78,7 @@ ControlNet，使一切皆有可能 🌠
 
 ## ControlNet 简述
 
-ControlNet 在 [Adding Conditional Control to Text-to-Image Diffusion Models](https://arxiv.org/abs/2302.05543) 一文中提被出，作者是 Lvmin Zhang 和 Maneesh Agrawala。它引入了一个框架，支持在扩散模型 (如 Stable Diffusion) 上附加额外的多种空间语义条件来控制生成过程。Diffusers 实现从原始 [源代码](https://github.com/lllyasviel/ControlNet/) 演化而来。
+ControlNet 在 [Adding Conditional Control to Text-to-Image Diffusion Models](https://huggingface.co/papers/2302.05543) 一文中提被出，作者是 Lvmin Zhang 和 Maneesh Agrawala。它引入了一个框架，支持在扩散模型 (如 Stable Diffusion) 上附加额外的多种空间语义条件来控制生成过程。Diffusers 实现从原始 [源代码](https://github.com/lllyasviel/ControlNet/) 演化而来。
 
 训练 ControlNet 包括以下步骤:
 

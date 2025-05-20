@@ -13,10 +13,10 @@ authors:
 
 ## How the Reformer uses less than 8GB of RAM to train on sequences of half a million tokens
 
-The Reformer model as introduced by [Kitaev, Kaiser et al. (2020)](https://arxiv.org/pdf/2001.04451.pdf) is one of the most memory-efficient transformer models for long sequence modeling as of today.
+The Reformer model as introduced by [Kitaev, Kaiser et al. (2020)](https://huggingface.co/papers/2001.04451) is one of the most memory-efficient transformer models for long sequence modeling as of today.
 
-Recently, long sequence modeling has experienced a surge of interest as can be seen by the many submissions from this year alone - [Beltagy et al. (2020)](https://arxiv.org/abs/2004.05150), [Roy et al. (2020)](https://arxiv.org/abs/2003.05997), [Tay et al.](https://arxiv.org/abs/2002.11296), [Wang et al.](https://arxiv.org/abs/2006.04768) to name  a few. 
-The motivation behind long sequence modeling is that many tasks in NLP, *e.g.* summarization, question answering, require the model to process longer input sequences than models, such as BERT, are able to handle. In tasks that require the model to process a large input sequence, long sequence models do not have to cut the input sequence to avoid memory overflow and thus have been shown to outperform standard "BERT"-like models *cf.* [Beltagy et al. (2020)](https://arxiv.org/abs/2004.05150). 
+Recently, long sequence modeling has experienced a surge of interest as can be seen by the many submissions from this year alone - [Beltagy et al. (2020)](https://huggingface.co/papers/2004.05150), [Roy et al. (2020)](https://huggingface.co/papers/2003.05997), [Tay et al.](https://huggingface.co/papers/2002.11296), [Wang et al.](https://huggingface.co/papers/2006.04768) to name  a few. 
+The motivation behind long sequence modeling is that many tasks in NLP, *e.g.* summarization, question answering, require the model to process longer input sequences than models, such as BERT, are able to handle. In tasks that require the model to process a large input sequence, long sequence models do not have to cut the input sequence to avoid memory overflow and thus have been shown to outperform standard "BERT"-like models *cf.* [Beltagy et al. (2020)](https://huggingface.co/papers/2004.05150). 
 
 The Reformer pushes the limit of longe sequence modeling by its ability to process up to half a million tokens at once as shown in this [demo](https://github.com/patrickvonplaten/notebooks/blob/master/PyTorch_Reformer.ipynb). As a comparison, a conventional `bert-base-uncased` model limits the input length to only 512 tokens. In Reformer, each part of the standard transformer architecture is re-engineered to optimize for minimal memory requirement without a significant drop in performance.
 
@@ -39,7 +39,7 @@ Reformer is part of the 🤗Transformers library. For all users of the Reformer,
 Reformer uses two kinds of special self-attention layers: *local* self-attention layers and Locality Sensitive Hashing (*LSH*) self-attention layers.
 
 To better introduce these new self-attention layers, we will briefly recap 
-conventional self-attention as introduced in [Vaswani et al. 2017](https://arxiv.org/abs/1706.03762).
+conventional self-attention as introduced in [Vaswani et al. 2017](https://huggingface.co/papers/1706.03762).
 
 This blog post uses the same notation and coloring as the popular blog post [The illustrated transformer](http://jalammar.github.io/illustrated-transformer/), so the reader is strongly advised to read this blog first. 
 
@@ -121,7 +121,7 @@ Alright, now that we have understood how local self-attention works, we can take
 
 The premise of LSH self-attention is to be more or less as efficient as local self-attention while approximating global self-attention.
 
-LSH self-attention relies on the LSH algorithm as presented in [Andoni et al (2015)](https://arxiv.org/abs/1509.02897), hence its name.
+LSH self-attention relies on the LSH algorithm as presented in [Andoni et al (2015)](https://huggingface.co/papers/1509.02897), hence its name.
 
 The idea behind LSH self-attention is based on the insight that if \\(n\\) is large, the softmax applied on the \\(\mathbf{Q}\mathbf{K}^T\\) attention dot-product weights only very few value vectors  with values significantly larger than 0 for each query vector. 
 
@@ -175,7 +175,7 @@ Finally, the output \\(\mathbf{Z'}^{\text{LSH}}\\) is reordered to its original 
 
 One important feature to mention here as well is that the accuracy of LSH self-attention can be improved by running LSH self-attention `config.num_hashes`, e.g. \\(n_{h} \\) times in parallel, each with a different random LSH hash. 
 By setting `config.num_hashes > 1`, for each output position \\( i \\), multiple output vectors \\( \mathbf{z}^{\text{LSH}, 1}_{i}, \ldots, \mathbf{z}^{\text{LSH}, n_{h}}_{i} \\) are computed 
-and subsequently merged: \\( \mathbf{z}^{\text{LSH}}_{i} = \sum_k^{n_{h}} \mathbf{Z}^{\text{LSH}, k}_{i} * \text{weight}^k_i \\). The \\( \text{weight}^k_i \\) represents the importance of the output vectors \\( \mathbf{z}^{\text{LSH}, k}_{i} \\) of hashing round \\( k \\) in comparison to the other hashing rounds, and is exponentially proportional to the normalization term of their softmax computation. The intuition behind this is that if the corresponding query vector \\( \mathbf{q}_{i}^{k} \\) have a high cosine similarity with all other query vectors in its respective chunk, then the softmax normalization term of this chunk tends to be high, so that the corresponding output vectors \\( \mathbf{q}_{i}^{k} \\) should be a better approximation to global attention and thus receive more weight than output vectors of hashing rounds with a lower softmax normalization term. For more detail see Appendix A of the [paper](https://arxiv.org/pdf/2001.04451.pdf). For our example, multi-round LSH self-attention can be illustrated as follows.
+and subsequently merged: \\( \mathbf{z}^{\text{LSH}}_{i} = \sum_k^{n_{h}} \mathbf{Z}^{\text{LSH}, k}_{i} * \text{weight}^k_i \\). The \\( \text{weight}^k_i \\) represents the importance of the output vectors \\( \mathbf{z}^{\text{LSH}, k}_{i} \\) of hashing round \\( k \\) in comparison to the other hashing rounds, and is exponentially proportional to the normalization term of their softmax computation. The intuition behind this is that if the corresponding query vector \\( \mathbf{q}_{i}^{k} \\) have a high cosine similarity with all other query vectors in its respective chunk, then the softmax normalization term of this chunk tends to be high, so that the corresponding output vectors \\( \mathbf{q}_{i}^{k} \\) should be a better approximation to global attention and thus receive more weight than output vectors of hashing rounds with a lower softmax normalization term. For more detail see Appendix A of the [paper](https://huggingface.co/papers/2001.04451). For our example, multi-round LSH self-attention can be illustrated as follows.
 
 ![alt text](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/lsh_attention_4.png)
 
@@ -418,7 +418,7 @@ As a conclusion, it should be noted chunked feed forward layers only makes sense
 
 ## 3. Reversible Residual Layers
 
-Reversible residual layers were first introduced in [N. Gomez et al](https://arxiv.org/abs/1707.04585) and used to reduce memory consumption when training the popular *ResNet* model. Mathematically, reversible residual layers are slightly different 
+Reversible residual layers were first introduced in [N. Gomez et al](https://huggingface.co/papers/1707.04585) and used to reduce memory consumption when training the popular *ResNet* model. Mathematically, reversible residual layers are slightly different 
 to "real" residual layers but do not require the activations to be saved during the forward pass, which can drastically reduce memory consumption for training.
 
 ### Reversible Residual Layers in Reformer

@@ -10,7 +10,7 @@ authors:
 
 We’re happy to announce that SpeechT5 is now available in 🤗 Transformers, an open-source library that offers easy-to-use implementations of state-of-the-art machine learning models.
 
-SpeechT5 was originally described in the paper [SpeechT5: Unified-Modal Encoder-Decoder Pre-Training for Spoken Language Processing](https://arxiv.org/abs/2110.07205) by Microsoft Research Asia. The [official checkpoints](https://github.com/microsoft/SpeechT5) published by the paper’s authors are available on the Hugging Face Hub.
+SpeechT5 was originally described in the paper [SpeechT5: Unified-Modal Encoder-Decoder Pre-Training for Spoken Language Processing](https://huggingface.co/papers/2110.07205) by Microsoft Research Asia. The [official checkpoints](https://github.com/microsoft/SpeechT5) published by the paper’s authors are available on the Hugging Face Hub.
 
 If you want to jump right in, here are some demos on Spaces:
 
@@ -34,7 +34,7 @@ At the heart of SpeechT5 is a regular **Transformer encoder-decoder** model. Jus
 
 To make it possible for the same Transformer to deal with both text and speech data, so-called **pre-nets** and **post-nets** were added. It is the job of the pre-net to convert the input text or speech into the hidden representations used by the Transformer. The post-net takes the outputs from the Transformer and turns them into text or speech again.
 
-A figure illustrating SpeechT5’s architecture is depicted below (taken from the [original paper](https://arxiv.org/abs/2110.07205)).
+A figure illustrating SpeechT5’s architecture is depicted below (taken from the [original paper](https://huggingface.co/papers/2110.07205)).
 
 <div align="center">
     <img alt="SpeechT5 architecture diagram" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/architecture.jpg"/>

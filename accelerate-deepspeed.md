@@ -343,7 +343,7 @@ have any problems or questions with regards to DeepSpeed usage, please, file an 
 
 [1] [Train Large, Then Compress: Rethinking Model Size for Efficient Training and Inference of Transformers](http://nlp.cs.berkeley.edu/pubs/Li-Wallace-Shen-Lin-Keutzer-Klein-Gonzalez_2020_Transformers_paper.pdf)
 
-[2] [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/pdf/1910.02054v3.pdf)
+[2] [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054v3)
 
 [3] [DeepSpeed: Extreme-scale model training for everyone - Microsoft Research](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/)
 
@@ -351,4 +351,4 @@ have any problems or questions with regards to DeepSpeed usage, please, file an 
 
 [5] [Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel](https://huggingface.co/blog/pytorch-fsdp)
 
-[6] [Recipes for building an open-domain chatbot](https://arxiv.org/pdf/2004.13637.pdf)
+[6] [Recipes for building an open-domain chatbot](https://huggingface.co/papers/2004.13637)

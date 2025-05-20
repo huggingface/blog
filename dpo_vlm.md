@@ -157,7 +157,7 @@ training_args = TrainingArguments(..., bf16=True)
 
 ### LoRA
 
-[LoRA](https://arxiv.org/abs/2106.09685) is a method that reduces the number of trainable parameters by learning pairs of rank-decomposition matrices while keeping the original weights frozen. This significantly decreases the storage needs for LLM adapted to specific tasks. LoRA is integrated in [PEFT](https://github.com/huggingface/peft) and you can set it up in no time:
+[LoRA](https://huggingface.co/papers/2106.09685) is a method that reduces the number of trainable parameters by learning pairs of rank-decomposition matrices while keeping the original weights frozen. This significantly decreases the storage needs for LLM adapted to specific tasks. LoRA is integrated in [PEFT](https://github.com/huggingface/peft) and you can set it up in no time:
 
 ```diff
   from transformers import AutoModelForVision2Seq
@@ -289,7 +289,7 @@ A few hours later, the training is complete. Let's take a look at the training c
 In DPO, we focus on several metrics to assess the quality of the training:
 
 - **Accuracy**: This metric indicates the percentage of training samples where the model is more likely to output the chosen answer rather than the rejected answer. We can see an increase in accuracy, which is a positive sign.
-- **Rewards**: Rewards are related to the probability of an answer being chosen. For more details, refer to [DPO paper, Section 5](https://arxiv.org/abs/2305.18290). We expect the reward for the chosen answer to be higher than for the rejected answer. To verify this, we look at the _reward margin_, which is the difference between the rewards for the chosen and rejected answers. An increasing reward margin, as observed here, is also a good sign.
+- **Rewards**: Rewards are related to the probability of an answer being chosen. For more details, refer to [DPO paper, Section 5](https://huggingface.co/papers/2305.18290). We expect the reward for the chosen answer to be higher than for the rejected answer. To verify this, we look at the _reward margin_, which is the difference between the rewards for the chosen and rejected answers. An increasing reward margin, as observed here, is also a good sign.
 
 ## Evaluation
 
@@ -320,7 +320,7 @@ response_text = processor.batch_decode(generated_ids, skip_special_tokens=True)[
 print(response_text)
 ```
 
-As mentioned above, the [openbmb/RLAIF-V-Dataset](https://huggingface.co/datasets/openbmb/RLAIF-V-Dataset) is designed to reduce hallucinations. But has the fine-tuning actually reduced hallucinations? To find out, we can use the [AMBER benchmark](https://arxiv.org/abs/2311.07397), a dataset specifically created to evaluate hallucinations in VLMs. We will report the results for Idefics2 and Idefics2+DPO on the discriminative task and compare them with other models for reference.
+As mentioned above, the [openbmb/RLAIF-V-Dataset](https://huggingface.co/datasets/openbmb/RLAIF-V-Dataset) is designed to reduce hallucinations. But has the fine-tuning actually reduced hallucinations? To find out, we can use the [AMBER benchmark](https://huggingface.co/papers/2311.07397), a dataset specifically created to evaluate hallucinations in VLMs. We will report the results for Idefics2 and Idefics2+DPO on the discriminative task and compare them with other models for reference.
 
 |                  | Accuracy | F1       |
 | ---------------- | -------- | -------- |

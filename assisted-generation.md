@@ -215,7 +215,7 @@ Finally, assisted generation resurfaces a crucial question in text generation. T
 
 After the original release of this blog post, it came to my attention that other works have explored the same core principle (use a forward pass to validate longer continuations). In particular, have a look at the following works:
 - [Blockwise Parallel Decoding](https://proceedings.neurips.cc/paper/2018/file/c4127b9194fe8562c64dc0f5bf2c93bc-Paper.pdf), by Google Brain
-- [Speculative Sampling](https://arxiv.org/abs/2302.01318), by DeepMind
+- [Speculative Sampling](https://huggingface.co/papers/2302.01318), by DeepMind
 
 
 ## Citation
