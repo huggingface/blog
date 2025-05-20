@@ -18,7 +18,7 @@ TL; DR
 
 ## Motivation
 
-Fine-tuning language models using reinforcement learning (RL) is a crucial step in a model's training lifecycle for steering models towards desirable behaviours which are more complex than can be achieved through typical supervised fine-tuning. Reinforcement learning (RL) has traditionally been applied to optimize large language models (LLMs) using the Proximal Policy Optimization (PPO) algorithm. This approach, often associated with Reinforcement Learning from Human Feedback (RLHF), utilizes a separately trained reward model to guide the fine-tuning of the primary model. 
+Fine-tuning language models using reinforcement learning (RL) is a crucial step in a model's training lifecycle for steering models towards desirable behaviours which are more complex than can be achieved through typical supervised fine-tuning. RL has traditionally been applied to optimize large language models (LLMs) using the Proximal Policy Optimization (PPO) algorithm. This approach, often associated with Reinforcement Learning from Human Feedback (RLHF), utilizes a separately trained reward model to guide the fine-tuning of the primary model. 
 
 However, RLHF with PPO is a very resource-hungry approach - PPO requires loading multiple models in memory (policy, value, reward, and reference models), and also requires several iterations of fine-tuning reward and base models to achieve the desired results. The success of RLHF also depends on the capability of the reward model to effectively discriminate between desired and un-desired behaviour from our model.
 
