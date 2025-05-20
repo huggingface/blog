@@ -23,7 +23,7 @@ More recently, DeepSeek’s R1 helped popularize GRPO, which simplifies things q
 
 ![PPO-vs-GRPO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image5.png)
 
-That said, RL training still eats up a ton of GPU memory, so there’s still plenty of room for optimizations here. In this blog post, we talk about an optimization that we recently added to TRL that cuts peak memory usage by 30% during GRPO Training, and we also dive into how to scale GRPO to multiple GPUs and nodes without losing performance or correctness.
+That said, RL training still eats up a ton of GPU memory, so there’s still plenty of room for optimizations here. In this blog post, we talk about an optimization that we recently added to TRL that cuts peak memory usage by 40% during GRPO Training, and we also dive into how to scale GRPO to multiple GPUs and nodes without losing performance or correctness.
 
 ## How Liger Kernel slashes memory for GRPO
 
