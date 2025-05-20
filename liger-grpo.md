@@ -16,7 +16,7 @@ authors:
 TL; DR
 [Liger](https://github.com/linkedin/Liger-Kernel) supercharges [TRL](https://github.com/huggingface/trl)’s [GRPO Trainer](https://huggingface.co/docs/trl/grpo_trainer) by slashing memory usage by **40%** with zero drop in model quality. We also added support for **FSDP** and **PEFT**, making it easier than ever to scale GRPO across multiple GPUs. 
 
-## Introduction & Motivation
+## Motivation
 
 Fine-tuning language models using reinforcement learning (RL) is a crucial step in a model's training lifecycle for steering models towards desirable behaviours which are more complex than can be achieved through typical supervised fine-tuning. Traditional RL applications have used Reinforcement Learning from Human Feedback (RLHF) with the Proximal Policy Optimization (PPO) algorithm, which uses a separately trained reward model to steer the behaviour of our model which is being fine-tuned. 
 
