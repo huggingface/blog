@@ -174,8 +174,7 @@ For more information check out the [bitsandbytes docs](https://huggingface.co/do
 | int8_weight_only              | 17.020 GB            | 21.482 GB   | 15 seconds     |
 | float8_weight_only            | 17.016 GB            | 21.488 GB   | 15 seconds     |
 
-<details>
-<summary>Example (Flux-dev with `torchao` INT8 weight-only):</summary>
+Example (Flux-dev with `torchao` INT8 weight-only):
 
 ```diff
 @@
@@ -194,10 +193,9 @@ pipeline_quant_config = PipelineQuantizationConfig(
     }
 )
 ```
-</details>
 
 <details>
-<summary>Example (Flux-dev with `torchao` INT4 weight-only):</summary>
+<summary>Example (Flux-dev with torchao INT4 weight-only):</summary>
 
 ```diff
 @@
@@ -418,9 +416,103 @@ pipe.to("cuda")
 
 For more information check out the [Layerwise casting docs](https://huggingface.co/docs/diffusers/main/en/optimization/memory#layerwise-casting).
 
-## Combining with Memory Optimizations
+## Combining with More Memory Optimizations and torch.compile
 
-Most of these quantization backends can be combined with the memory optimization techniques offered in Diffusers. For example, using `enable_model_cpu_offload()` with `bitsandbytes` cuts the memory further, giving a reasonable trade-off between memory and latency. You can learn more about these techniques in the [Diffusers documentation](https://huggingface.co/docs/diffusers/main/en/optimization/memory).
+Most of these quantization backends can be combined with the memory optimization techniques offered in Diffusers. Let's explore CPU offloading, group offloading, and `torch.compile`. You can learn more about these techniques in the [Diffusers documentation](https://huggingface.co/docs/diffusers/main/en/optimization/memory).
+
+<details>
+<summary>Example (Flux-dev with BnB 4-bit + enable_model_cpu_offload):</summary>
+
+```diff
+import torch
+from diffusers import FluxPipeline
+from diffusers import BitsAndBytesConfig as DiffusersBitsAndBytesConfig
+from diffusers.quantizers import PipelineQuantizationConfig
+from transformers import BitsAndBytesConfig as TransformersBitsAndBytesConfig
+
+model_id = "black-forest-labs/FLUX.1-dev"
+
+pipeline_quant_config = PipelineQuantizationConfig(
+    quant_mapping={
+        "transformer": DiffusersBitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.bfloat16),
+        "text_encoder_2": TransformersBitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.bfloat16),
+    }
+)
+
+pipe = FluxPipeline.from_pretrained(
+    model_id,
+    quantization_config=pipeline_quant_config,
+    torch_dtype=torch.bfloat16
+)
+- pipe.to("cuda")
++ pipe.enable_model_cpu_offload()
+```
+
+</details>
+
+**Model CPU Offloading (`enable_model_cpu_offload`)**: This method moves entire model components (like the UNet, text encoders, or VAE) between the CPU and GPU during the inference pipeline. It offers substantial VRAM savings and is generally faster than more granular offloading because it involves fewer, larger data transfers.
+
+<details>
+<summary>Example (Flux-dev with fp8 layerwise casting + group offloading):</summary>
+
+```diff
+import torch
+from diffusers import FluxPipeline, AutoModel
+
+model_id = "black-forest-labs/FLUX.1-dev"
+
+transformer = AutoModel.from_pretrained(
+    model_id,
+    subfolder="transformer",
+    torch_dtype=torch.bfloat16,
+    # device_map="cuda"
+)
+transformer.enable_layerwise_casting(storage_dtype=torch.float8_e4m3fn, compute_dtype=torch.bfloat16)
++ transformer.enable_group_offload(onload_device=torch.device("cuda"), offload_device=torch.device("cpu"), offload_type="leaf_level", use_stream=True)
+
+pipe = FluxPipeline.from_pretrained(model_id, transformer=transformer, torch_dtype=torch.bfloat16)
+- pipe.to("cuda")
+```
+</details>
+
+**Group offloading (`enable_group_offload` for `diffusers` components or `apply_group_offloading` for generic `torch.nn.Module`s)**: It moves groups of internal model layers (like `torch.nn.ModuleList` or `torch.nn.Sequential` instances) to the CPU. This approach is typically more memory-efficient than full model offloading and faster than sequential offloading.
+
+<details>
+<summary>Example (Flux-dev with torchao 4-bit + torch.compile):</summary>
+
+```diff
+import torch
+from diffusers import FluxPipeline
+from diffusers import TorchAoConfig as DiffusersTorchAoConfig
+from diffusers.quantizers import PipelineQuantizationConfig
+from transformers import TorchAoConfig as TransformersTorchAoConfig
+
+from torchao.quantization import Float8WeightOnlyConfig
+
+model_id = "black-forest-labs/FLUX.1-dev"
+dtype = torch.bfloat16
+
+pipeline_quant_config = PipelineQuantizationConfig(
+    quant_mapping={
+        "transformer":DiffusersTorchAoConfig("int4_weight_only"),
+        "text_encoder_2": TransformersTorchAoConfig("int4_weight_only"),
+    }
+)
+
+pipe = FluxPipeline.from_pretrained(
+    model_id,
+    quantization_config=pipeline_quant_config,
+    torch_dtype=torch.bfloat16,
+    device_map="balanced"
+)
+
++ pipe.transformer = torch.compile(pipe.transformer, mode="max-autotune", fullgraph=True)
+```
+
+> **Note:** `torch.compile` can introduce subtle numerical differences, leading to changes in image output
+</details>
+
+**torch.compile**: Another complementary approach is to accelerate the execution of your model with PyTorch 2.x’s torch.compile() feature. Compiling the model doesn’t directly lower memory, but it can significantly speed up inference. PyTorch 2.0’s compile (Torch Dynamo) works by tracing and optimizing the model graph ahead-of-time.
 
 Explore some benchmarking results here:
 
@@ -441,6 +533,7 @@ Here's a quick guide to choosing a quantization backend:
 *   **For Hardware Flexibility (CPU/MPS), FP8 Precision:** `Quanto` can be a good option.
 *   **Simplicity (Hopper/Ada):** Explore FP8 Layerwise Casting (`enable_layerwise_casting`).
 *   **For Using Existing GGUF Models:** Use GGUF loading (`from_single_file`).
+*   **Explore Pre-Quantized Models:** You can find `bitsandbytes` and `torchao` quantized models from this blog post in our Hugging Face collection: [link to collection](https://huggingface.co/collections/diffusers/flux-quantized-checkpoints-682c951aebd378a2462984a0).
 *   **Curious about training with quantization?** Stay tuned for a follow-up blog post on that topic!
 
 Quantization significantly lowers the barrier to entry for using large diffusion models. Experiment with these backends to find the best balance of memory, speed, and quality for your needs.
