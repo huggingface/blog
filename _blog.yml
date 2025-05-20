@@ -6016,11 +6016,19 @@
     - announcement
     - azure
 
+<<<<<<< HEAD
 - local: nanovlm
   title: "nanoVLM: The simplest repository to train your VLM in pure PyTorch"
   author: ariG23498
   thumbnail: /blog/assets/nanovlm/thumbnail.png
   date: May 21, 2025
+=======
+- local: diffusers-quantization
+  title: "Exploring Quantization Backends in Diffusers"
+  thumbnail: /blog/assets/diffusers-quantization/thumbnail.png
+  author: derekl35
+  date: May 20, 2025
+>>>>>>> fc9f809 (fix _blog.yml)
   tags:
     - vlm
     - vision
