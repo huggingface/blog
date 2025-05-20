@@ -6017,7 +6017,7 @@
     - azure
 
 - local: liger-grpo
-  tile: "🐯 Liger GRPO meets TRL"
+  title: "🐯 Liger GRPO meets TRL"
   author: shisahni
   guest: true
   thumbnail: /blog/assets/liger-grpo/thumbnail.png
