@@ -8,7 +8,7 @@ authors:
 - user: kashif
 - user: smohammadi
   guest: true
-
+  org: axolotl-ai-co
 ---
 
 # 🐯 Liger GRPO meets TRL
