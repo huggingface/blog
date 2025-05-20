@@ -5700,7 +5700,7 @@
   author: mingyuliutw
   guest: true
   org: nvidia
-  thumbnail: /blog/assets/nvidia-physical-ai/thumbnail.png
+  thumbnail: /blog/assets/nvidia-physical-ai/thumbnail.png 
   date: March 18, 2025
   tags:
     - robotics
@@ -5730,20 +5730,20 @@
     - reasoning
     - local
 
-- local: endpoint-analytics
+- local: endpoint-analytics 
   title: "The New and Fresh analytics in Inference Endpoints"
   author: erikkaum
-  thumbnail: /blog/assets/endpoint-analytics/thumbnail.png
+  thumbnail: /blog/assets/endpoint-analytics/thumbnail.png 
   date: March 21, 2025
   tags:
     - guide
     - cloud
     - inference
-
-- local: gradio-dataframe-upgrade
+    
+- local: gradio-dataframe-upgrade 
   title: "Introducing Gradio's new Dataframe!"
   author: hmb
-  thumbnail: /blog/assets/gradio-dataframe-update/thumbnail.png
+  thumbnail: /blog/assets/gradio-dataframe-update/thumbnail.png 
   date: March 24, 2025
   tags:
     - gradio
@@ -5910,7 +5910,7 @@
    - quantization
    - intel
 
-- local: tiny-agents
+- local: tiny-agents 
   title: "Tiny Agents: a MCP-powered agent in 50 lines of code"
   author: julien-c
   thumbnail: /blog/assets/tiny-agents/thumbnail.jpg
