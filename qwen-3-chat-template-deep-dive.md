@@ -9,7 +9,7 @@ authors:
 
 _**What a boring Jinja snippet tells us about the new Qwen-3 model.**_
 
-The new Qwen-3 model by [Qwen](https://huggingface.co/qwen) ships with a much more sophisticated chat template than it's predecessors Qwen-2.5 and QwQ. By taking a look at the differences in the Jinja template, we can find interesting insights into the new model.
+The new Qwen-3 model by [Qwen](https://huggingface.co/qwen) ships with a much more sophisticated chat template than its predecessors Qwen-2.5 and QwQ. By taking a look at the differences in the Jinja template, we can find interesting insights into the new model.
 
 <h2 style="text-align: center; margin-bottom: 0.5rem; font-style: italic;">Chat Templates</h2>
 <ul style="display: flex; justify-content: center; list-style: none; padding: 0; margin: 0;">
@@ -58,7 +58,7 @@ Let's dive into the Qwen-3 chat template and see what we can learn!
 
 _**and you can make it optional via a simple prefill...**_
 
-Qwen-3 is unique in it's ability to toggle reasoning via the `enable_thinking` flag. When set to false, the template inserts an empty `<think></think>` pair, telling the model to skip step‑by‑step thoughts. Earlier models baked the `<think>` tag into every generation, forcing chain‑of‑thought whether you wanted it or not.
+Qwen-3 is unique in its ability to toggle reasoning via the `enable_thinking` flag. When set to false, the template inserts an empty `<think></think>` pair, telling the model to skip step‑by‑step thoughts. Earlier models baked the `<think>` tag into every generation, forcing chain‑of‑thought whether you wanted it or not.
 
 ```jinja
 {# Qwen-3 #}
@@ -142,7 +142,7 @@ Like many models, the Qwen‑2.5 series has a default system prompt.
 
 > You are Qwen, created by Alibaba Cloud. You are a helpful assistant.
 
-This is pretty common as it helps models respond to user questions like "Who are you?".
+This is pretty common as it helps models respond to user questions like "Who are you?"
 
 Qwen-3 and QwQ ship without this default system prompt. Despite this, the model can still accurately identify its creator if you ask it.
 
