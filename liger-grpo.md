@@ -4,6 +4,7 @@ thumbnail: /blog/assets/liger-grpo/thumbnail.png
 authors:
 - user: shisahni
   guest: true
+  org: LinkedIn
 - user: kashif
 - user: smohammadi
   guest: true
