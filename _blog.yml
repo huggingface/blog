@@ -6015,3 +6015,16 @@
     - partnership
     - announcement
     - azure
+
+-local: liger-grpo
+  tile: "🐯 Liger GRPO meets TRL"
+  author: shisahni
+  guest: true
+  thumbnail: /blog/assets/liger-grpo/thumbnail.png
+  date: May 20, 2025
+  tags:
+    - liger
+    - grpo
+    - trl
+    - partnership
+    - llm
