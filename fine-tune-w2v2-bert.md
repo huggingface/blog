@@ -749,7 +749,7 @@ Finally, we can decode the example from the predicted tokens and compare it to t
 
 ```python
 print(processor.decode(pred_ids))
-print(processor.decode(input_dict["labels"]).lower())
+print(processor.decode(sample["labels"]).lower())
 ```
 
 ```bash
