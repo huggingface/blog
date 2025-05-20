@@ -22,6 +22,8 @@ RLHF (Reinforcement Learning from Human Feedback) has been an effective way to g
 
 More recently, DeepSeek’s R1 helped popularize GRPO, which simplifies things quite a bit without losing performance. GRPO gets rid of the critic model and instead uses the average reward of sampled outputs produced in response to the same prompt as the baseline. The following diagram shows GRPO vs PPO training pipeline (ref: [DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models](https://huggingface.co/papers/2402.03300)):
 
+![PPO-vs-GRPO(https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image5.png)
+
 That said, RL training still eats up a ton of GPU memory, so there’s still plenty of room for optimizations here. In this blog post, we talk about an optimization that we recently added to TRL that cuts peak memory usage by 30% during GRPO Training, and we also dive into how to scale GRPO to multiple GPUs and nodes without losing performance or correctness.
 
 ## How Liger Kernel slashes memory for GRPO
@@ -32,6 +34,8 @@ We extended the Liger Chunked Loss approach to GRPO Loss, which lets us avoid ha
 But if you just implement it in a straightforward way, you won’t actually be able to reduce the peak memory since you’d still need to keep all the logits in GPU memory for the backward pass. To get around that, we calculate the gradients for each loss chunk (with respect to the `input chunk` and the `lm_head weights`) during the forward pass, and then accumulate them as we go through each chunk.
 
 Here’s the visualization of the optimization:
+
+![PPO-vs-GRPO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image7.gif)
 
 ## Plug-and-Play integration with TRL
 
@@ -60,13 +64,22 @@ Here’s the plots of peak memory usage vs batch size for both FP32 and BF16 tra
 
 Quick note: Right now, we only support FP32, but we're working on open-sourcing BF16 support for Liger GRPO in TRL. The BF16 results shown here are from internal patches we’ve been testing.
 
+![Mem-vs-batch-size-fp32](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image3.png)
+
+![Mem-vs-batch-size-bf16](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image4.png)
+
+
+
 We also show that Liger Loss is effectively accurate. As seen in the plot, rewards over training steps stay pretty much the same as what you’d see using the standard TRL implementation.
+
+![reward-vs-step](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image1.png)
 
 
 ## Scaling further with FSDP and PEFT
 
-
-We also added FSDP and PEFT support to Liger GRPO Loss in PR #3260 and PR #3355, respectively, allowing users to easily scale their experiments across multiple GPUs or nodes. PEFT techniques such as LoRA and QLoRA reduce the number of trainable parameters by only tuning the weights of smaller adapter weights on top of the original model, significantly lowering memory pressure as gradients, activations, and optimizer states for the entire model don’t need to be held in memory. Additionally, using PEFT in GRPO allows one to forgo loading a separate reference model during training, as we can obtain the original, unmodified model during training by simply disabling the LoRA adapters. 
+We also added FSDP and PEFT support to Liger GRPO Loss in PR [#3260](https://github.com/huggingface/trl/pull/3260) and PR [#3355](https://github.com/huggingface/trl/pull/3355), respectively, allowing users to easily scale their experiments across multiple GPUs or nodes. PEFT techniques such as LoRA and QLoRA reduce the number of trainable parameters by only tuning the weights of smaller adapter weights on top of the original model, significantly lowering memory pressure as gradients, activations, and optimizer states for the entire model don’t need to be held in memory. Additionally, using PEFT in GRPO allows one to forgo loading a separate reference model during training, as we can obtain the original, unmodified model during training by simply disabling the LoRA adapters. 
 
 Here, we show a multi-GPU GRPO training plot using FSDP and PEFT, where we compare the maximum training batch size possible with and without the Liger Loss across different Qwen3 model sizes. We found that with Liger, we were able to bump up the batch size by around 1.5 to 1.8x!
+
+![peft-batch-size-vs-model-size](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image6.png)
 
