@@ -22,7 +22,7 @@ RLHF (Reinforcement Learning from Human Feedback) has been an effective way to g
 
 More recently, DeepSeek’s R1 helped popularize GRPO, which simplifies things quite a bit without losing performance. GRPO gets rid of the critic model and instead uses the average reward of sampled outputs produced in response to the same prompt as the baseline. The following diagram shows GRPO vs PPO training pipeline (ref: [DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models](https://huggingface.co/papers/2402.03300)):
 
-![PPO-vs-GRPO(https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image5.png)
+![PPO-vs-GRPO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image5.png)
 
 That said, RL training still eats up a ton of GPU memory, so there’s still plenty of room for optimizations here. In this blog post, we talk about an optimization that we recently added to TRL that cuts peak memory usage by 30% during GRPO Training, and we also dive into how to scale GRPO to multiple GPUs and nodes without losing performance or correctness.
 
@@ -35,7 +35,7 @@ But if you just implement it in a straightforward way, you won’t actually be a
 
 Here’s the visualization of the optimization:
 
-![PPO-vs-GRPO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image7.gif)
+![liger-chunked-loss](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image7.gif)
 
 ## Plug-and-Play integration with TRL
 
@@ -67,7 +67,6 @@ Quick note: Right now, we only support FP32, but we're working on open-sourcing 
 ![Mem-vs-batch-size-fp32](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image3.png)
 
 ![Mem-vs-batch-size-bf16](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image4.png)
-
 
 
 We also show that Liger Loss is effectively accurate. As seen in the plot, rewards over training steps stay pretty much the same as what you’d see using the standard TRL implementation.
