@@ -5775,7 +5775,7 @@
     - partnerships
 
 - local: scaling-secrets-management
-  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"
+  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"  
   thumbnail: /blog/assets/infisical/thumbnail.png
   author: segudev
   guest: true
@@ -5880,17 +5880,17 @@
   thumbnail: /blog/assets/inference-providers-cohere/thumbnail.png
   date: April 16, 2025
   tags:
-    - llms
-    - inference
-    - cohere
-    - enterprise
-    - partnerships
-    - hub
+   - llms
+   - inference
+   - cohere
+   - enterprise
+   - partnerships
+   - hub
 
-- local: why-gradio-stands-out
+- local: why-gradio-stands-out 
   title: "17 Reasons Why Gradio Isn't Just Another UI Library"
   author: ysharma
-  thumbnail: /blog/assets/why-gradio-stands-out/thumbnail.png
+  thumbnail: /blog/assets/why-gradio-stands-out/thumbnail.png  
   date: April 16, 2025
   tags:
     - gradio
@@ -5905,10 +5905,10 @@
   thumbnail: /blog/assets/autoround/thumbnail.png
   date: April 29, 2025
   tags:
-    - llms
-    - inference
-    - quantization
-    - intel
+   - llms
+   - inference
+   - quantization
+   - intel
 
 - local: tiny-agents
   title: "Tiny Agents: a MCP-powered agent in 50 lines of code"
@@ -5929,19 +5929,19 @@
     - qwen
     - chat-template
     - llms
-
+    
 - local: llama-guard-4
   title: "Welcoming Llama Guard 4 on Hugging Face Hub"
   author: merve
   thumbnail: /blog/assets/llama-guard-4/thumbnail.png
   date: April 29, 2025
   tags:
-    - llama
-    - llm
-    - vision
-    - vlm
+   - llama
+   - llm
+   - vision
+   - vlm
 
-- local: gradio-mcp
+- local: gradio-mcp 
   title: "How to Build an MCP Server with Gradio"
   author: abidlabs
   thumbnail: /blog/assets/gradio-mcp/thumbnail.png
@@ -5950,7 +5950,7 @@
     - gradio
     - tool
     - llm
-
+    
 - local: lerobot-datasets
   title: "LeRobot Community Datasets: The “ImageNet” of Robotics — When and How?"
   author: danaaubakirova
