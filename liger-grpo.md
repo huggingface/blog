@@ -36,7 +36,7 @@ We extended the Liger Chunked Loss approach to GRPO Loss, which lets us avoid ha
 
 But if you just implement it in a straightforward way, you won't actually be able to reduce the peak memory since you'd still need to keep all the logits in GPU memory for the backward pass. To get around that, we calculate the gradients for each loss chunk (with respect to the `input` chunk and the `lm_head` weight`) during the forward pass, and then accumulate them as we go through each chunk.
 
-Here's the visualization of the optimization:
+Here's the visualization of the optimization (ref: [Byron Hsu](https://x.com/hsu_byron/status/1866577403918917655)):
 
 ![liger-chunked-loss](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image7.gif)
 
