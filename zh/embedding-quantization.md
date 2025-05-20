@@ -339,17 +339,17 @@ int8
 
 - **推荐检索**:
 
-  - [semantic_search_recommended.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/applications/embedding-quantization/semantic_search_recommended.py): 此脚本结合了二进制搜索和标量重打分，与上面的演示类似，以实现廉价、高效且性能良好的检索。
+  - [semantic_search_recommended.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/applications/embedding-quantization/semantic_search_recommended.py): 此脚本结合了二进制搜索和标量重打分，与上面的演示类似，以实现廉价、高效且性能良好的检索。
 
 - **使用**:
 
-  - [semantic_search_faiss.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/applications/embedding-quantization/semantic_search_faiss.py): 此脚本展示了使用 FAISS 的常规二进制或标量量化、检索和重打分的使用方式，通过使用 <a href="https://sbert.net/docs/package_reference/quantization.html#sentence_transformers.quantization.semantic_search_faiss"><code>semantic_search_faiss</code></a> 实用函数。
-  - [semantic_search_usearch.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/applications/embedding-quantization/semantic_search_usearch.py): 此脚本展示了使用 USearch 的常规二进制或标量量化、检索和重打分的使用方式，通过使用 <a href="https://sbert.net/docs/package_reference/quantization.html#sentence_transformers.quantization.semantic_search_usearch"><code>semantic_search_usearch</code></a> 实用函数。
+  - [semantic_search_faiss.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/applications/embedding-quantization/semantic_search_faiss.py): 此脚本展示了使用 FAISS 的常规二进制或标量量化、检索和重打分的使用方式，通过使用 <a href="https://sbert.net/docs/package_reference/quantization.html#sentence_transformers.quantization.semantic_search_faiss"><code>semantic_search_faiss</code></a> 实用函数。
+  - [semantic_search_usearch.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/applications/embedding-quantization/semantic_search_usearch.py): 此脚本展示了使用 USearch 的常规二进制或标量量化、检索和重打分的使用方式，通过使用 <a href="https://sbert.net/docs/package_reference/quantization.html#sentence_transformers.quantization.semantic_search_usearch"><code>semantic_search_usearch</code></a> 实用函数。
 
 - **基准测试**:
 
-  - [semantic_search_faiss_benchmark.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/applications/embedding-quantization/semantic_search_faiss_benchmark.py): 此脚本包括了对 `float32` 检索、二进制检索加重打分和标量检索加重打分的检索速度基准测试，使用 FAISS。它使用了 <a href="https://sbert.net/docs/package_reference/quantization.html#sentence_transformers.quantization.semantic_search_faiss"><code>semantic_search_faiss</code></a> 实用函数。我们的基准测试特别显示了 `ubinary` 的速度提升。
-  - [semantic_search_usearch_benchmark.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/applications/embedding-quantization/semantic_search_usearch_benchmark.py): 此脚本包括了对 `float32` 检索、二进制检索加重打分和标量检索加重打分的检索速度基准测试，使用 USearch。它使用了 <a href="https://sbert.net/docs/package_reference/quantization.html#sentence_transformers.quantization.semantic_search_usearch"><code>semantic_search_usearch</code></a> 实用函数。我们的实验在新硬件上显示了巨大的速度提升，特别是对于 `int8` 。
+  - [semantic_search_faiss_benchmark.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/applications/embedding-quantization/semantic_search_faiss_benchmark.py): 此脚本包括了对 `float32` 检索、二进制检索加重打分和标量检索加重打分的检索速度基准测试，使用 FAISS。它使用了 <a href="https://sbert.net/docs/package_reference/quantization.html#sentence_transformers.quantization.semantic_search_faiss"><code>semantic_search_faiss</code></a> 实用函数。我们的基准测试特别显示了 `ubinary` 的速度提升。
+  - [semantic_search_usearch_benchmark.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/applications/embedding-quantization/semantic_search_usearch_benchmark.py): 此脚本包括了对 `float32` 检索、二进制检索加重打分和标量检索加重打分的检索速度基准测试，使用 USearch。它使用了 <a href="https://sbert.net/docs/package_reference/quantization.html#sentence_transformers.quantization.semantic_search_usearch"><code>semantic_search_usearch</code></a> 实用函数。我们的实验在新硬件上显示了巨大的速度提升，特别是对于 `int8` 。
 
 ### 未来工作
 

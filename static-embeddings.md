@@ -1327,7 +1327,7 @@ Additionally, there are quite a few possible extensions that are likely to impro
 2. Model Souping: Combining weights from multiple models trained in the same way with different seeds or data distributions.
 3. Curriculum Learning: Train on examples of increasing difficulties.
 4. [Guided False In-Batch Negatives Filtering](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#sentence_transformers.losses.CachedGISTEmbedLoss): Exclude false negatives via an efficient pre-trained embedding model.
-5. [Seed Optimization for the Random Weight Initialization](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/data_augmentation/train_sts_seed_optimization.py): Train the first steps with various seeds to find one with a useful weight initialization.
+5. [Seed Optimization for the Random Weight Initialization](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/training/data_augmentation/train_sts_seed_optimization.py): Train the first steps with various seeds to find one with a useful weight initialization.
 6. Tokenizer Retraining: Retrain a tokenizer with modern texts and learnings.
 7. Gradient Caching: Applying GradCache via [`CachedMultipleNegativesRankingLoss`](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#sentence_transformers.losses.CachedMultipleNegativesRankingLoss) allows for larger batches, which often result in superior performance.
 8. [Model Distillation](https://sbert.net/examples/training/distillation/README.html): Rather than training exclusively using supervised training data, we can also feed unsupervised data through a larger embedding model and distil those embeddings into the static embedding-based student model. 

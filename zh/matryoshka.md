@@ -129,9 +129,9 @@ model.fit(
 
 请查看以下完整脚本，了解如何在实际应用中使用 `MatryoshkaLoss` :
 
-- **[matryoshka_nli.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli.py)**: 此示例使用 `MultipleNegativesRankingLoss` 与 `MatryoshkaLoss` 结合，利用自然语言推理 (NLI) 数据训练一个强大的嵌入模型。这是对 [NLI](../nli/README) 文档的改编。
-- **[matryoshka_nli_reduced_dim.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli_reduced_dim.py)**: 此示例使用 `MultipleNegativesRankingLoss` 与 `MatryoshkaLoss` 结合，训练一个最大输出维度为 256 的小型嵌入模型。它使用自然语言推理 (NLI) 数据进行训练，这是对 [NLI](../nli/README) 文档的改编。
-- **[matryoshka_sts.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_sts.py)**: 此示例使用 `CoSENTLoss` 与 `MatryoshkaLoss` 结合，在 `STSBenchmark` 数据集的训练集上训练一个嵌入模型。这是对 [STS](../sts/README) 文档的改编。
+- **[matryoshka_nli.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/training/matryoshka/matryoshka_nli.py)**: 此示例使用 `MultipleNegativesRankingLoss` 与 `MatryoshkaLoss` 结合，利用自然语言推理 (NLI) 数据训练一个强大的嵌入模型。这是对 [NLI](../nli/README) 文档的改编。
+- **[matryoshka_nli_reduced_dim.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/training/matryoshka/matryoshka_nli_reduced_dim.py)**: 此示例使用 `MultipleNegativesRankingLoss` 与 `MatryoshkaLoss` 结合，训练一个最大输出维度为 256 的小型嵌入模型。它使用自然语言推理 (NLI) 数据进行训练，这是对 [NLI](../nli/README) 文档的改编。
+- **[matryoshka_sts.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/training/matryoshka/matryoshka_sts.py)**: 此示例使用 `CoSENTLoss` 与 `MatryoshkaLoss` 结合，在 `STSBenchmark` 数据集的训练集上训练一个嵌入模型。这是对 [STS](../sts/README) 文档的改编。
 
 <a id="how-do-i-use-🪆-matryoshka-embedding-models"></a>
 
@@ -150,7 +150,7 @@ model.fit(
 ### 在 Sentence Transformers 中
 
 在 Sentence Transformers 中，你可以像加载普通模型一样加载俄罗斯套娃嵌入模型，并使用 [`SentenceTransformers.encode`](https://sbert.net/docs/package_reference/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode) 进行推理。获取嵌入后，我们可以将它们截断到我们所需的尺寸，如果需要，我们还可以对它们进行归一化。
-让我们尝试使用我使用 [`matryoshka_nli.py`](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli.py) 和 [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base) 训练的模型:
+让我们尝试使用我使用 [`matryoshka_nli.py`](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/training/matryoshka/matryoshka_nli.py) 和 [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base) 训练的模型:
 
 ```python
 from sentence_transformers import SentenceTransformer
@@ -223,8 +223,8 @@ similarities = cos_sim(embeddings[0], embeddings[1:])
 
 现在我们已经介绍了俄罗斯套娃模型，让我们来看看我们可以从俄罗斯套娃嵌入模型与常规嵌入模型中实际期待的绩效表现。为了这个实验，我训练了两个模型:
 
-- [tomaarsen/mpnet-base-nli-matryoshka](https://huggingface.co/tomaarsen/mpnet-base-nli-matryoshka): 通过运行 [`matryoshka_nli.py`](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli.py) 与 [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base) 进行训练。
-- [tomaarsen/mpnet-base-nli](https://huggingface.co/tomaarsen/mpnet-base-nli): 通过运行修改版的 [`matryoshka_nli.py`](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli.py) 进行训练，其中训练损失仅为 `MultipleNegativesRankingLoss` ，而不是在 `MultipleNegativesRankingLoss` 之上的 `MatryoshkaLoss` 。我也使用 [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base) 作为基础模型。
+- [tomaarsen/mpnet-base-nli-matryoshka](https://huggingface.co/tomaarsen/mpnet-base-nli-matryoshka): 通过运行 [`matryoshka_nli.py`](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/training/matryoshka/matryoshka_nli.py) 与 [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base) 进行训练。
+- [tomaarsen/mpnet-base-nli](https://huggingface.co/tomaarsen/mpnet-base-nli): 通过运行修改版的 [`matryoshka_nli.py`](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/training/matryoshka/matryoshka_nli.py) 进行训练，其中训练损失仅为 `MultipleNegativesRankingLoss` ，而不是在 `MultipleNegativesRankingLoss` 之上的 `MatryoshkaLoss` 。我也使用 [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base) 作为基础模型。
 
 这两个模型都在 AllNLI 数据集上进行了训练，该数据集是 [SNLI](https://huggingface.co/datasets/snli) 和 [MultiNLI](https://huggingface.co/datasets/multi_nli) 数据集的拼接。我使用多种不同的嵌入维度在这些模型上评估了 [STSBenchmark](https://huggingface.co/datasets/mteb/stsbenchmark-sts) 测试集。结果绘制在下面的图表中:
 
