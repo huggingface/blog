@@ -13,10 +13,9 @@ authors:
 # 🐯 Liger GRPO meets TRL
 
 TL; DR
-[Liger](https://github.com/linkedin/Liger-Kernel) supercharged TRL’s GRPO Trainer by slashing memory usage by **40%** with zero drop in model quality. We also added support for *FSDP* and *PEFT*, making it easier than ever to scale GRPO across multiple GPUs. 
+[Liger](https://github.com/linkedin/Liger-Kernel) supercharged [TRL](https://github.com/huggingface/trl)’s [GRPO Trainer](https://huggingface.co/docs/trl/grpo_trainer) by slashing memory usage by **40%** with zero drop in model quality. We also added support for **FSDP** and **PEFT**, making it easier than ever to scale GRPO across multiple GPUs. 
 
 ## Introduction & Motivation
-
 
 RLHF (Reinforcement Learning from Human Feedback) has been an effective way to get models to behave the way we want them to in real-world scenarios. Traditionally, though, doing RLHF has meant juggling a bunch of different models, i.e., an actor, critic, reward model, and reference model, all working together to “teach” the main model how to act. But this setup comes with the overhead of building and maintaining a pretty complex infrastructure to keep everything running smoothly and make sure all the data flows between them properly.
 
@@ -28,7 +27,6 @@ That said, RL training still eats up a ton of GPU memory, so there’s still ple
 
 ## How Liger Kernel slashes memory for GRPO
 
-
 We extended the Liger Chunked Loss approach to GRPO Loss, which lets us avoid having to store the full logits in memory for every training step. We do this by chunking the input to the `lm_head` across the batch and running the forward pass one chunk at a time.
 
 But if you just implement it in a straightforward way, you won’t actually be able to reduce the peak memory since you’d still need to keep all the logits in GPU memory for the backward pass. To get around that, we calculate the gradients for each loss chunk (with respect to the `input chunk` and the `lm_head weights`) during the forward pass, and then accumulate them as we go through each chunk.
@@ -39,7 +37,7 @@ Here’s the visualization of the optimization:
 
 ## Plug-and-Play integration with TRL
 
-We recently integrated Liger GRPO with TRL in PR [#3184](https://github.com/huggingface/trl/pull/3184), so now you can use the Liger GRPO loss just by setting use_liger_loss to True in your GRPOConfig and enjoy the memory savings! 
+We recently integrated Liger GRPO with TRL in PR [#3184](https://github.com/huggingface/trl/pull/3184), so now you can use the Liger GRPO loss just by setting `use_liger_loss` to `True` in your `GRPOConfig` and enjoy the memory savings!
 
 Heads up: these features aren’t in the latest TRL release yet, so you’ll need to install TRL from source for now.
 
@@ -78,7 +76,7 @@ We also show that Liger Loss is effectively accurate. As seen in the plot, rewar
 
 We also added FSDP and PEFT support to Liger GRPO Loss in PR [#3260](https://github.com/huggingface/trl/pull/3260) and PR [#3355](https://github.com/huggingface/trl/pull/3355), respectively, allowing users to easily scale their experiments across multiple GPUs or nodes. PEFT techniques such as LoRA and QLoRA reduce the number of trainable parameters by only tuning the weights of smaller adapter weights on top of the original model, significantly lowering memory pressure as gradients, activations, and optimizer states for the entire model don’t need to be held in memory. Additionally, using PEFT in GRPO allows one to forgo loading a separate reference model during training, as we can obtain the original, unmodified model during training by simply disabling the LoRA adapters. 
 
-Here, we show a multi-GPU GRPO training plot using FSDP and PEFT, where we compare the maximum training batch size possible with and without the Liger Loss across different Qwen3 model sizes. We found that with Liger, we were able to bump up the batch size by around 1.5 to 1.8x!
+Here, we show a multi-GPU GRPO training plot using FSDP and PEFT, where we compare the maximum training batch size possible with and without the Liger Loss across different Qwen3 model sizes. We found that with Liger, we were able to bump up the batch size by around **1.5 to 1.8x**!
 
 ![peft-batch-size-vs-model-size](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image6.png)
 
