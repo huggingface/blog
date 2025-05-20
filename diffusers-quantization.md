@@ -35,7 +35,7 @@ Now, let's dive deeper.
 
 Building on our previous post, "[Memory-efficient Diffusion Transformers with Quanto and Diffusers](https://huggingface.co/blog/quanto-diffusers)", this post explores the diverse quantization backends integrated directly into Hugging Face Diffusers. We'll examine how bitsandbytes, GGUF, torchao, and native FP8 support make large and powerful models more accessible, demonstrating their use with Flux.
 
-Before diving into the quantization backends, let's introduce the FluxPipeline and its components, which we'll be quantizing:
+Before diving into the quantization backends, let's introduce the FluxPipeline (using the [black-forest-labs/FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) checkpoint) and its components, which we'll be quantizing. Loading the full `FLUX.1-dev` model in BF16 precision requires approximately 31.447 GB of memory. The main components are:
 
 *   **Text Encoders (CLIP and T5):**
     *   **Function:** Process input text prompts. FLUX-dev uses CLIP for initial understanding and a larger T5 for nuanced comprehension and better text rendering.
@@ -95,10 +95,9 @@ prompts = [
 
 ```python
 import torch
-from diffusers import AutoModel, FluxPipeline
+from diffusers import FluxPipeline
 from diffusers import BitsAndBytesConfig as DiffusersBitsAndBytesConfig
 from diffusers.quantizers import PipelineQuantizationConfig
-from transformers import T5EncoderModel
 from transformers import BitsAndBytesConfig as TransformersBitsAndBytesConfig
 
 model_id = "black-forest-labs/FLUX.1-dev"
@@ -175,7 +174,8 @@ For more information check out the [bitsandbytes docs](https://huggingface.co/do
 | int8_weight_only              | 17.020 GB            | 21.482 GB   | 15 seconds     |
 | float8_weight_only            | 17.016 GB            | 21.488 GB   | 15 seconds     |
 
-**Example (Flux-dev with `torchao` INT8 weight-only):**
+<details>
+<summary>Example (Flux-dev with `torchao` INT8 weight-only):</summary>
 
 ```diff
 @@
@@ -194,6 +194,7 @@ pipeline_quant_config = PipelineQuantizationConfig(
     }
 )
 ```
+</details>
 
 For more information check out the [torchao docs](https://huggingface.co/docs/diffusers/quantization/torchao).
 
@@ -390,6 +391,16 @@ For more information check out the [Layerwise casting docs](https://huggingface.
 ## Combining with Memory Optimizations
 
 Most of these quantization backends can be combined with the memory optimization techniques offered in Diffusers. For example, using `enable_model_cpu_offload()` with `bitsandbytes` cuts the memory further, giving a reasonable trade-off between memory and latency. You can learn more about these techniques in the [Diffusers documentation](https://huggingface.co/docs/diffusers/main/en/optimization/memory).
+
+Explore some benchmarking results here:
+
+<iframe
+  src="https://huggingface.co/datasets/derekl35/diffusers-quantization-benchmarks/embed/viewer/default/train"
+  frameborder="0"
+  width="100%"
+  height="560px"
+  title="diffusers benchmarking results dataset"
+></iframe>
 
 ## Conclusion
 
