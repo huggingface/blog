@@ -9,12 +9,18 @@ authors:
 - user: smohammadi
   guest: true
   org: axolotl-ai-co
+- user: m0m0chen
+  guest: true
+  org: LinkedIn
+- user: liberty4321
+  guest: true
+  org: LinkedIn
 ---
 
 # 🐯 Liger GRPO meets TRL
 
 TL; DR
-[Liger](https://github.com/linkedin/Liger-Kernel) supercharges [TRL](https://github.com/huggingface/trl)’s [GRPO Trainer](https://huggingface.co/docs/trl/grpo_trainer) by slashing memory usage by **40%** with zero drop in model quality. We also added support for **FSDP** and **PEFT**, making it easier than ever to scale GRPO across multiple GPUs. 
+[Liger](https://github.com/linkedin/Liger-Kernel) supercharges [TRL](https://github.com/huggingface/trl)’s [GRPO Trainer](https://huggingface.co/docs/trl/grpo_trainer) by slashing memory usage by **40%** with zero drop in model quality. We also added support for **FSDP** and **PEFT**, making it easier than ever to scale GRPO across multiple GPUs.
 
 ## Motivation
 
@@ -32,7 +38,7 @@ That said, RL training still eats up a ton of GPU memory, so there's still plent
 
 ## How Liger Kernel slashes memory for GRPO
 
-We extended the Liger Chunked Loss approach to GRPO Loss, which lets us avoid having to store the full logits in memory for every training step. The calculation of logits, which involves the model's output head, is a significant contributor to peak memory usage, especially when dealing with large vocabularies, long sequence lengths, or large batch sizes. We address this by chunking the input to the `lm_head` across the batch and running the forward pass one chunk at a time.
+We extended the Liger Chunked Loss approach to the GRPO Loss, which lets us avoid having to store the full logits in memory for every training step. The calculation of logits, which involves the model's output head, is a significant contributor to peak memory usage, especially when dealing with large vocabularies, long sequence lengths, or large batch sizes. We address this by chunking the input to the `lm_head` across the batch and running the forward pass one chunk at a time.
 
 But if you just implement it in a straightforward way, you won't actually be able to reduce the peak memory since you'd still need to keep all the logits in GPU memory for the backward pass. To get around that, we calculate the gradients for each loss chunk (with respect to the `input` chunk and the `lm_head` weight`) during the forward pass, and then accumulate them as we go through each chunk.
 
