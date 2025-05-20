@@ -196,6 +196,36 @@ pipeline_quant_config = PipelineQuantizationConfig(
 ```
 </details>
 
+<details>
+<summary>Example (Flux-dev with `torchao` INT4 weight-only):</summary>
+
+```diff
+@@
+- from diffusers import BitsAndBytesConfig as DiffusersBitsAndBytesConfig
++ from diffusers import TorchAoConfig as DiffusersTorchAoConfig
+
+- from transformers import BitsAndBytesConfig as TransformersBitsAndBytesConfig
++ from transformers import TorchAoConfig as TransformersTorchAoConfig
+@@
+pipeline_quant_config = PipelineQuantizationConfig(
+    quant_mapping={
+-         "transformer": DiffusersBitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.bfloat16),
+-         "text_encoder_2": TransformersBitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.bfloat16),
++         "transformer": DiffusersTorchAoConfig("int4_weight_only"),
++         "text_encoder_2": TransformersTorchAoConfig("int4_weight_only"),
+    }
+)
+
+pipe = FluxPipeline.from_pretrained(
+    model_id,
+    quantization_config=pipeline_quant_config,
+    torch_dtype=torch.bfloat16,
++    device_map="balanced"
+)
+- pipe.to("cuda")
+```
+</details>
+
 For more information check out the [torchao docs](https://huggingface.co/docs/diffusers/quantization/torchao).
 
 ### Quanto
