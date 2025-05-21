@@ -455,8 +455,8 @@ pipe = FluxPipeline.from_pretrained(
 **bnb + `enable_model_cpu_offload`**:
 | Precision     | Memory after loading | Peak memory | Inference time |
 |---------------|----------------------|-------------|----------------|
-| 4-bit         | 12.584 GB            | 17.281 GB   | 12 seconds     |
-| 8-bit         | 19.273 GB            | 24.432 GB   | 27 seconds     |
+| 4-bit         | 12.383 GB            | 12.383 GB   | 17 seconds     |
+| 8-bit         | 19.182 GB            | 23.428 GB   | 27 seconds     |
 
 <details>
 <summary>Example (Flux-dev with fp8 layerwise casting + group offloading):</summary>
