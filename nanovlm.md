@@ -45,7 +45,7 @@ You can start training a Vision Language Model using our nanoVLM toolkit by foll
 
 ```bash
 # Clone the repo
-git clone https://github.com/huggingface/transformers.git
+git clone https://github.com/huggingface/nanoVLM.git
 
 # Execute the training script
 python train.py
