@@ -11,6 +11,11 @@ authors:
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/5.27.1/gradio.js"
+></script>
+
 Large diffusion models like Flux (a flow-based text-to-image generation model) can create stunning images, but their size can be a hurdle, demanding significant memory and compute resources. Quantization offers a powerful solution, shrinking these models to make them more accessible without drastically compromising performance. But the big question always is: can you actually tell the difference in the final image?
 
 Before we dive into the technical details of how various quantization backends in Hugging Face Diffusers work, why not test your own perception?
@@ -19,7 +24,8 @@ Before we dive into the technical details of how various quantization backends i
 
 We created a setup where you can provide a prompt, and we generate results using both the original, high-precision model (e.g., Flux-dev in BF16) and several quantized versions (BnB 4-bit, BnB 8-bit). The generated images are then presented to you and your challenge is to identify which ones came from the quantized models.
 
-Try it out [here!](https://huggingface.co/spaces/diffusers/flux-quant)
+Try it out here!
+<gradio-app src="https://diffusers-flux-quant.hf.space"></gradio-app>
 
 Often, especially with 8-bit quantization, the differences are subtle and may not be noticeable without close inspection. More aggressive quantization like 4-bit or lower might be more noticeable, but the results can still be good, especially considering the massive memory savings. NF4 often gives the best trade-off though.
 
