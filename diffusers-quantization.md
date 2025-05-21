@@ -452,6 +452,12 @@ pipe = FluxPipeline.from_pretrained(
 
 **Model CPU Offloading (`enable_model_cpu_offload`)**: This method moves entire model components (like the UNet, text encoders, or VAE) between the CPU and GPU during the inference pipeline. It offers substantial VRAM savings and is generally faster than more granular offloading because it involves fewer, larger data transfers.
 
+**bnb + `enable_model_cpu_offload`**:
+| Precision     | Memory after loading | Peak memory | Inference time |
+|---------------|----------------------|-------------|----------------|
+| 4-bit         | 12.584 GB            | 17.281 GB   | 12 seconds     |
+| 8-bit         | 19.273 GB            | 24.432 GB   | 27 seconds     |
+
 <details>
 <summary>Example (Flux-dev with fp8 layerwise casting + group offloading):</summary>
 
@@ -476,6 +482,12 @@ pipe = FluxPipeline.from_pretrained(model_id, transformer=transformer, torch_dty
 </details>
 
 **Group offloading (`enable_group_offload` for `diffusers` components or `apply_group_offloading` for generic `torch.nn.Module`s)**: It moves groups of internal model layers (like `torch.nn.ModuleList` or `torch.nn.Sequential` instances) to the CPU. This approach is typically more memory-efficient than full model offloading and faster than sequential offloading.
+
+**FP8 layerwise casting + group offloading**:
+
+| precision | Memory after loading | Peak memory | Inference time |
+|-----------|----------------------|-------------|----------------|
+| FP8 (e4m3)| 9.264 GB             | 14.232 GB   | 58 seconds     |
 
 <details>
 <summary>Example (Flux-dev with torchao 4-bit + torch.compile):</summary>
@@ -514,6 +526,13 @@ pipe = FluxPipeline.from_pretrained(
 
 **torch.compile**: Another complementary approach is to accelerate the execution of your model with PyTorch 2.x’s torch.compile() feature. Compiling the model doesn’t directly lower memory, but it can significantly speed up inference. PyTorch 2.0’s compile (Torch Dynamo) works by tracing and optimizing the model graph ahead-of-time.
 
+**torchao + `torch.compile`**: 
+| torchao Precision             | Memory after loading | Peak memory | Inference time | Compile Time |
+|-------------------------------|----------------------|-------------|----------------|--------------|
+| int4_weight_only              | 10.635 GB            | 15.238 GB   | 6 seconds    | ~285 seconds          |
+| int8_weight_only              | 17.020 GB            | 22.473 GB   | 8 seconds     | ~851 seconds          |
+| float8_weight_only            | 17.016 GB            | 22.115 GB   | 8 seconds     | ~545 seconds          |
+
 Explore some benchmarking results here:
 
 <iframe
@@ -524,6 +543,10 @@ Explore some benchmarking results here:
   title="diffusers benchmarking results dataset"
 ></iframe>
 
+## Ready to use quantized checkpoints
+
+You can find `bitsandbytes` and `torchao` quantized models from this blog post in our Hugging Face collection: [link to collection](https://huggingface.co/collections/diffusers/flux-quantized-checkpoints-682c951aebd378a2462984a0).
+
 ## Conclusion
 
 Here's a quick guide to choosing a quantization backend:
@@ -533,7 +556,6 @@ Here's a quick guide to choosing a quantization backend:
 *   **For Hardware Flexibility (CPU/MPS), FP8 Precision:** `Quanto` can be a good option.
 *   **Simplicity (Hopper/Ada):** Explore FP8 Layerwise Casting (`enable_layerwise_casting`).
 *   **For Using Existing GGUF Models:** Use GGUF loading (`from_single_file`).
-*   **Explore Pre-Quantized Models:** You can find `bitsandbytes` and `torchao` quantized models from this blog post in our Hugging Face collection: [link to collection](https://huggingface.co/collections/diffusers/flux-quantized-checkpoints-682c951aebd378a2462984a0).
 *   **Curious about training with quantization?** Stay tuned for a follow-up blog post on that topic!
 
 Quantization significantly lowers the barrier to entry for using large diffusion models. Experiment with these backends to find the best balance of memory, speed, and quality for your needs.
