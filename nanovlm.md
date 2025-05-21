@@ -31,7 +31,7 @@ so that you can quickly get started.
 
 ## Table of contents:
 
-- [What is a Vision Language Model?](#what-is-a-vision-language-model?)
+- [What is a Vision Language Model?](#what-is-a-vision-language-model)
 - [Working with the repository](#working-with-the-repository)
 - [Architecture](#architecture)
 - [Train your own VLM](#train-your-own-vlm)
