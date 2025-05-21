@@ -95,7 +95,9 @@ We also added FSDP and PEFT support to Liger GRPO Loss in PR [#3260](https://git
 Here, we show a multi-GPU GRPO training plot using FSDP and PEFT, where we compare the maximum training batch size possible with and without the Liger Loss across different Qwen3 model sizes. We found that with Liger, we were able to bump up the batch size by around **1.5 to 1.8x**!
 
 ![peft-batch-size-vs-model-size](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image6.png)
-
+## Scaling even further with vLLM
+Liger loss can also be used alongside generation with implemented vllm-server in TRL for significantly faster text generation. This enables efficient rollout collection during training with minimal overhead and seamless integration. 
+All you need to do is the following;
 ## Conclusion
 
 With the integration of Liger-GRPO into TRL, alongside FSDP and PEFT support, fine-tuning language models with GRPO is now more memory-efficient and scalable than ever. We encourage the community to try out these new features and share their feedback to help us further improve RL training for LLMs.
