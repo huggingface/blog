@@ -60,6 +60,9 @@ pip install "trl[liger] @ git+https://github.com/huggingface/trl.git"
 and then you can use it like this:
 ```python
 from trl import GRPOConfig, GRPOTrainer
+from datasets import load_dataset
+
+
 train_dataset = load_dataset("trl-lib/tldr", split="train")
 training_args = GRPOConfig(output_dir="Qwen3-0.6B-GRPO", use_liger_loss=True)
 
@@ -72,6 +75,7 @@ trainer = GRPOTrainer(
     args=training_args,
     train_dataset=train_dataset,
 )
+trainer.train()
 ```
 
 ## Benchmarks
@@ -101,33 +105,52 @@ Here, we show a multi-GPU GRPO training plot using FSDP and PEFT, where we compa
 ![peft-batch-size-vs-model-size](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image6.png)
 
 ## Scaling even further with vLLM
-Liger loss can also be used alongside generation with implemented vllm-server in TRL for significantly faster text generation. This enables efficient rollout collection during training with minimal overhead and seamless integration. 
-All you need to do is the following;
 
-first run the server using: 
-`CUDA_VISIBLE_DEVICES=1 trl vllm-serve --model "Qwen/Qwen3-0.6B"`
-then the training script being like:
+To accelerate text generation during training, Liger Loss can be effectively combined with TRL's integrated vLLM server. This significantly speeds up the collection of rollout data with minimal overhead and offers a seamless integration experience.
 
-```python
-from trl import GRPOConfig, GRPOTrainer
-from datasets import load_dataset
-training_args = GRPOConfig(output_dir="Qwen3-0.6B-GRPO", use_liger_loss=True, use_vllm=True, logging_steps=10)
-def reward_len(completions, **kwargs):
-    return [-abs(20 - len(completion)) for completion in completions]
-dataset = load_dataset("trl-lib/tldr", split="train[:1%]")
-trainer = GRPOTrainer(
-    model="Qwen/Qwen3-0.6B",
-    reward_funcs=reward_len,
-    args=training_args,
-    train_dataset=dataset,
-)
-trainer.train()
-```
+Here's how to set it up:
 
-then run it using:
-```bash
-CUDA_VISIBLE_DEVICES=0 accelerate train.py
-```
+1.  **Start the vLLM Server:**
+    First, launch the vLLM server. This server will handle the generation requests from your training script. Open a terminal and run:
+    ```bash
+    CUDA_VISIBLE_DEVICES=1 trl vllm-serve --model "Qwen/Qwen3-0.6B"
+    ```
+    *Note: We assign `CUDA_VISIBLE_DEVICES=1` to run the vLLM server on a specific GPU (GPU 1 in this case), leaving other GPUs free for training.*
+
+2.  **Configure and Run Your Training Script:**
+    Next, modify your training script to use the vLLM server. The key change is setting `use_vllm=True` in your `GRPOConfig`.
+
+    ```python
+    from trl import GRPOConfig, GRPOTrainer
+    from datasets import load_dataset
+
+    def reward_len(completions, **kwargs):
+        return [-abs(20 - len(completion)) for completion in completions]
+
+    dataset = load_dataset("trl-lib/tldr", split="train[:1%]")
+    training_args = GRPOConfig(
+        output_dir="Qwen3-0.6B-GRPO", 
+        use_liger_loss=True, 
+        use_vllm=True, # Enable vLLM integration
+        logging_steps=10
+    )
+    trainer = GRPOTrainer(
+        model="Qwen/Qwen3-0.6B", # Ensure this matches the model served by vLLM
+        reward_funcs=reward_len,
+        args=training_args,
+        train_dataset=dataset,
+    )
+    trainer.train()
+    ```
+
+3.  **Launch the Training:**
+    Finally, run your training script using `accelerate launch` (or `python` if not using Accelerate for multi-GPU/distributed training). Make sure to target a different GPU for training if your vLLM server is occupying one.
+    ```bash
+    CUDA_VISIBLE_DEVICES=0 accelerate launch train.py 
+    ```
+    *(Assuming your script is named `train.py` and you want to run training on GPU 0)*.
+
+By following these steps, you can leverage vLLM for faster generation turnarounds during your GRPO training with Liger Loss.
 
 ## Conclusion
 
