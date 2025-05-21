@@ -13,10 +13,12 @@ authors:
 
 # nanoVLM: The simplest repository to train your VLM in pure PyTorch
 
-Inspired by [Andrej Karpathy](https://karpathy.ai/)’s [nanoGPT](https://github.com/karpathy/nanoGPT),
-Hugging Face offers a similar project for the vision domain: [**nanoVLM**](https://github.com/huggingface/nanoVLM).
-This repository is designed to be the simplest way to get started with training your own
-Vision Language Model (VLM) using pure PyTorch.
+[**nanoVLM**](https://github.com/huggingface/nanoVLM) is the *simplest* way to get started with
+**training** your very own Vision Language Model (VLM) using pure PyTorch. It is lightweight *toolkit*
+which allows you to launch a VLM training on a [free tier colab notebook](https://colab.research.google.com/github/huggingface/nanoVLM/blob/main/nanoVLM.ipynb).
+
+> We were inspired by [Andrej Karpathy](https://karpathy.ai/)’s [nanoGPT](https://github.com/karpathy/nanoGPT),
+and provide a similar project for the vision domain.
 
 At its heart, nanoVLM is a **toolkit** that helps you build and train a model that can understand both
 images and text, and then generate text based on that. The beauty of nanoVLM lies in its *simplicity*.
@@ -51,12 +53,12 @@ python train.py
 ```
 
 Here is a [Colab notebook](https://colab.research.google.com/github/huggingface/nanoVLM/blob/main/nanoVLM.ipynb)
-that will help you get started with no local setup required!
+that will help you launch a trainig run with no local setup required!
 
 ## What is a Vision Language Model?
 
 As the name suggests, a Vision Language Model (VLM) is a multi-modal model that processes two
-modalities: vision and text.These models typically take images and/or text as input and generate text as output.
+modalities: vision and text. These models typically take images and/or text as input and generate text as output.
 
 Generating text (output) conditioned on the understanding of images and texts (inputs) is a powerful paradigm.
 It enables a wide range of applications, from image captioning and object detection to answering
@@ -71,8 +73,7 @@ focuses only on Visual Question Answering as the training objective.
 |  | How many cats are in the image? | 2 | Visual Question Answering |
 
 > [!TIP]  
-> If you are interested in learning more about VLMs, we strongly recommend reading our latest
-blog on the topic: [Vision Language Models (Better, Faster, Stronger)](https://huggingface.co/blog/vlms-2025)
+> If you are interested in learning more about VLMs, we strongly recommend reading our latest blog on the topic: [Vision Language Models (Better, Faster, Stronger)](https://huggingface.co/blog/vlms-2025)
 
 ## Working with the repository
 
@@ -94,7 +95,6 @@ Below is the folder structure of our repository. We have removed helper files fo
 │   ├── config.py
 │   ├── language_model.py
 │   ├── modality_projector.py
-│   ├── README.md
 │   ├── utils.py
 │   ├── vision_language_model.py
 │   └── vision_transformer.py
@@ -143,7 +143,7 @@ While training, we use the following pre-trained backbone weights:
 1. Vision backbone: [`google/siglip-base-patch16-224`](https://huggingface.co/google/siglip-base-patch16-224)  
 2. Language backbone: [`HuggingFaceTB/SmolLM2-135M`](https://huggingface.co/HuggingFaceTB/SmolLM2-135M)
 
-> One could also swap out the backbones with other variants of SigLIP (for the vision backbone) and SmolLM2 (for the language backbone).
+> One could also swap out the backbones with other variants of SigLIP/SigLIP 2 (for the vision backbone) and SmolLM2 (for the language backbone).
 
 ## Train your own VLM
 
@@ -246,7 +246,7 @@ model.push_to_hub("hub/id")
 ## Run inference on a pre-trained model
 
 Using nanoVLM as the toolkit, we have trained a [model and published it to Hub](https://huggingface.co/lusxvr/nanoVLM-222M).
-We have used the `SigLIP-B/16-224-85M` and `HuggingFaceTB/SmolLM2-135M` as backbones. The model was
+We have used the `google/siglip-base-patch16-224` and `HuggingFaceTB/SmolLM2-135M` as backbones. The model was
 trained this for ~6h on a single H100 GPU on ~1.7M samples of the [cauldron](https://huggingface.co/datasets/HuggingFaceM4/the_cauldron).
 
 This model isn't intended to compete with SoTA models, but rather to demystify the components and training process of VLMs.
@@ -301,6 +301,11 @@ We create the model and set it to `eval`. Initialize the tokenizer, which tokeni
 and the image processor, which  is used to process the images. The next step is to process the inputs
 and run `model.generate` to generate the output text. Finally, decode the output using  `batch_decode`.
 
+| Image | Prompt | Generation |
+| :--: | :--: | :--: |
+| ![image of a cat](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/nanovlm/cat.jpg) | What is this? | In the picture I can see the pink color bed sheet. I can see two cats lying on the bed sheet. |
+| ![yoga](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/yoga1.jpeg) |What is the woman doing? | Here in the middle she is performing yoga |
+
 > [!TIP]  
 > If you want to run inference on the trained model in a UI interface, [here](https://huggingface.co/spaces/ariG23498/nanovlm) is the Hugging Face Space for you to interact with the model. 
 
@@ -318,3 +323,4 @@ If you try it out, build on top of it, or just have questions we’d love to hea
 2. [A Dive into Vision-Language Models](https://huggingface.co/blog/vision_language_pretraining)  
 3. [Vision Language Models Explained](https://huggingface.co/blog/vlms)  
 4. [Vision Language Models (Better, faster, stronger)](https://huggingface.co/blog/vlms-2025)
+5. [SmolVLM: Redefining small and efficient multimodal models](https://arxiv.org/abs/2504.05299)
