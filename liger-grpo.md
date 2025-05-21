@@ -98,7 +98,7 @@ We also show that Liger Loss is effectively accurate. As seen in the plot, rewar
 
 ## Scaling further with FSDP and PEFT
 
-We also added FSDP and PEFT support to Liger GRPO Loss in PR [#3260](https://github.com/huggingface/trl/pull/3260) and PR [#3355](https://github.com/huggingface/trl/pull/3355), respectively, allowing users to easily scale their experiments across multiple GPUs or nodes. PEFT techniques such as LoRA and QLoRA reduce the number of trainable parameters by only tuning the weights of smaller adapter weights on top of the original model, significantly lowering memory pressure as gradients, activations, and optimizer states for the entire model don't need to be held in memory. Additionally, using PEFT in GRPO allows one to forgo loading a separate reference model during training, as we can obtain the original, unmodified model during training by simply disabling the LoRA adapters. 
+We also added FSDP and [PEFT](https://github.com/huggingface/peft) support to Liger GRPO Loss in PR [#3260](https://github.com/huggingface/trl/pull/3260) and PR [#3355](https://github.com/huggingface/trl/pull/3355), respectively, allowing users to easily scale their experiments across multiple GPUs or nodes. PEFT techniques such as LoRA and QLoRA reduce the number of trainable parameters by only tuning the weights of smaller adapter weights on top of the original model, significantly lowering memory pressure as gradients, activations, and optimizer states for the entire model don't need to be held in memory. Additionally, using PEFT in GRPO allows one to forgo loading a separate reference model during training, as we can obtain the original, unmodified model during training by simply disabling the LoRA adapters. 
 
 Here, we show a multi-GPU GRPO training plot using FSDP and PEFT, where we compare the maximum training batch size possible with and without the Liger Loss across different Qwen3 model sizes. We found that with Liger, we were able to bump up the batch size by around **1.5 to 1.8x**!
 
@@ -106,7 +106,7 @@ Here, we show a multi-GPU GRPO training plot using FSDP and PEFT, where we compa
 
 ## Scaling even further with vLLM
 
-To accelerate text generation during training, Liger Loss can be effectively combined with TRL's integrated vLLM server. This significantly speeds up the collection of rollout data with minimal overhead and offers a seamless integration experience.
+To accelerate text generation during training, Liger Loss can be effectively combined with TRL's integrated [vLLM](https://vllm.ai/) server. This significantly speeds up the collection of rollout data with minimal overhead and offers a seamless integration experience.
 
 Here's how to set it up:
 
@@ -123,6 +123,7 @@ Here's how to set it up:
     ```python
     from trl import GRPOConfig, GRPOTrainer
     from datasets import load_dataset
+
 
     def reward_len(completions, **kwargs):
         return [-abs(20 - len(completion)) for completion in completions]
@@ -144,7 +145,7 @@ Here's how to set it up:
     ```
 
 3.  **Launch the Training:**
-    Finally, run your training script using `accelerate launch` (or `python` if not using Accelerate for multi-GPU/distributed training). Make sure to target a different GPU for training if your vLLM server is occupying one.
+    Finally, run your training script using `accelerate launch` (or `python` if not using [Accelerate](https://github.com/huggingface/accelerate) for multi-GPU/distributed training). Make sure to target a different GPU for training if your vLLM server is occupying one.
     ```bash
     CUDA_VISIBLE_DEVICES=0 accelerate launch train.py 
     ```
@@ -155,4 +156,3 @@ By following these steps, you can leverage vLLM for faster generation turnaround
 ## Conclusion
 
 With the integration of Liger-GRPO into TRL, alongside FSDP and PEFT support, fine-tuning language models with GRPO is now more memory-efficient and scalable than ever. We encourage the community to try out these new features and share their feedback to help us further improve RL training for LLMs.
-
