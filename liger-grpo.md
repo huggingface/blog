@@ -59,7 +59,7 @@ pip install "trl[liger] @ git+https://github.com/huggingface/trl.git"
 and then you can use it like this:
 ```python
 from trl import GRPOConfig, GRPOTrainer
-
+train_dataset = load_dataset("trl-lib/tldr", split="train")
 training_args = GRPOConfig(output_dir="Qwen3-0.6B-GRPO", use_liger_loss=True)
 
 trainer = GRPOTrainer(
