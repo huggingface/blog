@@ -64,7 +64,7 @@ training_args = GRPOConfig(output_dir="Qwen3-0.6B-GRPO", use_liger_loss=True)
 
 trainer = GRPOTrainer(
     model="Qwen/Qwen3-0.6B-Instruct",
-    reward_func=reward_len,
+    reward_funcs=reward_len,
     args=training_args,
     train_dataset=train_dataset,
 )
