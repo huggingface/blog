@@ -6029,3 +6029,17 @@
     - research
     - community
     - open
+
+- local: diffusers-quantization
+  title: "Exploring Quantization Backends in Diffusers"
+  thumbnail: /blog/assets/diffusers-quantization/thumbnail.png
+  author:
+    - derekl35
+    - marcsun13
+    - sayakpaul
+  date: May 20, 2025
+  tags:
+    - guide
+    - diffusers
+    - quantization
+    - flux
