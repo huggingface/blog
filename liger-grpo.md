@@ -9,6 +9,7 @@ authors:
 - user: smohammadi
   guest: true
   org: axolotl-ai-co
+- user: ShirinYamani
 - user: m0m0chen
   guest: true
   org: LinkedIn
@@ -62,6 +63,9 @@ from trl import GRPOConfig, GRPOTrainer
 train_dataset = load_dataset("trl-lib/tldr", split="train")
 training_args = GRPOConfig(output_dir="Qwen3-0.6B-GRPO", use_liger_loss=True)
 
+def reward_len(completions, **kwargs):
+    return [-abs(20 - len(completion)) for completion in completions]
+
 trainer = GRPOTrainer(
     model="Qwen/Qwen3-0.6B-Instruct",
     reward_funcs=reward_len,
@@ -95,9 +99,36 @@ We also added FSDP and PEFT support to Liger GRPO Loss in PR [#3260](https://git
 Here, we show a multi-GPU GRPO training plot using FSDP and PEFT, where we compare the maximum training batch size possible with and without the Liger Loss across different Qwen3 model sizes. We found that with Liger, we were able to bump up the batch size by around **1.5 to 1.8x**!
 
 ![peft-batch-size-vs-model-size](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image6.png)
+
 ## Scaling even further with vLLM
 Liger loss can also be used alongside generation with implemented vllm-server in TRL for significantly faster text generation. This enables efficient rollout collection during training with minimal overhead and seamless integration. 
 All you need to do is the following;
+
+first run the server using: 
+`CUDA_VISIBLE_DEVICES=1 trl vllm-serve --model "Qwen/Qwen3-0.6B"`
+then the training script being like:
+
+```python
+from trl import GRPOConfig, GRPOTrainer
+from datasets import load_dataset
+training_args = GRPOConfig(output_dir="Qwen3-0.6B-GRPO", use_liger_loss=True, use_vllm=True, logging_steps=10)
+def reward_len(completions, **kwargs):
+    return [-abs(20 - len(completion)) for completion in completions]
+dataset = load_dataset("trl-lib/tldr", split="train[:1%]")
+trainer = GRPOTrainer(
+    model="Qwen/Qwen3-0.6B",
+    reward_funcs=reward_len,
+    args=training_args,
+    train_dataset=dataset,
+)
+trainer.train()
+```
+
+then run it using:
+```bash
+CUDA_VISIBLE_DEVICES=0 accelerate train.py
+```
+
 ## Conclusion
 
 With the integration of Liger-GRPO into TRL, alongside FSDP and PEFT support, fine-tuning language models with GRPO is now more memory-efficient and scalable than ever. We encourage the community to try out these new features and share their feedback to help us further improve RL training for LLMs.
