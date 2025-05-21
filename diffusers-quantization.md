@@ -447,6 +447,8 @@ For more information check out the [Layerwise casting docs](https://huggingface.
 
 Most of these quantization backends can be combined with the memory optimization techniques offered in Diffusers. Let's explore CPU offloading, group offloading, and `torch.compile`. You can learn more about these techniques in the [Diffusers documentation](https://huggingface.co/docs/diffusers/main/en/optimization/memory).
 
+> **Note:** bnb + `torch.compile` also works if bnb is installed from source or with fullgraph=False.
+
 <details>
 <summary>Example (Flux-dev with BnB 4-bit + enable_model_cpu_offload):</summary>
 
