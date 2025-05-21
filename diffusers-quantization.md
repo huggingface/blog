@@ -11,10 +11,7 @@ authors:
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-<script
-	type="module"
-	src="https://gradio.s3-us-west-2.amazonaws.com/5.27.1/gradio.js"
-></script>
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/5.27.1/gradio.js"></script>
 
 Large diffusion models like Flux (a flow-based text-to-image generation model) can create stunning images, but their size can be a hurdle, demanding significant memory and compute resources. Quantization offers a powerful solution, shrinking these models to make them more accessible without drastically compromising performance. But the big question always is: can you actually tell the difference in the final image?
 
@@ -453,7 +450,7 @@ For more information check out the [Layerwise casting docs](https://huggingface.
 
 Most of these quantization backends can be combined with the memory optimization techniques offered in Diffusers. Let's explore CPU offloading, group offloading, and `torch.compile`. You can learn more about these techniques in the [Diffusers documentation](https://huggingface.co/docs/diffusers/main/en/optimization/memory).
 
-> **Note:** bnb + `torch.compile` also works if bnb is installed from source or with fullgraph=False.
+> **Note:** At the time of writing, bnb + `torch.compile` also works if bnb is installed from source and using pytorch nightly or with fullgraph=False.
 
 <details>
 <summary>Example (Flux-dev with BnB 4-bit + enable_model_cpu_offload):</summary>
