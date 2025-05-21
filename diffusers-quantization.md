@@ -33,7 +33,7 @@ Now, let's dive deeper.
 
 ## Quantization Backends in Diffusers
 
-Building on our previous post, "[Memory-efficient Diffusion Transformers with Quanto and Diffusers](https://huggingface.co/blog/quanto-diffusers)", this post explores the diverse quantization backends integrated directly into Hugging Face Diffusers. We'll examine how bitsandbytes, GGUF, torchao, and native FP8 support make large and powerful models more accessible, demonstrating their use with Flux.
+Building on our previous post, "[Memory-efficient Diffusion Transformers with Quanto and Diffusers](https://huggingface.co/blog/quanto-diffusers)", this post explores the diverse quantization backends integrated directly into Hugging Face Diffusers. We'll examine how bitsandbytes, GGUF, torchao, Quanto and native FP8 support make large and powerful models more accessible, demonstrating their use with Flux.
 
 Before diving into the quantization backends, let's introduce the FluxPipeline (using the [black-forest-labs/FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) checkpoint) and its components, which we'll be quantizing. Loading the full `FLUX.1-dev` model in BF16 precision requires approximately 31.447 GB of memory. The main components are:
 
@@ -344,9 +344,9 @@ GGUF is a file format popular in the llama.cpp community for storing quantized m
 
 | GGUF Precision | Memory after loading | Peak memory | Inference time |
 |----------------|----------------------|-------------|----------------|
+| Q2_k           | 13.264 GB            | 17.752 GB   | 26 seconds     |
 | Q4_1           | 16.838 GB            | 21.326 GB   | 23 seconds     |
 | Q8_0           | 21.502 GB            | 25.973 GB   | 15 seconds     |
-| Q2_k           | 13.264 GB            | 17.752 GB   | 26 seconds     |
 
 **Example (Flux-dev with GGUF Q4_1)**
 
