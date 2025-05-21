@@ -6030,6 +6030,17 @@
     - community
     - open
 
+- local: diffusers-quantization
+  title: "Exploring Quantization Backends in Diffusers"
+  thumbnail: /blog/assets/diffusers-quantization/thumbnail.png
+  author: derekl35
+  date: May 21, 2025
+  tags:
+    - guide
+    - diffusers
+    - quantization
+    - flux
+
 - local: liger-grpo
   title: "🐯 Liger GRPO meets TRL"
   author: shisahni
