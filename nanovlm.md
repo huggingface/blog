@@ -17,8 +17,7 @@ authors:
 **training** your very own Vision Language Model (VLM) using pure PyTorch. It is lightweight *toolkit*
 which allows you to launch a VLM training on a [free tier colab notebook](https://colab.research.google.com/github/huggingface/nanoVLM/blob/main/nanoVLM.ipynb).
 
-> We were inspired by [Andrej Karpathy](https://karpathy.ai/)’s [nanoGPT](https://github.com/karpathy/nanoGPT),
-and provide a similar project for the vision domain.
+> We were inspired by [Andrej Karpathy](https://karpathy.ai/)’s [nanoGPT](https://github.com/karpathy/nanoGPT), and provide a similar project for the vision domain.
 
 At its heart, nanoVLM is a **toolkit** that helps you build and train a model that can understand both
 images and text, and then generate text based on that. The beauty of nanoVLM lies in its *simplicity*.
@@ -53,7 +52,7 @@ python train.py
 ```
 
 Here is a [Colab notebook](https://colab.research.google.com/github/huggingface/nanoVLM/blob/main/nanoVLM.ipynb)
-that will help you launch a trainig run with no local setup required!
+that will help you launch a training run with no local setup required!
 
 ## What is a Vision Language Model?
 
@@ -65,12 +64,29 @@ It enables a wide range of applications, from image captioning and object detect
 questions about visual content (as shown in the table below). One thing to note is that nanoVLM
 focuses only on Visual Question Answering as the training objective.
 
-| Image (input) | Query (Text as input) | Generation | Task |
-| :---- | :---- | :---- | :---- |
-| ![an image of a cat](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/nanovlm/cat.jpg) | Caption the image | Two cats lying down on a bed with remotes near them | Captioning |
-|  | Detect the objects in the image | `<locxx><locxx><locxx><locxx>` | Object Detection |
-|  | Segment the objects in the image | `<segxx><segxx><segxx>` | Semantic Segmentation |
-|  | How many cats are in the image? | 2 | Visual Question Answering |
+<table>
+  <tr>
+    <td rowspan="4"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/nanovlm/cat.jpg" alt="an image of a cat" width="200"/></td>
+    <td>Caption the image</td>
+    <td>Two cats lying down on a bed with remotes near them</td>
+    <td>Captioning</td>
+  </tr>
+  <tr>
+    <td>Detect the objects in the image</td>
+    <td><code>&lt;locxx&gt;&lt;locxx&gt;&lt;locxx&gt;&lt;locxx&gt;</code></td>
+    <td>Object Detection</td>
+  </tr>
+  <tr>
+    <td>Segment the objects in the image</td>
+    <td><code>&lt;segxx&gt;&lt;segxx&gt;&lt;segxx&gt;</code></td>
+    <td>Semantic Segmentation</td>
+  </tr>
+  <tr>
+    <td>How many cats are in the image?</td>
+    <td>2</td>
+    <td>Visual Question Answering</td>
+  </tr>
+</table>
 
 > [!TIP]  
 > If you are interested in learning more about VLMs, we strongly recommend reading our latest blog on the topic: [Vision Language Models (Better, Faster, Stronger)](https://huggingface.co/blog/vlms-2025)
@@ -127,7 +143,7 @@ pixel shuffle operation followed by a linear layer.
 | :--: |
 | The architecture of the model (Source: Authors) |
 
-[Pixel shuffle](https://arxiv.org/abs/1609.05158) reduces the number of image tokens, which helps
+[Pixel shuffle](https://huggingface.co/papers/1609.05158) reduces the number of image tokens, which helps
 reduce computational cost and speeds up training, especially for transformer-based language decoders
 which are sensitive to input length. The figure below demonstrates the concept.
 
@@ -196,7 +212,7 @@ The model is built via the `VisionLanguageModel` class. If you're resuming from 
 ```python
 from models.vision_language_model import VisionLanguageModel
 
-model = VisionLanguageModel.from_pretrained(path)
+model = VisionLanguageModel.from_pretrained(model_path)
 ```
 
 Otherwise, you get a freshly initialized model with optionally preloaded backbones for both vision and language.
@@ -231,10 +247,10 @@ all handled by the helper `get_run_name`.
 
 **Push to Hub**
 
-The script doesn’t automatically push to the Hugging Face Hub, but since models are saved via:
+Use the following to push the trained model to the Hub for others to find and test:
 
 ```python
-model.save_pretrained(path)
+model.save_pretrained(save_path)
 ```
 
 You can easily push them using:
@@ -319,8 +335,8 @@ If you try it out, build on top of it, or just have questions we’d love to hea
 
 ## References
 
-1. [GitHub - huggingface/nanoVLM: The simplest, fastest repository for training/finetuning small-sized VLMs.](https://github.com/huggingface/nanoVLM)  
-2. [A Dive into Vision-Language Models](https://huggingface.co/blog/vision_language_pretraining)  
-3. [Vision Language Models Explained](https://huggingface.co/blog/vlms)  
-4. [Vision Language Models (Better, faster, stronger)](https://huggingface.co/blog/vlms-2025)
-5. [SmolVLM: Redefining small and efficient multimodal models](https://arxiv.org/abs/2504.05299)
+1. [GitHub - huggingface/nanoVLM: The simplest, fastest repository for training/finetuning small-sized VLMs.](https://github.com/huggingface/nanoVLM)
+2. [Vision Language Models (Better, faster, stronger)](https://huggingface.co/blog/vlms-2025)
+3. [Vision Language Models Explained](https://huggingface.co/blog/vlms)
+4. [A Dive into Vision-Language Models](https://huggingface.co/blog/vision_language_pretraining)
+5. [SmolVLM: Redefining small and efficient multimodal models](https://huggingface.co/papers/2504.05299)
