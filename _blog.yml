@@ -6016,6 +6016,20 @@
     - announcement
     - azure
 
+- local: nanovlm
+  title: "nanoVLM: The simplest repository to train your VLM in pure PyTorch"
+  author: ariG23498
+  thumbnail: /blog/assets/nanovlm/thumbnail.png
+  date: May 21, 2025
+  tags:
+    - vlm
+    - vision
+    - llm
+    - nanovlm
+    - research
+    - community
+    - open
+
 - local: liger-grpo
   title: "🐯 Liger GRPO meets TRL"
   author: shisahni
