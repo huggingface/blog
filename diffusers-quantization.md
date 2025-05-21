@@ -10,10 +10,6 @@ authors:
 # Exploring Quantization Backends in Diffusers
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
-<script
-	type="module"
-	src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"
-></script>
 
 Large diffusion models like Flux (a flow-based text-to-image generation model) can create stunning images, but their size can be a hurdle, demanding significant memory and compute resources. Quantization offers a powerful solution, shrinking these models to make them more accessible without drastically compromising performance. But the big question always is: can you actually tell the difference in the final image?
 
@@ -23,9 +19,7 @@ Before we dive into the technical details of how various quantization backends i
 
 We created a setup where you can provide a prompt, and we generate results using both the original, high-precision model (e.g., Flux-dev in BF16) and several quantized versions (BnB 4-bit, BnB 8-bit). The generated images are then presented to you and your challenge is to identify which ones came from the quantized models.
 
-Try it out here!
-
-<gradio-app theme_mode="light" space="derekl35/flux-quant"></gradio-app>
+Try it out [here!](https://huggingface.co/spaces/diffusers/flux-quant)
 
 Often, especially with 8-bit quantization, the differences are subtle and may not be noticeable without close inspection. More aggressive quantization like 4-bit or lower might be more noticeable, but the results can still be good, especially considering the massive memory savings. NF4 often gives the best trade-off though.
 
@@ -64,15 +58,21 @@ prompts = [
   <tr>
     <td style="text-align: center;">
       BF16<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bf16_combined.png" alt="Flux-dev output with BF16: Baroque, Futurist, Noir styles"></medium-zoom>
+      <figure class="image table text-center m-0 w-full">
+        <medium-zoom background="rgba(0,0,0,.7)" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bf16_combined.png" alt="Flux-dev output with BF16: Baroque, Futurist, Noir styles"></medium-zoom>
+      </figure>
     </td>
     <td style="text-align: center;">
       BnB 4-bit<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bnb_4bit_combined.png" alt="Flux-dev output with BnB 4-bit: Baroque, Futurist, Noir styles"></medium-zoom>
+      <figure class="image table text-center m-0 w-full">
+        <medium-zoom background="rgba(0,0,0,.7)" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bnb_4bit_combined.png" alt="Flux-dev output with BnB 4-bit: Baroque, Futurist, Noir styles"></medium-zoom>
+      </figure>
     </td>
     <td style="text-align: center;">
       BnB 8-bit<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bnb_8bit_combined.png" alt="Flux-dev output with BnB 8-bit: Baroque, Futurist, Noir styles"></medium-zoom>
+      <figure class="image table text-center m-0 w-full">
+        <medium-zoom background="rgba(0,0,0,.7)" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_bnb_8bit_combined.png" alt="Flux-dev output with BnB 8-bit: Baroque, Futurist, Noir styles"></medium-zoom>
+      </figure>
     </td>
   </tr>
   <tr>
@@ -152,15 +152,21 @@ For more information check out the [bitsandbytes docs](https://huggingface.co/do
   <tr>
     <td style="text-align: center;">
       int4_weight_only<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_4bit_combined.png" alt="torchao int4_weight_only Output"></medium-zoom>
+      <figure class="image table text-center m-0 w-full">
+        <medium-zoom background="rgba(0,0,0,.7)" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_4bit_combined.png" alt="torchao int4_weight_only Output"></medium-zoom>
+      </figure>
     </td>
     <td style="text-align: center;">
       int8_weight_only<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_8bit_combined.png" alt="torchao int8_weight_only Output"></medium-zoom>
+      <figure class="image table text-center m-0 w-full">
+        <medium-zoom background="rgba(0,0,0,.7)" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_8bit_combined.png" alt="torchao int8_weight_only Output"></medium-zoom>
+      </figure>
     </td>
     <td style="text-align: center;">
       float8_weight_only<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_fp8_combined.png" alt="torchao float8_weight_only Output"></medium-zoom>
+      <figure class="image table text-center m-0 w-full">
+        <medium-zoom background="rgba(0,0,0,.7)" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_torchao_fp8_combined.png" alt="torchao float8_weight_only Output"></medium-zoom>
+      </figure>
     </td>
   </tr>
   <tr>
@@ -174,7 +180,8 @@ For more information check out the [bitsandbytes docs](https://huggingface.co/do
 | int8_weight_only              | 17.020 GB            | 21.482 GB   | 15 seconds     |
 | float8_weight_only            | 17.016 GB            | 21.488 GB   | 15 seconds     |
 
-Example (Flux-dev with `torchao` INT8 weight-only):
+<details>
+<summary>Example (Flux-dev with torchao INT8 weight-only):</summary>
 
 ```diff
 @@
@@ -193,6 +200,7 @@ pipeline_quant_config = PipelineQuantizationConfig(
     }
 )
 ```
+</details>
 
 <details>
 <summary>Example (Flux-dev with torchao INT4 weight-only):</summary>
@@ -234,15 +242,21 @@ For more information check out the [torchao docs](https://huggingface.co/docs/di
   <tr>
     <td style="text-align: center;">
       INT4<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int4_combined.png" alt="Quanto INT4 Output"></medium-zoom>
+      <figure class="image table text-center m-0 w-full">
+        <medium-zoom background="rgba(0,0,0,.7)" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int4_combined.png" alt="Quanto INT4 Output"></medium-zoom>
+      </figure>
     </td>
     <td style="text-align: center;">
       INT8<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int8_combined.png" alt="Quanto INT8 Output"></medium-zoom>
+      <figure class="image table text-center m-0 w-full">
+        <medium-zoom background="rgba(0,0,0,.7)" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_int8_combined.png" alt="Quanto INT8 Output"></medium-zoom>
+      </figure>
     </td>
     <td style="text-align: center;">
       FP8<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_fp8_combined.png" alt="Quanto fp8 Output"></medium-zoom>
+      <figure class="image table text-center m-0 w-full">
+        <medium-zoom background="rgba(0,0,0,.7)" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_quanto_fp8_combined.png" alt="Quanto fp8 Output"></medium-zoom>
+      </figure>
     </td>
   </tr>
   <tr>
@@ -256,7 +270,8 @@ For more information check out the [torchao docs](https://huggingface.co/docs/di
 | INT8             | 17.330 GB            | 21.814 GB   | 15 seconds     |
 | FP8           | 16.395 GB            | 20.898 GB   | 16 seconds     |
 
-**Example (Flux-dev with `quanto` INT8 weight-only):**
+<details>
+<summary>Example (Flux-dev with quanto INT8 weight-only):</summary>
 
 ```diff
 @@
@@ -275,6 +290,7 @@ pipeline_quant_config = PipelineQuantizationConfig(
     }
 )
 ```
+</details>
 
 > **Note:** At the time of writing, for float8 support with Quanto, you'll need `optimum-quanto<0.2.5` and use quanto directly. We will be working on fixing this.
 <details>
@@ -326,15 +342,21 @@ GGUF is a file format popular in the llama.cpp community for storing quantized m
   <tr>
     <td style="text-align: center;">
       Q2_k<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q2_k_combined.png" alt="GGUF Q2_k Output"></medium-zoom>
+      <figure class="image table text-center m-0 w-full">
+        <medium-zoom background="rgba(0,0,0,.7)" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q2_k_combined.png" alt="GGUF Q2_k Output"></medium-zoom>
+      </figure>
     </td>
     <td style="text-align: center;">
       Q4_1<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q4_1_combined.png" alt="GGUF Q4_1 Output"></medium-zoom>
+      <figure class="image table text-center m-0 w-full">
+        <medium-zoom background="rgba(0,0,0,.7)" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q4_1_combined.png" alt="GGUF Q4_1 Output"></medium-zoom>
+      </figure>
     </td>
     <td style="text-align: center;">
       Q8_0<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q8_0_combined.png" alt="GGUF Q8_0 Output"></medium-zoom>
+      <figure class="image table text-center m-0 w-full">
+        <medium-zoom background="rgba(0,0,0,.7)" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_gguf_Q8_0_combined.png" alt="GGUF Q8_0 Output"></medium-zoom>
+      </figure>
     </td>
   </tr>
   <tr>
@@ -348,7 +370,8 @@ GGUF is a file format popular in the llama.cpp community for storing quantized m
 | Q4_1           | 16.838 GB            | 21.326 GB   | 23 seconds     |
 | Q8_0           | 21.502 GB            | 25.973 GB   | 15 seconds     |
 
-**Example (Flux-dev with GGUF Q4_1)**
+<details>
+<summary>Example (Flux-dev with GGUF Q4_1)</summary>
 
 ```python
 import torch
@@ -373,6 +396,8 @@ pipe = FluxPipeline.from_pretrained(
 pipe.to("cuda")
 ```
 
+</details>
+
 For more information check out the [GGUF docs](https://huggingface.co/docs/diffusers/quantization/gguf).
 
 ### FP8 Layerwise Casting (`enable_layerwise_casting`)
@@ -384,7 +409,9 @@ Just before a layer performs its calculations, its weights are dynamically cast 
   <tr>
     <td style="text-align: center;">
       FP8 (e4m3)<br>
-      <medium-zoom background="rgba(0,0,0,.7)"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_fp8_layerwise_casting_combined.png" alt="FP8 Layerwise Casting Output"></medium-zoom>
+      <figure class="image table text-center m-0 w-full">
+        <medium-zoom background="rgba(0,0,0,.7)" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers/combined_flux-dev_fp8_layerwise_casting_combined.png" alt="FP8 Layerwise Casting Output"></medium-zoom>
+      </figure>
     </td>
   </tr>
   <tr>
