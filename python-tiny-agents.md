@@ -5,6 +5,7 @@ authors:
 - user: celinah
 - user: julien-c
 - user: Wauplin
+- user: evalstate
 ---
 # Tiny Agents in Python: a MCP-powered agent in ~70 lines of code
 
@@ -43,7 +44,7 @@ Now, you can run an agent using the CLI. The coolest part? You can load agents d
 ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 
 ```
-The following command loads an agent configured to use [Qwen/Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) model via Nebius inference provider, and it comes equipped with a playwright MCP server, enabling it to perform browser automation tasks. The agent config is loaded from the [tiny-agents/tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents) Hugging Face dataset 
+The following command loads an agent configured to use [Qwen/Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) model via Nebius inference provider, and it comes equipped with a playwright MCP server, enabling it to perform browser automation tasks. The agent config is loaded from the [tiny-agents/tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents) Hugging Face dataset.
 
 ```bash
 > tiny-agents run julien-c/local-coder
@@ -325,3 +326,12 @@ Inside the `run()` loop:
 - After each step, it checks exit conditions: if a special “exit loop” tools was used, if a maximum turn limit is hit, or if the LLM provides a text response that seems final for the current request.
 
 ## Next Steps
+
+there are a lot of cool ways to explore and expand upon the MCP Client and the Tiny Agent 🔥 Here are some ideas to get you started:
+
+- Benchmark how different LLM models and inference providers impact agentic performance: Tool calling performance can differ because each provider may optimize it differently. You can find the list of supported providers [here](https://huggingface.co/docs/inference-providers/index#partners).
+- Run tiny agents with local LLM inference servers, such as [llama.cpp](https://github.com/ggerganov/llama.cpp), or [LM Studio](https://lmstudio.ai/).
+- .. and of course contribute! Share your unique tiny agents and open PRs in [tiny-agents/tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents) dataset on the Hugging Face Hub.
+
+Pull requests and contributions are welcome! Again, everything here is [open source](https://github.com/huggingface/huggingface_hub)! 💎❤️
+
