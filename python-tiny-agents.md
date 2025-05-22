@@ -168,7 +168,7 @@ class MCPClient:
             })
 
 ```
-It supports `stdio` servers for local tools (like accessing your file system), and `sse`/`http` servers for remote tools!
+It supports `stdio` servers for local tools (like accessing your file system), and `http` servers for remote tools! (and even compatible with `sse` which is the previous standard for remote tools)
 
 ## Using the Tools: Streaming and Processing
 
