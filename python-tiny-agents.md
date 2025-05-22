@@ -169,7 +169,7 @@ class MCPClient:
             })
 
 ```
-It supports `stdio` servers for local tools (like accessing your file system), and `sse`/`http` servers for remote tools!
+It supports `stdio` servers for local tools (like accessing your file system), and `http` servers for remote tools! (and even compatible with `sse` which is the previous standard for remote tools)
 
 ## Using the Tools: Streaming and Processing
 
@@ -249,7 +249,7 @@ here, it first check if the tool called is a special control signal (an `exit_lo
 With the MCPClient doing all the job for tool interactions, our Agent class becomes wonderfully simple. It inherits from MCPClient and adds the conversation management logic.
 
 > [!TIP]
-> The Agent classis tiny and focuses on the conversational loop, the code can be found in https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/agent.py
+> The Agent class is tiny and focuses on the conversational loop, the code can be found in https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/agent.py
 
 ### 1. Intializing the Agent
 
