@@ -25,12 +25,29 @@ pip install "huggingface_hub[mcp]==0.32.0"
 
 Now, you can run an agent using the CLI. The coolest part? You can load agents directly from the Hugging Face Hub [tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents) Dataset or specify a path to your own local agent configuration! 
 
-The following command loads an agent configured to use [Qwen/Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) model via Nebius inference provider, and it comes equipped with a playwright MCP server, enabling it to perform browser automation tasks.
+```bash
+> tiny-agents run --help
+                                                                                                                                      
+ Usage: tiny-agents run [OPTIONS] [PATH] COMMAND [ARGS]...                                                                            
+                                                                                                                                      
+ Run the Agent in the CLI                                                                                                             
+                                                                                                                                      
+                                                                                                                                      
+╭─ Arguments ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│   path      [PATH]  Path to a local folder containing an agent.json file or a built-in agent stored in a Hugging Face dataset      │
+│                     (default: https://huggingface.co/datasets/tiny-agents/tiny-agents)                                             │
+│                     [default: None]                                                                                                │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ --help          Show this message and exit.                                                                                        │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+```
+The following command loads an agent configured to use [Qwen/Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) model via Nebius inference provider, and it comes equipped with a playwright MCP server, enabling it to perform browser automation tasks. The agent config is loaded from the [tiny-agents/tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents) Hugging Face dataset 
 
 ```bash
-tiny-agents run julien-c/local-coder
+> tiny-agents run julien-c/local-coder
 ```
-
 **TODO:** add video demo and snippet above
 
 When you run an agent, you'll see it load, listing the tools it has discovered from its connected MCP servers. Then, it's ready for your prompts!
