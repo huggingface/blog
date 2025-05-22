@@ -11,9 +11,9 @@ authors:
 Inspired by [Tiny Agents in JS](https://huggingface.co/blog/tiny-agents), we ported the idea to Python 🐍 and extended the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub/) client SDK to act as a MCP Client so it can pull tools from MCP servers and pass them to the LLM during inference.
 MCP ([Model Context Protocol](https://modelcontextprotocol.io/)) is an open protocol that standardizes how Large Language Models (LLMs) interact with external tools and APIs. Essentially, it gets rid of the need to write custom "glue code" for each tool, making it much simpler to plug new capabilities into your LLMs.
 
-In this article, we will walk you through the implementation of a tiny Python Agent that connects to MCP servers and show you just how easy it is to get your own powerful AI assistant up and running.
+In this blogpost, we'll explore the implementation of a _tiny_ Agent in Python that connects to MCP servers to utilize a variety of Tools. You'll discover just how surprisingly easy it is to get your own Agent up and running.
 
-_Spoiler_: An Agent is essentially a while loop built right on top of an MCP Client!
+_Spoiler_ : An Agent is essentially a while loop built right on top of an MCP Client!
 
 ## How to Run the Demo
 
@@ -37,7 +37,35 @@ When you run an agent, you'll see it load, listing the tools it has discovered f
 
 ### Agent Configuration 
 
-Each agent's behavior (its default model, provider, which MCP servers to connect to, and its initial system prompt) is defined by an agent.json file. You can also provide a custom PROMPT.md in the same directory for a more detailed system prompt.
+Each agent's behavior (its default model, inference provider, which MCP servers to connect to, and its initial system prompt) is defined by an `agent.json` file. You can also provide a custom `PROMPT.md` in the same directory for a more detailed system prompt. Here is an example:
+
+`agent.json`
+```json
+
+{
+    "model": "Qwen/Qwen2.5-72B-Instruct",
+    "provider": "nebius",
+    "servers": [
+        {
+            "type": "http", 
+            // An "http" MCP server is a web service that exposes Tools for the Agent.
+            // The Agent communicates with it over HTTP/HTTPS using the URL below
+            // to discover and execute those tools.
+            "config": {
+                "url": "https://evalstate-hf-mcp-server.hf.space/mcp"
+            }
+        }
+    ]
+}
+
+```
+`PROMPT.md`
+
+```
+You are an agent - please keep going until the user’s query is completely resolved [..]
+
+```
+
 
 > [!TIP]
 > You can find more details about Hugging Face Inference Providers [here](https://huggingface.co/docs/inference-providers/index).
