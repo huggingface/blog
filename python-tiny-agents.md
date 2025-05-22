@@ -62,7 +62,7 @@ Each agent's behavior (its default model, inference provider, which MCP servers 
 `PROMPT.md`
 
 ```
-You are an agent - please keep going until the user’s query is completely resolved [..]
+You are an agent - please keep going until the user’s query is completely resolved [...]
 
 ```
 
@@ -74,7 +74,7 @@ You are an agent - please keep going until the user’s query is completely reso
 
 modern LLMs are built for function calling (or tool use), which enables users to easily build applications tailored to specific use cases and real-world tasks. 
 
-A function is defined by its schema, which informs the LLM what it does and what input arguments it expects. The LLM decides when to use a tool, your Agent then orchestrates running the tool and feeding the result back.
+A function is defined by its schema, which informs the LLM what it does and what input arguments it expects. The LLM decides when to use a tool, the Agent then orchestrates running the tool and feeding the result back.
 
 ```python
 tools = [
@@ -98,11 +98,11 @@ tools = [
 ]
 ```
 
-`InferenceClient` implements the same tool calling interface as the [OpenAI Chat Completions API](https://platform.openai.com/docs/guides/function-calling?api-mode=chat), which is the standard adopted by inference providers and the community.
+`InferenceClient` implements the same tool calling interface as the [OpenAI Chat Completions API](https://platform.openai.com/docs/guides/function-calling?api-mode=chat), which is the established standard for inference providers and the community
 
 ## Building our Python MCPClient (Now in `huggingface_hub`!)
 
-The `MCPClient` is the heart of our tool-using capability. It's now part of `huggingface_hub` and uses the `AsyncInferenceClient` to talk to LLMs.
+The `MCPClient` is the heart of our tool-use functionality. It's now part of `huggingface_hub` and uses the `AsyncInferenceClient` to communicate with LLMs.
 
 > [!TIP]
 > The full `MCPClient` code is in [here](https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/mcp_client.py) if you want to follow along using the actual code 🤓
