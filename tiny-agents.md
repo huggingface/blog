@@ -7,6 +7,10 @@ authors:
 
 # Tiny Agents: an MCP-powered agent in 50 lines of code
 
+> [!WARNING]
+> New! (May 23, '25) If you prefer Python, check out the companion post
+> [`Tiny Agents in Python`](https://huggingface.co/blog/python-tiny-agents).
+
 Over the past few weeks, I've been diving into MCP ([Model Context Protocol](https://modelcontextprotocol.io/)) to understand what the hype around it was all about.
 
 My TL;DR is that it's fairly simple, but still quite powerful: **MCP is a standard API to expose sets of Tools that can be hooked to LLMs.**
