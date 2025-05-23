@@ -8,7 +8,7 @@ authors:
 - user: evalstate
   guest: true
 ---
-# Tiny Agents in Python: a MCP-powered agent in ~70 lines of code
+# Tiny Agents in Python: an MCP-powered agent in ~70 lines of code
 
 Inspired by [Tiny Agents in JS](https://huggingface.co/blog/tiny-agents), we ported the idea to Python 🐍 and extended the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub/) client SDK to act as a MCP Client so it can pull tools from MCP servers and pass them to the LLM during inference.
 
