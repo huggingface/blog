@@ -66,9 +66,19 @@ The following shows a web-browsing agent configured to use [Qwen/Qwen2.5-72B-Ins
 
 When you run the agent, you'll see it load, listing the tools it has discovered from its connected MCP servers. Then, it's ready for your prompts!
 
-The prompt used in this demo:
+Prompt used in this demo:
 
 > do a Web Search for HF inference providers on Brave Search and open the first result and then give me the list of the inference providers supported on Hugging Face 
+
+You can also use Gradio Spaces as MCP servers! The following example uses [Qwen/Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) model via Nebius inference provider, and connects to a `FLUX.1 [schnell]` image generation HF Space as an MCP server. The agent is loaded from its configuration in the [tiny-agents/tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents/tree/main/julien-c/flux-schnell-generator) dataset on the Hugging Face Hub.
+
+<video controls autoplay loop>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/python-tiny-agents/image-gen-agent.mp4" type="video/mp4">
+</video>
+
+Prompt used in this demo:
+
+> Generate a 1024x1024 image of a tiny astronaut hatching from an egg on the surface of the moon.
 
 Now that you've seen how to run existing Tiny Agents, the following sections will dive deeper into how they work and how to build your own.
 
