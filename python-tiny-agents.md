@@ -48,14 +48,21 @@ The coolest part is that you can load agents directly from the Hugging Face Hub 
 
 
 ```
+
+By default our Tiny Agent connects to the following two MCP servers:
+
+- the "canonical" [file system server](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem), which gets access to your Desktop,
+- and the [Playwright MCP](https://github.com/microsoft/playwright-mcp) server, which knows how to use a sandboxed Chromium browser for you.
+
+
 The following command loads an agent configured to use [Qwen/Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) model via Nebius inference provider, and it comes equipped with a playwright MCP server, which lets it use a web browser! The agent config is loaded from the [tiny-agents/tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents) Hugging Face dataset.
 
-```bash
-> tiny-agents run julien-c/local-coder
-```
-**TODO:** add video demo and snippet above
+<video controls autoplay loop>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/python-tiny-agents/web_browser_agent.mp4" type="video/mp4">
+</video>
 
 When you run an agent, you'll see it load, listing the tools it has discovered from its connected MCP servers. Then, it's ready for your prompts!
+
 
 ### Agent Configuration 
 
