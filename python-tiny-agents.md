@@ -89,7 +89,7 @@ Each agent's behavior (its default model, inference provider, which MCP servers 
 `agent.json`
 ```json
 {
-    // 
+    // LLM and inference provider used by the agent
 	"model": "Qwen/Qwen2.5-72B-Instruct",
 	"provider": "nebius",
 	"servers": [
