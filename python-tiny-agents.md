@@ -11,6 +11,7 @@ authors:
 # Tiny Agents in Python: a MCP-powered agent in ~70 lines of code
 
 Inspired by [Tiny Agents in JS](https://huggingface.co/blog/tiny-agents), we ported the idea to Python 🐍 and extended the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub/) client SDK to act as a MCP Client so it can pull tools from MCP servers and pass them to the LLM during inference.
+
 MCP ([Model Context Protocol](https://modelcontextprotocol.io/)) is an open protocol that standardizes how Large Language Models (LLMs) interact with external tools and APIs. Essentially, it gets rid of the need to write custom integrations for each tool, making it simpler to plug new capabilities into your LLMs.
 
 In this blogpost, we'll get you up and running with a _tiny_ Agent in Python connected to MCP servers to utilize a variety of Tools. You'll discover just how surprisingly easy it is to get your own Agent up and running.
@@ -28,7 +29,7 @@ pip install "huggingface_hub[mcp]>=0.32.0"
 
 Now, let's run an agent using the CLI! 
 
-The coolest part is that you can load agents directly from the Hugging Face Hub in a [tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents) Dataset or specify a path to your own local agent configuration! 
+The coolest part is that you can load agents directly from the Hugging Face Hub [tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents) Dataset, or specify a path to your own local agent configuration! 
 
 ```bash
 > tiny-agents run --help
@@ -48,7 +49,7 @@ The coolest part is that you can load agents directly from the Hugging Face Hub 
 
 
 ```
-The following command loads an agent configured to use [Qwen/Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) model via Nebius inference provider, and it comes equipped with a playwright MCP server, which lets it use a web browser! The agent config is loaded from the [tiny-agents/tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents) Hugging Face dataset.
+The following command loads an agent configured to use [Qwen/Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) model via Nebius inference provider, and it comes equipped with a playwright MCP server, which lets it use a web browser! The agent config is loaded specifying [its path in the `tiny-agents/tiny-agents`](https://huggingface.co/datasets/tiny-agents/tiny-agents/tree/main/julien-c/local-coder) Hugging Face dataset.
 
 ```bash
 > tiny-agents run julien-c/local-coder
@@ -120,7 +121,7 @@ tools = [
 ]
 ```
 
-`InferenceClient` implements the same tool calling interface as the [OpenAI Chat Completions API](https://platform.openai.com/docs/guides/function-calling?api-mode=chat), which is the established standard for inference providers and the community
+`InferenceClient` implements the same tool calling interface as the [OpenAI Chat Completions API](https://platform.openai.com/docs/guides/function-calling?api-mode=chat), which is the established standard for inference providers and the community.
 
 ## Building our Python MCPClient (Now in `huggingface_hub`!)
 
@@ -173,7 +174,7 @@ class MCPClient:
             })
 
 ```
-It supports `stdio` servers for local tools (like accessing your file system), and `http` servers for remote tools! (and even compatible with `sse` which is the previous standard for remote tools)
+It supports `stdio` servers for local tools (like accessing your file system), and `http` servers for remote tools! It's also compatible with `sse`, which is the previous standard for remote tools.
 
 ## Using the Tools: Streaming and Processing
 
@@ -181,7 +182,7 @@ The `MCPClient`'s `process_single_turn_with_tools` method is where the LLM inter
 
 ### 1. Prepare tools and calling the LLM
 
-First, the method determines all tools the LLM should be aware of for the current turn – this includes tools from MCP servers and any special "exit loop" tools for agent control, then, it makes a streaming call to the LLM
+First, the method determines all tools the LLM should be aware of for the current turn – this includes tools from MCP servers and any special "exit loop" tools for agent control; then, it makes a streaming call to the LLM:
 
 ```python
 # From MCPClient.process_single_turn_with_tools
