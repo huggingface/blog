@@ -6,6 +6,7 @@ authors:
 - user: julien-c
 - user: Wauplin
 - user: evalstate
+  guest: true
 ---
 # Tiny Agents in Python: a MCP-powered agent in ~70 lines of code
 
