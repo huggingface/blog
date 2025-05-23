@@ -1,6 +1,6 @@
 ---
 title: "Dell Enterprise Hub is all you need to build AI on premises" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+thumbnail: blog/assets/dell-ai-applications/dell-post-thumbnail.png
 authors:
 - user: jeffboudier
 - user: andrewrreed
@@ -18,6 +18,7 @@ authors:
 
 This week at Dell Tech World, we announced the new version of [Dell Enterprise Hub](https://dell.huggingface.co/), with a complete suite of models and applications to easily build AI running on premises with Dell AI servers and AI PCs.
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dell-ai-applications/dell-post-thumbnail.png" alt="Dell and Hugging Face announcing the Dell Enterprise Hub">
 
 ## Models Ready for Action
 
@@ -25,7 +26,7 @@ If you go to the Dell Enterprise Hub today, you can find some of the most popula
 
 But what you get is much more than a model, it’s a fully tested container optimized for specific Dell AI Server Platforms, with easy instructions to deploy on-premises using Docker and Kubernetes.
 
-
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dell-ai-applications/dell-blog-1.png" alt="Meta Llama 4 Maverick available for Dell AI Server platforms">
 _Meta Llama 4 Maverick can be deployed on NVIDIA H200 or AMD MI300X Dell PowerEdge servers_
 
 We continuously work with Dell CTIO and Engineering teams to make the latest and greatest models ready, tested and optimized for Dell AI Server platforms as quickly as possible - Llama 4 models were available on the Dell Enterprise Hub within 1 hour of their public release by Meta!
@@ -38,17 +39,19 @@ If models are engines, then applications are the cars that make them useful so y
 
 The new [Application Catalog](https://dell.huggingface.co/authenticated/apps) makes it easy to deploy leading open source applications within your private network, including [OpenWebUI](https://github.com/open-webui/open-webui) and [AnythingLLM](https://anythingllm.com/).
 
-
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dell-ai-applications/dell-blog-2.png" alt="OpenWebUI and AnythingLLM available in the Dell Application Catalog">
 
 [OpenWebUI](https://dell.huggingface.co/authenticated/apps/openwebui) makes it easy to deploy on-premises chatbot assistants that connect to your internal data and services via MCP, to build agentic experiences that can search the web, retrieve internal data with vector databases and storage for RAG use cases. 
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dell-ai-applications/dell-blog-3-openwebui.png" alt="OpenWebUI User Interface">
 
 [AnythingLLM](https://dell.huggingface.co/authenticated/apps/anythingllm) makes it easy to build powerful agentic assistants connecting to multiple MCP servers so you can connect your internal systems or even external services. It includes features to enable multiple models, working with images, documents and set role-based access controls for your internal users.
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dell-ai-applications/dell-blog-4-anythingllm.png" alt="AnythingLLM User Interface">
 
 These applications are easy to deploy using the provided, customizable helm charts so your MCP servers are registered from the get go.
 
-
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dell-ai-applications/dell-blog-5-helm.png" alt="Deployment instructions for OpenWebUI on Dell AI Server">
 
 ## Powered by NVIDIA, AMD and Intel
 
@@ -57,7 +60,7 @@ Dell Enterprise Hub is the only platform in the world that offers ready-to-use m
 - AMD MI300X powered Dell platforms
 - Intel Gaudi 3 powered Dell platforms
 
-
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dell-ai-applications/dell-blog-6.png" alt="Dell Enterprise Hub supports NVIDIA, AMD and Intel powered Dell AI Servers">
 
 We work directly with Dell, NVIDIA, AMD and Intel so that when you deploy a container on your system, it’s all configured and ready to go, has been fully tested and benchmarked so it runs with the best performance out of the box on your Dell AI Server platform.
 
@@ -65,7 +68,7 @@ We work directly with Dell, NVIDIA, AMD and Intel so that when you deploy a cont
 
 The new Dell Enterprise Hub now provides support for models to run on-device on Dell AI PCs in addition to AI Servers!
 
-
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dell-ai-applications/dell-blog-7-AI-PC.png" alt="Model Catalog includes many models for on-device inference on Dell AI PCs">
 
 These models enable on-device speech transcription (OpenAI whisper), chat assistants (Microsoft Phi and Qwen 2.5), upscaling images and generating embeddings.
 
@@ -77,6 +80,7 @@ Dell Enterprise Hub offers an online portal into AI capabilities for Dell AI Ser
 
 Introducing the new [dell-ai open source library](https://github.com/huggingface/dell-ai) with a Python SDK and CLI, so you can use Dell Enterprise Hub within your environment directly from your terminal or code - just `pip install dell-ai`
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dell-ai-applications/dell-blog-8-CLI.png" alt="Available commands for dell-ai CLI">
 
 ## Wrapping up
 
