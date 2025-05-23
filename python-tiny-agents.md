@@ -233,7 +233,7 @@ First, the method determines all tools the LLM should be aware of for the curren
 As chunks arrive from the LLM, the method iterates through them. Each chunk is immediately yielded, then we reconstruct the complete text response and any tool calls.
 
 ```python
-# Lines 242-279 of `MCPClient.process_single_turn_with_tools` 
+# Lines 258-290 of `MCPClient.process_single_turn_with_tools` 
 # https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/mcp_client.py#L258:L290
 # Read from stream
 async for chunk in response:
