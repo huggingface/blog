@@ -112,7 +112,7 @@ Well, we can do this by giving our agent an access to these parameters!
 
 Let's setup this system. 
 
-Tun the line below to install required dependancies:
+Run the line below to install the required dependencies:
 ```
 pip install langchain sentence-transformers faiss-cpu
 ```
