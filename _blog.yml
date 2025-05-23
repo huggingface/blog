@@ -6040,3 +6040,14 @@
     - diffusers
     - quantization
     - flux
+
+- local: python-tiny-agents 
+  title: "Tiny Agents in Python: a MCP-powered agent in ~70 lines of code"
+  author: celinah
+  thumbnail: /blog/assets/python-tiny-agents/thumbnail.png
+  date: May 23, 2025
+  tags:
+    - agents
+    - hub
+    - inference
+    - mcp
