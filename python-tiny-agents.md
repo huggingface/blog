@@ -286,7 +286,7 @@ With the `MCPClient` doing all the job for tool interactions, our `Agent` class 
 > [!TIP]
 > The Agent class is tiny and focuses on the conversational loop, the code can be found [here](https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/agent.py). 
 
-### 1. Intializing the Agent
+### 1. Initializing the Agent
 
 When an Agent is created, it takes an agent config (model, provider, which MCP servers to use, system prompt) and initializes the conversation history with the system prompt. The `load_tools()` method then iterates through the server configurations (defined in agent.json) and calls `add_mcp_server` (from the parent `MCPClient`) for each one, populating the agent's toolbox.
 
