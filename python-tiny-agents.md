@@ -78,21 +78,21 @@ Each agent's behavior (its default model, inference provider, which MCP servers 
 
 `agent.json`
 ```json
-
 {
-    "model": "Qwen/Qwen2.5-72B-Instruct",
-    "provider": "nebius",
-    "servers": [
-        {
-            "type": "http", 
-            // An "http" MCP server is a web service that exposes Tools for the Agent.
-            // The Agent communicates with it over HTTP/HTTPS using the URL below
-            // to discover and execute those tools.
-            "config": {
-                "url": "https://evalstate-hf-mcp-server.hf.space/mcp"
-            }
-        }
-    ]
+	"model": "Qwen/Qwen2.5-72B-Instruct",
+	"provider": "nebius",
+	"servers": [
+		{
+			"type": "stdio",
+            // A "stdio" MCP server runs as a local process.
+            // The Agent starts it using the command below and communicates via stdin/stdout
+            // to discover and execute available tools.
+			"config": {
+				"command": "npx",
+				"args": ["@playwright/mcp@latest"]
+			}
+		}
+	]
 }
 
 ```
