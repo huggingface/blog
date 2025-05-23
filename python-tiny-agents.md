@@ -94,10 +94,10 @@ Each agent's behavior (its default model, inference provider, which MCP servers 
 	"provider": "nebius",
 	"servers": [
 		{
-			"type": "stdio",
             // A "stdio" MCP server runs as a local process.
             // The Agent starts it using the command below and communicates via stdin/stdout
             // to discover and execute available tools.
+			"type": "stdio",
 			"config": {
 				"command": "npx",
 				"args": ["@playwright/mcp@latest"]
