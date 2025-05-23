@@ -21,7 +21,7 @@ In this blogpost, we'll get you up and running with a _tiny_ Agent in Python con
 
 ## How to Run the Demo
 
-This section walks you through how to use existing Tiny Agents — either local ones or those available in the community-contributed [tiny-agents/tiny-agents]((https://huggingface.co/datasets/tiny-agents/tiny-agents)) dataset on the Hugging Face Hub. We'll cover the setup and the commands to get an agent running.
+This section walks you through how to use existing Tiny Agents. We'll cover the setup and the commands to get an agent running.
 
 First, you need to install the latest version of huggingface_hub with the mcp extra to get all the necessary components.
 
@@ -58,7 +58,7 @@ If you don't provide a path to a specific agent configuration, our Tiny Agent wi
 - and the [Playwright MCP](https://github.com/microsoft/playwright-mcp) server, which knows how to use a sandboxed Chromium browser for you.
 
 
-The following shows a web-browsing agent configured to use [Qwen/Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) model via Nebius inference provider, and it comes equipped with a playwright MCP server, which lets it use a web browser! The agent config is loaded specifying [its path in the `tiny-agents/tiny-agents`](https://huggingface.co/datasets/tiny-agents/tiny-agents/tree/main/celinah/web-browser) Hugging Face dataset.
+The following example shows a web-browsing agent configured to use [Qwen/Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) model via Nebius inference provider, and it comes equipped with a playwright MCP server, which lets it use a web browser! The agent config is loaded specifying [its path in the `tiny-agents/tiny-agents`](https://huggingface.co/datasets/tiny-agents/tiny-agents/tree/main/celinah/web-browser) Hugging Face dataset.
 
 <video controls autoplay loop>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/python-tiny-agents/web_browser_agent.mp4" type="video/mp4">
