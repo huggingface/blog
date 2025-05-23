@@ -87,16 +87,15 @@ Now that you've seen how to run existing Tiny Agents, the following sections wil
 Each agent's behavior (its default model, inference provider, which MCP servers to connect to, and its initial system prompt) is defined by an `agent.json` file. You can also provide a custom `PROMPT.md` in the same directory for a more detailed system prompt. Here is an example:
 
 `agent.json`
+The `model` and `provider` fields specify the LLM and inference provider used by the agent.
+The `servers` array defines the MCP servers the agent will connect to.
+In this example, a "stdio" MCP server is configured. This type of server runs as a local process. The Agent starts it using the specified `command` and `args`, and then communicates with it via stdin/stdout to discover and execute available tools.
 ```json
 {
-    // LLM and inference provider used by the agent
 	"model": "Qwen/Qwen2.5-72B-Instruct",
 	"provider": "nebius",
 	"servers": [
 		{
-            // A "stdio" MCP server runs as a local process.
-            // The Agent starts it using the command below and communicates via stdin/stdout
-            // to discover and execute available tools.
 			"type": "stdio",
 			"config": {
 				"command": "npx",
@@ -148,7 +147,7 @@ tools = [
 
 `InferenceClient` implements the same tool calling interface as the [OpenAI Chat Completions API](https://platform.openai.com/docs/guides/function-calling?api-mode=chat), which is the established standard for inference providers and the community.
 
-## Building our Python MCP Client (Now in `huggingface_hub`!)
+## Building our Python MCP Client
 
 The `MCPClient` is the heart of our tool-use functionality. It's now part of `huggingface_hub` and uses the `AsyncInferenceClient` to communicate with LLMs.
 
