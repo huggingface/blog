@@ -26,8 +26,8 @@ If you go to the Dell Enterprise Hub today, you can find some of the most popula
 
 But what you get is much more than a model, it’s a fully tested container optimized for specific Dell AI Server Platforms, with easy instructions to deploy on-premises using Docker and Kubernetes.
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dell-ai-applications/dell-blog-1.png" alt="Meta Llama 4 Maverick available for Dell AI Server platforms">
-_Meta Llama 4 Maverick can be deployed on NVIDIA H200 or AMD MI300X Dell PowerEdge servers_
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dell-ai-applications/dell-blog-1.png" alt="Meta Llama 4 Maverick available for Dell AI Server platforms"><br>
+<em>Meta Llama 4 Maverick can be deployed on NVIDIA H200 or AMD MI300X Dell PowerEdge servers</em>
 
 We continuously work with Dell CTIO and Engineering teams to make the latest and greatest models ready, tested and optimized for Dell AI Server platforms as quickly as possible - Llama 4 models were available on the Dell Enterprise Hub within 1 hour of their public release by Meta!
 
