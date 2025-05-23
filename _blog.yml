@@ -6055,7 +6055,7 @@
 - local: dell-ai-applications
   title: "Dell Enterprise Hub is all you need to build AI on premises"
   author: jeffboudier
-  thumbnail: blog/assets/dell-ai-applications/dell-post-thumbnail.png
+  thumbnail: /blog/assets/dell-ai-applications/dell-post-thumbnail.png
   date: May 23, 2025
   tags:
     - dell
