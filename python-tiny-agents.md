@@ -10,21 +10,24 @@ authors:
 # Tiny Agents in Python: a MCP-powered agent in ~70 lines of code
 
 Inspired by [Tiny Agents in JS](https://huggingface.co/blog/tiny-agents), we ported the idea to Python 🐍 and extended the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub/) client SDK to act as a MCP Client so it can pull tools from MCP servers and pass them to the LLM during inference.
-MCP ([Model Context Protocol](https://modelcontextprotocol.io/)) is an open protocol that standardizes how Large Language Models (LLMs) interact with external tools and APIs. Essentially, it gets rid of the need to write custom "glue code" for each tool, making it much simpler to plug new capabilities into your LLMs.
+MCP ([Model Context Protocol](https://modelcontextprotocol.io/)) is an open protocol that standardizes how Large Language Models (LLMs) interact with external tools and APIs. Essentially, it gets rid of the need to write custom integrations for each tool, making it simpler to plug new capabilities into your LLMs.
 
-In this blogpost, we'll explore the implementation of a _tiny_ Agent in Python that connects to MCP servers to utilize a variety of Tools. You'll discover just how surprisingly easy it is to get your own Agent up and running.
+In this blogpost, we'll get you up and running with a _tiny_ Agent in Python connected to MCP servers to utilize a variety of Tools. You'll discover just how surprisingly easy it is to get your own Agent up and running.
 
-_Spoiler_ : An Agent is essentially a while loop built right on top of an MCP Client!
+> [!TIP]
+> _Spoiler_ : An Agent is essentially a while loop built right on top of an MCP Client!
 
 ## How to Run the Demo
 
 First, you need to install the latest version of huggingface_hub with the mcp extra to get all the necessary components.
 
 ```bash
-pip install "huggingface_hub[mcp]==0.32.0"
+pip install "huggingface_hub[mcp]>=0.32.0"
 ```
 
-Now, you can run an agent using the CLI. The coolest part? You can load agents directly from the Hugging Face Hub [tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents) Dataset or specify a path to your own local agent configuration! 
+Now, let's run an agent using the CLI! 
+
+The coolest part is that you can load agents directly from the Hugging Face Hub in a [tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents) Dataset or specify a path to your own local agent configuration! 
 
 ```bash
 > tiny-agents run --help
@@ -44,7 +47,7 @@ Now, you can run an agent using the CLI. The coolest part? You can load agents d
 
 
 ```
-The following command loads an agent configured to use [Qwen/Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) model via Nebius inference provider, and it comes equipped with a playwright MCP server, enabling it to perform browser automation tasks. The agent config is loaded from the [tiny-agents/tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents) Hugging Face dataset.
+The following command loads an agent configured to use [Qwen/Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) model via Nebius inference provider, and it comes equipped with a playwright MCP server, which lets it use a web browser! The agent config is loaded from the [tiny-agents/tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents) Hugging Face dataset.
 
 ```bash
 > tiny-agents run julien-c/local-coder
@@ -90,7 +93,7 @@ You are an agent - please keep going until the user’s query is completely reso
 
 ### LLMs Can Use Tools
 
-modern LLMs are built for function calling (or tool use), which enables users to easily build applications tailored to specific use cases and real-world tasks. 
+Modern LLMs are built for function calling (or tool use), which enables users to easily build applications tailored to specific use cases and real-world tasks. 
 
 A function is defined by its schema, which informs the LLM what it does and what input arguments it expects. The LLM decides when to use a tool, the Agent then orchestrates running the tool and feeding the result back.
 
@@ -242,7 +245,7 @@ for tool_call in final_tool_calls.values():
 
 ```
 
-here, it first check if the tool called is a special control signal (an `exit_loop_tool`). If not, it finds the correct MCP session responsible for that tool and calls `session.call_tool()`. The result (it can be an error as well) is then formatted, added to the conversation history, and yielded so the Agent is aware of the tool's output.
+Here, it first checks if the tool called exits the loop (`exit_loop_tool`). If not, it finds the correct MCP session responsible for that tool and calls `session.call_tool()`. The result (or error response) is then formatted, added to the conversation history, and yielded so the Agent is aware of the tool's output.
 
 ## Our Tiny Python Agent: It's (Almost) Just a Loop! 
 
@@ -321,13 +324,13 @@ async def run(self, user_input: str, *, abort_event: Optional[asyncio.Event] = N
 
 Inside the `run()` loop:
 - It first adds the user prompt to the conversation.
-- Then it calls crucial `MCPClient.process_single_turn_with_tools(...)` to get the LLM's response and handle any tool executions for one step of reasoning.
+- Then it calls `MCPClient.process_single_turn_with_tools(...)` to get the LLM's response and handle any tool executions for one step of reasoning.
 - Each item is immediately yielded, enabling real-time streaming to the caller.
 - After each step, it checks exit conditions: if a special “exit loop” tools was used, if a maximum turn limit is hit, or if the LLM provides a text response that seems final for the current request.
 
 ## Next Steps
 
-there are a lot of cool ways to explore and expand upon the MCP Client and the Tiny Agent 🔥 Here are some ideas to get you started:
+There are a lot of cool ways to explore and expand upon the MCP Client and the Tiny Agent 🔥 Here are some ideas to get you started:
 
 - Benchmark how different LLM models and inference providers impact agentic performance: Tool calling performance can differ because each provider may optimize it differently. You can find the list of supported providers [here](https://huggingface.co/docs/inference-providers/index#partners).
 - Run tiny agents with local LLM inference servers, such as [llama.cpp](https://github.com/ggerganov/llama.cpp), or [LM Studio](https://lmstudio.ai/).
