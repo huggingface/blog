@@ -1,6 +1,6 @@
 ---
 title: "Dell Enterprise Hub is all you need to build AI on premises" 
-thumbnail: blog/assets/dell-ai-applications/dell-post-thumbnail.png
+thumbnail: /blog/assets/dell-ai-applications/dell-post-thumbnail.png
 authors:
 - user: jeffboudier
 - user: andrewrreed
