@@ -89,6 +89,7 @@ Each agent's behavior (its default model, inference provider, which MCP servers 
 `agent.json`
 ```json
 {
+    // 
 	"model": "Qwen/Qwen2.5-72B-Instruct",
 	"provider": "nebius",
 	"servers": [
@@ -164,6 +165,7 @@ Key responsibilities of the `MCPClient`:
 ​​Here’s a glimpse of how it connects to an MCP server (the `add_mcp_server` method):
 
 ```python
+# https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/mcp_client.py#L111:L219
 class MCPClient:
     ...
     async def add_mcp_server(self, type: ServerType, **params: Any):
@@ -210,6 +212,7 @@ First, the method determines all tools the LLM should be aware of for the curren
 
 ```python
 # From MCPClient.process_single_turn_with_tools
+# https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/mcp_client.py#L241:L251
 
     # Prepare tools list based on options
     tools = self.available_tools
@@ -229,7 +232,8 @@ First, the method determines all tools the LLM should be aware of for the curren
 As chunks arrive from the LLM, the method iterates through them. Each chunk is immediately yielded, then we reconstruct the complete text response and any tool calls.
 
 ```python
-# Lines 242-279 of `MCPClient.process_single_turn_with_tools`
+# Lines 242-279 of `MCPClient.process_single_turn_with_tools` 
+# https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/mcp_client.py#L258:L290
 # Read from stream
 async for chunk in response:
       # Yield each chunk to caller
@@ -244,6 +248,7 @@ Once the stream is complete, if the LLM requested any tool calls (now fully reco
 
 ```python
 # From MCPClient.process_single_turn_with_tools
+# https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/mcp_client.py#L293:L313
 for tool_call in final_tool_calls.values():
     function_name = tool_call.function.name
     function_args = json.loads(tool_call.function.arguments or "{}")
@@ -265,6 +270,7 @@ for tool_call in final_tool_calls.values():
         tool_message["content"] = format_result(result) # format_result processes tool output
     else:
         tool_message["content"] = f"Error: No session found for tool: {function_name}"
+        tool_message["content"] = error_msg
 
     # Add tool result to history and yield it
     ...
@@ -286,7 +292,7 @@ When an Agent is created, it takes an agent config (model, provider, which MCP s
 
 ```python
 # From your Agent class in agent.py
-
+# https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/agent.py#L12:L54
 class Agent(MCPClient):
     def __init__(
         self,
@@ -319,6 +325,7 @@ The `Agent.run()` method is an asynchronous generator that processes a single us
 
 ```python
 # Key parts of Agent.run() in agent.py
+# https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/agent.py#L56:L99
 async def run(self, user_input: str, *, abort_event: Optional[asyncio.Event] = None, ...) -> AsyncGenerator[...]:
     ...
     while True: # Main loop for processing the user_input
