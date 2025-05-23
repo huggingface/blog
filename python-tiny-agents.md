@@ -14,7 +14,7 @@ Inspired by [Tiny Agents in JS](https://huggingface.co/blog/tiny-agents), we por
 
 MCP ([Model Context Protocol](https://modelcontextprotocol.io/)) is an open protocol that standardizes how Large Language Models (LLMs) interact with external tools and APIs. Essentially, it gets rid of the need to write custom integrations for each tool, making it simpler to plug new capabilities into your LLMs.
 
-In this blogpost, we'll get you up and running with a _tiny_ Agent in Python connected to MCP servers to utilize a variety of Tools. You'll discover just how surprisingly easy it is to get your own Agent up and running.
+In this blog post, we'll show you how to get started with a tiny Agent in Python connected to MCP servers to unlock powerful tool capabilities. You'll see just how easy it is to spin up your own Agent and start building!
 
 > [!TIP]
 > _Spoiler_ : An Agent is essentially a while loop built right on top of an MCP Client!
@@ -23,7 +23,7 @@ In this blogpost, we'll get you up and running with a _tiny_ Agent in Python con
 
 This section walks you through how to use existing Tiny Agents. We'll cover the setup and the commands to get an agent running.
 
-First, you need to install the latest version of huggingface_hub with the mcp extra to get all the necessary components.
+First, you need to install the latest version of `huggingface_hub` with the `mcp` extra to get all the necessary components.
 
 ```bash
 pip install "huggingface_hub[mcp]>=0.32.0"
@@ -148,7 +148,7 @@ tools = [
 
 `InferenceClient` implements the same tool calling interface as the [OpenAI Chat Completions API](https://platform.openai.com/docs/guides/function-calling?api-mode=chat), which is the established standard for inference providers and the community.
 
-## Building our Python MCPClient (Now in `huggingface_hub`!)
+## Building our Python MCP Client (Now in `huggingface_hub`!)
 
 The `MCPClient` is the heart of our tool-use functionality. It's now part of `huggingface_hub` and uses the `AsyncInferenceClient` to communicate with LLMs.
 
@@ -165,6 +165,7 @@ Key responsibilities of the `MCPClient`:
 ​​Here’s a glimpse of how it connects to an MCP server (the `add_mcp_server` method):
 
 ```python
+# Lines 111-219 of `MCPClient.add_mcp_server`
 # https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/mcp_client.py#L111:L219
 class MCPClient:
     ...
@@ -211,7 +212,7 @@ The `MCPClient`'s `process_single_turn_with_tools` method is where the LLM inter
 First, the method determines all tools the LLM should be aware of for the current turn – this includes tools from MCP servers and any special "exit loop" tools for agent control; then, it makes a streaming call to the LLM:
 
 ```python
-# From MCPClient.process_single_turn_with_tools
+# Lines 241-251 of `MCPClient.process_single_turn_with_tools`
 # https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/mcp_client.py#L241:L251
 
     # Prepare tools list based on options
@@ -244,10 +245,10 @@ async for chunk in response:
 
 ### 2. Executing tools
 
-Once the stream is complete, if the LLM requested any tool calls (now fully reconstructed in final_tool_calls), the method processes each one:
+Once the stream is complete, if the LLM requested any tool calls (now fully reconstructed in `final_tool_calls`), the method processes each one:
 
 ```python
-# From MCPClient.process_single_turn_with_tools
+# Lines 293-313 of `MCPClient.process_single_turn_with_tools` 
 # https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/mcp_client.py#L293:L313
 for tool_call in final_tool_calls.values():
     function_name = tool_call.function.name
@@ -277,11 +278,11 @@ for tool_call in final_tool_calls.values():
 
 ```
 
-Here, it first checks if the tool called exits the loop (`exit_loop_tool`). If not, it finds the correct MCP session responsible for that tool and calls `session.call_tool()`. The result (or error response) is then formatted, added to the conversation history, and yielded so the Agent is aware of the tool's output.
+It first checks if the tool called exits the loop (`exit_loop_tool`). If not, it finds the correct MCP session responsible for that tool and calls `session.call_tool()`. The result (or error response) is then formatted, added to the conversation history, and yielded so the Agent is aware of the tool's output.
 
 ## Our Tiny Python Agent: It's (Almost) Just a Loop! 
 
-With the MCPClient doing all the job for tool interactions, our Agent class becomes wonderfully simple. It inherits from MCPClient and adds the conversation management logic.
+With the `MCPClient` doing all the job for tool interactions, our `Agent` class becomes wonderfully simple. It inherits from `MCPClient` and adds the conversation management logic.
 
 > [!TIP]
 > The Agent class is tiny and focuses on the conversational loop, the code can be found in https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/agent.py
@@ -291,7 +292,7 @@ With the MCPClient doing all the job for tool interactions, our Agent class beco
 When an Agent is created, it takes an agent config (model, provider, which MCP servers to use, system prompt) and initializes the conversation history with the system prompt. The `load_tools()` method then iterates through the server configurations (defined in agent.json) and calls `add_mcp_server` (from the parent `MCPClient`) for each one, populating the agent's toolbox.
 
 ```python
-# From your Agent class in agent.py
+# Lines 12-54 of `Agent` 
 # https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/agent.py#L12:L54
 class Agent(MCPClient):
     def __init__(
@@ -324,7 +325,7 @@ class Agent(MCPClient):
 The `Agent.run()` method is an asynchronous generator that processes a single user input. It manages the conversation turns, deciding when the agent's current task is complete.
 
 ```python
-# Key parts of Agent.run() in agent.py
+# Lines 56-99 of `Agent.run()`
 # https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/inference/_mcp/agent.py#L56:L99
 async def run(self, user_input: str, *, abort_event: Optional[asyncio.Event] = None, ...) -> AsyncGenerator[...]:
     ...
@@ -359,7 +360,7 @@ Inside the `run()` loop:
 - It first adds the user prompt to the conversation.
 - Then it calls `MCPClient.process_single_turn_with_tools(...)` to get the LLM's response and handle any tool executions for one step of reasoning.
 - Each item is immediately yielded, enabling real-time streaming to the caller.
-- After each step, it checks exit conditions: if a special “exit loop” tools was used, if a maximum turn limit is hit, or if the LLM provides a text response that seems final for the current request.
+- After each step, it checks exit conditions: if a special "exit loop" tools was used, if a maximum turn limit is hit, or if the LLM provides a text response that seems final for the current request.
 
 ## Next Steps
 
