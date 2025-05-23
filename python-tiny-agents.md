@@ -73,7 +73,7 @@ Prompt used in this demo:
 You can also use Gradio Spaces as MCP servers! The following example uses [Qwen/Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) model via Nebius inference provider, and connects to a `FLUX.1 [schnell]` image generation HF Space as an MCP server. The agent is loaded from its configuration in the [tiny-agents/tiny-agents](https://huggingface.co/datasets/tiny-agents/tiny-agents/tree/main/julien-c/flux-schnell-generator) dataset on the Hugging Face Hub.
 
 <video controls autoplay loop>
-  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/python-tiny-agents/image-gen-agent.mp4" type="video/mp4">
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/python-tiny-agents/image-generation.mp4" type="video/mp4">
 </video>
 
 Prompt used in this demo:
