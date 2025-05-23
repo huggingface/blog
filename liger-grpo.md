@@ -21,7 +21,7 @@ authors:
 # 🐯 Liger GRPO meets TRL
 
 TL; DR
-[Liger](https://github.com/linkedin/Liger-Kernel) supercharges [TRL](https://github.com/huggingface/trl)’s [GRPO Trainer](https://huggingface.co/docs/trl/grpo_trainer) by slashing memory usage by **40%** with zero drop in model quality. We also added support for **FSDP** and **PEFT**, making it easier than ever to scale GRPO across multiple GPUs.
+[Liger](https://github.com/linkedin/Liger-Kernel) supercharges [TRL](https://github.com/huggingface/trl)’s Group Relative Policy Optimization [GRPO Trainer](https://huggingface.co/docs/trl/grpo_trainer) by slashing memory usage by **40%** with zero drop in model quality. We also added support for **FSDP** and **PEFT**, making it easier than ever to scale GRPO across multiple GPUs.
 
 ## Motivation
 
