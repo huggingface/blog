@@ -31,7 +31,7 @@ However, RLHF with PPO is a very resource-hungry approach - PPO requires loading
 
 Group Relative Policy Optimization (GRPO) has seen significant recent popularity alongside DeepSeek's R1 model. GRPO eschews the pre-trained reward model and value models used in RLHF and instead relies on *verifiable reward functions* which can check the correctness of a model's output in a closed-form manner without needing an external reward model. This has resulted in massive improvements when using GRPO instead of PPO for fine-tuning on domains which are easily verifiable, such as teaching a model to reason, and perform well on math and coding tasks. 
 
-The following diagram shows GRPO vs PPO training pipeline (ref: [DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models](https://huggingface.co/papers/2402.03300)):
+The following diagram shows the GRPO vs PPO training pipeline (ref: Figure 4 of [DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models](https://huggingface.co/papers/2402.03300)):
 
 ![PPO-vs-GRPO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/liger-grpo/image5.png)
 
