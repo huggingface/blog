@@ -2264,3 +2264,15 @@
     - llm
     - nlp
     - vision
+
+- local: vlms-2025
+  title: "视觉语言模型（更好、更快、更强）"
+  author: virtuoasis
+  thumbnail: /blog/assets/vlms2/vlms2.png
+  date: May 12, 2025
+  tags:
+    - vlm
+    - vision
+    - multimodal
+    - community
+    - research
