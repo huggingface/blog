@@ -126,7 +126,7 @@ Our results also reveal a clear capability threshold: models need sufficient ins
 - Models with strong instruction-following capabilities
 - Models fine-tuned on structured generation.
 
-### **When Structure Breaks: A Real Example**
+#### **When Structure Breaks: A Real Example**
 
 Here's what happens when a smaller model (e.g `mistralai/Mistral-7B-Instruct-v0.3`) tries to generate structured code - the cognitive load becomes too much:
 
