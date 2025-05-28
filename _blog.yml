@@ -6074,3 +6074,16 @@
     - trl
     - partnership
     - llm
+
+- local: structured-codeagent
+  title: "CodeAgents + Structure: A Better Way to Execute Actions"
+  author: akseljoonas
+  thumbnail: /blog/assets/structured-codeagent/thumbnail-codeagent.png
+  date: May 28, 2024
+  tags:
+    - agents
+    - smolagents
+    - open-source
+    - nlp
+    - tools
+    - community
