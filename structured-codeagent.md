@@ -90,7 +90,7 @@ Across most capable models, the structured approach consistently outperformed th
 
 ### **The Parsing Problem is Real**
 
-Our current implementation of CodeAgent extracts Python code from markdown, which can fail when:
+Our [implementation of CodeAgent in smolagents](https://github.com/huggingface/smolagents/blob/6a12ebdf210207eec22d5940157f522463fc1c59/src/smolagents/agents.py#L1344) extracts Python code from the LLM output, which can fail when:
 
 - Code block formulation in markdown is incomplete or incorrectly formatted
 - Multiple code blocks appear in a single response
