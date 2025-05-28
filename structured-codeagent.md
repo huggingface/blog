@@ -47,7 +47,7 @@ This shift, first presented as CodeAct in the paper “[Executable Code Actions 
 
 The key insight here is that **tools are called directly from within the code**, making variables and state management much more reliable. Agents can call tools within loops, functions, and conditional statements - essentially generating a dynamic graph of tool execution in each action! 
 
-Pros of using a CodeAgent:
+Pros of using a [CodeAgent](https://github.com/huggingface/smolagents/blob/6a12ebdf210207eec22d5940157f522463fc1c59/src/smolagents/agents.py#L1344):
 
 - **Smart tool use**: Agents decide which tools to use based on what’s happening in the moment.
 - **Unlimited flexibility**: Can use any Python functionality to achieve a goal.
