@@ -129,7 +129,7 @@ Inference engines let you pass a list of tools when calling the LLM, and the LLM
 As a developer, you run the tools and feed their result back into the LLM to continue the generation.
 
 > [!NOTE]
-> Note that in the backend (at the inference engine level), the tools are simply passed to the model in a specially-formatted `chat_template`, like any other message, and then parsed out of the response (using model-specific special tokens) to expose them as tool calls.
+> Note that in the backend (at the inference engine level), the tools are simply passed to the model in a specially-formatted `chat_template`, like any other message, and then parsed out of the response (using model-specific special tokens) to expose them as tool calls. See an example [in our chat-template playground](https://huggingface.co/spaces/huggingfacejs/chat-template-playground?modelId=Qwen/Qwen3-235B-A22B&example=tool-usage).
 
 ## Implementing an MCP client on top of InferenceClient
 
