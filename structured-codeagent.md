@@ -27,7 +27,7 @@ These agents operate by selecting from a list of predefined tools and generating
 
 It is reliable, but limited by:
 
-- **A limited set of actions**: The actions the agent can take are expressed only though predefined tools which limit it’s functionality.
+- **A limited set of actions**: The actions the agent can take are expressed only through predefined tools which limit its functionality.
 - **Lack of composability**: If the task requires composing information from multiple sources, JSON agents struggle because they lack support for maintaining intermediate state across tool calls. While some models support parallel tool calls, they can't easily handle scenarios where one tool's output determines the next action or where results need to be compared and processed together.
 - **Rigid structure**: Very limited in handling cases where tools do not match exactly what needs to be done.
 
@@ -67,7 +67,7 @@ With Structured outputs, you can force the LLM to generate explicit thoughts and
 }
 ```
 
-The key difference is that the generation is enforced: basically, now instead of just being prompted to output thoughts, then code, the usage of [structured outputs](https://huggingface.co/docs/text-generation-inference/en/conceptual/guidance) force it to respect the structure.
+The key difference is that the generation is enforced: basically, now instead of just being prompted to output thoughts, then code, the usage of [structured outputs](https://huggingface.co/docs/text-generation-inference/en/conceptual/guidance) forces it to respect the structure.
 
 This approach adds the reliability of structured generation to the flexibility of code execution, thus getting the best of both worlds.
 
@@ -186,7 +186,7 @@ Then the "code" part gets executed by the agent as usual : this is the standard 
 
 ### **Implementation Tips**
 
-1. **Clear prompting**: Ensure your prompts clearly specifies the expected JSON structure
+1. **Clear prompting**: Ensure your prompts clearly specify the expected JSON structure
 2. **Model selection**: Choose models with strong structured generation capabilities
 3. **Select the right provider:** Some API providers like OpenAI or Anthropic support structured generation out of the box. If you're using Inference providers through Hugging Face,  the support of structured generation varies across providers. Here is a list of providers that support structured generation: [Structured generation support for Models in smolagents‣](https://www.notion.so/Structured-generation-support-for-Models-in-smolagents-1f51384ebcac8074a051e6dd03d1fe1d?pvs=21) 
 
