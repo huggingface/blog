@@ -34,15 +34,15 @@ Before TRL v0.18.0, vLLM was only supported in **server mode**, running as a sep
 
 Here’s what happens:
 
-- During training, the model needs to generate completions frequently.  
-- The trainer sends a request to the vLLM server, which runs on its own GPUs.  
-- While vLLM generates, the **training GPUs sit idle** and wait.  
+- During training, the model needs to generate completions frequently.
+- The trainer sends a request to the vLLM server, which runs on its own GPUs.
+- While vLLM generates, the **training GPUs sit idle** and wait.
 - Once generation is done, **vLLM GPUs become idle**, and training resumes.
 
 This “ping-pong” between training and generation causes:
 
-- Wasted GPU time on both sides  
-- Increased demand for **extra GPUs** just to run inference  
+- Wasted GPU time on both sides
+- Increased demand for **extra GPUs** just to run inference
 - Reduced overall **throughput and higher cost**
 
 In online learning methods like GRPO — where generation happens constantly — this inefficiency becomes even more painful. You spend more on hardware, but don't get the performance you'd expect.
@@ -90,7 +90,7 @@ In the server TRL setup, training and inference run on separate GPUs. For exampl
 - GPUs 0 through 2 are used for training.
 - GPU 3 is fully dedicated to running vLLM as a separate server.
 
-During training steps, **GPU 3 sits idle**.  
+During training steps, **GPU 3 sits idle**.
 During generation steps (inference), **GPUs 0–2 are idle** while GPU 3 generates outputs.
 
 This leads to:
@@ -193,28 +193,28 @@ To ensure a fair comparison, we **normalized throughput in server mode by a fact
 
 ### Experiment 1: 1.5B Model — Varying Batch Sizes
 
-- As the batch size increases, throughput improves in both setups.  
-- **Co-located setup reaches up to 1.43× speedup** at the largest batch size.  
+- As the batch size increases, throughput improves in both setups.
+- **Co-located setup reaches up to 1.43× speedup** at the largest batch size.
 - Larger batches make better use of shared GPU memory in co-located mode.
 ![small-b](https://gist.github.com/user-attachments/assets/fc15c756-6ade-4ab9-a328-e607cbc33f34)
 
 ### Experiment 2: 1.5B Model — Varying Tensor Parallelism (TP)
 
-- In the co-located setup, increasing TP **reduces performance**.  
-- More sharding introduces more communication overhead — which is **not ideal for smaller models**.  
+- In the co-located setup, increasing TP **reduces performance**.
+- More sharding introduces more communication overhead — which is **not ideal for smaller models**.
 - **Takeaway**: For small models, avoid over-sharding in co-located mode.
 ![small-tp](https://gist.github.com/user-attachments/assets/73244603-f238-41ae-9ea4-394a4d34f2ac)
 
 ### Experiment 3: 7B Model — Varying Batch Sizes
 
-- Again, co-located mode **scales better with batch size**.  
+- Again, co-located mode **scales better with batch size**.
 - Gains reach **1.35× speedup** at the largest batch tested.
 ![med-b](https://gist.github.com/user-attachments/assets/2808b18d-c49a-41ed-a0a7-871078272858)
 
 ### Experiment 4: 7B Model — Varying Tensor Parallelism (TP)
 
-- Opposite trend from the 1.5B model.  
-- With 7B, **more TP improves throughput**, reaching up to **1.73× speedup**.  
+- Opposite trend from the 1.5B model.
+- With 7B, **more TP improves throughput**, reaching up to **1.73× speedup**.
 - **Larger models benefit from sharding** in co-located setups.
 ![med-tp](https://gist.github.com/user-attachments/assets/b7cfe4d8-6959-45fd-82d6-2ec8b1f1cd6a)
 
@@ -228,18 +228,18 @@ When using co-located training, managing GPU memory is crucial so that both trai
 
 The `sleep()` function temporarily pauses the vLLM engine and frees up GPU memory. It supports two levels:
 
-- **Level 1**: Unloads model weights from GPU (keeps them in CPU memory) and clears the KV cache.  
+- **Level 1**: Unloads model weights from GPU (keeps them in CPU memory) and clears the KV cache.
   Useful when the same model will be reused soon.
 
-- **Level 2**: Unloads both model weights and KV cache entirely.  
+- **Level 2**: Unloads both model weights and KV cache entirely.
   Best for scenarios where the model will change or won’t be reused right away.
 
 In GRPO, the model is updated after every step — so we use **Level 2 sleep**.
 
 Benefits of Level 2 sleep:
 
-- **Maximizes free GPU memory** for training  
-- **Avoids memory contention** between training and generation  
+- **Maximizes free GPU memory** for training
+- **Avoids memory contention** between training and generation
 - Keeps colocation efficient, even for large models like Qwen2.5-72B
 
 This small addition makes a **big difference** in enabling smooth and scalable co-located training.
@@ -250,21 +250,21 @@ To train large models like Qwen2.5-72B, we rely on **DeepSpeed ZeRO Stage 3**, t
 
 ZeRO helps scale large models by distributing memory across GPUs. Stage 3 goes further by partitioning:
 
-- Model weights  
-- Gradients  
+- Model weights
+- Gradients
 - Optimizer states
 
 This is essential for models that can’t fit on a single GPU. With ZeRO Stage 3, each GPU handles only a portion of the model.
 
 Additional options we enable:
 
-- `"offload_optimizer": {"device": "cpu"}`  
+- `"offload_optimizer": {"device": "cpu"}`
   Moves optimizer states to CPU to free GPU memory — critical in co-located setups.
 
-- `"overlap_comm": true`  
+- `"overlap_comm": true`
   Enables communication overlap with computation, speeding up training.
 
-- `"contiguous_gradients": true`  
+- `"contiguous_gradients": true`
   Allocates gradients in a single memory block, improving memory access and reducing fragmentation.
 
 These optimizations help **train 72B models efficiently**, and ensure colocation remains stable under tight memory constraints.
@@ -273,9 +273,9 @@ These optimizations help **train 72B models efficiently**, and ensure colocation
 
 As recommended in TRL, we use **Accelerate**, a lightweight library that simplifies distributed training. It handles:
 
-- Multi-GPU and multi-node job launching  
-- Data parallelism  
-- Gradient accumulation  
+- Multi-GPU and multi-node job launching
+- Data parallelism
+- Gradient accumulation
 - Distributed data loading
 
 This makes the setup clean, scalable, and easy to maintain.
@@ -284,7 +284,7 @@ This makes the setup clean, scalable, and easy to maintain.
 
 #### Throughput
 
-Even with **4 fewer GPUs**, the **co-locate setup is ~1.26× faster** than plain TRL.  
+Even with **4 fewer GPUs**, the **co-locate setup is ~1.26× faster** than plain TRL.
 This highlights the effectiveness of smarter GPU sharing and memory cleanup using `sleep()`.
 ![72b-tput](https://gist.github.com/user-attachments/assets/27efcc91-ece8-49ea-8f1b-a71696445840)
 
