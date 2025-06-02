@@ -5,7 +5,19 @@ authors:
 - user: toslali-ibm
   guest: true
   org: ibm
+- user: mirinflim
+  guest: true
+  org: ibm
 - user: qgallouedec
+- user: esnible
+  guest: true
+  org: ibm
+- user: rganti
+  guest: true
+  org: ibm
+- user: mudhakar
+  guest: true
+  org: ibm
 ---
 
 # NO GPU left behind: Unlocking Efficiency with Co-located vLLM in TRL
