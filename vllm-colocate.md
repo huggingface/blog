@@ -81,7 +81,7 @@ Thanks to this feature, co-located training and inference is no longer a hack �
 
 The shift from server TRL to co-located TRL is all about smarter GPU usage. The diagram below shows the difference:
 
-<img width="281" alt="image" src="https://gist.github.com/user-attachments/assets/8061ad8a-0e4b-4ab1-8de5-42cb666bbb5b" />
+![gpus-design](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-colocate/gpus-design.png)
 
 ### Server TRL Setup (Top Row)
 
@@ -196,27 +196,27 @@ To ensure a fair comparison, we **normalized throughput in server mode by a fact
 - As the batch size increases, throughput improves in both setups.
 - **Co-located setup reaches up to 1.43× speedup** at the largest batch size.
 - Larger batches make better use of shared GPU memory in co-located mode.
-![small-b](https://gist.github.com/user-attachments/assets/fc15c756-6ade-4ab9-a328-e607cbc33f34)
+![small-b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-colocate/small-b.png)
 
 ### Experiment 2: 1.5B Model — Varying Tensor Parallelism (TP)
 
 - In the co-located setup, increasing TP **reduces performance**.
 - More sharding introduces more communication overhead — which is **not ideal for smaller models**.
 - **Takeaway**: For small models, avoid over-sharding in co-located mode.
-![small-tp](https://gist.github.com/user-attachments/assets/73244603-f238-41ae-9ea4-394a4d34f2ac)
+![small-tp](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-colocate/small-tp.png)
 
 ### Experiment 3: 7B Model — Varying Batch Sizes
 
 - Again, co-located mode **scales better with batch size**.
 - Gains reach **1.35× speedup** at the largest batch tested.
-![med-b](https://gist.github.com/user-attachments/assets/2808b18d-c49a-41ed-a0a7-871078272858)
+![med-b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-colocate/med-b.png)
 
 ### Experiment 4: 7B Model — Varying Tensor Parallelism (TP)
 
 - Opposite trend from the 1.5B model.
 - With 7B, **more TP improves throughput**, reaching up to **1.73× speedup**.
 - **Larger models benefit from sharding** in co-located setups.
-![med-tp](https://gist.github.com/user-attachments/assets/b7cfe4d8-6959-45fd-82d6-2ec8b1f1cd6a)
+![med-tp](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-colocate/med-tp.png)
 
 ## 📊 Scaling to 72B Model
 
@@ -286,7 +286,7 @@ This makes the setup clean, scalable, and easy to maintain.
 
 Even with **4 fewer GPUs**, the **co-locate setup is ~1.26× faster** than plain TRL.
 This highlights the effectiveness of smarter GPU sharing and memory cleanup using `sleep()`.
-![72b-tput](https://gist.github.com/user-attachments/assets/27efcc91-ece8-49ea-8f1b-a71696445840)
+![72b-tput](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-colocate/72b-tput.png)
 
 #### Reward Curve
 
@@ -294,12 +294,12 @@ Training reward plots for co-locate and plain setups are **nearly identical**, d
 
 - **Co-located training preserves accuracy**
 - There’s **no regression in model learning performance**
-![blogpost_72b_rewards](https://gist.github.com/user-attachments/assets/50b640b2-26d8-4af2-8284-7d7aa3df9f63)
+![blogpost_72b_rewards](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-colocate/blogpost_72b_rewards.png)
 
 #### Math500 Benchmark
 
 We evaluated three models: **Base model**, **Co-locate-trained model**, **Plain-trained model** on the Math500 benchmark. Both trained models **outperform the base**, and the **co-locate model performs on par** with the plain-trained model — confirming that colocation does not compromise downstream performance.
-![blogpost_72b_math500](https://gist.github.com/user-attachments/assets/534ba4d3-c372-4cb8-9b62-08a9aa2c4573)
+![blogpost_72b_math500](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-colocate/blogpost_72b_math500.png)
 
 ## 🎓 Challenges & Lessons Learned & next steps
 
