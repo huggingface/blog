@@ -6087,3 +6087,17 @@
     - nlp
     - tools
     - community
+
+- local: vllm-colocate
+  title: "NO GPU left behind: Unlocking Efficiency with Co-located vLLM in TRL"
+  author: toslali-ibm
+  guest: true
+  thumbnail: /blog/assets/vllm-colocate/thumbnail.png
+  date: June 2, 2025
+  tags:
+    - vllm
+    - grpo
+    - trl
+    - llm
+    - rlhf
+
