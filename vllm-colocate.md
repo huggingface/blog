@@ -179,7 +179,7 @@ training_args = GRPOConfig(
 )
 ```
 
-> Note: Depending on the model size and the overall GPU memory requirements for training, you may need to adjust the vllm_gpu_memory_utilization parameter in GRPOConfig to avoid underutilization or out-of-memory errors.
+> Note: Depending on the model size and the overall GPU memory requirements for training, you may need to adjust the vllm_gpu_memory_utilization parameter in `GRPOConfig` to avoid underutilization or out-of-memory errors.
 
 ## 📊 Showcase: Co-located vs. Plain TRL Performance
 
