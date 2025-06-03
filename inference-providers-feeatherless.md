@@ -27,7 +27,7 @@ Featherless joins our growing ecosystem, enhancing the breadth and capabilities 
 
 [Featherless](https://featherless.ai) supports a wide variety of text and conversational models, including the latest open-source models from DeepSeek, Meta, Google, Qwen, and much more.
 
-Check out supported models here: [supported models list](https://featherless.ai/models).
+Find the full list of supported models on the [models page](https://huggingface.co/models?inference_provider=featherless-ai&sort=trending).
 
 We're quite excited to see what you'll build with this new provider!
 
