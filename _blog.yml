@@ -6087,3 +6087,16 @@
     - nlp
     - tools
     - community
+
+- local: smolvla
+  title: "SmolVLA: Efficient Vision-Language-Action Model trained on Lerobot Community Data"
+  author: danaaubakirova
+  thumbnail: /blog/assets/smolvla/SmolVLA_thumbnail.png
+  date: Jun 3, 2024
+  tags:
+    - smolvla
+    - lerobot
+    - robotics
+    - open-source
+    - models
+    - community
