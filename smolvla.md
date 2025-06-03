@@ -28,7 +28,7 @@ Today, we introduce [SmolVLA](https://huggingface.co/lerobot/smolvla_base), a co
 - Paper: https://huggingface.co/papers/2506.01844
 
 
-# 📚 Table of Contents
+## 📚 Table of Contents
 - [🧭 TL;DR](#tl-dr)
 - [📖 Introduction](#introduction)
 - [🤖 Meet SmolVLA](#meet-smolvla)
