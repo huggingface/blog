@@ -89,7 +89,7 @@ Despite using fewer than 30k training episodes—an order of magnitude less than
 To make real-time robotics easier to use, we introduce an asynchronous inference stack. This technology separates how robots perform actions from how they understand what they see and hear. Because of this separation, robots can respond more quickly in fast-changing environments.
 
 <p align="center">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/aooU0a3DMtYmy_1IWMaIM.png" alt="Comparison of SmolVLA across task variations." width="500"/>
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/aooU0a3DMtYmy_1IWMaIM.png" alt="SmolVLA architecture." width="500"/>
   <br/>
   <em>Figure 2. SmolVLA takes as input a sequence of RGB images from multiple cameras, the robot’s current sensorimotor state, and a natural language instruction. The VLM encodes these into contextual features, which condition the action expert to generate a continuous sequence of actions.</em>
 </p>
@@ -143,7 +143,7 @@ SmolVLA consists of two core components: a **Vision-Language Model (VLM)** that 
 ### Main Architecture
 #### Vision-Language Model (VLM)
 
-We use [SmolVLM2](https://huggingface.co/HuggingFaceTB/SmolVLM-500M-Instruct) as our VLM backbone. It’s optimized for multi-image inputs and consists of a SigLIP vision encoder and a [SmolLM2](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct) language decoder.
+We use [SmolVLM2](https://huggingface.co/HuggingFaceTB/SmolVLM2-500M-Video-Instruct) as our VLM backbone. It’s optimized for multi-image inputs and consists of a SigLIP vision encoder and a [SmolLM2](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct) language decoder.
 - **Image tokens** are extracted via the vision encoder
 - **Language instructions** are tokenized and fed directly into the decoder.
 - **Sensorimotor states** are projected into a single token using a linear layer to 
