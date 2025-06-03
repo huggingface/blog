@@ -1,6 +1,6 @@
 ---
 title: "KV Cache from scratch in nanoVLM
-thumbnail: /blog/assets/kv_cache_quantization/thumbnail.png
+thumbnail: /blog/assets/kv-cache/thumbnail.png
 authors:
 - user: ariG23498
 - user: kashif
