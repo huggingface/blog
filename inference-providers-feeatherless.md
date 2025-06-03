@@ -22,7 +22,7 @@ authors:
 
 # Featherless on Hugging Face Inference Providers 🔥
 
-We're thrilled to share that **Featherless** is now a supported Inference Provider on HF Hub!
+We're thrilled to share that **Featherless** is now a supported Inference Provider on the Hugging Face Hub!
 Featherless joins our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub’s model pages. Inference Providers are also seamlessly integrated into our client SDKs (for both JS and Python), making it super easy to use a wide variety of models with your preferred providers.
 
 [Featherless](https://featherless.ai) supports a wide variety of text and conversational models, including the latest open-source models from DeepSeek, Meta, Google, Qwen, and much more.
