@@ -135,7 +135,7 @@ policy = SmolVLAPolicy.from_pretrained("lerobot/smolvla_base")
 ```
 
 ## Method
-We present SmolVLA, not only as a lightweight yet capable model, but also as a method for training and evaluating generalist robotics policies. In this section, we introduce the *model architecture* behind SmolVLA and the *asynchronous inference* setup used for evaluation, which has proven to be more adaptable and capable of faster recovery.
+SmolVLA is not only a lightweight yet capable model, but also a method for training and evaluating generalist robotics policies. In this section, we introduce the *model architecture* behind SmolVLA and the *asynchronous inference* setup used for evaluation, which has proven to be more adaptable and capable of faster recovery.
 
 SmolVLA consists of two core components: a **Vision-Language Model (VLM)** that processes multimodal inputs and an **action expert** that outputs robot control commands. Below, we share the details of the main components of SmolVLA architecture and the Asynchronous Inference. More details can be found in our [technical report](https://huggingface.co/papers/2506.01844). 
 
