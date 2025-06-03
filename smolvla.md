@@ -282,7 +282,7 @@ Finally, we evaluate SmolVLA under synchronous and asynchronous inference modes.
 
 This results in more responsive and robust real-world performance, especially in dynamic environments with shifting objects or external disturbances.
 <div align="center">
-  <img src="[https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/MZuG6UzXZ1SJ1MOfUfyzb.png](https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/Goxb9y5cE_Ty1SWCetCoT.png)" alt="Asynchronous vs. Synchronous Inference in Real-World Tasks." width="500"/>
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/Goxb9y5cE_Ty1SWCetCoT.png" alt="Asynchronous vs. Synchronous Inference in Real-World Tasks." width="500"/>
   <p>Figure 4. Asynchronous vs. Synchronous Inference in Real-World Tasks.
 (a) Task success rates (%), (b) average completion time(s), and (c) number of tasks completed within a fixed time window.
 </p>
