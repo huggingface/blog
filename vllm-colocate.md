@@ -1,30 +1,30 @@
 ---
-title: "NO GPU left behind: Unlocking Efficiency with Co-located vLLM in TRL" 
+title: "No GPU left behind: Unlocking Efficiency with Co-located vLLM in TRL" 
 thumbnail: /blog/assets/liger-grpo/thumbnail.png
 authors:
 - user: toslali-ibm
   guest: true
-  org: ibm
+  org: ibm-ai-platform
 - user: mirinflim
   guest: true
-  org: ibm
+  org: ibm-ai-platform
 - user: qgallouedec
 - user: esnible
   guest: true
-  org: ibm
+  org: ibm-ai-platform
 - user: rganti
   guest: true
-  org: ibm
+  org: ibm-ai-platform
 - user: mudhakar
   guest: true
-  org: ibm
+  org: ibm-ai-platform
 ---
 
-# NO GPU left behind: Unlocking Efficiency with Co-located vLLM in TRL
+# No GPU left behind: Unlocking Efficiency with Co-located vLLM in TRL
 
 ## 🚀 Introduction
 
-TRL supports training LLMs using GRPO, an online learning algorithm recently introduced in the *DeepSeekMath* paper. In GRPO, the model learns from its own outputs: it generates responses during training, receives feedback, and uses that feedback to improve itself over time.
+TRL supports training LLMs using GRPO, an online learning algorithm recently introduced in the [*DeepSeekMath* paper](https://huggingface.co/papers/2402.03300). In GRPO, the model learns from its own outputs: it generates responses during training, receives feedback, and uses that feedback to improve itself over time.
 
 This makes generation a critical step in the training loop — and also a major bottleneck. To speed up generation, TRL integrates with vLLM. This combination lets you train powerful models more efficiently in GRPO setup. However, there’s a catch.
 
@@ -117,7 +117,7 @@ This design:
 
 ## 🛠️ Implementation Notes
 
-Instead of launching vLLM as a server, the training now launches vLLM **in-process** using the external launcher, as shown below:
+Instead of launching vLLM as a server, [the trainer now launches vLLM **in-process**](https://github.com/huggingface/trl/blob/fef915e36f12f759b384e4ab6f650208130aa232/trl/trainer/grpo_trainer.py#L647-L658) using the external launcher, as shown below:
 
 ```python
 self.llm = LLM(
