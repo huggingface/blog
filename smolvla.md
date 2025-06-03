@@ -1,7 +1,6 @@
 ---
 title: "SmolVLA: Efficient Vision-Language-Action Model trained on Lerobot Community Data" 
 thumbnail: /blog/assets/smolvla/SmolVLA_thumbnail.png
-
 authors:
 - user: danaaubakirova
 - user: andito
