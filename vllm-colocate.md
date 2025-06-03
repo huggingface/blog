@@ -117,7 +117,7 @@ This design:
 
 ## 🛠️ Implementation Notes
 
-Instead of launching vLLM as a server, the training now launches vLLM **in-process** using the external launcher, as shown below:
+Instead of launching vLLM as a server, [the trainer now launches vLLM **in-process**](https://github.com/huggingface/trl/blob/fef915e36f12f759b384e4ab6f650208130aa232/trl/trainer/grpo_trainer.py#L647-L658) using the external launcher, as shown below:
 
 ```python
 self.llm = LLM(
