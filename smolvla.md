@@ -146,8 +146,7 @@ SmolVLA consists of two core components: a **Vision-Language Model (VLM)** that 
 We use [SmolVLM2](https://huggingface.co/HuggingFaceTB/SmolVLM2-500M-Video-Instruct) as our VLM backbone. It’s optimized for multi-image inputs and consists of a SigLIP vision encoder and a [SmolLM2](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct) language decoder.
 - **Image tokens** are extracted via the vision encoder
 - **Language instructions** are tokenized and fed directly into the decoder.
-- **Sensorimotor states** are projected into a single token using a linear layer to 
-align with the token dimension of the language model.
+- **Sensorimotor states** are projected into a single token using a linear layer to align with the token dimension of the language model.
 
 The decoder layers process concatenated image, language, and state tokens. The resulting features are then passed to the action expert.
 
