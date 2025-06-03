@@ -70,7 +70,7 @@ SmolVLA addresses this gap by offering an open-source, compact, and efficient VL
 
 ## Meet SmolVLA! 
 
-**SmolVLA-450M** is our open-source, compact yet capable VLA model. These models are:
+**SmolVLA-450M** is our open-source, compact yet capable VLA model. It is:
 - Small enough to run on CPU, train on a single consumer GPU, or even a MacBook! 
 - Trained on public, community-shared robotics data
 - Released with full training and inference recipes
