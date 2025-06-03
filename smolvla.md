@@ -152,7 +152,7 @@ The decoder layers process concatenated image, language, and state tokens. The r
 
 #### Action Expert: Flow Matching Transformer
 
-SmolVLA’s **action expert** is a compact transformer (~100M parameters) that generates action chunks, i.e. sequences of future robot actions, conditioned on the VLM’s outputs. It is trained using a **flow matching objective**, which teaches the model to guide noisy samples back to the ground truth. In contrast, discrete action representations (e.g., via tokenization) being powerful, often require autoregressive decoding, which is slow and inefficient at inference time. While flow matching allows **direct, non-autoregressive prediction of continuous actions**, enabling real-time control with high precision.
+SmolVLA’s **action expert** is a compact transformer (~100M parameters) that generates action chunks, i.e. sequences of future robot actions, conditioned on the VLM’s outputs. It is trained using a **flow matching objective**, which teaches the model to guide noisy samples back to the ground truth. In contrast, while discrete action representations (e.g., via tokenization) are powerful, they often require autoregressive decoding, which is slow and inefficient at inference time. While flow matching allows **direct, non-autoregressive prediction of continuous actions**, enabling real-time control with high precision.
 
 More intuitively, during training, we add random noise to the robot’s real action sequences and ask the model to predict the “correction vector” that brings them back to the correct trajectory. This forms a smooth vector field over the action space, helping the model learn accurate and stable control policies.  
 
