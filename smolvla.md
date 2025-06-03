@@ -109,7 +109,7 @@ pip install -e ".[smolvla]"
 ```
 
 ### Finetune the pretrained model
-Use smolvla_base, our pretrained 450M model, with the lerobot training framework:
+Use [`smolvla_base`](https://hf.co/lerobot/smolvla_base), our pretrained 450M model, with the lerobot training framework:
 
 ```python
 python lerobot/scripts/train.py \
