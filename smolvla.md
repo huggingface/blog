@@ -90,7 +90,13 @@ Despite using fewer than 30k training episodes—an order of magnitude less than
 
 To make real-time robotics easier to use, we introduce an asynchronous inference stack. This technology separates how robots perform actions from how they understand what they see and hear. Because of this separation, robots can respond more quickly in fast-changing environments.
 
-Figure 2. SmolVLA takes as input a sequence of RGB images from multiple cameras, the robot’s current sensorimotor state, and a natural language instruction. The VLM encodes these into contextual features, which condition the action expert to generate a continuous sequence of actions.
+<p align="center">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/aooU0a3DMtYmy_1IWMaIM.png" alt="Comparison of SmolVLA across task variations." width="500"/>
+  <br/>
+  <em>Figure 2. SmolVLA takes as input a sequence of RGB images from multiple cameras, the robot’s current sensorimotor state, and a natural language instruction. The VLM encodes these into contextual features, which condition the action expert to generate a continuous sequence of actions.</em>
+</p>
+
+
 
 ## 🚀 How to Use SmolVLA?
 SmolVLA is designed to be easy to use and integrate—whether you're finetuning on your own data or plugging it into an existing robotics stack.
@@ -242,21 +248,32 @@ To fix this, we manually went through the datasets and mapped each camera view t
 
 We further isolate the contributions of community dataset pretraining and multitask finetuning. Without pretraining on the LeRobot community datasets, SmolVLA initially achieves **51.7%** success on SO100. After pretraining on community-collected data, performance jumps to **78.3%**, a **+26.6% absolute improvement**. Multitask finetuning further boosts performance, showing strong task transfer capabilities even in low-data regimes.
 
-Table 1. Impact of Pretraining and Multitask Finetuning.
+<div align="center">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/GdKdSzT2oAt83MQ0lPjcY.png" width="500"/>
+  <p> Table 1. Impact of Pretraining on Community Datasets and Multitask Finetuning.</p>
+</div>
 
 ## Results
 We evaluate SmolVLA across simulation and real-world benchmarks to test its generalization, efficiency, and robustness. Despite being compact, It consistently outperforms or matches the performance of significantly larger models and policies pretrained on higher-scale robotics data. 
 
+<div align="center">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/_v01LDKSy8zgcYr_7yQMx.png" alt="SmolVLA Performance on Simulation Benchmarks." width="500"/>
+  <p> Table 2. SmolVLA Performance on Simulation Benchmarks.</p>
+</div>
 
-Table 2. SmolVLA Performance on Simulation Benchmarks.
 
-
-Table 3. SmolVLA vs Baselines on Real-World Tasks (SO100).
+<div align="center">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/ahQpohnpqRw6sQFMzjmg4.png" alt="SmolVLA vs Baselines on Real-World Tasks (SO100)." width="500"/>
+  <p> Table 3. SmolVLA vs Baselines on Real-World Tasks (SO100).</p>
+</div>
 
 In real-world settings, SmolVLA is evaluated on two diverse suites: SO100 and SO101. These tasks include pick-place, stacking, and sorting, with both in-distribution and out-of-distribution object configurations. 
 On SO101, SmolVLA also excels in generalization:
 
-Table 4. Generalization of SmolVLA to New Embodiment (SO101) vs ACT.
+<div align="center">
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/MZuG6UzXZ1SJ1MOfUfyzb.png" alt="Generalization of SmolVLA to New Embodiment (SO101) vs ACT.." width="500"/>
+  <p>Table 4. Generalization of SmolVLA to New Embodiment (SO101) vs ACT..</p>
+</div>
 
 Finally, we evaluate SmolVLA under synchronous and asynchronous inference modes. Async inference decouples action execution from model inference, allowing the policy to react while the robot is moving.
 - Both modes achieve similar task success (≈78%), but async inference:
@@ -264,9 +281,13 @@ Finally, we evaluate SmolVLA under synchronous and asynchronous inference modes.
   * Enables **2× more completions** in fixed-time settings (19 vs. 9 cubes)
 
 This results in more responsive and robust real-world performance, especially in dynamic environments with shifting objects or external disturbances.
-
-Figure 1. Asynchronous vs. Synchronous Inference in Real-World Tasks.
+<div align="center">
+  <img src="[https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/MZuG6UzXZ1SJ1MOfUfyzb.png](https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/Goxb9y5cE_Ty1SWCetCoT.png)" alt="Asynchronous vs. Synchronous Inference in Real-World Tasks." width="500"/>
+  <p>Figure 4. Asynchronous vs. Synchronous Inference in Real-World Tasks.
 (a) Task success rates (%), (b) average completion time(s), and (c) number of tasks completed within a fixed time window.
+</p>
+</div>
+
 
 ## Conclusion
 
