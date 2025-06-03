@@ -24,7 +24,7 @@ authors:
 
 ## 🚀 Introduction
 
-TRL supports training LLMs using GRPO, an online learning algorithm recently introduced in the *DeepSeekMath* paper. In GRPO, the model learns from its own outputs: it generates responses during training, receives feedback, and uses that feedback to improve itself over time.
+TRL supports training LLMs using GRPO, an online learning algorithm recently introduced in the [*DeepSeekMath* paper](https://huggingface.co/papers/2402.03300). In GRPO, the model learns from its own outputs: it generates responses during training, receives feedback, and uses that feedback to improve itself over time.
 
 This makes generation a critical step in the training loop — and also a major bottleneck. To speed up generation, TRL integrates with vLLM. This combination lets you train powerful models more efficiently in GRPO setup. However, there’s a catch.
 
