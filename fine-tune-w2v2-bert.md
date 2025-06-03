@@ -555,7 +555,7 @@ class DataCollatorCTCWithPadding:
     padding: Union[bool, str] = True
 
     def __call__(self, features: List[Dict[str, Union[List[int], torch.Tensor]]]) -> Dict[str, torch.Tensor]:
-        # split inputs and labels since they have to be of different lenghts and need
+        # split inputs and labels since they have to be of different lengths and need
         # different padding methods
         input_features = [{"input_features": feature["input_features"]} for feature in features]
         label_features = [{"input_ids": feature["labels"]} for feature in features]
@@ -749,7 +749,7 @@ Finally, we can decode the example from the predicted tokens and compare it to t
 
 ```python
 print(processor.decode(pred_ids))
-print(processor.decode(input_dict["labels"]).lower())
+print(processor.decode(sample["labels"]).lower())
 ```
 
 ```bash

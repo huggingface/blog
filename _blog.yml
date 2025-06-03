@@ -5961,3 +5961,129 @@
     - community
     - datasets
     - hub
+
+- local: vlms-2025
+  title: "Vision Language Models (Better, Faster, Stronger)"
+  author: merve
+  thumbnail: /blog/assets/vlms2/vlms2.png
+  date: May 12, 2025
+  tags:
+    - vlm
+    - vision
+    - multimodal
+    - community
+    - research
+
+- local: fast-whisper-endpoints
+  title: "Blazingly fast whisper transcriptions with Inference Endpoints"
+  author: mfuntowicz
+  thumbnail: /blog/assets/fast-whisper-endpoints/thumbnail.png
+  date: May 13, 2025
+  tags:
+    - guide
+    - cloud
+    - inference
+    - audio
+    - transcription
+    - whisper
+
+- local: kaggle-integration
+  title: "Improving Hugging Face Model Access for Kaggle Users"
+  author: roseberryv
+  thumbnail: /blog/assets/kaggle-integration/thumbnail.png
+  date: May 14, 2025
+  tags:
+    - community
+    - announcement
+
+- local: transformers-model-definition
+  title: "The Transformers Library: standardizing model definitions"
+  author: lysandre
+  thumbnail: /blog/assets/transformers-model-definition/transformers-thumbnail.png
+  date: May 15, 2025
+  tags:
+    - community
+    - announcement
+    - transformers
+
+- local: azure-ai-foundry
+  title: "Microsoft and Hugging Face expand collaboration"
+  author: jeffboudier
+  thumbnail: /blog/assets/azure-ai-foundry/satya-hf-build-compressed.png
+  date: May 19, 2025
+  tags:
+    - partnership
+    - announcement
+    - azure
+
+- local: nanovlm
+  title: "nanoVLM: The simplest repository to train your VLM in pure PyTorch"
+  author: ariG23498
+  thumbnail: /blog/assets/nanovlm/thumbnail.png
+  date: May 21, 2025
+  tags:
+    - vlm
+    - vision
+    - llm
+    - nanovlm
+    - research
+    - community
+    - open
+
+- local: diffusers-quantization
+  title: "Exploring Quantization Backends in Diffusers"
+  thumbnail: /blog/assets/diffusers-quantization/thumbnail.png
+  author: derekl35
+  date: May 21, 2025
+  tags:
+    - guide
+    - diffusers
+    - quantization
+    - flux
+
+- local: python-tiny-agents 
+  title: "Tiny Agents in Python: a MCP-powered agent in ~70 lines of code"
+  author: celinah
+  thumbnail: /blog/assets/python-tiny-agents/thumbnail.png
+  date: May 23, 2025
+  tags:
+    - agents
+    - hub
+    - inference
+    - mcp
+
+- local: dell-ai-applications
+  title: "Dell Enterprise Hub is all you need to build AI on premises"
+  author: jeffboudier
+  thumbnail: /blog/assets/dell-ai-applications/dell-post-thumbnail.png
+  date: May 23, 2025
+  tags:
+    - dell
+    - enterprise
+    - partnerships
+
+- local: liger-grpo
+  title: "🐯 Liger GRPO meets TRL"
+  author: shisahni
+  guest: true
+  thumbnail: /blog/assets/liger-grpo/thumbnail.png
+  date: May 25, 2025
+  tags:
+    - liger
+    - grpo
+    - trl
+    - partnership
+    - llm
+
+- local: structured-codeagent
+  title: "CodeAgents + Structure: A Better Way to Execute Actions"
+  author: akseljoonas
+  thumbnail: /blog/assets/structured-codeagent/thumbnail-codeagent.png
+  date: May 28, 2024
+  tags:
+    - agents
+    - smolagents
+    - open-source
+    - nlp
+    - tools
+    - community
