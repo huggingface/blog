@@ -25,7 +25,7 @@ authors:
 We're thrilled to share that **Featherless** is now a supported Inference Provider on HF Hub!
 Featherless joins our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub’s model pages. Inference Providers are also seamlessly integrated into our client SDKs (for both JS and Python), making it super easy to use a wide variety of models with your preferred providers.
 
-[Featherless](https://featherless.ai) supports a wide variety of text and conversational model, including the latest open-source models from DeepSeek, Meta, Google, Qwen, and much more.
+[Featherless](https://featherless.ai) supports a wide variety of text and conversational models, including the latest open-source models from DeepSeek, Meta, Google, Qwen, and much more.
 
 Check out supported models here: [supported models list](https://featherless.ai/models).
 
