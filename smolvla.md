@@ -6,10 +6,10 @@ authors:
 - user: andito
 - user: merve
 - user: ariG23498
-- user: francesco
+- user: fracapuano
 - user: loubnabnl
 - user: pcuenq
-- user: mustafa
+- user: mshukor
 - user: cadene
 ---
 
