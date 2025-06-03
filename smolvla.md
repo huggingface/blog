@@ -209,7 +209,7 @@ While vision and language models thrive on web-scale datasets like LAION, ImageN
 All training data used in SmolVLA comes from **LeRobot Community Datasets** , robotics  datasets shared on the Hugging Face Hub under the `lerobot` tag. Collected in diverse settings, from labs to living rooms, these datasets represent an open, decentralized effort to scale real-world robot data.
 
 <p align="center">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/S-3vvVCulChREwHDkquoc.gif" alt="A glimpse of the community dataset." width="500"/>
+  <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/V4QU-B-6YBONb-8K_lSpj.gif" alt="A glimpse of the community dataset." width="500"/>
   <br/>
   <em>Figure 4. A glimpse of the community dataset. Special thanks to Ville Kuosmanen for creating the visualization.
 Unlike academic benchmarks, community datasets naturally capture messy, realistic interactions: varied lighting, suboptimal demonstrations, unconventional objects, and heterogeneous control schemes. This kind of diversity will be very useful for learning robust, general-purpose representations.</em>
