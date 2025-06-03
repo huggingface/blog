@@ -13,7 +13,7 @@ authors:
 - user: cadene
 ---
 
-
+# SmolVLA: Efficient Vision-Language-Action Model trained on Lerobot Community Data
 ## 🧭TL;DR
 Today, we introduce [SmolVLA](https://huggingface.co/lerobot/smolvla_base), a compact (450M), open-source Vision-Language-Action model for robotics that runs on consumer hardware.
 - Pretrained only on open-source community-shared datasets under the [lerobot](https://huggingface.co/datasets?other=lerobot&sort=trending) tag.
