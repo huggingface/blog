@@ -213,7 +213,7 @@ All training data used in SmolVLA comes from **LeRobot Community Datasets** , ro
 <p align="center">
   <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/S-3vvVCulChREwHDkquoc.gif" alt="A glimpse of the community dataset." width="500"/>
   <br/>
-  <em>Figure 3. A glimpse of the community dataset. Special thanks to [Ville Kuosmanen](https://huggingface.co/villekuosmanen) for creating the visualization.
+  <em>Figure 3. A glimpse of the community dataset. Special thanks to Ville Kuosmanen for creating the visualization.
 Unlike academic benchmarks, community datasets naturally capture messy, realistic interactions: varied lighting, suboptimal demonstrations, unconventional objects, and heterogeneous control schemes. This kind of diversity will be very useful for learning robust, general-purpose representations.</em>
 </p>
 
