@@ -212,12 +212,12 @@ All training data used in SmolVLA comes from **LeRobot Community Datasets** , ro
 <p align="center">
   <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/S-3vvVCulChREwHDkquoc.gif" alt="A glimpse of the community dataset." width="500"/>
   <br/>
-  <em>Figure 3. A glimpse of the community dataset. Special thanks to Ville Kuosmanen for creating the visualization.
+  <em>Figure 4. A glimpse of the community dataset. Special thanks to Ville Kuosmanen for creating the visualization.
 Unlike academic benchmarks, community datasets naturally capture messy, realistic interactions: varied lighting, suboptimal demonstrations, unconventional objects, and heterogeneous control schemes. This kind of diversity will be very useful for learning robust, general-purpose representations.</em>
 </p>
 
 
-We used a custom[filtering tool](https://huggingface.co/spaces/Beegbrain/FilterLeRobotData)  created by [Alexandre Chapin](https://huggingface.co/Beegbrain) and [Ville Kuosmanen](https://huggingface.co/villekuosmanen)  to select datasets based on frame count, visual quality, and task coverage. After a meticulous manual review (special thanks to Marina Barannikov), we curated a collection of **487 high-quality datasets** focused on the **SO100 robotic arm**, standardized at **30 FPS**. This yielded around **10 million frames**—at least **one order of magnitude smaller** than other popular benchmark datasets, yet significantly more diverse.
+We used a custom[filtering tool](https://huggingface.co/spaces/Beegbrain/FilterLeRobotData)  created by [Alexandre Chapin](https://huggingface.co/Beegbrain) and [Ville Kuosmanen](https://huggingface.co/villekuosmanen) to select datasets based on frame count, visual quality, and task coverage. After a meticulous manual review (special thanks to Marina Barannikov), we curated a collection of **487 high-quality datasets** focused on the **SO100 robotic arm**, standardized at **30 FPS**. This yielded around **10 million frames**—at least **one order of magnitude smaller** than other popular benchmark datasets, yet significantly more diverse.
 The full list of datasets used for training is provided in the appendix of the paper.
 
 ### Improving Task Annotations
