@@ -4,20 +4,20 @@ thumbnail: /blog/assets/liger-grpo/thumbnail.png
 authors:
 - user: toslali-ibm
   guest: true
-  org: ibm
+  org: ibm-ai-platform
 - user: mirinflim
   guest: true
-  org: ibm
+  org: ibm-ai-platform
 - user: qgallouedec
 - user: esnible
   guest: true
-  org: ibm
+  org: ibm-ai-platform
 - user: rganti
   guest: true
-  org: ibm
+  org: ibm-ai-platform
 - user: mudhakar
   guest: true
-  org: ibm
+  org: ibm-ai-platform
 ---
 
 # No GPU left behind: Unlocking Efficiency with Co-located vLLM in TRL
