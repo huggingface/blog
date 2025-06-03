@@ -76,7 +76,7 @@ SmolVLA addresses this gap by offering an open-source, compact, and efficient VL
 - Released with full training and inference recipes
 - Can be tested and deployed on very affordable hardware (SO-100, SO-101, LeKiwi, etc.)
 
-Inspired by the training paradigms of Large Language Models (LLMs), SmolVLA model go through a pretraining phase on general manipulation data, followed by task-specific post-training. Architecturally, it combines Transformers with **flow-matching decoders**, and is optimized for speed and low-latency inference with the following design choices:
+Inspired by the training paradigms of Large Language Models (LLMs), SmolVLA goes through a pretraining phase on general manipulation data, followed by task-specific post-training. Architecturally, it combines Transformers with **flow-matching decoders**, and is optimized for speed and low-latency inference with the following design choices:
 
 * Skipping the half of the layers of the vision model for faster inference and smaller size
 * Interleaving self-attention and cross-attention blocks
