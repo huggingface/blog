@@ -218,7 +218,6 @@ Unlike academic benchmarks, community datasets naturally capture messy, realisti
 
 
 We used a custom[filtering tool](https://huggingface.co/spaces/Beegbrain/FilterLeRobotData)  created by [Alexandre Chapin](https://huggingface.co/Beegbrain) and [Ville Kuosmanen](https://huggingface.co/villekuosmanen) to select datasets based on frame count, visual quality, and task coverage. After a meticulous manual review (special thanks to Marina Barannikov), we curated a collection of **487 high-quality datasets** focused on the **SO100 robotic arm**, standardized at **30 FPS**. This yielded around **10 million frames**—at least **one order of magnitude smaller** than other popular benchmark datasets, yet significantly more diverse.
-The full list of datasets used for training is provided in the appendix of the paper.
 
 ### Improving Task Annotations
  
