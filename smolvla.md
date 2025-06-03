@@ -24,7 +24,6 @@ Today, we introduce [SmolVLA](https://huggingface.co/lerobot/smolvla_base), a co
 
 - Hardware used to train and evaluate SO-100/101: https://github.com/TheRobotStudio/SO-ARM100  
 - Base model https://huggingface.co/lerobot/smolvla_base
-- Code: 
 - Paper: https://huggingface.co/papers/2506.01844
 
 
