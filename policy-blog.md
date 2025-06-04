@@ -44,11 +44,19 @@ The following materials reflect what we have found urgent to stress to policymak
 
 
 - European Union
-    - December 2024: [Open Source Guide to the EU AI Act](https://huggingface.co/blog/eu-ai-act-for-oss-developers)
+    - May 2025: Response to [Commission seeks input to clarify rules for general-purpose AI models](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_EU_GPAI_consultation.pdf)
+    - March 2025: EU AI Act: Comments on the Third Code of Practice Draft
+        - [Blogpost](https://huggingface.co/blog/frimelle/eu-third-cop-draft)
+        - [Full comments on the third Code of Practice draft (Working Group 1 & 2)](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_EU_GPAI_CoP_3_Resonse.pdf)
+    - January 2025: EU AI Act: Comments on the [Second draft of the GPAI Code of Practice (Working Group 1 & 2)](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_EU_GPAI_CoP_2_Resonse.pdf)
+    - December 2024: [EU AI Act: Systemic Risks in the First CoP Draft Comments](https://huggingface.co/blog/yjernite/eu-draft-cop-risks)
+    - December 2024: [Open Source Developers' Guide to the EU AI Act](https://huggingface.co/blog/eu-ai-act-for-oss-developers)
     - November 2024: Comments on the [First draft of the EU AI Office's GPAI Code of Practice](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2024_EU_GPAI_CoP_1_Resonse.pdf)
+    - October 2023: Response to CNIL [Questionnaire on the application of the GDPR to AI models (Questionnaire sur l’application du RGPD aux modèles d’IA)](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2024_CNIL_GDPR_AI_Response.pdf)
     - September 2024: Response to [EU AI Office’s Multi-stakeholder Consultation on Future-proof AI Act: Trustworthy General-purpose AI](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2024_EU-Stakeholder-Consultation_Survey_Questions.pdf) and the [Free-text Submissions to the Multi-stakeholder Consultation](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2024_EU-Stakeholder-Consultation_Free_Text_Submission.pdf)
     - January 2024: Response to [Digital Services Act, Transparency Reports](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2024_DSA_Response.pdf)
     - July 2023: Comments on the [Proposed AI Act](https://huggingface.co/blog/assets/eu_ai_act_oss/supporting_OS_in_the_AIAct.pdf)
+
 
 - United Kingdom
     - February 2025: Response to [UK Intellectual Property Office Consulation on Copyright and AI](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_UK_Govt_Consultation_Copyright_and_Artificial_Intelligence.pdf)
