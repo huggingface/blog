@@ -45,3 +45,6 @@
 
 - value: lerobot
   label: LeRobot
+
+- value: inference
+  label: Inference
