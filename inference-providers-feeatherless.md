@@ -1,5 +1,5 @@
 ---
-title: "Featherless on Hugging Face Inference Providers 🔥"
+title: "Featherless AI on Hugging Face Inference Providers 🔥"
 thumbnail: /blog/assets/inference-providers-featherless/thumbnail.png
 authors:
 - user: wxgeorge
@@ -20,18 +20,18 @@ authors:
 <!-- ![banner image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/featherless-banner.png) -->
 <!-- TODO: add a banner -->
 
-# Featherless on Hugging Face Inference Providers 🔥
+# Featherless AI on Hugging Face Inference Providers 🔥
 
-We're thrilled to share that **Featherless** is now a supported Inference Provider on the Hugging Face Hub!
-Featherless joins our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub’s model pages. Inference Providers are also seamlessly integrated into our client SDKs (for both JS and Python), making it super easy to use a wide variety of models with your preferred providers.
+We're thrilled to share that **Featherless AI** is now a supported Inference Provider on the Hugging Face Hub!
+Featherless AI joins our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub’s model pages. Inference Providers are also seamlessly integrated into our client SDKs (for both JS and Python), making it super easy to use a wide variety of models with your preferred providers.
 
-[Featherless](https://featherless.ai) supports a wide variety of text and conversational models, including the latest open-source models from DeepSeek, Meta, Google, Qwen, and much more.
+[Featherless AI](https://featherless.ai) supports a wide variety of text and conversational models, including the latest open-source models from DeepSeek, Meta, Google, Qwen, and much more.
 
-Find the full list of supported models on the [models page](https://huggingface.co/models?inference_provider=featherless-ai&sort=trending).
+Featherless AI is a serverless AI inference provider with unique model loading and GPU orchestration abilities that makes an exceptionally large catalog of models available for users. Providers often offer either a low cost of access to a limited set of models, or an unlimited range of models with users managing servers and the associated costs of operation. Featherless provides the best of both worlds offering unmatched model range and variety but with serverless pricing. Find the full list of supported models on the [models page](https://huggingface.co/models?inference_provider=featherless-ai&sort=trending).
 
 We're quite excited to see what you'll build with this new provider!
 
-Read more about Inference Providers in our [documentation](https://huggingface.co/docs/inference-providers).
+Read more about how to use Featherless as Inference Provider in its dedicated [documentation page](https://huggingface.co/docs/inference-providers/providers/featherless-ai).
 
  ## How it works
 
@@ -62,9 +62,9 @@ Read more about Inference Providers in our [documentation](https://huggingface.c
 
 #### from Python, using huggingface_hub
 
-The following example shows how to use DeepSeek-R1 using Hyperbolic as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Hyperbolic API key if you have one.
+The following example shows how to use DeepSeek-R1 using Featherless AI as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Featherless AI API key if you have one.
 
-Install `huggingface_hub` from source (see [instructions](https://huggingface.co/docs/huggingface_hub/installation#install-from-source)). Official support will be released soon in version v0.29.0.
+Install `huggingface_hub` from source (see [instructions](https://huggingface.co/docs/huggingface_hub/installation#install-from-source)). Official support will be released soon in version v0.33.0.
 
 ```python
 from huggingface_hub import InferenceClient
@@ -84,7 +84,6 @@ messages = [
 completion = client.chat.completions.create(
     model="deepseek-ai/DeepSeek-R1-0528", 
     messages=messages, 
-    max_tokens=500
 )
 
 print(completion.choices[0].message)
@@ -106,7 +105,6 @@ const chatCompletion = await client.chatCompletion({
 		}
 	],
 	provider: "featherless-ai",
-	max_tokens: 500
 });
 
 console.log(chatCompletion.choices[0].message);
