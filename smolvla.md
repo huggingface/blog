@@ -16,7 +16,7 @@ authors:
 # SmolVLA: Efficient Vision-Language-Action Model trained on Lerobot Community Data
 ## 🧭TL;DR
 Today, we introduce [SmolVLA](https://huggingface.co/lerobot/smolvla_base), a compact (450M), open-source Vision-Language-Action model for robotics that runs on consumer hardware.
-- Pretrained only on open-source community-shared datasets under the [lerobot](https://huggingface.co/datasets?other=lerobot&sort=trending) tag.
+- Pretrained only on compatibly licensed, open-source community-shared datasets under the [lerobot](https://huggingface.co/datasets?other=lerobot&sort=trending) tag.
 - SmolVLA-450M outperforms much larger VLAs and strong baselines such as [ACT](https://huggingface.co/papers/2401.02117) on simulation (LIBERO, Meta-World) and real-world tasks ([SO100, SO101](https://github.com/TheRobotStudio/SO-ARM100)).
 - Supports *asynchronous inference* for **30% faster response** and **2× task throughput**.
 
