@@ -13,13 +13,13 @@ authors:
 
 ## TL;DR
 
-We have implemented KV Caching from scratch in our [nanoVLM](https://github.com/huggingface/nanoVLM) repository (a small code base to train your own Vision Language Model with pure PyTorch). This gave us a of **38%** speedup in generation. In this blog post we cover KV Caching and all our experiences while implementing it. The lessons learnt are general and can be applied to all autoregressive language model generations.
+We have implemented KV Caching from scratch in our [nanoVLM](https://github.com/huggingface/nanoVLM) repository (a small code base to train your own Vision Language Model with pure PyTorch). This gave us a **38%** of speedup in generation. In this blog post we cover KV Caching and all our experiences while implementing it. The lessons learnt are general and can be applied to all autoregressive language model generations. Implementing from scratch on a small codebase is a great learning experience, come along for the ride!
 
 ![bar plot showcasing improvement in generation speed](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv-cache/speed_improved.png)
 
 ## Introduction
 
-Autoregressive language models generate text by sampling *one token at a time*. During inference, the model processes a given input sequence, predicts the next token, appends it to the input, and repeats this process until some stopping criterion:
+Autoregressive language models generate text by sampling *one token at a time*. During inference, the model processes a given input sequence, predicts the next token, appends it to the sequence, and repeats this process until some stopping criterion:
 
 ![diagram for autoregression](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv-cache/autoregression.png)
 
@@ -148,17 +148,17 @@ This changes generation from full-sequence re-computation to a lightweight, incr
 
 > ✅ In practice, this cache is a per-layer dictionary with keys "key" and "value", each of shape (`batch_size`, `num_heads`, `seq_len_cached`, `head_dim`).
 
-This is the foundation of how modern LLMs can generate long outputs efficiently, and KV Caching is what makes it possible.
+This is the foundation of how modern LLMs can generate long outputs efficiently.
 
 ## KV Caching in nanoVLM: From Theory to Practice
 
-Now that we understand the theory behind KV Caching, let’s see how it’s implemented in practice inside our [nanoVLM](https://github.com/huggingface/nanoVLM) repository.
+Now that we understand the theory behind KV Caching, let’s see how it’s implemented in practice inside our [nanoVLM](https://github.com/huggingface/nanoVLM) repository. This is an ideal testbed, as it's a super concise and self-contained codebase.
 
 KV caching is enabled across three key components in our model:
 
 1. The **Attention block** that uses and updates the KV cache
 2. The **Language model** that tracks cache per layer
-3. The **Generation loop** that separates **prefill** and **decode** phases
+3. The **Generation loop** that separates **prefill** (the initial pass with the input prompt) and sequential **decode** phases
 
 ### 1. Updating KV Cache in the Attention Block
 
