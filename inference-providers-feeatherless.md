@@ -12,6 +12,7 @@ authors:
   guest: true
   org: featherless-ai
 - user: celinah
+- user: Wauplin
 - user: sbrandeis
 ---
 
