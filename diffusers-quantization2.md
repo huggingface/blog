@@ -1,14 +1,14 @@
 # Fine-Tuning FLUX.1-dev with QLoRA
 
-In our previous post, "[Exploring Quantization Backends in Diffusers](https://huggingface.co/blog/diffusers-quantization)", we dived into how various quantization techniques can shrink diffusion models like FLUX.1-dev, making them significantly more accessible for *inference* without drastically compromising performance. We saw how `bitsandbytes`, `torchao`, and others reduce memory footprints for generating images.
+In our previous post, [Exploring Quantization Backends in Diffusers](https://huggingface.co/blog/diffusers-quantization), we dived into how various quantization techniques can shrink diffusion models like FLUX.1-dev, making them significantly more accessible for *inference* without drastically compromising performance. We saw how `bitsandbytes`, `torchao`, and others reduce memory footprints for generating images.
 
-Now, we tackle **efficiently *fine-tuning* these models.** This post will guide you through fine-tuning FLUX.1-dev using QLoRA with the Hugging Face `diffusers` library. We'll showcase results from an NVIDIA RTX 4090.
+Performing inference is cool but to make these models truly our own, we also need to be able to fine-tune them. Therefore, in this post, we tackle **efficient** *fine-tuning* of these models.** This post will guide you through fine-tuning FLUX.1-dev using QLoRA with the Hugging Face `diffusers` library. We'll showcase results from an NVIDIA RTX 4090.
 
 ## Why Not Just Full Fine-Tuning?
 
-`black-forest-labs/FLUX.1-dev`, for instance, requires over 31GB in BF16 for inference alone.
+[`black-forest-labs/FLUX.1-dev`](https://huggingface.co/black-forest-labs/FLUX.1-dev/), for instance, requires over 31GB in BF16 for inference alone.
 
-**Full Fine-Tuning:** This traditional method updates all model weights.
+**Full Fine-Tuning:** This traditional method updates all model params.
 * **Pros:** Potential for the highest task-specific quality.
 * **Cons:** For FLUX.1-dev, this would demand immense VRAM (multiple high-end GPUs), putting it out of reach for most individual users.
 
@@ -24,7 +24,7 @@ This allows fine-tuning of very large models on consumer-grade hardware or more 
 
 ## Dataset
 
- We aimed to fine-tune `black-forest-labs/FLUX.1-dev` to adopt the artistic style of Alphonse Mucha, using a small [dataset](https://huggingface.co/datasets/derekl35/alphonse-mucha-style). 
+ We aim to fine-tune `black-forest-labs/FLUX.1-dev` to adopt the artistic style of Alphonse Mucha, using a small [dataset](https://huggingface.co/datasets/derekl35/alphonse-mucha-style). 
 <!-- (maybe use different dataset) -->
 
 ## QLoRA Fine-tuning FLUX.1-dev with `diffusers`
