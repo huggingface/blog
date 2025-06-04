@@ -85,8 +85,10 @@ Here’s a minimal PyTorch equivalent using a causal mask:
 
 ```python
 import torch.nn.functional as F
+import math
 
-attention_scores = Q @ K.T
+d_k = K.shape[-1]
+attention_scores = (Q @ K.T) / math.sqrt(d_k)
 
 # Lower triangular mask to prevent future token access
 causal_mask = torch.tril(torch.ones(input_seq_length, input_seq_length))
