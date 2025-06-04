@@ -6088,6 +6088,32 @@
     - tools
     - community
 
+- local: vllm-colocate
+  title: "No GPU left behind: Unlocking Efficiency with Co-located vLLM in TRL"
+  author: toslali-ibm
+  guest: true
+  thumbnail: /blog/assets/vllm-colocate/thumbnail.png
+  date: June 3, 2025
+  tags:
+    - vllm
+    - grpo
+    - trl
+    - llm
+    - rlhf
+
+- local: smolvla
+  title: "SmolVLA: Efficient Vision-Language-Action Model trained on Lerobot Community Data"
+  author: danaaubakirova
+  thumbnail: /blog/assets/smolvla/SmolVLA_thumbnail.png
+  date: Jun 3, 2025
+  tags:
+    - smolvla
+    - lerobot
+    - robotics
+    - open-source
+    - models
+    - community
+
 - local: kv-cache
   title: "KV Cache from scratch in nanoVLM"
   author: ariG23498
