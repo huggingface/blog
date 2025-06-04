@@ -114,8 +114,8 @@ V_ext = extended_input @ W_v
 To confirm the redundancy:
 
 ```python
-torch.testing.assert_close(K, K_ext[:input_seq_length])
-torch.testing.assert_close(V, V_ext[:input_seq_length])
+torch.testing.assert_close(K, K_ext[:input_seq_length]) # test pass
+torch.testing.assert_close(V, V_ext[:input_seq_length]) # test pass
 ```
 
 These checks show that for all but the newest token, \\( K \\) and \\( V \\) are identical to previously computed values.
