@@ -6148,3 +6148,17 @@
     - training
     - partnerships
     - announcement
+  
+- local: inference-providers-featherless
+  title: "Featherless AI on Hugging Face Inference Providers 🔥"
+  author: sbrandeis
+  thumbnail: /blog/assets/inference-providers-featherless/thumbnail.png
+  date: Jun 12, 2025
+  tags:
+   - llms
+   - inference
+   - featherless
+   - recursal
+   - enterprise
+   - partnerships
+   - hub
