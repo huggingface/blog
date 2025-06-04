@@ -1,6 +1,6 @@
 ---
 title: "Featherless AI on Hugging Face Inference Providers 🔥"
-thumbnail: /blog/assets/inference-providers-featherless/thumbnail.png
+thumbnail: /blog/assets/inference-providers/welcome-featherless.png
 authors:
 - user: wxgeorge
   guest: true
@@ -16,10 +16,7 @@ authors:
 - user: sbrandeis
 ---
 
-
-![banner image](https://place-hold.it/1680x900)
-<!-- ![banner image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/featherless-banner.png) -->
-<!-- TODO: add a banner -->
+![banner image](https://huggingface.co/blog/assets/inference-providers/welcome-featherless.png)
 
 # Featherless AI on Hugging Face Inference Providers 🔥
 
