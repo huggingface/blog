@@ -44,19 +44,21 @@ In our QLoRA approach, we focus exclusively on fine-tuning the **transformer com
 
 We used a `diffusers` training script (very slightly modified from https://github.com/huggingface/diffusers/tree/main/examples/research_projects/flux_lora_quantization) designed for DreamBooth-style LoRA fine-tuning of FLUX models. Let's examine the crucial parts for QLoRA and memory efficiency:
 
-**Understanding the Key Optimization Techniques:**
+### Key Optimization Techniques
 
 **LoRA (Low-Rank Adaptation) Deep Dive:**
-LoRA works by decomposing weight updates into low-rank matrices. Instead of updating the full weight matrix $$W$$, LoRA learns two smaller matrices $$A$$ and $$B$$ such that the update is $$\Delta W = BA$$, where $$A \in \mathbb{R}^{r \times k}$$ and $$B \in \mathbb{R}^{d \times r}$$. The rank $$r$$ is typically much smaller than the original dimensions, drastically reducing trainable parameters. LoRA $$\alpha$$ is a scaling factor for the LoRA activations, often set to the same value as the $$r$$ or a multiple of it. It helps balance the influence of the pre-trained model and the LoRA adapter.
+LoRA makes model training more efficient by keeping track of the weight updates with low-rank matrices. Instead of updating the full weight matrix $$W$$, LoRA learns two smaller matrices $$A$$ and $$B$$. The update to the weights for the model is $$\Delta W = BA$$, where $$A \in \mathbb{R}^{r \times k}$$ and $$B \in \mathbb{R}^{d \times r}$$. The number $$r$$ (called _rank_) is much smaller than the original dimensions, which means less parameters to update. Lastly, $$\alpha$$ is a scaling factor for the LoRA activations. This affects how much LoRA affects the updates, and is often set to the same value as the $$r$$ or a multiple of it. It helps balance the influence of the pre-trained model and the LoRA adapter.
 
 **8-bit Optimizer (AdamW):**
-Standard AdamW optimizer maintains first and second moment estimates for each parameter in FP32, consuming significant memory. The 8-bit AdamW uses block-wise quantization to store optimizer states in 8-bit precision while maintaining training stability. This technique can reduce optimizer memory usage by ~75% compared to standard FP32 AdamW.
+Standard AdamW optimizer maintains first and second moment estimates for each parameter in 32-bit (FP32), which consumes a lot of memory The 8-bit AdamW uses block-wise quantization to store optimizer states in 8-bit precision, while maintaining training stability. This technique can reduce optimizer memory usage by ~75% compared to standard FP32 AdamW.
 
 **Gradient Checkpointing:**
-During forward pass, intermediate activations are typically stored for backward pass gradient computation. Gradient checkpointing trades computation for memory by only storing certain "checkpoint" activations and recomputing others during backpropagation.
+During forward pass, intermediate activations are typically stored for backward pass gradient computation. Gradient checkpointing trades computation for memory by only storing certain _checkpoint activations_ and recomputing others during backpropagation.
 
 **Cache Latents:**
-This optimization technique pre-processes all training images through the VAE encoder before training begins, storing the resulting latent representations in memory. During training, instead of encoding images on-the-fly, the cached latents are directly used. This approach offers two main benefits: (1) eliminates redundant VAE encoding computations during training, speeding up each training step, and (2) allows the VAE to be completely removed from GPU memory after caching. The trade-off is increased RAM usage to store all cached latents, but this is typically manageable for small datasets.
+This optimization technique pre-processes all training images through the VAE encoder before the beginning of the training. It stores the resulting latent representations in memory. During the training, instead of encoding images on-the-fly, the cached latents are directly used. This approach offers two main benefits: 
+1. eliminates redundant VAE encoding computations during training, speeding up each training step
+2. allows the VAE to be completely removed from GPU memory after caching. The trade-off is increased RAM usage to store all cached latents, but this is typically manageable for small datasets.
 
 **Setting up 4-bit Quantization (`BitsAndBytesConfig`):**
 
@@ -116,7 +118,7 @@ On our RTX 4090, we used a `train_batch_size` of 1, `gradient_accumulation_steps
 Fine-tuning for 700 steps on the Alphonse Mucha dataset took approximately 41 minutes on the RTX 4090.
 
 **Output Quality:**
-The ultimate measure is the generated art. Here are samples from our QLoRA fine-tuned model on the `derekl35/alphonse-mucha-style` dataset:
+The ultimate measure is the generated art. Here are samples from our QLoRA fine-tuned model on the [derekl35/alphonse-mucha-style](https://huggingface.co/datasets/derekl35/alphonse-mucha-style) dataset:
 
 base model:
 ![base model outputs](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_base_combined.png) 
