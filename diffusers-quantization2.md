@@ -1,24 +1,24 @@
-# Fine-Tuning FLUX.1-dev with QLoRA
+# Fine-Tuning FLUX.1-dev on consumer hardware with QLoRA
 
 In our previous post, [Exploring Quantization Backends in Diffusers](https://huggingface.co/blog/diffusers-quantization), we dived into how various quantization techniques can shrink diffusion models like FLUX.1-dev, making them significantly more accessible for *inference* without drastically compromising performance. We saw how `bitsandbytes`, `torchao`, and others reduce memory footprints for generating images.
 
-Performing inference is cool but to make these models truly our own, we also need to be able to fine-tune them. Therefore, in this post, we tackle **efficient** *fine-tuning* of these models.** This post will guide you through fine-tuning FLUX.1-dev using QLoRA with the Hugging Face `diffusers` library. We'll showcase results from an NVIDIA RTX 4090.
+Performing inference is cool but to make these models truly our own, we also need to be able to fine-tune them. Therefore, in this post, we tackle **efficient** *fine-tuning* of these models with peak memory use under ~10 GB of VRAM on a single GPU. This post will guide you through fine-tuning FLUX.1-dev using QLoRA with the Hugging Face `diffusers` library. We'll showcase results from an NVIDIA RTX 4090.
 
 ## Why Not Just Full Fine-Tuning?
 
 [`black-forest-labs/FLUX.1-dev`](https://huggingface.co/black-forest-labs/FLUX.1-dev/), for instance, requires over 31GB in BF16 for inference alone.
 
-**Full Fine-Tuning:** This traditional method updates all model params.
-* **Pros:** Potential for the highest task-specific quality.
-* **Cons:** For FLUX.1-dev, this would demand immense VRAM (multiple high-end GPUs), putting it out of reach for most individual users.
+**Full Fine-Tuning:** This traditional method updates all model params and offers the potential for the highest task-specific quality. However, for FLUX.1-dev, this approach would demand immense VRAM (multiple high-end GPUs), putting it out of reach for most individual users.
 
-**LoRA (Low-Rank Adaptation):** LoRA freezes the pre-trained weights and injects small, trainable "adapter" layers.
-* **Pros:** Massively reduces trainable parameters, saving VRAM during training and resulting in small adapter checkpoints.
-* **Cons (for base model memory):** The full-precision base model still needs to be loaded, which, for FLUX.1-dev, is still a hefty VRAM requirement even if fewer parameters are being updated.
+**LoRA (Low-Rank Adaptation):** [LoRA](https://huggingface.co/docs/peft/main/en/conceptual_guides/lora) freezes the pre-trained weights and injects small, trainable "adapter" layers. This massively reduces trainable parameters, saving VRAM during training and resulting in small adapter checkpoints. The challenge is that the full-precision base model still needs to be loaded, which, for FLUX.1-dev, remains a hefty VRAM requirement even if fewer parameters are being updated.
 
-**QLoRA: The Efficiency Powerhouse:** QLoRA enhances LoRA by:
-1.  Loading the pre-trained base model in a quantized format (typically 4-bit via `bitsandbytes`), drastically cutting the base model's memory footprint.
-2.  Training LoRA adapters (usually in FP16/BF16) on top of this quantized base.
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft/lora_diagram.png"
+       alt="Illustration of LoRA injecting two low-rank matrices around a frozen weight matrix"
+       width="600"/>
+</p>
+
+**QLoRA: The Efficiency Powerhouse:** [QLoRA](https://huggingface.co/docs/peft/main/en/developer_guides/quantization) enhances LoRA by first loading the pre-trained base model in a quantized format (typically 4-bit via `bitsandbytes`), drastically cutting the base model's memory footprint. It then trains LoRA adapters (usually in FP16/BF16) on top of this quantized base.
 
 This allows fine-tuning of very large models on consumer-grade hardware or more accessible cloud GPUs.
 
@@ -26,6 +26,19 @@ This allows fine-tuning of very large models on consumer-grade hardware or more 
 
  We aim to fine-tune `black-forest-labs/FLUX.1-dev` to adopt the artistic style of Alphonse Mucha, using a small [dataset](https://huggingface.co/datasets/derekl35/alphonse-mucha-style). 
 <!-- (maybe use different dataset) -->
+
+## FLUX Architecture
+
+The model consists of three main components:
+
+*   **Text Encoders (CLIP and T5):**
+    *   **Function:** Process input text prompts. FLUX-dev uses CLIP for initial understanding and a larger T5 for nuanced comprehension and better text rendering.
+*   **Transformer (Main Model - MMDiT):**
+    *   **Function:** Core generative part (Multimodal Diffusion Transformer). Generates images in latent space from text embeddings.
+*   **Variational Auto-Encoder (VAE):**
+    *   **Function:** Translates images between pixel and latent space. Decodes generated latent representation to a pixel-based image.
+
+In our QLoRA approach, we focus exclusively on fine-tuning the **transformer component** (MMDiT). The text encoders and VAE remain frozen throughout training. 
 
 ## QLoRA Fine-tuning FLUX.1-dev with `diffusers`
 
@@ -42,8 +55,8 @@ Standard AdamW optimizer maintains first and second moment estimates for each pa
 **Gradient Checkpointing:**
 During forward pass, intermediate activations are typically stored for backward pass gradient computation. Gradient checkpointing trades computation for memory by only storing certain "checkpoint" activations and recomputing others during backpropagation.
 
-<!-- maybe explain cache latents -->
-
+**Cache Latents:**
+This optimization technique pre-processes all training images through the VAE encoder before training begins, storing the resulting latent representations in memory. During training, instead of encoding images on-the-fly, the cached latents are directly used. This approach offers two main benefits: (1) eliminates redundant VAE encoding computations during training, speeding up each training step, and (2) allows the VAE to be completely removed from GPU memory after caching. The trade-off is increased RAM usage to store all cached latents, but this is typically manageable for small datasets.
 
 **Setting up 4-bit Quantization (`BitsAndBytesConfig`):**
 
@@ -119,6 +132,29 @@ QLoRA fine-tuned:
 *Ornate fox with a collar of autumn leaves and berries, amidst a tapestry of forest foliage, alphonse mucha style*
 
 The fine-tuned model nicely captured Mucha's iconic art nouveau style, evident in the decorative motifs and distinct color palette. The QLoRA process maintained excellent fidelity while learning the new style.
+
+## Inference with Trained LoRA Adapters
+
+After training your LoRA adapters, you have two main approaches for inference.
+
+### Option 1: Loading LoRA Adapters
+
+One approach is to [load your trained LoRA adapters](https://huggingface.co/docs/diffusers/v0.33.1/en/using-diffusers/loading_adapters#lora) on top of the base model.
+
+**Benefits of Loading LoRA:**
+* **Flexibility:** Easily switch between different LoRA adapters without reloading the base model
+* **Experimentation:** Test multiple artistic styles or concepts by swapping adapters
+* **Modularity:** Combine multiple LoRA adapters using `set_adapters()` for creative blending
+* **Storage efficiency:** Keep a single base model and multiple small adapter files
+
+### Option 2: Merging LoRA into Base Model
+
+For when you want maximum efficiency with a single style, you can [merge the LoRA weights](https://huggingface.co/docs/diffusers/using-diffusers/merge_loras) into the base model.
+
+**Benefits of Merging LoRA:**
+- **VRAM efficiency:** No additional memory overhead from adapter weights during inference
+- **Speed:** Slightly faster inference as there's no need to apply adapter computations
+- **Quantization compatibility:** Can re-quantize the merged model for maximum memory efficiency
 
 **Colab Adaptability:**
 <!-- [add a section talking about / change above to be focused on running in google colab] -->
