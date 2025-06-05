@@ -4,6 +4,19 @@ In our previous post, [Exploring Quantization Backends in Diffusers](https://hug
 
 Performing inference is cool but to make these models truly our own, we also need to be able to fine-tune them. Therefore, in this post, we tackle **efficient** *fine-tuning* of these models with peak memory use under ~10 GB of VRAM on a single GPU. This post will guide you through fine-tuning FLUX.1-dev using QLoRA with the Hugging Face `diffusers` library. We'll showcase results from an NVIDIA RTX 4090.
 
+## Table of Contents
+
+- [Why Not Just Full Fine-Tuning?](#why-not-just-full-fine-tuning)
+- [Dataset](#dataset)
+- [FLUX Architecture](#flux-architecture)
+- [QLoRA Fine-tuning FLUX.1-dev with diffusers](#qlora-fine-tuning-flux1-dev-with-diffusers)
+  - [Key Optimization Techniques](#key-optimization-techniques)
+  - [Setup & Results](#setup--results)
+- [Inference with Trained LoRA Adapters](#inference-with-trained-lora-adapters)
+  - [Option 1: Loading LoRA Adapters](#option-1-loading-lora-adapters)
+  - [Option 2: Merging LoRA into Base Model](#option-2-merging-lora-into-base-model)
+- [Conclusion](#conclusion)
+
 ## Why Not Just Full Fine-Tuning?
 
 [`black-forest-labs/FLUX.1-dev`](https://huggingface.co/black-forest-labs/FLUX.1-dev/), for instance, requires over 31GB in BF16 for inference alone.
@@ -44,7 +57,7 @@ In our QLoRA approach, we focus exclusively on fine-tuning the **transformer com
 
 We used a `diffusers` training script (very slightly modified from https://github.com/huggingface/diffusers/tree/main/examples/research_projects/flux_lora_quantization) designed for DreamBooth-style LoRA fine-tuning of FLUX models. Let's examine the crucial parts for QLoRA and memory efficiency:
 
-### Key Optimization Techniques
+### Key Optimization Techniques
 
 **LoRA (Low-Rank Adaptation) Deep Dive:**
 LoRA makes model training more efficient by keeping track of the weight updates with low-rank matrices. Instead of updating the full weight matrix $$W$$, LoRA learns two smaller matrices $$A$$ and $$B$$. The update to the weights for the model is $$\Delta W = BA$$, where $$A \in \mathbb{R}^{r \times k}$$ and $$B \in \mathbb{R}^{d \times r}$$. The number $$r$$ (called _rank_) is much smaller than the original dimensions, which means less parameters to update. Lastly, $$\alpha$$ is a scaling factor for the LoRA activations. This affects how much LoRA affects the updates, and is often set to the same value as the $$r$$ or a multiple of it. It helps balance the influence of the pre-trained model and the LoRA adapter.
@@ -98,6 +111,8 @@ transformer_lora_config = LoraConfig(
     target_modules=["to_k", "to_q", "to_v", "to_out.0"], # FLUX attention blocks
 )
 transformer.add_adapter(transformer_lora_config)
+# Total Parameters:     5,956,916,288
+# Trainable Parameters:     4,669,440  (0.0784% of total)
 ```
 Only these LoRA parameters become trainable.
 
@@ -166,3 +181,12 @@ For when you want maximum efficiency with a single style, you can [merge the LoR
 QLoRA, coupled with the `diffusers` library, significantly democratizes the ability to customize state-of-the-art models like FLUX.1-dev. As demonstrated on an RTX 4090, efficient fine-tuning is well within reach, yielding high-quality stylistic adaptations. Importantly, these techniques are adaptable, paving the way for users on more constrained hardware, like Google Colab, to also participate.
 
 <!-- [Maybe add a link to trained LoRA adapter on Hugging Face Hub.] -->
+### Share your creations on the Hub!
+
+Sharing your fine-tuned LoRA adapters is a fantastic way to contribute to the open-source community. It allows others to easily try out your styles, build on your work, and helps create a vibrant ecosystem of creative AI tools.
+
+If you've trained a LoRA for FLUX.1-dev, we encourage you to share it. Here's how you can do it:
+- Follow this guide on [sharing models on the Hub](https://huggingface.co/docs/transformers/en/model_sharing).
+- Add `flux` and `lora` as tags in your model card's metadata to make it easily discoverable.
+
+We can't wait to see what you create!
