@@ -20,7 +20,7 @@ We are very excited to share it with you today: [ScreenSuite](https://github.com
   <video controls style="margin-bottom:0;">
     <source src="https://os-world.github.io/static/videos/main.mp4" type="video/mp4">
   </video>
-  <p style="color:grey;margin-top:0;"><i>GUI Agents in action - courtesy of <a href="https://os-world.github.io/">OSWorld<a></i></p>
+  <p style="color:grey;margin-top:0;"><i>GUI Agents in action - courtesy of <a href="https://os-world.github.io/">OSWorld</a></i></p>
 </div>
 
 In short, an AI Agent is a robot that acts in the virtual world. ([more thorough definition here](https://huggingface.co/docs/smolagents/conceptual_guides/intro_agents)) 
@@ -35,16 +35,14 @@ A good GUI agent will be able to navigate a computer just like we would, thus un
 
 The literature, for instance [Xu et al. (2025)](https://arxiv.org/abs/2412.04454) or [Qin et al. (2025)](https://arxiv.org/abs/2501.12326), generally splits GUI agent abilities amongst several categories:
 
-1. Perception: correctly perceiving the informations displayed on screen
+1. Perception: correctly perceiving the informati displayed on screen
 2. Grounding: understanding the positioning of elements - this is paramount to click the correct place
 3. Single step actions: solving instructions correctly over one action
 4. Multi-step agents: solving a higher-level goal through several actions in a GUI environment.
 
-So our first contribution is to **gather and unify a comprehensive suite of 13 benchmarks spanning the ensemble of these GUI agent capabilities.**
+So our first contribution is to **gather and unify a comprehensive suite of 13 benchmarks spanning the full range of these GUI agent capabilities.**
 
 If you look at the last category listed above, evaluating Multi-step agentic capabilities is especially challenging as it requires virtual machines to run the agent’s environment, be it Windows, Android, Ubuntu... To address this, we provide support both for [E2B desktop](https://github.com/e2b-dev/desktop) remote sandboxes, and we created from scratch a new option to easily launch Ubuntu or Android virtual machines in Docker!
-
-Full markdown table (visualize it on [https://huggingface.co/new-blog](https://huggingface.co/new-blog))
 
 | **Category**                 | **Benchmark**                                                                                    | **Environment** | **Sample count**    |
 | ---------------------------- | ------------------------------------------------------------------------------------------------ | --------------- | ------------------- |
@@ -69,7 +67,7 @@ We’ve carefully designed our benchmark suite with modularity and consistency i
 
 To support reproducibility and ease of use, we’ve built custom Dockerized containers that allow local deployment of full **Ubuntu Desktop** or **Android** environments.
 
-Unlike many existing GUI benchmarks that rely on accessibility trees* or other privileged metadata alongside visual input, our stack is intentionally **vision-only**. While this can result in different scores on some established leaderboards, it creates a more realistic and challenging setup, one that better reflects how humans perceive and interact with graphical interfaces.
+Unlike many existing GUI benchmarks that rely on accessibility trees or other metadata alongside visual input, our stack is intentionally **vision-only**. While this can result in different scores on some established leaderboards, we deem that it creates a more realistic and challenging setup, one that better reflects how humans perceive and interact with graphical interfaces.
 
 – All agentic frameworks (Android World, OSWorld, GAIAWeb, Mind2Web) use [smolagents](https://github.com/huggingface/smolagents) and rely solely on **vision**, without any accessibility tree or DOM added (in contrast with evaluation settings reported in other sources).
 – **Mind2Web (Multimodal)** originally used **element-name-based multi-choice selection** based on the accessibility tree and screenshots, but was later adapted to **click precision within bounding boxes** using **vision only**, which significantly increases task difficulty.
