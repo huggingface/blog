@@ -72,7 +72,7 @@ Unlike many existing GUI benchmarks that rely on accessibility trees or other me
 – All agentic frameworks (Android World, OSWorld, GAIAWeb, Mind2Web) use [smolagents](https://github.com/huggingface/smolagents) and rely solely on **vision**, without any accessibility tree or DOM added (in contrast with evaluation settings reported in other sources).
 – **Mind2Web (Multimodal)** originally used **element-name-based multi-choice selection** based on the accessibility tree and screenshots, but was later adapted to **click precision within bounding boxes** using **vision only**, which significantly increases task difficulty.
 
-### How do existing VLMs compare? 📊
+### Ranking leading VLMs on ScreenSuite 📊
 
 
 We’ve evaluated leading VLMs on the benchmark
