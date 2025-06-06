@@ -109,5 +109,5 @@ Running consistent and meaningful evaluations easily allows the community to qui
 We hope to see much more capable open models in the coming month that can run a wide range of tasks reliably and even run locally!
 
 To support this effort:
-👉 Go star [ScreenSuite](https://github.com/huggingface/screensuite) and interact in issues/PRs!
-👉 Follow [smolagents](https://huggingface.co/smolagents) to stay up-to-date.
+- ⭐️ Go star [the ScreenSuite repo](https://github.com/huggingface/screensuite) and give us feedback in issues/PRs!
+- 👉 Follow the [smolagents org](https://huggingface.co/smolagents) to stay up-to-date.
