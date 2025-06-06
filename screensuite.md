@@ -76,8 +76,9 @@ Unlike many existing GUI benchmarks that rely on accessibility trees* or other p
 
 
 We’ve evaluated leading VLMs on the benchmark
-- The [Qwen-2.5-VL series of models](https://huggingface.co/collections/Qwen/qwen25-vl-6795ffac22b334a837c0f9a5) from 3B to 72B. These models are known for their amazing grounding capabilities, in other words they know the coordinates of any element in an image which makes them suited for GUI agents that need to click precisely.
-- [UI-Tars-1.5-7B](https://huggingface.co/ByteDance-Seed/UI-TARS-1.5-7B)
+- The [Qwen-2.5-VL series of models](https://huggingface.co/collections/Qwen/qwen25-vl-6795ffac22b334a837c0f9a5) from 3B to 72B. These models are known for their amazing localization capabilities, in other words they know the coordinates of any element in an image which makes them suited for GUI agents that need to click precisely.
+- [UI-Tars-1.5-7B](https://huggingface.co/ByteDance-Seed/UI-TARS-1.5-7B), the all-rounder by ByteDance.
+- [Holo1-7B](https://huggingface.co/Hcompany/Holo1-7B), the latest localization model by H company, showing very strong localization for its size.
 - [GPT-4o](https://arxiv.org/abs/2410.21276)
 
 Our scores are in general agreement with the scores reported in various sources! *With the caveat that we evaluate on vision only, causing some differences, see below.*
