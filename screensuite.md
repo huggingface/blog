@@ -6,7 +6,7 @@ authors:
   - user: m-ric
   - user: thomwolf
 ---
-## We’re releasing ScreenSuite, the most comprehensive evaluation suite for GUI Agents!
+## Releasing ScreenSuite, the most comprehensive evaluation suite for GUI Agents!
 
 **TL;DR**
 
