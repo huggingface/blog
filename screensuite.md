@@ -2,8 +2,8 @@
 title: "Introducing ScreenSuite - The most comprehensive evaluation suite for GUI Agents!"
 thumbnail: /blog/assets/screensuite/thumbnail.png
 authors:
-  - user: m-ric
   - user: a-mahla
+  - user: m-ric
   - user: thomwolf
 ---
 ## We’re releasing ScreenSuite, the most comprehensive evaluation suite for GUI Agents!
