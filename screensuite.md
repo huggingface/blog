@@ -10,11 +10,9 @@ authors:
 
 **TL;DR**
 
-GUI (Graphical User Interface) Agents have exploded since the initial release of Claude Computer Use. GUI agents are agents based on vision models that take screenshots as inputs and mouse/keyboard commands as outputs. Thus, they are able to control any device just like we do.
-
 Over the past few weeks, we’ve been working tirelessly on making GUI agents more open, accessible and easy to integrate. Along the way, we created the largest benchmarking suite for GUI agents performances 👉 let us introduce [ScreenSuite](https://github.com/huggingface/screensuite).
 
-We are very excited to share it with you today: ScreenSuite is the most comprehensive and easiest way to evaluate [Vision Language Models](https://huggingface.co/blog/vlms) (VLMs)across many agentic capabilities!
+We are very excited to share it with you today: [ScreenSuite](https://github.com/huggingface/screensuite) is the most comprehensive and easiest way to evaluate [Vision Language Models](https://huggingface.co/blog/vlms) (VLMs)across many agentic capabilities!
 
 ### WTF is a GUI Agent?
 
@@ -25,7 +23,7 @@ We are very excited to share it with you today: ScreenSuite is the most comprehe
   <p style="color:grey;margin-top:0;"><i>GUI Agents in action - courtesy of <a href="https://os-world.github.io/">OSWorld<a></i></p>
 </div>
 
-Basically, an agent is a robot that acts in the virtual world. ([more thorough definition here](https://huggingface.co/docs/smolagents/conceptual_guides/intro_agents)) 
+In short, an AI Agent is a robot that acts in the virtual world. ([more thorough definition here](https://huggingface.co/docs/smolagents/conceptual_guides/intro_agents)) 
 
 In particular, a “GUI Agent” is an agent that lives in a GUI. Think “an agent that can do clicks and navigate on my desktop or my phone”, à la Claude Computer Use.
 
@@ -75,41 +73,19 @@ Unlike many existing GUI benchmarks that rely on accessibility trees* or other p
 
 ### How do existing VLMs compare? 📊
 
+
+
+We’ve evaluated leading VLMs on the benchmark, and managed to recover existing scores - with the caveat that we evaluate on vision only, causing some differences, see below.
+
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/screensuite/scores_screensuite.png"/>
+</div>
+
 >[!NOTE]
-> 💡 Note that ScreenSuite does not intend to exactly reproduce benchmarks published in the industry: we wanted to evaluate “agents that act on a GUI, taking only the screenshots as input”. As a result, on benchmarks like Mind2Web where other benchmarks gave the agent a view of information rich context like DOM or accessibility tree, our evaluation setting is much harder, thus we don’t recover the same scores. But we don’t mind, since our goal is to compare visual-only GUI agents!
+> 💡 Note that ScreenSuite does not intend to exactly reproduce benchmarks published in the industry: we wanted to evaluate “agents that act on a GUI, taking only the screenshots as input”. As a result, on benchmarks like Mind2Web where other benchmarks gave the agent a view of information rich context like DOM or accessibility tree, our evaluation setting is much harder, thus we don’t recover the same scores. But this does not conflict with our goal is of comparing VLMs on vision-only agentic ability.
 
-We’ve evaluated leading VLMs on the benchmark, and got these scores, which most ogten match existing scores. Differences in scores with existing benchmarks are mainly due to implementation differences, where we do not provide the full HTML to a webpage, and instead provide only a screen capture for the agent : this is a much harder setting, and explains wide score gaps on Mind2Web amongst others.
-
-| **Benchmark**            | **UI-Tars 1.5-7B** | >Comp                                                                 | **Holo-7B**                                                   | >Comp                                                                | **Qwen2.5-VL-72B** | >Comp                                                | **Qwen2.5-VL-32B**                                  | >Comp                                                          | **GPT-4o**                                                    | >Comp                                                          | **Claude 4.0**                           | >Comp (Claude Sonnet 3.7)                                     |
-| ------------------------ | ------------------ | --------------------------------------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------ | ---------------------------------------------------- | --------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------- |
-| ScreenQA-Complex         | 76.0%              |                                                                       | 36%                                                           |                                                                      | **79.7%**          |                                                      | 74.5%                                               |                                                                | 43.1%                                                         |                                                                | 59.5%                                    |                                                               |
-| ScreenQA-Short           | **86.5%**          | [87.7%](https://arxiv.org/pdf/2501.12326) ✅                           | 79.5%                                                         |                                                                      | 85.5%              |                                                      | 85.7%                                               |                                                                | 86.4%                                                         | [82.3%](https://arxiv.org/pdf/2501.12326) ✅                    | 78.5%                                    |                                                               |
-| ScreenSpot-v2            | 73.6%              | [94.2%](https://huggingface.co/ByteDance-Seed/UI-TARS-1.5-7B) (1.5) ❌ | 16.7%                                                         | [89.8%](https://huggingface.co/blog/Hcompany/holo1) ❌                | **90.5%**          | [87.1%](https://qwenlm.github.io/blog/qwen2.5-vl/) ✅ | 76.5%                                               | [88.5%](https://huggingface.co/Qwen/Qwen2.5-VL-32B-Instruct) ✅ | 19.8%                                                         |                                                                | 21.2%                                    | [94.2%](https://huggingface.co/ByteDance-Seed/UI-TARS-1.5-7B) |
-| ScreenSpot-Pro           | 38.0%              | [35.7%](https://arxiv.org/pdf/2501.12326)  (v1)                       | [24%](https://huggingface.co/blog/Hcompany/holo1) (v1)        | [61.5%](https://huggingface.co/ByteDance-Seed/UI-TARS-1.5-7B) (1.5)❌ | 0.5%               | [26%](https://huggingface.co/blog/Hcompany/holo1) ❌  | **48.2%**                                           | [43.6%](https://qwenlm.github.io/blog/qwen2.5-vl/) ✅           | 15.4%                                                         | [39.4%](https://huggingface.co/Qwen/Qwen2.5-VL-32B-Instruct) ⚠️ | 1.0%                                     | [0.8%](https://arxiv.org/pdf/2501.12326) ✅                    | 1.2%                                                        | [27.7%](https://huggingface.co/ByteDance-Seed/UI-TARS-1.5-7B) |
-| VisualWebBench           | 64.5%              | [79.7%](https://arxiv.org/pdf/2501.12326) ⚠️                           | -                                                             |                                                                      | 72.6%              |                                                      | 63.1%                                               |                                                                | **74.2%**                                                     | [78.5%](https://arxiv.org/pdf/2501.12326) ✅                    | 24.4%                                    |                                                               |
-| WebSRC                   | 90.3%              | [93.6%](https://arxiv.org/pdf/2501.12326) ✅                           | 83.0%                                                         |                                                                      | **94.7%**          |                                                      | 92.7%                                               |                                                                | 92.3%                                                         | [87.7%](https://arxiv.org/pdf/2501.12326) ✅                    | 86.5%                                    |                                                               |
-| Showdown-Clicks          | 58.3%              |                                                                       | 25.0%                                                         |                                                                      | 41.0%              |                                                      | **48.0%**                                           |                                                                | 4.6%                                                          |                                                                | 59%                                      |                                                               |
-| Android Control          | 1.4%               | [74.7%](https://arxiv.org/pdf/2501.12326) ❌                           | 36.8%                                                         |                                                                      | **66.6%**          |                                                      | 47.4%                                               |                                                                | 48.2%                                                         |                                                                | 8.9%                                     |                                                               |
-| Multimodal Mind2Web      | 3.5%               | [60.5%](https://arxiv.org/pdf/2501.12326) ❌ (Step SR Cross domain)    |                                                               |                                                                      | **48.7%**          |                                                      | 2.6%                                                |                                                                | 1.6%                                                          | [4.5%](https://arxiv.org/pdf/2501.12326)                       | 4.3%                                     |                                                               |
-| AndroidWorld (~15 steps) | -                  | [33%](https://arxiv.org/pdf/2501.12326)                               |                                                               |                                                                      | **24.4%**          | [35%](https://qwenlm.github.io/blog/qwen2.5-vl/) ⚠️   | 15.2%                                               | [22%](https://huggingface.co/Qwen/Qwen2.5-VL-32B-Instruct) ✅   | 6.8%                                                          | [34.5%](https://arxiv.org/pdf/2501.12326) (SoM ✅l)             |                                          |                                                               |
-| OsWorld (15 steps)       | -                  | [17.7%](https://arxiv.org/pdf/2501.12326) (v1)                        | [42.5%](https://huggingface.co/ByteDance-Seed/UI-TARS-1.5-7B) |                                                                      |                    | **12.0%**                                            | [8.8%](https://qwenlm.github.io/blog/qwen2.5-vl/) ✅ | 7.8%                                                           | [5.9% ✅](https://huggingface.co/Qwen/Qwen2.5-VL-32B-Instruct) | 3.7%                                                           | [5.0%](https://arxiv.org/pdf/2501.12326) |                                                               | [28%](https://huggingface.co/ByteDance-Seed/UI-TARS-1.5-7B) |
-| GAIA-Web (30 steps)      | -                  |                                                                       |                                                               |                                                                      | 5.5%               |                                                      | 3.3%                                                |                                                                | **6.6%**                                                      |                                                                |                                          |                                                               |
-
-TODO: make the above ^in latex when scores are definitive
-
-**Notes:*
-
-*– **Android World** uses the smolagent as framework layer and relies solely on **vision**, without any accessibility tree.*
-
-*– **Mind2Web (Multimodal)*** originally used **element-name-based multi-choice selection** based on the **accessibility tree and screenshots**, but was later adapted to **click precision within bounding boxes** using **vision only**, which **significantly increased task difficulty**
-
-*– **GaiaWeb** is implemented using **vision only** within a desktop computer environment, which makes it particularly challenging compared to other submissions to GAIA that often use direct google search API calls.*
-
-*– **OSWorld** uses **screenshots only** as its observation modality.*
-
-*These architectural changes can significantly impact task difficulty and resulting benchmark scores.*
-
----
+– All agentic frameworks (Android World, OSWorld, GAIAWeb, Mind2Web) use [smolagents](https://github.com/huggingface/smolagents) and rely solely on **vision**, without any accessibility tree or DOM added (in contrast with evaluation settings reported in other sources).
+– **Mind2Web (Multimodal)** originally used **element-name-based multi-choice selection** based on the accessibility tree and screenshots, but was later adapted to **click precision within bounding boxes** using **vision only**, which significantly increases task difficulty.
 
 ### Start your custom evaluation in 30s ⚡️
 
@@ -120,7 +96,8 @@ Head to [the repository](https://github.com/huggingface/screensuite).
 3. Run `python run.py` 
     - Alternatively, run `python examples/run_benchmarks.py` for more fine-grained control, like running evaluations for several models in parallel.
 
-**Notes: The multistep benchmarks **requires a bare-metal machine** to run and deploy desktop/mobile* environment *emulators (see [README.md](https://github.com/huggingface/screensuite/blob/main/README.md))*
+>[!NOTE]
+> The multistep benchmarks **requires a bare-metal machine** to run and deploy desktop/mobile* environment *emulators (see [README.md](https://github.com/huggingface/screensuite/blob/main/README.md))
 
 ### Next steps 🚀
 
