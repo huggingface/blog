@@ -107,3 +107,7 @@ Head to [the repository](https://github.com/huggingface/screensuite).
 Running consistent and meaningful evaluations easily allows the community to quickly iterate and make progress in this field, as we’ve seen with [Eleuther LM evaluation harness](https://github.com/EleutherAI/lm-evaluation-harness), the [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/) and the [Chatbot Arena](https://huggingface.co/spaces/lmarena-ai/chatbot-arena-leaderboard).
 
 We hope to see much more capable open models in the coming month that can run a wide range of tasks reliably and even run locally!
+
+To support this effort:
+👉 Go star [ScreenSuite](https://github.com/huggingface/screensuite) and interact in issues/PRs!
+👉 Follow [smolagents](https://huggingface.co/smolagents) to stay up-to-date.
