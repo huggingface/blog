@@ -6125,3 +6125,15 @@
     - nlp
     - vlm
     - nanovlm
+
+- local: screensuite
+  title: "ScreenSuite - The most comprehensive evaluation suite for GUI Agents!"
+  author: a-mahla
+  thumbnail: /blog/assets/screensuite/thumbnail.png
+  date: Jun 6, 2025
+  tags:
+    - screensuite
+    - gui-agents
+    - agents
+    - smolagents
+    - vlm

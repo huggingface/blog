@@ -1,5 +1,5 @@
 ---
-title: "Introducing ScreenSuite - The most comprehensive evaluation suite for GUI Agents!"
+title: "ScreenSuite - The most comprehensive evaluation suite for GUI Agents!"
 thumbnail: /blog/assets/screensuite/thumbnail.png
 authors:
   - user: a-mahla
@@ -71,8 +71,10 @@ To support reproducibility and ease of use, we’ve built custom Dockerized cont
 
 Unlike many existing GUI benchmarks that rely on accessibility trees* or other privileged metadata alongside visual input, our stack is intentionally **vision-only**. While this can result in different scores on some established leaderboards, it creates a more realistic and challenging setup, one that better reflects how humans perceive and interact with graphical interfaces.
 
-### How do existing VLMs compare? 📊
+– All agentic frameworks (Android World, OSWorld, GAIAWeb, Mind2Web) use [smolagents](https://github.com/huggingface/smolagents) and rely solely on **vision**, without any accessibility tree or DOM added (in contrast with evaluation settings reported in other sources).
+– **Mind2Web (Multimodal)** originally used **element-name-based multi-choice selection** based on the accessibility tree and screenshots, but was later adapted to **click precision within bounding boxes** using **vision only**, which significantly increases task difficulty.
 
+### How do existing VLMs compare? 📊
 
 
 We’ve evaluated leading VLMs on the benchmark
@@ -81,17 +83,14 @@ We’ve evaluated leading VLMs on the benchmark
 - [Holo1-7B](https://huggingface.co/Hcompany/Holo1-7B), the latest localization model by H company, showing very strong localization for its size.
 - [GPT-4o](https://arxiv.org/abs/2410.21276)
 
-Our scores are in general agreement with the scores reported in various sources! *With the caveat that we evaluate on vision only, causing some differences, see below.*
+Our scores are in general agreement with the scores reported in various sources! *With the caveat that we evaluate on vision only, causing some differences, see implementation details above.*
 
 <div class="flex justify-center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/screensuite/scores_screensuite.png"/>
 </div>
 
 >[!NOTE]
-> 💡 Note that ScreenSuite does not intend to exactly reproduce benchmarks published in the industry: we wanted to evaluate “agents that act on a GUI, taking only the screenshots as input”. As a result, on benchmarks like Mind2Web where other benchmarks gave the agent a view of information rich context like DOM or accessibility tree, our evaluation setting is much harder, thus we don’t recover the same scores. But this does not conflict with our goal is of comparing VLMs on vision-only agentic ability.
-
-– All agentic frameworks (Android World, OSWorld, GAIAWeb, Mind2Web) use [smolagents](https://github.com/huggingface/smolagents) and rely solely on **vision**, without any accessibility tree or DOM added (in contrast with evaluation settings reported in other sources).
-– **Mind2Web (Multimodal)** originally used **element-name-based multi-choice selection** based on the accessibility tree and screenshots, but was later adapted to **click precision within bounding boxes** using **vision only**, which significantly increases task difficulty.
+> 💡 Note that ScreenSuite does not intend to exactly reproduce benchmarks published in the industry: we evaluate models on *GUI agentic capabilities based on vision*. As a result, on benchmarks like Mind2Web where other benchmarks gave the agent a view of information rich context like DOM or accessibility tree, our evaluation setting is much harder, thus ScreenSuite does not match other sources.
 
 ### Start your custom evaluation in 30s ⚡️
 
