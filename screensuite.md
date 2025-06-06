@@ -8,10 +8,7 @@ authors:
 ---
 ## We’re releasing ScreenSuite, the most comprehensive evaluation suite for GUI Agents!
 
-![image.png](Blog%20Post%20Releasing%20ScreenSuite%201f41384ebcac8010b726fdb0a93b9d7c/image.png)
-
-
-**TL;DR:**
+**TL;DR**
 
 GUI (Graphical User Interface) Agents have exploded since the initial release of Claude Computer Use. GUI agents are agents based on vision models that take screenshots as inputs and mouse/keyboard commands as outputs. Thus, they are able to control any device just like we do.
 
@@ -21,9 +18,12 @@ We are very excited to share it with you today: ScreenSuite is the most comprehe
 
 ### WTF is a GUI Agent?
 
-[Video taken from OSWorld, illustrating GUI agents](Blog%20Post%20Releasing%20ScreenSuite%201f41384ebcac8010b726fdb0a93b9d7c/main.mp4)
-
-Video taken from OSWorld, illustrating GUI agents
+<div>
+  <video controls style="margin-bottom:0;">
+    <source src="https://os-world.github.io/static/videos/main.mp4" type="video/mp4">
+  </video>
+  <p style="color:grey;margin-top:0;"><i>GUI Agents in action - courtesy of <a href="https://os-world.github.io/">OSWorld<a></i></p>
+</div>
 
 Basically, an agent is a robot that acts in the virtual world. ([more thorough definition here](https://huggingface.co/docs/smolagents/conceptual_guides/intro_agents)) 
 
@@ -65,7 +65,7 @@ Full markdown table (visualize it on [https://huggingface.co/new-blog](https://h
 |                              | [GAIA-Web](https://huggingface.co/gaia-benchmark)                                                | Web             | 132                 |
 |                              | [Mind2Web-Live](https://osu-nlp-group.github.io/Mind2Web/)                                       | Web             | 208                 |
 
-### Implementation details
+**Implementation details**
 
 We’ve carefully designed our benchmark suite with modularity and consistency in mind, ensuring strong alignment across tasks and environments. When required, especially for online benchmarks, we leverage [smolagents](https://github.com/serain/smolagents) as framework layer to streamline agent execution and orchestration.
 
@@ -75,7 +75,8 @@ Unlike many existing GUI benchmarks that rely on accessibility trees* or other p
 
 ### How do existing VLMs compare? 📊
 
-💡 Note that ScreenSuite does not intend to exactly reproduce benchmarks published in the industry: we wanted to evaluate “agents that act on a GUI, taking only the screenshots as input”. As a result, on benchmarks like Mind2Web where other benchmarks gave the agent a view of information rich context like DOM or accessibility tree, our evaluation setting is much harder, thus we don’t recover the same scores. But we don’t mind, since our goal is to compare visual-only GUI agents!
+>[!NOTE]
+> 💡 Note that ScreenSuite does not intend to exactly reproduce benchmarks published in the industry: we wanted to evaluate “agents that act on a GUI, taking only the screenshots as input”. As a result, on benchmarks like Mind2Web where other benchmarks gave the agent a view of information rich context like DOM or accessibility tree, our evaluation setting is much harder, thus we don’t recover the same scores. But we don’t mind, since our goal is to compare visual-only GUI agents!
 
 We’ve evaluated leading VLMs on the benchmark, and got these scores, which most ogten match existing scores. Differences in scores with existing benchmarks are mainly due to implementation differences, where we do not provide the full HTML to a webpage, and instead provide only a screen capture for the agent : this is a much harder setting, and explains wide score gaps on Mind2Web amongst others.
 
@@ -123,6 +124,6 @@ Head to [the repository](https://github.com/huggingface/screensuite).
 
 ### Next steps 🚀
 
-Running consistent and meaningful evaluations easily allows the community to quickly iterate and make progress in this field, as we’ve seen with Eleuther’s [LM evaluation harness](https://github.com/EleutherAI/lm-evaluation-harness), the [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/) and the [Chatbot Arena](https://huggingface.co/spaces/lmarena-ai/chatbot-arena-leaderboard).
+Running consistent and meaningful evaluations easily allows the community to quickly iterate and make progress in this field, as we’ve seen with [Eleuther LM evaluation harness](https://github.com/EleutherAI/lm-evaluation-harness), the [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/) and the [Chatbot Arena](https://huggingface.co/spaces/lmarena-ai/chatbot-arena-leaderboard).
 
 We hope to see much more capable open models in the coming month that can run a wide range of tasks reliably and even run locally!
