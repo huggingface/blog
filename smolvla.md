@@ -131,6 +131,7 @@ python lerobot/scripts/train.py \
 You can also load `SmolVLAPolicy` directly:
 
 ```python
+from lerobot.common.policies.smolvla.modeling_smolvla import SmolVLAPolicy
 policy = SmolVLAPolicy.from_pretrained("lerobot/smolvla_base")
 ```
 
