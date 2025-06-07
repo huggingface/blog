@@ -116,7 +116,7 @@ python lerobot/scripts/train.py \
   --policy.path=lerobot/smolvla_base \
   --dataset.repo_id=lerobot/svla_so100_stacking \
   --batch_size=64 \
-  --steps=200000
+  --steps=20000  # 10% of training budget
 ```
 ### Train from scratch
 ​​If you'd like to build from the architecture (pretrained VLM + action expert) rather than a pretrained checkpoint:
