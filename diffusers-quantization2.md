@@ -15,6 +15,7 @@ Performing inference is cool but to make these models truly our own, we also nee
 - [Inference with Trained LoRA Adapters](#inference-with-trained-lora-adapters)
   - [Option 1: Loading LoRA Adapters](#option-1-loading-lora-adapters)
   - [Option 2: Merging LoRA into Base Model](#option-2-merging-lora-into-base-model)
+- [Running on Google Colab](#running-on-google-colab)
 - [Conclusion](#conclusion)
 
 ## Why Not Just Full Fine-Tuning?
@@ -45,11 +46,8 @@ This allows fine-tuning of very large models on consumer-grade hardware or more 
 The model consists of three main components:
 
 *   **Text Encoders (CLIP and T5):**
-    *   **Function:** Process input text prompts. FLUX-dev uses CLIP for initial understanding and a larger T5 for nuanced comprehension and better text rendering.
 *   **Transformer (Main Model - MMDiT):**
-    *   **Function:** Core generative part (Multimodal Diffusion Transformer). Generates images in latent space from text embeddings.
 *   **Variational Auto-Encoder (VAE):**
-    *   **Function:** Translates images between pixel and latent space. Decodes generated latent representation to a pixel-based image.
 
 In our QLoRA approach, we focus exclusively on fine-tuning the **transformer component** (MMDiT). The text encoders and VAE remain frozen throughout training. 
 
@@ -111,8 +109,8 @@ transformer_lora_config = LoraConfig(
     target_modules=["to_k", "to_q", "to_v", "to_out.0"], # FLUX attention blocks
 )
 transformer.add_adapter(transformer_lora_config)
-# Total Parameters:     5,956,916,288
-# Trainable Parameters:     4,669,440  (0.0784% of total)
+print(f"trainable params: {transformer.num_parameters(only_trainable=True)} || all params: {transformer.num_parameters()}")
+# trainable params: 4,669,440 || all params: 11,906,077,760
 ```
 Only these LoRA parameters become trainable.
 
@@ -173,12 +171,17 @@ For when you want maximum efficiency with a single style, you can [merge the LoR
 - **Speed:** Slightly faster inference as there's no need to apply adapter computations
 - **Quantization compatibility:** Can re-quantize the merged model for maximum memory efficiency
 
-**Colab Adaptability:**
-<!-- [add a section talking about / change above to be focused on running in google colab] -->
+## Running on Google Colab
+
+While we showcased results on an RTX 4090, the same code can be run on more accessible hardware like the T4 GPU available in Google Colab.
+
+On a T4, you can expect the fine-tuning process to take significantly longer around 4 hours for the same number of steps. This is a trade-off for accessibility, but it makes custom fine-tuning possible without high-end hardware. Be mindful of usage limits if running on Colab, as a 4-hour training run might push them.
+
+<!-- TODO: figure out how to make time shorter. maybe reduce steps, or use faster kernels -->
 
 ## Conclusion
 
-QLoRA, coupled with the `diffusers` library, significantly democratizes the ability to customize state-of-the-art models like FLUX.1-dev. As demonstrated on an RTX 4090, efficient fine-tuning is well within reach, yielding high-quality stylistic adaptations. Importantly, these techniques are adaptable, paving the way for users on more constrained hardware, like Google Colab, to also participate.
+QLoRA, coupled with the `diffusers` library, significantly democratizes the ability to customize state-of-the-art models like FLUX.1-dev. As demonstrated on an RTX 4090, efficient fine-tuning is well within reach, yielding high-quality stylistic adaptations.
 
 <!-- [Maybe add a link to trained LoRA adapter on Hugging Face Hub.] -->
 ### Share your creations on the Hub!
