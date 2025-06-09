@@ -21,7 +21,7 @@ Before we dive into the technical details of how various quantization backends i
 
 We created a setup where you can provide a prompt, and we generate results using both the original, high-precision model (e.g., Flux-dev in BF16) and several quantized versions (BnB 4-bit, BnB 8-bit). The generated images are then presented to you and your challenge is to identify which ones came from the quantized models.
 
-Try it out here!
+Try it out [here](https://huggingface.co/spaces/diffusers/flux-quant) or below!
 <gradio-app src="https://diffusers-flux-quant.hf.space"></gradio-app>
 
 Often, especially with 8-bit quantization, the differences are subtle and may not be noticeable without close inspection. More aggressive quantization like 4-bit or lower might be more noticeable, but the results can still be good, especially considering the massive memory savings. NF4 often gives the best trade-off though.
