@@ -450,7 +450,8 @@ For more information check out the [Layerwise casting docs](https://huggingface.
 
 Most of these quantization backends can be combined with the memory optimization techniques offered in Diffusers. Let's explore CPU offloading, group offloading, and `torch.compile`. You can learn more about these techniques in the [Diffusers documentation](https://huggingface.co/docs/diffusers/main/en/optimization/memory).
 
-> **Note:** At the time of writing, bnb + `torch.compile` works if bnb is installed from source and using pytorch nightly or with fullgraph=False.
+> **Note:** At the time of writing, bnb + `torch.compile` works if bitsandbytes>=0.46.0 and using pytorch nightly or with fullgraph=False.
+
 
 <details>
 <summary>Example (Flux-dev with BnB 4-bit + enable_model_cpu_offload):</summary>
@@ -591,7 +592,7 @@ pipeline_quant_config = PipelineQuantizationConfig(
 | int8_weight_only              | 17.020 GB            | 22.473 GB   | 8 seconds     | ~851 seconds          |
 | float8_weight_only            | 17.016 GB            | 22.115 GB   | 8 seconds     | ~545 seconds          |
 
-**bitsandbytes + `torch.compile`**: **Note:** To enable compatibility with torch.compile, make sure you're using the latest version of bitsandbytes and PyTorch nightlies (2.8)
+**bitsandbytes + `torch.compile`**: These benchmarks were obtained on a A100. **Note:** To enable compatibility with torch.compile, make sure you're using the latest version of bitsandbytes and PyTorch nightlies (2.8). 
 
 | `bitsandbytes` 4-bit | Peak Memory | Inference Time |
 |-----|-----|------|
