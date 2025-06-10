@@ -592,7 +592,7 @@ pipeline_quant_config = PipelineQuantizationConfig(
 | int8_weight_only              | 17.020 GB            | 22.473 GB   | 8 seconds     | ~851 seconds          |
 | float8_weight_only            | 17.016 GB            | 22.115 GB   | 8 seconds     | ~545 seconds          |
 
-**bitsandbytes + `torch.compile`**: These benchmarks were obtained on a A100. **Note:** To enable compatibility with torch.compile, make sure you're using the latest version of bitsandbytes and PyTorch nightlies (2.8). 
+**bitsandbytes + `torch.compile`**: These benchmarks were obtained on a H100. **Note:** To enable compatibility with torch.compile, make sure you're using the latest version of bitsandbytes and PyTorch nightlies (2.8). 
 
 | `bitsandbytes` 4-bit | Peak Memory | Inference Time |
 |-----|-----|------|
