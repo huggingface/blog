@@ -450,7 +450,7 @@ For more information check out the [Layerwise casting docs](https://huggingface.
 
 Most of these quantization backends can be combined with the memory optimization techniques offered in Diffusers. Let's explore CPU offloading, group offloading, and `torch.compile`. You can learn more about these techniques in the [Diffusers documentation](https://huggingface.co/docs/diffusers/main/en/optimization/memory).
 
-> **Note:** At the time of writing, bnb + `torch.compile` also works if bnb is installed from source and using pytorch nightly or with fullgraph=False.
+> **Note:** At the time of writing, bnb + `torch.compile` works if bnb is installed from source and using pytorch nightly or with fullgraph=False.
 
 <details>
 <summary>Example (Flux-dev with BnB 4-bit + enable_model_cpu_offload):</summary>
@@ -556,6 +556,33 @@ pipe = FluxPipeline.from_pretrained(
 > **Note:** `torch.compile` can introduce subtle numerical differences, leading to changes in image output
 </details>
 
+<details>
+<summary>Example (Flux-dev with BnB 4-bit  torch.compile):</summary>
+
+```diff
+ import torch
+ from diffusers import FluxPipeline
+ from diffusers import BitsAndBytesConfig as DiffusersBitsAndBytesConfig
+ from diffusers.quantizers import PipelineQuantizationConfig
+ from transformers import BitsAndBytesConfig as TransformersBitsAndBytesConfig
+ 
+ model_id = "black-forest-labs/FLUX.1-dev"
+ pipeline_quant_config = PipelineQuantizationConfig(
+     quant_mapping={
+         "transformer": DiffusersBitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.bfloat16),
+         "text_encoder_2": TransformersBitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.bfloat16),
+     }
+ )
+ pipe = FluxPipeline.from_pretrained(
+     model_id,
+     quantization_config=pipeline_quant_config,
+     torch_dtype=torch.bfloat16
+ ).to("cuda")
++
++pipe.transformer = torch.compile(pipe.transformer, mode="max-autotune", fullgraph=True)
+```
+</details>
+
 **torch.compile**: Another complementary approach is to accelerate the execution of your model with PyTorch 2.x’s torch.compile() feature. Compiling the model doesn’t directly lower memory, but it can significantly speed up inference. PyTorch 2.0’s compile (Torch Dynamo) works by tracing and optimizing the model graph ahead-of-time.
 
 **torchao + `torch.compile`**: 
@@ -564,6 +591,13 @@ pipe = FluxPipeline.from_pretrained(
 | int4_weight_only              | 10.635 GB            | 15.238 GB   | 6 seconds    | ~285 seconds          |
 | int8_weight_only              | 17.020 GB            | 22.473 GB   | 8 seconds     | ~851 seconds          |
 | float8_weight_only            | 17.016 GB            | 22.115 GB   | 8 seconds     | ~545 seconds          |
+
+**bitsandbytes + `torch.compile`**: **Note:** To enable compatibility with torch.compile, make sure you're using the latest version of bitsandbytes and PyTorch nightlies (2.8)
+
+| `bitsandbytes` 4-bit | Peak Memory | Inference Time |
+|-----|-----|------|
+| **Without `torch.compile`** | 14.968 GB | 12.695 seconds |
+| **With `torch.compile`** | 14.968 GB | 8.674 seconds |
 
 Explore some benchmarking results here:
 
