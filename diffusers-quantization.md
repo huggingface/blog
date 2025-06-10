@@ -567,12 +567,11 @@ pipe = FluxPipeline.from_pretrained(
  from transformers import BitsAndBytesConfig as TransformersBitsAndBytesConfig
  
  model_id = "black-forest-labs/FLUX.1-dev"
- pipeline_quant_config = PipelineQuantizationConfig(
-     quant_mapping={
-         "transformer": DiffusersBitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.bfloat16),
-         "text_encoder_2": TransformersBitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.bfloat16),
-     }
- )
+pipeline_quant_config = PipelineQuantizationConfig(
+    quant_backend="bitsandbytes_4bit",
+    quant_kwargs={"load_in_4bit": True, "bnb_4bit_quant_type": "nf4", "bnb_4bit_compute_dtype": torch.bfloat16},
+    components_to_quantize=["transformer", "text_encoder_2"]
+)
  pipe = FluxPipeline.from_pretrained(
      model_id,
      quantization_config=pipeline_quant_config,
