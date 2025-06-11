@@ -2,7 +2,9 @@
 title: "Groq on Hugging Face Inference Providers 🔥"
 thumbnail: /blog/assets/inference-providers/welcome-groq.jpg
 authors:
-# TODO add authors
+- user: benank-groq
+  guest: true
+  org: Groq
 - user: celinah
 - user: Wauplin
 - user: sbrandeis
