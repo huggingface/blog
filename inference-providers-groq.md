@@ -1,22 +1,14 @@
 ---
 title: "Featherless AI on Hugging Face Inference Providers 🔥"
-thumbnail: /blog/assets/inference-providers/welcome-featherless.png
+thumbnail: /blog/assets/inference-providers/welcome-groq.jpg
 authors:
-- user: wxgeorge
-  guest: true
-  org: featherless-ai
-- user: pohnean-recursal
-  guest: true
-  org: featherless-ai
-- user: picocreator
-  guest: true
-  org: featherless-ai
+# TODO add authors
 - user: celinah
 - user: Wauplin
 - user: sbrandeis
 ---
 
-![banner image](https://huggingface.co/blog/assets/inference-providers/welcome-featherless.png)
+![banner image](https://huggingface.co/blog/assets/inference-providers/welcome-groq.jpg)
 
 # Featherless AI on Hugging Face Inference Providers 🔥
 
