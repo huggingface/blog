@@ -31,7 +31,7 @@ Read more about how to use Groq as Inference Provider in its dedicated [document
 
 See the list of supported models [here](https://huggingface.co/models?inference_provider=groq&sort=trending).
 
- ## How it works
+## How it works
 
 ### In the website UI
 
@@ -65,11 +65,12 @@ The following example shows how to use Meta's LLama 4 using Groq as the inferenc
 Install `huggingface_hub` from source (see [instructions](https://huggingface.co/docs/huggingface_hub/installation#install-from-source)). Official support will be released soon in version v0.33.0.
 
 ```python
+import os
 from huggingface_hub import InferenceClient
 
 client = InferenceClient(
     provider="groq",
-    api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
+    api_key=os.environ["HF_TOKEN"],
 )
 
 messages = [
@@ -90,9 +91,9 @@ print(completion.choices[0].message)
 #### from JS using @huggingface/inference
 
 ```js
-import { HfInference } from "@huggingface/inference";
+import { InferenceClient } from "@huggingface/inference";
 
-const client = new HfInference("xxxxxxxxxxxxxxxxxxxxxxxx");
+const client = new InferenceClient(process.env.HF_TOKEN);
 
 const chatCompletion = await client.chatCompletion({
     model: "meta-llama/Llama-4-Scout-17B-16E-Instruct",
