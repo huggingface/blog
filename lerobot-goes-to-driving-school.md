@@ -299,15 +299,15 @@ uv init && uv python install 3.12.4 && uv python pin 3.12.4
 uv add lerobot
 uv run python
 >>> from lerobot.common.datasets.lerobot_dataset import LeRobotDataset
-# This will load 3 episodes=[0, 100, 999], to load all the episodes please remove it
->>> dataset = LeRobotDataset("yaak-ai/L2D", episodes=[0, 100, 999])
+# This will load 3 episodes=[0, 1001, 9999], to load all the episodes please remove it
+>>> dataset = LeRobotDataset("yaak-ai/L2D", episodes=[0, 1001, 9999])
 >>> dataset
 LeRobotDataset({
     Repository ID: 'yaak-ai/L2D',
     Number of selected episodes: '3',
-    Number of selected samples: '509',
+    Number of selected samples: '326',
     Features: '['observation.images.front_left', 'observation.images.left_forward', 'observation.images.right_forward', 'observation.images.left_backward', 'observation.images.right_backward', 'observation.images.rear', 'observation.images.map', 'observation.state.vehicle', 'observation.state.waypoints', 'observation.state.timestamp', 'task.policy', 'task.instructions', 'action.continuous', 'action.discrete', 'timestamp', 'frame_index', 'episode_index', 'index', 'task_index']',
-})'
+})',
 ```
 
 # Closed Loop Testing
