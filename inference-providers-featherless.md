@@ -65,11 +65,12 @@ The following example shows how to use DeepSeek-R1 using Featherless AI as the i
 Install `huggingface_hub` from source (see [instructions](https://huggingface.co/docs/huggingface_hub/installation#install-from-source)). Official support will be released soon in version v0.33.0.
 
 ```python
+import os
 from huggingface_hub import InferenceClient
 
 client = InferenceClient(
     provider="featherless-ai",
-    api_key="xxxxxxxxxxxxxxxxxxxxxxxx"
+    api_key=os.environ["HF_TOKEN"]
 )
 
 messages = [
@@ -92,7 +93,7 @@ print(completion.choices[0].message)
 ```js
 import { HfInference } from "@huggingface/inference";
 
-const client = new HfInference("xxxxxxxxxxxxxxxxxxxxxxxx");
+const client = new HfInference(process.env.HF_TOKEN);
 
 const chatCompletion = await client.chatCompletion({
 	model: "deepseek-ai/DeepSeek-R1-0528",
