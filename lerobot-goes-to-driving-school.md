@@ -9,17 +9,20 @@ authors:
 
 ---
 
-# TL;DR
+# LeRobot goes to driving school
 
-A snapshot of [L2D](https://huggingface.co/datasets/yaak-ai/L2D), the world's largest self-driving dataset!
-- 90+ TeraBytes of multimodal data (5000+ hours of driving) from 30 cities in Germany.
-- 6 surrounding HD cameras + vehicle state (Speed/Heading/GPS/IMU)
-- Continuous (Gas/Brake/Steering) and discrete actions (Gear/Turn Signals)
-- OpenStreetMap [matched waypoints](#OpenStreetMap) from birds-eye-view.
-- Natural language instructions. F.ex ["When the light turns green, drive over the tram tracks and then through the roundabout"](https://huggingface.co/spaces/lerobot/visualize_dataset?dataset=yaak-ai%2FL2D&episode=82))
+---
+
+TL;DR of [L2D](https://huggingface.co/datasets/yaak-ai/L2D), the world's largest self-driving dataset!
+- 90+ TeraBytes of multimodal data (5000+ hours of driving) from 30 cities in Germany
+- 6x surrounding HD cameras and complete vehicle state: Speed/Heading/GPS/IMU
+- Continuous: Gas/Brake/Steering and discrete actions: Gear/Turn Signals
+- Designed for training end-to-end models conditioned on natural language instructions or future waypoints
+- Natural language instructions. F.ex ["When the light turns green, drive over the tram tracks and then through the roundabout"](https://huggingface.co/spaces/lerobot/visualize_dataset?dataset=yaak-ai%2FL2D&episode=82) for each episode
+- [Future waypoints](#OpenStreetMap) snapped to OpenStreetMap graph, aditionally rendered in birds-eye-view
 - Expert (driving instructors) and student (learner drivers) policies
 
-# LeRobot goes to driving school
+---
 
 State-of-the art [Vision Language Models](https://huggingface.co/blog/vlms) and Large Language Models are trained on open-source
 image-text corpora sourced from the internet, which spearheaded the recent acceleration of open-source AI. Despite these
@@ -260,8 +263,8 @@ information about the episodes. Each release **R1+** is a superset of the previo
 | HF | Nutron | Date | Episodes | Duration | Size | instructions  | task\_id | observation.state.route | suboptimal |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | [R0](https://huggingface.co/datasets/yaak-ai/L2D/tree/R0) | [R0](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/300b7174-b6aa-4598-83e8-fc28cc5fcbe3/search/list/session-logs?context=5s) | March 2025 | 100 | 0.5+ hr | 9,5 GB | ☑️ |  |  |  |
-| [R1](https://huggingface.co/datasets/yaak-ai/L2D) | [R1](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/1cb18573-f731-47b1-ae89-7ea2f026b8d0/search/list/session-logs?context=5s) | April 2025 | 1K | 5+ hr | 95 GB | ☑️ |  |  |  |
-| R2 | R2 | May 2025 | 10K | 50+ hr | 1 TB | ☑️ | ☑️ | ☑️ | ☑️ |
+| [R1](https://huggingface.co/datasets/yaak-ai/L2D/tree/R1) | [R1](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/1cb18573-f731-47b1-ae89-7ea2f026b8d0/search/list/session-logs?context=5s) | April 2025 | 1K | 5+ hr | 95 GB | ☑️ |  |  |  |
+| [R2](https://huggingface.co/datasets/yaak-ai/L2D/tree/main) | [R2](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/6e53636a-59ed-466b-8722-2c0b415f9bca/search/list/session-logs?context=5s) | May 2025 | 10K | 50+ hr | 1 TB | ☑️ | ☑️ | ☑️ | ☑️ |
 | R3 | R3 | June 2025 | 100K | 500+ hr | 10 TB | ☑️ | ☑️ | ☑️ | ☑️ |
 | R4 | R4 | July 2025 | 1M | 5000+ hr | 90 TB | ☑️ | ☑️ | ☑️ | ☑️ |
 
@@ -284,6 +287,28 @@ ImageNet moment for spatial intelligence.
 <p align="center">
   <em> Fig 1: Searching episodes by natural language instructions</em>
 </p>
+
+# Using L2D with HF/LeRobot
+
+```
+# uv for python deps
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# install python version and pin it
+uv init && uv python install 3.12.4 && uv python pin 3.12.4
+# add lerobot to deps
+uv add lerobot
+uv run python
+>>> from lerobot.common.datasets.lerobot_dataset import LeRobotDataset
+# This will load 3 episodes=[0, 100, 999], to load all the episodes please remove it
+>>> dataset = LeRobotDataset("yaak-ai/L2D", episodes=[0, 100, 999])
+>>> dataset
+LeRobotDataset({
+    Repository ID: 'yaak-ai/L2D',
+    Number of selected episodes: '3',
+    Number of selected samples: '509',
+    Features: '['observation.images.front_left', 'observation.images.left_forward', 'observation.images.right_forward', 'observation.images.left_backward', 'observation.images.right_backward', 'observation.images.rear', 'observation.images.map', 'observation.state.vehicle', 'observation.state.waypoints', 'observation.state.timestamp', 'task.policy', 'task.instructions', 'action.continuous', 'action.discrete', 'timestamp', 'frame_index', 'episode_index', 'index', 'task_index']',
+})'
+```
 
 # Closed Loop Testing
 
