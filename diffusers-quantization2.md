@@ -198,6 +198,29 @@ One approach is to [load your trained LoRA adapters](https://huggingface.co/docs
 * **Modularity:** Combine multiple LoRA adapters using `set_adapters()` for creative blending
 * **Storage efficiency:** Keep a single base model and multiple small adapter files
 
+<details>
+<summary>code</summary>
+
+```python
+from diffusers import FluxPipeline, AutoPipelineForText2Image, FluxTransformer2DModel, BitsAndBytesConfig
+import torch 
+
+ckpt_id = "black-forest-labs/FLUX.1-dev"
+pipeline = FluxPipeline.from_pretrained(
+    ckpt_id, torch_dtype=torch.float16
+)
+pipeline.load_lora_weights("alphonse_mucha_lora_flux_nf4", weight_name="pytorch_lora_weights.safetensors")
+
+pipeline.enable_model_cpu_offload()
+
+image = pipeline(
+    "a puppy in a pond, alphonse mucha style", num_inference_steps=28, guidance_scale=3.5, height=768, width=512, generator=torch.manual_seed(0)
+).images[0]
+image.save("alphonse_mucha.png")
+```
+
+</details>
+
 ### Option 2: Merging LoRA into Base Model
 
 For when you want maximum efficiency with a single style, you can [merge the LoRA weights](https://huggingface.co/docs/diffusers/using-diffusers/merge_loras) into the base model.
@@ -206,6 +229,50 @@ For when you want maximum efficiency with a single style, you can [merge the LoR
 - **VRAM efficiency:** No additional memory overhead from adapter weights during inference
 - **Speed:** Slightly faster inference as there's no need to apply adapter computations
 - **Quantization compatibility:** Can re-quantize the merged model for maximum memory efficiency
+
+<details>
+<summary>code</summary>
+
+```python
+from diffusers import FluxPipeline, AutoPipelineForText2Image, FluxTransformer2DModel, BitsAndBytesConfig
+import torch 
+
+ckpt_id = "black-forest-labs/FLUX.1-dev"
+pipeline = FluxPipeline.from_pretrained(
+    ckpt_id, text_encoder=None, text_encoder_2=None, torch_dtype=torch.float16
+)
+pipeline.load_lora_weights("alphonse_mucha_lora_flux_nf4", weight_name="pytorch_lora_weights.safetensors")
+pipeline.fuse_lora()
+pipeline.unload_lora_weights()
+
+pipeline.transformer.save_pretrained("fused_transformer")
+
+ckpt_id = "black-forest-labs/FLUX.1-dev"
+bnb_4bit_compute_dtype = torch.bfloat16
+
+nf4_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=bnb_4bit_compute_dtype,
+)
+transformer = FluxTransformer2DModel.from_pretrained(
+    "fused_transformer",
+    quantization_config=nf4_config,
+    torch_dtype=bnb_4bit_compute_dtype,
+)
+
+pipeline = AutoPipelineForText2Image.from_pretrained(
+    ckpt_id, transformer=transformer, torch_dtype=bnb_4bit_compute_dtype
+)
+pipeline.enable_model_cpu_offload()
+
+image = pipeline(
+    "a puppy in a pond, alphonse style", num_inference_steps=28, guidance_scale=3.5, height=768, width=512, generator=torch.manual_seed(0)
+).images[0]
+image.save("alphonse_mucha_merged.png")
+```
+
+</details>
 
 ## Running on Google Colab
 
