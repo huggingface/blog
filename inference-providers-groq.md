@@ -17,11 +17,17 @@ Groq joins our growing ecosystem, enhancing the breadth and capabilities of serv
 
 [Groq](https://groq.com) supports a wide variety of text and conversational models, including the latest open-source models from DeepSeek, Meta, Google, Qwen, and much more.
 
-Groq is a serverless AI inference provider with unique model loading and GPU orchestration abilities that makes an exceptionally large catalog of models available for users. Providers often offer either a low cost of access to a limited set of models, or an unlimited range of models with users managing servers and the associated costs of operation. Groq provides the best of both worlds offering unmatched model range and variety but with serverless pricing. Find the full list of supported models on the [models page](https://huggingface.co/models?inference_provider=groq&sort=trending).
+At the heart of Groq's technology is the Language Processing Unit (LPU™), a new type of end-to-end processing unit system that provides the fastest inference for computationally intensive applications with a sequential component, such as Large Language Models (LLMs). LPUs are designed to overcome the limitations of GPUs for inference, offering significantly lower latency and higher throughput. This makes them ideal for real-time AI applications.
+
+Groq offers fast AI inference for openly-available models. They provide an API that allows developers to easily integrate these models into their applications. It offers an on-demand, pay-as-you-go model for accessing a wide range of openly-available LLMs.
+
+You can now use Groq's Inference API as an Inference Provider on Huggingface!
 
 We're quite excited to see what you'll build with this new provider!
 
 Read more about how to use Groq as Inference Provider in its dedicated [documentation page](https://huggingface.co/docs/inference-providers/providers/groq).
+
+See the list of supported models here: [https://console.groq.com/docs/models](https://console.groq.com/docs/models)
 
  ## How it works
 
@@ -52,7 +58,7 @@ Read more about how to use Groq as Inference Provider in its dedicated [document
 
 #### from Python, using huggingface_hub
 
-The following example shows how to use DeepSeek-R1 using Groq as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Groq API key if you have one.
+The following example shows how to use Meta's LLama 4 using Groq as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Groq API key if you have one.
 
 Install `huggingface_hub` from source (see [instructions](https://huggingface.co/docs/huggingface_hub/installation#install-from-source)). Official support will be released soon in version v0.33.0.
 
@@ -72,7 +78,7 @@ messages = [
 ]
 
 completion = client.chat.completions.create(
-    model="deepseek-ai/DeepSeek-R1-0528",
+    model="meta-llama/Llama-4-Scout-17B-16E-Instruct",
     messages=messages,
 )
 
@@ -87,7 +93,7 @@ import { HfInference } from "@huggingface/inference";
 const client = new HfInference("xxxxxxxxxxxxxxxxxxxxxxxx");
 
 const chatCompletion = await client.chatCompletion({
-    model: "deepseek-ai/DeepSeek-R1-0528",
+    model: "meta-llama/Llama-4-Scout-17B-16E-Instruct",
     messages: [
         {
             role: "user",
