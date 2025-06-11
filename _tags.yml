@@ -46,5 +46,5 @@
 - value: lerobot
   label: LeRobot
 
-- value: inference
-  label: Inference
+- value: inference-providers
+  label: Inference Providers

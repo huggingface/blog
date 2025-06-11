@@ -5417,6 +5417,7 @@
   tags:
     - announcement
     - hub
+    - inference-providers
 
 - local: deepseek-r1-aws
   title: "How to deploy and fine-tune DeepSeek models on AWS"
@@ -5540,6 +5541,7 @@
   tags:
     - announcement
     - hub
+    - inference-providers
 
 - local: inference-providers-nebius-novita-hyperbolic
   title: "Introducing Three New Serverless Inference Providers: Hyperbolic, Nebius AI Studio, and Novita 🔥"
@@ -5549,6 +5551,7 @@
   tags:
     - announcement
     - hub
+    - inference-providers
 
 - local: paligemma2mix
   title: "PaliGemma 2 Mix - New Instruction Vision Language Models by Google"
@@ -5881,7 +5884,7 @@
   date: April 16, 2025
   tags:
    - llms
-   - inference
+   - inference-providers
    - cohere
    - enterprise
    - partnerships
@@ -6156,7 +6159,7 @@
   date: Jun 12, 2025
   tags:
    - llms
-   - inference
+   - inference-providers
    - featherless
    - recursal
    - enterprise
