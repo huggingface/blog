@@ -23,9 +23,7 @@ At the heart of Groq's technology is the Language Processing Unit (LPU™), a ne
 
 Groq offers fast AI inference for openly-available models. They provide an API that allows developers to easily integrate these models into their applications. It offers an on-demand, pay-as-you-go model for accessing a wide range of openly-available LLMs.
 
-You can now use Groq's Inference API as an Inference Provider on Huggingface!
-
-We're quite excited to see what you'll build with this new provider!
+You can now use Groq's Inference API as an Inference Provider on Huggingface. We're quite excited to see what you'll build with this new provider.
 
 Read more about how to use Groq as Inference Provider in its dedicated [documentation page](https://huggingface.co/docs/inference-providers/providers/groq).
 
