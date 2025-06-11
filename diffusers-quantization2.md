@@ -1,8 +1,8 @@
-# Fine-Tuning FLUX.1-dev on consumer hardware with QLoRA
+# Fine-Tuning FLUX.1-dev on consumer hardware and in FP8
 
 In our previous post, [Exploring Quantization Backends in Diffusers](https://huggingface.co/blog/diffusers-quantization), we dived into how various quantization techniques can shrink diffusion models like FLUX.1-dev, making them significantly more accessible for *inference* without drastically compromising performance. We saw how `bitsandbytes`, `torchao`, and others reduce memory footprints for generating images.
 
-Performing inference is cool but to make these models truly our own, we also need to be able to fine-tune them. Therefore, in this post, we tackle **efficient** *fine-tuning* of these models with peak memory use under ~10 GB of VRAM on a single GPU. This post will guide you through fine-tuning FLUX.1-dev using QLoRA with the Hugging Face `diffusers` library. We'll showcase results from an NVIDIA RTX 4090.
+Performing inference is cool but to make these models truly our own, we also need to be able to fine-tune them. Therefore, in this post, we tackle **efficient** *fine-tuning* of these models with peak memory use under ~10 GB of VRAM on a single GPU. This post will guide you through fine-tuning FLUX.1-dev using QLoRA with the Hugging Face `diffusers` library. We'll showcase results from an NVIDIA RTX 4090. We'll also highlight how FP8 training with `torchao` can further optimize speed on compatible hardware.
 
 ## Table of Contents
 
@@ -12,6 +12,7 @@ Performing inference is cool but to make these models truly our own, we also nee
 - [QLoRA Fine-tuning FLUX.1-dev with diffusers](#qlora-fine-tuning-flux1-dev-with-diffusers)
   - [Key Optimization Techniques](#key-optimization-techniques)
   - [Setup & Results](#setup--results)
+- [FP8 Fine-tuning with `torchao`](#fp8-fine-tuning-with-torchao)
 - [Inference with Trained LoRA Adapters](#inference-with-trained-lora-adapters)
   - [Option 1: Loading LoRA Adapters](#option-1-loading-lora-adapters)
   - [Option 2: Merging LoRA into Base Model](#option-2-merging-lora-into-base-model)
@@ -32,7 +33,9 @@ Performing inference is cool but to make these models truly our own, we also nee
        width="600"/>
 </p>
 
-**QLoRA: The Efficiency Powerhouse:** [QLoRA](https://huggingface.co/docs/peft/main/en/developer_guides/quantization) enhances LoRA by first loading the pre-trained base model in a quantized format (typically 4-bit via `bitsandbytes`), drastically cutting the base model's memory footprint. It then trains LoRA adapters (usually in FP16/BF16) on top of this quantized base.
+**QLoRA: The Efficiency Powerhouse:** [QLoRA](https://huggingface.co/docs/peft/main/en/developer_guides/quantization) enhances LoRA by first loading the pre-trained base model in a quantized format (typically 4-bit via `bitsandbytes`), drastically cutting the base model's memory footprint. It then trains LoRA adapters (usually in FP16/BF16) on top of this quantized base. This dramatically lowers the VRAM needed to hold the base model.
+
+For instance, in the [DreamBooth training script for HiDream](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_hidream.md#using-quantization) 4-bit quantization with bitsandbytes reduces the peak memory usage of a LoRA fine-tune from ~60GB down to ~37GB. The very same principle is what we apply here to fine-tune FLUX.1 on consumer-grade hardware.
 
 This allows fine-tuning of very large models on consumer-grade hardware or more accessible cloud GPUs.
 
@@ -45,9 +48,9 @@ This allows fine-tuning of very large models on consumer-grade hardware or more 
 
 The model consists of three main components:
 
-*   **Text Encoders (CLIP and T5):**
-*   **Transformer (Main Model - MMDiT):**
-*   **Variational Auto-Encoder (VAE):**
+*   **Text Encoders (CLIP and T5)**
+*   **Transformer (Main Model - MMDiT)**
+*   **Variational Auto-Encoder (VAE)**
 
 In our QLoRA approach, we focus exclusively on fine-tuning the **transformer component** (MMDiT). The text encoders and VAE remain frozen throughout training. 
 
@@ -148,6 +151,39 @@ QLoRA fine-tuned:
 
 The fine-tuned model nicely captured Mucha's iconic art nouveau style, evident in the decorative motifs and distinct color palette. The QLoRA process maintained excellent fidelity while learning the new style.
 
+## FP8 Fine-tuning with `torchao`
+
+For users with NVIDIA GPUs possessing compute capability 8.9 or greater (such as the H100), even greater speed efficiencies can be achieved by leveraging FP8 training via the `torchao` library.
+
+We fine-tuned FLUX.1-dev LoRA on an H100 SXM GPU using the `diffusers-torchao` training scripts. The following command was used:
+
+```bash
+accelerate launch train_dreambooth_lora_flux.py \
+  --pretrained_model_name_or_path=black-forest-labs/FLUX.1-dev \
+  --dataset_name=derekl35/alphonse-mucha-style --instance_prompt="a woman, alphonse mucha style" --caption_column="text" \
+  --output_dir=alphonse_mucha_fp8_lora_flux \
+  --mixed_precision=bf16 --use_8bit_adam \
+  --weighting_scheme=none \
+  --height=768 --width=512 --train_batch_size=1 --repeats=1 \
+  --learning_rate=1e-4 --guidance_scale=1 --report_to=wandb \
+  --gradient_accumulation_steps=1 --gradient_checkpointing \
+  --lr_scheduler=constant --lr_warmup_steps=0 --rank=4 \
+  --max_train_steps=700 --checkpointing_steps=600 --seed=0 \
+  --do_fp8_training --push_to_hub
+```
+
+The training run had a **peak memory usage of 36.57 GB** and completed in approximately **20 minutes**. 
+
+Qualitative results from this FP8 fine-tuned model are also available:
+![FP8 model outputs](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_fp8_combined.png) 
+
+Key steps to enable FP8 training with `torchao` involve:
+
+1.  **Injecting FP8 layers** into the model using `convert_to_float8_training` from `torchao.float8`.
+2.  **Defining a `module_filter_fn`** to specify which modules should and should not be converted to FP8.
+
+For a more detailed guide and code snippets, please refer to [this gist](https://gist.github.com/sayakpaul/f0358dd4f4bcedf14211eba5704df25a) and the [`diffusers-torchao` repository](https://github.com/sayakpaul/diffusers-torchao/tree/main/training).
+
 ## Inference with Trained LoRA Adapters
 
 After training your LoRA adapters, you have two main approaches for inference.
@@ -181,7 +217,7 @@ On a T4, you can expect the fine-tuning process to take significantly longer aro
 
 ## Conclusion
 
-QLoRA, coupled with the `diffusers` library, significantly democratizes the ability to customize state-of-the-art models like FLUX.1-dev. As demonstrated on an RTX 4090, efficient fine-tuning is well within reach, yielding high-quality stylistic adaptations.
+QLoRA, coupled with the `diffusers` library, significantly democratizes the ability to customize state-of-the-art models like FLUX.1-dev. As demonstrated on an RTX 4090, efficient fine-tuning is well within reach, yielding high-quality stylistic adaptations. Furthermore, for users with the latest NVIDIA hardware, `torchao` enables even faster training through FP8 precision. 
 
 <!-- [Maybe add a link to trained LoRA adapter on Hugging Face Hub.] -->
 ### Share your creations on the Hub!
