@@ -122,4 +122,4 @@ We also provide free inference with a small quota for our signed-in free users, 
 
 ## Feedback and next steps
 
-We would love to get your feedback! Here’s a Hub discussion you can use: https://huggingface.co/spaces/huggingface/HuggingDiscussions/discussions/49
+We would love to get your feedback! Share your thoughts and/or comments here: https://huggingface.co/spaces/huggingface/HuggingDiscussions/discussions/49
