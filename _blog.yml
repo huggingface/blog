@@ -6137,3 +6137,14 @@
     - agents
     - smolagents
     - vlm
+
+- local: nvidia-training-cluster
+  title: "Introducing Training Cluster as a Service - a new collaboration with NVIDIA"
+  author: jeffboudier
+  thumbnail: /blog/assets/nvidia-training-cluster/nvidia-training-cluster-thumbnail-compressed.png
+  date: Jun 11, 2025
+  tags:
+    - nvidia
+    - training
+    - partnerships
+    - announcement
