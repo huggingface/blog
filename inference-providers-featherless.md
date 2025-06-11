@@ -91,9 +91,9 @@ print(completion.choices[0].message)
 #### from JS using @huggingface/inference
 
 ```js
-import { HfInference } from "@huggingface/inference";
+import { InferenceClient } from "@huggingface/inference";
 
-const client = new HfInference(process.env.HF_TOKEN);
+const client = new InferenceClient(process.env.HF_TOKEN);
 
 const chatCompletion = await client.chatCompletion({
 	model: "deepseek-ai/DeepSeek-R1-0528",
