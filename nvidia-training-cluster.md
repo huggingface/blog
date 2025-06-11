@@ -1,6 +1,6 @@
 ---
 title: "Introducing Training Cluster as a Service - a new collaboration with NVIDIA" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+thumbnail: /blog/assets/nvidia-training-cluster/nvidia-training-cluster-thumbnail-compressed.png
 authors:
 - user: jeffboudier
 - user: ark393
