@@ -27,9 +27,9 @@ Featherless AI joins our growing ecosystem, enhancing the breadth and capabiliti
 
 Featherless AI is a serverless AI inference provider with unique model loading and GPU orchestration abilities that makes an exceptionally large catalog of models available for users. Providers often offer either a low cost of access to a limited set of models, or an unlimited range of models with users managing servers and the associated costs of operation. Featherless provides the best of both worlds offering unmatched model range and variety but with serverless pricing. Find the full list of supported models on the [models page](https://huggingface.co/models?inference_provider=featherless-ai&sort=trending).
 
-We're quite excited to see what you'll build with this new provider!
+We're super excited to see what you'll build with this new provider!
 
-Read more about how to use Featherless as Inference Provider in its dedicated [documentation page](https://huggingface.co/docs/inference-providers/providers/featherless-ai).
+Read more about how to use Featherless as an Inference Provider in its dedicated [documentation page](https://huggingface.co/docs/inference-providers/providers/featherless-ai).
 
  ## How it works
 
@@ -37,13 +37,13 @@ Read more about how to use Featherless as Inference Provider in its dedicated [d
 
 
 1. In your user account settings, you are able to:
-- Set your own API keys for the providers you’ve signed up with. If no custom key is set, your requests will be routed through HF.
+- Set your own API keys for the providers you’ve signed up with. If no custom key is set, your requests will be routed through HF. Learn more about request types in the [docs](https://huggingface.co/docs/inference-providers/en/pricing#routed-requests-vs-direct-calls).
 - Order providers by preference. This applies to the widget and code snippets in the model pages.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/user-settings-updated.png" alt="Inference Providers"/>
 
 
-2. As mentioned, there are two modes when calling Inference Providers: 
+2. As [mentioned](https://huggingface.co/docs/inference-providers/en/pricing), there are two modes when calling Inference Providers: 
 - Custom key (calls go directly to the inference provider, using your own API key of the corresponding inference provider)
 - Routed by HF (in that case, you don't need a token from the provider, and the charges are applied directly to your HF account rather than the provider's account)
 
