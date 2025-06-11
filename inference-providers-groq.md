@@ -29,7 +29,7 @@ We're quite excited to see what you'll build with this new provider!
 
 Read more about how to use Groq as Inference Provider in its dedicated [documentation page](https://huggingface.co/docs/inference-providers/providers/groq).
 
-See the list of supported models here: [https://console.groq.com/docs/models](https://console.groq.com/docs/models)
+See the list of supported models [here](https://huggingface.co/models?inference_provider=groq&sort=trending).
 
  ## How it works
 
