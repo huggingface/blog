@@ -6165,3 +6165,15 @@
    - enterprise
    - partnerships
    - hub
+
+- local: hello-hf-kernels
+  title: "Enhance Your Models in 5 Minutes with the Hugging Face Kernel Hub"
+  author: drbh
+  thumbnail: /blog/assets/hello-hf-kernels/kernel-hub-five-mins-short-21.png
+  date: June 12, 2025
+  tags:
+    - guide
+    - hub
+    - optimization
+    - open-source
+    - performance
