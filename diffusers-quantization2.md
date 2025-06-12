@@ -5,8 +5,6 @@ In our previous post, [Exploring Quantization Backends in Diffusers](https://hug
 Performing inference is cool but to make these models truly our own, we also need to be able to fine-tune them. Therefore, in this post, we tackle **efficient** *fine-tuning* of these models with peak memory use under ~10 GB of VRAM on a single GPU. This post will guide you through fine-tuning FLUX.1-dev using QLoRA with the Hugging Face `diffusers` library. We'll showcase results from an NVIDIA RTX 4090. We'll also highlight how FP8 training with `torchao` can further optimize speed on compatible hardware.
 
 ## Table of Contents
-
-- [Why Not Just Full Fine-Tuning?](#why-not-just-full-fine-tuning)
 - [Dataset](#dataset)
 - [FLUX Architecture](#flux-architecture)
 - [QLoRA Fine-tuning FLUX.1-dev with diffusers](#qlora-fine-tuning-flux1-dev-with-diffusers)
@@ -18,26 +16,6 @@ Performing inference is cool but to make these models truly our own, we also nee
   - [Option 2: Merging LoRA into Base Model](#option-2-merging-lora-into-base-model)
 - [Running on Google Colab](#running-on-google-colab)
 - [Conclusion](#conclusion)
-
-## Why Not Just Full Fine-Tuning?
-
-[`black-forest-labs/FLUX.1-dev`](https://huggingface.co/black-forest-labs/FLUX.1-dev/), for instance, requires over 31GB in BF16 for inference alone.
-
-**Full Fine-Tuning:** This traditional method updates all model params and offers the potential for the highest task-specific quality. However, for FLUX.1-dev, this approach would demand immense VRAM (multiple high-end GPUs), putting it out of reach for most individual users.
-
-**LoRA (Low-Rank Adaptation):** [LoRA](https://huggingface.co/docs/peft/main/en/conceptual_guides/lora) freezes the pre-trained weights and injects small, trainable "adapter" layers. This massively reduces trainable parameters, saving VRAM during training and resulting in small adapter checkpoints. The challenge is that the full-precision base model still needs to be loaded, which, for FLUX.1-dev, remains a hefty VRAM requirement even if fewer parameters are being updated.
-
-<p align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft/lora_diagram.png"
-       alt="Illustration of LoRA injecting two low-rank matrices around a frozen weight matrix"
-       width="600"/>
-</p>
-
-**QLoRA: The Efficiency Powerhouse:** [QLoRA](https://huggingface.co/docs/peft/main/en/developer_guides/quantization) enhances LoRA by first loading the pre-trained base model in a quantized format (typically 4-bit via `bitsandbytes`), drastically cutting the base model's memory footprint. It then trains LoRA adapters (usually in FP16/BF16) on top of this quantized base. This dramatically lowers the VRAM needed to hold the base model.
-
-For instance, in the [DreamBooth training script for HiDream](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_hidream.md#using-quantization) 4-bit quantization with bitsandbytes reduces the peak memory usage of a LoRA fine-tune from ~60GB down to ~37GB. The very same principle is what we apply here to fine-tune FLUX.1 on consumer-grade hardware.
-
-This allows fine-tuning of very large models on consumer-grade hardware or more accessible cloud GPUs.
 
 ## Dataset
 
@@ -60,8 +38,17 @@ We used a `diffusers` training script (very slightly modified from https://githu
 
 ### Key Optimization Techniques
 
-**LoRA (Low-Rank Adaptation) Deep Dive:**
-LoRA makes model training more efficient by keeping track of the weight updates with low-rank matrices. Instead of updating the full weight matrix $$W$$, LoRA learns two smaller matrices $$A$$ and $$B$$. The update to the weights for the model is $$\Delta W = BA$$, where $$A \in \mathbb{R}^{r \times k}$$ and $$B \in \mathbb{R}^{d \times r}$$. The number $$r$$ (called _rank_) is much smaller than the original dimensions, which means less parameters to update. Lastly, $$\alpha$$ is a scaling factor for the LoRA activations. This affects how much LoRA affects the updates, and is often set to the same value as the $$r$$ or a multiple of it. It helps balance the influence of the pre-trained model and the LoRA adapter.
+**LoRA (Low-Rank Adaptation) Deep Dive:** [LoRA](https://huggingface.co/docs/peft/main/en/conceptual_guides/lora) makes model training more efficient by keeping track of the weight updates with low-rank matrices. Instead of updating the full weight matrix $$W$$, LoRA learns two smaller matrices $$A$$ and $$B$$. The update to the weights for the model is $$\Delta W = BA$$, where $$A \in \mathbb{R}^{r \times k}$$ and $$B \in \mathbb{R}^{d \times r}$$. The number $$r$$ (called _rank_) is much smaller than the original dimensions, which means less parameters to update. Lastly, $$\alpha$$ is a scaling factor for the LoRA activations. This affects how much LoRA affects the updates, and is often set to the same value as the $$r$$ or a multiple of it. It helps balance the influence of the pre-trained model and the LoRA adapter. For a general introduction to the concept, check out our previous blog post: [Using LoRA for Efficient Stable Diffusion Fine-Tuning](https://huggingface.co/blog/lora).
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft/lora_diagram.png"
+       alt="Illustration of LoRA injecting two low-rank matrices around a frozen weight matrix"
+       width="600"/>
+</p>
+
+**QLoRA: The Efficiency Powerhouse:** [QLoRA](https://huggingface.co/docs/peft/main/en/developer_guides/quantization) enhances LoRA by first loading the pre-trained base model in a quantized format (typically 4-bit via `bitsandbytes`), drastically cutting the base model's memory footprint. It then trains LoRA adapters (usually in FP16/BF16) on top of this quantized base. This dramatically lowers the VRAM needed to hold the base model.
+
+For instance, in the [DreamBooth training script for HiDream](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_hidream.md#using-quantization) 4-bit quantization with bitsandbytes reduces the peak memory usage of a LoRA fine-tune from ~60GB down to ~37GB. The very same principle is what we apply here to fine-tune FLUX.1 on consumer-grade hardware.
 
 **8-bit Optimizer (AdamW):**
 Standard AdamW optimizer maintains first and second moment estimates for each parameter in 32-bit (FP32), which consumes a lot of memory The 8-bit AdamW uses block-wise quantization to store optimizer states in 8-bit precision, while maintaining training stability. This technique can reduce optimizer memory usage by ~75% compared to standard FP32 AdamW.
@@ -209,7 +196,7 @@ ckpt_id = "black-forest-labs/FLUX.1-dev"
 pipeline = FluxPipeline.from_pretrained(
     ckpt_id, torch_dtype=torch.float16
 )
-pipeline.load_lora_weights("alphonse_mucha_lora_flux_nf4", weight_name="pytorch_lora_weights.safetensors")
+pipeline.load_lora_weights("derekl35/alphonse_mucha_qlora_flux", weight_name="pytorch_lora_weights.safetensors")
 
 pipeline.enable_model_cpu_offload()
 
@@ -241,7 +228,7 @@ ckpt_id = "black-forest-labs/FLUX.1-dev"
 pipeline = FluxPipeline.from_pretrained(
     ckpt_id, text_encoder=None, text_encoder_2=None, torch_dtype=torch.float16
 )
-pipeline.load_lora_weights("alphonse_mucha_lora_flux_nf4", weight_name="pytorch_lora_weights.safetensors")
+pipeline.load_lora_weights("derekl35/alphonse_mucha_qlora_flux", weight_name="pytorch_lora_weights.safetensors")
 pipeline.fuse_lora()
 pipeline.unload_lora_weights()
 
@@ -291,8 +278,26 @@ QLoRA, coupled with the `diffusers` library, significantly democratizes the abil
 
 Sharing your fine-tuned LoRA adapters is a fantastic way to contribute to the open-source community. It allows others to easily try out your styles, build on your work, and helps create a vibrant ecosystem of creative AI tools.
 
-If you've trained a LoRA for FLUX.1-dev, we encourage you to share it. Here's how you can do it:
-- Follow this guide on [sharing models on the Hub](https://huggingface.co/docs/transformers/en/model_sharing).
-- Add `flux` and `lora` as tags in your model card's metadata to make it easily discoverable.
+If you've trained a LoRA for FLUX.1-dev, we encourage you to [share](https://huggingface.co/docs/transformers/en/model_sharing) it. The easiest way is to add the --push_to_hub flag to the training script. Alternatively, if you have already trained a model and want to upload it, you can use the following snippet.
+
+```python
+# Prereqs:
+# - pip install huggingface_hub diffusers
+# - Run `huggingface-cli login` (or set HF_TOKEN env-var) once.
+# - save model
+
+from huggingface_hub import create_repo, upload_folder
+
+repo_id = "your-username/alphonse_mucha_qlora_flux"
+create_repo(repo_id, exist_ok=True)
+
+upload_folder(
+    repo_id=repo_id,
+    folder_path="alphonse_mucha_qlora_flux",
+    commit_message="Add Alphonse Mucha LoRA adapter"
+)
+```
+
+Check out our Mucha QLoRA https://huggingface.co/derekl35/alphonse_mucha_qlora_flux and FP8 LoRA https://huggingface.co/derekl35/alphonse_mucha_fp8_lora_flux as an example.
 
 We can't wait to see what you create!
