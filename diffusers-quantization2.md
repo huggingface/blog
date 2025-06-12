@@ -267,7 +267,7 @@ pipeline = AutoPipelineForText2Image.from_pretrained(
 pipeline.enable_model_cpu_offload()
 
 image = pipeline(
-    "a puppy in a pond, alphonse style", num_inference_steps=28, guidance_scale=3.5, height=768, width=512, generator=torch.manual_seed(0)
+    "a puppy in a pond, alphonse mucha style", num_inference_steps=28, guidance_scale=3.5, height=768, width=512, generator=torch.manual_seed(0)
 ).images[0]
 image.save("alphonse_mucha_merged.png")
 ```
