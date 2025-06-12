@@ -62,7 +62,7 @@ Read more about how to use Featherless as an Inference Provider in its dedicated
 
 The following example shows how to use DeepSeek-R1 using Featherless AI as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Featherless AI API key if you have one.
 
-Install `huggingface_hub` from source (see [instructions](https://huggingface.co/docs/huggingface_hub/installation#install-from-source)). Official support will be released soon in version v0.33.0.
+Install or upgrade `huggingface_hub` to ensure you have version v0.33.0 or better: `pip install --upgrade huggingface-hub`
 
 ```python
 import os
