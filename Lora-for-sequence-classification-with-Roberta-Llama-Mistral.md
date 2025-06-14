@@ -28,10 +28,10 @@ authors:
             - [Load RoBERTA Checkpoints for the Classification Task](#load-roberta-checkpoints-for-the-classification-task)
             - [LoRA setup for RoBERTa classifier](#lora-setup-for-roberta-classifier)
         - [Mistral](#mistral)
-            - [Load checkpoints for the classfication model](#load-checkpoints-for-the-classfication-model)
+            - [Load checkpoints for the classification model](#load-checkpoints-for-the-classification-model)
             - [LoRA setup for Mistral 7B classifier](#lora-setup-for-mistral-7b-classifier)
         - [Llama 2](#llama-2)
-            - [Load checkpoints for the classification mode](#load-checkpoints-for-the-classfication-mode)
+            - [Load checkpoints for the classification mode](#load-checkpoints-for-the-classification-mode)
             - [LoRA setup for Llama 2 classifier](#lora-setup-for-llama-2-classifier)
     - [Setup the trainer](#setup-the-trainer)
         - [Evaluation Metrics](#evaluation-metrics)
@@ -414,7 +414,7 @@ trainable params: 2,299,908 || all params: 356,610,052 || trainable%: 0.64493639
 
 ### Mistral
 
-#### Load checkpoints for the classfication model
+#### Load checkpoints for the classification model
 
 Let's load the pre-trained Mistral-7B model with a sequence classification head:
 
@@ -459,7 +459,7 @@ trainable params: 1,720,320 || all params: 7,112,380,416 || trainable%: 0.024187
 
 ### Llama 2
 
-#### Load checkpoints for the classfication mode
+#### Load checkpoints for the classification mode
 
 Let's load pre-trained Llama 2 model with a sequence classification header. 
 
