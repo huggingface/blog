@@ -51,15 +51,51 @@ We used a `diffusers` training script (very slightly modified from https://githu
 For instance, in the [DreamBooth training script for HiDream](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_hidream.md#using-quantization) 4-bit quantization with bitsandbytes reduces the peak memory usage of a LoRA fine-tune from ~60GB down to ~37GB. The very same principle is what we apply here to fine-tune FLUX.1 on consumer-grade hardware.
 
 **8-bit Optimizer (AdamW):**
-Standard AdamW optimizer maintains first and second moment estimates for each parameter in 32-bit (FP32), which consumes a lot of memory The 8-bit AdamW uses block-wise quantization to store optimizer states in 8-bit precision, while maintaining training stability. This technique can reduce optimizer memory usage by ~75% compared to standard FP32 AdamW.
+Standard AdamW optimizer maintains first and second moment estimates for each parameter in 32-bit (FP32), which consumes a lot of memory The 8-bit AdamW uses block-wise quantization to store optimizer states in 8-bit precision, while maintaining training stability. This technique can reduce optimizer memory usage by ~75% compared to standard FP32 AdamW. Enabling it in the script is straightforward:
+
+```python
+
+# Check for the --use_8bit_adam flag
+if args.use_8bit_adam:
+    optimizer_class = bnb.optim.AdamW8bit
+else:
+    optimizer_class = torch.optim.AdamW
+
+optimizer = optimizer_class(
+    params_to_optimize,
+    betas=(args.adam_beta1, args.adam_beta2),
+    weight_decay=args.adam_weight_decay,
+    eps=args.adam_epsilon,
+)
+```
 
 **Gradient Checkpointing:**
 During forward pass, intermediate activations are typically stored for backward pass gradient computation. Gradient checkpointing trades computation for memory by only storing certain _checkpoint activations_ and recomputing others during backpropagation.
+
+```python
+if args.gradient_checkpointing:
+    transformer.enable_gradient_checkpointing()
+```
 
 **Cache Latents:**
 This optimization technique pre-processes all training images through the VAE encoder before the beginning of the training. It stores the resulting latent representations in memory. During the training, instead of encoding images on-the-fly, the cached latents are directly used. This approach offers two main benefits: 
 1. eliminates redundant VAE encoding computations during training, speeding up each training step
 2. allows the VAE to be completely removed from GPU memory after caching. The trade-off is increased RAM usage to store all cached latents, but this is typically manageable for small datasets.
+
+```python
+# Cache latents before training if the flag is set
+    if args.cache_latents:
+        latents_cache = []
+        for batch in tqdm(train_dataloader, desc="Caching latents"):
+            with torch.no_grad():
+                batch["pixel_values"] = batch["pixel_values"].to(
+                    accelerator.device, non_blocking=True, dtype=weight_dtype
+                )
+                latents_cache.append(vae.encode(batch["pixel_values"]).latent_dist)
+        # VAE is no longer needed, free up its memory
+        del vae
+        free_memory()
+```
 
 **Setting up 4-bit Quantization (`BitsAndBytesConfig`):**
 
@@ -106,7 +142,35 @@ Only these LoRA parameters become trainable.
 
 ### Setup & Results
 
-For this demonstration, we leveraged an NVIDIA RTX 4090 (24GB VRAM) to explore its performance.
+For this demonstration, we leveraged an NVIDIA RTX 4090 (24GB VRAM) to explore its performance. The full training command using `accelerate` is shown below.
+
+```bash
+# You need to pre-compute the text embeddings first. See the diffusers repo.
+# https://github.com/huggingface/diffusers/tree/main/examples/research_projects/flux_lora_quantization
+accelerate launch --config_file=accelerate.yaml \
+  train_dreambooth_lora_flux_miniature.py \
+  --pretrained_model_name_or_path="black-forest-labs/FLUX.1-dev" \
+  --data_df_path="embeddings_alphonse_mucha.parquet" \
+  --output_dir="alphonse_mucha_lora_flux_nf4" \
+  --mixed_precision="fp16" \
+  --use_8bit_adam \
+  --weighting_scheme="none" \
+  --width=512 \
+  --height=768 \
+  --train_batch_size=1 \
+  --repeats=1 \
+  --learning_rate=1e-4 \
+  --guidance_scale=1 \
+  --report_to="wandb" \
+  --gradient_accumulation_steps=4 \
+  --gradient_checkpointing \
+  --lr_scheduler="constant" \
+  --lr_warmup_steps=0 \
+  --cache_latents \
+  --rank=4 \
+  --max_train_steps=700 \
+  --seed="0"
+```
 
 **Configuration for RTX 4090:**
 On our RTX 4090, we used a `train_batch_size` of 1, `gradient_accumulation_steps` of 4, `mixed_precision="fp16"`, `gradient_checkpointing=True`, `use_8bit_adam=True`, a LoRA `rank` of 4, and resolution of 512x768. Latents were cached with `cache_latents=True`.
