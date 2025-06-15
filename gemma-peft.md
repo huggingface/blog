@@ -63,6 +63,7 @@ We start by downloading the model and the tokenizer. We also include a `BitsAndB
 
 ```python
 import torch
+import os
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
 model_id = "google/gemma-2b"
