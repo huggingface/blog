@@ -152,7 +152,7 @@ accelerate launch --config_file=accelerate.yaml \
   --pretrained_model_name_or_path="black-forest-labs/FLUX.1-dev" \
   --data_df_path="embeddings_alphonse_mucha.parquet" \
   --output_dir="alphonse_mucha_lora_flux_nf4" \
-  --mixed_precision="fp16" \
+  --mixed_precision="bf16" \
   --use_8bit_adam \
   --weighting_scheme="none" \
   --width=512 \
@@ -173,12 +173,12 @@ accelerate launch --config_file=accelerate.yaml \
 ```
 
 **Configuration for RTX 4090:**
-On our RTX 4090, we used a `train_batch_size` of 1, `gradient_accumulation_steps` of 4, `mixed_precision="fp16"`, `gradient_checkpointing=True`, `use_8bit_adam=True`, a LoRA `rank` of 4, and resolution of 512x768. Latents were cached with `cache_latents=True`.
+On our RTX 4090, we used a `train_batch_size` of 1, `gradient_accumulation_steps` of 4, `mixed_precision="bf16"`, `gradient_checkpointing=True`, `use_8bit_adam=True`, a LoRA `rank` of 4, and resolution of 512x768. Latents were cached with `cache_latents=True`.
 
 **Memory Footprint (RTX 4090):**
 * **QLoRA:** Peak VRAM usage for QLoRA fine-tuning was approximately 9GB.
-* **FP16 LoRA:** Running standard LoRA (with the base FLUX.1-dev in FP16) on the same setup consumed 26 GB VRAM.
-* **FP16 full finetuning:** An estimate would be ~120 GB VRAM with no memory optimizations.
+* **BF16 LoRA:** Running standard LoRA (with the base FLUX.1-dev in FP16) on the same setup consumed 26 GB VRAM.
+* **BF16 full finetuning:** An estimate would be ~120 GB VRAM with no memory optimizations.
 
 
 **Training Time (RTX 4090):**
@@ -187,11 +187,27 @@ Fine-tuning for 700 steps on the Alphonse Mucha dataset took approximately 41 mi
 **Output Quality:**
 The ultimate measure is the generated art. Here are samples from our QLoRA fine-tuned model on the [derekl35/alphonse-mucha-style](https://huggingface.co/datasets/derekl35/alphonse-mucha-style) dataset:
 
-base model:
+base model (bf16):
+![base model bf16 outputs](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_base_bf16_combined.png) 
+
+<details>
+<summary>base model (fp16)</summary>
+
 ![base model outputs](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_base_combined.png) 
 
-QLoRA fine-tuned:
+</details>
+
+QLoRA fine-tuned (mixed_precision=bf16):
+
+![QLoRA model outputs](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_merged_qlora_bf16_combined.png) 
+
+<details>
+<summary>qlora (mixed_precision=fp16)</summary>
+
 ![QLoRA model outputs](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_merged_combined.png) 
+
+</details>
+
 *Prompts: (left to right)*
 
 *Serene raven-haired woman, moonlit lilies, swirling botanicals, alphonse mucha style*
@@ -298,7 +314,6 @@ pipeline.unload_lora_weights()
 
 pipeline.transformer.save_pretrained("fused_transformer")
 
-ckpt_id = "black-forest-labs/FLUX.1-dev"
 bnb_4bit_compute_dtype = torch.bfloat16
 
 nf4_config = BitsAndBytesConfig(
@@ -337,7 +352,6 @@ On a T4, you can expect the fine-tuning process to take significantly longer aro
 
 QLoRA, coupled with the `diffusers` library, significantly democratizes the ability to customize state-of-the-art models like FLUX.1-dev. As demonstrated on an RTX 4090, efficient fine-tuning is well within reach, yielding high-quality stylistic adaptations. Furthermore, for users with the latest NVIDIA hardware, `torchao` enables even faster training through FP8 precision. 
 
-<!-- [Maybe add a link to trained LoRA adapter on Hugging Face Hub.] -->
 ### Share your creations on the Hub!
 
 Sharing your fine-tuned LoRA adapters is a fantastic way to contribute to the open-source community. It allows others to easily try out your styles, build on your work, and helps create a vibrant ecosystem of creative AI tools.
