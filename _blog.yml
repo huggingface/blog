@@ -6177,3 +6177,17 @@
     - optimization
     - open-source
     - performance
+
+
+- local: inference-providers-groq
+  title: "Groq on Hugging Face Inference Providers 🔥"
+  author: sbrandeis
+  thumbnail: /blog/assets/inference-providers/welcome-groq.jpg
+  date: Jun 16, 2025
+  tags:
+   - llms
+   - inference-providers
+   - groq
+   - enterprise
+   - partnerships
+   - hub
