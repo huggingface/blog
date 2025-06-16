@@ -2,12 +2,15 @@
 title: "Groq on Hugging Face Inference Providers 🔥"
 thumbnail: /blog/assets/inference-providers/welcome-groq.jpg
 authors:
-- user: benank-groq
-  guest: true
-  org: Groq
-- user: celinah
-- user: Wauplin
-- user: sbrandeis
+  - user: benank-groq
+    guest: true
+    org: Groq
+  - user: hozen
+    guest: true
+    org: Groq
+  - user: celinah
+  - user: Wauplin
+  - user: sbrandeis
 ---
 
 ![banner image](https://huggingface.co/blog/assets/inference-providers/welcome-groq.jpg)
@@ -33,26 +36,23 @@ See the list of supported models [here](https://huggingface.co/models?inference_
 
 ### In the website UI
 
-
 1. In your user account settings, you are able to:
+
 - Set your own API keys for the providers you’ve signed up with. If no custom key is set, your requests will be routed through HF.
 - Order providers by preference. This applies to the widget and code snippets in the model pages.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/user-settings-updated.png" alt="Inference Providers"/>
 
-
 2. As mentioned, there are two modes when calling Inference Providers:
+
 - Custom key (calls go directly to the inference provider, using your own API key of the corresponding inference provider)
 - Routed by HF (in that case, you don't need a token from the provider, and the charges are applied directly to your HF account rather than the provider's account)
 
-
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/explainer.png" alt="Inference Providers"/>
-
 
 3. Model pages showcase third-party inference providers (the ones that are compatible with the current model, sorted by user preference)
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/model-widget-updated.png" alt="Inference Providers"/>
-
 
 ### From the client SDKs
 
@@ -94,14 +94,14 @@ import { InferenceClient } from "@huggingface/inference";
 const client = new InferenceClient(process.env.HF_TOKEN);
 
 const chatCompletion = await client.chatCompletion({
-    model: "meta-llama/Llama-4-Scout-17B-16E-Instruct",
-    messages: [
-        {
-            role: "user",
-            content: "What is the capital of France?"
-        }
-    ],
-    provider: "groq",
+  model: "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  messages: [
+    {
+      role: "user",
+      content: "What is the capital of France?",
+    },
+  ],
+  provider: "groq",
 });
 
 console.log(chatCompletion.choices[0].message);
