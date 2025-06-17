@@ -46,6 +46,7 @@ Finetuning sparse embedding models involves several components: the model, datas
   * [Multi-Dataset Training](#multi-dataset-training)
 - [Evaluation](#evaluation)
 - [Training Tips](#training-tips)
+- [Vector Database Integration](#vector-database-integration)
 - [Additional Resources](#additional-resources)
   * [Training Examples](#training-examples)
   * [Documentation](#documentation)
@@ -272,7 +273,7 @@ This architecture allows for fast query-time processing using the lightweight ID
 
 ### Contrastive Sparse Representation (CSR)
 
-Contrastive Sparse Representation (CSR) models apply a [`CSRSparsity`](https://sbert.net/docs/package_reference/sparse_encoder/models.html#sentence_transformers.sparse_encoder.models.CSRSparsity) module on top of a dense Sentence Transformer model, which usually consist of a [`Transformer`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Transformer) followed by a [`Pooling`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Pooling) module. You can initialize one from scratch like so:
+Contrastive Sparse Representation (CSR) models introduce in [Beyond Matryoshka: Revisiting Sparse Coding for Adaptive Representation](https://arxiv.org/pdf/2503.01776) apply a [`CSRSparsity`](https://sbert.net/docs/package_reference/sparse_encoder/models.html#sentence_transformers.sparse_encoder.models.CSRSparsity) module on top of a dense Sentence Transformer model, which usually consist of a [`Transformer`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Transformer) followed by a [`Pooling`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Pooling) module. You can initialize one from scratch like so:
 
 ```python
 from sentence_transformers import models, SparseEncoder
@@ -745,6 +746,78 @@ Sparse Encoder models have a few quirks that you should be aware of when trainin
 
 1. Sparse Encoder models should not be evaluated solely using the evaluation scores, but also with the sparsity of the embeddings. After all, a low sparsity means that the model embeddings are expensive to store and slow to retrieve.
 2. The stronger Sparse Encoder models are trained almost exclusively with distillation from a stronger teacher model (e.g. a [CrossEncoder model](https://sbert.net/docs/cross_encoder/usage/usage.html)), instead of training directly from text pairs or triplets. See for example the [SPLADE-v3 paper](https://arxiv.org/abs/2403.06789), which uses [`SparseDistillKLDivLoss`](https://sbert.net/docs/package_reference/sparse_encoder/losses.html#sentence_transformers.sparse_encoder.losses.SparseDistillKLDivLoss) and [`SparseMarginMSELoss`](https://sbert.net/docs/package_reference/sparse_encoder/losses.html#sentence_transformers.sparse_encoder.losses.SparseMarginMSELoss) for distillation. We don't cover this in detail in this blog as it requires more data preparation, but a distillation setup should be seriously considered.
+
+## Vector Database Integration
+
+After training sparse embedding models, the next crucial step is deploying them effectively in production environments. Vector databases provide the essential infrastructure for storing, indexing, and retrieving sparse embeddings at scale. Popular options include Qdrant, OpenSearch, Elasticsearch, and Seismic, among others.
+
+For comprehensive examples covering vector databases mentioned above, refer to the [semantic search with vector database documentation](https://sbert.net/examples/sparse_encoder/applications/semantic_search/README.html#vector-database-search) or below for the Qdrant example. 
+
+### Qdrant Integration Example
+
+Qdrant offers excellent support for sparse vectors with efficient storage and fast retrieval capabilities. Below is a comprehensive implementation example:
+
+### Prerequisites:
+- Qdrant running locally (or accessible), see the [Qdrant Quickstart](https://qdrant.tech/documentation/quickstart/) for more details.
+- Python Qdrant Client installed:
+  ```bash
+  pip install qdrant-client
+  ```
+
+This example demonstrates how to set up Qdrant for sparse vector search by showing how to efficiently encode and index documents with sparse encoders, formulating search queries with sparse vectors, and providing an interactive query interface. See below: 
+
+```python
+
+    import time
+
+    from datasets import load_dataset
+    from sentence_transformers import SparseEncoder
+    from sentence_transformers.sparse_encoder.search_engines import semantic_search_qdrant
+
+    # 1. Load the natural-questions dataset with 100K answers
+    dataset = load_dataset("sentence-transformers/natural-questions", split="train")
+    num_docs = 10_000
+    corpus = dataset["answer"][:num_docs]
+
+    # 2. Come up with some queries
+    queries = dataset["query"][:2]
+
+    # 3. Load the model
+    sparse_model = SparseEncoder("naver/splade-cocondenser-ensembledistil")
+
+    # 4. Encode the corpus
+    corpus_embeddings = sparse_model.encode_document(
+        corpus, convert_to_sparse_tensor=True, batch_size=16, show_progress_bar=True
+    )
+
+    # Initially, we don't have a qdrant index yet
+    corpus_index = None
+    while True:
+        # 5. Encode the queries using the full precision
+        start_time = time.time()
+        query_embeddings = sparse_model.encode_query(queries, convert_to_sparse_tensor=True)
+        print(f"Encoding time: {time.time() - start_time:.6f} seconds")
+
+        # 6. Perform semantic search using qdrant
+        results, search_time, corpus_index = semantic_search_qdrant(
+            query_embeddings,
+            corpus_index=corpus_index,
+            corpus_embeddings=corpus_embeddings if corpus_index is None else None,
+            top_k=5,
+            output_index=True,
+        )
+
+        # 7. Output the results
+        print(f"Search time: {search_time:.6f} seconds")
+        for query, result in zip(queries, results):
+            print(f"Query: {query}")
+            for entry in result:
+                print(f"(Score: {entry['score']:.4f}) {corpus[entry['corpus_id']]}, corpus_id: {entry['corpus_id']}")
+            print("")
+
+        # 8. Prompt for more queries
+        queries = [input("Please enter a question: ")]
+```
 
 ## Additional Resources
 
