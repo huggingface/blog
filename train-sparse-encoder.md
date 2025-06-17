@@ -569,9 +569,11 @@ model.push_to_hub(run_name)
 
 ```
 
-In this example I'm finetuning from [`distilbert/distilbert-base-uncased`](https://huggingface.co/distilbert/distilbert-base-uncased), a base model that is not yet a Sentence Transformer model. This requires more training data than finetuning an existing Sparse Encoder model, like [`naver/splade-cocondenser-ensembledistil`](https://huggingface.co/naver/splade-cocondenser-ensembledistil).
+In this example I'm finetuning from [`distilbert/distilbert-base-uncased`](https://huggingface.co/distilbert/distilbert-base-uncased), a base model that is not yet a Sparse Encoder model. This requires more training data than finetuning an existing Sparse Encoder model, like [`naver/splade-cocondenser-ensembledistil`](https://huggingface.co/naver/splade-cocondenser-ensembledistil).
 
-After running this script, the [tomaarsen/inference-free-splade-distilbert-base-uncased-nq](https://huggingface.co/tomaarsen/inference-free-splade-distilbert-base-uncased-nq) model was uploaded for me. TODO Evaluation
+After running this script, the [tomaarsen/inference-free-splade-distilbert-base-uncased-nq](https://huggingface.co/tomaarsen/inference-free-splade-distilbert-base-uncased-nq) model was uploaded for me. The model scores 0.5241 NDCG@10 on NanoMSMARCO, 0.3299 NDCG@10 on NanoNFCorpus and 0.5357 NDCG@10 NanoNQ, which is a good result for an inference-free distilbert-based model trained on just 100k pairs from the Natural Questions dataset. 
+
+The model uses an average of 184 active dimensions in the sparse embeddings for the documents, compared to 7.7 active dimensions for the queries (i.e. the average number of tokens in the query). This corresponds to a sparsity of 99.39% and 99.97%, respectively.
 
 All of this information is stored in the automatically generated model card, including the base model, language, license, evaluation results, training & evaluation dataset info, hyperparameters, training logs, and more. Without any effort, your uploaded models should contain all the information that your potential users would need to determine whether your model is suitable for them.
 
@@ -599,12 +601,40 @@ Each training/evaluation batch will contain samples from only one of the dataset
 - `MultiDatasetBatchSamplers.ROUND_ROBIN`: Samples from each dataset in a round-robin fashion until one is exhausted. This strategy may not use all samples from each dataset, but it ensures equal sampling from each dataset.
 - `MultiDatasetBatchSamplers.PROPORTIONAL` (default): Samples from each dataset proportionally to its size. This strategy ensures that all samples from each dataset are used, and larger datasets are sampled from more frequently.
 
+## Evaluation
+
+## Evaluation on NanoMSMARCO
+
+Let's evaluate our newly trained inference-free SPLADE model using the NanoMSMARCO dataset, and see how it compares to dense retrieval approaches. We'll also explore hybrid retrieval methods that combine sparse and dense vectors, as well as reranking to further improve search quality.
+
+After running a slightly modified version of our [hybrid_search.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sparse_encoder/applications/retrieve_rerank/hybrid_search.py) script, we get the following results for the NanoMSMARCO dataset, using these models:
+* **Sparse**: [`tomaarsen/inference-free-splade-distilbert-base-uncased-nq`](https://huggingface.co/tomaarsen/inference-free-splade-distilbert-base-uncased-nq) (the model we just trained)
+* **Dense**: [`sentence-transformers/all-MiniLM-L6-v2`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
+* **Reranker**: [`cross-encoder/ms-marco-MiniLM-L6-v2`](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2)
+
+| Sparse | Dense | Reranker | NDCG@10 | MRR@10 | MAP   |
+|--------|-------|----------|---------|--------|-------|
+| x      |       |          | 52.41   | 43.06  | 44.20 |
+|        | x     |          | 55.40   | 47.96  | 49.08 |
+| x      | x     |          | 62.22   | 53.02  | 53.44 |
+| x      |       | x        | 66.31   | 59.45  | 60.36 |
+|        | x     | x        | 66.28   | 59.43  | 60.34 |
+| x      | x     | x        | 66.28   | 59.43  | 60.34 |
+
+The Sparse and Dense rankings can be combined using Reciprocal Rank Fusion (RRF), which is a simple way to combine the results of multiple rankings. If a Reranker is applied, it will rerank the results of the prior retrieval step.
+
+The results indicate that for this dataset, combining Dense and Sparse rankings is very performant, resulting in 12.3% and 18.7% increases over the Dense and Sparse baselines, respectively. In short, combining Sparse and Dense retrieval methods is a very effective way to improve search performance.
+
+Furthermore, applying a reranker on any of the rankings improved the performance to approximately 66.3 NDCG@10, showing that either Sparse, Dense, or Hybrid (Dense + Sparse) found the relevant documents in their top 100, which the reranker then ranked to the top 10. So, replacing a Dense -> Reranker pipeline with a Sparse -> Reranker pipeline might improve both latency and costs:
+* Sparse embeddings can be cheaper to store, e.g. our model only uses ~180 active dimensions for MS MARCO documents instead of the common 1024 dimensions for dense models.
+* Some Sparse Encoders allow for inference-free query processing, allowing for a near-instant first-stage retrieval, akin to lexical solutions like BM25.
+
 ## Training Tips
 
 Sparse Encoder models have a few quirks that you should be aware of when training them:
 
 1. Sparse Encoder models should not be evaluated solely using the evaluation scores, but also with the sparsity of the embeddings. After all, a low sparsity means that the model embeddings are expensive to store and slow to retrieve.
-2. The stronger Sparse Encoder models are trained almost exclusively with distillation from a stronger teacher model (e.g. a [CrossEncoder model](https://sbert.net/docs/cross_encoder/usage/usage.html)), instead of training directly from text pairs or triplets. See for example the [SPLADE-v3 paper](https://arxiv.org/abs/2403.06789), which uses [`SparseDistillKLDivLoss`](https://sbert.net/docs/package_reference/sparse_encoder/losses.html#sentence_transformers.sparse_encoder.losses.SparseDistillKLDivLoss) and [`SparseMarginMSELoss`](https://sbert.net/docs/package_reference/sparse_encoder/losses.html#sentence_transformers.sparse_encoder.losses.SparseMarginMSELoss) for distillation.
+2. The stronger Sparse Encoder models are trained almost exclusively with distillation from a stronger teacher model (e.g. a [CrossEncoder model](https://sbert.net/docs/cross_encoder/usage/usage.html)), instead of training directly from text pairs or triplets. See for example the [SPLADE-v3 paper](https://arxiv.org/abs/2403.06789), which uses [`SparseDistillKLDivLoss`](https://sbert.net/docs/package_reference/sparse_encoder/losses.html#sentence_transformers.sparse_encoder.losses.SparseDistillKLDivLoss) and [`SparseMarginMSELoss`](https://sbert.net/docs/package_reference/sparse_encoder/losses.html#sentence_transformers.sparse_encoder.losses.SparseMarginMSELoss) for distillation. We don't cover this in detail in this blog as it requires more data preparation, but a distillation setup should be seriously considered.
 
 ## Additional Resources
 
