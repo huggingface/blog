@@ -20,6 +20,35 @@ Finetuning sparse embedding models involves several components: the model, datas
 
 ## Table of Contents
 
+- [What are Sparse Embedding models?](#what-are-sparse-embedding-models)
+  * [Query and Document Expansion](#query-and-document-expansion)
+  * [Why Use Sparse Embedding Models?](#why-use-sparse-embedding-models)
+- [Why Finetune?](#why-finetune)
+- [Training Components](#training-components)
+- [Model](#model)
+  * [Splade](#splade)
+  * [Contrastive Sparse Representation (CSR)](#contrastive-sparse-representation-csr)
+  * [Inference-free Splade](#inference-free-splade)
+  * [Architecture Picker Guide](#architecture-picker-guide)
+- [Dataset](#dataset)
+  * [Data on the Hugging Face Hub](#data-on-the-hugging-face-hub)
+  * [Local Data (CSV, JSON, Parquet, Arrow, SQL)](#local-data-csv-json-parquet-arrow-sql)
+  * [Local Data that requires pre-processing](#local-data-that-requires-pre-processing)
+  * [Dataset Format](#dataset-format)
+- [Loss Function](#loss-function)
+- [Training Arguments](#training-arguments)
+- [Evaluator](#evaluator)
+  * [SparseNanoBEIREvaluator](#sparsenanobeirevaluator)
+  * [SparseEmbeddingSimilarityEvaluator with STSb](#sparseembeddingsimilarityevaluator-with-stsb)
+  * [SparseTripletEvaluator with AllNLI](#sparsetripletevaluator-with-allnli)
+- [Trainer](#trainer)
+  * [Callbacks](#callbacks)
+  * [Multi-Dataset Training](#multi-dataset-training)
+- [Evaluation](#evaluation)
+- [Training Tips](#training-tips)
+- [Additional Resources](#additional-resources)
+  * [Training Examples](#training-examples)
+  * [Documentation](#documentation)
 
 ## What are Sparse Embedding models?
 
@@ -672,7 +701,7 @@ These are automatically used without you having to specify anything, as long as 
 
 Refer to the [Transformers Callbacks documentation](https://huggingface.co/docs/transformers/en/main_classes/callback) for more information on these callbacks and how to create your own.
 
-## Multi-Dataset Training
+### Multi-Dataset Training
 
 Top-performing models are often trained using multiple datasets simultaneously. The [`SparseEncoderTrainer`](https://sbert.net/docs/package_reference/sparse_encoder/trainer.html#sentence_transformers.sparse_encoder.SparseEncoderTrainer) simplifies this process by allowing you to train with multiple datasets without converting them to the same format. You can even apply different loss functions to each dataset. Here are the steps for multi-dataset training:
 
@@ -685,8 +714,6 @@ Each training/evaluation batch will contain samples from only one of the dataset
 - `MultiDatasetBatchSamplers.PROPORTIONAL` (default): Samples from each dataset proportionally to its size. This strategy ensures that all samples from each dataset are used, and larger datasets are sampled from more frequently.
 
 ## Evaluation
-
-## Evaluation on NanoMSMARCO
 
 Let's evaluate our newly trained inference-free SPLADE model using the NanoMSMARCO dataset, and see how it compares to dense retrieval approaches. We'll also explore hybrid retrieval methods that combine sparse and dense vectors, as well as reranking to further improve search quality.
 
