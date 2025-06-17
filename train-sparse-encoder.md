@@ -14,7 +14,7 @@ authors:
 * v4.0: (improved) Cross Encoder (Reranker) model training
 * v5.0: (new) Sparse Embedding model training
 
-In this blogpost, I'll show you how to use it to finetune a sparse encoder/embedding model and explain why you might want to do so. TODO
+In this blogpost, I'll show you how to use it to finetune a sparse encoder/embedding model and explain why you might want to do so. This results in [tomaarsen/inference-free-splade-distilbert-base-uncased-nq](https://huggingface.co/tomaarsen/inference-free-splade-distilbert-base-uncased-nq), a cheap model that works especially well in hybrid search or retrieve and rerank scenarios.
 
 Finetuning sparse embedding models involves several components: the model, datasets, loss functions, training arguments, evaluators, and the trainer class. I'll have a look at each of these components, accompanied by practical examples of how they can be used for finetuning strong sparse embedding models.
 
@@ -23,10 +23,88 @@ Finetuning sparse embedding models involves several components: the model, datas
 
 ## What are Sparse Embedding models?
 
-TODO
+The more broader term "embedding models" refer to models that convert some input, usually text, into a vector representation (embedding) that captures the semantic meaning of the input. Unlike with the raw inputs, you can perform mathematical operations on these embeddings, resulting in similarity scores that can be used for various tasks, such as search, clustering, or classification.
 
-Give a little example with naver/splade-cocondenser-ensembledistil
-Query/document expansion
+With dense embedding models, i.e. the common variety, the embeddings are typically low-dimensional vectors (e.g., 384, 768, or 1024 dimensions) where most values are non-zero. Sparse embedding models, on the other hand, produce high-dimensional vectors (e.g., 30,000+ dimensions) where most values are zero. Usually, each active dimension (i.e. the dimension with a non-zero value) in a sparse embedding corresponds to a specific token in the model's vocabulary, allowing for interpretability.
+
+Let's have a look at [naver/splade-v3](https://huggingface.co/naver/splade-v3), a state-of-the-art sparse embedding model, as an example:
+
+```python
+from sentence_transformers import SparseEncoder
+
+# Download from the 🤗 Hub
+model = SparseEncoder("naver/splade-v3")
+
+# Run inference
+sentences = [
+    "The weather is lovely today.",
+    "It's so sunny outside!",
+    "He drove to the stadium.",
+]
+embeddings = model.encode(sentences)
+print(embeddings.shape)
+# (3, 30522)
+
+# Get the similarity scores for the embeddings
+similarities = model.similarity(embeddings, embeddings)
+print(similarities)
+# tensor([[   32.4323,     5.8528,     0.0258],
+#         [    5.8528,    26.6649,     0.0302],
+#         [    0.0258,     0.0302,    24.0839]])
+
+# Let's decode our embeddings to be able to interpret them
+decoded = model.decode(embeddings, top_k=10)
+for decoded, sentence in zip(decoded, sentences):
+    print(f"Sentence: {sentence}")
+    print(f"Decoded: {decoded}")
+    print()
+```
+
+```
+Sentence: The weather is lovely today.
+Decoded: [('weather', 2.754288673400879), ('today', 2.610959529876709), ('lovely', 2.431990623474121), ('currently', 1.5520408153533936), ('beautiful', 1.5046082735061646), ('cool', 1.4664798974990845), ('pretty', 0.8986214995384216), ('yesterday', 0.8603134155273438), ('nice', 0.8322536945343018), ('summer', 0.7702118158340454)]
+
+Sentence: It's so sunny outside!
+Decoded: [('outside', 2.6939032077789307), ('sunny', 2.535827398300171), ('so', 2.0600898265838623), ('out', 1.5397940874099731), ('weather', 1.1198079586029053), ('very', 0.9873268604278564), ('cool', 0.9406591057777405), ('it', 0.9026399254798889), ('summer', 0.684999406337738), ('sun', 0.6520509123802185)]
+
+Sentence: He drove to the stadium.
+Decoded: [('stadium', 2.7872302532196045), ('drove', 1.8208855390548706), ('driving', 1.6665740013122559), ('drive', 1.5565159320831299), ('he', 1.4721972942352295), ('stadiums', 1.449463129043579), ('to', 1.0441515445709229), ('car', 0.7002660632133484), ('visit', 0.5118278861045837), ('football', 0.502326250076294)]
+```
+
+In this example, the embeddings are 30,522-dimensional vectors, where each dimension corresponds to a token in the model's vocabulary. The `decode` method returned the top 10 tokens with the highest values in the embedding, allowing us to interpret which tokens contribute most to the embedding. 
+
+We can even determine the intersection or overlap between embeddings, very useful for determining why two texts are deemed similar or dissimilar:
+
+```python
+# Let's also compute the intersection/overlap of the first two embeddings
+intersection_embedding = model.intersection(embeddings[0], embeddings[1])
+decoded_intersection = model.decode(intersection_embedding)
+print(decoded_intersection)
+```
+```
+Decoded: [('weather', 3.0842742919921875), ('cool', 1.379457712173462), ('summer', 0.5275946259498596), ('comfort', 0.3239051103591919), ('sally', 0.22571465373039246), ('julian', 0.14787325263023376), ('nature', 0.08582140505313873), ('beauty', 0.0588383711874485), ('mood', 0.018594780936837196), ('nathan', 0.000752730411477387)]
+```
+
+### Query and Document Expansion
+
+A key component of neural sparse embedding models is **query/document expansion**. Unlike traditional lexical methods like BM25, which only match exact tokens, neural sparse models automatically expand the original text with semantically related terms:
+
+- **Traditional, Lexical (e.g. BM25):** Only matches on exact tokens in the text
+- **Neural Sparse Models:** Automatically expand with related terms
+
+For example, in the code output above, the sentence "The weather is lovely today" is expanded to include terms like "beautiful", "cool", "pretty", and "nice" which weren't in the original text. Similarly, "It's so sunny outside!" is expanded to include "weather", "summer", and "sun".
+
+This expansion allows neural sparse models to match semantically related content or synonyms even without exact token matches, handle misspellings, and overcome vocabulary mismatch problems. This is why neural sparse models like SPLADE often outperform traditional lexical search methods while maintaining the efficiency benefits of sparse representations.
+
+However, expansion has its risks. For example, query expansion for "What is the weather on Tuesday?" will likely also expand to "monday", "wednesday", etc., which may not be desired.
+
+### Why Use Sparse Embedding Models?
+
+In short, neural sparse embedding models fall in a valuable niche between traditional lexical methods like BM25 and dense embedding models like Sentence Transformers. They have the following advantages:
+
+- **Hybrid potential:** Very effectively combined with dense models, which may struggle with searches where lexical matches are important
+- **Interpretability:** You can see exactly which tokens contribute to a match
+- **Performance:** Competitive or better than dense models in many retrieval tasks
 
 Throughout this blogpost, I'll use "sparse embedding model" and "sparse encoder model" interchangeably.
 
@@ -102,8 +180,6 @@ model = SparseEncoder("google-bert/bert-base-uncased")
 #   (1): SpladePooling({'pooling_strategy': 'max', 'activation_function': 'relu', 'word_embedding_dimension': None})
 # )
 ```
-
-TODO: Maybe some pro's and con's of using Splade models? 
 
 ### Contrastive Sparse Representation (CSR)
 
@@ -207,6 +283,14 @@ This architecture allows for fast query-time processing using the lightweight ID
 >     }
 > )
 > ```
+
+### Architecture Picker Guide
+
+If you're unsure which architecture to use, here's a quick guide:
+
+* Do you want to sparsify an existing Dense Embedding model? If yes, use [**CSR**](#contrastive-sparse-representation-csr).
+* Do you want your query inference to be instantaneous at the cost of slight performance? If yes, use [**Inference-free SPLADE**](#inference-free-splade).
+* Otherwise, use [**SPLADE**](#splade).
 
 ## Dataset
 
@@ -566,7 +650,6 @@ model.save_pretrained(f"models/{run_name}/final")
 
 # 10. (Optional) Push it to the Hugging Face Hub
 model.push_to_hub(run_name)
-
 ```
 
 In this example I'm finetuning from [`distilbert/distilbert-base-uncased`](https://huggingface.co/distilbert/distilbert-base-uncased), a base model that is not yet a Sparse Encoder model. This requires more training data than finetuning an existing Sparse Encoder model, like [`naver/splade-cocondenser-ensembledistil`](https://huggingface.co/naver/splade-cocondenser-ensembledistil).
