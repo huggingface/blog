@@ -5417,6 +5417,7 @@
   tags:
     - announcement
     - hub
+    - inference-providers
 
 - local: deepseek-r1-aws
   title: "How to deploy and fine-tune DeepSeek models on AWS"
@@ -5540,6 +5541,7 @@
   tags:
     - announcement
     - hub
+    - inference-providers
 
 - local: inference-providers-nebius-novita-hyperbolic
   title: "Introducing Three New Serverless Inference Providers: Hyperbolic, Nebius AI Studio, and Novita 🔥"
@@ -5549,6 +5551,7 @@
   tags:
     - announcement
     - hub
+    - inference-providers
 
 - local: paligemma2mix
   title: "PaliGemma 2 Mix - New Instruction Vision Language Models by Google"
@@ -5881,7 +5884,7 @@
   date: April 16, 2025
   tags:
    - llms
-   - inference
+   - inference-providers
    - cohere
    - enterprise
    - partnerships
@@ -6125,3 +6128,66 @@
     - nlp
     - vlm
     - nanovlm
+
+- local: screensuite
+  title: "ScreenSuite - The most comprehensive evaluation suite for GUI Agents!"
+  author: a-mahla
+  thumbnail: /blog/assets/screensuite/thumbnail.png
+  date: Jun 6, 2025
+  tags:
+    - screensuite
+    - gui-agents
+    - agents
+    - smolagents
+    - vlm
+
+- local: nvidia-training-cluster
+  title: "Introducing Training Cluster as a Service - a new collaboration with NVIDIA"
+  author: jeffboudier
+  thumbnail: /blog/assets/nvidia-training-cluster/nvidia-training-cluster-thumbnail-compressed.png
+  date: Jun 11, 2025
+  tags:
+    - nvidia
+    - training
+    - partnerships
+    - announcement
+  
+- local: inference-providers-featherless
+  title: "Featherless AI on Hugging Face Inference Providers 🔥"
+  author: sbrandeis
+  thumbnail: /blog/assets/inference-providers/welcome-featherless.jpg
+  date: Jun 12, 2025
+  tags:
+   - llms
+   - inference-providers
+   - featherless
+   - recursal
+   - enterprise
+   - partnerships
+   - hub
+
+- local: hello-hf-kernels
+  title: "Enhance Your Models in 5 Minutes with the Hugging Face Kernel Hub"
+  author: drbh
+  thumbnail: /blog/assets/hello-hf-kernels/kernel-hub-five-mins-short-21.png
+  date: June 12, 2025
+  tags:
+    - guide
+    - hub
+    - optimization
+    - open-source
+    - performance
+
+
+- local: inference-providers-groq
+  title: "Groq on Hugging Face Inference Providers 🔥"
+  author: sbrandeis
+  thumbnail: /blog/assets/inference-providers/welcome-groq.jpg
+  date: Jun 16, 2025
+  tags:
+   - llms
+   - inference-providers
+   - groq
+   - enterprise
+   - partnerships
+   - hub

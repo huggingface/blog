@@ -16,7 +16,7 @@ authors:
 # SmolVLA: Efficient Vision-Language-Action Model trained on Lerobot Community Data
 ## 🧭TL;DR
 Today, we introduce [SmolVLA](https://huggingface.co/lerobot/smolvla_base), a compact (450M), open-source Vision-Language-Action model for robotics that runs on consumer hardware.
-- Pretrained only on open-source community-shared datasets under the [lerobot](https://huggingface.co/datasets?other=lerobot&sort=trending) tag.
+- Pretrained only on compatibly licensed, open-source community-shared datasets under the [lerobot](https://huggingface.co/datasets?other=lerobot&sort=trending) tag.
 - SmolVLA-450M outperforms much larger VLAs and strong baselines such as [ACT](https://huggingface.co/papers/2401.02117) on simulation (LIBERO, Meta-World) and real-world tasks ([SO100, SO101](https://github.com/TheRobotStudio/SO-ARM100)).
 - Supports *asynchronous inference* for **30% faster response** and **2× task throughput**.
 
@@ -78,7 +78,7 @@ SmolVLA addresses this gap by offering an open-source, compact, and efficient VL
 
 Inspired by the training paradigms of Large Language Models (LLMs), SmolVLA goes through a pretraining phase on general manipulation data, followed by task-specific post-training. Architecturally, it combines Transformers with **flow-matching decoders**, and is optimized for speed and low-latency inference with the following design choices:
 
-* Skipping the half of the layers of the vision model for faster inference and smaller size
+* Skipping half of the layers of the vision model for faster inference and smaller size
 * Interleaving self-attention and cross-attention blocks
 * Using fewer visual tokens
 * Leveraging smaller pretrained VLMs 
@@ -116,7 +116,7 @@ python lerobot/scripts/train.py \
   --policy.path=lerobot/smolvla_base \
   --dataset.repo_id=lerobot/svla_so100_stacking \
   --batch_size=64 \
-  --steps=200000
+  --steps=20000  # 10% of training budget
 ```
 ### Train from scratch
 ​​If you'd like to build from the architecture (pretrained VLM + action expert) rather than a pretrained checkpoint:
@@ -131,6 +131,7 @@ python lerobot/scripts/train.py \
 You can also load `SmolVLAPolicy` directly:
 
 ```python
+from lerobot.common.policies.smolvla.modeling_smolvla import SmolVLAPolicy
 policy = SmolVLAPolicy.from_pretrained("lerobot/smolvla_base")
 ```
 
@@ -176,7 +177,7 @@ Inside the action expert, attention layers alternate between:
 - **Cross-attention (CA)**, where action tokens attend to the VLM’s features
 - **Self-attention (SA)**, where action tokens attend to each other (causally—only to the past)
 
-We found out that this **interleaved design** is both lighter and more effective than using full attention blocks. Models that rely only on CA or only on SA tend to sacrifice either smoothness or grounding.
+We found that this **interleaved design** is both lighter and more effective than using full attention blocks. Models that rely only on CA or only on SA tend to sacrifice either smoothness or grounding.
 
 In SmolVLA, CA ensures that actions are well-conditioned on perception and instructions, while SA improves **temporal smoothness**—especially critical for real-world control, where jittery predictions can result in unsafe or unstable behavior.
 
@@ -193,11 +194,11 @@ Modern visuomotor policies output **action chunks**—sequences of actions to ex
 
 Our async stack decouples action execution from chunk prediction, resulting in higher adaptability, and the complete lack of execution lags at runtime. It relies on the following key mechanisms:
 
-- **1. Early trigger:** When the queue length falls below a threshold (e.g., 70 %), we send an observation to a **Policy Server**, calling for a new action chunk.
+- **1. Early trigger:** When the queue length falls below a threshold (e.g., 70%), we send an observation to a **Policy Server**, calling for a new action chunk.
 - **2. Decoupled threads:** Control loop keeps executing → inference happens in parallel (non-blocking).
 - **3. Chunk fusion:** Overlapping actions from successive chunks are stitched with a simple merge rule to avoid jitter.
 
-We are really excited about releasing asynchronous inference because it guarantees a greater adaptability and improved performance without changing the model. In short, async inference keeps the robot responsive by overlapping execution and remote prediction.
+We are really excited about releasing asynchronous inference because it guarantees greater adaptability and improved performance without changing the model. In short, async inference keeps the robot responsive by overlapping execution and remote prediction.
 
 ## Community Datasets
 
@@ -278,7 +279,7 @@ Finally, we evaluate SmolVLA under synchronous and asynchronous inference modes.
 This results in more responsive and robust real-world performance, especially in dynamic environments with shifting objects or external disturbances.
 <div align="center">
   <img src="https://cdn-uploads.huggingface.co/production/uploads/640e21ef3c82bd463ee5a76d/Goxb9y5cE_Ty1SWCetCoT.png" alt="Asynchronous vs. Synchronous Inference in Real-World Tasks." width="500"/>
-  <p>Figure 4. Asynchronous vs. Synchronous Inference in Real-World Tasks.
+  <p>Figure 5. Asynchronous vs. Synchronous Inference in Real-World Tasks.
 (a) Task success rates (%), (b) average completion time(s), and (c) number of tasks completed within a fixed time window.
 </p>
 </div>

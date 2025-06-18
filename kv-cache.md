@@ -1,5 +1,5 @@
 ---
-title: "KV Cache from scratch in nanoVLM
+title: "KV Cache from scratch in nanoVLM"
 thumbnail: /blog/assets/kv-cache/thumbnail.png
 authors:
 - user: ariG23498
@@ -13,7 +13,7 @@ authors:
 
 ## TL;DR
 
-We have implemented KV Caching from scratch in our [nanoVLM](https://github.com/huggingface/nanoVLM) repository (a small code base to train your own Vision Language Model with pure PyTorch). This gave us a **38%** of speedup in generation. In this blog post we cover KV Caching and all our experiences while implementing it. The lessons learnt are general and can be applied to all autoregressive language model generations. Implementing from scratch on a small codebase is a great learning experience, come along for the ride!
+We have implemented KV Caching from scratch in our [nanoVLM](https://github.com/huggingface/nanoVLM) repository (a small codebase to train your own Vision Language Model with pure PyTorch). This gave us a **38%** speedup in generation. In this blog post we cover KV Caching and all our experiences while implementing it. The lessons learnt are general and can be applied to all autoregressive language model generations. Implementing from scratch on a small codebase is a great learning experience, come along for the ride!
 
 ![bar plot showcasing improvement in generation speed](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/kv-cache/speed_improved.png)
 
@@ -25,7 +25,7 @@ Autoregressive language models generate text by sampling *one token at a time*. 
 
 This step-by-step generation is inherently sequential:
 
-- To generate token \\( t_{i+1} \\), the model must consider the entire sequence from \\( t_0 \\) to \\( t_i \\). From the first instance in the above example \\( t_{i+1} \\) would be `the` , while all the previous tokens \\( t_0 \\) to \\( t_i \\) would be `[What, is, in,]`.
+- To generate token \\( t_{i+1} \\), the model must consider the entire sequence from \\( t_0 \\) to \\( t_i \\). From the first instance in the above example \\( t_{i+1} \\) would be `the` , while all the previous tokens \\( t_0 \\) to \\( t_i \\) would be `[What, is, in]`.
 - Although transformers are internally parallel, each new prediction requires a full forward pass through all transformer layers, which incurs a quadratic memory/compute in terms of the sequence length.
 
 This repetition also leads to computational **redundancy**. In this post, we explore **KV Caching**, an optimisation technique that mitigates this inefficiency.
@@ -85,8 +85,10 @@ Here’s a minimal PyTorch equivalent using a causal mask:
 
 ```python
 import torch.nn.functional as F
+import math
 
-attention_scores = Q @ K.T
+d_k = K.shape[-1]
+attention_scores = (Q @ K.T) / math.sqrt(d_k)
 
 # Lower triangular mask to prevent future token access
 causal_mask = torch.tril(torch.ones(input_seq_length, input_seq_length))
