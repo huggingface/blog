@@ -1,3 +1,14 @@
+---
+title: "Fine-Tuning FLUX.1-dev on consumer hardware and in FP8"
+thumbnail: # TODO: add thumbnail
+authors:
+- user: derekl35
+- user: marcsun13
+- user: sayakpaul
+- user: merve
+- user: linoytsaban
+---
+
 # Fine-Tuning FLUX.1-dev on consumer hardware and in FP8
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DerekLiu35/notebooks/blob/main/flux_lora_quant_blogpost.ipynb)
@@ -378,6 +389,6 @@ upload_folder(
 )
 ```
 
-Check out our Mucha QLoRA https://huggingface.co/derekl35/alphonse_mucha_qlora_flux and FP8 LoRA https://huggingface.co/derekl35/alphonse_mucha_fp8_lora_flux as an example.
+Check out our Mucha QLoRA https://huggingface.co/derekl35/alphonse_mucha_qlora_flux FP8 LoRA https://huggingface.co/derekl35/alphonse_mucha_fp8_lora_flux and other LoRAs in [this collection](https://huggingface.co/collections/derekl35/flux-qlora-68527afe2c0ca7bc82a6d8d9) as an example.
 
 We can't wait to see what you create!
