@@ -1,5 +1,5 @@
 ---
-title: "Fine-Tuning FLUX.1-dev on consumer hardware and in FP8"
+title: "Fine-Tuning FLUX.1-dev on Consumer Hardware and in FP8"
 thumbnail: # TODO: add thumbnail
 authors:
 - user: derekl35
@@ -9,7 +9,7 @@ authors:
 - user: linoytsaban
 ---
 
-# Fine-Tuning FLUX.1-dev on consumer hardware and in FP8
+# Fine-Tuning FLUX.1-dev on Consumer Hardware and in FP8
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DerekLiu35/notebooks/blob/main/flux_lora_quant_blogpost.ipynb)
 
@@ -32,8 +32,7 @@ Performing inference is cool but to make these models truly our own, we also nee
 
 ## Dataset
 
- We aim to fine-tune `black-forest-labs/FLUX.1-dev` to adopt the artistic style of Alphonse Mucha, using a small [dataset](https://huggingface.co/datasets/derekl35/alphonse-mucha-style). 
-<!-- (maybe use different dataset) -->
+ We aim to fine-tune `black-forest-labs/FLUX.1-dev` to adopt the artistic style of Alphonse Mucha, using a small [dataset](https://huggingface.co/datasets/derekl35/alphonse-mucha-style).
 
 ## FLUX Architecture
 
@@ -47,11 +46,11 @@ In our QLoRA approach, we focus exclusively on fine-tuning the **transformer com
 
 ## QLoRA Fine-tuning FLUX.1-dev with `diffusers`
 
-We used a `diffusers` training script (very slightly modified from https://github.com/huggingface/diffusers/tree/main/examples/research_projects/flux_lora_quantization) designed for DreamBooth-style LoRA fine-tuning of FLUX models. Let's examine the crucial parts for QLoRA and memory efficiency:
+We used a `diffusers` training script (slightly modified from https://github.com/huggingface/diffusers/blob/main/examples/research_projects/flux_lora_quantization/train_dreambooth_lora_flux_miniature.py) designed for DreamBooth-style LoRA fine-tuning of FLUX models. Also, a shortened version to reproduce the results in this blogpost (and used in the [google colab](https://colab.research.google.com/github/DerekLiu35/notebooks/blob/main/flux_lora_quant_blogpost.ipynb)) is available [here](https://github.com/huggingface/diffusers/blob/main/examples/research_projects/flux_lora_quantization/train_dreambooth_lora_flux_nano.py). Let's examine the crucial parts for QLoRA and memory efficiency:
 
 ### Key Optimization Techniques
 
-**LoRA (Low-Rank Adaptation) Deep Dive:** [LoRA](https://huggingface.co/docs/peft/main/en/conceptual_guides/lora) makes model training more efficient by keeping track of the weight updates with low-rank matrices. Instead of updating the full weight matrix $$W$$, LoRA learns two smaller matrices $$A$$ and $$B$$. The update to the weights for the model is $$\Delta W = BA$$, where $$A \in \mathbb{R}^{r \times k}$$ and $$B \in \mathbb{R}^{d \times r}$$. The number $$r$$ (called _rank_) is much smaller than the original dimensions, which means less parameters to update. Lastly, $$\alpha$$ is a scaling factor for the LoRA activations. This affects how much LoRA affects the updates, and is often set to the same value as the $$r$$ or a multiple of it. It helps balance the influence of the pre-trained model and the LoRA adapter. For a general introduction to the concept, check out our previous blog post: [Using LoRA for Efficient Stable Diffusion Fine-Tuning](https://huggingface.co/blog/lora).
+**LoRA (Low-Rank Adaptation) Deep Dive:** [LoRA](https://huggingface.co/docs/peft/main/en/conceptual_guides/lora) makes model training more efficient by keeping track of the weight updates with low-rank matrices. Instead of updating the full weight matrix $$W$$, LoRA learns two smaller matrices $$A$$ and $$B$$. The update to the weights for the model is $$\Delta W = B A$$, where $$A \in \mathbb{R}^{r \times k}$$ and $$B \in \mathbb{R}^{d \times r}$$. The number $$r$$ (called _rank_) is much smaller than the original dimensions, which means less parameters to update. Lastly, $$\alpha$$ is a scaling factor for the LoRA activations. This affects how much LoRA affects the updates, and is often set to the same value as the $$r$$ or a multiple of it. It helps balance the influence of the pre-trained model and the LoRA adapter. For a general introduction to the concept, check out our previous blog post: [Using LoRA for Efficient Stable Diffusion Fine-Tuning](https://huggingface.co/blog/lora).
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft/lora_diagram.png"
@@ -64,7 +63,7 @@ We used a `diffusers` training script (very slightly modified from https://githu
 For instance, in the [DreamBooth training script for HiDream](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_hidream.md#using-quantization) 4-bit quantization with bitsandbytes reduces the peak memory usage of a LoRA fine-tune from ~60GB down to ~37GB. The very same principle is what we apply here to fine-tune FLUX.1 on consumer-grade hardware.
 
 **8-bit Optimizer (AdamW):**
-Standard AdamW optimizer maintains first and second moment estimates for each parameter in 32-bit (FP32), which consumes a lot of memory The 8-bit AdamW uses block-wise quantization to store optimizer states in 8-bit precision, while maintaining training stability. This technique can reduce optimizer memory usage by ~75% compared to standard FP32 AdamW. Enabling it in the script is straightforward:
+Standard AdamW optimizer maintains first and second moment estimates for each parameter in 32-bit (FP32), which consumes a lot of memory. The 8-bit AdamW uses block-wise quantization to store optimizer states in 8-bit precision, while maintaining training stability. This technique can reduce optimizer memory usage by ~75% compared to standard FP32 AdamW. Enabling it in the script is straightforward:
 
 ```python
 
@@ -176,7 +175,7 @@ accelerate launch --config_file=accelerate.yaml \
   --guidance_scale=1 \
   --report_to="wandb" \
   --gradient_accumulation_steps=4 \
-  --gradient_checkpointing \
+  --gradient_checkpointing \ # can drop checkpointing when HW has more than 16 GB.
   --lr_scheduler="constant" \
   --lr_warmup_steps=0 \
   --cache_latents \
@@ -279,10 +278,10 @@ One approach is to [load your trained LoRA adapters](https://huggingface.co/docs
 * **Storage efficiency:** Keep a single base model and multiple small adapter files
 
 <details>
-<summary>code</summary>
+<summary>Code</summary>
 
 ```python
-from diffusers import FluxPipeline, AutoPipelineForText2Image, FluxTransformer2DModel, BitsAndBytesConfig
+from diffusers import FluxPipeline, FluxTransformer2DModel, BitsAndBytesConfig
 import torch 
 
 ckpt_id = "black-forest-labs/FLUX.1-dev"
@@ -311,7 +310,7 @@ For when you want maximum efficiency with a single style, you can [merge the LoR
 - **Quantization compatibility:** Can re-quantize the merged model for maximum memory efficiency
 
 <details>
-<summary>code</summary>
+<summary>Code</summary>
 
 ```python
 from diffusers import FluxPipeline, AutoPipelineForText2Image, FluxTransformer2DModel, BitsAndBytesConfig
@@ -355,11 +354,9 @@ image.save("alphonse_mucha_merged.png")
 
 ## Running on Google Colab
 
-While we showcased results on an RTX 4090, the same code can be run on more accessible hardware like the T4 GPU available in Google Colab.
+While we showcased results on an RTX 4090, the same code can be run on more accessible hardware like the T4 GPU available in [Google Colab](https://colab.research.google.com/github/DerekLiu35/notebooks/blob/main/flux_lora_quant_blogpost.ipynb).
 
 On a T4, you can expect the fine-tuning process to take significantly longer around 4 hours for the same number of steps. This is a trade-off for accessibility, but it makes custom fine-tuning possible without high-end hardware. Be mindful of usage limits if running on Colab, as a 4-hour training run might push them.
-
-<!-- TODO: figure out how to make time shorter. maybe reduce steps, or use faster kernels -->
 
 ## Conclusion
 
@@ -389,6 +386,6 @@ upload_folder(
 )
 ```
 
-Check out our Mucha QLoRA https://huggingface.co/derekl35/alphonse_mucha_qlora_flux FP8 LoRA https://huggingface.co/derekl35/alphonse_mucha_fp8_lora_flux and other LoRAs in [this collection](https://huggingface.co/collections/derekl35/flux-qlora-68527afe2c0ca7bc82a6d8d9) as an example.
+Check out our Mucha QLoRA https://huggingface.co/derekl35/alphonse_mucha_qlora_flux FP8 LoRA https://huggingface.co/derekl35/alphonse_mucha_fp8_lora_flux. You can find both, plus other adapters, in [this collection](https://huggingface.co/collections/derekl35/flux-qlora-68527afe2c0ca7bc82a6d8d9) as an example.
 
 We can't wait to see what you create!
