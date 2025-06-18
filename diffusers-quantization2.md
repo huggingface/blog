@@ -1,6 +1,6 @@
 ---
 title: "Fine-Tuning FLUX.1-dev on Consumer Hardware and in FP8"
-thumbnail: # TODO: add thumbnail
+thumbnail: /blog/assets/diffusers-quantization2/thumbnail.png
 authors:
 - user: derekl35
 - user: marcsun13
