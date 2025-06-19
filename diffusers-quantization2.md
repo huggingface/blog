@@ -152,6 +152,121 @@ print(f"trainable params: {transformer.num_parameters(only_trainable=True)} || a
 ```
 Only these LoRA parameters become trainable.
 
+### Pre-computing Text Embeddings (CLIP/T5)
+
+Before we launch the QLoRA fine-tune we can save a huge chunk of VRAM and wall-clock time by caching outputs of text encoders once.
+
+At training time the dataloader simply reads the cached embeddings instead of re-encoding the caption, so the CLIP/T5 encoder never has to sit in GPU memory.
+
+<details>
+<summary>Code</summary>
+
+```python
+# https://github.com/huggingface/diffusers/blob/main/examples/research_projects/flux_lora_quantization/compute_embeddings.py
+import argparse
+
+import pandas as pd
+import torch
+from datasets import load_dataset
+from huggingface_hub.utils import insecure_hashlib
+from tqdm.auto import tqdm
+from transformers import T5EncoderModel
+
+from diffusers import FluxPipeline
+
+
+MAX_SEQ_LENGTH = 77
+OUTPUT_PATH = "embeddings.parquet"
+
+
+def generate_image_hash(image):
+    return insecure_hashlib.sha256(image.tobytes()).hexdigest()
+
+
+def load_flux_dev_pipeline():
+    id = "black-forest-labs/FLUX.1-dev"
+    text_encoder = T5EncoderModel.from_pretrained(id, subfolder="text_encoder_2", load_in_8bit=True, device_map="auto")
+    pipeline = FluxPipeline.from_pretrained(
+        id, text_encoder_2=text_encoder, transformer=None, vae=None, device_map="balanced"
+    )
+    return pipeline
+
+
+@torch.no_grad()
+def compute_embeddings(pipeline, prompts, max_sequence_length):
+    all_prompt_embeds = []
+    all_pooled_prompt_embeds = []
+    all_text_ids = []
+    for prompt in tqdm(prompts, desc="Encoding prompts."):
+        (
+            prompt_embeds,
+            pooled_prompt_embeds,
+            text_ids,
+        ) = pipeline.encode_prompt(prompt=prompt, prompt_2=None, max_sequence_length=max_sequence_length)
+        all_prompt_embeds.append(prompt_embeds)
+        all_pooled_prompt_embeds.append(pooled_prompt_embeds)
+        all_text_ids.append(text_ids)
+
+    max_memory = torch.cuda.max_memory_allocated() / 1024 / 1024 / 1024
+    print(f"Max memory allocated: {max_memory:.3f} GB")
+    return all_prompt_embeds, all_pooled_prompt_embeds, all_text_ids
+
+
+def run(args):
+    dataset = load_dataset("Norod78/Yarn-art-style", split="train")
+    image_prompts = {generate_image_hash(sample["image"]): sample["text"] for sample in dataset}
+    all_prompts = list(image_prompts.values())
+    print(f"{len(all_prompts)=}")
+
+    pipeline = load_flux_dev_pipeline()
+    all_prompt_embeds, all_pooled_prompt_embeds, all_text_ids = compute_embeddings(
+        pipeline, all_prompts, args.max_sequence_length
+    )
+
+    data = []
+    for i, (image_hash, _) in enumerate(image_prompts.items()):
+        data.append((image_hash, all_prompt_embeds[i], all_pooled_prompt_embeds[i], all_text_ids[i]))
+    print(f"{len(data)=}")
+
+    # Create a DataFrame
+    embedding_cols = ["prompt_embeds", "pooled_prompt_embeds", "text_ids"]
+    df = pd.DataFrame(data, columns=["image_hash"] + embedding_cols)
+    print(f"{len(df)=}")
+
+    # Convert embedding lists to arrays (for proper storage in parquet)
+    for col in embedding_cols:
+        df[col] = df[col].apply(lambda x: x.cpu().numpy().flatten().tolist())
+
+    # Save the dataframe to a parquet file
+    df.to_parquet(args.output_path)
+    print(f"Data successfully serialized to {args.output_path}")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--max_sequence_length",
+        type=int,
+        default=MAX_SEQ_LENGTH,
+        help="Maximum sequence length to use for computing the embeddings. The more the higher computational costs.",
+    )
+    parser.add_argument("--output_path", type=str, default=OUTPUT_PATH, help="Path to serialize the parquet file.")
+    args = parser.parse_args()
+
+    run(args)
+```
+
+### How to use it
+
+```bash
+python compute_embeddings.py \
+  --max_sequence_length 77 \
+  --output_path embeddings_alphonse_mucha.parquet
+```
+</details>
+
+By combining this with cached VAE latents (`--cache_latents`) you whittle the active model down to just the quantized transformer + LoRA adapters, keeping the whole fine-tune comfortably under 10 GB of GPU memory.
+
 ### Setup & Results
 
 For this demonstration, we leveraged an NVIDIA RTX 4090 (24GB VRAM) to explore its performance. The full training command using `accelerate` is shown below.
@@ -194,47 +309,41 @@ On our RTX 4090, we used a `train_batch_size` of 1, `gradient_accumulation_steps
 
 
 **Training Time (RTX 4090):**
-Fine-tuning for 700 steps on the Alphonse Mucha dataset took approximately 41 minutes on the RTX 4090.
+Fine-tuning for 700 steps on the Alphonse Mucha dataset took approximately 41 minutes on the RTX 4090 with `train_batch_size` of 1 and resolution of 512x768.
 
 **Output Quality:**
 The ultimate measure is the generated art. Here are samples from our QLoRA fine-tuned model on the [derekl35/alphonse-mucha-style](https://huggingface.co/datasets/derekl35/alphonse-mucha-style) dataset:
 
-base model (bf16):
-![base model bf16 outputs](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_base_bf16_combined.png) 
+This table compares the primary `bf16` precision results. The goal of the fine-tuning was to teach the model the distinct style of Alphonse Mucha.
 
-<details>
-<summary>base model (fp16)</summary>
-
-![base model outputs](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_base_combined.png) 
-
-</details>
-
-QLoRA fine-tuned (mixed_precision=bf16):
-
-![QLoRA model outputs](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_merged_qlora_bf16_combined.png) 
-
-<details>
-<summary>qlora (mixed_precision=fp16)</summary>
-
-![QLoRA model outputs](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_merged_combined.png) 
-
-</details>
-
-*Prompts: (left to right)*
-
-*Serene raven-haired woman, moonlit lilies, swirling botanicals, alphonse mucha style*
-
-*a puppy in a pond, alphonse mucha style*
-
-*Ornate fox with a collar of autumn leaves and berries, amidst a tapestry of forest foliage, alphonse mucha style*
+| Prompt | Base Model Output | QLoRA Fine-tuned Output (Mucha Style) |
+|----|----|----|
+| _"Serene raven-haired woman, moonlit lilies, swirling botanicals, alphonse mucha style"_ | ![Base model output for the first prompt](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_base2_bf16.png) | ![QLoRA model output for the first prompt](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_merged2_qlora_bf16.png) |
+| _"a puppy in a pond, alphonse mucha style"_ | ![Base model output for the second prompt](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_base3_bf16.png) | ![QLoRA model output for the second prompt](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_merged3_qlora_bf16.png) |
+| _"Ornate fox with a collar of autumn leaves and berries, amidst a tapestry of forest foliage, alphonse mucha style"_ | ![Base model output for the third prompt](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_base5_bf16.png) | ![QLoRA model output for the third prompt](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_merged5_qlora_bf16.png) |
 
 The fine-tuned model nicely captured Mucha's iconic art nouveau style, evident in the decorative motifs and distinct color palette. The QLoRA process maintained excellent fidelity while learning the new style.
+
+<details>
+<summary><b>Click to see the fp16 comparison</b></summary>
+
+The results are nearly identical, showing that QLoRA performs effectively with both `fp16` and `bf16` mixed precision.
+
+### Model Comparison: Base vs. QLoRA Fine-tuned (fp16)
+
+| Prompt | Base Model Output | QLoRA Fine-tuned Output (Mucha Style) |
+|----|----|----|
+| _"Serene raven-haired woman, moonlit lilies, swirling botanicals, alphonse mucha style"_ | ![Base model output for the first prompt](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_base2.png) | ![QLoRA model output for the first prompt](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_merged2.png) |
+| _"a puppy in a pond, alphonse mucha style"_ | ![Base model output for the second prompt](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_base3.png) | ![QLoRA model output for the second prompt](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_merged3.png) |
+| _"Ornate fox with a collar of autumn leaves and berries, amidst a tapestry of forest foliage, alphonse mucha style"_ | ![Base model output for the third prompt](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_base5.png) | ![QLoRA model output for the third prompt](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/quantization-backends-diffusers2/alphonse_mucha_merged5.png) |
+
+</details>
 
 ## FP8 Fine-tuning with `torchao`
 
 For users with NVIDIA GPUs possessing compute capability 8.9 or greater (such as the H100, RTX 4090), even greater speed efficiencies can be achieved by leveraging FP8 training via the `torchao` library.
 
-We fine-tuned FLUX.1-dev LoRA on an H100 SXM GPU using the [`diffusers-torchao`](https://github.com/sayakpaul/diffusers-torchao/) training scripts. The following command was used:
+We fine-tuned FLUX.1-dev LoRA on an H100 SXM GPU slightly modified[`diffusers-torchao`](https://github.com/sayakpaul/diffusers-torchao/) [training scripts](https://gist.github.com/sayakpaul/f0358dd4f4bcedf14211eba5704df25a#file-train_dreambooth_lora_flux-py). The following command was used:
 
 ```bash
 accelerate launch train_dreambooth_lora_flux.py \
@@ -265,7 +374,7 @@ For a more detailed guide and code snippets, please refer to [this gist](https:/
 
 ## Inference with Trained LoRA Adapters
 
-After training your LoRA adapters, you have two main approaches for inference.
+After training your [LoRA adapters](https://huggingface.co/collections/derekl35/flux-qlora-68527afe2c0ca7bc82a6d8d9), you have two main approaches for inference.
 
 ### Option 1: Loading LoRA Adapters
 
@@ -354,7 +463,7 @@ image.save("alphonse_mucha_merged.png")
 
 ## Running on Google Colab
 
-While we showcased results on an RTX 4090, the same code can be run on more accessible hardware like the T4 GPU available in [Google Colab](https://colab.research.google.com/github/DerekLiu35/notebooks/blob/main/flux_lora_quant_blogpost.ipynb).
+While we showcased results on an RTX 4090, the same code can be run on more accessible hardware like the T4 GPU available in [Google Colab](https://colab.research.google.com/github/DerekLiu35/notebooks/blob/main/flux_lora_quant_blogpost.ipynb) for free.
 
 On a T4, you can expect the fine-tuning process to take significantly longer around 4 hours for the same number of steps. This is a trade-off for accessibility, but it makes custom fine-tuning possible without high-end hardware. Be mindful of usage limits if running on Colab, as a 4-hour training run might push them.
 
