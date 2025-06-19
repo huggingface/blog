@@ -1,5 +1,5 @@
 ---
-title: "Fine-Tuning FLUX.1-dev on Consumer Hardware and in FP8"
+title: "(LoRA) Fine-Tuning FLUX.1-dev on Consumer Hardware"
 thumbnail: /blog/assets/diffusers-quantization2/thumbnail.png
 authors:
 - user: derekl35
@@ -9,13 +9,13 @@ authors:
 - user: linoytsaban
 ---
 
-# Fine-Tuning FLUX.1-dev on Consumer Hardware and in FP8
+# (LoRA) Fine-Tuning FLUX.1-dev on Consumer Hardware
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DerekLiu35/notebooks/blob/main/flux_lora_quant_blogpost.ipynb)
 
 In our previous post, [Exploring Quantization Backends in Diffusers](https://huggingface.co/blog/diffusers-quantization), we dived into how various quantization techniques can shrink diffusion models like FLUX.1-dev, making them significantly more accessible for *inference* without drastically compromising performance. We saw how `bitsandbytes`, `torchao`, and others reduce memory footprints for generating images.
 
-Performing inference is cool but to make these models truly our own, we also need to be able to fine-tune them. Therefore, in this post, we tackle **efficient** *fine-tuning* of these models with peak memory use under ~10 GB of VRAM on a single GPU. This post will guide you through fine-tuning FLUX.1-dev using QLoRA with the Hugging Face `diffusers` library. We'll showcase results from an NVIDIA RTX 4090. We'll also highlight how FP8 training with `torchao` can further optimize speed on compatible hardware.
+Performing inference is cool, but to make these models truly our own, we also need to be able to fine-tune them. Therefore, in this post, we tackle **efficient** *fine-tuning* of these models with peak memory use under ~10 GB of VRAM on a single GPU. This post will guide you through fine-tuning FLUX.1-dev using QLoRA with the `diffusers` library. We'll showcase results from an NVIDIA RTX 4090. We'll also highlight how FP8 training with `torchao` can further optimize speed on compatible hardware.
 
 ## Table of Contents
 - [Dataset](#dataset)
@@ -38,15 +38,15 @@ Performing inference is cool but to make these models truly our own, we also nee
 
 The model consists of three main components:
 
-*   **Text Encoders (CLIP and T5)**
-*   **Transformer (Main Model - MMDiT)**
-*   **Variational Auto-Encoder (VAE)**
+*   Text Encoders (CLIP and T5)
+*   Transformer (Main Model - Flux Transformer)
+*   Variational Auto-Encoder (VAE)
 
-In our QLoRA approach, we focus exclusively on fine-tuning the **transformer component** (MMDiT). The text encoders and VAE remain frozen throughout training. 
+In our QLoRA approach, we focus exclusively on fine-tuning the **transformer component**. The text encoders and VAE remain frozen throughout training. 
 
 ## QLoRA Fine-tuning FLUX.1-dev with `diffusers`
 
-We used a `diffusers` training script (slightly modified from https://github.com/huggingface/diffusers/blob/main/examples/research_projects/flux_lora_quantization/train_dreambooth_lora_flux_miniature.py) designed for DreamBooth-style LoRA fine-tuning of FLUX models. Also, a shortened version to reproduce the results in this blogpost (and used in the [google colab](https://colab.research.google.com/github/DerekLiu35/notebooks/blob/main/flux_lora_quant_blogpost.ipynb)) is available [here](https://github.com/huggingface/diffusers/blob/main/examples/research_projects/flux_lora_quantization/train_dreambooth_lora_flux_nano.py). Let's examine the crucial parts for QLoRA and memory efficiency:
+We used a `diffusers` training script (slightly modified from https://github.com/huggingface/diffusers/blob/main/examples/research_projects/flux_lora_quantization/train_dreambooth_lora_flux_miniature.py) designed for DreamBooth-style LoRA fine-tuning of FLUX models. Also, a shortened version to reproduce the results in this blogpost (and used in the [Google Colab](https://colab.research.google.com/github/DerekLiu35/notebooks/blob/main/flux_lora_quant_blogpost.ipynb)) is available [here](https://github.com/huggingface/diffusers/blob/main/examples/research_projects/flux_lora_quantization/train_dreambooth_lora_flux_nano.py). Let's examine the crucial parts for QLoRA and memory efficiency:
 
 ### Key Optimization Techniques
 
@@ -60,7 +60,7 @@ We used a `diffusers` training script (slightly modified from https://github.com
 
 **QLoRA: The Efficiency Powerhouse:** [QLoRA](https://huggingface.co/docs/peft/main/en/developer_guides/quantization) enhances LoRA by first loading the pre-trained base model in a quantized format (typically 4-bit via `bitsandbytes`), drastically cutting the base model's memory footprint. It then trains LoRA adapters (usually in FP16/BF16) on top of this quantized base. This dramatically lowers the VRAM needed to hold the base model.
 
-For instance, in the [DreamBooth training script for HiDream](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_hidream.md#using-quantization) 4-bit quantization with bitsandbytes reduces the peak memory usage of a LoRA fine-tune from ~60GB down to ~37GB. The very same principle is what we apply here to fine-tune FLUX.1 on consumer-grade hardware.
+For instance, in the [DreamBooth training script for HiDream](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_hidream.md#using-quantization) 4-bit quantization with bitsandbytes reduces the peak memory usage of a LoRA fine-tune from ~60GB down to ~37GB with negligible-to-none quality degradation. The very same principle is what we apply here to fine-tune FLUX.1 on a consumer-grade hardware.
 
 **8-bit Optimizer (AdamW):**
 Standard AdamW optimizer maintains first and second moment estimates for each parameter in 32-bit (FP32), which consumes a lot of memory. The 8-bit AdamW uses block-wise quantization to store optimizer states in 8-bit precision, while maintaining training stability. This technique can reduce optimizer memory usage by ~75% compared to standard FP32 AdamW. Enabling it in the script is straightforward:
@@ -232,9 +232,9 @@ The fine-tuned model nicely captured Mucha's iconic art nouveau style, evident i
 
 ## FP8 Fine-tuning with `torchao`
 
-For users with NVIDIA GPUs possessing compute capability 8.9 or greater (such as the H100), even greater speed efficiencies can be achieved by leveraging FP8 training via the `torchao` library.
+For users with NVIDIA GPUs possessing compute capability 8.9 or greater (such as the H100, RTX 4090), even greater speed efficiencies can be achieved by leveraging FP8 training via the `torchao` library.
 
-We fine-tuned FLUX.1-dev LoRA on an H100 SXM GPU using the `diffusers-torchao` training scripts. The following command was used:
+We fine-tuned FLUX.1-dev LoRA on an H100 SXM GPU using the [`diffusers-torchao`](https://github.com/sayakpaul/diffusers-torchao/) training scripts. The following command was used:
 
 ```bash
 accelerate launch train_dreambooth_lora_flux.py \
