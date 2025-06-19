@@ -6113,3 +6113,15 @@
     - open-source
     - models
     - community
+
+- local: flux-qlora
+  title: "(LoRA) Fine-Tuning FLUX.1-dev on Consumer Hardware"
+  thumbnail: /blog/assets/flux-qlora/thumbnail.png
+  author: derekl35
+  date: Jun 19, 2025
+  tags:
+    - guide
+    - diffusers
+    - quantization
+    - flux
+    - lora

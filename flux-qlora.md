@@ -1,6 +1,6 @@
 ---
 title: "(LoRA) Fine-Tuning FLUX.1-dev on Consumer Hardware"
-thumbnail: /blog/assets/diffusers-quantization2/thumbnail.png
+thumbnail: /blog/assets/flux-qlora/thumbnail.png
 authors:
 - user: derekl35
 - user: marcsun13
