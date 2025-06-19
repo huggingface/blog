@@ -6,7 +6,7 @@ authors:
 - user: marcsun13
 - user: sayakpaul
 - user: merve
-- user: linoytsaban
+- user: linoyts
 ---
 
 # (LoRA) Fine-Tuning FLUX.1-dev on Consumer Hardware
@@ -50,7 +50,7 @@ We used a `diffusers` training script (slightly modified from https://github.com
 
 ### Key Optimization Techniques
 
-**LoRA (Low-Rank Adaptation) Deep Dive:** [LoRA](https://huggingface.co/docs/peft/main/en/conceptual_guides/lora) makes model training more efficient by keeping track of the weight updates with low-rank matrices. Instead of updating the full weight matrix $$W$$, LoRA learns two smaller matrices $$A$$ and $$B$$. The update to the weights for the model is $$\Delta W = B A$$, where $$A \in \mathbb{R}^{r \times k}$$ and $$B \in \mathbb{R}^{d \times r}$$. The number $$r$$ (called _rank_) is much smaller than the original dimensions, which means less parameters to update. Lastly, $$\alpha$$ is a scaling factor for the LoRA activations. This affects how much LoRA affects the updates, and is often set to the same value as the $$r$$ or a multiple of it. It helps balance the influence of the pre-trained model and the LoRA adapter. For a general introduction to the concept, check out our previous blog post: [Using LoRA for Efficient Stable Diffusion Fine-Tuning](https://huggingface.co/blog/lora).
+**LoRA (Low-Rank Adaptation) Deep Dive:** [LoRA](https://huggingface.co/docs/peft/main/en/conceptual_guides/lora) makes model training more efficient by keeping track of the weight updates with low-rank matrices. Instead of updating the full weight matrix \\( W \\), LoRA learns two smaller matrices \\( A \\) and \\( B \\). The update to the weights for the model is \\( \Delta W = B A \\), where \\( A \in \mathbb{R}^{r \times k} \\) and \\( B \in \mathbb{R}^{d \times r} \\). The number \\( r \\) (called _rank_) is much smaller than the original dimensions, which means less parameters to update. Lastly, \\( \alpha \\) is a scaling factor for the LoRA activations. This affects how much LoRA affects the updates, and is often set to the same value as the \\( r \\) or a multiple of it. It helps balance the influence of the pre-trained model and the LoRA adapter. For a general introduction to the concept, check out our previous blog post: [Using LoRA for Efficient Stable Diffusion Fine-Tuning](https://huggingface.co/blog/lora).
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft/lora_diagram.png"
