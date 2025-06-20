@@ -6040,3 +6040,12 @@
     - diffusers
     - quantization
     - flux
+
+- local: infrastructure-alerting
+  title: "Three Mighty Alerts Supporting Hugging Face’s Production Infrastructure"
+  author: jcudit
+  thumbnail: /blog/assets/infrastructure-alerting/thumbnail.png
+  date: June 25, 2025
+  tags:
+    - cloud
+    - infrastructure
