@@ -6203,3 +6203,14 @@
     - quantization
     - flux
     - lora
+
+- local: transformers-sglang
+  title: "Transformers backend integration in SGLang"
+  thumbnail: /blog/assets/196_transformers_backend_sglang/thumbnail.jpg
+  author: marcsun13
+  date: Jun 23, 2025
+  tags:
+    - transformers
+    - sglang
+    - model
+    - integration
