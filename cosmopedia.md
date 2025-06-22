@@ -127,7 +127,7 @@ We used [text-clustering](https://github.com/huggingface/text-clustering/) repos
 
 <p align="center">
  <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/cosmopedia/text_clustering.png" alt="text-clustering" style="width: 60%; height: auto;"><br>
- <em>Figure 9. The pipleline of text-clustering.</em>
+ <em>Figure 9. The pipeline of text-clustering.</em>
 </p>
 
 #### Textbooks generation at scale
@@ -180,7 +180,7 @@ We find less than 4 contaminated samples for MMLU, OpenBookQA and WinoGrande.
 
 #### Training stack
 
-We trained a 1B LLM using Llama2 architecure on Cosmopedia to assess its quality: [https://huggingface.co/HuggingFaceTB/cosmo-1b](https://huggingface.co/HuggingFaceTB/cosmo-1b).
+We trained a 1B LLM using Llama2 architecture on Cosmopedia to assess its quality: [https://huggingface.co/HuggingFaceTB/cosmo-1b](https://huggingface.co/HuggingFaceTB/cosmo-1b).
 
 We used [datatrove](https://github.com/huggingface/datatrove) library for data deduplication and tokenization, [nanotron](https://github.com/huggingface/nanotron/tree/main) for model training, and [lighteval](https://github.com/huggingface/lighteval-harness) for evaluation.
 
