@@ -261,7 +261,7 @@ def image_grid(imgs, rows, cols):
     return grid
 ```
 
-Next, we define the input prompts and set a seed for reproducability.
+Next, we define the input prompts and set a seed for reproducibility.
 
 ```py
 prompt = ", best quality, extremely detailed"
