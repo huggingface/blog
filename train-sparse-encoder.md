@@ -767,56 +767,55 @@ Qdrant offers excellent support for sparse vectors with efficient storage and fa
 This example demonstrates how to set up Qdrant for sparse vector search by showing how to efficiently encode and index documents with sparse encoders, formulating search queries with sparse vectors, and providing an interactive query interface. See below: 
 
 ```python
+import time
 
-    import time
+from datasets import load_dataset
+from sentence_transformers import SparseEncoder
+from sentence_transformers.sparse_encoder.search_engines import semantic_search_qdrant
 
-    from datasets import load_dataset
-    from sentence_transformers import SparseEncoder
-    from sentence_transformers.sparse_encoder.search_engines import semantic_search_qdrant
+# 1. Load the natural-questions dataset with 100K answers
+dataset = load_dataset("sentence-transformers/natural-questions", split="train")
+num_docs = 10_000
+corpus = dataset["answer"][:num_docs]
 
-    # 1. Load the natural-questions dataset with 100K answers
-    dataset = load_dataset("sentence-transformers/natural-questions", split="train")
-    num_docs = 10_000
-    corpus = dataset["answer"][:num_docs]
+# 2. Come up with some queries
+queries = dataset["query"][:2]
 
-    # 2. Come up with some queries
-    queries = dataset["query"][:2]
+# 3. Load the model
+sparse_model = SparseEncoder("naver/splade-cocondenser-ensembledistil")
 
-    # 3. Load the model
-    sparse_model = SparseEncoder("naver/splade-cocondenser-ensembledistil")
+# 4. Encode the corpus
+corpus_embeddings = sparse_model.encode_document(
+    corpus, convert_to_sparse_tensor=True, batch_size=16, show_progress_bar=True
+)
 
-    # 4. Encode the corpus
-    corpus_embeddings = sparse_model.encode_document(
-        corpus, convert_to_sparse_tensor=True, batch_size=16, show_progress_bar=True
+# Initially, we don't have a qdrant index yet
+corpus_index = None
+while True:
+    # 5. Encode the queries using the full precision
+    start_time = time.time()
+    query_embeddings = sparse_model.encode_query(queries, convert_to_sparse_tensor=True)
+    print(f"Encoding time: {time.time() - start_time:.6f} seconds")
+
+    # 6. Perform semantic search using qdrant
+    results, search_time, corpus_index = semantic_search_qdrant(
+        query_embeddings,
+        corpus_index=corpus_index,
+        corpus_embeddings=corpus_embeddings if corpus_index is None else None,
+        top_k=5,
+        output_index=True,
     )
 
-    # Initially, we don't have a qdrant index yet
-    corpus_index = None
-    while True:
-        # 5. Encode the queries using the full precision
-        start_time = time.time()
-        query_embeddings = sparse_model.encode_query(queries, convert_to_sparse_tensor=True)
-        print(f"Encoding time: {time.time() - start_time:.6f} seconds")
+    # 7. Output the results
+    print(f"Search time: {search_time:.6f} seconds")
+    for query, result in zip(queries, results):
+        print(f"Query: {query}")
+        for entry in result:
+            print(f"(Score: {entry['score']:.4f}) {corpus[entry['corpus_id']]}, corpus_id: {entry['corpus_id']}")
+        print("")
 
-        # 6. Perform semantic search using qdrant
-        results, search_time, corpus_index = semantic_search_qdrant(
-            query_embeddings,
-            corpus_index=corpus_index,
-            corpus_embeddings=corpus_embeddings if corpus_index is None else None,
-            top_k=5,
-            output_index=True,
-        )
-
-        # 7. Output the results
-        print(f"Search time: {search_time:.6f} seconds")
-        for query, result in zip(queries, results):
-            print(f"Query: {query}")
-            for entry in result:
-                print(f"(Score: {entry['score']:.4f}) {corpus[entry['corpus_id']]}, corpus_id: {entry['corpus_id']}")
-            print("")
-
-        # 8. Prompt for more queries
-        queries = [input("Please enter a question: ")]
+    # 8. Prompt for more queries
+    queries = [input("Please enter a question: ")]
 ```
 
 ## Additional Resources
