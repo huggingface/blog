@@ -159,3 +159,13 @@ response = requests.post(
 )
 print(response.json())
 ```
+
+# Next steps
+
+There are several key areas we are actively working on to enhance this integration:
+
+1. Performance Improvements: transformer models currently lag behind the native integration in terms of performance.Our primary objective is to optimize and narrow this gap.
+
+2. LoRA Support
+
+3. VLM Integration: we are also working toward adding support for Vision-Language Models (VLM) to broaden the range of capabilities and use cases.
