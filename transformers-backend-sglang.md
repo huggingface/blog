@@ -12,6 +12,9 @@ authors:
     - user: lmzheng
       guest: true
       org: SGLang Project
+    - user: JinnP
+      guest: true
+      org: SGLang Project
 ---
 
 Hugging Face transformers library is the standard for working with state-of-the-art models — from experimenting with cutting-edge research to fine-tuning on custom data. Its simplicity, flexibility, and expansive model zoo make it a powerful tool for rapid development.
@@ -21,6 +24,19 @@ But once you're ready to move from notebooks to production, inference performanc
 Designed for high-throughput, low-latency inference, SGLang now offers seamless integration with transformers as a backend. This means you can pair the flexibility of transformers with the raw performance of SGLang. 
 
 Let’s dive into what this integration enables and how you can use it.
+
+# TL;DR
+
+SGLang now supports Hugging Face transformers as a backend, letting you run any transformers-compatible model with high-performance inference out of the box. 
+
+```python
+import sglang as sgl
+
+llm = sgl.Engine("meta-llama/Llama-3.2-1B-Instruct", impl="transformers")
+print(llm.generate(["The capital of France is"], {"max_new_tokens": 20})[0])
+```
+
+No native support needed — SGLang automatically falls back to Transformers when needed, or you can set `impl="transformers"` explicitly.
 
 # Transformers and SGLang
 
@@ -104,7 +120,7 @@ This unlocks faster inference and optimized deployment (e.g enabling RadixAttent
 ## Usage
 
 ```python
-llm = sgl.Engine(model_path="new-transformers-model", impl="transformers")
+llm = sgl.Engine(model_path="meta-llama/Llama-3.2-1B-Instruct", impl="transformers")
 ```
 
 Note that specifying the impl parameter is optional. If the model is not natively supported by SGLang, it switches to transformers implementation on its own.
