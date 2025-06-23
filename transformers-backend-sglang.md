@@ -4,16 +4,16 @@ thumbnail: /blog/assets/196_transformers_backend_sglang/thumbnail.jpg
 authors:
   - user: zhyncs
     guest: true
-    org: SGLang Project
+    org: sgl-project
   - user: ispobock
     guest: true
-    org: SGLang Project
+    org: sgl-project
   - user: lmzheng
     guest: true
-    org: SGLang Project
+    org: sgl-project
   - user: JinnP
     guest: true
-    org: SGLang Project
+    org: sgl-project
   - user: marcsun13
 ---
 
