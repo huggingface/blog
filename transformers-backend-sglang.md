@@ -28,7 +28,7 @@ Designed for high-throughput, low-latency inference, SGLang now offers seamless 
 
 Let’s dive into what this integration enables and how you can use it.
 
-# In Summary
+# TL;DR
 
 SGLang now supports Hugging Face transformers as a backend, letting you run any transformers-compatible model with high-performance inference out of the box. 
 
