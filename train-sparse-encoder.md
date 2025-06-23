@@ -824,13 +824,13 @@ while True:
 
 The following pages contain training examples with explanations as well as links to code. We recommend that you browse through these to familiarize yourself with the training loop:
 
-- [distillation](https://sbert.net/examples/sparse_encoder/training/distillation/README.html) - Examples to make models smaller, faster and lighter.
-- [ms_marco](https://sbert.net/examples/sparse_encoder/training/ms_marco/README.html) - Example training scripts for training on the MS MARCO information retrieval dataset.
-- [nli](https://sbert.net/examples/sparse_encoder/training/nli/README.html) - Natural Language Inference (NLI) data can be quite helpful to pre-train and fine-tune models to create meaningful sparse embeddings.
-- [quora_duplicate_questions](https://sbert.net/examples/sparse_encoder/training/quora_duplicate_questions/README.html) - Quora Duplicate Questions is large set corpus with duplicate questions from the Quora community. The folder contains examples how to train models for duplicate questions mining and for semantic search.
-- [retrievers](https://sbert.net/examples/sparse_encoder/training/retrievers/README.html) - Example training scripts for training on generic information retrieval datasets.
-- [sts](https://sbert.net/examples/sparse_encoder/training/sts/README.html) - The most basic method to train models is using Semantic Textual Similarity (STS) data. Here, we have a sentence pair and a score indicating the semantic similarity.
-- [distributed](https://sbert.net/docs/sentence_transformer/training/distributed.html) - Explanation of two forms of distributed training: Data Parallel (DP) and Distributed Data Parallel (DDP) handled in Sentence Transformers.
+- [Model Distillation](https://sbert.net/examples/sparse_encoder/training/distillation/README.html) - Examples to make models smaller, faster and lighter.
+- [MS MARCO](https://sbert.net/examples/sparse_encoder/training/ms_marco/README.html) - Example training scripts for training on the MS MARCO information retrieval dataset.
+- [Retrievers](https://sbert.net/examples/sparse_encoder/training/retrievers/README.html) - Example training scripts for training on generic information retrieval datasets.
+- [Natural Language Inference](https://sbert.net/examples/sparse_encoder/training/nli/README.html) - Natural Language Inference (NLI) data can be quite helpful to pre-train and fine-tune models to create meaningful sparse embeddings.
+- [Quora Duplicate Questions](https://sbert.net/examples/sparse_encoder/training/quora_duplicate_questions/README.html) - Quora Duplicate Questions is large set corpus with duplicate questions from the Quora community. The folder contains examples how to train models for duplicate questions mining and for semantic search.
+- [STS](https://sbert.net/examples/sparse_encoder/training/sts/README.html) - The most basic method to train models is using Semantic Textual Similarity (STS) data. Here, we use sentence pairs and a score indicating the semantic similarity.
+
 ### Documentation
 
 Additionally, the following pages may be useful to learn more about Sentence Transformers:
