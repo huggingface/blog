@@ -2,20 +2,23 @@
 title: "Transformers backend integration in SGLang"
 thumbnail: /blog/assets/196_transformers_backend_sglang/thumbnail.jpg
 authors:
-    - user: marcsun13
-    - user: zhyncs
-      guest: true
-      org: SGLang Project
-    - user: ispobock
-      guest: true
-      org: SGLang Project
-    - user: lmzheng
-      guest: true
-      org: SGLang Project
-    - user: JinnP
-      guest: true
-      org: SGLang Project
+  - user: zhyncs
+    guest: true
+    org: sgl-project
+  - user: ispobock
+    guest: true
+    org: sgl-project
+  - user: lmzheng
+    guest: true
+    org: sgl-project
+  - user: JinnP
+    guest: true
+    org: sgl-project
+  - user: marcsun13
 ---
+
+
+# Transformers backend integration in SGLang
 
 Hugging Face transformers library is the standard for working with state-of-the-art models — from experimenting with cutting-edge research to fine-tuning on custom data. Its simplicity, flexibility, and expansive model zoo make it a powerful tool for rapid development.
 
