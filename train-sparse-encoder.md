@@ -273,7 +273,7 @@ This architecture allows for fast query-time processing using the lightweight ID
 
 ### Contrastive Sparse Representation (CSR)
 
-Contrastive Sparse Representation (CSR) models introduce in [Beyond Matryoshka: Revisiting Sparse Coding for Adaptive Representation](https://arxiv.org/pdf/2503.01776) apply a [`CSRSparsity`](https://sbert.net/docs/package_reference/sparse_encoder/models.html#sentence_transformers.sparse_encoder.models.CSRSparsity) module on top of a dense Sentence Transformer model, which usually consist of a [`Transformer`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Transformer) followed by a [`Pooling`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Pooling) module. You can initialize one from scratch like so:
+Contrastive Sparse Representation (CSR) models, introduced in [Beyond Matryoshka: Revisiting Sparse Coding for Adaptive Representation](https://arxiv.org/pdf/2503.01776), apply a [`CSRSparsity`](https://sbert.net/docs/package_reference/sparse_encoder/models.html#sentence_transformers.sparse_encoder.models.CSRSparsity) module on top of a dense Sentence Transformer model, which usually consist of a [`Transformer`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Transformer) followed by a [`Pooling`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Pooling) module. You can initialize one from scratch like so:
 
 ```python
 from sentence_transformers import models, SparseEncoder
