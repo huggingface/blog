@@ -44,9 +44,9 @@ The model consists of three main components:
 
 In our QLoRA approach, we focus exclusively on fine-tuning the **transformer component**. The text encoders and VAE remain frozen throughout training. 
 
-## QLoRA Fine-tuning FLUX.1-dev with `diffusers`
+## QLoRA Fine-tuning FLUX.1-dev with Diffusers
 
-We used a `diffusers` training script (slightly modified from https://github.com/huggingface/diffusers/blob/main/examples/research_projects/flux_lora_quantization/train_dreambooth_lora_flux_miniature.py) designed for DreamBooth-style LoRA fine-tuning of FLUX models. Also, a shortened version to reproduce the results in this blogpost (and used in the [Google Colab](https://colab.research.google.com/github/DerekLiu35/notebooks/blob/main/flux_lora_quant_blogpost.ipynb)) is available [here](https://github.com/huggingface/diffusers/blob/main/examples/research_projects/flux_lora_quantization/train_dreambooth_lora_flux_nano.py). Let's examine the crucial parts for QLoRA and memory efficiency:
+We used a `diffusers` training script (slightly modified from [here](https://github.com/huggingface/diffusers/blob/main/examples/research_projects/flux_lora_quantization/train_dreambooth_lora_flux_miniature.py) designed for DreamBooth-style LoRA fine-tuning of FLUX models. Also, a shortened version to reproduce the results in this blogpost (and used in the [Google Colab](https://colab.research.google.com/github/DerekLiu35/notebooks/blob/main/flux_lora_quant_blogpost.ipynb)) is available [here](https://github.com/huggingface/diffusers/blob/main/examples/research_projects/flux_lora_quantization/train_dreambooth_lora_flux_nano.py). Let's examine the crucial parts for QLoRA and memory efficiency:
 
 ### Key Optimization Techniques
 
@@ -339,7 +339,7 @@ The results are nearly identical, showing that QLoRA performs effectively with b
 
 </details>
 
-## FP8 Fine-tuning with `torchao`
+## FP8 Fine-tuning with TorchAO
 
 For users with NVIDIA GPUs possessing compute capability 8.9 or greater (such as the H100, RTX 4090), even greater speed efficiencies can be achieved by leveraging FP8 training via the `torchao` library.
 
@@ -495,6 +495,6 @@ upload_folder(
 )
 ```
 
-Check out our Mucha QLoRA https://huggingface.co/derekl35/alphonse_mucha_qlora_flux FP8 LoRA https://huggingface.co/derekl35/alphonse_mucha_fp8_lora_flux. You can find both, plus other adapters, in [this collection](https://huggingface.co/collections/derekl35/flux-qlora-68527afe2c0ca7bc82a6d8d9) as an example.
+Check out our [Mucha LoRA](https://huggingface.co/derekl35/alphonse_mucha_qlora_flux) and the [TorchAO FP8 LoRA](https://huggingface.co/derekl35/alphonse_mucha_fp8_lora_flux). You can find both, plus other adapters, in [this collection](https://huggingface.co/collections/derekl35/flux-qlora-68527afe2c0ca7bc82a6d8d9).
 
 We can't wait to see what you create!
