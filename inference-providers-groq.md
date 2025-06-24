@@ -20,7 +20,7 @@ authors:
 We're thrilled to share that **Groq** is now a supported Inference Provider on the Hugging Face Hub!
 Groq joins our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub’s model pages. Inference Providers are also seamlessly integrated into our client SDKs (for both JS and Python), making it super easy to use a wide variety of models with your preferred providers.
 
-[Groq](https://groq.com) supports a wide variety of text and conversational models, including the latest open-source models such as [Meta's LLama 4](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct?inference_provider=groq), [Qwen's QWQ-32B](https://huggingface.co/Qwen/QwQ-32B?inference_provider=groq), ad many more.
+[Groq](https://groq.com) supports a wide variety of text and conversational models, including the latest open-source models such as [Meta's Llama 4](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct?inference_provider=groq), [Qwen's QWQ-32B](https://huggingface.co/Qwen/QwQ-32B?inference_provider=groq), and many more.
 
 At the heart of Groq's technology is the Language Processing Unit (LPU™), a new type of end-to-end processing unit system that provides the fastest inference for computationally intensive applications with a sequential component, such as Large Language Models (LLMs). LPUs are designed to overcome the limitations of GPUs for inference, offering significantly lower latency and higher throughput. This makes them ideal for real-time AI applications.
 
@@ -58,7 +58,7 @@ See the list of supported models [here](https://huggingface.co/models?inference_
 
 #### from Python, using huggingface_hub
 
-The following example shows how to use Meta's LLama 4 using Groq as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Groq API key if you have one.
+The following example shows how to use Meta's Llama 4 using Groq as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Groq API key if you have one.
 
 Install `huggingface_hub` from source (see [instructions](https://huggingface.co/docs/huggingface_hub/installation#install-from-source)). Official support will be released soon in version v0.33.0.
 
