@@ -272,8 +272,8 @@ layer_norm_kernel_module = get_kernel("kernels-community/triton-layer-norm")
 # Simply add the decorator to the LlamaRMSNorm class to automatically replace the forward function
 # with the optimized kernel version
 # 
-# Note: note all kernels ship with layers already mapped, and would require calling the function directly
-# Howeber in this case, the LlamaRMSNorm class is already mapped to the kernel function. Otherwise we'd need to
+# Note: not all kernels ship with layers already mapped, and would require calling the function directly
+# However in this case, the LlamaRMSNorm class is already mapped to the kernel function. Otherwise we'd need to
 # call the function directly like this:
 # ```python
 # layer_norm_kernel_module.rms_norm_fn(
