@@ -26,7 +26,7 @@ To get started, any of the 250,000 organizations on Hugging Face can request the
 To get started, you can request a GPU cluster on behalf of your organization at [hf.co/training-cluster](https://huggingface.co/training-cluster)
  
 Training Cluster as a Service integrates key components from NVIDIA and Hugging Face into a complete solution:
-- NVIDIA Cloud Partners provide capacity for the latest NVIDIA accelerating computing like NVIDIA Hopper and [NVIDIA GB200](https://www.nvidia.com/en-us/data-center/gb200-nvl72/) in regional datacenters, all centralized within [NVIDIA DGX Cloud](https://www.nvidia.com/en-us/data-center/dgx-cloud/?ncid=pa-srch-goog-128355-DGX-Brand-prsp&_bt=749738455198&_bk=nvidia%20dgx%20cloud&_bm=b&_bn=g&_bg=180515995564&gad_source=1&gad_campaignid=22505579974&gbraid=0AAAAAD4XAoGVodXdazBIYN4fH53MAZVLQ&gclid=EAIaIQobChMI98m9zOjdjQMVLBHUAR2l4hg5EAAYASAAEgKMZvD_BwE)
+- NVIDIA Cloud Partners provide capacity for the latest NVIDIA accelerated computing like NVIDIA Hopper and [NVIDIA GB200](https://www.nvidia.com/en-us/data-center/gb200-nvl72/) in regional datacenters, all centralized within [NVIDIA DGX Cloud](https://www.nvidia.com/en-us/data-center/dgx-cloud/?ncid=pa-srch-goog-128355-DGX-Brand-prsp&_bt=749738455198&_bk=nvidia%20dgx%20cloud&_bm=b&_bn=g&_bg=180515995564&gad_source=1&gad_campaignid=22505579974&gbraid=0AAAAAD4XAoGVodXdazBIYN4fH53MAZVLQ&gclid=EAIaIQobChMI98m9zOjdjQMVLBHUAR2l4hg5EAAYASAAEgKMZvD_BwE)
 - NVIDIA DGX Cloud Lepton - announced today at GTC Paris - provides easy access to the infrastructure provisioned for researchers, and enables training run scheduling and monitoring
 - Hugging Face developer resources and open source libraries make it easy to get training runs started.
 
@@ -77,4 +77,4 @@ Today at GTC Paris, NVIDIA announced many new contributions for Hugging Face use
 - [NVIDIA DGX Cloud Lepton connects Europe’s developers to global NVIDIA compute ecosystem](https://nvidianews.nvidia.com/news/nvidia-dgx-cloud-lepton-connects-europes-developers-to-global-nvidia-compute-ecosystem)
 - [NVIDIA AI customers can now deploy over 100k Hugging Face models with NIM](https://developer.nvidia.com/blog/simplify-llm-deployment-and-ai-inference-with-unified-nvidia-nim-workflow/)
 - Hugging Face users can build custom Physical AI models with NVIDIA Cosmos Predict-2
-- NVIDIA Isaac GR00T N1.5 lands on Hugging Face to power humanoids robots
+- NVIDIA Isaac GR00T N1.5 lands on Hugging Face to power humanoid robots
