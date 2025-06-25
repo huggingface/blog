@@ -210,26 +210,26 @@ from sentence_transformers import SparseEncoder
 
 model = SparseEncoder("google-bert/bert-base-uncased")
 # SparseEncoder(
-#   (0): MLMTransformer({'max_seq_length': 512, 'do_lower_case': False}) with MLMTransformer model: BertForMaskedLM
+#   (0): MLMTransformer({'max_seq_length': 512, 'do_lower_case': False, 'arhitecture': 'BertForMaskedLM'})
 #   (1): SpladePooling({'pooling_strategy': 'max', 'activation_function': 'relu', 'word_embedding_dimension': None})
 # )
 ```
 
 ### Inference-free Splade
 
-Inference-free Splade uses a [`Router`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Router) module with different modules for queries and documents. Usually for this type of architecture, the documents part is a traditional Splade architecture (a [`MLMTransformer`](https://sbert.net/docs/package_reference/sparse_encoder/models.html#sentence_transformers.sparse_encoder.models.MLMTransformer) followed by a [`SpladePooling`](https://sbert.net/docs/package_reference/sparse_encoder/models.html#sentence_transformers.sparse_encoder.models.SpladePooling) module) and the query part is an [`IDF`](https://sbert.net/docs/package_reference/sparse_encoder/models.html#sentence_transformers.sparse_encoder.models.IDF) module, which just returns a pre-computed score for every token in the query.
+Inference-free Splade uses a [`Router`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Router) module with different modules for queries and documents. Usually for this type of architecture, the documents part is a traditional Splade architecture (a [`MLMTransformer`](https://sbert.net/docs/package_reference/sparse_encoder/models.html#sentence_transformers.sparse_encoder.models.MLMTransformer) followed by a [`SpladePooling`](https://sbert.net/docs/package_reference/sparse_encoder/models.html#sentence_transformers.sparse_encoder.models.SpladePooling) module) and the query part is an [`SparseStaticEmbedding`](https://sbert.net/docs/package_reference/sparse_encoder/models.html#sentence_transformers.sparse_encoder.models.SparseStaticEmbedding) module, which just returns a pre-computed score for every token in the query.
 
 ```python
 from sentence_transformers import SparseEncoder
 from sentence_transformers.models import Router
-from sentence_transformers.sparse_encoder.models import IDF, MLMTransformer, SpladePooling
+from sentence_transformers.sparse_encoder.models import SparseStaticEmbedding, MLMTransformer, SpladePooling
 
 # Initialize MLM Transformer for document encoding
 doc_encoder = MLMTransformer("google-bert/bert-base-uncased")
 
 # Create a router model with different paths for queries and documents
 router = Router.for_query_document(
-    query_modules=[IDF(tokenizer=doc_encoder.tokenizer, frozen=False)],
+    query_modules=[SparseStaticEmbedding(tokenizer=doc_encoder.tokenizer, frozen=False)],
     # Document path: full MLM transformer + pooling
     document_modules=[doc_encoder, SpladePooling("max")],
 )
@@ -238,14 +238,14 @@ router = Router.for_query_document(
 model = SparseEncoder(modules=[router], similarity_fn_name="dot")
 # SparseEncoder(
 #   (0): Router(
-#     (query_0_IDF): IDF ({'frozen': False}, dim:30522, tokenizer: BertTokenizerFast)
-#     (document_0_MLMTransformer): MLMTransformer({'max_seq_length': 512, 'do_lower_case': False}) with MLMTransformer model: BertForMaskedLM
+#     (query_0_SparseStaticEmbedding): SparseStaticEmbedding ({'frozen': False}, dim:30522, tokenizer: BertTokenizerFast)
+#     (document_0_MLMTransformer): MLMTransformer({'max_seq_length': 512, 'do_lower_case': False, 'arhitecture': 'BertForMaskedLM'})
 #     (document_1_SpladePooling): SpladePooling({'pooling_strategy': 'max', 'activation_function': 'relu', 'word_embedding_dimension': None})
 #   )
 # )
 ```
 
-This architecture allows for fast query-time processing using the lightweight IDF approach, that can be trained and seen as a linear weights, while documents are processed with the full MLM transformer and SpladePooling.
+This architecture allows for fast query-time processing using the lightweight SparseStaticEmbedding approach, that can be trained and seen as a linear weights, while documents are processed with the full MLM transformer and SpladePooling.
 
 > [!TIP]
 > Inference-free Splade is particularly useful for search applications where query latency is critical, as it shifts the computational complexity to the document indexing phase which can be done offline.
@@ -263,14 +263,14 @@ This architecture allows for fast query-time processing using the lightweight ID
 > )
 > ```
 >
-> Additionally, it is recommended to use a much higher learning rate for the IDF module than for the rest of the model. For this, you should use the `learning_rate_mapping` argument in the `SparseEncoderTrainingArguments` to map parameter patterns to their learning rates. For example, if you want to use a learning rate of `1e-3` for the IDF module and `2e-5` for the rest of the model, you can do this:
+> Additionally, it is recommended to use a much higher learning rate for the SparseStaticEmbedding module than for the rest of the model. For this, you should use the `learning_rate_mapping` argument in the `SparseEncoderTrainingArguments` to map parameter patterns to their learning rates. For example, if you want to use a learning rate of `1e-3` for the SparseStaticEmbedding module and `2e-5` for the rest of the model, you can do this:
 >
 > ```python
 > args = SparseEncoderTrainingArguments(
 >     ...,
 >     learning_rate=2e-5,
 >     learning_rate_mapping={
->         r"IDF\.*": 1e-3,
+>         r"SparseStaticEmbedding\.*": 1e-3,
 >     }
 > )
 > ```
@@ -307,7 +307,7 @@ from sentence_transformers import SparseEncoder
 
 model = SparseEncoder("mixedbread-ai/mxbai-embed-large-v1")
 # SparseEncoder(
-#   (0): Transformer({'max_seq_length': 512, 'do_lower_case': False}) with Transformer model: BertModel
+#   (0): Transformer({'max_seq_length': 512, 'do_lower_case': False, 'arhitecture': 'BertModel'})
 #   (1): Pooling({'word_embedding_dimension': 1024, 'pooling_mode_cls_token': True, 'pooling_mode_mean_tokens': False, 'pooling_mode_max_tokens': False, 'pooling_mode_mean_sqrt_len_tokens': False, 'pooling_mode_weightedmean_tokens': False, 'pooling_mode_lasttoken': False, 'include_prompt': True})
 #   (2): CSRSparsity({'input_dim': 1024, 'hidden_dim': 4096, 'k': 256, 'k_aux': 512, 'normalize': False, 'dead_threshold': 30})
 # )
@@ -422,8 +422,8 @@ model = SparseEncoder("distilbert/distilbert-base-uncased")
 loss = SpladeLoss(
     model=model,
     loss=SparseMultipleNegativesRankingLoss(model=model),
-    lambda_query=5e-5,  # Weight for query loss
-    lambda_corpus=3e-5,
+    query_regularizer_weight=5e-5,  # Weight for query loss
+    corpus_regularizer_weight=3e-5,
 ) 
 
 # Load an example training dataset that works with our loss function:
@@ -596,7 +596,7 @@ from sentence_transformers import (
 from sentence_transformers.models import Router
 from sentence_transformers.sparse_encoder.evaluation import SparseNanoBEIREvaluator
 from sentence_transformers.sparse_encoder.losses import SparseMultipleNegativesRankingLoss, SpladeLoss
-from sentence_transformers.sparse_encoder.models import IDF, MLMTransformer, SpladePooling
+from sentence_transformers.sparse_encoder.models import SparseStaticEmbedding, MLMTransformer, SpladePooling
 from sentence_transformers.training_args import BatchSamplers
 
 logging.basicConfig(format="%(asctime)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S", level=logging.INFO)
@@ -607,7 +607,7 @@ splade_pooling = SpladePooling(
     pooling_strategy="max", word_embedding_dimension=mlm_transformer.get_sentence_embedding_dimension()
 )
 router = Router.for_query_document(
-    query_modules=[IDF(tokenizer=mlm_transformer.tokenizer, frozen=False)],
+    query_modules=[SparseStaticEmbedding(tokenizer=mlm_transformer.tokenizer, frozen=False)],
     document_modules=[mlm_transformer, splade_pooling],
 )
 
@@ -632,8 +632,8 @@ print(train_dataset[0])
 loss = SpladeLoss(
     model=model,
     loss=SparseMultipleNegativesRankingLoss(model=model),
-    lambda_query=0,
-    lambda_corpus=3e-3,
+    query_regularizer_weight=0,
+    corpus_regularizer_weight=3e-3,
 )
 
 # 5. (Optional) Specify training arguments
@@ -646,7 +646,7 @@ args = SparseEncoderTrainingArguments(
     per_device_train_batch_size=16,
     per_device_eval_batch_size=16,
     learning_rate=2e-5,
-    learning_rate_mapping={r"IDF\.weight": 1e-3},  # Set a higher learning rate for the IDF module
+    learning_rate_mapping={r"SparseStaticEmbedding\.weight": 1e-3},  # Set a higher learning rate for the SparseStaticEmbedding module
     warmup_ratio=0.1,
     fp16=True,  # Set to False if you get an error that your GPU can't run on FP16
     bf16=False,  # Set to True if you have a GPU that supports BF16
