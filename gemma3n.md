@@ -68,7 +68,7 @@ In addition to the language decoder, Gemma 3n uses an **audio encoder** and a **
 
 The easiest way to vibe check the model is with the dedicated Hugging Face Space for the model. You can try out different prompts, with different modalities here.
 
-[https://huggingface.co/spaces/huggingface-projects/gemma-3n-E4B-it](https://huggingface.co/spaces/huggingface-projects/gemma-3n-E4B-it)
+[📱 Space](https://huggingface.co/spaces/huggingface-projects/gemma-3n-E4B-it)
 
 ## Inference with transformers
 
