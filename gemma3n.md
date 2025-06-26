@@ -15,7 +15,7 @@ authors:
 
 Gemma 3n was announced as a *preview* during Google I/O. The on-device community got really excited, because this is a model designed from the ground up to **run locally** on your hardware. On top of that, it’s natively **multimodal**, supporting image, text, audio, and video inputs 🤯
 
-Today, Gemma 3n is finally available on the most used open source libraries. This includes transformers & timm, MLX, llama.cpp (text inputs), transformers.js, ollama, Google AI Edge and others.
+Today, Gemma 3n is finally available on the most used open source libraries. This includes transformers & timm, MLX, llama.cpp (text inputs), transformers.js, ollama, Google AI Edge, and others.
 
 This post quickly goes through practical snippets to demonstrate how to use the model with these libraries, and how easy it is to fine-tune it for other domains.
 
@@ -53,7 +53,7 @@ In addition to the language decoder, Gemma 3n uses an **audio encoder** and a **
   * A nested transformer design, similar to Matryoshka embeddings, allows for various subsets of layers to be extracted as if they were individual models.  
   * E2B and E4B were trained together, configuring E2B as a sub-model of E4B.  
   * Users can “mix and match” layers, depending on their hardware characteristics and memory budget.  
-* **Per-Layer Embeddings (PLE):** Reduces accelerator memory usage by offloading embeddings to the CPU. This is the reason why the E2B model, while having 5B real parameters, takes about as much GPU memory as if it was a 2B parameter model.  
+* **Per-Layer Embeddings (PLE):** Reduces accelerator memory usage by offloading embeddings to the CPU. This is the reason why the E2B model, while having 5B real parameters, takes about as much GPU memory as if it were a 2B parameter model.  
 * **KV Cache Sharing:** Accelerates long-context processing for audio and video, achieving 2x faster prefill compared to Gemma 3 4B.
 
 ### Performance & Benchmarks:
@@ -66,7 +66,7 @@ In addition to the language decoder, Gemma 3n uses an **audio encoder** and a **
 
 ![GIF of Hugging Face Space for Gemma 3n](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gemma3n/gemma3n.gif)
 
-The easiest way to vibe check the model is with the dedicated Hugging Face Space for the model. You can try out different prompts, with different modalities here.
+The easiest way to vibe check the model is with the dedicated Hugging Face Space for the model. You can try out different prompts, with different modalities, here.
 
 [📱 Space](https://huggingface.co/spaces/huggingface-projects/gemma-3n-E4B-it)
 
@@ -240,7 +240,7 @@ python -m mlx_vlm.generate --model google/gemma-3n-E4B-it --max-tokens 100 --tem
 
 ### Inference with llama.cpp
 
-In addition to MLX, Gemma 3n (text only) works out-of the box with llama.cpp. Make sure to install llama.cpp/ Ollama from source.
+In addition to MLX, Gemma 3n (text only) works out of the box with llama.cpp. Make sure to install llama.cpp/ Ollama from source.
 
 Check out the Installation instruction for llama.cpp here: https://github.com/ggml-org/llama.cpp/blob/master/docs/install.md
 
@@ -260,11 +260,11 @@ For more information on how to run the model with these libraries, check out the
 
 Given the size of the model, it’s pretty convenient to fine-tune it for specific downstream tasks across modalities. To make it easier for you to fine-tune the model, we’ve created a simple notebook that allows you to experiment on a free [Google Colab](https://colab.research.google.com/github/huggingface/huggingface-gemma-recipes/blob/main/notebooks/fine_tune_gemma3n_on_t4.ipynb)!
 
-We also provide a dedicated [notebook for fine-tuning on audio tasks](https://github.com/huggingface/huggingface-gemma-recipes/blob/main/notebooks/fine_tune_gemma3n_on_audio_ipynb.ipynb), so you can easily adapt the model to your own speech datasets and benchmarks!
+We also provide a dedicated [notebook for fine-tuning on audio tasks](https://github.com/huggingface/huggingface-gemma-recipes/blob/main/notebooks/fine_tune_gemma3n_on_audio.ipynb), so you can easily adapt the model to your speech datasets and benchmarks!
 
 ## Hugging Face Gemma Recipes
 
-With this release we also introduce the [Hugging Face Gemma Recipes](https://github.com/huggingface/huggingface-gemma-recipes) repository. One will find `notebooks` and `scripts` to run the models and fine tune them.
+With this release, we also introduce the [Hugging Face Gemma Recipes](https://github.com/huggingface/huggingface-gemma-recipes) repository. One will find `notebooks` and `scripts` to run the models and fine tune them.
 
 We would love for you to use the Gemma family of models and add more recipes to it! Feel free to open Issues and create Pull Requests to the repository.
 
@@ -274,5 +274,5 @@ We are always excited to host Google and their Gemma family of models. We hope t
 
 If you want to discuss the models in more detail, go ahead and start a discussion right below this blog post. We will be more than happy to help!
 
-A huge thanks to Arthur, Cyril, Raushan, Lysandre and everyone at Hugging Face who took care of the integration and made it available
+A huge thanks to Arthur, Cyril, Raushan, Lysandre, and everyone at Hugging Face who took care of the integration and made it available
 to the community!
