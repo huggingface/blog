@@ -30,8 +30,8 @@ These models, therefore, behave like 2B and 4B in terms of hardware support, but
 
 | Size | Base | Instruct |
 | :---- | :---- | :---- |
-| 2B | [google/gemma-3n-e2b](hf.co/google/gemma-3n-e2b) | [google/gemma-3n-e2b-it](google/gemma-3n-e2b-it) |
-| 4B | [google/gemma-3n-e4b](hf.co/google/gemma-3n-e4b) | [google/gemma-3n-e4b-it](google/gemma-3n-e4b-it) |
+| 2B | [google/gemma-3n-e2b](hf.co/google/gemma-3n-e2b) | [google/gemma-3n-e2b-it](hf.co/google/gemma-3n-e2b-it) |
+| 4B | [google/gemma-3n-e4b](hf.co/google/gemma-3n-e4b) | [google/gemma-3n-e4b-it](hf.co/google/gemma-3n-e4b-it) |
 
 ## Details of the models
 
