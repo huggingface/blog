@@ -6214,3 +6214,17 @@
     - sglang
     - model
     - integration
+
+- local: gemma3n
+  title: "Gemma 3n fully available in the open-source ecosystem!"
+  author: ariG23498
+  thumbnail: /blog/assets/gemma3n/thumbnail.png
+  date: Jun 26, 2025
+  tags:
+    - audio
+    - vision
+    - llm
+    - vlm
+    - community
+    - research
+    - multimodal
