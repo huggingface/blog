@@ -9,6 +9,7 @@ authors:
 - user: FL33TW00D-HF
 - user: Xenova
 - user: Steveeeeeeen
+- user: kashif
 ---
 
 # Gemma 3n fully available in the open-source ecosystem!
