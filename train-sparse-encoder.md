@@ -423,7 +423,7 @@ loss = SpladeLoss(
     model=model,
     loss=SparseMultipleNegativesRankingLoss(model=model),
     query_regularizer_weight=5e-5,  # Weight for query loss
-    corpus_regularizer_weight=3e-5,
+    document_regularizer_weight=3e-5,
 ) 
 
 # Load an example training dataset that works with our loss function:
@@ -633,7 +633,7 @@ loss = SpladeLoss(
     model=model,
     loss=SparseMultipleNegativesRankingLoss(model=model),
     query_regularizer_weight=0,
-    corpus_regularizer_weight=3e-3,
+    document_regularizer_weight=3e-3,
 )
 
 # 5. (Optional) Specify training arguments
