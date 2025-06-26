@@ -8,6 +8,7 @@ authors:
 - user: reach-vb
 - user: FL33TW00D-HF
 - user: Xenova
+- user: Steveeeeeeen
 ---
 
 # Gemma 3n fully available in the open-source ecosystem!
@@ -228,7 +229,6 @@ pip install -u mlx-vlm
 Get started with vision:
 
 ```py
-
 python -m mlx_vlm.generate --model google/gemma-3n-E4B-it --max-tokens 100 --temperature 0.5 --prompt "Describe this image in detail." --image https://huggingface.co/datasets/ariG23498/demo-data/resolve/main/airplane.jpg
 ```
 
@@ -258,18 +258,21 @@ For more information on how to run the model with these libraries, check out the
 
 ## Fine Tune in a Free Google Colab
 
-Given the size of the model, it’s pretty convenient to fine-tune it for specific downstream tasks across modalities. To make it easier for you to fine-tune the model, we’ve created a simple notebook that allows you to experiment on a free [Google Colab](https://colab.research.google.com/github/huggingface/huggingface-gemma-recipes/blob/main/notebooks/fine_tune_gemma3n_on_t4.ipynb)\!
+Given the size of the model, it’s pretty convenient to fine-tune it for specific downstream tasks across modalities. To make it easier for you to fine-tune the model, we’ve created a simple notebook that allows you to experiment on a free [Google Colab](https://colab.research.google.com/github/huggingface/huggingface-gemma-recipes/blob/main/notebooks/fine_tune_gemma3n_on_t4.ipynb)!
 
-We also provide a dedicated [notebook for fine-tuning on audio tasks](https://github.com/huggingface/huggingface-gemma-recipes/blob/main/notebooks/fine_tune_gemma3n_on_audio_ipynb.ipynb), so you can easily adapt the model to your own speech datasets and benchmarks\!
+We also provide a dedicated [notebook for fine-tuning on audio tasks](https://github.com/huggingface/huggingface-gemma-recipes/blob/main/notebooks/fine_tune_gemma3n_on_audio_ipynb.ipynb), so you can easily adapt the model to your own speech datasets and benchmarks!
 
 ## Hugging Face Gemma Recipes
 
 With this release we also introduce the [Hugging Face Gemma Recipes](https://github.com/huggingface/huggingface-gemma-recipes) repository. One will find `notebooks` and `scripts` to run the models and fine tune them.
 
-We would love for you to use the Gemma family of models and add more recipes to it\! Feel free to open Issues and create Pull Requests to the repository.
+We would love for you to use the Gemma family of models and add more recipes to it! Feel free to open Issues and create Pull Requests to the repository.
 
 ## Conclusion
 
-We are always excited to host Google and their Gemma family of models. We hope the community will get together and make the most of these models. Multimodal, small sized, and highly capable, make a great model release\!
+We are always excited to host Google and their Gemma family of models. We hope the community will get together and make the most of these models. Multimodal, small sized, and highly capable, make a great model release!
 
 If you want to discuss the models in more detail, go ahead and start a discussion right below this blog post. We will be more than happy to help!
+
+A huge thanks to Arthur, Cyril, Raushan, Lysandre and everyone at Hugging Face who took care of the integration and made it available
+to the community!
