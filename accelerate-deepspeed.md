@@ -91,7 +91,7 @@ In our Single-Node Multi-GPU setup, the maximum batch size that DDP supports wit
 Table 1: Benchmarking DeepSpeed ZeRO Stage-2 on DeBERTa-XL (900M) model
 
 ---
-With this bigger batch size, we observe ~**3.5X** speed up in total training time without any drop in perforamnce metrics, all this without changing any code. Yay! 🤗. 
+With this bigger batch size, we observe ~**3.5X** speed up in total training time without any drop in performance metrics, all this without changing any code. Yay! 🤗. 
 
 To be able to tweak more options, you will need to use a DeepSpeed config file and minimal code changes. Let's see how to do this.
 
@@ -100,7 +100,7 @@ To be able to tweak more options, you will need to use a DeepSpeed config file a
 First, We will look at the task of finetuning a sequence-to-sequence model for training our own Chatbot. Specifically, we will finetune `facebook/blenderbot-400M-distill` on the [smangrul/MuDoConv](https://huggingface.co/datasets/smangrul/MuDoConv) (Multi-Domain Conversation) dataset. The dataset contains conversations from 10 different data sources covering personas, grounding in specific emotional contexts, goal-oriented (e.g., restaurant reservation) and general wikipedia topics (e.g, Cricket).
 
 
-The code is available here [run_seq2seq_no_trainer.py](https://github.com/pacman100/accelerate-deepspeed-test/blob/main/src/modeling/run_seq2seq_no_trainer.py). Current pratice to effectively measure the `Engagingness` and `Humanness` of Chatbots is via Human evlauations which are expensive [6]. As such for this example, the metric being tracked is BLEU score (which isn't ideal but is the conventional metric for such tasks). One can adapt the code to train larger T5 models if you have access to GPUs that support `bfloat16` precision else you will run into `NaN` loss values. We will run a quick benchmark on `10000` train samples and `1000` eval samples as we are interested in DeepSpeed vs DDP.
+The code is available here [run_seq2seq_no_trainer.py](https://github.com/pacman100/accelerate-deepspeed-test/blob/main/src/modeling/run_seq2seq_no_trainer.py). Current practice to effectively measure the `Engagingness` and `Humanness` of Chatbots is via Human evlauations which are expensive [6]. As such for this example, the metric being tracked is BLEU score (which isn't ideal but is the conventional metric for such tasks). One can adapt the code to train larger T5 models if you have access to GPUs that support `bfloat16` precision else you will run into `NaN` loss values. We will run a quick benchmark on `10000` train samples and `1000` eval samples as we are interested in DeepSpeed vs DDP.
 
 We will leverage the DeepSpeed Zero Stage-2 config [zero2_config_accelerate.json](https://github.com/pacman100/accelerate-deepspeed-test/blob/main/src/modeling/configs/zero2_config_accelerate.json) (given below) For training. for detailed information on the various config features, please refer [DeeSpeed](https://www.deepspeed.ai) documentation.
 ```json

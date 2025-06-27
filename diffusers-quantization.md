@@ -588,7 +588,7 @@ Here's a quick guide to choosing a quantization backend:
 *   **For Hardware Flexibility (CPU/MPS), FP8 Precision:** `Quanto` can be a good option.
 *   **Simplicity (Hopper/Ada):** Explore FP8 Layerwise Casting (`enable_layerwise_casting`).
 *   **For Using Existing GGUF Models:** Use GGUF loading (`from_single_file`).
-*   **Curious about training with quantization?** Stay tuned for a follow-up blog post on that topic!
+*   **Curious about training with quantization?** Stay tuned for a follow-up blog post on that topic! Update (June 19, 2025): it's [here](https://huggingface.co/blog/flux-qlora)!
 
 Quantization significantly lowers the barrier to entry for using large diffusion models. Experiment with these backends to find the best balance of memory, speed, and quality for your needs.
 

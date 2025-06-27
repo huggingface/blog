@@ -2291,3 +2291,16 @@
     - community
     - open
     - research
+
+- local: smolvla
+  title: "SmolVLA：让机器人更懂'看听说做'的轻量化解决方案"
+  author: danaaubakirova
+  thumbnail: /blog/assets/smolvla/SmolVLA_thumbnail.png
+  date: Jun 3, 2025
+  tags:
+    - smolvla
+    - lerobot
+    - robotics
+    - open-source
+    - models
+    - community
