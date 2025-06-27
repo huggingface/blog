@@ -440,7 +440,6 @@ Dataset({
 **Documentation**
 - [`SpladeLoss`](https://sbert.net/docs/package_reference/sparse_encoder/losses.html#sentence_transformers.sparse_encoder.losses.SpladeLoss)
 - [`CSRLoss`](https://sbert.net/docs/package_reference/sparse_encoder/losses.html#sentence_transformers.sparse_encoder.losses.CSRLoss)
-- `sentence_transformers.sparse_encoder.losses.CSRLoss`
 - [Losses API Reference](https://sbert.net/docs/package_reference/sparse_encoder/losses.html)
 
 ## Training Arguments
