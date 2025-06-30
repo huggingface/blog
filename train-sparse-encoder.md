@@ -18,7 +18,7 @@ In this blogpost, I'll show you how to use it to finetune a sparse encoder/embed
 
 Finetuning sparse embedding models involves several components: the model, datasets, loss functions, training arguments, evaluators, and the trainer class. I'll have a look at each of these components, accompanied by practical examples of how they can be used for finetuning strong sparse embedding models.
 
-In addition to training your own models, you can choose from a wide range of pretrained sparse encoders available on the [Hugging Face Hub](https://huggingface.co/models?library=sentence-transformers&other=sparse). To help navigate this growing space, we’ve curated a [SPLADE Models collection](https://huggingface.co/collections/arthurbresnu/splade-models-6850b6f81b29d17efc0171de) highlighting some of the most relevant models.  
+In addition to training your own models, you can choose from a wide range of pretrained sparse encoders available on the [Hugging Face Hub](https://huggingface.co/models?library=sentence-transformers&other=sparse). To help navigate this growing space, we’ve curated a [SPLADE Models collection](https://huggingface.co/collections/sparse-encoder/splade-models-6862be100374b320d826eeaa) highlighting some of the most relevant models.  
 We list the most prominent ones along with their benchmark results in [Pretrained Models](https://sbert.net/docs/sparse_encoder/pretrained_models.html) in the documentation.
 
 
