@@ -14,7 +14,7 @@ authors:
 * v4.0: (improved) Cross Encoder (Reranker) model training
 * v5.0: (new) Sparse Embedding model training
 
-In this blogpost, I'll show you how to use it to finetune a sparse encoder/embedding model and explain why you might want to do so. This results in [tomaarsen/inference-free-splade-distilbert-base-uncased-nq](https://huggingface.co/tomaarsen/inference-free-splade-distilbert-base-uncased-nq), a cheap model that works especially well in hybrid search or retrieve and rerank scenarios.
+In this blogpost, I'll show you how to use it to finetune a sparse encoder/embedding model and explain why you might want to do so. This results in [sparse-encoder/example-inference-free-splade-distilbert-base-uncased-nq](https://huggingface.co/sparse-encoder/example-inference-free-splade-distilbert-base-uncased-nq), a cheap model that works especially well in hybrid search or retrieve and rerank scenarios.
 
 Finetuning sparse embedding models involves several components: the model, datasets, loss functions, training arguments, evaluators, and the trainer class. I'll have a look at each of these components, accompanied by practical examples of how they can be used for finetuning strong sparse embedding models.
 
@@ -687,7 +687,7 @@ model.push_to_hub(run_name)
 
 In this example I'm finetuning from [`distilbert/distilbert-base-uncased`](https://huggingface.co/distilbert/distilbert-base-uncased), a base model that is not yet a Sparse Encoder model. This requires more training data than finetuning an existing Sparse Encoder model, like [`naver/splade-cocondenser-ensembledistil`](https://huggingface.co/naver/splade-cocondenser-ensembledistil).
 
-After running this script, the [tomaarsen/inference-free-splade-distilbert-base-uncased-nq](https://huggingface.co/tomaarsen/inference-free-splade-distilbert-base-uncased-nq) model was uploaded for me. The model scores 0.5241 NDCG@10 on NanoMSMARCO, 0.3299 NDCG@10 on NanoNFCorpus and 0.5357 NDCG@10 NanoNQ, which is a good result for an inference-free distilbert-based model trained on just 100k pairs from the Natural Questions dataset. 
+After running this script, the [sparse-encoder/example-inference-free-splade-distilbert-base-uncased-nq](https://huggingface.co/sparse-encoder/example-inference-free-splade-distilbert-base-uncased-nq) model was uploaded for me. The model scores 0.5241 NDCG@10 on NanoMSMARCO, 0.3299 NDCG@10 on NanoNFCorpus and 0.5357 NDCG@10 NanoNQ, which is a good result for an inference-free distilbert-based model trained on just 100k pairs from the Natural Questions dataset. 
 
 The model uses an average of 184 active dimensions in the sparse embeddings for the documents, compared to 7.7 active dimensions for the queries (i.e. the average number of tokens in the query). This corresponds to a sparsity of 99.39% and 99.97%, respectively.
 
@@ -722,7 +722,7 @@ Each training/evaluation batch will contain samples from only one of the dataset
 Let's evaluate our newly trained inference-free SPLADE model using the NanoMSMARCO dataset, and see how it compares to dense retrieval approaches. We'll also explore hybrid retrieval methods that combine sparse and dense vectors, as well as reranking to further improve search quality.
 
 After running a slightly modified version of our [hybrid_search.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sparse_encoder/applications/retrieve_rerank/hybrid_search.py) script, we get the following results for the NanoMSMARCO dataset, using these models:
-* **Sparse**: [`tomaarsen/inference-free-splade-distilbert-base-uncased-nq`](https://huggingface.co/tomaarsen/inference-free-splade-distilbert-base-uncased-nq) (the model we just trained)
+* **Sparse**: [`sparse-encoder/example-inference-free-splade-distilbert-base-uncased-nq`](https://huggingface.co/sparse-encoder/example-inference-free-splade-distilbert-base-uncased-nq) (the model we just trained)
 * **Dense**: [`sentence-transformers/all-MiniLM-L6-v2`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
 * **Reranker**: [`cross-encoder/ms-marco-MiniLM-L6-v2`](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2)
 
