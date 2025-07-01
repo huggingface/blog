@@ -290,14 +290,14 @@ transformer = models.Transformer("google-bert/bert-base-uncased")
 pooling = models.Pooling(transformer.get_word_embedding_dimension(), pooling_mode="mean")
 
 # Initialize SparseAutoEncoder module
-csr_sparsity = SparseAutoEncoder(
+sparse_auto_encoder = SparseAutoEncoder(
     input_dim=transformer.get_word_embedding_dimension(),
     hidden_dim=4 * transformer.get_word_embedding_dimension(),
     k=256,  # Number of top values to keep
     k_aux=512,  # Number of top values for auxiliary loss
 )
 # Create the CSR model
-model = SparseEncoder(modules=[transformer, pooling, csr_sparsity])
+model = SparseEncoder(modules=[transformer, pooling, sparse_auto_encoder])
 ```
 
 Or if your base model is 1) a dense Sentence Transformer model or 2) a non-MLM Transformer model (those are loaded as Splade models by default), then this shortcut will automatically initialize the CSR model for you:
