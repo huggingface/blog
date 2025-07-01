@@ -277,11 +277,11 @@ This architecture allows for fast query-time processing using the lightweight Sp
 
 ### Contrastive Sparse Representation (CSR)
 
-Contrastive Sparse Representation (CSR) models, introduced in [Beyond Matryoshka: Revisiting Sparse Coding for Adaptive Representation](https://arxiv.org/pdf/2503.01776), apply a [`CSRSparsity`](https://sbert.net/docs/package_reference/sparse_encoder/models.html#sentence_transformers.sparse_encoder.models.CSRSparsity) module on top of a dense Sentence Transformer model, which usually consist of a [`Transformer`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Transformer) followed by a [`Pooling`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Pooling) module. You can initialize one from scratch like so:
+Contrastive Sparse Representation (CSR) models, introduced in [Beyond Matryoshka: Revisiting Sparse Coding for Adaptive Representation](https://arxiv.org/pdf/2503.01776), apply a [`SparseAutoEncoder`](https://sbert.net/docs/package_reference/sparse_encoder/models.html#sentence_transformers.sparse_encoder.models.SparseAutoEncoder) module on top of a dense Sentence Transformer model, which usually consist of a [`Transformer`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Transformer) followed by a [`Pooling`](https://sbert.net/docs/package_reference/sentence_transformer/models.html#sentence_transformers.models.Pooling) module. You can initialize one from scratch like so:
 
 ```python
 from sentence_transformers import models, SparseEncoder
-from sentence_transformers.sparse_encoder.models import CSRSparsity
+from sentence_transformers.sparse_encoder.models import SparseAutoEncoder
 
 # Initialize transformer (can be any dense encoder model)
 transformer = models.Transformer("google-bert/bert-base-uncased")
@@ -289,8 +289,8 @@ transformer = models.Transformer("google-bert/bert-base-uncased")
 # Initialize pooling
 pooling = models.Pooling(transformer.get_word_embedding_dimension(), pooling_mode="mean")
 
-# Initialize CSRSparsity module
-csr_sparsity = CSRSparsity(
+# Initialize SparseAutoEncoder module
+csr_sparsity = SparseAutoEncoder(
     input_dim=transformer.get_word_embedding_dimension(),
     hidden_dim=4 * transformer.get_word_embedding_dimension(),
     k=256,  # Number of top values to keep
@@ -309,7 +309,7 @@ model = SparseEncoder("mixedbread-ai/mxbai-embed-large-v1")
 # SparseEncoder(
 #   (0): Transformer({'max_seq_length': 512, 'do_lower_case': False, 'arhitecture': 'BertModel'})
 #   (1): Pooling({'word_embedding_dimension': 1024, 'pooling_mode_cls_token': True, 'pooling_mode_mean_tokens': False, 'pooling_mode_max_tokens': False, 'pooling_mode_mean_sqrt_len_tokens': False, 'pooling_mode_weightedmean_tokens': False, 'pooling_mode_lasttoken': False, 'include_prompt': True})
-#   (2): CSRSparsity({'input_dim': 1024, 'hidden_dim': 4096, 'k': 256, 'k_aux': 512, 'normalize': False, 'dead_threshold': 30})
+#   (2): SparseAutoEncoder({'input_dim': 1024, 'hidden_dim': 4096, 'k': 256, 'k_aux': 512, 'normalize': False, 'dead_threshold': 30})
 # )
 ```
 
