@@ -849,5 +849,5 @@ Additionally, the following pages may be useful to learn more about Sentence Tra
 
 And lastly, here are some advanced pages that might interest you:
 
-* [Hyperparameter Optimization](https://sbert.net/examples/training/hpo/README.html)
+* [Hyperparameter Optimization](https://sbert.net/examples/sentence_transformer/training/hpo/README.html)
 * [Distributed Training](https://sbert.net/docs/sentence_transformer/training/distributed.html)
