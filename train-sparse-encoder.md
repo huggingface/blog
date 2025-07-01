@@ -121,7 +121,7 @@ Decoded: [('weather', 3.0842742919921875), ('cool', 1.379457712173462), ('summer
 
 ### Query and Document Expansion
 
-A key component of neural sparse embedding models is **query/document expansion**. Unlike traditional lexical methods like BM25, which only match exact tokens, neural sparse models automatically expand the original text with semantically related terms:
+A key component of neural sparse embedding models is **query/document expansion**. Unlike traditional lexical methods like BM25, which only match exact tokens, neural sparse models generally automatically expand the original text with semantically related terms:
 
 - **Traditional, Lexical (e.g. BM25):** Only matches on exact tokens in the text
 - **Neural Sparse Models:** Automatically expand with related terms
