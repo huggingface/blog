@@ -175,7 +175,7 @@ Now, let's dive into each of these components in more detail.
 
 ## Model
 
-Sparse Encoder models consist of a sequence of [Modules](https://sbert.net/docs/package_reference/sentence_transformer/models.html), [Sparse Encoder specific Modules](https://sbert.net/docs/package_reference/sparse_encoder/models.html) or [Custom Modules](https://sbert.net/docs/sentence_transformer/usage/custom_models.html#advanced-custom-modules), allowing for a lot of flexibility. If you want to further finetune a Sparse Encoder model (e.g. it has a [modules.json file](https://huggingface.co/naver/splade-cocondenser-ensembledistil/tree/main/modules.json)), then you don't have to worry about which modules are used:
+Sparse Encoder models consist of a sequence of [Modules](https://sbert.net/docs/package_reference/sentence_transformer/models.html), [Sparse Encoder specific Modules](https://sbert.net/docs/package_reference/sparse_encoder/models.html) or [Custom Modules](https://sbert.net/docs/sentence_transformer/usage/custom_models.html#advanced-custom-modules), allowing for a lot of flexibility. If you want to further finetune a Sparse Encoder model (e.g. it has a [modules.json file](https://huggingface.co/naver/splade-cocondenser-ensembledistil/blob/main/modules.json)), then you don't have to worry about which modules are used:
 
 ```python
 from sentence_transformers import SparseEncoder
