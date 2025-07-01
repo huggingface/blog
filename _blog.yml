@@ -6228,3 +6228,14 @@
     - community
     - research
     - multimodal
+
+- local: train-sparse-encoder
+  title: "Training and Finetuning Sparse Embedding Models with Sentence Transformers v5"
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: Jul 1, 2025
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
