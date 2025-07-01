@@ -388,8 +388,8 @@ Each key in the dictionary becomes a column in the resulting dataset.
 
 It's crucial to ensure that your dataset format matches your chosen [loss function](#loss-function). This involves checking two things:
 
-1. If your loss function requires a *Label* (as indicated in the [Loss Overview](https://sbert.net/docs/sentence_transformer/loss_overview.html) table), your dataset must have a column named **"label"** or **"score"**.
-2. All columns other than **"label"** or **"score"** are considered *Inputs* (as indicated in the [Loss Overview](https://sbert.net/docs/sentence_transformer/loss_overview.html) table). The number of these columns must match the number of valid inputs for your chosen loss function. The names of the columns don't matter, **only their order matters**.
+1. If your loss function requires a *Label* (as indicated in the [Loss Overview](https://sbert.net/docs/sparse_encoder/loss_overview.html) table), your dataset must have a column named **"label"** or **"score"**.
+2. All columns other than **"label"** or **"score"** are considered *Inputs* (as indicated in the [Loss Overview](https://sbert.net/docs/sparse_encoder/loss_overview.html) table). The number of these columns must match the number of valid inputs for your chosen loss function. The names of the columns don't matter, **only their order matters**.
 
 For example, if your loss function accepts `(anchor, positive, negative) triplets`, then your first, second, and third dataset columns correspond with `anchor`, `positive`, and `negative`, respectively. This means that your first and second column must contain texts that should embed closely, and that your first and third column must contain texts that should embed far apart. That is why depending on your loss function, your dataset column order matters.
 
