@@ -57,7 +57,7 @@ We list the most prominent ones along with their benchmark results in [Pretraine
 
 ## What are Sparse Embedding models?
 
-The more broader term "embedding models" refer to models that convert some input, usually text, into a vector representation (embedding) that captures the semantic meaning of the input. Unlike with the raw inputs, you can perform mathematical operations on these embeddings, resulting in similarity scores that can be used for various tasks, such as search, clustering, or classification.
+The broader term "embedding models" refer to models that convert some input, usually text, into a vector representation (embedding) that captures the semantic meaning of the input. Unlike with the raw inputs, you can perform mathematical operations on these embeddings, resulting in similarity scores that can be used for various tasks, such as search, clustering, or classification.
 
 With dense embedding models, i.e. the common variety, the embeddings are typically low-dimensional vectors (e.g., 384, 768, or 1024 dimensions) where most values are non-zero. Sparse embedding models, on the other hand, produce high-dimensional vectors (e.g., 30,000+ dimensions) where most values are zero. Usually, each active dimension (i.e. the dimension with a non-zero value) in a sparse embedding corresponds to a specific token in the model's vocabulary, allowing for interpretability.
 
@@ -210,7 +210,7 @@ from sentence_transformers import SparseEncoder
 
 model = SparseEncoder("google-bert/bert-base-uncased")
 # SparseEncoder(
-#   (0): MLMTransformer({'max_seq_length': 512, 'do_lower_case': False, 'arhitecture': 'BertForMaskedLM'})
+#   (0): MLMTransformer({'max_seq_length': 512, 'do_lower_case': False, 'architecture': 'BertForMaskedLM'})
 #   (1): SpladePooling({'pooling_strategy': 'max', 'activation_function': 'relu', 'word_embedding_dimension': None})
 # )
 ```
@@ -239,7 +239,7 @@ model = SparseEncoder(modules=[router], similarity_fn_name="dot")
 # SparseEncoder(
 #   (0): Router(
 #     (query_0_SparseStaticEmbedding): SparseStaticEmbedding ({'frozen': False}, dim:30522, tokenizer: BertTokenizerFast)
-#     (document_0_MLMTransformer): MLMTransformer({'max_seq_length': 512, 'do_lower_case': False, 'arhitecture': 'BertForMaskedLM'})
+#     (document_0_MLMTransformer): MLMTransformer({'max_seq_length': 512, 'do_lower_case': False, 'architecture': 'BertForMaskedLM'})
 #     (document_1_SpladePooling): SpladePooling({'pooling_strategy': 'max', 'activation_function': 'relu', 'word_embedding_dimension': None})
 #   )
 # )
@@ -307,7 +307,7 @@ from sentence_transformers import SparseEncoder
 
 model = SparseEncoder("mixedbread-ai/mxbai-embed-large-v1")
 # SparseEncoder(
-#   (0): Transformer({'max_seq_length': 512, 'do_lower_case': False, 'arhitecture': 'BertModel'})
+#   (0): Transformer({'max_seq_length': 512, 'do_lower_case': False, 'architecture': 'BertModel'})
 #   (1): Pooling({'word_embedding_dimension': 1024, 'pooling_mode_cls_token': True, 'pooling_mode_mean_tokens': False, 'pooling_mode_max_tokens': False, 'pooling_mode_mean_sqrt_len_tokens': False, 'pooling_mode_weightedmean_tokens': False, 'pooling_mode_lasttoken': False, 'include_prompt': True})
 #   (2): SparseAutoEncoder({'input_dim': 1024, 'hidden_dim': 4096, 'k': 256, 'k_aux': 512, 'normalize': False, 'dead_threshold': 30})
 # )
@@ -831,7 +831,7 @@ The following pages contain training examples with explanations as well as links
 - [MS MARCO](https://sbert.net/examples/sparse_encoder/training/ms_marco/README.html) - Example training scripts for training on the MS MARCO information retrieval dataset.
 - [Retrievers](https://sbert.net/examples/sparse_encoder/training/retrievers/README.html) - Example training scripts for training on generic information retrieval datasets.
 - [Natural Language Inference](https://sbert.net/examples/sparse_encoder/training/nli/README.html) - Natural Language Inference (NLI) data can be quite helpful to pre-train and fine-tune models to create meaningful sparse embeddings.
-- [Quora Duplicate Questions](https://sbert.net/examples/sparse_encoder/training/quora_duplicate_questions/README.html) - Quora Duplicate Questions is large set corpus with duplicate questions from the Quora community. The folder contains examples how to train models for duplicate questions mining and for semantic search.
+- [Quora Duplicate Questions](https://sbert.net/examples/sparse_encoder/training/quora_duplicate_questions/README.html) - Quora Duplicate Questions is a large set corpus with duplicate questions from the Quora community. The folder contains examples how to train models for duplicate questions mining and for semantic search.
 - [STS](https://sbert.net/examples/sparse_encoder/training/sts/README.html) - The most basic method to train models is using Semantic Textual Similarity (STS) data. Here, we use sentence pairs and a score indicating the semantic similarity.
 
 ### Documentation
@@ -842,7 +842,7 @@ Additionally, the following pages may be useful to learn more about Sentence Tra
 * [Quickstart](https://sbert.net/docs/quickstart.html)
 * [Usage](https://sbert.net/docs/sparse_encoder/usage/usage.html)
 * [Pretrained Models](https://sbert.net/docs/sparse_encoder/pretrained_models.html)
-* [Training Overview](https://sbert.net/docs/sparse_encoder/training_overview.html) (This blogpost is a distillation of the Training Overiew documentation)
+* [Training Overview](https://sbert.net/docs/sparse_encoder/training_overview.html) (This blogpost is a distillation of the Training Overview documentation)
 * [Dataset Overview](https://sbert.net/docs/sentence_transformer/dataset_overview.html)
 * [Loss Overview](https://sbert.net/docs/sparse_encoder/loss_overview.html)
 * [API Reference](https://sbert.net/docs/package_reference/sparse_encoder/index.html)
