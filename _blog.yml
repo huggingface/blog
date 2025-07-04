@@ -6239,3 +6239,14 @@
     - guide
     - community
     - open-source
+
+- local: async-inference
+  title: "SmolVLA: Efficient Vision-Language-Action Model trained on Lerobot Community Data"
+  author: fracapuano
+  thumbnail: /blog/assets/async_inference/thumbnail_async_blog.png
+  date: Jul 4, 2025
+  tags:
+    - lerobot
+    - robotics
+    - models
+    - open-source
