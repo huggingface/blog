@@ -6044,7 +6044,7 @@
 - local: infrastructure-alerting
   title: "Three Mighty Alerts Supporting Hugging Face’s Production Infrastructure"
   author: jcudit
-  thumbnail: /blog/assets/infrastructure-alerting/thumbnail.png
+  thumbnail: /blog/assets/infrastructure-alerting/thumbnail.jpg
   date: June 25, 2025
   tags:
     - cloud
