@@ -1,6 +1,6 @@
 ---
 title: "Three Mighty Alerts Supporting Hugging Face’s Production Infrastructure"
-thumbnail: /blog/assets/infrastructure-alerting/thumbnail.png
+thumbnail: /blog/assets/infrastructure-alerting/thumbnail.jpg
 authors:
 - user: jcudit
 ---
