@@ -97,10 +97,8 @@ In this example, a "stdio" MCP server is configured. This type of server runs as
 	"servers": [
 		{
 			"type": "stdio",
-			"config": {
-				"command": "npx",
-				"args": ["@playwright/mcp@latest"]
-			}
+			"command": "npx",
+			"args": ["@playwright/mcp@latest"]
 		}
 	]
 }
@@ -315,7 +313,7 @@ class Agent(MCPClient):
     async def load_tools(self) -> None:
         # Connect to all configured MCP servers and register their tools
         for cfg in self._servers_cfg:
-            await self.add_mcp_server(cfg["type"], **cfg["config"])
+            await self.add_mcp_server(**cfg)
 
 ```
 
