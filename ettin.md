@@ -1,6 +1,6 @@
 ---
 title: "Ettin Suite: SoTA Paired Encoders and Decoders" 
-thumbnail: /blog/assets/ettin/image.png
+thumbnail: /blog/assets/ettin/thumbnail.png
 authors:
 - user: orionweller
   guest: true
