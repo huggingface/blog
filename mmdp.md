@@ -165,6 +165,8 @@ This walks through the data sequentially, adding items to a pack until it’s fu
 [tensor([24])]
 ```
 
+![Greedy Knapsack](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mmdp/greedy.png)
+
 Notice how later batches get sparse? We’re leaving gaps.
 
 ### Bin-Packing for Tighter Fits
@@ -192,6 +194,8 @@ This sorts sequences by length (longest first) and tries to fit each one into th
 [tensor([20]), tensor([19]), tensor([18]), tensor([17]), tensor([16]), tensor([9]), tensor([1])]
 [tensor([15]), tensor([14]), tensor([13]), tensor([12]), tensor([11]), tensor([8]), tensor([7]), tensor([6]), tensor([5]), tensor([4]), tensor([3]), tensor([2])]
 ```
+
+![Tight](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mmdp/tight.png)
 
 These batches are *much* tighter, with less wasted space. It’s like playing Tetris with your data, fitting pieces together snugly.
 
