@@ -6260,3 +6260,15 @@
   tags:
     - cloud
     - infrastructure
+
+- local: smollm3
+  title: "SmolLM3: smol, multilingual, long-context reasoner"
+  author: loubnabnl
+  thumbnail: /blog/assets/smollm3/image.png
+  date: July 8, 2025
+  tags:
+    - llm
+    - nlp
+    - reasoning
+    - community
+    - research
