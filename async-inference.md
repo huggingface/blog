@@ -3,8 +3,7 @@ title: "Asynchronous Robot Inference: Decoupling Action Prediction and Execution
 thumbnail: /blog/assets/async_inference/thumbnail_async_blog.png
 authors:
 - user: fracapuano
-date: 2025-06-30
-slug: async-inference
+date: July 4, 2025
 ---
 
 ## TL;DR
@@ -14,12 +13,17 @@ Robotic policies are increasingly bulky, and predict chunks of future actions ra
 # Async inference
 
 ## Getting started
-Install LeRobot following our installation guide (make sure to instal the `async` dependancies by running `pip install -e ".[async]"`). Then, spawn a `PolicyServer` in one terminal tab by running:
+Get started with async inference by following [our tutorial](NOTE:LINKTODOCUMENTATION).
 
-Once your server is live, spawn a `RobotClient` connected to the robot you wish to control and the `PolicyServer` you just spawned by running:
+<p align="center">
+  <video width="600" height="400" controls autoplay muted loop playsinline>
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/async-inference/sync-vs-async.mov" type="video/mp4">
+  </video>
+</p>
+<p align="center">
+<i>Sequential inference (left) versus async inference (right)</i>. Allowing for replanning and a tigther control loop, async inference results in (1) attempts at recovery under disturbances, and (2) a ~2x speedup in task completion.
+</p>
 
-
-For more information, and an in-detail API example follow [our tutorial](NOTE:LINKTODOCUMENTATION) to get started with async inference.
 
 ## Async inference: a deep dive
 
@@ -47,10 +51,10 @@ Communication between `PolicyServer` and `RobotClient` relies on **gRPC**, which
 
 ## 1. Why sequential inference falls short
 
-Suppose a policy $ \pi $ maps the current observation $ o_t $ to a sequence of $ n $ future actions
+Suppose a policy $ \pi $ maps the current observation $ o_t $ to a sequence of $ H $ future actions
 ```math
-\pi : \mathcal{O} \;\longrightarrow\; \tilde{\mathcal A},
-\begin{pmatrix} a_{t} \\ a_{t+1} \\ \vdots \\ a_{t+n} \end{pmatrix} = \pi(o_t)
+\pi : \mathcal{O} \;\longrightarrow\; \mathcal{A}, \quad
+\mathbf{A}_t = \begin{pmatrix} a_{t} \\ a_{t+1} \\ \vdots \\ a_{t+H} \end{pmatrix} = \pi(o_t)
 ```
 
 A traditional control loop would therefore:
@@ -209,7 +213,7 @@ Experiments (see plots below) show that $g\approx0.7$ offers a good trade-off wh
 <p align="center"><i>The number of available actions in the queue at any given time</i>, as a function of g. Larger values of g result in more frequent updates, and more computational cost. Values of g closer to 0 reproduce sequential inference (empty queue, wait). We found g~0.7 to be a good trade-off in our experiments.
 </p>
 
-# Conclusions
+## Conclusions
 
 We have introduced async inference, a simple yet effective way to improve the performance of robotic policies. In our experiments using SmolVLA, async inference results in a ~2x speedup in task completion time with comparable task success rate, and more adaptive control coming from a tighter loop.
 
