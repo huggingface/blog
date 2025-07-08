@@ -127,3 +127,12 @@ There are two cases where the query will trigger:
 In both cases, the query will detect that the cluster is not sending any metrics and trigger the alert.
 
 This simple yet effective solution fires in scenarios where our metrics infrastructure crashes, during cluster setup, and when they're torn down providing us with timely insights into our infrastructure's health. While it may not be the most critical alert in our arsenal, it holds a special place since it was born out of collaboration. It is a testament to the power of teamwork through rigorous code review, made possible by the expertise and willingness to help of fellow colleagues in the Hugging Face infrastructure team 🤗
+
+
+### Wrapping Up
+
+In this post we shared some of our favourite alerts supporting infrastructure at Hugging Face. We'd love to hear your team's favourites as well!
+
+How are you monitoring your ML infrastructure? Which alerts keep your team coming back for fixes? What breaks often in your infrastructure or conversely what have you never monitored and just works?
+
+Share with us in the comments below!
