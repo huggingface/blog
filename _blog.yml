@@ -6272,3 +6272,16 @@
     - reasoning
     - community
     - research
+
+- local: ettin
+  title: "Seq vs Seq: the Ettin Suite
+of Paired Encoders and Decoders"
+  author: orionweller
+  thumbnail: /blog/assets/ettin/image.png
+  date: July 14, 2025
+  tags:
+    - llm
+    - nlp
+    - community
+    - research
+    - open-source-collab
