@@ -9,6 +9,17 @@ date: July 4, 2025
 ## TL;DR
 Robotic policies are increasingly bulky, and predict chunks of future actions rather than a single next action. This results in the robot being idle while awaiting new actions to perform, introducing noticeable lags at execution, and lacking of responsiveness. Asynchronous inference tightens the control loop, removing lags at runtime and resulting in more adaptive control by decoupling action prediction from action execution. In this blog post, we cover the basics behind async inference, and how it can be used to improve the performance of robotic policies in the real-world.
 
+## Table of Contents
+- [Getting started](#getting-started)
+- [Async inference: a deep dive](#async-inference-a-deep-dive)
+- [1. Why sequential inference falls short](#1-why-sequential-inference-falls-short)
+- [2. Asynchronous inference, in a nutshell](#2-asynchronous-inference-in-a-nutshell)
+- [3. System Architecture](#3-system-architecture)
+  - [Robot Client](#robot-client)
+  - [Policy Server](#policy-server)
+- [4. Analyzing async inference](#4-analyzing-async-inference)
+- [5. Using async in your setup](#5-using-async-in-your-setup)
+- [Conclusions](#conclusions)
 
 # Async inference
 
