@@ -7,6 +7,10 @@ authors:
 
 # Tiny Agents: an MCP-powered agent in 50 lines of code
 
+> [!WARNING]
+> New! (May 23, '25) If you prefer Python, check out the companion post
+> [`Tiny Agents in Python`](https://huggingface.co/blog/python-tiny-agents).
+
 Over the past few weeks, I've been diving into MCP ([Model Context Protocol](https://modelcontextprotocol.io/)) to understand what the hype around it was all about.
 
 My TL;DR is that it's fairly simple, but still quite powerful: **MCP is a standard API to expose sets of Tools that can be hooked to LLMs.**
@@ -125,7 +129,7 @@ Inference engines let you pass a list of tools when calling the LLM, and the LLM
 As a developer, you run the tools and feed their result back into the LLM to continue the generation.
 
 > [!NOTE]
-> Note that in the backend (at the inference engine level), the tools are simply passed to the model in a specially-formatted `chat_template`, like any other message, and then parsed out of the response (using model-specific special tokens) to expose them as tool calls.
+> Note that in the backend (at the inference engine level), the tools are simply passed to the model in a specially-formatted `chat_template`, like any other message, and then parsed out of the response (using model-specific special tokens) to expose them as tool calls. See an example [in our chat-template playground](https://huggingface.co/spaces/huggingfacejs/chat-template-playground?modelId=Qwen/Qwen3-235B-A22B&example=tool-usage).
 
 ## Implementing an MCP client on top of InferenceClient
 

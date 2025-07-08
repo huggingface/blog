@@ -40,7 +40,7 @@ translators:
 
 作为一个隐变量扩散模型，SD3 包含了三个不同的文本编码器 ([CLIP L/14](https://huggingface.co/openai/clip-vit-large-patch14)、[OpenCLIP bigG/14](https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k) 和 [T5-v1.1-XXL](https://huggingface.co/google/t5-v1_1-xxl)) 、一个新提出的多模态 Diffusion Transformer (MMDiT) 模型，以及一个 16 通道的 AutoEncoder 模型 (与 [Stable Diffusion XL](https://arxiv.org/abs/2307.01952) 中的类似)。
 
-SD3 以序列 Embedding 的形式处理文本输入和视觉隐空间特征。位置编码 (Positional Encoding) 是施加在隐空间特征的 2x2 patch 上的，随后被展开成 patch 的 Enbedding 序列。这一序列和文本的特征序列一起，被送入 MMDiT 的各个模块中去。两种特征序列被转化成相同特征维度，拼接在一起，然后送入一系列注意力机制模块和多层感知机 (MLP) 里。
+SD3 以序列 Embedding 的形式处理文本输入和视觉隐空间特征。位置编码 (Positional Encoding) 是施加在隐空间特征的 2x2 patch 上的，随后被展开成 patch 的 Embedding 序列。这一序列和文本的特征序列一起，被送入 MMDiT 的各个模块中去。两种特征序列被转化成相同特征维度，拼接在一起，然后送入一系列注意力机制模块和多层感知机 (MLP) 里。
 
 为应对两种模态间的差异，MMDiT 模块使用两组不同的权重去转换文本和图像序列的特征维度。两个序列之后会在注意力操作之前被合并在一起。这种设计使得两种表征能在自己的特征空间里工作，同时也使得它们之间可以通过注意力机制 [1] 从对方的特征中提取有用的信息。这种文本和图像间双向的信息流动有别于以前的文生图模型，后者的文本信息是通过 cross-attention 送入模型的，且不同层输入的文本特征均是文本编码器的输出，不随深度的变化而改变。
 

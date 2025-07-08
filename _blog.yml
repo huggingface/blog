@@ -5417,6 +5417,7 @@
   tags:
     - announcement
     - hub
+    - inference-providers
 
 - local: deepseek-r1-aws
   title: "How to deploy and fine-tune DeepSeek models on AWS"
@@ -5540,6 +5541,7 @@
   tags:
     - announcement
     - hub
+    - inference-providers
 
 - local: inference-providers-nebius-novita-hyperbolic
   title: "Introducing Three New Serverless Inference Providers: Hyperbolic, Nebius AI Studio, and Novita 🔥"
@@ -5549,6 +5551,7 @@
   tags:
     - announcement
     - hub
+    - inference-providers
 
 - local: paligemma2mix
   title: "PaliGemma 2 Mix - New Instruction Vision Language Models by Google"
@@ -5700,7 +5703,7 @@
   author: mingyuliutw
   guest: true
   org: nvidia
-  thumbnail: /blog/assets/nvidia-physical-ai/thumbnail.png  
+  thumbnail: /blog/assets/nvidia-physical-ai/thumbnail.png
   date: March 18, 2025
   tags:
     - robotics
@@ -5730,20 +5733,20 @@
     - reasoning
     - local
 
-- local: endpoint-analytics 
+- local: endpoint-analytics
   title: "The New and Fresh analytics in Inference Endpoints"
   author: erikkaum
-  thumbnail: /blog/assets/endpoint-analytics/thumbnail.png  
+  thumbnail: /blog/assets/endpoint-analytics/thumbnail.png
   date: March 21, 2025
   tags:
     - guide
     - cloud
     - inference
-    
-- local: gradio-dataframe-upgrade 
+
+- local: gradio-dataframe-upgrade
   title: "Introducing Gradio's new Dataframe!"
   author: hmb
-  thumbnail: /blog/assets/gradio-dataframe-update/thumbnail.png  
+  thumbnail: /blog/assets/gradio-dataframe-update/thumbnail.png
   date: March 24, 2025
   tags:
     - gradio
@@ -5775,7 +5778,7 @@
     - partnerships
 
 - local: scaling-secrets-management
-  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"  
+  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"
   thumbnail: /blog/assets/infisical/thumbnail.png
   author: segudev
   guest: true
@@ -5880,17 +5883,17 @@
   thumbnail: /blog/assets/inference-providers-cohere/thumbnail.png
   date: April 16, 2025
   tags:
-   - llms
-   - inference
-   - cohere
-   - enterprise
-   - partnerships
-   - hub
+    - llms
+    - inference-providers
+    - cohere
+    - enterprise
+    - partnerships
+    - hub
 
-- local: why-gradio-stands-out 
+- local: why-gradio-stands-out
   title: "17 Reasons Why Gradio Isn't Just Another UI Library"
   author: ysharma
-  thumbnail: /blog/assets/why-gradio-stands-out/thumbnail.png  
+  thumbnail: /blog/assets/why-gradio-stands-out/thumbnail.png
   date: April 16, 2025
   tags:
     - gradio
@@ -5905,12 +5908,12 @@
   thumbnail: /blog/assets/autoround/thumbnail.png
   date: April 29, 2025
   tags:
-   - llms
-   - inference
-   - quantization
-   - intel
+    - llms
+    - inference
+    - quantization
+    - intel
 
-- local: tiny-agents 
+- local: tiny-agents
   title: "Tiny Agents: a MCP-powered agent in 50 lines of code"
   author: julien-c
   thumbnail: /blog/assets/tiny-agents/thumbnail.jpg
@@ -5929,19 +5932,19 @@
     - qwen
     - chat-template
     - llms
-    
+
 - local: llama-guard-4
   title: "Welcoming Llama Guard 4 on Hugging Face Hub"
   author: merve
   thumbnail: /blog/assets/llama-guard-4/thumbnail.png
   date: April 29, 2025
   tags:
-   - llama
-   - llm
-   - vision
-   - vlm
+    - llama
+    - llm
+    - vision
+    - vlm
 
-- local: gradio-mcp 
+- local: gradio-mcp
   title: "How to Build an MCP Server with Gradio"
   author: abidlabs
   thumbnail: /blog/assets/gradio-mcp/thumbnail.png
@@ -5950,7 +5953,7 @@
     - gradio
     - tool
     - llm
-    
+
 - local: lerobot-datasets
   title: "LeRobot Community Datasets: The “ImageNet” of Robotics — When and How?"
   author: danaaubakirova
@@ -6041,11 +6044,219 @@
     - quantization
     - flux
 
+- local: python-tiny-agents
+  title: "Tiny Agents in Python: a MCP-powered agent in ~70 lines of code"
+  author: celinah
+  thumbnail: /blog/assets/python-tiny-agents/thumbnail.png
+  date: May 23, 2025
+  tags:
+    - agents
+    - hub
+    - inference
+    - mcp
+
+- local: dell-ai-applications
+  title: "Dell Enterprise Hub is all you need to build AI on premises"
+  author: jeffboudier
+  thumbnail: /blog/assets/dell-ai-applications/dell-post-thumbnail.png
+  date: May 23, 2025
+  tags:
+    - dell
+    - enterprise
+    - partnerships
+
+- local: liger-grpo
+  title: "🐯 Liger GRPO meets TRL"
+  author: shisahni
+  guest: true
+  thumbnail: /blog/assets/liger-grpo/thumbnail.png
+  date: May 25, 2025
+  tags:
+    - liger
+    - grpo
+    - trl
+    - partnership
+    - llm
+
+- local: structured-codeagent
+  title: "CodeAgents + Structure: A Better Way to Execute Actions"
+  author: akseljoonas
+  thumbnail: /blog/assets/structured-codeagent/thumbnail-codeagent.png
+  date: May 28, 2025
+  tags:
+    - agents
+    - smolagents
+    - open-source
+    - nlp
+    - tools
+    - community
+
+- local: vllm-colocate
+  title: "No GPU left behind: Unlocking Efficiency with Co-located vLLM in TRL"
+  author: toslali-ibm
+  guest: true
+  thumbnail: /blog/assets/vllm-colocate/thumbnail.png
+  date: June 3, 2025
+  tags:
+    - vllm
+    - grpo
+    - trl
+    - llm
+    - rlhf
+
+- local: smolvla
+  title: "SmolVLA: Efficient Vision-Language-Action Model trained on Lerobot Community Data"
+  author: danaaubakirova
+  thumbnail: /blog/assets/smolvla/SmolVLA_thumbnail.png
+  date: Jun 3, 2025
+  tags:
+    - smolvla
+    - lerobot
+    - robotics
+    - open-source
+    - models
+    - community
+
+- local: kv-cache
+  title: "KV Cache from scratch in nanoVLM"
+  author: ariG23498
+  thumbnail: /blog/assets/kv-cache/thumbnail.png
+  date: Jun 4, 2025
+  tags:
+    - generate
+    - open-source
+    - nlp
+    - vlm
+    - nanovlm
+
+- local: screensuite
+  title: "ScreenSuite - The most comprehensive evaluation suite for GUI Agents!"
+  author: a-mahla
+  thumbnail: /blog/assets/screensuite/thumbnail.png
+  date: Jun 6, 2025
+  tags:
+    - screensuite
+    - gui-agents
+    - agents
+    - smolagents
+    - vlm
+
+- local: nvidia-training-cluster
+  title: "Introducing Training Cluster as a Service - a new collaboration with NVIDIA"
+  author: jeffboudier
+  thumbnail: /blog/assets/nvidia-training-cluster/nvidia-training-cluster-thumbnail-compressed.png
+  date: Jun 11, 2025
+  tags:
+    - nvidia
+    - training
+    - partnerships
+    - announcement
+
+- local: inference-providers-featherless
+  title: "Featherless AI on Hugging Face Inference Providers 🔥"
+  author: sbrandeis
+  thumbnail: /blog/assets/inference-providers/welcome-featherless.jpg
+  date: Jun 12, 2025
+  tags:
+    - llms
+    - inference-providers
+    - featherless
+    - recursal
+    - enterprise
+    - partnerships
+    - hub
+
+- local: hello-hf-kernels
+  title: "Enhance Your Models in 5 Minutes with the Hugging Face Kernel Hub"
+  author: drbh
+  thumbnail: /blog/assets/hello-hf-kernels/kernel-hub-five-mins-short-21.png
+  date: June 12, 2025
+  tags:
+    - guide
+    - hub
+    - optimization
+    - open-source
+    - performance
+
+- local: inference-providers-groq
+  title: "Groq on Hugging Face Inference Providers 🔥"
+  author: sbrandeis
+  thumbnail: /blog/assets/inference-providers/welcome-groq.jpg
+  date: Jun 16, 2025
+  tags:
+    - llms
+    - inference-providers
+    - groq
+    - enterprise
+    - partnerships
+    - hub
+
+- local: flux-qlora
+  title: "(LoRA) Fine-Tuning FLUX.1-dev on Consumer Hardware"
+  thumbnail: /blog/assets/flux-qlora/thumbnail.png
+  author: derekl35
+  date: Jun 19, 2025
+  tags:
+    - guide
+    - diffusers
+    - quantization
+    - flux
+    - lora
+
+- local: transformers-backend-sglang
+  title: "Transformers backend integration in SGLang"
+  thumbnail: /blog/assets/196_transformers_backend_sglang/thumbnail.jpg
+  author: marcsun13
+  date: Jun 23, 2025
+  tags:
+    - transformers
+    - sglang
+    - model
+    - integration
+
+- local: gemma3n
+  title: "Gemma 3n fully available in the open-source ecosystem!"
+  author: ariG23498
+  thumbnail: /blog/assets/gemma3n/thumbnail.png
+  date: Jun 26, 2025
+  tags:
+    - audio
+    - vision
+    - llm
+    - vlm
+    - community
+    - research
+    - multimodal
+
+- local: train-sparse-encoder
+  title: "Training and Finetuning Sparse Embedding Models with Sentence Transformers v5"
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: Jul 1, 2025
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+
+- local: mmdp
+  title: "Efficient MultiModal Data Pipeline"
+  author: ariG23498
+  thumbnail: /blog/assets/mmdp/thumbnail.png
+  date: Jul 8, 2025
+  tags:
+    - vlm
+    - data
+    - nanovlm
+    - research
+    - community
+    - open
+
 - local: infrastructure-alerting
   title: "Three Mighty Alerts Supporting Hugging Face’s Production Infrastructure"
   author: jcudit
   thumbnail: /blog/assets/infrastructure-alerting/thumbnail.jpg
-  date: June 25, 2025
+  date: July 8, 2025
   tags:
     - cloud
     - infrastructure
