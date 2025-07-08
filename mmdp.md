@@ -80,7 +80,7 @@ Our next move was simple. Set a global maximum length and stick to it. If a samp
 
 ![Constrained Padding](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mmdp/03.png)
 
-This helped, but we were still padding everything to the same fixed length regardless of actual content. Better than before, but still wasteful.
+As you might have noticed that the batch now has one sample less. This is due to the filtering process. This helped, but we were still padding everything to the same fixed length regardless of actual content. Better than before, but still wasteful.
 
 ## [Stage 4]: Packing Smarter with Knapsacks
 
@@ -231,6 +231,15 @@ Here’s the result:
 ![Knapsack Padding](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mmdp/05.png)
 
 Look at that! The gray (padding) is minimal, and the batches are dense with useful data. It’s like packing a suitcase so well you can still zip it up without sitting on it.
+
+The image might seem unintuive at the first glance, but let us look at the image side by side with constrained padding.
+
+| Knapcak | Constrained |
+| :--: | :--: |
+| ![Knapsack Padding](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mmdp/05.png) | ![Constrained Padding](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mmdp/03.png) |
+
+Here you will notice that the samples in knapsack are more evenly distributed. We also do not run into the issue of having
+less samples in the batch due to filtering.
 
 ## Conclusion
 
