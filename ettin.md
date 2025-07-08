@@ -67,7 +67,7 @@ Our models gain all the benefits of ModernBERT's speed, allowing them to be sign
 
 Unlike ModernBERT, **all our training data is public and reproducible**:
 
-![Data used to train Ettin models](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/training_data.pdf?raw=true)
+![Data used to train Ettin models](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/training_data.jpg?raw=true)
 
 You can continue train these models on new data or propose a new recipe to further improve results!
 
@@ -75,14 +75,14 @@ You can continue train these models on new data or propose a new recipe to furth
 
 Our encoder models **outperform ModernBERT** across all tasks and model sizes, while using completely open training data. Since we provide a large range of sizes, you can now use ModernBERT-style models in smaller sizes (great for on-device or for fast-inference) or power up with a 1B-sized encoder that crushes the competition.
 
-![Encoder performance comparison showing Ettin models beating ModernBERT](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/encoder_results.pdf?raw=true)
+![Encoder performance comparison showing Ettin models beating ModernBERT](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/encoder_results.jpg?raw=true)
 
 
 ## Decoder Results: Beating Llama 3.2 and SmolLM2
 
 Applying the same recipe to decoder models yields equally impressive results, with our models **outperforming established baselines**:
 
-![Decoder performance comparison showing Ettin models beating Llama 3.2 and SmolLM2](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/decoder_results.pdf?raw=true)
+![Decoder performance comparison showing Ettin models beating Llama 3.2 and SmolLM2](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/decoder_results.jpg?raw=true)
 
 The gains are particularly strong on knowledge-intensive tasks like SciQ, reflecting the benefits of our high-quality training data mixture. These results demonstrate that our training recipe creates genuinely strong models in both architectural paradigms.
 
@@ -90,7 +90,7 @@ The gains are particularly strong on knowledge-intensive tasks like SciQ, reflec
 
 For the first time, we can fairly compare encoder and decoder architectures trained with identical data and recipes. The results reveal fundamental architectural advantages that persist even when all other factors are controlled:
 
-![Encoder vs decoder comparison across model sizes and tasks](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/enc_vs_dec.pdf?raw=true)
+![Encoder vs decoder comparison across model sizes and tasks](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/enc_vs_dec.jpg?raw=true)
 
 ### Architecture-Specific Advantages Persist
 
