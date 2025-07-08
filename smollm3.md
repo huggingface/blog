@@ -79,7 +79,7 @@ SmolLM3 follows a transformer decoder architecture with tied embedding similar t
 
 All these changes were validated through ablations using the same 3B architecture trained on 100B tokens from FineWeb-Edu, ensuring each modification either improved performance or maintained it while offering other benefits.
 
-Training Configuration: We use a global batch size of 2.36M tokens with 4096 sequence length, a learning rate of 2e-4, and the AdamW optimizer (beta1: 0.9, beta2: 0.95) with weight decay of 0.1 and gradient clipping of 1. We use the WSD (Warmup-Stable-Decay) scheduler, with 2000  warmup steps, and a linear decay to 0 in the final 10% training steps. We use [nanotron](https://github.com/huggingface/nanotron) fr lolamework for the training, [datatrove](https://github.com/huggingface/datatrove) for data processing and [lighteval](https://github.com/huggingface/lighteval) for evaluation. The model was trained on 384 H100 GPUs for 24 days. You can see the distributed training setup in the following figure.
+Training Configuration: We use a global batch size of 2.36M tokens with 4096 sequence length, a learning rate of 2e-4, and the AdamW optimizer (beta1: 0.9, beta2: 0.95) with weight decay of 0.1 and gradient clipping of 1. We use the WSD (Warmup-Stable-Decay) scheduler, with 2000  warmup steps, and a linear decay to 0 in the final 10% training steps. We use [nanotron](https://github.com/huggingface/nanotron) framework for the training, [datatrove](https://github.com/huggingface/datatrove) for data processing and [lighteval](https://github.com/huggingface/lighteval) for evaluation. The model was trained on 384 H100 GPUs for 24 days. You can see the distributed training setup in the following figure.
 
 <p align="center">
  <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/smollm3/image%20(19).png" alt=""  style="width: 90%; height: auto;"><br>
@@ -110,7 +110,7 @@ The pretraining consists of these stages, also shown in the figure above:
     - Code: 24% - upsampling of high-quality code data
     - Math: 13% - upsampling math data and introducing instruction and reasoning datasets such as OpenMathReasoning
 
-With these stages and mixtures we achieved very competitive performance for the base model. More on that in the evaluation section. The nanotron training configs with exact data weights can be found [here](https://huggingface.co/datasets/HuggingFaceTB/smollm3-configs). We will  also share our training logs along with intermediate checkpoints.
+With these stages and mixtures we achieved very competitive performance for the base model. More on that in the evaluation section. The nanotron training configs with exact data weights can be found [here](https://huggingface.co/datasets/HuggingFaceTB/smollm3-configs). We will also share our training logs along with intermediate checkpoints.
 
 After the main pretraining we improved the model in a mid-training stage for long context and reasoning.
 
