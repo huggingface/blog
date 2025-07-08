@@ -22,7 +22,8 @@ Here's what we found:
 
 In this post we build an efficient pipeline in **five stages**. In each stage we add or remove from the previous step and comment on what went right and what did not.
 
-Table of Contents:
+### Table of Contents:
+
 - [Stage 0: Pre Requisites](#stage-0-preparation)
 - [Stage 1: Visualising the Dataset](#stage-1-visualising-the-dataset)
 - [Stage 2: Naive Padding](#stage-2-naive-padding)
@@ -213,7 +214,7 @@ Our new [`ConstantLengthDataset`](https://github.com/ariG23498/mmdp/blob/main/sr
 | **Weight** | The integer itself | Number of tokens (`len(input_ids)`) | — |
 | **Knapsack** | Batch of integers ≤ `max_length` | Batch of samples ≤ `seq_length` and image limit | `_balanced_greedy_knapsack` |
 | **Packing Strategy** | Greedy or Binpack | Greedy packing with token and image constraints | `_balanced_greedy_knapsack` |
-| **Producer-Consumer** | Producer fills queue | Same, but with real samples | `_producer`, `__iter__` |
+| **Producer-Consumer** | Producer fills queue | Same as the toy example, but with multimodal samples | `_producer`, `__iter__` |
 | **Sample Filtering** | Skip integers > `max_length` | Skip samples with too many tokens or images | `_producer` |
 | **Sharding** | Split integer range | Shard dataset indices | `make_base_iterator()` |
 | **Batching** | Group integers | Concatenate and align tokens/images | `_pack_one_group` |
