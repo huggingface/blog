@@ -13,6 +13,8 @@ authors:
 - user: hynky
 - user: clefourrier
 - user: SaylorTwift
+- user: kashif
+- user: qgallouedec
 - user: hlarcher
 - user: glutamatt
 - user: Xenova
