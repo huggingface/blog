@@ -6239,3 +6239,16 @@
     - guide
     - community
     - open-source
+
+- local: mmdp
+  title: "Efficient MultiModal Data Pipeline"
+  author: ariG23498
+  thumbnail: /blog/assets/mmdp/thumbnail.png
+  date: Jul 8, 2025
+  tags:
+    - vlm
+    - data
+    - nanovlm
+    - research
+    - community
+    - open
