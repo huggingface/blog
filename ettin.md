@@ -32,7 +32,7 @@ We do this by introducing an new open-data training recipe that creates an encod
 
 This blog post introduces [Ettin](https://huggingface.co/collections/jhu-clsp/encoders-vs-decoders-the-ettin-suite-686303e16142257eed8e6aeb), the first suite of SoTA **paired encoder-only and decoder-only models** (17M-1B params) trained with identical data, architecture, and training recipes. Ettin enables true apples-to-apples comparisons between architectures and delivers **state-of-the-art performance for open-data models** in both categories.
 
-![Attention patterns comparison between encoder and decoder models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ettin/attention_patterns.png)
+![Attention patterns comparison between encoder and decoder models](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/attention_masks.png?raw=true)
 
 ## Encoders vs Decoders: The Architecture Divide
 
@@ -67,7 +67,7 @@ Our models gain all the benefits of ModernBERT's speed, allowing them to be sign
 
 Unlike ModernBERT, **all our training data is public and reproducible**:
 
-![Data used to train Ettin models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ettin/encoder_results.png)
+![Data used to train Ettin models](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/training_data.pdf?raw=true)
 
 You can continue train these models on new data or propose a new recipe to further improve results!
 
@@ -75,14 +75,14 @@ You can continue train these models on new data or propose a new recipe to furth
 
 Our encoder models **outperform ModernBERT** across all tasks and model sizes, while using completely open training data. Since we provide a large range of sizes, you can now use ModernBERT-style models in smaller sizes (great for on-device or for fast-inference) or power up with a 1B-sized encoder that crushes the competition.
 
-![Encoder performance comparison showing Ettin models beating ModernBERT](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ettin/encoder_results.png)
+![Encoder performance comparison showing Ettin models beating ModernBERT](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/encoder_results.pdf?raw=true)
 
 
 ## Decoder Results: Beating Llama 3.2 and SmolLM2
 
 Applying the same recipe to decoder models yields equally impressive results, with our models **outperforming established baselines**:
 
-![Decoder performance comparison showing Ettin models beating Llama 3.2 and SmolLM2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ettin/decoder_results.png)
+![Decoder performance comparison showing Ettin models beating Llama 3.2 and SmolLM2](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/decoder_results.pdf?raw=true)
 
 The gains are particularly strong on knowledge-intensive tasks like SciQ, reflecting the benefits of our high-quality training data mixture. These results demonstrate that our training recipe creates genuinely strong models in both architectural paradigms.
 
@@ -90,7 +90,7 @@ The gains are particularly strong on knowledge-intensive tasks like SciQ, reflec
 
 For the first time, we can fairly compare encoder and decoder architectures trained with identical data and recipes. The results reveal fundamental architectural advantages that persist even when all other factors are controlled:
 
-![Encoder vs decoder comparison across model sizes and tasks](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ettin/encoder_vs_decoder.png)
+![Encoder vs decoder comparison across model sizes and tasks](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/enc_vs_dec.pdf?raw=true)
 
 ### Architecture-Specific Advantages Persist
 
@@ -186,6 +186,6 @@ The complete Ettin suite includes models at six different scales (for both encod
 **Research Resources:**
 - [🤗 Ettin Model Collection](https://huggingface.co/collections/jhu-clsp/encoders-vs-decoders-the-ettin-suite-686303e16142257eed8e6aeb)
 - [📝 Paper](https://github.com/jhu-clsp/ettin-encoder-vs-decoder)  
-- [🗂️ Training Data](https://huggingface.co/datasets/jhu-clsp) (2T+ tokens, fully open)
+- [🗂️ Training Data](https://huggingface.co/datasets/jhu-clsp/ettin-pretraining-data) (2T+ tokens, fully open)
 - [💻 GitHub Repository](https://github.com/jhu-clsp/ettin-encoder-vs-decoder)
 - [📊 250+ Training Checkpoints](https://huggingface.co/datasets/jhu-clsp/ettin-checkpoints) for studying training dynamics or knowledge learning
