@@ -130,7 +130,7 @@ Following Qwen2.5, we use YARN to extrapolate beyond the training context length
 
 After extending the context length of the model, we trained it at a mid-training stage to incorporate reasoning capabilities. The main difference between the mid-training stage and the pre- and post-training stages is that we targeted a general capability without yet focusing on a specific domain. In our case, we wanted to train the model to reason without targeting a particular domain, such as mathematics or computer code.
 
-Our mid-training dataset contained ~35B tokens sourced from Open Thought’s [OpenThoughts3-1.2M](https://huggingface.co/datasets/open-thoughts/OpenThoughts3-1.2M) and a subset from NVIDIA’s [Llama-Nemotron-Post-Training-Dataset-v1.1](https://huggingface.co/datasets/nvidia/Llama-Nemotron-Post-Training-Dataset) with reasoning traces from R1. We used the ChatML chat template and [wrapped packing](https://huggingface.co/docs/trl/main/en/reducing_memory_usage#packing) to avoid providing too much structure to the model. We trained the model for 4 (~140B tokens) epochs and used the checkpoint for subsequent SFT stages.
+Our mid-training dataset contained 35B tokens sourced from Open Thought’s [OpenThoughts3-1.2M](https://huggingface.co/datasets/open-thoughts/OpenThoughts3-1.2M) and a subset from NVIDIA’s [Llama-Nemotron-Post-Training-Dataset-v1.1](https://huggingface.co/datasets/nvidia/Llama-Nemotron-Post-Training-Dataset) with reasoning traces from R1. We used the ChatML chat template and [wrapped packing](https://huggingface.co/docs/trl/main/en/reducing_memory_usage#packing) to avoid providing too much structure to the model. We trained the model for 4 (~140B tokens) epochs and used the checkpoint for subsequent SFT stages.
 
 # Post-training
 
@@ -222,7 +222,7 @@ Evaluation benchmarks used for the win rate: HellaSwag, ARC, Winogrande, Commons
 SmolLM3 achieves first or second place on knowledge and reasoning benchmarks (HellaSwag, ARC, BoolQ), demonstrating strong performance in these core capabilities. Math and coding performance is competitive within the 3B class. Long-context performance on Ruler 64k shows the model can handle extended sequences effectively.
 
 <p align="center">
- <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/smollm3/image%20(29).png" alt=""  style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/smollm3/image%20(33).png" alt=""  style="width: 90%; height: auto;"><br>
 </p>
 
 The model demonstrates strong multilingual performance across five major European languages when evaluated on multilingual benchmarks including Global MMLU, MLMM HellaSwag, Flores-200, Belebele, testing knowledge, commonsense reasoning, text understanding, and translation. This shows SmolLM3 maintains consistent performance beyond English.
