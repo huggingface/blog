@@ -5703,7 +5703,7 @@
   author: mingyuliutw
   guest: true
   org: nvidia
-  thumbnail: /blog/assets/nvidia-physical-ai/thumbnail.png  
+  thumbnail: /blog/assets/nvidia-physical-ai/thumbnail.png
   date: March 18, 2025
   tags:
     - robotics
@@ -5733,20 +5733,20 @@
     - reasoning
     - local
 
-- local: endpoint-analytics 
+- local: endpoint-analytics
   title: "The New and Fresh analytics in Inference Endpoints"
   author: erikkaum
-  thumbnail: /blog/assets/endpoint-analytics/thumbnail.png  
+  thumbnail: /blog/assets/endpoint-analytics/thumbnail.png
   date: March 21, 2025
   tags:
     - guide
     - cloud
     - inference
-    
-- local: gradio-dataframe-upgrade 
+
+- local: gradio-dataframe-upgrade
   title: "Introducing Gradio's new Dataframe!"
   author: hmb
-  thumbnail: /blog/assets/gradio-dataframe-update/thumbnail.png  
+  thumbnail: /blog/assets/gradio-dataframe-update/thumbnail.png
   date: March 24, 2025
   tags:
     - gradio
@@ -5778,7 +5778,7 @@
     - partnerships
 
 - local: scaling-secrets-management
-  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"  
+  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"
   thumbnail: /blog/assets/infisical/thumbnail.png
   author: segudev
   guest: true
@@ -5883,17 +5883,17 @@
   thumbnail: /blog/assets/inference-providers-cohere/thumbnail.png
   date: April 16, 2025
   tags:
-   - llms
-   - inference-providers
-   - cohere
-   - enterprise
-   - partnerships
-   - hub
+    - llms
+    - inference-providers
+    - cohere
+    - enterprise
+    - partnerships
+    - hub
 
-- local: why-gradio-stands-out 
+- local: why-gradio-stands-out
   title: "17 Reasons Why Gradio Isn't Just Another UI Library"
   author: ysharma
-  thumbnail: /blog/assets/why-gradio-stands-out/thumbnail.png  
+  thumbnail: /blog/assets/why-gradio-stands-out/thumbnail.png
   date: April 16, 2025
   tags:
     - gradio
@@ -5908,12 +5908,12 @@
   thumbnail: /blog/assets/autoround/thumbnail.png
   date: April 29, 2025
   tags:
-   - llms
-   - inference
-   - quantization
-   - intel
+    - llms
+    - inference
+    - quantization
+    - intel
 
-- local: tiny-agents 
+- local: tiny-agents
   title: "Tiny Agents: a MCP-powered agent in 50 lines of code"
   author: julien-c
   thumbnail: /blog/assets/tiny-agents/thumbnail.jpg
@@ -5932,19 +5932,19 @@
     - qwen
     - chat-template
     - llms
-    
+
 - local: llama-guard-4
   title: "Welcoming Llama Guard 4 on Hugging Face Hub"
   author: merve
   thumbnail: /blog/assets/llama-guard-4/thumbnail.png
   date: April 29, 2025
   tags:
-   - llama
-   - llm
-   - vision
-   - vlm
+    - llama
+    - llm
+    - vision
+    - vlm
 
-- local: gradio-mcp 
+- local: gradio-mcp
   title: "How to Build an MCP Server with Gradio"
   author: abidlabs
   thumbnail: /blog/assets/gradio-mcp/thumbnail.png
@@ -5953,7 +5953,7 @@
     - gradio
     - tool
     - llm
-    
+
 - local: lerobot-datasets
   title: "LeRobot Community Datasets: The “ImageNet” of Robotics — When and How?"
   author: danaaubakirova
@@ -6044,7 +6044,7 @@
     - quantization
     - flux
 
-- local: python-tiny-agents 
+- local: python-tiny-agents
   title: "Tiny Agents in Python: a MCP-powered agent in ~70 lines of code"
   author: celinah
   thumbnail: /blog/assets/python-tiny-agents/thumbnail.png
@@ -6151,20 +6151,20 @@
     - training
     - partnerships
     - announcement
-  
+
 - local: inference-providers-featherless
   title: "Featherless AI on Hugging Face Inference Providers 🔥"
   author: sbrandeis
   thumbnail: /blog/assets/inference-providers/welcome-featherless.jpg
   date: Jun 12, 2025
   tags:
-   - llms
-   - inference-providers
-   - featherless
-   - recursal
-   - enterprise
-   - partnerships
-   - hub
+    - llms
+    - inference-providers
+    - featherless
+    - recursal
+    - enterprise
+    - partnerships
+    - hub
 
 - local: hello-hf-kernels
   title: "Enhance Your Models in 5 Minutes with the Hugging Face Kernel Hub"
@@ -6178,19 +6178,18 @@
     - open-source
     - performance
 
-
 - local: inference-providers-groq
   title: "Groq on Hugging Face Inference Providers 🔥"
   author: sbrandeis
   thumbnail: /blog/assets/inference-providers/welcome-groq.jpg
   date: Jun 16, 2025
   tags:
-   - llms
-   - inference-providers
-   - groq
-   - enterprise
-   - partnerships
-   - hub
+    - llms
+    - inference-providers
+    - groq
+    - enterprise
+    - partnerships
+    - hub
 
 - local: flux-qlora
   title: "(LoRA) Fine-Tuning FLUX.1-dev on Consumer Hardware"
@@ -6240,6 +6239,40 @@
     - community
     - open-source
 
+- local: mmdp
+  title: "Efficient MultiModal Data Pipeline"
+  author: ariG23498
+  thumbnail: /blog/assets/mmdp/thumbnail.png
+  date: Jul 8, 2025
+  tags:
+    - vlm
+    - data
+    - nanovlm
+    - research
+    - community
+    - open
+
+- local: infrastructure-alerting
+  title: "Three Mighty Alerts Supporting Hugging Face’s Production Infrastructure"
+  author: jcudit
+  thumbnail: /blog/assets/infrastructure-alerting/thumbnail.jpg
+  date: July 8, 2025
+  tags:
+    - cloud
+    - infrastructure
+
+- local: smollm3
+  title: "SmolLM3: smol, multilingual, long-context reasoner"
+  author: loubnabnl
+  thumbnail: /blog/assets/smollm3/image.png
+  date: July 8, 2025
+  tags:
+    - llm
+    - nlp
+    - reasoning
+    - community
+    - research
+    
 - local: gradio-mcp-servers
   title: "Upskill your LLMs with Gradio MCP Servers"
   author: freddyaboulton
