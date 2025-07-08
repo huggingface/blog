@@ -190,5 +190,3 @@ One standout example of a VLM leveraging the SigLIP family of vision encoders is
 We would like to thank [Michael Tschannen](https://huggingface.co/mitsch) (first author of SigLIP 2), [Vaibhav Srivastav](https://huggingface.co/reach-vb) and [Sayak Paul](https://huggingface.co/sayakpaul) for feedback on this blog post. A huge shout out to the Google team for releasing this amazing, and open, model family.
 
 In no particular order we would like to thank [Pavel](https://huggingface.co/qubvel-hf), [Ross](https://huggingface.co/rwightman), [Pablo](https://huggingface.co/Molbap), [Pedro](https://huggingface.co/pcuenq), [Lysandre](https://huggingface.co/lysandre) and the rest of the Hugging Face team for their immense support and contribution towards this project.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/JvdBJZ-qR18?si=JSYn_sSwdVKQnCRO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
