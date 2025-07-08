@@ -22,7 +22,7 @@ authors:
 - user: lewtun
 - user: loubnabnl
 - user: lvwerra
-- user: thom
+- user: thomwolf
 ---
 
 # SmolLM3: smol, multilingual, long-context reasoner
