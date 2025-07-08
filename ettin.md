@@ -50,6 +50,11 @@ Named after the two-headed Norse giant, Ettin provides a **controlled comparison
 ## Training Recipe: Modern Techniques for Both Architectures
 We build on the ModernBERT recipe which used modern decoder-only techniques, providing a strong base for training both architectures.
 
+### Sizes
+We train six different sizes, ranging from 17m to 1B. This allows us to test the effects of scale and provides a wide variety of models so you can use whether you need a blazing fast on-device model or a powerful but slower model.
+
+![Sizes of Ettin models](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/sizes.jpg?raw=true)
+
 ### Three-Phase Training Process
 
 We use a comprehensive three-phase training approach to maximize performance:
