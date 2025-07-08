@@ -2,8 +2,27 @@
 title: "SmolLM3: smol, multilingual, long-context reasoner" 
 thumbnail: /blog/assets/smollm3/image.png
 authors:
+- user: eliebak
+- user: cmpatino
+- user: anton-l
+- user: edbeeching
+- user: m-ric
+- user: nouamanetazi
+- user: akseljoonas
+- user: guipenedo
+- user: hynky
+- user: clefourrier
+- user: SaylorTwift
+- user: hlarcher
+- user: glutamatt
+- user: Xenova
+- user: reach-vb
+- user: ngxson
+- user: craffel
+- user: lewtun
 - user: loubnabnl
-- eliebak, cmpatino, anton-l, edbeeching, m-ric, nouamanetazi, akseljoonas, guipenedo, hynky, clefourrier, SaylorTwift, hlarcher, glutamatt, Xenova, reach-vb, ngxson, craffel, lewtun, loubnabnl, lvwerra, thom
+- user: lvwerra
+- user: thom
 ---
 
 # SmolLM3: smol, multilingual, long-context reasoner
