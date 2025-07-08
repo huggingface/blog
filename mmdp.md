@@ -234,7 +234,7 @@ Look at that! The gray (padding) is minimal, and the batches are dense with usef
 
 The image might seem unintuive at the first glance, but let us look at the image side by side with constrained padding.
 
-| Knapcak | Constrained |
+| Knapsack | Constrained |
 | :--: | :--: |
 | ![Knapsack Padding](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mmdp/05.png) | ![Constrained Padding](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mmdp/03.png) |
 
