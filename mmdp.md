@@ -6,6 +6,7 @@ authors:
 - user: lusxvr
 - user: andito
 - user: sergiopaniego
+- user: pcuenq
 ---
 
 # Efficient MultiModal Data Pipeline in nanoVLM
@@ -19,10 +20,10 @@ Here's what we found:
 1. **Idle GPUs**: Our model was literally waiting around for data to show up
 2. **Padding hell**: Every batch was stuffed with useless padding tokens that contributed nothing to training
 
-In this post we build an efficient pipeline in **five stages**. In each stage we add or remove from the previous step and comment on what went right and did not.
+In this post we build an efficient pipeline in **five stages**. In each stage we add or remove from the previous step and comment on what went right and what did not.
 
 Table of Contents:
-- [Stage 0: Pre Requisites](#stage-0-pre-requisites)
+- [Stage 0: Pre Requisites](#stage-0-preparation)
 - [Stage 1: Visualising the Dataset](#stage-1-visualising-the-dataset)
 - [Stage 2: Naive Padding](#stage-2-naive-padding)
 - [Stage 3: Constrained Padding](#stage-3-constrained-padding)
@@ -31,21 +32,21 @@ Table of Contents:
 - [Conclusion](#conclusion)
 
 
-## [Stage 0] Pre Requisites
+## [Stage 0] Preparation
 
-We realise that it might be difficult for the reader to map each section with the code in the nanoVLM repository. To address this, we have created a separate repository that aims only at the data pipeline.
+To make it easier to follow the data preparation tasks, we created a separate repo laser-focused on the data pipeline only. We hope this will be much easier to understand that reading the code once integrated with the nanoVLM repository. In addition, this could be useful to bootstrap other data pipelines!
 
 Repository: [https://github.com/ariG23498/mmdp](https://github.com/ariG23498/mmdp)
 
-To follow along, all you need to do is clone the repository:
+To follow along, all you need to do is clone the repository. It contains the final data preparation tasks, but it's designed to showcase each step of the way.
 
 ```bash
-$ git clone [https://github.com/ariG23498/mmdp.git](https://github.com/ariG23498/mmdp.git)
+$ git clone https://github.com/ariG23498/mmdp.git
 ```
 
 ## [Stage 1] Visualising the Dataset
 
-Before optimizing anything, we needed to understand what we were working with. Our multimodal dataset has images, text prompts, and responses.
+Before optimizing anything, we need to understand what we are working with. Our multimodal dataset has images, text prompts, and responses.
 
 ```bash
 $ uv run 01_check_dataset.py
@@ -53,11 +54,11 @@ $ uv run 01_check_dataset.py
 
 ![Dataset Sample](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mmdp/01.png)
 
-Nothing fancy here, just getting familiar with our data structure.
+Getting familiar with your training data is crucial for success. The previous script shows a random sample each time you run it; you may want to copy the snippet to a notebook and run it multiple times to get a feeling about the data.
 
 ## [Stage 2] Naive Padding
 
-Our first attempt was the obvious one:
+Our first training attempt used the obvious (and very frequent) approach:
 - Tokenize everything
 - Find the longest sequence in each batch  
 - Pad everything else to match
@@ -82,7 +83,7 @@ This helped, but we were still padding everything to the same fixed length regar
 
 ## [Stage 4]: Packing Smarter with Knapsacks
 
-Now we’re ready to rethink batching entirely. Padding is the enemy, and we need a strategy to minimize it while maximizing how much data we can fit into each batch. Enter the **knapsack problem**, a classic from computer science that’s perfect for this.
+Now we’re ready to rethink batching entirely. Padding is the enemy, and we need a strategy to minimize it while maximizing how much data we can fit into each batch. Enter the [**knapsack problem**](https://en.wikipedia.org/wiki/Knapsack_problem), a classic from computer science that’s perfect for this.
 
 Imagine you’re packing a backpack for a hike. It can only hold so much weight, and you want to cram in as many useful items as possible. In our case:
 
@@ -99,16 +100,35 @@ Most PyTorch datasets are *map-style* (you access them with `dataset[i]`). But f
 ```python
 def _get_data_range(self):
     worker_info = get_worker_info()
-    # Logic to split data range across workers
+    if worker_info is None:  # single worker, return the entire dataset
+        return self.start, self.end
+    else:  # multiple workers, split the data load
+        per_worker = int(
+            math.ceil((self.end - self.start) / worker_info.num_workers)
+        )
+        worker_id = worker_info.id
+        iter_start = self.start + worker_id * per_worker
+        iter_end = min(iter_start + per_worker, self.end)
+        return iter_start, iter_end
 ```
 
 ### Producer-Consumer Magic
 
-Packing sequences can be slow, especially if we’re sorting or shuffling. To keep things moving, we use a **producer-consumer** pattern:
+Packing sequences can be slow, especially if we’re sorting or shuffling. To keep things moving, we use a **producer-consumer** pattern using [Python queues](https://docs.python.org/3/library/queue.html):
 
 ```python
 def _producer(self, data_iter, queue, stop_signal):
-    # Compute batches and fill queue
+    if self.strategy == "greedy":
+        for pack in self._greedy_packing(data_iter):
+            queue.put(pack)
+    elif self.strategy == "binpack":
+        while True:
+            buffer = list(itertools.islice(data_iter, self.buffer_size))
+            if not buffer:
+                break
+            knapsacks = self._bin_packing(buffer)
+            for pack in knapsacks:
+                queue.put(pack)
     queue.put(stop_signal)
 ```
 
@@ -164,7 +184,7 @@ def _bin_packing(self, buffer: List[int]):
             knapsacks.append([item])
 ```
 
-This sorts sequences by length (biggest first) and tries to fit each one into the first pack that has room. If none fit, it starts a new pack. The result?
+This sorts sequences by length (longest first) and tries to fit each one into the first pack that has room. If none fits, it starts a new pack. The result?
 
 ```bash
 === Strategy: BINPACK ===
@@ -181,7 +201,7 @@ Now for the real deal, applying knapsack packing to our *multimodal* dataset.
 
 We’re back to images, prompts, and responses, and we need to pack them efficiently while respecting both token limits *and* image budgets (since GPUs can only handle so many images per batch).
 
-Our new [`ConstantLengthDataset`](https://github.com/ariG23498/mmdp/blob/98ffaa03a5df82b7ebeef2d75270059d64d85663/src/mmdp/advanced_torch_datasets.py#L13) class handles the heavy lifting. Here’s how it works, compared to Stage 4:
+Our new [`ConstantLengthDataset`](https://github.com/ariG23498/mmdp/blob/main/src/mmdp/advanced_torch_datasets.py#L13) class handles the heavy lifting. Here’s how it works, compared to Stage 4:
 
 | Concept | Stage 4 (Toy Data) | Stage 5 (Multimodal Data) | Function(s) |
 |---------|--------------------|---------------------------|-------------|
@@ -211,8 +231,10 @@ Look at that! The gray (padding) is minimal, and the batches are dense with usef
 
 What started as a simple "why is training so slow?" investigation led to a complete rethink of how we handle multimodal data.
 
+The balanced knapsack strategy for data pipeline comes from the [Eagle 2: Building Post-Training Data Strategies from Scratch for Frontier Vision-Language Models](https://arxiv.org/abs/2501.14818) paper from NVIDIA.
+
 **The key lessons:**
-- Don't pad everything to the longest sequence (that's wasteful)
+- Padding everything to the longest sequences is a good first approach (but wasteful)
 - Think of batching as a packing problem
 - Consider all your constraints (text length, image memory, etc.)
 - Test with toy data first to validate your approach
