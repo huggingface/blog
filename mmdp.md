@@ -1,5 +1,5 @@
 ---
-title: "Efficient MultiModal Data Pipeline in nanoVLM" 
+title: "Efficient MultiModal Data Pipeline" 
 thumbnail: /blog/assets/mmdp/thumbnail.png
 authors:
 - user: ariG23498
@@ -9,7 +9,7 @@ authors:
 - user: pcuenq
 ---
 
-# Efficient MultiModal Data Pipeline in nanoVLM
+# Efficient MultiModal Data Pipeline
 
 You've got everything ready - data, model, a beefy GPU setup. You hit "run" and... wait. And wait some more. Your GPUs are barely breaking a sweat while your wallet's getting lighter by the hour.
 
@@ -203,7 +203,7 @@ These batches are *much* tighter, with less wasted space. It’s like playing Te
 
 Now for the real deal, applying knapsack packing to our *multimodal* dataset.
 
-We’re back to images, prompts, and responses, and we need to pack them efficiently while respecting both token limits *and* image budgets (since GPUs can only handle so many images per batch).
+We’re back to images, prompts, and responses, and we need to pack them efficiently while respecting both token limits *and* image budgets. Image budgeting is done so that images per sample are balanced. We would like to avoid the case where one GPU needs to process way more images than another.
 
 Our new [`ConstantLengthDataset`](https://github.com/ariG23498/mmdp/blob/main/src/mmdp/advanced_torch_datasets.py#L13) class handles the heavy lifting. Here’s how it works, compared to Stage 4:
 

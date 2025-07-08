@@ -6241,7 +6241,7 @@
     - open-source
 
 - local: mmdp
-  title: "Efficient MultiModal Data Pipeline in nanoVLM"
+  title: "Efficient MultiModal Data Pipeline"
   author: ariG23498
   thumbnail: /blog/assets/mmdp/thumbnail.png
   date: Jul 8, 2025
