@@ -100,7 +100,7 @@ Here is an example of the Connection Dashboard running in "Server Push" Streamab
 
 For production, we decided to launch our MCP Server with Streamable HTTP in a stateless, Direct Response configuration for the following reasons:
 
-**Stateless** For anonymous Users we use the a standard set of Tools for using the Hub as well as an Image Generator. For authenticated Users our state comprises their [selected tools](https://huggingface.co/settings/mcp) and chosen Gradio endpoints. We also make sure that ZeroGPU quota is correctly applied for the account. This is managed using the supplied `HF_TOKEN` or OAuth credentials that we can lookup on request. None of our existing Tools require us to maintain any other state between requests.
+**Stateless** For anonymous users we use a standard set of Tools for using the Hub, as well as an Image Generator. For authenticated users our state comprises their [selected tools](https://huggingface.co/settings/mcp) and chosen Gradio endpoints. We also make sure that ZeroGPU quota is correctly applied for the account. This is managed using the supplied `HF_TOKEN` or OAuth credentials that we can look up on request. None of our existing tools require us to maintain any other state between requests.
 
 > [!TIP]
 > You can use OAuth login by adding `?login` to the MCP Server url - e.g. `https://huggingface.co/mcp?login`. This may become the default once `claude.ai` remote integration supports the latest OAuth spec.
