@@ -15,7 +15,7 @@ Tiny price, small size, huge possibilities. Code, learn, share with AI builders 
 
 | <center><a href="https://buy.stripe.com/6oUfZj78P1a5e6b0FS73G02" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the lite version</a></center> | <center><a href="https://buy.stripe.com/9B65kFfFlaKFbY34W873G03" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the wireless version</a></center> |
 | :--: | :--: |
-| $299 (+ shipping) | $449 (+ shipping) |
+| $299 (+ taxes + shipping) | $449 (+ taxes + shipping) |
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/JvdBJZ-qR18?si=JSYn_sSwdVKQnCRO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -44,7 +44,7 @@ Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximatel
 | Full body rotation         | <center>✔️</center>                                     | <center>✔️</center>                                     |
 | 2 animated antennas        | <center>✔️</center>                                     | <center>✔️</center>                                     |
 | Delivery                   | <center>Starting late summer 2025</center>                      | <center>Rolling out in batches<br>from fall 2025 through 2026</center>                |
-| Price                      | <center>$299 (+ shipping)</center>                  | <center>$449 (+ shipping)</center>                  |
+| Price                      | <center>$299 (+ taxes + shipping)</center>                  | <center>$449 (+ taxes + shipping)</center>                  |
 |                            | <center><a href="https://buy.stripe.com/6oUfZj78P1a5e6b0FS73G02" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the lite version</a></center> | <center><a href="https://buy.stripe.com/9B65kFfFlaKFbY34W873G03" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the wireless version</a></center> |
 
 
@@ -81,4 +81,4 @@ Made with ❤️ by Pollen Robotics and Hugging Face.
 
 | <center><a href="https://buy.stripe.com/6oUfZj78P1a5e6b0FS73G02" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the lite version</a></center> | <center><a href="https://buy.stripe.com/9B65kFfFlaKFbY34W873G03" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the wireless version</a></center> |
 | :--: | :--: |
-| $299 (+ shipping) | $449 (+ shipping) |
+| $299 (+ taxes + shipping) | $449 (+ taxes + shipping) |
