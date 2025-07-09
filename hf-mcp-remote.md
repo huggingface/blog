@@ -122,7 +122,7 @@ Unless you have reasonable control over the Client/Server pair, using **Server P
 
 #### URL User Experience
 
-Just before launch, @Julien-C submitted a PR to include friendly instructions for users that visiting `hf.co/mcp`. This hugely improves the User Experience - the default response is otherwise an unfriendly bit of JSON. 
+Just before launch, [`@julien-c`](https://huggingface.co/julien-c) submitted a PR to include friendly instructions for users visiting `hf.co/mcp`. This hugely improves the User Experience - the default response is otherwise an unfriendly bit of JSON.
 
 Initially, we found this generated an enormous amount of traffic. After a bit of investigation we found that when returning a web page rather than an HTTP 405 error, VSCode would poll the endpoint multiple times per second! 
 
