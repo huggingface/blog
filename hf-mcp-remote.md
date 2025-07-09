@@ -17,24 +17,24 @@ authors:
 
 The Model Context Protocol (MCP) is fulfilling its promise of being the standard to connect AI Assistants to the outside world. 
 
-At Hugging Face, providing access to the Hub via MCP is an obvious choice, and this article shares some of our experience developing the `hf.co/mcp` MCP Server.
+At Hugging Face, providing access to the Hub via MCP is an obvious choice, and this article shares our experience developing the `hf.co/mcp` MCP Server.
 
 ## Design Choices
 
-The community uses the Hub for a wide range of tasks including Research, Development, Content Creation and more. We wanted to let people customise the Server for their own needs as well as easily access 1000s of AI Applications available on Spaces. This meant making the MCP Server dynamic - adjusting the Tools offered for each User on the fly.
+The community uses the Hub for research, development, content creation and more. We wanted to let people customize the server for their own needs, as well as easily access 1000s of AI applications available on Spaces. This meant making the MCP Server dynamic by adjusting users' tools on the fly.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hf-mcp-remote/hf-mcp-settings.png" alt="The Hugging Face MCP Settings Page">
   <figcaption>The <a href="https://huggingface.co/settings/mcp">Hugging Face MCP Settings Page</a> where Users can configure their tools.</figcaption>
 </figure>
 
-We also wanted to make access simple - avoiding complicated downloads and configuration - so making it remotely accessible via a simple URL was a must.
+We also wanted to make access simple by avoiding complicated downloads and configuration, so making it remotely accessible via a simple URL was a must.
 
 ## Remote Servers
 
 When building a remote MCP Server, the first decision is deciding how Clients will connect to it.  MCP offers several transport options, with different trade-offs.
 
-Since its launch in November 2024, MCP has undergone rapid evolution with 3 protocol revisions in 9 months. This has seen the replacement of the SSE Transport with Streamable HTTP, as well as the introduction, then rework of Authorization.
+Since its launch in November 2024, MCP has undergone rapid evolution with 3 protocol revisions in 9 months. This has seen the replacement of the SSE Transport with Streamable HTTP, as well as the introduction and rework of authorization.
 
 These rapid changes mean support for different MCP Features and revisions in Client applications varies, providing extra challenges for our design choices.
 
@@ -81,7 +81,7 @@ An additional factor to consider is whether or not the MCP Server itself needs t
   <figcaption>The Hugging Face MCP Server Connection Dashboard.</figcaption>
 </figure>
 
-Here is a summary of MCP Features require which communication patterns:
+Here is an overview of MCP Features required by communication patterns:
 
 | MCP Feature             | Server Push                  | Request Scoped                         | Direct Response |
 | -------------------------- | ---------------------------- | -------------------------------------- | -------- |
@@ -102,9 +102,9 @@ For production, we decided to launch our MCP Server with Streamable HTTP in a st
 > [!TIP]
 > You can use OAuth login by adding `?login` to the MCP Server url - e.g. `https://huggingface.co/mcp?login`. This may become the default once `claude.ai` remote integration supports the latest OAuth spec.
 
-**Direct Response** This provides the lowest deployment resource overhead - and we don't currently have any Tools that require Sampling or Elicitation during execution.
+**Direct Response** This provides the lowest deployment resource overhead and we don't currently have any Tools that require Sampling or Elicitation during execution.
 
-**Future Support** At launch, the "HTTP with SSE" transport was still the remote default in a lot of MCP Clients - however we didn't want to invest heavily in managing it due to it's imminent deprecation. Fortunately popular clients had already started making the switch (VSCode and Cursor), and within a week of launch `claude.ai` also added support. If you need to connect with SSE, feel free to deploy a copy of our Server on a [FreeCPU Hugging Face Space](https://huggingface.co/new-space).
+**Future Support** At launch, the "HTTP with SSE" transport was still the remote default in a lot of MCP Clients. However we didn't want to invest heavily in managing it due to it's imminent deprecation. Fortunately popular clients had already started making the switch (VSCode and Cursor), and within a week of launch `claude.ai` also added support. If you need to connect with SSE, feel free to deploy a copy of our Server on a [FreeCPU Hugging Face Space](https://huggingface.co/new-space).
 
 One thing we would like to support are real-time Tool List Changed notifications when people update their settings on the Hub - however this raises a couple of practical issues. 
 
