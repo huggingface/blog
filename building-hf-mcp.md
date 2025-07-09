@@ -32,7 +32,7 @@ We also wanted to make access simple by avoiding complicated downloads and confi
 
 ## Remote Servers
 
-When building a remote MCP Server, the first decision is deciding how Clients will connect to it.  MCP offers several transport options, with different trade-offs.
+When building a remote MCP Server, the first decision is deciding how clients will connect to it. MCP offers several transport options, with different trade-offs. TL;DR: our open source code supports all variants, but for production we chose to go with the most modern one. This section goes through the different options in detail.
 
 Since its launch in November 2024, MCP has undergone rapid evolution with 3 protocol revisions in 9 months. This has seen the replacement of the SSE Transport with Streamable HTTP, as well as the introduction and rework of authorization.
 
@@ -42,7 +42,7 @@ Here is a brief summary of the Transport Options offered by the Model Context Pr
 
 | Transport         | Notes                                                                                                                                        |
 | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `STDIO`           | Typically used when the MCP Server is running on the same computer as the Client. Able to access to local resources such as files if needed. |
+| `STDIO`           | Typically used when the MCP Server is running on the same computer as the Client. Able to access local resources such as files if needed. |
 | `HTTP with SSE`   | Used for remote connections over HTTP. Deprecated in the 2025-03-26 version of MCP but still in use.                                     |
 | `Streamable HTTP` | A more flexible remote HTTP transport that provides more options for deployment than the outgoing SSE version                                |
 
