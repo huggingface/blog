@@ -23,6 +23,11 @@ At Hugging Face, providing access to the Hub via MCP is an obvious choice, and t
 
 The community uses the Hub for a wide range of tasks including Research, Development, Content Creation and more. We wanted to let people customise the Server for their own needs as well as easily access 1000s of AI Applications available on Spaces. This meant making the MCP Server dynamic - adjusting the Tools offered for each User on the fly.
 
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hf-mcp-remote/hf-mcp-settings.png" alt="The Hugging Face MCP Settings Page">
+  <figcaption>The <a href="https://huggingface.co/settings/mcp">Hugging Face MCP Settings Page</a> where Users can configure their tools.</figcaption>
+</figure>
+
 We also wanted to make access simple - avoiding complicated downloads and configuration - so making it remotely accessible via a simple URL was a must.
 
 ## Remote Servers
@@ -71,7 +76,10 @@ An additional factor to consider is whether or not the MCP Server itself needs t
 > [!TIP]
 > The [Hugging Face MCP Server](https://github.com/evalstate/hf-mcp-server) is Open Source - and supports STDIO, SSE and Streamable HTTP deployment in both Direct Response and Server Push mode. You can configure keep-alive and last activity timeouts when using Server Push Streams. There's also a built in observability dashboard that you can use to understand how different Clients manage connections, and handle Tool List change notifications.
 
-> SCREENSHOT Show connection dashboard here
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hf-mcp-remote/hf-mcp-connections.png" alt="The Hugging Face MCP Server Connection Dashboard">
+  <figcaption>The Hugging Face MCP Server Connection Dashboard.</figcaption>
+</figure>
 
 Here is a summary of MCP Features require which communication patterns:
 
