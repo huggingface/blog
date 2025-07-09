@@ -6297,7 +6297,7 @@
   title: "Creating custom kernels for the AMD MI300" 
   author: ror
   thumbnail: /blog/assets/mi300kernels/thumbnail.png
-  date: Jul 4, 2025
+  date: Jul 9, 2025
   tags:
     - kernels
     - cuda
