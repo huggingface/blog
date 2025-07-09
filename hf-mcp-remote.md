@@ -107,7 +107,7 @@ For production, we decided to launch our MCP Server with Streamable HTTP in a st
 
 **Direct Response** This provides the lowest deployment resource overhead and we don't currently have any Tools that require Sampling or Elicitation during execution.
 
-**Future Support** At launch, the "HTTP with SSE" transport was still the remote default in a lot of MCP Clients. However we didn't want to invest heavily in managing it due to it's imminent deprecation. Fortunately popular clients had already started making the switch (VSCode and Cursor), and within a week of launch `claude.ai` also added support. If you need to connect with SSE, feel free to deploy a copy of our Server on a [FreeCPU Hugging Face Space](https://huggingface.co/new-space).
+**Future Support** At launch, the "HTTP with SSE" transport was still the remote default in a lot of MCP Clients. However, we didn't want to invest heavily in managing it due to its imminent deprecation. Fortunately, popular clients had already started making the switch (VSCode and Cursor), and within a week of launch `claude.ai` also added support. If you need to connect with SSE, feel free to deploy a copy of our Server on a [FreeCPU Hugging Face Space](https://huggingface.co/new-space).
 
 #### Tool List Change Notifications
 
