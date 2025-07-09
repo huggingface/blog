@@ -29,7 +29,7 @@ We also wanted to make access simple by avoiding complicated downloads and confi
 
 When building a remote MCP Server, the first decision is deciding how Clients will connect to it.  MCP offers several transport options, with different trade-offs.
 
-Since its launch in November 2024, MCP has undergone rapid evolution with 3 protocol revisions in 9 months. This has seen the replacement of the SSE Transport with Streamable HTTP, as well as the introduction, then rework of Authorization.
+Since its launch in November 2024, MCP has undergone rapid evolution with 3 protocol revisions in 9 months. This has seen the replacement of the SSE Transport with Streamable HTTP, as well as the introduction and rework of authorization.
 
 These rapid changes mean support for different MCP Features and revisions in Client applications varies, providing extra challenges for our design choices.
 
