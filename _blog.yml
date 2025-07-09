@@ -6282,3 +6282,13 @@
     - gradio
     - mcp
     - llm
+
+- local: reachy-mini
+  title: "Reachy Mini - The Open-Source Robot for AI Builders"
+  author: thomwolf
+  thumbnail: /blog/assets/reachy-mini/thumbnail.jpg
+  date: July 9, 2025
+  tags:
+    - robotics
+    - community
+    - open-source
