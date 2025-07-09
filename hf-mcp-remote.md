@@ -73,7 +73,7 @@ An additional factor to consider is whether or not the MCP Server itself needs t
 
 > SCREENSHOT Show connection dashboard here
 
-Here is a summary of MCP Features require which communication patterns:
+Here is an overview of MCP Features required by communication patterns:
 
 | MCP Feature             | Server Push                  | Request Scoped                         | Direct Response |
 | -------------------------- | ---------------------------- | -------------------------------------- | -------- |
