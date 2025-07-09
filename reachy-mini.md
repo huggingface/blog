@@ -55,7 +55,7 @@ Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximatel
   <li><b>Compact & Affordable</b>: Desktop-sized and starting from $299, ideal for creative prototyping, education and research.</li>
   <li><b>Plug & Play Behaviors</b>: A set of 15+ robot behaviors is provided at launch on the Hugging Face hub so you can play and learn right out of the box.</li>
   <li><b>Grow with the Community</b>: With easy uploading, sharing, and downloading of new robot behaviors, the possibilities grow exponentially with Reachy-Mini community.</li>
-  <li><b>Programmable in real-life & simulation</b>: Intuitive and accessible coding using the open-source Python SDK (and soon more langages support). With the simulation SDK, you can even test and develop projects before receiving the robot.</li>
+  <li><b>Programmable in real-life & simulation</b>: Intuitive and accessible coding using the open-source Python SDK (and soon support for more languages). With the simulation SDK, you can even test and develop projects before receiving the robot.</li>
 </li>
 </ul>
 
@@ -77,7 +77,7 @@ Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximatel
 
 Made with ❤️ by Pollen Robotics and Hugging Face.
 
-🤗 <b>Join the Reachy Mini Community on <a href="https://discord.com/channels/519098054377340948/1377671369893875783" target="_blank">Discord</a></b>.  
+🤗 <b>Join the Reachy Mini Community on <a href="https://discord.gg/HDrGY9eJHt" target="_blank">Discord</a></b>.  
 
 | <center><a href="https://buy.stripe.com/6oUfZj78P1a5e6b0FS73G02" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the lite version</a></center> | <center><a href="https://buy.stripe.com/9B65kFfFlaKFbY34W873G03" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the wireless version</a></center> |
 | :--: | :--: |
