@@ -76,7 +76,7 @@ Warps also allow for different threads to exchange information coming from their
 
 ### Compute units
 
-Warps are bundled together into **thread blocks**: thread blocks are a software abstractions, but run on a hardware component called a **compute unit (CU)**. A single compute unit can run multiple thread blocks at once, but it can only fit 16 warps. 
+Warps are bundled together into **thread blocks**: thread blocks are software abstractions, but run on a hardware component called a **compute unit (CU)**. A single compute unit can run multiple thread blocks at once, but it can only fit 16 warps. 
 Each compute unit has a dedicated L1 cache and shared memory. L1 cache cannot be controlled or allocated and helps with data reuse of all warps situated on the CU. Conversely, shared memory can be allocated and used as a storage shared by all warps. For instance, when we want all warps (and thus threads) in a compute unit to access the same buffer, we allocate it in shared memory. Both shared memory and L1 cache are fast to access because they are “close” to the threads.
 
 ![Representation of a compute unit](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mi300kernels/cu_global.png)
