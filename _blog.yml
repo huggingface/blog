@@ -6283,16 +6283,6 @@
     - mcp
     - llm
 
-- local: reachy-mini
-  title: "Reachy Mini - The Open-Source Robot for Today's and Tomorrow's AI Builders"
-  author: thomwolf
-  thumbnail: /blog/assets/reachy-mini/thumbnail.jpg
-  date: July 9, 2025
-  tags:
-    - robotics
-    - community
-    - open-source
-
 - local: mi300kernels
   title: "Creating custom kernels for the AMD MI300" 
   author: ror
@@ -6303,3 +6293,13 @@
     - cuda
     - amd
     - optimization
+
+- local: reachy-mini
+  title: "Reachy Mini - The Open-Source Robot for Today's and Tomorrow's AI Builders"
+  author: thomwolf
+  thumbnail: /blog/assets/reachy-mini/thumbnail.jpg
+  date: July 9, 2025
+  tags:
+    - robotics
+    - community
+    - open-source
