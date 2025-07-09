@@ -11,7 +11,7 @@ authors:
 # Building the Hugging Face MCP Server
 
 > [!TIP]
-> **tldr;** The Hugging Face Official MCP Server offers unique customization options for AI Assistants accessing the Hub, along with access to 1000's of AI applications through one simple URL. We used MCPs "Streamable HTTP" transport for deployment, and examine in detail the trade-offs that Server Developers have.
+> **tldr;** The Hugging Face Official MCP Server offers unique customization options for AI Assistants accessing the Hub, along with access to 1000's of AI applications through one simple URL. We used MCPs "Streamable HTTP" transport for deployment, and examine in detail the trade-offs that Server Developers have. In the past month we've learned many things about building a useful MCP server, we'll describe our journey here.
 
 ## Introduction
 
@@ -21,7 +21,7 @@ At Hugging Face, providing access to the Hub via MCP is an obvious choice, and t
 
 ## Design Choices
 
-The community uses the Hub for research, development, content creation and more. We wanted to let people customize the server for their own needs, as well as easily access 1000s of AI applications available on Spaces. This meant making the MCP Server dynamic by adjusting users' tools on the fly.
+The community uses the Hub for research, development, content creation and more. We wanted to let people customize the server for their own needs, as well as easily access thousands of AI applications available on Spaces. This meant making the MCP Server dynamic by adjusting users' tools on the fly.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hf-mcp-remote/hf-mcp-settings.png" alt="The Hugging Face MCP Settings Page">
@@ -48,10 +48,11 @@ Here is a brief summary of the Transport Options offered by the Model Context Pr
 
 Both `STDIO` and `HTTP with SSE` are fully bi-directional by default - meaning that Client and Server maintain an open connection and can send messages to each other at any time. 
 
-#### Understanding Streamable HTTP
 
 > [!TIP]
 > SSE refers to "Server Sent Events" - a way for HTTP Servers to maintain an open connection and send events in response to a request.
+
+#### Understanding Streamable HTTP
 
 MCP Server Developers face lots of choices when setting up the new Streamable HTTP transport.
 
@@ -59,7 +60,7 @@ With Streamable HTTP there are 3 main communication patterns to choose from:
 
 - **Direct Response** Simple Request/Response (like standard REST APIs). This is perfect for straightforward, stateless operations like simple searches.
 - **Request Scoped Streams** Temporary SSE Streams associated with a single Request. This is useful for sending [Progress Updates](https://modelcontextprotocol.io/specification/2025-06-18/basic/utilities/progress) if the Tool Call takes a long time - such as Video Generation. Alternatively the Server may need to request information from the User with an [Elicitation](https://modelcontextprotocol.io/specification/2025-06-18/client/elicitation), or conduct a Sampling request.
-- **Server Push Streams** Long-lived SSE connection supporting server-initiated messages. This enables Resource, Tool and Prompt List change notifications or ad-hoc Sampling and Elicitations. This connections needs extra management such as [keep-alive](https://modelcontextprotocol.io/specification/2025-06-18/basic/utilities/ping) and resumption mechanics on re-connection. 
+- **Server Push Streams** Long-lived SSE connection supporting server-initiated messages. This enables Resource, Tool and Prompt List change notifications or ad-hoc Sampling and Elicitations. These connections need extra management such as [keep-alive](https://modelcontextprotocol.io/specification/2025-06-18/basic/utilities/ping) and resumption mechanics on re-connection. 
 
 > [!TIP]
 > When using Request Scoped Streams with the official SDKs, use the `sendNotification()` and `sendRequest()` methods provided in the `RequestHandlerExtra` parameter (TypeScript) or set the `related_request_id` (Python) to send messages to the correct stream.
@@ -86,7 +87,7 @@ Here is an overview of MCP Features required by communication patterns:
 With Request Scoped streams, Sampling and Elicitation requests require a Stateful connection for response association.
 
 > [!TIP]
-> The [Hugging Face MCP Server](https://github.com/evalstate/hf-mcp-server) is Open Source - and supports STDIO, SSE and Streamable HTTP deployment in both Direct Response and Server Push mode. You can configure keep-alive and last activity timeouts when using Server Push Streams. There's also a built in observability dashboard that you can use to understand how different Clients manage connections, and handle Tool List change notifications.
+> The [Hugging Face MCP Server](https://github.com/evalstate/hf-mcp-server) is Open Source - and supports STDIO, SSE and Streamable HTTP deployment in both Direct Response and Server Push mode. You can configure keep-alive and last activity timeouts when using Server Push Streams. There's also a built-in observability dashboard that you can use to understand how different Clients manage connections, and handle Tool List change notifications.
 
 Here is an example of the Connection Dashboard running in "Server Push" Streamable HTTP mode:
 
@@ -100,14 +101,14 @@ Here is an example of the Connection Dashboard running in "Server Push" Streamab
 
 For production, we decided to launch our MCP Server with Streamable HTTP in a stateless, Direct Response configuration for the following reasons:
 
-**Stateless** For anonymous Users we use the a standard set of Tools for using the Hub as well as an Image Generator. For authenticated Users our state comprises their [selected tools](https://huggingface.co/settings/mcp) and chosen Gradio endpoints. We also make sure that ZeroGPU quota is correctly applied for the account. This is managed using the supplied `HF_TOKEN` or OAuth credentials that we can lookup on request. None of our existing Tools require us to maintain any other state between requests.
+**Stateless** For anonymous users we use a standard set of Tools for using the Hub, as well as an Image Generator. For authenticated users our state comprises their [selected tools](https://huggingface.co/settings/mcp) and chosen Gradio endpoints. We also make sure that ZeroGPU quota is correctly applied for the account. This is managed using the supplied `HF_TOKEN` or OAuth credentials that we can look up on request. None of our existing tools require us to maintain any other state between requests.
 
 > [!TIP]
 > You can use OAuth login by adding `?login` to the MCP Server url - e.g. `https://huggingface.co/mcp?login`. This may become the default once `claude.ai` remote integration supports the latest OAuth spec.
 
 **Direct Response** This provides the lowest deployment resource overhead and we don't currently have any Tools that require Sampling or Elicitation during execution.
 
-**Future Support** At launch, the "HTTP with SSE" transport was still the remote default in a lot of MCP Clients. However we didn't want to invest heavily in managing it due to it's imminent deprecation. Fortunately popular clients had already started making the switch (VSCode and Cursor), and within a week of launch `claude.ai` also added support. If you need to connect with SSE, feel free to deploy a copy of our Server on a [FreeCPU Hugging Face Space](https://huggingface.co/new-space).
+**Future Support** At launch, the "HTTP with SSE" transport was still the remote default in a lot of MCP Clients. However, we didn't want to invest heavily in managing it due to its imminent deprecation. Fortunately, popular clients had already started making the switch (VSCode and Cursor), and within a week of launch `claude.ai` also added support. If you need to connect with SSE, feel free to deploy a copy of our Server on a [FreeCPU Hugging Face Space](https://huggingface.co/new-space).
 
 #### Tool List Change Notifications
 
@@ -122,7 +123,7 @@ Unless you have reasonable control over the Client/Server pair, using **Server P
 
 #### URL User Experience
 
-Just before launch, @Julien-C submitted a PR to include friendly instructions for users that visiting `hf.co/mcp`. This hugely improves the User Experience - the default response is otherwise an unfriendly bit of JSON. 
+Just before launch, [`@julien-c`](https://huggingface.co/julien-c) submitted a PR to include friendly instructions for users visiting `hf.co/mcp`. This hugely improves the User Experience - the default response is otherwise an unfriendly bit of JSON.
 
 Initially, we found this generated an enormous amount of traffic. After a bit of investigation we found that when returning a web page rather than an HTTP 405 error, VSCode would poll the endpoint multiple times per second! 
 
