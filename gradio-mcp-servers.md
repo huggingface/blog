@@ -1,6 +1,6 @@
 ---
 title: "Upskill your LLMs With Gradio MCP Servers" 
-thumbnail: /blog/assets/upskill-llms-with-gradio-mcp-servers/UpskillThumbnail.png
+thumbnail: /blog/assets/upskill-llms-with-gradio-mcp/UpskillThumbnail.png
 authors:
 - user: freddyaboulton
 ---
