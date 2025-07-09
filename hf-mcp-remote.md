@@ -106,7 +106,9 @@ For production, we decided to launch our MCP Server with Streamable HTTP in a st
 
 **Future Support** At launch, the "HTTP with SSE" transport was still the remote default in a lot of MCP Clients. However we didn't want to invest heavily in managing it due to it's imminent deprecation. Fortunately popular clients had already started making the switch (VSCode and Cursor), and within a week of launch `claude.ai` also added support. If you need to connect with SSE, feel free to deploy a copy of our Server on a [FreeCPU Hugging Face Space](https://huggingface.co/new-space).
 
-One thing we would like to support are real-time Tool List Changed notifications when people update their settings on the Hub - however this raises a couple of practical issues. 
+#### Tool List Change Notifications
+
+In the future, we would like to support real-time Tool List Changed notifications when people update their settings on the Hub. However, this raises a couple of practical issues:
 
 First, users tend to configure their favourite MCP Servers in their Client and leave them enabled. This means that the Client will connect whilst the application is open. To send notifications this would mean maintaining as many open connections as there were currently active Clients - regardless of active usage - on the chance the User may change their tool configuration. 
 
@@ -114,7 +116,6 @@ Second, most MCP Servers and Clients disconnect after a period of inactivity, re
 
 Unless you have reasonable control over the Client/Server pair, using **Server Push Streams** adds a lot of complexity to a public deployment, when lower-resource solutions for refreshing the Tool List exist.
 
-### In Production Reflections
 
 #### URL User Experience
 
