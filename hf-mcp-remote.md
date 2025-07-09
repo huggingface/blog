@@ -11,7 +11,7 @@ authors:
 # Building the Hugging Face MCP Server
 
 > [!TIP]
-> **tldr;** The Hugging Face Official MCP Server offers unique customization options for AI Assistants accessing the Hub, along with access to 1000's of AI applications through one simple URL. We used MCPs "Streamable HTTP" transport for deployment, and examine in detail the trade-offs that Server Developers have.
+> **tldr;** The Hugging Face Official MCP Server offers unique customization options for AI Assistants accessing the Hub, along with access to 1000's of AI applications through one simple URL. We used MCPs "Streamable HTTP" transport for deployment, and examine in detail the trade-offs that Server Developers have. In the past month we've learned many things about building a useful MCP server, we'll describe our journey here.
 
 ## Introduction
 
