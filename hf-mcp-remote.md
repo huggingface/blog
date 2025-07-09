@@ -42,7 +42,7 @@ Here is a brief summary of the Transport Options offered by the Model Context Pr
 
 | Transport         | Notes                                                                                                                                        |
 | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `STDIO`           | Typically used when the MCP Server is running on the same computer as the Client. Able to access to local resources such as files if needed. |
+| `STDIO`           | Typically used when the MCP Server is running on the same computer as the Client. Able to access local resources such as files if needed. |
 | `HTTP with SSE`   | Used for remote connections over HTTP. Deprecated in the 2025-03-26 version of MCP but still in use.                                     |
 | `Streamable HTTP` | A more flexible remote HTTP transport that provides more options for deployment than the outgoing SSE version                                |
 
