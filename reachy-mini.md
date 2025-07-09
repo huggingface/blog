@@ -1,12 +1,14 @@
 ---
-title: "Reachy Mini - The Open-Source Robot for AI Builders" 
+title: "Reachy Mini - The Open-Source Robot for Today's and Tomorrow's AI Builders" 
 thumbnail: /blog/assets/reachy-mini/thumbnail.jpg
 authors:
 - user: thomwolf
 - user: matthieu-lapeyre
+  guest: true
+  org: pollen-robotics
 ---
 
-# Reachy Mini – The Open-Source Robot for AI Builders
+# Reachy Mini – The Open-Source Robot for Today's and Tomorrow's AI Builders
 
 Tiny price, small size, huge possibilities. Code, learn, share with AI builders of all ages, all around the globe.
 
