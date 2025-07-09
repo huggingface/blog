@@ -6276,7 +6276,7 @@
 - local: gradio-mcp-servers
   title: "Upskill your LLMs with Gradio MCP Servers"
   author: freddyaboulton
-  thumbnail: /blog/assets/upskill-llms-with-gradio-mcp-servers/UpskillThumbnail.png
+  thumbnail: /blog/assets/upskill-llms-with-gradio-mcp/UpskillThumbnail.png
   date: July 9, 2025
   tags:
     - gradio
