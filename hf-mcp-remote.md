@@ -108,7 +108,6 @@ Second, most MCP Servers and Clients disconnect after a period of inactivity, re
 
 Unless you have reasonable control over the Client/Server pair, using **Server Push Streams** adds a lot of complexity to a public deployment, when lower-resource solutions for refreshing the Tool List exist.
 
-### In Production Reflections
 
 #### URL User Experience
 
