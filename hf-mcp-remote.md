@@ -86,7 +86,7 @@ Here is an overview of MCP Features required by communication patterns:
 With Request Scoped streams, Sampling and Elicitation requests require a Stateful connection for response association.
 
 > [!TIP]
-> The [Hugging Face MCP Server](https://github.com/evalstate/hf-mcp-server) is Open Source - and supports STDIO, SSE and Streamable HTTP deployment in both Direct Response and Server Push mode. You can configure keep-alive and last activity timeouts when using Server Push Streams. There's also a built in observability dashboard that you can use to understand how different Clients manage connections, and handle Tool List change notifications.
+> The [Hugging Face MCP Server](https://github.com/evalstate/hf-mcp-server) is Open Source - and supports STDIO, SSE and Streamable HTTP deployment in both Direct Response and Server Push mode. You can configure keep-alive and last activity timeouts when using Server Push Streams. There's also a built-in observability dashboard that you can use to understand how different Clients manage connections, and handle Tool List change notifications.
 
 Here is an example of the Connection Dashboard running in "Server Push" Streamable HTTP mode:
 
