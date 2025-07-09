@@ -6292,3 +6292,15 @@
     - robotics
     - community
     - open-source
+
+- local: hf-mcp-remote
+  title: "Building the Hugging Face MCP Server"
+  author: evalstate
+  thumbnail: /blog/assets/hf-mcp-remote/hf-mcp-remote.png
+  date: July 9, 2025
+  tags:
+    - community
+    - open-source
+    - mcp
+    - gradio
+    - multimodal
