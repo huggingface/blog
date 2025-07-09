@@ -73,7 +73,7 @@ An additional factor to consider is whether or not the MCP Server itself needs t
 | **Scaling** | Simple horizontal scaling: any instance can handle any request | Need session affinity or shared state mechanisms |
 | **Resumption** | Not needed | May replay messages for broken connections |
 
-The table below summarizes the MCP Features and their required communication pattern:
+The table below summarizes the MCP Features and their supported communication pattern:
 
 | MCP Feature             | Server Push                  | Request Scoped                         | Direct Response |
 | -------------------------- | ---------------------------- | -------------------------------------- | -------- |
