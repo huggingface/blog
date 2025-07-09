@@ -21,7 +21,7 @@ At Hugging Face, providing access to the Hub via MCP is an obvious choice, and t
 
 ## Design Choices
 
-The community uses the Hub for research, development, content creation and more. We wanted to let people customize the server for their own needs, as well as easily access 1000s of AI applications available on Spaces. This meant making the MCP Server dynamic by adjusting users' tools on the fly.
+The community uses the Hub for research, development, content creation and more. We wanted to let people customize the server for their own needs, as well as easily access thousands of AI applications available on Spaces. This meant making the MCP Server dynamic by adjusting users' tools on the fly.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hf-mcp-remote/hf-mcp-settings.png" alt="The Hugging Face MCP Settings Page">
