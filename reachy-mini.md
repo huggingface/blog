@@ -26,7 +26,7 @@ Reachy Mini is an expressive, open-source robot designed for human-robot interac
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/671faa3a541a76b548647676/uEa13KsL5wtQREVZ1ixwc.png)
 
 ## 🔩 Robot technical info
-Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximately 9“/23cm tall when in sleep mode) and weighs 3.3 lbs/1,5 kg. It comes as a kit and is available either in a lite version or as a fully autonomous system with onboard computing, wireless connectivity, and a battery. 
+Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximately 9“/23cm tall when in sleep mode) and weighs 3.3 lbs/1.5 kg. It comes as a kit and is available either in a lite version or as a fully autonomous system with onboard computing, wireless connectivity, and a battery. 
 
 >[!NOTE]
 >Reachy Mini is currently in an early development phase. We’re sharing it as-is, without warranties or guarantees, to engage with early adopters and gather feedback.
@@ -54,14 +54,14 @@ Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximatel
 <ul>
   <li><b>Compact & Affordable</b>: Desktop-sized and starting from $299, ideal for creative prototyping, education and research.</li>
   <li><b>Plug & Play Behaviors</b>: A set of 15+ robot behaviors is provided at launch on the Hugging Face hub so you can play and learn right out of the box.</li>
-  <li><b>Grow with the Community</b>: With easy uploading, sharing, and downloading of new robot behaviors, the possibilities grow exponentially with Reachy-Mini community.</li>
+  <li><b>Grow with the Community</b>: With easy uploading, sharing, and downloading of new robot behaviors, the possibilities grow exponentially with the Reachy-Mini community.</li>
   <li><b>Programmable in real-life & simulation</b>: Intuitive and accessible coding using the open-source Python SDK (and soon support for more languages). With the simulation SDK, you can even test and develop projects before receiving the robot.</li>
 </li>
 </ul>
 
 ## 🤝 Designed for Human-Robot Interaction
 <ul>
-  <li><b>Expressive Movement</b>: Motorized head and body rotation, and animated antennas for rich human-robot-interactions.</li>
+  <li><b>Expressive Movement</b>: Motorized head and body rotation, and animated antennas for rich human-robot interactions.</li>
   <li><b>Multimodal Sensing</b>: Equipped with a camera, microphones, and speakers for AI powered audio-visual interaction.</li>
   <li><b>Assemble It Yourself</b>: Sold as a kit, build your own companion robot with friends and kids.</li>
 </ul>
