@@ -35,7 +35,7 @@ These spaces are implemented with [Gradio](https://gradio.app), an open source p
 
 That means that Hugging Face Spaces is the one place where you can find thousands of AI-powered abilities for your LLM, aka the **MCP App Store!**
 
-Want to browse the app store, visit this [link](https://huggingface.co/spaces?filter=mcp-server). Manually, you can filter for `MCP Compatible` in `https://hf.co/spaces`.
+Want to browse the app store? Visit this [link](https://huggingface.co/spaces?filter=mcp-server). Manually, you can filter for `MCP Compatible` in `https://hf.co/spaces`.
 
 <img src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/MCPFilter.png">
 
@@ -58,6 +58,13 @@ Let's plug this model as an MCP server into an LLM and have it edit images for u
 5. Now, when you start a new chat session in cursor you can ask it to edit an image! Note that for now the image must be available via a public URL. You can create a [Hugging Face Dataset](https://huggingface.co/datasets) to store your images online.
 
 <img src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/FluxKontextDevMcp.png">
+
+> [!TIP]
+> Using a popular public space as a tool may mean you have to wait longer to receive results. If you visit the space, you can click "Duplicate This Space" to create a private version of the space for yourself. If the space is using "ZeroGPU", you may need to update to a [PRO](https://huggingface.co/settings/billing/subscription) account to duplicate it.
+
+6. Bonus: You can also search for MCP-compatible spaces with the Hugging Face MCP server! After completing step 4, you can also ask your LLM to find spaces that accomplish a certain task:
+
+<img src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/SpacesSearch.png">
 
 ## Conclusion
 
