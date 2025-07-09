@@ -94,7 +94,7 @@ For production, we decided to launch our MCP Server with Streamable HTTP in a st
 > [!TIP]
 > You can use OAuth login by adding `?login` to the MCP Server url - e.g. `https://huggingface.co/mcp?login`. This may become the default once `claude.ai` remote integration supports the latest OAuth spec.
 
-**Direct Response** This provides the lowest deployment resource overhead - and we don't currently have any Tools that require Sampling or Elicitation during execution.
+**Direct Response** This provides the lowest deployment resource overhead and we don't currently have any Tools that require Sampling or Elicitation during execution.
 
 **Future Support** At launch, the "HTTP with SSE" transport was still the remote default in a lot of MCP Clients - however we didn't want to invest heavily in managing it due to it's imminent deprecation. Fortunately popular clients had already started making the switch (VSCode and Cursor), and within a week of launch `claude.ai` also added support. If you need to connect with SSE, feel free to deploy a copy of our Server on a [FreeCPU Hugging Face Space](https://huggingface.co/new-space).
 
