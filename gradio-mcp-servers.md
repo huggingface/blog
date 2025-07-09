@@ -55,7 +55,7 @@ Let's plug this model as an MCP server into an LLM and have it edit images for u
 
 <img src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/CursorScreenshot.png">
 
-5. Now, when you start a new chat session in cursor you can ask it to edit an image! Note that for now the image must be available via a pulic URL. You can create a [Hugging Face Dataset](https://huggingface.co/datasets) to store your images online.
+5. Now, when you start a new chat session in cursor you can ask it to edit an image! Note that for now the image must be available via a public URL. You can create a [Hugging Face Dataset](https://huggingface.co/datasets) to store your images online.
 
 <img src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/FluxKontextDevMcp.png">
 
