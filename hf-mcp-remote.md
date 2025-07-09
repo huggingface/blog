@@ -83,6 +83,7 @@ Here is a summary of MCP Features require which communication patterns:
 | Tool/Prompt List Changes   | Y                            | N                                      | N        |
 | Tool Progress Notification | -                            | Y                                      | N        |
 
+With Request Scoped streams, Sampling and Elicitation requests require a Stateful connection for response association.
 
 ### Production Deployment
 
