@@ -14,11 +14,11 @@ Tiny price, small size, huge possibilities. Code, learn, share with AI builders 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/JvdBJZ-qR18?si=JSYn_sSwdVKQnCRO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Reachy Mini is an expressive, open-source robot designed for human-robot interaction, creative coding, and AI experimentation. Fully programmable in Python (and soon JavaScript, Scratch) and priced from **$299**, it's your gateway into robotics AI, fun, customizable, and ready to be part of your next coding project. Whether you're an AI developer, hacker, researcher, teacher, robot enthusiast, or just coding with your kids on the weekend, Reachy Mini lets you develop, test, deploy, and share real-world AI applications from your desk, with the latest AI models.
+Reachy Mini is an expressive, open-source robot designed for human-robot interaction, creative coding, and AI experimentation. Fully programmable in Python (and soon JavaScript, Scratch) and priced from **$299**, it's your gateway into robotics AI: fun, customizable, and ready to be part of your next coding project. Whether you're an AI developer, hacker, researcher, teacher, robot enthusiast, or just coding with your kids on the weekend, Reachy Mini lets you develop, test, deploy, and share real-world AI applications from your desk, using the latest AI models!
 
 ---
 
-![image/png](https://cdn-uploads.huggingface.co/production/uploads/671faa3a541a76b548647676/mIESbtWmRy4uENPHtcZxG.png)
+![image/png](https://cdn-uploads.huggingface.co/production/uploads/671faa3a541a76b548647676/uEa13KsL5wtQREVZ1ixwc.png)
 
 ## 🔩 Robot technical info
 Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximately 9“/23cm tall when in sleep mode) and weighs 3.3 lbs/1,5 kg. It comes as a kit and is available either in a lite version or as a fully autonomous system with onboard computing, wireless connectivity, and a battery. 
