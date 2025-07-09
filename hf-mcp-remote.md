@@ -48,10 +48,11 @@ Here is a brief summary of the Transport Options offered by the Model Context Pr
 
 Both `STDIO` and `HTTP with SSE` are fully bi-directional by default - meaning that Client and Server maintain an open connection and can send messages to each other at any time. 
 
-#### Understanding Streamable HTTP
 
 > [!TIP]
 > SSE refers to "Server Sent Events" - a way for HTTP Servers to maintain an open connection and send events in response to a request.
+
+#### Understanding Streamable HTTP
 
 MCP Server Developers face lots of choices when setting up the new Streamable HTTP transport.
 
