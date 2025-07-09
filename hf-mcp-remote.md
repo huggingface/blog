@@ -73,14 +73,6 @@ An additional factor to consider is whether or not the MCP Server itself needs t
 | **Scaling** | Simple horizontal scaling: any instance can handle any request | Need session affinity or shared state mechanisms |
 | **Resumption** | Not needed | May replay messages for broken connections |
 
-> [!TIP]
-> The [Hugging Face MCP Server](https://github.com/evalstate/hf-mcp-server) is Open Source - and supports STDIO, SSE and Streamable HTTP deployment in both Direct Response and Server Push mode. You can configure keep-alive and last activity timeouts when using Server Push Streams. There's also a built in observability dashboard that you can use to understand how different Clients manage connections, and handle Tool List change notifications.
-
-<figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hf-mcp-remote/hf-mcp-connections.png" alt="The Hugging Face MCP Server Connection Dashboard">
-  <figcaption>The Hugging Face MCP Server Connection Dashboard.</figcaption>
-</figure>
-
 Here is an overview of MCP Features required by communication patterns:
 
 | MCP Feature             | Server Push                  | Request Scoped                         | Direct Response |
@@ -92,6 +84,17 @@ Here is an overview of MCP Features required by communication patterns:
 | Tool Progress Notification | -                            | Y                                      | N        |
 
 With Request Scoped streams, Sampling and Elicitation requests require a Stateful connection for response association.
+
+> [!TIP]
+> The [Hugging Face MCP Server](https://github.com/evalstate/hf-mcp-server) is Open Source - and supports STDIO, SSE and Streamable HTTP deployment in both Direct Response and Server Push mode. You can configure keep-alive and last activity timeouts when using Server Push Streams. There's also a built in observability dashboard that you can use to understand how different Clients manage connections, and handle Tool List change notifications.
+
+Here is an example of the Connection Dashboard running in "Server Push" Streamable HTTP mode:
+
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hf-mcp-remote/hf-mcp-connections.png" alt="The Hugging Face MCP Server Connection Dashboard">
+  <figcaption>The Hugging Face MCP Server Connection Dashboard.</figcaption>
+</figure>
+
 
 ### Production Deployment
 
