@@ -6293,10 +6293,10 @@
     - community
     - open-source
 
-- local: hf-mcp-remote
+- local: building-hf-mcp
   title: "Building the Hugging Face MCP Server"
   author: evalstate
-  thumbnail: /blog/assets/hf-mcp-remote/hf-mcp-remote.png
+  thumbnail: /blog/assets/building-hf-mcp/building-hf-mcp.png
   date: July 9, 2025
   tags:
     - community
