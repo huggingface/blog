@@ -115,7 +115,7 @@ In the future, we would like to support real-time Tool List Changed notification
 
 First, users tend to configure their favourite MCP Servers in their Client and leave them enabled. This means that the Client will connect whilst the application is open. To send notifications this would mean maintaining as many open connections as there were currently active Clients - regardless of active usage - on the chance the User may change their tool configuration. 
 
-Second, most MCP Servers and Clients disconnect after a period of inactivity, resuming when necessary. This inevitably means that immediate push notifications will be missed - as the notification channel will have been closed. In practice, it is far simpler to simpler for the Client to refresh the connection and Tool List as needed.
+Second, most MCP Servers and Clients disconnect after a period of inactivity, resuming when necessary. This inevitably means that immediate push notifications will be missed - as the notification channel will have been closed. In practice, it is far simpler for the Client to refresh the connection and Tool List as needed.
 
 Unless you have reasonable control over the Client/Server pair, using **Server Push Streams** adds a lot of complexity to a public deployment, when lower-resource solutions for refreshing the Tool List exist.
 
@@ -134,7 +134,7 @@ Although not specifically stated - returning a page in this manner _does_ seem a
 
 The MCP Protocol sends several requests during initialization. A typical connection sequence is: `Initialize`, `Notifications/Initialize`, `tools/list` and then `prompts/list`. 
 
-Given that MCP Clients will connect and reconnect whilst the open, and the fact that Users make periodic calls, we find there is a ratio of around 100 MCP Control messages for each Tool Call.
+Given that MCP Clients will connect and reconnect whilst open, and the fact that Users make periodic calls, we find there is a ratio of around 100 MCP Control messages for each Tool Call.
 
 Some clients also send requests that don't make sense for our Stateless, Direct Response configuration - for example Pings, Cancellations or attempts to list Resources (which isn't a capability we currently advertise).
 
