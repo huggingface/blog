@@ -17,7 +17,7 @@ authors:
 
 The Model Context Protocol (MCP) is fulfilling its promise of being the standard to connect AI Assistants to the outside world. 
 
-At Hugging Face, providing access to the Hub via MCP is an obvious choice, and this article shares some of our experience developing the `hf.co/mcp` MCP Server.
+At Hugging Face, providing access to the Hub via MCP is an obvious choice, and this article shares our experience developing the `hf.co/mcp` MCP Server.
 
 ## Design Choices
 
