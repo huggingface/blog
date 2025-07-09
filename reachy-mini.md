@@ -4,6 +4,8 @@ thumbnail: /blog/assets/reachy-mini/thumbnail.jpg
 authors:
 - user: thomwolf
 - user: matthieu-lapeyre
+  guest: true
+  org: pollen-robotics
 ---
 
 # Reachy Mini – The Open-Source Robot for Today's and Tomorrow's AI Builders
