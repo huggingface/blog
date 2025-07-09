@@ -59,7 +59,7 @@ With Streamable HTTP there are 3 main communication patterns to choose from:
 
 - **Direct Response** Simple Request/Response (like standard REST APIs). This is perfect for straightforward, stateless operations like simple searches.
 - **Request Scoped Streams** Temporary SSE Streams associated with a single Request. This is useful for sending [Progress Updates](https://modelcontextprotocol.io/specification/2025-06-18/basic/utilities/progress) if the Tool Call takes a long time - such as Video Generation. Alternatively the Server may need to request information from the User with an [Elicitation](https://modelcontextprotocol.io/specification/2025-06-18/client/elicitation), or conduct a Sampling request.
-- **Server Push Streams** Long-lived SSE connection supporting server-initiated messages. This enables Resource, Tool and Prompt List change notifications or ad-hoc Sampling and Elicitations. This connections needs extra management such as [keep-alive](https://modelcontextprotocol.io/specification/2025-06-18/basic/utilities/ping) and resumption mechanics on re-connection. 
+- **Server Push Streams** Long-lived SSE connection supporting server-initiated messages. This enables Resource, Tool and Prompt List change notifications or ad-hoc Sampling and Elicitations. These connections need extra management such as [keep-alive](https://modelcontextprotocol.io/specification/2025-06-18/basic/utilities/ping) and resumption mechanics on re-connection. 
 
 > [!TIP]
 > When using Request Scoped Streams with the official SDKs, use the `sendNotification()` and `sendRequest()` methods provided in the `RequestHandlerExtra` parameter (TypeScript) or set the `related_request_id` (Python) to send messages to the correct stream.
