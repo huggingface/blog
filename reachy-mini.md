@@ -77,7 +77,7 @@ Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximatel
 
 Made with ❤️ by Pollen Robotics and Hugging Face.
 
-🤗 <b>Join the Reachy Mini Community on <a href="https://discord.com/channels/519098054377340948/1377671369893875783" target="_blank">Discord</a></b>.  
+🤗 <b>Join the Reachy Mini Community on <a href="https://discord.gg/HDrGY9eJHt" target="_blank">Discord</a></b>.  
 
 | <center><a href="https://buy.stripe.com/6oUfZj78P1a5e6b0FS73G02" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the lite version</a></center> | <center><a href="https://buy.stripe.com/9B65kFfFlaKFbY34W873G03" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the wireless version</a></center> |
 | :--: | :--: |
