@@ -8,7 +8,7 @@ authors:
 
 # ScreenEnv: Deploy your full stack Desktop Agent
 
-**TL;DR**: ScreenEnv is a powerful Python library that lets you create isolated desktop environments in Docker containers for GUI automation, testing and AI agent development. With built-in support for the Model Context Protocol (MCP) , it's never been easier to deploy desktop agents that can see, click, and interact with real applications.
+**TL;DR**: ScreenEnv is a powerful Python library that lets you create isolated Ubuntu desktop environments in Docker containers for testing and deploying GUI Agents (aka Computer Use agents). With built-in support for the Model Context Protocol (MCP) , it's never been easier to deploy desktop agents that can see, click, and interact with real applications.
 
 ## What is ScreenEnv?
 
