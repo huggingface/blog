@@ -6315,3 +6315,15 @@
     - mcp
     - gradio
     - multimodal
+
+- local: async-robot-inference
+  title: "Asynchronous Robot Inference: Decoupling Action Prediction and Execution"
+  author: fracapuano
+  thumbnail: /blog/assets/async_inference/thumbnail_async_blog.png
+  date: Jul 10, 2025
+  tags:
+    - lerobot
+    - robotics
+    - models
+    - open-source
+  
