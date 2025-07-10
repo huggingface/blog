@@ -9,7 +9,6 @@ authors:
 - user: AdilZtn
 - user: aliberts
 - user: rcadene
-date: July 4, 2025
 ---
 
 ## TL;DR
