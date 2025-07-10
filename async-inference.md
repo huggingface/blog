@@ -3,6 +3,12 @@ title: "Asynchronous Robot Inference: Decoupling Action Prediction and Execution
 thumbnail: /blog/assets/async_inference/thumbnail_async_blog.png
 authors:
 - user: fracapuano
+- user: imstevenpmwork
+- user: aractingi
+- user: danaaubakirova
+- user: AdilZtn
+- user: aliberts
+- user: rcadene
 date: July 4, 2025
 ---
 
@@ -28,11 +34,11 @@ Get started with async inference by following [our tutorial](NOTE:LINKTODOCUMENT
 
 <p align="center">
   <video width="600" height="400" controls autoplay muted loop playsinline>
-    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/async-inference/sync-vs-async.mov" type="video/mp4">
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/async-inference/seq_vs_async.mov" type="video/mp4">
   </video>
 </p>
 <p align="center">
-<i>Sequential inference (left) versus async inference (right)</i>. Allowing for replanning and a tigther control loop, async inference results in (1) attempts at recovery under disturbances, and (2) a ~2x speedup in task completion.
+<i>Sequential inference (first) versus async inference (second)</i>. Allowing for replanning and a tigther control loop, async inference results in (1) attempts at recovery, and (2) a ~2x speedup in task completion. Sequential inference keeps acting out the current action chunk even after failure to grasp the object, while async inference can replan and act the new action chunk. Both setups use the same policy!
 </p>
 
 
