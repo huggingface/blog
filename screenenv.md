@@ -12,9 +12,13 @@ authors:
 
 ## What is ScreenEnv?
 
+---
 
+<div style="text-align: center;">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VCutEsRSJ5A?si=PT0ETJ7zIJ9ywhGW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div>
 
+---
 
 Imagine you need to automate desktop tasks, test GUI applications, or build an AI agent that can interact with softwares. Traditionally, this meant complex VM setups, brittle automation frameworks, or expensive cloud solutions.
 
