@@ -20,7 +20,7 @@ authors:
 
 ---
 
-Imagine you need to automate desktop tasks, test GUI applications, or build an AI agent that can interact with softwares. Traditionally, this meant complex VM setups, brittle automation frameworks, or expensive cloud solutions.
+Imagine you need to automate desktop tasks, test GUI applications, or build an AI agent that can interact with softwares. This used to require complex VM setups and brittle automation frameworks.
 
 ScreenEnv changes this by providing a **sandboxed desktop environment** that runs in a Docker container. Think of it as a complete virtual desktop session that your code can fully control - not just clicking buttons and typing text, but managing the entire desktop experience including launching applications, organizing windows, handling files, executing terminal commands, and recording the entire session.
 
