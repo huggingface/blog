@@ -6393,7 +6393,7 @@
     - gradio
     - multimodal
 
-- local: async-inference
+- local: async-robot-inference
   title: "Asynchronous Robot Inference: Decoupling Action Prediction and Execution"
   author: fracapuano
   thumbnail: /blog/assets/async_inference/thumbnail_async_blog.png
