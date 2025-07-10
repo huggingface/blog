@@ -1,6 +1,6 @@
 ---
 title: "Building the Hugging Face MCP Server" 
-thumbnail: /blog/assets/hf-mcp-remote/hf-mcp-remote.png
+thumbnail: /blog/assets/building-hf-mcp/building-hf-mcp.png
 authors:
 - user: evalstate
 - user: julien-c
@@ -157,3 +157,5 @@ Here are some great examples of things people have been doing with our MCP Serve
 We hope that this post has provided insights to the decisions that need to be made building Remote MCP Servers, and encourage you to try some of the examples in your favourite MCP Client.
 
 Take a look at our [Open Source MCP Server](https://github.com/evalstate/hf-mcp-server), and try some of the different transport options with your Client, or open an Issue or Pull Request to make improvements or suggest new functionality.  
+
+Let us know your thoughts, feedback and questions on this [discussion thread](https://huggingface.co/spaces/huggingface/README/discussions/26).
