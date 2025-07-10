@@ -30,16 +30,15 @@ Robotic policies are increasingly bulky, and predict chunks of future actions ra
 # Async inference
 
 ## Getting started
-Get started with async inference by following [our tutorial](NOTE:LINKTODOCUMENTATION).
+Get started with async inference by following [our tutorial](https://huggingface.co/docs/lerobot/en/async).
 
 <p align="center">
   <video width="600" height="400" controls autoplay muted loop playsinline>
     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/async-inference/seq_vs_async.mov" type="video/mp4">
   </video>
 </p>
-<p align="center">
-<i>Sequential inference (first) versus async inference (second)</i>. Allowing for replanning and a tigther control loop, async inference results in (1) attempts at recovery, and (2) a ~2x speedup in task completion. Sequential inference keeps acting out the current action chunk even after failure to grasp the object, while async inference can replan and act the new action chunk. Both setups use the same policy!
-</p>
+
+*Sequential inference (first) versus async inference (second)*. Allowing for replanning and a tigther control loop, async inference results in (1) attempts at recovery, and (2) a ~2x speedup in task completion. Sequential inference keeps acting out the current action chunk even after failure to grasp the object, while async inference can replan and act the new action chunk. Both setups use the same policy!
 
 
 ## Async inference: a deep dive
@@ -219,7 +218,7 @@ Critically, \\(c\\) influences the number of available actions in the queue at a
    * \\(g=0\\) reproduces sequential inference (empty queue, wait).
    * \\(g=1\\) sends an observation every timestep (max compute, minimal lag).
 
-Experiments (see plots below) show that \\(g\approx0.7\\) offers a good trade-off when observations sent are not filtered out (they are all must-go). We recommend setting \\(g=0.5\\) and following [our documentation](NOTE:LINKTODOCUMENTATION) to tune this parameter to your needs.
+Experiments (see plots below) show that \\(g\approx0.7\\) offers a good trade-off when observations sent are not filtered out (they are all must-go). We recommend setting \\(g=0.5\\) and following [our documentation](https://huggingface.co/docs/lerobot/en/async) to tune this parameter to your needs.
 
 <p align="center">
   <img width="600" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/async-inference/queues.png" alt="Queues"/>
@@ -233,7 +232,7 @@ Experiments (see plots below) show that \\(g\approx0.7\\) offers a good trade-of
 
 Async inference is a simple yet effective way to improve the performance of robotic policies. In our experiments using SmolVLA, async inference results in a ~2x speedup in task completion time with comparable task success rate, and more adaptive control coming from a tighter loop.
 
-To run your policy using async inference, you just need to follow our [tutorial](NOTE:LINKTODOCUMENTATION) with your own custom parameters (e.g., the policy path or the chunk size threshold). Async inference comes with support for policies supporting action chunking!
+To run your policy using async inference, you just need to follow our [tutorial](https://huggingface.co/docs/lerobot/en/async) with your own custom parameters (e.g., the policy path or the chunk size threshold). Async inference comes with support for policies supporting action chunking!
 
 ---
 
