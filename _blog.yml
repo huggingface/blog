@@ -6316,6 +6316,19 @@
     - gradio
     - multimodal
 
+
+- local: screenenv
+  title: "ScreenEnv: Deploy your full stack Desktop Agent"
+  author: A-Mahla
+  thumbnail: /blog/assets/screenenv/screenenv.png
+  date: July 10, 2025
+  tags:
+    - agents
+    - gui
+    - community
+    - open-source
+    - mcp
+
 - local: async-robot-inference
   title: "Asynchronous Robot Inference: Decoupling Action Prediction and Execution"
   author: fracapuano
@@ -6326,4 +6339,3 @@
     - robotics
     - models
     - open-source
-  
