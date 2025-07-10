@@ -14,7 +14,7 @@ authors:
 
 ---
 
-📽 [Desktop Agent Demo](/blog/assets/screenenv/screenenv_demo.mp4)
+📽 [Desktop Agent Demo](assets/screenenv/screenenv_demo.mp4)
 
 ---
 
