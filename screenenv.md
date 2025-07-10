@@ -102,7 +102,7 @@ import os
 
 from smolagents import OpenAIServerModel
 model = OpenAIServerModel(
-    model_id="gpt-4o-mini",
+    model_id="gpt-4.1",
     api_key=os.getenv("OPENAI_API_KEY"),
 )
 
@@ -268,6 +268,8 @@ print(f"📄 Result: {result}")
 
 sandbox.close()
 ```
+
+> If you encounter acces denied docker error, you can try to run the agent with `sudo -E python -m test.py`
 
 > 💡 For a comprehensive implementation, see this [CustomDesktopAgent](https://github.com/huggingface/screenenv/blob/main/examples/desktop_agent.py) source on GitHub.
 
