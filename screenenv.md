@@ -102,7 +102,7 @@ import os
 
 from smolagents import OpenAIServerModel
 model = OpenAIServerModel(
-    model_id="gpt-4o-mini",
+    model_id="gpt-4o",
     api_key=os.getenv("OPENAI_API_KEY"),
 )
 
