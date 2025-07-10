@@ -6315,3 +6315,17 @@
     - mcp
     - gradio
     - multimodal
+
+- local: screenenv
+  title: "ScreenEnv: Deploy your full stack Desktop Agent"
+  authors:
+    - user: A-Mahla
+    - user: m-ric
+  thumbnail: /blog/assets/screenenv/screenenv.png
+  date: July 10, 2025
+  tags:
+    - agents
+    - gui
+    - community
+    - open-source
+    - mcp
