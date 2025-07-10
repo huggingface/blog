@@ -25,7 +25,7 @@ In short, an MCP server is a standard way to upskill your LLM by granting it a n
 
 ## Hugging Face Spaces: The MCP App Store
 
-Hugging Face [Spaces](https://hf.co/spaces) is the world's largest collection of AI applications. Most of these spaces perform a specilaized task with an AI model. For example:
+Hugging Face [Spaces](https://hf.co/spaces) is the world's largest collection of AI applications. Most of these spaces perform a specialized task with an AI model. For example:
 
 - [Image Background Removal](https://huggingface.co/spaces/not-lain/background-removal)
 - [OCR](https://huggingface.co/spaces/prithivMLmods/Multimodal-OCR)
