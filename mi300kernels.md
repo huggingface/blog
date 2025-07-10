@@ -12,7 +12,7 @@ authors:
 
 # AMD Kernels
 
-![Titel card](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mi300kernels/title.png)
+![Title card](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mi300kernels/title.png)
 
 # Introduction
 
@@ -107,7 +107,7 @@ What can get in the way of such algorithms running in an optimized manner are th
 ## Day 0 performance analysis
 
 When optimizing a workload, the first thing to do before writing a single line of code is to profile the current state of the workload. 
-In our case, we are going to profile the model inference in VLLM to get an idea of how much time each operation is taking up. This can help identify major bottlenecks and which kernels we can tackle first for maximum speedup. For instance, here is the break down for batch size 32:
+In our case, we are going to profile the model inference in VLLM to get an idea of how much time each operation is taking up. This can help identify major bottlenecks and which kernels we can tackle first for maximum speedup. For instance, here is the breakdown for batch size 32:
 
 ![Disk plot ok kernels latency](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mi300kernels/disk_figure.png)
 
@@ -223,7 +223,7 @@ where \\( \sigma \\) is the sigmoid function: \\( \sigma (x) = e^{-x} / (1 + x) 
 
 There are two ways we are going to increase the speed of our kernels: increase the volume of work done for each instruction executed and use faster instructions. 
 
-To increase the amount of work done per instruction, we can use **packed** instructions. Packed instruction are useful when we want to apply the same operator on several elements: rather than executing one instruction per element, we execute one instruction over a vector of element. In a CPU, packed (or vectorized) instructions are the bread-and-butter of single-threaded optimization, as the AVX family of instruction can attest to. There are few packed instructions on GPU, but they can be quite useful in the right place.
+To increase the amount of work done per instruction, we can use **packed** instructions. Packed instruction are useful when we want to apply the same operator on several elements: rather than executing one instruction per element, we execute one instruction over a vector of element. In a CPU, packed (or vectorized) instructions are the bread-and-butter of single-threaded optimization, as the AVX family of instruction can attest to. There are a few packed instructions on GPU, but they can be quite useful in the right place.
 On the MI300X there is, among others, packed instruction for FP16 addition and multiplication, which we will use for both steps. There also exists packed conversion from FP32 to FP8, which can provide a nice boost in performance when compared to non-packed conversion. As a matter of fact, there is no conversion from any other data type than FP32 to FP8, so for the RMS norm kernel and this one, we have to go to FP32 precision in order to convert to FP8. 
 
 However this is not an issue in this kernel: the sigmoid function \\( \sigma \\) require us to compute an exponent, which is an operation that greatly benefits from FP32 precision.  And this is in an instance where we can optimize computation by using a faster instruction: instead of using the `exp` instruction, we scale the input by \\( \text{log}(2) \\) and use the `exp2` instruction, which is much faster. We suffer an almost negligible loss in precision but also reduce latency.
@@ -248,7 +248,7 @@ With memory and compute optimizations tailored for the MI300X, we get a kernel t
 As we have seen earlier, about 60% of the model’s inference latency comes from projections, which rely on GEMM kernels. GEMM kernels are heavily optimized in dedicated libraries such as hipBLASLT rocBLAS on AMD, so writing a custom kernel that performs better in all cases is quite hard. But if we focus on some edge cases that are relevant to us, and write a GEMM kernel for those specific cases, then there is a chance our custom kernel may be faster than the ones in the dedicated libraries. 
 
 In both prefill and decoding, the input of any of the network’s projection has as many rows as there tokens being processed. And during decoding, the number of tokens being processed is equal to the batch size. So during decoding, the number of input rows of all GEMM kernels is equal to the batch size, which for our purposes ranges between 1 and 256. We are going to take an interest with very low batch sizes.
-When we have a GEMM \\( A * B = C \\) such that \\( A \\) has few rows and many columns, we say that the GEMM is **skinny**. The reason we have a specific term for such GEMMs is that they are ill-fitted for the classic GEMM algorithm we run on GPU. Usually, the efficiency of a GEMM kernels comes **tiling**: we divide the result matrix in many sub-matrices, called tiles, and we assign each tile to a different compute unit (CU). If we have many tiles, we can use many CUs and GPU usage is high. This is illustrated in the figure below.
+When we have a GEMM \\( A * B = C \\) such that \\( A \\) has few rows and many columns, we say that the GEMM is **skinny**. The reason we have a specific term for such GEMMs is that they are ill-fitted for the classic GEMM algorithm we run on GPU. Usually, the efficiency of GEMM kernels comes from **tiling**: we divide the result matrix in many sub-matrices, called tiles, and we assign each tile to a different compute unit (CU). If we have many tiles, we can use many CUs and GPU usage is high. This is illustrated in the figure below.
 
 ![Classic GEMM dimensions](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mi300kernels/classic_gemm.png)
 
@@ -279,7 +279,7 @@ Here, we set split K equal to 2 and thus double the amount of CU used at once. S
 If we assume that through split-K, most compute units are busy with their own tile, we can focus the scope of optimization at the compute unit level. We are going to take a look at how the actual matrix multiplication is done, and how we can accelerate it. 
 
 In state of the art GPUs like the MI300X, matrix multiplication is handled by a dedicated hardware unit called tensor cores. Tensor cores only perform matrix multiplications, but they do so at very high speed. 
-The format of tensor core instruction is `mfma_MxNxK...` where `mfma` stands for matrix fused multiply-add, `M` is the number of rows of the left-hand matrix, `N` the number of column of the right-hand matrix, and `K` is the shared dimension of both.  We illustrate an hypothetical instruction `mfma_2x2x4` below:
+The format of tensor core instruction is `mfma_MxNxK...` where `mfma` stands for matrix fused multiply-add, `M` is the number of rows of the left-hand matrix, `N` the number of column of the right-hand matrix, and `K` is the shared dimension of both.  We illustrate a hypothetical instruction `mfma_2x2x4` below:
 
 ![MFMA dense version](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mi300kernels/MFMA_full.png)
 
@@ -319,11 +319,11 @@ In the figure below, we represent the steps involved in a simple asynchronous GE
 
 ![Async GEMM mechanism](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mi300kernels/async_work.png)
 
-What makes the whole process work is that once buffer \\( 0 \\) is filled by a producer, it can start working on buffer \\( 1 \\) without waiting for the consumer to have loaded the data buffer \\( 0 \\). The goal is to have a queue large enough for the producers to be constantly filling buffers and consumers constantly consuming them. The size of queue is constrained by the size of the shared memory. 
+What makes the whole process work is that once buffer \\( 0 \\) is filled by a producer, it can start working on buffer \\( 1 \\) without waiting for the consumer to have loaded the data from buffer \\( 0 \\). The goal is to have a queue large enough for the producers to be constantly filling buffers and consumers constantly consuming them. The size of queue is constrained by the size of the shared memory. 
 
 We also need to tune the ratio of producers to consumers: we have said that we have a low arithmetic intensity, so we need to load a lot of data to do a relatively fast computation. Hence, we are going to have a lot of producer warps (typically 8 or 10) for a few consumer warps (something like 2 or 3). Furthermore, we can exploit the fact the GEMM is skinny by having separate producers for the input (the skinny matrix) and the weights (the non-skinny matrix). To make the output tile bigger in the dimension in which it is not constrained in, which is the columns dimension, we allocate more producers for the weights. 
 
-For a more in depth blog post about asynchronous GEMMs, I encourage you to check out [this](https://cudaforfun.substack.com/p/outperforming-cublas-on-h100-a-worklog) blog post. A lot of its contents are not applicable in our case though: the MI300X has no warp-level barriers, only a single thread block-level barrier. This lead to “fun” shenanigans like ASM to ensure warps waited at their barriers, shared memory loads and stores were resolved before checking the barrier state, and careful handling of the modular nature of the queue. All this would be out of place here, but I encourage you to check out the [code](https://github.com/huggingface/hf-rocm-kernels) or ask away in the comments. A deep dive on the details of async handling might be coming in the future.
+For a more in-depth blog post about asynchronous GEMMs, I encourage you to check out [this](https://cudaforfun.substack.com/p/outperforming-cublas-on-h100-a-worklog) blog post. A lot of its contents are not applicable in our case though: the MI300X has no warp-level barriers, only a single thread block-level barrier. This led to “fun” shenanigans like ASM to ensure warps waited at their barriers, shared memory loads and stores were resolved before checking the barrier state, and careful handling of the modular nature of the queue. All this would be out of place here, but I encourage you to check out the [code](https://github.com/huggingface/hf-rocm-kernels) or ask away in the comments. A deep dive on the details of async handling might be coming in the future.
 
 Through warp specialization and asynchronous work, we can adapt our kernel to the low arithmetic intensity workload, but is that enough to come ahead of libraries like hipBLASLT? The answer is yes, in some cases.
 
