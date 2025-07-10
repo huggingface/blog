@@ -11,13 +11,15 @@ authors:
 # Building the Hugging Face MCP Server
 
 > [!TIP]
-> **TL;DR:** The Hugging Face Official MCP Server offers unique customization options for AI Assistants accessing the Hub, along with access to thousands of AI applications through one simple URL. We used MCPs "Streamable HTTP" transport for deployment, and examine in detail the trade-offs that Server Developers have. We've learned many things about building a useful MCP server in the last month - we'll describe our journey here.
+> **TL;DR:** The Hugging Face Official MCP Server offers unique customization options for AI Assistants accessing the Hub, along with access to thousands of AI applications through one simple URL. We used MCPs "Streamable HTTP" transport for deployment, and examine in detail the trade-offs that Server Developers have. 
+>
+> We've learned many things about building a useful MCP server in the last month - we'll describe our journey here.
 
 ## Introduction
 
 The Model Context Protocol (MCP) is fulfilling its promise of being the standard to connect AI Assistants to the outside world. 
 
-At Hugging Face, providing access to the Hub via MCP is an obvious choice, and this article shares our experience developing the `hf.co/mcp` MCP Server.
+At Hugging Face, providing access to the Hub via MCP is an obvious choice, and this article shares our experience developing the [`hf.co/mcp`](https://hf.co/mcp) MCP Server.
 
 ## Design Choices
 
@@ -32,7 +34,7 @@ We also wanted to make access simple by avoiding complicated downloads and confi
 
 ## Remote Servers
 
-When building a remote MCP Server, the first decision is deciding how clients will connect to it. MCP offers several transport options, with different trade-offs. TL;DR: our open source code supports all variants, but for production we chose to go with the most modern one. This section goes through the different options in detail. 
+When building a remote MCP Server, the first decision is deciding how clients will connect to it. MCP offers several transport options, with different trade-offs. **TL;DR:** our open source code supports all variants, but for production we chose to go with the most modern one. This section goes through the different options in detail. 
 
 Since its launch in November 2024, MCP has undergone rapid evolution with 3 protocol revisions in 9 months. This has seen the replacement of the SSE Transport with Streamable HTTP, as well as the introduction and rework of authorization.
 
@@ -78,7 +80,7 @@ The table below summarizes the MCP Features and their supported communication pa
 | MCP Feature             | Server Push                  | Request Scoped                         | Direct Response |
 | -------------------------- | ---------------------------- | -------------------------------------- | -------- |
 | Tools, Prompts, Resources | Y                            | Y                                      | Y |
-| Sampling/Elicitation      | Server Initiated at any time | Related to a  Client initiated requests | N        |
+| Sampling/Elicitation      | Server Initiated at any time | Related to a Client initiated request | N        |
 | Resource Subscriptions     | Y                            | N                                      | N        |
 | Tool/Prompt List Changes   | Y                            | N                                      | N        |
 | Tool Progress Notification | -                            | Y                                      | N        |
