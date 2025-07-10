@@ -293,8 +293,4 @@ ScreenEnv aims to expand beyond Linux to support **Android, macOS, and Windows**
 
 These advancements pave the way for creating **reproducible, sandboxed environments** ideal for benchmarking and evaluation.
 
-<<<<<<< HEAD
 Repository: https://github.com/huggingface/screenenv
-=======
-Repository: https://github.com/huggingface/screenenv
->>>>>>> origin/amir/screenenv
