@@ -102,11 +102,7 @@ import os
 
 from smolagents import OpenAIServerModel
 model = OpenAIServerModel(
-<<<<<<< HEAD
-    model_id="gpt-4o",
-=======
     model_id="gpt-4.1",
->>>>>>> origin/amir/screenenv
     api_key=os.getenv("OPENAI_API_KEY"),
 )
 
