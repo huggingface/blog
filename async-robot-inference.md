@@ -5,6 +5,7 @@ authors:
 - user: fracapuano
 - user: imstevenpmwork
 - user: aractingi
+- user: mshukor
 - user: danaaubakirova
 - user: AdilZtn
 - user: aliberts
