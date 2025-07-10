@@ -1,6 +1,6 @@
 ---
 title: "Building the Hugging Face MCP Server" 
-thumbnail: /blog/assets/hf-mcp-remote/hf-mcp-remote.png
+thumbnail: /blog/assets/building-hf-mcp/building-hf-mcp.png
 authors:
 - user: evalstate
 - user: julien-c
