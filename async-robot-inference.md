@@ -13,7 +13,7 @@ authors:
 ---
 
 **TL;DR**
-Robotic policies are increasingly bulky, and predict chunks of future actions rather than a single next action. This results in the robot being idle while awaiting new actions to perform, introducing noticeable lags at execution, and lacking of responsiveness. Asynchronous inference tightens the control loop, removing lags at runtime and resulting in more adaptive control by decoupling action prediction from action execution. In this blog post, we cover the basics behind async inference, and how it can be used to improve the performance of robotic policies in the real-world.
+Robotic policies are increasingly bulky, and predict chunks of future actions rather than a single next action. This results in the robot being idle while awaiting new actions to perform, introducing noticeable lags at execution, and lacking responsiveness. Asynchronous inference tightens the control loop, removing lags at runtime and resulting in more adaptive control by decoupling action prediction from action execution. In this blog post, we cover the basics behind async inference, and how it can be used to improve the performance of robotic policies in the real-world.
 
 ## Table of Contents
 - [Getting started](#getting-started)
@@ -36,7 +36,7 @@ Get started with async inference by following [our tutorial](https://huggingface
   </video>
 </p>
 
-*Sequential inference (first) versus async inference (second)*. Allowing for replanning and a tigther control loop, async inference results in (1) attempts at recovery, and (2) a ~2x speedup in task completion. Sequential inference keeps acting out the current action chunk even after failure to grasp the object, while async inference can replan and act the new action chunk. Both setups use the same policy!
+*Sequential inference (first) versus async inference (second)*. Allowing for replanning and a tighter control loop, async inference results in (1) attempts at recovery, and (2) a ~2x speedup in task completion. Sequential inference keeps acting out the current action chunk even after failure to grasp the object, while async inference can replan and act the new action chunk. Both setups use the same policy!
 
 
 ## Async inference: a deep dive
@@ -45,7 +45,7 @@ With async inference, we decouple action execution from action prediction. This 
 Convince yourself of this by running all these models using [LeRobot](https://huggingface.co/lerobot).
 
 Using chunks sequentially results in (1) lags at runtime, impacting task execution time and (2) lack of responsiveness, due to acting widely open-loop.
-Asynchronous inference avoids mitigates both these limitations by **decoupling action prediction from action execution**. 
+Asynchronous inference mitigates both these limitations by **decoupling action prediction from action execution**. 
 We introduced asynchronous inference in SmolVLA, and found it to result in a ~2x speed-up in task completion time with comparable task success rate.
 
 In particular, we design a 2-component system where policy inference and action execution are performed in two different processes, possibly on two different machines connected through the network:
@@ -58,7 +58,7 @@ Communication between `PolicyServer` and `RobotClient` relies on **gRPC**, which
   <img width="600" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/async-inference/async_scheme.png" alt="Async inference scheme"/>
 </p>
 
-<p align="center"><i>Asynchronous inference</i>, highlighting: (1) The client sending the first observation for inference, receiving the first chunk shortly after; (2) The client sending another observation for processing while it has not yet exhausted the current chunk; (3) The client receiving an updated action chunk, which it aggregates with the remaineders of the one it was previously executing.
+<p align="center"><i>Asynchronous inference</i>, highlighting: (1) The client sending the first observation for inference, receiving the first chunk shortly after; (2) The client sending another observation for processing while it has not yet exhausted the current chunk; (3) The client receiving an updated action chunk, which it aggregates with the remainders of the one it was previously executing.
 </p>
 
 ---
@@ -109,7 +109,7 @@ The key idea is that the robot already knows what to do for the next few timeste
 <p align="center"><i>Asynchronous inference</i> overlaps in time the execution of the current action chunk with the computation of the next one, by decoupling these two processes, possibly running them on entirely distinct machines connected through the network.
 </p>
 
-This results in a tighter control loop, and a robot that never waits for inference. In turn, this results in ~2x speedup in task completion time with comparable task success rate, and more adaptive control coming from a tighther loop (see video below).
+This results in a tighter control loop, and a robot that never waits for inference. In turn, this results in ~2x speedup in task completion time with comparable task success rate, and more adaptive control coming from a tighter loop (see video below).
 
 <p align="center">
   <video width="600" height="400" controls autoplay muted loop playsinline>
