@@ -69,7 +69,7 @@ Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximatel
 ## 🌍 Open, Modular & Community-Powered
 <ul>
   <li>🤗 <b>Hugging Face Integration</b>: Use state-of-the-art open-source models for speech, vision, and personality.</li>
-  <li><b>Open-Source Everything</b>: Hardware, software, and simulation environments fully open-source and community-supported.</li>
+  <li><b>Open-Source Everything</b>: Hardware, software, and simulation environments fully open-source and community-supported. To be released when ready.</li>
   <li><b>Community-Driven</b>: Upload, share and download robot behaviors with the 10M users of the Hugging Face community.</li>
 </ul>
 
