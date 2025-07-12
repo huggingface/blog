@@ -59,7 +59,7 @@ These jobs are then picked up by migration workers where each pod:
 - Uploads the LFS files to the Xet content addressed store using xet-core
 
 <figure class="image text-center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/growing-with-xet/flow.png" alt=" ">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/growing-with-xet/flow.png" alt="Migration flow">
     <figcaption>Migration flow triggered by a webhook event; starting at the orchestrator for brevity.</figcaption>
 </figure>
 
@@ -79,7 +79,7 @@ CAS throughput, meanwhile, has grown by an order of magnitude between the first 
 - **mradermacher and RichardErkhov migrations:** CAS peaked around ~300 Gb/s, while still serving ~40 Gb/s of everyday load.
 
 <figure class="image text-center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/growing-with-xet/grafana.png" alt=" ">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/growing-with-xet/grafana.png" alt="Cas throughput">
     <figcaption>CAS throughput; each spike corresponds to a significant migration with the baseline throughput steadily increasing to just shy of 100 Gb/s as of July 2025</figcaption>
 </figure>
 
