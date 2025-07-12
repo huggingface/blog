@@ -6339,3 +6339,13 @@
     - robotics
     - models
     - open-source
+
+- local: growing-with-xet
+  title: "Growing Beyond Git LFS with Xet"
+  author: jsulz
+  thumbnail: /blog/assets/growing-with-xet/thumbnail.png
+  date: Jul 15, 2025
+  tags:
+    - storage
+    - infrastructure
+    - content addressed store
