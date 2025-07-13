@@ -16,7 +16,7 @@ In January of this year, Hugging Face's [Xet Team](https://huggingface.co/xet-te
 
 Today, more than 1 million people on the Hub are using Xet. In May, it became the [default on the Hub for new users and organizations](https://huggingface.co/changelog/xet-default-for-new-users). With only a few dozen GitHub issues, forum threads, and Discord messages, this is perhaps the quietest migration of this magnitude. 
 
-How? For one, the team came prepared with years of experience building and supporting the content addressed store (CAS) and [Rust client](https://github.com/huggingface/xet-core) that provide the system's foundation. Without these pieces, Git LFS is still the future on the Hub. However, the unsung heroes of this migration are:
+How? For one, the team came prepared with years of experience building and supporting the content addressed store (CAS) and [Rust client](https://github.com/huggingface/xet-core) that provide the system's foundation. Without these pieces, Git LFS may still be the future on the Hub. However, the unsung heroes of this migration are:
 
 1. An integral piece of infrastructure known internally as the Git LFS Bridge
 2. Background content migrations that run around the clock
@@ -50,13 +50,13 @@ Every time a file needs to be migrated from LFS to Xet, a webhook is triggered, 
 
 - Enables Xet on the repo if the event calls for it
 - Fetches a listing of LFS revisions for every LFS file in the repo
-- Batches the files into jobs based on size or number of files; either a 1000 files or 500MB, whichever comes first
+- Batches the files into jobs based on size or number of files; either 1000 files or 500MB, whichever comes first
 - Places the jobs on another queue for migration worker pods
 
-These jobs are then picked up by migration workers where each pod:
+These migration workers then pick up the jobs and each pod:
 
-- Downloads the LFS files in the batch
-- Uploads the LFS files to the Xet content addressed store using xet-core
+- Downloads the LFS files listed in the batch
+- Uploads the LFS files to the Xet content addressed store using [xet-core](https://github.com/huggingface/xet-core)
 
 <figure class="image text-center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/growing-with-xet/flow.png" alt="Migration flow">
@@ -65,13 +65,13 @@ These jobs are then picked up by migration workers where each pod:
 
 ## Scaling migrations
 
-In April, we tested this system's limits by onboarding [bartowski](https://huggingface.co/bartowski). With nearly 500 TB across 2,000 repos the migration uncovered a few weak links: 
+In April, we tested this system's limits by reaching out to [bartowski](https://huggingface.co/bartowski) and asking if they wanted to test out Xet. With nearly 500 TB across 2,000 repos, bartowski's migration uncovered a few weak links: 
 
 - Temporary [shard files for global dedupe](https://huggingface.co/blog/from-chunks-to-blocks#scaling-deduplication-with-aggregation) were first written to `/tmp` and then moved into the shard cache. On our worker pods, however, `/tmp` and the [Xet cache](https://huggingface.co/docs/huggingface_hub/guides/manage-cache#chunk-based-caching-xet) sat on different mount points. The move failed and the shard files were never removed. Eventually the disk filled, triggering a wave of **`No space left on device`** errors.
-- After supporting the [launch of Llama 4](https://huggingface.co/blog/llama4-release), we'd scaled CAS for bursty downloads, but the migration workers flipped the script as hundreds of multi-gigabyte uploads overwhelmed CAS
-- On paper, the migration workers were capable of significantly more throughput than what was reported; profiling the pods revealed network and EBS I/O bottlenecks
+- After supporting the [launch of Llama 4](https://huggingface.co/blog/llama4-release), we'd scaled CAS for bursty downloads, but the migration workers flipped the script as hundreds of multi-gigabyte uploads pushed CAS beyond its resources
+- On paper, the migration workers were capable of significantly more throughput than what was reported; profiling the pods revealed network and [EBS](https://aws.amazon.com/ebs/) I/O bottlenecks
 
-Fixing this three-headed monster meant touching every layer - patching xet-core, resizing CAS, and beefing up the worker node specs. Fortunately, [bartowski](https://huggingface.co/bartowski) was game to wait and every repo made its way to Xet. These same lessons powered the moves of the biggest storage users on the Hub like [RichardErkhov](https://huggingface.co/RichardErkhov) (1.7PB and 25,000 repos) and [mradermacher](https://huggingface.co/mradermacher) (6.1PB and 42,000 repos 🤯).
+Fixing this three-headed monster meant touching every layer - patching xet-core, resizing CAS, and beefing up the worker node specs. Fortunately, [bartowski](https://huggingface.co/bartowski) was game to work with us while every repo made its way to Xet. These same lessons powered the moves of the biggest storage users on the Hub like [RichardErkhov](https://huggingface.co/RichardErkhov) (1.7PB and 25,000 repos) and [mradermacher](https://huggingface.co/mradermacher) (6.1PB and 42,000 repos 🤯).
 
 CAS throughput, meanwhile, has grown by an order of magnitude between the first and latest large-scale migrations:
 
@@ -85,7 +85,7 @@ CAS throughput, meanwhile, has grown by an order of magnitude between the first 
 
 ## Zero friction, faster transfers
 
-When we began replacing LFS, our goals were twofold:
+When we began replacing LFS, we had two goals in mind:
 
 1. Do no harm
 2. Drive the most impact as fast as possible
@@ -94,7 +94,7 @@ Designing with our initial constraints and these goals allowed us to:
 
 - Introduce and harden `hf-xet` before including it in `huggingface_hub` as a required dependency
 - Support the community uploading to and downloading from Xet-enabled repos through whatever means they use today while our infrastructure handles the rest
-- Learn invaluable lessons from incrementally migrating the Hub to Xet
+- Learn invaluable lessons - from scale to how our client operated on distributed file systems - from incrementally migrating the Hub to Xet
 
 Instead of waiting for all upload paths to become Xet-aware, forcing a hard cut-over, or pushing the community to adopt a specific workflow, we could begin migrating the Hub to Xet immediately with minimal user impact. In short, let teams keep their workflows and organically transition to Xet with infrastructure supporting the long-term goal of a unified storage system. 
 
