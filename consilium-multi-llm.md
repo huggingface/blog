@@ -9,15 +9,15 @@ authors:
 
 Picture this: four AI experts sitting around a poker table, debating your toughest decisions in real-time. That's exactly what Consilium, the multi-LLM platform I built during the Gradio Agents & MCP Hackathon, does. It lets AI models discuss complex questions and reach consensus through structured debate.
 
-The platform works both as a visual Gradio interface and as an MCP (Model Context Protocol) server that integrates directly with applications like Cline (Claude Desktop had issues as the timeout could not be adjusted). The core idea was always about LLMs reaching consensus through discussion; that's where the name Consilium came from. Later I added other decision modes like majority voting and ranked choice to make the collaboration more sophisticated.
+The platform works both as a visual Gradio interface and as an MCP (Model Context Protocol) server that integrates directly with applications like Cline (Claude Desktop had issues as the timeout could not be adjusted). The core idea was always about LLMs reaching consensus through discussion; that's where the name Consilium came from. Later, other decision modes like majority voting and ranked choice were added to make the collaboration more sophisticated.
 
 ## From Concept to Architecture
 
 This wasn't my original hackathon idea. I initially wanted to build a simple MCP server to talk to my projects in RevenueCat. But I reconsidered when I realized a multi-LLM platform where these models discuss questions and return well-reasoned answers would be far more compelling.
 
-The timing turned out to be perfect. Shortly after the hackathon, Microsoft published their AI Diagnostic Orchestrator (MAI-DxO), which is essentially an AI doctor panel with different roles like "Dr. Challenger Agent" that iteratively diagnose patients. In their setup with OpenAI o3, they correctly solved 85.5% of medical diagnosis benchmark cases, while practicing physicians achieved only 20% accuracy. This validates exactly what Consilium demonstrates: multiple AI perspectives collaborating can dramatically outperform individual analysis.
+The timing turned out to be perfect. Shortly after the hackathon, Microsoft published their [AI Diagnostic Orchestrator (MAI-DxO)](https://microsoft.ai/new/the-path-to-medical-superintelligence/), which is essentially an AI doctor panel with different roles like "Dr. Challenger Agent" that iteratively diagnose patients. In their setup with OpenAI o3, they correctly solved 85.5% of medical diagnosis benchmark cases, while practicing physicians achieved only 20% accuracy. This validates exactly what Consilium demonstrates: multiple AI perspectives collaborating can dramatically outperform individual analysis.
 
-After settling on the concept, I needed something that worked as both an MCP server and an engaging Hugging Face space demo. Initially I considered using the standard Gradio Chat component, but I wanted my submission to stand out. The idea was to seat LLMs around a table in a boardroom with speech bubbles, which should capture the collaborative discussion while also making it visually engaging. As I did not manage to style a standard table nicely so it was actually recognized as a table, I went for a poker-style roundtable. This approach also meant I could submit to two hackathon tracks by building a custom Gradio component and MCP server.
+After settling on the concept, I needed something that worked as both an MCP server and an engaging Hugging Face space demo. Initially I considered using the standard Gradio Chat component, but I wanted my submission to stand out. The idea was to seat LLMs around a table in a boardroom with speech bubbles, which should capture the collaborative discussion while also making it visually engaging. As I did not manage to style a standard table nicely so it was actually recognized as a table, I went for a poker-style roundtable. This approach also let me submit to two hackathon tracks by building a custom Gradio component and MCP server.
 
 ## Building the Visual Foundation
 
@@ -38,7 +38,7 @@ roundtable = consilium_roundtable(
 )
 ```
 
-The visual design proved robust throughout the hackathon; after the initial implementation, I only needed to add features like user-defined avatars and center table text, while the core interaction model remained unchanged.
+The visual design proved robust throughout the hackathon; after the initial implementation, only features like user-defined avatars and center table text were added, while the core interaction model remained unchanged.
 
 ## Making LLMs Actually Discuss
 
@@ -133,7 +133,7 @@ Since research operations can be time-intensive, the speech bubbles display prog
 
 ## Discovering the Open Floor Protocol
 
-After the hackathon, Deborah Dahl introduced me to the Open Floor Protocol, which aligns perfectly with the roundtable approach. This protocol provides standardized JSON message formatting for cross-platform agent communication. Its key differentiator from other agent-to-agent protocols is that all agents maintain constant conversation awareness exactly like sitting at the same table.
+After the hackathon, Deborah Dahl introduced me to the [Open Floor Protocol](https://github.com/open-voice-interoperability/openfloor-docs), which aligns perfectly with the roundtable approach. This protocol provides standardized JSON message formatting for cross-platform agent communication. Its key differentiator from other agent-to-agent protocols is that all agents maintain constant conversation awareness exactly like sitting at the same table.
 
 The protocol's interaction patterns map directly to Consilium's architecture:
 
@@ -146,7 +146,7 @@ I'm currently integrating Open Floor Protocol support to allow users to add any 
 
 ## Lessons Learned and Future Implications
 
-The hackathon introduced me to multi-agent debate research I hadn't previously encountered, including foundational studies like https://arxiv.org/abs/2305.19118. The community experience was remarkable; all participants actively supported each other through Discord feedback and collaboration. Seeing my roundtable component integrated into another project (Agents-MCP-Hackathon/multi-agent-chat) was one of my highlights working on Consilium.
+The hackathon introduced me to multi-agent debate research I hadn't previously encountered, including foundational studies like [Encouraging Divergent Thinking in Large Language Models through Multi-Agent Debate](https://arxiv.org/abs/2305.19118). The community experience was remarkable; all participants actively supported each other through Discord feedback and collaboration. Seeing my roundtable component integrated into [another hackathon project](https://huggingface.co/spaces/Agents-MCP-Hackathon/multi-agent-chat) was one of my highlights working on Consilium.
 
 I will continue to work on Consilium and with expanded model selection, Open Floor Protocol integration, and configurable agent roles, the platform could support virtually any multi-agent debate scenario imaginable.
 
