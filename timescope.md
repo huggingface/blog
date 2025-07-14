@@ -16,7 +16,7 @@ authors:
   org: Stanford
 ---
 
-# Introducing TimeScope: Evaluating True Long-Video Understanding in Large Multimodal Models
+# TimeScope: How Long Can Your Video-LMM go?
 
 As multimodal AI continues to advance, recent models have begun to make ambitious claims regarding their capacity for “hour-long video understanding.” Drawing inspiration from progress in long-context language models—where extended reasoning over lengthy textual inputs has become increasingly feasible—vision-language systems now advertise context windows encompassing thousands of frames. However, these developments prompt a critical inquiry: to what extent do such models demonstrate genuine temporal comprehension, as opposed to surface-level pattern recognition or overstated capabilities?
 
