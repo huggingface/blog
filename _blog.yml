@@ -6339,3 +6339,15 @@
     - robotics
     - models
     - open-source
+
+- local: timescope
+  title: "Introducing TimeScope: Evaluating True Long-Video Understanding in Large Multimodal Models"
+  author: orrzohar
+  thumbnail: /blog/assets/timescope/thumbnail.png
+  date: Jul 14, 2025
+  tags:
+    - video
+    - datasets
+    - multimodal
+    - open-source
+    - benchmark
