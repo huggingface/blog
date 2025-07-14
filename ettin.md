@@ -114,7 +114,7 @@ Due to the lack of new encoder models, works like [LLM2Vec](https://arxiv.org/ab
 
 We switched the objective and continued to train our models with the opposite objective for 50B additional tokens. This is what we found:
 
-- **Encoder-from-decoder**: Still trails native encoders on classification/retrieval
+- **Encoder-from-decoder**: Still generally trails native encoders on classification/retrieval
 - **Decoder-from-encoder**: Are significantly worse than native decoders, especially at larger scales. This may be because the encoders were trained with MLM instead of MNTP (masked next token prediction) as proposed by LLM2Vec (and used in our encoder from decoder recipe).
 
 This suggests the architecture choice matters fundamentally, not just the training objective.
