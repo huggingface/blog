@@ -1,5 +1,5 @@
 ---
-title: "Introducing TimeScope: Evaluating True Long-Video Understanding in Large Multimodal Models"
+title: "TimeScope: How Long Can Your Video-LMM go?"
 thumbnail: /blog/assets/timescope/thumbnail.png
 authors:
 - user: orrzohar
