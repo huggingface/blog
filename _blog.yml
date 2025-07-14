@@ -6340,10 +6340,10 @@
     - models
     - open-source
 
-- local: growing-with-xet
-  title: "Growing Beyond Git LFS with Xet"
+- local: migrating-the-hub-to-xet
+  title: "Migrating the Hub from Git LFS to Xet"
   author: jsulz
-  thumbnail: /blog/assets/growing-with-xet/thumbnail.png
+  thumbnail: /blog/assets/migrating-the-hub-to-xet/thumbnail.png
   date: Jul 15, 2025
   tags:
     - storage
