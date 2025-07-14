@@ -85,3 +85,12 @@ By varying video lengths and needle placements, TimeScope quantifies the maximum
 ## Baseline Evaluation Results
 
 To kick things off, we ran TimeScope on a suite of leading vision-language models, from open-source favorites to the juggernaut: Gemini2.5-pro. The results underscore the benchmark’s value: even models with advertised long-context prowess struggle with authentic temporal tasks at scale. These findings reveal clear patterns—performance cliffs around certain durations, strengths in static retrieval versus weaknesses in motion analysis—and pave the way for targeted improvements in model training. For detailed results and visualizations, check out our Hugging Face Space embedded above.
+
+
+## Open-Sourcing
+
+We are open-sourcing all components of TimeScope:
+
+- **Dataset**: [Apollo-LMMs/TimeScope](https://huggingface.co/datasets/Apollo-LMMs/TimeScope)
+- **Leaderboard**: [Apollo-LMMs/TimeScope](https://huggingface.co/spaces/Apollo-LMMs/TimeScope)
+- **Evaluation Framework**: [lmms-eval](https://github.com/EvolvingLMMs-Lab/lmms-eval)
