@@ -29,7 +29,7 @@ This measurement gap leaves us wondering: What does it really mean for a model t
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.4.0/gradio.js"></script>
 <gradio-app theme_mode="dark" space="Apollo-LMMs/TimeScope"></gradio-app>
-\
+
 ## Why TimeScope? Motivating a Better Benchmark for Video
 
 The promise of long-video AI is transformative — enabling agents to summarize hours of footage, detect subtle anomalies, and answer complex questions about extended narratives. Integrated into robotics, these models could analyze prolonged operations, adapt in real time, and drive autonomous decision-making. Just as powerful is the vision of a personal assistant that understands daily life and offers continuous, actionable feedback.
@@ -49,7 +49,9 @@ TimeScope flips the script by emphasizing three pillars of long-video understand
 TimeScope's core innovation lies in its utilization of 
 video clips as needles, requiring more then simply sampling that particular needle in the video but rather to densely understand the entire video. We start with a long base video (e.g., a documentary, lecture, or ambient footage) and insert one or more hand-curated short video needles (5-10 seconds each) at random positions. These needles contain the key information needed to solve the task, forcing models to process the entire input without shortcuts like sparse sampling.
 
-![Benchmark Design Diagram](overview.png)
+
+  <img src="https://huggingface.co/spaces/Apollo-LMMs/TimeScope/resolve/main/overview.png" alt="Benchmark Design Diagram" style="width: 90%; height: auto;">
+
 
 *Figure 1: Overview of TimeScope's needle insertion process. A long base video (1 min to 8 hours) serves as the haystack, into which we splice short video needles (~10-20 seconds). Tasks require detecting, synthesizing, or analyzing content from these needles, embedded at varying depths.*
 
@@ -82,4 +84,4 @@ By varying video lengths and needle placements, TimeScope quantifies the maximum
 
 ## Baseline Evaluation Results
 
-To kick things off, we ran TimeScope on a suite of leading vision-language models, from open-source favorites to the juggernaut: Gemini2.5-pro. The results underscore the benchmark’s value: even models with advertised long-context prowess struggle with authentic temporal tasks at scale. These findings reveal clear patterns—performance cliffs around certain durations, strengths in static retrieval versus weaknesses in motion analysis—and pave the way for targeted improvements in model training. For detailed results and visualizations, check out our Hugging Face Space embedded above.
+To kick things off, we ran TimeScope on a suite of leading vision-language models, from open-source favorites to the jaggernaut: Gemini2.5-pro. The results underscore the benchmark’s value: even models with advertised long-context prowess struggle with authentic temporal tasks at scale. These findings reveal clear patterns—performance cliffs around certain durations, strengths in static retrieval versus weaknesses in motion analysis—and pave the way for targeted improvements in model training. For detailed results and visualizations, check out our Hugging Face Space embedded above.
