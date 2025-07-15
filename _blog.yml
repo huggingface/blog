@@ -6339,3 +6339,13 @@
     - robotics
     - models
     - open-source
+
+- local: migrating-the-hub-to-xet
+  title: "Migrating the Hub from Git LFS to Xet"
+  author: jsulz
+  thumbnail: /blog/assets/migrating-the-hub-to-xet/thumbnail.png
+  date: Jul 15, 2025
+  tags:
+    - storage
+    - infrastructure
+    - content addressed store
