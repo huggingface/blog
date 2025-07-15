@@ -6272,7 +6272,7 @@
     - reasoning
     - community
     - research
-      
+
 - local: gradio-mcp-servers
   title: "Upskill your LLMs with Gradio MCP Servers"
   author: freddyaboulton
