@@ -6272,16 +6272,92 @@
     - reasoning
     - community
     - research
+      
+- local: gradio-mcp-servers
+  title: "Upskill your LLMs with Gradio MCP Servers"
+  author: freddyaboulton
+  thumbnail: /blog/assets/upskill-llms-with-gradio-mcp/UpskillThumbnail.png
+  date: July 9, 2025
+  tags:
+    - gradio
+    - mcp
+    - llm
 
+- local: mi300kernels
+  title: "Creating custom kernels for the AMD MI300" 
+  author: ror
+  thumbnail: /blog/assets/mi300kernels/thumbnail.png
+  date: Jul 9, 2025
+  tags:
+    - kernels
+    - cuda
+    - amd
+    - optimization
+
+- local: reachy-mini
+  title: "Reachy Mini - The Open-Source Robot for Today's and Tomorrow's AI Builders"
+  author: thomwolf
+  thumbnail: /blog/assets/reachy-mini/thumbnail.jpg
+  date: July 9, 2025
+  tags:
+    - robotics
+    - community
+    - open-source
+
+- local: building-hf-mcp
+  title: "Building the Hugging Face MCP Server"
+  author: evalstate
+  thumbnail: /blog/assets/building-hf-mcp/building-hf-mcp.png
+  date: July 10, 2025
+  tags:
+    - community
+    - open-source
+    - mcp
+    - gradio
+    - multimodal
+
+
+- local: screenenv
+  title: "ScreenEnv: Deploy your full stack Desktop Agent"
+  author: A-Mahla
+  thumbnail: /blog/assets/screenenv/screenenv.png
+  date: July 10, 2025
+  tags:
+    - agents
+    - gui
+    - community
+    - open-source
+    - mcp
+
+- local: async-robot-inference
+  title: "Asynchronous Robot Inference: Decoupling Action Prediction and Execution"
+  author: fracapuano
+  thumbnail: /blog/assets/async_inference/thumbnail_async_blog.png
+  date: Jul 10, 2025
+  tags:
+    - lerobot
+    - robotics
+    - models
+    - open-source
+
+- local: migrating-the-hub-to-xet
+  title: "Migrating the Hub from Git LFS to Xet"
+  author: jsulz
+  thumbnail: /blog/assets/migrating-the-hub-to-xet/thumbnail.png
+  date: Jul 15, 2025
+  tags:
+    - storage
+    - infrastructure
+    - content addressed store
+    
 - local: ettin
-  title: "Seq vs Seq: the Ettin Suite
-of Paired Encoders and Decoders"
+  title: "Seq vs Seq: the Ettin Suite of Paired Encoders and Decoders"
   author: orionweller
   thumbnail: /blog/assets/ettin/image.png
-  date: July 14, 2025
+  date: July 16, 2025
   tags:
     - llm
     - nlp
     - community
     - research
-    - open-source-collab
+    - open-source-collab 
