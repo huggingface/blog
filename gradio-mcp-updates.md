@@ -5,7 +5,7 @@ authors:
 - user: freddyaboulton
 ---
 
-# Gradio MCP Servers Just Got Better
+# Four Ways Gradio MCP Servers Just Got Better
 
 [Gradio](https://gradio.app) is an open source python package for creating ai-powered web applications. Gradio is compliant with the [MCP server protocol](ADD_LINK) and powers thousands of MCP serves hosted on [Hugging Face Spaces](https://hf.co/spaces). The Gradio team is **betting big** on Gradio and Spaces being the best way to build and host AI-powered MCP servers.
 
