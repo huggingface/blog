@@ -6349,3 +6349,14 @@
     - storage
     - infrastructure
     - content addressed store
+
+- local: gradio-mcp-updates
+  title: "Four Ways Gradio MCP Servers Just Got Better"
+  author: freddyaboulton
+  thumbnail: /blog/assets/gradio-mcp-updates/<PNG_PATH>.png
+  date: Jul 18, 2025
+  tags:
+    - gradio
+    - mcp
+    - community
+    - open-source
