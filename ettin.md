@@ -649,6 +649,7 @@ if __name__ == "__main__":
 <summary>Click to expand decoder training code</summary>
 
 # Full training
+```bash
 python trl/scripts/sft.py \
     --model_name_or_path jhu-clsp/ettin-decoder-17m \
     --dataset_name trl-lib/Capybara \
@@ -663,9 +664,10 @@ python trl/scripts/sft.py \
     --eval_steps 100 \
     --output_dir ettin-decoder-17m \
     --push_to_hub
-
+```
 
 # LoRA
+```bash
 python trl/scripts/sft.py \
     --model_name_or_path jhu-clsp/ettin-decoder-17m \
     --dataset_name trl-lib/Capybara \
@@ -683,8 +685,9 @@ python trl/scripts/sft.py \
     --lora_alpha 16 \
     --output_dir ettin-decoder-17m \
     --push_to_hub
+```
 
-with sft.py:
+with `sft.py`:
 ```python
 import argparse
 
