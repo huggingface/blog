@@ -6361,3 +6361,15 @@
     - community
     - research
     - open-source-collab 
+
+- local: shaping-laser-pulses
+  title: "Shaping Laser Pulses with Reinforcement Learning"
+  author: fracapuano
+  thumbnail: https://huggingface.co/datasets/fracapuano/rlaser-assets/resolve/main/assets/Figure1.png
+  date: July 16, 2025
+  tags:
+    - reinforcement-learning
+    - physics
+    - ml-for-science
+    - research
+    - open-source
