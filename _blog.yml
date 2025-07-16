@@ -6353,7 +6353,7 @@
 - local: ettin
   title: "Seq vs Seq: the Ettin Suite of Paired Encoders and Decoders"
   author: orionweller
-  thumbnail: /blog/assets/ettin/image.png
+  thumbnail: /blog/assets/ettin/thumbnail.png
   date: July 16, 2025
   tags:
     - llm
