@@ -6361,3 +6361,13 @@
     - community
     - research
     - open-source-collab 
+
+- local: futurebench
+  title: "Back to The Future: Evaluating AI Agents on Predicting Future Events"
+  thumbnail: /blog/assets/futurebench/leaderboard.png
+  author: vinid
+  date: January 13, 2025
+  tags:
+    - research
+    - evaluation
+    - ai
