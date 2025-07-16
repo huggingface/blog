@@ -796,9 +796,8 @@ The complete Ettin suite includes models at six different scales (for both encod
 
 **Standard Models:**
 - [ettin-encoder-17m](https://huggingface.co/jhu-clsp/ettin-encoder-17m) / [ettin-decoder-17m](https://huggingface.co/jhu-clsp/ettin-decoder-17m) (17M params)
-- [ettin-encoder-17m](https://huggingface.co/jhu-clsp/ettin-encoder-32m) / [ettin-decoder-17m](https://huggingface.co/jhu-clsp/ettin-decoder-32m) (32M params)
-- [ettin-encoder-17m](https://huggingface.co/jhu-clsp/ettin-encoder-68m) / [ettin-decoder-17m](https://huggingface.co/jhu-clsp/ettin-decoder-68m) (68M params)
-
+- [ettin-encoder-32m](https://huggingface.co/jhu-clsp/ettin-encoder-32m) / [ettin-decoder-32m](https://huggingface.co/jhu-clsp/ettin-decoder-32m) (32M params)
+- [ettin-encoder-68m](https://huggingface.co/jhu-clsp/ettin-encoder-68m) / [ettin-decoder-68m](https://huggingface.co/jhu-clsp/ettin-decoder-68m) (68M params)
 - [ettin-encoder-150m](https://huggingface.co/jhu-clsp/ettin-encoder-150m) / [ettin-decoder-150m](https://huggingface.co/jhu-clsp/ettin-decoder-150m) (150M params)  
 - [ettin-encoder-400m](https://huggingface.co/jhu-clsp/ettin-encoder-400m) / [ettin-decoder-400m](https://huggingface.co/jhu-clsp/ettin-decoder-400m) (400M params)
 - [ettin-encoder-1b](https://huggingface.co/jhu-clsp/ettin-encoder-1b) / [ettin-decoder-1b](https://huggingface.co/jhu-clsp/ettin-decoder-1b) (1B params)
