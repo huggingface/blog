@@ -8,6 +8,8 @@ authors:
 
 # Back to The Future: Evaluating AI Agents on Predicting Future Events
 
+> **🚀 Try it yourself!** Explore the live leaderboard: [FutureBench Interactive Leaderboard](https://huggingface.co/spaces/futurebench/FutureBench/)
+
 <img src="/blog/assets/futurebench/opening.png">
 
 ## Future of AI
@@ -99,7 +101,7 @@ This intentionally lean setup forces agents to be strategic about information ga
 
 <img src="/blog/assets/futurebench/leaderboard.png">
 
-We compare different models using smolagents as a baseline. We also run the standard language models without internet access to estimate a general prior. As expected, we see agentic models performing better than simple language models; stronger models show more stable prediction quality. Overall we also find interesting patterns in how different models try to approach a question:
+We compare different models using smolagents as a baseline (you can find the leaderboard on our [HF Space](https://huggingface.co/spaces/futurebench/FutureBench/)). We also run the standard language models without internet access to estimate a general prior. As expected, we see agentic models performing better than simple language models; stronger models show more stable prediction quality. Overall we also find interesting patterns in how different models try to approach a question:
 
 ###  Interesting Behavioral Patterns
 
