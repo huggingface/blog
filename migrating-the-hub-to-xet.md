@@ -21,7 +21,7 @@ How? For one, the team came prepared with years of experience building and suppo
 1. An integral piece of infrastructure known internally as the Git LFS Bridge
 2. Background content migrations that run around the clock
 
-Together, these components have allowed us to aggressively migrate PBs in the span of days without worrying about the impact to the Hub or the community. They're giving us the piece of mind to move even faster in the coming weeks and months ([skip to the end](#xet-for-everyone) 👇 to see what's coming).
+Together, these components have allowed us to aggressively migrate PBs in the span of days without worrying about the impact to the Hub or the community. They're giving us the peace of mind to move even faster in the coming weeks and months ([skip to the end](#xet-for-everyone) 👇 to see what's coming).
 
 ## Bridges and backward compatibility
 
