@@ -13,7 +13,6 @@ authors:
 - user: coolcat21
   guest: true
 - user: clefourrier
-  guest: false
 - user: jameszou
   guest: true
 
