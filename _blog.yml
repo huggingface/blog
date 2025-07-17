@@ -6362,6 +6362,16 @@
     - research
     - open-source-collab 
 
+- local: futurebench
+  title: "Back to The Future: Evaluating AI Agents on Predicting Future Events"
+  thumbnail: /blog/assets/futurebench/leaderboard.png
+  author: vinid
+  date: July 17, 2025
+  tags:
+    - research
+    - evaluation
+    - ai
+
 - local: gradio-mcp-updates
   title: "Five Big Improvements to Gradio MCP Servers"
   author: freddyaboulton
