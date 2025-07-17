@@ -115,7 +115,7 @@ This intentionally lean setup forces agents to be strategic about information ga
 
 We compare different models using smolagents as a baseline (you can find the leaderboard on our [HF Space](https://huggingface.co/spaces/futurebench/FutureBench/)). We also run the standard language models without internet access to estimate a general prior. As expected, we see agentic models performing better than simple language models; stronger models show more stable prediction quality. Overall we also find interesting patterns in how different models try to approach a question:
 
-###  Interesting Behavioral Patterns
+### Interesting Action Patterns
 
 Running this benchmark has revealed insights into how different models approach information gathering. One striking difference is with respect to scraping. **GPT-4.1** appears to rely more on search results. **Claude3.7** and **4** explore the web space in more detail and tend to use web scraping more frequently; this thorough approach also means collecting many more input tokens during the research process, thus increasing the cost.
 
