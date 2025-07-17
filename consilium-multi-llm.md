@@ -41,7 +41,7 @@ roundtable = consilium_roundtable(
 
 The visual design proved robust throughout the hackathon; after the initial implementation, only features like user-defined avatars and center table text were added, while the core interaction model remained unchanged.
 
-If you are interested in creating your own custom Gradio component you should take a look at Custom Components in 5 minutes and yes the title does not lie; it literally only takes 5 minutes for the basic setup.
+If you are interested in creating your own custom Gradio component you should take a look at [Custom Components in 5 minutes](https://www.gradio.app/guides/custom-components-in-five-minutes) and yes the title does not lie; it literally only takes 5 minutes for the basic setup.
 
 ## Session State Management
 
