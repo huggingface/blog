@@ -56,10 +56,11 @@ Our first approach uses AI to mine current events for prediction opportunities. 
 
 We guide this process with carefully crafted prompts that specify what makes a good prediction question—events that are meaningful, verifiable, and uncertain.
 
-Technical Stack:
-* Model: DeepSeek-V3 for reasoning and question generation
-* Scraping: Firecrawl for reliable content extraction
-* Search: Tavily for additional context when needed
+**Technical Stack:**
+
+* **Model**: DeepSeek-V3 for reasoning and question generation
+* **Scraping**: Firecrawl for reliable content extraction
+* **Search**: Tavily for additional context when needed
 
 The agent typically generates 5 questions per scraping session, with a time horizon of a single week, meaning that we assume we’ll know the answer to the question after seven days. This gives us a natural pipeline of fresh evaluation material tied to real-world events.
 
@@ -73,7 +74,7 @@ In addition to this, polymarket questions have less constraints regarding the fi
 ## Example Questions
 
 Here's an example of what comes out of our question generation pipeline:
-| News-Generated                                                                 | Polymarket                                                                                      |
+| **News-Generated**                                                                | **Polymarket**                                                                                      |
 |--------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
 | "Will the Federal Reserve cut interest rates by at least 0.25% by July 1st, 2025?" | "Will monthly inflation increase by 0.2% in June?"                                              |
 | "Will Ukraine and Russia hold peace negotiations by July 8th, 2025?"           | "Will Zohran Mamdani’s RCV margin of victory be greater than 13% in the New York City Mayoral Democratic Primary?" |
@@ -82,13 +83,13 @@ Here's an example of what comes out of our question generation pipeline:
 
 The next question is, what does this type of benchmark allow us to measure? The framework operates on three distinct levels, allowing us to isolate exactly what we're measuring:
 
-* Level 1: Framework Comparison
+* **Level 1: Framework Comparison**
 Keep the underlying LLMs and tools constant while varying frameworks. How does a LangChain-based agent compare to one built with CrewAI when both use GPT-4 and the same search tools? This isolates the impact of different agentic frameworks.
 
-* Level 2: Tool Performance
+* **Level 2: Tool Performance**
 Fix the LLM and framework while comparing different implementations. Which search tool (for example Tavily, Google, Bing) leads to better predictions than other search engines, holding everything else constant? This reveals which tools actually provide value. How much value do tools bring in general with respect to models without tools?
 
-* Level 3: Model Capabilities
+* **Level 3: Model Capabilities**
 Hold the framework and tools constant while testing different LLMs. Given access to the same set of tools, does DeepSeek-V3 use them as effectively as GPT-4? This measures pure reasoning ability.
 This systematic approach lets us understand exactly where performance gains and losses occur in the agent pipeline.
 
@@ -102,8 +103,8 @@ The benchmark also serves as a robust test of instruction following. Agents must
 
 We use SmolAgents as a baseline agent for all the questions. We also compute performance on the base models. For the prediction task itself, the agents get access to a focused toolkit:
 
-* Search: Tavily integration for finding recent information and expert analysis
-* Web Scraper: A simple web scraping tool for following up on specific sources and getting detailed context.
+* **Search**: Tavily integration for finding recent information and expert analysis
+* **Web Scraper**: A simple web scraping tool for following up on specific sources and getting detailed context.
 
 This intentionally lean setup forces agents to be strategic about information gathering while still providing the tools needed for informed predictions.
 
@@ -115,15 +116,15 @@ We compare different models using smolagents as a baseline (you can find the lea
 
 ###  Interesting Behavioral Patterns
 
-Running this benchmark has revealed insights into how different models approach information gathering. One striking difference is with respect to scraping. GPT-4.1 appears to rely more on search results. Claude3.7 and 4 explore the web space in more detail and tend to use web scraping more frequently; this thorough approach also means collecting many more input tokens during the research process, thus increasing the cost.
+Running this benchmark has revealed insights into how different models approach information gathering. One striking difference is with respect to scraping. **GPT-4.1** appears to rely more on search results. **Claude3.7** and **4** explore the web space in more detail and tend to use web scraping more frequently; this thorough approach also means collecting many more input tokens during the research process, thus increasing the cost.
 
-Models show interesting approaches to making predictions. For example, to answer the above question regarding inflation in June, the DeepSeekV3 agent analyzed June 2025 inflation prospects by searching recent CPI data (finding current inflation at 2.4-2.8%), considered tariff impacts as upward pressure, and concluded inflation would exceed the 2.6% threshold. 
+Models show interesting approaches to making predictions. For example, to answer the above question regarding inflation in June, the **DeepSeekV3** agent analyzed June 2025 inflation prospects by searching recent CPI data (finding current inflation at 2.4-2.8%), considered tariff impacts as upward pressure, and concluded inflation would exceed the 2.6% threshold. 
 
-Claude3.7 analyzed June 2025 inflation through comprehensive research (11 searches vs DeepSeekV3's 3), systematically gathering May 2025 CPI data (2.4% year-over-year), identifying decelerating monthly trends (0.2%→0.1%), weighing tariff pressures against Fed restrictive policy, calculating precise 0.2% gap needed, and concluded recent deceleration made reaching 2.6% threshold unlikely, answering "No."  GPT4.1 analyzed June 2025 inflation through targeted searches for market consensus and forecasts, identified May 2025 CPI at 2.4% (below 2.5% expectations), noted weak 0.1% monthly increases, found no forecaster predictions of 2.6%+ for June, and concluded the jump from 2.4% to 2.6% was unlikely given recent below-expectation trends. 
+**Claude3.7** analyzed June 2025 inflation through comprehensive research (11 searches vs DeepSeekV3's 3), systematically gathering May 2025 CPI data (2.4% year-over-year), identifying decelerating monthly trends (0.2%→0.1%), weighing tariff pressures against Fed restrictive policy, calculating precise 0.2% gap needed, and concluded recent deceleration made reaching 2.6% threshold unlikely, answering "No."  **GPT4.1** analyzed June 2025 inflation through targeted searches for market consensus and forecasts, identified May 2025 CPI at 2.4% (below 2.5% expectations), noted weak 0.1% monthly increases, found no forecaster predictions of 2.6%+ for June, and concluded the jump from 2.4% to 2.6% was unlikely given recent below-expectation trends. 
 
 Interestingly, Claude was the only model that tried to access the Bureau of Labor Statistics website to scrape it directly, which failed because it is a .gov website and we do not allow this type of action.
 
-In their thinking, the models show interesting patterns. GPT immediately recognized that consensus forecasts are the key signal for future events rather than extrapolating from current data, while Claude demonstrated rigorous analytical structure with its systematic pro/con framework and quantitative gap analysis, and DeepSeekV3 showed honest acknowledgment of data limitations and transparently pivoted its methodology when initial approaches hit dead ends.
+**In their thinking, the models show interesting patterns.** GPT immediately recognized that consensus forecasts are the key signal for future events rather than extrapolating from current data, while Claude demonstrated rigorous analytical structure with its systematic pro/con framework and quantitative gap analysis, and DeepSeekV3 showed honest acknowledgment of data limitations and transparently pivoted its methodology when initial approaches hit dead ends.
 
 These behavioral differences reveal interesting patterns in how different models approach information gathering. The variations in web usage and token consumption suggest that models have distinct strategies for tackling prediction tasks, which FutureBench can help us measure and understand.
 
