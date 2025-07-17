@@ -27,6 +27,7 @@ The custom Gradio component became the heart of the submission; the poker-style 
 # The visual component integration
 roundtable = consilium_roundtable(
     label="AI Expert Roundtable",
+    label_icon="https://huggingface.co/front/assets/huggingface_logo-noborder.svg",
     value=json.dumps({
         "participants": [],
         "messages": [],
@@ -52,10 +53,12 @@ While implementing, I realized there was no real discussion happening between th
 
 ```python
 self.roles = {
-    'expert_advocate': "You are a PASSIONATE EXPERT advocating for your specialized position. Present compelling evidence with conviction.",
-    'critical_analyst': "You are a RIGOROUS CRITIC. Identify flaws, risks, and weaknesses in arguments with analytical precision.",
-    'strategic_advisor': "You are a STRATEGIC ADVISOR. Focus on practical implementation, real-world constraints, and actionable insights.",
-    'research_specialist': "You are a RESEARCH EXPERT with deep domain knowledge. Provide authoritative analysis and evidence-based insights."
+    'standard': "Provide expert analysis with clear reasoning and evidence.",
+    'expert_advocate': "You are a PASSIONATE EXPERT advocating for your specialized position. Present compelling evidence with conviction.",
+    'critical_analyst': "You are a RIGOROUS CRITIC. Identify flaws, risks, and weaknesses in arguments with analytical precision.",
+    'strategic_advisor': "You are a STRATEGIC ADVISOR. Focus on practical implementation, real-world constraints, and actionable insights.",
+    'research_specialist': "You are a RESEARCH EXPERT with deep domain knowledge. Provide authoritative analysis and evidence-based insights.",
+    'innovation_catalyst': "You are an INNOVATION EXPERT. Challenge conventional thinking and propose breakthrough approaches."
 }
 ```
 
@@ -84,6 +87,7 @@ self.models = {
         'api_key': sambanova_key,
         'available': bool(sambanova_key)
     }
+    ...
 }
 ```
 
@@ -117,7 +121,8 @@ class BaseTool(ABC):
     def __init__(self, name: str, description: str):
         self.name = name
         self.description = description
-        self.rate_limit_delay = 1.0  # Be respectful to APIs
+        self.last_request_time = 0
+        self.rate_limit_delay = 1.0
     
     @abstractmethod
     def search(self, query: str, **kwargs) -> str:
