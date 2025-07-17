@@ -6272,7 +6272,7 @@
     - reasoning
     - community
     - research
-    
+
 - local: gradio-mcp-servers
   title: "Upskill your LLMs with Gradio MCP Servers"
   author: freddyaboulton
@@ -6350,6 +6350,17 @@
     - infrastructure
     - content addressed store
 
+- local: ettin
+  title: "Seq vs Seq: the Ettin Suite of Paired Encoders and Decoders"
+  author: orionweller
+  thumbnail: /blog/assets/ettin/thumbnail.png
+  date: July 16, 2025
+  tags:
+    - llm
+    - nlp
+    - community
+    - research
+    - open-source-collab 
 
 - local: gradio-mcp-updates
   title: "Five Big Improvements to Gradio MCP Servers"
