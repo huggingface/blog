@@ -6385,7 +6385,7 @@
     - ai
 
 - local: trackio
-  title: "Introducing Trackio: A Lightweight Experiment Tracking Library"
+  title: "Introducing Trackio: A Lightweight Experiment Tracking Library from Hugging Face"
   thumbnail: /blog/assets/trackio/thumbnail.gif
   author: abidlabs
   date: July 18, 2025
