@@ -12,7 +12,7 @@ If you have trained your own machine learning model, you know how important it i
 
 Most machine learning researchers use specific experiment tracking libraries to do this. However, these libraries can be paid, 
 
-... other reasons to switch to Trackio
+... other reasons to switch to Trackio (science team?)
 
 That's why the Hugging Face open-source team is excited to introduce: `trackio`, a completely free, open-source Python library...
 
