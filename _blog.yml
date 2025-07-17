@@ -6339,3 +6339,14 @@
     - robotics
     - models
     - open-source
+
+- local: consilium-multi-llm
+  title: "Consilium: When Multiple LLMs Collaborate"
+  author: azettl
+  thumbnail: /blog/assets/consilium-multi-llm/thumbnail.png
+  date: Jul 17, 2025
+  tags:
+    - multi-agents
+    - hackathon
+    - gradio
+    - mcp
