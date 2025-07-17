@@ -19,7 +19,6 @@ authors:
 
 # Back to The Future: Evaluating AI Agents on Predicting Future Events
 
-> **🚀 Try it yourself!** Explore the live leaderboard: [FutureBench Interactive Leaderboard](https://huggingface.co/spaces/futurebench/FutureBench/)
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/futurebench/opening.png">
 
@@ -96,6 +95,8 @@ This systematic approach lets us understand exactly where performance gains and 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/futurebench/layers.png">
 
 The benchmark also serves as a robust test of instruction following. Agents must respect specific formatting requirements and generate actions that can be correctly parsed and executed. In practice, this often reveals where smaller language models struggle with complex multi-step reasoning.
+
+> **🚀 Try it yourself!** Explore the live leaderboard: [FutureBench Interactive Leaderboard](https://huggingface.co/spaces/futurebench/FutureBench/)
 
 ## Predicting The Future: Agents and Initial Results
 
