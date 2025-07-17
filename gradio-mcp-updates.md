@@ -9,7 +9,7 @@ authors:
 
 [Gradio](https://gradio.app) is an open-source Python package for creating AI-powered web applications. Gradio is compliant with the [MCP server protocol](https://modelcontextprotocol.io/introduction) and powers thousands of MCP servers hosted on [Hugging Face Spaces](https://hf.co/spaces). The Gradio team is **betting big** on Gradio and Spaces being the best way to build and host AI-powered MCP servers.
 
-To that end, here are some of the big improvements we've added to Gradio MCP servers as of version **5.38.0**.
+To that end, here are some of the big improvements we've added to Gradio MCP servers as of version [5.38.0](https://github.com/gradio-app/gradio/releases/tag/gradio%405.38.0).
 
 ## Seamless Local File Support
 
@@ -36,6 +36,8 @@ Depending on the AI task, getting results can take some time. Now, Gradio **stre
 As an MCP developer, it's highly recommended to implement your MCP tools to emit these progress statuses. Our [guide](https://www.gradio.app/guides/building-mcp-server-with-gradio#sending-progress-updates) shows you how.
 
 ## Transform OpenAPI Specs to MCP in One Line
+
+If you want to integrate an existing backend API into an LLM, you have to manually map API endpoints to MCP tools. This can be a time consuming and error prone chore. With this release, Gradio can automate the entire process for you! With a single line of code, you can integrate your business backend into any MCP-compatible LLM. 
 
 [OpenAPI](https://www.openapis.org/) is a widely adopted standard for describing RESTful APIs in a machine-readable format, typically as a JSON file. Gradio now features the `gr.load_openapi` function, which creates a Gradio application directly from an OpenAPI schema. You can then launch the app with `mcp_server=True` to automatically create an MCP server for your API!
 
@@ -94,9 +96,37 @@ You can read more about this in the Gradio [Guides](https://www.gradio.app/guide
 
 ## Modifying Tool Descriptions
 
-Gradio automatically generates tool descriptions from your function names and docstrings. Now you can customize the tool description even further with the `api_description` parmeter. Read more in the [guide](https://www.gradio.app/guides/building-mcp-server-with-gradio#modifying-tool-descriptions).
+Gradio automatically generates tool descriptions from your function names and docstrings. Now you can customize the tool description even further with the `api_description` parmeter. In this example, the tool description will read "Apply a sepia filter to any image."
+
+```python
+import gradio as gr
+import numpy as np
+
+def sepia(input_img):
+    """
+    Args:
+        input_img (np.array): The input image to apply the sepia filter to.
+
+    Returns:
+        The sepia filtered image.
+    """
+    sepia_filter = np.array([
+        [0.393, 0.769, 0.189],
+        [0.349, 0.686, 0.168],
+        [0.272, 0.534, 0.131]
+    ])
+    sepia_img = input_img.dot(sepia_filter.T)
+    sepia_img /= sepia_img.max()
+    return sepia_img
+
+gr.Interface(sepia, "image", "image", 
+             api_description="Apply a sepia filter to any image.")\
+            .launch(mcp_server=True)
+```
+
+Read more in the [guide](https://www.gradio.app/guides/building-mcp-server-with-gradio#modifying-tool-descriptions).
 
 
 ## Conclusion
 
-Want us to add a new MCP-related feature to Gradio? Let us know in the comments of the blog or on [GitHub](https://github.com/gradio-app/gradio/issues)
+Want us to add a new MCP-related feature to Gradio? Let us know in the comments of the blog or on [GitHub](https://github.com/gradio-app/gradio/issues). Also if you've built a cool MCP server or Gradio app let us know in the comments and we'll amplify it!
