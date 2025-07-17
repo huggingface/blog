@@ -6,11 +6,11 @@ authors:
   guest: true
 - user: junlinw
   guest: true
+- user: zainhasan
+  guest: true
 - user: ShangZhu-Together
   guest: true
 - user: coolcat21
-  guest: true
-- user: zainhasan
   guest: true
 - user: clefourrier
   guest: false
