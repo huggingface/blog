@@ -40,6 +40,12 @@ roundtable = consilium_roundtable(
 
 The visual design proved robust throughout the hackathon; after the initial implementation, only features like user-defined avatars and center table text were added, while the core interaction model remained unchanged.
 
+If you are interested in creating your own custom Gradio component you should take a look at Custom Components in 5 minutes and yes the title does not lie; it literally only takes 5 minutes for the basic setup.
+
+## Session State Management
+
+The visual roundtable maintains state through a session-based dictionary system where each user gets isolated state storage via `user_sessions[session_id]`. The core state object tracks `participants`, `messages`, `currentSpeaker`, `thinking`, and `showBubbles` arrays that are updated through `update_visual_state()` callbacks. When models are thinking, speaking, or research is being executed, the engine pushes incremental state updates to the frontend by appending to the messages array and toggling speaker/thinking states, creating the real-time visual flow without complex state machines - just direct JSON state mutations synchronized between backend processing and frontend rendering.
+
 ## Making LLMs Actually Discuss
 
 While implementing, I realized there was no real discussion happening between the LLMs because they lacked clear roles. They received the full context of ongoing discussions but didn't know how to engage meaningfully. I introduced distinct roles to create productive debate dynamics, which, after a few tweaks, ended up being like this:
@@ -133,7 +139,7 @@ Since research operations can be time-intensive, the speech bubbles display prog
 
 ## Discovering the Open Floor Protocol
 
-After the hackathon, Deborah Dahl introduced me to the [Open Floor Protocol](https://github.com/open-voice-interoperability/openfloor-docs), which aligns perfectly with the roundtable approach. This protocol provides standardized JSON message formatting for cross-platform agent communication. Its key differentiator from other agent-to-agent protocols is that all agents maintain constant conversation awareness exactly like sitting at the same table.
+After the hackathon, Deborah Dahl introduced me to the [Open Floor Protocol](https://github.com/open-voice-interoperability/openfloor-docs), which aligns perfectly with the roundtable approach. This protocol provides standardized JSON message formatting for cross-platform agent communication. Its key differentiator from other agent-to-agent protocols is that all agents maintain constant conversation awareness exactly like sitting at the same table. Another feature I have not seen with other protocols is that the floor manager can dynamically invite and remove agents from the floor and agents.
 
 The protocol's interaction patterns map directly to Consilium's architecture:
 
@@ -150,4 +156,4 @@ The hackathon introduced me to multi-agent debate research I hadn't previously e
 
 I will continue to work on Consilium and with expanded model selection, Open Floor Protocol integration, and configurable agent roles, the platform could support virtually any multi-agent debate scenario imaginable.
 
-Building Consilium reinforced my conviction that AI's future lies not just in more powerful individual models, but in systems enabling effective AI collaboration. As specialized smaller language models become more efficient and resource-friendly, I believe roundtables of task-specific SLMs with dedicated research agents may provide compelling alternatives to general-purpose large language models for many use cases.
+Building Consilium reinforced my conviction that AI's future lies not just in more powerful individual models but in systems enabling effective AI collaboration. As specialized smaller language models become more efficient and resource-friendly, I believe roundtables of task-specific SLMs with dedicated research agents may provide compelling alternatives to general-purpose large language models for many use cases.
