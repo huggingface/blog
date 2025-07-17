@@ -6272,7 +6272,7 @@
     - reasoning
     - community
     - research
-    
+
 - local: gradio-mcp-servers
   title: "Upskill your LLMs with Gradio MCP Servers"
   author: freddyaboulton
@@ -6339,6 +6339,50 @@
     - robotics
     - models
     - open-source
+
+- local: migrating-the-hub-to-xet
+  title: "Migrating the Hub from Git LFS to Xet"
+  author: jsulz
+  thumbnail: /blog/assets/migrating-the-hub-to-xet/thumbnail.png
+  date: Jul 15, 2025
+  tags:
+    - storage
+    - infrastructure
+    - content addressed store
+
+- local: ettin
+  title: "Seq vs Seq: the Ettin Suite of Paired Encoders and Decoders"
+  author: orionweller
+  thumbnail: /blog/assets/ettin/thumbnail.png
+  date: July 16, 2025
+  tags:
+    - llm
+    - nlp
+    - community
+    - research
+    - open-source-collab 
+
+- local: gradio-mcp-updates
+  title: "Five Big Improvements to Gradio MCP Servers"
+  author: freddyaboulton
+  thumbnail: /blog/assets/gradio-mcp-updates/5_mcp_improvements.png
+  date: Jul 17, 2025
+  tags:
+    - gradio
+    - mcp
+    - community
+    - open-source
+
+- local: futurebench
+  title: "Back to The Future: Evaluating AI Agents on Predicting Future Events"
+  thumbnail: /blog/assets/futurebench/leaderboard.png
+  author: vinid
+  guest: true
+  date: July 17, 2025
+  tags:
+    - research
+    - evaluation
+    - ai
 
 - local: consilium-multi-llm
   title: "Consilium: When Multiple LLMs Collaborate"
