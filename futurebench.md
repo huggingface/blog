@@ -39,7 +39,7 @@ We therefore propose evaluating agents on their ability to predict future events
 
 ## Can Agents Predict Future Events?
 This is the obvious question, and it's at the heart of what makes this benchmark interesting! We believe the answer cannot be a simple “yes” or a “no”, as it mostly depends on the actual questions; there are always important caveats to consider.
-Humans are constantly evaluated on their ability to probabilistically weigh current information to predict future events. Isn’t every career move, relationship choice, or even business strategy we make, essentially, a bet on future outcomes? 
+Humans constantly use their ability to weigh current information to predict future events. Aren't most career moves, relationship choices, or even business strategies essentially bets on future outcomes?
 
 Some predictions involve irreducible uncertainty (Will it rain on December 17th, 2027 at noon?), but many don't. When a skilled analyst predicts a company's quarterly earnings or a policy expert forecasts election outcomes, they're using available information to make informed decisions. This is precisely what we're asking AI agents to do with FutureBench! The task isn't to get agents to fortune-tell, but rather to synthesize information and reason under stronger uncertainty than most other benchmarks.
 
