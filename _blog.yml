@@ -6349,7 +6349,7 @@
     - storage
     - infrastructure
     - content addressed store
-    
+
 - local: ettin
   title: "Seq vs Seq: the Ettin Suite of Paired Encoders and Decoders"
   author: orionweller
@@ -6361,3 +6361,14 @@
     - community
     - research
     - open-source-collab 
+
+- local: gradio-mcp-updates
+  title: "Five Big Improvements to Gradio MCP Servers"
+  author: freddyaboulton
+  thumbnail: /blog/assets/gradio-mcp-updates/5_mcp_improvements.png
+  date: Jul 17, 2025
+  tags:
+    - gradio
+    - mcp
+    - community
+    - open-source
