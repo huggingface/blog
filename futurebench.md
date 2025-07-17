@@ -4,17 +4,23 @@ thumbnail: /blog/assets/futurebench/leaderboard.png
 authors:
 - user: vinid
   guest: true
+  organization: togethercomputer
 - user: junlinw
   guest: true
+  organization: togethercomputer
 - user: zainhasan
   guest: true
-- user: ShangZhu-Together
+  organization: togethercomputer
+- user: shangzhu
   guest: true
+  organization: togethercomputer
 - user: coolcat21
   guest: true
+  organization: togethercomputer
 - user: clefourrier
 - user: jameszou
   guest: true
+  organization: togethercomputer
 
 ---
 
@@ -55,7 +61,7 @@ Building a benchmark that tests real prediction capabilities requires a steady s
 
 Our first approach uses AI to mine current events for prediction opportunities. We deploy a smolagents-based agent to scrape a few major news websites, analyze front-page articles, and generate prediction questions about their likely outcomes. The agent reads through and identifies interesting articles and formulates specific, time-bound questions from their content, for example "Will the Federal Reserve cut interest rates by at least 0.25% by July 1st, 2025?"
 
-We guide this process with carefully crafted prompts that specify what makes a good prediction question—events that are meaningful, verifiable, and uncertain.
+We guide this process with carefully crafted prompts that specify what makes a good prediction question—events that are meaningful, verifiable, and uncertain extraction time.
 
 **Technical Stack:**
 
@@ -102,7 +108,7 @@ The benchmark also serves as a robust test of instruction following. Agents must
 
 ## Predicting The Future: Agents and Initial Results
 
-We use SmolAgents as a baseline agent for all the questions. We also compute performance on the base models. For the prediction task itself, the agents get access to a focused toolkit:
+We use SmolAgents as a baseline agent framework for all the questions. We also compute performance on the base models. For the prediction task itself, the agents get access to a focused toolkit:
 
 * **Search**: Tavily integration for finding recent information and expert analysis
 * **Web Scraper**: A simple web scraping tool for following up on specific sources and getting detailed context.
@@ -119,13 +125,17 @@ We compare different models using smolagents as a baseline (you can find the lea
 
 Running this benchmark has revealed insights into how different models approach information gathering. One striking difference is with respect to scraping. **GPT-4.1** appears to rely more on search results. **Claude3.7** and **4** explore the web space in more detail and tend to use web scraping more frequently; this thorough approach also means collecting many more input tokens during the research process, thus increasing the cost.
 
-Models show interesting approaches to making predictions. For example, to answer the above question regarding inflation in June, the **DeepSeekV3** agent analyzed June 2025 inflation prospects by searching recent CPI data (finding current inflation at 2.4-2.8%), considered tariff impacts as upward pressure, and concluded inflation would exceed the 2.6% threshold. 
+Models show interesting approaches to making predictions, for example, to answer the  question "Will annual inflation increase by 2.6 or more in June?":
 
-**Claude3.7** analyzed June 2025 inflation through comprehensive research (11 searches vs DeepSeekV3's 3), systematically gathering May 2025 CPI data (2.4% year-over-year), identifying decelerating monthly trends (0.2%→0.1%), weighing tariff pressures against Fed restrictive policy, calculating precise 0.2% gap needed, and concluded recent deceleration made reaching 2.6% threshold unlikely, answering "No."  **GPT4.1** analyzed June 2025 inflation through targeted searches for market consensus and forecasts, identified May 2025 CPI at 2.4% (below 2.5% expectations), noted weak 0.1% monthly increases, found no forecaster predictions of 2.6%+ for June, and concluded the jump from 2.4% to 2.6% was unlikely given recent below-expectation trends. 
+* The **DeepSeekV3** agent analyzed June 2025 inflation prospects by searching recent CPI data (finding current inflation at 2.4-2.8%), considered tariff impacts as upward pressure, and concluded inflation would exceed the 2.6% threshold. 
+
+* **Claude3.7** analyzed June 2025 inflation through comprehensive research (11 searches vs DeepSeekV3's 3), systematically gathering May 2025 CPI data (2.4% year-over-year), identifying decelerating monthly trends (0.2%→0.1%), weighing tariff pressures against Fed restrictive policy, calculating precise 0.2% gap needed, and concluded recent deceleration made reaching 2.6% threshold unlikely, answering "No."  
+
+* **GPT4.1** analyzed June 2025 inflation through targeted searches for market consensus and forecasts, identified May 2025 CPI at 2.4% (below 2.5% expectations), noted weak 0.1% monthly increases, found no forecaster predictions of 2.6%+ for June, and concluded the jump from 2.4% to 2.6% was unlikely given recent below-expectation trends. 
 
 Interestingly, Claude was the only model that tried to access the Bureau of Labor Statistics website to scrape it directly, which failed because it is a .gov website and we do not allow this type of action.
 
-**In their thinking, the models show interesting patterns.** GPT immediately recognized that consensus forecasts are the key signal for future events rather than extrapolating from current data, while Claude demonstrated rigorous analytical structure with its systematic pro/con framework and quantitative gap analysis, and DeepSeekV3 showed honest acknowledgment of data limitations and transparently pivoted its methodology when initial approaches hit dead ends.
+**The models exhibit distinct reasoning patterns in their outputs.** GPT's analysis focused on consensus forecasts as the key signal for future events rather than extrapolating from current data, while Claude's approach exhibited rigorous analytical structure with its systematic pro/con framework and quantitative gap analysis, and DeepSeekV3's output displayed explicit acknowledgment of data limitations and systematic methodology adjustments when initial approaches encountered constraints.
 
 These behavioral differences reveal interesting patterns in how different models approach information gathering. The variations in web usage and token consumption suggest that models have distinct strategies for tackling prediction tasks, which FutureBench can help us measure and understand.
 
