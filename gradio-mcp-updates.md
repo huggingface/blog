@@ -1,37 +1,44 @@
 ---
-title: "Four Ways Gradio MCP Servers Just Got Better" 
-thumbnail: /blog/assets/gradio-mcp-updates/<PNG_PATH>.png
+title: "Five Big Improvements to Gradio MCP Servers" 
+thumbnail: /blog/assets/gradio-mcp-updates/5_mcp_improvements.png
 authors:
 - user: freddyaboulton
 ---
 
-# Four Ways Gradio MCP Servers Just Got Better
+# Five Big Improvements to Gradio MCP Servers
 
-[Gradio](https://gradio.app) is an open source python package for creating ai-powered web applications. Gradio is compliant with the [MCP server protocol](ADD_LINK) and powers thousands of MCP serves hosted on [Hugging Face Spaces](https://hf.co/spaces). The Gradio team is **betting big** on Gradio and Spaces being the best way to build and host AI-powered MCP servers.
+[Gradio](https://gradio.app) is an open-source Python package for creating AI-powered web applications. Gradio is compliant with the [MCP server protocol](https://modelcontextprotocol.io/introduction) and powers thousands of MCP servers hosted on [Hugging Face Spaces](https://hf.co/spaces). The Gradio team is **betting big** on Gradio and Spaces being the best way to build and host AI-powered MCP servers.
 
-To that end, here are some of the big improvements we've added to Gradio MCP servers as of version [5.38.0](CHECK_VERSION).
+To that end, here are some of the big improvements we've added to Gradio MCP servers as of version **5.38.0**.
 
-## Local File Support
+## Seamless Local File Support
 
-If you've tried to to use a remote Gradio MCP server that takes a file as input (image, video, audio), you've probably run into this error:
+If you've tried to use a remote Gradio MCP server that takes a file as input (image, video, audio), you've probably encountered this error:
 
 <img src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/MCPError.png">
 
-The reason is that since the Gradio server is hosted on a different machine, any input files must be available via a public URL so that they can downloaded in the remote machine.
+This happens because the Gradio server is hosted on a different machine, meaning any input files must be accessible via a public URL so they can be downloaded remotely.
 
-There are many ways to host files on the internet, but they all require adding a manual step to your workflow. In the age of LLM agents, shouldn't we expect them to handle this step for you?
+While many ways exist to host files online, they all add a manual step to your workflow. In the age of LLM agents, shouldn't we expect them to handle this for you?
 
-Gradio now comes with a "File Upload" MCP server that agents can use to upload files to the Gradio application. If any of the tools in the Gradio MCP server require file inputs, the connection docs will show how you can start the "File Upload" MCP server:
+Gradio now includes a **"File Upload" MCP server** that agents can use to upload files directly to your Gradio application. If any tools in your Gradio MCP server require file inputs, the connection documentation will now show you how to start the "File Upload" MCP server:
 
 <img src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/MCPConnectionDocs.png">
 
-Read more about how to use this server (as well as important security considerations) in the [Gradio Guides](https://www.gradio.app/guides/file-upload-mcp)
+Learn more about using this server (and important security considerations) in the [Gradio Guides](https://www.gradio.app/guides/file-upload-mcp).
 
-## Go From OpenAPI Spec To MCP In One Line
+## Real-time Progress Notifications
 
-[OpenAPI](https://www.openapis.org/)** is a widely adopted standard for describing RESTful APIs in a machine-readable format, typically as a JSON file. Gradio now comes with the `gr.load_openapi` function, which creates a Gradio application directly from an OpenAPI schema. You can then launch the app with `mcp_server=True` and automatically create an MCP server for your API!
+Depending on the AI task, getting results can take some time. Now, Gradio **streams progress notifications** to your MCP client, allowing you to monitor the status in real-time!
 
-```python
+<video src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/ProgressNotifications.mp4" controls></video>
+
+As an MCP developer, it's highly recommended to implement your MCP tools to emit these progress statuses. Our [guide](https://www.gradio.app/guides/building-mcp-server-with-gradio#sending-progress-updates) shows you how.
+
+## Transform OpenAPI Specs to MCP in One Line
+
+[OpenAPI](https://www.openapis.org/) is a widely adopted standard for describing RESTful APIs in a machine-readable format, typically as a JSON file. Gradio now features the `gr.load_openapi` function, which creates a Gradio application directly from an OpenAPI schema. You can then launch the app with `mcp_server=True` to automatically create an MCP server for your API!
+
 ```python
 import gradio as gr
 
@@ -45,13 +52,13 @@ demo = gr.load_openapi(
 demo.launch(mcp_server=True)
 ```
 
-Read more about it in the Gradio [Guides](https://www.gradio.app/guides/from-openapi-spec)
+Find more details in the Gradio [Guides](https://www.gradio.app/guides/from-openapi-spec).
 
 ## Improvements to Authentication
 
-A common pattern in MCP server development is to use authentication headers to call services on behalf of your users. As an MCP server developer, you want to let your users know which headers they need to provide to their client so they can properly use your server. 
+A common pattern in MCP server development is to use authentication headers to call services on behalf of your users. As an MCP server developer, you want to clearly communicate to your users which credentials they need to provide for proper server usage.
 
-You can now type your MCP server arguments as `gr.Header`. Gradio will automatically extract that header from the incoming request (if it exists) and pass it to your function. The benefit of using `gr.Header` is that the MCP connection docs will automatically display the headers you need to supply when connecting to the server!
+To make this possible, you can now type your MCP server arguments as `gr.Header`. Gradio will automatically extract that header from the incoming request (if it exists) and pass it to your function. The benefit of using `gr.Header` is that the MCP connection docs will automatically display the headers you need to supply when connecting to the server!
 
 In the example below, the `X-API-Token` header is extracted from the incoming request and passed in as the `x_api_token` argument to `make_api_request_on_behalf_of_user`.
 
@@ -81,17 +88,14 @@ demo = gr.Interface(
 demo.launch(mcp_server=True)
 ```
 
-![MCP Header Connection Page](https://github.com/user-attachments/assets/e264eedf-a91a-476b-880d-5be0d5934134)
+![MCP Header Connection Page](https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/MCPUploadUpdated.png)
 
-You can read more about this in the Gradio [Guides](https://www.gradio.app/guides/building-mcp-server-with-gradio).
+You can read more about this in the Gradio [Guides](https://www.gradio.app/guides/building-mcp-server-with-gradio#using-the-gr-header-class).
 
-## Progress Notifications
+## Modifying Tool Descriptions
 
-Depending on the AI task being performed, your results may take some seconds to be ready. Now Gradio will stream progress notifications to your MCP client so you can monitor its progress!
+Gradio automatically generates tool descriptions from your function names and docstrings. Now you can customize the tool description even further with the `api_description` parmeter. Read more in the [guide](https://www.gradio.app/guides/building-mcp-server-with-gradio#modifying-tool-descriptions).
 
-<video src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/ProgressNotifications.mp4" controls>
-
-As an MCP developer, it's good to implement your MCP tools so that they emit progress statuses. Learn how you can do this by reading our [guide](add-link) 
 
 ## Conclusion
 
