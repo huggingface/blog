@@ -4,24 +4,23 @@ thumbnail: /blog/assets/futurebench/leaderboard.png
 authors:
 - user: vinid
   guest: true
-  organization: togethercomputer
+  org: togethercomputer
 - user: junlinw
   guest: true
-  organization: togethercomputer
+  org: togethercomputer
 - user: zainhasan
   guest: true
-  organization: togethercomputer
+  org: togethercomputer
 - user: shangzhu
   guest: true
-  organization: togethercomputer
+  org: togethercomputer
 - user: coolcat21
   guest: true
-  organization: togethercomputer
+  org: togethercomputer
 - user: clefourrier
 - user: jameszou
   guest: true
-  organization: togethercomputer
-
+  org: togethercomputer
 ---
 
 # Back to The Future: Evaluating AI Agents on Predicting Future Events
