@@ -97,7 +97,7 @@ This systematic approach lets us understand exactly where performance gains and 
 
 The benchmark also serves as a robust test of instruction following. Agents must respect specific formatting requirements and generate actions that can be correctly parsed and executed. In practice, this often reveals where smaller language models struggle with complex multi-step reasoning.
 
-> **🚀 Try it yourself!** Explore the live leaderboard: [FutureBench Interactive Leaderboard](https://huggingface.co/spaces/futurebench/FutureBench/)
+> **🚀 Try it yourself!** Explore the live leaderboard: [FutureBench Interactive Leaderboard](https://huggingface.co/spaces/togethercomputer/FutureBench)
 
 ## Predicting The Future: Agents and Initial Results
 
