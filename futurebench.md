@@ -1,5 +1,5 @@
 ---
-title: Back to The Future: Evaluating AI Agents on Predicting Future Events
+title: "Back to The Future: Evaluating AI Agents on Predicting Future Events"
 thumbnail: /blog/assets/futurebench/leaderboard.png
 authors:
 - user: vinid
