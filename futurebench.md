@@ -4,6 +4,17 @@ thumbnail: /blog/assets/futurebench/leaderboard.png
 authors:
 - user: vinid
   guest: true
+- user: junlinw
+  guest: true
+- user: ShangZhu-Together
+  guest: true
+- user: zainhasan
+  guest: true
+- user: clefourrier
+  guest: false
+- user: jameszou
+  guest: true
+
 ---
 
 # Back to The Future: Evaluating AI Agents on Predicting Future Events
@@ -23,8 +34,6 @@ Beyond its inherent importance, this forecasting-based approach also solves many
 Forecasting makes **contamination impossible by design**, as you can't train on data that doesn't yet exist! This creates a level playing field where success depends on reasoning capability rather than memorization.
 
 Perhaps most importantly, predictions about the future are **inherently verifiable**. We can wait and see who was right, creating an objective, time-stamped measure of model performance.
-
-## Hints of a Solution: Future Bench
 
 We therefore propose evaluating agents on their ability to predict future events (Ye et al., 2024; Karger et al., 2025). **FutureBench** draws from real-world prediction markets and emerging news to create interesting prediction tasks grounded in actual future outcomes. We collect events from platforms and live news coverages and manifolds markets, filtering them to focus on emerging events worth predicting. Using an agent-based approach, we curate scenarios that require genuine reasoning rather than simple pattern matching. Think geopolitical developments, market movements, or technology adoption trends - events where informed analysis actually matters.
 
