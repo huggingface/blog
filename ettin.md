@@ -104,7 +104,7 @@ For the first time, we can fairly compare encoder and decoder architectures trai
 
 The results show clear patterns:
 
-**Encoders dominate classification and retrieval**: On MNLI classification, even a 150M encoder (89.2) outperforms a 400M decoder (88.2). For retrieval tasks, the gap is smaller but still noticable - especially when decoders are not trained with MNTP.
+**Encoders dominate classification and retrieval**: On MNLI classification, even a 150M encoder (89.2) outperforms a 400M decoder (88.2). For retrieval tasks, the gap is smaller but still noticeable - especially when decoders are not trained with MNTP.
 
 **Decoders excel at generation**: On generative tasks, decoders maintain consistent advantages, with the performance gap actually widening at larger model sizes.
 
