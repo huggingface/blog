@@ -31,7 +31,7 @@ Learn more about using this server (and important security considerations) in th
 
 Depending on the AI task, getting results can take some time. Now, Gradio **streams progress notifications** to your MCP client, allowing you to monitor the status in real-time!
 
-<video src="https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/ProgressNotifications.mp4" controls></video>
+<video src="https://github.com/user-attachments/assets/b507c380-d6b6-4307-b0d1-be423a7414f3" controls></video>
 
 As an MCP developer, it's highly recommended to implement your MCP tools to emit these progress statuses. Our [guide](https://www.gradio.app/guides/building-mcp-server-with-gradio#sending-progress-updates) shows you how.
 
