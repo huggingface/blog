@@ -93,7 +93,7 @@ Fix the LLM and framework while comparing different implementations. Which searc
 Hold the framework and tools constant while testing different LLMs. Given access to the same set of tools, does DeepSeek-V3 use them as effectively as GPT-4? This measures pure reasoning ability.
 This systematic approach lets us understand exactly where performance gains and losses occur in the agent pipeline.
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/futurebench/opening.png">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/futurebench/layers.png">
 
 The benchmark also serves as a robust test of instruction following. Agents must respect specific formatting requirements and generate actions that can be correctly parsed and executed. In practice, this often reveals where smaller language models struggle with complex multi-step reasoning.
 
