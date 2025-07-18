@@ -4,6 +4,7 @@ thumbnail: /blog/assets/trackio/thumbnail.gif
 authors:
 - user: abidlabs
 - user: znation
+- user: nouamanetazi
 ---
 
 # Introducing Trackio: A Lightweight Experiment Tracking Library from Hugging Face
