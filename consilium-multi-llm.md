@@ -7,7 +7,7 @@ authors:
 
 # Consilium: When Multiple LLMs Collaborate
 
-Picture this: four AI experts sitting around a poker table, debating your toughest decisions in real-time. That's exactly what Consilium, the multi-LLM platform I built during the [Gradio Agents & MCP Hackathon](https://www.gradio.app/hackathon-winners), does. It lets AI models discuss complex questions and reach consensus through structured debate.
+Picture this: four AI experts sitting around a poker table, debating your toughest decisions in real-time. That's exactly what Consilium, the multi-LLM platform I built during the [Gradio Agents & MCP Hackathon](https://huggingface.co/spaces/Agents-MCP-Hackathon/consilium_mcp), does. It lets AI models discuss complex questions and reach consensus through structured debate.
 
 The platform works both as a visual Gradio interface and as an MCP (Model Context Protocol) server that integrates directly with applications like Cline (Claude Desktop had issues as the timeout could not be adjusted). The core idea was always about LLMs reaching consensus through discussion; that's where the name Consilium came from. Later, other decision modes like majority voting and ranked choice were added to make the collaboration more sophisticated.
 
