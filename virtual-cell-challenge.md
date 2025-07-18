@@ -1,6 +1,6 @@
 ---
 title: "Arc Virtual Cell Challenge: A Primer"
-thumbnail: /blog/assets/arc-virtual-cell-challenge/thumbnail.png
+thumbnail: /blog/assets/virtual-cell-challenge/thumbnail.png
 authors:
 - user: FL33TW00D-HF 
 ---
@@ -55,11 +55,11 @@ $$
 $$
 
 where:
-- $\hat{X}_p$: The observed gene expression measurements in cells with perturbation $p$
-- $\mathcal{D}_{\text{basal}}$: The distribution of the unperturbed, baseline cell population.
-- $\hat{T}_p(\mathcal{D}_{\text{basal}})$: True effect caused by perturbation $p$ on the population.
-- $H(\mathcal{D}_{\text{basal}})$: Biological heterogeneity of the baseline population.
-- $\varepsilon$: Experiment-specific technical noise, assumed independent of the unperturbed cell state and $\mathcal{D}_{\text{basal}}$.
+- \\(\hat{X}_p\\): The observed gene expression measurements in cells with perturbation \\(p\\)
+- \\(\mathcal{D}_{\text{basal}}\\): The distribution of the unperturbed, baseline cell population.
+- \\(\hat{T}_p(\mathcal{D}_{\text{basal}})\\): True effect caused by perturbation \\(p\\) on the population.
+- \\(H(\mathcal{D}_{\text{basal}})\\): Biological heterogeneity of the baseline population.
+- \\(\varepsilon\\): Experiment-specific technical noise, assumed independent of the unperturbed cell state and \\(\mathcal{D}_{\text{basal}}\\).
 
 # STATE: The baseline from Arc
 
@@ -108,7 +108,7 @@ A gene consists of _exons_ (protein coding sections) and _introns_ (non-protein 
 With this basic understanding, we can move on to how the SE model works. Remember, our core goal for SE is to create **meaningful
 cell embeddings**. To do this, we must first create meaningful gene embeddings.
 
-To produce a single gene embedding, we first obtain the amino acid sequence (e.g $\texttt{SDKPDMAEI}$... for TMSB4X) of all the different protein isoforms encoded for by the gene in question. We then feed these sequences to [ESM2](https://huggingface.co/facebook/esm2_t48_15B_UR50D), a 15B parameter Protein Language Model from FAIR. ESM produces an embedding _per amino acid_, and we mean pool them together to obtain a "transcript" (a.k.a protein isoform) embedding. 
+To produce a single gene embedding, we first obtain the amino acid sequence (e.g \\(\texttt{SDKPDMAEI}\\)... for TMSB4X) of all the different protein isoforms encoded for by the gene in question. We then feed these sequences to [ESM2](https://huggingface.co/facebook/esm2_t48_15B_UR50D), a 15B parameter Protein Language Model from FAIR. ESM produces an embedding _per amino acid_, and we mean pool them together to obtain a "transcript" (a.k.a protein isoform) embedding. 
 
 Now we have all of these protein isoform embeddings, we then just mean pool those to get the gene embedding. Next, we project these gene embeddings to our model dimension using a learned encoder as follows:
 
@@ -124,8 +124,8 @@ $$
 \tilde{\mathbf{c}}^{(i)} = \left[\mathbf{z}_{\text{cls}}, \tilde{\mathbf{g}}_1^{(i)}, \tilde{\mathbf{g}}_2^{(i)}, \ldots, \tilde{\mathbf{g}}_L^{(i)}, \mathbf{z}_{\text{ds}}\right] \in \mathbb{R}^{(L+2) \times h}
 $$
 
-We add a $\texttt{[CLS]}$ token and $\texttt{[DS]}$ token to our sentence. The $\texttt{[CLS]}$ token ends up being used as our "cell embedding" (very BERT-like)
-and the $\texttt{[DS]}$ token is used to "disentangle dataset-specific effects". Although the genes are sorted by log fold
+We add a \\(\texttt{[CLS]}\\) token and \\(\texttt{[DS]}\\) token to our sentence. The \\(\texttt{[CLS]}\\) token ends up being used as our "cell embedding" (very BERT-like)
+and the \\(\texttt{[DS]}\\) token is used to "disentangle dataset-specific effects". Although the genes are sorted by log fold
 expression level, Arc further enforces the magnitude of each genes expression by incorporating the transcriptome in a
 fashion analogous to positional embeddings. Through an odd ["soft binning" algorithm](https://github.com/ArcInstitute/state/blob/main/src/state/emb/nn/model.py#L374) and 2 MLPs, they create some
 "expression encodings" which they then add to each gene embedding. This should modulate the magnitude of each gene
@@ -151,7 +151,7 @@ Understanding how your submission will be evaluated is key to success. The 3 eva
 
 Perturbation Discrimination intends to evaluate how well your model can uncover _relative differences_ between
 perturbations. To do this, we compute the Manhattan distances for all the measured perturbed transcriptomes in the test set (the ground
-truth we are trying to predict, $y_t$ and all other perturbed transcriptomes, $y_p^n$) to our predicted transcriptome $\hat{y}_t$. We then rank where the
+truth we are trying to predict, \\(y_t\\) and all other perturbed transcriptomes, \\(y_p^n\\)) to our predicted transcriptome \\(\hat{y}_t\\). We then rank where the
 ground truth lands with respect to all transcriptomes as follows:
 
 $$
@@ -164,7 +164,7 @@ $$
 \text{PDisc}_t = \frac{r_t}{T}
 $$
 
-Where $0$ would be a perfect match. The overall score for your predictions is the mean of all $$\text{PDisc}_t$$. This is then normalized to: 
+Where \\(0\\) would be a perfect match. The overall score for your predictions is the mean of all $$\text{PDisc}_t$$. This is then normalized to: 
 
 $$
 \text{PDiscNorm} = 1 - 2\text{PDisc}
@@ -174,9 +174,9 @@ We multiply by 2 as for a random prediction, ~half of the results would be close
 
 ## Differential Expression
 
-Differential Expression intends to evaluate what fraction of the truly affected genes did you correctly identify as significantly affected. Firstly, for each gene compute a $p$-value using a [Wilcoxon rank-sum test with tie correction](https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test). We do this for both our predicted perturbation distribution and the ground truth perturbation distribution.
+Differential Expression intends to evaluate what fraction of the truly affected genes did you correctly identify as significantly affected. Firstly, for each gene compute a \\(p\\)-value using a [Wilcoxon rank-sum test with tie correction](https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test). We do this for both our predicted perturbation distribution and the ground truth perturbation distribution.
 
-Next, we apply the [Benjamini-Hochberg procedure](https://en.wikipedia.org/wiki/False_discovery_rate#Benjamini%E2%80%93Hochberg_procedure), basically some stats to modulate the $p$-values, as with $20,000$ genes and a $p$-value threshold of $0.05$, you'd expect $1,000$ false positives. We denote our set of predicted differentially expressed genes $G_{p,pred}$, and the ground truth set of differentially expressed genes $G_{p,true}$. 
+Next, we apply the [Benjamini-Hochberg procedure](https://en.wikipedia.org/wiki/False_discovery_rate#Benjamini%E2%80%93Hochberg_procedure), basically some stats to modulate the \\(p\\)-values, as with \\(20,000\\) genes and a \\(p\\)-value threshold of \\(0.05\\), you'd expect \\(1,000\\) false positives. We denote our set of predicted differentially expressed genes \\(G_{p,pred}\\), and the ground truth set of differentially expressed genes \\(G_{p,true}\\). 
 
 If the size of our set is less than the ground truth set size, take the intersection of the sets, and divide by the true number of differentially expressed genes as follows:
 
@@ -184,7 +184,7 @@ $$
 DE_p = \frac{G_{p,pred} \cap G_{p,true}}{n_{p,true}}
 $$
 
-If the size of our set is greater than the ground truth set size, select the subset we predict are most differentially expressed (our "most confident" predictions, denoted $\tilde{G}_{p,pred}$), take the intersection with the ground truth set, and then divide by the true number.
+If the size of our set is greater than the ground truth set size, select the subset we predict are most differentially expressed (our "most confident" predictions, denoted \\(\tilde{G}_{p,pred}\\)), take the intersection with the ground truth set, and then divide by the true number.
 
 $$
 DE_p = \frac{\tilde{G}_{p,pred} \cap G_{p,true}}{n_{p,true}}
