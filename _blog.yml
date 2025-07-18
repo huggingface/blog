@@ -6394,3 +6394,12 @@
     - hackathon
     - gradio
     - mcp
+
+- local: virtual-cell-challenge 
+  title: "Arc Virtual Cell Challenge: A Primer"
+  thumbnail: /blog/assets/virtual-cell-challenge/thumbnail.png
+  author: FL33TW00D-HF 
+  date: July 18, 2025
+  tags:
+    - collaboration
+    - guide
