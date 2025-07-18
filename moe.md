@@ -114,6 +114,13 @@ $$
 G_\sigma(x) = \text{Softmax}(x \cdot W_g)
 $$
 
+Here is a colour-coded visualisation of how MoE works, using five experts and three input tokens, based on the [paper](https://arxiv.org/pdf/2209.01667). The 'Router' in the illustration below corresponds to the gating network 
+
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/a03aecb7e1e0ffea9b74bcc07364b1bf5e474f89/blog/moe/12_moe_visualization.jpg" alt="MoE visualization">
+  <figcaption> Illustration from the [paper](https://arxiv.org/pdf/2209.01667)</figcaption>
+</figure>
+    
 Shazeer’s work also explored other gating mechanisms, such as Noisy Top-k Gating. This gating approach introduces some (tunable) noise and then keeps the top k values. That is:
 
 1. We add some noise
