@@ -406,7 +406,7 @@ of values from our input vector. For \\(2D\\) data, we need to encode both horiz
 
 ## The future of positional encoding
 
-Is RoPE the final incarnation of positional encoding? This [recent paper](https://arxiv.org/pdf/2410.06205) from DeepMind deeply analyses RoPE and highlights some fundamental problems. TLDR: RoPE isn't a perfect solution, and the models mostly focus on the lower frequencies and the rotation for a certain percent of low frequencies improves performance on Gemma 2B! 
+Is RoPE the final incarnation of positional encoding? This [recent paper](https://arxiv.org/pdf/2410.06205) from DeepMind deeply analyses RoPE and highlights some fundamental problems. TLDR: RoPE isn't a perfect solution, and the models mostly focus on the lower frequencies, but the paper shows that **removing** (not rotating) the lowest frequencies improves performance on Gemma 2B! 
 
 I anticipate some future breakthroughs, perhaps taking inspiration from
 signal processing with ideas like wavelets or hierarchical implementations. As models
