@@ -53,15 +53,16 @@ img2gray/
 │   └── img2gray.cu
 ├── flake.nix
 └── torch-ext
-    ├── registration.h
     ├── torch_binding.cpp
-    └── torch_binding.h
+    ├── torch_binding.h
+    └── img2gray
+        └── __init__.py
 ```
 
-- **`build.toml`**: The project manifest; it’s the brain of the build process.
-- **`csrc/`**: Your raw CUDA source code where the GPU magic happens.
-- **`flake.nix`**: The key to a perfectly reproducible\* build environment.
-- **`torch-ext/`**: The C++ code that builds the bridge to PyTorch.
+  - **`build.toml`**: The project manifest; it’s the brain of the build process.
+  - **`csrc/`**: Your raw CUDA source code where the GPU magic happens.
+  - **`flake.nix`**: The key to a perfectly reproducible* build environment.
+  - **`torch-ext/img2gray/`**: The Python wrapper for the raw PyTorch operators.
 
 ### **Step 2: The `build.toml` Manifest**
 
@@ -82,7 +83,7 @@ src = [
 # Defines the CUDA kernel itself
 [kernel.img2gray]
 backend = "cuda"
-depends = ["torch"] # This kernel depends on the torch bindings
+depends = ["torch"] # This kernel depends on the Torch library for the `Tensor` class.
 src = [
     "csrc/img2gray.cu",
 ]
@@ -140,7 +141,7 @@ __global__ void img2gray_kernel(const uint8_t* input, uint8_t* output, int width
 }
 
 // This C++ function launches our CUDA kernel
-void img2gray_cuda(torch::Tensor input, torch::Tensor output) {
+void img2gray_cuda(torch::Tensor const &input, torch::Tensor &output) {
     const int width = input.size(1);
     const int height = input.size(0);
 
@@ -168,12 +169,12 @@ The file **`torch-ext/torch_binding.cpp`** handles this registration.
 #include <torch/library.h>
 #include "torch_binding.h" // Declares our img2gray_cuda function
 
-// 1. Define the operator's public signature in a new namespace.
+// 5.1. Define the operator's public signature in a new namespace.
 TORCH_LIBRARY(img2gray, ops) {
-    ops.def("img2gray(Tensor input, Tensor output) -> ()");
+    ops.def("img2gray(Tensor input, Tensor! output) -> ()");
 }
 
-// 2. Link that signature to our actual CUDA C++ function.
+// 5.2. Link that signature to our actual CUDA C++ function.
 TORCH_LIBRARY_IMPL(img2gray, CUDA, ops) {
     ops.impl("img2gray", &img2gray_cuda);
 }
@@ -189,7 +190,170 @@ This approach is crucial for two main reasons:
 
 - **Hardware-Specific Implementations**: This system allows you to provide different backends for the same operator. You could add another `TORCH_LIBRARY_IMPL(img2gray, CPU, ...)` block pointing to a C++ CPU function. PyTorch's dispatcher would then automatically call the correct implementation—CUDA or CPU—based on the input tensor's device, making your code powerful and portable.
 
-### **Step 6: Loading and Testing Your Custom Op**
+5.3. **Setting up the `__init__.py` wrapper**
+
+In the `torch-ext/img2gray/` we need an `__init__.py` file to make this directory a Python package and to expose our custom operator in a user-friendly way.
+
+> [!NOTE]
+> You'll see the `from ._ops import ops` line in the `__init__.py` file. This allows us to import the `ops` object that was registered in the C++ code, making it available in Python.
+
+```python
+# torch-ext/img2gray/ops.py
+import torch
+
+from ._ops import ops
+
+def img2gray(input: torch.Tensor) -> torch.Tensor:
+    # we expect input to be in BCHW format
+    batch, channels, height, width = input.shape
+
+    assert channels == 3, "Input image must have 3 channels (RGB)"
+
+    output = torch.empty((batch, 1, height, width), device=input.device, dtype=input.dtype)
+
+    for b in range(batch):
+        single_image = input[b].permute(1, 2, 0).contiguous()  # HWC
+        single_output = output[b].reshape(height, width)  # HW
+        ops.img2gray(single_image, single_output)
+
+    return output
+```
+
+### Step 6: Building the Kernel
+
+Now that our kernel and its bindings are ready, it's time to build them. The `kernel-builder` tool simplifies this process.
+
+You can build your kernel with a single command, `nix build . -L`; however, as developers, we'll want a faster, more iterative workflow. For that, we'll use the `nix develop` command to enter a development shell with all the necessary dependencies pre-installed.
+
+More specifically, we can choose the exact CUDA and PyTorch versions we want to use. For example, to build our kernel for PyTorch 2.7 with CUDA 11.8, we can use the following command:
+
+#### 6.1. Drop into a Nix Shell
+
+```bash
+# Drop into a Nix shell (an isolated sandbox with all dependencies)
+nix develop .#devShells.torch27-cxx11-cu118-x86_64-linux
+```
+
+Note that the `devShell` name above can be deciphered as:
+
+```nix
+nix develop .#devShells.torch27-cxx11-cu118-x86_64-linux
+                        │       │         │       │
+                        │       │         │       └─── Architecture: x86_64 (Linux)
+                        │       │         └────────── CUDA version: 11.8
+                        │       └──────────────────── C++ ABI: cxx11
+                        └──────────────────────────── Torch version: 2.7
+```
+
+At this point, we'll be inside a Nix shell with all dependencies installed. We can now build the kernel.
+
+#### 6.2. Set Up Build Artifacts
+
+```bash
+build2cmake generate-torch build.toml
+```
+
+This command creates a handful of files used to build the kernel: `CMakeLists.txt`, `pyproject.toml`, `setup.py`, and a `cmake` directory. The `CMakeLists.txt` file is the main entry point for CMake to build the kernel.
+
+#### 6.3. Create a Python Virtual Environment
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+Now you can install the kernel in editable mode.
+
+
+#### 6.4. Compile the Kernel and Install the Python Package
+
+```bash
+pip install --no-build-isolation -e .
+```
+
+🙌 Amazing! We now have a custom-built kernel that follows best practices for Torch bindings, with a fully reproducible build process.
+
+
+#### 6.5. Sanity Check
+
+To ensure everything is working, we can run a simple test to check if the kernel is registered correctly.
+
+```python
+# scripts/sanity.py
+import torch
+import img2gray # <- We can import the package now!
+from PIL import Image
+import numpy as np
+
+img = Image.open("color.png").convert("RGB")
+img_tensor = torch.from_numpy(np.array(img))
+img_tensor = img_tensor.permute(2, 0, 1).unsqueeze(0).contiguous().cuda()  # BCHW
+
+gray_tensor = img2gray.img2gray(img_tensor).squeeze()
+Image.fromarray(gray_tensor.cpu().numpy()).save("gray.png")
+```
+
+### Step 7: Sharing with the World
+
+Now that we have a working kernel, it's time to share it with other developers and the world\!
+
+#### 7.1. Building the Kernel for All Python and Torch Versions
+
+Earlier, we built the kernel for a specific version of PyTorch and CUDA. However, to make it available to a wider audience, we need to build it for all supported versions. The `kernel-builder` tool can help us with that.
+
+This is also where the concept of a `compliant kernel` comes into play. A compliant kernel is one that can be built and run for all supported versions of PyTorch and CUDA. Generally, this requires custom configuration; however, in our case, the `kernel-builder` tool will automate the process.
+
+```bash
+# Outside of the dev shell, run the following command
+nix build . -L
+```
+
+> [!WARNING]
+> This process may take a while, as it will build the kernel for all supported versions of PyTorch and CUDA. The output will be in the `result` directory.
+
+The last step is to move the results into the expected `build` directory (this is where the `kernels` library will look for them).
+
+```bash
+mkdir -p build
+cp -r --dereference ./result/* build
+```
+
+#### 7.2. Pushing to the Hugging Face Hub
+
+First, create a new repo:
+
+```bash
+huggingface-cli repo create img2gray
+```
+
+> [!NOTE]
+> Make sure you are logged in to the Hugging Face Hub using `huggingface-cli login`.
+
+Now, in your project directory, connect your project to the new repository and push your code:
+
+```bash
+# Initialize git and connect to the Hugging Face Hub
+git init
+git remote add origin https://huggingface.co/<your-username>/img2gray
+
+# Pull the changes (just the default .gitattributes file)
+git pull origin main
+git lfs install
+git checkout -b main
+
+# Update to use LFS for the binary files
+echo "*.so filter=lfs diff=lfs merge=lfs -text" >> .gitattributes
+
+# Add and commit your changes
+git add .
+git commit -m "Initial commit"
+git push -u origin main
+```
+
+Fantastic\! Your kernel is now on the Hugging Face Hub, ready for others to use and fully compliant with the `kernels` library.
+
+
+### **Step 8: Loading and Testing Your Custom Op**
 
 With the `kernels` library, you don't "install" the kernel in the traditional sense. You load it directly from its Hub repository, which automatically registers the new operator.
 
@@ -207,11 +371,10 @@ img2gray_lib = get_kernel("drbh/img2gray")
 # Prepare Data
 img = Image.open("my_rgb_image.png").convert("RGB")
 img_tensor = torch.from_numpy(np.array(img)).cuda()
-output_tensor = torch.empty(img_tensor.shape[0], img_tensor.shape[1], dtype=torch.uint8, device="cuda")
 
 # Run Your Custom Operator
 # Call the op directly from the torch.ops namespace!
-torch.ops.img2gray.img2gray(img_tensor, output_tensor)
+output_tensor = img2gray_lib.img2gray(img_tensor, output_tensor)
 
 # Save the Result
 Image.fromarray(output_tensor.cpu().numpy()).save("my_grayscale_image.png")
