@@ -136,7 +136,7 @@ selected such that they have a wide range of expression intensities. For the gra
 demonstrates the construction of the cell sentence. 
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/virtual-cell-challenge/alt_splicing.gif" alt=""  style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/virtual-cell-challenge/SE_Path.png" alt=""  style="width: 90%; height: auto;"><br>
 </p>
 
 # Evaluations 
