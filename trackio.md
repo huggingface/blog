@@ -10,9 +10,17 @@ authors:
 
 If you have trained your own machine learning model, you know how important it is to be able to track metrics, parameters, and hyperparameters during training and visualize them afterwards to better understand your training run. 
 
-Most machine learning researchers use specific experiment tracking libraries to do this. However, these libraries can be paid, 
+Most machine learning researchers use specific experiment tracking libraries to do this. However, these libraries can be paid, require complex setup, or lack the flexibility needed for rapid experimentation and sharing.
 
-... other reasons to switch to Trackio (science team?)
+## Why We Switched to Trackio
+
+At Hugging Face, our science team has been using Trackio for our research projects, and we've found several key advantages over other tracking solutions:
+
+**Easy Sharing and Embedding**: Trackio makes it incredibly simple to share training progress with colleagues or embed plots directly in blog posts and documentation using iframes. This is especially valuable when you want to showcase specific training curves or metrics without requiring others to set up accounts or navigate complex dashboards.
+
+**Data Accessibility**: Unlike some tracking tools that lock your data behind proprietary APIs, Trackio makes it straightforward to extract and analyze the data being recorded. This is crucial for researchers who need to perform custom analysis or integrate training metrics into their research workflows.
+
+**Flexibility for Experimentation**: Trackio's lightweight design allows us to easily experiment with new tracking features during training runs. For instance, we can decide when to move tensors from GPU to CPU when logging tensors while training, which significantly improves training throughput when you need to track model/intermediate states without impacting performance.
 
 That's why the Hugging Face open-source team is excited to introduce: `trackio`, a completely free, open-source Python library...
 
