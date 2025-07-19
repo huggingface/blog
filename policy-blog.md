@@ -23,7 +23,7 @@ The following materials reflect what we have found urgent to stress to policymak
 
 - United States of America
     - Congressional
-        - June 2025: [RFI on the American Science Acceleration Project (ASAP) RFI](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_Hugging_Face_Response_ASAP_RFI.pdf)
+        - June 2025: [RFI on the American Science Acceleration Project (ASAP)](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_Hugging_Face_Response_ASAP_RFI.pdf)
         - September 2023: [Clement Delangue (CEO) Senate AI Insight Forum Kickoff Statement](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2023_AI%20Insight%20Forum%20Kickoff%20Written%20Statement.pdf)
         - June 2023: Clement Delangue (CEO) House Committee on Science, Space, and Technology Testimony
             - [Written statement](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2023_HCSST_CongressionalTestimony.pdf)
