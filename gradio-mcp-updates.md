@@ -37,7 +37,7 @@ As an MCP developer, it's highly recommended to implement your MCP tools to emit
 
 ## Transform OpenAPI Specs to MCP in One Line
 
-If you want to integrate an existing backend API into an LLM, you have to manually map API endpoints to MCP tools. This can be a time consuming and error prone chore. With this release, Gradio can automate the entire process for you! With a single line of code, you can integrate your business backend into any MCP-compatible LLM. 
+If you want to integrate an existing backend API into an LLM, you have to manually map API endpoints to MCP tools. This can be a time-consuming and error prone chore. With this release, Gradio can automate the entire process for you! With a single line of code, you can integrate your business backend into any MCP-compatible LLM. 
 
 [OpenAPI](https://www.openapis.org/) is a widely adopted standard for describing RESTful APIs in a machine-readable format, typically as a JSON file. Gradio now features the `gr.load_openapi` function, which creates a Gradio application directly from an OpenAPI schema. You can then launch the app with `mcp_server=True` to automatically create an MCP server for your API!
 
@@ -96,7 +96,7 @@ You can read more about this in the Gradio [Guides](https://www.gradio.app/guide
 
 ## Modifying Tool Descriptions
 
-Gradio automatically generates tool descriptions from your function names and docstrings. Now you can customize the tool description even further with the `api_description` parmeter. In this example, the tool description will read "Apply a sepia filter to any image."
+Gradio automatically generates tool descriptions from your function names and docstrings. Now you can customize the tool description even further with the `api_description` parameter. In this example, the tool description will read "Apply a sepia filter to any image."
 
 ```python
 import gradio as gr
