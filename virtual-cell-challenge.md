@@ -3,6 +3,7 @@ title: "Arc Virtual Cell Challenge: A Primer"
 thumbnail: /blog/assets/virtual-cell-challenge/thumbnail.png
 authors:
 - user: FL33TW00D-HF 
+- user: abhinadduri
 ---
 
 [Arc Institute](https://arcinstitute.org/) recently unveiled the [Virtual Cell Challenge](https://virtualcellchallenge.org/). Participants are required to train a model capable of predicting the effect of silencing a gene in a (partially) unseen cell type, a task they term _context generalization_.
@@ -92,7 +93,7 @@ ST is trained using [Maximum Mean Discrepancy](https://en.wikipedia.org/wiki/Ker
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/virtual-cell-challenge/SE.png" alt=""  style="width: 90%; height: auto;"><br>
 </p>
 
-The State Embedding Model is a BERT-like model trained using a masked prediction task. To understand this more deeply, first we have to
+The State Embedding Model is a BERT-like autoencoder. To understand this more deeply, first we have to
 take a little detour for some more biological grounding. 
 
 ### A little biological detour 
