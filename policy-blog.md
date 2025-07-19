@@ -23,13 +23,13 @@ The following materials reflect what we have found urgent to stress to policymak
 
 - United States of America
     - Congressional
+        - June 2025: [RFI on the American Science Acceleration Project (ASAP) RFI](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_Hugging_Face_Response_ASAP_RFI.pdf)
         - September 2023: [Clement Delangue (CEO) Senate AI Insight Forum Kickoff Statement](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2023_AI%20Insight%20Forum%20Kickoff%20Written%20Statement.pdf)
         - June 2023: Clement Delangue (CEO) House Committee on Science, Space, and Technology Testimony
             - [Written statement](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2023_HCSST_CongressionalTestimony.pdf)
             - View [recorded testimony](https://science.house.gov/2023/6/artificial-intelligence-advancing-innovation-towards-the-national-interest)
         - November 2023: [Dr. Margaret Mitchell (Chief Ethics Scientist) Senate Insight Forum Statement](https://www.schumer.senate.gov/imo/media/doc/Margaret%20Mitchell%20-%20Statement.pdf)
     - Executive
-        - June 2025: [RFI on the American Science Acceleration Project (ASAP) RFI](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_Hugging_Face_Response_ASAP_RFI.pdf)
         - May 2025: [RFI on the National Artificial Intelligence (AI) Research and Development (R&D) Strategic Plan](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_HF_AI_Research_and_Development_Strategic_Plan_RFI.pdf)
         - March 2025: [RFI on the Development of an Artificial Intelligence Action Plan](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2025_Hugging_Face_Response_to_AI_Action_Plan.pdf)
         - October 2024: [Hugging Face Comments on BIS-2024-0047 / RIN 0694-AJ55: Establishment of Reporting Requirements for the Development of Advanced Artificial Intelligence Models and Computing Clusters](https://huggingface.co/datasets/huggingface/policy-docs/resolve/main/2024_BIS-2024-0047_Response.pdf)
