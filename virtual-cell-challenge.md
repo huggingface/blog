@@ -9,8 +9,6 @@ authors:
 [Arc Institute](https://arcinstitute.org/) recently unveiled the [Virtual Cell Challenge](https://virtualcellchallenge.org/). Participants are required to train a model capable of predicting the effect of silencing a gene in a (partially) unseen cell type, a task they term _context generalization_.
 For ML engineers with little to no biology background, the jargon and required context can seem quite daunting. To encourage participation, we recapitulate the challenge in a form better suited to engineers from other disciplines. 
 
-# Background
-
 > **Goal** \
 > Train a model to predict the effect on a cell of silencing a gene using CRISPR.
 
