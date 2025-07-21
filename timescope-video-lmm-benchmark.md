@@ -39,7 +39,7 @@ This measurement gap leaves us wondering: What does it really mean for a model t
 
 ## Why TimeScope? Motivating a Better Benchmark for Video
 
-The promise of long-video AI is transformative — enabling agents to summarize hours of footage, detect subtle anomalies, and answer complex questions about extended narratives. Integrated into robotics, these models could analyze prolonged operations, adapt in real time, and drive autonomous decision-making. Just as powerful is the vision of a personal assistant that understands daily life and offers continuous, actionable feedback.
+The promise of long-video AI is transformative — enabling agents to summarize hours of footage, detect subtle anomalies, and answer complex questions about extended narratives. Integrated into robotics, these models could analyze prolonged operations, adapt in real time, and push autonomous decision-making. Just as powerful is the vision of a personal assistant that understands daily life and offers continuous, actionable feedback.
 
 
 
