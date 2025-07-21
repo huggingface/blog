@@ -53,8 +53,7 @@ TimeScope flips the script by emphasizing three pillars of long-video understand
 
 ## Benchmark Design
 
-TimeScope's core innovation lies in its utilization of 
-video clips as needles, requiring more then simply sampling that particular needle in the video but rather to densely understand the entire video. We start with a long base video (e.g., a documentary, lecture, or ambient footage) and insert one or more hand-curated short video needles (5-10 seconds each) at random positions. These needles contain the key information needed to solve the task, forcing models to process the entire input without shortcuts like sparse sampling.
+TimeScope's core innovation lies in its utilization of video clips as needles, requiring more than simply sampling that particular needle in the video but rather to densely understand the entire video. We start with a long base video (e.g., a documentary, lecture, or ambient footage) and insert one or more hand-curated short video needles (5-10 seconds each) at random positions. These needles contain the key information needed to solve the task, forcing models to process the entire input without shortcuts like sparse sampling.
 
 
   <img src="https://huggingface.co/spaces/Apollo-LMMs/TimeScope/resolve/main/overview.png" alt="Benchmark Design Diagram" style="width: 90%; height: auto;">
