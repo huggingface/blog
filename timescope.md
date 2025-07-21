@@ -10,7 +10,7 @@ authors:
   org: Stanford
 - user: andito
   guest: false
-  org: HuggingFace
+  org: huggingface
 - user: nicholswang
   guest: true
   org: Stanford
