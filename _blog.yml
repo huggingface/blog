@@ -6341,10 +6341,10 @@
     - open-source
 
 - local: timescope
-  title: "TimeScope: How Long Can Your Video-LMM go?"
+  title: "TimeScope: How Long Can Your Video Large Multimodal Model Go?"
   author: orrzohar
   thumbnail: /blog/assets/timescope/thumbnail.png
-  date: Jul 14, 2025
+  date: Jul 22, 2025
   tags:
     - video
     - datasets

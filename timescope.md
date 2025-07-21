@@ -1,5 +1,5 @@
 ---
-title: "TimeScope: How Long Can Your Video-LMM go?"
+title: "TimeScope: How Long Can Your Video Large Multimodal Model Go?"
 thumbnail: /blog/assets/timescope/thumbnail.png
 authors:
 - user: orrzohar
@@ -16,11 +16,18 @@ authors:
   org: Stanford
 ---
 
-# TimeScope: How Long Can Your Video-LMM go?
+# TimeScope: How Long Can Your Video Large Multimodal Model Go?
 
-As multimodal AI continues to advance, recent models have begun to make ambitious claims regarding their capacity for “hour-long video understanding.” Drawing inspiration from progress in long-context language models—where extended reasoning over lengthy textual inputs has become increasingly feasible—vision-language systems now advertise context windows encompassing thousands of frames. However, these developments prompt a critical inquiry: to what extent do such models demonstrate genuine temporal comprehension, as opposed to surface-level pattern recognition or overstated capabilities?
+## TL;DR
+_TimeScope_ is an open-source benchmark designed to measure how well vision-language models understand long videos. By splicing short “needle” clips into videos ranging from 1 minute to 8 hours, it evaluates three skills—localized retrieval, information synthesis, and fine-grained temporal perception—and reveals that many state-of-the-art models still struggle with true temporal comprehension.
 
+## Table of Contents
+- [Why TimeScope?](#why-timescope-motivating-a-better-benchmark-for-video)
+- [Benchmark Design](#benchmark-design)
+- [Baseline Evaluation Results](#baseline-evaluation-results)
+- [Open-Sourcing](#open-sourcing)
 
+Recent advances in multimodal AI have produced models claiming to understand hour-long videos. This trend mirrors progress in long-context language models, which excel at reasoning over lengthy text. Following this, vision-language systems now advertise context windows that can handle thousands of frames. But these claims require scrutiny: do these models truly demonstrate temporal comprehension, or are they limited to surface-level reti recognition? It's crucial to ask if their capabilities are being overstated.
 
 
 Text benchmarks such as **HELM** and **RULER** have exposed the fragility of long-context claims, showing that models often falter when tasks demand more than simple retrieval, like reasoning or aggregation at long context lengths. In the video domain, however, we're still playing catch-up. The most common test, **Video Needle in a Haystack (VideoNIAH)**, injects static *images* as "needles" into videos, effectively measuring visual search rather than true temporal dynamics. As a result, even top-tier models advertising massive frame capacities are rarely trained beyond ~256 frames and see sharp drops on benchmarks like **Video-MME** when pushed further.
@@ -84,7 +91,7 @@ By varying video lengths and needle placements, TimeScope quantifies the maximum
 
 ## Baseline Evaluation Results
 
-To kick things off, we ran TimeScope on a suite of leading vision-language models, from open-source favorites to the juggernaut: Gemini2.5-pro. The results underscore the benchmark’s value: even models with advertised long-context prowess struggle with authentic temporal tasks at scale. These findings reveal clear patterns—performance cliffs around certain durations, strengths in static retrieval versus weaknesses in motion analysis—and pave the way for targeted improvements in model training. For detailed results and visualizations, check out our Hugging Face Space embedded above.
+To kick things off, we ran TimeScope on a suite of leading vision-language models, from open-source favorites to the juggernauts like Gemini2.5-Pro. The results underscore the benchmark’s value: even models with advertised long-context prowess struggle with authentic temporal tasks at scale. These findings reveal clear patterns—performance cliffs around certain durations, strengths in static retrieval versus weaknesses in motion analysis—and pave the way for targeted improvements in model training. For detailed results and visualizations, check out our Hugging Face Space embedded above.
 
 
 ## Open-Sourcing
