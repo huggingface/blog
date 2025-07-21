@@ -27,7 +27,7 @@ _TimeScope_ is an open-source benchmark designed to measure how well vision-lang
 - [Baseline Evaluation Results](#baseline-evaluation-results)
 - [Open-Sourcing](#open-sourcing)
 
-Recent advances in multimodal AI have produced models claiming to understand hour-long videos. This trend mirrors progress in long-context language models, which excel at reasoning over lengthy text. Following this, vision-language systems now advertise context windows that can handle thousands of frames. But these claims require scrutiny: do these models truly demonstrate temporal comprehension, or are they limited to surface-level retrieval recognition? It's crucial to ask if their capabilities are being overstated.
+Recent advances in multimodal AI have produced models claiming to understand hour-long videos. This trend mirrors progress in long-context language models, which excel at reasoning over lengthy text. Following this, vision-language systems now advertise context windows that can handle thousands of frames. But these claims require scrutiny: do these models truly demonstrate temporal comprehension, or are they limited to surface-level retrieval \ recognition? It's crucial to ask if their capabilities are being overstated.
 
 
 Text benchmarks such as **HELM** and **RULER** have exposed the fragility of long-context claims, showing that models often struggle when tasks demand more than simple retrieval, like reasoning or aggregation at long context lengths. In the video domain, however, we're still playing catch-up. The most common test, **Video Needle in a Haystack (VideoNIAH)**, injects static *images* as "needles" into videos, effectively measuring visual search rather than true temporal dynamics. As a result, even top-tier models advertising massive frame capacities are rarely trained beyond ~256 frames and see sharp drops on benchmarks like **Video-MME** when pushed further.
@@ -48,7 +48,7 @@ In practice, this leads to overstated capabilities. Models might claim to proces
 TimeScope flips the script by emphasizing three pillars of long-video understanding:
 1. **Localized Retrieval**: Can the model spot and answer questions about a specific short segment within a vast video?
 2. **Information Synthesis**: Can it gather and order details from multiple points across the timeline?
-3. **Temporal Perception**: Can it analyze motion and events in needles that demand dense, multi-frame sampling?
+3. **Fine-Grained Temporal Perception**: Can it analyze motion and events in needles that demand dense, multi-frame sampling?
 
 
 ## Benchmark Design
@@ -59,11 +59,11 @@ TimeScope's core innovation lies in its utilization of video clips as needles, r
   <img src="https://huggingface.co/spaces/Apollo-LMMs/TimeScope/resolve/main/overview.png" alt="Benchmark Design Diagram" style="width: 90%; height: auto;">
 
 
-*Figure 1: Overview of TimeScope's needle insertion process. A long base video (1 min to 8 hours) serves as the haystack, into which we splice short video needles (~10-20 seconds). Tasks require detecting, synthesizing, or analyzing content from these needles, embedded at varying depths.*
+*Figure 1: Overview of TimeScope's needle insertion process. A long base video (1 min to 8 hours) serves as the haystack, into which we splice short video needles (~5-10 seconds). Tasks require detecting, synthesizing, or analyzing content from these needles, embedded at varying depths.*
 
 We evaluate across three needle types, each targeting a different aspect of long-video comprehension:
 
-### 1. General QA
+### 1. Localized Retrieval
 This tests basic retrieval and understanding of a localized event. Questions are crafted such that sampling a single relevant frame from the needle should suffice—mimicking queries about a brief segment in a longer video.
 
 Example:  
@@ -73,10 +73,10 @@ What mode of transportation is shown in the video?
   <source src="https://huggingface.co/spaces/Apollo-LMMs/TimeScope/resolve/main/train.mp4" type="video/mp4">
 </video>
 
-### 2. Information Synthesis (OCR QA)
+### 2. Information Synthesis
 Here, we embed multiple text-based needles (e.g., 2-4 short clips displaying "secret words" via on-screen text) at different points in the video. The model must identify all words and report them in chronological order, simulating tasks like extracting timestamps or key facts from dispersed scenes. This requires scanning the full timeline and understanding relative positioning.
 
-### 3. Fine-Grained Temporal Understanding
+### 3. Fine-Grained Temporal Perception
 For questions focusing on motion or sequences within a short clip, single-frame sampling won't cut it—the model needs to perceive dynamics across frames. This probes whether long-context handling preserves temporal fidelity.
 
 Example:  
