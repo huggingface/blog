@@ -48,7 +48,7 @@ In practice, this leads to overstated capabilities. Models might claim to proces
 TimeScope flips the script by emphasizing three pillars of long-video understanding:
 1. **Localized Retrieval**: Can the model spot and answer questions about a specific short segment within a vast video?
 2. **Information Synthesis**: Can it gather and order details from multiple points across the timeline?
-3. **Temporal Perception**: Can it analyze motion and events in a needles that demand dense, multi-frame sampleing?
+3. **Temporal Perception**: Can it analyze motion and events in needles that demand dense, multi-frame sampling?
 
 
 ## Benchmark Design
