@@ -6387,6 +6387,7 @@
 - local: consilium-multi-llm
   title: "Consilium: When Multiple LLMs Collaborate"
   author: azettl
+  guest: true
   thumbnail: /blog/assets/consilium-multi-llm/thumbnail.png
   date: Jul 17, 2025
   tags:
