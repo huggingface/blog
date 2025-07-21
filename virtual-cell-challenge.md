@@ -6,6 +6,8 @@ authors:
 - user: abhinadduri
 ---
 
+# Arc Virtual Cell Challenge: A Primer
+
 [Arc Institute](https://arcinstitute.org/) recently unveiled the [Virtual Cell Challenge](https://virtualcellchallenge.org/). Participants are required to train a model capable of predicting the effect of silencing a gene in a (partially) unseen cell type, a task they term _context generalization_.
 For ML engineers with little to no biology background, the jargon and required context can seem quite daunting. To encourage participation, we recapitulate the challenge in a form better suited to engineers from other disciplines. 
 
@@ -135,7 +137,7 @@ selected such that they have a wide range of expression intensities. For the gra
 demonstrates the construction of the cell sentence. 
 
 <p align="center">
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/virtual-cell-challenge/SE_Path.png" alt=""  style="width: 90%; height: auto;"><br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/virtual-cell-challenge/SE_path.png" alt=""  style="width: 90%; height: auto;"><br>
 </p>
 
 # Evaluations 
