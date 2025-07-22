@@ -20,7 +20,7 @@ authors:
 
 ## TL;DR
 _TimeScope_ is an open-source benchmark designed to measure how well vision-language models understand long videos. By adding short “needle” clips into videos ranging from 1 minute to 8 hours, it evaluates three skills:
-—localized retrieval, 
+— localized retrieval, 
 - information synthesis, 
 - fine-grained temporal perception. Timescope reveals that many state-of-the-art models still struggle with true temporal comprehension.
 
