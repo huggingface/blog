@@ -3,6 +3,7 @@ title: "Consilium: When Multiple LLMs Collaborate"
 thumbnail: /blog/assets/consilium-multi-llm/thumbnail.png
 authors:
 - user: azettl
+  guest: true
 ---
 
 # Consilium: When Multiple LLMs Collaborate
