@@ -67,7 +67,7 @@ TimeScope’s key idea is using short video clips as “needles,” and instead 
 We evaluate across three needle types, each targeting a different aspect of long-video comprehension:
 
 ### 1. Localized Retrieval
-This tests basic retrieval and understanding of a localized event. Questions are crafted such that sampling a single relevant frame from the needle should suffice—mimicking queries about a brief segment in a longer video.
+This tests basic retrieval and understanding of a localized event. Questions are put so that sampling a relevant frame from the needle should suffice—like asking about a shorter part in a longer video.
 
 Example:  
 What mode of transportation is shown in the video?  
