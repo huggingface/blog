@@ -6404,3 +6404,16 @@
   tags:
     - collaboration
     - guide
+
+- local: immersia-ai-games
+  title: "LLMGameHub: How We Won the Gradio Agents & MCP Hackathon 2025"
+  author: kikikita, georgiisavin
+  thumbnail: /blog/assets/immersia-ai-games/thumbnail.png
+  date: Jul 23, 2025
+  tags:
+    - community
+    - hackathon
+    - gradio
+    - agents
+    - game-dev
+    - llm
