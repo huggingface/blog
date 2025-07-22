@@ -313,8 +313,7 @@ The last step is to move the results into the expected `build` directory (this i
 
 ```bash
 mkdir -p build
-rsync -av --delete result/ build/
-chmod -R u+w build
+rsync -av --delete --chmod=Du+w,Fu+w result/ build/
 ```
 
 #### 7.2. Pushing to the Hugging Face Hub
