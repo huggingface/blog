@@ -93,7 +93,7 @@ With different video lengths are and varying needle placements, TimeScope measur
 
 ## Baseline Evaluation Results
 
-To kick things off, we ran TimeScope on a suite of leading vision-language models, from open-source favorites to the juggernauts like Gemini2.5-Pro. The results underscore the benchmark’s value: even models with advertised long-context prowess struggle with authentic temporal tasks at scale. These findings reveal clear patterns—performance cliffs around certain durations, strengths in static retrieval versus weaknesses in motion analysis—and pave the way for targeted improvements in model training. For detailed results and visualizations, check out our Hugging Face Space embedded above.
+To kick things off, we ran TimeScope on a suite of leading vision-language models, from open-source favorites to the juggernauts like Gemini2.5-Pro. The results show why the benchmark matters: even models that claim to handle long videos well still struggle with real time-based tasks when things get bigger. The results show clear trends—like big drops in performance at certain video lengths, models doing better at finding still frames than understanding motion—and point to ways we can train models more effectively. For detailed results and visualizations, check out our Hugging Face Space embedded above.
 
 
 ## Open-Sourcing
