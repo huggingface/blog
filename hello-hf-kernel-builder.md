@@ -59,10 +59,10 @@ img2gray/
         └── __init__.py
 ```
 
-  - **`build.toml`**: The project manifest; it’s the brain of the build process.
-  - **`csrc/`**: Your raw CUDA source code where the GPU magic happens.
-  - **`flake.nix`**: The key to a perfectly reproducible* build environment.
-  - **`torch-ext/img2gray/`**: The Python wrapper for the raw PyTorch operators.
+- **`build.toml`**: The project manifest; it’s the brain of the build process.
+- **`csrc/`**: Your raw CUDA source code where the GPU magic happens.
+- **`flake.nix`**: The key to a perfectly reproducible\* build environment.
+- **`torch-ext/img2gray/`**: The Python wrapper for the raw PyTorch operators.
 
 ### **Step 2: The `build.toml` Manifest**
 
@@ -190,7 +190,7 @@ This approach is crucial for two main reasons:
 
 - **Hardware-Specific Implementations**: This system allows you to provide different backends for the same operator. You could add another `TORCH_LIBRARY_IMPL(img2gray, CPU, ...)` block pointing to a C++ CPU function. PyTorch's dispatcher would then automatically call the correct implementation—CUDA or CPU—based on the input tensor's device, making your code powerful and portable.
 
-5.3. **Setting up the `__init__.py` wrapper**
+  5.3. **Setting up the `__init__.py` wrapper**
 
 In the `torch-ext/img2gray/` we need an `__init__.py` file to make this directory a Python package and to expose our custom operator in a user-friendly way.
 
@@ -264,7 +264,6 @@ source .venv/bin/activate
 
 Now you can install the kernel in editable mode.
 
-
 #### 6.4. Compile the Kernel and Install the Python Package
 
 ```bash
@@ -272,7 +271,6 @@ pip install --no-build-isolation -e .
 ```
 
 🙌 Amazing! We now have a custom-built kernel that follows best practices for Torch bindings, with a fully reproducible build process.
-
 
 #### 6.5. Sanity Check
 
@@ -352,7 +350,6 @@ git push -u origin main
 
 Fantastic\! Your kernel is now on the Hugging Face Hub, ready for others to use and fully compliant with the `kernels` library.
 
-
 ### **Step 8: Loading and Testing Your Custom Op**
 
 With the `kernels` library, you don't "install" the kernel in the traditional sense. You load it directly from its Hub repository, which automatically registers the new operator.
@@ -398,24 +395,31 @@ from kernels import get_kernel
 img2gray_lib = get_kernel("drbh/img2gray", revision="4148918")
 ```
 
-Using a Git shorthash will reduce the chance of breakage, however it is hard to interpret and does not allow graceful upgrades within a version range. We therefore recommend to use [semantic versioning](https://semver.org/) for kernels. Adding a version to a kernel is easy: you simply add a Git tag of the form `vx.y.z` where _x.y.z_ is the version. For instance, if the current version of the kernel is 0.1.2, you can tag it as `v0.1.2`. The user could then get that version with `get_kernel`:
+Using a Git shorthash will reduce the chance of breakage, however it is hard to interpret and does not allow graceful upgrades within a version range. We therefore recommend to use [semantic versioning](https://semver.org/) for kernels. Adding a version to a kernel is easy: you simply add a Git tag of the form `vx.y.z` where _x.y.z_ is the version. For instance, if the current version of the kernel is 1.1.2, you can tag it as `v1.1.2`. You can then get that version with `get_kernel`:
 
 ```python
 from kernels import get_kernel
-img2gray_lib = get_kernel("drbh/img2gray", revision="v0.1.2")
+img2gray_lib = get_kernel("drbh/img2gray", revision="v1.1.2")
 ```
 
-**NOTE (daniel): while writing this, I realize it's nice to be able to support version specifiers in `get_kernel`. It makes the semantic versioning story stronger and makes the transition to lockfiles (see below) more natural. I will now implement this feature and update this section afterwards.**
+Versioning becomes even more powerful with version bounds. In semantic versioning, the version `1.y.z`, must not have backward-incompatible changes in the public API for each succeeding `x` and `y`. So, if the kernel's version was `1.1.2` at the time of writing your code, you can ask the version to be at least `1.2.1`, but less than `2.0.0`:
+
+```python
+from kernels import get_kernel
+img2gray_lib = get_kernel("drbh/img2gray", version=">=1.1.2,<2")
+```
+
+This will ensure that the code will always fetch the latest kernel from the `1.y.z` series. The version bound can be a Python-style [version specifier](https://packaging.pypa.io/en/stable/specifiers.html).
 
 You can [tag](https://huggingface.co/docs/huggingface_hub/en/guides/cli#tag-a-model) a version with `huggingface-cli`:
 
 ```bash
-$ huggingface-cli tag drbh/img2gray v0.1.2
+$ huggingface-cli tag drbh/img2gray v1.1.2
 ```
 
 #### Locking Kernels
 
-Tags make it easy to version your kernels. However, managing versions in code can be unwieldy in large projects. If you want to change the version of a kernel, you will have to find all occurrences of `get_kernel` for that kernel and update their versions.
+In large projects, you may want to coordinate the kernel versions globally rather than in each `get_kernel` call. Moreover, it is often useful to lock kernels, so that all your users have the same kernel versions, which aids handling bug reports.
 
 `kernels` offers a nice way of managing kernels at the project-level. To do so, add the `kernels` package to the build-system requirements in `pyproject.toml`. After doing so, you can specify a project's kernel requirements in the `tools.kernels` section:
 
@@ -476,20 +480,20 @@ We strongly recommend downloading kernels from the Hub using the `kernels` packa
 That said, some projects may require deployment of kernels as wheels. The `kernels` utility provides a simple solution to this. You can convert any Hub kernel into a set of wheels with a single command:
 
 ```bash
-$ kernels to-wheel drbh/img2grey 0.1.2
-☸ img2grey-0.1.2+torch27cu128cxx11-cp39-abi3-manylinux_2_28_x86_64.whl
-☸ img2grey-0.1.2+torch26cu124cxx11-cp39-abi3-manylinux_2_28_x86_64.whl
-☸ img2grey-0.1.2+torch26cu126cxx11-cp39-abi3-manylinux_2_28_x86_64.whl
-☸ img2grey-0.1.2+torch27cu126cxx11-cp39-abi3-manylinux_2_28_x86_64.whl
-☸ img2grey-0.1.2+torch26cu126cxx98-cp39-abi3-manylinux_2_28_x86_64.whl
-☸ img2grey-0.1.2+torch27cu128cxx11-cp39-abi3-manylinux_2_28_aarch64.whl
-☸ img2grey-0.1.2+torch26cu126cxx98-cp39-abi3-manylinux_2_28_aarch64.whl
-☸ img2grey-0.1.2+torch27cu126cxx11-cp39-abi3-manylinux_2_28_aarch64.whl
-☸ img2grey-0.1.2+torch26cu126cxx11-cp39-abi3-manylinux_2_28_aarch64.whl
-☸ img2grey-0.1.2+torch26cu118cxx98-cp39-abi3-manylinux_2_28_x86_64.whl
-☸ img2grey-0.1.2+torch26cu124cxx98-cp39-abi3-manylinux_2_28_x86_64.whl
-☸ img2grey-0.1.2+torch26cu118cxx11-cp39-abi3-manylinux_2_28_x86_64.whl
-☸ img2grey-0.1.2+torch27cu118cxx11-cp39-abi3-manylinux_2_28_x86_64.whl
+$ kernels to-wheel drbh/img2grey 1.1.2
+☸ img2grey-1.1.2+torch27cu128cxx11-cp39-abi3-manylinux_2_28_x86_64.whl
+☸ img2grey-1.1.2+torch26cu124cxx11-cp39-abi3-manylinux_2_28_x86_64.whl
+☸ img2grey-1.1.2+torch26cu126cxx11-cp39-abi3-manylinux_2_28_x86_64.whl
+☸ img2grey-1.1.2+torch27cu126cxx11-cp39-abi3-manylinux_2_28_x86_64.whl
+☸ img2grey-1.1.2+torch26cu126cxx98-cp39-abi3-manylinux_2_28_x86_64.whl
+☸ img2grey-1.1.2+torch27cu128cxx11-cp39-abi3-manylinux_2_28_aarch64.whl
+☸ img2grey-1.1.2+torch26cu126cxx98-cp39-abi3-manylinux_2_28_aarch64.whl
+☸ img2grey-1.1.2+torch27cu126cxx11-cp39-abi3-manylinux_2_28_aarch64.whl
+☸ img2grey-1.1.2+torch26cu126cxx11-cp39-abi3-manylinux_2_28_aarch64.whl
+☸ img2grey-1.1.2+torch26cu118cxx98-cp39-abi3-manylinux_2_28_x86_64.whl
+☸ img2grey-1.1.2+torch26cu124cxx98-cp39-abi3-manylinux_2_28_x86_64.whl
+☸ img2grey-1.1.2+torch26cu118cxx11-cp39-abi3-manylinux_2_28_x86_64.whl
+☸ img2grey-1.1.2+torch27cu118cxx11-cp39-abi3-manylinux_2_28_x86_64.whl
 ```
 
 This wheel will be have like any other wheel, the kernel can be imported using a simple `import img2grey`.
@@ -497,4 +501,3 @@ This wheel will be have like any other wheel, the kernel can be imported using a
 # Conclusion
 
 tbd
-
