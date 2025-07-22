@@ -91,12 +91,37 @@ How many times did the man swing his axe? (a) one (b) two (c) three (d) four (e)
 
 With different video lengths are and varying needle placements, TimeScope measures how much video a model can really handle—and shows that performance drops as the video gets longer.
 
-## Baseline Evaluation Results
-
-To kick things off, we ran TimeScope on a suite of leading vision-language models, from open-source favorites to the juggernauts like Gemini2.5-Pro. The results show why the benchmark matters: even models that claim to handle long videos well still struggle with real time-based tasks when things get bigger. The results show clear trends—like big drops in performance at certain video lengths, models doing better at finding still frames than understanding motion—and point to ways we can train models more effectively. For detailed results and visualizations, check out our Hugging Face Space embedded above.
+## Evaluations & Leaderboard
 
 
-## Open-Sourcing
+To kick things off, we ran TimeScope on a suite of leading vision-language models, from open-source favorites to the juggernauts like Gemini 2.5-Pro. The results underscore the benchmark’s value: even models that claim to handle long videos well still struggle with real long-video tasks. These findings reveal clear patterns—performance cliffs around certain durations, strengths in static retrieval versus weaknesses in motion analysis—and pave the way for targeted improvements in model training. For detailed results and visualizations, check out our Hugging Face Space embedded above.
+
+### What did we learn?
+
+**Model size isn’t everything.** Qwen 2.5-VL 3B and 7B, as well as InternVL 2.5 models at 2B, 4B, and 8B parameters, exhibit nearly indistinguishable long-video curves to their smaller counterparts. All of them plateau at roughly the same context length, showing that simply scaling parameters does not automatically grant a longer temporal horizon.
+
+**Gemini 2.5-Pro is in a league of its own.** It is the only model that maintains strong accuracy on videos longer than one hour.
+
+**Trade-offs across tasks matter.** Qwen 2.5-VL shines in the Information-Synthesis (OCR) task—identifying and ordering dispersed text snippets—yet it falls behind on Fine-Grained Temporal Perception, where precise motion counting is required. 
+
+
+
+
+## Conclusion – Let’s Raise the Bar for Long-Video AI
+
+TimeScope demonstrates that “hour-long video understanding” is still more slogan than reality. By revealing where even state-of-the-art models stumble on temporal reasoning, information synthesis, and motion perception, the benchmark invites us to rethink how we train and evaluate multimodal systems.
+
+1. **Run the Demo** – Explore the public Space: <https://huggingface.co/spaces/Apollo-LMMs/TimeScope>
+2. **Benchmark Locally** – Evaluate any model with two quick commands:
+   ```bash
+   pip install git+https://github.com/EvolvingLMMs-Lab/lmms-eval.git
+   python -m lmms_eval --model-path <your-model> --benchmark timescope
+   ```
+3. **Join the Leaderboard** – Submit your scores and see how your model compares.
+
+We hope this benchmark helps the community make steady, measurable progress toward models that better understand video over time.
+
+
 
 We are open-sourcing all components of TimeScope:
 
