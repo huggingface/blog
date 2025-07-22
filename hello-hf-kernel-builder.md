@@ -36,7 +36,7 @@ print(out)
 
 Rather watch a video? Check out the [YouTube video](https://youtu.be/HS5Pp_NLVWg?si=WP1aJ98q52lJn6F-&t=0) that accompanies this guide.
 
-Lets Get Started! 🚀
+Let's Get Started! 🚀
 
 ## Part 1: Anatomy of a Modern CUDA Kernel
 
@@ -169,12 +169,12 @@ The file **`torch-ext/torch_binding.cpp`** handles this registration.
 #include <torch/library.h>
 #include "torch_binding.h" // Declares our img2gray_cuda function
 
-// 5.1. Define the operator's public signature in a new namespace.
+// First Define the operator's public signature in a new namespace.
 TORCH_LIBRARY(img2gray, ops) {
     ops.def("img2gray(Tensor input, Tensor! output) -> ()");
 }
 
-// 5.2. Link that signature to our actual CUDA C++ function.
+// Next Link that signature to our actual CUDA C++ function.
 TORCH_LIBRARY_IMPL(img2gray, CUDA, ops) {
     ops.impl("img2gray", &img2gray_cuda);
 }
@@ -190,7 +190,7 @@ This approach is crucial for two main reasons:
 
 - **Hardware-Specific Implementations**: This system allows you to provide different backends for the same operator. You could add another `TORCH_LIBRARY_IMPL(img2gray, CPU, ...)` block pointing to a C++ CPU function. PyTorch's dispatcher would then automatically call the correct implementation—CUDA or CPU—based on the input tensor's device, making your code powerful and portable.
 
-  5.3. **Setting up the `__init__.py` wrapper**
+  **Setting up the `__init__.py` wrapper**
 
 In the `torch-ext/img2gray/` we need an `__init__.py` file to make this directory a Python package and to expose our custom operator in a user-friendly way.
 
@@ -225,29 +225,29 @@ Now that our kernel and its bindings are ready, it's time to build them. The `ke
 
 You can build your kernel with a single command, `nix build . -L`; however, as developers, we'll want a faster, more iterative workflow. For that, we'll use the `nix develop` command to enter a development shell with all the necessary dependencies pre-installed.
 
-More specifically, we can choose the exact CUDA and PyTorch versions we want to use. For example, to build our kernel for PyTorch 2.7 with CUDA 11.8, we can use the following command:
+More specifically, we can choose the exact CUDA and PyTorch versions we want to use. For example, to build our kernel for PyTorch 2.7 with CUDA 12.6, we can use the following command:
 
-#### 6.1. Drop into a Nix Shell
+#### Drop into a Nix Shell
 
 ```bash
 # Drop into a Nix shell (an isolated sandbox with all dependencies)
-nix develop .#devShells.torch27-cxx11-cu118-x86_64-linux
+nix develop .#devShells.torch27-cxx11-cu126-x86_64-linux
 ```
 
 Note that the `devShell` name above can be deciphered as:
 
 ```nix
-nix develop .#devShells.torch27-cxx11-cu118-x86_64-linux
+nix develop .#devShells.torch27-cxx11-cu126-x86_64-linux
                         │       │         │       │
                         │       │         │       └─── Architecture: x86_64 (Linux)
-                        │       │         └────────── CUDA version: 11.8
+                        │       │         └────────── CUDA version: 12.6
                         │       └──────────────────── C++ ABI: cxx11
                         └──────────────────────────── Torch version: 2.7
 ```
 
 At this point, we'll be inside a Nix shell with all dependencies installed. We can now build the kernel.
 
-#### 6.2. Set Up Build Artifacts
+#### Set Up Build Artifacts
 
 ```bash
 build2cmake generate-torch build.toml
@@ -255,7 +255,7 @@ build2cmake generate-torch build.toml
 
 This command creates a handful of files used to build the kernel: `CMakeLists.txt`, `pyproject.toml`, `setup.py`, and a `cmake` directory. The `CMakeLists.txt` file is the main entry point for CMake to build the kernel.
 
-#### 6.3. Create a Python Virtual Environment
+#### Create a Python Virtual Environment
 
 ```bash
 python -m venv .venv
@@ -264,7 +264,7 @@ source .venv/bin/activate
 
 Now you can install the kernel in editable mode.
 
-#### 6.4. Compile the Kernel and Install the Python Package
+#### Compile the Kernel and Install the Python Package
 
 ```bash
 pip install --no-build-isolation -e .
@@ -272,7 +272,7 @@ pip install --no-build-isolation -e .
 
 🙌 Amazing! We now have a custom-built kernel that follows best practices for Torch bindings, with a fully reproducible build process.
 
-#### 6.5. Sanity Check
+#### Sanity Check
 
 To ensure everything is working, we can run a simple test to check if the kernel is registered correctly.
 
@@ -295,7 +295,7 @@ Image.fromarray(gray_tensor.cpu().numpy()).save("gray.png")
 
 Now that we have a working kernel, it's time to share it with other developers and the world\!
 
-#### 7.1. Building the Kernel for All Python and Torch Versions
+#### Building the Kernel for All Python and Torch Versions
 
 Earlier, we built the kernel for a specific version of PyTorch and CUDA. However, to make it available to a wider audience, we need to build it for all supported versions. The `kernel-builder` tool can help us with that.
 
@@ -313,7 +313,8 @@ The last step is to move the results into the expected `build` directory (this i
 
 ```bash
 mkdir -p build
-cp -r --dereference ./result/* build
+rsync -av --delete result/ build/
+chmod -R u+w build
 ```
 
 #### 7.2. Pushing to the Hugging Face Hub
@@ -340,10 +341,10 @@ git lfs install
 git checkout -b main
 
 # Update to use LFS for the binary files
-echo "*.so filter=lfs diff=lfs merge=lfs -text" >> .gitattributes
+git lfs track "*.so"
 
 # Add and commit your changes
-git add .
+git add build/ csrc/ torch-ext/ flake.nix flake.lock build.toml
 git commit -m "Initial commit"
 git push -u origin main
 ```
