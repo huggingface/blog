@@ -89,7 +89,7 @@ How many times did the man swing his axe? (a) one (b) two (c) three (d) four (e)
   <source src="https://huggingface.co/spaces/Apollo-LMMs/TimeScope/resolve/main/temporal_wood_cutting.mp4" type="video/mp4">
 </video>
 
-With different video lengths are and varying needle placements, TimeScope measures how much video a model can really handle—and shows that performance drops as the video gets longer.
+With different video lengths and varying needle placements, TimeScope measures how much video a model can really handle—and shows that performance drops as the video gets longer.
 
 ## Evaluations & Leaderboard
 
