@@ -23,24 +23,24 @@ If you cannot wait to get started with the code, please check out the [accompany
 * [Optimized LoRA inference on a consumer GPU](#optimized-lora-inference-on-a-consumer-gpu)
 * [Conclusion](#conclusion)
 
-# Hurdles in optimizing LoRA inference {#hurdles-in-optimizing-lora-inference}
+# Hurdles in optimizing LoRA inference
 
 When serving LoRAs, it is common to hotswap (swap in and swap out different LoRAs) them. A LoRA changes the base model architecture. Additionally, LoRAs can be different from one another – each one of them could have varying ranks and different layers they target for adaptation. To account for these dynamic properties of LoRAs, we must take necessary steps to ensure the optimizations we apply are robust.
 
-For example, we can apply \`torch.compile\` on a model loaded with a particular LoRA to obtain speedups on inference latency. However, the moment we swap out the LoRA with a different one (with a potentially different configuration), we will run into recompilation issues, causing slowdowns in inference.
+For example, we can apply `torch.compile` on a model loaded with a particular LoRA to obtain speedups on inference latency. However, the moment we swap out the LoRA with a different one (with a potentially different configuration), we will run into recompilation issues, causing slowdowns in inference.
 
 One can also fuse the LoRA parameters into the base model parameters, run compilation, and unfuse the LoRA parameters when loading new ones. However, this approach will again encounter the problem of recompilation whenever inference is run, due to potential architecture-level changes. 
 
 Our optimization recipe takes into account the above-mentioned situations to be as realistic as possible. Below are the key components of our optimization recipe:
 
 * Flash Attention 3 (FA3)  
-* \`torch.compile\`  
+* `torch.compile`  
 * FP8 quantization from TorchAO   
 * Hotswapping-ready
 
 Note that amongst the above-mentioned, FP8 quantization is lossy but often provides the most formidable speed-memory trade-off. Even though we tested the recipe primarily using NVIDIA GPUs, it should work on AMD GPUs, too.
 
-# Optimization recipe {#optimization-recipe}
+# Optimization recipe
 
 In our previous blog posts ([post 1](https://pytorch.org/blog/presenting-flux-fast-making-flux-go-brrr-on-h100s/) and [post 2](https://pytorch.org/blog/torch-compile-and-diffusers-a-hands-on-guide-to-peak-performance/)), we have already discussed the benefits of using the first three components of our optimization recipe. Applying them one by one is just a few lines of code:
 
@@ -80,9 +80,9 @@ image = pipe(**pipe_kwargs).images[0]
 ```
 *The FA3 processor comes from [here](https://github.com/huggingface/lora-fast/blob/main/utils/fa3_processor.py).*
 
-The problems start surfacing when we try to swap in and swap out LoRAs into a compiled diffusion transformer (\`pipe.transformer\`) without triggering recompilation.
+The problems start surfacing when we try to swap in and swap out LoRAs into a compiled diffusion transformer (`pipe.transformer`) without triggering recompilation.
 
-Normally, loading and unloading LoRAs will require recompilation, which defeats any speed advantage gained from compilation. Thankfully, there is a way to avoid the need for recompilation. By passing \`hotswap=True\`, diffusers will leave the model architecture unchanged and only exchange the weights of the LoRA adapter itself, which does not necessitate recompilation.
+Normally, loading and unloading LoRAs will require recompilation, which defeats any speed advantage gained from compilation. Thankfully, there is a way to avoid the need for recompilation. By passing `hotswap=True`, diffusers will leave the model architecture unchanged and only exchange the weights of the LoRA adapter itself, which does not necessitate recompilation.
 
 ```py
 pipe.enable_lora_hotswap(target_rank=max_rank)
@@ -94,11 +94,11 @@ image = pipe(**pipe_kwargs).images[0]
 pipe.load_lora_weights(<lora-adapter-name2>, hotswap=True)
 image = pipe(**pipe_kwargs).images[0]
 ```
-*(As a reminder, the first call to \`pipe\` will be slow as \`torch.compile\` is a just-in-time compiler. However, the subsequent calls should be significantly faster.)*
+*(As a reminder, the first call to `pipe` will be slow as `torch.compile` is a just-in-time compiler. However, the subsequent calls should be significantly faster.)*
 
 This generally allows for swapping LoRAs without recompilation, but there are limitations:
 
-* We need to provide the maximum rank among all LoRA adapters ahead of time. Thus, if we have one adapter with rank 16 and another with 32, we need to pass \`max\_rank=32\`.   
+* We need to provide the maximum rank among all LoRA adapters ahead of time. Thus, if we have one adapter with rank 16 and another with 32, we need to pass `max_rank=32`.   
 * LoRA adapters that are hotswapped in can only target the same layers, or a subset of layers, that the first LoRA targets.  
 * Targeting the text encoder is not supported yet.
 
@@ -126,7 +126,7 @@ The benefits of this workflow become evident when we look at the inference laten
 
 The optimization recipe we have discussed so far assumes access to a powerful GPU like H100. However, what can we do when we’re limited to using consumer GPUs such as RTX 4090? Let’s find out.
 
-# Optimized LoRA inference on a consumer GPU {#optimized-lora-inference-on-a-consumer-gpu}
+# Optimized LoRA inference on a consumer GPU
 
 Flux.1-Dev (without any LoRA), using the Bfloat16 data-type, takes \~33GB of memory to run. Depending on the size of the LoRA module, and without using any optimization, this memory footprint can increase even further. Many consumer GPUs like the RTX 4090 only have 24GB. Throughout the rest of this section, we will consider an RTX 4090 machine as our testbed.
 
@@ -148,20 +148,20 @@ image = pipe(**pipe_kwargs).images[0]
 
 Notice that we didn’t apply the FP8 quantization here because it’s not supported with CPU offloading and compilation (supporting [issue thread](https://github.com/pytorch/pytorch/issues/141548)). Therefore, just applying FP8 quantization to the Flux Transformer isn’t enough to mitigate the memory exhaustion problem, either. In this instance, we decided to remove it.
 
-Therefore, to take advantage of the FP8 quantization scheme, we need to find a way to do it without CPU offloading. For Flux.1-Dev, if we additionally apply quantization to the T5 text encoder, we should be able to load and run the complete pipeline in 24GB. Below is a comparison of the results with and without the T5 text encoder being quantized (NF4 quantization from [\`bitsandbytes\`](https://huggingface.co/docs/diffusers/main/en/quantization/bitsandbytes)).
+Therefore, to take advantage of the FP8 quantization scheme, we need to find a way to do it without CPU offloading. For Flux.1-Dev, if we additionally apply quantization to the T5 text encoder, we should be able to load and run the complete pipeline in 24GB. Below is a comparison of the results with and without the T5 text encoder being quantized (NF4 quantization from [`bitsandbytes`](https://huggingface.co/docs/diffusers/main/en/quantization/bitsandbytes)).
 
-![][https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/lora-fast/image_1_lora_fast.png]  
+![te_quantized_results](https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/lora-fast/image_1_lora_fast.png)
 
-As we can notice in the figure above, quantizing the T5 text encoder doesn’t incur too much of a quality loss. Combining the quantized T5 text encoder and FP8-quantized Flux Transformer with \`torch.compile\`  gives us somewhat reasonable results – **9.668 seconds** from 32.27 seconds (a massive \~3.3x speedup) without a noticeable quality drop. 
+As we can notice in the figure above, quantizing the T5 text encoder doesn’t incur too much of a quality loss. Combining the quantized T5 text encoder and FP8-quantized Flux Transformer with `torch.compile`  gives us somewhat reasonable results – **9.668 seconds** from 32.27 seconds (a massive \~3.3x speedup) without a noticeable quality drop. 
 
-![][https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/lora-fast/image_2_lora_fast.png]  
+![quantized_compiled_results](https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/lora-fast/image_2_lora_fast.png)
 
 It is possible to generate images with 24 GB of VRAM even without quantizing the T5 text encoder, but that would have made our generation pipeline slightly more complicated.
 
 We now have a way to run the entire Flux.1-Dev pipeline with FP8 quantization on an RTX 4090\. We can apply the previously established optimization recipe for optimizing LoRA inference on the same hardware. Since FA3 isn’t supported on RTX 4090, we will stick to the following optimization recipe with T5 quantization newly added to the mix:
 
 * FP8 quantization  
-* \`torch.compile\`  
+* `torch.compile`  
 * Hotswapping-ready  
 * T5 quantization (with NF4)
 
@@ -177,8 +177,8 @@ In the table below, we show the inference latency numbers with different combina
 * Compilation provides a massive 2x speedup over the baseline.  
 * The other options yielded OOM errors even with offloading enabled.
 
-# Conclusion {#conclusion}
+# Conclusion
 
-This post outlined an optimization recipe for fast LoRA inference with Flux, demonstrating significant speedups. Our approach combines Flash Attention 3, \`torch.compile\`, and FP8 quantization while ensuring hotswapping capabilities without recompilation issues. On high-end GPUs like the H100, this optimized setup provides a 2.23x speedup over the baseline.
+This post outlined an optimization recipe for fast LoRA inference with Flux, demonstrating significant speedups. Our approach combines Flash Attention 3, `torch.compile`, and FP8 quantization while ensuring hotswapping capabilities without recompilation issues. On high-end GPUs like the H100, this optimized setup provides a 2.23x speedup over the baseline.
 
 For consumer GPUs, specifically the RTX 4090, we tackled memory limitations by introducing T5 text encoder quantization (NF4) and leveraging regional compilation. This comprehensive recipe achieved a substantial 2.04x speedup, making LoRA inference on Flux viable and performant even with limited VRAM. The key insight is that by carefully managing compilation and quantization, the benefits of LoRA can be fully realized across different hardware configurations.
