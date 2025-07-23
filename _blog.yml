@@ -6406,11 +6406,21 @@
     - collaboration
     - guide
 
+- local: lora-fast 
+  title: "Fast LoRA inference for Flux with Diffusers and PEFT"
+  thumbnail: /blog/assets/lora-fast/thumbnail.png
+  author: sayakpaul
+  date: July 23, 2025
+  tags:
+    - lora
+    - diffusion
+    - guide
+
 - local: timescope-video-lmm-benchmark
   title: "TimeScope: How Long Can Your Video Large Multimodal Model Go?"
   author: orrzohar
   thumbnail: /blog/assets/timescope/thumbnail.png
-  date: Jul 22, 2025
+  date: Jul 23, 2025
   tags:
     - video
     - datasets
