@@ -5,6 +5,7 @@ authors:
 - user: abidlabs
 - user: znation
 - user: nouamanetazi
+- user: sasha
 ---
 
 # Introducing Trackio: A Lightweight Experiment Tracking Library from Hugging Face
@@ -18,6 +19,8 @@ Most machine learning researchers use specific experiment tracking libraries to 
 At Hugging Face, our science team has been using Trackio for our research projects, and we've found several key advantages over other tracking solutions:
 
 **Easy Sharing and Embedding**: Trackio makes it incredibly simple to share training progress with colleagues or embed plots directly in blog posts and documentation using iframes. This is especially valuable when you want to showcase specific training curves or metrics without requiring others to set up accounts or navigate complex dashboards.
+
+**Standardization and Transparency**: Metrics like GPU energy usage are important to track and share with the community so we can have a better idea of the energy demands and environmental impacts of model training. Using Trackio, which directly gets information from the `nvidia-smi` command, makes it easy to quantify and compare energy usage and to add it to [model cards](https://huggingface.co/docs/hub/model-cards). 
 
 **Data Accessibility**: Unlike some tracking tools that lock your data behind proprietary APIs, Trackio makes it straightforward to extract and analyze the data being recorded. This is crucial for researchers who need to perform custom analysis or integrate training metrics into their research workflows.
 
