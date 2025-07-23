@@ -6404,3 +6404,12 @@
   tags:
     - collaboration
     - guide
+
+- local: lora-fast 
+  title: "Fast LoRA inference for Flux with Diffusers and PEFT"
+  thumbnail: /blog/assets/lora-fast/thumbnail.png
+  author: sayakpaul
+  date: July 23, 2025
+  tags:
+    - collaboration
+    - guide
