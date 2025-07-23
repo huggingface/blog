@@ -6340,6 +6340,7 @@
     - models
     - open-source
 
+
 - local: migrating-the-hub-to-xet
   title: "Migrating the Hub from Git LFS to Xet"
   author: jsulz
@@ -6414,3 +6415,15 @@
     - lora
     - diffusion
     - guide
+
+- local: timescope-video-lmm-benchmark
+  title: "TimeScope: How Long Can Your Video Large Multimodal Model Go?"
+  author: orrzohar
+  thumbnail: /blog/assets/timescope/thumbnail.png
+  date: Jul 23, 2025
+  tags:
+    - video
+    - datasets
+    - multimodal
+    - open-source
+    - benchmark
