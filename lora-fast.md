@@ -183,6 +183,9 @@ This post outlined an optimization recipe for fast LoRA inference with Flux, dem
 
 For consumer GPUs, specifically the RTX 4090, we tackled memory limitations by introducing T5 text encoder quantization (NF4) and leveraging regional compilation. This comprehensive recipe achieved a substantial 2.04x speedup, making LoRA inference on Flux viable and performant even with limited VRAM. The key insight is that by carefully managing compilation and quantization, the benefits of LoRA can be fully realized across different hardware configurations.
 
+Hopefully, the recipes from this post will inspire you to optimize your
+LoRA-based use cases, benefitting from speedy inference.
+
 ## Resources
 
 Below is a list of the important resources that we cited throughout this post:
