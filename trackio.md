@@ -45,10 +45,17 @@ uv pip install trackio
 
 ## Usage
 
-`trackio` is designed to be a drop-in replacement for experiment tracking libraries like `wandb`. The API is compatible with `wandb.init`, `wandb.log`, and `wandb.finish`, so you can simply import `trackio` as `wandb` in your code. Here is an example:
+`trackio` is designed to be a drop-in replacement for experiment tracking libraries like `wandb`. The API is compatible with `wandb.init`, `wandb.log`, and `wandb.finish`, so you can simply import `trackio` as `wandb` in your code.
+
+```diff
+- import wandb
++ import trackio as wandb
+```
+
+Here is an example:
 
 ```python
-import trackio as wandb
+import trackio
 import random
 import time
 
@@ -57,7 +64,7 @@ epochs = 8
 
 def simulate_multiple_runs():
     for run in range(runs):
-        wandb.init(project="fake-training", config={
+        trackio.init(project="fake-training", config={
             "epochs": epochs,
             "learning_rate": 0.001,
             "batch_size": 64
@@ -67,7 +74,7 @@ def simulate_multiple_runs():
             train_acc = random.uniform(0.6, 0.95)
             val_loss = train_loss - random.uniform(0.01, 0.1)
             val_acc = train_acc + random.uniform(0.01, 0.05)
-            wandb.log({
+            trackio.log({
                 "epoch": epoch,
                 "train_loss": train_loss,
                 "train_accuracy": train_acc,
@@ -75,7 +82,7 @@ def simulate_multiple_runs():
                 "val_accuracy": val_acc
             })
             time.sleep(0.2)
-    wandb.finish()
+    trackio.finish()
 
 simulate_multiple_runs()
 ```
