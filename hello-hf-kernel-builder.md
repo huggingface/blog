@@ -270,11 +270,11 @@ Now you can install the kernel in editable mode.
 pip install --no-build-isolation -e .
 ```
 
-🙌 Amazing! We now have a custom-built kernel that follows best practices for Torch bindings, with a fully reproducible build process.
+🙌 Amazing! We now have a custom built kernel that follows best practices for Torch bindings, with a fully reproducible build process.
 
 #### Sanity Check
 
-To ensure everything is working, we can run a simple test to check if the kernel is registered correctly.
+To ensure everything is working correctly, we can run a simple test to check if the kernel is registered.
 
 ```python
 # scripts/sanity.py
@@ -293,7 +293,7 @@ Image.fromarray(gray_tensor.cpu().numpy()).save("gray.png")
 
 ### Step 7: Sharing with the World
 
-Now that we have a working kernel, it's time to share it with other developers and the world\!
+Now that we have a working kernel, it's time to share it with other developers and the world!
 
 #### Building the Kernel for All Python and Torch Versions
 
@@ -342,13 +342,18 @@ git checkout -b main
 # Update to use LFS for the binary files
 git lfs track "*.so"
 
-# Add and commit your changes
-git add build/ csrc/ torch-ext/ flake.nix flake.lock build.toml
-git commit -m "Initial commit"
+# Add and commit your changes. (being careful to only include the necessary files
+# since our build2cmake command generated a lot of dev specific files)
+git add \
+  build/ csrc/ \
+  torch-ext/torch_binding.cpp torch-ext/torch_binding.h torch-ext/img2gray \
+  flake.nix flake.lock build.toml
+
+git commit -m "feat: Created a compliant img2gray kernel"
 git push -u origin main
 ```
 
-Fantastic\! Your kernel is now on the Hugging Face Hub, ready for others to use and fully compliant with the `kernels` library.
+Fantastic! Your kernel is now on the Hugging Face Hub, ready for others to use and fully compliant with the `kernels` library.
 
 ### **Step 8: Loading and Testing Your Custom Op**
 
@@ -500,4 +505,8 @@ This wheel will be have like any other wheel, the kernel can be imported using a
 
 # Conclusion
 
-tbd
+This guide has walked you through the entire lifecycle of a production-ready CUDA kernel. You’ve seen how to build a custom kernel from the ground up, register it as a native PyTorch operator, and share it with the community on the Hugging Face Hub. We also explored best practices for versioning, dependency management, and deployment, ensuring your work is both powerful and easy to maintain.
+
+We believe that open and collaborative development is the key to innovation. Now that you have the tools and knowledge to build your own high-performance kernels, we're excited to see what you create! We warmly invite you to share your work, ask questions, and start discussions on the [Kernel Hub](https://huggingface.co/kernels-community) or in our [kernel-builder GitHub repository](https://github.com/huggingface/kernel-builder) and [kernels GitHub repository](https://github.com/huggingface/kernels). Whether you’re a seasoned developer or just starting out, the community is here to support you.
+
+Let's get building! 🚀
