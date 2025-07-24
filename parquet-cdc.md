@@ -708,7 +708,7 @@ Since Parquet CDC is applied at the parquet data page level (column chunk level)
 More details about the feature can be found at:
 - [Hugging Face's Xet announcement](https://huggingface.co/blog/xet-on-the-hub)
 - [parquet-dedupe-estimator's readme](https://github.com/huggingface/dataset-dedupe-estimator)
-- [PyArrow's documentation page](https://arrow.apache.org/docs/dev/python/parquet.html#content-defined-chunking)
+- [PyArrow's documentation page](https://arrow.apache.org/docs/python/parquet.html#content-defined-chunking)
 - [Pull request implementing Parquet CDC](https://github.com/apache/arrow/pull/45360)
 
 ## Conclusion
