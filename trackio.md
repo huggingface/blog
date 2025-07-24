@@ -10,7 +10,7 @@ authors:
 
 # Introducing Trackio: A Lightweight Experiment Tracking Library from Hugging Face
 
-If you have trained your own machine learning model, you know how important it is to be able to track metrics, parameters, and hyperparameters during training and visualize them afterwards to better understand your training run. 
+If you have trained your own machine learning model, you know how important it is to be able to track metrics, parameters, and hyperparameters during training and visualize them afterwards to better understand your training run.
 
 Most machine learning researchers use specific experiment tracking libraries to do this. However, these libraries can be paid, require complex setup, or lack the flexibility needed for rapid experimentation and sharing.
 
@@ -20,7 +20,7 @@ At Hugging Face, our science team has been using Trackio for our research projec
 
 **Easy Sharing and Embedding**: Trackio makes it incredibly simple to share training progress with colleagues or embed plots directly in blog posts and documentation using iframes. This is especially valuable when you want to showcase specific training curves or metrics without requiring others to set up accounts or navigate complex dashboards.
 
-**Standardization and Transparency**: Metrics like GPU energy usage are important to track and share with the community so we can have a better idea of the energy demands and environmental impacts of model training. Using Trackio, which directly gets information from the `nvidia-smi` command, makes it easy to quantify and compare energy usage and to add it to [model cards](https://huggingface.co/docs/hub/model-cards). 
+**Standardization and Transparency**: Metrics like GPU energy usage are important to track and share with the community so we can have a better idea of the energy demands and environmental impacts of model training. Using Trackio, which directly gets information from the `nvidia-smi` command, makes it easy to quantify and compare energy usage and to add it to [model cards](https://huggingface.co/docs/hub/model-cards).
 
 **Data Accessibility**: Unlike some tracking tools that lock your data behind proprietary APIs, Trackio makes it straightforward to extract and analyze the data being recorded. This is crucial for researchers who need to perform custom analysis or integrate training metrics into their research workflows.
 
@@ -113,8 +113,10 @@ trackio.init(project="fake-training", space_id="org_name/space_name")
 If you are hosting your dashboard on Spaces, you can embed it anywhere using an iframe:
 
 ```html
-<iframe src="https://abidlabs-trackio-1234.hf.space/?project=fake-training&metrics=train_loss,train_accuracy&sidebar=hidden" width=1600 height=500 frameBorder="0">
+<iframe src="https://org_name-space_name.hf.space/?project=fake-training&metrics=train_loss,train_accuracy&sidebar=hidden" width=600 height=600 frameBorder="0"></iframe>
 ```
+
+<iframe src="https://trackio-documentation.hf.space/?project=fake-training&metrics=train_loss,train_accuracy&sidebar=hidden" width=600 height=600 frameBorder="0"></iframe>
 
 ## Design Principles
 
