@@ -6,6 +6,7 @@ authors:
 - user: znation
 - user: nouamanetazi
 - user: sasha
+- user: qgallouedec
 ---
 
 # Introducing Trackio: A Lightweight Experiment Tracking Library from Hugging Face
@@ -79,6 +80,8 @@ def simulate_multiple_runs():
 simulate_multiple_runs()
 ```
 
+### Visualizing Results
+
 After logging your experiments, you can launch the dashboard to visualize your results. Run the following command in your terminal:
 
 ```bash
@@ -117,6 +120,49 @@ If you are hosting your dashboard on Spaces, you can embed it anywhere using an 
 ```
 
 <iframe src="https://trackio-documentation.hf.space/?project=fake-training&metrics=train_loss,train_accuracy&sidebar=hidden" width=600 height=600 frameBorder="0"></iframe>
+
+### Integrated with 🤗 Transformers and 🤗 Accelerate
+
+Trackio integrates natively with Hugging Face libraries like `transformers` and `accelerate`, so you can log metrics with minimal setup.
+
+**With `transformers.Trainer`:**
+
+```python
+import numpy as np
+from datasets import Dataset
+from transformers import Trainer, AutoModelForCausalLM, TrainingArguments
+
+# Create a fake dataset
+data = np.random.randint(0, 1000, (8192, 64)).tolist()
+dataset = Dataset.from_dict({"input_ids": data, "labels": data})
+
+# Train a model using the Trainer API
+trainer = Trainer(
+    model=AutoModelForCausalLM.from_pretrained("Qwen/Qwen3-0.6B"),
+    args=TrainingArguments(run_name="fake-training", report_to="trackio"),
+    train_dataset=dataset,
+)
+trainer.train()
+```
+
+**With `accelerate`:**
+
+```python
+from accelerate import Accelerator
+
+accelerator = Accelerator(log_with="trackio")
+accelerator.init_trackers("fake-training")
+
+...  # Prepare the model, dataloader, etc.
+
+for step, batch in enumerate(dataloader):
+    ...  # Your training logic here
+    accelerator.log({"training_loss": loss}, step=step)
+
+accelerator.end_training()
+```
+
+No extra setup needed—just plug it in and start tracking.
 
 ## Design Principles
 
