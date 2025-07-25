@@ -11,9 +11,9 @@ We are glad to announce a long-awaited quality-of-life improvement: the Hugging 
 
 So... why this change?
 
-Let’s be honest: typing `huggingface-cli` eleven times a day is a finger workout. But more importantly, the old command layout grew organically over the years. As we added new features (upload, download, cache management, repo management, etc.), the CLI menu gradually became a patchwork of functionality lacking a consistent structure. Renaming the CLI gives us the perfect excuse to harmonize commands under a clearer, more consistent format.
+Typing `huggingface-cli` constantly gets old fast. More importantly, the CLI’s command structure became messy as new features were added over time (upload, download, cache management, repo management, etc.). Renaming the CLI is a chance to reorganize commands into a clearer, more consistent format.
 
-Since we knew we didn't want to reinvent the wheel, we took inspiration from the excellent [GitHub](https://cli.github.com/) and [Docker](https://www.docker.com/products/cli/) CLIs. They both use a predictable grammar **`hf <resource> <action>`** that clearly defines the scope and intent of each command. By aligning with this proven pattern, we're making the Hugging Face CLI more ergonomic and discoverable. We are also preparing the ground for upcoming features already cooking in the pipeline.
+We decided not to reinvent the wheel and instead follow a well-known CLI pattern: **`hf <resource> <action>`**. This predictable grammar makes the Hugging Face CLI more ergonomic and discoverable, while also setting the stage for upcoming features.
 
 ## Getting started
 
