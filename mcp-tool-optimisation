@@ -1,0 +1,87 @@
+---
+title: "Managing MCP Tool Sets" 
+thumbnail:
+authors:
+- user: evalstate
+---
+
+TODO-- ADD THUMBNAIL
+TODO-- ADD TINYAGENT EXAMPLE
+
+## Managing MCP Tools
+
+> [!TIP]
+> **TL;DR:** More tools aren't always better. As your MCP toolset grows, context window bloat can hurt performance, accuracy, and cost. The Hugging Face MCP Server offers flexible management options - from simple configuration pages to dynamic URL parameters - helping you use exactly the right tools for each task.
+
+When MCP Servers offer tools to AI assistants, they're typically all included in the context window. Modern models have impressively large context windows and tool calling capabilities, but they're not unlimited - and having too many tools can cause real issues with tool selection accuracy, cost, and response speed.
+
+This becomes a genuine problem as your toolset expands, so we've built flexible management options into the Hugging Face MCP Server to help you tackle it.
+
+## Configuring the Hugging Face Toolset
+
+The primary method for configuring your tools is through the [Hugging Face MCP Settings page](https://huggingface.co/settings/mcp). 
+
+However, we've also built URL parameters for power users who need more dynamic control. You can add `?bouquet=` and `?mix=` parameters to the URL to specify toolsets on the fly:
+
+- **`bouquet=`** replaces your configured tools entirely with the specified set
+- **`mix=`** adds the specified tools to your existing configuration
+
+For example:
+- `https://hf.co/mcp?bouquet=docs` gives you only documentation tools
+- `https://hf.co/mcp?mix=docs` adds documentation tools to whatever you've already configured
+
+Current toolsets available:
+
+| Toolset | Description | What's Included |
+|---------|-------------|-----------------|
+| `all` | Complete functionality | Hub search, documentation, Spaces management, plus image generation |
+| `docs` | Documentation access | Semantic search and document retrieval for Hugging Face documentation |
+| `spaces` | Spaces management | Tools to discover, launch, and manage Hugging Face Spaces |
+| `search` | Hub discovery | Search across models, datasets, and papers on the Hub |
+
+You can find the most up-to-date toolset information on our [MCP Server GitHub page](https://github.com/evalstate/hf-mcp-server).
+
+This becomes increasingly important as we expand the MCP Server's capabilities. Gradio applications can also add multiple tools so we want to be able to fine-tune the toolset for specific tasks or conversations.
+
+## The Token Impact
+
+To understand the importance of selection, we ran a simple test query: "Who am I on Hugging Face?" comparing the documentation-only toolset against the full default configuration.
+
+| Model | Documentation Only | Full Toolset | Token Overhead |
+|-------|-------------------|--------------|----------------|
+| Claude Sonnet 4 | 1,988 tokens | 5,977 tokens | **3x increase** |
+| GPT-4o mini | 655 tokens | 2,927 tokens | **4.5x increase** |
+
+Each tool comes with a description, parameter definitions, default values, and usage examples - all of which get included in the model's context. Most models also add additional system prompt text explaining how to use tools effectively. The [Chat Template Playground](https://huggingface.co/spaces/huggingfacejs/chat-template-playground?modelId=Qwen%2FQwen3-235B-A22B-Instruct-2507) is an excellent way to explore how this works under the hood.
+
+The problem compounds with conversation length. With Sonnet 4, after just 5 additional conversation turns, the cumulative difference in input usage exceeds 20,000 tokens.
+
+For smaller models or those with limited context windows, this overhead can be the difference between a conversation that works and one that fails entirely.
+
+ ## Managing Toolsets
+
+The ability to fine-tune available tools has become a common feature of  MCP clients - some even apply hard upper limits to the number of allowable tools. Whilst this gives users control, it does place the burden on them to adapt their toolset for each conversation or task.
+
+There are some emerging techniques to mitigate the problem worth considering:
+
+ ### Dynamic Configuration Strategies
+
+ **Dynamic Agents** assess tasks and available tools, then automatically create and configure an agent optimised for the task. For example, a ...Task... might select just the ... tools and start a new conversation with just those tools enabled.
+
+ **Dynamic Toolsets** leverage MCP's ability to adjust available tools on-the-fly. A server might offer a _"configure tools"_ tool that users can call with their intent, and the MCP Server can itself add or remove relevant Tools. In practice, this can cause issues when switching or resuming conversations as the server, client, and LLM may have different assumptions about which tools are available.
+
+ **Smart Tools** Servers can offer fewer, more flexible tools with loosely-defined parameters. General queries can then be sent to the Smart Tool which intelligently adapts its response based on the query context.
+
+### When Prompts Work Better
+
+Tools are designed for model-controlled actions - either executing external operations or fetching information for processing. But sometimes you simply want to bring static information into context for the LLM to work with. In these cases, [MCP Prompts](https://modelcontextprotocol.io/docs/concepts/prompts) are often the better choice.
+
+For example, if you're researching a specific dataset, a Prompt can collect the Dataset ID from you and supply the results directly into the conversation context. This has the advantage of avoiding unnecessary back-and-forth turns, whilst giving the model all the information it needs upfront to provide comprehensive analysis.
+
+The trade-off is flexibility - Tools can adapt to different queries dynamically, whilst Prompts work best when you know exactly what information you need.
+
+## Conclusion
+
+The Hugging Face MCP Server provides flexibility for whatever scenario you're facing. It can be easily customised with your favourite tools and applications through the [Hugging Face settings page](https://huggingface.co/settings/mcp), or configured on-the-fly using URL parameters for specific tasks or conversations.
+
+Whether you need the full breadth of Hub functionality or focused access, the ability to tailor your toolset ensures optimal performance without unnecessary context overhead.
