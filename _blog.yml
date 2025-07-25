@@ -6431,7 +6431,7 @@
 - local: parquet-cdc
   title: "Parquet Content-Defined Chunking"
   author: kszucs
-  date: July 23, 2025
+  date: July 25, 2025
   tags:
     - data
     - datasets
