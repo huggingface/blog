@@ -6427,3 +6427,16 @@
     - multimodal
     - open-source
     - benchmark
+    
+- local: parquet-cdc
+  title: "Parquet Content-Defined Chunking"
+  author: kszucs
+  date: July 25, 2025
+  tags:
+    - data
+    - datasets
+    - dedupe
+    - hub
+    - parquet
+    - storage
+    - xet
