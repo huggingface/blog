@@ -52,9 +52,9 @@ To understand the importance of selection, we ran a simple test query: "Who am I
 | Claude Sonnet 4 | 1,988 tokens | 5,977 tokens | **3x increase** |
 | GPT-4o mini | 655 tokens | 2,927 tokens | **4.5x increase** |
 
-Each tool comes with a description, parameter definitions, default values, and usage examples - all of which get included in the model's context. Most models also add additional system prompt text explaining how to use tools effectively. The [Chat Template Playground](https://huggingface.co/spaces/huggingfacejs/chat-template-playground?modelId=Qwen%2FQwen3-235B-A22B-Instruct-2507) is an excellent way to explore how this works under the hood.
+Each tool comes with a description, parameter definitions, default values, and usage examples - all of which get included in the model's context. Most models also add additional system prompt text explaining how to use tools effectively. The [Chat Template Playground](https://huggingface.co/spaces/huggingfacejs/chat-template-playground?modelId=Qwen%2FQwen3-235B-A22B-Instruct-2507) is an excellent way to explore how this works under the hood<sup id="a1">[1](#f1)</sup>..
 
-The problem compounds with conversation length. With Sonnet 4, after just 5 additional conversation turns, the cumulative difference in input usage exceeds 20,000 tokens.
+The problem compounds with conversation length. With Sonnet 4, after just 5 additional conversation turns, the cumulative difference in input usage exceeds 20,000 tokens<sup id="a2">[2](#f2)</sup>.
 
 For smaller models or those with limited context windows, this overhead can be the difference between a conversation that works and one that fails entirely.
 
@@ -85,3 +85,11 @@ The trade-off is flexibility - Tools can adapt to different queries dynamically,
 The Hugging Face MCP Server provides flexibility for whatever scenario you're facing. It can be easily customised with your favourite tools and applications through the [Hugging Face settings page](https://huggingface.co/settings/mcp), or configured on-the-fly using URL parameters for specific tasks or conversations.
 
 Whether you need the full breadth of Hub functionality or focused access, the ability to tailor your toolset ensures optimal performance without unnecessary context overhead.
+
+---
+
+<b id="f1">1</b> Another good example is the HuggingFace [SmolLM3-3B template](https://huggingface.co/spaces/huggingfacejs/chat-template-playground?modelId=HuggingFaceTB%2FSmolLM3-3B). Tools don't have to be JSON... [↩](#a2)
+
+<b id="f2">2</b> Anthropic have a [Token Efficient Tool Use](https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/token-efficient-tool-use) feature in Beta that reduces the number of tokens used by tools [↩](#a1)
+
+
