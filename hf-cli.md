@@ -143,5 +143,5 @@ options:
 
 Learn more about Jobs by [reading the guide](https://huggingface.co/docs/huggingface_hub/main/en/guides/jobs).
 
-> 💡 **Tip**  
->**Hugging Face Jobs** are available only to [Pro users](https://huggingface.co/pro) and [Team or Enterprise organizations](https://huggingface.co/enterprise). Upgrade your plan to get started!
+> [!TIP]
+> **Hugging Face Jobs** are available only to [Pro users](https://huggingface.co/pro) and [Team or Enterprise organizations](https://huggingface.co/enterprise). Upgrade your plan to get started!
