@@ -6427,6 +6427,20 @@
     - multimodal
     - open-source
     - benchmark
+    
+- local: parquet-cdc
+  title: "Parquet Content-Defined Chunking"
+  author: kszucs
+  thumbnail: /blog/assets/parquet-cdc/thumbnail.png
+  date: July 25, 2025
+  tags:
+    - data
+    - datasets
+    - dedupe
+    - hub
+    - parquet
+    - storage
+    - xet
 
 - local: hf-cli
   title: "Say hello to `hf`: a faster, friendlier Hugging Face CLI ✨"
