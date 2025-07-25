@@ -11,11 +11,6 @@ Reduce Parquet file upload and download times on Hugging Face Hub by leveraging 
 
 **TL;DR:** Parquet Content-Defined Chunking (CDC) is now available in PyArrow and Pandas, enabling efficient deduplication of Parquet files on content-addressable storage systems like Hugging Face's Xet storage layer. CDC dramatically reduces data transfer and storage costs by uploading or downloading only the changed data chunks. Enable CDC by passing the `use_content_defined_chunking` argument:
 
-```python
-pq.write_table(table, "hf://user/repo/file.parquet", use_content_defined_chunking=True)
-df.to_parquet("hf://user/repo/file.parquet", use_content_defined_chunking=True)
-```
-
 ```python 
 import pandas as pd
 import pyarrow.parquet as pq
