@@ -6433,4 +6433,7 @@
   author: Wauplin
   thumbnail: /blog/assets/hf-cli-thumbnail.png
   date: Jul 25, 2025
-  
+  tags:
+    - cli
+    - huggingface_hub
+    - python
