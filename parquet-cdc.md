@@ -44,7 +44,7 @@ pq.write_table(table, "hf://datasets/{user}/{repo}/path.parquet", use_content_de
 
 Apache Parquet is a columnar storage format that is widely used in the data engineering community. 
 
-As Hugging Face hosts nearly 11PB of datasets with Parquet files alone accounting for over 2.2PB of that storage, optimizing Parquet storage is of high priority.
+As of today, Hugging Face hosts nearly 21 PB of datasets, with Parquet files alone accounting for over 4 PB of that storage. Optimizing Parquet storage is therefore a high priority.
 Hugging Face has introduced a new storage layer called [Xet](https://huggingface.co/blog/xet-on-the-hub) that leverages content-defined chunking to efficiently deduplicate chunks of data reducing storage costs and improving download/upload speeds.
 
 While Xet is format agnostic, Parquet's layout and column-chunk (data page) based compression can produce entirely different byte-level representations for data with minor changes, leading to suboptimal deduplication performance. To address this, the Parquet files should be written in a way that minimizes the byte-level differences between similar data, which is where content-defined chunking (CDC) comes into play.
@@ -196,7 +196,7 @@ Total Transfer:  0.00
 ```
 
 
-The upload was instantaneous again since deduplication works across repositories as well. This is a key feature of the Xet storage layer, allowing efficient data sharing and collaboration. 
+The upload was instantaneous again since deduplication works across repositories as well. This is a key feature of the Xet storage layer, allowing efficient data sharing and collaboration. You can read more about the details and scaling challenges in the [From Chunks to Blocks: Accelerating Uploads and Downloads on the Hub](https://huggingface.co/blog/from-chunks-to-blocks) blog post.
 
 ### 2. Adding and Removing Columns from the Table
 
