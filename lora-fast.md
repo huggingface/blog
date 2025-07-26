@@ -12,7 +12,7 @@ LoRA adapters provide a great deal of customization for models of all shapes and
 
 In this post, we take the [Flux.1-Dev model](https://huggingface.co/black-forest-labs/FLUX.1-dev) for text-to-image generation because of its widespread popularity and adoption, and how to optimize its inference speed when using LoRAs (\~2.3x). It has over 30k adapters trained with it ([as reported](https://huggingface.co/models?other=base_model:adapter:black-forest-labs/FLUX.1-dev) on the Hugging Face Hub platform). Therefore, its importance to the community is significant.
 
-Note that even though we demonstrate speedups with Flux, our belief is that our recipe is generic enough to be applied to other models as well. 
+Note that even though we demonstrate speedups with Flux, our belief is that our recipe is generic enough to be applied to other models as well.
 
 If you cannot wait to get started with the code, please check out the [accompanying code repository](https://github.com/huggingface/lora-fast).
 
@@ -29,13 +29,13 @@ When serving LoRAs, it is common to hotswap (swap in and swap out different LoRA
 
 For example, we can apply `torch.compile` on a model loaded with a particular LoRA to obtain speedups on inference latency. However, the moment we swap out the LoRA with a different one (with a potentially different configuration), we will run into recompilation issues, causing slowdowns in inference.
 
-One can also fuse the LoRA parameters into the base model parameters, run compilation, and unfuse the LoRA parameters when loading new ones. However, this approach will again encounter the problem of recompilation whenever inference is run, due to potential architecture-level changes. 
+One can also fuse the LoRA parameters into the base model parameters, run compilation, and unfuse the LoRA parameters when loading new ones. However, this approach will again encounter the problem of recompilation whenever inference is run, due to potential architecture-level changes.
 
 Our optimization recipe takes into account the above-mentioned situations to be as realistic as possible. Below are the key components of our optimization recipe:
 
-* Flash Attention 3 (FA3)  
-* `torch.compile`  
-* FP8 quantization from TorchAO   
+* Flash Attention 3 (FA3)
+* `torch.compile`
+* FP8 quantization from TorchAO
 * Hotswapping-ready
 
 Note that amongst the above-mentioned, FP8 quantization is lossy but often provides the most formidable speed-memory trade-off. Even though we tested the recipe primarily using NVIDIA GPUs, it should work on AMD GPUs, too.
@@ -52,8 +52,8 @@ import torch
 
 # quantize the Flux transformer with FP8
 pipe = DiffusionPipeline.from_pretrained(
-    "black-forest-labs/FLUX.1-dev", 
-    torch_dtype=torch.bfloat16, 
+    "black-forest-labs/FLUX.1-dev",
+    torch_dtype=torch.bfloat16,
     quantization_config=PipelineQuantizationConfig(
         quant_mapping={"transformer": TorchAoConfig("float8dq_e4m3_row")}
     )
@@ -87,7 +87,7 @@ Normally, loading and unloading LoRAs will require recompilation, which defeats 
 ```py
 pipe.enable_lora_hotswap(target_rank=max_rank)
 pipe.load_lora_weights(<lora-adapter-name1>)
-# compile *after* loading the first LoRA 
+# compile *after* loading the first LoRA
 pipe.transformer.compile(mode="max-autotune", fullgraph=True)
 image = pipe(**pipe_kwargs).images[0]
 # from this point on, load new LoRAs with `hotswap=True`
@@ -98,8 +98,8 @@ image = pipe(**pipe_kwargs).images[0]
 
 This generally allows for swapping LoRAs without recompilation, but there are limitations:
 
-* We need to provide the maximum rank among all LoRA adapters ahead of time. Thus, if we have one adapter with rank 16 and another with 32, we need to pass `max_rank=32`.   
-* LoRA adapters that are hotswapped in can only target the same layers, or a subset of layers, that the first LoRA targets.  
+* We need to provide the maximum rank among all LoRA adapters ahead of time. Thus, if we have one adapter with rank 16 and another with 32, we need to pass `max_rank=32`.
+* LoRA adapters that are hotswapped in can only target the same layers, or a subset of layers, that the first LoRA targets.
 * Targeting the text encoder is not supported yet.
 
 For more information on hotswapping in Diffusers and its limitations, visit the [hotswapping section of the documentation](https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference#hotswapping).
@@ -119,9 +119,9 @@ The benefits of this workflow become evident when we look at the inference laten
 
 **Key takeaways**:
 
-* The “regular \+ compile” option provides a decent speedup over the regular option, but it incurs recompilation issues, which increase the overall execution time. In our benchmarks, we don’t present the compilation time.  
-* When recompilation problems are eliminated through hotswapping (also known as the “optimized” option), we achieve the highest speedup.  
-* In the “optimized” option, FP8 quantization is enabled, which can lead to quality loss. Even without using FP8, we get a decent amount of speedup (“no\_fp8” option).  
+* The “regular \+ compile” option provides a decent speedup over the regular option, but it incurs recompilation issues, which increase the overall execution time. In our benchmarks, we don’t present the compilation time.
+* When recompilation problems are eliminated through hotswapping (also known as the “optimized” option), we achieve the highest speedup.
+* In the “optimized” option, FP8 quantization is enabled, which can lead to quality loss. Even without using FP8, we get a decent amount of speedup (“no\_fp8” option).
 * For demonstration purposes, we use a pool of two LoRAs for hotswapping with compilation. For the full code, please refer to the accompanying [code repository](https://github.com/huggingface/lora-fast).
 
 The optimization recipe we have discussed so far assumes access to a powerful GPU like H100. However, what can we do when we’re limited to using consumer GPUs such as RTX 4090? Let’s find out.
@@ -152,7 +152,7 @@ Therefore, to take advantage of the FP8 quantization scheme, we need to find a w
 
 ![te_quantized_results](https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/lora-fast/image_1_lora_fast.png)
 
-As we can notice in the figure above, quantizing the T5 text encoder doesn’t incur too much of a quality loss. Combining the quantized T5 text encoder and FP8-quantized Flux Transformer with `torch.compile`  gives us somewhat reasonable results – **9.668 seconds** from 32.27 seconds (a massive \~3.3x speedup) without a noticeable quality drop. 
+As we can notice in the figure above, quantizing the T5 text encoder doesn’t incur too much of a quality loss. Combining the quantized T5 text encoder and FP8-quantized Flux Transformer with `torch.compile`  gives us somewhat reasonable results – **9.668 seconds** from 32.27 seconds (a massive \~3.3x speedup) without a noticeable quality drop.
 
 ![quantized_compiled_results](https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/lora-fast/image_2_lora_fast.png)
 
@@ -160,9 +160,9 @@ It is possible to generate images with 24 GB of VRAM even without quantizing the
 
 We now have a way to run the entire Flux.1-Dev pipeline with FP8 quantization on an RTX 4090\. We can apply the previously established optimization recipe for optimizing LoRA inference on the same hardware. Since FA3 isn’t supported on RTX 4090, we will stick to the following optimization recipe with T5 quantization newly added to the mix:
 
-* FP8 quantization  
-* `torch.compile`  
-* Hotswapping-ready  
+* FP8 quantization
+* `torch.compile`
+* Hotswapping-ready
 * T5 quantization (with NF4)
 
 In the table below, we show the inference latency numbers with different combinations of the above components applied.
@@ -174,8 +174,16 @@ In the table below, we show the inference latency numbers with different combina
 
 **Quick notes**:
 
-* Compilation provides a massive 2x speedup over the baseline.  
+* Compilation provides a massive 2x speedup over the baseline.
 * The other options yielded OOM errors even with offloading enabled.
+
+## Technical details of hotswapping
+
+To enable hotswapping without triggering recompilation, two hurdles have to be overcome. First, the LoRA scaling factor has to be converted into torch tensors from floats, which is achieved fairly easily. Second, the shape of the LoRA weights needs to padded to the largest required shape. That way, the data in the weights can be replaced without the need to reassign the whole attribute. This is why the `max_rank` argument discussed above is crucial. As we pad the values with zeros, the results remain unchanged, although the computation is slowed down a bit depending on how large the padding is.
+
+Since no new LoRA attributes are added, this also requires that each LoRA after the first one can only target the same layers, or a subset of layers, that the first one targets. Thus, choose the order of loading wisely. If LoRAs target disjoint layers, there is the possibility to create a dummy LoRA that targets the union of all target layers.
+
+To see the nitty-gritty of this implementation, visit the [`hotswap.py` file in PEFT](https://github.com/huggingface/peft/blob/92d65cafa51c829484ad3d95cf71d09de57ff066/src/peft/utils/hotswap.py).
 
 # Conclusion
 
