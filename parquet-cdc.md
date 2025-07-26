@@ -166,7 +166,7 @@ To demonstrate the effectiveness of the content-defined chunking feature, we wil
 7. Using Varying File-Level Splits
 
 
-### 1. Re-uploading an Exact Copies of the Table
+### 1. Re-uploading Exact Copies of the Table
 
 While this use case sounds trivial, traditional file systems do not deduplicate files resulting in full re-upload and re-download of the data. In contrast, a system utilizing content-defined chunking can recognize that the file content is identical and avoid unnecessary data transfer.
 
@@ -377,7 +377,7 @@ visualize(table, table_with_appended_rows, title="With Appended Rows", prefix="o
 
 
 
-Since each column gets new data, we can see multiple red regisions. This is due to the actual parquet file specification where whole columns are laid out after each other (within each row group). 
+Since each column gets new data, we can see multiple red regions. This is due to the actual parquet file specification where whole columns are laid out after each other (within each row group). 
 
 ### 5. Inserting / Deleting Rows in the Table
 
@@ -558,7 +558,7 @@ Important to note that the same performance benefits apply to downloads using th
 
 ### 6. Using Different Row-group Sizes
 
-There are cases depending on the reader/writer constraints where larger or smaller row-group sizes might be beneficial. The parquet writer implementations use fixed-sized row-groups by default, in case of pyarrow the default is 1Mi rows. Dataset writers may change to reduce the row-group size in order to improve random access performance or to reduce the memory footprint of the reader application.
+There are cases depending on the reader/writer constraints where larger or smaller row-group sizes might be beneficial. The parquet writer implementations use fixed-sized row-groups by default, in the case of pyarrow the default is 1Mi rows. Dataset writers may change to reduce the row-group size in order to improve random access performance or to reduce the memory footprint of the reader application.
 
 Changing the row-group size will shift rows between row-groups, shifting values between data pages, so we have a similar problem as with inserting or deleting rows. Let's compare the deduplication performance between different row-group sizes using the parquet CDC feature:
 
@@ -599,7 +599,7 @@ visualize(table, (table, {"row_group_size": 256 * 1024}), title="Medium Row Grou
 
 ### 7. Using Varying File-Level Splits
 
-Datasets often split into multiple files to improve parallelism and random access. Parquet CDC combined with the Xet storage layer can efficiently deduplicate data across multiple files even if the data is split at different boundaries. 
+Datasets are often split into multiple files to improve parallelism and random access. Parquet CDC combined with the Xet storage layer can efficiently deduplicate data across multiple files even if the data is split at different boundaries. 
 
 Let's write out the dataset with three different file-level splitting then compare the deduplication performance:
 
