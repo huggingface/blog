@@ -336,7 +336,7 @@ In the realm of released open access MoEs, you can check:
 
 ## Exciting directions of work
 
-Further experiments on **distilling** a sparse MoE back to a dense model with less parameters but similar number of parameters.
+Further experiments on **distilling** a sparse MoE back to a dense model with fewer parameters but similar quality.
 
 Another area will be quantization of MoEs. [QMoE](https://arxiv.org/abs/2310.16795) (Oct. 2023) is a good step in this direction by quantizing the MoEs to less than 1 bit per parameter, hence compressing the 1.6T Switch Transformer which uses 3.2TB accelerator to just 160GB. 
 
