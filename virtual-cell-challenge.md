@@ -215,6 +215,6 @@ outputs = model(input_ids, mask)
 
 Best of luck to all participants! 
 
-_This post was originally published [here](https://fleetwood.dev/posts/you-could-have-designed-SOTA-positional-encoding)._
+_This post was originally published [here](https://fleetwood.dev/posts/virtual-cell-challenge)._
 
 
