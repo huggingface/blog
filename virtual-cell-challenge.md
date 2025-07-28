@@ -4,6 +4,8 @@ thumbnail: /blog/assets/virtual-cell-challenge/thumbnail.png
 authors:
 - user: FL33TW00D-HF 
 - user: abhinadduri
+  guest: true
+  org: arcinstitute
 ---
 
 # Arc Virtual Cell Challenge: A Primer
