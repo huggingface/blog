@@ -27,7 +27,9 @@ At Hugging Face, our science team has started using [Trackio](https://github.com
 
 **Flexibility for Experimentation**: Trackio's lightweight design allows us to easily experiment with new tracking features during training runs. For instance, we can decide when to move tensors from GPU to CPU when logging tensors while training, which significantly improves training throughput when you need to track model/intermediate states without impacting performance.
 
-So what is `trackio`? It's an [open-source Python library](https://github.com/gradio-app/trackio) that lets you track any metrics and visualize them using a local [Gradio](https://gradio.dev/) dashboard. You can also sync this dashboard to Hugging Face Spaces, which means you can then share the dashboard with other users simply by sharing a URL. Since Spaces can be private or public, this means you can share a dashboard publicly or just within members of your Hugging Face organization.
+## Using Trackio
+
+Ok then, so what is Trackio and how do you use it? Trackio an [open-source Python library](https://github.com/gradio-app/trackio) that lets you track any metrics and visualize them using a local [Gradio](https://gradio.dev/) dashboard. You can also sync this dashboard to Hugging Face Spaces, which means you can then share the dashboard with other users simply by sharing a URL. Since Spaces can be private or public, this means you can share a dashboard publicly or just within members of your Hugging Face organization.
 
 ## Installing
 
@@ -113,6 +115,8 @@ Or in Python:
 ```python
 trackio.show(project="my project")
 ```
+
+
 
 ### Sharing with 🤗 Spaces
 
