@@ -11,6 +11,10 @@ authors:
 
 # Introducing Trackio: A Lightweight Experiment Tracking Library from Hugging Face
 
+TL;DR: [Trackio]() is a new, open-source, and free experiment tracking Python library that provides a local dashboard and seamless integration with Hugging Face Spaces for easy sharing and collaboration. Since `trackio` is a drop-in replacement for `wandb`, you can get started with the syntax you already know!
+
+## Background
+
 If you have trained your own machine learning model, you know how important it is to be able to track metrics, parameters, and hyperparameters during training and visualize them afterwards to better understand your training run.
 
 Most machine learning researchers use specific experiment tracking libraries to do this. However, these libraries can be paid, require complex setup, or lack the flexibility needed for rapid experimentation and sharing.
@@ -84,7 +88,7 @@ def simulate_multiple_runs():
                 "val_accuracy": val_acc
             })
             time.sleep(0.2)
-    trackio.finish()
+        trackio.finish()
 
 simulate_multiple_runs()
 ```
@@ -133,7 +137,7 @@ If you are hosting your dashboard on Spaces, you can simply share the URL or emb
 <iframe src="https://org_name-space_name.hf.space/?project=fake-training&metrics=train_loss,train_accuracy&sidebar=hidden" width=600 height=600 frameBorder="0"></iframe>
 ```
 
-<iframe src="https://trackio-documentation.hf.space/?project=fake-training&metrics=train_loss,train_accuracy&sidebar=hidden" width=600 height=600 frameBorder="0"></iframe>
+<iframe src="https://trackio-documentation.hf.space/?project=fake-training-750735&metrics=train_loss,train_accuracy&sidebar=hidden" width=600 height=600 frameBorder="0"></iframe>
 
 
 Since Spaces can be private or public, this means you can share a dashboard publicly or just within members of your Hugging Face organization — all for free!
