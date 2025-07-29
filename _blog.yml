@@ -6385,16 +6385,6 @@
     - evaluation
     - ai
 
-- local: trackio
-  title: "Introducing Trackio: A Lightweight Experiment Tracking Library from Hugging Face"
-  thumbnail: /blog/assets/trackio/thumbnail.gif
-  author: abidlabs
-  date: July 18, 2025
-  tags:
-    - research
-    - gradio
-    - open-source
-
 - local: consilium-multi-llm
   title: "Consilium: When Multiple LLMs Collaborate"
   author: azettl
@@ -6461,3 +6451,14 @@
     - cli
     - huggingface_hub
     - python
+
+- local: trackio
+  title: "Introducing Trackio: A Lightweight Experiment Tracking Library from Hugging Face"
+  thumbnail: /blog/assets/trackio/thumbnail.gif
+  author: abidlabs
+  date: July 29, 2025
+  tags:
+    - research
+    - gradio
+    - open-source
+
