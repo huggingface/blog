@@ -4,7 +4,6 @@ thumbnail: /blog/assets/kernel-builder-tutorial/hello-hf-kernel-builder.png
 authors:
   - user: drbh
   - user: danieldk
-date: 2025-07-17
 ---
 
 # From Zero to GPU: A Guide to Building and Scaling Production-Ready CUDA Kernels
