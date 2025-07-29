@@ -116,6 +116,7 @@ Or in Python:
 trackio.show(project="my project")
 ```
 
+![Screen Recording 2025-07-28 at 5 26 32 PM](https://github.com/user-attachments/assets/c004aa61-a86a-4ece-be13-a01b640f216e)
 
 
 ### Sharing with 🤗 Spaces
