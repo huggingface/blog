@@ -189,8 +189,8 @@ No extra setup needed—just plug it in and start tracking.
 - Free and open-source: all features, including hosting on Hugging Face, are free.
 - Built on top of 🤗 Datasets and Spaces for robust data handling and visualization.
 
-## Limitations
+## Next Steps
 
-Trackio is intentionally lightweight and not intended to be a fully-featured experiment tracking solution. It is currently in beta, and the database schema may change, which could require migrating or deleting existing database files (by default at `~/.cache/huggingface/trackio`).
+Trackio is intentionally lightweight and is currently in beta. Some features found in other tracking tools, such as artifact management, or complex visualizations, are not available yet. If you'd like to have these features, please create issues here: https://github.com/gradio-app/trackio/issues
 
-Some features found in other tracking tools, such as artifact management, or complex visualizations, is available yet. Feedback and contributions are welcome as the project evolves.
+Given Trackio's lightweight and open-source nature, we'd love to work with the machine learning community to design an experiment tracking product that works for all of us!
