@@ -135,6 +135,9 @@ Since Spaces can be private or public, this means you can share a dashboard publ
 
 When you sync your Trackio dashboard to Hugging Face Spaces, the data is logged to an ephemeral Sqlite database on Spaces. Because this database is reset if your Space restarts, Trackio also converts the Sqlite database to a Parquet dataset and backs it up to a Hugging Face Dataset every 5 minutes. This means you can visualize your 
 
+<img width="2156" height="1124" alt="image" src="https://github.com/user-attachments/assets/5d3e9db3-a7f6-4851-a779-bd4f3d9f73e6" />
+
+
 ### Integrated with 🤗 Transformers and 🤗 Accelerate
 
 Trackio integrates natively with Hugging Face libraries like `transformers` and `accelerate`, so you can log metrics with minimal setup.
