@@ -29,7 +29,7 @@ At Hugging Face, our science team has started using [Trackio](https://github.com
 
 ## Using Trackio
 
-Ok then, so what is Trackio and how do you use it? Trackio an [open-source Python library](https://github.com/gradio-app/trackio) that lets you track any metrics and visualize them using a local [Gradio](https://gradio.dev/) dashboard. You can also sync this dashboard to Hugging Face Spaces, which means you can then share the dashboard with other users simply by sharing a URL. Since Spaces can be private or public, this means you can share a dashboard publicly or just within members of your Hugging Face organization.
+Ok then, so what is Trackio and how do you use it? Trackio is an [open-source Python library](https://github.com/gradio-app/trackio) that lets you track any metrics and visualize them using a local [Gradio](https://gradio.dev/) dashboard. You can also sync this dashboard to Hugging Face Spaces, which means you can then share the dashboard with other users simply by sharing a URL. Since Spaces can be private or public, this means you can share a dashboard publicly or just within members of your Hugging Face organization.
 
 ## Installing
 
