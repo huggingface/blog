@@ -11,7 +11,7 @@ authors:
 
 # Introducing Trackio: A Lightweight Experiment Tracking Library from Hugging Face
 
-TL;DR: [Trackio]() is a new, open-source, and free experiment tracking Python library that provides a local dashboard and seamless integration with Hugging Face Spaces for easy sharing and collaboration. Since `trackio` is a drop-in replacement for `wandb`, you can get started with the syntax you already know!
+TL;DR: [Trackio](https://github.com/gradio-app/trackio) is a new, open-source, and free experiment tracking Python library that provides a local dashboard and seamless integration with Hugging Face Spaces for easy sharing and collaboration. Since `trackio` is a drop-in replacement for `wandb`, you can get started with the syntax you already know!
 
 ## Background
 
