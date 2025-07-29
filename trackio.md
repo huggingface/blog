@@ -133,7 +133,7 @@ If you are hosting your dashboard on Spaces, you can simply share the URL or emb
 <iframe src="https://org_name-space_name.hf.space/?project=fake-training&metrics=train_loss,train_accuracy&sidebar=hidden" width=600 height=600 frameBorder="0"></iframe>
 ```
 
-<iframe src="https://trackio-documentation.hf.space/?project=fake-training&metrics=train_loss,train_accuracy&sidebar=hidden" width=600 height=600 frameBorder="0"></iframe>
+<iframe src="https://trackio-documentation.hf.space/?project=fake-training-750735&metrics=train_loss,train_accuracy&sidebar=hidden" width=600 height=600 frameBorder="0"></iframe>
 
 
 Since Spaces can be private or public, this means you can share a dashboard publicly or just within members of your Hugging Face organization — all for free!
