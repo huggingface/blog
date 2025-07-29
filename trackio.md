@@ -17,7 +17,7 @@ Most machine learning researchers use specific experiment tracking libraries to 
 
 ## Why We Switched to Trackio
 
-At Hugging Face, our science team has been using Trackio for our research projects, and we've found several key advantages over other tracking solutions:
+At Hugging Face, our science team has started using [Trackio](https://github.com/gradio-app/trackio) for our research projects, and we've found several key advantages over other tracking solutions:
 
 **Easy Sharing and Embedding**: Trackio makes it incredibly simple to share training progress with colleagues or embed plots directly in blog posts and documentation using iframes. This is especially valuable when you want to showcase specific training curves or metrics without requiring others to set up accounts or navigate complex dashboards.
 
@@ -27,7 +27,7 @@ At Hugging Face, our science team has been using Trackio for our research projec
 
 **Flexibility for Experimentation**: Trackio's lightweight design allows us to easily experiment with new tracking features during training runs. For instance, we can decide when to move tensors from GPU to CPU when logging tensors while training, which significantly improves training throughput when you need to track model/intermediate states without impacting performance.
 
-That's why the Hugging Face open-source team is excited to introduce: `trackio`, a completely free, open-source Python library...
+So what is `trackio`? It's an [open-source Python library](https://github.com/gradio-app/trackio) that lets you track any metrics and visualize them using a local [Gradio](https://gradio.dev/) dashboard. You can also sync this dashboard to Hugging Face Spaces, which means you can then share the dashboard with other users simply by sharing a URL. Since Spaces can be private or public, this means you can share a dashboard publicly or just within members of your Hugging Face organization.
 
 ## Installing
 
@@ -114,19 +114,26 @@ Or in Python:
 trackio.show(project="my project")
 ```
 
-To deploy the dashboard to Hugging Face Spaces, pass a `space_id` to `init`:
+### Sharing with 🤗 Spaces
+
+To sync your local dashboard to Hugging Face Spaces, simply pass a `space_id` to `init`:
 
 ```python
 trackio.init(project="fake-training", space_id="org_name/space_name")
 ```
 
-If you are hosting your dashboard on Spaces, you can embed it anywhere using an iframe:
+If you are hosting your dashboard on Spaces, you can simply share the URL or embed it anywhere using an iframe:
 
 ```html
 <iframe src="https://org_name-space_name.hf.space/?project=fake-training&metrics=train_loss,train_accuracy&sidebar=hidden" width=600 height=600 frameBorder="0"></iframe>
 ```
 
 <iframe src="https://trackio-documentation.hf.space/?project=fake-training&metrics=train_loss,train_accuracy&sidebar=hidden" width=600 height=600 frameBorder="0"></iframe>
+
+
+Since Spaces can be private or public, this means you can share a dashboard publicly or just within members of your Hugging Face organization — all for free!
+
+When you sync your Trackio dashboard to Hugging Face Spaces, the data is logged to an ephemeral Sqlite database on Spaces. Because this database is reset if your Space restarts, Trackio also converts the Sqlite database to a Parquet dataset and backs it up to a Hugging Face Dataset every 5 minutes. This means you can visualize your 
 
 ### Integrated with 🤗 Transformers and 🤗 Accelerate
 
