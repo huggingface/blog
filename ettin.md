@@ -807,4 +807,4 @@ The complete Ettin suite includes models at six different scales (for both encod
 - [📝 Paper](https://github.com/jhu-clsp/ettin-encoder-vs-decoder)  
 - [🗂️ Training Data](https://huggingface.co/datasets/jhu-clsp/ettin-pretraining-data) (2T+ tokens, fully open)
 - [💻 GitHub Repository](https://github.com/jhu-clsp/ettin-encoder-vs-decoder)
-- [📊 250+ Training Checkpoints](https://huggingface.co/datasets/jhu-clsp/ettin-checkpoints) for studying training dynamics or knowledge learning
+- [📊 250+ Training Checkpoints](https://huggingface.co/jhu-clsp/ettin-checkpoints) for studying training dynamics or knowledge learning

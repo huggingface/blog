@@ -6340,6 +6340,7 @@
     - models
     - open-source
 
+
 - local: migrating-the-hub-to-xet
   title: "Migrating the Hub from Git LFS to Xet"
   author: jsulz
@@ -6397,6 +6398,7 @@
 - local: consilium-multi-llm
   title: "Consilium: When Multiple LLMs Collaborate"
   author: azettl
+  guest: true
   thumbnail: /blog/assets/consilium-multi-llm/thumbnail.png
   date: Jul 17, 2025
   tags:
@@ -6413,3 +6415,49 @@
   tags:
     - collaboration
     - guide
+
+- local: lora-fast 
+  title: "Fast LoRA inference for Flux with Diffusers and PEFT"
+  thumbnail: /blog/assets/lora-fast/thumbnail.png
+  author: sayakpaul
+  date: July 23, 2025
+  tags:
+    - lora
+    - diffusion
+    - guide
+
+- local: timescope-video-lmm-benchmark
+  title: "TimeScope: How Long Can Your Video Large Multimodal Model Go?"
+  author: orrzohar
+  thumbnail: /blog/assets/timescope/thumbnail.png
+  date: Jul 23, 2025
+  tags:
+    - video
+    - datasets
+    - multimodal
+    - open-source
+    - benchmark
+    
+- local: parquet-cdc
+  title: "Parquet Content-Defined Chunking"
+  author: kszucs
+  thumbnail: /blog/assets/parquet-cdc/thumbnail.png
+  date: July 25, 2025
+  tags:
+    - data
+    - datasets
+    - dedupe
+    - hub
+    - parquet
+    - storage
+    - xet
+
+- local: hf-cli
+  title: "Say hello to `hf`: a faster, friendlier Hugging Face CLI ✨"
+  author: Wauplin
+  thumbnail: /blog/assets/hf-cli-thumbnail.png
+  date: Jul 25, 2025
+  tags:
+    - cli
+    - huggingface_hub
+    - python
