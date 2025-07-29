@@ -142,6 +142,7 @@ When you sync your Trackio dashboard to Hugging Face Spaces, the data is logged 
 
 <img width="100%" alt="image" src="https://github.com/user-attachments/assets/5d3e9db3-a7f6-4851-a779-bd4f3d9f73e6" />
 
+Tip: you can set the name of this dataset by passing in a `dataset_id` to `trackio.init()`.
 
 ### Integrated with 🤗 Transformers and 🤗 Accelerate
 
