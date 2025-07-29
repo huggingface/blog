@@ -84,7 +84,7 @@ def simulate_multiple_runs():
                 "val_accuracy": val_acc
             })
             time.sleep(0.2)
-    trackio.finish()
+        trackio.finish()
 
 simulate_multiple_runs()
 ```
