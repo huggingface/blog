@@ -1,6 +1,6 @@
 ---
 title: "From Zero to GPU: A Guide to Building and Scaling Production-Ready CUDA Kernels"
-thumbnail: /blog/assets/kernel-builder-tutorial/hello-hf-kernel-builder.png
+thumbnail: /blog/assets/kernel-builder/kernel-builder.png
 authors:
   - user: drbh
   - user: danieldk
