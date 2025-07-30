@@ -1,6 +1,6 @@
 ---
 title: "Build an AI Shopping Assistant with Gradio MCP Servers" 
-thumbnail: /blog/assets/gradio-mcp-updates/AiAssistantTitle.png
+thumbnail: /blog/assets/gradio-vton-mcp/AiAssistantTitle.png
 authors:
 - user: freddyaboulton
 ---

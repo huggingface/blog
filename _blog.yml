@@ -6462,3 +6462,13 @@
     - gradio
     - open-source
 
+- local: 
+  title: "Build an AI Shopping Assistant with Gradio MCP Servers"
+  author: freddyaboulton
+  thumbnail: /blog/assets/gradio-vton-mcp/AiAssistantTitle.png
+  date: Jul 31, 2025
+  tags:
+    - gradio
+    - mcp
+    - community
+    - open-source
