@@ -23,6 +23,10 @@ We are releasing Transformers Agents 2.0!
 
 🚀 Go try it out and climb ever higher on the GAIA leaderboard!
 
+> [!WARNING]
+> `transformers.agents` has now been upgraded to the stand-alone library [smolagents](https://github.com/huggingface/smolagents)! The two libraries have very similar APIs, so switching is easy.
+> Go checkout the `smolagents` introduction blog [here](https://huggingface.co/blog/smolagents).
+
 ## Table of Contents
 
 - [What is an agent?](#what-is-an-agent)
@@ -108,7 +112,7 @@ Well, we can do this by giving our agent an access to these parameters!
 
 Let's setup this system. 
 
-Tun the line below to install required dependancies:
+Run the line below to install the required dependencies:
 ```
 pip install langchain sentence-transformers faiss-cpu
 ```
@@ -451,3 +455,7 @@ We will keep improving this package in the coming months. We have already identi
 👉 **Go try out transformers agents!** We’re looking forward to receiving your feedback and your ideas.
 
 Let’s fill the top of the leaderboard with more open-source models! 🚀
+
+> [!WARNING]
+> `transformers.agents` has now been upgraded to the stand-alone library [smolagents](https://github.com/huggingface/smolagents)! The two libraries have very similar APIs, so switching is easy.
+> Go checkout the `smolagents` introduction blog [here](https://huggingface.co/blog/smolagents).

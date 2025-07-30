@@ -75,7 +75,7 @@ In practice, this incentivizes the model to frontload the most important informa
 
 ### In Sentence Transformers
 
-[Sentence Tranformers](https://sbert.net) is a commonly used framework to train embedding models, and it recently implemented support for Matryoshka models. Training a Matryoshka embedding model using Sentence Transformers is quite elementary: rather than applying some loss function on only the full-size embeddings, we also apply that same loss function on truncated portions of the embeddings.
+[Sentence Transformers](https://sbert.net) is a commonly used framework to train embedding models, and it recently implemented support for Matryoshka models. Training a Matryoshka embedding model using Sentence Transformers is quite elementary: rather than applying some loss function on only the full-size embeddings, we also apply that same loss function on truncated portions of the embeddings.
 
 For example, if a model has an original embedding dimension of 768, it can now be trained on 768, 512, 256, 128 and 64. Each of these losses will be added together, optionally with some weight:
 
@@ -111,9 +111,9 @@ References:
 
 See the following complete scripts as examples of how to apply the `MatryoshkaLoss` in practice:
 
-* **[matryoshka_nli.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli.py)**: This example uses the `MultipleNegativesRankingLoss` with `MatryoshkaLoss` to train a strong embedding model using Natural Language Inference (NLI) data. It is an adaptation of the [NLI](../nli/README) documentation.
-* **[matryoshka_nli_reduced_dim.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli_reduced_dim.py)**: This example uses the `MultipleNegativesRankingLoss` with `MatryoshkaLoss` to train a strong embedding model with a small maximum output dimension of 256. It trains using Natural Language Inference (NLI) data, and is an adaptation of the [NLI](../nli/README) documentation.
-* **[matryoshka_sts.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_sts.py)**: This example uses the `CoSENTLoss` with `MatryoshkaLoss` to train an embedding model on the training set of the `STSBenchmark` dataset. It is an adaptation of the [STS](../sts/README) documentation.
+* **[matryoshka_nli.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/training/matryoshka/matryoshka_nli.py)**: This example uses the `MultipleNegativesRankingLoss` with `MatryoshkaLoss` to train a strong embedding model using Natural Language Inference (NLI) data. It is an adaptation of the [NLI](../nli/README) documentation.
+* **[matryoshka_nli_reduced_dim.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/training/matryoshka/matryoshka_nli_reduced_dim.py)**: This example uses the `MultipleNegativesRankingLoss` with `MatryoshkaLoss` to train a strong embedding model with a small maximum output dimension of 256. It trains using Natural Language Inference (NLI) data, and is an adaptation of the [NLI](../nli/README) documentation.
+* **[matryoshka_sts.py](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/training/matryoshka/matryoshka_sts.py)**: This example uses the `CoSENTLoss` with `MatryoshkaLoss` to train an embedding model on the training set of the `STSBenchmark` dataset. It is an adaptation of the [STS](../sts/README) documentation.
 
 ## How do I use 🪆 Matryoshka Embedding models?
 
@@ -129,7 +129,7 @@ Keep in mind that although processing smaller embeddings for downstream tasks (r
 
 In Sentence Transformers, you can load a Matryoshka Embedding model just like any other model, but you can specify the desired embedding size using the `truncate_dim` argument. After that, you can perform inference using the [`SentenceTransformers.encode`](https://sbert.net/docs/package_reference/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode) function, and the embeddings will be automatically truncated to the specified size.
 
-Let's try to use a model that I trained using [`matryoshka_nli.py`](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli.py) with [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base):
+Let's try to use a model that I trained using [`matryoshka_nli.py`](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/training/matryoshka/matryoshka_nli.py) with [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base):
 
 ```python
 from sentence_transformers import SentenceTransformer
@@ -202,8 +202,8 @@ similarities = cos_sim(embeddings[0], embeddings[1:])
 
 Now that Matryoshka models have been introduced, let's look at the actual performance that we may be able to expect from a Matryoshka embedding model versus a regular embedding model. For this experiment, I have trained two models:
 
-* [tomaarsen/mpnet-base-nli-matryoshka](https://huggingface.co/tomaarsen/mpnet-base-nli-matryoshka): Trained by running [`matryoshka_nli.py`](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli.py) with [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base).
-* [tomaarsen/mpnet-base-nli](https://huggingface.co/tomaarsen/mpnet-base-nli): Trained by running a modified version of [`matryoshka_nli.py`](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/matryoshka/matryoshka_nli.py) where the training loss is only `MultipleNegativesRankingLoss` rather than `MatryoshkaLoss` on top of `MultipleNegativesRankingLoss`. I also use [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base) as the base model.
+* [tomaarsen/mpnet-base-nli-matryoshka](https://huggingface.co/tomaarsen/mpnet-base-nli-matryoshka): Trained by running [`matryoshka_nli.py`](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/training/matryoshka/matryoshka_nli.py) with [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base).
+* [tomaarsen/mpnet-base-nli](https://huggingface.co/tomaarsen/mpnet-base-nli): Trained by running a modified version of [`matryoshka_nli.py`](https://github.com/UKPLab/sentence-transformers/blob/master/examples/sentence_transformer/training/matryoshka/matryoshka_nli.py) where the training loss is only `MultipleNegativesRankingLoss` rather than `MatryoshkaLoss` on top of `MultipleNegativesRankingLoss`. I also use [`microsoft/mpnet-base`](https://huggingface.co/microsoft/mpnet-base) as the base model.
 
 Both of these models were trained on the AllNLI dataset, which is a concatenation of the [SNLI](https://huggingface.co/datasets/snli) and [MultiNLI](https://huggingface.co/datasets/multi_nli) datasets. I have evaluated these models on the [STSBenchmark](https://huggingface.co/datasets/mteb/stsbenchmark-sts) test set using multiple different embedding dimensions. The results are plotted in the following figure:
 

@@ -105,7 +105,7 @@ for prompt in prompts:
     print(f"Generated Text: {repr(output)}")
 ```
 
-> You will have to run the above script with `python <name_of_script>.py --model_name_or_path a_model_name` as `--model_name_or_path` is a required argument. However, the model name can be programatically changed as shown in the python snippet.
+> You will have to run the above script with `python <name_of_script>.py --model_name_or_path a_model_name` as `--model_name_or_path` is a required argument. However, the model name can be programmatically changed as shown in the python snippet.
 
 This shows us that the pipeline class operates on a string input and performs data pre-processing as well as post-processing for us.
 

@@ -3,8 +3,11 @@ title: "Rearchitecting Hugging Face Uploads and Downloads"
 thumbnail: /blog/assets/rearchitecting-uploads-and-downloads/thumbnail.png
 authors:
   - user: port8080
+    org: xet-team
   - user: jsulz
+    org: xet-team
   - user: erinys
+    org: xet-team
 ---
 
 # Rearchitecting Hugging Face Uploads and Downloads

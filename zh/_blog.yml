@@ -2087,7 +2087,7 @@
     - open-source
 
 - local: sd3-5
-  title: "欢迎 Stable Diffusion 3.5 Large 加入 🧨 Diffusers"
+  title: "欢迎 Stable Diffusion 3.5 Large 加入 🧨\_Diffusers"
   author: diffusers
   thumbnail: /blog/assets/sd3-5/thumbnail.png
   date: October 22, 2024
@@ -2095,6 +2095,17 @@
     - diffusers
     - guide
     - sd3-5
+
+- local: s2s_endpoint
+  title: "在 Hugging Face 上部署语音转语音模型"
+  author: andito
+  thumbnail: /blog/assets/s2s_endpoint/thumbnail.png
+  date: October 22, 2024
+  tags:
+    - audio
+    - speech-to-speech
+    - inference
+    - inference-endpoints
 
 - local: synthid-text
   title: SynthID Text：在 AI 生成文本中应用不可见水印的新技术
@@ -2132,7 +2143,7 @@
     - collaboration
 
 - local: researcher-dataset-sharing
-  title: "在 Hugging Face Hub 上分享你的开源数据集"
+  title: 在 Hugging Face Hub 上分享你的开源数据集
   author: davanstrien
   thumbnail: /blog/assets/researcher-dataset-sharing/thumbnail.png
   date: November 12, 2024
@@ -2142,8 +2153,18 @@
     - datasets
     - guide
 
+- local: from-files-to-chunks
+  title: "从文件到块: 提高 Hugging Face 存储效率"
+  author: jsulz
+  thumbnail: /blog/assets/from-files-to-chunks/thumbnail.png
+  date: November 20, 2024
+  tags:
+    - dedupe
+    - storage
+    - content defined chunking
+
 - local: designing-positional-encoding
-  title: "设计位置编码"
+  title: 设计位置编码
   author: FL33TW00D-HF
   thumbnail: /blog/assets/designing-positional-encoding/thumbnail_posenc.png
   date: November 25, 2024
@@ -2153,7 +2174,7 @@
     - tutorial
 
 - local: eu-ai-act-for-oss-developers
-  title: "开源开发者指南：欧盟《人工智能法案》解读"
+  title: 开源开发者指南：欧盟《人工智能法案》解读
   author: brunatrevelin
   thumbnail: /blog/assets/189_eu-ai-act-for-oss-developers/thumbnail.png
   date: December 2, 2024
@@ -2161,3 +2182,125 @@
     - policy
     - guide
     - ethics
+
+
+- local: layerskip
+  title: 自推测解码实现更快文本生成
+  author: ariG23498
+  thumbnail: /blog/assets/layerskip/thumbnail.png
+  date: November 20, 2024
+  tags:
+    - research
+    - nlp
+    - open-source
+    - collaboration
+
+- local: paligemma2
+  title: 欢迎 PaliGemma 2 – 来自 Google 的新视觉语言模型
+  author: merve
+  thumbnail: /blog/assets/paligemma/Paligemma2.png
+  date: December 05, 2024
+  tags:
+    - multimodal
+    - gemma
+    - LLM
+    - vision
+    - VLM
+    - research
+
+- local: ethics-soc-7
+  title: "人工智能代理已经到来，接下来呢？"
+  author: meg
+  thumbnail: /blog/assets/190_ethics-soc-7/thumbnail.png
+  date: January 13, 2025
+  tags:
+    - ethics
+    - agents
+
+- local: run-comfyui-workflows-on-spaces
+  title: "在 Hugging Face Spaces 上使用 Gradio 免费运行 ComfyUI 工作流"
+  author: multimodalart
+  thumbnail: /blog/assets/comfyui-to-gradio/cover.png
+  date: January 14, 2024
+  tags:
+    - comfyui
+    - gradio
+    - spaces
+    - zerogpu
+    - serverless
+
+- local: smolervlm
+  title: SmolVLM 越变越小 —— 全新 250 M 和 500 M 模型正式发布！
+  author: andito
+  thumbnail: /blog/assets/smolervlm/banner.png
+  date: January 23, 2025
+  tags:
+    - multimodal
+    - vlm
+    - vision
+    - on-device
+    - smolvlm
+    - community
+    
+- local: ai-art-newsletter-jan-25
+  title: AI艺术工具通讯 - 第1期
+  author: linoyts
+  thumbnail: /blog/assets/ai_art_newsletter_1/thumbnail.png
+  date: Jan 31, 2025
+  tags:
+    - community
+
+- local: smolvlm2
+  title: "SmolVLM2: 让视频理解能力触手可及"
+  author: orrzohar
+  guest: true
+  thumbnail: /blog/assets/smolvlm2/banner.png
+  date: Feb 20, 2025
+  tags:
+    - vlm
+    - multimodal
+    - video
+    - on-device
+    - llm
+    - nlp
+    - vision
+
+- local: vlms-2025
+  title: "视觉语言模型 (更好、更快、更强)"
+  author: virtuoasis
+  thumbnail: /blog/assets/vlms2/vlms2.png
+  date: May 12, 2025
+  tags:
+    - vlm
+    - vision
+    - multimodal
+    - community
+    - research
+
+- local: nanovlm
+  title: "nanoVLM: 最简洁、最轻量的纯 PyTorch 视觉-语言模型训练代码库"
+  author: ariG23498
+  thumbnail: /blog/assets/nanovlm/thumbnail.png
+  date: May 21, 2025
+  tags:
+    - vlm
+    - vision
+    - llm
+    - nanovlm
+    - research
+    - community
+    - open
+    - research
+
+- local: smolvla
+  title: "SmolVLA：让机器人更懂'看听说做'的轻量化解决方案"
+  author: danaaubakirova
+  thumbnail: /blog/assets/smolvla/SmolVLA_thumbnail.png
+  date: Jun 3, 2025
+  tags:
+    - smolvla
+    - lerobot
+    - robotics
+    - open-source
+    - models
+    - community

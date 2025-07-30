@@ -129,18 +129,22 @@ df = df[df["edu-classifier-score"] >= min_edu_score]
 
 Note that we’ve picked a `batch_size` that works well for this example, but you’ll likely want to customize this depending on the hardware, data, and model you’re using in your own workflows (see the [HF docs on pipeline batching](https://huggingface.co/docs/transformers/en/main_classes/pipelines#pipeline-batching)).
 
-Now that we’ve identified the rows of the dataset we’re interested in, we can save the result for other downstream analyses. Dask DataFrame automatically supports [distributed writing to Parquet](https://docs.dask.org/en/stable/dataframe-parquet.html?utm_source=hf-blog). However, since Hugging Face uses commits to track dataset changes, we needed a custom function to allow writing a Dask DataFrame in parallel to Hugging Face storage.
+Now that we’ve identified the rows of the dataset we’re interested in, we can save the result for other downstream analyses. Dask DataFrame automatically supports [distributed writing to Parquet](https://docs.dask.org/en/stable/dataframe-parquet.html?utm_source=hf-blog). Hugging Face uses commits to track dataset changes and allows writing a Dask DataFrame in parallel.
 
 ```python
-from dask_hf import to_parquet
-
-to_parquet(
-    df,
-    "hf://datasets/<your-hf-user>/<data-dir>"  # Update with your dataset location
-)
+repo_id = "<your-hf-user>/<your-dataset-name>"  # Update with your dataset location
+df.to_parquet(f"hf://datasets/{repo_id}")
 ```
 
-In the future, we’ll create a direct integration with Dask and `huggingface_hub`, but for now, you can copy + paste [this custom function](https://gist.github.com/lhoestq/8f73187a4e4b97b9bb40b561e35f6ccb) for your own use. In this example, we’ve saved it to a file called `dask_hf.py`, which is the file referenced in the `import` clause above.
+Since this creates one commit per file, it is recommended to squash the history after the upload:
+
+```python
+from huggingface_hub import HfApi
+
+HfApi().super_squash_history(repo_id=repo_id, repo_type="dataset")
+```
+
+Alternatively you can use [this custom function](https://gist.github.com/lhoestq/8f73187a4e4b97b9bb40b561e35f6ccb) which uploads multiple files per commit.
 
 
 ### Multi-GPU Parallel Model Inference 
@@ -161,7 +165,7 @@ client = cluster.get_client()
 Under the hood Coiled handles:
 * Provisioning cloud VMs with GPU hardware. In this case, `g5.xlarge` [instances on AWS](https://aws.amazon.com/ec2/instance-types/g5/).
 * Setting up the appropriate NVIDIA drivers, CUDA runtime, etc.
-* Automatically installing the same packages you have locally on the cloud VM with [package sync](https://docs.coiled.io/user_guide/software/sync.html?utm_source=hf-blog). This includes Python files in your working directory, so we can import directly from `dask_hf.py` on the remote cluster. 
+* Automatically installing the same packages you have locally on the cloud VM with [package sync](https://docs.coiled.io/user_guide/software/sync.html?utm_source=hf-blog). This includes Python files in your working directory.
 
 The workflow took ~5 hours to complete and we had good GPU hardware utilization.
 
@@ -175,7 +179,7 @@ Putting it all together, here is the complete workflow:
 ```python
 import dask.dataframe as dd
 from transformers import pipeline
-from dask_hf import to_parquet
+from huggingface_hub import HfApi
 import os
 import coiled
 
@@ -225,10 +229,10 @@ min_edu_score = 3
 df["edu-classifier-score"] = df.text.map_partitions(compute_scores, meta=pd.Series([0]))
 df = df[df["edu-classifier-score"] >= min_edu_score]
 
-to_parquet(
-    df,
-    "hf://datasets/<your-hf-user>/<data-dir>"               # Replace with your HF user and directory
-)
+repo_id = "<your-hf-user>/<your-dataset-name>"  # Replace with your dataset location
+df.to_parquet(f"hf://datasets/{repo_id}")
+
+HfApi().super_squash_history(repo_id=repo_id, repo_type="dataset")  # optional: squash commit history
 ```
 
 ## Conclusion

@@ -443,7 +443,7 @@
     - nlp
 
 - local: gptj-sagemaker
-  title: "Deploy GPT-J 6B for inference using  Hugging Face Transformers and Amazon SageMaker"
+  title: "Deploy GPT-J 6B for inference using Hugging Face Transformers and Amazon SageMaker"
   author: philschmid
   thumbnail: /blog/assets/45_gptj_sagemaker/thumbnail.png
   date: January 11, 2022
@@ -3330,7 +3330,7 @@
   title: "Constitutional AI with Open LLMs"
   author: vwxyzjn
   thumbnail: /blog/assets/175_constitutional_ai/thumbnail.png
-  date: Feburary 1, 2024
+  date: February 1, 2024
   tags:
     - research
     - rl
@@ -3945,6 +3945,7 @@
     - nlp
     - LLM
     - agents
+    - smolagents
     - transformers
     - gpt
     - mixtral
@@ -4266,6 +4267,7 @@
   date: July 1, 2024
   tags:
     - agents
+    - smolagents
     - nlp
     - community
     - research
@@ -5108,9 +5110,8 @@
     - LLM
     - research
 
-
 - local: keras-chatbot-arena
-  title: "“How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs"
+  title: "How good are LLMs at fixing their mistakes? A chatbot arena experiment with Keras and TPUs"
   author: martin-gorner
   thumbnail: /blog/assets/keras-chatbot-arena/thumbnail.png
   date: December 5, 2024
@@ -5135,7 +5136,7 @@
     - research
 
 - local: image-preferences
-  title: "Hugging Face Community Releases an Open Preference Dataset for Text-to-Image Generation"
+  title: "Open Preference Dataset for Text-to-Image Generation by the 🤗 Community"
   author: davidberenstein1957
   thumbnail: /blog/assets/image_preferences/thumbnail.png
   date: December 09, 2024
@@ -5169,3 +5170,1295 @@
     - community
     - chemistry
     - science
+
+- local: synthetic-data-generator
+  title: "Introducing the Synthetic Data Generator - Build Datasets with Natural Language"
+  author: davidberenstein1957
+  thumbnail: /blog/assets/synthetic-data-generator/_thumbnail.png
+  date: December 16, 2024
+  tags:
+    - synthetic
+    - datasets
+    - argilla
+    - distilabel
+
+- local: intel-gcp-c4
+  title: "Benchmarking Language Model Performance on 5th Gen Xeon at GCP"
+  author: MatrixYao
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: December 17, 2024
+  tags:
+    - hardware
+    - intel
+    - cpu
+    - LLM
+    - benchmark
+
+- local: falcon3
+  title: "Welcome the Falcon 3 Family of Open Models!"
+  author: ariG23498
+  thumbnail: /blog/assets/falcon3/thumbnail.png
+  date: December 17, 2024
+  tags:
+    - nlp
+    - llm
+    - community
+    - research
+
+- local: bamba
+  title: "Bamba: Inference-Efficient Hybrid Mamba2 Model"
+  author: rganti
+  guest: true
+  thumbnail: /blog/assets/bamba/bamba_thumbnail.png
+  date: Dec 18, 2024
+  tags:
+    - research
+    - nlp
+    - community
+    - model
+
+- local: modernbert
+  title: "Finally, a Replacement for BERT: Introducing ModernBERT"
+  author: bclavie
+  guest: true
+  thumbnail: /blog/assets/modernbert/thumbnail.png
+  date: December 19, 2024
+  tags:
+    - nlp
+    - community
+    - research
+    - open-source-collab
+
+- local: big-bench-audio-release
+  title: "Evaluating Audio Reasoning with Big Bench Audio"
+  thumbnail: /blog/assets/big_bench_audio_release/big-bench-audio-thumbnail.png
+  author: mhillsmith
+  guest: true
+  date: December 20, 2024
+  tags:
+    - leaderboard
+    - research
+    - collaboration
+    - community
+
+- local: logits-processor-zoo
+  title: "Controlling Language Model Generation with NVIDIA's LogitsProcessorZoo"
+  author: ariG23498
+  thumbnail: /blog/assets/logits-processor-zoo/thumbnail.png
+  date: December 23, 2024
+  tags:
+    - llm
+    - research
+    - open-source
+
+- local: train_memory
+  title: "Visualize and understand GPU memory in PyTorch"
+  author: qgallouedec
+  thumbnail: /blog/assets/train_memory/thumbnail.png
+  date: December 24, 2024
+  tags:
+    - pytorch
+    - train
+    - memory
+    - gpu
+
+- local: smolagents
+  title: "Introducing smolagents: simple agents that write actions in code."
+  author: m-ric
+  thumbnail: /blog/assets/smolagents/thumbnail.png
+  date: December 31, 2024
+  tags:
+    - agents
+    - smolagents
+    - open-source
+    - nlp
+    - tools
+    - community
+
+- local: leaderboard-emissions-analysis
+  title: "CO₂ Emissions and Models Performance: Insights from the Open LLM Leaderboard"
+  author: alozowski
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: January 9, 2025
+  tags:
+    - open-llm-leaderboard
+    - leaderboard
+    - energy_efficiency
+    - evaluation
+
+- local: vdr-2b-multilingual
+  title: "Visual Document Retrieval Goes Multilingual"
+  author: marco
+  guest: true
+  thumbnail: /blog/assets/vdr-2b-multilingual/thumbnail.png
+  date: January 10, 2025
+  tags:
+    - multimodal
+    - llamaindex
+    - open-source-collab
+    - nlp
+    - cv
+
+- local: ethics-soc-7
+  title: "AI Agents Are Here. What Now?"
+  author: meg
+  thumbnail: /blog/assets/190_ethics-soc-7/thumbnail.png
+  date: January 13, 2025
+  tags:
+    - ethics
+    - agents
+
+- local: run-comfyui-workflows-on-spaces
+  title: "Run ComfyUI workflows for free on Spaces"
+  author: multimodalart
+  thumbnail: /blog/assets/comfyui-to-gradio/cover.png
+  date: January 14, 2024
+  tags:
+    - comfyui
+    - gradio
+    - spaces
+    - zerogpu
+    - serverless
+
+- local: static-embeddings
+  title: "Train 400x faster Static Embedding Models with Sentence Transformers"
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: January 15, 2025
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+
+- local: tgi-multi-backend
+  title: Introducing multi-backends (TRT-LLM, vLLM) support for Text Generation Inference
+  author: mfuntowicz
+  thumbnail: /blog/assets/tgi-multi-backend/thumbnail.png
+  date: January 16, 2025
+  tags:
+    - tgi
+    - backends
+    - vllm
+    - neuron
+    - jetstream
+    - tensorrt-llm
+    - community
+
+- local: timm-transformers
+  title: "Timm ❤️ Transformers: Use any timm model with transformers"
+  author: ariG23498
+  thumbnail: /blog/assets/timm-transformers/thumbnail.png
+  date: January 16, 2025
+  tags:
+    - timm
+    - cv
+    - community
+
+- local: friendliai-partnership
+  title: "Hugging Face and FriendliAI partner to supercharge model deployment on the Hub"
+  author: ajshinfai
+  thumbnail: /blog/assets/friendliai-partnership/thumbnail.png
+  date: January 22, 2025
+  tags:
+    - partnerships
+    - friendliai
+    - model-deployment
+
+- local: smolervlm
+  title: "SmolVLM Grows Smaller – Introducing the 250M & 500M Models!"
+  author: andito
+  thumbnail: /blog/assets/smolervlm/banner.png
+  date: January 23, 2025
+  tags:
+    - multimodal
+    - vlm
+    - vision
+    - on-device
+    - smolvlm
+    - community
+
+- local: smolagents-can-see
+  title: "We now support VLMs in smolagents!"
+  author: m-ric
+  thumbnail: /blog/assets/smolagents-can-see/thumbnail.png
+  date: January 24, 2025
+  tags:
+    - agents
+    - smolagents
+    - multimodal
+    - vlm
+    - vision
+
+- local: video_gen
+  title: "State of open video generation models in Diffusers"
+  author: sayakpaul
+  thumbnail: /blog/assets/video_gen/thumbnail.png
+  date: Jan 27, 2025
+  tags:
+    - diffusers
+    - guide
+    - video_gen
+- local: open-r1
+  title: "Open-R1: a fully open reproduction of DeepSeek-R1"
+  author: eliebak
+  thumbnail: /blog/assets/open-r1/thumbnails.png
+  date: Jan 28, 2025
+  tags:
+    - llms
+    - reasoning
+    - research
+
+- local: inference-providers
+  title: "Welcome to Inference Providers on the Hub 🔥"
+  author: julien-c
+  thumbnail: /blog/assets/inference-providers/thumbnail.png
+  date: Jan 28, 2025
+  tags:
+    - announcement
+    - hub
+    - inference-providers
+
+- local: deepseek-r1-aws
+  title: "How to deploy and fine-tune DeepSeek models on AWS"
+  author: pagezyhf
+  thumbnail: /blog/assets/deepseek-r1-aws/thumbnail.png
+  date: Jan 30, 2025
+  tags:
+    - aws
+    - partnerships
+
+- local: ai-art-newsletter-jan-25
+  title: "The AI tools for Art Newsletter - Issue 1"
+  author: linoyts
+  thumbnail: /blog/assets/ai_art_newsletter_1/thumbnail.png
+  date: Jan 31, 2025
+  tags:
+    - diffusers
+    - aiart
+    - ai art
+    - community
+
+- local: dabstep
+  title: "DABStep: Data Agent Benchmark for Multi-step Reasoning"
+  thumbnail: /blog/assets/dabstep/thumbnail.png
+  author: eggie5
+  guest: True
+  date: Feb 4, 2025
+  tags:
+    - llms
+    - reasoning
+    - research
+    - evaluation
+
+- local: pi0
+  title: "π0 and π0-FAST: Vision-Language-Action Models for General Robot Control"
+  author: danaaubakirova
+  thumbnail: /blog/assets/192_pi0/new_thumbnail_pi0.001.png
+  date: Feb 4, 2025
+  tags:
+    - robotics
+    - ai
+    - community
+
+- local: open-deep-research
+  title: "Open-source DeepResearch – Freeing our search agents"
+  thumbnail: /blog/assets/open-deep-research/thumbnail.png
+  author: m-ric
+  date: Feb 4, 2025
+  tags:
+    - llms
+    - agents
+    - research
+    - smolagents
+
+- local: leaderboard-arabic-v2
+  title: "The Open Arabic LLM Leaderboard 2"
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_arabic.png
+  author: alielfilali01
+  guest: true
+  date: February 10, 2025
+  tags:
+    - nlp
+    - research
+    - leaderboard
+    - LLM
+    - arabic
+
+- local: vid_ds_scripts
+  title: "Build awesome datasets for video generation"
+  author: hlky
+  thumbnail: /blog/assets/vid_ds_scripts/thumbnail.png
+  date: Feb 12, 2025
+  tags:
+    - guide
+    - video
+    - datasets
+
+- local: from-chunks-to-blocks
+  title: "From Chunks to Blocks: Accelerating Uploads and Downloads on the Hub"
+  author: jsulz
+  thumbnail: /blog/assets/from-chunks-to-blocks/thumbnail.png
+  date: February 12, 2025
+  tags:
+    - dedupe
+    - storage
+    - content defined chunking
+    - quantization
+
+- local: billion-classifications
+  title: "1 Billion Classifications"
+  author: derek-thomas
+  thumbnail: /blog/assets/billion-classifications/billion-classifications-thumbnail.png
+  guest: true
+  date: Feb 13, 2025
+  tags:
+    - inference-endpoints
+    - classification
+    - embedding
+    - embeddings
+    - nlp
+    - python
+    - cost
+    - enterprise
+
+- local: math_verify_leaderboard
+  title: "Fixing Open LLM Leaderboard with Math-Verify"
+  author: hynky
+  thumbnail: /blog/assets/math_verify_leaderboard/thumbnail.png
+  date: Feb 14, 2025
+  tags:
+    - math-verify
+    - open-llm-leaderboard
+    - leaderboard
+    - evaluation
+
+- local: fireworks-ai
+  title: "Welcome Fireworks.ai on the Hub 🎆"
+  author: julien-c
+  thumbnail: /blog/assets/inference-providers/welcome-fireworks.jpg
+  date: Feb 14, 2025
+  tags:
+    - announcement
+    - hub
+    - inference-providers
+
+- local: inference-providers-nebius-novita-hyperbolic
+  title: "Introducing Three New Serverless Inference Providers: Hyperbolic, Nebius AI Studio, and Novita 🔥"
+  author: reach-vb
+  thumbnail: /blog/assets/inference-providers/second-batch-thumbnail.webp
+  date: Feb 18, 2025
+  tags:
+    - announcement
+    - hub
+    - inference-providers
+
+- local: paligemma2mix
+  title: "PaliGemma 2 Mix - New Instruction Vision Language Models by Google"
+  thumbnail: /blog/assets/paligemma2/thumbnail.png
+  author: ariG23498
+  date: Feb 19, 2025
+  tags:
+    - multimodal
+    - LLM
+    - vision
+
+- local: smolvlm2
+  title: "SmolVLM2: Bringing Video Understanding to Every Device"
+  author: orrzohar
+  guest: true
+  thumbnail: /blog/assets/smolvlm2/banner.png
+  date: Feb 20, 2025
+  tags:
+    - vlm
+    - multimodal
+    - video
+    - on-device
+    - llm
+    - nlp
+    - vision
+
+- local: siglip2
+  title: "SigLIP 2: A better multilingual vision language encoder"
+  author: ariG23498
+  thumbnail: /blog/assets/siglip2/thumbnail.png
+  date: Feb 21, 2025
+  tags:
+    - multimodal
+    - vision
+
+- local: remote_vae
+  title: "Remote VAEs for decoding with HF endpoints 🤗"
+  author: hlky
+  thumbnail: /blog/assets/remote_vae/thumbnail.png
+  date: Feb 24, 2025
+  tags:
+    - diffusers
+    - vae
+    - inference endpoints
+
+- local: fastrtc
+  title: "FastRTC: The Real-Time Communication Library for Python"
+  author: freddyaboulton
+  thumbnail: /blog/assets/fastrtc/fastrtc_logo.jpg
+  date: Feb 25, 2025
+  tags:
+    - real-time
+    - audio
+    - video
+    - llm
+
+- local: iisc-huggingface-collab
+  title: "HuggingFace, IISc partner to supercharge model building on India's diverse languages"
+  author: visruth-rf
+  thumbnail: /blog/assets/iisc-huggingface-collab/thumbnail.png
+  date: Feb 27, 2025
+  tags:
+    - open-source-collab
+    - audio
+    - community
+
+- local: smolagents-phoenix
+  title: "Trace & Evaluate your Agent with Arize Phoenix"
+  author: m-ric
+  guest: true
+  thumbnail: /blog/assets/smolagents-phoenix/thumbnail.jpg
+  date: Feb 28, 2025
+  tags:
+    - phoenix
+    - agents
+    - smolagents
+    - agent
+    - instrumentation
+
+- local: aya-vision
+  title: "A Deepdive into Aya Vision: Advancing the Frontier of Multilingual Multimodality"
+  author: saurabhdash
+  guest: true
+  thumbnail: /blog/assets/aya-vision/thumbnail.png
+  date: March 4, 2025
+  tags:
+    - multimodal
+    - vision
+    - vlm
+
+- local: jfrog
+  title: "Hugging Face and JFrog partner to make AI Security more transparent"
+  author: mcpotato
+  thumbnail: /blog/assets/jfrog/thumbnail.png
+  date: March 4, 2025
+  tags:
+    - hub
+    - partnerships
+    - security
+
+- local: llm-inference-on-edge
+  title: "LLM Inference on Edge: A Fun and Easy Guide to run LLMs via React Native on your Phone!"
+  author: medmekk
+  thumbnail: /blog/assets/llm_inference_on_edge/thumbnail.png
+  date: March 7, 2025
+  tags:
+    - community
+    - hub
+    - llms
+    - on-device
+    - guide
+
+- local: lerobot-goes-to-driving-school
+  title: "LeRobot goes to driving school: World’s largest open-source self-driving dataset"
+  author: sandhawalia
+  thumbnail: /blog/assets/193_l2d/lerobot-driver.gif
+  date: March 11, 2025
+  tags:
+    - robotics
+    - ai
+    - community
+    - datasets
+    - lerobot
+
+- local: gemma3
+  title: "Welcome Gemma 3: Google's all new multimodal, multilingual, long context open LLM"
+  author: ariG23498
+  thumbnail: /blog/assets/gemma3/thumbnail.png
+  date: March 12, 2025
+  tags:
+    - nlp
+    - llm
+    - vlm
+    - community
+    - research
+
+- local: xet-on-the-hub
+  title: "Xet is on the Hub"
+  author: jsulz
+  thumbnail: /blog/assets/xet-on-the-hub/thumbnail.png
+  date: March 18, 2025
+  tags:
+    - storage
+    - infrastructure
+    - content addressed store
+
+- local: nvidia-physical-ai
+  title: "NVIDIA's GTC 2025 Announcement for Physical AI Developers: New Open Models and Datasets"
+  author: mingyuliutw
+  guest: true
+  org: nvidia
+  thumbnail: /blog/assets/nvidia-physical-ai/thumbnail.png
+  date: March 18, 2025
+  tags:
+    - robotics
+    - ai
+    - datasets
+    - community
+    - research
+
+- local: ai-action-wh-2025
+  title: "AI Policy: 🤗 Response to the White House AI Action Plan RFI"
+  author: yjernite
+  thumbnail: /blog/assets/151_policy_ntia_rfc/us_policy_thumbnail.png
+  date: March 19, 2025
+  tags:
+    - ethics
+    - policy
+
+- local: olympic-coder-lmstudio
+  title: "Open R1: How to use OlympicCoder locally for coding?"
+  author: burtenshaw
+  thumbnail: /blog/assets/olympic-coder-lmstudio/banner_correct.png
+  date: March 20, 2025
+  tags:
+    - open-source
+    - llm
+    - research
+    - reasoning
+    - local
+
+- local: endpoint-analytics
+  title: "The New and Fresh analytics in Inference Endpoints"
+  author: erikkaum
+  thumbnail: /blog/assets/endpoint-analytics/thumbnail.png
+  date: March 21, 2025
+  tags:
+    - guide
+    - cloud
+    - inference
+
+- local: gradio-dataframe-upgrade
+  title: "Introducing Gradio's new Dataframe!"
+  author: hmb
+  thumbnail: /blog/assets/gradio-dataframe-update/thumbnail.png
+  date: March 24, 2025
+  tags:
+    - gradio
+    - open-source
+    - guide
+
+- local: train-reranker
+  title: "Training and Finetuning Reranker Models with Sentence Transformers v4"
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: March 26, 2025
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+
+- local: intel-gaudi-backend-for-tgi
+  title: "Accelerating LLM Inference with TGI on Intel Gaudi"
+  author: baptistecolle
+  thumbnail: /blog/assets/intel-gaudi-backend-for-tgi/tgi-gaudi-thumbnail.png
+  date: March 28, 2025
+  tags:
+    - tgi
+    - intel
+    - gaudi
+    - llm
+    - inference
+    - partnerships
+
+- local: scaling-secrets-management
+  title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"
+  thumbnail: /blog/assets/infisical/thumbnail.png
+  author: segudev
+  guest: true
+  date: Mar 31, 2025
+  tags:
+    - security
+    - infra
+    - partnerships
+
+- local: llm-course
+  title: "The NLP Course is becoming the LLM Course!"
+  author: burtenshaw
+  thumbnail: /blog/assets/llm-course/llm-course-rename-thumbnail.png
+  date: April 3, 2025
+  tags:
+    - education
+    - nlp-course
+    - llm-course
+    - open-source
+
+- local: gradio-1m
+  title: "Journey to 1 Million Gradio Users!"
+  author: abidlabs
+  thumbnail: /blog/assets/gradio-1m/thumbnail.png
+  date: April 4, 2025
+  tags:
+    - gradio
+    - open-source
+    - community
+
+- local: llama4-release
+  title: "Welcome Llama 4 Maverick & Scout on Hugging Face!"
+  author: burtenshaw
+  thumbnail: /blog/assets/llama_4.png
+  date: April 5, 2025
+  tags:
+    - llama
+    - meta
+
+- local: leaderboard-3c3h-aragen-ifeval
+  title: "Arabic Leaderboards: Introducing Arabic Instruction Following, Updating AraGen, and More"
+  author: alielfilali01
+  guest: true
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_3c3h_aragen.png
+  date: April 8, 2025
+  tags:
+    - leaderboard
+    - evaluation
+    - nlp
+    - LLM
+    - research
+
+- local: fastrtc-cloudflare
+  title: "Hugging Face and Cloudflare Partner to Make Real-Time Speech and Video Seamless with FastRTC"
+  author: freddyaboulton
+  thumbnail: /blog/assets/fastrtc-cloudflare/fastrtc_cloudflare.png
+  date: April 9, 2025
+  tags:
+    - real-time
+    - audio
+    - video
+    - llm
+    - cloudflare
+    - partnerships
+
+- local: pai-6-month
+  title: "4M Models Scanned: Protect AI + Hugging Face 6 Months In"
+  author: sean-pai
+  thumbnail: /blog/assets/pai-6-month/thumbnail.png
+  date: April 14, 2025
+  tags:
+    - hub
+    - partnerships
+    - security
+
+- local: hugging-face-pollen-robotics-acquisition
+  title: "Hugging Face to sell open-source robots thanks to Pollen Robotics acquisition 🤖"
+  author: thomwolf
+  thumbnail: /blog/assets/hugging-face-pollen-robotics-acquisition/hf-pollen.png
+  date: April 14, 2025
+  tags:
+    - robotics
+    - acquisition
+    - announcement
+
+- local: helmet
+  title: "Introducing HELMET"
+  author: hyen
+  thumbnail: /blog/assets/helmet/thumbnail.png
+  date: April 16, 2025
+  tags:
+    - long-context
+    - benchmark
+    - nlp
+    - community
+    - research
+    - intel
+
+- local: inference-providers-cohere
+  title: "Cohere on Hugging Face Inference Providers 🔥"
+  author: burtenshaw
+  thumbnail: /blog/assets/inference-providers-cohere/thumbnail.png
+  date: April 16, 2025
+  tags:
+    - llms
+    - inference-providers
+    - cohere
+    - enterprise
+    - partnerships
+    - hub
+
+- local: why-gradio-stands-out
+  title: "17 Reasons Why Gradio Isn't Just Another UI Library"
+  author: ysharma
+  thumbnail: /blog/assets/why-gradio-stands-out/thumbnail.png
+  date: April 16, 2025
+  tags:
+    - gradio
+    - ui-framework
+    - python
+    - api
+    - development
+    - production
+- local: autoround
+  title: "Introducing AutoRound: Intel’s Advanced Quantization for LLMs and VLMs"
+  author: wenhuach
+  thumbnail: /blog/assets/autoround/thumbnail.png
+  date: April 29, 2025
+  tags:
+    - llms
+    - inference
+    - quantization
+    - intel
+
+- local: tiny-agents
+  title: "Tiny Agents: a MCP-powered agent in 50 lines of code"
+  author: julien-c
+  thumbnail: /blog/assets/tiny-agents/thumbnail.jpg
+  date: April 25, 2025
+  tags:
+    - agents
+    - hub
+    - inference
+
+- local: qwen-3-chat-template-deep-dive
+  title: "The 4 Things Qwen-3's Chat Template Teaches Us"
+  author: cfahlgren1
+  thumbnail: /blog/assets/qwen-3-chat-template-deep-dive/thumbnail.png
+  date: April 30, 2025
+  tags:
+    - qwen
+    - chat-template
+    - llms
+
+- local: llama-guard-4
+  title: "Welcoming Llama Guard 4 on Hugging Face Hub"
+  author: merve
+  thumbnail: /blog/assets/llama-guard-4/thumbnail.png
+  date: April 29, 2025
+  tags:
+    - llama
+    - llm
+    - vision
+    - vlm
+
+- local: gradio-mcp
+  title: "How to Build an MCP Server with Gradio"
+  author: abidlabs
+  thumbnail: /blog/assets/gradio-mcp/thumbnail.png
+  date: April 30, 2025
+  tags:
+    - gradio
+    - tool
+    - llm
+
+- local: lerobot-datasets
+  title: "LeRobot Community Datasets: The “ImageNet” of Robotics — When and How?"
+  author: danaaubakirova
+  thumbnail: /blog/assets/195_lerobot_datasets/1.png
+  date: May 11, 2025
+  tags:
+    - lerobot
+    - community
+    - datasets
+    - hub
+
+- local: vlms-2025
+  title: "Vision Language Models (Better, Faster, Stronger)"
+  author: merve
+  thumbnail: /blog/assets/vlms2/vlms2.png
+  date: May 12, 2025
+  tags:
+    - vlm
+    - vision
+    - multimodal
+    - community
+    - research
+
+- local: fast-whisper-endpoints
+  title: "Blazingly fast whisper transcriptions with Inference Endpoints"
+  author: mfuntowicz
+  thumbnail: /blog/assets/fast-whisper-endpoints/thumbnail.png
+  date: May 13, 2025
+  tags:
+    - guide
+    - cloud
+    - inference
+    - audio
+    - transcription
+    - whisper
+
+- local: kaggle-integration
+  title: "Improving Hugging Face Model Access for Kaggle Users"
+  author: roseberryv
+  thumbnail: /blog/assets/kaggle-integration/thumbnail.png
+  date: May 14, 2025
+  tags:
+    - community
+    - announcement
+
+- local: transformers-model-definition
+  title: "The Transformers Library: standardizing model definitions"
+  author: lysandre
+  thumbnail: /blog/assets/transformers-model-definition/transformers-thumbnail.png
+  date: May 15, 2025
+  tags:
+    - community
+    - announcement
+    - transformers
+
+- local: azure-ai-foundry
+  title: "Microsoft and Hugging Face expand collaboration"
+  author: jeffboudier
+  thumbnail: /blog/assets/azure-ai-foundry/satya-hf-build-compressed.png
+  date: May 19, 2025
+  tags:
+    - partnership
+    - announcement
+    - azure
+
+- local: nanovlm
+  title: "nanoVLM: The simplest repository to train your VLM in pure PyTorch"
+  author: ariG23498
+  thumbnail: /blog/assets/nanovlm/thumbnail.png
+  date: May 21, 2025
+  tags:
+    - vlm
+    - vision
+    - llm
+    - nanovlm
+    - research
+    - community
+    - open
+
+- local: diffusers-quantization
+  title: "Exploring Quantization Backends in Diffusers"
+  thumbnail: /blog/assets/diffusers-quantization/thumbnail.png
+  author: derekl35
+  date: May 21, 2025
+  tags:
+    - guide
+    - diffusers
+    - quantization
+    - flux
+
+- local: python-tiny-agents
+  title: "Tiny Agents in Python: a MCP-powered agent in ~70 lines of code"
+  author: celinah
+  thumbnail: /blog/assets/python-tiny-agents/thumbnail.png
+  date: May 23, 2025
+  tags:
+    - agents
+    - hub
+    - inference
+    - mcp
+
+- local: dell-ai-applications
+  title: "Dell Enterprise Hub is all you need to build AI on premises"
+  author: jeffboudier
+  thumbnail: /blog/assets/dell-ai-applications/dell-post-thumbnail.png
+  date: May 23, 2025
+  tags:
+    - dell
+    - enterprise
+    - partnerships
+
+- local: liger-grpo
+  title: "🐯 Liger GRPO meets TRL"
+  author: shisahni
+  guest: true
+  thumbnail: /blog/assets/liger-grpo/thumbnail.png
+  date: May 25, 2025
+  tags:
+    - liger
+    - grpo
+    - trl
+    - partnership
+    - llm
+
+- local: structured-codeagent
+  title: "CodeAgents + Structure: A Better Way to Execute Actions"
+  author: akseljoonas
+  thumbnail: /blog/assets/structured-codeagent/thumbnail-codeagent.png
+  date: May 28, 2025
+  tags:
+    - agents
+    - smolagents
+    - open-source
+    - nlp
+    - tools
+    - community
+
+- local: vllm-colocate
+  title: "No GPU left behind: Unlocking Efficiency with Co-located vLLM in TRL"
+  author: toslali-ibm
+  guest: true
+  thumbnail: /blog/assets/vllm-colocate/thumbnail.png
+  date: June 3, 2025
+  tags:
+    - vllm
+    - grpo
+    - trl
+    - llm
+    - rlhf
+
+- local: smolvla
+  title: "SmolVLA: Efficient Vision-Language-Action Model trained on Lerobot Community Data"
+  author: danaaubakirova
+  thumbnail: /blog/assets/smolvla/SmolVLA_thumbnail.png
+  date: Jun 3, 2025
+  tags:
+    - smolvla
+    - lerobot
+    - robotics
+    - open-source
+    - models
+    - community
+
+- local: kv-cache
+  title: "KV Cache from scratch in nanoVLM"
+  author: ariG23498
+  thumbnail: /blog/assets/kv-cache/thumbnail.png
+  date: Jun 4, 2025
+  tags:
+    - generate
+    - open-source
+    - nlp
+    - vlm
+    - nanovlm
+
+- local: screensuite
+  title: "ScreenSuite - The most comprehensive evaluation suite for GUI Agents!"
+  author: a-mahla
+  thumbnail: /blog/assets/screensuite/thumbnail.png
+  date: Jun 6, 2025
+  tags:
+    - screensuite
+    - gui-agents
+    - agents
+    - smolagents
+    - vlm
+
+- local: nvidia-training-cluster
+  title: "Introducing Training Cluster as a Service - a new collaboration with NVIDIA"
+  author: jeffboudier
+  thumbnail: /blog/assets/nvidia-training-cluster/nvidia-training-cluster-thumbnail-compressed.png
+  date: Jun 11, 2025
+  tags:
+    - nvidia
+    - training
+    - partnerships
+    - announcement
+
+- local: inference-providers-featherless
+  title: "Featherless AI on Hugging Face Inference Providers 🔥"
+  author: sbrandeis
+  thumbnail: /blog/assets/inference-providers/welcome-featherless.jpg
+  date: Jun 12, 2025
+  tags:
+    - llms
+    - inference-providers
+    - featherless
+    - recursal
+    - enterprise
+    - partnerships
+    - hub
+
+- local: hello-hf-kernels
+  title: "Enhance Your Models in 5 Minutes with the Hugging Face Kernel Hub"
+  author: drbh
+  thumbnail: /blog/assets/hello-hf-kernels/kernel-hub-five-mins-short-21.png
+  date: June 12, 2025
+  tags:
+    - guide
+    - hub
+    - optimization
+    - open-source
+    - performance
+
+- local: inference-providers-groq
+  title: "Groq on Hugging Face Inference Providers 🔥"
+  author: sbrandeis
+  thumbnail: /blog/assets/inference-providers/welcome-groq.jpg
+  date: Jun 16, 2025
+  tags:
+    - llms
+    - inference-providers
+    - groq
+    - enterprise
+    - partnerships
+    - hub
+
+- local: flux-qlora
+  title: "(LoRA) Fine-Tuning FLUX.1-dev on Consumer Hardware"
+  thumbnail: /blog/assets/flux-qlora/thumbnail.png
+  author: derekl35
+  date: Jun 19, 2025
+  tags:
+    - guide
+    - diffusers
+    - quantization
+    - flux
+    - lora
+
+- local: transformers-backend-sglang
+  title: "Transformers backend integration in SGLang"
+  thumbnail: /blog/assets/196_transformers_backend_sglang/thumbnail.jpg
+  author: marcsun13
+  date: Jun 23, 2025
+  tags:
+    - transformers
+    - sglang
+    - model
+    - integration
+
+- local: gemma3n
+  title: "Gemma 3n fully available in the open-source ecosystem!"
+  author: ariG23498
+  thumbnail: /blog/assets/gemma3n/thumbnail.png
+  date: Jun 26, 2025
+  tags:
+    - audio
+    - vision
+    - llm
+    - vlm
+    - community
+    - research
+    - multimodal
+
+- local: train-sparse-encoder
+  title: "Training and Finetuning Sparse Embedding Models with Sentence Transformers v5"
+  author: tomaarsen
+  thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
+  date: Jul 1, 2025
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+
+- local: mmdp
+  title: "Efficient MultiModal Data Pipeline"
+  author: ariG23498
+  thumbnail: /blog/assets/mmdp/thumbnail.png
+  date: Jul 8, 2025
+  tags:
+    - vlm
+    - data
+    - nanovlm
+    - research
+    - community
+    - open
+
+- local: infrastructure-alerting
+  title: "Three Mighty Alerts Supporting Hugging Face’s Production Infrastructure"
+  author: jcudit
+  thumbnail: /blog/assets/infrastructure-alerting/thumbnail.jpg
+  date: July 8, 2025
+  tags:
+    - cloud
+    - infrastructure
+
+- local: smollm3
+  title: "SmolLM3: smol, multilingual, long-context reasoner"
+  author: loubnabnl
+  thumbnail: /blog/assets/smollm3/image.png
+  date: July 8, 2025
+  tags:
+    - llm
+    - nlp
+    - reasoning
+    - community
+    - research
+
+- local: gradio-mcp-servers
+  title: "Upskill your LLMs with Gradio MCP Servers"
+  author: freddyaboulton
+  thumbnail: /blog/assets/upskill-llms-with-gradio-mcp/UpskillThumbnail.png
+  date: July 9, 2025
+  tags:
+    - gradio
+    - mcp
+    - llm
+
+- local: mi300kernels
+  title: "Creating custom kernels for the AMD MI300" 
+  author: ror
+  thumbnail: /blog/assets/mi300kernels/thumbnail.png
+  date: Jul 9, 2025
+  tags:
+    - kernels
+    - cuda
+    - amd
+    - optimization
+
+- local: reachy-mini
+  title: "Reachy Mini - The Open-Source Robot for Today's and Tomorrow's AI Builders"
+  author: thomwolf
+  thumbnail: /blog/assets/reachy-mini/thumbnail.jpg
+  date: July 9, 2025
+  tags:
+    - robotics
+    - community
+    - open-source
+
+- local: building-hf-mcp
+  title: "Building the Hugging Face MCP Server"
+  author: evalstate
+  thumbnail: /blog/assets/building-hf-mcp/building-hf-mcp.png
+  date: July 10, 2025
+  tags:
+    - community
+    - open-source
+    - mcp
+    - gradio
+    - multimodal
+
+
+- local: screenenv
+  title: "ScreenEnv: Deploy your full stack Desktop Agent"
+  author: A-Mahla
+  thumbnail: /blog/assets/screenenv/screenenv.png
+  date: July 10, 2025
+  tags:
+    - agents
+    - gui
+    - community
+    - open-source
+    - mcp
+
+- local: async-robot-inference
+  title: "Asynchronous Robot Inference: Decoupling Action Prediction and Execution"
+  author: fracapuano
+  thumbnail: /blog/assets/async_inference/thumbnail_async_blog.png
+  date: Jul 10, 2025
+  tags:
+    - lerobot
+    - robotics
+    - models
+    - open-source
+
+
+- local: migrating-the-hub-to-xet
+  title: "Migrating the Hub from Git LFS to Xet"
+  author: jsulz
+  thumbnail: /blog/assets/migrating-the-hub-to-xet/thumbnail.png
+  date: Jul 15, 2025
+  tags:
+    - storage
+    - infrastructure
+    - content addressed store
+
+- local: ettin
+  title: "Seq vs Seq: the Ettin Suite of Paired Encoders and Decoders"
+  author: orionweller
+  thumbnail: /blog/assets/ettin/thumbnail.png
+  date: July 16, 2025
+  tags:
+    - llm
+    - nlp
+    - community
+    - research
+    - open-source-collab 
+
+- local: gradio-mcp-updates
+  title: "Five Big Improvements to Gradio MCP Servers"
+  author: freddyaboulton
+  thumbnail: /blog/assets/gradio-mcp-updates/5_mcp_improvements.png
+  date: Jul 17, 2025
+  tags:
+    - gradio
+    - mcp
+    - community
+    - open-source
+
+- local: futurebench
+  title: "Back to The Future: Evaluating AI Agents on Predicting Future Events"
+  thumbnail: /blog/assets/futurebench/leaderboard.png
+  author: vinid
+  guest: true
+  date: July 17, 2025
+  tags:
+    - research
+    - evaluation
+    - ai
+
+- local: consilium-multi-llm
+  title: "Consilium: When Multiple LLMs Collaborate"
+  author: azettl
+  guest: true
+  thumbnail: /blog/assets/consilium-multi-llm/thumbnail.png
+  date: Jul 17, 2025
+  tags:
+    - multi-agents
+    - hackathon
+    - gradio
+    - mcp
+
+- local: virtual-cell-challenge 
+  title: "Arc Virtual Cell Challenge: A Primer"
+  thumbnail: /blog/assets/virtual-cell-challenge/thumbnail.png
+  author: FL33TW00D-HF 
+  date: July 18, 2025
+  tags:
+    - collaboration
+    - guide
+
+- local: lora-fast 
+  title: "Fast LoRA inference for Flux with Diffusers and PEFT"
+  thumbnail: /blog/assets/lora-fast/thumbnail.png
+  author: sayakpaul
+  date: July 23, 2025
+  tags:
+    - lora
+    - diffusion
+    - guide
+
+- local: timescope-video-lmm-benchmark
+  title: "TimeScope: How Long Can Your Video Large Multimodal Model Go?"
+  author: orrzohar
+  thumbnail: /blog/assets/timescope/thumbnail.png
+  date: Jul 23, 2025
+  tags:
+    - video
+    - datasets
+    - multimodal
+    - open-source
+    - benchmark
+    
+- local: parquet-cdc
+  title: "Parquet Content-Defined Chunking"
+  author: kszucs
+  thumbnail: /blog/assets/parquet-cdc/thumbnail.png
+  date: July 25, 2025
+  tags:
+    - data
+    - datasets
+    - dedupe
+    - hub
+    - parquet
+    - storage
+    - xet
+
+- local: hf-cli
+  title: "Say hello to `hf`: a faster, friendlier Hugging Face CLI ✨"
+  author: Wauplin
+  thumbnail: /blog/assets/hf-cli-thumbnail.png
+  date: Jul 25, 2025
+  tags:
+    - cli
+    - huggingface_hub
+    - python
+
+- local: trackio
+  title: "Introducing Trackio: A Lightweight Experiment Tracking Library from Hugging Face"
+  thumbnail: /blog/assets/trackio/thumbnail.gif
+  author: abidlabs
+  date: July 29, 2025
+  tags:
+    - research
+    - gradio
+    - open-source
+

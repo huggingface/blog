@@ -42,3 +42,9 @@
 
 - value: case-studies
   label: Case Studies
+
+- value: lerobot
+  label: LeRobot
+
+- value: inference-providers
+  label: Inference Providers

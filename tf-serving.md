@@ -198,7 +198,7 @@ and kill the serving_base image ran as a daemon because we don't need it anymore
 docker kill serving_base
 ```
 
-Finally, Run the image to serve our SavedModel as a daemon and we map the ports 8501 (REST API), and 8500 (gRPC API) in the container to the host and we name the the container `bert`.
+Finally, Run the image to serve our SavedModel as a daemon and we map the ports 8501 (REST API), and 8500 (gRPC API) in the container to the host and we name the container `bert`.
 ```
 docker run -d -p 8501:8501 -p 8500:8500 --name bert my_bert_model
 ```

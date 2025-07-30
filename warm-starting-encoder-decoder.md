@@ -400,7 +400,7 @@ $$ p_{\theta_{\text{dec}}}(\mathbf{y}_i | \mathbf{Y}_{0: i -1}, \mathbf{\overlin
 For more detail, please refer to the [Encoder-Decoder
 notebook](https://colab.research.google.com/drive/19wkOLQIjBBXQ-j3WWTEiud6nGBEw4MdF?usp=sharing).
 
-### **Warm-staring Encoder-Decoder with BERT**
+### **Warm-starting Encoder-Decoder with BERT**
 
 Let\'s now illustrate how a pre-trained BERT model can be used to
 warm-start the encoder-decoder model. BERT\'s pre-trained weight
@@ -497,7 +497,7 @@ Having warm-stared the encoder-decoder model, the weights are then
 fine-tuned on a *sequence-to-sequence* downstream task, such as
 summarization.
 
-### **Warm-staring Encoder-Decoder with BERT and GPT2**
+### **Warm-starting Encoder-Decoder with BERT and GPT2**
 
 Instead of warm-starting both the encoder and decoder with a BERT
 checkpoint, we can instead leverage the BERT checkpoint for the encoder
@@ -1310,7 +1310,7 @@ namely:
 
 1.  the \"standard\" `.from_pretrained(...)` method is derived from the
     general `PretrainedModel.from_pretrained(...)` method and thus
-    corresponds exactly to the the one of other model classes. The
+    corresponds exactly to the one of other model classes. The
     function expects a single model identifier, *e.g.*
     `.from_pretrained("google/bert2bert_L-24_wmt_de_en")` and will load
     a single `.pt` checkpoint file into the `EncoderDecoderModel` class.

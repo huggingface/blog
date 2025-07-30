@@ -45,61 +45,65 @@ This release comes with open-source models integrated into transformers, [a demo
   * [Context extension](#context-extension)
   * [Checkpoint selection](#checkpoint-selection)
 - [Fine-Tuning](#fine-tuning)
+- [Citation information](#citation-information)
 - [Wrapping up](#wrapping-up) 
 
 
 ## Model capabilities
 
 <table><thead><tr><th>Input Image</th><th>Input Prompt</th><th>Answer</th></tr></thead><tbody><tr> 
-  <tr>
-    <td style="vertical-align: middle;"><img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/wat_arun.jpg" width="300"/></td>
-    <td style="vertical-align: middle;">
-    <strong>I'm planning a visit to this temple, give me travel tips.</strong>
-    </td>
-    <td style="vertical-align: middle;">
-      The Grand Palace is the most famous landmark in Bangkok and it's worth visiting for its stunning architecture and history. Here are some of our favorite things about the palace: 
-
-**The Main Building:** 
-Located at the center of the complex, the main building features intricate tile work with traditional Thai motifs that cover every inch of the structure. This includes patterns such as dragons, mythical creatures, flowers, and geometric shapes. The roofline has an elaborate design featuring multiple layers of tiles adorned with gold accents. 
-
-**Towers & Spires:** 
-There are several towers within the Grand Palace including the Phra Nakhon Si Ayutthaya National Museum Tower which houses exhibits on Thai culture and heritage. Another notable tower is the Wat Yai Chai Mongkol Tower where you can find beautiful murals depicting scenes from Buddhist mythology.
-
-**Architecture Style:** 
-The architectural style combines elements of Hindu and Khmer styles seen commonly throughout Southeast Asia. You'll notice influences like stupas (dome-shaped structures), lotus flower carvings, and ornate details typical of these regions' religious buildings.
-
-**Visitor Experience:** 
-While exploring the Grand Palace, visitors should be aware of certain rules due to security measures taken by authorities. These include no photography inside certain areas or using flashbulbs outside. Additionally, there may be queues during peak tourist seasons so plan accordingly if you're traveling here.
-
-### Travel Tips For Visiting The Grand Palace:
-* **Best Time To Visit**: The best time to visit would likely be early morning before sunrise when temperatures drop significantly making walking around easier.
-* **Transportation**: Public transportation options exist but they might not provide direct access to the Grand Palace itself; consider taking a taxi instead.
-* **Food Options**: There aren't many dining facilities available near the Grand Palace yet local street food vendors do offer delicious meals nearby.
-* **Clothing Guidelines**: While not mandatory, wearing traditional Thai clothing (sarongs) could add cultural immersion experience. However, shorts/trousers are allowed provided they don't go below knee level.
-* **Safety Measures**: Visitors must follow signs indicating restricted zones marked "No Photography" among others. Always carry identification documents just in case.
-
-By following these guidelines, your trip will undoubtedly enhance both your understanding of Thailand’s rich historical tapestry and personal enjoyment!
-    </td>
-  </tr>
-  <tr>
-    <td style="vertical-align: middle;"><img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/weather_events.png" width="300"/></td>
-    <td style="vertical-align: middle;">
-    <strong>Where do the severe droughts happen according to this diagram?</strong>
-    </td>
-    <td style="vertical-align: middle;">
-      The severe droughts are happening in eastern and southern Africa.
-    </td>
-  </tr>
-  <tr>
-    <td style="vertical-align: middle;"><img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/invoice.png" width="300"/></td>
-    <td style="vertical-align: middle;">
-    <strong>What is the due date and the invoice date?</strong>
-    </td>
-    <td style="vertical-align: middle;">
- The due date is 26/02/2019, and the invoice date is 11/02/2019.
-    </td>
-  </tr>
-</table>
+    <tr>
+      <td width="50%" style="vertical-align: top;">
+       <img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/wat_arun.jpg"/></td>
+      <td width="15%" style="vertical-align: top;">
+      <strong>I'm planning a visit to this temple, give me travel tips.</strong>
+      </td>
+      <td style="vertical-align: middle;">
+        The Grand Palace is the most famous landmark in Bangkok and it's worth visiting for its stunning architecture and history. Here are some of our favorite things about the palace: 
+  
+  **The Main Building:** 
+  Located at the center of the complex, the main building features intricate tile work with traditional Thai motifs that cover every inch of the structure. This includes patterns such as dragons, mythical creatures, flowers, and geometric shapes. The roofline has an elaborate design featuring multiple layers of tiles adorned with gold accents. 
+  
+  **Towers & Spires:** 
+  There are several towers within the Grand Palace including the Phra Nakhon Si Ayutthaya National Museum Tower which houses exhibits on Thai culture and heritage. Another notable tower is the Wat Yai Chai Mongkol Tower where you can find beautiful murals depicting scenes from Buddhist mythology.
+  
+  **Architecture Style:** 
+  The architectural style combines elements of Hindu and Khmer styles seen commonly throughout Southeast Asia. You'll notice influences like stupas (dome-shaped structures), lotus flower carvings, and ornate details typical of these regions' religious buildings.
+  
+  **Visitor Experience:** 
+  While exploring the Grand Palace, visitors should be aware of certain rules due to security measures taken by authorities. These include no photography inside certain areas or using flashbulbs outside. Additionally, there may be queues during peak tourist seasons so plan accordingly if you're traveling here.
+  
+  ### Travel Tips For Visiting The Grand Palace:
+  * **Best Time To Visit**: The best time to visit would likely be early morning before sunrise when temperatures drop significantly making walking around easier.
+  * **Transportation**: Public transportation options exist but they might not provide direct access to the Grand Palace itself; consider taking a taxi instead.
+  * **Food Options**: There aren't many dining facilities available near the Grand Palace yet local street food vendors do offer delicious meals nearby.
+  * **Clothing Guidelines**: While not mandatory, wearing traditional Thai clothing (sarongs) could add cultural immersion experience. However, shorts/trousers are allowed provided they don't go below knee level.
+  * **Safety Measures**: Visitors must follow signs indicating restricted zones marked "No Photography" among others. Always carry identification documents just in case.
+  
+  By following these guidelines, your trip will undoubtedly enhance both your understanding of Thailand’s rich historical tapestry and personal enjoyment!
+      </td>
+    </tr>
+    <tr>
+      <td width="50%" style="vertical-align: middle;">
+       <img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/weather_events.png"/></td>
+      <td width="15%" style="vertical-align: middle;">
+      <strong>Where do the severe droughts happen according to this diagram?</strong>
+      </td>
+      <td style="vertical-align: middle;">
+        The severe droughts are happening in eastern and southern Africa.
+      </td>
+    </tr>
+    <tr>
+      <td width="50%" style="vertical-align: middle;">
+       <img src="https://huggingface.co/datasets/huggingface/release-assets/resolve/main/invoice.png"/></td>
+      <td width="15%" style="vertical-align: middle;">
+      <strong>What is the due date and the invoice date?</strong>
+      </td>
+      <td style="vertical-align: middle;">
+   The due date is 26/02/2019, and the invoice date is 11/02/2019.
+      </td>
+    </tr>
+  </table>
 
 ## Architecture
 
@@ -143,8 +147,8 @@ SmolVLM's tiny memory footprint also implies that it requires far fewer computat
 
 Given SmolVLM's long context and the possibility of tweaking the internal frame resizing of the model, we explored its suitability as an accessible option for basic video analysis tasks, particularly when computational resources are limited.
 
-In our evaluation of SmolVLM's video understanding capabilities, we implemented a straightforward [video processing pipeline code](https://github.com/huggingface/smollm/blob/main/inference/smolvlm/SmolVLM_video_inference.py), extracting up to 50 evenly sampled frames from each video while avoiding internal frame resizing.
-This simple approach yielded surprisingly competitive results on the CinePile benchmark, with a score of 27.14%, a performance that positions the model between InterVL2 (2B) and Video LlaVa (7B).
+In our evaluation of SmolVLM's video understanding capabilities, we implemented a straightforward [video processing pipeline code](https://github.com/huggingface/smollm/blob/7dfcd81c046a946031291c11451e9398609a0aeb/tools/smolvlm_local_inference/SmolVLM_video_inference.py), extracting up to 50 evenly sampled frames from each video while avoiding internal frame resizing.
+This simple approach yielded surprisingly competitive results on the CinePile benchmark, with a score of 27.14%, a performance that positions the model between InternVL2 (2B) and Video LlaVa (7B).
 
 
 The quantitative results align with our qualitative testing, looking at an example from the FineVideo dataset:
@@ -208,7 +212,7 @@ from transformers.image_utils import load_image
 
 # Load images
 image1 = load_image("https://huggingface.co/spaces/HuggingFaceTB/SmolVLM/resolve/main/example_images/rococo.jpg")
-image2 = load_image("https://huggingface.co/spaces/HuggingFaceTB/SmolVLM/blob/main/example_images/rococo_1.jpg")
+image2 = load_image("https://huggingface.co/spaces/HuggingFaceTB/SmolVLM/resolve/main/example_images/rococo_1.jpg")
 
 # Create input messages
 messages = [
@@ -267,15 +271,14 @@ We evaluated the performance across multiple vision-language benchmarks, each we
 - Document and text-based visual question answering (DocVQA and TextVQA)
 - Mathematical Reasoning (MathVista)
 - Diagram understanding (AI2D)
-- General multimodal understanding (MMMU and MMStar). 
-
+  
 To select the optimal checkpoint, we created a single metric by combining these benchmarks with different manually assigned weights to reflect their relative importance in assessing the model's capabilities. We used this single metric to select the best checkpoint. Generally, the models tended to do great on most benchmarks with more training, but their relative performance on DocVQA would decrease considerably. 
 
 ## Fine-tuning
 
 You can fine-tune SmolVLM using transformers and apply alignment techniques using TRL 🚀
 
-We provide a [notebook](https://github.com/huggingface/smollm/blob/main/finetuning/Smol_VLM_FT.ipynb) to fine-tune it on the VQAv2 dataset, optionally using  LoRA, QLoRA or full fine-tuning. In the notebook, you can find some tricks to save up even more memory and have a larger batch size to fit SmolVLM inside consumer GPUs, like L4, for training. With batch sizes of 4, 8-bit loading with QLoRA and gradient checkpointing we can fine-tune in L4, and it consumes around ~16 GBs of VRAM. This makes it possible to fine-tune your SmolVLM using Colab! You can play around with the parameters to get a nice point in training duration-memory trade-off. 
+We provide a [notebook](https://github.com/huggingface/smollm/blob/main/vision/finetuning/Smol_VLM_FT.ipynb) to fine-tune it on the VQAv2 dataset, optionally using  LoRA, QLoRA or full fine-tuning. In the notebook, you can find some tricks to save up even more memory and have a larger batch size to fit SmolVLM inside consumer GPUs, like L4, for training. With batch sizes of 4, 8-bit loading with QLoRA and gradient checkpointing we can fine-tune in L4, and it consumes around ~16 GBs of VRAM. This makes it possible to fine-tune your SmolVLM using Colab! You can play around with the parameters to get a nice point in training duration-memory trade-off. 
 
 SmolVLM also comes with TRL integration so you can apply Direct Preference Optimization (DPO) easily through the CLI. Get started by running `pip install trl accelerate peft` and then run the following command to fine-tune on [RLAIF-V](https://huggingface.co/datasets/HuggingFaceH4/rlaif-v_formatted) dataset: 
 
@@ -293,6 +296,18 @@ accelerate launch \
 ```
 The resulting LoRA adapter weights are [SmolVLM-Instruct-DPO](https://huggingface.co/HuggingFaceTB/SmolVLM-Instruct-DPO). A detailed tutorial on preference tuning vision-based LLM can be found here: [dpo_vlm](https://huggingface.co/blog/dpo_vlm).
 
+## Citation information
+
+You can cite us in the following way:
+```bibtex
+@article{marafioti2025smolvlm,
+  title={SmolVLM: Redefining small and efficient multimodal models}, 
+  author={Andrés Marafioti and Orr Zohar and Miquel Farré and Merve Noyan and Elie Bakouch and Pedro Cuenca and Cyril Zakka and Loubna Ben Allal and Anton Lozhkov and Nouamane Tazi and Vaibhav Srivastav and Joshua Lochner and Hugo Larcher and Mathieu Morlon and Lewis Tunstall and Leandro von Werra and Thomas Wolf},
+  journal={arXiv preprint arXiv:2504.05299},
+  year={2025}
+}
+```
+
 ## Wrapping Up
 
 We introduced SmolVLM, a fully open, small, and mighty VLM for the community! We also provide tools for the community to use and customize it. We are looking forward to seeing what you will create with SmolVLM.
@@ -300,5 +315,5 @@ We introduced SmolVLM, a fully open, small, and mighty VLM for the community! We
 Below are some resources if you would like to read more about all things related to SmolVLM.
 
 - Start playing with SmolVLM using [this demo](https://huggingface.co/spaces/HuggingFaceTB/SmolVLM).
-- Learn how to fine-tune SmolVLM on VQAv2 using [this notebook](https://github.com/huggingface/smollm/blob/main/finetuning/Smol_VLM_FT.ipynb) 
+- Learn how to fine-tune SmolVLM on VQAv2 using [this notebook](https://github.com/huggingface/smollm/blob/main/vision/finetuning/Smol_VLM_FT.ipynb) 
 - Learn more about [vision language models](https://huggingface.co/blog/vlms)
