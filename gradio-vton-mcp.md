@@ -18,7 +18,7 @@ I hate shopping because it takes too much time and I hate trying on clothes myse
 
 Imagine this: you hate shopping because it takes too much time, and you dread trying on clothes yourself. What if an LLM could handle this for you? In this post, we'll create an LLM-powered AI assistant that can browse online clothing stores, find specific garments, and then use a virtual try-on model to show you how those clothes would look on you. See the demo below:
 
-<video src="https://github.com/user-attachments/assets/b507c380-d6b6-4307-b0d1-be423a7414f3" controls></video>
+<video src="https://github.com/user-attachments/assets/e5bc58b9-ca97-418f-b78b-ce38d4bb527e" controls></video>
 
 ## The Goal: Your Personal AI Stylist
 
