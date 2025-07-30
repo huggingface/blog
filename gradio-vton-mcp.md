@@ -7,7 +7,7 @@ authors:
 
 # Build an AI Shopping Assistant with Gradio MCP Servers
 
-Want to give your LLM superpowers? Gradio is the fastest way to do it! With Gradio's seamless Model Context Protocol (MCP) integration, your LLM can plug directly into the thousands of AI models and Spaces hosted on the Hugging Face [Hub](https://hf.co). By pairing the general reasoning capabilities of LLMs with the specialized abilities of models found on Hugging Face, your LLM can go beyond simply answering text questions to actually solving problems in your daily life.
+Gradio is the fastest way give your LLM superpowers. With Gradio's seamless Model Context Protocol (MCP) integration, your LLM can plug directly into the thousands of AI models and Spaces hosted on the Hugging Face [Hub](https://hf.co). By pairing the general reasoning capabilities of LLMs with the specialized abilities of models found on Hugging Face, your LLM can go beyond simply answering text questions to actually solving problems in your daily life.
 
 Beyond this, Gradio makes implementing powerful MCP servers a breeze, offering features like:
 * Automatic conversion of python functions into LLM tools.
