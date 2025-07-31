@@ -7,14 +7,12 @@ authors:
 
 # Build an AI Shopping Assistant with Gradio MCP Servers
 
-Gradio is the fastest way give your LLM superpowers. With Gradio's seamless Model Context Protocol (MCP) integration, your LLM can plug directly into the thousands of AI models and Spaces hosted on the Hugging Face [Hub](https://hf.co). By pairing the general reasoning capabilities of LLMs with the specialized abilities of models found on Hugging Face, your LLM can go beyond simply answering text questions to actually solving problems in your daily life.
+Gradio is the fastest way give your LLM superpowers. With Gradio's Model Context Protocol (MCP) integration, your LLM can plug directly into the thousands of AI models and Spaces hosted on the Hugging Face [Hub](https://hf.co). By pairing the general reasoning capabilities of LLMs with the specialized abilities of models found on Hugging Face, your LLM can go beyond simply answering text questions to actually solving problems in your daily life.
 
 Beyond this, Gradio makes implementing powerful MCP servers a breeze, offering features like:
 * Automatic conversion of python functions into LLM tools.
 * Real-time progress notifications.
 * Automatic file uploads, including support for public URLs and handling of various file types.
-
-I hate shopping because it takes too much time and I hate trying on clothes myself. What if I had an LLM do this for me? 
 
 Imagine this: you hate shopping because it takes too much time, and you dread trying on clothes yourself. What if an LLM could handle this for you? In this post, we'll create an LLM-powered AI assistant that can browse online clothing stores, find specific garments, and then use a virtual try-on model to show you how those clothes would look on you. See the demo below:
 
@@ -114,7 +112,7 @@ You can find this file by typing `MCP` in the command panel and selecting `MCP: 
 The playwright MCP server will let our AI assistant browse the web.
 
 > [!TIP]
-> Make sure the URL of the `vton` server matches the url printed to the console in the previous section.
+> Make sure the URL of the `vton` server matches the url printed to the console in the previous section. To run the playwright MCP server, you need to have node [installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
 ## Putting It All Together
 
