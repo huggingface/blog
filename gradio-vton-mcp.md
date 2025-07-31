@@ -1,22 +1,22 @@
 ---
-title: "Build an AI Shopping Assistant with Gradio MCP Servers" 
+title: "Implementing MCP Servers in Python: An AI Shopping Assistant with Gradio" 
 thumbnail: /blog/assets/gradio-vton-mcp/AiAssistantTitle.png
 authors:
 - user: freddyaboulton
 ---
 
-# Build an AI Shopping Assistant with Gradio MCP Servers
+# Implementing MCP Servers in Python: An AI Shopping Assistant with Gradio
 
-Gradio is the fastest way give your LLM superpowers. With Gradio's Model Context Protocol (MCP) integration, your LLM can plug directly into the thousands of AI models and Spaces hosted on the Hugging Face [Hub](https://hf.co). By pairing the general reasoning capabilities of LLMs with the specialized abilities of models found on Hugging Face, your LLM can go beyond simply answering text questions to actually solving problems in your daily life.
+Python Developers, want to give your LLM superpowers? Gradio is the fastest way to do it! With Gradio's Model Context Protocol (MCP) integration, your LLM can plug directly into the thousands of AI models and Spaces hosted on the Hugging Face [Hub](https://hf.co). By pairing the general reasoning capabilities of LLMs with the specialized abilities of models found on Hugging Face, your LLM can go beyond simply answering text questions to actually solving problems in your daily life.
 
-Beyond this, Gradio makes implementing powerful MCP servers a breeze, offering features like:
-* Automatic conversion of python functions into LLM tools.
-* Real-time progress notifications.
-* Automatic file uploads, including support for public URLs and handling of various file types.
+For Python developers, Gradio makes implementing powerful MCP servers a breeze, offering features like:
+* **Automatic conversion of python functions into LLM tools:** Each API endpoint in your Gradio app is automatically converted into an MCP tool with a corresponding name, description, and input schema. The docstring of your function is used to generate the description of the tool and its parameters.
+* **Real-time progress notifications:** Gradio streams progress notifications to your MCP client, allowing you to monitor the status in real-time without having to implement this feature yourself.
+* **Automatic file uploads**, including support for public URLs and handling of various file types.
 
 Imagine this: you hate shopping because it takes too much time, and you dread trying on clothes yourself. What if an LLM could handle this for you? In this post, we'll create an LLM-powered AI assistant that can browse online clothing stores, find specific garments, and then use a virtual try-on model to show you how those clothes would look on you. See the demo below:
 
-<video src="https://github.com/user-attachments/assets/e5bc58b9-ca97-418f-b78b-ce38d4bb527e" controls></video>
+<video src="https://github.com/user-attachments/assets/e5bc58b9-ca97-418f-b78b-ce38d4bb527e" controls alt="AI Shopping Assistant Demo using Gradio python sdk and MCP"></video>
 
 ## The Goal: Your Personal AI Stylist
 
