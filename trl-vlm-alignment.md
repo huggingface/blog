@@ -178,7 +178,7 @@ trl vllm-serve --model Qwen/Qwen2.5-VL-3B-Instruct --tensor-parallel-size 1
 
 Then you can run the script as follows.
 
-```python
+```bash
 CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/grpo_vlm.py     --model_name_or_path   Qwen/Qwen2.5-VL-3B-Instruct    …   --log_completions —use_vllm —vlm_mode server
 
 ```
