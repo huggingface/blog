@@ -173,7 +173,7 @@ CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/grpo_vlm.py     --model_name_o
 
 There’s mainly two modes: `colocate` and `server` . `colocate` runs vLLM in the same process as the training loop, shares the same GPU between training and generation, creating a vLLM LLM instance inside the `GRPOTrainer` . Meanwhile `server` requires you to serve vLLM separately in a different process where you can hit the server. You can start this server with the command:
 
-```python
+```bash
 trl vllm-serve --model Qwen/Qwen2.5-VL-3B-Instruct --tensor-parallel-size 1 
 ```
 
