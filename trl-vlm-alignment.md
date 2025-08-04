@@ -135,7 +135,7 @@ trainer.train()
 ```
 
 
-### Group Sequence Policy Optimization
+### Group Sequence Policy Optimization (GSPO)
 
 [Group Sequence Policy Optimization](https://huggingface.co/papers/2507.18071) (GSPO) is a RL alignment algorithm recently released by Qwen that overcomes some limitations of GRPO. It achieves a more stable training computing importance sampling weights at the sequence level instead of per-token. Its benefits are more [relevant](https://github.com/volcengine/verl/pull/2775#issuecomment-3134375131) in MoE style models.
 
