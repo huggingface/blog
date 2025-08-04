@@ -201,3 +201,4 @@ Below, you can find a compilation of resources to explore the alignment of VLMs 
 - [More multimodal alignment recipes](https://huggingface.co/learn/cookbook/index)
 - [TRL multimodal training scripts](https://github.com/huggingface/trl/tree/main/examples/scripts)
 - [**vLLM Integration in trl docs**](https://huggingface.co/docs/trl/en/vllm_integration)
+- [**Transformers backend integration in vLLM**](https://blog.vllm.ai/2025/04/11/transformers-backend.html)
