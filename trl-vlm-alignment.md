@@ -15,7 +15,7 @@ authors:
 
 Vision Language Models (VLMs) are getting stronger, but *aligning* them to human preferences still matters. In TRL, we already showed how to post-train VLMs with [**Supervised Fine-Tuning (SFT)**](https://huggingface.co/docs/trl/main/en/training_vlm_sft) and [**Direct Preference Optimization (DPO)**](https://huggingface.co/learn/cookbook/fine_tuning_vlm_dpo_smolvlm_instruct). This time, we’re going further.
 
-**We have added two new multimodal alignment methods to TRL: *Group Relative Policy Optimization (GRPO)*, *Mixed Preference Optimization (MPO)* and Group Sequence Policy Optimization (GSPO).** All let you go beyond pairwise DPO, extracting more signal from preference data and scaling better with modern VLMs. We release training scripts and demo notebooks to easily get started with them!
+**tl;dr** We have added two new multimodal alignment methods to TRL: **Group Relative Policy Optimization (GRPO)**,  and its variant **Group Sequence Policy Optimization (GSPO)** and **Mixed Preference Optimization (MPO)**. All let you go beyond pairwise DPO, extracting more signal from preference data and scaling better with modern VLMs. We release training scripts and demo notebooks to easily get started with them!
 
 ## Table of Contents
 
