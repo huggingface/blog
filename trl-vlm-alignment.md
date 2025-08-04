@@ -164,7 +164,7 @@ Here's a table summarizing model outputs for Qwen2.5VL-3B fine-tuned with below 
 
 ## vLLM Integration in TRL
 
-vLLM is integrated in TRL to support online alignment methods where you need to generate samples during training. Running the scripts like following enables vLLM: 
+vLLM is integrated in TRL to support online alignment methods where you need to generate samples during training. Running the example scripts like the following enables vLLM: 
 
 ```bash
 CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/grpo_vlm.py     --model_name_or_path   Qwen/Qwen2.5-VL-3B-Instruct    …   --log_completions —use_vllm —vlm_mode colocate
