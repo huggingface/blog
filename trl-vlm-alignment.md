@@ -40,6 +40,8 @@ But in the last year, new multimodal alignment methods have gained popularity, G
 
 Aligning multimodal models with SFT to do reasoning tasks fall short due to distribution shift. Meanwhile, models aligned with DPO fail to generate coherent rationales and might generate repetitive responses. To address this, there’s a new technique called [Mixed Preference Optimization](https://huggingface.co/papers/2411.10442) (MPO) specifically made for multimodal models. This method is essentially an extension of DPO with multiple losses: preference loss from DPO (sigmoid), quality loss from Binary Classifier Optimization (BCO), and generation loss from SFT. According to the [paper](https://huggingface.co/papers/2411.10442), simply switching to this combined loss results in 6.2 pts improvement in MathVista! 
 
+![MPO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/trl-vlm/image_1.png)
+
 Since this is only modifying the loss, we added combined loss support to TRL's `DPOTrainer` class. To use it, you can initialize the `DPOConfig` as follows:
 
 ```python
@@ -75,7 +77,7 @@ And that’s it!
 
 Group Relative Policy Optimization (GRPO) is a cutting-edge alignment method initially introduced in [DeepSeek Math](https://huggingface.co/papers/2402.03300) paper and later integrated to DeepSeek R1, the groundbreaking LLM. It’s an addition to PPO where the policy updates are done over groups (batches of trajectories that represent how a dialogue rolls out). This feature makes it more robust to reward noise, as the noise averages out within groups. Since the model learns broader sense of a good response rather than singular high reward samples, this method also makes the model highly performant.
 
-![image.png](attachment:ef6696d7-064a-4bd0-b3b1-60806326101e:image.png)
+![GRPO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/trl-vlm/image_2.png)
 
 In TRL, we now introduce GRPO support for vision language models. We will not provide a full training script example, as you can find it in the notebook. Instead, we'll focus on highlighting the key component and concepts.
 
@@ -160,7 +162,7 @@ training_args = GRPOConfig(
 
 Here's a table summarizing model outputs for Qwen2.5VL-3B fine-tuned with below techniques. Note that we've done minimal runs on dataset subsets, and the models were fine-tuned on different datasets, so the comparison is made for vibe-check.
 
-
+TODO: Add comparison 
 
 ## vLLM Integration in TRL
 
@@ -180,7 +182,6 @@ Then you can run the script as follows.
 
 ```bash
 CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/grpo_vlm.py     --model_name_or_path   Qwen/Qwen2.5-VL-3B-Instruct    …   --log_completions —use_vllm —vlm_mode server
-
 ```
 
 One more tip: we have added support for using vLLM with transformers backend in TRL. You can enable it when running a script with colocate or when serving the model by passing the `--vllm_model_impl transformers` flag.
