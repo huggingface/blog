@@ -40,7 +40,7 @@ But in the last year, new multimodal alignment methods have gained popularity, G
 
 Aligning multimodal models with SFT to do reasoning tasks fall short due to distribution shift. Meanwhile, models aligned with DPO fail to generate coherent rationales and might generate repetitive responses. To address this, there’s a new technique called [Mixed Preference Optimization](https://huggingface.co/papers/2411.10442) (MPO) specifically made for multimodal models. This method is essentially an extension of DPO with multiple losses: preference loss from DPO (sigmoid), quality loss from Binary Classifier Optimization (BCO), and generation loss from SFT. According to the [paper](https://huggingface.co/papers/2411.10442), simply switching to this combined loss results in 6.2 pts improvement in MathVista! 
 
-Since this is only modifying loss, we added combined loss support to TRL. To do so, you can initialize the `DPOConfig` as follows: 
+Since this is only modifying the loss, we added combined loss support to TRL's `DPOTrainer` class. To use it, you can initialize the `DPOConfig` as follows:
 
 ```python
 mpo_config = DPOConfig(
@@ -139,7 +139,7 @@ trainer.train()
 
 [Group Sequence Policy Optimization](https://huggingface.co/papers/2507.18071) (GSPO) is a RL alignment algorithm recently released by Qwen that overcomes some limitations of GRPO. It achieves a more stable training computing importance sampling weights at the sequence level instead of per-token. Its benefits are more [relevant](https://github.com/volcengine/verl/pull/2775#issuecomment-3134375131) in MoE style models.
 
-Latest TRL also introduces supports for GSPO and since it’s a variant of GRPO, it comes with multimodal support. To create the trainer, the process is the same as with GRPO, but adding the following extra params (values are extracted from the paper).
+Latest TRL also introduces supports for GSPO and since it’s a variant of GRPO's loss, it comes with multimodal support. To create the trainer, the process is the same as with GRPO, but adding the following extra params (values are extracted from the paper).
 
 ```python
 from trl import GRPOConfig
