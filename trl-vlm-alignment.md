@@ -34,7 +34,7 @@ Traditionally, you would take a base model, apply SFT to follow instructions, an
 
 DPO works by optimizing preferences between pairs of model responses using a contrastive loss: you have a chosen and a rejected answer and you optimize your preferences based on what you want and don’t want. 
 
-But in the last year, new multimodal alignment methods appeared, GRPO and MPO, that can push VLM performance even further. At the end of the blog post you can find a table that showcases the differences between model responses.
+But in the last year, new multimodal alignment methods have gained popularity, GRPO and MPO, that can push VLM performance even further. At the end of the blog post you can find a table that showcases the differences between model responses.
 
 ## Mixed Preference Optimization (MPO)
 
