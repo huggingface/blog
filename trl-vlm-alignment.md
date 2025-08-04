@@ -79,7 +79,7 @@ Group Relative Policy Optimization (GRPO) is a cutting-edge alignment method ini
 
 In TRL, we now introduce GRPO support for vision language models. We will not provide a full training script example, as you can find it in the notebook. Instead, we'll focus on highlighting the key component and concepts.
 
-To make the training script work effectively, we need to validate that the format of the answer is correct and that the solution itself is close to the completed parts, so we write two reward functions. In order to really see improvements in the latter reward, you would have to have a rather maximalist setup, where you have relatively larger models, a lot of generations and a high quality diverse dataset. 
+To make the training script work effectively, we need to validate that the format of the answer is correct and that the solution itself is close to the completed parts, so we write two reward functions. In order to really see improvements in the latter reward, you would need a rather maximalist setup, where you have relatively larger models, a lot of generations, and a high-quality, diverse dataset.
 
 ```python
 import re
