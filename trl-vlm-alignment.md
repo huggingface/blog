@@ -183,7 +183,7 @@ CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/grpo_vlm.py     --model_name_o
 
 ```
 
-One more tip: we have added support for using vLLM with transformers backend in TRL. You can enable it when running a script with colocate or when serving the model, by passing the `--vllm_model_impl transformers` flag.
+One more tip: we have added support for using vLLM with transformers backend in TRL. You can enable it when running a script with colocate or when serving the model by passing the `--vllm_model_impl transformers` flag.
 
 You can read more about vLLM integration in TRL [here](https://huggingface.co/docs/trl/en/vllm_integration).
 
