@@ -193,8 +193,8 @@ You can read more about vLLM integration in TRL [here](https://huggingface.co/do
 Below, you can find a compilation of resources to explore the alignment of VLMs in detail. Enjoy!
 
 - [Vision Language Models (Better, Faster, Stronger)](https://huggingface.co/blog/vlms-2025)
-- [Enhancing the Reasoning Ability of Multimodal Large Language Models via Mixed Preference Optimization](https://huggingface.co/papers/2411.10442)**(**MPO paper)
-- DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Model ****[(GRPO paper)](https://huggingface.co/papers/2402.03300)
+- [**Enhancing the Reasoning Ability of Multimodal Large Language Models via Mixed Preference Optimization**](https://huggingface.co/papers/2411.10442) (MPO paper)
+- [**DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Model**](https://huggingface.co/papers/2402.03300) (GRPO paper)
 - [Open-R1](https://github.com/huggingface/open-r1) repository and [Open-R1 reward functions](https://github.com/huggingface/open-r1/blob/main/src/open_r1/rewards.py)
 - [TRL documentation](https://huggingface.co/docs/trl/en/index) and [TRL repository](https://github.com/huggingface/trl)
 - [MPO VLM recipe](https://huggingface.co/learn/cookbook/fine_tuning_vlm_mpo)
