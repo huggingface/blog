@@ -3,9 +3,15 @@ title: "Accelerate ND-Parallel: A guide to Efficient Multi-GPU Training"
 thumbnail: /blog/assets/accelerate-nd-parallel/thumbnail.png
 authors:
 - user: siro1
-- user: winglian
 - user: smohammadi
+  guest: true
+  org: axolotl-ai-co
+- user: winglian
+  guest: true
+  org: axolotl-ai-co
 - user: djsaunde
+  guest: true
+  org: axolotl-ai-co
 ---
 
 # Accelerate ND-Parallel: A guide to Efficient Multi-GPU Training
@@ -38,6 +44,13 @@ model = accelerator.prepare(model)
 This feature is also integrated into [Axolotl](https://github.com/axolotl-ai-cloud/axolotl), allowing you to compose
 a variety of fine-tuning optimizations and get started with fine-tuning models at scale in just a few minutes.
 
+```yaml
+dp_shard_size: 2
+dp_replicate_size: 2
+context_parallel_size: 2
+tensor_parallel_size: 2
+```
+
 To get up and running quickly, you can check the examples in the [accelerate repository](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py) or their counterpart in [Axolotl](TODO)
 
 You can see we are using the `ParallelismConfig` class to define the parallelism combination and its shape, but how
@@ -68,17 +81,17 @@ When using FSDP across multiple nodes, we treat the entire set of devices across
 
 Tensor Parallel (TP) is a kind of model parallelism technique, where shards of the model permanently live on separate devices, and in contrast to data parallel techniques, each device receives an identical batch of data. TP works by distributing the computation of linear layers across devices, so each device only computes a portion of the matrix multiplication. This technique works best when there are large linear layers, such as the feed-forward layers in transformer models, which can be split across devices. We can also use TP on the `qkvo` projections in the attention layers, with almost no extra cost.
 
-To achieve best performance, parameters of consecutive layers can be distributed in a specific fashion, minimizing the required communication. When working with pairs of linear layers, we can split the first layer column-wise, and the subsequent layer row-wise, allowing us to compute the output with only a single all-reduce operation to combine the sharded outputs. 
+To achieve the best performance, parameters of consecutive layers can be distributed in a specific fashion, minimizing the required communication. When working with pairs of linear layers, we can split the first layer column-wise, and the subsequent layer row-wise, allowing us to compute the output with only a single all-reduce operation to combine the sharded outputs. 
 
 Unlike the dynamic sharding behaviour of FSDP, TP creates static memory partitions which result in a constant memory usage reduction scaling with the total world size. This becomes crucial for massive models where even a single decoder layer is too large to fit into memory during the FSDP all-gather (recall that common practice in FSDP is to gather the weights of an entire decoder layer at a time). However, unlike FSDP which scales relatively linearly across nodes (up to a point - ~512 GPUs on a homogenous cluster, way less across the internet), TP is only effective within the boundaries of a single node. TP requires frequent activation synchronization between devices during computation, as 
 each device computes only a portion of the output, requiring the outputs from other devices to be communicated before
-continuing the forward pass. Thus if we wish to utilise TP in a multi-node setup, we must consider composing parallelism techniques, while keeping TP only within a single node.
+continuing the forward pass. Thus, if we wish to utilise TP in a multi-node setup, we must consider composing TP with other parallelism techniques, while keeping TP only within a single node. Due to its large communications overhead, TP is not recommended for PCIe linked GPUs.
 
 ## Context Parallelism (cp_size)
 
 Recently, reasoning made sequence lengths skyrocket - we need a way to train models on large sequence lengths, sometimes reaching even millions
 With quadratic scaling of attention, it is almost impossible on a single gpu - with sequence length of 128k, 1 attention matrix will take 128k * 128k * 2 bytes * num_heads = ~32 GB * num_heads bytes.
-With CP we can shard the inputs across sequence dimension, resulting in each GPU having smaller `qkv` matrices, thus
+With CP, we can shard the inputs across sequence dimension, resulting in each GPU having smaller `qkv` matrices, thus
 computing only a portion of the attention matrix.
 
 How do we ensure the attention is computed correctly? Remember that we only need our shard of `q`, but we need the
@@ -112,7 +125,7 @@ As we mentioned earlier, TP should be applied within a node to utilize the high-
 ## FSDP + Context Parallelism (dp_shard_size, cp_size)
 
 This is a 2D parallelism strategy that combines FSDP and CP, it's not very commonly used, as CP already combines with
-FSDP (more on why in the [concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism)), but it can be useful in some cases. I.e. when requiring a large sequence length, consequently
+FSDP (more on why in the [concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism)), but it can be useful in some cases. i.e. when requiring a large sequence length, consequently
 requiring a large `cp_size`. If this still doesn't fit into your memory budget, you can apply FSDP on top of this, further reducing the memory usage.
 
 ## Hybrid Sharded Data Parallelism + Tensor Parallelism (dp_replicate_size, dp_shard_size, tp_size)
