@@ -385,7 +385,7 @@ The GPT OSS models are now available on the Azure AI Model Catalog ([GPT OSS 20B
 
 The Dell Enterprise Hub is a secure online portal that simplifies training and deploying the latest open AI models on-premise using Dell platforms. Developed in collaboration with Dell, it offers optimized containers, native support for Dell hardware, and enterprise-grade security features. 
 
-The GPT OSS models are now available on [Dell Enterprise Hub](https://dell.huggingface.co/),  ready to be deployed on-prem using Dell platforms.
+The GPT OSS models are now available on [Dell Enterprise Hub](https://dell.huggingface.co/), ready to be deployed on-prem using Dell platforms.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gpt-oss/partners/deh-model-card.png" alt="model card in dell enterprise hub"/>
 
