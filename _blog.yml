@@ -6473,6 +6473,19 @@
     - community
     - open-source
 
+- local: welcome-openai-gpt-oss
+  title: "Welcome GPT OSS, the new open-source model family from OpenAI!"
+  author: reach-vb
+  thumbnail: /blog/assets/openai/openai-hf-thumbnail.png
+  date: Aug 5, 2025
+  tags:
+    - openai
+    - gpt
+    - gpt-oss
+    - open-source
+    - LLM
+    - community
+
 - local: accelerate-nd-parallel
   title: "Accelerate ND-Parallel: A Guide to Efficient Multi-GPU Training"
   author: siro1
