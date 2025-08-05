@@ -6472,3 +6472,16 @@
     - mcp
     - community
     - open-source
+
+- local: accelerate-nd-parallel
+  title: "Accelerate ND-Parallel: A Guide to Efficient Multi-GPU Training"
+  authors:
+  - user: siro1
+  - user: winglian
+  - user: smohammadi
+  thumbnail: /blog/assets/accelerate-nd-parallel/thumbnail.png
+  date: August 6, 2025
+  tags:
+    - transformers
+    - llm
+    - guide
