@@ -179,7 +179,7 @@ model = AutoModelForCausalLM.from_pretrained(
     device_map="auto",
     torch_dtype="auto",
 +    # Flash Attention with Sinks
-+    attn_implementation="kernels-community/vllm-flash-attn3”,
++    attn_implementation="kernels-community/vllm-flash-attn3",
 )
 
 messages = [
@@ -524,7 +524,7 @@ chat.append(tool_result_message)
 
 ## Acknowledgements
 
-This is an important release for the community and it took a monumentous effort across teams and companies to comprehensively support the new models in the ecosystem.
+This is an important release for the community and it took a momentous effort across teams and companies to comprehensively support the new models in the ecosystem.
 
 The authors of this blog post were selected among the ones who contributed content to the post itself, and does not represent dedication to the project. In addition to the author list, others contributed significant content reviews, including Merve and Sergio. Thank you!
 
