@@ -320,7 +320,7 @@ llama-server -hf ggml-org/gpt-oss-120b-GGUF -c 0 -fa --jinja --reasoning-format 
 # Then, access http://localhost:8080
 ```
 
-We support both the 120B and 20B models. For more detailed information, visit this PR or the model collection.
+We support both the 120B and 20B models. For more detailed information, visit [this PR](https://github.com/ggml-org/llama.cpp/pull/15091) or the [GGUF model collection](https://huggingface.co/collections/ggml-org/gpt-oss-68923b60bee37414546c70bf).
 
 ### vLLM
 
