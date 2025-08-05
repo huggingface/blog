@@ -166,7 +166,7 @@ print(tokenizer.decode(generated[0][inputs["input_ids"].shape[-1]:]))
 
 #### Flash Attention 3
 
-The models use *attention sinks*, a technique the vLLM team made compatible with Flash Attention 3\. We have packaged and integrated their optimized kernel in [`kernels-community/vllm-flash-attn3`](https://huggingface.co/kernels-community/vllm-flash-attn3). At the time of writing, this super-fast kernel has been tested on Hopper cards with PyTorch 2.7 and 2.8. We expect increased coverage in the coming days. If you run the models on Hopper cards (for example, H100 or H200), you need to `pip install –upgrade kernels` and add the following line to your snippet:
+The models use *attention sinks*, a technique the vLLM team made compatible with Flash Attention 3\. We have packaged and integrated their optimized kernel in [`kernels-community/vllm-flash-attn3`](https://huggingface.co/kernels-community/vllm-flash-attn3). At the time of writing, this super-fast kernel has been tested on Hopper cards with PyTorch 2.7 and 2.8. We expect increased coverage in the coming days. If you run the models on Hopper cards (for example, H100 or H200), you need to `pip install --upgrade kernels` and add the following line to your snippet:
 
 ```diff  
 from transformers import AutoModelForCausalLM, AutoTokenizer
