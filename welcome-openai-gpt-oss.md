@@ -67,7 +67,7 @@ According to OpenAI, this release is a meaningful step in their commitment to th
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/openai/gpt-oss-evals.png" alt="Some benchmark results of OpenAI GPT OSS models">
-  <figcaption> Benchmark results from OpenAI GPT OSS models, compared with <code>o3</code> and <code>o4-mini</code> (Source: <a href="https://openai.com/open-models/">OpenAI</a>).
+  <figcaption> Benchmark results from OpenAI GPT OSS models, compared with <code>o3</code> and <code>o4-mini</code> (<b><i>Source: <a href="https://openai.com/open-models/">OpenAI</i></b></a>).
  </figcaption>
 </figure>
 
