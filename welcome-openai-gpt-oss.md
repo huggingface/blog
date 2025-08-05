@@ -371,6 +371,24 @@ GPT OSS models are fully integrated with `trl`. We have developed a couple of fi
 * A LoRA example in the [OpenAI cookbook](https://cookbook.openai.com/articles/gpt-oss/fine-tune-transfomers), which shows how the model can be fine-tuned to reason in multiple languages.  
 * [A basic fine-tuning script](https://github.com/huggingface/gpt-oss-recipes/blob/main/sft.py) that you can adapt to your needs.
 
+## Deploy on Hugging Face Partners
+
+### Azure
+
+Hugging Face collaborates with Azure on their Azure AI Model Catalog to bring the most popular open-source models —spanning text, vision, speech, and multimodal tasks— directly into customers environments for secured deployments to managed online endpoints, leveraging Azure’s enterprise-grade infrastructure, autoscaling, and monitoring.
+
+The GPT OSS models are now available on the Azure AI Model Catalog ([GPT OSS 20B](https://ai.azure.com/explore/models/openai-gpt-oss-20b/version/1/registry/HuggingFace), [GPT OSS 120B](https://ai.azure.com/explore/models/openai-gpt-oss-120b/version/1/registry/HuggingFace)), ready to be deployed to an online endpoints for real time inference.
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gpt-oss/partners/azure-model-card.png" alt="model card in azure ai model catalog"/>
+
+### Dell
+
+The Dell Enterprise Hub is a secure online portal that simplifies training and deploying the latest open AI models on-premise using Dell platforms. Developed in collaboration with Dell, it offers optimized containers, native support for Dell hardware, and enterprise-grade security features. 
+
+The GPT OSS models are now available on [Dell Enterprise Hub](https://dell.huggingface.co/),  ready to be deployed on-prem using Dell platforms.
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gpt-oss/partners/deh-model-card.png" alt="model card in dell enterprise hub"/>
+
 ## Evaluating the Model
 
 GPT OSS models are reasoning models: they therefore require a very large generation size (maximum number of new tokens) for evaluations, as their generation will first contain reasoning, then the actual answer. Using too small a generation size risks interrupting the prediction in the middle of reasoning, which will cause false negatives. The reasoning trace should then be removed from the model answer before computing metrics, to avoid parsing errors, especially with math or instruct evaluations.
