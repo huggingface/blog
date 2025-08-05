@@ -6472,3 +6472,16 @@
     - mcp
     - community
     - open-source
+
+- local: welcome-openai-gpt-oss
+  title: "Welcome GPT OSS, the new open-source model family from OpenAI!"
+  author: reach-vb
+  thumbnail: /blog/assets/openai/openai-hf-thumbnail.png
+  date: Aug 5, 2025
+  tags:
+    - openai
+    - gpt
+    - gpt-oss
+    - open-source
+    - LLM
+    - community
