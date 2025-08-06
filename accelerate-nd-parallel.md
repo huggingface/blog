@@ -17,7 +17,7 @@ authors:
 # Accelerate ND-Parallel: A guide to Efficient Multi-GPU Training
 
 Training large models on multiple GPUs can be challenging due to the complexities of different parallelism strategies.
-In Accelerate, together with [Axolotl](https://huggingface.co/axolotl-ai-co), we have integrated a quick and easy way
+In Accelerate, together with [Axolotl]((https://huggingface.co/axolotl-ai-co), we have integrated a quick and easy way
 to use any combination of parallelism strategies in your training script!
 
 Here is how to add it to your training script:
@@ -41,8 +41,7 @@ model = AutoModelForCausalLM.from_pretrained("your-model-name", tp_size=pc.tp_si
 model = accelerator.prepare(model)
 ```
 
-This feature is also integrated into [Axolotl](https://github.com/axolotl-ai-cloud/axolotl), allowing you to compose
-a variety of fine-tuning optimizations and get started with fine-tuning models at scale in just a few minutes.
+To compose a variety of fine-tuning techniques and further streamline fine-tuning models at scale, we've integrated this technique into Axolotl. Check out the [Axolotl ND-Parallelism docs](https://docs.axolotl.ai/docs/nd_parallelism.html) to get started in just a few minutes. 
 
 ```yaml
 dp_shard_size: 2
