@@ -65,6 +65,12 @@ According to OpenAI, this release is a meaningful step in their commitment to th
 * It uses the same tokenizer as GPT-4o and other OpenAI API models.  
   * Some new tokens have been incorporated to enable compatibility with the Responses API.
 
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/openai/gpt-oss-evals.png" alt="Some benchmark results of OpenAI GPT OSS models">
+  <figcaption> Benchmark results from OpenAI GPT OSS models, compared with <code>o3</code> and <code>o4-mini</code> (<b><i>Source: <a href="https://openai.com/open-models/">OpenAI</i></b></a>).
+ </figcaption>
+</figure>
+
 ## API access through Inference Providers
 
 OpenAI GPT OSS models are accessible through Hugging Face’s [Inference Providers](https://huggingface.co/docs/inference-providers/en/index) service, allowing you to send requests to any supported provider using the same JavaScript or Python code. This is the same infrastructure that powers OpenAI’s official demo on [gpt-oss.com](http://gpt-oss.com), and you can use it for your own projects.
