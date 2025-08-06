@@ -53,29 +53,32 @@ context_parallel_size: 2
 tensor_parallel_size: 2
 ```
 
-We've made it easy to define configure the degrees of different parallelism strategies and how they are combined through the `ParallelismConfig` class, but how we know which configuration will work best for our use case? As we scale to training models with 10s or even 100s of billions of parameters, the primary challenge comes from nderstanding the different parallelism strategies
-and how they interact to minimise communication overhead across devices. In this post, we'll walk through how the different parallelism strategies work, and when and how you might want to compose them.
+We've made it easy to define configure the degrees of different parallelism strategies and how they are combined through the `ParallelismConfig` class, but how do we know which configuration will work best for our use case? As we scale to training models with 10s or even 100s of billions of parameters, the primary challenge comes from nderstanding the different parallelism strategies
+and how they interact to minimise communication overhead across devices. In this post, we'll walk through how the different parallelism strategies work, and when and how you might want to compose them. 
 
-## Data Parallelism (dp_replicate_size)
+## Data Parallelism 
 
-Data parallelism (DP) is the most common technique for training models across multiple GPUs, and involves replicating the model, gradients and optimizer states across each device, whilst evenly distributing data batches between GPUs, and synchronising gradients across devices before updating parameters. This can significantly increase throughput compared to single-device training, but requires that your model is able to fit on a single GPU. We can control
-the number of replicas of the model with the `dp_replicate_size` parameter.
+Data parallelism (DP) is the most common technique for training models across multiple GPUs, and involves replicating the model, gradients and optimizer states across each device, whilst evenly distributing data batches between GPUs, and synchronising gradients across devices before updating parameters. This can significantly increase throughput compared to single-device training, but requires that your model is able to fit on a single GPU. 
 
-DP is a `top-most-level` parallelism strategy, meaning that if we use `dp_replicate_size=2` and we compose it with other parallelism strategies, there would be 2 replicas of the model, each also influenced by the other parallelism strategies. For example, if we use `dp_replicate_size=2` and `tp_size=2`, we would have 2 replicas of the model, each with 2 tensor parallel shards, but more on that later.
+We can control the number of replicas of the model with the `dp_replicate_size` parameter in Accelerate or config field in Axolotl. It's worth noting that DP is a `top-most-level` parallelism strategy, meaning that if we use `dp_replicate_size=2` and we compose it with other parallelism strategies, there would be 2 replicas of the model, each also influenced by the other parallelism strategies. For example, if we use `dp_replicate_size=2` and `tp_size=2`, we would have 2 replicas of the model, each with 2 tensor parallel shards, but more on that later.
 
-## Fully Sharded Data Parallelism (dp_shard_size)
+## Fully Sharded Data Parallelism
 
 What if our model is too large to fit on a single GPU? Fully sharded data parallel (FSDP) addresses this issue by sharding (distributing evenly) the model’s weights, gradients, and optimizer states across GPUs (this is inspired by DeepSpeed’s ZeRO-3), whilst each device still receives its portion of the full batch of data. As you may notice from the diagram above, rather than requiring a full copy of the entire model on each device, we only gather the weights for a single layer at a time before the forward pass, after which the weights may be sharded again.
 
-In this way, we trade memory usage for the communication overhead of gathering sharded parameters before each forward and backward pass, and reduce-scatter-ing local gradients. We can control this trade-off in FSDP by tuning the granularity at which parameters are gathered. One one extreme, we can gather and re-reshard every layer of our model, which would result in the lowest peak memory usage, but incur the highest communication costs. In practice, a common approach is to gather the weights for an entire transformer decoder block at a time.
+In this way, we trade memory usage for the communication overhead of gathering sharded parameters before each forward and backward pass, and reduce-scatter-ing local gradients. We can control this trade-off in FSDP by tuning the granularity at which parameters are gathered. One one extreme, we can gather and re-reshard every layer of our model, which would result in the lowest peak memory usage, but incur the highest communication costs. In practice, a common approach is to gather the weights for an entire transformer decoder block at a time. 
 
 Whilst we can make further memory-compute tradeoffs and offload model parameters and gradients to the CPU to train larger models, this can be prohibitively slow. Instead, let’s consider how we can effectively utilise even more devices to train larger models whilst maintaining high data throughput.
 
 We use the term node to refer to a single machine which hosts multiple GPUs (often 8), with fast intra-node communication channels using e.g. NVLink between devices. When utilising multiple nodes for training, we rely on relatively slower inter-node communication channels between machines using e.g. Infiniband. We also refer to the total number of devices in the process pool as the world size - e.g. a single node with 8 GPUs represents a world size of 8, and 4 nodes would represent a world size of 32.
 
-When using FSDP across multiple nodes, we treat the entire set of devices across nodes as if we were training on a single node. For example, with 4 nodes containing 8 GPUs each, we perform our sharding across 32 devices, and perform our collective all-reduce and reduce-scatter operations using both inter-and-intra-node communication backends. In this manner, FSDP alone can scale to a substantial number of GPUs with a large global batch size to increase data throughput. However, there comes a point where several challenges arise that may require composing FSDP with other parallelism techniques. We usually try to avoid doing FSDP across more than a full node, as the communication overhead can become too high, we'll talk about how to address this in the section on `Hybrid Sharded Data Parallelism`.
+When using FSDP across multiple nodes, we treat the entire set of devices across nodes as if we were training on a single node. For example, with 4 nodes containing 8 GPUs each, we perform our sharding across 32 devices, and perform our collective all-reduce and reduce-scatter operations using both inter-and-intra-node communication backends. In this manner, FSDP alone can scale to a substantial number of GPUs with a large global batch size to increase data throughput. However, there comes a point where several challenges arise that may require composing FSDP with other parallelism techniques. We usually try to avoid doing FSDP across more than a full node, as the communication overhead can become too high, we'll talk about how to address this in the section on [Hybrid Sharded Data Parallelism](#hybrid-sharded-data-parallelism).
 
-## Tensor Parallelism (tp_size)
+> [!TIP]
+> You can use the `dp_shard_size` parameter in Accelerate or config field in Axolotl to set the degree of FSDP applied to your model.
+
+
+## Tensor Parallelism
 
 Tensor Parallel (TP) is a kind of model parallelism technique, where shards of the model permanently live on separate devices, and in contrast to data parallel techniques, each device receives an identical batch of data. TP works by distributing the computation of linear layers across devices, so each device only computes a portion of the matrix multiplication. This technique works best when there are large linear layers, such as the feed-forward layers in transformer models, which can be split across devices. We can also use TP on the `qkvo` projections in the attention layers, with almost no extra cost.
 
@@ -85,7 +88,10 @@ Unlike the dynamic sharding behaviour of FSDP, TP creates static memory partitio
 each device computes only a portion of the output, requiring the outputs from other devices to be communicated before
 continuing the forward pass. Thus, if we wish to utilise TP in a multi-node setup, we must consider composing TP with other parallelism techniques, while keeping TP only within a single node. Due to its large communications overhead, TP is not recommended for PCIe linked GPUs.
 
-## Context Parallelism (cp_size)
+> [!TIP]
+> In Accelerate, the TP size is configured through `tp_size`, whilst in Axolotl you can use the `tensor_parallel_size` config field.
+
+## Context Parallelism 
 
 Recently, reasoning made sequence lengths skyrocket - we need a way to train models on large sequence lengths, sometimes reaching even millions
 With quadratic scaling of attention, it is almost impossible on a single gpu - with sequence length of 128k, 1 attention matrix will take 128k * 128k * 2 bytes * num_heads = ~32 GB * num_heads bytes.
@@ -106,11 +112,16 @@ Accelerate enables this with the `accelerator.maybe_context_parallel` decorator,
 the [accelerate example](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py).
 You can also learn more about how it works and its limitations in our [concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism).
 
+
+> [!TIP]
+> Similar to TP, in Accelerate the CP size is configured through `cp_size`, whilst in Axolotl you can use the `context_parallel_size` config field.
+
+
 ## N-D Paralllelism
 
 Now that you know how the different parallelism strategies work, let's see how we can compose them to train large models efficiently. Let's start with the simple ones: 2D Parallelism
 
-## Hybrid Sharded Data Parallelism (dp_replicate_size, dp_shard_size)
+## Hybrid Sharded Data Parallelism
 
 Hybrid Sharded Data Parallelism (HSDP) is a kind of 2D parallelism which performs FSDP within a node, and DP across nodes - that is to say the model is replicated across each node, and sharded using FSDP within each node. This allows the greater communication overhead of FSDP to utilize the faster intra-node links, whilst DP minimises the slower inter-node communication overhead to a single gradient synchronisation step.
 
