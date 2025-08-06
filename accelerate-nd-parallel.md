@@ -56,11 +56,14 @@ tensor_parallel_size: 2
 We've made it easy to define configure the degrees of different parallelism strategies and how they are combined through the `ParallelismConfig` class, but how do we know which configuration will work best for our use case? As we scale to training models with 10s or even 100s of billions of parameters, the primary challenge comes from nderstanding the different parallelism strategies
 and how they interact to minimise communication overhead across devices. In this post, we'll walk through how the different parallelism strategies work, and when and how you might want to compose them. 
 
+## Contents
+
+
 ## Data Parallelism 
 
 Data parallelism (DP) is the most common technique for training models across multiple GPUs, and involves replicating the model, gradients and optimizer states across each device, whilst evenly distributing data batches between GPUs, and synchronising gradients across devices before updating parameters. This can significantly increase throughput compared to single-device training, but requires that your model is able to fit on a single GPU. 
 
-We can control the number of replicas of the model with the `dp_replicate_size` parameter in Accelerate or config field in Axolotl. It's worth noting that DP is a `top-most-level` parallelism strategy, meaning that if we use `dp_replicate_size=2` and we compose it with other parallelism strategies, there would be 2 replicas of the model, each also influenced by the other parallelism strategies. For example, if we use `dp_replicate_size=2` and `tp_size=2`, we would have 2 replicas of the model, each with 2 tensor parallel shards, but more on that later.
+We can control the number of replicas of the model with the `dp_replicate_size` parameter in Accelerate or config field in Axolotl. It's worth noting that DP is a *top-most-level* parallelism strategy, meaning that if we use `dp_replicate_size=2` and we compose it with other parallelism strategies, there would be 2 replicas of the model, each also influenced by the other parallelism strategies. For example, if we use `dp_replicate_size=2` and `tp_size=2`, we would have 2 replicas of the model, each with 2 tensor parallel shards, but more on that later.
 
 ## Fully Sharded Data Parallelism
 
@@ -70,7 +73,7 @@ In this way, we trade memory usage for the communication overhead of gathering s
 
 Whilst we can make further memory-compute tradeoffs and offload model parameters and gradients to the CPU to train larger models, this can be prohibitively slow. Instead, let’s consider how we can effectively utilise even more devices to train larger models whilst maintaining high data throughput.
 
-We use the term node to refer to a single machine which hosts multiple GPUs (often 8), with fast intra-node communication channels using e.g. NVLink between devices. When utilising multiple nodes for training, we rely on relatively slower inter-node communication channels between machines using e.g. Infiniband. We also refer to the total number of devices in the process pool as the world size - e.g. a single node with 8 GPUs represents a world size of 8, and 4 nodes would represent a world size of 32.
+We use the term *node* to refer to a single machine which hosts multiple GPUs (up to a maximum of 8), with fast intra-node communication channels using e.g. NVLink between GPUs. When utilising multiple nodes for training, we rely on relatively slower inter-node communication channels between machines using e.g. Infiniband. We also refer to the total number of devices in the process pool as the world size - e.g. a single node with 8 GPUs represents a world size of 8, and 4 nodes would represent a world size of 32.
 
 When using FSDP across multiple nodes, we treat the entire set of devices across nodes as if we were training on a single node. For example, with 4 nodes containing 8 GPUs each, we perform our sharding across 32 devices, and perform our collective all-reduce and reduce-scatter operations using both inter-and-intra-node communication backends. In this manner, FSDP alone can scale to a substantial number of GPUs with a large global batch size to increase data throughput. However, there comes a point where several challenges arise that may require composing FSDP with other parallelism techniques. We usually try to avoid doing FSDP across more than a full node, as the communication overhead can become too high, we'll talk about how to address this in the section on [Hybrid Sharded Data Parallelism](#hybrid-sharded-data-parallelism).
 
@@ -93,9 +96,11 @@ continuing the forward pass. Thus, if we wish to utilise TP in a multi-node setu
 
 ## Context Parallelism 
 
-Recently, reasoning made sequence lengths skyrocket - we need a way to train models on large sequence lengths, sometimes reaching even millions
-With quadratic scaling of attention, it is almost impossible on a single gpu - with sequence length of 128k, 1 attention matrix will take 128k * 128k * 2 bytes * num_heads = ~32 GB * num_heads bytes.
-With CP, we can shard the inputs across sequence dimension, resulting in each GPU having smaller `qkv` matrices, thus
+Recently, reasoning capabilities in LLMs resulted in sequence lengths skyrocketing as models use more and more tokens to solve complex tasks. To achieve this behaviour through fine-tuning, we need a way to train models on very large sequence lengths - which can sometimes reach up to a million tokens!
+
+Since the attention operation in transformers scales quadratically with context length, this becomes impossible on a single GPU. For example, when fine-tuning a relatively small model such as Mistral-7B (which uses 32 attention heads), if we use a sequence length of 128k a single attention matrix will utilise 128k * 128k * 2 bytes * `num_heads=32` = ~32 GB * 32 = ~1TB!
+
+With context parallelism (CP), we can shard the inputs across sequence dimension, resulting in each GPU having smaller `qkv` matrices, thus
 computing only a portion of the attention matrix.
 
 How do we ensure the attention is computed correctly? Remember that we only need our shard of `q`, but we need the
