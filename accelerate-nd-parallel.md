@@ -100,7 +100,7 @@ continuing the forward pass. Thus, if we wish to utilise TP in a multi-node setu
 
 Recently, reasoning capabilities in LLMs resulted in sequence lengths skyrocketing as models use more and more tokens to solve complex tasks. To achieve this behaviour through fine-tuning, we need a way to train models on very large sequence lengths - which can sometimes reach up to a million tokens!
 
-Since the attention operation in transformers scales quadratically with context length, this becomes impossible on a single GPU. For example, when fine-tuning a relatively small model such as Mistral-7B (which uses 32 attention heads), if we use a sequence length of 128k a single attention matrix will utilise 128k * 128k * 2 bytes * `num_heads=32` = ~32 GB * 32 = ~1TB!
+Since the attention operation in transformers scales quadratically with context length, this becomes impossible on a single GPU. For example, when fine-tuning a relatively small model such as Mistral-7B (which uses 32 attention heads), if we use a sequence length of 128k a single attention matrix will utilise 128k * 128k * 2 bytes * `num_heads=32` = ~32 GB * 32 = ~1TB of activations memory! Whilst this example is not realistic when using optimised attention implementations such as FlashAttention, it helps illustrate the growth in memory requirements from increasing context length.
 
 With context parallelism (CP), we can shard the *inputs* across the sequence dimension, resulting in each GPU only processing a chunk of the full context. This results in each device only computing a smaller portion of the full, prohibitively large, attention matrix.
 
