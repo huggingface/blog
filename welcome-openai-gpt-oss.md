@@ -206,7 +206,7 @@ This snippet will download the optimized, pre-compiled kernel code from `kernels
 
 If you have a Hopper GPU or better, we recommend you use `mxfp4` for the reasons explained above. If you can additionally use Flash Attention 3, then by all means do enable it! 
 
-> [!TIP]  
+> [!TIP]
 > If your GPU is not compatible with `mxfp4`, then we recommend you use MegaBlocks MoE kernels for a nice speed bump. To do so, you just need to adjust your inference code like this:
 
 ```diff
@@ -424,7 +424,7 @@ Assuming no tools are being used, the structure of the model output looks like t
 
 Most of the time, you should ignore everything except the text after **<|channel|>final<|message|>.** Only this text should be appended to the chat as the assistant message, or displayed to the user. There are two exceptions to this rule, though: You may need to include **analysis** messages in the history during **training** or if the model is **calling external tools.**
 
-**When training:**  
+**When training:**
 If you’re formatting examples for training, you generally want to include the chain of thought in the final message. The right place to do this is in the **thinking** key.
 
 ```py
@@ -437,7 +437,6 @@ chat = [
 
 # add_generation_prompt=False is generally only used in training, not inference
 inputs = tokenizer.apply_chat_template(chat, add_generation_prompt=False)
-    
 ```
 
 You can feel free to include **thinking** keys in previous turns, or when you’re doing inference rather than training, but they will generally be ignored. The chat template will only ever include the most recent chain of thought, and only in training (when `add_generation_prompt=False` and the final turn is an assistant turn).
@@ -471,12 +470,12 @@ GPT OSS supports two kinds of tools: The “builtin” tools **browser** and **p
 
 ```py
 def get_current_weather(location: str):
-"""
+    """
     Returns the current weather status at a given location as a string.
 
     Args:
         location: The location to get the weather for.
-"""
+    """
     return "Terrestrial."  # We never said this was a good weather tool
 
 chat = [
@@ -490,7 +489,6 @@ inputs = tokenizer.apply_chat_template(
     add_generation_prompt=True,
     return_tensors="pt"
 )
-
 ```
 
 If the model chooses to call a tool (indicated by a message ending in `<|call|>`), then you should add the tool call to the chat, call the tool, then add the tool result to the chat and generate again:
