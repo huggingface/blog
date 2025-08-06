@@ -63,7 +63,9 @@ and how they interact to minimise communication overhead across devices. In this
 
 Data parallelism (DP) is the most common technique for training models across multiple GPUs, and involves replicating the model, gradients and optimizer states across each device, whilst evenly distributing data batches between GPUs, and synchronising gradients across devices before updating parameters. This can significantly increase throughput compared to single-device training, but requires that your model is able to fit on a single GPU. 
 
-We can control the number of replicas of the model with the `dp_replicate_size` parameter in Accelerate or config field in Axolotl. It's worth noting that DP is a *top-most-level* parallelism strategy, meaning that if we use `dp_replicate_size=2` and we compose it with other parallelism strategies, there would be 2 replicas of the model, each also influenced by the other parallelism strategies. For example, if we use `dp_replicate_size=2` and `tp_size=2`, we would have 2 replicas of the model, each with 2 tensor parallel shards, but more on that later.
+We can control the number of replicas of the model with the `dp_replicate_size` parameter in Accelerate or config field in Axolotl. It's worth noting that DP is a *top-most-level* parallelism strategy, meaning that if we use `dp_replicate_size=2` and we compose it with other parallelism strategies, there would be 2 replicas of the model, each also influenced by the other parallelism strategies. For example, if we use `dp_replicate_size=2` and `tp_size=2`, we would have 2 replicas of the model, each with 2 tensor parallel shards*, but more on that later.
+
+*We use the term *shard* to describe data on a single device which is a partition of a larger piece of data.
 
 ## Fully Sharded Data Parallelism
 
@@ -83,7 +85,7 @@ When using FSDP across multiple nodes, we treat the entire set of devices across
 
 ## Tensor Parallelism
 
-Tensor Parallel (TP) is a kind of model parallelism technique, where shards of the model permanently live on separate devices, and in contrast to data parallel techniques, each device receives an identical batch of data. TP works by distributing the computation of linear layers across devices, so each device only computes a portion of the matrix multiplication. This technique works best when there are large linear layers, such as the feed-forward layers in transformer models, which can be split across devices. We can also use TP on the `qkvo` projections in the attention layers, with almost no extra cost.
+Tensor Parallel (TP) is a kind of model parallelism technique, where shards of the model permanently live on separate devices, and in contrast to data parallel techniques, each device receives an identical batch of data. TP works by distributing the computation of linear layers across devices, so each device only computes a portion of the matrix multiplication. This technique works best when there are large linear layers, such as the feed-forward layers in transformer models, which can be split across devices. We can also use TP on the each of the query, key, value, and output projections in the attention layers with almost no extra communication cost.
 
 To achieve the best performance, parameters of consecutive layers can be distributed in a specific fashion, minimizing the required communication. When working with pairs of linear layers, we can split the first layer column-wise, and the subsequent layer row-wise, allowing us to compute the output with only a single all-reduce operation to combine the sharded outputs. 
 
@@ -100,8 +102,7 @@ Recently, reasoning capabilities in LLMs resulted in sequence lengths skyrocketi
 
 Since the attention operation in transformers scales quadratically with context length, this becomes impossible on a single GPU. For example, when fine-tuning a relatively small model such as Mistral-7B (which uses 32 attention heads), if we use a sequence length of 128k a single attention matrix will utilise 128k * 128k * 2 bytes * `num_heads=32` = ~32 GB * 32 = ~1TB!
 
-With context parallelism (CP), we can shard the inputs across sequence dimension, resulting in each GPU having smaller `qkv` matrices, thus
-computing only a portion of the attention matrix.
+With context parallelism (CP), we can shard the *inputs* across the sequence dimension, resulting in each GPU only processing a chunk of the full context. This results in each device only computing a smaller portion of the full, prohibitively large, attention matrix.
 
 How do we ensure the attention is computed correctly? Remember that we only need our shard of `q`, but we need the
 full `k` and `v` matrices to compute the attention. We can achieve this by using a technique called `ring-attention`,
@@ -114,8 +115,8 @@ which works as follows:
 6. Each GPU repeats this process until all shards of `k, v` have been received and processed.
 
 Accelerate enables this with the `accelerator.maybe_context_parallel` decorator, which is also showcased in 
-the [accelerate example](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py).
-You can also learn more about how it works and its limitations in our [concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism).
+the Accelerate [example scrimpt](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py).
+You can also learn more about how it works and its limitations in our [CP concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism).
 
 
 > [!TIP]
