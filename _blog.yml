@@ -6488,12 +6488,12 @@
     - community
     
  - local: trl-vlm-alignment.md
-  title: "Vision Language Model Alignment in TRL ⚡️"
-  author: qgallouedec
-  thumbnail: /blog/assets/trl_vlm/thumbnail.png
-  date: Aug 7, 2025
-  tags:
-    - trl
-    - vlm
-    - vision
+   title: "Vision Language Model Alignment in TRL ⚡️"
+   author: qgallouedec
+   thumbnail: /blog/assets/trl_vlm/thumbnail.png
+   date: Aug 7, 2025
+   tags:
+     - trl
+     - vlm
+     - vision
 
