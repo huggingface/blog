@@ -26,21 +26,33 @@ from transformers import AutoModelForCausalLM
 from accelerate import Accelerator
 from accelerate.parallelism_config import ParallelismConfig
 
+# configure your desired parallelisms here - this particular configuration requires at least 2 nodes with 8 GPUs each. 
+# setting any parallelism degree to 1 disables it i.e. dp_replicate_size=1 disables DP.
 pc = ParallelismConfig(
-    dp_shard_size=2,
-    dp_replicate_size=2,
-    cp_size=2,
-    tp_size=2,
+    dp_shard_size=2, # Fully Sharded Data Parallel degree
+    dp_replicate_size=2, # Data Parallel degree
+    cp_size=2, # Context Parallel degree
+    tp_size=2, # Tensor Parallel degree
 )
 
+# when using tensor parallel, you must ensure your Accelerator object is instantiated *before* 
+# your model
 accelerator = Accelerator(
     parallelism_config=pc,
 )
-model = AutoModelForCausalLM.from_pretrained("your-model-name", tp_size=pc.tp_size, device_mesh=accelerator.torch_device_mesh)
+
+model = AutoModelForCausalLM.from_pretrained(
+  "your-model-name", 
+  device_mesh=accelerator.torch_device_mesh
+)
+
+# alternatively, if pc.tp_size == 1 (tensor parallelism is disabled) the following will suffice
+# model = AutoModelForCausalLM.from_pretrained("your-model-name")
+
 model = accelerator.prepare(model)
 ```
 
-To get up and running quickly, you can check the examples in the [accelerate repository](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py). 
+We've also included a more comprehensive end-to-end [training script](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py) in the Accelerate repo which also demonstrates how to setup your dataloader, optimizer, and training loop, and how to save your model after training.
 
 Additionally, to compose a variety of fine-tuning techniques and further streamline fine-tuning models at scale, we've integrated this technique into Axolotl. To get started right away, we've also tested some [example configs]() which you can quickly modify to suit your needs:
 
@@ -115,8 +127,8 @@ When using FSDP across multiple nodes, we treat the entire set of devices across
 ## Tensor Parallelism
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/accelerate-nd-parallel/tp.png" alt="Diagram for Fully Sharded Data Parallel">
-  <figcaption> Fully Sharded Data Parallel evenly divides each of the model's parameters across each device, and, like DDP, evenly divides the data into sub-batches for each device. To complete a forward and backwards pass, FSDP must <i>gather</i> the weights of each parameter before the forwards/backwards pass so that each device obtains a full copy of the parameter. (<b><i>Source: <a href="https://martynassubonis.substack.com/p/tensor-and-fully-sharded-data-parallelism">Martynas Šubonis</i></b></a>).
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/accelerate-nd-parallel/tp.png" alt="Diagram for Tensor Parallel">
+  <figcaption> Tensor Parallelism splits large linear layers across devices, typically using column-wise sharding for the first layer and row-wise sharding for the subsequent layer. This approach requires only a single AllReduce communication operation to combine the sharded outputs, minimizing communication overhead while distributing both memory and compute across devices within a node.
  </figcaption>
 </figure>
 
@@ -161,7 +173,7 @@ When we shard the inputs across devices, the resulting  $Q$, $K$, and $V$ matric
 - GPU 0 computes $Q_{1:n/W}$, $K_{1:n/W}$, $V_{1:n/W}$
 - GPU 1 computes $Q_{n/W+1:2n/W}$, $K_{n/W+1:2n/W}$, $V_{n/W+1:2n/W}$
 - ...
-- GPU $W-1$ computes $Q_{(W-1)n/W+1:n}$, $K_{(W-1)n/W+1:n}$, $V_{(W-1)n/W+1:n}$
+- GPU ($W-1$) computes $Q_{(W-1)n/W+1:n}$, $K_{(W-1)n/W+1:n}$, $V_{(W-1)n/W+1:n}$
 
 How do we ensure the attention is computed correctly? As established above, each device only needs its own shard of $Q$, but requires the full $K$ and $V$ matrices to compute the attention correctly. We can achieve this by using a technique called [RingAttention](https://openreview.net/forum?id=WsRHpHH4s0), which works as follows:
 1. Initially, each GPU holds its shard of $Q$, $K$, $V$ (e.g., GPU 0 holds $Q_{1:n/W}$, $K_{1:n/W}$,
@@ -176,9 +188,11 @@ the received $K$, $V$ shards.
   attention matrices $A_{i,*}$ have been computed.
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/accelerate-nd-parallel/cp.png" alt="Diagram for Fully Sharded Data Parallel">
-  <figcaption> Fully Sharded Data Parallel evenly divides each of the model's parameters across each device, and, like DDP, evenly divides the data into sub-batches for each device. To complete a forward and backwards pass, FSDP must <i>gather</i> the weights of each parameter before the forwards/backwards pass so that each device obtains a full copy of the parameter. (<b><i>Source: <a href="https://martynassubonis.substack.com/p/tensor-and-fully-sharded-data-parallelism">Martynas Šubonis</i></b></a>).
- </figcaption>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/accelerate-nd-parallel/cp.png" alt="Diagram for Context Parallel">
+  <figcaption>  Context Parallelism shards the input sequence across GPUs, with each device holding queries and key-value pairs for its assigned segment. Ring-attention circulates K,V shards between GPUs
+  (shown by the arrows), allowing each query to compute attention scores against keys and values
+  from the entire sequence. The final attention output combines information from all sequence
+  positions while distributing memory and compute across devices. </figcaption>
 </figure>
 
 
