@@ -34,17 +34,17 @@ In AI Sheets, new columns are created by writing prompts, and you can iterate as
 
 You can use AI Sheets to:
 
-**Compare and vibe test models.** Imagine you want to test the latest models on your data. You can import a dataset with prompts/questions, and create several columns (one per model) with a prompt like this: `Answer the following: {{prompt}}`. You can validate the results manually or create a new column with an LLM as a judge prompt like this: `Evaluate the responses to the following question: {{prompt}}. Response 1: {{model1}}. Response 2: {{model2}}`. 
+**Compare and vibe test models.** Imagine you want to test the latest models on your data. You can import a dataset with prompts/questions, and create several columns (one per model) with a prompt like this: `Answer the following: {{prompt}}`, where `prompt` is a column in your dataset. You can validate the results manually or create a new column with an LLM as a judge prompt like this: `Evaluate the responses to the following question: {{prompt}}. Response 1: {{model1}}. Response 2: {{model2}}`, where `model1` and `model2` are columns in your dataset with different model responses.
 
-**Transform a dataset.** Imagine you want to clean up a column of your dataset. You can add a new column with a prompt like this: `Remove extra punctuation marks from the following text: {{text}}`.
+**Transform a dataset.** Imagine you want to clean up a column of your dataset. You can add a new column with a prompt like this: `Remove extra punctuation marks from the following text: {{text}}`, where `text` is a column in your dataset containing the texts you want to clean up.
 
-**Classify a dataset.** Imagine you want to classify some content in your dataset. You can add a new column with a prompt like this: `Categorize the following text: {{text}}`. 
+**Classify a dataset.** Imagine you want to classify some content in your dataset. You can add a new column with a prompt like this: `Categorize the following text: {{text}}`, where `text` is a column in your dataset containing the texts you want to categorize.
 
-**Analyze a dataset.** Imagine you want to extract the main ideas in your dataset. You can add a new column with a prompt like this: `Extract the most important ideas from the following: {{text}}`.
+**Analyze a dataset.** Imagine you want to extract the main ideas in your dataset. You can add a new column with a prompt like this: `Extract the most important ideas from the following: {{text}}`, where `text` is a column in your dataset containing the texts you want to analyze.
 
 **Enrich a dataset.** Imagine you have a dataset with addresses that are missing zip codes. You can add a new column with a prompt like this: `Find the zip code of the following address: {{address}}` (in this case, you must enable the "Search the web" option to ensure accurate results).
 
-**Generate a synthetic dataset.** Imagine you need a dataset with realistic emails, but the data is not available for data privacy reasons. You can create a dataset with a prompt like this: `Write a short description of a professional in the field of pharma companies`, and then a prompt like this `Write a realistic professional email as it was written by the following person: {{person\_bio}}`.
+**Generate a synthetic dataset.** Imagine you need a dataset with realistic emails, but the data is not available for data privacy reasons. You can create a dataset with a prompt like this: `Write a short description of a professional in the field of pharma companies` and name the column `person_bio`. Then you can create another column with a prompt like this `Write a realistic professional email as it was written by the following person: {{person_bio}}`.
 
 Now let’s dive into how to use it\!
 
