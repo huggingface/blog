@@ -217,7 +217,7 @@ Below, you can find a compilation of resources to explore the alignment of VLMs 
 - [**Open-R1**](https://github.com/huggingface/open-r1) **repository** and [**Open-R1 reward functions**](https://github.com/huggingface/open-r1/blob/main/src/open_r1/rewards.py)
 - [**TRL documentation**](https://huggingface.co/docs/trl/en/index) and [**TRL repository**](https://github.com/huggingface/trl)
 - [**MPO VLM recipe**](https://huggingface.co/learn/cookbook/fine_tuning_vlm_mpo)
-- [**GRPO VLM recipe**](https://github.com/huggingface/cookbook/pull/312)
+- [**GRPO VLM recipe**](https://huggingface.co/learn/cookbook/fine_tuning_vlm_grpo_trl)
 - [**More multimodal alignment recipes**](https://huggingface.co/learn/cookbook/index)
 - [**TRL multimodal training scripts**](https://github.com/huggingface/trl/tree/main/examples/scripts)
 - [**vLLM Integration in trl docs**](https://huggingface.co/docs/trl/en/vllm_integration)
