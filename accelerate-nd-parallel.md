@@ -156,7 +156,7 @@ the received $K$, $V$ shards.
 6. Each GPU repeats this process until all shards of $K$, $V$ have been received and all partial
   attention matrices $A_{i,*}$ have been computed.
 
-Accelerate enables this with the `accelerator.maybe_context_parallel` decorator, which is also showcased in the Accelerate [example script](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py). You can also learn more about how it works and its limitations in our [CP concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism).
+Accelerate enables this with the [`accelerator.maybe_context_parallel`](https://huggingface.co/docs/accelerate/v1.10.0/en/package_reference/accelerator#accelerate.Accelerator.maybe_context_parallel) decorator, which is also showcased in the Accelerate [example script](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py). You can also learn more about how it works and its limitations in our [CP concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism).
 
 
 > [!TIP]
