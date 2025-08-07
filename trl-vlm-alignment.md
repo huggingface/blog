@@ -206,7 +206,7 @@ One more tip: we have added support for using vLLM with transformers backend in 
 
 You can read more about vLLM integration in TRL [here](https://huggingface.co/docs/trl/en/vllm_integration).
 
-### Useful Resources
+## Useful Resources
 
 Below, you can find a compilation of resources to explore the alignment of VLMs in detail. Enjoy!
 
