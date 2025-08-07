@@ -6487,7 +6487,7 @@
     - LLM
     - community
     
-- local: trl-vlm-alignment.md
+- local: trl-vlm-alignment
   title: "Vision Language Model Alignment in TRL ⚡️"
   author: qgallouedec
   thumbnail: /blog/assets/trl_vlm/thumbnail.png
