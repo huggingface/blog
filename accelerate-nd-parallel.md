@@ -253,7 +253,7 @@ With a sufficiently large world size (note: while the minimum world size for 3D 
 
 There are additional ways to combine multiple parallelisms which we haven't covered, such as 4D parallel using HSDP + TP + CP, but they operate very similarly to the techniques we've already covered. Most of all, we encourage you to play with different techniques and configurations - this is the best way to gain an intuition for the different ways in which you can make memory/throughput trade-offs.
 
-We've also included some additional tips you may find useful when working in distributed settings:
+Below are some additional tips you may find useful when working in distributed settings:
 - When using FSDP and working with models that are too large to fit in a single GPU, enabling both CPU RAM efficient loading and sharded state dict checkpointing technique is crucial. You can enable this through the`cpu_ram_efficient_loading` and `state_dict_type` parameters in Accelerate's [`FullyShardedDataParallelPlugin`](https://huggingface.co/docs/accelerate/v1.10.0/en/package_reference/utilities#accelerate.FullyShardedDataParallelPlugin), 
   ```python
   fsdp2_plugin = FullyShardedDataParallelPlugin(
@@ -264,13 +264,19 @@ We've also included some additional tips you may find useful when working in dis
       cpu_ram_efficient_loading=True
   )
   ``` 
-or through the `cpu_ram_efficient_loading` config field inside your `fsdp_config` in Axolotl:
-  ```yaml
-  fsdp_version: 2
-  fsdp_config:
-    auto_wrap_policy: TRANSFORMER_BASED_WRAP
-    transformer_layer_cls_to_wrap: LlamaDecoderLayer
-    state_dict_type: SHARDED_STATE_DICT
-    cpu_ram_efficient_loading: True
-  ```
+  or through the `cpu_ram_efficient_loading` and `state_dict_type` config fields inside the `fsdp_config` in Axolotl:
+    ```yaml
+    fsdp_version: 2
+    fsdp_config:
+      auto_wrap_policy: TRANSFORMER_BASED_WRAP
+      transformer_layer_cls_to_wrap: LlamaDecoderLayer
+      state_dict_type: SHARDED_STATE_DICT
+      cpu_ram_efficient_loading: True
+    ```
+- The total batch sized used during training plays an important factor in training stability, memory usage, and data throughput. When using DP and/or FSDP the effective batch size is calculated as 
+
+  `effective_batch_size = micro_batch_size ×
+  gradient_accumulation_steps × dp_world_size`. 
+
+  where `dp_world_size=(dp_shard_size * dp_replicate_size) / tp_size`. You can increase your batch size by increasing your total micro batch size or gradient accumulation steps in your training loop, or setting the `micro_batch_size` and `gradient_accumulation_steps` config fields in Axolotl, or increasing the total `dp_world_size` by adding more GPUs. As we mentioned above, this imposes a *minimum* total batch size of `dp_world_size` - when using pure DP/FSDP, this will be your total world size, and if this is too high the only way to decrease the total batch size is by introducing tensor parallelism. Finally, with a fixed number of GPUs and in memory-constrained scenarios, we recommend increasing `gradient_accumulation_steps` instead of `micro_batch_size` to achieve larger effective batch sizes, and vice-versa.
 - 
