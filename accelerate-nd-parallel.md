@@ -77,7 +77,7 @@ context_parallel_size: 2
 tensor_parallel_size: 2
 ```
 
-We've made it easy to configure the degrees of different parallelism strategies and how they are combined through the `ParallelismConfig` class in Accelerate, or through config fields in Axolotl, but how do we know which configuration will work best for our use case? As we scale to training models with 10s or even 100s of billions of parameters, the primary challenge comes from understanding the different parallelism strategies and how they interact to minimise communication overhead across devices. In this post, we'll walk through how the different parallelism strategies work, and when and how you might want to compose them. 
+We've made it easy to configure the degrees of different parallelism strategies and how they are combined through the [`ParallelismConfig`](https://github.com/huggingface/accelerate/blob/v1.10.0/src/accelerate/parallelism_config.py) class in Accelerate, or through config fields in Axolotl, but how do we know which configuration will work best for our use case? As we scale to training models with 10s or even 100s of billions of parameters, the primary challenge comes from understanding the different parallelism strategies and how they interact to minimise communication overhead across devices. In this post, we'll walk through how the different parallelism strategies work, and when and how you might want to compose them. 
 
 ## Contents
 
@@ -240,7 +240,7 @@ As we mentioned earlier, TP should be applied within a node to utilize the high-
 
 ### Fully Sharded Data Parallelism + Context Parallelism 
 
-This is a 2D parallelism strategy that combines FSDP and CP, it's not very commonly used, as CP already combines with FSDP (more on why in the [accelerate concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism)), but it can be useful in some cases i.e. when requiring a large sequence length, consequently requiring a large `cp_size`. If this still doesn't fit into your memory budget, you can apply FSDP on top of this, further reducing the memory usage.
+This is a 2D parallelism strategy that combines FSDP and CP, and while this is not very commonly used as CP already combines with FSDP (more on why in the [accelerate concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism)), it can be useful in some cases i.e. when requiring a large sequence length, consequently requiring a large `cp_size`. If this still doesn't fit into your memory budget, you can apply FSDP on top of this, further reducing the memory usage.
 
 > [!TIP]
 > In Accelerate you can combine CP and FSDP by defining both `dp_shard_size` and `cp_size` in `ParallelismConfig`, whilst in Axolotl you can add both of the `dp_shard_size` and `context_parallel_size` config fields.
