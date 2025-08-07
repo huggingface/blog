@@ -1,6 +1,6 @@
 ---
 title: "Introducing AI Sheets: a tool to work with datasets using open AI models!"
-thumbnail:/blog/assets/aisheets/thumbnail-aisheets.gif
+thumbnail: https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/MeN-bF32JJvJhP-QY-0Eo.gif
 authors:
 - user: dvilasuero
 - user: Ameeeee
