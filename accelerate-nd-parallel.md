@@ -36,7 +36,7 @@ pc = ParallelismConfig(
     tp_size=2, # Tensor Parallel degree
 )
 
-fsdp2_plugin = FullyShardedDataParallelPlugin(
+fsdp_plugin = FullyShardedDataParallelPlugin(
     fsdp_version=2,
     auto_wrap_policy="transformer_based_wrap",
     transformer_cls_names_to_wrap=["LlamaDecoderLayer"],
@@ -45,6 +45,7 @@ fsdp2_plugin = FullyShardedDataParallelPlugin(
 
 accelerator = Accelerator(
     parallelism_config=pc,
+    fsdp_plugin=fsdp2_plugin
 )
 
 model = AutoModelForCausalLM.from_pretrained(
