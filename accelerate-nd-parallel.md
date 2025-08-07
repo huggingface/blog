@@ -58,7 +58,7 @@ model = accelerator.prepare(model)
 
 We've also included a more comprehensive end-to-end [training script](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py) in the Accelerate repo which demonstrates how to setup your dataloader, optimizer, and training loop, and how to save your model after training.
 
-Additionally, to compose a variety of fine-tuning techniques and further streamline fine-tuning models at scale, we've integrated this technique into Axolotl. To get started right away, we've also tested some [example configs]() which you can quickly modify to suit your needs:
+To further streamline fine-tuning models at scale and compose parallelism strategies with a variety of fine-tuning techniques, we've also integrated this technique into Axolotl. To help you get started right away we've tested some [example configs]() which you can modify to suit your needs:
 
 ```bash
 axolotl train examples/nd_parallel/*.yaml
