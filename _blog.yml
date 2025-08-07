@@ -6284,7 +6284,7 @@
     - llm
 
 - local: mi300kernels
-  title: "Creating custom kernels for the AMD MI300" 
+  title: "Creating custom kernels for the AMD MI300"
   author: ror
   thumbnail: /blog/assets/mi300kernels/thumbnail.png
   date: Jul 9, 2025
@@ -6316,7 +6316,6 @@
     - gradio
     - multimodal
 
-
 - local: screenenv
   title: "ScreenEnv: Deploy your full stack Desktop Agent"
   author: A-Mahla
@@ -6340,7 +6339,6 @@
     - models
     - open-source
 
-
 - local: migrating-the-hub-to-xet
   title: "Migrating the Hub from Git LFS to Xet"
   author: jsulz
@@ -6361,7 +6359,7 @@
     - nlp
     - community
     - research
-    - open-source-collab 
+    - open-source-collab
 
 - local: gradio-mcp-updates
   title: "Five Big Improvements to Gradio MCP Servers"
@@ -6397,16 +6395,16 @@
     - gradio
     - mcp
 
-- local: virtual-cell-challenge 
+- local: virtual-cell-challenge
   title: "Arc Virtual Cell Challenge: A Primer"
   thumbnail: /blog/assets/virtual-cell-challenge/thumbnail.png
-  author: FL33TW00D-HF 
+  author: FL33TW00D-HF
   date: July 18, 2025
   tags:
     - collaboration
     - guide
 
-- local: lora-fast 
+- local: lora-fast
   title: "Fast LoRA inference for Flux with Diffusers and PEFT"
   thumbnail: /blog/assets/lora-fast/thumbnail.png
   author: sayakpaul
@@ -6427,7 +6425,7 @@
     - multimodal
     - open-source
     - benchmark
-    
+
 - local: parquet-cdc
   title: "Parquet Content-Defined Chunking"
   author: kszucs
@@ -6485,3 +6483,18 @@
     - open-source
     - LLM
     - community
+
+- local: filbench
+  title: "🇵🇭 FilBench - Can LLMs Understand and Generate Filipino?"
+  author: ljvmiranda921
+  thumbnail: /blog/assets/filbench/thumbnail.png
+  date: Aug 12, 2025
+  tags:
+    - open-source
+    - LLM
+    - community
+    - evaluation
+    - filipino
+    - tagalog
+    - cebuano
+    - philippines
