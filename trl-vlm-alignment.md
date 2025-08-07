@@ -72,7 +72,7 @@ mpo_trainer = DPOTrainer(
 mpo_trainer.train()
 ```
 
-And that’s it! 
+And that’s it! If you want to explore further, you can find a complete notebook example [here](https://huggingface.co/learn/cookbook/fine_tuning_vlm_mpo).
 
 ### Multimodal Group Relative Policy Optimization (GRPO)
 
