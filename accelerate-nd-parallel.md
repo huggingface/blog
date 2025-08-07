@@ -61,7 +61,13 @@ and how they interact to minimise communication overhead across devices. In this
 
 ## Data Parallelism 
 
-![DP](/assets/accelerate-nd-parallel/dp.png.webp "Credit to [Martynas Šubonis](https://martynassubonis.substack.com/p/tensor-and-fully-sharded-data-parallelism) for the above diagram.")
+
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/axolotl-ai-co/accelerate_nd_parallel_figures/resolve/main/dp.png.webp" alt="Diagram for Data Parallel">
+  <figcaption> Distributed Data Parallel replicates the entire model across each device, and evenly divides the data into sub-batches for each device.(<b><i>Source: <a href="https://martynassubonis.substack.com/p/tensor-and-fully-sharded-data-parallelism">Martynas Šubonis</i></b></a>).
+ </figcaption>
+</figure>
+"
 
 Data parallelism (DP) is the most common technique for training models across multiple GPUs, and involves replicating the model, gradients and optimizer states across each device, whilst evenly distributing data batches between GPUs, and synchronising gradients across devices before updating parameters. This can significantly increase throughput compared to single-device training, but requires that your model is able to fit on a single GPU. 
 
