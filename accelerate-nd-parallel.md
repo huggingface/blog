@@ -9,6 +9,7 @@ authors:
 - user: winglian
   guest: true
   org: axolotl-ai-co
+- user: marcsun13
 - user: djsaunde
   guest: true
   org: axolotl-ai-co
@@ -17,8 +18,7 @@ authors:
 # Accelerate ND-Parallel: A guide to Efficient Multi-GPU Training
 
 Training large models on multiple GPUs can be challenging due to the complexities of different parallelism strategies.
-In Accelerate, together with [Axolotl](https://huggingface.co/axolotl-ai-co), we have integrated a quick and easy way
-to use any combination of parallelism strategies in your training script!
+In Accelerate, together with [Axolotl](https://github.com/axolotl-ai-cloud/axolotl/), we have integrated a quick and easy way to use any combination of parallelism strategies in your training script!
 
 Here is how to add it to your training script:
 
@@ -53,11 +53,13 @@ context_parallel_size: 2
 tensor_parallel_size: 2
 ```
 
-We've made it easy to define configure the degrees of different parallelism strategies and how they are combined through the `ParallelismConfig` class, but how do we know which configuration will work best for our use case? As we scale to training models with 10s or even 100s of billions of parameters, the primary challenge comes from understanding the different parallelism strategies
-and how they interact to minimise communication overhead across devices. In this post, we'll walk through how the different parallelism strategies work, and when and how you might want to compose them. 
+We've made it easy to define configure the degrees of different parallelism strategies and how they are combined through the `ParallelismConfig` class in Accelerate, or through config fields in Axolotl, but how do we know which configuration will work best for our use case? As we scale to training models with 10s or even 100s of billions of parameters, the primary challenge comes from understanding the different parallelism strategies and how they interact to minimise communication overhead across devices. In this post, we'll walk through how the different parallelism strategies work, and when and how you might want to compose them. 
 
 ## Contents
 
+- [Distributed Data Parallelism](#data-parallelism)
+- [Fully Sharded Data Parallelism](#fully-sharded-data-parallelism)
+- [Tensor Parallelism](#tensor-parallelism)
 
 ## Data Parallelism 
 
@@ -117,21 +119,44 @@ Recently, reasoning capabilities in LLMs resulted in sequence lengths skyrocketi
 
 Since the attention operation in transformers scales quadratically with context length, this becomes impossible on a single GPU. For example, when fine-tuning a relatively small model such as Mistral-7B (which uses 32 attention heads), if we use a sequence length of 128k a single attention matrix will utilise 128k * 128k * 2 bytes * `num_heads=32` = ~32 GB * 32 = ~1TB of activations memory! Whilst this example is not realistic when using optimised attention implementations such as FlashAttention, it helps illustrate the growth in memory requirements from increasing context length.
 
-With context parallelism (CP), we can shard the *inputs* across the sequence dimension, resulting in each GPU only processing a chunk of the full context. This results in each device only computing a smaller portion of the full, prohibitively large, attention matrix.
+With context parallelism (CP), we can shard the *inputs* across the sequence dimension, resulting in each GPU only processing a chunk of the full context and computing a smaller portion of the full, prohibitively large, attention matrix. To see how this works, recall that the attention computation is described by the equation:
 
-How do we ensure the attention is computed correctly? Remember that we only need our shard of `q`, but we need the
-full `k` and `v` matrices to compute the attention. We can achieve this by using a technique called `ring-attention`,
-which works as follows:
-1. Each GPU holds its shard of `q, k, v`.
-2. Each GPU computes the partial attention matrix for its shard of `q` and its shards of `k, v`.
-3. Each GPU sends its shard of `k, v` to the next GPU in the ring.
-4. Each GPU receives the shard of `k, v` from the previous GPU in the ring.
-5. Each GPU computes another part of the local attention matrix using the received `k, v` shards.
-6. Each GPU repeats this process until all shards of `k, v` have been received and processed.
+$$\text{Attention}(Q, K, V) = \text{softmax}(QK^T)V$$
 
-Accelerate enables this with the `accelerator.maybe_context_parallel` decorator, which is also showcased in 
-the Accelerate [example scrimpt](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py).
-You can also learn more about how it works and its limitations in our [CP concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism).
+Where $Q$, $K$, and $V$ are the query, key, and value matrices respectively. Each query vector (row, or input embedding) of $Q$ must compute the attention scores against *every* key vector of $K$ in the entire sequence to correctly apply the softmax normalisation. These attention scores are then weighted with *all* value vectors in $V$. 
+
+The crucial detail here lies in the fact that each row in $Q$ can compute its attention score independently of one another, but each query vector still requires the full $K$ and $V$ matrices. In other words, given an input with sequence length $n$, we can expand our above attention equation as:
+
+$$\begin{align}
+\text{Attention}(Q, K, V)_1 &= \text{softmax}(Q_1 K^T) V \\
+\text{Attention}(Q, K, V)_2 &= \text{softmax}(Q_2 K^T) V \\
+&\vdots \\
+\text{Attention}(Q, K, V)_n &= \text{softmax}(Q_n K^T) V
+\end{align}$$
+
+where we denote each row of the query matrix as $Q_1, Q_2, ..., Q_n$. This can be generalized as:
+$$\text{Attention}(Q, K, V)_i = \text{softmax}(Q_i K^T) V \quad \forall i \in \{1, 2, ..., n\}$$
+
+When we shard the inputs across devices, the resulting  $Q$, $K$, and $V$ matrices (computed from these input shards) are also automatically sharded along the sequence dimension - each GPU computes queries, keys, and values only for its portion of the sequence. For example, with a world size of $W$ GPUs and sequence length $n$:
+
+- GPU 0 computes $Q_{1:n/W}$, $K_{1:n/W}$, $V_{1:n/W}$
+- GPU 1 computes $Q_{n/W+1:2n/W}$, $K_{n/W+1:2n/W}$, $V_{n/W+1:2n/W}$
+- ...
+- GPU $W-1$ computes $Q_{(W-1)n/W+1:n}$, $K_{(W-1)n/W+1:n}$, $V_{(W-1)n/W+1:n}$
+
+How do we ensure the attention is computed correctly? As established above, each device only needs its own shard of $Q$, but requires the full $K$ and $V$ matrices to compute the attention correctly. We can achieve this by using a technique called [RingAttention](https://openreview.net/forum?id=WsRHpHH4s0), which works as follows:
+1. Initially, each GPU holds its shard of $Q$, $K$, $V$ (e.g., GPU 0 holds $Q_{1:n/W}$, $K_{1:n/W}$,
+$V_{1:n/W}$).
+2. Each GPU then computes a partial attention matrix $A_{i,j}$ for its shard of $Q_i$ and its local
+shard of $K_j$, $V_j$.
+3. Each GPU sends its shard of $K$, $V$ to the next GPU in the ring.
+4. Each GPU receives a different shard of $K$, $V$ from the previous GPU in the ring.
+5. Each GPU computes additional partial attention matrices $A_{i,j+1}$, $A_{i,j+2}$, etc. using
+the received $K$, $V$ shards.
+6. Each GPU repeats this process until all shards of $K$, $V$ have been received and all partial
+  attention matrices $A_{i,*}$ have been computed.
+
+Accelerate enables this with the `accelerator.maybe_context_parallel` decorator, which is also showcased in the Accelerate [example script](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py). You can also learn more about how it works and its limitations in our [CP concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism).
 
 
 > [!TIP]
