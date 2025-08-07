@@ -89,7 +89,7 @@ from math_verify import LatexExtractionConfig, parse, verify
 
 def format_reward(completions, **kwargs):
     """Reward function that checks if the completion has a specific format."""
-    pattern = r"^<think>.*?</think>\s*<answer>.*?</answer>$"
+    pattern = r"^<think>.*?</think>s*<answer>.*?</answer>$"
     matches = [re.match(pattern, content) for content in completions]
     rewards_list = [1.0 if match else 0.0 for match in matches]
     rewards = [1.0 if match else 0.0 for match in matches]
@@ -162,7 +162,23 @@ training_args = GRPOConfig(
 
 Here's a table summarizing model outputs for Qwen2.5VL-3B fine-tuned with below techniques. Note that we've done minimal runs on dataset subsets, and the models were fine-tuned on different datasets, so the comparison is made for vibe-check.
 
-TODO: Add comparison 
+<details><summary>Check out the answers here</summary>
+
+**Image:** ![Image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/vlm_math_question.png)
+
+**Question:** In the given figure, if the angle APO is 25.0 degrees, what is the measure of angle AOB? Choices: A: 140° B: 130° C: 120° D: 110°
+
+**Answer in the Dataset:** To find the measure of angle AOB, we can use the property that the sum of the interior angles of a quadrilateral is equal to 360 degrees. Applying this property, we can calculate angle AOB as 360 - angle OAP - angle OBP - angle P. Since angle OAP and angle OBP are both 90 degrees, and angle P is given as 50 degrees, we can substitute these values into the equation to get angle AOB = 360 - 90 - 90 - 50 = 130 degrees. Therefore, the measure of angle AOB is 130 degrees. Therefore, the answer is option B. Answer:B
+
+**Base Model Output:** To find the measure of angle AOB, we need to use the properties of angles subtended by the same arc in a circle. Specifically, the angle subtended by an arc at the center of the circle (angle AOB) is twice the angle subtended by the same arc at any point on the circumference (angle APO).Given that angle APO = 25°, we can calculate angle AOB as follows: Since angle AOB is twice angle APO, we have:[ Angle AOB = 2 * Angle APO ][ Angle AOB = 2 * 25° ][ Angle AOB = 50° ]However, this calculation seems incorrect based on the provided choices. Let's re-evaluate using the correct property.The correct property states that the angle subtended by an arc at the center of the circle is twice the angle subtended by the same arc at any point on the circumference. Therefore, the correct calculation should be: Angle AOB = 2 * Angle APO = 2 * 25° = 50°But since this does not match the given choices, let's consider another approach. If angle APO is 25°, and considering the properties of cyclic quadrilaterals or the fact that the sum of opposite angles in a cyclic quadrilateral is 180°, we might need to look at the supplementary angles formed by the arc and the chord.Let's assume the correct interpretation involves finding the supplementary angle to the given angle APO which would give us the measure of angle AOB. Angle AOB = 180° - Angle APO = 180° - 25° = 155°This still doesn't match the choices. Given the choices provided, it seems there might be a misunderstanding or a different interpretation needed. However, based on standard geometric principles, the correct answer should be: Angle AOB = 2 * Angle APO = 2 * 25° = 50° If this is not the case, please provide additional context or clarify the problem statement. 
+
+**MPO Output:** To find the measure of angle AOB, we need to use the properties of angles subtended by the same arc in a circle. Specifically, the angle subtended by an arc at the center of the circle (angle AOB) is twice the angle subtended by the same arc at any point on the circumference (angle APO).Given that angle APO = 25°, we can calculate angle AOB as follows: Since angle AOB is twice the angle APO, we have:[ Angle AOB = 2 * Angle APO ][ Angle AOB = 2 * 25° ][ Angle AOB = 50° ]However, this calculation seems incorrect based on the provided choices. Let's re-evaluate using the correct property.The correct property states that the angle subtended by an arc at the center of the circle is twice the angle subtended by the same arc at any point on the circumference. Therefore, the correct calculation should be: Angle AOB = 2 * Angle APO = 2 * 25° = 50°But since this does not match the given choices, let's consider another approach. If we look at the triangle OAP, angle AOP is 90° because it is a right angle (as it is inscribed in a semicircle). Now, angle APO is given as 25°, so angle AOA would be 65° (since it is supplementary to angle APO). Therefore, angle AOB would be half of this, which is 32.5°. However, this also doesn't match the choices.Let's consider the possibility that the problem might involve a different interpretation or a different geometric configuration. Given the choices, let's assume there might be a mistake in the problem statement or the choices themselves. If we were to choose from the given options, none of them seem to fit correctly based on standard geometric principles for this type of problem. 
+
+**GRPO Output**: To find the measure of angle AOB, we need to understand that angle AOB is an inscribed angle that intercepts the same arc as the central angle AOP. According to the Inscribed Angle Theorem, the measure of an inscribed angle is half the measure of the central angle that subtends the same arc.Given:- Angle APO = 25.0 degreesSince angle AOB is an inscribed angle intercepting the same arc as the central angle AOP, we can use the Inscribed Angle Theorem:The measure of angle AOB is half the measure of angle AOP.Therefore, the measure of angle AOB is 130 degrees.                                                                                                                                                                                                                                                                                                          |
+**GSPO Output:** To find the measure of angle AOB, we need to understand that angle AOB is an inscribed angle that intercepts the same arc as the central angle AOP. According to the Inscribed Angle Theorem, the measure of an inscribed angle is half the measure of the central angle that subtends the same arc.Given:- Angle APO = 25.0 degreesSince angle AOB is an inscribed angle that intercepts the same arc as the central angle AOP, we can use the Inscribed Angle Theorem to find the measure of angle AOB:The measure of angle AOB is half the measure of angle AOP.Therefore, the answer is B: 130°.                                                                                                                 
+
+</details>
+
 
 ## vLLM Integration in TRL
 
