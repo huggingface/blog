@@ -6497,7 +6497,7 @@
     - vlm
     - vision
     
-- local: introducing-huggingface-aisheets
+- local: aisheets
   title: "Introducing AI Sheets: a tool to work with datasets using open AI models!"
   author: dvilasuero
   thumbnail: /blog/assets/openai/openai-hf-thumbnail.png
