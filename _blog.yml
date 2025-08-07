@@ -6500,7 +6500,7 @@
 - local: aisheets
   title: "Introducing AI Sheets: a tool to work with datasets using open AI models!"
   author: dvilasuero
-  thumbnail: /blog/assets/openai/openai-hf-thumbnail.png
+  thumbnail: /blog/assets/aisheets/aisheets-thumb.gif
   date: Aug 11, 2025
   tags:
     - datasets

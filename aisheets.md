@@ -1,6 +1,6 @@
 ---
 title: "Introducing AI Sheets: a tool to work with datasets using open AI models!"
-thumbnail: https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/MeN-bF32JJvJhP-QY-0Eo.gif
+thumbnail: /blog/assets/aisheets/aisheets-thumb.gif
 authors:
 - user: dvilasuero
 - user: Ameeeee
@@ -171,7 +171,8 @@ Below is an example, comparing open frontier models for mini web apps. AI Sheet 
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/ArLkbk5trsp1CzehDw45N.png)
 
-Example dataset: https://huggingface.co/datasets/dvilasuero/jsvibes-qwen-gpt-oss-judged
+
+Example dataset exported from a session like the one we just described: : https://huggingface.co/datasets/dvilasuero/jsvibes-qwen-gpt-oss-judged
 
 Config:
 
@@ -224,7 +225,7 @@ A cool feature is that you can validate or edit manually the initial categorizat
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/fp7FE4wpCPP9zU48Cyd6S.png)
 
-Example dataset: 
+
 Config:
 ```yml
 columns:
@@ -287,6 +288,7 @@ columns:
 ### Evaluate models with LLMs-as-Judge 
 Another use case is evaluating the outputs of models using an LLM as a judge approach. This can be useful for comparing models or assessing the quality of an existing dataset, for example, fine-tuning a model on an existing dataset on the Hugging Face Hub.
 
+In the first example, we combined vibe testing with a judge LLM column. Here's the judge prompt:
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/uiP176LVIcfSKHC-RUH6r.png)
 
