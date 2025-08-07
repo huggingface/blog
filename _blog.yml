@@ -6485,3 +6485,15 @@
     - open-source
     - LLM
     - community
+
+- local: introducing-huggingface-aisheets
+  title: "Introducing AI Sheets: a tool to work with datasets using open AI models!"
+  author: dvilasuero
+  thumbnail: /blog/assets/openai/openai-hf-thumbnail.png
+  date: Aug 7, 2025
+  tags:
+    - datasets
+    - gpt-oss
+    - open-source
+    - LLM
+    - community
