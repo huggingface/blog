@@ -17,8 +17,7 @@ authors:
 
 # Accelerate ND-Parallel: A guide to Efficient Multi-GPU Training
 
-Training large models on multiple GPUs can be challenging due to the complexities of different parallelism strategies.
-In Accelerate, together with [Axolotl](https://github.com/axolotl-ai-cloud/axolotl/), we have integrated a quick and easy way to use any combination of parallelism strategies in your training script!
+Training large models across multiple GPUs can be challenging due to the complexities of different parallelism strategies. In Accelerate, together with [Axolotl](https://github.com/axolotl-ai-cloud/axolotl/), we have integrated a quick and easy way to use any combination of parallelism strategies in your training script!
 
 Here is how to add it to your training script:
 
@@ -41,14 +40,24 @@ model = AutoModelForCausalLM.from_pretrained("your-model-name", tp_size=pc.tp_si
 model = accelerator.prepare(model)
 ```
 
-To get up and running quickly, you can check the examples in the [accelerate repository](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py). Additionally, we've To compose a variety of fine-tuning techniques and further streamline fine-tuning models at scale, we've integrated this technique into Axolotl.  or their counterpart in [Axolotl](TODO)
+To get up and running quickly, you can check the examples in the [accelerate repository](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py). 
 
-Check out the [Axolotl ND-Parallelism docs](https://docs.axolotl.ai/docs/nd_parallelism.html) to get started in just a few minutes. 
+Additionally, to compose a variety of fine-tuning techniques and further streamline fine-tuning models at scale, we've integrated this technique into Axolotl. To get started right away, we've also tested some [example configs]() which you can quickly modify to suit your needs:
+
+```bash
+axolotl train examples/nd_parallel/*.yaml
+```
+
+You can also check out the [Axolotl ND-Parallelism docs](https://docs.axolotl.ai/docs/nd_parallelism.html) for more details - adding ND parallel techniques to your existing configs is as simple as adding one or more of the following fields to your config file:
 
 ```yaml
+# Fully Sharded Data Parallel degree (note: also requires the fsdp_config field)
 dp_shard_size: 2
+# Data Parallel degree
 dp_replicate_size: 2
+# Context Parallel Degree
 context_parallel_size: 2
+# Tensor Parallel Degree
 tensor_parallel_size: 2
 ```
 
@@ -70,7 +79,7 @@ We've made it easy to configure the degrees of different parallelism strategies 
 
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/axolotl-ai-co/accelerate_nd_parallel_figures/resolve/main/dp.png.webp" alt="Diagram for Data Parallel">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/accelerate-nd-parallel/dp.png" alt="Diagram for Data Parallel">
   <figcaption> Distributed Data Parallel replicates the entire model across each device, and evenly divides the data into sub-batches for each device. (<b><i>Source: <a href="https://martynassubonis.substack.com/p/tensor-and-fully-sharded-data-parallelism">Martynas Šubonis</i></b></a>).
  </figcaption>
 </figure>
@@ -83,9 +92,8 @@ We can control the number of replicas of the model with the `dp_replicate_size` 
 
 ## Fully Sharded Data Parallelism
 
-
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/axolotl-ai-co/accelerate_nd_parallel_figures/resolve/main/fsdp.png.webp" alt="Diagram for Fully Sharded Data Parallel">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/accelerate-nd-parallel/fsdp.png" alt="Diagram for Fully Sharded Data Parallel">
   <figcaption> Fully Sharded Data Parallel evenly divides each of the model's parameters across each device, and, like DDP, evenly divides the data into sub-batches for each device. To complete a forward and backwards pass, FSDP must <i>gather</i> the weights of each parameter before the forwards/backwards pass so that each device obtains a full copy of the parameter. (<b><i>Source: <a href="https://martynassubonis.substack.com/p/tensor-and-fully-sharded-data-parallelism">Martynas Šubonis</i></b></a>).
  </figcaption>
 </figure>
@@ -105,6 +113,12 @@ When using FSDP across multiple nodes, we treat the entire set of devices across
 
 
 ## Tensor Parallelism
+
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/accelerate-nd-parallel/tp.png" alt="Diagram for Fully Sharded Data Parallel">
+  <figcaption> Fully Sharded Data Parallel evenly divides each of the model's parameters across each device, and, like DDP, evenly divides the data into sub-batches for each device. To complete a forward and backwards pass, FSDP must <i>gather</i> the weights of each parameter before the forwards/backwards pass so that each device obtains a full copy of the parameter. (<b><i>Source: <a href="https://martynassubonis.substack.com/p/tensor-and-fully-sharded-data-parallelism">Martynas Šubonis</i></b></a>).
+ </figcaption>
+</figure>
 
 Tensor Parallel (TP) is a kind of model parallelism technique, where shards of the model permanently live on separate devices, and in contrast to data parallel techniques, each device receives an identical batch of data. TP works by distributing the computation of linear layers across devices, so each device only computes a portion of the matrix multiplication. This technique works best when there are large linear layers, such as the feed-forward layers in transformer models, which can be split across devices. We can also use TP on the each of the query, key, value, and output projections in the attention layers with almost no extra communication cost.
 
@@ -161,6 +175,13 @@ the received $K$, $V$ shards.
 6. Each GPU repeats this process until all shards of $K$, $V$ have been received and all partial
   attention matrices $A_{i,*}$ have been computed.
 
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/accelerate-nd-parallel/cp.png" alt="Diagram for Fully Sharded Data Parallel">
+  <figcaption> Fully Sharded Data Parallel evenly divides each of the model's parameters across each device, and, like DDP, evenly divides the data into sub-batches for each device. To complete a forward and backwards pass, FSDP must <i>gather</i> the weights of each parameter before the forwards/backwards pass so that each device obtains a full copy of the parameter. (<b><i>Source: <a href="https://martynassubonis.substack.com/p/tensor-and-fully-sharded-data-parallelism">Martynas Šubonis</i></b></a>).
+ </figcaption>
+</figure>
+
+
 Accelerate enables this with the [`accelerator.maybe_context_parallel`](https://huggingface.co/docs/accelerate/v1.10.0/en/package_reference/accelerator#accelerate.Accelerator.maybe_context_parallel) decorator, which is also showcased in the Accelerate [example script](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py). You can also learn more about how it works and its limitations in our [CP concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism).
 
 
@@ -179,7 +200,14 @@ To try and address some of these problems, we can think of multi-node clusters a
 
 ## Hybrid Sharded Data Parallelism
 
-Hybrid Sharded Data Parallelism (HSDP) is a kind of 2D parallelism which performs FSDP within a node, and DP across nodes - that is to say the model is replicated across each node, and sharded using FSDP within each node. This allows the greater communication overhead of FSDP to utilize the faster intra-node links, whilst DP minimises the slower inter-node communication overhead to a single gradient synchronisation step.
+
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/accelerate-nd-parallel/hsdp.png" alt="Diagram for Fully Sharded Data Parallel">
+  <figcaption> Fully Sharded Data Parallel evenly divides each of the model's parameters across each device, and, like DDP, evenly divides the data into sub-batches for each device. To complete a forward and backwards pass, FSDP must <i>gather</i> the weights of each parameter before the forwards/backwards pass so that each device obtains a full copy of the parameter. (<b><i>Source: <a href="https://martynassubonis.substack.com/p/tensor-and-fully-sharded-data-parallelism">Martynas Šubonis</i></b></a>).
+ </figcaption>
+</figure>
+
+Hybrid Sharded Data Parallelism (HSDP) is a kind of 2D parallelism which performs FSDP within a node, and DP across nodes - that is to say the model is replicated across each node, and sharded using FSDP within each node. This allows the greater communication overhead of FSDP to utilize the faster intra-node links, whilst DP minimises the slower inter-node communication overhead to a single gradient synchronisation step. You might consider this approach if you were facing problem 1 and wished to speed up training at the cost of increased memory usage.
 
 It’s important to note that we can freely configure the shape of our 2D network topology, as we aren’t constrained to the dimensions being aligned with physical node boundaries - you might apply FSDP across 2 nodes whilst replicating across groups of 2 nodes, which would result in lower memory usage but slower throughput, but still reduce the intra-node FSDP communication overhead by a factor of two. This is a knob we encourage you to tune to your specific hardware setup and fine-tuning needs.
 
@@ -199,7 +227,7 @@ This is a 2D parallelism strategy that combines FSDP and CP, it's not very commo
 
 ## Hybrid Sharded Data Parallelism + Tensor Parallelism (dp_replicate_size, dp_shard_size, tp_size)
 
-With a sufficiently large world size (note: while the minimum world size for 3D parallelism is 8, it is most effective at scale), we can consider combining HSDP with TP which creates a hierarchy where DP first replicates the model across groups of nodes, FSDP then shards the model within each group, and TP splits individual layers within each node. This is a very common strategy, providing good trade-offs between memory usage and throughput.
+With a sufficiently large world size (note: while the minimum world size for 3D parallelism is 8, it is most effective at a much scale), we can consider combining HSDP with TP which creates a hierarchy where DP first replicates the model across groups of nodes, FSDP then shards the model within each group, and TP splits individual layers within each node. You might consider this approach when facing all of the scaling constraints we mentioned above, as it provides the most flexibility to adapt to your specific training setup by making trade-offs between memory usage and throughput.
 
 ## Some notes:
 
