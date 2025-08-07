@@ -96,7 +96,7 @@ forward_confirmation = model(generated).logits.argmax(-1)
 
 # We exclude the opposing tips from each sequence: the forward pass returns
 # the logits for the next token, so it is shifted by one position.
-print(generated[:-1].tolist() == forward_confirmation[1:].tolist()) # True
+print(generated[0, 1:].tolist() == forward_confirmation[0, :-1].tolist())  # True
 ```
 
 这意味着你可以将模型前向传递用于不同的目的: 除了提供一些 token 来预测下一个标记外，你还可以将序列传递给模型并检查模型是否会生成相同的序列 (或部分相同序列)。

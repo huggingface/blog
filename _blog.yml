@@ -6473,11 +6473,34 @@
     - community
     - open-source
 
+- local: welcome-openai-gpt-oss
+  title: "Welcome GPT OSS, the new open-source model family from OpenAI!"
+  author: reach-vb
+  thumbnail: /blog/assets/openai/openai-hf-thumbnail.png
+  date: Aug 5, 2025
+  tags:
+    - openai
+    - gpt
+    - gpt-oss
+    - open-source
+    - LLM
+    - community
+    
+- local: trl-vlm-alignment
+  title: "Vision Language Model Alignment in TRL ⚡️"
+  author: sergiopaniego
+  thumbnail: /blog/assets/trl_vlm/thumbnail.png
+  date: Aug 7, 2025
+  tags:
+    - trl
+    - vlm
+    - vision
+
 - local: accelerate-nd-parallel
   title: "Accelerate ND-Parallel: A Guide to Efficient Multi-GPU Training"
   author: siro1
   thumbnail: /blog/assets/accelerate-nd-parallel/thumbnail.png
-  date: August 6, 2025
+  date: August 8, 2025
   tags:
     - transformers
     - llm
