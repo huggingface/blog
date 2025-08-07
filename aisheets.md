@@ -344,7 +344,7 @@ columns:
 ```
 
 ## Next steps
-You can get started with AI Sheets [for free without installing anything](https://huggingface.co/spaces/aisheets/sheets) or download and deploy it locally from the [GitHub repo](https://github.com/huggingface/aisheets).
+You can try AI Sheets [without installing anything](https://huggingface.co/spaces/aisheets/sheets) or download and deploy it locally from the [GitHub repo](https://github.com/huggingface/aisheets). For running locally and get the most out of it, we recommend you to [subscribe to PRO](https://hf.co/pro) and get 20x monthly inference usage.
 
 If you have questions or suggestions, let us know in the [Community tab](https://huggingface.co/spaces/aisheets/sheets/discussions) or by opening an issue on [GitHub](https://github.com/huggingface/aisheets).
 
