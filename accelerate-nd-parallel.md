@@ -64,10 +64,9 @@ and how they interact to minimise communication overhead across devices. In this
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/axolotl-ai-co/accelerate_nd_parallel_figures/resolve/main/dp.png.webp" alt="Diagram for Data Parallel">
-  <figcaption> Distributed Data Parallel replicates the entire model across each device, and evenly divides the data into sub-batches for each device.(<b><i>Source: <a href="https://martynassubonis.substack.com/p/tensor-and-fully-sharded-data-parallelism">Martynas Šubonis</i></b></a>).
+  <figcaption> Distributed Data Parallel replicates the entire model across each device, and evenly divides the data into sub-batches for each device. (<b><i>Source: <a href="https://martynassubonis.substack.com/p/tensor-and-fully-sharded-data-parallelism">Martynas Šubonis</i></b></a>).
  </figcaption>
 </figure>
-"
 
 Data parallelism (DP) is the most common technique for training models across multiple GPUs, and involves replicating the model, gradients and optimizer states across each device, whilst evenly distributing data batches between GPUs, and synchronising gradients across devices before updating parameters. This can significantly increase throughput compared to single-device training, but requires that your model is able to fit on a single GPU. 
 
@@ -79,7 +78,11 @@ We can control the number of replicas of the model with the `dp_replicate_size` 
 ## Fully Sharded Data Parallelism
 
 
-![FSDP](/assets/accelerate-nd-parallel/fsdp.png.webp "Credit to [Martynas Šubonis](https://martynassubonis.substack.com/p/tensor-and-fully-sharded-data-parallelism) for the above diagram.")
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/axolotl-ai-co/accelerate_nd_parallel_figures/resolve/main/fsdp.png.webp" alt="Diagram for Fully Sharded Data Parallel">
+  <figcaption> Fully Sharded Data Parallel evenly divides each of the model's parameters across each device, and, like DDP, evenly divides the data into sub-batches for each device. To complete a forward and backwards pass, FSDP must <i>gather</i> the weights of each parameter before the forwards/backwards pass so that each device obtains a full copy of the parameter. (<b><i>Source: <a href="https://martynassubonis.substack.com/p/tensor-and-fully-sharded-data-parallelism">Martynas Šubonis</i></b></a>).
+ </figcaption>
+</figure>
 
 What if our model is too large to fit on a single GPU? Fully sharded data parallel (FSDP) addresses this issue by sharding (distributing evenly) the model’s weights, gradients, and optimizer states across GPUs (this is inspired by DeepSpeed’s ZeRO-3), whilst each device still receives its portion of the full batch of data. As you may notice from the diagram above, rather than requiring a full copy of the entire model on each device, we only gather the weights for a single layer at a time before the forward pass, after which the weights may be sharded again.
 
