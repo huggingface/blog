@@ -137,6 +137,7 @@ trainer = GRPOTrainer(
 trainer.train()
 ```
 
+Explore the full notebook example [here](https://huggingface.co/learn/cookbook/fine_tuning_vlm_grpo_trl).
 
 ### Group Sequence Policy Optimization (GSPO)
 
