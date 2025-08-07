@@ -161,7 +161,7 @@ training_args = GRPOConfig(
 
 ### Comparison
 
-Here's a table summarizing model outputs for Qwen2.5VL-3B fine-tuned with below techniques. Note that we've done minimal runs on dataset subsets, and the models were fine-tuned on different datasets, so the comparison is made for vibe-check. 
+Here's a table summarizing model outputs for Qwen2.5VL-3B fine-tuned with the techniques discussed above. Note that we've done minimal runs on dataset subsets, and the models were fine-tuned on different datasets, so the comparison is made for vibe-check. 
 
 <details><summary>Check out the answers here</summary>
 
