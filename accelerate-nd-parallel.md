@@ -25,6 +25,7 @@ Here is how to add it to your training script:
 from transformers import AutoModelForCausalLM
 from accelerate import Accelerator
 from accelerate.parallelism_config import ParallelismConfig
+from accelerate.utils import FullyShardedDataParallelPlugin
 
 # configure your desired parallelisms here - this particular configuration requires at least 2 nodes with 8 GPUs each. 
 # setting any parallelism degree to 1 disables it i.e. dp_replicate_size=1 disables DP.
@@ -47,8 +48,8 @@ accelerator = Accelerator(
 )
 
 model = AutoModelForCausalLM.from_pretrained(
-  "NousResearch/Hermes-3-Llama-3.1-8B", 
-  device_mesh=accelerator.torch_device_mesh
+    "NousResearch/Hermes-3-Llama-3.1-8B", 
+    device_mesh=accelerator.torch_device_mesh
 )
 
 model = accelerator.prepare(model)
@@ -101,9 +102,10 @@ We've made it easy to configure the degrees of different parallelism strategies 
 
 Data parallelism (DP) is the most common technique for training models across multiple GPUs, and involves replicating the model, gradients and optimizer states across each device, whilst evenly distributing data batches between GPUs, and synchronising gradients across devices before updating parameters. This can significantly increase throughput compared to single-device training, but requires that your model is able to fit on a single GPU. 
 
-We can control the number of replicas of the model with the `dp_replicate_size` parameter in Accelerate's `ParallelismConfig` or config field in Axolotl. It's worth noting that DP is a *top-most-level* parallelism strategy, meaning that if we use `dp_replicate_size=2` and we compose it with other parallelism strategies, there would be 2 replicas of the model, each also influenced by the other parallelism strategies. For example, if we use `dp_replicate_size=2` and `tp_size=2`, we would have 2 replicas of the model, each with 2 tensor parallel shards*, but more on that later.
+We can control the number of replicas of the model with the `dp_replicate_size` parameter in Accelerate's `ParallelismConfig` or config field in Axolotl. It's worth noting that DP is a *top-most-level* parallelism strategy, meaning that if we use `dp_replicate_size=2` and we compose it with other parallelism strategies, there would be 2 replicas of the model, each also influenced by the other parallelism strategies. For example, if we use `dp_replicate_size=2` and `tp_size=2`, we would have 2 replicas of the model, each with 2 tensor parallel shards.
 
-*We use the term *shard* to describe data on a single device which is a partition of a larger piece of data.
+> [!NOTE]
+> We use the term *shard* to describe data on a single device which is a partition of a larger piece of data.
 
 ## Fully Sharded Data Parallelism
 
@@ -119,7 +121,7 @@ In this way, we trade memory usage for the communication overhead of gathering s
 
 Whilst we can make further memory-compute trade-offs and offload model parameters and gradients to the CPU to train larger models, this can be prohibitively slow. Instead, let’s consider how we can effectively utilise even more devices to train larger models whilst maintaining high data throughput.
 
-We use the term *node* to refer to a single machine which hosts multiple GPUs (up to a maximum of 8), with fast intra-node communication channels using e.g. NVLink between GPUs. When utilising multiple nodes for training, we rely on relatively slower inter-node communication channels between machines using e.g. Infiniband. We also refer to the total number of devices in the process pool as the world size - e.g. a single node with 8 GPUs represents a world size of 8, and 4 nodes would represent a world size of 32.
+We use the term *node* to refer to a single machine which hosts multiple GPUs (up to a maximum of 8), with fast intra-node communication channels using e.g. NVLink between GPUs. When using multiple nodes for training, we rely on relatively slower inter-node communication channels between machines using e.g. Infiniband. We also refer to the total number of devices in the process pool as the world size - e.g. a single node with 8 GPUs represents a world size of 8, and 4 nodes would represent a world size of 32.
 
 When using FSDP across multiple nodes, we treat the entire set of devices across nodes as if we were training on a single node. For example, with 4 nodes containing 8 GPUs each, we perform our sharding across 32 devices, and perform our collective all-reduce and reduce-scatter operations using both inter-and-intra-node communication backends. In this manner, FSDP alone can scale to a substantial number of GPUs with a large global batch size to increase data throughput. However, there comes a point where several challenges arise that may require composing FSDP with other parallelism techniques. We usually try to avoid doing FSDP across more than a full node, as the communication overhead can become too high, we'll talk about how to address this in the section on [Hybrid Sharded Data Parallelism](#hybrid-sharded-data-parallelism).
 
@@ -273,10 +275,10 @@ Below are some additional tips you may find useful when working in distributed s
       state_dict_type: SHARDED_STATE_DICT
       cpu_ram_efficient_loading: True
     ```
-- The total batch sized used during training plays an important factor in training stability, memory usage, and data throughput. When using DP and/or FSDP the effective batch size is calculated as 
+- The total batch sized used during training plays an important factor in training stability, memory usage, and data throughput. When using DP and/or FSDP the effective batch size is calculated as:
 
   `effective_batch_size = micro_batch_size ×
   gradient_accumulation_steps × dp_world_size`. 
 
   where `dp_world_size=(dp_shard_size * dp_replicate_size) / tp_size`. You can increase your batch size by increasing your total micro batch size or gradient accumulation steps in your training loop, or setting the `micro_batch_size` and `gradient_accumulation_steps` config fields in Axolotl, or increasing the total `dp_world_size` by adding more GPUs. As we mentioned above, this imposes a *minimum* total batch size of `dp_world_size` - when using pure DP/FSDP, this will be your total world size, and if this is too high the only way to decrease the total batch size is by introducing tensor parallelism. Finally, with a fixed number of GPUs and in memory-constrained scenarios, we recommend increasing `gradient_accumulation_steps` instead of `micro_batch_size` to achieve larger effective batch sizes, and vice-versa.
-- 
+- Correspondingly, when your effective batch size increases due to introducing data parallelism, you should scale your learning rate to maintain training stability. Common approaches include linear scaling `scaled_lr = base_lr × (effective_batch_size / base_batch_size)` or square root scaling `scaled_lr = base_lr × sqrt(effective_batch_size / base_batch_size)`. 
