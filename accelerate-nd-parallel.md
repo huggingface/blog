@@ -43,8 +43,7 @@ model = accelerator.prepare(model)
 
 To get up and running quickly, you can check the examples in the [accelerate repository](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py). Additionally, we've To compose a variety of fine-tuning techniques and further streamline fine-tuning models at scale, we've integrated this technique into Axolotl.  or their counterpart in [Axolotl](TODO)
 
-
- Check out the [Axolotl ND-Parallelism docs](https://docs.axolotl.ai/docs/nd_parallelism.html) to get started in just a few minutes. 
+Check out the [Axolotl ND-Parallelism docs](https://docs.axolotl.ai/docs/nd_parallelism.html) to get started in just a few minutes. 
 
 ```yaml
 dp_shard_size: 2
@@ -53,13 +52,19 @@ context_parallel_size: 2
 tensor_parallel_size: 2
 ```
 
-We've made it easy to define configure the degrees of different parallelism strategies and how they are combined through the `ParallelismConfig` class in Accelerate, or through config fields in Axolotl, but how do we know which configuration will work best for our use case? As we scale to training models with 10s or even 100s of billions of parameters, the primary challenge comes from understanding the different parallelism strategies and how they interact to minimise communication overhead across devices. In this post, we'll walk through how the different parallelism strategies work, and when and how you might want to compose them. 
+We've made it easy to configure the degrees of different parallelism strategies and how they are combined through the `ParallelismConfig` class in Accelerate, or through config fields in Axolotl, but how do we know which configuration will work best for our use case? As we scale to training models with 10s or even 100s of billions of parameters, the primary challenge comes from understanding the different parallelism strategies and how they interact to minimise communication overhead across devices. In this post, we'll walk through how the different parallelism strategies work, and when and how you might want to compose them. 
 
 ## Contents
 
-- [Distributed Data Parallelism](#data-parallelism)
+- [Data Parallelism](#data-parallelism)
 - [Fully Sharded Data Parallelism](#fully-sharded-data-parallelism)
 - [Tensor Parallelism](#tensor-parallelism)
+- [Context Parallelism](#context-parallelism)
+- [ND Parallelism](#nd-parallelism)
+  - [Hybrid Sharded Data Parallelism](#hybrid-sharded-data-parallelism)
+  - [FSDP + Tensor Parallelism](#fsdp--tensor-parallelism)
+  - [FSDP + Context Parallelism](#fsdp--context-parallelism-dp_shard_size-cp_size)
+  - [Hybrid Sharded Data Parallelism + Tensor Parallelism](#hybrid-sharded-data-parallelism--tensor-parallelism-dp_replicate_size-dp_shard_size-tp_size)
 
 ## Data Parallelism 
 
@@ -72,10 +77,9 @@ We've made it easy to define configure the degrees of different parallelism stra
 
 Data parallelism (DP) is the most common technique for training models across multiple GPUs, and involves replicating the model, gradients and optimizer states across each device, whilst evenly distributing data batches between GPUs, and synchronising gradients across devices before updating parameters. This can significantly increase throughput compared to single-device training, but requires that your model is able to fit on a single GPU. 
 
-We can control the number of replicas of the model with the `dp_replicate_size` parameter in Accelerate or config field in Axolotl. It's worth noting that DP is a *top-most-level* parallelism strategy, meaning that if we use `dp_replicate_size=2` and we compose it with other parallelism strategies, there would be 2 replicas of the model, each also influenced by the other parallelism strategies. For example, if we use `dp_replicate_size=2` and `tp_size=2`, we would have 2 replicas of the model, each with 2 tensor parallel shards*, but more on that later.
+We can control the number of replicas of the model with the `dp_replicate_size` parameter in Accelerate's `ParallelismConfig` or config field in Axolotl. It's worth noting that DP is a *top-most-level* parallelism strategy, meaning that if we use `dp_replicate_size=2` and we compose it with other parallelism strategies, there would be 2 replicas of the model, each also influenced by the other parallelism strategies. For example, if we use `dp_replicate_size=2` and `tp_size=2`, we would have 2 replicas of the model, each with 2 tensor parallel shards*, but more on that later.
 
 *We use the term *shard* to describe data on a single device which is a partition of a larger piece of data.
-
 
 ## Fully Sharded Data Parallelism
 
@@ -97,7 +101,7 @@ We use the term *node* to refer to a single machine which hosts multiple GPUs (u
 When using FSDP across multiple nodes, we treat the entire set of devices across nodes as if we were training on a single node. For example, with 4 nodes containing 8 GPUs each, we perform our sharding across 32 devices, and perform our collective all-reduce and reduce-scatter operations using both inter-and-intra-node communication backends. In this manner, FSDP alone can scale to a substantial number of GPUs with a large global batch size to increase data throughput. However, there comes a point where several challenges arise that may require composing FSDP with other parallelism techniques. We usually try to avoid doing FSDP across more than a full node, as the communication overhead can become too high, we'll talk about how to address this in the section on [Hybrid Sharded Data Parallelism](#hybrid-sharded-data-parallelism).
 
 > [!TIP]
-> You can use the `dp_shard_size` parameter in Accelerate or config field in Axolotl to set the degree of FSDP applied to your model.
+> You can use the `dp_shard_size` parameter in Accelerate's `ParallelismConfig` or config field in Axolotl to set the degree of FSDP applied to your model.
 
 
 ## Tensor Parallelism
@@ -111,7 +115,7 @@ each device computes only a portion of the output, requiring the outputs from ot
 continuing the forward pass. Thus, if we wish to utilise TP in a multi-node setup, we must consider composing TP with other parallelism techniques, while keeping TP only within a single node. Due to its large communications overhead, TP is not recommended for PCIe linked GPUs.
 
 > [!TIP]
-> In Accelerate, the TP size is configured through `tp_size`, whilst in Axolotl you can use the `tensor_parallel_size` config field.
+> In Accelerate, the TP size is configured through `tp_size` in `ParallelismConfig`, whilst in Axolotl you can use the `tensor_parallel_size` config field.
 
 ## Context Parallelism 
 
@@ -135,6 +139,7 @@ $$\begin{align}
 \end{align}$$
 
 where we denote each row of the query matrix as $Q_1, Q_2, ..., Q_n$. This can be generalized as:
+
 $$\text{Attention}(Q, K, V)_i = \text{softmax}(Q_i K^T) V \quad \forall i \in \{1, 2, ..., n\}$$
 
 When we shard the inputs across devices, the resulting  $Q$, $K$, and $V$ matrices (computed from these input shards) are also automatically sharded along the sequence dimension - each GPU computes queries, keys, and values only for its portion of the sequence. For example, with a world size of $W$ GPUs and sequence length $n$:
@@ -160,12 +165,17 @@ Accelerate enables this with the [`accelerator.maybe_context_parallel`](https://
 
 
 > [!TIP]
-> Similar to TP, in Accelerate the CP size is configured through `cp_size`, whilst in Axolotl you can use the `context_parallel_size` config field.
+> Similar to TP, in Accelerate the CP size is configured through `cp_size` in `ParallelismConfig`, whilst in Axolotl you can use the `context_parallel_size` config field.
 
+## ND Parallelism
 
-## N-D Paralllelism
+In the multi-node setting, data parallel techniques such as FSDP treat the entire network topology as if it existed along a single dimension. You may find this approach limiting for a variety of reasons:
+- When scaling to more nodes, FSDP's collective operations become bottlenecked by inter-node latency, making training prohibitively slow.
+- As we mentioned above, massive models may have decoder layers which cannot fit into GPU memory, or which may be too large to perform a forward pass with, even in a sharded state.
+- It could be impossible to achieve your ideal batch size - either the batch becomes too large for pure data parallelism to handle efficiently, or too small due to memory constraints from model size.
 
-Now that you know how the different parallelism strategies work, let's see how we can compose them to train large models efficiently. Let's start with the simple ones: 2D Parallelism
+To try and address some of these problems, we can think of multi-node clusters as having a two-dimensional topology: fast-intra node communication between devices along one axis, and relatively slower inter-node communication along another axis. Let’s consider how we can compose the parallelism techniques we’ve introduced so far to take advantage of this.
+
 
 ## Hybrid Sharded Data Parallelism
 
@@ -173,15 +183,19 @@ Hybrid Sharded Data Parallelism (HSDP) is a kind of 2D parallelism which perform
 
 It’s important to note that we can freely configure the shape of our 2D network topology, as we aren’t constrained to the dimensions being aligned with physical node boundaries - you might apply FSDP across 2 nodes whilst replicating across groups of 2 nodes, which would result in lower memory usage but slower throughput, but still reduce the intra-node FSDP communication overhead by a factor of two. This is a knob we encourage you to tune to your specific hardware setup and fine-tuning needs.
 
-## FSDP + Tensor Parallelism (dp_shard_size, tp_size)
+> [!TIP]
+> In Accelerate and Axolotl you can enable HSDP by defining both `dp_shard_size` and `dp_replicate_size` in `ParallelismConfig` or through config fields.
+
+## FSDP + Tensor Parallelism 
 
 As we mentioned earlier, TP should be applied within a node to utilize the high-bandwidth intra-node communications, thus, combining TP and FSDP involves sharding the model across nodes using FSDP, and within a node using TP. To a certain degree, this potentially offers a neat solution to all three of the issues above: the latency costs from FSDP could be reduced by a factor of 8, layers that are too large to fit on a single device are now evenly distributed across devices, and since each TP group receives an identical batch of data, we can also reduce our global batch size by a factor of 8. However, if this remains insufficient, we are unable to increase the TP size across nodes and must consider an alternative approach.
 
+> [!TIP]
+> In Accelerate you can combine TP and FSDP by defining both `dp_shard_size` and `tp_size` in `ParallelismConfig`, whilst in Axolotl you can add both of the `dp_shard_size` and `tensor_parallel_size` config fields.
+
 ## FSDP + Context Parallelism (dp_shard_size, cp_size)
 
-This is a 2D parallelism strategy that combines FSDP and CP, it's not very commonly used, as CP already combines with
-FSDP (more on why in the [concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism)), but it can be useful in some cases. i.e. when requiring a large sequence length, consequently
-requiring a large `cp_size`. If this still doesn't fit into your memory budget, you can apply FSDP on top of this, further reducing the memory usage.
+This is a 2D parallelism strategy that combines FSDP and CP, it's not very commonly used, as CP already combines with FSDP (more on why in the [accelerate concept guide](https://huggingface.co/docs/accelerate/main/en/concept_guides/context_parallelism)), but it can be useful in some cases. i.e. when requiring a large sequence length, consequently requiring a large `cp_size`. If this still doesn't fit into your memory budget, you can apply FSDP on top of this, further reducing the memory usage.
 
 ## Hybrid Sharded Data Parallelism + Tensor Parallelism (dp_replicate_size, dp_shard_size, tp_size)
 
