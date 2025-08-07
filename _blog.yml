@@ -6473,7 +6473,21 @@
     - community
     - open-source
 
-- local: trl-vlm-alignment.md
+
+- local: welcome-openai-gpt-oss
+  title: "Welcome GPT OSS, the new open-source model family from OpenAI!"
+  author: reach-vb
+  thumbnail: /blog/assets/openai/openai-hf-thumbnail.png
+  date: Aug 5, 2025
+  tags:
+    - openai
+    - gpt
+    - gpt-oss
+    - open-source
+    - LLM
+    - community
+    
+ - local: trl-vlm-alignment.md
   title: "Vision Language Model Alignment in TRL ⚡️"
   author: qgallouedec
   thumbnail: /blog/assets/trl_vlm/thumbnail.png
@@ -6482,3 +6496,4 @@
     - trl
     - vlm
     - vision
+
