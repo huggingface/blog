@@ -25,6 +25,7 @@ Vision Language Models (VLMs) are getting stronger, but *aligning* them to human
     - [Mixed Preference Optimization (MPO)](#mixed-preference-optimization-mpo)
     - [Multimodal Group Relative Policy Optimization (GRPO)](#multimodal-group-relative-policy-optimization-grpo)
     - [Group Sequence Policy Optimization (GSPO)](#group-sequence-policy-optimization-gspo)
+    - [Comparison](#comparison)
   - [vLLM Integration in TRL](#vllm-integration-in-trl)
   - [Useful Resources](#useful-resources)
 
