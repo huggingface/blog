@@ -2,10 +2,10 @@
 title: "Vision Language Model Alignment in TRL ⚡️" 
 thumbnail: /blog/assets/trl_vlm/thumbnail.png
 authors:
-- user: qgallouedec
-- user: kashif
 - user: sergiopaniego
 - user: merve
+- user: qgallouedec
+- user: kashif
 - user: ariG23498
 ---
 
