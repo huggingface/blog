@@ -1,6 +1,6 @@
 ---
 title: "Vision Language Model Alignment in TRL ⚡️" 
-thumbnail: assets/trl_vlm/thumbnail.png
+thumbnail: /blog/assets/trl_vlm/thumbnail.png
 authors:
 - user: qgallouedec
 - user: kashif
