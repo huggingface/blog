@@ -45,7 +45,7 @@ fsdp_plugin = FullyShardedDataParallelPlugin(
 
 accelerator = Accelerator(
     parallelism_config=pc,
-    fsdp_plugin=fsdp2_plugin
+    fsdp_plugin=fsdp_plugin
 )
 
 model = AutoModelForCausalLM.from_pretrained(
@@ -101,7 +101,7 @@ We've made it easy to configure the degrees of different parallelism strategies 
  </figcaption>
 </figure>
 
-Data parallelism (DP) is the most common technique for training models across multiple GPUs, and involves replicating the model, gradients and optimizer states across each device, whilst evenly distributing data batches between GPUs, and synchronising gradients across devices before updating parameters. This can significantly increase throughput compared to single-device training, but requires that your model is able to fit on a single GPU. 
+Data parallelism (DP) is the most common technique for training models across multiple GPUs, and involves replicating the model, gradients and optimizer states across each device, whilst evenly distributing data batches between GPUs, and synchronising gradients across devices before updating parameters. This can significantly increase throughput compared to single-device training, but requires that your model is able to fit on a single device. 
 
 We can control the number of replicas of the model with the `dp_replicate_size` parameter in Accelerate's `ParallelismConfig` or config field in Axolotl. It's worth noting that DP is a *top-most-level* parallelism strategy, meaning that if we use `dp_replicate_size=2` and we compose it with other parallelism strategies, there would be 2 replicas of the model, each also influenced by the other parallelism strategies. For example, if we use `dp_replicate_size=2` and `tp_size=2`, we would have 2 replicas of the model, each with 2 tensor parallel shards.
 
@@ -116,7 +116,7 @@ We can control the number of replicas of the model with the `dp_replicate_size` 
  </figcaption>
 </figure>
 
-What if our model is too large to fit on a single GPU? Fully sharded data parallel (FSDP) addresses this issue by sharding (distributing evenly) the model’s weights, gradients, and optimizer states across GPUs (this is inspired by DeepSpeed’s ZeRO-3), whilst each device still receives its portion of the full batch of data. As you may notice from the diagram above, rather than requiring a full copy of the entire model on each device, we only gather the weights for a single layer at a time before the forward pass, after which the weights may be sharded again.
+What if our model is too large to fit on a single device? Fully sharded data parallel (FSDP) addresses this issue by sharding (distributing evenly) the model’s weights, gradients, and optimizer states across GPUs (this is inspired by DeepSpeed’s ZeRO-3), whilst each device still receives its portion of the full batch of data. As you may notice from the diagram above, rather than requiring a full copy of the entire model on each device, we only gather the weights for a single layer at a time before the forward pass, after which the weights may be sharded again.
 
 In this way, we trade memory usage for the communication overhead of gathering sharded parameters before each forward and backward pass, and reduce-scatter-ing local gradients. We can control this trade-off in FSDP by tuning the granularity at which parameters are gathered. On one extreme, we can gather and re-shard every layer of our model, which would result in the lowest peak memory usage, but incur the highest communication costs. In practice, a common approach is to gather the weights for an entire transformer decoder block at a time. 
 
@@ -155,7 +155,7 @@ Recently, reasoning capabilities in LLMs resulted in sequence lengths skyrocketi
 
 Since the attention operation in transformers scales quadratically with context length, this becomes impossible on a single GPU. For example, when fine-tuning a relatively small model such as Mistral-7B (which uses 32 attention heads), if we use a sequence length of 128k a single attention matrix will utilise 128k * 128k * 2 bytes * `num_heads=32` = ~32 GB * 32 = ~1TB of activations memory! Whilst this example is not realistic when using optimised attention implementations such as FlashAttention, it helps illustrate the growth in memory requirements from increasing context length.
 
-With context parallelism (CP), we can shard the *inputs* across the sequence dimension, resulting in each GPU only processing a chunk of the full context and computing a smaller portion of the full, prohibitively large, attention matrix. To see how this works, recall that the attention computation is described by the equation:
+With context parallelism (CP), we can shard the *inputs* across the sequence dimension, resulting in each device only processing a chunk of the full context and computing a smaller portion of the full, prohibitively large, attention matrix. To see how this works, recall that the attention computation is described by the equation:
 
 $$\text{Attention}(Q, K, V) = \text{softmax}(QK^T)V$$
 
@@ -257,7 +257,7 @@ With a sufficiently large world size (note: while the minimum world size for 3D 
 There are additional ways to combine multiple parallelisms which we haven't covered, such as 4D parallel using HSDP + TP + CP, but they operate very similarly to the techniques we've already covered. Most of all, we encourage you to play with different techniques and configurations - this is the best way to gain an intuition for the different ways in which you can make memory/throughput trade-offs.
 
 Below are some additional tips you may find useful when working in distributed settings:
-- When using FSDP and working with models that are too large to fit in a single GPU, enabling both CPU RAM efficient loading and sharded state dict checkpointing technique is crucial. You can enable this through the`cpu_ram_efficient_loading` and `state_dict_type` parameters in Accelerate's [`FullyShardedDataParallelPlugin`](https://huggingface.co/docs/accelerate/v1.10.0/en/package_reference/utilities#accelerate.FullyShardedDataParallelPlugin), 
+- When using FSDP and working with models that are too large to fit in a single device, enabling both CPU RAM efficient loading and sharded state dict checkpointing technique is crucial. You can enable this through the`cpu_ram_efficient_loading` and `state_dict_type` parameters in Accelerate's [`FullyShardedDataParallelPlugin`](https://huggingface.co/docs/accelerate/v1.10.0/en/package_reference/utilities#accelerate.FullyShardedDataParallelPlugin), 
   ```python
   fsdp2_plugin = FullyShardedDataParallelPlugin(
       fsdp_version=2,
@@ -275,7 +275,7 @@ Below are some additional tips you may find useful when working in distributed s
       transformer_layer_cls_to_wrap: LlamaDecoderLayer
       state_dict_type: SHARDED_STATE_DICT
       cpu_ram_efficient_loading: True
-    ```
+  ```
 - The total batch sized used during training plays an important factor in training stability, memory usage, and data throughput. When using DP and/or FSDP the effective batch size is calculated as:
 
   `effective_batch_size = micro_batch_size ×
@@ -283,3 +283,25 @@ Below are some additional tips you may find useful when working in distributed s
 
   where `dp_world_size=(dp_shard_size * dp_replicate_size) / tp_size`. You can increase your batch size by increasing your total micro batch size or gradient accumulation steps in your training loop, or setting the `micro_batch_size` and `gradient_accumulation_steps` config fields in Axolotl, or increasing the total `dp_world_size` by adding more GPUs. As we mentioned above, this imposes a *minimum* total batch size of `dp_world_size` - when using pure DP/FSDP, this will be your total world size, and if this is too high the only way to decrease the total batch size is by introducing tensor parallelism. Finally, with a fixed number of GPUs and in memory-constrained scenarios, we recommend increasing `gradient_accumulation_steps` instead of `micro_batch_size` to achieve larger effective batch sizes, and vice-versa.
 - Correspondingly, when your effective batch size increases due to introducing data parallelism, you should scale your learning rate to maintain training stability. Common approaches include linear scaling `scaled_lr = base_lr × (effective_batch_size / base_batch_size)` or square root scaling `scaled_lr = base_lr × sqrt(effective_batch_size / base_batch_size)`. 
+- When memory constraints persist even with parallelism strategies, gradient checkpointing can provide additional memory savings by trading compute for memory. During the forward pass, only a subset of activations are kept in memory (typically at transformer block boundaries), and intermediate activations are recomputed during the backward pass. This technique works seamlessly with all parallelism strategies covered above. In Accelerate, you can enable it by setting `activation_checkpointing=true` in `FullyShardedDataParallelPlugin`:
+  ```python
+  fsdp2_plugin = FullyShardedDataParallelPlugin(
+      fsdp_version=2,
+      auto_wrap_policy="transformer_based_wrap",
+      transformer_cls_names_to_wrap=["LlamaDecoderLayer"],
+      state_dict_type="SHARDED_STATE_DICT", 
+      cpu_ram_efficient_loading=True,
+      activation_checkpointing=True
+  )
+  ``` 
+  and similarly in Axolotl:
+    ```yaml
+    fsdp_version: 2
+    fsdp_config:
+      auto_wrap_policy: TRANSFORMER_BASED_WRAP
+      transformer_layer_cls_to_wrap: LlamaDecoderLayer
+      state_dict_type: SHARDED_STATE_DICT
+      cpu_ram_efficient_loading: True
+      activation_checkpointing: True
+    ```
+ Note that gradient checkpointing typically increases training time by ~20-30% due to activation recomputation, but can reduce activation memory by 60-80%, making it particularly valuable when training very large models or using long sequence lengths. 
