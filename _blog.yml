@@ -6495,6 +6495,21 @@
     - trl
     - vlm
     - vision
+   
+- local: filbench
+  title: "🇵🇭 FilBench - Can LLMs Understand and Generate Filipino?"
+  author: ljvmiranda921
+  thumbnail: /blog/assets/filbench/thumbnail.png
+  date: Aug 12, 2025
+  tags:
+    - open-source
+    - LLM
+    - community
+    - evaluation
+    - filipino
+    - tagalog
+    - cebuano
+    - philippines
     
 - local: accelerate-nd-parallel
   title: "Accelerate ND-Parallel: A Guide to Efficient Multi-GPU Training"
