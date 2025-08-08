@@ -69,7 +69,7 @@ Each of these categories provides an aggregated metric.
 To create a single representative score, we compute the weighted average based on the number of examples in each category, which we call the FilBench Score.
 
 To simplify usage and set up, we built FilBench on top of [Lighteval](https://github.com/huggingface/lighteval), an all-in-one framework for LLM evaluation.
-For language-specific evaluation, we first defined translation pairs from English to Tagalog (or Cebuano) for common terms used in evaluation such as "yes" (oo), "no" (hindi), and "true" (totoo) among others.
+For language-specific evaluation, we first defined translation pairs from English to Tagalog (or Cebuano) for common terms used in evaluation such as "yes" (*oo*), "no" (*hindi*), and "true" (*totoo*) among others.
 Then, we used the provided templates to implement custom tasks for the capabilities we care about.
 
 FilBench is now available as a set of community tasks in the official Lighteval repository!
