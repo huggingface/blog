@@ -157,22 +157,24 @@ Since the attention operation in transformers scales quadratically with context 
 
 With context parallelism (CP), we can shard the inputs across the sequence dimension, resulting in each device only processing a chunk of the full context and computing a smaller portion of the full, prohibitively large, attention matrix. To see how this works, recall that the attention computation is described by the equation:
 
-\\( \text{Attention}(Q, K, V) = \text{softmax}(QK^T)V )\\
+\\( \text{Attention}(Q, K, V) = \text{softmax}(QK^T)V \\)
 
-Where \\( Q )\\, \\( K )\\, and \\( V )\\ are the query, key, and value matrices respectively. Each query vector (row, or input embedding) of \\( Q )\\ must compute the attention scores against *every* key vector of \\( K )\\ in the entire sequence to correctly apply the softmax normalisation. These attention scores are then weighted with *all* value vectors in \\( V )\\.
+Where \\( Q \\), \\( K \\), and \\( V \\) are the query, key, and value matrices respectively. Each query vector (row, or input embedding) of \\( Q \\) must compute the attention scores against *every* key vector of \\( K \\) in the entire sequence to correctly apply the softmax normalisation. These attention scores are then weighted with *all* value vectors in \\( V \\).
 
-The crucial detail here lies in the fact that each row in \\( Q )\\ can compute its attention score independently of one another, but each query vector still requires the full \\( K )\\ and \\( V )\\ matrices. In other words, given an input with sequence length $n$, we can expand our above attention equation as:
+The crucial detail here lies in the fact that each row in \\( Q \\) can compute its attention score independently of one another, but each query vector still requires the full \\( K \\) and \\( V \\) matrices. In other words, given an input with sequence length $n$, we can expand our above attention equation as:
 
-\\( \begin{align}
+$$
+\begin{align}
 \text{Attention}(Q, K, V)_1 &= \text{softmax}(Q_1 K^T) V \\
 \text{Attention}(Q, K, V)_2 &= \text{softmax}(Q_2 K^T) V \\
 &\vdots \\
 \text{Attention}(Q, K, V)_n &= \text{softmax}(Q_n K^T) V
-\end{align} )\\
+\end{align}
+$$
 
-where we denote each row of the query matrix as \\( Q_1, Q_2, ..., Q_n )\\. This can be generalized as:
+where we denote each row of the query matrix as \\( Q_1, Q_2, ..., Q_n \\). This can be generalized as:
 
-\\( \text{Attention}(Q, K, V)_i = \text{softmax}(Q_i K^T) V \quad \forall i \in \{1, 2, ..., n\} )\\
+\\( \text{Attention}(Q, K, V)_i = \text{softmax}(Q_i K^T) V \quad \forall i \in \{1, 2, ..., n\} \\)
 
 When we shard the inputs across devices, the resulting \\( Q \\), \\( K \\), and \\( V \\) matrices (computed from these input shards) are also automatically sharded along the sequence dimension - each GPU computes queries, keys, and values only for its portion of the sequence. For example, with a world size of \\( W \\) GPUs and sequence length \\( n \\):
 
