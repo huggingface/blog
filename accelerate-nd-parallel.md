@@ -68,7 +68,8 @@ axolotl train examples/distributed-parallel/llama-3_1-8b-hsdp-tp.yaml
 You can also check out the [Axolotl ND-Parallelism docs](https://docs.axolotl.ai/docs/nd_parallelism.html) for more details - adding ND parallel techniques to your existing configs is as simple as adding one or more of the following fields to your Axolotl config file:
 
 ```yaml
-# Fully Sharded Data Parallel degree (note: also requires the fsdp_config field)
+# Fully Sharded Data Parallel degree (note: also requires the fsdp_config field) 
+# see https://docs.axolotl.ai/docs/multi-gpu.html#sec-fsdp for more details
 dp_shard_size: 2
 # Data Parallel degree
 dp_replicate_size: 2
@@ -78,7 +79,7 @@ context_parallel_size: 2
 tensor_parallel_size: 2
 ```
 
-We've made it easy to configure the degrees of different parallelism strategies and how they are combined through the [`ParallelismConfig`](https://github.com/huggingface/accelerate/blob/v1.10.0/src/accelerate/parallelism_config.py) class in Accelerate, or through config fields in Axolotl, but how do we know which configuration will work best for our use case? As we scale to training models with 10s or even 100s of billions of parameters, the primary challenge comes from understanding the different parallelism strategies and how they interact to minimise communication overhead across devices. In this post, we'll walk through how the different parallelism strategies work, and when and how you might want to compose them. 
+We've made it easy to configure the degrees of different parallelism strategies and how they are combined through the [`ParallelismConfig`](https://github.com/huggingface/accelerate/blob/v1.10.0/src/accelerate/parallelism_config.py) class in Accelerate, or through config fields in Axolotl, but how do we know which configuration will work best for our use case? As we scale to training models with tens or even hundreds of billions of parameters, the primary challenge comes from understanding the different parallelism strategies and how they interact to minimise communication overhead across devices. In this post, we'll walk through how the different parallelism strategies work, and when and how you might want to compose them. 
 
 ## Contents
 
@@ -139,7 +140,7 @@ When using FSDP across multiple nodes, we treat the entire set of devices across
  </figcaption>
 </figure>
 
-Tensor Parallel (TP) is a kind of model parallelism technique, where shards of the model permanently live on separate devices, and in contrast to data parallel techniques, each device receives an identical batch of data. TP works by distributing the computation of linear layers across devices, so each device only computes a portion of the matrix multiplication. This technique works best when there are large linear layers, such as the feed-forward layers in transformer models, which can be split across devices. We can also use TP on the each of the query, key, value, and output projections in the attention layers with almost no extra communication cost.
+Tensor Parallel (TP) is a kind of model parallelism technique, where shards of the model permanently live on separate devices, and in contrast to data parallel techniques, each device receives an identical batch of data. TP works by distributing the computation of linear layers across devices, so each device only computes a portion of the matrix multiplication. This technique works best when there are large linear layers, such as the feed-forward layers in transformer models, which can be split across devices. We can also use TP on each of the query, key, value, and output projections in the attention layers with almost no extra communication cost.
 
 To achieve the best performance, parameters of consecutive layers can be distributed in a specific fashion, minimizing the required communication. When working with pairs of linear layers, we can split the first layer column-wise, and the subsequent layer row-wise, allowing us to compute the output with only a single all-reduce operation to combine the sharded outputs. 
 
@@ -211,7 +212,7 @@ In the multi-node setting, data parallel techniques such as FSDP treat the entir
 - As we mentioned above, massive models may have decoder layers which cannot fit into GPU memory, or which may be too large to perform a forward pass with, even in a sharded state.
 - It could be impossible to achieve your ideal batch size - either the batch becomes too large for pure data parallelism to handle efficiently, or too small due to memory constraints from model size.
 
-To try and address some of these problems, we can think of multi-node clusters as having a two-dimensional topology: fast-intra node communication between devices along one axis, and relatively slower inter-node communication along another axis. Let’s consider how we can compose the parallelism techniques we’ve introduced so far to take advantage of this.
+To try and address some of these problems, we can think of multi-node clusters as having a two-dimensional topology: fast intra-node communication between devices along one axis, and relatively slower inter-node communication along another axis. Let’s consider how we can compose the parallelism techniques we’ve introduced so far to take advantage of this.
 
 
 ### Hybrid Sharded Data Parallelism
