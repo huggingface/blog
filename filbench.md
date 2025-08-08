@@ -35,7 +35,7 @@ For example, Filipinos are among the most active ChatGPT users globally, ranking
 Most of the existing evidence is anecdotal, such as screenshots of ChatGPT responding in Filipino as proof that it is fluent.
 What we need instead is a systematic evaluation of LLM capabilities in Philippine languages.
 
-<!-- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/filbench/filbench-intro.png" style="width: 100%;"/> -->
+<!-- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/filbench/filbench-intro.png" style="width: 100%;"/> -->
 
 That’s why we developed FilBench: a comprehensive evaluation suite to assess the capabilities of LLMs for Tagalog, Filipino (the standardized form of Tagalog), and Cebuano, on fluency, linguistic and translation abilities, as well as specific cultural knowledge.
 
@@ -58,7 +58,7 @@ For example, the Classical NLP category includes tasks such as sentiment analysi
 In order to ensure that these categories reflect the priorities and trends in NLP research and usage, we curate them based on a historical survey of NLP research on Philippine languages from 2006 to early 2024.
 (Most of these categories exclusively contain non-translated content to ensure faithfulness to the natural use of Philippine languages.)
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/filbench/filbench-main.png" style="width: 100%;"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/filbench/filbench-main.png" style="width: 100%;"/>
 
 - **Cultural Knowledge:** This category tests a language model's ability to recall factual and culturally specific information. For Cultural Knowledge, we curated a variety of examples that test an LLM's regional and factual knowledge (Global-MMLU), Filipino-centric values (KALAHI), and ability to disambiguate word sense (StingrayBench).
 - **Classical NLP:** This category encompasses a variety of information extraction and linguistic tasks, such as named entity recognition, sentiment analysis, and text categorization, that specialized, trained models traditionally performed. In this category, we include instances from CebuaNER, TLUnified-NER, and Universal NER for named entity recognition, and subsets of SIB-200 and BalitaNLP for text categorization and sentiment analysis.
@@ -85,7 +85,7 @@ These are open-weight LLMs that you can freely download from HuggingFace.
 We find that SEA-specific LLMs are often the most parameter-efficient for our languages, achieving the highest FilBench scores compared to other models of their size.
 However, the best SEA-specific model is still outperformed by closed-source LLMs like GPT-4o.
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/filbench/filbench-finding-1.png" style="width: 100%;"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/filbench/filbench-finding-1.png" style="width: 100%;"/>
 
 Building region-specific LLMs still makes sense, as we observe performance gains of 2-3% when continuously fine-tuning a base LLM with SEA-specific instruction-tuning data.
 This suggests that **efforts to curate Filipino/SEA-specific training data for fine-tuning remain relevant**, as they can lead to better performance on FilBench.
@@ -95,7 +95,7 @@ This suggests that **efforts to curate Filipino/SEA-specific training data for f
 We also observe that across the four categories on FilBench, most models struggle with Generation capabilities.
 Upon inspecting failure modes in Generation, we find that these include cases where the model fails to follow translation instructions, generates overly verbose texts, or hallucinates another language instead of Tagalog or Cebuano.
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/filbench/filbench-finding-2.png" style="width: 100%;"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/filbench/filbench-finding-2.png" style="width: 100%;"/>
 
 ### Finding #3: Open LLMs Remain a Cost-Effective Choice for Filipino Language Tasks
 
@@ -106,7 +106,7 @@ In general, we find that open-weight LLMs, i.e., models that you can freely down
 If you want an alternative to GPT-4o for your Filipino language tasks, then try Llama 4 Maverick!
 
 <div align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/filbench/filbench-finding-3.png" style="width: 60%;"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/filbench/filbench-finding-3.png" style="width: 60%;"/>
 </div>
 
 We also make this information available in the HuggingFace space of the FilBench leaderboard.
