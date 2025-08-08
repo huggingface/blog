@@ -58,10 +58,11 @@ model = accelerator.prepare(model)
 
 We've also included a more comprehensive end-to-end [training script](https://github.com/huggingface/accelerate/blob/main/examples/fsdp2/nd_parallel.py) in the Accelerate repo which demonstrates how to setup your dataloader, optimizer, and training loop, and how to save your model after training.
 
-To further streamline fine-tuning models at scale and compose parallelism strategies with a variety of fine-tuning techniques, we've also integrated this technique into Axolotl. To help you get started right away we've tested some [example configs]() which you can modify to suit your needs:
+To further streamline fine-tuning models at scale and compose parallelism strategies with a variety of fine-tuning techniques, we've also integrated this technique into Axolotl. To help you get started right away we've tested some [example configs](https://github.com/axolotl-ai-cloud/axolotl/tree/main/examples/distributed-parallel) which you can modify to suit your needs - try one out with:
 
 ```bash
-axolotl train examples/nd_parallel/*.yaml
+# note: this requires a minimum world size of 16 
+axolotl train examples/distributed-parallel/llama-3_1-8b-hdsp-tp.yaml
 ```
 
 You can also check out the [Axolotl ND-Parallelism docs](https://docs.axolotl.ai/docs/nd_parallelism.html) for more details - adding ND parallel techniques to your existing configs is as simple as adding one or more of the following fields to your config file:
@@ -278,11 +279,10 @@ Below are some additional tips you may find useful when working in distributed s
   ```
 - The total batch sized used during training plays an important factor in training stability, memory usage, and data throughput. When using DP and/or FSDP the effective batch size is calculated as:
 
-  `effective_batch_size = micro_batch_size ×
-  gradient_accumulation_steps × dp_world_size`. 
+  `effective_batch_size = micro_batch_size * gradient_accumulation_steps * dp_world_size`. 
 
   where `dp_world_size=(dp_shard_size * dp_replicate_size) / tp_size`. You can increase your batch size by increasing your total micro batch size or gradient accumulation steps in your training loop, or setting the `micro_batch_size` and `gradient_accumulation_steps` config fields in Axolotl, or increasing the total `dp_world_size` by adding more GPUs. As we mentioned above, this imposes a *minimum* total batch size of `dp_world_size` - when using pure DP/FSDP, this will be your total world size, and if this is too high the only way to decrease the total batch size is by introducing tensor parallelism. Finally, with a fixed number of GPUs and in memory-constrained scenarios, we recommend increasing `gradient_accumulation_steps` instead of `micro_batch_size` to achieve larger effective batch sizes, and vice-versa.
-- Correspondingly, when your effective batch size increases due to introducing data parallelism, you should scale your learning rate to maintain training stability. Common approaches include linear scaling `scaled_lr = base_lr × (effective_batch_size / base_batch_size)` or square root scaling `scaled_lr = base_lr × sqrt(effective_batch_size / base_batch_size)`. 
+- Correspondingly, when your effective batch size increases due to introducing data parallelism, you should scale your learning rate to maintain training stability. Common approaches include linear scaling `scaled_lr = base_lr * (effective_batch_size / base_batch_size)` or square root scaling `scaled_lr = base_lr * sqrt(effective_batch_size / base_batch_size)`. 
 - When memory constraints persist even with parallelism strategies, gradient checkpointing can provide additional memory savings by trading compute for memory. During the forward pass, only a subset of activations are kept in memory (typically at transformer block boundaries), and intermediate activations are recomputed during the backward pass. This technique works seamlessly with all parallelism strategies covered above. In Accelerate, you can enable it by setting `activation_checkpointing=true` in `FullyShardedDataParallelPlugin`:
   ```python
   fsdp2_plugin = FullyShardedDataParallelPlugin(
