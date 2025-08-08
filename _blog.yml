@@ -6473,7 +6473,6 @@
     - community
     - open-source
 
-
 - local: welcome-openai-gpt-oss
   title: "Welcome GPT OSS, the new open-source model family from OpenAI!"
   author: reach-vb
@@ -6497,3 +6496,12 @@
     - vlm
     - vision
 
+- local: accelerate-nd-parallel
+  title: "Accelerate ND-Parallel: A Guide to Efficient Multi-GPU Training"
+  author: siro1
+  thumbnail: /blog/assets/accelerate-nd-parallel/thumbnail.png
+  date: August 8, 2025
+  tags:
+    - transformers
+    - llm
+    - guide
