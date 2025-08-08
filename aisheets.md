@@ -14,7 +14,7 @@ authors:
 
 **🧭TL;DR** 
 
-Hugging Face AI Sheets is a new, open-source tool for building, enriching, and transforming datasets using AI models with no code. The tool can be deployed locally or on the Hub. It lets you use thousands of open models from the Hugging Face Hub via Inference Providers or local models, including `gpt-oss` from OpenAI! 
+Hugging Face AI Sheets is a new, **open-source tool for building, enriching, and transforming datasets using AI models with no code**. The tool can be deployed locally or on the Hub. It lets you use thousands of open models from the Hugging Face Hub via Inference Providers or local models, including `gpt-oss` from OpenAI! 
 
 ## Useful links
 
@@ -36,9 +36,11 @@ You can use AI Sheets to:
 
 **Compare and vibe test models.** Imagine you want to test the latest models on your data. You can import a dataset with prompts/questions, and create several columns (one per model) with a prompt like this: `Answer the following: {{prompt}}`, where `prompt` is a column in your dataset. You can validate the results manually or create a new column with an LLM as a judge prompt like this: `Evaluate the responses to the following question: {{prompt}}. Response 1: {{model1}}. Response 2: {{model2}}`, where `model1` and `model2` are columns in your dataset with different model responses.
 
-**Transform a dataset.** Imagine you want to clean up a column of your dataset. You can add a new column with a prompt like this: `Remove extra punctuation marks from the following text: {{text}}`, where `text` is a column in your dataset containing the texts you want to clean up.
+**Improve prompts for your data and specific models.** Imagine you want to build an application to process customer requests and give automatic answers. You can load a sample dataset with customer requests and start playing and iterating with different prompts and models to generate responses. One cool feature of AI Sheets is that you can provide feedback by editing or validating cells. These example cells will be added to your prompts automatically. You can think of it as a tool to fine-tune prompts and add a few-shot examples to your prompts very efficiently, by looking at your data in real-time! 
 
-**Classify a dataset.** Imagine you want to classify some content in your dataset. You can add a new column with a prompt like this: `Categorize the following text: {{text}}`, where `text` is a column in your dataset containing the texts you want to categorize.
+**Transform a dataset.** Imagine you want to clean up a column of your dataset. You can add a new column with a prompt like `Remove extra punctuation marks from the following text: {{text}}`, where `text` is a column in your dataset containing the texts you want to clean up.
+
+**Classify a dataset.** Imagine you want to classify some content in your dataset. You can add a new column with a prompt like `Categorize the following text: {{text}}`, where `text` is a column in your dataset containing the texts you want to categorize.
 
 **Analyze a dataset.** Imagine you want to extract the main ideas in your dataset. You can add a new column with a prompt like this: `Extract the most important ideas from the following: {{text}}`, where `text` is a column in your dataset containing the texts you want to analyze.
 
@@ -98,6 +100,25 @@ Think of this as an auto-dataset or prompt-to-dataset feature—you describe wha
 2. AI Sheets generates the schema and creates 5 sample rows  
 3. Extend to up to 1,000 rows or modify the prompt to change structure
 
+**Example**
+
+If you type this prompt: `cities of the world, alongside countries they belong to and a landmark image for each, generated in Ghibli style`:
+
+![image/png](https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/A8n7AE9DnhaVvaQubxYat.png)
+
+AI Sheets will automatically generate a dataset with three columns, as shown below:
+![image/png](https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/9SeZR4rBHuIDYLzosUDcv.png)
+
+
+
+This dataset contains only five rows, but you can add more cells by dragging down on each column:
+
+
+![image/png](https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/A5xWDSJMrcVMX2dRRQb1Q.png)
+
+
+The following sections will show you how to iterate and expand the dataset.
+
 
 ### Working with your dataset 
 
@@ -118,7 +139,7 @@ Once your data is loaded (regardless of how you started), you'll see it in an ed
    * Translate content  
    * Or write custom prompts with "Do something with {{column}}"
 
-## Refining and expanding the dataset
+### Refining and expanding the dataset
 
 Now that you have AI columns, you can improve their results and expand your data. You can improve results by providing feedback through manual edits and likes or by adjusting the column configuration. Both require regeneration to take effect.
 
@@ -135,7 +156,9 @@ Now that you have AI columns, you can improve their results and expand your data
 
 * **Edit cells:** Click any cell to edit content directly \- this gives the model examples of your preferred output  
 * **Like results:** Use thumbs-up to mark examples of good output  
-* Regenerate to apply feedback to other cells in the column
+* Regenerate to apply feedback to other cells in the column.
+
+Under the hood, these manually edited and liked cells will be used as few-shot examples for generating the cells when you regenerate or add more cells in the column!
 
 **3\. Adjust column configuration** Change the prompt, switch models or providers, or modify settings, then regenerate to get better results.
 
@@ -145,7 +168,7 @@ Now that you have AI columns, you can improve their results and expand your data
 * Edit anytime to change or improve output  
 * Column regenerates with new results
 
-**Switch models / providers**
+**Switch models/providers**
 
 * Try different models for different performance or compare them.  
 * Some are more accurate, creative, or structured than others for specific tasks.  
@@ -155,6 +178,27 @@ Now that you have AI columns, you can improve their results and expand your data
 
 * Enable: Model pulls up-to-date information from the web   
 * Disable: Offline, model-only generation
+
+### Exporting your final dataset to the Hub
+Once you're happy with your new dataset, export it to the Hub! This has the additional benefit of generating a config file you can reuse for (1) generating more data with HF jobs [using this script](https://huggingface.co/datasets/aisheets/uv-scripts/blob/main/extend_dataset/script.py), and (2) reusing the prompts for downstream applications, including the few shots from your edited and liked cells.
+
+![image/png](https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/9To_YsUYVyJSqfL0SAJDW.png)
+
+
+Here's an [example](https://huggingface.co/datasets/dvilasuero/nemotron-personas-kimi-questions) dataset created with AISheets, which [produces this config](https://huggingface.co/datasets/dvilasuero/nemotron-personas-kimi-questions/raw/main/config.yml ).
+
+
+### Running data generation scripts using HF Jobs
+If you want to generate a larger dataset, you can use the above-mentioned config and script, like this:
+
+```bash
+hf jobs uv run \
+-s HF_TOKEN=$HF_TOKEN \
+https://huggingface.co/datasets/aisheets/uv-scripts/raw/main/extend_dataset/script.py \ # script for running the pipeline
+--config https://huggingface.co/datasets/dvilasuero/nemotron-personas-kimi-questions/raw/main/config.yml \ # config with prompts
+--num-rows 100 \ # limit to 100 rows, leave empty for the full dataset
+nvidia/Nemotron-Personas dvilasuero/nemotron-kimi-qa-distilled 
+```
 
 ## Examples
 
@@ -347,4 +391,3 @@ columns:
 You can try AI Sheets [without installing anything](https://huggingface.co/spaces/aisheets/sheets) or download and deploy it locally from the [GitHub repo](https://github.com/huggingface/aisheets). For running locally and get the most out of it, we recommend you to [subscribe to PRO](https://hf.co/pro) and get 20x monthly inference usage.
 
 If you have questions or suggestions, let us know in the [Community tab](https://huggingface.co/spaces/aisheets/sheets/discussions) or by opening an issue on [GitHub](https://github.com/huggingface/aisheets).
-
