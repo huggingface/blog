@@ -62,7 +62,7 @@ To further streamline fine-tuning models at scale and compose parallelism strate
 
 ```bash
 # note: this requires a minimum world size of 16 
-axolotl train examples/distributed-parallel/llama-3_1-8b-hdsp-tp.yaml
+axolotl train examples/distributed-parallel/llama-3_1-8b-hsdp-tp.yaml
 ```
 
 You can also check out the [Axolotl ND-Parallelism docs](https://docs.axolotl.ai/docs/nd_parallelism.html) for more details - adding ND parallel techniques to your existing configs is as simple as adding one or more of the following fields to your config file:
