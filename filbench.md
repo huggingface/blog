@@ -44,8 +44,8 @@ We used it to evaluate 20+ state-of-the-art LLMs on FilBench, providing a compre
 <iframe
 	src="https://ud-filipino-filbench-leaderboard.hf.space"
 	frameborder="0"
-	width="100%"
-	height="1200px"
+	width="850"
+	height="450"
 ></iframe>
 
 - 📄 Paper: https://arxiv.org/abs/2508.03523
