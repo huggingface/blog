@@ -211,7 +211,7 @@ You just need to import a dataset (or create one from scratch) and then add diff
 
 Then, you can either inspect the results manually or add a column to use LLMs to judge the quality of each model.
 
-Below is an example, comparing open frontier models for mini web apps. AI Sheet lets you see the interactive results and play with each app. Additionally, the dataset includes several columns using LLM to judge and compare the quality of the apps.
+Below is an example, comparing open frontier models for mini web apps. AI Sheets lets you see the interactive results and play with each app. Additionally, the dataset includes several columns using LLM to judge and compare the quality of the apps.
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/ArLkbk5trsp1CzehDw45N.png)
 
