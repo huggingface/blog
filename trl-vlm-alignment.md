@@ -2,10 +2,10 @@
 title: "Vision Language Model Alignment in TRL ⚡️" 
 thumbnail: /blog/assets/trl_vlm/thumbnail.png
 authors:
-- user: qgallouedec
-- user: kashif
 - user: sergiopaniego
 - user: merve
+- user: qgallouedec
+- user: kashif
 - user: ariG23498
 ---
 
@@ -39,7 +39,7 @@ But in the last year, new multimodal alignment methods have gained popularity, G
 
 ### Mixed Preference Optimization (MPO)
 
-Aligning multimodal models with SFT to do reasoning tasks fall short due to distribution shift. Meanwhile, models aligned with DPO fail to generate coherent rationales and might generate repetitive responses. To address this, there’s a new technique called [Mixed Preference Optimization](https://huggingface.co/papers/2411.10442) (MPO) specifically made for multimodal models. This method is essentially an extension of DPO with multiple losses: preference loss from DPO (sigmoid), quality loss from Binary Classifier Optimization (BCO), and generation loss from SFT. According to the [paper](https://huggingface.co/papers/2411.10442), simply switching to this combined loss results in 6.2 pts improvement in MathVista! 
+Aligning multimodal models with SFT to do reasoning tasks falls short due to distribution shift. Meanwhile, models aligned with DPO fail to generate coherent rationales and might generate repetitive responses. To address this, there’s a new technique called [Mixed Preference Optimization](https://huggingface.co/papers/2411.10442) (MPO) specifically made for multimodal models. This method is essentially an extension of DPO with multiple losses: preference loss from DPO (sigmoid), quality loss from Binary Classifier Optimization (BCO), and generation loss from SFT. According to the [paper](https://huggingface.co/papers/2411.10442), simply switching to this combined loss results in 6.2 pts improvement in MathVista! 
 
 ![MPO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/trl-vlm/image_1.png)
 
@@ -90,7 +90,7 @@ from math_verify import LatexExtractionConfig, parse, verify
 
 def format_reward(completions, **kwargs):
     """Reward function that checks if the completion has a specific format."""
-    pattern = r"^<think>.*?</think>s*<answer>.*?</answer>$"
+    pattern = r"^<think>.*?</think>\s*<answer>.*?</answer>$"
     matches = [re.match(pattern, content) for content in completions]
     rewards_list = [1.0 if match else 0.0 for match in matches]
     rewards = [1.0 if match else 0.0 for match in matches]
@@ -143,7 +143,7 @@ Explore the full notebook example [here](https://huggingface.co/learn/cookbook/f
 
 [Group Sequence Policy Optimization](https://huggingface.co/papers/2507.18071) (GSPO) is a RL alignment algorithm recently released by Qwen that overcomes some limitations of GRPO. It achieves a more stable training computing importance sampling weights at the sequence level instead of per-token. Its benefits are more [relevant](https://github.com/volcengine/verl/pull/2775#issuecomment-3134375131) in MoE style models.
 
-Latest TRL also introduces supports for GSPO and since it’s a variant of GRPO's loss, it comes with multimodal support. To create the trainer, the process is the same as with GRPO, but adding the following extra params (values are extracted from the paper).
+Latest TRL also introduces support for GSPO and since it’s a variant of GRPO's loss, it comes with multimodal support. To create the trainer, the process is the same as with GRPO, but adding the following extra params (values are extracted from the paper).
 
 ```python
 from trl import GRPOConfig
@@ -189,7 +189,7 @@ Here's a table summarizing model outputs for Qwen2.5VL-3B fine-tuned with the te
 vLLM is integrated in TRL to support online alignment methods where you need to generate samples during training. Running the example scripts like the following enables vLLM: 
 
 ```bash
-CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/grpo_vlm.py     --model_name_or_path   Qwen/Qwen2.5-VL-3B-Instruct    …   --log_completions —use_vllm —vlm_mode colocate
+CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/grpo_vlm.py     --model_name_or_path   Qwen/Qwen2.5-VL-3B-Instruct    …   --log_completions --use_vllm --vllm_mode colocate
 ```
 
 There’s mainly two modes: `colocate` and `server`. [`colocate`](https://huggingface.co/blog/vllm-colocate) runs vLLM in the same process as the training loop, sharing the same GPU between training and generation, creating a vLLM LLM instance inside the `GRPOTrainer`. Meanwhile `server` requires you to serve vLLM separately in a different process where you can hit the server. You can start this server with the command:
@@ -201,7 +201,7 @@ trl vllm-serve --model Qwen/Qwen2.5-VL-3B-Instruct --tensor-parallel-size 1
 Then you can run the script as follows.
 
 ```bash
-CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/grpo_vlm.py     --model_name_or_path   Qwen/Qwen2.5-VL-3B-Instruct    …   --log_completions —use_vllm —vlm_mode server
+CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/grpo_vlm.py     --model_name_or_path   Qwen/Qwen2.5-VL-3B-Instruct    …   --log_completions --use_vllm --vllm_mode server
 ```
 
 One more tip: we have added support for using vLLM with transformers backend in TRL. You can enable it when running a script with colocate or when serving the model by passing the `--vllm_model_impl transformers` flag.
