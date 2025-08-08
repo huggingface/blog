@@ -58,27 +58,7 @@ AI Sheets gives you two ways to start: import existing data or generate a datase
 
 ### Getting started
 
-To get started, you need to import a dataset or create one from scratch.
-
-#### Import your dataset (recommended)
-
-***Best for:** Most use cases where you want to transform, classify, enrich, and analyze real-world data.*
-
-*This is recommended for most use cases, as importing real data gives you more control and flexibility than starting from scratch.*
-
-***When to use this:***
-
-* *You have existing data to transform or enrich using AI models*  
-* *You want to generate synthetic data, and accuracy and diversity are important*
-
-***How it works:***
-
-1. *Upload your data in XLS, TSV, CSV, or Parquet format*  
-2. *Ensure your file includes at least one column name and one row of data*  
-3. *Upload up to 1,000 rows (unlimited columns)*  
-4. *Your data appears in a familiar spreadsheet format*
-
-***Pro tip:** If your file contains minimal data, you can manually add more entries by typing directly into the spreadsheet.*
+To get started, you need create one from scratch describing it in natural language or import an existing dataset.
 
 #### Generate Dataset from Scratch 
 
@@ -109,15 +89,31 @@ If you type this prompt: `cities of the world, alongside countries they belong t
 AI Sheets will automatically generate a dataset with three columns, as shown below:
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/9SeZR4rBHuIDYLzosUDcv.png)
 
-
-
 This dataset contains only five rows, but you can add more cells by dragging down on each column, including the image one! You can also write items in any of the cells and complete the others by dragging.
-
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/A5xWDSJMrcVMX2dRRQb1Q.png)
 
-
 The following sections will show you how to iterate and expand the dataset.
+
+#### Import your dataset (recommended)
+
+***Best for:** Most use cases where you want to transform, classify, enrich, and analyze real-world data.*
+
+*This is recommended for most use cases, as importing real data gives you more control and flexibility than starting from scratch.*
+
+***When to use this:***
+
+* *You have existing data to transform or enrich using AI models*  
+* *You want to generate synthetic data, and accuracy and diversity are important*
+
+***How it works:***
+
+1. *Upload your data in XLS, TSV, CSV, or Parquet format*  
+2. *Ensure your file includes at least one column name and one row of data*  
+3. *Upload up to 1,000 rows (unlimited columns)*  
+4. *Your data appears in a familiar spreadsheet format*
+
+***Pro tip:** If your file contains minimal data, you can manually add more entries by typing directly into the spreadsheet.*
 
 
 ### Working with your dataset 
