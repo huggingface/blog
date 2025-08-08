@@ -304,4 +304,4 @@ Below are some additional tips you may find useful when working in distributed s
       cpu_ram_efficient_loading: True
       activation_checkpointing: True
     ```
- Note that gradient checkpointing typically increases training time by ~20-30% due to activation recomputation, but can reduce activation memory by 60-80%, making it particularly valuable when training very large models or using long sequence lengths. 
+  Note that gradient checkpointing typically increases training time by ~20-30% due to activation recomputation, but can reduce activation memory by 60-80%, making it particularly valuable when training very large models or using long sequence lengths. 
