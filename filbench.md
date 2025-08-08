@@ -48,6 +48,7 @@ We used it to evaluate 20+ state-of-the-art LLMs on FilBench, providing a compre
 	height="450"
 ></iframe>
 
+
 - 📄 Paper: https://arxiv.org/abs/2508.03523
 - 🖥️ GitHub: https://github.com/filbench/filbench-eval
 
