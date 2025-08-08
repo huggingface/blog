@@ -35,7 +35,7 @@ For example, Filipinos are among the most active ChatGPT users globally, ranking
 Most of the existing evidence is anecdotal, such as screenshots of ChatGPT responding in Filipino as proof that it is fluent.
 What we need instead is a systematic evaluation of LLM capabilities in Philippine languages.
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/filbench/filbench-intro.png" style="width: 100%;"/>
+<!-- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/filbench/filbench-intro.png" style="width: 100%;"/> -->
 
 That’s why we developed FilBench: a comprehensive evaluation suite to assess the capabilities of LLMs for Tagalog, Filipino (the standardized form of Tagalog), and Cebuano, on fluency, linguistic and translation abilities, as well as specific cultural knowledge.
 
