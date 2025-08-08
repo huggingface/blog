@@ -131,7 +131,7 @@ We also acknowledge the Hugging Face team, particularly the OpenEvals team (Clé
 If you are evaluating on FilBench, please cite our work:
 
 ```bibtex
-@articleP{filbench,
+@article{filbench,
   title={Fil{B}ench: {C}an {LLM}s {U}nderstand and {G}enerate {F}ilipino?},
   author={Miranda, Lester James V and Aco, Elyanah and Manuel, Conner and Cruz, Jan Christian Blaise and Imperial, Joseph Marvin},
   journal={arXiv preprint arXiv:2508.03523},
