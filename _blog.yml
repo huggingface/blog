@@ -6495,7 +6495,7 @@
     - trl
     - vlm
     - vision
-
+    
 - local: accelerate-nd-parallel
   title: "Accelerate ND-Parallel: A Guide to Efficient Multi-GPU Training"
   author: siro1
@@ -6505,3 +6505,13 @@
     - transformers
     - llm
     - guide
+
+- local: aisheets
+  title: "Introducing AI Sheets: a tool to work with datasets using open AI models!"
+  author: dvilasuero
+  thumbnail: /blog/assets/aisheets/aisheets-thumb.gif
+  date: Aug 8, 2025
+  tags:
+    - datasets
+    - open-source
+    - community
