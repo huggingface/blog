@@ -111,7 +111,7 @@ AI Sheets will automatically generate a dataset with three columns, as shown bel
 
 
 
-This dataset contains only five rows, but you can add more cells by dragging down on each column:
+This dataset contains only five rows, but you can add more cells by dragging down on each column, including the image one! You can also write items in any of the cells and complete the others by dragging.
 
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/A5xWDSJMrcVMX2dRRQb1Q.png)
