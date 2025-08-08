@@ -157,41 +157,41 @@ Since the attention operation in transformers scales quadratically with context 
 
 With context parallelism (CP), we can shard the inputs across the sequence dimension, resulting in each device only processing a chunk of the full context and computing a smaller portion of the full, prohibitively large, attention matrix. To see how this works, recall that the attention computation is described by the equation:
 
-$$\text{Attention}(Q, K, V) = \text{softmax}(QK^T)V$$
+\\( \text{Attention}(Q, K, V) = \text{softmax}(QK^T)V )\\
 
-Where $Q$, $K$, and $V$ are the query, key, and value matrices respectively. Each query vector (row, or input embedding) of $Q$ must compute the attention scores against *every* key vector of $K$ in the entire sequence to correctly apply the softmax normalisation. These attention scores are then weighted with *all* value vectors in $V$. 
+Where \\( Q )\\, \\( K )\\, and \\( V )\\ are the query, key, and value matrices respectively. Each query vector (row, or input embedding) of \\( Q )\\ must compute the attention scores against *every* key vector of \\( K )\\ in the entire sequence to correctly apply the softmax normalisation. These attention scores are then weighted with *all* value vectors in \\( V )\\.
 
-The crucial detail here lies in the fact that each row in $Q$ can compute its attention score independently of one another, but each query vector still requires the full $K$ and $V$ matrices. In other words, given an input with sequence length $n$, we can expand our above attention equation as:
+The crucial detail here lies in the fact that each row in \\( Q )\\ can compute its attention score independently of one another, but each query vector still requires the full \\( K )\\ and \\( V )\\ matrices. In other words, given an input with sequence length $n$, we can expand our above attention equation as:
 
-$$\begin{align}
+\\( \begin{align}
 \text{Attention}(Q, K, V)_1 &= \text{softmax}(Q_1 K^T) V \\
 \text{Attention}(Q, K, V)_2 &= \text{softmax}(Q_2 K^T) V \\
 &\vdots \\
 \text{Attention}(Q, K, V)_n &= \text{softmax}(Q_n K^T) V
-\end{align}$$
+\end{align} )\\
 
-where we denote each row of the query matrix as $Q_1, Q_2, ..., Q_n$. This can be generalized as:
+where we denote each row of the query matrix as \\( Q_1, Q_2, ..., Q_n )\\. This can be generalized as:
 
-$$\text{Attention}(Q, K, V)_i = \text{softmax}(Q_i K^T) V \quad \forall i \in \{1, 2, ..., n\}$$
+\\( \text{Attention}(Q, K, V)_i = \text{softmax}(Q_i K^T) V \quad \forall i \in \{1, 2, ..., n\} )\\
 
-When we shard the inputs across devices, the resulting  $Q$, $K$, and $V$ matrices (computed from these input shards) are also automatically sharded along the sequence dimension - each GPU computes queries, keys, and values only for its portion of the sequence. For example, with a world size of $W$ GPUs and sequence length $n$:
+When we shard the inputs across devices, the resulting \\( Q \\), \\( K \\), and \\( V \\) matrices (computed from these input shards) are also automatically sharded along the sequence dimension - each GPU computes queries, keys, and values only for its portion of the sequence. For example, with a world size of \\( W \\) GPUs and sequence length \\( n \\):
 
-- GPU 0 computes $Q_{1:n/W}$, $K_{1:n/W}$, $V_{1:n/W}$
-- GPU 1 computes $Q_{n/W+1:2n/W}$, $K_{n/W+1:2n/W}$, $V_{n/W+1:2n/W}$
+- GPU 0 computes \\( Q_{1:n/W} \\), \\( K_{1:n/W} \\), \\( V_{1:n/W} \\)
+- GPU 1 computes \\( Q_{n/W+1:2n/W} \\), \\( K_{n/W+1:2n/W} \\), \\( V_{n/W+1:2n/W} \\)
 - ...
-- GPU $(W-1)$ computes $Q_{(W-1)n/W+1:n}$, $K_{(W-1)n/W+1:n}$, $V_{(W-1)n/W+1:n}$
+- GPU \\( (W-1) \\) computes \\( Q_{(W-1)n/W+1:n} \\), \\( K_{(W-1)n/W+1:n} \\), \\( V_{(W-1)n/W+1:n} \\)
 
-How do we ensure the attention is computed correctly? As established above, each device only needs its own shard of $Q$, but requires the full $K$ and $V$ matrices to compute the attention correctly. We can achieve this by using a technique called [RingAttention](https://openreview.net/forum?id=WsRHpHH4s0), which works as follows:
-1. Initially, each GPU holds its shard of $Q$, $K$, $V$ (e.g., GPU 0 holds $Q_{1:n/W}$, $K_{1:n/W}$,
-$V_{1:n/W}$).
-2. Each GPU then computes a partial attention matrix $A_{i,j}$ for its shard of $Q_i$ and its local
-shard of $K_j$, $V_j$.
-3. Each GPU sends its shard of $K$, $V$ to the next GPU in the ring.
-4. Each GPU receives a different shard of $K$, $V$ from the previous GPU in the ring.
-5. Each GPU computes additional partial attention matrices $A_{i,j+1}$, $A_{i,j+2}$, etc. using
-the received $K$, $V$ shards.
-6. Each GPU repeats this process until all shards of $K$, $V$ have been received and all partial
-  attention matrices $A_{i,*}$ have been computed.
+How do we ensure the attention is computed correctly? As established above, each device only needs its own shard of \\( Q \\), but requires the full \\( K \\) and \\( V \\) matrices to compute the attention correctly. We can achieve this by using a technique called [RingAttention](https://openreview.net/forum?id=WsRHpHH4s0), which works as follows:
+1. Initially, each GPU holds its shard of \\( Q \\), \\( K \\), \\( V \\) (e.g., GPU 0 holds \\( Q_{1:n/W} \\), \\( K_{1:n/W} \\),
+\\( V_{1:n/W} \\)).
+2. Each GPU then computes a partial attention matrix \\( A_{i,j} \\) for its shard of \\( Q_i \\) and its local
+shard of \\( K_j \\), \\( V_j \\).
+3. Each GPU sends its shard of \\( K \\), \\( V \\) to the next GPU in the ring.
+4. Each GPU receives a different shard of \\( K \\), \\( V \\) from the previous GPU in the ring.
+5. Each GPU computes additional partial attention matrices \\( A_{i,j+1} \\), \\( A_{i,j+2} \\), etc. using
+the received \\( K \\), \\( V \\) shards.
+6. Each GPU repeats this process until all shards of \\( K \\), \\( V \\) have been received and all partial
+  attention matrices \\( A_{i,*} \\) have been computed.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/accelerate-nd-parallel/cp.png" alt="Diagram for Context Parallel">
@@ -303,4 +303,4 @@ Below are some additional tips you may find useful when working in distributed s
       cpu_ram_efficient_loading: True
       activation_checkpointing: True
     ```
-  Note that gradient checkpointing typically increases training time by ~20-30% due to activation recomputation, but can reduce activation memory by 60-80%, making it particularly valuable when training very large models or using long sequence lengths. 
+  Note that gradient checkpointing typically increases training time by ~20-30% due to activation recomputation, but can reduce activation memory by 60-80%, making it particularly valuable when training very large models or using long sequence lengths.
