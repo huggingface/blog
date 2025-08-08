@@ -257,7 +257,7 @@ With a sufficiently large world size (note: while the minimum world size for 3D 
 There are additional ways to combine multiple parallelisms which we haven't covered, such as 4D parallel using HSDP + TP + CP, but they operate very similarly to the techniques we've already covered. Most of all, we encourage you to play with different techniques and configurations - this is the best way to gain an intuition for the different ways in which you can make memory/throughput trade-offs.
 
 Below are some additional tips you may find useful when working in distributed settings:
-- When using FSDP and working with models that are too large to fit in a single device, enabling both CPU RAM efficient loading and sharded state dict checkpointing technique is crucial. You can enable this through the`cpu_ram_efficient_loading` and `state_dict_type` parameters in Accelerate's [`FullyShardedDataParallelPlugin`](https://huggingface.co/docs/accelerate/v1.10.0/en/package_reference/utilities#accelerate.FullyShardedDataParallelPlugin), 
+- When using FSDP and working with models that are too large to fit in a single device, enabling both CPU RAM efficient loading and sharded state dict checkpointing technique is crucial. You can enable this through the `cpu_ram_efficient_loading` and `state_dict_type` parameters in Accelerate's [`FullyShardedDataParallelPlugin`](https://huggingface.co/docs/accelerate/v1.10.0/en/package_reference/utilities#accelerate.FullyShardedDataParallelPlugin), 
   ```python
   fsdp2_plugin = FullyShardedDataParallelPlugin(
       fsdp_version=2,
