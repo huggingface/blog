@@ -6542,3 +6542,13 @@
     - llm
     - evaluation
     - agents
+
+- local: mcp-for-research
+  title: "MCP for Research: How to Connect AI to Research Tools"
+  author: dylanebert
+  thumbnail: /blog/assets/mcp-for-research/thumbnail.png
+  date: Aug 11, 2025
+  tags:
+    - mcp
+    - research
+    - guide
