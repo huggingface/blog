@@ -12,12 +12,12 @@ authors:
 The rapid advancement of Large Language Models (LLMs) has enabled remarkable progress on established academic and industrial benchmarks. Knowledge benchmarks, such as MMLU and GPQA now largely saturated, and frontier models are making significant progress on expert evaluations like [HLE](lastexam.ai). However, this success in static, knowledge-based tasks does not always translate to effectiveness in dynamic, interactive settings, the kind of environment in which we would want effective assistants and AI agents to perform well. Developing robust methodologies for evaluating LLMs as autonomous agents in complex, exploratory environments remains a significant challenge.
 
 Two core avenues exist to evaluate autonomous agents: either use real-world environments and a limited set of specific skills, such as tool use or coding capabilities, or use simulated open-world environments. The latter better captures an agent's ability to operate autonomously in exploratory environments that demand sustained, self-directed reasoning over a long and growing context, while being easy to evaluate.
-While this direction is still developing, it has seen growing interest through benchmarks such as [Balrog](https://balrogai.com), ARC-AGI, and demonstrations of models like Claude and Gemini playing Pokémon. Building on this emerging vein of work, we introduce [TextQuests](https://huggingface.co/spaces/cais/textquests)..
+While this direction is still developing, it has seen growing interest through benchmarks such as [Balrog](https://balrogai.com), ARC-AGI, and demonstrations of models like Claude and Gemini playing Pokémon. Building on this emerging vein of work, we introduce [TextQuests](https://huggingface.co/spaces/cais/textquests).
 
 
 <div style="display: flex; justify-content: center; margin: -3.5rem 0;">
   <img 
-    src="https://cdn-uploads.huggingface.co/production/uploads/62184306e1ef90f6e56dc116/-peMe37PjZu_GP6cG0hvE.png" 
+    src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/textquests/textquests_logo.png" 
     alt="TextQuests Logo" 
     style="width: 30px; height: 30px;"
   >
@@ -36,7 +36,7 @@ Success in these games requires an agent to build understanding over a long game
 <figure class="image text-center">
     <figcaption> Examples showing the diverse reasoning challenges in TextQuests.
 
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/62184306e1ef90f6e56dc116/jFL9KP7beldP-DsajAcAM.png" alt="Text watermark">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/textquests/textquests_examples.png" alt="Text watermark">
 </figure>
 
 
@@ -50,7 +50,7 @@ For each model, we conduct two distinct evaluation runs: one with access to the 
 
 <figure class="image text-center">
   <figcaption> LLMs performance on TextQuests.
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/62184306e1ef90f6e56dc116/0IbSDCDqywLE088Rtnej8.png" alt="results">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/textquests/textquests_results.png" alt="results">
   
 </figure>
 
@@ -60,7 +60,7 @@ For each model, we conduct two distinct evaluation runs: one with access to the 
 
 
 <figure class="image text-left">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/62184306e1ef90f6e56dc116/oExaHwL4vOP57zR8UIykA.png" alt="reasoning">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/textquests/textquests_fail.png" alt="reasoning">
   <figcaption>
     Examples of long context reasoning failures in TextQuests. <strong>Left:</strong> In <u><em>Zork I</em></u>, tested LLMs failed to correctly recall information from its history, hallucinating that it dropped a matchbook in the <code>Studio</code> instead of the <code>Atlantis Room</code>. <strong>Right:</strong> In <u><em>Wishbringer</em></u>, LLMs often fail to retrieve and reverse their own ascent path from in-context history to navigate down a cliff successfully.
   </figcaption>
@@ -69,7 +69,7 @@ For each model, we conduct two distinct evaluation runs: one with access to the 
 **Dynamic Thinking.** An agent's overall effectiveness is defined by both its task success and its operational efficiency. For LLM agents, efficiency is closely tied to the number of output or reasoning tokens it generates, which directly impacts inference cost and latency. Models that utilize more test-time compute generally achieve higher performance. However, this trend starts to diminish after a certain budget. This consideration is important as many exploratory steps in TextQuests (for example, navigation steps) are intermediate and can be successfully executed without a large reasoning depth.
 
 <figure class="image text-left">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/62184306e1ef90f6e56dc116/uCtG4a69lr-w4HV2eYWDl.png" alt="thinking">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/textquests/textquests_dynamic_thinking.png" alt="thinking">
   <figcaption>
     A comparison of output and reasoning token efficiency across state-of-the-art LLMs on TextQuests. Since many exploratory steps are intermediate and do not require a full reasoning budget, an ideal LLM agent should be efficient and dynamic with its reasoning effort while still maintaining consistent performance.
   </figcaption>
@@ -81,13 +81,6 @@ In closing, TextQuests is an evaluation of how well models can consistently prog
 
 ## Citations
 ```
-@article{hendrycks2021jiminycricket,
-  title={What Would Jiminy Cricket Do? Towards Agents That Behave Morally},
-  author={Dan Hendrycks and Mantas Mazeika and Andy Zou and Sahil Patel and Christine Zhu and Jesus Navarro and Dawn Song and Bo Li and Jacob Steinhardt},
-  journal={NeurIPS},
-  year={2021}
-}
-
 @misc{phan2025textquestsgoodllmstextbased,
   title={TextQuests: How Good are LLMs at Text-Based Video Games?}, 
   author={Long Phan and Mantas Mazeika and Andy Zou and Dan Hendrycks},
