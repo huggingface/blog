@@ -7,13 +7,6 @@ authors:
 
 # MCP for Research: How to Connect AI to Research Tools
 
-<script
-	type="module"
-	src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"
-></script>
-
-<gradio-app theme_mode="light" space="dylanebert/research-tracker-mcp"></gradio-app>
-
 Academic research involves frequent **research discovery**: finding papers, code, related models and datasets. This typically means switching between platforms like [arXiv](https://arxiv.org/), [GitHub](https://github.com/), and [Hugging Face](https://huggingface.co/), manually piecing together connections.
 
 The [Model Context Protocol (MCP)](https://huggingface.co/learn/mcp-course/unit0/introduction) is a standard that allows agentic models to communicate with external tools and data sources. For research discovery, this means AI can use research tools through natural language requests, automating platform switching and cross-referencing.
@@ -104,6 +97,13 @@ For setup instructions, see the [Research Tracker MCP](https://huggingface.co/sp
   }
 }
 ```
+
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"
+></script>
+
+<gradio-app theme_mode="light" space="dylanebert/research-tracker-mcp"></gradio-app>
 
 ## Learn More
 
