@@ -6515,3 +6515,14 @@
     - datasets
     - open-source
     - community
+
+- local: textquests
+  title: "TextQuests: How Good are LLMs at Text-Based Video Games?"
+  author: justinphan3110
+  thumbnail: /blog/assets/textquests/thumbnail.gif
+  date: Aug 12, 2025
+  tags:
+    - research
+    - llm
+    - evaluation
+    - agents
