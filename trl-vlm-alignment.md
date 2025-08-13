@@ -15,7 +15,7 @@ authors:
 
 Vision Language Models (VLMs) are getting stronger, but *aligning* them to human preferences still matters. In TRL, we already showed how to post-train VLMs with [**Supervised Fine-Tuning (SFT)**](https://huggingface.co/docs/trl/main/en/training_vlm_sft) and [**Direct Preference Optimization (DPO)**](https://huggingface.co/learn/cookbook/fine_tuning_vlm_dpo_smolvlm_instruct). This time, we’re going further.
 
-**tl;dr** We have added two new multimodal alignment methods to TRL: **Group Relative Policy Optimization (GRPO)**, its variant **Group Sequence Policy Optimization (GSPO)**, and **Mixed Preference Optimization (MPO)**. All of them let you go beyond pairwise DPO, extracting more signal from preference data and scaling better with modern VLMs. We release training scripts and demo notebooks to easily get started with them!
+**tl;dr** We have added two new multimodal alignment methods to TRL: **Group Relative Policy Optimization (GRPO)**, its variant **Group Sequence Policy Optimization (GSPO)**, and **Mixed Preference Optimization (MPO)**. All of them let you go beyond pairwise DPO, extracting more signal from preference data and scaling better with modern VLMs. We have also added native Supervised Fine-tuning support for vision language models. We release training scripts and demo notebooks to easily get started with them!
 
 ## Table of Contents
 
@@ -26,6 +26,7 @@ Vision Language Models (VLMs) are getting stronger, but *aligning* them to human
     - [Multimodal Group Relative Policy Optimization (GRPO)](#multimodal-group-relative-policy-optimization-grpo)
     - [Group Sequence Policy Optimization (GSPO)](#group-sequence-policy-optimization-gspo)
     - [Comparison](#comparison)
+  - [Native Supervised Fine-tuning Support](#native-supervised-fine-tuning-support)
   - [vLLM Integration in TRL](#vllm-integration-in-trl)
   - [Useful Resources](#useful-resources)
 
@@ -183,6 +184,26 @@ Here's a table summarizing model outputs for Qwen2.5VL-3B fine-tuned with the te
 
 </details>
 
+
+## Native Supervised Fine-tuning Support
+
+Previously, [`SFTTrainer`](https://huggingface.co/docs/trl/en/sft_trainer) was partially supporting vision language models. This was primarily due to many differences across VLM implementations in transformers API. With the standardization of the transformers API, we have shipped a full support for vision language models. You can simply initialize `SFTTrainer` with a VLM.
+
+```python
+from trl import SFTConfig, SFTTrainer
+from datasets import load_dataset
+
+trainer = SFTTrainer(
+    model="Qwen/Qwen2.5-VL-3B-Instruct",
+    args=SFTConfig(max_length=None), # To avoid truncation that may remove image tokens during training
+    train_dataset=load_dataset("trl-lib/llava-instruct-mix", split="train"),
+)
+trainer.train()
+``` 
+
+To train a VLM, you need to provide a dataset with an additional `images` column containing the images to be processed. You can take a look at [Dataset Formats — Vision Datasets](https://huggingface.co/docs/trl/en/dataset_formats#vision-datasets) for more information on how it should look like. A good example is [LLaVA Instruct Mix](https://huggingface.co/datasets/trl-lib/llava-instruct-mix).
+
+We also have a [`sft_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/scripts/sft_vlm.py) script that works out of the box for transformers vision language models. 
 
 ## vLLM Integration in TRL
 
