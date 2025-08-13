@@ -195,7 +195,7 @@ from datasets import load_dataset
 
 trainer = SFTTrainer(
     model="Qwen/Qwen2.5-VL-3B-Instruct",
-    args=SFTConfig(max_length=None),
+    args=SFTConfig(max_length=None), # To avoid truncation that may remove image tokens during training
     train_dataset=load_dataset("trl-lib/llava-instruct-mix", split="train"),
 )
 trainer.train()
