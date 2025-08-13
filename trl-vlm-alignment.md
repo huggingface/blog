@@ -201,7 +201,7 @@ trainer = SFTTrainer(
 trainer.train()
 ``` 
 
-To train a VLM, you need to provide a dataset with an additional `images` column containing the images to be processed. You can take a look at [Dataset Format — Vision Dataset](https://huggingface.co/docs/trl/en/dataset_formats#vision-dataset) for more information on how it should look like. A good example is [LLaVA Instruct Mix](https://huggingface.co/datasets/trl-lib/llava-instruct-mix).
+To train a VLM, you need to provide a dataset with an additional `images` column containing the images to be processed. You can take a look at [Dataset Formats — Vision Datasets](https://huggingface.co/docs/trl/en/dataset_formats#vision-datasets) for more information on how it should look like. A good example is [LLaVA Instruct Mix](https://huggingface.co/datasets/trl-lib/llava-instruct-mix).
 
 We also have a [`sft_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/scripts/sft_vlm.py) script that works out of the box for transformers vision language models. 
 
