@@ -11,6 +11,8 @@ Academic research involves frequent **research discovery**: finding papers, code
 
 The [Model Context Protocol (MCP)](https://huggingface.co/learn/mcp-course/unit0/introduction) is a standard that allows agentic models to communicate with external tools and data sources. For research discovery, this means AI can use research tools through natural language requests, automating platform switching and cross-referencing.
 
+![Research Tracker MCP in action](./assets/mcp-for-research/demo.gif)
+
 ## Research Discovery: Three Layers of Abstraction
 
 Much like software development, research discovery can be framed in terms of layers of abstraction.
@@ -27,6 +29,8 @@ At the lowest level of abstraction, researchers search manually and cross-refere
 4. Cross-reference authors and citations
 5. Organize findings manually
 ```
+
+This manual approach becomes inefficient when tracking multiple research threads or conducting systematic literature reviews. The repetitive nature of searching across platforms, extracting metadata, and cross-referencing information naturally leads to automation through scripting.
 
 ### 2. Scripted Tools
 
@@ -46,7 +50,7 @@ results = gather_research_info("https://arxiv.org/abs/2103.00020")
 
 The [research tracker](https://huggingface.co/spaces/dylanebert/research-tracker) demonstrates systematic research discovery built from these types of scripts.
 
-While scripts are faster than manual research, they are error-prone without human guidance.
+While scripts are faster than manual research, they often fail to automatically collect data due to changing APIs, rate limits, or parsing errors. Without human oversight, scripts may miss relevant results or return incomplete information.
 
 ### 3. MCP Integration
 
@@ -69,7 +73,7 @@ The AI orchestrates multiple tools, fills information gaps, and reasons about re
 # 3. Cross-reference with other MCP servers
 # 4. Evaluate relevance to research goals
 
-user: "Find papers related to vision transformers with available code and models"
+user: "Find all relevant information (code, models, etc.) on this paper: https://huggingface.co/papers/2010.11929"
 ai: # Combines multiple tools to gather complete information
 ```
 
@@ -85,18 +89,14 @@ This comes with the same caveats as scripting:
 
 ### Quick Setup
 
-For setup instructions, see the [Research Tracker MCP](https://huggingface.co/spaces/dylanebert/research-tracker-mcp) space, then click `Use via MCP or API` at the bottom of the page. This will provide instructions for adding the server with SSE, i.e.:
+The easiest way to add the Research Tracker MCP is through [Hugging Face MCP Settings](https://huggingface.co/settings/mcp):
 
-**MCP config**
-```json
-{
-  "mcpServers": {
-    "gradio": {
-      "url": "https://dylanebert-research-tracker-mcp.hf.space/gradio_api/mcp/sse"
-    }
-  }
-}
-```
+1. Visit [huggingface.co/settings/mcp](https://huggingface.co/settings/mcp)
+2. Search for "research-tracker-mcp" in the available tools
+3. Click to add it to your tools
+4. Follow the provided setup instructions for your specific client (Claude Desktop, Cursor, Claude Code, VS Code, etc.)
+
+This workflow leverages the Hugging Face MCP server, which is the standard way to use Hugging Face Spaces as MCP tools. The settings page provides client-specific configuration that's automatically generated and always up-to-date.
 
 <script
 	type="module"
@@ -117,3 +117,5 @@ For setup instructions, see the [Research Tracker MCP](https://huggingface.co/sp
 
 **Community:**
 - [Hugging Face Discord](https://hf.co/join/discord) - MCP development discussions
+
+Ready to automate your research discovery? Try the [Research Tracker MCP](https://huggingface.co/settings/mcp) or build your own research tools with the resources above.
