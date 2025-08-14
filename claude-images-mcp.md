@@ -11,15 +11,28 @@ TODO:: ADD THUMBNAIL
 # Use Spaces to generate Images from Claude
 
 > [!TIP]
-> **TL;DR:** Its easier than ever to generate detailed pictures using the latest models - by connecting Claude to Hugging Face Spaces. This article describes how and why, and introduces the recently launched Krea and Qwen image models. 
+> **TL;DR:** Its easier than ever to generate detailed pictures using the latest AI models - by connecting Claude to Hugging Face Spaces. This article describes how, why, and introduces recently launched models which excel at producing natural images and including text. 
 
 ## Introduction
 
-Recent Image Generation models have made huge advances in their ability to follow instructions and produce realistic outputs. They are now easier than ever to access by connecting them to Claude. The advantages of using a models like Claude with Spaces are:
- - It crafts detailed prompts to help bring your creation to life and improve output quality.
- - It can "see" the results, and iterate on designs and techniques to get the perfect results.
+Recent advances in Image Generation models have improved their ability to produce realistic outputs, follow precise instructions and incorporate high quality text. These latest models  are now easier than ever to access by connecting them to Claude. 
 
-To get started, create a free Hugging Face account, then connect Claude to Hugging Face as below:
+The advantages of using generating pictures using AI tools like Claude are:
+ - Building detailed prompts that improve the output quality of generated images. 
+ - The AI can "see" the generate image, and can then iterate on designs and techniques to get perfect results.
+
+To get started, create a free [Hugging Face account](https://huggingface.co/join), then connect Claude to Hugging Face. The below video shows the exact steps needed:
+
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+    <video
+       alt="claude-auth-flow.mp4"
+       autoplay loop autobuffer muted playsinline
+     >
+     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/claude-images-mcp/claude-auth-flow.mp4" type="video/mp4">
+   </video>
+  <figcaption>Conneting Claude to Hugging Face</figcaption>   
+ </figure>
+
 
 
 Make sure that the Hugging Face connector is enabled, and . 
