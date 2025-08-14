@@ -4,6 +4,7 @@ thumbnail: /blog/assets/textquests/thumbnail.gif
 authors:
 - user: justinphan3110
   org: cais
+  guest: true
 - user: clefourrier
 ---
 
