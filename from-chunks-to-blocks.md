@@ -28,7 +28,7 @@ If you consider a 200GB repository with unique chunks, that's 3 million entries 
 
 With nearly 45PB across 2 million model, dataset, and space repositories on the Hub, a purely chunk-based approach could incur **690 billion chunks**. Managing this volume of content using only chunks is simply not viable due to:
 
-- **Network Overheads**: If each chunk is downloaded or uploaded individually, millions of requests are generated on each upload and download, overwhelming both client and server. Even [batching queries](https://developers.google.com/classroom/best-practices/batch) simply shifts the problem to the storage layer.
+- **Network Overheads**: If each chunk is downloaded or uploaded individually, millions of requests are generated on each upload and download, overwhelming both client and server. Even [batching queries](https://developers.google.com/workspace/classroom/best-practices/batch) simply shifts the problem to the storage layer.
 - **Infrastructure Overheads**: A naive CAS that tracks chunks individually would require billions of entries, leading to steep monthly bills on services like [DynamoDB](https://aws.amazon.com/pm/dynamodb/) or [S3](https://aws.amazon.com/s3/). At Hugging Face’s scale, this quickly adds up.
 
 In short, network requests balloon, databases struggle to manage the metadata, and the cost of orchestrating each chunk skyrockets all while you wait for your files to transfer.
