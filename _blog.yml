@@ -6541,3 +6541,14 @@
     - llm
     - evaluation
     - agents
+
+- local: claude-images-mcp
+  title: Create Images with Claude and Hugging Face
+  author: evalstate
+  thumbnail: /blog/assets/claude-images-mcp/thumbnail.png
+  date: Aug 14, 2025
+  tags:
+    - mcp
+    - llm
+    - qwen
+    - text_to_image

@@ -5,7 +5,7 @@ authors:
 - user: evalstate
 ---
 
-# Create Images using Claude and Hugging Face
+# Create Images with Claude and Hugging Face
 
 > [!TIP]
 > **TL;DR:** Its easier than ever to generate detailed pictures using the latest AI models - by connecting Claude to Hugging Face Spaces. This article describes how, why, and introduces recently launched models which excel at producing natural images and including text. 
