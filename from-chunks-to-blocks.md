@@ -24,7 +24,7 @@ On Hugging Face's [Xet team](https://huggingface.co/xet-team), we're bringing CD
 
 Imagine uploading a 200GB repository to the Hub. Today, [there are a number of ways to do this](https://huggingface.co/docs/huggingface_hub/en/guides/upload), but all use a file-centric approach. To bring faster file transfers to the Hub, we've open-sourced [xet-core](https://github.com/huggingface/xet-core) and `hf_xet`, an integration with [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) which uses a chunk-based approach written in Rust.
 
-If you consider a 200GB repository with unique chunks, that's 3 million entries (at [~64KB per chunk](https://github.com/huggingface/xet-core/blob/v1.1.7/merkledb/src/constants.rs)) in the content-addressed store (CAS) backing all repositories. If a new version of a model is uploaded or a branch in the repository is created with different data, more unique chunks are added, driving up the entries in the CAS.
+If you consider a 200GB repository with unique chunks, that's 3 million entries (at [~64KB per chunk](https://github.com/huggingface/xet-core/blob/v1.1.7/deduplication/src/constants.rs#L4)) in the content-addressed store (CAS) backing all repositories. If a new version of a model is uploaded or a branch in the repository is created with different data, more unique chunks are added, driving up the entries in the CAS.
 
 With nearly 45PB across 2 million model, dataset, and space repositories on the Hub, a purely chunk-based approach could incur **690 billion chunks**. Managing this volume of content using only chunks is simply not viable due to:
 
