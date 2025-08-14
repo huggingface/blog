@@ -1,6 +1,6 @@
 ---
-title: "Create Images with Claude and Hugging Face" 
-thumbnail: /blog/assets/claude-images-mcp/thumbnail.png
+title: "Generate Images with Claude and Hugging Face" 
+thumbnail: /blog/assets/generate-images-with-claude-and-mcp/thumbnail.png
 authors:
 - user: evalstate
 ---
@@ -8,11 +8,11 @@ authors:
 # Create Images with Claude and Hugging Face
 
 > [!TIP]
-> **TL;DR:** Its easier than ever to generate detailed pictures using the latest AI models - by connecting Claude to Hugging Face Spaces. This article describes how, why, and introduces recently launched models which excel at producing natural images and including text. 
+> **TL;DR:** Its easier than ever to generate detailed pictures with state-of-the-art AI models - by connecting Claude to Hugging Face Spaces. This article describes how and why, and introduces recently launched models which excel at producing natural images and including text. 
 
 ## Introduction
 
-Recent advances in Image Generation models have improved their ability to produce realistic outputs and incorporate high quality text. It's easier than ever to use these models by connecting them directly to Claude. 
+Recent advances in image generation models have improved their ability to produce realistic outputs and incorporate high quality text. It's easier than ever to use these models by connecting them directly to Claude. 
 
 The advantages of generating pictures using this way are:
  - The AI can assist in building detailed prompts that may improve the output quality of generated images. 
@@ -30,7 +30,9 @@ To get started, create a free [Hugging Face account](https://huggingface.co/join
   <figcaption>Conneting Claude to Hugging Face</figcaption>   
  </figure>
 
-Confirm that that the Hugging Face tools are available from the "Search and tools" menu... and now we are ready to try some of the latest models. 
+Behind the scenes Claude is now set up to use tools available from the [Hugging Face MCP Server](https://huggingface.co/mcp?login). This includes the latest AI Applications running on our innovative [ZeroGPU](https://huggingface.co/docs/hub/spaces-zerogpu) powered Spaces - providing free access to large, powerful models that are traditionally expensive to use.
+
+Confirm that that the Hugging Face tools are available from the "Search and tools" menu... and now we are ready to try some of the latest models.
 
 ## Natural Images with Flux.1 Krea Dev
 
@@ -40,9 +42,6 @@ Confirm that that the Hugging Face tools are available from the "Search and tool
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/claude-images-mcp/bfl_krea_image_wide.avif" alt="Examples from Krea">
   <figcaption>Examples from the Krea Image Generator</figcaption>
 </figure>
-
-
-
 
 To try **Krea**, go to [`huggingface.co/mcp/settings`](https://huggingface.co/settings/mcp) and add `evalstate/flux1-krea` to your "Spaces Tools". This will add a tool named  something similar to "`flux1_krea_dev_infer`" to Claude. This enables Claude to generate beautiful, realistic looking images. Note the precise name may vary slightly depending on your configuration.
 
@@ -87,4 +86,6 @@ You can even keep both enabled and ask Claude to use both and compare results fo
 
 ## Conclusion
 
-Hugging Face Spaces paired with the Claude Connectors gives you simple access to the very latest AI models - often on the day of launch. With a Hugging Face account, it's simple to add new tools to Claude and use them straight away.  
+Connecting Claude to Hugging Face Spaces makes using state-of-the-art models on the day of release as easy as clicking a button. Explore the AI App Directory at [https://huggingface.co/spaces](https://huggingface.co/spaces) and build amazing things with [Video Generation](https://huggingface.co/spaces/evalstate/ltx-video-distilled), [Text Generation](https://huggingface.co/spaces/amd/gpt-oss-120b-chatbot), [Image Editing](https://huggingface.co/spaces/evalstate/FLUX.1-Kontext-Dev) and many thousands more. Let us know what you find and create in the comments below.
+
+With a Hugging Face account, it's simple to add new tools to Claude and use them straight away.  

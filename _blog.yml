@@ -6542,10 +6542,10 @@
     - evaluation
     - agents
 
-- local: claude-images-mcp
-  title: Create Images with Claude and Hugging Face
+- local: generate-images-with-claude-and-mcp
+  title: Generate Images with Claude and Hugging Face
   author: evalstate
-  thumbnail: /blog/assets/claude-images-mcp/thumbnail.png
+  thumbnail: /blog/assets/generate-images-with-claude-and-mcp/thumbnail.png
   date: Aug 14, 2025
   tags:
     - mcp
