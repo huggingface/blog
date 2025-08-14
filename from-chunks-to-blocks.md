@@ -24,7 +24,7 @@ On Hugging Face's [Xet team](https://huggingface.co/xet-team), we're bringing CD
 
 Imagine uploading a 200GB repository to the Hub. Today, [there are a number of ways to do this](https://huggingface.co/docs/huggingface_hub/en/guides/upload), but all use a file-centric approach. To bring faster file transfers to the Hub, we've open-sourced [xet-core](https://github.com/huggingface/xet-core) and `hf_xet`, an integration with [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) which uses a chunk-based approach written in Rust.
 
-If you consider a 200GB repository with unique chunks, that's 3 million entries (at [~64KB per chunk](https://github.com/huggingface/xet-core/blob/main/merkledb/src/constants.rs#L5)) in the content-addressed store (CAS) backing all repositories. If a new version of a model is uploaded or a branch in the repository is created with different data, more unique chunks are added, driving up the entries in the CAS.
+If you consider a 200GB repository with unique chunks, that's 3 million entries (at [~64KB per chunk](https://github.com/huggingface/xet-core/blob/v1.1.7/cas_object/src/constants.rs#L12)) in the content-addressed store (CAS) backing all repositories. If a new version of a model is uploaded or a branch in the repository is created with different data, more unique chunks are added, driving up the entries in the CAS.
 
 With nearly 45PB across 2 million model, dataset, and space repositories on the Hub, a purely chunk-based approach could incur **690 billion chunks**. Managing this volume of content using only chunks is simply not viable due to:
 
@@ -51,7 +51,7 @@ What does this mean? We scale with **aggregation.**
 
 Aggregation takes chunks and groups them, referencing them intelligently in ways that provide clever (and practical) benefits:
 
-- **Blocks**: Instead of transferring and storing chunks, we bundle data together in blocks of [up to 64MB](https://github.com/huggingface/xet-core/blob/main/merkledb/src/constants.rs#L6) after deduplication. Blocks are still content-addressed, but this reduces CAS entries by a factor of 1,000.
+- **Blocks**: Instead of transferring and storing chunks, we bundle data together in blocks of [up to 64MB](https://github.com/huggingface/xet-core/blob/v1.1.7/cas_object/src/constants.rs#L12) after deduplication. Blocks are still content-addressed, but this reduces CAS entries by a factor of 1,000.
 - **Shards**: Shards provide the mapping between files and chunks (referencing blocks as they do so). This allows us to identify which parts of a file have changed, referencing shards generated from past uploads. When chunks are already known to exist in the CAS, they’re skipped, slashing unnecessary transfers and queries.
 
 Together, blocks and shards unlock significant benefits. However, when someone uploads a new file, how do we know if a chunk has been uploaded before so we can eliminate an unnecessary request? Performing a network query for every chunk is not scalable and goes against the “no 1:1” principle we mentioned above.
