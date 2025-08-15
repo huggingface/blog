@@ -65,7 +65,7 @@ To begin generating pictures.
 
 ## Qwen Image
 
-[Qwen-Image](https://huggingface.co/Qwen/Qwen-Image) is a powerful AI image generator that excels at following instructions and accurate text rendering. , making it ideal for designing posters, signs, infographics, and marketing materials where text quality matters. Read more about the Qwen-Image model from their [blog post](https://qwenlm.github.io/blog/qwen-image/).
+[Qwen-Image](https://huggingface.co/Qwen/Qwen-Image) is a powerful AI image generator that excels at following prompts and accurate text rendering, making it ideal for designing posters, signs, infographics, and marketing materials where text quality matters. Read more about the Qwen-Image model from their [blog post](https://qwenlm.github.io/blog/qwen-image/).
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/claude-images-mcp/qwen_sample.jpg" alt="Examples from Qwen">
@@ -84,4 +84,4 @@ You can even keep both Krea and Qwen-Image enabled and ask Claude to use both so
 
 ## Conclusion
 
-Connecting Claude to Hugging Face Spaces makes using state-of-the-art models as easy as clicking a button, even the day new models are released. Explore the AI App Directory at [https://huggingface.co/spaces](https://huggingface.co/spaces) and build amazing projects with [Video Generation](https://huggingface.co/spaces/mcp-tools/ltx-video-distilled), [Web Search](https://huggingface.co/spaces/victor/websearch), [Image Editing](https://huggingface.co/spaces/mcp-tools/FLUX.1-Kontext-Dev) and many thousands more. With a [Pro account](https://huggingface.co/pro) you get increased usage limits and more.  Let us know what you find and create in the comments below!
+Connecting Claude to Hugging Face Spaces makes using state-of-the-art models as easy as clicking a button, even the day new models are released. Explore the AI App Directory at [https://huggingface.co/spaces](https://huggingface.co/spaces) and build amazing projects with [Video Generation](https://huggingface.co/spaces/Lightricks/ltx-video-distilled), [Web Search](https://huggingface.co/spaces/victor/websearch), [Image Editing](https://huggingface.co/spaces/mcp-tools/FLUX.1-Kontext-Dev) and many thousands more. With a [Pro account](https://huggingface.co/pro) you get increased usage limits and more.  Let us know what you find and create in the comments below!
