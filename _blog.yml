@@ -6551,4 +6551,5 @@
     - mcp
     - llm
     - qwen
-    - text_to_image
+    - flux
+    - text-to-image
