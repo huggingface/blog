@@ -65,7 +65,7 @@ To begin generating pictures.
 
 ## Qwen Image
 
-[Qwen-Image](https://huggingface.co/Qwen/Qwen-Image) is a powerful AI image generator that excels at creating images with accurate text rendering, making it ideal for designing posters, signs, infographics, and marketing materials where text quality matters. Read more about the Qwen-Image model from their [blog post](https://qwenlm.github.io/blog/qwen-image/).
+[Qwen-Image](https://huggingface.co/Qwen/Qwen-Image) is a powerful AI image generator that excels at following instructions and accurate text rendering. , making it ideal for designing posters, signs, infographics, and marketing materials where text quality matters. Read more about the Qwen-Image model from their [blog post](https://qwenlm.github.io/blog/qwen-image/).
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/claude-images-mcp/qwen_sample.jpg" alt="Examples from Qwen">
