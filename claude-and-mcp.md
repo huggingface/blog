@@ -1,22 +1,23 @@
 ---
 title: "Generate Images with Claude and Hugging Face" 
-thumbnail: /blog/assets/generate-images-with-claude-and-mcp/thumbnail.png
+thumbnail: /blog/assets/claude-and-mcp/thumbnail.png
 authors:
 - user: evalstate
 ---
 
-# Create Images with Claude and Hugging Face
+# Generate Images with Claude and Hugging Face
 
 > [!TIP]
-> **TL;DR:** Its easier than ever to generate detailed pictures with state-of-the-art AI models - by connecting Claude to Hugging Face Spaces. This article describes how and why, and introduces recently launched models which excel at producing natural images and including text. 
+> **TL;DR:** It's easier than ever to generate detailed pictures with state-of-the-art AI models by connecting Claude to Hugging Face Spaces. This article describes how and why, and introduces recently launched models which excel at producing natural images or images that include text.
 
 ## Introduction
 
 Recent advances in image generation models have improved their ability to produce realistic outputs and incorporate high quality text. It's easier than ever to use these models by connecting them directly to Claude. 
 
-The advantages of generating pictures using this way are:
- - The AI can assist in building detailed prompts that may improve the output quality of generated images. 
+The advantages of generating pictures this way are:
+ - The AI can assist in building detailed prompts that may improve the quality of generated images. 
  - The AI can "see" the generated images, then help iterate on designs and techniques to get perfect results.
+ - You can easily swap in the latest models or the one best suited for your needs.
 
 To get started, create a free [Hugging Face account](https://huggingface.co/join), then connect Claude from its "Search and tools" menu in the chat input box. The video below shows the exact steps needed:
 
@@ -30,9 +31,9 @@ To get started, create a free [Hugging Face account](https://huggingface.co/join
   <figcaption>Conneting Claude to Hugging Face</figcaption>   
  </figure>
 
-Behind the scenes Claude is now set up to use tools from the [Hugging Face MCP Server](https://huggingface.co/mcp?login), seamlessly extending it's capabilities. This includes the latest AI Applications running on our innovative [ZeroGPU](https://huggingface.co/docs/hub/spaces-zerogpu) powered Spaces - providing free access to large, powerful models that are would normally be expensive to use.
+Behind the scenes Claude is now set up to use tools from the [Hugging Face MCP Server](https://huggingface.co/mcp?login), seamlessly extending it's capabilities. This includes the latest AI Applications running on our innovative [ZeroGPU](https://huggingface.co/docs/hub/spaces-zerogpu) powered Spaces. Your Hugging Face account provides free credits to use these large, powerful models.
 
-Confirm that that the Hugging Face tools are available from the "Search and tools" menu... and now we are ready to try some of the latest models.
+After Claude has been connected with Hugging Face, we'll show how to configure image generation tools that Claude can use.
 
 ## Natural Images with Flux.1 Krea Dev
 
@@ -43,7 +44,7 @@ Confirm that that the Hugging Face tools are available from the "Search and tool
   <figcaption>Examples from the Krea Image Generator</figcaption>
 </figure>
 
-To try **Krea**, go to [`huggingface.co/mcp/settings`](https://huggingface.co/settings/mcp) and add `evalstate/flux1-krea` to your "Spaces Tools". This will add a tool named  something similar to "`flux1_krea_dev_infer`" to Claude. This enables Claude to generate beautiful, realistic looking images. Note the precise name may vary slightly depending on your configuration.
+To use **Krea** with Claude, go to [`huggingface.co/mcp/settings`](https://huggingface.co/settings/mcp) and add `evalstate/FLUX.1-Krea-dev` to your "Spaces Tools". That's all you need to enable Claude to generate beautiful, realistic looking images.
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
     <video
@@ -58,7 +59,7 @@ To try **Krea**, go to [`huggingface.co/mcp/settings`](https://huggingface.co/se
 
 You can then try a prompt in Claude like: 
 
-> "Use Krea to create an image of a Vibrant garden with victorian house".
+> "Use Krea to create an image of a vibrant garden with victorian house".
 
 To begin generating pictures.
 
@@ -71,11 +72,9 @@ To begin generating pictures.
   <figcaption>Examples from the Qwen-Image Generator</figcaption>
 </figure>
 
-
 To use **Qwen-Image** add `evalstate/qwen-image` from your [MCP Servers setting](https://huggingface.co/settings/mcp) page, then check it is enabled in Claude to start using it.
 
-You can even keep both enabled and ask Claude to use both and compare results for similar concepts - for example: "Use Krea and Qwen to generate a street scene with 'Hugging Face' graffiti sprayed on the wall".
-
+You can even keep both Krea and Qwen-Image enabled and ask Claude to use both so you can compare results. For example: "Use Krea and Qwen to generate a street scene with 'Hugging Face' graffiti sprayed on the wall".
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/claude-images-mcp/krea_hf_example.webp" alt="Hugging Face Graffiti Street Scene">
@@ -83,9 +82,6 @@ You can even keep both enabled and ask Claude to use both and compare results fo
 </figure>
 
 
-
 ## Conclusion
 
-Connecting Claude to Hugging Face Spaces makes using state-of-the-art models on the day of release as easy as clicking a button. Explore the AI App Directory at [https://huggingface.co/spaces](https://huggingface.co/spaces) and build amazing things with [Video Generation](https://huggingface.co/spaces/evalstate/ltx-video-distilled), [Text Generation](https://huggingface.co/spaces/amd/gpt-oss-120b-chatbot), [Image Editing](https://huggingface.co/spaces/evalstate/FLUX.1-Kontext-Dev) and many thousands more. Let us know what you find and create in the comments below.
-
-With a Hugging Face account, it's simple to add new tools to Claude and use them straight away.  
+Connecting Claude to Hugging Face Spaces makes using state-of-the-art models as easy as clicking a button, even the day new models are released. Explore the AI App Directory at [https://huggingface.co/spaces](https://huggingface.co/spaces) and build amazing projects with [Video Generation](https://huggingface.co/spaces/evalstate/ltx-video-distilled), [Web Search](https://huggingface.co/spaces/victor/websearch), [Image Editing](https://huggingface.co/spaces/evalstate/FLUX.1-Kontext-Dev) and many thousands more. With a [Pro account](https://huggingface.co/pro) you get increased usage limits and more.  Let us know what you find and create in the comments below!
