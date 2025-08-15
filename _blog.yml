@@ -6542,3 +6542,15 @@
     - llm
     - evaluation
     - agents
+
+- local: claude-and-mcp
+  title: Generate Images with Claude and Hugging Face
+  author: evalstate
+  thumbnail: /blog/assets/claude-and-mcp/thumbnail.png
+  date: Aug 14, 2025
+  tags:
+    - mcp
+    - llm
+    - qwen
+    - flux
+    - text-to-image
