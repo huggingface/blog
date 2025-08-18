@@ -6552,3 +6552,15 @@
     - mcp
     - research
     - guide
+
+- local: kernel-builder
+  title: "From Zero to GPU: A Guide to Building and Scaling Production-Ready CUDA Kernels"
+  author: drbh
+  thumbnail: /blog/assets/kernel-builder/kernel-builder.png
+  date: Aug 18, 2025
+  tags:
+    - kernels
+    - kernels-community
+    - guide
+    - hub
+    - optimization
