@@ -74,6 +74,18 @@ To begin generating pictures.
 
 To use **Qwen-Image** add `mcp-tools/qwen-image` from your [MCP Servers setting](https://huggingface.co/settings/mcp) page, then check it is enabled in Claude to start using it.
 
+Qwen-Image comes with a Prompt Enhancer that helps write detailed prompts suitable for it. To try it, select "Qwen Prompt Enhancer" from the prompts menu and enter your idea before submitting it to Claude. 
+
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+    <video
+       alt="qwen_image_prompt.mp4"
+       autoplay loop autobuffer muted playsinline
+     >
+     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/claude-images-mcp/qwen_image_prompt.mp4" type="video/mp4">
+   </video>
+  <figcaption>Using the Qwen Prompt Enhancer from Claude</a></figcaption>   
+ </figure>
+
 You can even keep both Krea and Qwen-Image enabled and ask Claude to use both so you can compare results. For example: "Use Krea and Qwen to generate a street scene with 'Hugging Face' graffiti sprayed on the wall".
 
 <figure class="image text-center">
