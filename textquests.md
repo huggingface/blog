@@ -4,12 +4,13 @@ thumbnail: /blog/assets/textquests/thumbnail.gif
 authors:
 - user: justinphan3110
   org: cais
+  guest: true
 - user: clefourrier
 ---
 
 # TextQuests: How Good are LLMs at Text-Based Video Games?
 
-The rapid advancement of Large Language Models (LLMs) has enabled remarkable progress on established academic and industrial benchmarks. Knowledge benchmarks, such as MMLU and GPQA now largely saturated, and frontier models are making significant progress on expert evaluations like [HLE](lastexam.ai). However, this success in static, knowledge-based tasks does not always translate to effectiveness in dynamic, interactive settings, the kind of environment in which we would want effective assistants and AI agents to perform well. Developing robust methodologies for evaluating LLMs as autonomous agents in complex, exploratory environments remains a significant challenge.
+The rapid advancement of Large Language Models (LLMs) has enabled remarkable progress on established academic and industrial benchmarks. Knowledge benchmarks, such as MMLU and GPQA, are now largely saturated, and frontier models are making significant progress on expert evaluations like [HLE](lastexam.ai). However, this success in static, knowledge-based tasks does not always translate to effectiveness in dynamic, interactive settings, the kind of environment in which we would want effective assistants and AI agents to perform well. Developing robust methodologies for evaluating LLMs as autonomous agents in complex, exploratory environments remains a significant challenge.
 
 Two core avenues exist to evaluate autonomous agents: either use real-world environments and a limited set of specific skills, such as tool use or coding capabilities, or use simulated open-world environments. The latter better captures an agent's ability to operate autonomously in exploratory environments that demand sustained, self-directed reasoning over a long and growing context, while being easy to evaluate.
 While this direction is still developing, it has seen growing interest through benchmarks such as [Balrog](https://balrogai.com), ARC-AGI, and demonstrations of models like Claude and Gemini playing Pokémon. Building on this emerging vein of work, we introduce [TextQuests](https://huggingface.co/spaces/cais/textquests).

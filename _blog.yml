@@ -6534,6 +6534,7 @@
 - local: textquests
   title: "TextQuests: How Good are LLMs at Text-Based Video Games?"
   author: justinphan3110
+  guest: true
   thumbnail: /blog/assets/textquests/thumbnail.gif
   date: Aug 12, 2025
   tags:
@@ -6542,11 +6543,33 @@
     - evaluation
     - agents
 
+- local: mcp-for-research
+  title: "MCP for Research: How to Connect AI to Research Tools"
+  author: dylanebert
+  thumbnail: /blog/assets/mcp-for-research/thumbnail.png
+  date: Aug 18, 2025
+  tags:
+    - mcp
+    - research
+    - guide
+
+- local: kernel-builder
+  title: "From Zero to GPU: A Guide to Building and Scaling Production-Ready CUDA Kernels"
+  author: drbh
+  thumbnail: /blog/assets/kernel-builder/kernel-builder.png
+  date: Aug 18, 2025
+  tags:
+    - kernels
+    - kernels-community
+    - guide
+    - hub
+    - optimization
+
 - local: claude-and-mcp
   title: Generate Images with Claude and Hugging Face
   author: evalstate
   thumbnail: /blog/assets/claude-and-mcp/thumbnail.png
-  date: Aug 14, 2025
+  date: Aug 19, 2025
   tags:
     - mcp
     - llm
