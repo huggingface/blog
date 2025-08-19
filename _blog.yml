@@ -6564,3 +6564,15 @@
     - guide
     - hub
     - optimization
+
+- local: claude-and-mcp
+  title: Generate Images with Claude and Hugging Face
+  author: evalstate
+  thumbnail: /blog/assets/claude-and-mcp/thumbnail.png
+  date: Aug 19, 2025
+  tags:
+    - mcp
+    - llm
+    - qwen
+    - flux
+    - text-to-image
