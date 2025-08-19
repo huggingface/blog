@@ -28,7 +28,7 @@ To get started, create a free [Hugging Face account](https://huggingface.co/join
      >
      <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/claude-images-mcp/claude-auth-flow.mp4" type="video/mp4">
    </video>
-  <figcaption>Conneting Claude to Hugging Face</figcaption>   
+  <figcaption>Connecting Claude to Hugging Face</figcaption>   
  </figure>
 
 Behind the scenes Claude is now set up to use tools from the [Hugging Face MCP Server](https://huggingface.co/mcp?login), seamlessly extending it's capabilities. This includes the latest AI Applications running on our innovative [ZeroGPU](https://huggingface.co/docs/hub/spaces-zerogpu) powered Spaces. Your Hugging Face account provides free credits to use these large, powerful models.
