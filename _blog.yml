@@ -6577,6 +6577,7 @@
     - flux
     - text-to-image
 
+<<<<<<< HEAD
 - local: zerogpu-aoti
   title: "Make your ZeroGPU Spaces go brrr with PyTorch ahead-of-time compilation"
   author: cbensimon
