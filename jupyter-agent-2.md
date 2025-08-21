@@ -7,7 +7,7 @@ authors:
 - user: lvwerra
 ---
 
-# 😎 Creating a Data Science Agent from Scratch
+# Creating a Data Science Agent from Scratch
 
 Check out our new demo here: [huggingface.co/spaces/lvwerra/jupyter-agent-2](https://huggingface.co/spaces/lvwerra/jupyter-agent-2).  
 This is a follow-up to our earlier work on [jupyter-agent (v1)](https://huggingface.co/spaces/lvwerra/jupyter-agent).
@@ -15,7 +15,6 @@ This is a follow-up to our earlier work on [jupyter-agent (v1)](https://huggingf
 The **Jupyter Agent** is a data science agent that can execute code directly inside a Jupyter notebook. Think of it like *Cursor*, but living natively inside your data science workflow.  
 For this demo we use **QwenCoder**, currently one of the strongest coding models.
 
----
 
 ## 🏁 Primer: the DABStep Benchmark
 
@@ -23,9 +22,10 @@ Last year, in partnership with Adyen, we introduced the **DABStep benchmark**: a
 
 Example tasks:
 
-| Example | Description |
-|---------|-------------|
-|**Q:** Which card scheme had the highest average fraud rate in 2023?<br>**A:** SwiftCharge | **Q:** For the year 2023, focusing on the merchant *Crossfit Hanna*, if we incentivize users to switch to a different Authorization Characteristics Indicator, which option would be the most cost-effective?<br>**A:** E:346.49 |
+| Question | Answer |
+|----------|---------|
+| Which card scheme had the highest average fraud rate in 2023? | SwiftCharge |
+| For the year 2023, focusing on the merchant *Crossfit Hanna*, if we incentivize users to switch to a different Authorization Characteristics Indicator, which option would be the most cost-effective? | E:346.49 |
 
 This benchmark remains challenging for today’s LLMs — especially for smaller models.  
 You can explore the live leaderboard here: [huggingface.co/spaces/adyen/DABstep](https://huggingface.co/spaces/adyen/DABstep).
@@ -55,7 +55,7 @@ We also studied the **Qwen-Agent** codebase, where the authors recommend tailori
 So, we restructured our scaffolding:  
 - Stripped it down to ~200 lines of code.  
 - No external dependencies.  
-- Inspired by the spirit of [**tiny-agent**](https://huggingface.co/blog/tiny-agents).  
+- Inspired by the spirit of [**tiny-agents**](https://huggingface.co/blog/tiny-agents).  
 
 👉 Check it out here: [utils.py](https://huggingface.co/spaces/lvwerra/jupyter-agent-2/blob/main/utils.py).
 
@@ -67,7 +67,6 @@ So, we restructured our scaffolding:
 
 Interestingly, this trend also shows up on the [Gaia benchmark](https://h2o.ai/blog/2024/h2o-ai-tops-gaia-leaderboard/): top models succeed with minimal scaffolding. This is the bitter lesson at play here, showing that moving complexity into the model is the way to go instead of doing handcrafted scaffolding heuristics that quickly become obsolete with each new model release.
 
----
 
 ## ⚙️ Training Pipeline
 
@@ -77,7 +76,6 @@ With simplified scaffolding in place, we focused on fine-tuning Qwen-4B for **da
 - **Kaggle Notebooks dataset**: ~2TB of notebooks.  
 - Rich metadata for each notebook (authors, datasets used, etc.).  
 
----
 
 ## ⚙️ Processing Pipeline
 
@@ -95,7 +93,7 @@ We built a pipeline to automatically fetch these datasets, ensuring the code ins
 
 ### 3. Edu scoring
 We scored notebooks based on educational quality. We saw that using the whole notebook was not optimal, as many contained trivial or broken code.  
-This is similar to the insight from the [*BeyondWeb* paper](https://huggingface.co/papers/2508.10975), which showed that using high-quality data is better for synthetic data generation — a step we relied on for QA generation.  
+This is similar to the insight from the [*BeyondWeb* paper](https://huggingface.co/papers/2508.10975), which showed that using high-quality data is better for synthetic data generation — a step we relied on for QA (Question-Answer) generation.  
 This helped the model learn from “high quality” notebooks instead of noisy ones.
 
 ### 4. Filtering irrelevant notebooks
@@ -132,7 +130,6 @@ We truncated overly long outputs and filtered out trivial traces to prevent cont
 We kept non-trivial, multi-turn traces aligned with DABStep-style tasks.  
 The resulting dataset became the foundation for SFT on Qwen-4B.
 
----
 
 ## 🏃‍♂️ Training Pipeline (Highlights)
 
@@ -147,7 +144,6 @@ Some training steps were particularly interesting:
 - We had to manually test each one to find what worked best.  
 - There’s no standardization in response formats for tool calling, making it difficult to switch between models.  
 
----
 
 ## 📊 Results
 
@@ -159,7 +155,6 @@ This makes Qwen-4B (with our pipeline + scaffolding) a state-of-the-art small-mo
 In practice, the model can now solve a wide range of realistic Kaggle-style data analysis tasks with consistent execution.  
 It’s not yet strong enough for the hardest queries, but we’ve shown that even small models can become powerful agents when paired with the right data and scaffolding.
 
----
 
 ## 🔮 Next Steps
 
