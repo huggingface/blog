@@ -92,7 +92,7 @@ Notebooks usually reference external datasets through Kaggle metadata.
 We built a pipeline to automatically fetch these datasets, ensuring the code inside notebooks could actually run. The goal was to later train the model on actual code execution.
 
 ### 3. Edu scoring
-We scored notebooks based on educational quality. We saw that using the whole notebook was not optimal, as many contained trivial or broken code.  
+We scored notebooks based on educational quality using Qwen-32B. We saw that using the whole notebook was not optimal, as many contained trivial or broken code.  
 This is similar to the insight from the [*BeyondWeb* paper](https://huggingface.co/papers/2508.10975), which showed that using high-quality data is better for synthetic data generation — a step we relied on for QA (Question-Answer) generation.  
 This helped the model learn from “high quality” notebooks instead of noisy ones.
 
