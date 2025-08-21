@@ -6576,3 +6576,14 @@
     - qwen
     - flux
     - text-to-image
+
+- local: jupyter-agent-2
+  title: Creating a Data Science Agent from Scratch
+  author: baptistecolle
+  thumbnail: /blog/assets/jupyter-agent-2/thumbnail.png
+  date: Aug 20, 2025
+  tags:
+    - agents
+    - jupyter
+    - data-science
+    - research
