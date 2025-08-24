@@ -48,16 +48,8 @@ Since this is only modifying the loss, we added combined loss support to TRL's `
 
 ```python
 mpo_config = DPOConfig(
-    output_dir=tmp_dir,
-    per_device_train_batch_size=2,
-    learning_rate=9e-1,
     loss_type=["sigmoid", "bco_pair", "sft"], # Loss types to combine, as used in the MPO paper
     loss_weights=[0.8, 0.2, 1.0], # Corresponding weights, as used in the MPO paper
-    report_to="none",
-    bf16=False,
-    fp16=False,
-    use_cpu=True,
-    max_steps=1,
 )
 ```
 
@@ -120,20 +112,18 @@ def accuracy_reward(completions, **kwargs):
 Then, you can initialize GRPOConfig and GRPOTrainer, pass in the reward functions we defined above and call train() to start training.
 
 ```python
-from trl import GRPOConfig
+from trl import GRPOConfig, GRPOTrainer
 
 training_args = GRPOConfig(
     learning_rate=1e-5,
-    remove_unused_columns=False,
     max_prompt_length=None,
-    .. # setup other params of choice here
+    ... # setup other params of choice here
 )
 trainer = GRPOTrainer(
-    model=model,
+    model=model_id,
     reward_funcs=[format_reward, accuracy_reward],
     args=training_args,
     train_dataset=train_dataset,
-    processing_class=processor
 )
 trainer.train()
 ```
@@ -210,7 +200,7 @@ We also have a [`sft_vlm.py`](https://github.com/huggingface/trl/blob/main/examp
 vLLM is integrated in TRL to support online alignment methods where you need to generate samples during training. Running the example scripts like the following enables vLLM: 
 
 ```bash
-CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/grpo_vlm.py     --model_name_or_path   Qwen/Qwen2.5-VL-3B-Instruct    …   --log_completions --use_vllm --vllm_mode colocate
+CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/grpo_vlm.py --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct --use_vllm --vllm_mode colocate
 ```
 
 There’s mainly two modes: `colocate` and `server`. [`colocate`](https://huggingface.co/blog/vllm-colocate) runs vLLM in the same process as the training loop, sharing the same GPU between training and generation, creating a vLLM LLM instance inside the `GRPOTrainer`. Meanwhile `server` requires you to serve vLLM separately in a different process where you can hit the server. You can start this server with the command:
@@ -222,7 +212,7 @@ trl vllm-serve --model Qwen/Qwen2.5-VL-3B-Instruct --tensor-parallel-size 1
 Then you can run the script as follows.
 
 ```bash
-CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/grpo_vlm.py     --model_name_or_path   Qwen/Qwen2.5-VL-3B-Instruct    …   --log_completions --use_vllm --vllm_mode server
+CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/grpo_vlm.py --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct --use_vllm --vllm_mode server
 ```
 
 One more tip: we have added support for using vLLM with transformers backend in TRL. You can enable it when running a script with colocate or when serving the model by passing the `--vllm_model_impl transformers` flag.
