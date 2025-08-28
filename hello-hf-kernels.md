@@ -540,7 +540,7 @@ Actual results will depend on your hardware and the specific kernel implementati
 
 ## 5. Real World Use Cases
 
-The `kernels` library is still growing but is already being used in various real work projects, including:
+The `kernels` library is still growing but is already being used in various real world projects, including:
 - [Text Generation Inference](https://github.com/huggingface/text-generation-inference/blob/d658b5def3fe6c32b09b4ffe36f770ba2aa959b4/server/text_generation_server/layers/marlin/fp8.py#L15): The TGI project uses the `kernels` library to load optimized kernels for text generation tasks, improving performance and efficiency.
 - [Transformers](https://github.com/huggingface/transformers/blob/6f9da7649f2b23b22543424140ce2421fccff8af/src/transformers/integrations/hub_kernels.py#L32): The Transformers library has integrated the `kernels` library to use drop in optimized layers without requiring any changes to the model code. This allows users to easily switch between standard and optimized implementations.
 
@@ -555,7 +555,7 @@ You've seen how easy it is to fetch and use optimized kernels with the Hugging F
     ```
     Ensure you have a compatible PyTorch version and gpu driver installed.
 
-2.  **Browse the Hub:** Explore available kernels on the Hugging Face Hub under the [`kernels` tag](https://huggingface.co/kernels) or within organizations like [`kernels-community`](https://huggingface.co/kernels-community). Look for kernels relevant to your operations (activations, attention, normalization like LayerNorm/RMSNorm, etc.).
+2.  **Browse the Hub:** Explore available kernels on the Hugging Face Hub under the [`kernels` tag](https://huggingface.co/models?other=kernel) or within organizations like [`kernels-community`](https://huggingface.co/kernels-community). Look for kernels relevant to your operations (activations, attention, normalization like LayerNorm/RMSNorm, etc.).
 
 3.  **Experiment:** Try replacing components in your own models. Use `get_kernel("user-or-org/kernel-name")`. **Crucially, inspect the loaded kernel object** (e.g., `print(dir(loaded_kernel))`) or check its Hub repository documentation to understand how to correctly call its functions/methods and what parameters (weights, biases, inputs, epsilon) it expects.
 
