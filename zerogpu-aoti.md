@@ -311,9 +311,44 @@ Check out [this Space](https://huggingface.co/spaces/zerogpu-aoti/FLUX.1-Kontext
 
 </aside>
 
-### Shared weights / multi-models
+### Multi-compile / shared weights
 
-TODO
+Dynamic shapes is sometimes not enough when dynamism is too important.
+
+This is for instance the case with Wan video generation models if you want your compiled model to generate different resolutions.
+One thing can be done in this case: compile one model per resolution while keeping the model parameters shared:
+
+``` python
+@spaces.GPU
+def compile():
+    with spaces.aoti_capture(pipeline.transformer) as call_landscape:
+        pipeline("prompt", width=832, height=480)
+    with spaces.aoti_capture(pipeline.transformer) as call_portrait:
+        pipeline("prompt", width=480, height=832)
+
+    exported_landscape = torch.export.export(model, args=call_landscape.args, kwargs=call_landscape.kwargs)
+    exported_portrait = torch.export.export(model, args=call_portrait.args, kwargs=call_portrait.kwargs)
+
+    compiled_landscape = spaces.aoti_compile(exported_landscape)
+    compiled_portrait = spaces.aoti_compile(exported_portrait)
+
+	# The following line is very important as weights would duplicate when returning back outside of `@spaces.GPU` otherwise
+    compiled_portrait.weights = compiled_landscape.weights
+
+    return compiled_landscape, compiled_portrait
+
+compiled_landscape, compiled_portrait = compile()
+def combined(*args, **kwargs):
+    hidden_states = kwargs['hidden_states']
+	if hidden_states.shape[-1] > hidden_states.shape[-2]:
+        return compiled_landscape(*args, **kwargs)
+    else:
+        return compiled_portrait(*args, **kwargs)
+
+spaces.aoti_apply(combined, pipeline.transformer)
+```
+
+You can see a fully working example of this paradigm in Wan 2.2 Space: [https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster](https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster/blob/main/optimization.py)
 
 ### FA3
 
