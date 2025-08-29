@@ -350,7 +350,7 @@ spaces.aoti_apply(combined, pipeline.transformer)
 
 You can see a fully working example of this paradigm in Wan 2.2 Space: [https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster](https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster/blob/main/optimization.py)
 
-### FA3
+### FlashAttention-3
 
 Since the ZeroGPU hardware and CUDA drivers are perfectly compatible with Flash-Attention 3 (FA3), we can use it in our ZeroGPU Spaces to speed things up even further. FA3 works with ahead-of-time compilation. So, this is ideal for our case.
 
