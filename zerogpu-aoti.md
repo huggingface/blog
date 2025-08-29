@@ -319,7 +319,7 @@ exported_transformer = torch.export.export(
 ```
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
-💡 Check out [this Space](https://huggingface.co/spaces/zerogpu-aoti/FLUX.1-Kontext-Dev-fp8-dynamic) that shows how to use both quantization and dynamic shapes during the export step.
+💡 Check out <a href="https://huggingface.co/spaces/zerogpu-aoti/FLUX.1-Kontext-Dev-fp8-dynamic" target="_blank">this Space</a> that shows how to use both quantization and dynamic shapes during the export step.
 </div>
 
 ### Multi-compile / shared weights
