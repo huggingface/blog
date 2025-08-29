@@ -63,7 +63,7 @@ pipe = DiffusionPipeline.from_pretrained(...).to('cuda')
 
 PyTorch initializes the NVIDIA driver, which sets up the process on CUDA forever. This is not very resource-efficient given that app traffic is not perfectly smooth, but is rather extremely sparse and spiky.
 
-ZeroGPU takes a just-in-time approach to GPU initialization: instead of setting up the main process on CUDA, fork it, set up the fork on CUDA, perform task(s) and finally let the fork be killed when GPU needs to be released.
+ZeroGPU takes a just-in-time approach to GPU initialization. Instead of setting up the main process on CUDA: fork it, set up the fork on CUDA, perform task(s) and finally let the fork be killed when GPU needs to be released.
 
 This means that:
 
