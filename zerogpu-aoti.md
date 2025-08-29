@@ -4,7 +4,7 @@ thumbnail: /blog/assets/zerogpu-aoti/thumbnail.png
 authors:
 - user: cbensimon
 - user: sayakpaul
-date: 2025-08-28
+date: 2025-09-01
 ---
 
 # Make your ZeroGPU Spaces go brrr with PyTorch ahead-of-time compilation
