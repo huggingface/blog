@@ -19,6 +19,20 @@ The result: snappier demos and a smoother experience, with speedups ranging from
 
 In this post, we’ll show how to wire up AoT compilation in your own ZeroGPU Spaces, explore advanced tricks like FP8 quantization and dynamic shapes, and share working demos you can try right away.
 
+## Table of Contents
+
+- [What is ZeroGPU](#what-is-zerogpu)
+- [PyTorch compilation](#pytorch-compilation)
+- [Ahead-of-time compilation on ZeroGPU](#ahead-of-time-compilation-on-zerogpu)
+- [Gotchas](#gotchas)
+  - [Quantization](#quantization)
+  - [Dynamic shapes](#dynamic-shapes)
+  - [Multi-compile / shared weights](#multi-compile--shared-weights)
+  - [FlashAttention-3](#flashattention-3)
+- [AoT compiled ZeroGPU Spaces demos](#aot-compiled-zerogpu-spaces-demos)
+- [Conclusion](#conclusion)
+- [Resources](#resources)
+
 ## What is ZeroGPU
 
 [Spaces](https://huggingface.co/spaces) is a platform powered by Hugging Face that allows ML practitioners to easily publish demo apps.
