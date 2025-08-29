@@ -270,7 +270,7 @@ exported_transformer = torch.export.export(
 )
 ```
 
-(you can find more details about the library in [TorchAO docs](https://docs.pytorch.org/ao/stable/index.html))
+(You can find more details about the library in [TorchAO docs](https://docs.pytorch.org/ao/stable/index.html))
 
 And we can then proceed with the rest of the steps as outlined above. Using quantization provides another XXYZ% of speedup.
 
