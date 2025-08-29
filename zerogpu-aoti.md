@@ -197,7 +197,7 @@ Now we need to bind our compiled transformer to our original pipeline, i.e., the
 
 A naive and almost working approach is to simply patch our pipeline like `pipe.transformer = compiled_transformer`. Unfortunately, this approach does not work because it deletes important attributes like `dtype`, `config`, etc. Only patching the `forward` method does not work well either because we are then keeping original model parameters in memory, often leading to OOM errors at runtime.
 
-`spaces` package again provides a utility: `spaces.aoti_apply` :
+`spaces` package provides a utility for this, too -- `spaces.aoti_apply`:
 
 ```python
 spaces.aoti_apply(compiled_transformer, pipeline.transformer)
