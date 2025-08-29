@@ -379,7 +379,15 @@ Here is a [fully working example of an FA3 attention processor](https://gist.git
 
 ## AoT compiled ZeroGPU Spaces demos
 
-FLUX.schnell multi-image stream Space + the same without compilation
+### Speedup comparison
+- [FLUX.1-dev without AoTI](https://huggingface.co/spaces/zerogpu-aoti/FLUX.1-dev-base)
+- [FLUX.1-dev with AoTI](https://huggingface.co/spaces/zerogpu-aoti/FLUX.1-dev-fa3-aoti) (__1.75x__ speedup)
+
+### Featured AoTI Spaces
+- [FLUX.1 Kontext](https://huggingface.co/spaces/zerogpu-aoti/FLUX.1-Kontext-Dev)
+- [QwenImage Edit](https://huggingface.co/spaces/multimodalart/Qwen-Image-Edit-Fast)
+- [Wan 2.2](https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster)
+- [LTX Video](https://huggingface.co/spaces/zerogpu-aoti/ltx-dev-fast)
 
 ## Conclusion
 
