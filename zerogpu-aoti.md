@@ -343,7 +343,7 @@ def compile():
     compiled_landscape = spaces.aoti_compile(exported_landscape)
     compiled_portrait = spaces.aoti_compile(exported_portrait)
 
-	# The following line is very important as weights would duplicate when returning back outside of `@spaces.GPU` otherwise
+	# The following line is very important, otherwise weights would duplicate when returning outside of `@spaces.GPU`
     compiled_portrait.weights = compiled_landscape.weights
 
     return compiled_landscape, compiled_portrait
