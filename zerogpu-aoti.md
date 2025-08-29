@@ -118,12 +118,9 @@ PyTorch (from 2.0 onwards) currently has two major interfaces for compilation:
 
 However, on ZeroGPU, given that the process is freshly spun up for (almost) every GPU task, it means that `torch.compile` can’t efficiently re-use compilation and is thus forced to rely on its [filesystem cache](https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html#modular-caching-of-torchdynamo-torchinductor-and-triton) to restore compiled models. Depending on the model being compiled, this process takes from a few dozen seconds to a couple of minutes, which is way too much for practical GPU tasks in Spaces.
 
-<aside>
-💡
-
-We only compile the transformer since in these generative models, the transformer (or more generally, the denoiser) is the most computationally heavy component.
-
-</aside>
+<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
+💡 We only compile the transformer since, in these generative models, the transformer (or more generally, the denoiser) is the most computationally heavy component.
+</div>
 
 This is where **ahead-of-time (AoT) compilation** shines.
 
