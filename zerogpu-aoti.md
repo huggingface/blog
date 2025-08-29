@@ -326,7 +326,7 @@ exported_transformer = torch.export.export(
 
 Dynamic shapes is sometimes not enough when dynamism is too important.
 
-This is for instance the case with Wan video generation models if you want your compiled model to generate different resolutions.
+This is, for instance, the case with the Wan family of video generation models if you want your compiled model to generate different resolutions.
 One thing can be done in this case: compile one model per resolution while keeping the model parameters shared:
 
 ``` python
