@@ -209,37 +209,37 @@ Et voilà! It will take care of patching `pipeline.transformer.forward` with our
 
 To perform the first three steps (intercepting input examples, exporting the model, and compiling it with PyTorch inductor), we need a real GPU. CUDA emulation that you get outside of `@spaces.GPU` function is not enough because compilation is truly hardware-dependent, for instance, relying on micro-benchmark runs to tune the generated code. This is why we need to wrap it all inside a `@spaces.GPU` function and then get our compiled model back to the root of our app. Starting from our original demo code, this gives:
 
-```python
-import gradio as gr
-import spaces
-import torch
-from diffusers import DiffusionPipeline
-
-MODEL_ID = 'black-forest-labs/FLUX.1-dev'
-
-pipe = DiffusionPipeline.from_pretrained(MODEL_ID, torch_dtype=torch.bfloat16)
-pipe.to('cuda')
-
-@spaces.GPU(duration=1500) # maximum duration allowed during startup
-def compile_transformer():
-    with spaces.aoti_capture(pipeline.transformer) as call:
-        pipe("arbitrary example prompt")
-    
-    exported = torch.export.export(
-        pipeline.transformer,
-        args=call.args,
-        kwargs=call.kwargs,
-    )
-    return spaces.aoti_compile(exported)
-
-compiled_transformer = compile_transformer()
-spaces.aoti_apply(compiled_transformer, pipeline.transformer)
-
-@spaces.GPU
-def generate(prompt):
-    return pipe(prompt).images
-
-gr.Interface(generate, "text", "gallery").launch()
+```diff
+  import gradio as gr
+  import spaces
+  import torch
+  from diffusers import DiffusionPipeline
+  
+  MODEL_ID = 'black-forest-labs/FLUX.1-dev'
+  
+  pipe = DiffusionPipeline.from_pretrained(MODEL_ID, torch_dtype=torch.bfloat16)
+  pipe.to('cuda')
+  
++ @spaces.GPU(duration=1500) # maximum duration allowed during startup
++ def compile_transformer():
++     with spaces.aoti_capture(pipeline.transformer) as call:
++         pipe("arbitrary example prompt")
++ 
++     exported = torch.export.export(
++         pipeline.transformer,
++         args=call.args,
++         kwargs=call.kwargs,
++     )
++     return spaces.aoti_compile(exported)
++ 
++ compiled_transformer = compile_transformer()
++ spaces.aoti_apply(compiled_transformer, pipeline.transformer)
+  
+  @spaces.GPU
+  def generate(prompt):
+      return pipe(prompt).images
+  
+  gr.Interface(generate, "text", "gallery").launch()
 ```
 
 With just a dozen lines of additional code, we’ve successfully made our demo quite faster (**1.7x** faster in the case of FLUX.1-dev).
