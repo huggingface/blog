@@ -4,6 +4,8 @@ thumbnail: /blog/assets/zerogpu-aoti/thumbnail.png
 authors:
 - user: cbensimon
 - user: sayakpaul
+- user: linoyts
+- user: multimodalart
 date: 2025-09-01
 ---
 
