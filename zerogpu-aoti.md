@@ -373,7 +373,7 @@ from kernels import get_kernel
 vllm_flash_attn3 = get_kernel("kernels-community/vllm-flash-attn3")
 ```
 
-It tries to load a kernel from the [`kernels-community/vllm-flash-attn3`](https://huggingface.co/kernels-community/vllm-flash-attn3) repository, which is compatible with the current setup. Otherwise, it will error out for incompatibility issues. Luckily for us, this works seamlessly on the ZeroGPU Spaces. This means we can leverage the power of FA3 on ZeroGPU, using the `kernels` library.
+It tries to load a kernel from the [`kernels-community/vllm-flash-attn3`](https://huggingface.co/kernels-community/vllm-flash-attn3) repository, which is compatible with the current setup. Otherwise, it will error out due to incompatibility issues. Luckily for us, this works seamlessly on the ZeroGPU Spaces. This means we can leverage the power of FA3 on ZeroGPU, using the `kernels` library.
 
 Here is a [fully working example of an FA3 attention processor](https://gist.github.com/sayakpaul/ff715f979793d4d44beb68e5e08ee067#file-fa3_qwen-py) for the Qwen-Image model.
 
