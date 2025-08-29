@@ -11,7 +11,7 @@ date: 2025-08-28
 
 ZeroGPU lets anyone spin up powerful H200s in Hugging Face Spaces without keeping a GPU locked for idle traffic.
 It’s efficient, flexible, and ideal for demos but it doesn’t always make full use of everything the GPU and CUDA stack can offer.
-Generating images or videos can take a significant amount of time and squeezing out more performance does matter in this case.
+Generating images or videos can take a significant amount of time. Being able to squeeze out more performance, taking advantage of the H200 hardware, does matter in this case.
 
 This is where PyTorch ahead-of-time (AoT) compilation comes in. Instead of compiling models on the fly (which doesn’t play nicely with ZeroGPU’s short-lived processes), AoT lets you optimize once and reload instantly. 
 
