@@ -241,9 +241,12 @@ Now that we have demonstrated the speedups one can realize under the constraints
 
 ### Quantization
 
-AoT can be combined with quantization to deliver even greater speedups. For image and video generation, the FP8 post-training dynamic quantization schemes deliver good speed-quality trade-offs. However, FP8 requires a CUDA compute capability of at least 9.0 to work. Thankfully, for ZeroGPUs, since they’re based on H200s, we can already take advantage of the FP8 quantization schemes.
+AoT can be combined with quantization to deliver even greater speedups.
+For image and video generation, the FP8 post-training dynamic quantization schemes deliver good speed-quality trade-offs.
+However, FP8 requires a CUDA compute capability of at least 9.0 to work.
+Thankfully, for ZeroGPUs, since they’re based on H200s, we can already take advantage of the FP8 quantization schemes.
 
-To enable FP8 quantization within our AoT compilation workflow, we can leverage the APIs provided by `torchao` like so:
+To enable FP8 quantization within our AoT compilation workflow, we can leverage the APIs provided by [`torchao`](https://github.com/pytorch/ao) like so:
 
 ```diff
 + from torchao.quantization import quantize_, Float8DynamicActivationFloat8WeightConfig
@@ -257,6 +260,8 @@ exported_transformer = torch.export.export(
     kwargs=call.kwargs,
 )
 ```
+
+(you can find more details about the library in [TorchAO docs](https://docs.pytorch.org/ao/stable/index.html))
 
 And we can then proceed with the rest of the steps as outlined above. Using quantization provides another XXYZ% of speedup.
 
