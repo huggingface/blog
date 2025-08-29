@@ -242,9 +242,7 @@ def generate(prompt):
 gr.Interface(generate, "text", "gallery").launch()
 ```
 
-With just a dozen lines of additional code, we’ve successfully made our demo quite faster
-
-(**1.7x** faster in the case of FLUX.1-dev).
+With just a dozen lines of additional code, we’ve successfully made our demo quite faster (**1.7x** faster in the case of FLUX.1-dev).
 
 ## Gotchas
 
