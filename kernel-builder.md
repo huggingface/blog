@@ -73,6 +73,7 @@ This file orchestrates the entire build. It tells the `kernel-builder` what to c
 # build.toml
 [general]
 name = "img2gray"
+universal = false
 
 # Defines the C++ files that bind to PyTorch
 [torch]
