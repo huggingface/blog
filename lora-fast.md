@@ -194,6 +194,11 @@ For consumer GPUs, specifically the RTX 4090, we tackled memory limitations by i
 Hopefully, the recipes from this post will inspire you to optimize your
 LoRA-based use cases, benefitting from speedy inference.
 
+## Note
+For readers interested in trying this approach, a deployed demo by [Parag Ekbote](https://github.com/ParagEkbote) is available on[Replicate](https://replicate.com/paragekbote/flux-fast-lora-hotswap). 
+
+This demo has been designed and tested on NVIDIA L40 and A100 GPUs, demonstrating comparable performance.
+
 ## Resources
 
 Below is a list of the important resources that we cited throughout this post:
