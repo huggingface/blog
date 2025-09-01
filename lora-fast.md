@@ -194,7 +194,6 @@ For consumer GPUs, specifically the RTX 4090, we tackled memory limitations by i
 Hopefully, the recipes from this post will inspire you to optimize your
 LoRA-based use cases, benefitting from speedy inference.
 
-
 ## Resources
 
 Below is a list of the important resources that we cited throughout this post:
