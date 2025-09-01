@@ -11,7 +11,7 @@ date: 2025-09-01
 
 # Make your ZeroGPU Spaces go brrr with PyTorch ahead-of-time compilation
 
-ZeroGPU lets anyone spin up powerful H200s in Hugging Face Spaces without keeping a GPU locked for idle traffic.
+ZeroGPU lets anyone spin up powerful **Nvidia H200** hardware in Hugging Face Spaces without keeping a GPU locked for idle traffic.
 It’s efficient, flexible, and ideal for demos but it doesn’t always make full use of everything the GPU and CUDA stack can offer.
 Generating images or videos can take a significant amount of time. Being able to squeeze out more performance, taking advantage of the H200 hardware, does matter in this case.
 
@@ -58,7 +58,7 @@ def generate(prompt):
 gr.Interface(generate, "text", "gallery").launch()
 ```
 
-This works great, but a GPU is reserved for the Space during its entire lifetime – even when it has no user activity.
+This works great, but ends up reserving a GPU for the Space during its entire lifetime – even when it has no user activity.
 
 When executing `.to('cuda')` on this line:
 
