@@ -21,10 +21,8 @@ This is where PyTorch ahead-of-time (AoT) compilation comes in. Instead of compi
 
 In this post, we’ll show how to wire up Ahead-of-Time (AoT) compilation in ZeroGPU Spaces. We'll explore advanced tricks like FP8 quantization and dynamic shapes, and share working demos you can try right away. If you cannot wait, we invite you to check out some ZeroGPU-powered demos on the [zerogpu-aoti](https://huggingface.co/zerogpu-aoti) organization.
 
-<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
-💡 ZeroGPU currently allocates a <em>MIG slice</em> of an H200 (<em>3g.71gb</em> profile).
-Additional MIG sizes including full slice (<em>7g.141gb</em> profile) will come in late 2025
-</div>
+> [!NOTE]
+> ZeroGPU currently allocates a <em>MIG slice</em> of an H200 (<em>3g.71gb</em> profile). Additional MIG sizes including full slice (<em>7g.141gb</em> profile) will come in late 2025
 
 ## Table of Contents
 
@@ -115,9 +113,8 @@ PyTorch (from 2.0 onwards) currently has two major interfaces for compilation:
 
 However, on ZeroGPU, given that the process is freshly spun up for (almost) every GPU task, it means that `torch.compile` can’t efficiently re-use compilation and is thus forced to rely on its [filesystem cache](https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html#modular-caching-of-torchdynamo-torchinductor-and-triton) to restore compiled models. Depending on the model being compiled, this process takes from a few dozen seconds to a couple of minutes, which is way too much for practical GPU tasks in Spaces.
 
-<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
-💡 In the above example, we only compile the transformer since, in these generative models, the transformer (or more generally, the denoiser) is the most computationally heavy component.
-</div>
+> [!NOTE]
+> In the above example, we only compile the transformer since, in these generative models, the transformer (or more generally, the denoiser) is the most computationally heavy component.
 
 This is where **ahead-of-time (AoT) compilation** shines.
 
@@ -316,9 +313,8 @@ exported_transformer = torch.export.export(
 )
 ```
 
-<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
-💡 Check out <a href="https://huggingface.co/spaces/zerogpu-aoti/FLUX.1-Kontext-Dev-fp8-dynamic" target="_blank">this Space</a> that shows how to use both quantization and dynamic shapes during the export step.
-</div>
+> [!NOTE]
+> Check out <a href="https://huggingface.co/spaces/zerogpu-aoti/FLUX.1-Kontext-Dev-fp8-dynamic" target="_blank">this Space</a> that shows how to use both quantization and dynamic shapes during the export step.
 
 ### Multi-compile / shared weights
 
