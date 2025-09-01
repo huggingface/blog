@@ -119,8 +119,6 @@ But how can we do ahead-of-time compilation on ZeroGPU? Let’s dive in.
 
 ## Ahead-of-time compilation on ZeroGPU
 
-If you want to learn more about how AoT compilation is supported in PyTorch, you can read the [PyTorch tutorial](https://docs.pytorch.org/tutorials/recipes/torch_export_aoti_python.html) on ahead-of-time compilation. But we will start from scratch in this post.
-
 Let's go back to our ZeroGPU base example and unpack what we need for bringing in AoT compilation. For the purpose of this demo, we will use the `black-forest-labs/FLUX.1-dev` model:
 
 ```python
@@ -232,6 +230,8 @@ To perform the first three steps (intercepting input examples, exporting the mod
 ```
 
 With just a dozen lines of additional code, we’ve successfully made our demo quite faster (**1.7x** faster in the case of FLUX.1-dev).
+
+If you want to learn more about AoT compilation, you can read PyTorch's [AOTInductor tutorial](https://docs.pytorch.org/tutorials/recipes/torch_export_aoti_python.html)
 
 ## Gotchas
 
