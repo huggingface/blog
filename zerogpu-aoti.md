@@ -351,7 +351,7 @@ Here is a [fully working example of an FA3 attention processor](https://gist.git
 
 ### Speedup comparison
 - [FLUX.1-dev without AoTI](https://huggingface.co/spaces/zerogpu-aoti/FLUX.1-dev-base)
-- [FLUX.1-dev with AoTI](https://huggingface.co/spaces/zerogpu-aoti/FLUX.1-dev-fa3-aoti) (__1.75x__ speedup)
+- [FLUX.1-dev with AoTI and FA3](https://huggingface.co/spaces/zerogpu-aoti/FLUX.1-dev-fa3-aoti) (__1.75x__ speedup)
 
 ### Featured AoTI Spaces
 - [FLUX.1 Kontext](https://huggingface.co/spaces/zerogpu-aoti/FLUX.1-Kontext-Dev)
