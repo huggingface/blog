@@ -190,7 +190,7 @@ A naive and almost working approach is to simply patch our pipeline like `pipe.t
 spaces.aoti_apply(compiled_transformer, pipe.transformer)
 ```
 
-Et voilà! It will take care of patching `pipe.transformer.forward` with our compiled model, as well as cleaning old model parameters out of memory.
+Et voilà! It will take care of patching `pipe.transformer.forward` with our compiled model, as well as [cleaning old model parameters out of memory](https://pypi-browser.org/package/spaces/spaces-0.40.1-py3-none-any.whl/spaces/zero/torch/aoti.py#L87).
 
 ### 5. Wrapping it all together
 
