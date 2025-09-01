@@ -329,39 +329,11 @@ exported_transformer = torch.export.export(
 Dynamic shapes is sometimes not enough when dynamism is too important.
 
 This is, for instance, the case with the Wan family of video generation models if you want your compiled model to generate different resolutions.
-One thing can be done in this case: compile one model per resolution while keeping the model parameters shared:
+One thing can be done in this case: compile one model per resolution while keeping the model parameters shared and dispatch the right one at runtime
 
-``` python
-@spaces.GPU
-def compile():
-    with spaces.aoti_capture(pipe.transformer) as call_landscape:
-        pipe("prompt", width=832, height=480)
-    with spaces.aoti_capture(pipe.transformer) as call_portrait:
-        pipe("prompt", width=480, height=832)
+Here is a minimal example of this approach: [zerogpu-aoti-multi.py](https://gist.github.com/cbensimon/8dc0ffcd7ee024d91333f6df01907916)
 
-    exported_landscape = torch.export.export(model, args=call_landscape.args, kwargs=call_landscape.kwargs)
-    exported_portrait = torch.export.export(model, args=call_portrait.args, kwargs=call_portrait.kwargs)
-
-    compiled_landscape = spaces.aoti_compile(exported_landscape)
-    compiled_portrait = spaces.aoti_compile(exported_portrait)
-
-	# The following line is very important, otherwise weights would duplicate when returning outside of `@spaces.GPU`
-    compiled_portrait.weights = compiled_landscape.weights
-
-    return compiled_landscape, compiled_portrait
-
-compiled_landscape, compiled_portrait = compile()
-def combined(*args, **kwargs):
-    hidden_states = kwargs['hidden_states']
-	if hidden_states.shape[-1] > hidden_states.shape[-2]:
-        return compiled_landscape(*args, **kwargs)
-    else:
-        return compiled_portrait(*args, **kwargs)
-
-spaces.aoti_apply(combined, pipe.transformer)
-```
-
-You can see a fully working example of this paradigm in Wan 2.2 Space: [https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster](https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster/blob/main/optimization.py)
+You can also see a fully working implementation of this paradigm in [Wan 2.2 Space](https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster/blob/main/optimization.py)
 
 ### FlashAttention-3
 
