@@ -71,7 +71,7 @@ This means that:
 - When it is actually performing a task, it will use one GPU
 - It can use multiple GPUs as needed to perform tasks concurrently
 
-Thanks to `spaces` package, the only code change needed to get this behaviour is as follows:
+Thanks to the Python `spaces` package, the only code change needed to get this behaviour is as follows:
 
 ```diff
   import gradio as gr
