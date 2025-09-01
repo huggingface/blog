@@ -22,7 +22,7 @@ This is where PyTorch ahead-of-time (AoT) compilation comes in. Instead of compi
 In this post, we’ll show how to wire up Ahead-of-Time (AoT) compilation in ZeroGPU Spaces. We'll explore advanced tricks like FP8 quantization and dynamic shapes, and share working demos you can try right away. If you cannot wait, we invite you to check out some ZeroGPU-powered demos on the [zerogpu-aoti](https://huggingface.co/zerogpu-aoti) organization.
 
 > [!TIP]
-> Only [Pro](https://huggingface.co/pro) users and memnbers of [Team or Enterprise](https://huggingface.co/enterprise) orgs can create ZeroGPU Spaces while anyone can freely use them (Pro, Team and Enterprise users get **8x** more daily GPU quota)
+> Only [Pro](https://huggingface.co/pro) users and [Team / Enterprise](https://huggingface.co/enterprise) org members can create ZeroGPU Spaces while anyone can freely use them (Pro, Team and Enterprise users get **8x** more daily GPU quota)
 
 ## Table of Contents
 
@@ -98,7 +98,7 @@ By importing `spaces` and adding the `@spaces.GPU` decorator, we:
 - (Call an internal API to make the right device visible to the fork but this is not in the scope of this blogpost)
 
 > [!NOTE]
-> ZeroGPU currently allocates a **MIG slice** of H200 (`3g.71gb` profile). Additional MIG sizes including full slice (`7g.141gb` profile) will come in late 2025
+> ZeroGPU currently allocates a [MIG](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/#h200-mig-profiles) slice of H200 (`3g.71gb` profile). Additional MIG sizes including full slice (`7g.141gb` profile) will come in late 2025
 
 ## PyTorch compilation
 
@@ -266,7 +266,7 @@ exported_transformer = torch.export.export(
 
 (You can find more details about the library in [TorchAO docs](https://docs.pytorch.org/ao/stable/index.html))
 
-And we can then proceed with the rest of the steps as outlined above. Using quantization provides another XXYZ% of speedup.
+And we can then proceed with the rest of the steps as outlined above. Using quantization provides another **1.2x** of speedup.
 
 ### Dynamic shapes
 
@@ -289,7 +289,7 @@ We then define a map of argument names and which dimensions in their input value
 ```python
 transformer_dynamic_shapes = {
     "hidden_dim": {1: transformer_hidden_dim}, 
-    "img_ids", {0: transformer_hidden_dim}
+    "img_ids", {0: transformer_hidden_dim},
 }
 ```
 
