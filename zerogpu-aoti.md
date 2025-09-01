@@ -96,7 +96,7 @@ By importing `spaces` and adding the `@spaces.GPU` decorator, we:
 
 ## PyTorch compilation
 
-Modern ML frameworks like PyTorch and JAX have the concept of compilation that can be used to optimize the runtime of such models. Behind the scenes, compilation applies a series of (often hardware-dependent) optimization steps such as operator fusion, constant folding, etc.
+Modern ML frameworks like PyTorch and JAX have the concept of _compilation_ that can be used to optimize model latency or inference time. Behind the scenes, compilation applies a series of (often hardware-dependent) optimization steps such as operator fusion, constant folding, etc.
 
 PyTorch (from 2.0 onwards) currently has two major interfaces for compilation:
 
