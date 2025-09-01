@@ -99,6 +99,9 @@ By importing `spaces` and adding the `@spaces.GPU` decorator, we:
 - Make the decorated function run in a fork when later called
 - (Call an internal API to make the right device visible to the fork but this is not in the scope of this blogpost)
 
+> [!TIP]
+> Only [Pro](https://huggingface.co/pro) users and memnbers of [Team or Enterprise](https://huggingface.co/enterprise) orgs can create ZeroGPU Spaces while anyone can freely use them (Pro, Team and Enterprise users get **8x** more daily GPU quota)
+
 ## PyTorch compilation
 
 Modern ML frameworks like PyTorch and JAX have the concept of _compilation_ that can be used to optimize model latency or inference time. Behind the scenes, compilation applies a series of (often hardware-dependent) optimization steps such as operator fusion, constant folding, etc.
