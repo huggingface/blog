@@ -363,7 +363,7 @@ Here is a [fully working example of an FA3 attention processor](https://gist.git
 
 ZeroGPU within Hugging Face Spaces is a powerful feature that enables AI builders by providing access to powerful compute. In this post, we showed how users can benefit from PyTorch’s ahead-of-time compilation techniques to speed up their applications that leverage ZeroGPU. 
 
-We demonstrate speedups with Flux.1-Dev, but these techniques are not limited to just this model. Therefore, we encourage you to give these techniques a try and provide us with feedback.
+We demonstrate speedups with Flux.1-Dev, but these techniques are not limited to just this model. Therefore, we encourage you to give these techniques a try and provide us with feedback in this [community discussion](https://huggingface.co/spaces/zerogpu-aoti/README/discussions/1)
 
 ## Resources
 
