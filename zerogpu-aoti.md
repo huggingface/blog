@@ -362,4 +362,4 @@ We demonstrate speedups with Flux.1-Dev, but these techniques are not limited to
 - Visit our [ZeroGPU-AOTI org on the Hub](https://huggingface.co/zerogpu-aoti) to refer to a collection of demos that leverage the techniques discussed in this post.
 - Browse `spaces.aoti_*` APIs [source code](https://pypi-browser.org/package/spaces/spaces-0.40.1-py3-none-any.whl/spaces/zero/torch/aoti.py) to learn more about the interface
 - Check out [Kernels Community org on the hub](https://huggingface.co/kernels-community)
-- Upgrade to [Pro subscription](https://huggingface.co/pro) on Hugging Face to create your own ZeroGPU Spaces (and get 25 minutes of H200 usage everyday)
+- Upgrade to [Pro](https://huggingface.co/pro) on Hugging Face to create your own ZeroGPU Spaces (and get 25 minutes of H200 usage every day)
