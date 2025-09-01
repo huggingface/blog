@@ -400,4 +400,4 @@ ZeroGPU within Hugging Face Spaces is a powerful feature that enables AI builder
 - Visit our [ZeroGPU-AOTI org on the Hub](https://huggingface.co/zerogpu-aoti) to refer to a collection of demos that leverage the techniques discussed in this post.
 - Browse `spaces.aoti_*` APIs [source code](https://pypi-browser.org/package/spaces/spaces-0.40.1-py3-none-any.whl/spaces/zero/torch/aoti.py) to learn more about the interface
 - Check out [Kernels Community org on the hub](https://huggingface.co/kernels-community)
-- Check out [Pro subscribe](https://huggingface.co/subscribe/pro) page on Hugging Face to create your own ZeroGPU Spaces (and get way more usage quota)
+- Upgrade to [Pro subscription](https://huggingface.co/pro) on Hugging Face to create your own ZeroGPU Spaces (and get 25 minutes of H200 usage everyday)
