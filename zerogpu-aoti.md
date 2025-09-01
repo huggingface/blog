@@ -59,7 +59,6 @@ When executing `.to('cuda')` on this line:
 
 ```python
 pipe = DiffusionPipeline.from_pretrained(...).to('cuda')
-
 ```
 
 PyTorch initializes the NVIDIA driver, which sets up the process on CUDA forever. This is not very resource-efficient given that app traffic is not perfectly smooth, but is rather extremely sparse and spiky.
