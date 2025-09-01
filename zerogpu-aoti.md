@@ -53,7 +53,7 @@ def generate(prompt):
 gr.Interface(generate, "text", "gallery").launch()
 ```
 
-This works great, but the issue with this kind of app design is that it takes one GPU during their whole lifetime.
+This works great, but a GPU is reserved for the Space during its entire lifetime – even when it has no user activity.
 
 When executing `.to('cuda')` on this line:
 
