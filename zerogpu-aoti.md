@@ -161,11 +161,11 @@ Compiling a model ahead-of-time with PyTorch involves multiple steps:
 Recall that we’re going to compile the model *ahead* of time. Therefore, we need to derive example inputs for the model. Note that these are the same kinds of inputs we expect to see during the actual runs. To capture those inputs, we will leverage the `spaces.aoti_capture` helper from the `spaces` package:
 
 ```python
-with spaces.aoti_capture(pipeline.transformer) as call:
+with spaces.aoti_capture(pipe.transformer) as call:
     pipe("arbitrary example prompt")
 ```
 
-When used as a context manager like so, it allows capturing the call of any callable (`pipeline.transformer`, in our case), cancel it and put the captured input values inside `call.args` and `call.kwargs`.
+When used as a context manager like so, it allows capturing the call of any callable (`pipe.transformer`, in our case), cancel it and put the captured input values inside `call.args` and `call.kwargs`.
 
 ### 2. Exporting the model
 
@@ -173,7 +173,7 @@ Now that we have example args and kwargs for our transformer component, we can e
 
 ```python
 exported_transformer = torch.export.export(
-    pipeline.transformer,
+    pipe.transformer,
     args=call.args,
     kwargs=call.kwargs,
 )
@@ -202,10 +202,10 @@ A naive and almost working approach is to simply patch our pipeline like `pipe.t
 `spaces` package provides a utility for this, too -- `spaces.aoti_apply`:
 
 ```python
-spaces.aoti_apply(compiled_transformer, pipeline.transformer)
+spaces.aoti_apply(compiled_transformer, pipe.transformer)
 ```
 
-Et voilà! It will take care of patching `pipeline.transformer.forward` with our compiled model, as well as cleaning old model parameters out of memory.
+Et voilà! It will take care of patching `pipe.transformer.forward` with our compiled model, as well as cleaning old model parameters out of memory.
 
 ### 5. Wrapping it all together
 
@@ -224,18 +224,18 @@ To perform the first three steps (intercepting input examples, exporting the mod
   
 + @spaces.GPU(duration=1500) # maximum duration allowed during startup
 + def compile_transformer():
-+     with spaces.aoti_capture(pipeline.transformer) as call:
++     with spaces.aoti_capture(pipe.transformer) as call:
 +         pipe("arbitrary example prompt")
 + 
 +     exported = torch.export.export(
-+         pipeline.transformer,
++         pipe.transformer,
 +         args=call.args,
 +         kwargs=call.kwargs,
 +     )
 +     return spaces.aoti_compile(exported)
 + 
 + compiled_transformer = compile_transformer()
-+ spaces.aoti_apply(compiled_transformer, pipeline.transformer)
++ spaces.aoti_apply(compiled_transformer, pipe.transformer)
   
   @spaces.GPU
   def generate(prompt):
@@ -263,10 +263,10 @@ To enable FP8 quantization within our AoT compilation workflow, we can leverage 
 + from torchao.quantization import quantize_, Float8DynamicActivationFloat8WeightConfig
 
 + # Quantize the transformer just before the export step.
-+ quantize_(pipeline.transformer, Float8DynamicActivationFloat8WeightConfig())
++ quantize_(pipe.transformer, Float8DynamicActivationFloat8WeightConfig())
 
 exported_transformer = torch.export.export(
-    pipeline.transformer,
+    pipe.transformer,
     args=call.args,
     kwargs=call.kwargs,
 )
@@ -313,7 +313,7 @@ Now, when performing the export step, we simply supply `transformer_dynamic_shap
 
 ```python
 exported_transformer = torch.export.export(
-    pipeline.transformer,
+    pipe.transformer,
     args=call.args,
     kwargs=call.kwargs,
     dynamic_shapes=dynamic_shapes,
@@ -334,10 +334,10 @@ One thing can be done in this case: compile one model per resolution while keepi
 ``` python
 @spaces.GPU
 def compile():
-    with spaces.aoti_capture(pipeline.transformer) as call_landscape:
-        pipeline("prompt", width=832, height=480)
-    with spaces.aoti_capture(pipeline.transformer) as call_portrait:
-        pipeline("prompt", width=480, height=832)
+    with spaces.aoti_capture(pipe.transformer) as call_landscape:
+        pipe("prompt", width=832, height=480)
+    with spaces.aoti_capture(pipe.transformer) as call_portrait:
+        pipe("prompt", width=480, height=832)
 
     exported_landscape = torch.export.export(model, args=call_landscape.args, kwargs=call_landscape.kwargs)
     exported_portrait = torch.export.export(model, args=call_portrait.args, kwargs=call_portrait.kwargs)
@@ -358,7 +358,7 @@ def combined(*args, **kwargs):
     else:
         return compiled_portrait(*args, **kwargs)
 
-spaces.aoti_apply(combined, pipeline.transformer)
+spaces.aoti_apply(combined, pipe.transformer)
 ```
 
 You can see a fully working example of this paradigm in Wan 2.2 Space: [https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster](https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster/blob/main/optimization.py)
