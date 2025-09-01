@@ -51,7 +51,6 @@ def generate(prompt):
     return pipe(prompt).images
 
 gr.Interface(generate, "text", "gallery").launch()
-
 ```
 
 This works great, but the issue with this kind of app design is that it takes one GPU during their whole lifetime.
