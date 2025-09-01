@@ -88,7 +88,7 @@ Thanks to the Python `spaces` package, the only code change needed to get this b
 
 ```
 
-By importing `spaces` package and adding `@spaces.GPU` decorator, we:
+By importing `spaces` and adding the `@spaces.GPU` decorator, we:
 
 - Intercept PyTorch API calls to postpone CUDA operations
 - Make the decorated function run in a fork when later called
