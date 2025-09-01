@@ -201,3 +201,4 @@ Below is a list of the important resources that we cited throughout this post:
 * [Presenting Flux Fast: Making Flux go brrr on H100s](https://pytorch.org/blog/presenting-flux-fast-making-flux-go-brrr-on-h100s/)
 * [torch.compile and Diffusers: A Hands-On Guide to Peak Performance](https://pytorch.org/blog/torch-compile-and-diffusers-a-hands-on-guide-to-peak-performance/)
 * [LoRA guide in Diffusers](https://huggingface.co/docs/diffusers/main/en/tutorials/using_peft_for_inference)
+* For readers interested in trying this approach, a deployed demo by [Parag Ekbote](https://github.com/ParagEkbote) is available on [Replicate](https://replicate.com/paragekbote/flux-fast-lora-hotswap). This demo has been designed and tested on NVIDIA L40 and A100 GPUs, demonstrating comparable performance.
