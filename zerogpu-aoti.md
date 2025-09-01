@@ -1,5 +1,5 @@
 ---
-title: "Make your ZeroGPU Spaces go brrr with PyTorch ahead-of-time compilation"
+title: "Make your ZeroGPU Spaces go brrr with ahead-of-time compilation"
 thumbnail: /blog/assets/zerogpu-aoti/thumbnail.png
 authors:
 - user: cbensimon
