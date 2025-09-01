@@ -281,7 +281,8 @@ For the case of Flux.1-Dev transformer, changes in different image resolutions w
 - `hidden_states`: The noisy input latents, which the transformer is supposed to denoise. It’s a 3D tensor, representing `batch_size, flattened_latent_dim, embed_dim`. When the batch size is fixed,  it’s the `flattened_latent_dim` that will change for any changes made to image resolutions.
 - `img_ids`: A 2D array of encoded pixel coordinates having a shape of `height * width, 3`. In this case, we want to make `height * width` dynamic.
 
-We start by defining a range in which we want to let the (latent) image resolutions vary:
+We start by defining a range in which we want to let the (latent) image resolutions vary.
+To derive these value ranges, we inspected the shapes of [`hidden_states`](https://github.com/huggingface/diffusers/blob/0ff1aa910cf3d87193af79ec1ae4487be542e872/src/diffusers/pipelines/flux/pipeline_flux.py#L920) in the pipeline with respect to varied image resolutions. The exact values are model-dependent and require manual inspection and some intuition. For Flux.1-Dev, we ended up with:
 
 ```python
 transformer_hidden_dim = torch.export.Dim('hidden', min=4096, max=8212)
