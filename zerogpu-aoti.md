@@ -183,7 +183,7 @@ An exported PyTorch program is a computation graph that represents the tensor co
 
 ### 3. Compiling the exported model
 
-Once the model is exported, compiling is pretty straightforward.
+Once the model is exported, compiling it is pretty straightforward.
 
 A traditional AoT compilation in PyTorch often requires saving the model on disk so it can be later reloaded. In our case, we’ll use another small helper coming in the `spaces` package: `spaces.aoti_compile`. This is a tiny wrapper around `torch._inductor.aot_compile` that manages saving and lazy-loading the model as needed. It is meant to be used like:
 
