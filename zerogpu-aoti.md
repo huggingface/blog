@@ -122,7 +122,7 @@ However, on ZeroGPU, given that the process is freshly spun up for (almost) ever
 
 This is where **ahead-of-time (AoT) compilation** shines.
 
-With AoT, we can export a compiled model once, save it, and later reload it instantly in any process, which is exactly what we need for ZeroGPU. This helps us reduce framework overhead and also eliminate cold-start timings typically incurred in just-in-time compilation.
+With AoT, we can export a compiled model once, save it, and later reload it instantly in any process, which is exactly what we need for ZeroGPU. This helps us reduce framework overhead and also eliminates cold-start timings typically incurred in just-in-time compilation.
 
 But how can we do ahead-of-time compilation on ZeroGPU? Let’s dive in.
 
