@@ -105,15 +105,6 @@ PyTorch (from 2.0 onwards) currently has two major interfaces for compilation:
 
 [`torch.compile`](https://docs.pytorch.org/tutorials/intermediate/torch_compile_tutorial.html) works great in standard environments: it compiles your model the first time it runs, and reuses the optimized version for subsequent calls.
 
-```diff
-  from diffusers import DiffusionPipeline
-
-  pipe = DiffusionPipeline.from_pretrained(...).to('cuda')
-+ pipe.transformer.compile()
-
-  pipe(prompt="photo of a dog looking like a pilot")
-```
-
 However, on ZeroGPU, given that the process is freshly spun up for (almost) every GPU task, it means that `torch.compile` can’t efficiently re-use compilation and is thus forced to rely on its [filesystem cache](https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html#modular-caching-of-torchdynamo-torchinductor-and-triton) to restore compiled models. Depending on the model being compiled, this process takes from a few dozen seconds to a couple of minutes, which is way too much for practical GPU tasks in Spaces.
 
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
