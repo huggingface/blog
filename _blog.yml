@@ -6588,3 +6588,6 @@
     - pytorch
     - optimization
     - guide
+    - text-to-image
+    - image-to-image
+    - image-to-video
