@@ -103,6 +103,80 @@ Some MCP Clients, notably Claude Desktop, do not yet support SSE-based MCP Serve
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-guides/view-api-mcp.png)
 
+
+## Recent Major Improvements
+
+Gradio has recently added several powerful features to MCP servers. For a detailed overview of five major improvements including seamless local file support, real-time progress notifications, OpenAPI to MCP transformation, enhanced authentication, and customizable tool descriptions, check out our dedicated blog post: [Five Big Improvements to Gradio MCP Servers](https://huggingface.co/blog/gradio-mcp-updates).
+
+
+## Advanced MCP Features
+
+### MCP Resources and Prompts
+
+Beyond tools, MCP supports resources (for exposing data) and prompts (for defining reusable templates). Gradio provides decorators to easily create MCP servers with all three capabilities. You can read more in our dedicated guide, [here](https://www.gradio.app/guides/building-mcp-server-with-gradio#creating-mcp-resources):
+
+```python
+import gradio as gr
+
+@gr.mcp.tool()  # Not needed as functions are registered as tools by default
+def add(a: int, b: int) -> int:
+    """Add two numbers"""
+    return a + b
+
+@gr.mcp.resource("greeting://{name}")
+def get_greeting(name: str) -> str:
+    """Get a personalized greeting"""
+    return f"Hello, {name}!"
+
+@gr.mcp.prompt()
+def greet_user(name: str, style: str = "friendly") -> str:
+    """Generate a greeting prompt"""
+    styles = {
+        "friendly": "Please write a warm, friendly greeting",
+        "formal": "Please write a formal, professional greeting", 
+        "casual": "Please write a casual, relaxed greeting",
+    }
+    return f"{styles.get(style, styles['friendly'])} for someone named {name}."
+
+demo = gr.TabbedInterface(
+    [
+        gr.Interface(add, [gr.Number(value=1), gr.Number(value=2)], gr.Number()),
+        gr.Interface(get_greeting, gr.Textbox("Abubakar"), gr.Textbox()),
+        gr.Interface(greet_user, [gr.Textbox("Abubakar"), gr.Dropdown(choices=["friendly", "formal", "casual"])], gr.Textbox()),
+    ],
+    ["Add", "Get Greeting", "Greet User"]
+)
+
+demo.launch(mcp_server=True)
+```
+
+### MCP-Only Functions
+
+Gradio also allows you to create functions that only appear in the MCP server (not in the UI) using `gr.api()`:
+
+```python
+import gradio as gr
+
+def slice_list(lst: list, start: int, end: int) -> list:
+    """
+    A tool that slices a list given a start and end index.
+    Args:
+        lst: The list to slice.
+        start: The start index.
+        end: The end index.
+    Returns:
+        The sliced list.
+    """
+    return lst[start:end]
+
+with gr.Blocks() as demo:
+    gr.Markdown("This app includes MCP-only tools not visible in the UI.")
+    gr.api(slice_list)
+
+demo.launch(mcp_server=True)
+```
+
+
 ## Key features of the Gradio <> MCP Integration
 
 1. **Tool Conversion**: Each API endpoint in your Gradio app is automatically converted into an MCP tool with a corresponding name, description, and input schema. To view the tools and schemas, visit `http://your-server:port/gradio_api/mcp/schema` or go to the "View API" link in the footer of your Gradio app, and then click on "MCP".
@@ -125,12 +199,14 @@ Some MCP Clients, notably Claude Desktop, do not yet support SSE-based MCP Serve
    - Converting base64-encoded strings to file data
    - Processing image files and returning them in the correct format
    - Managing temporary file storage
+   - Automatic file upload MCP server for seamless local file support
 
     Recent Gradio updates have improved its image handling capabilities with features like Photoshop-style zoom and pan and full transparency control.
 
-    It is **strongly** recommended that input images and files be passed as full URLs ("http://..." or "https://...") as MCP Clients do not always handle local files correctly.
 
-4. **Hosted MCP Servers on 󠀠🤗 Spaces**: You can publish your Gradio application for free on Hugging Face Spaces, which will allow you to have a free hosted MCP server. Gradio is part of a broader ecosystem that includes Python and JavaScript libraries for building or querying machine learning applications programmatically.
+4. **Performance Analytics**: Gradio automatically tracks and displays performance metrics for all your MCP tools and API endpoints. View success rates, latency percentiles, and request counts directly in the "View API" page to help you and your users choose the most reliable and fastest tools. Metrics are color-coded: green for 100% success, red for 0% success, and orange for in-between rates.
+
+5. **Hosted MCP Servers on 󠀠🤗 Spaces**: You can publish your Gradio application for free on Hugging Face Spaces, which will allow you to have a free hosted MCP server. Gradio is part of a broader ecosystem that includes Python and JavaScript libraries for building or querying machine learning applications programmatically.
 
 Here's an example of such a Space: https://huggingface.co/spaces/abidlabs/mcp-tools. Notice that you can add this config to your MCP Client to start using the tools from this Space immediately:
 
@@ -146,13 +222,36 @@ Here's an example of such a Space: https://huggingface.co/spaces/abidlabs/mcp-to
 
 <video src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-guides/mcp_guide1.mp4" style="width:100%" controls preload> </video>
 
-And that's it! By using Gradio to build your MCP server, you can easily add many different kinds of custom functionality to your LLM.
 
-### Further Reading
+## Private Spaces Authentication
+
+You can also use private Huggingface Spaces as MCP servers by providing authentication:
+
+```json
+{
+  "mcpServers": {
+    "gradio": {
+      "url": "https://your-private-space.hf.space/gradio_api/mcp/sse",
+      "headers": {
+        "Authorization": "Bearer <YOUR-HUGGING-FACE-TOKEN>"
+      }
+    }
+  }
+}
+```
+
+## Conclusion
+
+By using Gradio to build your MCP server, you can easily add many different kinds of custom functionality to your LLM. With the recent improvements including resources, prompts, better authentication, file handling, and performance metrics, Gradio provides a comprehensive platform for building sophisticated MCP servers.
+
+
+## Further Reading
 
 If you want to dive deeper, here are some articles that we recommend:
 
-* [What Is MCP, and Why Is Everyone – Suddenly!– Talking About It?](https://huggingface.co/blog/Kseniase/mcp)
 * [An Introduction to the MCP Protocol](https://modelcontextprotocol.io/introduction)
-* [Guide: Building an MCP Server with Gradio](https://www.gradio.app/guides/building-mcp-server-with-gradio)
+* [Gradio Guide: Building an MCP Server with Gradio](https://www.gradio.app/guides/building-mcp-server-with-gradio)
+* [Five Big Improvements to Gradio MCP Servers](https://huggingface.co/blog/gradio-mcp-updates)
+* [Upskill your LLMs with Gradio MCP Servers](https://huggingface.co/blog/gradio-mcp-servers)
+* [Implementing MCP Servers in Python: An AI Shopping Assistant with Gradio](https://huggingface.co/blog/gradio-vton-mcp)
 * [Bonus Guide: Building an MCP Client with Gradio](https://www.gradio.app/guides/building-an-mcp-client-with-gradio)
