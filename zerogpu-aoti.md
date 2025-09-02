@@ -6,7 +6,6 @@ authors:
 - user: sayakpaul
 - user: linoyts
 - user: multimodalart
-date: 2025-09-01
 ---
 
 # Make your ZeroGPU Spaces go brrr with PyTorch ahead-of-time compilation
@@ -98,7 +97,7 @@ By importing `spaces` and adding the `@spaces.GPU` decorator, we:
 - (Call an internal API to make the right device visible to the fork but this is not in the scope of this blogpost)
 
 > [!NOTE]
-> ZeroGPU currently allocates a [MIG](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/#h200-mig-profiles) slice of H200 (`3g.71gb` profile). Additional MIG sizes including full slice (`7g.141gb` profile) will come in late 2025
+> ZeroGPU currently allocates an [MIG](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/#h200-mig-profiles) slice of H200 (`3g.71gb` profile). Additional MIG sizes including full slice (`7g.141gb` profile) will come in late 2025.
 
 ## PyTorch compilation
 
@@ -359,7 +358,7 @@ Here is a [fully working example of an FA3 attention processor](https://gist.git
 
 ZeroGPU within Hugging Face Spaces is a powerful feature that enables AI builders by providing access to powerful compute. In this post, we showed how users can benefit from PyTorch’s ahead-of-time compilation techniques to speed up their applications that leverage ZeroGPU. 
 
-We demonstrate speedups with Flux.1-Dev, but these techniques are not limited to just this model. Therefore, we encourage you to give these techniques a try and provide us with feedback in this [community discussion](https://huggingface.co/spaces/zerogpu-aoti/README/discussions/1)
+We demonstrate speedups with Flux.1-Dev, but these techniques are not limited to just this model. Therefore, we encourage you to give these techniques a try and provide us with feedback in this [community discussion](https://huggingface.co/spaces/zerogpu-aoti/README/discussions/1).
 
 ## Resources
 
@@ -368,4 +367,4 @@ We demonstrate speedups with Flux.1-Dev, but these techniques are not limited to
 - Check out [Kernels Community org on the hub](https://huggingface.co/kernels-community)
 - Upgrade to [Pro](https://huggingface.co/pro) on Hugging Face to create your own ZeroGPU Spaces (and get 25 minutes of H200 usage every day)
 
-Acknowledgements: Thanks to [ChunTe Lee](https://huggingface.co/Chunte) for creating an awesome thumbnail for this post.
+*Acknowledgements: Thanks to ChunTe Lee for creating an awesome thumbnail for this post. Thanks to Pedro and Vaibhav for providing feedback on the post.*
