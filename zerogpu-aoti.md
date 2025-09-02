@@ -21,7 +21,7 @@ This is where PyTorch ahead-of-time (AoT) compilation comes in. Instead of compi
 In this post, we’ll show how to wire up Ahead-of-Time (AoT) compilation in ZeroGPU Spaces. We'll explore advanced tricks like FP8 quantization and dynamic shapes, and share working demos you can try right away. If you cannot wait, we invite you to check out some ZeroGPU-powered demos on the [zerogpu-aoti](https://huggingface.co/zerogpu-aoti) organization.
 
 > [!TIP]
-> Only [Pro](https://huggingface.co/pro) users and [Team / Enterprise](https://huggingface.co/enterprise) org members can create ZeroGPU Spaces while anyone can freely use them (Pro, Team and Enterprise users get **8x** more daily GPU quota)
+> [Pro](https://huggingface.co/pro) users and [Team / Enterprise](https://huggingface.co/enterprise) org members can create ZeroGPU Spaces, while anyone can freely use them (Pro, Team and Enterprise users get **8x** more ZeroGPU quota)
 
 ## Table of Contents
 
