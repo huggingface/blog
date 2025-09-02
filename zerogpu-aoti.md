@@ -112,9 +112,6 @@ PyTorch (from 2.0 onwards) currently has two major interfaces for compilation:
 
 However, on ZeroGPU, given that the process is freshly spun up for (almost) every GPU task, it means that `torch.compile` can’t efficiently re-use compilation and is thus forced to rely on its [filesystem cache](https://docs.pytorch.org/tutorials/recipes/torch_compile_caching_tutorial.html#modular-caching-of-torchdynamo-torchinductor-and-triton) to restore compiled models. Depending on the model being compiled, this process takes from a few dozen seconds to a couple of minutes, which is way too much for practical GPU tasks in Spaces.
 
-> [!NOTE]
-> In the above example, we only compile the transformer since, in these generative models, the transformer (or more generally, the denoiser) is the most computationally heavy component.
-
 This is where **ahead-of-time (AoT) compilation** shines.
 
 With AoT, we can export a compiled model once, save it, and later reload it instantly in any process, which is exactly what we need for ZeroGPU. This helps us reduce framework overhead and also eliminates cold-start timings typically incurred in just-in-time compilation.
@@ -142,6 +139,9 @@ def generate(prompt):
 
 gr.Interface(generate, "text", "gallery").launch()
 ```
+
+> [!NOTE]
+> In the discussion below, we only compile the `transformer` component of `pipe` since, in these generative models, the transformer (or more generally, the denoiser) is the most computationally heavy component.
 
 Compiling a model ahead-of-time with PyTorch involves multiple steps:
 
