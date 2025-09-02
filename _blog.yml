@@ -6576,3 +6576,18 @@
     - qwen
     - flux
     - text-to-image
+
+- local: zerogpu-aoti
+  title: "Make your ZeroGPU Spaces go brrr with PyTorch ahead-of-time compilation"
+  author: cbensimon
+  thumbnail: /blog/assets/zerogpu-aoti/thumbnail.png
+  date: Sep 2, 2025
+  tags:
+    - spaces
+    - zerogpu
+    - pytorch
+    - optimization
+    - guide
+    - text-to-image
+    - image-to-image
+    - image-to-video
