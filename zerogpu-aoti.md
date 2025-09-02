@@ -8,7 +8,7 @@ authors:
 - user: multimodalart
 ---
 
-# Make your ZeroGPU Spaces go brrr with PyTorch ahead-of-time compilation
+# Make your ZeroGPU Spaces go brrr with ahead-of-time compilation
 
 ZeroGPU lets anyone spin up powerful **Nvidia H200** hardware in Hugging Face Spaces without keeping a GPU locked for idle traffic.
 It’s efficient, flexible, and ideal for demos but it doesn’t always make full use of everything the GPU and CUDA stack can offer.
