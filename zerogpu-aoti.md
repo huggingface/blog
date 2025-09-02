@@ -288,14 +288,14 @@ We then define a map of argument names and which dimensions in their input value
 ```python
 transformer_dynamic_shapes = {
     "hidden_dim": {1: transformer_hidden_dim}, 
-    "img_ids", {0: transformer_hidden_dim},
+    "img_ids": {0: transformer_hidden_dim},
 }
 ```
 
 Then we need to make our dynamic shapes object replicate the structure of our example inputs. The inputs that do not need dynamic shapes must bet set to `None`. This can be done very easily with PyTorch [tree_map](https://github.com/pytorch/pytorch/blob/2f0de0ff9361ca4f2b1e6f9edbc600b5fb6abcd6/torch/utils/_pytree.py#L1341-L1373) utility:
 
 ```python
-from pytorch.utils._pytree import tree_map
+from torch.utils._pytree import tree_map
 
 dynamic_shapes = tree_map(lambda v: None, call.kwargs)
 dynamic_shapes |= transformer_dynamic_shapes
