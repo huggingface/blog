@@ -123,7 +123,7 @@ But how can we do ahead-of-time compilation on ZeroGPU? Let’s dive in.
 
 ## Ahead-of-time compilation on ZeroGPU
 
-Let's go back to our ZeroGPU base example and unpack what we need for bringing in AoT compilation. For the purpose of this demo, we will use the `black-forest-labs/FLUX.1-dev` model:
+Let's go back to our ZeroGPU base example and unpack what we need to enable AoT compilation. For the purpose of this demo, we will use the `black-forest-labs/FLUX.1-dev` model:
 
 ```python
 import gradio as gr
@@ -154,7 +154,7 @@ with spaces.aoti_capture(pipe.transformer) as call:
     pipe("arbitrary example prompt")
 ```
 
-When used as a context manager like so, it allows capturing the call of any callable (`pipe.transformer`, in our case), cancel it and put the captured input values inside `call.args` and `call.kwargs`.
+When used as a context manager, `aoti_capture` intercepts the call to any callable (`pipe.transformer` in our case), prevents it from executing, captures the input arguments that would have been passed to it, and stores their values in `call.args` and `call.kwargs`.
 
 ### 2. Exporting the model
 
@@ -174,7 +174,7 @@ An exported PyTorch program is a computation graph that represents the tensor co
 
 Once the model is exported, compiling it is pretty straightforward.
 
-A traditional AoT compilation in PyTorch often requires saving the model on disk so it can be later reloaded. In our case, we’ll leverage a helper function part of the `spaces` package: `spaces.aoti_compile`. It's a tiny wrapper around `torch._inductor.aot_compile` that manages saving and lazy-loading the model as needed. It is meant to be used like:
+A traditional AoT compilation in PyTorch often requires saving the model on disk so it can be later reloaded. In our case, we’ll leverage a helper function part of the `spaces` package: `spaces.aoti_compile`. It's a tiny wrapper around `torch._inductor.aot_compile` that manages saving and lazy-loading the model as needed. It's meant to be used like this:
 
 ```python
 compiled_transformer = spaces.aoti_compile(exported_transformer)
