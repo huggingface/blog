@@ -2097,7 +2097,7 @@
     - sd3-5
 
 - local: s2s_endpoint
-  title: "在 Hugging Face 上部署语音转语音模型"
+  title: 在 Hugging Face 上部署语音转语音模型
   author: andito
   thumbnail: /blog/assets/s2s_endpoint/thumbnail.png
   date: October 22, 2024
@@ -2154,7 +2154,7 @@
     - guide
 
 - local: from-files-to-chunks
-  title: "从文件到块: 提高 Hugging Face 存储效率"
+  title: '从文件到块: 提高 Hugging Face 存储效率'
   author: jsulz
   thumbnail: /blog/assets/from-files-to-chunks/thumbnail.png
   date: November 20, 2024
@@ -2183,7 +2183,6 @@
     - guide
     - ethics
 
-
 - local: layerskip
   title: 自推测解码实现更快文本生成
   author: ariG23498
@@ -2209,7 +2208,7 @@
     - research
 
 - local: ethics-soc-7
-  title: "人工智能代理已经到来，接下来呢？"
+  title: 人工智能代理已经到来，接下来呢？
   author: meg
   thumbnail: /blog/assets/190_ethics-soc-7/thumbnail.png
   date: January 13, 2025
@@ -2218,7 +2217,7 @@
     - agents
 
 - local: run-comfyui-workflows-on-spaces
-  title: "在 Hugging Face Spaces 上使用 Gradio 免费运行 ComfyUI 工作流"
+  title: 在 Hugging Face Spaces 上使用 Gradio 免费运行 ComfyUI 工作流
   author: multimodalart
   thumbnail: /blog/assets/comfyui-to-gradio/cover.png
   date: January 14, 2024
@@ -2241,7 +2240,7 @@
     - on-device
     - smolvlm
     - community
-    
+
 - local: ai-art-newsletter-jan-25
   title: AI艺术工具通讯 - 第1期
   author: linoyts
@@ -2251,7 +2250,7 @@
     - community
 
 - local: smolvlm2
-  title: "SmolVLM2: 让视频理解能力触手可及"
+  title: 'SmolVLM2: 让视频理解能力触手可及'
   author: orrzohar
   guest: true
   thumbnail: /blog/assets/smolvlm2/banner.png
@@ -2266,7 +2265,7 @@
     - vision
 
 - local: vlms-2025
-  title: "视觉语言模型 (更好、更快、更强)"
+  title: 视觉语言模型 (更好、更快、更强)
   author: virtuoasis
   thumbnail: /blog/assets/vlms2/vlms2.png
   date: May 12, 2025
@@ -2278,7 +2277,7 @@
     - research
 
 - local: nanovlm
-  title: "nanoVLM: 最简洁、最轻量的纯 PyTorch 视觉-语言模型训练代码库"
+  title: 'nanoVLM: 最简洁、最轻量的纯 PyTorch 视觉-语言模型训练代码库'
   author: ariG23498
   thumbnail: /blog/assets/nanovlm/thumbnail.png
   date: May 21, 2025
@@ -2316,6 +2315,19 @@
     - reasoning
     - community
     - research
+
+- local: welcome-openai-gpt-oss
+  title: 欢迎 GPT OSS  —— 来自 OpenAI 的全新开放模型家族！
+  author: reach-vb
+  thumbnail: /blog/assets/openai/openai-hf-thumbnail.png
+  date: Aug 5, 2025
+  tags:
+    - openai
+    - gpt
+    - gpt-oss
+    - open-source
+    - LLM
+    - community
 
 - local: zerogpu-aoti
   title: "ZeroGPU Spaces 加速实践：PyTorch 提前编译全解析"
