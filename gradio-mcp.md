@@ -8,6 +8,9 @@ authors:
 
 # How to Build an MCP Server in 5 Lines of Python
 
+> [!TIP]
+> **Updated! (September 2025)** This post has been updated with the latest Gradio MCP features including Resources, Prompts, enhanced authentication, and many more. 
+
 [Gradio](https://github.com/gradio-app/gradio) is a Python library used by more than 1 million developers each month to build interfaces for machine learning models. Beyond just creating UIs, Gradio also exposes API capabilities and — now! — Gradio apps can be launched Model Context Protocol (MCP) servers for LLMs. This means that your Gradio app, whether it's an image generator or a tax calculator or something else entirely, can be called as a tool by an LLM.
 
 This guide will show you how to use Gradio to build an MCP server in just a few lines of Python. 
