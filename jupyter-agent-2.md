@@ -80,6 +80,9 @@ With simplified scaffolding in place, we focused on fine-tuning Qwen-4B for **da
 ## ⚙️ Processing Pipeline
 
 We designed a multi-stage pipeline using [Datatrove](https://github.com/huggingface/datatrove) to clean and prepare Kaggle notebooks at scale.  
+
+<img src="assets/jupyter-agent-2/jupyter-agent-dataset-pipeline.png" alt="Jupyter Agent Dataset Pipeline"/>
+
 Here’s how each step worked:
 
 ### 1. Large-scale deduplication
@@ -102,21 +105,22 @@ We also removed notebooks that didn’t actually use datasets (detected via an L
 This ensured we trained only on relevant data science tasks.
 
 ### 5. QA generation
-From the cleaned notebooks, we generated question–answer pairs.  
+From the cleaned notebooks, we generated question–answer pairs using [Qwen-3-32B](https://huggingface.co/Qwen/Qwen3-32B).  
 **Prompt design:** we asked the LLM to produce natural questions that could realistically be asked of the dataset, then validated whether the notebook provided a correct answer.  
 
 *Challenge:* We had to try many prompts to get higher-difficulty questions because LLMs tended to generate trivial ones like "what is the size of the dataset".  
 *Insight:* We broke this into two steps because LLMs tended to hallucinate answers:  
 1. Generate the question and answer.  
-2. Ask another LLM (with access to the notebook) to check whether the answer was correct.  
+2. Ask another LLM (with access to the notebook) to check whether the answer was correct. 
 
 ### 6. Trace generation
 We executed the notebooks to generate reasoning traces.  
+We have prompted [Qwen-3-Coder-480B](https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct) model to generate a jupyter notebook code to answer the question from the previously generated synthetic QA pair. 
 Traces captured step-by-step code execution, including intermediate outputs, which are crucial for agent training.  
 
-We used E2B for our agent to solve the synthetic QA pairs, which required fetching Kaggle datasets so the code could actually run via [E2B](https://e2b.dev/).  
+We used [E2B](https://e2b.dev/) for our agent to solve the synthetic QA pairs, which required fetching Kaggle datasets so the code could actually run via E2B.  
 
-*Challenge:* Many datasets were unavailable.  
+*Challenge 1:* Many datasets were unavailable.  
 *Trick:* Since LLMs are strong at code and have a decent world model, we prompted them to **act as a code interpreter** when the dataset was missing.  
 
 Beginning of the prompt:
@@ -125,10 +129,15 @@ You are a stateful Python code interpreter that executes code in a persistent en
 [REST OF THE PROMPT]
 ```
 
+*Challenge 2:* Qwen-Coder model does not support thinking mode - how can we extract code commentary? Qwen-Coder is trained to generate code and not text output!  
+*Trick:* When switching from Qwen-3 to Qwen-3-Coder we noticed that often output message content was empty. This turns out to be a previously known quirk of Qwen-Coder models in which when using tool calling the model would not return an empty assistant response. We enforce some text commentary through tooling by passing 'comment' as a required field in the code execution tool call. This way when non-reasoning model is used for code cell generation it will by default output some description of its actionns from 1st POV, emulating the thinking traces structure.
+
+**Note:** the generated final answer in the notebook may vary from the answer specified in the QA pair. This is caused by the fact that the agent model could use data preprocessing methods and steps different from the original Kaggle notebook and the synthetic question would not usually specify them. This discrepancy is normal and lays foundation for a new exciting research direction of how language models tend to treat data analysis and whether they do it differently from humans. For full transparency we keep both LLM-generated final answer and original answer from the real Kaggle notebook as a signal of model's performance.
+
 ### 7. Final curation
 We truncated overly long outputs and filtered out trivial traces to prevent content length issues and keep only high-quality traces.  
 We kept non-trivial, multi-turn traces aligned with DABStep-style tasks.  
-The resulting dataset became the foundation for SFT on Qwen-4B.
+The resulting dataset became the foundation for SFT on Qwen3-4B models with 51k synthetic notebooks and almost 2B tokens.
 
 
 ## 🏃‍♂️ Training Pipeline (Highlights)
@@ -137,18 +146,40 @@ Some training steps were particularly interesting:
 
 - For trace generation, we used LLMs to generate QA pairs, which gave us a **verifiable environment**.  
 - Finally, we fine-tuned **Qwen-4B** with [TRL](https://huggingface.co/docs/trl).  
-  - Used `assistant_loss_only=True` → small performance boost.  
+  - Used `assistant_loss_only=True` → small performance boost.
+  - Added netfune noise for full-parameter multi-epoch training → avoids overfitting.  
 
 **Challenges:**  
 - Prompting models for tool calling is tricky: not all prompts deliver the same performance ([Qwen docs](https://qwen.readthedocs.io/en/latest/framework/function_call.html#vllm)).  
 - We had to manually test each one to find what worked best.  
 - There’s no standardization in response formats for tool calling, making it difficult to switch between models.  
+- Native Qwen's generation prompt is not adapted to `assistant_loss_only=True` training mode in TRL which requires to have generation tokens by default. Thus, we adapt the original chat templates by wrapping the assistant response part in the generation tags.
+- Training thinking models on short reasoning texts may disrupt model capabilities → full-parameter training works better comparing to PEFT in this case. 
 
 
 ## 📊 Results
 
+**Qwen-3-4B**
 - **Easy accuracy:** 72% (baseline: 26.6%)  
 - **Hard accuracy:** 5% (baseline: 0%)  
+
+We further compare other trained models with implemented scaffolding like Qwen-3-4B-Thinking-2507 and Qwen-3-4B-Instruct-2507 to define the pure impact of our training dataset:
+
+**Qwen-3-4B-Thinking-2507**
+- **Easy accuracy:** 72% (baseline: 26.6%)  
+- **Hard accuracy:** 5% (baseline: 0%)  
+
+**Qwen-3-4B-Instruct-2507**
+- **Easy accuracy:** 72% (baseline: 26.6%)  
+- **Hard accuracy:** 5% (baseline: 0%) 
+
+In summary, we can see up to 22% boost on DABStep easy score:
+
+<img src="assets/jupyter-agent-2/training_dabstep_easy.png" alt="DABstep Easy Score"/>
+
+We can also see, that the hard score can increase too even though our dataset is focused on easier questions:
+
+<img src="assets/jupyter-agent-2/training_dabstep_hard.png" alt="DABstep Hard Score"/>
 
 This makes Qwen-4B (with our pipeline + scaffolding) a state-of-the-art small-model agent on DABStep.
 
