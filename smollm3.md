@@ -116,7 +116,7 @@ After the main pretraining we improved the model in a mid-training stage for lon
 
 # Mid-training
 
-We call the long context adaptation and reasoning adaption “mid-training”. They are much shorter than the main pretraining but still somewhat general and aimed at improving the model in those two domains. Let’s first have a look at long context training.
+We call the long context adaptation and reasoning adaptation “mid-training”. They are much shorter than the main pretraining but still somewhat general and aimed at improving the model in those two domains. Let’s first have a look at long context training.
 
 ## **Long Context extension**
 
@@ -154,7 +154,7 @@ The chat template provides a default system message for both reasoning modes, al
 
 ## **Supervised Finetuning**
 
-Following the reasoning mid-training stage, where we trained the model on 140B tokens of general reasoning data, we proceed with Supervised Finetuning (SFT) to incorporate capabilities in across both reasoning and non-reasoning modes for math, code, general reasoning, instruction following, multilinguality, and tool calling. Training a dual-mode model requires carefully balancing the data mixture to maintain strong performance in both modes across all target domains. To evaluate SmolLM3’s performance throughout training, we tracked the following domains: math, code, general reasoning, instruction following, and multilinguality.
+Following the reasoning mid-training stage, where we trained the model on 140B tokens of general reasoning data, we proceed with Supervised Finetuning (SFT) to incorporate capabilities across both reasoning and non-reasoning modes for math, code, general reasoning, instruction following, multilinguality, and tool calling. Training a dual-mode model requires carefully balancing the data mixture to maintain strong performance in both modes across all target domains. To evaluate SmolLM3’s performance throughout training, we tracked the following domains: math, code, general reasoning, instruction following, and multilinguality.
 
 The primary challenge we encountered when building the reasoning mode dataset was the scarcity of datasets containing reasoning traces for certain domains. To address this gap, we generated synthetic data by prompting [Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B) in reasoning mode with prompts from existing non-reasoning datasets. This allowed us to improve performance in domains where the model initially struggled in reasoning mode, such as multi-turn conversations, multilinguality, and everyday conversations.
 
@@ -205,7 +205,7 @@ Our merging recipe consists of two steps:
 1. Take each APO checkpoint and create a model “soup”.
 2. Combine the model soup with a mid-training checkpoint that has strong long-content performance. A linear merge with weights of 0.9 and 0.1 for the APO model soup and mid-training checkpoint, respectively, achieved the best performance. We were able to recover the base model’s RULER score on contexts up to 128k tokens.
 
-The resulting model is the checkpoint we are releasing today. It maintains performance across a wide range of tasks. So let’s turn the the evaluation result both of this model as well as the base model. 
+The resulting model is the checkpoint we are releasing today. It maintains performance across a wide range of tasks. So let’s turn to the evaluation result both of this model as well as the base model. 
 
 # Evaluation
 
@@ -247,7 +247,7 @@ We evaluate SmolLM3 against other 3B non-reasoning models and compare it to Qwen
  <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/smollm3/image%20(31).png" alt=""  style="width: 90%; height: auto;"><br>
 </p>
 
-So the instruct model sits right at the pareto front of perfomance and cost. Let’s see how the reasoning model does!
+So the instruct model sits right at the pareto front of performance and cost. Let’s see how the reasoning model does!
 
 ### Extending thinking evaluation
 
@@ -369,3 +369,13 @@ We release SmolLM3, a small, long-context, multilingual, reasoner with up to 128
 - Models collection with quantized checkpoints: [Link](https://huggingface.co/collections/HuggingFaceTB/smollm3-686d33c1fdffe8e635317e23)
 - SmolLM GitHub repo with pretraining configs and evaluation code: [https://github.com/huggingface/smollm](https://github.com/huggingface/smollm)
 - Our HuggingFace org: [https://huggingface.co/HuggingFaceTB](https://huggingface.co/HuggingFaceTB)
+
+# Citation
+```bash
+@misc{bakouch2025smollm3,
+  title={{SmolLM3: smol, multilingual, long-context reasoner}},
+  author={Bakouch, Elie and Ben Allal, Loubna and Lozhkov, Anton and Tazi, Nouamane and Tunstall, Lewis and Patiño, Carlos Miguel and Beeching, Edward and Roucher, Aymeric and Reedi, Aksel Joonas and Gallouédec, Quentin and Rasul, Kashif and Habib, Nathan and Fourrier, Clémentine and Kydlicek, Hynek and Penedo, Guilherme and Larcher, Hugo and Morlon, Mathieu and Srivastav, Vaibhav and Lochner, Joshua and Nguyen, Xuan-Son and Raffel, Colin and von Werra, Leandro and Wolf, Thomas},
+  year={2025},
+  howpublished={\url{https://huggingface.co/blog/smollm3}}
+}
+```

@@ -2304,18 +2304,6 @@
     - models
     - community
 
-- local: smollm3
-  title: "SmolLM3: 支持多语言与长上下文推理的小模型"
-  author: loubnabnl
-  thumbnail: /blog/assets/smollm3/image.png
-  date: July 8, 2025
-  tags:
-    - llm
-    - nlp
-    - reasoning
-    - community
-    - research
-
 - local: welcome-openai-gpt-oss
   title: 欢迎 GPT OSS  —— 来自 OpenAI 的全新开放模型家族！
   author: reach-vb
@@ -2328,6 +2316,18 @@
     - open-source
     - LLM
     - community
+
+- local: smollm3
+  title: "SmolLM3: 支持多语言与长上下文推理的小模型"
+  author: loubnabnl
+  thumbnail: /blog/assets/smollm3/image.png
+  date: July 8, 2025
+  tags:
+    - llm
+    - nlp
+    - reasoning
+    - community
+    - research
 
 - local: zerogpu-aoti
   title: "ZeroGPU Spaces 加速实践：PyTorch 提前编译全解析"

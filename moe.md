@@ -304,7 +304,7 @@ Increasing the capacity factor (CF) increases the quality but increases communic
 > You can deploy [mistralai/Mixtral-8x7B-Instruct-v0.1](https://ui.endpoints.huggingface.co/new?repository=mistralai%2FMixtral-8x7B-Instruct-v0.1&vendor=aws&region=us-east-1&accelerator=gpu&instance_size=2xlarge&task=text-generation&no_suggested_compute=true&tgi=true&tgi_max_batch_total_tokens=1024000&tgi_max_total_tokens=32000) to Inference Endpoints. 
 
 A big downside of MoEs is the large number of parameters. For local use cases, one might want to use a smaller model. Let's quickly discuss a few techniques that can help with serving:
-* The Switch Transformers authors did early distillation experiments. By distilling a MoE back to its dense counterpart, they could keep 30-40% of the sparsity gains. Distillation, hence, provides the benefits of faster pretaining and using a smaller model in production.
+* The Switch Transformers authors did early distillation experiments. By distilling a MoE back to its dense counterpart, they could keep 30-40% of the sparsity gains. Distillation, hence, provides the benefits of faster pretraining and using a smaller model in production.
 * Recent approaches modify the routing to route full sentences or tasks to an expert, permitting extracting sub-networks for serving.
 * Aggregation of Experts (MoE): this technique merges the weights of the experts, hence reducing the number of parameters at inference time.
 
@@ -336,7 +336,7 @@ In the realm of released open access MoEs, you can check:
 
 ## Exciting directions of work
 
-Further experiments on **distilling** a sparse MoE back to a dense model with less parameters but similar number of parameters.
+Further experiments on **distilling** a sparse MoE back to a dense model with fewer parameters but similar quality.
 
 Another area will be quantization of MoEs. [QMoE](https://arxiv.org/abs/2310.16795) (Oct. 2023) is a good step in this direction by quantizing the MoEs to less than 1 bit per parameter, hence compressing the 1.6T Switch Transformer which uses 3.2TB accelerator to just 160GB. 
 

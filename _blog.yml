@@ -6272,3 +6272,322 @@
     - reasoning
     - community
     - research
+
+- local: gradio-mcp-servers
+  title: "Upskill your LLMs with Gradio MCP Servers"
+  author: freddyaboulton
+  thumbnail: /blog/assets/upskill-llms-with-gradio-mcp/UpskillThumbnail.png
+  date: July 9, 2025
+  tags:
+    - gradio
+    - mcp
+    - llm
+
+- local: mi300kernels
+  title: "Creating custom kernels for the AMD MI300" 
+  author: ror
+  thumbnail: /blog/assets/mi300kernels/thumbnail.png
+  date: Jul 9, 2025
+  tags:
+    - kernels
+    - cuda
+    - amd
+    - optimization
+
+- local: reachy-mini
+  title: "Reachy Mini - The Open-Source Robot for Today's and Tomorrow's AI Builders"
+  author: thomwolf
+  thumbnail: /blog/assets/reachy-mini/thumbnail.jpg
+  date: July 9, 2025
+  tags:
+    - robotics
+    - community
+    - open-source
+
+- local: building-hf-mcp
+  title: "Building the Hugging Face MCP Server"
+  author: evalstate
+  thumbnail: /blog/assets/building-hf-mcp/building-hf-mcp.png
+  date: July 10, 2025
+  tags:
+    - community
+    - open-source
+    - mcp
+    - gradio
+    - multimodal
+
+
+- local: screenenv
+  title: "ScreenEnv: Deploy your full stack Desktop Agent"
+  author: A-Mahla
+  thumbnail: /blog/assets/screenenv/screenenv.png
+  date: July 10, 2025
+  tags:
+    - agents
+    - gui
+    - community
+    - open-source
+    - mcp
+
+- local: async-robot-inference
+  title: "Asynchronous Robot Inference: Decoupling Action Prediction and Execution"
+  author: fracapuano
+  thumbnail: /blog/assets/async_inference/thumbnail_async_blog.png
+  date: Jul 10, 2025
+  tags:
+    - lerobot
+    - robotics
+    - models
+    - open-source
+
+
+- local: migrating-the-hub-to-xet
+  title: "Migrating the Hub from Git LFS to Xet"
+  author: jsulz
+  thumbnail: /blog/assets/migrating-the-hub-to-xet/thumbnail.png
+  date: Jul 15, 2025
+  tags:
+    - storage
+    - infrastructure
+    - content addressed store
+
+- local: ettin
+  title: "Seq vs Seq: the Ettin Suite of Paired Encoders and Decoders"
+  author: orionweller
+  thumbnail: /blog/assets/ettin/thumbnail.png
+  date: July 16, 2025
+  tags:
+    - llm
+    - nlp
+    - community
+    - research
+    - open-source-collab 
+
+- local: gradio-mcp-updates
+  title: "Five Big Improvements to Gradio MCP Servers"
+  author: freddyaboulton
+  thumbnail: /blog/assets/gradio-mcp-updates/5_mcp_improvements.png
+  date: Jul 17, 2025
+  tags:
+    - gradio
+    - mcp
+    - community
+    - open-source
+
+- local: futurebench
+  title: "Back to The Future: Evaluating AI Agents on Predicting Future Events"
+  thumbnail: /blog/assets/futurebench/leaderboard.png
+  author: vinid
+  guest: true
+  date: July 17, 2025
+  tags:
+    - research
+    - evaluation
+    - ai
+
+- local: consilium-multi-llm
+  title: "Consilium: When Multiple LLMs Collaborate"
+  author: azettl
+  guest: true
+  thumbnail: /blog/assets/consilium-multi-llm/thumbnail.png
+  date: Jul 17, 2025
+  tags:
+    - multi-agents
+    - hackathon
+    - gradio
+    - mcp
+
+- local: virtual-cell-challenge 
+  title: "Arc Virtual Cell Challenge: A Primer"
+  thumbnail: /blog/assets/virtual-cell-challenge/thumbnail.png
+  author: FL33TW00D-HF 
+  date: July 18, 2025
+  tags:
+    - collaboration
+    - guide
+
+- local: lora-fast 
+  title: "Fast LoRA inference for Flux with Diffusers and PEFT"
+  thumbnail: /blog/assets/lora-fast/thumbnail.png
+  author: sayakpaul
+  date: July 23, 2025
+  tags:
+    - lora
+    - diffusion
+    - guide
+
+- local: timescope-video-lmm-benchmark
+  title: "TimeScope: How Long Can Your Video Large Multimodal Model Go?"
+  author: orrzohar
+  thumbnail: /blog/assets/timescope/thumbnail.png
+  date: Jul 23, 2025
+  tags:
+    - video
+    - datasets
+    - multimodal
+    - open-source
+    - benchmark
+    
+- local: parquet-cdc
+  title: "Parquet Content-Defined Chunking"
+  author: kszucs
+  thumbnail: /blog/assets/parquet-cdc/thumbnail.png
+  date: July 25, 2025
+  tags:
+    - data
+    - datasets
+    - dedupe
+    - hub
+    - parquet
+    - storage
+    - xet
+
+- local: hf-cli
+  title: "Say hello to `hf`: a faster, friendlier Hugging Face CLI ✨"
+  author: Wauplin
+  thumbnail: /blog/assets/hf-cli-thumbnail.png
+  date: Jul 25, 2025
+  tags:
+    - cli
+    - huggingface_hub
+    - python
+
+- local: trackio
+  title: "Introducing Trackio: A Lightweight Experiment Tracking Library from Hugging Face"
+  thumbnail: /blog/assets/trackio/thumbnail.gif
+  author: abidlabs
+  date: July 29, 2025
+  tags:
+    - research
+    - gradio
+    - open-source
+
+- local: gradio-vton-mcp
+  title: "Build an AI Shopping Assistant with Gradio MCP Servers"
+  author: freddyaboulton
+  thumbnail: /blog/assets/gradio-vton-mcp/AiAssistantTitle.png
+  date: Jul 31, 2025
+  tags:
+    - gradio
+    - mcp
+    - community
+    - open-source
+
+- local: welcome-openai-gpt-oss
+  title: "Welcome GPT OSS, the new open-source model family from OpenAI!"
+  author: reach-vb
+  thumbnail: /blog/assets/openai/openai-hf-thumbnail.png
+  date: Aug 5, 2025
+  tags:
+    - openai
+    - gpt
+    - gpt-oss
+    - open-source
+    - LLM
+    - community
+    
+- local: trl-vlm-alignment
+  title: "Vision Language Model Alignment in TRL ⚡️"
+  author: sergiopaniego
+  thumbnail: /blog/assets/trl_vlm/thumbnail.png
+  date: Aug 7, 2025
+  tags:
+    - trl
+    - vlm
+    - vision
+   
+- local: filbench
+  title: "🇵🇭 FilBench - Can LLMs Understand and Generate Filipino?"
+  author: ljvmiranda921
+  thumbnail: /blog/assets/filbench/thumbnail.png
+  date: Aug 12, 2025
+  tags:
+    - open-source
+    - LLM
+    - community
+    - evaluation
+    - filipino
+    - tagalog
+    - cebuano
+    - philippines
+    
+- local: accelerate-nd-parallel
+  title: "Accelerate ND-Parallel: A Guide to Efficient Multi-GPU Training"
+  author: siro1
+  thumbnail: /blog/assets/accelerate-nd-parallel/thumbnail.png
+  date: August 8, 2025
+  tags:
+    - transformers
+    - llm
+    - guide
+
+- local: aisheets
+  title: "Introducing AI Sheets: a tool to work with datasets using open AI models!"
+  author: dvilasuero
+  thumbnail: /blog/assets/aisheets/aisheets-thumb.gif
+  date: Aug 8, 2025
+  tags:
+    - datasets
+    - open-source
+    - community
+
+- local: textquests
+  title: "TextQuests: How Good are LLMs at Text-Based Video Games?"
+  author: justinphan3110
+  guest: true
+  thumbnail: /blog/assets/textquests/thumbnail.gif
+  date: Aug 12, 2025
+  tags:
+    - research
+    - llm
+    - evaluation
+    - agents
+
+- local: mcp-for-research
+  title: "MCP for Research: How to Connect AI to Research Tools"
+  author: dylanebert
+  thumbnail: /blog/assets/mcp-for-research/thumbnail.png
+  date: Aug 18, 2025
+  tags:
+    - mcp
+    - research
+    - guide
+
+- local: kernel-builder
+  title: "From Zero to GPU: A Guide to Building and Scaling Production-Ready CUDA Kernels"
+  author: drbh
+  thumbnail: /blog/assets/kernel-builder/kernel-builder.png
+  date: Aug 18, 2025
+  tags:
+    - kernels
+    - kernels-community
+    - guide
+    - hub
+    - optimization
+
+- local: claude-and-mcp
+  title: Generate Images with Claude and Hugging Face
+  author: evalstate
+  thumbnail: /blog/assets/claude-and-mcp/thumbnail.png
+  date: Aug 19, 2025
+  tags:
+    - mcp
+    - llm
+    - qwen
+    - flux
+    - text-to-image
+
+- local: zerogpu-aoti
+  title: "Make your ZeroGPU Spaces go brrr with PyTorch ahead-of-time compilation"
+  author: cbensimon
+  thumbnail: /blog/assets/zerogpu-aoti/thumbnail.png
+  date: Sep 2, 2025
+  tags:
+    - spaces
+    - zerogpu
+    - pytorch
+    - optimization
+    - guide
+    - text-to-image
+    - image-to-image
+    - image-to-video
