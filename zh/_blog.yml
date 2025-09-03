@@ -2316,3 +2316,30 @@
     - open-source
     - LLM
     - community
+
+- local: smollm3
+  title: "SmolLM3: 支持多语言与长上下文推理的小模型"
+  author: loubnabnl
+  thumbnail: /blog/assets/smollm3/image.png
+  date: July 8, 2025
+  tags:
+    - llm
+    - nlp
+    - reasoning
+    - community
+    - research
+
+- local: zerogpu-aoti
+  title: "ZeroGPU Spaces 加速实践：PyTorch 提前编译全解析"
+  author: cbensimon
+  thumbnail: /blog/assets/zerogpu-aoti/thumbnail.png
+  date: Sep 2, 2025
+  tags:
+    - spaces
+    - zerogpu
+    - pytorch
+    - optimization
+    - guide
+    - text-to-image
+    - image-to-image
+    - image-to-video
