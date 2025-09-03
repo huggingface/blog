@@ -2316,3 +2316,18 @@
     - reasoning
     - community
     - research
+
+- local: zerogpu-aoti
+  title: "ZeroGPU Spaces 加速实践：PyTorch 提前编译全解析"
+  author: cbensimon
+  thumbnail: /blog/assets/zerogpu-aoti/thumbnail.png
+  date: Sep 2, 2025
+  tags:
+    - spaces
+    - zerogpu
+    - pytorch
+    - optimization
+    - guide
+    - text-to-image
+    - image-to-image
+    - image-to-video
