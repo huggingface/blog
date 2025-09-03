@@ -292,7 +292,7 @@ transformer_dynamic_shapes = {
 }
 ```
 
-Then we need to make our dynamic shapes object replicate the structure of our example inputs. The inputs that do not need dynamic shapes must bet set to `None`. This can be done very easily with PyTorch [tree_map](https://github.com/pytorch/pytorch/blob/2f0de0ff9361ca4f2b1e6f9edbc600b5fb6abcd6/torch/utils/_pytree.py#L1341-L1373) utility:
+Then we need to make our dynamic shapes object replicate the structure of our example inputs. The inputs that do not need dynamic shapes must be set to `None`. This can be done very easily with PyTorch [tree_map](https://github.com/pytorch/pytorch/blob/2f0de0ff9361ca4f2b1e6f9edbc600b5fb6abcd6/torch/utils/_pytree.py#L1341-L1373) utility:
 
 ```python
 from torch.utils._pytree import tree_map
@@ -320,7 +320,7 @@ exported_transformer = torch.export.export(
 Dynamic shapes is sometimes not enough when dynamism is too important.
 
 This is, for instance, the case with the Wan family of video generation models if you want your compiled model to generate different resolutions.
-One thing can be done in this case: compile one model per resolution while keeping the model parameters shared and dispatch the right one at runtime
+One thing can be done in this case: compile one model per resolution while keeping the model parameters shared and dispatching the right one at runtime
 
 Here is a minimal example of this approach: [zerogpu-aoti-multi.py](https://gist.github.com/cbensimon/8dc0ffcd7ee024d91333f6df01907916). You can also see a fully working implementation of this paradigm in the [Wan 2.2 Space](https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster/blob/main/optimization.py).
 
