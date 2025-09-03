@@ -159,21 +159,25 @@ Some training steps were particularly interesting:
 
 ## 📊 Results
 
+First, we generated dataset using Qwen-3-32B which contains long reasoning traces. We started with training a smaller Qwen-3-4B using PEFT:
+
 **Qwen-3-4B**
 - **Easy accuracy:** 72% (baseline: 26.6%)  
 - **Hard accuracy:** 5% (baseline: 0%)  
 
-We further compare other trained models with implemented scaffolding like Qwen-3-4B-Thinking-2507 and Qwen-3-4B-Instruct-2507 to define the pure impact of our training dataset:
+However, when we switched to Qwen-Coder traces, we noticed the deteriorated impact on the DABstep performance - the model did not react well to new much shorter reasoning traces and would often get stuck during output generation. We switched to other stronger and newer Qwen-3 models, like Qwen-3-4B-Thinking-2507 and Qwen-3-4B-Instruct-2507, which gave us increased performance after training! Moreover, we now switched to full-parameter training without PEFT, experimented with various hyperparameters and added neftune noise to reduce overfitting.
 
-**Qwen-3-4B-Thinking-2507**
-- **Easy accuracy:** 72% (baseline: 26.6%)  
-- **Hard accuracy:** 5% (baseline: 0%)  
+We have done a small ablation study on the impact of no. training epochs:
 
-**Qwen-3-4B-Instruct-2507**
-- **Easy accuracy:** 72% (baseline: 26.6%)  
-- **Hard accuracy:** 5% (baseline: 0%) 
+| Model | No. of epochs | DABstep (Easy) |
+|----------|---------|---------|
+| Qwen-3-4B-Instruct-2507 | 0 | 52.78% |
+| Qwen-3-4B-Instruct-2507 | 2 | 63.89% |
+| Qwen-3-4B-Instruct-2507 | 3 | 73.61% |
+| Qwen-3-4B-Instruct-2507 | 5 | **75%** |
+| Qwen-3-4B-Instruct-2507 | 7 | 70.83% |
 
-In summary, we can see up to 22% boost on DABStep easy score:
+We observe that it is beneficial to have a bit more epochs than usual for SFT with lower learning rate and higher neftune noise (7). Finally, we compare our trained models with implemented scaffolding to define the pure impact of our training dataset. In summary, we can see up to 22% boost on DABStep easy score:
 
 <img src="assets/jupyter-agent-2/training_dabstep_easy.png" alt="DABstep Easy Score"/>
 
