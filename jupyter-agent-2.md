@@ -137,7 +137,7 @@ You are a stateful Python code interpreter that executes code in a persistent en
 ### 7. Final curation
 We truncated overly long outputs and filtered out trivial traces to prevent content length issues and keep only high-quality traces.  
 We kept non-trivial, multi-turn traces aligned with DABStep-style tasks.  
-The resulting dataset became the foundation for SFT on Qwen3-4B models with 51k synthetic notebooks and almost 2B tokens.
+The resulting [Jupyter Agent Dataset](https://huggingface.co/datasets/data-agents/jupyter-agent-dataset) became the foundation for SFT on Qwen3-4B models with 51k synthetic notebooks and almost 2B tokens.
 
 
 ## 🏃‍♂️ Training Pipeline (Highlights)
