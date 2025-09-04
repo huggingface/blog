@@ -6591,3 +6591,15 @@
     - text-to-image
     - image-to-image
     - image-to-video
+
+- local: mmbert
+  title: "mmBERT: A Modern Multilingual Encoder with Annealed Language Learning"
+  author: orionweller
+  thumbnail: /blog/assets/mmbert/thumbnail.png
+  date: Sept 7th, 2025
+  tags:
+    - llm
+    - nlp
+    - community
+    - research
+    - open-source-collab 
