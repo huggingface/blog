@@ -6602,3 +6602,14 @@
     - community
     - nlp
     - guide
+
+- local: together-ft
+  title: "Fine-tune Any LLM from the Hugging Face Hub with Together AI"
+  author: zainh
+  thumbnail: /blog/assets/197_together-ft/thumbnail.png
+  date: September 8, 2025
+  tags:
+    - partnerships
+    - fine-tuning
+    - infrastructure
+    - llm
