@@ -14,12 +14,6 @@ authors:
 - user: mryab
   guest: true
   org: togethercomputer
-date: September 8, 2025
-tags:
-  - partnerships
-  - fine-tuning
-  - infrastructure
-  - llm
 ---
 
 # Fine-tune Any LLM from the Hugging Face Hub with Together AI
