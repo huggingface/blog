@@ -1,5 +1,5 @@
 ---
-title: "Updates in transformers that enbaled gpt-oss" 
+title: "Updates in transformers that enabled gpt-oss" 
 thumbnail: assets/transformers/thumbnail.png
 authors:
 - user: ariG23498
@@ -30,12 +30,12 @@ For this release, we enabled:
 - [Tensor Parallelism in `transformers`](#tensor-parallelism-in-transformers)
 - [Expert Parallelism](#expert-parallelism-in-transformers)
 - [Dynamic Sliding Window Layer & Cache](#dynamic-sliding-window-layer--cache)
-- [Quickly Loading bigger models](#quickly-loading-bigger-models)
+- [Load larger models faster](#load-larger-models-faster)
 - [Continuous Batching & Paged Attention](#continuous-batching--paged-attention)
 
 ## Kernels from the Hub
 
-A kernel is a small, ***specialized*** program that runs directly on accelerator to perform operations like matrix multiplications,
+A kernel is a small, ***specialized*** program that runs directly on an accelerator to perform operations like matrix multiplications,
 activations, or normalizations. In eager PyTorch, each operation launches its own kernel in sequence, simple, but inefficient due
 to memory transfers and launch overhead. PyTorch 2.0 improved this with `torch.compile`, where backends like **`TorchInductor`**
 fuse and optimize kernels automatically, often yielding 2–10× speedups.
@@ -93,7 +93,7 @@ INFO:root:Using layer `MegaBlocksMoeMLP` from repo `kernels-community/megablocks
 ```
 
 In Figure 1, we show how well the kernels work with larger batch sizes. While for lower batch sizes it might seem that
-it is not worth while to use kernels, you can see how well it does for larger batchsizes. 
+it is not worth while to use kernels, you can see how well it does for larger batch sizes. 
 
 | ![benchmark with and without kernels](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/faster-transformers/benchmark-kernels-with-without.png) |
 | :--: |
@@ -305,7 +305,7 @@ If you want to know more about TP, here are the two resources that are must read
 - [Ultra-Scale Playbook](https://huggingface.co/spaces/nanotron/ultrascale-playbook): background on TP and its relationship to other parallelism modes.
 
 
-## Expert Parallelismv in `transformers`
+## Expert Parallelism in `transformers`
 
 Expert Parallelism (EP) shards **experts inside MoE layers** across GPUs. Each token is routed to one or a few experts,
 so only those experts run their feed-forward pass. Since experts are independent MLPs, we can place different
@@ -455,7 +455,7 @@ window attention.
 | :--: |
 | Figure 5: The memory analysis of dynamic cache with sliding window attention |
 
-## Quickly Loading bigger models
+## Load larger models faster
 
 When you load a large model into your GPU, PyTorch needs to **reserve GPU memory for each layer’s weights**. Each of these requests (per layer) takes time,
 and for multi-billion-parameter models it can mean **thousands of tiny memory allocations**, adding up to a long wait before the model is ready.
