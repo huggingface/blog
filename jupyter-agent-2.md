@@ -7,18 +7,24 @@ authors:
 - user: lvwerra
 ---
 
-# Creating a Data Science Agent from Scratch
+# Building a Jupyter Agent from Scratch
 
-Check out our new demo here: [huggingface.co/spaces/lvwerra/jupyter-agent-2](https://huggingface.co/spaces/lvwerra/jupyter-agent-2).  
+Check out our new demo [here](https://huggingface.co/spaces/lvwerra/jupyter-agent-2).  
 This is a follow-up to our earlier work on [jupyter-agent (v1)](https://huggingface.co/spaces/lvwerra/jupyter-agent).
 
-The **Jupyter Agent** is a data science agent that can execute code directly inside a Jupyter notebook. Think of it like *Cursor*, but living natively inside your data science workflow.  
-For this demo we use **QwenCoder**, currently one of the strongest coding models.
+The goal of a **Jupyter Agent** is to act as an agent that can execute code directly inside a Jupyter notebook and use this environment to solve data analysis and data science tasks. Think of it like *Cursor*, but living natively inside your data science workflow.  
+We built a [demo](https://huggingface.co/spaces/lvwerra/jupyter-agent-2) of this vision with **Qwen-3 Coder**, currently one of the strongest coding models.
+
+While those large models are starting to show useful behaviour, the question is how can we improve them and how can we also improve smaller models to be strong on those tasks. 
+
+The goal of this project is to build a pipeline to first generate high quality training data, then fine-tune an existing model and verify we can improve the performance by evaluating the resulting models on a suitable benchmarks.
+
+Let's start at the end and first select a good benchmark we can use to evaluate models on data science tasks!
 
 
 ## 🏁 Primer: the DABStep Benchmark
 
-Last year, in partnership with Adyen, we introduced the **DABStep benchmark**: a way to evaluate data science agents. The setup is simple: provide the LLM with datasets and ask it to answer non-trivial data questions.  
+In order to understand if we are making progress towards better data science agents we need a benchmark to measure such capabilities. Last year, in partnership with Adyen, we introduced the **DABStep benchmark**: a way to evaluate data science agents on realistic tasks. The setup is simple: provide the LLM with datasets and ask it to answer non-trivial data questions.  
 
 Example tasks:
 
@@ -27,14 +33,14 @@ Example tasks:
 | Which card scheme had the highest average fraud rate in 2023? | SwiftCharge |
 | For the year 2023, focusing on the merchant *Crossfit Hanna*, if we incentivize users to switch to a different Authorization Characteristics Indicator, which option would be the most cost-effective? | E:346.49 |
 
-This benchmark remains challenging for today’s LLMs — especially for smaller models.  
-You can explore the live leaderboard here: [huggingface.co/spaces/adyen/DABstep](https://huggingface.co/spaces/adyen/DABstep).
+This benchmark remains challenging for today’s LLMs — e.g. the best out-of-the-box model is Claude 4 Sonnet which reaches not even 20% accuracy on the hard tasks.  
+You can explore the live leaderboard [here] (https://huggingface.co/spaces/adyen/DABstep).
 
 ---
 
 ## 🎯 Our Objective
 
-We set out to **train a small data agent model** that could perform better on DABStep.  
+Now that we identified a good benchmark we can try to climb it! We set out to build a dataset for fine-tuning such that  even **a small data agent model** could perform well on DABStep.  
 
 Our first choice was **Qwen-4B**: extremely small (fast to iterate with, easy to run), yet strong enough to act in agentic scenarios.  
 
@@ -48,7 +54,7 @@ Not great — but a promising starting point, since it left a lot of room for im
 
 ## 🔧 Primer on Scaffolding
 
-DABStep uses [smolagents](https://github.com/huggingface/smolagents) to execute code. Smolagents comes with predefined behaviors, prompting structures, and expected formats.  
+A core aspect of agents that sets it apart from a pure chat model is the scaffolding built around the model to steer its behaviour. The evaluation script in DABStep for example uses [smolagents](https://github.com/huggingface/smolagents) to execute code. Smolagents comes with predefined behaviors, prompting structures, and expected formats.  
 
 We also studied the **Qwen-Agent** codebase, where the authors recommend tailoring scaffolding to the model. This makes sense: Claude Code, for example, works shockingly well with Claude Sonnet because their scaffolding is aligned.  
 
@@ -77,16 +83,16 @@ With simplified scaffolding in place, we focused on fine-tuning Qwen-4B for **da
 - Rich metadata for each notebook (authors, datasets used, etc.).  
 
 
-## ⚙️ Processing Pipeline
+## ⚙️ Dataset Pipeline
 
-We designed a multi-stage pipeline using [Datatrove](https://github.com/huggingface/datatrove) to clean and prepare Kaggle notebooks at scale.  
+Now that we have good results with a base model it's time to build a dataset that will help us improve it even further. We designed a multi-stage pipeline using [Datatrove](https://github.com/huggingface/datatrove) to clean and prepare Kaggle notebooks at scale.  
 
 <img src="assets/jupyter-agent-2/jupyter-agent-dataset-pipeline.png" alt="Jupyter Agent Dataset Pipeline"/>
 
 Here’s how each step worked:
 
 ### 1. Large-scale deduplication
-We started with ~2TB of Kaggle notebooks and reduced it to ~250GB reusing our work from the BigScience project.  
+We started with ~2TB of Kaggle notebooks and reduced it to ~250GB reusing our work from the BigCode project. As part of the StarCoder2 training data processing the notebooks (without output cells) were already deduplicated.
 Most Kaggle notebooks are small variations or near-identical copies, so this step was essential.  
 *Key insight:* ~90% of raw notebooks are duplicates, which would have skewed training if left unfiltered.
 
@@ -105,7 +111,7 @@ We also removed notebooks that didn’t actually use datasets (detected via an L
 This ensured we trained only on relevant data science tasks.
 
 ### 5. QA generation
-From the cleaned notebooks, we generated question–answer pairs using [Qwen-3-32B](https://huggingface.co/Qwen/Qwen3-32B).  
+Using the cleaned notebooks, we generated question–answer pairs using [Qwen-3-32B](https://huggingface.co/Qwen/Qwen3-32B). The questions and answer are grounded in the real notebook traces so the QA pairs are based on real code execution results.
 **Prompt design:** we asked the LLM to produce natural questions that could realistically be asked of the dataset, then validated whether the notebook provided a correct answer.  
 
 *Challenge:* We had to try many prompts to get higher-difficulty questions because LLMs tended to generate trivial ones like "what is the size of the dataset".  
@@ -114,7 +120,7 @@ From the cleaned notebooks, we generated question–answer pairs using [Qwen-3-3
 2. Ask another LLM (with access to the notebook) to check whether the answer was correct. 
 
 ### 6. Trace generation
-We executed the notebooks to generate reasoning traces.  
+Finally, we wanted to generate clean traces. Even the processed notebooks are often not very open ended or verbose. However, we want our Jupyter Agent to get to the result efficiently. To generate cleaner notebook traces for training we generated traces synthetically.  
 We have prompted [Qwen-3-Coder-480B](https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct) model to generate a jupyter notebook code to answer the question from the previously generated synthetic QA pair. 
 Traces captured step-by-step code execution, including intermediate outputs, which are crucial for agent training.  
 
@@ -129,7 +135,7 @@ You are a stateful Python code interpreter that executes code in a persistent en
 [REST OF THE PROMPT]
 ```
 
-*Challenge 2:* Qwen-Coder model does not support thinking mode - how can we extract code commentary? Qwen-Coder is trained to generate code and not text output!  
+*Challenge 2:* Qwen3-Coder model does not support thinking mode - how can we extract code commentary? By default it often outputs just a brief comment followed by several steps of code execution. However, we'd like some reasoning or comments between every cell. 
 *Trick:* When switching from Qwen-3 to Qwen-3-Coder we noticed that often output message content was empty. This turns out to be a previously known quirk of Qwen-Coder models in which when using tool calling the model would not return an empty assistant response. We enforce some text commentary through tooling by passing 'comment' as a required field in the code execution tool call. This way when non-reasoning model is used for code cell generation it will by default output some description of its actionns from 1st POV, emulating the thinking traces structure.
 
 **Note:** the generated final answer in the notebook may vary from the answer specified in the QA pair. This is caused by the fact that the agent model could use data preprocessing methods and steps different from the original Kaggle notebook and the synthetic question would not usually specify them. This discrepancy is normal and lays foundation for a new exciting research direction of how language models tend to treat data analysis and whether they do it differently from humans. For full transparency we keep both LLM-generated final answer and original answer from the real Kaggle notebook as a signal of model's performance.
@@ -140,7 +146,9 @@ We kept non-trivial, multi-turn traces aligned with DABStep-style tasks.
 The resulting [Jupyter Agent Dataset](https://huggingface.co/datasets/data-agents/jupyter-agent-dataset) became the foundation for SFT on Qwen3-4B models with 51k synthetic notebooks and almost 2B tokens.
 
 
-## 🏃‍♂️ Training Pipeline (Highlights)
+## 🏃‍♂️ Training Pipeline
+
+Finally, we want to train a model to see if our dataset yields some performance improvements. For this we setup a simple training pipeline. 
 
 Some training steps were particularly interesting:  
 
