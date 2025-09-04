@@ -6591,3 +6591,14 @@
     - text-to-image
     - image-to-image
     - image-to-video
+
+- local: embeddinggemma
+  title: "Welcome EmbeddingGemma, Google's new efficient embedding model"
+  author: tomaarsen
+  thumbnail: /blog/assets/embeddinggemma/thumbnail.png
+  date: Sep 4, 2025
+  tags:
+    - open-source
+    - community
+    - nlp
+    - guide
