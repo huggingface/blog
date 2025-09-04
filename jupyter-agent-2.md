@@ -87,7 +87,7 @@ With simplified scaffolding in place, we focused on fine-tuning Qwen-4B for **da
 
 Now that we have good results with a base model it's time to build a dataset that will help us improve it even further. We designed a multi-stage pipeline using [Datatrove](https://github.com/huggingface/datatrove) to clean and prepare Kaggle notebooks at scale.  
 
-<img src="assets/jupyter-agent-2/jupyter-agent-dataset-pipeline.png" alt="Jupyter Agent Dataset Pipeline"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/jupyter-agent-2/jupyter-agent-dataset-pipeline.png" alt="Jupyter Agent Dataset Pipeline"/>
 
 Here’s how each step worked:
 
@@ -187,11 +187,11 @@ We have done a small ablation study on the impact of no. training epochs:
 
 We observe that it is beneficial to have a bit more epochs than usual for SFT with lower learning rate and higher neftune noise (7). Finally, we compare our trained models with implemented scaffolding to define the pure impact of our training dataset. In summary, we can see up to 22% boost on DABStep easy score:
 
-<img src="assets/jupyter-agent-2/training_dabstep_easy.png" alt="DABstep Easy Score"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/jupyter-agent-2/training_dabstep_easy.png" alt="DABstep Easy Score"/>
 
 We can also see, that the hard score can increase too even though our dataset is focused on easier questions:
 
-<img src="assets/jupyter-agent-2/training_dabstep_hard.png" alt="DABstep Hard Score"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/jupyter-agent-2/training_dabstep_hard.png" alt="DABstep Hard Score"/>
 
 This makes Qwen-4B (with our pipeline + scaffolding) a state-of-the-art small-model agent on DABStep.
 
