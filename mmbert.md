@@ -1,5 +1,5 @@
 ---
-title: "Learning New Languages in the Decay Phase: A Multilingual Modern Encoder Model" 
+title: "mmBERT: A Modern Multilingual Encoder with Annealed Language Learning" 
 thumbnail: /blog/assets/mmbert/thumbnail.png
 authors:
 - user: mmarone
@@ -22,29 +22,31 @@ authors:
   org: jhu-clsp
 ---
 
-# Learning New Languages in the Decay Phase: A Multilingual Modern Encoder Model
+# mmBERT: A Modern Multilingual Encoder with Annealed Language Learning
 
 ## TL;DR
 
-We introduce mmBERT base and small, which are trained on 3T+ tokens of text in over 1800 languages and show significant performance and speed improvements. It is the first massively multilingual encoder model to improve upon XLM-R, while also developing new strategies for effectively learning low-resource languages.
-
-This blog post introduces [mmBERT](https://huggingface.co/collections/jhu-clsp/mmbert-a-modern-multilingual-encoder-68b725831d7c6e3acc435ed4), a new massively multilingual encoder model suite which was trained on over 3T tokens of text in over 1800 languages. mmBERT builds upon ModernBERT for a blazingly fast architecture, but add novel components to enable efficient multilingual learning.  
+This blog post introduces [mmBERT](https://huggingface.co/collections/jhu-clsp/mmbert-a-modern-multilingual-encoder-68b725831d7c6e3acc435ed4), which was trained on 3T+ tokens of text in over 1800 languages and show significant performance and speed improvements. It is the first massively multilingual encoder model to improve upon XLM-R, while also developing new strategies for effectively learning low-resource languages. mmBERT builds upon ModernBERT for a blazingly fast architecture, but add novel components to enable efficient multilingual learning.  
 
 If you are interested in trying out the models, some example boilerplate is available [at the end of this blogpost!](#usage-examples)
 
 ## Training Data
+<figure class="image text-center">
+  <img src="https://github.com/JHU-CLSP/mmBERT/blob/main/assets/data_dist.jpg?raw=true" alt="Distribution of each phase of pre-training">
+  <figcaption> Figure 1: the training data is progressively annealed to include more languages and more uniform sampling throughout training.</figcaption>
+</figure>
 
-mmBERT was trained on a carefully curated multilingual dataset totaling over 3T tokens across three distinct training phases. The foundation of our training data consists of three primary high-quality web crawl sources that enable both multilingual coverage and data quality:
+mmBERT was trained on a carefully curated multilingual dataset totaling over 3T tokens across three distinct training phases. The foundation of our training data consists of three primary open-source and high-quality web crawls that enable both multilingual coverage and data quality:
 
-**Filtered DCLM** provides the highest quality English content available, serving as the backbone for strong English performance. This dataset represents state-of-the-art web filtering techniques and forms a crucial component during the early training phases. Due to the high quality of this data, we use a signficantly higher proportion of English than previous generation multilingual encoder models (up to 18%).
+**DCLM and Filtered DCLM** provides the highest quality English content available, serving as the backbone for strong English performance (with the filtered data coming from [Dolmino](https://huggingface.co/datasets/allenai/dolmino-mix-1124)). This dataset represents state-of-the-art web filtering techniques and forms a crucial component. Due to the high quality of this data, we use a signficantly higher proportion of English than previous generation multilingual encoder models (up to 18%).
 
-**FineWeb2** delivers broad multilingual web content covering over 1,800 languages. This dataset enables our extensive multilingual coverage while maintaining reasonable quality standards across diverse language families and scripts.
+**FineWeb2** delivers broad [multilingual web content](https://huggingface.co/datasets/HuggingFaceFW/fineweb-2) covering over 1,800 languages. This dataset enables our extensive multilingual coverage while maintaining reasonable quality standards across diverse language families and scripts.
 
-**FineWeb2-HQ** consists of a filtered subset of FineWeb2 focusing on 20 high-resource languages. This filtered version provides higher-quality multilingual content that bridges the gap between English-only filtered data and broad multilingual coverage.
+**FineWeb2-HQ** consists of a [filtered subset of FineWeb2](https://huggingface.co/datasets/epfml/FineWeb2-HQ) focusing on 20 high-resource languages. This filtered version provides higher-quality multilingual content that bridges the gap between English-only filtered data and broad multilingual coverage.
 
-The training data also incorporates specialized corpora including code repositories (StarCoder, ProLong), academic content (ArXiv, PeS2o), reference materials (Wikipedia, textbooks), and community discussions (StackExchange), along with instruction and mathematical datasets.
+The training data also incorporates specialized corpora from [Dolma](https://arxiv.org/abs/2402.00159), [MegaWika v2](https://arxiv.org/abs/2508.03828), [ProLong](https://arxiv.org/abs/2410.02660) and more: code repositories (StarCoder, ProLong), academic content (ArXiv, PeS2o), reference materials (Wikipedia, textbooks), and community discussions (StackExchange), along with instruction and mathematical datasets.
 
-The key innovation in our data approach is the **progressive language inclusion strategy** shown in TODO. We start with 60 high-resource languages during pre-training, expand to 110 languages during mid-training, and finally include all 1,833 languages from FineWeb2 during the decay phase. This allows us to maximize the impact of limited low-resource language data while maintaining high overall data quality.
+The key innovation in our data approach is the **progressive language inclusion strategy** shown in Figure 1. At each phase we progressive sample more uniformly, while also adding new languages. This means that high resource languages like Russian start off with a high percentage of the data (i.e. 9%) and then in the last phase of training end around half of that. We start with 60 high-resource languages during pre-training, expand to 110 languages during mid-training, and finally include all 1,833 languages from FineWeb2 during the decay phase. This allows us to maximize the impact of limited low-resource language data while maintaining high overall data quality.
 
 ## Training Recipe and Novel Components
 
@@ -60,11 +62,11 @@ Our training follows a carefully designed three-phase schedule:
 2. **Mid-training (600B tokens)**: Context extension to 8192 tokens, higher-quality data, expanded to 110 languages with 15% mask rate  
 3. **Decay phase (100B tokens)**: Inverse square root learning rate decay, all 1,833 languages included with 5% mask rate
 
-### Novel Training Innovations
+### Novel Training Techniques
 
 **Inverse Mask Ratio Schedule**: Instead of using a fixed masking rate, we progressively reduce the mask ratio from 30% → 15% → 5% across training phases. This allows the model to learn basic representations with higher masking early on, then focus on more nuanced understanding with lower masking rates.
 
-**Inverse Temperature Sampling**: We dynamically adjust the temperature for multilingual data sampling from τ=0.7 → 0.5 → 0.3. This creates a progression from high-resource language bias toward more uniform sampling, enabling the model to build a strong multilingual foundation before learning low-resource languages.
+**Annealed Language Learning**: We dynamically adjust the temperature for multilingual data sampling from τ=0.7 → 0.5 → 0.3. This creates a progression from high-resource language bias toward more uniform sampling, enabling the model to build a strong multilingual foundation before learning low-resource languages.
 
 **Progressive Language Addition**: Rather than training on all languages simultaneously, we strategically add languages at each phase (60 → 110 → 1,833). This maximizes learning efficiency by avoiding excessive epochs on limited low-resource data while still achieving strong performance.
 
@@ -74,15 +76,15 @@ Our training follows a carefully designed three-phase schedule:
 
 ### Natural Language Understanding (NLU)
 
-**English Performance**: On the GLUE benchmark, mmBERT base achieves strong performance substantially outperforming other multilingual models like XLM-R base and mGTE base, while remaining competitive despite using less than 25% English training data compared to English-only models. The results are shown in Table 2.
+**English Performance**: On the GLUE benchmark, mmBERT base achieves strong performance substantially outperforming other multilingual models like XLM-R base and mGTE base, while remaining competitive to English only models despite using less than 25% English training data compared to English-only models. The results are shown in Table 1.
 
-**Multilingual Performance**: mmBERT shows significant improvements on XTREME benchmark compared to XLM-R as demonstrated in Table 3. Notable gains include strong performance on XNLI classification, substantial improvements in question answering tasks like TyDiQA, and competitive results across PAWS-X and XCOPA for cross-lingual understanding.
+**Multilingual Performance**: mmBERT shows significant improvements on XTREME benchmark compared to XLM-R as demonstrated in Table 2. Notable gains include strong performance on XNLI classification, substantial improvements in question answering tasks like TyDiQA, and competitive results across PAWS-X and XCOPA for cross-lingual understanding.
 
 The model performs well across most categories, with the exception of some structured prediction tasks like NER and POS tagging, likely due to tokenizer differences that affect word boundary detection. On these categories, it performs about the same as the previous generation, but can be applied to more languages.
 
 ### Retrieval Performance
 
-**English Retrieval**: Even though mmBERT is designed for massively multilingual settings, in the MTEB v2 English benchmarks, mmBERT shows significant gains over previous multilingual models and approaches the capabilites of English-only models!
+**English Retrieval**: Even though mmBERT is designed for massively multilingual settings, in the MTEB v2 English benchmarks, mmBERT shows significant gains over previous multilingual models and even ties the capabilites of English-only models!
 
 **Multilingual Retrieval**: mmBERT shows consistent improvements on MTEB v2 multilingual benchmarks compared to other models.
 
@@ -90,18 +92,29 @@ The model performs well across most categories, with the exception of some struc
 
 ## Learning Languages in the Decay Phase
 
-One of mmBERT's most significant novel feature is demonstrating that low-resource languages can be effectively learned during the short decay phase of training. We validated this approach by testing on languages only introduced during the final 100B token decay phase.
+One of mmBERT's most significant novel features is demonstrating that low-resource languages can be effectively learned during the short decay phase of training. We validated this approach by testing on languages only introduced during the final 100B token decay phase.
+
+<figure class="image text-center">
+  <img src="https://github.com/JHU-CLSP/mmBERT/blob/main/assets/low_resource_merge.jpg?raw=true" alt="Improvements from adding new languages in the decay phase">
+  <figcaption> Figure 2: adding more than 1700 languages in the decay phase allows for rapid learning, which we keep through model merging.</figcaption>
+</figure>
+
 
 **Dramatic Performance Gains**: Testing on TiQuaD (Tigray) and FoQA (Faroese), we observed substantial improvements when these languages were included in the decay phase, as shown in Figure 2. The results demonstrate the effectiveness of our progressive language learning approach.
 
-**Competitive with Large Models**: Despite only seeing these languages in the final training phase, mmBERT achieves performance levels that exceed much larger models. On Faroese question answering, mmBERT outperforms Google Gemini 2.5 Pro and OpenAI o3, while on Tigray QA it surpasses both XLM-R and the specialized AfricaBERT model.
+**Competitive with Large Models**: Despite only seeing these languages in the final training phase, mmBERT achieves performance levels that exceed much larger models. On Faroese question answering where LLMs have been benchmarked, mmBERT outperforms Google Gemini 2.5 Pro and OpenAI o3.
 
-**Rapid Learning Mechanism**: The success of decay-phase language learning appears to stem from the model's ability to leverage its strong multilingual foundation built during earlier phases. When exposed to new languages, the model can quickly adapt existing cross-lingual representations rather than learning from scratch.
+**Rapid Learning Mechanism**: The success of decay-phase language learning stems from the model's ability to leverage its strong multilingual foundation built during earlier phases. When exposed to new languages, the model can quickly adapt existing cross-lingual representations rather than learning from scratch.
 
-**Model Merging Benefits**: The final mmBERT model successfully retains most of the decay-phase improvements while benefiting from the English-focused and high-resource variants through TIES merging.
+**Model Merging Benefits**: The final mmBERT models successfully retain most of the decay-phase improvements while benefiting from the English-focused and high-resource variants through TIES merging.
 ## Efficiency Improvements
 
 mmBERT delivers substantial efficiency gains over previous multilingual encoder models through architectural improvements inherited from ModernBERT:
+
+<figure class="image text-center">
+  <img src="https://github.com/JHU-CLSP/mmBERT/blob/main/assets/inference_times.jpg?raw=true" alt="mmBERT is much more efficient than previous multilingual models">
+  <figcaption> Figure 3: mmBERT is significantly more efficient than previous multilingual models, up to 2-4x as much!</figcaption>
+</figure>
 
 **Throughput Performance**: mmBERT processes text significantly faster than existing multilingual models across various sequence lengths, as demonstrated in Figure 3. Both the small and base models show substantial speed improvements over previous multilingual encoders.
 
@@ -113,7 +126,7 @@ mmBERT delivers substantial efficiency gains over previous multilingual encoder 
 
 **Energy Efficiency**: The combination of better throughput and modern architecture results in lower computational costs for inference, making mmBERT more practical for production deployments where multilingual support is needed at scale.
 
-These efficiency improvements make mmBERT not just more accurate than previous multilingual encoders, but also significantly more practical for real usage
+These efficiency improvements make mmBERT not just more accurate than previous multilingual encoders, but also significantly more practical for real usage.
 
 ## Usage Examples
 You can use these models with just a few lines of code!
