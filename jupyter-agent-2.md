@@ -1,5 +1,5 @@
 ---
-title: "😎 Creating a Data Science Agent from Scratch"
+title: "Building a Jupyter Agent from Scratch"
 thumbnail: /blog/assets/jupyter-agent-2/thumbnail.png
 authors:
 - user: baptistecolle
