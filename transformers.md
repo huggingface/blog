@@ -613,7 +613,7 @@ That velocity enables day-zero integrations like the GPT-OSS series. As the stac
 [PyTorch-first](https://x.com/LysandreJik/status/1933201171130593530), it sheds bloat and doubles down
 on the PyTorch paths that matter in practice. The result is a cleaner core that still unlocks new capabilities
 through community kernels, quantization, and parallelism plans, while also
-[standardizing model definitions](https://huggingface.co/blog/transformers-model-definition)so that architectures
+[standardizing model definitions](https://huggingface.co/blog/transformers-model-definition) so that architectures
 supported in transformers seamlessly extend across the wider ecosystem.
 
 The direction is constant: serve the needs of the community. This post is a snapshot meant to put the key ideas
