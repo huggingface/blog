@@ -408,7 +408,7 @@ for block in pipe.transformer.transformer_blocks:
 And we should be ready to go 🚀 You can check out [this Space](https://huggingface.co/spaces/zerogpu-aoti/Qwen-Image-Edit-AoT-Regional) for a more complete example.
 
 > [!TIP]
-> 💡 Compiling regions ahead of time like this reduces the cold start timing from _X seconds to Y seconds_, while delivering almost identical speedups.
+> 💡 For Flux.1-Dev, compiling regions ahead of time like this reduces the cold start timing from _103 seconds to 23 seconds_, while delivering almost identical speedups.
 
 ## AoT compiled ZeroGPU Spaces demos
 
