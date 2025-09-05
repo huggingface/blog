@@ -15,7 +15,7 @@ authors:
 
 OpenAI recently released their [GPT-OSS series of models](https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4)
 on the Hugging Face Hub. While the models themselves drew significant attention from the open-source community,
-it was almost inevitable that the quieter updates in the `transformers` library (which made these releases possible) went largely unnoticed.
+it was almost inevitable that the quieter updates in the [`transformers`](https://github.com/huggingface/transformers/) library (which made these releases possible) went largely unnoticed.
 
 In this blog post, we won't be diving into how GPT-OSS itself works or how to fine-tune it
 ([here is a cookbook if you wanted to take a look](https://cookbook.openai.com/articles/gpt-oss/fine-tune-transfomers)),
@@ -93,7 +93,7 @@ INFO:root:Using layer `MegaBlocksMoeMLP` from repo `kernels-community/megablocks
 ```
 
 In Figure 1, we show how well the kernels work with larger batch sizes. While for lower batch sizes it might seem that
-it is not worth while to use kernels, you can see how well it does for larger batch sizes. 
+it is not worthwhile to use kernels, you can see how well it does for larger batch sizes. 
 
 | ![benchmark with and without kernels](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/faster-transformers/benchmark-kernels-with-without.png) |
 | :--: |
@@ -109,7 +109,7 @@ Large language models are memory-hungry. Quantization reduces memory footprint b
 in lower-precision formats. For reference, FP32 uses 32 bits per number and BF16 uses 16. By reducing bit width, we trade
 some precision for smaller models and faster memory movement.
 
-If you want a visual primer on quantization trade-offs, Maarten Grootendorst’s article is excellent:
+If you want a visual primer on quantization trade-offs, [Maarten Grootendorst’s](https://huggingface.co/MaartenGr) article is excellent:
 [*A Visual Guide to Quantization*](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-quantization).
 
 ### What is MXFP4
@@ -168,7 +168,7 @@ of used VRAM after each load so you can visualize the savings.
 
 | ![memory used with quantized vs dequantized models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/faster-transformers/quantization.png) |
 | :--: |
-| Figure 3: Memory requirements for the quantized and de-quantized models |
+| Figure 3: Memory requirements for the quantized and dequantized models |
 
 ### Kernels for MXFP4
 
@@ -179,13 +179,13 @@ in your local cache and will be used during the forward pass.
 
 Quick sanity check with the Hugging Face cache CLI:
 
-```
+```shell
 hf cache scan
 ```
 
 Sample output:
 
-```
+```shell
 REPO ID                          REPO TYPE SIZE ON DISK
 -------------------------------- --------- ------------
 kernels-community/triton_kernels model           536.2K
@@ -285,7 +285,7 @@ hf jobs run --detach --flavor l4x4 ghcr.io/astral-sh/uv:debian /bin/bash -c \
   torchrun --nproc-per-node=4 tp_gpt_oss.py"
 ```
 
-> Note: `hf jobs` is available for all Hugging Face PRO users.
+> Note: [`hf jobs`](https://huggingface.co/docs/huggingface_hub/guides/jobs) is available for all Hugging Face PRO users.
 
 Under the hood, `tp_plan="auto"` selects a predefined sharding recipe for each layer and wires the necessary
 collectives. You can inspect the active plan with `print(model._tp_plan)` if you want to verify what is being sharded.
@@ -302,7 +302,7 @@ view and how TP interacts with sequence or pipeline parallelism, the
 If you want to know more about TP, here are the two resources that are must reads:
 
 - [`transformers` guide](https://huggingface.co/docs/transformers/en/perf_infer_gpu_multi): Tensor parallelism, supported models, plans, and extension points.
-- [Ultra-Scale Playbook](https://huggingface.co/spaces/nanotron/ultrascale-playbook): background on TP and its relationship to other parallelism modes.
+- [Ultra-Scale Playbook](https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=tensor_parallelism): background on TP and its relationship to other parallelism modes.
 
 
 ## Expert Parallelism in `transformers`
@@ -618,5 +618,5 @@ supported in transformers seamlessly extend across the wider ecosystem.
 
 The direction is constant: serve the needs of the community. This post is a snapshot meant to put the key ideas
 in one place, not a rolling changelog. It will not be updated often. For the latest details, check the
-[docs](https://huggingface.co/docs) and [release notes](https://huggingface.co/changelog), and keep sharing
+[docs](https://huggingface.co/docs/transformers/index) and [release notes](https://github.com/huggingface/transformers/releases), and keep sharing
 feedback so the next steps reflect what you need.
