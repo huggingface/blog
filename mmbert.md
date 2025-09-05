@@ -76,19 +76,44 @@ Our training follows a carefully designed three-phase schedule:
 
 ### Natural Language Understanding (NLU)
 
-**English Performance**: On the GLUE benchmark, mmBERT base achieves strong performance substantially outperforming other multilingual models like XLM-R base and mGTE base, while remaining competitive to English only models despite using less than 25% English training data compared to English-only models. The results are shown in Table 1.
+<figure class="image text-center">
+  <img src="https://github.com/JHU-CLSP/mmBERT/blob/main/assets/glue.jpeg?raw=true" alt="GLUE performance">
+  <figcaption>Table 1: Performance on GLUE (English)</figcaption>
+</figure>
 
-**Multilingual Performance**: mmBERT shows significant improvements on XTREME benchmark compared to XLM-R as demonstrated in Table 2. Notable gains include strong performance on XNLI classification, substantial improvements in question answering tasks like TyDiQA, and competitive results across PAWS-X and XCOPA for cross-lingual understanding.
+**English Performance**: On the GLUE benchmark (Table 1), mmBERT base achieves strong performance substantially outperforming other multilingual models like XLM-R base and mGTE base, while remaining competitive to English only models despite using less than 25% English training data compared to English-only models. 
+
+<figure class="image text-center">
+  <img src="https://github.com/JHU-CLSP/mmBERT/blob/main/assets/xtreme.jpeg?raw=true" alt="XTREME performance">
+  <figcaption>Table 2: Performance on XTREME (Multilingual)</figcaption>
+</figure>
+
+**Multilingual Performance**: mmBERT shows significant improvements on XTREME benchmark (Table 2) compared to XLM-R as demonstrated in Table 2. Notable gains include strong performance on XNLI classification, substantial improvements in question answering tasks like TyDiQA, and competitive results across PAWS-X and XCOPA for cross-lingual understanding.
 
 The model performs well across most categories, with the exception of some structured prediction tasks like NER and POS tagging, likely due to tokenizer differences that affect word boundary detection. On these categories, it performs about the same as the previous generation, but can be applied to more languages.
 
 ### Retrieval Performance
 
-**English Retrieval**: Even though mmBERT is designed for massively multilingual settings, in the MTEB v2 English benchmarks, mmBERT shows significant gains over previous multilingual models and even ties the capabilites of English-only models!
+<figure class="image text-center">
+  <img src="https://github.com/JHU-CLSP/mmBERT/blob/main/assets/mteb-english.jpeg?raw=true" alt="MTEB v2 Eng performance">
+  <figcaption>Table 3: Performance on MTEB v2 English</figcaption>
+</figure>
 
-**Multilingual Retrieval**: mmBERT shows consistent improvements on MTEB v2 multilingual benchmarks compared to other models.
+**English Retrieval**: Even though mmBERT is designed for massively multilingual settings, in the MTEB v2 English benchmarks (Table 3), mmBERT shows significant gains over previous multilingual models and even ties the capabilites of English-only models like ModernBERT!
 
-**Code Retrieval**: Due to the modern tokenizer (based on Gemma 2) mmBERT also shows strong coding performance, making mmBERT suitable for any type of textual data.
+<figure class="image text-center">
+  <img src="https://github.com/JHU-CLSP/mmBERT/blob/main/assets/mteb-multilingual.jpeg?raw=true" alt="MTEB v2 Multilingual performance">
+  <figcaption>Table 4: Performance on MTEB v2 Multilingual</figcaption>
+</figure>
+
+**Multilingual Retrieval**: mmBERT shows consistent improvements on MTEB v2 multilingual benchmarks compared to other models (Table 4).
+
+<figure class="image text-center">
+  <img src="https://github.com/JHU-CLSP/mmBERT/blob/main/assets/coir.jpeg?raw=true" alt="CoIR performance">
+  <figcaption>Table 5: Performance on CoIR code benchmark</figcaption>
+</figure>
+
+**Code Retrieval**: Due to the modern tokenizer (based on Gemma 2) mmBERT also shows strong coding performance (Table 5), making mmBERT suitable for any type of textual data. The only model that outperforms it is EuroBERT, which was able to use the non-publicly accessible Stack v2 dataset.
 
 ## Learning Languages in the Decay Phase
 
