@@ -623,7 +623,7 @@ docker run --gpus all --shm-size 1g -p 8080:80 ghcr.io/huggingface/text-embeddin
 Once deployed, regardless of the device or runtime, you can leverage the `/v1/embeddings` endpoint based on the [OpenAI Embeddings API Specification](https://platform.openai.com/docs/api-reference/embeddings/create) to generate embeddings.
 
 ```shell
-curl http://0.0.0.0:8080/v1/embeddings -H "Content-Type: application/json" -d '{"model":"google/embeddinggemma-300m","input":["task: search result | query: Which planet is known as the Red Planet?","task: search result | query: Where did Amelia Earthart first fly?"]}'
+curl http://0.0.0.0:8080/v1/embeddings -H "Content-Type: application/json" -d '{"model":"google/embeddinggemma-300m","input":["task: search result | query: Which planet is known as the Red Planet?","task: search result | query: Where did Amelia Earhart first fly?"]}'
 ```
 
 Alternatively, you can also leverage the `/embed` endpoint from the [Text Embeddings Inference Embeddings API](https://huggingface.github.io/text-embeddings-inference/), which supports the `prompt_name` parameter, meaning there’s no need to manually prepend the prompt to the inputs but select it via `prompt_name` instead.
