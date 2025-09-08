@@ -26,7 +26,7 @@ authors:
 
 ## TL;DR
 
-This blog post introduces [mmBERT](https://huggingface.co/collections/jhu-clsp/mmbert-a-modern-multilingual-encoder-68b725831d7c6e3acc435ed4), which was trained on 3T+ tokens of text in over 1800 languages and show significant performance and speed improvements. It is the first massively multilingual encoder model to improve upon XLM-R, while also developing new strategies for effectively learning low-resource languages. mmBERT builds upon ModernBERT for a blazingly fast architecture, but add novel components to enable efficient multilingual learning.  
+This blog post introduces [mmBERT](https://huggingface.co/collections/jhu-clsp/mmbert-a-modern-multilingual-encoder-68b725831d7c6e3acc435ed4), which was trained on 3T+ tokens of text in over 1800 languages and shows significant performance and speed improvements. It is the first massively multilingual encoder model to improve upon XLM-R, while also developing new strategies for effectively learning low-resource languages. mmBERT builds upon ModernBERT for a blazingly fast architecture, but adds novel components to enable efficient multilingual learning.  
 
 If you are interested in trying out the models, some example boilerplate is available [at the end of this blogpost!](#usage-examples)
 
@@ -46,7 +46,7 @@ mmBERT was trained on a carefully curated multilingual dataset totaling over 3T 
 
 The training data also incorporates specialized corpora from [Dolma](https://arxiv.org/abs/2402.00159), [MegaWika v2](https://arxiv.org/abs/2508.03828), [ProLong](https://arxiv.org/abs/2410.02660) and more: code repositories (StarCoder, ProLong), academic content (ArXiv, PeS2o), reference materials (Wikipedia, textbooks), and community discussions (StackExchange), along with instruction and mathematical datasets.
 
-The key innovation in our data approach is the **progressive language inclusion strategy** shown in Figure 1. At each phase we progressive sample more uniformly, while also adding new languages. This means that high resource languages like Russian start off with a high percentage of the data (i.e. 9%) and then in the last phase of training end around half of that. We start with 60 high-resource languages during pre-training, expand to 110 languages during mid-training, and finally include all 1,833 languages from FineWeb2 during the decay phase. This allows us to maximize the impact of limited low-resource language data while maintaining high overall data quality.
+The key innovation in our data approach is the **progressive language inclusion strategy** shown in Figure 1. At each phase we progressively sample from a *flatter* distribution (i.e. closer to uniform), while also adding new languages. This means that high resource languages like Russian start off with a high percentage of the data (i.e. 9%) and then in the last phase of training end around half of that. We start with 60 high-resource languages during pre-training, expand to 110 languages during mid-training, and finally include all 1,833 languages from FineWeb2 during the decay phase. This allows us to maximize the impact of limited low-resource language data without excess reptitions and while maintaining high overall data quality.
 
 ## Training Recipe and Novel Components
 
@@ -66,7 +66,7 @@ Our training follows a carefully designed three-phase schedule:
 
 **Inverse Mask Ratio Schedule**: Instead of using a fixed masking rate, we progressively reduce the mask ratio from 30% → 15% → 5% across training phases. This allows the model to learn basic representations with higher masking early on, then focus on more nuanced understanding with lower masking rates.
 
-**Annealed Language Learning**: We dynamically adjust the temperature for multilingual data sampling from τ=0.7 → 0.5 → 0.3. This creates a progression from high-resource language bias toward more uniform sampling, enabling the model to build a strong multilingual foundation before learning low-resource languages.
+**Annealed Language Learning**: We dynamically adjust the temperature for multilingual data sampling from τ=0.7 → 0.5 → 0.3. This creates a progression from high-resource language bias toward more uniform sampling, enabling the model to build a strong multilingual foundation before learning low-resource languages. 
 
 **Progressive Language Addition**: Rather than training on all languages simultaneously, we strategically add languages at each phase (60 → 110 → 1,833). This maximizes learning efficiency by avoiding excessive epochs on limited low-resource data while still achieving strong performance.
 
