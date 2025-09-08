@@ -2,13 +2,13 @@
 title: "Fine-tune Any LLM from the Hugging Face Hub with Together AI"
 thumbnail: /blog/assets/197_together-ft/thumbnail.png
 authors:
+- user: zainh
+  guest: true
+  org: togethercomputer
 - user: artek0chumak
   guest: true
   org: togethercomputer
 - user: timofeev1995
-  guest: true
-  org: togethercomputer
-- user: zainh
   guest: true
   org: togethercomputer
 - user: mryab
@@ -64,11 +64,11 @@ Think of the base model as a "training template." It tells our system how to opt
 
 As seen in the example above, if you want to fine-tune `HuggingFaceTB/SmolLM2-1.7B-Instruct` (which uses Llama architecture), you'd use `togethercomputer/llama-2-7b-chat` as your base model template, because they share the same underlying architecture.
 
-The integration works bidirectionally. Together AI can pull any compatible public model from the Hugging Face Hub for training, and with the proper API tokens, it can access private repositories as well. After training, your fine-tuned model can be automatically pushed back onto the Hub if you've specified `hf_output_repo_name`, making it available for sharing with your team or the broader community.
+The integration works **bidirectionally**. Together AI can pull any compatible public model from the Hugging Face Hub for training, and with the proper API tokens, it can download models private repositories as well. After training, your fine-tuned model can be automatically pushed back onto the Hub if you've specified `hf_output_repo_name`, making it available for sharing with your team or the broader community.
 
-In general, all `CausalLM` models under 100B params will work. For a comprehensive walkthrough on how to choose base and custom models and much more read out full [guide](https://docs.together.ai/docs/fine-tuning-byom)!
+In general, all `CausalLM` models under 100B params are intended to work. For a comprehensive walkthrough on how to choose base and custom models and much more, read our full [guide](https://docs.together.ai/docs/fine-tuning-byom)!
 
-## What This Means for Developers?
+## What This Means for Developers
 
 This integration solves a real problem many of us have faced: finding a great model on Hugging Face but not having the infrastructure to actually fine-tune it for your specific needs. Now you can go from discovering a promising model to having a customized version running in production with just a few API calls.
 
@@ -80,7 +80,7 @@ For teams, this means faster iteration cycles. You can test multiple model appro
 
 Beta users and early adopters of this feature are already seeing results across diverse use cases.
 
-[**Slingshot AI**](https://www.together.ai/customers/slingshot-ai) has integrated this capability directly into their model development pipeline. Rather than being limited to Together's model catalog, they can now run parts of the training pipeline on their own infrastructure, upload those models to the Hub, and then perform continued fine-tuning of those models using the Together AI fine-tuning platform. This has dramatically accelerated their development cycles and allowed them to experiment with cutting-edge architectures as soon as they're published on the Hub.
+[**Slingshot AI**](https://www.together.ai/customers/slingshot-ai) has integrated this capability directly into their model development pipeline. Rather than being limited to Together's model catalog, they can now run parts of the training pipeline on their own infrastructure, upload those models to the Hub, and then perform continued fine-tuning of those models using the Together AI fine-tuning platform. This has dramatically accelerated their development cycles and allowed them to easily experiment with a broad variety of model variants.
 
 [**Parsed**](https://www.together.ai/blog/fine-tune-small-open-source-llms-outperform-closed-models) has demonstrated the power of this approach in their work showing how small, well-tuned open-source models can outperform much larger closed models. By fine-tuning models on carefully curated datasets, they've achieved superior performance while maintaining cost efficiency and full control over their models.
 
