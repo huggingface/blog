@@ -167,7 +167,7 @@ def predict_masked_token(text):
     with torch.no_grad():
         outputs = model(**inputs)
     
-    # Get predictions for [MASK] tokens
+    # Get predictions for <mask> tokens
     mask_indices = torch.where(inputs["input_ids"] == tokenizer.mask_token_id)
     predictions = outputs.logits[mask_indices]
     
@@ -176,7 +176,7 @@ def predict_masked_token(text):
     return [tokenizer.decode(token) for token in top_tokens.indices[0]]
 
 # Example
-masked_text = "The capital of France is [MASK]."
+masked_text = "The capital of France is<mask>."
 predictions = predict_masked_token(masked_text)
 print(f"Predictions: {predictions}")
 ```
