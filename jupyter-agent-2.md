@@ -1,5 +1,5 @@
 ---
-title: "Building a Jupyter Agent from Scratch"
+title: "Jupyter Agents: training LLMs to reason with notebooks"
 thumbnail: /blog/assets/jupyter-agent-2/thumbnail.png
 authors:
 - user: baptistecolle
@@ -7,7 +7,7 @@ authors:
 - user: lvwerra
 ---
 
-# Building a Jupyter Agent from Scratch
+# Jupyter Agents: training LLMs to reason with notebooks
 
 The goal of a **Jupyter Agent** is to act as an agent that can execute code directly inside a Jupyter notebook and use this environment to solve data analysis and data science tasks. Think of it like *Cursor*, but living natively inside your data science workflow.  
 We built a [demo](https://huggingface.co/spaces/lvwerra/jupyter-agent-2) of this vision with **Qwen-3 Coder**, currently one of the strongest coding models. This is a follow-up to our earlier work on [jupyter-agent (v1)](https://huggingface.co/spaces/lvwerra/jupyter-agent).
@@ -297,7 +297,7 @@ We hope that our findings will help and inspire others to continue progress in d
 ## 🔮 Next Steps
 
 - *Harder tasks:* Generate more challenging, multi-step questions that better reflect real-world analysis.  
-- *Scaling up:* Train on larger volumes of curated traces to push beyond the current 5% performance on the hard split.  
+- *Scaling up:* Train on larger volumes of curated traces to push beyond the current 3.4% performance on the hard split.  
 - *Distillation:* Investigate knowledge distillation, which has shown strong results for improving small models.  
 - *Reinforcement Learning (RL):* Build an RL environment, which has been shown to achieve state-of-the-art performance on agentic tasks. Since our QA setup already provides a verifiable environment, we could leverage it directly for RL training.
 
