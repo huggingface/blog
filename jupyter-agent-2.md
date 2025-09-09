@@ -9,7 +9,7 @@ authors:
 
 # Jupyter Agents: training LLMs to reason with notebooks
 
-The goal of our **Jupyter Agent** is to act as an agent that can execute code directly inside a Jupyter notebook and use this environment to solve data analysis and data science tasks. Think of it like *Cursor*, but living natively inside your data science workflow.  
+The goal of our **Jupyter Agent** is to act as an agent that can execute code directly inside a Jupyter notebook and use this environment to solve data analysis and data zscience tasks. Think of it like *Cursor*, but living natively inside your data science workflow.  
 We built a [demo](https://huggingface.co/spaces/lvwerra/jupyter-agent-2) of this vision with **Qwen-3 Coder**, currently one of the strongest coding models. This is a follow-up to our earlier work on [jupyter-agent (v1)](https://huggingface.co/spaces/lvwerra/jupyter-agent).
 
 
@@ -136,7 +136,7 @@ You are a stateful Python code interpreter that executes code in a persistent en
 ### 7. Final curation
 We truncated overly long outputs and filtered out trivial traces to prevent content length issues and keep only high-quality traces.  
 We kept non-trivial, multi-turn traces aligned with DABStep-style tasks.  
-The resulting [Jupyter Agent Dataset](https://huggingface.co/datasets/data-agents/jupyter-agent-dataset) became the foundation for SFT on Qwen3-4B models with 51k synthetic notebooks and almost 2B tokens.
+The resulting [Jupyter Agent Dataset](https://huggingface.co/datasets/data-agents/jupyter-agent-dataset) became the foundation for SFT on Qwen3-4B models with 51k synthetic notebooks and almost 0.2B/200M tokens.
 
 **Challenges:**  
 - Prompting models for tool calling is tricky: not all prompts deliver the same performance ([Qwen docs](https://qwen.readthedocs.io/en/latest/framework/function_call.html#vllm)).  
