@@ -176,7 +176,7 @@ def predict_masked_token(text):
     return [tokenizer.decode(token) for token in top_tokens.indices[0]]
 
 # Example
-masked_text = "The capital of France is<mask>."
+masked_text = "The capital of France is <mask>."
 predictions = predict_masked_token(masked_text)
 print(f"Predictions: {predictions}")
 ```
