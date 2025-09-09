@@ -167,25 +167,20 @@ Some training steps were particularly interesting:
 
 ## 📊 Results
 
-First, we generated dataset using Qwen-3-32B which contains long reasoning traces. We started with training a smaller Qwen-3-4B using PEFT:
-
-**Qwen-3-4B**
-- **Easy accuracy:** 72% (baseline: 26.6%)  
-- **Hard accuracy:** 5% (baseline: 0%)  
-
-However, when we switched to Qwen-Coder traces, we noticed the deteriorated impact on the DABstep performance - the model did not react well to new much shorter reasoning traces and would often get stuck during output generation. We switched to other stronger and newer Qwen-3 models, like Qwen-3-4B-Thinking-2507 and Qwen-3-4B-Instruct-2507, which gave us increased performance after training! Moreover, we now switched to full-parameter training without PEFT, experimented with various hyperparameters and added neftune noise to reduce overfitting.
+First, we generated our final dataset using Qwen-Coder-3-480B which contains high quality code and short reasoning-like traces. Afterwards, we started our training and we have experimented with various configurations like PEFT/adapters vs. full-parameter tuning, learning rate, number of epochs, adding noise and others. We found out, that full-parameter fine-tuning allows the model to learn and replicate the Qwen-Coder behavior response quality better with shorter supporting commentary fitting more to the data analysis task without unnecessary long reasoning. 
 
 We have done a small ablation study on the impact of no. training epochs:
 
 | Model | No. of epochs | DABstep (Easy) |
 |----------|---------|---------|
-| Qwen-3-4B-Instruct-2507 | 0 | 52.78% |
+| Qwen-3-4B-Instruct-2507 (Base) | 0 | 38.67% |
+| Qwen-3-4B-Instruct-2507 (Our Scaffolding) | 0 | 52.78% |
 | Qwen-3-4B-Instruct-2507 | 2 | 63.89% |
 | Qwen-3-4B-Instruct-2507 | 3 | 73.61% |
 | Qwen-3-4B-Instruct-2507 | 5 | **75%** |
 | Qwen-3-4B-Instruct-2507 | 7 | 70.83% |
 
-We observe that it is beneficial to have a bit more epochs than usual for SFT with lower learning rate and higher neftune noise (7). Finally, we compare our trained models with implemented scaffolding to define the pure impact of our training dataset. In summary, we can see up to 22% boost on DABStep easy score:
+We observe that it is beneficial to have a bit more epochs than usual for SFT with lower learning rate and higher neftune noise (7). Finally, we compare our trained models with implemented scaffolding to define the pure impact of our training dataset. In summary, we can see up to 36%/22% boost on DABStep easy score compared with base/scaffolded model:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/jupyter-agent-2/training_dabstep_easy.png" alt="DABstep Easy Score"/>
 
@@ -193,11 +188,113 @@ We can also see, that the hard score can increase too even though our dataset is
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/jupyter-agent-2/training_dabstep_hard.png" alt="DABstep Hard Score"/>
 
-This makes Qwen-4B (with our pipeline + scaffolding) a state-of-the-art small-model agent on DABStep.
+From figures above one can notice a noticeable impact of both new scaffolding and tuning on our synthetic notebooks. This makes Qwen-4B (with our pipeline + scaffolding) a state-of-the-art small-model agent on DABStep.
 
 In practice, the model can now solve a wide range of realistic Kaggle-style data analysis tasks with consistent execution.  
 It’s not yet strong enough for the hardest queries, but we’ve shown that even small models can become powerful agents when paired with the right data and scaffolding.
 
+
+## Using Jupyter Agent
+
+We openly release best-performing checkpoints of tuned Qwen3-4B-Instruct-2507 and Qwen3-4B-Thinking-2507 together with the training dataset, which you can try out and experiment with:
+
+* [Jupyter Agent Dataset](https://huggingface.co/datasets/data-agents/jupyter-agent-dataset)
+* [Jupyter-Agent-Qwen3-4B-Instruct](https://huggingface.co/data-agents/jupyter-agent-qwen3-4b-instruct)
+* [Jupyter-Agent-Qwen3-4B-Thinking](https://huggingface.co/data-agents/jupyter-agent-qwen3-4b-thinking)
+
+You can load Jupyter Agent Dataset in just a couple of lines using the following code:
+
+```python
+from datasets import load_dataset
+# To load the train split of a specific subset, such as non-thinking, you can do
+ds = load_dataset("data-agents/jupyter-agent-dataset", split="non-thinking")
+# apply chat template
+tokenizer.apply_chat_template(ds[0]["text"])
+```
+
+You can also use sourced Kaggle datasets directly with E2B code execution using the following code:
+
+```python
+import kagglehub
+import e2b_code_interpreter as e2b
+from datasets import load_dataset
+
+# load the Jupyter Agent Dataset
+ds = load_dataset("data-agents/jupyter-agent-dataset", split="thinking")
+# get the kaggle dataset name
+dataset_name = ds[0]["kaggle_dataset_name"]
+# load the dataset locally from Kaggle Hub
+path = kagglehub.dataset_download(dataset_name)
+print(path) # this is the folder path where the dataset is downloaded
+# initialize sandbox
+sandbox_init = e2b.Sandbox(timeout=240)
+# write used file to E2B sandbox
+file_name = ds[0]["files_used"][0]
+file_name = file_name.split('/')[-1] if '/' in file_name else file_name
+with open(f"{path}/{file_name}", "rb") as file:
+    sandbox_init.files.write(f"/home/user/input/{file_name}", file)
+# execute code with E2B
+execution = sandbox_init.run_code("<some code>")
+```
+
+You use tuned Jupyter Agent Qwen-based models following the Qwen documentation code:
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model_name = "data-agents/jupyter-agent-qwen3-4b-instruct"
+
+# load the tokenizer and the model
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    torch_dtype="auto",
+    device_map="auto"
+)
+
+# prepare the model input
+prompt = "Give me a short introduction to large language model."
+messages = [
+    {"role": "user", "content": prompt}
+]
+text = tokenizer.apply_chat_template(
+    messages,
+    tokenize=False,
+    add_generation_prompt=True,
+)
+model_inputs = tokenizer([text], return_tensors="pt").to(model.device)
+
+# conduct text completion
+generated_ids = model.generate(
+    **model_inputs,
+    max_new_tokens=16384
+)
+output_ids = generated_ids[0][len(model_inputs.input_ids[0]):].tolist() 
+
+content = tokenizer.decode(output_ids, skip_special_tokens=True)
+
+print("content:", content)
+```
+
+For Thinking model you can decode both thinking response and content using the next code:
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model_name = "data-agents/jupyter-agent-qwen3-4b-thinking"
+
+# ...use same processing code from above...
+try:
+    # rindex finding 151668 (</think>)
+    index = len(output_ids) - output_ids[::-1].index(151668)
+except ValueError:
+    index = 0
+
+thinking_content = tokenizer.decode(output_ids[:index], skip_special_tokens=True).strip("\n")
+content = tokenizer.decode(output_ids[index:], skip_special_tokens=True).strip("\n")
+```
+
+We hope that our findings will help and inspire others to continue progress in developing new and more powerful notebook coding agents.
 
 ## 🔮 Next Steps
 
