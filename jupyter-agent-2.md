@@ -91,13 +91,14 @@ Notebooks usually reference external datasets through Kaggle metadata.
 We built a pipeline to automatically fetch these datasets, ensuring the code inside notebooks could actually run. The goal was to later train the model on actual code execution.
 
 ### 3. Edu scoring
-We scored notebooks based on educational quality using [Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B). We saw that using the whole notebook was not optimal, as many contained trivial or broken code.  
+We scored notebooks based on educational quality using [Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B). We saw that using the whole notebook was not optimal, as many contained trivial or broken code. Our educational scoring approach is detailed in [`edu_scoring.py`](https://github.com/huggingface/jupyter-agent/blob/main/data/pipelines/edu_scoring.py).
+
 This is similar to the insight from the [*BeyondWeb* paper](https://huggingface.co/papers/2508.10975), which showed that using high-quality data is better for synthetic data generation — a step we relied on for QA (Question-Answer) generation.  
-This helped the model learn from “high quality” notebooks instead of noisy ones.
+This helped the model learn from "high quality" notebooks instead of noisy ones.
 
 ### 4. Filtering irrelevant notebooks
 We excluded notebooks about training LLMs or unrelated to data analysis.  
-We also removed notebooks that didn’t actually use datasets (detected via an LLM filter - [Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B)).  
+We also removed notebooks that didn't actually use datasets through an automated LLM-based filtering process using Qwen3-32B. The implementation of filtering can be found in [`extract_packages_and_files.py`](https://github.com/huggingface/jupyter-agent/blob/main/data/pipelines/extract_packages_and_files.py).
 This ensured we trained only on relevant data science tasks.
 
 ### 5. QA generation
@@ -108,6 +109,8 @@ Using the cleaned notebooks, we generated question–answer pairs using [Qwen3-3
 *Insight:* We broke this into two steps because LLMs tended to hallucinate answers:  
 1. Generate the question and answer.  
 2. Ask another LLM (with access to the notebook) to check whether the answer was correct. 
+
+The complete prompting strategy and implementation is available in [`qa_generation.py`](https://github.com/huggingface/jupyter-agent/blob/main/data/pipelines/qa_generation.py).
 
 ### 6. Trace generation
 We wanted to generate clean traces as the processed notebooks are often not very open ended or verbose. However, we want our Jupyter Agent to get to the result efficiently. To generate cleaner notebook traces for training we generated traces synthetically.  
@@ -135,7 +138,6 @@ We truncated overly long outputs and filtered out trivial traces to prevent cont
 We kept non-trivial, multi-turn traces aligned with DABStep-style tasks.  
 The resulting [Jupyter Agent Dataset](https://huggingface.co/datasets/data-agents/jupyter-agent-dataset) became the foundation for SFT on Qwen3-4B models with 51k synthetic notebooks and almost 2B tokens.
 
-
 **Challenges:**  
 - Prompting models for tool calling is tricky: not all prompts deliver the same performance ([Qwen docs](https://qwen.readthedocs.io/en/latest/framework/function_call.html#vllm)).  
 - We had to manually test each one to find what worked best.  
@@ -158,6 +160,7 @@ Some training steps were particularly interesting:
 - Native Qwen's generation prompt is not adapted to `assistant_loss_only=True` training mode in TRL which requires to have generation tokens by default. Thus, we adapt the original chat templates by wrapping the assistant response part in the generation tags.
 - Training thinking models on short reasoning texts may disrupt model capabilities → full-parameter training works better comparing to PEFT in this case. 
 
+Our complete training implementation, including hyperparameter configurations and template adaptations, is available in our [finetuning directory](https://github.com/huggingface/jupyter-agent/tree/main/finetuning) in our repo.
 
 ## 📊 Results
 
