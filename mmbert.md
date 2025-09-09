@@ -156,29 +156,32 @@ These efficiency improvements make mmBERT not just more accurate than previous m
 You can use these models with just a few lines of code!
 
 ```python
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoTokenizer, AutoModelForMaskedLM
+import torch
 
-# Load encoder for classification/embeddings
-tokenizer = AutoTokenizer.from_pretrained("jhu-clsp/mmBERT-small")
-model = AutoModel.from_pretrained("jhu-clsp/mmBERT-small")
+tokenizer = AutoTokenizer.from_pretrained("jhu-clsp/mmBERT-base")
+model = AutoModelForMaskedLM.from_pretrained("jhu-clsp/mmBERT-base")
 
 def predict_masked_token(text):
     inputs = tokenizer(text, return_tensors="pt")
     with torch.no_grad():
         outputs = model(**inputs)
-    
-    # Get predictions for <mask> tokens
     mask_indices = torch.where(inputs["input_ids"] == tokenizer.mask_token_id)
     predictions = outputs.logits[mask_indices]
-    
-    # Get top 5 predictions
-    top_tokens = torch.topk(predictions, 5, dim=-1)
-    return [tokenizer.decode(token) for token in top_tokens.indices[0]]
+    top_tokens, top_indices = torch.topk(predictions, 5, dim=-1)
+    return [tokenizer.decode(token) for token in top_indices[0]]
 
-# Example
-masked_text = "The capital of France is <mask>."
-predictions = predict_masked_token(masked_text)
-print(f"Predictions: {predictions}")
+# Works across languages
+texts = [
+    "The capital of France is <mask>.",
+    "La capital de España es <mask>.",
+    "Die Hauptstadt von Deutschland ist <mask>.",
+]
+
+for text in texts:
+    predictions = predict_masked_token(text)
+    print(f"Text: {text}")
+    print(f"Predictions: {predictions}\n")
 ```
 
 ## Fine-tuning Examples
