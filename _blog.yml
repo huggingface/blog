@@ -6603,7 +6603,6 @@
     - nlp
     - guide
 
-<<<<<<< HEAD
 - local: mmbert
   title: "mmBERT: ModernBERT goes Multilingual"
   author: orionweller
@@ -6615,15 +6614,14 @@
     - community
     - research
     - open-source-collab  
-=======
+
 - local: jupyter-agent-2
   title: Creating a Data Science Agent from Scratch
   author: baptistecolle
   thumbnail: /blog/assets/jupyter-agent-2/thumbnail.png
-  date: Sep 10, 2025
+  date: Aug 20, 2025
   tags:
     - agents
     - jupyter
     - data-science
     - research
->>>>>>> 2b6aee46 (finalize blog - almost ready for release only missing code upload)
