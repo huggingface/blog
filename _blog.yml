@@ -6592,6 +6592,17 @@
     - image-to-image
     - image-to-video
 
+- local: embeddinggemma
+  title: "Welcome EmbeddingGemma, Google's new efficient embedding model"
+  author: tomaarsen
+  thumbnail: /blog/assets/embeddinggemma/thumbnail.png
+  date: Sep 4, 2025
+  tags:
+    - open-source
+    - community
+    - nlp
+    - guide
+
 - local: mmbert
   title: "mmBERT: ModernBERT goes Multilingual"
   author: orionweller
@@ -6602,4 +6613,4 @@
     - nlp
     - community
     - research
-    - open-source-collab 
+    - open-source-collab  
