@@ -306,7 +306,7 @@ Now that we have a working kernel, it's time to share it with other developers a
 One small thing we'll want to do before we share, is clean up all of the development artifacts that were generated during the build process to avoid uploading unnecessary files.
 
 ```bash
-rm torch-ext/img2gray/_ops.py pyproject.toml torch-ext/registration.h setup.py cmake/hipify.py cmake/utils.cmake CMakeLists.txt torch-ext/img2gray/*.so
+build2cmake clean build.toml
 ```
 
 #### Building the Kernel for All PyTorch and CUDA Versions
