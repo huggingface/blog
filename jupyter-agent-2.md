@@ -9,7 +9,7 @@ authors:
 
 # Jupyter Agents: training LLMs to reason with notebooks
 
-The goal of a **Jupyter Agent** is to act as an agent that can execute code directly inside a Jupyter notebook and use this environment to solve data analysis and data science tasks. Think of it like *Cursor*, but living natively inside your data science workflow.  
+The goal of our **Jupyter Agent** is to act as an agent that can execute code directly inside a Jupyter notebook and use this environment to solve data analysis and data science tasks. Think of it like *Cursor*, but living natively inside your data science workflow.  
 We built a [demo](https://huggingface.co/spaces/lvwerra/jupyter-agent-2) of this vision with **Qwen-3 Coder**, currently one of the strongest coding models. This is a follow-up to our earlier work on [jupyter-agent (v1)](https://huggingface.co/spaces/lvwerra/jupyter-agent).
 
 
