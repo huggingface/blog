@@ -10,9 +10,9 @@ authors:
 ---
  
  > [!TIP]
-> September 2025 Update: HUGS is currently deprecated.
+> September 2025 Update: We no longer offer HUGS model deployment containers.
 >
-> **We no longer offer HUGS deployments as this experiment is now discontinued.**
+> **To easily deploy optimized Hugging Face model in your infra, check out the [Dell Enterprise Hub](https://dell.huggingface.co/) and the [Hugging Face Collection in Azure AI Foundry](https://huggingface.co/docs/microsoft-azure/en/azure-ai/introduction).**
 
 Today, we are thrilled to announce the launch of **Hugging Face Generative AI Services a.k.a. HUGS**: optimized, zero-configuration inference microservices designed to simplify and accelerate the development of AI applications with open models. Built on open-source Hugging Face technologies such as Text Generation Inference and Transformers, HUGS provides the best solution to efficiently build and scale Generative AI Applications in your own infrastructure. HUGS is optimized to run open models on a variety of hardware accelerators, including NVIDIA GPUs, AMD GPUs, and soon AWS Inferentia and Google TPUs.
 
